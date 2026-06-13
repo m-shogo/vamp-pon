@@ -2,7 +2,9 @@
 
 Vamp Pon は、スマホ縦持ち向けのサバイバルローグライト企画です。
 
-現時点では本格実装より前の **プリプロダクション / GDD整備フェーズ** です。
+現在は **Prototype 1 実装準備完了** の状態です。
+
+---
 
 ## 一言コンセプト
 
@@ -10,7 +12,9 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライト企�
 影を払い、記憶を拾い、朝まで残る。
 ```
 
-もう少し詳しく言うと、夜にあふれる影を払い、消えかけた記憶を朝までに取り戻す、縦持ちサバイバルローグライトです。
+夜にあふれる影を払い、消えかけた記憶を朝までに取り戻す、縦持ちサバイバルローグライトです。
+
+---
 
 ## 現在の方針
 
@@ -18,8 +22,12 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライト企�
 Webベース
 Vite + TypeScript + Phaser
 スマホブラウザで縦持ち検証
-面白さが見えたらPWA/Capacitor/アプリ化を検討
+Prototype 1では1分の核だけ作る
+面白さが見えたらPrototype 2/3へ進む
+PWA/Capacitor/アプリ化は後
 ```
+
+---
 
 ## MVPの最重要問い
 
@@ -29,6 +37,54 @@ Vite + TypeScript + Phaser
 
 この問いにYESを出すまで、キャラ・ステージ・本格デザイン・アプリ化を広げません。
 
+---
+
+## いま作るもの
+
+Prototype 1では、これだけ作ります。
+
+```txt
+移動
+自動攻撃
+欠片回収
+初レベルアップ
+```
+
+具体的には:
+
+```txt
+ユイ
+インクの影
+夜の鉛筆
+記憶の欠片
+XP / Lv2
+簡易HUD
+被弾最小
+debug
+```
+
+---
+
+## いま作らないもの
+
+```txt
+武器5種
+パッシブ5種
+記憶カプセル
+進化
+必殺技
+ミチル
+Stage 2以降
+ボス
+本格デザイン
+PWA/Capacitor
+ストア対応
+```
+
+これらはFuture LayerまたはPrototype 2以降です。
+
+---
+
 ## GDD入口
 
 資料の入口は以下です。
@@ -37,52 +93,69 @@ Vite + TypeScript + Phaser
 docs/52-gdd-index.md
 ```
 
-まず読む資料:
+Prototype 1実装前に読む資料:
 
 ```txt
-docs/43-one-sheet-pitch.md
-docs/44-core-loop-and-player-timeline.md
-docs/47-mvp-freeze-list.md
-docs/46-prototype-validation-plan.md
-docs/51-production-milestones.md
+docs/77-prototype-1-documentation-signoff.md
+docs/83-spec-signoff.md
+docs/95-prototype-1-implementation-brief.md
+docs/96-final-preflight-checklist.md
 ```
 
-## MVP必須スコープ
+ビジュアル方向:
 
 ```txt
-ユイ
-8分ステージ
-縦持ち
-仮想スティック
-自動攻撃
-3択レベルアップ
-武器5種
-パッシブ5種
-敵5種 + 強敵
-記憶カプセル
-未完成の一行
-消えない名前
-リザルト
+docs/88-adopted-visual-direction.md
+docs/89-prototype-1-visual-guardrail.md
+docs/91-minimum-asset-spec.md
+docs/92-prototype-1-asset-checklist.md
 ```
 
-## デザインについて
-
-デザインは重要なため、別途詰めます。
-
-現段階で仮素材を使う場合は、完成度評価ではなく以下だけを確認します。
+進行/破綻防止:
 
 ```txt
-操作感
-敵密度
-欠片回収
-成長テンポ
-進化の快感
-必殺技の価値
-スマホで重くないか
+docs/86-future-layer-governance.md
+docs/93-deferred-detail-backlog.md
+docs/94-next-required-work-roadmap.md
 ```
+
+---
+
+## 採用ビジュアル方向
+
+```txt
+紙片・絵本風ドット
+夜の街
+黒インクの影
+小さなランタン
+光る記憶の欠片
+紙カードUI
+やさしい不穏さ
+```
+
+重要:
+
+```txt
+コンセプトは濃く。
+実装は見やすく軽く。
+```
+
+---
+
+## Prototype 1 Go条件
+
+```txt
+3秒以内に動かし方が分かる
+最初の敵を10秒以内に倒せる
+30秒以内に欠片回収の意味が分かる
+60秒以内にLv2になる
+スマホで操作が不快ではない
+```
+
+---
 
 ## 注意
 
 パスワード、認証コード、秘密鍵、トークンなどの機密情報はリポジトリに保存しないでください。
 
-外部素材を使う場合は、必ず `docs/57-asset-license-log-template.md` に従って出所とライセンスを記録します。
+外部素材を使う場合は、必ず `docs/asset-license-log.md` に出所とライセンスを記録します。
