@@ -2,58 +2,38 @@
 
 ## 目的
 
-Vamp Pon の制作前資料が増えてきたため、どの資料を見れば何が分かるかを整理する。
+Vamp Pon のGDD（Game Design Document）の入口。
 
-このファイルは、GDD（Game Design Document）の入口として使う。
+現在は **Prototype 1 実装準備完了** の状態。
+
+このファイルは、どの資料を読めば何が分かるかを整理する。
 
 ---
 
-# 1. まず読む資料
+# 1. 最初に読む資料
 
-## ワンシート企画書
+## 現在地
 
 ```txt
-docs/43-one-sheet-pitch.md
+README.md
 ```
 
 読む目的:
 
 ```txt
-このゲームが何かを1枚で理解する
+今作るもの/作らないものを理解する
 ```
 
-内容:
+## GDD概要
 
 ```txt
-コンセプト
-ジャンル
-ターゲット
-MVP範囲
-独自性
-成功条件
-```
-
-## コアループ/体験タイムライン
-
-```txt
-docs/44-core-loop-and-player-timeline.md
+docs/61-gdd-executive-summary.md
 ```
 
 読む目的:
 
 ```txt
-8分プレイで何が起きるべきか理解する
-```
-
-内容:
-
-```txt
-短期ループ
-中期ループ
-長期ループ
-8分体験
-初回感情
-失敗パターン
+ゲーム全体のコンセプト、MVP、最重要問いを理解する
 ```
 
 ## MVP凍結リスト
@@ -70,344 +50,389 @@ MVPで作るもの/作らないものを確認する
 
 ---
 
-# 2. 制作思想/判断基準
+# 2. Prototype 1へ進む前に必ず読む資料
 
-## 桜井さん参考チェックリスト
+## Documentation Sign-off
 
 ```txt
-docs/42-sakurai-inspired-preproduction-checklist.md
+docs/77-prototype-1-documentation-signoff.md
 ```
 
 読む目的:
 
 ```txt
-遊びやすさ、分かりやすさ、情報整理を確認する
+資料フェーズが完了していることを確認する
 ```
 
-## 制作前仕様の到達度レビュー
+## Gameplay Spec Sign-off
 
 ```txt
-docs/41-production-readiness-gap-review.md
-```
-
-読む目的:
-
-```txt
-今の資料で足りないものを把握する
-```
-
-## リスク管理表
-
-```txt
-docs/50-risk-management.md
+docs/83-spec-signoff.md
 ```
 
 読む目的:
 
 ```txt
-破綻しやすいポイントを事前に確認する
+Prototype 1仕様が完了していることを確認する
+```
+
+## Implementation Brief
+
+```txt
+docs/95-prototype-1-implementation-brief.md
+```
+
+読む目的:
+
+```txt
+Codex/Claude/Fable/Cursorへ渡せる実装指示を確認する
+```
+
+## Final Preflight Checklist
+
+```txt
+docs/96-final-preflight-checklist.md
+```
+
+読む目的:
+
+```txt
+実装直前に破綻要因がないか確認する
 ```
 
 ---
 
-# 3. ゲーム仕様
+# 3. Prototype 1仕様
 
-## Vampire Survivors参照仕様とVamp Pon仕様
+## Prototype Spec Lock
 
 ```txt
-docs/34-vampire-survivors-reference-and-vamp-pon-spec.md
+docs/79-prototype-spec-lock.md
 ```
 
 読む目的:
 
 ```txt
-ヴァンサバ型のどこを採用/変更するか把握する
+Prototype 1/2/3で何を入れるか固定する
 ```
 
-## MVP詳細仕様
+## Runtime Rules / Collision Spec
 
 ```txt
-docs/35-mvp-v0-1-detailed-spec.md
-```
-
-読む目的:
-
-```txt
-キャラ、武器、パッシブ、敵、進化、リザルトの詳細を確認する
-```
-
-## MVP実装前仕様パッケージ
-
-```txt
-docs/36-mvp-implementation-ready-spec.md
+docs/80-runtime-rules-and-collision-spec.md
 ```
 
 読む目的:
 
 ```txt
-データ化/画面/レベルアップ/カプセル/実装タスクを確認する
+時間、入力、スポーン、衝突、被弾、欠片取得のルールを確認する
+```
+
+## Data Contract
+
+```txt
+docs/81-data-contract.md
+```
+
+読む目的:
+
+```txt
+武器/敵/パッシブ/ウェーブ/進化/セーブデータのデータ契約を確認する
+```
+
+## Balance Target Matrix
+
+```txt
+docs/82-balance-target-matrix-and-acceptance.md
+```
+
+読む目的:
+
+```txt
+Prototypeごとの合格数値を確認する
 ```
 
 ---
 
-# 4. スマホ/アプリ前提
+# 4. ビジュアル/アセット
 
-## アプリゲーム前提への仕様補正
+## 採用ビジュアル方向
 
 ```txt
-docs/38-mobile-app-game-adjustment.md
+docs/88-adopted-visual-direction.md
 ```
 
 読む目的:
 
 ```txt
-PCヴァンサバではなく、スマホ向けにどう補正するか理解する
+紙片・絵本風ドットの採用方向を確認する
 ```
 
-## スマホ入力仕様と画面遷移
+## Prototype 1 Visual Guardrail
 
 ```txt
-docs/45-mobile-input-and-screen-flow.md
-```
-
-読む目的:
-
-```txt
-縦持ち操作、仮想スティック、必殺技ボタン、画面遷移を確認する
-```
-
-## アクセシビリティ/スマホユーザビリティ
-
-```txt
-docs/49-accessibility-and-mobile-usability.md
+docs/89-prototype-1-visual-guardrail.md
 ```
 
 読む目的:
 
 ```txt
-読める/押せる/分かる/疲れにくい基準を確認する
+Prototype 1で見える/軽い/ズレない見た目ルールを確認する
+```
+
+## Visual Reference Prompts
+
+```txt
+docs/90-visual-reference-image-prompts.md
+```
+
+読む目的:
+
+```txt
+参照画像生成プロンプトを確認する
+```
+
+## Minimum Asset Spec
+
+```txt
+docs/91-minimum-asset-spec.md
+```
+
+読む目的:
+
+```txt
+Prototype 1の最小アセット、サイズ、密度、表示優先度を確認する
+```
+
+## Prototype 1 Asset Checklist
+
+```txt
+docs/92-prototype-1-asset-checklist.md
+```
+
+読む目的:
+
+```txt
+仮素材が実装可能な状態か確認する
 ```
 
 ---
 
-# 5. 裏ストーリー/世界観
+# 5. 実装運用
 
-## ストーリー/裏ストーリー方針
+## Prototype 1 Task Breakdown
 
 ```txt
-docs/30-story-and-hidden-lore-policy.md
+docs/55-prototype-1-task-breakdown.md
 ```
 
 読む目的:
 
 ```txt
-表に出しすぎないストーリー方針を確認する
+Prototype 1を小さいタスクへ分解する
 ```
 
-## 裏ストーリー実装パック
+## Prototype 1 Issue Template
 
 ```txt
-docs/31-hidden-lore-content-pack.md
-```
-
-読む目的:
-
-```txt
-アイテム説明、実績、図鑑文、秘宝説明の方向を見る
-```
-
-## キャラ別必殺技方針
-
-```txt
-docs/32-character-ultimate-skill-policy.md
+docs/63-prototype-1-issue-template.md
 ```
 
 読む目的:
 
 ```txt
-必殺技をどう扱うか確認する
+GitHub Issue化する
 ```
 
-## キャラ/必殺技追加アイディア
+## First PR Plan
 
 ```txt
-docs/33-more-character-ultimate-ideas.md
+docs/66-first-pr-plan.md
 ```
 
 読む目的:
 
 ```txt
-MVP後のキャラ/必殺技候補を見る
+最初のPRで入れる範囲を確認する
+```
+
+## Branch / PR / Issue Workflow
+
+```txt
+docs/75-branch-pr-issue-workflow.md
+```
+
+読む目的:
+
+```txt
+PRを小さく保ち、Prototypeの目的を守る
+```
+
+## Implementation PR Review Checklist
+
+```txt
+docs/72-implementation-pr-review-checklist.md
+```
+
+読む目的:
+
+```txt
+実装PRをレビューする
 ```
 
 ---
 
-# 6. 技術/実装方針
+# 6. 検証/調整/ログ
 
-## 技術選定
+## QA Checklist
 
 ```txt
-docs/39-technology-choice.md
+docs/60-qa-checklist.md
 ```
 
-読む目的:
+## Playtest Report Template
 
 ```txt
-なぜWeb + TypeScript + Phaserで始めるのか理解する
+docs/70-prototype-playtest-report-template.md
 ```
 
-## 破綻しないための開発計画
+## Prototype Improvement Issue Template
 
 ```txt
-docs/40-anti-collapse-development-plan.md
+docs/73-prototype-improvement-issue-template.md
 ```
 
-読む目的:
+## Balance Log
 
 ```txt
-フォルダ構成、型、システム、テスト、実装順を確認する
+docs/balance-log.md
 ```
 
-## デザイン保留・非デザイン領域プリ実装パック
+## Asset License Log
 
 ```txt
-docs/37-non-design-preimplementation-pack.md
-```
-
-読む目的:
-
-```txt
-デザインを保留したまま進めるロジック/状態/保存/テスト方針を見る
+docs/asset-license-log.md
 ```
 
 ---
 
-# 7. プロトタイプ/マイルストーン
+# 7. 破綻防止/Future管理
 
-## プロトタイプ検証計画
+## Future Layer Governance
 
 ```txt
-docs/46-prototype-validation-plan.md
+docs/86-future-layer-governance.md
 ```
 
 読む目的:
 
 ```txt
-何を検証するために段階的に作るか確認する
+Stage 2〜5、ボス、追加キャラがMVPへ流れ込まないようにする
 ```
 
-## 制作マイルストーン
+## Deferred Detail Backlog
 
 ```txt
-docs/51-production-milestones.md
+docs/93-deferred-detail-backlog.md
 ```
 
 読む目的:
 
 ```txt
-いつ何を作り、どこで次へ進むかを確認する
+今決めない細部、後で必要なものを保管する
+```
+
+## Next Required Work Roadmap
+
+```txt
+docs/94-next-required-work-roadmap.md
+```
+
+読む目的:
+
+```txt
+Prototype 1からProductizationまでの順番を確認する
 ```
 
 ---
 
-# 8. サウンド/フィードバック
+# 8. Stage/Boss Future Layer
 
-## サウンド/フィードバック方針
+## Stage and Boss Roadmap
 
 ```txt
-docs/48-sound-and-feedback-policy.md
+docs/84-stage-and-boss-roadmap.md
 ```
 
-読む目的:
+## Boss Design Spec
 
 ```txt
-MVPで必要なSE、反応、音なし対応を確認する
+docs/85-boss-design-spec.md
+```
+
+扱い:
+
+```txt
+Future Layer。Prototype 1〜3/MVP Stage 1には入れない。
 ```
 
 ---
 
-# 9. 過去の題材検討
+# 9. 過去検討/参考資料
 
-## 題材展開戦略
+以下は判断経緯として残す。
 
 ```txt
 docs/23-format-theme-expansion-strategy.md
-```
-
-## 個人テーマ適性フィルター
-
-```txt
 docs/24-personal-theme-fit-filter.md
-```
-
-## 題材候補追加
-
-```txt
 docs/25-more-theme-candidates.md
-```
-
-## 星座テーマレビュー
-
-```txt
 docs/26-constellation-theme-review.md
-```
-
-## 歴史/国/文明テーマ
-
-```txt
 docs/27-history-country-civilization-themes.md
+docs/28-sangokushi-theme-review.md
+docs/29-sangokushi-real-name-policy.md
 ```
 
 注意:
 
 ```txt
-三国志は検討したが、現在は不採用。
+妖怪/三国志は現在のMVPでは不採用。
+星座は主軸ではない。
 ```
 
 ---
 
 # 10. 現在の制作判断
 
-## 今作るべきもの
+## 今作るもの
 
 ```txt
-ユイで8分遊べる核
+Prototype 1
+移動
+自動攻撃
+欠片回収
+初レベルアップ
 ```
 
 ## 今作らないもの
 
 ```txt
+武器5種
+パッシブ5種
+カプセル
+進化
+必殺技
+ミチル
+Stage 2〜5
+ボス
 本格デザイン
-2人目キャラ
-複数ステージ
-オンライン
-課金
-PWA/Capacitor
+アプリ化
 ```
 
-## 最重要問い
+## 最重要
 
 ```txt
-仮素材でも、ユイで8分遊んで、もう一度遊びたいか？
+資料追加で安心しない。
+実装して触る。
 ```
 
-この問いにYESを出すための資料群が、このGDDの目的。
-
----
-
-# 11. 次に不足している資料
-
-まだ作る価値があるもの。
-
-```txt
-1. デザインブリーフ
-2. 画面別機能要件詳細
-3. バランスログ雛形
-4. アセットライセンスログ雛形
-5. 実装開始チェックリスト
-6. Prototype 1 タスクチケット分解
-```
-
-デザインブリーフは、デザインを別途詰める時に作る。
-
-今すぐなら、実装開始チェックリストとPrototype 1タスク分解が有効。
+Prototype 1は、文書の正しさではなく手触りを確認するためにある。
