@@ -1,0 +1,86 @@
+import type { PassiveDefinition } from '../domain/types';
+
+export const passives: PassiveDefinition[] = [
+  {
+    id: 'gold_compass',
+    name: '金のコンパス',
+    category: 'passive',
+    maxLevel: 5,
+    stat: 'magnetMultiplier',
+    description: '記憶の欠片を拾いやすくなる。',
+    lore: '北を指さない。なくしたものの方角だけを指す。',
+    levels: [
+      { level: 1, value: 1.1, label: '吸引範囲 +10%' },
+      { level: 2, value: 1.2, label: '吸引範囲 +20%' },
+      { level: 3, value: 1.3, label: '吸引範囲 +30%' },
+      { level: 4, value: 1.4, label: '吸引範囲 +40%' },
+      { level: 5, value: 1.5, label: '吸引範囲 +50%' },
+    ],
+  },
+  {
+    id: 'travel_badge',
+    name: '旅のバッジ',
+    category: 'passive',
+    maxLevel: 5,
+    stat: 'mightMultiplier',
+    description: '武器のダメージが上がる。',
+    lore: '誰かが胸につけていた。小さな傷が、長い道のりを知っている。',
+    levels: [
+      { level: 1, value: 1.05, label: '攻撃力 +5%' },
+      { level: 2, value: 1.1, label: '攻撃力 +10%' },
+      { level: 3, value: 1.15, label: '攻撃力 +15%' },
+      { level: 4, value: 1.2, label: '攻撃力 +20%' },
+      { level: 5, value: 1.25, label: '攻撃力 +25%' },
+    ],
+  },
+  {
+    id: 'moonlight_bookmark',
+    name: '月明かりのしおり',
+    category: 'passive',
+    maxLevel: 5,
+    stat: 'xpMultiplier',
+    description: '経験値の獲得量が上がる。',
+    lore: '挟まれていたページは、いつも同じ場所で止まっている。',
+    levels: [
+      { level: 1, value: 1.05, label: '経験値 +5%' },
+      { level: 2, value: 1.1, label: '経験値 +10%' },
+      { level: 3, value: 1.15, label: '経験値 +15%' },
+      { level: 4, value: 1.2, label: '経験値 +20%' },
+      { level: 5, value: 1.25, label: '経験値 +25%' },
+    ],
+  },
+  {
+    id: 'old_ticket',
+    name: '古い切符',
+    category: 'passive',
+    maxLevel: 5,
+    stat: 'moveSpeedMultiplier',
+    description: '移動速度が上がる。',
+    lore: '行き先の文字はにじんでいる。帰りの切符ではなかったようだ。',
+    levels: [
+      { level: 1, value: 1.04, label: '移動速度 +4%' },
+      { level: 2, value: 1.08, label: '移動速度 +8%' },
+      { level: 3, value: 1.12, label: '移動速度 +12%' },
+      { level: 4, value: 1.16, label: '移動速度 +16%' },
+      { level: 5, value: 1.2, label: '移動速度 +20%' },
+    ],
+  },
+  {
+    id: 'white_margin',
+    name: '白い余白',
+    category: 'passive',
+    maxLevel: 5,
+    stat: 'cooldownMultiplier',
+    description: '武器の待ち時間が短くなる。',
+    lore: '消すための場所ではない。もう一度書くために残されている。',
+    levels: [
+      { level: 1, value: 0.96, label: 'クールタイム -4%' },
+      { level: 2, value: 0.92, label: 'クールタイム -8%' },
+      { level: 3, value: 0.88, label: 'クールタイム -12%' },
+      { level: 4, value: 0.84, label: 'クールタイム -16%' },
+      { level: 5, value: 0.8, label: 'クールタイム -20%' },
+    ],
+  },
+];
+
+export const passiveById = new Map(passives.map((passive) => [passive.id, passive]));
