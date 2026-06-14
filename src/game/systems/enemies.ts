@@ -6,6 +6,7 @@ import { PLAYER_DEFAULTS, COLORS, GAME_STATUS } from '../domain/constants';
 import { distance, normalize } from '../utils/math';
 import { randRange } from '../utils/rng';
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
+import { inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule } from './pickups';
 
 const FLASH_SEC = 0.08;
@@ -45,13 +46,14 @@ export function spawnEnemy(
 }
 
 /** プレイヤー被弾処理。 */
-export function applyPlayerDamage(state: RuntimeState, amount: number): void {
+export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amount: number): void {
   const p = state.player;
   if (p.invulnRemaining > 0) return;
   p.hp -= amount;
   state.stats.damageTaken += amount;
   p.invulnRemaining = PLAYER_DEFAULTS.invulnSec;
   p.flashRemaining = PLAYER_DEFAULTS.invulnSec;
+  shakeOnHit(scene);
   if (p.hp <= 0) {
     p.hp = 0;
     state.status = GAME_STATUS.GAMEOVER;
@@ -63,6 +65,7 @@ export function damageEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Ene
   if (enemy.dead) return;
   enemy.hp -= amount;
   enemy.flashRemaining = FLASH_SEC;
+  enemy.view.setScale(1.22);
   const blob = enemy.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
   if (blob) blob.setFillStyle(0xffffff, 1);
   if (enemy.hp <= 0) {
@@ -89,12 +92,13 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     spawnCapsule(scene, state, enemy.x, enemy.y);
   }
 
+  inkPuff(scene, enemy.x, enemy.y, enemy.radius, enemy.isElite);
   enemy.view.destroy();
   enemy.hpBar?.destroy();
 }
 
 /** 敵の移動・接触・点滅を更新する。 */
-export function updateEnemies(state: RuntimeState, dt: number): void {
+export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
 
   // プレイヤーの無敵/点滅減衰
@@ -124,6 +128,12 @@ export function updateEnemies(state: RuntimeState, dt: number): void {
     e.y += dir.y * e.moveSpeed * dt;
     e.view.setPosition(e.x, e.y);
 
+    // 命中スケールポップを徐々に戻す
+    if (e.view.scaleX !== 1) {
+      const s = e.view.scaleX + (1 - e.view.scaleX) * Math.min(1, dt * 12);
+      e.view.setScale(Math.abs(s - 1) < 0.01 ? 1 : s);
+    }
+
     // 点滅減衰
     if (e.flashRemaining > 0) {
       e.flashRemaining = Math.max(0, e.flashRemaining - dt);
@@ -144,7 +154,7 @@ export function updateEnemies(state: RuntimeState, dt: number): void {
 
     // 接触ダメージ
     if (p.invulnRemaining <= 0 && distance(e.x, e.y, p.x, p.y) <= p.radius + e.radius) {
-      applyPlayerDamage(state, e.contactDamage);
+      applyPlayerDamage(scene, state, e.contactDamage);
     }
   }
 

@@ -6,6 +6,7 @@ import { distance, normalize } from '../utils/math';
 import { addXp } from './xp';
 import { generateCapsuleReward } from './capsule';
 import { createPickupView, createCapsuleView } from '../ui/factory';
+import { collectSpark } from '../ui/effects';
 
 const CAPSULE_RADIUS = 14;
 
@@ -50,6 +51,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
       state.stats.memoryFragmentsCollected += 1;
       frag.dead = true;
       frag.view.destroy();
+      collectSpark(scene, p.x, p.y);
       continue;
     }
     if (frag.magnetized || d <= magnetRange) {
@@ -75,5 +77,4 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
     }
   }
   state.capsules = state.capsules.filter((c) => !c.dead);
-  void scene;
 }

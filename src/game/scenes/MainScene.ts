@@ -77,7 +77,7 @@ export class MainScene extends Phaser.Scene {
       updateInput(state, this.keys, this.stick.getVector());
       updateMovement(state, dt);
       this.spawnSystem.update(this, state, dt);
-      updateEnemies(state, dt);
+      updateEnemies(this, state, dt);
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);

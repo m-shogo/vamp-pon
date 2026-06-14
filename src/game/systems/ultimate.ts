@@ -6,6 +6,7 @@ import { COLORS } from '../domain/constants';
 import { distance } from '../utils/math';
 import { damageEnemy } from './enemies';
 import { spawnFragment } from './pickups';
+import { ultimateFlash } from '../ui/effects';
 
 /** 必殺技ゲージの充填と発動。 */
 export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
@@ -55,7 +56,8 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
     }
   }
 
-  // 発動エフェクト（淡い円が広がる）
+  // 発動エフェクト（淡い円が広がる + 暖色フラッシュ）
+  ultimateFlash(scene);
   const ring = scene.add.circle(p.x, p.y, eff.radius, COLORS.ultReady, 0.3).setDepth(35);
   ring.setScale(0.1);
   scene.tweens.add({
