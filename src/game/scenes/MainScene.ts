@@ -94,6 +94,31 @@ export class MainScene extends Phaser.Scene {
     this.hud.update(state);
   }
 
+  private needsReplace(choice: LevelUpChoice): boolean {
+    const inv = this.state.inventory;
+    return (
+      (choice.type === 'weapon_new' && inv.weapons.length >= inv.weaponSlots) ||
+      (choice.type === 'passive_new' && inv.passives.length >= inv.passiveSlots)
+    );
+  }
+
+  private finishLevelUp(choice: LevelUpChoice): void {
+    const state = this.state;
+    applyChoice(state, choice);
+    state.pendingChoices = [];
+    state.status = GAME_STATUS.PLAYING;
+  }
+
+  private replaceAndPick(choice: LevelUpChoice, removeId: string): void {
+    const state = this.state;
+    if (choice.type === 'weapon_new') {
+      state.inventory.weapons = state.inventory.weapons.filter((w) => w.id !== removeId);
+    } else if (choice.type === 'passive_new') {
+      state.inventory.passives = state.inventory.passives.filter((p) => p.id !== removeId);
+    }
+    this.finishLevelUp(choice);
+  }
+
   private showLevelUpChoices(choices: LevelUpChoice[]): void {
     const state = this.state;
     state.pendingChoices = choices;
@@ -101,9 +126,16 @@ export class MainScene extends Phaser.Scene {
       state,
       choices,
       (choice) => {
-        applyChoice(state, choice);
-        state.pendingChoices = [];
-        state.status = GAME_STATUS.PLAYING;
+        if (this.needsReplace(choice)) {
+          this.overlays.showReplaceItem(
+            state,
+            choice,
+            (removeId) => this.replaceAndPick(choice, removeId),
+            () => this.showLevelUpChoices(state.pendingChoices),
+          );
+          return;
+        }
+        this.finishLevelUp(choice);
       },
       () => {
         if (state.levelUpRerollsRemaining <= 0) return;
