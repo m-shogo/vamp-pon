@@ -7,14 +7,17 @@ import { recomputePlayerStats } from '../passives';
 import { weightedPick } from '../../utils/rng';
 import { weaponById } from '../../data/weapons';
 import { passiveById } from '../../data/passives';
+import { rareItemById } from '../../data/rareItems';
 
 function makeState(partial: {
   weapons?: RuntimeState['inventory']['weapons'];
   passives?: RuntimeState['inventory']['passives'];
+  rareItems?: RuntimeState['inventory']['rareItems'];
   hp?: number;
   maxHp?: number;
   weaponSlots?: number;
   passiveSlots?: number;
+  rareItemSlots?: number;
 }): RuntimeState {
   return {
     characterId: 'yui',
@@ -32,9 +35,11 @@ function makeState(partial: {
     inventory: {
       weapons: partial.weapons ?? [{ id: 'night_pencil', level: 1, cooldownRemaining: 0 }],
       passives: partial.passives ?? [],
+      rareItems: partial.rareItems ?? [],
       evolvedWeaponIds: [],
       weaponSlots: partial.weaponSlots ?? 5,
       passiveSlots: partial.passiveSlots ?? 5,
+      rareItemSlots: partial.rareItemSlots ?? 2,
     },
   } as unknown as RuntimeState;
 }
@@ -82,9 +87,7 @@ describe('generateChoices', () => {
     const choices = generateChoices(
       makeState({ weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }] }),
     );
-    const hasPencilUpgrade = choices.some(
-      (c) => c.type === 'weapon_upgrade' && c.itemId === 'night_pencil',
-    );
+    const hasPencilUpgrade = choices.some((c) => c.type === 'weapon_upgrade' && c.itemId === 'night_pencil');
     expect(hasPencilUpgrade).toBe(false);
   });
 });
@@ -101,6 +104,11 @@ describe('追加データ', () => {
     expect(passiveById.has('pressed_flower')).toBe(true);
     expect(passiveById.has('loose_map_pin')).toBe(true);
     expect(passiveById.has('small_alarm_clock')).toBe(true);
+  });
+
+  it('レアアイテムが存在する', () => {
+    expect(rareItemById.has('name_tag')).toBe(true);
+    expect(rareItemById.has('cracked_lens')).toBe(true);
   });
 });
 
