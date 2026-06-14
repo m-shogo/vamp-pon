@@ -2,12 +2,13 @@ import type { LevelUpChoice, RewardRarity } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { weapons, weaponById, evolvedWeaponIds } from '../data/weapons';
 import { passives, passiveById } from '../data/passives';
+import { rareItems } from '../data/rareItems';
 import { LEVEL_UP } from '../domain/constants';
 import { LEVELUP_WEIGHTS } from '../domain/balance';
 import { recomputePlayerStats } from './passives';
 import { weightedPick, sampleWithoutReplacement } from '../utils/rng';
 
-export type Category = 'weapon_upgrade' | 'weapon_new' | 'passive_upgrade' | 'passive_new' | 'heal';
+export type Category = 'weapon_upgrade' | 'weapon_new' | 'passive_upgrade' | 'passive_new' | 'rare_new' | 'heal';
 
 function rollRarity(): RewardRarity {
   const r = Math.random();
@@ -18,38 +19,33 @@ function rollRarity(): RewardRarity {
 
 function rarityPrefix(rarity: RewardRarity): string {
   switch (rarity) {
-    case 'rare':
-      return '★★★ ';
-    case 'good':
-      return '★★ ';
-    case 'normal':
-      return '';
+    case 'rare': return '★★★ ';
+    case 'good': return '★★ ';
+    case 'normal': return '';
   }
 }
 
 function rarityText(rarity: RewardRarity): string {
   switch (rarity) {
-    case 'rare':
-      return '大当たり';
-    case 'good':
-      return '良い拾い物';
-    case 'normal':
-      return 'ふつう';
+    case 'rare': return '大当たり';
+    case 'good': return '良い拾い物';
+    case 'normal': return 'ふつう';
   }
 }
 
 function rarityStep(rarity: RewardRarity): number {
   switch (rarity) {
-    case 'rare':
-      return 3;
-    case 'good':
-      return 2;
-    case 'normal':
-      return 1;
+    case 'rare': return 3;
+    case 'good': return 2;
+    case 'normal': return 1;
   }
 }
 
 function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
+  if (choice.type === 'rare_new') {
+    return { ...choice, rarity: 'rare', title: `✦ ${choice.title}` };
+  }
+
   const rarity = rollRarity();
   const prefix = rarityPrefix(rarity);
   const rank = rarityText(rarity);
@@ -119,13 +115,14 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
   };
 }
 
-/** レベルアップ3択を生成する（docs/81-8, docs/82-4 準拠）。 */
 export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const inv = state.inventory;
   const ownedWeaponIds = new Set(inv.weapons.map((w) => w.id));
   const ownedPassiveIds = new Set(inv.passives.map((p) => p.id));
+  const ownedRareItemIds = new Set(inv.rareItems.map((item) => item.id));
   const weaponFull = inv.weapons.length >= inv.weaponSlots;
   const passiveFull = inv.passives.length >= inv.passiveSlots;
+  const rareFull = inv.rareItems.length >= inv.rareItemSlots;
 
   const weaponUpgrades: LevelUpChoice[] = inv.weapons
     .filter((w) => {
@@ -136,25 +133,12 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
       const def = weaponById.get(w.id)!;
       const nextLevel = w.level + 1;
       const lvl = def.levels[nextLevel - 1];
-      return {
-        type: 'weapon_upgrade' as const,
-        itemId: w.id,
-        nextLevel,
-        title: `${def.name} Lv.${nextLevel}`,
-        description: lvl?.label ?? '強化',
-        lore: def.lore,
-      };
+      return { type: 'weapon_upgrade' as const, itemId: w.id, nextLevel, title: `${def.name} Lv.${nextLevel}`, description: lvl?.label ?? '強化', lore: def.lore };
     });
 
   const weaponNews: LevelUpChoice[] = weapons
     .filter((def) => !evolvedWeaponIds.has(def.id) && !ownedWeaponIds.has(def.id))
-    .map((def) => ({
-      type: 'weapon_new' as const,
-      itemId: def.id,
-      title: weaponFull ? `入替: ${def.name}` : def.name,
-      description: weaponFull ? `${def.description} / 武器が満杯。選ぶと外す武器を選べる。` : def.description,
-      lore: def.lore,
-    }));
+    .map((def) => ({ type: 'weapon_new' as const, itemId: def.id, title: weaponFull ? `入替: ${def.name}` : def.name, description: weaponFull ? `${def.description} / 武器が満杯。` : def.description, lore: def.lore }));
 
   const passiveUpgrades: LevelUpChoice[] = inv.passives
     .filter((p) => {
@@ -165,36 +149,27 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
       const def = passiveById.get(p.id)!;
       const nextLevel = p.level + 1;
       const lvl = def.levels[nextLevel - 1];
-      return {
-        type: 'passive_upgrade' as const,
-        itemId: p.id,
-        nextLevel,
-        title: `${def.name} Lv.${nextLevel}`,
-        description: lvl?.label ?? '強化',
-        lore: def.lore,
-      };
+      return { type: 'passive_upgrade' as const, itemId: p.id, nextLevel, title: `${def.name} Lv.${nextLevel}`, description: lvl?.label ?? '強化', lore: def.lore };
     });
 
   const passiveNews: LevelUpChoice[] = passives
     .filter((def) => !ownedPassiveIds.has(def.id))
-    .map((def) => ({
-      type: 'passive_new' as const,
-      itemId: def.id,
-      title: passiveFull ? `入替: ${def.name}` : def.name,
-      description: passiveFull ? `${def.description} / アイテムが満杯。選ぶと外すアイテムを選べる。` : def.description,
-      lore: def.lore,
-    }));
+    .map((def) => ({ type: 'passive_new' as const, itemId: def.id, title: passiveFull ? `入替: ${def.name}` : def.name, description: passiveFull ? `${def.description} / アイテムが満杯。` : def.description, lore: def.lore }));
+
+  const rareNews: LevelUpChoice[] = rareItems
+    .filter((def) => !ownedRareItemIds.has(def.id))
+    .map((def) => ({ type: 'rare_new' as const, itemId: def.id, title: rareFull ? `入替: ${def.name}` : def.name, description: rareFull ? `${def.description} / レア枠が満杯。` : def.description, lore: def.lore }));
 
   const pools: Record<Exclude<Category, 'heal'>, LevelUpChoice[]> = {
     weapon_upgrade: weaponUpgrades,
     weapon_new: weaponNews,
     passive_upgrade: passiveUpgrades,
     passive_new: passiveNews,
+    rare_new: rareNews,
   };
 
   const hpRatio = state.player.hp / state.player.maxHp;
   const baseWeights = hpRatio <= LEVEL_UP.lowHpRatio ? LEVELUP_WEIGHTS.lowHp : LEVELUP_WEIGHTS.normal;
-
   const chosen: LevelUpChoice[] = [];
   const usedItemIds = new Set<string>();
   let healUsed = false;
@@ -206,7 +181,6 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
       if (available.length > 0) entries.push([cat, baseWeights[cat]]);
     });
     if (!healUsed) {
-      // HP満タンなら回復の優先度を下げる
       const healWeight = hpRatio >= 1 ? Math.max(1, Math.round(baseWeights.heal * 0.2)) : baseWeights.heal;
       entries.push(['heal', healWeight]);
     }
@@ -216,15 +190,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     if (!cat) break;
 
     if (cat === 'heal') {
-      chosen.push(
-        decorateChoice({
-          type: 'heal',
-          amount: LEVEL_UP.healAmount,
-          title: '少し休む',
-          description: `HP +${LEVEL_UP.healAmount}`,
-          lore: 'まだ、戻せる名前がある。',
-        }),
-      );
+      chosen.push(decorateChoice({ type: 'heal', amount: LEVEL_UP.healAmount, title: '少し休む', description: `HP +${LEVEL_UP.healAmount}`, lore: 'まだ、戻せる名前がある。' }));
       healUsed = true;
       continue;
     }
@@ -238,30 +204,18 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     }
   }
 
-  // 3つ未満なら回復で補う（docs/80-9）
   while (chosen.length < LEVEL_UP.choices) {
-    chosen.push(
-      decorateChoice({
-        type: 'heal',
-        amount: LEVEL_UP.healAmount,
-        title: '少し休む',
-        description: `HP +${LEVEL_UP.healAmount}`,
-        lore: 'まだ、戻せる名前がある。',
-      }),
-    );
+    chosen.push(decorateChoice({ type: 'heal', amount: LEVEL_UP.healAmount, title: '少し休む', description: `HP +${LEVEL_UP.healAmount}`, lore: 'まだ、戻せる名前がある。' }));
   }
 
   return chosen;
 }
 
-/** 選択を適用する。パッシブ反映後に派生ステータスを再計算する。 */
 export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
   const inv = state.inventory;
   switch (choice.type) {
     case 'weapon_new':
-      if (!inv.weapons.some((w) => w.id === choice.itemId) && inv.weapons.length < inv.weaponSlots) {
-        inv.weapons.push({ id: choice.itemId, level: choice.initialLevel ?? 1, cooldownRemaining: 0 });
-      }
+      if (!inv.weapons.some((w) => w.id === choice.itemId) && inv.weapons.length < inv.weaponSlots) inv.weapons.push({ id: choice.itemId, level: choice.initialLevel ?? 1, cooldownRemaining: 0 });
       break;
     case 'weapon_upgrade': {
       const w = inv.weapons.find((it) => it.id === choice.itemId);
@@ -269,15 +223,16 @@ export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
       break;
     }
     case 'passive_new':
-      if (!inv.passives.some((p) => p.id === choice.itemId) && inv.passives.length < inv.passiveSlots) {
-        inv.passives.push({ id: choice.itemId, level: choice.initialLevel ?? 1 });
-      }
+      if (!inv.passives.some((p) => p.id === choice.itemId) && inv.passives.length < inv.passiveSlots) inv.passives.push({ id: choice.itemId, level: choice.initialLevel ?? 1 });
       break;
     case 'passive_upgrade': {
       const p = inv.passives.find((it) => it.id === choice.itemId);
       if (p) p.level = choice.nextLevel;
       break;
     }
+    case 'rare_new':
+      if (!inv.rareItems.some((item) => item.id === choice.itemId) && inv.rareItems.length < inv.rareItemSlots) inv.rareItems.push({ id: choice.itemId });
+      break;
     case 'heal':
       state.player.hp = Math.min(state.player.maxHp, state.player.hp + choice.amount);
       break;
