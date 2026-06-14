@@ -8,6 +8,8 @@ import { characterById } from '../data/characters';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 
+type InputEventLike = { stopPropagation?: () => void };
+
 export class Hud {
   private timeText: Phaser.GameObjects.Text;
   private levelText: Phaser.GameObjects.Text;
@@ -64,8 +66,8 @@ export class Hud {
       .setInteractive({ useHandCursor: true });
     this.ultHitArea.on(
       Phaser.Input.Events.POINTER_DOWN,
-      (_pointer: Phaser.Input.Pointer, _localX: number, _localY: number, event?: Phaser.Types.Input.EventData) => {
-        event?.stopPropagation();
+      (_pointer: Phaser.Input.Pointer, _localX: number, _localY: number, event?: InputEventLike) => {
+        event?.stopPropagation?.();
         this.onUltimate();
       },
     );
