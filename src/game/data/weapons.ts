@@ -82,6 +82,54 @@ export const weapons: WeaponDefinition[] = [
     ],
   },
   {
+    id: 'postcard_blade',
+    name: '絵はがきカッター',
+    category: 'weapon',
+    maxLevel: 5,
+    tags: ['projectile', 'target_nearest', 'pierce', 'new'],
+    description: '薄い紙刃が近い影を貫く。',
+    lore: '旅先から届かなかった一枚。端だけが鋭く残っている。',
+    levels: [
+      { level: 1, effect: { type: 'projectile', damage: 11, projectiles: 2, cooldown: 1.15, pierce: 1, targeting: 'nearest' }, label: '貫通する紙刃を2枚飛ばす。' },
+      { level: 2, effect: { damageAdd: 4 }, label: 'ダメージ +4' },
+      { level: 3, effect: { pierceAdd: 1 }, label: '貫通 +1' },
+      { level: 4, effect: { projectilesAdd: 1 }, label: '刃 +1' },
+      { level: 5, effect: { cooldownMultiplier: 0.78 }, label: 'クールタイム -22%' },
+    ],
+  },
+  {
+    id: 'paper_airplane',
+    name: '紙ひこうき',
+    category: 'weapon',
+    maxLevel: 5,
+    tags: ['projectile', 'random_direction', 'bounce', 'new'],
+    description: 'ゆっくり長く飛ぶ紙ひこうきが画面を横切る。',
+    lore: '折り目だけが、飛びたかった方向を覚えている。',
+    levels: [
+      { level: 1, effect: { type: 'bouncing_projectile', damage: 9, projectiles: 2, cooldown: 1.45, bounces: 2, speed: 0.95, duration: 4.0 }, label: '長く残る紙ひこうきを2つ飛ばす。' },
+      { level: 2, effect: { damageAdd: 3 }, label: 'ダメージ +3' },
+      { level: 3, effect: { projectilesAdd: 1 }, label: '紙ひこうき +1' },
+      { level: 4, effect: { bouncesAdd: 2 }, label: '反射 +2' },
+      { level: 5, effect: { durationMultiplier: 1.25, speedMultiplier: 1.15 }, label: '持続 +25% / 弾速 +15%' },
+    ],
+  },
+  {
+    id: 'streetlamp_ring',
+    name: '街灯の輪',
+    category: 'weapon',
+    maxLevel: 5,
+    tags: ['orbit', 'defense', 'area_like', 'new'],
+    description: '小さな街灯の輪がユイの周りを照らす。',
+    lore: '夜道で迷ったとき、最後に見えた丸い光。',
+    levels: [
+      { level: 1, effect: { type: 'orbit', damage: 7, orbiters: 2, radius: 82, hitInterval: 0.55 }, label: '街灯の光が2つ周囲を回る。' },
+      { level: 2, effect: { radiusAdd: 18 }, label: '回転半径 +18' },
+      { level: 3, effect: { damageAdd: 4 }, label: 'ダメージ +4' },
+      { level: 4, effect: { orbitersAdd: 1 }, label: '光 +1' },
+      { level: 5, effect: { hitIntervalMultiplier: 0.72 }, label: 'ヒット間隔 -28%' },
+    ],
+  },
+  {
     id: 'unfinished_line',
     name: '未完成の一行',
     category: 'weapon',
@@ -111,5 +159,5 @@ export const weaponById = new Map(weapons.map((weapon) => [weapon.id, weapon]));
 
 /** 進化後武器IDの集合（新規抽選から除外する用途）。 */
 export const evolvedWeaponIds = new Set(
-  weapons.filter((w) => w.tags.includes('evolved')).map((w) => w.id),
+  weapons.filter((w) => w.tags.includes('evolved')).map((w) => [w.id][0]),
 );
