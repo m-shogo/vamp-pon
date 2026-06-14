@@ -53,6 +53,28 @@ function retiredWeaponIds(state: RuntimeState): Set<string> {
   return retired;
 }
 
+function blockedRareItemIds(state: RuntimeState, retiredWeapons: Set<string>): Set<string> {
+  const blocked = new Set<string>();
+  const evolved = new Set(state.inventory.evolvedWeaponIds);
+
+  for (const evo of evolutions) {
+    if (evo.kind !== 'awakening' || !evo.requiredRareItemId) continue;
+
+    // 覚醒済みなら、その覚醒レアアイテムは再登場させない。
+    if (evolved.has(evo.evolvedWeaponId)) {
+      blocked.add(evo.requiredRareItemId);
+      continue;
+    }
+
+    // 強化進化・覚醒などで元武器が退役済みなら、もう覚醒できないので出さない。
+    if (retiredWeapons.has(evo.fromWeaponId)) {
+      blocked.add(evo.requiredRareItemId);
+    }
+  }
+
+  return blocked;
+}
+
 function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
   if (choice.type === 'rare_new') {
     return { ...choice, rarity: 'rare', title: `✦ ${choice.title}` };
@@ -133,6 +155,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const ownedPassiveIds = new Set(inv.passives.map((p) => p.id));
   const ownedRareItemIds = new Set(inv.rareItems.map((item) => item.id));
   const retiredWeapons = retiredWeaponIds(state);
+  const blockedRareItems = blockedRareItemIds(state, retiredWeapons);
   const weaponFull = inv.weapons.length >= inv.weaponSlots;
   const passiveFull = inv.passives.length >= inv.passiveSlots;
   const rareFull = inv.rareItems.length >= inv.rareItemSlots;
@@ -170,7 +193,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     .map((def) => ({ type: 'passive_new' as const, itemId: def.id, title: passiveFull ? `入替: ${def.name}` : def.name, description: passiveFull ? `${def.description} / アイテムが満杯。` : def.description, lore: def.lore }));
 
   const rareNews: LevelUpChoice[] = rareItems
-    .filter((def) => !ownedRareItemIds.has(def.id))
+    .filter((def) => !ownedRareItemIds.has(def.id) && !blockedRareItems.has(def.id))
     .map((def) => ({ type: 'rare_new' as const, itemId: def.id, title: rareFull ? `入替: ${def.name}` : def.name, description: rareFull ? `${def.description} / レア枠が満杯。` : def.description, lore: def.lore }));
 
   const pools: Record<Exclude<Category, 'heal'>, LevelUpChoice[]> = {
