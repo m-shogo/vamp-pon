@@ -8,9 +8,14 @@ import { randRange } from '../utils/rng';
 import { capsuleDropChanceFor, computeBehaviorStep } from '../domain/enemyRules';
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { inkPuff, shakeOnHit } from '../ui/effects';
-import { spawnFragment, spawnCapsule } from './pickups';
+import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 
 const FLASH_SEC = 0.08;
+const NORMAL_HEAL_DROP_CHANCE = 0.035;
+const LOW_HP_HEAL_DROP_CHANCE = 0.09;
+const ELITE_HEAL_DROP_CHANCE = 0.75;
+const HEAL_AMOUNT = 18;
+const ELITE_HEAL_AMOUNT = 36;
 
 export function spawnEnemy(
   scene: Phaser.Scene,
@@ -95,6 +100,8 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     spawnFragment(scene, state, enemy.x + ox, enemy.y + oy, per);
   }
 
+  maybeDropHeal(scene, state, enemy);
+
   if (enemy.capsuleDropChance > 0 && Math.random() < enemy.capsuleDropChance) {
     spawnCapsule(scene, state, enemy.x, enemy.y);
   }
@@ -102,6 +109,22 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   inkPuff(scene, enemy.x, enemy.y, enemy.radius, enemy.isElite);
   enemy.view.destroy();
   enemy.hpBar?.destroy();
+}
+
+function maybeDropHeal(scene: Phaser.Scene, state: RuntimeState, enemy: EnemyRuntime): void {
+  const p = state.player;
+  if (p.hp >= p.maxHp) return;
+
+  const hpRatio = p.hp / p.maxHp;
+  const chance = enemy.isElite
+    ? ELITE_HEAL_DROP_CHANCE
+    : hpRatio <= 0.35
+      ? LOW_HP_HEAL_DROP_CHANCE
+      : NORMAL_HEAL_DROP_CHANCE;
+
+  if (Math.random() >= chance) return;
+  const amount = enemy.isElite ? ELITE_HEAL_AMOUNT : HEAL_AMOUNT;
+  spawnHealPickup(scene, state, enemy.x + randRange(-10, 10), enemy.y + randRange(-10, 10), amount);
 }
 
 /** 敵の移動・接触・点滅を更新する。 */
