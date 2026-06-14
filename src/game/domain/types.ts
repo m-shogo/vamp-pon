@@ -52,6 +52,15 @@ export type PassiveDefinition = {
   levels: PassiveLevelDefinition[];
 };
 
+export type RareItemDefinition = {
+  id: Id;
+  name: string;
+  category: 'rare_item';
+  tags: string[];
+  description: string;
+  lore?: string;
+};
+
 export type EnemyBehavior = 'chase' | 'slow_chase' | 'offset_chase' | 'swarm_chase' | 'elite_chase';
 
 /** 描画モチーフ。敵の名前/挙動を変えても描画部が壊れないよう、見た目は visualKind で決める。 */
@@ -83,12 +92,18 @@ export type RuntimePassive = {
   level: number;
 };
 
+export type RuntimeRareItem = {
+  id: Id;
+};
+
 export type InventoryRuntime = {
   weapons: RuntimeWeapon[];
   passives: RuntimePassive[];
+  rareItems: RuntimeRareItem[];
   evolvedWeaponIds: Id[];
   weaponSlots: number;
   passiveSlots: number;
+  rareItemSlots: number;
 };
 
 export type PlayerRuntime = {
@@ -140,9 +155,11 @@ export type EvolutionDefinition = {
   fromWeaponId: Id;
   requiredWeaponLevel: number;
   requiredPassiveId?: Id;
+  requiredRareItemId?: Id;
   requiredWeaponId?: Id;
   requiredWeaponLevel2?: number;
   consumedWeaponIds?: Id[];
+  consumedRareItemIds?: Id[];
   evolvedWeaponId: Id;
   title: string;
   lore: string;
@@ -153,6 +170,7 @@ export type LevelUpChoice =
   | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string; rarity?: RewardRarity }
   | { type: 'passive_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity; initialLevel?: number }
   | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string; rarity?: RewardRarity }
+  | { type: 'rare_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity }
   | { type: 'heal'; amount: number; title: string; description: string; lore?: string; rarity?: RewardRarity };
 
 export type CapsuleReward =
