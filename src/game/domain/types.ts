@@ -139,7 +139,10 @@ export type EvolutionDefinition = {
   name: string;
   fromWeaponId: Id;
   requiredWeaponLevel: number;
-  requiredPassiveId: Id;
+  requiredPassiveId?: Id;
+  requiredWeaponId?: Id;
+  requiredWeaponLevel2?: number;
+  consumedWeaponIds?: Id[];
   evolvedWeaponId: Id;
   title: string;
   lore: string;
