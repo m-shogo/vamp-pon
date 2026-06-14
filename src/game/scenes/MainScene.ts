@@ -37,16 +37,16 @@ export class MainScene extends Phaser.Scene {
   create(): void {
     createBackground(this);
     this.state = createInitialState(this);
-    this.hud = new Hud(this);
-    this.overlays = new Overlays(this);
-    this.spawnSystem = new SpawnSystem();
-    this.keys = setupKeyboard(this);
-    this.stick = new VirtualStick(this, () => {
-      // PLAYING中のみ必殺技を受け付ける（レベルアップ/カプセル中の右半分タップで暴発しない）
+    this.hud = new Hud(this, () => {
+      // 必殺技は右上アイコンのみで発動。プレイ中以外は受け付けない。
       if (this.state.status === GAME_STATUS.PLAYING) {
         this.state.ultimateRequested = true;
       }
     });
+    this.overlays = new Overlays(this);
+    this.spawnSystem = new SpawnSystem();
+    this.keys = setupKeyboard(this);
+    this.stick = new VirtualStick(this);
 
     window.addEventListener('blur', this.onBlur);
     document.addEventListener('visibilitychange', this.onVisibility);
@@ -54,6 +54,7 @@ export class MainScene extends Phaser.Scene {
       window.removeEventListener('blur', this.onBlur);
       document.removeEventListener('visibilitychange', this.onVisibility);
       this.stick.destroy();
+      this.hud.destroy();
     });
 
     this.overlays.showReady(() => {
