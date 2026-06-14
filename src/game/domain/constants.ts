@@ -76,13 +76,13 @@ export const ENEMY_RADIUS = {
 
 /** 色（紙片・絵本風 / 夜の街）。 */
 export const COLORS = {
-  background: 0x141325,
-  backgroundTile: 0x1b1a30,
+  background: 0x1d2236,
+  backgroundTile: 0x30364f,
   player: 0xf4d9a6,
   playerGlow: 0xffce7a,
   lantern: 0xffd166,
-  enemyInk: 0x2a2740,
-  enemyInkEdge: 0x4b4570,
+  enemyInk: 0x26243a,
+  enemyInkEdge: 0x5d5a86,
   enemyEye: 0xf5f3ff,
   enemyElite: 0x3a2540,
   enemyEliteEdge: 0x9b5fb0,
