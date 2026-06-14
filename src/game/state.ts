@@ -8,7 +8,6 @@ import { xpToNext } from './domain/balance';
 import { createPlayerView } from './ui/factory';
 import { recomputePlayerStats } from './systems/passives';
 
-/** 新しいランごとの初期状態を作る。プレイヤー表示もここで生成する。 */
 export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAULT_CHARACTER_ID): RuntimeState {
   const char = characterById.get(characterId) ?? characterById.get(DEFAULT_CHARACTER_ID)!;
   const px = GAME_WIDTH / 2;
@@ -46,9 +45,11 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     inventory: {
       weapons: [{ id: char.initialWeaponId, level: 1, cooldownRemaining: 0 }],
       passives: [],
+      rareItems: [],
       evolvedWeaponIds: [],
       weaponSlots: DEFAULT_GAME_CONFIG.weaponSlots,
       passiveSlots: DEFAULT_GAME_CONFIG.passiveSlots,
+      rareItemSlots: DEFAULT_GAME_CONFIG.rareItemSlots,
     },
     enemies: [],
     projectiles: [],
