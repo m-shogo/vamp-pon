@@ -67,11 +67,14 @@ describe('resolveWeapon', () => {
     expect(num(lamp, 'maxAreas')).toBe(2);
   });
 
-  it('合体進化武器は広い範囲DoTとして解決できる', () => {
+  it('合体進化武器はかなり強い範囲DoTとして解決できる', () => {
     const eff = resolveWeapon(weaponById.get('dawn_ink_lamp')!, 1);
     expect(eff.type).toBe('ground_area');
-    expect(num(eff, 'radius')).toBe(108);
-    expect(num(eff, 'maxAreas')).toBe(2);
+    expect(num(eff, 'damagePerSecond')).toBe(28);
+    expect(num(eff, 'duration')).toBeCloseTo(6.5, 5);
+    expect(num(eff, 'radius')).toBe(128);
+    expect(num(eff, 'cooldown')).toBeCloseTo(1.15, 5);
+    expect(num(eff, 'maxAreas')).toBe(3);
   });
 
   it('Lv1では基本効果のみ', () => {
