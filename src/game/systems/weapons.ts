@@ -1,8 +1,8 @@
 import type Phaser from 'phaser';
-import type { WeaponDefinition } from '../domain/types';
 import type { RuntimeState, EnemyRuntime, ProjectileRuntime, GroundAreaRuntime, OrbiterRuntime } from '../runtime';
 import { nextIid } from '../runtime';
 import { weaponById } from '../data/weapons';
+import { resolveWeapon, num, type EffectValues } from '../domain/weaponEffect';
 import { PROJECTILE } from '../domain/constants';
 import { distance, normalize, randomAngle, angleToVec } from '../utils/math';
 import { isFarOffscreen } from '../utils/viewport';
@@ -15,40 +15,8 @@ import {
 } from '../ui/factory';
 import { damageEnemy } from './enemies';
 
-type EffectValues = Record<string, number | string | boolean>;
-
 const MARBLE_BASE_SPEED = 150;
 const RADIAL_BASE_SPEED = 200;
-
-/** レベル効果を畳み込んで具体値を得る。 */
-function resolveWeapon(def: WeaponDefinition, level: number): EffectValues {
-  const base: EffectValues = { ...def.levels[0].effect } as EffectValues;
-  for (let l = 2; l <= level; l += 1) {
-    const eff = def.levels[l - 1]?.effect;
-    if (!eff) continue;
-    for (const [k, v] of Object.entries(eff)) {
-      if (k === 'type' || k === 'targeting' || k === 'evolved') {
-        base[k] = v as string | boolean;
-        continue;
-      }
-      if (k.endsWith('Add')) {
-        const bk = k.slice(0, -3);
-        base[bk] = ((base[bk] as number) ?? 0) + (v as number);
-      } else if (k.endsWith('Multiplier')) {
-        const bk = k.slice(0, -'Multiplier'.length);
-        base[bk] = ((base[bk] as number) ?? 1) * (v as number);
-      } else {
-        base[k] = v as number | string | boolean;
-      }
-    }
-  }
-  return base;
-}
-
-function num(eff: EffectValues, key: string, fallback = 0): number {
-  const v = eff[key];
-  return typeof v === 'number' ? v : fallback;
-}
 
 export function findNearestEnemy(state: RuntimeState, x: number, y: number): EnemyRuntime | null {
   let best: EnemyRuntime | null = null;
