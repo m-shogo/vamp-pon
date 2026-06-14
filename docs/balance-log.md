@@ -109,7 +109,7 @@ docs/56-balance-log-template.md
 
 ゲーム終了時（クリア/ゲームオーバー）に、ブラウザのコンソールへ次の1行JSONを出力する
 （`[vamp-pon playlog] {...}`）。リザルト画面にも主要な計測値を表示する。
-このJSONをコピーし、`device` と `painPoints` を埋めて下記に追記する。
+このJSONをコピーし、`device` / `goodPoints` / `painPoints` を埋めて下記に追記する。
 
 固定フィールド:
 
@@ -122,19 +122,76 @@ firstKillSec    最初の撃破
 level2Sec       Lv2到達
 firstDamageSec  初被弾
 firstCapsuleSec 初カプセル取得
-elite3mKilled   3分エリート撃破（180〜300秒窓）
+elite3mKilled   3分エリート撃破（170〜300秒窓）※下記の判定窓を参照
 elite5mKilled   5分エリート撃破（300〜420秒窓）
-elite7mKilled   7分エリート撃破（420秒〜）
+elite7mKilled   7分エリート撃破（420〜600秒窓）
 finalLevel      到達Lv
 kills           撃破数
 pickedWeapons   最終所持武器ID
 pickedPassives  最終所持パッシブID
 evolvedWeapons  進化した武器ID
+goodPoints      良かった点（人が記入）
 painPoints      気になった点（人が記入）
 ```
 
-### プレイログ記録欄
+### エリート撃破の判定窓（docs と code を統一）
 
-```jsonl
-（ここに1プレイ1行で貼る）
+エリート（黒ラベルの影）spawn は **180 / 300 / 420 秒**。撃破時刻を次の窓 `[start, end)` で分類する。
+
+```txt
+3分エリート: 170〜300秒   ← 3:00 ちょうどのスポーン/撃破のブレ約10秒を許容（180秒より前に撃破は起きないため実害なし）
+5分エリート: 300〜420秒
+7分エリート: 420〜600秒
 ```
+
+実装は `src/game/domain/playLog.ts` の `ELITE_WINDOWS` を正とする（この表と一致）。
+
+### プレイログ記録欄（3プレイ分から）
+
+1プレイ = JSON1行 + 人間記入（goodPoints / painPoints）。
+
+```txt
+■ Run 1
+device:
+playlog: { ここにコンソールの1行JSONを貼る }
+goodPoints:
+painPoints:
+
+■ Run 2
+device:
+playlog:
+goodPoints:
+painPoints:
+
+■ Run 3
+device:
+playlog:
+goodPoints:
+painPoints:
+```
+
+> 状態: **未記録**（3プレイ分が埋まったら、次の「序盤調整ガイド」に従って調整する）。
+
+---
+
+## 序盤（0:00〜3:00）調整ガイド
+
+最初の1分で離脱させないための調整表。**指標がズレたら、対応する数値だけを小さく動かす**。
+一度に複数を変えない（原因が分からなくなる）。
+
+| 指標 | 目標 | ズレ時にいじる数値 | 場所 |
+|---|---|---|---|
+| firstKillSec | ≤10秒 | `ink_shadow.hp`(18) を下げる / `night_pencil` L1 `damage`(12)↑・`cooldown`(1.25)↓ | `src/game/data/enemies.ts` / `src/game/data/weapons.ts` |
+| level2Sec | ≤60秒 | `xpToNext(1)`(=8) を下げる / `ink_shadow.xpDrop`(1)↑ / 0–60秒の `spawnRatePerSecond`↑ | `src/game/domain/balance.ts` / `enemies.ts` / `src/game/data/waves.ts` |
+| firstDamageSec | >10秒 | 序盤 `spawnRatePerSecond`/`maxAlive`↓ / `ink_shadow.moveSpeed`(55)↓ / `SPAWN.minPlayerDist`(120)↑ | `waves.ts` / `enemies.ts` / `src/game/domain/constants.ts` |
+| 3分時点Lv | 5〜7 | `xpToNext` カーブ（`8 + (level-1)*5`） / 60–180秒の敵密度 | `balance.ts` / `waves.ts` |
+| 3分エリート撃破 | 可能性あり | `black_label_shadow.hp`(280)↓ / 武器火力（`might`系パッシブ・武器damage） | `enemies.ts` / `weapons.ts` |
+| 同時敵数 | 5〜18体（序盤） | 各 wave の `maxAlive` | `waves.ts` |
+
+目指す感覚:
+
+```txt
+ぼけぇっと遊んでも気持ちいい。でも雑に突っ込むと少し痛い。
+```
+
+調整したら、何を・なぜ・どうなったかを下の Logs に1件ずつ残す（数値は一度に1つ）。
