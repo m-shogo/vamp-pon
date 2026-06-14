@@ -162,7 +162,7 @@ export const weapons: WeaponDefinition[] = [
     description: '黒インクと街灯が混ざり、広い夜明けの輪を残す。',
     lore: '消すための黒と、照らすための灯り。混ざると、朝の色になる。',
     levels: [
-      { level: 1, effect: { type: 'ground_area', damagePerSecond: 20, duration: 5.2, radius: 108, cooldown: 1.45, maxAreas: 2, targeting: 'nearest', evolved: true }, label: '大きな夜明けの輪を残す。黒インク小瓶と街灯の輪が1枠にまとまる。' },
+      { level: 1, effect: { type: 'ground_area', damagePerSecond: 28, duration: 6.5, radius: 128, cooldown: 1.15, maxAreas: 3, targeting: 'nearest', evolved: true }, label: '巨大な夜明けの輪を次々に残す。黒インク小瓶と街灯の輪が1枠にまとまる。' },
     ],
   },
 ];
