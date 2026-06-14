@@ -339,6 +339,12 @@ function weaponIcon(id: string): string {
       return '瓶';
     case 'stardust_shot':
       return '✦';
+    case 'postcard_blade':
+      return '刃';
+    case 'paper_airplane':
+      return '飛';
+    case 'streetlamp_ring':
+      return '輪';
     case 'unfinished_line':
       return '線';
     case 'north_star_lantern':
@@ -360,6 +366,12 @@ function passiveIcon(id: string): string {
       return '券';
     case 'white_margin':
       return '余';
+    case 'pressed_flower':
+      return '花';
+    case 'loose_map_pin':
+      return '鋲';
+    case 'small_alarm_clock':
+      return '時';
     default:
       return '欠';
   }
