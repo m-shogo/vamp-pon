@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
-import type { LevelUpChoice, CapsuleReward } from '../domain/types';
+import type { LevelUpChoice, CapsuleReward, RewardRarity } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { weaponById } from '../data/weapons';
+import { passiveById } from '../data/passives';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
@@ -40,8 +41,8 @@ export class Overlays {
     const c = this.dim(0.5);
     c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, 'Vamp Pon', 40, '#f3ead2'));
     c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 20, '夜の街で、忘れ物を集めて朝まで生きのびる。', 13, '#c9bfae'));
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 40, '移動: 左半分ドラッグ / WASD・矢印', 12, '#c9bfae'));
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 62, '必殺技: 画面右半分タップ', 12, '#c9bfae'));
+    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 40, '移動: どこでもドラッグ / WASD・矢印', 12, '#c9bfae'));
+    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 62, '必殺技: 右上の丸アイコン', 12, '#c9bfae'));
     const btn = this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 130, 200, 52, 'はじめる', () => {
       this.clear();
       onStart();
@@ -49,15 +50,21 @@ export class Overlays {
     c.add(btn);
   }
 
-  showLevelUp(state: RuntimeState, choices: LevelUpChoice[], onPick: (c: LevelUpChoice) => void): void {
+  showLevelUp(
+    state: RuntimeState,
+    choices: LevelUpChoice[],
+    onPick: (c: LevelUpChoice) => void,
+    onReroll: () => void,
+  ): void {
     const c = this.dim();
-    c.add(this.text(GAME_WIDTH / 2, 120, '記憶が少し戻った', 24, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 92, '記憶が少し戻った', 24, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 122, 'たまに★付きの拾い物が出る', 11, '#c9bfae'));
 
     const cardW = 320;
-    const cardH = 132;
-    const gap = 18;
+    const cardH = 128;
+    const gap = 14;
     const totalH = choices.length * cardH + (choices.length - 1) * gap;
-    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2;
+    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2 - 4;
 
     for (const choice of choices) {
       const card = this.levelUpCard(GAME_WIDTH / 2, y, cardW, cardH, choice, () => {
@@ -67,7 +74,17 @@ export class Overlays {
       c.add(card);
       y += cardH + gap;
     }
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 40, 'ひとつ選ぶ', 14, '#c9bfae'));
+
+    const remaining = state.levelUpRerollsRemaining;
+    const rerollLabel = remaining > 0 ? `入れ替え ${remaining}/3` : '入れ替え 0/3';
+    const reroll = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 54, 180, 42, rerollLabel, () => {
+      if (state.levelUpRerollsRemaining <= 0) return;
+      this.clear();
+      onReroll();
+    });
+    reroll.setAlpha(remaining > 0 ? 1 : 0.45);
+    c.add(reroll);
+    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 96, 'ひとつ選ぶ / 3回まで入れ替え', 13, '#c9bfae'));
   }
 
   private levelUpCard(
@@ -79,41 +96,56 @@ export class Overlays {
     onClick: () => void,
   ): Phaser.GameObjects.Container {
     const card = this.scene.add.container(cx, cy);
-    const bg = this.scene.add.rectangle(0, 0, w, h, COLORS.cardBg, 1);
-    bg.setStrokeStyle(3, COLORS.cardEdge, 1);
+    const rarity = choice.rarity ?? 'normal';
+    const edge = rarityColor(rarity);
+    const bg = this.scene.add.rectangle(0, 0, w, h, rarity === 'normal' ? COLORS.cardBg : 0xfff4cf, 1);
+    bg.setStrokeStyle(rarity === 'rare' ? 5 : 3, edge, 1);
     bg.setInteractive({ useHandCursor: true });
     bg.on('pointerdown', onClick);
     card.add(bg);
 
-    const tag = tagFor(choice);
+    const icon = iconForChoice(choice);
     const title = choice.title;
     const desc = choice.description;
     const lore = 'lore' in choice && choice.lore ? choice.lore : '';
 
+    const iconBg = this.scene.add.circle(-w / 2 + 38, -h / 2 + 36, 22, 0x3a3326, 1);
+    iconBg.setStrokeStyle(2, edge, 1);
+    card.add(iconBg);
     card.add(
       this.scene.add
-        .text(0, -h / 2 + 22, title, { fontFamily: FONT, fontSize: '18px', color: '#3a3326', fontStyle: 'bold' })
+        .text(-w / 2 + 38, -h / 2 + 36, icon, { fontFamily: FONT, fontSize: '20px', color: '#f3ead2', fontStyle: 'bold' })
         .setOrigin(0.5),
+    );
+
+    card.add(
+      this.scene.add
+        .text(-w / 2 + 68, -h / 2 + 22, title, { fontFamily: FONT, fontSize: '17px', color: '#3a3326', fontStyle: 'bold' })
+        .setOrigin(0, 0.5),
     );
     card.add(
       this.scene.add
-        .text(0, -h / 2 + 46, tag, { fontFamily: FONT, fontSize: '11px', color: '#9a8d6f' })
-        .setOrigin(0.5),
+        .text(-w / 2 + 68, -h / 2 + 46, `${rankFor(rarity)} / ${tagFor(choice)}`, {
+          fontFamily: FONT,
+          fontSize: '11px',
+          color: rarity === 'normal' ? '#9a8d6f' : '#9a6024',
+        })
+        .setOrigin(0, 0.5),
     );
     card.add(
       this.scene.add
-        .text(0, -4, desc, { fontFamily: FONT, fontSize: '14px', color: '#3a3326', align: 'center', wordWrap: { width: w - 36 } })
+        .text(8, -1, desc, { fontFamily: FONT, fontSize: '14px', color: '#3a3326', align: 'center', wordWrap: { width: w - 48 } })
         .setOrigin(0.5),
     );
     if (lore) {
       card.add(
         this.scene.add
-          .text(0, h / 2 - 24, lore, {
+          .text(0, h / 2 - 21, lore, {
             fontFamily: FONT,
             fontSize: '10px',
             color: '#9a8d6f',
             align: 'center',
-            wordWrap: { width: w - 36 },
+            wordWrap: { width: w - 42 },
           })
           .setOrigin(0.5),
       );
@@ -244,7 +276,7 @@ export class Overlays {
     bg.setInteractive({ useHandCursor: true });
     bg.on('pointerdown', onClick);
     const t = this.scene.add
-      .text(0, 0, label, { fontFamily: FONT, fontSize: '20px', color: '#3a3326', fontStyle: 'bold' })
+      .text(0, 0, label, { fontFamily: FONT, fontSize: '18px', color: '#3a3326', fontStyle: 'bold' })
       .setOrigin(0.5);
     c.add([bg, t]);
     return c;
@@ -262,5 +294,73 @@ function tagFor(choice: LevelUpChoice): string {
       return '強化';
     case 'heal':
       return 'ひとやすみ';
+  }
+}
+
+function rankFor(rarity: RewardRarity): string {
+  switch (rarity) {
+    case 'rare':
+      return '★★★ 大当たり';
+    case 'good':
+      return '★★ 良い';
+    case 'normal':
+      return '★ ふつう';
+  }
+}
+
+function rarityColor(rarity: RewardRarity): number {
+  switch (rarity) {
+    case 'rare':
+      return 0xffd45e;
+    case 'good':
+      return 0xbfe6ff;
+    case 'normal':
+      return COLORS.cardEdge;
+  }
+}
+
+function iconForChoice(choice: LevelUpChoice): string {
+  if (choice.type === 'heal') return '＋';
+  if (choice.type === 'weapon_new' || choice.type === 'weapon_upgrade') {
+    return weaponIcon(choice.itemId);
+  }
+  return passiveIcon(choice.itemId);
+}
+
+function weaponIcon(id: string): string {
+  switch (id) {
+    case 'night_pencil':
+      return '✎';
+    case 'marble':
+      return '●';
+    case 'moon_bookmark':
+      return '☾';
+    case 'black_ink_bottle':
+      return '瓶';
+    case 'stardust_shot':
+      return '✦';
+    case 'unfinished_line':
+      return '線';
+    case 'north_star_lantern':
+      return '灯';
+    default:
+      return '道';
+  }
+}
+
+function passiveIcon(id: string): string {
+  switch (id) {
+    case 'gold_compass':
+      return '針';
+    case 'travel_badge':
+      return '章';
+    case 'moonlight_bookmark':
+      return '栞';
+    case 'old_ticket':
+      return '券';
+    case 'white_margin':
+      return '余';
+    default:
+      return '欠';
   }
 }
