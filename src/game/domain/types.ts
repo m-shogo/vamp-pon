@@ -7,6 +7,8 @@ export type Vec2 = {
 
 export type GameStatus = 'ready' | 'playing' | 'levelUp' | 'capsule' | 'paused' | 'cleared' | 'gameOver';
 
+export type RewardRarity = 'normal' | 'good' | 'rare';
+
 export type EffectDefinition = Record<string, unknown> & {
   type?: string;
 };
@@ -144,11 +146,11 @@ export type EvolutionDefinition = {
 };
 
 export type LevelUpChoice =
-  | { type: 'weapon_new'; itemId: Id; title: string; description: string; lore?: string }
-  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string }
-  | { type: 'passive_new'; itemId: Id; title: string; description: string; lore?: string }
-  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string }
-  | { type: 'heal'; amount: number; title: string; description: string; lore?: string };
+  | { type: 'weapon_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity; initialLevel?: number }
+  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string; rarity?: RewardRarity }
+  | { type: 'passive_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity; initialLevel?: number }
+  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string; rarity?: RewardRarity }
+  | { type: 'heal'; amount: number; title: string; description: string; lore?: string; rarity?: RewardRarity };
 
 export type CapsuleReward =
   | { type: 'evolution'; evolutionId: Id; evolvedWeaponId: Id; title: string; lore: string }
