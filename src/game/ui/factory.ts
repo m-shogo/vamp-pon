@@ -128,16 +128,19 @@ export function createProjectileView(
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   if (kind === 'lantern_star') {
-    const glow = scene.add.circle(0, 0, radius + 7, COLORS.lantern, 0.48);
-    const dot = scene.add.star(0, 0, 5, radius * 0.5, radius + 3, COLORS.ultReady);
-    const core = scene.add.circle(0, 0, radius * 0.55, COLORS.lantern, 0.95);
-    c.add([glow, dot, core]);
+    const aura = scene.add.circle(0, 0, radius + 16, COLORS.ultReady, 0.2);
+    const glow = scene.add.circle(0, 0, radius + 10, COLORS.lantern, 0.58);
+    const dot = scene.add.star(0, 0, 7, radius * 0.85, radius + 7, COLORS.ultReady, 0.98);
+    const core = scene.add.circle(0, 0, radius * 0.82, COLORS.lantern, 1);
+    c.add([aura, glow, dot, core]);
   } else if (kind === 'evolved_line') {
-    const glow = scene.add.rectangle(0, 0, radius * 8.5, radius * 1.8, 0xbfe6ff, 0.24);
-    const line = scene.add.rectangle(0, 0, radius * 8.2, radius * 0.9, 0xf3ead2, 0.98);
-    line.setStrokeStyle(1, COLORS.ultFill, 1);
-    const ink = scene.add.rectangle(0, radius * 0.9, radius * 5.4, radius * 0.35, COLORS.ultFill, 0.75);
-    c.add([glow, line, ink]);
+    const backGlow = scene.add.rectangle(0, 0, radius * 13.5, radius * 3.1, COLORS.ultFill, 0.22);
+    const glow = scene.add.rectangle(0, 0, radius * 12.2, radius * 2.2, 0xbfe6ff, 0.34);
+    const line = scene.add.rectangle(0, 0, radius * 11.0, radius * 1.16, 0xf3ead2, 0.99);
+    line.setStrokeStyle(2, COLORS.ultFill, 1);
+    const ink = scene.add.rectangle(0, radius * 1.18, radius * 8.4, radius * 0.44, COLORS.ultFill, 0.86);
+    const head = scene.add.triangle(radius * 5.8, 0, 0, -radius * 1.5, radius * 2.4, 0, 0, radius * 1.5, COLORS.ultReady, 0.95);
+    c.add([backGlow, glow, line, ink, head]);
   } else if (kind === 'star') {
     const dot = scene.add.star(0, 0, 4, radius * 0.5, radius + 1, COLORS.projectileStar);
     const glow = scene.add.circle(0, 0, radius + 4, COLORS.projectileStar, 0.45);
@@ -183,18 +186,21 @@ export function createMarbleView(scene: Phaser.Scene, radius: number): Phaser.Ga
 export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVisualKind = 'ink'): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   if (kind === 'dawn') {
-    const outer = scene.add.circle(0, 0, radius + 24, COLORS.ultReady, 0.18);
-    const ink = scene.add.circle(0, 0, radius, COLORS.ink, 0.38);
-    ink.setStrokeStyle(3, COLORS.enemyInkEdge, 0.62);
-    const ring = scene.add.circle(0, 0, radius * 0.86, COLORS.lantern, 0.2);
-    ring.setStrokeStyle(6, COLORS.ultReady, 0.92);
-    const innerRing = scene.add.circle(0, 0, radius * 0.52, COLORS.ultFill, 0.16);
-    innerRing.setStrokeStyle(3, COLORS.ultFill, 0.72);
-    const core = scene.add.star(0, 0, 8, Math.max(12, radius * 0.1), Math.max(28, radius * 0.26), COLORS.ultReady, 0.42);
-    const cross1 = scene.add.rectangle(0, 0, radius * 1.48, 5, COLORS.ultReady, 0.38);
-    const cross2 = scene.add.rectangle(0, 0, radius * 1.48, 5, COLORS.ultFill, 0.34);
+    const outer = scene.add.circle(0, 0, radius + 34, COLORS.ultReady, 0.22);
+    outer.setStrokeStyle(3, COLORS.ultReady, 0.45);
+    const ink = scene.add.circle(0, 0, radius, COLORS.ink, 0.42);
+    ink.setStrokeStyle(4, COLORS.enemyInkEdge, 0.72);
+    const ring = scene.add.circle(0, 0, radius * 0.9, COLORS.lantern, 0.24);
+    ring.setStrokeStyle(8, COLORS.ultReady, 1);
+    const innerRing = scene.add.circle(0, 0, radius * 0.54, COLORS.ultFill, 0.2);
+    innerRing.setStrokeStyle(5, COLORS.ultFill, 0.82);
+    const core = scene.add.star(0, 0, 8, Math.max(14, radius * 0.12), Math.max(36, radius * 0.3), COLORS.ultReady, 0.5);
+    const cross1 = scene.add.rectangle(0, 0, radius * 1.72, 7, COLORS.ultReady, 0.48);
+    const cross2 = scene.add.rectangle(0, 0, radius * 1.72, 7, COLORS.ultFill, 0.42);
     cross2.setAngle(90);
-    c.add([outer, ink, ring, innerRing, core, cross1, cross2]);
+    const slash = scene.add.rectangle(0, 0, radius * 1.35, 5, 0xf3ead2, 0.32);
+    slash.setAngle(45);
+    c.add([outer, ink, ring, innerRing, core, cross1, cross2, slash]);
   } else if (kind === 'lamp') {
     const glow = scene.add.circle(0, 0, radius + 8, COLORS.lantern, 0.1);
     const ring = scene.add.circle(0, 0, radius, COLORS.lantern, 0.18);
