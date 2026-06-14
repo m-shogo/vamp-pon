@@ -124,20 +124,40 @@ export function createEnemyView(
   return c;
 }
 
-/** 鉛筆弾など射出弾。 */
+export type ProjectileVisualKind = 'pencil' | 'star' | 'blade' | 'paper_airplane';
+export type AreaVisualKind = 'ink' | 'lamp';
+
+/** 鉛筆弾など射出弾。武器ごとに一目で別物に見える記号を持たせる。 */
 export function createProjectileView(
   scene: Phaser.Scene,
-  kind: 'pencil' | 'star',
+  kind: ProjectileVisualKind,
   radius: number,
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   if (kind === 'star') {
-    const dot = scene.add.star(0, 0, 4, radius * 0.5, radius, COLORS.projectileStar);
-    const glow = scene.add.circle(0, 0, radius + 2, COLORS.projectileStar, 0.3);
+    const dot = scene.add.star(0, 0, 4, radius * 0.5, radius + 1, COLORS.projectileStar);
+    const glow = scene.add.circle(0, 0, radius + 4, COLORS.projectileStar, 0.45);
     c.add([glow, dot]);
+  } else if (kind === 'blade') {
+    const glow = scene.add.rectangle(0, 0, radius * 4.4, radius * 1.4, 0xfff1b0, 0.28);
+    glow.setAngle(-18);
+    const blade = scene.add.rectangle(0, 0, radius * 4.6, radius * 0.9, 0xf3ead2, 0.96);
+    blade.setStrokeStyle(1, 0xffd45e, 0.9);
+    blade.setAngle(-18);
+    const cut = scene.add.rectangle(radius * 1.4, -radius * 0.6, radius * 1.8, radius * 0.22, 0xffd45e, 0.85);
+    cut.setAngle(-18);
+    c.add([glow, blade, cut]);
+  } else if (kind === 'paper_airplane') {
+    const glow = scene.add.triangle(0, 0, -radius * 1.8, radius * 1.1, radius * 2.2, 0, -radius * 1.8, -radius * 1.1, 0xbfe6ff, 0.28);
+    const plane = scene.add.triangle(0, 0, -radius * 1.6, radius, radius * 2.1, 0, -radius * 1.6, -radius, 0xf3ead2, 0.95);
+    plane.setStrokeStyle(1, 0xbfe6ff, 0.9);
+    const fold = scene.add.line(0, 0, -radius * 1.2, 0, radius * 1.4, 0, 0xbfe6ff, 0.9);
+    c.add([glow, plane, fold]);
   } else {
-    const glow = scene.add.circle(0, 0, radius + 2, COLORS.projectile, 0.3);
-    const dot = scene.add.circle(0, 0, radius, COLORS.projectile);
+    const glow = scene.add.circle(0, 0, radius + 3, COLORS.projectile, 0.38);
+    const dot = scene.add.rectangle(0, 0, radius * 2.8, radius * 1.1, COLORS.projectile, 0.95);
+    dot.setStrokeStyle(1, 0xffd166, 0.8);
+    dot.setAngle(-12);
     c.add([glow, dot]);
   }
   c.setDepth(DEPTH.projectile);
@@ -155,12 +175,20 @@ export function createMarbleView(scene: Phaser.Scene, radius: number): Phaser.Ga
   return c;
 }
 
-/** 地面のインクだまり（DoT）。 */
-export function createAreaView(scene: Phaser.Scene, radius: number): Phaser.GameObjects.Container {
+/** 地面のインクだまり/街灯の輪（DoT）。 */
+export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVisualKind = 'ink'): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  const pool = scene.add.circle(0, 0, radius, COLORS.ink, 0.55);
-  pool.setStrokeStyle(2, COLORS.enemyInkEdge, 0.4);
-  c.add([pool]);
+  if (kind === 'lamp') {
+    const glow = scene.add.circle(0, 0, radius + 8, COLORS.lantern, 0.1);
+    const ring = scene.add.circle(0, 0, radius, COLORS.lantern, 0.18);
+    ring.setStrokeStyle(3, COLORS.lantern, 0.65);
+    const inner = scene.add.circle(0, 0, Math.max(8, radius * 0.38), COLORS.projectileStar, 0.12);
+    c.add([glow, ring, inner]);
+  } else {
+    const pool = scene.add.circle(0, 0, radius, COLORS.ink, 0.55);
+    pool.setStrokeStyle(2, COLORS.enemyInkEdge, 0.4);
+    c.add([pool]);
+  }
   c.setDepth(DEPTH.area);
   return c;
 }
