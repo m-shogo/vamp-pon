@@ -15,12 +15,17 @@ export class Hud {
   private hpFill: Phaser.GameObjects.Graphics;
   private hpText: Phaser.GameObjects.Text;
   private xpBar: Phaser.GameObjects.Graphics;
-  private ultBar: Phaser.GameObjects.Graphics;
+  private ultIcon: Phaser.GameObjects.Graphics;
   private ultText: Phaser.GameObjects.Text;
+  private ultHintText: Phaser.GameObjects.Text;
+  private ultHitArea: Phaser.GameObjects.Zone;
   private itemsText: Phaser.GameObjects.Text;
   private debugText: Phaser.GameObjects.Text;
 
-  constructor(private scene: Phaser.Scene) {
+  constructor(
+    private scene: Phaser.Scene,
+    private onUltimate: () => void,
+  ) {
     const d = VIEW_DEPTH.hud;
 
     this.timeText = scene.add
@@ -29,8 +34,8 @@ export class Hud {
       .setDepth(d);
 
     this.levelText = scene.add
-      .text(GAME_WIDTH - 12, 16, 'Lv.1', { fontFamily: FONT, fontSize: '16px', color: '#f3ead2' })
-      .setOrigin(1, 0)
+      .text(12, 16, 'Lv.1', { fontFamily: FONT, fontSize: '16px', color: '#f3ead2' })
+      .setOrigin(0, 0)
       .setDepth(d);
 
     this.xpBar = scene.add.graphics().setDepth(d);
@@ -41,11 +46,29 @@ export class Hud {
       .text(16, GAME_HEIGHT - 40, '', { fontFamily: FONT, fontSize: '12px', color: '#f3ead2' })
       .setDepth(d);
 
-    this.ultBar = scene.add.graphics().setDepth(d);
+    this.ultIcon = scene.add.graphics().setDepth(d + 1);
     this.ultText = scene.add
-      .text(GAME_WIDTH - 12, GAME_HEIGHT - 42, '', { fontFamily: FONT, fontSize: '11px', color: '#cfe6ff' })
-      .setOrigin(1, 0)
-      .setDepth(d);
+      .text(GAME_WIDTH - 42, 37, '必', { fontFamily: FONT, fontSize: '17px', color: '#3a3326', fontStyle: 'bold' })
+      .setOrigin(0.5, 0.5)
+      .setDepth(d + 2);
+    this.ultHintText = scene.add
+      .text(GAME_WIDTH - 42, 64, '', { fontFamily: FONT, fontSize: '9px', color: '#cfe6ff' })
+      .setOrigin(0.5, 0.5)
+      .setDepth(d + 2);
+
+    this.ultHitArea = scene.add
+      .zone(GAME_WIDTH - 42, 44, 64, 64)
+      .setOrigin(0.5, 0.5)
+      .setDepth(d + 3)
+      .setScrollFactor(0)
+      .setInteractive({ useHandCursor: true });
+    this.ultHitArea.on(
+      Phaser.Input.Events.POINTER_DOWN,
+      (_pointer: Phaser.Input.Pointer, _localX: number, _localY: number, event?: Phaser.Types.Input.EventData) => {
+        event?.stopPropagation();
+        this.onUltimate();
+      },
+    );
 
     this.itemsText = scene.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT - 18, '', { fontFamily: FONT, fontSize: '12px', color: '#f3ead2' })
@@ -81,18 +104,28 @@ export class Hud {
     this.hpFill.clear().fillStyle(lowBlink ? 0xffffff : COLORS.hpFill, 1).fillRect(16, hpY, hpW * hpRatio, 12);
     this.hpText.setText(`${Math.ceil(p.hp)} / ${p.maxHp}`).setPosition(16, hpY - 16);
 
-    // 必殺技ゲージ（右下）
+    // 必殺技アイコン（右上・丸ゲージ）
     const char = characterById.get(state.characterId);
     const ultName = char?.ultimate.name ?? '必殺技';
-    const ultRatio = state.ultimate.ready ? 1 : state.ultimate.charge / state.ultimate.chargeSeconds;
-    const ultW = 130;
-    const ultX = GAME_WIDTH - 16 - ultW;
-    const ultY = GAME_HEIGHT - 24;
-    this.ultBar.clear().fillStyle(COLORS.xpBack, 0.85).fillRect(ultX, ultY, ultW, 12);
-    this.ultBar.fillStyle(state.ultimate.ready ? COLORS.ultReady : COLORS.ultFill, 1).fillRect(ultX, ultY, ultW * ultRatio, 12);
-    this.ultText
-      .setText(state.ultimate.ready ? `${ultName} 発動OK` : `${ultName} ${Math.floor(ultRatio * 100)}%`)
-      .setPosition(GAME_WIDTH - 16, ultY - 16);
+    const ultRatio = Math.max(0, Math.min(1, state.ultimate.ready ? 1 : state.ultimate.charge / state.ultimate.chargeSeconds));
+    const cx = GAME_WIDTH - 42;
+    const cy = 44;
+    const r = 24;
+    this.ultIcon.clear();
+    this.ultIcon.fillStyle(COLORS.xpBack, 0.9).fillCircle(cx, cy, r);
+    this.ultIcon.lineStyle(3, COLORS.enemyInkEdge, 0.8).strokeCircle(cx, cy, r);
+    this.ultIcon.lineStyle(5, state.ultimate.ready ? COLORS.ultReady : COLORS.ultFill, 1);
+    this.ultIcon.beginPath();
+    this.ultIcon.arc(cx, cy, r + 4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ultRatio, false);
+    this.ultIcon.strokePath();
+    this.ultIcon.fillStyle(state.ultimate.ready ? COLORS.ultReady : COLORS.ultFill, state.ultimate.ready ? 0.95 : 0.25);
+    this.ultIcon.slice(cx, cy, r - 4, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ultRatio, false).fillPath();
+
+    this.ultText.setText(state.ultimate.ready ? 'OK' : '必').setColor(state.ultimate.ready ? '#3a3326' : '#f3ead2');
+    this.ultHintText
+      .setText(state.ultimate.ready ? 'TAP' : `${Math.floor(ultRatio * 100)}%`)
+      .setColor(state.ultimate.ready ? '#fff1b0' : '#cfe6ff');
+    this.ultHitArea.setName(ultName);
 
     // 所持武器/パッシブ
     const wStr = state.inventory.weapons
@@ -119,5 +152,9 @@ export class Hud {
         ].join('\n'),
       );
     }
+  }
+
+  destroy(): void {
+    this.ultHitArea.destroy();
   }
 }
