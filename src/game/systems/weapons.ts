@@ -63,6 +63,8 @@ export function updateWeapons(scene: Phaser.Scene, state: RuntimeState, dt: numb
 }
 
 function projectileKindForWeapon(weaponId: string, eff: EffectValues): ProjectileVisualKind {
+  if (weaponId === 'unfinished_line') return 'evolved_line';
+  if (weaponId === 'north_star_lantern') return 'lantern_star';
   if (eff.evolved) return 'star';
   if (weaponId === 'postcard_blade') return 'blade';
   return 'pencil';
@@ -74,6 +76,7 @@ function bouncingKindForWeapon(weaponId: string): ProjectileVisualKind | 'marble
 }
 
 function areaKindForWeapon(weaponId: string): AreaVisualKind {
+  if (weaponId === 'dawn_ink_lamp') return 'dawn';
   if (weaponId === 'streetlamp_ring') return 'lamp';
   return 'ink';
 }
@@ -109,7 +112,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
       const speed = RADIAL_BASE_SPEED * num(eff, 'speed', 1);
       for (let i = 0; i < count; i += 1) {
         spawnProjectile(scene, state, {
-          kind: 'star',
+          kind: projectileKindForWeapon(weaponId, eff),
           angle: randomAngle(),
           speed,
           damage,
@@ -143,7 +146,6 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
       const maxAreas = Math.max(1, num(eff, 'maxAreas', 1));
       const alive = state.areas.length;
       if (alive >= maxAreas) {
-        // 最古を消す
         const oldest = state.areas.shift();
         oldest?.view.destroy();
       }
@@ -212,7 +214,6 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
       continue;
     }
 
-    // 壁反射（ビー玉/紙ひこうき）/ 画面外カル
     if (isFarOffscreen(proj.x, proj.y, 8)) {
       if (proj.bouncesLeft > 0) {
         if (proj.x < 0 || proj.x > GAME_WIDTH) proj.vx *= -1;
@@ -230,7 +231,6 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
     proj.view.setPosition(proj.x, proj.y);
     proj.view.setRotation(Math.atan2(proj.vy, proj.vx));
 
-    // 衝突
     for (const e of state.enemies) {
       if (e.dead) continue;
       if (proj.hitSet.has(e.iid)) continue;
@@ -320,7 +320,6 @@ function updateOrbiters(scene: Phaser.Scene, state: RuntimeState, dt: number): v
   const hitInterval = num(eff, 'hitInterval', 0.6);
   const orbitRadius = 12;
 
-  // オービター数を同期
   while (state.orbiters.length < count) {
     const o: OrbiterRuntime = { angle: 0, view: createOrbiterView(scene) };
     state.orbiters.push(o);
@@ -332,7 +331,6 @@ function updateOrbiters(scene: Phaser.Scene, state: RuntimeState, dt: number): v
   state.orbitAngle += dt * 2.4;
   const p = state.player;
 
-  // ヒットクールダウン減衰
   for (const [iid, t] of state.orbitHitCooldowns) {
     const nt = t - dt;
     if (nt <= 0) state.orbitHitCooldowns.delete(iid);
