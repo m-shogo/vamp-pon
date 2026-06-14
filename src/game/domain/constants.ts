@@ -26,44 +26,44 @@ export const DEFAULT_GAME_CONFIG = {
 } as const;
 
 export const PLAYER_DEFAULTS = {
-  hp: 100,
-  moveSpeed: 100,
+  hp: 110,
+  moveSpeed: 115,
   radius: 15,
   visualSize: 36,
-  invulnSec: 0.6,
+  invulnSec: 0.75,
 } as const;
 
 export const LEVEL_UP = {
   choices: 3,
   lowHpRatio: 0.35,
-  healAmount: 20,
+  healAmount: 28,
 } as const;
 
 /** スポーン関連（utils/viewport が参照）。 */
 export const SPAWN = {
   offscreenMin: 40,
   offscreenMax: 80,
-  minPlayerDist: 120,
+  minPlayerDist: 145,
 } as const;
 
 /** 記憶の欠片（pickups）。 */
 export const PICKUP = {
-  collectRadius: 18,
-  magnetRange: 70,
-  magnetSpeed: 200,
+  collectRadius: 22,
+  magnetRange: 95,
+  magnetSpeed: 280,
   visualSize: 11,
 } as const;
 
 /** 弾の共通設定。 */
 export const PROJECTILE = {
-  nightPencilSpeed: 260,
+  nightPencilSpeed: 340,
   radius: 5,
-  lifeSec: 3.0,
+  lifeSec: 3.2,
 } as const;
 
 /** 必殺技（ユイ: 消えない名前）。 */
 export const ULTIMATE = {
-  chargeSeconds: 90,
+  chargeSeconds: 60,
 } as const;
 
 /** エンティティ当たり半径の基準（タグ別の見た目/判定）。 */
