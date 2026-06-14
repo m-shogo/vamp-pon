@@ -42,13 +42,22 @@ pnpm assets:verify
 - `weapon_paper_airplane`
 - `enemy_ink_blob`
 - `enemy_paper_scrap`
+- `enemy_signpost`
+- `enemy_capsule`
+- `enemy_haze`
+- `weapon_marble`
+- `weapon_stardust`
+- `weapon_postcard_blade`
 
 `generated-draft`
 
 - `yui_idle`
+- `yui_move`
 - `enemy_elite_label`
 - `bg_stage1_paper_night`
 - `ui_card_paper_normal`
+- `ui_card_paper_good`
+- `ui_card_paper_rare`
 
 ## 方向性
 

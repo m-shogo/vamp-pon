@@ -38,8 +38,8 @@ describe('vampPixelKit', () => {
     }
   });
 
-  it('生成予定数が15以上', () => {
-    expect(generatedPixelAssets.length).toBeGreaterThanOrEqual(15);
+  it('生成予定数が24以上', () => {
+    expect(generatedPixelAssets.length).toBeGreaterThanOrEqual(24);
   });
 
   it('生成対象は public/assets/sprites 配下のPNGとして定義されている', () => {

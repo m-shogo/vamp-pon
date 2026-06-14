@@ -81,7 +81,7 @@
 ## 現在の状況
 
 ```txt
-生成素材: 15 個（generated-final 11 / generated-draft 4）
+生成素材: 24 個（generated-final 17 / generated-draft 7）
 表示    : 生成済みPNGは image、未生成PNGは Graphics fallback
 ```
 

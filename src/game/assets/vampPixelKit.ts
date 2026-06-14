@@ -10,7 +10,7 @@ export type PixelAssetKind = 'player' | 'enemy' | 'pickup' | 'rare' | 'weapon' |
 export type PixelAssetId = string;
 export type PixelAssetQuality = 'generated-final' | 'generated-draft' | 'hand-final';
 export type CharacterVisualId = 'yui';
-export type CharacterPose = 'idle';
+export type CharacterPose = 'idle' | 'move';
 export type TileVisualId = 'stage1-paper-night';
 
 export type PixelKitOptions = {
@@ -310,6 +310,40 @@ export function createPaperAirplaneProjectile(): PixelGrid {
   return outlineNonTransparent(grid, C.paperEdge);
 }
 
+export function createMarbleProjectile(): PixelGrid {
+  const grid = createEmptyGrid(12, 12);
+  drawCircle(grid, 6, 6, 5, [155, 181, 189, 170]);
+  drawCircle(grid, 6, 6, 3, [72, 66, 105, 190]);
+  drawCircle(grid, 4, 4, 1, C.whiteWarm);
+  drawLine(grid, 3, 8, 8, 3, [255, 228, 138, 180]);
+  drawLine(grid, 6, 9, 9, 6, [199, 169, 130, 170]);
+  setPixel(grid, 8, 8, C.lantern);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
+export function createStardustProjectile(): PixelGrid {
+  const grid = createEmptyGrid(12, 12);
+  fillPolygon(grid, [[3, 4], [8, 3], [10, 7], [5, 10], [2, 8]], [199, 169, 130, 210]);
+  drawLine(grid, 4, 7, 8, 6, C.paperLine);
+  drawDiamond(grid, 6, 6, 3, [255, 228, 138, 230]);
+  setPixel(grid, 6, 6, C.whiteWarm);
+  setPixel(grid, 2, 5, [255, 189, 78, 180]);
+  setPixel(grid, 10, 4, [255, 228, 138, 180]);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
+export function createPostcardBladeProjectile(): PixelGrid {
+  const grid = createEmptyGrid(16, 10);
+  fillPolygon(grid, [[1, 2], [12, 1], [15, 5], [12, 8], [1, 7]], C.paperLight);
+  fillPolygon(grid, [[10, 2], [15, 5], [10, 8]], [255, 228, 138, 210]);
+  drawLine(grid, 3, 3, 8, 3, C.paperLine);
+  drawLine(grid, 3, 5, 9, 5, C.paperLine);
+  drawLine(grid, 4, 7, 8, 7, C.paperLine);
+  fillRect(grid, 2, 2, 2, 2, [72, 66, 105, 190]);
+  setPixel(grid, 13, 5, C.whiteWarm);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
 export function createEnemyInkBlob(): PixelGrid {
   const grid = createEmptyGrid(24, 24);
   drawEllipse(grid, 12, 18, 10, 4, [8, 7, 19, 170]);
@@ -334,6 +368,44 @@ export function createEnemyPaperScrap(): PixelGrid {
   return outlineNonTransparent(grid, C.inkEdge);
 }
 
+export function createEnemySignpost(): PixelGrid {
+  const grid = createEmptyGrid(24, 24);
+  mergeGrid(grid, createEnemyInkBlob(), 0, 0);
+  fillRect(grid, 11, 3, 3, 13, C.paperEdge);
+  fillPolygon(grid, [[12, 4], [22, 6], [17, 10], [12, 9]], C.paper);
+  fillPolygon(grid, [[12, 10], [3, 12], [8, 16], [12, 15]], [199, 169, 130, 235]);
+  drawLine(grid, 15, 7, 19, 7, C.paperLine);
+  drawLine(grid, 5, 13, 9, 13, C.paperLine);
+  return outlineNonTransparent(grid, C.inkEdge);
+}
+
+export function createEnemyCapsule(): PixelGrid {
+  const grid = createEmptyGrid(24, 24);
+  mergeGrid(grid, createEnemyInkBlob(), 0, 0);
+  drawEllipse(grid, 12, 12, 6, 9, [48, 45, 75, 180]);
+  drawRectOutline(grid, 8, 5, 9, 13, C.inkEdge);
+  fillRect(grid, 10, 4, 5, 3, C.cork);
+  fillRect(grid, 10, 9, 5, 6, [155, 181, 189, 150]);
+  drawDiamond(grid, 12, 12, 2, [255, 228, 138, 190]);
+  fillRect(grid, 8, 11, 2, 3, C.eye);
+  fillRect(grid, 16, 11, 2, 3, C.eye);
+  return outlineNonTransparent(grid, C.inkEdge);
+}
+
+export function createEnemyHaze(): PixelGrid {
+  const grid = createEmptyGrid(24, 24);
+  drawEllipse(grid, 12, 16, 10, 5, [8, 7, 19, 170]);
+  drawCircle(grid, 8, 12, 5, [21, 20, 42, 210]);
+  drawCircle(grid, 14, 11, 6, [21, 20, 42, 210]);
+  drawCircle(grid, 17, 15, 4, [8, 7, 19, 220]);
+  drawLine(grid, 4, 18, 20, 18, C.inkEdge);
+  fillRect(grid, 8, 11, 3, 3, C.eye);
+  fillRect(grid, 15, 11, 3, 3, C.eye);
+  setPixel(grid, 5, 9, [72, 66, 105, 180]);
+  setPixel(grid, 19, 8, [72, 66, 105, 180]);
+  return outlineNonTransparent(grid, C.inkEdge);
+}
+
 export function createYuiGeneratedDraft(): PixelGrid {
   const grid = createEmptyGrid(32, 32);
   drawEllipse(grid, 16, 25, 11, 4, [16, 17, 36, 110]);
@@ -355,6 +427,20 @@ export function createYuiGeneratedDraft(): PixelGrid {
   return outlineNonTransparent(grid, C.inkEdge);
 }
 
+export function createYuiMoveGeneratedDraft(): PixelGrid {
+  const grid = createYuiGeneratedDraft();
+  setPixel(grid, 8, 26, null);
+  fillRect(grid, 7, 26, 4, 2, C.yuiDress);
+  fillRect(grid, 20, 26, 5, 2, C.yuiDress);
+  drawLine(grid, 6, 25, 10, 27, C.paperEdge);
+  drawLine(grid, 21, 27, 26, 25, C.paperEdge);
+  drawLine(grid, 6, 21, 3, 23, C.paper);
+  drawLine(grid, 25, 19, 28, 17, C.paper);
+  drawCircle(grid, 23, 18, 5, [255, 189, 78, 55]);
+  drawCircle(grid, 24, 18, 2, C.lantern);
+  return outlineNonTransparent(grid, C.inkEdge);
+}
+
 export function createEnemyEliteLabel(): PixelGrid {
   const grid = createEmptyGrid(32, 32);
   drawEllipse(grid, 16, 25, 13, 5, [8, 7, 19, 160]);
@@ -373,8 +459,14 @@ export function createEnemyEliteLabel(): PixelGrid {
 export function createPaperNightTile(options: PixelKitOptions = {}): PixelGrid {
   const rng = createSeededRng(options.seed ?? 70);
   const grid = createEmptyGrid(128, 128, C.nightMid);
-  for (let y = 0; y < 128; y += 16) drawLine(grid, 0, y, 127, y, C.night, 1);
-  for (let x = 0; x < 128; x += 24) drawLine(grid, x, 0, x, 127, C.night, 1);
+  for (let y = 0; y < 128; y += 18) {
+    const yy = y + Math.floor(rng() * 5) - 2;
+    drawLine(grid, Math.floor(rng() * 9), yy, 127 - Math.floor(rng() * 11), yy + Math.floor(rng() * 3) - 1, [45, 44, 77, 145], 1);
+  }
+  for (let x = 0; x < 128; x += 26) {
+    const xx = x + Math.floor(rng() * 5) - 2;
+    drawLine(grid, xx, Math.floor(rng() * 9), xx + Math.floor(rng() * 3) - 1, 127 - Math.floor(rng() * 11), [45, 44, 77, 115], 1);
+  }
   drawNoise(grid, rng, [81, 73, 111, 120], 0.012);
   for (const [x, y] of [[8, 10], [91, 14], [35, 62], [112, 78], [18, 108], [74, 105]]) {
     mergeGrid(grid, createPaperScrap(16, 16, { seed: x + y }), x, y);
@@ -388,20 +480,39 @@ export function createPaperNightTile(options: PixelKitOptions = {}): PixelGrid {
   return grid;
 }
 
-export function createUiPaperCard(options: PixelKitOptions = {}): PixelGrid {
+export function createUiPaperCard(options: PixelKitOptions = {}, variant: 'normal' | 'good' | 'rare' = 'normal'): PixelGrid {
   const rng = createSeededRng(options.seed ?? 80);
   const grid = createEmptyGrid(320, 144);
+  const edge = variant === 'normal' ? C.paperEdge : variant === 'good' ? C.wind : C.lantern;
+  const wax = variant === 'normal' ? C.inkEdge : variant === 'good' ? C.wind : C.healRed;
   fillRect(grid, 0, 0, 320, 144, C.uiPaper);
-  drawRectOutline(grid, 0, 0, 320, 144, C.paperEdge);
+  drawRectOutline(grid, 0, 0, 320, 144, edge);
   drawRectOutline(grid, 4, 4, 312, 136, C.paper);
   drawNoise(grid, rng, [199, 169, 130, 80], 0.018);
   fillRect(grid, 16, 20, 56, 56, [57, 55, 93, 255]);
-  drawCircle(grid, 44, 48, 18, C.inkEdge);
+  drawCircle(grid, 44, 48, 18, wax);
+  if (variant === 'good') {
+    drawDiamond(grid, 44, 48, 12, [142, 183, 155, 210]);
+    drawLine(grid, 35, 48, 53, 48, C.paperLight);
+  } else if (variant === 'rare') {
+    drawCircle(grid, 44, 48, 14, [255, 189, 78, 120]);
+    drawStar(grid, 44, 48, 10, C.star, C.paperEdge);
+    drawCircle(grid, 280, 24, 10, [255, 189, 78, 70]);
+    drawCircle(grid, 280, 24, 3, [255, 244, 196, 160]);
+  }
   drawLine(grid, 100, 28, 248, 28, C.paperLine, 2);
   drawLine(grid, 100, 54, 292, 54, C.paperLine, 1);
   drawLine(grid, 100, 76, 270, 76, C.paperLine, 1);
   drawLine(grid, 100, 108, 226, 108, [199, 169, 130, 255], 1);
   return grid;
+}
+
+export function createUiPaperCardGood(options: PixelKitOptions = {}): PixelGrid {
+  return createUiPaperCard(options, 'good');
+}
+
+export function createUiPaperCardRare(options: PixelKitOptions = {}): PixelGrid {
+  return createUiPaperCard(options, 'rare');
 }
 
 export const generatedPixelAssets: PixelAssetSpec[] = [
@@ -413,13 +524,22 @@ export const generatedPixelAssets: PixelAssetSpec[] = [
   { id: 'rare_sealed_letter', path: 'assets/sprites/pickups/rare_sealed_letter_16.png', width: 16, height: 16, kind: 'rare', quality: 'generated-final', create: createSealedLetter },
   { id: 'rare_wind_mark', path: 'assets/sprites/pickups/rare_wind_mark_16.png', width: 16, height: 16, kind: 'rare', quality: 'generated-final', create: createWindMark },
   { id: 'weapon_night_pencil', path: 'assets/sprites/weapons/weapon_night_pencil_projectile.png', width: 16, height: 8, kind: 'weapon', quality: 'generated-final', create: createNightPencilProjectile },
+  { id: 'weapon_marble', path: 'assets/sprites/weapons/weapon_marble_projectile.png', width: 12, height: 12, kind: 'weapon', quality: 'generated-final', create: createMarbleProjectile },
+  { id: 'weapon_stardust', path: 'assets/sprites/weapons/weapon_stardust_projectile.png', width: 12, height: 12, kind: 'weapon', quality: 'generated-final', create: createStardustProjectile },
+  { id: 'weapon_postcard_blade', path: 'assets/sprites/weapons/weapon_postcard_blade_projectile.png', width: 16, height: 10, kind: 'weapon', quality: 'generated-final', create: createPostcardBladeProjectile },
   { id: 'weapon_paper_airplane', path: 'assets/sprites/weapons/weapon_paper_airplane_projectile.png', width: 16, height: 12, kind: 'weapon', quality: 'generated-final', create: createPaperAirplaneProjectile },
   { id: 'enemy_ink_blob', path: 'assets/sprites/enemies/enemy_ink_blob_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyInkBlob },
   { id: 'enemy_paper_scrap', path: 'assets/sprites/enemies/enemy_paper_scrap_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyPaperScrap },
+  { id: 'enemy_signpost', path: 'assets/sprites/enemies/enemy_signpost_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemySignpost },
+  { id: 'enemy_capsule', path: 'assets/sprites/enemies/enemy_capsule_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyCapsule },
+  { id: 'enemy_haze', path: 'assets/sprites/enemies/enemy_haze_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyHaze },
   { id: 'yui_idle', path: 'assets/sprites/player/yui_idle_32.png', width: 32, height: 32, kind: 'player', quality: 'generated-draft', create: createYuiGeneratedDraft },
+  { id: 'yui_move', path: 'assets/sprites/player/yui_move_32.png', width: 32, height: 32, kind: 'player', quality: 'generated-draft', create: createYuiMoveGeneratedDraft },
   { id: 'enemy_elite_label', path: 'assets/sprites/enemies/enemy_elite_label_32.png', width: 32, height: 32, kind: 'enemy', quality: 'generated-draft', create: createEnemyEliteLabel },
   { id: 'bg_stage1_paper_night', path: 'assets/sprites/tiles/bg_stage1_paper_night_tile.png', width: 128, height: 128, kind: 'tile', quality: 'generated-draft', create: createPaperNightTile },
   { id: 'ui_card_paper_normal', path: 'assets/sprites/ui/ui_card_paper_normal.png', width: 320, height: 144, kind: 'ui', quality: 'generated-draft', create: createUiPaperCard },
+  { id: 'ui_card_paper_good', path: 'assets/sprites/ui/ui_card_paper_good.png', width: 320, height: 144, kind: 'ui', quality: 'generated-draft', create: createUiPaperCardGood },
+  { id: 'ui_card_paper_rare', path: 'assets/sprites/ui/ui_card_paper_rare.png', width: 320, height: 144, kind: 'ui', quality: 'generated-draft', create: createUiPaperCardRare },
 ];
 
 function drawRectOutline(grid: PixelGrid, x: number, y: number, width: number, height: number, color: PixelColor): void {

@@ -72,7 +72,7 @@ function validateGrid(spec: PixelAssetSpec, grid: PixelGrid): void {
 }
 
 function generateAssets({ verifyOnly }: { verifyOnly: boolean }): void {
-  if (generatedPixelAssets.length < 15) throw new Error(`生成予定数が少なすぎます: ${generatedPixelAssets.length}`);
+  if (generatedPixelAssets.length < 24) throw new Error(`生成予定数が少なすぎます: ${generatedPixelAssets.length}`);
 
   for (const spec of generatedPixelAssets) {
     assertManifestMatch(spec);

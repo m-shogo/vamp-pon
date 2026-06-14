@@ -9,6 +9,8 @@ import { weaponById } from '../data/weapons';
 import { passiveById } from '../data/passives';
 import { rareItemById } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
+import { spriteOrNull } from '../assets/assetHelpers';
+import type { AssetId } from '../assets/assetManifest';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
@@ -150,11 +152,19 @@ export class Overlays {
     const card = this.scene.add.container(cx, cy);
     const rarity = choice.rarity ?? 'normal';
     const edge = rarityColor(rarity);
-    const bg = this.scene.add.rectangle(0, 0, w, h, rarity === 'normal' ? COLORS.cardBg : 0xfff4cf, 1);
-    bg.setStrokeStyle(rarity === 'rare' ? 5 : 3, edge, 1);
-    bg.setInteractive({ useHandCursor: true });
-    bg.on('pointerdown', onClick);
-    card.add(bg);
+    const bgSprite = spriteOrNull(this.scene, cardAssetIdFor(rarity), w, h);
+    if (bgSprite) {
+      const hit = this.scene.add.rectangle(0, 0, w, h, 0x000000, 0.001);
+      hit.setInteractive({ useHandCursor: true });
+      hit.on('pointerdown', onClick);
+      card.add([bgSprite, hit]);
+    } else {
+      const bg = this.scene.add.rectangle(0, 0, w, h, rarity === 'normal' ? COLORS.cardBg : 0xfff4cf, 1);
+      bg.setStrokeStyle(rarity === 'rare' ? 5 : 3, edge, 1);
+      bg.setInteractive({ useHandCursor: true });
+      bg.on('pointerdown', onClick);
+      card.add(bg);
+    }
 
     const icon = iconForChoice(choice);
     const lore = 'lore' in choice && choice.lore ? choice.lore : '';
@@ -299,6 +309,14 @@ function rarityColor(rarity: RewardRarity): number {
     case 'rare': return 0xffd45e; // 金（大当たり）
     case 'good': return 0x8fa9b8; // 落ち着いた紙の青（ネオンにしない）
     case 'normal': return COLORS.cardEdge;
+  }
+}
+
+function cardAssetIdFor(rarity: RewardRarity): AssetId {
+  switch (rarity) {
+    case 'rare': return 'ui_card_paper_rare';
+    case 'good': return 'ui_card_paper_good';
+    case 'normal': return 'ui_card_paper_normal';
   }
 }
 
