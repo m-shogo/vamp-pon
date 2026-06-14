@@ -196,6 +196,14 @@ export function hasVisiblePixel(grid: PixelGrid): boolean {
   return grid.pixels.some((pixel) => pixel != null && pixel[3] > 0);
 }
 
+export function fadeGrid(grid: PixelGrid, alphaScale: number): PixelGrid {
+  return {
+    width: grid.width,
+    height: grid.height,
+    pixels: grid.pixels.map((pixel) => (pixel ? [pixel[0], pixel[1], pixel[2], Math.round(pixel[3] * alphaScale)] : null)),
+  };
+}
+
 export function createPaperScrap(width = 16, height = 16, options: PixelKitOptions = {}): PixelGrid {
   const rng = createSeededRng(options.seed ?? 10);
   const grid = createEmptyGrid(width, height);
@@ -226,17 +234,19 @@ export function createInkBlot(width = 16, height = 16, options: PixelKitOptions 
 
 export function createMemoryFragment(options: PixelKitOptions = {}): PixelGrid {
   const grid = createEmptyGrid(12, 12);
-  drawCircle(grid, 6, 6, 5, [255, 189, 78, 70]);
+  drawCircle(grid, 6, 6, 5, [255, 189, 78, 52]);
   drawStar(grid, 6, 6, 5, C.star, C.paperEdge);
   fillRect(grid, 5, 5, 2, 2, C.whiteWarm);
-  drawNoise(grid, createSeededRng(options.seed ?? 30), [255, 228, 138, 180], 0.02);
+  drawDiamond(grid, 6, 6, 3, [255, 244, 196, 230]);
+  drawNoise(grid, createSeededRng(options.seed ?? 30), [255, 228, 138, 190], 0.025);
   return grid;
 }
 
 export function createHealPaper(): PixelGrid {
   const grid = createPaperScrap(14, 14, { seed: 41 });
-  drawLine(grid, 4, 7, 10, 7, C.healRed, 2);
-  drawLine(grid, 7, 4, 7, 11, C.healRed, 2);
+  fillRect(grid, 4, 4, 7, 7, C.heal);
+  drawLine(grid, 4, 7, 10, 7, [180, 80, 76, 255], 2);
+  drawLine(grid, 7, 4, 7, 11, [180, 80, 76, 255], 2);
   return grid;
 }
 
@@ -244,9 +254,9 @@ export function createCapsule(): PixelGrid {
   const grid = createEmptyGrid(16, 16);
   fillRect(grid, 6, 1, 5, 3, C.cork);
   drawLine(grid, 5, 4, 11, 4, C.paperLight);
-  fillRect(grid, 4, 5, 9, 9, [155, 181, 189, 170]);
-  fillRect(grid, 5, 6, 7, 7, [255, 189, 78, 80]);
-  drawRectOutline(grid, 4, 5, 9, 9, C.paperLight);
+  fillRect(grid, 4, 5, 9, 9, [155, 205, 218, 205]);
+  fillRect(grid, 5, 6, 7, 7, [255, 189, 78, 90]);
+  drawRectOutline(grid, 4, 5, 9, 9, [232, 246, 245, 255]);
   drawStar(grid, 8, 10, 4, C.star, C.paperEdge);
   return grid;
 }
@@ -504,24 +514,24 @@ export function createEnemyEliteLabel(): PixelGrid {
 
 export function createPaperNightTile(options: PixelKitOptions = {}): PixelGrid {
   const rng = createSeededRng(options.seed ?? 70);
-  const grid = createEmptyGrid(128, 128, C.nightMid);
-  for (let y = 0; y < 128; y += 18) {
+  const grid = createEmptyGrid(128, 128, [50, 50, 82, 255]);
+  for (let y = 0; y < 128; y += 24) {
     const yy = y + Math.floor(rng() * 5) - 2;
-    drawLine(grid, Math.floor(rng() * 9), yy, 127 - Math.floor(rng() * 11), yy + Math.floor(rng() * 3) - 1, [45, 44, 77, 145], 1);
+    drawLine(grid, Math.floor(rng() * 14), yy, 127 - Math.floor(rng() * 16), yy + Math.floor(rng() * 3) - 1, [45, 44, 77, 82], 1);
   }
-  for (let x = 0; x < 128; x += 26) {
+  for (let x = 0; x < 128; x += 34) {
     const xx = x + Math.floor(rng() * 5) - 2;
-    drawLine(grid, xx, Math.floor(rng() * 9), xx + Math.floor(rng() * 3) - 1, 127 - Math.floor(rng() * 11), [45, 44, 77, 115], 1);
+    drawLine(grid, xx, Math.floor(rng() * 14), xx + Math.floor(rng() * 3) - 1, 127 - Math.floor(rng() * 16), [45, 44, 77, 65], 1);
   }
-  drawNoise(grid, rng, [81, 73, 111, 120], 0.012);
-  for (const [x, y] of [[8, 10], [91, 14], [35, 62], [112, 78], [18, 108], [74, 105]]) {
-    mergeGrid(grid, createPaperScrap(16, 16, { seed: x + y }), x, y);
+  drawNoise(grid, rng, [81, 73, 111, 78], 0.007);
+  for (const [x, y] of [[8, 10], [91, 14], [112, 78], [18, 108]]) {
+    mergeGrid(grid, fadeGrid(createPaperScrap(16, 16, { seed: x + y }), 0.42), x, y);
   }
-  for (const [x, y] of [[56, 22], [103, 44], [48, 94], [12, 74]]) mergeGrid(grid, createInkBlot(18, 12, { seed: x + y }), x, y);
+  for (const [x, y] of [[56, 22], [103, 44], [48, 94]]) mergeGrid(grid, fadeGrid(createInkBlot(18, 12, { seed: x + y }), 0.45), x, y);
   for (const [x, y] of [[22, 28], [99, 100]]) {
-    drawCircle(grid, x, y, 10, [255, 189, 78, 35]);
-    drawCircle(grid, x, y, 4, [255, 228, 138, 80]);
-    fillRect(grid, x - 1, y - 1, 2, 2, [255, 244, 196, 180]);
+    drawCircle(grid, x, y, 8, [255, 189, 78, 22]);
+    drawCircle(grid, x, y, 3, [255, 228, 138, 48]);
+    fillRect(grid, x - 1, y - 1, 2, 2, [255, 244, 196, 105]);
   }
   return grid;
 }

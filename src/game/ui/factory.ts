@@ -30,6 +30,32 @@ const DEPTH = {
 
 export const VIEW_DEPTH = DEPTH;
 
+function addPickupReadability(
+  scene: Phaser.Scene,
+  c: Phaser.GameObjects.Container,
+  sprite: Phaser.GameObjects.Image,
+  size: number,
+  accent: number,
+  depth: number,
+): Phaser.GameObjects.Container {
+  const shadow = scene.add.ellipse(1, 3, size * 0.95, size * 0.55, 0x050610, 0.58);
+  const backing = scene.add.circle(0, 0, size * 0.48, 0x070816, 0.34);
+  backing.setStrokeStyle(2, 0x080713, 0.72);
+  const pulse = scene.add.circle(0, 0, size * 0.57, accent, 0.12);
+  pulse.setStrokeStyle(1, accent, 0.3);
+  c.add([shadow, backing, pulse, sprite]);
+  scene.tweens.add({
+    targets: pulse,
+    alpha: { from: 0.08, to: 0.2 },
+    scale: { from: 0.92, to: 1.08 },
+    duration: 900,
+    yoyo: true,
+    repeat: -1,
+  });
+  c.setDepth(depth);
+  return c;
+}
+
 /**
  * プレイヤー（ユイ）: フードの小さな主人公 + 手元の小さなランタン。
  * 参考: style_sprite-sheet_01 / style_gameplay_02。暗い背景でも輪郭が読める。
@@ -358,11 +384,9 @@ export function createOrbiterView(scene: Phaser.Scene, assetId?: AssetId): Phase
 /** 記憶の欠片: 金の星 + 柔らかい光（参考: item_memory-fragment）。 */
 export function createPickupView(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  const sprite = spriteOrNull(scene, 'pickup_memory_fragment', PICKUP.visualSize * 2, PICKUP.visualSize * 2);
+  const sprite = spriteOrNull(scene, 'pickup_memory_fragment', 24, 24);
   if (sprite) {
-    c.add(sprite);
-    c.setDepth(DEPTH.pickup);
-    return c;
+    return addPickupReadability(scene, c, sprite, 24, COLORS.fragment, DEPTH.pickup);
   }
   const glow = scene.add.circle(0, 0, PICKUP.visualSize, COLORS.fragmentGlow, GLOW_ALPHA_MAX);
   const star = scene.add.star(0, 0, 5, PICKUP.visualSize * 0.36, PICKUP.visualSize * 0.8, COLORS.fragment, 1);
@@ -375,11 +399,9 @@ export function createPickupView(scene: Phaser.Scene): Phaser.GameObjects.Contai
 /** 回復ドロップ: 朝色の絆創膏/包帯紙（緑の十字にしない）。 */
 export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  const sprite = spriteOrNull(scene, 'pickup_heal_paper', (PICKUP.visualSize + 4) * 2, (PICKUP.visualSize + 4) * 2);
+  const sprite = spriteOrNull(scene, 'pickup_heal_paper', 30, 30);
   if (sprite) {
-    c.add(sprite);
-    c.setDepth(DEPTH.pickup);
-    return c;
+    return addPickupReadability(scene, c, sprite, 30, COLORS.healMark, DEPTH.pickup);
   }
   const glow = scene.add.circle(0, 0, PICKUP.visualSize + 4, COLORS.dawnWarm, GLOW_ALPHA_MAX);
   // 包帯紙（細長い紙）を斜めに重ねる
@@ -397,11 +419,9 @@ export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Co
 /** 記憶カプセル: コルク付きの小瓶の中に小さな星が光る（参考: item_memory-fragment）。 */
 export function createCapsuleView(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  const sprite = spriteOrNull(scene, 'pickup_capsule', 28, 28);
+  const sprite = spriteOrNull(scene, 'pickup_capsule', 34, 34);
   if (sprite) {
-    c.add(sprite);
-    c.setDepth(DEPTH.capsule);
-    return c;
+    return addPickupReadability(scene, c, sprite, 34, COLORS.glass, DEPTH.capsule);
   }
   const glow = scene.add.circle(0, 2, 16, COLORS.fragmentGlow, GLOW_ALPHA_MAX);
   // ガラス瓶

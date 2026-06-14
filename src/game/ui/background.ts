@@ -15,10 +15,13 @@ export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Contai
   // 画像タイルがあれば敷き詰める。無ければ Graphics fallback（以下）。
   if (hasAsset(scene, 'bg_stage1_paper_night')) {
     c.add(scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg_stage1_paper_night').setOrigin(0, 0));
+    // 生成タイルの紙片/地図線が拾得物と競合しないよう、実画像時も必ず可読性レイヤーを重ねる。
+    c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x20263d, 0.22));
+    c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH - 56, GAME_HEIGHT - 176, 0x2f3854, 0.12));
     for (const spot of [
       { x: 26, y: 96 }, { x: GAME_WIDTH - 28, y: 250 }, { x: 38, y: GAME_HEIGHT - 200 }, { x: GAME_WIDTH - 34, y: GAME_HEIGHT - 120 },
     ]) {
-      c.add(scene.add.circle(spot.x, spot.y, 46, COLORS.lantern, 0.05));
+      c.add(scene.add.circle(spot.x, spot.y, 46, COLORS.lantern, 0.025));
     }
     return c;
   }
