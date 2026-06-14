@@ -3,8 +3,9 @@ import type { EnemyDefinition } from '../domain/types';
 import type { RuntimeState, EnemyRuntime } from '../runtime';
 import { nextIid } from '../runtime';
 import { PLAYER_DEFAULTS, COLORS, GAME_STATUS } from '../domain/constants';
-import { distance, normalize } from '../utils/math';
+import { distance } from '../utils/math';
 import { randRange } from '../utils/rng';
+import { capsuleDropChanceFor, computeBehaviorStep } from '../domain/enemyRules';
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule } from './pickups';
@@ -22,7 +23,7 @@ export function spawnEnemy(
   const view = createEnemyView(scene, def, radius);
   view.setPosition(x, y);
   const isElite = def.tags.includes('elite');
-  const capsuleDropChance = def.drops?.find((d) => d.type === 'memory_capsule')?.chance ?? 0;
+  const capsuleDropChance = capsuleDropChanceFor(def);
   const enemy: EnemyRuntime = {
     iid: nextIid(state),
     defId: def.id,
@@ -116,39 +117,18 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
   for (const e of state.enemies) {
     if (e.dead) continue;
 
-    // 移動方向と速度（behaviorで挙動差を出す）
-    const d = distance(e.x, e.y, p.x, p.y);
-    let dir = normalize(p.x - e.x, p.y - e.y);
-    let speedFactor = 1;
-    switch (e.behavior) {
-      case 'offset_chase':
-        // 少し横にずれながら回り込む
-        if (d > 80) {
-          const perp = { x: -dir.y, y: dir.x };
-          dir = normalize(dir.x + perp.x * e.offsetSign * 0.6, dir.y + perp.y * e.offsetSign * 0.6);
-        }
-        break;
-      case 'slow_chase':
-        // 近いと少し減速（硬いが詰めは遅い）
-        if (d < 70) speedFactor = 0.5;
-        break;
-      case 'swarm_chase': {
-        // 直線でなく少しばらけて群れる
-        const wob = Math.sin(state.elapsedSec * 2 + e.iid) * 0.5 * e.offsetSign;
-        const perp = { x: -dir.y, y: dir.x };
-        dir = normalize(dir.x + perp.x * wob, dir.y + perp.y * wob);
-        break;
-      }
-      case 'elite_chase':
-        // 遠いと押し込む（止まらない圧）
-        if (d > 220) speedFactor = 1.25;
-        break;
-      case 'chase':
-      default:
-        break;
-    }
-    e.x += dir.x * e.moveSpeed * speedFactor * dt;
-    e.y += dir.y * e.moveSpeed * speedFactor * dt;
+    // 移動方向と速度（behaviorで挙動差を出す。純ロジックは domain/enemyRules）
+    const step = computeBehaviorStep({
+      behavior: e.behavior,
+      dx: p.x - e.x,
+      dy: p.y - e.y,
+      dist: distance(e.x, e.y, p.x, p.y),
+      offsetSign: e.offsetSign,
+      iid: e.iid,
+      elapsedSec: state.elapsedSec,
+    });
+    e.x += step.dirX * e.moveSpeed * step.speedFactor * dt;
+    e.y += step.dirY * e.moveSpeed * step.speedFactor * dt;
     e.view.setPosition(e.x, e.y);
 
     // 命中スケールポップを徐々に戻す
