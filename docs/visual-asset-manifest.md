@@ -8,6 +8,7 @@
 - 読み込み: `BootScene` → `loadAssets.ts` が全 id を preload
 - 切替: `factory.ts` の各 `createXView` が `spriteOrNull()` で画像 or Graphics fallback
 - 状況確認: VisualGallery `?scene=asset-status`
+- 生成: `pnpm generate:pixel-assets`（詳細は [generated-pixel-assets.md](generated-pixel-assets.md)）
 
 ---
 
@@ -80,11 +81,11 @@
 ## 現在の状況
 
 ```txt
-実素材: 0 個（すべて未配置）
-表示  : 全要素 Graphics fallback で動作中
+生成素材: 15 個（generated-final 11 / generated-draft 4）
+表示    : 生成済みPNGは image、未生成PNGは Graphics fallback
 ```
 
 `?scene=asset-status` で最新の 実素材/仮/欠品 を確認できる。
-1つ PNG を `public/assets/sprites/...` に置くと、その要素だけ自動で画像表示に切替わる。
+`pnpm generate:pixel-assets` を実行すると、生成対象PNGが `public/assets/sprites/...` に書き出され、その要素だけ自動で画像表示に切替わる。
 
-整合性は `src/game/assets/__tests__/assetManifest.test.ts` が検査（id一意・対応漏れ）。
+整合性は `src/game/assets/__tests__/assetManifest.test.ts` と `src/game/assets/__tests__/vampPixelKit.test.ts` が検査（id一意・対応漏れ・生成path/size）。

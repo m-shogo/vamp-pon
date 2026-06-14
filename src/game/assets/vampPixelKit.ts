@@ -1,0 +1,472 @@
+export type PixelColor = readonly [r: number, g: number, b: number, a: number];
+
+export type PixelGrid = {
+  width: number;
+  height: number;
+  pixels: Array<PixelColor | null>;
+};
+
+export type PixelAssetKind = 'player' | 'enemy' | 'pickup' | 'rare' | 'weapon' | 'tile' | 'ui';
+export type PixelAssetId = string;
+export type PixelAssetQuality = 'generated-final' | 'generated-draft' | 'hand-final';
+export type CharacterVisualId = 'yui';
+export type CharacterPose = 'idle';
+export type TileVisualId = 'stage1-paper-night';
+
+export type PixelKitOptions = {
+  seed?: number;
+};
+
+export type PixelAssetSpec = {
+  id: PixelAssetId;
+  path: string;
+  width: number;
+  height: number;
+  kind: PixelAssetKind;
+  quality: PixelAssetQuality;
+  create: (options?: PixelKitOptions) => PixelGrid;
+};
+
+export type SeededRng = () => number;
+
+export const TRANSPARENT: PixelColor = [0, 0, 0, 0];
+
+export const VAMP_PALETTE = {
+  nightDeep: [17, 17, 34, 255],
+  night: [45, 44, 77, 255],
+  nightMid: [57, 55, 93, 255],
+  nightLight: [72, 66, 105, 255],
+  ink: [8, 7, 19, 255],
+  inkSoft: [21, 20, 42, 255],
+  inkEdge: [48, 45, 75, 255],
+  paperEdge: [111, 88, 79, 255],
+  paperLine: [127, 102, 91, 255],
+  paper: [199, 169, 130, 255],
+  paperLight: [247, 224, 164, 255],
+  lantern: [255, 189, 78, 255],
+  star: [255, 228, 138, 255],
+  whiteWarm: [255, 244, 196, 255],
+  eye: [255, 248, 217, 255],
+  yuiHood: [39, 48, 77, 255],
+  yuiDress: [185, 130, 98, 255],
+  yuiHair: [75, 38, 48, 255],
+  heal: [238, 203, 154, 255],
+  healRed: [156, 77, 73, 255],
+  cork: [139, 91, 55, 255],
+  glass: [155, 181, 189, 255],
+  wind: [142, 183, 155, 255],
+  uiPaper: [246, 234, 198, 255],
+} satisfies Record<string, PixelColor>;
+
+const C = VAMP_PALETTE;
+
+export function createSeededRng(seed = 1): SeededRng {
+  let state = seed >>> 0;
+  return () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 0x100000000;
+  };
+}
+
+export function createEmptyGrid(width: number, height: number, fill: PixelColor | null = null): PixelGrid {
+  return { width, height, pixels: Array.from({ length: width * height }, () => fill) };
+}
+
+export function setPixel(grid: PixelGrid, x: number, y: number, color: PixelColor | null): void {
+  const px = Math.round(x);
+  const py = Math.round(y);
+  if (px < 0 || py < 0 || px >= grid.width || py >= grid.height) return;
+  grid.pixels[py * grid.width + px] = color;
+}
+
+export function fillRect(grid: PixelGrid, x: number, y: number, width: number, height: number, color: PixelColor | null): void {
+  for (let py = y; py < y + height; py += 1) {
+    for (let px = x; px < x + width; px += 1) setPixel(grid, px, py, color);
+  }
+}
+
+export function drawLine(grid: PixelGrid, x0: number, y0: number, x1: number, y1: number, color: PixelColor, thickness = 1): void {
+  let cx = Math.round(x0);
+  let cy = Math.round(y0);
+  const tx = Math.round(x1);
+  const ty = Math.round(y1);
+  const dx = Math.abs(tx - cx);
+  const sx = cx < tx ? 1 : -1;
+  const dy = -Math.abs(ty - cy);
+  const sy = cy < ty ? 1 : -1;
+  let err = dx + dy;
+  const offset = Math.floor(thickness / 2);
+
+  while (true) {
+    fillRect(grid, cx - offset, cy - offset, thickness, thickness, color);
+    if (cx === tx && cy === ty) break;
+    const e2 = 2 * err;
+    if (e2 >= dy) {
+      err += dy;
+      cx += sx;
+    }
+    if (e2 <= dx) {
+      err += dx;
+      cy += sy;
+    }
+  }
+}
+
+export function drawCircle(grid: PixelGrid, cx: number, cy: number, radius: number, color: PixelColor): void {
+  for (let y = Math.floor(cy - radius); y <= Math.ceil(cy + radius); y += 1) {
+    for (let x = Math.floor(cx - radius); x <= Math.ceil(cx + radius); x += 1) {
+      if ((x - cx) ** 2 + (y - cy) ** 2 <= radius ** 2) setPixel(grid, x, y, color);
+    }
+  }
+}
+
+export function drawDiamond(grid: PixelGrid, cx: number, cy: number, radius: number, color: PixelColor): void {
+  for (let y = Math.floor(cy - radius); y <= Math.ceil(cy + radius); y += 1) {
+    for (let x = Math.floor(cx - radius); x <= Math.ceil(cx + radius); x += 1) {
+      if (Math.abs(x - cx) + Math.abs(y - cy) <= radius) setPixel(grid, x, y, color);
+    }
+  }
+}
+
+export function drawNoise(grid: PixelGrid, rng: SeededRng, color: PixelColor, density: number): void {
+  for (let y = 0; y < grid.height; y += 1) {
+    for (let x = 0; x < grid.width; x += 1) {
+      if (rng() < density) setPixel(grid, x, y, color);
+    }
+  }
+}
+
+export function outlineNonTransparent(grid: PixelGrid, color: PixelColor): PixelGrid {
+  const result = cloneGrid(grid);
+  for (let y = 0; y < grid.height; y += 1) {
+    for (let x = 0; x < grid.width; x += 1) {
+      if (getPixel(grid, x, y)) continue;
+      if (getPixel(grid, x - 1, y) || getPixel(grid, x + 1, y) || getPixel(grid, x, y - 1) || getPixel(grid, x, y + 1)) {
+        setPixel(result, x, y, color);
+      }
+    }
+  }
+  return result;
+}
+
+export function addDropShadow(grid: PixelGrid, dx = 1, dy = 1, color: PixelColor = [8, 7, 19, 150]): PixelGrid {
+  const result = createEmptyGrid(grid.width, grid.height);
+  for (let y = 0; y < grid.height; y += 1) {
+    for (let x = 0; x < grid.width; x += 1) {
+      if (getPixel(grid, x, y)) setPixel(result, x + dx, y + dy, color);
+    }
+  }
+  mergeGrid(result, grid);
+  return result;
+}
+
+export function mergeGrid(target: PixelGrid, source: PixelGrid, offsetX = 0, offsetY = 0): PixelGrid {
+  for (let y = 0; y < source.height; y += 1) {
+    for (let x = 0; x < source.width; x += 1) {
+      const color = getPixel(source, x, y);
+      if (color) setPixel(target, x + offsetX, y + offsetY, color);
+    }
+  }
+  return target;
+}
+
+export function pixelGridToRgbaBuffer(grid: PixelGrid): Uint8Array {
+  const out = new Uint8Array(grid.width * grid.height * 4);
+  grid.pixels.forEach((color, index) => {
+    const rgba = color ?? TRANSPARENT;
+    const offset = index * 4;
+    out[offset] = rgba[0];
+    out[offset + 1] = rgba[1];
+    out[offset + 2] = rgba[2];
+    out[offset + 3] = rgba[3];
+  });
+  return out;
+}
+
+export function getPixel(grid: PixelGrid, x: number, y: number): PixelColor | null {
+  if (x < 0 || y < 0 || x >= grid.width || y >= grid.height) return null;
+  return grid.pixels[y * grid.width + x];
+}
+
+export function cloneGrid(grid: PixelGrid): PixelGrid {
+  return { width: grid.width, height: grid.height, pixels: [...grid.pixels] };
+}
+
+export function hasVisiblePixel(grid: PixelGrid): boolean {
+  return grid.pixels.some((pixel) => pixel != null && pixel[3] > 0);
+}
+
+export function createPaperScrap(width = 16, height = 16, options: PixelKitOptions = {}): PixelGrid {
+  const rng = createSeededRng(options.seed ?? 10);
+  const grid = createEmptyGrid(width, height);
+  const points = [
+    [3, 3],
+    [width - 3, 2 + Math.floor(rng() * 2)],
+    [width - 4, height - 4],
+    [2, height - 3],
+  ];
+  fillPolygon(grid, points, C.paper);
+  drawLine(grid, 4, Math.floor(height / 2), width - 5, Math.floor(height / 2) + 1, C.paperLine);
+  drawLine(grid, 5, Math.floor(height / 2) + 3, width - 7, Math.floor(height / 2) + 4, C.paperLine);
+  setPixel(grid, 4, 4, C.paperLight);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
+export function createInkBlot(width = 16, height = 16, options: PixelKitOptions = {}): PixelGrid {
+  const rng = createSeededRng(options.seed ?? 20);
+  const grid = createEmptyGrid(width, height);
+  drawCircle(grid, width / 2, height / 2, Math.min(width, height) * 0.32, C.ink);
+  drawCircle(grid, width * 0.35, height * 0.6, Math.min(width, height) * 0.2, C.ink);
+  drawCircle(grid, width * 0.7, height * 0.58, Math.min(width, height) * 0.18, C.ink);
+  for (let i = 0; i < 8; i += 1) {
+    setPixel(grid, Math.floor(rng() * width), Math.floor(rng() * height), C.inkEdge);
+  }
+  return grid;
+}
+
+export function createMemoryFragment(options: PixelKitOptions = {}): PixelGrid {
+  const grid = createEmptyGrid(12, 12);
+  drawCircle(grid, 6, 6, 5, [255, 189, 78, 70]);
+  drawStar(grid, 6, 6, 5, C.star, C.paperEdge);
+  fillRect(grid, 5, 5, 2, 2, C.whiteWarm);
+  drawNoise(grid, createSeededRng(options.seed ?? 30), [255, 228, 138, 180], 0.02);
+  return grid;
+}
+
+export function createHealPaper(): PixelGrid {
+  const grid = createPaperScrap(14, 14, { seed: 41 });
+  drawLine(grid, 4, 7, 10, 7, C.healRed, 2);
+  drawLine(grid, 7, 4, 7, 11, C.healRed, 2);
+  return grid;
+}
+
+export function createCapsule(): PixelGrid {
+  const grid = createEmptyGrid(16, 16);
+  fillRect(grid, 6, 1, 5, 3, C.cork);
+  drawLine(grid, 5, 4, 11, 4, C.paperLight);
+  fillRect(grid, 4, 5, 9, 9, [155, 181, 189, 170]);
+  fillRect(grid, 5, 6, 7, 7, [255, 189, 78, 80]);
+  drawRectOutline(grid, 4, 5, 9, 9, C.paperLight);
+  drawStar(grid, 8, 10, 4, C.star, C.paperEdge);
+  return grid;
+}
+
+export function createNameTag(): PixelGrid {
+  const grid = createEmptyGrid(16, 16);
+  fillRect(grid, 4, 2, 8, 11, C.paper);
+  drawRectOutline(grid, 4, 2, 8, 11, C.paperEdge);
+  setPixel(grid, 8, 4, C.paperLight);
+  fillRect(grid, 6, 7, 5, 2, C.ink);
+  drawLine(grid, 5, 11, 11, 11, C.paperLine);
+  fillRect(grid, 7, 13, 2, 2, C.paperEdge);
+  return grid;
+}
+
+export function createCrackedLens(): PixelGrid {
+  const grid = createEmptyGrid(16, 16);
+  drawCircle(grid, 8, 8, 6, [155, 181, 189, 170]);
+  drawCircle(grid, 8, 8, 4, [72, 66, 105, 150]);
+  drawCircle(grid, 6, 6, 1, C.whiteWarm);
+  drawLine(grid, 8, 4, 7, 9, C.paperLight);
+  drawLine(grid, 7, 9, 11, 12, C.paperLight);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
+export function createSealedLetter(): PixelGrid {
+  const grid = createPaperScrap(16, 16, { seed: 52 });
+  drawLine(grid, 3, 4, 8, 9, C.paperLine);
+  drawLine(grid, 13, 4, 8, 9, C.paperLine);
+  drawCircle(grid, 8, 9, 2, C.healRed);
+  setPixel(grid, 8, 9, C.lantern);
+  return grid;
+}
+
+export function createWindMark(): PixelGrid {
+  const grid = createEmptyGrid(16, 16);
+  drawDiamond(grid, 8, 8, 6, [142, 183, 155, 180]);
+  drawLine(grid, 4, 7, 11, 7, C.wind);
+  drawLine(grid, 6, 10, 13, 10, C.wind);
+  setPixel(grid, 12, 6, C.paperLight);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
+export function createNightPencilProjectile(): PixelGrid {
+  const grid = createEmptyGrid(16, 8);
+  fillRect(grid, 2, 3, 10, 3, [60, 58, 72, 255]);
+  fillRect(grid, 3, 2, 7, 1, [88, 86, 104, 255]);
+  fillPolygon(grid, [[12, 2], [15, 4], [12, 6]], C.paper);
+  fillPolygon(grid, [[13, 3], [15, 4], [13, 5]], C.ink);
+  fillRect(grid, 1, 3, 2, 3, C.paperEdge);
+  return grid;
+}
+
+export function createPaperAirplaneProjectile(): PixelGrid {
+  const grid = createEmptyGrid(16, 12);
+  fillPolygon(grid, [[1, 6], [14, 2], [11, 6], [14, 10]], C.paperLight);
+  fillPolygon(grid, [[1, 6], [11, 6], [6, 9]], C.paper);
+  drawLine(grid, 2, 6, 14, 2, C.paperLine);
+  drawLine(grid, 2, 6, 14, 10, C.paperLine);
+  setPixel(grid, 13, 6, C.whiteWarm);
+  return outlineNonTransparent(grid, C.paperEdge);
+}
+
+export function createEnemyInkBlob(): PixelGrid {
+  const grid = createEmptyGrid(24, 24);
+  drawEllipse(grid, 12, 18, 10, 4, [8, 7, 19, 170]);
+  drawCircle(grid, 12, 12, 8, C.ink);
+  drawCircle(grid, 6, 14, 4, C.ink);
+  drawCircle(grid, 18, 14, 4, C.ink);
+  drawCircle(grid, 12, 10, 8, C.inkSoft);
+  drawLine(grid, 5, 18, 2, 21, C.inkEdge, 2);
+  drawLine(grid, 19, 18, 22, 20, C.inkEdge, 2);
+  fillRect(grid, 8, 11, 3, 4, C.eye);
+  fillRect(grid, 15, 11, 3, 4, C.eye);
+  for (const [x, y] of [[3, 8], [20, 6], [5, 4], [22, 13], [2, 16]]) setPixel(grid, x, y, C.ink);
+  return grid;
+}
+
+export function createEnemyPaperScrap(): PixelGrid {
+  const grid = createEmptyGrid(24, 24);
+  mergeGrid(grid, createEnemyInkBlob(), 0, 0);
+  fillPolygon(grid, [[14, 4], [22, 6], [19, 13], [12, 11]], C.paper);
+  drawLine(grid, 15, 8, 20, 9, C.paperLine);
+  fillPolygon(grid, [[3, 8], [9, 6], [10, 12], [4, 14]], C.paper);
+  return outlineNonTransparent(grid, C.inkEdge);
+}
+
+export function createYuiGeneratedDraft(): PixelGrid {
+  const grid = createEmptyGrid(32, 32);
+  drawEllipse(grid, 16, 25, 11, 4, [16, 17, 36, 110]);
+  drawCircle(grid, 20, 20, 7, [255, 189, 78, 60]);
+  drawCircle(grid, 21, 20, 3, C.lantern);
+  fillRect(grid, 20, 17, 3, 5, C.whiteWarm);
+  drawLine(grid, 19, 17, 23, 17, C.paperEdge);
+  fillPolygon(grid, [[9, 15], [23, 15], [25, 27], [7, 27]], C.yuiDress);
+  drawRectOutline(grid, 12, 16, 8, 10, C.paperLight);
+  drawLine(grid, 11, 22, 21, 22, C.paperLine);
+  drawCircle(grid, 16, 10, 8, C.yuiHood);
+  drawCircle(grid, 16, 12, 6, [47, 56, 89, 255]);
+  fillRect(grid, 13, 10, 7, 7, [240, 201, 160, 255]);
+  fillRect(grid, 11, 9, 4, 8, C.yuiHair);
+  fillRect(grid, 17, 9, 5, 8, C.yuiHair);
+  fillRect(grid, 13, 13, 2, 1, C.ink);
+  fillRect(grid, 19, 13, 2, 1, C.ink);
+  fillRect(grid, 10, 3, 10, 3, C.yuiHood);
+  return outlineNonTransparent(grid, C.inkEdge);
+}
+
+export function createEnemyEliteLabel(): PixelGrid {
+  const grid = createEmptyGrid(32, 32);
+  drawEllipse(grid, 16, 25, 13, 5, [8, 7, 19, 160]);
+  drawCircle(grid, 16, 16, 10, C.ink);
+  drawCircle(grid, 9, 18, 5, C.ink);
+  drawCircle(grid, 23, 18, 5, C.ink);
+  drawCircle(grid, 16, 16, 13, [48, 45, 75, 80]);
+  fillRect(grid, 7, 14, 18, 8, C.paper);
+  drawRectOutline(grid, 7, 14, 18, 8, C.paperEdge);
+  fillRect(grid, 10, 17, 12, 2, C.ink);
+  fillRect(grid, 11, 9, 4, 4, C.whiteWarm);
+  fillRect(grid, 21, 9, 4, 4, C.whiteWarm);
+  return grid;
+}
+
+export function createPaperNightTile(options: PixelKitOptions = {}): PixelGrid {
+  const rng = createSeededRng(options.seed ?? 70);
+  const grid = createEmptyGrid(128, 128, C.nightMid);
+  for (let y = 0; y < 128; y += 16) drawLine(grid, 0, y, 127, y, C.night, 1);
+  for (let x = 0; x < 128; x += 24) drawLine(grid, x, 0, x, 127, C.night, 1);
+  drawNoise(grid, rng, [81, 73, 111, 120], 0.012);
+  for (const [x, y] of [[8, 10], [91, 14], [35, 62], [112, 78], [18, 108], [74, 105]]) {
+    mergeGrid(grid, createPaperScrap(16, 16, { seed: x + y }), x, y);
+  }
+  for (const [x, y] of [[56, 22], [103, 44], [48, 94], [12, 74]]) mergeGrid(grid, createInkBlot(18, 12, { seed: x + y }), x, y);
+  for (const [x, y] of [[22, 28], [99, 100]]) {
+    drawCircle(grid, x, y, 10, [255, 189, 78, 35]);
+    drawCircle(grid, x, y, 4, [255, 228, 138, 80]);
+    fillRect(grid, x - 1, y - 1, 2, 2, [255, 244, 196, 180]);
+  }
+  return grid;
+}
+
+export function createUiPaperCard(options: PixelKitOptions = {}): PixelGrid {
+  const rng = createSeededRng(options.seed ?? 80);
+  const grid = createEmptyGrid(320, 144);
+  fillRect(grid, 0, 0, 320, 144, C.uiPaper);
+  drawRectOutline(grid, 0, 0, 320, 144, C.paperEdge);
+  drawRectOutline(grid, 4, 4, 312, 136, C.paper);
+  drawNoise(grid, rng, [199, 169, 130, 80], 0.018);
+  fillRect(grid, 16, 20, 56, 56, [57, 55, 93, 255]);
+  drawCircle(grid, 44, 48, 18, C.inkEdge);
+  drawLine(grid, 100, 28, 248, 28, C.paperLine, 2);
+  drawLine(grid, 100, 54, 292, 54, C.paperLine, 1);
+  drawLine(grid, 100, 76, 270, 76, C.paperLine, 1);
+  drawLine(grid, 100, 108, 226, 108, [199, 169, 130, 255], 1);
+  return grid;
+}
+
+export const generatedPixelAssets: PixelAssetSpec[] = [
+  { id: 'pickup_memory_fragment', path: 'assets/sprites/pickups/pickup_memory_fragment_12.png', width: 12, height: 12, kind: 'pickup', quality: 'generated-final', create: createMemoryFragment },
+  { id: 'pickup_heal_paper', path: 'assets/sprites/pickups/pickup_heal_paper_14.png', width: 14, height: 14, kind: 'pickup', quality: 'generated-final', create: createHealPaper },
+  { id: 'pickup_capsule', path: 'assets/sprites/pickups/pickup_capsule_16.png', width: 16, height: 16, kind: 'pickup', quality: 'generated-final', create: createCapsule },
+  { id: 'rare_name_tag', path: 'assets/sprites/pickups/rare_name_tag_16.png', width: 16, height: 16, kind: 'rare', quality: 'generated-final', create: createNameTag },
+  { id: 'rare_cracked_lens', path: 'assets/sprites/pickups/rare_cracked_lens_16.png', width: 16, height: 16, kind: 'rare', quality: 'generated-final', create: createCrackedLens },
+  { id: 'rare_sealed_letter', path: 'assets/sprites/pickups/rare_sealed_letter_16.png', width: 16, height: 16, kind: 'rare', quality: 'generated-final', create: createSealedLetter },
+  { id: 'rare_wind_mark', path: 'assets/sprites/pickups/rare_wind_mark_16.png', width: 16, height: 16, kind: 'rare', quality: 'generated-final', create: createWindMark },
+  { id: 'weapon_night_pencil', path: 'assets/sprites/weapons/weapon_night_pencil_projectile.png', width: 16, height: 8, kind: 'weapon', quality: 'generated-final', create: createNightPencilProjectile },
+  { id: 'weapon_paper_airplane', path: 'assets/sprites/weapons/weapon_paper_airplane_projectile.png', width: 16, height: 12, kind: 'weapon', quality: 'generated-final', create: createPaperAirplaneProjectile },
+  { id: 'enemy_ink_blob', path: 'assets/sprites/enemies/enemy_ink_blob_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyInkBlob },
+  { id: 'enemy_paper_scrap', path: 'assets/sprites/enemies/enemy_paper_scrap_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyPaperScrap },
+  { id: 'yui_idle', path: 'assets/sprites/player/yui_idle_32.png', width: 32, height: 32, kind: 'player', quality: 'generated-draft', create: createYuiGeneratedDraft },
+  { id: 'enemy_elite_label', path: 'assets/sprites/enemies/enemy_elite_label_32.png', width: 32, height: 32, kind: 'enemy', quality: 'generated-draft', create: createEnemyEliteLabel },
+  { id: 'bg_stage1_paper_night', path: 'assets/sprites/tiles/bg_stage1_paper_night_tile.png', width: 128, height: 128, kind: 'tile', quality: 'generated-draft', create: createPaperNightTile },
+  { id: 'ui_card_paper_normal', path: 'assets/sprites/ui/ui_card_paper_normal.png', width: 320, height: 144, kind: 'ui', quality: 'generated-draft', create: createUiPaperCard },
+];
+
+function drawRectOutline(grid: PixelGrid, x: number, y: number, width: number, height: number, color: PixelColor): void {
+  drawLine(grid, x, y, x + width - 1, y, color);
+  drawLine(grid, x, y + height - 1, x + width - 1, y + height - 1, color);
+  drawLine(grid, x, y, x, y + height - 1, color);
+  drawLine(grid, x + width - 1, y, x + width - 1, y + height - 1, color);
+}
+
+function drawEllipse(grid: PixelGrid, cx: number, cy: number, rx: number, ry: number, color: PixelColor): void {
+  for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y += 1) {
+    for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x += 1) {
+      if (((x - cx) ** 2) / (rx ** 2) + ((y - cy) ** 2) / (ry ** 2) <= 1) setPixel(grid, x, y, color);
+    }
+  }
+}
+
+function drawStar(grid: PixelGrid, cx: number, cy: number, radius: number, color: PixelColor, edge: PixelColor): void {
+  const points = [
+    [cx, cy - radius],
+    [cx + 2, cy - 2],
+    [cx + radius, cy - 2],
+    [cx + 3, cy + 1],
+    [cx + 4, cy + radius],
+    [cx, cy + 4],
+    [cx - 4, cy + radius],
+    [cx - 3, cy + 1],
+    [cx - radius, cy - 2],
+    [cx - 2, cy - 2],
+  ];
+  fillPolygon(grid, points, edge);
+  fillPolygon(grid, points.map(([x, y]) => [Math.round(cx + (x - cx) * 0.72), Math.round(cy + (y - cy) * 0.72)]), color);
+}
+
+function fillPolygon(grid: PixelGrid, points: number[][], color: PixelColor): void {
+  const minY = Math.floor(Math.min(...points.map((point) => point[1])));
+  const maxY = Math.ceil(Math.max(...points.map((point) => point[1])));
+  for (let y = minY; y <= maxY; y += 1) {
+    const xs: number[] = [];
+    for (let i = 0, j = points.length - 1; i < points.length; j = i, i += 1) {
+      const [xi, yi] = points[i];
+      const [xj, yj] = points[j];
+      if ((yi > y) !== (yj > y)) xs.push(((xj - xi) * (y - yi)) / (yj - yi) + xi);
+    }
+    xs.sort((a, b) => a - b);
+    for (let i = 0; i < xs.length; i += 2) {
+      for (let x = Math.ceil(xs[i]); x <= Math.floor(xs[i + 1]); x += 1) setPixel(grid, x, y, color);
+    }
+  }
+}

@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "generate:pixel-assets": "node --experimental-strip-types scripts/generate-pixel-assets.ts",
+    "assets:verify": "node --experimental-strip-types scripts/generate-pixel-assets.ts --verify",
     "build": "tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",

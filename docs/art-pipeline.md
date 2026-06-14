@@ -14,6 +14,7 @@ Phaser Graphics で全部描き続けるのをやめ、**画像アセット + fa
   ↓ アートディレクション（docs/visual-direction.md）
   ↓ 最小素材一覧（src/game/assets/assetManifest.ts が正本）
   ↓ サイズ規定（docs/sprite-size-guide.md）
+  ↓ コード生成素材（docs/generated-pixel-assets.md / src/game/assets/vampPixelKit.ts）
   ↓ 生成/制作プロンプト（docs/pixel-art-generation-prompts.md）
   ↓ Aseprite等でドット絵作成（ラフは生成サイト可）
   ↓ 透過PNG書き出し → public/assets/sprites/... に配置
@@ -80,7 +81,8 @@ UIカード紙素材3種
 | 担当 | 役割 |
 |---|---|
 | Claude / Fable | 世界観整理・素材仕様書・命名・manifest・Phaser実装接続・VisualGallery・テスト |
-| ドット絵ツール（Aseprite/LibreSprite/Piskel） | 実スプライト制作・パレット管理・スプライトシート化 |
+| vampPixelKit | 小物・弾・拾得物・紙片・インク・基本敵の generated-final 生成 |
+| ドット絵ツール（Aseprite/LibreSprite/Piskel） | 生成物の手直し・パレット管理・スプライトシート化 |
 | MCP（filesystem / Playwright / GitHub） | ファイル整理・差分確認・書き出し補助・スクショ確認 |
 | 外部生成サイト（Lospec参照 / 画像生成） | ラフ案・パレット案・モチーフ案（最終素材としてそのまま使わない） |
 
@@ -92,13 +94,13 @@ UIカード紙素材3種
 ## 6. まだ仮のもの
 
 ```txt
-すべての runtime スプライト（現状0個 / Graphics fallback で表示中）
-背景タイル本テクスチャ
-カード紙素材
+未生成の敵・武器・進化・UI差分
+ユイ / 背景タイル / カード紙素材の手仕上げ
 敵アニメーション / 弾トレイル
 ```
 
-現在のアセット状況は VisualGallery `?scene=asset-status` で確認（全エントリ「仮(fallback)」）。
+現在のアセット状況は VisualGallery `?scene=asset-status` で確認。
+生成済み素材は `pnpm generate:pixel-assets` で `public/assets/sprites/...` に再書き出しできる。
 
 ---
 
@@ -109,7 +111,8 @@ UIカード紙素材3種
 画像を1個置くと、その要素だけ自動で画像へ切替わる
 VisualGallery で 実素材/仮/欠品 が判別できる
 manifest と実コード（createXView / weaponVisual）の対応漏れがテストで落ちる
+generatedPixelAssets と manifest の path/size 不一致がテスト/verifyで落ちる
 ネオン/魔法陣/ビーム/ギラ星を増やさない
 ```
 
-仕様の正本: [visual-asset-manifest.md](visual-asset-manifest.md) / `src/game/assets/assetManifest.ts`。
+仕様の正本: [visual-asset-manifest.md](visual-asset-manifest.md) / [generated-pixel-assets.md](generated-pixel-assets.md) / `src/game/assets/assetManifest.ts`。
