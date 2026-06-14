@@ -3,7 +3,7 @@ import type { Id } from './domain/types';
 import type { RuntimeState } from './runtime';
 import { createRunStats, createTelemetry } from './runtime';
 import { characterById, DEFAULT_CHARACTER_ID } from './data/characters';
-import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT, PLAYER_DEFAULTS } from './domain/constants';
+import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT, PLAYER_DEFAULTS, LEVEL_UP } from './domain/constants';
 import { xpToNext } from './domain/balance';
 import { createPlayerView } from './ui/factory';
 import { recomputePlayerStats } from './systems/passives';
@@ -68,6 +68,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     },
     pendingChoices: [],
     pendingCapsule: null,
+    levelUpRerollsRemaining: LEVEL_UP.rerollsPerRun,
     nextIid: 0,
     debug,
     inputVec: { x: 0, y: 0 },
