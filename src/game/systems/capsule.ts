@@ -68,6 +68,8 @@ function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
 
   if (evo.requiredPassiveId && !inv.passives.some((p) => p.id === evo.requiredPassiveId)) return false;
 
+  if (evo.requiredRareItemId && !inv.rareItems.some((item) => item.id === evo.requiredRareItemId)) return false;
+
   if (evo.requiredWeaponId) {
     const second = inv.weapons.find((it) => it.id === evo.requiredWeaponId);
     if (!second || second.level < (evo.requiredWeaponLevel2 ?? 1)) return false;
@@ -120,6 +122,11 @@ function replaceWeaponWithEvolution(state: RuntimeState, evolutionId: string, ev
 
   if (!replaced) return;
   state.inventory.weapons = nextWeapons;
+
+  const consumedRareIds = new Set(evo.consumedRareItemIds ?? (evo.requiredRareItemId ? [evo.requiredRareItemId] : []));
+  if (consumedRareIds.size > 0) {
+    state.inventory.rareItems = state.inventory.rareItems.filter((item) => !consumedRareIds.has(item.id));
+  }
 
   if (!state.inventory.evolvedWeaponIds.includes(evolvedWeaponId)) {
     state.inventory.evolvedWeaponIds.push(evolvedWeaponId);
