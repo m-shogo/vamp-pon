@@ -2,8 +2,6 @@ import Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
-import { weaponById } from '../data/weapons';
-import { passiveById } from '../data/passives';
 import { characterById } from '../data/characters';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
@@ -36,7 +34,7 @@ export class Hud {
       .setDepth(d);
 
     this.levelText = scene.add
-      .text(12, 16, 'Lv.1', { fontFamily: FONT, fontSize: '16px', color: '#f3ead2' })
+      .text(12, 13, 'Lv.1', { fontFamily: FONT, fontSize: '16px', color: '#f3ead2' })
       .setOrigin(0, 0)
       .setDepth(d);
 
@@ -45,7 +43,7 @@ export class Hud {
     this.hpBack = scene.add.graphics().setDepth(d);
     this.hpFill = scene.add.graphics().setDepth(d);
     this.hpText = scene.add
-      .text(16, GAME_HEIGHT - 40, '', { fontFamily: FONT, fontSize: '12px', color: '#f3ead2' })
+      .text(12, 35, '', { fontFamily: FONT, fontSize: '10px', color: '#f3ead2' })
       .setDepth(d);
 
     this.ultIcon = scene.add.graphics().setDepth(d + 1);
@@ -73,12 +71,12 @@ export class Hud {
     );
 
     this.itemsText = scene.add
-      .text(GAME_WIDTH / 2, GAME_HEIGHT - 18, '', { fontFamily: FONT, fontSize: '12px', color: '#f3ead2' })
+      .text(GAME_WIDTH / 2, GAME_HEIGHT - 18, '', { fontFamily: FONT, fontSize: '13px', color: '#f3ead2' })
       .setOrigin(0.5, 0.5)
       .setDepth(d);
 
     this.debugText = scene.add
-      .text(8, 44, '', { fontFamily: 'monospace', fontSize: '10px', color: '#9fe0a0' })
+      .text(8, 68, '', { fontFamily: 'monospace', fontSize: '10px', color: '#9fe0a0' })
       .setDepth(d)
       .setVisible(false);
   }
@@ -96,15 +94,15 @@ export class Hud {
     this.xpBar.fillStyle(COLORS.xpBack, 0.7).fillRect(0, 0, GAME_WIDTH, 4);
     this.xpBar.fillStyle(COLORS.xpFill, 1).fillRect(0, 0, GAME_WIDTH * xpRatio, 4);
 
-    // HPバー（左下）
+    // HPバー（上部左）
     const p = state.player;
     const hpRatio = Math.max(0, p.hp / p.maxHp);
-    const hpW = 150;
-    const hpY = GAME_HEIGHT - 24;
-    this.hpBack.clear().fillStyle(COLORS.hpBack, 0.85).fillRect(16, hpY, hpW, 12);
+    const hpW = 118;
+    const hpY = 50;
+    this.hpBack.clear().fillStyle(COLORS.hpBack, 0.86).fillRect(12, hpY, hpW, 10);
     const lowBlink = hpRatio <= 0.35 && Math.floor(state.elapsedSec * 4) % 2 === 0;
-    this.hpFill.clear().fillStyle(lowBlink ? 0xffffff : COLORS.hpFill, 1).fillRect(16, hpY, hpW * hpRatio, 12);
-    this.hpText.setText(`${Math.ceil(p.hp)} / ${p.maxHp}`).setPosition(16, hpY - 16);
+    this.hpFill.clear().fillStyle(lowBlink ? 0xffffff : COLORS.hpFill, 1).fillRect(12, hpY, hpW * hpRatio, 10);
+    this.hpText.setText(`HP ${Math.ceil(p.hp)}/${p.maxHp}`).setPosition(12, hpY - 14);
 
     // 必殺技アイコン（右上・丸ゲージ）
     const char = characterById.get(state.characterId);
@@ -129,13 +127,9 @@ export class Hud {
       .setColor(state.ultimate.ready ? '#fff1b0' : '#cfe6ff');
     this.ultHitArea.setName(ultName);
 
-    // 所持武器/パッシブ
-    const wStr = state.inventory.weapons
-      .map((w) => `${weaponById.get(w.id)?.name ?? w.id}${w.level}`)
-      .join(' ');
-    const pStr = state.inventory.passives
-      .map((pp) => `${passiveById.get(pp.id)?.name ?? pp.id}${pp.level}`)
-      .join(' ');
+    // 所持武器/パッシブ: 名前羅列ではなくアイコン + Lv に圧縮
+    const wStr = state.inventory.weapons.map((w) => `${weaponIcon(w.id)}${w.level}`).join(' ');
+    const pStr = state.inventory.passives.map((pp) => `${passiveIcon(pp.id)}${pp.level}`).join(' ');
     this.itemsText.setText([wStr, pStr].filter(Boolean).join('  /  '));
 
     // デバッグ
@@ -149,6 +143,7 @@ export class Hud {
           `pickups=${state.pickups.length} areas=${state.areas.length}`,
           `hp=${p.hp.toFixed(0)} lv=${state.player.level} xp=${state.player.xp.toFixed(1)}/${state.player.xpToNext}`,
           `kills=${state.stats.kills} ult=${state.ultimate.charge.toFixed(0)}/${state.ultimate.chargeSeconds}`,
+          `reroll=${state.levelUpRerollsRemaining}`,
           `1stKill=${f(t.firstKillSec)} lv2=${f(t.level2Sec)} 1stDmg=${f(t.firstDamageSec)}`,
           `cap1=${f(t.firstCapsuleSec)} elites=${t.eliteKillSecs.length}`,
         ].join('\n'),
@@ -158,5 +153,43 @@ export class Hud {
 
   destroy(): void {
     this.ultHitArea.destroy();
+  }
+}
+
+function weaponIcon(id: string): string {
+  switch (id) {
+    case 'night_pencil':
+      return '✎';
+    case 'marble':
+      return '●';
+    case 'moon_bookmark':
+      return '☾';
+    case 'black_ink_bottle':
+      return '瓶';
+    case 'stardust_shot':
+      return '✦';
+    case 'unfinished_line':
+      return '線';
+    case 'north_star_lantern':
+      return '灯';
+    default:
+      return '道';
+  }
+}
+
+function passiveIcon(id: string): string {
+  switch (id) {
+    case 'gold_compass':
+      return '針';
+    case 'travel_badge':
+      return '章';
+    case 'moonlight_bookmark':
+      return '栞';
+    case 'old_ticket':
+      return '券';
+    case 'white_margin':
+      return '余';
+    default:
+      return '欠';
   }
 }
