@@ -5,6 +5,7 @@ import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { weaponById } from '../data/weapons';
+import { passiveById } from '../data/passives';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
@@ -57,7 +58,7 @@ export class Overlays {
   ): void {
     const c = this.dim();
     c.add(this.text(GAME_WIDTH / 2, 82, '記憶が少し戻った', 23, '#f3ead2'));
-    c.add(this.text(GAME_WIDTH / 2, 110, 'たまに★付きの拾い物が出る', 11, '#c9bfae'));
+    c.add(this.text(GAME_WIDTH / 2, 110, `武器 ${state.inventory.weapons.length}/${state.inventory.weaponSlots}  忘れ物 ${state.inventory.passives.length}/${state.inventory.passiveSlots}`, 11, '#c9bfae'));
 
     const cardW = 326;
     const cardH = 146;
@@ -75,15 +76,73 @@ export class Overlays {
     }
 
     const remaining = state.levelUpRerollsRemaining;
-    const rerollLabel = remaining > 0 ? `入れ替え ${remaining}/3` : '入れ替え 0/3';
-    const reroll = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 44, 180, 38, rerollLabel, () => {
+    const rerollLabel = remaining > 0 ? `候補入れ替え ${remaining}/3` : '候補入れ替え 0/3';
+    const reroll = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 44, 190, 38, rerollLabel, () => {
       if (state.levelUpRerollsRemaining <= 0) return;
       this.clear();
       onReroll();
     });
     reroll.setAlpha(remaining > 0 ? 1 : 0.45);
     c.add(reroll);
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 82, 'ひとつ選ぶ / 3回まで入れ替え', 12, '#c9bfae'));
+    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 82, '新しい道具は満杯でも入れ替え可能', 12, '#c9bfae'));
+  }
+
+  showReplaceItem(
+    state: RuntimeState,
+    choice: LevelUpChoice,
+    onReplace: (removeId: string) => void,
+    onCancel: () => void,
+  ): void {
+    const isWeapon = choice.type === 'weapon_new';
+    const items = isWeapon ? state.inventory.weapons : state.inventory.passives;
+    const c = this.dim(0.78);
+    c.add(this.text(GAME_WIDTH / 2, 82, isWeapon ? '外す武器を選ぶ' : '外す忘れ物を選ぶ', 23, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 112, `入れる: ${choice.title.replace(/^入替: /, '')}`, 13, '#ffe9a8'));
+
+    const cardW = 310;
+    const cardH = 74;
+    const gap = 9;
+    const totalH = items.length * cardH + (items.length - 1) * gap;
+    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2;
+
+    for (const item of items) {
+      const label = isWeapon ? weaponById.get(item.id)?.name ?? item.id : passiveById.get(item.id)?.name ?? item.id;
+      const icon = isWeapon ? weaponIcon(item.id) : passiveIcon(item.id);
+      const row = this.replaceRow(GAME_WIDTH / 2, y, cardW, cardH, icon, `${label} Lv.${item.level}`, () => {
+        this.clear();
+        onReplace(item.id);
+      });
+      c.add(row);
+      y += cardH + gap;
+    }
+
+    c.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 54, 160, 38, '戻る', () => {
+      this.clear();
+      onCancel();
+    }));
+  }
+
+  private replaceRow(
+    cx: number,
+    cy: number,
+    w: number,
+    h: number,
+    icon: string,
+    label: string,
+    onClick: () => void,
+  ): Phaser.GameObjects.Container {
+    const row = this.scene.add.container(cx, cy);
+    const bg = this.scene.add.rectangle(0, 0, w, h, COLORS.cardBg, 1);
+    bg.setStrokeStyle(2, COLORS.cardEdge, 1);
+    bg.setInteractive({ useHandCursor: true });
+    bg.on('pointerdown', onClick);
+    row.add(bg);
+    const iconBg = this.scene.add.circle(-w / 2 + 34, 0, 20, 0x3a3326, 1);
+    iconBg.setStrokeStyle(2, COLORS.cardEdge, 1);
+    row.add(iconBg);
+    row.add(this.scene.add.text(-w / 2 + 34, 0, icon, { fontFamily: FONT, fontSize: '18px', color: '#f3ead2', fontStyle: 'bold' }).setOrigin(0.5));
+    row.add(this.scene.add.text(-w / 2 + 66, 0, label, { fontFamily: FONT, fontSize: '16px', color: '#3a3326', fontStyle: 'bold' }).setOrigin(0, 0.5));
+    return row;
   }
 
   private levelUpCard(
@@ -251,7 +310,6 @@ export class Overlays {
       ),
     );
 
-    // プレイログ（計測値）。詳細1行JSONはコンソールにも出力。
     const fmt = (n: number | null) => (n === null ? '--' : `${n.toFixed(1)}s`);
     const eliteMark = (b: boolean) => (b ? '○' : '×');
     const logLines = [
@@ -376,6 +434,8 @@ function weaponIcon(id: string): string {
       return '線';
     case 'north_star_lantern':
       return '灯';
+    case 'dawn_ink_lamp':
+      return '朝';
     default:
       return '道';
   }
