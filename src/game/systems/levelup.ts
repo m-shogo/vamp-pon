@@ -3,6 +3,7 @@ import type { RuntimeState } from '../runtime';
 import { weapons, weaponById, evolvedWeaponIds } from '../data/weapons';
 import { passives, passiveById } from '../data/passives';
 import { rareItems } from '../data/rareItems';
+import { evolutions } from '../data/evolutions';
 import { LEVEL_UP } from '../domain/constants';
 import { LEVELUP_WEIGHTS } from '../domain/balance';
 import { recomputePlayerStats } from './passives';
@@ -39,6 +40,17 @@ function rarityStep(rarity: RewardRarity): number {
     case 'good': return 2;
     case 'normal': return 1;
   }
+}
+
+function retiredWeaponIds(state: RuntimeState): Set<string> {
+  const retired = new Set<string>();
+  const evolved = new Set(state.inventory.evolvedWeaponIds);
+  for (const evo of evolutions) {
+    if (!evolved.has(evo.evolvedWeaponId)) continue;
+    retired.add(evo.fromWeaponId);
+    for (const id of evo.consumedWeaponIds ?? []) retired.add(id);
+  }
+  return retired;
 }
 
 function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
@@ -120,6 +132,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const ownedWeaponIds = new Set(inv.weapons.map((w) => w.id));
   const ownedPassiveIds = new Set(inv.passives.map((p) => p.id));
   const ownedRareItemIds = new Set(inv.rareItems.map((item) => item.id));
+  const retiredWeapons = retiredWeaponIds(state);
   const weaponFull = inv.weapons.length >= inv.weaponSlots;
   const passiveFull = inv.passives.length >= inv.passiveSlots;
   const rareFull = inv.rareItems.length >= inv.rareItemSlots;
@@ -137,7 +150,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     });
 
   const weaponNews: LevelUpChoice[] = weapons
-    .filter((def) => !evolvedWeaponIds.has(def.id) && !ownedWeaponIds.has(def.id))
+    .filter((def) => !evolvedWeaponIds.has(def.id) && !ownedWeaponIds.has(def.id) && !retiredWeapons.has(def.id))
     .map((def) => ({ type: 'weapon_new' as const, itemId: def.id, title: weaponFull ? `入替: ${def.name}` : def.name, description: weaponFull ? `${def.description} / 武器が満杯。` : def.description, lore: def.lore }));
 
   const passiveUpgrades: LevelUpChoice[] = inv.passives
