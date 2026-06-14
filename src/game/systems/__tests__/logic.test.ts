@@ -36,8 +36,8 @@ function makeState(partial: {
 }
 
 describe('xpToNext', () => {
-  it('Lv1→2 に必要なXPは8', () => {
-    expect(xpToNext(1)).toBe(8);
+  it('Lv1→2 に必要なXPは6', () => {
+    expect(xpToNext(1)).toBe(6);
   });
   it('レベルが上がると単調増加する', () => {
     expect(xpToNext(2)).toBeGreaterThan(xpToNext(1));
