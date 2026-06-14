@@ -51,7 +51,7 @@ export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label:
   const ring2 = scene.add.circle(x, y, 18, COLORS.ultFill, 0.14).setDepth(depth + 1);
   ring2.setStrokeStyle(3, COLORS.ultFill, 0.8);
   const text = scene.add
-    .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 92, `進化: ${label}`, {
+    .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 92, label, {
       fontFamily: '"Hiragino Sans", "Yu Gothic", sans-serif',
       fontSize: '24px',
       color: '#fff1b0',
