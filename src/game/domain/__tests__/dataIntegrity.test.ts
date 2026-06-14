@@ -1,19 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { weapons, weaponById } from '../../data/weapons';
 import { passives, passiveById } from '../../data/passives';
+import { rareItems, rareItemById } from '../../data/rareItems';
 import { enemies, enemyById } from '../../data/enemies';
 import { waves } from '../../data/waves';
 import { evolutions } from '../../data/evolutions';
 import { characters } from '../../data/characters';
 import { enemyConsistencyError } from '../enemyRules';
 
-const PASSIVE_STATS = new Set([
-  'magnetMultiplier',
-  'mightMultiplier',
-  'xpMultiplier',
-  'moveSpeedMultiplier',
-  'cooldownMultiplier',
-]);
+const PASSIVE_STATS = new Set(['magnetMultiplier', 'mightMultiplier', 'xpMultiplier', 'moveSpeedMultiplier', 'cooldownMultiplier']);
 const BEHAVIORS = new Set(['chase', 'slow_chase', 'offset_chase', 'swarm_chase', 'elite_chase']);
 const VISUAL_KINDS = new Set(['ink_blob', 'paper_scrap', 'signpost', 'capsule', 'haze', 'label_elite']);
 const DIRECTIONS = new Set(['bottom', 'top', 'left', 'right', 'around']);
@@ -27,9 +22,7 @@ describe('weapons データ', () => {
   });
 
   it('level1 に effect.type がある', () => {
-    for (const w of weapons) {
-      expect(typeof w.levels[0].effect.type).toBe('string');
-    }
+    for (const w of weapons) expect(typeof w.levels[0].effect.type).toBe('string');
   });
 
   it('id が一意', () => {
@@ -44,6 +37,13 @@ describe('passives データ', () => {
       p.levels.forEach((lvl, i) => expect(lvl.level).toBe(i + 1));
       expect(PASSIVE_STATS.has(p.stat)).toBe(true);
     }
+  });
+});
+
+describe('rareItems データ', () => {
+  it('id が一意で、レベルを持たない', () => {
+    expect(new Set(rareItems.map((item) => item.id)).size).toBe(rareItems.length);
+    for (const item of rareItems) expect(item.category).toBe('rare_item');
   });
 });
 
@@ -65,7 +65,7 @@ describe('waves データ', () => {
         expect(enemyById.has(s.enemyId)).toBe(true);
         const hasRate = s.spawnRatePerSecond != null;
         const hasCount = s.spawnCount != null;
-        expect(hasRate !== hasCount).toBe(true); // 排他（どちらか一方）
+        expect(hasRate !== hasCount).toBe(true);
         const dirs = Object.keys(s.directionWeights);
         expect(dirs.length).toBeGreaterThan(0);
         for (const d of dirs) expect(DIRECTIONS.has(d)).toBe(true);
@@ -87,8 +87,10 @@ describe('evolutions データ', () => {
     for (const evo of evolutions) {
       expect(weaponById.has(evo.fromWeaponId)).toBe(true);
       if (evo.requiredPassiveId) expect(passiveById.has(evo.requiredPassiveId)).toBe(true);
+      if (evo.requiredRareItemId) expect(rareItemById.has(evo.requiredRareItemId)).toBe(true);
       if (evo.requiredWeaponId) expect(weaponById.has(evo.requiredWeaponId)).toBe(true);
       for (const id of evo.consumedWeaponIds ?? []) expect(weaponById.has(id)).toBe(true);
+      for (const id of evo.consumedRareItemIds ?? []) expect(rareItemById.has(id)).toBe(true);
       const evolved = weaponById.get(evo.evolvedWeaponId);
       expect(evolved).toBeDefined();
       expect(evolved?.tags).toContain('evolved');
@@ -98,8 +100,6 @@ describe('evolutions データ', () => {
 
 describe('characters データ', () => {
   it('initialWeaponId が実在する', () => {
-    for (const c of characters) {
-      expect(weaponById.has(c.initialWeaponId)).toBe(true);
-    }
+    for (const c of characters) expect(weaponById.has(c.initialWeaponId)).toBe(true);
   });
 });
