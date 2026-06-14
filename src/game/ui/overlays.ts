@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import type { LevelUpChoice, CapsuleReward, RewardRarity } from '../domain/types';
+import type { EvolutionKind, LevelUpChoice, CapsuleReward, RewardRarity } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
@@ -7,6 +7,7 @@ import { VIEW_DEPTH } from './factory';
 import { weaponById } from '../data/weapons';
 import { passiveById } from '../data/passives';
 import { rareItemById } from '../data/rareItems';
+import { evolutions } from '../data/evolutions';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
@@ -158,16 +159,15 @@ export class Overlays {
     card.add(this.scene.add.text(-w / 2 + 72, -h / 2 + 23, choice.title, { fontFamily: FONT, fontSize: '16px', color: '#3a3326', fontStyle: 'bold', wordWrap: { width: w - 92 } }).setOrigin(0, 0.5));
     card.add(this.scene.add.text(-w / 2 + 72, -h / 2 + 52, `${rankFor(rarity)} / ${tagFor(choice)}`, { fontFamily: FONT, fontSize: '11px', color: rarity === 'normal' ? '#9a8d6f' : '#9a6024' }).setOrigin(0, 0.5));
     card.add(this.scene.add.text(0, 12, choice.description, { fontFamily: FONT, fontSize: '13px', color: '#3a3326', align: 'center', wordWrap: { width: w - 38 }, lineSpacing: 3 }).setOrigin(0.5));
-    if (lore) {
-      card.add(this.scene.add.text(0, h / 2 - 18, lore, { fontFamily: FONT, fontSize: '9px', color: '#9a8d6f', align: 'center', wordWrap: { width: w - 46 } }).setOrigin(0.5));
-    }
+    if (lore) card.add(this.scene.add.text(0, h / 2 - 18, lore, { fontFamily: FONT, fontSize: '9px', color: '#9a8d6f', align: 'center', wordWrap: { width: w - 46 } }).setOrigin(0.5));
     return card;
   }
 
   showCapsule(state: RuntimeState, reward: CapsuleReward, onClose: () => void): void {
     const isEvolution = reward.type === 'evolution';
     const c = this.dim(isEvolution ? 0.82 : 0.6);
-    const title = reward.type === 'evolution' ? '記憶がつながった' : reward.type === 'currency' ? '名前が戻った' : '道具が少し戻った';
+    const title = isEvolution ? evolutionKindLabel(reward.evolutionKind) : reward.type === 'currency' ? '名前が戻った' : '道具が少し戻った';
+    const subtitle = isEvolution ? evolutionKindSubtitle(reward.evolutionKind) : '記憶カプセル';
 
     if (isEvolution) {
       const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0xfff1b0, 0.22);
@@ -176,16 +176,16 @@ export class Overlays {
       const ring2 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 74, 0xbfe6ff, 0.1);
       ring2.setStrokeStyle(3, 0xbfe6ff, 0.8);
       c.add([flash, ring1, ring2]);
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 116, 'EVOLUTION', 18, '#fff1b0'));
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 72, title, 28, '#f3ead2'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 116, title, 24, '#fff1b0'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 76, subtitle, 15, '#f3ead2'));
       c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 18, reward.title, 24, '#ffe08a'));
     } else {
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '記憶カプセル', 14, '#bfe6ff'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, subtitle, 14, '#bfe6ff'));
       c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 30, title, 24, '#f3ead2'));
       c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 10, reward.title, 18, '#ffe9a8'));
     }
 
-    const lore = reward.type === 'evolution' ? reward.lore : '';
+    const lore = isEvolution ? reward.lore : '';
     if (lore) c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 38, lore, 12, '#c9bfae'));
 
     const close = () => {
@@ -208,8 +208,8 @@ export class Overlays {
     c.add(this.text(GAME_WIDTH / 2, 110, cleared ? '朝まで残った' : '夜に飲まれた', 28, '#f3ead2'));
     const lines = [`生存時間   ${mm}:${ss}`, `倒した影   ${s.kills}`, `集めた欠片 ${s.memoryFragmentsCollected}`, `到達Lv     ${state.player.level}`, `カプセル   ${s.capsulesOpened}`, `必殺技     ${s.ultimateUses}回`];
     c.add(this.scene.add.text(GAME_WIDTH / 2, 240, lines.join('\n'), { fontFamily: FONT, fontSize: '16px', color: '#f3ead2', align: 'center', lineSpacing: 8 }).setOrigin(0.5, 0.5));
-    const evoNames = s.evolutions.map((id) => weaponById.get(id)?.name ?? id).join(' / ');
-    if (evoNames) c.add(this.text(GAME_WIDTH / 2, 360, `進化: ${evoNames}`, 14, '#ffe9a8'));
+    const evoNames = s.evolutions.map((id) => evolutionResultLabel(id)).join(' / ');
+    if (evoNames) c.add(this.text(GAME_WIDTH / 2, 360, `変化: ${evoNames}`, 14, '#ffe9a8'));
     c.add(this.text(GAME_WIDTH / 2, 404, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, '#c9bfae'));
     const fmt = (n: number | null) => (n === null ? '--' : `${n.toFixed(1)}s`);
     const eliteMark = (b: boolean) => (b ? '○' : '×');
@@ -241,6 +241,28 @@ export class Overlays {
     c.add([bg, t]);
     return c;
   }
+}
+
+function evolutionKindLabel(kind: EvolutionKind): string {
+  switch (kind) {
+    case 'upgrade': return '強化進化';
+    case 'fusion': return '合体';
+    case 'awakening': return '覚醒';
+  }
+}
+
+function evolutionKindSubtitle(kind: EvolutionKind): string {
+  switch (kind) {
+    case 'upgrade': return '武器と忘れ物がつながった';
+    case 'fusion': return 'ふたつの武器がひとつになった';
+    case 'awakening': return 'レアな忘れ物で目覚めた';
+  }
+}
+
+function evolutionResultLabel(evolvedWeaponId: string): string {
+  const evo = evolutions.find((it) => it.evolvedWeaponId === evolvedWeaponId);
+  const name = weaponById.get(evolvedWeaponId)?.name ?? evolvedWeaponId;
+  return evo ? `${evolutionKindLabel(evo.kind)}:${name}` : name;
 }
 
 function tagFor(choice: LevelUpChoice): string {
