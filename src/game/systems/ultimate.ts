@@ -1,0 +1,68 @@
+import type Phaser from 'phaser';
+import type { RuntimeState } from '../runtime';
+import { characterById } from '../data/characters';
+import { enemyById } from '../data/enemies';
+import { COLORS } from '../domain/constants';
+import { distance } from '../utils/math';
+import { damageEnemy } from './enemies';
+import { spawnFragment } from './pickups';
+
+/** 必殺技ゲージの充填と発動。 */
+export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
+  const ult = state.ultimate;
+  if (!ult.ready) {
+    ult.charge += dt;
+    if (ult.charge >= ult.chargeSeconds) {
+      ult.charge = ult.chargeSeconds;
+      ult.ready = true;
+    }
+  }
+
+  if (state.ultimateRequested) {
+    state.ultimateRequested = false;
+    if (ult.ready) {
+      activateUltimate(scene, state);
+      ult.ready = false;
+      ult.charge = 0;
+      state.stats.ultimateUses += 1;
+    }
+  }
+}
+
+function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
+  const char = characterById.get(state.characterId);
+  if (!char) return;
+  const eff = char.ultimate.effect;
+  const p = state.player;
+
+  // 欠片を吸い寄せる
+  for (const frag of state.pickups) {
+    frag.magnetized = true;
+  }
+
+  // 範囲内の小型影にダメージ → 欠片に戻す
+  for (const e of state.enemies) {
+    if (e.dead) continue;
+    const def = enemyById.get(e.defId);
+    const isSmall = def?.tags.includes('small') ?? false;
+    if (eff.smallEnemyOnly && !isSmall) continue;
+    if (distance(e.x, e.y, p.x, p.y) <= eff.radius) {
+      const willDie = e.hp <= eff.damage;
+      damageEnemy(scene, state, e, eff.damage);
+      if (willDie && eff.dropBonus) {
+        spawnFragment(scene, state, e.x, e.y, eff.dropBonus);
+      }
+    }
+  }
+
+  // 発動エフェクト（淡い円が広がる）
+  const ring = scene.add.circle(p.x, p.y, eff.radius, COLORS.ultReady, 0.3).setDepth(35);
+  ring.setScale(0.1);
+  scene.tweens.add({
+    targets: ring,
+    scale: 1,
+    alpha: 0,
+    duration: 420,
+    onComplete: () => ring.destroy(),
+  });
+}

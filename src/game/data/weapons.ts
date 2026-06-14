@@ -81,6 +81,35 @@ export const weapons: WeaponDefinition[] = [
       { level: 5, effect: { projectilesAdd: 2 }, label: '弾数 +2' },
     ],
   },
+  {
+    id: 'unfinished_line',
+    name: '未完成の一行',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['projectile', 'target_nearest', 'evolved'],
+    description: '濃い一行が、影を貫いて走る。',
+    lore: '書きかけのページほど、続きを急いでいる。',
+    levels: [
+      { level: 1, effect: { type: 'projectile', damage: 30, projectiles: 3, cooldown: 0.9, pierce: 3, targeting: 'nearest', evolved: true }, label: '貫通する濃い一行を放つ。' },
+    ],
+  },
+  {
+    id: 'north_star_lantern',
+    name: '北極星のランタン',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['projectile', 'random_direction', 'evolved'],
+    description: '無数の小さな光が、夜じゅうへ散る。',
+    lore: '迷わないためではなく、迷ったことを忘れないための灯り。',
+    levels: [
+      { level: 1, effect: { type: 'radial_random_projectile', damage: 16, projectiles: 9, cooldown: 1.1, speed: 1.4, evolved: true }, label: '九つの星弾をばらまく。' },
+    ],
+  },
 ];
 
 export const weaponById = new Map(weapons.map((weapon) => [weapon.id, weapon]));
+
+/** 進化後武器IDの集合（新規抽選から除外する用途）。 */
+export const evolvedWeaponIds = new Set(
+  weapons.filter((w) => w.tags.includes('evolved')).map((w) => w.id),
+);

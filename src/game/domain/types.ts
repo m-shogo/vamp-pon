@@ -150,3 +150,43 @@ export type CapsuleReward =
   | { type: 'evolution'; evolutionId: Id; evolvedWeaponId: Id; title: string; lore: string }
   | { type: 'weapon_upgrade' | 'passive_upgrade'; itemId: Id; nextLevel: number; title: string }
   | { type: 'currency'; amount: number; title: string };
+
+export type UltimateEffect = {
+  type: 'pull_and_convert' | string;
+  radius: number;
+  duration: number;
+  damage: number;
+  smallEnemyOnly?: boolean;
+  dropBonus?: number;
+};
+
+export type UltimateDefinition = {
+  id: Id;
+  name: string;
+  chargeSeconds: number;
+  trigger: 'manual';
+  effect: UltimateEffect;
+  description: string;
+  lore: string;
+};
+
+export type CharacterBaseStats = {
+  hp: number;
+  moveSpeed: number;
+  might: number;
+  cooldownMultiplier: number;
+  magnetMultiplier: number;
+  xpMultiplier: number;
+};
+
+export type CharacterDefinition = {
+  id: Id;
+  name: string;
+  title: string;
+  role: string;
+  initialWeaponId: Id;
+  baseStats: CharacterBaseStats;
+  ultimate: UltimateDefinition;
+  description: string;
+  lore?: string;
+};
