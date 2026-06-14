@@ -71,6 +71,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
     if (d <= p.radius + CAPSULE_RADIUS) {
       cap.dead = true;
       cap.view.destroy();
+      if (state.telemetry.firstCapsuleSec === null) state.telemetry.firstCapsuleSec = state.elapsedSec;
       state.pendingCapsule = generateCapsuleReward(state);
       state.status = GAME_STATUS.CAPSULE;
       break;

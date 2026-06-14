@@ -105,6 +105,8 @@ export class Hud {
 
     // デバッグ
     if (state.debug) {
+      const t = state.telemetry;
+      const f = (n: number | null) => (n === null ? '--' : n.toFixed(1));
       this.debugText.setVisible(true).setText(
         [
           `t=${state.elapsedSec.toFixed(1)} status=${state.status}`,
@@ -112,6 +114,8 @@ export class Hud {
           `pickups=${state.pickups.length} areas=${state.areas.length}`,
           `hp=${p.hp.toFixed(0)} lv=${state.player.level} xp=${state.player.xp.toFixed(1)}/${state.player.xpToNext}`,
           `kills=${state.stats.kills} ult=${state.ultimate.charge.toFixed(0)}/${state.ultimate.chargeSeconds}`,
+          `1stKill=${f(t.firstKillSec)} lv2=${f(t.level2Sec)} 1stDmg=${f(t.firstDamageSec)}`,
+          `cap1=${f(t.firstCapsuleSec)} elites=${t.eliteKillSecs.length}`,
         ].join('\n'),
       );
     }

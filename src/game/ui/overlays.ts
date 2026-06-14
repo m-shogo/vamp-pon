@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type { LevelUpChoice, CapsuleReward } from '../domain/types';
 import type { RuntimeState } from '../runtime';
+import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { weaponById } from '../data/weapons';
@@ -147,7 +148,7 @@ export class Overlays {
     });
   }
 
-  showResult(state: RuntimeState, cleared: boolean, onRestart: () => void): void {
+  showResult(state: RuntimeState, cleared: boolean, log: PlayLog, onRestart: () => void): void {
     const c = this.dim(0.8);
     const s = state.stats;
     const survived = Math.floor(s.survivedSec);
@@ -184,12 +185,33 @@ export class Overlays {
     c.add(
       this.text(
         GAME_WIDTH / 2,
-        430,
+        404,
         cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。',
         12,
         '#c9bfae',
       ),
     );
+
+    // プレイログ（計測値）。詳細1行JSONはコンソールにも出力。
+    const fmt = (n: number | null) => (n === null ? '--' : `${n.toFixed(1)}s`);
+    const eliteMark = (b: boolean) => (b ? '○' : '×');
+    const logLines = [
+      `初撃破 ${fmt(log.firstKillSec)}   Lv2 ${fmt(log.level2Sec)}`,
+      `初被弾 ${fmt(log.firstDamageSec)}   初カプセル ${fmt(log.firstCapsuleSec)}`,
+      `エリート撃破 3分${eliteMark(log.elite3mKilled)} 5分${eliteMark(log.elite5mKilled)} 7分${eliteMark(log.elite7mKilled)}`,
+    ];
+    c.add(
+      this.scene.add
+        .text(GAME_WIDTH / 2, 470, logLines.join('\n'), {
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          color: '#9fe0a0',
+          align: 'center',
+          lineSpacing: 6,
+        })
+        .setOrigin(0.5, 0.5),
+    );
+    c.add(this.text(GAME_WIDTH / 2, 524, '※ 詳細ログはブラウザのコンソールに出力', 10, '#7c8a7c'));
 
     const btn = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 90, 200, 52, 'もう一度', () => {
       this.clear();

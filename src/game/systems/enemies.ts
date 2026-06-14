@@ -53,6 +53,7 @@ export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amou
   if (p.invulnRemaining > 0) return;
   p.hp -= amount;
   state.stats.damageTaken += amount;
+  if (state.telemetry.firstDamageSec === null) state.telemetry.firstDamageSec = state.elapsedSec;
   p.invulnRemaining = PLAYER_DEFAULTS.invulnSec;
   p.flashRemaining = PLAYER_DEFAULTS.invulnSec;
   shakeOnHit(scene);
@@ -79,7 +80,11 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   if (enemy.dead) return;
   enemy.dead = true;
   state.stats.kills += 1;
-  if (enemy.isElite) state.stats.elitesKilled += 1;
+  if (state.telemetry.firstKillSec === null) state.telemetry.firstKillSec = state.elapsedSec;
+  if (enemy.isElite) {
+    state.stats.elitesKilled += 1;
+    state.telemetry.eliteKillSecs.push(state.elapsedSec);
+  }
 
   // 欠片ドロップ
   const count = Math.max(1, Math.min(enemy.xpDrop, 5));

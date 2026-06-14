@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import type { Id } from './domain/types';
 import type { RuntimeState } from './runtime';
-import { createRunStats } from './runtime';
+import { createRunStats, createTelemetry } from './runtime';
 import { characterById, DEFAULT_CHARACTER_ID } from './data/characters';
 import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT, PLAYER_DEFAULTS } from './domain/constants';
 import { xpToNext } from './domain/balance';
@@ -19,6 +19,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,
+    runId: `r${Date.now().toString(36)}`,
     elapsedSec: 0,
     durationSec: DEFAULT_GAME_CONFIG.durationSec,
     characterId: char.id,
@@ -58,6 +59,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     orbitAngle: 0,
     orbitHitCooldowns: new Map(),
     stats: createRunStats(),
+    telemetry: createTelemetry(),
     ultimate: {
       chargeSeconds: char.ultimate.chargeSeconds,
       charge: 0,

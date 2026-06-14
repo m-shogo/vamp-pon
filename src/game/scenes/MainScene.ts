@@ -16,6 +16,7 @@ import { updateUltimate } from '../systems/ultimate';
 import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule } from '../systems/capsule';
+import { buildPlayLog } from '../domain/playLog';
 
 export class MainScene extends Phaser.Scene {
   private state!: RuntimeState;
@@ -112,6 +113,9 @@ export class MainScene extends Phaser.Scene {
 
     if (hasPendingLevelUp(state)) {
       advanceLevel(state);
+      if (state.player.level === 2 && state.telemetry.level2Sec === null) {
+        state.telemetry.level2Sec = state.elapsedSec;
+      }
       const choices = generateChoices(state);
       state.pendingChoices = choices;
       state.status = GAME_STATUS.LEVELUP;
@@ -132,7 +136,11 @@ export class MainScene extends Phaser.Scene {
     const state = this.state;
     state.status = cleared ? GAME_STATUS.CLEARED : GAME_STATUS.GAMEOVER;
     state.stats.survivedSec = state.elapsedSec;
-    this.overlays.showResult(state, cleared, () => {
+    const log = buildPlayLog(state, cleared);
+    // コンソールに1行JSONで出す（コピーして docs/balance-log へ）
+    // eslint-disable-next-line no-console
+    console.log('[vamp-pon playlog]', JSON.stringify(log));
+    this.overlays.showResult(state, cleared, log, () => {
       this.scene.restart();
     });
   }

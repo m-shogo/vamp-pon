@@ -112,8 +112,29 @@ export type UltimateState = {
   activeRemaining: number;
 };
 
+/** 1プレイの計測値。プレイログ（docs/balance-log）の素データ。 */
+export type RunTelemetry = {
+  firstKillSec: number | null;
+  level2Sec: number | null;
+  firstDamageSec: number | null;
+  firstCapsuleSec: number | null;
+  /** エリート撃破の経過秒（複数体） */
+  eliteKillSecs: number[];
+};
+
+export function createTelemetry(): RunTelemetry {
+  return {
+    firstKillSec: null,
+    level2Sec: null,
+    firstDamageSec: null,
+    firstCapsuleSec: null,
+    eliteKillSecs: [],
+  };
+}
+
 export type RuntimeState = {
   status: GameStatus;
+  runId: string;
   elapsedSec: number;
   durationSec: number;
   characterId: Id;
@@ -129,6 +150,7 @@ export type RuntimeState = {
   orbitAngle: number;
   orbitHitCooldowns: Map<number, number>;
   stats: RunStats;
+  telemetry: RunTelemetry;
   ultimate: UltimateState;
   pendingChoices: LevelUpChoice[];
   pendingCapsule: CapsuleReward | null;
