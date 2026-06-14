@@ -45,19 +45,22 @@ export function createEnemyView(
   radius: number,
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  const isElite = def.tags.includes('elite');
+  const kind = def.visualKind;
+  const isElite = kind === 'label_elite';
   const fill = isElite ? COLORS.enemyElite : COLORS.enemyInk;
   const edge = isElite ? COLORS.enemyEliteEdge : COLORS.enemyInkEdge;
+  const baseAlpha = kind === 'haze' ? 0.6 : 1;
 
-  const blob = scene.add.circle(0, 0, radius, fill);
+  const blob = scene.add.circle(0, 0, radius, fill, baseAlpha);
   blob.setStrokeStyle(2, edge, 0.9);
 
-  // 種別ごとのモチーフで識別性を上げる（描画のみ・ロジックには影響しない）
+  // visualKind ごとのモチーフで識別性を上げる（描画のみ・ロジックには影響しない）
   const behind: Phaser.GameObjects.GameObject[] = [];
   const front: Phaser.GameObjects.GameObject[] = [];
+  let eyeHigh = false;
 
-  switch (def.id) {
-    case 'paper_scrap_shadow': {
+  switch (kind) {
+    case 'paper_scrap': {
       // 紙くず: 角ばった淡い紙片をまとう
       const scrap = scene.add.rectangle(radius * 0.4, -radius * 0.5, radius * 0.8, radius * 0.6, COLORS.backgroundTile, 0.9);
       scrap.setStrokeStyle(1, COLORS.cardEdge, 0.6);
@@ -65,14 +68,14 @@ export function createEnemyView(
       front.push(scrap);
       break;
     }
-    case 'lost_direction': {
+    case 'signpost': {
       // 迷子の方角: 小さな標識（矢印）
       const post = scene.add.rectangle(0, -radius - 4, 2, 8, COLORS.cardEdge, 0.8);
       const arrow = scene.add.triangle(radius * 0.2, -radius - 6, 0, 0, 8, 4, 0, 8, COLORS.cardBg, 0.9);
       front.push(post, arrow);
       break;
     }
-    case 'black_capsule': {
+    case 'capsule': {
       // 黒いカプセル: コルク + 縦長の輪郭
       const ring = scene.add.ellipse(0, 0, radius * 1.4, radius * 2.0, edge, 0);
       ring.setStrokeStyle(2, edge, 0.5);
@@ -81,9 +84,8 @@ export function createEnemyView(
       front.push(cork);
       break;
     }
-    case 'night_haze': {
+    case 'haze': {
       // 夜のもや: ふんわり広がる薄い影
-      blob.setFillStyle(fill, 0.6);
       behind.push(
         scene.add.circle(-radius * 0.5, radius * 0.3, radius * 0.7, fill, 0.3),
         scene.add.circle(radius * 0.5, radius * 0.2, radius * 0.7, fill, 0.3),
@@ -91,7 +93,7 @@ export function createEnemyView(
       );
       break;
     }
-    case 'black_label_shadow': {
+    case 'label_elite': {
       // 黒ラベルの影: 名前を塗りつぶしたラベル
       const ring = scene.add.circle(0, 0, radius + 3, edge, 0);
       ring.setStrokeStyle(2, edge, 0.5);
@@ -99,14 +101,16 @@ export function createEnemyView(
       label.setStrokeStyle(1, COLORS.enemyEliteEdge, 0.7);
       behind.push(ring);
       front.push(label);
+      eyeHigh = true;
       break;
     }
+    case 'ink_blob':
     default:
       break;
   }
 
   // 白い目（識別の要。ラベルの影は目を上に寄せる）
-  const eyeY = def.id === 'black_label_shadow' ? -radius * 0.4 : -radius * 0.15;
+  const eyeY = eyeHigh ? -radius * 0.4 : -radius * 0.15;
   const eyeDx = radius * 0.35;
   const eyeR = Math.max(1.5, radius * 0.13);
   const eyeL = scene.add.circle(-eyeDx, eyeY, eyeR, COLORS.enemyEye);
@@ -115,6 +119,8 @@ export function createEnemyView(
   c.add([...behind, blob, ...front, eyeL, eyeRr]);
   c.setDepth(DEPTH.enemy);
   c.setData('blob', blob);
+  c.setData('baseFill', fill);
+  c.setData('baseAlpha', baseAlpha);
   return c;
 }
 

@@ -22,6 +22,7 @@ export function spawnEnemy(
   const view = createEnemyView(scene, def, radius);
   view.setPosition(x, y);
   const isElite = def.tags.includes('elite');
+  const capsuleDropChance = def.drops?.find((d) => d.type === 'memory_capsule')?.chance ?? 0;
   const enemy: EnemyRuntime = {
     iid: nextIid(state),
     defId: def.id,
@@ -35,7 +36,7 @@ export function spawnEnemy(
     radius,
     behavior: def.behavior,
     isElite,
-    dropsCapsule: !!def.drops?.some((d) => d.type === 'memory_capsule'),
+    capsuleDropChance,
     offsetSign: Math.random() < 0.5 ? -1 : 1,
     flashRemaining: 0,
     view,
@@ -88,7 +89,7 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     spawnFragment(scene, state, enemy.x + ox, enemy.y + oy, per);
   }
 
-  if (enemy.dropsCapsule) {
+  if (enemy.capsuleDropChance > 0 && Math.random() < enemy.capsuleDropChance) {
     spawnCapsule(scene, state, enemy.x, enemy.y);
   }
 
@@ -115,17 +116,39 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
   for (const e of state.enemies) {
     if (e.dead) continue;
 
-    // 移動方向
+    // 移動方向と速度（behaviorで挙動差を出す）
+    const d = distance(e.x, e.y, p.x, p.y);
     let dir = normalize(p.x - e.x, p.y - e.y);
-    if (e.behavior === 'offset_chase') {
-      const d = distance(e.x, e.y, p.x, p.y);
-      if (d > 80) {
+    let speedFactor = 1;
+    switch (e.behavior) {
+      case 'offset_chase':
+        // 少し横にずれながら回り込む
+        if (d > 80) {
+          const perp = { x: -dir.y, y: dir.x };
+          dir = normalize(dir.x + perp.x * e.offsetSign * 0.6, dir.y + perp.y * e.offsetSign * 0.6);
+        }
+        break;
+      case 'slow_chase':
+        // 近いと少し減速（硬いが詰めは遅い）
+        if (d < 70) speedFactor = 0.5;
+        break;
+      case 'swarm_chase': {
+        // 直線でなく少しばらけて群れる
+        const wob = Math.sin(state.elapsedSec * 2 + e.iid) * 0.5 * e.offsetSign;
         const perp = { x: -dir.y, y: dir.x };
-        dir = normalize(dir.x + perp.x * e.offsetSign * 0.6, dir.y + perp.y * e.offsetSign * 0.6);
+        dir = normalize(dir.x + perp.x * wob, dir.y + perp.y * wob);
+        break;
       }
+      case 'elite_chase':
+        // 遠いと押し込む（止まらない圧）
+        if (d > 220) speedFactor = 1.25;
+        break;
+      case 'chase':
+      default:
+        break;
     }
-    e.x += dir.x * e.moveSpeed * dt;
-    e.y += dir.y * e.moveSpeed * dt;
+    e.x += dir.x * e.moveSpeed * speedFactor * dt;
+    e.y += dir.y * e.moveSpeed * speedFactor * dt;
     e.view.setPosition(e.x, e.y);
 
     // 命中スケールポップを徐々に戻す
@@ -139,7 +162,9 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       e.flashRemaining = Math.max(0, e.flashRemaining - dt);
       if (e.flashRemaining === 0) {
         const blob = e.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
-        if (blob) blob.setFillStyle(e.isElite ? COLORS.enemyElite : COLORS.enemyInk, 1);
+        const baseFill = (e.view.getData('baseFill') as number | undefined) ?? COLORS.enemyInk;
+        const baseAlpha = (e.view.getData('baseAlpha') as number | undefined) ?? 1;
+        if (blob) blob.setFillStyle(baseFill, baseAlpha);
       }
     }
 

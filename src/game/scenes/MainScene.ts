@@ -41,7 +41,10 @@ export class MainScene extends Phaser.Scene {
     this.spawnSystem = new SpawnSystem();
     this.keys = setupKeyboard(this);
     this.stick = new VirtualStick(this, () => {
-      this.state.ultimateRequested = true;
+      // PLAYING中のみ必殺技を受け付ける（レベルアップ/カプセル中の右半分タップで暴発しない）
+      if (this.state.status === GAME_STATUS.PLAYING) {
+        this.state.ultimateRequested = true;
+      }
     });
 
     window.addEventListener('blur', this.onBlur);

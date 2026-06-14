@@ -52,6 +52,9 @@ export type PassiveDefinition = {
 
 export type EnemyBehavior = 'chase' | 'slow_chase' | 'offset_chase' | 'swarm_chase' | 'elite_chase';
 
+/** 描画モチーフ。敵の名前/挙動を変えても描画部が壊れないよう、見た目は visualKind で決める。 */
+export type EnemyVisualKind = 'ink_blob' | 'paper_scrap' | 'signpost' | 'capsule' | 'haze' | 'label_elite';
+
 export type EnemyDefinition = {
   id: Id;
   name: string;
@@ -61,6 +64,7 @@ export type EnemyDefinition = {
   xpDrop: number;
   tags: string[];
   behavior: EnemyBehavior;
+  visualKind: EnemyVisualKind;
   description: string;
   lore?: string;
   drops?: Array<{ type: 'memory_capsule'; chance: number }>;

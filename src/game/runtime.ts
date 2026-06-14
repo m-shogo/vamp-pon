@@ -25,7 +25,7 @@ export type EnemyRuntime = {
   radius: number;
   behavior: EnemyBehavior;
   isElite: boolean;
-  dropsCapsule: boolean;
+  capsuleDropChance: number;
   offsetSign: number;
   flashRemaining: number;
   view: View;
