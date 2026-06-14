@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import type { LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState } from '../state';
 import { GAME_STATUS } from '../domain/constants';
@@ -93,6 +94,25 @@ export class MainScene extends Phaser.Scene {
     this.hud.update(state);
   }
 
+  private showLevelUpChoices(choices: LevelUpChoice[]): void {
+    const state = this.state;
+    state.pendingChoices = choices;
+    this.overlays.showLevelUp(
+      state,
+      choices,
+      (choice) => {
+        applyChoice(state, choice);
+        state.pendingChoices = [];
+        state.status = GAME_STATUS.PLAYING;
+      },
+      () => {
+        if (state.levelUpRerollsRemaining <= 0) return;
+        state.levelUpRerollsRemaining -= 1;
+        this.showLevelUpChoices(generateChoices(state));
+      },
+    );
+  }
+
   private resolveTransitions(): void {
     const state = this.state;
 
@@ -117,14 +137,8 @@ export class MainScene extends Phaser.Scene {
       if (state.player.level === 2 && state.telemetry.level2Sec === null) {
         state.telemetry.level2Sec = state.elapsedSec;
       }
-      const choices = generateChoices(state);
-      state.pendingChoices = choices;
       state.status = GAME_STATUS.LEVELUP;
-      this.overlays.showLevelUp(state, choices, (choice) => {
-        applyChoice(state, choice);
-        state.pendingChoices = [];
-        state.status = GAME_STATUS.PLAYING;
-      });
+      this.showLevelUpChoices(generateChoices(state));
       return;
     }
 
