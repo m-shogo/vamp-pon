@@ -5,6 +5,7 @@
 
 ## ユイ
 
+- [ ] `/?scene=yui-gallery` でユイ4ポーズの1xと4xを確認する。
 - [ ] `/?scene=visual-gallery` で 32〜36px の範囲の見た目が成立している。
 - [ ] `/?scene=visual-gallery` で小さいフードが背景から分離している。
 - [ ] `/?scene=visual-gallery` で古紙色の服がドロップや紙片敵と混ざりすぎない。
@@ -31,6 +32,9 @@
 ## 実行コマンド
 
 ```sh
+pnpm aseprite:check
+pnpm aseprite:export:yui
+pnpm assets:verify
 pnpm test
 pnpm build
 ```
@@ -40,3 +44,10 @@ pnpm build
 - 実機スマホの縦持ち表示。
 - Aseprite source から hand-final 候補を書き出した後の比較。
 - 8分通しプレイの後半視認性。
+
+## Aseprite境界
+
+- production export は stable v1.3.17.1 を使う。
+- beta v1.3.18-beta2 は使わない。
+- 現在のユイ4ポーズは generated-draft。
+- hand-final 化は idle → move → hurt → ultimate の順。

@@ -16,9 +16,10 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライトで�
 
 ## 現在の状態
 
-**MVP v0.1 — playable（仮素材）**
+**MVP v0.1 — playable（generated素材）**
 
-ユイで8分のサバイバルが一通り遊べます。見た目はPhaser図形の仮実装です。
+ユイで8分のサバイバルが一通り遊べます。
+主要素材は generated PNG に移行済みですが、ユイ4ポーズはまだ generated-draft で、Aseprite hand-final 前です。
 
 ---
 
@@ -43,24 +44,22 @@ HUD / ポーズ / クリア / ゲームオーバー / リザルト
 
 ## 次にやる
 
-計測の土台は実装済み（プレイログ自動出力・debug表示・データ整合テスト）。
-次は **実プレイで記録して詰める** 段階。
-
-**プレイログ記録: 未済（0/3）** — まずここを埋める。
+計測と素材制作ラインの土台は実装済み（プレイログ自動出力・debug表示・assetManifest検証・Aseprite export導線）。
+次は **ユイ hand-final 入口と後半密度の視認性確認** を詰める段階。
 
 ```txt
-1. 実機/実ブラウザで3回プレイし、プレイログを docs/balance-log.md へ貼る
-2. Lv2到達 / 初被弾 / 初カプセル / 3分エリートを基準に序盤(0:00〜3:00)を調整
-3. スマホ操作・視認性のチェックリストを潰す
-4. 手触り（撃破・吸引・進化・必殺）の強化
-5. Stage 1 の仮素材差し替え
+1. Aseprite stable v1.3.17.1 で yui_idle を hand-final 候補にする
+2. /?scene=yui-gallery で 1x / 4x / 背景上 / hitCore 位置を確認する
+3. yui_move → yui_hurt → yui_ultimate の順で source を作る
+4. /?scene=combat-mock&density=late で後半密度の視認性を確認する
+5. 実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
 ```
 
 調整の指標→数値マップは [docs/balance-log.md](docs/balance-log.md) の「序盤（0:00〜3:00）調整ガイド」を参照。
 
 - ゲーム終了時にコンソールへ `[vamp-pon playlog] {...}` を1行JSONで出力（リザルト画面にも主要計測値）。
 - プレイログ様式・チェックリストは [docs/balance-log.md](docs/balance-log.md) を参照。
-- まだ **新キャラ / 新ステージ / 新武器 / 見た目の本番化は入れない**（測れてから育てる）。
+- まだ **新キャラ / 新ステージ / 新武器 / PWA化は入れない**（ユイとStage 1を詰めてから進める）。
 
 ---
 
@@ -71,11 +70,15 @@ pnpm install      # 依存インストール
 pnpm dev          # 開発サーバ（http://localhost:5173）
 pnpm build        # 型チェック + 本番ビルド
 pnpm test         # ロジックのユニットテスト（vitest）
+pnpm aseprite:check       # Aseprite stable v1.3.17.1 のCLI確認
+pnpm aseprite:export:yui  # ユイ4ポーズのsourceがあればPNGへexport
 ```
 
 - スマホ縦持ち（390×844 論理解像度）を想定。
 - 操作: 画面左半分ドラッグの仮想スティック / PCは WASD・矢印キー。必殺技は画面右半分タップ。
 - `?debug=true` を付けるとデバッグ表示（経過秒・敵数・HP・XPなど）。
+- `?scene=yui-gallery` でユイ4ポーズ、1x/4x、hitCore/debug円相当を確認。
+- `?scene=combat-mock&density=late` で8分後半相当の視認性入口を確認。
 
 実装の構成は [docs/98-target-code-architecture.md](docs/98-target-code-architecture.md)、データ契約は [docs/81-data-contract.md](docs/81-data-contract.md) を参照。
 

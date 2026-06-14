@@ -21,6 +21,22 @@ describe('assetManifest', () => {
       expect(typeof a.fallback).toBe('boolean');
     }
   });
+
+  it('ユイ4ポーズのpathがAseprite export設計と一致', () => {
+    const expected = new Map([
+      ['yui_idle', 'assets/sprites/player/yui_idle_32.png'],
+      ['yui_move', 'assets/sprites/player/yui_move_32.png'],
+      ['yui_hurt', 'assets/sprites/player/yui_hurt_32.png'],
+      ['yui_ultimate', 'assets/sprites/player/yui_ultimate_32.png'],
+    ]);
+    for (const [id, path] of expected) {
+      const asset = assetById.get(id);
+      expect(asset?.path, id).toBe(path);
+      expect(asset?.width, id).toBe(32);
+      expect(asset?.height, id).toBe(32);
+      expect(asset?.kind, id).toBe('player');
+    }
+  });
 });
 
 describe('マッピングと manifest の対応漏れがない', () => {

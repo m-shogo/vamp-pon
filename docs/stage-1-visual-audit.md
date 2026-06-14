@@ -21,9 +21,11 @@
 
 ## 確認URL
 
+- `/?scene=yui-gallery`
 - `/?scene=visual-gallery`
 - `/?scene=asset-status`
-- `/?scene=combat-mock`
+- `/?scene=combat-mock&density=early`
+- `/?scene=combat-mock&density=mid`
 - `/?scene=combat-mock&density=late`
 
 ## 確認コマンド
@@ -34,3 +36,10 @@ pnpm assets:verify
 pnpm test
 pnpm build
 ```
+
+## Aseprite状態
+
+- Aseprite production export は stable v1.3.17.1 を対象にする。
+- beta v1.3.18-beta2 は本番exportに使わない。
+- ユイ4ポーズはまだ generated-draft。
+- `.aseprite` source が無いものは source-missing として扱う。

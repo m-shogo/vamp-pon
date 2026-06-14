@@ -30,19 +30,20 @@ import { assetManifest, WEAPON_ASSET } from '../assets/assetManifest';
 import { assetStatus } from '../assets/assetHelpers';
 import { generatedPixelAssets, type PixelAssetQuality } from '../assets/vampPixelKit';
 
-const PAGES = ['背景・ユイ・敵', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況'] as const;
+const PAGES = ['背景・ユイ・敵', 'ユイ詳細', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況'] as const;
 
 /** URLのscene指定から初期ページを決める。 */
 export function pageFromUrl(): number {
   const params = new URLSearchParams(window.location.search);
   const scene = params.get('scene') ?? params.get('debug') ?? '';
-  if (scene === 'combat-mock') return 4;
-  if (scene === 'evolution-showcase') return 3;
-  if (scene === 'asset-status') return 5;
+  if (scene === 'yui-gallery') return 1;
+  if (scene === 'combat-mock') return 5;
+  if (scene === 'evolution-showcase') return 4;
+  if (scene === 'asset-status') return 6;
   return 0;
 }
 
-const GALLERY_SCENES = ['visual-gallery', 'combat-mock', 'evolution-showcase', 'asset-status'];
+const GALLERY_SCENES = ['visual-gallery', 'yui-gallery', 'combat-mock', 'evolution-showcase', 'asset-status'];
 const generatedQualityById = new Map(generatedPixelAssets.map((asset) => [asset.id, asset.quality]));
 
 /** ?scene= / ?debug= がギャラリー系か。 */
@@ -104,18 +105,19 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.pageRoot.destroy();
     this.pageRoot = this.add.container(0, 0);
     this.overlays.clear();
-    this.titleText.setText(`${this.page + 1}/${PAGES.length}  ${PAGES[this.page]}`);
+      this.titleText.setText(`${this.page + 1}/${PAGES.length}  ${PAGES[this.page]}`);
 
     switch (this.page) {
       case 0: this.buildEnemiesPage(); break;
-      case 1: this.buildPickupsUiPage(); break;
-      case 2: this.buildWeaponsPage(); break;
-      case 3: this.buildEvolutionPage(); break;
-      case 4: this.buildCombatMockPage(); break;
-      case 5: this.buildAssetStatusPage(); break;
+      case 1: this.buildYuiGalleryPage(); break;
+      case 2: this.buildPickupsUiPage(); break;
+      case 3: this.buildWeaponsPage(); break;
+      case 4: this.buildEvolutionPage(); break;
+      case 5: this.buildCombatMockPage(); break;
+      case 6: this.buildAssetStatusPage(); break;
     }
 
-    const showHud = this.page === 1 || this.page === 4;
+    const showHud = this.page === 2 || this.page === 5;
     this.hud.setVisible(showHud);
     if (showHud) this.hud.update(showcaseState());
   }
@@ -212,6 +214,47 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.label(x, y + 28, `通常芯2.5px / debug半径${PLAYER_DEFAULTS.radius}px`, 8, '#cfe6f0', 180);
   }
 
+  private buildYuiGalleryPage(): void {
+    this.heading('ユイ4ポーズ / 1x・4x / 判定芯');
+    const poses = [
+      ['yui_idle', 'idle'],
+      ['yui_move', 'move'],
+      ['yui_hurt', 'hurt'],
+      ['yui_ultimate', 'ultimate'],
+    ] as const;
+
+    poses.forEach(([assetId, label], i) => {
+      const x = 54 + i * 94;
+      this.pageRoot.add(this.add.image(x, 78, assetId).setDisplaySize(32, 32));
+      this.pageRoot.add(this.add.image(x, 158, assetId).setDisplaySize(128, 128));
+      this.label(x, 224, `${label}\n1x / 4x`, 9, '#cfe6f0', 82);
+    });
+
+    this.label(GAME_WIDTH / 2, 252, '背景上・hitCore・debug円・欠片との距離', 10, '#ffe9a8', 260);
+    const clusterY = 306;
+    const player = createPlayerView(this, 0, 0);
+    const debugHitCircle = player.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
+    debugHitCircle?.setVisible(true);
+    this.place(player, GAME_WIDTH / 2, clusterY);
+    this.place(createPickupView(this), GAME_WIDTH / 2 - 50, clusterY - 2);
+    this.place(createPickupView(this), GAME_WIDTH / 2 + 44, clusterY - 12);
+    this.place(createHealPickupView(this), GAME_WIDTH / 2 - 34, clusterY + 28);
+    this.place(createCapsuleView(this), GAME_WIDTH / 2 + 54, clusterY + 28);
+    const ink = enemies.find((e) => e.visualKind === 'ink_blob');
+    if (ink) this.place(createEnemyView(this, ink, enemyRadiusFor(ink)), GAME_WIDTH / 2 + 86, clusterY);
+    this.label(GAME_WIDTH / 2, clusterY + 40, `hitCore常時 / debugHitCircle半径${PLAYER_DEFAULTS.radius}`, 9, '#cfe6f0', 220);
+
+    this.pageRoot.add(
+      this.add.text(12, 388, [
+        '見ること:',
+        '- idleが一番読めるか',
+        '- ランタン/欠片/hitCoreが近すぎないか',
+        '- 黒インク敵と外形が混ざらないか',
+        '- collisionはこの画面で変更しない',
+      ], { fontFamily: FONT, fontSize: '10px', color: '#cfc6b0', lineSpacing: 4 }).setOrigin(0, 0),
+    );
+  }
+
   /** 拾得物 + UI（HUD + レベルアップカード） */
   private buildPickupsUiPage(): void {
     // 上部はHUDが占有するため見出しは出さない（ナビにページ名あり）
@@ -278,7 +321,9 @@ export class VisualGalleryScene extends Phaser.Scene {
   /** 戦闘モック: 全部一緒に置いて視認性を確認 */
   private buildCombatMockPage(): void {
     // 上部はHUDが占有するため見出しは出さない
-    const lateDensity = new URLSearchParams(window.location.search).get('density') === 'late';
+    const density = new URLSearchParams(window.location.search).get('density') ?? 'mid';
+    const lateDensity = density === 'late';
+    const midDensity = density === 'mid' || density === 'late';
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2 - 20;
 
@@ -300,7 +345,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       this.place(createEnemyView(this, def, enemyRadiusFor(def)), cx + Math.cos(ang) * r, cy + Math.sin(ang) * r * 0.9);
     });
 
-    if (lateDensity) this.placeLateDensityEnemies(cx, cy);
+    if (midDensity) this.placeDensityEnemies(cx, cy, lateDensity ? 18 : 10);
 
     // 弾を散らす
     const projKinds: Array<[string, number, number]> = [
@@ -311,22 +356,22 @@ export class VisualGalleryScene extends Phaser.Scene {
       const def = weaponById.get(id);
       if (def) this.renderWeaponSample(def.id, x, y);
     }
-    if (lateDensity) this.placeLateDensityProjectiles(cx, cy);
+    if (midDensity) this.placeDensityProjectiles(cx, cy, lateDensity ? 16 : 8);
 
     // 拾得物
     this.place(createPickupView(this), cx - 30, cy + 60);
     this.place(createPickupView(this), cx + 20, cy - 60);
     this.place(createHealPickupView(this), cx + 90, cy + 70);
     this.place(createCapsuleView(this), cx - 90, cy - 60);
-    if (lateDensity) this.placeLateDensityPickups(cx, cy);
+    if (midDensity) this.placeDensityPickups(cx, cy, lateDensity);
 
     // ユイ
     const player = createPlayerView(this, 0, 0);
-    if (lateDensity) {
+    if (density !== 'early') {
       const debugHitCircle = player.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
       debugHitCircle?.setVisible(true);
       this.pageRoot.add(
-        this.add.text(10, 96, 'late density sample: 8分後半の視認性監査用', {
+        this.add.text(10, 96, `${density} density sample: 視認性監査用`, {
           fontFamily: FONT, fontSize: '10px', color: '#ffe9a8',
         }).setOrigin(0, 0),
       );
@@ -334,22 +379,22 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.place(player, cx, cy);
   }
 
-  private placeLateDensityEnemies(cx: number, cy: number): void {
+  private placeDensityEnemies(cx: number, cy: number, count: number): void {
     const sample = enemies.filter((enemy) => enemy.visualKind !== 'label_elite');
-    for (let i = 0; i < 18; i += 1) {
+    for (let i = 0; i < count; i += 1) {
       const def = sample[i % sample.length];
-      const angle = (i / 18) * Math.PI * 2;
+      const angle = (i / count) * Math.PI * 2;
       const radius = 72 + (i % 3) * 34;
       const squash = 0.78 + (i % 2) * 0.12;
       this.place(createEnemyView(this, def, enemyRadiusFor(def)), cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius * squash);
     }
   }
 
-  private placeLateDensityProjectiles(cx: number, cy: number): void {
+  private placeDensityProjectiles(cx: number, cy: number, count: number): void {
     const ids = ['night_pencil', 'marble', 'stardust_shot', 'postcard_blade', 'paper_airplane'];
-    for (let i = 0; i < 16; i += 1) {
+    for (let i = 0; i < count; i += 1) {
       const id = ids[i % ids.length];
-      const angle = (i / 16) * Math.PI * 2;
+      const angle = (i / count) * Math.PI * 2;
       const x = cx + Math.cos(angle) * (36 + (i % 4) * 20);
       const y = cy + Math.sin(angle) * (32 + (i % 4) * 16);
       const def = weaponById.get(id);
@@ -357,7 +402,7 @@ export class VisualGalleryScene extends Phaser.Scene {
     }
   }
 
-  private placeLateDensityPickups(cx: number, cy: number): void {
+  private placeDensityPickups(cx: number, cy: number, late: boolean): void {
     const placements: Array<[() => Phaser.GameObjects.Container, number, number]> = [
       [() => createPickupView(this), -82, -28],
       [() => createPickupView(this), -58, 42],
@@ -368,7 +413,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       [() => createCapsuleView(this), -118, -82],
       [() => createCapsuleView(this), 118, -84],
     ];
-    for (const [create, x, y] of placements) this.place(create(), cx + x, cy + y);
+    for (const [create, x, y] of late ? placements : placements.slice(0, 4)) this.place(create(), cx + x, cy + y);
   }
 
   // ---- weapon sample rendering --------------------------------------------

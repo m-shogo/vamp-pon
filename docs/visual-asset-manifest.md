@@ -9,6 +9,7 @@
 - 切替: `factory.ts` の各 `createXView` が `spriteOrNull()` で画像 or Graphics fallback
 - 状況確認: VisualGallery `?scene=asset-status`
 - 生成: `pnpm generate:pixel-assets`（詳細は [generated-pixel-assets.md](generated-pixel-assets.md)）
+- Aseprite export: `pnpm aseprite:export:yui`（詳細は [aseprite-workflow.md](aseprite-workflow.md)）
 
 ---
 
@@ -85,9 +86,11 @@
 ```txt
 生成素材: 36 個（generated-final 22 / generated-draft 14）
 表示    : assetManifest 全エントリが生成PNG image
+source  : ユイ4ポーズはAseprite source-missing
 ```
 
 `?scene=asset-status` で最新の 実素材/仮/欠品 を確認できる。
 `pnpm generate:pixel-assets` を実行すると、生成対象PNGが `public/assets/sprites/...` に書き出され、その要素だけ自動で画像表示に切替わる。
 
 整合性は `src/game/assets/__tests__/assetManifest.test.ts` と `src/game/assets/__tests__/vampPixelKit.test.ts` が検査（id一意・対応漏れ・生成path/size）。
+Aseprite source の設計は `scripts/aseprite/aseprite-config.mjs` と `scripts/aseprite/aseprite-config.test.mjs` が検査する。

@@ -29,8 +29,13 @@ pnpm assets:verify
 - `hand-final`: Aseprite source から `public/assets/sprites/...` へ export した本命素材。
 
 ユイ系 `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate` は現時点では `generated-draft`。
-`assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:player` で同じ manifest path に export し、hand-final 候補へ進める。
+`assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:yui` で同じ manifest path に export し、hand-final 候補へ進める。
 hand-final 昇格時も `PLAYER_DEFAULTS.radius` / `visualSize` は変更しない。
+
+追加状態:
+
+- `source-missing`: Aseprite source がまだ無い。
+- `exported`: Aseprite source から PNG を書き出した。
 
 ## 現在の生成対象
 
@@ -84,6 +89,7 @@ hand-final 昇格時も `PLAYER_DEFAULTS.radius` / `visualSize` は変更しな�
 
 `assetManifest` の全36件が生成対象。
 VisualGallery `?scene=asset-status` では image 36 / fallback 0 / missing 0 を基準にする。
+ただしユイ4ポーズの Aseprite source はまだ `source-missing`。
 
 ## 次に手仕上げすべき素材
 
