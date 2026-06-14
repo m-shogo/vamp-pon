@@ -7,6 +7,8 @@ import { createBackground } from '../ui/background';
 import { Hud } from '../ui/hud';
 import { Overlays } from '../ui/overlays';
 import { VirtualStick } from '../ui/virtualStick';
+import { evolutionBurst } from '../ui/effects';
+import { weaponById } from '../data/weapons';
 import { setupKeyboard, updateInput, type KeyboardKeys } from '../systems/input';
 import { updateMovement } from '../systems/movement';
 import { SpawnSystem } from '../systems/spawn';
@@ -157,6 +159,9 @@ export class MainScene extends Phaser.Scene {
       const reward = state.pendingCapsule;
       this.overlays.showCapsule(state, reward, () => {
         applyCapsule(state, reward);
+        if (reward.type === 'evolution') {
+          evolutionBurst(this, state.player.x, state.player.y, weaponById.get(reward.evolvedWeaponId)?.name ?? reward.title);
+        }
         state.stats.capsulesOpened += 1;
         state.pendingCapsule = null;
         state.status = GAME_STATUS.PLAYING;
