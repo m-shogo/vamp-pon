@@ -65,7 +65,9 @@ export type PickupRuntime = {
   iid: number;
   x: number;
   y: number;
+  kind: 'fragment' | 'heal';
   xp: number;
+  heal: number;
   magnetized: boolean;
   view: View;
   dead: boolean;
