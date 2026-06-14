@@ -17,7 +17,7 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
         type: 'evolution',
         evolutionId: evo.id,
         evolvedWeaponId: evo.evolvedWeaponId,
-        title: evo.title,
+        title: evo.name,
         lore: evo.lore,
       };
     }
