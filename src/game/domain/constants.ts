@@ -20,9 +20,9 @@ export const DEFAULT_GAME_CONFIG = {
   durationSec: 480,
   maxEnemies: 140,
   maxPickups: 250,
-  maxProjectiles: 120,
-  weaponSlots: 4,
-  passiveSlots: 4,
+  maxProjectiles: 140,
+  weaponSlots: 5,
+  passiveSlots: 5,
 } as const;
 
 export const PLAYER_DEFAULTS = {
