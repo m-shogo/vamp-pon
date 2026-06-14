@@ -165,6 +165,54 @@ export const weapons: WeaponDefinition[] = [
       { level: 1, effect: { type: 'ground_area', damagePerSecond: 28, duration: 6.5, radius: 128, cooldown: 1.15, maxAreas: 3, targeting: 'nearest', evolved: true }, label: '巨大な夜明けの輪を次々に残す。黒インク小瓶と街灯の輪が1枠にまとまる。' },
     ],
   },
+  {
+    id: 'unforgotten_name',
+    name: '消えない名前',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['projectile', 'target_nearest', 'rare_fusion', 'evolved'],
+    description: '名前の線が長く伸び、影をまとめて貫く。',
+    lore: '呼ばれなくなっても、そこにいたことは消えない。',
+    levels: [
+      { level: 1, effect: { type: 'projectile', damage: 60, projectiles: 3, cooldown: 0.58, pierce: 8, targeting: 'nearest', evolved: true }, label: '名前の線を刻む。夜の鉛筆と誰かの名前札が1枠にまとまる。' },
+    ],
+  },
+  {
+    id: 'memory_marble',
+    name: '追憶のビー玉',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['projectile', 'bounce', 'rare_fusion', 'evolved'],
+    description: '大きな光るビー玉が長く跳ね回る。',
+    lore: 'ひび割れた景色の中で、思い出だけが丸く光る。',
+    levels: [
+      { level: 1, effect: { type: 'bouncing_projectile', damage: 24, projectiles: 3, cooldown: 0.9, bounces: 6, speed: 1.45, duration: 6.5, evolved: true }, label: '追憶のビー玉を3つ転がす。ビー玉とひび割れたレンズが1枠にまとまる。' },
+    ],
+  },
+  {
+    id: 'addressless_blade',
+    name: '宛先のない刃',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['projectile', 'target_nearest', 'rare_fusion', 'evolved'],
+    description: '封の切れ目が光の紙刃になり、影へ飛ぶ。',
+    lore: '届かなかった言葉ほど、まっすぐ進む。',
+    levels: [
+      { level: 1, effect: { type: 'projectile', damage: 34, projectiles: 5, cooldown: 0.72, pierce: 3, targeting: 'nearest', evolved: true }, label: '封を切る紙刃を連射する。絵はがきカッターと封のされた手紙が1枠にまとまる。' },
+    ],
+  },
+  {
+    id: 'tailwind_plane',
+    name: '追い風の紙ひこうき',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['projectile', 'bounce', 'rare_fusion', 'evolved'],
+    description: '大きな紙ひこうきが夜を何度も横切る。',
+    lore: '向かい風だった道が、少しだけ帰り道に変わる。',
+    levels: [
+      { level: 1, effect: { type: 'bouncing_projectile', damage: 20, projectiles: 5, cooldown: 1.0, bounces: 5, speed: 1.25, duration: 7.0, evolved: true }, label: '追い風の紙ひこうきを5つ飛ばす。紙ひこうきと風のしるしが1枠にまとまる。' },
+    ],
+  },
 ];
 
 export const weaponById = new Map(weapons.map((weapon) => [weapon.id, weapon]));
