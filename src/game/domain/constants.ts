@@ -37,6 +37,7 @@ export const LEVEL_UP = {
   choices: 3,
   lowHpRatio: 0.35,
   healAmount: 28,
+  rerollsPerRun: 3,
 } as const;
 
 /** スポーン関連（utils/viewport が参照）。 */
