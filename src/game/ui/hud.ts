@@ -141,6 +141,17 @@ export class Hud {
     }
   }
 
+  /** VisualGallery 用: HUD一式の表示切替。 */
+  setVisible(visible: boolean): void {
+    for (const obj of [
+      this.timeText, this.levelText, this.hpBack, this.hpFill, this.hpText,
+      this.xpBar, this.ultIcon, this.ultText, this.ultHintText, this.ultHitArea, this.itemsText,
+    ]) {
+      obj.setVisible(visible);
+    }
+    if (!visible) this.debugText.setVisible(false);
+  }
+
   destroy(): void {
     this.ultHitArea.destroy();
   }

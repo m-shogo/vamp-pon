@@ -141,6 +141,11 @@ export class Overlays {
     return row;
   }
 
+  /** VisualGallery 用: 実物のレベルアップカードを1枚だけ生成する（操作なし）。 */
+  previewCard(cx: number, cy: number, w: number, h: number, choice: LevelUpChoice): Phaser.GameObjects.Container {
+    return this.levelUpCard(cx, cy, w, h, choice, () => {});
+  }
+
   private levelUpCard(cx: number, cy: number, w: number, h: number, choice: LevelUpChoice, onClick: () => void): Phaser.GameObjects.Container {
     const card = this.scene.add.container(cx, cy);
     const rarity = choice.rarity ?? 'normal';

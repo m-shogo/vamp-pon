@@ -7,13 +7,14 @@ import { PROJECTILE } from '../domain/constants';
 import { distance, randomAngle, angleToVec } from '../utils/math';
 import { isFarOffscreen } from '../utils/viewport';
 import { GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
+import { createProjectileView, createAreaView, createOrbiterView } from '../ui/factory';
 import {
-  createProjectileView,
-  createAreaView,
-  createOrbiterView,
+  projectileKindForWeapon,
+  bouncingKindForWeapon,
+  areaKindForWeapon,
   type ProjectileVisualKind,
   type AreaVisualKind,
-} from '../ui/factory';
+} from '../domain/weaponVisual';
 import { damageEnemy } from './enemies';
 
 const MARBLE_BASE_SPEED = 150;
@@ -61,35 +62,6 @@ export function updateWeapons(scene: Phaser.Scene, state: RuntimeState, dt: numb
   updateAreas(scene, state, dt);
 }
 
-function projectileKindForWeapon(weaponId: string, _eff: EffectValues): ProjectileVisualKind {
-  switch (weaponId) {
-    case 'unfinished_line': return 'pencil_line';
-    case 'unforgotten_name': return 'name_line';
-    case 'stardust_shot': return 'star';
-    case 'north_star_lantern': return 'paper_lantern';
-    case 'postcard_blade': return 'blade';
-    case 'addressless_blade': return 'envelope_blade';
-    case 'night_pencil':
-    default: return 'pencil';
-  }
-}
-
-function bouncingKindForWeapon(weaponId: string): ProjectileVisualKind {
-  switch (weaponId) {
-    case 'paper_airplane': return 'paper_airplane';
-    case 'tailwind_plane': return 'big_plane';
-    case 'memory_marble': return 'lens_marble';
-    case 'marble':
-    default: return 'glass_marble';
-  }
-}
-
-function areaKindForWeapon(weaponId: string): AreaVisualKind {
-  if (weaponId === 'dawn_ink_lamp') return 'dawn';
-  if (weaponId === 'streetlamp_ring') return 'lamp';
-  return 'ink';
-}
-
 function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, type: string, eff: EffectValues): void {
   const p = state.player;
   const damage = num(eff, 'damage', 0) * p.might;
@@ -105,7 +77,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
         const spread = (i - (count - 1) / 2) * 0.18;
         const a = baseAngle + spread;
         spawnProjectile(scene, state, {
-          kind: projectileKindForWeapon(weaponId, eff),
+          kind: projectileKindForWeapon(weaponId),
           angle: a,
           speed: PROJECTILE.nightPencilSpeed,
           damage,
@@ -121,7 +93,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
       const speed = RADIAL_BASE_SPEED * num(eff, 'speed', 1);
       for (let i = 0; i < count; i += 1) {
         spawnProjectile(scene, state, {
-          kind: projectileKindForWeapon(weaponId, eff),
+          kind: projectileKindForWeapon(weaponId),
           angle: randomAngle(),
           speed,
           damage,

@@ -1,7 +1,10 @@
 import Phaser from 'phaser';
 import { COLORS, ENEMY_RADIUS, PICKUP } from '../domain/constants';
 import type { EnemyDefinition } from '../domain/types';
+import type { ProjectileVisualKind, AreaVisualKind } from '../domain/weaponVisual';
 import { STROKE, GLOW_ALPHA_MAX } from './visualDesign';
+
+export type { ProjectileVisualKind, AreaVisualKind } from '../domain/weaponVisual';
 
 /** 敵タグから当たり/見た目半径を決める。 */
 export function enemyRadiusFor(def: EnemyDefinition): number {
@@ -145,21 +148,6 @@ export function createEnemyView(
   c.setData('baseAlpha', baseAlpha);
   return c;
 }
-
-export type ProjectileVisualKind =
-  | 'pencil'
-  | 'pencil_line'
-  | 'name_line'
-  | 'star'
-  | 'paper_lantern'
-  | 'blade'
-  | 'envelope_blade'
-  | 'glass_marble'
-  | 'lens_marble'
-  | 'paper_airplane'
-  | 'big_plane';
-
-export type AreaVisualKind = 'ink' | 'lamp' | 'dawn';
 
 /**
  * 弾の見た目。武器の意味が一目で分かるモチーフ。
