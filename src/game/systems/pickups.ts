@@ -57,7 +57,7 @@ export function spawnCapsule(scene: Phaser.Scene, state: RuntimeState, x: number
   state.capsules.push(c);
 }
 
-/** 欠片/回復の吸引・取得とカプセル取得を処理する。 */
+/** 欠片は吸引、回復は任意タイミングで拾う。カプセル取得も処理する。 */
 export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
   const magnetRange = PICKUP.magnetRange * p.magnetMultiplier;
@@ -65,13 +65,22 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
   for (const pickup of state.pickups) {
     if (pickup.dead) continue;
     const d = distance(pickup.x, pickup.y, p.x, p.y);
-    if (d <= PICKUP.collectRadius) {
-      if (pickup.kind === 'heal') {
+
+    if (pickup.kind === 'heal') {
+      // 回復は「あとで拾う」判断ができるように吸引しない。
+      // HP満タン時に触れても消費しない。
+      if (p.hp < p.maxHp && d <= PICKUP.collectRadius) {
         p.hp = Math.min(p.maxHp, p.hp + pickup.heal);
-      } else {
-        addXp(state, pickup.xp);
-        state.stats.memoryFragmentsCollected += 1;
+        pickup.dead = true;
+        pickup.view.destroy();
+        collectSpark(scene, p.x, p.y);
       }
+      continue;
+    }
+
+    if (d <= PICKUP.collectRadius) {
+      addXp(state, pickup.xp);
+      state.stats.memoryFragmentsCollected += 1;
       pickup.dead = true;
       pickup.view.destroy();
       collectSpark(scene, p.x, p.y);
