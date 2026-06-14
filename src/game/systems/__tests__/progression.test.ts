@@ -26,8 +26,8 @@ function makeState(partial: {
       weapons: partial.weapons ?? [{ id: 'night_pencil', level: 1, cooldownRemaining: 0 }],
       passives: partial.passives ?? [],
       evolvedWeaponIds: [],
-      weaponSlots: 4,
-      passiveSlots: 4,
+      weaponSlots: 5,
+      passiveSlots: 5,
     },
     stats: { evolutions: [] },
   } as unknown as RuntimeState;
@@ -49,6 +49,22 @@ describe('resolveWeapon', () => {
     expect(num(eff, 'projectiles')).toBe(2); // 1 + 1
     expect(num(eff, 'damage')).toBe(19); // 12 + 7
     expect(num(eff, 'duration')).toBeCloseTo(3.36, 5); // 2.8 * 1.2
+  });
+
+  it('追加武器も既存タイプで解決できる', () => {
+    const blade = resolveWeapon(weaponById.get('postcard_blade')!, 5);
+    expect(blade.type).toBe('projectile');
+    expect(num(blade, 'projectiles')).toBe(3);
+    expect(num(blade, 'pierce')).toBe(2);
+
+    const plane = resolveWeapon(weaponById.get('paper_airplane')!, 5);
+    expect(plane.type).toBe('bouncing_projectile');
+    expect(num(plane, 'projectiles')).toBe(3);
+    expect(num(plane, 'bounces')).toBe(4);
+
+    const lamp = resolveWeapon(weaponById.get('streetlamp_ring')!, 5);
+    expect(lamp.type).toBe('ground_area');
+    expect(num(lamp, 'maxAreas')).toBe(2);
   });
 
   it('Lv1では基本効果のみ', () => {
