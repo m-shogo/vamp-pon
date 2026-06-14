@@ -61,7 +61,7 @@ describe('generateChoices', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it('武器枠が満杯なら新武器を出さない', () => {
+  it('武器枠が満杯でも入れ替え用の新武器候補を出せる', () => {
     const choices = generateChoices(
       makeState({
         weaponSlots: 5,
@@ -74,7 +74,8 @@ describe('generateChoices', () => {
         ],
       }),
     );
-    expect(choices.some((c) => c.type === 'weapon_new')).toBe(false);
+    const newWeapon = choices.find((c) => c.type === 'weapon_new');
+    if (newWeapon) expect(newWeapon.title).toContain('入替');
   });
 
   it('Lv.MAXの武器強化は候補に出さない', () => {
@@ -89,10 +90,11 @@ describe('generateChoices', () => {
 });
 
 describe('追加データ', () => {
-  it('新武器3種が抽選データに存在する', () => {
+  it('新武器3種と合体進化武器が抽選データに存在する', () => {
     expect(weaponById.has('postcard_blade')).toBe(true);
     expect(weaponById.has('paper_airplane')).toBe(true);
     expect(weaponById.has('streetlamp_ring')).toBe(true);
+    expect(weaponById.has('dawn_ink_lamp')).toBe(true);
   });
 
   it('新パッシブ3種が抽選データに存在する', () => {
