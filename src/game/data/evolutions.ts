@@ -2,6 +2,18 @@ import type { EvolutionDefinition } from '../domain/types';
 
 export const evolutions: EvolutionDefinition[] = [
   {
+    id: 'dawn_ink_lamp_fusion',
+    name: '夜明けのインク灯',
+    fromWeaponId: 'black_ink_bottle',
+    requiredWeaponLevel: 5,
+    requiredWeaponId: 'streetlamp_ring',
+    requiredWeaponLevel2: 5,
+    consumedWeaponIds: ['black_ink_bottle', 'streetlamp_ring'],
+    evolvedWeaponId: 'dawn_ink_lamp',
+    title: '黒と灯りが混ざった',
+    lore: '消すための黒と、照らすための灯り。混ざると、朝の色になる。',
+  },
+  {
     id: 'unfinished_line_evo',
     name: '未完成の一行',
     fromWeaponId: 'night_pencil',
