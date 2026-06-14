@@ -67,6 +67,13 @@ describe('resolveWeapon', () => {
     expect(num(lamp, 'maxAreas')).toBe(2);
   });
 
+  it('合体進化武器は広い範囲DoTとして解決できる', () => {
+    const eff = resolveWeapon(weaponById.get('dawn_ink_lamp')!, 1);
+    expect(eff.type).toBe('ground_area');
+    expect(num(eff, 'radius')).toBe(108);
+    expect(num(eff, 'maxAreas')).toBe(2);
+  });
+
   it('Lv1では基本効果のみ', () => {
     const eff = resolveWeapon(weaponById.get('night_pencil')!, 1);
     expect(num(eff, 'damage')).toBe(16);
@@ -127,5 +134,23 @@ describe('applyCapsule 進化', () => {
     expect(evolved?.level).toBe(1);
     expect(state.inventory.evolvedWeaponIds).toContain('unfinished_line');
     expect(state.stats.evolutions).toContain('unfinished_line');
+  });
+
+  it('黒インク小瓶と街灯の輪がLv5なら1枠の合体進化になる', () => {
+    const state = makeState({
+      weapons: [
+        { id: 'black_ink_bottle', level: 5, cooldownRemaining: 0 },
+        { id: 'streetlamp_ring', level: 5, cooldownRemaining: 0 },
+      ],
+    });
+    const reward = generateCapsuleReward(state);
+    expect(reward.type).toBe('evolution');
+    if (reward.type === 'evolution') expect(reward.evolvedWeaponId).toBe('dawn_ink_lamp');
+    applyCapsule(state, reward);
+
+    expect(state.inventory.weapons).toHaveLength(1);
+    expect(state.inventory.weapons[0]?.id).toBe('dawn_ink_lamp');
+    expect(state.inventory.evolvedWeaponIds).toContain('dawn_ink_lamp');
+    expect(state.stats.evolutions).toContain('dawn_ink_lamp');
   });
 });
