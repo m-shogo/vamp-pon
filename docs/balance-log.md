@@ -102,3 +102,39 @@ docs/56-balance-log-template.md
 - 結果（生存時間・到達Lv・倒した影・進化有無）:
 - ズレた指標と推定原因:
 - 調整案:
+
+---
+
+## プレイログ様式（固定）
+
+ゲーム終了時（クリア/ゲームオーバー）に、ブラウザのコンソールへ次の1行JSONを出力する
+（`[vamp-pon playlog] {...}`）。リザルト画面にも主要な計測値を表示する。
+このJSONをコピーし、`device` と `painPoints` を埋めて下記に追記する。
+
+固定フィールド:
+
+```txt
+device          端末/ブラウザ（人が記入）
+runId           プレイ識別子（自動）
+survivedSec     生存秒
+cleared         8分到達でクリアか
+firstKillSec    最初の撃破
+level2Sec       Lv2到達
+firstDamageSec  初被弾
+firstCapsuleSec 初カプセル取得
+elite3mKilled   3分エリート撃破（180〜300秒窓）
+elite5mKilled   5分エリート撃破（300〜420秒窓）
+elite7mKilled   7分エリート撃破（420秒〜）
+finalLevel      到達Lv
+kills           撃破数
+pickedWeapons   最終所持武器ID
+pickedPassives  最終所持パッシブID
+evolvedWeapons  進化した武器ID
+painPoints      気になった点（人が記入）
+```
+
+### プレイログ記録欄
+
+```jsonl
+（ここに1プレイ1行で貼る）
+```
