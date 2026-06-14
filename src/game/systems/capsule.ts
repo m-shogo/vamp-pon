@@ -1,4 +1,4 @@
-import type { CapsuleReward } from '../domain/types';
+import type { CapsuleReward, EvolutionDefinition } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { evolutions } from '../data/evolutions';
 import { weaponById, evolvedWeaponIds } from '../data/weapons';
@@ -12,15 +12,12 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
 
   // 1. 進化条件を満たす武器
   for (const evo of evolutions) {
-    const w = inv.weapons.find((it) => it.id === evo.fromWeaponId);
-    const hasPassive = inv.passives.some((p) => p.id === evo.requiredPassiveId);
-    const alreadyEvolved = inv.evolvedWeaponIds.includes(evo.evolvedWeaponId);
-    if (w && w.level >= evo.requiredWeaponLevel && hasPassive && !alreadyEvolved) {
+    if (canEvolve(state, evo)) {
       return {
         type: 'evolution',
         evolutionId: evo.id,
         evolvedWeaponId: evo.evolvedWeaponId,
-        title: '記憶がつながった',
+        title: evo.title,
         lore: evo.lore,
       };
     }
@@ -64,6 +61,21 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
   return { type: 'currency', amount: 10, title: '記憶のかけら +10' };
 }
 
+function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
+  const inv = state.inventory;
+  const main = inv.weapons.find((it) => it.id === evo.fromWeaponId);
+  if (!main || main.level < evo.requiredWeaponLevel) return false;
+
+  if (evo.requiredPassiveId && !inv.passives.some((p) => p.id === evo.requiredPassiveId)) return false;
+
+  if (evo.requiredWeaponId) {
+    const second = inv.weapons.find((it) => it.id === evo.requiredWeaponId);
+    if (!second || second.level < (evo.requiredWeaponLevel2 ?? 1)) return false;
+  }
+
+  return !inv.evolvedWeaponIds.includes(evo.evolvedWeaponId);
+}
+
 /** カプセル報酬を適用する。 */
 export function applyCapsule(state: RuntimeState, reward: CapsuleReward): void {
   const inv = state.inventory;
@@ -91,11 +103,14 @@ export function applyCapsule(state: RuntimeState, reward: CapsuleReward): void {
 function replaceWeaponWithEvolution(state: RuntimeState, evolutionId: string, evolvedWeaponId: string): void {
   const evo = evolutions.find((e) => e.id === evolutionId);
   if (!evo) return;
-  const w = state.inventory.weapons.find((it) => it.id === evo.fromWeaponId);
-  if (!w) return;
-  w.id = evolvedWeaponId;
-  w.level = 1;
-  w.cooldownRemaining = 0;
+  const mainIndex = state.inventory.weapons.findIndex((it) => it.id === evo.fromWeaponId);
+  if (mainIndex < 0) return;
+
+  const removedIds = new Set(evo.consumedWeaponIds ?? [evo.fromWeaponId]);
+  state.inventory.weapons = state.inventory.weapons
+    .filter((w, index) => index === mainIndex || !removedIds.has(w.id))
+    .map((w, index) => (index === mainIndex ? { id: evolvedWeaponId, level: 1, cooldownRemaining: 0 } : w));
+
   if (!state.inventory.evolvedWeaponIds.includes(evolvedWeaponId)) {
     state.inventory.evolvedWeaponIds.push(evolvedWeaponId);
   }
