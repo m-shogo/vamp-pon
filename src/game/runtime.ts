@@ -154,6 +154,7 @@ export type RuntimeState = {
   ultimate: UltimateState;
   pendingChoices: LevelUpChoice[];
   pendingCapsule: CapsuleReward | null;
+  levelUpRerollsRemaining: number;
   nextIid: number;
   debug: boolean;
   inputVec: { x: number; y: number };
