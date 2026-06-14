@@ -54,14 +54,12 @@ export function createEnemyView(
   const blob = scene.add.circle(0, 0, radius, fill, baseAlpha);
   blob.setStrokeStyle(2, edge, 0.9);
 
-  // visualKind ごとのモチーフで識別性を上げる（描画のみ・ロジックには影響しない）
   const behind: Phaser.GameObjects.GameObject[] = [];
   const front: Phaser.GameObjects.GameObject[] = [];
   let eyeHigh = false;
 
   switch (kind) {
     case 'paper_scrap': {
-      // 紙くず: 角ばった淡い紙片をまとう
       const scrap = scene.add.rectangle(radius * 0.4, -radius * 0.5, radius * 0.8, radius * 0.6, COLORS.backgroundTile, 0.9);
       scrap.setStrokeStyle(1, COLORS.cardEdge, 0.6);
       scrap.setAngle(20);
@@ -69,14 +67,12 @@ export function createEnemyView(
       break;
     }
     case 'signpost': {
-      // 迷子の方角: 小さな標識（矢印）
       const post = scene.add.rectangle(0, -radius - 4, 2, 8, COLORS.cardEdge, 0.8);
       const arrow = scene.add.triangle(radius * 0.2, -radius - 6, 0, 0, 8, 4, 0, 8, COLORS.cardBg, 0.9);
       front.push(post, arrow);
       break;
     }
     case 'capsule': {
-      // 黒いカプセル: コルク + 縦長の輪郭
       const ring = scene.add.ellipse(0, 0, radius * 1.4, radius * 2.0, edge, 0);
       ring.setStrokeStyle(2, edge, 0.5);
       const cork = scene.add.rectangle(0, -radius, radius * 0.7, 5, COLORS.lantern, 0.9);
@@ -85,7 +81,6 @@ export function createEnemyView(
       break;
     }
     case 'haze': {
-      // 夜のもや: ふんわり広がる薄い影
       behind.push(
         scene.add.circle(-radius * 0.5, radius * 0.3, radius * 0.7, fill, 0.3),
         scene.add.circle(radius * 0.5, radius * 0.2, radius * 0.7, fill, 0.3),
@@ -94,7 +89,6 @@ export function createEnemyView(
       break;
     }
     case 'label_elite': {
-      // 黒ラベルの影: 名前を塗りつぶしたラベル
       const ring = scene.add.circle(0, 0, radius + 3, edge, 0);
       ring.setStrokeStyle(2, edge, 0.5);
       const label = scene.add.rectangle(0, radius * 0.1, radius * 1.5, radius * 0.5, 0x0a0712, 0.95);
@@ -109,7 +103,6 @@ export function createEnemyView(
       break;
   }
 
-  // 白い目（識別の要。ラベルの影は目を上に寄せる）
   const eyeY = eyeHigh ? -radius * 0.4 : -radius * 0.15;
   const eyeDx = radius * 0.35;
   const eyeR = Math.max(1.5, radius * 0.13);
@@ -124,8 +117,8 @@ export function createEnemyView(
   return c;
 }
 
-export type ProjectileVisualKind = 'pencil' | 'star' | 'blade' | 'paper_airplane';
-export type AreaVisualKind = 'ink' | 'lamp';
+export type ProjectileVisualKind = 'pencil' | 'star' | 'blade' | 'paper_airplane' | 'evolved_line' | 'lantern_star';
+export type AreaVisualKind = 'ink' | 'lamp' | 'dawn';
 
 /** 鉛筆弾など射出弾。武器ごとに一目で別物に見える記号を持たせる。 */
 export function createProjectileView(
@@ -134,7 +127,18 @@ export function createProjectileView(
   radius: number,
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  if (kind === 'star') {
+  if (kind === 'lantern_star') {
+    const glow = scene.add.circle(0, 0, radius + 7, COLORS.lantern, 0.48);
+    const dot = scene.add.star(0, 0, 5, radius * 0.5, radius + 3, COLORS.ultReady);
+    const core = scene.add.circle(0, 0, radius * 0.55, COLORS.lantern, 0.95);
+    c.add([glow, dot, core]);
+  } else if (kind === 'evolved_line') {
+    const glow = scene.add.rectangle(0, 0, radius * 8.5, radius * 1.8, 0xbfe6ff, 0.24);
+    const line = scene.add.rectangle(0, 0, radius * 8.2, radius * 0.9, 0xf3ead2, 0.98);
+    line.setStrokeStyle(1, COLORS.ultFill, 1);
+    const ink = scene.add.rectangle(0, radius * 0.9, radius * 5.4, radius * 0.35, COLORS.ultFill, 0.75);
+    c.add([glow, line, ink]);
+  } else if (kind === 'star') {
     const dot = scene.add.star(0, 0, 4, radius * 0.5, radius + 1, COLORS.projectileStar);
     const glow = scene.add.circle(0, 0, radius + 4, COLORS.projectileStar, 0.45);
     c.add([glow, dot]);
@@ -178,7 +182,14 @@ export function createMarbleView(scene: Phaser.Scene, radius: number): Phaser.Ga
 /** 地面のインクだまり/街灯の輪（DoT）。 */
 export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVisualKind = 'ink'): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
-  if (kind === 'lamp') {
+  if (kind === 'dawn') {
+    const glow = scene.add.circle(0, 0, radius + 12, COLORS.ultReady, 0.13);
+    const ink = scene.add.circle(0, 0, radius, COLORS.ink, 0.32);
+    const ring = scene.add.circle(0, 0, radius * 0.82, COLORS.lantern, 0.16);
+    ring.setStrokeStyle(4, COLORS.ultReady, 0.78);
+    const core = scene.add.circle(0, 0, Math.max(10, radius * 0.28), COLORS.ultFill, 0.2);
+    c.add([glow, ink, ring, core]);
+  } else if (kind === 'lamp') {
     const glow = scene.add.circle(0, 0, radius + 8, COLORS.lantern, 0.1);
     const ring = scene.add.circle(0, 0, radius, COLORS.lantern, 0.18);
     ring.setStrokeStyle(3, COLORS.lantern, 0.65);
