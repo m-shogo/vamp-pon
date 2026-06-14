@@ -2,13 +2,14 @@ import { describe, it, expect } from 'vitest';
 import type { RuntimeState } from '../../runtime';
 import { resolveWeapon, num } from '../../domain/weaponEffect';
 import { weaponById } from '../../data/weapons';
-import { applyChoice } from '../levelup';
+import { applyChoice, generateChoices } from '../levelup';
 import { generateCapsuleReward, applyCapsule } from '../capsule';
 
 function makeState(partial: {
   weapons?: RuntimeState['inventory']['weapons'];
   passives?: RuntimeState['inventory']['passives'];
   rareItems?: RuntimeState['inventory']['rareItems'];
+  evolvedWeaponIds?: RuntimeState['inventory']['evolvedWeaponIds'];
 }): RuntimeState {
   return {
     characterId: 'yui',
@@ -27,7 +28,7 @@ function makeState(partial: {
       weapons: partial.weapons ?? [{ id: 'night_pencil', level: 1, cooldownRemaining: 0 }],
       passives: partial.passives ?? [],
       rareItems: partial.rareItems ?? [],
-      evolvedWeaponIds: [],
+      evolvedWeaponIds: partial.evolvedWeaponIds ?? [],
       weaponSlots: 5,
       passiveSlots: 5,
       rareItemSlots: 2,
@@ -149,5 +150,20 @@ describe('applyCapsule 進化', () => {
 
     expect(state.inventory.weapons[0]?.id).toBe('unforgotten_name');
     expect(state.inventory.rareItems).toHaveLength(0);
+  });
+
+  it('レアアイテムなしではレア合体武器にならない', () => {
+    const state = makeState({ weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }] });
+    const reward = generateCapsuleReward(state);
+    if (reward.type === 'evolution') expect(reward.evolvedWeaponId).not.toBe('unforgotten_name');
+  });
+
+  it('進化後は進化元の夜の鉛筆が新武器候補に戻らない', () => {
+    const state = makeState({
+      weapons: [{ id: 'unfinished_line', level: 1, cooldownRemaining: 0 }],
+      evolvedWeaponIds: ['unfinished_line'],
+    });
+    const choices = generateChoices(state);
+    expect(choices.some((c) => c.type === 'weapon_new' && c.itemId === 'night_pencil')).toBe(false);
   });
 });
