@@ -120,7 +120,7 @@ export const weapons: WeaponDefinition[] = [
     maxLevel: 5,
     tags: ['area', 'damage_over_time', 'safe_zone', 'new'],
     description: '近くの影に街灯の輪を落として、しばらく照らす。',
-    lore: '夜道で迷ったとき、最後に見えた丸い光。',
+    lore: '夜道で迷ったとき、最後に見えた丸い光。黒インクの小瓶と両方Lv5で合体する。',
     levels: [
       { level: 1, effect: { type: 'ground_area', damagePerSecond: 6, duration: 3.2, radius: 64, cooldown: 2.0, maxAreas: 1, targeting: 'nearest' }, label: '街灯の輪を1つ落とす。' },
       { level: 2, effect: { radiusAdd: 18 }, label: '範囲 +18' },
@@ -151,6 +151,18 @@ export const weapons: WeaponDefinition[] = [
     lore: '迷わないためではなく、迷ったことを忘れないための灯り。',
     levels: [
       { level: 1, effect: { type: 'radial_random_projectile', damage: 22, projectiles: 12, cooldown: 0.85, speed: 1.55, evolved: true }, label: '十二の星弾をばらまく。' },
+    ],
+  },
+  {
+    id: 'dawn_ink_lamp',
+    name: '夜明けのインク灯',
+    category: 'weapon',
+    maxLevel: 1,
+    tags: ['area', 'damage_over_time', 'fusion', 'evolved'],
+    description: '黒インクと街灯が混ざり、広い夜明けの輪を残す。',
+    lore: '消すための黒と、照らすための灯り。混ざると、朝の色になる。',
+    levels: [
+      { level: 1, effect: { type: 'ground_area', damagePerSecond: 20, duration: 5.2, radius: 108, cooldown: 1.45, maxAreas: 2, targeting: 'nearest', evolved: true }, label: '大きな夜明けの輪を残す。黒インク小瓶と街灯の輪が1枠にまとまる。' },
     ],
   },
 ];
