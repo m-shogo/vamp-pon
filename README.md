@@ -1,10 +1,6 @@
 # Vamp Pon
 
-Vamp Pon は、スマホ縦持ち向けのサバイバルローグライト企画です。
-
-現在は **MVP v0.1 実装済み（仮素材・プレイ可能）** の状態です。
-
-ユイで8分のサバイバルが一通り遊べます（移動・自動攻撃・欠片回収・3択レベルアップ・武器5/パッシブ5・8分ウェーブ・記憶カプセル・進化2・必殺技・リザルト）。見た目はPhaser図形の仮実装です。
+Vamp Pon は、スマホ縦持ち向けのサバイバルローグライトです。
 
 ---
 
@@ -15,6 +11,47 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライト企�
 ```
 
 夜にあふれる影を払い、消えかけた記憶を朝までに取り戻す、縦持ちサバイバルローグライトです。
+
+---
+
+## 現在の状態
+
+**MVP v0.1 — playable（仮素材）**
+
+ユイで8分のサバイバルが一通り遊べます。見た目はPhaser図形の仮実装です。
+
+---
+
+## 実装済み
+
+```txt
+移動（仮想スティック / WASD・矢印）
+自動攻撃
+記憶の欠片の吸引・回収
+3択レベルアップ（強化 / 新規 / 回復）
+武器5種（射出 / 反射 / オービット / 地面DoT / 拡散）
+パッシブ5種（吸引 / 攻撃 / 経験値 / 移動 / CT）
+敵6種 + 8分ウェーブ（3:00 / 5:00 / 7:00 にエリート）
+記憶カプセル（進化 > 強化 > 通貨）
+進化2種
+必殺技「消えない名前」
+HUD / ポーズ / クリア / ゲームオーバー / リザルト
+ロジックのユニットテスト（vitest）
+```
+
+---
+
+## 次にやる
+
+```txt
+プレイ感（手触り）の調整
+スマホ実機での操作・表示確認
+視認性チェック（敵 / 欠片 / 弾）
+バランス調整（docs/balance-log.md に記録）
+操作改善
+```
+
+直近の検証メモ・調整候補は [docs/balance-log.md](docs/balance-log.md) を参照。
 
 ---
 
@@ -35,15 +72,13 @@ pnpm test         # ロジックのユニットテスト（vitest）
 
 ---
 
-## 現在の方針
+## 技術方針
 
 ```txt
-Webベース
+Web ベース
 Vite + TypeScript + Phaser
 スマホブラウザで縦持ち検証
-Prototype 1では1分の核だけ作る
-面白さが見えたらPrototype 2/3へ進む
-PWA/Capacitor/アプリ化は後
+PWA / Capacitor / アプリ化は後
 ```
 
 ---
@@ -55,88 +90,6 @@ PWA/Capacitor/アプリ化は後
 ```
 
 この問いにYESを出すまで、キャラ・ステージ・本格デザイン・アプリ化を広げません。
-
----
-
-## いま作るもの
-
-Prototype 1では、これだけ作ります。
-
-```txt
-移動
-自動攻撃
-欠片回収
-初レベルアップ
-```
-
-具体的には:
-
-```txt
-ユイ
-インクの影
-夜の鉛筆
-記憶の欠片
-XP / Lv2
-簡易HUD
-被弾最小
-debug
-```
-
----
-
-## いま作らないもの
-
-```txt
-武器5種
-パッシブ5種
-記憶カプセル
-進化
-必殺技
-ミチル
-Stage 2以降
-ボス
-本格デザイン
-PWA/Capacitor
-ストア対応
-```
-
-これらはFuture LayerまたはPrototype 2以降です。
-
----
-
-## GDD入口
-
-資料の入口は以下です。
-
-```txt
-docs/52-gdd-index.md
-```
-
-Prototype 1実装前に読む資料:
-
-```txt
-docs/77-prototype-1-documentation-signoff.md
-docs/83-spec-signoff.md
-docs/95-prototype-1-implementation-brief.md
-docs/96-final-preflight-checklist.md
-```
-
-ビジュアル方向:
-
-```txt
-docs/88-adopted-visual-direction.md
-docs/89-prototype-1-visual-guardrail.md
-docs/91-minimum-asset-spec.md
-docs/92-prototype-1-asset-checklist.md
-```
-
-進行/破綻防止:
-
-```txt
-docs/86-future-layer-governance.md
-docs/93-deferred-detail-backlog.md
-docs/94-next-required-work-roadmap.md
-```
 
 ---
 
@@ -159,16 +112,26 @@ docs/94-next-required-work-roadmap.md
 実装は見やすく軽く。
 ```
 
+詳細は [docs/88-adopted-visual-direction.md](docs/88-adopted-visual-direction.md)。
+
 ---
 
-## Prototype 1 Go条件
+## 資料（docs/）
+
+企画・仕様の入口は [docs/52-gdd-index.md](docs/52-gdd-index.md)。
+
+> ⚠️ 注意: `docs/` には MVP 実装より前に書かれた **Pre-MVP（Prototype 1 段階）資料** が多数含まれます。
+> 「Prototype 1 では◯◯を作らない」「1分の核だけ作る」といった記述は、当時のスコープを指す**歴史的経緯**であり、現在の実装状態（上記「実装済み」）とは異なります。
+> 実装の現状は本 README と `src/` を正とし、`docs/` は設計意図・データ契約・世界観の参照として読んでください。
+
+現在の実装に直接効く主な資料:
 
 ```txt
-3秒以内に動かし方が分かる
-最初の敵を10秒以内に倒せる
-30秒以内に欠片回収の意味が分かる
-60秒以内にLv2になる
-スマホで操作が不快ではない
+docs/81-data-contract.md            データ契約
+docs/82-balance-target-matrix-...   バランス目標
+docs/98-target-code-architecture.md コード構成
+docs/44-core-loop-and-player-...    8分タイムライン
+docs/balance-log.md                 調整ログ
 ```
 
 ---
