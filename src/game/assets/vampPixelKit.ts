@@ -466,47 +466,60 @@ function createYuiBaseGeneratedDraft(pose: CharacterPose = 'idle'): PixelGrid {
   const grid = createEmptyGrid(32, 32);
   const lean = pose === 'move' ? 1 : pose === 'hurt' ? -1 : 0;
   const hoodX = 16 + lean;
-  const lampX = pose === 'ultimate' ? 23 : pose === 'move' ? 24 : 22;
-  const lampY = pose === 'ultimate' ? 17 : 20;
-  drawEllipse(grid, 16, 26, 11, 4, [8, 7, 19, 125]);
-  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? 7 : 5, [255, 189, 78, pose === 'ultimate' ? 72 : 48]);
-  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? 3 : 2, C.lantern);
-  setPixel(grid, lampX - 1, lampY - 1, C.whiteWarm);
+  const lampX = pose === 'ultimate' ? 23 : pose === 'move' ? 24 : 21;
+  const lampY = pose === 'ultimate' ? 17 : pose === 'move' ? 19 : 20;
+  const dress: PixelColor = pose === 'hurt' ? [150, 98, 88, 255] : [205, 150, 105, 255];
+  const apron: PixelColor = pose === 'hurt' ? [171, 139, 117, 230] : [229, 196, 143, 245];
+
+  drawEllipse(grid, 16, 27, 12, 4, [8, 7, 19, 145]);
+  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? 6 : 4, [255, 189, 78, pose === 'ultimate' ? 62 : 38]);
   drawLine(grid, hoodX + 4, 17, lampX - 2, lampY - 2, C.paperEdge);
 
-  fillPolygon(grid, [[10 + lean, 15], [22 + lean, 15], [25 + lean, 27], [7 + lean, 27]], C.yuiDress);
+  fillPolygon(grid, [[10 + lean, 15], [22 + lean, 15], [25 + lean, 27], [7 + lean, 27]], dress);
+  fillPolygon(grid, [[12 + lean, 17], [20 + lean, 17], [21 + lean, 26], [11 + lean, 26]], apron);
   drawLine(grid, 10 + lean, 16, 7 + lean, 27, C.paperEdge);
   drawLine(grid, 22 + lean, 16, 25 + lean, 27, C.paperEdge);
-  fillRect(grid, 12 + lean, 17, 8, 8, [199, 169, 130, 235]);
-  drawLine(grid, 12 + lean, 21, 21 + lean, 22, C.paperLine);
-  drawLine(grid, 13 + lean, 24, 19 + lean, 24, [247, 224, 164, 180]);
+  drawLine(grid, 8 + lean, 27, 24 + lean, 27, C.paperEdge);
+  drawLine(grid, 12 + lean, 21, 21 + lean, 21, C.paperLine);
+  drawLine(grid, 13 + lean, 24, 19 + lean, 24, C.paperLight);
+  fillRect(grid, 10 + lean, 19, 2, 5, C.yuiDress);
+  fillRect(grid, 21 + lean, 19, 2, 5, C.yuiDress);
 
-  drawCircle(grid, hoodX, 10, 8, C.yuiHood);
-  drawCircle(grid, hoodX, 12, 6, [47, 56, 89, 255]);
-  fillRect(grid, hoodX - 3, 10, 7, 7, [240, 201, 160, 255]);
-  fillRect(grid, hoodX - 5, 9, 4, 8, C.yuiHair);
-  fillRect(grid, hoodX + 1, 9, 5, 8, C.yuiHair);
+  fillPolygon(grid, [[hoodX - 8, 10], [hoodX - 5, 4], [hoodX + 4, 3], [hoodX + 9, 10], [hoodX + 6, 18], [hoodX - 6, 18]], C.yuiHood);
+  drawCircle(grid, hoodX, 11, 7, C.yuiHood);
+  drawCircle(grid, hoodX, 12, 5, [53, 61, 92, 255]);
+  fillRect(grid, hoodX - 3, 10, 7, 7, [242, 204, 162, 255]);
+  fillRect(grid, hoodX - 5, 10, 3, 7, C.yuiHair);
+  fillRect(grid, hoodX + 3, 10, 3, 7, C.yuiHair);
   fillRect(grid, hoodX - 3, 13, 2, 1, C.ink);
   fillRect(grid, hoodX + 3, 13, 2, 1, C.ink);
-  fillRect(grid, hoodX - 6, 3, 10, 3, C.yuiHood);
+  setPixel(grid, hoodX, 16, [156, 77, 73, 255]);
+
+  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? 3 : 2, C.lantern);
+  setPixel(grid, lampX - 1, lampY - 1, C.whiteWarm);
+  drawLine(grid, lampX - 2, lampY + 2, lampX + 2, lampY + 2, C.paperEdge);
 
   if (pose === 'move') {
-    fillRect(grid, 7, 26, 4, 2, C.yuiDress);
-    fillRect(grid, 20, 26, 5, 2, C.yuiDress);
+    fillRect(grid, 7, 26, 5, 2, dress);
+    fillRect(grid, 20, 26, 5, 2, dress);
     drawLine(grid, 6, 25, 10, 27, C.paperEdge);
     drawLine(grid, 21, 27, 26, 25, C.paperEdge);
     drawLine(grid, 6, 21, 3, 23, C.paper);
+    drawLine(grid, 23, 18, 28, 16, C.paper);
   } else if (pose === 'hurt') {
-    drawLine(grid, 9, 16, 5, 14, C.paperLight);
-    drawLine(grid, 22, 16, 26, 14, C.paperLight);
+    drawLine(grid, 9, 17, 5, 15, C.paperLight);
+    drawLine(grid, 22, 17, 26, 15, C.paperLight);
     fillRect(grid, hoodX - 3, 13, 8, 1, C.healRed);
     setPixel(grid, 25, 8, C.paperLight);
     setPixel(grid, 27, 10, C.paperLight);
+    drawLine(grid, 12, 25, 20, 26, C.paperEdge);
   } else if (pose === 'ultimate') {
-    drawDiamond(grid, 16, 20, 3, [255, 244, 196, 210]);
-    drawLine(grid, 8, 14, 4, 11, [255, 228, 138, 185]);
-    drawLine(grid, 24, 13, 28, 10, [255, 228, 138, 185]);
-    drawLine(grid, 12, 28, 20, 28, [255, 228, 138, 160]);
+    drawDiamond(grid, 16, 20, 3, [255, 244, 196, 185]);
+    drawLine(grid, 8, 14, 4, 11, [255, 228, 138, 170]);
+    drawLine(grid, 24, 13, 28, 10, [255, 228, 138, 170]);
+    drawLine(grid, 12, 28, 20, 28, [255, 228, 138, 150]);
+    setPixel(grid, 6, 19, C.paperLight);
+    setPixel(grid, 27, 22, C.paperLight);
   }
   return outlineNonTransparent(grid, C.inkEdge);
 }
