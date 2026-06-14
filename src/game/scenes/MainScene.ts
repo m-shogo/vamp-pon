@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import type { LevelUpChoice } from '../domain/types';
+import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState } from '../state';
 import { GAME_STATUS } from '../domain/constants';
@@ -173,7 +173,8 @@ export class MainScene extends Phaser.Scene {
       this.overlays.showCapsule(state, reward, () => {
         applyCapsule(state, reward);
         if (reward.type === 'evolution') {
-          evolutionBurst(this, state.player.x, state.player.y, weaponById.get(reward.evolvedWeaponId)?.name ?? reward.title);
+          const name = weaponById.get(reward.evolvedWeaponId)?.name ?? reward.title;
+          evolutionBurst(this, state.player.x, state.player.y, `${evolutionKindLabel(reward.evolutionKind)}: ${name}`);
         }
         state.stats.capsulesOpened += 1;
         state.pendingCapsule = null;
@@ -203,5 +204,16 @@ export class MainScene extends Phaser.Scene {
     this.overlays.showResult(state, cleared, log, () => {
       this.scene.restart();
     });
+  }
+}
+
+function evolutionKindLabel(kind: EvolutionKind): string {
+  switch (kind) {
+    case 'upgrade':
+      return '強化進化';
+    case 'fusion':
+      return '合体';
+    case 'awakening':
+      return '覚醒';
   }
 }
