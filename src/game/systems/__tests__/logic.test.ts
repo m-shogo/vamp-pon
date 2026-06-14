@@ -5,12 +5,16 @@ import { generateChoices } from '../levelup';
 import { generateCapsuleReward } from '../capsule';
 import { recomputePlayerStats } from '../passives';
 import { weightedPick } from '../../utils/rng';
+import { weaponById } from '../../data/weapons';
+import { passiveById } from '../../data/passives';
 
 function makeState(partial: {
   weapons?: RuntimeState['inventory']['weapons'];
   passives?: RuntimeState['inventory']['passives'];
   hp?: number;
   maxHp?: number;
+  weaponSlots?: number;
+  passiveSlots?: number;
 }): RuntimeState {
   return {
     characterId: 'yui',
@@ -29,8 +33,8 @@ function makeState(partial: {
       weapons: partial.weapons ?? [{ id: 'night_pencil', level: 1, cooldownRemaining: 0 }],
       passives: partial.passives ?? [],
       evolvedWeaponIds: [],
-      weaponSlots: 4,
-      passiveSlots: 4,
+      weaponSlots: partial.weaponSlots ?? 5,
+      passiveSlots: partial.passiveSlots ?? 5,
     },
   } as unknown as RuntimeState;
 }
@@ -60,11 +64,13 @@ describe('generateChoices', () => {
   it('武器枠が満杯なら新武器を出さない', () => {
     const choices = generateChoices(
       makeState({
+        weaponSlots: 5,
         weapons: [
           { id: 'night_pencil', level: 1, cooldownRemaining: 0 },
           { id: 'marble', level: 1, cooldownRemaining: 0 },
           { id: 'moon_bookmark', level: 1, cooldownRemaining: 0 },
           { id: 'black_ink_bottle', level: 1, cooldownRemaining: 0 },
+          { id: 'stardust_shot', level: 1, cooldownRemaining: 0 },
         ],
       }),
     );
@@ -79,6 +85,20 @@ describe('generateChoices', () => {
       (c) => c.type === 'weapon_upgrade' && c.itemId === 'night_pencil',
     );
     expect(hasPencilUpgrade).toBe(false);
+  });
+});
+
+describe('追加データ', () => {
+  it('新武器3種が抽選データに存在する', () => {
+    expect(weaponById.has('postcard_blade')).toBe(true);
+    expect(weaponById.has('paper_airplane')).toBe(true);
+    expect(weaponById.has('streetlamp_ring')).toBe(true);
+  });
+
+  it('新パッシブ3種が抽選データに存在する', () => {
+    expect(passiveById.has('pressed_flower')).toBe(true);
+    expect(passiveById.has('loose_map_pin')).toBe(true);
+    expect(passiveById.has('small_alarm_clock')).toBe(true);
   });
 });
 
