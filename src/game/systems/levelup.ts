@@ -124,6 +124,8 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const inv = state.inventory;
   const ownedWeaponIds = new Set(inv.weapons.map((w) => w.id));
   const ownedPassiveIds = new Set(inv.passives.map((p) => p.id));
+  const weaponFull = inv.weapons.length >= inv.weaponSlots;
+  const passiveFull = inv.passives.length >= inv.passiveSlots;
 
   const weaponUpgrades: LevelUpChoice[] = inv.weapons
     .filter((w) => {
@@ -144,18 +146,15 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
       };
     });
 
-  const weaponNews: LevelUpChoice[] =
-    inv.weapons.length < inv.weaponSlots
-      ? weapons
-          .filter((def) => !evolvedWeaponIds.has(def.id) && !ownedWeaponIds.has(def.id))
-          .map((def) => ({
-            type: 'weapon_new' as const,
-            itemId: def.id,
-            title: def.name,
-            description: def.description,
-            lore: def.lore,
-          }))
-      : [];
+  const weaponNews: LevelUpChoice[] = weapons
+    .filter((def) => !evolvedWeaponIds.has(def.id) && !ownedWeaponIds.has(def.id))
+    .map((def) => ({
+      type: 'weapon_new' as const,
+      itemId: def.id,
+      title: weaponFull ? `入替: ${def.name}` : def.name,
+      description: weaponFull ? `${def.description} / 武器が満杯。選ぶと外す武器を選べる。` : def.description,
+      lore: def.lore,
+    }));
 
   const passiveUpgrades: LevelUpChoice[] = inv.passives
     .filter((p) => {
@@ -176,18 +175,15 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
       };
     });
 
-  const passiveNews: LevelUpChoice[] =
-    inv.passives.length < inv.passiveSlots
-      ? passives
-          .filter((def) => !ownedPassiveIds.has(def.id))
-          .map((def) => ({
-            type: 'passive_new' as const,
-            itemId: def.id,
-            title: def.name,
-            description: def.description,
-            lore: def.lore,
-          }))
-      : [];
+  const passiveNews: LevelUpChoice[] = passives
+    .filter((def) => !ownedPassiveIds.has(def.id))
+    .map((def) => ({
+      type: 'passive_new' as const,
+      itemId: def.id,
+      title: passiveFull ? `入替: ${def.name}` : def.name,
+      description: passiveFull ? `${def.description} / アイテムが満杯。選ぶと外すアイテムを選べる。` : def.description,
+      lore: def.lore,
+    }));
 
   const pools: Record<Exclude<Category, 'heal'>, LevelUpChoice[]> = {
     weapon_upgrade: weaponUpgrades,
