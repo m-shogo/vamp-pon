@@ -8,8 +8,8 @@ export const characters: CharacterDefinition[] = [
     role: '初心者向け / 回収型 / 安定型',
     initialWeaponId: 'night_pencil',
     baseStats: {
-      hp: 100,
-      moveSpeed: 100,
+      hp: 110,
+      moveSpeed: 115,
       might: 1.0,
       cooldownMultiplier: 1.0,
       magnetMultiplier: 1.15,
@@ -18,7 +18,7 @@ export const characters: CharacterDefinition[] = [
     ultimate: {
       id: 'unforgotten_name',
       name: '消えない名前',
-      chargeSeconds: 90,
+      chargeSeconds: 60,
       trigger: 'manual',
       effect: {
         type: 'pull_and_convert',
