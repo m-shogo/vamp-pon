@@ -12,6 +12,7 @@ const PASSIVE_STATS = new Set(['magnetMultiplier', 'mightMultiplier', 'xpMultipl
 const BEHAVIORS = new Set(['chase', 'slow_chase', 'offset_chase', 'swarm_chase', 'elite_chase']);
 const VISUAL_KINDS = new Set(['ink_blob', 'paper_scrap', 'signpost', 'capsule', 'haze', 'label_elite']);
 const DIRECTIONS = new Set(['bottom', 'top', 'left', 'right', 'around']);
+const EVOLUTION_KINDS = new Set(['upgrade', 'fusion', 'awakening']);
 
 describe('weapons データ', () => {
   it('levels が 1..maxLevel まで連番で揃っている', () => {
@@ -85,6 +86,7 @@ describe('waves データ', () => {
 describe('evolutions データ', () => {
   it('参照する武器/条件/進化先が実在し、進化先は evolved タグ', () => {
     for (const evo of evolutions) {
+      expect(EVOLUTION_KINDS.has(evo.kind)).toBe(true);
       expect(weaponById.has(evo.fromWeaponId)).toBe(true);
       if (evo.requiredPassiveId) expect(passiveById.has(evo.requiredPassiveId)).toBe(true);
       if (evo.requiredRareItemId) expect(rareItemById.has(evo.requiredRareItemId)).toBe(true);
@@ -94,6 +96,24 @@ describe('evolutions データ', () => {
       const evolved = weaponById.get(evo.evolvedWeaponId);
       expect(evolved).toBeDefined();
       expect(evolved?.tags).toContain('evolved');
+    }
+  });
+
+  it('強化進化/合体/覚醒の条件が混ざっていない', () => {
+    for (const evo of evolutions) {
+      if (evo.kind === 'upgrade') {
+        expect(evo.requiredPassiveId).toBeDefined();
+        expect(evo.requiredWeaponId).toBeUndefined();
+        expect(evo.requiredRareItemId).toBeUndefined();
+      }
+      if (evo.kind === 'fusion') {
+        expect(evo.requiredWeaponId).toBeDefined();
+        expect(evo.requiredRareItemId).toBeUndefined();
+      }
+      if (evo.kind === 'awakening') {
+        expect(evo.requiredRareItemId).toBeDefined();
+        expect(evo.requiredWeaponId).toBeUndefined();
+      }
     }
   });
 });
