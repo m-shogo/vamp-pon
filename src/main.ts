@@ -1,12 +1,10 @@
 import Phaser from 'phaser';
+import { BootScene } from './game/scenes/BootScene';
 import { MainScene } from './game/scenes/MainScene';
-import { VisualGalleryScene, isGalleryUrl } from './game/scenes/VisualGalleryScene';
+import { VisualGalleryScene } from './game/scenes/VisualGalleryScene';
 import './styles.css';
 
-// ?scene=visual-gallery / combat-mock / evolution-showcase でビジュアル確認シーンを起動。
-// それ以外は通常のゲーム。
-const gallery = isGalleryUrl();
-
+// BootScene がアセットを preload し、URL（?scene=…）で本編 or ギャラリーへ振り分ける。
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   parent: 'app',
@@ -17,7 +15,7 @@ const config: Phaser.Types.Core.GameConfig = {
     width: 390,
     height: 844,
   },
-  scene: gallery ? [VisualGalleryScene] : [MainScene],
+  scene: [BootScene, MainScene, VisualGalleryScene],
 };
 
 new Phaser.Game(config);

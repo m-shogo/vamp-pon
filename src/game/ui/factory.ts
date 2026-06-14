@@ -3,6 +3,8 @@ import { COLORS, ENEMY_RADIUS, PICKUP } from '../domain/constants';
 import type { EnemyDefinition } from '../domain/types';
 import type { ProjectileVisualKind, AreaVisualKind } from '../domain/weaponVisual';
 import { STROKE, GLOW_ALPHA_MAX } from './visualDesign';
+import { spriteOrNull } from '../assets/assetHelpers';
+import { ENEMY_ASSET, assetById, type AssetId } from '../assets/assetManifest';
 
 export type { ProjectileVisualKind, AreaVisualKind } from '../domain/weaponVisual';
 
@@ -34,6 +36,13 @@ export const VIEW_DEPTH = DEPTH;
  */
 export function createPlayerView(scene: Phaser.Scene, x: number, y: number): Phaser.GameObjects.Container {
   const c = scene.add.container(x, y);
+  // 画像があればスプライト、無ければ Graphics fallback（以下）
+  const sprite = spriteOrNull(scene, 'yui_idle', 36, 36);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.player);
+    return c;
+  }
   // 足元の暖かい光
   const glow = scene.add.circle(0, 4, 24, COLORS.playerGlow, GLOW_ALPHA_MAX * 0.5);
   // ワンピース（裾広がりの台形を三角で近似）
@@ -60,6 +69,14 @@ export function createEnemyView(
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   const kind = def.visualKind;
+  // 画像があればスプライト、無ければ Graphics fallback（以下）。
+  // スプライト時は flash(setFillStyle) を避けるため 'blob' は設定しない（スケールポップのみ）。
+  const sprite = spriteOrNull(scene, ENEMY_ASSET[kind], radius * 2, radius * 2);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.enemy);
+    return c;
+  }
   const isElite = kind === 'label_elite';
   const fill = isElite ? COLORS.enemyElite : COLORS.enemyInk;
   const edge = isElite ? COLORS.enemyEliteEdge : COLORS.enemyInkEdge;
@@ -157,8 +174,16 @@ export function createProjectileView(
   scene: Phaser.Scene,
   kind: ProjectileVisualKind,
   radius: number,
+  assetId?: AssetId,
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
+  const e = assetId ? assetById.get(assetId) : undefined;
+  const sprite = spriteOrNull(scene, assetId, e?.width, e?.height);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.projectile);
+    return c;
+  }
 
   switch (kind) {
     case 'pencil': {
@@ -263,8 +288,15 @@ export function createProjectileView(
 }
 
 /** 地面のインクだまり / 街灯の輪 / 夜明けの輪。 */
-export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVisualKind = 'ink'): Phaser.GameObjects.Container {
+export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVisualKind = 'ink', assetId?: AssetId): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
+  const sprite = spriteOrNull(scene, assetId, radius * 2, radius * 2);
+  if (sprite) {
+    sprite.setAlpha(0.85);
+    c.add(sprite);
+    c.setDepth(DEPTH.area);
+    return c;
+  }
   if (kind === 'dawn') {
     // 合体: 黒インクの染み + 街灯の丸い光 + 朝色（魔法陣にしない）
     const ink = scene.add.ellipse(0, 0, radius * 2.0, radius * 1.7, COLORS.ink, 0.5);
@@ -319,6 +351,12 @@ export function createOrbiterView(scene: Phaser.Scene): Phaser.GameObjects.Conta
 /** 記憶の欠片: 金の星 + 柔らかい光（参考: item_memory-fragment）。 */
 export function createPickupView(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
+  const sprite = spriteOrNull(scene, 'pickup_memory_fragment', PICKUP.visualSize * 2, PICKUP.visualSize * 2);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.pickup);
+    return c;
+  }
   const glow = scene.add.circle(0, 0, PICKUP.visualSize, COLORS.fragmentGlow, GLOW_ALPHA_MAX);
   const star = scene.add.star(0, 0, 5, PICKUP.visualSize * 0.36, PICKUP.visualSize * 0.8, COLORS.fragment, 1);
   star.setStrokeStyle(STROKE.thin, 0xffe9a8, 0.8);
@@ -330,6 +368,12 @@ export function createPickupView(scene: Phaser.Scene): Phaser.GameObjects.Contai
 /** 回復ドロップ: 朝色の絆創膏/包帯紙（緑の十字にしない）。 */
 export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
+  const sprite = spriteOrNull(scene, 'pickup_heal_paper', (PICKUP.visualSize + 4) * 2, (PICKUP.visualSize + 4) * 2);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.pickup);
+    return c;
+  }
   const glow = scene.add.circle(0, 0, PICKUP.visualSize + 4, COLORS.dawnWarm, GLOW_ALPHA_MAX);
   // 包帯紙（細長い紙）を斜めに重ねる
   const strip = scene.add.rectangle(0, 0, 18, 9, COLORS.healPaper, 0.97);
@@ -346,6 +390,12 @@ export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Co
 /** 記憶カプセル: コルク付きの小瓶の中に小さな星が光る（参考: item_memory-fragment）。 */
 export function createCapsuleView(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
+  const sprite = spriteOrNull(scene, 'pickup_capsule', 28, 28);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.capsule);
+    return c;
+  }
   const glow = scene.add.circle(0, 2, 16, COLORS.fragmentGlow, GLOW_ALPHA_MAX);
   // ガラス瓶
   const body = scene.add.rectangle(0, 2, 14, 19, COLORS.glass, 0.5);

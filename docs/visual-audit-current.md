@@ -95,3 +95,25 @@
 ```
 
 レビュー観点は [visual-next-review-checklist.md](visual-next-review-checklist.md)。
+
+---
+
+## 8. 画像移行の観点での分類（2026-06-14 追記）
+
+Graphics で描き続けず、画像アセット＋fallback へ移すための分類。
+パイプラインは [art-pipeline.md](art-pipeline.md)、素材は [visual-asset-manifest.md](visual-asset-manifest.md)。
+
+| 区分 | 対象 | 方針 |
+|---|---|---|
+| 1. 今のまま残せる | HP/XP/必殺ゲージ、画面シェイク/フラッシュ、inkPuff/collectSpark | Graphicsで継続（画像化不要） |
+| 2. 方向は合うが仮 | 背景ヴィネット/グレイン、カード枠、進化リング演出 | 本素材（タイル/カード紙）が来るまで暫定 |
+| 3. fallbackとして残す | createPlayerView / createEnemyView / createProjectileView / createAreaView / createPickup・Heal・Capsule・Orbiter View | 画像が来たら自動置換。コードは残す |
+| 4. 画像素材化すべき | 背景タイル / ユイ / 敵6種 / 欠片・回復・カプセル / レア4 / 通常武器8 / 進化4・合体1・覚醒4 / カード3 | manifest に定義済み。優先順位は art-pipeline §4 |
+| 5. 今すぐ弱める/消す | （前段で対応済み）ビーム/魔法陣/ネオン/ギラ星/十字スラッシュ | 既に紙・インク・灯りへ置換済み。今後も増やさない |
+
+### Claude が目視できなかった部分
+
+```txt
+実スプライト（まだ1枚も無い）の見た目 — 制作後にギャラリーで要確認
+画像導入後の NEAREST フィルタの効き（ドットのにじみ）
+```

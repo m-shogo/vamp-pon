@@ -15,6 +15,7 @@ import {
   type ProjectileVisualKind,
   type AreaVisualKind,
 } from '../domain/weaponVisual';
+import { WEAPON_ASSET, type AssetId } from '../assets/assetManifest';
 import { damageEnemy } from './enemies';
 
 const MARBLE_BASE_SPEED = 150;
@@ -65,6 +66,7 @@ export function updateWeapons(scene: Phaser.Scene, state: RuntimeState, dt: numb
 function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, type: string, eff: EffectValues): void {
   const p = state.player;
   const damage = num(eff, 'damage', 0) * p.might;
+  const assetId = WEAPON_ASSET[weaponId];
 
   switch (type) {
     case 'projectile': {
@@ -78,6 +80,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
         const a = baseAngle + spread;
         spawnProjectile(scene, state, {
           kind: projectileKindForWeapon(weaponId),
+          assetId,
           angle: a,
           speed: PROJECTILE.nightPencilSpeed,
           damage,
@@ -94,6 +97,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
       for (let i = 0; i < count; i += 1) {
         spawnProjectile(scene, state, {
           kind: projectileKindForWeapon(weaponId),
+          assetId,
           angle: randomAngle(),
           speed,
           damage,
@@ -112,6 +116,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
       for (let i = 0; i < count; i += 1) {
         spawnProjectile(scene, state, {
           kind: bouncingKindForWeapon(weaponId),
+          assetId,
           angle: randomAngle(),
           speed,
           damage,
@@ -134,6 +139,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
       const ty = target ? target.y : p.y;
       spawnArea(scene, state, {
         kind: areaKindForWeapon(weaponId),
+        assetId,
         x: tx,
         y: ty,
         radius: num(eff, 'radius', 45),
@@ -147,6 +153,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
 
 type ProjectileSpec = {
   kind: ProjectileVisualKind;
+  assetId?: AssetId;
   angle: number;
   speed: number;
   damage: number;
@@ -158,7 +165,7 @@ type ProjectileSpec = {
 function spawnProjectile(scene: Phaser.Scene, state: RuntimeState, spec: ProjectileSpec): void {
   const p = state.player;
   const v = angleToVec(spec.angle);
-  const view = createProjectileView(scene, spec.kind, PROJECTILE.radius);
+  const view = createProjectileView(scene, spec.kind, PROJECTILE.radius, spec.assetId);
   view.setPosition(p.x, p.y);
   view.setRotation(spec.angle);
   const proj: ProjectileRuntime = {
@@ -232,9 +239,9 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
 function spawnArea(
   scene: Phaser.Scene,
   state: RuntimeState,
-  spec: { kind: AreaVisualKind; x: number; y: number; radius: number; dps: number; duration: number },
+  spec: { kind: AreaVisualKind; assetId?: AssetId; x: number; y: number; radius: number; dps: number; duration: number },
 ): void {
-  const view = createAreaView(scene, spec.radius, spec.kind);
+  const view = createAreaView(scene, spec.radius, spec.kind, spec.assetId);
   view.setPosition(spec.x, spec.y);
   const area: GroundAreaRuntime = {
     iid: nextIid(state),

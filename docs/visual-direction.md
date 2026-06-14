@@ -151,7 +151,24 @@ dawn 黒インクの染み + 街灯の輪 + 朝色（夜明けのインク灯 / 
 
 ---
 
-## 7. 最重要
+## 7. ドット素材化方針（重要）
+
+Phaser Graphics で全部描き続けない。**画像アセット＋fallback** へ移行する。
+
+```txt
+- 必要素材は src/game/assets/assetManifest.ts が正本（置き場 public/assets/sprites/）
+- 画像があれば createXView がスプライトを使い、無ければ従来 Graphics で描く
+- 制作工程: docs/art-pipeline.md / サイズ: docs/sprite-size-guide.md
+- 制作プロンプト: docs/pixel-art-generation-prompts.md
+- 状況確認: VisualGallery ?scene=asset-status（実素材/仮/欠品）
+```
+
+強化進化 / 合体 / 覚醒の見た目の定義は §4 のとおり。最終的にはこれを**ドット素材**で表現し、
+演出（evolutionBurst）は控えめなアクセントに留める（魔法陣・ビーム・ネオンを増やさない）。
+
+---
+
+## 8. 最重要
 
 ```txt
 コンセプトは濃く。実装は見やすく軽く。

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
+import { hasAsset } from '../assets/assetHelpers';
 
 /**
  * 夜の街の床。参考: assets/concept-design/01_world/world_night-town_01.png
@@ -10,6 +11,17 @@ import { VIEW_DEPTH } from './factory';
 export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   c.setDepth(VIEW_DEPTH.background);
+
+  // 画像タイルがあれば敷き詰める。無ければ Graphics fallback（以下）。
+  if (hasAsset(scene, 'bg_stage1_paper_night')) {
+    c.add(scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg_stage1_paper_night').setOrigin(0, 0));
+    for (const spot of [
+      { x: 26, y: 96 }, { x: GAME_WIDTH - 28, y: 250 }, { x: 38, y: GAME_HEIGHT - 200 }, { x: GAME_WIDTH - 34, y: GAME_HEIGHT - 120 },
+    ]) {
+      c.add(scene.add.circle(spot.x, spot.y, 46, COLORS.lantern, 0.05));
+    }
+    return c;
+  }
 
   // ベース（中央やや明るい藍紫）
   c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, COLORS.background));

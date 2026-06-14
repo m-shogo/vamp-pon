@@ -26,8 +26,10 @@ import { rareItemById } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
 import { weaponRenderInfo } from '../domain/weaponVisual';
 import type { EvolutionKind } from '../domain/types';
+import { assetManifest, WEAPON_ASSET } from '../assets/assetManifest';
+import { assetStatus } from '../assets/assetHelpers';
 
-const PAGES = ['背景・ユイ・敵', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック'] as const;
+const PAGES = ['背景・ユイ・敵', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況'] as const;
 
 /** URLのscene指定から初期ページを決める。 */
 export function pageFromUrl(): number {
@@ -35,14 +37,17 @@ export function pageFromUrl(): number {
   const scene = params.get('scene') ?? params.get('debug') ?? '';
   if (scene === 'combat-mock') return 4;
   if (scene === 'evolution-showcase') return 3;
+  if (scene === 'asset-status') return 5;
   return 0;
 }
+
+const GALLERY_SCENES = ['visual-gallery', 'combat-mock', 'evolution-showcase', 'asset-status'];
 
 /** ?scene= / ?debug= がギャラリー系か。 */
 export function isGalleryUrl(): boolean {
   const params = new URLSearchParams(window.location.search);
   const scene = params.get('scene') ?? params.get('debug') ?? '';
-  return scene === 'visual-gallery' || scene === 'combat-mock' || scene === 'evolution-showcase';
+  return GALLERY_SCENES.includes(scene);
 }
 
 /**
@@ -105,6 +110,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       case 2: this.buildWeaponsPage(); break;
       case 3: this.buildEvolutionPage(); break;
       case 4: this.buildCombatMockPage(); break;
+      case 5: this.buildAssetStatusPage(); break;
     }
 
     const showHud = this.page === 1 || this.page === 4;
@@ -292,8 +298,9 @@ export class VisualGalleryScene extends Phaser.Scene {
     const def = weaponById.get(weaponId);
     if (!def) return;
     const info = weaponRenderInfo(def);
+    const assetId = WEAPON_ASSET[weaponId];
     if (info.mode === 'area') {
-      this.place(createAreaView(this, 30, info.areaKind), x, y);
+      this.place(createAreaView(this, 30, info.areaKind, assetId), x, y);
     } else if (info.mode === 'orbit') {
       this.pageRoot.add(this.add.circle(x, y, 4, COLORS.player, 0.8));
       for (let i = 0; i < 2; i += 1) {
@@ -301,11 +308,58 @@ export class VisualGalleryScene extends Phaser.Scene {
         this.place(createOrbiterView(this), x + Math.cos(a) * 20, y + Math.sin(a) * 20);
       }
     } else {
-      // projectile / radial / bounce: 弾を1〜2個、右向きに
-      const view = createProjectileView(this, info.projectileKind, 5);
+      // projectile / radial / bounce: 弾を1個、右向きに
+      const view = createProjectileView(this, info.projectileKind, 5, assetId);
       view.setRotation(0);
       this.place(view, x, y);
     }
+  }
+
+  /** アセット状況: 実素材 / fallback / MISSING を一覧表示。 */
+  private buildAssetStatusPage(): void {
+    this.heading('アセット状況（実素材 / fallback / 欠品）');
+    let imageN = 0;
+    let fallbackN = 0;
+    let missingN = 0;
+    for (const a of assetManifest) {
+      const st = assetStatus(this, a.id);
+      if (st === 'image') imageN += 1;
+      else if (st === 'fallback') fallbackN += 1;
+      else missingN += 1;
+    }
+    this.pageRoot.add(
+      this.add
+        .text(GAME_WIDTH / 2, 40, `実素材 ${imageN}  /  fallback ${fallbackN}  /  欠品 ${missingN}`, {
+          fontFamily: FONT, fontSize: '12px', color: '#f3ead2',
+        })
+        .setOrigin(0.5, 0),
+    );
+
+    const colW = GAME_WIDTH / 2;
+    const startY = 66;
+    const lineH = 22;
+    const perCol = Math.ceil(assetManifest.length / 2);
+    assetManifest.forEach((a, i) => {
+      const col = Math.floor(i / perCol);
+      const row = i % perCol;
+      const x = col * colW + 12;
+      const y = startY + row * lineH;
+      const st = assetStatus(this, a.id);
+      const color = st === 'image' ? 0x8fd0a0 : st === 'fallback' ? COLORS.lantern : COLORS.hpFill;
+      this.pageRoot.add(this.add.circle(x, y + 6, 4, color, 1));
+      const mark = st === 'image' ? '実' : st === 'fallback' ? '仮' : '欠';
+      this.pageRoot.add(
+        this.add.text(x + 10, y, `${mark} ${a.id}`, { fontFamily: 'monospace', fontSize: '9px', color: '#cfc6b0' }).setOrigin(0, 0),
+      );
+    });
+
+    this.pageRoot.add(
+      this.add
+        .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, '緑=実素材 / 黄=Graphics仮 / 赤=欠品。仕様は assetManifest.ts', {
+          fontFamily: FONT, fontSize: '9px', color: '#9a8d6f',
+        })
+        .setOrigin(0.5, 0),
+    );
   }
 
   private burstButton(x: number, y: number, kind: EvolutionKind): void {
