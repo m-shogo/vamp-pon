@@ -14,7 +14,7 @@
 
 - ユイは generated-draft で、最終本命の説得力はまだ足りない。
 - ランタン、hitCore、記憶の欠片が同系色なので、密集時に誤認リスクがある。
-- 8分プレイ後半の画面密度は、`combat-mock` だけでは再現しきれていない。
+- 8分プレイ後半の完全再現は未実装。入口として `/?scene=combat-mock&density=late` を使う。
 
 ## 未確認
 
@@ -24,6 +24,19 @@
 
 ## 次に直すべき
 
-1. `?scene=combat-mock` に後半密度プリセットを追加する。
+1. `/?scene=combat-mock&density=late` を見て、hitCore/欠片/ランタンの誤認を記録する。
 2. ユイ idle/move を Aseprite で手修正する。
 3. ランタンと hitCore の色差を実機で確認する。
+
+## 確認URL
+
+- `/?scene=combat-mock`: 通常密度の視認性確認。
+- `/?scene=combat-mock&density=late`: 8分後半相当の視認性入口。
+- `/?scene=visual-gallery`: ユイ、敵、ドロップの単体/近接確認。
+
+## 確認コマンド
+
+```sh
+pnpm test
+pnpm build
+```

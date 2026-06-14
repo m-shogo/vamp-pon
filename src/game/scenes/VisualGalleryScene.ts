@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 import type { LevelUpChoice } from '../domain/types';
-import { GAME_WIDTH, GAME_HEIGHT, COLORS } from '../domain/constants';
+import { GAME_WIDTH, GAME_HEIGHT, COLORS, PLAYER_DEFAULTS } from '../domain/constants';
 import { createBackground } from '../ui/background';
 import {
   createPlayerView,
@@ -156,10 +156,11 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.place(player, GAME_WIDTH / 2, 92);
     this.label(GAME_WIDTH / 2, 116, 'ユイ（忘れ物係）', 11, '#f3ead2');
     this.placePlayerPosePreview();
+    this.placeYuiReadabilityCluster(GAME_WIDTH / 2, 224);
 
     // 敵 6種を2列で
     const cols = 2;
-    const startY = 228;
+    const startY = 330;
     const dx = GAME_WIDTH / (cols + 1);
     const dy = 108;
     enemies.forEach((def, i) => {
@@ -193,6 +194,22 @@ export class VisualGalleryScene extends Phaser.Scene {
       }
       this.label(x, 174, `${label}\n${status}`, 9, status === 'image' ? '#cfe6f0' : '#ffbd4e', 70);
     });
+  }
+
+  private placeYuiReadabilityCluster(x: number, y: number): void {
+    this.label(x, y - 30, '近接確認: 欠片 / hitCore / debug円 / 黒インク', 9, '#ffe9a8', 240);
+    this.place(createPickupView(this), x - 52, y - 2);
+    this.place(createHealPickupView(this), x - 30, y + 15);
+    this.place(createCapsuleView(this), x + 46, y + 14);
+
+    const player = createPlayerView(this, 0, 0);
+    const debugHitCircle = player.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
+    debugHitCircle?.setVisible(true);
+    this.place(player, x, y);
+
+    const ink = enemies.find((e) => e.visualKind === 'ink_blob');
+    if (ink) this.place(createEnemyView(this, ink, enemyRadiusFor(ink)), x + 70, y - 2);
+    this.label(x, y + 28, `通常芯2.5px / debug半径${PLAYER_DEFAULTS.radius}px`, 8, '#cfe6f0', 180);
   }
 
   /** 拾得物 + UI（HUD + レベルアップカード） */
@@ -261,6 +278,7 @@ export class VisualGalleryScene extends Phaser.Scene {
   /** 戦闘モック: 全部一緒に置いて視認性を確認 */
   private buildCombatMockPage(): void {
     // 上部はHUDが占有するため見出しは出さない
+    const lateDensity = new URLSearchParams(window.location.search).get('density') === 'late';
     const cx = GAME_WIDTH / 2;
     const cy = GAME_HEIGHT / 2 - 20;
 
@@ -282,6 +300,8 @@ export class VisualGalleryScene extends Phaser.Scene {
       this.place(createEnemyView(this, def, enemyRadiusFor(def)), cx + Math.cos(ang) * r, cy + Math.sin(ang) * r * 0.9);
     });
 
+    if (lateDensity) this.placeLateDensityEnemies(cx, cy);
+
     // 弾を散らす
     const projKinds: Array<[string, number, number]> = [
       ['night_pencil', cx - 40, cy - 30], ['stardust_shot', cx + 50, cy - 40],
@@ -291,15 +311,64 @@ export class VisualGalleryScene extends Phaser.Scene {
       const def = weaponById.get(id);
       if (def) this.renderWeaponSample(def.id, x, y);
     }
+    if (lateDensity) this.placeLateDensityProjectiles(cx, cy);
 
     // 拾得物
     this.place(createPickupView(this), cx - 30, cy + 60);
     this.place(createPickupView(this), cx + 20, cy - 60);
     this.place(createHealPickupView(this), cx + 90, cy + 70);
     this.place(createCapsuleView(this), cx - 90, cy - 60);
+    if (lateDensity) this.placeLateDensityPickups(cx, cy);
 
     // ユイ
-    this.place(createPlayerView(this, 0, 0), cx, cy);
+    const player = createPlayerView(this, 0, 0);
+    if (lateDensity) {
+      const debugHitCircle = player.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
+      debugHitCircle?.setVisible(true);
+      this.pageRoot.add(
+        this.add.text(10, 96, 'late density sample: 8分後半の視認性監査用', {
+          fontFamily: FONT, fontSize: '10px', color: '#ffe9a8',
+        }).setOrigin(0, 0),
+      );
+    }
+    this.place(player, cx, cy);
+  }
+
+  private placeLateDensityEnemies(cx: number, cy: number): void {
+    const sample = enemies.filter((enemy) => enemy.visualKind !== 'label_elite');
+    for (let i = 0; i < 18; i += 1) {
+      const def = sample[i % sample.length];
+      const angle = (i / 18) * Math.PI * 2;
+      const radius = 72 + (i % 3) * 34;
+      const squash = 0.78 + (i % 2) * 0.12;
+      this.place(createEnemyView(this, def, enemyRadiusFor(def)), cx + Math.cos(angle) * radius, cy + Math.sin(angle) * radius * squash);
+    }
+  }
+
+  private placeLateDensityProjectiles(cx: number, cy: number): void {
+    const ids = ['night_pencil', 'marble', 'stardust_shot', 'postcard_blade', 'paper_airplane'];
+    for (let i = 0; i < 16; i += 1) {
+      const id = ids[i % ids.length];
+      const angle = (i / 16) * Math.PI * 2;
+      const x = cx + Math.cos(angle) * (36 + (i % 4) * 20);
+      const y = cy + Math.sin(angle) * (32 + (i % 4) * 16);
+      const def = weaponById.get(id);
+      if (def) this.renderWeaponSample(def.id, x, y);
+    }
+  }
+
+  private placeLateDensityPickups(cx: number, cy: number): void {
+    const placements: Array<[() => Phaser.GameObjects.Container, number, number]> = [
+      [() => createPickupView(this), -82, -28],
+      [() => createPickupView(this), -58, 42],
+      [() => createPickupView(this), 62, -46],
+      [() => createPickupView(this), 84, 30],
+      [() => createHealPickupView(this), -104, 76],
+      [() => createHealPickupView(this), 110, 76],
+      [() => createCapsuleView(this), -118, -82],
+      [() => createCapsuleView(this), 118, -84],
+    ];
+    for (const [create, x, y] of placements) this.place(create(), cx + x, cy + y);
   }
 
   // ---- weapon sample rendering --------------------------------------------

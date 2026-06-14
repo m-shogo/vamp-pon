@@ -5,6 +5,7 @@ const candidates = [
   process.env.ASEPRITE_BIN,
   '/Applications/Aseprite.app/Contents/MacOS/aseprite',
   `${process.env.HOME}/Library/Application Support/Steam/steamapps/common/Aseprite/Aseprite.app/Contents/MacOS/aseprite`,
+  findOnPath('aseprite'),
 ].filter(Boolean);
 
 function canExecute(path) {
@@ -16,13 +17,23 @@ function canExecute(path) {
   }
 }
 
+function findOnPath(bin) {
+  const result = spawnSync('command', ['-v', bin], { encoding: 'utf8', shell: true });
+  return result.status === 0 ? result.stdout.trim() : '';
+}
+
 const found = candidates.find(canExecute);
 
 if (!found) {
   console.log('Aseprite CLI: not found');
   console.log('Checked paths:');
   for (const path of candidates) console.log(`- ${path}`);
-  console.log('Set ASEPRITE_BIN=/path/to/aseprite if installed elsewhere.');
+  console.log('Next checks:');
+  console.log('- App Store / direct install: /Applications/Aseprite.app/Contents/MacOS/aseprite');
+  console.log('- Steam install: ~/Library/Application Support/Steam/steamapps/common/Aseprite/Aseprite.app/Contents/MacOS/aseprite');
+  console.log('- PATH install: run `command -v aseprite`');
+  console.log('- Custom install: set ASEPRITE_BIN=/path/to/aseprite');
+  console.log('Aseprite is optional: pnpm test / pnpm build / pnpm generate:pixel-assets do not require it.');
   process.exit(0);
 }
 

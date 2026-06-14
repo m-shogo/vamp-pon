@@ -26,7 +26,11 @@ pnpm assets:verify
 
 - `generated-final`: 小物、弾、拾得物、紙片、インク、基本敵。現在の本編素材として使う。
 - `generated-draft`: キャラ、背景、UI、大型素材。画面に載せるが、手直し前提。
-- `hand-final`: 将来、手描きで確定した素材に使う。
+- `hand-final`: Aseprite source から `public/assets/sprites/...` へ export した本命素材。
+
+ユイ系 `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate` は現時点では `generated-draft`。
+`assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:player` で同じ manifest path に export し、hand-final 候補へ進める。
+hand-final 昇格時も `PLAYER_DEFAULTS.radius` / `visualSize` は変更しない。
 
 ## 現在の生成対象
 

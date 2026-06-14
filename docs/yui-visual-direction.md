@@ -34,9 +34,31 @@ Stage 1 のユイは、スマホ縦画面で「小さいが読める主人公」
 
 ## Aseprite source 方針
 
-- source は `assets/source/aseprite/yui_*.aseprite` に置く。
+- source は `assets/source/aseprite/player/yui_*.aseprite` に置く。
 - export 先は `assetManifest` の path と一致させる。
 - hand-final 化しても texture id は変えない。
+- hand-final 化しても `PLAYER_DEFAULTS.radius` と `visualSize` は変更しない。
+- generated-draft PNG を差し替える時は `pnpm aseprite:export:player` を使い、source がある素材だけ export する。
+
+## 確認コマンド
+
+```sh
+pnpm aseprite:check
+pnpm aseprite:export:player
+pnpm assets:verify
+pnpm test
+pnpm build
+```
+
+`pnpm aseprite:export:player` は Aseprite CLI や source `.aseprite` が無い場合は skip する。
+通常の `pnpm test` / `pnpm build` は Aseprite に依存しない。
+
+## 確認URL
+
+- `/?scene=visual-gallery`: ユイ4ポーズと近接確認。
+- `/?scene=combat-mock`: 通常密度でのユイ確認。
+- `/?scene=combat-mock&density=late`: 8分後半相当の密度サンプル。
+- `/?scene=asset-status`: image / fallback / missing と quality 表示。
 
 ## 次の手仕上げポイント
 
@@ -44,3 +66,9 @@ Stage 1 のユイは、スマホ縦画面で「小さいが読める主人公」
 2. ランタンと `hitCore` の距離感。
 3. move の足運びと服のシルエット。
 4. hurt/ultimate の情報量を増やしすぎないこと。
+
+## 未確認
+
+- 実機スマホでの縦持ち視認性。
+- Aseprite source からの実export。
+- hand-final 昇格後の長時間プレイ確認。
