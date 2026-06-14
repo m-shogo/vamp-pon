@@ -41,9 +41,7 @@ export class MainScene extends Phaser.Scene {
     createBackground(this);
     this.state = createInitialState(this);
     this.hud = new Hud(this, () => {
-      if (this.state.status === GAME_STATUS.PLAYING) {
-        this.state.ultimateRequested = true;
-      }
+      if (this.state.status === GAME_STATUS.PLAYING) this.state.ultimateRequested = true;
     });
     this.overlays = new Overlays(this);
     this.spawnSystem = new SpawnSystem();
@@ -102,11 +100,12 @@ export class MainScene extends Phaser.Scene {
     );
   }
 
-  private maybeQueueEvolution(): void {
+  private maybeQueueEvolution(): boolean {
     const reward = generateEvolutionReward(this.state);
-    if (!reward) return;
+    if (!reward) return false;
     this.state.pendingCapsule = reward;
     this.state.status = GAME_STATUS.CAPSULE;
+    return true;
   }
 
   private finishLevelUp(choice: LevelUpChoice): void {
@@ -114,7 +113,7 @@ export class MainScene extends Phaser.Scene {
     applyChoice(state, choice);
     state.pendingChoices = [];
     state.status = GAME_STATUS.PLAYING;
-    this.maybeQueueEvolution();
+    if (this.maybeQueueEvolution()) this.resolveTransitions();
   }
 
   private declineLevelUpChoice(): void {
@@ -185,17 +184,13 @@ export class MainScene extends Phaser.Scene {
 
     if (hasPendingLevelUp(state)) {
       advanceLevel(state);
-      if (state.player.level === 2 && state.telemetry.level2Sec === null) {
-        state.telemetry.level2Sec = state.elapsedSec;
-      }
+      if (state.player.level === 2 && state.telemetry.level2Sec === null) state.telemetry.level2Sec = state.elapsedSec;
       state.status = GAME_STATUS.LEVELUP;
       this.showLevelUpChoices(generateChoices(state));
       return;
     }
 
-    if (state.elapsedSec >= state.durationSec) {
-      this.enterResult(true);
-    }
+    if (state.elapsedSec >= state.durationSec) this.enterResult(true);
   }
 
   private enterResult(cleared: boolean): void {
