@@ -5,7 +5,6 @@ import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { weaponById } from '../data/weapons';
-import { passiveById } from '../data/passives';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
@@ -57,14 +56,14 @@ export class Overlays {
     onReroll: () => void,
   ): void {
     const c = this.dim();
-    c.add(this.text(GAME_WIDTH / 2, 92, '記憶が少し戻った', 24, '#f3ead2'));
-    c.add(this.text(GAME_WIDTH / 2, 122, 'たまに★付きの拾い物が出る', 11, '#c9bfae'));
+    c.add(this.text(GAME_WIDTH / 2, 82, '記憶が少し戻った', 23, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 110, 'たまに★付きの拾い物が出る', 11, '#c9bfae'));
 
-    const cardW = 320;
-    const cardH = 128;
-    const gap = 14;
+    const cardW = 326;
+    const cardH = 146;
+    const gap = 10;
     const totalH = choices.length * cardH + (choices.length - 1) * gap;
-    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2 - 4;
+    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2 + 6;
 
     for (const choice of choices) {
       const card = this.levelUpCard(GAME_WIDTH / 2, y, cardW, cardH, choice, () => {
@@ -77,14 +76,14 @@ export class Overlays {
 
     const remaining = state.levelUpRerollsRemaining;
     const rerollLabel = remaining > 0 ? `入れ替え ${remaining}/3` : '入れ替え 0/3';
-    const reroll = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 54, 180, 42, rerollLabel, () => {
+    const reroll = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 44, 180, 38, rerollLabel, () => {
       if (state.levelUpRerollsRemaining <= 0) return;
       this.clear();
       onReroll();
     });
     reroll.setAlpha(remaining > 0 ? 1 : 0.45);
     c.add(reroll);
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 96, 'ひとつ選ぶ / 3回まで入れ替え', 13, '#c9bfae'));
+    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 82, 'ひとつ選ぶ / 3回まで入れ替え', 12, '#c9bfae'));
   }
 
   private levelUpCard(
@@ -109,23 +108,29 @@ export class Overlays {
     const desc = choice.description;
     const lore = 'lore' in choice && choice.lore ? choice.lore : '';
 
-    const iconBg = this.scene.add.circle(-w / 2 + 38, -h / 2 + 36, 22, 0x3a3326, 1);
+    const iconBg = this.scene.add.circle(-w / 2 + 38, -h / 2 + 39, 22, 0x3a3326, 1);
     iconBg.setStrokeStyle(2, edge, 1);
     card.add(iconBg);
     card.add(
       this.scene.add
-        .text(-w / 2 + 38, -h / 2 + 36, icon, { fontFamily: FONT, fontSize: '20px', color: '#f3ead2', fontStyle: 'bold' })
+        .text(-w / 2 + 38, -h / 2 + 39, icon, { fontFamily: FONT, fontSize: '20px', color: '#f3ead2', fontStyle: 'bold' })
         .setOrigin(0.5),
     );
 
     card.add(
       this.scene.add
-        .text(-w / 2 + 68, -h / 2 + 22, title, { fontFamily: FONT, fontSize: '17px', color: '#3a3326', fontStyle: 'bold' })
+        .text(-w / 2 + 72, -h / 2 + 23, title, {
+          fontFamily: FONT,
+          fontSize: '16px',
+          color: '#3a3326',
+          fontStyle: 'bold',
+          wordWrap: { width: w - 92 },
+        })
         .setOrigin(0, 0.5),
     );
     card.add(
       this.scene.add
-        .text(-w / 2 + 68, -h / 2 + 46, `${rankFor(rarity)} / ${tagFor(choice)}`, {
+        .text(-w / 2 + 72, -h / 2 + 52, `${rankFor(rarity)} / ${tagFor(choice)}`, {
           fontFamily: FONT,
           fontSize: '11px',
           color: rarity === 'normal' ? '#9a8d6f' : '#9a6024',
@@ -134,18 +139,25 @@ export class Overlays {
     );
     card.add(
       this.scene.add
-        .text(8, -1, desc, { fontFamily: FONT, fontSize: '14px', color: '#3a3326', align: 'center', wordWrap: { width: w - 48 } })
+        .text(0, 12, desc, {
+          fontFamily: FONT,
+          fontSize: '13px',
+          color: '#3a3326',
+          align: 'center',
+          wordWrap: { width: w - 38 },
+          lineSpacing: 3,
+        })
         .setOrigin(0.5),
     );
     if (lore) {
       card.add(
         this.scene.add
-          .text(0, h / 2 - 21, lore, {
+          .text(0, h / 2 - 18, lore, {
             fontFamily: FONT,
-            fontSize: '10px',
+            fontSize: '9px',
             color: '#9a8d6f',
             align: 'center',
-            wordWrap: { width: w - 42 },
+            wordWrap: { width: w - 46 },
           })
           .setOrigin(0.5),
       );
@@ -154,19 +166,34 @@ export class Overlays {
   }
 
   showCapsule(state: RuntimeState, reward: CapsuleReward, onClose: () => void): void {
-    const c = this.dim(0.6);
+    const isEvolution = reward.type === 'evolution';
+    const c = this.dim(isEvolution ? 0.82 : 0.6);
     const title =
       reward.type === 'evolution'
         ? '記憶がつながった'
         : reward.type === 'currency'
           ? '名前が戻った'
           : '道具が少し戻った';
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '記憶カプセル', 14, '#bfe6ff'));
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 30, title, 24, '#f3ead2'));
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 10, reward.title, 18, '#ffe9a8'));
+
+    if (isEvolution) {
+      const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0xfff1b0, 0.22);
+      const ring1 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 112, 0xffd45e, 0.08);
+      ring1.setStrokeStyle(4, 0xfff1b0, 0.9);
+      const ring2 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 74, 0xbfe6ff, 0.1);
+      ring2.setStrokeStyle(3, 0xbfe6ff, 0.8);
+      c.add([flash, ring1, ring2]);
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 116, 'EVOLUTION', 18, '#fff1b0'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 72, title, 28, '#f3ead2'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 18, reward.title, 24, '#ffe08a'));
+    } else {
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '記憶カプセル', 14, '#bfe6ff'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 30, title, 24, '#f3ead2'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 10, reward.title, 18, '#ffe9a8'));
+    }
+
     const lore = reward.type === 'evolution' ? reward.lore : '';
     if (lore) {
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 48, lore, 12, '#c9bfae'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 38, lore, 12, '#c9bfae'));
     }
 
     const close = () => {
@@ -175,7 +202,7 @@ export class Overlays {
     };
     const bg = c.list[0] as Phaser.GameObjects.Rectangle;
     bg.on('pointerdown', close);
-    this.scene.time.delayedCall(1100, () => {
+    this.scene.time.delayedCall(isEvolution ? 1900 : 1100, () => {
       if (this.current === c) close();
     });
   }
