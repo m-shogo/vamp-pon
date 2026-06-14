@@ -103,13 +103,23 @@ export function applyCapsule(state: RuntimeState, reward: CapsuleReward): void {
 function replaceWeaponWithEvolution(state: RuntimeState, evolutionId: string, evolvedWeaponId: string): void {
   const evo = evolutions.find((e) => e.id === evolutionId);
   if (!evo) return;
-  const mainIndex = state.inventory.weapons.findIndex((it) => it.id === evo.fromWeaponId);
-  if (mainIndex < 0) return;
 
   const removedIds = new Set(evo.consumedWeaponIds ?? [evo.fromWeaponId]);
-  state.inventory.weapons = state.inventory.weapons
-    .filter((w, index) => index === mainIndex || !removedIds.has(w.id))
-    .map((w, index) => (index === mainIndex ? { id: evolvedWeaponId, level: 1, cooldownRemaining: 0 } : w));
+  const nextWeapons = [];
+  let replaced = false;
+
+  for (const w of state.inventory.weapons) {
+    if (w.id === evo.fromWeaponId && !replaced) {
+      nextWeapons.push({ id: evolvedWeaponId, level: 1, cooldownRemaining: 0 });
+      replaced = true;
+      continue;
+    }
+    if (removedIds.has(w.id)) continue;
+    nextWeapons.push(w);
+  }
+
+  if (!replaced) return;
+  state.inventory.weapons = nextWeapons;
 
   if (!state.inventory.evolvedWeaponIds.includes(evolvedWeaponId)) {
     state.inventory.evolvedWeaponIds.push(evolvedWeaponId);
