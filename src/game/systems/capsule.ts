@@ -6,11 +6,7 @@ import { passiveById } from '../data/passives';
 import { recomputePlayerStats } from './passives';
 import { sampleWithoutReplacement } from '../utils/rng';
 
-/** 記憶カプセルの報酬を決める（docs/81-9 優先順位）。 */
-export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
-  const inv = state.inventory;
-
-  // 1. 進化条件を満たす武器
+export function generateEvolutionReward(state: RuntimeState): CapsuleReward | null {
   for (const evo of evolutions) {
     if (canEvolve(state, evo)) {
       return {
@@ -22,6 +18,15 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
       };
     }
   }
+  return null;
+}
+
+/** 記憶カプセルの報酬を決める（docs/81-9 優先順位）。 */
+export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
+  const inv = state.inventory;
+
+  const evolution = generateEvolutionReward(state);
+  if (evolution) return evolution;
 
   // 2. 所持武器/パッシブの通常強化
   const upgradableWeapons = inv.weapons.filter((w) => {
