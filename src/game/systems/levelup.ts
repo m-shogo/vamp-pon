@@ -1,4 +1,4 @@
-import type { LevelUpChoice } from '../domain/types';
+import type { LevelUpChoice, RewardRarity } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { weapons, weaponById, evolvedWeaponIds } from '../data/weapons';
 import { passives, passiveById } from '../data/passives';
@@ -7,7 +7,117 @@ import { LEVELUP_WEIGHTS } from '../domain/balance';
 import { recomputePlayerStats } from './passives';
 import { weightedPick, sampleWithoutReplacement } from '../utils/rng';
 
-type Category = 'weapon_upgrade' | 'weapon_new' | 'passive_upgrade' | 'passive_new' | 'heal';
+export type Category = 'weapon_upgrade' | 'weapon_new' | 'passive_upgrade' | 'passive_new' | 'heal';
+
+function rollRarity(): RewardRarity {
+  const r = Math.random();
+  if (r < 0.06) return 'rare';
+  if (r < 0.24) return 'good';
+  return 'normal';
+}
+
+function rarityPrefix(rarity: RewardRarity): string {
+  switch (rarity) {
+    case 'rare':
+      return '★★★ ';
+    case 'good':
+      return '★★ ';
+    case 'normal':
+      return '';
+  }
+}
+
+function rarityText(rarity: RewardRarity): string {
+  switch (rarity) {
+    case 'rare':
+      return '大当たり';
+    case 'good':
+      return '良い拾い物';
+    case 'normal':
+      return 'ふつう';
+  }
+}
+
+function rarityStep(rarity: RewardRarity): number {
+  switch (rarity) {
+    case 'rare':
+      return 3;
+    case 'good':
+      return 2;
+    case 'normal':
+      return 1;
+  }
+}
+
+function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
+  const rarity = rollRarity();
+  const prefix = rarityPrefix(rarity);
+  const rank = rarityText(rarity);
+
+  if (choice.type === 'weapon_upgrade') {
+    const def = weaponById.get(choice.itemId);
+    if (!def) return { ...choice, rarity };
+    const step = rarityStep(rarity);
+    const nextLevel = Math.min(def.maxLevel, choice.nextLevel + step - 1);
+    const lvl = def.levels[nextLevel - 1];
+    return {
+      ...choice,
+      rarity,
+      nextLevel,
+      title: `${prefix}${def.name} Lv.${nextLevel}`,
+      description: rarity === 'normal' ? (lvl?.label ?? choice.description) : `${rank}: 一気に Lv.${nextLevel} / ${lvl?.label ?? '強化'}`,
+    };
+  }
+
+  if (choice.type === 'passive_upgrade') {
+    const def = passiveById.get(choice.itemId);
+    if (!def) return { ...choice, rarity };
+    const step = rarityStep(rarity);
+    const nextLevel = Math.min(def.maxLevel, choice.nextLevel + step - 1);
+    const lvl = def.levels[nextLevel - 1];
+    return {
+      ...choice,
+      rarity,
+      nextLevel,
+      title: `${prefix}${def.name} Lv.${nextLevel}`,
+      description: rarity === 'normal' ? (lvl?.label ?? choice.description) : `${rank}: 一気に Lv.${nextLevel} / ${lvl?.label ?? '強化'}`,
+    };
+  }
+
+  if (choice.type === 'weapon_new') {
+    const def = weaponById.get(choice.itemId);
+    const initialLevel = Math.min(def?.maxLevel ?? 1, rarityStep(rarity));
+    return {
+      ...choice,
+      rarity,
+      initialLevel,
+      title: `${prefix}${choice.title}${initialLevel > 1 ? ` Lv.${initialLevel}` : ''}`,
+      description: initialLevel > 1 ? `${rank}: 最初から Lv.${initialLevel} で手に入る。` : choice.description,
+    };
+  }
+
+  if (choice.type === 'passive_new') {
+    const def = passiveById.get(choice.itemId);
+    const initialLevel = Math.min(def?.maxLevel ?? 1, rarityStep(rarity));
+    return {
+      ...choice,
+      rarity,
+      initialLevel,
+      title: `${prefix}${choice.title}${initialLevel > 1 ? ` Lv.${initialLevel}` : ''}`,
+      description: initialLevel > 1 ? `${rank}: 最初から Lv.${initialLevel} で手に入る。` : choice.description,
+    };
+  }
+
+  const healMultiplier = rarity === 'rare' ? 2.25 : rarity === 'good' ? 1.5 : 1;
+  const amount = Math.round(choice.amount * healMultiplier);
+  return {
+    ...choice,
+    rarity,
+    amount,
+    title: `${prefix}${choice.title}`,
+    description: rarity === 'normal' ? `HP +${amount}` : `${rank}: HP +${amount}`,
+  };
+}
 
 /** レベルアップ3択を生成する（docs/81-8, docs/82-4 準拠）。 */
 export function generateChoices(state: RuntimeState): LevelUpChoice[] {
@@ -110,13 +220,15 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     if (!cat) break;
 
     if (cat === 'heal') {
-      chosen.push({
-        type: 'heal',
-        amount: LEVEL_UP.healAmount,
-        title: '少し休む',
-        description: `HP +${LEVEL_UP.healAmount}`,
-        lore: 'まだ、戻せる名前がある。',
-      });
+      chosen.push(
+        decorateChoice({
+          type: 'heal',
+          amount: LEVEL_UP.healAmount,
+          title: '少し休む',
+          description: `HP +${LEVEL_UP.healAmount}`,
+          lore: 'まだ、戻せる名前がある。',
+        }),
+      );
       healUsed = true;
       continue;
     }
@@ -124,20 +236,23 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     const available = pools[cat].filter((c) => 'itemId' in c && !usedItemIds.has((c as { itemId: string }).itemId));
     const picked = sampleWithoutReplacement(available, 1)[0];
     if (picked && 'itemId' in picked) {
-      chosen.push(picked);
+      const decorated = decorateChoice(picked);
+      chosen.push(decorated);
       usedItemIds.add(picked.itemId);
     }
   }
 
   // 3つ未満なら回復で補う（docs/80-9）
   while (chosen.length < LEVEL_UP.choices) {
-    chosen.push({
-      type: 'heal',
-      amount: LEVEL_UP.healAmount,
-      title: '少し休む',
-      description: `HP +${LEVEL_UP.healAmount}`,
-      lore: 'まだ、戻せる名前がある。',
-    });
+    chosen.push(
+      decorateChoice({
+        type: 'heal',
+        amount: LEVEL_UP.healAmount,
+        title: '少し休む',
+        description: `HP +${LEVEL_UP.healAmount}`,
+        lore: 'まだ、戻せる名前がある。',
+      }),
+    );
   }
 
   return chosen;
@@ -149,7 +264,7 @@ export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
   switch (choice.type) {
     case 'weapon_new':
       if (!inv.weapons.some((w) => w.id === choice.itemId) && inv.weapons.length < inv.weaponSlots) {
-        inv.weapons.push({ id: choice.itemId, level: 1, cooldownRemaining: 0 });
+        inv.weapons.push({ id: choice.itemId, level: choice.initialLevel ?? 1, cooldownRemaining: 0 });
       }
       break;
     case 'weapon_upgrade': {
@@ -159,7 +274,7 @@ export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
     }
     case 'passive_new':
       if (!inv.passives.some((p) => p.id === choice.itemId) && inv.passives.length < inv.passiveSlots) {
-        inv.passives.push({ id: choice.itemId, level: 1 });
+        inv.passives.push({ id: choice.itemId, level: choice.initialLevel ?? 1 });
       }
       break;
     case 'passive_upgrade': {
