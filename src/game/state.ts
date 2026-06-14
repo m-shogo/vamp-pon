@@ -15,6 +15,8 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const playerView = createPlayerView(scene, px, py);
 
   const debug = new URLSearchParams(window.location.search).get('debug') === 'true';
+  const hitCore = playerView.getData('hitCore') as Phaser.GameObjects.Arc | undefined;
+  hitCore?.setVisible(debug);
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,

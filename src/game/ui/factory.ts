@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { COLORS, ENEMY_RADIUS, PICKUP } from '../domain/constants';
+import { COLORS, ENEMY_RADIUS, PICKUP, PLAYER_DEFAULTS } from '../domain/constants';
 import type { EnemyDefinition } from '../domain/types';
 import type { ProjectileVisualKind, AreaVisualKind } from '../domain/weaponVisual';
 import { STROKE, GLOW_ALPHA_MAX } from './visualDesign';
@@ -62,10 +62,14 @@ function addPickupReadability(
  */
 export function createPlayerView(scene: Phaser.Scene, x: number, y: number): Phaser.GameObjects.Container {
   const c = scene.add.container(x, y);
+  const hitCore = scene.add.circle(0, 0, PLAYER_DEFAULTS.radius, 0x9fe0ff, 0.18);
+  hitCore.setStrokeStyle(2, 0xffffff, 0.72);
+  hitCore.setVisible(false);
+  c.setData('hitCore', hitCore);
   // 画像があればスプライト、無ければ Graphics fallback（以下）
   const sprite = spriteOrNull(scene, 'yui_idle', 36, 36);
   if (sprite) {
-    c.add(sprite);
+    c.add([sprite, hitCore]);
     c.setDepth(DEPTH.player);
     return c;
   }
@@ -82,7 +86,7 @@ export function createPlayerView(scene: Phaser.Scene, x: number, y: number): Pha
   const lanternGlow = scene.add.circle(10, 6, 8, COLORS.lantern, GLOW_ALPHA_MAX);
   const lantern = scene.add.circle(10, 6, 3.2, COLORS.lantern, 1);
   lantern.setStrokeStyle(STROKE.thin, 0xb88a3a, 1);
-  c.add([glow, dress, hood, face, lanternGlow, lantern]);
+  c.add([glow, dress, hood, face, lanternGlow, lantern, hitCore]);
   c.setDepth(DEPTH.player);
   return c;
 }
