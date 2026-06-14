@@ -9,6 +9,8 @@ export type GameStatus = 'ready' | 'playing' | 'levelUp' | 'capsule' | 'paused' 
 
 export type RewardRarity = 'normal' | 'good' | 'rare';
 
+export type EvolutionKind = 'upgrade' | 'fusion' | 'awakening';
+
 export type EffectDefinition = Record<string, unknown> & {
   type?: string;
 };
@@ -151,6 +153,7 @@ export type WaveDefinition = {
 
 export type EvolutionDefinition = {
   id: Id;
+  kind: EvolutionKind;
   name: string;
   fromWeaponId: Id;
   requiredWeaponLevel: number;
@@ -174,7 +177,7 @@ export type LevelUpChoice =
   | { type: 'heal'; amount: number; title: string; description: string; lore?: string; rarity?: RewardRarity };
 
 export type CapsuleReward =
-  | { type: 'evolution'; evolutionId: Id; evolvedWeaponId: Id; title: string; lore: string }
+  | { type: 'evolution'; evolutionId: Id; evolutionKind: EvolutionKind; evolvedWeaponId: Id; title: string; lore: string }
   | { type: 'weapon_upgrade' | 'passive_upgrade'; itemId: Id; nextLevel: number; title: string }
   | { type: 'currency'; amount: number; title: string };
 
