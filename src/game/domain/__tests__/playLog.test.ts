@@ -47,5 +47,8 @@ describe('buildPlayLog', () => {
     expect(log.pickedWeapons).toEqual(['unfinished_line', 'marble']);
     expect(log.pickedPassives).toEqual(['travel_badge']);
     expect(log.evolvedWeapons).toEqual(['unfinished_line']);
+    // 人間記入欄は空で出力される
+    expect(log.goodPoints).toBe('');
+    expect(log.painPoints).toBe('');
   });
 });
