@@ -81,8 +81,8 @@
 ## 現在の状況
 
 ```txt
-生成素材: 24 個（generated-final 17 / generated-draft 7）
-表示    : 生成済みPNGは image、未生成PNGは Graphics fallback
+生成素材: 34 個（generated-final 23 / generated-draft 11）
+表示    : assetManifest 全エントリが生成PNG image
 ```
 
 `?scene=asset-status` で最新の 実素材/仮/欠品 を確認できる。

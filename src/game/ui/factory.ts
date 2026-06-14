@@ -335,8 +335,15 @@ export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVi
 }
 
 /** 月のしおり（オービター）: 紙のしおり。 */
-export function createOrbiterView(scene: Phaser.Scene): Phaser.GameObjects.Container {
+export function createOrbiterView(scene: Phaser.Scene, assetId?: AssetId): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
+  const e = assetId ? assetById.get(assetId) : undefined;
+  const sprite = spriteOrNull(scene, assetId, e?.width, e?.height);
+  if (sprite) {
+    c.add(sprite);
+    c.setDepth(DEPTH.orbiter);
+    return c;
+  }
   const glow = scene.add.circle(0, 0, 9, COLORS.lantern, GLOW_ALPHA_MAX * 0.6);
   const mark = scene.add.rectangle(0, 0, 8, 14, COLORS.cardBg, 1);
   mark.setStrokeStyle(STROKE.thin, COLORS.cardEdge, 1);

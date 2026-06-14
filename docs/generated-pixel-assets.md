@@ -1,7 +1,8 @@
 # Generated Pixel Assets
 
 Vamp Pon の本命ドット素材は、まずコード生成で再現可能にする。
-Aseprite などの手作業ツールを使う場合も、この生成物を起点に差し替える。
+Aseprite を買わなくても生成は進められる。
+手仕上げする場合は、この生成物を下敷きに、輪郭整理・アニメ差分・表情差分・カード装飾の密度調整へ使う。
 
 ## 生成コマンド
 
@@ -39,25 +40,52 @@ pnpm assets:verify
 - `rare_sealed_letter`
 - `rare_wind_mark`
 - `weapon_night_pencil`
+- `weapon_marble`
+- `weapon_stardust`
+- `weapon_postcard_blade`
+- `weapon_bookmark_orbit`
+- `weapon_ink_area`
 - `weapon_paper_airplane`
+- `weapon_streetlamp_area`
 - `enemy_ink_blob`
 - `enemy_paper_scrap`
 - `enemy_signpost`
 - `enemy_capsule`
 - `enemy_haze`
-- `weapon_marble`
-- `weapon_stardust`
-- `weapon_postcard_blade`
+- `yui_move`
+- `ui_card_paper_good`
+- `ui_card_paper_rare`
 
 `generated-draft`
 
 - `yui_idle`
-- `yui_move`
 - `enemy_elite_label`
 - `bg_stage1_paper_night`
 - `ui_card_paper_normal`
-- `ui_card_paper_good`
-- `ui_card_paper_rare`
+- `evolved_unfinished_line`
+- `evolved_north_star_lantern`
+- `evolved_dawn_ink_lamp`
+- `awakened_unforgotten_name`
+- `awakened_memory_marble`
+- `awakened_addressless_blade`
+- `awakened_tailwind_plane`
+
+## まだfallback
+
+```txt
+なし
+```
+
+`assetManifest` の全34件が生成対象。
+VisualGallery `?scene=asset-status` では image 34 / fallback 0 / missing 0 を基準にする。
+
+## 次に手仕上げすべき素材
+
+1. `yui_idle` / `yui_move`: 顔、髪、服、ランタンの読みやすさと歩き差分。
+2. `bg_stage1_paper_night`: 画面全体で繰り返した時の地図線・紙片密度。
+3. `evolved_dawn_ink_lamp`: 合体素材として黒インク・街灯・朝色の重なり整理。
+4. `ui_card_paper_normal/good/rare`: テキスト読みやすさと紙テクスチャのノイズ量。
+5. `enemy_elite_label`: エリート感と通常敵との差分。
 
 ## 方向性
 

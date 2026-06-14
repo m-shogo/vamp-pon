@@ -304,9 +304,10 @@ function updateOrbiters(scene: Phaser.Scene, state: RuntimeState, dt: number): v
   const damage = num(eff, 'damage', 8) * state.player.might;
   const hitInterval = num(eff, 'hitInterval', 0.6);
   const orbitRadius = 12;
+  const assetId = WEAPON_ASSET[orbitWeapon.id];
 
   while (state.orbiters.length < count) {
-    const o: OrbiterRuntime = { angle: 0, view: createOrbiterView(scene) };
+    const o: OrbiterRuntime = { angle: 0, view: createOrbiterView(scene, assetId) };
     state.orbiters.push(o);
   }
   while (state.orbiters.length > count) {

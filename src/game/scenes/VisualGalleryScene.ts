@@ -28,6 +28,7 @@ import { weaponRenderInfo } from '../domain/weaponVisual';
 import type { EvolutionKind } from '../domain/types';
 import { assetManifest, WEAPON_ASSET } from '../assets/assetManifest';
 import { assetStatus } from '../assets/assetHelpers';
+import { generatedPixelAssets, type PixelAssetQuality } from '../assets/vampPixelKit';
 
 const PAGES = ['背景・ユイ・敵', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況'] as const;
 
@@ -42,6 +43,7 @@ export function pageFromUrl(): number {
 }
 
 const GALLERY_SCENES = ['visual-gallery', 'combat-mock', 'evolution-showcase', 'asset-status'];
+const generatedQualityById = new Map(generatedPixelAssets.map((asset) => [asset.id, asset.quality]));
 
 /** ?scene= / ?debug= がギャラリー系か。 */
 export function isGalleryUrl(): boolean {
@@ -305,7 +307,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       this.pageRoot.add(this.add.circle(x, y, 4, COLORS.player, 0.8));
       for (let i = 0; i < 2; i += 1) {
         const a = (i / 2) * Math.PI * 2;
-        this.place(createOrbiterView(this), x + Math.cos(a) * 20, y + Math.sin(a) * 20);
+        this.place(createOrbiterView(this, assetId), x + Math.cos(a) * 20, y + Math.sin(a) * 20);
       }
     } else {
       // projectile / radial / bounce: 弾を1個、右向きに
@@ -317,19 +319,25 @@ export class VisualGalleryScene extends Phaser.Scene {
 
   /** アセット状況: 実素材 / fallback / MISSING を一覧表示。 */
   private buildAssetStatusPage(): void {
-    this.heading('アセット状況（実素材 / fallback / 欠品）');
+    this.heading('アセット状況（quality / fallback / 欠品）');
     let imageN = 0;
     let fallbackN = 0;
     let missingN = 0;
+    let finalN = 0;
+    let draftN = 0;
     for (const a of assetManifest) {
       const st = assetStatus(this, a.id);
-      if (st === 'image') imageN += 1;
-      else if (st === 'fallback') fallbackN += 1;
+      const q = generatedQualityById.get(a.id);
+      if (st === 'image') {
+        imageN += 1;
+        if (q === 'generated-final' || q === 'hand-final') finalN += 1;
+        else if (q === 'generated-draft') draftN += 1;
+      } else if (st === 'fallback') fallbackN += 1;
       else missingN += 1;
     }
     this.pageRoot.add(
       this.add
-        .text(GAME_WIDTH / 2, 40, `実素材 ${imageN}  /  fallback ${fallbackN}  /  欠品 ${missingN}`, {
+        .text(GAME_WIDTH / 2, 40, `image ${imageN}  final ${finalN}  draft ${draftN}  fallback ${fallbackN}  missing ${missingN}`, {
           fontFamily: FONT, fontSize: '12px', color: '#f3ead2',
         })
         .setOrigin(0.5, 0),
@@ -345,9 +353,10 @@ export class VisualGalleryScene extends Phaser.Scene {
       const x = col * colW + 12;
       const y = startY + row * lineH;
       const st = assetStatus(this, a.id);
-      const color = st === 'image' ? 0x8fd0a0 : st === 'fallback' ? COLORS.lantern : COLORS.hpFill;
+      const quality = generatedQualityById.get(a.id);
+      const color = st === 'image' ? qualityColor(quality) : st === 'fallback' ? COLORS.lantern : COLORS.hpFill;
       this.pageRoot.add(this.add.circle(x, y + 6, 4, color, 1));
-      const mark = st === 'image' ? '実' : st === 'fallback' ? '仮' : '欠';
+      const mark = st === 'image' ? qualityMark(quality) : st === 'fallback' ? 'FB' : 'MI';
       this.pageRoot.add(
         this.add.text(x + 10, y, `${mark} ${a.id}`, { fontFamily: 'monospace', fontSize: '9px', color: '#cfc6b0' }).setOrigin(0, 0),
       );
@@ -355,7 +364,7 @@ export class VisualGalleryScene extends Phaser.Scene {
 
     this.pageRoot.add(
       this.add
-        .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, '緑=実素材 / 黄=Graphics仮 / 赤=欠品。仕様は assetManifest.ts', {
+        .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, 'GF=generated-final / GD=generated-draft / FB=Graphics fallback / MI=欠品', {
           fontFamily: FONT, fontSize: '9px', color: '#9a8d6f',
         })
         .setOrigin(0.5, 0),
@@ -388,6 +397,18 @@ export class VisualGalleryScene extends Phaser.Scene {
     }
     return from;
   }
+}
+
+function qualityMark(quality: PixelAssetQuality | undefined): string {
+  if (quality === 'generated-final' || quality === 'hand-final') return 'GF';
+  if (quality === 'generated-draft') return 'GD';
+  return 'IM';
+}
+
+function qualityColor(quality: PixelAssetQuality | undefined): number {
+  if (quality === 'generated-final' || quality === 'hand-final') return 0x8fd0a0;
+  if (quality === 'generated-draft') return 0x9db7df;
+  return 0xcfc6b0;
 }
 
 /** HUD表示用のショーケース state（ゲームを開始せずHUDを描くための擬似状態）。 */

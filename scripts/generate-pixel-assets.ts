@@ -72,7 +72,7 @@ function validateGrid(spec: PixelAssetSpec, grid: PixelGrid): void {
 }
 
 function generateAssets({ verifyOnly }: { verifyOnly: boolean }): void {
-  if (generatedPixelAssets.length < 24) throw new Error(`生成予定数が少なすぎます: ${generatedPixelAssets.length}`);
+  if (generatedPixelAssets.length < 30) throw new Error(`生成予定数が少なすぎます: ${generatedPixelAssets.length}`);
 
   for (const spec of generatedPixelAssets) {
     assertManifestMatch(spec);
@@ -88,4 +88,9 @@ function generateAssets({ verifyOnly }: { verifyOnly: boolean }): void {
 
 const verifyOnly = process.argv.includes('--verify');
 generateAssets({ verifyOnly });
+const qualityCounts = generatedPixelAssets.reduce<Record<string, number>>((acc, asset) => {
+  acc[asset.quality] = (acc[asset.quality] ?? 0) + 1;
+  return acc;
+}, {});
 console.log(`${verifyOnly ? 'verified' : 'generated'} ${generatedPixelAssets.length} pixel assets`);
+console.log(`quality ${Object.entries(qualityCounts).map(([quality, count]) => `${quality}=${count}`).join(' ')}`);
