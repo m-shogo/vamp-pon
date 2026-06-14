@@ -5,7 +5,7 @@ import { PICKUP, GAME_STATUS } from '../domain/constants';
 import { distance, normalize } from '../utils/math';
 import { addXp } from './xp';
 import { generateCapsuleReward } from './capsule';
-import { createPickupView, createCapsuleView } from '../ui/factory';
+import { createPickupView, createHealPickupView, createCapsuleView } from '../ui/factory';
 import { collectSpark } from '../ui/effects';
 
 const CAPSULE_RADIUS = 14;
@@ -17,7 +17,26 @@ export function spawnFragment(scene: Phaser.Scene, state: RuntimeState, x: numbe
     iid: nextIid(state),
     x,
     y,
+    kind: 'fragment',
     xp,
+    heal: 0,
+    magnetized: false,
+    view,
+    dead: false,
+  };
+  state.pickups.push(p);
+}
+
+export function spawnHealPickup(scene: Phaser.Scene, state: RuntimeState, x: number, y: number, heal: number): void {
+  const view = createHealPickupView(scene);
+  view.setPosition(x, y);
+  const p: PickupRuntime = {
+    iid: nextIid(state),
+    x,
+    y,
+    kind: 'heal',
+    xp: 0,
+    heal,
     magnetized: false,
     view,
     dead: false,
@@ -38,28 +57,32 @@ export function spawnCapsule(scene: Phaser.Scene, state: RuntimeState, x: number
   state.capsules.push(c);
 }
 
-/** 欠片の吸引・取得とカプセル取得を処理する。 */
+/** 欠片/回復の吸引・取得とカプセル取得を処理する。 */
 export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
   const magnetRange = PICKUP.magnetRange * p.magnetMultiplier;
 
-  for (const frag of state.pickups) {
-    if (frag.dead) continue;
-    const d = distance(frag.x, frag.y, p.x, p.y);
+  for (const pickup of state.pickups) {
+    if (pickup.dead) continue;
+    const d = distance(pickup.x, pickup.y, p.x, p.y);
     if (d <= PICKUP.collectRadius) {
-      addXp(state, frag.xp);
-      state.stats.memoryFragmentsCollected += 1;
-      frag.dead = true;
-      frag.view.destroy();
+      if (pickup.kind === 'heal') {
+        p.hp = Math.min(p.maxHp, p.hp + pickup.heal);
+      } else {
+        addXp(state, pickup.xp);
+        state.stats.memoryFragmentsCollected += 1;
+      }
+      pickup.dead = true;
+      pickup.view.destroy();
       collectSpark(scene, p.x, p.y);
       continue;
     }
-    if (frag.magnetized || d <= magnetRange) {
-      frag.magnetized = true;
-      const dir = normalize(p.x - frag.x, p.y - frag.y);
-      frag.x += dir.x * PICKUP.magnetSpeed * dt;
-      frag.y += dir.y * PICKUP.magnetSpeed * dt;
-      frag.view.setPosition(frag.x, frag.y);
+    if (pickup.magnetized || d <= magnetRange) {
+      pickup.magnetized = true;
+      const dir = normalize(p.x - pickup.x, p.y - pickup.y);
+      pickup.x += dir.x * PICKUP.magnetSpeed * dt;
+      pickup.y += dir.y * PICKUP.magnetSpeed * dt;
+      pickup.view.setPosition(pickup.x, pickup.y);
     }
   }
   state.pickups = state.pickups.filter((f) => !f.dead);
