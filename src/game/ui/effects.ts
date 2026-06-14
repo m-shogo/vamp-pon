@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import type { EvolutionKind } from '../domain/types';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 
@@ -40,52 +41,90 @@ export function ultimateFlash(scene: Phaser.Scene): void {
 }
 
 /** 進化成立直後の「変わった」感を出す画面演出。 */
-export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label: string): void {
-  scene.cameras.main.flash(360, 255, 241, 176, false);
-  scene.cameras.main.shake(220, 0.004);
-
+export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label: string, kind: EvolutionKind = 'upgrade'): void {
   const depth = VIEW_DEPTH.overlay - 5;
-  const flash = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, COLORS.ultReady, 0.16).setDepth(depth);
-  const ring = scene.add.circle(x, y, 36, COLORS.ultReady, 0.12).setDepth(depth + 1);
-  ring.setStrokeStyle(5, COLORS.ultReady, 0.9);
-  const ring2 = scene.add.circle(x, y, 18, COLORS.ultFill, 0.14).setDepth(depth + 1);
-  ring2.setStrokeStyle(3, COLORS.ultFill, 0.8);
+  const isFusion = kind === 'fusion';
+  const isAwakening = kind === 'awakening';
+  const primary = isAwakening ? 0xfff1b0 : isFusion ? 0xffd45e : COLORS.ultReady;
+  const secondary = isAwakening ? 0xff8fd6 : isFusion ? COLORS.ultFill : COLORS.ultFill;
+  const flashAlpha = isAwakening ? 0.34 : isFusion ? 0.28 : 0.16;
+
+  scene.cameras.main.flash(isAwakening ? 520 : isFusion ? 440 : 360, 255, 241, 176, false);
+  scene.cameras.main.shake(isAwakening ? 360 : isFusion ? 300 : 220, isAwakening ? 0.009 : isFusion ? 0.007 : 0.004);
+
+  const flash = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, primary, flashAlpha).setDepth(depth);
+  const objects: Phaser.GameObjects.GameObject[] = [flash];
+
+  if (isFusion) {
+    const left = scene.add.circle(x - 54, y, 26, 0x241f3a, 0.72).setDepth(depth + 1);
+    left.setStrokeStyle(5, primary, 0.95);
+    const right = scene.add.circle(x + 54, y, 26, COLORS.lantern, 0.42).setDepth(depth + 1);
+    right.setStrokeStyle(5, secondary, 0.95);
+    const core = scene.add.star(x, y, 8, 16, 44, primary, 0.56).setDepth(depth + 2);
+    const slashA = scene.add.rectangle(x, y, 190, 8, primary, 0.5).setAngle(28).setDepth(depth + 2);
+    const slashB = scene.add.rectangle(x, y, 190, 8, secondary, 0.42).setAngle(-28).setDepth(depth + 2);
+    const ring = scene.add.circle(x, y, 48, primary, 0.08).setDepth(depth + 1);
+    ring.setStrokeStyle(7, primary, 0.95);
+    objects.push(left, right, core, slashA, slashB, ring);
+    scene.tweens.add({ targets: [left, right], x, duration: 260, ease: 'Cubic.easeIn' });
+    scene.tweens.add({ targets: [core, slashA, slashB, ring], scale: 4.2, alpha: 0, delay: 180, duration: 820, ease: 'Cubic.easeOut' });
+  } else if (isAwakening) {
+    const halo = scene.add.star(x, y, 12, 34, 74, primary, 0.36).setDepth(depth + 1);
+    const core = scene.add.star(x, y, 8, 14, 34, secondary, 0.82).setDepth(depth + 2);
+    const vertical = scene.add.rectangle(x, y, 7, 220, primary, 0.42).setDepth(depth + 1);
+    const horizontal = scene.add.rectangle(x, y, 220, 7, secondary, 0.36).setDepth(depth + 1);
+    const ring = scene.add.circle(x, y, 42, secondary, 0.08).setDepth(depth + 1);
+    ring.setStrokeStyle(6, secondary, 0.92);
+    objects.push(halo, core, vertical, horizontal, ring);
+    scene.tweens.add({ targets: [halo, core], angle: 220, scale: 3.5, alpha: 0, duration: 980, ease: 'Cubic.easeOut' });
+    scene.tweens.add({ targets: [vertical, horizontal, ring], scale: 4.8, alpha: 0, duration: 980, ease: 'Cubic.easeOut' });
+  } else {
+    const ring = scene.add.circle(x, y, 36, primary, 0.12).setDepth(depth + 1);
+    ring.setStrokeStyle(5, primary, 0.9);
+    const ring2 = scene.add.circle(x, y, 18, secondary, 0.14).setDepth(depth + 1);
+    ring2.setStrokeStyle(3, secondary, 0.8);
+    objects.push(ring, ring2);
+    scene.tweens.add({
+      targets: [ring, ring2],
+      scale: 5.2,
+      alpha: 0,
+      duration: 760,
+      ease: 'Cubic.easeOut',
+    });
+  }
+
   const text = scene.add
-    .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 92, label, {
+    .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - (isAwakening || isFusion ? 116 : 92), label, {
       fontFamily: '"Hiragino Sans", "Yu Gothic", sans-serif',
-      fontSize: '24px',
-      color: '#fff1b0',
+      fontSize: isAwakening || isFusion ? '30px' : '24px',
+      color: isAwakening ? '#fff7cf' : '#fff1b0',
       fontStyle: 'bold',
       stroke: '#241f3a',
-      strokeThickness: 4,
+      strokeThickness: isAwakening || isFusion ? 6 : 4,
     })
     .setOrigin(0.5)
-    .setDepth(depth + 2);
+    .setDepth(depth + 3);
+  objects.push(text);
 
   scene.tweens.add({
     targets: flash,
     alpha: 0,
-    duration: 520,
+    duration: isAwakening || isFusion ? 720 : 520,
     ease: 'Quad.easeOut',
     onComplete: () => flash.destroy(),
   });
   scene.tweens.add({
-    targets: [ring, ring2],
-    scale: 5.2,
-    alpha: 0,
-    duration: 760,
-    ease: 'Cubic.easeOut',
-    onComplete: () => {
-      ring.destroy();
-      ring2.destroy();
-    },
-  });
-  scene.tweens.add({
     targets: text,
-    y: text.y - 26,
+    y: text.y - 34,
     alpha: 0,
-    duration: 1100,
+    duration: isAwakening || isFusion ? 1320 : 1100,
     ease: 'Quad.easeOut',
     onComplete: () => text.destroy(),
+  });
+
+  scene.time.delayedCall(1500, () => {
+    for (const obj of objects) {
+      if (obj.active) obj.destroy();
+    }
   });
 }
