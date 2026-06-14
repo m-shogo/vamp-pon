@@ -12,6 +12,7 @@ export function generateEvolutionReward(state: RuntimeState): CapsuleReward | nu
       return {
         type: 'evolution',
         evolutionId: evo.id,
+        evolutionKind: evo.kind,
         evolvedWeaponId: evo.evolvedWeaponId,
         title: evo.name,
         lore: evo.lore,
@@ -28,7 +29,6 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
   const evolution = generateEvolutionReward(state);
   if (evolution) return evolution;
 
-  // 2. 所持武器/パッシブの通常強化
   const upgradableWeapons = inv.weapons.filter((w) => {
     const def = weaponById.get(w.id);
     return def && w.level < def.maxLevel && !evolvedWeaponIds.has(w.id);
@@ -58,11 +58,8 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
     });
   }
 
-  if (candidates.length > 0) {
-    return sampleWithoutReplacement(candidates, 1)[0];
-  }
+  if (candidates.length > 0) return sampleWithoutReplacement(candidates, 1)[0];
 
-  // 3. 記憶片（通貨）
   return { type: 'currency', amount: 10, title: '記憶のかけら +10' };
 }
 
@@ -72,7 +69,6 @@ function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
   if (!main || main.level < evo.requiredWeaponLevel) return false;
 
   if (evo.requiredPassiveId && !inv.passives.some((p) => p.id === evo.requiredPassiveId)) return false;
-
   if (evo.requiredRareItemId && !inv.rareItems.some((item) => item.id === evo.requiredRareItemId)) return false;
 
   if (evo.requiredWeaponId) {
@@ -101,7 +97,6 @@ export function applyCapsule(state: RuntimeState, reward: CapsuleReward): void {
       break;
     }
     case 'currency':
-      // MVPではセーブなし。集計のみ。
       break;
   }
   recomputePlayerStats(state);
