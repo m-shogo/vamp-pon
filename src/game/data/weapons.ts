@@ -159,5 +159,5 @@ export const weaponById = new Map(weapons.map((weapon) => [weapon.id, weapon]));
 
 /** 進化後武器IDの集合（新規抽選から除外する用途）。 */
 export const evolvedWeaponIds = new Set(
-  weapons.filter((w) => w.tags.includes('evolved')).map((w) => [w.id][0]),
+  weapons.filter((w) => w.tags.includes('evolved')).map((w) => w.id),
 );
