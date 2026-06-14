@@ -83,10 +83,12 @@ describe('waves データ', () => {
 });
 
 describe('evolutions データ', () => {
-  it('参照する武器/パッシブ/進化先が実在し、進化先は evolved タグ', () => {
+  it('参照する武器/条件/進化先が実在し、進化先は evolved タグ', () => {
     for (const evo of evolutions) {
       expect(weaponById.has(evo.fromWeaponId)).toBe(true);
-      expect(passiveById.has(evo.requiredPassiveId)).toBe(true);
+      if (evo.requiredPassiveId) expect(passiveById.has(evo.requiredPassiveId)).toBe(true);
+      if (evo.requiredWeaponId) expect(weaponById.has(evo.requiredWeaponId)).toBe(true);
+      for (const id of evo.consumedWeaponIds ?? []) expect(weaponById.has(id)).toBe(true);
       const evolved = weaponById.get(evo.evolvedWeaponId);
       expect(evolved).toBeDefined();
       expect(evolved?.tags).toContain('evolved');
