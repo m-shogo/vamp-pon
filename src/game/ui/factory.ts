@@ -183,12 +183,18 @@ export function createMarbleView(scene: Phaser.Scene, radius: number): Phaser.Ga
 export function createAreaView(scene: Phaser.Scene, radius: number, kind: AreaVisualKind = 'ink'): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   if (kind === 'dawn') {
-    const glow = scene.add.circle(0, 0, radius + 12, COLORS.ultReady, 0.13);
-    const ink = scene.add.circle(0, 0, radius, COLORS.ink, 0.32);
-    const ring = scene.add.circle(0, 0, radius * 0.82, COLORS.lantern, 0.16);
-    ring.setStrokeStyle(4, COLORS.ultReady, 0.78);
-    const core = scene.add.circle(0, 0, Math.max(10, radius * 0.28), COLORS.ultFill, 0.2);
-    c.add([glow, ink, ring, core]);
+    const outer = scene.add.circle(0, 0, radius + 24, COLORS.ultReady, 0.18);
+    const ink = scene.add.circle(0, 0, radius, COLORS.ink, 0.38);
+    ink.setStrokeStyle(3, COLORS.enemyInkEdge, 0.62);
+    const ring = scene.add.circle(0, 0, radius * 0.86, COLORS.lantern, 0.2);
+    ring.setStrokeStyle(6, COLORS.ultReady, 0.92);
+    const innerRing = scene.add.circle(0, 0, radius * 0.52, COLORS.ultFill, 0.16);
+    innerRing.setStrokeStyle(3, COLORS.ultFill, 0.72);
+    const core = scene.add.star(0, 0, 8, Math.max(12, radius * 0.1), Math.max(28, radius * 0.26), COLORS.ultReady, 0.42);
+    const cross1 = scene.add.rectangle(0, 0, radius * 1.48, 5, COLORS.ultReady, 0.38);
+    const cross2 = scene.add.rectangle(0, 0, radius * 1.48, 5, COLORS.ultFill, 0.34);
+    cross2.setAngle(90);
+    c.add([outer, ink, ring, innerRing, core, cross1, cross2]);
   } else if (kind === 'lamp') {
     const glow = scene.add.circle(0, 0, radius + 8, COLORS.lantern, 0.1);
     const ring = scene.add.circle(0, 0, radius, COLORS.lantern, 0.18);
@@ -221,6 +227,20 @@ export function createPickupView(scene: Phaser.Scene): Phaser.GameObjects.Contai
   const glow = scene.add.circle(0, 0, PICKUP.visualSize, COLORS.fragmentGlow, 0.3);
   const star = scene.add.star(0, 0, 4, PICKUP.visualSize * 0.4, PICKUP.visualSize * 0.85, COLORS.fragment);
   c.add([glow, star]);
+  c.setDepth(DEPTH.pickup);
+  return c;
+}
+
+/** 回復ドロップ。 */
+export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Container {
+  const c = scene.add.container(0, 0);
+  const glow = scene.add.circle(0, 0, PICKUP.visualSize + 5, 0xa8ffd2, 0.28);
+  const paper = scene.add.rectangle(0, 0, 15, 15, 0xf3ead2, 0.95);
+  paper.setStrokeStyle(2, 0xa8ffd2, 0.9);
+  paper.setAngle(8);
+  const vertical = scene.add.rectangle(0, 0, 4, 12, 0x62d690, 0.95);
+  const horizontal = scene.add.rectangle(0, 0, 12, 4, 0x62d690, 0.95);
+  c.add([glow, paper, vertical, horizontal]);
   c.setDepth(DEPTH.pickup);
   return c;
 }
