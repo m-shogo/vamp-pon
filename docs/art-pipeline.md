@@ -16,7 +16,7 @@ Phaser Graphics で全部描き続けるのをやめ、**画像アセット + fa
   ↓ サイズ規定（docs/sprite-size-guide.md）
   ↓ コード生成素材（docs/generated-pixel-assets.md / src/game/assets/vampPixelKit.ts）
   ↓ 生成/制作プロンプト（docs/pixel-art-generation-prompts.md）
-  ↓ Aseprite等でドット絵作成（ラフは生成サイト可）
+  ↓ Aseprite等でドット絵作成（scripts/aseprite/README.md）
   ↓ 透過PNG書き出し → public/assets/sprites/... に配置
   ↓ Phaser preload（BootScene が assetManifest を読む）
   ↓ VisualGallery で確認（?scene=asset-status / visual-gallery / combat-mock）
@@ -81,8 +81,8 @@ UIカード紙素材3種
 | 担当 | 役割 |
 |---|---|
 | Claude / Fable | 世界観整理・素材仕様書・命名・manifest・Phaser実装接続・VisualGallery・テスト |
-| vampPixelKit | 小物・弾・拾得物・紙片・インク・基本敵の generated-final 生成 |
-| ドット絵ツール（Aseprite/LibreSprite/Piskel） | 生成物の手直し・パレット管理・スプライトシート化 |
+| vampPixelKit | 小物・弾・拾得物・紙片・インク・基本敵の generated-final 生成。キャラ/背景/大型素材は generated-draft で土台を作る |
+| ドット絵ツール（Aseprite/LibreSprite/Piskel） | 生成物の手直し・パレット管理・スプライトシート化。source は `assets/source/aseprite/` に置く |
 | MCP（filesystem / Playwright / GitHub） | ファイル整理・差分確認・書き出し補助・スクショ確認 |
 | 外部生成サイト（Lospec参照 / 画像生成） | ラフ案・パレット案・モチーフ案（最終素材としてそのまま使わない） |
 
@@ -94,13 +94,13 @@ UIカード紙素材3種
 ## 6. まだ仮のもの
 
 ```txt
-未生成の敵・武器・進化・UI差分
 ユイ / 背景タイル / カード紙素材の手仕上げ
 敵アニメーション / 弾トレイル
 ```
 
 現在のアセット状況は VisualGallery `?scene=asset-status` で確認。
 生成済み素材は `pnpm generate:pixel-assets` で `public/assets/sprites/...` に再書き出しできる。
+Aseprite CLI の検出は `pnpm aseprite:check` で確認できる。未検出でも generated asset 生成は継続する。
 
 ---
 

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "aseprite:check": "node scripts/aseprite/check-aseprite-cli.mjs",
     "generate:pixel-assets": "node --experimental-strip-types scripts/generate-pixel-assets.ts",
     "assets:verify": "node --experimental-strip-types scripts/generate-pixel-assets.ts --verify",
     "build": "tsc && vite build",

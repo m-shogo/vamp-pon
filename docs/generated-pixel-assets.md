@@ -52,13 +52,15 @@ pnpm assets:verify
 - `enemy_signpost`
 - `enemy_capsule`
 - `enemy_haze`
-- `yui_move`
 - `ui_card_paper_good`
 - `ui_card_paper_rare`
 
 `generated-draft`
 
 - `yui_idle`
+- `yui_move`
+- `yui_hurt`
+- `yui_ultimate`
 - `enemy_elite_label`
 - `bg_stage1_paper_night`
 - `ui_card_paper_normal`
@@ -76,12 +78,12 @@ pnpm assets:verify
 なし
 ```
 
-`assetManifest` の全34件が生成対象。
-VisualGallery `?scene=asset-status` では image 34 / fallback 0 / missing 0 を基準にする。
+`assetManifest` の全36件が生成対象。
+VisualGallery `?scene=asset-status` では image 36 / fallback 0 / missing 0 を基準にする。
 
 ## 次に手仕上げすべき素材
 
-1. `yui_idle` / `yui_move`: 顔、髪、服、ランタンの読みやすさと歩き差分。
+1. `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`: 顔、髪、服、ランタンの読みやすさと歩き差分。
 2. `bg_stage1_paper_night`: 画面全体で繰り返した時の地図線・紙片密度。
 3. `evolved_dawn_ink_lamp`: 合体素材として黒インク・街灯・朝色の重なり整理。
 4. `ui_card_paper_normal/good/rare`: テキスト読みやすさと紙テクスチャのノイズ量。

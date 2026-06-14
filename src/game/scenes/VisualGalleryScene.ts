@@ -155,10 +155,11 @@ export class VisualGalleryScene extends Phaser.Scene {
     const player = createPlayerView(this, 0, 0);
     this.place(player, GAME_WIDTH / 2, 92);
     this.label(GAME_WIDTH / 2, 116, 'ユイ（忘れ物係）', 11, '#f3ead2');
+    this.placePlayerPosePreview();
 
     // 敵 6種を2列で
     const cols = 2;
-    const startY = 200;
+    const startY = 228;
     const dx = GAME_WIDTH / (cols + 1);
     const dy = 108;
     enemies.forEach((def, i) => {
@@ -169,6 +170,28 @@ export class VisualGalleryScene extends Phaser.Scene {
       const view = createEnemyView(this, def, enemyRadiusFor(def));
       this.place(view, x, y);
       this.label(x, y + enemyRadiusFor(def) + 8, `${def.name}\n(${def.visualKind})`, 10);
+    });
+  }
+
+  private placePlayerPosePreview(): void {
+    const poses = [
+      ['yui_idle', 'idle'],
+      ['yui_move', 'move'],
+      ['yui_hurt', 'hurt'],
+      ['yui_ultimate', 'ultimate'],
+    ] as const;
+    const startX = 64;
+    poses.forEach(([assetId, label], i) => {
+      const x = startX + i * 80;
+      const status = assetStatus(this, assetId);
+      if (status === 'image') {
+        this.pageRoot.add(this.add.image(x, 154, assetId).setDisplaySize(32, 32));
+      } else {
+        const box = this.add.rectangle(x, 154, 32, 32, COLORS.cardBg, 0.8);
+        box.setStrokeStyle(1, COLORS.cardEdge, 1);
+        this.pageRoot.add(box);
+      }
+      this.label(x, 174, `${label}\n${status}`, 9, status === 'image' ? '#cfe6f0' : '#ffbd4e', 70);
     });
   }
 

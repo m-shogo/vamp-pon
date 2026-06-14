@@ -24,6 +24,8 @@
 |---|---|---|
 | yui_idle | 32x32 | ユイ 立ち（必須） |
 | yui_move | 32x32 | ユイ 移動（任意・アニメ） |
+| yui_hurt | 32x32 | ユイ 被弾（任意・リアクション） |
+| yui_ultimate | 32x32 | ユイ 奥義（任意・演出差分） |
 
 ### enemy（visualKind 対応）
 | id | size | 敵 |
@@ -81,7 +83,7 @@
 ## 現在の状況
 
 ```txt
-生成素材: 34 個（generated-final 23 / generated-draft 11）
+生成素材: 36 個（generated-final 22 / generated-draft 14）
 表示    : assetManifest 全エントリが生成PNG image
 ```
 
