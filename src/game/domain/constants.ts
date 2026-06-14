@@ -23,6 +23,7 @@ export const DEFAULT_GAME_CONFIG = {
   maxProjectiles: 140,
   weaponSlots: 5,
   passiveSlots: 5,
+  rareItemSlots: 2,
 } as const;
 
 export const PLAYER_DEFAULTS = {
