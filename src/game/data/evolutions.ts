@@ -2,7 +2,8 @@ import type { EvolutionDefinition } from '../domain/types';
 
 export const evolutions: EvolutionDefinition[] = [
   {
-    id: 'unforgotten_name_fusion',
+    id: 'unforgotten_name_awakening',
+    kind: 'awakening',
     name: '消えない名前',
     fromWeaponId: 'night_pencil',
     requiredWeaponLevel: 5,
@@ -13,7 +14,8 @@ export const evolutions: EvolutionDefinition[] = [
     lore: '呼ばれなくなっても、そこにいたことは消えない。',
   },
   {
-    id: 'memory_marble_fusion',
+    id: 'memory_marble_awakening',
+    kind: 'awakening',
     name: '追憶のビー玉',
     fromWeaponId: 'marble',
     requiredWeaponLevel: 5,
@@ -24,7 +26,8 @@ export const evolutions: EvolutionDefinition[] = [
     lore: 'ひび割れた景色の中で、思い出だけが丸く光る。',
   },
   {
-    id: 'sealed_postcard_fusion',
+    id: 'sealed_postcard_awakening',
+    kind: 'awakening',
     name: '宛先のない紙片',
     fromWeaponId: 'postcard_blade',
     requiredWeaponLevel: 5,
@@ -35,7 +38,8 @@ export const evolutions: EvolutionDefinition[] = [
     lore: '届かなかった言葉ほど、まっすぐ進む。',
   },
   {
-    id: 'tailwind_plane_fusion',
+    id: 'tailwind_plane_awakening',
+    kind: 'awakening',
     name: '追い風の紙ひこうき',
     fromWeaponId: 'paper_airplane',
     requiredWeaponLevel: 5,
@@ -47,6 +51,7 @@ export const evolutions: EvolutionDefinition[] = [
   },
   {
     id: 'dawn_ink_lamp_fusion',
+    kind: 'fusion',
     name: '夜明けのインク灯',
     fromWeaponId: 'black_ink_bottle',
     requiredWeaponLevel: 5,
@@ -58,7 +63,8 @@ export const evolutions: EvolutionDefinition[] = [
     lore: '消すための黒と、照らすための灯り。混ざると、朝の色になる。',
   },
   {
-    id: 'unfinished_line_evo',
+    id: 'unfinished_line_upgrade',
+    kind: 'upgrade',
     name: '未完成の一行',
     fromWeaponId: 'night_pencil',
     requiredWeaponLevel: 5,
@@ -68,7 +74,8 @@ export const evolutions: EvolutionDefinition[] = [
     lore: '書きかけのページほど、続きを急いでいる。',
   },
   {
-    id: 'north_star_lantern_evo',
+    id: 'north_star_lantern_upgrade',
+    kind: 'upgrade',
     name: '北極星のランタン',
     fromWeaponId: 'stardust_shot',
     requiredWeaponLevel: 5,
