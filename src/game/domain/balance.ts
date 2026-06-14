@@ -13,17 +13,19 @@ export function xpToNext(level: number): number {
 /** レベルアップ3択の抽選重み（docs/82-4）。 */
 export const LEVELUP_WEIGHTS = {
   normal: {
-    weapon_upgrade: 40,
-    weapon_new: 18,
-    passive_upgrade: 24,
-    passive_new: 13,
+    weapon_upgrade: 38,
+    weapon_new: 17,
+    passive_upgrade: 22,
+    passive_new: 12,
+    rare_new: 6,
     heal: 5,
   },
   lowHp: {
-    weapon_upgrade: 32,
-    weapon_new: 14,
-    passive_upgrade: 20,
-    passive_new: 9,
+    weapon_upgrade: 30,
+    weapon_new: 13,
+    passive_upgrade: 18,
+    passive_new: 8,
+    rare_new: 6,
     heal: 25,
   },
 } as const;
