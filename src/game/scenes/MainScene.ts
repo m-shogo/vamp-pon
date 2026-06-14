@@ -18,7 +18,7 @@ import { updatePickups } from '../systems/pickups';
 import { updateUltimate } from '../systems/ultimate';
 import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
-import { applyCapsule } from '../systems/capsule';
+import { applyCapsule, generateEvolutionReward } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 
 export class MainScene extends Phaser.Scene {
@@ -41,7 +41,6 @@ export class MainScene extends Phaser.Scene {
     createBackground(this);
     this.state = createInitialState(this);
     this.hud = new Hud(this, () => {
-      // 必殺技は右上アイコンのみで発動。プレイ中以外は受け付けない。
       if (this.state.status === GAME_STATUS.PLAYING) {
         this.state.ultimateRequested = true;
       }
@@ -81,7 +80,6 @@ export class MainScene extends Phaser.Scene {
 
     if (state.status === GAME_STATUS.PLAYING) {
       state.elapsedSec += dt;
-
       updateInput(state, this.keys, this.stick.getVector());
       updateMovement(state, dt);
       this.spawnSystem.update(this, state, dt);
@@ -89,7 +87,6 @@ export class MainScene extends Phaser.Scene {
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
-
       this.resolveTransitions();
     }
 
@@ -100,8 +97,16 @@ export class MainScene extends Phaser.Scene {
     const inv = this.state.inventory;
     return (
       (choice.type === 'weapon_new' && inv.weapons.length >= inv.weaponSlots) ||
-      (choice.type === 'passive_new' && inv.passives.length >= inv.passiveSlots)
+      (choice.type === 'passive_new' && inv.passives.length >= inv.passiveSlots) ||
+      (choice.type === 'rare_new' && inv.rareItems.length >= inv.rareItemSlots)
     );
+  }
+
+  private maybeQueueEvolution(): void {
+    const reward = generateEvolutionReward(this.state);
+    if (!reward) return;
+    this.state.pendingCapsule = reward;
+    this.state.status = GAME_STATUS.CAPSULE;
   }
 
   private finishLevelUp(choice: LevelUpChoice): void {
@@ -109,6 +114,12 @@ export class MainScene extends Phaser.Scene {
     applyChoice(state, choice);
     state.pendingChoices = [];
     state.status = GAME_STATUS.PLAYING;
+    this.maybeQueueEvolution();
+  }
+
+  private declineLevelUpChoice(): void {
+    this.state.pendingChoices = [];
+    this.state.status = GAME_STATUS.PLAYING;
   }
 
   private replaceAndPick(choice: LevelUpChoice, removeId: string): void {
@@ -117,6 +128,8 @@ export class MainScene extends Phaser.Scene {
       state.inventory.weapons = state.inventory.weapons.filter((w) => w.id !== removeId);
     } else if (choice.type === 'passive_new') {
       state.inventory.passives = state.inventory.passives.filter((p) => p.id !== removeId);
+    } else if (choice.type === 'rare_new') {
+      state.inventory.rareItems = state.inventory.rareItems.filter((item) => item.id !== removeId);
     }
     this.finishLevelUp(choice);
   }
@@ -134,6 +147,7 @@ export class MainScene extends Phaser.Scene {
             choice,
             (removeId) => this.replaceAndPick(choice, removeId),
             () => this.showLevelUpChoices(state.pendingChoices),
+            () => this.declineLevelUpChoice(),
           );
           return;
         }
@@ -189,7 +203,6 @@ export class MainScene extends Phaser.Scene {
     state.status = cleared ? GAME_STATUS.CLEARED : GAME_STATUS.GAMEOVER;
     state.stats.survivedSec = state.elapsedSec;
     const log = buildPlayLog(state, cleared);
-    // コンソールに1行JSONで出す（コピーして docs/balance-log へ）
     // eslint-disable-next-line no-console
     console.log('[vamp-pon playlog]', JSON.stringify(log));
     this.overlays.showResult(state, cleared, log, () => {
