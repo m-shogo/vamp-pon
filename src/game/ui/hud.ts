@@ -71,7 +71,7 @@ export class Hud {
     );
 
     this.itemsText = scene.add
-      .text(GAME_WIDTH / 2, GAME_HEIGHT - 18, '', { fontFamily: FONT, fontSize: '13px', color: '#f3ead2' })
+      .text(GAME_WIDTH / 2, GAME_HEIGHT - 18, '', { fontFamily: FONT, fontSize: '12px', color: '#f3ead2' })
       .setOrigin(0.5, 0.5)
       .setDepth(d);
 
@@ -88,13 +88,11 @@ export class Hud {
     this.timeText.setText(`朝まで ${mm}:${ss}`);
     this.levelText.setText(`Lv.${state.player.level}`);
 
-    // XPバー（画面上端）
     const xpRatio = Math.max(0, Math.min(1, state.player.xp / state.player.xpToNext));
     this.xpBar.clear();
     this.xpBar.fillStyle(COLORS.xpBack, 0.7).fillRect(0, 0, GAME_WIDTH, 4);
     this.xpBar.fillStyle(COLORS.xpFill, 1).fillRect(0, 0, GAME_WIDTH * xpRatio, 4);
 
-    // HPバー（上部左）
     const p = state.player;
     const hpRatio = Math.max(0, p.hp / p.maxHp);
     const hpW = 118;
@@ -104,7 +102,6 @@ export class Hud {
     this.hpFill.clear().fillStyle(lowBlink ? 0xffffff : COLORS.hpFill, 1).fillRect(12, hpY, hpW * hpRatio, 10);
     this.hpText.setText(`HP ${Math.ceil(p.hp)}/${p.maxHp}`).setPosition(12, hpY - 14);
 
-    // 必殺技アイコン（右上・丸ゲージ）
     const char = characterById.get(state.characterId);
     const ultName = char?.ultimate.name ?? '必殺技';
     const ultRatio = Math.max(0, Math.min(1, state.ultimate.ready ? 1 : state.ultimate.charge / state.ultimate.chargeSeconds));
@@ -127,12 +124,11 @@ export class Hud {
       .setColor(state.ultimate.ready ? '#fff1b0' : '#cfe6ff');
     this.ultHitArea.setName(ultName);
 
-    // 所持武器/パッシブ: 名前羅列ではなくアイコン + Lv に圧縮
     const wStr = state.inventory.weapons.map((w) => `${weaponIcon(w.id)}${w.level}`).join(' ');
     const pStr = state.inventory.passives.map((pp) => `${passiveIcon(pp.id)}${pp.level}`).join(' ');
-    this.itemsText.setText([wStr, pStr].filter(Boolean).join('  /  '));
+    const slots = `武${state.inventory.weapons.length}/${state.inventory.weaponSlots} 忘${state.inventory.passives.length}/${state.inventory.passiveSlots}`;
+    this.itemsText.setText(`${slots}  ${[wStr, pStr].filter(Boolean).join('  /  ')}`);
 
-    // デバッグ
     if (state.debug) {
       const t = state.telemetry;
       const f = (n: number | null) => (n === null ? '--' : n.toFixed(1));
@@ -178,6 +174,8 @@ function weaponIcon(id: string): string {
       return '線';
     case 'north_star_lantern':
       return '灯';
+    case 'dawn_ink_lamp':
+      return '朝';
     default:
       return '道';
   }
