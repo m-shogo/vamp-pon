@@ -4,6 +4,7 @@ import type { RuntimeState } from '../runtime';
 import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
+import { EVOLUTION_ACCENT } from './visualDesign';
 import { weaponById } from '../data/weapons';
 import { passiveById } from '../data/passives';
 import { rareItemById } from '../data/rareItems';
@@ -170,13 +171,17 @@ export class Overlays {
     const subtitle = isEvolution ? evolutionKindSubtitle(reward.evolutionKind) : '記憶カプセル';
 
     if (isEvolution) {
-      const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0xfff1b0, 0.22);
-      const ring1 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 112, 0xffd45e, 0.08);
-      ring1.setStrokeStyle(4, 0xfff1b0, 0.9);
-      const ring2 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 74, 0xbfe6ff, 0.1);
-      ring2.setStrokeStyle(3, 0xbfe6ff, 0.8);
-      c.add([flash, ring1, ring2]);
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 116, title, 24, '#fff1b0'));
+      const accent = EVOLUTION_ACCENT[reward.evolutionKind];
+      const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, accent.main, 0.16);
+      const ring1 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 112, accent.main, 0.06);
+      ring1.setStrokeStyle(4, accent.main, 0.85);
+      c.add([flash, ring1]);
+      if (accent.rings >= 2) {
+        const ring2 = this.scene.add.circle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 74, accent.sub, 0.08);
+        ring2.setStrokeStyle(3, accent.sub, 0.7);
+        c.add(ring2);
+      }
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 116, title, 24, '#fff0b0'));
       c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 76, subtitle, 15, '#f3ead2'));
       c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 18, reward.title, 24, '#ffe08a'));
     } else {
@@ -286,8 +291,8 @@ function rankFor(rarity: RewardRarity): string {
 
 function rarityColor(rarity: RewardRarity): number {
   switch (rarity) {
-    case 'rare': return 0xffd45e;
-    case 'good': return 0xbfe6ff;
+    case 'rare': return 0xffd45e; // 金（大当たり）
+    case 'good': return 0x8fa9b8; // 落ち着いた紙の青（ネオンにしない）
     case 'normal': return COLORS.cardEdge;
   }
 }

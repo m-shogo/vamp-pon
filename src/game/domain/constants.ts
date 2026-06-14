@@ -75,33 +75,53 @@ export const ENEMY_RADIUS = {
   elite: 30,
 } as const;
 
-/** 色（紙片・絵本風 / 夜の街）。 */
+/**
+ * 色（紙片・絵本風 / 夜の街）。参考画像 assets/concept-design 基準。
+ * 詳細な意味づけは docs/visual-direction.md / src/game/ui/visualDesign.ts。
+ */
 export const COLORS = {
-  background: 0x1d2236,
-  backgroundTile: 0x30364f,
-  player: 0xf4d9a6,
+  // 背景（藍紫の夜）
+  background: 0x2a2747,
+  backgroundEdge: 0x1d1a34,
+  backgroundTile: 0x332f54,
+  paperScrap: 0xb8aecb,
+  mapLine: 0x4a4570,
+  // プレイヤー（フード＋ランタン）
+  player: 0xe9e2d0,
+  playerHood: 0x5b6aa6,
   playerGlow: 0xffce7a,
-  lantern: 0xffd166,
-  enemyInk: 0x26243a,
-  enemyInkEdge: 0x5d5a86,
+  lantern: 0xffce7a,
+  // 敵（黒インク影＋白目）
+  enemyInk: 0x171328,
+  enemyInkEdge: 0x3a3358,
   enemyEye: 0xf5f3ff,
-  enemyElite: 0x3a2540,
-  enemyEliteEdge: 0x9b5fb0,
+  enemyElite: 0x140f22,
+  enemyEliteEdge: 0x6b4f8a,
+  inkPuddle: 0x1b1730,
+  // 拾得物
   fragment: 0xffd45e,
-  fragmentGlow: 0xfff1b0,
-  capsule: 0xbfe6ff,
-  projectile: 0xfff0c2,
+  fragmentGlow: 0xfff0b0,
+  capsule: 0xcfe6f0,
+  healPaper: 0xf3e9cf,
+  healMark: 0xd98a6a,
+  // 武器/弾
+  projectile: 0xf3e9cf,
   projectileStar: 0xffe08a,
-  ink: 0x241f3a,
-  hpFill: 0xe06b6b,
+  graphite: 0x4a4566,
+  glass: 0xcfe6f0,
+  ink: 0x1b1730,
+  dawnWarm: 0xf6d9a8,
+  dawnPink: 0xf3c9a0,
+  // UI
+  hpFill: 0xe0564f,
   hpBack: 0x3a2230,
-  xpFill: 0xffd45e,
-  xpBack: 0x2a2740,
-  ultFill: 0x8fd0ff,
-  ultReady: 0xfff1b0,
-  cardBg: 0xf3ead2,
-  cardEdge: 0xc9b894,
-  cardText: 0x3a3326,
-  overlay: 0x0a0916,
+  xpFill: 0x9b7fc0,
+  xpBack: 0x2a2745,
+  ultFill: 0xb9d3e6,
+  ultReady: 0xfff0b0,
+  cardBg: 0xf3e9cf,
+  cardEdge: 0xb8a06a,
+  cardText: 0x4a3f2a,
+  overlay: 0x120f24,
   uiText: 0xf3ead2,
 } as const;

@@ -9,7 +9,6 @@ import { isFarOffscreen } from '../utils/viewport';
 import { GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import {
   createProjectileView,
-  createMarbleView,
   createAreaView,
   createOrbiterView,
   type ProjectileVisualKind,
@@ -62,17 +61,27 @@ export function updateWeapons(scene: Phaser.Scene, state: RuntimeState, dt: numb
   updateAreas(scene, state, dt);
 }
 
-function projectileKindForWeapon(weaponId: string, eff: EffectValues): ProjectileVisualKind {
-  if (weaponId === 'unfinished_line') return 'evolved_line';
-  if (weaponId === 'north_star_lantern') return 'lantern_star';
-  if (eff.evolved) return 'star';
-  if (weaponId === 'postcard_blade') return 'blade';
-  return 'pencil';
+function projectileKindForWeapon(weaponId: string, _eff: EffectValues): ProjectileVisualKind {
+  switch (weaponId) {
+    case 'unfinished_line': return 'pencil_line';
+    case 'unforgotten_name': return 'name_line';
+    case 'stardust_shot': return 'star';
+    case 'north_star_lantern': return 'paper_lantern';
+    case 'postcard_blade': return 'blade';
+    case 'addressless_blade': return 'envelope_blade';
+    case 'night_pencil':
+    default: return 'pencil';
+  }
 }
 
-function bouncingKindForWeapon(weaponId: string): ProjectileVisualKind | 'marble' {
-  if (weaponId === 'paper_airplane') return 'paper_airplane';
-  return 'marble';
+function bouncingKindForWeapon(weaponId: string): ProjectileVisualKind {
+  switch (weaponId) {
+    case 'paper_airplane': return 'paper_airplane';
+    case 'tailwind_plane': return 'big_plane';
+    case 'memory_marble': return 'lens_marble';
+    case 'marble':
+    default: return 'glass_marble';
+  }
 }
 
 function areaKindForWeapon(weaponId: string): AreaVisualKind {
@@ -165,7 +174,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, 
 }
 
 type ProjectileSpec = {
-  kind: ProjectileVisualKind | 'marble';
+  kind: ProjectileVisualKind;
   angle: number;
   speed: number;
   damage: number;
@@ -177,10 +186,7 @@ type ProjectileSpec = {
 function spawnProjectile(scene: Phaser.Scene, state: RuntimeState, spec: ProjectileSpec): void {
   const p = state.player;
   const v = angleToVec(spec.angle);
-  const view =
-    spec.kind === 'marble'
-      ? createMarbleView(scene, PROJECTILE.radius + 1)
-      : createProjectileView(scene, spec.kind, PROJECTILE.radius);
+  const view = createProjectileView(scene, spec.kind, PROJECTILE.radius);
   view.setPosition(p.x, p.y);
   view.setRotation(spec.angle);
   const proj: ProjectileRuntime = {
