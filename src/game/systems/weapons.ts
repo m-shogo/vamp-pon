@@ -4,7 +4,7 @@ import { nextIid } from '../runtime';
 import { weaponById } from '../data/weapons';
 import { resolveWeapon, num, type EffectValues } from '../domain/weaponEffect';
 import { PROJECTILE } from '../domain/constants';
-import { distance, normalize, randomAngle, angleToVec } from '../utils/math';
+import { distance, randomAngle, angleToVec } from '../utils/math';
 import { isFarOffscreen } from '../utils/viewport';
 import { GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import {
@@ -12,6 +12,8 @@ import {
   createMarbleView,
   createAreaView,
   createOrbiterView,
+  type ProjectileVisualKind,
+  type AreaVisualKind,
 } from '../ui/factory';
 import { damageEnemy } from './enemies';
 
@@ -52,7 +54,7 @@ export function updateWeapons(scene: Phaser.Scene, state: RuntimeState, dt: numb
 
     const cooldown = num(eff, 'cooldown', 1.25) * p.cooldownMultiplier;
     weapon.cooldownRemaining = cooldown;
-    fireWeapon(scene, state, type, eff);
+    fireWeapon(scene, state, weapon.id, type, eff);
   }
 
   updateOrbiters(scene, state, dt);
@@ -60,7 +62,23 @@ export function updateWeapons(scene: Phaser.Scene, state: RuntimeState, dt: numb
   updateAreas(scene, state, dt);
 }
 
-function fireWeapon(scene: Phaser.Scene, state: RuntimeState, type: string, eff: EffectValues): void {
+function projectileKindForWeapon(weaponId: string, eff: EffectValues): ProjectileVisualKind {
+  if (eff.evolved) return 'star';
+  if (weaponId === 'postcard_blade') return 'blade';
+  return 'pencil';
+}
+
+function bouncingKindForWeapon(weaponId: string): ProjectileVisualKind | 'marble' {
+  if (weaponId === 'paper_airplane') return 'paper_airplane';
+  return 'marble';
+}
+
+function areaKindForWeapon(weaponId: string): AreaVisualKind {
+  if (weaponId === 'streetlamp_ring') return 'lamp';
+  return 'ink';
+}
+
+function fireWeapon(scene: Phaser.Scene, state: RuntimeState, weaponId: string, type: string, eff: EffectValues): void {
   const p = state.player;
   const damage = num(eff, 'damage', 0) * p.might;
 
@@ -75,7 +93,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, type: string, eff:
         const spread = (i - (count - 1) / 2) * 0.18;
         const a = baseAngle + spread;
         spawnProjectile(scene, state, {
-          kind: eff.evolved ? 'star' : 'pencil',
+          kind: projectileKindForWeapon(weaponId, eff),
           angle: a,
           speed: PROJECTILE.nightPencilSpeed,
           damage,
@@ -109,7 +127,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, type: string, eff:
       const life = num(eff, 'duration', 2.5);
       for (let i = 0; i < count; i += 1) {
         spawnProjectile(scene, state, {
-          kind: 'marble',
+          kind: bouncingKindForWeapon(weaponId),
           angle: randomAngle(),
           speed,
           damage,
@@ -132,6 +150,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, type: string, eff:
       const tx = target ? target.x : p.x;
       const ty = target ? target.y : p.y;
       spawnArea(scene, state, {
+        kind: areaKindForWeapon(weaponId),
         x: tx,
         y: ty,
         radius: num(eff, 'radius', 45),
@@ -144,7 +163,7 @@ function fireWeapon(scene: Phaser.Scene, state: RuntimeState, type: string, eff:
 }
 
 type ProjectileSpec = {
-  kind: 'pencil' | 'star' | 'marble';
+  kind: ProjectileVisualKind | 'marble';
   angle: number;
   speed: number;
   damage: number;
@@ -159,8 +178,9 @@ function spawnProjectile(scene: Phaser.Scene, state: RuntimeState, spec: Project
   const view =
     spec.kind === 'marble'
       ? createMarbleView(scene, PROJECTILE.radius + 1)
-      : createProjectileView(scene, spec.kind === 'star' ? 'star' : 'pencil', PROJECTILE.radius);
+      : createProjectileView(scene, spec.kind, PROJECTILE.radius);
   view.setPosition(p.x, p.y);
+  view.setRotation(spec.angle);
   const proj: ProjectileRuntime = {
     iid: nextIid(state),
     x: p.x,
@@ -192,7 +212,7 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
       continue;
     }
 
-    // 壁反射（ビー玉）/ 画面外カル
+    // 壁反射（ビー玉/紙ひこうき）/ 画面外カル
     if (isFarOffscreen(proj.x, proj.y, 8)) {
       if (proj.bouncesLeft > 0) {
         if (proj.x < 0 || proj.x > GAME_WIDTH) proj.vx *= -1;
@@ -208,6 +228,7 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
     }
 
     proj.view.setPosition(proj.x, proj.y);
+    proj.view.setRotation(Math.atan2(proj.vy, proj.vx));
 
     // 衝突
     for (const e of state.enemies) {
@@ -233,9 +254,9 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
 function spawnArea(
   scene: Phaser.Scene,
   state: RuntimeState,
-  spec: { x: number; y: number; radius: number; dps: number; duration: number },
+  spec: { kind: AreaVisualKind; x: number; y: number; radius: number; dps: number; duration: number },
 ): void {
-  const view = createAreaView(scene, spec.radius);
+  const view = createAreaView(scene, spec.radius, spec.kind);
   view.setPosition(spec.x, spec.y);
   const area: GroundAreaRuntime = {
     iid: nextIid(state),
