@@ -174,7 +174,7 @@ export class MainScene extends Phaser.Scene {
         applyCapsule(state, reward);
         if (reward.type === 'evolution') {
           const name = weaponById.get(reward.evolvedWeaponId)?.name ?? reward.title;
-          evolutionBurst(this, state.player.x, state.player.y, `${evolutionKindLabel(reward.evolutionKind)}: ${name}`);
+          evolutionBurst(this, state.player.x, state.player.y, `${evolutionKindLabel(reward.evolutionKind)}: ${name}`, reward.evolutionKind);
         }
         state.stats.capsulesOpened += 1;
         state.pendingCapsule = null;
