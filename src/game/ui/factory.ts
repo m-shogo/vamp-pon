@@ -52,24 +52,67 @@ export function createEnemyView(
   const blob = scene.add.circle(0, 0, radius, fill);
   blob.setStrokeStyle(2, edge, 0.9);
 
-  // 紙くず/もや/標識など、タグで少し形を変えて識別性を上げる
-  const extras: Phaser.GameObjects.GameObject[] = [];
-  if (def.tags.includes('swarm')) {
-    blob.setFillStyle(fill, 0.7);
-  }
-  if (def.tags.includes('tank') || isElite) {
-    const ring = scene.add.circle(0, 0, radius + 3, edge, 0.0);
-    ring.setStrokeStyle(2, edge, 0.5);
-    extras.push(ring);
+  // 種別ごとのモチーフで識別性を上げる（描画のみ・ロジックには影響しない）
+  const behind: Phaser.GameObjects.GameObject[] = [];
+  const front: Phaser.GameObjects.GameObject[] = [];
+
+  switch (def.id) {
+    case 'paper_scrap_shadow': {
+      // 紙くず: 角ばった淡い紙片をまとう
+      const scrap = scene.add.rectangle(radius * 0.4, -radius * 0.5, radius * 0.8, radius * 0.6, COLORS.backgroundTile, 0.9);
+      scrap.setStrokeStyle(1, COLORS.cardEdge, 0.6);
+      scrap.setAngle(20);
+      front.push(scrap);
+      break;
+    }
+    case 'lost_direction': {
+      // 迷子の方角: 小さな標識（矢印）
+      const post = scene.add.rectangle(0, -radius - 4, 2, 8, COLORS.cardEdge, 0.8);
+      const arrow = scene.add.triangle(radius * 0.2, -radius - 6, 0, 0, 8, 4, 0, 8, COLORS.cardBg, 0.9);
+      front.push(post, arrow);
+      break;
+    }
+    case 'black_capsule': {
+      // 黒いカプセル: コルク + 縦長の輪郭
+      const ring = scene.add.ellipse(0, 0, radius * 1.4, radius * 2.0, edge, 0);
+      ring.setStrokeStyle(2, edge, 0.5);
+      const cork = scene.add.rectangle(0, -radius, radius * 0.7, 5, COLORS.lantern, 0.9);
+      behind.push(ring);
+      front.push(cork);
+      break;
+    }
+    case 'night_haze': {
+      // 夜のもや: ふんわり広がる薄い影
+      blob.setFillStyle(fill, 0.6);
+      behind.push(
+        scene.add.circle(-radius * 0.5, radius * 0.3, radius * 0.7, fill, 0.3),
+        scene.add.circle(radius * 0.5, radius * 0.2, radius * 0.7, fill, 0.3),
+        scene.add.circle(0, -radius * 0.4, radius * 0.6, fill, 0.3),
+      );
+      break;
+    }
+    case 'black_label_shadow': {
+      // 黒ラベルの影: 名前を塗りつぶしたラベル
+      const ring = scene.add.circle(0, 0, radius + 3, edge, 0);
+      ring.setStrokeStyle(2, edge, 0.5);
+      const label = scene.add.rectangle(0, radius * 0.1, radius * 1.5, radius * 0.5, 0x0a0712, 0.95);
+      label.setStrokeStyle(1, COLORS.enemyEliteEdge, 0.7);
+      behind.push(ring);
+      front.push(label);
+      break;
+    }
+    default:
+      break;
   }
 
-  const eyeY = -radius * 0.15;
+  // 白い目（識別の要。ラベルの影は目を上に寄せる）
+  const eyeY = def.id === 'black_label_shadow' ? -radius * 0.4 : -radius * 0.15;
   const eyeDx = radius * 0.35;
   const eyeR = Math.max(1.5, radius * 0.13);
   const eyeL = scene.add.circle(-eyeDx, eyeY, eyeR, COLORS.enemyEye);
   const eyeRr = scene.add.circle(eyeDx, eyeY, eyeR, COLORS.enemyEye);
 
-  c.add([blob, ...extras, eyeL, eyeRr]);
+  c.add([...behind, blob, ...front, eyeL, eyeRr]);
   c.setDepth(DEPTH.enemy);
   c.setData('blob', blob);
   return c;
