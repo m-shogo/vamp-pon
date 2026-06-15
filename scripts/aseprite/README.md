@@ -25,6 +25,33 @@ Steam版を購入した場合は、Steamで一度Asepriteを起動し、上記St
 ASEPRITE_BIN="/path/to/aseprite" pnpm aseprite:check
 ```
 
+## AI-assisted template / preview helpers
+
+AIは完成素材を作るのではなく、設計・批評・NG検出・automation補助に使う。
+Aseprite GUI が最終sourceと1px手仕上げの場所。
+
+Create a structured 52px template:
+
+```sh
+pnpm aseprite:template:character -- --out=assets/source/aseprite/player/prototypes/yui_master_52_template.aseprite --size=52 --name=yui_master
+```
+
+Export review previews from an existing source:
+
+```sh
+pnpm aseprite:preview:character -- --source=assets/source/aseprite/player/prototypes/yui_master_52_template.aseprite --out-dir=public/assets/sprites/player/prototypes/reviews/yui_master_52
+```
+
+These helpers are review/prototype tooling only.
+They must not be used to call an asset final by themselves.
+
+Read:
+
+- `docs/aseprite-ai-assisted-workflow.md`
+- `docs/aseprite-character-template.md`
+- `docs/aseprite-export-and-preview-automation.md`
+- `docs/pixel-art/README.md`
+
 ## Source And Export
 
 手仕上げ用の `.aseprite` は `assets/source/aseprite/` に置く。
@@ -87,4 +114,10 @@ hand-final にした素材は、`assetManifest` の id と texture key を変え
 - `/?scene=combat-mock&density=late`: 8分後半相当の密度サンプルを見る。
 - `/?scene=asset-status`: generated / fallback / missing の状態を見る。
 
-詳細は [docs/aseprite-workflow.md](../../docs/aseprite-workflow.md) と [docs/yui-aseprite-hand-final-plan.md](../../docs/yui-aseprite-hand-final-plan.md) を参照。
+詳細は以下を参照。
+
+- `docs/aseprite-workflow.md`
+- `docs/aseprite-ai-assisted-workflow.md`
+- `docs/aseprite-character-template.md`
+- `docs/aseprite-export-and-preview-automation.md`
+- `docs/yui-aseprite-hand-final-plan.md`
