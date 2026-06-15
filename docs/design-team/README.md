@@ -27,10 +27,16 @@ Every visual asset must pass both pixel-art craft rules and design-role rules.
 - `docs/design-team/ui-ux-designer-rules.md`
 - `docs/design-team/graphic-designer-rules.md`
 - `docs/design-team/pro-app-quality-rubric.md`
+- `docs/design-team/visual-identity-locks.md`
+- `docs/design-team/abc-prototype-rules.md`
+- `docs/design-team/continuous-brushup-loop.md`
+- `docs/design-team/role-handoff-matrix.md`
+- `docs/design-team/asset-brief-template.md`
 - `docs/design-team/agent-integration-rules.md`
 - `.claude/skills/vamp-pon-design-team/SKILL.md`
 - `.claude/agents/design-art-director.md`
 - `docs/reviews/templates/design-team-review-template.md`
+- `docs/reviews/templates/design-iteration-review-template.md`
 
 ## Production target
 
@@ -41,6 +47,17 @@ The goal is the quality level shown in the current art-direction references:
 - paper-card UI with clear hierarchy
 - character, monster, item, background, and UI all using one brand language
 - no production promotion below 80-point visual quality
+
+## Continuous brush-up rule
+
+Visual work is not complete after one pass.
+Use the loop:
+
+```txt
+brief -> A/B/C prototype -> review -> merge best parts -> v2 -> review -> v3 -> promotion check
+```
+
+Under-80 work must stay prototype or iterate.
 
 ## Must not do
 
