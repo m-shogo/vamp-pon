@@ -1,139 +1,173 @@
-# Human Character Pixel Art Craft Guide
+# Human and Small Character Pixel Art Craft Guide
 
-Vamp Pon の人物ドット、特にユイを作るための制作ノウハウです。
+Vamp Pon の人物・小型キャラ・敵・小物を作るための汎用制作ノウハウです。
 
 ## Core idea
 
-人物ドットは `小さい絵` ではなく、`1px単位の設計` です。細部を足す前に、何を残し、何を捨てるかを決めます。
+ドット絵は `小さい絵` ではなく、`1px単位の設計` です。細部を足す前に、何を残し、何を捨てるかを決めます。
 
-ユイで優先すること:
+全素材で優先すること:
 
-1. 1xで主人公と読める。
-2. 4x/6xで見ても可愛い。
-3. 暗背景で沈まない。
-4. フード、顔、服、ランタンの比率が気持ちいい。
-5. 別ポーズでも同じ人物に見える。
+1. 1xで用途が読める。
+2. 4x/6xで見ても形が気持ちいい。
+3. 暗背景や派手な戦闘中でも沈まない。
+4. シルエット、明度、色相で役割が分かれる。
+5. 同じ世界観の素材に見える。
 
 ## 1. Silhouette first
 
-色や目より先に、輪郭で成立させます。
+色や目より先に、黒塗りの輪郭で成立させます。
 
-52px master の目安:
+よいシルエット:
+
+- キャラ、敵、pickup、UIアイコンの役割が黒塗りでも分かる。
+- 大きい塊と小さい突起の比率が明確。
+- 左右対称すぎず、少しだけ個性がある。
+- 画面縮小時にも輪郭が潰れない。
+
+小型キャラの目安:
 
 | Part | Target | Notes |
 | --- | ---: | --- |
-| Hood | 40-45% height | 45%を超えるとキノコ化しやすい |
-| Face | 20-25% height | 小さすぎると愛嬌が消える |
-| Body | 25-30% height | 三角形だけにしない |
-| Lantern | 8-12% width | 小さすぎると記号にならない |
+| Head / main mass | 35-45% height | 大きすぎると塊になる |
+| Face / focal area | 18-25% height | 小さすぎると感情が消える |
+| Body / support mass | 25-35% height | 三角形や棒だけにしない |
+| Prop / accent | 8-15% width | 小さすぎると記号にならない |
 
-42px gameplay は、52pxで決めた比率を簡略化して使います。
+## 2. Focal point
 
-## 2. Face is the priority
+小さいドットには、必ず見る場所を1つ決めます。
 
-人物の印象は顔で決まります。
+- 人物: 顔、目、前髪、手持ち小物。
+- 敵: 目、口、角、手、影の穴。
+- pickup: 光の中心、形の欠け、縁。
+- UI: アイコンの中心記号。
+- 背景: 焦点を作りすぎない。主役より弱くする。
 
-ユイの顔で守ること:
+1素材に焦点を2つ以上作りすぎると、1xで濁ります。
 
-- 目は点だけで終わらせない。
-- 白いキャッチライトを入れる。
-- 頬は1-2pxの暖色で控えめに示す。
-- 口は大きくしない。
-- 表情は `少し不安だけど優しい`。
+## 3. Clusters, not noise
 
-## 3. Hair as clusters, not lines
+ドットは孤立点を散らすより、同じ色のまとまりで描きます。
 
-髪は線ではなく、2-3個の色面と少数の束で見せます。
+良いcluster:
 
-- 茶赤を固定する。
-- 顔上部に2-3束だけ入れる。
-- フード内側の影と混ざらない明度差を作る。
-- 1xで髪と分かることを優先する。
+- 2-6px程度のまとまりで面を作る。
+- 影と明るい面がはっきり分かれる。
+- 1pxの点は、目、ハイライト、小さい金具など重要箇所だけに使う。
 
-## 4. Hood design
+避けるもの:
 
-フードはユイの最大記号です。ただし大きすぎるとキノコ化します。
+- 顔や服にランダムな1pxノイズ。
+- 小さい素材への過剰なディザ。
+- 色が近すぎて境界が読めない面。
 
-良いフード:
-
-- 顔を囲む丸さがある。
-- 上左に控えめなハイライトがある。
-- 内側の影で顔が浮く。
-- 外周outlineが強すぎない。
-- 下側が服につながる。
-
-## 5. Costume and lantern
-
-服は三角形だけにしない。古紙色の服に厚み、裾、赤茶のヘムまたはしおり紐を入れます。
-
-ランタンは小物ではなくユイの記号です。
-
-- 腕と手につながっている。
-- 取っ手とケージの形がある。
-- 中に記憶の光がある。
-- glowは控えめ。
-- hitCoreと混ざらない位置にある。
-
-## 6. Palette and clusters
+## 4. Limited palette and value separation
 
 色数を増やせば良くなるわけではありません。
+部位ごとに base / shadow / highlight の3段階を基本にします。
 
-- 主要部位は base / shadow / highlight の3段階を目安にする。
-- 1pxノイズを散らさず、同じ色のまとまりで描く。
-- 顔や服にディザを入れすぎない。
-- outlineは真っ黒固定にしない。
+Vamp Pon の方向性:
 
-Vamp Pon の基本色:
+- night blue-gray: 夜、影、背景。
+- old-paper cream: 紙、服、UI。
+- memory amber: 光、ランタン、重要pickup。
+- ink purple / deep navy: 黒インク、outline。
+- restrained red-brown: 髪、紐、ヘム、古い印刷色。
 
-- Yui blue: フード。
-- old-paper cream: 服。
-- memory amber: ランタン。
-- brown-red: 前髪、裾。
-- soft cheek pink: 頬。
-- ink-safe outline: 暗紫から濃紺。
+重要なのは色名より明度差です。
+暗背景上で、主役・敵・pickup・UIがそれぞれ分離することを優先します。
 
-## 7. AA and dithering
+## 5. Manual AA, not blur
 
-AAは自動ぼかしではなく、段差を馴染ませるために近い色を1px置く手作業です。
+AAは自動ぼかしではありません。
+段差を馴染ませるために、近い色を1pxだけ置く手作業です。
 
 使ってよい場所:
 
-- フード外周。
-- 顔の輪郭。
-- ランタンの丸み。
+- 丸いフードや顔の外周。
+- ランタン、pickup、UIアイコンの曲線。
+- 大きめの敵の輪郭。
 
 避ける場所:
 
-- 目。
+- 小さい目。
 - 全体blur。
 - 半透明edgeの乱用。
+- 1xで消える細部。
 
-ディザは52px以下の人物ではノイズ化しやすいので、基本は使いすぎない。
+## 6. Dithering is optional
 
-## 8. Review views
+ディザは大きな面の階調やレトロ感には使えます。
+ただし、小さい人物やpickupではノイズ化しやすいです。
+
+Vamp Ponでの扱い:
+
+- player face: 基本使わない。
+- small enemy: 基本使わない。
+- pickup: 光が濁るなら使わない。
+- background tile: 控えめなら使用可。
+- large shadow/effect: 目的が明確なら使用可。
+
+## 7. Props and accents
+
+小物やアクセントは、そのキャラや敵の記号になります。
+ただし、ゲーム上のhit markerやpickupと混ざってはいけません。
+
+良い小物:
+
+- 本体に接続している。
+- 形が1xで分かる。
+- glowが強すぎない。
+- 本体のシルエットを補強する。
+
+悪い小物:
+
+- 浮いている。
+- 黄色や赤の丸だけ。
+- 当たり判定やpickupに見える。
+- 本体より目立ちすぎる。
+
+## 8. Background and gameplay readability
+
+背景は美術作品ではなく、ゲームプレイの床です。
+
+背景で守ること:
+
+- 低コントラスト。
+- 主役より暗く・弱く。
+- tile境界が見えすぎない。
+- pickupや敵の色と競合しない。
+- 紙、地図、夜、忘れ物の質感は控えめに入れる。
+
+## 9. Review views
 
 必ず以下で確認します。
 
 - 1x: gameplay readability。
 - 4x: ドット配置の粗さ。
-- 6x: キャラとしての可愛さ。
+- 6x: キャラやアイコンとしての魅力。
 - dark background: 背景との分離。
 - combat mock: hitCore / pickup / enemy / glow との誤認。
 
-## Production gate
+## 10. Generic production gate
 
 以下を満たすまで production に入れません。
 
-- charm / appeal >= 4。
-- mascot silhouette >= 4。
-- merchandise potential >= 4。
 - 1x readability >= 4。
-- reference match >= 4。
-- gameplay visibility >= 4。
-- dark background separation >= 4。
-- GUI手仕上げ済み。
+- role clarity >= 4。
+- visual appeal >= 4。
+- background separation >= 4。
+- style consistency >= 4。
 - before/after比較あり。
 - sourceからexport済み。
+- script-onlyではない。
+
+人物・主役級キャラの場合は、さらに以下も必須です。
+
+- charm / appeal >= 4。
+- mascot silhouette >= 4。
+- 4x/6xで見ても可愛い。
 
 ## Research notes
 
