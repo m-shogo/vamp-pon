@@ -30,19 +30,16 @@ Private planning map for story and design relationships.
 - design backlog
 - selected brief box
 - review and preview path fields
+- data integrity check
 
-## Open locally
-
-Use a local static server from `docs/story-map` because the page loads JSON.
-
-Example:
+## Commands
 
 ```sh
-cd docs/story-map
-python3 -m http.server 4173
+pnpm story-map:check
+pnpm story-map:serve
 ```
 
-Then open the shown localhost URL and select `vamp-pon-story-street-map.html`.
+Then open the localhost URL and select `vamp-pon-story-street-map.html`.
 
 Direct file open may not load the JSON in some browsers.
 
