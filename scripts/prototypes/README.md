@@ -67,3 +67,5 @@ git diff --stat HEAD -- public/assets/sprites/player assets/source/aseprite/play
 
 review: [docs/reviews/design-team/yui-52px-master-v2-review.md](../../docs/reviews/design-team/yui-52px-master-v2-review.md)
 handoff: [docs/reviews/design-team/yui-52px-v2a-gui-handfinish-handoff.md](../../docs/reviews/design-team/yui-52px-v2a-gui-handfinish-handoff.md)
+human GUI guide: [docs/reviews/design-team/yui-52px-v2a-human-aseprite-guide.md](../../docs/reviews/design-team/yui-52px-v2a-human-aseprite-guide.md)
+（GUI手仕上げは人間がAsepriteで実施。AI/CLI生成だけでは hand-final / production-candidate にしない）

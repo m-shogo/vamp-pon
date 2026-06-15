@@ -7,6 +7,7 @@ status: **prototype-pass の引き継ぎ**（production-candidate ではない�
 prev review: [yui-52px-master-v2-review.md](./yui-52px-master-v2-review.md)
 brief: [yui-52px-master-prototype-brief.md](../../design-team/yui-52px-master-prototype-brief.md)
 before/after用テンプレート: [yui-52px-v2a-before-after-template.md](./yui-52px-v2a-before-after-template.md)
+人間向けGUI実作業ガイド（1px座標つき）: [yui-52px-v2a-human-aseprite-guide.md](./yui-52px-v2a-human-aseprite-guide.md)
 
 ---
 
