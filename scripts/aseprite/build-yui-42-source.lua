@@ -46,6 +46,11 @@ local DRESS_HURT = C(202, 156, 142)
 local DRESS_SH = C(188, 168, 130)
 local DRESS_HI = C(240, 226, 190)
 local APRON    = C(234, 220, 184)
+local APRON_SH = C(214, 184, 142)
+local BELT     = C(92, 54, 56)
+local SKIRT    = C(170, 86, 58)
+local SKIRT_D  = C(86, 48, 58)
+local BOOT     = C(47, 34, 46)
 local HEM      = C(152, 122, 94)
 local LAN_CAGE = C(122, 98, 74)
 local LAN_GOLD = C(255, 216, 122)
@@ -93,31 +98,63 @@ local function regionT(test, col)
   end
 end
 
--- Dress / body.
-region(function(nx, ny)
-  if ny < 0.57 or ny > 0.88 then return false end
-  local t = (ny - 0.57) / 0.31
-  local hw = 0.12 + t * 0.13
+-- Body: compact torso, apron, red hem, boots, and a right-side cloak.
+region(function(nx, ny) -- dark shape behind the apron so the body is not a flat triangle
+  if ny < 0.54 or ny > 0.88 then return false end
+  local t = (ny - 0.54) / 0.34
+  local left = cx - (0.105 + t * 0.07)
+  local right = cx + (0.115 + t * 0.11)
+  return nx >= left and nx <= right
+end, pose == "hurt" and DRESS_HURT or DRESS_SH)
+region(function(nx, ny) -- cream apron, narrower at the waist and rounded wider at the bottom
+  if ny < 0.60 or ny > 0.82 then return false end
+  local t = (ny - 0.60) / 0.22
+  local hw = 0.07 + t * 0.06
   return math.abs(nx - cx) <= hw
-end, pose == "hurt" and DRESS_HURT or DRESS)
-region(function(nx, ny)
-  if ny < 0.58 or ny > 0.88 then return false end
-  local t = (ny - 0.57) / 0.31
-  local hw = 0.12 + t * 0.13
-  return (nx - cx) <= -hw + 0.05 and (nx - cx) >= -hw
-end, DRESS_SH)
-region(function(nx, ny) return ny >= 0.62 and ny <= 0.85 and math.abs(nx - cx) <= 0.07 end, APRON)
-region(function(nx, ny)
-  if ny < 0.6 or ny > 0.86 then return false end
-  local t = (ny - 0.57) / 0.31
-  local hw = 0.12 + t * 0.13
-  return (nx - cx) >= hw - 0.04 and (nx - cx) <= hw
+end, APRON)
+region(function(nx, ny) -- apron lower warmth/shadow
+  return ny >= 0.73 and ny <= 0.83 and math.abs(nx - (cx - 0.015)) <= 0.10
+end, APRON_SH)
+region(function(nx, ny) -- apron highlight
+  return ny >= 0.63 and ny <= 0.78 and math.abs(nx - (cx + 0.035)) <= 0.025
 end, DRESS_HI)
-region(function(nx, ny) return ny >= 0.84 and ny <= 0.88 and math.abs(nx - cx) <= 0.25 end, HEM)
+region(function(nx, ny) -- small vertical seam / clasp, like the reference body center
+  return ny >= 0.56 and ny <= 0.73 and math.abs(nx - cx) <= 0.014
+end, HEM)
+region(function(nx, ny) -- belt separating torso and skirt
+  return ny >= 0.76 and ny <= 0.80 and math.abs(nx - cx) <= 0.17
+end, BELT)
+region(function(nx, ny) -- red skirt peeking under the apron
+  if ny < 0.80 or ny > 0.89 then return false end
+  local t = (ny - 0.80) / 0.09
+  local hw = 0.14 + t * 0.05
+  return math.abs(nx - cx) <= hw
+end, SKIRT)
+region(function(nx, ny) -- shaded skirt edges
+  return ny >= 0.81 and ny <= 0.90 and (math.abs(nx - (cx - 0.15)) <= 0.04 or math.abs(nx - (cx + 0.15)) <= 0.04)
+end, SKIRT_D)
+region(function(nx, ny) -- two small boots
+  return ny >= 0.88 and ny <= 0.95 and (math.abs(nx - (cx - 0.075)) <= 0.04 or math.abs(nx - (cx + 0.08)) <= 0.04)
+end, BOOT)
+region(function(nx, ny) -- right-side cloak hanging over the body, reference-inspired but small
+  if ny < 0.54 or ny > 0.86 then return false end
+  local t = (ny - 0.54) / 0.32
+  local left = cx + 0.035 + t * 0.02
+  local right = cx + 0.19 + t * 0.12
+  return nx >= left and nx <= right
+end, HOOD_D)
+region(function(nx, ny) -- cloak lit rim
+  if ny < 0.58 or ny > 0.83 then return false end
+  local t = (ny - 0.58) / 0.25
+  return math.abs(nx - (cx + 0.12 + t * 0.10)) <= 0.018
+end, RIM_GOLD)
+region(function(nx, ny) -- cloak lower shadow
+  return ny >= 0.80 and ny <= 0.89 and nx >= cx + 0.10 and nx <= cx + 0.32
+end, HOOD_D)
 
 if pose == "move" then
-  region(function(nx, ny) return ny >= 0.855 and ny <= 0.91 and nx >= cx - 0.28 and nx <= cx - 0.10 end, DRESS_SH)
-  region(function(nx, ny) return ny >= 0.855 and ny <= 0.91 and nx >= cx + 0.10 and nx <= cx + 0.28 end, DRESS_HI)
+  region(function(nx, ny) return ny >= 0.88 and ny <= 0.96 and nx >= cx - 0.18 and nx <= cx - 0.08 end, BOOT)
+  region(function(nx, ny) return ny >= 0.875 and ny <= 0.95 and nx >= cx + 0.08 and nx <= cx + 0.21 end, BOOT)
 elseif pose == "hurt" then
   region(function(nx, ny) return d2(nx, ny, cx - 0.22, 0.58, 0.05, 0.025) <= 1 end, C(255, 224, 150))
   region(function(nx, ny) return d2(nx, ny, cx + 0.24, 0.58, 0.05, 0.025) <= 1 end, C(255, 224, 150))
