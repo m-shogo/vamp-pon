@@ -25,6 +25,29 @@ Steam版を購入した場合は、Steamで一度Asepriteを起動し、上記St
 ASEPRITE_BIN="/path/to/aseprite" pnpm aseprite:check
 ```
 
+## Yui 52px V2a hand-finish assistant
+
+Yui 52px V2a の GUI手仕上げでは、座標探しを減らすために Aseprite 内へ一時ガイドレイヤーを追加できる。
+
+```sh
+pnpm aseprite:yui:hf-assist
+```
+
+このコマンドは以下を行う。
+
+- `assets/source/prototypes/yui_idle_52_v2a.aseprite` をAsepriteで開く
+- `scripts/aseprite/yui-52-v2a-handfinish-assistant.lua` を実行する
+- `HF_GUIDE_DO_NOT_EXPORT` レイヤーに hood / hand / eyes / hair / lantern / rim / hitCore確認点を色付き枠で置く
+
+重要:
+
+- assistant は **guide layer を置くだけ**。これだけで hand-final / production-candidate にはしない。
+- 作業開始時に `assets/source/prototypes/yui_idle_52_v2a_hf.aseprite` へ Save As する。
+- PNG export前に `HF_GUIDE_DO_NOT_EXPORT` を非表示または削除する。
+- production の `public/assets/sprites/player/` と `assets/source/aseprite/player/` には書かない。
+
+詳細: `docs/aseprite-yui-52-v2a-handfinish-assistant.md`
+
 ## AI-assisted template / preview helpers
 
 AIは完成素材を作るのではなく、設計・批評・NG検出・automation補助に使う。
@@ -51,6 +74,7 @@ Read:
 - `docs/aseprite-character-template.md`
 - `docs/aseprite-export-and-preview-automation.md`
 - `docs/pixel-art/README.md`
+- `docs/aseprite-yui-52-v2a-handfinish-assistant.md`
 
 ## Source And Export
 
