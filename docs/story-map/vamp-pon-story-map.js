@@ -37,6 +37,14 @@ function tagClass(lineage) {
   return ['fire', 'water', 'light', 'dark', 'neutral'].includes(lineage) ? lineage : '';
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function characterName(id) {
   return data.characters.find((c) => c.id === id)?.name || id;
 }
@@ -160,7 +168,7 @@ function renderEdges() {
     if (!a || !b) return '';
     const mx = (a.x + b.x) / 2;
     const my = (a.y + b.y) / 2;
-    return `<g><line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/><text x="${mx}" y="${my}">${relation}</text></g>`;
+    return `<g><line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/><text x="${mx}" y="${my}">${escapeHtml(relation)}</text></g>`;
   }).join('');
   els.svg.innerHTML = lines;
 }
@@ -184,36 +192,47 @@ function briefFor(c) {
   ].join('\n');
 }
 
+function resourceBlock(c) {
+  const review = c.reviewDoc ? `<a href="${escapeHtml(c.reviewDoc)}" target="_blank" rel="noreferrer">open review</a>` : 'not assigned yet';
+  const preview = c.previewPath ? `<a href="${escapeHtml(c.previewPath)}" target="_blank" rel="noreferrer">open preview</a>` : 'not assigned yet';
+  const image = c.previewPath && /\.(png|jpg|jpeg|webp)$/i.test(c.previewPath)
+    ? `<a href="${escapeHtml(c.previewPath)}" target="_blank" rel="noreferrer"><img src="${escapeHtml(c.previewPath)}" alt="${escapeHtml(c.name)} preview" style="width:100%;border:1px solid rgba(216,170,85,.3);border-radius:10px;margin-top:8px;image-rendering:pixelated" /></a>`
+    : '';
+  return { review, preview, image };
+}
+
 function showCharacter(id) {
   activeId = id;
   const c = data.characters.find((entry) => entry.id === id);
   if (!c) return;
+  const resources = resourceBlock(c);
   els.board.querySelectorAll('.node').forEach((node) => node.classList.toggle('active', node.dataset.id === id));
   els.detail.innerHTML = `
     <h2>${c.name}</h2>
     <div class="chips">${c.lineage.map((l) => `<span class="tag ${tagClass(l)}">${l}</span>`).join('')}<span class="tag">${c.status}</span></div>
     <dl>
       <dt>Season</dt><dd>${c.season === 's1' ? 'Season 1' : 'Future'}</dd>
-      <dt>Vessel</dt><dd>${c.vessel}</dd>
-      <dt>First</dt><dd>${c.first}</dd>
-      <dt>Yui link</dt><dd>${c.yui}</dd>
-      <dt>Other link</dt><dd>${c.other}</dd>
-      <dt>Items</dt><dd>${c.items.join(' / ')}</dd>
-      <dt>Blank</dt><dd>${c.blank}</dd>
-      <dt>Happy</dt><dd>${c.happy}</dd>
-      <dt>Next</dt><dd>${c.next}</dd>
-      <dt>Review</dt><dd>${c.reviewDoc || 'not assigned yet'}</dd>
-      <dt>Preview</dt><dd>${c.previewPath || 'not assigned yet'}</dd>
+      <dt>Vessel</dt><dd>${escapeHtml(c.vessel)}</dd>
+      <dt>First</dt><dd>${escapeHtml(c.first)}</dd>
+      <dt>Yui link</dt><dd>${escapeHtml(c.yui)}</dd>
+      <dt>Other link</dt><dd>${escapeHtml(c.other)}</dd>
+      <dt>Items</dt><dd>${escapeHtml(c.items.join(' / '))}</dd>
+      <dt>Blank</dt><dd>${escapeHtml(c.blank)}</dd>
+      <dt>Happy</dt><dd>${escapeHtml(c.happy)}</dd>
+      <dt>Next</dt><dd>${escapeHtml(c.next)}</dd>
+      <dt>Review</dt><dd>${resources.review}</dd>
+      <dt>Preview</dt><dd>${resources.preview}</dd>
     </dl>
+    ${resources.image}
     <h3>Local memo</h3>
-    <textarea id="nodeNotes" placeholder="このブラウザだけに保存されるメモ">${getNotes(c.id)}</textarea>
+    <textarea id="nodeNotes" placeholder="このブラウザだけに保存されるメモ">${escapeHtml(getNotes(c.id))}</textarea>
     <p class="small">メモはlocalStorage保存。Gitには入りません。</p>`;
   $('nodeNotes').addEventListener('input', (event) => setNotes(c.id, event.target.value));
   els.brief.value = briefFor(c);
 }
 
 function showLookup(title, rows) {
-  els.detail.innerHTML = `<h2>${title}</h2><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+  els.detail.innerHTML = `<h2>${escapeHtml(title)}</h2><dl>${rows.map(([k, v]) => `<dt>${escapeHtml(k)}</dt><dd>${escapeHtml(v)}</dd>`).join('')}</dl>`;
   els.brief.value = `${title}\n` + rows.map(([k, v]) => `${k}: ${v}`).join('\n');
 }
 
@@ -235,10 +254,10 @@ function applyFilters() {
 }
 
 function renderTables() {
-  els.itemTable.innerHTML = data.items.map(([item, owner, meaning]) => `<tr data-click><td>${item}</td><td>${owner}</td><td>${meaning}</td></tr>`).join('');
-  els.readingTable.innerHTML = data.readings.map(([type, reading, clue]) => `<tr data-click><td>${type}</td><td>${reading}</td><td>${clue}</td></tr>`).join('');
-  els.edgeTable.innerHTML = data.edges.map(([from, to, relation]) => `<tr data-click><td>${characterName(from)}</td><td>${characterName(to)}</td><td>${relation}</td></tr>`).join('');
-  els.backlogTable.innerHTML = data.backlog.map(([priority, target, action]) => `<tr data-click><td class="priority-${priority}">${priority}</td><td>${target}</td><td>${action}</td></tr>`).join('');
+  els.itemTable.innerHTML = data.items.map(([item, owner, meaning]) => `<tr data-click><td>${escapeHtml(item)}</td><td>${escapeHtml(owner)}</td><td>${escapeHtml(meaning)}</td></tr>`).join('');
+  els.readingTable.innerHTML = data.readings.map(([type, reading, clue]) => `<tr data-click><td>${escapeHtml(type)}</td><td>${escapeHtml(reading)}</td><td>${escapeHtml(clue)}</td></tr>`).join('');
+  els.edgeTable.innerHTML = data.edges.map(([from, to, relation]) => `<tr data-click><td>${escapeHtml(characterName(from))}</td><td>${escapeHtml(characterName(to))}</td><td>${escapeHtml(relation)}</td></tr>`).join('');
+  els.backlogTable.innerHTML = data.backlog.map(([priority, target, action]) => `<tr data-click><td class="priority-${escapeHtml(priority)}">${escapeHtml(priority)}</td><td>${escapeHtml(target)}</td><td>${escapeHtml(action)}</td></tr>`).join('');
 
   document.querySelectorAll('#itemTable tr').forEach((row) => row.addEventListener('click', () => showLookup('Item Reverse Lookup', [['Item', row.children[0].textContent], ['Character', row.children[1].textContent], ['Meaning', row.children[2].textContent]])));
   document.querySelectorAll('#readingTable tr').forEach((row) => row.addEventListener('click', () => showLookup('Reading Lookup', [['Type', row.children[0].textContent], ['Wrong reading', row.children[1].textContent], ['Released clue', row.children[2].textContent]])));
@@ -269,7 +288,7 @@ async function init() {
     showCharacter(activeId);
     applyFilters();
   } catch (error) {
-    els.detail.innerHTML = `<h2>Data load error</h2><p>Run a local server from docs/story-map.</p><pre>${String(error)}</pre>`;
+    els.detail.innerHTML = `<h2>Data load error</h2><p>Run a local server from docs/story-map.</p><pre>${escapeHtml(String(error))}</pre>`;
   }
 }
 
