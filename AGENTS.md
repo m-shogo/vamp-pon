@@ -28,7 +28,50 @@ For all pixel-art work, follow this policy:
 
 ---
 
-## 2. Read these files before pixel-art work
+## 2. Use useful sources, but do not lower quality
+
+Use helpful external sources when they make the game better.
+
+Allowed production inputs:
+
+- CC0 assets for background props, tiles, pickups, UI parts, enemy silhouettes, and effect masks.
+- AI image generation for reference, concepts, and variation exploration.
+- SVG for UI, paper cards, map lines, icons, frames, and stamp-like elements.
+- Shader / Canvas / WebGL effects for ink motion, lantern glow, paper noise, map shimmer, and ultimate effects.
+- Python scripts for recolor, palette adaptation, contact sheets, and tile previews.
+- Blender or voxel output only as reference or raw material.
+
+Do not use these as unreviewed final art.
+Everything still needs Vamp Pon palette adaptation, gameplay readability review, and the relevant quality gate.
+
+---
+
+## 3. CC0 asset policy
+
+Default: CC0 only unless explicitly approved.
+
+Before adding any third-party asset, read:
+
+- `docs/asset-sourcing-strategy.md`
+- `docs/cc0-asset-sourcing-workflow.md`
+- `docs/third-party-assets.md`
+- `data/asset-licenses.json`
+
+Rules:
+
+- Record every third-party asset.
+- Keep raw assets under `assets/vendor/cc0/`.
+- Keep adapted assets under `assets/derived/cc0/`.
+- Update `data/asset-licenses.json`.
+- Update `docs/third-party-assets.md`.
+- Downloaded assets are raw material, not final game art.
+- Derived assets must still pass Aseprite hand-finish and the pixel-art quality gate before final-candidate.
+
+Do not add assets with unknown, custom, non-commercial, no-derivatives, GPL, CC-BY, or CC-BY-SA licenses unless explicitly approved.
+
+---
+
+## 4. Read these files before pixel-art work
 
 Before editing or reviewing any pixel-art asset, read:
 
@@ -39,6 +82,8 @@ Before editing or reviewing any pixel-art asset, read:
 - `docs/asset-quality-audit.md`
 - `docs/pixel-art-production-workflow.md`
 - `docs/aseprite-hand-finish-workflow.md`
+- `docs/asset-sourcing-strategy.md`
+- `docs/cc0-asset-sourcing-workflow.md`
 
 For Claude-specific setups, also see:
 
@@ -49,7 +94,7 @@ Codex should follow the same art rules even though it may not load Claude-specif
 
 ---
 
-## 3. Aseprite hand-finish rule
+## 5. Aseprite hand-finish rule
 
 An `.aseprite` file alone is not enough.
 
@@ -69,7 +114,7 @@ If these are not true, keep the asset as `temporary`, `bootstrap`, or `candidate
 
 ---
 
-## 4. Lua and script role
+## 6. Lua and script role
 
 Lua is useful, but it is not the art director.
 
@@ -95,7 +140,7 @@ Lua/script should not decide:
 
 ---
 
-## 5. Pixel-art quality gate
+## 7. Pixel-art quality gate
 
 Rate each asset from 1 to 5:
 
@@ -111,7 +156,7 @@ If any score is 3 or lower, do not mark the asset as `final-candidate`.
 
 ---
 
-## 6. Current art direction
+## 8. Current art direction
 
 The current art target is:
 
@@ -137,7 +182,7 @@ Avoid:
 
 ---
 
-## 7. Yui rule
+## 9. Yui rule
 
 Yui is the top priority.
 
@@ -163,7 +208,7 @@ Do not expand to other poses if idle is still weak.
 
 ---
 
-## 8. Enemy rule
+## 10. Enemy rule
 
 Enemies are a black-ink family, but should not be black blobs only.
 
@@ -178,7 +223,7 @@ Each enemy must differ by silhouette, eye/light placement, and gameplay role.
 
 ---
 
-## 9. Background rule
+## 11. Background rule
 
 Backgrounds are gameplay tiles, not illustration-only images.
 
@@ -194,7 +239,7 @@ If the background looks impressive but hurts gameplay readability, reduce it.
 
 ---
 
-## 10. Standard workflow for Codex
+## 12. Standard workflow for Codex
 
 For any pixel-art task, do this order:
 
@@ -210,9 +255,11 @@ For any pixel-art task, do this order:
 10. Report unresolved issues.
 11. Commit and push when the task asks for it.
 
+For CC0-based work, also update `data/asset-licenses.json` and `docs/third-party-assets.md`.
+
 ---
 
-## 11. Tests and checks
+## 13. Tests and checks
 
 When relevant, run:
 
@@ -225,7 +272,7 @@ If a check cannot be run, say so explicitly.
 
 ---
 
-## 12. Reporting template
+## 14. Reporting template
 
 Use this template for pixel-art work:
 
@@ -233,6 +280,12 @@ Use this template for pixel-art work:
 ## Current problems
 
 ## Reference difference
+
+## Source / license check
+- source type:
+- source URL:
+- license:
+- manifest updated:
 
 ## Aseprite hand-finish check
 - source:
