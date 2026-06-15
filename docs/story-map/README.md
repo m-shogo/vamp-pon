@@ -30,6 +30,8 @@ Private planning map for story and design relationships.
 - design backlog
 - selected brief box
 - review and preview path fields
+- Core 5 shirushi crest fields
+- release name fields
 - data integrity check
 
 ## Commands
@@ -42,6 +44,10 @@ pnpm story-map:serve
 Then open the localhost URL and select `vamp-pon-story-street-map.html`.
 
 Direct file open may not load the JSON in some browsers.
+
+## Crest fields
+
+Core 5 nodes should include crest name, combat names, release names, and distorted release names.
 
 ## Rule
 
