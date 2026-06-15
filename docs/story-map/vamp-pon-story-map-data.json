@@ -35,13 +35,13 @@
     ["blank card","カゲール4 / シロ","何もない → 続きを描ける余白"]
   ],
   "readings": [
-    ["ink blob","owner unknown","small fragment"],
-    ["nameless shadow","name covered","name mark"],
-    ["vessel seeker","light vessel targeted","cracked vessel clue"],
-    ["mimic shadow","copied outline","false relation clue"],
-    ["black page","whole scene covered","page clue"],
-    ["folded shadow","memory folded shut","folded-object clue"],
-    ["blank shadow","meaning not decided","blank-space clue"],
+    ["黒読み・決めつけ","one meaning fixed as absolute","maybe / alternative meaning clue"],
+    ["黒読み・すり替え","owner or memory replaced","true owner hint"],
+    ["黒読み・焼き潰し","unread memory destroyed","ash clue"],
+    ["黒読み・閉じ込め","page or vessel refuses to open","key / hinge clue"],
+    ["黒読み・集めすぎ","fragments hoarded without return","missing-owner clue"],
+    ["黒読み・飲み込み","objects, names, paths swallowed","swallowed-object clue"],
+    ["黒読み・執着","feeling cannot be released","release-thread clue"],
     ["multi-lineage trace","too many meanings in one vessel","mismatched glow clue"]
   ],
   "edges": [
@@ -62,6 +62,8 @@
   ],
   "backlog": [
     ["high","Yui 52px master","A/B/C prototype; do not touch production"],
+    ["high","shirushi evolution map","define correct / wrong evolution for Core 5"],
+    ["high","seven misreadings enemy set","prototype P1-safe enemy behaviors from 集めすぎ / 決めつけ / 閉じ込め"],
     ["high","memory item icons","12 icons; owner hint and glow separation"],
     ["high","result screen UI","memory dust, next reading, one progress bar"],
     ["mid","opponent shape families","six silhouettes with released clue"],
