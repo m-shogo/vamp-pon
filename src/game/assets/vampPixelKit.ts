@@ -718,12 +718,12 @@ export const generatedPixelAssets: PixelAssetSpec[] = [
   { id: 'enemy_signpost', path: 'assets/sprites/enemies/enemy_signpost_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemySignpost },
   { id: 'enemy_capsule', path: 'assets/sprites/enemies/enemy_capsule_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyCapsule },
   { id: 'enemy_haze', path: 'assets/sprites/enemies/enemy_haze_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyHaze },
-  // yui_idle / yui_move are hand-final candidates: the real art lives in assets/source/aseprite/player/*.aseprite
+  // yui_idle / yui_move / yui_hurt are hand-final candidates: the real art lives in assets/source/aseprite/player/*.aseprite
   // and the PNG is produced by `pnpm aseprite:export:yui`. create() stays as the draft fallback used by tests
   // and asset verification; generate-pixel-assets skips writing the PNG for hand-final entries.
   { id: 'yui_idle', path: 'assets/sprites/player/yui_idle_32.png', width: 32, height: 32, kind: 'player', quality: 'hand-final', create: createYuiGeneratedDraft },
   { id: 'yui_move', path: 'assets/sprites/player/yui_move_32.png', width: 32, height: 32, kind: 'player', quality: 'hand-final', create: createYuiMoveGeneratedDraft },
-  { id: 'yui_hurt', path: 'assets/sprites/player/yui_hurt_32.png', width: 32, height: 32, kind: 'player', quality: 'generated-draft', create: createYuiHurtGeneratedDraft },
+  { id: 'yui_hurt', path: 'assets/sprites/player/yui_hurt_32.png', width: 32, height: 32, kind: 'player', quality: 'hand-final', create: createYuiHurtGeneratedDraft },
   { id: 'yui_ultimate', path: 'assets/sprites/player/yui_ultimate_32.png', width: 32, height: 32, kind: 'player', quality: 'generated-draft', create: createYuiUltimateGeneratedDraft },
   { id: 'enemy_elite_label', path: 'assets/sprites/enemies/enemy_elite_label_32.png', width: 32, height: 32, kind: 'enemy', quality: 'generated-draft', create: createEnemyEliteLabel },
   { id: 'bg_stage1_paper_night', path: 'assets/sprites/tiles/bg_stage1_paper_night_tile.png', width: 128, height: 128, kind: 'tile', quality: 'generated-draft', create: createPaperNightTile },

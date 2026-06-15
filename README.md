@@ -19,7 +19,7 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライトで�
 **MVP v0.1 — playable（generated素材）**
 
 ユイで8分のサバイバルが一通り遊べます。
-主要素材は generated PNG に移行済み。ユイは `yui_idle` / `yui_move` を Aseprite hand-final candidate にした段階で、`yui_hurt` / `yui_ultimate` はまだ generated-draft です。
+主要素材は generated PNG に移行済み。ユイは `yui_idle` / `yui_move` / `yui_hurt` を Aseprite hand-final candidate にした段階で、`yui_ultimate` はまだ generated-draft です。
 
 ---
 
@@ -49,11 +49,12 @@ HUD / ポーズ / クリア / ゲームオーバー / リザルト
 
 ```txt
 1. [済] yui_idle を Aseprite hand-final candidate にする（基準としてfreeze）
-2. [済] yui_move を idle 基準の同一人物・同一ライティング差分として hand-final candidate にする
-3. idle / move の実機スマホ1xの視認を確認する（未取得）
-4. yui_hurt → yui_ultimate の順で同様に作る（シルエット＝collision footprintは変えない）
-5. asset-status の HF/GF 分離マークを hurt 着手前後で入れる
-6. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
+2. [済] yui_move（移動差分）を idle 基準の hand-final candidate にする
+3. [済] yui_hurt（被弾差分）を idle 基準の hand-final candidate にする
+4. [済] asset-status の HF/GF/GD 分離マークを入れる
+5. idle / move / hurt の実機スマホ1xの視認を確認する（未取得）
+6. yui_ultimate を idle 基準で作る（シルエット＝collision footprintは変えない / 過剰発光で1x視認を壊さない）
+7. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
 ```
 
 idle の作成手順・改善観点・move へ進む条件は [docs/yui-aseprite-hand-final-plan.md](docs/yui-aseprite-hand-final-plan.md) を参照。

@@ -1,10 +1,10 @@
 # Yui Aseprite hand-final plan
 
-`yui_idle` / `yui_move` は **hand-final candidate**（`.aseprite` source あり / Aseprite export 済み）。
-`yui_hurt` / `yui_ultimate` はまだ `generated-draft`（source-missing）。
+`yui_idle` / `yui_move` / `yui_hurt` は **hand-final candidate**（`.aseprite` source あり / Aseprite export 済み）。
+`yui_ultimate` はまだ `generated-draft`（source-missing）。
 
-`yui_idle` を凍結した基準として、`yui_move` は同一人物・同一ライティングの差分として作成済み。
-残り `yui_hurt` / `yui_ultimate` はまだ着手しない。
+`yui_idle` を凍結した基準として、`yui_move`（移動差分）・`yui_hurt`（被弾差分）を同一人物・同一ライティングで作成済み。
+残り `yui_ultimate` はまだ着手しない。
 
 ## Production Tool
 
@@ -97,6 +97,50 @@ idle を先に確定し、残り3ポーズは同一人物に見える範囲で�
 3. hurt は idle/move と同一人物・同一ライティング。差分は被弾の一瞬（けぞり・赤フラッシュ・表情）に留め、別キャラ化しない。
 4. 実機スマホでの1x視認は idle/move とも未確認。実機確認を取るか、少なくとも late density での4ポーズ並置で破綻が無いことを確認してから hurt を本格化する。
 5. 任意整理: asset-status の HF/GF 分離マーク（GF=generated-final / HF=hand-final / GD=generated-draft）を hurt 着手前後でまとめて入れる。
+
+## yui_hurt hand-final candidate
+
+### 作成方法
+
+1. seed = 既存 `public/assets/sprites/player/yui_hurt_32.png`（generated-draft）。
+2. `scripts/aseprite/build-yui-hurt-source.lua` で bootstrap:
+
+   ```sh
+   aseprite -b public/assets/sprites/player/yui_hurt_32.png \
+     --script-param out=assets/source/aseprite/player/yui_hurt.aseprite \
+     --script scripts/aseprite/build-yui-hurt-source.lua
+   ```
+
+   hurt build script は idle/move と同一の共有パレット・ライティング処理を、hurt のジオメトリ（recoil lean = -1 / フード15）にずらして適用。一度きりの bootstrap。
+3. `pnpm aseprite:export:yui` で `.aseprite` → PNG を export。
+
+### hurt の差分方針（被弾の一瞬に限定）
+
+- seed が既に被弾を担う: recoil lean=-1、左右のインパクト火花、赤みを帯びた服。これらは silhouette/色として残す。
+- seed の **目を覆う太い赤バンド**は赤すぎ＆顔の同一性を消すため撤去し、以下に置換:
+  - 痛みの表情（`><` のすくめ目）でユイの顔を取り戻す。
+  - 頬に控えめな赤フラッシュ（`198,118,112`／生傷の赤ではない）。
+  - 口は元の wince を維持。
+- idle/move と同じライティング処理を適用（ムーンリム / 肌シャドウ / 髪ハイライト / ランタン炎の明部＋暖色スピル / 足元影外周の低alpha化）。
+- 大きな変形・別キャラ化はしない。シルエットは seed と同一（dump比較で外形一致）。inkEdge縁取り・`hitCore`/`debugHitCircle`/collision フットプリント不変。
+
+### idle / move / hurt の一致確認（観測済み）
+
+- `/?scene=yui-gallery`: 3ポーズを 1x / 4x / 背景上で比較。フード・髪・肌・エプロン・ランタン・ムーンリムが一致。hurt は「同一人物が一瞬ひるんでいる」（すくめ目＋けぞり＋火花＋服の赤み）として読め、別キャラ化していない。タグは idle=`HF 基準` / move=`HF 差分` / hurt=`HF 差分` / ultimate=`GD`。
+- `/?scene=combat-mock&density=late`: プレイヤー（combat表示は idle pose）が後半密度でも埋もれない。hurt は被弾の一瞬のみ実ゲームで出るため、gallery 4x と idle とのライティング共有で判断（hurt単体のlate実機確認は未取得）。
+- `/?scene=asset-status`: HF/GF/GD を分離表示（`GF 22 / HF 3 / GD 11`）。`yui_idle` / `yui_move` / `yui_hurt` が HF、`yui_ultimate` が GD。
+
+### asset-status の HF/GF/GD 分離（今回実施）
+
+- `qualityMark` / `qualityColor` を分離: `HF=hand-final`（teal `0x7fe0c0`） / `GF=generated-final`（green） / `GD=generated-draft`（blue）。
+- ヘッダ集計を `GF / HF / GD` に分割、凡例を更新。hand-final が generated-final に吸われる問題を解消。
+
+### 次に yui_ultimate へ進む条件（gate）
+
+1. idle / move / hurt を基準として **freeze**（ultimate 着手後もこの3 .aseprite を編集しない）。
+2. ultimate も seed PNG から bootstrap → export し、**シルエットを変えない**（collision footprint固定）。ultimate seed は発光/オーラ等で外形が大きい点に注意し、hitCore/当たり判定の前提を崩さない。
+3. ultimate は同一人物・同一ライティングを保ちつつ、必殺の「華やかさ」を加える差分。ただし idle の基準トーンから乖離した別キャラ化はしない。過剰な発光で1x視認を壊さない。
+4. 実機スマホでの1x視認は idle/move/hurt とも未確認。実機確認を取るか、少なくとも late density 4ポーズ並置で破綻が無いことを確認してから ultimate を本格化する。
 
 ## Source Files
 

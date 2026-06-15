@@ -35,7 +35,7 @@ export const assetManifest: AssetManifestEntry[] = [
   // --- プレイヤー ---
   { id: 'yui_idle', path: `${SPRITES}/player/yui_idle_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 立ち（フード+ランタン / hand-final candidate）', required: true, fallback: true },
   { id: 'yui_move', path: `${SPRITES}/player/yui_move_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 移動（idle差分 / hand-final candidate）', required: false, fallback: true },
-  { id: 'yui_hurt', path: `${SPRITES}/player/yui_hurt_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 被弾（短いリアクション差分）', required: false, fallback: true },
+  { id: 'yui_hurt', path: `${SPRITES}/player/yui_hurt_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 被弾（一瞬のリアクション差分 / hand-final candidate）', required: false, fallback: true },
   { id: 'yui_ultimate', path: `${SPRITES}/player/yui_ultimate_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 奥義（小さな灯りの強調差分）', required: false, fallback: true },
 
   // --- 敵（enemy visualKind に対応） ---

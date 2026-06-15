@@ -233,7 +233,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       const quality = generatedQualityById.get(assetId);
       const isHandFinal = quality === 'hand-final';
       const tag = isHandFinal ? (assetId === 'yui_idle' ? 'HF 基準' : 'HF 差分') : 'GD';
-      this.label(x, 240, tag, 9, isHandFinal ? '#8fd0a0' : '#9db7df', 82);
+      this.label(x, 240, tag, 9, isHandFinal ? '#7fe0c0' : '#9db7df', 82);
     });
 
     this.label(GAME_WIDTH / 2, 252, '背景上・hitCore・debug円・欠片との距離', 10, '#ffe9a8', 260);
@@ -467,20 +467,22 @@ export class VisualGalleryScene extends Phaser.Scene {
     let fallbackN = 0;
     let missingN = 0;
     let finalN = 0;
+    let handFinalN = 0;
     let draftN = 0;
     for (const a of assetManifest) {
       const st = assetStatus(this, a.id);
       const q = generatedQualityById.get(a.id);
       if (st === 'image') {
         imageN += 1;
-        if (q === 'generated-final' || q === 'hand-final') finalN += 1;
+        if (q === 'hand-final') handFinalN += 1;
+        else if (q === 'generated-final') finalN += 1;
         else if (q === 'generated-draft') draftN += 1;
       } else if (st === 'fallback') fallbackN += 1;
       else missingN += 1;
     }
     this.pageRoot.add(
       this.add
-        .text(GAME_WIDTH / 2, 40, `image ${imageN}  final ${finalN}  draft ${draftN}  fallback ${fallbackN}  missing ${missingN}`, {
+        .text(GAME_WIDTH / 2, 40, `image ${imageN}  GF ${finalN}  HF ${handFinalN}  GD ${draftN}  fb ${fallbackN}  miss ${missingN}`, {
           fontFamily: FONT, fontSize: '12px', color: '#f3ead2',
         })
         .setOrigin(0.5, 0),
@@ -507,7 +509,7 @@ export class VisualGalleryScene extends Phaser.Scene {
 
     this.pageRoot.add(
       this.add
-        .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, 'GF=generated-final / GD=generated-draft / FB=Graphics fallback / MI=欠品', {
+        .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, 'GF=generated-final / HF=hand-final / GD=generated-draft / FB=fallback / MI=欠品', {
           fontFamily: FONT, fontSize: '9px', color: '#9a8d6f',
         })
         .setOrigin(0.5, 0),
@@ -543,13 +545,15 @@ export class VisualGalleryScene extends Phaser.Scene {
 }
 
 function qualityMark(quality: PixelAssetQuality | undefined): string {
-  if (quality === 'generated-final' || quality === 'hand-final') return 'GF';
+  if (quality === 'hand-final') return 'HF';
+  if (quality === 'generated-final') return 'GF';
   if (quality === 'generated-draft') return 'GD';
   return 'IM';
 }
 
 function qualityColor(quality: PixelAssetQuality | undefined): number {
-  if (quality === 'generated-final' || quality === 'hand-final') return 0x8fd0a0;
+  if (quality === 'hand-final') return 0x7fe0c0;
+  if (quality === 'generated-final') return 0x8fd0a0;
   if (quality === 'generated-draft') return 0x9db7df;
   return 0xcfc6b0;
 }
