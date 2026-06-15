@@ -81,7 +81,7 @@ app.transaction("Add Yui V2a hand-finish guide layer", function()
   guide.opacity = 150
   guide.isVisible = true
 
-  local img = Image(sprite.width, sprite.height, sprite.colorMode)
+  local img = Image(sprite.width, sprite.height)
 
   -- A. silhouette / hood
   draw_rect(img, 3, 5, 46, 26, COLORS.hood)      -- current wide hood area: tighten sides by hand
