@@ -18,6 +18,7 @@ Every visual asset must pass both pixel-art craft rules and design-role rules.
 
 ## Required docs
 
+- `docs/design-team/art-direction-board-goal.md`
 - `docs/design-team/art-director-rules.md`
 - `docs/design-team/avatar-rules.md`
 - `docs/design-team/monster-designer-rules.md`
@@ -26,6 +27,9 @@ Every visual asset must pass both pixel-art craft rules and design-role rules.
 - `docs/design-team/ui-ux-designer-rules.md`
 - `docs/design-team/graphic-designer-rules.md`
 - `docs/design-team/pro-app-quality-rubric.md`
+- `docs/design-team/agent-integration-rules.md`
+- `.claude/skills/vamp-pon-design-team/SKILL.md`
+- `.claude/agents/design-art-director.md`
 - `docs/reviews/templates/design-team-review-template.md`
 
 ## Production target
