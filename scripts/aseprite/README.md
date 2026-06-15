@@ -2,7 +2,7 @@
 
 Vamp Pon は、Aseprite が未導入でも `pnpm generate:pixel-assets` で generated PNG を作れる状態を維持する。
 Aseprite は generated-draft を手仕上げして hand-final に近づけるための追加ツールとして扱う。
-production export は stable v1.3.17.1 のみを対象にする。v1.3.18-beta2 は本番exportに使わない。
+production export は stable v1.3.17.x のみを対象にする。v1.3.18-beta2 は本番exportに使わない。
 
 ## Check
 
@@ -42,7 +42,7 @@ pnpm aseprite:export:player
 このコマンドは以下の挙動にする。
 
 - Aseprite CLI が無い場合は skip し、exit 0 にする。
-- stable v1.3.17.1 以外、特に beta v1.3.18-beta2 は production export に使わない。
+- stable v1.3.17.x 以外、特に beta v1.3.18-beta2 は production export に使わない。
 - source `.aseprite` が無い素材は skip する。
 - export先は `public/assets/sprites/player/` 以外を拒否する。
 - source がある素材だけ PNG を上書きする。

@@ -48,7 +48,7 @@ HUD / ポーズ / クリア / ゲームオーバー / リザルト
 次は **ユイ hand-final 入口と後半密度の視認性確認** を詰める段階。
 
 ```txt
-1. Aseprite stable v1.3.17.1 で yui_idle を hand-final 候補にする
+1. Aseprite stable v1.3.17.x で yui_idle を hand-final 候補にする
 2. /?scene=yui-gallery で 1x / 4x / 背景上 / hitCore 位置を確認する
 3. yui_move → yui_hurt → yui_ultimate の順で source を作る
 4. /?scene=combat-mock&density=late で後半密度の視認性を確認する
@@ -70,7 +70,7 @@ pnpm install      # 依存インストール
 pnpm dev          # 開発サーバ（http://localhost:5173）
 pnpm build        # 型チェック + 本番ビルド
 pnpm test         # ロジックのユニットテスト（vitest）
-pnpm aseprite:check       # Aseprite stable v1.3.17.1 のCLI確認
+pnpm aseprite:check       # Aseprite stable v1.3.17.x のCLI確認
 pnpm aseprite:export:yui  # ユイ4ポーズのsourceがあればPNGへexport
 ```
 

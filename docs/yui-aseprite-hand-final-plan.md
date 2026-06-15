@@ -5,7 +5,7 @@ Aseprite は導入済み前提だが、repo内にはまだ `.aseprite` source �
 
 ## Production Tool
 
-- 使用対象: Aseprite stable v1.3.17.1
+- 使用対象: Aseprite stable v1.3.17.x
 - 使用しない: Aseprite v1.3.18-beta2
 
 ## Order

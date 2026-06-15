@@ -1,6 +1,6 @@
 # Yui player Aseprite sources
 
-Production export uses **Aseprite stable v1.3.17.1**.
+Production export uses **Aseprite stable v1.3.17.x**.
 Do not use **v1.3.18-beta2** for production PNG export.
 
 ## Files

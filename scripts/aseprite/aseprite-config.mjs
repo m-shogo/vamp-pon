@@ -1,7 +1,8 @@
 import { accessSync, constants } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { delimiter, join } from 'node:path';
 
-export const REQUIRED_ASEPRITE_VERSION = '1.3.17.1';
+export const REQUIRED_ASEPRITE_VERSION = '1.3.17.x';
 export const BETA_ASEPRITE_VERSION = '1.3.18-beta2';
 
 export const PLAYER_ASEPRITE_EXPORTS = [
@@ -49,8 +50,12 @@ export function asepriteCandidatePaths({ env = process.env } = {}) {
 }
 
 export function findOnPath(bin) {
-  const result = spawnSync('command', ['-v', bin], { encoding: 'utf8', shell: true });
-  return result.status === 0 ? result.stdout.trim() : '';
+  for (const dir of (process.env.PATH ?? '').split(delimiter)) {
+    if (!dir) continue;
+    const candidate = join(dir, bin);
+    if (canExecute(candidate)) return candidate;
+  }
+  return '';
 }
 
 export function canExecute(path) {
@@ -78,6 +83,12 @@ export function parseAsepriteVersion(output) {
   return match?.[1] ?? '';
 }
 
+export function isProductionUsableAsepriteVersion(version) {
+  if (!version) return false;
+  if (version.includes('beta')) return false;
+  return /^1\.3\.17(?:\.\d+)?(?:-[\w.]+)?$/.test(version);
+}
+
 export function resolveAsepriteCli() {
   const checked = [];
   for (const path of asepriteCandidatePaths()) {
@@ -90,7 +101,7 @@ export function resolveAsepriteCli() {
         info.reason = `version command failed (${versionInfo.status})`;
       } else if (info.version === BETA_ASEPRITE_VERSION || info.version.includes('beta')) {
         info.reason = `beta version is not allowed for production export (${info.version})`;
-      } else if (info.version !== REQUIRED_ASEPRITE_VERSION) {
+      } else if (!isProductionUsableAsepriteVersion(info.version)) {
         info.reason = `expected stable ${REQUIRED_ASEPRITE_VERSION}, got ${info.version || 'unknown'}`;
       } else {
         info.usable = true;

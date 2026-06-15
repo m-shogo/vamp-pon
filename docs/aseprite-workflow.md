@@ -1,6 +1,6 @@
 # Aseprite workflow
 
-Vamp Pon の production export は **Aseprite stable v1.3.17.1** を対象にする。
+Vamp Pon の production export は **Aseprite stable v1.3.17.x** を対象にする。
 **v1.3.18-beta2 は本番exportに使わない**。betaで開いたsourceをproduction exportの前提にしない。
 
 ## Commands
@@ -14,7 +14,7 @@ pnpm test
 pnpm build
 ```
 
-- `aseprite:check`: stable v1.3.17.1 のCLIを探し、version / resolved path / usable を表示する。
+- `aseprite:check`: stable v1.3.17.x のCLIを探し、version / resolved path / usable を表示する。
 - `aseprite:export`: 現在はユイ4ポーズのexport入口。
 - `aseprite:export:yui`: `aseprite:export` と同じ。ユイ作業者向けの明示名。
 
