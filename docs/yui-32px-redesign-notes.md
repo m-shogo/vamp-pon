@@ -6,7 +6,7 @@
 ## 前提・制約（変更しない）
 
 - サイズは **32px** を維持（36/40/48 比較には今回進まない）。
-- `PLAYER_DEFAULTS.radius = 6` / `visualSize = 36` を変更しない。
+- 当時は `PLAYER_DEFAULTS.radius = 6` / `visualSize = 36` を変更しない前提だった。現在は42px本番候補へ進み、`radius = 6` は維持する。
 - pickup `collectRadius` / `magnetRange` / `magnetSpeed` を変更しない。
 - hp / moveSpeed / invulnSec を変更しない。
 - 既存 `yui_idle` / `yui_move` hand-final candidate を上書きしない。`yui_hurt` / `yui_ultimate` も今回触らない。
@@ -98,4 +98,4 @@ v3 の**かわいい方向性は維持**しつつ、見た目サイズを 36 →
 - 見た目だけ大きくし、**collision radius=6 / pickup / stats は変更しない**（東方方式を維持）。
 - 詳細・比較導線・所感は [yui-42px-visual-size-test.md](yui-42px-visual-size-test.md)。
 - 比較ページ: `/?scene=yui-redesign42`、実地確認: `/?scene=combat-mock&density=late&playerVisual=40|42|44`。
-- 42px が良ければ `yui_idle_v4_42` を基準に idle→move→hurt→ultimate を作り直し、本番 `visualSize` を上げる。大きすぎれば 40px へ戻す。**42px 採用は未決定**。
+- 42pxを本番候補として `PLAYER_DEFAULTS.visualSize=42` に上げた。大きすぎれば 40px へ戻す。次は `yui_idle_v4_42` を基準に idle→move→hurt→ultimate を作り直す。

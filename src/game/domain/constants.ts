@@ -30,7 +30,7 @@ export const PLAYER_DEFAULTS = {
   hp: 110,
   moveSpeed: 115,
   radius: 6,
-  visualSize: 36,
+  visualSize: 42,
   invulnSec: 0.75,
 } as const;
 

@@ -221,6 +221,7 @@ export class VisualGalleryScene extends Phaser.Scene {
 
   private buildYuiGalleryPage(): void {
     this.heading('ユイ4ポーズ / 1x・4x / 判定芯');
+    this.label(GAME_WIDTH / 2, 36, `通常表示 visualSize=${PLAYER_DEFAULTS.visualSize}px 本番候補 / radius=${PLAYER_DEFAULTS.radius}`, 9, '#ffe9a8', 300);
     const poses = [
       ['yui_idle', 'idle'],
       ['yui_move', 'move'],
@@ -334,7 +335,7 @@ export class VisualGalleryScene extends Phaser.Scene {
     // 上部はHUDが占有するため見出しは出さない
     const params = new URLSearchParams(window.location.search);
     const density = params.get('density') ?? 'mid';
-    // playerVisual: 見た目サイズだけ比較する（本番 visualSize は不変 / collision radius=6 も不変）。
+    // playerVisual: 見た目サイズだけ比較する（本番候補 visualSize=42 / collision radius=6 は不変）。
     const visualParam = Number(params.get('playerVisual'));
     const playerVisual = Number.isFinite(visualParam) && visualParam >= 24 && visualParam <= 64
       ? visualParam
@@ -523,6 +524,13 @@ export class VisualGalleryScene extends Phaser.Scene {
 
     this.pageRoot.add(
       this.add
+        .text(GAME_WIDTH / 2, GAME_HEIGHT - 82, `ユイ通常表示: visualSize=${PLAYER_DEFAULTS.visualSize}px本番候補 / radius=${PLAYER_DEFAULTS.radius}維持`, {
+          fontFamily: FONT, fontSize: '9px', color: '#ffe9a8',
+        })
+        .setOrigin(0.5, 0),
+    );
+    this.pageRoot.add(
+      this.add
         .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, 'GF=generated-final / HF=hand-final / GD=generated-draft / FB=fallback / MI=欠品', {
           fontFamily: FONT, fontSize: '9px', color: '#9a8d6f',
         })
@@ -659,7 +667,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       ['yui_idle', '現行', 32, 36],
       ['yui_idle_v3_32', 'v3', 32, 36],
       ['yui_idle_v4_40', 'v4·40', 40, 40],
-      ['yui_idle_v4_42', 'v4·42', 42, 42],
+      ['yui_idle_v4_42', 'v4·42 本番候補', 42, 42],
       ['yui_idle_v4_44', 'v4·44', 44, 44],
     ];
     const xs = [46, 117, 195, 273, 348];
@@ -680,7 +688,7 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.placeBigWithCore('yui_idle_v3_32', 196, 206, 104, 36);
     this.label(196, 250, 'v3·36', 8, '#cfe6f0', 90);
     this.placeBigWithCore('yui_idle_v4_42', 314, 206, 104, 42);
-    this.label(314, 250, 'v4·42', 8, '#7fe0c0', 90);
+    this.label(314, 250, 'v4·42\n本番候補', 8, '#7fe0c0', 90);
 
     // 実背景上 + 近接（欠片/回復/カプセル/黒インク敵/通常弾）
     this.label(GAME_WIDTH / 2, 278, '実背景上 + 近接（欠片/回復/カプセル/黒インク敵/通常弾）', 9, '#ffe9a8', 360);
@@ -688,7 +696,7 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.placeGameSizeWithCore('yui_idle', 70, cy, 36);
     this.label(70, cy + 26, '現行36', 8, '#cfe6f0', 80);
     this.placeGameSizeWithCore('yui_idle_v4_42', 175, cy, 42);
-    this.label(175, cy + 26, 'v4·42', 8, '#7fe0c0', 80);
+    this.label(175, cy + 26, 'v4·42\n本番候補', 8, '#7fe0c0', 80);
     this.placeGameSizeWithCore('yui_idle_v4_44', 282, cy, 44);
     this.label(282, cy + 26, 'v4·44', 8, '#7fe0c0', 80);
     // 近接物（誤認チェック）
@@ -710,7 +718,9 @@ export class VisualGalleryScene extends Phaser.Scene {
         '- ヴァンサバ的な後半密度で邪魔にならないか',
         '  → /?scene=combat-mock&density=late&playerVisual=40|42|44 で実地確認',
         '',
-        '注意: prototype。本番 visualSize=36 / yui_idle 等は未変更。',
+        '注意: v4·42 を本番 visualSize 候補に採用中。',
+        'yui_idle/move/hurt は既存32px素材を42px表示。',
+        'ultimate は次工程で42px基準化。',
       ], { fontFamily: FONT, fontSize: '9px', color: '#cfc6b0', lineSpacing: 3 }).setOrigin(0, 0),
     );
   }

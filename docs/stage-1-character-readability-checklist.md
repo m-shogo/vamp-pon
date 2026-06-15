@@ -25,7 +25,7 @@
 ## 判定仕様
 
 - [ ] `PLAYER_DEFAULTS.radius` は `6`。
-- [ ] `PLAYER_DEFAULTS.visualSize` は `36`。
+- [ ] `PLAYER_DEFAULTS.visualSize` は42px本番候補として `42`。
 - [ ] `hitCore` と `debugHitCircle` は別オブジェクト。
 - [ ] キャラ素材更新で collision を変更していない。
 

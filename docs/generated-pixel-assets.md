@@ -31,7 +31,7 @@ pnpm assets:verify
 ユイ系のうち `yui_idle` / `yui_move` / `yui_hurt` は `hand-final`（hand-final candidate）。`assets/source/aseprite/player/yui_idle.aseprite` / `yui_move.aseprite` / `yui_hurt.aseprite` から `pnpm aseprite:export:yui` で export 済み（move=移動差分 / hurt=被弾差分、いずれも idle を基準にした同一人物・同一ライティング）。
 `yui_ultimate` は現時点では `generated-draft`（source-missing）。
 残りも `assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:yui` で同じ manifest path に export し、hand-final 候補へ進める。
-hand-final 昇格時も `PLAYER_DEFAULTS.radius` / `visualSize` は変更しない。
+現在の本番候補表示は `PLAYER_DEFAULTS.visualSize=42`。素材のhand-final昇格時も `PLAYER_DEFAULTS.radius`、hp / moveSpeed / invulnSec、pickup collectRadius / magnetRange / magnetSpeed は変更しない。
 
 追加状態:
 
@@ -94,7 +94,7 @@ VisualGallery `?scene=asset-status` では image 36 / fallback 0 / missing 0 を
 
 ## 次に手仕上げすべき素材
 
-1. `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`: 顔、髪、服、ランタンの読みやすさと歩き差分。
+1. `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`: 42px本番候補基準で、顔、髪、服、ランタンの読みやすさと歩き差分を整える。`yui_ultimate` は次に42px基準で作る。
 2. `bg_stage1_paper_night`: 画面全体で繰り返した時の地図線・紙片密度。
 3. `evolved_dawn_ink_lamp`: 合体素材として黒インク・街灯・朝色の重なり整理。
 4. `ui_card_paper_normal/good/rare`: テキスト読みやすさと紙テクスチャのノイズ量。

@@ -6,7 +6,7 @@
 ## 固定する仕様
 
 - `PLAYER_DEFAULTS.radius` は `6`。
-- `PLAYER_DEFAULTS.visualSize` は `36`。
+- `PLAYER_DEFAULTS.visualSize` は42px本番候補として `42`。
 - `PLAYER_DEFAULTS.hp` / `moveSpeed` / `invulnSec` はキャラ素材作業で変更しない。
 - `PICKUP.collectRadius` / `magnetRange` / `magnetSpeed` はキャラ素材作業で変更しない。
 - 通常時は中心に 2〜3px の小さい暖色の `hitCore` を常時表示する。

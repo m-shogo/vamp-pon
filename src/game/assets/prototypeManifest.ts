@@ -2,7 +2,7 @@
  * 比較用 prototype アセット（本番ではない）。
  *
  * 本番の assetManifest とは分離して管理する。これらは VisualGallery の比較ページ
- * (`?scene=yui-redesign32`) でのみ読み込み、本番のユイ素材を上書きしない。
+ * (`?scene=yui-redesign32` / `?scene=yui-redesign42`) でのみ読み込み、本番のユイ素材を上書きしない。
  * 生成パイプライン（generate-pixel-assets / assets:verify）も対象外。
  *
  * 作り方: assets/source/aseprite/player/prototypes/*.aseprite を編集し、
@@ -44,7 +44,7 @@ export const prototypeAssets: PrototypeAssetEntry[] = [
     width: 42,
     height: 42,
     compareWith: 'yui_idle',
-    label: 'idle v4 (42px案)',
+    label: 'idle v4 (42px本番候補)',
   },
   {
     id: 'yui_idle_v4_44',

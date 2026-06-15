@@ -4,7 +4,7 @@ import { PICKUP, PLAYER_DEFAULTS } from '../constants';
 describe('player hitbox policy', () => {
   it('東方方式の判定サイズを維持する', () => {
     expect(PLAYER_DEFAULTS.radius).toBe(6);
-    expect(PLAYER_DEFAULTS.visualSize).toBe(36);
+    expect(PLAYER_DEFAULTS.visualSize).toBe(42);
   });
 
   it('キャラ改善でプレイヤー基礎値とpickup吸引値を巻き込まない', () => {

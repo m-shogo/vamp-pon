@@ -4,12 +4,12 @@
 `yui_ultimate` はまだ `generated-draft`（source-missing）。
 
 `yui_idle` を凍結した基準として、`yui_move`（移動差分）・`yui_hurt`（被弾差分）を同一人物・同一ライティングで作成済み。
-残り `yui_ultimate` はまだ着手しない。
+残り `yui_ultimate` はまだ未完成。次に作る場合は42px本番候補基準で着手する。
 
-> 別線で「もっと可愛く・高解像度感」リデザインの検討が進行中。
+> 別線で「もっと可愛く・高解像度感」リデザインを検討し、現時点では 42px を本番候補として採用中。
 > - 32px案: 比較 prototype `yui_idle_v3_32`（[yui-32px-redesign-notes.md](yui-32px-redesign-notes.md) / `/?scene=yui-redesign32`）。
 > - 見た目サイズ案: 「32pxは小さい」→ 40/42/44px の `yui_idle_v4_*` 比較（[yui-42px-visual-size-test.md](yui-42px-visual-size-test.md) / `/?scene=yui-redesign42`、`combat-mock&playerVisual=42` 等）。
-> いずれも本番未差し替え・`visualSize`/`radius` 未変更。採用が決まれば、その基準で hand-final 4ポーズを作り直す前提。
+> `PLAYER_DEFAULTS.visualSize=42` / `radius=6`。まず既存32px素材を42px表示し、次工程で v4·42 基準の hand-final 4ポーズへ進める。
 
 ## Production Tool
 
@@ -143,7 +143,7 @@ idle を先に確定し、残り3ポーズは同一人物に見える範囲で�
 ### 次に yui_ultimate へ進む条件（gate）
 
 1. idle / move / hurt を基準として **freeze**（ultimate 着手後もこの3 .aseprite を編集しない）。
-2. ultimate も seed PNG から bootstrap → export し、**シルエットを変えない**（collision footprint固定）。ultimate seed は発光/オーラ等で外形が大きい点に注意し、hitCore/当たり判定の前提を崩さない。
+2. ultimate は 42px本番候補基準で bootstrap → export する。発光/オーラ等で外形が大きい点に注意し、hitCore/当たり判定の前提を崩さない。
 3. ultimate は同一人物・同一ライティングを保ちつつ、必殺の「華やかさ」を加える差分。ただし idle の基準トーンから乖離した別キャラ化はしない。過剰な発光で1x視認を壊さない。
 4. 実機スマホでの1x視認は idle/move/hurt とも未確認。実機確認を取るか、少なくとも late density 4ポーズ並置で破綻が無いことを確認してから ultimate を本格化する。
 
@@ -177,7 +177,7 @@ PNGを直接編集せず、sourceからexportする。
 
 見ること:
 
-- 1xでidleが主人公として読める。
+- 42px表示でidleが主人公として読める。
 - 4xで顔/フード/服/ランタンの破綻がない。
 - 夜背景で埋もれない。
 - hitCore とランタンが近すぎない。

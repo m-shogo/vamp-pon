@@ -61,8 +61,8 @@ function addPickupReadability(
  * 参考: style_sprite-sheet_01 / style_gameplay_02。暗い背景でも輪郭が読める。
  */
 /**
- * @param opts.visualSize 見た目の表示サイズ(px)。比較用のみ。collision(radius=6)/hitCoreは不変。
- *                        既定は PLAYER_DEFAULTS.visualSize=36（本番と同一）。
+ * @param opts.visualSize 見た目の表示サイズ(px)。comparison override用。collision(radius=6)/hitCoreは不変。
+ *                        既定は PLAYER_DEFAULTS.visualSize=42（本番候補と同一）。
  * @param opts.textureId  表示テクスチャキー。既定 'yui_idle'。比較ページで prototype を差せる。
  */
 export function createPlayerView(
