@@ -28,7 +28,31 @@ For all pixel-art work, follow this policy:
 
 ---
 
-## 2. Use useful sources, but do not lower quality
+## 2. Pixel-art craft rules are mandatory
+
+Before editing or reviewing any pixel-art asset, read the generic craft rules first:
+
+- `docs/pixel-art/README.md`
+- `docs/pixel-art/human-character-craft-guide.md`
+- `docs/pixel-art/ng-patterns.md`
+- `docs/pixel-art/agent-quality-brief.md`
+- `docs/pixel-art/research-notes.md`
+
+These rules apply to:
+
+- player characters
+- enemies
+- pickups
+- UI icons
+- props
+- backgrounds
+- effects
+
+Do not skip these docs just because the task is not about Yui. Yui-specific rules are important, but the generic pixel-art rules are the baseline for every visual asset.
+
+---
+
+## 3. Use useful sources, but do not lower quality
 
 Use helpful external sources when they make the game better.
 
@@ -46,7 +70,7 @@ Everything still needs Vamp Pon palette adaptation, gameplay readability review,
 
 ---
 
-## 3. CC0 asset policy
+## 4. CC0 asset policy
 
 Default: CC0 only unless explicitly approved.
 
@@ -71,11 +95,15 @@ Do not add assets with unknown, custom, non-commercial, no-derivatives, GPL, CC-
 
 ---
 
-## 4. Read these files before pixel-art work
+## 5. Read these files before pixel-art work
 
 Before editing or reviewing any pixel-art asset, read:
 
 - `CLAUDE.md`
+- `docs/pixel-art/README.md`
+- `docs/pixel-art/human-character-craft-guide.md`
+- `docs/pixel-art/ng-patterns.md`
+- `docs/pixel-art/agent-quality-brief.md`
 - `docs/art-direction.md`
 - `docs/reference-art-map.md`
 - `docs/pixel-art-quality-gate.md`
@@ -94,7 +122,7 @@ Codex should follow the same art rules even though it may not load Claude-specif
 
 ---
 
-## 5. Aseprite hand-finish rule
+## 6. Aseprite hand-finish rule
 
 An `.aseprite` file alone is not enough.
 
@@ -114,7 +142,7 @@ If these are not true, keep the asset as `temporary`, `bootstrap`, or `candidate
 
 ---
 
-## 6. Lua and script role
+## 7. Lua and script role
 
 Lua is useful, but it is not the art director.
 
@@ -127,11 +155,15 @@ Lua/Aseprite scripts may be used for:
 - seed generation
 - deterministic export
 - sprite sheet export
+- GIF / contact-sheet preview generation
 
 Do not use script output alone as final art.
 
 Lua/script should not decide:
 
+- final visual appeal
+- final silhouette
+- final palette balance
 - face charm
 - cloth thickness
 - prop appeal
@@ -140,23 +172,29 @@ Lua/script should not decide:
 
 ---
 
-## 7. Pixel-art quality gate
+## 8. Pixel-art quality gate
 
 Rate each asset from 1 to 5:
 
 - 1x readability
-- reference match
-- charm / appeal
+- role clarity
+- visual appeal
 - gameplay visibility
 - separation from background
 - style consistency
 - final-candidate confidence
 
-If any score is 3 or lower, do not mark the asset as `final-candidate`.
+For player characters or mascot-level assets, also rate:
+
+- charm / appeal
+- mascot silhouette
+- merchandise potential
+
+If any required score is 3 or lower, do not mark the asset as `final-candidate`.
 
 ---
 
-## 8. Current art direction
+## 9. Current art direction
 
 The current art target is:
 
@@ -164,7 +202,6 @@ The current art target is:
 - readable at 1x
 - high-density but not muddy
 - cute but gameplay-readable
-- large readable face for player characters
 - rounded silhouette
 - soft shading
 - not over-outlined
@@ -179,12 +216,13 @@ Avoid:
 - busy backgrounds
 - direct downscales of AI images
 - pretty art that does not work in gameplay
+- report-only improvements that do not show real before/after gains
 
 ---
 
-## 9. Yui rule
+## 10. Yui rule
 
-Yui is the top priority.
+Yui is the top priority among player assets, but Yui-specific rules do not replace the generic pixel-art craft rules.
 
 Required Yui identity:
 
@@ -199,16 +237,16 @@ Required Yui identity:
 
 Work order:
 
-1. `yui_idle_42`
+1. `yui_idle_42` or `yui_master_52` depending on the explicit task.
 2. `yui_move_42`
 3. `yui_hurt_42`
 4. `yui_ultimate_42`
 
-Do not expand to other poses if idle is still weak.
+Do not expand to other poses if idle/master is still weak.
 
 ---
 
-## 10. Enemy rule
+## 11. Enemy rule
 
 Enemies are a black-ink family, but should not be black blobs only.
 
@@ -223,7 +261,7 @@ Each enemy must differ by silhouette, eye/light placement, and gameplay role.
 
 ---
 
-## 11. Background rule
+## 12. Background rule
 
 Backgrounds are gameplay tiles, not illustration-only images.
 
@@ -239,27 +277,28 @@ If the background looks impressive but hurts gameplay readability, reduce it.
 
 ---
 
-## 12. Standard workflow for Codex
+## 13. Standard workflow for Codex
 
 For any pixel-art task, do this order:
 
 1. Inspect current files.
-2. Read the reference docs.
-3. State what is wrong with the current asset.
-4. State what must not be copied from the current asset.
-5. Decide what the reference requires.
-6. Modify Aseprite source or setup files.
-7. Export from source.
-8. Review 1x / 4x / dark background / gameplay composition.
-9. Apply the quality gate.
-10. Report unresolved issues.
-11. Commit and push when the task asks for it.
+2. Read the generic pixel-art craft docs.
+3. Read the asset-specific reference docs.
+4. State what is wrong with the current asset.
+5. State what must not be copied from the current asset.
+6. Decide what the reference requires.
+7. Modify Aseprite source or setup files.
+8. Export from source.
+9. Review 1x / 4x / dark background / gameplay composition.
+10. Apply the quality gate.
+11. Report unresolved issues.
+12. Commit and push when the task asks for it.
 
 For CC0-based work, also update `data/asset-licenses.json` and `docs/third-party-assets.md`.
 
 ---
 
-## 13. Tests and checks
+## 14. Tests and checks
 
 When relevant, run:
 
@@ -272,7 +311,7 @@ If a check cannot be run, say so explicitly.
 
 ---
 
-## 14. Reporting template
+## 15. Reporting template
 
 Use this template for pixel-art work:
 
@@ -280,6 +319,14 @@ Use this template for pixel-art work:
 ## Current problems
 
 ## Reference difference
+
+## Pixel-art craft checks
+- silhouette:
+- focal point:
+- cluster / noise:
+- palette / value separation:
+- outline:
+- 1x / 4x / dark / gameplay:
 
 ## Source / license check
 - source type:
@@ -297,8 +344,8 @@ Use this template for pixel-art work:
 | Item | Score | Notes |
 | --- | ---: | --- |
 | 1x readability |  |  |
-| reference match |  |  |
-| charm / appeal |  |  |
+| role clarity |  |  |
+| visual appeal |  |  |
 | gameplay visibility |  |  |
 | background separation |  |  |
 | style consistency |  |  |
