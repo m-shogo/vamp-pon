@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "aseprite:check": "node scripts/aseprite/check-aseprite-cli.mjs",
+    "aseprite:template:character": "node scripts/aseprite/create-character-template.mjs",
+    "aseprite:preview:character": "node scripts/aseprite/export-character-previews.mjs",
     "aseprite:export": "node scripts/aseprite/export-player-assets.mjs",
     "aseprite:export:yui": "node scripts/aseprite/export-player-assets.mjs",
     "aseprite:export:player": "node scripts/aseprite/export-player-assets.mjs",
