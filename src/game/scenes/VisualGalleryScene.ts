@@ -228,6 +228,12 @@ export class VisualGalleryScene extends Phaser.Scene {
       this.pageRoot.add(this.add.image(x, 78, assetId).setDisplaySize(32, 32));
       this.pageRoot.add(this.add.image(x, 158, assetId).setDisplaySize(128, 128));
       this.label(x, 224, `${label}\n1x / 4x`, 9, '#cfe6f0', 82);
+      // Pose-level hand-final progress tag: HF=hand-final / GD=generated-draft.
+      // idle is the frozen基準; move is built as its same-person差分.
+      const quality = generatedQualityById.get(assetId);
+      const isHandFinal = quality === 'hand-final';
+      const tag = isHandFinal ? (assetId === 'yui_idle' ? 'HF 基準' : 'HF 差分') : 'GD';
+      this.label(x, 240, tag, 9, isHandFinal ? '#8fd0a0' : '#9db7df', 82);
     });
 
     this.label(GAME_WIDTH / 2, 252, '背景上・hitCore・debug円・欠片との距離', 10, '#ffe9a8', 260);
@@ -247,7 +253,7 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.pageRoot.add(
       this.add.text(12, 388, [
         '見ること:',
-        '- idleが一番読めるか',
+        '- idle(基準)とmoveが同一人物・同一ライティングに見えるか',
         '- ランタン/欠片/hitCoreが近すぎないか',
         '- 黒インク敵と外形が混ざらないか',
         '- collisionはこの画面で変更しない',
