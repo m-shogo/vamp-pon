@@ -8,16 +8,17 @@
     :root {
       --bg: #101827;
       --panel: #17223a;
+      --panel2: #10192c;
       --paper: #eadfbe;
-      --ink: #090b10;
+      --muted: #d4c8a2;
       --gold: #d8aa55;
-      --blue: #6c8ddf;
       --fire: #f0a64a;
       --water: #7db8d8;
       --light: #f5e8a7;
       --dark: #4b496a;
       --neutral: #b8bdc9;
-      --line: rgba(216, 170, 85, .48);
+      --line: rgba(216, 170, 85, .44);
+      --soft: rgba(234, 223, 190, .08);
     }
     * { box-sizing: border-box; }
     body {
@@ -25,151 +26,281 @@
       background: radial-gradient(circle at 50% 0%, #263654 0, var(--bg) 55%);
       color: var(--paper);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
-      line-height: 1.6;
+      line-height: 1.55;
     }
-    header {
-      padding: 28px 28px 12px;
-      border-bottom: 1px solid var(--line);
-    }
+    header { padding: 28px 28px 14px; border-bottom: 1px solid var(--line); }
     h1 { margin: 0; font-size: 28px; letter-spacing: .04em; }
-    .subtitle { color: #d7c998; margin-top: 6px; }
-    main { padding: 24px; display: grid; gap: 20px; }
-    .board {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(150px, 1fr));
-      gap: 14px;
-      align-items: stretch;
+    h2 { margin: 0 0 12px; font-size: 18px; }
+    h3 { margin: 0 0 8px; font-size: 15px; color: #f1d994; }
+    p, li, td, th, label, button, select, input { font-size: 13px; }
+    button, select, input {
+      border: 1px solid var(--line);
+      background: rgba(16, 24, 39, .94);
+      color: var(--paper);
+      border-radius: 10px;
+      padding: 8px 10px;
     }
+    button { cursor: pointer; }
+    button:hover, .node:hover { border-color: rgba(245, 232, 167, .85); }
+    main { padding: 22px; display: grid; gap: 18px; }
+    .subtitle { color: #d7c998; margin-top: 6px; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+    .section, .detail {
+      border: 1px solid var(--line);
+      background: rgba(12,18,31,.76);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.2);
+    }
+    .toolbar { display: grid; grid-template-columns: 1.2fr 1fr 1fr auto; gap: 10px; }
+    .board { display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); gap: 12px; }
     .node {
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.12)), var(--panel);
       border-radius: 14px;
-      padding: 14px;
-      min-height: 168px;
+      padding: 13px;
+      min-height: 150px;
       position: relative;
-      box-shadow: 0 10px 28px rgba(0,0,0,.22);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform .12s ease, border-color .12s ease, opacity .12s ease;
     }
-    .node::before {
-      content: "";
-      position: absolute;
-      inset: 8px;
-      border: 1px solid rgba(216,170,85,.18);
-      border-radius: 10px;
-      pointer-events: none;
-    }
-    .core { grid-column: span 2; border-color: rgba(240,166,74,.8); }
-    .wide { grid-column: span 2; }
-    .boss { border-color: rgba(245,232,167,.7); }
-    .tag { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 12px; margin-right: 4px; color: #111; background: var(--gold); }
+    .node:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .node.active { border-color: var(--gold); transform: translateY(-2px); }
+    .node.hidden { display: none; }
+    .node-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+    .node-title strong { font-size: 17px; }
+    .tag { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 12px; margin: 2px 3px 2px 0; color: #111; background: var(--gold); }
     .fire { background: var(--fire); }
     .water { background: var(--water); }
     .light { background: var(--light); }
     .dark { background: var(--dark); color: white; }
     .neutral { background: var(--neutral); }
-    h2 { margin: 0 0 8px; font-size: 18px; }
-    h3 { margin: 0 0 8px; font-size: 15px; color: #f1d994; }
-    p, li { font-size: 13px; margin: 4px 0; }
-    .section {
-      border: 1px solid var(--line);
-      background: rgba(12,18,31,.74);
-      border-radius: 16px;
-      padding: 18px;
-    }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    th, td { border-bottom: 1px solid rgba(216,170,85,.22); padding: 8px; vertical-align: top; }
-    th { color: #f1d994; text-align: left; }
+    .future { color: #c7d2ff; }
+    .s1 { color: #f5e8a7; }
+    .small { font-size: 12px; color: var(--muted); }
     .path { color: #c9d8ff; }
-    .small { font-size: 12px; color: #d4c8a2; }
-    @media (max-width: 900px) {
-      .board, .grid { grid-template-columns: 1fr; }
-      .core, .wide { grid-column: auto; }
+    .detail { position: sticky; top: 14px; }
+    .detail dl { display: grid; grid-template-columns: 96px 1fr; gap: 6px 10px; margin: 0; }
+    .detail dt { color: #f1d994; }
+    .detail dd { margin: 0; color: var(--paper); }
+    .chips { margin-top: 8px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid rgba(216,170,85,.22); padding: 8px; text-align: left; vertical-align: top; }
+    th { color: #f1d994; }
+    tr[data-owner], tr[data-reading] { cursor: pointer; }
+    tr[data-owner]:hover, tr[data-reading]:hover { background: var(--soft); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .count { color: var(--muted); margin: 8px 0 0; }
+    @media (max-width: 1050px) {
+      .layout, .two-col { grid-template-columns: 1fr; }
+      .detail { position: static; }
+    }
+    @media (max-width: 760px) {
+      main { padding: 14px; }
+      .toolbar, .board { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Vamp Pon Story Street Map</h1>
-    <div class="subtitle">自分用。光る持ち物 / 記憶 / 黒インク / ユイ中心の相関図。</div>
+    <div class="subtitle">内部用。キャラ / 光る持ち物 / アイテム / 敵種 / 間違った読み / Season 1-Future を横断して確認する。</div>
   </header>
+
   <main>
     <section class="section">
-      <h2>読み方</h2>
-      <p>このHTMLは公開用ではなく、制作中に関係性・アイテム・余白を確認するための内部マップ。</p>
-      <p>基本式: <span class="path">光る持ち物 → 失われた記憶 → 初期アクション → ユイとの関係 → ハッピーエンドの余白</span></p>
+      <h2>使い方</h2>
+      <p>ノードをクリックすると右側に詳細表示。検索・属性・Seasonで絞り込み。下の表はアイテム→キャラ、敵種→間違った読みの逆引き。</p>
+      <p>基本式: <span class="path">光る持ち物 → 失われた記憶 → 初期アクション → ユイとの関係 → 余白 → 朝</span></p>
     </section>
 
-    <section class="board">
-      <article class="node core">
-        <h2>ユイ</h2>
-        <span class="tag fire">fire</span><span class="tag">lantern</span>
-        <p>中心。ランタンは固定。炎は精霊。黒インクを消すのではなく、間違った読みをほどく。</p>
-        <p><b>Happy:</b> みんなの答えではなく、みんなが自分で持ち帰れる光を見つける。</p>
-      </article>
-      <article class="node">
-        <h2>アサ</h2><span class="tag neutral">name</span>
-        <p>名札の光。名前をつける/隠す。ユイとの関係は片方だけ覚えている可能性。</p>
-      </article>
-      <article class="node">
-        <h2>ナギ</h2><span class="tag light">box</span>
-        <p>月の箱。しまったから残せた。箱の中に別家系の部品がある。</p>
-      </article>
-      <article class="node">
-        <h2>ミチル</h2><span class="tag neutral">compass</span>
-        <p>帰り道。コンパスの光。道ではなく帰る相手があった。</p>
-      </article>
-      <article class="node">
-        <h2>トモリ</h2><span class="tag fire">fire branch</span>
-        <p>普通のランタンは持たない。修理跡・部品・工具でユイの火と関係する。</p>
-      </article>
-      <article class="node wide">
-        <h2>Circle 10</h2>
-        <p>先生、兄妹、祖父母、郵便、窓、図書、駅、夢。全員ユイと一度は接触済み。</p>
-        <p>本格登場しなくても、背景小物や欠片名で存在を置ける。</p>
-      </article>
-      <article class="node wide">
-        <h2>Shadow / Rival</h2><span class="tag dark">dark</span>
-        <p>折る、隠す、消したふり、夜を読む、余白を残す。悪ではなく別の守り方。</p>
-      </article>
-      <article class="node boss">
-        <h2>複合属性</h2>
-        <span class="tag fire">fire</span><span class="tag water">water</span><span class="tag dark">dark</span>
-        <p>強いが重い。4属性/5属性はキャラというより事件。Season 1では痕跡だけ。</p>
-      </article>
+    <section class="section toolbar" aria-label="filters">
+      <input id="searchInput" type="search" placeholder="キャラ / 持ち物 / アイテム / 余白で検索" />
+      <select id="lineageFilter" aria-label="属性フィルター">
+        <option value="all">全属性</option>
+        <option value="fire">fire</option>
+        <option value="water">water</option>
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+        <option value="neutral">neutral</option>
+        <option value="lightning">lightning</option>
+        <option value="multi">multi</option>
+      </select>
+      <select id="seasonFilter" aria-label="Seasonフィルター">
+        <option value="all">Season 1 + Future</option>
+        <option value="s1">Season 1</option>
+        <option value="future">Future</option>
+      </select>
+      <button id="resetButton" type="button">Reset</button>
     </section>
 
-    <section class="section">
-      <h2>Lineage Streets</h2>
-      <div class="grid">
-        <div><h3>Fire street</h3><p>ランタン、松明、ろうそく、紙提灯。家・祈り・前進。ユイと親族/近縁が発生しやすい。</p></div>
-        <div><h3>Water street</h3><p>瓶、フラスコ、雨、夢。保存・涙・沈静。記憶をしまいすぎる危うさ。</p></div>
-        <div><h3>Lightning street</h3><p>電球、ラジオ、電池。突然戻る記憶、接続、衝動。強いが不安定。</p></div>
-        <div><h3>Light street</h3><p>星灯、窓、夜明け。導き・真実・受容。全部を照らすと傷つく場合がある。</p></div>
-        <div><h3>Dark street</h3><p>黒鏡、折り目、影、空白。悪ではなく、隠して守る記憶。</p></div>
-        <div><h3>Neutral street</h3><p>ヘッドライト、街灯、信号、プロジェクター。人が作った光。中立・機能・道案内。</p></div>
+    <div class="layout">
+      <section class="section">
+        <h2>Relationship Nodes</h2>
+        <div id="nodeBoard" class="board" aria-live="polite"></div>
+        <p id="visibleCount" class="count"></p>
+      </section>
+
+      <aside id="detailPanel" class="detail" aria-live="polite">
+        <h2>Detail</h2>
+        <p class="small">ノード・アイテム・敵種をクリックしてください。</p>
+      </aside>
+    </div>
+
+    <section class="section two-col">
+      <div>
+        <h2>Item → Character Reverse Lookup</h2>
+        <table>
+          <thead><tr><th>Item</th><th>Character</th><th>Meaning</th></tr></thead>
+          <tbody id="itemTable"></tbody>
+        </table>
+      </div>
+      <div>
+        <h2>Enemy Type → Wrong Reading Lookup</h2>
+        <table>
+          <thead><tr><th>Type</th><th>Wrong reading</th><th>Released clue</th></tr></thead>
+          <tbody id="enemyTable"></tbody>
+        </table>
       </div>
     </section>
-
-    <section class="section">
-      <h2>Item Meaning Chain</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Wrong reading</th><th>Happy-end reading</th></tr></thead>
-        <tbody>
-          <tr><td>割れたランタンガラス</td><td>壊れた灯り</td><td>誰かが消える前に直そうとした証拠</td></tr>
-          <tr><td>片方だけの切符</td><td>帰れなかった印</td><td>もう片方を誰かが持っている</td></tr>
-          <tr><td>名札</td><td>名前を忘れた</td><td>名前を守るために隠した</td></tr>
-          <tr><td>曇った瓶</td><td>閉じ込めた感情</td><td>こぼさず残した記憶</td></tr>
-          <tr><td>空白のカード</td><td>何もない</td><td>まだ続きを描ける余白</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="section">
-      <h2>Season 1 Boundary</h2>
-      <p>P1はユイのみ。複合属性、家系図、関係性システムは入れない。</p>
-      <p>許可: 筆跡、修理跡、箱、切符、二色の焦げ跡、背景小物、名前だけの痕跡。</p>
-      <p class="small">Goal: 全部説明しない。けれど後で見返すと、最初からそこにあったと分かる。</p>
-    </section>
   </main>
+
+  <script>
+    const characters = [
+      { id: 'yui', name: 'ユイ', season: 's1', lineage: ['fire'], vessel: 'lantern', role: '拾う / 読み直す', first: 'warm flame / memory fire', yui: '中心', other: 'all lines cross near her', items: ['wick', 'cracked lantern glass', 'oil tag', 'small flint', 'warm map edge'], blank: 'why she had met everyone once', happy: 'carrying does not mean owning every memory' },
+      { id: 'asa', name: 'アサ', season: 's1', lineage: ['neutral'], vessel: 'name tag with small ink-light', role: '名前 / 印', first: 'name mark', yui: 'one-sided name memory', other: 'Koyori through name writing', items: ['name tag pin', 'inked label', 'erased syllable', 'folded name card'], blank: 'whether Asa named Yui first', happy: 'a name can be kept without being shouted' },
+      { id: 'nagi', name: 'ナギ', season: 's1', lineage: ['light'], vessel: 'moon box', role: 'しまう / 守る', first: 'capsule shield', yui: 'stored lantern part', other: 'Hana through keeping things', items: ['tiny key', 'box corner', 'moon clasp', 'lining cloth', 'hidden note'], blank: 'who locked the first box', happy: 'keeping something closed can also be kindness' },
+      { id: 'michiru', name: 'ミチル', season: 's1', lineage: ['neutral'], vessel: 'compass light', role: '道 / 移動', first: 'route flare', yui: 'shared lost route', other: 'Gen through old roads', items: ['needle', 'ticket half', 'route thread', 'map corner', 'station mark'], blank: 'whether the route was real', happy: 'a way home can be a person, not a place' },
+      { id: 'tomori', name: 'トモリ', season: 's1', lineage: ['fire'], vessel: 'repaired lantern part', role: '灯りを直す', first: 'area light / burst', yui: 'repaired Yui symbol', other: 'fire-line sibling or cousin seed', items: ['spare glass', 'tool cloth', 'lamp screw', 'soot brush', 'repair note'], blank: 'why Tomori knows the lantern', happy: 'waiting was not empty if the light was being repaired' },
+      { id: 'ritsu', name: 'リツ', season: 'future', lineage: ['fire'], vessel: 'half-candy wrapper light', role: '半分残す', first: 'split projectile', yui: 'shared half of something', other: 'Koyori sibling line', items: ['half wrapper', 'warm sugar chip'], blank: 'which half Yui kept', happy: 'what was split can still guide home' },
+      { id: 'hana', name: 'ハナ', season: 'future', lineage: ['water'], vessel: 'pressed-flower bookmark', role: '保存', first: 'slow field', yui: 'kept a page Yui lost', other: 'Nagi and Shiro', items: ['pressed bookmark', 'flower dust'], blank: 'who pressed the flower first', happy: 'stored things are not forgotten things' },
+      { id: 'madoka', name: 'マドカ', season: 'future', lineage: ['light'], vessel: 'window-paper plane light', role: '見ていた', first: 'reveal cone', yui: 'saw Yui from a window', other: 'Sen classroom line', items: ['paper plane', 'window mark'], blank: 'what Madoka chose not to say', happy: 'watching can become care' },
+      { id: 'kuroori', name: 'クロオリ', season: 'future', lineage: ['dark'], vessel: 'black origami', role: '折る / 隠す', first: 'transform shape', yui: 'folded a page Yui later opened', other: 'Kage team', items: ['black origami', 'folded map'], blank: 'what is inside the fold', happy: 'folding can also make something carryable' },
+      { id: 'multi', name: '複合属性', season: 'future', lineage: ['multi', 'fire', 'water', 'dark'], vessel: 'fused vessel', role: '事件そのもの', first: 'phase / reveal-only effect', yui: 'Yui once saw one half', other: 'multiple families', items: ['mismatched glow', 'cracked vessel part'], blank: 'rescue or mistake', happy: 'separate meanings enough that each can be carried' }
+    ];
+
+    const itemRows = [
+      ['cracked lantern glass', 'ユイ / トモリ', '壊れた灯り → 誰かが消える前に直そうとした証拠'],
+      ['ticket half', 'ミチル / トバリ', '帰れなかった印 → もう片方を誰かが持っている'],
+      ['name tag pin', 'アサ / コヨリ', '名前を忘れた → 名前を守るために隠した'],
+      ['moon clasp', 'ナギ', '閉じた箱 → しまったから残せた'],
+      ['pressed bookmark', 'ハナ / シロ', 'しまった記憶 → なくさず残した記憶'],
+      ['ink sample card', '影読み', 'ただの敵 → 間違った読みの型'],
+      ['battery cap', 'neutral line', '人工光 → 人が作った道案内'],
+      ['blank card', 'Shadow / Rival', '何もない → 続きを描ける余白']
+    ];
+
+    const enemyRows = [
+      ['ink blob', 'owner unknown', 'small fragment'],
+      ['nameless shadow', 'name covered', 'name mark'],
+      ['vessel seeker', 'light vessel targeted', 'cracked vessel clue'],
+      ['mimic shadow', 'copied outline', 'false relation clue'],
+      ['black page', 'whole scene covered', 'page clue'],
+      ['folded shadow', 'memory folded shut', 'folded-object clue'],
+      ['blank shadow', 'meaning not decided', 'blank-space clue'],
+      ['multi-lineage trace', 'too many meanings in one vessel', 'mismatched glow clue']
+    ];
+
+    const board = document.getElementById('nodeBoard');
+    const detail = document.getElementById('detailPanel');
+    const count = document.getElementById('visibleCount');
+    const searchInput = document.getElementById('searchInput');
+    const lineageFilter = document.getElementById('lineageFilter');
+    const seasonFilter = document.getElementById('seasonFilter');
+
+    function tagClass(lineage) {
+      return ['fire','water','light','dark','neutral'].includes(lineage) ? lineage : '';
+    }
+
+    function renderNodes() {
+      board.innerHTML = characters.map((c) => `
+        <article class="node" tabindex="0" data-id="${c.id}" data-season="${c.season}" data-lineage="${c.lineage.join(' ')}">
+          <div class="node-title"><strong>${c.name}</strong><span class="${c.season === 's1' ? 's1' : 'future'}">${c.season === 's1' ? 'Season 1' : 'Future'}</span></div>
+          <div>${c.lineage.map((l) => `<span class="tag ${tagClass(l)}">${l}</span>`).join('')}</div>
+          <p><b>Vessel:</b> ${c.vessel}</p>
+          <p><b>Role:</b> ${c.role}</p>
+          <p class="small">Blank: ${c.blank}</p>
+        </article>`).join('');
+
+      board.querySelectorAll('.node').forEach((node) => {
+        node.addEventListener('click', () => showCharacter(node.dataset.id));
+        node.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') showCharacter(node.dataset.id);
+        });
+      });
+      applyFilters();
+      showCharacter('yui');
+    }
+
+    function showCharacter(id) {
+      const c = characters.find((entry) => entry.id === id);
+      if (!c) return;
+      board.querySelectorAll('.node').forEach((node) => node.classList.toggle('active', node.dataset.id === id));
+      detail.innerHTML = `
+        <h2>${c.name}</h2>
+        <div class="chips">${c.lineage.map((l) => `<span class="tag ${tagClass(l)}">${l}</span>`).join('')}</div>
+        <dl>
+          <dt>Season</dt><dd>${c.season === 's1' ? 'Season 1' : 'Future'}</dd>
+          <dt>Vessel</dt><dd>${c.vessel}</dd>
+          <dt>First</dt><dd>${c.first}</dd>
+          <dt>Yui link</dt><dd>${c.yui}</dd>
+          <dt>Other link</dt><dd>${c.other}</dd>
+          <dt>Items</dt><dd>${c.items.join(' / ')}</dd>
+          <dt>Blank</dt><dd>${c.blank}</dd>
+          <dt>Happy</dt><dd>${c.happy}</dd>
+        </dl>`;
+    }
+
+    function showLookup(title, rows) {
+      detail.innerHTML = `<h2>${title}</h2><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+    }
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      const lineage = lineageFilter.value;
+      const season = seasonFilter.value;
+      let visible = 0;
+
+      board.querySelectorAll('.node').forEach((node) => {
+        const c = characters.find((entry) => entry.id === node.dataset.id);
+        const haystack = [c.name, c.vessel, c.role, c.first, c.yui, c.other, c.blank, c.happy, ...c.items, ...c.lineage].join(' ').toLowerCase();
+        const matchText = !q || haystack.includes(q);
+        const matchLineage = lineage === 'all' || c.lineage.includes(lineage);
+        const matchSeason = season === 'all' || c.season === season;
+        const show = matchText && matchLineage && matchSeason;
+        node.classList.toggle('hidden', !show);
+        if (show) visible += 1;
+      });
+      count.textContent = `${visible} / ${characters.length} nodes visible`;
+    }
+
+    function renderTables() {
+      document.getElementById('itemTable').innerHTML = itemRows.map(([item, owner, meaning]) => `
+        <tr data-owner="${owner}"><td>${item}</td><td>${owner}</td><td>${meaning}</td></tr>`).join('');
+      document.getElementById('enemyTable').innerHTML = enemyRows.map(([type, reading, clue]) => `
+        <tr data-reading="${reading}"><td>${type}</td><td>${reading}</td><td>${clue}</td></tr>`).join('');
+
+      document.querySelectorAll('#itemTable tr').forEach((row) => {
+        row.addEventListener('click', () => showLookup('Item Reverse Lookup', [['Item', row.children[0].textContent], ['Character', row.children[1].textContent], ['Meaning', row.children[2].textContent]]));
+      });
+      document.querySelectorAll('#enemyTable tr').forEach((row) => {
+        row.addEventListener('click', () => showLookup('Enemy Reading Lookup', [['Type', row.children[0].textContent], ['Wrong reading', row.children[1].textContent], ['Released clue', row.children[2].textContent]]));
+      });
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    lineageFilter.addEventListener('change', applyFilters);
+    seasonFilter.addEventListener('change', applyFilters);
+    document.getElementById('resetButton').addEventListener('click', () => {
+      searchInput.value = '';
+      lineageFilter.value = 'all';
+      seasonFilter.value = 'all';
+      applyFilters();
+      showCharacter('yui');
+    });
+
+    renderNodes();
+    renderTables();
+  </script>
 </body>
 </html>
