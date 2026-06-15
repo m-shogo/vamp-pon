@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vamp Pon Story Street Map</title>
+  <style>
+    :root {
+      --bg: #101827;
+      --panel: #17223a;
+      --paper: #eadfbe;
+      --ink: #090b10;
+      --gold: #d8aa55;
+      --blue: #6c8ddf;
+      --fire: #f0a64a;
+      --water: #7db8d8;
+      --light: #f5e8a7;
+      --dark: #4b496a;
+      --neutral: #b8bdc9;
+      --line: rgba(216, 170, 85, .48);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 50% 0%, #263654 0, var(--bg) 55%);
+      color: var(--paper);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      line-height: 1.6;
+    }
+    header {
+      padding: 28px 28px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    h1 { margin: 0; font-size: 28px; letter-spacing: .04em; }
+    .subtitle { color: #d7c998; margin-top: 6px; }
+    main { padding: 24px; display: grid; gap: 20px; }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 14px;
+      align-items: stretch;
+    }
+    .node {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.12)), var(--panel);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 168px;
+      position: relative;
+      box-shadow: 0 10px 28px rgba(0,0,0,.22);
+    }
+    .node::before {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(216,170,85,.18);
+      border-radius: 10px;
+      pointer-events: none;
+    }
+    .core { grid-column: span 2; border-color: rgba(240,166,74,.8); }
+    .wide { grid-column: span 2; }
+    .boss { border-color: rgba(245,232,167,.7); }
+    .tag { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 12px; margin-right: 4px; color: #111; background: var(--gold); }
+    .fire { background: var(--fire); }
+    .water { background: var(--water); }
+    .light { background: var(--light); }
+    .dark { background: var(--dark); color: white; }
+    .neutral { background: var(--neutral); }
+    h2 { margin: 0 0 8px; font-size: 18px; }
+    h3 { margin: 0 0 8px; font-size: 15px; color: #f1d994; }
+    p, li { font-size: 13px; margin: 4px 0; }
+    .section {
+      border: 1px solid var(--line);
+      background: rgba(12,18,31,.74);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border-bottom: 1px solid rgba(216,170,85,.22); padding: 8px; vertical-align: top; }
+    th { color: #f1d994; text-align: left; }
+    .path { color: #c9d8ff; }
+    .small { font-size: 12px; color: #d4c8a2; }
+    @media (max-width: 900px) {
+      .board, .grid { grid-template-columns: 1fr; }
+      .core, .wide { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Vamp Pon Story Street Map</h1>
+    <div class="subtitle">自分用。光る持ち物 / 記憶 / 黒インク / ユイ中心の相関図。</div>
+  </header>
+  <main>
+    <section class="section">
+      <h2>読み方</h2>
+      <p>このHTMLは公開用ではなく、制作中に関係性・アイテム・余白を確認するための内部マップ。</p>
+      <p>基本式: <span class="path">光る持ち物 → 失われた記憶 → 初期アクション → ユイとの関係 → ハッピーエンドの余白</span></p>
+    </section>
+
+    <section class="board">
+      <article class="node core">
+        <h2>ユイ</h2>
+        <span class="tag fire">fire</span><span class="tag">lantern</span>
+        <p>中心。ランタンは固定。炎は精霊。黒インクを消すのではなく、間違った読みをほどく。</p>
+        <p><b>Happy:</b> みんなの答えではなく、みんなが自分で持ち帰れる光を見つける。</p>
+      </article>
+      <article class="node">
+        <h2>アサ</h2><span class="tag neutral">name</span>
+        <p>名札の光。名前をつける/隠す。ユイとの関係は片方だけ覚えている可能性。</p>
+      </article>
+      <article class="node">
+        <h2>ナギ</h2><span class="tag light">box</span>
+        <p>月の箱。しまったから残せた。箱の中に別家系の部品がある。</p>
+      </article>
+      <article class="node">
+        <h2>ミチル</h2><span class="tag neutral">compass</span>
+        <p>帰り道。コンパスの光。道ではなく帰る相手があった。</p>
+      </article>
+      <article class="node">
+        <h2>トモリ</h2><span class="tag fire">fire branch</span>
+        <p>普通のランタンは持たない。修理跡・部品・工具でユイの火と関係する。</p>
+      </article>
+      <article class="node wide">
+        <h2>Circle 10</h2>
+        <p>先生、兄妹、祖父母、郵便、窓、図書、駅、夢。全員ユイと一度は接触済み。</p>
+        <p>本格登場しなくても、背景小物や欠片名で存在を置ける。</p>
+      </article>
+      <article class="node wide">
+        <h2>Shadow / Rival</h2><span class="tag dark">dark</span>
+        <p>折る、隠す、消したふり、夜を読む、余白を残す。悪ではなく別の守り方。</p>
+      </article>
+      <article class="node boss">
+        <h2>複合属性</h2>
+        <span class="tag fire">fire</span><span class="tag water">water</span><span class="tag dark">dark</span>
+        <p>強いが重い。4属性/5属性はキャラというより事件。Season 1では痕跡だけ。</p>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2>Lineage Streets</h2>
+      <div class="grid">
+        <div><h3>Fire street</h3><p>ランタン、松明、ろうそく、紙提灯。家・祈り・前進。ユイと親族/近縁が発生しやすい。</p></div>
+        <div><h3>Water street</h3><p>瓶、フラスコ、雨、夢。保存・涙・沈静。記憶をしまいすぎる危うさ。</p></div>
+        <div><h3>Lightning street</h3><p>電球、ラジオ、電池。突然戻る記憶、接続、衝動。強いが不安定。</p></div>
+        <div><h3>Light street</h3><p>星灯、窓、夜明け。導き・真実・受容。全部を照らすと傷つく場合がある。</p></div>
+        <div><h3>Dark street</h3><p>黒鏡、折り目、影、空白。悪ではなく、隠して守る記憶。</p></div>
+        <div><h3>Neutral street</h3><p>ヘッドライト、街灯、信号、プロジェクター。人が作った光。中立・機能・道案内。</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Item Meaning Chain</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Wrong reading</th><th>Happy-end reading</th></tr></thead>
+        <tbody>
+          <tr><td>割れたランタンガラス</td><td>壊れた灯り</td><td>誰かが消える前に直そうとした証拠</td></tr>
+          <tr><td>片方だけの切符</td><td>帰れなかった印</td><td>もう片方を誰かが持っている</td></tr>
+          <tr><td>名札</td><td>名前を忘れた</td><td>名前を守るために隠した</td></tr>
+          <tr><td>曇った瓶</td><td>閉じ込めた感情</td><td>こぼさず残した記憶</td></tr>
+          <tr><td>空白のカード</td><td>何もない</td><td>まだ続きを描ける余白</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>Season 1 Boundary</h2>
+      <p>P1はユイのみ。複合属性、家系図、関係性システムは入れない。</p>
+      <p>許可: 筆跡、修理跡、箱、切符、二色の焦げ跡、背景小物、名前だけの痕跡。</p>
+      <p class="small">Goal: 全部説明しない。けれど後で見返すと、最初からそこにあったと分かる。</p>
+    </section>
+  </main>
+</body>
+</html>
