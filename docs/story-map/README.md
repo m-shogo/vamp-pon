@@ -18,6 +18,16 @@ It is a private planning map for checking:
 - high-order lineage traces
 - happy-end direction
 
+## Current features
+
+- click nodes to open details
+- character / text search
+- lineage filter
+- Season 1 / Future filter
+- item to character reverse lookup
+- enemy type to wrong-reading lookup
+- reset button for review sessions
+
 ## Open locally
 
 Open this file in a browser:
