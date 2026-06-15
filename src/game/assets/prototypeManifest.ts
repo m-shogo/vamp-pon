@@ -30,6 +30,30 @@ export const prototypeAssets: PrototypeAssetEntry[] = [
     compareWith: 'yui_idle',
     label: 'idle v3 (32px高密度案)',
   },
+  {
+    id: 'yui_idle_v4_40',
+    path: 'assets/sprites/player/prototypes/yui_idle_v4_40.png',
+    width: 40,
+    height: 40,
+    compareWith: 'yui_idle',
+    label: 'idle v4 (40px案)',
+  },
+  {
+    id: 'yui_idle_v4_42',
+    path: 'assets/sprites/player/prototypes/yui_idle_v4_42.png',
+    width: 42,
+    height: 42,
+    compareWith: 'yui_idle',
+    label: 'idle v4 (42px案)',
+  },
+  {
+    id: 'yui_idle_v4_44',
+    path: 'assets/sprites/player/prototypes/yui_idle_v4_44.png',
+    width: 44,
+    height: 44,
+    compareWith: 'yui_idle',
+    label: 'idle v4 (44px案)',
+  },
 ];
 
 export const prototypeById = new Map(prototypeAssets.map((p) => [p.id, p]));

@@ -17,7 +17,7 @@ pnpm build
 - `aseprite:check`: stable v1.3.17.x のCLIを探し、version / resolved path / usable を表示する。
 - `aseprite:export`: 現在はユイ4ポーズのexport入口。
 - `aseprite:export:yui`: `aseprite:export` と同じ。ユイ作業者向けの明示名。
-- `aseprite:export:proto`: 比較用 prototype（例: `yui_idle_v3_32`）を `public/assets/sprites/player/prototypes/` へ export。本番 export とは分離。
+- `aseprite:export:proto`: 比較用 prototype（`yui_idle_v3_32` / `yui_idle_v4_40|42|44`）を `public/assets/sprites/player/prototypes/` へ export。本番 export とは分離。
 
 > 注意: Aseprite CLI は `--script-param` を `--script` より前に置く（順序が逆だと param が読めない）。
 

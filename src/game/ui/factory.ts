@@ -60,7 +60,19 @@ function addPickupReadability(
  * プレイヤー（ユイ）: フードの小さな主人公 + 手元の小さなランタン。
  * 参考: style_sprite-sheet_01 / style_gameplay_02。暗い背景でも輪郭が読める。
  */
-export function createPlayerView(scene: Phaser.Scene, x: number, y: number): Phaser.GameObjects.Container {
+/**
+ * @param opts.visualSize 見た目の表示サイズ(px)。比較用のみ。collision(radius=6)/hitCoreは不変。
+ *                        既定は PLAYER_DEFAULTS.visualSize=36（本番と同一）。
+ * @param opts.textureId  表示テクスチャキー。既定 'yui_idle'。比較ページで prototype を差せる。
+ */
+export function createPlayerView(
+  scene: Phaser.Scene,
+  x: number,
+  y: number,
+  opts?: { visualSize?: number; textureId?: string },
+): Phaser.GameObjects.Container {
+  const visual = opts?.visualSize ?? PLAYER_DEFAULTS.visualSize;
+  const textureId = opts?.textureId ?? 'yui_idle';
   const c = scene.add.container(x, y);
   const hitCore = scene.add.circle(0, 0, 2.5, COLORS.lantern, 0.95);
   hitCore.setStrokeStyle(1, 0xffffff, 0.9);
@@ -70,7 +82,7 @@ export function createPlayerView(scene: Phaser.Scene, x: number, y: number): Pha
   c.setData('hitCore', hitCore);
   c.setData('debugHitCircle', debugHitCircle);
   // 画像があればスプライト、無ければ Graphics fallback（以下）
-  const sprite = spriteOrNull(scene, 'yui_idle', 36, 36);
+  const sprite = spriteOrNull(scene, textureId, visual, visual);
   if (sprite) {
     c.add([sprite, hitCore, debugHitCircle]);
     c.setDepth(DEPTH.player);

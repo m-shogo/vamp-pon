@@ -52,14 +52,14 @@ HUD / ポーズ / クリア / ゲームオーバー / リザルト
 2. [済] yui_move（移動差分）を idle 基準の hand-final candidate にする
 3. [済] yui_hurt（被弾差分）を idle 基準の hand-final candidate にする
 4. [済] asset-status の HF/GF/GD 分離マークを入れる
-5. [検討中] ユイ「32pxのまま高密度化」リデザイン prototype を /?scene=yui-redesign32 で比較
-6. v3 prototype を実機/ブラウザで確認 → 良ければ v3 基準で 4ポーズを作り直し、ダメなら 36px比較へ
-7. idle / move / hurt の実機スマホ1xの視認を確認する（未取得）
-8. yui_ultimate を idle（または採用後の v3）基準で作る（collision footprintは変えない）
+5. [検討中] ユイ「32pxのまま高密度化」prototype を /?scene=yui-redesign32 で比較
+6. [検討中] 「32pxは小さい」→ 見た目サイズ 40/42/44 を /?scene=yui-redesign42 と /?scene=combat-mock&density=late&playerVisual=42 で比較
+7. 実機で v3(32) / v4(42前後) を確認 → 採用サイズ・案を決定（collision radius=6・stats は不変）
+8. 採用が決まったら、その基準で idle→move→hurt→ultimate を作り直す
 9. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
 ```
 
-ハンドファイナル手順は [docs/yui-aseprite-hand-final-plan.md](docs/yui-aseprite-hand-final-plan.md)、32px高密度化の方針は [docs/yui-32px-redesign-notes.md](docs/yui-32px-redesign-notes.md) を参照。
+参照: ハンドファイナル手順は [docs/yui-aseprite-hand-final-plan.md](docs/yui-aseprite-hand-final-plan.md)、32px高密度化案は [docs/yui-32px-redesign-notes.md](docs/yui-32px-redesign-notes.md)、見た目サイズ(42px前後)案は [docs/yui-42px-visual-size-test.md](docs/yui-42px-visual-size-test.md)。
 
 調整の指標→数値マップは [docs/balance-log.md](docs/balance-log.md) の「序盤（0:00〜3:00）調整ガイド」を参照。
 

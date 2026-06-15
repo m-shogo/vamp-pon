@@ -6,9 +6,10 @@
 `yui_idle` を凍結した基準として、`yui_move`（移動差分）・`yui_hurt`（被弾差分）を同一人物・同一ライティングで作成済み。
 残り `yui_ultimate` はまだ着手しない。
 
-> 別線で「32pxのままもっと可愛く・高解像度感」リデザインの検討が進行中。
-> 比較 prototype `yui_idle_v3_32` を追加（本番未差し替え）。詳細は [yui-32px-redesign-notes.md](yui-32px-redesign-notes.md)、比較は `/?scene=yui-redesign32`。
-> v3 を本番採用する場合は、この hand-final 4ポーズを v3 基準で作り直す前提。
+> 別線で「もっと可愛く・高解像度感」リデザインの検討が進行中。
+> - 32px案: 比較 prototype `yui_idle_v3_32`（[yui-32px-redesign-notes.md](yui-32px-redesign-notes.md) / `/?scene=yui-redesign32`）。
+> - 見た目サイズ案: 「32pxは小さい」→ 40/42/44px の `yui_idle_v4_*` 比較（[yui-42px-visual-size-test.md](yui-42px-visual-size-test.md) / `/?scene=yui-redesign42`、`combat-mock&playerVisual=42` 等）。
+> いずれも本番未差し替え・`visualSize`/`radius` 未変更。採用が決まれば、その基準で hand-final 4ポーズを作り直す前提。
 
 ## Production Tool
 

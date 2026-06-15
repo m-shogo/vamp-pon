@@ -52,6 +52,30 @@ export const PROTOTYPE_ASEPRITE_EXPORTS = [
     width: 32,
     height: 32,
   },
+  {
+    id: 'yui_idle_v4_40',
+    source: 'assets/source/aseprite/player/prototypes/yui_idle_v4_40.aseprite',
+    target: 'public/assets/sprites/player/prototypes/yui_idle_v4_40.png',
+    manifestPath: 'assets/sprites/player/prototypes/yui_idle_v4_40.png',
+    width: 40,
+    height: 40,
+  },
+  {
+    id: 'yui_idle_v4_42',
+    source: 'assets/source/aseprite/player/prototypes/yui_idle_v4_42.aseprite',
+    target: 'public/assets/sprites/player/prototypes/yui_idle_v4_42.png',
+    manifestPath: 'assets/sprites/player/prototypes/yui_idle_v4_42.png',
+    width: 42,
+    height: 42,
+  },
+  {
+    id: 'yui_idle_v4_44',
+    source: 'assets/source/aseprite/player/prototypes/yui_idle_v4_44.aseprite',
+    target: 'public/assets/sprites/player/prototypes/yui_idle_v4_44.png',
+    manifestPath: 'assets/sprites/player/prototypes/yui_idle_v4_44.png',
+    width: 44,
+    height: 44,
+  },
 ];
 
 export function asepriteCandidatePaths({ env = process.env } = {}) {

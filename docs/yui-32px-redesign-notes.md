@@ -89,3 +89,13 @@
 - まず `/?scene=yui-redesign32` と実機で v3 を確認し、方向性が良ければ v3 を磨いて本番 `yui_idle` 差し替え候補にする（その際 move/hurt も同基準で更新）。
 - 32px のままで「顔・ランタン・外周」の改善が頭打ちになったら、その時点で **36px 比較**へ進む（visualSize/collision は別途検討）。
 - 現状はまだ prototype。本番採用はしていない。
+
+## 追記: 32px だと小さく感じる → 42px前後の見た目サイズ比較へ
+
+ユーザー確認で「32pxだとプレイヤーが小さい。42pxくらいに大きくしたい」という方針が出た。
+v3 の**かわいい方向性は維持**しつつ、見た目サイズを 36 → 40/42/44 に上げた比較を別途用意した。
+
+- 見た目だけ大きくし、**collision radius=6 / pickup / stats は変更しない**（東方方式を維持）。
+- 詳細・比較導線・所感は [yui-42px-visual-size-test.md](yui-42px-visual-size-test.md)。
+- 比較ページ: `/?scene=yui-redesign42`、実地確認: `/?scene=combat-mock&density=late&playerVisual=40|42|44`。
+- 42px が良ければ `yui_idle_v4_42` を基準に idle→move→hurt→ultimate を作り直し、本番 `visualSize` を上げる。大きすぎれば 40px へ戻す。**42px 採用は未決定**。
