@@ -30,8 +30,8 @@
     header { padding: 28px 28px 14px; border-bottom: 1px solid var(--line); }
     h1 { margin: 0; font-size: 28px; letter-spacing: .04em; }
     h2 { margin: 0 0 12px; font-size: 18px; }
-    h3 { margin: 0 0 8px; font-size: 15px; color: #f1d994; }
-    p, li, td, th, label, button, select, input, textarea { font-size: 13px; }
+    h3 { margin: 14px 0 8px; font-size: 15px; color: #f1d994; }
+    p, li, td, th, label, button, select, input, textarea, pre { font-size: 13px; }
     button, select, input, textarea {
       border: 1px solid var(--line);
       background: rgba(16, 24, 39, .94);
@@ -53,16 +53,23 @@
       box-shadow: 0 10px 28px rgba(0,0,0,.2);
     }
     .toolbar { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr auto; gap: 10px; }
-    .board { display: grid; grid-template-columns: repeat(4, minmax(150px, 1fr)); gap: 12px; }
+    .map-scroll { overflow: auto; border-radius: 14px; border: 1px solid rgba(216,170,85,.2); background: rgba(8,13,24,.48); }
+    .map-canvas { position: relative; min-width: 1500px; min-height: 940px; }
+    .edge-svg { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .edge-svg line { stroke: rgba(216,170,85,.56); stroke-width: 1.5; }
+    .edge-svg text { fill: #d4c8a2; font-size: 11px; paint-order: stroke; stroke: #101827; stroke-width: 3px; }
+    .node-layer { position: absolute; inset: 0; z-index: 2; }
     .node {
+      position: absolute;
+      width: 220px;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.12)), var(--panel);
       border-radius: 14px;
       padding: 13px;
       min-height: 158px;
-      position: relative;
       box-shadow: 0 10px 24px rgba(0,0,0,.22);
       transition: transform .12s ease, border-color .12s ease, opacity .12s ease;
+      touch-action: none;
     }
     .node:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
     .node.active { border-color: var(--gold); transform: translateY(-2px); }
@@ -103,20 +110,20 @@
     }
     @media (max-width: 760px) {
       main { padding: 14px; }
-      .toolbar, .board { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Vamp Pon Story Street Map</h1>
-    <div class="subtitle">内部用。キャラ / 光る持ち物 / アイテム / 間違った読み / Season / 制作優先度を横断確認する。</div>
+    <div class="subtitle">内部用。JSON分離 / SVG関係線 / ノード位置保存 / localStorageメモ / review・preview参照。</div>
   </header>
 
   <main>
     <section class="section">
       <h2>使い方</h2>
-      <p>ノードをクリックすると右側に詳細表示。検索・属性・Season・制作ステータスで絞り込み。下の表はアイテム、読み、関係、制作バックログの逆引き。</p>
+      <p>ノードをクリックで詳細表示。ドラッグで位置調整。位置とメモはブラウザのlocalStorageに保存されます。</p>
       <p>基本式: <span class="path">光る持ち物 → 失われた記憶 → 初期アクション → ユイとの関係 → 余白 → 朝</span></p>
     </section>
 
@@ -151,14 +158,19 @@
 
     <div class="layout">
       <section class="section">
-        <h2>Relationship Nodes</h2>
-        <div id="nodeBoard" class="board" aria-live="polite"></div>
+        <h2>Relationship Map</h2>
+        <div class="map-scroll">
+          <div class="map-canvas">
+            <svg id="edgeSvg" class="edge-svg" aria-hidden="true"></svg>
+            <div id="nodeBoard" class="node-layer" aria-live="polite"></div>
+          </div>
+        </div>
         <p id="visibleCount" class="count"></p>
       </section>
 
       <aside id="detailPanel" class="detail" aria-live="polite">
         <h2>Detail</h2>
-        <p class="small">ノード・アイテム・読み・関係をクリックしてください。</p>
+        <p class="small">JSONを読み込み中です。</p>
       </aside>
     </div>
 
@@ -191,207 +203,6 @@
     </section>
   </main>
 
-  <script>
-    const characters = [
-      { id:'yui', name:'ユイ', season:'s1', status:'design-now', lineage:['fire'], vessel:'lantern', role:'拾う / 読み直す', first:'warm flame / memory fire', yui:'center', other:'all lines cross near her', items:['wick','cracked lantern glass','oil tag','small flint','warm map edge'], blank:'why she had met everyone once', happy:'carrying does not mean owning every memory', next:'Yui 52px master A/B/C prototype' },
-      { id:'asa', name:'アサ', season:'s1', status:'trace-only', lineage:['neutral'], vessel:'name tag with small ink-light', role:'名前 / 印', first:'name mark', yui:'one-sided name memory', other:'Koyori through name writing', items:['name tag pin','inked label','erased syllable','folded name card'], blank:'whether Asa named Yui first', happy:'a name can be kept without being shouted', next:'handwriting and name-tag trace only' },
-      { id:'nagi', name:'ナギ', season:'s1', status:'trace-only', lineage:['light'], vessel:'moon box', role:'しまう / 守る', first:'capsule shield', yui:'stored lantern part', other:'Hana through keeping things', items:['tiny key','box corner','moon clasp','lining cloth','hidden note'], blank:'who locked the first box', happy:'keeping something closed can also be kindness', next:'box trace and item icon plan' },
-      { id:'michiru', name:'ミチル', season:'s1', status:'trace-only', lineage:['neutral'], vessel:'compass light', role:'道 / 移動', first:'route flare', yui:'shared lost route', other:'Gen through old roads', items:['needle','ticket half','route thread','map corner','station mark'], blank:'whether the route was real', happy:'a way home can be a person, not a place', next:'ticket and route mark design' },
-      { id:'tomori', name:'トモリ', season:'s1', status:'trace-only', lineage:['fire'], vessel:'repaired lantern part', role:'灯りを直す', first:'area light / burst', yui:'repaired Yui symbol', other:'fire-line sibling or cousin seed', items:['spare glass','tool cloth','lamp screw','soot brush','repair note'], blank:'why Tomori knows the lantern', happy:'waiting was not empty if the light was being repaired', next:'repair mark; do not use normal lantern' },
-      { id:'sen', name:'セン', season:'future', status:'future-seed', lineage:['light'], vessel:'chalk lamp', role:'教える', first:'line guide', yui:'sentence Yui kept', other:'Madoka classroom line', items:['chalk line','blackboard edge'], blank:'whose words were erased', happy:'words can arrive late', next:'classroom trace only' },
-      { id:'ritsu', name:'リツ', season:'future', status:'future-seed', lineage:['fire'], vessel:'half-candy wrapper light', role:'半分残す', first:'split projectile', yui:'shared half of something', other:'Koyori sibling line', items:['half wrapper','warm sugar chip'], blank:'which half Yui kept', happy:'what was split can still guide home', next:'sibling silhouette seed' },
-      { id:'koyori', name:'コヨリ', season:'future', status:'future-seed', lineage:['neutral'], vessel:'small name badge', role:'名前を書いてもらう', first:'small helper mark', yui:'asked Yui to write a name', other:'Ritsu sibling line', items:['small badge','pencil name'], blank:'whether the name was hers', happy:'a small name can remain', next:'name-badge seed' },
-      { id:'gen', name:'ゲン', season:'future', status:'future-seed', lineage:['neutral'], vessel:'old compass glow', role:'古い道', first:'safe zone', yui:'pointed Yui to a route once', other:'Michiru compass line', items:['old needle','bench note'], blank:'why the old road still works', happy:'old roads can still lead morning', next:'old-road prop seed' },
-      { id:'hana', name:'ハナ', season:'future', status:'future-seed', lineage:['water'], vessel:'pressed-flower bookmark', role:'保存', first:'slow field', yui:'kept a page Yui lost', other:'Nagi and Shiro', items:['pressed bookmark','flower dust'], blank:'who pressed the flower first', happy:'stored things are not forgotten things', next:'bookmark icon seed' },
-      { id:'yubi', name:'ユウビ', season:'future', status:'future-seed', lineage:['neutral'], vessel:'sealed letter lamp', role:'届ける', first:'delayed shot', yui:'carried a letter involving Yui', other:'Tobari through delivery route', items:['sealed letter','stamp'], blank:'whether the letter was sent', happy:'undelivered can still move someone', next:'mail prop seed' },
-      { id:'madoka', name:'マドカ', season:'future', status:'future-seed', lineage:['light'], vessel:'window-paper plane light', role:'見ていた', first:'reveal cone', yui:'saw Yui from a window', other:'Sen classroom line', items:['paper plane','window mark'], blank:'what Madoka chose not to say', happy:'watching can become care', next:'window-plane seed' },
-      { id:'shiro', name:'シロ', season:'future', status:'future-seed', lineage:['light'], vessel:'white bookmark', role:'整理する', first:'archive conversion', yui:'sorted a page about Yui', other:'Hana bookmark line', items:['white bookmark','unread page'], blank:'why one page cannot be read', happy:'unread pages can still matter', next:'library prop seed' },
-      { id:'tobari', name:'トバリ', season:'future', status:'future-seed', lineage:['neutral'], vessel:'ticket punch light', role:'見送る', first:'gate line', yui:'saw Yui pass a gate', other:'Yubi delivery route', items:['ticket punch','station mark'], blank:'whether the ticket was one-way', happy:'seeing off can leave a way back', next:'ticket gate seed' },
-      { id:'nemu', name:'ネム', season:'future', status:'future-seed', lineage:['water'], vessel:'dream diary glow', role:'夢を覚える', first:'random memory roll', yui:'dreamed Yui before meeting', other:'Michiru dream map', items:['dream diary','sleep doodle'], blank:'whether dream came first', happy:'dream path can become real map', next:'dream-page seed' },
-      { id:'kuroori', name:'クロオリ', season:'future', status:'future-seed', lineage:['dark'], vessel:'black origami', role:'折る / 隠す', first:'transform shape', yui:'folded a page Yui later opened', other:'Kage team', items:['black origami','folded map'], blank:'what is inside the fold', happy:'folding can also make something carryable', next:'fold silhouette seed' },
-      { id:'kage1', name:'カゲール1', season:'future', status:'future-seed', lineage:['dark'], vessel:'shadow crease', role:'隠して守る', first:'close shadow hit', yui:'hid a mark from Yui', other:'Kuroori', items:['shadow crease'], blank:'whether hiding protected her', happy:'shade can shelter', next:'rival trace only' },
-      { id:'kage2', name:'カゲール2', season:'future', status:'future-seed', lineage:['dark'], vessel:'eraser shard', role:'消したふり', first:'weaken / blur', yui:'erased a name near Yui', other:'Asa name damage', items:['eraser shard','wrong-name slip'], blank:'whose name was spared', happy:'erasing can also protect', next:'wrong-name trace' },
-      { id:'kage3', name:'カゲール3', season:'future', status:'future-seed', lineage:['dark'], vessel:'night ruler', role:'夜を読む', first:'angle crit', yui:'measured a night Yui survived', other:'Michiru route angles', items:['night ruler'], blank:'what happens at dawn', happy:'shadows show shape', next:'angle prop seed' },
-      { id:'kage4', name:'カゲール4', season:'future', status:'future-seed', lineage:['dark'], vessel:'blank card', role:'余白を残す', first:'late growth', yui:'left a blank card for Yui', other:'Shiro unread pages', items:['blank card'], blank:'what should be written there', happy:'blank space can continue', next:'blank-card seed' },
-      { id:'multi', name:'複合属性', season:'future', status:'locked', lineage:['multi','fire','water','dark'], vessel:'fused vessel', role:'事件そのもの', first:'phase / reveal-only effect', yui:'Yui once saw one half', other:'multiple families', items:['mismatched glow','cracked vessel part'], blank:'rescue or mistake', happy:'separate meanings enough that each can be carried', next:'Season 1 traces only; no implementation' }
-    ];
-
-    const itemRows = [
-      ['cracked lantern glass','ユイ / トモリ','壊れた灯り → 誰かが消える前に直そうとした証拠'],
-      ['ticket half','ミチル / トバリ','帰れなかった印 → もう片方を誰かが持っている'],
-      ['name tag pin','アサ / コヨリ','名前を忘れた → 名前を守るために隠した'],
-      ['moon clasp','ナギ','閉じた箱 → しまったから残せた'],
-      ['pressed bookmark','ハナ / シロ','しまった記憶 → なくさず残した記憶'],
-      ['sealed letter','ユウビ','届かなかった → 届かなくても誰かを動かした'],
-      ['paper plane','マドカ','見ていただけ → 見ていたから気づけた'],
-      ['eraser shard','カゲール2 / アサ','消した → 守るために薄くした'],
-      ['ink sample card','影読み','ただの敵 → 間違った読みの型'],
-      ['blank card','カゲール4 / シロ','何もない → 続きを描ける余白']
-    ];
-
-    const readingRows = [
-      ['ink blob','owner unknown','small fragment'],
-      ['nameless shadow','name covered','name mark'],
-      ['vessel seeker','light vessel targeted','cracked vessel clue'],
-      ['mimic shadow','copied outline','false relation clue'],
-      ['black page','whole scene covered','page clue'],
-      ['folded shadow','memory folded shut','folded-object clue'],
-      ['blank shadow','meaning not decided','blank-space clue'],
-      ['multi-lineage trace','too many meanings in one vessel','mismatched glow clue']
-    ];
-
-    const edges = [
-      ['ユイ','アサ','name memory / one-sided'],
-      ['ユイ','ナギ','stored lantern part'],
-      ['ユイ','ミチル','shared route'],
-      ['ユイ','トモリ','repaired symbol'],
-      ['リツ','コヨリ','sibling line'],
-      ['ナギ','ハナ','keeping / preserving'],
-      ['ハナ','シロ','bookmark line'],
-      ['セン','マドカ','classroom line'],
-      ['ミチル','ゲン','old road line'],
-      ['ユウビ','トバリ','delivery route'],
-      ['クロオリ','カゲール1','fold / shade team'],
-      ['アサ','カゲール2','name damage'],
-      ['ミチル','カゲール3','route angle'],
-      ['シロ','カゲール4','blank page']
-    ];
-
-    const backlog = [
-      ['high','Yui 52px master','A/B/C prototype; do not touch production'],
-      ['high','memory item icons','12 icons; owner hint and glow separation'],
-      ['high','result screen UI','memory dust, next reading, one progress bar'],
-      ['mid','opponent shape families','six silhouettes with released clue'],
-      ['mid','stage tile','quiet background with character separation'],
-      ['low','future character seeds','do after Yui visual baseline']
-    ];
-
-    const board = document.getElementById('nodeBoard');
-    const detail = document.getElementById('detailPanel');
-    const count = document.getElementById('visibleCount');
-    const searchInput = document.getElementById('searchInput');
-    const lineageFilter = document.getElementById('lineageFilter');
-    const seasonFilter = document.getElementById('seasonFilter');
-    const statusFilter = document.getElementById('statusFilter');
-    const briefBox = document.getElementById('briefBox');
-
-    function tagClass(lineage) {
-      return ['fire','water','light','dark','neutral'].includes(lineage) ? lineage : '';
-    }
-
-    function renderStats() {
-      const s1 = characters.filter((c) => c.season === 's1').length;
-      const future = characters.filter((c) => c.season === 'future').length;
-      const now = characters.filter((c) => c.status === 'design-now').length;
-      const trace = characters.filter((c) => c.status === 'trace-only').length;
-      document.getElementById('stats').innerHTML = `
-        <div class="stat"><strong>${characters.length}</strong>Total nodes</div>
-        <div class="stat"><strong>${s1}</strong>Season 1</div>
-        <div class="stat"><strong>${future}</strong>Future</div>
-        <div class="stat"><strong>${now + trace}</strong>Design-visible now</div>`;
-    }
-
-    function renderNodes() {
-      board.innerHTML = characters.map((c) => `
-        <article class="node" tabindex="0" data-id="${c.id}" data-season="${c.season}" data-status="${c.status}" data-lineage="${c.lineage.join(' ')}">
-          <div class="node-title"><strong>${c.name}</strong><span class="${c.season === 's1' ? 's1' : 'future'}">${c.season === 's1' ? 'Season 1' : 'Future'}</span></div>
-          <div>${c.lineage.map((l) => `<span class="tag ${tagClass(l)}">${l}</span>`).join('')}<span class="tag">${c.status}</span></div>
-          <p><b>Vessel:</b> ${c.vessel}</p>
-          <p><b>Role:</b> ${c.role}</p>
-          <p class="small">Next: ${c.next}</p>
-        </article>`).join('');
-      board.querySelectorAll('.node').forEach((node) => {
-        node.addEventListener('click', () => showCharacter(node.dataset.id));
-        node.addEventListener('keydown', (event) => { if (event.key === 'Enter') showCharacter(node.dataset.id); });
-      });
-      applyFilters();
-      showCharacter('yui');
-    }
-
-    function briefFor(c) {
-      return [
-        `Target: ${c.name}`,
-        `Season: ${c.season}`,
-        `Status: ${c.status}`,
-        `Lineage: ${c.lineage.join(' / ')}`,
-        `Vessel: ${c.vessel}`,
-        `First action: ${c.first}`,
-        `Yui link: ${c.yui}`,
-        `Other link: ${c.other}`,
-        `Items: ${c.items.join(', ')}`,
-        `Blank: ${c.blank}`,
-        `Happy direction: ${c.happy}`,
-        `Next design action: ${c.next}`
-      ].join('\n');
-    }
-
-    function showCharacter(id) {
-      const c = characters.find((entry) => entry.id === id);
-      if (!c) return;
-      board.querySelectorAll('.node').forEach((node) => node.classList.toggle('active', node.dataset.id === id));
-      detail.innerHTML = `
-        <h2>${c.name}</h2>
-        <div class="chips">${c.lineage.map((l) => `<span class="tag ${tagClass(l)}">${l}</span>`).join('')}<span class="tag">${c.status}</span></div>
-        <dl>
-          <dt>Season</dt><dd>${c.season === 's1' ? 'Season 1' : 'Future'}</dd>
-          <dt>Vessel</dt><dd>${c.vessel}</dd>
-          <dt>First</dt><dd>${c.first}</dd>
-          <dt>Yui link</dt><dd>${c.yui}</dd>
-          <dt>Other link</dt><dd>${c.other}</dd>
-          <dt>Items</dt><dd>${c.items.join(' / ')}</dd>
-          <dt>Blank</dt><dd>${c.blank}</dd>
-          <dt>Happy</dt><dd>${c.happy}</dd>
-          <dt>Next</dt><dd>${c.next}</dd>
-        </dl>`;
-      briefBox.value = briefFor(c);
-    }
-
-    function showLookup(title, rows) {
-      detail.innerHTML = `<h2>${title}</h2><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
-      briefBox.value = `${title}\n` + rows.map(([k, v]) => `${k}: ${v}`).join('\n');
-    }
-
-    function applyFilters() {
-      const q = searchInput.value.trim().toLowerCase();
-      const lineage = lineageFilter.value;
-      const season = seasonFilter.value;
-      const status = statusFilter.value;
-      let visible = 0;
-      board.querySelectorAll('.node').forEach((node) => {
-        const c = characters.find((entry) => entry.id === node.dataset.id);
-        const haystack = [c.name,c.vessel,c.role,c.first,c.yui,c.other,c.blank,c.happy,c.next,c.status,...c.items,...c.lineage].join(' ').toLowerCase();
-        const show = (!q || haystack.includes(q)) && (lineage === 'all' || c.lineage.includes(lineage)) && (season === 'all' || c.season === season) && (status === 'all' || c.status === status);
-        node.classList.toggle('hidden', !show);
-        if (show) visible += 1;
-      });
-      count.textContent = `${visible} / ${characters.length} nodes visible`;
-    }
-
-    function renderTables() {
-      document.getElementById('itemTable').innerHTML = itemRows.map(([item, owner, meaning]) => `<tr data-click><td>${item}</td><td>${owner}</td><td>${meaning}</td></tr>`).join('');
-      document.getElementById('readingTable').innerHTML = readingRows.map(([type, reading, clue]) => `<tr data-click><td>${type}</td><td>${reading}</td><td>${clue}</td></tr>`).join('');
-      document.getElementById('edgeTable').innerHTML = edges.map(([from, to, relation]) => `<tr data-click><td>${from}</td><td>${to}</td><td>${relation}</td></tr>`).join('');
-      document.getElementById('backlogTable').innerHTML = backlog.map(([priority, target, action]) => `<tr data-click><td class="priority-${priority}">${priority}</td><td>${target}</td><td>${action}</td></tr>`).join('');
-
-      document.querySelectorAll('#itemTable tr').forEach((row) => row.addEventListener('click', () => showLookup('Item Reverse Lookup', [['Item', row.children[0].textContent], ['Character', row.children[1].textContent], ['Meaning', row.children[2].textContent]])));
-      document.querySelectorAll('#readingTable tr').forEach((row) => row.addEventListener('click', () => showLookup('Reading Lookup', [['Type', row.children[0].textContent], ['Wrong reading', row.children[1].textContent], ['Released clue', row.children[2].textContent]])));
-      document.querySelectorAll('#edgeTable tr').forEach((row) => row.addEventListener('click', () => showLookup('Relationship Edge', [['From', row.children[0].textContent], ['To', row.children[1].textContent], ['Relation', row.children[2].textContent]])));
-      document.querySelectorAll('#backlogTable tr').forEach((row) => row.addEventListener('click', () => showLookup('Design Backlog', [['Priority', row.children[0].textContent], ['Target', row.children[1].textContent], ['Next action', row.children[2].textContent]])));
-    }
-
-    [searchInput, lineageFilter, seasonFilter, statusFilter].forEach((el) => el.addEventListener('input', applyFilters));
-    document.getElementById('resetButton').addEventListener('click', () => {
-      searchInput.value = '';
-      lineageFilter.value = 'all';
-      seasonFilter.value = 'all';
-      statusFilter.value = 'all';
-      applyFilters();
-      showCharacter('yui');
-    });
-
-    renderStats();
-    renderNodes();
-    renderTables();
-  </script>
+  <script src="./vamp-pon-story-map.js"></script>
 </body>
 </html>
