@@ -37,13 +37,33 @@ done
 
 旧 A/B/C 版は `build-yui-52-master.lua` / `build-yui-52-review-sheet.lua`。
 
-## 確認コマンド
+## 運用ルール（prototype作業時）
+
+- **prototype作業中は production を触らない。**
+  `public/assets/sprites/player/` と `assets/source/aseprite/player/`、および gameplay定数
+  （`src/game/domain/constants.ts` の PLAYER_DEFAULTS / visualSize / radius / hitCore 等）は変更禁止。
+- **V2a は `prototype-pass` であり `production-candidate` ではない。** V2b/V2c は `iterate`。
+- production-candidate の検討は **GUI手仕上げ後のみ**
+  （[handoff](../../docs/reviews/design-team/yui-52px-v2a-gui-handfinish-handoff.md) の昇格条件を全て満たした時）。
+- Lua再生成しただけのものを final / hand-final / production-candidate と呼ばない。
+
+## 確認コマンドの使い分け
 
 ```sh
-pnpm prototype:verify        # prototype画像/source/review doc 存在 + production未変更チェック
-pnpm design:review:verify    # review doc の構造（score / Keep / Discard / Final decision 等）
-git diff --stat HEAD -- public/assets/sprites/player assets/source/aseprite/player
-                             #   ↑ 空であること（production sprite/source 未変更）
+pnpm prototype:verify         # prototype画像/source/review doc が存在し、production未変更か
+pnpm design:review:verify     # review doc の構造（Current/Target score・Keep・Discard・Final decision 等）
+pnpm player:protected:verify  # production player assets / gameplay定数を触っていないか
+                              #   - working tree の変更 → 失敗（exit 1）
+                              #   - 直近commit(HEAD~1..HEAD)の変更 → 警告表示（検出用）
+git diff --stat HEAD -- public/assets/sprites/player assets/source/aseprite/player src/game/domain/constants.ts
+                              #   ↑ 空であること（production sprite/source/定数 未変更）
 ```
 
+| コマンド | 守る対象 | 失敗条件 |
+| --- | --- | --- |
+| `prototype:verify` | prototype成果物の存在 + 作業ツリーの production 非変更 | 画像/doc欠落 or production変更 |
+| `design:review:verify` | review doc の体裁・production-candidate の根拠 | 必須セクション欠落 / 80未満でcandidate |
+| `player:protected:verify` | production player資産・gameplay定数の非変更 | 作業ツリーが protected path を変更 |
+
 review: [docs/reviews/design-team/yui-52px-master-v2-review.md](../../docs/reviews/design-team/yui-52px-master-v2-review.md)
+handoff: [docs/reviews/design-team/yui-52px-v2a-gui-handfinish-handoff.md](../../docs/reviews/design-team/yui-52px-v2a-gui-handfinish-handoff.md)
