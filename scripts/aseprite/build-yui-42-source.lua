@@ -98,6 +98,24 @@ local function regionT(test, col)
   end
 end
 
+local function put(x, y, col)
+  if x >= 0 and y >= 0 and x < size and y < size then img:drawPixel(x, y, col) end
+end
+
+local function hline(x0, x1, y, col)
+  for x = x0, x1 do put(x, y, col) end
+end
+
+local function vline(x, y0, y1, col)
+  for y = y0, y1 do put(x, y, col) end
+end
+
+local function rect(x0, y0, x1, y1, col)
+  for y = y0, y1 do
+    for x = x0, x1 do put(x, y, col) end
+  end
+end
+
 -- Body: compact torso, apron, red hem, boots, and a right-side cloak.
 region(function(nx, ny) -- dark shape behind the apron so the body is not a flat triangle
   if ny < 0.545 or ny > 0.895 then return false end
@@ -231,6 +249,136 @@ region(function(nx, ny) return nx >= cfg.lampX - 0.055 and nx <= cfg.lampX - 0.0
 region(function(nx, ny) return nx >= cfg.lampX + 0.04 and nx <= cfg.lampX + 0.055 and ny >= cfg.lampY - 0.07 and ny <= cfg.lampY + 0.07 end, LAN_CAGE)
 region(function(nx, ny) return nx >= cfg.lampX - 0.048 and nx <= cfg.lampX + 0.048 and ny >= cfg.lampY - 0.052 and ny <= cfg.lampY + 0.052 end, LAN_GOLD)
 region(function(nx, ny) return nx >= cfg.lampX - 0.026 and nx <= cfg.lampX + 0.026 and ny >= cfg.lampY - 0.026 and ny <= cfg.lampY + 0.026 end, LAN_CORE)
+
+if pose == "idle" then
+  -- Idle is intentionally hand-finished in pixel coordinates. The other poses
+  -- keep the shared generated base until this idle direction is approved.
+  local HOOD_XL = C(146, 172, 222)
+  local HOOD_S  = C(28, 38, 78)
+  local RIM_HI  = C(255, 228, 154)
+  local SKIN_HI = C(255, 231, 190)
+  local SKIN_R  = C(238, 196, 154)
+  local HAIR_S  = C(70, 36, 38)
+  local APRON_H = C(248, 234, 198)
+  local CLOTH_S = C(150, 132, 104)
+  local LAMP_S  = C(83, 60, 54)
+
+  -- Footing and cloak/body mass.
+  hline(13, 28, 38, C(22, 17, 36, 180))
+  hline(15, 27, 37, C(40, 29, 48))
+  rect(12, 25, 29, 34, DRESS_SH)
+  rect(25, 24, 32, 35, HOOD_D)
+  vline(31, 25, 35, HOOD_S)
+  hline(27, 31, 25, HOOD_M)
+
+  -- Painterly hood clusters: keep the generated round silhouette, add cloth depth.
+  hline(16, 21, 5, HOOD_XL)
+  hline(13, 22, 6, HOOD_XL)
+  hline(12, 20, 7, HOOD_L)
+  hline(11, 18, 8, HOOD_L)
+  hline(12, 17, 9, HOOD_L)
+  hline(21, 28, 8, HOOD_M)
+  hline(23, 29, 9, HOOD_M)
+  hline(25, 30, 10, HOOD_M)
+  rect(30, 14, 33, 18, HOOD_D)
+  rect(8, 15, 11, 20, HOOD_S)
+  put(30, 8, HOOD_L)
+  put(31, 9, HOOD_M)
+  put(33, 12, HOOD_S)
+
+  -- Gold moon rim and small crescent mark.
+  put(9, 16, RIM_HI)
+  put(10, 15, RIM_HI)
+  put(11, 14, RIM_HI)
+  hline(12, 15, 13, RIM_HI)
+  hline(16, 21, 12, RIM_GOLD)
+  hline(22, 27, 13, RIM_GOLD)
+  put(28, 14, RIM_HI)
+  put(29, 15, RIM_GOLD)
+  put(26, 5, RIM_HI)
+  put(27, 6, RIM_HI)
+  put(28, 7, RIM_HI)
+  put(27, 8, RIM_GOLD)
+  put(26, 8, HOOD_M)
+
+  -- Hair mass first, then the rounded face sits inside it.
+  hline(13, 28, 12, HAIR_S)
+  hline(12, 29, 13, HAIR_D)
+  hline(12, 29, 14, HAIR_D)
+  vline(12, 15, 24, HAIR_D)
+  vline(29, 15, 23, HAIR_D)
+  rect(14, 14, 17, 18, HAIR_M)
+  rect(18, 13, 21, 17, HAIR_M)
+  rect(23, 14, 26, 18, HAIR_M)
+  put(17, 15, HAIR_H)
+  put(20, 14, HAIR_H)
+  put(24, 15, HAIR_H)
+  put(26, 16, HAIR_H)
+
+  -- Large cute face, deliberately rounded rather than rectangular.
+  hline(16, 25, 15, SKIN)
+  hline(14, 27, 16, SKIN)
+  hline(14, 27, 17, SKIN)
+  hline(14, 27, 18, SKIN)
+  hline(14, 27, 19, SKIN)
+  hline(14, 27, 20, SKIN)
+  hline(15, 26, 21, SKIN)
+  hline(16, 25, 22, SKIN)
+  hline(17, 24, 23, SKIN_R)
+  hline(18, 23, 24, SKIN_R)
+  put(15, 19, SKIN_HI)
+  put(16, 20, SKIN_HI)
+  hline(24, 27, 20, SKIN_SH)
+  put(26, 21, SKIN_SH)
+
+  -- Bangs redrawn over the forehead so they fall into the face.
+  rect(14, 14, 16, 17, HAIR_M)
+  rect(18, 13, 20, 16, HAIR_M)
+  rect(23, 14, 25, 17, HAIR_M)
+  put(17, 14, HAIR_D)
+  put(21, 14, HAIR_D)
+  put(22, 15, HAIR_D)
+  put(26, 16, HAIR_D)
+
+  -- Big eyes: dark shape, warm lower pixel, single white catchlight.
+  rect(16, 18, 18, 21, EYE_D)
+  rect(23, 18, 25, 21, EYE_D)
+  put(17, 18, EYE_W)
+  put(24, 18, EYE_W)
+  put(17, 21, IRIS_D)
+  put(24, 21, IRIS_D)
+  put(16, 23, BLUSH)
+  put(25, 23, BLUSH)
+  put(20, 24, MOUTH)
+  put(21, 24, MOUTH)
+
+  -- Old-paper dress with thickness, sleeve, hem, and boots.
+  rect(16, 25, 25, 32, APRON)
+  rect(18, 26, 23, 30, APRON_H)
+  hline(16, 25, 33, APRON_SH)
+  hline(15, 26, 34, BELT)
+  hline(14, 27, 35, SKIRT)
+  hline(15, 26, 36, SKIRT_D)
+  rect(13, 26, 15, 32, DRESS_SH)
+  rect(16, 37, 18, 39, BOOT)
+  rect(23, 37, 25, 39, BOOT)
+  put(20, 26, HEM)
+  put(21, 27, HEM)
+
+  -- Right-hand cage lantern: far enough from center hitCore to read as a prop.
+  hline(29, 31, 26, CLOTH_S)
+  rect(31, 25, 37, 32, LAMP_S)
+  rect(32, 26, 36, 31, LAN_GOLD)
+  rect(33, 27, 35, 30, LAN_CORE)
+  hline(31, 37, 25, LAN_CAGE)
+  hline(31, 37, 32, LAN_CAGE)
+  vline(31, 26, 31, LAN_CAGE)
+  vline(37, 26, 31, LAN_CAGE)
+  vline(34, 26, 32, LAN_CAGE)
+  hline(32, 36, 24, LAN_CAGE)
+  put(34, 23, LAN_CAGE)
+  put(38, 29, LAN_GOLD)
+end
 
 if pose == "ultimate" then
   region(function(nx, ny) return d2(nx, ny, cx, 0.62, 0.08, 0.08) <= 1 end, C(255, 244, 196, 120))
