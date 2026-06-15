@@ -25,10 +25,10 @@ local img = Image(size, size)
 
 local function C(r, g, b, a) return app.pixelColor.rgba(r, g, b, a or 255) end
 
-local OUTLINE  = C(36, 30, 50)
-local HOOD_D   = C(44, 58, 102)
-local HOOD_M   = C(72, 98, 156)
-local HOOD_L   = C(110, 138, 200)
+local OUTLINE  = C(34, 28, 48)
+local HOOD_D   = C(42, 56, 104)
+local HOOD_M   = C(72, 102, 166)
+local HOOD_L   = C(118, 150, 210)
 local RIM_GOLD = C(246, 208, 122)
 local HAIR_D   = C(94, 48, 40)
 local HAIR_M   = C(138, 78, 58)
@@ -52,18 +52,18 @@ local SKIRT    = C(170, 86, 58)
 local SKIRT_D  = C(86, 48, 58)
 local BOOT     = C(47, 34, 46)
 local HEM      = C(152, 122, 94)
-local LAN_CAGE = C(122, 98, 74)
-local LAN_GOLD = C(255, 216, 122)
+local LAN_CAGE = C(108, 84, 68)
+local LAN_GOLD = C(255, 212, 108)
 local LAN_CORE = C(255, 250, 214)
 local LAN_GLOW = C(255, 198, 98, 78)
 local FOOT_SH  = C(18, 14, 34, 110)
 local SPARK    = C(255, 238, 168)
 
 local poseCfg = {
-  idle = { lean = 0.0, hoodY = 0.0, lampX = 0.80, lampY = 0.66, lampR = 0.0, armLift = 0.0, foot = 0.0 },
-  move = { lean = 0.035, hoodY = -0.005, lampX = 0.84, lampY = 0.62, lampR = -0.03, armLift = -0.03, foot = 0.035 },
-  hurt = { lean = -0.035, hoodY = 0.015, lampX = 0.78, lampY = 0.67, lampR = 0.0, armLift = 0.02, foot = -0.025 },
-  ultimate = { lean = 0.0, hoodY = -0.005, lampX = 0.82, lampY = 0.64, lampR = 0.018, armLift = -0.02, foot = 0.0 },
+  idle = { lean = 0.0, hoodY = 0.0, lampX = 0.82, lampY = 0.67, lampR = 0.0, armLift = 0.0, foot = 0.0 },
+  move = { lean = 0.032, hoodY = -0.005, lampX = 0.85, lampY = 0.63, lampR = -0.025, armLift = -0.03, foot = 0.035 },
+  hurt = { lean = -0.032, hoodY = 0.015, lampX = 0.80, lampY = 0.68, lampR = 0.0, armLift = 0.02, foot = -0.025 },
+  ultimate = { lean = 0.0, hoodY = -0.005, lampX = 0.84, lampY = 0.64, lampR = 0.018, armLift = -0.02, foot = 0.0 },
 }
 local cfg = poseCfg[pose]
 local cx = 0.49 + cfg.lean
@@ -100,46 +100,46 @@ end
 
 -- Body: compact torso, apron, red hem, boots, and a right-side cloak.
 region(function(nx, ny) -- dark shape behind the apron so the body is not a flat triangle
-  if ny < 0.54 or ny > 0.88 then return false end
-  local t = (ny - 0.54) / 0.34
-  local left = cx - (0.105 + t * 0.07)
-  local right = cx + (0.115 + t * 0.11)
+  if ny < 0.545 or ny > 0.895 then return false end
+  local t = (ny - 0.545) / 0.35
+  local left = cx - (0.12 + t * 0.08)
+  local right = cx + (0.13 + t * 0.10)
   return nx >= left and nx <= right
 end, pose == "hurt" and DRESS_HURT or DRESS_SH)
 region(function(nx, ny) -- cream apron, narrower at the waist and rounded wider at the bottom
-  if ny < 0.60 or ny > 0.82 then return false end
-  local t = (ny - 0.60) / 0.22
-  local hw = 0.07 + t * 0.06
+  if ny < 0.585 or ny > 0.84 then return false end
+  local t = (ny - 0.585) / 0.255
+  local hw = 0.085 + t * 0.065
   return math.abs(nx - cx) <= hw
 end, APRON)
 region(function(nx, ny) -- apron lower warmth/shadow
-  return ny >= 0.73 and ny <= 0.83 and math.abs(nx - (cx - 0.015)) <= 0.10
+  return ny >= 0.735 and ny <= 0.845 and math.abs(nx - (cx - 0.018)) <= 0.115
 end, APRON_SH)
 region(function(nx, ny) -- apron highlight
-  return ny >= 0.63 and ny <= 0.78 and math.abs(nx - (cx + 0.035)) <= 0.025
+  return ny >= 0.62 and ny <= 0.79 and math.abs(nx - (cx + 0.038)) <= 0.026
 end, DRESS_HI)
 region(function(nx, ny) -- small vertical seam / clasp, like the reference body center
-  return ny >= 0.56 and ny <= 0.73 and math.abs(nx - cx) <= 0.014
+  return ny >= 0.565 and ny <= 0.735 and math.abs(nx - cx) <= 0.013
 end, HEM)
 region(function(nx, ny) -- belt separating torso and skirt
-  return ny >= 0.76 and ny <= 0.80 and math.abs(nx - cx) <= 0.17
+  return ny >= 0.775 and ny <= 0.812 and math.abs(nx - cx) <= 0.185
 end, BELT)
 region(function(nx, ny) -- red skirt peeking under the apron
-  if ny < 0.80 or ny > 0.89 then return false end
-  local t = (ny - 0.80) / 0.09
-  local hw = 0.14 + t * 0.05
+  if ny < 0.815 or ny > 0.91 then return false end
+  local t = (ny - 0.815) / 0.095
+  local hw = 0.15 + t * 0.055
   return math.abs(nx - cx) <= hw
 end, SKIRT)
 region(function(nx, ny) -- shaded skirt edges
-  return ny >= 0.81 and ny <= 0.90 and (math.abs(nx - (cx - 0.15)) <= 0.04 or math.abs(nx - (cx + 0.15)) <= 0.04)
+  return ny >= 0.825 and ny <= 0.915 and (math.abs(nx - (cx - 0.165)) <= 0.04 or math.abs(nx - (cx + 0.165)) <= 0.04)
 end, SKIRT_D)
 region(function(nx, ny) -- two small boots
-  return ny >= 0.88 and ny <= 0.95 and (math.abs(nx - (cx - 0.075)) <= 0.04 or math.abs(nx - (cx + 0.08)) <= 0.04)
+  return ny >= 0.895 and ny <= 0.96 and (math.abs(nx - (cx - 0.08)) <= 0.042 or math.abs(nx - (cx + 0.085)) <= 0.042)
 end, BOOT)
 region(function(nx, ny) -- right-side cloak hanging over the body, reference-inspired but small
-  if ny < 0.54 or ny > 0.86 then return false end
+  if ny < 0.55 or ny > 0.875 then return false end
   local t = (ny - 0.54) / 0.32
-  local left = cx + 0.035 + t * 0.02
+  local left = cx + 0.09 + t * 0.015
   local right = cx + 0.19 + t * 0.12
   return nx >= left and nx <= right
 end, HOOD_D)
@@ -161,48 +161,53 @@ elseif pose == "hurt" then
 end
 
 -- Hood dome + gold moon rim.
-region(function(nx, ny) return d2(nx, ny, cx, hoodCy, 0.30, 0.29) <= 1 end, RIM_GOLD)
-region(function(nx, ny) return d2(nx, ny, cx, hoodCy, 0.285, 0.275) <= 1 end, HOOD_D)
-region(function(nx, ny) return d2(nx, ny, cx, hoodCy - 0.015, 0.265, 0.255) <= 1 end, HOOD_M)
-region(function(nx, ny) return d2(nx, ny, cx - 0.04, hoodCy - 0.05, 0.17, 0.15) <= 1 end, HOOD_L)
+region(function(nx, ny) return d2(nx, ny, cx, hoodCy + 0.005, 0.315, 0.302) <= 1 end, RIM_GOLD)
+region(function(nx, ny) return d2(nx, ny, cx, hoodCy + 0.005, 0.298, 0.286) <= 1 end, HOOD_D)
+region(function(nx, ny) return d2(nx, ny, cx, hoodCy - 0.012, 0.276, 0.264) <= 1 end, HOOD_M)
+region(function(nx, ny) return d2(nx, ny, cx - 0.055, hoodCy - 0.058, 0.165, 0.145) <= 1 end, HOOD_L)
+region(function(nx, ny) return d2(nx, ny, cx + 0.235, hoodCy + 0.07, 0.062, 0.10) <= 1 end, HOOD_D)
+region(function(nx, ny) return d2(nx, ny, cx - 0.245, hoodCy + 0.085, 0.055, 0.085) <= 1 end, HOOD_D)
 region(function(nx, ny)
   return img:getPixel(math.floor(nx * size), math.floor(ny * size)) == RIM_GOLD
     and not (nx < cx + 0.03 and ny < hoodCy + 0.04)
 end, HOOD_D)
+region(function(nx, ny) return d2(nx, ny, cx + 0.10, hoodCy - 0.115, 0.065, 0.058) <= 1 end, RIM_GOLD)
+region(function(nx, ny) return d2(nx, ny, cx + 0.075, hoodCy - 0.135, 0.055, 0.052) <= 1 end, HOOD_M)
 
 -- Face + hair.
-region(function(nx, ny) return d2(nx, ny, cx, faceCy, 0.175, 0.185) <= 1 end, SKIN)
+region(function(nx, ny) return d2(nx, ny, cx, faceCy + 0.005, 0.188, 0.193) <= 1 end, SKIN)
 region(function(nx, ny)
-  return d2(nx, ny, cx, faceCy, 0.175, 0.185) <= 1 and (nx - cx) + (ny - faceCy) >= 0.14
+  return d2(nx, ny, cx, faceCy + 0.005, 0.188, 0.193) <= 1 and (nx - cx) + (ny - faceCy) >= 0.15
 end, SKIN_SH)
-region(function(nx, ny) return d2(nx, ny, cx, faceCy - 0.06, 0.20, 0.16) <= 1 and ny <= faceCy - 0.04 end, HAIR_D)
+region(function(nx, ny) return d2(nx, ny, cx, faceCy - 0.066, 0.212, 0.165) <= 1 and ny <= faceCy - 0.035 end, HAIR_D)
 region(function(nx, ny)
-  return d2(nx, ny, cx, faceCy - 0.03, 0.19, 0.16) <= 1 and ny >= faceCy - 0.06 and ny <= faceCy
-    and (math.abs(nx - cx) > 0.13 or math.abs(nx - (cx - 0.07)) < 0.02 or math.abs(nx - (cx + 0.07)) < 0.02)
+  return d2(nx, ny, cx, faceCy - 0.035, 0.205, 0.158) <= 1 and ny >= faceCy - 0.07 and ny <= faceCy + 0.005
+    and (math.abs(nx - cx) > 0.125 or math.abs(nx - (cx - 0.075)) < 0.026 or math.abs(nx - (cx + 0.07)) < 0.023)
 end, HAIR_M)
 region(function(nx, ny)
-  local din = d2(nx, ny, cx, faceCy + 0.02, 0.175, 0.19)
-  local dout = d2(nx, ny, cx, faceCy, 0.205, 0.20)
-  return dout <= 1 and din > 1 and ny >= faceCy - 0.07 and ny <= faceCy + 0.15
+  local din = d2(nx, ny, cx, faceCy + 0.022, 0.186, 0.198)
+  local dout = d2(nx, ny, cx, faceCy + 0.004, 0.222, 0.215)
+  return dout <= 1 and din > 1 and ny >= faceCy - 0.075 and ny <= faceCy + 0.158
 end, HAIR_D)
-region(function(nx, ny) return d2(nx, ny, cx - 0.06, faceCy - 0.09, 0.06, 0.05) <= 1 end, HAIR_H)
+region(function(nx, ny) return d2(nx, ny, cx - 0.07, faceCy - 0.092, 0.062, 0.052) <= 1 end, HAIR_H)
+region(function(nx, ny) return d2(nx, ny, cx + 0.045, faceCy - 0.082, 0.044, 0.036) <= 1 end, HAIR_H)
 
 local function eye(ecx)
   if pose == "hurt" then
     region(function(nx, ny) return math.abs((ny - (faceCy + 0.005)) - (nx - ecx) * 0.55) <= 0.014 and math.abs(nx - ecx) <= 0.045 end, EYE_D)
     region(function(nx, ny) return math.abs((ny - (faceCy + 0.005)) + (nx - ecx) * 0.55) <= 0.014 and math.abs(nx - ecx) <= 0.045 end, EYE_D)
   else
-    region(function(nx, ny) return d2(nx, ny, ecx, faceCy + 0.01, 0.052, 0.066) <= 1 end, EYE_D)
-    region(function(nx, ny) return d2(nx, ny, ecx, faceCy + 0.02, 0.034, 0.05) <= 1 end, IRIS)
-    region(function(nx, ny) return d2(nx, ny, ecx, faceCy + 0.05, 0.03, 0.03) <= 1 end, IRIS_D)
-    region(function(nx, ny) return d2(nx, ny, ecx - 0.01, faceCy - 0.01, 0.018, 0.02) <= 1 end, EYE_W)
+    region(function(nx, ny) return d2(nx, ny, ecx, faceCy + 0.014, 0.058, 0.072) <= 1 end, EYE_D)
+    region(function(nx, ny) return d2(nx, ny, ecx, faceCy + 0.024, 0.037, 0.054) <= 1 end, IRIS)
+    region(function(nx, ny) return d2(nx, ny, ecx, faceCy + 0.055, 0.032, 0.032) <= 1 end, IRIS_D)
+    region(function(nx, ny) return d2(nx, ny, ecx - 0.013, faceCy - 0.014, 0.019, 0.021) <= 1 end, EYE_W)
   end
 end
-eye(cx - 0.085)
-eye(cx + 0.085)
+eye(cx - 0.088)
+eye(cx + 0.088)
 
-region(function(nx, ny) return d2(nx, ny, cx - 0.13, faceCy + 0.07, 0.035, 0.03) <= 1 end, BLUSH)
-region(function(nx, ny) return d2(nx, ny, cx + 0.13, faceCy + 0.07, 0.035, 0.03) <= 1 end, BLUSH)
+region(function(nx, ny) return d2(nx, ny, cx - 0.132, faceCy + 0.074, 0.038, 0.028) <= 1 end, BLUSH)
+region(function(nx, ny) return d2(nx, ny, cx + 0.132, faceCy + 0.074, 0.038, 0.028) <= 1 end, BLUSH)
 region(function(nx, ny) return d2(nx, ny, cx, faceCy + 0.11, 0.022, 0.018) <= 1 end, MOUTH)
 
 -- Arm and cage lantern.
@@ -218,12 +223,14 @@ region(function(nx, ny)
 end, LAN_CAGE)
 region(function(nx, ny) return d2(nx, ny, cfg.lampX - 0.02, cfg.lampY - 0.11, 0.03, 0.035) <= 1 and ny <= cfg.lampY - 0.09 end, LAN_CAGE)
 region(function(nx, ny)
-  local inb = nx >= cfg.lampX - 0.08 and nx <= cfg.lampX + 0.08 and ny >= cfg.lampY - 0.08 and ny <= cfg.lampY + 0.08
-  local inner = nx >= cfg.lampX - 0.05 and nx <= cfg.lampX + 0.05 and ny >= cfg.lampY - 0.05 and ny <= cfg.lampY + 0.05
+  local inb = nx >= cfg.lampX - 0.078 and nx <= cfg.lampX + 0.078 and ny >= cfg.lampY - 0.082 and ny <= cfg.lampY + 0.082
+  local inner = nx >= cfg.lampX - 0.048 and nx <= cfg.lampX + 0.048 and ny >= cfg.lampY - 0.052 and ny <= cfg.lampY + 0.052
   return inb and not inner
 end, LAN_CAGE)
-region(function(nx, ny) return nx >= cfg.lampX - 0.05 and nx <= cfg.lampX + 0.05 and ny >= cfg.lampY - 0.05 and ny <= cfg.lampY + 0.05 end, LAN_GOLD)
-region(function(nx, ny) return nx >= cfg.lampX - 0.03 and nx <= cfg.lampX + 0.03 and ny >= cfg.lampY - 0.03 and ny <= cfg.lampY + 0.03 end, LAN_CORE)
+region(function(nx, ny) return nx >= cfg.lampX - 0.055 and nx <= cfg.lampX - 0.04 and ny >= cfg.lampY - 0.07 and ny <= cfg.lampY + 0.07 end, LAN_CAGE)
+region(function(nx, ny) return nx >= cfg.lampX + 0.04 and nx <= cfg.lampX + 0.055 and ny >= cfg.lampY - 0.07 and ny <= cfg.lampY + 0.07 end, LAN_CAGE)
+region(function(nx, ny) return nx >= cfg.lampX - 0.048 and nx <= cfg.lampX + 0.048 and ny >= cfg.lampY - 0.052 and ny <= cfg.lampY + 0.052 end, LAN_GOLD)
+region(function(nx, ny) return nx >= cfg.lampX - 0.026 and nx <= cfg.lampX + 0.026 and ny >= cfg.lampY - 0.026 and ny <= cfg.lampY + 0.026 end, LAN_CORE)
 
 if pose == "ultimate" then
   region(function(nx, ny) return d2(nx, ny, cx, 0.62, 0.08, 0.08) <= 1 end, C(255, 244, 196, 120))

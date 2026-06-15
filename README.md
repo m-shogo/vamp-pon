@@ -19,7 +19,7 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライトで�
 **MVP v0.1 — playable（generated素材）**
 
 ユイで8分のサバイバルが一通り遊べます。
-主要素材は generated PNG に移行済み。ユイ4ポーズ（`yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`）は v4·42 prototype を基準にした 42px ネイティブ Aseprite hand-final candidate です。
+主要素材は generated PNG に移行済み。ユイ4ポーズ（`yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`）は v4·42 prototype と参照絵を基準にした 42px ネイティブ Aseprite hand-final candidate です。
 
 ---
 
@@ -54,9 +54,10 @@ HUD / ポーズ / クリア / ゲームオーバー / リザルト
 4. [済] asset-status の HF/GF/GD 分離マークを入れる
 5. [本番候補] ユイの見た目サイズを 42px へ寄せる（`PLAYER_DEFAULTS.visualSize=42` / collision radius=6・stats は不変）
 6. [済] yui_ultimate を generated-draft から42pxネイティブ hand-final candidate に昇格する
-7. [確認中] `/?scene=yui-gallery` / `/?scene=yui-redesign42` / `/?scene=combat-mock&density=late` で、42pxが敵・弾・拾得物を隠しすぎないか見る
-8. 実機スマホで42pxネイティブ4ポーズの可読性・指の隠れを確認する（未確認）
-9. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
+7. [済] 参照絵準拠で、顔・丸い青フード・茶赤髪・古紙色ワンピ・右手側cageランタンを再整理する
+8. [確認中] `/?scene=yui-gallery` / `/?scene=yui-redesign42` / `/?scene=combat-mock&density=late` で、42pxが敵・弾・拾得物を隠しすぎないか見る
+9. 実機スマホで42pxネイティブ4ポーズの可読性・指の隠れを確認する（未確認）
+10. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
 ```
 
 参照: ハンドファイナル手順は [docs/yui-aseprite-hand-final-plan.md](docs/yui-aseprite-hand-final-plan.md)、32px高密度化案は [docs/yui-32px-redesign-notes.md](docs/yui-32px-redesign-notes.md)、見た目サイズ(42px前後)案は [docs/yui-42px-visual-size-test.md](docs/yui-42px-visual-size-test.md)。

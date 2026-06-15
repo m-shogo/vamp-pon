@@ -42,12 +42,21 @@ pnpm build
 ## 未確認として残すもの
 
 - 実機スマホの縦持ち表示。
-- Aseprite source から hand-final 候補を書き出した後の比較。
 - 8分通しプレイの後半視認性。
+
+## 2026-06-15 ユイ42pxレビュー記録
+
+- `yui_idle` は参照絵準拠で、顔・丸い青フード・茶赤髪・古紙色ワンピ・右手側cageランタンの優先度を上げた。
+- `yui_move` / `yui_hurt` / `yui_ultimate` は idle と同じ生成元・同じライティングから展開し、別人化しないことを優先した。
+- 1x実寸では、顔とフードが先に読める状態を目標にした。
+- 4x拡大では、目の白ハイライト、前髪、cageランタンの縦バーが濁っていないかを見る。
+- 暗背景では、金リムと明るい前身頃で黒インク敵から分離するかを見る。
+- combat-mock late density では、ランタン・記憶の欠片・中央hitCoreが誤認されすぎないかを見る。
+- 実機スマホ確認は未実施。ローカルブラウザ確認と実機確認は分けて記録する。
 
 ## Aseprite境界
 
-- production export は stable v1.3.17.1 を使う。
+- production export は stable v1.3.17.x を使う。
 - beta v1.3.18-beta2 は使わない。
 - 現在のユイ4ポーズは42pxネイティブ hand-final candidate。
 - hand-final 化は idle → move → hurt → ultimate の順。
