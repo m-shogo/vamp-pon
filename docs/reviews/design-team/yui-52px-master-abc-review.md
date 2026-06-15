@@ -113,6 +113,7 @@ status: **prototype**（Lua図形bootstrap。GUI手仕上げ未実施）
 
 **no** — production sprite / production .aseprite source / gameplay定数は一切変更していない。
 変更は新規 prototype / review / generator のみ（`assets/source/prototypes/`, `public/assets/prototypes/`, `scripts/prototypes/`, `docs/design-team/`, `docs/reviews/design-team/`）。
+この段階の素材は preview / production には接続しない（prototype review のみ）。
 
 ## Final decision
 

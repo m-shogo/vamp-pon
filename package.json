@@ -15,6 +15,7 @@
     "generate:pixel-assets": "node --experimental-strip-types scripts/generate-pixel-assets.ts",
     "assets:verify": "node --experimental-strip-types scripts/generate-pixel-assets.ts --verify",
     "design:review:verify": "node --experimental-strip-types scripts/quality/check-design-review-docs.ts",
+    "prototype:verify": "node --experimental-strip-types scripts/quality/check-prototype-artifacts.ts",
     "assets:check-player-promotion": "node --experimental-strip-types scripts/quality/check-player-asset-promotion.ts",
     "build": "tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
