@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
 const DATA_PATH = 'docs/story-map/vamp-pon-story-map-data.json';
+const coreFiveIds = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
 
 type Character = {
   id: string;
@@ -17,6 +18,11 @@ type Character = {
   blank: string;
   happy: string;
   next: string;
+  crestName?: string;
+  combatNames?: string[];
+  releaseNames?: string[];
+  distortedCrestName?: string;
+  blackReleaseNames?: string[];
   reviewDoc?: string;
   previewPath?: string;
   pos?: { x: number; y: number };
@@ -47,6 +53,11 @@ function assertString(value: unknown, label: string): void {
   if (typeof value !== 'string' || value.trim() === '') {
     fail(`${label} must be a non-empty string`);
   }
+}
+
+function assertStringArray(value: unknown, label: string): void {
+  if (!Array.isArray(value) || value.length === 0) fail(`${label} must be a non-empty array`);
+  value.forEach((entry, index) => assertString(entry, `${label}[${index}]`));
 }
 
 if (!existsSync(DATA_PATH)) {
@@ -96,9 +107,18 @@ for (const character of parsed.characters) {
   }
   if (!Array.isArray(character.items) || character.items.length === 0) fail(`${character.id}.items must be non-empty`);
 
+  if (coreFiveIds.has(character.id)) {
+    assertString(character.crestName, `${character.id}.crestName`);
+    assertStringArray(character.combatNames, `${character.id}.combatNames`);
+    assertStringArray(character.releaseNames, `${character.id}.releaseNames`);
+    assertString(character.distortedCrestName, `${character.id}.distortedCrestName`);
+    assertStringArray(character.blackReleaseNames, `${character.id}.blackReleaseNames`);
+  }
+
   if (character.id === 'yui') {
     yuiSeen = true;
     if (character.vessel !== 'lantern') fail('Yui vessel must remain lantern');
+    if (character.crestName !== '灯火紋') fail('Yui crestName must remain 灯火紋');
     if (!character.lineage.includes('fire')) fail('Yui lineage must include fire');
   }
 
