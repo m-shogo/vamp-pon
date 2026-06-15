@@ -33,10 +33,10 @@ export const assetManifest: AssetManifestEntry[] = [
   { id: 'bg_stage1_paper_night', path: `${SPRITES}/tiles/bg_stage1_paper_night_tile.png`, width: 128, height: 128, kind: 'tile', description: 'Stage1 夜の街の床（紙質・藍紫・繰り返し）', required: true, fallback: true },
 
   // --- プレイヤー ---
-  { id: 'yui_idle', path: `${SPRITES}/player/yui_idle_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 立ち（フード+ランタン / hand-final candidate）', required: true, fallback: true },
-  { id: 'yui_move', path: `${SPRITES}/player/yui_move_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 移動（idle差分 / hand-final candidate）', required: false, fallback: true },
-  { id: 'yui_hurt', path: `${SPRITES}/player/yui_hurt_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 被弾（一瞬のリアクション差分 / hand-final candidate）', required: false, fallback: true },
-  { id: 'yui_ultimate', path: `${SPRITES}/player/yui_ultimate_32.png`, width: 32, height: 32, kind: 'player', description: 'ユイ 奥義（小さな灯りの強調差分）', required: false, fallback: true },
+  { id: 'yui_idle', path: `${SPRITES}/player/yui_idle_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 立ち（42pxネイティブ / hand-final candidate）', required: true, fallback: true },
+  { id: 'yui_move', path: `${SPRITES}/player/yui_move_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 移動（42pxネイティブ / idle差分 / hand-final candidate）', required: false, fallback: true },
+  { id: 'yui_hurt', path: `${SPRITES}/player/yui_hurt_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 被弾（42pxネイティブ / 一瞬のリアクション差分 / hand-final candidate）', required: false, fallback: true },
+  { id: 'yui_ultimate', path: `${SPRITES}/player/yui_ultimate_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 奥義（42pxネイティブ / hand-final candidate）', required: false, fallback: true },
 
   // --- 敵（enemy visualKind に対応） ---
   { id: 'enemy_ink_blob', path: `${SPRITES}/enemies/enemy_ink_blob_24.png`, width: 24, height: 24, kind: 'enemy', description: 'インクの影（基本）', required: true, fallback: true },

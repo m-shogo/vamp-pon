@@ -463,63 +463,65 @@ export function createEnemyHaze(): PixelGrid {
 }
 
 function createYuiBaseGeneratedDraft(pose: CharacterPose = 'idle'): PixelGrid {
-  const grid = createEmptyGrid(32, 32);
-  const lean = pose === 'move' ? 1 : pose === 'hurt' ? -1 : 0;
-  const hoodX = 16 + lean;
-  const lampX = pose === 'ultimate' ? 23 : pose === 'move' ? 24 : 21;
-  const lampY = pose === 'ultimate' ? 17 : pose === 'move' ? 19 : 20;
+  const size = 42;
+  const grid = createEmptyGrid(size, size);
+  const px = (n: number) => Math.round((n / 32) * size);
+  const lean = pose === 'move' ? px(1) : pose === 'hurt' ? -px(1) : 0;
+  const hoodX = px(16) + lean;
+  const lampX = pose === 'ultimate' ? px(23) : pose === 'move' ? px(24) : px(21);
+  const lampY = pose === 'ultimate' ? px(17) : pose === 'move' ? px(19) : px(20);
   const dress: PixelColor = pose === 'hurt' ? [150, 98, 88, 255] : [205, 150, 105, 255];
   const apron: PixelColor = pose === 'hurt' ? [171, 139, 117, 230] : [229, 196, 143, 245];
 
-  drawEllipse(grid, 16, 27, 12, 4, [8, 7, 19, 145]);
-  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? 6 : 4, [255, 189, 78, pose === 'ultimate' ? 62 : 38]);
-  drawLine(grid, hoodX + 4, 17, lampX - 2, lampY - 2, C.paperEdge);
+  drawEllipse(grid, px(16), px(27), px(12), px(4), [8, 7, 19, 145]);
+  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? px(6) : px(4), [255, 189, 78, pose === 'ultimate' ? 62 : 38]);
+  drawLine(grid, hoodX + px(4), px(17), lampX - px(2), lampY - px(2), C.paperEdge);
 
-  fillPolygon(grid, [[10 + lean, 15], [22 + lean, 15], [25 + lean, 27], [7 + lean, 27]], dress);
-  fillPolygon(grid, [[12 + lean, 17], [20 + lean, 17], [21 + lean, 26], [11 + lean, 26]], apron);
-  drawLine(grid, 10 + lean, 16, 7 + lean, 27, C.paperEdge);
-  drawLine(grid, 22 + lean, 16, 25 + lean, 27, C.paperEdge);
-  drawLine(grid, 8 + lean, 27, 24 + lean, 27, C.paperEdge);
-  drawLine(grid, 12 + lean, 21, 21 + lean, 21, C.paperLine);
-  drawLine(grid, 13 + lean, 24, 19 + lean, 24, C.paperLight);
-  fillRect(grid, 10 + lean, 19, 2, 5, C.yuiDress);
-  fillRect(grid, 21 + lean, 19, 2, 5, C.yuiDress);
+  fillPolygon(grid, [[px(10) + lean, px(15)], [px(22) + lean, px(15)], [px(25) + lean, px(27)], [px(7) + lean, px(27)]], dress);
+  fillPolygon(grid, [[px(12) + lean, px(17)], [px(20) + lean, px(17)], [px(21) + lean, px(26)], [px(11) + lean, px(26)]], apron);
+  drawLine(grid, px(10) + lean, px(16), px(7) + lean, px(27), C.paperEdge);
+  drawLine(grid, px(22) + lean, px(16), px(25) + lean, px(27), C.paperEdge);
+  drawLine(grid, px(8) + lean, px(27), px(24) + lean, px(27), C.paperEdge);
+  drawLine(grid, px(12) + lean, px(21), px(21) + lean, px(21), C.paperLine);
+  drawLine(grid, px(13) + lean, px(24), px(19) + lean, px(24), C.paperLight);
+  fillRect(grid, px(10) + lean, px(19), px(2), px(5), C.yuiDress);
+  fillRect(grid, px(21) + lean, px(19), px(2), px(5), C.yuiDress);
 
-  fillPolygon(grid, [[hoodX - 8, 10], [hoodX - 5, 4], [hoodX + 4, 3], [hoodX + 9, 10], [hoodX + 6, 18], [hoodX - 6, 18]], C.yuiHood);
-  drawCircle(grid, hoodX, 11, 7, C.yuiHood);
-  drawCircle(grid, hoodX, 12, 5, [53, 61, 92, 255]);
-  fillRect(grid, hoodX - 3, 10, 7, 7, [242, 204, 162, 255]);
-  fillRect(grid, hoodX - 5, 10, 3, 7, C.yuiHair);
-  fillRect(grid, hoodX + 3, 10, 3, 7, C.yuiHair);
-  fillRect(grid, hoodX - 3, 13, 2, 1, C.ink);
-  fillRect(grid, hoodX + 3, 13, 2, 1, C.ink);
-  setPixel(grid, hoodX, 16, [156, 77, 73, 255]);
+  fillPolygon(grid, [[hoodX - px(8), px(10)], [hoodX - px(5), px(4)], [hoodX + px(4), px(3)], [hoodX + px(9), px(10)], [hoodX + px(6), px(18)], [hoodX - px(6), px(18)]], C.yuiHood);
+  drawCircle(grid, hoodX, px(11), px(7), C.yuiHood);
+  drawCircle(grid, hoodX, px(12), px(5), [53, 61, 92, 255]);
+  fillRect(grid, hoodX - px(3), px(10), px(7), px(7), [242, 204, 162, 255]);
+  fillRect(grid, hoodX - px(5), px(10), px(3), px(7), C.yuiHair);
+  fillRect(grid, hoodX + px(3), px(10), px(3), px(7), C.yuiHair);
+  fillRect(grid, hoodX - px(3), px(13), px(2), px(1), C.ink);
+  fillRect(grid, hoodX + px(3), px(13), px(2), px(1), C.ink);
+  setPixel(grid, hoodX, px(16), [156, 77, 73, 255]);
 
-  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? 3 : 2, C.lantern);
-  setPixel(grid, lampX - 1, lampY - 1, C.whiteWarm);
-  drawLine(grid, lampX - 2, lampY + 2, lampX + 2, lampY + 2, C.paperEdge);
+  drawCircle(grid, lampX, lampY, pose === 'ultimate' ? px(3) : px(2), C.lantern);
+  setPixel(grid, lampX - px(1), lampY - px(1), C.whiteWarm);
+  drawLine(grid, lampX - px(2), lampY + px(2), lampX + px(2), lampY + px(2), C.paperEdge);
 
   if (pose === 'move') {
-    fillRect(grid, 7, 26, 5, 2, dress);
-    fillRect(grid, 20, 26, 5, 2, dress);
-    drawLine(grid, 6, 25, 10, 27, C.paperEdge);
-    drawLine(grid, 21, 27, 26, 25, C.paperEdge);
-    drawLine(grid, 6, 21, 3, 23, C.paper);
-    drawLine(grid, 23, 18, 28, 16, C.paper);
+    fillRect(grid, px(7), px(26), px(5), px(2), dress);
+    fillRect(grid, px(20), px(26), px(5), px(2), dress);
+    drawLine(grid, px(6), px(25), px(10), px(27), C.paperEdge);
+    drawLine(grid, px(21), px(27), px(26), px(25), C.paperEdge);
+    drawLine(grid, px(6), px(21), px(3), px(23), C.paper);
+    drawLine(grid, px(23), px(18), px(28), px(16), C.paper);
   } else if (pose === 'hurt') {
-    drawLine(grid, 9, 17, 5, 15, C.paperLight);
-    drawLine(grid, 22, 17, 26, 15, C.paperLight);
-    fillRect(grid, hoodX - 3, 13, 8, 1, C.healRed);
-    setPixel(grid, 25, 8, C.paperLight);
-    setPixel(grid, 27, 10, C.paperLight);
-    drawLine(grid, 12, 25, 20, 26, C.paperEdge);
+    drawLine(grid, px(9), px(17), px(5), px(15), C.paperLight);
+    drawLine(grid, px(22), px(17), px(26), px(15), C.paperLight);
+    fillRect(grid, hoodX - px(3), px(13), px(8), px(1), C.healRed);
+    setPixel(grid, px(25), px(8), C.paperLight);
+    setPixel(grid, px(27), px(10), C.paperLight);
+    drawLine(grid, px(12), px(25), px(20), px(26), C.paperEdge);
   } else if (pose === 'ultimate') {
-    drawDiamond(grid, 16, 20, 3, [255, 244, 196, 185]);
-    drawLine(grid, 8, 14, 4, 11, [255, 228, 138, 170]);
-    drawLine(grid, 24, 13, 28, 10, [255, 228, 138, 170]);
-    drawLine(grid, 12, 28, 20, 28, [255, 228, 138, 150]);
-    setPixel(grid, 6, 19, C.paperLight);
-    setPixel(grid, 27, 22, C.paperLight);
+    drawDiamond(grid, px(16), px(20), px(3), [255, 244, 196, 185]);
+    drawLine(grid, px(8), px(14), px(4), px(11), [255, 228, 138, 170]);
+    drawLine(grid, px(24), px(13), px(28), px(10), [255, 228, 138, 170]);
+    drawLine(grid, px(12), px(28), px(20), px(28), [255, 228, 138, 150]);
+    setPixel(grid, px(6), px(19), C.paperLight);
+    setPixel(grid, px(27), px(22), C.paperLight);
   }
   return outlineNonTransparent(grid, C.inkEdge);
 }
@@ -718,13 +720,13 @@ export const generatedPixelAssets: PixelAssetSpec[] = [
   { id: 'enemy_signpost', path: 'assets/sprites/enemies/enemy_signpost_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemySignpost },
   { id: 'enemy_capsule', path: 'assets/sprites/enemies/enemy_capsule_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyCapsule },
   { id: 'enemy_haze', path: 'assets/sprites/enemies/enemy_haze_24.png', width: 24, height: 24, kind: 'enemy', quality: 'generated-final', create: createEnemyHaze },
-  // yui_idle / yui_move / yui_hurt are hand-final candidates: the real art lives in assets/source/aseprite/player/*.aseprite
+  // Yui's four poses are hand-final candidates: the real art lives in assets/source/aseprite/player/*.aseprite
   // and the PNG is produced by `pnpm aseprite:export:yui`. create() stays as the draft fallback used by tests
   // and asset verification; generate-pixel-assets skips writing the PNG for hand-final entries.
-  { id: 'yui_idle', path: 'assets/sprites/player/yui_idle_32.png', width: 32, height: 32, kind: 'player', quality: 'hand-final', create: createYuiGeneratedDraft },
-  { id: 'yui_move', path: 'assets/sprites/player/yui_move_32.png', width: 32, height: 32, kind: 'player', quality: 'hand-final', create: createYuiMoveGeneratedDraft },
-  { id: 'yui_hurt', path: 'assets/sprites/player/yui_hurt_32.png', width: 32, height: 32, kind: 'player', quality: 'hand-final', create: createYuiHurtGeneratedDraft },
-  { id: 'yui_ultimate', path: 'assets/sprites/player/yui_ultimate_32.png', width: 32, height: 32, kind: 'player', quality: 'generated-draft', create: createYuiUltimateGeneratedDraft },
+  { id: 'yui_idle', path: 'assets/sprites/player/yui_idle_42.png', width: 42, height: 42, kind: 'player', quality: 'hand-final', create: createYuiGeneratedDraft },
+  { id: 'yui_move', path: 'assets/sprites/player/yui_move_42.png', width: 42, height: 42, kind: 'player', quality: 'hand-final', create: createYuiMoveGeneratedDraft },
+  { id: 'yui_hurt', path: 'assets/sprites/player/yui_hurt_42.png', width: 42, height: 42, kind: 'player', quality: 'hand-final', create: createYuiHurtGeneratedDraft },
+  { id: 'yui_ultimate', path: 'assets/sprites/player/yui_ultimate_42.png', width: 42, height: 42, kind: 'player', quality: 'hand-final', create: createYuiUltimateGeneratedDraft },
   { id: 'enemy_elite_label', path: 'assets/sprites/enemies/enemy_elite_label_32.png', width: 32, height: 32, kind: 'enemy', quality: 'generated-draft', create: createEnemyEliteLabel },
   { id: 'bg_stage1_paper_night', path: 'assets/sprites/tiles/bg_stage1_paper_night_tile.png', width: 128, height: 128, kind: 'tile', quality: 'generated-draft', create: createPaperNightTile },
   { id: 'ui_card_paper_normal', path: 'assets/sprites/ui/ui_card_paper_normal.png', width: 320, height: 144, kind: 'ui', quality: 'generated-draft', create: createUiPaperCard },

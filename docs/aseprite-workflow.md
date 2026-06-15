@@ -43,23 +43,23 @@ assets/source/aseprite/
 
 | source | export |
 | --- | --- |
-| `assets/source/aseprite/player/yui_idle.aseprite` | `public/assets/sprites/player/yui_idle_32.png` |
-| `assets/source/aseprite/player/yui_move.aseprite` | `public/assets/sprites/player/yui_move_32.png` |
-| `assets/source/aseprite/player/yui_hurt.aseprite` | `public/assets/sprites/player/yui_hurt_32.png` |
-| `assets/source/aseprite/player/yui_ultimate.aseprite` | `public/assets/sprites/player/yui_ultimate_32.png` |
+| `assets/source/aseprite/player/yui_idle.aseprite` | `public/assets/sprites/player/yui_idle_42.png` |
+| `assets/source/aseprite/player/yui_move.aseprite` | `public/assets/sprites/player/yui_move_42.png` |
+| `assets/source/aseprite/player/yui_hurt.aseprite` | `public/assets/sprites/player/yui_hurt_42.png` |
+| `assets/source/aseprite/player/yui_ultimate.aseprite` | `public/assets/sprites/player/yui_ultimate_42.png` |
 
 export先PNGは `assetManifest` のpathと一致させる。
 texture id / assetManifest id は hand-final 化しても変えない。
 
 ## Status Labels
 
-- `generated-draft`: `vampPixelKit` が生成した仮のキャラ/背景/大型素材。ユイは `yui_ultimate` がここ。
+- `generated-draft`: `vampPixelKit` が生成した仮のキャラ/背景/UI/大型素材。ユイ4ポーズはここから外れ、42pxネイティブHF候補。
 - `generated-final`: `vampPixelKit` だけでゲームに使える小物/敵/弾/拾得物。
 - `source-missing`: hand-final 用 `.aseprite` がまだ無い。
 - `exported`: `.aseprite` からPNGを書き出した状態。
 - `hand-final`: Aseprite sourceを手修正し、export後にVisualGalleryとcombat-mockで確認した本命素材。
-  - 現状ユイは `yui_idle` / `yui_move` / `yui_hurt`。VisualGallery / late combat mock では確認済みだが、**実機スマホは未確認**なので「hand-final candidate」として扱う。`yui_move`（移動差分）・`yui_hurt`（被弾差分）は freeze した `yui_idle` を基準にした同一人物・同一ライティング。
-  - 表示サイズは 42px を本番候補として採用中。次の `yui_ultimate` は42px基準で作る。
+  - 現状ユイは `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate` が42pxネイティブ hand-final candidate。VisualGallery / late combat mock では確認済みだが、**実機スマホは未確認**。
+  - 表示サイズは `PLAYER_DEFAULTS.visualSize=42` を本番候補として採用中。
   - asset-status は `GF=generated-final` / `HF=hand-final` / `GD=generated-draft` で分離表示する。
 
 public配下のPNGを直接手修正しない。
@@ -68,12 +68,12 @@ Aseprite sourceを編集したら必ず `pnpm aseprite:export:yui` と `pnpm ass
 
 ## Review URLs
 
-- `/?scene=yui-gallery`: ユイ4ポーズ、1x/4x、hitCore/debugHitCircle相当、欠片比較。
+- `/?scene=yui-gallery`: ユイ4ポーズ、1x/3x、hitCore/debugHitCircle相当、欠片比較。
 - `/?scene=visual-gallery`: 既存ギャラリー全体。
 - `/?scene=combat-mock&density=early`: 軽い密度。
 - `/?scene=combat-mock&density=mid`: 標準密度。
 - `/?scene=combat-mock&density=late`: 8分後半相当の視認性入口。
-- `/?scene=asset-status`: image / generated-draft / fallback / missing。
+- `/?scene=asset-status`: GF / HF / GD / fallback / missing。
 
 ## Collision Boundary
 

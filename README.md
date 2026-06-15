@@ -19,7 +19,7 @@ Vamp Pon は、スマホ縦持ち向けのサバイバルローグライトで�
 **MVP v0.1 — playable（generated素材）**
 
 ユイで8分のサバイバルが一通り遊べます。
-主要素材は generated PNG に移行済み。ユイは `yui_idle` / `yui_move` / `yui_hurt` を Aseprite hand-final candidate にした段階で、`yui_ultimate` はまだ generated-draft です。
+主要素材は generated PNG に移行済み。ユイ4ポーズ（`yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`）は v4·42 prototype を基準にした 42px ネイティブ Aseprite hand-final candidate です。
 
 ---
 
@@ -45,17 +45,18 @@ HUD / ポーズ / クリア / ゲームオーバー / リザルト
 ## 次にやる
 
 計測と素材制作ラインの土台は実装済み（プレイログ自動出力・debug表示・assetManifest検証・Aseprite export導線）。
-次は **ユイ hand-final 入口と後半密度の視認性確認** を詰める段階。
+次は **42pxネイティブ版ユイの後半密度・実機視認性確認** を詰める段階。
 
 ```txt
-1. [済] yui_idle を Aseprite hand-final candidate にする（基準としてfreeze）
-2. [済] yui_move（移動差分）を idle 基準の hand-final candidate にする
-3. [済] yui_hurt（被弾差分）を idle 基準の hand-final candidate にする
+1. [済] yui_idle を v4·42 基準の42pxネイティブ hand-final candidate にする
+2. [済] yui_move（移動差分）を idle 基準の42pxネイティブ hand-final candidate にする
+3. [済] yui_hurt（被弾差分）を idle 基準の42pxネイティブ hand-final candidate にする
 4. [済] asset-status の HF/GF/GD 分離マークを入れる
 5. [本番候補] ユイの見た目サイズを 42px へ寄せる（`PLAYER_DEFAULTS.visualSize=42` / collision radius=6・stats は不変）
-6. [確認中] `/?scene=yui-redesign42` と `/?scene=combat-mock&density=late` で、42pxが敵・弾・拾得物を隠しすぎないか見る
-7. 次は v4·42 を基準に idle→move→hurt→ultimate の42pxネイティブ化を検討する（`yui_ultimate` はまだ generated-draft）
-8. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
+6. [済] yui_ultimate を generated-draft から42pxネイティブ hand-final candidate に昇格する
+7. [確認中] `/?scene=yui-gallery` / `/?scene=yui-redesign42` / `/?scene=combat-mock&density=late` で、42pxが敵・弾・拾得物を隠しすぎないか見る
+8. 実機スマホで42pxネイティブ4ポーズの可読性・指の隠れを確認する（未確認）
+9. /?scene=combat-mock&density=late と実機/実ブラウザでプレイログを docs/balance-log.md へ貼る
 ```
 
 参照: ハンドファイナル手順は [docs/yui-aseprite-hand-final-plan.md](docs/yui-aseprite-hand-final-plan.md)、32px高密度化案は [docs/yui-32px-redesign-notes.md](docs/yui-32px-redesign-notes.md)、見た目サイズ(42px前後)案は [docs/yui-42px-visual-size-test.md](docs/yui-42px-visual-size-test.md)。
@@ -82,8 +83,8 @@ pnpm aseprite:export:yui  # ユイ4ポーズのsourceがあればPNGへexport
 - スマホ縦持ち（390×844 論理解像度）を想定。
 - 操作: 画面左半分ドラッグの仮想スティック / PCは WASD・矢印キー。必殺技は画面右半分タップ。
 - `?debug=true` を付けるとデバッグ表示（経過秒・敵数・HP・XPなど）。
-- `?scene=yui-gallery` でユイ4ポーズ、1x/4x、hitCore/debug円相当を確認（42px本番候補表示）。
-- `?scene=yui-redesign42` で v4·42 本番候補と 40/44 の戻し候補を比較。
+- `?scene=yui-gallery` でユイ4ポーズ、1x/3x、hitCore/debug円相当を確認（42pxネイティブHF候補）。
+- `?scene=yui-redesign42` で42pxネイティブ本番候補と 40/44 の戻し候補を比較。
 - `?scene=combat-mock&density=late` で8分後半相当の視認性入口を確認。
 
 実装の構成は [docs/98-target-code-architecture.md](docs/98-target-code-architecture.md)、データ契約は [docs/81-data-contract.md](docs/81-data-contract.md) を参照。

@@ -26,7 +26,7 @@ import { rareItemById } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
 import { weaponRenderInfo } from '../domain/weaponVisual';
 import type { EvolutionKind } from '../domain/types';
-import { assetManifest, WEAPON_ASSET } from '../assets/assetManifest';
+import { assetById, assetManifest, WEAPON_ASSET } from '../assets/assetManifest';
 import { assetStatus, spriteOrNull } from '../assets/assetHelpers';
 import { prototypeAssets } from '../assets/prototypeManifest';
 import { generatedPixelAssets, type PixelAssetQuality } from '../assets/vampPixelKit';
@@ -193,13 +193,13 @@ export class VisualGalleryScene extends Phaser.Scene {
       const x = startX + i * 80;
       const status = assetStatus(this, assetId);
       if (status === 'image') {
-        this.pageRoot.add(this.add.image(x, 154, assetId).setDisplaySize(32, 32));
+        this.pageRoot.add(this.add.image(x, 154, assetId).setDisplaySize(42, 42));
       } else {
-        const box = this.add.rectangle(x, 154, 32, 32, COLORS.cardBg, 0.8);
+        const box = this.add.rectangle(x, 154, 42, 42, COLORS.cardBg, 0.8);
         box.setStrokeStyle(1, COLORS.cardEdge, 1);
         this.pageRoot.add(box);
       }
-      this.label(x, 174, `${label}\n${status}`, 9, status === 'image' ? '#cfe6f0' : '#ffbd4e', 70);
+      this.label(x, 180, `${label}\n${status}`, 9, status === 'image' ? '#cfe6f0' : '#ffbd4e', 70);
     });
   }
 
@@ -220,8 +220,8 @@ export class VisualGalleryScene extends Phaser.Scene {
   }
 
   private buildYuiGalleryPage(): void {
-    this.heading('ユイ4ポーズ / 1x・4x / 判定芯');
-    this.label(GAME_WIDTH / 2, 36, `通常表示 visualSize=${PLAYER_DEFAULTS.visualSize}px 本番候補 / radius=${PLAYER_DEFAULTS.radius}`, 9, '#ffe9a8', 300);
+    this.heading('ユイ4ポーズ / 42px native / 判定芯');
+    this.label(GAME_WIDTH / 2, 36, `42pxネイティブ hand-final候補 / visualSize=${PLAYER_DEFAULTS.visualSize}px / radius=${PLAYER_DEFAULTS.radius}`, 9, '#ffe9a8', 330);
     const poses = [
       ['yui_idle', 'idle'],
       ['yui_move', 'move'],
@@ -231,14 +231,14 @@ export class VisualGalleryScene extends Phaser.Scene {
 
     poses.forEach(([assetId, label], i) => {
       const x = 54 + i * 94;
-      this.pageRoot.add(this.add.image(x, 78, assetId).setDisplaySize(32, 32));
-      this.pageRoot.add(this.add.image(x, 158, assetId).setDisplaySize(128, 128));
-      this.label(x, 224, `${label}\n1x / 4x`, 9, '#cfe6f0', 82);
+      this.pageRoot.add(this.add.image(x, 78, assetId).setDisplaySize(42, 42));
+      this.pageRoot.add(this.add.image(x, 158, assetId).setDisplaySize(126, 126));
+      this.label(x, 224, `${label}\n1x / 3x`, 9, '#cfe6f0', 82);
       // Pose-level hand-final progress tag: HF=hand-final / GD=generated-draft.
-      // idle is the frozen基準; move is built as its same-person差分.
+      // idle is the 42px基準; the other poses are same-person差分.
       const quality = generatedQualityById.get(assetId);
       const isHandFinal = quality === 'hand-final';
-      const tag = isHandFinal ? (assetId === 'yui_idle' ? 'HF 基準' : 'HF 差分') : 'GD';
+      const tag = isHandFinal ? (assetId === 'yui_idle' ? 'HF 42基準' : assetId === 'yui_ultimate' ? 'HF 奥義' : 'HF 差分') : 'GD';
       this.label(x, 240, tag, 9, isHandFinal ? '#7fe0c0' : '#9db7df', 82);
     });
 
@@ -259,7 +259,8 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.pageRoot.add(
       this.add.text(12, 388, [
         '見ること:',
-        '- idle(基準)とmoveが同一人物・同一ライティングに見えるか',
+        '- 4ポーズが同一人物に見えるか',
+        '- 顔・フード・ランタンのライティングが揃うか',
         '- ランタン/欠片/hitCoreが近すぎないか',
         '- 黒インク敵と外形が混ざらないか',
         '- collisionはこの画面で変更しない',
@@ -599,10 +600,9 @@ export class VisualGalleryScene extends Phaser.Scene {
     }
   }
 
-  /** 4x拡大 + hitCore/debug円を原寸比率で重ねる（ランタンと芯の距離を確認）。 */
-  private placePreview4x(id: string, cx: number, cy: number): void {
-    // ゲーム表示は visualSize=36px。128px表示はその 128/36 倍として芯/円を比率で描く。
-    const scale = 128 / 36;
+  /** 拡大 + hitCore/debug円を表示サイズ比率で重ねる（ランタンと芯の距離を確認）。 */
+  private placePreview4x(id: string, cx: number, cy: number, dispSize: number = PLAYER_DEFAULTS.visualSize): void {
+    const scale = 128 / dispSize;
     const sprite = spriteOrNull(this, id, 128, 128);
     if (sprite) {
       sprite.setPosition(cx, cy);
@@ -620,8 +620,8 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.pageRoot.add(core);
   }
 
-  /** ゲーム表示サイズ(既定36px) + 原寸の hitCore/debug円（collisionは表示サイズに依らず一定）。 */
-  private placeGameSizeWithCore(id: string, cx: number, cy: number, size = 36): void {
+  /** ゲーム表示サイズ + 原寸の hitCore/debug円（collisionは表示サイズに依らず一定）。 */
+  private placeGameSizeWithCore(id: string, cx: number, cy: number, size: number = PLAYER_DEFAULTS.visualSize): void {
     const sprite = spriteOrNull(this, id, size, size);
     if (sprite) {
       sprite.setPosition(cx, cy);
@@ -659,44 +659,44 @@ export class VisualGalleryScene extends Phaser.Scene {
     this.pageRoot.add(core);
   }
 
-  /** ユイ 42px見た目サイズ比較ページ（現行36 / v3_32 / v4 40-44）。 */
+  /** ユイ 42pxネイティブ本番候補と 40/44 戻し候補の比較ページ。 */
   private buildYuiRedesign42Page(): void {
-    this.heading('ユイ 見た目サイズ比較: 36 / 40 / 42 / 44');
+    this.heading('ユイ 42pxネイティブ本番候補 / 40・44比較');
     // [id, 表示名, native(実寸), dispSize(ゲーム表示想定)]
     const cands: Array<[string, string, number, number]> = [
-      ['yui_idle', '現行', 32, 36],
-      ['yui_idle_v3_32', 'v3', 32, 36],
+      ['yui_idle_v3_32', 'v3旧案', 32, 36],
       ['yui_idle_v4_40', 'v4·40', 40, 40],
-      ['yui_idle_v4_42', 'v4·42 本番候補', 42, 42],
+      ['yui_idle_v4_42', 'v4·42 proto', 42, 42],
+      ['yui_idle', '本番idle 42', assetById.get('yui_idle')?.width ?? 42, PLAYER_DEFAULTS.visualSize],
       ['yui_idle_v4_44', 'v4·44', 44, 44],
     ];
     const xs = [46, 117, 195, 273, 348];
 
     // 1x実寸 + ゲーム表示サイズ
-    this.label(GAME_WIDTH / 2, 34, '上=1x実寸 / 下=ゲーム表示想定サイズ', 9, '#ffe9a8', 320);
+    this.label(GAME_WIDTH / 2, 34, '上=1x実寸 / 下=ゲーム表示想定サイズ（判定は常にradius=6）', 9, '#ffe9a8', 360);
     cands.forEach(([id, name, native, disp], i) => {
       const x = xs[i];
       this.placeIdleImage(id, x, 58, native);
       this.placeGameSizeWithCore(id, x, 92, disp);
-      this.label(x, 112, `${name}\n${native}→${disp}px`, 8, i >= 2 ? '#7fe0c0' : '#cfe6f0', 72);
+      this.label(x, 112, `${name}\n${native}→${disp}px`, 8, id === 'yui_idle' || id === 'yui_idle_v4_42' ? '#7fe0c0' : '#cfe6f0', 72);
     });
 
-    // 4x拡大 + hitCore/debug（現行 / v3 / v4·42）
+    // 拡大 + hitCore/debug（v4 prototype / 本番42 / 44）
     this.label(GAME_WIDTH / 2, 146, '拡大 + hitCore / debugHitCircle（ランタンと芯の距離）', 9, '#ffe9a8', 340);
-    this.placeBigWithCore('yui_idle', 78, 206, 104, 36);
-    this.label(78, 250, '現行36', 8, '#cfe6f0', 90);
-    this.placeBigWithCore('yui_idle_v3_32', 196, 206, 104, 36);
-    this.label(196, 250, 'v3·36', 8, '#cfe6f0', 90);
-    this.placeBigWithCore('yui_idle_v4_42', 314, 206, 104, 42);
-    this.label(314, 250, 'v4·42\n本番候補', 8, '#7fe0c0', 90);
+    this.placeBigWithCore('yui_idle_v4_42', 78, 206, 104, 42);
+    this.label(78, 250, 'v4·42\nproto', 8, '#cfe6f0', 90);
+    this.placeBigWithCore('yui_idle', 196, 206, 104, PLAYER_DEFAULTS.visualSize);
+    this.label(196, 250, '本番idle\n42 native', 8, '#7fe0c0', 90);
+    this.placeBigWithCore('yui_idle_v4_44', 314, 206, 104, 44);
+    this.label(314, 250, 'v4·44\n戻し比較', 8, '#cfe6f0', 90);
 
     // 実背景上 + 近接（欠片/回復/カプセル/黒インク敵/通常弾）
     this.label(GAME_WIDTH / 2, 278, '実背景上 + 近接（欠片/回復/カプセル/黒インク敵/通常弾）', 9, '#ffe9a8', 360);
     const cy = 330;
-    this.placeGameSizeWithCore('yui_idle', 70, cy, 36);
-    this.label(70, cy + 26, '現行36', 8, '#cfe6f0', 80);
-    this.placeGameSizeWithCore('yui_idle_v4_42', 175, cy, 42);
-    this.label(175, cy + 26, 'v4·42\n本番候補', 8, '#7fe0c0', 80);
+    this.placeGameSizeWithCore('yui_idle_v4_40', 70, cy, 40);
+    this.label(70, cy + 26, 'v4·40', 8, '#cfe6f0', 80);
+    this.placeGameSizeWithCore('yui_idle', 175, cy, PLAYER_DEFAULTS.visualSize);
+    this.label(175, cy + 26, '本番42\nnative', 8, '#7fe0c0', 80);
     this.placeGameSizeWithCore('yui_idle_v4_44', 282, cy, 44);
     this.label(282, cy + 26, 'v4·44', 8, '#7fe0c0', 80);
     // 近接物（誤認チェック）
@@ -709,18 +709,16 @@ export class VisualGalleryScene extends Phaser.Scene {
 
     this.pageRoot.add(
       this.add.text(12, 372, [
-        '比較観点（見た目サイズだけ変更 / collision radius=6・hitCoreは不変）:',
-        '- プレイヤーとして小さすぎないか（現行36 → 42/44）',
-        '- かわいく見えるか / 顔が読めるか',
+        '比較観点（collision radius=6・hitCoreは不変）:',
+        '- 42pxネイティブ本番候補として顔・フード・ランタンが読めるか',
         '- ランタンと hitCore（中央の金芯）が混ざらないか',
         '- 記憶の欠片（金の星）と誤認しないか',
-        '- 敵や弾を隠しすぎないか（42/44で覆い過ぎないか）',
+        '- 敵や弾を隠しすぎないか（40/42/44で覆い過ぎないか）',
         '- ヴァンサバ的な後半密度で邪魔にならないか',
         '  → /?scene=combat-mock&density=late&playerVisual=40|42|44 で実地確認',
         '',
-        '注意: v4·42 を本番 visualSize 候補に採用中。',
-        'yui_idle/move/hurt は既存32px素材を42px表示。',
-        'ultimate は次工程で42px基準化。',
+        '注意: yui_idle/move/hurt/ultimate は42pxネイティブHF候補。',
+        '実機スマホは未確認。',
       ], { fontFamily: FONT, fontSize: '9px', color: '#cfc6b0', lineSpacing: 3 }).setOrigin(0, 0),
     );
   }

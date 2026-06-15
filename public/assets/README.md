@@ -21,7 +21,7 @@ public/assets/
 ## ルール
 
 - 必要素材の一覧・サイズ・用途は **コードの正本** `src/game/assets/assetManifest.ts`。
-- 命名は manifest の `id` と対応させる（例 `yui_idle` → `assets/sprites/player/yui_idle_32.png`）。
+- 命名は manifest の `id` と対応させる（例 `yui_idle` → `assets/sprites/player/yui_idle_42.png`）。
 - **画像が無い間は Phaser Graphics の fallback で動く**（壊れない）。
 - 作り方・優先順位は [docs/art-pipeline.md](../../docs/art-pipeline.md)。
 - サイズ規定は [docs/sprite-size-guide.md](../../docs/sprite-size-guide.md)。

@@ -2,7 +2,7 @@
 -- Usage example:
 -- aseprite -b assets/source/aseprite/player/yui_idle.aseprite \
 --   --script scripts/aseprite/export-vamp-assets.lua \
---   --script-param out=public/assets/sprites/player/yui_idle_32.png
+--   --script-param out=public/assets/sprites/player/yui_idle_42.png
 
 local out = app.params["out"]
 if out == nil or out == "" then

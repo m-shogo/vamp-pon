@@ -49,5 +49,5 @@ pnpm build
 
 - production export は stable v1.3.17.1 を使う。
 - beta v1.3.18-beta2 は使わない。
-- 現在のユイ4ポーズは generated-draft。
+- 現在のユイ4ポーズは42pxネイティブ hand-final candidate。
 - hand-final 化は idle → move → hurt → ultimate の順。

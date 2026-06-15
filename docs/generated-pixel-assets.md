@@ -28,9 +28,8 @@ pnpm assets:verify
 - `generated-draft`: キャラ、背景、UI、大型素材。画面に載せるが、手直し前提。
 - `hand-final`: Aseprite source から `public/assets/sprites/...` へ export した本命素材。
 
-ユイ系のうち `yui_idle` / `yui_move` / `yui_hurt` は `hand-final`（hand-final candidate）。`assets/source/aseprite/player/yui_idle.aseprite` / `yui_move.aseprite` / `yui_hurt.aseprite` から `pnpm aseprite:export:yui` で export 済み（move=移動差分 / hurt=被弾差分、いずれも idle を基準にした同一人物・同一ライティング）。
-`yui_ultimate` は現時点では `generated-draft`（source-missing）。
-残りも `assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:yui` で同じ manifest path に export し、hand-final 候補へ進める。
+ユイ系の `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate` は `hand-final`（42pxネイティブ hand-final candidate）。`assets/source/aseprite/player/yui_*.aseprite` から `pnpm aseprite:export:yui` で `public/assets/sprites/player/yui_*_42.png` へ export 済み。
+4ポーズは v4·42 prototype のかわいい方向（丸い青フード、金の月リム、茶赤前髪、大きめ顔、白ハイライト入りの目、頬、古紙色ワンピ、右手側cageランタン、selective 1px outline、控えめ足元影）を基準にしている。
 現在の本番候補表示は `PLAYER_DEFAULTS.visualSize=42`。素材のhand-final昇格時も `PLAYER_DEFAULTS.radius`、hp / moveSpeed / invulnSec、pickup collectRadius / magnetRange / magnetSpeed は変更しない。
 
 追加状態:
@@ -67,10 +66,6 @@ pnpm assets:verify
 
 `generated-draft`
 
-- `yui_idle`
-- `yui_move`
-- `yui_hurt`
-- `yui_ultimate`
 - `enemy_elite_label`
 - `bg_stage1_paper_night`
 - `ui_card_paper_normal`
@@ -90,11 +85,11 @@ pnpm assets:verify
 
 `assetManifest` の全36件が生成対象。
 VisualGallery `?scene=asset-status` では image 36 / fallback 0 / missing 0 を基準にする。
-ただしユイ4ポーズの Aseprite source はまだ `source-missing`。
+ユイ4ポーズは HF、`generated-draft` ではない。
 
 ## 次に手仕上げすべき素材
 
-1. `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`: 42px本番候補基準で、顔、髪、服、ランタンの読みやすさと歩き差分を整える。`yui_ultimate` は次に42px基準で作る。
+1. `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate`: 42pxネイティブ候補の実機スマホ視認性と late density での重なりを確認する。
 2. `bg_stage1_paper_night`: 画面全体で繰り返した時の地図線・紙片密度。
 3. `evolved_dawn_ink_lamp`: 合体素材として黒インク・街灯・朝色の重なり整理。
 4. `ui_card_paper_normal/good/rare`: テキスト読みやすさと紙テクスチャのノイズ量。

@@ -57,10 +57,10 @@ describe('vampPixelKit', () => {
 
   it('主要素材ごとにサイズが正しい', () => {
     const expected = new Map([
-      ['yui_idle', '32x32'],
-      ['yui_move', '32x32'],
-      ['yui_hurt', '32x32'],
-      ['yui_ultimate', '32x32'],
+      ['yui_idle', '42x42'],
+      ['yui_move', '42x42'],
+      ['yui_hurt', '42x42'],
+      ['yui_ultimate', '42x42'],
       ['weapon_bookmark_orbit', '12x16'],
       ['weapon_ink_area', '64x64'],
       ['weapon_streetlamp_area', '128x128'],

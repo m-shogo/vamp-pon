@@ -54,17 +54,17 @@ pnpm aseprite:export:player
 ASEPRITE_BIN="/Applications/Aseprite.app/Contents/MacOS/aseprite"
 "$ASEPRITE_BIN" -b assets/source/aseprite/player/yui_idle.aseprite \
   --script scripts/aseprite/export-vamp-assets.lua \
-  --script-param out=public/assets/sprites/player/yui_idle_32.png
+  --script-param out=public/assets/sprites/player/yui_idle_42.png
 ```
 
 player source の対応:
 
 | source | export |
 | --- | --- |
-| `assets/source/aseprite/player/yui_idle.aseprite` | `public/assets/sprites/player/yui_idle_32.png` |
-| `assets/source/aseprite/player/yui_move.aseprite` | `public/assets/sprites/player/yui_move_32.png` |
-| `assets/source/aseprite/player/yui_hurt.aseprite` | `public/assets/sprites/player/yui_hurt_32.png` |
-| `assets/source/aseprite/player/yui_ultimate.aseprite` | `public/assets/sprites/player/yui_ultimate_32.png` |
+| `assets/source/aseprite/player/yui_idle.aseprite` | `public/assets/sprites/player/yui_idle_42.png` |
+| `assets/source/aseprite/player/yui_move.aseprite` | `public/assets/sprites/player/yui_move_42.png` |
+| `assets/source/aseprite/player/yui_hurt.aseprite` | `public/assets/sprites/player/yui_hurt_42.png` |
+| `assets/source/aseprite/player/yui_ultimate.aseprite` | `public/assets/sprites/player/yui_ultimate_42.png` |
 
 ## Quality Labels
 
@@ -74,8 +74,8 @@ player source の対応:
 - `exported`: `.aseprite` source から PNG を書き出した状態。
 - `hand-final`: Aseprite などで手修正し、manifest path に沿って export した本命素材。
 
-hand-final にした素材は、`assetManifest` の id/path/size を変えずに PNG だけ差し替える。
-hand-final 昇格時も `PLAYER_DEFAULTS.radius` や `visualSize` は変更しない。
+hand-final にした素材は、`assetManifest` の id と texture key を変えずに PNG を差し替える。
+42pxネイティブ化では `assetManifest` の path/size は `*_42.png` / 42x42 に合わせる。`PLAYER_DEFAULTS.radius` や `visualSize` は変更しない。
 キャラ素材更新と collision 変更は同じ作業に混ぜない。
 
 ## Review URLs

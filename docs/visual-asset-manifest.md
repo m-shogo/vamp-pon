@@ -23,10 +23,10 @@
 ### player
 | id | size | 用途 |
 |---|---|---|
-| yui_idle | 32x32 | ユイ 立ち（必須） |
-| yui_move | 32x32 | ユイ 移動（任意・アニメ） |
-| yui_hurt | 32x32 | ユイ 被弾（任意・リアクション） |
-| yui_ultimate | 32x32 | ユイ 奥義（任意・演出差分） |
+| yui_idle | 42x42 | ユイ 立ち（必須 / 42px native HF候補） |
+| yui_move | 42x42 | ユイ 移動（42px native HF候補） |
+| yui_hurt | 42x42 | ユイ 被弾（42px native HF候補） |
+| yui_ultimate | 42x42 | ユイ 奥義（42px native HF候補） |
 
 ### enemy（visualKind 対応）
 | id | size | 敵 |
@@ -84,9 +84,9 @@
 ## 現在の状況
 
 ```txt
-生成素材: 36 個（generated-final 22 / generated-draft 14）
+生成素材: 36 個（generated-final 22 / hand-final 4 / generated-draft 10）
 表示    : assetManifest 全エントリが生成PNG image
-source  : ユイ4ポーズはAseprite source-missing
+source  : ユイ4ポーズはAseprite sourceあり / 42px native HF候補
 ```
 
 `?scene=asset-status` で最新の 実素材/仮/欠品 を確認できる。

@@ -1,8 +1,8 @@
-# ユイ 見た目サイズ 42px 本番候補（v4 prototype基準）
+# ユイ 見た目サイズ 42px 本番候補（v4 prototype → native 4ポーズ）
 
 32px の v3 リデザインは方向性は良いが、**プレイヤーとしてやや小さく感じる**可能性がある。
 そこで「見た目サイズ」を 36 → 40 / 42 / 44px に上げた場合の存在感・可読性・画面の邪魔さを比較した。
-現在は **42px を本番候補** として扱い、通常ゲーム内の `PLAYER_DEFAULTS.visualSize` を `42` にしている。
+現在は **42px を本番候補** として扱い、通常ゲーム内の `PLAYER_DEFAULTS.visualSize` を `42` にしている。さらに `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate` を v4·42 基準の42pxネイティブ hand-final candidate に更新済み。
 
 ## 前提・変更しないもの
 
@@ -10,8 +10,7 @@
 - `PLAYER_DEFAULTS.visualSize = 42`（本番候補の見た目）。40pxへ戻す場合はこの定数を戻す。
 - pickup `collectRadius` / `magnetRange` / `magnetSpeed`、hp / moveSpeed / invulnSec は変更しない。
 - 東方方式（当たり判定＝中央の小さな hitCore、見た目はそれと分離して大きくできる）を維持。
-- 既存 `yui_idle` / `yui_move` / `yui_hurt`（hand-final candidate）は、まず32px素材を42px表示して整合を見る。`yui_idle_v4_42` は次の42pxネイティブ制作基準として扱う。
-- `yui_ultimate` はまだ generated-draft。42px基準で次に作る前提。
+- 4ポーズは42pxネイティブ。`yui_idle_v4_42` prototype のかわいい方向を本番候補基準として採用した。
 
 ## prototype（native 解像度で再設計、32px の単純拡大ではない）
 
@@ -41,7 +40,7 @@ prototype は本番 `assetManifest` ではなく `src/game/assets/prototypeManif
 ### 見た目サイズ確認ページ
 
 - URL: `/?scene=yui-redesign42`（VisualGallery 9/9）
-- 表示: 旧36 / v3(36) / v4·40 / v4·42本番候補 / v4·44 を
+- 表示: v3旧案 / v4·40 / v4·42 prototype / 本番42px native / v4·44 を
   - 1x実寸 / ゲーム表示想定サイズ / 拡大+hitCore・debugHitCircle / 実背景上+近接（欠片・回復・カプセル・黒インク敵・通常弾）
 - 画面内の比較観点:
   - プレイヤーとして小さすぎないか / かわいく見えるか / 顔が読めるか
@@ -66,7 +65,7 @@ prototype は本番 `assetManifest` ではなく `src/game/assets/prototypeManif
 
 - 32px(=現行36表示) はスマホ縦だと主人公として小さめに見える。40/42/44 で**存在感が明確に増す**。
 - 44px は最も読みやすく可愛いが、後半密度（`density=late&playerVisual=44`）では敵・弾をやや覆い気味。
-- 42px は「主人公として十分大きい」と「敵・弾を隠しすぎない」のバランスが良さそう。
+- 42px は「主人公として十分大きい」と「敵・弾を隠しすぎない」のバランスが良さそう。現在は4ポーズとも42pxネイティブHF候補。
 - いずれも cage型ランタンが右手側に出て、中央 hitCore（金芯）とは形・位置で分離できている。
 - **実機スマホでの可読性・指の隠れは未確認**。最終判断は実機で要確認。
 
@@ -78,7 +77,7 @@ prototype は本番 `assetManifest` ではなく `src/game/assets/prototypeManif
 ## 次の判断
 
 - 実機で `yui-redesign42` と `combat-mock?...&playerVisual=42/44` を確認。
-- `yui_idle_v4_42` を基準に idle → move → hurt → ultimate を 42px で作り直す（collision radius=6 は据え置き）。
+- `yui_idle_v4_42` を基準に idle → move → hurt → ultimate を 42px で作り直し済み（collision radius=6 は据え置き）。
 - **大きすぎる**なら `PLAYER_DEFAULTS.visualSize` を 40px へ戻す。
 - 32px 継続なら v3 を磨いて 36 表示のまま進める。
 - いずれも **collision / pickup / stats は変更しない**。

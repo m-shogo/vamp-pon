@@ -33,9 +33,9 @@ describe('aseprite workflow config', () => {
     for (const entry of PLAYER_ASEPRITE_EXPORTS) {
       expect(entry.source).toBe(`assets/source/aseprite/player/${entry.id}.aseprite`);
       expect(entry.target).toBe(`public/${entry.manifestPath}`);
-      expect(entry.manifestPath).toMatch(/^assets\/sprites\/player\/yui_(idle|move|hurt|ultimate)_32\.png$/);
-      expect(entry.width).toBe(32);
-      expect(entry.height).toBe(32);
+      expect(entry.manifestPath).toMatch(/^assets\/sprites\/player\/yui_(idle|move|hurt|ultimate)_42\.png$/);
+      expect(entry.width).toBe(42);
+      expect(entry.height).toBe(42);
     }
   });
 });

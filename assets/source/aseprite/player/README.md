@@ -14,6 +14,7 @@ yui_ultimate.aseprite
 
 This repo currently uses one source file per pose.
 That matches the existing assetManifest ids and keeps `source-missing` / `exported` review simple.
+The current production player PNGs are 42x42 (`yui_*_42.png`).
 
 ## Export
 
