@@ -28,8 +28,9 @@ pnpm assets:verify
 - `generated-draft`: キャラ、背景、UI、大型素材。画面に載せるが、手直し前提。
 - `hand-final`: Aseprite source から `public/assets/sprites/...` へ export した本命素材。
 
-ユイ系 `yui_idle` / `yui_move` / `yui_hurt` / `yui_ultimate` は現時点では `generated-draft`。
-`assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:yui` で同じ manifest path に export し、hand-final 候補へ進める。
+ユイ系のうち `yui_idle` は `hand-final`（hand-final candidate）。`assets/source/aseprite/player/yui_idle.aseprite` から `pnpm aseprite:export:yui` で export 済み。
+`yui_move` / `yui_hurt` / `yui_ultimate` は現時点では `generated-draft`（source-missing）。
+残りも `assets/source/aseprite/player/*.aseprite` が入ったら `pnpm aseprite:export:yui` で同じ manifest path に export し、hand-final 候補へ進める。
 hand-final 昇格時も `PLAYER_DEFAULTS.radius` / `visualSize` は変更しない。
 
 追加状態:

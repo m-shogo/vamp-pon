@@ -50,13 +50,15 @@ texture id / assetManifest id は hand-final 化しても変えない。
 
 ## Status Labels
 
-- `generated-draft`: `vampPixelKit` が生成した仮のキャラ/背景/大型素材。現在のユイ4ポーズはここ。
+- `generated-draft`: `vampPixelKit` が生成した仮のキャラ/背景/大型素材。ユイは `yui_move` / `yui_hurt` / `yui_ultimate` がここ。
 - `generated-final`: `vampPixelKit` だけでゲームに使える小物/敵/弾/拾得物。
 - `source-missing`: hand-final 用 `.aseprite` がまだ無い。
 - `exported`: `.aseprite` からPNGを書き出した状態。
 - `hand-final`: Aseprite sourceを手修正し、export後にVisualGalleryとcombat-mockで確認した本命素材。
+  - 現状ユイは `yui_idle` のみ。VisualGallery / late combat mock では確認済みだが、**実機スマホは未確認**なので「hand-final candidate」として扱う。
 
 public配下のPNGを直接手修正しない。
+`hand-final` のPNGは `pnpm generate:pixel-assets` では上書きしない（Aseprite export専用）。
 Aseprite sourceを編集したら必ず `pnpm aseprite:export:yui` と `pnpm assets:verify` を通す。
 
 ## Review URLs

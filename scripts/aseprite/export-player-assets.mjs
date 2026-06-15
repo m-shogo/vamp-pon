@@ -28,7 +28,8 @@ for (const entry of PLAYER_ASEPRITE_EXPORTS) {
     continue;
   }
 
-  const result = spawnSync(found.path, ['-b', source, '--script', ASEPRITE_SCRIPT, '--script-param', `out=${target}`], {
+  // Aseprite requires --script-param to come before --script.
+  const result = spawnSync(found.path, ['-b', source, '--script-param', `out=${target}`, '--script', ASEPRITE_SCRIPT], {
     encoding: 'utf8',
   });
   if (result.stdout.trim()) console.log(result.stdout.trim());

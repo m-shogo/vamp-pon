@@ -80,6 +80,13 @@ function generateAssets({ verifyOnly }: { verifyOnly: boolean }): void {
     validateGrid(spec, grid);
     if (verifyOnly) continue;
 
+    // hand-final PNGs are produced from Aseprite sources (pnpm aseprite:export:yui);
+    // never overwrite them with the generated-draft fallback.
+    if (spec.quality === 'hand-final') {
+      console.log(`skip write (hand-final, Aseprite-owned): ${spec.path}`);
+      continue;
+    }
+
     const outputPath = join(PUBLIC_DIR, spec.path);
     mkdirSync(dirname(outputPath), { recursive: true });
     writeFileSync(outputPath, encodePng(grid));
