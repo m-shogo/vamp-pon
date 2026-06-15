@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { queueExistingAssets } from '../assets/loadAssets';
+import { queueExistingAssets, queuePrototypeAssets } from '../assets/loadAssets';
 import { isGalleryUrl } from './VisualGalleryScene';
 
 /**
@@ -12,7 +12,9 @@ export class BootScene extends Phaser.Scene {
   }
 
   async create(): Promise<void> {
-    const count = await queueExistingAssets(this);
+    let count = await queueExistingAssets(this);
+    // 比較ページ用の prototype はギャラリー起動時のみ追加で積む（本番には影響しない）。
+    if (isGalleryUrl()) count += await queuePrototypeAssets(this);
     if (count > 0) {
       this.load.once(Phaser.Loader.Events.COMPLETE, () => this.startTarget());
       this.load.start();

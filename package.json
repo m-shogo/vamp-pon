@@ -9,6 +9,7 @@
     "aseprite:export": "node scripts/aseprite/export-player-assets.mjs",
     "aseprite:export:yui": "node scripts/aseprite/export-player-assets.mjs",
     "aseprite:export:player": "node scripts/aseprite/export-player-assets.mjs",
+    "aseprite:export:proto": "node scripts/aseprite/export-prototype-assets.mjs",
     "generate:pixel-assets": "node --experimental-strip-types scripts/generate-pixel-assets.ts",
     "assets:verify": "node --experimental-strip-types scripts/generate-pixel-assets.ts --verify",
     "build": "tsc && vite build",

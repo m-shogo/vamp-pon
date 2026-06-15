@@ -1,5 +1,6 @@
 import type Phaser from 'phaser';
 import { assetManifest } from './assetManifest';
+import { prototypeAssets } from './prototypeManifest';
 
 /**
  * 「実在する画像だけ」を Phaser のロードキューに積む。
@@ -12,6 +13,24 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
   let queued = 0;
   await Promise.all(
     assetManifest.map(async (a) => {
+      if (!(await fileExists(a.path))) return;
+      scene.load.image(a.id, a.path);
+      queued += 1;
+    }),
+  );
+  return queued;
+}
+
+/**
+ * 比較用 prototype 画像をロードキューに積む（ギャラリー比較ページ用）。
+ * 本番 assetManifest とは別管理。存在するものだけ積む。
+ *
+ * @returns 積んだ件数
+ */
+export async function queuePrototypeAssets(scene: Phaser.Scene): Promise<number> {
+  let queued = 0;
+  await Promise.all(
+    prototypeAssets.map(async (a) => {
       if (!(await fileExists(a.path))) return;
       scene.load.image(a.id, a.path);
       queued += 1;

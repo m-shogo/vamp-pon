@@ -40,6 +40,20 @@ export const PLAYER_ASEPRITE_EXPORTS = [
   },
 ];
 
+// Prototype / comparison assets. Kept OUT of the production assetManifest and the
+// player export so they can never overwrite the shipped poses. Exported via
+// `pnpm aseprite:export:proto` to public/assets/sprites/player/prototypes/.
+export const PROTOTYPE_ASEPRITE_EXPORTS = [
+  {
+    id: 'yui_idle_v3_32',
+    source: 'assets/source/aseprite/player/prototypes/yui_idle_v3.aseprite',
+    target: 'public/assets/sprites/player/prototypes/yui_idle_v3_32.png',
+    manifestPath: 'assets/sprites/player/prototypes/yui_idle_v3_32.png',
+    width: 32,
+    height: 32,
+  },
+];
+
 export function asepriteCandidatePaths({ env = process.env } = {}) {
   return [
     env.ASEPRITE_BIN,

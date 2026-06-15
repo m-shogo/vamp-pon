@@ -27,10 +27,11 @@ import { evolutions } from '../data/evolutions';
 import { weaponRenderInfo } from '../domain/weaponVisual';
 import type { EvolutionKind } from '../domain/types';
 import { assetManifest, WEAPON_ASSET } from '../assets/assetManifest';
-import { assetStatus } from '../assets/assetHelpers';
+import { assetStatus, spriteOrNull } from '../assets/assetHelpers';
+import { prototypeAssets } from '../assets/prototypeManifest';
 import { generatedPixelAssets, type PixelAssetQuality } from '../assets/vampPixelKit';
 
-const PAGES = ['背景・ユイ・敵', 'ユイ詳細', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況'] as const;
+const PAGES = ['背景・ユイ・敵', 'ユイ詳細', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況', 'ユイ32px比較'] as const;
 
 /** URLのscene指定から初期ページを決める。 */
 export function pageFromUrl(): number {
@@ -40,10 +41,11 @@ export function pageFromUrl(): number {
   if (scene === 'combat-mock') return 5;
   if (scene === 'evolution-showcase') return 4;
   if (scene === 'asset-status') return 6;
+  if (scene === 'yui-redesign32') return 7;
   return 0;
 }
 
-const GALLERY_SCENES = ['visual-gallery', 'yui-gallery', 'combat-mock', 'evolution-showcase', 'asset-status'];
+const GALLERY_SCENES = ['visual-gallery', 'yui-gallery', 'combat-mock', 'evolution-showcase', 'asset-status', 'yui-redesign32'];
 const generatedQualityById = new Map(generatedPixelAssets.map((asset) => [asset.id, asset.quality]));
 
 /** ?scene= / ?debug= がギャラリー系か。 */
@@ -115,6 +117,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       case 4: this.buildEvolutionPage(); break;
       case 5: this.buildCombatMockPage(); break;
       case 6: this.buildAssetStatusPage(); break;
+      case 7: this.buildYuiRedesign32Page(); break;
     }
 
     const showHud = this.page === 2 || this.page === 5;
@@ -514,6 +517,107 @@ export class VisualGalleryScene extends Phaser.Scene {
         })
         .setOrigin(0.5, 0),
     );
+  }
+
+  /** ユイ32px高密度化の比較ページ（現行 hand-final candidate vs v3 prototype）。 */
+  private buildYuiRedesign32Page(): void {
+    this.heading('ユイ 32px比較: 現行 vs v3 prototype');
+    const proto = prototypeAssets.find((p) => p.compareWith === 'yui_idle');
+    const protoId = proto?.id ?? 'yui_idle_v3_32';
+    const leftX = GAME_WIDTH * 0.3;
+    const rightX = GAME_WIDTH * 0.7;
+
+    this.label(leftX, 38, '現行 yui_idle\n(hand-final candidate)', 10, '#cfe6f0', 150);
+    this.label(rightX, 38, 'v3 prototype\n(32px高密度案)', 10, '#7fe0c0', 150);
+
+    // 1x（実寸32px）
+    this.label(GAME_WIDTH / 2, 74, '1x（32px原寸）', 9, '#ffe9a8', 200);
+    this.placeIdleImage('yui_idle', leftX, 96, 32);
+    this.placeIdleImage(protoId, rightX, 96, 32);
+
+    // 4x + hitCore / debugHitCircle（原寸からの比率で重ねる）
+    this.label(GAME_WIDTH / 2, 120, '4x + hitCore / debugHitCircle', 9, '#ffe9a8', 240);
+    this.placePreview4x('yui_idle', leftX, 178);
+    this.placePreview4x(protoId, rightX, 178);
+
+    // 実背景上 + 近接（欠片 / 回復 / カプセル / 黒インク敵）
+    this.label(GAME_WIDTH / 2, 248, '実背景上 + 近接（欠片/回復/カプセル/黒インク敵）', 9, '#ffe9a8', 320);
+    const clusterY = 300;
+    this.placeGameSizeWithCore('yui_idle', leftX, clusterY);
+    this.placeGameSizeWithCore(protoId, rightX, clusterY);
+    this.place(createPickupView(this), GAME_WIDTH / 2 - 8, clusterY - 18);
+    this.place(createHealPickupView(this), GAME_WIDTH / 2 + 12, clusterY + 2);
+    this.place(createCapsuleView(this), GAME_WIDTH / 2 - 4, clusterY + 24);
+    const ink = enemies.find((e) => e.visualKind === 'ink_blob');
+    if (ink) this.place(createEnemyView(this, ink, enemyRadiusFor(ink)), GAME_WIDTH / 2 + 2, clusterY - 40);
+
+    this.pageRoot.add(
+      this.add.text(12, 350, [
+        '比較メモ:',
+        '- 顔が読めるか（v3は顔のピクセル配分を増やした）',
+        '- かわいく見えるか（丸フード / 三日月リム / 大きめ目 / 頬）',
+        '- ランタンと hitCore が混ざらないか（v3は右手側にcage型で離す）',
+        '- 記憶の欠片（金の星）と誤認しないか',
+        '- 32pxのまま情報量/解像度感が上がっているか',
+        '- 黒インク敵の中で埋もれないか（古紙色＋1px外周）',
+        '',
+        '注意: v3 はまだ prototype。本番 yui_idle / yui_move は未変更。',
+      ], { fontFamily: FONT, fontSize: '10px', color: '#cfc6b0', lineSpacing: 4 }).setOrigin(0, 0),
+    );
+  }
+
+  /** 画像 or fallback枠を表示（指定サイズ原寸系）。 */
+  private placeIdleImage(id: string, x: number, y: number, size: number): void {
+    const sprite = spriteOrNull(this, id, size, size);
+    if (sprite) {
+      sprite.setPosition(x, y);
+      this.pageRoot.add(sprite);
+    } else {
+      const box = this.add.rectangle(x, y, size, size, COLORS.cardBg, 0.8);
+      box.setStrokeStyle(1, COLORS.cardEdge, 1);
+      this.pageRoot.add(box);
+      this.label(x, y - 6, 'no img', 8, '#ffbd4e', 60);
+    }
+  }
+
+  /** 4x拡大 + hitCore/debug円を原寸比率で重ねる（ランタンと芯の距離を確認）。 */
+  private placePreview4x(id: string, cx: number, cy: number): void {
+    // ゲーム表示は visualSize=36px。128px表示はその 128/36 倍として芯/円を比率で描く。
+    const scale = 128 / 36;
+    const sprite = spriteOrNull(this, id, 128, 128);
+    if (sprite) {
+      sprite.setPosition(cx, cy);
+      this.pageRoot.add(sprite);
+    } else {
+      const box = this.add.rectangle(cx, cy, 128, 128, COLORS.cardBg, 0.8);
+      box.setStrokeStyle(1, COLORS.cardEdge, 1);
+      this.pageRoot.add(box);
+    }
+    const debug = this.add.circle(cx, cy, PLAYER_DEFAULTS.radius * scale, 0x9fe0ff, 0.16);
+    debug.setStrokeStyle(2, 0xffffff, 0.6);
+    this.pageRoot.add(debug);
+    const core = this.add.circle(cx, cy, 2.5 * scale, COLORS.lantern, 0.95);
+    core.setStrokeStyle(1, 0xffffff, 0.9);
+    this.pageRoot.add(core);
+  }
+
+  /** ゲーム表示サイズ(36px) + 原寸の hitCore/debug円。 */
+  private placeGameSizeWithCore(id: string, cx: number, cy: number): void {
+    const sprite = spriteOrNull(this, id, 36, 36);
+    if (sprite) {
+      sprite.setPosition(cx, cy);
+      this.pageRoot.add(sprite);
+    } else {
+      const box = this.add.rectangle(cx, cy, 36, 36, COLORS.cardBg, 0.8);
+      box.setStrokeStyle(1, COLORS.cardEdge, 1);
+      this.pageRoot.add(box);
+    }
+    const debug = this.add.circle(cx, cy, PLAYER_DEFAULTS.radius, 0x9fe0ff, 0.18);
+    debug.setStrokeStyle(2, 0xffffff, 0.72);
+    this.pageRoot.add(debug);
+    const core = this.add.circle(cx, cy, 2.5, COLORS.lantern, 0.95);
+    core.setStrokeStyle(1, 0xffffff, 0.9);
+    this.pageRoot.add(core);
   }
 
   private burstButton(x: number, y: number, kind: EvolutionKind): void {
