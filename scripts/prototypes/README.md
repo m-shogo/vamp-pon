@@ -2,6 +2,12 @@
 
 ユイ 52px master の **prototype** 専用ジェネレータ。production 素材ではない。
 
+> **2つのルートを分離する**（[pipeline doc](../../docs/pixel-art/vamp-pon-pixel-art-pipeline-v1.md)）:
+> - **人間ルート（A）**: player / 主役級の GUI 手仕上げと**最終レビュー**。これだけが `hand-final` を名乗れる。
+> - **procedural ルート（B）**: `vamp-pon-pixel-finisher.lua` による量産・基礎品質底上げ。産物は
+>   `script-assisted-candidate` 止まり。**hand-final / GUI hand-finish ではない。**
+> - **production 昇格は別**（pipeline §5）。本ディレクトリの生成物で production を触らない。
+
 すべて Lua 図形 bootstrap であり、`final-candidate` / `hand-final` / `final` には**しない**
 （[docs/pixel-art-quality-gate.md](../../docs/pixel-art-quality-gate.md)）。
 production 反映は GUI手仕上げ＋80点rubric通過の**後のみ**検討する。
@@ -37,6 +43,25 @@ done
 
 旧 A/B/C 版は `build-yui-52-master.lua` / `build-yui-52-review-sheet.lua`。
 
+## procedural finish（PF / script-assisted route B）
+
+V2a に定型仕上げパスを機械適用して `_pf` を作る。**hand-final ではない**（pipeline §1）。
+
+```sh
+pnpm aseprite:pixel-finisher:yui52     # V2a -> V2a_pf（source + png）
+pnpm aseprite:pixel-finisher:verify    # _pf 出力の存在確認
+
+# PF review sheet（before/after 1x・6x・夜背景・インク斑+欠片+hitCore・部位拡大）
+"$ASE" -b \
+  --script-param png=public/assets/prototypes/yui_idle_52_v2a_pf_review_sheet.png \
+  --script scripts/prototypes/build-pixel-finisher-review-sheet.lua
+```
+
+- finisher: `scripts/aseprite/vamp-pon-pixel-finisher.lua`（mode=yui52-v2a, named-layer 編集）
+- review: [yui-52px-v2a-procedural-finish-review.md](../../docs/reviews/design-team/yui-52px-v2a-procedural-finish-review.md)
+- 出力は `assets/source/prototypes/` / `public/assets/prototypes/` のみ（production 書き込み拒否）。
+- player（ユイ）は humanReviewRequired=true。PF 後も**人間GUI手仕上げ + 人間レビュー**を経ない限り production に上げない。
+
 ## 運用ルール（prototype作業時）
 
 - **prototype作業中は production を触らない。**
@@ -50,6 +75,7 @@ done
 ## 確認コマンドの使い分け
 
 ```sh
+pnpm pixel-art:pipeline:verify # pipeline一式(doc/schema/recipe/finisher/extension/PF出力/review)+ production未変更
 pnpm prototype:verify         # prototype画像/source/review doc が存在し、production未変更か
 pnpm design:review:verify     # review doc の構造（Current/Target score・Keep・Discard・Final decision 等）
 pnpm player:protected:verify  # production player assets / gameplay定数を触っていないか

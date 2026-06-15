@@ -8,6 +8,12 @@ prev review: [yui-52px-master-v2-review.md](./yui-52px-master-v2-review.md)
 brief: [yui-52px-master-prototype-brief.md](../../design-team/yui-52px-master-prototype-brief.md)
 before/after用テンプレート: [yui-52px-v2a-before-after-template.md](./yui-52px-v2a-before-after-template.md)
 人間向けGUI実作業ガイド（1px座標つき）: [yui-52px-v2a-human-aseprite-guide.md](./yui-52px-v2a-human-aseprite-guide.md)
+pipeline: [vamp-pon-pixel-art-pipeline-v1.md](../../pixel-art/vamp-pon-pixel-art-pipeline-v1.md)
+
+> **ルート分離（pipeline v1）**: 人間ルート（A）＝player / 主役級の GUI 手仕上げ + 最終レビュー。
+> procedural ルート（B）＝量産・基礎底上げ（`script-assisted-candidate` 止まり、hand-final ではない）。
+> 任意で B の PF を手仕上げの出発点にしてよい（[PF review](./yui-52px-v2a-procedural-finish-review.md)）が、
+> player の production 昇格は A 必須。**production 昇格はこのハンドオフとは別工程。**
 
 ---
 

@@ -1,0 +1,91 @@
+{
+  "$schema": "../character-recipes.schema.json",
+  "id": "asa",
+  "name": "アサ",
+  "role": "main。ユイと組む書き手。破れた紙とインクを束ねて武器/手がかりにする。",
+  "importance": "main",
+  "canvasSize": { "width": 52, "height": 52 },
+  "basePose": "idle",
+  "silhouetteKeywords": [
+    "肩に巻いた破れ紙のショール",
+    "片手に大きな筆（ブラシ）",
+    "結った長い後ろ髪",
+    "ユイより縦に細いシルエット"
+  ],
+  "palette": [
+    { "name": "outline", "hex": "#201824", "use": "1px outline" },
+    { "name": "cloak_d", "hex": "#7a3a2e", "use": "paper-shawl shadow (warm red)" },
+    { "name": "cloak_m", "hex": "#b25c3e", "use": "paper-shawl mid" },
+    { "name": "cloak_l", "hex": "#d98a5a", "use": "paper-shawl light" },
+    { "name": "cloak_rim", "hex": "#f0b884", "use": "rim light (bg separation)" },
+    { "name": "hair_d", "hex": "#2a2230", "use": "hair shadow (ink black-violet)" },
+    { "name": "hair_m", "hex": "#46384e", "use": "hair mid" },
+    { "name": "hair_h", "hex": "#6a5670", "use": "hair highlight" },
+    { "name": "skin", "hex": "#f7d2a4", "use": "skin" },
+    { "name": "skin_sh", "hex": "#d6ad80", "use": "skin shadow" },
+    { "name": "eye_w", "hex": "#fffaf0", "use": "eye catchlight" },
+    { "name": "iris", "hex": "#3a6e6a", "use": "iris (teal, distinct from Yui's warm iris)" },
+    { "name": "robe", "hex": "#e7ddc4", "use": "inner robe (old paper)" },
+    { "name": "ink_warm", "hex": "#caa24a", "use": "brush ink (amber)" },
+    { "name": "ink_core", "hex": "#f4e0a0", "use": "brush tip highlight" }
+  ],
+  "faceRules": [
+    "ユイより少し年上で落ち着いた顔。目はやや切れ長だが可愛さは残す。",
+    "白ハイライトは1pxのクリーンなドット。下まぶた1px。",
+    "iris は teal でユイ（warm）と一目で区別できる。"
+  ],
+  "hairRules": [
+    "インク黒〜紫の長い後ろ髪を結ぶ。",
+    "前髪はユイと差別化し、片側に流す（非対称）。"
+  ],
+  "outfitRules": [
+    "肩に破れ紙のショールを巻く。紙の縁の破れを1px出す。",
+    "襟 / 肩 / 首を出して直貼りに見せない。",
+    "内側は古紙色のローブ。布の厚みを出す。"
+  ],
+  "vessel": {
+    "name": "大筆（インクブラシ）",
+    "side": "right",
+    "rules": [
+      "片手に大きな筆を持つ。穂先は暖色インク。",
+      "筆を握る手の指を描く（浮かせない）。",
+      "穂先の発光は控えめ。ユイのランタン光とは別物に見せる。"
+    ]
+  },
+  "glowRules": [
+    "筆先の発光は tight かつ弱め。",
+    "中心（hitCore）や欠片pickupへ届かせない。"
+  ],
+  "hitCoreSeparationRules": [
+    "中心はクリーンに保ち、筆の発光を被せない。",
+    "ショールの破れ縁を hitCore と誤認させない。"
+  ],
+  "backgroundSeparationRules": [
+    "暗背景で cloak_rim により分離する。",
+    "ユイ（青）と並んだ時に warm-red 系で役割が分かれる。"
+  ],
+  "mustKeep": [
+    "破れ紙のショール",
+    "大筆を持つ右手",
+    "インク黒〜紫の結い髪",
+    "teal の瞳",
+    "ユイより縦長で落ち着いたシルエット",
+    "soft painterly / 1px outline / 同一世界観"
+  ],
+  "mustAvoid": [
+    "ユイと配色・シルエットが被る",
+    "ショールが単なる三角ケープに見える",
+    "筆が宙に浮く / 何を持っているか不明",
+    "発光が hitCore / pickup と混同される",
+    "Lua/CLI生成だけで hand-final を名乗る"
+  ],
+  "reviewPriority": 2,
+  "humanReviewRequired": true,
+  "humanReviewReason": "main（画面に頻出する準主役）。ユイとの差別化と同一世界観の両立は機械では判断できず、最終的な魅力と採否は人間が見る必要がある。",
+  "finisherMode": "generic-character-52",
+  "status": "generated-draft",
+  "notes": [
+    "まだ素材なし（recipeのみ）。generic-character-52 mode は未実装stubのため、当面は手作業/別途bootstrap後に finish する。",
+    "配色はユイ（青フード）と補色関係（warm red）にして並びの識別性を確保する。"
+  ]
+}
