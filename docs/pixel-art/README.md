@@ -22,6 +22,9 @@ Vamp Pon の全ドット絵制作で参照する基礎ノウハウ集です。
    - Claude / Codex に守らせる作業ルール。
 4. `docs/pixel-art/research-notes.md`
    - 調査メモと参照元。
+5. `docs/pixel-art/vamp-pon-pixel-art-pipeline-v1.md`
+   - 制作基盤（運用レイヤー）。人間ルート（player/主役級の手仕上げ・最終レビュー）と
+     procedural ルート（量産・基礎底上げ）の分離、asset status、production昇格条件、recipe/finisher/quality gate。
 
 ## 目的
 

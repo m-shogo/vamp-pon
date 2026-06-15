@@ -5,6 +5,13 @@ status: **GUI手仕上げ未実施（AI/CLIでは実行不可）**。本書は�
 
 prev: [yui-52px-v2a-gui-handfinish-handoff.md](./yui-52px-v2a-gui-handfinish-handoff.md)
 記入用: [yui-52px-v2a-before-after-template.md](./yui-52px-v2a-before-after-template.md)
+pipeline: [vamp-pon-pixel-art-pipeline-v1.md](../../pixel-art/vamp-pon-pixel-art-pipeline-v1.md)
+
+> **ルート分離（pipeline v1）**: 本書は **人間ルート（A）**＝player / 主役級の GUI 手仕上げと最終レビュー用。
+> 別途 **procedural ルート（B）** が `vamp-pon-pixel-finisher.lua` で基礎品質を底上げするが、その産物は
+> `script-assisted-candidate` 止まりで **hand-final ではない**。
+> PF を出発点にしてよいが（[PF review](./yui-52px-v2a-procedural-finish-review.md)）、player の production 昇格には
+> 本書の人間 GUI 手仕上げ + 人間レビューが**必須**。production 昇格は別工程。
 
 ---
 
