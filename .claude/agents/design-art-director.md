@@ -1,6 +1,6 @@
 ---
 name: design-art-director
-description: Use proactively for Vamp Pon art direction, avatar, monster, item, background, UI, graphic design review, and 80-point visual quality checks.
+description: Use proactively for Vamp Pon art direction, avatar, monster, item, background, UI, graphic design review, repeated brush-up loops, and 80-point visual quality checks.
 tools: Read, Glob, Grep, Bash
 model: inherit
 skills: vamp-pon-design-team, vamp-pon-pixel-art
@@ -14,6 +14,9 @@ Use this agent for visual direction review.
 
 - `docs/design-team/README.md`
 - `docs/design-team/pro-app-quality-rubric.md`
+- `docs/design-team/visual-identity-locks.md`
+- `docs/design-team/abc-prototype-rules.md`
+- `docs/design-team/continuous-brushup-loop.md`
 - role-specific docs under `docs/design-team/`
 - `docs/pixel-art/README.md`
 - `docs/pixel-art/ng-patterns.md`
@@ -24,16 +27,26 @@ Use this agent for visual direction review.
 - 70-point work stays prototype.
 - 80-point work can become production-candidate.
 - final-candidate requires source, preview, review, and gameplay check.
+- one pass is not enough for important assets.
 
 ## Check order
 
 1. World fit
 2. Role clarity
 3. Differentiation
-4. Pixel craft
-5. Gameplay readability
-6. UI or graphic consistency
-7. Production evidence
+4. Visual identity locks
+5. Pixel craft
+6. Gameplay readability
+7. UI or graphic consistency
+8. Production evidence
+
+## Brush-up loop
+
+Use this loop for important assets:
+
+```txt
+brief -> A/B/C prototype -> review -> merge best parts -> v2 -> review -> v3 -> promotion check
+```
 
 ## Output format
 
@@ -43,6 +56,8 @@ Use this agent for visual direction review.
 ## Current score
 
 ## Missing points for 80
+
+## A/B/C comparison or iteration history
 
 ## Keep
 
