@@ -40,9 +40,13 @@ export class MainScene extends Phaser.Scene {
   create(): void {
     createBackground(this);
     this.state = createInitialState(this);
-    this.hud = new Hud(this, () => {
-      if (this.state.status === GAME_STATUS.PLAYING) this.state.ultimateRequested = true;
-    });
+    this.hud = new Hud(
+      this,
+      () => {
+        if (this.state.status === GAME_STATUS.PLAYING) this.state.ultimateRequested = true;
+      },
+      () => this.tryAutoPause(),
+    );
     this.overlays = new Overlays(this);
     this.spawnSystem = new SpawnSystem();
     this.keys = setupKeyboard(this);
@@ -209,11 +213,8 @@ export class MainScene extends Phaser.Scene {
 
 function evolutionKindLabel(kind: EvolutionKind): string {
   switch (kind) {
-    case 'upgrade':
-      return '強化進化';
-    case 'fusion':
-      return '合体';
-    case 'awakening':
-      return '覚醒';
+    case 'upgrade': return '強化進化';
+    case 'fusion': return '合体';
+    case 'awakening': return '覚醒';
   }
 }
