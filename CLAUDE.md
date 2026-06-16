@@ -1,252 +1,187 @@
 # CLAUDE.md
 
-このファイルは `vamp-pon` repo における Claude Code / Fable / 各種AIエージェント向けの恒久指示です。
+このファイルは`vamp-pon`におけるClaude Code / Fable / AIエージェント向け恒久指示。
 
 対象repo:
 
 - `/Users/m-shogo/Developer/personal/vamp-pon`
 - `https://github.com/m-shogo/vamp-pon.git`
 
-**このrepo以外は絶対に触らないこと。**
+このrepo以外を変更しない。
 
----
+## 1. Core rules
 
-## 0. 最優先方針
+- 1x実寸の可読性を最優先する。
+- player / enemy / pickup / UI / backgroundをsoft painterly pixel artで統一する。
+- AI生成画像はreferenceのみ。直接productionにしない。
+- Aseprite sourceを正本とし、public PNGを直接編集しない。
+- script / Luaはcanvas、palette、layer、bootstrap、export補助まで。
+- Asepriteの1px手仕上げ、1x / 4x / dark background / combat mock確認なしにhand-final-candidateと呼ばない。
+- 品質評価が1項目でも3以下ならfinal-candidateにしない。
+- 見た目作業でgameplay定数を巻き込まない。
 
-このrepoでは、ドット絵素材を「それっぽく作る」ではなく、**ゲーム実装に耐える可読性・同一世界観・量産可能な運用**を重視する。
+必ず読む:
 
-特に player / enemies / pickups / tiles / ui / background / effects のドット絵作業では、毎回以下を守ること。
-
-1. **汎用ドット絵基礎ルールを先に読む**
-2. **参考から離れない**
-3. **1x実寸で読めることを最優先**
-4. **同一人物・同一ファミリー・同一世界観・同一ライティングを維持する**
-5. **見た目改善でゲームバランス定数を巻き込まない**
-6. **public PNG 直編集ではなく source → export の運用を守る**
-7. **毎回、問題点 → 差分 → 改善方針 → 実装 → 確認 の順で進める**
-8. **微妙な素材を hand-final / final-candidate と呼ばない**
-
----
-
-## 1. Pixel Art Director と汎用craft docsを必ず通す
-
-ドット絵関連の作業では、`.claude/agents/pixel-art-director.md` と `.claude/skills/vamp-pon-pixel-art/SKILL.md` の内容を参照すること。
-
-さらに、以下の汎用ドット絵基礎docsを必ず読むこと。
-
+- `AGENTS.md`
 - `docs/pixel-art/README.md`
 - `docs/pixel-art/human-character-craft-guide.md`
 - `docs/pixel-art/ng-patterns.md`
 - `docs/pixel-art/agent-quality-brief.md`
-- `docs/pixel-art/research-notes.md`
+- `docs/art-direction.md`
+- `docs/reference-art-map.md`
+- `docs/pixel-art-quality-gate.md`
+- `docs/pixel-art-production-workflow.md`
+- `docs/aseprite-hand-finish-workflow.md`
 
-これらはユイ専用ではなく、player / enemy / pickup / UI / props / background / effects 全体に適用する基礎ルール。
+## 2. Art target
 
-Claude Code / Fable の環境で `.claude` が自動読込されない場合でも、この `CLAUDE.md` と `docs/pixel-art/` の方針を常時ルールとして扱う。
+目標:
 
-Pixel Art Director の役割:
+- soft painterly pixel art
+- high-density but not muddy
+- cute but gameplay-readable
+- silhouetteで役割が読める
+- soft shading
+- selective outline
+- dark backgroundでも埋もれない
 
-- 汎用NGに該当しないか確認する
-- referenceとの差分を言語化する
-- 現状素材を `keep / temporary / remake / final-candidate` に分類する
-- 1x / 4x / 暗背景 / combat-mock の品質ゲートを通す
-- 微妙なら採用しない
-- 「仕様は満たすがダサい」を検出する
-- commit前に未解決を明記する
+禁止:
 
----
-
-## 2. 公式アート基準
-
-このrepoの新しい基準は **soft painterly pixel art**。
-
-目指すもの:
-
-- 1xで読める
-- 高密度だが濁らない
-- かわいいがゲーム中で見やすい
-- 役割がシルエットで分かる
-- focal point がある
-- cluster が整理されている
-- 柔らかい陰影
-- 強すぎないアウトライン
-- 暗背景でも埋もれない
-- player / enemies / pickups / UI / background / effects で画風を統一する
-
-避けるもの:
-
-- Luaの楕円・矩形・領域塗りだけで作った記号ドット
-- 情報量だけ増えて読みにくい素材
-- 1pxノイズが多い素材
-- アンチエイリアス的に濁った素材
+- 記号的な黒ベタ素材
+- 1px noiseの乱用
+- AI画像の直接縮小
+- script図形だけの完成扱い
 - 4xでは良いが1xで読めない素材
-- 黒いだけの敵
-- 綺麗だがゲームを邪魔する背景
-- AI生成画像をそのまま縮小しただけの素材
-- 報告だけ立派でbefore/afterが弱い素材
+- before/afterが弱いのに完了扱いすること
 
----
+## 3. Yui
 
-## 3. AI画像とAsepriteの役割分担
-
-AI生成画像は **完成素材ではなく reference** として扱う。
-
-- AI画像: 方向性、画風、色、密度、シルエットの参照
-- Aseprite: 42px / 52px / 32px / tile 単位の実素材制作、手仕上げ、export
-- scripts: canvas / palette / layer / export / sprite sheet / preview 補助
-- VisualGallery / combat-mock: 1x・実背景・実戦密度の確認
-
-重要:
-
-- AI画像をそのまま縮小して完成素材扱いしない。
-- Luaやscriptの図形生成だけで final-candidate を名乗らない。
-- 参考絵との差分をレビューしてから、Asepriteでゲーム用ドットに落とす。
-- scriptは final visual appeal / final silhouette / palette balance / prop appeal / background density を判断しない。
-
----
-
-## 4. 品質ゲート
-
-素材ごとに以下を5段階で自己評価する。
-
-共通:
-
-- 1x可読性
-- role clarity
-- visual appeal
-- ゲーム中視認性
-- 背景との分離
-- 同一画風
-- final候補としての自信
-
-主役級・マスコット級:
-
-- 可愛さ / 魅力
-- mascot silhouette
-- merchandise potential
-
-**3以下が1つでもある素材は final-candidate にしない。**
-
-評価結果は必要に応じて `docs/pixel-art-quality-gate.md` または作業報告に残す。
-
----
-
-## 5. ユイ基準
-
-ユイは player asset の最優先対象。ただしユイ専用ルールは、`docs/pixel-art/` の汎用ドット絵基礎ルールの上に乗せる。
-
-ユイは以下を固定アイデンティティとして扱う。
+固定identity:
 
 - 丸く大きい青フード
 - 茶赤の前髪
 - 大きめで可愛い顔
-- 白ハイライト入りの目
-- ほんのり頬
-- 生成り〜古紙色の服
-- 服の厚み
+- 生成り〜古紙色の厚みある服
 - 右手側ランタン
-- ランタンは `hitCore` と誤認しない
-- front / back / side で同一人物性を保つ
-- 柔らかい陰影
-- 強すぎないアウトライン
+- lanternと`hitCore`を分離
+- front / side / back / posesで同一人物
 
-ポーズ展開の順番:
+順番:
 
-1. `yui_idle_42` または明示された `yui_master_52`
+1. `yui_idle_42`または明示された`yui_master_52`
 2. `yui_move_42`
 3. `yui_hurt_42`
 4. `yui_ultimate_42`
 
-**idle / master が弱いまま他ポーズへ進まないこと。**
+idle/masterが弱いまま展開しない。
 
----
+## 4. Enemy canonical rules
 
-## 6. 敵基準
+敵作業前に読む:
 
-黒インク敵は、黒いだけで終わらせない。
-以下4系統を基本ファミリーとして扱う。
+- `docs/enemies/enemy-48-sprite-sheet-plan.md`
+- `docs/enemies/omb-ombro-selected-direction.md`
+- `docs/enemies/enemy-48-production-readiness.md`
+- `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- `data/enemy-assets/enemy-design-catalog.json`
+- catalogの`designFiles`に列挙された全JSON
 
-- `ink_blob`: 小型。低HP・群れ。黒インク溜まり + 光る目。
-- `torn_paper_wisp`: 紙片。中距離・浮遊。破れ紙 + インク縁 + 光る目。
-- `hooded_ink_specter`: 中型。圧力役。フード影 + 小さな光。
-- `ink_hound`: 高速。横方向圧力。インク犬 / 影獣。
+構成:
 
-敵の品質基準:
+```txt
+48 total
+25 grunts = Omb 5 + Ombro 5 + Stage-unique 15
+10 midbosses
+3 boss base forms
+10 boss alternate forms
+```
 
-- シルエットで種類が分かる
-- 目 / 小物 / 形で見分けられる
-- プレイヤーと混ざらない
-- 背景に沈まない
-- 黒インク family として統一されている
-- `dominant blob shape` で止まらない
+各Stage:
 
----
+```txt
+Omb 1
+Ombro 1
+Stage-unique grunt 3
+midboss 2
+```
 
-## 7. 背景基準
+共通family:
 
-背景は「綺麗な一枚絵」ではなく、ゲーム背景として設計する。
+- `omb`: 柔らかい小型影。頭のインク芽、古紙色の四角目、全身の発光しない影炎。
+- `ombro`: オンブより低く横長。全身の影炎から地面へ垂れる擬手が伸びる。
 
-- 低コントラスト
-- 装飾控えめ
-- キャラ / 敵 / 弾 / 欠片を邪魔しない
-- 夜街、紙、地図線、忘れ物を薄く入れる
-- tile化前提で考える
-- 32x32 or 64x64 tile 基準
-- repeating 時に目立つ線や明部を作りすぎない
+オンブロ擬手:
 
-背景は `pretty but noisy` より `subtle but playable` を優先する。
+- 本体と同じ影炎から形成
+- idleでは地面へ垂れる
+- attack時だけ先端が最大3つの鈍い房へ分かれる
+- shoulder、elbow、palm、人間の指、爪、骨、筋肉なし
 
----
+敵共通:
 
-## 8. プレイ仕様を巻き込まないルール
+- black / dark navy / violet-black / blue-grayの段階陰影
+- warm accentはplayer lantern、pickup、hit coreより小さく弱い
+- silhouette、body ratio、eyes/light、signature parts、postureを差別化
+- damaging actionにはtelegraphを持たせる
+- catalogのattack / telegraph / counter / animation / nativePxに従う
+- boss formは同一個体性を維持し、palette-only swapにしない
 
-ドット絵改善で、以下は原則変更禁止。
+禁止:
+
+- `pon_shadow`
+- `grown_pon_shadow`
+- ポン影
+- ふくらみポン影
+- hard black circle + eyesだけ
+- Omb/Ombroの明るい通常炎
+- player風の服・髪・フード
+- 人間の手に見える擬手
+- generated 180px referenceの直接production利用
+
+敵検査:
+
+```sh
+pnpm enemy48:design:check
+pnpm enemy48:manifest:check
+pnpm enemy48:sprites:verify  # complete sheetが存在する場合
+```
+
+## 5. Background
+
+- gameplay tileとして作る
+- low contrast
+- subtle decoration
+- player / enemy / projectile / pickupを邪魔しない
+- night / paper / map / forgotten-object motif
+- 32x32または64x64 tile
+- repeating seamや強い明部を避ける
+
+## 6. Protected gameplay values
+
+visual taskでは原則変更しない:
 
 - `PLAYER_DEFAULTS.radius`
-- `PLAYER_DEFAULTS.hp`
-- `PLAYER_DEFAULTS.moveSpeed`
-- `PLAYER_DEFAULTS.invulnSec`
-- pickup の `collectRadius`
-- pickup の `magnetRange`
-- pickup の `magnetSpeed`
+- hp / moveSpeed / invulnSec
+- pickup collectRadius / magnetRange / magnetSpeed
 - `hitCore`
 - `debugHitCircle`
 
-`visualSize` は、見た目サイズ検討の明示タスク時のみ変更可。
-それ以外では勝手に変えないこと。
+`visualSize`は明示タスク時のみ変更する。
 
----
+## 7. Standard workflow
 
-## 9. ドット絵作業の標準手順
+1. current filesとreferenceを確認
+2. problemとNGを具体化
+3. referenceとの差分を記述
+4. short directionを決める
+5. draft / prototype
+6. Aseprite sourceを修正
+7. sourceからexport
+8. 1x / 4x / dark / combat mock確認
+9. quality gate
+10. docs / status更新
+11. tests
+12. unresolvedを明記
+13. commit / push
 
-毎回この順で進める。
-
-1. `docs/pixel-art/` の汎用基礎ルールを読む
-2. 対象ファイルを棚卸しする
-3. 現状の問題点を具体的に書く
-4. 汎用NGに該当する点を列挙する
-5. referenceとの差分を言語化する
-6. 改善方針を短く決める
-7. draft/prototypeで作業する
-8. sourceを修正する
-9. exportする
-10. 1x / 4x / 実背景 / combat-mockで確認する
-11. 品質ゲートで採用可否を判断する
-12. docs / status を更新する
-13. 未解決を報告する
-
----
-
-## 10. 迷った時の判断基準
-
-迷ったら以下を優先する。
-
-1. 1xで読める方
-2. 役割が明確な方
-3. シルエットが強い方
-4. referenceに近い方
-5. 同一人物 / 同一ファミリーに見える方
-6. プレイ中に見やすい方
-7. 情報量が少なくても整理された方
-
-「凝っているが読みにくい」より、**シンプルだが伝わる**方を採用すること。
+迷った場合は、1x可読性、role clarity、silhouette、reference consistency、gameplay visibilityの順で優先する。
