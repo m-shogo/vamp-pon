@@ -1,16 +1,25 @@
 # Enemy References
 
-ここには enemy reference を置く。
+Enemy reference assets live here.
 
-最初に置くべきもの:
+## Current canonical sheet
 
-- `ink_enemy_family_reference.png`
+```txt
+assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
+```
 
-このreferenceは、以下4系統を固定するために使う。
+Canonical data and rules:
 
-- `ink_blob`
-- `torn_paper_wisp`
-- `hooded_ink_specter`
-- `ink_hound`
+- `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- `data/enemy-assets/enemy-design-catalog.json`
+- `docs/enemies/omb-ombro-selected-direction.md`
+- `docs/enemies/enemy-48-sprite-sheet-plan.md`
 
-敵は black ink family として統一するが、黒いだけにしない。
+The common enemy families are `omb` and `ombro`.
+
+- Omb: small soft shadow with an ink bud, old-paper square eyes, and dark non-luminous shadow-flame aura.
+- Ombro: lower and wider growth form with two drooping aura-hands.
+
+The generated 180px sheet is reference only. Production enemy sprites must be rebuilt and hand-finished in Aseprite at the catalog's native target size.
+
+Run `pnpm enemy48:design:check` before reference production and `pnpm enemy48:sprites:verify` after the complete sheet exists.
