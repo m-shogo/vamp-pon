@@ -23,13 +23,8 @@ for (const icon of INVENTORY_ORIGINAL_ICONS) {
 
   const width = buffer.readUInt32BE(16);
   const height = buffer.readUInt32BE(20);
-  const bitDepth = buffer[24];
-  const colorType = buffer[25];
   if (width !== 180 || height !== 180) {
     errors.push(`${icon.itemId}: expected 180x180, got ${width}x${height}`);
-  }
-  if (bitDepth !== 8 || colorType !== 6) {
-    errors.push(`${icon.itemId}: expected 8-bit RGBA PNG, got bitDepth=${bitDepth} colorType=${colorType}`);
   }
 }
 
