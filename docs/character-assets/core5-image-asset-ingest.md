@@ -58,16 +58,16 @@ Reason:
 - It clearly communicates prototype status.
 - It avoids accidental production promotion.
 
-## Do not put these here yet
+## Excluded folders for this phase
 
-Do **not** copy generated sheets directly into:
+The current prototype ingest phase does not write to:
 
 ```txt
 public/assets/sprites/player/
 assets/source/aseprite/player/
 ```
 
-Those folders are for production/hand-final pipeline assets only.
+Those folders are reserved for production/hand-final pipeline assets.
 
 ## Data files
 
@@ -110,6 +110,9 @@ Prototype usage:
 ```txt
 generated sprite sheet PNG
 -> public/assets/prototypes/sprite-sheets/core5-52px/
+-> pnpm character-assets:verify
+-> pnpm core5:sprites:normalize
+-> ?debug=core5sprites&protoCharacter=yui
 -> review/slicing experiment
 -> Aseprite normalization
 -> hand review
@@ -124,9 +127,61 @@ Aseprite source
 -> public/assets/sprites/player/
 ```
 
+## Prototype preview pipeline
+
+Commands:
+
+```sh
+pnpm character-assets:verify
+pnpm core5:sprites:normalize
+pnpm dev
+```
+
+Debug URLs:
+
+```txt
+/?debug=core5sprites&protoCharacter=yui
+/?debug=core5sprites&protoCharacter=asa
+/?debug=core5sprites&protoCharacter=nagi
+/?debug=core5sprites&protoCharacter=michiru
+/?debug=core5sprites&protoCharacter=tomori
+```
+
+The preview uses normalized sheets when present. If normalized PNGs do not exist, it falls back to the original generated sheet path. If the original sheet is also missing, the app shows a fallback panel instead of changing the production player.
+
+## Normalizer
+
+Command:
+
+```sh
+pnpm core5:sprites:normalize
+```
+
+Output directory:
+
+```txt
+public/assets/prototypes/sprite-sheets/core5-52px-normalized/
+```
+
+Expected normalized filenames:
+
+```txt
+yui.png
+asa.png
+nagi.png
+michiru.png
+tomori.png
+```
+
+Initial behavior:
+
+- Exact `416x312` source sheets are copied as normalized PNGs.
+- Non-exact sheets only produce `manifest.json` / `overlay-cells.json` with `needsManualCrop: true`.
+- Missing source sheets are recorded for review; the strict failure belongs to `pnpm character-assets:verify`.
+
 ## Required next step
 
-After placing PNG files in the recommended folders, create a slicing script or Aseprite normalization pass that can:
+After placing PNG files in the recommended folders, run or improve the slicing/Aseprite normalization pass so it can:
 
 - read `core5-52px-sprite-sheet-cells.json`
 - crop 48 cells
