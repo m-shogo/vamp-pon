@@ -4,8 +4,7 @@ import {
   resolveInventoryIconTexture,
   type InventoryIconCategory,
 } from '../assets/inventoryIcons';
-
-const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
+import { PixelGlyphText, UI_FONT, drawPixelPanel } from './pixelUi';
 
 export type InventorySlotItem = {
   category: InventoryIconCategory;
@@ -18,9 +17,9 @@ export class InventorySlotView {
 
   private iconImage: Phaser.GameObjects.Image | null = null;
   private fallbackText: Phaser.GameObjects.Text;
-  private emptyMark: Phaser.GameObjects.Text;
-  private levelBadge: Phaser.GameObjects.Arc;
-  private levelText: Phaser.GameObjects.Text;
+  private emptyMark: Phaser.GameObjects.Graphics;
+  private levelBadge: Phaser.GameObjects.Graphics;
+  private levelText: PixelGlyphText;
   private currentKey = '';
 
   constructor(
@@ -31,33 +30,44 @@ export class InventorySlotView {
     depth: number,
   ) {
     this.container = scene.add.container(x, y).setDepth(depth);
-    this.emptyMark = scene.add
-      .text(0, 0, '·', { fontFamily: FONT, fontSize: `${Math.max(11, size * 0.4)}px`, color: '#6e6680' })
-      .setOrigin(0.5);
+
+    this.emptyMark = scene.add.graphics();
+    this.emptyMark.fillStyle(0x6e6680, 0.72);
+    this.emptyMark.fillRect(-1, -5, 2, 10);
+    this.emptyMark.fillRect(-5, -1, 10, 2);
+    this.emptyMark.fillStyle(0xb8aecb, 0.72);
+    this.emptyMark.fillRect(-1, -1, 2, 2);
+
     this.fallbackText = scene.add
       .text(0, 0, '', {
-        fontFamily: FONT,
+        fontFamily: UI_FONT,
         fontSize: `${Math.max(12, size * 0.45)}px`,
         color: '#f3ead2',
         fontStyle: 'bold',
-      })
-      .setOrigin(0.5)
-      .setVisible(false);
-    this.levelBadge = scene.add
-      .circle(size * 0.34, size * 0.31, Math.max(7, size * 0.2), 0x120f24, 0.98)
-      .setStrokeStyle(1, 0xf3ead2, 0.9)
-      .setVisible(false);
-    this.levelText = scene.add
-      .text(size * 0.34, size * 0.31, '', {
-        fontFamily: FONT,
-        fontSize: `${Math.max(8, size * 0.25)}px`,
-        color: '#f3ead2',
-        fontStyle: 'bold',
+        resolution: 1,
       })
       .setOrigin(0.5)
       .setVisible(false);
 
-    this.container.add([this.emptyMark, this.fallbackText, this.levelBadge, this.levelText]);
+    this.levelBadge = scene.add.graphics().setVisible(false);
+    drawPixelPanel(
+      this.levelBadge,
+      size * 0.34,
+      size * 0.31,
+      14,
+      12,
+      { fill: 0x120f24, edge: 0xf3ead2, accent: 0xffd45e, cut: 3, border: 1 },
+    );
+
+    this.levelText = new PixelGlyphText(scene, size * 0.34, size * 0.31 - 4, 1, 0xf3ead2, 'center', 1);
+    this.levelText.setVisible(false);
+
+    this.container.add([
+      this.emptyMark,
+      this.fallbackText,
+      this.levelBadge,
+      this.levelText.container,
+    ]);
   }
 
   update(item: InventorySlotItem | null): void {
@@ -86,7 +96,6 @@ export class InventorySlotView {
       } else if (this.iconImage.texture.key !== texture) {
         this.iconImage.setTexture(texture);
       }
-      // 180px原本を30pxへ1/6整数縮小。レア枠も同じ視認サイズへ揃える。
       const displaySize = Math.max(30, this.size);
       this.iconImage.setDisplaySize(displaySize, displaySize).setVisible(true);
       this.fallbackText.setVisible(false);
