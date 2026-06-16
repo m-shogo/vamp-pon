@@ -44,3 +44,7 @@ export const INVENTORY_ORIGINAL_ICONS: InventoryOriginalIcon[] = [
   ...passiveIcons,
   ...rareIcons,
 ];
+
+export const inventoryOriginalByKey = new Map(
+  INVENTORY_ORIGINAL_ICONS.map((entry) => [entry.category + ':' + entry.itemId, entry]),
+);
