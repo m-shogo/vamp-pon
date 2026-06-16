@@ -1,4 +1,4 @@
-import { YUI_GAMEPLAY_FRAME_ASSETS } from './playerFrames';
+import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from './playerFrames';
 
 /**
  * アセット定義の正本。
@@ -40,6 +40,7 @@ export const assetManifest: AssetManifestEntry[] = [
   { id: 'yui_hurt', path: `${SPRITES}/player/yui_hurt_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 被弾（42pxネイティブ / 一瞬のリアクション差分 / hand-final candidate）', required: false, fallback: true },
   { id: 'yui_ultimate', path: `${SPRITES}/player/yui_ultimate_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 奥義（42pxネイティブ / hand-final candidate）', required: false, fallback: true },
   ...YUI_GAMEPLAY_FRAME_ASSETS,
+  ...YUI_HUD_FRAME_ASSETS,
 
   // --- 敵（enemy visualKind に対応） ---
   { id: 'enemy_ink_blob', path: `${SPRITES}/enemies/enemy_ink_blob_24.png`, width: 24, height: 24, kind: 'enemy', description: 'インクの影（基本）', required: true, fallback: true },
