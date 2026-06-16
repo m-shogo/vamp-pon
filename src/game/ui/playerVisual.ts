@@ -8,6 +8,7 @@ const PLAYER_VISUAL_MODE_DATA_KEY = 'playerVisualMode';
 const PLAYER_FACING_DATA_KEY = 'playerFacing';
 const CORE5_VISUAL_MODE = 'core5-yui';
 const WALK_FPS = 7;
+const CORE5_DISPLAY_SIZE = 76;
 
 export type YuiFrameState = {
   facing: PlayerFacing;
@@ -36,14 +37,15 @@ export function resolveYuiFrame(state: YuiFrameState): string {
 
 /**
  * 180pxキャンバス内の足元が約94%位置にあるため、コンテナ原点を足元へ合わせる。
- * 180→60pxは正確な1/3縮小で、PLAYER_DEFAULTS.visualSize=42相当の本体高を確保する。
+ * 76px表示では本体の実表示高が約59pxになり、縦画面でも主役として読める。
+ * 当たり判定はPLAYER_DEFAULTS.radius=6のまま変更しない。
  */
 export function attachCore5PlayerSprite(
   container: Phaser.GameObjects.Container,
   sprite: Phaser.GameObjects.Image,
 ): void {
   sprite.setOrigin(0.5, 0.94);
-  sprite.setDisplaySize(60, 60);
+  sprite.setDisplaySize(CORE5_DISPLAY_SIZE, CORE5_DISPLAY_SIZE);
   container.setData(PLAYER_SPRITE_DATA_KEY, sprite);
   container.setData(PLAYER_VISUAL_MODE_DATA_KEY, CORE5_VISUAL_MODE);
   container.setData(PLAYER_FACING_DATA_KEY, 'front' satisfies PlayerFacing);

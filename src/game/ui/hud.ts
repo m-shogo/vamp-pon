@@ -3,10 +3,20 @@ import type { RuntimeState } from '../runtime';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { characterById } from '../data/characters';
+import { spriteOrNull } from '../assets/assetHelpers';
+import { YUI_HUD_FRAME_IDS } from '../assets/playerFrames';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
+const PORTRAIT_X = 38;
+const PORTRAIT_Y = GAME_HEIGHT - 38;
+const INVENTORY_TOP = GAME_HEIGHT - 88;
+const SLOT_WEAPON_X = [112, 155, 198, 241, 284] as const;
+const SLOT_RARE_X = [337, 372] as const;
+const SLOT_WEAPON_Y = GAME_HEIGHT - 65;
+const SLOT_PASSIVE_Y = GAME_HEIGHT - 28;
 
 type InputEventLike = { stopPropagation?: () => void };
+type SlotText = Phaser.GameObjects.Text;
 
 export class Hud {
   private timeText: Phaser.GameObjects.Text;
@@ -19,7 +29,17 @@ export class Hud {
   private ultText: Phaser.GameObjects.Text;
   private ultHintText: Phaser.GameObjects.Text;
   private ultHitArea: Phaser.GameObjects.Zone;
-  private itemsText: Phaser.GameObjects.Text;
+  private inventoryBack: Phaser.GameObjects.Graphics;
+  private categoryLabels: Phaser.GameObjects.Text[];
+  private portraitFrame: Phaser.GameObjects.Graphics;
+  private portraitRing: Phaser.GameObjects.Graphics;
+  private portraitImage: Phaser.GameObjects.Image | null;
+  private portraitFallback: Phaser.GameObjects.Text;
+  private crestImage: Phaser.GameObjects.Image | null;
+  private berserkText: Phaser.GameObjects.Text;
+  private weaponSlots: SlotText[];
+  private passiveSlots: SlotText[];
+  private rareSlots: SlotText[];
   private debugText: Phaser.GameObjects.Text;
 
   constructor(
@@ -67,15 +87,78 @@ export class Hud {
       },
     );
 
-    this.itemsText = scene.add
-      .text(GAME_WIDTH / 2, GAME_HEIGHT - 18, '', { fontFamily: FONT, fontSize: '11px', color: '#f3ead2' })
-      .setOrigin(0.5, 0.5)
-      .setDepth(d);
+    this.inventoryBack = scene.add.graphics().setDepth(d);
+    this.drawInventoryFrame();
+    this.categoryLabels = [
+      scene.add.text(82, SLOT_WEAPON_Y, '武', { fontFamily: FONT, fontSize: '9px', color: '#b9d3e6' }).setOrigin(0.5).setDepth(d + 1),
+      scene.add.text(82, SLOT_PASSIVE_Y, '忘', { fontFamily: FONT, fontSize: '9px', color: '#d7c7e8' }).setOrigin(0.5).setDepth(d + 1),
+    ];
+
+    this.portraitFrame = scene.add.graphics().setDepth(d + 1);
+    this.portraitFrame
+      .fillStyle(0x171328, 0.92)
+      .fillCircle(PORTRAIT_X, PORTRAIT_Y, 32)
+      .lineStyle(2, COLORS.cardEdge, 0.9)
+      .strokeCircle(PORTRAIT_X, PORTRAIT_Y, 32);
+
+    this.portraitImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.portraitNeutral, 58, 58);
+    this.portraitImage?.setPosition(PORTRAIT_X, PORTRAIT_Y).setDepth(d + 2);
+    this.portraitFallback = scene.add
+      .text(PORTRAIT_X, PORTRAIT_Y, 'ユ', { fontFamily: FONT, fontSize: '23px', color: '#f3ead2', fontStyle: 'bold' })
+      .setOrigin(0.5)
+      .setDepth(d + 2)
+      .setVisible(!this.portraitImage);
+
+    this.portraitRing = scene.add.graphics().setDepth(d + 3);
+    this.crestImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.crestNormal, 18, 18);
+    this.crestImage?.setPosition(PORTRAIT_X + 23, PORTRAIT_Y - 22).setDepth(d + 4).setVisible(false);
+    this.berserkText = scene.add
+      .text(PORTRAIT_X, INVENTORY_TOP - 2, '暴走 0%', { fontFamily: FONT, fontSize: '9px', color: '#cfe6ff', fontStyle: 'bold' })
+      .setOrigin(0.5, 1)
+      .setDepth(d + 4);
+
+    this.weaponSlots = SLOT_WEAPON_X.map((x) => this.createSlotText(x, SLOT_WEAPON_Y));
+    this.passiveSlots = SLOT_WEAPON_X.map((x) => this.createSlotText(x, SLOT_PASSIVE_Y));
+    this.rareSlots = SLOT_RARE_X.map((x) => this.createSlotText(x, SLOT_PASSIVE_Y));
 
     this.debugText = scene.add
       .text(8, 68, '', { fontFamily: 'monospace', fontSize: '10px', color: '#9fe0a0' })
       .setDepth(d)
       .setVisible(false);
+  }
+
+  private drawInventoryFrame(): void {
+    const panelX = 76;
+    const panelW = GAME_WIDTH - panelX - 4;
+    this.inventoryBack.clear();
+    this.inventoryBack.fillStyle(0x120f24, 0.78).fillRoundedRect(panelX, INVENTORY_TOP, panelW, 84, 10);
+    this.inventoryBack.lineStyle(1, 0x5b5272, 0.7).strokeRoundedRect(panelX, INVENTORY_TOP, panelW, 84, 10);
+
+    this.inventoryBack.fillStyle(0x171328, 0.88);
+    for (const x of SLOT_WEAPON_X) {
+      this.inventoryBack.fillRoundedRect(x - 18, SLOT_WEAPON_Y - 13, 36, 26, 5);
+      this.inventoryBack.fillRoundedRect(x - 18, SLOT_PASSIVE_Y - 13, 36, 26, 5);
+    }
+    for (const x of SLOT_RARE_X) {
+      this.inventoryBack.fillRoundedRect(x - 14, SLOT_PASSIVE_Y - 13, 28, 26, 5);
+    }
+
+    this.inventoryBack.lineStyle(1, 0x6d6385, 0.65);
+    for (const x of SLOT_WEAPON_X) {
+      this.inventoryBack.strokeRoundedRect(x - 18, SLOT_WEAPON_Y - 13, 36, 26, 5);
+      this.inventoryBack.strokeRoundedRect(x - 18, SLOT_PASSIVE_Y - 13, 36, 26, 5);
+    }
+    this.inventoryBack.lineStyle(1, COLORS.cardEdge, 0.8);
+    for (const x of SLOT_RARE_X) {
+      this.inventoryBack.strokeRoundedRect(x - 14, SLOT_PASSIVE_Y - 13, 28, 26, 5);
+    }
+  }
+
+  private createSlotText(x: number, y: number): SlotText {
+    return this.scene.add
+      .text(x, y, '·', { fontFamily: FONT, fontSize: '11px', color: '#6e6680', fontStyle: 'bold' })
+      .setOrigin(0.5)
+      .setDepth(VIEW_DEPTH.hud + 2);
   }
 
   update(state: RuntimeState): void {
@@ -119,11 +202,8 @@ export class Hud {
     this.ultHintText.setText(state.ultimate.ready ? 'TAP' : `${Math.floor(ultRatio * 100)}%`).setColor(state.ultimate.ready ? '#fff1b0' : '#cfe6ff');
     this.ultHitArea.setName(ultName);
 
-    const wStr = state.inventory.weapons.map((w) => `${weaponIcon(w.id)}${w.level}`).join(' ');
-    const pStr = state.inventory.passives.map((pp) => `${passiveIcon(pp.id)}${pp.level}`).join(' ');
-    const rStr = state.inventory.rareItems.map((item) => `${rareIcon(item.id)}`).join(' ');
-    const slots = `武${state.inventory.weapons.length}/${state.inventory.weaponSlots} 忘${state.inventory.passives.length}/${state.inventory.passiveSlots} レア${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`;
-    this.itemsText.setText(`${slots}  ${[wStr, pStr, rStr].filter(Boolean).join('  /  ')}`);
+    this.updateBerserkPortrait(state, ultRatio);
+    this.updateInventorySlots(state);
 
     if (state.debug) {
       const t = state.telemetry;
@@ -138,17 +218,89 @@ export class Hud {
         `1stKill=${f(t.firstKillSec)} lv2=${f(t.level2Sec)} 1stDmg=${f(t.firstDamageSec)}`,
         `cap1=${f(t.firstCapsuleSec)} elites=${t.eliteKillSecs.length}`,
       ].join('\n'));
+    } else {
+      this.debugText.setVisible(false);
     }
+  }
+
+  private updateBerserkPortrait(state: RuntimeState, ratio: number): void {
+    const active = state.ultimate.activeRemaining > 0;
+    const ready = state.ultimate.ready;
+    const pulse = 0.78 + Math.sin(state.elapsedSec * 14) * 0.18;
+    const ringColor = active ? COLORS.hpFill : ready ? COLORS.ultReady : COLORS.ultFill;
+
+    this.portraitRing.clear();
+    this.portraitRing.lineStyle(4, 0x28223d, 0.95).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 35);
+    this.portraitRing.lineStyle(active ? 6 : 4, ringColor, active ? pulse : 1);
+    this.portraitRing.beginPath();
+    this.portraitRing.arc(
+      PORTRAIT_X,
+      PORTRAIT_Y,
+      35,
+      -Math.PI / 2,
+      -Math.PI / 2 + Math.PI * 2 * (active ? 1 : ratio),
+      false,
+    );
+    this.portraitRing.strokePath();
+
+    if (this.portraitImage) {
+      const texture = active ? YUI_HUD_FRAME_IDS.portraitAlt : YUI_HUD_FRAME_IDS.portraitNeutral;
+      if (this.scene.textures.exists(texture) && this.portraitImage.texture.key !== texture) {
+        this.portraitImage.setTexture(texture);
+      }
+      this.portraitImage.setTint(active ? 0xffd6d6 : 0xffffff);
+    }
+
+    if (this.crestImage) {
+      const texture = active ? YUI_HUD_FRAME_IDS.crestBlack : YUI_HUD_FRAME_IDS.crestNormal;
+      if (this.scene.textures.exists(texture) && this.crestImage.texture.key !== texture) {
+        this.crestImage.setTexture(texture);
+      }
+      this.crestImage.setVisible(active || ready).setAlpha(active ? pulse : 1);
+    }
+
+    const label = active ? '暴走中' : ready ? '暴走 READY' : `暴走 ${Math.floor(ratio * 100)}%`;
+    this.berserkText
+      .setText(label)
+      .setColor(active ? '#ffb3b3' : ready ? '#fff1b0' : '#cfe6ff');
+  }
+
+  private updateInventorySlots(state: RuntimeState): void {
+    this.weaponSlots.forEach((text, index) => {
+      const item = state.inventory.weapons[index];
+      text
+        .setText(item ? `${weaponIcon(item.id)}${item.level}` : '·')
+        .setColor(item ? '#d9edff' : '#6e6680');
+    });
+
+    this.passiveSlots.forEach((text, index) => {
+      const item = state.inventory.passives[index];
+      text
+        .setText(item ? `${passiveIcon(item.id)}${item.level}` : '·')
+        .setColor(item ? '#eadcff' : '#6e6680');
+    });
+
+    this.rareSlots.forEach((text, index) => {
+      const item = state.inventory.rareItems[index];
+      text
+        .setText(item ? rareIcon(item.id) : '·')
+        .setColor(item ? '#ffe9a8' : '#6e6680');
+    });
   }
 
   /** VisualGallery 用: HUD一式の表示切替。 */
   setVisible(visible: boolean): void {
     for (const obj of [
       this.timeText, this.levelText, this.hpBack, this.hpFill, this.hpText,
-      this.xpBar, this.ultIcon, this.ultText, this.ultHintText, this.ultHitArea, this.itemsText,
+      this.xpBar, this.ultIcon, this.ultText, this.ultHintText, this.ultHitArea,
+      this.inventoryBack, ...this.categoryLabels, this.portraitFrame, this.portraitRing,
+      this.berserkText, ...this.weaponSlots, ...this.passiveSlots, ...this.rareSlots,
     ]) {
       obj.setVisible(visible);
     }
+    this.portraitImage?.setVisible(visible);
+    this.portraitFallback.setVisible(visible && !this.portraitImage);
+    if (!visible) this.crestImage?.setVisible(false);
     if (!visible) this.debugText.setVisible(false);
   }
 
