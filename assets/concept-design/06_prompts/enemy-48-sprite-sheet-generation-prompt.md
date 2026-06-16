@@ -1,171 +1,178 @@
 # Enemy 48 Sprite Sheet Generation Prompt
 
-## 用途
+## Status
 
-Vamp Pon の敵48枠を一度に比較するための `prototype-reference` 画像を生成する。
+- purpose: generate one 48-cell `prototype-reference` sheet
+- canonical order: `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- complete visual/gameplay briefs: `data/enemy-assets/enemy-design-catalog.json`
+- Omb/Ombro direction: `docs/enemies/omb-ombro-selected-direction.md`
+- production note: generated PNG is not a final game asset
 
-この画像は完成素材ではない。生成後に48セルへ切り出し、夜背景とcombat mockで確認し、必要な敵だけAsepriteで再設計・手仕上げする。
-
-共通雑魚の詳細正本:
-
-- `docs/enemies/pon-shadow-mascot-brief.md`
-
-## コピペ用プロンプト
+## Copy-paste prompt
 
 ```txt
-Vamp Pon用の敵キャラクター・スプライトシート参照画像を1枚生成してください。
+Work only in /Users/m-shogo/Developer/personal/vamp-pon.
+Repository: https://github.com/m-shogo/vamp-pon.git
+Do not touch any other repository.
 
-【出力の絶対条件】
-- PNG
-- 画像全体を厳密に1440×1080px
-- 8列×6行
-- 合計48セル
-- 各セルを厳密に180×180px
-- RGBA
-- 背景は完全透過、alpha 0
-- 白背景、黒背景、市松模様、背景色、床、枠線、区切り線を描かない
-- 文字、番号、ラベル、ロゴ、UIを描かない
-- 48セルすべて非空
-- 各セルに敵1体、または同じ大ボスの別形態1体のみ
-- 1体を複数セルへまたがらせない
-- 発光、煙、影、インク飛沫、翼、角、尾、武器を含め、セル外へ絶対にはみ出さない
-- 隣のセルへ半透明ピクセルを漏らさない
-- 各辺に最低4pxの完全透明安全域を残す
-- nearest-neighborで扱える明瞭なピクセルクラスタ
-- アンチエイリアスで輪郭をぼかさない
+Create one reference sprite sheet containing all 48 enemies defined by the repository.
+Before generating, read all of these files:
 
-【画風】
+- AGENTS.md
+- docs/art-direction.md
+- docs/reference-art-map.md
+- docs/enemies/omb-ombro-selected-direction.md
+- docs/enemies/enemy-48-sprite-sheet-plan.md
+- data/enemy-assets/enemy-48-sprite-sheet-cells.json
+- data/enemy-assets/enemy-design-catalog.json
+- every JSON file listed in enemy-design-catalog.json -> designFiles
+
+The detailed design JSON files are authoritative for every enemy's:
+
+- silhouette
+- body ratio
+- eye/light placement
+- signature parts
+- cell occupancy
+- movement impression
+- attack pose
+- telegraph
+- differentiation from other enemies
+- boss-form identity
+
+Do not invent a replacement design when a catalog description already exists.
+
+OUTPUT CONTRACT — ABSOLUTE
+
+- one PNG
+- exactly 1440x1080px
+- exactly 8 columns x 6 rows
+- exactly 48 cells
+- every cell exactly 180x180px
+- true RGBA PNG, color type 6
+- background alpha exactly 0
+- every cell non-empty
+- one enemy or one boss form per cell
+- minimum 4px fully transparent safe border on every side of every cell
+- no body, aura, shadow, glow, smoke, particle, wing, tail, antler, thread, rail or weapon may cross a cell boundary
+- no text
+- no numbers
+- no labels
+- no frames
+- no grid lines
+- no floor
+- no background
+- no checkerboard pattern
+
+ART QUALITY
+
+Match the current Core5 protagonist reference quality:
+
 - soft painterly pixel art
-- 高密度だが濁らないドット絵
-- 紙片と絵本のような柔らかい質感
-- 夜、記憶、忘れ物、黒インク、小さな光、朝の世界観
-- 暗いが怖すぎない
-- かわいさを少し残しつつ、敵として一目で読める
-- black ink familyとして統一
-- 黒一色の塊は禁止
-- 暗紺、紫黒、古紙色、くすんだ青灰色、小さな暖色光で立体と焦点を作る
-- 強いネオン、魔法陣、SFレーザー、金属メカ中心、写実、3Dレンダーは禁止
-- 全輪郭を同じ太さの真っ黒線で囲わない
-- 選択的な暗紫アウトライン
-- 孤立した1pxノイズや過剰なディザリングを避ける
+- high-density but clean pixel clusters
+- readable at 1x
+- cute but gameplay-readable
+- soft volume rather than flat symbols
+- selective dark outline, not a uniform thick black contour
+- black, dark navy, violet-black and blue-gray form the enemy body
+- old-paper accents and very small warm lights are focal points only
+- enemies are darker than the player but must remain visible on a dark gameplay background
+- no isolated 1px noise
+- no muddy downscaled illustration
+- no smooth vector edges
+- no 3D-render appearance
+- no modern neon or sci-fi effects
 
-【雑魚25体の構成】
-各Stageの雑魚5体は、次の構成を厳守する。
+All enemies belong to the same black-ink world, but they must not become repeated black blobs.
+For every Stage-unique enemy and midboss, preserve at least three distinct differences among:
 
-- 共通小型シャドウ1体
-- 共通中型シャドウ1体
-- Stage固有敵3体
+- silhouette
+- body ratio
+- eye/light placement
+- signature component
+- posture
+- center of gravity
+- movement impression
 
-5Stage全体では以下。
+OMB / OMBRO
 
-- 共通小型シャドウの色違い5体
-- 共通中型シャドウの色違い5体
-- Stage固有敵15体
+Omb is the shared small mascot enemy:
 
-【共通小型シャドウ：ポン影】
-Vamp Ponのスライム枠、敵側マスコット候補。
+- soft shadow body whose outline constantly dissolves
+- low rounded body, never a hard ball
+- one small ink bud on top
+- two small old-paper square eyes
+- no mouth, eyebrows, cheeks, nose, clothes or limbs
+- dark non-luminous flame-like shadow aura around the entire body
+- keep the face area clear enough to read the eyes
+- aura uses black, dark navy, violet-black and blue-gray; never bright fire
+- movement stretches the rear aura and squashes the body
 
-5色すべてで必ず同じにするもの:
-- 下が少し広い丸い一滴型の輪郭
-- 頭の左上に一か所だけ破れ紙の切れ込み
-- 右下に短いインクのしっぽ
-- 底面に小さな二つのふくらみ
-- 古紙色の小さな2つの目
-- 左右の目の高さを少しだけずらす
-- 口なし
-- 正面寄りの同じカメラ角度
-- 同じ占有率、同じ重心
+Ombro is the shared medium growth form:
 
-普通の丸、完全な雫、他作品のスライムに似た尖った輪郭にしない。
-小物、角、耳、帽子、武器を色ごとに追加しない。
-目を大きな金色発光にしない。
+- same eyes, ink bud and shadow-flame identity as Omb
+- lower and wider, not a simple upscale
+- stronger and longer aura
+- two heavy pseudo-hands formed from the same shadow aura
+- pseudo-hands droop into the ground while idle
+- during attack, one pseudo-hand extends and may split into at most three blunt lobes
+- no shoulder, elbow, palm, human fingers, nails, bones or muscles
 
-【共通中型シャドウ：ふくらみポン影】
-ポン影の成長体。同じfamilyだと一目で分かるが、小型の単純拡大は禁止。
+The five Stage variants preserve the same silhouette, face, camera angle and pose timing. Stage palette differences remain secondary; at least 70% of the body stays in the black-ink family.
 
-5色すべてで必ず同じにするもの:
-- ポン影と同じ古紙色の目
-- 同じ左上の破れ紙の切れ込み
-- 同じ右下のインクしっぽ
-- 小型より横幅が広い洋梨型
-- 左右に短く重いインク腕
-- 底面は一枚の厚いインク溜まり
-- 目は身体中央より少し下
-- 正面寄りの同じカメラ角度
+BOSS IDENTITY
 
-小型より重く、進路を押す塊として見せる。
-中ボスほど装飾的にしない。
+Nanashino cells 36, 39, 40 and 41 are one creature:
 
-【共通2種の5Stage色】
-本体の70%以上は暗い黒インクfamilyとして保つ。
-輪郭、顔、紙切れ、しっぽ、向きは変えず、身体内部の色面と弱い縁光だけを変える。
+- three-headed black-ink watchdog
+- name-tag chains across the body
+- pen-nib tail
+- paper-beast heads
+- forms change chain state, head emphasis and exposed name core without changing species
 
-Stage 1 欠片色:
-- 青紫のインク
-- くすんだ古紙金のごく小さい差し色
+Michishirube cells 37, 42, 43 and 44 are one creature:
 
-Stage 2 名札色:
-- 葡萄紫のインク
-- 薄い藤色のごく小さい差し色
+- giant paper stag
+- branching railway antlers
+- station clock in the chest
+- small station structure on the back
+- ticket-strip tail
+- forms change antlers, reversed clock and exposed station core while keeping the stag body
 
-Stage 3 封箱色:
-- 焦茶紫のインク
-- くすんだ封蝋赤のごく小さい差し色
+Asamade cells 38, 45, 46, 47 and 48 are one creature:
 
-Stage 4 切符色:
-- 青緑黒のインク
-- 褪せた水色のごく小さい差し色
+- black-ink dragon with a cage-like head
+- six separate torn-page wings
+- small ember in the chest
+- black-thread tail
+- forms change page sealing, mixed memories, ember guarding and dawn cracking while preserving the same dragon
 
-Stage 5 灯火色:
-- 深い藍黒
-- 控えめな琥珀のごく小さい差し色
+CELL ORDER — LEFT TO RIGHT, TOP TO BOTTOM
 
-5色を虹色スライムのように明るくしない。
-目の基本色は5Stageすべて古紙色を維持する。
-Stage 5の琥珀もランタン、記憶の欠片、hit coreより暗く小さくする。
-
-【差別化ルール】
-- 共通小型5体と共通中型5体だけは、意図的なStage色違いfamily
-- それ以外のStage固有15体、中ボス10体、大ボスは色違いだけにしない
-- Stage固有敵はシルエット、眼または光の位置、特徴部品、姿勢、重心のうち最低3つを変える
-- blob、破れ紙、虫、獣、鳥、箱、札、鍵、切符、灯りなどのモチーフを明確にする
-- プレイヤーや記憶の欠片と誤認する大きな金色発光を使わない
-- 雑魚、中ボス、大ボスでサイズと情報量の格差を明確にする
-
-【セル内サイズ】
-- ポン影はセル面積の52〜60%程度
-- ふくらみポン影は64〜72%程度
-- Stage固有雑魚は55〜68%程度
-- 中ボスは70〜82%程度
-- 大ボスと別形態は84〜94%程度
-- 大きく見せるためにセル境界へ触れさせない
-- 長い部品はセル内へ曲げて収納する
-
-【48セルの配置順】
-01 ポン影・欠片色
-02 ふくらみポン影・欠片色
+01 オンブ・欠片色
+02 オンブロ・欠片色
 03 紙くずの影
 04 夜のもや
 05 消し跡虫
-06 ポン影・名札色
-07 ふくらみポン影・名札色
+06 オンブ・名札色
+07 オンブロ・名札色
 08 名札影
 
 09 名前喰い
 10 呼び声コウモリ
-11 ポン影・封箱色
-12 ふくらみポン影・封箱色
+11 オンブ・封箱色
+12 オンブロ・封箱色
 13 箱影
 14 鍵穴蜘蛛
 15 封蝋ガニ
-16 ポン影・切符色
+16 オンブ・切符色
 
-17 ふくらみポン影・切符色
+17 オンブロ・切符色
 18 迷子の方角
 19 逆走ネズミ
 20 改札バサミ
-21 ポン影・灯火色
-22 ふくらみポン影・灯火色
+21 オンブ・灯火色
+22 オンブロ・灯火色
 23 火消し蛾
 24 残り火ウサギ
 
@@ -181,9 +188,9 @@ Stage 5の琥珀もランタン、記憶の欠片、hit coreより暗く小さ�
 33 帰らずの機関獣
 34 灯喰らいの大蛾
 35 朝を縫う魔女影
-36 三路喰らい《ナナシノ》基本形態
-37 帰路巨鹿《ミチシルベ》基本形態
-38 夜綴じ六翼竜《アサマデ》基本形態
+36 三路喰らい《ナナシノ》
+37 帰路巨鹿《ミチシルベ》
+38 夜綴じ六翼竜《アサマデ》
 39 ナナシノ・鎖断ち形態
 40 ナナシノ・二首暴走形態
 
@@ -196,35 +203,51 @@ Stage 5の琥珀もランタン、記憶の欠片、hit coreより暗く小さ�
 47 アサマデ・残火守護形態
 48 アサマデ・朝割れ形態
 
-【大ボスの同一個体性】
-- 36、39、40、41は同じ三つ首の黒インク番犬
-- 各形態で頭数、鎖、名札核の露出を変えるが、顔、体格、尾のペン先、共通配色を維持
-- 37、42、43、44は同じ巨大な紙の鹿
-- 分岐線路の角、胸の駅時計、背中の駅舎、切符の尾を維持
-- 38、45、46、47、48は同じ六翼の黒インク竜
-- 鳥籠状の頭、破れたページの翼、胸の小さな火、黒糸の尾を維持
-- 別形態は単なる色替えではなく、輪郭と部品の展開状態を変える
-- 最終形態ほど情報量を増やすが、セル内で読みやすく保つ
+SIZE HIERARCHY
 
-【禁止】
-- セルを空にする
-- 2体を同じセルに入れる
-- キャラクター名や番号を書く
-- グリッド線を書く
-- 背景を描く
-- セル境界をまたぐ
-- 大ボスだけ別縮尺の外部画像として貼る
-- 共通2family以外を同一ポーズの色違いで量産する
-- ポン影を単なる黒い丸にする
-- ふくらみポン影を小型の拡大コピーにする
-- 他作品のスライムの輪郭、顔、王冠、口を模倣する
-- 過剰なぼかし、被写界深度、光芒
-- 画像全体を1448×1086など別サイズで出力する
+- Omb: 52–60% cell occupancy
+- Ombro: 64–72%
+- Stage-unique grunts: 55–68%
+- midbosses: 70–82%
+- bosses and boss forms: 84–94%
 
-出力は、厳密に1440×1080px、8列×6行、各180×180px、実透過RGBAのPNG 1枚のみ。
+Large bosses must appear large without touching the safe border. Fold long wings, tails, rails, threads and antlers naturally inside the cell.
+
+FORBIDDEN
+
+- legacy names ポン影 / ふくらみポン影 / pon_shadow / grown_pon_shadow
+- empty cells
+- multiple enemies in one cell
+- palette-only boss forms
+- identical pose duplicated across unrelated enemies
+- hard black circles with eyes only
+- human-looking Ombro hands
+- bright ordinary flames around Omb or Ombro
+- player-like clothes, hair or faces on shadow creatures
+- warm focal lights large enough to look like a pickup or hit core
+- direct production promotion
+
+SAVE LOCATIONS
+
+Reference source:
+assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
+
+Prototype copy after validation:
+public/assets/prototypes/sprite-sheets/enemies-180px/enemy-48-sprite-sheet-v1.png
+
+After writing the PNG, run:
+
+pnpm enemy48:design:check
+pnpm enemy48:manifest:check
+pnpm enemy48:sprites:verify
+
+Report exact results. Do not claim 48/48, RGBA, transparency or overflow=0 unless the mechanical check passes.
+Do not call the sheet production or hand-final-candidate.
 ```
 
-## 受領後の確認文
+## Acceptance output
+
+Only after mechanical validation may the report contain:
 
 ```txt
 canvas: 1440x1080
@@ -233,11 +256,7 @@ cell: 180x180
 mode: RGBA
 background alpha: 0
 detected non-empty cells: 48/48
-common small variants: 5/5
-common medium variants: 5/5
-stage unique grunts: 15/15
 cell overflow: 0
-cross-cell alpha connection: 0
+design catalog: 48/48 design-ready
+legacy Pon Shadow names: 0
 ```
-
-数値は見た目で断言せず、`pnpm enemy48:sprites:verify` で確認する。
