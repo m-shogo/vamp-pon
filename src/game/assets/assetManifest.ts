@@ -1,3 +1,4 @@
+import { inventoryIconAssetEntries } from './inventoryIcons';
 import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from './playerFrames';
 
 /**
@@ -79,6 +80,9 @@ export const assetManifest: AssetManifestEntry[] = [
   { id: 'awakened_memory_marble', path: `${SPRITES}/evolved/awakened_memory_marble_projectile.png`, width: 16, height: 16, kind: 'evolved', description: '追憶のビー玉（ひび割れガラス）覚醒', required: true, fallback: true },
   { id: 'awakened_addressless_blade', path: `${SPRITES}/evolved/awakened_addressless_blade_projectile.png`, width: 18, height: 12, kind: 'evolved', description: '宛先のない刃（封筒の切れ目）覚醒', required: true, fallback: true },
   { id: 'awakened_tailwind_plane', path: `${SPRITES}/evolved/awakened_tailwind_plane_projectile.png`, width: 20, height: 16, kind: 'evolved', description: '追い風の紙ひこうき覚醒', required: true, fallback: true },
+
+  // --- インベントリ専用アイコン（未制作分はfallback） ---
+  ...inventoryIconAssetEntries,
 
   // --- UIカード ---
   { id: 'ui_card_paper_normal', path: `${SPRITES}/ui/ui_card_paper_normal.png`, width: 320, height: 144, kind: 'ui', description: 'レベルアップカード 紙（ふつう）', required: true, fallback: true },
