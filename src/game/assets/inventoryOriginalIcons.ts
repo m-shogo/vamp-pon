@@ -1,0 +1,1 @@
+export const INVENTORY_ORIGINAL_SOURCE_SIZE = 180;
