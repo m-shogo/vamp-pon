@@ -15,6 +15,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: core5-original-slice
+  cancel-in-progress: true
+
 jobs:
   slice:
     runs-on: ubuntu-latest
