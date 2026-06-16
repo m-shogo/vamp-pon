@@ -1,4 +1,8 @@
 import requirementsJson from '../../../data/ui-assets/inventory-icon-requirements.json';
+import {
+  inventoryOriginalAssetEntries,
+  resolveInventoryOriginalTexture,
+} from './inventoryOriginalIcons';
 
 export type InventoryIconCategory = 'weapon' | 'passive' | 'rare';
 export type InventoryIconStatus = 'planned' | 'draft' | 'ready';
@@ -25,16 +29,8 @@ export const inventoryIconByKey = new Map(
   requirements.map((entry) => [`${entry.category}:${entry.itemId}`, entry]),
 );
 
-export const inventoryIconAssetEntries = requirements.map((entry) => ({
-  id: entry.assetId,
-  path: entry.path,
-  width: requirementsJson.target.canvasPx,
-  height: requirementsJson.target.canvasPx,
-  kind: 'ui' as const,
-  description: `${entry.name} HUD inventory icon (${entry.status})`,
-  required: false,
-  fallback: true,
-}));
+/** 現在のゲームでは高品質な180px原本を共通アイコンとしてロードする。 */
+export const inventoryIconAssetEntries = inventoryOriginalAssetEntries;
 
 export function getInventoryIconRequirement(
   category: InventoryIconCategory,
@@ -48,6 +44,9 @@ export function resolveInventoryIconTexture(
   category: InventoryIconCategory,
   itemId: string,
 ): string | null {
+  const original = resolveInventoryOriginalTexture(textures, category, itemId);
+  if (original) return original;
+
   const requirement = getInventoryIconRequirement(category, itemId);
   if (!requirement) return null;
   if (textures.exists(requirement.assetId)) return requirement.assetId;
