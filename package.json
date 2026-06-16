@@ -24,6 +24,7 @@
     "player:protected:verify": "node --experimental-strip-types scripts/quality/check-protected-player-assets-unchanged.ts",
     "assets:check-player-promotion": "node --experimental-strip-types scripts/quality/check-player-asset-promotion.ts",
     "character-assets:verify": "node --experimental-strip-types scripts/quality/check-character-assets.ts",
+    "core5:sprites:slice-original": "node --experimental-strip-types scripts/prototypes/slice-core5-original-sheets.ts",
     "core5:sprites:generate-exact": "node --experimental-strip-types scripts/prototypes/generate-core5-exact-sheets.ts",
     "core5:sprites:normalize": "node --experimental-strip-types scripts/prototypes/normalize-core5-sprite-sheets.ts",
     "story-map:check": "node --experimental-strip-types scripts/quality/check-story-map-data.ts",
