@@ -7,12 +7,19 @@ import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT, PLAYER_DEFAU
 import { xpToNext } from './domain/balance';
 import { createPlayerView } from './ui/factory';
 import { recomputePlayerStats } from './systems/passives';
+import { YUI_FRAME_IDS } from './assets/playerFrames';
+import { attachCore5PlayerView } from './ui/playerVisual';
 
 export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAULT_CHARACTER_ID): RuntimeState {
   const char = characterById.get(characterId) ?? characterById.get(DEFAULT_CHARACTER_ID)!;
   const px = GAME_WIDTH / 2;
   const py = GAME_HEIGHT / 2;
-  const playerView = createPlayerView(scene, px, py);
+  const core5Texture = YUI_FRAME_IDS.idle.front;
+  const useCore5Yui = char.id === 'yui' && scene.textures.exists(core5Texture);
+  const playerView = createPlayerView(scene, px, py, {
+    textureId: useCore5Yui ? core5Texture : 'yui_idle',
+  });
+  if (useCore5Yui) attachCore5PlayerView(playerView);
 
   const debug = new URLSearchParams(window.location.search).get('debug') === 'true';
   const debugHitCircle = playerView.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
