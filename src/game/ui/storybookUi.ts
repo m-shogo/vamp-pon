@@ -5,7 +5,30 @@ import type { InventoryIconCategory } from '../assets/inventoryIcons';
 export const STORYBOOK_FONT = '"Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif';
 export const STORYBOOK_NUMBER_FONT = '"Courier New", monospace';
 
-export const STORYBOOK_UI = {
+type StorybookUiTokens = {
+  night: number;
+  nightPanel: number;
+  gold: number;
+  goldLight: any;
+  paper: number;
+  paperLight: number;
+  paperShadow: number;
+  paperEdge: number;
+  textDark: string;
+  textSoft: string;
+  textLight: string;
+  textMuted: string;
+  hp: number;
+  hpBack: number;
+  xp: number;
+  weapon: number;
+  passive: number;
+  rare: number;
+  special: number;
+  inactiveStar: number;
+};
+
+export const STORYBOOK_UI: StorybookUiTokens = {
   night: 0x0b1022,
   nightPanel: 0x10162d,
   gold: 0xd2a45c,
@@ -26,7 +49,7 @@ export const STORYBOOK_UI = {
   rare: 0x79bea9,
   special: 0xd9879b,
   inactiveStar: 0xb4a48c,
-} as const;
+};
 
 export function storybookCategoryPalette(category: InventoryIconCategory | 'heal') {
   switch (category) {
@@ -47,9 +70,9 @@ export function drawStorybookPanel(
   y: number,
   width: number,
   height: number,
-  fill = STORYBOOK_UI.nightPanel,
-  edge = STORYBOOK_UI.gold,
-  alpha = 0.92,
+  fill: number = STORYBOOK_UI.nightPanel,
+  edge: number = STORYBOOK_UI.gold,
+  alpha: number = 0.92,
 ): Phaser.GameObjects.Graphics {
   const left = Math.round(x - width / 2);
   const top = Math.round(y - height / 2);
@@ -60,12 +83,13 @@ export function drawStorybookPanel(
   g.fillStyle(edge, 0.8);
   const right = left + width;
   const bottom = top + height;
-  for (const [cx, cy, w, h] of [
+  const marks: Array<[number, number, number, number]> = [
     [left + 4, top + 4, 10, 1], [left + 4, top + 4, 1, 10],
     [right - 14, top + 4, 10, 1], [right - 5, top + 4, 1, 10],
     [left + 4, bottom - 5, 10, 1], [left + 4, bottom - 14, 1, 10],
     [right - 14, bottom - 5, 10, 1], [right - 5, bottom - 14, 1, 10],
-  ]) g.fillRect(cx, cy, w, h);
+  ];
+  for (const [cx, cy, w, h] of marks) g.fillRect(cx, cy, w, h);
   return g;
 }
 
@@ -76,7 +100,7 @@ export function drawPaperCard(
   width: number,
   height: number,
   accent: number,
-  paper = STORYBOOK_UI.paper,
+  paper: number = STORYBOOK_UI.paper,
 ): Phaser.GameObjects.Graphics {
   const left = Math.round(x - width / 2);
   const top = Math.round(y - height / 2);
@@ -95,19 +119,19 @@ export function drawStar(
   y: number,
   size: number,
   fill: number,
-  edge = STORYBOOK_UI.paperEdge,
-  alpha = 1,
+  edge: number = STORYBOOK_UI.paperEdge,
+  alpha: number = 1,
 ): Phaser.GameObjects.Graphics {
   const s = Math.max(4, Math.round(size));
-  const points = [
-    new Phaser.Geom.Point(x, y - s),
-    new Phaser.Geom.Point(x + s * 0.34, y - s * 0.35),
-    new Phaser.Geom.Point(x + s, y),
-    new Phaser.Geom.Point(x + s * 0.34, y + s * 0.35),
-    new Phaser.Geom.Point(x, y + s),
-    new Phaser.Geom.Point(x - s * 0.34, y + s * 0.35),
-    new Phaser.Geom.Point(x - s, y),
-    new Phaser.Geom.Point(x - s * 0.34, y - s * 0.35),
+  const points: Array<{ x: number; y: number }> = [
+    { x, y: y - s },
+    { x: x + s * 0.34, y: y - s * 0.35 },
+    { x: x + s, y },
+    { x: x + s * 0.34, y: y + s * 0.35 },
+    { x, y: y + s },
+    { x: x - s * 0.34, y: y + s * 0.35 },
+    { x: x - s, y },
+    { x: x - s * 0.34, y: y - s * 0.35 },
   ];
   g.fillStyle(fill, alpha).fillPoints(points, true);
   g.lineStyle(1, edge, alpha).strokePoints(points, true);
@@ -117,29 +141,37 @@ export function drawStar(
 export function drawRarityStars(g: Phaser.GameObjects.Graphics, x: number, y: number, rarity: RewardRarity): Phaser.GameObjects.Graphics {
   const active = rarityStars(rarity);
   for (let i = 0; i < 3; i += 1) {
-    drawStar(g, x + i * 22, y, 9, i < active ? STORYBOOK_UI.gold : 0xd7c9ad, i < active ? STORYBOOK_UI.paperEdge : STORYBOOK_UI.inactiveStar, i < active ? 1 : 0.78);
+    drawStar(
+      g,
+      x + i * 22,
+      y,
+      9,
+      i < active ? STORYBOOK_UI.gold : 0xd7c9ad,
+      i < active ? STORYBOOK_UI.paperEdge : STORYBOOK_UI.inactiveStar,
+      i < active ? 1 : 0.78,
+    );
   }
   return g;
 }
 
-export function drawHeart(g: Phaser.GameObjects.Graphics, x: number, y: number, size = 18): Phaser.GameObjects.Graphics {
+export function drawHeart(g: Phaser.GameObjects.Graphics, x: number, y: number, size: number = 18): Phaser.GameObjects.Graphics {
   const u = Math.max(2, Math.round(size / 5));
   const ox = Math.round(x - u * 2.5);
   const oy = Math.round(y - u * 2);
-  const cells = [[1,0],[3,0],[0,1],[1,1],[2,1],[3,1],[4,1],[0,2],[1,2],[2,2],[3,2],[4,2],[1,3],[2,3],[3,3],[2,4]];
+  const cells: Array<[number, number]> = [[1,0],[3,0],[0,1],[1,1],[2,1],[3,1],[4,1],[0,2],[1,2],[2,2],[3,2],[4,2],[1,3],[2,3],[3,3],[2,4]];
   g.fillStyle(STORYBOOK_UI.hp, 1);
   for (const [cx, cy] of cells) g.fillRect(ox + cx * u, oy + cy * u, u, u);
   g.fillStyle(0xffb0b7, 0.85).fillRect(ox + u, oy + u, u, u);
   return g;
 }
 
-export function drawFragment(g: Phaser.GameObjects.Graphics, x: number, y: number, size = 10): Phaser.GameObjects.Graphics {
+export function drawFragment(g: Phaser.GameObjects.Graphics, x: number, y: number, size: number = 10): Phaser.GameObjects.Graphics {
   drawStar(g, x, y, size, STORYBOOK_UI.goldLight, STORYBOOK_UI.gold, 1);
   g.fillStyle(0xffffff, 0.9).fillRect(Math.round(x - 1), Math.round(y - 3), 2, 5);
   return g;
 }
 
-export function drawPause(g: Phaser.GameObjects.Graphics, x: number, y: number, size = 34): Phaser.GameObjects.Graphics {
+export function drawPause(g: Phaser.GameObjects.Graphics, x: number, y: number, size: number = 34): Phaser.GameObjects.Graphics {
   const half = Math.round(size / 2);
   g.fillStyle(STORYBOOK_UI.nightPanel, 0.94).fillRect(x - half, y - half, size, size);
   g.lineStyle(1, STORYBOOK_UI.gold, 0.92).strokeRect(x - half, y - half, size, size);
