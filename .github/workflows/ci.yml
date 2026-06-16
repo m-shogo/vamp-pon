@@ -57,6 +57,9 @@ jobs:
       - name: Verify inventory icon stock
         run: pnpm inventory-icons:check
 
+      - name: Verify 180px inventory originals
+        run: node --experimental-strip-types scripts/quality/check-inventory-original-icons.ts
+
       - name: Test
         run: pnpm test
 
