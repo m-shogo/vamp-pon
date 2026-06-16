@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
 import { BootScene } from './game/scenes/BootScene';
+import { Core5SpriteSheetPreviewScene } from './game/scenes/Core5SpriteSheetPreviewScene';
 import { MainScene } from './game/scenes/MainScene';
 import { VisualGalleryScene } from './game/scenes/VisualGalleryScene';
 import './styles.css';
 
-// BootScene がアセットを preload し、URL（?scene=…）で本編 or ギャラリーへ振り分ける。
+// BootScene がアセットを preload し、URL（?scene=… / ?debug=…）で本編 or preview へ振り分ける。
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   parent: 'app',
@@ -15,7 +16,7 @@ const config: Phaser.Types.Core.GameConfig = {
     width: 390,
     height: 844,
   },
-  scene: [BootScene, MainScene, VisualGalleryScene],
+  scene: [BootScene, MainScene, VisualGalleryScene, Core5SpriteSheetPreviewScene],
 };
 
 new Phaser.Game(config);
