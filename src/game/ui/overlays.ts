@@ -31,6 +31,8 @@ import { PixelGlyphText, UI_FONT, drawPixelPanel } from './pixelUi';
 const D = VIEW_DEPTH.overlay;
 const DETAIL_ICON_SIZE = 60;
 const LIST_ICON_SIZE = 45;
+const RARE_CATEGORY_EDGE = 0xb27acb;
+const RARE_CATEGORY_FILL = 0x30233f;
 
 type IconRef = {
   category: InventoryIconCategory;
@@ -180,7 +182,7 @@ export class Overlays {
 
     c.add(this.inventoryChip(70, 113, 106, '武器', `${state.inventory.weapons.length}/${state.inventory.weaponSlots}`, 0x7ea5c2));
     c.add(this.inventoryChip(195, 113, 112, '忘れ物', `${state.inventory.passives.length}/${state.inventory.passiveSlots}`, 0xa98bc2));
-    c.add(this.inventoryChip(320, 113, 106, 'レア', `${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`, 0xd2ae62));
+    c.add(this.inventoryChip(320, 113, 106, 'レア', `${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`, RARE_CATEGORY_EDGE));
 
     const centers = levelUpCardCenters(choices.length);
     choices.forEach((choice, index) => {
@@ -248,7 +250,19 @@ export class Overlays {
     c.add(this.text(GAME_WIDTH / 2, 78, '新しい道具と交換します', 11, '#d8cfe8'));
 
     const incoming = this.scene.add.container(GAME_WIDTH / 2, 124);
-    incoming.add(this.panel(0, 0, REPLACE_ROW_WIDTH, 68, 0x2b243d, 0xd2ae62, 0xffd45e, 6, 2));
+    const incomingCategory = category ?? 'passive';
+    const incomingEdge = iconAccentColor(incomingCategory);
+    incoming.add(this.panel(
+      0,
+      0,
+      REPLACE_ROW_WIDTH,
+      68,
+      iconPanelColor(incomingCategory),
+      incomingEdge,
+      incomingEdge,
+      6,
+      2,
+    ));
     const incomingRef = iconRefForChoice(choice);
     if (incomingRef) {
       this.addInventoryIcon(
@@ -259,7 +273,7 @@ export class Overlays {
         DETAIL_ICON_SIZE,
         64,
         60,
-        0xd2ae62,
+        incomingEdge,
       );
     }
     incoming.add(this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 82, -13, '入れる', {
@@ -276,7 +290,7 @@ export class Overlays {
       {
         fontFamily: UI_FONT,
         fontSize: '14px',
-        color: '#ffe9a8',
+        color: categoryLightTextColor(incomingCategory),
         fontStyle: 'bold',
         resolution: 1,
       },
@@ -371,6 +385,8 @@ export class Overlays {
     const card = this.scene.add.container(cx, cy);
     const rarity = choice.rarity ?? 'normal';
     const edge = rarityColor(rarity);
+    const category = categoryForChoice(choice);
+    const categoryColor = category ? categoryTextColor(category) : '#715f46';
     card.add(this.panel(
       0,
       0,
@@ -407,13 +423,14 @@ export class Overlays {
       fontStyle: 'bold',
       resolution: 1,
     }).setOrigin(0, 0));
-    card.add(this.scene.add.text(textX, -31, `${rankFor(rarity)} / ${tagFor(choice)}`, {
+    card.add(this.scene.add.text(textX, -31, tagFor(choice), {
       fontFamily: UI_FONT,
       fontSize: '9px',
-      color: rarity === 'normal' ? '#715f46' : '#855920',
+      color: categoryColor,
       fontStyle: 'bold',
       resolution: 1,
     }).setOrigin(0, 0));
+    this.addRarityPips(card, width / 2 - 22, -height / 2 + 17, rarity);
     card.add(this.scene.add.text(textX, -5, wrapUiText(choice.description, 19, 2), {
       fontFamily: UI_FONT,
       fontSize: '12px',
@@ -439,6 +456,25 @@ export class Overlays {
       resolution: 1,
     }).setOrigin(1, 0.5));
     return card;
+  }
+
+  private addRarityPips(
+    container: Phaser.GameObjects.Container,
+    x: number,
+    y: number,
+    rarity: RewardRarity,
+  ): void {
+    const count = rarity === 'rare' ? 3 : rarity === 'good' ? 2 : 1;
+    const color = rarityColor(rarity);
+    const graphics = this.scene.add.graphics();
+    for (let index = 0; index < count; index += 1) {
+      const centerX = x - (count - 1) * 7 + index * 14;
+      graphics.fillStyle(color, 1);
+      graphics.fillRect(centerX - 2, y - 4, 4, 2);
+      graphics.fillRect(centerX - 4, y - 2, 8, 4);
+      graphics.fillRect(centerX - 2, y + 2, 4, 2);
+    }
+    container.add(graphics);
   }
 
   showCapsule(_state: RuntimeState, reward: CapsuleReward, onClose: () => void): void {
@@ -677,7 +713,7 @@ function iconPanelColor(category: InventoryIconCategory): number {
   switch (category) {
     case 'weapon': return 0x18263f;
     case 'passive': return 0x2b203d;
-    case 'rare': return 0x3a2f20;
+    case 'rare': return RARE_CATEGORY_FILL;
   }
 }
 
@@ -685,7 +721,23 @@ function iconAccentColor(category: InventoryIconCategory): number {
   switch (category) {
     case 'weapon': return 0x7ea5c2;
     case 'passive': return 0xa98bc2;
-    case 'rare': return 0xd2ae62;
+    case 'rare': return RARE_CATEGORY_EDGE;
+  }
+}
+
+function categoryTextColor(category: InventoryIconCategory): string {
+  switch (category) {
+    case 'weapon': return '#476a82';
+    case 'passive': return '#745883';
+    case 'rare': return '#7d4b8f';
+  }
+}
+
+function categoryLightTextColor(category: InventoryIconCategory): string {
+  switch (category) {
+    case 'weapon': return '#b9d3e6';
+    case 'passive': return '#d7c7e8';
+    case 'rare': return '#e6c7f0';
   }
 }
 
@@ -727,14 +779,6 @@ function tagFor(choice: LevelUpChoice): string {
     case 'weapon_upgrade':
     case 'passive_upgrade': return '強化';
     case 'heal': return 'ひとやすみ';
-  }
-}
-
-function rankFor(rarity: RewardRarity): string {
-  switch (rarity) {
-    case 'rare': return '大当たり';
-    case 'good': return '良い';
-    case 'normal': return 'ふつう';
   }
 }
 

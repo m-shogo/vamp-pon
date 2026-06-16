@@ -137,7 +137,7 @@ export class Hud {
       scene.add.text(316, SLOT_PASSIVE_Y, 'レア', {
         fontFamily: UI_FONT,
         fontSize: '8px',
-        color: '#ffe9a8',
+        color: '#e6c7f0',
         fontStyle: 'bold',
         resolution: 1,
       }).setOrigin(0.5).setDepth(depth + 1),
@@ -224,8 +224,8 @@ export class Hud {
       border: 1,
     });
     drawPixelPanel(this.inventoryBack, 316, SLOT_PASSIVE_Y, 26, 24, {
-      fill: 0x3a2f20,
-      edge: 0xb18d43,
+      fill: 0x30233f,
+      edge: 0x8c62a6,
       cut: 4,
       border: 1,
     });
@@ -249,8 +249,8 @@ export class Hud {
     for (const x of SLOT_RARE_X) {
       drawPixelPanel(this.inventoryBack, x, SLOT_PASSIVE_Y, 30, 30, {
         fill: 0x171328,
-        edge: COLORS.cardEdge,
-        accent: 0xd2ae62,
+        edge: 0x8c62a6,
+        accent: 0xb27acb,
         cut: 5,
         border: 1,
       });
