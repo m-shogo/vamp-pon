@@ -43,6 +43,25 @@ done
 
 旧 A/B/C 版は `build-yui-52-master.lua` / `build-yui-52-review-sheet.lua`。
 
+## Core5 52px sprite sheet normalizer / preview
+
+Core5 generated sheet は production に直接入れない。まず次の流れで確認する。
+
+```sh
+pnpm character-assets:verify
+pnpm core5:sprites:normalize
+pnpm dev
+# /?debug=core5sprites&protoCharacter=yui
+```
+
+- 入力: `public/assets/prototypes/sprite-sheets/core5-52px/`
+- 正規化候補: `public/assets/prototypes/sprite-sheets/core5-52px-normalized/`
+- セル定義: `data/character-assets/core5-52px-sprite-sheet-cells.json`
+- manifest: `data/character-assets/core5-character-master-assets.json`
+- preview: `?debug=core5sprites&protoCharacter=yui|asa|nagi|michiru|tomori`
+
+`normalize-core5-sprite-sheets.ts` は初回安全運用。source PNG が `416x312` の完全な 8x6 / 52px grid の時だけ normalized PNG をコピーする。寸法が怪しい時は `manifest.json` / `overlay-cells.json` に `needsManualCrop: true` を出し、壊れた sheet を作らない。
+
 ## procedural finish（PF / script-assisted route B）
 
 V2a に定型仕上げパスを機械適用して `_pf` を作る。**hand-final ではない**（pipeline §1）。
@@ -88,6 +107,8 @@ pnpm aseprite:pixel-refine:yui52hr     # _pf -> _hr（refinement + HR review she
 ## 確認コマンドの使い分け
 
 ```sh
+pnpm character-assets:verify   # Core5 master/sprite sheet/cell定義の strict gate
+pnpm core5:sprites:normalize   # Core5 sheet の寸法検査・normalized候補/overlay manifest生成
 pnpm pixel-art:pipeline:verify # pipeline一式(doc/schema/recipe/finisher/extension/PF出力/review)+ production未変更
 pnpm prototype:verify         # prototype画像/source/review doc が存在し、production未変更か
 pnpm design:review:verify     # review doc の構造（Current/Target score・Keep・Discard・Final decision 等）
@@ -100,6 +121,8 @@ git diff --stat HEAD -- public/assets/sprites/player assets/source/aseprite/play
 
 | コマンド | 守る対象 | 失敗条件 |
 | --- | --- | --- |
+| `character-assets:verify` | Core5 manifest / 5人の画像 / 48 cell 定義 / production混入 | 画像欠落 / cell重複 / status違反 / production混入 |
+| `core5:sprites:normalize` | generated sheet の寸法検査と review overlay | 破壊的cropはしない。missingは警告、strict失敗は verify 側 |
 | `prototype:verify` | prototype成果物の存在 + 作業ツリーの production 非変更 | 画像/doc欠落 or production変更 |
 | `design:review:verify` | review doc の体裁・production-candidate の根拠 | 必須セクション欠落 / 80未満でcandidate |
 | `player:protected:verify` | production player資産・gameplay定数の非変更 | 作業ツリーが protected path を変更 |
