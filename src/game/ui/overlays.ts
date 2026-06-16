@@ -11,6 +11,18 @@ import { rareItemById } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
 import { spriteOrNull } from '../assets/assetHelpers';
 import type { AssetId } from '../assets/assetManifest';
+import {
+  LEVEL_UP_CARD_HEIGHT,
+  LEVEL_UP_CARD_WIDTH,
+  LEVEL_UP_FOOTER_HINT_Y,
+  LEVEL_UP_REROLL_Y,
+  REPLACE_ACTION_Y,
+  REPLACE_ROW_HEIGHT,
+  REPLACE_ROW_WIDTH,
+  levelUpCardCenters,
+  replaceRowCenters,
+  wrapUiText,
+} from './itemSelectionLayout';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
@@ -38,6 +50,32 @@ export class Overlays {
     return this.scene.add.text(x, y, s, { fontFamily: FONT, fontSize: `${size}px`, color, align: 'center' }).setOrigin(origin, 0.5);
   }
 
+  private screenPanel(top = 28, bottom = 824): Phaser.GameObjects.Rectangle {
+    const height = bottom - top;
+    const panel = this.scene.add.rectangle(GAME_WIDTH / 2, top + height / 2, GAME_WIDTH - 24, height, 0x171328, 0.96);
+    panel.setStrokeStyle(2, 0x665d80, 0.88);
+    return panel;
+  }
+
+  private inventoryChip(cx: number, cy: number, width: number, label: string, value: string, accent: number): Phaser.GameObjects.Container {
+    const chip = this.scene.add.container(cx, cy);
+    const bg = this.scene.add.rectangle(0, 0, width, 28, 0x241e38, 0.95);
+    bg.setStrokeStyle(1, accent, 0.8);
+    const labelText = this.scene.add.text(-width / 2 + 8, 0, label, {
+      fontFamily: FONT,
+      fontSize: '10px',
+      color: '#aaa1bc',
+    }).setOrigin(0, 0.5);
+    const valueText = this.scene.add.text(width / 2 - 8, 0, value, {
+      fontFamily: FONT,
+      fontSize: '12px',
+      color: '#f3ead2',
+      fontStyle: 'bold',
+    }).setOrigin(1, 0.5);
+    chip.add([bg, labelText, valueText]);
+    return chip;
+  }
+
   showReady(onStart: () => void): void {
     const c = this.dim(0.5);
     c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, 'Vamp Pon', 40, '#f3ead2'));
@@ -51,34 +89,53 @@ export class Overlays {
   }
 
   showLevelUp(state: RuntimeState, choices: LevelUpChoice[], onPick: (c: LevelUpChoice) => void, onReroll: () => void): void {
-    const c = this.dim();
-    c.add(this.text(GAME_WIDTH / 2, 82, '記憶が少し戻った', 23, '#f3ead2'));
-    c.add(this.text(GAME_WIDTH / 2, 110, `武器 ${state.inventory.weapons.length}/${state.inventory.weaponSlots}  忘れ物 ${state.inventory.passives.length}/${state.inventory.passiveSlots}  レア ${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`, 11, '#c9bfae'));
+    const c = this.dim(0.84);
+    c.add(this.screenPanel());
+    c.add(this.text(GAME_WIDTH / 2, 58, '記憶が少し戻った', 23, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 82, 'ひとつ選んで、夜を進む', 11, '#b8aecb'));
 
-    const cardW = 326;
-    const cardH = 146;
-    const gap = 10;
-    const totalH = choices.length * cardH + (choices.length - 1) * gap;
-    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2 + 6;
+    c.add(this.inventoryChip(70, 113, 106, '武器', `${state.inventory.weapons.length}/${state.inventory.weaponSlots}`, 0x7ea5c2));
+    c.add(this.inventoryChip(195, 113, 112, '忘れ物', `${state.inventory.passives.length}/${state.inventory.passiveSlots}`, 0xa98bc2));
+    c.add(this.inventoryChip(320, 113, 106, 'レア', `${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`, 0xd2ae62));
 
-    for (const choice of choices) {
-      const card = this.levelUpCard(GAME_WIDTH / 2, y, cardW, cardH, choice, () => {
-        this.clear();
-        onPick(choice);
-      });
+    const centers = levelUpCardCenters(choices.length);
+    choices.forEach((choice, index) => {
+      const card = this.levelUpCard(
+        GAME_WIDTH / 2,
+        centers[index],
+        LEVEL_UP_CARD_WIDTH,
+        LEVEL_UP_CARD_HEIGHT,
+        choice,
+        () => {
+          this.clear();
+          onPick(choice);
+        },
+      );
       c.add(card);
-      y += cardH + gap;
-    }
+    });
 
     const remaining = state.levelUpRerollsRemaining;
-    const reroll = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 44, 190, 38, remaining > 0 ? `候補入れ替え ${remaining}/3` : '候補入れ替え 0/3', () => {
-      if (state.levelUpRerollsRemaining <= 0) return;
-      this.clear();
-      onReroll();
-    });
+    c.add(this.text(
+      GAME_WIDTH / 2,
+      LEVEL_UP_FOOTER_HINT_Y,
+      '枠が満杯の道具は、選んだあと入れ替えできます',
+      11,
+      '#c9bfae',
+    ));
+    const reroll = this.button(
+      GAME_WIDTH / 2,
+      LEVEL_UP_REROLL_Y,
+      206,
+      42,
+      remaining > 0 ? `候補を入れ替える  ${remaining}/3` : '候補入れ替え  0/3',
+      () => {
+        if (state.levelUpRerollsRemaining <= 0) return;
+        this.clear();
+        onReroll();
+      },
+    );
     reroll.setAlpha(remaining > 0 ? 1 : 0.45);
     c.add(reroll);
-    c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT - 82, '満杯なら入れ替え、いらなければ受け取らない', 12, '#c9bfae'));
   }
 
   showReplaceItem(
@@ -92,17 +149,30 @@ export class Overlays {
     const isRare = choice.type === 'rare_new';
     const items = isWeapon ? state.inventory.weapons : isRare ? state.inventory.rareItems : state.inventory.passives;
     const title = isWeapon ? '外す武器を選ぶ' : isRare ? '外すレアアイテムを選ぶ' : '外す忘れ物を選ぶ';
-    const c = this.dim(0.78);
-    c.add(this.text(GAME_WIDTH / 2, 78, title, 23, '#f3ead2'));
-    c.add(this.text(GAME_WIDTH / 2, 106, `入れる: ${choice.title.replace(/^入替: /, '').replace(/^✦ /, '')}`, 13, '#ffe9a8'));
+    const c = this.dim(0.86);
+    c.add(this.screenPanel());
+    c.add(this.text(GAME_WIDTH / 2, 58, title, 23, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 82, '新しい道具と交換します', 11, '#b8aecb'));
 
-    const cardW = 310;
-    const cardH = 68;
-    const gap = 8;
-    const totalH = items.length * cardH + (items.length - 1) * gap;
-    let y = GAME_HEIGHT / 2 - totalH / 2 + cardH / 2 - 20;
+    const incoming = this.scene.add.container(GAME_WIDTH / 2, 120);
+    const incomingBg = this.scene.add.rectangle(0, 0, REPLACE_ROW_WIDTH, 50, 0x2b243d, 0.98);
+    incomingBg.setStrokeStyle(2, 0xd2ae62, 0.9);
+    const incomingLabel = this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 14, -9, '入れる', {
+      fontFamily: FONT,
+      fontSize: '9px',
+      color: '#c9bfae',
+    }).setOrigin(0, 0.5);
+    const incomingName = this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 14, 10, wrapUiText(choice.title.replace(/^入替: /, '').replace(/^✦ /, ''), 25, 1), {
+      fontFamily: FONT,
+      fontSize: '14px',
+      color: '#ffe9a8',
+      fontStyle: 'bold',
+    }).setOrigin(0, 0.5);
+    incoming.add([incomingBg, incomingLabel, incomingName]);
+    c.add(incoming);
 
-    for (const item of items) {
+    const centers = replaceRowCenters(items.length);
+    items.forEach((item, index) => {
       const label = isWeapon
         ? weaponById.get(item.id)?.name ?? item.id
         : isRare
@@ -110,19 +180,27 @@ export class Overlays {
           : passiveById.get(item.id)?.name ?? item.id;
       const icon = isWeapon ? weaponIcon(item.id) : isRare ? rareIcon(item.id) : passiveIcon(item.id);
       const suffix = isRare ? '' : ` Lv.${'level' in item ? item.level : ''}`;
-      const row = this.replaceRow(GAME_WIDTH / 2, y, cardW, cardH, icon, `${label}${suffix}`, () => {
-        this.clear();
-        onReplace(item.id);
-      });
+      const row = this.replaceRow(
+        GAME_WIDTH / 2,
+        centers[index],
+        REPLACE_ROW_WIDTH,
+        REPLACE_ROW_HEIGHT,
+        icon,
+        `${label}${suffix}`,
+        () => {
+          this.clear();
+          onReplace(item.id);
+        },
+      );
       c.add(row);
-      y += cardH + gap;
-    }
+    });
 
-    c.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 54, 150, 38, '戻る', () => {
+    c.add(this.text(GAME_WIDTH / 2, 720, '外した道具は、この夜では戻りません', 11, '#c9bfae'));
+    c.add(this.button(GAME_WIDTH / 2 - 82, REPLACE_ACTION_Y, 144, 40, '戻る', () => {
       this.clear();
       onCancel();
     }));
-    c.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 54, 150, 38, '受け取らない', () => {
+    c.add(this.button(GAME_WIDTH / 2 + 82, REPLACE_ACTION_Y, 144, 40, '受け取らない', () => {
       this.clear();
       onDecline();
     }));
@@ -135,11 +213,22 @@ export class Overlays {
     bg.setInteractive({ useHandCursor: true });
     bg.on('pointerdown', onClick);
     row.add(bg);
-    const iconBg = this.scene.add.circle(-w / 2 + 34, 0, 20, 0x3a3326, 1);
+    const iconBg = this.scene.add.circle(-w / 2 + 32, 0, 18, 0x3a3326, 1);
     iconBg.setStrokeStyle(2, COLORS.cardEdge, 1);
     row.add(iconBg);
-    row.add(this.scene.add.text(-w / 2 + 34, 0, icon, { fontFamily: FONT, fontSize: '18px', color: '#f3ead2', fontStyle: 'bold' }).setOrigin(0.5));
-    row.add(this.scene.add.text(-w / 2 + 66, 0, label, { fontFamily: FONT, fontSize: '16px', color: '#3a3326', fontStyle: 'bold' }).setOrigin(0, 0.5));
+    row.add(this.scene.add.text(-w / 2 + 32, 0, icon, { fontFamily: FONT, fontSize: '17px', color: '#f3ead2', fontStyle: 'bold' }).setOrigin(0.5));
+    row.add(this.scene.add.text(-w / 2 + 60, 0, wrapUiText(label, 20, 1), {
+      fontFamily: FONT,
+      fontSize: '15px',
+      color: '#3a3326',
+      fontStyle: 'bold',
+    }).setOrigin(0, 0.5));
+    row.add(this.scene.add.text(w / 2 - 18, 0, '交換', {
+      fontFamily: FONT,
+      fontSize: '10px',
+      color: '#8a7040',
+      fontStyle: 'bold',
+    }).setOrigin(1, 0.5));
     return row;
   }
 
@@ -168,14 +257,43 @@ export class Overlays {
 
     const icon = iconForChoice(choice);
     const lore = 'lore' in choice && choice.lore ? choice.lore : '';
-    const iconBg = this.scene.add.circle(-w / 2 + 38, -h / 2 + 39, 22, 0x3a3326, 1);
+    const iconBg = this.scene.add.circle(-w / 2 + 34, -34, 20, 0x3a3326, 1);
     iconBg.setStrokeStyle(2, edge, 1);
     card.add(iconBg);
-    card.add(this.scene.add.text(-w / 2 + 38, -h / 2 + 39, icon, { fontFamily: FONT, fontSize: '20px', color: '#f3ead2', fontStyle: 'bold' }).setOrigin(0.5));
-    card.add(this.scene.add.text(-w / 2 + 72, -h / 2 + 23, choice.title, { fontFamily: FONT, fontSize: '16px', color: '#3a3326', fontStyle: 'bold', wordWrap: { width: w - 92 } }).setOrigin(0, 0.5));
-    card.add(this.scene.add.text(-w / 2 + 72, -h / 2 + 52, `${rankFor(rarity)} / ${tagFor(choice)}`, { fontFamily: FONT, fontSize: '11px', color: rarity === 'normal' ? '#9a8d6f' : '#9a6024' }).setOrigin(0, 0.5));
-    card.add(this.scene.add.text(0, 12, choice.description, { fontFamily: FONT, fontSize: '13px', color: '#3a3326', align: 'center', wordWrap: { width: w - 38 }, lineSpacing: 3 }).setOrigin(0.5));
-    if (lore) card.add(this.scene.add.text(0, h / 2 - 18, lore, { fontFamily: FONT, fontSize: '9px', color: '#9a8d6f', align: 'center', wordWrap: { width: w - 46 } }).setOrigin(0.5));
+    card.add(this.scene.add.text(-w / 2 + 34, -34, icon, {
+      fontFamily: FONT,
+      fontSize: '19px',
+      color: '#f3ead2',
+      fontStyle: 'bold',
+    }).setOrigin(0.5));
+
+    card.add(this.scene.add.text(-w / 2 + 66, -57, wrapUiText(choice.title, 23, 1), {
+      fontFamily: FONT,
+      fontSize: '15px',
+      color: '#3a3326',
+      fontStyle: 'bold',
+    }).setOrigin(0, 0));
+    card.add(this.scene.add.text(-w / 2 + 66, -32, `${rankFor(rarity)} / ${tagFor(choice)}`, {
+      fontFamily: FONT,
+      fontSize: '10px',
+      color: rarity === 'normal' ? '#8e8064' : '#9a6024',
+    }).setOrigin(0, 0));
+    card.add(this.scene.add.rectangle(0, -10, w - 34, 1, edge, 0.3));
+    card.add(this.scene.add.text(0, 2, wrapUiText(choice.description, 27, 2), {
+      fontFamily: FONT,
+      fontSize: '12px',
+      color: '#3a3326',
+      align: 'center',
+      lineSpacing: 2,
+    }).setOrigin(0.5, 0));
+    if (lore) {
+      card.add(this.scene.add.text(0, 49, wrapUiText(lore, 38, 1), {
+        fontFamily: FONT,
+        fontSize: '9px',
+        color: '#8e8064',
+        align: 'center',
+      }).setOrigin(0.5, 0));
+    }
     return card;
   }
 
@@ -306,8 +424,8 @@ function rankFor(rarity: RewardRarity): string {
 
 function rarityColor(rarity: RewardRarity): number {
   switch (rarity) {
-    case 'rare': return 0xffd45e; // 金（大当たり）
-    case 'good': return 0x8fa9b8; // 落ち着いた紙の青（ネオンにしない）
+    case 'rare': return 0xffd45e;
+    case 'good': return 0x8fa9b8;
     case 'normal': return COLORS.cardEdge;
   }
 }
