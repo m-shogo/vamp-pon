@@ -1,4 +1,4 @@
-name: Debug storybook UI build
+name: Finalize storybook UI
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  capture:
+  finalize:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -23,15 +23,18 @@ jobs:
         with:
           node-version: '22'
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Capture build
-        run: |
-          mkdir -p reports
-          pnpm build > reports/storybook-ui-build.log 2>&1 || true
-      - name: Commit build report
+      - name: Apply type fixes
+        run: node scripts/patch-storybook-type-fixes.mjs
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Test
+        run: pnpm test
+      - name: Build
+        run: pnpm build
+      - name: Commit result
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add reports/storybook-ui-build.log
-          git commit -m "絵本調UIのビルド結果を記録" || exit 0
+          git add -A
+          git commit -m "絵本調UIの型修正と検査ファイル整理" || exit 0
           git push origin HEAD:feat/storybook-ui-overhaul
