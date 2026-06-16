@@ -9,7 +9,7 @@ type CharacterAsset = {
 };
 type Core5Manifest = { characters: CharacterAsset[] };
 type CellDef = { index: number; row: number; column: number; key: string; description: string };
-type Core5Cells = { columns: number; rows: number; totalCells: number; cellSizePx: number; candidateCellSizesPx?: number[]; cells: CellDef[] };
+type Core5Cells = { columns: number; rows: number; totalCells: number; cellSizePx: number; candidateCellSizesPx?: number[]; preferredPreviewCellSizePx?: number; cells: CellDef[] };
 
 type SheetReport = {
   id: string;
@@ -24,6 +24,7 @@ type SheetReport = {
   acceptedCellSizesPx: number[];
   detectedCellSizePx: number | null;
   exactGrid: boolean;
+  visualLayoutApproved: boolean;
   needsManualCrop: boolean;
   action: 'copied-exact-grid' | 'overlay-only' | 'missing';
   warning?: string;
@@ -44,6 +45,7 @@ const MANIFEST = 'data/character-assets/core5-character-master-assets.json';
 const CELLS = 'data/character-assets/core5-52px-sprite-sheet-cells.json';
 const OUT_DIR = 'public/assets/prototypes/sprite-sheets/core5-52px-normalized';
 const PREFERRED_SOURCE_CELL_SIZE_PX = 74;
+const VISUAL_LAYOUT_APPROVED = process.env.CORE5_APPROVE_VISUAL_LAYOUT === '1';
 const EXPECTED_OUTPUTS: Record<CharacterId, string> = {
   yui: `${OUT_DIR}/yui.png`,
   asa: `${OUT_DIR}/asa.png`,
@@ -94,6 +96,7 @@ const cells = readJson<Core5Cells>(CELLS);
 const acceptedCellSizesPx = uniqueNumbers([
   PREFERRED_SOURCE_CELL_SIZE_PX,
   ...(cells.candidateCellSizesPx ?? []),
+  cells.preferredPreviewCellSizePx ?? PREFERRED_SOURCE_CELL_SIZE_PX,
   cells.cellSizePx,
 ]);
 const preferredWidth = cells.columns * PREFERRED_SOURCE_CELL_SIZE_PX;
@@ -124,6 +127,7 @@ for (const ch of manifest.characters) {
       acceptedCellSizesPx,
       detectedCellSizePx: null,
       exactGrid: false,
+      visualLayoutApproved: VISUAL_LAYOUT_APPROVED,
       needsManualCrop: true,
       action: 'missing',
       warning: 'sprite sheet is not placed yet; normalized PNG was not created',
@@ -135,11 +139,12 @@ for (const ch of manifest.characters) {
   const size = readPngSize(ch.spriteSheetPath);
   const detectedCellSizePx = detectExactCellSize(size.width, size.height, cells, acceptedCellSizesPx);
   const exactGrid = detectedCellSizePx !== null;
+  const canCopy = exactGrid && VISUAL_LAYOUT_APPROVED;
   const sourceCellSizePx = detectedCellSizePx ?? PREFERRED_SOURCE_CELL_SIZE_PX;
-  const needsManualCrop = !exactGrid;
+  const needsManualCrop = !canCopy;
   overlays[ch.id] = makeOverlayCells(cells, sourceCellSizePx, needsManualCrop);
 
-  if (exactGrid) {
+  if (canCopy) {
     copyFileSync(ch.spriteSheetPath, normalizedPath);
   }
 
@@ -156,11 +161,14 @@ for (const ch of manifest.characters) {
     acceptedCellSizesPx,
     detectedCellSizePx,
     exactGrid,
+    visualLayoutApproved: VISUAL_LAYOUT_APPROVED,
     needsManualCrop,
-    action: exactGrid ? 'copied-exact-grid' : 'overlay-only',
-    warning: exactGrid
+    action: canCopy ? 'copied-exact-grid' : 'overlay-only',
+    warning: canCopy
       ? undefined
-      : `source is ${size.width}x${size.height}; preferred 74px grid is ${preferredWidth}x${preferredHeight}. Use ?debug=core5sprites&cell=74&ox=0&oy=0 to tune crop before Aseprite normalization.`,
+      : exactGrid
+        ? 'dimensions match a candidate grid, but visual layout has not been manually approved; normalized PNG was not copied'
+        : `source is ${size.width}x${size.height}; preferred 74px grid is ${preferredWidth}x${preferredHeight}; regenerate an exact grid sheet before normalization`,
   });
 }
 
@@ -169,6 +177,8 @@ const output = {
   productionTouched: false,
   outputDir: OUT_DIR,
   expectedOutputs: EXPECTED_OUTPUTS,
+  visualLayoutApproved: VISUAL_LAYOUT_APPROVED,
+  approvalEnv: 'CORE5_APPROVE_VISUAL_LAYOUT=1',
   grid: {
     columns: cells.columns,
     rows: cells.rows,
@@ -195,6 +205,9 @@ for (const report of reports) {
 }
 
 console.log(`\ncore5:sprites:normalize wrote ${OUT_DIR}/manifest.json and overlay-cells.json`);
+if (!VISUAL_LAYOUT_APPROVED) {
+  console.warn('normalized PNG copy is gated until visual layout is approved. Use CORE5_APPROVE_VISUAL_LAYOUT=1 only after exact-grid review passes.');
+}
 if (missing > 0) {
   console.warn(`core5:sprites:normalize completed with ${missing} missing source sheet(s). Run pnpm character-assets:verify for the strict gate.`);
 }
