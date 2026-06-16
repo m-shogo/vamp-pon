@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "status": "planned-icon-stock",
+  "sourceOfTruth": true,
+  "target": {
+    "canvasPx": 32,
+    "safeAreaPx": 28,
+    "format": "PNG RGBA",
+    "background": "transparent",
+    "style": "paper-storybook pixel art",
+    "outputRoot": "public/assets/ui/inventory-icons"
+  },
+  "naming": "hud_icon_<category>_<itemId>",
+  "icons": [
+    { "category": "weapon", "itemId": "night_pencil", "name": "夜の鉛筆", "assetId": "hud_icon_weapon_night_pencil", "path": "assets/ui/inventory-icons/weapon/night_pencil.png", "status": "planned", "priority": "P0", "fallbackGlyph": "✎", "interimAssetId": "weapon_night_pencil", "visualBrief": "短い鉛筆と淡い紙光。斜め45度。" },
+    { "category": "weapon", "itemId": "marble", "name": "ビー玉", "assetId": "hud_icon_weapon_marble", "path": "assets/ui/inventory-icons/weapon/marble.png", "status": "planned", "priority": "P0", "fallbackGlyph": "●", "interimAssetId": "weapon_marble", "visualBrief": "青白いガラス玉と小さな反射点。" },
+    { "category": "weapon", "itemId": "moon_bookmark", "name": "月のしおり", "assetId": "hud_icon_weapon_moon_bookmark", "path": "assets/ui/inventory-icons/weapon/moon_bookmark.png", "status": "planned", "priority": "P0", "fallbackGlyph": "☾", "interimAssetId": "weapon_bookmark_orbit", "visualBrief": "三日月の飾りが付いた細いしおり。" },
+    { "category": "weapon", "itemId": "black_ink_bottle", "name": "黒インクの小瓶", "assetId": "hud_icon_weapon_black_ink_bottle", "path": "assets/ui/inventory-icons/weapon/black_ink_bottle.png", "status": "planned", "priority": "P0", "fallbackGlyph": "瓶", "interimAssetId": "weapon_ink_area", "visualBrief": "コルク付きの黒い小瓶と一滴のインク。" },
+    { "category": "weapon", "itemId": "stardust_shot", "name": "星くず弾", "assetId": "hud_icon_weapon_stardust_shot", "path": "assets/ui/inventory-icons/weapon/stardust_shot.png", "status": "planned", "priority": "P0", "fallbackGlyph": "✦", "interimAssetId": "weapon_stardust", "visualBrief": "金色の主星と小さな星粒。" },
+    { "category": "weapon", "itemId": "postcard_blade", "name": "絵はがきカッター", "assetId": "hud_icon_weapon_postcard_blade", "path": "assets/ui/inventory-icons/weapon/postcard_blade.png", "status": "planned", "priority": "P0", "fallbackGlyph": "刃", "interimAssetId": "weapon_postcard_blade", "visualBrief": "切れ目の入った絵はがきの紙刃。" },
+    { "category": "weapon", "itemId": "paper_airplane", "name": "紙ひこうき", "assetId": "hud_icon_weapon_paper_airplane", "path": "assets/ui/inventory-icons/weapon/paper_airplane.png", "status": "planned", "priority": "P0", "fallbackGlyph": "飛", "interimAssetId": "weapon_paper_airplane", "visualBrief": "白い紙ひこうきと青い折り線。" },
+    { "category": "weapon", "itemId": "streetlamp_ring", "name": "街灯の輪", "assetId": "hud_icon_weapon_streetlamp_ring", "path": "assets/ui/inventory-icons/weapon/streetlamp_ring.png", "status": "planned", "priority": "P0", "fallbackGlyph": "輪", "interimAssetId": "weapon_streetlamp_area", "visualBrief": "暖色の街灯と足元の光輪。" },
+    { "category": "weapon", "itemId": "unfinished_line", "name": "未完成の一行", "assetId": "hud_icon_weapon_unfinished_line", "path": "assets/ui/inventory-icons/weapon/unfinished_line.png", "status": "planned", "priority": "P1", "fallbackGlyph": "線", "interimAssetId": "evolved_unfinished_line", "visualBrief": "太い鉛筆線と途切れた文章片。" },
+    { "category": "weapon", "itemId": "north_star_lantern", "name": "北極星のランタン", "assetId": "hud_icon_weapon_north_star_lantern", "path": "assets/ui/inventory-icons/weapon/north_star_lantern.png", "status": "planned", "priority": "P1", "fallbackGlyph": "灯", "interimAssetId": "evolved_north_star_lantern", "visualBrief": "星形の灯りを閉じ込めた小ランタン。" },
+    { "category": "weapon", "itemId": "dawn_ink_lamp", "name": "夜明けのインク灯", "assetId": "hud_icon_weapon_dawn_ink_lamp", "path": "assets/ui/inventory-icons/weapon/dawn_ink_lamp.png", "status": "planned", "priority": "P1", "fallbackGlyph": "朝", "interimAssetId": "evolved_dawn_ink_lamp", "visualBrief": "黒インクと桃色の朝光が混ざる灯り。" },
+    { "category": "weapon", "itemId": "unforgotten_name", "name": "消えない名前", "assetId": "hud_icon_weapon_unforgotten_name", "path": "assets/ui/inventory-icons/weapon/unforgotten_name.png", "status": "planned", "priority": "P1", "fallbackGlyph": "名", "interimAssetId": "awakened_unforgotten_name", "visualBrief": "名前札と消えない一本線。文字そのものは描かない。" },
+    { "category": "weapon", "itemId": "memory_marble", "name": "追憶のビー玉", "assetId": "hud_icon_weapon_memory_marble", "path": "assets/ui/inventory-icons/weapon/memory_marble.png", "status": "planned", "priority": "P1", "fallbackGlyph": "追", "interimAssetId": "awakened_memory_marble", "visualBrief": "ひびの中に景色色が光る大きなビー玉。" },
+    { "category": "weapon", "itemId": "addressless_blade", "name": "宛先のない刃", "assetId": "hud_icon_weapon_addressless_blade", "path": "assets/ui/inventory-icons/weapon/addressless_blade.png", "status": "planned", "priority": "P1", "fallbackGlyph": "封", "interimAssetId": "awakened_addressless_blade", "visualBrief": "封筒の切れ目が刃になったシルエット。" },
+    { "category": "weapon", "itemId": "tailwind_plane", "name": "追い風の紙ひこうき", "assetId": "hud_icon_weapon_tailwind_plane", "path": "assets/ui/inventory-icons/weapon/tailwind_plane.png", "status": "planned", "priority": "P1", "fallbackGlyph": "風", "interimAssetId": "awakened_tailwind_plane", "visualBrief": "風の軌跡を伴う金縁の紙ひこうき。" },
+
+    { "category": "passive", "itemId": "gold_compass", "name": "金のコンパス", "assetId": "hud_icon_passive_gold_compass", "path": "assets/ui/inventory-icons/passive/gold_compass.png", "status": "planned", "priority": "P0", "fallbackGlyph": "針", "visualBrief": "北ではなく欠片を指す金色のコンパス。" },
+    { "category": "passive", "itemId": "travel_badge", "name": "旅のバッジ", "assetId": "hud_icon_passive_travel_badge", "path": "assets/ui/inventory-icons/passive/travel_badge.png", "status": "planned", "priority": "P0", "fallbackGlyph": "章", "visualBrief": "傷のある丸い旅行バッジ。文字なし。" },
+    { "category": "passive", "itemId": "moonlight_bookmark", "name": "月明かりのしおり", "assetId": "hud_icon_passive_moonlight_bookmark", "path": "assets/ui/inventory-icons/passive/moonlight_bookmark.png", "status": "planned", "priority": "P0", "fallbackGlyph": "栞", "visualBrief": "月光色の細長いしおり。" },
+    { "category": "passive", "itemId": "old_ticket", "name": "古い切符", "assetId": "hud_icon_passive_old_ticket", "path": "assets/ui/inventory-icons/passive/old_ticket.png", "status": "planned", "priority": "P0", "fallbackGlyph": "券", "visualBrief": "角が擦れた夜色の切符。読める文字なし。" },
+    { "category": "passive", "itemId": "white_margin", "name": "白い余白", "assetId": "hud_icon_passive_white_margin", "path": "assets/ui/inventory-icons/passive/white_margin.png", "status": "planned", "priority": "P0", "fallbackGlyph": "余", "visualBrief": "白い紙片と空いた書き込み欄。" },
+    { "category": "passive", "itemId": "pressed_flower", "name": "押し花", "assetId": "hud_icon_passive_pressed_flower", "path": "assets/ui/inventory-icons/passive/pressed_flower.png", "status": "planned", "priority": "P0", "fallbackGlyph": "花", "visualBrief": "薄紫の乾いた花を紙に挟んだ形。" },
+    { "category": "passive", "itemId": "loose_map_pin", "name": "外れた地図ピン", "assetId": "hud_icon_passive_loose_map_pin", "path": "assets/ui/inventory-icons/passive/loose_map_pin.png", "status": "planned", "priority": "P0", "fallbackGlyph": "鋲", "visualBrief": "抜けた地図ピンと淡い地点光。" },
+    { "category": "passive", "itemId": "small_alarm_clock", "name": "小さな目覚まし時計", "assetId": "hud_icon_passive_small_alarm_clock", "path": "assets/ui/inventory-icons/passive/small_alarm_clock.png", "status": "planned", "priority": "P0", "fallbackGlyph": "時", "visualBrief": "止まった針の小さな目覚まし時計。" },
+
+    { "category": "rare", "itemId": "name_tag", "name": "誰かの名前札", "assetId": "hud_icon_rare_name_tag", "path": "assets/ui/inventory-icons/rare/name_tag.png", "status": "planned", "priority": "P0", "fallbackGlyph": "名", "interimAssetId": "rare_name_tag", "visualBrief": "塗りつぶされていない名前札。読める文字なし。" },
+    { "category": "rare", "itemId": "cracked_lens", "name": "ひび割れたレンズ", "assetId": "hud_icon_rare_cracked_lens", "path": "assets/ui/inventory-icons/rare/cracked_lens.png", "status": "planned", "priority": "P0", "fallbackGlyph": "鏡", "interimAssetId": "rare_cracked_lens", "visualBrief": "一本のひびと青白い反射があるレンズ。" },
+    { "category": "rare", "itemId": "sealed_letter", "name": "封のされた手紙", "assetId": "hud_icon_rare_sealed_letter", "path": "assets/ui/inventory-icons/rare/sealed_letter.png", "status": "planned", "priority": "P0", "fallbackGlyph": "封", "interimAssetId": "rare_sealed_letter", "visualBrief": "封蝋付きの小さな手紙。" },
+    { "category": "rare", "itemId": "wind_mark", "name": "風のしるし", "assetId": "hud_icon_rare_wind_mark", "path": "assets/ui/inventory-icons/rare/wind_mark.png", "status": "planned", "priority": "P0", "fallbackGlyph": "風", "interimAssetId": "rare_wind_mark", "visualBrief": "折り目の間を抜ける三本の風線。" }
+  ]
+}

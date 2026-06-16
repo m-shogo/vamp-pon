@@ -5,6 +5,7 @@ import { VIEW_DEPTH } from './factory';
 import { characterById } from '../data/characters';
 import { spriteOrNull } from '../assets/assetHelpers';
 import { YUI_HUD_FRAME_IDS } from '../assets/playerFrames';
+import { InventorySlotView } from './inventorySlot';
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const PORTRAIT_X = 38;
@@ -16,7 +17,6 @@ const SLOT_WEAPON_Y = GAME_HEIGHT - 65;
 const SLOT_PASSIVE_Y = GAME_HEIGHT - 28;
 
 type InputEventLike = { stopPropagation?: () => void };
-type SlotText = Phaser.GameObjects.Text;
 
 export class Hud {
   private timeText: Phaser.GameObjects.Text;
@@ -37,9 +37,9 @@ export class Hud {
   private portraitFallback: Phaser.GameObjects.Text;
   private crestImage: Phaser.GameObjects.Image | null;
   private berserkText: Phaser.GameObjects.Text;
-  private weaponSlots: SlotText[];
-  private passiveSlots: SlotText[];
-  private rareSlots: SlotText[];
+  private weaponSlots: InventorySlotView[];
+  private passiveSlots: InventorySlotView[];
+  private rareSlots: InventorySlotView[];
   private debugText: Phaser.GameObjects.Text;
 
   constructor(
@@ -92,6 +92,7 @@ export class Hud {
     this.categoryLabels = [
       scene.add.text(82, SLOT_WEAPON_Y, '武', { fontFamily: FONT, fontSize: '9px', color: '#b9d3e6' }).setOrigin(0.5).setDepth(d + 1),
       scene.add.text(82, SLOT_PASSIVE_Y, '忘', { fontFamily: FONT, fontSize: '9px', color: '#d7c7e8' }).setOrigin(0.5).setDepth(d + 1),
+      scene.add.text(316, SLOT_PASSIVE_Y, 'レ', { fontFamily: FONT, fontSize: '8px', color: '#ffe9a8' }).setOrigin(0.5).setDepth(d + 1),
     ];
 
     this.portraitFrame = scene.add.graphics().setDepth(d + 1);
@@ -117,9 +118,9 @@ export class Hud {
       .setOrigin(0.5, 1)
       .setDepth(d + 4);
 
-    this.weaponSlots = SLOT_WEAPON_X.map((x) => this.createSlotText(x, SLOT_WEAPON_Y));
-    this.passiveSlots = SLOT_WEAPON_X.map((x) => this.createSlotText(x, SLOT_PASSIVE_Y));
-    this.rareSlots = SLOT_RARE_X.map((x) => this.createSlotText(x, SLOT_PASSIVE_Y));
+    this.weaponSlots = SLOT_WEAPON_X.map((x) => new InventorySlotView(scene, x, SLOT_WEAPON_Y, 30, d + 2));
+    this.passiveSlots = SLOT_WEAPON_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 30, d + 2));
+    this.rareSlots = SLOT_RARE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 24, d + 2));
 
     this.debugText = scene.add
       .text(8, 68, '', { fontFamily: 'monospace', fontSize: '10px', color: '#9fe0a0' })
@@ -136,29 +137,22 @@ export class Hud {
 
     this.inventoryBack.fillStyle(0x171328, 0.88);
     for (const x of SLOT_WEAPON_X) {
-      this.inventoryBack.fillRoundedRect(x - 18, SLOT_WEAPON_Y - 13, 36, 26, 5);
-      this.inventoryBack.fillRoundedRect(x - 18, SLOT_PASSIVE_Y - 13, 36, 26, 5);
+      this.inventoryBack.fillRoundedRect(x - 17, SLOT_WEAPON_Y - 16, 34, 32, 5);
+      this.inventoryBack.fillRoundedRect(x - 17, SLOT_PASSIVE_Y - 16, 34, 32, 5);
     }
     for (const x of SLOT_RARE_X) {
-      this.inventoryBack.fillRoundedRect(x - 14, SLOT_PASSIVE_Y - 13, 28, 26, 5);
+      this.inventoryBack.fillRoundedRect(x - 14, SLOT_PASSIVE_Y - 14, 28, 28, 5);
     }
 
     this.inventoryBack.lineStyle(1, 0x6d6385, 0.65);
     for (const x of SLOT_WEAPON_X) {
-      this.inventoryBack.strokeRoundedRect(x - 18, SLOT_WEAPON_Y - 13, 36, 26, 5);
-      this.inventoryBack.strokeRoundedRect(x - 18, SLOT_PASSIVE_Y - 13, 36, 26, 5);
+      this.inventoryBack.strokeRoundedRect(x - 17, SLOT_WEAPON_Y - 16, 34, 32, 5);
+      this.inventoryBack.strokeRoundedRect(x - 17, SLOT_PASSIVE_Y - 16, 34, 32, 5);
     }
     this.inventoryBack.lineStyle(1, COLORS.cardEdge, 0.8);
     for (const x of SLOT_RARE_X) {
-      this.inventoryBack.strokeRoundedRect(x - 14, SLOT_PASSIVE_Y - 13, 28, 26, 5);
+      this.inventoryBack.strokeRoundedRect(x - 14, SLOT_PASSIVE_Y - 14, 28, 28, 5);
     }
-  }
-
-  private createSlotText(x: number, y: number): SlotText {
-    return this.scene.add
-      .text(x, y, '·', { fontFamily: FONT, fontSize: '11px', color: '#6e6680', fontStyle: 'bold' })
-      .setOrigin(0.5)
-      .setDepth(VIEW_DEPTH.hud + 2);
   }
 
   update(state: RuntimeState): void {
@@ -266,25 +260,19 @@ export class Hud {
   }
 
   private updateInventorySlots(state: RuntimeState): void {
-    this.weaponSlots.forEach((text, index) => {
+    this.weaponSlots.forEach((slot, index) => {
       const item = state.inventory.weapons[index];
-      text
-        .setText(item ? `${weaponIcon(item.id)}${item.level}` : '·')
-        .setColor(item ? '#d9edff' : '#6e6680');
+      slot.update(item ? { category: 'weapon', itemId: item.id, level: item.level } : null);
     });
 
-    this.passiveSlots.forEach((text, index) => {
+    this.passiveSlots.forEach((slot, index) => {
       const item = state.inventory.passives[index];
-      text
-        .setText(item ? `${passiveIcon(item.id)}${item.level}` : '·')
-        .setColor(item ? '#eadcff' : '#6e6680');
+      slot.update(item ? { category: 'passive', itemId: item.id, level: item.level } : null);
     });
 
-    this.rareSlots.forEach((text, index) => {
+    this.rareSlots.forEach((slot, index) => {
       const item = state.inventory.rareItems[index];
-      text
-        .setText(item ? rareIcon(item.id) : '·')
-        .setColor(item ? '#ffe9a8' : '#6e6680');
+      slot.update(item ? { category: 'rare', itemId: item.id } : null);
     });
   }
 
@@ -294,10 +282,13 @@ export class Hud {
       this.timeText, this.levelText, this.hpBack, this.hpFill, this.hpText,
       this.xpBar, this.ultIcon, this.ultText, this.ultHintText, this.ultHitArea,
       this.inventoryBack, ...this.categoryLabels, this.portraitFrame, this.portraitRing,
-      this.berserkText, ...this.weaponSlots, ...this.passiveSlots, ...this.rareSlots,
+      this.berserkText,
     ]) {
       obj.setVisible(visible);
     }
+    this.weaponSlots.forEach((slot) => slot.setVisible(visible));
+    this.passiveSlots.forEach((slot) => slot.setVisible(visible));
+    this.rareSlots.forEach((slot) => slot.setVisible(visible));
     this.portraitImage?.setVisible(visible);
     this.portraitFallback.setVisible(visible && !this.portraitImage);
     if (!visible) this.crestImage?.setVisible(false);
@@ -306,50 +297,8 @@ export class Hud {
 
   destroy(): void {
     this.ultHitArea.destroy();
-  }
-}
-
-function weaponIcon(id: string): string {
-  switch (id) {
-    case 'night_pencil': return '✎';
-    case 'marble': return '●';
-    case 'moon_bookmark': return '☾';
-    case 'black_ink_bottle': return '瓶';
-    case 'stardust_shot': return '✦';
-    case 'postcard_blade': return '刃';
-    case 'paper_airplane': return '飛';
-    case 'streetlamp_ring': return '輪';
-    case 'unfinished_line': return '線';
-    case 'north_star_lantern': return '灯';
-    case 'dawn_ink_lamp': return '朝';
-    case 'unforgotten_name': return '名';
-    case 'memory_marble': return '追';
-    case 'addressless_blade': return '封';
-    case 'tailwind_plane': return '風';
-    default: return '道';
-  }
-}
-
-function passiveIcon(id: string): string {
-  switch (id) {
-    case 'gold_compass': return '針';
-    case 'travel_badge': return '章';
-    case 'moonlight_bookmark': return '栞';
-    case 'old_ticket': return '券';
-    case 'white_margin': return '余';
-    case 'pressed_flower': return '花';
-    case 'loose_map_pin': return '鋲';
-    case 'small_alarm_clock': return '時';
-    default: return '欠';
-  }
-}
-
-function rareIcon(id: string): string {
-  switch (id) {
-    case 'name_tag': return '名';
-    case 'cracked_lens': return '鏡';
-    case 'sealed_letter': return '封';
-    case 'wind_mark': return '風';
-    default: return '◇';
+    this.weaponSlots.forEach((slot) => slot.destroy());
+    this.passiveSlots.forEach((slot) => slot.destroy());
+    this.rareSlots.forEach((slot) => slot.destroy());
   }
 }
