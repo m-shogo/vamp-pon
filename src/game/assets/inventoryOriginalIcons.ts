@@ -59,3 +59,10 @@ export const inventoryOriginalAssetEntries = INVENTORY_ORIGINAL_ICONS.map((entry
   required: true,
   fallback: false,
 }));
+
+export function getInventoryOriginalIcon(
+  category: InventoryIconCategory,
+  itemId: string,
+): InventoryOriginalIcon | undefined {
+  return inventoryOriginalByKey.get(category + ':' + itemId);
+}
