@@ -49,6 +49,18 @@ export function attachCore5PlayerSprite(
   container.setData(PLAYER_FACING_DATA_KEY, 'front' satisfies PlayerFacing);
 }
 
+/** createPlayerViewの子要素から画像を見つけ、Core5用の足元原点へ切り替える。 */
+export function attachCore5PlayerView(container: Phaser.GameObjects.Container): boolean {
+  const sprite = container.list.find((child) => {
+    const candidate = child as Partial<Phaser.GameObjects.Image>;
+    return candidate.texture != null && typeof candidate.setTexture === 'function';
+  }) as Phaser.GameObjects.Image | undefined;
+
+  if (!sprite) return false;
+  attachCore5PlayerSprite(container, sprite);
+  return true;
+}
+
 export function isCore5PlayerView(container: Phaser.GameObjects.Container): boolean {
   return container.getData(PLAYER_VISUAL_MODE_DATA_KEY) === CORE5_VISUAL_MODE;
 }
