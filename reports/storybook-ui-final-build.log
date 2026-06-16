@@ -1,0 +1,9 @@
+
+> vamp-pon@0.1.0 build /home/runner/work/vamp-pon/vamp-pon
+> tsc && vite build
+
+src/game/ui/storybookUi.ts(136,39): error TS2345: Argument of type '{ x: number; y: number; }[]' is not assignable to parameter of type 'Vector2[]'.
+  Type '{ x: number; y: number; }' is missing the following properties from type 'Vector2': clone, copy, setFromObject, set, and 35 more.
+src/game/ui/storybookUi.ts(137,44): error TS2345: Argument of type '{ x: number; y: number; }[]' is not assignable to parameter of type 'Vector2[]'.
+  Type '{ x: number; y: number; }' is missing the following properties from type 'Vector2': clone, copy, setFromObject, set, and 35 more.
+ ELIFECYCLE  Command failed with exit code 2.
