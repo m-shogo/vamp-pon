@@ -3,10 +3,12 @@
   "id": "core5-character-master-assets-v1",
   "status": "prototype-reference",
   "productionTouched": false,
-  "importantRule": "These images are generated reference/prototype sheets. Do not copy them into public/assets/sprites/player/ until sliced, normalized in Aseprite, reviewed, and promoted by the asset pipeline.",
+  "importantRule": "The 1448x1086 images are reference boards. Exact 74px sheets are generated-draft candidates in a separate folder. Do not copy either into public/assets/sprites/player/ until sliced, reviewed in Aseprite, and promoted by the asset pipeline.",
   "recommendedFolders": {
     "characterMasterBoards": "assets/reference/character-master/core5/",
-    "spriteSheets52px": "public/assets/prototypes/sprite-sheets/core5-52px/",
+    "referenceSpriteBoards": "public/assets/prototypes/sprite-sheets/core5-52px/",
+    "exactGeneratedDrafts74px": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/",
+    "normalizedPreviewSheets": "public/assets/prototypes/sprite-sheets/core5-52px-normalized/",
     "productionSpritesLater": "public/assets/sprites/player/",
     "asepriteSourceLater": "assets/source/aseprite/player/"
   },
@@ -21,11 +23,13 @@
       "vessel": "lantern",
       "masterBoardPath": "assets/reference/character-master/core5/yui-character-master-v1.png",
       "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png",
+      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/yui-74px-exact-draft-v1.png",
+      "exactSpriteSheetStatus": "generated-draft",
       "sourceChatFileName": "ユイ_キャラクターデザインシート.png / ピクセルアートキャラクターのスプライトシート.png",
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
-        "主人公基準。まずこのsheetをslicing/手補正し、以後のCore5 sprite formatの基準にする。",
-        "lantern, blue hood, cream dress, warm light, crest motif must survive at 52px."
+        "主人公基準。まずexact draftをpreviewし、Aseprite hand correctionの基準にする。",
+        "lantern, blue hood, cream dress, warm light, crest motif must survive at 74px."
       ]
     },
     {
@@ -37,6 +41,8 @@
       "vessel": "glowing name tag",
       "masterBoardPath": "assets/reference/character-master/core5/asa-character-master-v1.png",
       "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/asa-52px-sprite-sheet-v1.png",
+      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/asa-74px-exact-draft-v1.png",
+      "exactSpriteSheetStatus": "generated-draft",
       "sourceChatFileName": "アサ_名を守る少女.png / チビキャラクターのスプライトシート.png",
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
@@ -53,6 +59,8 @@
       "vessel": "moon box",
       "masterBoardPath": "assets/reference/character-master/core5/nagi-character-master-v1.png",
       "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/nagi-52px-sprite-sheet-v1.png",
+      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/nagi-74px-exact-draft-v1.png",
+      "exactSpriteSheetStatus": "generated-draft",
       "sourceChatFileName": "ナギのキャラクターシート.png / 魔法使いのチビキャラクタースプライト.png",
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
@@ -69,6 +77,8 @@
       "vessel": "glowing compass",
       "masterBoardPath": "assets/reference/character-master/core5/michiru-character-master-v1.png",
       "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/michiru-52px-sprite-sheet-v1.png",
+      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/michiru-74px-exact-draft-v1.png",
+      "exactSpriteSheetStatus": "generated-draft",
       "sourceChatFileName": "ミチルのキャラクターマスターピース.png / 冒険者の魔法使いスプライトシート.png",
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
@@ -85,6 +95,8 @@
       "vessel": "repair lantern",
       "masterBoardPath": "assets/reference/character-master/core5/tomori-character-master-v1.png",
       "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/tomori-52px-sprite-sheet-v1.png",
+      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/tomori-74px-exact-draft-v1.png",
+      "exactSpriteSheetStatus": "generated-draft",
       "sourceChatFileName": "トモリのキャラクターデザインシート.png / キャラクター作成用スプライトシート.png",
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
