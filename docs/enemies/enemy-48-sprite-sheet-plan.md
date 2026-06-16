@@ -2,233 +2,182 @@
 
 ## Status
 
-- status: `prototype-reference`
-- common enemy names: 小型「オンブ」／中型「オンブロ」
-- scope: 48体の役割、8x6配置、生成条件、検品条件を固定する
-- deferred: 個別ステータス、詳細AI、物語、正式攻撃、animation
-- production: 生成画像をそのまま本番へ入れない
+- status: `design-ready`
+- all 48 cells have complete visual and gameplay briefs
+- generated image status: `prototype-reference`
+- production status: Aseprite source and hand-finish still required
+- runtime status: existing six-enemy implementation is legacy and migrates separately
 
-## 1. 全体配分
+## Canonical sources
 
-| 区分 | 数 |
-|---|---:|
-| 雑魚 | 25 |
-| 中ボス | 10 |
-| 大ボス基本形態 | 3 |
-| 大ボス別形態 | 10 |
-| 合計 | 48 |
+- cell order and sheet contract: `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- design catalog index: `data/enemy-assets/enemy-design-catalog.json`
+- detailed records: the eight `enemy-design-stage-*.json` files listed by the catalog
+- selected common-family direction: `docs/enemies/omb-ombro-selected-direction.md`
+- generation prompt: `assets/concept-design/06_prompts/enemy-48-sprite-sheet-generation-prompt.md`
+- readiness decision: `docs/enemies/enemy-48-production-readiness.md`
+- runtime migration: `docs/enemies/enemy-runtime-migration-plan.md`
 
-各Stageの雑魚5体:
-
-```txt
-オンブ          1
-オンブロ        1
-Stage固有敵     3
-合計            5
-```
-
-5Stage全体:
+## Distribution
 
 ```txt
-オンブ色違い       5
-オンブロ色違い     5
-Stage固有敵        15
-雑魚合計           25
+grunts                  25
+  Omb variants           5
+  Ombro variants         5
+  Stage-unique grunts    15
+midbosses               10
+boss base forms          3
+boss alternate forms    10
+total                    48
 ```
 
-共通2種で学習負荷を下げ、固有3種でStageの物語と戦闘差を作る。
-
-デザイン正本:
-
-- [omb-ombro-mascot-brief.md](omb-ombro-mascot-brief.md)
-
-## 2. デザイン選定中の3案
-
-- A 紙しずく型: 最も単純で覚えやすい
-- B ずきん影型: 影と物語の雰囲気が強い
-- C 記憶の種型: 独自性と設定接続が強い
-
-採用案決定までは3案とも `concept-reference`。正式referenceへは採用案だけを入れる。
-
-## 3. Stageごとの構成
+Each Stage uses exactly:
 
 ```txt
-Stage 1: オンブ + オンブロ + 固有3 + 中ボス2
-Stage 2: オンブ + オンブロ + 固有3 + 中ボス2 + 大ボス1 + 別形態3
-Stage 3: オンブ + オンブロ + 固有3 + 中ボス2
-Stage 4: オンブ + オンブロ + 固有3 + 中ボス2 + 大ボス1 + 別形態3
-Stage 5: オンブ + オンブロ + 固有3 + 中ボス2 + 大ボス1 + 別形態4
+Omb                 1
+Ombro               1
+Stage-unique grunt  3
+midboss             2
 ```
 
-## 4. 5Stageの共通色
+Stages 2, 4 and 5 additionally contain the major bosses and their visual forms.
 
-| Stage | paletteKey | オンブ／オンブロ主色 | 小さい差し色 |
-|---:|---|---|---|
-| 1 | `fragment_blue` | 青紫のインク | くすんだ古紙金 |
-| 2 | `name_violet` | 葡萄紫のインク | 薄い藤色 |
-| 3 | `seal_umber` | 焦茶紫のインク | くすんだ封蝋赤 |
-| 4 | `route_teal` | 青緑黒のインク | 褪せた水色 |
-| 5 | `lantern_amber` | 深い藍黒 | 控えめな琥珀 |
+## Common family: Omb / Ombro
 
-- 本体の70%以上はblack ink familyとして暗く保つ
-- 顔、輪郭、カメラ角度、占有率は5Stage共通
-- 色ごとに角、耳、帽子、武器を追加しない
-- Stage 5の琥珀もpickupやhit coreより暗く小さくする
+The selected direction is fixed for reference production:
 
-## 5. 大ボス戦の時間ルール
+- Omb: soft shadow body, one ink bud, two old-paper square eyes, dark non-luminous flame-like aura
+- Ombro: lower and wider, stronger aura, two drooping aura-hands
+- Ombro hands are not human hands; no shoulder, elbow, palm, fingers, nails or bones
+- hand tips remain round while idle and split into at most three blunt lobes only during attack
+- five Stage variants preserve silhouette, face, camera angle and animation timing
+- Stage color is secondary; at least 70% of the body remains black-ink family
 
-大ボス出現中に停止:
+## Major-boss timer rule
 
-- Stage生存時間
-- 通常wave進行
-- 通常敵の新規spawn
-- 時間による難易度上昇
+During a major boss:
 
-大ボス中も進行:
+- pause Stage survival timer
+- pause normal wave progression
+- pause normal spawn
+- pause time-based difficulty growth
+- continue player control, attacks, cooldowns, invulnerability and status durations
+- continue boss internal phase time and boss gimmicks
+- do not add boss duration to survival time
+- resume after boss defeat and result transition
 
-- プレイヤー操作
-- 攻撃、移動、クールダウン
-- 大ボス内部フェーズ時間
-- 大ボス固有ギミック
-- 被弾無敵と状態異常時間
+## Exact sheet order
 
-撃破と結果遷移完了後にStage時間を再開する。大ボス戦時間は生存時間へ加算しない。
+| No. | Stage | Tier | Name | Role | Native target |
+|---:|---:|---|---|---|---:|
+| 01 | 1 | grunt | オンブ・欠片色 | `bounce_chase` | 42px |
+| 02 | 1 | grunt | オンブロ・欠片色 | `heavy_reach` | 52px |
+| 03 | 1 | grunt | 紙くずの影 | `fast_chase` | 42px |
+| 04 | 1 | grunt | 夜のもや | `swarm` | 48px |
+| 05 | 1 | grunt | 消し跡虫 | `zigzag_slow` | 42px |
+| 06 | 2 | grunt | オンブ・名札色 | `bounce_chase` | 42px |
+| 07 | 2 | grunt | オンブロ・名札色 | `heavy_reach` | 52px |
+| 08 | 2 | grunt | 名札影 | `prop_attract` | 46px |
+| 09 | 2 | grunt | 名前喰い | `silence_bite` | 48px |
+| 10 | 2 | grunt | 呼び声コウモリ | `arc_flyer` | 48px |
+| 11 | 3 | grunt | オンブ・封箱色 | `bounce_chase` | 42px |
+| 12 | 3 | grunt | オンブロ・封箱色 | `heavy_reach` | 52px |
+| 13 | 3 | grunt | 箱影 | `orbit_guard` | 48px |
+| 14 | 3 | grunt | 鍵穴蜘蛛 | `bind` | 50px |
+| 15 | 3 | grunt | 封蝋ガニ | `frontal_guard` | 52px |
+| 16 | 4 | grunt | オンブ・切符色 | `bounce_chase` | 42px |
+| 17 | 4 | grunt | オンブロ・切符色 | `heavy_reach` | 52px |
+| 18 | 4 | grunt | 迷子の方角 | `offset_chase` | 48px |
+| 19 | 4 | grunt | 逆走ネズミ | `reverse_dash` | 44px |
+| 20 | 4 | grunt | 改札バサミ | `lane_block` | 52px |
+| 21 | 5 | grunt | オンブ・灯火色 | `bounce_chase` | 42px |
+| 22 | 5 | grunt | オンブロ・灯火色 | `heavy_reach` | 52px |
+| 23 | 5 | grunt | 火消し蛾 | `light_charge` | 50px |
+| 24 | 5 | grunt | 残り火ウサギ | `jump_chase` | 46px |
+| 25 | 5 | grunt | 朝隠しカラス | `screen_dim` | 50px |
+| 26 | 1 | midboss | 紙墓の大喰らい | `absorb_growth` | 72px |
+| 27 | 1 | midboss | にじみの母 | `summoner` | 72px |
+| 28 | 2 | midboss | 名を呼ばぬ司書 | `weapon_lock` | 76px |
+| 29 | 2 | midboss | 百面ラベル | `decoy` | 76px |
+| 30 | 3 | midboss | 内鍵の番人 | `directional_guard` | 76px |
+| 31 | 3 | midboss | 封蝋の女王 | `shield_support` | 80px |
+| 32 | 4 | midboss | 終着駅の車掌 | `forced_lane` | 80px |
+| 33 | 4 | midboss | 帰らずの機関獣 | `screen_dash` | 84px |
+| 34 | 5 | midboss | 灯喰らいの大蛾 | `light_absorb` | 84px |
+| 35 | 5 | midboss | 朝を縫う魔女影 | `arena_shrink` | 80px |
+| 36 | 2 | boss | 三路喰らい《ナナシノ》 | `multi_head` | 128px |
+| 37 | 4 | boss | 帰路巨鹿《ミチシルベ》 | `railfield` | 128px |
+| 38 | 5 | boss | 夜綴じ六翼竜《アサマデ》 | `multi_phase` | 144px |
+| 39 | 2 | boss_form | ナナシノ・鎖断ち形態 | `phase_2` | 132px |
+| 40 | 2 | boss_form | ナナシノ・二首暴走形態 | `phase_3` | 132px |
+| 41 | 2 | boss_form | ナナシノ・名札核形態 | `phase_4` | 136px |
+| 42 | 4 | boss_form | ミチシルベ・線路角展開形態 | `phase_2` | 136px |
+| 43 | 4 | boss_form | ミチシルベ・逆転時計形態 | `phase_3` | 136px |
+| 44 | 4 | boss_form | ミチシルベ・駅心核露出形態 | `phase_4` | 140px |
+| 45 | 5 | boss_form | アサマデ・夜頁封鎖形態 | `phase_2` | 148px |
+| 46 | 5 | boss_form | アサマデ・記憶混線形態 | `phase_3` | 148px |
+| 47 | 5 | boss_form | アサマデ・残火守護形態 | `phase_4` | 148px |
+| 48 | 5 | boss_form | アサマデ・朝割れ形態 | `phase_5` | 152px |
 
-## 6. 大ボスと形態数
-
-| 大ボス | 基本 | 別形態 | 合計ビジュアル |
-|---|---:|---:|---:|
-| 三路喰らい《ナナシノ》 | 1 | 3 | 4 |
-| 帰路巨鹿《ミチシルベ》 | 1 | 3 | 4 |
-| 夜綴じ六翼竜《アサマデ》 | 1 | 4 | 5 |
-| 合計 | 3 | 10 | 13 |
-
-## 7. 8x6セル配置
-
-正本:
-
-```txt
-data/enemy-assets/enemy-48-sprite-sheet-cells.json
-```
-
-### 01〜25 雑魚
-
-| No. | Stage | 区分 | 仮名 |
-|---:|---:|---|---|
-| 01 | 1 | 共通小 | オンブ・欠片色 |
-| 02 | 1 | 共通中 | オンブロ・欠片色 |
-| 03 | 1 | 固有 | 紙くずの影 |
-| 04 | 1 | 固有 | 夜のもや |
-| 05 | 1 | 固有 | 消し跡虫 |
-| 06 | 2 | 共通小 | オンブ・名札色 |
-| 07 | 2 | 共通中 | オンブロ・名札色 |
-| 08 | 2 | 固有 | 名札影 |
-| 09 | 2 | 固有 | 名前喰い |
-| 10 | 2 | 固有 | 呼び声コウモリ |
-| 11 | 3 | 共通小 | オンブ・封箱色 |
-| 12 | 3 | 共通中 | オンブロ・封箱色 |
-| 13 | 3 | 固有 | 箱影 |
-| 14 | 3 | 固有 | 鍵穴蜘蛛 |
-| 15 | 3 | 固有 | 封蝋ガニ |
-| 16 | 4 | 共通小 | オンブ・切符色 |
-| 17 | 4 | 共通中 | オンブロ・切符色 |
-| 18 | 4 | 固有 | 迷子の方角 |
-| 19 | 4 | 固有 | 逆走ネズミ |
-| 20 | 4 | 固有 | 改札バサミ |
-| 21 | 5 | 共通小 | オンブ・灯火色 |
-| 22 | 5 | 共通中 | オンブロ・灯火色 |
-| 23 | 5 | 固有 | 火消し蛾 |
-| 24 | 5 | 固有 | 残り火ウサギ |
-| 25 | 5 | 固有 | 朝隠しカラス |
-
-### 26〜35 中ボス
-
-| No. | Stage | 仮名 |
-|---:|---:|---|
-| 26 | 1 | 紙墓の大喰らい |
-| 27 | 1 | にじみの母 |
-| 28 | 2 | 名を呼ばぬ司書 |
-| 29 | 2 | 百面ラベル |
-| 30 | 3 | 内鍵の番人 |
-| 31 | 3 | 封蝋の女王 |
-| 32 | 4 | 終着駅の車掌 |
-| 33 | 4 | 帰らずの機関獣 |
-| 34 | 5 | 灯喰らいの大蛾 |
-| 35 | 5 | 朝を縫う魔女影 |
-
-### 36〜48 大ボスと別形態
-
-| No. | 種別 | 仮名 |
-|---:|---|---|
-| 36 | 大ボス | 三路喰らい《ナナシノ》 |
-| 37 | 大ボス | 帰路巨鹿《ミチシルベ》 |
-| 38 | 大ボス | 夜綴じ六翼竜《アサマデ》 |
-| 39 | ナナシノ | 鎖断ち形態 |
-| 40 | ナナシノ | 二首暴走形態 |
-| 41 | ナナシノ | 名札核形態 |
-| 42 | ミチシルベ | 線路角展開形態 |
-| 43 | ミチシルベ | 逆転時計形態 |
-| 44 | ミチシルベ | 駅心核露出形態 |
-| 45 | アサマデ | 夜頁封鎖形態 |
-| 46 | アサマデ | 記憶混線形態 |
-| 47 | アサマデ | 残火守護形態 |
-| 48 | アサマデ | 朝割れ形態 |
-
-## 8. 生成画像仕様
+## Sheet contract
 
 ```txt
 canvas: 1440x1080px
 grid: 8 columns x 6 rows
 cell: 180x180px
-color mode: RGBA
+format: PNG color type 6 / true RGBA
 background: alpha 0
-total: 48 non-empty cells
+cells: 48 non-empty
+safe border: 4px transparent on every edge of every cell
 ```
 
-- 各辺4px以上の完全透明安全域
-- 1セル1体または1形態
-- 本体、影、発光、飛沫を隣接セルへ漏らさない
-- 背景、枠線、番号、文字、ロゴなし
+No text, number, frame, grid, background, floor or checkerboard may be drawn into the sheet.
 
-## 9. セル内サイズ
+## Production states
 
-| 種別 | 占有率 |
-|---|---:|
-| オンブ | 52〜60% |
-| オンブロ | 64〜72% |
-| Stage固有雑魚 | 55〜68% |
-| 中ボス | 70〜82% |
-| 大ボス／別形態 | 84〜94% |
+| State | Meaning |
+|---|---|
+| `design-ready` | visual/gameplay brief is complete enough to draw |
+| `prototype-reference` | generated or composited reference; not production |
+| `aseprite-source` | editable source exists; not necessarily hand-finished |
+| `hand-final-candidate` | Aseprite finish + 1x/4x/dark/combat review + quality gate |
+| `production` | approved exported game asset |
 
-オンブロはオンブの拡大コピーにしない。
+All 48 records are currently `design-ready`. None are automatically `hand-final-candidate`.
 
-## 10. 検品
+## Mechanical checks
 
 ```sh
+pnpm enemy48:design:check
 pnpm enemy48:manifest:check
 pnpm enemy48:sprites:verify
 ```
 
-検査内容:
+The design check validates:
 
-- 雑魚25／中ボス10／大ボス3／別形態10
-- オンブ5／オンブロ5／Stage固有15
-- 各Stageが共通小1・共通中1・固有3
-- 5種類のpaletteKey
-- 1440x1080 PNG RGBA
-- 48セル非空
-- 4px安全域とセル越境なし
+- exactly 48 records and 48 cells
+- 25 / 10 / 3 / 10 tier distribution
+- Omb 5 / Ombro 5 / Stage-unique 15
+- each Stage has Omb 1 / Ombro 1 / unique 3 / midboss 2
+- no legacy `pon_shadow` or `ポン影` names
+- every manifest cell has a complete design record
+- every boss form references one of the three bosses
+- every record has silhouette, role, attack, telegraph, counterplay, animation and size fields
 
-## 11. 保存場所
+The sprite check additionally validates exact PNG dimensions, true RGBA, 48 non-empty cells and 4px safe borders.
 
-```txt
-assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
-public/assets/prototypes/sprite-sheets/enemies-180px/enemy-48-sprite-sheet-v1.png
-```
+## What may start now
 
-productionは別工程:
+Ready now:
 
-```txt
-assets/source/aseprite/enemies/
-public/assets/sprites/enemies/
-```
+1. generate the 48-cell reference sheet
+2. review silhouette duplication and Stage readability
+3. select the initial runtime subset
+4. create native Aseprite sources in production priority order
+5. implement data-driven behaviors from the catalog
+
+Not yet allowed:
+
+- call generated PNGs production
+- directly downscale the 180px sheet into game sprites
+- mark any enemy final without gameplay composition review
