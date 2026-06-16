@@ -7,10 +7,17 @@ import { distance } from '../utils/math';
 import { damageEnemy } from './enemies';
 import { spawnFragment } from './pickups';
 import { ultimateFlash } from '../ui/effects';
+import { updatePlayerVisual } from '../ui/playerVisual';
+
+const ULTIMATE_POSE_SEC = 0.48;
 
 /** 必殺技ゲージの充填と発動。 */
 export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const ult = state.ultimate;
+  if (ult.activeRemaining > 0) {
+    ult.activeRemaining = Math.max(0, ult.activeRemaining - dt);
+  }
+
   if (!ult.ready) {
     ult.charge += dt;
     if (ult.charge >= ult.chargeSeconds) {
@@ -25,9 +32,13 @@ export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: num
       activateUltimate(scene, state);
       ult.ready = false;
       ult.charge = 0;
+      ult.activeRemaining = ULTIMATE_POSE_SEC;
       state.stats.ultimateUses += 1;
     }
   }
+
+  // input → movement → enemy contact → ultimate の順で更新された最終状態を見た目へ反映する。
+  updatePlayerVisual(state);
 }
 
 function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
