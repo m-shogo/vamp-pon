@@ -1,9 +1,10 @@
-export const LEVEL_UP_CARD_WIDTH = 320;
-export const LEVEL_UP_CARD_HEIGHT = 144;
-export const LEVEL_UP_CARD_GAP = 8;
-export const LEVEL_UP_CARD_TOP = 148;
-export const LEVEL_UP_FOOTER_HINT_Y = 690;
-export const LEVEL_UP_REROLL_Y = 748;
+export const LEVEL_UP_PANEL_TOP = 520;
+export const LEVEL_UP_HEADER_Y = 544;
+export const LEVEL_UP_CARD_WIDTH = 116;
+export const LEVEL_UP_CARD_HEIGHT = 252;
+export const LEVEL_UP_CARD_GAP = 6;
+export const LEVEL_UP_CARD_CENTER_Y = 704;
+export const LEVEL_UP_REROLL_Y = 510;
 
 export const REPLACE_ROW_WIDTH = 318;
 export const REPLACE_ROW_HEIGHT = 62;
@@ -11,11 +12,11 @@ export const REPLACE_ROW_GAP = 8;
 export const REPLACE_ROW_TOP = 166;
 export const REPLACE_ACTION_Y = 778;
 
-export function levelUpCardCenters(choiceCount: number): number[] {
-  return Array.from(
-    { length: Math.max(0, choiceCount) },
-    (_, index) => LEVEL_UP_CARD_TOP + LEVEL_UP_CARD_HEIGHT / 2 + index * (LEVEL_UP_CARD_HEIGHT + LEVEL_UP_CARD_GAP),
-  );
+export function levelUpCardCenters(choiceCount: number, screenWidth = 390): number[] {
+  const count = Math.max(0, Math.min(3, choiceCount));
+  const totalWidth = count * LEVEL_UP_CARD_WIDTH + Math.max(0, count - 1) * LEVEL_UP_CARD_GAP;
+  const start = (screenWidth - totalWidth) / 2 + LEVEL_UP_CARD_WIDTH / 2;
+  return Array.from({ length: count }, (_, index) => start + index * (LEVEL_UP_CARD_WIDTH + LEVEL_UP_CARD_GAP));
 }
 
 export function replaceRowCenters(itemCount: number): number[] {
