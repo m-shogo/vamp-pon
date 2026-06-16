@@ -54,6 +54,9 @@ jobs:
           test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/44_r06_c05_crest_normal.png
           test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/45_r06_c06_crest_black.png
 
+      - name: Verify enemy 48 design catalog
+        run: pnpm enemy48:design:check
+
       - name: Verify inventory icon stock
         run: pnpm inventory-icons:check
 
