@@ -228,6 +228,30 @@ public/assets/sprites/enemies/
 
 ## 9. 検品条件
 
+manifestだけ先に確認:
+
+```sh
+pnpm enemy48:manifest:check
+```
+
+画像を既定位置へ置いた後の完全検査:
+
+```sh
+pnpm enemy48:sprites:verify
+```
+
+別パスの画像を検査:
+
+```sh
+pnpm enemy48:sprites:verify -- path/to/enemy-sheet.png
+```
+
+検査実装:
+
+```txt
+scripts/quality/check-enemy-48-sprite-sheet.ts
+```
+
 画像受領時に最低限、機械検査で次を確認する。
 
 1. PNGである
