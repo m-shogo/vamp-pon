@@ -9,7 +9,7 @@ type CharacterAsset = {
 };
 type Core5Manifest = { characters: CharacterAsset[] };
 type CellDef = { index: number; row: number; column: number; key: string; description: string };
-type Core5Cells = { columns: number; rows: number; totalCells: number; cellSizePx: number; cells: CellDef[] };
+type Core5Cells = { columns: number; rows: number; totalCells: number; cellSizePx: number; candidateCellSizesPx?: number[]; cells: CellDef[] };
 
 type SheetReport = {
   id: string;
@@ -19,8 +19,10 @@ type SheetReport = {
   exists: boolean;
   sourceWidth: number | null;
   sourceHeight: number | null;
-  expectedWidth: number;
-  expectedHeight: number;
+  preferredWidth: number;
+  preferredHeight: number;
+  acceptedCellSizesPx: number[];
+  detectedCellSizePx: number | null;
   exactGrid: boolean;
   needsManualCrop: boolean;
   action: 'copied-exact-grid' | 'overlay-only' | 'missing';
@@ -41,6 +43,7 @@ type OverlayCell = {
 const MANIFEST = 'data/character-assets/core5-character-master-assets.json';
 const CELLS = 'data/character-assets/core5-52px-sprite-sheet-cells.json';
 const OUT_DIR = 'public/assets/prototypes/sprite-sheets/core5-52px-normalized';
+const PREFERRED_SOURCE_CELL_SIZE_PX = 74;
 const EXPECTED_OUTPUTS: Record<CharacterId, string> = {
   yui: `${OUT_DIR}/yui.png`,
   asa: `${OUT_DIR}/asa.png`,
@@ -65,25 +68,36 @@ function readPngSize(file: string): { width: number; height: number } {
   };
 }
 
-function makeOverlayCells(cells: Core5Cells, width: number, height: number, needsManualCrop: boolean): OverlayCell[] {
-  const sourceCellWidth = width / cells.columns;
-  const sourceCellHeight = height / cells.rows;
+function uniqueNumbers(values: number[]): number[] {
+  return [...new Set(values.filter((value) => Number.isFinite(value) && value > 0))];
+}
+
+function detectExactCellSize(width: number, height: number, cells: Core5Cells, candidates: number[]): number | null {
+  return candidates.find((cellSize) => width === cells.columns * cellSize && height === cells.rows * cellSize) ?? null;
+}
+
+function makeOverlayCells(cells: Core5Cells, sourceCellSizePx: number, needsManualCrop: boolean): OverlayCell[] {
   return cells.cells.map((cell) => ({
     index: cell.index,
     key: cell.key,
-    sourceX: Math.round((cell.column - 1) * sourceCellWidth * 1000) / 1000,
-    sourceY: Math.round((cell.row - 1) * sourceCellHeight * 1000) / 1000,
-    sourceWidth: Math.round(sourceCellWidth * 1000) / 1000,
-    sourceHeight: Math.round(sourceCellHeight * 1000) / 1000,
-    logicalCellSizePx: cells.cellSizePx,
+    sourceX: (cell.column - 1) * sourceCellSizePx,
+    sourceY: (cell.row - 1) * sourceCellSizePx,
+    sourceWidth: sourceCellSizePx,
+    sourceHeight: sourceCellSizePx,
+    logicalCellSizePx: sourceCellSizePx,
     needsManualCrop,
   }));
 }
 
 const manifest = readJson<Core5Manifest>(MANIFEST);
 const cells = readJson<Core5Cells>(CELLS);
-const expectedWidth = cells.columns * cells.cellSizePx;
-const expectedHeight = cells.rows * cells.cellSizePx;
+const acceptedCellSizesPx = uniqueNumbers([
+  PREFERRED_SOURCE_CELL_SIZE_PX,
+  ...(cells.candidateCellSizesPx ?? []),
+  cells.cellSizePx,
+]);
+const preferredWidth = cells.columns * PREFERRED_SOURCE_CELL_SIZE_PX;
+const preferredHeight = cells.rows * PREFERRED_SOURCE_CELL_SIZE_PX;
 
 mkdirSync(OUT_DIR, { recursive: true });
 
@@ -105,8 +119,10 @@ for (const ch of manifest.characters) {
       exists: false,
       sourceWidth: null,
       sourceHeight: null,
-      expectedWidth,
-      expectedHeight,
+      preferredWidth,
+      preferredHeight,
+      acceptedCellSizesPx,
+      detectedCellSizePx: null,
       exactGrid: false,
       needsManualCrop: true,
       action: 'missing',
@@ -117,9 +133,11 @@ for (const ch of manifest.characters) {
   }
 
   const size = readPngSize(ch.spriteSheetPath);
-  const exactGrid = size.width === expectedWidth && size.height === expectedHeight;
+  const detectedCellSizePx = detectExactCellSize(size.width, size.height, cells, acceptedCellSizesPx);
+  const exactGrid = detectedCellSizePx !== null;
+  const sourceCellSizePx = detectedCellSizePx ?? PREFERRED_SOURCE_CELL_SIZE_PX;
   const needsManualCrop = !exactGrid;
-  overlays[ch.id] = makeOverlayCells(cells, size.width, size.height, needsManualCrop);
+  overlays[ch.id] = makeOverlayCells(cells, sourceCellSizePx, needsManualCrop);
 
   if (exactGrid) {
     copyFileSync(ch.spriteSheetPath, normalizedPath);
@@ -133,14 +151,16 @@ for (const ch of manifest.characters) {
     exists: true,
     sourceWidth: size.width,
     sourceHeight: size.height,
-    expectedWidth,
-    expectedHeight,
+    preferredWidth,
+    preferredHeight,
+    acceptedCellSizesPx,
+    detectedCellSizePx,
     exactGrid,
     needsManualCrop,
     action: exactGrid ? 'copied-exact-grid' : 'overlay-only',
     warning: exactGrid
       ? undefined
-      : `source is ${size.width}x${size.height}, expected ${expectedWidth}x${expectedHeight}; manual crop/Aseprite normalization required`,
+      : `source is ${size.width}x${size.height}; preferred 74px grid is ${preferredWidth}x${preferredHeight}. Use ?debug=core5sprites&cell=74&ox=0&oy=0 to tune crop before Aseprite normalization.`,
   });
 }
 
@@ -153,9 +173,11 @@ const output = {
     columns: cells.columns,
     rows: cells.rows,
     totalCells: cells.totalCells,
-    cellSizePx: cells.cellSizePx,
-    expectedWidth,
-    expectedHeight,
+    legacyCellSizePx: cells.cellSizePx,
+    preferredSourceCellSizePx: PREFERRED_SOURCE_CELL_SIZE_PX,
+    acceptedCellSizesPx,
+    preferredWidth,
+    preferredHeight,
   },
   reports,
 };
@@ -166,7 +188,8 @@ writeFileSync(join(OUT_DIR, 'overlay-cells.json'), `${JSON.stringify(overlays, n
 let missing = 0;
 for (const report of reports) {
   const mark = report.exists && !report.needsManualCrop ? 'ok  ' : report.exists ? 'WARN' : 'MISS';
-  console.log(`${mark} ${report.id}: ${report.action} ${report.sourceWidth ?? '-'}x${report.sourceHeight ?? '-'} -> ${report.normalizedPath}`);
+  const detected = report.detectedCellSizePx ? `${report.detectedCellSizePx}px` : 'manual';
+  console.log(`${mark} ${report.id}: ${report.action} ${report.sourceWidth ?? '-'}x${report.sourceHeight ?? '-'} cell=${detected} -> ${report.normalizedPath}`);
   if (report.warning) console.log(`     ${report.warning}`);
   if (!report.exists) missing += 1;
 }
