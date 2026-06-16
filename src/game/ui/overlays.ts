@@ -12,6 +12,11 @@ import { evolutions } from '../data/evolutions';
 import { spriteOrNull } from '../assets/assetHelpers';
 import type { AssetId } from '../assets/assetManifest';
 import {
+  getInventoryIconRequirement,
+  resolveInventoryIconTexture,
+  type InventoryIconCategory,
+} from '../assets/inventoryIcons';
+import {
   LEVEL_UP_CARD_HEIGHT,
   LEVEL_UP_CARD_WIDTH,
   LEVEL_UP_FOOTER_HINT_Y,
@@ -26,6 +31,13 @@ import {
 
 const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
 const D = VIEW_DEPTH.overlay;
+const DETAIL_ICON_SIZE = 60;
+const LIST_ICON_SIZE = 45;
+
+type IconRef = {
+  category: InventoryIconCategory;
+  itemId: string;
+};
 
 export class Overlays {
   private current: Phaser.GameObjects.Container | null = null;
@@ -145,30 +157,45 @@ export class Overlays {
     onCancel: () => void,
     onDecline: () => void,
   ): void {
-    const isWeapon = choice.type === 'weapon_new';
-    const isRare = choice.type === 'rare_new';
+    const category = categoryForChoice(choice);
+    const isWeapon = category === 'weapon';
+    const isRare = category === 'rare';
     const items = isWeapon ? state.inventory.weapons : isRare ? state.inventory.rareItems : state.inventory.passives;
     const title = isWeapon ? '外す武器を選ぶ' : isRare ? '外すレアアイテムを選ぶ' : '外す忘れ物を選ぶ';
     const c = this.dim(0.86);
     c.add(this.screenPanel());
-    c.add(this.text(GAME_WIDTH / 2, 58, title, 23, '#f3ead2'));
-    c.add(this.text(GAME_WIDTH / 2, 82, '新しい道具と交換します', 11, '#b8aecb'));
+    c.add(this.text(GAME_WIDTH / 2, 54, title, 23, '#f3ead2'));
+    c.add(this.text(GAME_WIDTH / 2, 78, '新しい道具と交換します', 11, '#b8aecb'));
 
-    const incoming = this.scene.add.container(GAME_WIDTH / 2, 120);
-    const incomingBg = this.scene.add.rectangle(0, 0, REPLACE_ROW_WIDTH, 50, 0x2b243d, 0.98);
+    const incoming = this.scene.add.container(GAME_WIDTH / 2, 124);
+    const incomingBg = this.scene.add.rectangle(0, 0, REPLACE_ROW_WIDTH, 68, 0x2b243d, 0.98);
     incomingBg.setStrokeStyle(2, 0xd2ae62, 0.9);
-    const incomingLabel = this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 14, -9, '入れる', {
+    incoming.add(incomingBg);
+    const incomingRef = iconRefForChoice(choice);
+    if (incomingRef) {
+      this.addInventoryIcon(
+        incoming,
+        incomingRef,
+        -REPLACE_ROW_WIDTH / 2 + 42,
+        0,
+        DETAIL_ICON_SIZE,
+        64,
+        60,
+        0xd2ae62,
+      );
+    }
+    const incomingLabel = this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 82, -13, '入れる', {
       fontFamily: FONT,
       fontSize: '9px',
       color: '#c9bfae',
     }).setOrigin(0, 0.5);
-    const incomingName = this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 14, 10, wrapUiText(choice.title.replace(/^入替: /, '').replace(/^✦ /, ''), 25, 1), {
+    const incomingName = this.scene.add.text(-REPLACE_ROW_WIDTH / 2 + 82, 11, wrapUiText(choice.title.replace(/^入替: /, '').replace(/^✦ /, ''), 18, 1), {
       fontFamily: FONT,
       fontSize: '14px',
       color: '#ffe9a8',
       fontStyle: 'bold',
     }).setOrigin(0, 0.5);
-    incoming.add([incomingBg, incomingLabel, incomingName]);
+    incoming.add([incomingLabel, incomingName]);
     c.add(incoming);
 
     const centers = replaceRowCenters(items.length);
@@ -178,14 +205,13 @@ export class Overlays {
         : isRare
           ? rareItemById.get(item.id)?.name ?? item.id
           : passiveById.get(item.id)?.name ?? item.id;
-      const icon = isWeapon ? weaponIcon(item.id) : isRare ? rareIcon(item.id) : passiveIcon(item.id);
       const suffix = isRare ? '' : ` Lv.${'level' in item ? item.level : ''}`;
       const row = this.replaceRow(
         GAME_WIDTH / 2,
         centers[index],
         REPLACE_ROW_WIDTH,
         REPLACE_ROW_HEIGHT,
-        icon,
+        { category: category ?? 'passive', itemId: item.id },
         `${label}${suffix}`,
         () => {
           this.clear();
@@ -206,18 +232,23 @@ export class Overlays {
     }));
   }
 
-  private replaceRow(cx: number, cy: number, w: number, h: number, icon: string, label: string, onClick: () => void): Phaser.GameObjects.Container {
+  private replaceRow(
+    cx: number,
+    cy: number,
+    w: number,
+    h: number,
+    iconRef: IconRef,
+    label: string,
+    onClick: () => void,
+  ): Phaser.GameObjects.Container {
     const row = this.scene.add.container(cx, cy);
     const bg = this.scene.add.rectangle(0, 0, w, h, COLORS.cardBg, 1);
     bg.setStrokeStyle(2, COLORS.cardEdge, 1);
     bg.setInteractive({ useHandCursor: true });
     bg.on('pointerdown', onClick);
     row.add(bg);
-    const iconBg = this.scene.add.circle(-w / 2 + 32, 0, 18, 0x3a3326, 1);
-    iconBg.setStrokeStyle(2, COLORS.cardEdge, 1);
-    row.add(iconBg);
-    row.add(this.scene.add.text(-w / 2 + 32, 0, icon, { fontFamily: FONT, fontSize: '17px', color: '#f3ead2', fontStyle: 'bold' }).setOrigin(0.5));
-    row.add(this.scene.add.text(-w / 2 + 60, 0, wrapUiText(label, 20, 1), {
+    this.addInventoryIcon(row, iconRef, -w / 2 + 32, 0, LIST_ICON_SIZE, 50, 50, COLORS.cardEdge);
+    row.add(this.scene.add.text(-w / 2 + 66, 0, wrapUiText(label, 19, 1), {
       fontFamily: FONT,
       fontSize: '15px',
       color: '#3a3326',
@@ -255,45 +286,49 @@ export class Overlays {
       card.add(bg);
     }
 
-    const icon = iconForChoice(choice);
-    const lore = 'lore' in choice && choice.lore ? choice.lore : '';
-    const iconBg = this.scene.add.circle(-w / 2 + 34, -34, 20, 0x3a3326, 1);
-    iconBg.setStrokeStyle(2, edge, 1);
-    card.add(iconBg);
-    card.add(this.scene.add.text(-w / 2 + 34, -34, icon, {
-      fontFamily: FONT,
-      fontSize: '19px',
-      color: '#f3ead2',
-      fontStyle: 'bold',
-    }).setOrigin(0.5));
+    const iconRef = iconRefForChoice(choice);
+    const iconX = -w / 2 + 46;
+    if (iconRef) {
+      this.addInventoryIcon(card, iconRef, iconX, 0, DETAIL_ICON_SIZE, 76, 108, edge);
+    } else {
+      this.addFallbackIcon(card, iconX, 0, '＋', 76, 108, edge);
+    }
 
-    card.add(this.scene.add.text(-w / 2 + 66, -57, wrapUiText(choice.title, 23, 1), {
+    const textX = -w / 2 + 90;
+    const lore = 'lore' in choice && choice.lore ? choice.lore : '';
+    card.add(this.scene.add.text(textX, -54, wrapUiText(choice.title.replace(/^✦ /, ''), 19, 1), {
       fontFamily: FONT,
       fontSize: '15px',
       color: '#3a3326',
       fontStyle: 'bold',
     }).setOrigin(0, 0));
-    card.add(this.scene.add.text(-w / 2 + 66, -32, `${rankFor(rarity)} / ${tagFor(choice)}`, {
+    card.add(this.scene.add.text(textX, -31, `${rankFor(rarity)} / ${tagFor(choice)}`, {
       fontFamily: FONT,
-      fontSize: '10px',
+      fontSize: '9px',
       color: rarity === 'normal' ? '#8e8064' : '#9a6024',
     }).setOrigin(0, 0));
-    card.add(this.scene.add.rectangle(0, -10, w - 34, 1, edge, 0.3));
-    card.add(this.scene.add.text(0, 2, wrapUiText(choice.description, 27, 2), {
+    card.add(this.scene.add.rectangle(textX + 101, -15, w - 108, 1, edge, 0.28));
+    card.add(this.scene.add.text(textX, -5, wrapUiText(choice.description, 20, 2), {
       fontFamily: FONT,
       fontSize: '12px',
       color: '#3a3326',
-      align: 'center',
+      align: 'left',
       lineSpacing: 2,
-    }).setOrigin(0.5, 0));
+    }).setOrigin(0, 0));
     if (lore) {
-      card.add(this.scene.add.text(0, 49, wrapUiText(lore, 38, 1), {
+      card.add(this.scene.add.text(textX, 41, wrapUiText(lore, 25, 1), {
         fontFamily: FONT,
         fontSize: '9px',
         color: '#8e8064',
-        align: 'center',
-      }).setOrigin(0.5, 0));
+        fontStyle: 'italic',
+      }).setOrigin(0, 0));
     }
+    card.add(this.scene.add.text(w / 2 - 16, h / 2 - 13, '選ぶ', {
+      fontFamily: FONT,
+      fontSize: '9px',
+      color: '#8a7040',
+      fontStyle: 'bold',
+    }).setOrigin(1, 0.5));
     return card;
   }
 
@@ -302,6 +337,7 @@ export class Overlays {
     const c = this.dim(isEvolution ? 0.82 : 0.6);
     const title = isEvolution ? evolutionKindLabel(reward.evolutionKind) : reward.type === 'currency' ? '名前が戻った' : '道具が少し戻った';
     const subtitle = isEvolution ? evolutionKindSubtitle(reward.evolutionKind) : '記憶カプセル';
+    const rewardRef = iconRefForReward(reward);
 
     if (isEvolution) {
       const accent = EVOLUTION_ACCENT[reward.evolutionKind];
@@ -314,17 +350,25 @@ export class Overlays {
         ring2.setStrokeStyle(3, accent.sub, 0.7);
         c.add(ring2);
       }
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 116, title, 24, '#fff0b0'));
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 76, subtitle, 15, '#f3ead2'));
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 18, reward.title, 24, '#ffe08a'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 132, title, 24, '#fff0b0'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 100, subtitle, 15, '#f3ead2'));
+      if (rewardRef) {
+        this.addInventoryIcon(c, rewardRef, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 30, DETAIL_ICON_SIZE, 84, 84, accent.main);
+      }
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 34, reward.title, 22, '#ffe08a'));
     } else {
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, subtitle, 14, '#bfe6ff'));
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 30, title, 24, '#f3ead2'));
-      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 10, reward.title, 18, '#ffe9a8'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 92, subtitle, 14, '#bfe6ff'));
+      c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 64, title, 24, '#f3ead2'));
+      if (rewardRef) {
+        this.addInventoryIcon(c, rewardRef, GAME_WIDTH / 2, GAME_HEIGHT / 2 - 4, DETAIL_ICON_SIZE, 84, 84, 0x7ea5c2);
+        c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 58, reward.title, 18, '#ffe9a8'));
+      } else {
+        c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 4, reward.title, 18, '#ffe9a8'));
+      }
     }
 
     const lore = isEvolution ? reward.lore : '';
-    if (lore) c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 38, lore, 12, '#c9bfae'));
+    if (lore) c.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 70, wrapUiText(lore, 34, 2), 11, '#c9bfae'));
 
     const close = () => {
       this.clear();
@@ -369,6 +413,55 @@ export class Overlays {
     }));
   }
 
+  private addInventoryIcon(
+    container: Phaser.GameObjects.Container,
+    ref: IconRef,
+    x: number,
+    y: number,
+    imageSize: number,
+    panelWidth: number,
+    panelHeight: number,
+    edge: number,
+  ): void {
+    const panel = this.scene.add.rectangle(x, y, panelWidth, panelHeight, iconPanelColor(ref.category), 0.96);
+    panel.setStrokeStyle(2, edge, 0.9);
+    container.add(panel);
+
+    const texture = resolveInventoryIconTexture(this.scene.textures, ref.category, ref.itemId);
+    if (texture) {
+      container.add(this.scene.add.image(x, y, texture).setDisplaySize(imageSize, imageSize));
+      return;
+    }
+
+    const fallback = getInventoryIconRequirement(ref.category, ref.itemId)?.fallbackGlyph ?? '?';
+    container.add(this.scene.add.text(x, y, fallback, {
+      fontFamily: FONT,
+      fontSize: `${Math.max(18, imageSize * 0.42)}px`,
+      color: '#f3ead2',
+      fontStyle: 'bold',
+    }).setOrigin(0.5));
+  }
+
+  private addFallbackIcon(
+    container: Phaser.GameObjects.Container,
+    x: number,
+    y: number,
+    glyph: string,
+    panelWidth: number,
+    panelHeight: number,
+    edge: number,
+  ): void {
+    const panel = this.scene.add.rectangle(x, y, panelWidth, panelHeight, 0x24352d, 0.96);
+    panel.setStrokeStyle(2, edge, 0.9);
+    const text = this.scene.add.text(x, y, glyph, {
+      fontFamily: FONT,
+      fontSize: '30px',
+      color: '#f3ead2',
+      fontStyle: 'bold',
+    }).setOrigin(0.5);
+    container.add([panel, text]);
+  }
+
   private button(cx: number, cy: number, w: number, h: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
     const c = this.scene.add.container(cx, cy);
     const bg = this.scene.add.rectangle(0, 0, w, h, COLORS.cardBg, 1);
@@ -378,6 +471,33 @@ export class Overlays {
     const t = this.scene.add.text(0, 0, label, { fontFamily: FONT, fontSize: label.length > 5 ? '15px' : '18px', color: '#3a3326', fontStyle: 'bold' }).setOrigin(0.5);
     c.add([bg, t]);
     return c;
+  }
+}
+
+function categoryForChoice(choice: LevelUpChoice): InventoryIconCategory | null {
+  if (choice.type === 'weapon_new' || choice.type === 'weapon_upgrade') return 'weapon';
+  if (choice.type === 'passive_new' || choice.type === 'passive_upgrade') return 'passive';
+  if (choice.type === 'rare_new') return 'rare';
+  return null;
+}
+
+function iconRefForChoice(choice: LevelUpChoice): IconRef | null {
+  const category = categoryForChoice(choice);
+  return category && 'itemId' in choice ? { category, itemId: choice.itemId } : null;
+}
+
+function iconRefForReward(reward: CapsuleReward): IconRef | null {
+  if (reward.type === 'evolution') return { category: 'weapon', itemId: reward.evolvedWeaponId };
+  if (reward.type === 'weapon_upgrade') return { category: 'weapon', itemId: reward.itemId };
+  if (reward.type === 'passive_upgrade') return { category: 'passive', itemId: reward.itemId };
+  return null;
+}
+
+function iconPanelColor(category: InventoryIconCategory): number {
+  switch (category) {
+    case 'weapon': return 0x18263f;
+    case 'passive': return 0x2b203d;
+    case 'rare': return 0x3a2f20;
   }
 }
 
@@ -435,57 +555,5 @@ function cardAssetIdFor(rarity: RewardRarity): AssetId {
     case 'rare': return 'ui_card_paper_rare';
     case 'good': return 'ui_card_paper_good';
     case 'normal': return 'ui_card_paper_normal';
-  }
-}
-
-function iconForChoice(choice: LevelUpChoice): string {
-  if (choice.type === 'heal') return '＋';
-  if (choice.type === 'weapon_new' || choice.type === 'weapon_upgrade') return weaponIcon(choice.itemId);
-  if (choice.type === 'rare_new') return rareIcon(choice.itemId);
-  return passiveIcon(choice.itemId);
-}
-
-function weaponIcon(id: string): string {
-  switch (id) {
-    case 'night_pencil': return '✎';
-    case 'marble': return '●';
-    case 'moon_bookmark': return '☾';
-    case 'black_ink_bottle': return '瓶';
-    case 'stardust_shot': return '✦';
-    case 'postcard_blade': return '刃';
-    case 'paper_airplane': return '飛';
-    case 'streetlamp_ring': return '輪';
-    case 'unfinished_line': return '線';
-    case 'north_star_lantern': return '灯';
-    case 'dawn_ink_lamp': return '朝';
-    case 'unforgotten_name': return '名';
-    case 'memory_marble': return '追';
-    case 'addressless_blade': return '封';
-    case 'tailwind_plane': return '風';
-    default: return '道';
-  }
-}
-
-function passiveIcon(id: string): string {
-  switch (id) {
-    case 'gold_compass': return '針';
-    case 'travel_badge': return '章';
-    case 'moonlight_bookmark': return '栞';
-    case 'old_ticket': return '券';
-    case 'white_margin': return '余';
-    case 'pressed_flower': return '花';
-    case 'loose_map_pin': return '鋲';
-    case 'small_alarm_clock': return '時';
-    default: return '欠';
-  }
-}
-
-function rareIcon(id: string): string {
-  switch (id) {
-    case 'name_tag': return '名';
-    case 'cracked_lens': return '鏡';
-    case 'sealed_letter': return '封';
-    case 'wind_mark': return '風';
-    default: return '◇';
   }
 }

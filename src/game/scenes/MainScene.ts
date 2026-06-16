@@ -6,7 +6,6 @@ import { GAME_STATUS } from '../domain/constants';
 import { createBackground } from '../ui/background';
 import { Hud } from '../ui/hud';
 import { Overlays } from '../ui/overlays';
-import { OverlayInventoryIcons } from '../ui/overlayInventoryIcons';
 import { VirtualStick } from '../ui/virtualStick';
 import { evolutionBurst } from '../ui/effects';
 import { weaponById } from '../data/weapons';
@@ -26,7 +25,6 @@ export class MainScene extends Phaser.Scene {
   private state!: RuntimeState;
   private hud!: Hud;
   private overlays!: Overlays;
-  private overlayIcons!: OverlayInventoryIcons;
   private stick!: VirtualStick;
   private keys: KeyboardKeys | null = null;
   private spawnSystem!: SpawnSystem;
@@ -46,7 +44,6 @@ export class MainScene extends Phaser.Scene {
       if (this.state.status === GAME_STATUS.PLAYING) this.state.ultimateRequested = true;
     });
     this.overlays = new Overlays(this);
-    this.overlayIcons = new OverlayInventoryIcons(this);
     this.spawnSystem = new SpawnSystem();
     this.keys = setupKeyboard(this);
     this.stick = new VirtualStick(this);
@@ -58,7 +55,6 @@ export class MainScene extends Phaser.Scene {
       document.removeEventListener('visibilitychange', this.onVisibility);
       this.stick.destroy();
       this.hud.destroy();
-      this.overlayIcons.destroy();
     });
 
     this.overlays.showReady(() => {
@@ -71,7 +67,6 @@ export class MainScene extends Phaser.Scene {
   private tryAutoPause(): void {
     if (this.state.status !== GAME_STATUS.PLAYING) return;
     this.state.status = GAME_STATUS.PAUSED;
-    this.overlayIcons.clear();
     this.overlays.showPause(() => {
       this.state.status = GAME_STATUS.PLAYING;
     });
@@ -115,7 +110,6 @@ export class MainScene extends Phaser.Scene {
 
   private finishLevelUp(choice: LevelUpChoice): void {
     const state = this.state;
-    this.overlayIcons.clear();
     applyChoice(state, choice);
     state.pendingChoices = [];
     state.status = GAME_STATUS.PLAYING;
@@ -123,14 +117,12 @@ export class MainScene extends Phaser.Scene {
   }
 
   private declineLevelUpChoice(): void {
-    this.overlayIcons.clear();
     this.state.pendingChoices = [];
     this.state.status = GAME_STATUS.PLAYING;
   }
 
   private replaceAndPick(choice: LevelUpChoice, removeId: string): void {
     const state = this.state;
-    this.overlayIcons.clear();
     if (choice.type === 'weapon_new') {
       state.inventory.weapons = state.inventory.weapons.filter((w) => w.id !== removeId);
     } else if (choice.type === 'passive_new') {
@@ -148,7 +140,6 @@ export class MainScene extends Phaser.Scene {
       state,
       choices,
       (choice) => {
-        this.overlayIcons.clear();
         if (this.needsReplace(choice)) {
           this.overlays.showReplaceItem(
             state,
@@ -157,7 +148,6 @@ export class MainScene extends Phaser.Scene {
             () => this.showLevelUpChoices(state.pendingChoices),
             () => this.declineLevelUpChoice(),
           );
-          this.overlayIcons.showReplace(state, choice);
           return;
         }
         this.finishLevelUp(choice);
@@ -168,7 +158,6 @@ export class MainScene extends Phaser.Scene {
         this.showLevelUpChoices(generateChoices(state));
       },
     );
-    this.overlayIcons.showLevelUp(choices);
   }
 
   private resolveTransitions(): void {
@@ -182,7 +171,6 @@ export class MainScene extends Phaser.Scene {
     if (state.status === GAME_STATUS.CAPSULE && state.pendingCapsule) {
       const reward = state.pendingCapsule;
       this.overlays.showCapsule(state, reward, () => {
-        this.overlayIcons.clear();
         applyCapsule(state, reward);
         if (reward.type === 'evolution') {
           const name = weaponById.get(reward.evolvedWeaponId)?.name ?? reward.title;
@@ -192,7 +180,6 @@ export class MainScene extends Phaser.Scene {
         state.pendingCapsule = null;
         state.status = GAME_STATUS.PLAYING;
       });
-      this.overlayIcons.showCapsule(reward);
       return;
     }
 
@@ -209,7 +196,6 @@ export class MainScene extends Phaser.Scene {
 
   private enterResult(cleared: boolean): void {
     const state = this.state;
-    this.overlayIcons.clear();
     state.status = cleared ? GAME_STATUS.CLEARED : GAME_STATUS.GAMEOVER;
     state.stats.survivedSec = state.elapsedSec;
     const log = buildPlayLog(state, cleared);
