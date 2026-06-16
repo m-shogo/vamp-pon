@@ -66,3 +66,13 @@ export function getInventoryOriginalIcon(
 ): InventoryOriginalIcon | undefined {
   return inventoryOriginalByKey.get(category + ':' + itemId);
 }
+
+export function resolveInventoryOriginalTexture(
+  textureManager: { exists: (key: string) => boolean },
+  category: InventoryIconCategory,
+  itemId: string,
+): string | null {
+  const entry = getInventoryOriginalIcon(category, itemId);
+  if (!entry) return null;
+  return textureManager.exists(entry.textureId) ? entry.textureId : null;
+}
