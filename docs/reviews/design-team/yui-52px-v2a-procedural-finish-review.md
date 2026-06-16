@@ -7,6 +7,10 @@ pipeline: [docs/pixel-art/vamp-pon-pixel-art-pipeline-v1.md](../../pixel-art/vam
 
 Design role: pixel-art director / pro app quality gate
 iteration history: A/B/C → v2 合成（V2a/V2b/V2c）→ **V2a に procedural finish（PF）を適用**
+next（human review）: [yui-52px-v2a-human-review-candidate.md](./yui-52px-v2a-human-review-candidate.md)
+
+> このdocは PF（script-assisted）段の記録。PF を出発点に script-assisted refinement（pass 2）＋
+> ディレクター人間レビューを行った次段（`human-reviewed-candidate`）は上記 next doc を参照。
 
 ---
 

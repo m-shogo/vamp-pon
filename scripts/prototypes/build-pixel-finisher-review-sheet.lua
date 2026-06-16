@@ -31,6 +31,13 @@ if string.sub(png, 1, #"public/assets/prototypes/") ~= "public/assets/prototypes
   error("refusing to export png outside public/assets/prototypes/: " .. png)
 end
 
+-- before/after pngs are parameterized so the same sheet builder serves both the
+-- PF step (v2a -> v2a_pf) and the human-review step (v2a_pf -> v2a_hr).
+local before_png = app.params["before"]
+if before_png == nil or before_png == "" then before_png = "public/assets/prototypes/yui_idle_52_v2a.png" end
+local after_png = app.params["after"]
+if after_png == nil or after_png == "" then after_png = "public/assets/prototypes/yui_idle_52_v2a_pf.png" end
+
 local function C(r, g, b, a) return app.pixelColor.rgba(r, g, b, a or 255) end
 local function A(col) return app.pixelColor.rgbaA(col) end
 local function R(col) return app.pixelColor.rgbaR(col) end
@@ -123,8 +130,8 @@ local function load(file)
   return Image{ fromFile = file }
 end
 
-local before = load("public/assets/prototypes/yui_idle_52_v2a.png")
-local after  = load("public/assets/prototypes/yui_idle_52_v2a_pf.png")
+local before = load(before_png)
+local after  = load(after_png)
 
 local function fragment(cx, cy, s)
   for y = -3, 3 do for x = -3, 3 do
@@ -204,6 +211,6 @@ out.layers[1].name = "sheet"
 out:newCel(out.layers[1], out.frames[1], sheet, Point(0, 0))
 out:saveCopyAs(png)
 print("pixel finisher review sheet written: " .. png)
-print("  before: public/assets/prototypes/yui_idle_52_v2a.png")
-print("  after:  public/assets/prototypes/yui_idle_52_v2a_pf.png")
-print("NOTE: PF = script-assisted-candidate. NOT hand-final / NOT GUI hand-finish.")
+print("  before: " .. before_png)
+print("  after:  " .. after_png)
+print("NOTE: script-assisted. NOT hand-final / NOT GUI hand-finish.")

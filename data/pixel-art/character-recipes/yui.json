@@ -88,9 +88,10 @@
   "humanReviewRequired": true,
   "humanReviewReason": "player かつ作品の顔（マスコット）。merchandise potential まで含めて最終1pxと採否は人間が判断する必要がある。",
   "finisherMode": "yui52-v2a",
-  "status": "script-assisted-candidate",
+  "status": "human-reviewed-candidate",
   "notes": [
     "52px V2a を見た目・画風の基準とする（gameplay定数の基準にはしない）。",
-    "PF（procedural finish）適用後も hand-final ではない。GUI手仕上げ+人間レビューが production の前提。"
+    "provenance: v2a → _pf(script-assisted-candidate) → _hr(human-reviewed-candidate)。",
+    "_hr も hand-final ではない。GUI手仕上げ(人間)+人間レビューが production の前提。"
   ]
 }

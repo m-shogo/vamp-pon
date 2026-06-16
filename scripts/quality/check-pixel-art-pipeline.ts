@@ -34,6 +34,12 @@ const requiredFiles = [
   'scripts/prototypes/build-pixel-finisher-review-sheet.lua',
   'public/assets/prototypes/yui_idle_52_v2a_pf_review_sheet.png',
   'docs/reviews/design-team/yui-52px-v2a-procedural-finish-review.md',
+  // 4. human-review-candidate (HR) refinement step
+  'scripts/prototypes/refine-yui-52-v2a-pf.lua',
+  'assets/source/prototypes/yui_idle_52_v2a_hr.aseprite',
+  'public/assets/prototypes/yui_idle_52_v2a_hr.png',
+  'public/assets/prototypes/yui_idle_52_v2a_hr_review_sheet.png',
+  'docs/reviews/design-team/yui-52px-v2a-human-review-candidate.md',
 ];
 
 for (const file of requiredFiles) {
@@ -102,6 +108,23 @@ if (existsSync(reviewDoc)) {
   });
   checks.push({
     label: 'PF review records Production touched: no',
+    ok: /Production touched:\s*\*\*no\*\*/i.test(text) || /Production touched:\s*no/i.test(text),
+  });
+}
+
+// the HR review doc must stay honest: human-reviewed-candidate, explicitly NOT
+// a GUI hand-finish and NOT hand-final.
+const hrDoc = 'docs/reviews/design-team/yui-52px-v2a-human-review-candidate.md';
+if (existsSync(hrDoc)) {
+  const text = readFileSync(hrDoc, 'utf8');
+  checks.push({
+    label: 'HR review states human-reviewed-candidate (not GUI hand-finish / not hand-final)',
+    ok: text.includes('human-reviewed-candidate')
+      && text.includes('GUI hand-finish ではない')
+      && text.includes('hand-final ではない'),
+  });
+  checks.push({
+    label: 'HR review records Production touched: no',
     ok: /Production touched:\s*\*\*no\*\*/i.test(text) || /Production touched:\s*no/i.test(text),
   });
 }

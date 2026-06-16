@@ -9,6 +9,7 @@
     "aseprite:yui:hf-assist": "node scripts/aseprite/run-yui-52-v2a-handfinish-assistant.mjs",
     "aseprite:pixel-finisher:yui52": "node scripts/aseprite/run-pixel-finisher.mjs yui52",
     "aseprite:pixel-finisher:verify": "node scripts/aseprite/verify-pixel-finisher-output.mjs",
+    "aseprite:pixel-refine:yui52hr": "node scripts/aseprite/run-yui-pf-human-refine.mjs",
     "aseprite:template:character": "node scripts/aseprite/create-character-template.mjs",
     "aseprite:preview:character": "node scripts/aseprite/export-character-previews.mjs",
     "aseprite:export": "node scripts/aseprite/export-player-assets.mjs",
