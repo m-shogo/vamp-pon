@@ -3,83 +3,11 @@ import { core5PrototypeCharacterById, core5PrototypeCharacters, type Core5Protot
 import { GAME_HEIGHT, GAME_WIDTH, COLORS } from '../domain/constants';
 import { FONT } from './visualDesign';
 
-type CellDef = {
-  index: number;
-  row: number;
-  column: number;
-  key: string;
-  description: string;
-};
-
-type GridSettings = {
-  sourceCellPx: number;
-  gameDisplayPx: number;
-  offsetX: number;
-  offsetY: number;
-};
-
-export const CORE5_SHEET_COLUMNS = 8;
-export const CORE5_SHEET_ROWS = 6;
-export const CORE5_LEGACY_SOURCE_CELL_SIZE = 52;
-export const CORE5_DEFAULT_SOURCE_CELL_SIZE = 74;
-export const CORE5_DEFAULT_GAME_DISPLAY_SIZE = 74;
-
-export const CORE5_SHEET_CELLS: CellDef[] = [
-  { index: 0, row: 1, column: 1, key: 'idle_front', description: 'Front idle pose' },
-  { index: 1, row: 1, column: 2, key: 'idle_front_blink', description: 'Front idle alternate blink frame' },
-  { index: 2, row: 1, column: 3, key: 'idle_left', description: 'Left-facing idle pose' },
-  { index: 3, row: 1, column: 4, key: 'idle_right', description: 'Right-facing idle pose' },
-  { index: 4, row: 1, column: 5, key: 'idle_back', description: 'Back-facing idle pose' },
-  { index: 5, row: 1, column: 6, key: 'ready_front', description: 'Front ready pose with vessel visible' },
-  { index: 6, row: 1, column: 7, key: 'ready_left', description: 'Left ready pose' },
-  { index: 7, row: 1, column: 8, key: 'ready_right', description: 'Right ready pose' },
-  { index: 8, row: 2, column: 1, key: 'walk_front_a', description: 'Front walk frame A' },
-  { index: 9, row: 2, column: 2, key: 'walk_front_b', description: 'Front walk frame B' },
-  { index: 10, row: 2, column: 3, key: 'walk_left_a', description: 'Left walk frame A' },
-  { index: 11, row: 2, column: 4, key: 'walk_left_b', description: 'Left walk frame B' },
-  { index: 12, row: 2, column: 5, key: 'walk_right_a', description: 'Right walk frame A' },
-  { index: 13, row: 2, column: 6, key: 'walk_right_b', description: 'Right walk frame B' },
-  { index: 14, row: 2, column: 7, key: 'walk_back_a', description: 'Back walk frame A' },
-  { index: 15, row: 2, column: 8, key: 'walk_back_b', description: 'Back walk frame B' },
-  { index: 16, row: 3, column: 1, key: 'cast_front', description: 'Front cast frame' },
-  { index: 17, row: 3, column: 2, key: 'cast_left', description: 'Left cast frame' },
-  { index: 18, row: 3, column: 3, key: 'cast_right', description: 'Right cast frame' },
-  { index: 19, row: 3, column: 4, key: 'cast_back', description: 'Back cast frame' },
-  { index: 20, row: 3, column: 5, key: 'attack_front', description: 'Front attack frame' },
-  { index: 21, row: 3, column: 6, key: 'attack_left', description: 'Left attack frame' },
-  { index: 22, row: 3, column: 7, key: 'attack_right', description: 'Right attack frame' },
-  { index: 23, row: 3, column: 8, key: 'attack_back', description: 'Back attack frame' },
-  { index: 24, row: 4, column: 1, key: 'hurt_front', description: 'Front hurt frame' },
-  { index: 25, row: 4, column: 2, key: 'hurt_left', description: 'Left hurt frame' },
-  { index: 26, row: 4, column: 3, key: 'hurt_right', description: 'Right hurt frame' },
-  { index: 27, row: 4, column: 4, key: 'hurt_back', description: 'Back hurt frame' },
-  { index: 28, row: 4, column: 5, key: 'recoil_front', description: 'Front recoil frame' },
-  { index: 29, row: 4, column: 6, key: 'recoil_left', description: 'Left recoil frame' },
-  { index: 30, row: 4, column: 7, key: 'recoil_right', description: 'Right recoil frame' },
-  { index: 31, row: 4, column: 8, key: 'recoil_back', description: 'Back recoil frame' },
-  { index: 32, row: 5, column: 1, key: 'special_normal', description: 'Normal special frame' },
-  { index: 33, row: 5, column: 2, key: 'special_black', description: 'Black/corrupted special frame' },
-  { index: 34, row: 5, column: 3, key: 'pickup', description: 'Pickup interaction frame' },
-  { index: 35, row: 5, column: 4, key: 'interact', description: 'Inspect/use item frame' },
-  { index: 36, row: 5, column: 5, key: 'downed', description: 'Downed/defeated frame' },
-  { index: 37, row: 5, column: 6, key: 'rest', description: 'Sit/rest frame' },
-  { index: 38, row: 5, column: 7, key: 'emote_happy', description: 'Happy emote frame' },
-  { index: 39, row: 5, column: 8, key: 'emote_surprised', description: 'Surprised emote frame' },
-  { index: 40, row: 6, column: 1, key: 'portrait_neutral', description: 'Neutral portrait icon' },
-  { index: 41, row: 6, column: 2, key: 'portrait_alt', description: 'Alternate portrait icon' },
-  { index: 42, row: 6, column: 3, key: 'vessel_icon', description: 'Main vessel icon' },
-  { index: 43, row: 6, column: 4, key: 'secondary_item_icon', description: 'Secondary item icon' },
-  { index: 44, row: 6, column: 5, key: 'crest_normal', description: 'Normal crest icon' },
-  { index: 45, row: 6, column: 6, key: 'crest_black', description: 'Black/corrupted crest icon' },
-  { index: 46, row: 6, column: 7, key: 'memory_item_icon', description: 'Memory item icon' },
-  { index: 47, row: 6, column: 8, key: 'effect_icon', description: 'Signature effect icon' },
-];
+const REJECTED_REASON = 'current uploaded boards are visually misaligned and must not be sliced as a uniform 8x6 sprite sheet';
 
 export class Core5SpriteSheetPreview {
   private root: Phaser.GameObjects.Container;
   private selectedCharacter: Core5PrototypeCharacter;
-  private selectedCellIndex = 0;
-  private zoom: 2 | 3 = 2;
 
   constructor(private scene: Phaser.Scene, selectedId: Core5PrototypeCharacterId = 'yui') {
     this.root = scene.add.container(0, 0);
@@ -94,25 +22,24 @@ export class Core5SpriteSheetPreview {
     this.root.removeAll(true);
     this.drawHeader();
     this.drawCharacterTabs();
-    this.drawSheet();
-    this.drawSelectedCellPreview();
+    this.drawRawReferenceBoard();
+    this.drawDecisionPanel();
     this.drawFooterNotes();
   }
 
   private drawHeader(): void {
-    const settings = this.gridSettings();
     this.root.add(
-      this.scene.add.text(GAME_WIDTH / 2, 16, 'Core5 sprite sheet preview', {
+      this.scene.add.text(GAME_WIDTH / 2, 14, 'Core5 raw reference board review', {
         fontFamily: FONT,
         fontSize: '15px',
         color: '#f3ead2',
       }).setOrigin(0.5, 0),
     );
     this.root.add(
-      this.scene.add.text(GAME_WIDTH / 2, 36, `prototype only / source cell=${settings.sourceCellPx}px, game display=${settings.gameDisplayPx}px, offset=${settings.offsetX},${settings.offsetY}`, {
+      this.scene.add.text(GAME_WIDTH / 2, 35, 'not a slicable sprite sheet / production sprite は未使用', {
         fontFamily: FONT,
         fontSize: '9px',
-        color: '#ffe9a8',
+        color: '#ffbd4e',
       }).setOrigin(0.5, 0),
     );
   }
@@ -127,7 +54,6 @@ export class Core5SpriteSheetPreview {
       bg.setStrokeStyle(1, active ? 0xffffff : COLORS.cardEdge, 1);
       bg.on('pointerdown', () => {
         this.selectedCharacter = character;
-        this.selectedCellIndex = 0;
         this.syncCharacterToUrl(character.id);
         this.render();
       });
@@ -145,14 +71,13 @@ export class Core5SpriteSheetPreview {
     });
   }
 
-  private drawSheet(): void {
+  private drawRawReferenceBoard(): void {
     const imageId = this.selectedImageId();
     const hasImage = this.scene.textures.exists(imageId);
-    const settings = this.gridSettings();
-    const sheetX = 18;
-    const sheetY = 112;
-    const sheetW = GAME_WIDTH - 36;
-    const sheetH = Math.round(sheetW * CORE5_SHEET_ROWS / CORE5_SHEET_COLUMNS);
+    const x = 18;
+    const y = 112;
+    const w = GAME_WIDTH - 36;
+    const h = 280;
 
     this.root.add(this.scene.add.text(18, 98, `${this.selectedCharacter.name}: ${this.selectedCharacter.role} / ${this.selectedCharacter.motif}`, {
       fontFamily: FONT,
@@ -160,149 +85,79 @@ export class Core5SpriteSheetPreview {
       color: '#cfe6f0',
     }).setOrigin(0, 0));
 
-    if (hasImage) {
-      const source = this.sourceSize(imageId);
-      const cropW = settings.sourceCellPx * CORE5_SHEET_COLUMNS;
-      const cropH = settings.sourceCellPx * CORE5_SHEET_ROWS;
-      const sheet = this.scene.add.image(sheetX, sheetY, imageId)
-        .setOrigin(0, 0)
-        .setCrop(settings.offsetX, settings.offsetY, cropW, cropH)
-        .setDisplaySize(sheetW, sheetH);
-      sheet.setInteractive({ useHandCursor: true });
-      sheet.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-        const localX = Phaser.Math.Clamp(pointer.x - sheetX, 0, sheetW - 1);
-        const localY = Phaser.Math.Clamp(pointer.y - sheetY, 0, sheetH - 1);
-        const col = Math.floor(localX / (sheetW / CORE5_SHEET_COLUMNS));
-        const row = Math.floor(localY / (sheetH / CORE5_SHEET_ROWS));
-        this.selectedCellIndex = row * CORE5_SHEET_COLUMNS + col;
-        this.render();
-      });
-      this.root.add(sheet);
-      this.root.add(this.scene.add.text(18, sheetY + sheetH + 4, `source ${source.width}x${source.height} / crop ${settings.offsetX},${settings.offsetY},${cropW}x${cropH}`, {
-        fontFamily: 'monospace',
-        fontSize: '8px',
-        color: '#9db7df',
-      }).setOrigin(0, 0));
-    } else {
-      const box = this.scene.add.rectangle(sheetX, sheetY, sheetW, sheetH, COLORS.cardBg, 0.9).setOrigin(0, 0);
-      box.setStrokeStyle(1, COLORS.cardEdge, 1);
-      this.root.add(box);
-      this.root.add(this.scene.add.text(GAME_WIDTH / 2, sheetY + sheetH / 2 - 18, 'sprite sheet image not loaded', {
+    const box = this.scene.add.rectangle(x, y, w, h, COLORS.cardBg, 0.86).setOrigin(0, 0);
+    box.setStrokeStyle(1, COLORS.cardEdge, 1);
+    this.root.add(box);
+
+    if (!hasImage) {
+      this.root.add(this.scene.add.text(GAME_WIDTH / 2, y + h / 2 - 18, 'reference board image not loaded', {
         fontFamily: FONT,
         fontSize: '13px',
         color: '#ffbd4e',
       }).setOrigin(0.5, 0));
-      this.root.add(this.scene.add.text(GAME_WIDTH / 2, sheetY + sheetH / 2 + 2, this.selectedCharacter.originalPath, {
+      this.root.add(this.scene.add.text(GAME_WIDTH / 2, y + h / 2 + 4, this.selectedCharacter.originalPath, {
         fontFamily: 'monospace',
         fontSize: '8px',
         color: '#cfc6b0',
-        wordWrap: { width: sheetW - 24 },
+        wordWrap: { width: w - 24 },
         align: 'center',
       }).setOrigin(0.5, 0));
+      return;
     }
 
-    const g = this.scene.add.graphics();
-    g.lineStyle(1, 0xf3ead2, 0.55);
-    for (let col = 0; col <= CORE5_SHEET_COLUMNS; col += 1) {
-      const x = sheetX + col * (sheetW / CORE5_SHEET_COLUMNS);
-      g.lineBetween(x, sheetY, x, sheetY + sheetH);
-    }
-    for (let row = 0; row <= CORE5_SHEET_ROWS; row += 1) {
-      const y = sheetY + row * (sheetH / CORE5_SHEET_ROWS);
-      g.lineBetween(sheetX, y, sheetX + sheetW, y);
-    }
-    const selected = CORE5_SHEET_CELLS[this.selectedCellIndex];
-    const sx = sheetX + (selected.column - 1) * (sheetW / CORE5_SHEET_COLUMNS);
-    const sy = sheetY + (selected.row - 1) * (sheetH / CORE5_SHEET_ROWS);
-    g.lineStyle(3, 0xffe58f, 0.95);
-    g.strokeRect(sx, sy, sheetW / CORE5_SHEET_COLUMNS, sheetH / CORE5_SHEET_ROWS);
-    this.root.add(g);
+    const source = this.sourceSize(imageId);
+    const fit = Math.min((w - 16) / source.width, (h - 16) / source.height);
+    const displayW = Math.max(1, Math.round(source.width * fit));
+    const displayH = Math.max(1, Math.round(source.height * fit));
+    const image = this.scene.add.image(x + w / 2, y + h / 2, imageId).setDisplaySize(displayW, displayH);
+    this.root.add(image);
 
-    for (const cell of CORE5_SHEET_CELLS) {
-      const x = sheetX + (cell.column - 1) * (sheetW / CORE5_SHEET_COLUMNS) + 2;
-      const y = sheetY + (cell.row - 1) * (sheetH / CORE5_SHEET_ROWS) + 2;
-      this.root.add(this.scene.add.text(x, y, `${cell.index}:${cell.key.replace(/_/g, ' ').slice(0, 9)}`, {
-        fontFamily: 'monospace',
-        fontSize: '5px',
-        color: cell.index === this.selectedCellIndex ? '#fff1a8' : '#f3ead2',
-      }).setOrigin(0, 0));
-    }
+    this.root.add(this.scene.add.text(18, y + h + 5, `source ${source.width}x${source.height} / raw-board only / no crop export`, {
+      fontFamily: 'monospace',
+      fontSize: '8px',
+      color: '#9db7df',
+    }).setOrigin(0, 0));
   }
 
-  private drawSelectedCellPreview(): void {
-    const imageId = this.selectedImageId();
-    const settings = this.gridSettings();
-    const cell = CORE5_SHEET_CELLS[this.selectedCellIndex];
-    const y = 404;
-    this.root.add(this.scene.add.text(18, y, `selected ${cell.index}: ${cell.key}`, {
+  private drawDecisionPanel(): void {
+    const y = 420;
+    const panel = this.scene.add.rectangle(18, y, GAME_WIDTH - 36, 166, COLORS.cardBg, 0.88).setOrigin(0, 0);
+    panel.setStrokeStyle(1, 0xffbd4e, 0.85);
+    this.root.add(panel);
+
+    this.root.add(this.scene.add.text(30, y + 14, 'Decision: reject as sprite sheet', {
+      fontFamily: FONT,
+      fontSize: '15px',
+      color: '#ffbd4e',
+    }).setOrigin(0, 0));
+
+    this.root.add(this.scene.add.text(30, y + 39, [
+      `Reason: ${REJECTED_REASON}.`,
+      'Do not tune ox/oy. Do not normalize this board into production frames.',
+      'Use these files only as character design reference.',
+      'Next asset must be regenerated/exported as exact 8 columns × 6 rows with uniform cells.',
+    ], {
+      fontFamily: FONT,
+      fontSize: '10px',
+      color: '#f3ead2',
+      lineSpacing: 5,
+      wordWrap: { width: GAME_WIDTH - 60 },
+    }).setOrigin(0, 0));
+
+    this.root.add(this.scene.add.text(30, y + 129, 'Recommended target: 74px source cell, 592×444 PNG, transparent gutters, no labels/text.', {
       fontFamily: 'monospace',
-      fontSize: '11px',
+      fontSize: '9px',
       color: '#ffe9a8',
+      wordWrap: { width: GAME_WIDTH - 60 },
     }).setOrigin(0, 0));
-    this.root.add(this.scene.add.text(18, y + 17, cell.description, {
-      fontFamily: FONT,
-      fontSize: '9px',
-      color: '#cfc6b0',
-      wordWrap: { width: 188 },
-    }).setOrigin(0, 0));
-
-    const hasImage = this.scene.textures.exists(imageId);
-    const sampleX = 64;
-    const sampleY = 486;
-    const previewX = 280;
-    const previewY = 430;
-    const previewSize = Math.min(settings.gameDisplayPx * this.zoom, 220);
-
-    this.root.add(this.scene.add.text(sampleX, sampleY - 52, `game ${settings.gameDisplayPx}px`, {
-      fontFamily: 'monospace',
-      fontSize: '9px',
-      color: '#9db7df',
-    }).setOrigin(0.5, 0));
-    const sampleBg = this.scene.add.rectangle(sampleX, sampleY, settings.gameDisplayPx, settings.gameDisplayPx, COLORS.cardBg, 0.82);
-    sampleBg.setStrokeStyle(1, COLORS.cardEdge, 1);
-    this.root.add(sampleBg);
-
-    const previewBg = this.scene.add.rectangle(previewX, previewY, previewSize, previewSize, COLORS.cardBg, 0.8);
-    previewBg.setStrokeStyle(1, COLORS.cardEdge, 1);
-    previewBg.setInteractive({ useHandCursor: true });
-    previewBg.on('pointerdown', () => {
-      this.zoom = this.zoom === 2 ? 3 : 2;
-      this.render();
-    });
-    this.root.add(previewBg);
-
-    if (hasImage) {
-      const cropX = settings.offsetX + (cell.column - 1) * settings.sourceCellPx;
-      const cropY = settings.offsetY + (cell.row - 1) * settings.sourceCellPx;
-      const sample = this.scene.add.image(sampleX, sampleY, imageId)
-        .setCrop(cropX, cropY, settings.sourceCellPx, settings.sourceCellPx)
-        .setDisplaySize(settings.gameDisplayPx, settings.gameDisplayPx);
-      this.root.add(sample);
-      const image = this.scene.add.image(previewX, previewY, imageId)
-        .setCrop(cropX, cropY, settings.sourceCellPx, settings.sourceCellPx)
-        .setDisplaySize(previewSize, previewSize);
-      this.root.add(image);
-    } else {
-      this.root.add(this.scene.add.text(previewX, previewY - 10, 'no image', {
-        fontFamily: FONT,
-        fontSize: '12px',
-        color: '#ffbd4e',
-      }).setOrigin(0.5, 0));
-    }
-
-    this.root.add(this.scene.add.text(previewX, previewY + previewSize / 2 + 10, `${this.zoom}x crop preview（tap to toggle）`, {
-      fontFamily: FONT,
-      fontSize: '9px',
-      color: '#9db7df',
-    }).setOrigin(0.5, 0));
   }
 
   private drawFooterNotes(): void {
     this.root.add(
-      this.scene.add.text(18, GAME_HEIGHT - 108, [
-        'Flow: generated sheet → 74px candidate grid preview → Aseprite crop補正 → promotion別工程',
-        'URL params: ?debug=core5sprites&protoCharacter=yui&cell=74&display=74&ox=0&oy=0',
-        '52px旧前提がズレる場合は cell=74 を基準に確認。player production sprite は差し替えない。',
+      this.scene.add.text(18, GAME_HEIGHT - 92, [
+        'Flow: current board → reference only → regenerate exact 8x6 sheet → Aseprite crop review → promotion別工程',
+        'URL: ?debug=core5sprites&protoCharacter=yui|asa|nagi|michiru|tomori',
+        'player production sprite / gameplay constants は差し替えない。',
       ], {
         fontFamily: FONT,
         fontSize: '9px',
@@ -320,24 +175,6 @@ export class Core5SpriteSheetPreview {
 
   private sourceSize(imageId: string): { width: number; height: number } {
     return this.scene.textures.get(imageId).getSourceImage() as { width: number; height: number };
-  }
-
-  private gridSettings(): GridSettings {
-    const params = new URLSearchParams(window.location.search);
-    const sourceCellPx = this.numberParam(params, 'cell', CORE5_DEFAULT_SOURCE_CELL_SIZE, 24, 128);
-    return {
-      sourceCellPx,
-      gameDisplayPx: this.numberParam(params, 'display', CORE5_DEFAULT_GAME_DISPLAY_SIZE, 32, 96),
-      offsetX: this.numberParam(params, 'ox', 0, 0, 512),
-      offsetY: this.numberParam(params, 'oy', 0, 0, 512),
-    };
-  }
-
-  private numberParam(params: URLSearchParams, name: string, fallback: number, min: number, max: number): number {
-    const raw = params.get(name);
-    const parsed = raw ? Number.parseInt(raw, 10) : Number.NaN;
-    if (!Number.isFinite(parsed)) return fallback;
-    return Phaser.Math.Clamp(parsed, min, max);
   }
 
   private syncCharacterToUrl(id: Core5PrototypeCharacterId): void {
