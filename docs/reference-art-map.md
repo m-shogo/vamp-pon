@@ -3,6 +3,7 @@
 この文書は、Vamp Pon の reference art をどの素材に対応させるかを管理する。
 
 重要:
+
 - reference は完成素材ではない。
 - reference は画風・密度・色・シルエットの正解方向を示す。
 - 実素材は Aseprite でゲームサイズに落とし込み、品質ゲートを通す。
@@ -11,32 +12,30 @@
 
 ## 1. Reference 保存場所
 
-今後、参照画像は以下に保存する。
-
 ```txt
 assets/reference/
   player/
     yui_turnaround_soft_pixel_reference.png
+  character-master/core5/
   enemies/
-    ink_enemy_family_reference.png
+    enemy-48-sheet/
+      enemy-48-sprite-sheet-v1.png
   backgrounds/
     stage1_night_tile_reference.png
 ```
 
-現時点では、会話内で生成した以下の3方向を正式 reference として扱う。
+現在の基準方向:
 
-1. ユイ turnaround reference
+1. Player
    - soft painterly pixel art
-   - 4方向
-   - 大きめ顔、丸い青フード、生成り服、右手ランタン
-2. 敵 family reference
-   - ink_blob
-   - torn_paper_wisp
-   - hooded_ink_specter
-   - ink_hound
-3. 背景 reference
-   - 夜街 / 石畳 / 紙片 / 暖色ランタン
-   - ただし実ゲーム用には情報量を落として tile 化する
+   - 大きめの顔、丸い青フード、生成り服、暖色ランタン
+2. Enemy
+   - 48体設計台帳を正本とする
+   - 共通familyはオンブ／オンブロ
+   - Stage固有15体、中ボス10体、大ボス3体＋別形態10体
+3. Background
+   - 夜街 / 石畳 / 紙片 / 地図線 / 控えめな暖色灯り
+   - 実ゲーム用には情報量を落としてtile化する
 
 ---
 
@@ -66,40 +65,71 @@ assets/reference/
 
 変えてよい要素:
 
-- 42pxで読みやすいように細部を減らす
+- native sizeで読みやすいように細部を減らす
 - 月リムや装飾を控えめにする
-- ランタン位置を gameplay に合わせて外側へ逃がす
+- ランタン位置をgameplayに合わせて外側へ逃がす
 
 変えてはいけない要素:
 
 - 顔を小さくする
 - フードを細くする
 - 服を棒状にする
-- ランタンを中央 `hitCore` と混ざる位置へ寄せる
+- ランタンを中央`hitCore`と混ざる位置へ寄せる
 
 ---
 
 ## 3. Enemy reference
 
-### `ink_enemy_family_reference.png`
+敵の正本:
 
-対応予定:
+- exact order: `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- complete design index: `data/enemy-assets/enemy-design-catalog.json`
+- detailed briefs: catalogの`designFiles`
+- common-family direction: `docs/enemies/omb-ombro-selected-direction.md`
+- sheet plan: `docs/enemies/enemy-48-sprite-sheet-plan.md`
+- readiness: `docs/enemies/enemy-48-production-readiness.md`
 
-| reference enemy | asset id proposal | 用途 |
-| --- | --- | --- |
-| small blob | `enemy_ink_blob` | 序盤群れ |
-| torn paper wisp | `enemy_torn_paper_wisp` | 中距離 / 浮遊 |
-| hooded specter | `enemy_hooded_ink_specter` | 中型圧力 |
-| ink hound | `enemy_ink_hound` | 高速横圧力 |
+### 共通family
 
-守る要素:
+| family | 用途 | 固定記号 |
+|---|---|---|
+| `omb` | 各Stageの小型基準敵 | 柔らかい影体、インク芽、四角い古紙目、全身の暗い影炎 |
+| `ombro` | 各Stageの中型圧力敵 | 低く横長、強い影炎、地面へ垂れる影の擬手 |
 
-- black ink family
-- 光る目
-- シルエット差
-- 紙片 / フード / 獣 の区別
+旧`ink_blob`を独立した正本familyとして扱わない。オンブが小型黒インク影の正本となる。
+
+旧`pon_shadow`、`grown_pon_shadow`、`ポン影`、`ふくらみポン影`は禁止。
+
+### 敵全体で守る要素
+
+- black-ink world
+- 黒一色ではなく濃紺・紫黒・青灰色の段階陰影
 - プレイヤーより暗い
 - 背景より読める
+- eye/light placementを敵ごとに分ける
+- silhouette、body ratio、signature parts、postureを重複させない
+- 攻撃前に読めるtelegraphを持つ
+- 暖色点をpickupやhit coreと誤認する大きさにしない
+- 大ボス別形態をpalette-only swapにしない
+
+### 48体reference sheet
+
+```txt
+assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
+```
+
+仕様:
+
+```txt
+1440x1080px
+8 columns x 6 rows
+180x180px per cell
+true RGBA / alpha 0 background
+48 non-empty cells
+4px transparent safe border per cell
+```
+
+生成シートは`prototype-reference`。production敵素材への直接コピーは禁止。
 
 ---
 
@@ -125,25 +155,27 @@ assets/reference/
 - 建物やランプの主張
 - 目立つ明部
 - 大きすぎる紙片
-- repeating を邪魔する構図
+- repeatingを邪魔する構図
 
 ---
 
-## 5. Reference から実素材への変換ルール
+## 5. Referenceから実素材への変換ルール
 
-1. reference の良い点を言語化する
+1. referenceの良い点を言語化する
 2. 現状素材との差分を書く
-3. 42px / 32px / tile サイズに合わせて要素を減らす
-4. Aseprite source を作る
-5. export する
-6. 1x / 4x / 実背景 / combat-mock で見る
-7. 品質ゲートを通ったら `final-candidate` にする
+3. catalogの`nativePx`へ合わせて要素を減らす
+4. Aseprite sourceを作る
+5. exportする
+6. 1x / 4x / 実背景 / combat mockで見る
+7. 品質ゲートを通ったら`hand-final-candidate`にする
+
+AI生成referenceを直接縮小してproductionへ置かない。
 
 ---
 
 ## 6. Core5 キャラクターマスター
 
-Core5 のキャラクターデザインボードは以下に正規配置済み。
+Core5のキャラクターデザインボード:
 
 ```txt
 assets/reference/character-master/core5/
@@ -154,90 +186,77 @@ assets/reference/character-master/core5/
   tomori-character-master-v1.png
 ```
 
-52px sprite sheet の候補は以下（配置次第）。
+52px sprite sheet候補:
 
 ```txt
 public/assets/prototypes/sprite-sheets/core5-52px/
 ```
 
-48セル定義: `data/character-assets/core5-52px-sprite-sheet-cells.json`
-マニフェスト: `data/character-assets/core5-character-master-assets.json`
+- 48セル定義: `data/character-assets/core5-52px-sprite-sheet-cells.json`
+- マニフェスト: `data/character-assets/core5-character-master-assets.json`
 
-全て **prototype-reference** 扱い。production 昇格は別工程
-（[player-asset-promotion-policy.md](player/player-asset-promotion-policy.md)）。
+全て`prototype-reference`扱い。production昇格は別工程。
 
 ---
 
 ## 7. Enemy 48 reference sheet
 
-敵48枠は、雑魚を各Stage 5体に絞り、余ったセルを大ボスの別形態へ割り当てる。
+配分:
 
 ```txt
 雑魚25
+  オンブ5
+  オンブロ5
+  Stage固有15
 中ボス10
 大ボス基本形態3
 大ボス別形態10
 合計48
 ```
 
-正本:
-
-- 48セル設計: `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
-- 設計・配置・検品: `docs/enemies/enemy-48-sprite-sheet-plan.md`
-- 生成用コピペ: `assets/concept-design/06_prompts/enemy-48-sprite-sheet-generation-prompt.md`
-
-参照画像の予定位置:
+各Stage:
 
 ```txt
-assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
+オンブ1
+オンブロ1
+Stage固有3
+中ボス2
 ```
 
-prototype確認用の予定位置:
+大ボス戦中はStage時間、wave進行、通常spawn、時間難易度上昇を停止する。プレイヤー操作、攻撃、cooldown、大ボス内部時間は進行する。大ボス戦時間は生存時間へ加算しない。
 
-```txt
-public/assets/prototypes/sprite-sheets/enemies-180px/enemy-48-sprite-sheet-v1.png
+検査:
+
+```sh
+pnpm enemy48:design:check
+pnpm enemy48:manifest:check
+pnpm enemy48:sprites:verify
 ```
-
-仕様:
-
-```txt
-1440x1080px
-8 columns x 6 rows
-180x180px per cell
-RGBA / alpha 0 background
-48 non-empty cells
-```
-
-大ボス戦中はStage時間、wave進行、通常spawnを停止する。プレイヤー操作と大ボス固有フェーズは進行する。
-
-生成シートは **prototype-reference**。production敵素材への直接コピーは禁止。
 
 ---
 
 ## 8. フォルダの役割
 
-| フォルダ | 役割 | production か |
+| フォルダ | 役割 | productionか |
 |---|---|---|
-| `assets/concept-design/` | 作業場。方向性を固める | no |
-| `assets/reference/` | 正式参照画像 | no |
+| `assets/concept-design/` | 方向性検討と生成prompt | no |
+| `assets/reference/` | 正式reference | no |
 | `assets/reference/character-master/core5/` | キャラ設計の正本 | no |
-| `assets/reference/enemies/enemy-48-sheet/` | 敵48体の生成参照シート | no |
-| `public/assets/prototypes/sprite-sheets/core5-52px/` | ゲームで仮読み込み可能な character sheet候補 | no |
-| `public/assets/prototypes/sprite-sheets/enemies-180px/` | ゲームで仮読み込み可能な enemy sheet候補 | no |
-| `public/assets/sprites/player/` | production player sprite。手仕上げ+レビュー済みのみ | **yes** |
-| `public/assets/sprites/enemies/` | production enemy sprite。手仕上げ+レビュー済みのみ | **yes** |
+| `assets/reference/enemies/enemy-48-sheet/` | 敵48体のreference sheet | no |
+| `public/assets/prototypes/sprite-sheets/core5-52px/` | ゲームで仮読込可能なcharacter sheet候補 | no |
+| `public/assets/prototypes/sprite-sheets/enemies-180px/` | ゲームで仮読込可能なenemy sheet候補 | no |
+| `assets/source/aseprite/enemies/` | editable enemy source | source of truth |
+| `public/assets/sprites/player/` | 手仕上げ・review済みplayer export | **yes** |
+| `public/assets/sprites/enemies/` | 手仕上げ・review済みenemy export | **yes** |
 
 ---
 
-## 9. 現在の注意
+## 9. 現在の優先順
 
-現在 repo 上の `yui_idle_42` 系は、まだ reference の品質には届いていない。
-扱いは **temporary candidate**。
-
-次にやるべきこと:
-
-1. `yui_idle_42` を reference 基準で再調整
-2. 通ったら `yui_move_42` へ展開
-3. Enemy 48 sheetを生成し、1440x1080 / RGBA / 48セル / overflow 0を機械検査
-4. 48枠からゲーム初期投入敵を選び、native spriteへ再設計
-5. 最後に背景 tile を再設計する
+1. Enemy 48 sheetを生成し、1440x1080 / RGBA / 48セル / overflow 0を機械検査
+2. シルエット衝突とStageごとの見分けやすさをreview
+3. オンブ／オンブロStage 1をnative Aseprite sourceへ再設計
+4. Stage 1固有雑魚3体をnative化
+5. Stage 1中ボス2体をnative化
+6. runtimeを`docs/enemies/enemy-runtime-migration-plan.md`の順で移行
+7. 1x / 4x / dark background / combat mockで品質ゲート
