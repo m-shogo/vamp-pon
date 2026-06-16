@@ -2,107 +2,99 @@
 
 ## Current decision
 
-Core5 の 52px sprite sheet は **prototype-reference / sprite-sheet-candidate** として扱う。
+Core5 のアップロード済み 5 枚は **raw reference board** として扱う。
+
+**sprite sheet candidate からは降格**。現状はズレが大きく、52px / 74px / offset 調整で切り出す対象ではない。
 
 production 昇格はしない。`public/assets/sprites/player/` と `assets/source/aseprite/player/` は今回の対象外。
 
-## Preview pipeline
+## 2026-06-16 visual review result
+
+Decision: **再生成必須**。
+
+理由:
+
+- 8×6 の均等グリッドとして成立していない。
+- `cell=52` でも `cell=74` でも、セル境界にポーズが合わない。
+- `ox/oy` の微調整で直るズレではない。
+- 現在の画像は「sprite sheet」ではなく「複数案を並べた参照ボード」に近い。
+- このまま normalizer / Aseprite crop に進むと、後工程で全セルを直すことになる。
+
+結論:
 
 ```txt
-data/character-assets/core5-character-master-assets.json
-+ data/character-assets/core5-52px-sprite-sheet-cells.json
-+ public/assets/prototypes/sprite-sheets/core5-52px/*.png
--> pnpm character-assets:verify
--> pnpm core5:sprites:normalize
--> ?debug=core5sprites&protoCharacter=yui
--> Aseprite manual crop / hand correction
+current Core5 uploaded boards = reference only
+next required asset = exact 8x6 sprite sheet
+```
+
+## Correct next asset target
+
+次に作る画像は、名前より実体を優先する。
+
+推奨:
+
+```txt
+cell: 74px
+columns: 8
+rows: 6
+canvas: 592x444px
+background: transparent or flat debug color
+text: none
+labels: none
+one pose per cell
+cell boundary: exact, uniform, no collage layout
+```
+
+52px は小さく見えるため、次の候補は **74px source / 74px in-game preview** を基準にする。
+
+## Preview pipeline after this decision
+
+```txt
+public/assets/prototypes/sprite-sheets/core5-52px/*.png
+-> raw reference board preview only
+-> do not crop
+-> do not normalize into frames
+-> regenerate exact 8x6 sheet
+-> then Aseprite manual crop / hand correction
 -> production promotion later
 ```
 
 ## Sprite sheet status by character
 
-| character | prototype sheet | current status | first review focus |
+| character | prototype board | current status | next action |
 | --- | --- | --- | --- |
-| Yui | `public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png` | sheet candidate. strict gate requires the file before visual review. | 主人公基準。フード、顔、ランタン、hitCore 誤認を最初に見る。 |
-| Asa | `public/assets/prototypes/sprite-sheets/core5-52px/asa-52px-sprite-sheet-v1.png` | sheet candidate. strict gate requires the file before visual review. | 名札・紙片が文字なしで読めるか。Yui recolor 化しないか。 |
-| Nagi | `public/assets/prototypes/sprite-sheets/core5-52px/nagi-52px-sprite-sheet-v1.png` | sheet candidate. strict gate requires the file before visual review. | 月箱・鍵・防御姿勢。暗フードがYuiと混ざらないか。 |
-| Michiru | `public/assets/prototypes/sprite-sheets/core5-52px/michiru-52px-sprite-sheet-v1.png` | sheet candidate. strict gate requires the file before visual review. | コンパス・地図線・帰り道の光が52pxで残るか。 |
-| Tomori | `public/assets/prototypes/sprite-sheets/core5-52px/tomori-52px-sprite-sheet-v1.png` | sheet candidate. strict gate requires the file before visual review. | 修理ランプ・道具袋・火花。Yuiのランタン役割と被らないか。 |
+| Yui | `public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png` | raw reference only | exact 8x6 / 74px sheet を再生成。主人公基準で最初に確認。 |
+| Asa | `public/assets/prototypes/sprite-sheets/core5-52px/asa-52px-sprite-sheet-v1.png` | raw reference only | Yui と同じlayoutで再生成。名札・紙片は文字なしで読ませる。 |
+| Nagi | `public/assets/prototypes/sprite-sheets/core5-52px/nagi-52px-sprite-sheet-v1.png` | raw reference only | 月箱・鍵・防御姿勢をセル内中央に固定。 |
+| Michiru | `public/assets/prototypes/sprite-sheets/core5-52px/michiru-52px-sprite-sheet-v1.png` | raw reference only | コンパス・地図線・帰り道の光をセル外にはみ出させない。 |
+| Tomori | `public/assets/prototypes/sprite-sheets/core5-52px/tomori-52px-sprite-sheet-v1.png` | raw reference only | 修理ランプ・道具袋・火花をYuiのランタンと差別化。 |
 
-## 48-cell review map
+## 48-cell target map for regenerated sheet
 
-The current 48 cells are divided like this:
+The regenerated exact 8x6 sheet should use this layout:
 
 | range | row role | expected usage | risk |
 | --- | --- | --- | --- |
 | 0-7 | idle / direction / ready | game idle, direction readability, vessel ready pose | 最重要。ここが崩れると本編で使えない。 |
 | 8-15 | walk cycle | movement preview | 左右差・足運びがAI生成で破綻しやすい。 |
 | 16-23 | cast / attack | weapon and ultimate preview | vessel/effect が大きすぎると hitCore / pickup と誤認する。 |
-| 24-31 | hurt / recoil | damage feedback | 52pxだと表情よりシルエットで読む必要がある。 |
-| 32-39 | special / black / interact / emote | special, story, result, black-evolution | black frame はただ黒いだけにしない。通常版との差分が必要。 |
-| 40-47 | portrait / vessel / crest / item / effect icons | UI icons and future character card | icon cells は gameplay sprite と切り離して評価する。 |
+| 24-31 | hurt / recoil | damage readability | 表情より silhouette を優先。 |
+| 32-39 | special / interaction / emote | story and special move | 派手すぎると gameplay sprite として使えない。 |
+| 40-47 | portrait / icons / crest / memory | UI / inventory / result | icon row はキャラ本体と切り分ける。 |
 
-## Usable / suspicious / remake-required cells
+## Regeneration prompt requirement
 
-現時点では画像を直接目視していないため、セル単位の採点は **preview後に更新**する。
-
-Initial review assumptions:
-
-- **Likely usable first**: `idle_front`, `ready_front`, `walk_front_a`, `walk_front_b`, `vessel_icon`, `crest_normal`
-- **Suspicious**: left/right directional pairs, `hurt_*`, `recoil_*`, `special_black`, portrait cells
-- **Likely needs remake or Aseprite correction**: any cell where the generated sheet breaks the 52px boundary, contains text, merges multiple poses, or loses the character vessel
-
-## Why Yui first
-
-Yui is the player-facing baseline. If Yui's 52px sheet cannot survive 1x/4x/8x preview, the other four characters should not be promoted into the same format yet.
-
-Yui review decides:
-
-- actual crop boundary strategy
-- 1x readability target
-- hitCore / lantern separation
-- dark background contrast
-- how much Aseprite correction is required before a sheet can become production-candidate
-
-## Why production is not touched
-
-These generated sheets are not hand-final. The project policy requires player/main character production assets to pass a separate promotion flow:
-
-- human review
-- Aseprite correction / manual crop
-- 80-point quality gate
-- production path guard
-- `public/assets/sprites/player/` update only in a dedicated promotion task
-
-Therefore this branch only adds preview infrastructure.
-
-## Aseprite correction checklist
-
-Next Aseprite pass should focus on:
-
-1. Slice each source sheet against the 8x6 logical grid and mark actual cell boundaries.
-2. Remove accidental text, labels, duplicated props, or merged cells.
-3. Normalize each cell to 52x52 with consistent baseline / foot position.
-4. Keep outline and rim light tight enough for the night background.
-5. Separate character vessel glow from hitCore / pickup glow.
-6. Fix left/right pairs so they are not simple broken mirrors.
-7. Rebuild `hurt`, `recoil`, `special_black`, and icon rows manually if AI generation is ambiguous.
-8. Export a review sheet before any production promotion discussion.
-
-## Preview commands
-
-```sh
-pnpm character-assets:verify
-pnpm core5:sprites:normalize
-pnpm dev
-# open /?debug=core5sprites&protoCharacter=yui
-```
-
-Other characters:
+次の生成依頼では、以下を必ず入れる。
 
 ```txt
-/?debug=core5sprites&protoCharacter=asa
-/?debug=core5sprites&protoCharacter=nagi
-/?debug=core5sprites&protoCharacter=michiru
-/?debug=core5sprites&protoCharacter=tomori
+Create one exact pixel-art sprite sheet PNG, 592x444px, 8 columns and 6 rows, each cell exactly 74x74px. No text, no labels, no captions, no UI, no collage framing. One centered pose per cell. Keep every pose inside its cell. Transparent background. Same character design across all 48 cells. Pixel art for a vertical mobile action game. Export as a true grid-aligned sprite sheet.
 ```
+
+## Why production is still untouched
+
+この段階で production に入れると、後で破綻する。
+
+- generated board は hand-final ではない。
+- grid が成立していない。
+- Aseprite での人間 crop / 1px correction が未実施。
+- 本編 player asset は `public/assets/sprites/player/` と `assets/source/aseprite/player/` の別promotion gateで扱う。
