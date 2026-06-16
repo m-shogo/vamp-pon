@@ -1,11 +1,11 @@
 import type Phaser from 'phaser';
 import { assetManifest } from './assetManifest';
-import { prototypeAssets } from './prototypeManifest';
+import { allPrototypeAssets } from './prototypeManifest';
 
 /**
  * 「実在する画像だけ」を Phaser のロードキューに積む。
  * 未配置のファイルは fetch(HEAD) で除外するため、404 で大量のloaderrorを出さない。
- * 画像が無い要素は各 createXView が Graphics fallback を描く。
+ * 画像が無い要素は各 createXView / preview が Graphics fallback を描く。
  *
  * @returns 積んだ件数（0 ならロード不要）
  */
@@ -22,7 +22,7 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
 }
 
 /**
- * 比較用 prototype 画像をロードキューに積む（ギャラリー比較ページ用）。
+ * 比較用 prototype 画像をロードキューに積む（ギャラリー / Core5 preview 用）。
  * 本番 assetManifest とは別管理。存在するものだけ積む。
  *
  * @returns 積んだ件数
@@ -30,7 +30,7 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
 export async function queuePrototypeAssets(scene: Phaser.Scene): Promise<number> {
   let queued = 0;
   await Promise.all(
-    prototypeAssets.map(async (a) => {
+    allPrototypeAssets.map(async (a) => {
       if (!(await fileExists(a.path))) return;
       scene.load.image(a.id, a.path);
       queued += 1;
