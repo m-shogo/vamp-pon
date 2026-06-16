@@ -1,362 +1,68 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { decodePng, pixelOffset, type RgbaImage } from '../prototypes/core5-image/png-rgba.ts';
+import { validateEnemy48Design } from './check-enemy-48-design.ts';
 
-type EnemyTier = 'grunt' | 'midboss' | 'boss' | 'boss_form';
-type GruntKind = 'common_small' | 'common_medium' | 'stage_unique' | null;
+const DEFAULT_SOURCE = 'assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png';
+const W = 1440, H = 1080, CELL = 180;
 
-type EnemyCell = {
-  displayNo: number;
-  index: number;
-  row: number;
-  column: number;
-  id: string;
-  workingName: string;
-  tier: EnemyTier;
-  gruntKind: GruntKind;
-  stage: number;
-  familyId: string | null;
-  paletteKey: string;
-  formOf: string | null;
-  visualRole: string;
-};
-
-type EnemySheetManifest = {
-  canvas: {
-    widthPx: number;
-    heightPx: number;
-    colorMode: string;
-    backgroundAlpha: number;
-  };
-  grid: {
-    columns: number;
-    rows: number;
-    cellWidthPx: number;
-    cellHeightPx: number;
-    totalCells: number;
-  };
-  distribution: {
-    grunt: number;
-    midboss: number;
-    boss: number;
-    bossForm: number;
-  };
-  gruntComposition: {
-    commonSmallVariants: number;
-    commonMediumVariants: number;
-    stageUnique: number;
-  };
-  commonFamilies: Record<string, {
-    workingName: string;
-    sizeClass: string;
-    variantCount: number;
-    identityRule: string;
-  }>;
-  stagePalettes: Record<string, {
-    paletteKey: string;
-    theme: string;
-    bodyHue: string;
-    accent: string;
-  }>;
-  cells: EnemyCell[];
-};
-
-type PngHeader = {
-  width: number;
-  height: number;
-  bitDepth: number;
-  colorType: number;
-};
-
-type CellInspection = {
-  id: string;
-  displayNo: number;
-  nonTransparentPixels: number;
-  transparentPixels: number;
-  borderAlphaPixels: number;
-  alphaBounds: { x: number; y: number; width: number; height: number } | null;
-};
-
-const MANIFEST_PATH = 'data/enemy-assets/enemy-48-sprite-sheet-cells.json';
-const DEFAULT_SOURCE_PATH =
-  'assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png';
-const EXPECTED_WIDTH = 1440;
-const EXPECTED_HEIGHT = 1080;
-const EXPECTED_COLUMNS = 8;
-const EXPECTED_ROWS = 6;
-const EXPECTED_CELL_SIZE = 180;
-const EXPECTED_CELL_COUNT = 48;
-const SAFE_BORDER_PX = 4;
-const STAGES = [1, 2, 3, 4, 5] as const;
-
-function assert(condition: unknown, message: string): asserts condition {
-  if (!condition) throw new Error(message);
+function ok(value: unknown, message: string): asserts value {
+  if (!value) throw new Error(message);
 }
-
-function readPngHeader(buffer: Buffer): PngHeader {
-  assert(
-    buffer.subarray(0, 8).toString('hex') === '89504e470d0a1a0a',
-    'Source is not a PNG file',
-  );
-
+function header(buffer: Buffer) {
+  ok(buffer.subarray(0,8).toString('hex') === '89504e470d0a1a0a', 'not PNG');
   let offset = 8;
   while (offset + 12 <= buffer.length) {
     const length = buffer.readUInt32BE(offset);
     const type = buffer.subarray(offset + 4, offset + 8).toString('ascii');
-    const dataStart = offset + 8;
     if (type === 'IHDR') {
-      assert(length === 13, `Invalid IHDR length: ${length}`);
-      return {
-        width: buffer.readUInt32BE(dataStart),
-        height: buffer.readUInt32BE(dataStart + 4),
-        bitDepth: buffer[dataStart + 8],
-        colorType: buffer[dataStart + 9],
-      };
+      const p = offset + 8;
+      return { width: buffer.readUInt32BE(p), height: buffer.readUInt32BE(p+4), bitDepth: buffer[p+8], colorType: buffer[p+9] };
     }
     offset += length + 12;
   }
-
-  throw new Error('PNG has no IHDR chunk');
+  throw new Error('PNG has no IHDR');
 }
-
-function validateGruntComposition(manifest: EnemySheetManifest, cells: EnemyCell[]): void {
-  assert(
-    manifest.gruntComposition.commonSmallVariants === 5,
-    'Manifest must define 5 common small variants',
-  );
-  assert(
-    manifest.gruntComposition.commonMediumVariants === 5,
-    'Manifest must define 5 common medium variants',
-  );
-  assert(
-    manifest.gruntComposition.stageUnique === 15,
-    'Manifest must define 15 Stage-unique grunts',
-  );
-
-  assert(manifest.commonFamilies.pon_shadow?.variantCount === 5, 'pon_shadow must have 5 variants');
-  assert(
-    manifest.commonFamilies.grown_pon_shadow?.variantCount === 5,
-    'grown_pon_shadow must have 5 variants',
-  );
-
-  const grunts = cells.filter((cell) => cell.tier === 'grunt');
-  const small = grunts.filter((cell) => cell.gruntKind === 'common_small');
-  const medium = grunts.filter((cell) => cell.gruntKind === 'common_medium');
-  const unique = grunts.filter((cell) => cell.gruntKind === 'stage_unique');
-
-  assert(small.length === 5, `Expected 5 common small variants, got ${small.length}`);
-  assert(medium.length === 5, `Expected 5 common medium variants, got ${medium.length}`);
-  assert(unique.length === 15, `Expected 15 Stage-unique grunts, got ${unique.length}`);
-
-  assert(
-    small.every((cell) => cell.familyId === 'pon_shadow'),
-    'All common small variants must use familyId=pon_shadow',
-  );
-  assert(
-    medium.every((cell) => cell.familyId === 'grown_pon_shadow'),
-    'All common medium variants must use familyId=grown_pon_shadow',
-  );
-  assert(
-    unique.every((cell) => cell.familyId === null),
-    'Stage-unique grunts must not use a common familyId',
-  );
-
-  for (const stage of STAGES) {
-    const stageKey = `stage${stage}`;
-    const expectedPalette = manifest.stagePalettes[stageKey]?.paletteKey;
-    assert(expectedPalette, `Missing palette definition for ${stageKey}`);
-
-    const stageGrunts = grunts.filter((cell) => cell.stage === stage);
-    const stageSmall = stageGrunts.filter((cell) => cell.gruntKind === 'common_small');
-    const stageMedium = stageGrunts.filter((cell) => cell.gruntKind === 'common_medium');
-    const stageUnique = stageGrunts.filter((cell) => cell.gruntKind === 'stage_unique');
-
-    assert(stageGrunts.length === 5, `Stage ${stage} must have exactly 5 grunts`);
-    assert(stageSmall.length === 1, `Stage ${stage} must have one common small shadow`);
-    assert(stageMedium.length === 1, `Stage ${stage} must have one common medium shadow`);
-    assert(stageUnique.length === 3, `Stage ${stage} must have three unique grunts`);
-    assert(
-      stageGrunts.every((cell) => cell.paletteKey === expectedPalette),
-      `Stage ${stage} grunt paletteKey must be ${expectedPalette}`,
-    );
-  }
-
-  assert(new Set(small.map((cell) => cell.paletteKey)).size === 5, 'Small variants need 5 palettes');
-  assert(new Set(medium.map((cell) => cell.paletteKey)).size === 5, 'Medium variants need 5 palettes');
-}
-
-function validateDefinitions(manifest: EnemySheetManifest): EnemyCell[] {
-  assert(manifest.canvas.widthPx === EXPECTED_WIDTH, 'Manifest canvas width must be 1440');
-  assert(manifest.canvas.heightPx === EXPECTED_HEIGHT, 'Manifest canvas height must be 1080');
-  assert(manifest.canvas.colorMode === 'RGBA', 'Manifest color mode must be RGBA');
-  assert(manifest.canvas.backgroundAlpha === 0, 'Manifest background alpha must be 0');
-
-  assert(manifest.grid.columns === EXPECTED_COLUMNS, 'Manifest grid must have 8 columns');
-  assert(manifest.grid.rows === EXPECTED_ROWS, 'Manifest grid must have 6 rows');
-  assert(manifest.grid.cellWidthPx === EXPECTED_CELL_SIZE, 'Manifest cell width must be 180');
-  assert(manifest.grid.cellHeightPx === EXPECTED_CELL_SIZE, 'Manifest cell height must be 180');
-  assert(manifest.grid.totalCells === EXPECTED_CELL_COUNT, 'Manifest must define 48 cells');
-
-  assert(manifest.distribution.grunt === 25, 'Manifest must define 25 grunt cells');
-  assert(manifest.distribution.midboss === 10, 'Manifest must define 10 midboss cells');
-  assert(manifest.distribution.boss === 3, 'Manifest must define 3 boss cells');
-  assert(manifest.distribution.bossForm === 10, 'Manifest must define 10 boss-form cells');
-
-  const cells = [...manifest.cells].sort((a, b) => a.index - b.index);
-  assert(cells.length === EXPECTED_CELL_COUNT, `Expected 48 cell records, got ${cells.length}`);
-
-  const ids = new Set<string>();
-  const positions = new Set<string>();
-  const tierCounts: Record<EnemyTier, number> = {
-    grunt: 0,
-    midboss: 0,
-    boss: 0,
-    boss_form: 0,
-  };
-
-  cells.forEach((cell, expectedIndex) => {
-    const expectedRow = Math.floor(expectedIndex / EXPECTED_COLUMNS) + 1;
-    const expectedColumn = (expectedIndex % EXPECTED_COLUMNS) + 1;
-
-    assert(cell.index === expectedIndex, `Missing or duplicated index ${expectedIndex}`);
-    assert(cell.displayNo === expectedIndex + 1, `Invalid displayNo at index ${expectedIndex}`);
-    assert(cell.row === expectedRow, `Invalid row for ${cell.id}: expected ${expectedRow}`);
-    assert(
-      cell.column === expectedColumn,
-      `Invalid column for ${cell.id}: expected ${expectedColumn}`,
-    );
-    assert(!ids.has(cell.id), `Duplicated enemy id: ${cell.id}`);
-
-    const position = `${cell.row}:${cell.column}`;
-    assert(!positions.has(position), `Duplicated cell position: ${position}`);
-
-    ids.add(cell.id);
-    positions.add(position);
-    tierCounts[cell.tier] += 1;
-  });
-
-  assert(tierCounts.grunt === 25, `Expected 25 grunts, got ${tierCounts.grunt}`);
-  assert(tierCounts.midboss === 10, `Expected 10 midbosses, got ${tierCounts.midboss}`);
-  assert(tierCounts.boss === 3, `Expected 3 bosses, got ${tierCounts.boss}`);
-  assert(tierCounts.boss_form === 10, `Expected 10 boss forms, got ${tierCounts.boss_form}`);
-
-  validateGruntComposition(manifest, cells);
-
-  const bossIds = new Set(cells.filter((cell) => cell.tier === 'boss').map((cell) => cell.id));
-  for (const cell of cells.filter((entry) => entry.tier === 'boss_form')) {
-    assert(cell.formOf !== null, `${cell.id} must define formOf`);
-    assert(bossIds.has(cell.formOf), `${cell.id} references unknown boss ${cell.formOf}`);
-  }
-
-  return cells;
-}
-
-function inspectCell(image: RgbaImage, cell: EnemyCell): CellInspection {
-  const startX = (cell.column - 1) * EXPECTED_CELL_SIZE;
-  const startY = (cell.row - 1) * EXPECTED_CELL_SIZE;
-  let minX = EXPECTED_CELL_SIZE;
-  let minY = EXPECTED_CELL_SIZE;
-  let maxX = -1;
-  let maxY = -1;
-  let nonTransparentPixels = 0;
-  let transparentPixels = 0;
-  let borderAlphaPixels = 0;
-
-  for (let localY = 0; localY < EXPECTED_CELL_SIZE; localY += 1) {
-    for (let localX = 0; localX < EXPECTED_CELL_SIZE; localX += 1) {
-      const alpha = image.data[pixelOffset(image, startX + localX, startY + localY) + 3];
-      if (alpha === 0) {
-        transparentPixels += 1;
-        continue;
-      }
-
-      nonTransparentPixels += 1;
-      minX = Math.min(minX, localX);
-      minY = Math.min(minY, localY);
-      maxX = Math.max(maxX, localX);
-      maxY = Math.max(maxY, localY);
-
-      const isInsideForbiddenBorder =
-        localX < SAFE_BORDER_PX ||
-        localY < SAFE_BORDER_PX ||
-        localX >= EXPECTED_CELL_SIZE - SAFE_BORDER_PX ||
-        localY >= EXPECTED_CELL_SIZE - SAFE_BORDER_PX;
-      if (isInsideForbiddenBorder) borderAlphaPixels += 1;
+function inspect(image: RgbaImage, row: number, column: number, safe: number) {
+  let filled = 0, transparent = 0, border = 0;
+  const sx = (column-1)*CELL, sy = (row-1)*CELL;
+  for (let y=0; y<CELL; y+=1) for (let x=0; x<CELL; x+=1) {
+    const alpha = image.data[pixelOffset(image,sx+x,sy+y)+3];
+    if (alpha === 0) transparent += 1;
+    else {
+      filled += 1;
+      if (x<safe || y<safe || x>=CELL-safe || y>=CELL-safe) border += 1;
     }
   }
-
-  return {
-    id: cell.id,
-    displayNo: cell.displayNo,
-    nonTransparentPixels,
-    transparentPixels,
-    borderAlphaPixels,
-    alphaBounds:
-      maxX < 0
-        ? null
-        : {
-            x: minX,
-            y: minY,
-            width: maxX - minX + 1,
-            height: maxY - minY + 1,
-          },
-  };
+  return { filled, transparent, border };
 }
 
+const { manifest, cells } = validateEnemy48Design();
 const args = process.argv.slice(2);
 const manifestOnly = args.includes('--manifest-only');
-const sourcePath = args.find((arg) => !arg.startsWith('--')) ?? DEFAULT_SOURCE_PATH;
-const manifest = JSON.parse(readFileSync(MANIFEST_PATH, 'utf8')) as EnemySheetManifest;
-const cells = validateDefinitions(manifest);
+const source = args.find((arg) => !arg.startsWith('--')) ?? DEFAULT_SOURCE;
 
 console.log('enemy48 manifest: ok');
-console.log('distribution: grunt=25 midboss=10 boss=3 bossForm=10');
-console.log('grunt composition: commonSmall=5 commonMedium=5 stageUnique=15');
-console.log('per Stage: common small=1 common medium=1 unique=3');
-console.log('grid: 8x6 / 48 cells / 180x180 per cell');
-
+console.log('grid: 8x6 / 48 cells / 180x180');
 if (manifestOnly) {
   console.log('image validation: skipped (--manifest-only)');
   process.exit(0);
 }
 
-assert(existsSync(sourcePath), `Enemy sheet not found: ${sourcePath}`);
-const sourceBuffer = readFileSync(sourcePath);
-const header = readPngHeader(sourceBuffer);
-
-assert(
-  header.width === EXPECTED_WIDTH && header.height === EXPECTED_HEIGHT,
-  `Expected ${EXPECTED_WIDTH}x${EXPECTED_HEIGHT}, got ${header.width}x${header.height}`,
-);
-assert(header.bitDepth === 8, `Expected 8-bit PNG, got ${header.bitDepth}-bit`);
-assert(header.colorType === 6, `Expected true RGBA PNG color type 6, got ${header.colorType}`);
-
-const image = decodePng(sourceBuffer);
-const inspections = cells.map((cell) => inspectCell(image, cell));
-const emptyCells = inspections.filter((cell) => cell.nonTransparentPixels === 0);
-const noTransparentBackground = inspections.filter((cell) => cell.transparentPixels === 0);
-const borderViolations = inspections.filter((cell) => cell.borderAlphaPixels > 0);
-
-assert(
-  emptyCells.length === 0,
-  `Empty cells: ${emptyCells.map((cell) => String(cell.displayNo).padStart(2, '0')).join(', ')}`,
-);
-assert(
-  noTransparentBackground.length === 0,
-  `Cells without transparent background: ${noTransparentBackground
-    .map((cell) => String(cell.displayNo).padStart(2, '0'))
-    .join(', ')}`,
-);
-assert(
-  borderViolations.length === 0,
-  `Cell overflow/safety-border violations: ${borderViolations
-    .map((cell) => `${String(cell.displayNo).padStart(2, '0')}:${cell.id}`)
-    .join(', ')}`,
-);
-
-console.log(`canvas: ${header.width}x${header.height}`);
-console.log('mode: RGBA (PNG color type 6)');
-console.log(`background alpha: 0 (transparent pixels and ${SAFE_BORDER_PX}px safety borders verified)`);
-console.log(`detected non-empty cells: ${inspections.length - emptyCells.length}/48`);
+ok(existsSync(source), `enemy sheet not found: ${source}`);
+const buffer = readFileSync(source);
+const png = header(buffer);
+ok(png.width === W && png.height === H, `expected ${W}x${H}, got ${png.width}x${png.height}`);
+ok(png.bitDepth === 8 && png.colorType === 6, 'expected 8-bit true RGBA PNG color type 6');
+const image = decodePng(buffer);
+const results = cells.map((cell) => ({ cell, ...inspect(image,cell.row,cell.column,manifest.grid.safeBorder) }));
+const empty = results.filter((r) => r.filled === 0);
+const opaque = results.filter((r) => r.transparent === 0);
+const overflow = results.filter((r) => r.border > 0);
+ok(empty.length === 0, `empty cells: ${empty.map((r) => r.cell.no).join(',')}`);
+ok(opaque.length === 0, `no transparent background: ${opaque.map((r) => r.cell.no).join(',')}`);
+ok(overflow.length === 0, `safe-border violations: ${overflow.map((r) => `${r.cell.no}:${r.cell.id}`).join(',')}`);
+console.log(`canvas: ${png.width}x${png.height}`);
+console.log('mode: RGBA / background alpha 0');
+console.log('detected non-empty cells: 48/48');
 console.log('cell overflow: 0');
-console.log('cross-cell alpha connection: 0');
-console.log(`enemy48 sprite sheet: ok (${sourcePath})`);
+console.log(`enemy48 sprite sheet: ok (${source})`);
