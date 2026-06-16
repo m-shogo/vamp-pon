@@ -168,19 +168,68 @@ public/assets/prototypes/sprite-sheets/core5-52px/
 
 ---
 
-## 7. フォルダの役割
+## 7. Enemy 48 reference sheet
+
+敵48枠は、雑魚を各Stage 5体に絞り、余ったセルを大ボスの別形態へ割り当てる。
+
+```txt
+雑魚25
+中ボス10
+大ボス基本形態3
+大ボス別形態10
+合計48
+```
+
+正本:
+
+- 48セル設計: `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- 設計・配置・検品: `docs/enemies/enemy-48-sprite-sheet-plan.md`
+- 生成用コピペ: `assets/concept-design/06_prompts/enemy-48-sprite-sheet-generation-prompt.md`
+
+参照画像の予定位置:
+
+```txt
+assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
+```
+
+prototype確認用の予定位置:
+
+```txt
+public/assets/prototypes/sprite-sheets/enemies-180px/enemy-48-sprite-sheet-v1.png
+```
+
+仕様:
+
+```txt
+1440x1080px
+8 columns x 6 rows
+180x180px per cell
+RGBA / alpha 0 background
+48 non-empty cells
+```
+
+大ボス戦中はStage時間、wave進行、通常spawnを停止する。プレイヤー操作と大ボス固有フェーズは進行する。
+
+生成シートは **prototype-reference**。production敵素材への直接コピーは禁止。
+
+---
+
+## 8. フォルダの役割
 
 | フォルダ | 役割 | production か |
 |---|---|---|
 | `assets/concept-design/` | 作業場。方向性を固める | no |
 | `assets/reference/` | 正式参照画像 | no |
 | `assets/reference/character-master/core5/` | キャラ設計の正本 | no |
-| `public/assets/prototypes/sprite-sheets/core5-52px/` | ゲームで仮読み込み可能な sprite sheet 候補 | no |
-| `public/assets/sprites/player/` | production sprite。手仕上げ+レビュー済みのみ | **yes** |
+| `assets/reference/enemies/enemy-48-sheet/` | 敵48体の生成参照シート | no |
+| `public/assets/prototypes/sprite-sheets/core5-52px/` | ゲームで仮読み込み可能な character sheet候補 | no |
+| `public/assets/prototypes/sprite-sheets/enemies-180px/` | ゲームで仮読み込み可能な enemy sheet候補 | no |
+| `public/assets/sprites/player/` | production player sprite。手仕上げ+レビュー済みのみ | **yes** |
+| `public/assets/sprites/enemies/` | production enemy sprite。手仕上げ+レビュー済みのみ | **yes** |
 
 ---
 
-## 8. 現在の注意
+## 9. 現在の注意
 
 現在 repo 上の `yui_idle_42` 系は、まだ reference の品質には届いていない。
 扱いは **temporary candidate**。
@@ -189,5 +238,6 @@ public/assets/prototypes/sprite-sheets/core5-52px/
 
 1. `yui_idle_42` を reference 基準で再調整
 2. 通ったら `yui_move_42` へ展開
-3. その後、敵4系統を作る
-4. 最後に背景 tile を再設計する
+3. Enemy 48 sheetを生成し、1440x1080 / RGBA / 48セル / overflow 0を機械検査
+4. 48枠からゲーム初期投入敵を選び、native spriteへ再設計
+5. 最後に背景 tile を再設計する
