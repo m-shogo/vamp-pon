@@ -49,6 +49,10 @@ jobs:
           test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/26_r04_c03_hurt_right.png
           test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/27_r04_c04_hurt_back.png
           test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/32_r05_c01_special_normal.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/40_r06_c01_portrait_neutral.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/41_r06_c02_portrait_alt.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/44_r06_c05_crest_normal.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/45_r06_c06_crest_black.png
 
       - name: Test
         run: pnpm test
