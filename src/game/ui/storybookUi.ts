@@ -123,15 +123,15 @@ export function drawStar(
   alpha: number = 1,
 ): Phaser.GameObjects.Graphics {
   const s = Math.max(4, Math.round(size));
-  const points: Array<{ x: number; y: number }> = [
-    { x, y: y - s },
-    { x: x + s * 0.34, y: y - s * 0.35 },
-    { x: x + s, y },
-    { x: x + s * 0.34, y: y + s * 0.35 },
-    { x, y: y + s },
-    { x: x - s * 0.34, y: y + s * 0.35 },
-    { x: x - s, y },
-    { x: x - s * 0.34, y: y - s * 0.35 },
+  const points: Phaser.Math.Vector2[] = [
+    new Phaser.Math.Vector2(x, y - s),
+    new Phaser.Math.Vector2(x + s * 0.34, y - s * 0.35),
+    new Phaser.Math.Vector2(x + s, y),
+    new Phaser.Math.Vector2(x + s * 0.34, y + s * 0.35),
+    new Phaser.Math.Vector2(x, y + s),
+    new Phaser.Math.Vector2(x - s * 0.34, y + s * 0.35),
+    new Phaser.Math.Vector2(x - s, y),
+    new Phaser.Math.Vector2(x - s * 0.34, y - s * 0.35),
   ];
   g.fillStyle(fill, alpha).fillPoints(points, true);
   g.lineStyle(1, edge, alpha).strokePoints(points, true);
