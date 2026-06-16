@@ -83,18 +83,30 @@ P1で不要:
 # 5. ファイル命名
 
 ```txt
-カテゴリ_内容_案番号.ext
+category_target_variant_status.ext
 ```
+
+status:
+- `keep` — 採用
+- `hold` — 保留
+- `reject` — 却下
+- `ref` — 参照用
+- `old` — 旧版
+
+status 省略時は未分類扱い。
 
 例:
 
 ```txt
-world_night-town_01.png
-enemy_ink-shadow-basic_01.png
-item_memory-fragment_01.png
-ui_card-levelup_01.png
-prompt_enemy-ink-shadow_01.md
+character_yui-master_01_keep.png
+world_night-town_01_keep.png
+enemy_ink-shadow-basic_01_keep.png
+item_memory-fragment_01_keep.png
+ui_levelup-card_01_hold.png
+style_storybook-pixel_01_ref.png
 ```
+
+既存の `category_target_variant.ext` 形式も許容する（status は棚卸しで追記）。
 
 ---
 
@@ -112,7 +124,25 @@ prompt_enemy-ink-shadow_01.md
 
 ---
 
-# 7. 最重要
+# 7. 他フォルダとの関係
+
+```txt
+assets/concept-design/         → 作業場。方向性を固める
+assets/reference/              → 正式参照画像（concept-designから昇格したもの）
+assets/reference/character-master/core5/ → キャラ設計の正本
+public/assets/prototypes/sprite-sheets/  → ゲームで仮読み込み可能な候補
+public/assets/sprites/player/  → production（まだ触らない）
+```
+
+キャラマスター完成寄りの画像は `assets/reference/character-master/core5/` へ移す。
+52px sprite sheet は `public/assets/prototypes/sprite-sheets/core5-52px/` へ移す。
+P1 に関係ない古い案は `99_archive/` へ。
+
+棚卸し: [concept-design-inventory.md](06_prompts/concept-design-inventory.md)
+
+---
+
+# 8. 最重要
 
 コンセプトは濃く。
 実装は見やすく軽く。

@@ -141,7 +141,46 @@ assets/reference/
 
 ---
 
-## 6. 現在の注意
+## 6. Core5 キャラクターマスター
+
+Core5 のキャラクターデザインボードは以下に正規配置済み。
+
+```txt
+assets/reference/character-master/core5/
+  yui-character-master-v1.png
+  asa-character-master-v1.png
+  nagi-character-master-v1.png
+  michiru-character-master-v1.png
+  tomori-character-master-v1.png
+```
+
+52px sprite sheet の候補は以下（配置次第）。
+
+```txt
+public/assets/prototypes/sprite-sheets/core5-52px/
+```
+
+48セル定義: `data/character-assets/core5-52px-sprite-sheet-cells.json`
+マニフェスト: `data/character-assets/core5-character-master-assets.json`
+
+全て **prototype-reference** 扱い。production 昇格は別工程
+（[player-asset-promotion-policy.md](player/player-asset-promotion-policy.md)）。
+
+---
+
+## 7. フォルダの役割
+
+| フォルダ | 役割 | production か |
+|---|---|---|
+| `assets/concept-design/` | 作業場。方向性を固める | no |
+| `assets/reference/` | 正式参照画像 | no |
+| `assets/reference/character-master/core5/` | キャラ設計の正本 | no |
+| `public/assets/prototypes/sprite-sheets/core5-52px/` | ゲームで仮読み込み可能な sprite sheet 候補 | no |
+| `public/assets/sprites/player/` | production sprite。手仕上げ+レビュー済みのみ | **yes** |
+
+---
+
+## 8. 現在の注意
 
 現在 repo 上の `yui_idle_42` 系は、まだ reference の品質には届いていない。
 扱いは **temporary candidate**。

@@ -21,7 +21,7 @@ assets/reference/character-master/core5/
 Recommended file names:
 
 ```txt
-assets/reference/character-master/core5/yui-character-master-v2.png
+assets/reference/character-master/core5/yui-character-master-v1.png
 assets/reference/character-master/core5/asa-character-master-v1.png
 assets/reference/character-master/core5/nagi-character-master-v1.png
 assets/reference/character-master/core5/michiru-character-master-v1.png
@@ -132,6 +132,30 @@ After placing PNG files in the recommended folders, create a slicing script or A
 - crop 48 cells
 - export normalized per-cell PNGs
 - reject sheets that do not match the required grid
+
+## Naming rule
+
+全キャラ v1 で統一する。v2 以降は手仕上げ後の改版時のみ付番する。
+
+```txt
+yui-character-master-v1.png    (v2 は作らない。全員 v1 統一)
+yui-52px-sprite-sheet-v1.png
+```
+
+## Folder roles
+
+```txt
+assets/reference/character-master/core5/   → キャラ設計の正本
+public/assets/prototypes/sprite-sheets/    → ゲームで仮読み込み可能な sprite sheet 候補
+public/assets/sprites/player/              → production（手仕上げ+レビュー済みのみ）
+```
+
+## Production promotion
+
+production 昇格は別工程。条件は以下を参照:
+
+- [player-asset-promotion-policy.md](../player/player-asset-promotion-policy.md)
+- [vamp-pon-pixel-art-pipeline-v1.md](../pixel-art/vamp-pon-pixel-art-pipeline-v1.md)
 
 ## Safety rule
 

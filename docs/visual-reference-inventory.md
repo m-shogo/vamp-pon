@@ -59,3 +59,27 @@ XP紫           #9b7fc0
 ```
 
 採用要素・再現要素・仮要素のまとめは [docs/visual-direction.md](visual-direction.md) を参照。
+
+---
+
+## 正式 reference 画像
+
+以下は `assets/concept-design/` から `assets/reference/` に移動済み。
+
+| パス | 何の参考か |
+|---|---|
+| `assets/reference/player/yui_turnaround_soft_pixel_reference.png` | ユイ4方向ターンアラウンド |
+| `assets/reference/enemies/ink_enemy_family_reference.png` | 黒インク敵4系統 |
+| `assets/reference/backgrounds/stage1_night_tile_reference.png` | 夜の街背景 |
+
+---
+
+## Core5 キャラクターマスター
+
+全5キャラの設計ボードは `assets/reference/character-master/core5/` に v1 として正規配置済み。
+
+- マニフェスト: `data/character-assets/core5-character-master-assets.json`
+- 48セル定義: `data/character-assets/core5-52px-sprite-sheet-cells.json`
+- 詳細: [core5-image-asset-ingest.md](character-assets/core5-image-asset-ingest.md)
+
+status は全て **prototype-reference**。production sprite ではない。

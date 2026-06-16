@@ -19,7 +19,7 @@
       "shirushi": "灯す",
       "crest": "灯火紋",
       "vessel": "lantern",
-      "masterBoardPath": "assets/reference/character-master/core5/yui-character-master-v2.png",
+      "masterBoardPath": "assets/reference/character-master/core5/yui-character-master-v1.png",
       "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png",
       "sourceChatFileName": "ユイ_キャラクターデザインシート.png / ピクセルアートキャラクターのスプライトシート.png",
       "gameUseStatus": "prototype-sheet-only",
