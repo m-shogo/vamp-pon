@@ -86,8 +86,9 @@ export class InventorySlotView {
       } else if (this.iconImage.texture.key !== texture) {
         this.iconImage.setTexture(texture);
       }
-      // 180px原本を30pxへ1/6整数縮小。非整数補間を避ける。
-      this.iconImage.setDisplaySize(this.size, this.size).setVisible(true);
+      // 180px原本を30pxへ1/6整数縮小。レア枠も同じ視認サイズへ揃える。
+      const displaySize = Math.max(30, this.size);
+      this.iconImage.setDisplaySize(displaySize, displaySize).setVisible(true);
       this.fallbackText.setVisible(false);
     } else {
       this.iconImage?.setVisible(false);
