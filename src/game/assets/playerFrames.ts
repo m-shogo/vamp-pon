@@ -24,6 +24,13 @@ export const YUI_FRAME_IDS = {
   ultimate: 'yui_core5_special_normal',
 } as const;
 
+export const YUI_HUD_FRAME_IDS = {
+  portraitNeutral: 'yui_core5_portrait_neutral',
+  portraitAlt: 'yui_core5_portrait_alt',
+  crestNormal: 'yui_core5_crest_normal',
+  crestBlack: 'yui_core5_crest_black',
+} as const;
+
 export const YUI_GAMEPLAY_FRAME_ASSETS = [
   { id: YUI_FRAME_IDS.idle.front, path: `${ROOT}/00_r01_c01_idle_front.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 front idle（ゲームプレイ候補）', required: false, fallback: true },
   { id: YUI_FRAME_IDS.idle.left, path: `${ROOT}/02_r01_c03_idle_left.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 left idle（ゲームプレイ候補）', required: false, fallback: true },
@@ -43,6 +50,13 @@ export const YUI_GAMEPLAY_FRAME_ASSETS = [
   { id: YUI_FRAME_IDS.hurt.right, path: `${ROOT}/26_r04_c03_hurt_right.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 right hurt（ゲームプレイ候補）', required: false, fallback: true },
   { id: YUI_FRAME_IDS.hurt.back, path: `${ROOT}/27_r04_c04_hurt_back.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 back hurt（ゲームプレイ候補）', required: false, fallback: true },
   { id: YUI_FRAME_IDS.ultimate, path: `${ROOT}/32_r05_c01_special_normal.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 special normal（ゲームプレイ候補）', required: false, fallback: true },
+] as const;
+
+export const YUI_HUD_FRAME_ASSETS = [
+  { id: YUI_HUD_FRAME_IDS.portraitNeutral, path: `${ROOT}/40_r06_c01_portrait_neutral.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 HUD portrait neutral', required: false, fallback: true },
+  { id: YUI_HUD_FRAME_IDS.portraitAlt, path: `${ROOT}/41_r06_c02_portrait_alt.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 HUD portrait alt', required: false, fallback: true },
+  { id: YUI_HUD_FRAME_IDS.crestNormal, path: `${ROOT}/44_r06_c05_crest_normal.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 normal crest HUD icon', required: false, fallback: true },
+  { id: YUI_HUD_FRAME_IDS.crestBlack, path: `${ROOT}/45_r06_c06_crest_black.png`, width: 180, height: 180, kind: 'player', description: 'ユイ Core5 berserk crest HUD icon', required: false, fallback: true },
 ] as const;
 
 export const YUI_GAMEPLAY_FRAME_IDS = YUI_GAMEPLAY_FRAME_ASSETS.map((asset) => asset.id);
