@@ -16,7 +16,6 @@ const SLOT_WEAPON_Y = GAME_HEIGHT - 65;
 const SLOT_PASSIVE_Y = GAME_HEIGHT - 28;
 
 type InputEventLike = { stopPropagation?: () => void };
-
 type SlotText = Phaser.GameObjects.Text;
 
 export class Hud {
@@ -31,6 +30,7 @@ export class Hud {
   private ultHintText: Phaser.GameObjects.Text;
   private ultHitArea: Phaser.GameObjects.Zone;
   private inventoryBack: Phaser.GameObjects.Graphics;
+  private categoryLabels: Phaser.GameObjects.Text[];
   private portraitFrame: Phaser.GameObjects.Graphics;
   private portraitRing: Phaser.GameObjects.Graphics;
   private portraitImage: Phaser.GameObjects.Image | null;
@@ -89,6 +89,10 @@ export class Hud {
 
     this.inventoryBack = scene.add.graphics().setDepth(d);
     this.drawInventoryFrame();
+    this.categoryLabels = [
+      scene.add.text(82, SLOT_WEAPON_Y, '武', { fontFamily: FONT, fontSize: '9px', color: '#b9d3e6' }).setOrigin(0.5).setDepth(d + 1),
+      scene.add.text(82, SLOT_PASSIVE_Y, '忘', { fontFamily: FONT, fontSize: '9px', color: '#d7c7e8' }).setOrigin(0.5).setDepth(d + 1),
+    ];
 
     this.portraitFrame = scene.add.graphics().setDepth(d + 1);
     this.portraitFrame
@@ -148,9 +152,6 @@ export class Hud {
     for (const x of SLOT_RARE_X) {
       this.inventoryBack.strokeRoundedRect(x - 14, SLOT_PASSIVE_Y - 13, 28, 26, 5);
     }
-
-    this.scene.add.text(82, SLOT_WEAPON_Y, '武', { fontFamily: FONT, fontSize: '9px', color: '#b9d3e6' }).setOrigin(0.5).setDepth(VIEW_DEPTH.hud + 1);
-    this.scene.add.text(82, SLOT_PASSIVE_Y, '忘', { fontFamily: FONT, fontSize: '9px', color: '#d7c7e8' }).setOrigin(0.5).setDepth(VIEW_DEPTH.hud + 1);
   }
 
   private createSlotText(x: number, y: number): SlotText {
@@ -217,6 +218,8 @@ export class Hud {
         `1stKill=${f(t.firstKillSec)} lv2=${f(t.level2Sec)} 1stDmg=${f(t.firstDamageSec)}`,
         `cap1=${f(t.firstCapsuleSec)} elites=${t.eliteKillSecs.length}`,
       ].join('\n'));
+    } else {
+      this.debugText.setVisible(false);
     }
   }
 
@@ -287,15 +290,17 @@ export class Hud {
 
   /** VisualGallery 用: HUD一式の表示切替。 */
   setVisible(visible: boolean): void {
-    const objects: Phaser.GameObjects.GameObject[] = [
+    for (const obj of [
       this.timeText, this.levelText, this.hpBack, this.hpFill, this.hpText,
       this.xpBar, this.ultIcon, this.ultText, this.ultHintText, this.ultHitArea,
-      this.inventoryBack, this.portraitFrame, this.portraitRing, this.portraitFallback,
+      this.inventoryBack, ...this.categoryLabels, this.portraitFrame, this.portraitRing,
       this.berserkText, ...this.weaponSlots, ...this.passiveSlots, ...this.rareSlots,
-    ];
-    if (this.portraitImage) objects.push(this.portraitImage);
-    if (this.crestImage) objects.push(this.crestImage);
-    for (const obj of objects) obj.setVisible(visible);
+    ]) {
+      obj.setVisible(visible);
+    }
+    this.portraitImage?.setVisible(visible);
+    this.portraitFallback.setVisible(visible && !this.portraitImage);
+    if (!visible) this.crestImage?.setVisible(false);
     if (!visible) this.debugText.setVisible(false);
   }
 
