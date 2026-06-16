@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { assetManifest, assetById, ENEMY_ASSET, WEAPON_ASSET, RARE_ASSET } from '../assetManifest';
-import { YUI_GAMEPLAY_FRAME_ASSETS } from '../playerFrames';
+import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from '../playerFrames';
 import { weapons } from '../../data/weapons';
 import { enemies } from '../../data/enemies';
 import { rareItems } from '../../data/rareItems';
@@ -42,6 +42,19 @@ describe('assetManifest', () => {
   it('Core5ユイのゲーム用17フレームが180px原本へ対応する', () => {
     expect(YUI_GAMEPLAY_FRAME_ASSETS).toHaveLength(17);
     for (const frame of YUI_GAMEPLAY_FRAME_ASSETS) {
+      const asset = assetById.get(frame.id);
+      expect(asset, frame.id).toBeTruthy();
+      expect(asset?.path).toContain('core5-original-frames/yui/');
+      expect(asset?.width).toBe(180);
+      expect(asset?.height).toBe(180);
+      expect(asset?.kind).toBe('player');
+      expect(asset?.required).toBe(false);
+    }
+  });
+
+  it('Core5ユイのHUD用4フレームが登録される', () => {
+    expect(YUI_HUD_FRAME_ASSETS).toHaveLength(4);
+    for (const frame of YUI_HUD_FRAME_ASSETS) {
       const asset = assetById.get(frame.id);
       expect(asset, frame.id).toBeTruthy();
       expect(asset?.path).toContain('core5-original-frames/yui/');
