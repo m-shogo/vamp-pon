@@ -113,6 +113,14 @@ Before editing or reviewing any pixel-art asset, read:
 - `docs/asset-sourcing-strategy.md`
 - `docs/cc0-asset-sourcing-workflow.md`
 
+For enemy work, also read:
+
+- `docs/enemies/enemy-48-sprite-sheet-plan.md`
+- `docs/enemies/omb-ombro-selected-direction.md`
+- `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- `data/enemy-assets/enemy-design-catalog.json`
+- every design file listed by `enemy-design-catalog.json`
+
 For Claude-specific setups, also see:
 
 - `.claude/agents/pixel-art-director.md`
@@ -248,16 +256,35 @@ Do not expand to other poses if idle/master is still weak.
 
 ## 11. Enemy rule
 
-Enemies are a black-ink family, but should not be black blobs only.
+Enemies are a shared black-ink world, but must never become repeated black blobs.
 
-The four base enemy families are:
+Canonical enemy sources:
 
-- `ink_blob`
-- `torn_paper_wisp`
-- `hooded_ink_specter`
-- `ink_hound`
+- exact 48-cell order: `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- complete visual/gameplay design: `data/enemy-assets/enemy-design-catalog.json`
+- Omb/Ombro selected direction: `docs/enemies/omb-ombro-selected-direction.md`
+- production/readiness rules: `docs/enemies/enemy-48-sprite-sheet-plan.md`
 
-Each enemy must differ by silhouette, eye/light placement, and gameplay role.
+The canonical shared families are:
+
+- `omb`: small soft shadow body, ink bud, old-paper square eyes, dark non-luminous flame aura
+- `ombro`: lower and wider growth form with two drooping aura-hands
+- Stage-unique grunts: three per Stage, each with a distinct silhouette and combat role
+- midbosses: two per Stage, each with a readable attack telegraph and counterplay
+- major bosses: Nanashino, Michishirube and Asamade with catalog-defined forms
+
+Rules:
+
+- Do not use legacy `pon_shadow`, `grown_pon_shadow`, `ポン影`, or `ふくらみポン影` names.
+- Every enemy must differ by silhouette, body ratio, eye/light placement and gameplay role.
+- Every damaging action must have a readable visual telegraph.
+- Ombro pseudo-hands are aura formations, not human hands; no palm, fingers, nails, joints, bones or muscles.
+- Generated 180px sheets are `prototype-reference` only.
+- Do not directly downscale generated reference art into production sprites.
+- Use the catalog's `nativePx` target when creating Aseprite sources.
+- Preserve boss identity across forms; forms must not be palette-only swaps.
+- Run `pnpm enemy48:design:check` before enemy reference or implementation work.
+- Run `pnpm enemy48:sprites:verify` after a 1440x1080 sheet exists.
 
 ---
 
@@ -305,6 +332,9 @@ When relevant, run:
 - `pnpm test`
 - `pnpm build`
 - `pnpm assets:verify`
+- `pnpm enemy48:design:check`
+- `pnpm enemy48:manifest:check`
+- `pnpm enemy48:sprites:verify` when the sheet exists
 - Aseprite export command, when Aseprite is available
 
 If a check cannot be run, say so explicitly.
