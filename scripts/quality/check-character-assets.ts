@@ -1,6 +1,5 @@
-import { execSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
-import path from 'node:path';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { basename, join } from 'node:path';
 
 type Check = { label: string; ok: boolean; detail?: string };
 type CharacterAsset = {
@@ -47,6 +46,18 @@ function readJson<T>(file: string): T | undefined {
   }
 }
 
+function walkFiles(dir: string): string[] {
+  if (!existsSync(dir)) return [];
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    const stat = statSync(full);
+    if (stat.isDirectory()) out.push(...walkFiles(full));
+    else out.push(full);
+  }
+  return out;
+}
+
 push(`manifest exists: ${MANIFEST}`, existsSync(MANIFEST));
 push(`cell def exists: ${CELLS}`, existsSync(CELLS));
 
@@ -87,22 +98,12 @@ if (cells) {
   push('cell index covers 0-47', JSON.stringify(sorted) === JSON.stringify(expected), sorted.join(', '));
 }
 
-let productionContamination = '';
-try {
-  const manifestSpriteNames = manifest?.characters
-    ?.map((ch) => path.basename(ch.spriteSheetPath))
-    .filter(Boolean) ?? [];
-  const namePattern = manifestSpriteNames.length > 0
-    ? manifestSpriteNames.map((name) => `-name '${name.replace(/'/g, "'\\''")}'`).join(' -o ')
-    : '-name __no_core5_sprite_sheets__';
-  productionContamination = execSync(
-    `find ${PRODUCTION_PLAYER_DIR} -type f \\( -iname '*core5*' -o -iname '*52px-sprite-sheet*' -o ${namePattern} \\) 2>/dev/null`,
-    { encoding: 'utf8' },
-  ).trim();
-} catch {
-  productionContamination = '';
-}
-push('no Core5 prototype sheet in production player sprites', productionContamination === '', productionContamination || undefined);
+const manifestSpriteNames = manifest?.characters?.map((ch) => basename(ch.spriteSheetPath)).filter(Boolean) ?? [];
+const productionContamination = walkFiles(PRODUCTION_PLAYER_DIR).filter((file) => {
+  const name = basename(file).toLowerCase();
+  return name.includes('core5') || name.includes('52px-sprite-sheet') || manifestSpriteNames.includes(basename(file));
+});
+push('no Core5 prototype sheet in production player sprites', productionContamination.length === 0, productionContamination.join('\n') || undefined);
 
 const failed = checks.filter((check) => !check.ok);
 for (const check of checks) {
