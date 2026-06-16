@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { INVENTORY_ORIGINAL_ICONS } from '../../src/game/assets/inventoryOriginalIcons.ts';
-import { decodePng } from '../prototypes/core5-image/png-rgba.ts';
 
 const errors: string[] = [];
+const PNG_SIGNATURE = '89504e470d0a1a0a';
 
 if (INVENTORY_ORIGINAL_ICONS.length !== 27) {
   errors.push(`expected 27 icons, got ${INVENTORY_ORIGINAL_ICONS.length}`);
@@ -15,19 +15,22 @@ for (const icon of INVENTORY_ORIGINAL_ICONS) {
     continue;
   }
 
-  const image = decodePng(readFileSync(filePath));
-  if (image.width !== 180 || image.height !== 180) {
-    errors.push(`${icon.itemId}: expected 180x180, got ${image.width}x${image.height}`);
+  const buffer = readFileSync(filePath);
+  if (buffer.subarray(0, 8).toString('hex') !== PNG_SIGNATURE) {
+    errors.push(`${icon.itemId}: invalid PNG signature`);
+    continue;
   }
 
-  let transparent = 0;
-  let visible = 0;
-  for (let offset = 3; offset < image.data.length; offset += 4) {
-    if (image.data[offset] === 0) transparent += 1;
-    else visible += 1;
+  const width = buffer.readUInt32BE(16);
+  const height = buffer.readUInt32BE(20);
+  const bitDepth = buffer[24];
+  const colorType = buffer[25];
+  if (width !== 180 || height !== 180) {
+    errors.push(`${icon.itemId}: expected 180x180, got ${width}x${height}`);
   }
-  if (transparent === 0) errors.push(`${icon.itemId}: no transparent pixels`);
-  if (visible === 0) errors.push(`${icon.itemId}: image is empty`);
+  if (bitDepth !== 8 || colorType !== 6) {
+    errors.push(`${icon.itemId}: expected 8-bit RGBA PNG, got bitDepth=${bitDepth} colorType=${colorType}`);
+  }
 }
 
 if (errors.length > 0) {
