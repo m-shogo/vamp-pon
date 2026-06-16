@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify Core5 gameplay frames
+        run: |
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/00_r01_c01_idle_front.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/02_r01_c03_idle_left.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/03_r01_c04_idle_right.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/04_r01_c05_idle_back.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/08_r02_c01_walk_front_a.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/09_r02_c02_walk_front_b.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/10_r02_c03_walk_left_a.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/11_r02_c04_walk_left_b.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/12_r02_c05_walk_right_a.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/13_r02_c06_walk_right_b.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/14_r02_c07_walk_back_a.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/15_r02_c08_walk_back_b.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/24_r04_c01_hurt_front.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/25_r04_c02_hurt_left.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/26_r04_c03_hurt_right.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/27_r04_c04_hurt_back.png
+          test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/32_r05_c01_special_normal.png
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
