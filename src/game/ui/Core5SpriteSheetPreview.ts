@@ -11,9 +11,18 @@ type CellDef = {
   description: string;
 };
 
+type GridSettings = {
+  sourceCellPx: number;
+  gameDisplayPx: number;
+  offsetX: number;
+  offsetY: number;
+};
+
 export const CORE5_SHEET_COLUMNS = 8;
 export const CORE5_SHEET_ROWS = 6;
-export const CORE5_LOGICAL_CELL_SIZE = 52;
+export const CORE5_LEGACY_SOURCE_CELL_SIZE = 52;
+export const CORE5_DEFAULT_SOURCE_CELL_SIZE = 74;
+export const CORE5_DEFAULT_GAME_DISPLAY_SIZE = 74;
 
 export const CORE5_SHEET_CELLS: CellDef[] = [
   { index: 0, row: 1, column: 1, key: 'idle_front', description: 'Front idle pose' },
@@ -70,7 +79,7 @@ export class Core5SpriteSheetPreview {
   private root: Phaser.GameObjects.Container;
   private selectedCharacter: Core5PrototypeCharacter;
   private selectedCellIndex = 0;
-  private zoom: 4 | 8 = 4;
+  private zoom: 2 | 3 = 2;
 
   constructor(private scene: Phaser.Scene, selectedId: Core5PrototypeCharacterId = 'yui') {
     this.root = scene.add.container(0, 0);
@@ -91,15 +100,16 @@ export class Core5SpriteSheetPreview {
   }
 
   private drawHeader(): void {
+    const settings = this.gridSettings();
     this.root.add(
-      this.scene.add.text(GAME_WIDTH / 2, 16, 'Core5 52px sprite sheet preview', {
+      this.scene.add.text(GAME_WIDTH / 2, 16, 'Core5 sprite sheet preview', {
         fontFamily: FONT,
         fontSize: '15px',
         color: '#f3ead2',
       }).setOrigin(0.5, 0),
     );
     this.root.add(
-      this.scene.add.text(GAME_WIDTH / 2, 36, 'prototype-reference / sprite-sheet-candidate only. production sprite は未使用。', {
+      this.scene.add.text(GAME_WIDTH / 2, 36, `prototype only / source cell=${settings.sourceCellPx}px, game display=${settings.gameDisplayPx}px, offset=${settings.offsetX},${settings.offsetY}`, {
         fontFamily: FONT,
         fontSize: '9px',
         color: '#ffe9a8',
@@ -118,6 +128,7 @@ export class Core5SpriteSheetPreview {
       bg.on('pointerdown', () => {
         this.selectedCharacter = character;
         this.selectedCellIndex = 0;
+        this.syncCharacterToUrl(character.id);
         this.render();
       });
       this.root.add(bg);
@@ -137,6 +148,7 @@ export class Core5SpriteSheetPreview {
   private drawSheet(): void {
     const imageId = this.selectedImageId();
     const hasImage = this.scene.textures.exists(imageId);
+    const settings = this.gridSettings();
     const sheetX = 18;
     const sheetY = 112;
     const sheetW = GAME_WIDTH - 36;
@@ -149,7 +161,13 @@ export class Core5SpriteSheetPreview {
     }).setOrigin(0, 0));
 
     if (hasImage) {
-      const sheet = this.scene.add.image(sheetX, sheetY, imageId).setOrigin(0, 0).setDisplaySize(sheetW, sheetH);
+      const source = this.sourceSize(imageId);
+      const cropW = settings.sourceCellPx * CORE5_SHEET_COLUMNS;
+      const cropH = settings.sourceCellPx * CORE5_SHEET_ROWS;
+      const sheet = this.scene.add.image(sheetX, sheetY, imageId)
+        .setOrigin(0, 0)
+        .setCrop(settings.offsetX, settings.offsetY, cropW, cropH)
+        .setDisplaySize(sheetW, sheetH);
       sheet.setInteractive({ useHandCursor: true });
       sheet.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
         const localX = Phaser.Math.Clamp(pointer.x - sheetX, 0, sheetW - 1);
@@ -160,6 +178,11 @@ export class Core5SpriteSheetPreview {
         this.render();
       });
       this.root.add(sheet);
+      this.root.add(this.scene.add.text(18, sheetY + sheetH + 4, `source ${source.width}x${source.height} / crop ${settings.offsetX},${settings.offsetY},${cropW}x${cropH}`, {
+        fontFamily: 'monospace',
+        fontSize: '8px',
+        color: '#9db7df',
+      }).setOrigin(0, 0));
     } else {
       const box = this.scene.add.rectangle(sheetX, sheetY, sheetW, sheetH, COLORS.cardBg, 0.9).setOrigin(0, 0);
       box.setStrokeStyle(1, COLORS.cardEdge, 1);
@@ -208,6 +231,7 @@ export class Core5SpriteSheetPreview {
 
   private drawSelectedCellPreview(): void {
     const imageId = this.selectedImageId();
+    const settings = this.gridSettings();
     const cell = CORE5_SHEET_CELLS[this.selectedCellIndex];
     const y = 404;
     this.root.add(this.scene.add.text(18, y, `selected ${cell.index}: ${cell.key}`, {
@@ -219,28 +243,43 @@ export class Core5SpriteSheetPreview {
       fontFamily: FONT,
       fontSize: '9px',
       color: '#cfc6b0',
-      wordWrap: { width: 200 },
+      wordWrap: { width: 188 },
     }).setOrigin(0, 0));
 
     const hasImage = this.scene.textures.exists(imageId);
-    const previewSize = CORE5_LOGICAL_CELL_SIZE * this.zoom;
+    const sampleX = 64;
+    const sampleY = 486;
     const previewX = 280;
     const previewY = 430;
-    const previewBg = this.scene.add.rectangle(previewX, previewY, Math.min(previewSize, 220), Math.min(previewSize, 220), COLORS.cardBg, 0.8);
+    const previewSize = Math.min(settings.gameDisplayPx * this.zoom, 220);
+
+    this.root.add(this.scene.add.text(sampleX, sampleY - 52, `game ${settings.gameDisplayPx}px`, {
+      fontFamily: 'monospace',
+      fontSize: '9px',
+      color: '#9db7df',
+    }).setOrigin(0.5, 0));
+    const sampleBg = this.scene.add.rectangle(sampleX, sampleY, settings.gameDisplayPx, settings.gameDisplayPx, COLORS.cardBg, 0.82);
+    sampleBg.setStrokeStyle(1, COLORS.cardEdge, 1);
+    this.root.add(sampleBg);
+
+    const previewBg = this.scene.add.rectangle(previewX, previewY, previewSize, previewSize, COLORS.cardBg, 0.8);
     previewBg.setStrokeStyle(1, COLORS.cardEdge, 1);
     previewBg.setInteractive({ useHandCursor: true });
     previewBg.on('pointerdown', () => {
-      this.zoom = this.zoom === 4 ? 8 : 4;
+      this.zoom = this.zoom === 2 ? 3 : 2;
       this.render();
     });
     this.root.add(previewBg);
 
     if (hasImage) {
-      const source = this.scene.textures.get(imageId).getSourceImage() as { width: number; height: number };
-      const cellW = source.width / CORE5_SHEET_COLUMNS;
-      const cellH = source.height / CORE5_SHEET_ROWS;
+      const cropX = settings.offsetX + (cell.column - 1) * settings.sourceCellPx;
+      const cropY = settings.offsetY + (cell.row - 1) * settings.sourceCellPx;
+      const sample = this.scene.add.image(sampleX, sampleY, imageId)
+        .setCrop(cropX, cropY, settings.sourceCellPx, settings.sourceCellPx)
+        .setDisplaySize(settings.gameDisplayPx, settings.gameDisplayPx);
+      this.root.add(sample);
       const image = this.scene.add.image(previewX, previewY, imageId)
-        .setCrop((cell.column - 1) * cellW, (cell.row - 1) * cellH, cellW, cellH)
+        .setCrop(cropX, cropY, settings.sourceCellPx, settings.sourceCellPx)
         .setDisplaySize(previewSize, previewSize);
       this.root.add(image);
     } else {
@@ -251,7 +290,7 @@ export class Core5SpriteSheetPreview {
       }).setOrigin(0.5, 0));
     }
 
-    this.root.add(this.scene.add.text(previewX, previewY + Math.min(previewSize, 220) / 2 + 10, `${this.zoom}x preview（tap to toggle）`, {
+    this.root.add(this.scene.add.text(previewX, previewY + previewSize / 2 + 10, `${this.zoom}x crop preview（tap to toggle）`, {
       fontFamily: FONT,
       fontSize: '9px',
       color: '#9db7df',
@@ -260,10 +299,10 @@ export class Core5SpriteSheetPreview {
 
   private drawFooterNotes(): void {
     this.root.add(
-      this.scene.add.text(18, GAME_HEIGHT - 98, [
-        'Flow: generated sheet → normalizer overlay → debug gallery → Aseprite補正 → promotion別工程',
-        '表示は original/normalized のうち読み込めた方を使用。player production sprite は差し替えない。',
-        'URL: ?debug=core5sprites&protoCharacter=yui|asa|nagi|michiru|tomori',
+      this.scene.add.text(18, GAME_HEIGHT - 108, [
+        'Flow: generated sheet → 74px candidate grid preview → Aseprite crop補正 → promotion別工程',
+        'URL params: ?debug=core5sprites&protoCharacter=yui&cell=74&display=74&ox=0&oy=0',
+        '52px旧前提がズレる場合は cell=74 を基準に確認。player production sprite は差し替えない。',
       ], {
         fontFamily: FONT,
         fontSize: '9px',
@@ -277,5 +316,34 @@ export class Core5SpriteSheetPreview {
   private selectedImageId(): string {
     if (this.scene.textures.exists(this.selectedCharacter.normalizedImageId)) return this.selectedCharacter.normalizedImageId;
     return this.selectedCharacter.imageId;
+  }
+
+  private sourceSize(imageId: string): { width: number; height: number } {
+    return this.scene.textures.get(imageId).getSourceImage() as { width: number; height: number };
+  }
+
+  private gridSettings(): GridSettings {
+    const params = new URLSearchParams(window.location.search);
+    const sourceCellPx = this.numberParam(params, 'cell', CORE5_DEFAULT_SOURCE_CELL_SIZE, 24, 128);
+    return {
+      sourceCellPx,
+      gameDisplayPx: this.numberParam(params, 'display', CORE5_DEFAULT_GAME_DISPLAY_SIZE, 32, 96),
+      offsetX: this.numberParam(params, 'ox', 0, 0, 512),
+      offsetY: this.numberParam(params, 'oy', 0, 0, 512),
+    };
+  }
+
+  private numberParam(params: URLSearchParams, name: string, fallback: number, min: number, max: number): number {
+    const raw = params.get(name);
+    const parsed = raw ? Number.parseInt(raw, 10) : Number.NaN;
+    if (!Number.isFinite(parsed)) return fallback;
+    return Phaser.Math.Clamp(parsed, min, max);
+  }
+
+  private syncCharacterToUrl(id: Core5PrototypeCharacterId): void {
+    const params = new URLSearchParams(window.location.search);
+    params.set('debug', 'core5sprites');
+    params.set('protoCharacter', id);
+    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
   }
 }
