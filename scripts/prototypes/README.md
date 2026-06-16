@@ -62,6 +62,19 @@ pnpm aseprite:pixel-finisher:verify    # _pf 出力の存在確認
 - 出力は `assets/source/prototypes/` / `public/assets/prototypes/` のみ（production 書き込み拒否）。
 - player（ユイ）は humanReviewRequired=true。PF 後も**人間GUI手仕上げ + 人間レビュー**を経ない限り production に上げない。
 
+### human-review-candidate（HR / script-assisted refinement pass 2 + 人間レビュー）
+
+PF を出発点に控えめな refinement を当て、**人間レビューに提出**する段。**GUI手仕上げではない**。
+
+```sh
+pnpm aseprite:pixel-refine:yui52hr     # _pf -> _hr（refinement + HR review sheet）
+```
+
+- refinement: `scripts/prototypes/refine-yui-52-v2a-pf.lua`（_pf 保存・_hr 新規。provenance: v2a→_pf→_hr）
+- review: [yui-52px-v2a-human-review-candidate.md](../../docs/reviews/design-team/yui-52px-v2a-human-review-candidate.md)
+- status は **`human-reviewed-candidate` 止まり**（手仕上げ未/一部）。`hand-final` にはしない。
+  `hand-final` には**人間の GUI 1px 手仕上げ**が必要。
+
 ## 運用ルール（prototype作業時）
 
 - **prototype作業中は production を触らない。**
