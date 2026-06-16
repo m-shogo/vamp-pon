@@ -1,8 +1,9 @@
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import path from 'node:path';
+import { join } from 'node:path';
 
+type CharacterId = 'yui' | 'asa' | 'nagi' | 'michiru' | 'tomori';
 type CharacterAsset = {
-  id: 'yui' | 'asa' | 'nagi' | 'michiru' | 'tomori';
+  id: CharacterId;
   name: string;
   spriteSheetPath: string;
 };
@@ -40,7 +41,7 @@ type OverlayCell = {
 const MANIFEST = 'data/character-assets/core5-character-master-assets.json';
 const CELLS = 'data/character-assets/core5-52px-sprite-sheet-cells.json';
 const OUT_DIR = 'public/assets/prototypes/sprite-sheets/core5-52px-normalized';
-const EXPECTED_OUTPUTS: Record<CharacterAsset['id'], string> = {
+const EXPECTED_OUTPUTS: Record<CharacterId, string> = {
   yui: `${OUT_DIR}/yui.png`,
   asa: `${OUT_DIR}/asa.png`,
   nagi: `${OUT_DIR}/nagi.png`,
@@ -159,18 +160,18 @@ const output = {
   reports,
 };
 
-writeFileSync(path.join(OUT_DIR, 'manifest.json'), `${JSON.stringify(output, null, 2)}\n`);
-writeFileSync(path.join(OUT_DIR, 'overlay-cells.json'), `${JSON.stringify(overlays, null, 2)}\n`);
+writeFileSync(join(OUT_DIR, 'manifest.json'), `${JSON.stringify(output, null, 2)}\n`);
+writeFileSync(join(OUT_DIR, 'overlay-cells.json'), `${JSON.stringify(overlays, null, 2)}\n`);
 
-let failed = 0;
+let missing = 0;
 for (const report of reports) {
   const mark = report.exists && !report.needsManualCrop ? 'ok  ' : report.exists ? 'WARN' : 'MISS';
   console.log(`${mark} ${report.id}: ${report.action} ${report.sourceWidth ?? '-'}x${report.sourceHeight ?? '-'} -> ${report.normalizedPath}`);
   if (report.warning) console.log(`     ${report.warning}`);
-  if (!report.exists) failed += 1;
+  if (!report.exists) missing += 1;
 }
 
 console.log(`\ncore5:sprites:normalize wrote ${OUT_DIR}/manifest.json and overlay-cells.json`);
-if (failed > 0) {
-  console.warn(`core5:sprites:normalize completed with ${failed} missing source sheet(s). Run pnpm character-assets:verify for the strict gate.`);
+if (missing > 0) {
+  console.warn(`core5:sprites:normalize completed with ${missing} missing source sheet(s). Run pnpm character-assets:verify for the strict gate.`);
 }
