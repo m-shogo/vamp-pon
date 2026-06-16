@@ -7,17 +7,24 @@ import {
   getInventoryIconRequirement,
   inventoryIconAssetEntries,
 } from '../inventoryIcons';
+import {
+  INVENTORY_ORIGINAL_ICONS,
+  getInventoryOriginalIcon,
+} from '../inventoryOriginalIcons';
 
 describe('inventory icon stock', () => {
   it('武器・忘れ物・レアの全データを台帳が網羅する', () => {
     for (const weapon of weapons) {
       expect(getInventoryIconRequirement('weapon', weapon.id), `weapon:${weapon.id}`).toBeTruthy();
+      expect(getInventoryOriginalIcon('weapon', weapon.id), `original weapon:${weapon.id}`).toBeTruthy();
     }
     for (const passive of passives) {
       expect(getInventoryIconRequirement('passive', passive.id), `passive:${passive.id}`).toBeTruthy();
+      expect(getInventoryOriginalIcon('passive', passive.id), `original passive:${passive.id}`).toBeTruthy();
     }
     for (const rare of rareItems) {
       expect(getInventoryIconRequirement('rare', rare.id), `rare:${rare.id}`).toBeTruthy();
+      expect(getInventoryOriginalIcon('rare', rare.id), `original rare:${rare.id}`).toBeTruthy();
     }
   });
 
@@ -26,6 +33,7 @@ describe('inventory icon stock', () => {
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'passive')).toHaveLength(8);
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'rare')).toHaveLength(4);
     expect(INVENTORY_ICON_REQUIREMENTS).toHaveLength(27);
+    expect(INVENTORY_ORIGINAL_ICONS).toHaveLength(27);
   });
 
   it('assetId・path・category:itemIdが重複しない', () => {
@@ -37,14 +45,15 @@ describe('inventory icon stock', () => {
     expect(new Set(keys).size).toBe(keys.length);
   });
 
-  it('専用アイコンは32px・任意素材・fallbackありでassetManifestへ渡す', () => {
+  it('現在は高品質180px原本を必須UI素材としてassetManifestへ渡す', () => {
     expect(inventoryIconAssetEntries).toHaveLength(27);
     for (const asset of inventoryIconAssetEntries) {
-      expect(asset.width).toBe(32);
-      expect(asset.height).toBe(32);
+      expect(asset.width).toBe(180);
+      expect(asset.height).toBe(180);
       expect(asset.kind).toBe('ui');
-      expect(asset.required).toBe(false);
-      expect(asset.fallback).toBe(true);
+      expect(asset.required).toBe(true);
+      expect(asset.fallback).toBe(false);
+      expect(asset.path).toContain('assets/prototypes/sprite-sheets/');
     }
   });
 });
