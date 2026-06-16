@@ -21,7 +21,7 @@ assets/reference/character-master/core5/
 Recommended file names:
 
 ```txt
-assets/reference/character-master/core5/yui-character-master-v1.png
+assets/reference/character-master/core5/yui-character-master-v2.png
 assets/reference/character-master/core5/asa-character-master-v1.png
 assets/reference/character-master/core5/nagi-character-master-v1.png
 assets/reference/character-master/core5/michiru-character-master-v1.png
