@@ -1,1 +1,47 @@
-PLACEHOLDER
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schemaVersion": 2,
+  "id": "enemy-design-catalog-v2",
+  "status": "design-ready",
+  "scope": "48 reference cells split by Stage for reviewability.",
+  "artDirection": {
+    "style": "soft painterly pixel art",
+    "corePalette": "black ink, dark navy, violet-black, blue-gray, old-paper accents",
+    "readability": "Read silhouette and role at 1x before detail.",
+    "enemyFamilyRule": "Shared black-ink world, but never black blobs only.",
+    "warmLightRule": "Warm light is a small focal accent and must not compete with player lantern, pickups or hit core.",
+    "outlineRule": "Selective dark outline; avoid uniform thick black contour.",
+    "productionRule": "Reference generation is not final art. Aseprite hand-finish is mandatory."
+  },
+  "requiredFields": [
+    "displayName",
+    "tier",
+    "stage",
+    "visual.silhouette",
+    "visual.bodyRatio",
+    "visual.eyeOrLightPlacement",
+    "visual.signatureParts",
+    "visual.cellOccupancyPct",
+    "visual.nativeTargetPx",
+    "gameplay.movement",
+    "gameplay.attack",
+    "gameplay.telegraph",
+    "gameplay.counterplay",
+    "animation.required",
+    "differentiateFrom"
+  ],
+  "stageFiles": [
+    "data/enemy-assets/enemy-design-stage-1.json",
+    "data/enemy-assets/enemy-design-stage-2.json",
+    "data/enemy-assets/enemy-design-stage-3.json",
+    "data/enemy-assets/enemy-design-stage-4.json",
+    "data/enemy-assets/enemy-design-stage-5.json"
+  ],
+  "expectedRecords": 48,
+  "distribution": {
+    "grunt": 25,
+    "midboss": 10,
+    "boss": 3,
+    "bossForm": 10
+  }
+}
