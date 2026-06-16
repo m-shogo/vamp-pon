@@ -1,107 +1,113 @@
-import { existsSync, readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
 
 type Check = { label: string; ok: boolean; detail?: string };
-const checks: Check[] = [];
+type CharacterAsset = {
+  id: string;
+  masterBoardPath: string;
+  spriteSheetPath: string;
+  gameUseStatus: string;
+};
+type Core5Manifest = {
+  productionTouched: boolean;
+  characters: CharacterAsset[];
+};
+type CellDef = {
+  index: number;
+  row: number;
+  column: number;
+  key: string;
+};
+type Core5Cells = {
+  columns: number;
+  rows: number;
+  totalCells: number;
+  cellSizePx?: number;
+  cells: CellDef[];
+};
 
+const checks: Check[] = [];
 const MANIFEST = 'data/character-assets/core5-character-master-assets.json';
 const CELLS = 'data/character-assets/core5-52px-sprite-sheet-cells.json';
+const PRODUCTION_PLAYER_DIR = 'public/assets/sprites/player';
+const EXPECTED_IDS = ['yui', 'asa', 'nagi', 'michiru', 'tomori'] as const;
 
-// --- manifest existence ---
-checks.push({ label: `manifest exists: ${MANIFEST}`, ok: existsSync(MANIFEST) });
-checks.push({ label: `cell def exists: ${CELLS}`, ok: existsSync(CELLS) });
-
-if (!existsSync(MANIFEST) || !existsSync(CELLS)) {
-  for (const c of checks) console.log(`${c.ok ? 'ok  ' : 'FAIL'} ${c.label}`);
-  console.error('\ncharacter-assets:verify failed (missing base files)');
-  process.exit(1);
+function push(label: string, ok: boolean, detail?: string): void {
+  checks.push({ label, ok, detail });
 }
 
-const manifest = JSON.parse(readFileSync(MANIFEST, 'utf8'));
-const cells = JSON.parse(readFileSync(CELLS, 'utf8'));
-
-// --- manifest-level checks ---
-checks.push({
-  label: 'manifest productionTouched is false',
-  ok: manifest.productionTouched === false,
-});
-
-const chars = manifest.characters as Array<Record<string, unknown>>;
-const expectedIds = ['yui', 'asa', 'nagi', 'michiru', 'tomori'];
-
-checks.push({
-  label: `manifest has all 5 characters`,
-  ok: expectedIds.every((id) => chars.some((c) => c.id === id)),
-  detail: chars.map((c) => c.id).join(', '),
-});
-
-for (const ch of chars) {
-  const id = String(ch.id);
-
-  checks.push({
-    label: `${id} gameUseStatus is prototype-sheet-only`,
-    ok: ch.gameUseStatus === 'prototype-sheet-only',
-    detail: String(ch.gameUseStatus ?? ''),
-  });
-
-  const mbp = String(ch.masterBoardPath ?? '');
-  checks.push({
-    label: `${id} masterBoardPath exists`,
-    ok: existsSync(mbp),
-    detail: mbp,
-  });
-
-  const ssp = String(ch.spriteSheetPath ?? '');
-  const sspExists = existsSync(ssp);
-  checks.push({
-    label: `${id} spriteSheetPath exists (or is placeholder)`,
-    ok: sspExists || ssp.includes('sprite-sheets/core5-52px/'),
-    detail: sspExists ? ssp : `${ssp} (not yet placed)`,
-  });
+function readJson<T>(file: string): T | undefined {
+  if (!existsSync(file)) return undefined;
+  try {
+    return JSON.parse(readFileSync(file, 'utf8')) as T;
+  } catch (error) {
+    push(`json parseable: ${file}`, false, error instanceof Error ? error.message : String(error));
+    return undefined;
+  }
 }
 
-// --- cell definition checks ---
-checks.push({
-  label: 'cell def totalCells is 48',
-  ok: cells.totalCells === 48,
-  detail: String(cells.totalCells),
-});
+push(`manifest exists: ${MANIFEST}`, existsSync(MANIFEST));
+push(`cell def exists: ${CELLS}`, existsSync(CELLS));
 
-const cellArr = cells.cells as Array<{ index: number }>;
-checks.push({
-  label: 'cell def has 48 entries',
-  ok: cellArr.length === 48,
-  detail: String(cellArr.length),
-});
+const manifest = readJson<Core5Manifest>(MANIFEST);
+const cells = readJson<Core5Cells>(CELLS);
 
-const indices = cellArr.map((c) => c.index).sort((a, b) => a - b);
-const expectedIndices = Array.from({ length: 48 }, (_, i) => i);
-checks.push({
-  label: 'cell indices 0-47 no duplicates',
-  ok: JSON.stringify(indices) === JSON.stringify(expectedIndices),
-});
+if (manifest) {
+  push('manifest productionTouched is false', manifest.productionTouched === false, String(manifest.productionTouched));
+  const chars = Array.isArray(manifest.characters) ? manifest.characters : [];
+  const ids = chars.map((ch) => ch.id);
+  push('manifest has exactly Core5 5 characters', chars.length === EXPECTED_IDS.length, ids.join(', '));
+  for (const id of EXPECTED_IDS) {
+    push(`manifest includes ${id}`, ids.includes(id), ids.join(', '));
+  }
 
-// --- production contamination check ---
-let contamination = '';
+  for (const id of EXPECTED_IDS) {
+    const ch = chars.find((candidate) => candidate.id === id);
+    if (!ch) continue;
+
+    push(`${id} gameUseStatus is prototype-sheet-only`, ch.gameUseStatus === 'prototype-sheet-only', ch.gameUseStatus);
+    push(`${id} masterBoardPath exists`, existsSync(ch.masterBoardPath), ch.masterBoardPath);
+    push(`${id} spriteSheetPath exists`, existsSync(ch.spriteSheetPath), ch.spriteSheetPath);
+  }
+}
+
+if (cells) {
+  push('cell def columns=8', cells.columns === 8, String(cells.columns));
+  push('cell def rows=6', cells.rows === 6, String(cells.rows));
+  push('cell def totalCells=48', cells.totalCells === 48, String(cells.totalCells));
+  const cellArr = Array.isArray(cells.cells) ? cells.cells : [];
+  push('cell def has 48 entries', cellArr.length === 48, String(cellArr.length));
+
+  const indices = cellArr.map((cell) => cell.index);
+  const sorted = [...indices].sort((a, b) => a - b);
+  const expected = Array.from({ length: 48 }, (_, i) => i);
+  const duplicateIndices = sorted.filter((value, i) => i > 0 && value === sorted[i - 1]);
+  push('cell index has no duplicates', duplicateIndices.length === 0, duplicateIndices.join(', '));
+  push('cell index covers 0-47', JSON.stringify(sorted) === JSON.stringify(expected), sorted.join(', '));
+}
+
+let productionContamination = '';
 try {
-  contamination = execSync(
-    'find public/assets/sprites/player -type f -name "*core5*" -o -name "*sprite-sheet*" 2>/dev/null',
+  const manifestSpriteNames = manifest?.characters
+    ?.map((ch) => path.basename(ch.spriteSheetPath))
+    .filter(Boolean) ?? [];
+  const namePattern = manifestSpriteNames.length > 0
+    ? manifestSpriteNames.map((name) => `-name '${name.replace(/'/g, "'\\''")}'`).join(' -o ')
+    : '-name __no_core5_sprite_sheets__';
+  productionContamination = execSync(
+    `find ${PRODUCTION_PLAYER_DIR} -type f \\( -iname '*core5*' -o -iname '*52px-sprite-sheet*' -o ${namePattern} \\) 2>/dev/null`,
     { encoding: 'utf8' },
   ).trim();
 } catch {
-  contamination = '';
+  productionContamination = '';
 }
-checks.push({
-  label: 'no Core5 prototype in production player sprites',
-  ok: contamination === '',
-  detail: contamination || undefined,
-});
+push('no Core5 prototype sheet in production player sprites', productionContamination === '', productionContamination || undefined);
 
-// --- report ---
-const failed = checks.filter((c) => !c.ok);
-for (const c of checks) {
-  const detail = !c.ok && c.detail ? `\n     ${c.detail}` : '';
-  console.log(`${c.ok ? 'ok  ' : 'FAIL'} ${c.label}${detail}`);
+const failed = checks.filter((check) => !check.ok);
+for (const check of checks) {
+  const detail = check.detail ? `\n     ${check.detail.replace(/\n/g, '\n     ')}` : '';
+  console.log(`${check.ok ? 'ok  ' : 'FAIL'} ${check.label}${detail}`);
 }
 
 if (failed.length > 0) {
