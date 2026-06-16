@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { decodePng, pixelOffset, type RgbaImage } from '../prototypes/core5-image/png-rgba.ts';
 
 type EnemyTier = 'grunt' | 'midboss' | 'boss' | 'boss_form';
+type GruntKind = 'common_small' | 'common_medium' | 'stage_unique' | null;
 
 type EnemyCell = {
   displayNo: number;
@@ -11,7 +12,10 @@ type EnemyCell = {
   id: string;
   workingName: string;
   tier: EnemyTier;
+  gruntKind: GruntKind;
   stage: number;
+  familyId: string | null;
+  paletteKey: string;
   formOf: string | null;
   visualRole: string;
 };
@@ -36,6 +40,23 @@ type EnemySheetManifest = {
     boss: number;
     bossForm: number;
   };
+  gruntComposition: {
+    commonSmallVariants: number;
+    commonMediumVariants: number;
+    stageUnique: number;
+  };
+  commonFamilies: Record<string, {
+    workingName: string;
+    sizeClass: string;
+    variantCount: number;
+    identityRule: string;
+  }>;
+  stagePalettes: Record<string, {
+    paletteKey: string;
+    theme: string;
+    bodyHue: string;
+    accent: string;
+  }>;
   cells: EnemyCell[];
 };
 
@@ -65,6 +86,7 @@ const EXPECTED_ROWS = 6;
 const EXPECTED_CELL_SIZE = 180;
 const EXPECTED_CELL_COUNT = 48;
 const SAFE_BORDER_PX = 4;
+const STAGES = [1, 2, 3, 4, 5] as const;
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -96,7 +118,73 @@ function readPngHeader(buffer: Buffer): PngHeader {
   throw new Error('PNG has no IHDR chunk');
 }
 
-function validateManifest(manifest: EnemySheetManifest): EnemyCell[] {
+function validateGruntComposition(manifest: EnemySheetManifest, cells: EnemyCell[]): void {
+  assert(
+    manifest.gruntComposition.commonSmallVariants === 5,
+    'Manifest must define 5 common small variants',
+  );
+  assert(
+    manifest.gruntComposition.commonMediumVariants === 5,
+    'Manifest must define 5 common medium variants',
+  );
+  assert(
+    manifest.gruntComposition.stageUnique === 15,
+    'Manifest must define 15 Stage-unique grunts',
+  );
+
+  assert(manifest.commonFamilies.pon_shadow?.variantCount === 5, 'pon_shadow must have 5 variants');
+  assert(
+    manifest.commonFamilies.grown_pon_shadow?.variantCount === 5,
+    'grown_pon_shadow must have 5 variants',
+  );
+
+  const grunts = cells.filter((cell) => cell.tier === 'grunt');
+  const small = grunts.filter((cell) => cell.gruntKind === 'common_small');
+  const medium = grunts.filter((cell) => cell.gruntKind === 'common_medium');
+  const unique = grunts.filter((cell) => cell.gruntKind === 'stage_unique');
+
+  assert(small.length === 5, `Expected 5 common small variants, got ${small.length}`);
+  assert(medium.length === 5, `Expected 5 common medium variants, got ${medium.length}`);
+  assert(unique.length === 15, `Expected 15 Stage-unique grunts, got ${unique.length}`);
+
+  assert(
+    small.every((cell) => cell.familyId === 'pon_shadow'),
+    'All common small variants must use familyId=pon_shadow',
+  );
+  assert(
+    medium.every((cell) => cell.familyId === 'grown_pon_shadow'),
+    'All common medium variants must use familyId=grown_pon_shadow',
+  );
+  assert(
+    unique.every((cell) => cell.familyId === null),
+    'Stage-unique grunts must not use a common familyId',
+  );
+
+  for (const stage of STAGES) {
+    const stageKey = `stage${stage}`;
+    const expectedPalette = manifest.stagePalettes[stageKey]?.paletteKey;
+    assert(expectedPalette, `Missing palette definition for ${stageKey}`);
+
+    const stageGrunts = grunts.filter((cell) => cell.stage === stage);
+    const stageSmall = stageGrunts.filter((cell) => cell.gruntKind === 'common_small');
+    const stageMedium = stageGrunts.filter((cell) => cell.gruntKind === 'common_medium');
+    const stageUnique = stageGrunts.filter((cell) => cell.gruntKind === 'stage_unique');
+
+    assert(stageGrunts.length === 5, `Stage ${stage} must have exactly 5 grunts`);
+    assert(stageSmall.length === 1, `Stage ${stage} must have one common small shadow`);
+    assert(stageMedium.length === 1, `Stage ${stage} must have one common medium shadow`);
+    assert(stageUnique.length === 3, `Stage ${stage} must have three unique grunts`);
+    assert(
+      stageGrunts.every((cell) => cell.paletteKey === expectedPalette),
+      `Stage ${stage} grunt paletteKey must be ${expectedPalette}`,
+    );
+  }
+
+  assert(new Set(small.map((cell) => cell.paletteKey)).size === 5, 'Small variants need 5 palettes');
+  assert(new Set(medium.map((cell) => cell.paletteKey)).size === 5, 'Medium variants need 5 palettes');
+}
+
+function validateDefinitions(manifest: EnemySheetManifest): EnemyCell[] {
   assert(manifest.canvas.widthPx === EXPECTED_WIDTH, 'Manifest canvas width must be 1440');
   assert(manifest.canvas.heightPx === EXPECTED_HEIGHT, 'Manifest canvas height must be 1080');
   assert(manifest.canvas.colorMode === 'RGBA', 'Manifest color mode must be RGBA');
@@ -150,6 +238,8 @@ function validateManifest(manifest: EnemySheetManifest): EnemyCell[] {
   assert(tierCounts.midboss === 10, `Expected 10 midbosses, got ${tierCounts.midboss}`);
   assert(tierCounts.boss === 3, `Expected 3 bosses, got ${tierCounts.boss}`);
   assert(tierCounts.boss_form === 10, `Expected 10 boss forms, got ${tierCounts.boss_form}`);
+
+  validateGruntComposition(manifest, cells);
 
   const bossIds = new Set(cells.filter((cell) => cell.tier === 'boss').map((cell) => cell.id));
   for (const cell of cells.filter((entry) => entry.tier === 'boss_form')) {
@@ -216,10 +306,12 @@ const args = process.argv.slice(2);
 const manifestOnly = args.includes('--manifest-only');
 const sourcePath = args.find((arg) => !arg.startsWith('--')) ?? DEFAULT_SOURCE_PATH;
 const manifest = JSON.parse(readFileSync(MANIFEST_PATH, 'utf8')) as EnemySheetManifest;
-const cells = validateManifest(manifest);
+const cells = validateDefinitions(manifest);
 
 console.log('enemy48 manifest: ok');
 console.log('distribution: grunt=25 midboss=10 boss=3 bossForm=10');
+console.log('grunt composition: commonSmall=5 commonMedium=5 stageUnique=15');
+console.log('per Stage: common small=1 common medium=1 unique=3');
 console.log('grid: 8x6 / 48 cells / 180x180 per cell');
 
 if (manifestOnly) {
