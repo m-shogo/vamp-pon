@@ -48,3 +48,14 @@ export const INVENTORY_ORIGINAL_ICONS: InventoryOriginalIcon[] = [
 export const inventoryOriginalByKey = new Map(
   INVENTORY_ORIGINAL_ICONS.map((entry) => [entry.category + ':' + entry.itemId, entry]),
 );
+
+export const inventoryOriginalAssetEntries = INVENTORY_ORIGINAL_ICONS.map((entry) => ({
+  id: entry.textureId,
+  path: entry.path,
+  width: INVENTORY_ORIGINAL_SOURCE_SIZE,
+  height: INVENTORY_ORIGINAL_SOURCE_SIZE,
+  kind: 'ui' as const,
+  description: entry.name + ' 180px inventory original',
+  required: true,
+  fallback: false,
+}));
