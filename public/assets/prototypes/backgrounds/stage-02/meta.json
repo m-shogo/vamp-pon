@@ -1,0 +1,37 @@
+{
+  "id": "stage-02",
+  "number": 2,
+  "name": "名前をなくした札庭",
+  "slug": "nameless-tag-garden",
+  "originalFilename": "ChatGPT Image Jun 16, 2026, 11_41_03 PM (2).png",
+  "image": "environment-master.png",
+  "status": "prototype",
+  "width": 941,
+  "height": 1672,
+  "aspectRatio": "941:1672",
+  "symbol": "空白の名札",
+  "primaryMisreading": "すり替え",
+  "character": "アサ",
+  "visualRole": "巨大な空白名札が吊られた木を中心に、紫と藤色の札庭が広がる。",
+  "mainLandmark": "空白名札の木",
+  "palette": ["紫", "藤色", "白", "古紙"],
+  "centralQuietFloorRatio": 0.55,
+  "implementationNotes": "名札の木が上部にあり、中央〜下部に戦闘床が確保されている。",
+  "narrativeCause": "アサが自分の名前を探す場所",
+  "narrativePayoff": "空白の名札に名前が書かれる前の静寂",
+  "futureSeed": "Stage 5で名札が読めるようになる伏線",
+  "sourceDocs": [
+    "docs/146-stage-visual-design-guide.md",
+    "docs/151-story-integrated-stage-1-to-5-one-shot-brief.md"
+  ],
+  "displayAdjustments": {
+    "cropX": 0,
+    "cropY": 0,
+    "scale": 1,
+    "opacity": 1,
+    "brightness": 1,
+    "saturation": 1,
+    "overlayAlpha": 0.18,
+    "vignetteAlpha": 0.12
+  }
+}

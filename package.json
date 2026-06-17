@@ -31,6 +31,7 @@
     "enemy48:manifest:check": "node --experimental-strip-types scripts/quality/check-enemy-48-sprite-sheet.ts --manifest-only",
     "enemy48:sprites:verify": "node --experimental-strip-types scripts/quality/check-enemy-48-sprite-sheet.ts",
     "inventory-icons:check": "node --experimental-strip-types scripts/quality/check-inventory-icon-stock.ts",
+    "backgrounds:verify": "node --experimental-strip-types scripts/quality/check-backgrounds.ts",
     "story-map:check": "node --experimental-strip-types scripts/quality/check-story-map-data.ts",
     "story-map:serve": "cd docs/story-map && python3 -m http.server 4173",
     "build": "tsc && vite build",

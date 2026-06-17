@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "logicalViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "stages": [
+    {
+      "id": "stage-01",
+      "number": 1,
+      "name": "ちぎれた夜の広場",
+      "slug": "torn-night-plaza",
+      "environment": "/assets/prototypes/backgrounds/stage-01/environment-master.png",
+      "meta": "/assets/prototypes/backgrounds/stage-01/meta.json",
+      "status": "prototype",
+      "enabledForPreview": true,
+      "enabledForRuntime": false
+    },
+    {
+      "id": "stage-02",
+      "number": 2,
+      "name": "名前をなくした札庭",
+      "slug": "nameless-tag-garden",
+      "environment": "/assets/prototypes/backgrounds/stage-02/environment-master.png",
+      "meta": "/assets/prototypes/backgrounds/stage-02/meta.json",
+      "status": "prototype",
+      "enabledForPreview": true,
+      "enabledForRuntime": false
+    },
+    {
+      "id": "stage-03",
+      "number": 3,
+      "name": "月箱の保管庫",
+      "slug": "moonbox-vault",
+      "environment": "/assets/prototypes/backgrounds/stage-03/environment-master.png",
+      "meta": "/assets/prototypes/backgrounds/stage-03/meta.json",
+      "status": "prototype",
+      "enabledForPreview": true,
+      "enabledForRuntime": false
+    },
+    {
+      "id": "stage-04",
+      "number": 4,
+      "name": "逆さ改札と帰り線",
+      "slug": "inverted-gate-return-line",
+      "environment": "/assets/prototypes/backgrounds/stage-04/environment-master.png",
+      "meta": "/assets/prototypes/backgrounds/stage-04/meta.json",
+      "status": "prototype",
+      "enabledForPreview": true,
+      "enabledForRuntime": false
+    },
+    {
+      "id": "stage-05",
+      "number": 5,
+      "name": "朝をつなぐ灯り庭",
+      "slug": "dawn-lantern-garden",
+      "environment": "/assets/prototypes/backgrounds/stage-05/environment-master.png",
+      "meta": "/assets/prototypes/backgrounds/stage-05/meta.json",
+      "status": "prototype",
+      "enabledForPreview": true,
+      "enabledForRuntime": false
+    }
+  ]
+}
