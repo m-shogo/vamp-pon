@@ -63,7 +63,15 @@ export type RareItemDefinition = {
   lore?: string;
 };
 
-export type EnemyBehavior = 'chase' | 'slow_chase' | 'offset_chase' | 'swarm_chase' | 'elite_chase';
+export type EnemyBehavior =
+  | 'chase'
+  | 'slow_chase'
+  | 'offset_chase'
+  | 'swarm_chase'
+  | 'elite_chase'
+  | 'charger'
+  | 'orbit_chase'
+  | 'coward';
 
 /** 描画モチーフ。敵の名前/挙動を変えても描画部が壊れないよう、見た目は visualKind で決める。 */
 export type EnemyVisualKind = 'ink_blob' | 'paper_scrap' | 'signpost' | 'capsule' | 'haze' | 'label_elite';
