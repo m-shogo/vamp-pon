@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import { assetManifest } from './assetManifest';
 import { allPrototypeAssets } from './prototypeManifest';
-import { ENEMY_PROTOTYPE_SHEET } from './enemyPrototypeSheet';
+import { ENEMY_PROTOTYPE_SHEET_LIST } from './enemyPrototypeSheet';
 
 /**
  * 「実在する画像だけ」を Phaser のロードキューに積む。
@@ -20,17 +20,19 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
     }),
   );
 
-  // 48体シートは prototype-reference のまま、現行6敵の見た目だけを安全に差し替える。
-  // 候補は新しい方を先に確認し、存在しない場合のみ旧ファイルへフォールバックする。
-  const enemySheetPath = await firstExisting(ENEMY_PROTOTYPE_SHEET.paths);
-  if (enemySheetPath) {
-    scene.load.spritesheet(ENEMY_PROTOTYPE_SHEET.id, enemySheetPath, {
-      frameWidth: ENEMY_PROTOTYPE_SHEET.frameWidth,
-      frameHeight: ENEMY_PROTOTYPE_SHEET.frameHeight,
-      endFrame: ENEMY_PROTOTYPE_SHEET.endFrame,
-    });
-    queued += 1;
-  }
+  // 48体シートは正面・左向きを別テクスチャとして読み込む。
+  // 右向き専用画像は使わず、ゲーム中に左向き画像を flipX して描画する。
+  await Promise.all(
+    ENEMY_PROTOTYPE_SHEET_LIST.map(async (sheet) => {
+      if (!(await fileExists(sheet.path))) return;
+      scene.load.spritesheet(sheet.id, sheet.path, {
+        frameWidth: sheet.frameWidth,
+        frameHeight: sheet.frameHeight,
+        endFrame: sheet.endFrame,
+      });
+      queued += 1;
+    }),
+  );
 
   return queued;
 }
@@ -51,13 +53,6 @@ export async function queuePrototypeAssets(scene: Phaser.Scene): Promise<number>
     }),
   );
   return queued;
-}
-
-async function firstExisting(paths: readonly string[]): Promise<string | null> {
-  for (const path of paths) {
-    if (await fileExists(path)) return path;
-  }
-  return null;
 }
 
 async function fileExists(path: string): Promise<boolean> {

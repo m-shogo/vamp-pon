@@ -1,12 +1,19 @@
 import type Phaser from 'phaser';
 import { assetById, type AssetId } from './assetManifest';
-import { ENEMY_PROTOTYPE_SHEET, enemyPrototypeFrameForAsset } from './enemyPrototypeSheet';
+import {
+  ENEMY_PROTOTYPE_SHEET_LIST,
+  ENEMY_PROTOTYPE_SHEETS,
+  enemyPrototypeFrameForAsset,
+} from './enemyPrototypeSheet';
 
 /** そのアセット画像が Phaser に読み込まれているか。 */
 export function hasAsset(scene: Phaser.Scene, id: AssetId): boolean {
   const prototypeFrame = enemyPrototypeFrameForAsset(id);
   return scene.textures.exists(id)
-    || Boolean(prototypeFrame && scene.textures.exists(ENEMY_PROTOTYPE_SHEET.id));
+    || Boolean(
+      prototypeFrame
+      && ENEMY_PROTOTYPE_SHEET_LIST.some((sheet) => scene.textures.exists(sheet.id)),
+    );
 }
 
 /**
@@ -20,17 +27,27 @@ export function spriteOrNull(
   displayH?: number,
 ): Phaser.GameObjects.Image | null {
   const prototypeFrame = enemyPrototypeFrameForAsset(id);
-  if (prototypeFrame && scene.textures.exists(ENEMY_PROTOTYPE_SHEET.id)) {
-    const img = scene.add.image(
-      0,
-      prototypeFrame.offsetY ?? 0,
-      ENEMY_PROTOTYPE_SHEET.id,
-      prototypeFrame.frame,
-    );
-    img.setDisplaySize(prototypeFrame.displayWidth, prototypeFrame.displayHeight);
-    img.setData('assetSource', 'enemy-48-prototype-sheet');
-    img.setData('assetFrame', prototypeFrame.frame);
-    return img;
+  if (prototypeFrame) {
+    const initialSheet = scene.textures.exists(ENEMY_PROTOTYPE_SHEETS.front.id)
+      ? ENEMY_PROTOTYPE_SHEETS.front
+      : scene.textures.exists(ENEMY_PROTOTYPE_SHEETS.left.id)
+        ? ENEMY_PROTOTYPE_SHEETS.left
+        : null;
+
+    if (initialSheet) {
+      const img = scene.add.image(
+        0,
+        prototypeFrame.offsetY ?? 0,
+        initialSheet.id,
+        prototypeFrame.frame,
+      );
+      img.setDisplaySize(prototypeFrame.displayWidth, prototypeFrame.displayHeight);
+      img.setData('assetSource', 'enemy-48-directional-sheet');
+      img.setData('assetFrame', prototypeFrame.frame);
+      img.setData('enemyPrototypeDirectional', true);
+      img.setData('enemyPrototypeFrame', prototypeFrame.frame);
+      return img;
+    }
   }
 
   if (!id || !scene.textures.exists(id)) return null;
