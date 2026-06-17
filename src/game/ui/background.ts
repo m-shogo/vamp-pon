@@ -81,12 +81,12 @@ export function createStageBackground(
   textureKey: string,
   meta?: BackgroundMeta | null,
 ): Phaser.GameObjects.Container {
-  const c = scene.add.container(0, 0);
-  c.setDepth(VIEW_DEPTH.background);
-
   if (!scene.textures.exists(textureKey)) {
     return createBackground(scene);
   }
+
+  const c = scene.add.container(0, 0);
+  c.setDepth(VIEW_DEPTH.background);
 
   const tex = scene.textures.get(textureKey);
   const srcFrame = tex.get();
