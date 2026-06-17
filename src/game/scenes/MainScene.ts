@@ -74,11 +74,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   private setupBackground(): void {
-    const stageNum = getRequestedStageNumber();
-    if (stageNum == null) {
-      createBackground(this);
-      return;
-    }
+    const stageNum = getRequestedStageNumber() ?? 1;
     loadBackgroundManifest().then((manifest) => {
       if (!manifest) { createBackground(this); return; }
       const entry = getBackgroundByStageNumber(manifest, stageNum);

@@ -16,10 +16,8 @@ export class BootScene extends Phaser.Scene {
     if (isBackgroundPreviewUrl()) {
       count += await queueStageBackgrounds(this);
     } else {
-      const stageNum = getRequestedStageNumber();
-      if (stageNum != null) {
-        count += await queueStageBackgrounds(this, stageNum);
-      }
+      const stageNum = getRequestedStageNumber() ?? 1;
+      count += await queueStageBackgrounds(this, stageNum);
     }
 
     if (count > 0) {
