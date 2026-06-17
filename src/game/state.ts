@@ -83,6 +83,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
       ready: false,
       durationSec: BERSERK_DURATION_SEC,
       activeRemaining: 0,
+      fatigueRemaining: 0,
     },
     pendingChoices: [],
     pendingCapsule: null,
