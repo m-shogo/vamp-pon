@@ -2,6 +2,8 @@ import type Phaser from 'phaser';
 import { assetManifest } from './assetManifest';
 import { allPrototypeAssets } from './prototypeManifest';
 import { ENEMY_PROTOTYPE_SHEET_LIST } from './enemyPrototypeSheet';
+import { loadBackgroundManifest, getPreviewBackgrounds, getBackgroundByStageNumber } from './backgroundManifest';
+import { stageBackgroundTextureKey } from '../ui/background';
 
 /**
  * 「実在する画像だけ」を Phaser のロードキューに積む。
@@ -49,6 +51,34 @@ export async function queuePrototypeAssets(scene: Phaser.Scene): Promise<number>
     allPrototypeAssets.map(async (a) => {
       if (!(await fileExists(a.path))) return;
       scene.load.image(a.id, a.path);
+      queued += 1;
+    }),
+  );
+  return queued;
+}
+
+/**
+ * Stage背景画像をロードキューに積む。
+ * stageNumber を指定すると1面だけ、省略するとpreview有効な全Stageを積む。
+ */
+export async function queueStageBackgrounds(
+  scene: Phaser.Scene,
+  stageNumber?: number | null,
+): Promise<number> {
+  const manifest = await loadBackgroundManifest();
+  if (!manifest) return 0;
+
+  let queued = 0;
+  const entries = stageNumber != null
+    ? [getBackgroundByStageNumber(manifest, stageNumber)].filter(Boolean)
+    : getPreviewBackgrounds(manifest);
+
+  await Promise.all(
+    entries.map(async (entry) => {
+      if (!entry) return;
+      if (!(await fileExists(entry.environment))) return;
+      const key = stageBackgroundTextureKey(entry);
+      scene.load.image(key, entry.environment);
       queued += 1;
     }),
   );

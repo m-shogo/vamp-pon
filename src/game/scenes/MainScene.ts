@@ -3,7 +3,8 @@ import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState } from '../state';
 import { GAME_STATUS } from '../domain/constants';
-import { createBackground } from '../ui/background';
+import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
+import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
 import { Hud } from '../ui/hud';
 import { Overlays } from '../ui/overlays';
 import { VirtualStick } from '../ui/virtualStick';
@@ -38,7 +39,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   create(): void {
-    createBackground(this);
+    this.setupBackground();
     this.state = createInitialState(this);
     this.hud = new Hud(
       this,
@@ -66,6 +67,24 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.hud.update(this.state);
+  }
+
+  private setupBackground(): void {
+    const stageNum = getRequestedStageNumber();
+    if (stageNum == null) {
+      createBackground(this);
+      return;
+    }
+    loadBackgroundManifest().then((manifest) => {
+      if (!manifest) { createBackground(this); return; }
+      const entry = getBackgroundByStageNumber(manifest, stageNum);
+      if (!entry) { createBackground(this); return; }
+      const key = stageBackgroundTextureKey(entry);
+      if (!this.textures.exists(key)) { createBackground(this); return; }
+      loadBackgroundMeta(entry.id).then((meta) => {
+        createStageBackground(this, key, meta);
+      });
+    });
   }
 
   private tryAutoPause(): void {

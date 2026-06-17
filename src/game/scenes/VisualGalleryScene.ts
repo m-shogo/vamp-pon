@@ -30,8 +30,16 @@ import { assetById, assetManifest, WEAPON_ASSET } from '../assets/assetManifest'
 import { assetStatus, spriteOrNull } from '../assets/assetHelpers';
 import { prototypeAssets } from '../assets/prototypeManifest';
 import { generatedPixelAssets, type PixelAssetQuality } from '../assets/vampPixelKit';
+import {
+  loadBackgroundManifest,
+  getPreviewBackgrounds,
+  loadBackgroundMeta,
+  type BackgroundStageEntry,
+  type BackgroundMeta,
+} from '../assets/backgroundManifest';
+import { createStageBackground, stageBackgroundTextureKey } from '../ui/background';
 
-const PAGES = ['背景・ユイ・敵', 'ユイ詳細', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況', 'ユイ32px比較', 'ユイ42px比較'] as const;
+const PAGES = ['背景・ユイ・敵', 'ユイ詳細', '拾得物・UI', '通常武器', '進化・合体・覚醒', '戦闘モック', 'アセット状況', 'ユイ32px比較', 'ユイ42px比較', 'Stage背景'] as const;
 
 /** URLのscene指定から初期ページを決める。 */
 export function pageFromUrl(): number {
@@ -43,10 +51,11 @@ export function pageFromUrl(): number {
   if (scene === 'asset-status') return 6;
   if (scene === 'yui-redesign32') return 7;
   if (scene === 'yui-redesign42') return 8;
+  if (scene === 'background-preview') return 9;
   return 0;
 }
 
-const GALLERY_SCENES = ['visual-gallery', 'yui-gallery', 'combat-mock', 'evolution-showcase', 'asset-status', 'yui-redesign32', 'yui-redesign42'];
+const GALLERY_SCENES = ['visual-gallery', 'yui-gallery', 'combat-mock', 'evolution-showcase', 'asset-status', 'yui-redesign32', 'yui-redesign42', 'background-preview'];
 const generatedQualityById = new Map(generatedPixelAssets.map((asset) => [asset.id, asset.quality]));
 
 /** ?scene= / ?debug= がギャラリー系か。 */
@@ -54,6 +63,12 @@ export function isGalleryUrl(): boolean {
   const params = new URLSearchParams(window.location.search);
   const scene = params.get('scene') ?? params.get('debug') ?? '';
   return GALLERY_SCENES.includes(scene);
+}
+
+export function isBackgroundPreviewUrl(): boolean {
+  const params = new URLSearchParams(window.location.search);
+  const scene = params.get('scene') ?? params.get('debug') ?? '';
+  return scene === 'background-preview';
 }
 
 /**
@@ -120,6 +135,7 @@ export class VisualGalleryScene extends Phaser.Scene {
       case 6: this.buildAssetStatusPage(); break;
       case 7: this.buildYuiRedesign32Page(); break;
       case 8: this.buildYuiRedesign42Page(); break;
+      case 9: this.buildBackgroundPreviewPage(); break;
     }
 
     const showHud = this.page === 2 || this.page === 5;
@@ -721,6 +737,123 @@ export class VisualGalleryScene extends Phaser.Scene {
         '実機スマホは未確認。',
       ], { fontFamily: FONT, fontSize: '9px', color: '#cfc6b0', lineSpacing: 3 }).setOrigin(0, 0),
     );
+  }
+
+  private bgPreviewIndex = 0;
+  private bgEntries: BackgroundStageEntry[] = [];
+  private bgMetas: Map<string, BackgroundMeta> = new Map();
+
+  private buildBackgroundPreviewPage(): void {
+    this.heading('Stage背景プロトタイプ一覧');
+    loadBackgroundManifest().then(async (manifest) => {
+      if (!manifest) {
+        this.label(GAME_WIDTH / 2, 60, 'manifest読み込み失敗', 12, '#e0564f');
+        return;
+      }
+      this.bgEntries = getPreviewBackgrounds(manifest);
+      for (const entry of this.bgEntries) {
+        const meta = await loadBackgroundMeta(entry.id);
+        if (meta) this.bgMetas.set(entry.id, meta);
+      }
+      this.renderBgPreviewContent();
+    });
+  }
+
+  private renderBgPreviewContent(): void {
+    this.pageRoot.destroy();
+    this.pageRoot = this.add.container(0, 0);
+
+    const entries = this.bgEntries;
+    if (entries.length === 0) {
+      this.label(GAME_WIDTH / 2, 60, 'preview背景なし', 12, '#e0564f');
+      return;
+    }
+
+    const entry = entries[this.bgPreviewIndex % entries.length];
+    const meta = this.bgMetas.get(entry.id);
+    const texKey = stageBackgroundTextureKey(entry);
+    const hasTex = this.textures.exists(texKey);
+
+    const vpW = 195;
+    const vpH = 422;
+    const vpX = GAME_WIDTH / 2;
+    const vpY = 250;
+
+    this.pageRoot.add(this.add.rectangle(vpX, vpY, vpW + 4, vpH + 4, 0x000000, 0.6).setOrigin(0.5));
+
+    if (hasTex) {
+      const tex = this.textures.get(texKey);
+      const frame = tex.get();
+      const scaleToFill = Math.max(vpW / frame.width, vpH / frame.height);
+      const img = this.add.image(vpX, vpY, texKey);
+      img.setScale(scaleToFill);
+      const maskShape = this.add.graphics();
+      maskShape.fillRect(vpX - vpW / 2, vpY - vpH / 2, vpW, vpH);
+      img.setMask(maskShape.createGeometryMask());
+      this.pageRoot.add(img);
+
+      const overlayAlpha = meta?.displayAdjustments?.overlayAlpha ?? 0.18;
+      if (overlayAlpha > 0) {
+        this.pageRoot.add(this.add.rectangle(vpX, vpY, vpW, vpH, 0x1d1a34, overlayAlpha));
+      }
+    } else {
+      this.pageRoot.add(this.add.rectangle(vpX, vpY, vpW, vpH, COLORS.background));
+      this.label(vpX, vpY, 'image not loaded', 10, '#e0564f');
+    }
+
+    // 390x844 crop guide
+    this.pageRoot.add(this.add.rectangle(vpX, vpY, vpW, vpH, 0x000000, 0).setStrokeStyle(1, 0xffffff, 0.5));
+
+    // HUD reserve (top 80px at half scale = 40px)
+    const hudH = 40;
+    this.pageRoot.add(this.add.rectangle(vpX, vpY - vpH / 2 + hudH / 2, vpW, hudH, 0x000000, 0.25));
+    this.label(vpX, vpY - vpH / 2 + 4, 'HUD', 8, '#ffffff', 60);
+
+    // Bottom UI reserve (bottom 60px at half scale = 30px)
+    const uiH = 30;
+    this.pageRoot.add(this.add.rectangle(vpX, vpY + vpH / 2 - uiH / 2, vpW, uiH, 0x000000, 0.25));
+    this.label(vpX, vpY + vpH / 2 - uiH + 2, 'UI', 8, '#ffffff', 60);
+
+    // Gameplay readability overlay — central quiet floor
+    const floorRatio = meta?.centralQuietFloorRatio ?? 0.55;
+    const floorH = vpH * floorRatio;
+    this.pageRoot.add(
+      this.add.rectangle(vpX, vpY, vpW * 0.8, floorH, 0xffffff, 0.06).setStrokeStyle(1, 0xffffff, 0.15),
+    );
+    this.label(vpX, vpY + floorH / 2 - 14, `戦闘床 ${Math.round(floorRatio * 100)}%`, 7, '#ffffff', 100);
+
+    // Stage info
+    const infoX = GAME_WIDTH / 2;
+    let infoY = vpY + vpH / 2 + 14;
+    this.label(infoX, infoY, `Stage ${entry.number}: ${entry.name}`, 11, '#f3ead2', 360);
+    infoY += 18;
+    if (meta) {
+      this.label(infoX, infoY, `${meta.character} / ${meta.symbol} / ${meta.primaryMisreading}`, 9, '#cfe6f0', 360);
+      infoY += 14;
+      this.label(infoX, infoY, `${meta.width}x${meta.height} / ${entry.status}`, 9, '#9a8d6f', 360);
+      infoY += 14;
+      this.label(infoX, infoY, meta.mainLandmark, 9, '#ffe9a8', 360);
+    }
+
+    // Nav buttons
+    const navY = 34;
+    if (entries.length > 1) {
+      const prevBtn = this.add.circle(30, navY, 14, COLORS.cardBg, 1)
+        .setDepth(VIEW_DEPTH.hud + 3).setInteractive({ useHandCursor: true });
+      prevBtn.setStrokeStyle(1, COLORS.cardEdge, 1);
+      prevBtn.on('pointerdown', () => { this.bgPreviewIndex = (this.bgPreviewIndex - 1 + entries.length) % entries.length; this.renderBgPreviewContent(); });
+      this.pageRoot.add(prevBtn);
+      this.pageRoot.add(this.add.text(30, navY, '◀', { fontFamily: FONT, fontSize: '12px', color: '#3a3326' }).setOrigin(0.5).setDepth(VIEW_DEPTH.hud + 4));
+
+      const nextBtn = this.add.circle(GAME_WIDTH - 30, navY, 14, COLORS.cardBg, 1)
+        .setDepth(VIEW_DEPTH.hud + 3).setInteractive({ useHandCursor: true });
+      nextBtn.setStrokeStyle(1, COLORS.cardEdge, 1);
+      nextBtn.on('pointerdown', () => { this.bgPreviewIndex = (this.bgPreviewIndex + 1) % entries.length; this.renderBgPreviewContent(); });
+      this.pageRoot.add(nextBtn);
+      this.pageRoot.add(this.add.text(GAME_WIDTH - 30, navY, '▶', { fontFamily: FONT, fontSize: '12px', color: '#3a3326' }).setOrigin(0.5).setDepth(VIEW_DEPTH.hud + 4));
+    }
+
+    this.titleText.setText(`${this.page + 1}/${PAGES.length}  ${PAGES[this.page]}  [${this.bgPreviewIndex + 1}/${entries.length}]`);
   }
 
   private burstButton(x: number, y: number, kind: EvolutionKind): void {

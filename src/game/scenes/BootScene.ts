@@ -1,12 +1,9 @@
 import Phaser from 'phaser';
-import { queueExistingAssets, queuePrototypeAssets } from '../assets/loadAssets';
+import { queueExistingAssets, queuePrototypeAssets, queueStageBackgrounds } from '../assets/loadAssets';
 import { isCore5SpriteSheetPreviewUrl } from './Core5SpriteSheetPreviewScene';
-import { isGalleryUrl } from './VisualGalleryScene';
+import { isGalleryUrl, isBackgroundPreviewUrl } from './VisualGalleryScene';
+import { getRequestedStageNumber } from '../ui/background';
 
-/**
- * 起動シーン。実在するアセット画像だけを読み込んでから本編 or preview へ。
- * 画像が未配置でも 404 で止まらず（HEADで除外）、各 createXView / preview が fallback を描く。
- */
 export class BootScene extends Phaser.Scene {
   constructor() {
     super('BootScene');
@@ -14,8 +11,17 @@ export class BootScene extends Phaser.Scene {
 
   async create(): Promise<void> {
     let count = await queueExistingAssets(this);
-    // 比較ページ用の prototype は preview 起動時のみ追加で積む（本番には影響しない）。
     if (isGalleryUrl() || isCore5SpriteSheetPreviewUrl()) count += await queuePrototypeAssets(this);
+
+    if (isBackgroundPreviewUrl()) {
+      count += await queueStageBackgrounds(this);
+    } else {
+      const stageNum = getRequestedStageNumber();
+      if (stageNum != null) {
+        count += await queueStageBackgrounds(this, stageNum);
+      }
+    }
+
     if (count > 0) {
       this.load.once(Phaser.Loader.Events.COMPLETE, () => this.startTarget());
       this.load.start();

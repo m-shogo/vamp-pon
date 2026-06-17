@@ -2,20 +2,22 @@ import Phaser from 'phaser';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { hasAsset } from '../assets/assetHelpers';
+import type { BackgroundStageEntry, BackgroundMeta } from '../assets/backgroundManifest';
 
-/**
- * 夜の街の床。参考: assets/concept-design/01_world/world_night-town_01.png
- * 藍紫のヴィネット + 紙グレイン + 縁の紙片/街灯/インク染み。
- * グリッド線は使わない。プレイ領域（中央）は明るめに保ち、敵/欠片/弾が見えること優先。
- */
+export function getRequestedStageNumber(): number | null {
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get('stage');
+  if (!raw) return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 1 && n <= 99 ? n : null;
+}
+
 export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   c.setDepth(VIEW_DEPTH.background);
 
-  // 画像タイルがあれば敷き詰める。無ければ Graphics fallback（以下）。
   if (hasAsset(scene, 'bg_stage1_paper_night')) {
     c.add(scene.add.tileSprite(0, 0, GAME_WIDTH, GAME_HEIGHT, 'bg_stage1_paper_night').setOrigin(0, 0));
-    // 生成タイルの紙片/地図線が拾得物と競合しないよう、実画像時も必ず可読性レイヤーを重ねる。
     c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x20263d, 0.22));
     c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH - 56, GAME_HEIGHT - 176, 0x2f3854, 0.12));
     for (const spot of [
@@ -26,12 +28,9 @@ export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Contai
     return c;
   }
 
-  // ベース（中央やや明るい藍紫）
   c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, COLORS.background));
 
   const g = scene.add.graphics();
-
-  // 紙グレイン（細かい点を散らす。明暗まばら）
   for (let i = 0; i < 260; i += 1) {
     const x = Math.random() * GAME_WIDTH;
     const y = Math.random() * GAME_HEIGHT;
@@ -39,15 +38,12 @@ export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Contai
     g.fillStyle(light ? COLORS.backgroundTile : COLORS.backgroundEdge, 0.35);
     g.fillRect(x, y, 2, 2);
   }
-
-  // 縁を暗くするヴィネット（中央は触らない。枠を内側へ重ねる）
   for (let i = 0; i < 5; i += 1) {
     g.lineStyle(26, COLORS.backgroundEdge, 0.1);
     g.strokeRect(-13 + i * 12, -13 + i * 12, GAME_WIDTH + 26 - i * 24, GAME_HEIGHT + 26 - i * 24);
   }
   c.add(g);
 
-  // 散らばった淡い紙片（縁ほど多い）
   const scraps = scene.add.graphics();
   for (let i = 0; i < 30; i += 1) {
     const edge = Math.random() < 0.7;
@@ -57,7 +53,6 @@ export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Contai
     scraps.fillStyle(COLORS.paperScrap, 0.16 + Math.random() * 0.1);
     scraps.fillRect(x, y, w, w * 0.7);
   }
-  // まばらな黒インク染み
   for (let i = 0; i < 7; i += 1) {
     const x = Math.random() * GAME_WIDTH;
     const y = Math.random() * GAME_HEIGHT;
@@ -67,7 +62,6 @@ export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Contai
   }
   c.add(scraps);
 
-  // 隅の街灯の淡い暖光
   const lampSpots = [
     { x: 26, y: 96 },
     { x: GAME_WIDTH - 28, y: 250 },
@@ -80,4 +74,58 @@ export function createBackground(scene: Phaser.Scene): Phaser.GameObjects.Contai
   }
 
   return c;
+}
+
+export function createStageBackground(
+  scene: Phaser.Scene,
+  textureKey: string,
+  meta?: BackgroundMeta | null,
+): Phaser.GameObjects.Container {
+  const c = scene.add.container(0, 0);
+  c.setDepth(VIEW_DEPTH.background);
+
+  if (!scene.textures.exists(textureKey)) {
+    return createBackground(scene);
+  }
+
+  const tex = scene.textures.get(textureKey);
+  const srcFrame = tex.get();
+  const imgW = srcFrame.width;
+  const imgH = srcFrame.height;
+
+  const adj = meta?.displayAdjustments;
+  const cropX = adj?.cropX ?? 0;
+  const cropY = adj?.cropY ?? 0;
+  const scaleOverride = adj?.scale ?? 1;
+  const overlayAlpha = adj?.overlayAlpha ?? 0.18;
+  const vignetteAlpha = adj?.vignetteAlpha ?? 0.12;
+
+  const scaleToFill = Math.max(GAME_WIDTH / imgW, GAME_HEIGHT / imgH) * scaleOverride;
+
+  const img = scene.add.image(GAME_WIDTH / 2 + cropX, GAME_HEIGHT / 2 + cropY, textureKey);
+  img.setScale(scaleToFill);
+  c.add(img);
+
+  if (adj?.opacity != null && adj.opacity < 1) {
+    img.setAlpha(adj.opacity);
+  }
+
+  if (overlayAlpha > 0) {
+    c.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1d1a34, overlayAlpha));
+  }
+
+  if (vignetteAlpha > 0) {
+    const vg = scene.add.graphics();
+    for (let i = 0; i < 4; i += 1) {
+      vg.lineStyle(20, 0x1d1a34, vignetteAlpha * (1 - i * 0.2));
+      vg.strokeRect(i * 8, i * 8, GAME_WIDTH - i * 16, GAME_HEIGHT - i * 16);
+    }
+    c.add(vg);
+  }
+
+  return c;
+}
+
+export function stageBackgroundTextureKey(entry: BackgroundStageEntry): string {
+  return `bg_proto_${entry.id.replace(/-/g, '_')}`;
 }
