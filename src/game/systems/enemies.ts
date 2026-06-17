@@ -5,9 +5,9 @@ import { nextIid } from '../runtime';
 import { PLAYER_DEFAULTS, COLORS, GAME_STATUS } from '../domain/constants';
 import { distance } from '../utils/math';
 import { randRange } from '../utils/rng';
-import { capsuleDropChanceFor, computeBehaviorStep } from '../domain/enemyRules';
+import { capsuleDropChanceFor, chargerPhaseFor, computeBehaviorStep } from '../domain/enemyRules';
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
-import { inkPuff, shakeOnHit } from '../ui/effects';
+import { capsuleRewardBurst, inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
 import {
@@ -113,6 +113,9 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   if (enemy.capsuleDropChance > 0 && Math.random() < enemy.capsuleDropChance) {
     spawnCapsule(scene, state, enemy.x, enemy.y);
   }
+  if (enemy.defId === 'black_capsule') {
+    capsuleRewardBurst(scene, enemy.x, enemy.y);
+  }
 
   inkPuff(scene, enemy.x, enemy.y, enemy.radius, enemy.isElite);
   enemy.view.destroy();
@@ -182,6 +185,40 @@ function updateEnemyPrototypeFacing(
   sprite.setFlipX(usingLeftSheet && dirX > 0);
 }
 
+function updateChargerTelegraph(enemy: EnemyRuntime, playerX: number, playerY: number, elapsedSec: number): void {
+  const telegraph = enemy.view.getData('chargerTelegraph') as Phaser.GameObjects.Graphics | undefined;
+  if (!telegraph) return;
+
+  telegraph.clear();
+  if (enemy.behavior !== 'charger') {
+    telegraph.setVisible(false);
+    return;
+  }
+
+  const phase = chargerPhaseFor({ iid: enemy.iid, elapsedSec });
+  if (phase === 'recovery') {
+    telegraph.setVisible(false);
+    return;
+  }
+
+  const dx = playerX - enemy.x;
+  const dy = playerY - enemy.y;
+  const len = Math.max(1, Math.sqrt(dx * dx + dy * dy));
+  const ux = dx / len;
+  const uy = dy / len;
+  const reach = phase === 'dash' ? enemy.radius * 4.2 : enemy.radius * 3.4;
+  const alpha = phase === 'dash' ? 0.72 : 0.46;
+  const color = phase === 'dash' ? 0xffd0aa : 0xff8e7a;
+
+  telegraph.setVisible(true);
+  telegraph.lineStyle(phase === 'dash' ? 3 : 2, color, alpha);
+  telegraph.beginPath();
+  telegraph.moveTo(ux * enemy.radius * 0.8, uy * enemy.radius * 0.8);
+  telegraph.lineTo(ux * reach, uy * reach);
+  telegraph.strokePath();
+  telegraph.lineStyle(2, color, alpha * 0.8).strokeCircle(0, 0, enemy.radius + (phase === 'dash' ? 5 : 2));
+}
+
 /** 敵の移動・接触・点滅を更新する。 */
 export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
@@ -207,6 +244,7 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       iid: e.iid,
       elapsedSec: state.elapsedSec,
     });
+    updateChargerTelegraph(e, p.x, p.y, state.elapsedSec);
     updateEnemyPrototypeFacing(scene, e.view, step.dirX, step.dirY);
     e.x += step.dirX * e.moveSpeed * step.speedFactor * dt;
     e.y += step.dirY * e.moveSpeed * step.speedFactor * dt;

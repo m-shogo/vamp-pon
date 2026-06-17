@@ -114,10 +114,16 @@ export function createEnemyView(
 ): Phaser.GameObjects.Container {
   const c = scene.add.container(0, 0);
   const kind = def.visualKind;
+  const telegraph = def.behavior === 'charger' ? scene.add.graphics() : null;
+  if (telegraph) {
+    telegraph.setVisible(false);
+    c.setData('chargerTelegraph', telegraph);
+  }
   // 画像があればスプライト、無ければ Graphics fallback（以下）。
   // スプライト時は flash(setFillStyle) を避けるため 'blob' は設定しない（スケールポップのみ）。
   const sprite = spriteOrNull(scene, ENEMY_ASSET[kind], radius * 2, radius * 2);
   if (sprite) {
+    if (telegraph) c.add(telegraph);
     c.add(sprite);
     c.setDepth(DEPTH.enemy);
     return c;
@@ -137,7 +143,7 @@ export function createEnemyView(
   const bumpL = scene.add.circle(-radius * 0.55, radius * 0.4, radius * 0.4, fill, baseAlpha);
   const bumpR = scene.add.circle(radius * 0.55, radius * 0.4, radius * 0.4, fill, baseAlpha);
 
-  const behind: Phaser.GameObjects.GameObject[] = [puddle];
+  const behind: Phaser.GameObjects.GameObject[] = telegraph ? [telegraph, puddle] : [puddle];
   const front: Phaser.GameObjects.GameObject[] = [];
   let eyeHigh = false;
 

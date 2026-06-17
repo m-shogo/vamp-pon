@@ -38,6 +38,7 @@ const EMPTY_BERSERK: BerserkState = {
   ready: false,
   durationSec: 8,
   activeRemaining: 0,
+  fatigueRemaining: 0,
 };
 
 type InputEventLike = { stopPropagation?: () => void };
@@ -55,6 +56,7 @@ export class Hud {
   private inventoryBack: Phaser.GameObjects.Graphics;
   private portraitFrame: Phaser.GameObjects.Graphics;
   private portraitCharge: Phaser.GameObjects.Graphics;
+  private portraitFlame: Phaser.GameObjects.Graphics;
   private portraitImage: Phaser.GameObjects.Image | null;
   private portraitFallback: Phaser.GameObjects.Text;
   private crestImage: Phaser.GameObjects.Image | null;
@@ -156,6 +158,7 @@ export class Hud {
 
     this.portraitFrame = scene.add.graphics().setDepth(DEPTH + 1);
     drawStorybookPanel(this.portraitFrame, PORTRAIT_X, PORTRAIT_Y, 60, 60, 0x10162d, STORYBOOK_UI.gold, 0.96);
+    this.portraitFlame = scene.add.graphics().setDepth(DEPTH + 3);
     this.portraitCharge = scene.add.graphics().setDepth(DEPTH + 4);
     this.portraitImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.portraitNeutral, 44, 44);
     this.portraitImage?.setPosition(PORTRAIT_X, PORTRAIT_Y).setDepth(DEPTH + 2);
@@ -279,23 +282,28 @@ export class Hud {
 
   private updatePortrait(berserk: BerserkState): void {
     const active = berserk.activeRemaining > 0;
+    const fatigued = !active && berserk.fatigueRemaining > 0;
     const ready = berserk.ready;
     const ratio = active
       ? Math.max(0, Math.min(1, berserk.activeRemaining / berserk.durationSec))
+      : fatigued
+        ? Math.max(0, Math.min(1, berserk.fatigueRemaining / 0.8))
       : Math.max(0, Math.min(1, berserk.charge / berserk.maxCharge));
-    const accent = active ? 0xff718c : ready ? 0xffc06a : STORYBOOK_UI.xp;
+    const pulse = active ? 0.72 + Math.sin(this.scene.time.now * 0.018) * 0.28 : 1;
+    const accent = active ? 0xff718c : fatigued ? 0x8b80a8 : ready ? 0xffc06a : STORYBOOK_UI.xp;
 
     this.portraitCharge.clear();
     this.portraitCharge.lineStyle(4, 0x090d1d, 0.9).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 33);
-    this.portraitCharge.lineStyle(3, accent, active || ready ? 1 : 0.86);
+    this.portraitCharge.lineStyle(active ? 4 : 3, accent, active ? pulse : active || ready ? 1 : 0.86);
     this.portraitCharge.beginPath();
     this.portraitCharge.arc(PORTRAIT_X, PORTRAIT_Y, 33, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.portraitCharge.strokePath();
 
+    this.drawBerserkFlame(active, fatigued, pulse);
     if (this.portraitImage) {
       const texture = active ? YUI_HUD_FRAME_IDS.portraitAlt : YUI_HUD_FRAME_IDS.portraitNeutral;
       if (this.scene.textures.exists(texture) && this.portraitImage.texture.key !== texture) this.portraitImage.setTexture(texture);
-      this.portraitImage.setTint(active ? 0xffc8d0 : 0xffffff);
+      this.portraitImage.setTint(active ? 0xffc8d0 : fatigued ? 0xc8c2d6 : 0xffffff);
       this.portraitImage.setDisplaySize(44, 44);
     }
     if (this.crestImage) {
@@ -304,9 +312,28 @@ export class Hud {
       this.crestImage.setVisible(active || ready);
     }
 
-    this.berserkText.setText(active ? `暴走 ${Math.ceil(berserk.activeRemaining)}秒` : ready ? '暴走 OK' : `暴走 ${Math.floor(ratio * 100)}%`);
-    this.berserkText.setColor(active ? '#ffb3c0' : ready ? '#ffe3a8' : STORYBOOK_UI.textMuted);
+    this.berserkText.setText(active ? `暴走 ${Math.ceil(berserk.activeRemaining)}秒` : fatigued ? '疲労' : ready ? '暴走 OK' : `暴走 ${Math.floor(ratio * 100)}%`);
+    this.berserkText.setColor(active ? (pulse > 0.78 ? '#ffd6de' : '#ff8fa4') : fatigued ? '#b8b0cc' : ready ? '#ffe3a8' : STORYBOOK_UI.textMuted);
     this.portraitZone.setName(ready ? '暴走を発動' : '暴走ゲージ');
+  }
+
+  private drawBerserkFlame(active: boolean, fatigued: boolean, pulse: number): void {
+    this.portraitFlame.clear();
+    if (!active && !fatigued) return;
+
+    const flameAlpha = active ? 0.42 * pulse : 0.18;
+    const edgeAlpha = active ? 0.88 * pulse : 0.32;
+    this.portraitFlame.lineStyle(active ? 3 : 2, active ? 0x0a0712 : 0x5d5572, edgeAlpha);
+    this.portraitFlame.strokeCircle(PORTRAIT_X, PORTRAIT_Y, active ? 38 : 35);
+    if (!active) return;
+
+    this.portraitFlame.fillStyle(0x090711, flameAlpha);
+    for (let i = 0; i < 5; i += 1) {
+      const angle = -Math.PI * 0.9 + i * Math.PI * 0.45 + Math.sin(this.scene.time.now * 0.004 + i) * 0.08;
+      const x = PORTRAIT_X + Math.cos(angle) * 35;
+      const y = PORTRAIT_Y + Math.sin(angle) * 35;
+      this.portraitFlame.fillTriangle(x, y - 9, x - 5, y + 4, x + 5, y + 4);
+    }
   }
 
   private updateInventory(state: RuntimeState): void {
@@ -328,7 +355,7 @@ export class Hud {
     for (const object of [
       this.topBack, this.hpText, this.timeText, this.levelText, this.fragmentText,
       this.hpBar, this.xpBar, this.topIcons, this.pauseZone,
-      this.inventoryBack, this.portraitFrame, this.portraitCharge, this.portraitZone,
+      this.inventoryBack, this.portraitFrame, this.portraitFlame, this.portraitCharge, this.portraitZone,
       this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone,
     ]) object.setVisible(visible);
     this.weaponSlots.forEach((slot) => slot.setVisible(visible));

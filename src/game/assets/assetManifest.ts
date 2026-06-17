@@ -1,5 +1,5 @@
-import { inventoryIconAssetEntries } from './inventoryIcons';
-import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from './playerFrames';
+import { inventoryIconAssetEntries } from './inventoryIcons.ts';
+import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from './playerFrames.ts';
 
 /**
  * アセット定義の正本。

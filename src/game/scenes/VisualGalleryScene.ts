@@ -520,35 +520,35 @@ export class VisualGalleryScene extends Phaser.Scene {
         .setOrigin(0.5, 0),
     );
 
-    const colW = GAME_WIDTH / 2;
+    const colW = GAME_WIDTH / 3;
     const startY = 66;
-    const lineH = 22;
-    const perCol = Math.ceil(assetManifest.length / 2);
+    const lineH = 18;
+    const perCol = Math.ceil(assetManifest.length / 3);
     assetManifest.forEach((a, i) => {
       const col = Math.floor(i / perCol);
       const row = i % perCol;
-      const x = col * colW + 12;
+      const x = col * colW + 8;
       const y = startY + row * lineH;
       const st = assetStatus(this, a.id);
       const quality = generatedQualityById.get(a.id);
       const color = st === 'image' ? qualityColor(quality) : st === 'fallback' ? COLORS.lantern : COLORS.hpFill;
-      this.pageRoot.add(this.add.circle(x, y + 6, 4, color, 1));
+      this.pageRoot.add(this.add.circle(x, y + 5, 3, color, 1));
       const mark = st === 'image' ? qualityMark(quality) : st === 'fallback' ? 'FB' : 'MI';
       this.pageRoot.add(
-        this.add.text(x + 10, y, `${mark} ${a.id}`, { fontFamily: 'monospace', fontSize: '9px', color: '#cfc6b0' }).setOrigin(0, 0),
+        this.add.text(x + 8, y, `${mark} ${a.id}`, { fontFamily: 'monospace', fontSize: '7px', color: '#cfc6b0' }).setOrigin(0, 0),
       );
     });
 
     this.pageRoot.add(
       this.add
-        .text(GAME_WIDTH / 2, GAME_HEIGHT - 82, `ユイ通常表示: visualSize=${PLAYER_DEFAULTS.visualSize}px本番候補 / radius=${PLAYER_DEFAULTS.radius}維持`, {
+        .text(GAME_WIDTH / 2, 684, `ユイ通常表示: visualSize=${PLAYER_DEFAULTS.visualSize}px本番候補 / radius=${PLAYER_DEFAULTS.radius}維持`, {
           fontFamily: FONT, fontSize: '9px', color: '#ffe9a8',
         })
         .setOrigin(0.5, 0),
     );
     this.pageRoot.add(
       this.add
-        .text(GAME_WIDTH / 2, GAME_HEIGHT - 66, 'GF=generated-final / HF=hand-final / GD=generated-draft / FB=fallback / MI=欠品', {
+        .text(GAME_WIDTH / 2, 700, 'GF=generated-final / HF=hand-final / GD=generated-draft / FB=fallback / MI=欠品', {
           fontFamily: FONT, fontSize: '9px', color: '#9a8d6f',
         })
         .setOrigin(0.5, 0),

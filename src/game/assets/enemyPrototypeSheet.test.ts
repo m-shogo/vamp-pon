@@ -22,6 +22,15 @@ describe('enemy prototype runtime bridge', () => {
     expect(ENEMY_PROTOTYPE_SHEETS.left.path).toContain('enemy-48-left');
   });
 
+  it('uses the latest prototype enemy sheets as the runtime candidate source', () => {
+    expect(ENEMY_PROTOTYPE_SHEETS.front.path).toBe(
+      'assets/prototypes/sprite-sheets/enemies-original/enemy-48-right-1440x1080-rgba.png',
+    );
+    expect(ENEMY_PROTOTYPE_SHEETS.left.path).toBe(
+      'assets/prototypes/sprite-sheets/enemies-original/enemy-48-left-1440x1080-rgba.png',
+    );
+  });
+
   it('maps every legacy runtime enemy visual to a valid canonical frame', () => {
     const requiredAssetIds = [
       'enemy_ink_blob',

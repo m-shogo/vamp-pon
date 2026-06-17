@@ -1,7 +1,7 @@
-import { passives } from '../data/passives';
-import { rareItems } from '../data/rareItems';
-import { weapons } from '../data/weapons';
-import type { InventoryIconCategory } from './inventoryIcons';
+import { passives } from '../data/passives.ts';
+import { rareItems } from '../data/rareItems.ts';
+import { weapons } from '../data/weapons.ts';
+import type { InventoryIconCategory } from './inventoryIcons.ts';
 
 export const INVENTORY_ORIGINAL_SOURCE_SIZE = 180;
 

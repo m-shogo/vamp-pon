@@ -18,6 +18,8 @@ export type BehaviorStep = {
   speedFactor: number;
 };
 
+export type ChargerPhase = 'windup' | 'dash' | 'recovery';
+
 export type BehaviorInput = {
   behavior: EnemyBehavior;
   /** プレイヤー - 敵 のベクトル成分 */
@@ -28,6 +30,13 @@ export type BehaviorInput = {
   iid: number;
   elapsedSec: number;
 };
+
+export function chargerPhaseFor(input: Pick<BehaviorInput, 'iid' | 'elapsedSec'>): ChargerPhase {
+  const phase = (input.elapsedSec + (input.iid % 7) * 0.17) % 3.2;
+  if (phase < 1.15) return 'windup';
+  if (phase < 1.75) return 'dash';
+  return 'recovery';
+}
 
 /** behavior ごとの進行方向（正規化済み）と速度倍率を返す。 */
 export function computeBehaviorStep(input: BehaviorInput): BehaviorStep {
@@ -59,10 +68,10 @@ export function computeBehaviorStep(input: BehaviorInput): BehaviorStep {
       break;
     case 'charger': {
       // 予兆→突進→硬直の周期。硬くせず、避ける気持ちよさを作る。
-      const phase = (input.elapsedSec + (input.iid % 7) * 0.17) % 3.2;
-      if (phase < 1.15) {
+      const phase = chargerPhaseFor(input);
+      if (phase === 'windup') {
         speedFactor = 0.34;
-      } else if (phase < 1.75) {
+      } else if (phase === 'dash') {
         speedFactor = 2.65;
       } else {
         speedFactor = 0.18;

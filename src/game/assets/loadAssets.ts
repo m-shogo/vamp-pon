@@ -14,8 +14,10 @@ import { stageBackgroundTextureKey } from '../ui/background';
  */
 export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> {
   let queued = 0;
+  const pendingKeys = new Set<string>();
   await Promise.all(
     assetManifest.map(async (a) => {
+      if (!reserveTextureKey(scene, pendingKeys, a.id)) return;
       if (!(await fileExists(a.path))) return;
       scene.load.image(a.id, a.path);
       queued += 1;
@@ -26,6 +28,7 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
   // 右向き専用画像は使わず、ゲーム中に左向き画像を flipX して描画する。
   await Promise.all(
     ENEMY_PROTOTYPE_SHEET_LIST.map(async (sheet) => {
+      if (!reserveTextureKey(scene, pendingKeys, sheet.id)) return;
       if (!(await fileExists(sheet.path))) return;
       scene.load.spritesheet(sheet.id, sheet.path, {
         frameWidth: sheet.frameWidth,
@@ -47,8 +50,10 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
  */
 export async function queuePrototypeAssets(scene: Phaser.Scene): Promise<number> {
   let queued = 0;
+  const pendingKeys = new Set<string>();
   await Promise.all(
     allPrototypeAssets.map(async (a) => {
+      if (!reserveTextureKey(scene, pendingKeys, a.id)) return;
       if (!(await fileExists(a.path))) return;
       scene.load.image(a.id, a.path);
       queued += 1;
@@ -69,15 +74,17 @@ export async function queueStageBackgrounds(
   if (!manifest) return 0;
 
   let queued = 0;
+  const pendingKeys = new Set<string>();
   const entries = stageNumber != null
-    ? [getBackgroundByStageNumber(manifest, stageNumber)].filter(Boolean)
+    ? [getBackgroundByStageNumber(manifest, stageNumber)].filter((entry) => entry?.enabledForRuntime)
     : getPreviewBackgrounds(manifest);
 
   await Promise.all(
     entries.map(async (entry) => {
       if (!entry) return;
-      if (!(await fileExists(entry.environment))) return;
       const key = stageBackgroundTextureKey(entry);
+      if (!reserveTextureKey(scene, pendingKeys, key)) return;
+      if (!(await fileExists(entry.environment))) return;
       scene.load.image(key, entry.environment);
       queued += 1;
     }),
@@ -95,4 +102,14 @@ async function fileExists(path: string): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+function reserveTextureKey(
+  scene: Phaser.Scene,
+  pendingKeys: Set<string>,
+  key: string,
+): boolean {
+  if (pendingKeys.has(key) || scene.textures.exists(key)) return false;
+  pendingKeys.add(key);
+  return true;
 }

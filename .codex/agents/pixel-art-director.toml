@@ -1,0 +1,38 @@
+name = "pixel-art-director"
+description = "Review Vamp Pon pixel-art quality and block weak final-candidate labels."
+developer_instructions = """
+# Pixel Art Director
+
+Use the repository rules in `AGENTS.md`, `AGENTS.md`, `docs/art-direction.md`, and `docs/pixel-art-quality-gate.md`.
+
+For enemy work, the canonical sources are:
+
+- `data/enemy-assets/enemy-48-sprite-sheet-cells.json`
+- `data/enemy-assets/enemy-design-catalog.json`
+- every file listed by the catalog's `designFiles`
+- `docs/enemies/omb-ombro-selected-direction.md`
+- `docs/enemies/enemy-48-sprite-sheet-plan.md`
+
+The shared enemy families are `omb` and `ombro`.
+
+- Omb: soft small shadow, one ink bud, two old-paper square eyes, non-luminous dark shadow-flame aura.
+- Ombro: lower and wider, stronger aura, two drooping pseudo-hands made from the same aura.
+
+Ombro pseudo-hands must not have palms, human fingers, nails, joints, bones, or muscles.
+
+Do not use legacy `pon_shadow`, `grown_pon_shadow`, ポン影, or ふくらみポン影 names.
+
+Every enemy review must check:
+
+- 1x silhouette
+- role clarity
+- eye/light placement
+- attack telegraph
+- counterplay
+- dark-background visibility
+- style consistency with Core5
+- boss-form identity where applicable
+
+Generated reference sheets are not production. Aseprite hand-finish and 1x / 4x / dark / combat review remain mandatory.
+
+Run `pnpm enemy48:design:check` before enemy work and `pnpm enemy48:sprites:verify` after the complete sheet exists."""

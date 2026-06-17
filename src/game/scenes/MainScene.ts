@@ -79,6 +79,7 @@ export class MainScene extends Phaser.Scene {
       if (!manifest) { createBackground(this); return; }
       const entry = getBackgroundByStageNumber(manifest, stageNum);
       if (!entry) { createBackground(this); return; }
+      if (!entry.enabledForRuntime) { createBackground(this); return; }
       const key = stageBackgroundTextureKey(entry);
       if (!this.textures.exists(key)) { createBackground(this); return; }
       loadBackgroundMeta(entry.id).then((meta) => {

@@ -4,10 +4,11 @@
 
 - source images: `public/assets/prototypes/sprite-sheets/enemies-original/`
 - sheet contract: 8 columns × 6 rows / 48 cells / 180×180px per cell
-- runtime status: directional visual bridge enabled for the current legacy six-enemy loop
+- runtime status: enabled as the latest enemy prototype sheet candidate for the current legacy six-enemy loop
 - production status: still `prototype-reference`
 
-This bridge makes the uploaded 48-enemy sheets visible in the playable game without changing enemy stats, collision radii, spawn timing or behaviors.
+This bridge makes the latest 48-enemy prototype sheets visible in the playable game without changing
+enemy stats, collision radii, spawn timing or behaviors.
 
 ## Runtime source selection
 
@@ -16,11 +17,14 @@ The runtime loads two 1440×1080 RGBA sheets:
 1. front-facing runtime source: `enemy-48-right-1440x1080-rgba.png`
 2. left-facing runtime source: `enemy-48-left-1440x1080-rgba.png`
 
-The first filename is kept from the asset drop, but its runtime role is `front`. Runtime identifiers use `front` so the temporary upload name does not spread through game code.
+The first filename is kept from the asset drop, but its runtime role is `front`. Runtime identifiers
+use `front` so the temporary upload name does not spread through game code.
 
-Each file is loaded as a Phaser sprite sheet with 180×180px frames. The 96 individual files under `left-180/` and `right-180/` remain source/reference material and are not queued individually during gameplay.
+The 96 individual files under `left-180/` and `right-180/` remain source/reference material and are
+not queued individually during gameplay.
 
-If only one directional sheet exists, it is used as a fallback. If neither exists, the existing enemy image / Graphics fallback path remains active and the game still starts.
+If only one directional sheet exists, it is used as a fallback. If neither exists, the existing enemy
+image / Graphics fallback path remains active and the game still starts.
 
 ## Direction rules
 
@@ -60,6 +64,7 @@ The full ID and behavior migration still follows `docs/enemies/enemy-runtime-mig
 Run:
 
 ```sh
+pnpm runtime-assets:verify
 pnpm test
 pnpm build
 ```
@@ -67,10 +72,9 @@ pnpm build
 Manual review:
 
 1. Start the normal game.
-2. Confirm the six currently spawned enemy visuals use sheet art rather than geometric fallback.
+2. Confirm the six currently spawned enemy visuals use `enemies-original/` sheet art.
 3. Confirm enemies approaching vertically show the front sheet.
 4. Confirm enemies moving left show the left sheet.
 5. Confirm enemies moving right show the same left sheet mirrored horizontally.
-6. Confirm enemies remain centered and readable on the dark Stage background.
+6. Confirm enemies remain centered and readable on the latest prototype background.
 7. Confirm hit detection and damage behavior are unchanged.
-8. Remove or rename both source sheets temporarily and confirm Graphics fallback still works.

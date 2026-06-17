@@ -1,8 +1,8 @@
-import requirementsJson from '../../../data/ui-assets/inventory-icon-requirements.json';
+import requirementsJson from '../../../data/ui-assets/inventory-icon-requirements.json' with { type: 'json' };
 import {
   inventoryOriginalAssetEntries,
   resolveInventoryOriginalTexture,
-} from './inventoryOriginalIcons';
+} from './inventoryOriginalIcons.ts';
 
 export type InventoryIconCategory = 'weapon' | 'passive' | 'rare';
 export type InventoryIconStatus = 'planned' | 'draft' | 'ready';

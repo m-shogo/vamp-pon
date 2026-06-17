@@ -9,7 +9,7 @@ import { characters } from '../../data/characters';
 import { enemyConsistencyError } from '../enemyRules';
 
 const PASSIVE_STATS = new Set(['magnetMultiplier', 'mightMultiplier', 'xpMultiplier', 'moveSpeedMultiplier', 'cooldownMultiplier']);
-const BEHAVIORS = new Set(['chase', 'slow_chase', 'offset_chase', 'swarm_chase', 'elite_chase']);
+const BEHAVIORS = new Set(['chase', 'slow_chase', 'offset_chase', 'swarm_chase', 'elite_chase', 'charger', 'orbit_chase', 'coward']);
 const VISUAL_KINDS = new Set(['ink_blob', 'paper_scrap', 'signpost', 'capsule', 'haze', 'label_elite']);
 const DIRECTIONS = new Set(['bottom', 'top', 'left', 'right', 'around']);
 const EVOLUTION_KINDS = new Set(['upgrade', 'fusion', 'awakening']);
@@ -74,10 +74,10 @@ describe('waves データ', () => {
     }
   });
 
-  it('エリート（黒ラベルの影）が 180/300/420 付近に出現する', () => {
+  it('エリート（黒ラベルの影）が 150/300/420 付近に出現する', () => {
     const eliteWaves = waves.filter((w) => w.spawns.some((s) => s.enemyId === 'black_label_shadow'));
     const starts = eliteWaves.map((w) => w.start);
-    expect(starts).toContain(180);
+    expect(starts).toContain(150);
     expect(starts).toContain(300);
     expect(starts).toContain(420);
   });

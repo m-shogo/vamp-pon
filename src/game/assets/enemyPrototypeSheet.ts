@@ -6,13 +6,6 @@ const ENEMY_PROTOTYPE_SHEET_FRAME = {
   endFrame: 47,
 } as const;
 
-/**
- * Runtime-facing enemy sheets.
- *
- * The uploaded second sheet is the front-facing source even though the drop filename still says
- * `right`. Runtime naming follows the actual role so the old upload name does not leak further.
- * Right-facing enemies reuse the left-facing sheet with Phaser flipX.
- */
 export const ENEMY_PROTOTYPE_SHEETS = {
   front: {
     id: 'enemy_48_prototype_front',
@@ -26,6 +19,12 @@ export const ENEMY_PROTOTYPE_SHEETS = {
   },
 } as const;
 
+/**
+ * Latest runtime-facing enemy prototype sheets.
+ *
+ * These live under `public/assets/prototypes/sprite-sheets/enemies-original/`.
+ * They are the current prototype runtime source, not production / hand-final art.
+ */
 export const ENEMY_PROTOTYPE_SHEET_LIST = [
   ENEMY_PROTOTYPE_SHEETS.front,
   ENEMY_PROTOTYPE_SHEETS.left,

@@ -35,6 +35,27 @@ export function collectSpark(scene: Phaser.Scene, x: number, y: number): void {
   });
 }
 
+/** 黒カプセル撃破時の報酬感。ドロップの有無とは別に、追って倒した手応えを短く出す。 */
+export function capsuleRewardBurst(scene: Phaser.Scene, x: number, y: number): void {
+  const depth = VIEW_DEPTH.pickup + 3;
+  const ring = scene.add.circle(x, y, 12, COLORS.fragmentGlow, 0.08).setDepth(depth);
+  ring.setStrokeStyle(2, COLORS.fragmentGlow, 0.82);
+  const glint = scene.add.circle(x, y, 4, COLORS.lantern, 0.9).setDepth(depth + 1);
+  const text = scene.add.text(x, y - 12, '+記憶', {
+    fontFamily: FONT,
+    fontSize: '11px',
+    color: '#ffe7a8',
+    fontStyle: 'bold',
+    stroke: '#080914',
+    strokeThickness: 3,
+    resolution: 2,
+  }).setOrigin(0.5).setDepth(depth + 2);
+
+  scene.tweens.add({ targets: ring, scale: 2.4, alpha: 0, duration: 360, ease: 'Quad.easeOut', onComplete: () => ring.destroy() });
+  scene.tweens.add({ targets: glint, y: y - 8, scale: 0.4, alpha: 0, duration: 300, ease: 'Quad.easeOut', onComplete: () => glint.destroy() });
+  scene.tweens.add({ targets: text, y: text.y - 18, alpha: 0, duration: 620, ease: 'Quad.easeOut', onComplete: () => text.destroy() });
+}
+
 /** 被弾時の画面シェイク（控えめ）。 */
 export function shakeOnHit(scene: Phaser.Scene): void {
   scene.cameras.main.shake(110, 0.006);

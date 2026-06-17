@@ -243,8 +243,13 @@ pnpm enemy48:sprites:verify
 | `assets/reference/` | 正式reference | no |
 | `assets/reference/character-master/core5/` | キャラ設計の正本 | no |
 | `assets/reference/enemies/enemy-48-sheet/` | 敵48体のreference sheet | no |
-| `public/assets/prototypes/sprite-sheets/core5-52px/` | ゲームで仮読込可能なcharacter sheet候補 | no |
-| `public/assets/prototypes/sprite-sheets/enemies-180px/` | ゲームで仮読込可能なenemy sheet候補 | no |
+| `public/assets/prototypes/sprite-sheets/core5-original-frames/` | 主人公/キャラの現在のprototype frame候補。Yui runtime候補はここを読む | no |
+| `public/assets/prototypes/sprite-sheets/core5-52px/` | Core5 character sheet reference。runtime正本ではない | no |
+| `public/assets/prototypes/sprite-sheets/weapon/` | ChatGPT画像生成由来の武器180px inventory icon候補 | no |
+| `public/assets/prototypes/sprite-sheets/passive/` | ChatGPT画像生成由来の忘れ物180px inventory icon候補 | no |
+| `public/assets/prototypes/sprite-sheets/rare/` | ChatGPT画像生成由来のレア180px inventory icon候補 | no |
+| `public/assets/prototypes/sprite-sheets/enemies-original/` | 最新enemy prototype sheet候補。runtimeで読む | no |
+| `public/assets/prototypes/backgrounds/` | 最新background prototype。manifestでruntime有効 | no |
 | `assets/source/aseprite/enemies/` | editable enemy source | source of truth |
 | `public/assets/sprites/player/` | 手仕上げ・review済みplayer export | **yes** |
 | `public/assets/sprites/enemies/` | 手仕上げ・review済みenemy export | **yes** |
