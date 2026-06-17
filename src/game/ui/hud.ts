@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import type { RuntimeState } from '../runtime';
+import type { BerserkState, RuntimeState } from '../runtime';
 import { GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { characterById } from '../data/characters';
@@ -20,8 +20,8 @@ import {
 
 const DEPTH = VIEW_DEPTH.hud;
 const TOP_HEIGHT = 72;
-const PORTRAIT_X = 34;
-const PORTRAIT_Y = GAME_HEIGHT - 38;
+const PORTRAIT_X = 36;
+const PORTRAIT_Y = GAME_HEIGHT - 42;
 const INVENTORY_Y = GAME_HEIGHT - 43;
 const SLOT_WEAPON_X = [94, 132, 170, 208, 246] as const;
 const SLOT_PASSIVE_X = [94, 132, 170, 208, 246] as const;
@@ -32,6 +32,13 @@ const ULT_X = GAME_WIDTH - 42;
 const ULT_Y = GAME_HEIGHT - 132;
 const PAUSE_X = GAME_WIDTH - 24;
 const PAUSE_Y = 28;
+const EMPTY_BERSERK: BerserkState = {
+  maxCharge: 100,
+  charge: 0,
+  ready: false,
+  durationSec: 8,
+  activeRemaining: 0,
+};
 
 type InputEventLike = { stopPropagation?: () => void };
 
@@ -46,13 +53,13 @@ export class Hud {
   private topIcons: Phaser.GameObjects.Graphics;
   private pauseZone: Phaser.GameObjects.Zone;
   private inventoryBack: Phaser.GameObjects.Graphics;
-  private categoryLabels: Phaser.GameObjects.Text[];
   private portraitFrame: Phaser.GameObjects.Graphics;
   private portraitCharge: Phaser.GameObjects.Graphics;
   private portraitImage: Phaser.GameObjects.Image | null;
   private portraitFallback: Phaser.GameObjects.Text;
   private crestImage: Phaser.GameObjects.Image | null;
   private berserkText: Phaser.GameObjects.Text;
+  private portraitZone: Phaser.GameObjects.Zone;
   private ultimateBack: Phaser.GameObjects.Graphics;
   private ultimateText: Phaser.GameObjects.Text;
   private ultimateZone: Phaser.GameObjects.Zone;
@@ -64,6 +71,7 @@ export class Hud {
   constructor(
     private scene: Phaser.Scene,
     private onUltimate: () => void,
+    private onBerserk: () => void = () => {},
     private onPause: () => void = () => {},
   ) {
     this.topBack = scene.add.graphics().setDepth(DEPTH);
@@ -88,7 +96,7 @@ export class Hud {
       fontSize: '15px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
     }).setOrigin(0, 0).setDepth(DEPTH + 3);
 
     this.timeText = scene.add.text(GAME_WIDTH / 2, 8, '04:32', {
@@ -96,17 +104,19 @@ export class Hud {
       fontSize: '25px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
       stroke: '#0a0e20',
       strokeThickness: 2,
     }).setOrigin(0.5, 0).setDepth(DEPTH + 3);
 
     this.levelText = scene.add.text(GAME_WIDTH / 2, 39, 'Lv.1', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '11px',
+      fontSize: '12px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
+      stroke: '#090d1d',
+      strokeThickness: 2,
     }).setOrigin(0.5, 0).setDepth(DEPTH + 3);
 
     this.fragmentText = scene.add.text(GAME_WIDTH - 76, 16, '0', {
@@ -114,7 +124,7 @@ export class Hud {
       fontSize: '15px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
     }).setOrigin(0, 0).setDepth(DEPTH + 3);
 
     this.hpBar = scene.add.graphics().setDepth(DEPTH + 2);
@@ -144,32 +154,40 @@ export class Hud {
       0.84,
     );
 
-    this.categoryLabels = [
-      this.label(69, SLOT_WEAPON_Y, '武器', '#e8c37d'),
-      this.label(69, SLOT_PASSIVE_Y, '忘物', '#cbb4e4'),
-      this.label(279, SLOT_PASSIVE_Y, 'レア', '#a7ddca'),
-    ];
-
     this.portraitFrame = scene.add.graphics().setDepth(DEPTH + 1);
     drawStorybookPanel(this.portraitFrame, PORTRAIT_X, PORTRAIT_Y, 60, 60, 0x10162d, STORYBOOK_UI.gold, 0.96);
-    this.portraitCharge = scene.add.graphics().setDepth(DEPTH + 3);
-    this.portraitImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.portraitNeutral, 52, 52);
+    this.portraitCharge = scene.add.graphics().setDepth(DEPTH + 4);
+    this.portraitImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.portraitNeutral, 44, 44);
     this.portraitImage?.setPosition(PORTRAIT_X, PORTRAIT_Y).setDepth(DEPTH + 2);
     this.portraitFallback = scene.add.text(PORTRAIT_X, PORTRAIT_Y, 'ユ', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '22px',
+      fontSize: '20px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
+      resolution: 2,
     }).setOrigin(0.5).setDepth(DEPTH + 2).setVisible(!this.portraitImage);
-    this.crestImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.crestNormal, 16, 16);
-    this.crestImage?.setPosition(PORTRAIT_X + 21, PORTRAIT_Y - 21).setDepth(DEPTH + 4).setVisible(false);
-    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 7, '暴走 0%', {
+    this.crestImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.crestNormal, 14, 14);
+    this.crestImage?.setPosition(PORTRAIT_X + 20, PORTRAIT_Y - 20).setDepth(DEPTH + 5).setVisible(false);
+    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 5, '暴走 0%', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '8px',
+      fontSize: '9px',
       color: STORYBOOK_UI.textMuted,
       fontStyle: 'bold',
-      resolution: 1,
-    }).setOrigin(0.5, 1).setDepth(DEPTH + 4);
+      resolution: 2,
+      stroke: '#080b18',
+      strokeThickness: 2,
+    }).setOrigin(0.5, 1).setDepth(DEPTH + 5);
+    this.portraitZone = scene.add.zone(PORTRAIT_X, PORTRAIT_Y, 70, 70)
+      .setOrigin(0.5)
+      .setDepth(DEPTH + 6)
+      .setInteractive({ useHandCursor: true });
+    this.portraitZone.on(
+      Phaser.Input.Events.POINTER_DOWN,
+      (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event?: InputEventLike) => {
+        event?.stopPropagation?.();
+        this.onBerserk();
+      },
+    );
 
     this.ultimateBack = scene.add.graphics().setDepth(DEPTH + 2);
     this.ultimateText = scene.add.text(ULT_X, ULT_Y + 18, '必殺', {
@@ -177,7 +195,9 @@ export class Hud {
       fontSize: '9px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
+      stroke: '#080b18',
+      strokeThickness: 2,
     }).setOrigin(0.5).setDepth(DEPTH + 3);
     this.ultimateZone = scene.add.zone(ULT_X, ULT_Y, 72, 72)
       .setOrigin(0.5)
@@ -191,9 +211,9 @@ export class Hud {
       },
     );
 
-    this.weaponSlots = SLOT_WEAPON_X.map((x) => new InventorySlotView(scene, x, SLOT_WEAPON_Y, 28, DEPTH + 2));
-    this.passiveSlots = SLOT_PASSIVE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 28, DEPTH + 2));
-    this.rareSlots = SLOT_RARE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 26, DEPTH + 2));
+    this.weaponSlots = SLOT_WEAPON_X.map((x) => new InventorySlotView(scene, x, SLOT_WEAPON_Y, 28, DEPTH + 2, 'weapon'));
+    this.passiveSlots = SLOT_PASSIVE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 28, DEPTH + 2, 'passive'));
+    this.rareSlots = SLOT_RARE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 26, DEPTH + 2, 'rare'));
 
     this.debugText = scene.add.text(8, 78, '', {
       fontFamily: 'monospace',
@@ -210,7 +230,7 @@ export class Hud {
     const seconds = (remain % 60).toString().padStart(2, '0');
     this.timeText.setText(`${minutes}:${seconds}`);
     this.levelText.setText(`Lv.${state.player.level}`);
-    this.fragmentText.setText(String(state.stats.memoryFragmentsCollected));
+    this.fragmentText.setText(String(state.stats?.memoryFragmentsCollected ?? 0));
 
     const player = state.player;
     const hpRatio = Math.max(0, player.hp / player.maxHp);
@@ -222,66 +242,71 @@ export class Hud {
     this.xpBar.clear();
     drawBar(this.xpBar, 132, 59, 126, 5, xpRatio, 0x302742, STORYBOOK_UI.xp);
 
+    const berserk = state.berserk ?? EMPTY_BERSERK;
     const ultimateRatio = Math.max(0, Math.min(1, state.ultimate.ready ? 1 : state.ultimate.charge / state.ultimate.chargeSeconds));
-    this.drawUltimate(ultimateRatio, state.ultimate.ready);
+    this.drawUltimate(ultimateRatio, state.ultimate.ready, berserk.activeRemaining > 0);
     const ultimateName = characterById.get(state.characterId)?.ultimate.name ?? '必殺技';
     this.ultimateZone.setName(ultimateName);
-    this.updatePortrait(state, ultimateRatio);
+    this.updatePortrait(berserk);
     this.updateInventory(state);
 
     if (state.debug) {
       this.debugText.setVisible(true).setText([
         `t=${state.elapsedSec.toFixed(1)} status=${state.status}`,
-        `enemies=${state.enemies.length} proj=${state.projectiles.length}`,
+        `enemies=${state.enemies?.length ?? 0} proj=${state.projectiles?.length ?? 0}`,
         `hp=${player.hp.toFixed(0)} lv=${player.level} xp=${player.xp.toFixed(1)}/${player.xpToNext}`,
-        `kills=${state.stats.kills} fragments=${state.stats.memoryFragmentsCollected}`,
+        `berserk=${berserk.charge.toFixed(0)}/${berserk.maxCharge} active=${berserk.activeRemaining.toFixed(1)}`,
+        `kills=${state.stats?.kills ?? 0} fragments=${state.stats?.memoryFragmentsCollected ?? 0}`,
       ].join('\n'));
     } else {
       this.debugText.setVisible(false);
     }
   }
 
-  private label(x: number, y: number, value: string, color: string): Phaser.GameObjects.Text {
-    return this.scene.add.text(x, y, value, {
-      fontFamily: STORYBOOK_FONT,
-      fontSize: '8px',
-      color,
-      fontStyle: 'bold',
-      resolution: 1,
-    }).setOrigin(0.5).setDepth(DEPTH + 2);
-  }
-
-  private drawUltimate(ratio: number, ready: boolean): void {
+  private drawUltimate(ratio: number, ready: boolean, locked: boolean): void {
+    const accent = locked ? 0x665d78 : ready ? STORYBOOK_UI.goldLight : 0x8b80a8;
     this.ultimateBack.clear();
     this.ultimateBack.fillStyle(0x0c1228, 0.48).fillCircle(ULT_X, ULT_Y, 33);
-    this.ultimateBack.lineStyle(2, ready ? STORYBOOK_UI.goldLight : 0x8b80a8, 0.9).strokeCircle(ULT_X, ULT_Y, 33);
+    this.ultimateBack.lineStyle(2, accent, 0.9).strokeCircle(ULT_X, ULT_Y, 33);
     this.ultimateBack.lineStyle(1, 0xffffff, 0.18).strokeCircle(ULT_X, ULT_Y, 27);
-    drawStar(this.ultimateBack, ULT_X, ULT_Y - 5, 13, ready ? STORYBOOK_UI.goldLight : 0x8b80a8, STORYBOOK_UI.gold, 1);
-    this.ultimateBack.lineStyle(3, ready ? STORYBOOK_UI.goldLight : STORYBOOK_UI.xp, 0.9);
+    drawStar(this.ultimateBack, ULT_X, ULT_Y - 5, 13, accent, STORYBOOK_UI.gold, locked ? 0.42 : 1);
+    this.ultimateBack.lineStyle(3, locked ? 0x665d78 : ready ? STORYBOOK_UI.goldLight : STORYBOOK_UI.xp, 0.9);
     this.ultimateBack.beginPath();
     this.ultimateBack.arc(ULT_X, ULT_Y, 30, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.ultimateBack.strokePath();
-    this.ultimateText.setText(ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
+    this.ultimateText.setText(locked ? '暴走中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
   }
 
-  private updatePortrait(state: RuntimeState, ratio: number): void {
-    const active = state.ultimate.activeRemaining > 0;
-    const ready = state.ultimate.ready;
+  private updatePortrait(berserk: BerserkState): void {
+    const active = berserk.activeRemaining > 0;
+    const ready = berserk.ready;
+    const ratio = active
+      ? Math.max(0, Math.min(1, berserk.activeRemaining / berserk.durationSec))
+      : Math.max(0, Math.min(1, berserk.charge / berserk.maxCharge));
+    const accent = active ? 0xff718c : ready ? 0xffc06a : STORYBOOK_UI.xp;
+
     this.portraitCharge.clear();
-    this.portraitCharge.lineStyle(2, active ? 0xff8f9e : ready ? STORYBOOK_UI.goldLight : STORYBOOK_UI.xp, 0.9);
-    this.portraitCharge.strokeRect(PORTRAIT_X - 28, PORTRAIT_Y - 28, 56 * (active ? 1 : ratio), 2);
+    this.portraitCharge.lineStyle(4, 0x090d1d, 0.9).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 33);
+    this.portraitCharge.lineStyle(3, accent, active || ready ? 1 : 0.86);
+    this.portraitCharge.beginPath();
+    this.portraitCharge.arc(PORTRAIT_X, PORTRAIT_Y, 33, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
+    this.portraitCharge.strokePath();
+
     if (this.portraitImage) {
       const texture = active ? YUI_HUD_FRAME_IDS.portraitAlt : YUI_HUD_FRAME_IDS.portraitNeutral;
       if (this.scene.textures.exists(texture) && this.portraitImage.texture.key !== texture) this.portraitImage.setTexture(texture);
-      this.portraitImage.setTint(active ? 0xffd6d6 : 0xffffff);
+      this.portraitImage.setTint(active ? 0xffc8d0 : 0xffffff);
+      this.portraitImage.setDisplaySize(44, 44);
     }
     if (this.crestImage) {
       const texture = active ? YUI_HUD_FRAME_IDS.crestBlack : YUI_HUD_FRAME_IDS.crestNormal;
       if (this.scene.textures.exists(texture) && this.crestImage.texture.key !== texture) this.crestImage.setTexture(texture);
       this.crestImage.setVisible(active || ready);
     }
-    this.berserkText.setText(active ? '暴走中' : ready ? '暴走 OK' : `暴走 ${Math.floor(ratio * 100)}%`);
-    this.berserkText.setColor(active ? '#ffb3b3' : ready ? '#fff0b0' : STORYBOOK_UI.textMuted);
+
+    this.berserkText.setText(active ? `暴走 ${Math.ceil(berserk.activeRemaining)}秒` : ready ? '暴走 OK' : `暴走 ${Math.floor(ratio * 100)}%`);
+    this.berserkText.setColor(active ? '#ffb3c0' : ready ? '#ffe3a8' : STORYBOOK_UI.textMuted);
+    this.portraitZone.setName(ready ? '暴走を発動' : '暴走ゲージ');
   }
 
   private updateInventory(state: RuntimeState): void {
@@ -303,7 +328,7 @@ export class Hud {
     for (const object of [
       this.topBack, this.hpText, this.timeText, this.levelText, this.fragmentText,
       this.hpBar, this.xpBar, this.topIcons, this.pauseZone,
-      this.inventoryBack, ...this.categoryLabels, this.portraitFrame, this.portraitCharge,
+      this.inventoryBack, this.portraitFrame, this.portraitCharge, this.portraitZone,
       this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone,
     ]) object.setVisible(visible);
     this.weaponSlots.forEach((slot) => slot.setVisible(visible));
@@ -317,6 +342,7 @@ export class Hud {
 
   destroy(): void {
     this.pauseZone.destroy();
+    this.portraitZone.destroy();
     this.ultimateZone.destroy();
     this.weaponSlots.forEach((slot) => slot.destroy());
     this.passiveSlots.forEach((slot) => slot.destroy());

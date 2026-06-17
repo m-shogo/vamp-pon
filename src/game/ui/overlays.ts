@@ -15,7 +15,6 @@ import {
   type InventoryIconCategory,
 } from '../assets/inventoryIcons';
 import {
-  LEVEL_UP_CARD_CENTER_Y,
   LEVEL_UP_CARD_HEIGHT,
   LEVEL_UP_CARD_WIDTH,
   LEVEL_UP_HEADER_Y,
@@ -24,7 +23,7 @@ import {
   REPLACE_ACTION_Y,
   REPLACE_ROW_HEIGHT,
   REPLACE_ROW_WIDTH,
-  levelUpCardCenters,
+  levelUpCardPositions,
   replaceRowCenters,
   wrapUiText,
 } from './itemSelectionLayout';
@@ -33,13 +32,11 @@ import {
   STORYBOOK_FONT,
   STORYBOOK_UI,
   drawPaperCard,
-  drawRarityStars,
   drawStorybookPanel,
   storybookCategoryPalette,
 } from './storybookUi';
 
 const D = VIEW_DEPTH.overlay;
-const DETAIL_ICON_SIZE = 88;
 const LIST_ICON_SIZE = 46;
 
 type IconRef = { category: InventoryIconCategory; itemId: string };
@@ -84,9 +81,11 @@ export class Overlays {
       color,
       fontStyle: bold ? 'bold' : 'normal',
       align: 'center',
-      resolution: 1,
-      lineSpacing: 2,
-      padding: { left: 1, right: 1, top: 1, bottom: 1 },
+      resolution: 2,
+      lineSpacing: 3,
+      padding: { left: 2, right: 2, top: 2, bottom: 2 },
+      stroke: color === STORYBOOK_UI.textDark ? '#f4ead4' : '#080b18',
+      strokeThickness: bold ? 1 : 0,
     }).setOrigin(0.5);
   }
 
@@ -111,7 +110,7 @@ export class Overlays {
     onPick: (choice: LevelUpChoice) => void,
     onReroll: () => void,
   ): void {
-    const root = this.dim(0.24);
+    const root = this.dim(0.3);
     const dock = this.scene.add.graphics();
     drawStorybookPanel(
       dock,
@@ -121,26 +120,27 @@ export class Overlays {
       GAME_HEIGHT - LEVEL_UP_PANEL_TOP - 4,
       STORYBOOK_UI.nightPanel,
       STORYBOOK_UI.gold,
-      0.94,
+      0.97,
     );
     root.add(dock);
 
-    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y, 'ひとつ選ぶ', 18, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y, 'ひとつ選ぶ', 20, STORYBOOK_UI.textLight, true));
     root.add(this.text(
       GAME_WIDTH / 2,
-      LEVEL_UP_HEADER_Y + 23,
+      LEVEL_UP_HEADER_Y + 25,
       `武器 ${state.inventory.weapons.length}/${state.inventory.weaponSlots}　忘れ物 ${state.inventory.passives.length}/${state.inventory.passiveSlots}　レア ${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`,
-      9,
+      10,
       STORYBOOK_UI.textMuted,
       true,
     ));
 
-    const xCenters = levelUpCardCenters(choices.length, GAME_WIDTH);
+    const positions = levelUpCardPositions(choices.length, GAME_WIDTH);
     choices.slice(0, 3).forEach((choice, index) => {
+      const position = positions[index];
       root.add(createStorybookChoiceCard(
         this.scene,
-        xCenters[index],
-        LEVEL_UP_CARD_CENTER_Y,
+        position.x,
+        position.y,
         LEVEL_UP_CARD_WIDTH,
         LEVEL_UP_CARD_HEIGHT,
         choice,
@@ -156,7 +156,7 @@ export class Overlays {
       GAME_WIDTH - 57,
       LEVEL_UP_REROLL_Y,
       100,
-      28,
+      30,
       remaining > 0 ? `入替 ${remaining}/3` : '入替 0/3',
       () => {
         if (remaining <= 0) return;
@@ -240,42 +240,50 @@ export class Overlays {
 
   showCapsule(_state: RuntimeState, reward: CapsuleReward, onClose: () => void): void {
     const evolution = reward.type === 'evolution';
-    const root = this.dim(evolution ? 0.68 : 0.58);
+    const root = this.dim(evolution ? 0.7 : 0.62);
     const category: InventoryIconCategory = reward.type === 'passive_upgrade' ? 'passive' : 'weapon';
     const palette = storybookCategoryPalette(category);
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 390, STORYBOOK_UI.nightPanel, evolution ? EVOLUTION_ACCENT[reward.evolutionKind].main : palette.accent, 0.97);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 320, 430, STORYBOOK_UI.nightPanel, evolution ? EVOLUTION_ACCENT[reward.evolutionKind].main : palette.accent, 0.98);
     root.add(panel);
 
-    const card = this.scene.add.container(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 14);
+    const card = this.scene.add.container(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 8);
     const paper = this.scene.add.graphics();
-    drawPaperCard(paper, 0, 0, 210, 290, palette.accent, palette.paper);
+    drawPaperCard(paper, 0, 0, 238, 330, palette.accent, palette.paper);
     card.add(paper);
     const ref = iconRefForReward(reward);
-    if (ref) this.addInventoryIcon(card, ref, 0, -30, 104, palette.accent);
-    card.add(this.scene.add.text(0, -126, evolution ? evolutionKindLabel(reward.evolutionKind) : '記憶カプセル', {
+    if (ref) this.addInventoryIcon(card, ref, 0, -45, 100, palette.accent);
+    card.add(this.scene.add.text(0, -145, evolution ? evolutionKindLabel(reward.evolutionKind) : '記憶カプセル', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '12px',
+      fontSize: '13px',
       color: STORYBOOK_UI.textSoft,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
+      backgroundColor: '#f4ead4',
+      padding: { left: 6, right: 6, top: 2, bottom: 2 },
     }).setOrigin(0.5));
-    card.add(this.scene.add.text(0, 48, wrapUiText(reward.title, 15, 2), {
+    card.add(this.scene.add.text(0, 46, wrapUiText(reward.title, 16, 2), {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '18px',
+      fontSize: '20px',
       color: STORYBOOK_UI.textDark,
       fontStyle: 'bold',
       align: 'center',
-      resolution: 1,
+      resolution: 2,
+      lineSpacing: 3,
+      backgroundColor: '#f4ead4',
+      padding: { left: 7, right: 7, top: 4, bottom: 4 },
     }).setOrigin(0.5));
     if (reward.type === 'evolution' && reward.lore) {
-      card.add(this.scene.add.text(0, 90, wrapUiText(reward.lore, 18, 3), {
+      card.add(this.scene.add.text(0, 98, wrapUiText(reward.lore, 20, 3), {
         fontFamily: STORYBOOK_FONT,
-        fontSize: '10px',
-        color: STORYBOOK_UI.textSoft,
+        fontSize: '12px',
+        color: '#4e433e',
+        fontStyle: 'bold',
         align: 'center',
-        lineSpacing: 2,
-        resolution: 1,
+        lineSpacing: 4,
+        resolution: 2,
+        backgroundColor: '#f4ead4',
+        padding: { left: 5, right: 5, top: 4, bottom: 4 },
       }).setOrigin(0.5, 0));
     }
     root.add(card);
@@ -285,7 +293,7 @@ export class Overlays {
       onClose();
     };
     (root.list[0] as Phaser.GameObjects.Rectangle).on('pointerdown', close);
-    this.scene.time.delayedCall(evolution ? 1900 : 1200, () => {
+    this.scene.time.delayedCall(evolution ? 2200 : 1500, () => {
       if (this.current === root) close();
     });
   }
@@ -347,14 +355,16 @@ export class Overlays {
       fontSize: '14px',
       color: STORYBOOK_UI.textDark,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
+      backgroundColor: '#f4ead4',
+      padding: { left: 4, right: 4, top: 2, bottom: 2 },
     }).setOrigin(0, 0.5));
     row.add(this.scene.add.text(width / 2 - 15, 0, '交換', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '9px',
+      fontSize: '10px',
       color: STORYBOOK_UI.textSoft,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
     }).setOrigin(1, 0.5));
     return row;
   }
@@ -377,6 +387,7 @@ export class Overlays {
       fontSize: `${Math.round(size * 0.42)}px`,
       color: colorString(accent),
       fontStyle: 'bold',
+      resolution: 2,
     }).setOrigin(0.5));
   }
 
@@ -399,10 +410,12 @@ export class Overlays {
     button.add(hit);
     button.add(this.scene.add.text(0, 0, label, {
       fontFamily: STORYBOOK_FONT,
-      fontSize: `${height <= 30 ? 10 : 15}px`,
+      fontSize: `${height <= 30 ? 11 : 15}px`,
       color: dark ? STORYBOOK_UI.textLight : STORYBOOK_UI.textDark,
       fontStyle: 'bold',
-      resolution: 1,
+      resolution: 2,
+      stroke: dark ? '#080b18' : '#f4ead4',
+      strokeThickness: 1,
     }).setOrigin(0.5));
     return button;
   }

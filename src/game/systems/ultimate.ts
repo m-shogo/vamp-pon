@@ -11,7 +11,7 @@ import { updatePlayerVisual } from '../ui/playerVisual';
 
 const ULTIMATE_POSE_SEC = 0.48;
 
-/** 必殺技ゲージの充填と発動。 */
+/** 必殺技ゲージの充填と発動。暴走ゲージとは完全に独立。 */
 export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const ult = state.ultimate;
   if (ult.activeRemaining > 0) {
@@ -28,7 +28,8 @@ export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: num
 
   if (state.ultimateRequested) {
     state.ultimateRequested = false;
-    if (ult.ready) {
+    const berserkActive = (state.berserk?.activeRemaining ?? 0) > 0;
+    if (ult.ready && !berserkActive) {
       activateUltimate(scene, state);
       ult.ready = false;
       ult.charge = 0;
@@ -37,7 +38,6 @@ export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: num
     }
   }
 
-  // input → movement → enemy contact → ultimate の順で更新された最終状態を見た目へ反映する。
   updatePlayerVisual(state);
 }
 
@@ -47,12 +47,10 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   const eff = char.ultimate.effect;
   const p = state.player;
 
-  // 欠片を吸い寄せる
   for (const frag of state.pickups) {
     frag.magnetized = true;
   }
 
-  // 範囲内の小型影にダメージ → 欠片に戻す
   for (const e of state.enemies) {
     if (e.dead) continue;
     const def = enemyById.get(e.defId);
@@ -67,7 +65,6 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
     }
   }
 
-  // 発動エフェクト（淡い円が広がる + 暖色フラッシュ）
   ultimateFlash(scene);
   const ring = scene.add.circle(p.x, p.y, eff.radius, COLORS.ultReady, 0.3).setDepth(35);
   ring.setScale(0.1);

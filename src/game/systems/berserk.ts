@@ -1,0 +1,46 @@
+import type { RuntimeState } from '../runtime';
+
+export const BERSERK_MAX_CHARGE = 100;
+export const BERSERK_DURATION_SEC = 8;
+export const BERSERK_CHARGE_PER_DAMAGE = 2;
+export const BERSERK_DAMAGE_MULTIPLIER = 1.5;
+
+export function isBerserkActive(state: RuntimeState): boolean {
+  return (state.berserk?.activeRemaining ?? 0) > 0;
+}
+
+/** 暴走ゲージは被ダメージだけで増える。時間経過や必殺技では増減しない。 */
+export function chargeBerserkFromDamage(state: RuntimeState, damageTaken: number): void {
+  const berserk = state.berserk;
+  if (!berserk || damageTaken <= 0 || isBerserkActive(state) || berserk.ready) return;
+  berserk.charge = Math.min(berserk.maxCharge, berserk.charge + damageTaken * BERSERK_CHARGE_PER_DAMAGE);
+  berserk.ready = berserk.charge >= berserk.maxCharge;
+}
+
+/** 左下ポートレートから発動する独立した暴走状態。必殺技のゲージは触らない。 */
+export function updateBerserk(state: RuntimeState, dt: number): void {
+  const berserk = state.berserk;
+  if (!berserk) {
+    state.berserkRequested = false;
+    return;
+  }
+
+  if (berserk.activeRemaining > 0) {
+    berserk.activeRemaining = Math.max(0, berserk.activeRemaining - dt);
+    if (berserk.activeRemaining === 0) {
+      berserk.charge = 0;
+      berserk.ready = false;
+    }
+  }
+
+  if (!state.berserkRequested) return;
+  state.berserkRequested = false;
+
+  if (!berserk.ready || berserk.activeRemaining > 0 || state.ultimate.activeRemaining > 0) return;
+  berserk.ready = false;
+  berserk.activeRemaining = berserk.durationSec;
+}
+
+export function berserkDamageMultiplier(state: RuntimeState): number {
+  return isBerserkActive(state) ? BERSERK_DAMAGE_MULTIPLIER : 1;
+}

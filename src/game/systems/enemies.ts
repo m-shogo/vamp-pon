@@ -9,6 +9,7 @@ import { capsuleDropChanceFor, computeBehaviorStep } from '../domain/enemyRules'
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
+import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
 import {
   ENEMY_PROTOTYPE_SHEETS,
   enemyPrototypeFacingForMotion,
@@ -57,12 +58,15 @@ export function spawnEnemy(
   state.enemies.push(enemy);
 }
 
-/** プレイヤー被弾処理。 */
+/** プレイヤー被弾処理。暴走ゲージは実際に失ったHPだけで増える。 */
 export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amount: number): void {
   const p = state.player;
   if (p.invulnRemaining > 0) return;
-  p.hp -= amount;
-  state.stats.damageTaken += amount;
+  const appliedDamage = Math.min(p.hp, Math.max(0, amount));
+  if (appliedDamage <= 0) return;
+  p.hp -= appliedDamage;
+  state.stats.damageTaken += appliedDamage;
+  chargeBerserkFromDamage(state, appliedDamage);
   if (state.telemetry.firstDamageSec === null) state.telemetry.firstDamageSec = state.elapsedSec;
   p.invulnRemaining = PLAYER_DEFAULTS.invulnSec;
   p.flashRemaining = PLAYER_DEFAULTS.invulnSec;
@@ -76,7 +80,7 @@ export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amou
 /** 敵にダメージを与え、死亡時はドロップして除去する。 */
 export function damageEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: EnemyRuntime, amount: number): void {
   if (enemy.dead) return;
-  enemy.hp -= amount;
+  enemy.hp -= amount * berserkDamageMultiplier(state);
   enemy.flashRemaining = FLASH_SEC;
   enemy.view.setScale(1.22);
   const blob = enemy.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
@@ -96,7 +100,6 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     state.telemetry.eliteKillSecs.push(state.elapsedSec);
   }
 
-  // 欠片ドロップ
   const count = Math.max(1, Math.min(enemy.xpDrop, 5));
   const per = enemy.xpDrop / count;
   for (let i = 0; i < count; i += 1) {
@@ -175,7 +178,6 @@ function updateEnemyPrototypeFacing(
   if (!sheet) return;
   if (sprite.texture.key !== sheet.id) sprite.setTexture(sheet.id, frame);
 
-  // 右向き専用素材は使わない。左向きシートを水平反転して右を描く。
   const usingLeftSheet = sheet.id === ENEMY_PROTOTYPE_SHEETS.left.id;
   sprite.setFlipX(usingLeftSheet && dirX > 0);
 }
@@ -184,11 +186,9 @@ function updateEnemyPrototypeFacing(
 export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
 
-  // プレイヤーの無敵/点滅減衰
   if (p.invulnRemaining > 0) p.invulnRemaining = Math.max(0, p.invulnRemaining - dt);
   if (p.flashRemaining > 0) {
     p.flashRemaining = Math.max(0, p.flashRemaining - dt);
-    // 無敵中は点滅
     const blink = Math.floor(p.flashRemaining * 20) % 2 === 0 ? 0.4 : 1;
     state.playerView.setAlpha(blink);
   } else {
@@ -198,7 +198,6 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
   for (const e of state.enemies) {
     if (e.dead) continue;
 
-    // 移動方向と速度（behaviorで挙動差を出す。純ロジックは domain/enemyRules）
     const step = computeBehaviorStep({
       behavior: e.behavior,
       dx: p.x - e.x,
@@ -213,13 +212,11 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
     e.y += step.dirY * e.moveSpeed * step.speedFactor * dt;
     e.view.setPosition(e.x, e.y);
 
-    // 命中スケールポップを徐々に戻す
     if (e.view.scaleX !== 1) {
       const s = e.view.scaleX + (1 - e.view.scaleX) * Math.min(1, dt * 12);
       e.view.setScale(Math.abs(s - 1) < 0.01 ? 1 : s);
     }
 
-    // 点滅減衰
     if (e.flashRemaining > 0) {
       e.flashRemaining = Math.max(0, e.flashRemaining - dt);
       if (e.flashRemaining === 0) {
@@ -230,7 +227,6 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       }
     }
 
-    // エリートHPバー
     if (e.hpBar) {
       e.hpBar.clear();
       const w = e.radius * 2;
@@ -239,7 +235,6 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       e.hpBar.fillStyle(COLORS.hpFill, 1).fillRect(e.x - e.radius, e.y - e.radius - 8, w * ratio, 4);
     }
 
-    // 接触ダメージ
     if (p.invulnRemaining <= 0 && distance(e.x, e.y, p.x, p.y) <= p.radius + e.radius) {
       applyPlayerDamage(scene, state, e.contactDamage);
     }

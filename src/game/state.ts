@@ -9,6 +9,7 @@ import { createPlayerView } from './ui/factory';
 import { recomputePlayerStats } from './systems/passives';
 import { YUI_FRAME_IDS } from './assets/playerFrames';
 import { attachCore5PlayerView } from './ui/playerVisual';
+import { BERSERK_DURATION_SEC, BERSERK_MAX_CHARGE } from './systems/berserk';
 
 export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAULT_CHARACTER_ID): RuntimeState {
   const char = characterById.get(characterId) ?? characterById.get(DEFAULT_CHARACTER_ID)!;
@@ -76,6 +77,13 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
       ready: false,
       activeRemaining: 0,
     },
+    berserk: {
+      maxCharge: BERSERK_MAX_CHARGE,
+      charge: 0,
+      ready: false,
+      durationSec: BERSERK_DURATION_SEC,
+      activeRemaining: 0,
+    },
     pendingChoices: [],
     pendingCapsule: null,
     levelUpRerollsRemaining: LEVEL_UP.rerollsPerRun,
@@ -83,6 +91,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     debug,
     inputVec: { x: 0, y: 0 },
     ultimateRequested: false,
+    berserkRequested: false,
   };
 
   recomputePlayerStats(state);
