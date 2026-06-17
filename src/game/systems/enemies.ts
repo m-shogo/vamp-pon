@@ -9,6 +9,10 @@ import { capsuleDropChanceFor, computeBehaviorStep } from '../domain/enemyRules'
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
+import {
+  ENEMY_PROTOTYPE_SHEETS,
+  enemyPrototypeFacingForMotion,
+} from '../assets/enemyPrototypeSheet';
 
 const FLASH_SEC = 0.08;
 const NORMAL_HEAL_DROP_CHANCE = 0.035;
@@ -16,6 +20,7 @@ const LOW_HP_HEAL_DROP_CHANCE = 0.09;
 const ELITE_HEAL_DROP_CHANCE = 0.75;
 const HEAL_AMOUNT = 18;
 const ELITE_HEAL_AMOUNT = 36;
+const DIRECTIONAL_SPRITE_CACHE_KEY = 'enemyPrototypeDirectionalSprite';
 
 export function spawnEnemy(
   scene: Phaser.Scene,
@@ -127,6 +132,54 @@ function maybeDropHeal(scene: Phaser.Scene, state: RuntimeState, enemy: EnemyRun
   spawnHealPickup(scene, state, enemy.x + randRange(-10, 10), enemy.y + randRange(-10, 10), amount);
 }
 
+function directionalEnemySprite(
+  view: Phaser.GameObjects.Container,
+): Phaser.GameObjects.Image | null {
+  const cached = view.getData(DIRECTIONAL_SPRITE_CACHE_KEY) as Phaser.GameObjects.Image | undefined;
+  if (cached) return cached;
+
+  const sprite = view.list.find((child) => {
+    const candidate = child as Phaser.GameObjects.Image;
+    return typeof candidate.getData === 'function'
+      && candidate.getData('enemyPrototypeDirectional') === true;
+  }) as Phaser.GameObjects.Image | undefined;
+
+  if (!sprite) return null;
+  view.setData(DIRECTIONAL_SPRITE_CACHE_KEY, sprite);
+  return sprite;
+}
+
+function updateEnemyPrototypeFacing(
+  scene: Phaser.Scene,
+  view: Phaser.GameObjects.Container,
+  dirX: number,
+  dirY: number,
+): void {
+  const sprite = directionalEnemySprite(view);
+  if (!sprite) return;
+
+  const frame = sprite.getData('enemyPrototypeFrame') as number | undefined;
+  if (frame == null) return;
+
+  const facing = enemyPrototypeFacingForMotion(dirX, dirY);
+  const desiredSheet = ENEMY_PROTOTYPE_SHEETS[facing];
+  const fallbackSheet = facing === 'front'
+    ? ENEMY_PROTOTYPE_SHEETS.left
+    : ENEMY_PROTOTYPE_SHEETS.front;
+  const sheet = scene.textures.exists(desiredSheet.id)
+    ? desiredSheet
+    : scene.textures.exists(fallbackSheet.id)
+      ? fallbackSheet
+      : null;
+
+  if (!sheet) return;
+  if (sprite.texture.key !== sheet.id) sprite.setTexture(sheet.id, frame);
+
+  // 右向き専用素材は使わない。左向きシートを水平反転して右を描く。
+  const usingLeftSheet = sheet.id === ENEMY_PROTOTYPE_SHEETS.left.id;
+  sprite.setFlipX(usingLeftSheet && dirX > 0);
+}
+
 /** 敵の移動・接触・点滅を更新する。 */
 export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
@@ -155,6 +208,7 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       iid: e.iid,
       elapsedSec: state.elapsedSec,
     });
+    updateEnemyPrototypeFacing(scene, e.view, step.dirX, step.dirY);
     e.x += step.dirX * e.moveSpeed * step.speedFactor * dt;
     e.y += step.dirY * e.moveSpeed * step.speedFactor * dt;
     e.view.setPosition(e.x, e.y);
