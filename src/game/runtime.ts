@@ -120,6 +120,7 @@ export type BerserkState = {
   ready: boolean;
   durationSec: number;
   activeRemaining: number;
+  fatigueRemaining: number;
 };
 
 /** 1プレイの計測値。プレイログ（docs/balance-log）の素データ。 */
