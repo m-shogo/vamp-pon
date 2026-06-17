@@ -57,6 +57,39 @@ export function computeBehaviorStep(input: BehaviorInput): BehaviorStep {
       // 遠いと押し込む（止まらない圧）
       if (input.dist > 220) speedFactor = 1.25;
       break;
+    case 'charger': {
+      // 予兆→突進→硬直の周期。硬くせず、避ける気持ちよさを作る。
+      const phase = (input.elapsedSec + (input.iid % 7) * 0.17) % 3.2;
+      if (phase < 1.15) {
+        speedFactor = 0.34;
+      } else if (phase < 1.75) {
+        speedFactor = 2.65;
+      } else {
+        speedFactor = 0.18;
+      }
+      break;
+    }
+    case 'orbit_chase': {
+      // 近距離で円を描き、真正面から来るだけの単調さを崩す。
+      const perp = { x: -dir.y, y: dir.x };
+      const orbitBias = input.dist < 190 ? 1.25 : 0.45;
+      dir = normalize(dir.x * 0.55 + perp.x * input.offsetSign * orbitBias, dir.y * 0.55 + perp.y * input.offsetSign * orbitBias);
+      speedFactor = input.dist < 120 ? 0.78 : 1.05;
+      break;
+    }
+    case 'coward':
+      // 近づくと逃げる。倒すために追う/位置取りする小目標を作る。
+      if (input.dist < 155) {
+        dir = normalize(-input.dx, -input.dy);
+        speedFactor = 1.25;
+      } else if (input.dist > 230) {
+        speedFactor = 0.7;
+      } else {
+        const perp = { x: -dir.y, y: dir.x };
+        dir = normalize(perp.x * input.offsetSign, perp.y * input.offsetSign);
+        speedFactor = 0.85;
+      }
+      break;
     case 'chase':
     default:
       break;
