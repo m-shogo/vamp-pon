@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import type { EnemyDefinition } from '../types';
+import type { EnemyBehavior, EnemyDefinition } from '../types';
 import { capsuleDropChanceFor, computeBehaviorStep, enemyConsistencyError } from '../enemyRules';
 import { enemies } from '../../data/enemies';
 
@@ -79,8 +79,34 @@ describe('computeBehaviorStep', () => {
     expect(computeBehaviorStep({ ...base, dist: 100, behavior: 'elite_chase' }).speedFactor).toBe(1);
   });
 
+  it('charger は予兆・突進・硬直の速度差を持つ', () => {
+    expect(computeBehaviorStep({ ...base, elapsedSec: 0, behavior: 'charger' }).speedFactor).toBeLessThan(0.5);
+    expect(computeBehaviorStep({ ...base, elapsedSec: 1.3, behavior: 'charger' }).speedFactor).toBeGreaterThan(2);
+    expect(computeBehaviorStep({ ...base, elapsedSec: 2.1, behavior: 'charger' }).speedFactor).toBeLessThan(0.3);
+  });
+
+  it('orbit_chase は近距離で横方向成分を強める', () => {
+    const s = computeBehaviorStep({ ...base, dist: 100, behavior: 'orbit_chase' });
+    expect(Math.abs(s.dirY)).toBeGreaterThan(0.5);
+  });
+
+  it('coward は近距離でプレイヤーから逃げる', () => {
+    const s = computeBehaviorStep({ ...base, dist: 80, behavior: 'coward' });
+    expect(s.dirX).toBeLessThan(0);
+  });
+
   it('方向ベクトルは常に正規化されている', () => {
-    for (const behavior of ['chase', 'offset_chase', 'swarm_chase', 'slow_chase', 'elite_chase'] as const) {
+    const behaviors: EnemyBehavior[] = [
+      'chase',
+      'offset_chase',
+      'swarm_chase',
+      'slow_chase',
+      'elite_chase',
+      'charger',
+      'orbit_chase',
+      'coward',
+    ];
+    for (const behavior of behaviors) {
       const s = computeBehaviorStep({ ...base, dx: 30, dy: 40, dist: 50, behavior });
       const len = Math.hypot(s.dirX, s.dirY);
       expect(len).toBeCloseTo(1, 5);
