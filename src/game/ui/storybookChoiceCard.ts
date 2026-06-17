@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import type { LevelUpChoice } from '../domain/types';
+import type { LevelUpChoice, RewardRarity } from '../domain/types';
 import {
   getInventoryIconRequirement,
   resolveInventoryIconTexture,
@@ -11,8 +11,6 @@ import {
   STORYBOOK_UI,
   drawHeart,
   drawPaperCard,
-  drawRarityStars,
-  drawStar,
   storybookCategoryPalette,
 } from './storybookUi';
 
@@ -28,11 +26,10 @@ export function createStorybookChoiceCard(
   const card = scene.add.container(cx, cy);
   const category = categoryForChoice(choice);
   const palette = storybookCategoryPalette(category);
-  const rarity = choice.rarity ?? 'normal';
+  const accent = rarityAccent(choice.rarity ?? 'normal', palette.accent);
   const graphics = scene.add.graphics();
-  drawPaperCard(graphics, 0, 0, width, height, palette.accent, palette.paper);
-  drawStar(graphics, -width / 2 + 15, -height / 2 + 14, 11, palette.accent, STORYBOOK_UI.paperEdge, 1);
-  drawRarityStars(graphics, -22, height / 2 - 18, rarity);
+  drawPaperCard(graphics, 0, 0, width, height, accent, palette.paper);
+  graphics.fillStyle(accent, 0.92).fillRect(-width / 2 + 5, -height / 2 + 5, 5, height - 10);
   card.add(graphics);
 
   const hit = scene.add.rectangle(0, 0, width, height, 0x000000, 0.001)
@@ -41,58 +38,144 @@ export function createStorybookChoiceCard(
   card.add(hit);
 
   const title = choice.title.replace(/^✦ /, '').replace(/^入替: /, '');
-  card.add(scene.add.text(0, -height / 2 + 25, wrapUiText(title, 10, 2), {
+  if (width >= 250) {
+    addHorizontalContent(scene, card, width, height, choice, title, palette.label, accent);
+  } else {
+    addVerticalContent(scene, card, width, height, choice, title, palette.label, accent);
+  }
+
+  return card;
+}
+
+function addHorizontalContent(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  width: number,
+  height: number,
+  choice: LevelUpChoice,
+  title: string,
+  categoryLabel: string,
+  accent: number,
+): void {
+  const left = -width / 2;
+  const iconX = left + 54;
+  addChoiceIcon(scene, card, choice, iconX, 0, 76);
+
+  card.add(scene.add.text(left + 103, -height / 2 + 13, wrapUiText(title, 20, 2), {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '13px',
+    fontSize: '15px',
+    color: STORYBOOK_UI.textDark,
+    fontStyle: 'bold',
+    align: 'left',
+    lineSpacing: 2,
+    resolution: 2,
+    wordWrap: { width: width - 132 },
+    stroke: '#f4ead4',
+    strokeThickness: 1,
+  }).setOrigin(0, 0));
+
+  card.add(scene.add.text(width / 2 - 14, -height / 2 + 14, categoryLabel, {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '10px',
+    color: colorString(accent),
+    fontStyle: 'bold',
+    resolution: 2,
+    backgroundColor: '#f4ead4',
+    padding: { left: 4, right: 4, top: 2, bottom: 2 },
+  }).setOrigin(1, 0));
+
+  card.add(scene.add.text(left + 103, 9, wrapUiText(choice.description, 24, 3), {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '12px',
+    color: '#302932',
+    fontStyle: 'bold',
+    align: 'left',
+    lineSpacing: 4,
+    resolution: 2,
+    wordWrap: { width: width - 126 },
+    backgroundColor: '#f4ead4',
+    padding: { left: 4, right: 4, top: 3, bottom: 3 },
+  }).setOrigin(0, 0));
+}
+
+function addVerticalContent(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  width: number,
+  height: number,
+  choice: LevelUpChoice,
+  title: string,
+  categoryLabel: string,
+  accent: number,
+): void {
+  card.add(scene.add.text(0, -height / 2 + 18, wrapUiText(title, 10, 2), {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '14px',
     color: STORYBOOK_UI.textDark,
     fontStyle: 'bold',
     align: 'center',
-    lineSpacing: 1,
-    resolution: 1,
-    wordWrap: { width: width - 20 },
+    lineSpacing: 2,
+    resolution: 2,
+    wordWrap: { width: width - 18 },
+    stroke: '#f4ead4',
+    strokeThickness: 1,
   }).setOrigin(0.5, 0));
 
-  card.add(scene.add.text(0, -height / 2 + 63, palette.label, {
+  card.add(scene.add.text(0, -height / 2 + 58, categoryLabel, {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '9px',
-    color: colorString(palette.accent),
+    fontSize: '10px',
+    color: colorString(accent),
     fontStyle: 'bold',
-    resolution: 1,
+    resolution: 2,
+    backgroundColor: '#f4ead4',
+    padding: { left: 4, right: 4, top: 1, bottom: 1 },
   }).setOrigin(0.5));
 
-  const iconY = -23;
+  const iconY = -18;
+  addChoiceIcon(scene, card, choice, 0, iconY, 72);
+
+  card.add(scene.add.text(0, 36, wrapUiText(choice.description, 11, 4), {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '12px',
+    color: '#302932',
+    fontStyle: 'bold',
+    align: 'center',
+    lineSpacing: 4,
+    resolution: 2,
+    wordWrap: { width: width - 16 },
+    backgroundColor: '#f4ead4',
+    padding: { left: 3, right: 3, top: 3, bottom: 3 },
+  }).setOrigin(0.5, 0));
+}
+
+function addChoiceIcon(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  choice: LevelUpChoice,
+  x: number,
+  y: number,
+  size: number,
+): void {
   const iconRef = iconRefForChoice(choice);
   if (iconRef) {
     const texture = resolveInventoryIconTexture(scene.textures, iconRef.category, iconRef.itemId);
     if (texture) {
-      card.add(scene.add.image(0, iconY, texture).setDisplaySize(82, 82));
+      card.add(scene.add.image(x, y, texture).setDisplaySize(size, size));
     } else {
-      card.add(scene.add.text(0, iconY, getInventoryIconRequirement(iconRef.category, iconRef.itemId)?.fallbackGlyph ?? '?', {
+      card.add(scene.add.text(x, y, getInventoryIconRequirement(iconRef.category, iconRef.itemId)?.fallbackGlyph ?? '?', {
         fontFamily: STORYBOOK_FONT,
-        fontSize: '32px',
+        fontSize: `${Math.round(size * 0.42)}px`,
         color: STORYBOOK_UI.textDark,
         fontStyle: 'bold',
+        resolution: 2,
       }).setOrigin(0.5));
     }
-  } else {
-    const icon = scene.add.graphics();
-    drawHeart(icon, 0, iconY, 26);
-    card.add(icon);
+    return;
   }
 
-  const description = wrapUiText(choice.description, 10, 4);
-  card.add(scene.add.text(0, 38, description, {
-    fontFamily: STORYBOOK_FONT,
-    fontSize: '11px',
-    color: STORYBOOK_UI.textDark,
-    fontStyle: 'bold',
-    align: 'center',
-    lineSpacing: 3,
-    resolution: 1,
-    wordWrap: { width: width - 18 },
-  }).setOrigin(0.5, 0));
-
-  return card;
+  const icon = scene.add.graphics();
+  drawHeart(icon, x, y, Math.round(size * 0.34));
+  card.add(icon);
 }
 
 export function categoryForChoice(choice: LevelUpChoice): InventoryIconCategory | 'heal' {
@@ -106,6 +189,12 @@ function iconRefForChoice(choice: LevelUpChoice): { category: InventoryIconCateg
   const category = categoryForChoice(choice);
   if (category === 'heal' || !('itemId' in choice)) return null;
   return { category, itemId: choice.itemId };
+}
+
+function rarityAccent(rarity: RewardRarity, categoryAccent: number): number {
+  if (rarity === 'rare') return STORYBOOK_UI.rare;
+  if (rarity === 'good') return 0xd4b060;
+  return categoryAccent;
 }
 
 function colorString(color: number): string {

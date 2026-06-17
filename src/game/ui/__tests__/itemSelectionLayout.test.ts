@@ -1,31 +1,34 @@
 import { describe, expect, it } from 'vitest';
 import {
-  LEVEL_UP_CARD_CENTER_Y,
   LEVEL_UP_CARD_GAP,
   LEVEL_UP_CARD_HEIGHT,
+  LEVEL_UP_CARD_TOP,
   LEVEL_UP_CARD_WIDTH,
   LEVEL_UP_PANEL_TOP,
   REPLACE_ACTION_Y,
   REPLACE_ROW_HEIGHT,
   REPLACE_ROW_TOP,
-  levelUpCardCenters,
+  levelUpCardPositions,
   replaceRowCenters,
   wrapUiText,
 } from '../itemSelectionLayout';
 
 describe('item selection layout', () => {
-  it('3枚の縦長カードが390px幅へ横並びで収まる', () => {
-    const centers = levelUpCardCenters(3, 390);
-    expect(centers).toHaveLength(3);
-    expect(centers[0] - LEVEL_UP_CARD_WIDTH / 2).toBeGreaterThanOrEqual(0);
-    expect(centers[2] + LEVEL_UP_CARD_WIDTH / 2).toBeLessThanOrEqual(390);
-    expect(centers[1] - centers[0]).toBe(LEVEL_UP_CARD_WIDTH + LEVEL_UP_CARD_GAP);
-    expect(centers[2] - centers[1]).toBe(LEVEL_UP_CARD_WIDTH + LEVEL_UP_CARD_GAP);
+  it('3枚の横長カードが390px幅へ縦並びで収まる', () => {
+    const positions = levelUpCardPositions(3, 390);
+    expect(positions).toHaveLength(3);
+    for (const position of positions) {
+      expect(position.x - LEVEL_UP_CARD_WIDTH / 2).toBeGreaterThanOrEqual(0);
+      expect(position.x + LEVEL_UP_CARD_WIDTH / 2).toBeLessThanOrEqual(390);
+    }
+    expect(positions[1].y - positions[0].y).toBe(LEVEL_UP_CARD_HEIGHT + LEVEL_UP_CARD_GAP);
+    expect(positions[2].y - positions[1].y).toBe(LEVEL_UP_CARD_HEIGHT + LEVEL_UP_CARD_GAP);
   });
 
   it('カードが下部パネル内へ収まる', () => {
-    expect(LEVEL_UP_CARD_CENTER_Y - LEVEL_UP_CARD_HEIGHT / 2).toBeGreaterThan(LEVEL_UP_PANEL_TOP);
-    expect(LEVEL_UP_CARD_CENTER_Y + LEVEL_UP_CARD_HEIGHT / 2).toBeLessThanOrEqual(844);
+    const positions = levelUpCardPositions(3, 390);
+    expect(LEVEL_UP_CARD_TOP).toBeGreaterThan(LEVEL_UP_PANEL_TOP);
+    expect(positions[2].y + LEVEL_UP_CARD_HEIGHT / 2).toBeLessThanOrEqual(844);
   });
 
   it('最大5件の入れ替え候補が操作ボタンより上に収まる', () => {

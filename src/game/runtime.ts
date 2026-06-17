@@ -114,6 +114,14 @@ export type UltimateState = {
   activeRemaining: number;
 };
 
+export type BerserkState = {
+  maxCharge: number;
+  charge: number;
+  ready: boolean;
+  durationSec: number;
+  activeRemaining: number;
+};
+
 /** 1プレイの計測値。プレイログ（docs/balance-log）の素データ。 */
 export type RunTelemetry = {
   firstKillSec: number | null;
@@ -154,6 +162,7 @@ export type RuntimeState = {
   stats: RunStats;
   telemetry: RunTelemetry;
   ultimate: UltimateState;
+  berserk: BerserkState;
   pendingChoices: LevelUpChoice[];
   pendingCapsule: CapsuleReward | null;
   levelUpRerollsRemaining: number;
@@ -161,6 +170,7 @@ export type RuntimeState = {
   debug: boolean;
   inputVec: { x: number; y: number };
   ultimateRequested: boolean;
+  berserkRequested: boolean;
 };
 
 export function nextIid(state: RuntimeState): number {

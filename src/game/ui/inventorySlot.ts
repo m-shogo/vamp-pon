@@ -4,7 +4,8 @@ import {
   resolveInventoryIconTexture,
   type InventoryIconCategory,
 } from '../assets/inventoryIcons';
-import { PixelGlyphText, UI_FONT, drawPixelPanel } from './pixelUi';
+import { UI_FONT, drawPixelPanel } from './pixelUi';
+import { storybookCategoryPalette } from './storybookUi';
 
 export type InventorySlotItem = {
   category: InventoryIconCategory;
@@ -15,11 +16,12 @@ export type InventorySlotItem = {
 export class InventorySlotView {
   readonly container: Phaser.GameObjects.Container;
 
+  private frame: Phaser.GameObjects.Graphics;
   private iconImage: Phaser.GameObjects.Image | null = null;
   private fallbackText: Phaser.GameObjects.Text;
   private emptyMark: Phaser.GameObjects.Graphics;
   private levelBadge: Phaser.GameObjects.Graphics;
-  private levelText: PixelGlyphText;
+  private levelText: Phaser.GameObjects.Text;
   private currentKey = '';
 
   constructor(
@@ -28,23 +30,37 @@ export class InventorySlotView {
     y: number,
     private size: number,
     depth: number,
+    category: InventoryIconCategory,
   ) {
     this.container = scene.add.container(x, y).setDepth(depth);
+    const palette = storybookCategoryPalette(category);
+
+    this.frame = scene.add.graphics();
+    drawPixelPanel(this.frame, 0, 0, size + 5, size + 5, {
+      fill: 0x0d1329,
+      edge: palette.accent,
+      accent: palette.accent,
+      alpha: 0.96,
+      cut: 4,
+      border: 1,
+    });
 
     this.emptyMark = scene.add.graphics();
-    this.emptyMark.fillStyle(0x6e6680, 0.72);
+    this.emptyMark.fillStyle(palette.accent, 0.66);
     this.emptyMark.fillRect(-1, -5, 2, 10);
     this.emptyMark.fillRect(-5, -1, 10, 2);
-    this.emptyMark.fillStyle(0xb8aecb, 0.72);
+    this.emptyMark.fillStyle(0xf3ead2, 0.72);
     this.emptyMark.fillRect(-1, -1, 2, 2);
 
     this.fallbackText = scene.add
-      .text(0, 0, '', {
+      .text(0, -1, '', {
         fontFamily: UI_FONT,
-        fontSize: `${Math.max(12, size * 0.45)}px`,
+        fontSize: `${Math.max(12, size * 0.43)}px`,
         color: '#f3ead2',
         fontStyle: 'bold',
-        resolution: 1,
+        resolution: 2,
+        stroke: '#080b18',
+        strokeThickness: 2,
       })
       .setOrigin(0.5)
       .setVisible(false);
@@ -52,21 +68,29 @@ export class InventorySlotView {
     this.levelBadge = scene.add.graphics().setVisible(false);
     drawPixelPanel(
       this.levelBadge,
-      size * 0.34,
-      size * 0.31,
-      14,
-      12,
-      { fill: 0x120f24, edge: 0xf3ead2, accent: 0xffd45e, cut: 3, border: 1 },
+      0,
+      size / 2 - 3,
+      size + 2,
+      13,
+      { fill: 0x080b18, edge: palette.accent, accent: palette.accent, cut: 3, border: 1 },
     );
 
-    this.levelText = new PixelGlyphText(scene, size * 0.34, size * 0.31 - 4, 1, 0xf3ead2, 'center', 1);
-    this.levelText.setVisible(false);
+    this.levelText = scene.add.text(0, size / 2 - 3, '', {
+      fontFamily: UI_FONT,
+      fontSize: '9px',
+      color: '#fff5d9',
+      fontStyle: 'bold',
+      resolution: 2,
+      stroke: '#080b18',
+      strokeThickness: 2,
+    }).setOrigin(0.5).setVisible(false);
 
     this.container.add([
+      this.frame,
       this.emptyMark,
       this.fallbackText,
       this.levelBadge,
-      this.levelText.container,
+      this.levelText,
     ]);
   }
 
@@ -91,12 +115,12 @@ export class InventorySlotView {
 
     if (texture) {
       if (!this.iconImage) {
-        this.iconImage = this.scene.add.image(0, 0, texture);
-        this.container.addAt(this.iconImage, 0);
+        this.iconImage = this.scene.add.image(0, -1, texture);
+        this.container.addAt(this.iconImage, 1);
       } else if (this.iconImage.texture.key !== texture) {
         this.iconImage.setTexture(texture);
       }
-      const displaySize = Math.max(30, this.size);
+      const displaySize = Math.max(24, this.size - 2);
       this.iconImage.setDisplaySize(displaySize, displaySize).setVisible(true);
       this.fallbackText.setVisible(false);
     } else {
@@ -108,7 +132,7 @@ export class InventorySlotView {
 
     const hasLevel = typeof item.level === 'number' && item.level > 0;
     this.levelBadge.setVisible(hasLevel);
-    this.levelText.setText(hasLevel ? String(item.level) : '').setVisible(hasLevel);
+    this.levelText.setText(hasLevel ? `Lv.${item.level}` : '').setVisible(hasLevel);
     this.container.setName(requirement?.name ?? item.itemId);
   }
 

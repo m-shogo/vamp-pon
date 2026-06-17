@@ -17,6 +17,7 @@ import { updateEnemies } from '../systems/enemies';
 import { updateWeapons } from '../systems/weapons';
 import { updatePickups } from '../systems/pickups';
 import { updateUltimate } from '../systems/ultimate';
+import { updateBerserk } from '../systems/berserk';
 import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule, generateEvolutionReward } from '../systems/capsule';
@@ -45,6 +46,9 @@ export class MainScene extends Phaser.Scene {
       this,
       () => {
         if (this.state.status === GAME_STATUS.PLAYING) this.state.ultimateRequested = true;
+      },
+      () => {
+        if (this.state.status === GAME_STATUS.PLAYING) this.state.berserkRequested = true;
       },
       () => this.tryAutoPause(),
     );
@@ -108,6 +112,7 @@ export class MainScene extends Phaser.Scene {
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
+      updateBerserk(state, dt);
       this.resolveTransitions();
     }
 
