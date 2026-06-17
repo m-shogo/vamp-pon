@@ -3,8 +3,11 @@ import type { RuntimeState } from '../runtime';
 import {
   BERSERK_DAMAGE_MULTIPLIER,
   BERSERK_DURATION_SEC,
+  BERSERK_FATIGUE_MOVE_MULTIPLIER,
+  BERSERK_FATIGUE_SEC,
   BERSERK_MAX_CHARGE,
   berserkDamageMultiplier,
+  berserkMoveMultiplier,
   chargeBerserkFromDamage,
   updateBerserk,
 } from './berserk';
@@ -17,6 +20,7 @@ function makeState(): RuntimeState {
       ready: false,
       durationSec: BERSERK_DURATION_SEC,
       activeRemaining: 0,
+      fatigueRemaining: 0,
     },
     ultimate: {
       chargeSeconds: 20,
@@ -60,6 +64,20 @@ describe('berserk state', () => {
     expect(state.berserk.activeRemaining).toBe(0);
     expect(state.berserk.charge).toBe(0);
     expect(berserkDamageMultiplier(state)).toBe(1);
+  });
+
+  it('暴走終了後は短時間だけ移動疲労が残る', () => {
+    const state = makeState();
+    state.berserk.charge = BERSERK_MAX_CHARGE;
+    state.berserk.ready = true;
+    state.berserkRequested = true;
+    updateBerserk(state, 0);
+    updateBerserk(state, BERSERK_DURATION_SEC);
+    expect(state.berserk.fatigueRemaining).toBe(BERSERK_FATIGUE_SEC);
+    expect(berserkMoveMultiplier(state)).toBe(BERSERK_FATIGUE_MOVE_MULTIPLIER);
+    updateBerserk(state, BERSERK_FATIGUE_SEC);
+    expect(state.berserk.fatigueRemaining).toBe(0);
+    expect(berserkMoveMultiplier(state)).toBe(1);
   });
 
   it('必殺技の短い発動中は暴走を開始しない', () => {
