@@ -3,11 +3,13 @@ import { assetManifest } from './assetManifest';
 import { allPrototypeAssets } from './prototypeManifest';
 import { ENEMY_PROTOTYPE_SHEET_LIST } from './enemyPrototypeSheet';
 import { loadBackgroundManifest, getPreviewBackgrounds, getBackgroundByStageNumber } from './backgroundManifest';
+import { isYuiExpressionRageDeferredAsset } from './yuiExpressionRageSheet';
 import { stageBackgroundTextureKey } from '../ui/background';
 
 /**
  * 実在する画像だけを Phaser のロードキューに積む。
  * path を持たないentryはGraphics fallback専用。
+ * 表情・暴走48個別PNGは通常起動では読まず、原本sheetを必要時に遅延ロードする。
  */
 export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> {
   let queued = 0;
@@ -15,7 +17,7 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
 
   await Promise.all(
     assetManifest.map(async (asset) => {
-      if (!asset.path) return;
+      if (!asset.path || isYuiExpressionRageDeferredAsset(asset.id)) return;
       if (!reserveTextureKey(scene, pendingKeys, asset.id)) return;
       if (!(await fileExists(asset.path))) return;
       scene.load.image(asset.id, asset.path);
