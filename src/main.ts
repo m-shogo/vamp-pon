@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { BootScene } from './game/scenes/BootScene';
+import { CharacterCutinQaScene } from './game/scenes/CharacterCutinQaScene';
 import { Core5SpriteSheetPreviewScene } from './game/scenes/Core5SpriteSheetPreviewScene';
 import { MainScene } from './game/scenes/MainScene';
 import { VisualGalleryScene } from './game/scenes/VisualGalleryScene';
@@ -21,7 +22,15 @@ const config: Phaser.Types.Core.GameConfig = {
     width: 390,
     height: 844,
   },
-  scene: [BootScene, MainScene, VisualGalleryScene, Core5SpriteSheetPreviewScene, Yui96QaScene, YuiRageCycleQaScene],
+  scene: [
+    BootScene,
+    MainScene,
+    VisualGalleryScene,
+    Core5SpriteSheetPreviewScene,
+    Yui96QaScene,
+    YuiRageCycleQaScene,
+    CharacterCutinQaScene,
+  ],
 };
 
 new Phaser.Game(config);
