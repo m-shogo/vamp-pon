@@ -65,24 +65,27 @@ export class InventorySlotView {
       .setOrigin(0.5)
       .setVisible(false);
 
+    const badgeSize = size <= 26 ? 14 : 16;
+    const badgeX = size / 2 - badgeSize / 2 + 2;
+    const badgeY = size / 2 - badgeSize / 2 + 2;
     this.levelBadge = scene.add.graphics().setVisible(false);
     drawPixelPanel(
       this.levelBadge,
-      0,
-      size / 2 - 3,
-      size + 2,
-      13,
+      badgeX,
+      badgeY,
+      badgeSize,
+      badgeSize,
       { fill: 0x080b18, edge: palette.accent, accent: palette.accent, cut: 3, border: 1 },
     );
 
-    this.levelText = scene.add.text(0, size / 2 - 3, '', {
+    this.levelText = scene.add.text(badgeX, badgeY, '', {
       fontFamily: UI_FONT,
-      fontSize: '9px',
+      fontSize: `${size <= 26 ? 10 : 11}px`,
       color: '#fff5d9',
       fontStyle: 'bold',
       resolution: 2,
       stroke: '#080b18',
-      strokeThickness: 2,
+      strokeThickness: 3,
     }).setOrigin(0.5).setVisible(false);
 
     this.container.add([
@@ -120,7 +123,7 @@ export class InventorySlotView {
       } else if (this.iconImage.texture.key !== texture) {
         this.iconImage.setTexture(texture);
       }
-      const displaySize = Math.max(24, this.size - 2);
+      const displaySize = Math.max(22, this.size - 4);
       this.iconImage.setDisplaySize(displaySize, displaySize).setVisible(true);
       this.fallbackText.setVisible(false);
     } else {
@@ -132,8 +135,8 @@ export class InventorySlotView {
 
     const hasLevel = typeof item.level === 'number' && item.level > 0;
     this.levelBadge.setVisible(hasLevel);
-    this.levelText.setText(hasLevel ? `Lv.${item.level}` : '').setVisible(hasLevel);
-    this.container.setName(requirement?.name ?? item.itemId);
+    this.levelText.setText(hasLevel ? String(item.level) : '').setVisible(hasLevel);
+    this.container.setName(hasLevel ? `${requirement?.name ?? item.itemId} Lv.${item.level}` : requirement?.name ?? item.itemId);
   }
 
   setVisible(visible: boolean): void {
