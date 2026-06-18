@@ -60,7 +60,8 @@ function addHorizontalContent(
 ): void {
   const left = -width / 2;
   const iconX = left + 54;
-  addChoiceIcon(scene, card, choice, iconX, 0, 76);
+  addChoiceIcon(scene, card, choice, iconX, -3, 74);
+  addBadge(scene, card, iconX, height / 2 - 14, badge, accent);
 
   card.add(scene.add.text(left + 103, -height / 2 + 13, wrapUiText(title, 20, 2), {
     fontFamily: STORYBOOK_FONT,
@@ -70,20 +71,10 @@ function addHorizontalContent(
     align: 'left',
     lineSpacing: 2,
     resolution: 2,
-    wordWrap: { width: width - 132 },
+    wordWrap: { width: width - 126 },
     stroke: '#f4ead4',
     strokeThickness: 1,
   }).setOrigin(0, 0));
-
-  card.add(scene.add.text(width / 2 - 14, -height / 2 + 14, badge, {
-    fontFamily: STORYBOOK_FONT,
-    fontSize: '10px',
-    color: colorString(accent),
-    fontStyle: 'bold',
-    resolution: 2,
-    backgroundColor: '#f4ead4',
-    padding: { left: 4, right: 4, top: 2, bottom: 2 },
-  }).setOrigin(1, 0));
 
   card.add(scene.add.text(left + 103, 9, wrapUiText(choice.description, 24, 3), {
     fontFamily: STORYBOOK_FONT,
@@ -122,18 +113,9 @@ function addVerticalContent(
     strokeThickness: 1,
   }).setOrigin(0.5, 0));
 
-  card.add(scene.add.text(0, -height / 2 + 58, badge, {
-    fontFamily: STORYBOOK_FONT,
-    fontSize: '10px',
-    color: colorString(accent),
-    fontStyle: 'bold',
-    resolution: 2,
-    backgroundColor: '#f4ead4',
-    padding: { left: 4, right: 4, top: 1, bottom: 1 },
-  }).setOrigin(0.5));
-
   const iconY = -15;
   addChoiceIcon(scene, card, choice, 0, iconY, 70);
+  addBadge(scene, card, 0, 20, badge, accent);
 
   card.add(scene.add.text(0, 34, wrapUiText(choice.description, 11, 4), {
     fontFamily: STORYBOOK_FONT,
@@ -147,6 +129,27 @@ function addVerticalContent(
     backgroundColor: '#f4ead4',
     padding: { left: 3, right: 3, top: 3, bottom: 3 },
   }).setOrigin(0.5, 0));
+}
+
+function addBadge(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  x: number,
+  y: number,
+  label: string,
+  accent: number,
+): void {
+  card.add(scene.add.text(x, y, label, {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '9px',
+    color: '#fff8e7',
+    fontStyle: 'bold',
+    resolution: 2,
+    backgroundColor: colorString(accent),
+    padding: { left: 4, right: 4, top: 2, bottom: 2 },
+    stroke: '#080b18',
+    strokeThickness: 1,
+  }).setOrigin(0.5));
 }
 
 function effectTag(choice: LevelUpChoice): string {
