@@ -8,12 +8,18 @@ import { damageEnemy } from './enemies';
 import { spawnFragment } from './pickups';
 import { ultimateFlash } from '../ui/effects';
 import { updatePlayerVisual } from '../ui/playerVisual';
+import { requestYuiExpressionRageSheet } from '../assets/yuiExpressionRageSheet';
 
 const ULTIMATE_POSE_SEC = 0.48;
 
 /** 必殺技ゲージの充填と発動。暴走ゲージとは完全に独立。 */
 export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const ult = state.ultimate;
+
+  if (state.characterId === 'yui' && (state.berserk?.charge ?? 0) > 0) {
+    requestYuiExpressionRageSheet(scene);
+  }
+
   if (ult.activeRemaining > 0) {
     ult.activeRemaining = Math.max(0, ult.activeRemaining - dt);
   }
