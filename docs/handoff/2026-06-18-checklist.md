@@ -15,13 +15,23 @@ Only work on the Vamp Pon repository.
 - Enemy behavior tests updated
 - Berserk tests updated
 - Fun pass note added at docs/150-survivors-like-fun-pass.md
+- Stage 1 verification command added: `pnpm stage1:fun-pass:verify`
 
 ## Verify first
 
-- Install dependencies if needed
-- Run tests
-- Run production build
-- Check TypeScript errors
+Run:
+
+```bash
+pnpm stage1:fun-pass:verify
+```
+
+This command runs:
+
+- runtime asset source verification
+- Vitest
+- TypeScript and Vite production build
+
+If it fails, fix the smallest cause first.
 
 ## Manual playtest
 
@@ -39,10 +49,10 @@ Check:
 
 ## Next implementation candidates
 
-1. Add charger telegraph visuals
-2. Add berserk black flame and HUD flash
-3. Add berserk fatigue visual feedback
-4. Add reward effect for black capsule defeat
+1. Add or tune charger telegraph visuals
+2. Add or tune berserk black flame and HUD flash
+3. Add or tune berserk fatigue visual feedback
+4. Add or tune reward effect for black capsule defeat
 5. Tune Stage 1 waves after playtest
 
 ## Do not
