@@ -29,6 +29,17 @@ Judge in this order:
 
 Technical compliance cannot rescue weak art. Reject any output that is visually worse than the current `core5-original` sheet.
 
+## Image-production workflow
+
+Follow `docs/154-sprite-image-production-playbook.md` for character, enemy, item, weapon, pickup, and effect work.
+
+- Separate visual approval from technical asset finishing.
+- Once art is approved, freeze good cells and do not regenerate the whole sheet to fix size or transparency.
+- Correct only explicitly named weak cells.
+- Use scripts or image tools for exact dimensions, real alpha, slicing, naming, manifests, runtime registration, and QA.
+- A visible checkerboard is not proof of transparency; inspect the alpha channel.
+- Do not call a result perfect based only on structural checks.
+
 ## Shared 180x180 asset-cell rule
 
 Use the same base rule for characters, items, weapons, pickups, effects, and enemies unless the task explicitly specifies another format.
