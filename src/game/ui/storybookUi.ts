@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import type { RewardRarity } from '../domain/types';
 import type { InventoryIconCategory } from '../assets/inventoryIcons';
 
 export const STORYBOOK_FONT = '"Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif';
@@ -25,7 +24,6 @@ type StorybookUiTokens = {
   passive: number;
   rare: number;
   special: number;
-  inactiveStar: number;
 };
 
 export const STORYBOOK_UI: StorybookUiTokens = {
@@ -48,7 +46,6 @@ export const STORYBOOK_UI: StorybookUiTokens = {
   passive: 0xa98bd2,
   rare: 0x79bea9,
   special: 0xd9879b,
-  inactiveStar: 0xb4a48c,
 };
 
 export function storybookCategoryPalette(category: InventoryIconCategory | 'heal') {
@@ -58,10 +55,6 @@ export function storybookCategoryPalette(category: InventoryIconCategory | 'heal
     case 'rare': return { accent: STORYBOOK_UI.rare, paper: 0xe4dbc0, label: 'レア' };
     case 'heal': return { accent: STORYBOOK_UI.special, paper: 0xebd9c0, label: '回復' };
   }
-}
-
-export function rarityStars(rarity: RewardRarity): number {
-  return rarity === 'rare' ? 3 : rarity === 'good' ? 2 : 1;
 }
 
 export function drawStorybookPanel(
@@ -135,22 +128,6 @@ export function drawStar(
   ];
   g.fillStyle(fill, alpha).fillPoints(points, true);
   g.lineStyle(1, edge, alpha).strokePoints(points, true);
-  return g;
-}
-
-export function drawRarityStars(g: Phaser.GameObjects.Graphics, x: number, y: number, rarity: RewardRarity): Phaser.GameObjects.Graphics {
-  const active = rarityStars(rarity);
-  for (let i = 0; i < 3; i += 1) {
-    drawStar(
-      g,
-      x + i * 22,
-      y,
-      9,
-      i < active ? STORYBOOK_UI.gold : 0xd7c9ad,
-      i < active ? STORYBOOK_UI.paperEdge : STORYBOOK_UI.inactiveStar,
-      i < active ? 1 : 0.78,
-    );
-  }
   return g;
 }
 
