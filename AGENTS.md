@@ -40,6 +40,17 @@ Follow `docs/154-sprite-image-production-playbook.md`.
 - Use deterministic tools for exact dimensions, alpha, slicing, manifests, and runtime registration.
 - A visible checkerboard is not proof of transparency; inspect alpha.
 
+## Shared handedness and equipment continuity
+
+This applies to all characters, enemies, weapons, items, and asymmetric assets.
+
+- Before generating directional art, define which body side owns every persistent prop, weapon, strap, bag, sheath, pouch, armor part, horn, wing, or one-sided detail.
+- Convert that body-relative map into front, back, left-facing, and right-facing screen placement.
+- Do not confuse screen-left/right with body-left/right.
+- Do not mirror asymmetric art without correcting handedness and attachment points.
+- Keep the same hand, shoulder, hip, or attachment point across idle, walk, cast, attack, hurt, transformation, rage, and recovery unless an intentional transfer is part of the design.
+- A character-specific assignment belongs only to that character. Never copy one character's right/left equipment placement to another without checking its master.
+
 ## Shared 180x180 asset-cell rule
 
 Apply this to characters, items, weapons, pickups, effects, and enemies unless a task explicitly specifies another format.
