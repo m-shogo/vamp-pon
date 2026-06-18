@@ -29,6 +29,17 @@ Judge in this order:
 
 Technical compliance cannot rescue weak art. Reject any output that is visually worse than the current `core5-original` sheet.
 
+## Shared 180x180 asset-cell rule
+
+Use the same base rule for characters, items, weapons, pickups, effects, and enemies unless the task explicitly specifies another format.
+
+- Canvas or sprite-sheet cell: `180 x 180 px`.
+- The subject must not fill the whole 180 px.
+- Place it at an appropriate readable scale with transparent room for silhouette, animation, equipment, weapons, glow, and effects.
+- No opaque pixel, accessory, shadow, glow, or effect may touch a cell edge.
+- Do not shrink the subject so far that it becomes unreadable at gameplay size.
+- Keep the scale consistent across related frames and related assets.
+
 `public/assets/sprites/` is retired. Do not regenerate it. Runtime character art comes from `core5-original-frames`.
 
 ## Engineering safety
