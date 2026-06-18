@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -10,6 +10,11 @@ const checks: Check[] = [];
 
 function check(label: string, ok: boolean, detail?: string): void {
   checks.push({ label, ok, detail });
+}
+
+function publicPathExists(publicUrlPath: string): boolean {
+  const normalized = publicUrlPath.startsWith('/') ? publicUrlPath.slice(1) : publicUrlPath;
+  return existsSync(resolve(ROOT, 'public', normalized.replace(/^assets\//, 'assets/')));
 }
 
 const backgroundManifestPath = resolve(ROOT, 'public/assets/prototypes/backgrounds/manifest.json');
@@ -28,14 +33,22 @@ for (const stage of backgroundManifest.stages ?? []) {
     usesPrototypeBackground && stage.enabledForRuntime === true,
     `${stage.environment} enabledForRuntime=${stage.enabledForRuntime}`,
   );
+  check(
+    `${stage.id} runtime background file exists`,
+    publicPathExists(stage.environment),
+    stage.environment,
+  );
 }
 
 const enemyPrototypeSource = readFileSync(resolve(ROOT, 'src/game/assets/enemyPrototypeSheet.ts'), 'utf8');
+const enemyRightPath = 'assets/prototypes/sprite-sheets/enemies-original/enemy-48-right-1440x1080-rgba.png';
+const enemyLeftPath = 'assets/prototypes/sprite-sheets/enemies-original/enemy-48-left-1440x1080-rgba.png';
 check(
   'runtime enemy bridge uses latest enemies-original sheets',
-  enemyPrototypeSource.includes('assets/prototypes/sprite-sheets/enemies-original/enemy-48-right-1440x1080-rgba.png')
-    && enemyPrototypeSource.includes('assets/prototypes/sprite-sheets/enemies-original/enemy-48-left-1440x1080-rgba.png'),
+  enemyPrototypeSource.includes(enemyRightPath) && enemyPrototypeSource.includes(enemyLeftPath),
 );
+check('runtime enemy right/front sheet file exists', publicPathExists(enemyRightPath), enemyRightPath);
+check('runtime enemy left sheet file exists', publicPathExists(enemyLeftPath), enemyLeftPath);
 
 const mainSceneSource = readFileSync(resolve(ROOT, 'src/game/scenes/MainScene.ts'), 'utf8');
 check(
