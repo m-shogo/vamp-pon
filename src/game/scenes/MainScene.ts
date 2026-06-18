@@ -20,7 +20,7 @@ import { updateUltimate } from '../systems/ultimate';
 import { updateBerserk } from '../systems/berserk';
 import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
-import { applyCapsule, generateEvolutionReward } from '../systems/capsule';
+import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
@@ -194,20 +194,11 @@ export class MainScene extends Phaser.Scene {
     );
   }
 
-  private maybeQueueEvolution(): boolean {
-    const reward = generateEvolutionReward(this.state);
-    if (!reward) return false;
-    this.state.pendingCapsule = reward;
-    this.state.status = GAME_STATUS.CAPSULE;
-    return true;
-  }
-
   private finishLevelUp(choice: LevelUpChoice): void {
     const state = this.state;
     applyChoice(state, choice);
     state.pendingChoices = [];
     state.status = GAME_STATUS.PLAYING;
-    if (this.maybeQueueEvolution()) this.resolveTransitions();
   }
 
   private declineLevelUpChoice(): void {
