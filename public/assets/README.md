@@ -1,33 +1,17 @@
-# public/assets
+# Runtime asset sources
 
-Phaser から読み込む **ランタイム画像アセット**の置き場。
-Vite は `public/` をルート（`/`）として配信するため、Phaser からは `assets/...` で参照する。
+Vite が配信する画像アセットの案内。
 
-```txt
-public/assets/
-  sprites/
-    player/      ユイ
-    enemies/     敵（インク影 / 紙くず / 標識 / もや / エリート）
-    pickups/     記憶の欠片 / 回復 / カプセル / レアアイテム
-    weapons/     通常武器の弾・範囲タイル
-    evolved/     強化進化 / 合体 / 覚醒 の弾・範囲
-    ui/          カード紙素材・UIアイコン
-    tiles/       背景タイル
-  palettes/      パレット（.gpl / .png 等）
-  atlases/       スプライトシート / TexturePacker JSON
-  placeholders/  暫定素材
-```
+## 現在の参照元
 
-## ルール
+- `public/assets/prototypes/backgrounds/`
+- `public/assets/prototypes/sprite-sheets/core5-original/`
+- `public/assets/prototypes/sprite-sheets/core5-original-frames/`
+- `public/assets/prototypes/sprite-sheets/enemies-original/`
+- `public/assets/prototypes/sprite-sheets/weapon/`
+- `public/assets/prototypes/sprite-sheets/passive/`
+- `public/assets/prototypes/sprite-sheets/rare/`
 
-- 必要素材の一覧・サイズ・用途は **コードの正本** `src/game/assets/assetManifest.ts`。
-- 命名は manifest の `id` と対応させる（例 `yui_idle` → `assets/sprites/player/yui_idle_42.png`）。
-- **画像が無い間は Phaser Graphics の fallback で動く**（壊れない）。
-- 作り方・優先順位は [docs/art-pipeline.md](../../docs/art-pipeline.md)。
-- サイズ規定は [docs/sprite-size-guide.md](../../docs/sprite-size-guide.md)。
-- 生成/制作プロンプトは [docs/pixel-art-generation-prompts.md](../../docs/pixel-art-generation-prompts.md)。
+`public/assets/sprites/` は古い生成素材の置き場だったため廃止した。再作成しない。
 
-## 参考画像（コンセプト）の場所
-
-コンセプト/参考画像は配信不要なため `assets/concept-design/`（リポジトリ直下、`public` の外）に置く。
-一覧は [docs/visual-reference-inventory.md](../../docs/visual-reference-inventory.md)。
+画像がない小物、弾、UIはコード側の Graphics fallback で動作する。キャラクター画像を依頼するときは `docs/153-character-visual-reference-policy.md` に従い、キャラクターマスターと現在の `core5-original` シートを両方、実画像として渡す。

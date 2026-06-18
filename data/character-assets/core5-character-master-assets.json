@@ -1,107 +1,92 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "id": "core5-character-master-assets-v1",
-  "status": "prototype-reference",
+  "id": "core5-character-visual-reference-v2",
+  "status": "reference-first",
   "productionTouched": false,
-  "importantRule": "The 1448x1086 images are reference boards. Exact 74px sheets are generated-draft candidates in a separate folder. Do not copy either into public/assets/sprites/player/ until sliced, reviewed in Aseprite, and promoted by the asset pipeline.",
-  "recommendedFolders": {
-    "characterMasterBoards": "assets/reference/character-master/core5/",
-    "referenceSpriteBoards": "public/assets/prototypes/sprite-sheets/core5-52px/",
-    "exactGeneratedDrafts74px": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/",
-    "normalizedPreviewSheets": "public/assets/prototypes/sprite-sheets/core5-52px-normalized/",
-    "productionSpritesLater": "public/assets/sprites/player/",
-    "asepriteSourceLater": "assets/source/aseprite/player/"
-  },
-  "cellFormat": "core5-52px-sprite-sheet-cells-v1",
+  "activeRule": "画像依頼では各キャラのmasterBoardPathとspriteSheetPathを実画像として両方渡す。文章だけで代用しない。",
   "characters": [
     {
       "id": "yui",
       "name": "ユイ",
       "role": "主人公 / 灯す",
-      "shirushi": "灯す",
-      "crest": "灯火紋",
-      "vessel": "lantern",
+      "vessel": "ランタン",
       "masterBoardPath": "assets/reference/character-master/core5/yui-character-master-v1.png",
-      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png",
-      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/yui-74px-exact-draft-v1.png",
-      "exactSpriteSheetStatus": "generated-draft",
-      "sourceChatFileName": "ユイ_キャラクターデザインシート.png / ピクセルアートキャラクターのスプライトシート.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/yui-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png"
+      ],
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
-        "主人公基準。まずexact draftをpreviewし、Aseprite hand correctionの基準にする。",
-        "lantern, blue hood, cream dress, warm light, crest motif must survive at 74px."
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
       ]
     },
     {
       "id": "asa",
       "name": "アサ",
       "role": "名前を守る / 名づける",
-      "shirushi": "名づける",
-      "crest": "名印紋",
       "vessel": "glowing name tag",
       "masterBoardPath": "assets/reference/character-master/core5/asa-character-master-v1.png",
-      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/asa-52px-sprite-sheet-v1.png",
-      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/asa-74px-exact-draft-v1.png",
-      "exactSpriteSheetStatus": "generated-draft",
-      "sourceChatFileName": "アサ_名を守る少女.png / チビキャラクターのスプライトシート.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/asa-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/asa-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/asa-sprite-sheet-v1.png"
+      ],
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
-        "paper tag/name motif must be readable without text. Avoid becoming a Yui recolor.",
-        "Use name tag, paper slips, braid/hair accessories, and calm expression as identity anchors."
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
       ]
     },
     {
       "id": "nagi",
       "name": "ナギ",
       "role": "しまう / 守る",
-      "shirushi": "しまう",
-      "crest": "封月紋",
       "vessel": "moon box",
       "masterBoardPath": "assets/reference/character-master/core5/nagi-character-master-v1.png",
-      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/nagi-52px-sprite-sheet-v1.png",
-      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/nagi-74px-exact-draft-v1.png",
-      "exactSpriteSheetStatus": "generated-draft",
-      "sourceChatFileName": "ナギのキャラクターシート.png / 魔法使いのチビキャラクタースプライト.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/nagi-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/nagi-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/nagi-sprite-sheet-v1.png"
+      ],
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
-        "moon box, key, crescent, and protective closed/open states are the identity anchors.",
-        "Needs extra review because dark hood silhouette can become too close to Yui."
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
       ]
     },
     {
       "id": "michiru",
       "name": "ミチル",
       "role": "導く / 帰り道",
-      "shirushi": "導く",
-      "crest": "帰針紋",
       "vessel": "glowing compass",
       "masterBoardPath": "assets/reference/character-master/core5/michiru-character-master-v1.png",
-      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/michiru-52px-sprite-sheet-v1.png",
-      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/michiru-74px-exact-draft-v1.png",
-      "exactSpriteSheetStatus": "generated-draft",
-      "sourceChatFileName": "ミチルのキャラクターマスターピース.png / 冒険者の魔法使いスプライトシート.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/michiru-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/michiru-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/michiru-sprite-sheet-v1.png"
+      ],
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
-        "Compass/route-light/map motifs are identity anchors.",
-        "Teal outerwear and tied hair should keep her distinct from Yui/Nagi."
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
       ]
     },
     {
       "id": "tomori",
       "name": "トモリ",
       "role": "直す / 継火",
-      "shirushi": "直す",
-      "crest": "継火紋",
       "vessel": "repair lantern",
       "masterBoardPath": "assets/reference/character-master/core5/tomori-character-master-v1.png",
-      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-52px/tomori-52px-sprite-sheet-v1.png",
-      "exactSpriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-74px-exact-draft/tomori-74px-exact-draft-v1.png",
-      "exactSpriteSheetStatus": "generated-draft",
-      "sourceChatFileName": "トモリのキャラクターデザインシート.png / キャラクター作成用スプライトシート.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/tomori-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/tomori-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/tomori-sprite-sheet-v1.png"
+      ],
       "gameUseStatus": "prototype-sheet-only",
       "notes": [
-        "Repair lamp, tool bag, warm red-brown cloak, and fire-spark repair effects are identity anchors.",
-        "Do not let Tomori become a second lantern protagonist; she is repair/fire-branch, not Yui."
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
       ]
     }
   ]

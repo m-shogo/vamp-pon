@@ -1,97 +1,25 @@
 {
-  "$schema": "../character-recipes.schema.json",
   "id": "yui",
   "name": "ユイ",
-  "role": "player / マスコット。夜と紙の世界を照らす光の担い手。",
-  "importance": "player",
-  "canvasSize": { "width": 52, "height": 52 },
-  "basePose": "idle",
-  "silhouetteKeywords": [
-    "丸く大きい青フード",
-    "右手側に下げたランタン",
-    "厚みのある生成り色の服",
-    "小柄で頭身低めの可愛い体型"
+  "status": "visual-reference-only",
+  "requiredVisualInputs": [
+    "assets/reference/character-master/core5/yui-character-master-v1.png",
+    "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png"
   ],
-  "palette": [
-    { "name": "outline", "hex": "#1c1628", "use": "1px outline" },
-    { "name": "hood_d", "hex": "#304070", "use": "hood shadow" },
-    { "name": "hood_m", "hex": "#48649c", "use": "hood mid" },
-    { "name": "hood_l", "hex": "#708ec4", "use": "hood light" },
-    { "name": "hood_b", "hex": "#9cb8e4", "use": "hood top sheen" },
-    { "name": "hood_rim", "hex": "#b6cef4", "use": "rim light (bg separation)" },
-    { "name": "hair_d", "hex": "#4e2820", "use": "hair shadow" },
-    { "name": "hair_m", "hex": "#7a4232", "use": "hair (brown-red) mid" },
-    { "name": "hair_h", "hex": "#aa684e", "use": "hair highlight" },
-    { "name": "skin", "hex": "#fcdaae", "use": "skin" },
-    { "name": "skin_sh", "hex": "#deb98a", "use": "skin shadow" },
-    { "name": "eye_w", "hex": "#fffcf0", "use": "eye catchlight" },
-    { "name": "iris", "hex": "#9c663c", "use": "iris" },
-    { "name": "dress", "hex": "#deccA0", "use": "dress (off-white / old paper)" },
-    { "name": "lan_warm", "hex": "#fcc660", "use": "lantern warm fill" },
-    { "name": "lan_core", "hex": "#fffad4", "use": "lantern core" }
+  "identityAnchors": [
+    "青系のフードまたはフード付き上着",
+    "赤茶〜暖色暗色の髪",
+    "生成り・古紙色を含む服",
+    "小さなランタン",
+    "優しさ、静かな芯、小さな希望"
   ],
-  "faceRules": [
-    "大きめで可愛い顔。頬はほんのり。",
-    "目は大きく、白ハイライトは1pxのクリーンなドット。",
-    "下まぶた1pxで視線を締める。",
-    "front / back / side で同一人物性を保つ。"
-  ],
-  "hairRules": [
-    "茶赤の前髪。3房に分かれて見える。",
-    "髪が目に影を落として暗く潰さない。"
-  ],
-  "outfitRules": [
-    "生成り〜古紙色の服。布の厚みを出す。",
-    "襟 / 肩 / 首が分かり、顔が body に直貼りに見えない。",
-    "袖に陰影を入れて腕の存在を出す。"
-  ],
-  "vessel": {
-    "name": "ランタン",
-    "side": "right",
-    "rules": [
-      "右手側に持つ。手の指でハンドルを握る描写。",
-      "ハンドルが手に接続して見える（浮かせない）。",
-      "暖色のリムを入れて金属の存在感を出す。",
-      "ランタンを hitCore と誤認させない。"
-    ]
-  },
-  "glowRules": [
-    "ランタンの glow は tight に保つ。",
-    "最外周は弱め、中心（hitCore）や欠片pickupへ届かせない。"
-  ],
-  "hitCoreSeparationRules": [
-    "スプライト中心（hitCore）はクリーンに保ち、ランタン光を被せない。",
-    "debugHitCircle と glow を視覚的に混同させない。"
-  ],
-  "backgroundSeparationRules": [
-    "夜街・インク斑の暗背景でも埋もれない。",
-    "outline を厚くするのではなく hood の rim light で分離する。"
-  ],
-  "mustKeep": [
-    "丸く大きい青フード",
-    "茶赤の前髪",
-    "大きめで可愛い顔 + 白ハイライトの目",
-    "ほんのり頬",
-    "生成り〜古紙色の服と服の厚み",
-    "右手側ランタン",
-    "柔らかい陰影と強すぎないアウトライン"
-  ],
-  "mustAvoid": [
-    "ランタンを hitCore と誤認させる",
-    "フードがキノコ/帽子に見える広がり",
-    "顔が body に直貼り",
-    "ランタンが宙に浮く",
-    "1xで目が読めない / 濁る",
-    "Lua/CLI生成だけで hand-final を名乗る"
-  ],
-  "reviewPriority": 1,
-  "humanReviewRequired": true,
-  "humanReviewReason": "player かつ作品の顔（マスコット）。merchandise potential まで含めて最終1pxと採否は人間が判断する必要がある。",
-  "finisherMode": "yui52-v2a",
-  "status": "human-reviewed-candidate",
-  "notes": [
-    "52px V2a を見た目・画風の基準とする（gameplay定数の基準にはしない）。",
-    "provenance: v2a → _pf(script-assisted-candidate) → _hr(human-reviewed-candidate)。",
-    "_hr も hand-final ではない。GUI手仕上げ(人間)+人間レビューが production の前提。"
+  "designFreedom": "識別点以外は、現在の参考画像より魅力が上がるなら自由に再設計してよい。",
+  "decisionRule": "技術仕様を満たしていても、2枚の参考画像より魅力・一貫性・可読性が落ちた場合は不採用。",
+  "inactiveRules": [
+    "固定パレット",
+    "52px V2a造形",
+    "procedural finisher",
+    "Aseprite制作手順の自動適用",
+    "機械的な点数評価"
   ]
 }
