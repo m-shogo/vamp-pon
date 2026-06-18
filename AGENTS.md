@@ -30,6 +30,17 @@ The character master explains the person. The current sprite sheet is the minimu
 
 Keep only the character's identity anchors and explicit technical delivery format fixed. Shape language, facial construction, costume details, pose, palette balance, and pixel treatment may be redesigned freely when that improves the character.
 
+## Shared 180x180 asset-cell rule
+
+Apply this to characters, items, weapons, pickups, effects, and enemies unless a task explicitly specifies another format.
+
+- The canvas or sprite-sheet cell is `180 x 180 px`.
+- Do not scale the subject to fill all 180 px.
+- Size the subject appropriately inside the cell, preserving transparent room for silhouette, motion, equipment, weapons, glow, and effects.
+- No opaque pixel, glow, shadow, accessory, or effect may touch the cell edge.
+- Do not make the subject so small that its role, silhouette, face, item shape, or enemy type becomes unreadable at gameplay size.
+- Keep scale consistent across related frames and related assets.
+
 Current runtime/reference sources:
 
 - Core5 characters: `public/assets/prototypes/sprite-sheets/core5-original/`
