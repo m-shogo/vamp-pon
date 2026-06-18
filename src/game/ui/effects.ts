@@ -3,6 +3,7 @@ import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import type { EvolutionKind } from '../domain/types';
 import { VIEW_DEPTH } from './factory';
 import { EVOLUTION_ACCENT, FONT } from './visualDesign';
+import { evolutionPresentation } from './evolutionPresentation';
 
 function toCss(color: number): string {
   return `#${color.toString(16).padStart(6, '0')}`;
@@ -66,22 +67,105 @@ export function ultimateFlash(scene: Phaser.Scene): void {
   scene.cameras.main.flash(240, 255, 235, 170, false);
 }
 
+function addEvolutionMotif(
+  scene: Phaser.Scene,
+  x: number,
+  y: number,
+  depth: number,
+  kind: EvolutionKind,
+): void {
+  const presentation = evolutionPresentation(kind);
+  const accent = EVOLUTION_ACCENT[kind];
+
+  if (presentation.motif === 'paper-rise') {
+    const scraps = [-1.5, -0.5, 0.5, 1.5].map((offset, index) => {
+      const scrap = scene.add.rectangle(
+        x + offset * 14,
+        y + 12 + Math.abs(offset) * 3,
+        10 + index % 2 * 3,
+        7,
+        COLORS.paperScrap,
+        0.78,
+      ).setDepth(depth).setAngle(offset * 12);
+      scene.tweens.add({
+        targets: scrap,
+        x: scrap.x + offset * 12,
+        y: scrap.y - 42 - index * 3,
+        angle: scrap.angle + offset * 16,
+        alpha: 0,
+        duration: 720,
+        ease: 'Quad.easeOut',
+        onComplete: () => scrap.destroy(),
+      });
+      return scrap;
+    });
+    void scraps;
+    return;
+  }
+
+  if (presentation.motif === 'ink-lamp-merge') {
+    const ink = scene.add.ellipse(x - 34, y, 24, 17, COLORS.ink, 0.76).setDepth(depth);
+    const lamp = scene.add.circle(x + 34, y, 10, COLORS.lantern, 0.9).setDepth(depth + 1);
+    const bridge = scene.add.rectangle(x, y, 54, 2, accent.main, 0.48).setDepth(depth);
+    scene.tweens.add({
+      targets: [ink, lamp],
+      x,
+      scale: 0.7,
+      duration: 360,
+      ease: 'Quad.easeIn',
+      onComplete: () => {
+        ink.destroy();
+        lamp.destroy();
+      },
+    });
+    scene.tweens.add({
+      targets: bridge,
+      scaleX: 0.12,
+      alpha: 0,
+      duration: 430,
+      ease: 'Quad.easeIn',
+      onComplete: () => bridge.destroy(),
+    });
+    return;
+  }
+
+  const seal = scene.add.rectangle(x, y + 18, 18, 48, COLORS.paperScrap, 0.9).setDepth(depth);
+  seal.setStrokeStyle(2, accent.main, 0.9);
+  const inkMark = scene.add.rectangle(x, y + 18, 4, 29, accent.sub, 0.82).setDepth(depth + 1);
+  scene.tweens.add({
+    targets: [seal, inkMark],
+    y: y - 10,
+    scaleY: 1.25,
+    alpha: 0,
+    duration: 920,
+    ease: 'Cubic.easeOut',
+    onComplete: () => {
+      seal.destroy();
+      inkMark.destroy();
+    },
+  });
+}
+
 /**
  * 進化成立直後の「変わった」感を出す画面演出。
- * 派手さではなく、進化種別（強化進化/合体/覚醒）のモチーフ差で特別感を出す。
- * - upgrade  : 暖色のリング1本（控えめ）
- * - fusion   : 黒インク + 朝の灯りの2モチーフ（リング2本）
- * - awakening: 淡い菫 + 金（やや神秘・リング2本）
- * 禁止: スラッシュ/十字/星バースト/ネオン。
+ * 種別ごとの意味を、光量ではなく紙・インク・灯り・記憶札のモチーフ差で伝える。
  */
 export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label: string, kind: EvolutionKind = 'upgrade'): void {
   const accent = EVOLUTION_ACCENT[kind];
-  const strong = kind !== 'upgrade';
-  scene.cameras.main.flash(strong ? 420 : 320, 255, 240, 176, false);
-  scene.cameras.main.shake(strong ? 260 : 200, strong ? 0.005 : 0.003);
+  const presentation = evolutionPresentation(kind);
+  const [red, green, blue] = presentation.flashRgb;
+  scene.cameras.main.flash(presentation.strong ? 420 : 320, red, green, blue, false);
+  scene.cameras.main.shake(presentation.strong ? 260 : 200, presentation.strong ? 0.005 : 0.003);
 
   const depth = VIEW_DEPTH.overlay - 5;
-  const flash = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, accent.main, strong ? 0.16 : 0.12).setDepth(depth);
+  const flash = scene.add.rectangle(
+    GAME_WIDTH / 2,
+    GAME_HEIGHT / 2,
+    GAME_WIDTH,
+    GAME_HEIGHT,
+    accent.main,
+    presentation.strong ? 0.16 : 0.12,
+  ).setDepth(depth);
 
   const rings: Phaser.GameObjects.Arc[] = [];
   const mainRing = scene.add.circle(x, y, 34, accent.main, 0.08).setDepth(depth + 1);
@@ -93,26 +177,51 @@ export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label:
     rings.push(subRing);
   }
 
+  addEvolutionMotif(scene, x, y, depth + 2, kind);
+
   const text = scene.add
-    .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - (strong ? 110 : 92), label, {
+    .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - (presentation.strong ? 110 : 92), label, {
       fontFamily: FONT,
-      fontSize: strong ? '26px' : '23px',
+      fontSize: presentation.strong ? '26px' : '23px',
       color: toCss(accent.main),
       fontStyle: 'bold',
       stroke: '#1b1730',
-      strokeThickness: strong ? 5 : 4,
+      strokeThickness: presentation.strong ? 5 : 4,
+      align: 'center',
+      resolution: 2,
     })
     .setOrigin(0.5)
     .setDepth(depth + 3);
 
+  const subtitle = scene.add.text(GAME_WIDTH / 2, text.y + 38, presentation.subtitle, {
+    fontFamily: FONT,
+    fontSize: '12px',
+    color: '#f4ead4',
+    fontStyle: 'bold',
+    stroke: '#1b1730',
+    strokeThickness: 3,
+    align: 'center',
+    resolution: 2,
+  }).setOrigin(0.5).setDepth(depth + 3);
+
   scene.tweens.add({ targets: flash, alpha: 0, duration: 480, ease: 'Quad.easeOut', onComplete: () => flash.destroy() });
   scene.tweens.add({
     targets: rings,
-    scale: strong ? 5.4 : 5.0,
+    scale: presentation.strong ? 5.4 : 5.0,
     alpha: 0,
-    duration: strong ? 820 : 720,
+    duration: presentation.strong ? 820 : 720,
     ease: 'Cubic.easeOut',
-    onComplete: () => rings.forEach((r) => r.destroy()),
+    onComplete: () => rings.forEach((ring) => ring.destroy()),
   });
-  scene.tweens.add({ targets: text, y: text.y - 26, alpha: 0, duration: strong ? 1300 : 1100, ease: 'Quad.easeOut', onComplete: () => text.destroy() });
+  scene.tweens.add({
+    targets: [text, subtitle],
+    y: '-=26',
+    alpha: 0,
+    duration: presentation.durationMs,
+    ease: 'Quad.easeOut',
+    onComplete: () => {
+      text.destroy();
+      subtitle.destroy();
+    },
+  });
 }
