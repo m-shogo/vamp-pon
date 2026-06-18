@@ -15,7 +15,6 @@ export function isBerserkFatigued(state: RuntimeState): boolean {
   return (state.berserk?.fatigueRemaining ?? 0) > 0;
 }
 
-/** 暴走ゲージは被ダメージだけで増える。時間経過や必殺技では増減しない。 */
 export function chargeBerserkFromDamage(state: RuntimeState, damageTaken: number): void {
   const berserk = state.berserk;
   if (!berserk || damageTaken <= 0 || isBerserkActive(state) || berserk.ready) return;
@@ -23,7 +22,6 @@ export function chargeBerserkFromDamage(state: RuntimeState, damageTaken: number
   berserk.ready = berserk.charge >= berserk.maxCharge;
 }
 
-/** 左下ポートレートから発動する独立した暴走状態。必殺技のゲージは触らない。 */
 export function updateBerserk(state: RuntimeState, dt: number): void {
   const berserk = state.berserk;
   if (!berserk) {
