@@ -23,7 +23,7 @@ Judge in this order:
 1. Is the character more appealing than the current references?
 2. Is it unmistakably the same character?
 3. Does the silhouette, face, prop, and movement read at game size?
-4. Are poses and directions natural?
+4. Are poses, directions, handedness, and equipment placement coherent?
 5. Does it fit Vamp Pon's night / memory / forgotten-object / small-light world?
 6. Only then check canvas, grid, alpha, naming, and cell bounds.
 
@@ -39,6 +39,18 @@ Follow `docs/154-sprite-image-production-playbook.md` for character, enemy, item
 - Use scripts or image tools for exact dimensions, real alpha, slicing, naming, manifests, runtime registration, and QA.
 - A visible checkerboard is not proof of transparency; inspect the alpha channel.
 - Do not call a result perfect based only on structural checks.
+
+## Shared handedness and equipment continuity
+
+Apply this to all characters, enemies, weapon poses, transformed states, and asymmetric assets.
+
+- Before directional art, define which body side owns each persistent item or feature.
+- Record right-hand items, left-hand items, shoulder straps, hip bags, sheaths, pouches, armor parts, horns, wings, and other one-sided details.
+- Derive front, back, left-facing, and right-facing screen placement from that body-relative map.
+- Do not confuse screen-left/right with body-left/right.
+- Do not mirror asymmetric art without correcting handedness, attachment points, and occlusion.
+- Preserve the same hand, shoulder, hip, and attachment point through all actions unless an intentional transfer is part of the design.
+- Do not copy one character's right/left assignments to another character without checking that character's own master.
 
 ## Shared 180x180 asset-cell rule
 
