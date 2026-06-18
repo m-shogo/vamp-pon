@@ -1,9 +1,11 @@
 import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 type Check = { label: string; ok: boolean; detail?: string };
 
-const ROOT = resolve(import.meta.dirname ?? '.', '..', '..');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, '..', '..');
 const checks: Check[] = [];
 
 function check(label: string, ok: boolean, detail?: string): void {
