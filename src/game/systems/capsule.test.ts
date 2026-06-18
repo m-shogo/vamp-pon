@@ -49,6 +49,17 @@ describe('capsule rewards', () => {
     expect(state.stats.evolutions).toContain('dawn_ink_lamp');
   });
 
+  it('進化後武器を所持済みなら追跡配列が空でも同じ進化を再発生させない', () => {
+    const state = makeState();
+    state.inventory.weapons.push({ id: 'dawn_ink_lamp', level: 1, cooldownRemaining: 0 });
+    state.inventory.evolvedWeaponIds = [];
+    state.stats.evolutions = [];
+
+    const reward = generateCapsuleReward(state);
+
+    expect(reward.type).not.toBe('evolution');
+  });
+
   it('通貨報酬は記憶のかけらへ実際に加算される', () => {
     const state = makeState();
     state.stats.memoryFragmentsCollected = 7;
