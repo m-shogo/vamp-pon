@@ -5,7 +5,11 @@ import { passives, passiveById } from '../data/passives';
 import { rareItems } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
 import { LEVEL_UP } from '../domain/constants';
-import { LEVELUP_WEIGHTS } from '../domain/balance';
+import {
+  EARLY_DISCOVERY_MAX_LEVEL,
+  EARLY_DISCOVERY_MIN_ITEMS,
+  LEVELUP_WEIGHTS,
+} from '../domain/balance';
 import { recomputePlayerStats } from './passives';
 import { weightedPick, sampleWithoutReplacement } from '../utils/rng';
 
@@ -56,13 +60,11 @@ function blockedRareItemIds(state: RuntimeState, retiredWeapons: Set<string>): S
   for (const evo of evolutions) {
     if (evo.kind !== 'awakening' || !evo.requiredRareItemId) continue;
 
-    // 覚醒済みなら、その覚醒レアアイテムは再登場させない。
     if (evolved.has(evo.evolvedWeaponId)) {
       blocked.add(evo.requiredRareItemId);
       continue;
     }
 
-    // 強化進化・覚醒などで元武器が退役済みなら、もう覚醒できないので出さない。
     if (retiredWeapons.has(evo.fromWeaponId)) {
       blocked.add(evo.requiredRareItemId);
     }
@@ -153,29 +155,37 @@ function ownedWeaponLevel(state: RuntimeState, id: string): number {
   return state.inventory.weapons.find((weapon) => weapon.id === id)?.level ?? 0;
 }
 
-function ownsPassive(state: RuntimeState, id?: string): boolean {
-  return !id || state.inventory.passives.some((passive) => passive.id === id);
+function weaponLevelAfterChoice(state: RuntimeState, id: string, choice: LevelUpChoice): number {
+  if ('itemId' in choice && choice.itemId === id) {
+    if (choice.type === 'weapon_upgrade') return choice.nextLevel;
+    if (choice.type === 'weapon_new') return choice.initialLevel ?? 1;
+  }
+  return ownedWeaponLevel(state, id);
 }
 
-function ownsRare(state: RuntimeState, id?: string): boolean {
-  return !id || state.inventory.rareItems.some((rare) => rare.id === id);
+function ownsPassiveAfterChoice(state: RuntimeState, id: string | undefined, choice: LevelUpChoice): boolean {
+  if (!id) return true;
+  if (state.inventory.passives.some((passive) => passive.id === id)) return true;
+  return choice.type === 'passive_new' && choice.itemId === id;
+}
+
+function ownsRareAfterChoice(state: RuntimeState, id: string | undefined, choice: LevelUpChoice): boolean {
+  if (!id) return true;
+  if (state.inventory.rareItems.some((rare) => rare.id === id)) return true;
+  return choice.type === 'rare_new' && choice.itemId === id;
 }
 
 function evolutionReadyAfterChoice(state: RuntimeState, evo: EvolutionDefinition, choice: LevelUpChoice): boolean {
-  const mainLevel = choice.type === 'weapon_upgrade' && choice.itemId === evo.fromWeaponId
-    ? choice.nextLevel
-    : ownedWeaponLevel(state, evo.fromWeaponId);
+  const mainLevel = weaponLevelAfterChoice(state, evo.fromWeaponId, choice);
   if (mainLevel < evo.requiredWeaponLevel) return false;
 
   if (evo.requiredWeaponId) {
-    const requiredLevel = choice.type === 'weapon_upgrade' && choice.itemId === evo.requiredWeaponId
-      ? choice.nextLevel
-      : ownedWeaponLevel(state, evo.requiredWeaponId);
+    const requiredLevel = weaponLevelAfterChoice(state, evo.requiredWeaponId, choice);
     if (requiredLevel < (evo.requiredWeaponLevel2 ?? 1)) return false;
   }
 
-  if (!ownsPassive(state, evo.requiredPassiveId)) return false;
-  if (!ownsRare(state, evo.requiredRareItemId)) return false;
+  if (!ownsPassiveAfterChoice(state, evo.requiredPassiveId, choice)) return false;
+  if (!ownsRareAfterChoice(state, evo.requiredRareItemId, choice)) return false;
   return true;
 }
 
@@ -199,9 +209,7 @@ function evolutionHintForChoice(state: RuntimeState, choice: LevelUpChoice): str
   if (ready) return `次のカプセルで${evolutionKindLabel(ready.kind)}可`;
 
   const ownedMain = relevant.find((evo) => {
-    const mainLevel = evo.fromWeaponId === choice.itemId && choice.type === 'weapon_upgrade'
-      ? choice.nextLevel
-      : ownedWeaponLevel(state, evo.fromWeaponId);
+    const mainLevel = weaponLevelAfterChoice(state, evo.fromWeaponId, choice);
     return mainLevel >= Math.max(1, evo.requiredWeaponLevel - 1);
   });
   const evo = ownedMain ?? relevant[0];
@@ -216,9 +224,37 @@ function evolutionKindLabel(kind: EvolutionDefinition['kind']): string {
 
 function enrichChoiceDescription(state: RuntimeState, choice: LevelUpChoice): LevelUpChoice {
   const hint = evolutionHintForChoice(state, choice);
-  if (!hint) return choice;
-  if (choice.description.includes(hint)) return choice;
+  if (!hint || choice.description.includes(hint)) return choice;
   return { ...choice, description: `${choice.description} / ${hint}` };
+}
+
+function isEarlyDiscoveryWindow(state: RuntimeState): boolean {
+  const ownedBuildItems = state.inventory.weapons.length + state.inventory.passives.length;
+  return state.player.level <= EARLY_DISCOVERY_MAX_LEVEL
+    && ownedBuildItems < EARLY_DISCOVERY_MIN_ITEMS;
+}
+
+function isDiscoveryChoice(choice: LevelUpChoice): boolean {
+  return choice.type === 'weapon_new' || choice.type === 'passive_new';
+}
+
+function ensureEarlyDiscoveryChoice(
+  state: RuntimeState,
+  chosen: LevelUpChoice[],
+  weaponNews: LevelUpChoice[],
+  passiveNews: LevelUpChoice[],
+): void {
+  if (!isEarlyDiscoveryWindow(state) || chosen.some(isDiscoveryChoice)) return;
+
+  const discoveryPool = [...weaponNews, ...passiveNews];
+  const picked = sampleWithoutReplacement(discoveryPool, 1)[0];
+  if (!picked) return;
+
+  const replacement = enrichChoiceDescription(state, decorateChoice(picked));
+  const healIndex = chosen.findIndex((choice) => choice.type === 'heal');
+  const rareIndex = chosen.findIndex((choice) => choice.type === 'rare_new');
+  const index = healIndex >= 0 ? healIndex : rareIndex >= 0 ? rareIndex : chosen.length - 1;
+  if (index >= 0) chosen[index] = replacement;
 }
 
 export function generateChoices(state: RuntimeState): LevelUpChoice[] {
@@ -277,7 +313,12 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   };
 
   const hpRatio = state.player.hp / state.player.maxHp;
-  const baseWeights = hpRatio <= LEVEL_UP.lowHpRatio ? LEVELUP_WEIGHTS.lowHp : LEVELUP_WEIGHTS.normal;
+  const earlyDiscovery = isEarlyDiscoveryWindow(state);
+  const baseWeights = hpRatio <= LEVEL_UP.lowHpRatio
+    ? LEVELUP_WEIGHTS.lowHp
+    : earlyDiscovery
+      ? LEVELUP_WEIGHTS.early
+      : LEVELUP_WEIGHTS.normal;
   const chosen: LevelUpChoice[] = [];
   const usedItemIds = new Set<string>();
   let healUsed = false;
@@ -285,7 +326,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   while (chosen.length < LEVEL_UP.choices) {
     const entries: Array<[Category, number]> = [];
     (Object.keys(pools) as Array<Exclude<Category, 'heal'>>).forEach((cat) => {
-      const available = pools[cat].filter((c) => 'itemId' in c && !usedItemIds.has(c.itemId));
+      const available = pools[cat].filter((choice) => 'itemId' in choice && !usedItemIds.has(choice.itemId));
       if (available.length > 0) entries.push([cat, baseWeights[cat]]);
     });
     if (!healUsed) {
@@ -303,7 +344,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
       continue;
     }
 
-    const available = pools[cat].filter((c) => 'itemId' in c && !usedItemIds.has((c as { itemId: string }).itemId));
+    const available = pools[cat].filter((choice) => 'itemId' in choice && !usedItemIds.has(choice.itemId));
     const picked = sampleWithoutReplacement(available, 1)[0];
     if (picked && 'itemId' in picked) {
       const decorated = enrichChoiceDescription(state, decorateChoice(picked));
@@ -316,6 +357,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     chosen.push(decorateChoice({ type: 'heal', amount: LEVEL_UP.healAmount, title: '少し休む', description: `HP +${LEVEL_UP.healAmount}`, lore: 'まだ、戻せる名前がある。' }));
   }
 
+  ensureEarlyDiscoveryChoice(state, chosen, weaponNews, passiveNews);
   return chosen;
 }
 
