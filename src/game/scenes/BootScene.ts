@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { queueExistingAssets, queuePrototypeAssets, queueStageBackgrounds } from '../assets/loadAssets';
 import { isCharacterCutinQaUrl } from './CharacterCutinQaScene';
 import { isCore5SpriteSheetPreviewUrl } from './Core5SpriteSheetPreviewScene';
+import { isEliteDefeatBeatQaUrl } from './EliteDefeatBeatQaScene';
 import { isGalleryUrl, isBackgroundPreviewUrl } from './VisualGalleryScene';
 import { isYui96QaUrl } from './Yui96QaScene';
 import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
@@ -46,6 +47,10 @@ export class BootScene extends Phaser.Scene {
     }
     if (isCharacterCutinQaUrl()) {
       this.scene.start('CharacterCutinQaScene');
+      return;
+    }
+    if (isEliteDefeatBeatQaUrl()) {
+      this.scene.start('EliteDefeatBeatQaScene');
       return;
     }
     this.scene.start(isGalleryUrl() ? 'VisualGalleryScene' : 'MainScene');

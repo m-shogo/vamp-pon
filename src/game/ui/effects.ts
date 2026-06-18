@@ -4,6 +4,7 @@ import type { EvolutionKind } from '../domain/types';
 import { VIEW_DEPTH } from './factory';
 import { EVOLUTION_ACCENT, FONT } from './visualDesign';
 import { evolutionPresentation } from './evolutionPresentation';
+import { eliteDefeatBeat } from './eliteDefeatBeat';
 
 function toCss(color: number): string {
   return `#${color.toString(16).padStart(6, '0')}`;
@@ -21,6 +22,7 @@ export function inkPuff(scene: Phaser.Scene, x: number, y: number, radius: numbe
     ease: 'Quad.easeOut',
     onComplete: () => puff.destroy(),
   });
+  if (elite) eliteDefeatBeat(scene, x, y);
 }
 
 /** 欠片を拾った瞬間の小さな金の弾け。 */
