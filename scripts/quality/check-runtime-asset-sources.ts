@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -49,6 +49,13 @@ check(
 );
 check('runtime enemy right/front sheet file exists', publicPathExists(enemyRightPath), enemyRightPath);
 check('runtime enemy left sheet file exists', publicPathExists(enemyLeftPath), enemyLeftPath);
+
+const core5YuiFrames = resolve(ROOT, 'public/assets/prototypes/sprite-sheets/core5-original-frames/yui');
+const exprRageFrames = resolve(ROOT, 'public/assets/prototypes/sprite-sheets/yui-expression-rage-original-frames/yui');
+const core5PngCount = existsSync(core5YuiFrames) ? readdirSync(core5YuiFrames).filter((f: string) => f.endsWith('.png')).length : 0;
+const exprPngCount = existsSync(exprRageFrames) ? readdirSync(exprRageFrames).filter((f: string) => f.endsWith('.png')).length : 0;
+check('core5 yui frames: 48 PNGs exist', core5PngCount === 48, `found ${core5PngCount}`);
+check('expression-rage yui frames: 48 PNGs exist', exprPngCount === 48, `found ${exprPngCount}`);
 
 const mainSceneSource = readFileSync(resolve(ROOT, 'src/game/scenes/MainScene.ts'), 'utf8');
 check(

@@ -1,5 +1,10 @@
 import { inventoryIconAssetEntries } from './inventoryIcons.ts';
-import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from './playerFrames.ts';
+import {
+  YUI_EXPRESSION_FRAME_ASSETS,
+  YUI_GAMEPLAY_FRAME_ASSETS,
+  YUI_HUD_FRAME_ASSETS,
+  YUI_RAGE_FRAME_ASSETS,
+} from './playerFrames.ts';
 
 export type AssetKind = 'player' | 'enemy' | 'pickup' | 'rare' | 'weapon' | 'evolved' | 'ui' | 'tile';
 export type AssetId = string;
@@ -41,6 +46,8 @@ function fallbackOnly(
 export const assetManifest: AssetManifestEntry[] = [
   ...YUI_GAMEPLAY_FRAME_ASSETS,
   ...YUI_HUD_FRAME_ASSETS,
+  ...YUI_EXPRESSION_FRAME_ASSETS,
+  ...YUI_RAGE_FRAME_ASSETS,
 
   fallbackOnly('yui_idle', 'player', '旧ユイidle互換キー。実画像はCore5 original framesを使用。', 42, 42),
   fallbackOnly('yui_move', 'player', '旧ユイmove互換キー。実画像はCore5 original framesを使用。', 42, 42),

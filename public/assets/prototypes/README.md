@@ -33,6 +33,24 @@ core5-original-frames/{yui,asa,nagi,michiru,tomori}/  # 48 frames each, 240 PNGs
 `core5-original-frames/yui/`. These are still prototype-reference / runtime-candidate frames, not
 hand-final production sprites.
 
+### ユイ表情・暴走フレーム
+
+ユイの表情（16セル）と暴走（32セル）の48フレームは別シートで管理する:
+
+```txt
+yui-expression-rage-original/
+  yui-expression-rage-48-v1.png          # 1440x1080 8列×6行 180×180セル PNG RGBA
+
+yui-expression-rage-original-frames/yui/
+  00_r01_c01_portrait_determined.png     # 48個の180×180個別フレーム
+  ...
+  47_r06_c08_rage_recovery_slow.png
+  manifest.json
+```
+
+`src/game/assets/playerFrames.ts` の `YUI_EXPRESSION_FRAME_IDS` / `YUI_RAGE_FRAME_IDS` で参照。
+スライス: `node --experimental-strip-types scripts/prototypes/slice-yui-expression-rage.ts`
+
 ### Inventory icons
 
 Weapon / passive / rare-item 180px originals live here:

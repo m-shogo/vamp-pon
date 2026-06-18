@@ -7,6 +7,8 @@ Vite が配信する画像アセットの案内。
 - `public/assets/prototypes/backgrounds/`
 - `public/assets/prototypes/sprite-sheets/core5-original/`
 - `public/assets/prototypes/sprite-sheets/core5-original-frames/`
+- `public/assets/prototypes/sprite-sheets/yui-expression-rage-original/`
+- `public/assets/prototypes/sprite-sheets/yui-expression-rage-original-frames/`
 - `public/assets/prototypes/sprite-sheets/enemies-original/`
 - `public/assets/prototypes/sprite-sheets/weapon/`
 - `public/assets/prototypes/sprite-sheets/passive/`

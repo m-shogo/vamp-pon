@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { assetManifest, assetById, ENEMY_ASSET, WEAPON_ASSET, RARE_ASSET } from '../assetManifest';
-import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from '../playerFrames';
+import { YUI_EXPRESSION_FRAME_ASSETS, YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS, YUI_RAGE_FRAME_ASSETS } from '../playerFrames';
 import { weapons } from '../../data/weapons';
 import { enemies } from '../../data/enemies';
 import { rareItems } from '../../data/rareItems';
@@ -61,6 +61,30 @@ describe('assetManifest', () => {
       expect(asset?.height).toBe(180);
       expect(asset?.kind).toBe('player');
       expect(asset?.required).toBe(false);
+    }
+  });
+
+  it('ユイ表情16フレームが登録される', () => {
+    expect(YUI_EXPRESSION_FRAME_ASSETS).toHaveLength(16);
+    for (const frame of YUI_EXPRESSION_FRAME_ASSETS) {
+      const asset = assetById.get(frame.id);
+      expect(asset, frame.id).toBeTruthy();
+      expect(asset?.path).toContain('yui-expression-rage-original-frames/yui/');
+      expect(asset?.width).toBe(180);
+      expect(asset?.height).toBe(180);
+      expect(asset?.kind).toBe('player');
+    }
+  });
+
+  it('ユイ暴走32フレームが登録される', () => {
+    expect(YUI_RAGE_FRAME_ASSETS).toHaveLength(32);
+    for (const frame of YUI_RAGE_FRAME_ASSETS) {
+      const asset = assetById.get(frame.id);
+      expect(asset, frame.id).toBeTruthy();
+      expect(asset?.path).toContain('yui-expression-rage-original-frames/yui/');
+      expect(asset?.width).toBe(180);
+      expect(asset?.height).toBe(180);
+      expect(asset?.kind).toBe('player');
     }
   });
 });

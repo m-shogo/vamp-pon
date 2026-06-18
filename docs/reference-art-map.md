@@ -197,6 +197,34 @@ public/assets/prototypes/sprite-sheets/core5-52px/
 
 全て`prototype-reference`扱い。production昇格は別工程。
 
+### ユイ 基本48セル（180px）
+
+```txt
+public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png
+  1440x1080px / 8列×6行 / 180×180セル / PNG RGBA / 48セル
+
+public/assets/prototypes/sprite-sheets/core5-original-frames/yui/
+  00_r01_c01_idle_front.png ... 47_r06_c08_effect_icon.png（48個別フレーム + manifest.json）
+```
+
+runtimeでの参照: `src/game/assets/playerFrames.ts` → `YUI_FRAME_IDS` / `YUI_GAMEPLAY_FRAME_ASSETS` / `YUI_HUD_FRAME_ASSETS`
+
+### ユイ 表情・暴走48セル（180px）
+
+```txt
+public/assets/prototypes/sprite-sheets/yui-expression-rage-original/yui-expression-rage-48-v1.png
+  1440x1080px / 8列×6行 / 180×180セル / PNG RGBA / 48セル
+  行1-2: 表情16セル（portrait_determined〜cutin_ultimate_black）
+  行3-6: 暴走32セル（rage_charge_25〜rage_recovery_slow）
+
+public/assets/prototypes/sprite-sheets/yui-expression-rage-original-frames/yui/
+  00_r01_c01_portrait_determined.png ... 47_r06_c08_rage_recovery_slow.png（48個別フレーム + manifest.json）
+```
+
+runtimeでの参照: `src/game/assets/playerFrames.ts` → `YUI_EXPRESSION_FRAME_IDS` / `YUI_RAGE_FRAME_IDS` / `YUI_EXPRESSION_FRAME_ASSETS` / `YUI_RAGE_FRAME_ASSETS`
+
+`public/assets/sprites/` は廃止済み。使用しない。
+
 ---
 
 ## 7. Enemy 48 reference sheet
@@ -244,6 +272,8 @@ pnpm enemy48:sprites:verify
 | `assets/reference/character-master/core5/` | キャラ設計の正本 | no |
 | `assets/reference/enemies/enemy-48-sheet/` | 敵48体のreference sheet | no |
 | `public/assets/prototypes/sprite-sheets/core5-original-frames/` | 主人公/キャラの現在のprototype frame候補。Yui runtime候補はここを読む | no |
+| `public/assets/prototypes/sprite-sheets/yui-expression-rage-original/` | ユイ表情・暴走48セルシート（1440x1080 PNG RGBA） | no |
+| `public/assets/prototypes/sprite-sheets/yui-expression-rage-original-frames/` | ユイ表情・暴走48個別フレーム（180x180） | no |
 | `public/assets/prototypes/sprite-sheets/core5-52px/` | Core5 character sheet reference。runtime正本ではない | no |
 | `public/assets/prototypes/sprite-sheets/weapon/` | ChatGPT画像生成由来の武器180px inventory icon候補 | no |
 | `public/assets/prototypes/sprite-sheets/passive/` | ChatGPT画像生成由来の忘れ物180px inventory icon候補 | no |
