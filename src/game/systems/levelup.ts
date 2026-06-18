@@ -1,4 +1,4 @@
-import type { LevelUpChoice, RewardRarity } from '../domain/types';
+import type { EvolutionDefinition, LevelUpChoice, RewardRarity } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { weapons, weaponById, evolvedWeaponIds } from '../data/weapons';
 import { passives, passiveById } from '../data/passives';
@@ -143,6 +143,84 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
   };
 }
 
+function evolutionKindHint(kind: EvolutionDefinition['kind']): string {
+  if (kind === 'fusion') return '合体候補';
+  if (kind === 'awakening') return '覚醒候補';
+  return '進化候補';
+}
+
+function ownedWeaponLevel(state: RuntimeState, id: string): number {
+  return state.inventory.weapons.find((weapon) => weapon.id === id)?.level ?? 0;
+}
+
+function ownsPassive(state: RuntimeState, id?: string): boolean {
+  return !id || state.inventory.passives.some((passive) => passive.id === id);
+}
+
+function ownsRare(state: RuntimeState, id?: string): boolean {
+  return !id || state.inventory.rareItems.some((rare) => rare.id === id);
+}
+
+function evolutionReadyAfterChoice(state: RuntimeState, evo: EvolutionDefinition, choice: LevelUpChoice): boolean {
+  const mainLevel = choice.type === 'weapon_upgrade' && choice.itemId === evo.fromWeaponId
+    ? choice.nextLevel
+    : ownedWeaponLevel(state, evo.fromWeaponId);
+  if (mainLevel < evo.requiredWeaponLevel) return false;
+
+  if (evo.requiredWeaponId) {
+    const requiredLevel = choice.type === 'weapon_upgrade' && choice.itemId === evo.requiredWeaponId
+      ? choice.nextLevel
+      : ownedWeaponLevel(state, evo.requiredWeaponId);
+    if (requiredLevel < (evo.requiredWeaponLevel2 ?? 1)) return false;
+  }
+
+  if (!ownsPassive(state, evo.requiredPassiveId)) return false;
+  if (!ownsRare(state, evo.requiredRareItemId)) return false;
+  return true;
+}
+
+function relevantEvolutions(state: RuntimeState, itemId: string): EvolutionDefinition[] {
+  const completed = completedEvolutionOutputIds(state);
+  return evolutions.filter((evo) => {
+    if (completed.has(evo.evolvedWeaponId)) return false;
+    return evo.fromWeaponId === itemId
+      || evo.requiredWeaponId === itemId
+      || evo.requiredPassiveId === itemId
+      || evo.requiredRareItemId === itemId;
+  });
+}
+
+function evolutionHintForChoice(state: RuntimeState, choice: LevelUpChoice): string | null {
+  if (!('itemId' in choice)) return null;
+  const relevant = relevantEvolutions(state, choice.itemId);
+  if (relevant.length === 0) return null;
+
+  const ready = relevant.find((evo) => evolutionReadyAfterChoice(state, evo, choice));
+  if (ready) return `次のカプセルで${evolutionKindLabel(ready.kind)}可`;
+
+  const ownedMain = relevant.find((evo) => {
+    const mainLevel = evo.fromWeaponId === choice.itemId && choice.type === 'weapon_upgrade'
+      ? choice.nextLevel
+      : ownedWeaponLevel(state, evo.fromWeaponId);
+    return mainLevel >= Math.max(1, evo.requiredWeaponLevel - 1);
+  });
+  const evo = ownedMain ?? relevant[0];
+  return `${evolutionKindHint(evo.kind)}: ${evo.name}`;
+}
+
+function evolutionKindLabel(kind: EvolutionDefinition['kind']): string {
+  if (kind === 'fusion') return '合体';
+  if (kind === 'awakening') return '覚醒';
+  return '進化';
+}
+
+function enrichChoiceDescription(state: RuntimeState, choice: LevelUpChoice): LevelUpChoice {
+  const hint = evolutionHintForChoice(state, choice);
+  if (!hint) return choice;
+  if (choice.description.includes(hint)) return choice;
+  return { ...choice, description: `${choice.description} / ${hint}` };
+}
+
 export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const inv = state.inventory;
   const ownedWeaponIds = new Set(inv.weapons.map((w) => w.id));
@@ -228,7 +306,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     const available = pools[cat].filter((c) => 'itemId' in c && !usedItemIds.has((c as { itemId: string }).itemId));
     const picked = sampleWithoutReplacement(available, 1)[0];
     if (picked && 'itemId' in picked) {
-      const decorated = decorateChoice(picked);
+      const decorated = enrichChoiceDescription(state, decorateChoice(picked));
       chosen.push(decorated);
       usedItemIds.add(picked.itemId);
     }
