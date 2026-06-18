@@ -63,8 +63,16 @@ export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
   return { type: 'currency', amount: 10, title: '記憶のかけら +10' };
 }
 
+function hasCompletedEvolution(state: RuntimeState, evo: EvolutionDefinition): boolean {
+  return state.inventory.evolvedWeaponIds.includes(evo.evolvedWeaponId)
+    || state.inventory.weapons.some((weapon) => weapon.id === evo.evolvedWeaponId)
+    || (state.stats?.evolutions ?? []).includes(evo.evolvedWeaponId);
+}
+
 function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
   const inv = state.inventory;
+  if (hasCompletedEvolution(state, evo)) return false;
+
   const main = inv.weapons.find((it) => it.id === evo.fromWeaponId);
   if (!main || main.level < evo.requiredWeaponLevel) return false;
 
@@ -76,7 +84,7 @@ function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
     if (!second || second.level < (evo.requiredWeaponLevel2 ?? 1)) return false;
   }
 
-  return !inv.evolvedWeaponIds.includes(evo.evolvedWeaponId);
+  return true;
 }
 
 /** カプセル報酬を適用する。 */
