@@ -46,6 +46,25 @@
 左右キーまたは画面ボタンで1段階ずつ確認できる。
 スペースキーまたは停止ボタンで自動再生を止める。
 
+## カットイン確認の起動
+
+```txt
+?scene=cutin-qa
+```
+
+通常必殺と暴走カットインを個別に再生できる。
+画面には、production画像・追加48sheet・通常必殺frame・idle・図形fallbackのうち、現在どれが使われているかを表示する。
+
+予定されているproduction画像:
+
+```txt
+public/assets/prototypes/cutins/yui-ultimate-780x360-rgba.png
+public/assets/prototypes/cutins/yui-berserk-780x360-rgba.png
+```
+
+現時点では上記2枚は未納のため、既存ユイframeによるfallbackを使用する。
+画像納品後は `yui_cutin_ultimate` と `yui_cutin_berserk` のtexture keyで登録すれば、演出コードを変更せずproduction画像へ切り替わる。
+
 ## 一覧画面の操作
 
 - 画面下の左右ボタン、またはキーボード左右キーでページ移動
@@ -62,6 +81,8 @@
 - 左向きでは奥側のランタンを完全に消さない
 - walk A/B、cast/attack、hurt/recoilが別動作に見える
 - 変身開始から疲労、通常復帰までが自然につながる
+- カットインが敵や弾を長時間隠さない
+- 通常必殺と暴走カットインの色・意味が混ざらない
 - 問題は `R行C列` で記録し、問題セルだけ直接修正する
 
 ## 遅延ロード確認
