@@ -10,8 +10,8 @@ describe('yui96QaCatalog', () => {
   it('defines two unique 48-cell catalogs', () => {
     expect(YUI_BASIC_48_KEYS).toHaveLength(48);
     expect(YUI_EXPRESSION_RAGE_48_KEYS).toHaveLength(48);
-    expect(new Set(YUI_BASIC_48_KEYS)).toHaveLength(48);
-    expect(new Set(YUI_EXPRESSION_RAGE_48_KEYS)).toHaveLength(48);
+    expect(new Set(YUI_BASIC_48_KEYS).size).toBe(48);
+    expect(new Set(YUI_EXPRESSION_RAGE_48_KEYS).size).toBe(48);
   });
 
   it('maps indexes to an 8x6 grid', () => {
