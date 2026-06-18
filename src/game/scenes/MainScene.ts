@@ -9,6 +9,7 @@ import { Hud } from '../ui/hud';
 import { Overlays } from '../ui/overlays';
 import { VirtualStick } from '../ui/virtualStick';
 import { evolutionBurst } from '../ui/effects';
+import { RunPacingEffects } from '../ui/runPacingEffects';
 import { weaponById } from '../data/weapons';
 import { setupKeyboard, updateInput, type KeyboardKeys } from '../systems/input';
 import { updateMovement } from '../systems/movement';
@@ -48,6 +49,7 @@ export class MainScene extends Phaser.Scene {
   private hud!: Hud;
   private overlays!: Overlays;
   private stick!: VirtualStick;
+  private pacingEffects!: RunPacingEffects;
   private keys: KeyboardKeys | null = null;
   private spawnSystem!: SpawnSystem;
   private playtestSnapshotEnabled = false;
@@ -80,6 +82,7 @@ export class MainScene extends Phaser.Scene {
     this.spawnSystem = new SpawnSystem();
     this.keys = setupKeyboard(this);
     this.stick = new VirtualStick(this);
+    this.pacingEffects = new RunPacingEffects(this);
 
     window.addEventListener('blur', this.onBlur);
     document.addEventListener('visibilitychange', this.onVisibility);
@@ -87,6 +90,7 @@ export class MainScene extends Phaser.Scene {
       window.removeEventListener('blur', this.onBlur);
       document.removeEventListener('visibilitychange', this.onVisibility);
       this.clearDebugSnapshot();
+      this.pacingEffects.destroy();
       this.stick.destroy();
       this.hud.destroy();
     });
@@ -96,6 +100,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.hud.update(this.state);
+    this.pacingEffects.update(this.state);
     this.updateDebugSnapshot(true);
   }
 
@@ -140,6 +145,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     this.hud.update(state);
+    this.pacingEffects.update(state);
     this.updateDebugSnapshot();
   }
 
@@ -286,9 +292,18 @@ export class MainScene extends Phaser.Scene {
     const log = buildPlayLog(state, cleared);
     // eslint-disable-next-line no-console
     console.log('[vamp-pon playlog]', JSON.stringify(log));
-    this.overlays.showResult(state, cleared, log, () => {
-      this.scene.restart();
-    });
+
+    const showResult = () => {
+      this.overlays.showResult(state, cleared, log, () => {
+        this.scene.restart();
+      });
+    };
+
+    if (cleared) {
+      this.pacingEffects.playClearTransition(showResult);
+    } else {
+      showResult();
+    }
   }
 }
 
