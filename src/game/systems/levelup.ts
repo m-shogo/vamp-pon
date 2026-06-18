@@ -18,22 +18,6 @@ function rollRarity(): RewardRarity {
   return 'normal';
 }
 
-function rarityPrefix(rarity: RewardRarity): string {
-  switch (rarity) {
-    case 'rare': return '★★★ ';
-    case 'good': return '★★ ';
-    case 'normal': return '';
-  }
-}
-
-function rarityText(rarity: RewardRarity): string {
-  switch (rarity) {
-    case 'rare': return '大当たり';
-    case 'good': return '良い拾い物';
-    case 'normal': return 'ふつう';
-  }
-}
-
 function rarityStep(rarity: RewardRarity): number {
   switch (rarity) {
     case 'rare': return 3;
@@ -42,9 +26,21 @@ function rarityStep(rarity: RewardRarity): number {
   }
 }
 
-function retiredWeaponIds(state: RuntimeState): Set<string> {
+function completedEvolutionOutputIds(state: RuntimeState): Set<string> {
+  const completed = new Set(state.inventory.evolvedWeaponIds);
+  for (const weapon of state.inventory.weapons) {
+    if (evolvedWeaponIds.has(weapon.id)) completed.add(weapon.id);
+  }
+  for (const weaponId of state.stats?.evolutions ?? []) {
+    if (evolvedWeaponIds.has(weaponId)) completed.add(weaponId);
+  }
+  return completed;
+}
+
+/** 進化・合体・覚醒後に再登場させない元武器ID。 */
+export function retiredWeaponIds(state: RuntimeState): Set<string> {
   const retired = new Set<string>();
-  const evolved = new Set(state.inventory.evolvedWeaponIds);
+  const evolved = completedEvolutionOutputIds(state);
   for (const evo of evolutions) {
     if (!evolved.has(evo.evolvedWeaponId)) continue;
     retired.add(evo.fromWeaponId);
@@ -55,7 +51,7 @@ function retiredWeaponIds(state: RuntimeState): Set<string> {
 
 function blockedRareItemIds(state: RuntimeState, retiredWeapons: Set<string>): Set<string> {
   const blocked = new Set<string>();
-  const evolved = new Set(state.inventory.evolvedWeaponIds);
+  const evolved = completedEvolutionOutputIds(state);
 
   for (const evo of evolutions) {
     if (evo.kind !== 'awakening' || !evo.requiredRareItemId) continue;
@@ -77,12 +73,10 @@ function blockedRareItemIds(state: RuntimeState, retiredWeapons: Set<string>): S
 
 function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
   if (choice.type === 'rare_new') {
-    return { ...choice, rarity: 'rare', title: `✦ ${choice.title}` };
+    return { ...choice, rarity: 'rare' };
   }
 
   const rarity = rollRarity();
-  const prefix = rarityPrefix(rarity);
-  const rank = rarityText(rarity);
 
   if (choice.type === 'weapon_upgrade') {
     const def = weaponById.get(choice.itemId);
@@ -94,8 +88,8 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
       ...choice,
       rarity,
       nextLevel,
-      title: `${prefix}${def.name} Lv.${nextLevel}`,
-      description: rarity === 'normal' ? (lvl?.label ?? choice.description) : `${rank}: 一気に Lv.${nextLevel} / ${lvl?.label ?? '強化'}`,
+      title: `${def.name} Lv.${nextLevel}`,
+      description: rarity === 'normal' ? (lvl?.label ?? choice.description) : `Lv.${nextLevel}まで一気に強化 / ${lvl?.label ?? '強化'}`,
     };
   }
 
@@ -109,8 +103,8 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
       ...choice,
       rarity,
       nextLevel,
-      title: `${prefix}${def.name} Lv.${nextLevel}`,
-      description: rarity === 'normal' ? (lvl?.label ?? choice.description) : `${rank}: 一気に Lv.${nextLevel} / ${lvl?.label ?? '強化'}`,
+      title: `${def.name} Lv.${nextLevel}`,
+      description: rarity === 'normal' ? (lvl?.label ?? choice.description) : `Lv.${nextLevel}まで一気に強化 / ${lvl?.label ?? '強化'}`,
     };
   }
 
@@ -121,8 +115,8 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
       ...choice,
       rarity,
       initialLevel,
-      title: `${prefix}${choice.title}${initialLevel > 1 ? ` Lv.${initialLevel}` : ''}`,
-      description: initialLevel > 1 ? `${rank}: 最初から Lv.${initialLevel} で手に入る。` : choice.description,
+      title: `${choice.title}${initialLevel > 1 ? ` Lv.${initialLevel}` : ''}`,
+      description: initialLevel > 1 ? `最初から Lv.${initialLevel} で手に入る。` : choice.description,
     };
   }
 
@@ -133,8 +127,8 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
       ...choice,
       rarity,
       initialLevel,
-      title: `${prefix}${choice.title}${initialLevel > 1 ? ` Lv.${initialLevel}` : ''}`,
-      description: initialLevel > 1 ? `${rank}: 最初から Lv.${initialLevel} で手に入る。` : choice.description,
+      title: `${choice.title}${initialLevel > 1 ? ` Lv.${initialLevel}` : ''}`,
+      description: initialLevel > 1 ? `最初から Lv.${initialLevel} で手に入る。` : choice.description,
     };
   }
 
@@ -144,8 +138,8 @@ function decorateChoice(choice: LevelUpChoice): LevelUpChoice {
     ...choice,
     rarity,
     amount,
-    title: `${prefix}${choice.title}`,
-    description: rarity === 'normal' ? `HP +${amount}` : `${rank}: HP +${amount}`,
+    title: choice.title,
+    description: `HP +${amount}`,
   };
 }
 
@@ -250,9 +244,18 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
 export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
   const inv = state.inventory;
   switch (choice.type) {
-    case 'weapon_new':
-      if (!inv.weapons.some((w) => w.id === choice.itemId) && inv.weapons.length < inv.weaponSlots) inv.weapons.push({ id: choice.itemId, level: choice.initialLevel ?? 1, cooldownRemaining: 0 });
+    case 'weapon_new': {
+      const retired = retiredWeaponIds(state);
+      if (
+        !evolvedWeaponIds.has(choice.itemId)
+        && !retired.has(choice.itemId)
+        && !inv.weapons.some((w) => w.id === choice.itemId)
+        && inv.weapons.length < inv.weaponSlots
+      ) {
+        inv.weapons.push({ id: choice.itemId, level: choice.initialLevel ?? 1, cooldownRemaining: 0 });
+      }
       break;
+    }
     case 'weapon_upgrade': {
       const w = inv.weapons.find((it) => it.id === choice.itemId);
       if (w) w.level = choice.nextLevel;
@@ -266,9 +269,13 @@ export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
       if (p) p.level = choice.nextLevel;
       break;
     }
-    case 'rare_new':
-      if (!inv.rareItems.some((item) => item.id === choice.itemId) && inv.rareItems.length < inv.rareItemSlots) inv.rareItems.push({ id: choice.itemId });
+    case 'rare_new': {
+      const blocked = blockedRareItemIds(state, retiredWeaponIds(state));
+      if (!blocked.has(choice.itemId) && !inv.rareItems.some((item) => item.id === choice.itemId) && inv.rareItems.length < inv.rareItemSlots) {
+        inv.rareItems.push({ id: choice.itemId });
+      }
       break;
+    }
     case 'heal':
       state.player.hp = Math.min(state.player.maxHp, state.player.hp + choice.amount);
       break;
