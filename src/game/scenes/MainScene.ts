@@ -10,6 +10,7 @@ import { Overlays } from '../ui/overlays';
 import { VirtualStick } from '../ui/virtualStick';
 import { evolutionBurst } from '../ui/effects';
 import { RunPacingEffects } from '../ui/runPacingEffects';
+import { BerserkFeedback } from '../ui/berserkFeedback';
 import { weaponById } from '../data/weapons';
 import { setupKeyboard, updateInput, type KeyboardKeys } from '../systems/input';
 import { updateMovement } from '../systems/movement';
@@ -50,6 +51,7 @@ export class MainScene extends Phaser.Scene {
   private overlays!: Overlays;
   private stick!: VirtualStick;
   private pacingEffects!: RunPacingEffects;
+  private berserkFeedback!: BerserkFeedback;
   private keys: KeyboardKeys | null = null;
   private spawnSystem!: SpawnSystem;
   private playtestSnapshotEnabled = false;
@@ -83,6 +85,7 @@ export class MainScene extends Phaser.Scene {
     this.keys = setupKeyboard(this);
     this.stick = new VirtualStick(this);
     this.pacingEffects = new RunPacingEffects(this);
+    this.berserkFeedback = new BerserkFeedback(this);
 
     window.addEventListener('blur', this.onBlur);
     document.addEventListener('visibilitychange', this.onVisibility);
@@ -90,6 +93,7 @@ export class MainScene extends Phaser.Scene {
       window.removeEventListener('blur', this.onBlur);
       document.removeEventListener('visibilitychange', this.onVisibility);
       this.clearDebugSnapshot();
+      this.berserkFeedback.destroy();
       this.pacingEffects.destroy();
       this.stick.destroy();
       this.hud.destroy();
@@ -101,6 +105,7 @@ export class MainScene extends Phaser.Scene {
 
     this.hud.update(this.state);
     this.pacingEffects.update(this.state);
+    this.berserkFeedback.update(this.state);
     this.updateDebugSnapshot(true);
   }
 
@@ -141,6 +146,7 @@ export class MainScene extends Phaser.Scene {
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
       updateBerserk(state, dt);
+      this.berserkFeedback.update(state);
       this.resolveTransitions();
     }
 
