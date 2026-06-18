@@ -34,6 +34,7 @@
     "inventory-original-icons:check": "node --experimental-strip-types scripts/quality/check-inventory-original-icons.ts",
     "backgrounds:verify": "node --experimental-strip-types scripts/quality/check-backgrounds.ts",
     "runtime-assets:verify": "node --experimental-strip-types scripts/quality/check-runtime-asset-sources.ts",
+    "stage1:fun-pass:verify": "pnpm runtime-assets:verify && pnpm test && pnpm build",
     "story-map:check": "node --experimental-strip-types scripts/quality/check-story-map-data.ts",
     "story-map:serve": "cd docs/story-map && python3 -m http.server 4173",
     "build": "tsc && vite build",
