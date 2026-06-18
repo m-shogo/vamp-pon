@@ -2,6 +2,7 @@ import type Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
+import { playCharacterCutin } from './characterCutin';
 
 const ACTIVE_EDGE_ALPHA = 0.16;
 const FATIGUE_MAX_ALPHA = 0.2;
@@ -139,6 +140,7 @@ export class BerserkFeedback {
   private onBerserkStart(state: RuntimeState): void {
     this.scene.cameras.main.flash(180, 20, 12, 28, false);
     this.scene.cameras.main.shake(160, 0.0035);
+    playCharacterCutin(this.scene, 'berserk');
     this.spawnInkRing(state.player.x, state.player.y, 0x24162f, 360);
   }
 
