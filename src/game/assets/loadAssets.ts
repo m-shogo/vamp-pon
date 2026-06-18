@@ -6,26 +6,23 @@ import { loadBackgroundManifest, getPreviewBackgrounds, getBackgroundByStageNumb
 import { stageBackgroundTextureKey } from '../ui/background';
 
 /**
- * 「実在する画像だけ」を Phaser のロードキューに積む。
- * 未配置のファイルは fetch(HEAD) で除外するため、404 で大量のloaderrorを出さない。
- * 画像が無い要素は各 createXView / preview が Graphics fallback を描く。
- *
- * @returns 積んだ件数（0 ならロード不要）
+ * 実在する画像だけを Phaser のロードキューに積む。
+ * path を持たないentryはGraphics fallback専用。
  */
 export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> {
   let queued = 0;
   const pendingKeys = new Set<string>();
+
   await Promise.all(
-    assetManifest.map(async (a) => {
-      if (!reserveTextureKey(scene, pendingKeys, a.id)) return;
-      if (!(await fileExists(a.path))) return;
-      scene.load.image(a.id, a.path);
+    assetManifest.map(async (asset) => {
+      if (!asset.path) return;
+      if (!reserveTextureKey(scene, pendingKeys, asset.id)) return;
+      if (!(await fileExists(asset.path))) return;
+      scene.load.image(asset.id, asset.path);
       queued += 1;
     }),
   );
 
-  // 48体シートは正面・左向きを別テクスチャとして読み込む。
-  // 右向き専用画像は使わず、ゲーム中に左向き画像を flipX して描画する。
   await Promise.all(
     ENEMY_PROTOTYPE_SHEET_LIST.map(async (sheet) => {
       if (!reserveTextureKey(scene, pendingKeys, sheet.id)) return;
@@ -42,30 +39,22 @@ export async function queueExistingAssets(scene: Phaser.Scene): Promise<number> 
   return queued;
 }
 
-/**
- * 比較用 prototype 画像をロードキューに積む（ギャラリー / Core5 preview 用）。
- * 本番 assetManifest とは別管理。存在するものだけ積む。
- *
- * @returns 積んだ件数
- */
 export async function queuePrototypeAssets(scene: Phaser.Scene): Promise<number> {
   let queued = 0;
   const pendingKeys = new Set<string>();
+
   await Promise.all(
-    allPrototypeAssets.map(async (a) => {
-      if (!reserveTextureKey(scene, pendingKeys, a.id)) return;
-      if (!(await fileExists(a.path))) return;
-      scene.load.image(a.id, a.path);
+    allPrototypeAssets.map(async (asset) => {
+      if (!reserveTextureKey(scene, pendingKeys, asset.id)) return;
+      if (!(await fileExists(asset.path))) return;
+      scene.load.image(asset.id, asset.path);
       queued += 1;
     }),
   );
+
   return queued;
 }
 
-/**
- * Stage背景画像をロードキューに積む。
- * stageNumber を指定すると1面だけ、省略するとpreview有効な全Stageを積む。
- */
 export async function queueStageBackgrounds(
   scene: Phaser.Scene,
   stageNumber?: number | null,
@@ -89,15 +78,15 @@ export async function queueStageBackgrounds(
       queued += 1;
     }),
   );
+
   return queued;
 }
 
 async function fileExists(path: string): Promise<boolean> {
   try {
-    const res = await fetch(path, { method: 'HEAD' });
-    if (!res.ok) return false;
-    // Vite dev が index.html を返すケース等を弾く
-    const type = res.headers.get('content-type') ?? '';
+    const response = await fetch(path, { method: 'HEAD' });
+    if (!response.ok) return false;
+    const type = response.headers.get('content-type') ?? '';
     return !type.includes('text/html');
   } catch {
     return false;

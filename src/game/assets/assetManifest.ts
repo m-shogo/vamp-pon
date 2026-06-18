@@ -1,98 +1,91 @@
 import { inventoryIconAssetEntries } from './inventoryIcons.ts';
 import { YUI_GAMEPLAY_FRAME_ASSETS, YUI_HUD_FRAME_ASSETS } from './playerFrames.ts';
 
-/**
- * アセット定義の正本。
- * 「どの素材が必要か / どこに置くか / サイズ / 用途 / fallbackの有無」をコードで管理する。
- *
- * 重要:
- * - 画像が無い間は Phaser Graphics の fallback で動く（壊れない）。
- * - id は Phaser のテクスチャキー。命名規約は path のファイル名と対応させる。
- * - 制作優先順位・作り方は docs/art-pipeline.md / docs/sprite-size-guide.md。
- */
-
 export type AssetKind = 'player' | 'enemy' | 'pickup' | 'rare' | 'weapon' | 'evolved' | 'ui' | 'tile';
-
 export type AssetId = string;
 
 export type AssetManifestEntry = {
   id: AssetId;
-  /** Vite公開ルート(public/)からの相対パス。Phaser は this.load.image(id, path) で読む。 */
-  path: string;
+  /** public/ からの相対パス。fallback-only entry は path を持たない。 */
+  path?: string;
   width: number;
   height: number;
   kind: AssetKind;
   description: string;
-  /** 本素材として必須か（false は任意/アニメ差分など）。 */
   required: boolean;
-  /** 画像が無い時に Graphics fallback があるか。 */
   fallback: boolean;
 };
 
-const SPRITES = 'assets/sprites';
+function fallbackOnly(
+  id: AssetId,
+  kind: AssetKind,
+  description: string,
+  width = 1,
+  height = 1,
+): AssetManifestEntry {
+  return {
+    id,
+    width,
+    height,
+    kind,
+    description,
+    required: false,
+    fallback: true,
+  };
+}
 
+/**
+ * 実画像の正本は prototypes 配下。
+ * 旧 public/assets/sprites は削除済みで、対応するIDはGraphics fallback用にだけ残す。
+ */
 export const assetManifest: AssetManifestEntry[] = [
-  // --- 背景タイル ---
-  { id: 'bg_stage1_paper_night', path: `${SPRITES}/tiles/bg_stage1_paper_night_tile.png`, width: 128, height: 128, kind: 'tile', description: 'Stage1 夜の街の床（紙質・藍紫・繰り返し）', required: true, fallback: true },
-
-  // --- プレイヤー ---
-  { id: 'yui_idle', path: `${SPRITES}/player/yui_idle_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 立ち（42pxネイティブ / hand-final candidate）', required: true, fallback: true },
-  { id: 'yui_move', path: `${SPRITES}/player/yui_move_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 移動（42pxネイティブ / idle差分 / hand-final candidate）', required: false, fallback: true },
-  { id: 'yui_hurt', path: `${SPRITES}/player/yui_hurt_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 被弾（42pxネイティブ / 一瞬のリアクション差分 / hand-final candidate）', required: false, fallback: true },
-  { id: 'yui_ultimate', path: `${SPRITES}/player/yui_ultimate_42.png`, width: 42, height: 42, kind: 'player', description: 'ユイ 奥義（42pxネイティブ / hand-final candidate）', required: false, fallback: true },
   ...YUI_GAMEPLAY_FRAME_ASSETS,
   ...YUI_HUD_FRAME_ASSETS,
 
-  // --- 敵（enemy visualKind に対応） ---
-  { id: 'enemy_ink_blob', path: `${SPRITES}/enemies/enemy_ink_blob_24.png`, width: 24, height: 24, kind: 'enemy', description: 'インクの影（基本）', required: true, fallback: true },
-  { id: 'enemy_paper_scrap', path: `${SPRITES}/enemies/enemy_paper_scrap_24.png`, width: 24, height: 24, kind: 'enemy', description: '紙くずの影', required: true, fallback: true },
-  { id: 'enemy_signpost', path: `${SPRITES}/enemies/enemy_signpost_24.png`, width: 24, height: 24, kind: 'enemy', description: '迷子の方角（標識の影）', required: true, fallback: true },
-  { id: 'enemy_capsule', path: `${SPRITES}/enemies/enemy_capsule_24.png`, width: 24, height: 24, kind: 'enemy', description: '黒いカプセル（硬い影）', required: true, fallback: true },
-  { id: 'enemy_haze', path: `${SPRITES}/enemies/enemy_haze_24.png`, width: 24, height: 24, kind: 'enemy', description: '夜のもや（霧の影）', required: true, fallback: true },
-  { id: 'enemy_elite_label', path: `${SPRITES}/enemies/enemy_elite_label_32.png`, width: 32, height: 32, kind: 'enemy', description: '黒ラベルの影（エリート）', required: true, fallback: true },
+  fallbackOnly('yui_idle', 'player', '旧ユイidle互換キー。実画像はCore5 original framesを使用。', 42, 42),
+  fallbackOnly('yui_move', 'player', '旧ユイmove互換キー。実画像はCore5 original framesを使用。', 42, 42),
+  fallbackOnly('yui_hurt', 'player', '旧ユイhurt互換キー。実画像はCore5 original framesを使用。', 42, 42),
+  fallbackOnly('yui_ultimate', 'player', '旧ユイultimate互換キー。実画像はCore5 original framesを使用。', 42, 42),
 
-  // --- 拾得物 ---
-  { id: 'pickup_memory_fragment', path: `${SPRITES}/pickups/pickup_memory_fragment_12.png`, width: 12, height: 12, kind: 'pickup', description: '記憶の欠片（金の星・柔光）', required: true, fallback: true },
-  { id: 'pickup_heal_paper', path: `${SPRITES}/pickups/pickup_heal_paper_14.png`, width: 14, height: 14, kind: 'pickup', description: '回復（朝色の包帯紙）', required: true, fallback: true },
-  { id: 'pickup_capsule', path: `${SPRITES}/pickups/pickup_capsule_16.png`, width: 16, height: 16, kind: 'pickup', description: '記憶カプセル（コルク瓶＋星）', required: true, fallback: true },
+  fallbackOnly('enemy_ink_blob', 'enemy', '敵原本シートまたはGraphics fallback。', 24, 24),
+  fallbackOnly('enemy_paper_scrap', 'enemy', '敵原本シートまたはGraphics fallback。', 24, 24),
+  fallbackOnly('enemy_signpost', 'enemy', '敵原本シートまたはGraphics fallback。', 24, 24),
+  fallbackOnly('enemy_capsule', 'enemy', '敵原本シートまたはGraphics fallback。', 24, 24),
+  fallbackOnly('enemy_haze', 'enemy', '敵原本シートまたはGraphics fallback。', 24, 24),
+  fallbackOnly('enemy_elite_label', 'enemy', '敵原本シートまたはGraphics fallback。', 32, 32),
 
-  // --- レアアイテム ---
-  { id: 'rare_name_tag', path: `${SPRITES}/pickups/rare_name_tag_16.png`, width: 16, height: 16, kind: 'rare', description: '誰かの名前札', required: true, fallback: true },
-  { id: 'rare_cracked_lens', path: `${SPRITES}/pickups/rare_cracked_lens_16.png`, width: 16, height: 16, kind: 'rare', description: 'ひび割れたレンズ', required: true, fallback: true },
-  { id: 'rare_sealed_letter', path: `${SPRITES}/pickups/rare_sealed_letter_16.png`, width: 16, height: 16, kind: 'rare', description: '封のされた手紙', required: true, fallback: true },
-  { id: 'rare_wind_mark', path: `${SPRITES}/pickups/rare_wind_mark_16.png`, width: 16, height: 16, kind: 'rare', description: '風のしるし', required: true, fallback: true },
+  fallbackOnly('bg_stage1_paper_night', 'tile', 'Stage背景manifestを使用。', 128, 128),
+  fallbackOnly('pickup_memory_fragment', 'pickup', '記憶の欠片 fallback。', 12, 12),
+  fallbackOnly('pickup_heal_paper', 'pickup', '回復紙 fallback。', 14, 14),
+  fallbackOnly('pickup_capsule', 'pickup', '記憶カプセル fallback。', 16, 16),
+  fallbackOnly('rare_name_tag', 'rare', '名前札 fallback。', 16, 16),
+  fallbackOnly('rare_cracked_lens', 'rare', 'ひび割れたレンズ fallback。', 16, 16),
+  fallbackOnly('rare_sealed_letter', 'rare', '封のされた手紙 fallback。', 16, 16),
+  fallbackOnly('rare_wind_mark', 'rare', '風のしるし fallback。', 16, 16),
+  fallbackOnly('weapon_night_pencil', 'weapon', '夜の鉛筆 fallback。', 16, 8),
+  fallbackOnly('weapon_marble', 'weapon', 'ビー玉 fallback。', 12, 12),
+  fallbackOnly('weapon_bookmark_orbit', 'weapon', '月のしおり fallback。', 12, 16),
+  fallbackOnly('weapon_ink_area', 'weapon', '黒インク範囲 fallback。', 64, 64),
+  fallbackOnly('weapon_stardust', 'weapon', '星くず弾 fallback。', 12, 12),
+  fallbackOnly('weapon_postcard_blade', 'weapon', '絵はがきカッター fallback。', 16, 10),
+  fallbackOnly('weapon_paper_airplane', 'weapon', '紙ひこうき fallback。', 16, 12),
+  fallbackOnly('weapon_streetlamp_area', 'weapon', '街灯の輪 fallback。', 128, 128),
+  fallbackOnly('evolved_unfinished_line', 'evolved', '未完成の一行 fallback。', 24, 10),
+  fallbackOnly('evolved_north_star_lantern', 'evolved', '北極星のランタン fallback。', 16, 16),
+  fallbackOnly('evolved_dawn_ink_lamp', 'evolved', '夜明けのインク灯 fallback。', 128, 128),
+  fallbackOnly('awakened_unforgotten_name', 'evolved', '消えない名前 fallback。', 24, 12),
+  fallbackOnly('awakened_memory_marble', 'evolved', '追憶のビー玉 fallback。', 16, 16),
+  fallbackOnly('awakened_addressless_blade', 'evolved', '宛先のない刃 fallback。', 18, 12),
+  fallbackOnly('awakened_tailwind_plane', 'evolved', '追い風の紙ひこうき fallback。', 20, 16),
+  fallbackOnly('ui_card_paper_normal', 'ui', 'カード背景 fallback。', 320, 144),
+  fallbackOnly('ui_card_paper_good', 'ui', 'カード背景 fallback。', 320, 144),
+  fallbackOnly('ui_card_paper_rare', 'ui', 'カード背景 fallback。', 320, 144),
 
-  // --- 通常武器（弾/範囲） ---
-  { id: 'weapon_night_pencil', path: `${SPRITES}/weapons/weapon_night_pencil_projectile.png`, width: 16, height: 8, kind: 'weapon', description: '夜の鉛筆の弾（紙の濃い線）', required: true, fallback: true },
-  { id: 'weapon_marble', path: `${SPRITES}/weapons/weapon_marble_projectile.png`, width: 12, height: 12, kind: 'weapon', description: 'ビー玉（ガラス玉）', required: true, fallback: true },
-  { id: 'weapon_bookmark_orbit', path: `${SPRITES}/weapons/weapon_bookmark_orbit.png`, width: 12, height: 16, kind: 'weapon', description: '月のしおり（オービター）', required: true, fallback: true },
-  { id: 'weapon_ink_area', path: `${SPRITES}/weapons/weapon_ink_area_tile.png`, width: 64, height: 64, kind: 'weapon', description: '黒インクの小瓶の範囲（インク染み）', required: true, fallback: true },
-  { id: 'weapon_stardust', path: `${SPRITES}/weapons/weapon_stardust_projectile.png`, width: 12, height: 12, kind: 'weapon', description: '星くず弾（小さな金の星）', required: true, fallback: true },
-  { id: 'weapon_postcard_blade', path: `${SPRITES}/weapons/weapon_postcard_blade_projectile.png`, width: 16, height: 10, kind: 'weapon', description: '絵はがきカッター（紙刃）', required: true, fallback: true },
-  { id: 'weapon_paper_airplane', path: `${SPRITES}/weapons/weapon_paper_airplane_projectile.png`, width: 16, height: 12, kind: 'weapon', description: '紙ひこうき', required: true, fallback: true },
-  { id: 'weapon_streetlamp_area', path: `${SPRITES}/weapons/weapon_streetlamp_area_tile.png`, width: 128, height: 128, kind: 'weapon', description: '街灯の輪の範囲（暖かい丸光）', required: true, fallback: true },
-
-  // --- 強化進化 / 合体 / 覚醒（弾/範囲） ---
-  { id: 'evolved_unfinished_line', path: `${SPRITES}/evolved/evolved_unfinished_line_projectile.png`, width: 24, height: 10, kind: 'evolved', description: '未完成の一行（長い鉛筆の一行）強化進化', required: true, fallback: true },
-  { id: 'evolved_north_star_lantern', path: `${SPRITES}/evolved/evolved_north_star_lantern_projectile.png`, width: 16, height: 16, kind: 'evolved', description: '北極星のランタン（紙の灯り）強化進化', required: true, fallback: true },
-  { id: 'evolved_dawn_ink_lamp', path: `${SPRITES}/evolved/evolved_dawn_ink_lamp_area.png`, width: 128, height: 128, kind: 'evolved', description: '夜明けのインク灯（インク＋街灯＋朝色）合体', required: true, fallback: true },
-  { id: 'awakened_unforgotten_name', path: `${SPRITES}/evolved/awakened_unforgotten_name_projectile.png`, width: 24, height: 12, kind: 'evolved', description: '消えない名前（鉛筆線＋名前札）覚醒', required: true, fallback: true },
-  { id: 'awakened_memory_marble', path: `${SPRITES}/evolved/awakened_memory_marble_projectile.png`, width: 16, height: 16, kind: 'evolved', description: '追憶のビー玉（ひび割れガラス）覚醒', required: true, fallback: true },
-  { id: 'awakened_addressless_blade', path: `${SPRITES}/evolved/awakened_addressless_blade_projectile.png`, width: 18, height: 12, kind: 'evolved', description: '宛先のない刃（封筒の切れ目）覚醒', required: true, fallback: true },
-  { id: 'awakened_tailwind_plane', path: `${SPRITES}/evolved/awakened_tailwind_plane_projectile.png`, width: 20, height: 16, kind: 'evolved', description: '追い風の紙ひこうき覚醒', required: true, fallback: true },
-
-  // --- インベントリ専用アイコン（未制作分はfallback） ---
   ...inventoryIconAssetEntries,
-
-  // --- UIカード ---
-  { id: 'ui_card_paper_normal', path: `${SPRITES}/ui/ui_card_paper_normal.png`, width: 320, height: 144, kind: 'ui', description: 'レベルアップカード 紙（ふつう）', required: true, fallback: true },
-  { id: 'ui_card_paper_good', path: `${SPRITES}/ui/ui_card_paper_good.png`, width: 320, height: 144, kind: 'ui', description: 'レベルアップカード 紙（良い）', required: true, fallback: true },
-  { id: 'ui_card_paper_rare', path: `${SPRITES}/ui/ui_card_paper_rare.png`, width: 320, height: 144, kind: 'ui', description: 'レベルアップカード 紙（大当たり）', required: true, fallback: true },
 ];
 
-export const assetById = new Map(assetManifest.map((a) => [a.id, a]));
+export const assetById = new Map(assetManifest.map((asset) => [asset.id, asset]));
 
-/** 敵 visualKind → アセットid（factory / gallery が参照）。 */
 export const ENEMY_ASSET: Record<string, AssetId> = {
   ink_blob: 'enemy_ink_blob',
   paper_scrap: 'enemy_paper_scrap',
@@ -102,7 +95,6 @@ export const ENEMY_ASSET: Record<string, AssetId> = {
   label_elite: 'enemy_elite_label',
 };
 
-/** 武器id → アセットid（弾/範囲）。 */
 export const WEAPON_ASSET: Record<string, AssetId> = {
   night_pencil: 'weapon_night_pencil',
   marble: 'weapon_marble',
@@ -121,7 +113,6 @@ export const WEAPON_ASSET: Record<string, AssetId> = {
   tailwind_plane: 'awakened_tailwind_plane',
 };
 
-/** レアアイテムid → アセットid。 */
 export const RARE_ASSET: Record<string, AssetId> = {
   name_tag: 'rare_name_tag',
   cracked_lens: 'rare_cracked_lens',

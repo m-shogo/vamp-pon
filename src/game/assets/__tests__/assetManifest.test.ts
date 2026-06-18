@@ -10,32 +10,31 @@ const IMAGE_EXT = /\.(png|webp)$/;
 
 describe('assetManifest', () => {
   it('id が一意', () => {
-    expect(new Set(assetManifest.map((a) => a.id)).size).toBe(assetManifest.length);
+    expect(new Set(assetManifest.map((asset) => asset.id)).size).toBe(assetManifest.length);
   });
 
-  it('全エントリが正しい path / サイズ / kind を持つ', () => {
-    for (const a of assetManifest) {
-      expect(a.path, `${a.id} の path`).toMatch(IMAGE_EXT);
-      expect(a.width).toBeGreaterThan(0);
-      expect(a.height).toBeGreaterThan(0);
-      expect(typeof a.required).toBe('boolean');
-      expect(typeof a.fallback).toBe('boolean');
+  it('実画像entryとfallback-only entryを区別する', () => {
+    for (const asset of assetManifest) {
+      expect(asset.width).toBeGreaterThan(0);
+      expect(asset.height).toBeGreaterThan(0);
+      expect(typeof asset.required).toBe('boolean');
+      expect(typeof asset.fallback).toBe('boolean');
+
+      if (asset.path) {
+        expect(asset.path, `${asset.id} の path`).toMatch(IMAGE_EXT);
+      } else {
+        expect(asset.fallback, `${asset.id} fallback-only`).toBe(true);
+        expect(asset.required, `${asset.id} fallback-only required`).toBe(false);
+      }
     }
   });
 
-  it('ユイ4ポーズのpathがAseprite export設計と一致', () => {
-    const expected = new Map([
-      ['yui_idle', 'assets/sprites/player/yui_idle_42.png'],
-      ['yui_move', 'assets/sprites/player/yui_move_42.png'],
-      ['yui_hurt', 'assets/sprites/player/yui_hurt_42.png'],
-      ['yui_ultimate', 'assets/sprites/player/yui_ultimate_42.png'],
-    ]);
-    for (const [id, path] of expected) {
+  it('旧ユイ4ポーズは画像pathを持たずCore5 fallback互換だけ残す', () => {
+    for (const id of ['yui_idle', 'yui_move', 'yui_hurt', 'yui_ultimate']) {
       const asset = assetById.get(id);
-      expect(asset?.path, id).toBe(path);
-      expect(asset?.width, id).toBe(42);
-      expect(asset?.height, id).toBe(42);
-      expect(asset?.kind, id).toBe('player');
+      expect(asset, id).toBeTruthy();
+      expect(asset?.path, id).toBeUndefined();
+      expect(asset?.fallback, id).toBe(true);
     }
   });
 
@@ -66,41 +65,36 @@ describe('assetManifest', () => {
   });
 });
 
-describe('マッピングと manifest の対応漏れがない', () => {
-  it('敵 visualKind がすべて manifest のアセットに対応', () => {
-    for (const e of enemies) {
-      const id = ENEMY_ASSET[e.visualKind];
-      expect(id, `${e.id} (${e.visualKind})`).toBeTruthy();
+describe('マッピングとmanifestの対応', () => {
+  it('敵 visualKind がすべて対応する', () => {
+    for (const enemy of enemies) {
+      const id = ENEMY_ASSET[enemy.visualKind];
+      expect(id, `${enemy.id} (${enemy.visualKind})`).toBeTruthy();
       expect(assetById.has(id)).toBe(true);
     }
   });
 
-  it('全武器（進化後含む）が manifest のアセットに対応', () => {
-    for (const w of weapons) {
-      const id = WEAPON_ASSET[w.id];
-      expect(id, `${w.id} のアセット`).toBeTruthy();
+  it('全武器が対応する', () => {
+    for (const weapon of weapons) {
+      const id = WEAPON_ASSET[weapon.id];
+      expect(id, `${weapon.id} のアセット`).toBeTruthy();
       expect(assetById.has(id)).toBe(true);
     }
   });
 
-  it('全レアアイテムが manifest のアセットに対応', () => {
-    for (const r of rareItems) {
-      const id = RARE_ASSET[r.id];
-      expect(id, `${r.id} のアセット`).toBeTruthy();
+  it('全レアアイテムが対応する', () => {
+    for (const rare of rareItems) {
+      const id = RARE_ASSET[rare.id];
+      expect(id, `${rare.id} のアセット`).toBeTruthy();
       expect(assetById.has(id)).toBe(true);
     }
   });
 
-  it('進化先武器すべてに専用アセットがある', () => {
-    for (const evo of evolutions) {
-      const id = WEAPON_ASSET[evo.evolvedWeaponId];
-      expect(id, `${evo.evolvedWeaponId} のアセット`).toBeTruthy();
+  it('全進化先が対応する', () => {
+    for (const evolution of evolutions) {
+      const id = WEAPON_ASSET[evolution.evolvedWeaponId];
+      expect(id, `${evolution.evolvedWeaponId} のアセット`).toBeTruthy();
       expect(assetById.has(id)).toBe(true);
     }
-  });
-
-  it('ENEMY/WEAPON/RARE が指すアセットidはすべて実在する', () => {
-    const ids = [...Object.values(ENEMY_ASSET), ...Object.values(WEAPON_ASSET), ...Object.values(RARE_ASSET)];
-    for (const id of ids) expect(assetById.has(id), id).toBe(true);
   });
 });
