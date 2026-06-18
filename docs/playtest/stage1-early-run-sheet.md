@@ -106,3 +106,24 @@ Choose one:
 - Improve visuals before changing numbers
 
 Final notes:
+
+## 2026-06-18 Codex verification note
+
+- Date: 2026-06-18 11:30 JST
+- Device / browser: Chrome requested, but Codex Chrome Extension communication was unavailable after setup checks.
+- Build passed: yes (`pnpm stage1:fun-pass:verify`)
+- Test passed: yes (`pnpm stage1:fun-pass:verify`)
+- Reached time: unverified by live mobile run
+- Player level at 150 sec: unverified by live mobile run
+- Kills at 150 sec: unverified by live mobile run
+- Damage taken: unverified by live mobile run
+- First elite defeated: unverified by live mobile run
+- Capsule opened: unverified by live mobile run
+
+Notes:
+
+- Chrome was running.
+- Codex Chrome Extension was installed and enabled in the selected Default profile.
+- Native host manifest was present and correct.
+- Browser communication still returned unavailable, so the required three mobile viewport playtests remain human-check-needed.
+- Added a `?playtest=true` debug snapshot hook so future browser runs can read elapsed time, HP, kills, fragments, capsules, enemy counts, and elite/capsule telemetry without changing normal gameplay.

@@ -23,6 +23,24 @@ import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule, generateEvolutionReward } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 
+declare global {
+  interface Window {
+    __VAMP_PON_DEBUG_SNAPSHOT__?: {
+      elapsedSec: number;
+      status: RuntimeState['status'];
+      hp: number;
+      level: number;
+      kills: number;
+      fragments: number;
+      capsulesOpened: number;
+      damageTaken: number;
+      enemiesById: Record<string, number>;
+      firstCapsuleSec: number | null;
+      eliteKillSecs: number[];
+    };
+  }
+}
+
 export class MainScene extends Phaser.Scene {
   private state!: RuntimeState;
   private hud!: Hud;
@@ -114,6 +132,31 @@ export class MainScene extends Phaser.Scene {
     }
 
     this.hud.update(state);
+    this.updateDebugSnapshot();
+  }
+
+  private updateDebugSnapshot(): void {
+    if (!this.state.debug) {
+      delete window.__VAMP_PON_DEBUG_SNAPSHOT__;
+      return;
+    }
+    const enemiesById: Record<string, number> = {};
+    for (const enemy of this.state.enemies) {
+      enemiesById[enemy.defId] = (enemiesById[enemy.defId] ?? 0) + 1;
+    }
+    window.__VAMP_PON_DEBUG_SNAPSHOT__ = {
+      elapsedSec: this.state.elapsedSec,
+      status: this.state.status,
+      hp: this.state.player.hp,
+      level: this.state.player.level,
+      kills: this.state.stats.kills,
+      fragments: this.state.stats.memoryFragmentsCollected,
+      capsulesOpened: this.state.stats.capsulesOpened,
+      damageTaken: this.state.stats.damageTaken,
+      enemiesById,
+      firstCapsuleSec: this.state.telemetry.firstCapsuleSec,
+      eliteKillSecs: [...this.state.telemetry.eliteKillSecs],
+    };
   }
 
   private needsReplace(choice: LevelUpChoice): boolean {

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { EnemyBehavior, EnemyDefinition } from '../types';
-import { capsuleDropChanceFor, computeBehaviorStep, enemyConsistencyError } from '../enemyRules';
+import { capsuleDropChanceFor, chargerPhaseFor, computeBehaviorStep, enemyConsistencyError } from '../enemyRules';
 import { enemies } from '../../data/enemies';
 
 function makeEnemy(partial: Partial<EnemyDefinition>): EnemyDefinition {
@@ -83,6 +83,23 @@ describe('computeBehaviorStep', () => {
     expect(computeBehaviorStep({ ...base, elapsedSec: 0, behavior: 'charger' }).speedFactor).toBeLessThan(0.5);
     expect(computeBehaviorStep({ ...base, elapsedSec: 1.3, behavior: 'charger' }).speedFactor).toBeGreaterThan(2);
     expect(computeBehaviorStep({ ...base, elapsedSec: 2.1, behavior: 'charger' }).speedFactor).toBeLessThan(0.3);
+  });
+
+  it('charger phase は windup / dash / recovery の境界を返す', () => {
+    expect(chargerPhaseFor({ iid: 0, elapsedSec: 0 })).toBe('windup');
+    expect(chargerPhaseFor({ iid: 0, elapsedSec: 1.149 })).toBe('windup');
+    expect(chargerPhaseFor({ iid: 0, elapsedSec: 1.15 })).toBe('dash');
+    expect(chargerPhaseFor({ iid: 0, elapsedSec: 1.749 })).toBe('dash');
+    expect(chargerPhaseFor({ iid: 0, elapsedSec: 1.75 })).toBe('recovery');
+  });
+
+  it('charger は dash 中だけ高倍率、recovery は反撃可能な低倍率', () => {
+    const windup = computeBehaviorStep({ ...base, elapsedSec: 0.5, behavior: 'charger' });
+    const dash = computeBehaviorStep({ ...base, elapsedSec: 1.3, behavior: 'charger' });
+    const recovery = computeBehaviorStep({ ...base, elapsedSec: 2.4, behavior: 'charger' });
+    expect(windup.speedFactor).toBeCloseTo(0.34);
+    expect(dash.speedFactor).toBeCloseTo(2.65);
+    expect(recovery.speedFactor).toBeCloseTo(0.18);
   });
 
   it('orbit_chase は近距離で横方向成分を強める', () => {

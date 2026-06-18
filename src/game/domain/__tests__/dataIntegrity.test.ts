@@ -67,11 +67,33 @@ describe('waves データ', () => {
         const hasRate = s.spawnRatePerSecond != null;
         const hasCount = s.spawnCount != null;
         expect(hasRate !== hasCount).toBe(true);
+        if (hasRate) expect(s.spawnRatePerSecond).toBeGreaterThan(0);
+        if (hasCount) expect(s.spawnCount).toBeGreaterThan(0);
+        if (s.maxAlive != null) expect(s.maxAlive).toBeGreaterThan(0);
         const dirs = Object.keys(s.directionWeights);
         expect(dirs.length).toBeGreaterThan(0);
         for (const d of dirs) expect(DIRECTIONS.has(d)).toBe(true);
       }
     }
+  });
+
+  it('時系列順で、定常waveは意図せず重複しない', () => {
+    for (let i = 1; i < waves.length; i += 1) {
+      expect(waves[i].start).toBeGreaterThanOrEqual(waves[i - 1].start);
+      expect(waves[i].start).toBeGreaterThanOrEqual(waves[i - 1].end);
+    }
+  });
+
+  it('0〜150秒で基本・charger・orbit・黒カプセルが登場する', () => {
+    const earlyEnemyIds = new Set(
+      waves
+        .filter((w) => w.start < 150 && w.end > 0)
+        .flatMap((w) => w.spawns.map((s) => s.enemyId)),
+    );
+    expect(earlyEnemyIds.has('ink_shadow')).toBe(true);
+    expect(earlyEnemyIds.has('paper_scrap_shadow')).toBe(true);
+    expect(earlyEnemyIds.has('lost_direction')).toBe(true);
+    expect(earlyEnemyIds.has('black_capsule')).toBe(true);
   });
 
   it('エリート（黒ラベルの影）が 150/300/420 付近に出現する', () => {

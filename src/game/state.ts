@@ -22,7 +22,8 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   });
   if (useCore5Yui) attachCore5PlayerView(playerView);
 
-  const debug = new URLSearchParams(window.location.search).get('debug') === 'true';
+  const params = new URLSearchParams(window.location.search);
+  const debug = params.get('debug') === 'true' || params.get('playtest') === 'true';
   const debugHitCircle = playerView.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
   debugHitCircle?.setVisible(debug);
 
