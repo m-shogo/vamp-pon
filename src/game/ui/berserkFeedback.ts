@@ -8,10 +8,11 @@ const FATIGUE_MAX_ALPHA = 0.2;
 const AFTERIMAGE_DURATION_MS = 180;
 const AFTERIMAGE_OFFSET_PX = 5;
 const FATIGUE_DURATION_SEC = 0.8;
+const COOLDOWN_RESET_EPSILON = 0.08;
 
 /**
- * 暴走の状態変化を画面演出へ変換する。
- * gameplay値や当たり判定には触れず、persistent overlayと短命な残像だけを管理する。
+ * Converts berserk state transitions into lightweight screen feedback.
+ * Gameplay values and collision remain unchanged.
  */
 export class BerserkFeedback {
   private readonly scene: Phaser.Scene;
@@ -21,6 +22,7 @@ export class BerserkFeedback {
   private readonly edgeBottom: Phaser.GameObjects.Rectangle;
   private readonly edgeLeft: Phaser.GameObjects.Rectangle;
   private readonly edgeRight: Phaser.GameObjects.Rectangle;
+  private readonly lastCooldownByWeaponId = new Map<string, number>();
   private wasActive = false;
   private destroyed = false;
 
@@ -47,9 +49,11 @@ export class BerserkFeedback {
     if (this.destroyed) return;
     const active = state.berserk.activeRemaining > 0;
     const fatigued = state.berserk.fatigueRemaining > 0;
+    const weaponFired = this.detectWeaponCooldownReset(state);
 
     if (active && !this.wasActive) this.onBerserkStart(state);
     if (!active && this.wasActive && fatigued) this.onFatigueStart(state);
+    if (active && weaponFired) this.spawnAttackAfterimage(state);
     this.wasActive = active;
 
     if (active) {
@@ -70,7 +74,6 @@ export class BerserkFeedback {
     }
   }
 
-  /** 武器が実際に発射された時だけ呼ぶ。移動中に毎frame生成しない。 */
   spawnAttackAfterimage(state: RuntimeState): void {
     if (this.destroyed || state.berserk.activeRemaining <= 0) return;
     const sprite = state.playerView.getData('playerSprite') as Phaser.GameObjects.Image | undefined;
@@ -105,12 +108,32 @@ export class BerserkFeedback {
   destroy(): void {
     if (this.destroyed) return;
     this.destroyed = true;
+    this.lastCooldownByWeaponId.clear();
     this.activeVeil.destroy();
     this.fatigueVeil.destroy();
     this.edgeTop.destroy();
     this.edgeBottom.destroy();
     this.edgeLeft.destroy();
     this.edgeRight.destroy();
+  }
+
+  private detectWeaponCooldownReset(state: RuntimeState): boolean {
+    let fired = false;
+    const liveIds = new Set<string>();
+
+    for (const weapon of state.inventory.weapons) {
+      liveIds.add(weapon.id);
+      const previous = this.lastCooldownByWeaponId.get(weapon.id);
+      if (previous != null && weapon.cooldownRemaining > previous + COOLDOWN_RESET_EPSILON) {
+        fired = true;
+      }
+      this.lastCooldownByWeaponId.set(weapon.id, weapon.cooldownRemaining);
+    }
+
+    for (const weaponId of this.lastCooldownByWeaponId.keys()) {
+      if (!liveIds.has(weaponId)) this.lastCooldownByWeaponId.delete(weaponId);
+    }
+    return fired;
   }
 
   private onBerserkStart(state: RuntimeState): void {
