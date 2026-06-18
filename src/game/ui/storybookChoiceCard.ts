@@ -38,10 +38,11 @@ export function createStorybookChoiceCard(
   card.add(hit);
 
   const title = choice.title.replace(/^✦ /, '').replace(/^入替: /, '');
+  const badge = `${palette.label} / ${effectTag(choice)}`;
   if (width >= 250) {
-    addHorizontalContent(scene, card, width, height, choice, title, palette.label, accent);
+    addHorizontalContent(scene, card, width, height, choice, title, badge, accent);
   } else {
-    addVerticalContent(scene, card, width, height, choice, title, palette.label, accent);
+    addVerticalContent(scene, card, width, height, choice, title, badge, accent);
   }
 
   return card;
@@ -54,7 +55,7 @@ function addHorizontalContent(
   height: number,
   choice: LevelUpChoice,
   title: string,
-  categoryLabel: string,
+  badge: string,
   accent: number,
 ): void {
   const left = -width / 2;
@@ -74,7 +75,7 @@ function addHorizontalContent(
     strokeThickness: 1,
   }).setOrigin(0, 0));
 
-  card.add(scene.add.text(width / 2 - 14, -height / 2 + 14, categoryLabel, {
+  card.add(scene.add.text(width / 2 - 14, -height / 2 + 14, badge, {
     fontFamily: STORYBOOK_FONT,
     fontSize: '10px',
     color: colorString(accent),
@@ -83,8 +84,6 @@ function addHorizontalContent(
     backgroundColor: '#f4ead4',
     padding: { left: 4, right: 4, top: 2, bottom: 2 },
   }).setOrigin(1, 0));
-
-  addEffectTag(scene, card, left + 103, -height / 2 + 62, choice, accent, false);
 
   card.add(scene.add.text(left + 103, 9, wrapUiText(choice.description, 24, 3), {
     fontFamily: STORYBOOK_FONT,
@@ -107,7 +106,7 @@ function addVerticalContent(
   height: number,
   choice: LevelUpChoice,
   title: string,
-  categoryLabel: string,
+  badge: string,
   accent: number,
 ): void {
   card.add(scene.add.text(0, -height / 2 + 16, wrapUiText(title, 10, 2), {
@@ -123,7 +122,7 @@ function addVerticalContent(
     strokeThickness: 1,
   }).setOrigin(0.5, 0));
 
-  card.add(scene.add.text(0, -height / 2 + 56, categoryLabel, {
+  card.add(scene.add.text(0, -height / 2 + 58, badge, {
     fontFamily: STORYBOOK_FONT,
     fontSize: '10px',
     color: colorString(accent),
@@ -133,12 +132,10 @@ function addVerticalContent(
     padding: { left: 4, right: 4, top: 1, bottom: 1 },
   }).setOrigin(0.5));
 
-  addEffectTag(scene, card, 0, -height / 2 + 77, choice, accent, true);
+  const iconY = -15;
+  addChoiceIcon(scene, card, choice, 0, iconY, 70);
 
-  const iconY = -18;
-  addChoiceIcon(scene, card, choice, 0, iconY, 72);
-
-  card.add(scene.add.text(0, 37, wrapUiText(choice.description, 11, 4), {
+  card.add(scene.add.text(0, 34, wrapUiText(choice.description, 11, 4), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '12px',
     color: '#302932',
@@ -152,40 +149,18 @@ function addVerticalContent(
   }).setOrigin(0.5, 0));
 }
 
-function addEffectTag(
-  scene: Phaser.Scene,
-  card: Phaser.GameObjects.Container,
-  x: number,
-  y: number,
-  choice: LevelUpChoice,
-  accent: number,
-  centered: boolean,
-): void {
-  const label = effectTag(choice);
-  const text = scene.add.text(x, y, label, {
-    fontFamily: STORYBOOK_FONT,
-    fontSize: '10px',
-    color: '#f4ead4',
-    fontStyle: 'bold',
-    resolution: 2,
-    backgroundColor: colorString(accent),
-    padding: { left: 5, right: 5, top: 2, bottom: 2 },
-  }).setOrigin(centered ? 0.5 : 0, 0.5);
-  card.add(text);
-}
-
 function effectTag(choice: LevelUpChoice): string {
   switch (choice.type) {
     case 'weapon_new':
     case 'passive_new':
-      return choice.initialLevel && choice.initialLevel > 1 ? `新規 Lv.1→${choice.initialLevel}` : '新規';
+      return choice.initialLevel && choice.initialLevel > 1 ? `新規 Lv.${choice.initialLevel}` : '新規';
     case 'weapon_upgrade':
     case 'passive_upgrade':
-      return `強化 → Lv.${choice.nextLevel}`;
+      return `Lv.${choice.nextLevel}へ`;
     case 'rare_new':
       return 'レア枠';
     case 'heal':
-      return `回復 +${choice.amount}`;
+      return `HP+${choice.amount}`;
   }
 }
 
