@@ -97,6 +97,7 @@ export function applyCapsule(state: RuntimeState, reward: CapsuleReward): void {
       break;
     }
     case 'currency':
+      state.stats.memoryFragmentsCollected += reward.amount;
       break;
   }
   recomputePlayerStats(state);
