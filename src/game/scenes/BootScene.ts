@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { queueExistingAssets, queuePrototypeAssets, queueStageBackgrounds } from '../assets/loadAssets';
 import { isCore5SpriteSheetPreviewUrl } from './Core5SpriteSheetPreviewScene';
 import { isGalleryUrl, isBackgroundPreviewUrl } from './VisualGalleryScene';
+import { isYui96QaUrl } from './Yui96QaScene';
+import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
 
 export class BootScene extends Phaser.Scene {
@@ -31,6 +33,14 @@ export class BootScene extends Phaser.Scene {
   private startTarget(): void {
     if (isCore5SpriteSheetPreviewUrl()) {
       this.scene.start('Core5SpriteSheetPreviewScene');
+      return;
+    }
+    if (isYui96QaUrl()) {
+      this.scene.start('Yui96QaScene');
+      return;
+    }
+    if (isYuiRageCycleQaUrl()) {
+      this.scene.start('YuiRageCycleQaScene');
       return;
     }
     this.scene.start(isGalleryUrl() ? 'VisualGalleryScene' : 'MainScene');
