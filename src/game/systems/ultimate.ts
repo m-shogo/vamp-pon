@@ -7,6 +7,7 @@ import { distance } from '../utils/math';
 import { damageEnemy } from './enemies';
 import { spawnFragment } from './pickups';
 import { ultimateFlash } from '../ui/effects';
+import { playCharacterCutin } from '../ui/characterCutin';
 import { updatePlayerVisual } from '../ui/playerVisual';
 import { requestYuiExpressionRageSheet } from '../assets/yuiExpressionRageSheet';
 
@@ -72,6 +73,7 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   }
 
   ultimateFlash(scene);
+  playCharacterCutin(scene, 'ultimate');
   const ring = scene.add.circle(p.x, p.y, eff.radius, COLORS.ultReady, 0.3).setDepth(35);
   ring.setScale(0.1);
   scene.tweens.add({
