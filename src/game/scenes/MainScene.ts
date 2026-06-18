@@ -23,6 +23,8 @@ import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule, generateEvolutionReward } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 
+const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
+
 declare global {
   interface Window {
     __VAMP_PON_DEBUG_SNAPSHOT__?: {
@@ -48,6 +50,9 @@ export class MainScene extends Phaser.Scene {
   private stick!: VirtualStick;
   private keys: KeyboardKeys | null = null;
   private spawnSystem!: SpawnSystem;
+  private playtestSnapshotEnabled = false;
+  private lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
+  private lastDebugSnapshotJson = '';
   private onBlur = (): void => this.tryAutoPause();
   private onVisibility = (): void => {
     if (document.hidden) this.tryAutoPause();
@@ -60,6 +65,7 @@ export class MainScene extends Phaser.Scene {
   create(): void {
     this.setupBackground();
     this.state = createInitialState(this);
+    this.playtestSnapshotEnabled = new URLSearchParams(window.location.search).get('playtest') === 'true';
     this.hud = new Hud(
       this,
       () => {
@@ -80,6 +86,7 @@ export class MainScene extends Phaser.Scene {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       window.removeEventListener('blur', this.onBlur);
       document.removeEventListener('visibilitychange', this.onVisibility);
+      this.clearDebugSnapshot();
       this.stick.destroy();
       this.hud.destroy();
     });
@@ -89,7 +96,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.hud.update(this.state);
-    this.updateDebugSnapshot();
+    this.updateDebugSnapshot(true);
   }
 
   private setupBackground(): void {
@@ -136,12 +143,16 @@ export class MainScene extends Phaser.Scene {
     this.updateDebugSnapshot();
   }
 
-  private updateDebugSnapshot(): void {
-    if (!this.state.debug) {
-      delete window.__VAMP_PON_DEBUG_SNAPSHOT__;
-      delete document.documentElement.dataset.vampPonDebugSnapshot;
+  private updateDebugSnapshot(force = false): void {
+    if (!this.state.debug && !this.playtestSnapshotEnabled) {
+      this.clearDebugSnapshot();
       return;
     }
+
+    const now = this.time.now;
+    if (!force && now - this.lastDebugSnapshotAtMs < PLAYTEST_SNAPSHOT_INTERVAL_MS) return;
+    this.lastDebugSnapshotAtMs = now;
+
     const enemiesById: Record<string, number> = {};
     for (const enemy of this.state.enemies) {
       enemiesById[enemy.defId] = (enemiesById[enemy.defId] ?? 0) + 1;
@@ -160,7 +171,18 @@ export class MainScene extends Phaser.Scene {
       eliteKillSecs: [...this.state.telemetry.eliteKillSecs],
     };
     window.__VAMP_PON_DEBUG_SNAPSHOT__ = snapshot;
-    document.documentElement.dataset.vampPonDebugSnapshot = JSON.stringify(snapshot);
+
+    const json = JSON.stringify(snapshot);
+    if (json === this.lastDebugSnapshotJson) return;
+    this.lastDebugSnapshotJson = json;
+    document.documentElement.dataset.vampPonDebugSnapshot = json;
+  }
+
+  private clearDebugSnapshot(): void {
+    delete window.__VAMP_PON_DEBUG_SNAPSHOT__;
+    delete document.documentElement.dataset.vampPonDebugSnapshot;
+    this.lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
+    this.lastDebugSnapshotJson = '';
   }
 
   private needsReplace(choice: LevelUpChoice): boolean {
