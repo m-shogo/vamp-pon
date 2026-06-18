@@ -30,6 +30,16 @@ The character master explains the person. The current sprite sheet is the minimu
 
 Keep only the character's identity anchors and explicit technical delivery format fixed. Shape language, facial construction, costume details, pose, palette balance, and pixel treatment may be redesigned freely when that improves the character.
 
+## Image-production workflow
+
+Follow `docs/154-sprite-image-production-playbook.md`.
+
+- Separate visual approval from technical finishing.
+- Freeze approved art instead of regenerating the full sheet.
+- Correct only named weak cells.
+- Use deterministic tools for exact dimensions, alpha, slicing, manifests, and runtime registration.
+- A visible checkerboard is not proof of transparency; inspect alpha.
+
 ## Shared 180x180 asset-cell rule
 
 Apply this to characters, items, weapons, pickups, effects, and enemies unless a task explicitly specifies another format.
@@ -52,4 +62,4 @@ Current runtime/reference sources:
 
 `public/assets/sprites/` is retired and must not be recreated.
 
-See `docs/153-character-visual-reference-policy.md`.
+See `docs/153-character-visual-reference-policy.md` and `docs/154-sprite-image-production-playbook.md`.
