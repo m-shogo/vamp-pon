@@ -5,7 +5,7 @@ import { waves } from './waves';
 describe('Stage1 wave integrity', () => {
   it('0秒から480秒まで隙間なく時系列でつながる', () => {
     expect(waves[0]?.start).toBe(0);
-    expect(waves.at(-1)?.end).toBe(480);
+    expect(waves[waves.length - 1]?.end).toBe(480);
 
     for (let index = 0; index < waves.length; index += 1) {
       const wave = waves[index];
@@ -40,9 +40,6 @@ describe('Stage1 wave integrity', () => {
         .flatMap((wave) => wave.spawns.map((spawn) => spawn.enemyId)),
     );
 
-    expect(earlyEnemyIds).toEqual(expect.objectContaining({
-      size: expect.any(Number),
-    }));
     expect(earlyEnemyIds.has('ink_shadow')).toBe(true);
     expect(earlyEnemyIds.has('paper_scrap_shadow')).toBe(true);
     expect(earlyEnemyIds.has('lost_direction')).toBe(true);
