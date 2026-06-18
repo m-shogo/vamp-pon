@@ -109,21 +109,35 @@ Final notes:
 
 ## 2026-06-18 Codex verification note
 
-- Date: 2026-06-18 11:30 JST
-- Device / browser: Chrome requested, but Codex Chrome Extension communication was unavailable after setup checks.
+- Date: 2026-06-18 11:45 JST
+- Device / browser: Codex in-app browser, 390x844 mobile portrait viewport. Chrome was also opened to the local run, but Chrome script evaluation became unstable during long checks.
 - Build passed: yes (`pnpm stage1:fun-pass:verify`)
 - Test passed: yes (`pnpm stage1:fun-pass:verify`)
-- Reached time: unverified by live mobile run
-- Player level at 150 sec: unverified by live mobile run
-- Kills at 150 sec: unverified by live mobile run
-- Damage taken: unverified by live mobile run
-- First elite defeated: unverified by live mobile run
-- Capsule opened: unverified by live mobile run
+- Reached time:
+  - Run1: 152.3 sec, survived
+  - Run2: 86.8 sec, game over under automated drag/click control
+  - Run3: 75.8 sec, game over under automated drag/click control
+- Player level at 150 sec:
+  - Run1: Lv.7
+  - Run2: Lv.3 at game over
+  - Run3: Lv.3 at game over
+- Kills:
+  - Run1: 185 at 152.3 sec
+  - Run2: 86 at game over
+  - Run3: 73 at game over
+- Damage taken:
+  - Run1: 40
+  - Run2: 127
+  - Run3: 110
+- First elite defeated: no in browser runs
+- Capsule opened: no in browser runs
 
 Notes:
 
-- Chrome was running.
-- Codex Chrome Extension was installed and enabled in the selected Default profile.
-- Native host manifest was present and correct.
-- Browser communication still returned unavailable, so the required three mobile viewport playtests remain human-check-needed.
-- Added a `?playtest=true` debug snapshot hook so future browser runs can read elapsed time, HP, kills, fragments, capsules, enemy counts, and elite/capsule telemetry without changing normal gameplay.
+- Chrome was running and opened the local Stage1 page, but long evaluation calls through the extension timed out. The mobile viewport run used the in-app browser with visible canvas screenshots.
+- Browser console warnings/errors were empty for the in-app browser runs.
+- The Stage1 canvas filled 390x844 without visible UI overlap in the ready/pause/combat screenshots.
+- Run1 confirmed enemy role progression through 0 to 150 sec: basic Ombu, charger, orbit, black capsule, then first elite spawn.
+- Run1 confirmed the latest runtime background rendered and remained readable behind enemies and HUD.
+- Automated mobile dragging is rougher than human play. Runs 2 and 3 are useful as stress checks, but human tactile validation is still needed before calling the balance final.
+- After Run2/Run3, wave tuning reduced charger/orbit pressure without raising enemy HP, and made black capsule introduction slightly easier to see from the bottom side.

@@ -89,6 +89,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.hud.update(this.state);
+    this.updateDebugSnapshot();
   }
 
   private setupBackground(): void {
@@ -138,13 +139,14 @@ export class MainScene extends Phaser.Scene {
   private updateDebugSnapshot(): void {
     if (!this.state.debug) {
       delete window.__VAMP_PON_DEBUG_SNAPSHOT__;
+      delete document.documentElement.dataset.vampPonDebugSnapshot;
       return;
     }
     const enemiesById: Record<string, number> = {};
     for (const enemy of this.state.enemies) {
       enemiesById[enemy.defId] = (enemiesById[enemy.defId] ?? 0) + 1;
     }
-    window.__VAMP_PON_DEBUG_SNAPSHOT__ = {
+    const snapshot = {
       elapsedSec: this.state.elapsedSec,
       status: this.state.status,
       hp: this.state.player.hp,
@@ -157,6 +159,8 @@ export class MainScene extends Phaser.Scene {
       firstCapsuleSec: this.state.telemetry.firstCapsuleSec,
       eliteKillSecs: [...this.state.telemetry.eliteKillSecs],
     };
+    window.__VAMP_PON_DEBUG_SNAPSHOT__ = snapshot;
+    document.documentElement.dataset.vampPonDebugSnapshot = JSON.stringify(snapshot);
   }
 
   private needsReplace(choice: LevelUpChoice): boolean {

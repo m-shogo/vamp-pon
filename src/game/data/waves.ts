@@ -29,7 +29,7 @@ export const waves: WaveDefinition[] = [
     note: 'Lv2〜3まで寂しくしない。追尾・突進・回り込みを混ぜる。',
     spawns: [
       { enemyId: 'ink_shadow', spawnRatePerSecond: 1.15, maxAlive: 34, directionWeights: { bottom: 60, top: 15, left: 12, right: 13 } },
-      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.21, maxAlive: 6, directionWeights: { bottom: 55, top: 20, left: 12, right: 13 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.19, maxAlive: 5, directionWeights: { bottom: 55, top: 20, left: 12, right: 13 } },
       { enemyId: 'lost_direction', spawnRatePerSecond: 0.08, maxAlive: 3, directionWeights: { bottom: 50, top: 20, left: 15, right: 15 } },
     ],
   },
@@ -39,8 +39,8 @@ export const waves: WaveDefinition[] = [
     note: '回り込みを本格導入。敵数だけでなく逃げ道の作り方を変える。',
     spawns: [
       { enemyId: 'ink_shadow', spawnRatePerSecond: 1.0, maxAlive: 34, directionWeights: { bottom: 55, top: 20, left: 12, right: 13 } },
-      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.29, maxAlive: 8, directionWeights: { bottom: 50, top: 20, left: 15, right: 15 } },
-      { enemyId: 'lost_direction', spawnRatePerSecond: 0.16, maxAlive: 7, directionWeights: { bottom: 45, top: 20, left: 18, right: 17 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.26, maxAlive: 7, directionWeights: { bottom: 50, top: 20, left: 15, right: 15 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.13, maxAlive: 6, directionWeights: { bottom: 45, top: 20, left: 18, right: 17 } },
     ],
   },
   {
@@ -50,7 +50,7 @@ export const waves: WaveDefinition[] = [
     spawns: [
       { enemyId: 'ink_shadow', spawnRatePerSecond: 0.9, maxAlive: 32, directionWeights: { bottom: 55, top: 20, left: 12, right: 13 } },
       { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.26, maxAlive: 8, directionWeights: { bottom: 50, top: 20, left: 15, right: 15 } },
-      { enemyId: 'black_capsule', spawnRatePerSecond: 0.08, maxAlive: 2, directionWeights: { bottom: 50, top: 20, left: 15, right: 15 } },
+      { enemyId: 'black_capsule', spawnRatePerSecond: 0.1, maxAlive: 2, directionWeights: { bottom: 60, top: 20, left: 10, right: 10 } },
     ],
   },
   {
