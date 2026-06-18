@@ -84,6 +84,8 @@ function addHorizontalContent(
     padding: { left: 4, right: 4, top: 2, bottom: 2 },
   }).setOrigin(1, 0));
 
+  addEffectTag(scene, card, left + 103, -height / 2 + 62, choice, accent, false);
+
   card.add(scene.add.text(left + 103, 9, wrapUiText(choice.description, 24, 3), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '12px',
@@ -108,7 +110,7 @@ function addVerticalContent(
   categoryLabel: string,
   accent: number,
 ): void {
-  card.add(scene.add.text(0, -height / 2 + 18, wrapUiText(title, 10, 2), {
+  card.add(scene.add.text(0, -height / 2 + 16, wrapUiText(title, 10, 2), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '14px',
     color: STORYBOOK_UI.textDark,
@@ -121,7 +123,7 @@ function addVerticalContent(
     strokeThickness: 1,
   }).setOrigin(0.5, 0));
 
-  card.add(scene.add.text(0, -height / 2 + 58, categoryLabel, {
+  card.add(scene.add.text(0, -height / 2 + 56, categoryLabel, {
     fontFamily: STORYBOOK_FONT,
     fontSize: '10px',
     color: colorString(accent),
@@ -131,10 +133,12 @@ function addVerticalContent(
     padding: { left: 4, right: 4, top: 1, bottom: 1 },
   }).setOrigin(0.5));
 
+  addEffectTag(scene, card, 0, -height / 2 + 77, choice, accent, true);
+
   const iconY = -18;
   addChoiceIcon(scene, card, choice, 0, iconY, 72);
 
-  card.add(scene.add.text(0, 36, wrapUiText(choice.description, 11, 4), {
+  card.add(scene.add.text(0, 37, wrapUiText(choice.description, 11, 4), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '12px',
     color: '#302932',
@@ -146,6 +150,43 @@ function addVerticalContent(
     backgroundColor: '#f4ead4',
     padding: { left: 3, right: 3, top: 3, bottom: 3 },
   }).setOrigin(0.5, 0));
+}
+
+function addEffectTag(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  x: number,
+  y: number,
+  choice: LevelUpChoice,
+  accent: number,
+  centered: boolean,
+): void {
+  const label = effectTag(choice);
+  const text = scene.add.text(x, y, label, {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '10px',
+    color: '#f4ead4',
+    fontStyle: 'bold',
+    resolution: 2,
+    backgroundColor: colorString(accent),
+    padding: { left: 5, right: 5, top: 2, bottom: 2 },
+  }).setOrigin(centered ? 0.5 : 0, 0.5);
+  card.add(text);
+}
+
+function effectTag(choice: LevelUpChoice): string {
+  switch (choice.type) {
+    case 'weapon_new':
+    case 'passive_new':
+      return choice.initialLevel && choice.initialLevel > 1 ? `新規 Lv.1→${choice.initialLevel}` : '新規';
+    case 'weapon_upgrade':
+    case 'passive_upgrade':
+      return `強化 → Lv.${choice.nextLevel}`;
+    case 'rare_new':
+      return 'レア枠';
+    case 'heal':
+      return `回復 +${choice.amount}`;
+  }
 }
 
 function addChoiceIcon(
