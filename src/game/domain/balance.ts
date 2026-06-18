@@ -10,8 +10,20 @@ export function xpToNext(level: number): number {
   return 6 + (level - 1) * 4;
 }
 
+/** Lv2〜Lv4かつ武器+忘れ物が3個未満なら、新しい遊びを早めに見せる。 */
+export const EARLY_DISCOVERY_MAX_LEVEL = 4;
+export const EARLY_DISCOVERY_MIN_ITEMS = 3;
+
 /** レベルアップ3択の抽選重み（docs/82-4）。 */
 export const LEVELUP_WEIGHTS = {
+  early: {
+    weapon_upgrade: 24,
+    weapon_new: 29,
+    passive_upgrade: 12,
+    passive_new: 24,
+    rare_new: 5,
+    heal: 6,
+  },
   normal: {
     weapon_upgrade: 38,
     weapon_new: 17,
