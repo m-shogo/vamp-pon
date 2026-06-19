@@ -4,7 +4,7 @@ import { passives, passiveById } from '../../data/passives';
 import { rareItems, rareItemById } from '../../data/rareItems';
 import { enemies, enemyById } from '../../data/enemies';
 import { ENEMY_PATTERNS } from '../../data/enemyPatterns';
-import { waves } from '../../data/waves';
+import { stageRecipes, waves } from '../../data/waves';
 import { evolutions } from '../../data/evolutions';
 import { characters } from '../../data/characters';
 import { enemyConsistencyError } from '../enemyRules';
@@ -124,6 +124,21 @@ describe('waves データ', () => {
     expect(starts).toContain(150);
     expect(starts).toContain(300);
     expect(starts).toContain(420);
+  });
+});
+
+describe('stageRecipes データ', () => {
+  it('stageNumber が一意で、wave の patternId が allowedPatternIds に含まれる', () => {
+    expect(new Set(stageRecipes.map((recipe) => recipe.stageNumber)).size).toBe(stageRecipes.length);
+    for (const recipe of stageRecipes) {
+      expect(recipe.allowedPatternIds.length).toBeGreaterThan(0);
+      for (const patternId of recipe.allowedPatternIds) expect(ENEMY_PATTERN_IDS.has(patternId)).toBe(true);
+      for (const wave of recipe.waves) {
+        for (const spawn of wave.spawns) {
+          expect(recipe.allowedPatternIds).toContain(spawn.patternId);
+        }
+      }
+    }
   });
 });
 
