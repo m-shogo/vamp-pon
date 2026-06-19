@@ -11,6 +11,13 @@ import { YUI_FRAME_IDS } from './assets/playerFrames';
 import { attachCore5PlayerView } from './ui/playerVisual';
 import { BERSERK_DURATION_SEC, BERSERK_MAX_CHARGE } from './systems/berserk';
 
+export function requestedStageNumber(search = typeof window === 'undefined' ? '' : window.location.search): number {
+  const params = new URLSearchParams(search);
+  const raw = params.get('stage');
+  const value = raw ? Number(raw) : 1;
+  return Number.isFinite(value) && value >= 1 && value <= 99 ? Math.floor(value) : 1;
+}
+
 export function isBerserkQaReadyRequested(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
   const params = new URLSearchParams(search);
   const qa = params.get('qa') ?? params.get('debug') ?? '';
@@ -47,10 +54,12 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   debugHitCircle?.setVisible(debug);
   const qaBerserkReady = isBerserkQaReadyRequested();
   const qaQuickClear = isQuickClearQaRequested();
+  const stageNumber = requestedStageNumber();
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,
     runId: `r${Date.now().toString(36)}`,
+    stageNumber,
     elapsedSec: 0,
     durationSec: qaQuickClear ? 15 : DEFAULT_GAME_CONFIG.durationSec,
     characterId: char.id,
