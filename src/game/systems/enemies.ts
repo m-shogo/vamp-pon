@@ -17,9 +17,10 @@ import {
 } from '../assets/enemyPrototypeSheet';
 
 const FLASH_SEC = 0.08;
-const NORMAL_HEAL_DROP_CHANCE = 0.035;
-const LOW_HP_HEAL_DROP_CHANCE = 0.09;
+const NORMAL_HEAL_DROP_CHANCE = 0.055;
+const LOW_HP_HEAL_DROP_CHANCE = 0.14;
 const ELITE_HEAL_DROP_CHANCE = 0.75;
+const MAX_ACTIVE_HEAL_PICKUPS = 5;
 const HEAL_AMOUNT = 18;
 const ELITE_HEAL_AMOUNT = 36;
 const DIRECTIONAL_SPRITE_CACHE_KEY = 'enemyPrototypeDirectionalSprite';
@@ -129,6 +130,7 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
 function maybeDropHeal(scene: Phaser.Scene, state: RuntimeState, enemy: EnemyRuntime): void {
   const p = state.player;
   if (p.hp >= p.maxHp) return;
+  if (state.pickups.filter((pickup) => pickup.kind === 'heal').length >= MAX_ACTIVE_HEAL_PICKUPS) return;
 
   const hpRatio = p.hp / p.maxHp;
   const chance = enemy.isElite

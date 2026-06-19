@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import type { RuntimeState } from '../../runtime';
 import { xpToNext } from '../../domain/balance';
 import { generateChoices } from '../levelup';
-import { generateCapsuleReward } from '../capsule';
+import { applyReadyEvolutions, generateCapsuleReward } from '../capsule';
 import { recomputePlayerStats } from '../passives';
 import { weightedPick } from '../../utils/rng';
 import { weaponById } from '../../data/weapons';
@@ -113,16 +113,23 @@ describe('追加データ', () => {
 });
 
 describe('generateCapsuleReward', () => {
-  it('進化条件を満たすと進化を返す', () => {
+  it('進化条件を満たしてもカプセルは進化を返さない', () => {
     const state = makeState({
       weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }],
       passives: [{ id: 'moonlight_bookmark', level: 1 }],
     });
     const reward = generateCapsuleReward(state);
-    expect(reward.type).toBe('evolution');
-    if (reward.type === 'evolution') {
-      expect(reward.evolvedWeaponId).toBe('unfinished_line');
-    }
+    expect(reward.type).not.toBe('evolution');
+  });
+
+  it('進化条件を満たすと所持状態から進化する', () => {
+    const state = makeState({
+      weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }],
+      passives: [{ id: 'moonlight_bookmark', level: 1 }],
+    });
+    const evolved = applyReadyEvolutions(state);
+    expect(evolved).toEqual(['unfinished_line']);
+    expect(state.inventory.weapons.some((weapon) => weapon.id === 'unfinished_line')).toBe(true);
   });
 
   it('進化条件を満たさなければ進化以外を返す', () => {

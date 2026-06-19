@@ -1,0 +1,66 @@
+import Phaser from 'phaser';
+import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
+import { loadProfile } from '../persistence/profile';
+import { STORYBOOK_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+
+export class TopScene extends Phaser.Scene {
+  private notice: Phaser.GameObjects.Text | null = null;
+
+  constructor() {
+    super('TopScene');
+  }
+
+  create(): void {
+    const profile = loadProfile();
+    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1d1a34, 1);
+    const panel = this.add.graphics();
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 348, 700, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
+
+    this.text(GAME_WIDTH / 2, 118, 'VAMP PON', 34, STORYBOOK_UI.textLight, true);
+    this.text(GAME_WIDTH / 2, 164, `黒曜片 ${profile.currency}`, 15, STORYBOOK_UI.goldLight, true);
+    this.text(GAME_WIDTH / 2, 210, '夜をほどく準備をする', 13, STORYBOOK_UI.textMuted);
+
+    this.button(GAME_WIDTH / 2, 306, 220, 52, 'はじめる', () => {
+      this.scene.start('StageSelectScene', { mode: 'stage' });
+    });
+    this.button(GAME_WIDTH / 2, 374, 220, 52, '成長', () => {
+      this.scene.start('StageSelectScene', { mode: 'growth' });
+    }, true);
+    this.button(GAME_WIDTH / 2, 442, 220, 52, '図鑑', () => this.showNotice('図鑑は準備中です'), true);
+    this.button(GAME_WIDTH / 2, 510, 220, 52, '設定', () => this.showNotice('設定は準備中です'), true);
+
+    this.notice = this.text(GAME_WIDTH / 2, 590, '', 13, STORYBOOK_UI.textMuted);
+  }
+
+  private showNotice(value: string): void {
+    this.notice?.setText(value);
+  }
+
+  private text(x: number, y: number, value: string, size: number, color: string | number, bold = false): Phaser.GameObjects.Text {
+    return this.add.text(x, y, value, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: `${size}px`,
+      color: colorString(color),
+      fontStyle: bold ? 'bold' : 'normal',
+      align: 'center',
+      resolution: 2,
+      lineSpacing: 3,
+      stroke: '#080b18',
+      strokeThickness: bold ? 1 : 0,
+    }).setOrigin(0.5);
+  }
+
+  private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.rectangle(0, 0, width, height, muted ? 0x3c355f : 0xb8954e, muted ? 0.82 : 0.95);
+    fill.setStrokeStyle(1, muted ? 0x6f6590 : 0xf5d58a, 0.9);
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    hit.on('pointerdown', onClick);
+    c.add([fill, this.text(0, 0, label, 15, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
+    return c;
+  }
+}
+
+function colorString(value: string | number): string {
+  return typeof value === 'number' ? `#${value.toString(16).padStart(6, '0')}` : value;
+}

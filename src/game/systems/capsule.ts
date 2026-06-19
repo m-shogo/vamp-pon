@@ -26,9 +26,6 @@ export function generateEvolutionReward(state: RuntimeState): CapsuleReward | nu
 export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
   const inv = state.inventory;
 
-  const evolution = generateEvolutionReward(state);
-  if (evolution) return evolution;
-
   const upgradableWeapons = inv.weapons.filter((w) => {
     const def = weaponById.get(w.id);
     return def && w.level < def.maxLevel && !evolvedWeaponIds.has(w.id);
@@ -87,6 +84,17 @@ function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
   return true;
 }
 
+export function applyReadyEvolutions(state: RuntimeState): string[] {
+  const evolved: string[] = [];
+  for (const evo of evolutions) {
+    if (!canEvolve(state, evo)) continue;
+    replaceWeaponWithEvolution(state, evo.id, evo.evolvedWeaponId);
+    evolved.push(evo.evolvedWeaponId);
+  }
+  if (evolved.length > 0) recomputePlayerStats(state);
+  return evolved;
+}
+
 /** カプセル報酬を適用する。 */
 export function applyCapsule(state: RuntimeState, reward: CapsuleReward): void {
   const inv = state.inventory;
@@ -140,7 +148,7 @@ function replaceWeaponWithEvolution(state: RuntimeState, evolutionId: string, ev
   if (!state.inventory.evolvedWeaponIds.includes(evolvedWeaponId)) {
     state.inventory.evolvedWeaponIds.push(evolvedWeaponId);
   }
-  if (!state.stats.evolutions.includes(evolvedWeaponId)) {
+  if (state.stats?.evolutions && !state.stats.evolutions.includes(evolvedWeaponId)) {
     state.stats.evolutions.push(evolvedWeaponId);
   }
 }

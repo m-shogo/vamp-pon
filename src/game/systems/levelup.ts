@@ -11,6 +11,7 @@ import {
   LEVELUP_WEIGHTS,
 } from '../domain/balance';
 import { recomputePlayerStats } from './passives';
+import { applyReadyEvolutions } from './capsule';
 import { weightedPick, sampleWithoutReplacement } from '../utils/rng';
 
 export type Category = 'weapon_upgrade' | 'weapon_new' | 'passive_upgrade' | 'passive_new' | 'rare_new' | 'heal';
@@ -206,7 +207,7 @@ function evolutionHintForChoice(state: RuntimeState, choice: LevelUpChoice): str
   if (relevant.length === 0) return null;
 
   const ready = relevant.find((evo) => evolutionReadyAfterChoice(state, evo, choice));
-  if (ready) return `次のカプセルで${evolutionKindLabel(ready.kind)}可`;
+  if (ready) return `選ぶと${evolutionKindLabel(ready.kind)}可`;
 
   const ownedMain = relevant.find((evo) => {
     const mainLevel = weaponLevelAfterChoice(state, evo.fromWeaponId, choice);
@@ -401,4 +402,5 @@ export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
       break;
   }
   recomputePlayerStats(state);
+  applyReadyEvolutions(state);
 }

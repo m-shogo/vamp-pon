@@ -32,7 +32,7 @@ export function eliteDefeatBeat(scene: Phaser.Scene, x: number, y: number): void
     color: '#ffe7a8',
     fontStyle: 'bold',
     stroke: '#0b0a15',
-    strokeThickness: 4,
+    strokeThickness: 2,
     resolution: 2,
   }).setOrigin(0.5).setDepth(overlayDepth + 1);
 

@@ -3,7 +3,7 @@ import type { RuntimeState } from '../../runtime';
 import { resolveWeapon, num } from '../../domain/weaponEffect';
 import { weaponById } from '../../data/weapons';
 import { applyChoice, generateChoices } from '../levelup';
-import { generateCapsuleReward, applyCapsule } from '../capsule';
+import { applyReadyEvolutions } from '../capsule';
 
 function makeState(partial: {
   weapons?: RuntimeState['inventory']['weapons'];
@@ -115,12 +115,11 @@ describe('applyChoice', () => {
   });
 });
 
-describe('applyCapsule 進化', () => {
+describe('所持条件起点の進化', () => {
   it('進化で元武器が進化武器に置き換わる', () => {
     const state = makeState({ weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }], passives: [{ id: 'moonlight_bookmark', level: 1 }] });
-    const reward = generateCapsuleReward(state);
-    expect(reward.type).toBe('evolution');
-    applyCapsule(state, reward);
+    const evolved = applyReadyEvolutions(state);
+    expect(evolved).toEqual(['unfinished_line']);
 
     expect(state.inventory.weapons.some((w) => w.id === 'night_pencil')).toBe(false);
     expect(state.inventory.weapons.find((w) => w.id === 'unfinished_line')).toBeDefined();
@@ -130,10 +129,8 @@ describe('applyCapsule 進化', () => {
 
   it('黒インク小瓶と街灯の輪がLv5なら1枠の合体進化になる', () => {
     const state = makeState({ weapons: [{ id: 'black_ink_bottle', level: 5, cooldownRemaining: 0 }, { id: 'streetlamp_ring', level: 5, cooldownRemaining: 0 }] });
-    const reward = generateCapsuleReward(state);
-    expect(reward.type).toBe('evolution');
-    if (reward.type === 'evolution') expect(reward.evolvedWeaponId).toBe('dawn_ink_lamp');
-    applyCapsule(state, reward);
+    const evolved = applyReadyEvolutions(state);
+    expect(evolved).toEqual(['dawn_ink_lamp']);
 
     expect(state.inventory.weapons).toHaveLength(1);
     expect(state.inventory.weapons[0]?.id).toBe('dawn_ink_lamp');
@@ -143,10 +140,8 @@ describe('applyCapsule 進化', () => {
 
   it('武器Lv5とレアアイテムで合体進化し、レアアイテムを消費する', () => {
     const state = makeState({ weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }], rareItems: [{ id: 'name_tag' }] });
-    const reward = generateCapsuleReward(state);
-    expect(reward.type).toBe('evolution');
-    if (reward.type === 'evolution') expect(reward.evolvedWeaponId).toBe('unforgotten_name');
-    applyCapsule(state, reward);
+    const evolved = applyReadyEvolutions(state);
+    expect(evolved).toEqual(['unforgotten_name']);
 
     expect(state.inventory.weapons[0]?.id).toBe('unforgotten_name');
     expect(state.inventory.rareItems).toHaveLength(0);
@@ -154,8 +149,8 @@ describe('applyCapsule 進化', () => {
 
   it('レアアイテムなしではレア合体武器にならない', () => {
     const state = makeState({ weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }] });
-    const reward = generateCapsuleReward(state);
-    if (reward.type === 'evolution') expect(reward.evolvedWeaponId).not.toBe('unforgotten_name');
+    const evolved = applyReadyEvolutions(state);
+    expect(evolved).not.toContain('unforgotten_name');
   });
 
   it('進化後は進化元の夜の鉛筆が新武器候補に戻らない', () => {

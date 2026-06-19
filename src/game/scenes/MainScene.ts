@@ -24,11 +24,9 @@ import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
-import { selectRun, settleRunProgress } from '../persistence/profile';
+import { loadProfile, settleRunProgress } from '../persistence/profile';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
-const MAX_RUNTIME_STAGE = 5;
-
 const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
 
 declare global {
@@ -223,7 +221,13 @@ export class MainScene extends Phaser.Scene {
 
   private finishLevelUp(choice: LevelUpChoice): void {
     const state = this.state;
+    const previousEvolutions = new Set(state.stats.evolutions);
     applyChoice(state, choice);
+    for (const evolvedWeaponId of state.stats.evolutions) {
+      if (previousEvolutions.has(evolvedWeaponId)) continue;
+      const name = weaponById.get(evolvedWeaponId)?.name ?? evolvedWeaponId;
+      evolutionBurst(this, state.player.x, state.player.y, `進化: ${name}`, 'upgrade');
+    }
     state.pendingChoices = [];
     state.status = GAME_STATUS.PLAYING;
   }
@@ -318,16 +322,18 @@ export class MainScene extends Phaser.Scene {
     console.log('[vamp-pon playlog]', JSON.stringify({ ...log, settlement }));
 
     const showResult = () => {
-      const nextStage = Math.min(this.stageNumber + 1, MAX_RUNTIME_STAGE);
       this.overlays.showResult(
         state,
         cleared,
         log,
+        settlement,
+        loadProfile().currency,
         () => {
           this.scene.restart();
         },
-        cleared && nextStage > this.stageNumber ? () => this.goToStage(nextStage) : undefined,
-        `Stage ${nextStage}へ`,
+        () => this.goToTop(),
+        () => this.goToMenu('growth'),
+        () => this.goToMenu('stage'),
       );
     };
 
@@ -338,15 +344,25 @@ export class MainScene extends Phaser.Scene {
     }
   }
 
-  private goToStage(stage: number): void {
-    selectRun(stage, this.state.explorationDepth);
+  private goToTop(): void {
+    this.replaceMenuUrl();
+    this.scene.start('TopScene');
+  }
+
+  private goToMenu(mode: 'stage' | 'growth'): void {
+    this.replaceMenuUrl();
+    this.scene.start('StageSelectScene', { mode });
+  }
+
+  private replaceMenuUrl(): void {
     const params = new URLSearchParams(window.location.search);
+    params.delete('play');
     params.delete('scene');
     params.delete('qa');
     params.delete('qaBerserk');
-    params.set('stage', String(stage));
-    params.set('depth', this.state.explorationDepth);
-    window.location.search = params.toString();
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+    window.history.replaceState(null, '', nextUrl);
   }
 }
 

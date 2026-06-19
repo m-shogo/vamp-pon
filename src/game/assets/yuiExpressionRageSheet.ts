@@ -19,8 +19,8 @@ export const YUI_RAGE_SHEET_FRAME = {
   idleFront: [22, 23],
   walk: {
     front: [24, 25],
-    left: [26, 27],
-    right: [28, 29],
+    left: [28, 29],
+    right: [26, 27],
     back: [30, 31],
   },
   cast: { front: 32, left: 33, right: 34, back: 35 },

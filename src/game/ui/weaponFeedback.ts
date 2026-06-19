@@ -104,10 +104,10 @@ export function projectileHitFeedback(scene: Phaser.Scene, kind: ProjectileVisua
 
   const text = scene.add.text(x, y - 12, label, {
     fontFamily: FONT,
-    fontSize: '10px',
+    fontSize: '11px',
     color: '#ffe7a8',
     stroke: '#080914',
-    strokeThickness: 4,
+    strokeThickness: 2,
     resolution: 2,
   }).setOrigin(0.5).setDepth(HIT_DEPTH + 2);
   scene.tweens.add({ targets: text, y: y - 28, alpha: 0, duration: 340, ease: 'Quad.easeOut', onComplete: () => text.destroy() });

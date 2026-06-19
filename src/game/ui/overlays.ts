@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice, CapsuleReward } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import type { PlayLog } from '../domain/playLog';
+import type { RunSettlement } from '../persistence/profile';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { EVOLUTION_ACCENT } from './visualDesign';
@@ -73,13 +74,13 @@ export class Overlays {
     y: number,
     value: string,
     size: number,
-    color: string,
+    color: string | number,
     bold = false,
   ): Phaser.GameObjects.Text {
     return this.scene.add.text(x, y, value, {
       fontFamily: STORYBOOK_FONT,
       fontSize: `${size}px`,
-      color,
+      color: colorString(color),
       fontStyle: bold ? 'bold' : 'normal',
       align: 'center',
       resolution: 2,
@@ -308,7 +309,7 @@ export class Overlays {
       align: 'center',
       resolution: 2,
       stroke: '#080b18',
-      strokeThickness: 4,
+      strokeThickness: 2,
     }).setOrigin(0.5));
     root.add(this.text(GAME_WIDTH / 2, 103, '武器が重なり、新しい形になった', 12, STORYBOOK_UI.textMuted, true));
 
@@ -330,7 +331,7 @@ export class Overlays {
       padding: { left: 8, right: 8, top: 4, bottom: 4 },
     }).setOrigin(0.5));
 
-    resultCard.add(this.scene.add.text(0, 36, wrapUiText(weapon?.description ?? reward.title, 22, 4), {
+    resultCard.add(this.scene.add.text(0, 36, wrapUiText(weapon?.description ?? reward.title, 24, 4), {
       fontFamily: STORYBOOK_FONT,
       fontSize: '13px',
       color: '#4a3b2a',
@@ -341,7 +342,7 @@ export class Overlays {
       padding: { left: 8, right: 8, top: 4, bottom: 4 },
     }).setOrigin(0.5, 0));
 
-    resultCard.add(this.scene.add.text(0, 146, wrapUiText(reward.lore || weapon?.lore || '新しい記憶のかたち。', 24, 3), {
+    resultCard.add(this.scene.add.text(0, 146, wrapUiText(reward.lore || weapon?.lore || '新しい記憶のかたち。', 26, 3), {
       fontFamily: STORYBOOK_FONT,
       fontSize: '11px',
       color: STORYBOOK_UI.textSoft,
@@ -432,9 +433,12 @@ export class Overlays {
     state: RuntimeState,
     cleared: boolean,
     log: PlayLog,
+    settlement: RunSettlement,
+    ownedCurrency: number,
     onRestart: () => void,
-    onNextStage?: () => void,
-    nextStageLabel = '次のステージへ',
+    onTop: () => void,
+    onGrowth: () => void,
+    onStageSelect: () => void,
   ): void {
     const root = this.dim(0.78);
     const panel = this.scene.add.graphics();
@@ -446,28 +450,39 @@ export class Overlays {
     const ss = (survived % 60).toString().padStart(2, '0');
     root.add(this.text(GAME_WIDTH / 2, 118, cleared ? '朝まで残った' : '夜に飲まれた', 26, STORYBOOK_UI.textLight, true));
     root.add(this.text(GAME_WIDTH / 2, 170, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 16, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 228, `倒した影　${stats.kills}\n集めた欠片　${stats.memoryFragmentsCollected}\nカプセル　${stats.capsulesOpened}\n必殺技　${stats.ultimateUses}回`, 15, STORYBOOK_UI.textLight));
+    root.add(this.text(GAME_WIDTH / 2, 220, `倒した影　${stats.kills}\n集めた欠片　${stats.memoryFragmentsCollected}\nカプセル　${stats.capsulesOpened}\n必殺技　${stats.ultimateUses}回`, 14, STORYBOOK_UI.textLight));
     const evolutionNames = stats.evolutions.map((id) => evolutionResultLabel(id)).join(' / ');
-    if (evolutionNames) root.add(this.text(GAME_WIDTH / 2, 350, `変化\n${evolutionNames}`, 12, STORYBOOK_UI.goldLight));
+    if (evolutionNames) root.add(this.text(GAME_WIDTH / 2, 322, `変化 ${evolutionNames}`, 12, STORYBOOK_UI.goldLight));
+    const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
+      ? ` LvUP ${settlement.characterLevelBefore}→${settlement.characterLevelAfter}`
+      : '';
+    root.add(this.text(
+      GAME_WIDTH / 2,
+      386,
+      `黒曜片 +${settlement.currencyEarned}　所持 ${ownedCurrency}\nキャラEXP +${settlement.characterXpEarned}${levelUpText}`,
+      14,
+      STORYBOOK_UI.goldLight,
+      true,
+    ));
     root.add(this.text(GAME_WIDTH / 2, 470, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, STORYBOOK_UI.textMuted));
-    root.add(this.text(GAME_WIDTH / 2, 530, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}\n初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 10, '#9fe0a0'));
+    root.add(this.text(GAME_WIDTH / 2, 524, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}\n初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
 
-    if (cleared && onNextStage) {
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 150, 210, 48, nextStageLabel, () => {
-        this.clear();
-        onNextStage();
-      }));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 94, 176, 40, 'もう一度', () => {
-        this.clear();
-        onRestart();
-      }, true));
-      return;
-    }
-
-    root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 100, 190, 48, 'もう一度', () => {
+    root.add(this.button(GAME_WIDTH / 2 - 88, GAME_HEIGHT - 154, 148, 42, 'もう一度', () => {
       this.clear();
       onRestart();
     }));
+    root.add(this.button(GAME_WIDTH / 2 + 88, GAME_HEIGHT - 154, 148, 42, 'TOPへ', () => {
+      this.clear();
+      onTop();
+    }, true));
+    root.add(this.button(GAME_WIDTH / 2 - 88, GAME_HEIGHT - 98, 148, 42, '成長へ', () => {
+      this.clear();
+      onGrowth();
+    }, true));
+    root.add(this.button(GAME_WIDTH / 2 + 88, GAME_HEIGHT - 98, 148, 42, 'ステージ選択へ', () => {
+      this.clear();
+      onStageSelect();
+    }, true));
   }
 
   showPause(onResume: () => void): void {
@@ -616,6 +631,6 @@ function formatSeconds(value: number | null): string {
   return value === null ? '--' : `${value.toFixed(1)}s`;
 }
 
-function colorString(color: number): string {
-  return '#' + color.toString(16).padStart(6, '0');
+function colorString(color: string | number): string {
+  return typeof color === 'number' ? '#' + color.toString(16).padStart(6, '0') : color;
 }

@@ -80,12 +80,12 @@ export class InventorySlotView {
 
     this.levelText = scene.add.text(badgeX, badgeY, '', {
       fontFamily: UI_FONT,
-      fontSize: `${size <= 26 ? 10 : 11}px`,
+      fontSize: `${size <= 26 ? 11 : 12}px`,
       color: '#fff5d9',
       fontStyle: 'bold',
       resolution: 2,
       stroke: '#080b18',
-      strokeThickness: 3,
+      strokeThickness: 2,
     }).setOrigin(0.5).setVisible(false);
 
     this.container.add([

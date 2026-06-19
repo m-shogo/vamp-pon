@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { RuntimeState } from '../runtime';
-import { applyCapsule, generateCapsuleReward } from './capsule';
+import { applyCapsule, applyReadyEvolutions, generateCapsuleReward } from './capsule';
 
 function makeState(): RuntimeState {
   return {
@@ -33,16 +33,18 @@ function makeState(): RuntimeState {
 }
 
 describe('capsule rewards', () => {
-  it('両武器Lv5ならカプセル報酬で合体し、素材2枠を1枠へまとめる', () => {
+  it('両武器Lv5でもカプセル報酬は合体そのものを返さない', () => {
     const state = makeState();
     const reward = generateCapsuleReward(state);
 
-    expect(reward.type).toBe('evolution');
-    if (reward.type !== 'evolution') return;
-    expect(reward.evolutionKind).toBe('fusion');
-    expect(reward.evolvedWeaponId).toBe('dawn_ink_lamp');
+    expect(reward.type).not.toBe('evolution');
+  });
 
-    applyCapsule(state, reward);
+  it('両武器Lv5なら所持条件から合体し、素材2枠を1枠へまとめる', () => {
+    const state = makeState();
+    const evolved = applyReadyEvolutions(state);
+
+    expect(evolved).toEqual(['dawn_ink_lamp']);
 
     expect(state.inventory.weapons.map((weapon) => weapon.id)).toEqual(['dawn_ink_lamp']);
     expect(state.inventory.evolvedWeaponIds).toContain('dawn_ink_lamp');
@@ -55,9 +57,9 @@ describe('capsule rewards', () => {
     state.inventory.evolvedWeaponIds = [];
     state.stats.evolutions = [];
 
-    const reward = generateCapsuleReward(state);
+    const evolved = applyReadyEvolutions(state);
 
-    expect(reward.type).not.toBe('evolution');
+    expect(evolved).toEqual([]);
   });
 
   it('通貨報酬は記憶のかけらへ実際に加算される', () => {

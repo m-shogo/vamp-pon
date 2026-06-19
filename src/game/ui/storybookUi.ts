@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { InventoryIconCategory } from '../assets/inventoryIcons';
 
-export const STORYBOOK_FONT = '"Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif';
+export const STORYBOOK_FONT = '"M PLUS Rounded 1c", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif';
 export const STORYBOOK_NUMBER_FONT = '"Courier New", monospace';
 
 type StorybookUiTokens = {

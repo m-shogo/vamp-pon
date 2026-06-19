@@ -90,9 +90,9 @@ function addHorizontalContent(
     strokeThickness: 1,
   }).setOrigin(0, 0));
 
-  const description = scene.add.text(textX, 8, wrapUiText(choice.description, 20, 4), {
+  const description = scene.add.text(textX, 8, wrapUiText(choice.description, 24, 3), {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '11px',
+    fontSize: '12px',
     color: '#302932',
     fontStyle: 'bold',
     align: 'left',
@@ -103,7 +103,7 @@ function addHorizontalContent(
     padding: { left: 4, right: 4, top: 3, bottom: 3 },
     fixedWidth: textWidth,
   }).setOrigin(0, 0);
-  description.setCrop(0, 0, textWidth, 66);
+  description.setCrop(0, 0, textWidth, 68);
   card.add(description);
 }
 
@@ -134,9 +134,9 @@ function addVerticalContent(
   addChoiceIcon(scene, card, choice, 0, iconY, 70);
   addBadge(scene, card, 0, 20, badge, accent);
 
-  const description = scene.add.text(0, 34, wrapUiText(choice.description, 10, 5), {
+  const description = scene.add.text(0, 34, wrapUiText(choice.description, 12, 4), {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '11px',
+    fontSize: '12px',
     color: '#302932',
     fontStyle: 'bold',
     align: 'center',

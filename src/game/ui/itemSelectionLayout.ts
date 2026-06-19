@@ -37,7 +37,10 @@ export function replaceRowCenters(itemCount: number): number[] {
 
 /** 日本語を含むUI文を固定行数へ収め、カード内テキストの重なりを防ぐ。 */
 export function wrapUiText(text: string, charsPerLine: number, maxLines: number): string {
-  const normalized = text.replace(/\s+/g, ' ').trim();
+  const normalized = text
+    .replace(/\s*\/\s*/g, ' / ')
+    .replace(/\s+/g, ' ')
+    .trim();
   if (!normalized || charsPerLine <= 0 || maxLines <= 0) return '';
 
   const characters = Array.from(normalized);
@@ -50,11 +53,27 @@ export function wrapUiText(text: string, charsPerLine: number, maxLines: number)
     const take = remainingLines === 1 && remainingCharacters > charsPerLine
       ? Math.max(1, charsPerLine - 1)
       : Math.min(charsPerLine, remainingCharacters);
-    let line = characters.slice(offset, offset + take).join('');
-    offset += take;
+    let end = offset + take;
+    if (end < characters.length && remainingLines > 1) {
+      const preferred = findPreferredBreak(characters, offset, end, Math.max(4, Math.floor(charsPerLine * 0.55)));
+      if (preferred > offset) end = preferred;
+    }
+    let line = characters.slice(offset, end).join('').trim();
+    offset = end;
+    while (characters[offset] === ' ') offset += 1;
     if (lines.length === maxLines - 1 && offset < characters.length) line += '…';
     lines.push(line);
   }
 
   return lines.join('\n');
+}
+
+function findPreferredBreak(characters: string[], start: number, hardEnd: number, minWidth: number): number {
+  for (let i = hardEnd; i > start + minWidth; i -= 1) {
+    const prev = characters[i - 1];
+    const current = characters[i];
+    if (prev === ' ' || prev === '。' || prev === '、' || prev === '／' || prev === '/') return i;
+    if (current === ' ' || current === '。' || current === '、') return i + 1;
+  }
+  return hardEnd;
 }

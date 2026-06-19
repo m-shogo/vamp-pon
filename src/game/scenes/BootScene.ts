@@ -63,6 +63,6 @@ export class BootScene extends Phaser.Scene {
       this.scene.start('VisualGalleryScene');
       return;
     }
-    this.scene.start(isRunStartUrl() ? 'MainScene' : 'StageSelectScene');
+    this.scene.start(isRunStartUrl() ? 'MainScene' : 'TopScene');
   }
 }

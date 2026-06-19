@@ -42,6 +42,12 @@ describe('resolveYuiFrame', () => {
 
   it('移動時は向き別walkのA/Bを返す', () => {
     expect(resolveYuiFrame({
+      facing: 'left', moving: true, walkFrame: 0, hurt: false, ultimate: false,
+    })).toBe(YUI_FRAME_IDS.walk.left[0]);
+    expect(resolveYuiFrame({
+      facing: 'right', moving: true, walkFrame: 0, hurt: false, ultimate: false,
+    })).toBe(YUI_FRAME_IDS.walk.right[0]);
+    expect(resolveYuiFrame({
       facing: 'back', moving: true, walkFrame: 0, hurt: false, ultimate: false,
     })).toBe(YUI_FRAME_IDS.walk.back[0]);
     expect(resolveYuiFrame({
@@ -93,6 +99,16 @@ describe('resolveYuiVisualFrame', () => {
     })).toEqual({
       textureKey: YUI_EXPRESSION_RAGE_SHEET.id,
       frame: YUI_RAGE_SHEET_FRAME.walk.left[1],
+    });
+    expect(resolveYuiVisualFrame({
+      ...visualBase,
+      facing: 'right',
+      moving: true,
+      walkFrame: 1,
+      berserkActiveRemaining: 6,
+    })).toEqual({
+      textureKey: YUI_EXPRESSION_RAGE_SHEET.id,
+      frame: YUI_RAGE_SHEET_FRAME.walk.right[1],
     });
   });
 

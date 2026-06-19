@@ -17,6 +17,8 @@ import {
 import { characters } from '../data/characters';
 import { STORYBOOK_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 
+type StageSelectMode = 'stage' | 'growth';
+
 const DEPTH_ORDER: ExplorationDepthId[] = ['shallow', 'middle', 'deep'];
 const UPGRADE_ORDER: UpgradeId[] = [
   'maxHp',
@@ -37,9 +39,15 @@ export function isRunStartUrl(search = typeof window === 'undefined' ? '' : wind
 export class StageSelectScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
   private confirmingReset = false;
+  private mode: StageSelectMode = 'stage';
 
   constructor() {
     super('StageSelectScene');
+  }
+
+  init(data?: { mode?: StageSelectMode }): void {
+    this.mode = data?.mode ?? 'stage';
+    this.confirmingReset = false;
   }
 
   create(): void {
@@ -57,15 +65,28 @@ export class StageSelectScene extends Phaser.Scene {
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
     root.add(panel);
 
-    root.add(this.text(GAME_WIDTH / 2, 34, '夜へ入る前に', 25, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 34, this.mode === 'growth' ? '黒曜研究所' : 'ステージ選択', 25, STORYBOOK_UI.textLight, true));
     root.add(this.text(GAME_WIDTH / 2, 64, `黒曜片 ${profile.currency}`, 16, STORYBOOK_UI.goldLight, true));
 
-    this.renderStageBlock(root, profile);
-    this.renderDepthBlock(root, profile);
-    this.renderCharacterBlock(root, profile);
-    this.renderUpgradeBlock(root, profile);
-
-    root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 38, 210, 46, '探索を始める', () => this.startRun(profile)));
+    if (this.mode === 'stage') {
+      this.renderStageBlock(root, profile);
+      this.renderDepthBlock(root, profile);
+      this.renderCharacterBlock(root, profile);
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 98, 210, 42, '探索を始める', () => this.startRun(profile)));
+      root.add(this.button(GAME_WIDTH / 2 - 82, GAME_HEIGHT - 38, 136, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
+      root.add(this.button(GAME_WIDTH / 2 + 82, GAME_HEIGHT - 38, 136, 38, '成長へ', () => {
+        this.mode = 'growth';
+        this.render();
+      }, true));
+    } else {
+      this.renderCharacterBlock(root, profile);
+      this.renderUpgradeBlock(root, profile);
+      root.add(this.button(GAME_WIDTH / 2 - 82, GAME_HEIGHT - 38, 136, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
+      root.add(this.button(GAME_WIDTH / 2 + 82, GAME_HEIGHT - 38, 136, 38, '選択へ', () => {
+        this.mode = 'stage';
+        this.render();
+      }, true));
+    }
 
     if (this.confirmingReset) this.renderResetConfirm(root, profile);
   }
@@ -142,7 +163,7 @@ export class StageSelectScene extends Phaser.Scene {
       const cost = upgradeCost(id, level);
       const y = 446 + index * 39;
       root.add(this.text(58, y - 7, `${def.name} Lv.${level}/${def.maxLevel}`, 12, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
-      root.add(this.text(58, y + 10, def.description, 9, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
+      root.add(this.text(58, y + 10, def.description, 11, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
       const label = maxed ? '最大' : `${cost}`;
       const canBuy = !maxed && profile.currency >= cost;
       const b = this.button(GAME_WIDTH - 74, y, 74, 28, label, () => {
@@ -163,24 +184,24 @@ export class StageSelectScene extends Phaser.Scene {
     window.location.search = params.toString();
   }
 
-  private text(x: number, y: number, value: string, size: number, color: string, bold = false): Phaser.GameObjects.Text {
+  private text(x: number, y: number, value: string, size: number, color: string | number, bold = false): Phaser.GameObjects.Text {
     return this.add.text(x, y, value, {
       fontFamily: STORYBOOK_FONT,
       fontSize: `${size}px`,
-      color,
+      color: colorString(color),
       fontStyle: bold ? 'bold' : 'normal',
       align: 'center',
       resolution: 2,
       lineSpacing: 3,
       stroke: '#080b18',
-      strokeThickness: bold ? 2 : 0,
+      strokeThickness: bold ? 1 : 0,
     }).setOrigin(0.5);
   }
 
   private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const fill = this.add.rectangle(0, 0, width, height, muted ? 0x3c355f : 0xb8954e, muted ? 0.82 : 0.95).setName('fill');
-    fill.setStrokeStyle(2, muted ? 0x6f6590 : 0xf5d58a, 0.9);
+    fill.setStrokeStyle(1, muted ? 0x6f6590 : 0xf5d58a, 0.9);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', onClick);
     c.add([fill, this.text(0, 0, label, 12, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
@@ -188,6 +209,6 @@ export class StageSelectScene extends Phaser.Scene {
   }
 }
 
-function colorString(value: number): string {
-  return `#${value.toString(16).padStart(6, '0')}`;
+function colorString(value: string | number): string {
+  return typeof value === 'number' ? `#${value.toString(16).padStart(6, '0')}` : value;
 }
