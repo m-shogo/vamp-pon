@@ -24,6 +24,7 @@ import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
+import { selectRun, settleRunProgress } from '../persistence/profile';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const MAX_RUNTIME_STAGE = 5;
@@ -62,6 +63,7 @@ export class MainScene extends Phaser.Scene {
   private lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
   private lastDebugSnapshotJson = '';
   private stageNumber = 1;
+  private resultEntered = false;
   private onBlur = (): void => this.tryAutoPause();
   private onVisibility = (): void => {
     if (document.hidden) this.tryAutoPause();
@@ -72,8 +74,10 @@ export class MainScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.resultEntered = false;
     this.setupBackground();
     this.state = createInitialState(this);
+    this.stageNumber = this.state.stageNumber;
     this.playtestSnapshotEnabled = new URLSearchParams(window.location.search).get('playtest') === 'true';
     this.hud = new Hud(
       this,
@@ -303,12 +307,15 @@ export class MainScene extends Phaser.Scene {
   }
 
   private enterResult(cleared: boolean): void {
+    if (this.resultEntered) return;
+    this.resultEntered = true;
     const state = this.state;
     state.status = cleared ? GAME_STATUS.CLEARED : GAME_STATUS.GAMEOVER;
     state.stats.survivedSec = state.elapsedSec;
     const log = buildPlayLog(state, cleared);
+    const settlement = settleRunProgress(state, cleared);
     // eslint-disable-next-line no-console
-    console.log('[vamp-pon playlog]', JSON.stringify(log));
+    console.log('[vamp-pon playlog]', JSON.stringify({ ...log, settlement }));
 
     const showResult = () => {
       const nextStage = Math.min(this.stageNumber + 1, MAX_RUNTIME_STAGE);
@@ -332,11 +339,13 @@ export class MainScene extends Phaser.Scene {
   }
 
   private goToStage(stage: number): void {
+    selectRun(stage, this.state.explorationDepth);
     const params = new URLSearchParams(window.location.search);
     params.delete('scene');
     params.delete('qa');
     params.delete('qaBerserk');
     params.set('stage', String(stage));
+    params.set('depth', this.state.explorationDepth);
     window.location.search = params.toString();
   }
 }
