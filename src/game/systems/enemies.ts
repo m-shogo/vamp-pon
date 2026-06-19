@@ -10,6 +10,7 @@ import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { capsuleRewardBurst, inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
+import { depthForState, profileBonuses } from '../persistence/profile';
 import {
   ENEMY_PROTOTYPE_SHEETS,
   enemyPrototypeFacingForMotion,
@@ -30,21 +31,23 @@ export function spawnEnemy(
   x: number,
   y: number,
 ): void {
+  const depth = depthForState(state);
   const radius = enemyRadiusFor(def);
   const view = createEnemyView(scene, def, radius);
   view.setPosition(x, y);
   const isElite = def.tags.includes('elite');
   const capsuleDropChance = capsuleDropChanceFor(def);
+  const hp = Math.max(1, def.hp * depth.enemyHp);
   const enemy: EnemyRuntime = {
     iid: nextIid(state),
     defId: def.id,
     x,
     y,
-    hp: def.hp,
-    maxHp: def.hp,
-    moveSpeed: def.moveSpeed,
-    contactDamage: def.contactDamage,
-    xpDrop: def.xpDrop,
+    hp,
+    maxHp: hp,
+    moveSpeed: def.moveSpeed * depth.enemySpeed,
+    contactDamage: def.contactDamage * depth.enemyDamage,
+    xpDrop: def.xpDrop * depth.xp,
     radius,
     behavior: def.behavior,
     isElite,
@@ -62,7 +65,8 @@ export function spawnEnemy(
 export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amount: number): void {
   const p = state.player;
   if (p.invulnRemaining > 0) return;
-  const appliedDamage = Math.min(p.hp, Math.max(0, amount));
+  const reducedAmount = amount * profileBonuses().damageTakenMultiplier;
+  const appliedDamage = Math.min(p.hp, Math.max(0, reducedAmount));
   if (appliedDamage <= 0) return;
   p.hp -= appliedDamage;
   state.stats.damageTaken += appliedDamage;
@@ -100,7 +104,7 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     state.telemetry.eliteKillSecs.push(state.elapsedSec);
   }
 
-  const count = Math.max(1, Math.min(enemy.xpDrop, 5));
+  const count = Math.max(1, Math.min(Math.ceil(enemy.xpDrop), 5));
   const per = enemy.xpDrop / count;
   for (let i = 0; i < count; i += 1) {
     const ox = count > 1 ? randRange(-12, 12) : 0;
@@ -259,23 +263,12 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       e.flashRemaining = Math.max(0, e.flashRemaining - dt);
       if (e.flashRemaining === 0) {
         const blob = e.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
-        const baseFill = (e.view.getData('baseFill') as number | undefined) ?? COLORS.enemyInk;
-        const baseAlpha = (e.view.getData('baseAlpha') as number | undefined) ?? 1;
-        if (blob) blob.setFillStyle(baseFill, baseAlpha);
+        if (blob) blob.setFillStyle(e.isElite ? COLORS.enemyElite : COLORS.enemyInk, 1);
       }
     }
 
-    if (e.hpBar) {
-      e.hpBar.clear();
-      const w = e.radius * 2;
-      const ratio = Math.max(0, e.hp / e.maxHp);
-      e.hpBar.fillStyle(COLORS.hpBack, 0.8).fillRect(e.x - e.radius, e.y - e.radius - 8, w, 4);
-      e.hpBar.fillStyle(COLORS.hpFill, 1).fillRect(e.x - e.radius, e.y - e.radius - 8, w * ratio, 4);
-    }
-
-    if (p.invulnRemaining <= 0 && distance(e.x, e.y, p.x, p.y) <= p.radius + e.radius) {
-      applyPlayerDamage(scene, state, e.contactDamage);
-    }
+    const d = distance(e.x, e.y, p.x, p.y);
+    if (d <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage);
   }
 
   state.enemies = state.enemies.filter((e) => !e.dead);
