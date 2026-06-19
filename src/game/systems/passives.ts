@@ -16,7 +16,7 @@ export function recomputePlayerStats(state: RuntimeState): void {
   let magnet = base.magnetMultiplier * permanent.magnetMultiplier;
   let xpMul = base.xpMultiplier * permanent.xpMultiplier;
   let cooldown = base.cooldownMultiplier;
-  let moveMul = permanent.moveSpeedMultiplier;
+  let moveMul = 1;
 
   for (const owned of state.inventory.passives) {
     const def = passiveById.get(owned.id);
