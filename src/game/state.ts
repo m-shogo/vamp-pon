@@ -25,6 +25,11 @@ export function isBerserkQaAutoRequested(search = typeof window === 'undefined' 
   return qa === 'berserk-auto' || qaBerserk === 'auto';
 }
 
+export function isQuickClearQaRequested(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
+  const params = new URLSearchParams(search);
+  return params.get('qa') === 'quick-clear' || params.get('qaClear') === 'quick';
+}
+
 export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAULT_CHARACTER_ID): RuntimeState {
   const char = characterById.get(characterId) ?? characterById.get(DEFAULT_CHARACTER_ID)!;
   const px = GAME_WIDTH / 2;
@@ -41,12 +46,13 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const debugHitCircle = playerView.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
   debugHitCircle?.setVisible(debug);
   const qaBerserkReady = isBerserkQaReadyRequested();
+  const qaQuickClear = isQuickClearQaRequested();
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,
     runId: `r${Date.now().toString(36)}`,
     elapsedSec: 0,
-    durationSec: DEFAULT_GAME_CONFIG.durationSec,
+    durationSec: qaQuickClear ? 15 : DEFAULT_GAME_CONFIG.durationSec,
     characterId: char.id,
     playerView,
     player: {
