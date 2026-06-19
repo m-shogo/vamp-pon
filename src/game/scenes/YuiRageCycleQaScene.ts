@@ -34,23 +34,23 @@ const BASE_STATE: YuiVisualFrameState = {
 
 const STEPS: Array<{ label: string; state: YuiVisualFrameState }> = [
   { label: '通常待機', state: { ...BASE_STATE } },
-  { label: '充填 25%', state: { ...BASE_STATE, berserkCharge: 25 } },
-  { label: '充填 50%', state: { ...BASE_STATE, berserkCharge: 50 } },
-  { label: '充填 75%', state: { ...BASE_STATE, berserkCharge: 75 } },
-  { label: '発動可能・震え', state: { ...BASE_STATE, berserkCharge: 100, berserkReady: true } },
-  { label: '発動・うずくまり', state: { ...BASE_STATE, berserkActiveRemaining: 7.9 } },
-  { label: '変身ピーク', state: { ...BASE_STATE, berserkActiveRemaining: 7.7 } },
-  { label: '暴走待機 A', state: { ...BASE_STATE, berserkActiveRemaining: 6.8, walkFrame: 0 } },
-  { label: '暴走待機 B', state: { ...BASE_STATE, berserkActiveRemaining: 6.1, walkFrame: 1 } },
-  { label: '暴走・前移動 A', state: { ...BASE_STATE, moving: true, walkFrame: 0, berserkActiveRemaining: 5.5 } },
-  { label: '暴走・前移動 B', state: { ...BASE_STATE, moving: true, walkFrame: 1, berserkActiveRemaining: 5 } },
-  { label: '暴走・左移動', state: { ...BASE_STATE, facing: 'left', moving: true, walkFrame: 0, berserkActiveRemaining: 4.5 } },
-  { label: '暴走・右移動', state: { ...BASE_STATE, facing: 'right', moving: true, walkFrame: 1, berserkActiveRemaining: 4 } },
-  { label: '暴走・背面移動', state: { ...BASE_STATE, facing: 'back', moving: true, walkFrame: 0, berserkActiveRemaining: 3.5 } },
-  { label: '暴走中の被弾', state: { ...BASE_STATE, hurt: true, berserkActiveRemaining: 2.8 } },
-  { label: '崩落', state: { ...BASE_STATE, berserkActiveRemaining: 0.4 } },
-  { label: 'ゲージ切れ', state: { ...BASE_STATE, berserkActiveRemaining: 0.15 } },
-  { label: '終了後の疲労', state: { ...BASE_STATE, berserkFatigueRemaining: 0.6 } },
+  { label: '黒耀充填 25%', state: { ...BASE_STATE, berserkCharge: 25 } },
+  { label: '黒耀充填 50%', state: { ...BASE_STATE, berserkCharge: 50 } },
+  { label: '黒耀充填 75%', state: { ...BASE_STATE, berserkCharge: 75 } },
+  { label: '黒耀化可能・震え', state: { ...BASE_STATE, berserkCharge: 100, berserkReady: true } },
+  { label: '黒灯化・うずくまり', state: { ...BASE_STATE, berserkActiveRemaining: 7.9 } },
+  { label: '黒灯化ピーク', state: { ...BASE_STATE, berserkActiveRemaining: 7.7 } },
+  { label: '黒灯待機 A', state: { ...BASE_STATE, berserkActiveRemaining: 6.8, walkFrame: 0 } },
+  { label: '黒灯待機 B', state: { ...BASE_STATE, berserkActiveRemaining: 6.1, walkFrame: 1 } },
+  { label: '黒灯・前移動 A', state: { ...BASE_STATE, moving: true, walkFrame: 0, berserkActiveRemaining: 5.5 } },
+  { label: '黒灯・前移動 B', state: { ...BASE_STATE, moving: true, walkFrame: 1, berserkActiveRemaining: 5 } },
+  { label: '黒灯・左移動', state: { ...BASE_STATE, facing: 'left', moving: true, walkFrame: 0, berserkActiveRemaining: 4.5 } },
+  { label: '黒灯・右移動', state: { ...BASE_STATE, facing: 'right', moving: true, walkFrame: 1, berserkActiveRemaining: 4 } },
+  { label: '黒灯・背面移動', state: { ...BASE_STATE, facing: 'back', moving: true, walkFrame: 0, berserkActiveRemaining: 3.5 } },
+  { label: '黒灯中の被弾', state: { ...BASE_STATE, hurt: true, berserkActiveRemaining: 2.8 } },
+  { label: '黒灯崩落', state: { ...BASE_STATE, berserkActiveRemaining: 0.4 } },
+  { label: '黒耀ゲージ切れ', state: { ...BASE_STATE, berserkActiveRemaining: 0.15 } },
+  { label: '黒耀反動', state: { ...BASE_STATE, berserkFatigueRemaining: 0.6 } },
   { label: '通常へ復帰', state: { ...BASE_STATE } },
 ];
 
@@ -89,7 +89,7 @@ export class YuiRageCycleQaScene extends Phaser.Scene {
     createBackground(this);
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x101124, 0.8);
 
-    this.add.text(GAME_WIDTH / 2, 20, 'ユイ暴走 Runtime遷移 QA', {
+    this.add.text(GAME_WIDTH / 2, 20, 'ユイ黒灯化 Runtime遷移 QA', {
       fontFamily: FONT,
       fontSize: '17px',
       color: '#fff2c7',
