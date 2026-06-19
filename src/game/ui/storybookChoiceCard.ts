@@ -5,7 +5,9 @@ import {
   resolveInventoryIconTexture,
   type InventoryIconCategory,
 } from '../assets/inventoryIcons';
+import { VIEW_DEPTH } from './factory';
 import { wrapUiText } from './itemSelectionLayout';
+import { attachPressFeedback } from './pressFeedback';
 import {
   STORYBOOK_FONT,
   STORYBOOK_UI,
@@ -34,6 +36,16 @@ export function createStorybookChoiceCard(
 
   const hit = scene.add.rectangle(0, 0, width, height, 0x000000, 0.001)
     .setInteractive({ useHandCursor: true });
+  attachPressFeedback(scene, hit, card, {
+    x: cx,
+    y: cy,
+    width,
+    height,
+    accent,
+    depth: VIEW_DEPTH.overlay + 14,
+    strong: choice.rarity === 'rare' || choice.type === 'rare_new',
+    shake: choice.rarity === 'rare' || choice.type === 'rare_new',
+  });
   hit.on('pointerdown', onClick);
   card.add(hit);
 
