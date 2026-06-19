@@ -150,6 +150,7 @@ export function createTelemetry(): RunTelemetry {
 export type RuntimeState = {
   status: GameStatus;
   runId: string;
+  stageNumber: number;
   elapsedSec: number;
   durationSec: number;
   characterId: Id;
