@@ -49,6 +49,27 @@ export const assetManifest: AssetManifestEntry[] = [
   ...YUI_EXPRESSION_FRAME_ASSETS,
   ...YUI_RAGE_FRAME_ASSETS,
 
+  {
+    id: 'yui_cutin_ultimate',
+    path: '/assets/prototypes/cutins/yui/yui-cutin-ultimate-normal-1440x360-rgba.png',
+    width: 1440,
+    height: 360,
+    kind: 'ui',
+    description: 'ユイ通常必殺の横長カットイン。1440x360 RGBA。',
+    required: false,
+    fallback: false,
+  },
+  {
+    id: 'yui_cutin_berserk',
+    path: '/assets/prototypes/cutins/yui/yui-cutin-ultimate-black-v2-1440x360-rgba.png',
+    width: 1440,
+    height: 360,
+    kind: 'ui',
+    description: 'ユイ黒耀化の横長カットイン。1440x360 RGBA。',
+    required: false,
+    fallback: false,
+  },
+
   fallbackOnly('yui_idle', 'player', '旧ユイidle互換キー。実画像はCore5 original framesを使用。', 42, 42),
   fallbackOnly('yui_move', 'player', '旧ユイmove互換キー。実画像はCore5 original framesを使用。', 42, 42),
   fallbackOnly('yui_hurt', 'player', '旧ユイhurt互換キー。実画像はCore5 original framesを使用。', 42, 42),
