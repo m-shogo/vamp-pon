@@ -24,6 +24,9 @@ import { hasPendingLevelUp, advanceLevel } from '../systems/xp';
 import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
+import { settleRun, selectRun, type ExplorationDepthId } from '../persistence/profile';
+
+type BootMode = 'menu' | 'play' | 'lab';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const MAX_RUNTIME_STAGE = 5;
@@ -62,6 +65,7 @@ export class MainScene extends Phaser.Scene {
   private lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
   private lastDebugSnapshotJson = '';
   private stageNumber = 1;
+  private bootMode: BootMode = 'menu';
   private onBlur = (): void => this.tryAutoPause();
   private onVisibility = (): void => {
     if (document.hidden) this.tryAutoPause();
@@ -69,6 +73,10 @@ export class MainScene extends Phaser.Scene {
 
   constructor() {
     super('MainScene');
+  }
+
+  init(data?: { mode?: BootMode }): void {
+    this.bootMode = data?.mode ?? 'menu';
   }
 
   create(): void {
@@ -107,15 +115,55 @@ export class MainScene extends Phaser.Scene {
       this.hud.destroy();
     });
 
-    this.overlays.showReady(() => {
-      this.state.status = GAME_STATUS.PLAYING;
-      if (isBerserkQaAutoRequested()) this.state.berserkRequested = true;
-    });
+    this.routeBoot();
 
     this.hud.update(this.state);
     this.pacingEffects.update(this.state);
     this.berserkFeedback.update(this.state);
     this.updateDebugSnapshot(true);
+  }
+
+  private routeBoot(): void {
+    const params = new URLSearchParams(window.location.search);
+    const legacyDirect = params.has('qa') || params.has('qaBerserk') || params.has('qaClear') || params.has('stage');
+    if (legacyDirect) {
+      this.overlays.showReady(() => this.beginRun());
+      return;
+    }
+    if (this.bootMode === 'play') { this.beginRun(); return; }
+    if (this.bootMode === 'lab') { this.showLab(); return; }
+    this.showMenu();
+  }
+
+  private beginRun(): void {
+    this.state.status = GAME_STATUS.PLAYING;
+    if (isBerserkQaAutoRequested()) this.state.berserkRequested = true;
+  }
+
+  private showMenu(): void {
+    this.overlays.showStageSelect({
+      maxStages: MAX_RUNTIME_STAGE,
+      onStart: (stage, depth) => this.startRun(stage, depth),
+      onOpenLab: () => this.showLab(),
+    });
+  }
+
+  private showLab(): void {
+    this.overlays.showLab(() => this.showMenu());
+  }
+
+  /** メニュー選択をプロフィールへ保存し、URLのQA/stage指定を消してから本編を開始する。 */
+  private startRun(stage: number, depth: ExplorationDepthId): void {
+    selectRun(stage, depth);
+    this.restartTo('play');
+  }
+
+  private restartTo(mode: BootMode): void {
+    const params = new URLSearchParams(window.location.search);
+    ['stage', 'qa', 'qaBerserk', 'qaClear', 'scene'].forEach((k) => params.delete(k));
+    const query = params.toString();
+    window.history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
+    this.scene.restart({ mode });
   }
 
   private setupBackground(): void {
@@ -310,18 +358,18 @@ export class MainScene extends Phaser.Scene {
     // eslint-disable-next-line no-console
     console.log('[vamp-pon playlog]', JSON.stringify(log));
 
+    // 結果をプロフィールへ精算（黒曜片・キャラEXP・解放・記録）。
+    const settlement = settleRun(state, cleared);
+
     const showResult = () => {
-      const nextStage = Math.min(this.stageNumber + 1, MAX_RUNTIME_STAGE);
-      this.overlays.showResult(
+      this.overlays.showResult({
         state,
         cleared,
-        log,
-        () => {
-          this.scene.restart();
-        },
-        cleared && nextStage > this.stageNumber ? () => this.goToStage(nextStage) : undefined,
-        `Stage ${nextStage}へ`,
-      );
+        settlement,
+        onRetry: () => this.startRun(state.stageNumber, state.explorationDepth),
+        onStageSelect: () => this.restartTo('menu'),
+        onLab: () => this.restartTo('lab'),
+      });
     };
 
     if (cleared) {
@@ -329,15 +377,6 @@ export class MainScene extends Phaser.Scene {
     } else {
       showResult();
     }
-  }
-
-  private goToStage(stage: number): void {
-    const params = new URLSearchParams(window.location.search);
-    params.delete('scene');
-    params.delete('qa');
-    params.delete('qaBerserk');
-    params.set('stage', String(stage));
-    window.location.search = params.toString();
   }
 }
 

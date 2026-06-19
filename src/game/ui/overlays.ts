@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice, CapsuleReward } from '../domain/types';
 import type { RuntimeState } from '../runtime';
-import type { PlayLog } from '../domain/playLog';
 import { COLORS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { EVOLUTION_ACCENT } from './visualDesign';
@@ -36,6 +35,21 @@ import {
   drawStorybookPanel,
   storybookCategoryPalette,
 } from './storybookUi';
+import {
+  EXPLORATION_DEPTHS,
+  EXPLORATION_DEPTH_ORDER,
+  UPGRADE_DEFS,
+  UPGRADE_ORDER,
+  getUpgradeLevel,
+  upgradeCost,
+  getUpgradeRefundAmount,
+  spendUpgrade,
+  resetUpgrades,
+  loadProfile,
+  depthClearKey,
+  type ExplorationDepthId,
+  type RunSettlement,
+} from '../persistence/profile';
 
 const D = VIEW_DEPTH.overlay;
 const LIST_ICON_SIZE = 46;
@@ -103,6 +117,228 @@ export class Overlays {
       this.clear();
       onStart();
     }));
+  }
+
+  /** ステージと探索深度を選ぶ画面。スマホ縦 390x844 前提。 */
+  showStageSelect(opts: {
+    maxStages: number;
+    onStart: (stage: number, depth: ExplorationDepthId) => void;
+    onOpenLab: () => void;
+  }): void {
+    const maxStages = Math.max(1, opts.maxStages);
+    const initial = loadProfile();
+    let stage = Math.min(maxStages, Math.max(1, initial.selectedStage));
+    let depth: ExplorationDepthId = initial.selectedDepth;
+
+    const render = (): void => {
+      const profile = loadProfile();
+      const unlocked = new Set(profile.unlockedStages);
+      if (!unlocked.has(stage)) stage = 1;
+      const root = this.dim(0.74);
+      const panel = this.scene.add.graphics();
+      drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH - 16, GAME_HEIGHT - 36, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.97);
+      root.add(panel);
+
+      root.add(this.text(GAME_WIDTH / 2, 60, '夜の探索', 26, STORYBOOK_UI.textLight, true));
+      root.add(this.text(GAME_WIDTH / 2, 94, `黒曜片  ◆ ${profile.currency}`, 14, STORYBOOK_UI.goldLight, true));
+
+      // ステージ一覧
+      root.add(this.text(GAME_WIDTH / 2, 132, 'ステージ', 12, STORYBOOK_UI.textMuted, true));
+      const listTop = 162;
+      for (let i = 0; i < maxStages; i += 1) {
+        const s = i + 1;
+        const y = listTop + i * 58;
+        const isUnlocked = unlocked.has(s);
+        const selected = s === stage && isUnlocked;
+        const clears = EXPLORATION_DEPTH_ORDER
+          .map((d) => (profile.clears[depthClearKey(s, d)] ? EXPLORATION_DEPTHS[d].shortLabel : '・'))
+          .join('');
+        const sub = isUnlocked ? `踏破 ${clears}` : '未解放';
+        root.add(this.optionCard(
+          GAME_WIDTH / 2, y, GAME_WIDTH - 56, 50,
+          `Stage ${s}`, sub, selected, isUnlocked,
+          () => { if (isUnlocked) { stage = s; render(); } },
+        ));
+      }
+
+      // 探索深度
+      const depthY = listTop + maxStages * 58 + 26;
+      root.add(this.text(GAME_WIDTH / 2, depthY - 26, '探索深度', 12, STORYBOOK_UI.textMuted, true));
+      const cellW = (GAME_WIDTH - 56) / 3;
+      EXPLORATION_DEPTH_ORDER.forEach((d, idx) => {
+        const cfg = EXPLORATION_DEPTHS[d];
+        const x = 28 + cellW * idx + cellW / 2;
+        root.add(this.optionCard(
+          x, depthY + 16, cellW - 8, 56,
+          cfg.label, `報酬 ×${cfg.reward}`, d === depth, true,
+          () => { depth = d; render(); },
+        ));
+      });
+
+      const cur = EXPLORATION_DEPTHS[depth];
+      root.add(this.text(GAME_WIDTH / 2, depthY + 64, `報酬 ×${cur.reward}　経験値 ×${cur.xp}　敵HP ×${cur.enemyHp}`, 11, STORYBOOK_UI.textMuted));
+
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 150, 200, 50, '夜へ進む', () => {
+        this.clear();
+        opts.onStart(stage, depth);
+      }));
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 90, 184, 42, '黒曜研究所へ', () => {
+        this.clear();
+        opts.onOpenLab();
+      }, true));
+    };
+
+    render();
+  }
+
+  /** 黒曜研究所：黒曜片で永続強化を買う／リセットする。 */
+  showLab(onBack: () => void): void {
+    let confirmingReset = false;
+
+    const render = (): void => {
+      const profile = loadProfile();
+      const root = this.dim(0.78);
+      const panel = this.scene.add.graphics();
+      drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH - 16, GAME_HEIGHT - 36, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.97);
+      root.add(panel);
+
+      root.add(this.text(GAME_WIDTH / 2, 52, '黒曜研究所', 24, STORYBOOK_UI.textLight, true));
+      root.add(this.text(GAME_WIDTH / 2, 82, `黒曜片  ◆ ${profile.currency}`, 14, STORYBOOK_UI.goldLight, true));
+
+      const listTop = 116;
+      const rowH = 60;
+      UPGRADE_ORDER.forEach((id, idx) => {
+        const def = UPGRADE_DEFS[id];
+        const level = getUpgradeLevel(id, profile);
+        const maxed = level >= def.maxLevel;
+        const cost = maxed ? Infinity : upgradeCost(id, level);
+        const pct = Math.round(def.valuePerLevel * 1000) / 10;
+        const sign = def.negative ? '-' : '+';
+        const effect = `Lvごと ${sign}${pct}%`;
+        const y = listTop + idx * rowH;
+        root.add(this.upgradeRow({
+          y, name: def.name, level, maxLevel: def.maxLevel, effect,
+          cost, maxed, affordable: Number.isFinite(cost) && profile.currency >= cost,
+          onBuy: () => {
+            if (maxed) return;
+            spendUpgrade(id);
+            render();
+          },
+        }));
+      });
+
+      root.add(this.button(GAME_WIDTH / 2 - 92, GAME_HEIGHT - 70, 168, 44, '戻る', () => {
+        this.clear();
+        onBack();
+      }));
+      root.add(this.button(GAME_WIDTH / 2 + 92, GAME_HEIGHT - 70, 168, 44, 'リセット', () => {
+        confirmingReset = true;
+        renderResetConfirm();
+      }, true));
+    };
+
+    const renderResetConfirm = (): void => {
+      if (!confirmingReset) return;
+      const profile = loadProfile();
+      const refund = getUpgradeRefundAmount(profile);
+      const root = this.dim(0.82);
+      const panel = this.scene.add.graphics();
+      drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 240, STORYBOOK_UI.nightPanel, STORYBOOK_UI.special, 0.98);
+      root.add(panel);
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 78, '強化をリセット', 20, STORYBOOK_UI.textLight, true));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 30, `黒曜片を全額 (◆ ${refund}) 返還します。\nいつでも振り直せます。`, 12, STORYBOOK_UI.textMuted));
+      root.add(this.button(GAME_WIDTH / 2 - 78, GAME_HEIGHT / 2 + 56, 140, 44, 'やめる', () => {
+        confirmingReset = false;
+        render();
+      }));
+      root.add(this.button(GAME_WIDTH / 2 + 78, GAME_HEIGHT / 2 + 56, 140, 44, '返還する', () => {
+        resetUpgrades();
+        confirmingReset = false;
+        render();
+      }, true));
+    };
+
+    render();
+  }
+
+  private optionCard(
+    x: number, y: number, width: number, height: number,
+    label: string, sub: string, selected: boolean, enabled: boolean,
+    onClick: () => void,
+  ): Phaser.GameObjects.Container {
+    const card = this.scene.add.container(x, y);
+    const accent = selected ? STORYBOOK_UI.gold : enabled ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperShadow;
+    const graphics = this.scene.add.graphics();
+    drawPaperCard(graphics, 0, 0, width, height, accent, STORYBOOK_UI.paper);
+    card.add(graphics);
+    if (selected) {
+      const ring = this.scene.add.graphics();
+      ring.lineStyle(3, STORYBOOK_UI.gold, 1).strokeRoundedRect(-width / 2 - 2, -height / 2 - 2, width + 4, height + 4, 10);
+      card.add(ring);
+    }
+    card.setAlpha(enabled ? 1 : 0.55);
+    const hit = this.scene.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: enabled });
+    if (enabled) {
+      attachPressFeedback(this.scene, hit, card, { x, y, width, height, accent, depth: D + 8 });
+      hit.on('pointerdown', onClick);
+    }
+    card.add(hit);
+    card.add(this.scene.add.text(0, sub ? -9 : 0, label, {
+      fontFamily: STORYBOOK_FONT, fontSize: '15px', color: STORYBOOK_UI.textDark, fontStyle: 'bold', resolution: 2,
+    }).setOrigin(0.5));
+    if (sub) {
+      card.add(this.scene.add.text(0, 13, sub, {
+        fontFamily: STORYBOOK_FONT, fontSize: '10px', color: STORYBOOK_UI.textSoft, fontStyle: 'bold', resolution: 2,
+      }).setOrigin(0.5));
+    }
+    return card;
+  }
+
+  private upgradeRow(opts: {
+    y: number; name: string; level: number; maxLevel: number; effect: string;
+    cost: number; maxed: boolean; affordable: boolean; onBuy: () => void;
+  }): Phaser.GameObjects.Container {
+    const { y } = opts;
+    const width = GAME_WIDTH - 40;
+    const row = this.scene.add.container(GAME_WIDTH / 2, y);
+    const graphics = this.scene.add.graphics();
+    drawPaperCard(graphics, 0, 0, width, 52, opts.maxed ? STORYBOOK_UI.goldLight : STORYBOOK_UI.gold, STORYBOOK_UI.paper);
+    row.add(graphics);
+    const leftX = -width / 2 + 14;
+    row.add(this.scene.add.text(leftX, -12, opts.name, {
+      fontFamily: STORYBOOK_FONT, fontSize: '14px', color: STORYBOOK_UI.textDark, fontStyle: 'bold', resolution: 2,
+    }).setOrigin(0, 0.5));
+    row.add(this.scene.add.text(leftX, 11, `${opts.effect}　Lv ${opts.level}/${opts.maxLevel}`, {
+      fontFamily: STORYBOOK_FONT, fontSize: '10px', color: STORYBOOK_UI.textSoft, fontStyle: 'bold', resolution: 2,
+    }).setOrigin(0, 0.5));
+
+    if (opts.maxed) {
+      row.add(this.scene.add.text(width / 2 - 16, 0, 'MAX', {
+        fontFamily: STORYBOOK_FONT, fontSize: '13px', color: colorString(STORYBOOK_UI.gold), fontStyle: 'bold', resolution: 2,
+        stroke: '#080b18', strokeThickness: 2,
+      }).setOrigin(1, 0.5));
+      return row;
+    }
+
+    const buy = this.scene.add.container(width / 2 - 44, 0);
+    const buyG = this.scene.add.graphics();
+    drawPaperCard(buyG, 0, 0, 72, 40, opts.affordable ? STORYBOOK_UI.gold : STORYBOOK_UI.paperShadow, STORYBOOK_UI.paper);
+    buy.add(buyG);
+    buy.add(this.scene.add.text(0, -7, '強化', {
+      fontFamily: STORYBOOK_FONT, fontSize: '11px', color: STORYBOOK_UI.textDark, fontStyle: 'bold', resolution: 2,
+    }).setOrigin(0.5));
+    buy.add(this.scene.add.text(0, 9, `◆ ${opts.cost}`, {
+      fontFamily: STORYBOOK_FONT, fontSize: '10px', color: STORYBOOK_UI.textSoft, fontStyle: 'bold', resolution: 2,
+    }).setOrigin(0.5));
+    buy.setAlpha(opts.affordable ? 1 : 0.5);
+    const hit = this.scene.add.rectangle(0, 0, 72, 40, 0x000000, 0.001).setInteractive({ useHandCursor: opts.affordable });
+    if (opts.affordable) {
+      attachPressFeedback(this.scene, hit, buy, { x: GAME_WIDTH / 2 + width / 2 - 44, y, width: 72, height: 40, accent: STORYBOOK_UI.gold, depth: D + 10 });
+      hit.on('pointerdown', opts.onBuy);
+    }
+    buy.add(hit);
+    row.add(buy);
+    return row;
   }
 
   showLevelUp(
@@ -428,46 +664,86 @@ export class Overlays {
     this.scene.tweens.add({ targets: shock, scale: 4.2, alpha: 0, duration: 820, ease: 'Cubic.easeOut', onComplete: () => shock.destroy() });
   }
 
-  showResult(
-    state: RuntimeState,
-    cleared: boolean,
-    log: PlayLog,
-    onRestart: () => void,
-    onNextStage?: () => void,
-    nextStageLabel = '次のステージへ',
-  ): void {
-    const root = this.dim(0.78);
+  showResult(opts: {
+    state: RuntimeState;
+    cleared: boolean;
+    settlement: RunSettlement;
+    onRetry: () => void;
+    onStageSelect: () => void;
+    onLab: () => void;
+  }): void {
+    const { state, cleared, settlement } = opts;
+    const root = this.dim(0.82);
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 348, 680, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.98);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH - 16, GAME_HEIGHT - 36, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.98);
     root.add(panel);
+
     const stats = state.stats;
     const survived = Math.floor(stats.survivedSec);
     const mm = Math.floor(survived / 60).toString().padStart(2, '0');
     const ss = (survived % 60).toString().padStart(2, '0');
-    root.add(this.text(GAME_WIDTH / 2, 118, cleared ? '朝まで残った' : '夜に飲まれた', 26, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 170, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 16, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 228, `倒した影　${stats.kills}\n集めた欠片　${stats.memoryFragmentsCollected}\nカプセル　${stats.capsulesOpened}\n必殺技　${stats.ultimateUses}回`, 15, STORYBOOK_UI.textLight));
-    const evolutionNames = stats.evolutions.map((id) => evolutionResultLabel(id)).join(' / ');
-    if (evolutionNames) root.add(this.text(GAME_WIDTH / 2, 350, `変化\n${evolutionNames}`, 12, STORYBOOK_UI.goldLight));
-    root.add(this.text(GAME_WIDTH / 2, 470, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, STORYBOOK_UI.textMuted));
-    root.add(this.text(GAME_WIDTH / 2, 530, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}\n初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 10, '#9fe0a0'));
+    const depthLabel = EXPLORATION_DEPTHS[state.explorationDepth].label;
+    const cx = GAME_WIDTH / 2;
 
-    if (cleared && onNextStage) {
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 150, 210, 48, nextStageLabel, () => {
-        this.clear();
-        onNextStage();
-      }));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 94, 176, 40, 'もう一度', () => {
-        this.clear();
-        onRestart();
-      }, true));
-      return;
+    root.add(this.text(cx, 50, cleared ? '朝まで残った' : '夜に飲まれた', 24, STORYBOOK_UI.textLight, true));
+    root.add(this.text(cx, 80, `Stage ${state.stageNumber}・${depthLabel}　生存 ${mm}:${ss}　ランLv.${state.player.level}`, 12, STORYBOOK_UI.goldLight, true));
+
+    // ラン実績
+    root.add(this.text(cx, 132,
+      `倒した影 ${stats.kills}　集めた欠片 ${stats.memoryFragmentsCollected}\nカプセル ${stats.capsulesOpened}　必殺 ${stats.ultimateUses}回　黒曜化 ${stats.berserkUses}回`,
+      12, STORYBOOK_UI.textLight));
+
+    // 黒曜片
+    let y = 196;
+    const shardPanel = this.scene.add.graphics();
+    drawStorybookPanel(shardPanel, cx, y + 28, GAME_WIDTH - 56, 78, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.5);
+    root.add(shardPanel);
+    root.add(this.text(cx, y, `黒曜片  +${settlement.shardsEarned}`, 22, STORYBOOK_UI.goldLight, true));
+    root.add(this.text(cx, y + 30, `所持 ◆ ${settlement.shardTotal}`, 13, STORYBOOK_UI.textMuted, true));
+    root.add(this.text(cx, y + 50, this.bonusLine(state, settlement), 10, '#9fe0a0'));
+
+    // キャラ成長
+    y = 300;
+    const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
+      ? `キャラLv  Lv.${settlement.characterLevelBefore} → Lv.${settlement.characterLevelAfter}`
+      : `キャラLv  Lv.${settlement.characterLevelAfter}`;
+    root.add(this.text(cx, y, `キャラEXP  +${settlement.characterXpEarned}`, 15, STORYBOOK_UI.textLight, true));
+    root.add(this.text(cx, y + 24, levelUpText, 14, settlement.characterLevelAfter > settlement.characterLevelBefore ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, true));
+    if (settlement.characterXpToNext > 0) {
+      root.add(this.text(cx, y + 44, `次のLvまで ${settlement.characterXpInLevel}/${settlement.characterXpToNext}`, 10, STORYBOOK_UI.textMuted));
     }
 
-    root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 100, 190, 48, 'もう一度', () => {
+    if (settlement.unlockedStage) {
+      root.add(this.text(cx, 372, `Stage ${settlement.unlockedStage} を解放した`, 13, STORYBOOK_UI.goldLight, true));
+    }
+
+    const evolutionNames = stats.evolutions.map((id) => evolutionResultLabel(id)).join(' / ');
+    if (evolutionNames) root.add(this.text(cx, 404, `変化  ${evolutionNames}`, 11, STORYBOOK_UI.goldLight));
+
+    root.add(this.text(cx, 446, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 11, STORYBOOK_UI.textMuted));
+
+    // 操作ボタン
+    root.add(this.button(cx, GAME_HEIGHT - 188, 220, 50, 'もう一度', () => {
       this.clear();
-      onRestart();
+      opts.onRetry();
     }));
+    root.add(this.button(cx, GAME_HEIGHT - 128, 200, 44, 'ステージ選択へ', () => {
+      this.clear();
+      opts.onStageSelect();
+    }, true));
+    root.add(this.button(cx, GAME_HEIGHT - 76, 200, 44, '黒曜研究所へ', () => {
+      this.clear();
+      opts.onLab();
+    }, true));
+  }
+
+  private bonusLine(state: RuntimeState, s: RunSettlement): string {
+    const parts: string[] = [`探索×${round2(s.depthMultiplier)}`];
+    if (s.shardGainMultiplier > 1.0001) parts.push(`黒曜片×${round2(s.shardGainMultiplier)}`);
+    if (s.noBerserk) parts.push(`黒曜化未使用×${round2(s.noBerserkMultiplier)}`);
+    if (s.firstClearBonus > 0) parts.push(`初クリア+${s.firstClearBonus}`);
+    if (s.firstDepthClearBonus > 0) parts.push(`初${EXPLORATION_DEPTHS[state.explorationDepth].label}+${s.firstDepthClearBonus}`);
+    return parts.join('  ');
   }
 
   showPause(onResume: () => void): void {
@@ -612,10 +888,10 @@ function evolutionResultLabel(evolvedWeaponId: string): string {
   return evolution ? `${evolutionKindLabel(evolution.kind)}:${name}` : name;
 }
 
-function formatSeconds(value: number | null): string {
-  return value === null ? '--' : `${value.toFixed(1)}s`;
-}
-
 function colorString(color: number): string {
   return '#' + color.toString(16).padStart(6, '0');
+}
+
+function round2(value: number): number {
+  return Math.round(value * 100) / 100;
 }

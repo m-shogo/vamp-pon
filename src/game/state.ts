@@ -60,13 +60,15 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const qaQuickClear = isQuickClearQaRequested();
   const stageNumber = requestedStageNumber();
   const baseHp = Math.floor(char.baseStats.hp * bonuses.maxHpMultiplier + charBonus.hpFlat);
-  const baseMoveSpeed = char.baseStats.moveSpeed * bonuses.moveSpeedMultiplier;
+  // 純粋なキャラ基礎速度。永続強化とキャラLv補正は recomputePlayerStats で乗算する。
+  const baseMoveSpeed = char.baseStats.moveSpeed;
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,
     runId: `r${Date.now().toString(36)}`,
     stageNumber,
     explorationDepth: profile.selectedDepth,
+    damageTakenMultiplier: bonuses.damageTakenMultiplier,
     speedMultiplier: 1,
     elapsedSec: 0,
     durationSec: qaQuickClear ? 15 : DEFAULT_GAME_CONFIG.durationSec,

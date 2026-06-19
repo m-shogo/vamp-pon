@@ -153,6 +153,8 @@ export type RuntimeState = {
   runId: string;
   stageNumber: number;
   explorationDepth: ExplorationDepthId;
+  /** 永続強化「被ダメ軽減」由来の被ダメ倍率（1.0=軽減なし）。 */
+  damageTakenMultiplier: number;
   /** QA/調整用のゲームテンポ倍率。通常は1.0。 */
   speedMultiplier: number;
   elapsedSec: number;

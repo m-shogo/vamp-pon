@@ -10,6 +10,7 @@ import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { capsuleRewardBurst, inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
+import { depthForState } from '../persistence/profile';
 import {
   ENEMY_PROTOTYPE_SHEETS,
   enemyPrototypeFacingForMotion,
@@ -35,16 +36,19 @@ export function spawnEnemy(
   view.setPosition(x, y);
   const isElite = def.tags.includes('elite');
   const capsuleDropChance = capsuleDropChanceFor(def);
+  // 探索深度で敵の強さと報酬（経験値）を変える。
+  const depth = depthForState(state);
+  const hp = Math.max(1, Math.round(def.hp * depth.enemyHp));
   const enemy: EnemyRuntime = {
     iid: nextIid(state),
     defId: def.id,
     x,
     y,
-    hp: def.hp,
-    maxHp: def.hp,
-    moveSpeed: def.moveSpeed,
-    contactDamage: def.contactDamage,
-    xpDrop: def.xpDrop,
+    hp,
+    maxHp: hp,
+    moveSpeed: def.moveSpeed * depth.enemySpeed,
+    contactDamage: def.contactDamage * depth.enemyDamage,
+    xpDrop: def.xpDrop * depth.xp,
     radius,
     behavior: def.behavior,
     isElite,
@@ -62,7 +66,9 @@ export function spawnEnemy(
 export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amount: number): void {
   const p = state.player;
   if (p.invulnRemaining > 0) return;
-  const appliedDamage = Math.min(p.hp, Math.max(0, amount));
+  // 永続強化「被ダメ軽減」を反映（最大30%軽減）。
+  const reduced = Math.max(0, amount) * (state.damageTakenMultiplier ?? 1);
+  const appliedDamage = Math.min(p.hp, reduced);
   if (appliedDamage <= 0) return;
   p.hp -= appliedDamage;
   state.stats.damageTaken += appliedDamage;

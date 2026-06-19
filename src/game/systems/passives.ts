@@ -13,10 +13,10 @@ export function recomputePlayerStats(state: RuntimeState): void {
   const characterBonus = characterLevelBonus(state.characterId, profile);
 
   let might = base.might * permanent.mightMultiplier * characterBonus.mightMultiplier;
-  let magnet = base.magnetMultiplier * permanent.magnetMultiplier;
+  let magnet = base.magnetMultiplier * permanent.magnetMultiplier * characterBonus.magnetMultiplier;
   let xpMul = base.xpMultiplier * permanent.xpMultiplier;
   let cooldown = base.cooldownMultiplier;
-  let moveMul = permanent.moveSpeedMultiplier;
+  let moveMul = permanent.moveSpeedMultiplier * characterBonus.moveSpeedMultiplier;
 
   for (const owned of state.inventory.passives) {
     const def = passiveById.get(owned.id);

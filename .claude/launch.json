@@ -4,8 +4,8 @@
     {
       "name": "vamp-pon-dev",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev"],
-      "port": 5173
+      "runtimeArgs": ["dev", "--port", "5188", "--strictPort"],
+      "port": 5188
     }
   ]
 }
