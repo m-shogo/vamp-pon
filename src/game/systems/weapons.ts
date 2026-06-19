@@ -15,8 +15,16 @@ import {
   type ProjectileVisualKind,
   type AreaVisualKind,
 } from '../domain/weaponVisual';
+import { projectileTrailIntervalSec } from '../domain/weaponFeedbackRules';
 import { WEAPON_ASSET, type AssetId } from '../assets/assetManifest';
 import { damageEnemy } from './enemies';
+import {
+  areaTickFeedback,
+  orbiterHitFeedback,
+  projectileBounceFeedback,
+  projectileHitFeedback,
+  projectileTrail,
+} from '../ui/weaponFeedback';
 
 const MARBLE_BASE_SPEED = 150;
 const RADIAL_BASE_SPEED = 200;
@@ -179,6 +187,8 @@ function spawnProjectile(scene: Phaser.Scene, state: RuntimeState, spec: Project
     hitsLeft: spec.hitsLeft,
     bouncesLeft: spec.bouncesLeft,
     lifeRemaining: spec.life,
+    visualKind: spec.kind,
+    trailAccum: 0,
     hitSet: new Set<number>(),
     view,
     dead: false,
@@ -192,6 +202,7 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
     proj.x += proj.vx * dt;
     proj.y += proj.vy * dt;
     proj.lifeRemaining -= dt;
+    const angle = Math.atan2(proj.vy, proj.vx);
 
     if (proj.lifeRemaining <= 0) {
       proj.dead = true;
@@ -206,6 +217,7 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
         proj.x = Math.max(0, Math.min(GAME_WIDTH, proj.x));
         proj.y = Math.max(0, Math.min(GAME_HEIGHT, proj.y));
         proj.bouncesLeft -= 1;
+        projectileBounceFeedback(scene, proj.visualKind, proj.x, proj.y);
       } else {
         proj.dead = true;
         proj.view.destroy();
@@ -215,11 +227,18 @@ function updateProjectiles(scene: Phaser.Scene, state: RuntimeState, dt: number)
 
     proj.view.setPosition(proj.x, proj.y);
     proj.view.setRotation(Math.atan2(proj.vy, proj.vx));
+    proj.trailAccum += dt;
+    const trailInterval = projectileTrailIntervalSec(proj.visualKind);
+    if (proj.trailAccum >= trailInterval) {
+      proj.trailAccum = 0;
+      projectileTrail(scene, proj.visualKind, proj.x, proj.y, angle);
+    }
 
     for (const e of state.enemies) {
       if (e.dead) continue;
       if (proj.hitSet.has(e.iid)) continue;
       if (distance(proj.x, proj.y, e.x, e.y) <= proj.radius + e.radius) {
+        projectileHitFeedback(scene, proj.visualKind, proj.x, proj.y, angle);
         damageEnemy(scene, state, e, proj.damage);
         proj.hitSet.add(e.iid);
         if (Number.isFinite(proj.hitsLeft)) {
@@ -251,6 +270,7 @@ function spawnArea(
     dps: spec.dps,
     remaining: spec.duration,
     tickAccum: 0,
+    areaKind: spec.kind,
     view,
     dead: false,
   };
@@ -271,6 +291,7 @@ function updateAreas(scene: Phaser.Scene, state: RuntimeState, dt: number): void
     area.tickAccum += dt;
     while (area.tickAccum >= AREA_TICK) {
       area.tickAccum -= AREA_TICK;
+      areaTickFeedback(scene, area.areaKind, area.x, area.y, area.radius);
       const tickDamage = area.dps * AREA_TICK;
       for (const e of state.enemies) {
         if (e.dead) continue;
@@ -334,6 +355,7 @@ function updateOrbiters(scene: Phaser.Scene, state: RuntimeState, dt: number): v
       if (e.dead) continue;
       if (state.orbitHitCooldowns.has(e.iid)) continue;
       if (distance(ox, oy, e.x, e.y) <= orbitRadius + e.radius) {
+        orbiterHitFeedback(scene, ox, oy, a);
         damageEnemy(scene, state, e, damage);
         state.orbitHitCooldowns.set(e.iid, hitInterval);
       }
