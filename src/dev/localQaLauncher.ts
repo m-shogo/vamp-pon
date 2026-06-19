@@ -6,9 +6,10 @@ export type LocalQaLink = {
 
 export const LOCAL_QA_LINKS: LocalQaLink[] = [
   { label: 'Main game', href: '/', note: '通常のStage1確認' },
+  { label: 'Main berserk auto', href: '/?qa=berserk-auto', note: '本編で黒耀化カットインを即確認' },
   { label: 'Yui 96 cells', href: '/?scene=yui96-qa', note: '全96セル・76px/300px比較' },
   { label: 'Yui rage cycle', href: '/?scene=yui-rage-cycle', note: '充填→変身→疲労のRuntime遷移' },
-  { label: 'Cutin QA', href: '/?scene=cutin-qa', note: '通常必殺・暴走カットイン' },
+  { label: 'Cutin QA', href: '/?scene=cutin-qa', note: '通常必殺・黒耀化カットイン' },
   { label: 'Elite beat QA', href: '/?scene=elite-beat-qa', note: 'エリート撃破ビート' },
   { label: 'Weapon FX QA', href: '/?scene=weapon-fx-qa', note: '武器別hit/trail/bounce/tick' },
 ];
