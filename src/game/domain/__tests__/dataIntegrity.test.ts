@@ -89,6 +89,16 @@ describe('waves データ', () => {
     }
   });
 
+  it('spawn の patternId が登録済みで、敵の patternIds と整合する', () => {
+    for (const w of waves) {
+      for (const s of w.spawns) {
+        expect(s.patternId).toBeDefined();
+        expect(ENEMY_PATTERN_IDS.has(s.patternId ?? '')).toBe(true);
+        expect(enemyById.get(s.enemyId)?.patternIds).toContain(s.patternId);
+      }
+    }
+  });
+
   it('時系列順で、定常waveは意図せず重複しない', () => {
     for (let i = 1; i < waves.length; i += 1) {
       expect(waves[i].start).toBeGreaterThanOrEqual(waves[i - 1].start);
