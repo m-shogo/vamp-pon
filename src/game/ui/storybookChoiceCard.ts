@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import type { LevelUpChoice, RewardRarity } from '../domain/types';
+import { archetypesForItem } from '../data/buildArchetypes';
 import {
   getInventoryIconRequirement,
   resolveInventoryIconTexture,
@@ -90,7 +91,22 @@ function addHorizontalContent(
     strokeThickness: 1,
   }).setOrigin(0, 0));
 
-  const description = scene.add.text(textX, 8, wrapUiText(choice.description, 24, 3), {
+  const archetype = buildArchetypeLabel(choice);
+  if (archetype) {
+    card.add(scene.add.text(textX, -height / 2 + 48, archetype, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: '#fff8e7',
+      fontStyle: 'bold',
+      resolution: 2,
+      backgroundColor: colorString(accent),
+      padding: { left: 5, right: 5, top: 2, bottom: 2 },
+      stroke: '#080b18',
+      strokeThickness: 1,
+    }).setOrigin(0, 0));
+  }
+
+  const description = scene.add.text(textX, archetype ? 66 : 8, wrapUiText(choice.description, 24, archetype ? 2 : 3), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '12px',
     color: '#302932',
@@ -103,7 +119,7 @@ function addHorizontalContent(
     padding: { left: 4, right: 4, top: 3, bottom: 3 },
     fixedWidth: textWidth,
   }).setOrigin(0, 0);
-  description.setCrop(0, 0, textWidth, 68);
+  description.setCrop(0, 0, textWidth, archetype ? 50 : 68);
   card.add(description);
 }
 
@@ -134,7 +150,22 @@ function addVerticalContent(
   addChoiceIcon(scene, card, choice, 0, iconY, 70);
   addBadge(scene, card, 0, 20, badge, accent);
 
-  const description = scene.add.text(0, 34, wrapUiText(choice.description, 12, 4), {
+  const archetype = buildArchetypeLabel(choice);
+  if (archetype) {
+    card.add(scene.add.text(0, 34, archetype, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '9px',
+      color: '#fff8e7',
+      fontStyle: 'bold',
+      resolution: 2,
+      backgroundColor: colorString(accent),
+      padding: { left: 4, right: 4, top: 1, bottom: 1 },
+      stroke: '#080b18',
+      strokeThickness: 1,
+    }).setOrigin(0.5, 0));
+  }
+
+  const description = scene.add.text(0, archetype ? 52 : 34, wrapUiText(choice.description, 12, archetype ? 3 : 4), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '12px',
     color: '#302932',
@@ -147,7 +178,7 @@ function addVerticalContent(
     padding: { left: 3, right: 3, top: 3, bottom: 3 },
     fixedWidth: width - 18,
   }).setOrigin(0.5, 0);
-  description.setCrop(0, 0, width - 18, 72);
+  description.setCrop(0, 0, width - 18, archetype ? 54 : 72);
   card.add(description);
 }
 
@@ -185,6 +216,12 @@ function effectTag(choice: LevelUpChoice): string {
     case 'heal':
       return `HP+${choice.amount}`;
   }
+}
+
+function buildArchetypeLabel(choice: LevelUpChoice): string | null {
+  if (!('itemId' in choice)) return null;
+  const archetype = archetypesForItem(choice.itemId)[0];
+  return archetype ? `方針: ${archetype.name}` : null;
 }
 
 function addChoiceIcon(
