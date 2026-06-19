@@ -11,6 +11,9 @@ export function isEliteDefeatBeatQaUrl(search = typeof window === 'undefined' ? 
 }
 
 export class EliteDefeatBeatQaScene extends Phaser.Scene {
+  private fireCount = 0;
+  private lastFxText?: Phaser.GameObjects.Text;
+
   constructor() {
     super('EliteDefeatBeatQaScene');
   }
@@ -18,6 +21,8 @@ export class EliteDefeatBeatQaScene extends Phaser.Scene {
   create(): void {
     createBackground(this);
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x101124, 0.72);
+    this.add.rectangle(GAME_WIDTH / 2, 362, GAME_WIDTH - 24, 510, 0x171a32, 0.2)
+      .setStrokeStyle(1, 0xfff2c7, 0.28);
 
     this.add.text(GAME_WIDTH / 2, 28, 'エリート撃破ビート QA', {
       fontFamily: FONT,
@@ -35,6 +40,14 @@ export class EliteDefeatBeatQaScene extends Phaser.Scene {
       color: '#cfe6f0',
       align: 'center',
       lineSpacing: 6,
+    }).setOrigin(0.5, 0);
+
+    this.lastFxText = this.add.text(GAME_WIDTH / 2, 108, 'last FX: none', {
+      fontFamily: FONT,
+      fontSize: '10px',
+      color: '#ffe7a8',
+      backgroundColor: '#080914',
+      padding: { left: 6, right: 6, top: 3, bottom: 3 },
     }).setOrigin(0.5, 0);
 
     this.addTrigger(195, 280, '中央', 195, 400);
@@ -68,7 +81,11 @@ export class EliteDefeatBeatQaScene extends Phaser.Scene {
     const button = this.add.rectangle(buttonX, buttonY, 118, 54, 0xead9a6, 1)
       .setInteractive({ useHandCursor: true });
     button.setStrokeStyle(2, 0x6b5634, 1);
-    button.on('pointerdown', () => eliteDefeatBeat(this, effectX, effectY));
+    button.on('pointerdown', () => {
+      eliteDefeatBeat(this, effectX, effectY);
+      this.fireCount += 1;
+      this.lastFxText?.setText(`last FX: ${label} #${this.fireCount}`);
+    });
     this.add.text(buttonX, buttonY, label, {
       fontFamily: FONT,
       fontSize: '12px',
