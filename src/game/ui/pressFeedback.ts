@@ -16,6 +16,8 @@ type InteractiveObject = Phaser.GameObjects.GameObject & Phaser.Events.EventEmit
 type PressVisual = Phaser.GameObjects.GameObject & {
   x: number;
   y: number;
+  scaleX: number;
+  scaleY: number;
   setScale: (x: number, y?: number) => PressVisual;
   setAlpha?: (alpha: number) => PressVisual;
 };
