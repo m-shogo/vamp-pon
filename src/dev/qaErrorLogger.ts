@@ -1,5 +1,7 @@
 let installed = false;
 
+type ConsoleMethod = 'log' | 'info' | 'warn' | 'error' | 'debug';
+
 function formatUnknownError(reason: unknown): string {
   if (reason instanceof Error) return `${reason.name}: ${reason.message}\n${reason.stack ?? '(no stack)'}`;
   if (reason && typeof reason === 'object') {
@@ -12,22 +14,30 @@ function formatUnknownError(reason: unknown): string {
   return String(reason);
 }
 
-function looksLikeOpaqueObject(args: unknown[]): boolean {
+function isSinglePlainObject(args: unknown[]): boolean {
   return args.length === 1 && !!args[0] && typeof args[0] === 'object' && !(args[0] instanceof Error);
+}
+
+function wrapConsoleMethod(method: ConsoleMethod): void {
+  const original = console[method].bind(console);
+  console[method] = (...args: unknown[]) => {
+    if (isSinglePlainObject(args)) {
+      const formatted = formatUnknownError(args[0]);
+      console.error(`[VampPon QA console.${method} object]`, formatted, args[0]);
+      (window as unknown as { __VAMP_PON_LAST_OPAQUE_LOG__?: string }).__VAMP_PON_LAST_OPAQUE_LOG__ = formatted;
+      return;
+    }
+    original(...args);
+  };
 }
 
 export function installQaErrorLogger(): void {
   if (typeof window === 'undefined' || installed) return;
   installed = true;
 
-  const originalError = console.error.bind(console);
-  console.error = (...args: unknown[]) => {
-    if (looksLikeOpaqueObject(args)) {
-      originalError('[VampPon QA console.error object]', formatUnknownError(args[0]), args[0]);
-      return;
-    }
-    originalError(...args);
-  };
+  for (const method of ['log', 'info', 'warn', 'error', 'debug'] as const) {
+    wrapConsoleMethod(method);
+  }
 
   window.addEventListener('error', (event) => {
     console.error('[VampPon QA error]', {
