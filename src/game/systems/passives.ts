@@ -1,18 +1,22 @@
 import type { RuntimeState } from '../runtime';
 import { characterById } from '../data/characters';
 import { passiveById } from '../data/passives';
+import { characterLevelBonus, loadProfile, profileBonuses } from '../persistence/profile';
 
 /** インベントリのパッシブとキャラ基礎値から派生ステータスを再計算する。 */
 export function recomputePlayerStats(state: RuntimeState): void {
   const char = characterById.get(state.characterId);
   if (!char) return;
   const base = char.baseStats;
+  const profile = loadProfile();
+  const permanent = profileBonuses(profile);
+  const characterBonus = characterLevelBonus(state.characterId, profile);
 
-  let might = base.might;
-  let magnet = base.magnetMultiplier;
-  let xpMul = base.xpMultiplier;
+  let might = base.might * permanent.mightMultiplier * characterBonus.mightMultiplier;
+  let magnet = base.magnetMultiplier * permanent.magnetMultiplier;
+  let xpMul = base.xpMultiplier * permanent.xpMultiplier;
   let cooldown = base.cooldownMultiplier;
-  let moveMul = 1;
+  let moveMul = permanent.moveSpeedMultiplier;
 
   for (const owned of state.inventory.passives) {
     const def = passiveById.get(owned.id);
