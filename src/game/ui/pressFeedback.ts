@@ -104,7 +104,7 @@ export function attachPressFeedback(
 
   hit.on(Phaser.Input.Events.POINTER_OUT, settle);
   hit.on(Phaser.Input.Events.POINTER_UP, settle);
-  hit.on(Phaser.Input.Events.POINTER_UP_OUTSIDE, settle);
+  hit.on('pointerupoutside', settle);
 
   hit.on(Phaser.Input.Events.POINTER_DOWN, () => {
     scene.tweens.killTweensOf(visual);
