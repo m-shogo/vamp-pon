@@ -27,6 +27,7 @@ import {
   replaceRowCenters,
   wrapUiText,
 } from './itemSelectionLayout';
+import { attachPressFeedback } from './pressFeedback';
 import { createStorybookChoiceCard, categoryForChoice as storybookCategoryForChoice } from './storybookChoiceCard';
 import {
   STORYBOOK_FONT,
@@ -476,6 +477,7 @@ export class Overlays {
     drawPaperCard(graphics, 0, 0, width, height, palette.accent, palette.paper);
     row.add(graphics);
     const hit = this.scene.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this.scene, hit, row, { x, y, width, height, accent: palette.accent, depth: D + 8 });
     hit.on('pointerdown', onClick);
     row.add(hit);
     this.addInventoryIcon(row, ref, -width / 2 + 34, 0, LIST_ICON_SIZE, palette.accent);
@@ -535,6 +537,16 @@ export class Overlays {
     else drawPaperCard(graphics, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paper);
     button.add(graphics);
     const hit = this.scene.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this.scene, hit, button, {
+      x,
+      y,
+      width,
+      height,
+      accent: dark ? STORYBOOK_UI.goldLight : STORYBOOK_UI.gold,
+      depth: D + 10,
+      strong: height >= 44,
+      shake: height >= 44,
+    });
     hit.on('pointerdown', onClick);
     button.add(hit);
     button.add(this.scene.add.text(0, 0, label, {
