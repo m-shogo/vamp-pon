@@ -428,7 +428,14 @@ export class Overlays {
     this.scene.tweens.add({ targets: shock, scale: 4.2, alpha: 0, duration: 820, ease: 'Cubic.easeOut', onComplete: () => shock.destroy() });
   }
 
-  showResult(state: RuntimeState, cleared: boolean, log: PlayLog, onRestart: () => void): void {
+  showResult(
+    state: RuntimeState,
+    cleared: boolean,
+    log: PlayLog,
+    onRestart: () => void,
+    onNextStage?: () => void,
+    nextStageLabel = '次のステージへ',
+  ): void {
     const root = this.dim(0.78);
     const panel = this.scene.add.graphics();
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 348, 680, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.98);
@@ -444,6 +451,19 @@ export class Overlays {
     if (evolutionNames) root.add(this.text(GAME_WIDTH / 2, 350, `変化\n${evolutionNames}`, 12, STORYBOOK_UI.goldLight));
     root.add(this.text(GAME_WIDTH / 2, 470, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, STORYBOOK_UI.textMuted));
     root.add(this.text(GAME_WIDTH / 2, 530, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}\n初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 10, '#9fe0a0'));
+
+    if (cleared && onNextStage) {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 150, 210, 48, nextStageLabel, () => {
+        this.clear();
+        onNextStage();
+      }));
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 94, 176, 40, 'もう一度', () => {
+        this.clear();
+        onRestart();
+      }, true));
+      return;
+    }
+
     root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 100, 190, 48, 'もう一度', () => {
       this.clear();
       onRestart();
