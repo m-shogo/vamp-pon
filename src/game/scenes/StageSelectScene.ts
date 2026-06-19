@@ -9,6 +9,7 @@ import {
   selectRun,
   UPGRADE_DEFS,
   upgradeCost,
+  upgradeRefundValue,
   type ExplorationDepthId,
   type PlayerProfile,
   type UpgradeId,
@@ -35,6 +36,7 @@ export function isRunStartUrl(search = typeof window === 'undefined' ? '' : wind
 
 export class StageSelectScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
+  private confirmingReset = false;
 
   constructor() {
     super('StageSelectScene');
@@ -64,6 +66,28 @@ export class StageSelectScene extends Phaser.Scene {
     this.renderUpgradeBlock(root, profile);
 
     root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 38, 210, 46, '探索を始める', () => this.startRun(profile)));
+
+    if (this.confirmingReset) this.renderResetConfirm(root, profile);
+  }
+
+  private renderResetConfirm(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
+    const refund = upgradeRefundValue(profile);
+    // 背面クリックを塞ぐ全画面ディム。
+    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x05060f, 0.72).setInteractive());
+    const panel = this.add.graphics();
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 220, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.99);
+    root.add(panel);
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 66, '強化をリセット', 20, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `黒曜片 ${refund} を全額返還します。\nいつでも振り直せます。`, 12, STORYBOOK_UI.textMuted));
+    root.add(this.button(GAME_WIDTH / 2 - 76, GAME_HEIGHT / 2 + 52, 136, 42, 'やめる', () => {
+      this.confirmingReset = false;
+      this.render();
+    }, true));
+    root.add(this.button(GAME_WIDTH / 2 + 76, GAME_HEIGHT / 2 + 52, 136, 42, '返還する', () => {
+      resetUpgrades();
+      this.confirmingReset = false;
+      this.render();
+    }));
   }
 
   private renderStageBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
@@ -107,7 +131,7 @@ export class StageSelectScene extends Phaser.Scene {
   private renderUpgradeBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
     root.add(this.text(62, 404, '黒曜研究所', 16, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
     root.add(this.button(GAME_WIDTH - 90, 404, 106, 30, 'リセット', () => {
-      resetUpgrades();
+      this.confirmingReset = true;
       this.render();
     }, true));
 

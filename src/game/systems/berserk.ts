@@ -48,7 +48,7 @@ export function updateBerserk(state: RuntimeState, dt: number): void {
   berserk.ready = false;
   berserk.fatigueRemaining = 0;
   berserk.activeRemaining = berserk.durationSec;
-  state.stats.berserkUses += 1;
+  if (state.stats) state.stats.berserkUses += 1;
 }
 
 export function berserkDamageMultiplier(state: RuntimeState): number {
