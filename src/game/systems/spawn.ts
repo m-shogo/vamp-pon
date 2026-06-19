@@ -3,6 +3,7 @@ import type { RuntimeState } from '../runtime';
 import type { WaveDefinition, WaveSpawnDefinition } from '../domain/types';
 import { wavesForStage } from '../data/waves';
 import { enemyById } from '../data/enemies';
+import { stagePowerForStage, runPressureForElapsed } from '../data/stageScaling';
 import { DEFAULT_GAME_CONFIG } from '../domain/constants';
 import { spawnEnemy } from './enemies';
 import { pickSpawnPosition } from '../utils/viewport';
@@ -48,7 +49,8 @@ export class SpawnSystem {
     const def = enemyById.get(spawn.enemyId);
     if (!def) return;
     const depth = depthForState(state);
-    const count = Math.max(1, Math.round((spawn.spawnCount ?? 1) * depth.spawnCount));
+    const stage = stagePowerForStage(state.stageNumber);
+    const count = Math.max(1, Math.round((spawn.spawnCount ?? 1) * depth.spawnCount * stage.spawnCount));
     for (let i = 0; i < count; i += 1) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
       spawnEnemy(scene, state, def, pos.x, pos.y);
@@ -65,10 +67,13 @@ export class SpawnSystem {
     const def = enemyById.get(spawn.enemyId);
     if (!def) return;
     const depth = depthForState(state);
-    const maxAlive = Math.max(1, Math.round((spawn.maxAlive ?? Infinity) * depth.maxAlive));
+    const stage = stagePowerForStage(state.stageNumber);
+    const pressure = runPressureForElapsed(state.elapsedSec);
+    const maxAlive = Math.max(1, Math.round((spawn.maxAlive ?? Infinity) * depth.maxAlive * stage.maxAlive * pressure.maxAlive));
     if (this.aliveOfType(state, spawn.enemyId) >= maxAlive) return;
 
-    const acc = (this.rateAccum.get(key) ?? 0) + (spawn.spawnRatePerSecond ?? 0) * depth.spawnRate * dt;
+    const acc = (this.rateAccum.get(key) ?? 0)
+      + (spawn.spawnRatePerSecond ?? 0) * depth.spawnRate * stage.spawnRate * pressure.spawnRate * dt;
     let toSpawn = Math.floor(acc);
     this.rateAccum.set(key, acc - toSpawn);
 
