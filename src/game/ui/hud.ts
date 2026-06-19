@@ -171,7 +171,7 @@ export class Hud {
     }).setOrigin(0.5).setDepth(DEPTH + 2).setVisible(!this.portraitImage);
     this.crestImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.crestNormal, 14, 14);
     this.crestImage?.setPosition(PORTRAIT_X + 20, PORTRAIT_Y - 20).setDepth(DEPTH + 5).setVisible(false);
-    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 5, '暴走 0%', {
+    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 5, '黒耀 0%', {
       fontFamily: STORYBOOK_FONT,
       fontSize: '9px',
       color: STORYBOOK_UI.textMuted,
@@ -258,7 +258,7 @@ export class Hud {
         `t=${state.elapsedSec.toFixed(1)} status=${state.status}`,
         `enemies=${state.enemies?.length ?? 0} proj=${state.projectiles?.length ?? 0}`,
         `hp=${player.hp.toFixed(0)} lv=${player.level} xp=${player.xp.toFixed(1)}/${player.xpToNext}`,
-        `berserk=${berserk.charge.toFixed(0)}/${berserk.maxCharge} active=${berserk.activeRemaining.toFixed(1)}`,
+        `blackLuster=${berserk.charge.toFixed(0)}/${berserk.maxCharge} active=${berserk.activeRemaining.toFixed(1)}`,
         `kills=${state.stats?.kills ?? 0} fragments=${state.stats?.memoryFragmentsCollected ?? 0}`,
       ].join('\n'));
     } else {
@@ -277,7 +277,7 @@ export class Hud {
     this.ultimateBack.beginPath();
     this.ultimateBack.arc(ULT_X, ULT_Y, 30, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.ultimateBack.strokePath();
-    this.ultimateText.setText(locked ? '暴走中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
+    this.ultimateText.setText(locked ? '黒耀中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
   }
 
   private updatePortrait(berserk: BerserkState): void {
@@ -312,9 +312,9 @@ export class Hud {
       this.crestImage.setVisible(active || ready);
     }
 
-    this.berserkText.setText(active ? `暴走 ${Math.ceil(berserk.activeRemaining)}秒` : fatigued ? '疲労' : ready ? '暴走 OK' : `暴走 ${Math.floor(ratio * 100)}%`);
+    this.berserkText.setText(active ? `黒耀 ${Math.ceil(berserk.activeRemaining)}秒` : fatigued ? '黒耀反動' : ready ? '黒耀 OK' : `黒耀 ${Math.floor(ratio * 100)}%`);
     this.berserkText.setColor(active ? (pulse > 0.78 ? '#ffd6de' : '#ff8fa4') : fatigued ? '#b8b0cc' : ready ? '#ffe3a8' : STORYBOOK_UI.textMuted);
-    this.portraitZone.setName(ready ? '暴走を発動' : '暴走ゲージ');
+    this.portraitZone.setName(ready ? '黒耀化を発動' : '黒耀ゲージ');
   }
 
   private drawBerserkFlame(active: boolean, fatigued: boolean, pulse: number): void {
