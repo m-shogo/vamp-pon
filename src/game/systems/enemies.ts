@@ -25,6 +25,7 @@ const MAX_ACTIVE_HEAL_PICKUPS = 5;
 const HEAL_AMOUNT = 18;
 const ELITE_HEAL_AMOUNT = 36;
 const DIRECTIONAL_SPRITE_CACHE_KEY = 'enemyPrototypeDirectionalSprite';
+const SPECIAL_ATTACK_START_SEC = 110;
 
 export function spawnEnemy(
   scene: Phaser.Scene,
@@ -57,6 +58,7 @@ export function spawnEnemy(
     capsuleDropChance,
     offsetSign: Math.random() < 0.5 ? -1 : 1,
     flashRemaining: 0,
+    specialAttackCooldown: randRange(1.2, 3.8),
     view,
     hpBar: isElite ? scene.add.graphics().setDepth(view.depth + 1) : null,
     dead: false,
@@ -196,7 +198,7 @@ function updateEnemyPrototypeFacing(
 function updateChargerTelegraph(enemy: EnemyRuntime, playerX: number, playerY: number, elapsedSec: number): void {
   const telegraph = enemy.view.getData('chargerTelegraph') as Phaser.GameObjects.Graphics | undefined;
   if (!telegraph) return;
-
+  // charger telegraph continues below
   telegraph.clear();
   if (enemy.behavior !== 'charger') {
     telegraph.setVisible(false);
@@ -227,6 +229,69 @@ function updateChargerTelegraph(enemy: EnemyRuntime, playerX: number, playerY: n
   telegraph.lineStyle(2, color, alpha * 0.8).strokeCircle(0, 0, enemy.radius + (phase === 'dash' ? 5 : 2));
 }
 
+function maybeUseSpecialAttack(scene: Phaser.Scene, state: RuntimeState, enemy: EnemyRuntime, dt: number): void {
+  if (state.elapsedSec < SPECIAL_ATTACK_START_SEC) return;
+  enemy.specialAttackCooldown -= dt;
+  if (enemy.specialAttackCooldown > 0) return;
+
+  if (enemy.defId === 'black_capsule') {
+    enemy.specialAttackCooldown = randRange(4.2, 6.2);
+    createInkPuddleThreat(scene, state, enemy.x, enemy.y, enemy.contactDamage * 0.45, 44, 0.55);
+    return;
+  }
+
+  if (enemy.defId === 'night_haze') {
+    enemy.specialAttackCooldown = randRange(3.4, 5.1);
+    createInkPuddleThreat(scene, state, state.player.x, state.player.y, enemy.contactDamage * 0.55, 54, 0.72);
+    return;
+  }
+
+  if (enemy.isElite) {
+    enemy.specialAttackCooldown = randRange(3.0, 4.4);
+    createInkPuddleThreat(scene, state, state.player.x + randRange(-24, 24), state.player.y + randRange(-24, 24), enemy.contactDamage * 0.5, 62, 0.85);
+  }
+}
+
+function createInkPuddleThreat(
+  scene: Phaser.Scene,
+  state: RuntimeState,
+  x: number,
+  y: number,
+  damage: number,
+  radius: number,
+  delaySec: number,
+): void {
+  const g = scene.add.graphics().setDepth(82);
+  g.fillStyle(0x1a1028, 0.18).fillCircle(x, y, radius);
+  g.lineStyle(2, 0xa98bff, 0.58).strokeCircle(x, y, radius);
+  g.lineStyle(1, 0x1c1630, 0.62).strokeCircle(x, y, radius * 0.72);
+
+  scene.tweens.add({
+    targets: g,
+    alpha: 0.35,
+    yoyo: true,
+    repeat: Math.max(1, Math.floor(delaySec * 4)),
+    duration: 120,
+  });
+
+  scene.time.delayedCall(delaySec * 1000, () => {
+    if (state.status !== GAME_STATUS.PLAYING) {
+      g.destroy();
+      return;
+    }
+    const p = state.player;
+    const inRange = distance(x, y, p.x, p.y) <= radius + p.radius;
+    if (inRange) applyPlayerDamage(scene, state, damage);
+    inkPuff(scene, x, y, radius * 0.45, false);
+    scene.tweens.add({
+      targets: g,
+      alpha: 0,
+      duration: 280,
+      onComplete: () => g.destroy(),
+    });
+  });
+}
+
 /** 敵の移動・接触・点滅を更新する。 */
 export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
@@ -253,6 +318,7 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
       elapsedSec: state.elapsedSec,
     });
     updateChargerTelegraph(e, p.x, p.y, state.elapsedSec);
+    maybeUseSpecialAttack(scene, state, e, dt);
     updateEnemyPrototypeFacing(scene, e.view, step.dirX, step.dirY);
     e.x += step.dirX * e.moveSpeed * step.speedFactor * dt;
     e.y += step.dirY * e.moveSpeed * step.speedFactor * dt;
