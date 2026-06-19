@@ -28,6 +28,8 @@ import { buildPlayLog } from '../domain/playLog';
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const MAX_RUNTIME_STAGE = 5;
 
+const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
+
 declare global {
   interface Window {
     __VAMP_PON_DEBUG_SNAPSHOT__?: {
@@ -42,6 +44,7 @@ declare global {
       enemiesById: Record<string, number>;
       firstCapsuleSec: number | null;
       eliteKillSecs: number[];
+      speedMultiplier: number;
     };
   }
 }
@@ -81,6 +84,9 @@ export class MainScene extends Phaser.Scene {
         if (this.state.status === GAME_STATUS.PLAYING) this.state.berserkRequested = true;
       },
       () => this.tryAutoPause(),
+      () => {
+        this.state.speedMultiplier = nextSpeedMultiplier(this.state.speedMultiplier);
+      },
     );
     this.overlays = new Overlays(this);
     this.spawnSystem = new SpawnSystem();
@@ -136,8 +142,9 @@ export class MainScene extends Phaser.Scene {
   }
 
   update(_time: number, delta: number): void {
-    const dt = Math.min(delta / 1000, 0.05);
+    const baseDt = Math.min(delta / 1000, 0.05);
     const state = this.state;
+    const dt = baseDt * state.speedMultiplier;
 
     if (state.status === GAME_STATUS.PLAYING) {
       state.elapsedSec += dt;
@@ -184,6 +191,7 @@ export class MainScene extends Phaser.Scene {
       enemiesById,
       firstCapsuleSec: this.state.telemetry.firstCapsuleSec,
       eliteKillSecs: [...this.state.telemetry.eliteKillSecs],
+      speedMultiplier: this.state.speedMultiplier,
     };
     window.__VAMP_PON_DEBUG_SNAPSHOT__ = snapshot;
 
@@ -331,6 +339,11 @@ export class MainScene extends Phaser.Scene {
     params.set('stage', String(stage));
     window.location.search = params.toString();
   }
+}
+
+function nextSpeedMultiplier(current: number): number {
+  const index = SPEED_OPTIONS.findIndex((value) => Math.abs(value - current) < 0.01);
+  return SPEED_OPTIONS[(index + 1) % SPEED_OPTIONS.length];
 }
 
 function evolutionKindLabel(kind: EvolutionKind): string {
