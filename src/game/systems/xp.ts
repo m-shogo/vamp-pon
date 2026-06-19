@@ -1,10 +1,12 @@
 import type { RuntimeState } from '../runtime';
 import { xpToNext } from '../domain/balance';
 
-/** 欠片取得などでXPを加算する（xpMultiplierを反映）。 */
+/** 欠片取得などでXPを加算する（xpMultiplierと倍速倍率を反映）。 */
 export function addXp(state: RuntimeState, rawAmount: number): void {
-  state.player.xp += rawAmount * state.player.xpMultiplier;
-  state.stats.xpCollected += rawAmount;
+  const speedMultiplier = state.speedMultiplier ?? 1;
+  const gained = rawAmount * speedMultiplier;
+  state.player.xp += gained * state.player.xpMultiplier;
+  state.stats.xpCollected += gained;
 }
 
 export function hasPendingLevelUp(state: RuntimeState): boolean {
