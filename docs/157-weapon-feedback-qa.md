@@ -1,5 +1,29 @@
 # 武器別 hit / trail QA
 
+## ローカルQAランチャー
+
+`pnpm dev` 起動後に以下を開く。
+
+```txt
+http://localhost:5173/
+```
+
+localhostでは右上に `Vamp Pon QA` ランチャーが表示される。
+そこから以下の全QA画面へ移動できる。
+
+- Main game
+- Yui 96 cells
+- Yui rage cycle
+- Cutin QA
+- Elite beat QA
+- Weapon FX QA
+
+スマホ実機で見る場合は、同じpathのまま `localhost` をMacのIPへ置き換える。
+
+```txt
+http://MacのIP:5173/?scene=weapon-fx-qa
+```
+
 ## 起動
 
 ```txt
