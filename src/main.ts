@@ -5,6 +5,7 @@ import { Core5SpriteSheetPreviewScene } from './game/scenes/Core5SpriteSheetPrev
 import { EliteDefeatBeatQaScene } from './game/scenes/EliteDefeatBeatQaScene';
 import { MainScene } from './game/scenes/MainScene';
 import { VisualGalleryScene } from './game/scenes/VisualGalleryScene';
+import { WeaponFeedbackQaScene } from './game/scenes/WeaponFeedbackQaScene';
 import { Yui96QaScene } from './game/scenes/Yui96QaScene';
 import { YuiRageCycleQaScene } from './game/scenes/YuiRageCycleQaScene';
 import './styles.css';
@@ -32,6 +33,7 @@ const config: Phaser.Types.Core.GameConfig = {
     YuiRageCycleQaScene,
     CharacterCutinQaScene,
     EliteDefeatBeatQaScene,
+    WeaponFeedbackQaScene,
   ],
 };
 
