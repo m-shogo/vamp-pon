@@ -1,6 +1,6 @@
 # Sprite Image Production Playbook
 
-This document defines the required image-production workflow for Vamp Pon character, enemy, item, weapon, pickup, and effect assets.
+This document defines the required image-production workflow for Vamp Pon character, enemy, item, weapon, pickup, cut-in, and effect assets.
 
 ## Core principle
 
@@ -153,6 +153,47 @@ For the current Yui asset set, the approved structure is:
 
 This is a project-specific sheet structure, not a universal handedness rule.
 
+## Cut-in asset rule
+
+A runtime cut-in is **not** the same as a `180 x 180` sprite-sheet cell.
+
+Use `180 x 180` only for:
+
+- sprite-sheet cells
+- small portrait cells
+- HUD preview icons
+- cut-in thumbnails inside a 48-cell sheet
+
+For an actual in-game cut-in that slides across the vertical mobile screen, create a separate wide asset.
+
+Recommended source format:
+
+```txt
+1440 x 360 px
+PNG RGBA
+transparent background
+wide horizontal composition
+```
+
+Recommended runtime display target for the 390 x 844 mobile viewport:
+
+```txt
+width: 100vw
+height: about 96-140 CSS px
+a horizontal band across the screen
+```
+
+Cut-in composition rules:
+
+- use a wide, dramatic banner composition, not a square portrait
+- keep the face, signature prop, and emotional state readable at speed
+- leave motion room for slash, light, ink, paper, or memory effects
+- do not bake UI text into the image unless the task explicitly asks
+- keep transparent edges so the cut-in can slide or flash cleanly over gameplay
+- still obey body-relative handedness and equipment rules
+
+For a character with both normal and dark/altered ultimate states, create two separate wide cut-in assets rather than forcing both into `180 x 180` cells.
+
 ### Phase 5: freeze approved art
 
 Once the user approves the direction:
@@ -295,6 +336,12 @@ For the current Yui package:
 - expression/rampage source uses its own directory and must not be mixed into the strict Core5 source set
 - `public/assets/sprites/` remains retired
 
+Wide cut-ins should use their own runtime directory, for example:
+
+```txt
+public/assets/prototypes/cutins/<character-id>/
+```
+
 ## Stop conditions
 
 Stop regenerating the whole sheet when:
@@ -313,6 +360,7 @@ Do not repeat these mistakes:
 
 - praising weak art because dimensions and alpha pass
 - calling a sheet perfect without checking motion meaning
+- treating a runtime cut-in as a `180 x 180` cell when the task expects a wide screen cut-in
 - repeatedly regenerating good cells to fix dimensions or transparency
 - assuming a checkerboard means real alpha
 - filling the full 180x180 cell with the subject
@@ -331,6 +379,7 @@ Do not repeat these mistakes:
 - body-relative handedness and equipment map is documented
 - front/back/left/right screen placement is derived correctly
 - animation states are readable
+- cut-ins use the correct wide format when meant for runtime screen presentation
 - weak cells are targeted rather than causing a full remake
 
 ### Technical
@@ -346,4 +395,4 @@ Do not repeat these mistakes:
 - tests and build pass
 - commit and push completed
 
-This playbook applies to all future characters, enemies, items, weapons, pickups, and effects. Subject-specific left/right assignments come from each asset's own design master; the universal rule is to define, preserve, and verify those assignments across every direction and state.
+This playbook applies to all future characters, enemies, items, weapons, pickups, cut-ins, and effects. Subject-specific left/right assignments come from each asset's own design master; the universal rule is to define, preserve, and verify those assignments across every direction and state.
