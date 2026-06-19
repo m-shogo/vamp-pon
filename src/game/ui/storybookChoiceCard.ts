@@ -63,7 +63,9 @@ function addHorizontalContent(
   addChoiceIcon(scene, card, choice, iconX, -3, 74);
   addBadge(scene, card, iconX, height / 2 - 14, badge, accent);
 
-  card.add(scene.add.text(left + 103, -height / 2 + 13, wrapUiText(title, 20, 2), {
+  const textX = left + 103;
+  const textWidth = width - 142;
+  card.add(scene.add.text(textX, -height / 2 + 13, wrapUiText(title, 20, 2), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '15px',
     color: STORYBOOK_UI.textDark,
@@ -71,23 +73,26 @@ function addHorizontalContent(
     align: 'left',
     lineSpacing: 2,
     resolution: 2,
-    wordWrap: { width: width - 126 },
+    wordWrap: { width: textWidth, useAdvancedWrap: true },
     stroke: '#f4ead4',
     strokeThickness: 1,
   }).setOrigin(0, 0));
 
-  card.add(scene.add.text(left + 103, 9, wrapUiText(choice.description, 24, 3), {
+  const description = scene.add.text(textX, 8, wrapUiText(choice.description, 20, 4), {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '12px',
+    fontSize: '11px',
     color: '#302932',
     fontStyle: 'bold',
     align: 'left',
-    lineSpacing: 4,
+    lineSpacing: 3,
     resolution: 2,
-    wordWrap: { width: width - 126 },
+    wordWrap: { width: textWidth - 8, useAdvancedWrap: true },
     backgroundColor: '#f4ead4',
     padding: { left: 4, right: 4, top: 3, bottom: 3 },
-  }).setOrigin(0, 0));
+    fixedWidth: textWidth,
+  }).setOrigin(0, 0);
+  description.setCrop(0, 0, textWidth, 66);
+  card.add(description);
 }
 
 function addVerticalContent(
@@ -108,7 +113,7 @@ function addVerticalContent(
     align: 'center',
     lineSpacing: 2,
     resolution: 2,
-    wordWrap: { width: width - 18 },
+    wordWrap: { width: width - 18, useAdvancedWrap: true },
     stroke: '#f4ead4',
     strokeThickness: 1,
   }).setOrigin(0.5, 0));
@@ -117,18 +122,21 @@ function addVerticalContent(
   addChoiceIcon(scene, card, choice, 0, iconY, 70);
   addBadge(scene, card, 0, 20, badge, accent);
 
-  card.add(scene.add.text(0, 34, wrapUiText(choice.description, 11, 4), {
+  const description = scene.add.text(0, 34, wrapUiText(choice.description, 10, 5), {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '12px',
+    fontSize: '11px',
     color: '#302932',
     fontStyle: 'bold',
     align: 'center',
-    lineSpacing: 4,
+    lineSpacing: 3,
     resolution: 2,
-    wordWrap: { width: width - 16 },
+    wordWrap: { width: width - 20, useAdvancedWrap: true },
     backgroundColor: '#f4ead4',
     padding: { left: 3, right: 3, top: 3, bottom: 3 },
-  }).setOrigin(0.5, 0));
+    fixedWidth: width - 18,
+  }).setOrigin(0.5, 0);
+  description.setCrop(0, 0, width - 18, 72);
+  card.add(description);
 }
 
 function addBadge(
