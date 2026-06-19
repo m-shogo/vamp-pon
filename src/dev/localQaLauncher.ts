@@ -29,7 +29,7 @@ export function installLocalQaLauncher(): void {
   root.id = LAUNCHER_ID;
   root.style.position = 'fixed';
   root.style.right = '10px';
-  root.style.top = '10px';
+  root.style.top = '86px';
   root.style.zIndex = '9999';
   root.style.width = '214px';
   root.style.maxWidth = 'calc(100vw - 20px)';
@@ -38,7 +38,7 @@ export function installLocalQaLauncher(): void {
   root.style.filter = 'drop-shadow(0 10px 26px rgba(0, 0, 0, 0.38))';
 
   const details = document.createElement('details');
-  details.open = true;
+  details.open = false;
   details.style.border = '1px solid rgba(239, 215, 156, 0.75)';
   details.style.borderRadius = '12px';
   details.style.background = 'rgba(16, 17, 36, 0.9)';
