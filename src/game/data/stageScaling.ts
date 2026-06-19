@@ -1,4 +1,4 @@
-import { clampStagePower } from './stageBalance';
+import { applyStageFunProfile, clampStagePower } from './stageBalance';
 
 export type EnemyStagePower = {
   enemyHp: number;
@@ -96,15 +96,16 @@ function roundStagePower(power: EnemyStagePower): EnemyStagePower {
  * ステージ番号に応じた敵・報酬の基礎倍率。
  * HPだけを硬くせず、数・密度・経験値も一緒に上げて「強いけど気持ちいい」伸びにする。
  * Stage6以降は安全上限で丸め、難しさは新パターン/湧き方/ステージギミックで出す。
+ * 25/50/100などの節目は、敵HPを少し抑えて報酬を盛り、ストレス発散の爽快感を残す。
  */
 export function stagePowerForStage(stageNumber: number): EnemyStagePower {
   const stage = Math.max(1, Math.floor(Number.isFinite(stageNumber) ? stageNumber : 1));
   const fixed = STAGE_POWER_TABLE[stage];
-  if (fixed) return clampStagePower(fixed);
+  if (fixed) return roundStagePower(applyStageFunProfile(clampStagePower(fixed), stage));
 
   const over = stage - 5;
   const base = STAGE_POWER_TABLE[5];
-  return roundStagePower(clampStagePower({
+  return roundStagePower(applyStageFunProfile(clampStagePower({
     enemyHp: base.enemyHp + POST_STAGE5_STEP.enemyHp * over,
     enemyDamage: base.enemyDamage + POST_STAGE5_STEP.enemyDamage * over,
     enemySpeed: base.enemySpeed + POST_STAGE5_STEP.enemySpeed * over,
@@ -113,7 +114,7 @@ export function stagePowerForStage(stageNumber: number): EnemyStagePower {
     maxAlive: base.maxAlive + POST_STAGE5_STEP.maxAlive * over,
     xp: base.xp + POST_STAGE5_STEP.xp * over,
     reward: base.reward + POST_STAGE5_STEP.reward * over,
-  }));
+  }), stage));
 }
 
 /**
