@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vamp Pon Story Street Map</title>
   <style>
+    @font-face {
+      font-family: "M PLUS Rounded 1c";
+      src: url("../../assets/fonts/google/MPLUSRounded1c-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "M PLUS Rounded 1c";
+      src: url("../../assets/fonts/google/MPLUSRounded1c-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Kiwi Maru";
+      src: url("../../assets/fonts/google/KiwiMaru-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
     :root {
       --bg: #101827;
       --panel: #17223a;
@@ -24,10 +45,11 @@
       margin: 0;
       background: radial-gradient(circle at 50% 0%, #263654 0, var(--bg) 55%);
       color: var(--paper);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      font-family: "M PLUS Rounded 1c", sans-serif;
       line-height: 1.55;
     }
     header { padding: 28px 28px 14px; border-bottom: 1px solid var(--line); }
+    h1, h2, h3 { font-family: "Kiwi Maru", "M PLUS Rounded 1c", sans-serif; }
     h1 { margin: 0; font-size: 28px; letter-spacing: .04em; }
     h2 { margin: 0 0 12px; font-size: 18px; }
     h3 { margin: 14px 0 8px; font-size: 15px; color: #f1d994; }

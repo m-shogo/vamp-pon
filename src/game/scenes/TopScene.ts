@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { loadProfile } from '../persistence/profile';
-import { STORYBOOK_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 
 export class TopScene extends Phaser.Scene {
   private notice: Phaser.GameObjects.Text | null = null;
@@ -16,7 +16,7 @@ export class TopScene extends Phaser.Scene {
     const panel = this.add.graphics();
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 348, 700, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
 
-    this.text(GAME_WIDTH / 2, 118, 'VAMP PON', 34, STORYBOOK_UI.textLight, true);
+    this.text(GAME_WIDTH / 2, 118, 'VAMP PON', 34, STORYBOOK_UI.textLight, true, true);
     this.text(GAME_WIDTH / 2, 164, `黒曜片 ${profile.currency}`, 15, STORYBOOK_UI.goldLight, true);
     this.text(GAME_WIDTH / 2, 210, '夜をほどく準備をする', 13, STORYBOOK_UI.textMuted);
 
@@ -36,9 +36,9 @@ export class TopScene extends Phaser.Scene {
     this.notice?.setText(value);
   }
 
-  private text(x: number, y: number, value: string, size: number, color: string | number, bold = false): Phaser.GameObjects.Text {
+  private text(x: number, y: number, value: string, size: number, color: string | number, bold = false, title = false): Phaser.GameObjects.Text {
     return this.add.text(x, y, value, {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: title ? STORYBOOK_TITLE_FONT : STORYBOOK_FONT,
       fontSize: `${size}px`,
       color: colorString(color),
       fontStyle: bold ? 'bold' : 'normal',

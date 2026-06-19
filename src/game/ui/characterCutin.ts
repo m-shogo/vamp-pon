@@ -4,6 +4,7 @@ import { YUI_FRAME_IDS } from '../assets/playerFrames';
 import { YUI_EXPRESSION_RAGE_SHEET } from '../assets/yuiExpressionRageSheet';
 import { VIEW_DEPTH } from './factory';
 import { FONT } from './visualDesign';
+import { TITLE_FONT } from './fonts';
 
 export type CharacterCutinMode = 'ultimate' | 'berserk';
 
@@ -269,7 +270,7 @@ function addFallbackCutin(
   }
 
   const titleText = scene.add.text(22, panel.y - 52, title, {
-    fontFamily: FONT,
+    fontFamily: TITLE_FONT,
     fontSize: isBerserk ? '31px' : '22px',
     color: textColor,
     fontStyle: 'bold',

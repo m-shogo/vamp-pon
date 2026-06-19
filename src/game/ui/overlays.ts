@@ -32,6 +32,7 @@ import { attachPressFeedback } from './pressFeedback';
 import { createStorybookChoiceCard, categoryForChoice as storybookCategoryForChoice } from './storybookChoiceCard';
 import {
   STORYBOOK_FONT,
+  STORYBOOK_TITLE_FONT,
   STORYBOOK_UI,
   drawPaperCard,
   drawStorybookPanel,
@@ -78,7 +79,7 @@ export class Overlays {
     bold = false,
   ): Phaser.GameObjects.Text {
     return this.scene.add.text(x, y, value, {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: bold && size >= 18 ? STORYBOOK_TITLE_FONT : STORYBOOK_FONT,
       fontSize: `${size}px`,
       color: colorString(color),
       fontStyle: bold ? 'bold' : 'normal',
@@ -260,7 +261,7 @@ export class Overlays {
     const ref = iconRefForReward(reward);
     if (ref) this.addInventoryIcon(card, ref, 0, -45, 100, palette.accent);
     card.add(this.scene.add.text(0, -145, '記憶カプセル', {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '13px',
       color: STORYBOOK_UI.textSoft,
       fontStyle: 'bold',
@@ -269,7 +270,7 @@ export class Overlays {
       padding: { left: 6, right: 6, top: 2, bottom: 2 },
     }).setOrigin(0.5));
     card.add(this.scene.add.text(0, 46, wrapUiText(reward.title, 16, 2), {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '20px',
       color: STORYBOOK_UI.textDark,
       fontStyle: 'bold',
@@ -302,7 +303,7 @@ export class Overlays {
     root.add(panel);
 
     root.add(this.scene.add.text(GAME_WIDTH / 2, 72, evolutionActionLabel(reward.evolutionKind), {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '18px',
       color: colorString(accent.main),
       fontStyle: 'bold',
@@ -320,7 +321,7 @@ export class Overlays {
     this.addInventoryIcon(resultCard, { category: 'weapon', itemId: reward.evolvedWeaponId }, 0, -128, 112, accent.main);
 
     resultCard.add(this.scene.add.text(0, -40, wrapUiText(weapon?.name ?? reward.title, 14, 2), {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '24px',
       color: STORYBOOK_UI.textDark,
       fontStyle: 'bold',

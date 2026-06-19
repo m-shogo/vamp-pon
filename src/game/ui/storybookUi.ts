@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 import type { InventoryIconCategory } from '../assets/inventoryIcons';
+import { BODY_FONT, NUMBER_FONT, TITLE_FONT } from './fonts';
 
-export const STORYBOOK_FONT = '"M PLUS Rounded 1c", "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif';
-export const STORYBOOK_NUMBER_FONT = '"Courier New", monospace';
+export const STORYBOOK_FONT = BODY_FONT;
+export const STORYBOOK_TITLE_FONT = TITLE_FONT;
+export const STORYBOOK_NUMBER_FONT = NUMBER_FONT;
 
 type StorybookUiTokens = {
   night: number;

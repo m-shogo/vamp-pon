@@ -5,6 +5,7 @@ import { VIEW_DEPTH } from './factory';
 import { EVOLUTION_ACCENT, FONT } from './visualDesign';
 import { evolutionPresentation } from './evolutionPresentation';
 import { eliteDefeatBeat } from './eliteDefeatBeat';
+import { TITLE_FONT } from './fonts';
 
 function toCss(color: number): string {
   return `#${color.toString(16).padStart(6, '0')}`;
@@ -183,7 +184,7 @@ export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label:
 
   const text = scene.add
     .text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - (presentation.strong ? 110 : 92), label, {
-      fontFamily: FONT,
+      fontFamily: TITLE_FONT,
       fontSize: presentation.strong ? '26px' : '23px',
       color: toCss(accent.main),
       fontStyle: 'bold',

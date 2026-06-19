@@ -15,7 +15,7 @@ import {
   type UpgradeId,
 } from '../persistence/profile';
 import { characters } from '../data/characters';
-import { STORYBOOK_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 
 type StageSelectMode = 'stage' | 'growth';
 
@@ -65,7 +65,7 @@ export class StageSelectScene extends Phaser.Scene {
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
     root.add(panel);
 
-    root.add(this.text(GAME_WIDTH / 2, 34, this.mode === 'growth' ? '黒曜研究所' : 'ステージ選択', 25, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 34, this.mode === 'growth' ? '黒曜研究所' : 'ステージ選択', 25, STORYBOOK_UI.textLight, true, true));
     root.add(this.text(GAME_WIDTH / 2, 64, `黒曜片 ${profile.currency}`, 16, STORYBOOK_UI.goldLight, true));
 
     if (this.mode === 'stage') {
@@ -184,9 +184,9 @@ export class StageSelectScene extends Phaser.Scene {
     window.location.search = params.toString();
   }
 
-  private text(x: number, y: number, value: string, size: number, color: string | number, bold = false): Phaser.GameObjects.Text {
+  private text(x: number, y: number, value: string, size: number, color: string | number, bold = false, title = false): Phaser.GameObjects.Text {
     return this.add.text(x, y, value, {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: title ? STORYBOOK_TITLE_FONT : STORYBOOK_FONT,
       fontSize: `${size}px`,
       color: colorString(color),
       fontStyle: bold ? 'bold' : 'normal',

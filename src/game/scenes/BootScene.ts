@@ -9,6 +9,7 @@ import { isYui96QaUrl } from './Yui96QaScene';
 import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
 import { isRunStartUrl } from './StageSelectScene';
+import { loadGameFonts } from '../ui/fonts';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -16,6 +17,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   async create(): Promise<void> {
+    await loadGameFonts();
     let count = await queueExistingAssets(this);
     if (isGalleryUrl() || isCore5SpriteSheetPreviewUrl()) count += await queuePrototypeAssets(this);
 

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS } from '../domain/constants';
 import type { EvolutionKind } from '../domain/types';
+import { BODY_FONT } from './fonts';
 
 /**
  * Vamp Pon ビジュアルトークン。
@@ -27,7 +28,7 @@ export const EVOLUTION_ACCENT: Record<EvolutionKind, { main: number; sub: number
   awakening: { main: 0xc7aee0, sub: COLORS.fragment, rings: 2 },
 };
 
-export const FONT = '"Hiragino Sans", "Yu Gothic", sans-serif';
+export const FONT = BODY_FONT;
 
 /* ------------------------------------------------------------------ *
  * 紙片・絵本風のモチーフ部品。

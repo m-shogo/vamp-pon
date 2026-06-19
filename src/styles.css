@@ -1,3 +1,43 @@
+@font-face {
+  font-family: "M PLUS Rounded 1c";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "M PLUS Rounded 1c";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "M PLUS Rounded 1c";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kiwi Maru";
+  src: url("../assets/fonts/google/KiwiMaru-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kiwi Maru";
+  src: url("../assets/fonts/google/KiwiMaru-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body,
 #app {
@@ -6,6 +46,7 @@ body,
   height: 100%;
   overflow: hidden;
   background: #111827;
+  font-family: "M PLUS Rounded 1c", sans-serif;
   touch-action: none;
   user-select: none;
 }

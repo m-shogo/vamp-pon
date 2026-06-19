@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
+import { BODY_FONT } from './fonts';
 
-export const UI_FONT = '"Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif';
+export const UI_FONT = BODY_FONT;
 
 export type PixelPanelOptions = {
   fill: number;

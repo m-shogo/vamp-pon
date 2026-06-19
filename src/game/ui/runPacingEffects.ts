@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 import { GAME_HEIGHT, GAME_STATUS, GAME_WIDTH } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
-import { STORYBOOK_FONT, STORYBOOK_UI } from './storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from './storybookUi';
 
 export const ELITE_WARNING_STARTS = [150, 300, 420] as const;
 export const ELITE_WARNING_LEAD_SEC = 2.5;
@@ -31,7 +31,7 @@ export class RunPacingEffects {
     ).setDepth(VIEW_DEPTH.hud - 2).setVisible(false);
 
     this.countdownText = scene.add.text(GAME_WIDTH / 2, 92, '', {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '24px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
@@ -77,7 +77,7 @@ export class RunPacingEffects {
     banner.setStrokeStyle(2, 0x9a6f9f, 0.9);
 
     const title = this.scene.add.text(GAME_WIDTH / 2, 146, '黒ラベルの影', {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '18px',
       color: '#f2d8ee',
       fontStyle: 'bold',
@@ -161,7 +161,7 @@ export class RunPacingEffects {
     ).setDepth(depth + 1).setScale(0.3);
 
     const title = this.scene.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 54, '朝が来た', {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '30px',
       color: '#4b3b45',
       fontStyle: 'bold',
