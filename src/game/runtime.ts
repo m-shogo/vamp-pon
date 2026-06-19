@@ -9,6 +9,7 @@ import type {
   CapsuleReward,
 } from './domain/types';
 import type { AreaVisualKind, ProjectileVisualKind } from './domain/weaponVisual';
+import type { ExplorationDepthId } from './persistence/profile';
 
 /** すべてのエンティティ表示はContainerに統一する（扱いを単純化）。 */
 export type View = Phaser.GameObjects.Container;
@@ -151,6 +152,7 @@ export type RuntimeState = {
   status: GameStatus;
   runId: string;
   stageNumber: number;
+  explorationDepth: ExplorationDepthId;
   /** QA/調整用のゲームテンポ倍率。通常は1.0。 */
   speedMultiplier: number;
   elapsedSec: number;
@@ -195,6 +197,7 @@ export function createRunStats(): RunStats {
     capsulesOpened: 0,
     evolutions: [],
     ultimateUses: 0,
+    berserkUses: 0,
     damageTaken: 0,
     levelUps: 0,
     survivedSec: 0,
