@@ -149,6 +149,8 @@ export type DirectionWeights = Partial<Record<'bottom' | 'top' | 'left' | 'right
 
 export type WaveSpawnDefinition = {
   enemyId: Id;
+  /** ステージレシピ上で期待する敵パターン。未指定なら enemy.patternIds を使う。 */
+  patternId?: Id;
   spawnRatePerSecond?: number;
   spawnCount?: number;
   maxAlive?: number;
