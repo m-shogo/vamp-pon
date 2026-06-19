@@ -5,38 +5,38 @@
 
 /** 次のレベルまでに必要なXP。levelは現在レベル（1なら1→2に必要な量）。 */
 export function xpToNext(level: number): number {
-  // L1:6, 以降 +4/level の線形カーブ。
-  // 3回プレイで「敵が硬い / 攻撃が遅い / クリアできない」ため、初回MVPは上振れを早く出す。
-  return 6 + (level - 1) * 4;
+  // L1:5, 以降 +3/level の線形カーブ。
+  // Stage1の序盤で選択回数を増やし、武器差・ビルド差を早く見せる。
+  return 5 + (level - 1) * 3;
 }
 
-/** Lv2〜Lv4かつ武器+忘れ物が3個未満なら、新しい遊びを早めに見せる。 */
-export const EARLY_DISCOVERY_MAX_LEVEL = 4;
-export const EARLY_DISCOVERY_MIN_ITEMS = 3;
+/** Lv2〜Lv6かつ武器+忘れ物が4個未満なら、新しい遊びを早めに見せる。 */
+export const EARLY_DISCOVERY_MAX_LEVEL = 6;
+export const EARLY_DISCOVERY_MIN_ITEMS = 4;
 
 /** レベルアップ3択の抽選重み（docs/82-4）。 */
 export const LEVELUP_WEIGHTS = {
   early: {
-    weapon_upgrade: 24,
-    weapon_new: 29,
-    passive_upgrade: 12,
-    passive_new: 24,
-    rare_new: 5,
-    heal: 6,
+    weapon_upgrade: 18,
+    weapon_new: 36,
+    passive_upgrade: 10,
+    passive_new: 28,
+    rare_new: 4,
+    heal: 4,
   },
   normal: {
-    weapon_upgrade: 38,
-    weapon_new: 17,
-    passive_upgrade: 22,
-    passive_new: 12,
+    weapon_upgrade: 34,
+    weapon_new: 20,
+    passive_upgrade: 20,
+    passive_new: 15,
     rare_new: 6,
     heal: 5,
   },
   lowHp: {
-    weapon_upgrade: 30,
-    weapon_new: 13,
-    passive_upgrade: 18,
-    passive_new: 8,
+    weapon_upgrade: 28,
+    weapon_new: 15,
+    passive_upgrade: 16,
+    passive_new: 10,
     rare_new: 6,
     heal: 25,
   },
