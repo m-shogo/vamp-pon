@@ -21,8 +21,8 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
   const accent = isBerserk ? 0x38203f : 0xd9b65f;
   const paper = isBerserk ? 0x17101f : 0xeee1bd;
   const textColor = isBerserk ? '#f4d9fa' : '#332817';
-  const title = isBerserk ? '暴走' : '灯りよ、帰り道を';
-  const subtitle = isBerserk ? '記憶の影があふれ出す' : '忘れたものを照らし出す';
+  const title = isBerserk ? '黒灯化' : '灯りよ、帰り道を';
+  const subtitle = isBerserk ? '黒い灯りが記憶を照らす' : '忘れたものを照らし出す';
   const root = scene.add.container(0, 0).setDepth(depth).setScrollFactor(0);
 
   const shade = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x080713, 0.16);
