@@ -151,6 +151,8 @@ export type RuntimeState = {
   status: GameStatus;
   runId: string;
   stageNumber: number;
+  /** QA/調整用のゲームテンポ倍率。通常は1.0。 */
+  speedMultiplier: number;
   elapsedSec: number;
   durationSec: number;
   characterId: Id;
