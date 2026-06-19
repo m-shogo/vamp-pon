@@ -8,6 +8,7 @@ import type {
   LevelUpChoice,
   CapsuleReward,
 } from './domain/types';
+import type { AreaVisualKind, ProjectileVisualKind } from './domain/weaponVisual';
 
 /** すべてのエンティティ表示はContainerに統一する（扱いを単純化）。 */
 export type View = Phaser.GameObjects.Container;
@@ -44,6 +45,8 @@ export type ProjectileRuntime = {
   hitsLeft: number;
   bouncesLeft: number;
   lifeRemaining: number;
+  visualKind: ProjectileVisualKind;
+  trailAccum: number;
   hitSet: Set<number>;
   view: View;
   dead: boolean;
@@ -57,6 +60,7 @@ export type GroundAreaRuntime = {
   dps: number;
   remaining: number;
   tickAccum: number;
+  areaKind: AreaVisualKind;
   view: View;
   dead: boolean;
 };
