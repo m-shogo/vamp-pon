@@ -1,5 +1,7 @@
 # Vamp Pon
 
+Vamp Pon は正式販売タイトルではなく、開発コード名です。
+
 Vamp Pon は、スマホ縦持ち向けのサバイバルローグライトです。
 
 ---
@@ -96,7 +98,7 @@ pnpm aseprite:export:yui  # ユイ4ポーズのsourceがあればPNGへexport
 
 ```txt
 Web ベース
-Vite + TypeScript + Phaser
+Vite + TypeScript
 スマホブラウザで縦持ち検証
 PWA / Capacitor / アプリ化は後
 ```
@@ -152,6 +154,7 @@ docs/82-balance-target-matrix-...   バランス目標
 docs/98-target-code-architecture.md コード構成
 docs/44-core-loop-and-player-...    8分タイムライン
 docs/balance-log.md                 調整ログ
+docs/99-naming-guidelines.md        命名ガイドライン
 ```
 
 ---
