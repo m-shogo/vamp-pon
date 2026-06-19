@@ -11,6 +11,20 @@ import { YUI_FRAME_IDS } from './assets/playerFrames';
 import { attachCore5PlayerView } from './ui/playerVisual';
 import { BERSERK_DURATION_SEC, BERSERK_MAX_CHARGE } from './systems/berserk';
 
+export function isBerserkQaReadyRequested(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
+  const params = new URLSearchParams(search);
+  const qa = params.get('qa') ?? params.get('debug') ?? '';
+  const qaBerserk = params.get('qaBerserk') ?? '';
+  return qa === 'berserk-ready' || qa === 'berserk-auto' || qaBerserk === 'ready' || qaBerserk === 'auto';
+}
+
+export function isBerserkQaAutoRequested(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
+  const params = new URLSearchParams(search);
+  const qa = params.get('qa') ?? '';
+  const qaBerserk = params.get('qaBerserk') ?? '';
+  return qa === 'berserk-auto' || qaBerserk === 'auto';
+}
+
 export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAULT_CHARACTER_ID): RuntimeState {
   const char = characterById.get(characterId) ?? characterById.get(DEFAULT_CHARACTER_ID)!;
   const px = GAME_WIDTH / 2;
@@ -26,6 +40,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const debug = params.get('debug') === 'true';
   const debugHitCircle = playerView.getData('debugHitCircle') as Phaser.GameObjects.Arc | undefined;
   debugHitCircle?.setVisible(debug);
+  const qaBerserkReady = isBerserkQaReadyRequested();
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,
@@ -80,8 +95,8 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     },
     berserk: {
       maxCharge: BERSERK_MAX_CHARGE,
-      charge: 0,
-      ready: false,
+      charge: qaBerserkReady ? BERSERK_MAX_CHARGE : 0,
+      ready: qaBerserkReady,
       durationSec: BERSERK_DURATION_SEC,
       activeRemaining: 0,
       fatigueRemaining: 0,
