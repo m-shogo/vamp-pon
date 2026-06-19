@@ -26,6 +26,7 @@ import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
+const MAX_RUNTIME_STAGE = 5;
 
 declare global {
   interface Window {
@@ -57,6 +58,7 @@ export class MainScene extends Phaser.Scene {
   private playtestSnapshotEnabled = false;
   private lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
   private lastDebugSnapshotJson = '';
+  private stageNumber = 1;
   private onBlur = (): void => this.tryAutoPause();
   private onVisibility = (): void => {
     if (document.hidden) this.tryAutoPause();
@@ -111,10 +113,10 @@ export class MainScene extends Phaser.Scene {
   }
 
   private setupBackground(): void {
-    const stageNum = getRequestedStageNumber() ?? 1;
+    this.stageNumber = getRequestedStageNumber() ?? 1;
     loadBackgroundManifest().then((manifest) => {
       if (!manifest) { createBackground(this); return; }
-      const entry = getBackgroundByStageNumber(manifest, stageNum);
+      const entry = getBackgroundByStageNumber(manifest, this.stageNumber);
       if (!entry) { createBackground(this); return; }
       if (!entry.enabledForRuntime) { createBackground(this); return; }
       const key = stageBackgroundTextureKey(entry);
@@ -301,9 +303,17 @@ export class MainScene extends Phaser.Scene {
     console.log('[vamp-pon playlog]', JSON.stringify(log));
 
     const showResult = () => {
-      this.overlays.showResult(state, cleared, log, () => {
-        this.scene.restart();
-      });
+      const nextStage = Math.min(this.stageNumber + 1, MAX_RUNTIME_STAGE);
+      this.overlays.showResult(
+        state,
+        cleared,
+        log,
+        () => {
+          this.scene.restart();
+        },
+        cleared && nextStage > this.stageNumber ? () => this.goToStage(nextStage) : undefined,
+        `Stage ${nextStage}へ`,
+      );
     };
 
     if (cleared) {
@@ -311,6 +321,15 @@ export class MainScene extends Phaser.Scene {
     } else {
       showResult();
     }
+  }
+
+  private goToStage(stage: number): void {
+    const params = new URLSearchParams(window.location.search);
+    params.delete('scene');
+    params.delete('qa');
+    params.delete('qaBerserk');
+    params.set('stage', String(stage));
+    window.location.search = params.toString();
   }
 }
 
