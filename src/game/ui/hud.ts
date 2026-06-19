@@ -33,6 +33,10 @@ const ULT_X = GAME_WIDTH - 42;
 const ULT_Y = GAME_HEIGHT - 132;
 const PAUSE_X = GAME_WIDTH - 24;
 const PAUSE_Y = 28;
+const SPEED_X = 42;
+const SPEED_Y = 84;
+const SPEED_W = 68;
+const SPEED_H = 28;
 const EMPTY_BERSERK: BerserkState = {
   maxCharge: 100,
   charge: 0,
@@ -55,6 +59,10 @@ export class Hud {
   private topIcons: Phaser.GameObjects.Graphics;
   private pauseZone: Phaser.GameObjects.Zone;
   private pausePressVisual: Phaser.GameObjects.Container;
+  private speedBack: Phaser.GameObjects.Graphics;
+  private speedText: Phaser.GameObjects.Text;
+  private speedZone: Phaser.GameObjects.Zone;
+  private speedPressVisual: Phaser.GameObjects.Container;
   private inventoryBack: Phaser.GameObjects.Graphics;
   private portraitFrame: Phaser.GameObjects.Graphics;
   private portraitCharge: Phaser.GameObjects.Graphics;
@@ -79,6 +87,7 @@ export class Hud {
     private onUltimate: () => void,
     private onBerserk: () => void = () => {},
     private onPause: () => void = () => {},
+    private onSpeedToggle: () => void = () => {},
   ) {
     this.topBack = scene.add.graphics().setDepth(DEPTH);
     drawStorybookPanel(
@@ -155,6 +164,39 @@ export class Hud {
       (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event?: InputEventLike) => {
         event?.stopPropagation?.();
         this.onPause();
+      },
+    );
+
+    this.speedBack = scene.add.graphics().setDepth(DEPTH + 5);
+    this.speedText = scene.add.text(SPEED_X, SPEED_Y, 'x1.0', {
+      fontFamily: STORYBOOK_NUMBER_FONT,
+      fontSize: '13px',
+      color: STORYBOOK_UI.textLight,
+      fontStyle: 'bold',
+      resolution: 2,
+      stroke: '#080b18',
+      strokeThickness: 2,
+    }).setOrigin(0.5).setDepth(DEPTH + 6);
+    this.speedPressVisual = scene.add.container(SPEED_X, SPEED_Y).setDepth(DEPTH + 8);
+    this.speedZone = scene.add.zone(SPEED_X, SPEED_Y, SPEED_W, SPEED_H)
+      .setOrigin(0.5)
+      .setDepth(DEPTH + 9)
+      .setInteractive({ useHandCursor: true });
+    attachPressFeedback(scene, this.speedZone, this.speedPressVisual, {
+      x: SPEED_X,
+      y: SPEED_Y,
+      width: SPEED_W,
+      height: SPEED_H,
+      accent: STORYBOOK_UI.goldLight,
+      depth: DEPTH + 10,
+      strong: true,
+      shake: true,
+    });
+    this.speedZone.on(
+      Phaser.Input.Events.POINTER_DOWN,
+      (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event?: InputEventLike) => {
+        event?.stopPropagation?.();
+        this.onSpeedToggle();
       },
     );
 
@@ -254,7 +296,7 @@ export class Hud {
     this.passiveSlots = SLOT_PASSIVE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 28, DEPTH + 2, 'passive'));
     this.rareSlots = SLOT_RARE_X.map((x) => new InventorySlotView(scene, x, SLOT_PASSIVE_Y, 26, DEPTH + 2, 'rare'));
 
-    this.debugText = scene.add.text(8, 78, '', {
+    this.debugText = scene.add.text(8, 112, '', {
       fontFamily: 'monospace',
       fontSize: '10px',
       color: '#9fe0a0',
@@ -270,6 +312,7 @@ export class Hud {
     this.timeText.setText(`${minutes}:${seconds}`);
     this.levelText.setText(`Lv.${state.player.level}`);
     this.fragmentText.setText(String(state.stats?.memoryFragmentsCollected ?? 0));
+    this.updateSpeedButton(state.speedMultiplier ?? 1);
 
     const player = state.player;
     const hpRatio = Math.max(0, player.hp / player.maxHp);
@@ -291,7 +334,7 @@ export class Hud {
 
     if (state.debug) {
       this.debugText.setVisible(true).setText([
-        `t=${state.elapsedSec.toFixed(1)} status=${state.status}`,
+        `t=${state.elapsedSec.toFixed(1)} x${(state.speedMultiplier ?? 1).toFixed(1)} status=${state.status}`,
         `enemies=${state.enemies?.length ?? 0} proj=${state.projectiles?.length ?? 0}`,
         `hp=${player.hp.toFixed(0)} lv=${player.level} xp=${player.xp.toFixed(1)}/${player.xpToNext}`,
         `blackLuster=${berserk.charge.toFixed(0)}/${berserk.maxCharge} active=${berserk.activeRemaining.toFixed(1)}`,
@@ -300,6 +343,23 @@ export class Hud {
     } else {
       this.debugText.setVisible(false);
     }
+  }
+
+  private updateSpeedButton(speedMultiplier: number): void {
+    const isFast = speedMultiplier > 1.01;
+    this.speedBack.clear();
+    drawStorybookPanel(
+      this.speedBack,
+      SPEED_X,
+      SPEED_Y,
+      SPEED_W,
+      SPEED_H,
+      isFast ? 0x241a10 : STORYBOOK_UI.nightPanel,
+      isFast ? STORYBOOK_UI.goldLight : STORYBOOK_UI.gold,
+      isFast ? 0.98 : 0.88,
+    );
+    this.speedText.setText(`x${speedMultiplier.toFixed(1)}`);
+    this.speedText.setColor(isFast ? '#fff0b3' : STORYBOOK_UI.textLight);
   }
 
   private drawUltimate(ratio: number, ready: boolean, locked: boolean): void {
@@ -391,6 +451,7 @@ export class Hud {
     for (const object of [
       this.topBack, this.hpText, this.timeText, this.levelText, this.fragmentText,
       this.hpBar, this.xpBar, this.topIcons, this.pauseZone, this.pausePressVisual,
+      this.speedBack, this.speedText, this.speedZone, this.speedPressVisual,
       this.inventoryBack, this.portraitFrame, this.portraitFlame, this.portraitCharge, this.portraitZone, this.portraitPressVisual,
       this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone, this.ultimatePressVisual,
     ]) object.setVisible(visible);
@@ -406,6 +467,10 @@ export class Hud {
   destroy(): void {
     this.pauseZone.destroy();
     this.pausePressVisual.destroy();
+    this.speedBack.destroy();
+    this.speedText.destroy();
+    this.speedZone.destroy();
+    this.speedPressVisual.destroy();
     this.portraitZone.destroy();
     this.portraitPressVisual.destroy();
     this.ultimateZone.destroy();
