@@ -3,6 +3,7 @@ import { weapons, weaponById } from '../../data/weapons';
 import { passives, passiveById } from '../../data/passives';
 import { rareItems, rareItemById } from '../../data/rareItems';
 import { enemies, enemyById } from '../../data/enemies';
+import { buildArchetypes } from '../../data/buildArchetypes';
 import { ENEMY_PATTERNS } from '../../data/enemyPatterns';
 import { stageRecipes, waves } from '../../data/waves';
 import { evolutions } from '../../data/evolutions';
@@ -48,6 +49,18 @@ describe('rareItems データ', () => {
   it('id が一意で、レベルを持たない', () => {
     expect(new Set(rareItems.map((item) => item.id)).size).toBe(rareItems.length);
     for (const item of rareItems) expect(item.category).toBe('rare_item');
+  });
+});
+
+describe('buildArchetypes データ', () => {
+  it('参照する武器/パッシブが実在し、方針として空ではない', () => {
+    for (const archetype of buildArchetypes) {
+      expect(archetype.weaponIds.length).toBeGreaterThan(0);
+      expect(archetype.passiveIds.length).toBeGreaterThan(0);
+      for (const id of archetype.weaponIds) expect(weaponById.has(id)).toBe(true);
+      for (const id of archetype.passiveIds) expect(passiveById.has(id)).toBe(true);
+      expect(archetype.playHint.length).toBeGreaterThan(0);
+    }
   });
 });
 
