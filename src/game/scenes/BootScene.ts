@@ -4,6 +4,7 @@ import { isCharacterCutinQaUrl } from './CharacterCutinQaScene';
 import { isCore5SpriteSheetPreviewUrl } from './Core5SpriteSheetPreviewScene';
 import { isEliteDefeatBeatQaUrl } from './EliteDefeatBeatQaScene';
 import { isGalleryUrl, isBackgroundPreviewUrl } from './VisualGalleryScene';
+import { isWeaponFeedbackQaUrl as isFxQaUrl } from './WeaponFeedbackQaScene';
 import { isYui96QaUrl } from './Yui96QaScene';
 import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
@@ -51,6 +52,10 @@ export class BootScene extends Phaser.Scene {
     }
     if (isEliteDefeatBeatQaUrl()) {
       this.scene.start('EliteDefeatBeatQaScene');
+      return;
+    }
+    if (isFxQaUrl()) {
+      this.scene.start('WeaponFeedbackQaScene');
       return;
     }
     this.scene.start(isGalleryUrl() ? 'VisualGalleryScene' : 'MainScene');
