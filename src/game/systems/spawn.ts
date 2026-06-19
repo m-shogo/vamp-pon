@@ -6,6 +6,7 @@ import { enemyById } from '../data/enemies';
 import { DEFAULT_GAME_CONFIG } from '../domain/constants';
 import { spawnEnemy } from './enemies';
 import { pickSpawnPosition } from '../utils/viewport';
+import { depthForState } from '../persistence/profile';
 
 /** ウェーブ表に従って敵をスポーンする。アキュムレータはランごとに新規生成。 */
 export class SpawnSystem {
@@ -19,7 +20,7 @@ export class SpawnSystem {
 
     for (let i = 0; i < wave.spawns.length; i += 1) {
       const spawn = wave.spawns[i];
-      const key = `${state.stageNumber}:${wave.start}:${spawn.enemyId}:${i}`;
+      const key = `${state.stageNumber}:${state.explorationDepth}:${wave.start}:${spawn.enemyId}:${i}`;
       if (spawn.spawnCount != null) {
         this.handleOneShot(scene, state, spawn, key);
       } else if (spawn.spawnRatePerSecond != null) {
@@ -46,7 +47,8 @@ export class SpawnSystem {
     this.firedOneShots.add(key);
     const def = enemyById.get(spawn.enemyId);
     if (!def) return;
-    const count = spawn.spawnCount ?? 1;
+    const depth = depthForState(state);
+    const count = Math.max(1, Math.round((spawn.spawnCount ?? 1) * depth.spawnCount));
     for (let i = 0; i < count; i += 1) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
       spawnEnemy(scene, state, def, pos.x, pos.y);
@@ -62,10 +64,11 @@ export class SpawnSystem {
   ): void {
     const def = enemyById.get(spawn.enemyId);
     if (!def) return;
-    const maxAlive = spawn.maxAlive ?? Infinity;
+    const depth = depthForState(state);
+    const maxAlive = Math.max(1, Math.round((spawn.maxAlive ?? Infinity) * depth.maxAlive));
     if (this.aliveOfType(state, spawn.enemyId) >= maxAlive) return;
 
-    const acc = (this.rateAccum.get(key) ?? 0) + (spawn.spawnRatePerSecond ?? 0) * dt;
+    const acc = (this.rateAccum.get(key) ?? 0) + (spawn.spawnRatePerSecond ?? 0) * depth.spawnRate * dt;
     let toSpawn = Math.floor(acc);
     this.rateAccum.set(key, acc - toSpawn);
 
