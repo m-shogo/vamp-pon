@@ -1,3 +1,5 @@
+import { clampStagePower } from './stageBalance';
+
 export type EnemyStagePower = {
   enemyHp: number;
   enemyDamage: number;
@@ -77,27 +79,41 @@ function roundPower(value: number): number {
   return Number(value.toFixed(3));
 }
 
+function roundStagePower(power: EnemyStagePower): EnemyStagePower {
+  return {
+    enemyHp: roundPower(power.enemyHp),
+    enemyDamage: roundPower(power.enemyDamage),
+    enemySpeed: roundPower(power.enemySpeed),
+    spawnRate: roundPower(power.spawnRate),
+    spawnCount: roundPower(power.spawnCount),
+    maxAlive: roundPower(power.maxAlive),
+    xp: roundPower(power.xp),
+    reward: roundPower(power.reward),
+  };
+}
+
 /**
  * ステージ番号に応じた敵・報酬の基礎倍率。
  * HPだけを硬くせず、数・密度・経験値も一緒に上げて「強いけど気持ちいい」伸びにする。
+ * Stage6以降は安全上限で丸め、難しさは新パターン/湧き方/ステージギミックで出す。
  */
 export function stagePowerForStage(stageNumber: number): EnemyStagePower {
   const stage = Math.max(1, Math.floor(Number.isFinite(stageNumber) ? stageNumber : 1));
   const fixed = STAGE_POWER_TABLE[stage];
-  if (fixed) return fixed;
+  if (fixed) return clampStagePower(fixed);
 
   const over = stage - 5;
   const base = STAGE_POWER_TABLE[5];
-  return {
-    enemyHp: roundPower(base.enemyHp + POST_STAGE5_STEP.enemyHp * over),
-    enemyDamage: roundPower(base.enemyDamage + POST_STAGE5_STEP.enemyDamage * over),
-    enemySpeed: roundPower(Math.min(1.22, base.enemySpeed + POST_STAGE5_STEP.enemySpeed * over)),
-    spawnRate: roundPower(Math.min(1.7, base.spawnRate + POST_STAGE5_STEP.spawnRate * over)),
-    spawnCount: roundPower(Math.min(1.45, base.spawnCount + POST_STAGE5_STEP.spawnCount * over)),
-    maxAlive: roundPower(Math.min(1.7, base.maxAlive + POST_STAGE5_STEP.maxAlive * over)),
-    xp: roundPower(base.xp + POST_STAGE5_STEP.xp * over),
-    reward: roundPower(base.reward + POST_STAGE5_STEP.reward * over),
-  };
+  return roundStagePower(clampStagePower({
+    enemyHp: base.enemyHp + POST_STAGE5_STEP.enemyHp * over,
+    enemyDamage: base.enemyDamage + POST_STAGE5_STEP.enemyDamage * over,
+    enemySpeed: base.enemySpeed + POST_STAGE5_STEP.enemySpeed * over,
+    spawnRate: base.spawnRate + POST_STAGE5_STEP.spawnRate * over,
+    spawnCount: base.spawnCount + POST_STAGE5_STEP.spawnCount * over,
+    maxAlive: base.maxAlive + POST_STAGE5_STEP.maxAlive * over,
+    xp: base.xp + POST_STAGE5_STEP.xp * over,
+    reward: base.reward + POST_STAGE5_STEP.reward * over,
+  }));
 }
 
 /**
