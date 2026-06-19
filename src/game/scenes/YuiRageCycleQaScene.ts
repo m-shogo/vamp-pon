@@ -87,7 +87,7 @@ export class YuiRageCycleQaScene extends Phaser.Scene {
 
   create(): void {
     createBackground(this);
-    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x101124, 0.8);
+    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x101124, 0.86);
 
     this.add.text(GAME_WIDTH / 2, 20, 'ユイ黒灯化 Runtime遷移 QA', {
       fontFamily: FONT,
@@ -101,12 +101,19 @@ export class YuiRageCycleQaScene extends Phaser.Scene {
       color: '#cfe6f0',
     }).setOrigin(0.5, 0);
 
-    this.largeSprite = this.add.image(GAME_WIDTH / 2, 260, 'yui_idle').setDisplaySize(260, 260);
+    this.add.rectangle(GAME_WIDTH / 2, 260, 286, 286, 0x080914, 0.28)
+      .setStrokeStyle(1, 0xfff2c7, 0.18);
+    this.largeSprite = this.add.image(GAME_WIDTH / 2, 260, 'yui_idle').setDisplaySize(260, 260).setAlpha(0.84);
+
+    this.add.rectangle(74, 485, 92, 118, 0x080914, 0.58)
+      .setStrokeStyle(1, 0xfff2c7, 0.24);
     this.sprite = this.add.image(74, 485, 'yui_idle').setDisplaySize(76, 76);
     this.add.text(74, 535, 'ゲーム表示 76px', {
       fontFamily: FONT,
       fontSize: '9px',
-      color: '#cfe6f0',
+      color: '#fff2c7',
+      backgroundColor: '#080914',
+      padding: { left: 3, right: 3, top: 2, bottom: 2 },
     }).setOrigin(0.5, 0);
 
     this.stateText = this.add.text(GAME_WIDTH / 2, 405, '', {
@@ -114,11 +121,15 @@ export class YuiRageCycleQaScene extends Phaser.Scene {
       fontSize: '16px',
       color: '#ffe9a8',
       fontStyle: 'bold',
+      backgroundColor: '#080914',
+      padding: { left: 6, right: 6, top: 3, bottom: 3 },
     }).setOrigin(0.5, 0);
     this.frameText = this.add.text(128, 464, '', {
       fontFamily: FONT,
       fontSize: '11px',
       color: '#e7dfcf',
+      backgroundColor: '#080914',
+      padding: { left: 6, right: 6, top: 4, bottom: 4 },
       lineSpacing: 5,
     }).setOrigin(0, 0);
     this.noteText = this.add.text(24, 584, '', {
@@ -127,6 +138,8 @@ export class YuiRageCycleQaScene extends Phaser.Scene {
       color: '#ffe9a8',
       wordWrap: { width: 342 },
       align: 'center',
+      backgroundColor: '#080914',
+      padding: { left: 6, right: 6, top: 5, bottom: 5 },
       lineSpacing: 6,
     }).setOrigin(0, 0);
 
