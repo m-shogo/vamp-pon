@@ -1,4 +1,4 @@
-import type { WaveDefinition } from '../domain/types';
+import type { WaveDefinition, WaveSpawnDefinition } from '../domain/types';
 
 /**
  * 8分（480秒）ウェーブ。docs/44・docs/82 のタイムライン準拠。
@@ -147,3 +147,35 @@ export const waves: WaveDefinition[] = [
     ],
   },
 ];
+
+function stage2DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
+  return {
+    bottom: Math.max(24, Math.round((weights.bottom ?? 0) * 0.72)),
+    top: Math.round((weights.top ?? 0) * 1.22 + 5),
+    left: Math.round((weights.left ?? 0) * 1.12 + 3),
+    right: Math.round((weights.right ?? 0) * 1.12 + 3),
+    around: Math.round((weights.around ?? 0) + 8),
+  };
+}
+
+function stage2Spawn(spawn: WaveSpawnDefinition, waveIndex: number): WaveSpawnDefinition {
+  const pressure = 1.08 + Math.min(0.16, waveIndex * 0.012);
+  return {
+    ...spawn,
+    spawnRatePerSecond: spawn.spawnRatePerSecond == null
+      ? undefined
+      : Number((spawn.spawnRatePerSecond * pressure).toFixed(2)),
+    maxAlive: spawn.maxAlive == null ? undefined : Math.ceil(spawn.maxAlive * 1.12),
+    directionWeights: stage2DirectionWeights(spawn.directionWeights),
+  };
+}
+
+export const stage2Waves: WaveDefinition[] = waves.map((wave, index) => ({
+  ...wave,
+  note: `Stage2: ${wave.note}`,
+  spawns: wave.spawns.map((spawn) => stage2Spawn(spawn, index)),
+}));
+
+export function wavesForStage(stageNumber: number): WaveDefinition[] {
+  return stageNumber >= 2 ? stage2Waves : waves;
+}
