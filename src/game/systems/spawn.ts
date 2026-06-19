@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 import type { WaveDefinition, WaveSpawnDefinition } from '../domain/types';
-import { waves } from '../data/waves';
+import { wavesForStage } from '../data/waves';
 import { enemyById } from '../data/enemies';
 import { DEFAULT_GAME_CONFIG } from '../domain/constants';
 import { spawnEnemy } from './enemies';
@@ -14,12 +14,12 @@ export class SpawnSystem {
 
   update(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
     if (state.enemies.length >= DEFAULT_GAME_CONFIG.maxEnemies) return;
-    const wave = this.findWave(state.elapsedSec);
+    const wave = this.findWave(state.elapsedSec, state.stageNumber);
     if (!wave) return;
 
     for (let i = 0; i < wave.spawns.length; i += 1) {
       const spawn = wave.spawns[i];
-      const key = `${wave.start}:${spawn.enemyId}:${i}`;
+      const key = `${state.stageNumber}:${wave.start}:${spawn.enemyId}:${i}`;
       if (spawn.spawnCount != null) {
         this.handleOneShot(scene, state, spawn, key);
       } else if (spawn.spawnRatePerSecond != null) {
@@ -28,8 +28,8 @@ export class SpawnSystem {
     }
   }
 
-  private findWave(t: number): WaveDefinition | null {
-    for (const w of waves) {
+  private findWave(t: number, stageNumber: number): WaveDefinition | null {
+    for (const w of wavesForStage(stageNumber)) {
       if (t >= w.start && t < w.end) return w;
     }
     return null;
