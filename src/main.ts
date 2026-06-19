@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { installLocalQaLauncher } from './dev/localQaLauncher';
+import { installQaErrorLogger } from './dev/qaErrorLogger';
 import { BootScene } from './game/scenes/BootScene';
 import { CharacterCutinQaScene } from './game/scenes/CharacterCutinQaScene';
 import { Core5SpriteSheetPreviewScene } from './game/scenes/Core5SpriteSheetPreviewScene';
@@ -10,6 +11,8 @@ import { WeaponFeedbackQaScene } from './game/scenes/WeaponFeedbackQaScene';
 import { Yui96QaScene } from './game/scenes/Yui96QaScene';
 import { YuiRageCycleQaScene } from './game/scenes/YuiRageCycleQaScene';
 import './styles.css';
+
+installQaErrorLogger();
 
 // BootScene がアセットを preload し、URL（?scene=… / ?debug=…）で本編 or preview へ振り分ける。
 const config: Phaser.Types.Core.GameConfig = {
