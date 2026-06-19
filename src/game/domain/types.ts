@@ -135,6 +135,7 @@ export type RunStats = {
   capsulesOpened: number;
   evolutions: Id[];
   ultimateUses: number;
+  berserkUses: number;
   damageTaken: number;
   levelUps: number;
   survivedSec: number;
