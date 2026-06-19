@@ -30,6 +30,7 @@ export type EnemyRuntime = {
   capsuleDropChance: number;
   offsetSign: number;
   flashRemaining: number;
+  specialAttackCooldown: number;
   view: View;
   hpBar: Phaser.GameObjects.Graphics | null;
   dead: boolean;
