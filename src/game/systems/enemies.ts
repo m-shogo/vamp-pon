@@ -10,6 +10,7 @@ import { createEnemyView, enemyRadiusFor } from '../ui/factory';
 import { capsuleRewardBurst, inkPuff, shakeOnHit } from '../ui/effects';
 import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
+import { stagePowerForStage } from '../data/stageScaling';
 import { depthForState, profileBonuses } from '../persistence/profile';
 import {
   ENEMY_PROTOTYPE_SHEETS,
@@ -33,12 +34,13 @@ export function spawnEnemy(
   y: number,
 ): void {
   const depth = depthForState(state);
+  const stage = stagePowerForStage(state.stageNumber);
   const radius = enemyRadiusFor(def);
   const view = createEnemyView(scene, def, radius);
   view.setPosition(x, y);
   const isElite = def.tags.includes('elite');
   const capsuleDropChance = capsuleDropChanceFor(def);
-  const hp = Math.max(1, def.hp * depth.enemyHp);
+  const hp = Math.max(1, def.hp * depth.enemyHp * stage.enemyHp);
   const enemy: EnemyRuntime = {
     iid: nextIid(state),
     defId: def.id,
@@ -46,9 +48,9 @@ export function spawnEnemy(
     y,
     hp,
     maxHp: hp,
-    moveSpeed: def.moveSpeed * depth.enemySpeed,
-    contactDamage: def.contactDamage * depth.enemyDamage,
-    xpDrop: def.xpDrop * depth.xp,
+    moveSpeed: def.moveSpeed * depth.enemySpeed * stage.enemySpeed,
+    contactDamage: def.contactDamage * depth.enemyDamage * stage.enemyDamage,
+    xpDrop: def.xpDrop * depth.xp * stage.xp,
     radius,
     behavior: def.behavior,
     isElite,
