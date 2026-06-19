@@ -6,6 +6,7 @@ import { characterById } from '../data/characters';
 import { spriteOrNull } from '../assets/assetHelpers';
 import { YUI_HUD_FRAME_IDS } from '../assets/playerFrames';
 import { InventorySlotView } from './inventorySlot';
+import { attachPressFeedback } from './pressFeedback';
 import {
   STORYBOOK_FONT,
   STORYBOOK_NUMBER_FONT,
@@ -53,10 +54,12 @@ export class Hud {
   private xpBar: Phaser.GameObjects.Graphics;
   private topIcons: Phaser.GameObjects.Graphics;
   private pauseZone: Phaser.GameObjects.Zone;
+  private pausePressVisual: Phaser.GameObjects.Container;
   private inventoryBack: Phaser.GameObjects.Graphics;
   private portraitFrame: Phaser.GameObjects.Graphics;
   private portraitCharge: Phaser.GameObjects.Graphics;
   private portraitFlame: Phaser.GameObjects.Graphics;
+  private portraitPressVisual: Phaser.GameObjects.Container;
   private portraitImage: Phaser.GameObjects.Image | null;
   private portraitFallback: Phaser.GameObjects.Text;
   private crestImage: Phaser.GameObjects.Image | null;
@@ -64,6 +67,7 @@ export class Hud {
   private portraitZone: Phaser.GameObjects.Zone;
   private ultimateBack: Phaser.GameObjects.Graphics;
   private ultimateText: Phaser.GameObjects.Text;
+  private ultimatePressVisual: Phaser.GameObjects.Container;
   private ultimateZone: Phaser.GameObjects.Zone;
   private weaponSlots: InventorySlotView[];
   private passiveSlots: InventorySlotView[];
@@ -132,10 +136,20 @@ export class Hud {
     this.hpBar = scene.add.graphics().setDepth(DEPTH + 2);
     this.xpBar = scene.add.graphics().setDepth(DEPTH + 2);
 
+    this.pausePressVisual = scene.add.container(PAUSE_X, PAUSE_Y).setDepth(DEPTH + 6);
     this.pauseZone = scene.add.zone(PAUSE_X, PAUSE_Y, 42, 42)
       .setOrigin(0.5)
-      .setDepth(DEPTH + 5)
+      .setDepth(DEPTH + 7)
       .setInteractive({ useHandCursor: true });
+    attachPressFeedback(scene, this.pauseZone, this.pausePressVisual, {
+      x: PAUSE_X,
+      y: PAUSE_Y,
+      width: 42,
+      height: 42,
+      accent: STORYBOOK_UI.gold,
+      depth: DEPTH + 8,
+      shake: true,
+    });
     this.pauseZone.on(
       Phaser.Input.Events.POINTER_DOWN,
       (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event?: InputEventLike) => {
@@ -160,6 +174,7 @@ export class Hud {
     drawStorybookPanel(this.portraitFrame, PORTRAIT_X, PORTRAIT_Y, 60, 60, 0x10162d, STORYBOOK_UI.gold, 0.96);
     this.portraitFlame = scene.add.graphics().setDepth(DEPTH + 3);
     this.portraitCharge = scene.add.graphics().setDepth(DEPTH + 4);
+    this.portraitPressVisual = scene.add.container(PORTRAIT_X, PORTRAIT_Y).setDepth(DEPTH + 7);
     this.portraitImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.portraitNeutral, 44, 44);
     this.portraitImage?.setPosition(PORTRAIT_X, PORTRAIT_Y).setDepth(DEPTH + 2);
     this.portraitFallback = scene.add.text(PORTRAIT_X, PORTRAIT_Y, 'ユ', {
@@ -182,8 +197,18 @@ export class Hud {
     }).setOrigin(0.5, 1).setDepth(DEPTH + 5);
     this.portraitZone = scene.add.zone(PORTRAIT_X, PORTRAIT_Y, 70, 70)
       .setOrigin(0.5)
-      .setDepth(DEPTH + 6)
+      .setDepth(DEPTH + 8)
       .setInteractive({ useHandCursor: true });
+    attachPressFeedback(scene, this.portraitZone, this.portraitPressVisual, {
+      x: PORTRAIT_X,
+      y: PORTRAIT_Y,
+      width: 70,
+      height: 70,
+      accent: 0xffc06a,
+      depth: DEPTH + 9,
+      strong: true,
+      shake: true,
+    });
     this.portraitZone.on(
       Phaser.Input.Events.POINTER_DOWN,
       (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event?: InputEventLike) => {
@@ -202,10 +227,21 @@ export class Hud {
       stroke: '#080b18',
       strokeThickness: 2,
     }).setOrigin(0.5).setDepth(DEPTH + 3);
+    this.ultimatePressVisual = scene.add.container(ULT_X, ULT_Y).setDepth(DEPTH + 6);
     this.ultimateZone = scene.add.zone(ULT_X, ULT_Y, 72, 72)
       .setOrigin(0.5)
-      .setDepth(DEPTH + 5)
+      .setDepth(DEPTH + 7)
       .setInteractive({ useHandCursor: true });
+    attachPressFeedback(scene, this.ultimateZone, this.ultimatePressVisual, {
+      x: ULT_X,
+      y: ULT_Y,
+      width: 72,
+      height: 72,
+      accent: STORYBOOK_UI.goldLight,
+      depth: DEPTH + 9,
+      strong: true,
+      shake: true,
+    });
     this.ultimateZone.on(
       Phaser.Input.Events.POINTER_DOWN,
       (_pointer: Phaser.Input.Pointer, _x: number, _y: number, event?: InputEventLike) => {
@@ -354,9 +390,9 @@ export class Hud {
   setVisible(visible: boolean): void {
     for (const object of [
       this.topBack, this.hpText, this.timeText, this.levelText, this.fragmentText,
-      this.hpBar, this.xpBar, this.topIcons, this.pauseZone,
-      this.inventoryBack, this.portraitFrame, this.portraitFlame, this.portraitCharge, this.portraitZone,
-      this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone,
+      this.hpBar, this.xpBar, this.topIcons, this.pauseZone, this.pausePressVisual,
+      this.inventoryBack, this.portraitFrame, this.portraitFlame, this.portraitCharge, this.portraitZone, this.portraitPressVisual,
+      this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone, this.ultimatePressVisual,
     ]) object.setVisible(visible);
     this.weaponSlots.forEach((slot) => slot.setVisible(visible));
     this.passiveSlots.forEach((slot) => slot.setVisible(visible));
@@ -369,8 +405,11 @@ export class Hud {
 
   destroy(): void {
     this.pauseZone.destroy();
+    this.pausePressVisual.destroy();
     this.portraitZone.destroy();
+    this.portraitPressVisual.destroy();
     this.ultimateZone.destroy();
+    this.ultimatePressVisual.destroy();
     this.weaponSlots.forEach((slot) => slot.destroy());
     this.passiveSlots.forEach((slot) => slot.destroy());
     this.rareSlots.forEach((slot) => slot.destroy());
