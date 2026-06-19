@@ -1,4 +1,5 @@
 import type { Id, WaveDefinition, WaveSpawnDefinition } from '../domain/types';
+import type { StageRecipe } from './stageRecipes';
 
 /**
  * 8分（480秒）ウェーブ。docs/44・docs/82 のタイムライン準拠。
@@ -206,6 +207,30 @@ export const stage2Waves: WaveDefinition[] = waves.map((wave, index) => ({
   spawns: wave.spawns.map((spawn) => stage2Spawn(spawn, index)),
 }));
 
+const stage1Recipe: StageRecipe = {
+  stageNumber: 1,
+  id: 'stage.1.memory-road',
+  name: '忘れ物の夜道',
+  theme: '基本追尾・突進・回り込みを覚える導入ステージ',
+  allowedPatternIds: ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'],
+  waves,
+};
+
+const stage2Recipe: StageRecipe = {
+  stageNumber: 2,
+  id: 'stage.2.ink-map',
+  name: 'にじむ地図帳',
+  theme: 'Stage1の構成を保ちつつ、出現方向と密度で包囲感を上げるステージ',
+  allowedPatternIds: ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'],
+  waves: stage2Waves,
+};
+
+export const stageRecipes: StageRecipe[] = [stage1Recipe, stage2Recipe];
+
+export function recipeForStage(stageNumber: number): StageRecipe {
+  return stageNumber >= 2 ? stage2Recipe : stage1Recipe;
+}
+
 export function wavesForStage(stageNumber: number): WaveDefinition[] {
-  return stageNumber >= 2 ? stage2Waves : waves;
+  return recipeForStage(stageNumber).waves;
 }
