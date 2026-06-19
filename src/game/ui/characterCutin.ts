@@ -7,7 +7,7 @@ import { FONT } from './visualDesign';
 
 export type CharacterCutinMode = 'ultimate' | 'berserk';
 
-/** Future production texture keys. Registering them later replaces the fallback automatically. */
+/** Runtime cutin texture keys. If the image is not loaded, the old fallback path still works. */
 export const CHARACTER_CUTIN_TEXTURE = {
   ultimate: 'yui_cutin_ultimate',
   berserk: 'yui_cutin_berserk',
@@ -17,16 +17,57 @@ const BERSERK_CUTIN_SHEET_FRAME = 15;
 const CUTIN_ENTER_MS = 170;
 const CUTIN_HOLD_MS = 780;
 const CUTIN_EXIT_MS = 260;
+const CUTIN_SOURCE_WIDTH = 1440;
+const CUTIN_SOURCE_HEIGHT = 360;
+const CUTIN_BANNER_HEIGHT = 184;
+const CUTIN_BANNER_WIDTH = Math.round(CUTIN_BANNER_HEIGHT * (CUTIN_SOURCE_WIDTH / CUTIN_SOURCE_HEIGHT));
 
 export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode): void {
   const depth = VIEW_DEPTH.overlay - 2;
+  const root = scene.add.container(0, 0).setDepth(depth).setScrollFactor(0);
+  const visual = resolveCutinVisual(scene, mode);
+
+  if (visual && visual.textureKey === CHARACTER_CUTIN_TEXTURE[mode] && visual.frame == null) {
+    addImageCutin(scene, root, mode, visual.textureKey);
+  } else {
+    addFallbackCutin(scene, root, mode, visual);
+  }
+
+  animateCutin(scene, root);
+}
+
+function addImageCutin(
+  scene: Phaser.Scene,
+  root: Phaser.GameObjects.Container,
+  mode: CharacterCutinMode,
+  textureKey: string,
+): void {
+  const isBerserk = mode === 'berserk';
+  const accent = isBerserk ? 0x6f2a3f : 0xffcf70;
+  const y = GAME_HEIGHT / 2 - 36;
+
+  const shade = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x080713, 0.24);
+  const image = scene.add.image(GAME_WIDTH / 2, y, textureKey)
+    .setDisplaySize(CUTIN_BANNER_WIDTH, CUTIN_BANNER_HEIGHT)
+    .setAlpha(0.99);
+  const topLine = scene.add.rectangle(GAME_WIDTH / 2, y - CUTIN_BANNER_HEIGHT / 2 + 2, GAME_WIDTH + 72, 3, accent, 0.68);
+  const bottomLine = scene.add.rectangle(GAME_WIDTH / 2, y + CUTIN_BANNER_HEIGHT / 2 - 2, GAME_WIDTH + 72, 3, accent, 0.52);
+
+  root.add([shade, image, topLine, bottomLine]);
+}
+
+function addFallbackCutin(
+  scene: Phaser.Scene,
+  root: Phaser.GameObjects.Container,
+  mode: CharacterCutinMode,
+  visual: { textureKey: string; frame?: number } | null,
+): void {
   const isBerserk = mode === 'berserk';
   const accent = isBerserk ? 0x38203f : 0xd9b65f;
   const paper = isBerserk ? 0x17101f : 0xeee1bd;
   const textColor = isBerserk ? '#f4d9fa' : '#332817';
   const title = isBerserk ? '黒耀化' : '灯りよ、帰り道を';
   const subtitle = isBerserk ? '黒い灯りが記憶を照らす' : '忘れたものを照らし出す';
-  const root = scene.add.container(0, 0).setDepth(depth).setScrollFactor(0);
 
   const shade = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x080713, 0.22);
   const panel = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 36, GAME_WIDTH + 36, 184, paper, 0.97)
@@ -36,7 +77,6 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
   const inkLineBottom = scene.add.rectangle(GAME_WIDTH / 2, panel.y + 92, GAME_WIDTH + 30, 6, accent, 0.72).setAngle(-2);
   root.add([shade, panel, inkLineTop, inkLineBottom]);
 
-  const visual = resolveCutinVisual(scene, mode);
   if (visual) {
     const portrait = scene.add.image(GAME_WIDTH - 76, panel.y + 2, visual.textureKey, visual.frame)
       .setDisplaySize(172, 172)
@@ -70,7 +110,9 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
     wordWrap: { width: 246 },
   });
   root.add([titleText, subtitleText]);
+}
 
+function animateCutin(scene: Phaser.Scene, root: Phaser.GameObjects.Container): void {
   root.setX(-GAME_WIDTH - 50);
   scene.tweens.add({
     targets: root,
