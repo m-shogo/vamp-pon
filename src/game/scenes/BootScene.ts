@@ -8,6 +8,7 @@ import { isWeaponFeedbackQaUrl as isFxQaUrl } from './WeaponFeedbackQaScene';
 import { isYui96QaUrl } from './Yui96QaScene';
 import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
+import { isRunStartUrl } from './StageSelectScene';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -58,6 +59,10 @@ export class BootScene extends Phaser.Scene {
       this.scene.start('WeaponFeedbackQaScene');
       return;
     }
-    this.scene.start(isGalleryUrl() ? 'VisualGalleryScene' : 'MainScene');
+    if (isGalleryUrl()) {
+      this.scene.start('VisualGalleryScene');
+      return;
+    }
+    this.scene.start(isRunStartUrl() ? 'MainScene' : 'StageSelectScene');
   }
 }
