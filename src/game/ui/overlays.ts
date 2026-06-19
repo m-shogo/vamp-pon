@@ -239,12 +239,16 @@ export class Overlays {
   }
 
   showCapsule(_state: RuntimeState, reward: CapsuleReward, onClose: () => void): void {
-    const evolution = reward.type === 'evolution';
-    const root = this.dim(evolution ? 0.7 : 0.62);
+    if (reward.type === 'evolution') {
+      this.showEvolutionReward(reward, onClose);
+      return;
+    }
+
+    const root = this.dim(0.62);
     const category: InventoryIconCategory = reward.type === 'passive_upgrade' ? 'passive' : 'weapon';
     const palette = storybookCategoryPalette(category);
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 320, 430, STORYBOOK_UI.nightPanel, evolution ? EVOLUTION_ACCENT[reward.evolutionKind].main : palette.accent, 0.98);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 320, 430, STORYBOOK_UI.nightPanel, palette.accent, 0.98);
     root.add(panel);
 
     const card = this.scene.add.container(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 8);
@@ -253,7 +257,7 @@ export class Overlays {
     card.add(paper);
     const ref = iconRefForReward(reward);
     if (ref) this.addInventoryIcon(card, ref, 0, -45, 100, palette.accent);
-    card.add(this.scene.add.text(0, -145, evolution ? evolutionKindLabel(reward.evolutionKind) : '記憶カプセル', {
+    card.add(this.scene.add.text(0, -145, '記憶カプセル', {
       fontFamily: STORYBOOK_FONT,
       fontSize: '13px',
       color: STORYBOOK_UI.textSoft,
@@ -273,19 +277,6 @@ export class Overlays {
       backgroundColor: '#f4ead4',
       padding: { left: 7, right: 7, top: 4, bottom: 4 },
     }).setOrigin(0.5));
-    if (reward.type === 'evolution' && reward.lore) {
-      card.add(this.scene.add.text(0, 98, wrapUiText(reward.lore, 20, 3), {
-        fontFamily: STORYBOOK_FONT,
-        fontSize: '12px',
-        color: '#4e433e',
-        fontStyle: 'bold',
-        align: 'center',
-        lineSpacing: 4,
-        resolution: 2,
-        backgroundColor: '#f4ead4',
-        padding: { left: 5, right: 5, top: 4, bottom: 4 },
-      }).setOrigin(0.5, 0));
-    }
     root.add(card);
 
     const close = () => {
@@ -293,9 +284,147 @@ export class Overlays {
       onClose();
     };
     (root.list[0] as Phaser.GameObjects.Rectangle).on('pointerdown', close);
-    this.scene.time.delayedCall(evolution ? 2200 : 1500, () => {
+    this.scene.time.delayedCall(1500, () => {
       if (this.current === root) close();
     });
+  }
+
+  private showEvolutionReward(reward: Extract<CapsuleReward, { type: 'evolution' }>, onClose: () => void): void {
+    const weapon = weaponById.get(reward.evolvedWeaponId);
+    const accent = EVOLUTION_ACCENT[reward.evolutionKind];
+    const root = this.dim(0.82);
+    this.addEvolutionRewardAtmosphere(root, reward);
+
+    const panel = this.scene.add.graphics();
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 366, 704, STORYBOOK_UI.nightPanel, accent.main, 0.98);
+    root.add(panel);
+
+    root.add(this.scene.add.text(GAME_WIDTH / 2, 72, evolutionActionLabel(reward.evolutionKind), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '18px',
+      color: colorString(accent.main),
+      fontStyle: 'bold',
+      align: 'center',
+      resolution: 2,
+      stroke: '#080b18',
+      strokeThickness: 4,
+    }).setOrigin(0.5));
+    root.add(this.text(GAME_WIDTH / 2, 103, '武器が重なり、新しい形になった', 12, STORYBOOK_UI.textMuted, true));
+
+    const resultCard = this.scene.add.container(GAME_WIDTH / 2, 400).setScale(0.86).setAlpha(0);
+    const paper = this.scene.add.graphics();
+    drawPaperCard(paper, 0, 0, 300, 430, accent.main, STORYBOOK_UI.paper);
+    resultCard.add(paper);
+    this.addInventoryIcon(resultCard, { category: 'weapon', itemId: reward.evolvedWeaponId }, 0, -128, 112, accent.main);
+
+    resultCard.add(this.scene.add.text(0, -40, wrapUiText(weapon?.name ?? reward.title, 14, 2), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '24px',
+      color: STORYBOOK_UI.textDark,
+      fontStyle: 'bold',
+      align: 'center',
+      resolution: 2,
+      lineSpacing: 3,
+      backgroundColor: '#f4ead4',
+      padding: { left: 8, right: 8, top: 4, bottom: 4 },
+    }).setOrigin(0.5));
+
+    resultCard.add(this.scene.add.text(0, 36, wrapUiText(weapon?.description ?? reward.title, 22, 4), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '13px',
+      color: '#4a3b2a',
+      fontStyle: 'bold',
+      align: 'center',
+      resolution: 2,
+      lineSpacing: 4,
+      padding: { left: 8, right: 8, top: 4, bottom: 4 },
+    }).setOrigin(0.5, 0));
+
+    resultCard.add(this.scene.add.text(0, 146, wrapUiText(reward.lore || weapon?.lore || '新しい記憶のかたち。', 24, 3), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '11px',
+      color: STORYBOOK_UI.textSoft,
+      fontStyle: 'bold',
+      align: 'center',
+      resolution: 2,
+      lineSpacing: 4,
+      backgroundColor: '#f4ead4',
+      padding: { left: 6, right: 6, top: 4, bottom: 4 },
+    }).setOrigin(0.5, 0));
+
+    root.add(resultCard);
+    this.scene.tweens.add({ targets: resultCard, scale: 1, alpha: 1, delay: 520, duration: 340, ease: 'Back.easeOut' });
+
+    const closeButton = this.button(GAME_WIDTH / 2, GAME_HEIGHT - 80, 206, 48, '閉じる', () => {
+      this.clear();
+      onClose();
+    });
+    closeButton.setAlpha(0);
+    root.add(closeButton);
+    this.scene.tweens.add({ targets: closeButton, alpha: 1, delay: 900, duration: 260, ease: 'Quad.easeOut' });
+  }
+
+  private addEvolutionRewardAtmosphere(root: Phaser.GameObjects.Container, reward: Extract<CapsuleReward, { type: 'evolution' }>): void {
+    const kind = reward.evolutionKind;
+    const accent = EVOLUTION_ACCENT[kind];
+    const main = accent.main;
+    const sub = accent.sub;
+    const centerX = GAME_WIDTH / 2;
+    const centerY = GAME_HEIGHT / 2 - 28;
+    this.scene.cameras.main.flash(kind === 'fusion' ? 520 : 430, 255, kind === 'awakening' ? 235 : 218, kind === 'fusion' ? 160 : 230, false);
+    this.scene.cameras.main.shake(kind === 'fusion' ? 340 : 280, kind === 'upgrade' ? 0.004 : 0.006);
+
+    for (let i = 0; i < 4; i += 1) {
+      const flash = this.scene.add.rectangle(centerX, centerY, GAME_WIDTH + 120, 34 - i * 4, i % 2 === 0 ? main : sub, 0.22 - i * 0.025)
+        .setAngle(-18 + i * 8)
+        .setBlendMode('ADD');
+      root.add(flash);
+      this.scene.tweens.add({ targets: flash, scaleX: 1.8, alpha: 0, delay: 80 + i * 40, duration: 680, ease: 'Cubic.easeOut' });
+    }
+
+    const leftCore = this.scene.add.circle(centerX - 92, centerY + 12, 22, kind === 'fusion' ? COLORS.ink : COLORS.paperScrap, 0.86).setBlendMode('ADD');
+    const rightCore = this.scene.add.circle(centerX + 92, centerY + 12, 22, kind === 'fusion' ? COLORS.lantern : sub, 0.86).setBlendMode('ADD');
+    const bridge = this.scene.add.rectangle(centerX, centerY + 12, 180, 4, main, 0.68).setBlendMode('ADD');
+    root.add([leftCore, rightCore, bridge]);
+    this.scene.tweens.add({ targets: leftCore, x: centerX - 8, scale: 0.62, duration: 380, ease: 'Cubic.easeIn' });
+    this.scene.tweens.add({ targets: rightCore, x: centerX + 8, scale: 0.62, duration: 380, ease: 'Cubic.easeIn' });
+    this.scene.tweens.add({ targets: bridge, scaleX: 0.12, alpha: 0, duration: 420, ease: 'Cubic.easeIn' });
+    this.scene.time.delayedCall(420, () => {
+      leftCore.destroy();
+      rightCore.destroy();
+      bridge.destroy();
+      if (this.current === root) this.addEvolutionExplosion(root, centerX, centerY + 12, main, sub, kind);
+    });
+
+    for (let i = 0; i < 26; i += 1) {
+      const angle = (Math.PI * 2 * i) / 26;
+      const particle = i % 3 === 0
+        ? this.scene.add.rectangle(centerX, centerY + 12, 9, 5, COLORS.paperScrap, 0.82)
+        : this.scene.add.circle(centerX, centerY + 12, 2.8 + (i % 3), i % 2 === 0 ? main : sub, 0.86).setBlendMode('ADD');
+      particle.setRotation(angle);
+      root.add(particle);
+      this.scene.tweens.add({
+        targets: particle,
+        x: centerX + Math.cos(angle) * (110 + (i % 5) * 18),
+        y: centerY + 12 + Math.sin(angle) * (86 + (i % 4) * 16),
+        angle: particle.angle + 140,
+        alpha: 0,
+        delay: 420 + i * 8,
+        duration: 780,
+        ease: 'Cubic.easeOut',
+        onComplete: () => particle.destroy(),
+      });
+    }
+  }
+
+  private addEvolutionExplosion(root: Phaser.GameObjects.Container, x: number, y: number, main: number, sub: number, kind: EvolutionKind): void {
+    const burst = this.scene.add.circle(x, y, 18, main, 0.2).setBlendMode('ADD');
+    burst.setStrokeStyle(5, kind === 'fusion' ? 0xffffff : sub, 0.95);
+    const shock = this.scene.add.circle(x, y, 42, sub, 0.04).setBlendMode('ADD');
+    shock.setStrokeStyle(4, main, 0.62);
+    root.add([burst, shock]);
+    this.scene.tweens.add({ targets: burst, scale: 7.5, alpha: 0, duration: 620, ease: 'Cubic.easeOut', onComplete: () => burst.destroy() });
+    this.scene.tweens.add({ targets: shock, scale: 4.2, alpha: 0, duration: 820, ease: 'Cubic.easeOut', onComplete: () => shock.destroy() });
   }
 
   showResult(state: RuntimeState, cleared: boolean, log: PlayLog, onRestart: () => void): void {
@@ -431,6 +560,12 @@ function iconRefForReward(reward: CapsuleReward): IconRef | null {
   if (reward.type === 'weapon_upgrade') return { category: 'weapon', itemId: reward.itemId };
   if (reward.type === 'passive_upgrade') return { category: 'passive', itemId: reward.itemId };
   return null;
+}
+
+function evolutionActionLabel(kind: EvolutionKind): string {
+  if (kind === 'upgrade') return '武器進化';
+  if (kind === 'fusion') return '武器合体';
+  return '覚醒合成';
 }
 
 function evolutionKindLabel(kind: EvolutionKind): string {
