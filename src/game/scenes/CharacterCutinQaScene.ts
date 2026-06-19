@@ -43,10 +43,13 @@ export class CharacterCutinQaScene extends Phaser.Scene {
       lineSpacing: 6,
     }).setOrigin(0.5, 0);
 
-    this.addButton(195, 250, '通常必殺を再生', 'ultimate');
-    this.addButton(195, 360, '黒灯化を再生', 'berserk');
+    this.addFallbackPreview(105, 165, '通常fallback', 0xead9a6, 0xd9b65f, '#352c20');
+    this.addFallbackPreview(285, 165, '黒耀化fallback', 0x17101f, 0xcaa6d1, '#f4d9fa');
 
-    this.statusText = this.add.text(26, 470, '', {
+    this.addButton(195, 270, '通常必殺を再生', 'ultimate');
+    this.addButton(195, 380, '黒耀化を再生', 'berserk');
+
+    this.statusText = this.add.text(26, 492, '', {
       fontFamily: FONT,
       fontSize: '11px',
       color: '#e7dfcf',
@@ -60,6 +63,22 @@ export class CharacterCutinQaScene extends Phaser.Scene {
       fontSize: '10px',
       color: '#9eb3c5',
     }).setOrigin(0.5, 0);
+  }
+
+  private addFallbackPreview(x: number, y: number, label: string, fill: number, stroke: number, color: string): void {
+    const card = this.add.rectangle(x, y, 144, 58, fill, 0.9);
+    card.setStrokeStyle(2, stroke, 0.9);
+    this.add.text(x, y - 11, label, {
+      fontFamily: FONT,
+      fontSize: '10px',
+      color,
+      fontStyle: 'bold',
+    }).setOrigin(0.5);
+    this.add.text(x, y + 9, '未納時の色分け', {
+      fontFamily: FONT,
+      fontSize: '9px',
+      color,
+    }).setOrigin(0.5);
   }
 
   private addButton(x: number, y: number, label: string, mode: CharacterCutinMode): void {
@@ -84,14 +103,18 @@ export class CharacterCutinQaScene extends Phaser.Scene {
     this.statusText?.setText([
       '現在の解決結果',
       `通常必殺: ${formatVisual(ultimate)}`,
-      `黒灯化: ${formatVisual(berserk)}`,
+      `黒耀化: ${formatVisual(berserk)}`,
       '',
       `production ultimate: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.ultimate) ? 'loaded' : 'not loaded'}`,
       `production black: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.berserk) ? 'loaded' : 'not loaded'}`,
       '',
+      'fallback色:',
+      '・通常必殺 = 暖色紙パネル',
+      '・黒耀化 = 紫黒パネル',
+      '',
       '確認:',
       '・敵や弾を長時間隠さない',
-      '・通常必殺と黒灯化の色と意味が混ざらない',
+      '・通常必殺と黒耀化の色と意味が混ざらない',
       '・終了後に表示物が残らない',
     ]);
   }
