@@ -60,6 +60,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     status: GAME_STATUS.READY,
     runId: `r${Date.now().toString(36)}`,
     stageNumber,
+    speedMultiplier: 1,
     elapsedSec: 0,
     durationSec: qaQuickClear ? 15 : DEFAULT_GAME_CONFIG.durationSec,
     characterId: char.id,
