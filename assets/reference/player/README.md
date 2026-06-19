@@ -2,9 +2,15 @@
 
 ここには player reference を置く。
 
-最初に置くべきもの:
+## ユイ (`player/yui/`)
 
-- `yui_turnaround_soft_pixel_reference.png`
+| ファイル | 内容 |
+|---|---|
+| `yui-turnaround-softpixel-v1.png` | soft pixel 4方向ターンアラウンド |
+| `yui-turnaround-4dir-reference-v1.jpeg` | 高精細 4方向ターンアラウンド |
+| `yui-fullbody-standing-reference-v1.png` | フルボディ立ち絵 |
+| `yui-sprite-sheet-48poses-reference-v1.jpeg` | 48ポーズスプライトシート参考 |
+| `yui-rage-overdrive-48cells-reference-v1.png` | 暴走/オーバードライブ48セル参考 |
 
 このreferenceは、以下の要素を固定するために使う。
 

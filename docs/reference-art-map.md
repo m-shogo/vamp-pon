@@ -14,12 +14,15 @@
 
 ```txt
 assets/reference/
-  player/
-    yui_turnaround_soft_pixel_reference.png
+  player/yui/
+    yui-turnaround-softpixel-v1.png
+    yui-turnaround-4dir-reference-v1.jpeg
+    yui-fullbody-standing-reference-v1.png
+    yui-sprite-sheet-48poses-reference-v1.jpeg
+    yui-rage-overdrive-48cells-reference-v1.png
   character-master/core5/
   enemies/
-    enemy-48-sheet/
-      enemy-48-sprite-sheet-v1.png
+    ink_enemy_family_reference.png
   backgrounds/
     stage1_night_tile_reference.png
 ```
@@ -41,14 +44,19 @@ assets/reference/
 
 ## 2. Player reference
 
-### `yui_turnaround_soft_pixel_reference.png`
+### `assets/reference/player/yui/`
 
-対応素材:
+ユイの全reference画像を集約:
 
-- `public/assets/sprites/player/yui_idle_42.png`
-- `public/assets/sprites/player/yui_move_42.png`
-- `public/assets/sprites/player/yui_hurt_42.png`
-- `public/assets/sprites/player/yui_ultimate_42.png`
+| ファイル | 内容 |
+|---|---|
+| `yui-turnaround-softpixel-v1.png` | soft pixel 4方向ターンアラウンド |
+| `yui-turnaround-4dir-reference-v1.jpeg` | 高精細 4方向ターンアラウンド |
+| `yui-fullbody-standing-reference-v1.png` | フルボディ立ち絵 |
+| `yui-sprite-sheet-48poses-reference-v1.jpeg` | 48ポーズスプライトシート参考 |
+| `yui-rage-overdrive-48cells-reference-v1.png` | 暴走/オーバードライブ48セル参考 |
+
+対応素材（`public/assets/sprites/` は廃止済み。現在のruntime候補は `core5-original-frames/`）:
 
 守る要素:
 
@@ -114,8 +122,17 @@ assets/reference/
 
 ### 48体reference sheet
 
+敵48体の参照シートは `public/assets/prototypes/sprite-sheets/enemies-original/` にruntime候補として配置:
+
 ```txt
-assets/reference/enemies/enemy-48-sheet/enemy-48-sprite-sheet-v1.png
+public/assets/prototypes/sprite-sheets/enemies-original/enemy-48-left-1440x1080-rgba.png
+public/assets/prototypes/sprite-sheets/enemies-original/enemy-48-right-1440x1080-rgba.png
+```
+
+`assets/reference/enemies/enemy-48-sheet/` は未作成。敵の設計参考画像:
+
+```txt
+assets/reference/enemies/ink_enemy_family_reference.png
 ```
 
 仕様:
@@ -270,7 +287,7 @@ pnpm enemy48:sprites:verify
 | `assets/concept-design/` | 方向性検討と生成prompt | no |
 | `assets/reference/` | 正式reference | no |
 | `assets/reference/character-master/core5/` | キャラ設計の正本 | no |
-| `assets/reference/enemies/enemy-48-sheet/` | 敵48体のreference sheet | no |
+| `assets/reference/enemies/` | 敵の設計参考画像 | no |
 | `public/assets/prototypes/sprite-sheets/core5-original-frames/` | 主人公/キャラの現在のprototype frame候補。Yui runtime候補はここを読む | no |
 | `public/assets/prototypes/sprite-sheets/yui-expression-rage-original/` | ユイ表情・暴走48セルシート（1440x1080 PNG RGBA） | no |
 | `public/assets/prototypes/sprite-sheets/yui-expression-rage-original-frames/` | ユイ表情・暴走48個別フレーム（180x180） | no |

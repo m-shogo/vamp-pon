@@ -11,12 +11,22 @@
 
 ---
 
-## Planned files
+## フォルダ構成
 
 ```txt
 assets/reference/
-  player/
-    yui_turnaround_soft_pixel_reference.png
+  player/yui/
+    yui-turnaround-softpixel-v1.png
+    yui-turnaround-4dir-reference-v1.jpeg
+    yui-fullbody-standing-reference-v1.png
+    yui-sprite-sheet-48poses-reference-v1.jpeg
+    yui-rage-overdrive-48cells-reference-v1.png
+  character-master/core5/
+    yui-character-master-v1.png
+    asa-character-master-v1.png
+    nagi-character-master-v1.png
+    michiru-character-master-v1.png
+    tomori-character-master-v1.png
   enemies/
     ink_enemy_family_reference.png
   backgrounds/

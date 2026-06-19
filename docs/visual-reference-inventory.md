@@ -68,7 +68,11 @@ XP紫           #9b7fc0
 
 | パス | 何の参考か |
 |---|---|
-| `assets/reference/player/yui_turnaround_soft_pixel_reference.png` | ユイ4方向ターンアラウンド |
+| `assets/reference/player/yui/yui-turnaround-softpixel-v1.png` | ユイ4方向ターンアラウンド（soft pixel） |
+| `assets/reference/player/yui/yui-turnaround-4dir-reference-v1.jpeg` | ユイ4方向ターンアラウンド（高精細） |
+| `assets/reference/player/yui/yui-fullbody-standing-reference-v1.png` | ユイフルボディ立ち絵 |
+| `assets/reference/player/yui/yui-sprite-sheet-48poses-reference-v1.jpeg` | ユイ48ポーズ参考シート |
+| `assets/reference/player/yui/yui-rage-overdrive-48cells-reference-v1.png` | ユイ暴走/OD 48セル参考 |
 | `assets/reference/enemies/ink_enemy_family_reference.png` | 黒インク敵4系統 |
 | `assets/reference/backgrounds/stage1_night_tile_reference.png` | 夜の街背景 |
 

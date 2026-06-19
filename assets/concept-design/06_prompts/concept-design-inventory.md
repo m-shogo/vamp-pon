@@ -24,7 +24,7 @@ repo 内のコンセプトデザイン・参照画像の棚卸し。
 
 | path | category | status | reason | weakness | mobile readability | implementation note | next action |
 |---|---|---|---|---|---|---|---|
-| `reference/player/yui_turnaround_soft_pixel_reference.png` | character | keep | ユイ4方向ターンアラウンド。画風の正解基準 | — | 4方向とも読める | idle/move/hurt/ultimateの全ポーズ基準 | Aseprite手仕上げの参照 |
+| `reference/player/yui/yui-turnaround-softpixel-v1.png` | character | keep | ユイ4方向ターンアラウンド。画風の正解基準 | — | 4方向とも読める | idle/move/hurt/ultimateの全ポーズ基準 | Aseprite手仕上げの参照 |
 | `reference/enemies/ink_enemy_family_reference.png` | enemy | keep | 黒インク敵4系統（blob/wisp/specter/hound） | — | シルエット差明確 | 敵4系統の形状・光目の基準 | ドット化 |
 | `reference/backgrounds/stage1_night_tile_reference.png` | world | keep | 夜の街背景。石畳・街灯・紙片 | 情報量多くtile化要 | 暗いが構成要素は見える | tile化して情報量を落とす必要 | tile分割設計 |
 

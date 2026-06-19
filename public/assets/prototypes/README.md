@@ -65,6 +65,18 @@ public/assets/prototypes/sprite-sheets/rare/     # 4 PNGs
 They are expected to come from the ChatGPT image-generation flow, then be reviewed/adapted before
 any future production promotion.
 
+### Cutins
+
+ユイの横長カットイン画像の配置先:
+
+```txt
+public/assets/prototypes/cutins/yui/
+  yui-cutin-ultimate-normal-v1.png
+  yui-cutin-ultimate-black-v1.png
+```
+
+現在は空。カットイン画像が制作されたらここに配置する。
+
 ### Latest background and enemy prototype sources
 
 These folders contain the latest background and enemy prototype sources:
@@ -77,6 +89,17 @@ public/assets/prototypes/sprite-sheets/enemies-original/
 Backgrounds in `public/assets/prototypes/backgrounds/manifest.json` are runtime-enabled prototype
 backgrounds. Enemy sheets under `enemies-original/` are the current runtime enemy sheet candidates.
 They are still prototype assets, not production / hand-final art.
+
+### Inventory icon source sheet
+
+武器・パッシブ・レア全27アイコンの一覧レビューシート:
+
+```txt
+public/assets/prototypes/sprite-sheets/weapon-passive-rare-original/
+  vamp-pon-inventory-icons-180-review.png   # 1440x720 / 8列x4行 / 180px
+```
+
+注: ディレクトリ名 `wepon-passive-rare-original` はタイポだが、参照箇所がないため現状維持。
 
 ## Core5 52px sprite sheets
 
