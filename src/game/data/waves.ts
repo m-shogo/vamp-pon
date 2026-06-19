@@ -207,6 +207,37 @@ export const stage2Waves: WaveDefinition[] = waves.map((wave, index) => ({
   spawns: wave.spawns.map((spawn) => stage2Spawn(spawn, index)),
 }));
 
+function stage3DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
+  return {
+    bottom: Math.max(18, Math.round((weights.bottom ?? 0) * 0.58)),
+    top: Math.round((weights.top ?? 0) * 1.38 + 8),
+    left: Math.round((weights.left ?? 0) * 1.28 + 5),
+    right: Math.round((weights.right ?? 0) * 1.28 + 5),
+    around: Math.round((weights.around ?? 0) + 16),
+  };
+}
+
+function stage3Spawn(spawn: WaveSpawnDefinition, waveIndex: number): WaveSpawnDefinition {
+  const pressure = 1.16 + Math.min(0.24, waveIndex * 0.016);
+  const patternBonus = spawn.patternId === 'charge.tellLine' || spawn.patternId === 'orbit.player' || spawn.patternId === 'chase.swarm'
+    ? 1.12
+    : 1;
+  return {
+    ...spawn,
+    spawnRatePerSecond: spawn.spawnRatePerSecond == null
+      ? undefined
+      : Number((spawn.spawnRatePerSecond * pressure * patternBonus).toFixed(2)),
+    maxAlive: spawn.maxAlive == null ? undefined : Math.ceil(spawn.maxAlive * 1.22 * patternBonus),
+    directionWeights: stage3DirectionWeights(spawn.directionWeights),
+  };
+}
+
+export const stage3Waves: WaveDefinition[] = waves.map((wave, index) => ({
+  ...wave,
+  note: `Stage3: ${wave.note}`,
+  spawns: wave.spawns.map((spawn) => stage3Spawn(spawn, index)),
+}));
+
 const stage1Recipe: StageRecipe = {
   stageNumber: 1,
   id: 'stage.1.memory-road',
@@ -225,10 +256,21 @@ const stage2Recipe: StageRecipe = {
   waves: stage2Waves,
 };
 
-export const stageRecipes: StageRecipe[] = [stage1Recipe, stage2Recipe];
+const stage3Recipe: StageRecipe = {
+  stageNumber: 3,
+  id: 'stage.3.lost-crossing',
+  name: '迷子の交差点',
+  theme: '上下左右と周囲湧きを増やし、突進・回り込み・群れで逃げ道を揺さぶるステージ',
+  allowedPatternIds: ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'],
+  waves: stage3Waves,
+};
+
+export const stageRecipes: StageRecipe[] = [stage1Recipe, stage2Recipe, stage3Recipe];
 
 export function recipeForStage(stageNumber: number): StageRecipe {
-  return stageNumber >= 2 ? stage2Recipe : stage1Recipe;
+  if (stageNumber >= 3) return stage3Recipe;
+  if (stageNumber >= 2) return stage2Recipe;
+  return stage1Recipe;
 }
 
 export function wavesForStage(stageNumber: number): WaveDefinition[] {
