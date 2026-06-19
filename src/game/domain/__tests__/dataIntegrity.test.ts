@@ -3,6 +3,7 @@ import { weapons, weaponById } from '../../data/weapons';
 import { passives, passiveById } from '../../data/passives';
 import { rareItems, rareItemById } from '../../data/rareItems';
 import { enemies, enemyById } from '../../data/enemies';
+import { ENEMY_PATTERNS } from '../../data/enemyPatterns';
 import { waves } from '../../data/waves';
 import { evolutions } from '../../data/evolutions';
 import { characters } from '../../data/characters';
@@ -13,6 +14,8 @@ const BEHAVIORS = new Set(['chase', 'slow_chase', 'offset_chase', 'swarm_chase',
 const VISUAL_KINDS = new Set(['ink_blob', 'paper_scrap', 'signpost', 'capsule', 'haze', 'label_elite']);
 const DIRECTIONS = new Set(['bottom', 'top', 'left', 'right', 'around']);
 const EVOLUTION_KINDS = new Set(['upgrade', 'fusion', 'awakening']);
+
+const ENEMY_PATTERN_IDS = new Set(Object.keys(ENEMY_PATTERNS));
 
 describe('weapons データ', () => {
   it('levels が 1..maxLevel まで連番で揃っている', () => {
@@ -54,6 +57,15 @@ describe('enemies データ', () => {
       expect(BEHAVIORS.has(e.behavior)).toBe(true);
       expect(VISUAL_KINDS.has(e.visualKind)).toBe(true);
       expect(enemyConsistencyError(e)).toBeNull();
+    }
+  });
+
+  it('patternIds が登録済みパターンを参照している', () => {
+    for (const e of enemies) {
+      expect(e.patternIds?.length ?? 0).toBeGreaterThan(0);
+      for (const patternId of e.patternIds ?? []) {
+        expect(ENEMY_PATTERN_IDS.has(patternId)).toBe(true);
+      }
     }
   });
 });
