@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { installLocalQaLauncher } from './dev/localQaLauncher';
 import { BootScene } from './game/scenes/BootScene';
 import { CharacterCutinQaScene } from './game/scenes/CharacterCutinQaScene';
 import { Core5SpriteSheetPreviewScene } from './game/scenes/Core5SpriteSheetPreviewScene';
@@ -38,3 +39,4 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 new Phaser.Game(config);
+installLocalQaLauncher();
