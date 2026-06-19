@@ -1,11 +1,11 @@
-import type { WaveDefinition, WaveSpawnDefinition } from '../domain/types';
+import type { Id, WaveDefinition, WaveSpawnDefinition } from '../domain/types';
 
 /**
  * 8分（480秒）ウェーブ。docs/44・docs/82 のタイムライン準拠。
  * エリート（オンブロ・黒ラベル）は 2:30 / 5:00 / 7:00 に出現。
  * 方針: HPを硬くするのではなく、倒す・避ける・追う・囲まれる役割差でテンポを作る。
  */
-export const waves: WaveDefinition[] = [
+const rawWaves: WaveDefinition[] = [
   {
     start: 0,
     end: 20,
@@ -147,6 +147,36 @@ export const waves: WaveDefinition[] = [
     ],
   },
 ];
+
+function primaryPatternIdForEnemy(enemyId: Id): Id {
+  switch (enemyId) {
+    case 'paper_scrap_shadow':
+      return 'charge.tellLine';
+    case 'lost_direction':
+      return 'orbit.player';
+    case 'black_capsule':
+      return 'retreat.shooter';
+    case 'night_haze':
+      return 'chase.swarm';
+    case 'black_label_shadow':
+      return 'chase.slowHeavy';
+    case 'ink_shadow':
+    default:
+      return 'chase.basic';
+  }
+}
+
+function withPrimaryPattern(spawn: WaveSpawnDefinition): WaveSpawnDefinition {
+  return {
+    patternId: spawn.patternId ?? primaryPatternIdForEnemy(spawn.enemyId),
+    ...spawn,
+  };
+}
+
+export const waves: WaveDefinition[] = rawWaves.map((wave) => ({
+  ...wave,
+  spawns: wave.spawns.map(withPrimaryPattern),
+}));
 
 function stage2DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
   return {
