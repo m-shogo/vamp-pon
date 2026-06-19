@@ -44,7 +44,7 @@ export class CharacterCutinQaScene extends Phaser.Scene {
     }).setOrigin(0.5, 0);
 
     this.addButton(195, 250, '通常必殺を再生', 'ultimate');
-    this.addButton(195, 360, '暴走を再生', 'berserk');
+    this.addButton(195, 360, '黒灯化を再生', 'berserk');
 
     this.statusText = this.add.text(26, 470, '', {
       fontFamily: FONT,
@@ -84,14 +84,14 @@ export class CharacterCutinQaScene extends Phaser.Scene {
     this.statusText?.setText([
       '現在の解決結果',
       `通常必殺: ${formatVisual(ultimate)}`,
-      `暴走: ${formatVisual(berserk)}`,
+      `黒灯化: ${formatVisual(berserk)}`,
       '',
       `production ultimate: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.ultimate) ? 'loaded' : 'not loaded'}`,
-      `production berserk: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.berserk) ? 'loaded' : 'not loaded'}`,
+      `production black: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.berserk) ? 'loaded' : 'not loaded'}`,
       '',
       '確認:',
       '・敵や弾を長時間隠さない',
-      '・通常必殺と暴走の色と意味が混ざらない',
+      '・通常必殺と黒灯化の色と意味が混ざらない',
       '・終了後に表示物が残らない',
     ]);
   }
