@@ -238,12 +238,80 @@ export const stage3Waves: WaveDefinition[] = waves.map((wave, index) => ({
   spawns: wave.spawns.map((spawn) => stage3Spawn(spawn, index)),
 }));
 
+function stage4DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
+  return {
+    bottom: Math.max(14, Math.round((weights.bottom ?? 0) * 0.46)),
+    top: Math.round((weights.top ?? 0) * 1.55 + 10),
+    left: Math.round((weights.left ?? 0) * 1.42 + 7),
+    right: Math.round((weights.right ?? 0) * 1.42 + 7),
+    around: Math.round((weights.around ?? 0) + 22),
+  };
+}
+
+function stage4Spawn(spawn: WaveSpawnDefinition, waveIndex: number): WaveSpawnDefinition {
+  const pressure = 1.24 + Math.min(0.3, waveIndex * 0.018);
+  const patternBonus = spawn.patternId === 'charge.tellLine' || spawn.patternId === 'chase.swarm'
+    ? 1.18
+    : spawn.patternId === 'orbit.player'
+      ? 1.12
+      : 1;
+  return {
+    ...spawn,
+    spawnRatePerSecond: spawn.spawnRatePerSecond == null
+      ? undefined
+      : Number((spawn.spawnRatePerSecond * pressure * patternBonus).toFixed(2)),
+    maxAlive: spawn.maxAlive == null ? undefined : Math.ceil(spawn.maxAlive * 1.32 * patternBonus),
+    directionWeights: stage4DirectionWeights(spawn.directionWeights),
+  };
+}
+
+export const stage4Waves: WaveDefinition[] = waves.map((wave, index) => ({
+  ...wave,
+  note: `Stage4: ${wave.note}`,
+  spawns: wave.spawns.map((spawn) => stage4Spawn(spawn, index)),
+}));
+
+function stage5DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
+  return {
+    bottom: Math.max(10, Math.round((weights.bottom ?? 0) * 0.36)),
+    top: Math.round((weights.top ?? 0) * 1.72 + 12),
+    left: Math.round((weights.left ?? 0) * 1.6 + 10),
+    right: Math.round((weights.right ?? 0) * 1.6 + 10),
+    around: Math.round((weights.around ?? 0) + 30),
+  };
+}
+
+function stage5Spawn(spawn: WaveSpawnDefinition, waveIndex: number): WaveSpawnDefinition {
+  const pressure = 1.32 + Math.min(0.36, waveIndex * 0.022);
+  const patternBonus = spawn.patternId === 'chase.swarm'
+    ? 1.25
+    : spawn.patternId === 'charge.tellLine' || spawn.patternId === 'orbit.player'
+      ? 1.18
+      : 1;
+  return {
+    ...spawn,
+    spawnRatePerSecond: spawn.spawnRatePerSecond == null
+      ? undefined
+      : Number((spawn.spawnRatePerSecond * pressure * patternBonus).toFixed(2)),
+    maxAlive: spawn.maxAlive == null ? undefined : Math.ceil(spawn.maxAlive * 1.45 * patternBonus),
+    directionWeights: stage5DirectionWeights(spawn.directionWeights),
+  };
+}
+
+export const stage5Waves: WaveDefinition[] = waves.map((wave, index) => ({
+  ...wave,
+  note: `Stage5: ${wave.note}`,
+  spawns: wave.spawns.map((spawn) => stage5Spawn(spawn, index)),
+}));
+
+const allowedStagePatterns = ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'];
+
 const stage1Recipe: StageRecipe = {
   stageNumber: 1,
   id: 'stage.1.memory-road',
   name: '忘れ物の夜道',
   theme: '基本追尾・突進・回り込みを覚える導入ステージ',
-  allowedPatternIds: ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'],
+  allowedPatternIds: allowedStagePatterns,
   waves,
 };
 
@@ -252,7 +320,7 @@ const stage2Recipe: StageRecipe = {
   id: 'stage.2.ink-map',
   name: 'にじむ地図帳',
   theme: 'Stage1の構成を保ちつつ、出現方向と密度で包囲感を上げるステージ',
-  allowedPatternIds: ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'],
+  allowedPatternIds: allowedStagePatterns,
   waves: stage2Waves,
 };
 
@@ -261,13 +329,33 @@ const stage3Recipe: StageRecipe = {
   id: 'stage.3.lost-crossing',
   name: '迷子の交差点',
   theme: '上下左右と周囲湧きを増やし、突進・回り込み・群れで逃げ道を揺さぶるステージ',
-  allowedPatternIds: ['chase.basic', 'charge.tellLine', 'orbit.player', 'retreat.shooter', 'chase.swarm', 'chase.slowHeavy'],
+  allowedPatternIds: allowedStagePatterns,
   waves: stage3Waves,
 };
 
-export const stageRecipes: StageRecipe[] = [stage1Recipe, stage2Recipe, stage3Recipe];
+const stage4Recipe: StageRecipe = {
+  stageNumber: 4,
+  id: 'stage.4.black-corridor',
+  name: '黒い回廊',
+  theme: '左右と周囲湧きで道幅を削り、突進と群れの圧を強めるステージ',
+  allowedPatternIds: allowedStagePatterns,
+  waves: stage4Waves,
+};
+
+const stage5Recipe: StageRecipe = {
+  stageNumber: 5,
+  id: 'stage.5.dawn-garden',
+  name: '夜明け前の黒曜庭',
+  theme: '全方向から押し寄せる終盤ステージ。範囲火力と移動判断を要求する',
+  allowedPatternIds: allowedStagePatterns,
+  waves: stage5Waves,
+};
+
+export const stageRecipes: StageRecipe[] = [stage1Recipe, stage2Recipe, stage3Recipe, stage4Recipe, stage5Recipe];
 
 export function recipeForStage(stageNumber: number): StageRecipe {
+  if (stageNumber >= 5) return stage5Recipe;
+  if (stageNumber >= 4) return stage4Recipe;
   if (stageNumber >= 3) return stage3Recipe;
   if (stageNumber >= 2) return stage2Recipe;
   return stage1Recipe;
