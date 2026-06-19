@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
-import { createInitialState } from '../state';
+import { createInitialState, isBerserkQaAutoRequested } from '../state';
 import { GAME_STATUS } from '../domain/constants';
 import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
 import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
@@ -101,6 +101,7 @@ export class MainScene extends Phaser.Scene {
 
     this.overlays.showReady(() => {
       this.state.status = GAME_STATUS.PLAYING;
+      if (isBerserkQaAutoRequested()) this.state.berserkRequested = true;
     });
 
     this.hud.update(this.state);
