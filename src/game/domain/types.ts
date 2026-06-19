@@ -85,6 +85,8 @@ export type EnemyDefinition = {
   xpDrop: number;
   tags: string[];
   behavior: EnemyBehavior;
+  /** 将来のステージレシピから参照する行動・攻撃・特殊能力の登録ID。 */
+  patternIds?: Id[];
   visualKind: EnemyVisualKind;
   description: string;
   lore?: string;
