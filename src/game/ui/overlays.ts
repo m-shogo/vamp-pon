@@ -459,8 +459,8 @@ export class Overlays {
     const cardGraphics = this.scene.add.graphics();
     drawPaperCard(
       cardGraphics,
-      cardX - 158,
-      cardTopY,
+      cardX,
+      cardTopY + cardHeight / 2,
       316,
       cardHeight,
       cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special,
