@@ -17,6 +17,7 @@ import {
 } from '../persistence/profile';
 import { loadBondProgress } from '../persistence/bonds';
 import { characters } from '../data/characters';
+import { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';
 import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
@@ -249,10 +250,12 @@ export class StageSelectScene extends Phaser.Scene {
 
   private renderSubCharacterStatus(root: Phaser.GameObjects.Container, profile: PlayerProfile, y: number): void {
     const main = characters[0];
-    const vm = buildStageSelectSubCharacterViewModel(profile, loadBondProgress(), main.id);
+    const bonds = loadBondProgress();
+    const vm = buildStageSelectSubCharacterViewModel(profile, bonds, main.id);
+    const unreadTalkId = vm.selectedSubCharacterId ? nextUnreadBondTalkId(main.id, vm.selectedSubCharacterId, bonds) : null;
     root.add(this.text(GAME_WIDTH / 2, y, `同行: ${vm.selectedLine}`, 11, STORYBOOK_UI.goldLight, true));
     root.add(this.text(GAME_WIDTH / 2, y + 17, vm.effectLine, 10, STORYBOOK_UI.textMuted));
-    root.add(this.text(GAME_WIDTH / 2, y + 34, vm.pairUltimateLine, 10, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, y + 34, unreadTalkId ? `未読会話あり: ${unreadTalkId}` : vm.pairUltimateLine, 10, STORYBOOK_UI.textMuted));
 
     const none = this.button(62, y + 62, 54, 28, 'なし', () => {
       selectSubCharacter(undefined, main.id);
