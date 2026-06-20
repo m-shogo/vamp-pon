@@ -8,6 +8,8 @@ import { generateCapsuleReward } from './capsule';
 import { createPickupView, createHealPickupView, createCapsuleView } from '../ui/factory';
 import { collectSpark } from '../ui/effects';
 import { recordHealCollected } from './runCollectionMetrics';
+import { getAudioManager } from '../audio/AudioManager';
+import { getEffectManager } from '../effects/EffectManager';
 
 const CAPSULE_RADIUS = 14;
 
@@ -75,6 +77,8 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
         recordHealCollected(state.stats);
         pickup.dead = true;
         pickup.view.destroy();
+        getAudioManager(scene).playSe('heal', { volume: 0.7 });
+        getEffectManager(scene).heal(p.x, p.y);
         collectSpark(scene, p.x, p.y);
       }
       continue;
@@ -85,6 +89,8 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
       state.stats.memoryFragmentsCollected += 1;
       pickup.dead = true;
       pickup.view.destroy();
+      getAudioManager(scene).playSe('expCollect', { volume: 0.32, rate: 1 + Math.random() * 0.18 });
+      getEffectManager(scene).expCollect(pickup.x, pickup.y, p.x, p.y);
       collectSpark(scene, p.x, p.y);
       continue;
     }

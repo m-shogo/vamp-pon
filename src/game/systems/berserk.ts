@@ -1,3 +1,4 @@
+import type Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 
 export const BERSERK_MAX_CHARGE = 100;
@@ -22,11 +23,11 @@ export function chargeBerserkFromDamage(state: RuntimeState, damageTaken: number
   berserk.ready = berserk.charge >= berserk.maxCharge;
 }
 
-export function updateBerserk(state: RuntimeState, dt: number): void {
+export function updateBerserk(state: RuntimeState, dt: number, _scene?: Phaser.Scene): boolean {
   const berserk = state.berserk;
   if (!berserk) {
     state.berserkRequested = false;
-    return;
+    return false;
   }
 
   if (berserk.activeRemaining > 0) {
@@ -41,14 +42,15 @@ export function updateBerserk(state: RuntimeState, dt: number): void {
     berserk.fatigueRemaining = Math.max(0, berserk.fatigueRemaining - dt);
   }
 
-  if (!state.berserkRequested) return;
+  if (!state.berserkRequested) return false;
   state.berserkRequested = false;
 
-  if (!berserk.ready || berserk.activeRemaining > 0 || berserk.fatigueRemaining > 0 || state.ultimate.activeRemaining > 0) return;
+  if (!berserk.ready || berserk.activeRemaining > 0 || berserk.fatigueRemaining > 0 || state.ultimate.activeRemaining > 0) return false;
   berserk.ready = false;
   berserk.fatigueRemaining = 0;
   berserk.activeRemaining = berserk.durationSec;
   if (state.stats) state.stats.berserkUses += 1;
+  return true;
 }
 
 export function berserkDamageMultiplier(state: RuntimeState): number {

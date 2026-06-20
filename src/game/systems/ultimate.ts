@@ -3,6 +3,7 @@ import type { RuntimeState } from '../runtime';
 import { characterById } from '../data/characters';
 import { enemyById } from '../data/enemies';
 import { COLORS } from '../domain/constants';
+import { num, type EffectValues } from '../domain/weaponEffect';
 import { distance } from '../utils/math';
 import { damageEnemy } from './enemies';
 import { spawnFragment } from './pickups';
@@ -10,6 +11,8 @@ import { ultimateFlash } from '../ui/effects';
 import { playCharacterCutin } from '../ui/characterCutin';
 import { updatePlayerVisual } from '../ui/playerVisual';
 import { requestYuiExpressionRageSheet } from '../assets/yuiExpressionRageSheet';
+import { getAudioManager } from '../audio/AudioManager';
+import { getEffectManager } from '../effects/EffectManager';
 
 const ULTIMATE_POSE_SEC = 0.48;
 
@@ -51,8 +54,11 @@ export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: num
 function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   const char = characterById.get(state.characterId);
   if (!char) return;
-  const eff = char.ultimate.effect;
+  const eff = char.ultimate.effect as EffectValues;
   const p = state.player;
+  const radius = num(eff, 'radius', 240);
+  const damage = num(eff, 'damage', 18);
+  const dropBonus = num(eff, 'dropBonus', 0);
 
   for (const frag of state.pickups) {
     frag.magnetized = true;
@@ -62,19 +68,22 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
     if (e.dead) continue;
     const def = enemyById.get(e.defId);
     const isSmall = def?.tags.includes('small') ?? false;
-    if (eff.smallEnemyOnly && !isSmall) continue;
-    if (distance(e.x, e.y, p.x, p.y) <= eff.radius) {
-      const willDie = e.hp <= eff.damage;
-      damageEnemy(scene, state, e, eff.damage);
-      if (willDie && eff.dropBonus) {
-        spawnFragment(scene, state, e.x, e.y, eff.dropBonus);
+    if (eff.smallEnemyOnly === true && !isSmall) continue;
+    if (distance(e.x, e.y, p.x, p.y) <= radius) {
+      const willDie = e.hp <= damage;
+      damageEnemy(scene, state, e, damage);
+      if (willDie && dropBonus > 0) {
+        spawnFragment(scene, state, e.x, e.y, dropBonus);
       }
     }
   }
 
   ultimateFlash(scene);
+  getAudioManager(scene).playSe('ultimate', { volume: 0.88 });
+  getAudioManager(scene).duckBgm(360, 0.35);
+  getEffectManager(scene).ultimateFlash();
   playCharacterCutin(scene, 'ultimate');
-  const ring = scene.add.circle(p.x, p.y, eff.radius, COLORS.ultReady, 0.3).setDepth(35);
+  const ring = scene.add.circle(p.x, p.y, radius, COLORS.ultReady, 0.3).setDepth(35);
   ring.setScale(0.1);
   scene.tweens.add({
     targets: ring,

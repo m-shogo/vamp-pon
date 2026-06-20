@@ -8,6 +8,7 @@ import { DEFAULT_GAME_CONFIG } from '../domain/constants';
 import { spawnEnemy } from './enemies';
 import { pickSpawnPosition } from '../utils/viewport';
 import { depthForState } from '../persistence/profile';
+import { enemyDensityMultiplierForTime, maxEnemiesForElapsed } from '../config/GameFeelConfig';
 
 /** ウェーブ表に従って敵をスポーンする。アキュムレータはランごとに新規生成。 */
 export class SpawnSystem {
@@ -15,7 +16,9 @@ export class SpawnSystem {
   private firedOneShots = new Set<string>();
 
   update(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
-    if (state.enemies.length >= DEFAULT_GAME_CONFIG.maxEnemies) return;
+    const caps = maxEnemiesForElapsed(state.elapsedSec);
+    const hardCap = Math.min(DEFAULT_GAME_CONFIG.maxEnemies, caps.hard);
+    if (state.enemies.length >= hardCap) return;
     const wave = this.findWave(state.elapsedSec, state.stageNumber);
     if (!wave) return;
 
@@ -50,7 +53,8 @@ export class SpawnSystem {
     if (!def) return;
     const depth = depthForState(state);
     const stage = stagePowerForStage(state.stageNumber);
-    const count = Math.max(1, Math.round((spawn.spawnCount ?? 1) * depth.spawnCount * stage.spawnCount));
+    const density = enemyDensityMultiplierForTime(state.elapsedSec);
+    const count = Math.max(1, Math.round((spawn.spawnCount ?? 1) * depth.spawnCount * stage.spawnCount * Math.min(2, density)));
     for (let i = 0; i < count; i += 1) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
       spawnEnemy(scene, state, def, pos.x, pos.y);
@@ -69,18 +73,22 @@ export class SpawnSystem {
     const depth = depthForState(state);
     const stage = stagePowerForStage(state.stageNumber);
     const pressure = runPressureForElapsed(state.elapsedSec);
-    const maxAlive = Math.max(1, Math.round((spawn.maxAlive ?? Infinity) * depth.maxAlive * stage.maxAlive * pressure.maxAlive));
+    const caps = maxEnemiesForElapsed(state.elapsedSec);
+    const density = caps.multiplier;
+    const densityMaxAlive = density >= 3 ? 2.25 : density;
+    const maxAlive = Math.max(1, Math.round((spawn.maxAlive ?? Infinity) * depth.maxAlive * stage.maxAlive * pressure.maxAlive * densityMaxAlive));
     if (this.aliveOfType(state, spawn.enemyId) >= maxAlive) return;
+    if (state.enemies.length >= caps.soft && !def.tags.includes('elite')) return;
 
     const acc = (this.rateAccum.get(key) ?? 0)
-      + (spawn.spawnRatePerSecond ?? 0) * depth.spawnRate * stage.spawnRate * pressure.spawnRate * dt;
+      + (spawn.spawnRatePerSecond ?? 0) * depth.spawnRate * stage.spawnRate * pressure.spawnRate * density * dt;
     let toSpawn = Math.floor(acc);
     this.rateAccum.set(key, acc - toSpawn);
 
     while (
       toSpawn > 0 &&
       this.aliveOfType(state, spawn.enemyId) < maxAlive &&
-      state.enemies.length < DEFAULT_GAME_CONFIG.maxEnemies
+      state.enemies.length < Math.min(DEFAULT_GAME_CONFIG.maxEnemies, caps.hard)
     ) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
       spawnEnemy(scene, state, def, pos.x, pos.y);
