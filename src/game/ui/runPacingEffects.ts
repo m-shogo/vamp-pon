@@ -35,6 +35,8 @@ export class RunPacingEffects {
       fontSize: '24px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
+      stroke: '#080b18',
+      strokeThickness: 4,
       resolution: 2,
       align: 'center',
     }).setOrigin(0.5).setDepth(VIEW_DEPTH.hud + 4).setVisible(false);
@@ -79,6 +81,8 @@ export class RunPacingEffects {
       fontSize: '18px',
       color: '#f2d8ee',
       fontStyle: 'bold',
+      stroke: '#080612',
+      strokeThickness: 4,
       resolution: 2,
     }).setOrigin(0.5).setDepth(depth + 1).setAlpha(0);
 
@@ -87,6 +91,8 @@ export class RunPacingEffects {
       fontSize: '10px',
       color: '#c7b8cf',
       fontStyle: 'bold',
+      stroke: '#080612',
+      strokeThickness: 2,
       resolution: 2,
     }).setOrigin(0.5).setDepth(depth + 1).setAlpha(0);
 
@@ -159,6 +165,8 @@ export class RunPacingEffects {
       fontSize: '30px',
       color: '#4b3b45',
       fontStyle: 'bold',
+      stroke: '#fff0c9',
+      strokeThickness: 5,
       resolution: 2,
     }).setOrigin(0.5).setDepth(depth + 2).setAlpha(0);
 
