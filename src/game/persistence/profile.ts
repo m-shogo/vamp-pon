@@ -1,4 +1,5 @@
 import type { RuntimeState } from '../runtime';
+import { settleSavedBondRun } from './bonds';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
 export type UpgradeId =
@@ -309,6 +310,16 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
   profile.codex[`depth:${state.explorationDepth}`] = true;
   if (cleared) profile.achievements[`clear:${key}`] = true;
   if (noBerserk && cleared) profile.achievements[`no-berserk:${key}`] = true;
+  if (state.subCharacterId) {
+    settleSavedBondRun({
+      mainCharacterId: state.characterId,
+      subCharacterId: state.subCharacterId,
+      cleared,
+      bossDefeated: state.status === 'cleared' && state.stats.elitesKilled > 0,
+      pairUltimateUses: 0,
+      dailyTalkSeenIds: [],
+    });
+  }
   saveProfile(profile);
 
   return {
