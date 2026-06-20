@@ -155,12 +155,13 @@ export class EffectManager {
   }
 
   expVacuum(x: number, y: number, targetX: number, targetY: number): void {
-    if (!this.canEmit(loadGameFeelSettings().lowSpecMode ? 1 : 3)) return;
+    const settings = loadGameFeelSettings();
+    if (!this.canEmit(settings.lowSpecMode ? 1 : 3)) return;
     const dot = this.scene.add.circle(x, y, 3.3, COLORS.fragmentGlow, 0.82).setDepth(VIEW_DEPTH.pickup + 3);
     const midX = (x + targetX) / 2 + (Math.random() < 0.5 ? -1 : 1) * (12 + Math.random() * 18);
     const midY = (y + targetY) / 2 - 14 - Math.random() * 18;
     this.activeParticles += 1;
-    if (!loadGameFeelSettings().lowSpecMode) {
+    if (!settings.lowSpecMode) {
       this.trailDot(x, y, 0);
       this.scene.time.delayedCall(55, () => this.trailDot(midX, midY, 1));
     }
@@ -329,7 +330,7 @@ export class EffectManager {
 
   hitStop(ms: number): void {
     if (ms <= 0) return;
-    const now = Date.now();
+    const now = this.sceneNowMs();
     this.hitStopUntilMs = Math.max(this.hitStopUntilMs, now + ms);
     this.scene.time.timeScale = 0.18;
     if (!this.hitStopTimer) this.scheduleHitStopRelease();
@@ -366,7 +367,7 @@ export class EffectManager {
   }
 
   combo(): number {
-    return Date.now() - this.lastKillAtMs <= 2000 ? this.comboCount : 0;
+    return this.sceneNowMs() - this.lastKillAtMs <= 2000 ? this.comboCount : 0;
   }
 
   destroy(): void {
@@ -378,10 +379,10 @@ export class EffectManager {
   }
 
   private scheduleHitStopRelease(): void {
-    const remainingMs = Math.max(0, this.hitStopUntilMs - Date.now());
+    const remainingMs = Math.max(0, this.hitStopUntilMs - this.sceneNowMs());
     this.hitStopTimer = setTimeout(() => {
       this.hitStopTimer = null;
-      const nextRemainingMs = this.hitStopUntilMs - Date.now();
+      const nextRemainingMs = this.hitStopUntilMs - this.sceneNowMs();
       if (nextRemainingMs > 1) {
         this.scheduleHitStopRelease();
         return;
@@ -407,10 +408,14 @@ export class EffectManager {
   }
 
   private registerKillCombo(): number {
-    const now = Date.now();
+    const now = this.sceneNowMs();
     this.comboCount = now - this.lastKillAtMs <= 2000 ? this.comboCount + 1 : 1;
     this.lastKillAtMs = now;
     return this.comboCount;
+  }
+
+  private sceneNowMs(): number {
+    return this.scene.time.now;
   }
 
   comboFeedback(combo: number): void {
