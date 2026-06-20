@@ -13,7 +13,7 @@ export const enemies: EnemyDefinition[] = [
     patternIds: ['chase.basic'],
     visualKind: 'ink_blob',
     description: '夜路に落ちた黒いしずく。灯りを見つけると、むにっと寄ってくる。',
-    lore: '忘れ物や記憶にくっついた小さな負い影。ほどける時、かすかな記憶片を残す。',
+    lore: '忘れ物や記憶にくっついた小さなカゲモノ。ほどける時、かすかな記憶片を残す。',
   },
   {
     id: 'paper_scrap_shadow',
@@ -41,7 +41,7 @@ export const enemies: EnemyDefinition[] = [
     patternIds: ['orbit.player'],
     visualKind: 'signpost',
     description: '帰り道を忘れた影。近づくと、こちらの足取りも乱そうとする。',
-    lore: 'コンパスからこぼれた小さな負い影。北ではなく、帰れなかった場所を指している。',
+    lore: 'コンパスからこぼれた小さなカゲモノ。北ではなく、帰れなかった場所を指している。',
   },
   {
     id: 'black_capsule',
@@ -83,7 +83,7 @@ export const enemies: EnemyDefinition[] = [
     patternIds: ['chase.slowHeavy'],
     visualKind: 'label_elite',
     drops: [{ type: 'memory_capsule', chance: 1 }],
-    description: '黒耀に近づいた大型の負い影。ほどくと、記憶カプセルを落とす。',
+    description: '黒耀に近づいた大型のカゲモノ。ほどくと、記憶カプセルを落とす。',
     lore: '名前の書かれたラベルが黒く塗りつぶされている。オンブロの中でも、夜が濃い個体。',
   },
 ];
