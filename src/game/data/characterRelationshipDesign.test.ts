@@ -29,6 +29,13 @@ describe('characterRelationshipDesign', () => {
     expectUnique(pairUltimateTemplates.map((ultimate) => ultimate.id));
   });
 
+  it('全キャラのサブ効果IDは定義済みテンプレートに存在する', () => {
+    const effectIds = new Set(subCharacterEffectTemplates.map((effect) => effect.id));
+    for (const seed of plannedCharacterSeeds) {
+      expect(effectIds.has(seed.defaultSubEffectId)).toBe(true);
+    }
+  });
+
   it('好感度Lv1..5の解放が揃っている', () => {
     expect(bondLevelRewards.map((reward) => reward.level)).toEqual([1, 2, 3, 4, 5]);
   });
