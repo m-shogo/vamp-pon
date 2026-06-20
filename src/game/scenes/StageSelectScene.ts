@@ -99,8 +99,7 @@ export class StageSelectScene extends Phaser.Scene {
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 220, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.99);
     root.add(panel);
     root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 66, '強化をリセット', 20, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `黒曜片 ${refund} を全額返還します。
-いつでも振り直せます。`, 12, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `黒曜片 ${refund} を全額返還します。\nいつでも振り直せます。`, 12, STORYBOOK_UI.textMuted));
     root.add(this.button(GAME_WIDTH / 2 - 76, GAME_HEIGHT / 2 + 52, 136, 42, 'やめる', () => {
       this.confirmingReset = false;
       this.render();
@@ -137,7 +136,7 @@ export class StageSelectScene extends Phaser.Scene {
       }, !selected);
       btn.getByName('fill')?.setData('tint', depth.tint);
       root.add(btn);
-      root.add(this.text(x, 254, `報酬×${depth.reward.toFixed(1)}`, 11, colorString(depth.tint), true));
+      root.add(this.text(x, 254, `報酬×${depth.reward.toFixed(1)}`, 10, colorString(depth.tint), true));
     });
   }
 
@@ -147,7 +146,7 @@ export class StageSelectScene extends Phaser.Scene {
     const need = characterXpToNext(progress.level);
     root.add(this.text(62, 304, 'キャラ成長', 15, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
     root.add(this.text(GAME_WIDTH / 2, 334, `${char.name} Lv.${progress.level}　${progress.xp}/${need}`, 14, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 360, '使うほど少しずつHPと攻撃が伸びる', 12, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 360, '使うほど少しずつHPと攻撃が伸びる', 11, STORYBOOK_UI.textMuted));
   }
 
   private renderUpgradeBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
@@ -164,7 +163,7 @@ export class StageSelectScene extends Phaser.Scene {
       const cost = upgradeCost(id, level);
       const y = 446 + index * 39;
       root.add(this.text(58, y - 7, `${def.name} Lv.${level}/${def.maxLevel}`, 12, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
-      root.add(this.text(58, y + 10, def.description, 12, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
+      root.add(this.text(58, y + 10, def.description, 11, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
       const label = maxed ? '最大' : `${cost}`;
       const canBuy = !maxed && profile.currency >= cost;
       const b = this.button(GAME_WIDTH - 74, y, 74, 28, label, () => {
@@ -194,6 +193,8 @@ export class StageSelectScene extends Phaser.Scene {
       align: 'center',
       resolution: 2,
       lineSpacing: 3,
+      stroke: '#080b18',
+      strokeThickness: bold ? 1 : 0,
     }).setOrigin(0.5);
   }
 
