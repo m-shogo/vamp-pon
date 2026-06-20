@@ -7,9 +7,11 @@ import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT, PLAYER_DEFAU
 import { xpToNext } from './domain/balance';
 import { createPlayerView } from './ui/factory';
 import { recomputePlayerStats } from './systems/passives';
+import { subCharacterBattleBonuses } from './systems/subCharacterEffects';
 import { YUI_FRAME_IDS } from './assets/playerFrames';
 import { attachCore5PlayerView } from './ui/playerVisual';
 import { BERSERK_DURATION_SEC, BERSERK_MAX_CHARGE } from './systems/berserk';
+import { loadBondProgress } from './persistence/bonds';
 import { characterLevelBonus, loadProfile, profileBonuses } from './persistence/profile';
 
 export function requestedStageNumber(search = typeof window === 'undefined' ? '' : window.location.search): number {
@@ -45,6 +47,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const subCharacterId = profile.selectedSubCharacterId && profile.selectedSubCharacterId !== char.id
     ? profile.selectedSubCharacterId
     : undefined;
+  const subBonuses = subCharacterBattleBonuses(char.id, subCharacterId, loadBondProgress());
   const charBonus = characterLevelBonus(char.id, profile);
   const px = GAME_WIDTH / 2;
   const py = GAME_HEIGHT / 2;
@@ -62,8 +65,8 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const qaBerserkReady = isBerserkQaReadyRequested();
   const qaQuickClear = isQuickClearQaRequested();
   const stageNumber = requestedStageNumber();
-  const baseHp = Math.floor(char.baseStats.hp * bonuses.maxHpMultiplier + charBonus.hpFlat);
-  const baseMoveSpeed = char.baseStats.moveSpeed * bonuses.moveSpeedMultiplier;
+  const baseHp = Math.floor((char.baseStats.hp * bonuses.maxHpMultiplier + charBonus.hpFlat) * subBonuses.hpMultiplier);
+  const baseMoveSpeed = char.baseStats.moveSpeed * bonuses.moveSpeedMultiplier * subBonuses.moveSpeedMultiplier;
 
   const state: RuntimeState = {
     status: GAME_STATUS.READY,
@@ -91,8 +94,8 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
       xpToNext: xpToNext(1),
       might: char.baseStats.might * bonuses.mightMultiplier * charBonus.mightMultiplier,
       magnetMultiplier: char.baseStats.magnetMultiplier * bonuses.magnetMultiplier,
-      xpMultiplier: char.baseStats.xpMultiplier * bonuses.xpMultiplier,
-      cooldownMultiplier: char.baseStats.cooldownMultiplier,
+      xpMultiplier: char.baseStats.xpMultiplier * bonuses.xpMultiplier * subBonuses.xpMultiplier,
+      cooldownMultiplier: char.baseStats.cooldownMultiplier * subBonuses.cooldownMultiplier,
       flashRemaining: 0,
     },
     inventory: {
@@ -115,7 +118,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     stats: createRunStats(),
     telemetry: createTelemetry(),
     ultimate: {
-      chargeSeconds: char.ultimate.chargeSeconds / bonuses.ultimateChargeMultiplier,
+      chargeSeconds: char.ultimate.chargeSeconds / (bonuses.ultimateChargeMultiplier * subBonuses.ultimateChargeMultiplier),
       charge: 0,
       ready: false,
       activeRemaining: 0,
