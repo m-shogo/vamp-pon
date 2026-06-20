@@ -4,8 +4,8 @@ import {
   resolveInventoryIconTexture,
   type InventoryIconCategory,
 } from '../assets/inventoryIcons';
-import { drawPixelPanel } from './pixelUi';
-import { STORYBOOK_FONT, storybookCategoryPalette } from './storybookUi';
+import { UI_FONT, drawPixelPanel } from './pixelUi';
+import { storybookCategoryPalette } from './storybookUi';
 
 export type InventorySlotItem = {
   category: InventoryIconCategory;
@@ -54,11 +54,13 @@ export class InventorySlotView {
 
     this.fallbackText = scene.add
       .text(0, -1, '', {
-        fontFamily: STORYBOOK_FONT,
+        fontFamily: UI_FONT,
         fontSize: `${Math.max(12, size * 0.43)}px`,
         color: '#f3ead2',
         fontStyle: 'bold',
         resolution: 2,
+        stroke: '#080b18',
+        strokeThickness: 2,
       })
       .setOrigin(0.5)
       .setVisible(false);
@@ -77,11 +79,13 @@ export class InventorySlotView {
     );
 
     this.levelText = scene.add.text(badgeX, badgeY, '', {
-      fontFamily: STORYBOOK_FONT,
+      fontFamily: UI_FONT,
       fontSize: `${size <= 26 ? 11 : 12}px`,
       color: '#fff5d9',
       fontStyle: 'bold',
       resolution: 2,
+      stroke: '#080b18',
+      strokeThickness: 2,
     }).setOrigin(0.5).setVisible(false);
 
     this.container.add([
