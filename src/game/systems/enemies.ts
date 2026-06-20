@@ -12,6 +12,7 @@ import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
 import { stagePowerForStage } from '../data/stageScaling';
 import { depthForState, profileBonuses } from '../persistence/profile';
+import { recordEnemyDefeated, recordEnemySeen } from './runCollectionMetrics';
 import {
   ENEMY_PROTOTYPE_SHEETS,
   enemyPrototypeFacingForMotion,
@@ -34,6 +35,7 @@ export function spawnEnemy(
   x: number,
   y: number,
 ): void {
+  recordEnemySeen(state.stats, def.id);
   const depth = depthForState(state);
   const stage = stagePowerForStage(state.stageNumber);
   const radius = enemyRadiusFor(def);
@@ -103,6 +105,7 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   if (enemy.dead) return;
   enemy.dead = true;
   state.stats.kills += 1;
+  recordEnemyDefeated(state.stats, enemy.defId);
   if (state.telemetry.firstKillSec === null) state.telemetry.firstKillSec = state.elapsedSec;
   if (enemy.isElite) {
     state.stats.elitesKilled += 1;
@@ -259,87 +262,56 @@ function createInkPuddleThreat(
   y: number,
   damage: number,
   radius: number,
-  delaySec: number,
+  warningSec: number,
 ): void {
-  const g = scene.add.graphics().setDepth(82);
-  g.fillStyle(0x1a1028, 0.18).fillCircle(x, y, radius);
-  g.lineStyle(2, 0xa98bff, 0.58).strokeCircle(x, y, radius);
-  g.lineStyle(1, 0x1c1630, 0.62).strokeCircle(x, y, radius * 0.72);
-
-  scene.tweens.add({
-    targets: g,
-    alpha: 0.35,
-    yoyo: true,
-    repeat: Math.max(1, Math.floor(delaySec * 4)),
-    duration: 120,
-  });
-
-  scene.time.delayedCall(delaySec * 1000, () => {
-    if (state.status !== GAME_STATUS.PLAYING) {
-      g.destroy();
-      return;
-    }
-    const p = state.player;
-    const inRange = distance(x, y, p.x, p.y) <= radius + p.radius;
-    if (inRange) applyPlayerDamage(scene, state, damage);
-    inkPuff(scene, x, y, radius * 0.45, false);
-    scene.tweens.add({
-      targets: g,
-      alpha: 0,
-      duration: 280,
-      onComplete: () => g.destroy(),
-    });
+  const g = scene.add.graphics().setDepth(state.playerView.depth - 1);
+  g.setPosition(x, y);
+  g.fillStyle(COLORS.ink, 0.1).fillCircle(0, 0, radius);
+  g.lineStyle(2, 0x9b5cff, 0.55).strokeCircle(0, 0, radius);
+  scene.tweens.add({ targets: g, alpha: 0.55, yoyo: true, repeat: 2, duration: warningSec * 300 });
+  scene.time.delayedCall(warningSec * 1000, () => {
+    if (!scene.scene.isActive()) { g.destroy(); return; }
+    const hit = distance(state.player.x, state.player.y, x, y) <= radius + state.player.radius;
+    if (hit) applyPlayerDamage(scene, state, damage);
+    g.clear();
+    g.fillStyle(COLORS.ink, 0.22).fillCircle(0, 0, radius);
+    scene.tweens.add({ targets: g, alpha: 0, duration: 520, onComplete: () => g.destroy() });
   });
 }
 
-/** 敵の移動・接触・点滅を更新する。 */
 export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
-
-  if (p.invulnRemaining > 0) p.invulnRemaining = Math.max(0, p.invulnRemaining - dt);
-  if (p.flashRemaining > 0) {
-    p.flashRemaining = Math.max(0, p.flashRemaining - dt);
-    const blink = Math.floor(p.flashRemaining * 20) % 2 === 0 ? 0.4 : 1;
-    state.playerView.setAlpha(blink);
-  } else {
-    state.playerView.setAlpha(1);
-  }
-
   for (const e of state.enemies) {
     if (e.dead) continue;
-
-    const step = computeBehaviorStep({
-      behavior: e.behavior,
-      dx: p.x - e.x,
-      dy: p.y - e.y,
-      dist: distance(e.x, e.y, p.x, p.y),
-      offsetSign: e.offsetSign,
-      iid: e.iid,
-      elapsedSec: state.elapsedSec,
-    });
-    updateChargerTelegraph(e, p.x, p.y, state.elapsedSec);
-    maybeUseSpecialAttack(scene, state, e, dt);
-    updateEnemyPrototypeFacing(scene, e.view, step.dirX, step.dirY);
-    e.x += step.dirX * e.moveSpeed * step.speedFactor * dt;
-    e.y += step.dirY * e.moveSpeed * step.speedFactor * dt;
+    const dx = p.x - e.x;
+    const dy = p.y - e.y;
+    const step = computeBehaviorStep(e, p.x, p.y, state.elapsedSec, dt);
+    e.x += step.x;
+    e.y += step.y;
     e.view.setPosition(e.x, e.y);
-
-    if (e.view.scaleX !== 1) {
-      const s = e.view.scaleX + (1 - e.view.scaleX) * Math.min(1, dt * 12);
-      e.view.setScale(Math.abs(s - 1) < 0.01 ? 1 : s);
-    }
-
+    updateEnemyPrototypeFacing(scene, e.view, dx, dy);
+    if (e.hpBar) updateHpBar(e);
     if (e.flashRemaining > 0) {
-      e.flashRemaining = Math.max(0, e.flashRemaining - dt);
-      if (e.flashRemaining === 0) {
+      e.flashRemaining -= dt;
+      if (e.flashRemaining <= 0) {
         const blob = e.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
-        if (blob) blob.setFillStyle(e.isElite ? COLORS.enemyElite : COLORS.enemyInk, 1);
+        if (blob) blob.setFillStyle(e.isElite ? 0x10121e : COLORS.ink, 1);
+        e.view.setScale(1);
       }
     }
-
-    const d = distance(e.x, e.y, p.x, p.y);
-    if (d <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage);
+    maybeUseSpecialAttack(scene, state, e, dt);
+    if (distance(e.x, e.y, p.x, p.y) <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage);
   }
-
   state.enemies = state.enemies.filter((e) => !e.dead);
+}
+
+function updateHpBar(enemy: EnemyRuntime): void {
+  const g = enemy.hpBar;
+  if (!g) return;
+  g.clear();
+  const ratio = Math.max(0, enemy.hp / enemy.maxHp);
+  const width = 46;
+  g.setPosition(enemy.x - width / 2, enemy.y - enemy.radius - 10);
+  g.fillStyle(0x160d25, 0.78).fillRoundedRect(0, 0, width, 5, 3);
+  g.fillStyle(0xf5d58a, 0.95).fillRoundedRect(0, 0, width * ratio, 5, 3);
 }
