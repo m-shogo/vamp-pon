@@ -22,12 +22,9 @@ const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   parent: 'app',
   backgroundColor: '#1d1a34',
-  // Runtime text must stay readable on 390x844 mobile screens.
-  // Pixel-perfect scaling made Phaser Text look dotty/jagged, so UI readability wins here.
-  // Sprite assets that need hard pixel edges should opt in at asset/rendering level later.
-  pixelArt: false,
-  antialias: true,
-  roundPixels: false,
+  pixelArt: true,
+  antialias: false,
+  roundPixels: true,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
