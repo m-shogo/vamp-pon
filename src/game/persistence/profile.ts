@@ -21,6 +21,8 @@ export type PlayerProfile = {
   totalCurrencyEarned: number;
   selectedStage: number;
   selectedDepth: ExplorationDepthId;
+  /** 出撃時に同行するサブキャラ。未選択時は undefined。 */
+  selectedSubCharacterId?: string;
   unlockedStages: number[];
   clears: Record<string, true>;
   characterProgress: Record<string, CharacterProgress>;
@@ -140,6 +142,7 @@ export function createDefaultProfile(): PlayerProfile {
     totalCurrencyEarned: 0,
     selectedStage: 1,
     selectedDepth: 'shallow',
+    selectedSubCharacterId: undefined,
     unlockedStages: [1],
     clears: {},
     characterProgress: { yui: { level: 1, xp: 0, totalXp: 0 } },
@@ -154,6 +157,9 @@ function normalizeProfile(raw: unknown): PlayerProfile {
   const base = createDefaultProfile();
   if (!raw || typeof raw !== 'object') return base;
   const obj = raw as Partial<PlayerProfile>;
+  const selectedSubCharacterId = typeof obj.selectedSubCharacterId === 'string' && obj.selectedSubCharacterId.trim()
+    ? obj.selectedSubCharacterId.trim()
+    : undefined;
   return {
     ...base,
     ...obj,
@@ -161,6 +167,7 @@ function normalizeProfile(raw: unknown): PlayerProfile {
     totalCurrencyEarned: Math.max(0, Math.floor(Number(obj.totalCurrencyEarned ?? 0))),
     selectedStage: Math.max(1, Math.floor(Number(obj.selectedStage ?? 1))),
     selectedDepth: obj.selectedDepth && EXPLORATION_DEPTHS[obj.selectedDepth] ? obj.selectedDepth : 'shallow',
+    selectedSubCharacterId,
     unlockedStages: Array.from(new Set([1, ...(obj.unlockedStages ?? [])])).filter((n) => Number.isFinite(n) && n >= 1).sort((a, b) => a - b),
     clears: obj.clears ?? {},
     characterProgress: { ...base.characterProgress, ...(obj.characterProgress ?? {}) },
@@ -191,6 +198,13 @@ export function selectRun(stage: number, depth: ExplorationDepthId): PlayerProfi
   const profile = loadProfile();
   profile.selectedStage = Math.max(1, Math.floor(stage));
   profile.selectedDepth = depth;
+  return saveProfile(profile);
+}
+
+export function selectSubCharacter(characterId?: string, mainCharacterId = 'yui'): PlayerProfile {
+  const profile = loadProfile();
+  const normalized = typeof characterId === 'string' && characterId.trim() ? characterId.trim() : undefined;
+  profile.selectedSubCharacterId = normalized && normalized !== mainCharacterId ? normalized : undefined;
   return saveProfile(profile);
 }
 
