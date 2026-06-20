@@ -1,9 +1,25 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createDefaultProfile, loadProfile, saveProfile, selectSubCharacter } from './profile';
 
+function createMemoryStorage(): Storage {
+  const data = new Map<string, string>();
+  return {
+    get length() {
+      return data.size;
+    },
+    clear: () => data.clear(),
+    getItem: (key) => data.get(key) ?? null,
+    key: (index) => Array.from(data.keys())[index] ?? null,
+    removeItem: (key) => data.delete(key),
+    setItem: (key, value) => data.set(key, value),
+  };
+}
+
+vi.stubGlobal('localStorage', createMemoryStorage());
+
 describe('profile sub character selection', () => {
   afterEach(() => {
-    window.localStorage.clear();
+    globalThis.localStorage.clear();
     vi.restoreAllMocks();
   });
 

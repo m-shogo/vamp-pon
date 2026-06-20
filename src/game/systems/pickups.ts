@@ -16,6 +16,15 @@ const CAPSULE_RADIUS = 14;
 export function spawnFragment(scene: Phaser.Scene, state: RuntimeState, x: number, y: number, xp: number): void {
   const view = createPickupView(scene);
   view.setPosition(x, y);
+  view.setScale(0.72);
+  scene.tweens.add({
+    targets: view,
+    y: y - 8,
+    scale: 1.08,
+    duration: 90,
+    yoyo: true,
+    ease: 'Quad.easeOut',
+  });
   const p: PickupRuntime = {
     iid: nextIid(state),
     x,
@@ -89,7 +98,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
       state.stats.memoryFragmentsCollected += 1;
       pickup.dead = true;
       pickup.view.destroy();
-      getAudioManager(scene).playSe('expCollect', { volume: 0.32, rate: 1 + Math.random() * 0.18 });
+      getAudioManager(scene).playExpCollect();
       getEffectManager(scene).expCollect(pickup.x, pickup.y, p.x, p.y);
       collectSpark(scene, p.x, p.y);
       continue;

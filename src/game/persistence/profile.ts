@@ -122,6 +122,11 @@ const STORAGE_KEY = 'vampPon.playerProfile.v1';
 const CHARACTER_XP_BASE = 80;
 const CHARACTER_XP_STEP = 34;
 
+function storage(): Storage | null {
+  if (typeof window !== 'undefined' && window.localStorage) return window.localStorage;
+  return typeof globalThis.localStorage !== 'undefined' ? globalThis.localStorage : null;
+}
+
 function emptyUpgrades(): Record<UpgradeId, number> {
   return {
     maxHp: 0,
@@ -180,9 +185,10 @@ function normalizeProfile(raw: unknown): PlayerProfile {
 }
 
 export function loadProfile(): PlayerProfile {
-  if (typeof window === 'undefined') return createDefaultProfile();
+  const store = storage();
+  if (!store) return createDefaultProfile();
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = store.getItem(STORAGE_KEY);
     return normalizeProfile(raw ? JSON.parse(raw) : null);
   } catch {
     return createDefaultProfile();
@@ -191,7 +197,7 @@ export function loadProfile(): PlayerProfile {
 
 export function saveProfile(profile: PlayerProfile): PlayerProfile {
   const normalized = normalizeProfile(profile);
-  if (typeof window !== 'undefined') window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
+  storage()?.setItem(STORAGE_KEY, JSON.stringify(normalized));
   return normalized;
 }
 

@@ -212,6 +212,8 @@ export class MainScene extends Phaser.Scene {
       enemiesById,
       firstCapsuleSec: this.state.telemetry.firstCapsuleSec,
       eliteKillSecs: [...this.state.telemetry.eliteKillSecs],
+      level2Sec: this.state.telemetry.level2Sec,
+      level3Sec: this.state.telemetry.level3Sec,
       speedMultiplier: this.state.speedMultiplier,
     };
     window.__VAMP_PON_DEBUG_SNAPSHOT__ = snapshot;
@@ -328,6 +330,7 @@ export class MainScene extends Phaser.Scene {
     if (hasPendingLevelUp(state)) {
       advanceLevel(state);
       if (state.player.level === 2 && state.telemetry.level2Sec === null) state.telemetry.level2Sec = state.elapsedSec;
+      if (state.player.level === 3 && state.telemetry.level3Sec === null) state.telemetry.level3Sec = state.elapsedSec;
       this.audio.playSe('levelUp', { volume: 0.9 });
       this.effects.levelUp(state.player.x, state.player.y, { label: `Lv.${state.player.level}` });
       state.status = GAME_STATUS.LEVELUP;
@@ -338,12 +341,14 @@ export class MainScene extends Phaser.Scene {
     if (state.elapsedSec >= state.durationSec) this.enterResult(true);
   }
 
-  public gameFeelDebug(): { particleCount: number; waveMultiplier: number; currentMaxEnemies: number } {
+  public gameFeelDebug(): { particleCount: number; waveMultiplier: number; currentMaxEnemies: number; comboCount: number; xpPerMin: number } {
     const caps = maxEnemiesForElapsed(this.state.elapsedSec, DEFAULT_GAME_CONFIG.maxEnemies);
     return {
       particleCount: this.effects.count(),
       waveMultiplier: caps.multiplier,
       currentMaxEnemies: caps.hard,
+      comboCount: this.effects.combo(),
+      xpPerMin: this.state.elapsedSec > 0 ? this.state.stats.xpCollected / (this.state.elapsedSec / 60) : 0,
     };
   }
 

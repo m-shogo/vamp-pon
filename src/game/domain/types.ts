@@ -220,25 +220,90 @@ export type EvolutionDefinition = {
    * weapons.ts で maxLevel を 5→7→… と動かしても破綻しないよう、未指定でも構わない。
    */
   requiredWeaponLevel?: number;
+  requiredWeaponId?: Id;
+  requiredWeaponLevel2?: number;
   requiredPassiveId?: Id;
   requiredPassiveLevel?: number;
   requiredRareItemId?: Id;
-  resultWeaponId: Id;
-  description: string;
+  consumedWeaponIds?: Id[];
+  consumedRareItemIds?: Id[];
+  evolvedWeaponId: Id;
+  title?: string;
+  description?: string;
+  lore?: string;
 };
 
-export type LevelUpChoice = {
-  id: Id;
-  kind: 'weapon' | 'passive' | 'evolution' | 'rare_item' | 'heal' | 'skip';
-  name: string;
-  description: string;
-  rarity: RewardRarity;
-};
+export type LevelUpChoice =
+  | {
+    type: 'weapon_new';
+    itemId: Id;
+    title: string;
+    description: string;
+    lore?: string;
+    rarity?: RewardRarity;
+    initialLevel?: number;
+  }
+  | {
+    type: 'weapon_upgrade';
+    itemId: Id;
+    nextLevel: number;
+    title: string;
+    description: string;
+    lore?: string;
+    rarity?: RewardRarity;
+  }
+  | {
+    type: 'passive_new';
+    itemId: Id;
+    title: string;
+    description: string;
+    lore?: string;
+    rarity?: RewardRarity;
+    initialLevel?: number;
+  }
+  | {
+    type: 'passive_upgrade';
+    itemId: Id;
+    nextLevel: number;
+    title: string;
+    description: string;
+    lore?: string;
+    rarity?: RewardRarity;
+  }
+  | {
+    type: 'rare_new';
+    itemId: Id;
+    title: string;
+    description: string;
+    lore?: string;
+    rarity?: RewardRarity;
+  }
+  | {
+    type: 'heal';
+    amount: number;
+    title: string;
+    description: string;
+    lore?: string;
+    rarity?: RewardRarity;
+  };
 
-export type CapsuleReward = {
-  id: Id;
-  title: string;
-  description: string;
-  kind: 'currency' | 'heal' | 'rare_item' | 'evolution';
-  amount?: number;
-};
+export type CapsuleReward =
+  | {
+    type: 'evolution';
+    evolutionId: Id;
+    evolutionKind: EvolutionKind;
+    evolvedWeaponId: Id;
+    title: string;
+    lore?: string;
+  }
+  | {
+    type: 'weapon_upgrade' | 'passive_upgrade';
+    itemId: Id;
+    nextLevel: number;
+    title: string;
+  }
+  | {
+    type: 'currency';
+    amount: number;
+    title: string;
+  };

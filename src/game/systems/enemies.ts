@@ -119,8 +119,9 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     state.stats.elitesKilled += 1;
     state.telemetry.eliteKillSecs.push(state.elapsedSec);
   }
-  getAudioManager(scene).playSe('enemyDeath', { volume: enemy.isElite ? 0.9 : 0.55, rate: enemy.isElite ? 0.88 : 0.98 + Math.random() * 0.08 });
-  getEffectManager(scene).enemyDeath(enemy.x, enemy.y, { elite: enemy.isElite });
+  const effects = getEffectManager(scene);
+  effects.enemyDeath(enemy.x, enemy.y, { elite: enemy.isElite });
+  getAudioManager(scene).playEnemyDeath(effects.combo(), enemy.isElite);
 
   const count = Math.max(1, Math.min(Math.ceil(enemy.xpDrop), 5));
   const per = (enemy.xpDrop * GAME_FEEL_CONFIG.expGemValueScale) / count;
@@ -140,7 +141,14 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   }
 
   inkPuff(scene, enemy.x, enemy.y, enemy.radius, enemy.isElite);
-  enemy.view.destroy();
+  scene.tweens.add({
+    targets: enemy.view,
+    scale: enemy.isElite ? 1.35 : 1.26,
+    alpha: 0,
+    duration: enemy.isElite ? 210 : 160,
+    ease: 'Quad.easeOut',
+    onComplete: () => enemy.view.destroy(),
+  });
   enemy.hpBar?.destroy();
 }
 

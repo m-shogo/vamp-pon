@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type { LevelUpChoice, RewardRarity } from '../domain/types';
 import { archetypesForItem } from '../data/buildArchetypes';
+import { getEffectManager } from '../effects/EffectManager';
 import {
   getInventoryIconRequirement,
   resolveInventoryIconTexture,
@@ -57,6 +58,8 @@ export function createStorybookChoiceCard(
   } else {
     addVerticalContent(scene, card, width, height, choice, title, badge, accent);
   }
+
+  getEffectManager(scene).rewardCardPop(card, { strong: choice.rarity === 'rare' || choice.type === 'rare_new' });
 
   return card;
 }
