@@ -34,11 +34,10 @@ export class CollectionScene extends Phaser.Scene {
 
     root.add(this.text(GAME_WIDTH / 2, 34, '忘れ物帳', 26, STORYBOOK_UI.textLight, true, true));
     root.add(this.text(GAME_WIDTH / 2, 66, `${forgottenStreetNightBoard.name}　${completed.size}/${forgottenStreetNightBoard.cells.length}`, 13, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 96, 'マスを埋めると、となりの記録が見えていく', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 96, 'マスを埋めると、となりの記録が見えていく', 12, STORYBOOK_UI.textMuted));
 
     this.renderBoard(root, completed, revealed, hinted);
 
-    // 詳細枠（紙片風の小パネル）。マス選択時にここへテキストが入る。
     const detailPanel = this.add.graphics();
     drawStorybookPanel(detailPanel, GAME_WIDTH / 2, 470, 330, 96, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.86);
     root.add(detailPanel);
@@ -48,7 +47,7 @@ export class CollectionScene extends Phaser.Scene {
       '夜明け盤のマスを押すと、条件と報酬が見えます。',
       {
         fontFamily: STORYBOOK_FONT,
-        fontSize: '12px',
+        fontSize: '13px',
         color: colorString(STORYBOOK_UI.textMuted),
         align: 'center',
         resolution: 2,
@@ -101,7 +100,7 @@ export class CollectionScene extends Phaser.Scene {
     const text = rows.length > 0
       ? rows.join('\n')
       : 'まだカゲモノは記されていません。\n夜路で出会うと、ここに残ります。';
-    const summary = this.text(GAME_WIDTH / 2, 600, text, 12, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
+    const summary = this.text(GAME_WIDTH / 2, 600, text, 13, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
     summary.setWordWrapWidth(306);
     root.add(summary);
   }
@@ -142,7 +141,7 @@ export class CollectionScene extends Phaser.Scene {
           : '';
     const label = this.add.text(0, 0, mark, {
       fontFamily: state === 'completed' ? STORYBOOK_TITLE_FONT : STORYBOOK_FONT,
-      fontSize: state === 'revealed' ? '9px' : '20px',
+      fontSize: state === 'revealed' ? '10px' : '20px',
       color: state === 'completed' ? '#1f1a2f' : '#f7edcf',
       fontStyle: 'bold',
       align: 'center',
@@ -177,8 +176,6 @@ export class CollectionScene extends Phaser.Scene {
       align: 'center',
       resolution: 2,
       lineSpacing: 3,
-      stroke: '#080b18',
-      strokeThickness: bold ? 1 : 0,
     }).setOrigin(0.5);
   }
 
@@ -188,7 +185,7 @@ export class CollectionScene extends Phaser.Scene {
     fill.setStrokeStyle(1, muted ? 0x6f6590 : 0xf5d58a, 0.9);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', onClick);
-    c.add([fill, this.text(0, 0, label, 12, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
+    c.add([fill, this.text(0, 0, label, 13, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
     return c;
   }
 }
