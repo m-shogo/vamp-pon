@@ -36,6 +36,22 @@ export function createStorybookChoiceCard(
   drawPaperCard(graphics, 0, 0, width, height, accent, palette.paper);
   graphics.fillStyle(accent, 0.92).fillRect(-width / 2 + 5, -height / 2 + 5, 5, height - 10);
   card.add(graphics);
+  if (choice.rarity === 'rare' || choice.type === 'rare_new') {
+    const glow = scene.add.graphics();
+    glow.lineStyle(3, STORYBOOK_UI.goldLight, 0.46);
+    glow.strokeRoundedRect(-width / 2 + 4, -height / 2 + 4, width - 8, height - 8, 9);
+    glow.lineStyle(1, 0xffffff, 0.24);
+    glow.strokeRoundedRect(-width / 2 + 10, -height / 2 + 10, width - 20, height - 20, 7);
+    card.add(glow);
+    scene.tweens.add({
+      targets: glow,
+      alpha: { from: 0.5, to: 1 },
+      duration: 780,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+    });
+  }
 
   const hit = scene.add.rectangle(0, 0, width, height, 0x000000, 0.001)
     .setInteractive({ useHandCursor: true });

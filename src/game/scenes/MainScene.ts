@@ -258,6 +258,10 @@ export class MainScene extends Phaser.Scene {
     const state = this.state;
     const previousEvolutions = new Set(state.stats.evolutions);
     applyChoice(state, choice);
+    if (choice.type === 'rare_new') {
+      this.audio.playSe('levelUp', { volume: 0.62, rate: 1.08 });
+      this.effects.rarePickup(state.player.x, state.player.y, { label: 'RARE' });
+    }
     for (const evolvedWeaponId of state.stats.evolutions) {
       if (previousEvolutions.has(evolvedWeaponId)) continue;
       const name = weaponById.get(evolvedWeaponId)?.name ?? evolvedWeaponId;

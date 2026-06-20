@@ -326,6 +326,7 @@ export class Hud {
       ? Math.sin(this.scene.time.now * 0.09) * 2
       : 0;
     this.hpText.setText(`${Math.ceil(player.hp)} / ${player.maxHp}`);
+    this.hpText.setColor(shake !== 0 && Math.floor(this.scene.time.now / 70) % 2 === 0 ? '#ffd6d6' : STORYBOOK_UI.textLight);
     this.hpDamageBar.clear();
     this.hpDamageBar.x = shake;
     drawBar(this.hpDamageBar, 40, 39, 105, 10, this.delayedHpRatio, STORYBOOK_UI.hpBack, 0x9f2438);
@@ -399,6 +400,12 @@ export class Hud {
     this.ultimateBack.lineStyle(2, accent, 0.9).strokeCircle(ULT_X, ULT_Y, 33);
     if (ready && !locked) {
       this.ultimateBack.lineStyle(2, STORYBOOK_UI.goldLight, 0.32 + pulse * 0.28).strokeCircle(ULT_X, ULT_Y, 37 + pulse * 3);
+      this.ultimateBack.lineStyle(1, 0xffffff, 0.18 + pulse * 0.18).strokeCircle(ULT_X, ULT_Y, 41 + pulse * 2);
+      this.ultimateBack.fillStyle(STORYBOOK_UI.goldLight, 0.34 + pulse * 0.2);
+      for (let i = 0; i < 4; i += 1) {
+        const angle = this.scene.time.now * 0.0018 + i * Math.PI * 0.5;
+        this.ultimateBack.fillCircle(ULT_X + Math.cos(angle) * 42, ULT_Y + Math.sin(angle) * 42, 1.7 + pulse);
+      }
     }
     this.ultimateBack.lineStyle(1, 0xffffff, 0.18).strokeCircle(ULT_X, ULT_Y, 27);
     drawStar(this.ultimateBack, ULT_X, ULT_Y - 5, 13, accent, STORYBOOK_UI.gold, locked ? 0.42 : 1);

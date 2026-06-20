@@ -2,8 +2,8 @@ import type Phaser from 'phaser';
 import type { EnemyDefinition } from '../domain/types';
 import type { RuntimeState, EnemyRuntime } from '../runtime';
 import { nextIid } from '../runtime';
-import { PLAYER_DEFAULTS, COLORS, GAME_STATUS } from '../domain/constants';
-import { distance } from '../utils/math';
+import { PLAYER_DEFAULTS, COLORS, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
+import { clamp, distance, normalize } from '../utils/math';
 import { randRange } from '../utils/rng';
 import { capsuleDropChanceFor, chargerPhaseFor, computeBehaviorStep } from '../domain/enemyRules';
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
@@ -69,10 +69,20 @@ export function spawnEnemy(
     dead: false,
   };
   state.enemies.push(enemy);
+  if (def.id === 'black_label_shadow' && scene.data.get('vampPonBossWarningShown') !== true) {
+    scene.data.set('vampPonBossWarningShown', true);
+    getAudioManager(scene).playSe('bossWarning', { volume: 0.72 });
+    getEffectManager(scene).bossWarning({ label: 'オンブロ 接近' });
+  }
 }
 
 /** プレイヤー被弾処理。暴走ゲージは実際に失ったHPだけで増える。 */
-export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amount: number): void {
+export function applyPlayerDamage(
+  scene: Phaser.Scene,
+  state: RuntimeState,
+  amount: number,
+  source?: { x: number; y: number; strong?: boolean },
+): void {
   const p = state.player;
   if (p.invulnRemaining > 0) return;
   const reducedAmount = amount * profileBonuses().damageTakenMultiplier;
@@ -84,8 +94,17 @@ export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amou
   if (state.telemetry.firstDamageSec === null) state.telemetry.firstDamageSec = state.elapsedSec;
   p.invulnRemaining = PLAYER_DEFAULTS.invulnSec;
   p.flashRemaining = PLAYER_DEFAULTS.invulnSec;
+  if (source) {
+    const dir = normalize(p.x - source.x, p.y - source.y);
+    const knockback = source.strong ? 10 : 6;
+    p.x = clamp(p.x + dir.x * knockback, p.radius, GAME_WIDTH - p.radius);
+    p.y = clamp(p.y + dir.y * knockback, p.radius, GAME_HEIGHT - p.radius);
+    state.playerView.setPosition(p.x, p.y);
+  }
   getAudioManager(scene).playSe('playerDamage', { volume: 0.82 });
-  getEffectManager(scene).playerDamage();
+  const effects = getEffectManager(scene);
+  effects.playerDamage();
+  effects.playerDamageView(state.playerView, { sourceX: source?.x, sourceY: source?.y, strong: source?.strong });
   shakeOnHit(scene);
   if (p.hp <= 0) {
     p.hp = 0;
@@ -300,7 +319,7 @@ function createInkPuddleThreat(
     }
     const p = state.player;
     const inRange = distance(x, y, p.x, p.y) <= radius + p.radius;
-    if (inRange) applyPlayerDamage(scene, state, damage);
+    if (inRange) applyPlayerDamage(scene, state, damage, { x, y, strong: true });
     inkPuff(scene, x, y, radius * 0.45, false);
     scene.tweens.add({
       targets: g,
@@ -357,7 +376,7 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
     }
 
     const d = distance(e.x, e.y, p.x, p.y);
-    if (d <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage);
+    if (d <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage, { x: e.x, y: e.y, strong: e.isElite });
   }
 
   state.enemies = state.enemies.filter((e) => !e.dead);
