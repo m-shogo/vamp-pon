@@ -7,6 +7,7 @@ import { addXp } from './xp';
 import { generateCapsuleReward } from './capsule';
 import { createPickupView, createHealPickupView, createCapsuleView } from '../ui/factory';
 import { collectSpark } from '../ui/effects';
+import { recordHealCollected } from './runCollectionMetrics';
 
 const CAPSULE_RADIUS = 14;
 
@@ -71,6 +72,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
       // HP満タン時に触れても消費しない。
       if (p.hp < p.maxHp && d <= PICKUP.collectRadius) {
         p.hp = Math.min(p.maxHp, p.hp + pickup.heal);
+        recordHealCollected(state.stats);
         pickup.dead = true;
         pickup.view.destroy();
         collectSpark(scene, p.x, p.y);
