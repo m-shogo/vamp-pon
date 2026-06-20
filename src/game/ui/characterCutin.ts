@@ -258,7 +258,7 @@ function addFallbackCutin(
   root.add([panel, inkLineTop, inkLineBottom]);
 
   if (visual) {
-    const portrait = scene.add.image(GAME_WIDTH - 76, panel.y, visual.textureKey, visual.frame)
+    const portrait = scene.add.image(GAME_WIDTH - 76, panel.y + 2, visual.textureKey, visual.frame)
       .setDisplaySize(172, 172)
       .setAlpha(0.99);
     if (isBerserk) portrait.setTint(0xd8b5df);
@@ -274,6 +274,8 @@ function addFallbackCutin(
     fontSize: isBerserk ? '31px' : '22px',
     color: textColor,
     fontStyle: 'bold',
+    stroke: isBerserk ? '#08050d' : '#f8edcf',
+    strokeThickness: isBerserk ? 5 : 3,
     resolution: 2,
     wordWrap: { width: 250 },
   });
@@ -282,6 +284,8 @@ function addFallbackCutin(
     fontSize: '12px',
     color: isBerserk ? '#d8bedf' : '#5b4a2e',
     fontStyle: 'bold',
+    stroke: isBerserk ? '#08050d' : '#f8edcf',
+    strokeThickness: 2,
     resolution: 2,
     wordWrap: { width: 246 },
   });
