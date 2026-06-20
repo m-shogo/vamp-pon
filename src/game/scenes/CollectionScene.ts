@@ -192,7 +192,7 @@ function shortCellLabel(value: string): string {
 
 function rewardLabel(cell: NightBoardCell): string {
   switch (cell.reward.type) {
-    case 'light_coin': return `灯貨 +${cell.reward.amount ?? 0}`;
+    case 'light_coin': return `黒曜片 +${cell.reward.amount ?? 0}`;
     case 'travel_prep': return `旅支度 +${cell.reward.amount ?? 0}`;
     case 'memory_text': return '記憶文';
     case 'cosmetic': return '見た目';

@@ -354,7 +354,7 @@ export class MainScene extends Phaser.Scene {
     bg.setStrokeStyle(1, 0xf5d58a, 0.92);
     const titles = settlement.newlyCompleted.slice(0, 3).map((cell) => `■ ${cell.title}`).join('\n');
     const more = settlement.newlyCompleted.length > 3 ? `\nほか ${settlement.newlyCompleted.length - 3}マス` : '';
-    const reward = settlement.lightCoinReward > 0 ? `　灯貨 +${settlement.lightCoinReward}` : '';
+    const reward = settlement.lightCoinReward > 0 ? `　黒曜片 +${settlement.lightCoinReward}` : '';
     const text = this.add.text(0, 0, `夜明け盤 +${settlement.newlyCompleted.length}${reward}\n${titles}${more}`, {
       fontFamily: 'sans-serif',
       fontSize: '12px',

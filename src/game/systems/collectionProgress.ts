@@ -26,7 +26,11 @@ export type CollectionSettlement = {
 export function settleCollectionProgress(state: RuntimeState, cleared: boolean): CollectionSettlement {
   const progress = loadCollectionProgress();
   const seenBefore = new Set(progress.seenEnemyIds);
-  const completedBefore = new Set(progress.nightBoard.completedCellIds);
+  const releasedBefore = new Set(
+    Object.entries(progress.defeatedEnemyCounts)
+      .filter(([, count]) => count > 0)
+      .map(([id]) => id),
+  );
   const revealedBefore = new Set(progress.nightBoard.revealedCellIds);
   const hintedBefore = new Set(progress.nightBoard.hintedCellIds);
 
@@ -86,6 +90,8 @@ export function settleCollectionProgress(state: RuntimeState, cleared: boolean):
   }
 
   if (travelPrepReward > 0) {
+    // TODO(collection): travel_prep（旅支度）報酬の実通貨は未実装。
+    // 現状は完了ログだけ残し、リザルト表示でも「準備済みカゲモノ」マーカーとして扱う。
     const marker = `travel_prep:${forgottenStreetNightBoard.id}:${progress.nightBoard.completedCellIds.length}`;
     if (!progress.unlockedMemoryTextIds.includes(marker)) progress.unlockedMemoryTextIds.push(marker);
   }
@@ -111,7 +117,7 @@ export function settleCollectionProgress(state: RuntimeState, cleared: boolean):
     newlyRevealed: forgottenStreetNightBoardCells.filter((cell) => revealedNow.has(cell.id) && !revealedBefore.has(cell.id)),
     newlyHinted: forgottenStreetNightBoardCells.filter((cell) => hintedNow.has(cell.id) && !hintedBefore.has(cell.id)),
     newlySeenEnemyIds: [...seenNow].filter((id) => !seenBefore.has(id)),
-    newlyReleasedEnemyIds: [...releasedNow].filter((id) => (progress.defeatedEnemyCounts[id] ?? 0) > 0),
+    newlyReleasedEnemyIds: [...releasedNow].filter((id) => !releasedBefore.has(id)),
     lightCoinReward,
     travelPrepReward,
     memoryTextIds,
@@ -146,6 +152,8 @@ function isCellComplete(
     case 'fs_010_collect_200_memory_fragments': return state.stats.memoryFragmentsCollected >= 200;
     case 'fs_011_level_pencil_5': return weaponLevel('night_pencil') >= 5;
     case 'fs_012_level_paper_plane_5': return weaponLevel('paper_airplane') >= 5;
+    // TODO(collection): 灯技/必殺で倒したカゲモノ数を正確に取れていない。
+    // 暫定で「必殺発動 + 総撃破数」で代替。weapon/ultimate kill別カウントが入ったら差し替え。
     case 'fs_013_lantern_weapon_100_releases': return state.stats.ultimateUses > 0 && state.stats.kills >= 100;
     case 'fs_014_ultimate_50_releases': return state.stats.ultimateUses > 0 && state.stats.kills >= 50;
     case 'fs_015_first_fusion': return state.stats.evolutions.length > 0;
@@ -157,6 +165,8 @@ function isCellComplete(
     case 'fs_021_clear_single_weapon': return stage1Cleared && state.inventory.weapons.length <= 1;
     case 'fs_022_clear_with_1_hp': return cleared && state.player.hp <= 1;
     case 'fs_023_calm_yorishiro_with_ultimate': return state.stats.ultimateUses > 0 && (progress.calmedBossIds.includes('bag_yorishiro') || (cleared && state.stageNumber >= 5));
+    // TODO(collection): eliteKillSecs は「ラン経過秒」基準で、本来狙う「出現から20秒以内」とは異なる。
+    // スポーン時刻を保持できるようにしたら差し替える。
     case 'fs_024_release_onbro_fast': return state.telemetry.eliteKillSecs.some((sec) => sec <= 20);
     case 'fs_025_view_nemori_record': return progress.calmedBossIds.includes('yanushi_nemori') || (cleared && state.stageNumber >= 10);
     default: return false;
