@@ -14,7 +14,9 @@ import {
   type PlayerProfile,
   type UpgradeId,
 } from '../persistence/profile';
+import { loadBondProgress } from '../persistence/bonds';
 import { characters } from '../data/characters';
+import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
@@ -113,6 +115,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderStagePreview(root, profile);
       this.renderDepthBlock(root, profile);
       this.renderCharacterSummary(root, profile);
+      this.renderSubCharacterStatus(root, profile, 515);
       root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 102, 240, 50, '探索を始める', () => this.startRun(profile)));
       root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
       root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 40, '成長へ', () => {
@@ -121,6 +124,7 @@ export class StageSelectScene extends Phaser.Scene {
       }, true));
     } else {
       this.renderCharacterSummary(root, profile);
+      this.renderSubCharacterStatus(root, profile, 136);
       this.renderUpgradeBlock(root, profile);
       root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
       root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 40, '選択へ', () => {
@@ -240,6 +244,13 @@ export class StageSelectScene extends Phaser.Scene {
     const y = this.mode === 'growth' ? 100 : 470;
     root.add(this.text(GAME_WIDTH / 2, y, `${char.name} Lv.${progress.level}　${progress.xp}/${need}`, 13, STORYBOOK_UI.goldLight, true));
     root.add(this.text(GAME_WIDTH / 2, y + 18, '使うほどHPと攻撃が少しずつ伸びる', 11, STORYBOOK_UI.textMuted));
+  }
+
+  private renderSubCharacterStatus(root: Phaser.GameObjects.Container, profile: PlayerProfile, y: number): void {
+    const vm = buildStageSelectSubCharacterViewModel(profile, loadBondProgress(), characters[0].id);
+    root.add(this.text(GAME_WIDTH / 2, y, `同行: ${vm.selectedLine}`, 11, STORYBOOK_UI.goldLight, true));
+    root.add(this.text(GAME_WIDTH / 2, y + 17, vm.effectLine, 10, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, y + 34, vm.pairUltimateLine, 10, STORYBOOK_UI.textMuted));
   }
 
   // --- 成長画面（既存ロジック踏襲・縦位置だけ整える） ---
