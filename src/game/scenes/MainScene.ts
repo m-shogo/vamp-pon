@@ -364,8 +364,6 @@ export class MainScene extends Phaser.Scene {
       align: 'center',
       resolution: 2,
       lineSpacing: 3,
-      stroke: '#080b18',
-      strokeThickness: 2,
     }).setOrigin(0.5);
     root.add([bg, text]);
     root.setScale(0.96);
