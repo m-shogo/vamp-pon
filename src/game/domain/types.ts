@@ -63,6 +63,37 @@ export type RareItemDefinition = {
   lore?: string;
 };
 
+export type CharacterBaseStats = {
+  hp: number;
+  moveSpeed: number;
+  might: number;
+  cooldownMultiplier: number;
+  magnetMultiplier: number;
+  xpMultiplier: number;
+};
+
+export type CharacterUltimateDefinition = {
+  id: Id;
+  name: string;
+  chargeSeconds: number;
+  trigger: 'manual' | 'auto';
+  effect: EffectDefinition;
+  description: string;
+  lore?: string;
+};
+
+export type CharacterDefinition = {
+  id: Id;
+  name: string;
+  title: string;
+  role: string;
+  initialWeaponId: Id;
+  baseStats: CharacterBaseStats;
+  ultimate: CharacterUltimateDefinition;
+  description: string;
+  lore?: string;
+};
+
 export type EnemyBehavior =
   | 'chase'
   | 'slow_chase'
