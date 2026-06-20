@@ -5,7 +5,8 @@
       "name": "vamp-pon-dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["dev"],
-      "port": 5173
+      "port": 5174,
+      "autoPort": false
     }
   ]
 }
