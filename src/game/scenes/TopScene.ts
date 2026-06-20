@@ -52,6 +52,8 @@ export class TopScene extends Phaser.Scene {
       align: 'center',
       resolution: 2,
       lineSpacing: 3,
+      stroke: '#080b18',
+      strokeThickness: bold ? 1 : 0,
     }).setOrigin(0.5);
   }
 
