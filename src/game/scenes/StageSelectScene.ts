@@ -7,6 +7,7 @@ import {
   loadProfile,
   resetUpgrades,
   selectRun,
+  selectSubCharacter,
   UPGRADE_DEFS,
   upgradeCost,
   upgradeRefundValue,
@@ -247,10 +248,29 @@ export class StageSelectScene extends Phaser.Scene {
   }
 
   private renderSubCharacterStatus(root: Phaser.GameObjects.Container, profile: PlayerProfile, y: number): void {
-    const vm = buildStageSelectSubCharacterViewModel(profile, loadBondProgress(), characters[0].id);
+    const main = characters[0];
+    const vm = buildStageSelectSubCharacterViewModel(profile, loadBondProgress(), main.id);
     root.add(this.text(GAME_WIDTH / 2, y, `同行: ${vm.selectedLine}`, 11, STORYBOOK_UI.goldLight, true));
     root.add(this.text(GAME_WIDTH / 2, y + 17, vm.effectLine, 10, STORYBOOK_UI.textMuted));
     root.add(this.text(GAME_WIDTH / 2, y + 34, vm.pairUltimateLine, 10, STORYBOOK_UI.textMuted));
+
+    const none = this.button(62, y + 62, 54, 28, 'なし', () => {
+      selectSubCharacter(undefined, main.id);
+      this.render();
+    }, !profile.selectedSubCharacterId);
+    root.add(none);
+
+    vm.options.slice(0, 4).forEach((option, index) => {
+      const x = 124 + index * 66;
+      const label = option.enabled ? option.name : '準備中';
+      const btn = this.button(x, y + 62, 58, 28, label, () => {
+        if (!option.enabled) return;
+        selectSubCharacter(option.characterId, main.id);
+        this.render();
+      }, !option.enabled || option.selected);
+      btn.setAlpha(option.enabled ? 1 : 0.45);
+      root.add(btn);
+    });
   }
 
   // --- 成長画面（既存ロジック踏襲・縦位置だけ整える） ---
