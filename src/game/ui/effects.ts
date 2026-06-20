@@ -50,8 +50,6 @@ export function capsuleRewardBurst(scene: Phaser.Scene, x: number, y: number): v
     fontSize: '11px',
     color: '#ffe7a8',
     fontStyle: 'bold',
-    stroke: '#080914',
-    strokeThickness: 3,
     resolution: 2,
   }).setOrigin(0.5).setDepth(depth + 2);
 
@@ -188,8 +186,6 @@ export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label:
       fontSize: presentation.strong ? '26px' : '23px',
       color: toCss(accent.main),
       fontStyle: 'bold',
-      stroke: '#1b1730',
-      strokeThickness: presentation.strong ? 5 : 4,
       align: 'center',
       resolution: 2,
     })
@@ -201,8 +197,6 @@ export function evolutionBurst(scene: Phaser.Scene, x: number, y: number, label:
     fontSize: '12px',
     color: '#f4ead4',
     fontStyle: 'bold',
-    stroke: '#1b1730',
-    strokeThickness: 3,
     align: 'center',
     resolution: 2,
   }).setOrigin(0.5).setDepth(depth + 3);
