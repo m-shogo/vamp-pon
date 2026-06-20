@@ -200,6 +200,7 @@ export function createRunStats(): RunStats {
     capsulesOpened: 0,
     evolutions: [],
     ultimateUses: 0,
+    pairUltimateUses: 0,
     berserkUses: 0,
     damageTaken: 0,
     levelUps: 0,
