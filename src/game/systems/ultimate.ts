@@ -13,6 +13,8 @@ import { updatePlayerVisual } from '../ui/playerVisual';
 import { requestYuiExpressionRageSheet } from '../assets/yuiExpressionRageSheet';
 import { getAudioManager } from '../audio/AudioManager';
 import { getEffectManager } from '../effects/EffectManager';
+import { loadBondProgress } from '../persistence/bonds';
+import { getBondEntry, pairUltimateForBond } from './bondProgress';
 
 const ULTIMATE_POSE_SEC = 0.48;
 
@@ -51,14 +53,24 @@ export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: num
   updatePlayerVisual(state);
 }
 
+function currentPairUltimate(state: RuntimeState) {
+  if (!state.subCharacterId || state.subCharacterId === state.characterId) return null;
+  const bondProgress = loadBondProgress();
+  const entry = getBondEntry(bondProgress, state.characterId, state.subCharacterId);
+  return pairUltimateForBond(state.characterId, state.subCharacterId, entry.level);
+}
+
 function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   const char = characterById.get(state.characterId);
   if (!char) return;
   const eff = char.ultimate.effect as EffectValues;
+  const pairUltimate = currentPairUltimate(state);
   const p = state.player;
-  const radius = num(eff, 'radius', 240);
-  const damage = num(eff, 'damage', 18);
-  const dropBonus = num(eff, 'dropBonus', 0);
+  const radius = num(eff, 'radius', 240) * (pairUltimate ? 1.18 : 1);
+  const damage = num(eff, 'damage', 18) * (pairUltimate ? 1.25 : 1);
+  const dropBonus = num(eff, 'dropBonus', 0) + (pairUltimate ? 2 : 0);
+
+  if (pairUltimate) state.stats.pairUltimateUses += 1;
 
   for (const frag of state.pickups) {
     frag.magnetized = true;
@@ -79,17 +91,19 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   }
 
   ultimateFlash(scene);
-  getAudioManager(scene).playSe('ultimate', { volume: 0.88 });
-  getAudioManager(scene).duckBgm(360, 0.35);
+  getAudioManager(scene).playSe('ultimate', { volume: pairUltimate ? 1 : 0.88 });
+  getAudioManager(scene).duckBgm(pairUltimate ? 480 : 360, pairUltimate ? 0.28 : 0.35);
   getEffectManager(scene).ultimateFlash();
   playCharacterCutin(scene, 'ultimate');
-  const ring = scene.add.circle(p.x, p.y, radius, COLORS.ultReady, 0.3).setDepth(35);
+  const ring = scene.add.circle(p.x, p.y, radius, pairUltimate ? STORYBOOK_PAIR_ULTIMATE_COLOR : COLORS.ultReady, pairUltimate ? 0.42 : 0.3).setDepth(35);
   ring.setScale(0.1);
   scene.tweens.add({
     targets: ring,
     scale: 1,
     alpha: 0,
-    duration: 420,
+    duration: pairUltimate ? 520 : 420,
     onComplete: () => ring.destroy(),
   });
 }
+
+const STORYBOOK_PAIR_ULTIMATE_COLOR = 0xf7c86a;
