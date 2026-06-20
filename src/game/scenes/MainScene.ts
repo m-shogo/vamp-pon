@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState, isBerserkQaAutoRequested } from '../state';
-import { GAME_STATUS, GAME_WIDTH } from '../domain/constants';
+import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH } from '../domain/constants';
 import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
 import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
 import { Hud } from '../ui/hud';
@@ -115,6 +115,7 @@ export class MainScene extends Phaser.Scene {
       this.clearDebugSnapshot();
       this.berserkFeedback.destroy();
       this.audio.destroy();
+      this.effects.destroy();
       this.pacingEffects.destroy();
       this.stick.destroy();
       this.hud.destroy();
@@ -338,7 +339,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   public gameFeelDebug(): { particleCount: number; waveMultiplier: number; currentMaxEnemies: number } {
-    const caps = maxEnemiesForElapsed(this.state.elapsedSec);
+    const caps = maxEnemiesForElapsed(this.state.elapsedSec, DEFAULT_GAME_CONFIG.maxEnemies);
     return {
       particleCount: this.effects.count(),
       waveMultiplier: caps.multiplier,

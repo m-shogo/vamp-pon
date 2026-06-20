@@ -218,8 +218,8 @@ export function getAudioManager(scene: Phaser.Scene): AudioManager {
   let manager = MANAGERS.get(scene);
   if (!manager) {
     manager = new AudioManager();
-    manager.init(scene);
     MANAGERS.set(scene, manager);
   }
+  manager.init(scene);
   return manager;
 }

@@ -15,6 +15,8 @@ export type GameFeelRuntimeSettings = {
   maxEnemiesScale: number;
 };
 
+export type EnemyCap = { soft: number; hard: number; multiplier: number };
+
 export type GameFeelConfig = {
   enemyDensityMultiplierByTime: { startSec: number; multiplier: number }[];
   maxEnemiesSoftCap: number;
@@ -43,7 +45,7 @@ export const GAME_FEEL_CONFIG: GameFeelConfig = {
     { startSec: 420, multiplier: 3.0 },
   ],
   maxEnemiesSoftCap: 118,
-  maxEnemiesHardCap: 156,
+  maxEnemiesHardCap: 140,
   spawnIntervalMin: 0.12,
   spawnIntervalMax: 1.1,
   expGemValueScale: 0.72,
@@ -128,11 +130,12 @@ export function saveGameFeelSettings(settings: GameFeelRuntimeSettings): void {
   }
 }
 
-export function maxEnemiesForElapsed(elapsedSec: number): { soft: number; hard: number; multiplier: number } {
+export function maxEnemiesForElapsed(elapsedSec: number, absoluteHardCap = Number.POSITIVE_INFINITY): EnemyCap {
   const settings = loadGameFeelSettings();
   const density = enemyDensityMultiplierForTime(elapsedSec);
   const specScale = settings.lowSpecMode ? 0.72 : settings.maxEnemiesScale;
-  const soft = Math.max(36, Math.floor(GAME_FEEL_CONFIG.maxEnemiesSoftCap * Math.min(1, density / 2.5) * specScale));
-  const hard = Math.max(soft + 8, Math.floor(GAME_FEEL_CONFIG.maxEnemiesHardCap * specScale));
-  return { soft, hard, multiplier: density };
+  const rawSoft = Math.max(36, Math.floor(GAME_FEEL_CONFIG.maxEnemiesSoftCap * Math.min(1, density / 2.5) * specScale));
+  const configuredHard = Math.max(rawSoft + 8, Math.floor(GAME_FEEL_CONFIG.maxEnemiesHardCap * specScale));
+  const hard = Math.max(1, Math.min(configuredHard, absoluteHardCap));
+  return { soft: Math.min(rawSoft, hard), hard, multiplier: density };
 }

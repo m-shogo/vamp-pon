@@ -10,7 +10,7 @@
 
 ## Runtime caps
 
-- enemies: soft 118 / hard 156 を基準に、時間帯と低スペック設定で調整する
+- enemies: soft 118 / hard 140 を基準に、時間帯と低スペック設定で調整する
 - projectiles: 140
 - pickups: 250
 - particles: 130

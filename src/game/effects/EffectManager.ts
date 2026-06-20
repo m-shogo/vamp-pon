@@ -11,8 +11,13 @@ type EffectOptions = {
 
 export class EffectManager {
   private activeParticles = 0;
+  private hitStopToken = 0;
 
   constructor(private scene: Phaser.Scene) {}
+
+  init(scene: Phaser.Scene): void {
+    this.scene = scene;
+  }
 
   hit(x: number, y: number, options?: EffectOptions): void {
     if (!this.canEmit(3)) return;
@@ -81,8 +86,11 @@ export class EffectManager {
 
   hitStop(ms: number): void {
     if (ms <= 0) return;
+    this.hitStopToken += 1;
+    const token = this.hitStopToken;
     this.scene.time.timeScale = 0.18;
     this.scene.time.delayedCall(ms, () => {
+      if (token !== this.hitStopToken) return;
       this.scene.time.timeScale = 1;
     });
   }
@@ -127,6 +135,12 @@ export class EffectManager {
 
   count(): number {
     return this.activeParticles;
+  }
+
+  destroy(): void {
+    this.hitStopToken += 1;
+    this.scene.time.timeScale = 1;
+    this.activeParticles = 0;
   }
 
   private radialGlow(x: number, y: number, label: string, color: number, radius: number, duration: number): void {
@@ -184,6 +198,8 @@ export function getEffectManager(scene: Phaser.Scene): EffectManager {
   if (!manager) {
     manager = new EffectManager(scene);
     MANAGERS.set(scene, manager);
+  } else {
+    manager.init(scene);
   }
   return manager;
 }

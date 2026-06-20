@@ -16,9 +16,8 @@ export class SpawnSystem {
   private firedOneShots = new Set<string>();
 
   update(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
-    const caps = maxEnemiesForElapsed(state.elapsedSec);
-    const hardCap = Math.min(DEFAULT_GAME_CONFIG.maxEnemies, caps.hard);
-    if (state.enemies.length >= hardCap) return;
+    const caps = maxEnemiesForElapsed(state.elapsedSec, DEFAULT_GAME_CONFIG.maxEnemies);
+    if (state.enemies.length >= caps.hard) return;
     const wave = this.findWave(state.elapsedSec, state.stageNumber);
     if (!wave) return;
 
@@ -73,7 +72,7 @@ export class SpawnSystem {
     const depth = depthForState(state);
     const stage = stagePowerForStage(state.stageNumber);
     const pressure = runPressureForElapsed(state.elapsedSec);
-    const caps = maxEnemiesForElapsed(state.elapsedSec);
+    const caps = maxEnemiesForElapsed(state.elapsedSec, DEFAULT_GAME_CONFIG.maxEnemies);
     const density = caps.multiplier;
     const densityMaxAlive = density >= 3 ? 2.25 : density;
     const maxAlive = Math.max(1, Math.round((spawn.maxAlive ?? Infinity) * depth.maxAlive * stage.maxAlive * pressure.maxAlive * densityMaxAlive));
@@ -88,7 +87,7 @@ export class SpawnSystem {
     while (
       toSpawn > 0 &&
       this.aliveOfType(state, spawn.enemyId) < maxAlive &&
-      state.enemies.length < Math.min(DEFAULT_GAME_CONFIG.maxEnemies, caps.hard)
+      state.enemies.length < caps.hard
     ) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
       spawnEnemy(scene, state, def, pos.x, pos.y);
