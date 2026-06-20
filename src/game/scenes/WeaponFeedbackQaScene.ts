@@ -77,6 +77,8 @@ export class WeaponFeedbackQaScene extends Phaser.Scene {
       fontSize: '12px',
       color: '#ffe7a8',
       fontStyle: 'bold',
+      stroke: '#080914',
+      strokeThickness: 3,
     }).setOrigin(0.5);
     this.addButton(x, y, 'hit', () => {
       projectileHitFeedback(this, kind, x, y + 12, angle);
