@@ -24,6 +24,7 @@ export type PlannedCharacterSeed = {
   id: Id;
   name: string;
   implemented: boolean;
+  defaultSubEffectId: Id;
   carryItem: string;
   hair: string;
   headGear: string;
@@ -92,6 +93,7 @@ export const plannedCharacterSeeds: PlannedCharacterSeed[] = [
     id: 'yui',
     name: 'ユイ',
     implemented: true,
+    defaultSubEffectId: 'sub_xp',
     carryItem: '小さなランタン。本人の右手固定。',
     hair: 'やわらかい中髪。動きで少し跳ねる。',
     headGear: '大きすぎないリボン/髪留め候補。',
@@ -107,6 +109,7 @@ export const plannedCharacterSeeds: PlannedCharacterSeed[] = [
     id: 'asa',
     name: 'アサ',
     implemented: false,
+    defaultSubEffectId: 'sub_ultimate',
     carryItem: '火のついた小さなマッチケース。',
     hair: '短めで勢いのある髪。',
     headGear: '焦げ跡のあるヘアピン。',
@@ -122,6 +125,7 @@ export const plannedCharacterSeeds: PlannedCharacterSeed[] = [
     id: 'nagi',
     name: 'ナギ',
     implemented: false,
+    defaultSubEffectId: 'sub_speed',
     carryItem: '折りたたみ地図と紙ひこうき。',
     hair: '風で流れる長めの髪。',
     headGear: '小さな方位磁針の髪飾り。',
@@ -137,6 +141,7 @@ export const plannedCharacterSeeds: PlannedCharacterSeed[] = [
     id: 'michiru',
     name: 'ミチル',
     implemented: false,
+    defaultSubEffectId: 'sub_healing',
     carryItem: '水入りの小瓶とにじまない栞。',
     hair: '水面のようにまとまった髪。',
     headGear: '透明な雫飾り。',
@@ -152,6 +157,7 @@ export const plannedCharacterSeeds: PlannedCharacterSeed[] = [
     id: 'tomori',
     name: 'トモリ',
     implemented: false,
+    defaultSubEffectId: 'sub_hp',
     carryItem: '古い懐中電灯と修理道具。',
     hair: '少し乱れた作業向きの髪。',
     headGear: '小さなゴーグル。',
