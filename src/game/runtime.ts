@@ -133,6 +133,7 @@ export type BerserkState = {
 export type RunTelemetry = {
   firstKillSec: number | null;
   level2Sec: number | null;
+  level3Sec: number | null;
   firstDamageSec: number | null;
   firstCapsuleSec: number | null;
   /** エリート撃破の経過秒（複数体） */
@@ -143,6 +144,7 @@ export function createTelemetry(): RunTelemetry {
   return {
     firstKillSec: null,
     level2Sec: null,
+    level3Sec: null,
     firstDamageSec: null,
     firstCapsuleSec: null,
     eliteKillSecs: [],

@@ -323,7 +323,7 @@ export class Hud {
     this.updateInventory(state);
 
     if (state.debug) {
-      const sceneWithDebug = this.scene as unknown as { gameFeelDebug?: () => { particleCount: number; waveMultiplier: number; currentMaxEnemies: number } };
+      const sceneWithDebug = this.scene as unknown as { gameFeelDebug?: () => { particleCount: number; waveMultiplier: number; currentMaxEnemies: number; comboCount: number; xpPerMin: number } };
       const gameFeelDebug = typeof sceneWithDebug.gameFeelDebug === 'function'
         ? sceneWithDebug.gameFeelDebug()
         : null;
@@ -335,8 +335,9 @@ export class Hud {
         `t=${state.elapsedSec.toFixed(1)} x${(state.speedMultiplier ?? 1).toFixed(1)} status=${state.status}`,
         `fps=${Math.round(this.scene.game.loop.actualFps)} enemies=${state.enemies?.length ?? 0}/${gameFeelDebug?.currentMaxEnemies ?? '-'}`,
         `proj=${state.projectiles?.length ?? 0} exp=${expGemCount} particles=${gameFeelDebug?.particleCount ?? 0}`,
-        `wave=${gameFeelDebug?.waveMultiplier.toFixed(2) ?? '1.00'} areas=${state.areas?.length ?? 0}`,
+        `wave=${gameFeelDebug?.waveMultiplier.toFixed(2) ?? '1.00'} combo=${gameFeelDebug?.comboCount ?? 0} xp/m=${gameFeelDebug?.xpPerMin.toFixed(1) ?? '0.0'}`,
         `hp=${player.hp.toFixed(0)} lv=${player.level} xp=${player.xp.toFixed(1)}/${player.xpToNext}`,
+        `Lv2=${state.telemetry.level2Sec?.toFixed(1) ?? '-'} Lv3=${state.telemetry.level3Sec?.toFixed(1) ?? '-'} areas=${state.areas?.length ?? 0}`,
         `blackLuster=${berserk.charge.toFixed(0)}/${berserk.maxCharge} active=${berserk.activeRemaining.toFixed(1)}`,
         `kills=${state.stats?.kills ?? 0} fragments=${state.stats?.memoryFragmentsCollected ?? 0}`,
       ].join('\n'));
