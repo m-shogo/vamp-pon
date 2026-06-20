@@ -22,6 +22,40 @@
   font-display: swap;
 }
 
+/* Phaser canvas text can be picky with multi-word font names on some browsers.
+   Use app-specific aliases so every runtime text path can target the bundled rounded font directly. */
+@font-face {
+  font-family: "VampPon UI";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VampPon UI";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VampPon UI";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VampPon Title";
+  src: url("../assets/fonts/google/MPLUSRounded1c-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: "Kiwi Maru";
   src: url("../assets/fonts/google/KiwiMaru-Regular.ttf") format("truetype");
@@ -46,7 +80,7 @@ body,
   height: 100%;
   overflow: hidden;
   background: #111827;
-  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-family: "VampPon UI", "M PLUS Rounded 1c", system-ui, sans-serif;
   touch-action: none;
   user-select: none;
 }
