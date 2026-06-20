@@ -182,6 +182,7 @@ export type RunStats = {
   capsulesOpened: number;
   evolutions: Id[];
   ultimateUses: number;
+  pairUltimateUses: number;
   berserkUses: number;
   damageTaken: number;
   levelUps: number;
@@ -220,28 +221,24 @@ export type EvolutionDefinition = {
    */
   requiredWeaponLevel?: number;
   requiredPassiveId?: Id;
+  requiredPassiveLevel?: number;
   requiredRareItemId?: Id;
-  requiredWeaponId?: Id;
-  /** 旧仕様の下限（互換用）。実際の条件は requiredWeaponId の maxLevel。 */
-  requiredWeaponLevel2?: number;
-  evolvedWeaponId: Id;
-  consumedWeaponIds?: Id[];
-  consumedRareItemIds?: Id[];
-  description?: string;
-  title?: string;
-  lore?: string;
+  resultWeaponId: Id;
+  description: string;
 };
 
-export type LevelUpChoice =
-  | { type: 'weapon_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity; initialLevel?: number }
-  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string; rarity?: RewardRarity }
-  | { type: 'passive_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity; initialLevel?: number }
-  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description: string; lore?: string; rarity?: RewardRarity }
-  | { type: 'rare_new'; itemId: Id; title: string; description: string; lore?: string; rarity?: RewardRarity }
-  | { type: 'heal'; amount: number; title: string; description: string; lore?: string; rarity?: RewardRarity };
+export type LevelUpChoice = {
+  id: Id;
+  kind: 'weapon' | 'passive' | 'evolution' | 'rare_item' | 'heal' | 'skip';
+  name: string;
+  description: string;
+  rarity: RewardRarity;
+};
 
-export type CapsuleReward =
-  | { type: 'evolution'; evolutionId: Id; evolutionKind: EvolutionKind; evolvedWeaponId: Id; title: string; lore?: string }
-  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description?: string }
-  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description?: string }
-  | { type: 'currency'; amount: number; title: string; description?: string };
+export type CapsuleReward = {
+  id: Id;
+  title: string;
+  description: string;
+  kind: 'currency' | 'heal' | 'rare_item' | 'evolution';
+  amount?: number;
+};
