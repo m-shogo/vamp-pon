@@ -45,8 +45,10 @@ function makeState(partial: {
 }
 
 describe('xpToNext', () => {
-  it('Lv1→2 に必要なXPは6', () => {
-    expect(xpToNext(1)).toBe(6);
+  it('Lv1→2 に必要なXPは5', () => {
+    // balance.ts の xpToNext: L1=5、以降 +3/level の線形カーブ。
+    // Stage1序盤で選択回数を増やしてビルド差を早く見せるための意図的な値。
+    expect(xpToNext(1)).toBe(5);
   });
   it('レベルが上がると単調増加する', () => {
     expect(xpToNext(2)).toBeGreaterThan(xpToNext(1));
@@ -84,8 +86,12 @@ describe('generateChoices', () => {
   });
 
   it('Lv.MAXの武器強化は候補に出さない', () => {
+    // night_pencil の maxLevel は weapons.ts で 7 に拡張済み。
+    // weaponById から実値を引いて、定義変更があっても自動追従するようにする。
+    const maxLevel = weaponById.get('night_pencil')?.maxLevel ?? 0;
+    expect(maxLevel).toBeGreaterThan(0);
     const choices = generateChoices(
-      makeState({ weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }] }),
+      makeState({ weapons: [{ id: 'night_pencil', level: maxLevel, cooldownRemaining: 0 }] }),
     );
     const hasPencilUpgrade = choices.some((c) => c.type === 'weapon_upgrade' && c.itemId === 'night_pencil');
     expect(hasPencilUpgrade).toBe(false);

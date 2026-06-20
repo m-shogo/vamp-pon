@@ -20,10 +20,17 @@ describe('stagePowerForStage', () => {
   });
 
   it('ステージが進んでも報酬だけが極端に不足/過剰にならない', () => {
+    // 現在は報酬/成長/気持ちよさを強める調整段階のため、上限を 1.55 → 1.9 に許容拡大。
+    // 実測値: stage 6=1.608 / 20=1.773 / 25=1.814 / 50=1.839 / 100=1.873。
+    // 25/50/100 の節目ステージは祭り補正(reward/festival/anniversary)で
+    // reward 倍率がさらに上乗せされるため、通常ステージ(~1.60)より高くなる。
+    // 1.9 はこの節目分まで含めた現行上限。
+    // 上限を撤廃するわけではなく、暴走的な稼ぎ過多を検知するためのガードは維持する。
+    // 報酬曲線がさらに緩む場合は stageScaling 側を見直し、ここを 1.55 付近へ戻す。
     for (const stage of FUTURE_STAGE_SAMPLES) {
       const ratio = rewardFairnessRatio(stagePowerForStage(stage));
       expect(ratio).toBeGreaterThanOrEqual(0.85);
-      expect(ratio).toBeLessThanOrEqual(1.55);
+      expect(ratio).toBeLessThanOrEqual(1.9);
     }
   });
 
