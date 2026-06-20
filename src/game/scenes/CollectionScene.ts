@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { forgottenStreetNightBoard } from '../data/collectionProgress';
 import type { NightBoardCell } from '../data/collectionProgress';
+import { enemies } from '../data/enemies';
 import { loadCollectionProgress } from '../persistence/collection';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 
@@ -36,6 +37,7 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.text(GAME_WIDTH / 2, 96, 'マスを埋めると、となりの記録が見えていく', 11, STORYBOOK_UI.textMuted));
 
     this.renderBoard(root, completed, revealed, hinted);
+    this.renderBestiarySummary(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
 
     this.detailText = this.text(
       GAME_WIDTH / 2,
@@ -75,6 +77,21 @@ export class CollectionScene extends Phaser.Scene {
       const y = startY + cell.y * (cellSize + gap);
       root.add(this.boardCell(x, y, cellSize, cell, state));
     }
+  }
+
+  private renderBestiarySummary(root: Phaser.GameObjects.Container, seenEnemyIds: string[], defeatedEnemyCounts: Record<string, number>): void {
+    root.add(this.text(GAME_WIDTH / 2, 444, 'カゲモノ図鑑', 15, STORYBOOK_UI.textLight, true));
+    const seen = new Set(seenEnemyIds);
+    const rows = enemies
+      .filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0)
+      .slice(0, 4)
+      .map((enemy) => `${enemy.name} ×${defeatedEnemyCounts[enemy.id] ?? 0}`);
+    const text = rows.length > 0
+      ? rows.join('\n')
+      : 'まだカゲモノは記されていません。夜路で出会うとここに残ります。';
+    const summary = this.text(GAME_WIDTH / 2, 494, text, 11, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
+    summary.setWordWrapWidth(306);
+    root.add(summary);
   }
 
   private boardCell(
