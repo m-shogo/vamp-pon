@@ -1,4 +1,5 @@
 import type { RuntimeState } from '../runtime';
+import { isValidSubCharacterSelection } from '../systems/subCharacterOptions';
 import { settleSavedBondRun } from './bonds';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
@@ -204,7 +205,7 @@ export function selectRun(stage: number, depth: ExplorationDepthId): PlayerProfi
 export function selectSubCharacter(characterId?: string, mainCharacterId = 'yui'): PlayerProfile {
   const profile = loadProfile();
   const normalized = typeof characterId === 'string' && characterId.trim() ? characterId.trim() : undefined;
-  profile.selectedSubCharacterId = normalized && normalized !== mainCharacterId ? normalized : undefined;
+  profile.selectedSubCharacterId = isValidSubCharacterSelection(mainCharacterId, normalized) ? normalized : undefined;
   return saveProfile(profile);
 }
 
