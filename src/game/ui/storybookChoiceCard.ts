@@ -257,7 +257,7 @@ function iconRefForChoice(choice: LevelUpChoice): { category: InventoryIconCateg
   }
 }
 
-function categoryForChoice(choice: LevelUpChoice): InventoryIconCategory | 'heal' {
+export function categoryForChoice(choice: LevelUpChoice): InventoryIconCategory | 'heal' {
   switch (choice.type) {
     case 'weapon_new':
     case 'weapon_upgrade': return 'weapon';
