@@ -120,8 +120,6 @@ export class Hud {
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
-      stroke: '#0a0e20',
-      strokeThickness: 2,
     }).setOrigin(0.5, 0).setDepth(DEPTH + 3);
 
     this.levelText = scene.add.text(GAME_WIDTH / 2, 39, 'Lv.1', {
@@ -130,8 +128,6 @@ export class Hud {
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
-      stroke: '#090d1d',
-      strokeThickness: 2,
     }).setOrigin(0.5, 0).setDepth(DEPTH + 3);
 
     this.fragmentText = scene.add.text(GAME_WIDTH - 76, 16, '0', {
@@ -174,8 +170,6 @@ export class Hud {
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
-      stroke: '#080b18',
-      strokeThickness: 2,
     }).setOrigin(0.5).setDepth(DEPTH + 6);
     this.speedPressVisual = scene.add.container(SPEED_X, SPEED_Y).setDepth(DEPTH + 8);
     this.speedZone = scene.add.zone(SPEED_X, SPEED_Y, SPEED_W, SPEED_H)
@@ -230,12 +224,10 @@ export class Hud {
     this.crestImage?.setPosition(PORTRAIT_X + 20, PORTRAIT_Y - 20).setDepth(DEPTH + 5).setVisible(false);
     this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 5, '黒耀 0%', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '9px',
+      fontSize: '10px',
       color: STORYBOOK_UI.textMuted,
       fontStyle: 'bold',
       resolution: 2,
-      stroke: '#080b18',
-      strokeThickness: 2,
     }).setOrigin(0.5, 1).setDepth(DEPTH + 5);
     this.portraitZone = scene.add.zone(PORTRAIT_X, PORTRAIT_Y, 70, 70)
       .setOrigin(0.5)
@@ -262,12 +254,10 @@ export class Hud {
     this.ultimateBack = scene.add.graphics().setDepth(DEPTH + 2);
     this.ultimateText = scene.add.text(ULT_X, ULT_Y + 18, '必殺', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '9px',
+      fontSize: '10px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
-      stroke: '#080b18',
-      strokeThickness: 2,
     }).setOrigin(0.5).setDepth(DEPTH + 3);
     this.ultimatePressVisual = scene.add.container(ULT_X, ULT_Y).setDepth(DEPTH + 6);
     this.ultimateZone = scene.add.zone(ULT_X, ULT_Y, 72, 72)
@@ -384,7 +374,7 @@ export class Hud {
       ? Math.max(0, Math.min(1, berserk.activeRemaining / berserk.durationSec))
       : fatigued
         ? Math.max(0, Math.min(1, berserk.fatigueRemaining / 0.8))
-      : Math.max(0, Math.min(1, berserk.charge / berserk.maxCharge));
+        : Math.max(0, Math.min(1, berserk.charge / berserk.maxCharge));
     const pulse = active ? 0.72 + Math.sin(this.scene.time.now * 0.018) * 0.28 : 1;
     const accent = active ? 0xff718c : fatigued ? 0x8b80a8 : ready ? 0xffc06a : STORYBOOK_UI.xp;
 
