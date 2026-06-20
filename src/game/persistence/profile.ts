@@ -331,7 +331,7 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
       subCharacterId: state.subCharacterId,
       cleared,
       bossDefeated: state.status === 'cleared' && state.stats.elitesKilled > 0,
-      pairUltimateUses: 0,
+      pairUltimateUses: state.stats.pairUltimateUses,
       dailyTalkSeenIds: [],
     });
   }
