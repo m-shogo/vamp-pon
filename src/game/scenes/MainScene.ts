@@ -67,6 +67,8 @@ export class MainScene extends Phaser.Scene {
   private playtestSnapshotEnabled = false;
   private lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
   private lastDebugSnapshotJson = '';
+  /** snapshot を window/dataset に出した後だけ true。通常プレイの毎フレーム delete を省く目印。 */
+  private debugSnapshotPublished = false;
   private stageNumber = 1;
   private resultEntered = false;
   private onBlur = (): void => this.tryAutoPause();
@@ -188,7 +190,9 @@ export class MainScene extends Phaser.Scene {
 
   private updateDebugSnapshot(force = false): void {
     if (!this.state.debug && !this.playtestSnapshotEnabled) {
-      this.clearDebugSnapshot();
+      // 通常プレイ時はループの毎フレームここを通る。
+      // 既に snapshot を消してあるなら何もしない（delete x4 / window 書込みを抑止）。
+      if (this.debugSnapshotPublished) this.clearDebugSnapshot();
       return;
     }
 
@@ -215,6 +219,7 @@ export class MainScene extends Phaser.Scene {
       speedMultiplier: this.state.speedMultiplier,
     };
     window.__VAMP_PON_DEBUG_SNAPSHOT__ = snapshot;
+    this.debugSnapshotPublished = true;
 
     const json = JSON.stringify(snapshot);
     if (json === this.lastDebugSnapshotJson) return;
@@ -227,6 +232,7 @@ export class MainScene extends Phaser.Scene {
     delete document.documentElement.dataset.vampPonDebugSnapshot;
     this.lastDebugSnapshotAtMs = Number.NEGATIVE_INFINITY;
     this.lastDebugSnapshotJson = '';
+    this.debugSnapshotPublished = false;
   }
 
   private needsReplace(choice: LevelUpChoice): boolean {

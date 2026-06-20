@@ -16,8 +16,20 @@ export class EffectManager {
 
   constructor(private scene: Phaser.Scene) {}
 
+  /**
+   * シーンが付け替わる/再起動するたびに呼ばれる。
+   * timeScale や粒子カウントは前のランの値が残ると pause/fast-forward の体感が
+   * 壊れるので、必ず初期状態へ戻してから次のランに渡す。
+   */
   init(scene: Phaser.Scene): void {
+    // 旧シーンに紐づくタイマーを必ず解除（コールバックで破棄済みシーンを触らない）。
+    if (this.hitStopTimer) clearTimeout(this.hitStopTimer);
+    this.hitStopTimer = null;
+    this.hitStopUntilMs = 0;
+    this.activeParticles = 0;
     this.scene = scene;
+    // 新しいシーンの time.timeScale も念のため正常値に戻しておく。
+    this.scene.time.timeScale = 1;
   }
 
   hit(x: number, y: number, options?: EffectOptions): void {
@@ -87,6 +99,7 @@ export class EffectManager {
 
   hitStop(ms: number): void {
     if (ms <= 0) return;
+    if (!this.isSceneAlive()) return;
     const now = Date.now();
     this.hitStopUntilMs = Math.max(this.hitStopUntilMs, now + ms);
     this.scene.time.timeScale = 0.18;
@@ -139,7 +152,8 @@ export class EffectManager {
     if (this.hitStopTimer) clearTimeout(this.hitStopTimer);
     this.hitStopTimer = null;
     this.hitStopUntilMs = 0;
-    this.scene.time.timeScale = 1;
+    // シーンが既に SHUTDOWN している場合は this.scene.time が無効になっているので触らない。
+    if (this.isSceneAlive()) this.scene.time.timeScale = 1;
     this.activeParticles = 0;
   }
 
@@ -147,6 +161,12 @@ export class EffectManager {
     const remainingMs = Math.max(0, this.hitStopUntilMs - Date.now());
     this.hitStopTimer = setTimeout(() => {
       this.hitStopTimer = null;
+      // setTimeout はシーン破棄/シャットダウンとは無関係に発火しうる。
+      // 破棄済みシーンに timeScale を書き戻すと TypeError になるので必ずガードする。
+      if (!this.isSceneAlive()) {
+        this.hitStopUntilMs = 0;
+        return;
+      }
       const nextRemainingMs = this.hitStopUntilMs - Date.now();
       if (nextRemainingMs > 1) {
         this.scheduleHitStopRelease();
@@ -155,6 +175,14 @@ export class EffectManager {
       this.hitStopUntilMs = 0;
       this.scene.time.timeScale = 1;
     }, remainingMs);
+  }
+
+  /** scene.sys が剥がれている = SHUTDOWN/DESTROY 済み。タイマーから安全に弾くために使う。 */
+  private isSceneAlive(): boolean {
+    const sys = (this.scene as Phaser.Scene & { sys?: { isActive?: () => boolean } }).sys;
+    if (!sys) return false;
+    if (typeof sys.isActive === 'function') return sys.isActive();
+    return true;
   }
 
   private radialGlow(x: number, y: number, label: string, color: number, radius: number, duration: number): void {

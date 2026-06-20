@@ -19,7 +19,19 @@ export type EnemyCap = { soft: number; hard: number; multiplier: number };
 
 export type GameFeelConfig = {
   enemyDensityMultiplierByTime: { startSec: number; multiplier: number }[];
+  /**
+   * 通常wave中の上限（敵が増えにくくなる境界）。
+   * 実効hardCapは `maxEnemiesForElapsed(t, absoluteHardCap)` で
+   * domain/constants.DEFAULT_GAME_CONFIG.maxEnemies に必ずクランプされる。
+   * よってこの値は「DEFAULT_GAME_CONFIG.maxEnemies 以下」を意図する設計。
+   * 上限を伸ばしたい場合は両方を揃えて上げる。
+   */
   maxEnemiesSoftCap: number;
+  /**
+   * spec scaling 適用前の絶対hardCap。
+   * 実機の DEFAULT_GAME_CONFIG.maxEnemies を超えないよう
+   * `maxEnemiesForElapsed` 側で再クランプされる。
+   */
   maxEnemiesHardCap: number;
   spawnIntervalMin: number;
   spawnIntervalMax: number;
@@ -130,6 +142,14 @@ export function saveGameFeelSettings(settings: GameFeelRuntimeSettings): void {
   }
 }
 
+/**
+ * 経過秒と起動時設定から、その瞬間に許容する敵数（soft/hard）を返す。
+ * - soft: 通常スポーンの実質上限（超えるとエリート以外はスポーン抑制）
+ * - hard: どんな経路でも越えられない絶対上限。`absoluteHardCap` で更にクランプされる
+ *   ことを呼び出し側が期待しているので、`DEFAULT_GAME_CONFIG.maxEnemies` を渡す
+ *   ことで「config 上の hardCap が大きすぎても物理的な上限は守られる」設計。
+ * - multiplier: 同タイミングの敵密度倍率（spawn rate 計算に利用）
+ */
 export function maxEnemiesForElapsed(elapsedSec: number, absoluteHardCap = Number.POSITIVE_INFINITY): EnemyCap {
   const settings = loadGameFeelSettings();
   const density = enemyDensityMultiplierForTime(elapsedSec);

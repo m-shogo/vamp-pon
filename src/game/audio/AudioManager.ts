@@ -40,10 +40,26 @@ export class AudioManager {
   private unlocked = false;
   private unlockHandler: (() => void) | null = null;
   private warnedMissing = new Set<string>();
+  private volumesLoaded = false;
 
+  /**
+   * シーンが付け替わる/再起動するときに呼ばれる。
+   * volumes は永続値なので最初の一回だけ localStorage から読む。
+   * シーン依存の per-run 状態（rate limit / アンロック / 警告抑制）は
+   * 新しいシーンに引き継ぐと無音化やフリーズの原因になるのでリセットする。
+   */
   init(scene: Phaser.Scene): void {
+    const sceneChanged = this.scene !== scene;
     this.scene = scene;
-    this.volumes = this.loadVolumes();
+    if (!this.volumesLoaded) {
+      this.volumes = this.loadVolumes();
+      this.volumesLoaded = true;
+    }
+    if (sceneChanged) {
+      this.lastPlayedAt.clear();
+      this.warnedMissing.clear();
+      this.unlocked = false;
+    }
   }
 
   unlockOnFirstInput(): void {
@@ -166,6 +182,10 @@ export class AudioManager {
     if (this.scene && this.unlockHandler) this.scene.input.off(Phaser.Input.Events.POINTER_DOWN, this.unlockHandler);
     this.unlockHandler = null;
     this.scene = null;
+    // 次回 init() で再評価されるよう、ランごとの抑制/解錠状態を落とす。
+    this.lastPlayedAt.clear();
+    this.warnedMissing.clear();
+    this.unlocked = false;
   }
 
   private resolveSeVolume(volume = 1): number {
