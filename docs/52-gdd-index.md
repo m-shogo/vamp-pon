@@ -233,3 +233,31 @@ docs/99-naming-guidelines.md
 ```
 
 ---
+
+# 6. 収集/図鑑/達成盤
+
+## 忘れ物帳 / 夜明け盤 仕様
+
+```txt
+docs/101-collection-and-night-board-spec.md
+```
+
+読む目的:
+
+```txt
+忘れ物帳、カゲモノ図鑑、夜明け盤、登録段階、報酬、Stage1の25マス設計を確認する
+```
+
+## Stage1 夜明け盤データ
+
+```txt
+src/game/data/collectionProgress.ts
+```
+
+読む目的:
+
+```txt
+忘れ物通り 夜明け盤の5×5データ、登録段階ラベル、保存データ形を確認する
+```
+
+---
