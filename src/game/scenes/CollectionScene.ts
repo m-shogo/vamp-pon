@@ -37,32 +37,21 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.text(GAME_WIDTH / 2, 96, 'マスを埋めると、となりの記録が見えていく', 11, STORYBOOK_UI.textMuted));
 
     this.renderBoard(root, completed, revealed, hinted);
-
-    // 詳細枠（紙片風の小パネル）。マス選択時にここへテキストが入る。
-    const detailPanel = this.add.graphics();
-    drawStorybookPanel(detailPanel, GAME_WIDTH / 2, 470, 330, 96, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.86);
-    root.add(detailPanel);
-    this.detailText = this.add.text(
-      GAME_WIDTH / 2,
-      430,
-      '夜明け盤のマスを押すと、条件と報酬が見えます。',
-      {
-        fontFamily: STORYBOOK_FONT,
-        fontSize: '12px',
-        color: colorString(STORYBOOK_UI.textMuted),
-        align: 'center',
-        resolution: 2,
-        lineSpacing: 4,
-        wordWrap: { width: 308 },
-      },
-    ).setOrigin(0.5, 0);
-    root.add(this.detailText);
-
     this.renderBestiarySummary(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
 
-    root.add(this.text(GAME_WIDTH / 2, 712, `カゲモノ ${progress.seenEnemyIds.length}種発見　記憶文 ${progress.unlockedMemoryTextIds.length}`, 12, STORYBOOK_UI.goldLight, true));
-    root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 46, 148, 44, 'TOPへ', () => this.scene.start('TopScene'), true));
-    root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 46, 148, 44, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
+    this.detailText = this.text(
+      GAME_WIDTH / 2,
+      596,
+      '夜明け盤のマスを押すと条件が見られます。',
+      12,
+      STORYBOOK_UI.textMuted,
+    );
+    this.detailText.setWordWrapWidth(310);
+    root.add(this.detailText);
+
+    root.add(this.text(GAME_WIDTH / 2, 690, `カゲモノ ${progress.seenEnemyIds.length}種発見　記憶文 ${progress.unlockedMemoryTextIds.length}`, 12, STORYBOOK_UI.goldLight, true));
+    root.add(this.button(GAME_WIDTH / 2 - 82, GAME_HEIGHT - 42, 136, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
+    root.add(this.button(GAME_WIDTH / 2 + 82, GAME_HEIGHT - 42, 136, 38, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
   }
 
   private renderBoard(
@@ -91,17 +80,16 @@ export class CollectionScene extends Phaser.Scene {
   }
 
   private renderBestiarySummary(root: Phaser.GameObjects.Container, seenEnemyIds: string[], defeatedEnemyCounts: Record<string, number>): void {
-    root.add(this.text(GAME_WIDTH / 2, 552, 'カゲモノ図鑑', 14, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 444, 'カゲモノ図鑑', 15, STORYBOOK_UI.textLight, true));
     const seen = new Set(seenEnemyIds);
-    const known = enemies.filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0);
-    const visible = known.slice(0, 4);
-    const more = known.length - visible.length;
-    const rows = visible.map((enemy) => `${enemy.name} ×${defeatedEnemyCounts[enemy.id] ?? 0}`);
-    if (more > 0) rows.push(`…ほか ${more}種`);
+    const rows = enemies
+      .filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0)
+      .slice(0, 4)
+      .map((enemy) => `${enemy.name} ×${defeatedEnemyCounts[enemy.id] ?? 0}`);
     const text = rows.length > 0
       ? rows.join('\n')
-      : 'まだカゲモノは記されていません。\n夜路で出会うと、ここに残ります。';
-    const summary = this.text(GAME_WIDTH / 2, 600, text, 12, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
+      : 'まだカゲモノは記されていません。夜路で出会うとここに残ります。';
+    const summary = this.text(GAME_WIDTH / 2, 494, text, 11, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
     summary.setWordWrapWidth(306);
     root.add(summary);
   }
