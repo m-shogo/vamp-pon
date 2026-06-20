@@ -73,6 +73,18 @@ export type EnemyBehavior =
   | 'orbit_chase'
   | 'coward';
 
+/**
+ * ステージ設計用の敵ロール。
+ * HP倍率だけで難しくせず、役割の組み合わせで8分のテンポを作る。
+ */
+export type EnemyRole =
+  | 'pressure'
+  | 'charger'
+  | 'flank'
+  | 'supply'
+  | 'swarm'
+  | 'elite';
+
 /** 描画モチーフ。敵の名前/挙動を変えても描画部が壊れないよう、見た目は visualKind で決める。 */
 export type EnemyVisualKind = 'ink_blob' | 'paper_scrap' | 'signpost' | 'capsule' | 'haze' | 'label_elite';
 
@@ -85,6 +97,8 @@ export type EnemyDefinition = {
   xpDrop: number;
   tags: string[];
   behavior: EnemyBehavior;
+  /** ステージ構成で使う役割。Stageが増えても enemyId 直書きに寄せすぎないための分類。 */
+  roles: EnemyRole[];
   /** 将来のステージレシピから参照する行動・攻撃・特殊能力の登録ID。 */
   patternIds?: Id[];
   visualKind: EnemyVisualKind;
@@ -179,11 +193,10 @@ export type EvolutionDefinition = {
   requiredWeaponId?: Id;
   /** 旧仕様の下限（互換用）。実際の条件は requiredWeaponId の maxLevel。 */
   requiredWeaponLevel2?: number;
+  evolvedWeaponId: Id;
   consumedWeaponIds?: Id[];
   consumedRareItemIds?: Id[];
-  evolvedWeaponId: Id;
-  title: string;
-  lore: string;
+  description: string;
 };
 
 export type LevelUpChoice =
@@ -195,46 +208,6 @@ export type LevelUpChoice =
   | { type: 'heal'; amount: number; title: string; description: string; lore?: string; rarity?: RewardRarity };
 
 export type CapsuleReward =
-  | { type: 'evolution'; evolutionId: Id; evolutionKind: EvolutionKind; evolvedWeaponId: Id; title: string; lore: string }
-  | { type: 'weapon_upgrade' | 'passive_upgrade'; itemId: Id; nextLevel: number; title: string }
-  | { type: 'currency'; amount: number; title: string };
-
-export type UltimateEffect = {
-  type: 'pull_and_convert' | string;
-  radius: number;
-  duration: number;
-  damage: number;
-  smallEnemyOnly?: boolean;
-  dropBonus?: number;
-};
-
-export type UltimateDefinition = {
-  id: Id;
-  name: string;
-  chargeSeconds: number;
-  trigger: 'manual';
-  effect: UltimateEffect;
-  description: string;
-  lore: string;
-};
-
-export type CharacterBaseStats = {
-  hp: number;
-  moveSpeed: number;
-  might: number;
-  cooldownMultiplier: number;
-  magnetMultiplier: number;
-  xpMultiplier: number;
-};
-
-export type CharacterDefinition = {
-  id: Id;
-  name: string;
-  title: string;
-  role: string;
-  initialWeaponId: Id;
-  baseStats: CharacterBaseStats;
-  ultimate: UltimateDefinition;
-  description: string;
-  lore?: string;
-};
+  | { type: 'evolution'; evolutionId: Id; weaponId: Id; kind: EvolutionKind; name: string; description: string }
+  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description: string }
+  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description: string };
