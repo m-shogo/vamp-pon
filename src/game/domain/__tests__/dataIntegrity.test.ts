@@ -12,6 +12,7 @@ import { enemyConsistencyError } from '../enemyRules';
 
 const PASSIVE_STATS = new Set(['magnetMultiplier', 'mightMultiplier', 'xpMultiplier', 'moveSpeedMultiplier', 'cooldownMultiplier']);
 const BEHAVIORS = new Set(['chase', 'slow_chase', 'offset_chase', 'swarm_chase', 'elite_chase', 'charger', 'orbit_chase', 'coward']);
+const ENEMY_ROLES = new Set(['pressure', 'charger', 'flank', 'supply', 'swarm', 'elite']);
 const VISUAL_KINDS = new Set(['ink_blob', 'paper_scrap', 'signpost', 'capsule', 'haze', 'label_elite']);
 const DIRECTIONS = new Set(['bottom', 'top', 'left', 'right', 'around']);
 const EVOLUTION_KINDS = new Set(['upgrade', 'fusion', 'awakening']);
@@ -65,9 +66,11 @@ describe('buildArchetypes データ', () => {
 });
 
 describe('enemies データ', () => {
-  it('behavior / visualKind が有効、tagsとvisualKindが整合', () => {
+  it('behavior / roles / visualKind が有効、tagsとvisualKindが整合', () => {
     for (const e of enemies) {
       expect(BEHAVIORS.has(e.behavior)).toBe(true);
+      expect(e.roles.length).toBeGreaterThan(0);
+      for (const role of e.roles) expect(ENEMY_ROLES.has(role)).toBe(true);
       expect(VISUAL_KINDS.has(e.visualKind)).toBe(true);
       expect(enemyConsistencyError(e)).toBeNull();
     }
