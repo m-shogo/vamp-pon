@@ -171,6 +171,19 @@ describe('evolutions データ', () => {
     }
   });
 
+  it('requiredWeaponLevel が指定されている場合 from武器の maxLevel を超えない（実条件は maxLevel に連動）', () => {
+    for (const evo of evolutions) {
+      const fromMax = weaponById.get(evo.fromWeaponId)?.maxLevel ?? 0;
+      if (evo.requiredWeaponLevel !== undefined) {
+        expect(evo.requiredWeaponLevel).toBeLessThanOrEqual(fromMax);
+      }
+      if (evo.requiredWeaponId && evo.requiredWeaponLevel2 !== undefined) {
+        const secMax = weaponById.get(evo.requiredWeaponId)?.maxLevel ?? 0;
+        expect(evo.requiredWeaponLevel2).toBeLessThanOrEqual(secMax);
+      }
+    }
+  });
+
   it('強化進化/合体/覚醒の条件が混ざっていない', () => {
     for (const evo of evolutions) {
       if (evo.kind === 'upgrade') {

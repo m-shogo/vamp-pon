@@ -169,10 +169,15 @@ export type EvolutionDefinition = {
   kind: EvolutionKind;
   name: string;
   fromWeaponId: Id;
-  requiredWeaponLevel: number;
+  /**
+   * 設計上の下限（互換用）。実際の進化条件は from/required 武器の maxLevel に連動する。
+   * weapons.ts で maxLevel を 5→7→… と動かしても破綻しないよう、未指定でも構わない。
+   */
+  requiredWeaponLevel?: number;
   requiredPassiveId?: Id;
   requiredRareItemId?: Id;
   requiredWeaponId?: Id;
+  /** 旧仕様の下限（互換用）。実際の条件は requiredWeaponId の maxLevel。 */
   requiredWeaponLevel2?: number;
   consumedWeaponIds?: Id[];
   consumedRareItemIds?: Id[];

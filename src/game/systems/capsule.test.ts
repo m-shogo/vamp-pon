@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import type { RuntimeState } from '../runtime';
+import { weaponById } from '../data/weapons';
 import { applyCapsule, applyReadyEvolutions, generateCapsuleReward } from './capsule';
+
+const INK_MAX = weaponById.get('black_ink_bottle')!.maxLevel;
+const LAMP_MAX = weaponById.get('streetlamp_ring')!.maxLevel;
 
 function makeState(): RuntimeState {
   return {
@@ -15,8 +19,9 @@ function makeState(): RuntimeState {
     },
     inventory: {
       weapons: [
-        { id: 'black_ink_bottle', level: 5, cooldownRemaining: 0 },
-        { id: 'streetlamp_ring', level: 5, cooldownRemaining: 0 },
+        // 合体条件は weaponById.maxLevel に連動するので、ここも maxLevel に揃える。
+        { id: 'black_ink_bottle', level: INK_MAX, cooldownRemaining: 0 },
+        { id: 'streetlamp_ring', level: LAMP_MAX, cooldownRemaining: 0 },
       ],
       passives: [],
       rareItems: [],
@@ -33,14 +38,14 @@ function makeState(): RuntimeState {
 }
 
 describe('capsule rewards', () => {
-  it('両武器Lv5でもカプセル報酬は合体そのものを返さない', () => {
+  it('両武器が maxLevel でもカプセル報酬は合体そのものを返さない', () => {
     const state = makeState();
     const reward = generateCapsuleReward(state);
 
     expect(reward.type).not.toBe('evolution');
   });
 
-  it('両武器Lv5なら所持条件から合体し、素材2枠を1枠へまとめる', () => {
+  it('両武器が maxLevel なら所持条件から合体し、素材2枠を1枠へまとめる', () => {
     const state = makeState();
     const evolved = applyReadyEvolutions(state);
 

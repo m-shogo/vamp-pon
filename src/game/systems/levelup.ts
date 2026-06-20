@@ -3,7 +3,7 @@ import type { RuntimeState } from '../runtime';
 import { weapons, weaponById, evolvedWeaponIds } from '../data/weapons';
 import { passives, passiveById } from '../data/passives';
 import { rareItems } from '../data/rareItems';
-import { evolutions } from '../data/evolutions';
+import { evolutions, requiredMainWeaponLevel, requiredSecondaryWeaponLevel } from '../data/evolutions';
 import { LEVEL_UP } from '../domain/constants';
 import {
   EARLY_DISCOVERY_MAX_LEVEL,
@@ -178,11 +178,11 @@ function ownsRareAfterChoice(state: RuntimeState, id: string | undefined, choice
 
 function evolutionReadyAfterChoice(state: RuntimeState, evo: EvolutionDefinition, choice: LevelUpChoice): boolean {
   const mainLevel = weaponLevelAfterChoice(state, evo.fromWeaponId, choice);
-  if (mainLevel < evo.requiredWeaponLevel) return false;
+  if (mainLevel < requiredMainWeaponLevel(evo)) return false;
 
   if (evo.requiredWeaponId) {
     const requiredLevel = weaponLevelAfterChoice(state, evo.requiredWeaponId, choice);
-    if (requiredLevel < (evo.requiredWeaponLevel2 ?? 1)) return false;
+    if (requiredLevel < requiredSecondaryWeaponLevel(evo)) return false;
   }
 
   if (!ownsPassiveAfterChoice(state, evo.requiredPassiveId, choice)) return false;
@@ -211,7 +211,7 @@ function evolutionHintForChoice(state: RuntimeState, choice: LevelUpChoice): str
 
   const ownedMain = relevant.find((evo) => {
     const mainLevel = weaponLevelAfterChoice(state, evo.fromWeaponId, choice);
-    return mainLevel >= Math.max(1, evo.requiredWeaponLevel - 1);
+    return mainLevel >= Math.max(1, requiredMainWeaponLevel(evo) - 1);
   });
   const evo = ownedMain ?? relevant[0];
   return `${evolutionKindHint(evo.kind)}: ${evo.name}`;
@@ -269,10 +269,11 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const passiveFull = inv.passives.length >= inv.passiveSlots;
   const rareFull = inv.rareItems.length >= inv.rareItemSlots;
 
+  // 進化武器も maxLevel 未満なら強化対象に含める。後半に「強化選択肢が枯れる→新規入替ばかり」を防ぐ。
   const weaponUpgrades: LevelUpChoice[] = inv.weapons
     .filter((w) => {
       const def = weaponById.get(w.id);
-      return def && w.level < def.maxLevel && !evolvedWeaponIds.has(w.id);
+      return def && w.level < def.maxLevel;
     })
     .map((w) => {
       const def = weaponById.get(w.id)!;
@@ -324,11 +325,23 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
   const usedItemIds = new Set<string>();
   let healUsed = false;
 
+  // 枠が満杯のカテゴリは「入替候補」しか出ないため、所持枠を圧迫しないよう重みを下げる。
+  // 強化候補がまだ残っているなら、新規入替よりそちらを優先したい。
+  const slotPenalty: Record<Exclude<Category, 'heal'>, number> = {
+    weapon_upgrade: 1,
+    weapon_new: weaponFull ? 0.35 : 1,
+    passive_upgrade: 1,
+    passive_new: passiveFull ? 0.35 : 1,
+    rare_new: rareFull ? 0.35 : 1,
+  };
+
   while (chosen.length < LEVEL_UP.choices) {
     const entries: Array<[Category, number]> = [];
     (Object.keys(pools) as Array<Exclude<Category, 'heal'>>).forEach((cat) => {
       const available = pools[cat].filter((choice) => 'itemId' in choice && !usedItemIds.has(choice.itemId));
-      if (available.length > 0) entries.push([cat, baseWeights[cat]]);
+      if (available.length === 0) return;
+      const weight = Math.max(1, Math.round(baseWeights[cat] * slotPenalty[cat]));
+      entries.push([cat, weight]);
     });
     if (!healUsed) {
       const healWeight = hpRatio >= 1 ? Math.max(1, Math.round(baseWeights.heal * 0.2)) : baseWeights.heal;

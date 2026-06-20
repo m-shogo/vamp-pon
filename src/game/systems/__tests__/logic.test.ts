@@ -119,18 +119,20 @@ describe('追加データ', () => {
 });
 
 describe('generateCapsuleReward', () => {
-  it('進化条件を満たしてもカプセルは進化を返さない', () => {
+  it('進化条件を満たしてもカプセルは進化そのものを返さない', () => {
+    const pencilMax = weaponById.get('night_pencil')!.maxLevel;
     const state = makeState({
-      weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }],
+      weapons: [{ id: 'night_pencil', level: pencilMax, cooldownRemaining: 0 }],
       passives: [{ id: 'moonlight_bookmark', level: 1 }],
     });
     const reward = generateCapsuleReward(state);
     expect(reward.type).not.toBe('evolution');
   });
 
-  it('進化条件を満たすと所持状態から進化する', () => {
+  it('武器が現行 maxLevel に達すると所持状態から進化する', () => {
+    const pencilMax = weaponById.get('night_pencil')!.maxLevel;
     const state = makeState({
-      weapons: [{ id: 'night_pencil', level: 5, cooldownRemaining: 0 }],
+      weapons: [{ id: 'night_pencil', level: pencilMax, cooldownRemaining: 0 }],
       passives: [{ id: 'moonlight_bookmark', level: 1 }],
     });
     const evolved = applyReadyEvolutions(state);

@@ -1,7 +1,7 @@
 import type { CapsuleReward, EvolutionDefinition } from '../domain/types';
 import type { RuntimeState } from '../runtime';
-import { evolutions } from '../data/evolutions';
-import { weaponById, evolvedWeaponIds } from '../data/weapons';
+import { evolutions, requiredMainWeaponLevel, requiredSecondaryWeaponLevel } from '../data/evolutions';
+import { weaponById } from '../data/weapons';
 import { passiveById } from '../data/passives';
 import { recomputePlayerStats } from './passives';
 import { sampleWithoutReplacement } from '../utils/rng';
@@ -26,9 +26,10 @@ export function generateEvolutionReward(state: RuntimeState): CapsuleReward | nu
 export function generateCapsuleReward(state: RuntimeState): CapsuleReward {
   const inv = state.inventory;
 
+  // 進化武器も maxLevel 未満なら強化できるようにし、後半「捨てるばっか」を緩和する。
   const upgradableWeapons = inv.weapons.filter((w) => {
     const def = weaponById.get(w.id);
-    return def && w.level < def.maxLevel && !evolvedWeaponIds.has(w.id);
+    return def && w.level < def.maxLevel;
   });
   const upgradablePassives = inv.passives.filter((p) => {
     const def = passiveById.get(p.id);
@@ -71,14 +72,14 @@ function canEvolve(state: RuntimeState, evo: EvolutionDefinition): boolean {
   if (hasCompletedEvolution(state, evo)) return false;
 
   const main = inv.weapons.find((it) => it.id === evo.fromWeaponId);
-  if (!main || main.level < evo.requiredWeaponLevel) return false;
+  if (!main || main.level < requiredMainWeaponLevel(evo)) return false;
 
   if (evo.requiredPassiveId && !inv.passives.some((p) => p.id === evo.requiredPassiveId)) return false;
   if (evo.requiredRareItemId && !inv.rareItems.some((item) => item.id === evo.requiredRareItemId)) return false;
 
   if (evo.requiredWeaponId) {
     const second = inv.weapons.find((it) => it.id === evo.requiredWeaponId);
-    if (!second || second.level < (evo.requiredWeaponLevel2 ?? 1)) return false;
+    if (!second || second.level < requiredSecondaryWeaponLevel(evo)) return false;
   }
 
   return true;

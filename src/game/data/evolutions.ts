@@ -1,4 +1,24 @@
 import type { EvolutionDefinition } from '../domain/types';
+import { weaponById } from './weapons';
+
+/**
+ * 進化発動に必要な「from武器」の現在maxLevel。
+ * weapons.ts 側で maxLevel を 5→7 などに動かしても、ここを通せば自動で連動する。
+ * 武器定義が見つからない時は requiredWeaponLevel（互換値）→ 1 の順でフォールバック。
+ */
+export function requiredMainWeaponLevel(evo: EvolutionDefinition): number {
+  return weaponById.get(evo.fromWeaponId)?.maxLevel
+    ?? evo.requiredWeaponLevel
+    ?? 1;
+}
+
+/** 合体側（requiredWeaponId）の現在maxLevel。requiredWeaponId が無ければ 1。 */
+export function requiredSecondaryWeaponLevel(evo: EvolutionDefinition): number {
+  if (!evo.requiredWeaponId) return 1;
+  return weaponById.get(evo.requiredWeaponId)?.maxLevel
+    ?? evo.requiredWeaponLevel2
+    ?? 1;
+}
 
 export const evolutions: EvolutionDefinition[] = [
   {
