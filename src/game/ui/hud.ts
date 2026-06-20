@@ -327,10 +327,14 @@ export class Hud {
       const gameFeelDebug = typeof sceneWithDebug.gameFeelDebug === 'function'
         ? sceneWithDebug.gameFeelDebug()
         : null;
+      let expGemCount = 0;
+      for (const pickup of state.pickups ?? []) {
+        if (pickup.kind === 'fragment') expGemCount += 1;
+      }
       this.debugText.setVisible(true).setText([
         `t=${state.elapsedSec.toFixed(1)} x${(state.speedMultiplier ?? 1).toFixed(1)} status=${state.status}`,
         `fps=${Math.round(this.scene.game.loop.actualFps)} enemies=${state.enemies?.length ?? 0}/${gameFeelDebug?.currentMaxEnemies ?? '-'}`,
-        `proj=${state.projectiles?.length ?? 0} exp=${state.pickups?.filter((pickup) => pickup.kind === 'fragment').length ?? 0} particles=${gameFeelDebug?.particleCount ?? 0}`,
+        `proj=${state.projectiles?.length ?? 0} exp=${expGemCount} particles=${gameFeelDebug?.particleCount ?? 0}`,
         `wave=${gameFeelDebug?.waveMultiplier.toFixed(2) ?? '1.00'} areas=${state.areas?.length ?? 0}`,
         `hp=${player.hp.toFixed(0)} lv=${player.level} xp=${player.xp.toFixed(1)}/${player.xpToNext}`,
         `blackLuster=${berserk.charge.toFixed(0)}/${berserk.maxCharge} active=${berserk.activeRemaining.toFixed(1)}`,

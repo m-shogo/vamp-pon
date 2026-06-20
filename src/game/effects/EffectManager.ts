@@ -11,7 +11,8 @@ type EffectOptions = {
 
 export class EffectManager {
   private activeParticles = 0;
-  private hitStopToken = 0;
+  private hitStopUntilMs = 0;
+  private hitStopTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private scene: Phaser.Scene) {}
 
@@ -86,13 +87,10 @@ export class EffectManager {
 
   hitStop(ms: number): void {
     if (ms <= 0) return;
-    this.hitStopToken += 1;
-    const token = this.hitStopToken;
+    const now = Date.now();
+    this.hitStopUntilMs = Math.max(this.hitStopUntilMs, now + ms);
     this.scene.time.timeScale = 0.18;
-    this.scene.time.delayedCall(ms, () => {
-      if (token !== this.hitStopToken) return;
-      this.scene.time.timeScale = 1;
-    });
+    if (!this.hitStopTimer) this.scheduleHitStopRelease();
   }
 
   ultimateFlash(): void {
@@ -138,9 +136,25 @@ export class EffectManager {
   }
 
   destroy(): void {
-    this.hitStopToken += 1;
+    if (this.hitStopTimer) clearTimeout(this.hitStopTimer);
+    this.hitStopTimer = null;
+    this.hitStopUntilMs = 0;
     this.scene.time.timeScale = 1;
     this.activeParticles = 0;
+  }
+
+  private scheduleHitStopRelease(): void {
+    const remainingMs = Math.max(0, this.hitStopUntilMs - Date.now());
+    this.hitStopTimer = setTimeout(() => {
+      this.hitStopTimer = null;
+      const nextRemainingMs = this.hitStopUntilMs - Date.now();
+      if (nextRemainingMs > 1) {
+        this.scheduleHitStopRelease();
+        return;
+      }
+      this.hitStopUntilMs = 0;
+      this.scene.time.timeScale = 1;
+    }, remainingMs);
   }
 
   private radialGlow(x: number, y: number, label: string, color: number, radius: number, duration: number): void {
