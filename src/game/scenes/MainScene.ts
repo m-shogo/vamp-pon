@@ -140,9 +140,12 @@ export class MainScene extends Phaser.Scene {
   private tryAutoPause(): void {
     if (this.state.status !== GAME_STATUS.PLAYING) return;
     this.state.status = GAME_STATUS.PAUSED;
-    this.overlays.showPause(() => {
-      this.state.status = GAME_STATUS.PLAYING;
-    });
+    this.overlays.showPause(
+      () => { this.state.status = GAME_STATUS.PLAYING; },
+      () => this.goToTop(),
+      () => this.goToMenu('stage'),
+      () => this.goToMenu('growth'),
+    );
   }
 
   update(_time: number, delta: number): void {

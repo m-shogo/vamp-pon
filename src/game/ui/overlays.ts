@@ -437,61 +437,150 @@ export class Overlays {
     onGrowth: () => void,
     onStageSelect: () => void,
   ): void {
-    const root = this.dim(0.78);
+    const root = this.dim(0.8);
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 348, 680, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.98);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 360, 760, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.98);
     root.add(panel);
     const stats = state.stats;
     const survived = Math.floor(stats.survivedSec);
     const mm = Math.floor(survived / 60).toString().padStart(2, '0');
     const ss = (survived % 60).toString().padStart(2, '0');
-    root.add(this.text(GAME_WIDTH / 2, 118, cleared ? '朝まで残った' : '夜に飲まれた', 26, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 170, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 16, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 220, `倒した影　${stats.kills}\n集めた欠片　${stats.memoryFragmentsCollected}\nカプセル　${stats.capsulesOpened}\n必殺技　${stats.ultimateUses}回`, 14, STORYBOOK_UI.textLight));
-    const evolutionNames = stats.evolutions.map((id) => evolutionResultLabel(id)).join(' / ');
-    if (evolutionNames) root.add(this.text(GAME_WIDTH / 2, 322, `変化 ${evolutionNames}`, 12, STORYBOOK_UI.goldLight));
-    const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
-      ? ` LvUP ${settlement.characterLevelBefore}→${settlement.characterLevelAfter}`
-      : '';
-    root.add(this.text(
-      GAME_WIDTH / 2,
-      386,
-      `黒曜片 +${settlement.currencyEarned}　所持 ${ownedCurrency}\nキャラEXP +${settlement.characterXpEarned}${levelUpText}`,
-      14,
-      STORYBOOK_UI.goldLight,
-      true,
-    ));
-    root.add(this.text(GAME_WIDTH / 2, 470, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, STORYBOOK_UI.textMuted));
-    root.add(this.text(GAME_WIDTH / 2, 524, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}\n初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
 
-    root.add(this.button(GAME_WIDTH / 2 - 88, GAME_HEIGHT - 154, 148, 42, 'もう一度', () => {
+    // ヘッダー
+    const titleText = cleared ? '夜明け' : '夜に飲まれた';
+    const titlePrefix = cleared ? '◆' : '◇'; // 絵文字依存を避け、装飾は記号で
+    root.add(this.text(GAME_WIDTH / 2, 86, `${titlePrefix} ${titleText}`, 26, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 116, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.goldLight, true));
+
+    // 「主要結果カード」: 紙パネル上に行ごとに アイコン色 + ラベル + 値
+    const cardX = GAME_WIDTH / 2;
+    const cardTopY = 144;
+    const cardHeight = 232;
+    const cardGraphics = this.scene.add.graphics();
+    drawPaperCard(
+      cardGraphics,
+      cardX - 158,
+      cardTopY,
+      316,
+      cardHeight,
+      cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special,
+      STORYBOOK_UI.paper,
+    );
+    root.add(cardGraphics);
+
+    const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
+      ? ` (Lv ${settlement.characterLevelBefore}→${settlement.characterLevelAfter})`
+      : '';
+    const rows: Array<{ icon: number; label: string; value: string }> = [
+      { icon: 0xb8e0ff, label: '生存時間', value: `${mm}:${ss}` },
+      { icon: 0xffd693, label: '灯度（Lv）', value: `Lv.${state.player.level}` },
+      { icon: 0xc7b0ff, label: 'ほどいた影', value: `${stats.kills}` },
+      { icon: 0xfff1c8, label: '記憶のかけら', value: `${stats.memoryFragmentsCollected}` },
+      { icon: 0xffc1a8, label: 'カプセル', value: `${stats.capsulesOpened}` },
+      { icon: 0xf5d58a, label: '黒曜片', value: `+${settlement.currencyEarned}　(所持 ${ownedCurrency})` },
+      { icon: 0xa6e3a1, label: 'キャラEXP', value: `+${settlement.characterXpEarned}${levelUpText}` },
+    ];
+
+    rows.forEach((row, i) => {
+      const y = cardTopY + 22 + i * 30;
+      // 行頭の色丸（簡易アイコン代わり。絵文字依存を避ける）
+      root.add(this.scene.add.circle(cardX - 142, y, 6, row.icon, 0.95));
+      // 行頭の縦罫（読みやすさのための装飾）
+      const labelText = this.scene.add.text(cardX - 128, y, row.label, {
+        fontFamily: STORYBOOK_FONT,
+        fontSize: '13px',
+        color: STORYBOOK_UI.textDark,
+        fontStyle: 'bold',
+        resolution: 2,
+      }).setOrigin(0, 0.5);
+      root.add(labelText);
+      const valueText = this.scene.add.text(cardX + 138, y, row.value, {
+        fontFamily: STORYBOOK_FONT,
+        fontSize: '15px',
+        color: STORYBOOK_UI.textDark,
+        fontStyle: 'bold',
+        resolution: 2,
+      }).setOrigin(1, 0.5);
+      root.add(valueText);
+    });
+
+    // 進化/合体行（あれば）
+    const evolutionLabels = stats.evolutions.map((id) => evolutionResultLabel(id));
+    if (evolutionLabels.length > 0) {
+      const visible = evolutionLabels.slice(0, 2).join(' / ');
+      const more = evolutionLabels.length > 2 ? `　ほか ${evolutionLabels.length - 2}件` : '';
+      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 18, `◇ 進化/合体　${visible}${more}`, 12, STORYBOOK_UI.goldLight, true));
+    }
+
+    // ひとこと
+    const messageY = cardTopY + cardHeight + (evolutionLabels.length > 0 ? 44 : 22);
+    root.add(this.text(GAME_WIDTH / 2, messageY, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, STORYBOOK_UI.textMuted));
+
+    // 細かい時刻ログ（小さめ・緑）— 2行に分けて読みやすく
+    const timeLineY = messageY + 28;
+    root.add(this.text(GAME_WIDTH / 2, timeLineY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 11, '#9fe0a0'));
+    root.add(this.text(GAME_WIDTH / 2, timeLineY + 16, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
+
+    // ボタン（2列×2段、押しやすいサイズ）
+    const btnYTop = GAME_HEIGHT - 142;
+    const btnYBot = GAME_HEIGHT - 84;
+    root.add(this.button(GAME_WIDTH / 2 - 86, btnYTop, 156, 46, 'もう一度', () => {
       this.clear();
       onRestart();
     }));
-    root.add(this.button(GAME_WIDTH / 2 + 88, GAME_HEIGHT - 154, 148, 42, 'TOPへ', () => {
-      this.clear();
-      onTop();
-    }, true));
-    root.add(this.button(GAME_WIDTH / 2 - 88, GAME_HEIGHT - 98, 148, 42, '成長へ', () => {
-      this.clear();
-      onGrowth();
-    }, true));
-    root.add(this.button(GAME_WIDTH / 2 + 88, GAME_HEIGHT - 98, 148, 42, 'ステージ選択へ', () => {
+    root.add(this.button(GAME_WIDTH / 2 + 86, btnYTop, 156, 46, 'ステージ選択', () => {
       this.clear();
       onStageSelect();
     }, true));
+    root.add(this.button(GAME_WIDTH / 2 - 86, btnYBot, 156, 42, '成長へ', () => {
+      this.clear();
+      onGrowth();
+    }, true));
+    root.add(this.button(GAME_WIDTH / 2 + 86, btnYBot, 156, 42, 'TOPへ', () => {
+      this.clear();
+      onTop();
+    }, true));
   }
 
-  showPause(onResume: () => void): void {
-    const root = this.dim(0.66);
+  showPause(
+    onResume: () => void,
+    onTop?: () => void,
+    onStage?: () => void,
+    onGrowth?: () => void,
+  ): void {
+    const root = this.dim(0.72);
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 280, 190, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 312, 380, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
     root.add(panel);
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 42, 'やすみ中', 24, STORYBOOK_UI.textLight, true));
-    root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 35, 180, 46, 'つづける', () => {
+
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 138, 'やすみ中', 26, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 104, '夜路から、いったん戻れる', 12, STORYBOOK_UI.textMuted));
+
+    // 一番大きい「つづける」を中央に。
+    root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 42, 240, 52, 'つづける', () => {
       this.clear();
       onResume();
     }));
+
+    // 下に Home 系を縦並びで3つ。誤タップを避けつつ、押しやすいサイズ。
+    if (onStage) {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 24, 240, 42, 'ステージ選択へ', () => {
+        this.clear();
+        onStage();
+      }, true));
+    }
+    if (onGrowth) {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 76, 240, 42, '成長へ', () => {
+        this.clear();
+        onGrowth();
+      }, true));
+    }
+    if (onTop) {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 128, 240, 42, 'TOPへ戻る', () => {
+        this.clear();
+        onTop();
+      }, true));
+    }
   }
 
   private replaceRow(
