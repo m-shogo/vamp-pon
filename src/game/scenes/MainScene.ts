@@ -26,6 +26,7 @@ import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 import { loadProfile, settleRunProgress } from '../persistence/profile';
 import { settleCollectionProgress, type CollectionSettlement } from '../systems/collectionProgress';
+import { STORYBOOK_FONT } from '../ui/storybookUi';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
@@ -356,7 +357,7 @@ export class MainScene extends Phaser.Scene {
     const more = settlement.newlyCompleted.length > 3 ? `\nほか ${settlement.newlyCompleted.length - 3}マス` : '';
     const reward = settlement.lightCoinReward > 0 ? `　黒曜片 +${settlement.lightCoinReward}` : '';
     const text = this.add.text(0, 0, `夜明け盤 +${settlement.newlyCompleted.length}${reward}\n${titles}${more}`, {
-      fontFamily: 'sans-serif',
+      fontFamily: STORYBOOK_FONT,
       fontSize: '12px',
       color: '#f7edcf',
       fontStyle: 'bold',
