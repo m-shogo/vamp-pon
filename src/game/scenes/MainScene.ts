@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState, isBerserkQaAutoRequested } from '../state';
-import { GAME_STATUS } from '../domain/constants';
+import { GAME_STATUS, GAME_WIDTH } from '../domain/constants';
 import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
 import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
 import { Hud } from '../ui/hud';
@@ -25,6 +25,7 @@ import { generateChoices, applyChoice } from '../systems/levelup';
 import { applyCapsule } from '../systems/capsule';
 import { buildPlayLog } from '../domain/playLog';
 import { loadProfile, settleRunProgress } from '../persistence/profile';
+import { settleCollectionProgress, type CollectionSettlement } from '../systems/collectionProgress';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
@@ -318,8 +319,9 @@ export class MainScene extends Phaser.Scene {
     state.stats.survivedSec = state.elapsedSec;
     const log = buildPlayLog(state, cleared);
     const settlement = settleRunProgress(state, cleared);
+    const collectionSettlement = settleCollectionProgress(state, cleared);
     // eslint-disable-next-line no-console
-    console.log('[vamp-pon playlog]', JSON.stringify({ ...log, settlement }));
+    console.log('[vamp-pon playlog]', JSON.stringify({ ...log, settlement, collectionSettlement }));
 
     const showResult = () => {
       this.overlays.showResult(
@@ -335,6 +337,7 @@ export class MainScene extends Phaser.Scene {
         () => this.goToMenu('growth'),
         () => this.goToMenu('stage'),
       );
+      this.showCollectionResultBadge(collectionSettlement);
     };
 
     if (cleared) {
@@ -342,6 +345,31 @@ export class MainScene extends Phaser.Scene {
     } else {
       showResult();
     }
+  }
+
+  private showCollectionResultBadge(settlement: CollectionSettlement): void {
+    if (settlement.newlyCompleted.length === 0) return;
+    const root = this.add.container(GAME_WIDTH / 2, 604).setDepth(10000);
+    const bg = this.add.rectangle(0, 0, 312, 86, 0x121426, 0.94);
+    bg.setStrokeStyle(1, 0xf5d58a, 0.92);
+    const titles = settlement.newlyCompleted.slice(0, 3).map((cell) => `■ ${cell.title}`).join('\n');
+    const more = settlement.newlyCompleted.length > 3 ? `\nほか ${settlement.newlyCompleted.length - 3}マス` : '';
+    const reward = settlement.lightCoinReward > 0 ? `　灯貨 +${settlement.lightCoinReward}` : '';
+    const text = this.add.text(0, 0, `夜明け盤 +${settlement.newlyCompleted.length}${reward}\n${titles}${more}`, {
+      fontFamily: 'sans-serif',
+      fontSize: '12px',
+      color: '#f7edcf',
+      fontStyle: 'bold',
+      align: 'center',
+      resolution: 2,
+      lineSpacing: 3,
+      stroke: '#080b18',
+      strokeThickness: 2,
+    }).setOrigin(0.5);
+    root.add([bg, text]);
+    root.setScale(0.96);
+    root.setAlpha(0);
+    this.tweens.add({ targets: root, alpha: 1, scale: 1, duration: 180, ease: 'Back.easeOut' });
   }
 
   private goToTop(): void {
