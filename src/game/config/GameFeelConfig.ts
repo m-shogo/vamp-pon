@@ -28,8 +28,18 @@ export type GameFeelConfig = {
   particleQuality: ParticleQuality;
   maxParticles: number;
   maxDamageNumbers: number;
-  hitStopMs: { hit: number; levelUp: number; evolution: number };
+  hitStopMs: { hit: number; death: number; playerDamage: number; levelUp: number; evolution: number; ultimate: number; berserkRelease: number };
   screenShakeIntensity: { hit: number; playerDamage: number; levelUp: number; evolution: number };
+  juice: {
+    enemyDeathInkParticles: { normal: number; elite: number; ombu: number; omburo: number };
+    enemyDeathMemoryParticles: { normal: number; elite: number };
+    enemyDeathFadeMs: number;
+    expAbsorbPopMs: number;
+    levelUpStopMs: number;
+    levelUpCardRiseMs: number;
+    ultimateDimmingMs: number;
+    clearWarmthMs: number;
+  };
   audioVolumeDefaults: { master: number; bgm: number; se: number };
   lowSpecMode: boolean;
   fpsTargets: FpsTargets;
@@ -60,14 +70,36 @@ export const GAME_FEEL_CONFIG: GameFeelConfig = {
   maxDamageNumbers: 28,
   hitStopMs: {
     hit: 12,
-    levelUp: 90,
+    death: 80,
+    playerDamage: 80,
+    levelUp: 150,
     evolution: 140,
+    ultimate: 200,
+    berserkRelease: 90,
   },
   screenShakeIntensity: {
     hit: 0.0015,
     playerDamage: 0.006,
     levelUp: 0.0025,
     evolution: 0.0045,
+  },
+  juice: {
+    enemyDeathInkParticles: {
+      normal: 12,
+      elite: 18,
+      ombu: 16,
+      omburo: 20,
+    },
+    enemyDeathMemoryParticles: {
+      normal: 3,
+      elite: 5,
+    },
+    enemyDeathFadeMs: 150,
+    expAbsorbPopMs: 120,
+    levelUpStopMs: 150,
+    levelUpCardRiseMs: 200,
+    ultimateDimmingMs: 200,
+    clearWarmthMs: 1100,
   },
   audioVolumeDefaults: {
     master: 0.82,

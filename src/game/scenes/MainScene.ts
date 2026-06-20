@@ -121,10 +121,15 @@ export class MainScene extends Phaser.Scene {
       this.hud.destroy();
     });
 
-    this.overlays.showReady(() => {
+    const startRun = () => {
       this.state.status = GAME_STATUS.PLAYING;
       if (isBerserkQaAutoRequested()) this.state.berserkRequested = true;
-    });
+    };
+    if (new URLSearchParams(window.location.search).get('play') === 'true') {
+      startRun();
+    } else {
+      this.overlays.showReady(startRun);
+    }
 
     this.hud.update(this.state);
     this.pacingEffects.update(this.state);
@@ -150,8 +155,12 @@ export class MainScene extends Phaser.Scene {
   private tryAutoPause(): void {
     if (this.state.status !== GAME_STATUS.PLAYING) return;
     this.state.status = GAME_STATUS.PAUSED;
+    this.tweens.pauseAll();
     this.overlays.showPause(
-      () => { this.state.status = GAME_STATUS.PLAYING; },
+      () => {
+        this.tweens.resumeAll();
+        this.state.status = GAME_STATUS.PLAYING;
+      },
       () => this.goToTop(),
       () => this.goToMenu('stage'),
       () => this.goToMenu('growth'),
@@ -172,16 +181,21 @@ export class MainScene extends Phaser.Scene {
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
+      const wasBerserkActive = state.berserk.activeRemaining > 0;
       const berserkActivated = updateBerserk(state, dt, this);
       if (berserkActivated) {
         this.audio.playSe('blackMode', { volume: 0.86 });
         this.effects.blackAura(state.playerView);
+      }
+      if (wasBerserkActive && state.berserk.activeRemaining <= 0 && state.berserk.fatigueRemaining > 0) {
+        this.effects.blackAuraRelease(state.player.x, state.player.y);
       }
       this.berserkFeedback.update(state);
       this.resolveTransitions();
     }
 
     this.hud.update(state);
+    this.effects.dangerPulse(state.player.hp / state.player.maxHp);
     this.pacingEffects.update(state);
     this.updateDebugSnapshot();
   }
@@ -382,6 +396,9 @@ export class MainScene extends Phaser.Scene {
     };
 
     if (cleared) {
+      this.audio.playSe('clear', { volume: 0.7 });
+      this.audio.duckBgm(900, 0.55);
+      this.effects.clearDawn();
       this.pacingEffects.playClearTransition(showResult);
     } else {
       showResult();

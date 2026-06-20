@@ -5,10 +5,12 @@ import { VIEW_DEPTH } from '../ui/factory';
 
 type EffectOptions = {
   elite?: boolean;
+  defId?: string;
   label?: string;
   strong?: boolean;
   combo?: number;
   target?: { x: number; y: number };
+  black?: boolean;
 };
 
 export class EffectManager {
@@ -49,6 +51,7 @@ export class EffectManager {
   }
 
   playerDamage(): void {
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.playerDamage);
     const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0xd94545, 0.16)
       .setDepth(VIEW_DEPTH.overlay - 8);
     this.scene.tweens.add({ targets: flash, alpha: 0, duration: 180, onComplete: () => flash.destroy() });
@@ -74,23 +77,81 @@ export class EffectManager {
     if (options?.strong) this.cameraShakeSmall(elite ? 1.2 : 0.8);
   }
 
+  enemyHitView(
+    view: Phaser.GameObjects.Container,
+    x: number,
+    y: number,
+    sourceX: number,
+    sourceY: number,
+    options?: EffectOptions,
+  ): void {
+    const elite = options?.elite === true;
+    const dx = x - sourceX;
+    const dy = y - sourceY;
+    const len = Math.max(1, Math.hypot(dx, dy));
+    const knockback = elite ? 3 : 5;
+    this.scene.tweens.killTweensOf(view);
+    view.setScale(elite ? 1.16 : 1.14);
+    view.setAlpha(1);
+    this.scene.tweens.add({
+      targets: view,
+      x: x + (dx / len) * knockback,
+      y: y + (dy / len) * knockback,
+      scale: 1,
+      duration: 60,
+      ease: 'Quad.easeOut',
+      onComplete: () => view.setPosition(x, y),
+    });
+
+    const sprite = view.list.find((child) => child instanceof Phaser.GameObjects.Image) as Phaser.GameObjects.Image | undefined;
+    const blob = view.getData('blob') as Phaser.GameObjects.Arc | undefined;
+    sprite?.setTint(elite ? 0xd7ccff : 0xfff2d4);
+    blob?.setFillStyle(0xffffff, 1);
+    this.scene.time.delayedCall(55, () => {
+      sprite?.clearTint();
+      blob?.setFillStyle(elite ? COLORS.enemyElite : COLORS.enemyInk, 1);
+    });
+  }
+
   enemyDeathBurst(x: number, y: number, options?: EffectOptions): void {
     const elite = options?.elite === true;
     const combo = options?.combo ?? this.registerKillCombo();
-    const particleBudget = elite ? 20 : 14;
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.death);
+    const inkCountBase = this.enemyDeathInkCount(options?.defId, elite);
+    const memoryCountBase = elite ? GAME_FEEL_CONFIG.juice.enemyDeathMemoryParticles.elite : GAME_FEEL_CONFIG.juice.enemyDeathMemoryParticles.normal;
+    const particleBudget = inkCountBase + memoryCountBase + 5;
     if (this.canEmit(particleBudget)) {
-      const inkCount = this.qualityCount(elite ? 14 : 9);
+      const inkCount = this.qualityCount(inkCountBase);
+      const memoryCount = this.qualityCount(memoryCountBase);
       const scrapCount = this.qualityCount(elite ? 5 : 3);
       for (let i = 0; i < inkCount; i += 1) {
-        this.particle(x, y, elite ? COLORS.enemyEliteEdge : COLORS.enemyInkEdge, 2.4 + Math.random() * 2.4, 230 + Math.random() * 140, Math.random() * Math.PI * 2, 18 + Math.random() * 32);
+        const color = options?.black ? 0x0b0711 : elite ? COLORS.enemyEliteEdge : COLORS.enemyInkEdge;
+        this.particle(x, y, color, 2.3 + Math.random() * 2.8, 200 + Math.random() * 150, Math.random() * Math.PI * 2, 18 + Math.random() * 36);
+      }
+      for (let i = 0; i < memoryCount; i += 1) {
+        this.particle(x, y, 0xfff6df, 1.8 + Math.random() * 1.6, 160 + Math.random() * 90, -Math.PI / 2 + (Math.random() - 0.5) * 1.8, 16 + Math.random() * 28);
       }
       for (let i = 0; i < scrapCount; i += 1) {
         this.paperScrap(x, y, elite);
       }
     }
     this.glowPop(x, y, elite ? 24 : 17, elite ? 0xffd8a0 : COLORS.fragmentGlow, elite ? 0.24 : 0.18, elite ? 280 : 210);
-    if (elite) this.cameraShakeSmall(1.5);
+    if (elite || options?.defId === 'black_label_shadow') this.cameraShakeSmall(options?.defId === 'black_label_shadow' ? 1.85 : 1.5);
+    if (options?.black) this.blackAfterimage(x, y);
     this.comboFeedback(combo);
+  }
+
+  enemyDeathView(view: Phaser.GameObjects.Container, options?: EffectOptions): void {
+    this.scene.tweens.killTweensOf(view);
+    view.setScale(options?.elite ? 1.16 : 1.1);
+    this.scene.tweens.add({
+      targets: view,
+      scale: 0.8,
+      alpha: 0,
+      duration: GAME_FEEL_CONFIG.juice.enemyDeathFadeMs,
+      ease: 'Quad.easeIn',
+      onComplete: () => view.destroy(),
+    });
   }
 
   expVacuum(x: number, y: number, targetX: number, targetY: number): void {
@@ -126,7 +187,17 @@ export class EffectManager {
   }
 
   expAbsorbPop(x: number, y: number): void {
-    this.glowPop(x, y, 7, COLORS.fragmentGlow, 0.24, 130);
+    this.glowPop(x, y, 8, COLORS.fragmentGlow, 0.28, GAME_FEEL_CONFIG.juice.expAbsorbPopMs);
+    const ring = this.scene.add.circle(x, y, 8, 0xffffff, 0.04)
+      .setDepth(VIEW_DEPTH.pickup + 4)
+      .setBlendMode(Phaser.BlendModes.ADD);
+    ring.setStrokeStyle(2, 0xffffff, 0.72);
+    this.scene.tweens.add({ targets: ring, scale: 2.2, alpha: 0, duration: 150, ease: 'Quad.easeOut', onComplete: () => ring.destroy() });
+    if (!loadGameFeelSettings().lowSpecMode && this.canEmit(4)) {
+      for (let i = 0; i < 4; i += 1) {
+        this.particle(x, y, 0xfff7e8, 1.8, 105 + Math.random() * 45, Math.random() * Math.PI * 2, 8 + Math.random() * 12);
+      }
+    }
   }
 
   rewardCardPop(target: Phaser.GameObjects.GameObject, options?: { strong?: boolean }): void {
@@ -152,9 +223,16 @@ export class EffectManager {
   levelUpBurst(x: number, y: number, options?: EffectOptions): void {
     this.hitStop(GAME_FEEL_CONFIG.hitStopMs.levelUp);
     this.screenShake('levelUp');
-    this.screenFlashSoft(0xffe6a8, 0.12, 300);
+    this.screenFlashSoft(0xffffff, 0.32, 180);
+    this.screenFlashSoft(0xffe6a8, 0.14, 320);
     this.radialGlow(x, y, options?.label ?? 'Lv Up', COLORS.fragmentGlow, 36, 560);
     this.ring(x, y, 22, 0xfff0b0, 3, 3.2, 580);
+    this.levelNumberPop(options?.label ?? 'Lv Up');
+    if (this.canEmit(16)) {
+      for (let i = 0; i < this.qualityCount(14); i += 1) {
+        this.particle(x, y, i % 3 === 0 ? 0xffffff : COLORS.fragmentGlow, 2 + Math.random() * 2, 280 + Math.random() * 130, (Math.PI * 2 * i) / 14, 26 + Math.random() * 30);
+      }
+    }
   }
 
   evolutionBurst(x: number, y: number, options?: EffectOptions): void {
@@ -170,12 +248,17 @@ export class EffectManager {
   }
 
   ultimateSweep(): void {
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.ultimate);
+    const shade = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x050713, 0.26)
+      .setDepth(VIEW_DEPTH.overlay - 15);
+    this.scene.tweens.add({ targets: shade, alpha: 0, duration: GAME_FEEL_CONFIG.juice.ultimateDimmingMs + 150, ease: 'Quad.easeOut', onComplete: () => shade.destroy() });
+    this.edgeVignette(460, 0.24);
     const beam = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, 34, COLORS.fragmentGlow, 0.2)
       .setDepth(VIEW_DEPTH.overlay - 10)
       .setBlendMode(Phaser.BlendModes.ADD);
     const ink = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 18, GAME_WIDTH, 18, COLORS.ink, 0.14)
       .setDepth(VIEW_DEPTH.overlay - 11);
-    this.scene.tweens.add({ targets: [beam, ink], x: GAME_WIDTH / 2 + 28, alpha: 0, duration: 300, ease: 'Quad.easeOut', onComplete: () => { beam.destroy(); ink.destroy(); } });
+    this.scene.tweens.add({ targets: [beam, ink], x: GAME_WIDTH / 2 + 42, alpha: 0, duration: 210, ease: 'Quad.easeOut', timeScale: 1.5, onComplete: () => { beam.destroy(); ink.destroy(); this.screenFlashSoft(0xffffff, 0.18, 140); } });
   }
 
   blackAuraPulse(target: Phaser.GameObjects.GameObject): void {
@@ -188,7 +271,60 @@ export class EffectManager {
         }
       });
     }
-    this.edgeVignette(360);
+    this.edgeVignette(520, 0.28);
+  }
+
+  blackAuraRelease(x: number, y: number): void {
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.berserkRelease);
+    this.screenFlashSoft(0xffffff, 0.18, 180);
+    if (this.canEmit(10)) {
+      for (let i = 0; i < this.qualityCount(10); i += 1) {
+        this.particle(x, y, 0xfff4dc, 2.2, 260 + Math.random() * 120, -Math.PI / 2 + (Math.random() - 0.5) * Math.PI, 20 + Math.random() * 30);
+      }
+    }
+  }
+
+  clearDawn(): void {
+    const warm = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, COLORS.dawnWarm, 0)
+      .setDepth(VIEW_DEPTH.overlay - 17)
+      .setBlendMode(Phaser.BlendModes.ADD);
+    this.scene.tweens.add({
+      targets: warm,
+      alpha: { from: 0, to: 0.24 },
+      duration: GAME_FEEL_CONFIG.juice.clearWarmthMs,
+      yoyo: true,
+      hold: 260,
+      ease: 'Sine.easeInOut',
+      onComplete: () => warm.destroy(),
+    });
+    if (this.canEmit(18)) {
+      for (let i = 0; i < this.qualityCount(18); i += 1) {
+        const x = 20 + Math.random() * (GAME_WIDTH - 40);
+        const y = GAME_HEIGHT + Math.random() * 90;
+        const dot = this.scene.add.circle(x, y, 1.8 + Math.random() * 2, i % 4 === 0 ? 0xffffff : COLORS.dawnWarm, 0.42)
+          .setDepth(VIEW_DEPTH.overlay - 16)
+          .setBlendMode(Phaser.BlendModes.ADD);
+        this.activeParticles += 1;
+        this.scene.tweens.add({
+          targets: dot,
+          y: y - 260 - Math.random() * 160,
+          x: x + (Math.random() - 0.5) * 38,
+          alpha: 0,
+          duration: 980 + Math.random() * 520,
+          ease: 'Sine.easeOut',
+          onComplete: () => {
+            dot.destroy();
+            this.activeParticles = Math.max(0, this.activeParticles - 1);
+          },
+        });
+      }
+    }
+  }
+
+  dangerPulse(hpRatio: number): void {
+    if (hpRatio > 0.3) return;
+    const alpha = hpRatio <= 0.16 ? 0.16 : 0.1;
+    this.edgeVignette(280, alpha, 0x4d1420);
   }
 
   hitStop(ms: number): void {
@@ -305,10 +441,12 @@ export class EffectManager {
     this.scene.tweens.add({ targets: flash, alpha: 0, duration, ease: 'Quad.easeOut', onComplete: () => flash.destroy() });
   }
 
-  private edgeVignette(duration: number): void {
-    const top = this.scene.add.rectangle(GAME_WIDTH / 2, 18, GAME_WIDTH, 36, COLORS.ink, 0.18).setDepth(VIEW_DEPTH.overlay - 9);
-    const bottom = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 18, GAME_WIDTH, 36, COLORS.ink, 0.18).setDepth(VIEW_DEPTH.overlay - 9);
-    this.scene.tweens.add({ targets: [top, bottom], alpha: 0, duration, onComplete: () => { top.destroy(); bottom.destroy(); } });
+  private edgeVignette(duration: number, alpha = 0.18, color: number = COLORS.ink): void {
+    const top = this.scene.add.rectangle(GAME_WIDTH / 2, 18, GAME_WIDTH, 36, color, alpha).setDepth(VIEW_DEPTH.overlay - 9);
+    const bottom = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 18, GAME_WIDTH, 36, color, alpha).setDepth(VIEW_DEPTH.overlay - 9);
+    const left = this.scene.add.rectangle(8, GAME_HEIGHT / 2, 16, GAME_HEIGHT, color, alpha * 0.75).setDepth(VIEW_DEPTH.overlay - 9);
+    const right = this.scene.add.rectangle(GAME_WIDTH - 8, GAME_HEIGHT / 2, 16, GAME_HEIGHT, color, alpha * 0.75).setDepth(VIEW_DEPTH.overlay - 9);
+    this.scene.tweens.add({ targets: [top, bottom, left, right], alpha: 0, duration, onComplete: () => { top.destroy(); bottom.destroy(); left.destroy(); right.destroy(); } });
   }
 
   cameraShakeSmall(scale = 1): void {
@@ -403,6 +541,47 @@ export class EffectManager {
         dot.destroy();
         this.activeParticles = Math.max(0, this.activeParticles - 1);
       },
+    });
+  }
+
+  private enemyDeathInkCount(defId: string | undefined, elite: boolean): number {
+    if (defId === 'black_label_shadow') return GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.omburo;
+    if (defId) return GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.ombu;
+    return elite ? GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.elite : GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.normal;
+  }
+
+  private levelNumberPop(label: string): void {
+    const text = this.scene.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 76, label, {
+      fontFamily: 'serif',
+      fontSize: '30px',
+      color: '#fff8e7',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(VIEW_DEPTH.overlay + 2);
+    text.setStroke('#6c5230', 5);
+    text.setScale(0.7);
+    this.scene.tweens.add({
+      targets: text,
+      y: text.y - 28,
+      scale: 1.18,
+      alpha: 0,
+      duration: 680,
+      ease: 'Back.easeOut',
+      onComplete: () => text.destroy(),
+    });
+  }
+
+  private blackAfterimage(x: number, y: number): void {
+    const shade = this.scene.add.ellipse(x, y, 34, 24, 0x050309, 0.26)
+      .setDepth(VIEW_DEPTH.enemy - 1);
+    this.scene.tweens.add({
+      targets: shade,
+      scaleX: 1.5,
+      scaleY: 0.7,
+      alpha: 0,
+      duration: 260,
+      ease: 'Quad.easeOut',
+      onComplete: () => shade.destroy(),
     });
   }
 

@@ -47,7 +47,8 @@ const DEPTH_FLAVOR: Record<ExplorationDepthId, { sub: string; recommend: string 
 };
 
 export function isRunStartUrl(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
-  return new URLSearchParams(search).get('play') === '1';
+  const play = new URLSearchParams(search).get('play');
+  return play === '1' || play === 'true';
 }
 
 export class StageSelectScene extends Phaser.Scene {

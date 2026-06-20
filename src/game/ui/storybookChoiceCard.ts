@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import type { LevelUpChoice, RewardRarity } from '../domain/types';
 import { archetypesForItem } from '../data/buildArchetypes';
+import { GAME_FEEL_CONFIG } from '../config/GameFeelConfig';
 import { getEffectManager } from '../effects/EffectManager';
 import {
   getInventoryIconRequirement,
@@ -59,7 +60,16 @@ export function createStorybookChoiceCard(
     addVerticalContent(scene, card, width, height, choice, title, badge, accent);
   }
 
-  getEffectManager(scene).rewardCardPop(card, { strong: choice.rarity === 'rare' || choice.type === 'rare_new' });
+  card.setY(cy + 26);
+  card.setAlpha(0);
+  scene.tweens.add({
+    targets: card,
+    y: cy,
+    alpha: 1,
+    duration: GAME_FEEL_CONFIG.juice.levelUpCardRiseMs,
+    ease: 'Back.easeOut',
+    onComplete: () => getEffectManager(scene).rewardCardPop(card, { strong: choice.rarity === 'rare' || choice.type === 'rare_new' }),
+  });
 
   return card;
 }

@@ -98,10 +98,11 @@ export function damageEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Ene
   if (enemy.dead) return;
   enemy.hp -= amount * berserkDamageMultiplier(state);
   enemy.flashRemaining = FLASH_SEC;
-  enemy.view.setScale(1.22);
+  const effects = getEffectManager(scene);
+  effects.enemyHitView(enemy.view, enemy.x, enemy.y, state.player.x, state.player.y, { elite: enemy.isElite });
   getAudioManager(scene).playSe('hit', { volume: 0.42, rate: 0.95 + Math.random() * 0.1 });
-  getEffectManager(scene).hit(enemy.x, enemy.y, { elite: enemy.isElite });
-  if (amount >= enemy.maxHp * 0.2) getEffectManager(scene).hitStop(GAME_FEEL_CONFIG.hitStopMs.hit);
+  effects.hit(enemy.x, enemy.y, { elite: enemy.isElite, strong: amount >= enemy.maxHp * 0.2 });
+  if (amount >= enemy.maxHp * 0.2) effects.hitStop(GAME_FEEL_CONFIG.hitStopMs.hit);
   const blob = enemy.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
   if (blob) blob.setFillStyle(0xffffff, 1);
   if (enemy.hp <= 0) {
@@ -120,7 +121,11 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     state.telemetry.eliteKillSecs.push(state.elapsedSec);
   }
   const effects = getEffectManager(scene);
-  effects.enemyDeath(enemy.x, enemy.y, { elite: enemy.isElite });
+  effects.enemyDeath(enemy.x, enemy.y, {
+    elite: enemy.isElite,
+    defId: enemy.defId,
+    black: (state.berserk?.activeRemaining ?? 0) > 0,
+  });
   getAudioManager(scene).playEnemyDeath(effects.combo(), enemy.isElite);
 
   const count = Math.max(1, Math.min(Math.ceil(enemy.xpDrop), 5));
@@ -141,14 +146,7 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   }
 
   inkPuff(scene, enemy.x, enemy.y, enemy.radius, enemy.isElite);
-  scene.tweens.add({
-    targets: enemy.view,
-    scale: enemy.isElite ? 1.35 : 1.26,
-    alpha: 0,
-    duration: enemy.isElite ? 210 : 160,
-    ease: 'Quad.easeOut',
-    onComplete: () => enemy.view.destroy(),
-  });
+  effects.enemyDeathView(enemy.view, { elite: enemy.isElite, defId: enemy.defId });
   enemy.hpBar?.destroy();
 }
 
