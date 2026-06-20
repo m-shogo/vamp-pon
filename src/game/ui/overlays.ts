@@ -87,8 +87,6 @@ export class Overlays {
       resolution: 2,
       lineSpacing: 3,
       padding: { left: 2, right: 2, top: 2, bottom: 2 },
-      stroke: color === STORYBOOK_UI.textDark ? '#f4ead4' : '#080b18',
-      strokeThickness: bold ? 1 : 0,
     }).setOrigin(0.5);
   }
 
@@ -309,8 +307,6 @@ export class Overlays {
       fontStyle: 'bold',
       align: 'center',
       resolution: 2,
-      stroke: '#080b18',
-      strokeThickness: 2,
     }).setOrigin(0.5));
     root.add(this.text(GAME_WIDTH / 2, 103, '武器が重なり、新しい形になった', 12, STORYBOOK_UI.textMuted, true));
 
@@ -591,8 +587,6 @@ export class Overlays {
       color: dark ? STORYBOOK_UI.textLight : STORYBOOK_UI.textDark,
       fontStyle: 'bold',
       resolution: 2,
-      stroke: dark ? '#080b18' : '#f4ead4',
-      strokeThickness: 1,
     }).setOrigin(0.5));
     return button;
   }
