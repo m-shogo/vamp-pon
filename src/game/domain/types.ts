@@ -227,7 +227,9 @@ export type EvolutionDefinition = {
   evolvedWeaponId: Id;
   consumedWeaponIds?: Id[];
   consumedRareItemIds?: Id[];
-  description: string;
+  description?: string;
+  title?: string;
+  lore?: string;
 };
 
 export type LevelUpChoice =
@@ -239,6 +241,7 @@ export type LevelUpChoice =
   | { type: 'heal'; amount: number; title: string; description: string; lore?: string; rarity?: RewardRarity };
 
 export type CapsuleReward =
-  | { type: 'evolution'; evolutionId: Id; weaponId: Id; kind: EvolutionKind; name: string; description: string }
-  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description: string }
-  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description: string };
+  | { type: 'evolution'; evolutionId: Id; evolutionKind: EvolutionKind; evolvedWeaponId: Id; title: string; lore?: string }
+  | { type: 'weapon_upgrade'; itemId: Id; nextLevel: number; title: string; description?: string }
+  | { type: 'passive_upgrade'; itemId: Id; nextLevel: number; title: string; description?: string }
+  | { type: 'currency'; amount: number; title: string; description?: string };

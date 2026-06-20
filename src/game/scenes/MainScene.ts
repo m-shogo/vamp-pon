@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState, isBerserkQaAutoRequested } from '../state';
-import { GAME_STATUS, GAME_WIDTH } from '../domain/constants';
+import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH } from '../domain/constants';
 import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
 import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
 import { Hud } from '../ui/hud';
@@ -11,6 +11,9 @@ import { VirtualStick } from '../ui/virtualStick';
 import { evolutionBurst } from '../ui/effects';
 import { RunPacingEffects } from '../ui/runPacingEffects';
 import { BerserkFeedback } from '../ui/berserkFeedback';
+import { getAudioManager, type AudioManager } from '../audio/AudioManager';
+import { getEffectManager, type EffectManager } from '../effects/EffectManager';
+import { maxEnemiesForElapsed } from '../config/GameFeelConfig';
 import { weaponById } from '../data/weapons';
 import { setupKeyboard, updateInput, type KeyboardKeys } from '../systems/input';
 import { updateMovement } from '../systems/movement';
@@ -57,6 +60,8 @@ export class MainScene extends Phaser.Scene {
   private stick!: VirtualStick;
   private pacingEffects!: RunPacingEffects;
   private berserkFeedback!: BerserkFeedback;
+  private audio!: AudioManager;
+  private effects!: EffectManager;
   private keys: KeyboardKeys | null = null;
   private spawnSystem!: SpawnSystem;
   private playtestSnapshotEnabled = false;
@@ -96,6 +101,9 @@ export class MainScene extends Phaser.Scene {
     this.spawnSystem = new SpawnSystem();
     this.keys = setupKeyboard(this);
     this.stick = new VirtualStick(this);
+    this.audio = getAudioManager(this);
+    this.audio.unlockOnFirstInput();
+    this.effects = getEffectManager(this);
     this.pacingEffects = new RunPacingEffects(this);
     this.berserkFeedback = new BerserkFeedback(this);
 
@@ -106,6 +114,8 @@ export class MainScene extends Phaser.Scene {
       document.removeEventListener('visibilitychange', this.onVisibility);
       this.clearDebugSnapshot();
       this.berserkFeedback.destroy();
+      this.audio.destroy();
+      this.effects.destroy();
       this.pacingEffects.destroy();
       this.stick.destroy();
       this.hud.destroy();
@@ -162,7 +172,11 @@ export class MainScene extends Phaser.Scene {
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
-      updateBerserk(state, dt);
+      const berserkActivated = updateBerserk(state, dt, this);
+      if (berserkActivated) {
+        this.audio.playSe('blackMode', { volume: 0.86 });
+        this.effects.blackAura(state.playerView);
+      }
       this.berserkFeedback.update(state);
       this.resolveTransitions();
     }
@@ -231,6 +245,9 @@ export class MainScene extends Phaser.Scene {
     for (const evolvedWeaponId of state.stats.evolutions) {
       if (previousEvolutions.has(evolvedWeaponId)) continue;
       const name = weaponById.get(evolvedWeaponId)?.name ?? evolvedWeaponId;
+      this.audio.playSe('evolution', { volume: 0.92 });
+      this.audio.duckBgm(520, 0.45);
+      this.effects.evolution(state.player.x, state.player.y, { label: `進化: ${name}` });
       evolutionBurst(this, state.player.x, state.player.y, `進化: ${name}`, 'upgrade');
     }
     state.pendingChoices = [];
@@ -261,6 +278,7 @@ export class MainScene extends Phaser.Scene {
       state,
       choices,
       (choice) => {
+        this.audio.playSe('select', { volume: 0.52 });
         if (this.needsReplace(choice)) {
           this.overlays.showReplaceItem(
             state,
@@ -276,6 +294,7 @@ export class MainScene extends Phaser.Scene {
       () => {
         if (state.levelUpRerollsRemaining <= 0) return;
         state.levelUpRerollsRemaining -= 1;
+        this.audio.playSe('reroll', { volume: 0.5 });
         this.showLevelUpChoices(generateChoices(state));
       },
     );
@@ -295,6 +314,8 @@ export class MainScene extends Phaser.Scene {
         applyCapsule(state, reward);
         if (reward.type === 'evolution') {
           const name = weaponById.get(reward.evolvedWeaponId)?.name ?? reward.title;
+          this.audio.playSe('evolution', { volume: 0.92 });
+          this.effects.evolution(state.player.x, state.player.y, { label: `${evolutionKindLabel(reward.evolutionKind)}: ${name}` });
           evolutionBurst(this, state.player.x, state.player.y, `${evolutionKindLabel(reward.evolutionKind)}: ${name}`, reward.evolutionKind);
         }
         state.stats.capsulesOpened += 1;
@@ -307,12 +328,23 @@ export class MainScene extends Phaser.Scene {
     if (hasPendingLevelUp(state)) {
       advanceLevel(state);
       if (state.player.level === 2 && state.telemetry.level2Sec === null) state.telemetry.level2Sec = state.elapsedSec;
+      this.audio.playSe('levelUp', { volume: 0.9 });
+      this.effects.levelUp(state.player.x, state.player.y, { label: `Lv.${state.player.level}` });
       state.status = GAME_STATUS.LEVELUP;
       this.showLevelUpChoices(generateChoices(state));
       return;
     }
 
     if (state.elapsedSec >= state.durationSec) this.enterResult(true);
+  }
+
+  public gameFeelDebug(): { particleCount: number; waveMultiplier: number; currentMaxEnemies: number } {
+    const caps = maxEnemiesForElapsed(this.state.elapsedSec, DEFAULT_GAME_CONFIG.maxEnemies);
+    return {
+      particleCount: this.effects.count(),
+      waveMultiplier: caps.multiplier,
+      currentMaxEnemies: caps.hard,
+    };
   }
 
   private enterResult(cleared: boolean): void {

@@ -12,6 +12,9 @@ import { spawnFragment, spawnCapsule, spawnHealPickup } from './pickups';
 import { berserkDamageMultiplier, chargeBerserkFromDamage } from './berserk';
 import { stagePowerForStage } from '../data/stageScaling';
 import { depthForState, profileBonuses } from '../persistence/profile';
+import { GAME_FEEL_CONFIG } from '../config/GameFeelConfig';
+import { getAudioManager } from '../audio/AudioManager';
+import { getEffectManager } from '../effects/EffectManager';
 import { recordEnemyDefeated, recordEnemySeen } from './runCollectionMetrics';
 import {
   ENEMY_PROTOTYPE_SHEETS,
@@ -81,6 +84,8 @@ export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amou
   if (state.telemetry.firstDamageSec === null) state.telemetry.firstDamageSec = state.elapsedSec;
   p.invulnRemaining = PLAYER_DEFAULTS.invulnSec;
   p.flashRemaining = PLAYER_DEFAULTS.invulnSec;
+  getAudioManager(scene).playSe('playerDamage', { volume: 0.82 });
+  getEffectManager(scene).playerDamage();
   shakeOnHit(scene);
   if (p.hp <= 0) {
     p.hp = 0;
@@ -94,6 +99,9 @@ export function damageEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Ene
   enemy.hp -= amount * berserkDamageMultiplier(state);
   enemy.flashRemaining = FLASH_SEC;
   enemy.view.setScale(1.22);
+  getAudioManager(scene).playSe('hit', { volume: 0.42, rate: 0.95 + Math.random() * 0.1 });
+  getEffectManager(scene).hit(enemy.x, enemy.y, { elite: enemy.isElite });
+  if (amount >= enemy.maxHp * 0.2) getEffectManager(scene).hitStop(GAME_FEEL_CONFIG.hitStopMs.hit);
   const blob = enemy.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
   if (blob) blob.setFillStyle(0xffffff, 1);
   if (enemy.hp <= 0) {
@@ -111,9 +119,11 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     state.stats.elitesKilled += 1;
     state.telemetry.eliteKillSecs.push(state.elapsedSec);
   }
+  getAudioManager(scene).playSe('enemyDeath', { volume: enemy.isElite ? 0.9 : 0.55, rate: enemy.isElite ? 0.88 : 0.98 + Math.random() * 0.08 });
+  getEffectManager(scene).enemyDeath(enemy.x, enemy.y, { elite: enemy.isElite });
 
   const count = Math.max(1, Math.min(Math.ceil(enemy.xpDrop), 5));
-  const per = enemy.xpDrop / count;
+  const per = (enemy.xpDrop * GAME_FEEL_CONFIG.expGemValueScale) / count;
   for (let i = 0; i < count; i += 1) {
     const ox = count > 1 ? randRange(-12, 12) : 0;
     const oy = count > 1 ? randRange(-12, 12) : 0;
