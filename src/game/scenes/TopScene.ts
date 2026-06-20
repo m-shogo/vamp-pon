@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
+import { forgottenStreetNightBoard } from '../data/collectionProgress';
+import { loadCollectionProgress } from '../persistence/collection';
 import { loadProfile } from '../persistence/profile';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 
@@ -12,6 +14,9 @@ export class TopScene extends Phaser.Scene {
 
   create(): void {
     const profile = loadProfile();
+    const collection = loadCollectionProgress();
+    const boardCount = collection.nightBoard.completedCellIds.length;
+    const boardTotal = forgottenStreetNightBoard.cells.length;
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1d1a34, 1);
     const panel = this.add.graphics();
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 348, 700, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
@@ -26,7 +31,9 @@ export class TopScene extends Phaser.Scene {
     this.button(GAME_WIDTH / 2, 374, 220, 52, '成長', () => {
       this.scene.start('StageSelectScene', { mode: 'growth' });
     }, true);
-    this.button(GAME_WIDTH / 2, 442, 220, 52, '図鑑', () => this.showNotice('図鑑は準備中です'), true);
+    this.button(GAME_WIDTH / 2, 442, 220, 52, `忘れ物帳 ${boardCount}/${boardTotal}`, () => {
+      this.scene.start('CollectionScene');
+    }, boardCount === 0);
     this.button(GAME_WIDTH / 2, 510, 220, 52, '設定', () => this.showNotice('設定は準備中です'), true);
 
     this.notice = this.text(GAME_WIDTH / 2, 590, '', 13, STORYBOOK_UI.textMuted);
