@@ -42,6 +42,9 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   const profile = loadProfile();
   const bonuses = profileBonuses(profile);
   const char = characterById.get(characterId) ?? characterById.get(DEFAULT_CHARACTER_ID)!;
+  const subCharacterId = profile.selectedSubCharacterId && profile.selectedSubCharacterId !== char.id
+    ? profile.selectedSubCharacterId
+    : undefined;
   const charBonus = characterLevelBonus(char.id, profile);
   const px = GAME_WIDTH / 2;
   const py = GAME_HEIGHT / 2;
@@ -71,6 +74,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     elapsedSec: 0,
     durationSec: qaQuickClear ? 15 : DEFAULT_GAME_CONFIG.durationSec,
     characterId: char.id,
+    subCharacterId,
     playerView,
     player: {
       characterId: char.id,
