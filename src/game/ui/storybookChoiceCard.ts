@@ -87,8 +87,6 @@ function addHorizontalContent(
     lineSpacing: 2,
     resolution: 2,
     wordWrap: { width: textWidth, useAdvancedWrap: true },
-    stroke: '#f4ead4',
-    strokeThickness: 1,
   }).setOrigin(0, 0));
 
   const archetype = buildArchetypeLabel(choice);
@@ -101,8 +99,6 @@ function addHorizontalContent(
       resolution: 2,
       backgroundColor: colorString(accent),
       padding: { left: 5, right: 5, top: 2, bottom: 2 },
-      stroke: '#080b18',
-      strokeThickness: 1,
     }).setOrigin(0, 0));
   }
 
@@ -142,8 +138,6 @@ function addVerticalContent(
     lineSpacing: 2,
     resolution: 2,
     wordWrap: { width: width - 18, useAdvancedWrap: true },
-    stroke: '#f4ead4',
-    strokeThickness: 1,
   }).setOrigin(0.5, 0));
 
   const iconY = -15;
@@ -160,8 +154,6 @@ function addVerticalContent(
       resolution: 2,
       backgroundColor: colorString(accent),
       padding: { left: 4, right: 4, top: 1, bottom: 1 },
-      stroke: '#080b18',
-      strokeThickness: 1,
     }).setOrigin(0.5, 0));
   }
 
@@ -198,8 +190,6 @@ function addBadge(
     resolution: 2,
     backgroundColor: colorString(accent),
     padding: { left: 4, right: 4, top: 2, bottom: 2 },
-    stroke: '#080b18',
-    strokeThickness: 1,
   }).setOrigin(0.5));
 }
 
@@ -241,7 +231,7 @@ function addChoiceIcon(
       card.add(scene.add.text(x, y, getInventoryIconRequirement(iconRef.category, iconRef.itemId)?.fallbackGlyph ?? '?', {
         fontFamily: STORYBOOK_FONT,
         fontSize: `${Math.round(size * 0.42)}px`,
-        color: STORYBOOK_UI.textDark,
+        color: colorString(rarityAccent(choice.rarity ?? 'normal', storybookCategoryPalette(iconRef.category).accent)),
         fontStyle: 'bold',
         resolution: 2,
       }).setOrigin(0.5));
@@ -249,30 +239,43 @@ function addChoiceIcon(
     return;
   }
 
-  const icon = scene.add.graphics();
-  drawHeart(icon, x, y, Math.round(size * 0.34));
-  card.add(icon);
-}
-
-export function categoryForChoice(choice: LevelUpChoice): InventoryIconCategory | 'heal' {
-  if (choice.type === 'weapon_new' || choice.type === 'weapon_upgrade') return 'weapon';
-  if (choice.type === 'passive_new' || choice.type === 'passive_upgrade') return 'passive';
-  if (choice.type === 'rare_new') return 'rare';
-  return 'heal';
+  if (choice.type === 'heal') {
+    const g = scene.add.graphics();
+    drawHeart(g, x, y, size * 0.48);
+    card.add(g);
+  }
 }
 
 function iconRefForChoice(choice: LevelUpChoice): { category: InventoryIconCategory; itemId: string } | null {
-  const category = categoryForChoice(choice);
-  if (category === 'heal' || !('itemId' in choice)) return null;
-  return { category, itemId: choice.itemId };
+  switch (choice.type) {
+    case 'weapon_new':
+    case 'weapon_upgrade': return { category: 'weapon', itemId: choice.itemId };
+    case 'passive_new':
+    case 'passive_upgrade': return { category: 'passive', itemId: choice.itemId };
+    case 'rare_new': return { category: 'rare', itemId: choice.itemId };
+    case 'heal': return null;
+  }
 }
 
-function rarityAccent(rarity: RewardRarity, categoryAccent: number): number {
-  if (rarity === 'rare') return STORYBOOK_UI.rare;
-  if (rarity === 'good') return 0xd4b060;
-  return categoryAccent;
+function categoryForChoice(choice: LevelUpChoice): InventoryIconCategory | 'heal' {
+  switch (choice.type) {
+    case 'weapon_new':
+    case 'weapon_upgrade': return 'weapon';
+    case 'passive_new':
+    case 'passive_upgrade': return 'passive';
+    case 'rare_new': return 'rare';
+    case 'heal': return 'heal';
+  }
 }
 
-function colorString(color: number): string {
-  return '#' + color.toString(16).padStart(6, '0');
+function rarityAccent(rarity: RewardRarity, fallback: number): number {
+  switch (rarity) {
+    case 'rare': return STORYBOOK_UI.gold;
+    case 'good': return 0xcaa36f;
+    default: return fallback;
+  }
+}
+
+function colorString(value: string | number): string {
+  return typeof value === 'number' ? `#${value.toString(16).padStart(6, '0')}` : value;
 }
