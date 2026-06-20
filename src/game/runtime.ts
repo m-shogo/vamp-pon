@@ -159,6 +159,8 @@ export type RuntimeState = {
   elapsedSec: number;
   durationSec: number;
   characterId: Id;
+  /** サブキャラ。未選択時は undefined。好感度/ペア必殺/サブ効果の接続点。 */
+  subCharacterId?: Id;
   player: PlayerState;
   playerView: View;
   inventory: InventoryRuntime;
