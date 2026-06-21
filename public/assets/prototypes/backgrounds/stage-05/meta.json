@@ -1,0 +1,37 @@
+{
+  "id": "stage-05",
+  "number": 5,
+  "name": "朝をつなぐ灯り庭",
+  "slug": "dawn-lantern-garden",
+  "originalFilename": "ChatGPT Image Jun 16, 2026, 11_41_04 PM (5).png",
+  "image": "environment-master.png",
+  "status": "prototype",
+  "width": 941,
+  "height": 1672,
+  "aspectRatio": "941:1672",
+  "symbol": "修理ランタン",
+  "primaryMisreading": "執着",
+  "character": "トモリ / Core 5",
+  "visualRole": "修理された大ランタンを中心に、琥珀と朝焼け色の光が庭全体を照らす集大成の構図。",
+  "mainLandmark": "修理された大ランタン",
+  "palette": ["琥珀", "朝焼け", "暖白", "古紙"],
+  "centralQuietFloorRatio": 0.55,
+  "implementationNotes": "大ランタンが中央やや上にあり、光の経路が放射状に広がる。最も暖かいStage。",
+  "narrativeCause": "トモリが壊れたランタンを修理する最終ステージ",
+  "narrativePayoff": "全員の灯りが一つになり朝が来る",
+  "futureSeed": null,
+  "sourceDocs": [
+    "docs/146-stage-visual-design-guide.md",
+    "docs/151-story-integrated-stage-1-to-5-one-shot-brief.md"
+  ],
+  "displayAdjustments": {
+    "cropX": 0,
+    "cropY": 0,
+    "scale": 1,
+    "opacity": 1,
+    "brightness": 1,
+    "saturation": 1,
+    "overlayAlpha": 0.14,
+    "vignetteAlpha": 0.1
+  }
+}

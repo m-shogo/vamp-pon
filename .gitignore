@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# OS
+.DS_Store
+
+# Claude Code ローカル設定（マシン固有・コミットしない）
+.claude/settings.local.json
+.claude/*.lock

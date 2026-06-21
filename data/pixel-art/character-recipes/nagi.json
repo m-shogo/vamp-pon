@@ -1,0 +1,86 @@
+{
+  "$schema": "../character-recipes.schema.json",
+  "id": "nagi",
+  "name": "ナギ",
+  "role": "side。夜街の灯し守（ランプ点け）の少年。露店やセーフゾーンに立つNPC。",
+  "importance": "side",
+  "canvasSize": { "width": 52, "height": 52 },
+  "basePose": "idle",
+  "silhouetteKeywords": [
+    "つばの広い丸帽子",
+    "肩掛けの小さなランプ用ポーチ",
+    "ずんぐり低頭身でユイより小さい",
+    "片手に短い点火棒"
+  ],
+  "palette": [
+    { "name": "outline", "hex": "#1a2220", "use": "1px outline" },
+    { "name": "coat_d", "hex": "#274a3e", "use": "coat shadow (teal-green)" },
+    { "name": "coat_m", "hex": "#3c705c", "use": "coat mid" },
+    { "name": "coat_l", "hex": "#5a9a7e", "use": "coat light" },
+    { "name": "coat_rim", "hex": "#8ac2a2", "use": "rim light (bg separation)" },
+    { "name": "hair_d", "hex": "#3a2a1e", "use": "hair shadow (warm brown)" },
+    { "name": "hair_m", "hex": "#5e4630", "use": "hair mid" },
+    { "name": "skin", "hex": "#f6d0a0", "use": "skin" },
+    { "name": "skin_sh", "hex": "#d4ab7c", "use": "skin shadow" },
+    { "name": "eye_w", "hex": "#fffaf0", "use": "eye catchlight" },
+    { "name": "iris", "hex": "#8a6a3a", "use": "iris (amber-brown)" },
+    { "name": "shirt", "hex": "#e3dabe", "use": "shirt (old paper)" },
+    { "name": "spark", "hex": "#ffcf6a", "use": "ignition rod spark" }
+  ],
+  "faceRules": [
+    "幼くまるい顔。帽子のつばで上半分に軽い影。",
+    "目は小さめでも白ハイライト1pxは入れる。",
+    "ユイ・アサと同じ可愛さの系譜だが幼い。"
+  ],
+  "hairRules": [
+    "暖色ブラウンの短髪。帽子から少しはみ出す。"
+  ],
+  "outfitRules": [
+    "つば広の丸帽子。ずんぐりしたコート。",
+    "肩掛けの小さなポーチでランプ点け役だと分かる。",
+    "布の厚みを出し、直貼りに見せない。"
+  ],
+  "vessel": {
+    "name": "点火棒（短いランプ点け）",
+    "side": "right",
+    "rules": [
+      "片手に短い棒。先端に小さな火花。",
+      "火花は1〜2pxの点。glowは最小限。",
+      "ユイのランタン・アサの筆と取り違えない大きさ。"
+    ]
+  },
+  "glowRules": [
+    "火花の発光は1〜2px、glowはほぼ無し。",
+    "NPCなので画面の主張を抑える。"
+  ],
+  "hitCoreSeparationRules": [
+    "NPCで当たり判定は基本持たないが、中心はクリーンに保つ。",
+    "火花を pickup と誤認させない。"
+  ],
+  "backgroundSeparationRules": [
+    "セーフゾーン背景でも coat_rim で軽く分離。",
+    "teal-green でユイ（青）と近いので、帽子形状と低頭身で識別する。"
+  ],
+  "mustKeep": [
+    "つば広の丸帽子",
+    "肩掛けポーチ（灯し守の役割）",
+    "ずんぐり低頭身",
+    "点火棒",
+    "soft painterly / 1px outline / 同一世界観"
+  ],
+  "mustAvoid": [
+    "主役級より目立つ発光・コントラスト",
+    "ユイ（青フード）とシルエット・配色が紛らわしい",
+    "帽子が単なる円盤に見える",
+    "Lua/CLI生成だけで hand-final を名乗る"
+  ],
+  "reviewPriority": 4,
+  "humanReviewRequired": false,
+  "humanReviewReason": "side NPC で作品の顔ではなく、固定アイデンティティ（帽子・ポーチ・低頭身）と quality gate（1x可読・背景分離・同一世界観）を満たせば procedural-first でバッチ運用できる。production直前のスポットレビューで足りる。",
+  "finisherMode": "generic-character-52",
+  "status": "generated-draft",
+  "notes": [
+    "まだ素材なし（recipeのみ）。procedural route の量産対象として想定。",
+    "teal-green はアサと近すぎないよう彩度を落とし、帽子形状で主役級と区別する。"
+  ]
+}

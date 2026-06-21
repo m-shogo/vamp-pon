@@ -1,0 +1,829 @@
+{
+  "characterId": "yui",
+  "sheetType": "expression-rage",
+  "source": "public/assets/prototypes/sprite-sheets/yui-expression-rage-original/yui-expression-rage-48-v1.png",
+  "sourceWidth": 1440,
+  "sourceHeight": 1080,
+  "columns": 8,
+  "rows": 6,
+  "cellSizePx": 180,
+  "frameCount": 48,
+  "frames": [
+    {
+      "index": 0,
+      "row": 1,
+      "column": 1,
+      "key": "portrait_determined",
+      "filename": "00_r01_c01_portrait_determined.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 32,
+        "y": 40,
+        "width": 116,
+        "height": 136
+      },
+      "nonTransparentPixels": 12459,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 1,
+      "row": 1,
+      "column": 2,
+      "key": "portrait_worried",
+      "filename": "01_r01_c02_portrait_worried.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 33,
+        "y": 40,
+        "width": 114,
+        "height": 136
+      },
+      "nonTransparentPixels": 12464,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 2,
+      "row": 1,
+      "column": 3,
+      "key": "portrait_sad",
+      "filename": "02_r01_c03_portrait_sad.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 34,
+        "y": 40,
+        "width": 112,
+        "height": 136
+      },
+      "nonTransparentPixels": 12563,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 3,
+      "row": 1,
+      "column": 4,
+      "key": "portrait_pained",
+      "filename": "03_r01_c04_portrait_pained.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 31,
+        "y": 39,
+        "width": 117,
+        "height": 137
+      },
+      "nonTransparentPixels": 12537,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 4,
+      "row": 1,
+      "column": 5,
+      "key": "portrait_afraid",
+      "filename": "04_r01_c05_portrait_afraid.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 30,
+        "y": 38,
+        "width": 120,
+        "height": 138
+      },
+      "nonTransparentPixels": 12879,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 5,
+      "row": 1,
+      "column": 6,
+      "key": "portrait_surprised",
+      "filename": "05_r01_c06_portrait_surprised.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 33,
+        "y": 38,
+        "width": 113,
+        "height": 138
+      },
+      "nonTransparentPixels": 12607,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 6,
+      "row": 1,
+      "column": 7,
+      "key": "portrait_relieved",
+      "filename": "06_r01_c07_portrait_relieved.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 33,
+        "y": 38,
+        "width": 113,
+        "height": 138
+      },
+      "nonTransparentPixels": 12548,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 7,
+      "row": 1,
+      "column": 8,
+      "key": "portrait_exhausted",
+      "filename": "07_r01_c08_portrait_exhausted.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 32,
+        "y": 18,
+        "width": 115,
+        "height": 158
+      },
+      "nonTransparentPixels": 12589,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 8,
+      "row": 2,
+      "column": 1,
+      "key": "portrait_tearful_smile",
+      "filename": "08_r02_c01_portrait_tearful_smile.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 20,
+        "y": 24,
+        "width": 139,
+        "height": 152
+      },
+      "nonTransparentPixels": 15068,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 9,
+      "row": 2,
+      "column": 2,
+      "key": "portrait_memory_awakened",
+      "filename": "09_r02_c02_portrait_memory_awakened.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 13,
+        "y": 28,
+        "width": 154,
+        "height": 148
+      },
+      "nonTransparentPixels": 14922,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 10,
+      "row": 2,
+      "column": 3,
+      "key": "portrait_lantern_focus",
+      "filename": "10_r02_c03_portrait_lantern_focus.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 27,
+        "y": 28,
+        "width": 125,
+        "height": 148
+      },
+      "nonTransparentPixels": 14320,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 11,
+      "row": 2,
+      "column": 4,
+      "key": "portrait_protective",
+      "filename": "11_r02_c04_portrait_protective.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 36,
+        "y": 25,
+        "width": 108,
+        "height": 151
+      },
+      "nonTransparentPixels": 12628,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 12,
+      "row": 2,
+      "column": 5,
+      "key": "cutin_ultimate_normal",
+      "filename": "12_r02_c05_cutin_ultimate_normal.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 4,
+        "y": 18,
+        "width": 171,
+        "height": 158
+      },
+      "nonTransparentPixels": 20622,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 13,
+      "row": 2,
+      "column": 6,
+      "key": "portrait_ink_invasion",
+      "filename": "13_r02_c06_portrait_ink_invasion.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 13,
+        "y": 27,
+        "width": 153,
+        "height": 149
+      },
+      "nonTransparentPixels": 18314,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 14,
+      "row": 2,
+      "column": 7,
+      "key": "portrait_rage_threshold",
+      "filename": "14_r02_c07_portrait_rage_threshold.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 15,
+        "y": 24,
+        "width": 149,
+        "height": 152
+      },
+      "nonTransparentPixels": 18223,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 15,
+      "row": 2,
+      "column": 8,
+      "key": "cutin_ultimate_black",
+      "filename": "15_r02_c08_cutin_ultimate_black.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 19,
+        "y": 23,
+        "width": 141,
+        "height": 153
+      },
+      "nonTransparentPixels": 17794,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 16,
+      "row": 3,
+      "column": 1,
+      "key": "rage_charge_25",
+      "filename": "16_r03_c01_rage_charge_25.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 28,
+        "y": 44,
+        "width": 124,
+        "height": 132
+      },
+      "nonTransparentPixels": 10175,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 17,
+      "row": 3,
+      "column": 2,
+      "key": "rage_charge_50",
+      "filename": "17_r03_c02_rage_charge_50.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 26,
+        "y": 45,
+        "width": 127,
+        "height": 131
+      },
+      "nonTransparentPixels": 10695,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 18,
+      "row": 3,
+      "column": 3,
+      "key": "rage_charge_75",
+      "filename": "18_r03_c03_rage_charge_75.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 18,
+        "y": 45,
+        "width": 143,
+        "height": 131
+      },
+      "nonTransparentPixels": 11598,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 19,
+      "row": 3,
+      "column": 4,
+      "key": "rage_threshold_shiver",
+      "filename": "19_r03_c04_rage_threshold_shiver.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 21,
+        "y": 45,
+        "width": 138,
+        "height": 131
+      },
+      "nonTransparentPixels": 11068,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 20,
+      "row": 3,
+      "column": 5,
+      "key": "rage_trigger_crouch",
+      "filename": "20_r03_c05_rage_trigger_crouch.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 21,
+        "y": 45,
+        "width": 138,
+        "height": 131
+      },
+      "nonTransparentPixels": 12850,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 21,
+      "row": 3,
+      "column": 6,
+      "key": "rage_transform_peak",
+      "filename": "21_r03_c06_rage_transform_peak.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 20,
+        "y": 39,
+        "width": 139,
+        "height": 137
+      },
+      "nonTransparentPixels": 14252,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 22,
+      "row": 3,
+      "column": 7,
+      "key": "rage_idle_front_a",
+      "filename": "22_r03_c07_rage_idle_front_a.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 27,
+        "y": 39,
+        "width": 126,
+        "height": 137
+      },
+      "nonTransparentPixels": 12379,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 23,
+      "row": 3,
+      "column": 8,
+      "key": "rage_idle_front_b",
+      "filename": "23_r03_c08_rage_idle_front_b.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 30,
+        "y": 37,
+        "width": 120,
+        "height": 139
+      },
+      "nonTransparentPixels": 12000,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 24,
+      "row": 4,
+      "column": 1,
+      "key": "rage_walk_front_a",
+      "filename": "24_r04_c01_rage_walk_front_a.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 15,
+        "y": 40,
+        "width": 149,
+        "height": 136
+      },
+      "nonTransparentPixels": 13685,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 25,
+      "row": 4,
+      "column": 2,
+      "key": "rage_walk_front_b",
+      "filename": "25_r04_c02_rage_walk_front_b.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 20,
+        "y": 41,
+        "width": 140,
+        "height": 135
+      },
+      "nonTransparentPixels": 12842,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 26,
+      "row": 4,
+      "column": 3,
+      "key": "rage_walk_left_a",
+      "filename": "26_r04_c03_rage_walk_left_a.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 22,
+        "y": 42,
+        "width": 136,
+        "height": 134
+      },
+      "nonTransparentPixels": 12022,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 27,
+      "row": 4,
+      "column": 4,
+      "key": "rage_walk_left_b",
+      "filename": "27_r04_c04_rage_walk_left_b.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 21,
+        "y": 42,
+        "width": 137,
+        "height": 134
+      },
+      "nonTransparentPixels": 12203,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 28,
+      "row": 4,
+      "column": 5,
+      "key": "rage_walk_right_a",
+      "filename": "28_r04_c05_rage_walk_right_a.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 19,
+        "y": 43,
+        "width": 142,
+        "height": 133
+      },
+      "nonTransparentPixels": 12203,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 29,
+      "row": 4,
+      "column": 6,
+      "key": "rage_walk_right_b",
+      "filename": "29_r04_c06_rage_walk_right_b.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 16,
+        "y": 42,
+        "width": 147,
+        "height": 134
+      },
+      "nonTransparentPixels": 12723,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 30,
+      "row": 4,
+      "column": 7,
+      "key": "rage_walk_back_a",
+      "filename": "30_r04_c07_rage_walk_back_a.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 28,
+        "y": 38,
+        "width": 123,
+        "height": 138
+      },
+      "nonTransparentPixels": 11267,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 31,
+      "row": 4,
+      "column": 8,
+      "key": "rage_walk_back_b",
+      "filename": "31_r04_c08_rage_walk_back_b.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 31,
+        "y": 38,
+        "width": 117,
+        "height": 138
+      },
+      "nonTransparentPixels": 10888,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 32,
+      "row": 5,
+      "column": 1,
+      "key": "rage_cast_front",
+      "filename": "32_r05_c01_rage_cast_front.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 20,
+        "y": 44,
+        "width": 139,
+        "height": 132
+      },
+      "nonTransparentPixels": 12820,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 33,
+      "row": 5,
+      "column": 2,
+      "key": "rage_cast_left",
+      "filename": "33_r05_c02_rage_cast_left.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 4,
+        "y": 59,
+        "width": 172,
+        "height": 117
+      },
+      "nonTransparentPixels": 9633,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 34,
+      "row": 5,
+      "column": 3,
+      "key": "rage_cast_right",
+      "filename": "34_r05_c03_rage_cast_right.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 7,
+        "y": 7,
+        "width": 166,
+        "height": 169
+      },
+      "nonTransparentPixels": 11430,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 35,
+      "row": 5,
+      "column": 4,
+      "key": "rage_cast_back",
+      "filename": "35_r05_c04_rage_cast_back.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 16,
+        "y": 11,
+        "width": 148,
+        "height": 165
+      },
+      "nonTransparentPixels": 13742,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 36,
+      "row": 5,
+      "column": 5,
+      "key": "rage_attack_front",
+      "filename": "36_r05_c05_rage_attack_front.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 13,
+        "y": 49,
+        "width": 153,
+        "height": 127
+      },
+      "nonTransparentPixels": 13045,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 37,
+      "row": 5,
+      "column": 6,
+      "key": "rage_attack_left",
+      "filename": "37_r05_c06_rage_attack_left.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 13,
+        "y": 51,
+        "width": 153,
+        "height": 125
+      },
+      "nonTransparentPixels": 12278,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 38,
+      "row": 5,
+      "column": 7,
+      "key": "rage_attack_right",
+      "filename": "38_r05_c07_rage_attack_right.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 18,
+        "y": 42,
+        "width": 143,
+        "height": 134
+      },
+      "nonTransparentPixels": 11009,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 39,
+      "row": 5,
+      "column": 8,
+      "key": "rage_attack_back",
+      "filename": "39_r05_c08_rage_attack_back.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 10,
+        "y": 42,
+        "width": 159,
+        "height": 134
+      },
+      "nonTransparentPixels": 10970,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 40,
+      "row": 6,
+      "column": 1,
+      "key": "rage_hurt",
+      "filename": "40_r06_c01_rage_hurt.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 18,
+        "y": 24,
+        "width": 143,
+        "height": 152
+      },
+      "nonTransparentPixels": 14497,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 41,
+      "row": 6,
+      "column": 2,
+      "key": "rage_recoil",
+      "filename": "41_r06_c02_rage_recoil.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 13,
+        "y": 14,
+        "width": 154,
+        "height": 162
+      },
+      "nonTransparentPixels": 16671,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 42,
+      "row": 6,
+      "column": 3,
+      "key": "rage_ultimate_start",
+      "filename": "42_r06_c03_rage_ultimate_start.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 10,
+        "y": 6,
+        "width": 160,
+        "height": 170
+      },
+      "nonTransparentPixels": 17716,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 43,
+      "row": 6,
+      "column": 4,
+      "key": "rage_ultimate_peak",
+      "filename": "43_r06_c04_rage_ultimate_peak.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 7,
+        "y": 9,
+        "width": 165,
+        "height": 167
+      },
+      "nonTransparentPixels": 20212,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 44,
+      "row": 6,
+      "column": 5,
+      "key": "rage_ultimate_release",
+      "filename": "44_r06_c05_rage_ultimate_release.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 6,
+        "y": 20,
+        "width": 167,
+        "height": 156
+      },
+      "nonTransparentPixels": 15512,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 45,
+      "row": 6,
+      "column": 6,
+      "key": "rage_meter_empty",
+      "filename": "45_r06_c06_rage_meter_empty.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 23,
+        "y": 38,
+        "width": 133,
+        "height": 138
+      },
+      "nonTransparentPixels": 10540,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 46,
+      "row": 6,
+      "column": 7,
+      "key": "rage_collapse",
+      "filename": "46_r06_c07_rage_collapse.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 19,
+        "y": 60,
+        "width": 142,
+        "height": 116
+      },
+      "nonTransparentPixels": 10767,
+      "touchesCellEdge": false
+    },
+    {
+      "index": 47,
+      "row": 6,
+      "column": 8,
+      "key": "rage_recovery_slow",
+      "filename": "47_r06_c08_rage_recovery_slow.png",
+      "width": 180,
+      "height": 180,
+      "alphaBounds": {
+        "x": 39,
+        "y": 26,
+        "width": 101,
+        "height": 150
+      },
+      "nonTransparentPixels": 10271,
+      "touchesCellEdge": false
+    }
+  ]
+}

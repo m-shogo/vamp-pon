@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schemaVersion": 2,
+  "id": "enemy-design-catalog-v2",
+  "status": "design-ready",
+  "scope": "48 reference cells split into eight reviewable design files.",
+  "recordFormat": {
+    "identity": ["no", "id", "name", "tier", "stage", "family", "kind", "formOf", "palette", "role", "status"],
+    "visual": ["silhouette", "ratio", "eyes", "parts", "occupancy", "nativePx"],
+    "gameplay": ["move", "attack", "telegraph", "counter"],
+    "other": ["animation", "differentiate"]
+  },
+  "artDirection": {
+    "style": "soft painterly pixel art",
+    "corePalette": "black ink, dark navy, violet-black, blue-gray, old-paper accents",
+    "readability": "Read silhouette and role at 1x before detail.",
+    "enemyFamilyRule": "Shared black-ink world, but never black blobs only.",
+    "warmLightRule": "Warm light is a small focal accent and must not compete with player lantern, pickups or hit core.",
+    "outlineRule": "Selective dark outline; avoid uniform thick black contour.",
+    "productionRule": "Reference generation is not final art. Aseprite hand-finish is mandatory."
+  },
+  "requiredFields": [
+    "name",
+    "tier",
+    "stage",
+    "visual.silhouette",
+    "visual.ratio",
+    "visual.eyes",
+    "visual.parts",
+    "visual.occupancy",
+    "visual.nativePx",
+    "gameplay.move",
+    "gameplay.attack",
+    "gameplay.telegraph",
+    "gameplay.counter",
+    "animation",
+    "differentiate"
+  ],
+  "designFiles": [
+    "data/enemy-assets/enemy-design-stage-1.json",
+    "data/enemy-assets/enemy-design-stage-2-base.json",
+    "data/enemy-assets/enemy-design-stage-2-boss.json",
+    "data/enemy-assets/enemy-design-stage-3.json",
+    "data/enemy-assets/enemy-design-stage-4-base.json",
+    "data/enemy-assets/enemy-design-stage-4-boss.json",
+    "data/enemy-assets/enemy-design-stage-5-base.json",
+    "data/enemy-assets/enemy-design-stage-5-boss.json"
+  ],
+  "expectedRecords": 48,
+  "distribution": {
+    "grunt": 25,
+    "midboss": 10,
+    "boss": 3,
+    "bossForm": 10
+  }
+}

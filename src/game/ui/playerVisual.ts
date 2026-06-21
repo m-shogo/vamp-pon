@@ -1,0 +1,161 @@
+import type Phaser from 'phaser';
+import { PLAYER_DEFAULTS } from '../domain/constants';
+import type { RuntimeState } from '../runtime';
+import { YUI_FRAME_IDS, type PlayerFacing } from '../assets/playerFrames';
+import { YUI_EXPRESSION_RAGE_SHEET, YUI_RAGE_SHEET_FRAME } from '../assets/yuiExpressionRageSheet';
+
+const PLAYER_SPRITE_DATA_KEY = 'playerSprite';
+const PLAYER_VISUAL_MODE_DATA_KEY = 'playerVisualMode';
+const PLAYER_FACING_DATA_KEY = 'playerFacing';
+const CORE5_VISUAL_MODE = 'core5-yui';
+const WALK_FPS = 7;
+const CORE5_DISPLAY_SIZE = 76;
+
+export type YuiFrameState = {
+  facing: PlayerFacing;
+  moving: boolean;
+  walkFrame: 0 | 1;
+  hurt: boolean;
+  ultimate: boolean;
+};
+
+export type YuiVisualFrameState = YuiFrameState & {
+  berserkCharge: number;
+  berserkMaxCharge: number;
+  berserkReady: boolean;
+  berserkDurationSec: number;
+  berserkActiveRemaining: number;
+  berserkFatigueRemaining: number;
+};
+
+export type YuiTextureSelection = {
+  textureKey: string;
+  frame?: number;
+};
+
+export function resolveFacing(
+  current: PlayerFacing,
+  inputX: number,
+  inputY: number,
+): PlayerFacing {
+  if (Math.hypot(inputX, inputY) < 0.12) return current;
+  if (Math.abs(inputX) > Math.abs(inputY)) return inputX < 0 ? 'left' : 'right';
+  return inputY < 0 ? 'back' : 'front';
+}
+
+export function resolveYuiFrame(state: YuiFrameState): string {
+  if (state.ultimate) return YUI_FRAME_IDS.ultimate;
+  if (state.hurt) return YUI_FRAME_IDS.hurt[state.facing];
+  if (state.moving) return YUI_FRAME_IDS.walk[state.facing][state.walkFrame];
+  return YUI_FRAME_IDS.idle[state.facing];
+}
+
+export function resolveYuiVisualFrame(state: YuiVisualFrameState): YuiTextureSelection {
+  const normal = (): YuiTextureSelection => ({ textureKey: resolveYuiFrame(state) });
+  const rage = (frame: number): YuiTextureSelection => ({
+    textureKey: YUI_EXPRESSION_RAGE_SHEET.id,
+    frame,
+  });
+
+  if (state.berserkActiveRemaining > 0) {
+    const activeElapsed = Math.max(0, state.berserkDurationSec - state.berserkActiveRemaining);
+    if (activeElapsed < 0.16) return rage(YUI_RAGE_SHEET_FRAME.triggerCrouch);
+    if (activeElapsed < 0.42) return rage(YUI_RAGE_SHEET_FRAME.transformPeak);
+    if (state.berserkActiveRemaining <= 0.18) return rage(YUI_RAGE_SHEET_FRAME.meterEmpty);
+    if (state.berserkActiveRemaining <= 0.48) return rage(YUI_RAGE_SHEET_FRAME.collapse);
+    if (state.ultimate) return rage(YUI_RAGE_SHEET_FRAME.ultimatePeak);
+    if (state.hurt) return rage(YUI_RAGE_SHEET_FRAME.hurt);
+    if (state.moving) return rage(YUI_RAGE_SHEET_FRAME.walk[state.facing][state.walkFrame]);
+    if (state.facing === 'front') return rage(YUI_RAGE_SHEET_FRAME.idleFront[state.walkFrame]);
+    return rage(YUI_RAGE_SHEET_FRAME.walk[state.facing][0]);
+  }
+
+  if (state.ultimate || state.hurt) return normal();
+  if (state.berserkFatigueRemaining > 0) return rage(YUI_RAGE_SHEET_FRAME.recoverySlow);
+  if (state.berserkReady) return rage(YUI_RAGE_SHEET_FRAME.thresholdShiver);
+
+  const chargeRatio = state.berserkMaxCharge > 0
+    ? state.berserkCharge / state.berserkMaxCharge
+    : 0;
+  if (!state.moving && chargeRatio >= 0.75) return rage(YUI_RAGE_SHEET_FRAME.charge75);
+  if (!state.moving && chargeRatio >= 0.5) return rage(YUI_RAGE_SHEET_FRAME.charge50);
+  if (!state.moving && chargeRatio >= 0.25) return rage(YUI_RAGE_SHEET_FRAME.charge25);
+
+  return normal();
+}
+
+/**
+ * 180pxキャンバス内の足元が約94%位置にあるため、コンテナ原点を足元へ合わせる。
+ * 76px表示では本体の実表示高が約59pxになり、縦画面でも主役として読める。
+ * 当たり判定はPLAYER_DEFAULTS.radius=6のまま変更しない。
+ */
+export function attachCore5PlayerSprite(
+  container: Phaser.GameObjects.Container,
+  sprite: Phaser.GameObjects.Image,
+): void {
+  sprite.setOrigin(0.5, 0.94);
+  sprite.setDisplaySize(CORE5_DISPLAY_SIZE, CORE5_DISPLAY_SIZE);
+  container.setData(PLAYER_SPRITE_DATA_KEY, sprite);
+  container.setData(PLAYER_VISUAL_MODE_DATA_KEY, CORE5_VISUAL_MODE);
+  container.setData(PLAYER_FACING_DATA_KEY, 'front' satisfies PlayerFacing);
+}
+
+/** createPlayerViewの子要素から画像を見つけ、Core5用の足元原点へ切り替える。 */
+export function attachCore5PlayerView(container: Phaser.GameObjects.Container): boolean {
+  const sprite = container.list.find((child) => {
+    const candidate = child as Partial<Phaser.GameObjects.Image>;
+    return candidate.texture != null && typeof candidate.setTexture === 'function';
+  }) as Phaser.GameObjects.Image | undefined;
+
+  if (!sprite) return false;
+  attachCore5PlayerSprite(container, sprite);
+  return true;
+}
+
+export function isCore5PlayerView(container: Phaser.GameObjects.Container): boolean {
+  return container.getData(PLAYER_VISUAL_MODE_DATA_KEY) === CORE5_VISUAL_MODE;
+}
+
+/** 入力・被弾・必殺・暴走状態に応じて、ユイの表示フレームだけを更新する。 */
+export function updatePlayerVisual(state: RuntimeState): void {
+  const container = state.playerView;
+  if (!isCore5PlayerView(container)) return;
+
+  const sprite = container.getData(PLAYER_SPRITE_DATA_KEY) as Phaser.GameObjects.Image | undefined;
+  if (!sprite) return;
+
+  const currentFacing = (container.getData(PLAYER_FACING_DATA_KEY) as PlayerFacing | undefined) ?? 'front';
+  const facing = resolveFacing(currentFacing, state.inputVec.x, state.inputVec.y);
+  container.setData(PLAYER_FACING_DATA_KEY, facing);
+
+  const moving = Math.hypot(state.inputVec.x, state.inputVec.y) >= 0.12;
+  const hurtWindowStart = Math.max(0, PLAYER_DEFAULTS.invulnSec - 0.22);
+  const walkFrame = (Math.floor(state.elapsedSec * WALK_FPS) % 2) as 0 | 1;
+  const selection = resolveYuiVisualFrame({
+    facing,
+    moving,
+    walkFrame,
+    hurt: state.player.flashRemaining > hurtWindowStart,
+    ultimate: state.ultimate.activeRemaining > 0,
+    berserkCharge: state.berserk.charge,
+    berserkMaxCharge: state.berserk.maxCharge,
+    berserkReady: state.berserk.ready,
+    berserkDurationSec: state.berserk.durationSec,
+    berserkActiveRemaining: state.berserk.activeRemaining,
+    berserkFatigueRemaining: state.berserk.fatigueRemaining,
+  });
+
+  const textures = sprite.scene.textures;
+  const fallback = YUI_FRAME_IDS.idle.front;
+  const textureKey = textures.exists(selection.textureKey)
+    ? selection.textureKey
+    : textures.exists(fallback)
+      ? fallback
+      : 'yui_idle';
+  const frame = textureKey === selection.textureKey ? selection.frame : undefined;
+  const frameChanged = frame !== undefined && String(sprite.frame.name) !== String(frame);
+
+  if (sprite.texture.key !== textureKey || frameChanged) {
+    sprite.setTexture(textureKey, frame);
+  }
+}

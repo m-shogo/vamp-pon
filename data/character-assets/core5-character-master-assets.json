@@ -1,0 +1,93 @@
+{
+  "id": "core5-character-visual-reference-v2",
+  "status": "reference-first",
+  "productionTouched": false,
+  "activeRule": "画像依頼では各キャラのmasterBoardPathとspriteSheetPathを実画像として両方渡す。文章だけで代用しない。",
+  "characters": [
+    {
+      "id": "yui",
+      "name": "ユイ",
+      "role": "主人公 / 灯す",
+      "vessel": "ランタン",
+      "masterBoardPath": "assets/reference/character-master/core5/yui-character-master-v1.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/yui-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png"
+      ],
+      "gameUseStatus": "prototype-sheet-only",
+      "notes": [
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
+      ]
+    },
+    {
+      "id": "asa",
+      "name": "アサ",
+      "role": "名前を守る / 名づける",
+      "vessel": "glowing name tag",
+      "masterBoardPath": "assets/reference/character-master/core5/asa-character-master-v1.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/asa-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/asa-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/asa-sprite-sheet-v1.png"
+      ],
+      "gameUseStatus": "prototype-sheet-only",
+      "notes": [
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
+      ]
+    },
+    {
+      "id": "nagi",
+      "name": "ナギ",
+      "role": "しまう / 守る",
+      "vessel": "moon box",
+      "masterBoardPath": "assets/reference/character-master/core5/nagi-character-master-v1.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/nagi-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/nagi-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/nagi-sprite-sheet-v1.png"
+      ],
+      "gameUseStatus": "prototype-sheet-only",
+      "notes": [
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
+      ]
+    },
+    {
+      "id": "michiru",
+      "name": "ミチル",
+      "role": "導く / 帰り道",
+      "vessel": "glowing compass",
+      "masterBoardPath": "assets/reference/character-master/core5/michiru-character-master-v1.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/michiru-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/michiru-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/michiru-sprite-sheet-v1.png"
+      ],
+      "gameUseStatus": "prototype-sheet-only",
+      "notes": [
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
+      ]
+    },
+    {
+      "id": "tomori",
+      "name": "トモリ",
+      "role": "直す / 継火",
+      "vessel": "repair lantern",
+      "masterBoardPath": "assets/reference/character-master/core5/tomori-character-master-v1.png",
+      "spriteSheetPath": "public/assets/prototypes/sprite-sheets/core5-original/tomori-sprite-sheet-v1.png",
+      "requiredVisualInputs": [
+        "assets/reference/character-master/core5/tomori-character-master-v1.png",
+        "public/assets/prototypes/sprite-sheets/core5-original/tomori-sprite-sheet-v1.png"
+      ],
+      "gameUseStatus": "prototype-sheet-only",
+      "notes": [
+        "現在の2画像を品質の最低基準として横並び比較する。",
+        "同一人物性を残し、魅力が上がる造形変更は自由。"
+      ]
+    }
+  ]
+}

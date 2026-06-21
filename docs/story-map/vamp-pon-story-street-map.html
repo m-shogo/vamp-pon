@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vamp Pon Story Street Map</title>
+  <style>
+    @font-face {
+      font-family: "M PLUS Rounded 1c";
+      src: url("../../assets/fonts/google/MPLUSRounded1c-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "M PLUS Rounded 1c";
+      src: url("../../assets/fonts/google/MPLUSRounded1c-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Kiwi Maru";
+      src: url("../../assets/fonts/google/KiwiMaru-Medium.ttf") format("truetype");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root {
+      --bg: #101827;
+      --panel: #17223a;
+      --paper: #eadfbe;
+      --muted: #d4c8a2;
+      --gold: #d8aa55;
+      --fire: #f0a64a;
+      --water: #7db8d8;
+      --light: #f5e8a7;
+      --dark: #4b496a;
+      --neutral: #b8bdc9;
+      --line: rgba(216, 170, 85, .44);
+      --soft: rgba(234, 223, 190, .08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(circle at 50% 0%, #263654 0, var(--bg) 55%);
+      color: var(--paper);
+      font-family: "M PLUS Rounded 1c", sans-serif;
+      line-height: 1.55;
+    }
+    header { padding: 28px 28px 14px; border-bottom: 1px solid var(--line); }
+    h1, h2, h3 { font-family: "Kiwi Maru", "M PLUS Rounded 1c", sans-serif; }
+    h1 { margin: 0; font-size: 28px; letter-spacing: .04em; }
+    h2 { margin: 0 0 12px; font-size: 18px; }
+    h3 { margin: 14px 0 8px; font-size: 15px; color: #f1d994; }
+    p, li, td, th, label, button, select, input, textarea, pre { font-size: 13px; }
+    button, select, input, textarea {
+      border: 1px solid var(--line);
+      background: rgba(16, 24, 39, .94);
+      color: var(--paper);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    button { cursor: pointer; }
+    button:hover, .node:hover { border-color: rgba(245, 232, 167, .85); }
+    textarea { width: 100%; min-height: 92px; resize: vertical; }
+    main { padding: 22px; display: grid; gap: 18px; }
+    .subtitle { color: #d7c998; margin-top: 6px; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 16px; align-items: start; }
+    .section, .detail {
+      border: 1px solid var(--line);
+      background: rgba(12,18,31,.76);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0,0,0,.2);
+    }
+    .toolbar { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr auto; gap: 10px; }
+    .map-scroll { overflow: auto; border-radius: 14px; border: 1px solid rgba(216,170,85,.2); background: rgba(8,13,24,.48); }
+    .map-canvas { position: relative; min-width: 1500px; min-height: 940px; }
+    .edge-svg { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+    .edge-svg line { stroke: rgba(216,170,85,.56); stroke-width: 1.5; }
+    .edge-svg text { fill: #d4c8a2; font-size: 11px; paint-order: stroke; stroke: #101827; stroke-width: 3px; }
+    .node-layer { position: absolute; inset: 0; z-index: 2; }
+    .node {
+      position: absolute;
+      width: 220px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.12)), var(--panel);
+      border-radius: 14px;
+      padding: 13px;
+      min-height: 158px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      transition: transform .12s ease, border-color .12s ease, opacity .12s ease;
+      touch-action: none;
+    }
+    .node:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .node.active { border-color: var(--gold); transform: translateY(-2px); }
+    .node.hidden { display: none; }
+    .node-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+    .node-title strong { font-size: 17px; }
+    .tag { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 12px; margin: 2px 3px 2px 0; color: #111; background: var(--gold); }
+    .fire { background: var(--fire); }
+    .water { background: var(--water); }
+    .light { background: var(--light); }
+    .dark { background: var(--dark); color: white; }
+    .neutral { background: var(--neutral); }
+    .future { color: #c7d2ff; }
+    .s1 { color: #f5e8a7; }
+    .small { font-size: 12px; color: var(--muted); }
+    .path { color: #c9d8ff; }
+    .detail { position: sticky; top: 14px; }
+    .detail dl { display: grid; grid-template-columns: 104px 1fr; gap: 6px 10px; margin: 0; }
+    .detail dt { color: #f1d994; }
+    .detail dd { margin: 0; color: var(--paper); }
+    .chips { margin: 8px 0; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .stat { border: 1px solid rgba(216,170,85,.22); border-radius: 12px; padding: 10px; background: var(--soft); }
+    .stat strong { display: block; font-size: 20px; color: #f1d994; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid rgba(216,170,85,.22); padding: 8px; text-align: left; vertical-align: top; }
+    th { color: #f1d994; }
+    tr[data-click] { cursor: pointer; }
+    tr[data-click]:hover { background: var(--soft); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .count { color: var(--muted); margin: 8px 0 0; }
+    .priority-high { color: #ffd18a; }
+    .priority-mid { color: #c7d2ff; }
+    .priority-low { color: #d4c8a2; }
+    @media (max-width: 1100px) {
+      .layout, .two-col, .stats { grid-template-columns: 1fr; }
+      .detail { position: static; }
+    }
+    @media (max-width: 760px) {
+      main { padding: 14px; }
+      .toolbar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Vamp Pon Story Street Map</h1>
+    <div class="subtitle">内部用。JSON分離 / SVG関係線 / ノード位置保存 / localStorageメモ / review・preview参照。</div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>使い方</h2>
+      <p>ノードをクリックで詳細表示。ドラッグで位置調整。位置とメモはブラウザのlocalStorageに保存されます。</p>
+      <p>基本式: <span class="path">光る持ち物 → 失われた記憶 → 初期アクション → ユイとの関係 → 余白 → 朝</span></p>
+    </section>
+
+    <section class="section stats" id="stats"></section>
+
+    <section class="section toolbar" aria-label="filters">
+      <input id="searchInput" type="search" placeholder="キャラ / 持ち物 / アイテム / 余白 / 次作業で検索" />
+      <select id="lineageFilter" aria-label="属性フィルター">
+        <option value="all">全属性</option>
+        <option value="fire">fire</option>
+        <option value="water">water</option>
+        <option value="light">light</option>
+        <option value="dark">dark</option>
+        <option value="neutral">neutral</option>
+        <option value="lightning">lightning</option>
+        <option value="multi">multi</option>
+      </select>
+      <select id="seasonFilter" aria-label="Seasonフィルター">
+        <option value="all">Season 1 + Future</option>
+        <option value="s1">Season 1</option>
+        <option value="future">Future</option>
+      </select>
+      <select id="statusFilter" aria-label="制作ステータスフィルター">
+        <option value="all">全ステータス</option>
+        <option value="design-now">design-now</option>
+        <option value="trace-only">trace-only</option>
+        <option value="future-seed">future-seed</option>
+        <option value="locked">locked</option>
+      </select>
+      <button id="resetButton" type="button">Reset</button>
+    </section>
+
+    <div class="layout">
+      <section class="section">
+        <h2>Relationship Map</h2>
+        <div class="map-scroll">
+          <div class="map-canvas">
+            <svg id="edgeSvg" class="edge-svg" aria-hidden="true"></svg>
+            <div id="nodeBoard" class="node-layer" aria-live="polite"></div>
+          </div>
+        </div>
+        <p id="visibleCount" class="count"></p>
+      </section>
+
+      <aside id="detailPanel" class="detail" aria-live="polite">
+        <h2>Detail</h2>
+        <p class="small">JSONを読み込み中です。</p>
+      </aside>
+    </div>
+
+    <section class="section two-col">
+      <div>
+        <h2>Item → Character Reverse Lookup</h2>
+        <table><thead><tr><th>Item</th><th>Character</th><th>Meaning</th></tr></thead><tbody id="itemTable"></tbody></table>
+      </div>
+      <div>
+        <h2>Reading Type → Released Clue Lookup</h2>
+        <table><thead><tr><th>Type</th><th>Wrong reading</th><th>Released clue</th></tr></thead><tbody id="readingTable"></tbody></table>
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div>
+        <h2>Relationship Edges</h2>
+        <table><thead><tr><th>From</th><th>To</th><th>Relation</th></tr></thead><tbody id="edgeTable"></tbody></table>
+      </div>
+      <div>
+        <h2>Design Backlog</h2>
+        <table><thead><tr><th>Priority</th><th>Target</th><th>Next action</th></tr></thead><tbody id="backlogTable"></tbody></table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Selected Brief</h2>
+      <p class="small">選択中ノードの制作用メモ。手動コピーしてデザイン依頼に使う。</p>
+      <textarea id="briefBox" readonly></textarea>
+    </section>
+  </main>
+
+  <script src="./vamp-pon-story-map.js"></script>
+</body>
+</html>
