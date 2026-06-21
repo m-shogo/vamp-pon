@@ -22,6 +22,7 @@ import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
+export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
 
@@ -45,11 +46,6 @@ const DEPTH_FLAVOR: Record<ExplorationDepthId, { sub: string; recommend: string 
   middle:  { sub: '標準', recommend: 'バランスよく稼ぐ（Normal）' },
   deep:    { sub: '強め/多め', recommend: 'ビルドが整ったら（Hard）' },
 };
-
-export function isRunStartUrl(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
-  const play = new URLSearchParams(search).get('play');
-  return play === '1' || play === 'true';
-}
 
 export class StageSelectScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;

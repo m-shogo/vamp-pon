@@ -30,6 +30,7 @@ import { buildPlayLog } from '../domain/playLog';
 import { loadProfile, settleRunProgress } from '../persistence/profile';
 import { settleCollectionProgress, type CollectionSettlement } from '../systems/collectionProgress';
 import { STORYBOOK_FONT } from '../ui/storybookUi';
+import { isRunStartUrl } from '../utils/runStartUrl';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
@@ -125,7 +126,7 @@ export class MainScene extends Phaser.Scene {
       this.state.status = GAME_STATUS.PLAYING;
       if (isBerserkQaAutoRequested()) this.state.berserkRequested = true;
     };
-    if (new URLSearchParams(window.location.search).get('play') === 'true') {
+    if (isRunStartUrl()) {
       startRun();
     } else {
       this.overlays.showReady(startRun);

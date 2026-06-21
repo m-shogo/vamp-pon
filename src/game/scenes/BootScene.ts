@@ -8,7 +8,7 @@ import { isWeaponFeedbackQaUrl as isFxQaUrl } from './WeaponFeedbackQaScene';
 import { isYui96QaUrl } from './Yui96QaScene';
 import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
-import { isRunStartUrl } from './StageSelectScene';
+import { isRunStartUrl } from '../utils/runStartUrl';
 import { loadGameFonts } from '../ui/fonts';
 
 export class BootScene extends Phaser.Scene {

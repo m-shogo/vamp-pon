@@ -20,7 +20,7 @@ export class EffectManager {
   private comboCount = 0;
   private lastKillAtMs = Number.NEGATIVE_INFINITY;
   private comboHudText: Phaser.GameObjects.Text | null = null;
-  private comboHudUntilMs = 0;
+  private comboHideTimer: Phaser.Time.TimerEvent | null = null;
   private expAbsorbWindowCount = 0;
   private lastExpAbsorbAtMs = Number.NEGATIVE_INFINITY;
   private lastExpMassBurstAtMs = Number.NEGATIVE_INFINITY;
@@ -151,7 +151,7 @@ export class EffectManager {
   enemyDeathBurst(x: number, y: number, options?: EffectOptions): void {
     const elite = options?.elite === true;
     const combo = options?.combo ?? this.registerKillCombo();
-    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.death);
+    this.hitStop(this.deathHitStopMs(combo, options));
     const inkCountBase = this.enemyDeathInkCount(options?.defId, elite);
     const memoryCountBase = elite ? GAME_FEEL_CONFIG.juice.enemyDeathMemoryParticles.elite : GAME_FEEL_CONFIG.juice.enemyDeathMemoryParticles.normal;
     const particleBudget = inkCountBase + memoryCountBase + 5;
@@ -445,12 +445,19 @@ export class EffectManager {
 
   destroy(): void {
     if (this.hitStopTimer) clearTimeout(this.hitStopTimer);
+    this.comboHideTimer?.remove(false);
+    this.comboHideTimer = null;
     this.hitStopTimer = null;
     this.hitStopUntilMs = 0;
     this.scene.time.timeScale = 1;
     this.activeParticles = 0;
     this.comboHudText?.destroy();
     this.comboHudText = null;
+    this.comboCount = 0;
+    this.lastKillAtMs = Number.NEGATIVE_INFINITY;
+    this.expAbsorbWindowCount = 0;
+    this.lastExpAbsorbAtMs = Number.NEGATIVE_INFINITY;
+    this.lastExpMassBurstAtMs = Number.NEGATIVE_INFINITY;
   }
 
   private scheduleHitStopRelease(): void {
@@ -516,7 +523,6 @@ export class EffectManager {
   }
 
   private updateComboHud(combo: number): void {
-    this.comboHudUntilMs = this.sceneNowMs() + 1200;
     const strong = combo >= 20;
     const huge = combo >= 50;
     if (!this.comboHudText) {
@@ -543,8 +549,10 @@ export class EffectManager {
       yoyo: true,
       ease: 'Quad.easeOut',
     });
-    this.scene.time.delayedCall(1250, () => {
-      if (!this.comboHudText || this.sceneNowMs() < this.comboHudUntilMs) return;
+    this.comboHideTimer?.remove(false);
+    this.comboHideTimer = this.scene.time.delayedCall(1250, () => {
+      this.comboHideTimer = null;
+      if (!this.comboHudText) return;
       this.scene.tweens.add({ targets: this.comboHudText, alpha: 0, duration: 220 });
     });
     if (huge) this.expMassBurst(GAME_WIDTH - 72, 108);
@@ -664,6 +672,15 @@ export class EffectManager {
     if (defId === 'black_label_shadow') return GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.omburo;
     if (defId) return GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.ombu;
     return elite ? GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.elite : GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.normal;
+  }
+
+  private deathHitStopMs(combo: number, options?: EffectOptions): number {
+    if (options?.defId === 'black_label_shadow') return GAME_FEEL_CONFIG.hitStopMs.death;
+    if (options?.elite) return Math.min(GAME_FEEL_CONFIG.hitStopMs.death, 70);
+    if (combo >= 50 && combo % 50 === 0) return GAME_FEEL_CONFIG.hitStopMs.death;
+    if (combo >= 20 && combo % 20 === 0) return 64;
+    if (combo >= 10 && combo % 10 === 0) return 44;
+    return 16;
   }
 
   private levelNumberPop(label: string): void {
