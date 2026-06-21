@@ -16,6 +16,30 @@ export type SeKey =
   | 'bossWarning'
   | 'clear';
 
+export type AudioAssetSpec = {
+  key: string;
+  kind: 'se' | 'bgm';
+  durationSec?: [number, number];
+  description: string;
+};
+
+export const AUDIO_ASSET_SPECS: readonly AudioAssetSpec[] = [
+  { key: 'se_hit', kind: 'se', durationSec: [0.04, 0.08], description: '敵に当たった瞬間。短く紙とインクが弾ける音。' },
+  { key: 'se_enemyDeath', kind: 'se', durationSec: [0.08, 0.18], description: '影がほどける音。連続killでrateを少し上げる。' },
+  { key: 'se_expCollect', kind: 'se', durationSec: [0.03, 0.08], description: '記憶片の取得。pitch ladder向け。' },
+  { key: 'se_levelUp', kind: 'se', durationSec: [0.5, 1.0], description: 'ご褒美感のあるランタン/紙片の上昇音。BGM duck対象。' },
+  { key: 'se_evolution', kind: 'se', durationSec: [0.8, 1.4], description: '進化専用。紙片が集まって光る音。BGM duck対象。' },
+  { key: 'se_heal', kind: 'se', durationSec: [0.1, 0.25], description: '柔らかい回復音。' },
+  { key: 'se_playerDamage', kind: 'se', durationSec: [0.1, 0.25], description: '被弾。痛いが耳に刺さらない低い紙擦れ。' },
+  { key: 'se_ultimate', kind: 'se', durationSec: [0.5, 1.2], description: '必殺。横方向の光と同期。BGM duck対象。' },
+  { key: 'se_blackMode', kind: 'se', durationSec: [0.5, 1.2], description: '黒耀化。黒炎の脈動。BGM duck対象。' },
+  { key: 'se_bossWarning', kind: 'se', durationSec: [0.5, 1.0], description: 'ボス警告。短い低域と紙の震え。' },
+  { key: 'se_clear', kind: 'se', durationSec: [0.6, 1.2], description: 'クリア/朝演出。BGM duck対象。' },
+  { key: 'bgm_stage1', kind: 'bgm', description: 'Stage1通常BGM。ループ前提。' },
+  { key: 'bgm_boss', kind: 'bgm', description: 'ボス/オンブロBGM。ループ前提。' },
+  { key: 'bgm_clear', kind: 'bgm', description: '朝/リザルト寄りBGM。ループまたは短尺。' },
+] as const;
+
 type AudioVolumes = {
   master: number;
   bgm: number;
@@ -80,7 +104,7 @@ export class AudioManager {
     const duck = DUCK_ON_SE[key];
     if (duck) this.duckBgm(duck.duration, duck.amount);
 
-    const soundKey = `se_${key}`;
+    const soundKey = soundKeyForSe(key);
     if (!this.scene.cache.audio.exists(soundKey)) {
       this.warnMissingOnce(soundKey);
       this.playFallbackSe(key, options);
@@ -271,6 +295,10 @@ export class AudioManager {
     // eslint-disable-next-line no-console
     console.debug(`[vamp-pon audio] missing optional sound: ${key}`);
   }
+}
+
+function soundKeyForSe(key: SeKey): string {
+  return `se_${key}`;
 }
 
 function clampVolume(value: number): number {

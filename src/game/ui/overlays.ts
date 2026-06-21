@@ -451,6 +451,7 @@ export class Overlays {
     const titlePrefix = cleared ? '◆' : '◇'; // 絵文字依存を避け、装飾は記号で
     root.add(this.text(GAME_WIDTH / 2, 86, `${titlePrefix} ${titleText}`, 26, STORYBOOK_UI.textLight, true));
     root.add(this.text(GAME_WIDTH / 2, 116, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.goldLight, true));
+    this.addResultRank(root, cleared, state.player.level, stats.kills, stats.evolutions.length);
 
     // 「主要結果カード」: 紙パネル上に行ごとに アイコン色 + ラベル + 値
     const cardX = GAME_WIDTH / 2;
@@ -541,6 +542,8 @@ export class Overlays {
       this.clear();
       onTop();
     }, true));
+    root.setAlpha(0);
+    this.scene.tweens.add({ targets: root, alpha: 1, duration: 180, ease: 'Quad.easeOut' });
   }
 
   showPause(
@@ -660,6 +663,33 @@ export class Overlays {
     });
   }
 
+  private addResultRank(
+    root: Phaser.GameObjects.Container,
+    cleared: boolean,
+    level: number,
+    kills: number,
+    evolutions: number,
+  ): void {
+    const rank = resultRank(cleared, level, kills, evolutions);
+    const accent = rank === 'S' ? 0xf5d58a : rank === 'A' ? 0xffc1a8 : rank === 'B' ? 0xa6e3a1 : 0xcabda8;
+    const seal = this.scene.add.circle(GAME_WIDTH - 58, 92, 30, 0x120f20, 0.92);
+    seal.setStrokeStyle(2, accent, 0.94);
+    const rankText = this.scene.add.text(GAME_WIDTH - 58, 91, rank, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '30px',
+      color: colorString(accent),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5);
+    root.add([seal, rankText]);
+    this.scene.tweens.add({
+      targets: [seal, rankText],
+      scale: { from: 0.78, to: 1 },
+      duration: 260,
+      ease: 'Back.easeOut',
+    });
+  }
+
   private button(
     x: number,
     y: number,
@@ -730,6 +760,13 @@ function evolutionResultLabel(evolvedWeaponId: string): string {
 
 function formatSeconds(value: number | null): string {
   return value === null ? '--' : `${value.toFixed(1)}s`;
+}
+
+function resultRank(cleared: boolean, level: number, kills: number, evolutions: number): string {
+  if (cleared && (evolutions >= 1 || level >= 10 || kills >= 180)) return 'S';
+  if (cleared || level >= 7 || kills >= 120) return 'A';
+  if (level >= 4 || kills >= 60) return 'B';
+  return 'C';
 }
 
 function colorString(color: string | number): string {

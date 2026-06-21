@@ -3,7 +3,8 @@ import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { forgottenStreetNightBoard } from '../data/collectionProgress';
 import { loadCollectionProgress } from '../persistence/collection';
 import { loadProfile } from '../persistence/profile';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import { attachPressFeedback } from '../ui/pressFeedback';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
 
 export class TopScene extends Phaser.Scene {
   private notice: Phaser.GameObjects.Text | null = null;
@@ -57,9 +58,20 @@ export class TopScene extends Phaser.Scene {
 
   private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
-    const fill = this.add.rectangle(0, 0, width, height, muted ? 0x3c355f : 0xb8954e, muted ? 0.82 : 0.95);
-    fill.setStrokeStyle(1, muted ? 0x6f6590 : 0xf5d58a, 0.9);
+    const fill = this.add.graphics();
+    if (muted) drawStorybookPanel(fill, 0, 0, width, height, 0x25213d, 0x6f6590, 0.9);
+    else drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, {
+      x,
+      y,
+      width,
+      height,
+      accent: muted ? 0x6f6590 : STORYBOOK_UI.goldLight,
+      depth: 1000,
+      strong: true,
+      shake: !muted,
+    });
     hit.on('pointerdown', onClick);
     c.add([fill, this.text(0, 0, label, 15, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
     return c;

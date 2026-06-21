@@ -233,8 +233,17 @@ function addImageCutin(
     .setAlpha(0.99);
   const topLine = scene.add.rectangle(GAME_WIDTH / 2, y - CUTIN_BANNER_HEIGHT / 2 + 2, GAME_WIDTH + 72, 5, accent, 0.86).setBlendMode('ADD');
   const bottomLine = scene.add.rectangle(GAME_WIDTH / 2, y + CUTIN_BANNER_HEIGHT / 2 - 2, GAME_WIDTH + 72, 5, accent, 0.66).setBlendMode('ADD');
+  const labelBack = scene.add.rectangle(86, y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, isBerserk ? 0x120818 : 0x2f2310, 0.78);
+  labelBack.setStrokeStyle(1, accent, 0.82);
+  const label = scene.add.text(86, labelBack.y, isBerserk ? '黒耀化' : '必殺', {
+    fontFamily: TITLE_FONT,
+    fontSize: '18px',
+    color: isBerserk ? '#f4d9fa' : '#fff0b3',
+    fontStyle: 'bold',
+    resolution: 2,
+  }).setOrigin(0.5);
 
-  root.add([image, topLine, bottomLine]);
+  root.add([image, topLine, bottomLine, labelBack, label]);
 }
 
 function addFallbackCutin(

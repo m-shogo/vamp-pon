@@ -32,3 +32,5 @@ Vamp Pon の音素材は未配置でも落ちない。実素材を追加する�
 - 敵死亡は `playEnemyDeath(comboCount, elite)` で連続killに合わせてrateを少し上げる。
 - LvUp、進化、必殺、黒耀化は BGM duck 対象。
 - 素材がない環境では Web Audio oscillator fallback を鳴らし、ゲーム進行は止めない。
+- 実装側の受け口は `src/game/audio/AudioManager.ts` の `AUDIO_ASSET_SPECS` を正本にする。
+- 素材キーは `se_<key>` / `bgm_*` のまま差し込めるようにし、演出コード側へファイル名を散らさない。

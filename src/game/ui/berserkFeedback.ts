@@ -1,4 +1,4 @@
-import type Phaser from 'phaser';
+import Phaser from 'phaser';
 import type { RuntimeState } from '../runtime';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
@@ -142,6 +142,8 @@ export class BerserkFeedback {
     this.scene.cameras.main.shake(160, 0.0035);
     playCharacterCutin(this.scene, 'berserk');
     this.spawnInkRing(state.player.x, state.player.y, 0x24162f, 360);
+    this.spawnInkRing(state.player.x, state.player.y, 0xb94b91, 520);
+    this.spawnBlackFlame(state.player.x, state.player.y);
   }
 
   private onFatigueStart(state: RuntimeState): void {
@@ -160,6 +162,28 @@ export class BerserkFeedback {
       ease: 'Cubic.easeOut',
       onComplete: () => ring.destroy(),
     });
+  }
+
+  private spawnBlackFlame(x: number, y: number): void {
+    for (let i = 0; i < 12; i += 1) {
+      const angle = (Math.PI * 2 * i) / 12;
+      const flame = this.scene.add
+        .ellipse(x, y, 7, 14, i % 3 === 0 ? 0xb94b91 : 0x09040d, i % 3 === 0 ? 0.62 : 0.78)
+        .setDepth(VIEW_DEPTH.player - 1)
+        .setAngle(Phaser.Math.RadToDeg(angle));
+      if (i % 3 === 0) flame.setBlendMode('ADD');
+      this.scene.tweens.add({
+        targets: flame,
+        x: x + Math.cos(angle) * (38 + (i % 4) * 8),
+        y: y + Math.sin(angle) * (28 + (i % 5) * 7) - 10,
+        scaleX: 0.35,
+        scaleY: 1.5,
+        alpha: 0,
+        duration: 520,
+        ease: 'Cubic.easeOut',
+        onComplete: () => flame.destroy(),
+      });
+    }
   }
 
   private setEdgeAlpha(alpha: number): void {
