@@ -16,7 +16,12 @@ export class TopScene extends Phaser.Scene {
     super('TopScene');
   }
 
+  shutdown(): void {
+    this.tweens.killAll();
+  }
+
   create(): void {
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.shutdown, this);
     const profile = loadProfile();
     const collection = loadCollectionProgress();
     const boardCount = collection.nightBoard.completedCellIds.length;

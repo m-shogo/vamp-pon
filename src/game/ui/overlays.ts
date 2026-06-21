@@ -50,7 +50,12 @@ export class Overlays {
   constructor(private scene: Phaser.Scene) {}
 
   clear(): void {
-    this.current?.destroy(true);
+    if (this.current) {
+      this.current.each((child: Phaser.GameObjects.GameObject) => {
+        this.scene.tweens.killTweensOf(child);
+      });
+      this.current.destroy(true);
+    }
     this.current = null;
   }
 
@@ -531,7 +536,11 @@ export class Overlays {
 
     // ひとこと
     const messageY = cardTopY + cardHeight + (evolutionLabels.length > 0 ? 44 : 22);
-    root.add(this.text(GAME_WIDTH / 2, messageY, cleared ? '黒いインクの下に、まだ道が残っている。' : 'まだ、戻せていない名前がある。', 12, STORYBOOK_UI.textMuted));
+    const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
+    const motivationMessage = cleared
+      ? rank === 'S' ? '完璧な夜明け。すべての灯りが集まった。' : '黒いインクの下に、まだ道が残っている。'
+      : state.player.level >= 4 ? 'もう少しで夜明けだった。成長で灯りを強くしよう。' : 'まだ、戻せていない名前がある。';
+    root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));
 
     // 細かい時刻ログ（小さめ・緑）— 2行に分けて読みやすく
     const timeLineY = messageY + 28;

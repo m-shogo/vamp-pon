@@ -83,6 +83,17 @@ export class AudioManager {
     this.volumes = this.loadVolumes();
   }
 
+  preloadAudioAssets(scene: Phaser.Scene): void {
+    for (const spec of AUDIO_ASSET_SPECS) {
+      if (scene.cache.audio.exists(spec.key)) continue;
+      scene.load.audio(spec.key, [
+        `assets/audio/${spec.key}.ogg`,
+        `assets/audio/${spec.key}.mp3`,
+        `assets/audio/${spec.key}.wav`,
+      ]);
+    }
+  }
+
   unlockOnFirstInput(): void {
     if (!this.scene || this.unlocked || this.unlockHandler) return;
     const scene = this.scene;
