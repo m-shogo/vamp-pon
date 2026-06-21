@@ -30,6 +30,7 @@ import { buildPlayLog } from '../domain/playLog';
 import { loadProfile, settleRunProgress } from '../persistence/profile';
 import { settleCollectionProgress, type CollectionSettlement } from '../systems/collectionProgress';
 import { STORYBOOK_FONT } from '../ui/storybookUi';
+import { isRunStartUrl } from '../utils/runStartUrl';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
@@ -121,10 +122,15 @@ export class MainScene extends Phaser.Scene {
       this.hud.destroy();
     });
 
-    this.overlays.showReady(() => {
+    const startRun = () => {
       this.state.status = GAME_STATUS.PLAYING;
       if (isBerserkQaAutoRequested()) this.state.berserkRequested = true;
-    });
+    };
+    if (isRunStartUrl()) {
+      startRun();
+    } else {
+      this.overlays.showReady(startRun);
+    }
 
     this.hud.update(this.state);
     this.pacingEffects.update(this.state);
@@ -150,11 +156,15 @@ export class MainScene extends Phaser.Scene {
   private tryAutoPause(): void {
     if (this.state.status !== GAME_STATUS.PLAYING) return;
     this.state.status = GAME_STATUS.PAUSED;
+    this.tweens.pauseAll();
     this.overlays.showPause(
-      () => { this.state.status = GAME_STATUS.PLAYING; },
-      () => this.goToTop(),
-      () => this.goToMenu('stage'),
-      () => this.goToMenu('growth'),
+      () => {
+        this.tweens.resumeAll();
+        this.state.status = GAME_STATUS.PLAYING;
+      },
+      () => this.leavePausedScene(() => this.goToTop()),
+      () => this.leavePausedScene(() => this.goToMenu('stage')),
+      () => this.leavePausedScene(() => this.goToMenu('growth')),
     );
   }
 
@@ -172,16 +182,21 @@ export class MainScene extends Phaser.Scene {
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
+      const wasBerserkActive = state.berserk.activeRemaining > 0;
       const berserkActivated = updateBerserk(state, dt, this);
       if (berserkActivated) {
         this.audio.playSe('blackMode', { volume: 0.86 });
         this.effects.blackAura(state.playerView);
+      }
+      if (wasBerserkActive && state.berserk.activeRemaining <= 0 && state.berserk.fatigueRemaining > 0) {
+        this.effects.blackAuraRelease(state.player.x, state.player.y);
       }
       this.berserkFeedback.update(state);
       this.resolveTransitions();
     }
 
     this.hud.update(state);
+    this.effects.dangerPulse(state.player.hp / state.player.maxHp);
     this.pacingEffects.update(state);
     this.updateDebugSnapshot();
   }
@@ -244,6 +259,10 @@ export class MainScene extends Phaser.Scene {
     const state = this.state;
     const previousEvolutions = new Set(state.stats.evolutions);
     applyChoice(state, choice);
+    if (choice.type === 'rare_new') {
+      this.audio.playSe('levelUp', { volume: 0.62, rate: 1.08 });
+      this.effects.rarePickup(state.player.x, state.player.y, { label: 'RARE' });
+    }
     for (const evolvedWeaponId of state.stats.evolutions) {
       if (previousEvolutions.has(evolvedWeaponId)) continue;
       const name = weaponById.get(evolvedWeaponId)?.name ?? evolvedWeaponId;
@@ -382,6 +401,9 @@ export class MainScene extends Phaser.Scene {
     };
 
     if (cleared) {
+      this.audio.playSe('clear', { volume: 0.7 });
+      this.audio.duckBgm(900, 0.55);
+      this.effects.clearDawn();
       this.pacingEffects.playClearTransition(showResult);
     } else {
       showResult();
@@ -414,6 +436,11 @@ export class MainScene extends Phaser.Scene {
   private goToTop(): void {
     this.replaceMenuUrl();
     this.scene.start('TopScene');
+  }
+
+  private leavePausedScene(go: () => void): void {
+    this.tweens.resumeAll();
+    go();
   }
 
   private goToMenu(mode: 'stage' | 'growth'): void {

@@ -2,8 +2,8 @@ import type Phaser from 'phaser';
 import type { EnemyDefinition } from '../domain/types';
 import type { RuntimeState, EnemyRuntime } from '../runtime';
 import { nextIid } from '../runtime';
-import { PLAYER_DEFAULTS, COLORS, GAME_STATUS } from '../domain/constants';
-import { distance } from '../utils/math';
+import { PLAYER_DEFAULTS, COLORS, GAME_STATUS, GAME_WIDTH, GAME_HEIGHT } from '../domain/constants';
+import { clamp, distance, normalize } from '../utils/math';
 import { randRange } from '../utils/rng';
 import { capsuleDropChanceFor, chargerPhaseFor, computeBehaviorStep } from '../domain/enemyRules';
 import { createEnemyView, enemyRadiusFor } from '../ui/factory';
@@ -69,10 +69,20 @@ export function spawnEnemy(
     dead: false,
   };
   state.enemies.push(enemy);
+  if (def.id === 'black_label_shadow' && scene.data.get('vampPonBossWarningShown') !== true) {
+    scene.data.set('vampPonBossWarningShown', true);
+    getAudioManager(scene).playSe('bossWarning', { volume: 0.72 });
+    getEffectManager(scene).bossWarning({ label: 'オンブロ 接近' });
+  }
 }
 
 /** プレイヤー被弾処理。暴走ゲージは実際に失ったHPだけで増える。 */
-export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amount: number): void {
+export function applyPlayerDamage(
+  scene: Phaser.Scene,
+  state: RuntimeState,
+  amount: number,
+  source?: { x: number; y: number; strong?: boolean },
+): void {
   const p = state.player;
   if (p.invulnRemaining > 0) return;
   const reducedAmount = amount * profileBonuses().damageTakenMultiplier;
@@ -84,8 +94,17 @@ export function applyPlayerDamage(scene: Phaser.Scene, state: RuntimeState, amou
   if (state.telemetry.firstDamageSec === null) state.telemetry.firstDamageSec = state.elapsedSec;
   p.invulnRemaining = PLAYER_DEFAULTS.invulnSec;
   p.flashRemaining = PLAYER_DEFAULTS.invulnSec;
+  if (source) {
+    const dir = normalize(p.x - source.x, p.y - source.y);
+    const knockback = source.strong ? 10 : 6;
+    p.x = clamp(p.x + dir.x * knockback, p.radius, GAME_WIDTH - p.radius);
+    p.y = clamp(p.y + dir.y * knockback, p.radius, GAME_HEIGHT - p.radius);
+    state.playerView.setPosition(p.x, p.y);
+  }
   getAudioManager(scene).playSe('playerDamage', { volume: 0.82 });
-  getEffectManager(scene).playerDamage();
+  const effects = getEffectManager(scene);
+  effects.playerDamage();
+  effects.playerDamageView(state.playerView, { sourceX: source?.x, sourceY: source?.y, strong: source?.strong });
   shakeOnHit(scene);
   if (p.hp <= 0) {
     p.hp = 0;
@@ -98,10 +117,11 @@ export function damageEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Ene
   if (enemy.dead) return;
   enemy.hp -= amount * berserkDamageMultiplier(state);
   enemy.flashRemaining = FLASH_SEC;
-  enemy.view.setScale(1.22);
+  const effects = getEffectManager(scene);
+  effects.enemyHitView(enemy.view, enemy.x, enemy.y, state.player.x, state.player.y, { elite: enemy.isElite });
   getAudioManager(scene).playSe('hit', { volume: 0.42, rate: 0.95 + Math.random() * 0.1 });
-  getEffectManager(scene).hit(enemy.x, enemy.y, { elite: enemy.isElite });
-  if (amount >= enemy.maxHp * 0.2) getEffectManager(scene).hitStop(GAME_FEEL_CONFIG.hitStopMs.hit);
+  effects.hit(enemy.x, enemy.y, { elite: enemy.isElite, strong: amount >= enemy.maxHp * 0.2 });
+  if (amount >= enemy.maxHp * 0.2) effects.hitStop(GAME_FEEL_CONFIG.hitStopMs.hit);
   const blob = enemy.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
   if (blob) blob.setFillStyle(0xffffff, 1);
   if (enemy.hp <= 0) {
@@ -120,7 +140,11 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     state.telemetry.eliteKillSecs.push(state.elapsedSec);
   }
   const effects = getEffectManager(scene);
-  effects.enemyDeath(enemy.x, enemy.y, { elite: enemy.isElite });
+  effects.enemyDeath(enemy.x, enemy.y, {
+    elite: enemy.isElite,
+    defId: enemy.defId,
+    black: (state.berserk?.activeRemaining ?? 0) > 0,
+  });
   getAudioManager(scene).playEnemyDeath(effects.combo(), enemy.isElite);
 
   const count = Math.max(1, Math.min(Math.ceil(enemy.xpDrop), 5));
@@ -141,14 +165,7 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
   }
 
   inkPuff(scene, enemy.x, enemy.y, enemy.radius, enemy.isElite);
-  scene.tweens.add({
-    targets: enemy.view,
-    scale: enemy.isElite ? 1.35 : 1.26,
-    alpha: 0,
-    duration: enemy.isElite ? 210 : 160,
-    ease: 'Quad.easeOut',
-    onComplete: () => enemy.view.destroy(),
-  });
+  effects.enemyDeathView(enemy.view, { elite: enemy.isElite, defId: enemy.defId });
   enemy.hpBar?.destroy();
 }
 
@@ -302,7 +319,7 @@ function createInkPuddleThreat(
     }
     const p = state.player;
     const inRange = distance(x, y, p.x, p.y) <= radius + p.radius;
-    if (inRange) applyPlayerDamage(scene, state, damage);
+    if (inRange) applyPlayerDamage(scene, state, damage, { x, y, strong: true });
     inkPuff(scene, x, y, radius * 0.45, false);
     scene.tweens.add({
       targets: g,
@@ -359,7 +376,7 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
     }
 
     const d = distance(e.x, e.y, p.x, p.y);
-    if (d <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage);
+    if (d <= e.radius + p.radius) applyPlayerDamage(scene, state, e.contactDamage, { x: e.x, y: e.y, strong: e.isElite });
   }
 
   state.enemies = state.enemies.filter((e) => !e.dead);

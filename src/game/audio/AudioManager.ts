@@ -32,6 +32,14 @@ const MIN_INTERVAL_MS: Partial<Record<SeKey, number>> = {
   bossWarning: 900,
 };
 
+const DUCK_ON_SE: Partial<Record<SeKey, { duration: number; amount: number }>> = {
+  levelUp: { duration: 420, amount: 0.28 },
+  evolution: { duration: 620, amount: 0.42 },
+  ultimate: { duration: 420, amount: 0.34 },
+  blackMode: { duration: 520, amount: 0.32 },
+  clear: { duration: 900, amount: 0.48 },
+};
+
 export class AudioManager {
   private scene: Phaser.Scene | null = null;
   private volumes: AudioVolumes = { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false };
@@ -69,6 +77,8 @@ export class AudioManager {
     const last = this.lastPlayedAt.get(key) ?? Number.NEGATIVE_INFINITY;
     if (now - last < minInterval) return;
     this.lastPlayedAt.set(key, now);
+    const duck = DUCK_ON_SE[key];
+    if (duck) this.duckBgm(duck.duration, duck.amount);
 
     const soundKey = `se_${key}`;
     if (!this.scene.cache.audio.exists(soundKey)) {

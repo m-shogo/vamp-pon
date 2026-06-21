@@ -5,10 +5,12 @@ import { VIEW_DEPTH } from '../ui/factory';
 
 type EffectOptions = {
   elite?: boolean;
+  defId?: string;
   label?: string;
   strong?: boolean;
   combo?: number;
   target?: { x: number; y: number };
+  black?: boolean;
 };
 
 export class EffectManager {
@@ -17,6 +19,11 @@ export class EffectManager {
   private hitStopTimer: ReturnType<typeof setTimeout> | null = null;
   private comboCount = 0;
   private lastKillAtMs = Number.NEGATIVE_INFINITY;
+  private comboHudText: Phaser.GameObjects.Text | null = null;
+  private comboHideTimer: Phaser.Time.TimerEvent | null = null;
+  private expAbsorbWindowCount = 0;
+  private lastExpAbsorbAtMs = Number.NEGATIVE_INFINITY;
+  private lastExpMassBurstAtMs = Number.NEGATIVE_INFINITY;
 
   constructor(private scene: Phaser.Scene) {}
 
@@ -49,10 +56,41 @@ export class EffectManager {
   }
 
   playerDamage(): void {
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.playerDamage);
     const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0xd94545, 0.16)
       .setDepth(VIEW_DEPTH.overlay - 8);
     this.scene.tweens.add({ targets: flash, alpha: 0, duration: 180, onComplete: () => flash.destroy() });
     this.screenShake('playerDamage');
+  }
+
+  playerDamageView(view: Phaser.GameObjects.Container, options?: { sourceX?: number; sourceY?: number; strong?: boolean }): void {
+    const sourceX = options?.sourceX ?? view.x - 1;
+    const sourceY = options?.sourceY ?? view.y;
+    const dx = view.x - sourceX;
+    const dy = view.y - sourceY;
+    const len = Math.max(1, Math.hypot(dx, dy));
+    const ox = (dx / len) * (options?.strong ? 9 : 6);
+    const oy = (dy / len) * (options?.strong ? 9 : 6);
+    const sprite = view.list.find((child) => child instanceof Phaser.GameObjects.Image) as Phaser.GameObjects.Image | undefined;
+    const originalTint = sprite?.tintTopLeft;
+    sprite?.setTint(0xffffff);
+    view.setAlpha(1);
+    view.setScale(1.1);
+    this.scene.tweens.add({
+      targets: view,
+      x: view.x + ox,
+      y: view.y + oy,
+      scale: 1,
+      duration: 64,
+      ease: 'Quad.easeOut',
+      onComplete: () => {
+        if (sprite) {
+          if (originalTint && originalTint !== 0xffffff) sprite.setTint(originalTint);
+          else sprite.clearTint();
+        }
+      },
+    });
+    if (options?.strong) this.cameraShakeSmall(1.25);
   }
 
   screenShake(kind: keyof typeof GAME_FEEL_CONFIG.screenShakeIntensity): void {
@@ -74,32 +112,91 @@ export class EffectManager {
     if (options?.strong) this.cameraShakeSmall(elite ? 1.2 : 0.8);
   }
 
+  enemyHitView(
+    view: Phaser.GameObjects.Container,
+    x: number,
+    y: number,
+    sourceX: number,
+    sourceY: number,
+    options?: EffectOptions,
+  ): void {
+    const elite = options?.elite === true;
+    const dx = x - sourceX;
+    const dy = y - sourceY;
+    const len = Math.max(1, Math.hypot(dx, dy));
+    const knockback = elite ? 3 : 5;
+    this.scene.tweens.killTweensOf(view);
+    view.setScale(elite ? 1.16 : 1.14);
+    view.setAlpha(1);
+    this.scene.tweens.add({
+      targets: view,
+      x: x + (dx / len) * knockback,
+      y: y + (dy / len) * knockback,
+      scale: 1,
+      duration: 60,
+      ease: 'Quad.easeOut',
+      onComplete: () => view.setPosition(x, y),
+    });
+
+    const sprite = view.list.find((child) => child instanceof Phaser.GameObjects.Image) as Phaser.GameObjects.Image | undefined;
+    const blob = view.getData('blob') as Phaser.GameObjects.Arc | undefined;
+    sprite?.setTint(elite ? 0xd7ccff : 0xfff2d4);
+    blob?.setFillStyle(0xffffff, 1);
+    this.scene.time.delayedCall(55, () => {
+      sprite?.clearTint();
+      blob?.setFillStyle(elite ? COLORS.enemyElite : COLORS.enemyInk, 1);
+    });
+  }
+
   enemyDeathBurst(x: number, y: number, options?: EffectOptions): void {
     const elite = options?.elite === true;
     const combo = options?.combo ?? this.registerKillCombo();
-    const particleBudget = elite ? 20 : 14;
+    this.hitStop(this.deathHitStopMs(combo, options));
+    const inkCountBase = this.enemyDeathInkCount(options?.defId, elite);
+    const memoryCountBase = elite ? GAME_FEEL_CONFIG.juice.enemyDeathMemoryParticles.elite : GAME_FEEL_CONFIG.juice.enemyDeathMemoryParticles.normal;
+    const particleBudget = inkCountBase + memoryCountBase + 5;
     if (this.canEmit(particleBudget)) {
-      const inkCount = this.qualityCount(elite ? 14 : 9);
+      const inkCount = this.qualityCount(inkCountBase);
+      const memoryCount = this.qualityCount(memoryCountBase);
       const scrapCount = this.qualityCount(elite ? 5 : 3);
       for (let i = 0; i < inkCount; i += 1) {
-        this.particle(x, y, elite ? COLORS.enemyEliteEdge : COLORS.enemyInkEdge, 2.4 + Math.random() * 2.4, 230 + Math.random() * 140, Math.random() * Math.PI * 2, 18 + Math.random() * 32);
+        const color = options?.black ? 0x0b0711 : elite ? COLORS.enemyEliteEdge : COLORS.enemyInkEdge;
+        this.particle(x, y, color, 2.3 + Math.random() * 2.8, 200 + Math.random() * 150, Math.random() * Math.PI * 2, 18 + Math.random() * 36);
+      }
+      for (let i = 0; i < memoryCount; i += 1) {
+        this.particle(x, y, 0xfff6df, 1.8 + Math.random() * 1.6, 160 + Math.random() * 90, -Math.PI / 2 + (Math.random() - 0.5) * 1.8, 16 + Math.random() * 28);
       }
       for (let i = 0; i < scrapCount; i += 1) {
         this.paperScrap(x, y, elite);
       }
     }
     this.glowPop(x, y, elite ? 24 : 17, elite ? 0xffd8a0 : COLORS.fragmentGlow, elite ? 0.24 : 0.18, elite ? 280 : 210);
-    if (elite) this.cameraShakeSmall(1.5);
+    if (elite || options?.defId === 'black_label_shadow') this.cameraShakeSmall(options?.defId === 'black_label_shadow' ? 1.85 : 1.5);
+    if (options?.black) this.blackAfterimage(x, y);
     this.comboFeedback(combo);
   }
 
+  enemyDeathView(view: Phaser.GameObjects.Container, options?: EffectOptions): void {
+    this.scene.tweens.killTweensOf(view);
+    view.setScale(options?.elite ? 1.16 : 1.1);
+    this.scene.tweens.add({
+      targets: view,
+      scale: 0.8,
+      alpha: 0,
+      duration: GAME_FEEL_CONFIG.juice.enemyDeathFadeMs,
+      ease: 'Quad.easeIn',
+      onComplete: () => view.destroy(),
+    });
+  }
+
   expVacuum(x: number, y: number, targetX: number, targetY: number): void {
-    if (!this.canEmit(loadGameFeelSettings().lowSpecMode ? 1 : 3)) return;
+    const settings = loadGameFeelSettings();
+    if (!this.canEmit(settings.lowSpecMode ? 1 : 3)) return;
     const dot = this.scene.add.circle(x, y, 3.3, COLORS.fragmentGlow, 0.82).setDepth(VIEW_DEPTH.pickup + 3);
     const midX = (x + targetX) / 2 + (Math.random() < 0.5 ? -1 : 1) * (12 + Math.random() * 18);
     const midY = (y + targetY) / 2 - 14 - Math.random() * 18;
     this.activeParticles += 1;
-    if (!loadGameFeelSettings().lowSpecMode) {
+    if (!settings.lowSpecMode) {
       this.trailDot(x, y, 0);
       this.scene.time.delayedCall(55, () => this.trailDot(midX, midY, 1));
     }
@@ -126,7 +223,44 @@ export class EffectManager {
   }
 
   expAbsorbPop(x: number, y: number): void {
-    this.glowPop(x, y, 7, COLORS.fragmentGlow, 0.24, 130);
+    this.registerExpAbsorb();
+    this.glowPop(x, y, 8, COLORS.fragmentGlow, 0.28, GAME_FEEL_CONFIG.juice.expAbsorbPopMs);
+    const ring = this.scene.add.circle(x, y, 8, 0xffffff, 0.04)
+      .setDepth(VIEW_DEPTH.pickup + 4)
+      .setBlendMode(Phaser.BlendModes.ADD);
+    ring.setStrokeStyle(2, 0xffffff, 0.72);
+    this.scene.tweens.add({ targets: ring, scale: 2.2, alpha: 0, duration: 150, ease: 'Quad.easeOut', onComplete: () => ring.destroy() });
+    if (!loadGameFeelSettings().lowSpecMode && this.canEmit(4)) {
+      for (let i = 0; i < 4; i += 1) {
+        this.particle(x, y, 0xfff7e8, 1.8, 105 + Math.random() * 45, Math.random() * Math.PI * 2, 8 + Math.random() * 12);
+      }
+    }
+  }
+
+  expMassBurst(x = GAME_WIDTH / 2, y = GAME_HEIGHT / 2): void {
+    this.screenFlashSoft(0xfff7df, 0.08, 120);
+    this.ring(x, y, 34, COLORS.fragmentGlow, 2, 2.8, 340);
+    if (!this.canEmit(8)) return;
+    for (let i = 0; i < this.qualityCount(8); i += 1) {
+      this.particle(x, y, i % 2 === 0 ? COLORS.fragmentGlow : 0xffffff, 1.8, 180, (Math.PI * 2 * i) / 8, 26);
+    }
+  }
+
+  rarePickup(x: number, y: number, options?: { legend?: boolean; label?: string }): void {
+    const legend = options?.legend === true;
+    if (legend) this.screenFlashSoft(0xffffff, 0.18, 140);
+    if (legend) this.screenFlashSoft(0xf5d58a, 0.18, 240);
+    this.ring(x, y, legend ? 34 : 26, 0xf5d58a, legend ? 4 : 3, legend ? 4 : 3.2, legend ? 620 : 460);
+    this.glowPop(x, y, legend ? 34 : 24, 0xf5d58a, legend ? 0.26 : 0.18, legend ? 520 : 360);
+    const label = this.scene.add.text(x, y - 34, options?.label ?? (legend ? 'LEGEND' : 'RARE'), {
+      fontFamily: 'serif',
+      fontSize: legend ? '20px' : '16px',
+      color: legend ? '#fff8e7' : '#ffe3a8',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(VIEW_DEPTH.overlay + 3);
+    label.setStroke('#5f4320', 4);
+    this.scene.tweens.add({ targets: label, y: label.y - 22, alpha: 0, scale: legend ? 1.18 : 1.08, duration: 620, ease: 'Back.easeOut', onComplete: () => label.destroy() });
   }
 
   rewardCardPop(target: Phaser.GameObjects.GameObject, options?: { strong?: boolean }): void {
@@ -152,9 +286,16 @@ export class EffectManager {
   levelUpBurst(x: number, y: number, options?: EffectOptions): void {
     this.hitStop(GAME_FEEL_CONFIG.hitStopMs.levelUp);
     this.screenShake('levelUp');
-    this.screenFlashSoft(0xffe6a8, 0.12, 300);
+    this.screenFlashSoft(0xffffff, 0.32, 180);
+    this.screenFlashSoft(0xffe6a8, 0.14, 320);
     this.radialGlow(x, y, options?.label ?? 'Lv Up', COLORS.fragmentGlow, 36, 560);
     this.ring(x, y, 22, 0xfff0b0, 3, 3.2, 580);
+    this.levelNumberPop(options?.label ?? 'Lv Up');
+    if (this.canEmit(16)) {
+      for (let i = 0; i < this.qualityCount(14); i += 1) {
+        this.particle(x, y, i % 3 === 0 ? 0xffffff : COLORS.fragmentGlow, 2 + Math.random() * 2, 280 + Math.random() * 130, (Math.PI * 2 * i) / 14, 26 + Math.random() * 30);
+      }
+    }
   }
 
   evolutionBurst(x: number, y: number, options?: EffectOptions): void {
@@ -170,12 +311,17 @@ export class EffectManager {
   }
 
   ultimateSweep(): void {
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.ultimate);
+    const shade = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x050713, 0.26)
+      .setDepth(VIEW_DEPTH.overlay - 15);
+    this.scene.tweens.add({ targets: shade, alpha: 0, duration: GAME_FEEL_CONFIG.juice.ultimateDimmingMs + 150, ease: 'Quad.easeOut', onComplete: () => shade.destroy() });
+    this.edgeVignette(460, 0.24);
     const beam = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, 34, COLORS.fragmentGlow, 0.2)
       .setDepth(VIEW_DEPTH.overlay - 10)
       .setBlendMode(Phaser.BlendModes.ADD);
     const ink = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 18, GAME_WIDTH, 18, COLORS.ink, 0.14)
       .setDepth(VIEW_DEPTH.overlay - 11);
-    this.scene.tweens.add({ targets: [beam, ink], x: GAME_WIDTH / 2 + 28, alpha: 0, duration: 300, ease: 'Quad.easeOut', onComplete: () => { beam.destroy(); ink.destroy(); } });
+    this.scene.tweens.add({ targets: [beam, ink], x: GAME_WIDTH / 2 + 42, alpha: 0, duration: 210, ease: 'Quad.easeOut', timeScale: 1.5, onComplete: () => { beam.destroy(); ink.destroy(); this.screenFlashSoft(0xffffff, 0.18, 140); } });
   }
 
   blackAuraPulse(target: Phaser.GameObjects.GameObject): void {
@@ -188,12 +334,65 @@ export class EffectManager {
         }
       });
     }
-    this.edgeVignette(360);
+    this.edgeVignette(520, 0.28);
+  }
+
+  blackAuraRelease(x: number, y: number): void {
+    this.hitStop(GAME_FEEL_CONFIG.hitStopMs.berserkRelease);
+    this.screenFlashSoft(0xffffff, 0.18, 180);
+    if (this.canEmit(10)) {
+      for (let i = 0; i < this.qualityCount(10); i += 1) {
+        this.particle(x, y, 0xfff4dc, 2.2, 260 + Math.random() * 120, -Math.PI / 2 + (Math.random() - 0.5) * Math.PI, 20 + Math.random() * 30);
+      }
+    }
+  }
+
+  clearDawn(): void {
+    const warm = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, COLORS.dawnWarm, 0)
+      .setDepth(VIEW_DEPTH.overlay - 17)
+      .setBlendMode(Phaser.BlendModes.ADD);
+    this.scene.tweens.add({
+      targets: warm,
+      alpha: { from: 0, to: 0.24 },
+      duration: GAME_FEEL_CONFIG.juice.clearWarmthMs,
+      yoyo: true,
+      hold: 260,
+      ease: 'Sine.easeInOut',
+      onComplete: () => warm.destroy(),
+    });
+    if (this.canEmit(18)) {
+      for (let i = 0; i < this.qualityCount(18); i += 1) {
+        const x = 20 + Math.random() * (GAME_WIDTH - 40);
+        const y = GAME_HEIGHT + Math.random() * 90;
+        const dot = this.scene.add.circle(x, y, 1.8 + Math.random() * 2, i % 4 === 0 ? 0xffffff : COLORS.dawnWarm, 0.42)
+          .setDepth(VIEW_DEPTH.overlay - 16)
+          .setBlendMode(Phaser.BlendModes.ADD);
+        this.activeParticles += 1;
+        this.scene.tweens.add({
+          targets: dot,
+          y: y - 260 - Math.random() * 160,
+          x: x + (Math.random() - 0.5) * 38,
+          alpha: 0,
+          duration: 980 + Math.random() * 520,
+          ease: 'Sine.easeOut',
+          onComplete: () => {
+            dot.destroy();
+            this.activeParticles = Math.max(0, this.activeParticles - 1);
+          },
+        });
+      }
+    }
+  }
+
+  dangerPulse(hpRatio: number): void {
+    if (hpRatio > 0.3) return;
+    const alpha = hpRatio <= 0.16 ? 0.16 : 0.1;
+    this.edgeVignette(280, alpha, 0x4d1420);
   }
 
   hitStop(ms: number): void {
     if (ms <= 0) return;
-    const now = Date.now();
+    const now = this.sceneNowMs();
     this.hitStopUntilMs = Math.max(this.hitStopUntilMs, now + ms);
     this.scene.time.timeScale = 0.18;
     if (!this.hitStopTimer) this.scheduleHitStopRelease();
@@ -208,20 +407,31 @@ export class EffectManager {
   }
 
   bossWarning(options?: EffectOptions): void {
+    this.screenFlashSoft(0x1b1024, 0.28, 180);
+    this.cameraShakeSmall(1.35);
+    const top = this.scene.add.rectangle(GAME_WIDTH / 2, 112, GAME_WIDTH, 34, 0x050309, 0.82)
+      .setDepth(VIEW_DEPTH.overlay + 3);
+    const bottom = this.scene.add.rectangle(GAME_WIDTH / 2, 182, GAME_WIDTH, 34, 0x050309, 0.82)
+      .setDepth(VIEW_DEPTH.overlay + 3);
     const text = this.scene.add.text(GAME_WIDTH / 2, 146, options?.label ?? '黒い気配', {
       fontFamily: 'serif',
-      fontSize: '20px',
+      fontSize: '22px',
       color: '#ffe7a8',
       fontStyle: 'bold',
       resolution: 2,
     }).setOrigin(0.5).setDepth(VIEW_DEPTH.overlay + 4);
+    text.setStroke('#130814', 5);
     this.scene.tweens.add({
-      targets: text,
+      targets: [top, bottom, text],
       alpha: { from: 1, to: 0.22 },
       duration: 180,
       yoyo: true,
       repeat: 2,
-      onComplete: () => text.destroy(),
+      onComplete: () => {
+        top.destroy();
+        bottom.destroy();
+        text.destroy();
+      },
     });
   }
 
@@ -230,22 +440,31 @@ export class EffectManager {
   }
 
   combo(): number {
-    return Date.now() - this.lastKillAtMs <= 2000 ? this.comboCount : 0;
+    return this.sceneNowMs() - this.lastKillAtMs <= 2000 ? this.comboCount : 0;
   }
 
   destroy(): void {
     if (this.hitStopTimer) clearTimeout(this.hitStopTimer);
+    this.comboHideTimer?.remove(false);
+    this.comboHideTimer = null;
     this.hitStopTimer = null;
     this.hitStopUntilMs = 0;
     this.scene.time.timeScale = 1;
     this.activeParticles = 0;
+    this.comboHudText?.destroy();
+    this.comboHudText = null;
+    this.comboCount = 0;
+    this.lastKillAtMs = Number.NEGATIVE_INFINITY;
+    this.expAbsorbWindowCount = 0;
+    this.lastExpAbsorbAtMs = Number.NEGATIVE_INFINITY;
+    this.lastExpMassBurstAtMs = Number.NEGATIVE_INFINITY;
   }
 
   private scheduleHitStopRelease(): void {
-    const remainingMs = Math.max(0, this.hitStopUntilMs - Date.now());
+    const remainingMs = Math.max(0, this.hitStopUntilMs - this.sceneNowMs());
     this.hitStopTimer = setTimeout(() => {
       this.hitStopTimer = null;
-      const nextRemainingMs = this.hitStopUntilMs - Date.now();
+      const nextRemainingMs = this.hitStopUntilMs - this.sceneNowMs();
       if (nextRemainingMs > 1) {
         this.scheduleHitStopRelease();
         return;
@@ -271,13 +490,18 @@ export class EffectManager {
   }
 
   private registerKillCombo(): number {
-    const now = Date.now();
+    const now = this.sceneNowMs();
     this.comboCount = now - this.lastKillAtMs <= 2000 ? this.comboCount + 1 : 1;
     this.lastKillAtMs = now;
     return this.comboCount;
   }
 
+  private sceneNowMs(): number {
+    return this.scene.time.now;
+  }
+
   comboFeedback(combo: number): void {
+    if (combo >= 2) this.updateComboHud(combo);
     if (combo < 5 || combo % 5 !== 0) return;
     const strong = combo >= 20;
     const text = this.scene.add.text(GAME_WIDTH - 72, 110, `${combo} combo`, {
@@ -298,6 +522,42 @@ export class EffectManager {
     });
   }
 
+  private updateComboHud(combo: number): void {
+    const strong = combo >= 20;
+    const huge = combo >= 50;
+    if (!this.comboHudText) {
+      this.comboHudText = this.scene.add.text(GAME_WIDTH - 16, 98, '', {
+        fontFamily: 'serif',
+        fontSize: '15px',
+        color: '#f7edcf',
+        fontStyle: 'bold',
+        align: 'right',
+        resolution: 2,
+      }).setOrigin(1, 0.5).setDepth(VIEW_DEPTH.hud + 18);
+      this.comboHudText.setStroke('#0b0f1e', 4);
+    }
+    this.comboHudText
+      .setText(`${combo} CHAIN`)
+      .setColor(huge ? '#fff7dc' : strong ? '#ffe2a8' : '#f7edcf')
+      .setAlpha(1)
+      .setScale(1 + Math.min(combo, 60) * 0.004);
+    this.scene.tweens.killTweensOf(this.comboHudText);
+    this.scene.tweens.add({
+      targets: this.comboHudText,
+      scale: this.comboHudText.scale + (huge ? 0.18 : strong ? 0.11 : 0.06),
+      duration: 90,
+      yoyo: true,
+      ease: 'Quad.easeOut',
+    });
+    this.comboHideTimer?.remove(false);
+    this.comboHideTimer = this.scene.time.delayedCall(1250, () => {
+      this.comboHideTimer = null;
+      if (!this.comboHudText) return;
+      this.scene.tweens.add({ targets: this.comboHudText, alpha: 0, duration: 220 });
+    });
+    if (huge) this.expMassBurst(GAME_WIDTH - 72, 108);
+  }
+
   screenFlashSoft(color: number, alpha: number, duration: number): void {
     const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, color, alpha)
       .setDepth(VIEW_DEPTH.overlay - 16)
@@ -305,10 +565,12 @@ export class EffectManager {
     this.scene.tweens.add({ targets: flash, alpha: 0, duration, ease: 'Quad.easeOut', onComplete: () => flash.destroy() });
   }
 
-  private edgeVignette(duration: number): void {
-    const top = this.scene.add.rectangle(GAME_WIDTH / 2, 18, GAME_WIDTH, 36, COLORS.ink, 0.18).setDepth(VIEW_DEPTH.overlay - 9);
-    const bottom = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 18, GAME_WIDTH, 36, COLORS.ink, 0.18).setDepth(VIEW_DEPTH.overlay - 9);
-    this.scene.tweens.add({ targets: [top, bottom], alpha: 0, duration, onComplete: () => { top.destroy(); bottom.destroy(); } });
+  private edgeVignette(duration: number, alpha = 0.18, color: number = COLORS.ink): void {
+    const top = this.scene.add.rectangle(GAME_WIDTH / 2, 18, GAME_WIDTH, 36, color, alpha).setDepth(VIEW_DEPTH.overlay - 9);
+    const bottom = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 18, GAME_WIDTH, 36, color, alpha).setDepth(VIEW_DEPTH.overlay - 9);
+    const left = this.scene.add.rectangle(8, GAME_HEIGHT / 2, 16, GAME_HEIGHT, color, alpha * 0.75).setDepth(VIEW_DEPTH.overlay - 9);
+    const right = this.scene.add.rectangle(GAME_WIDTH - 8, GAME_HEIGHT / 2, 16, GAME_HEIGHT, color, alpha * 0.75).setDepth(VIEW_DEPTH.overlay - 9);
+    this.scene.tweens.add({ targets: [top, bottom, left, right], alpha: 0, duration, onComplete: () => { top.destroy(); bottom.destroy(); left.destroy(); right.destroy(); } });
   }
 
   cameraShakeSmall(scale = 1): void {
@@ -404,6 +666,66 @@ export class EffectManager {
         this.activeParticles = Math.max(0, this.activeParticles - 1);
       },
     });
+  }
+
+  private enemyDeathInkCount(defId: string | undefined, elite: boolean): number {
+    if (defId === 'black_label_shadow') return GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.omburo;
+    if (defId) return GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.ombu;
+    return elite ? GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.elite : GAME_FEEL_CONFIG.juice.enemyDeathInkParticles.normal;
+  }
+
+  private deathHitStopMs(combo: number, options?: EffectOptions): number {
+    if (options?.defId === 'black_label_shadow') return GAME_FEEL_CONFIG.hitStopMs.death;
+    if (options?.elite) return Math.min(GAME_FEEL_CONFIG.hitStopMs.death, 70);
+    if (combo >= 50 && combo % 50 === 0) return GAME_FEEL_CONFIG.hitStopMs.death;
+    if (combo >= 20 && combo % 20 === 0) return 64;
+    if (combo >= 10 && combo % 10 === 0) return 44;
+    return 16;
+  }
+
+  private levelNumberPop(label: string): void {
+    const text = this.scene.add.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 76, label, {
+      fontFamily: 'serif',
+      fontSize: '30px',
+      color: '#fff8e7',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(VIEW_DEPTH.overlay + 2);
+    text.setStroke('#6c5230', 5);
+    text.setScale(0.7);
+    this.scene.tweens.add({
+      targets: text,
+      y: text.y - 28,
+      scale: 1.18,
+      alpha: 0,
+      duration: 680,
+      ease: 'Back.easeOut',
+      onComplete: () => text.destroy(),
+    });
+  }
+
+  private blackAfterimage(x: number, y: number): void {
+    const shade = this.scene.add.ellipse(x, y, 34, 24, 0x050309, 0.26)
+      .setDepth(VIEW_DEPTH.enemy - 1);
+    this.scene.tweens.add({
+      targets: shade,
+      scaleX: 1.5,
+      scaleY: 0.7,
+      alpha: 0,
+      duration: 260,
+      ease: 'Quad.easeOut',
+      onComplete: () => shade.destroy(),
+    });
+  }
+
+  private registerExpAbsorb(): void {
+    const now = this.sceneNowMs();
+    this.expAbsorbWindowCount = now - this.lastExpAbsorbAtMs < 900 ? this.expAbsorbWindowCount + 1 : 1;
+    this.lastExpAbsorbAtMs = now;
+    if (this.expAbsorbWindowCount < 50) return;
+    if (now - this.lastExpMassBurstAtMs < 900) return;
+    this.lastExpMassBurstAtMs = now;
+    this.expMassBurst();
   }
 
   private qualityCount(count: number): number {

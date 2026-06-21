@@ -54,8 +54,10 @@ export class Hud {
   private timeText: Phaser.GameObjects.Text;
   private levelText: Phaser.GameObjects.Text;
   private fragmentText: Phaser.GameObjects.Text;
+  private hpDamageBar: Phaser.GameObjects.Graphics;
   private hpBar: Phaser.GameObjects.Graphics;
   private xpBar: Phaser.GameObjects.Graphics;
+  private xpHighlight: Phaser.GameObjects.Graphics;
   private topIcons: Phaser.GameObjects.Graphics;
   private pauseZone: Phaser.GameObjects.Zone;
   private pausePressVisual: Phaser.GameObjects.Container;
@@ -81,6 +83,11 @@ export class Hud {
   private passiveSlots: InventorySlotView[];
   private rareSlots: InventorySlotView[];
   private debugText: Phaser.GameObjects.Text;
+  private delayedHpRatio = 1;
+  private previousHpRatio = 1;
+  private previousXpRatio = 0;
+  private hpShakeUntilMs = 0;
+  private xpHighlightUntilMs = 0;
 
   constructor(
     private scene: Phaser.Scene,
@@ -138,8 +145,10 @@ export class Hud {
       resolution: 2,
     }).setOrigin(0, 0).setDepth(DEPTH + 3);
 
+    this.hpDamageBar = scene.add.graphics().setDepth(DEPTH + 1);
     this.hpBar = scene.add.graphics().setDepth(DEPTH + 2);
     this.xpBar = scene.add.graphics().setDepth(DEPTH + 2);
+    this.xpHighlight = scene.add.graphics().setDepth(DEPTH + 3);
 
     this.pausePressVisual = scene.add.container(PAUSE_X, PAUSE_Y).setDepth(DEPTH + 6);
     this.pauseZone = scene.add.zone(PAUSE_X, PAUSE_Y, 42, 42)
@@ -306,13 +315,33 @@ export class Hud {
 
     const player = state.player;
     const hpRatio = Math.max(0, player.hp / player.maxHp);
+    if (hpRatio < this.previousHpRatio - 0.001) {
+      this.hpShakeUntilMs = this.scene.time.now + 240;
+      this.delayedHpRatio = Math.max(this.delayedHpRatio, this.previousHpRatio);
+    }
+    this.previousHpRatio = hpRatio;
+    this.delayedHpRatio += (hpRatio - this.delayedHpRatio) * 0.08;
+    if (this.delayedHpRatio < hpRatio) this.delayedHpRatio = hpRatio;
+    const shake = this.scene.time.now < this.hpShakeUntilMs
+      ? Math.sin(this.scene.time.now * 0.09) * 2
+      : 0;
     this.hpText.setText(`${Math.ceil(player.hp)} / ${player.maxHp}`);
+    this.hpText.setColor(shake !== 0 && Math.floor(this.scene.time.now / 70) % 2 === 0 ? '#ffd6d6' : STORYBOOK_UI.textLight);
+    this.hpDamageBar.clear();
+    this.hpDamageBar.x = shake;
+    drawBar(this.hpDamageBar, 40, 39, 105, 10, this.delayedHpRatio, STORYBOOK_UI.hpBack, 0x9f2438);
     this.hpBar.clear();
+    this.hpBar.x = shake;
     drawBar(this.hpBar, 40, 39, 105, 10, hpRatio, STORYBOOK_UI.hpBack, STORYBOOK_UI.hp);
 
     const xpRatio = Math.max(0, Math.min(1, player.xp / player.xpToNext));
+    if (xpRatio > this.previousXpRatio + 0.001 || (this.previousXpRatio > 0.9 && xpRatio < 0.1)) {
+      this.xpHighlightUntilMs = this.scene.time.now + 260;
+    }
+    this.previousXpRatio = xpRatio;
     this.xpBar.clear();
     drawBar(this.xpBar, 132, 59, 126, 5, xpRatio, 0x302742, STORYBOOK_UI.xp);
+    this.drawXpHighlight(xpRatio);
 
     const berserk = state.berserk ?? EMPTY_BERSERK;
     const ultimateRatio = Math.max(0, Math.min(1, state.ultimate.ready ? 1 : state.ultimate.charge / state.ultimate.chargeSeconds));
@@ -365,9 +394,19 @@ export class Hud {
 
   private drawUltimate(ratio: number, ready: boolean, locked: boolean): void {
     const accent = locked ? 0x665d78 : ready ? STORYBOOK_UI.goldLight : 0x8b80a8;
+    const pulse = ready && !locked ? 0.5 + 0.5 * Math.sin(this.scene.time.now * 0.006) : 0;
     this.ultimateBack.clear();
     this.ultimateBack.fillStyle(0x0c1228, 0.48).fillCircle(ULT_X, ULT_Y, 33);
     this.ultimateBack.lineStyle(2, accent, 0.9).strokeCircle(ULT_X, ULT_Y, 33);
+    if (ready && !locked) {
+      this.ultimateBack.lineStyle(2, STORYBOOK_UI.goldLight, 0.32 + pulse * 0.28).strokeCircle(ULT_X, ULT_Y, 37 + pulse * 3);
+      this.ultimateBack.lineStyle(1, 0xffffff, 0.18 + pulse * 0.18).strokeCircle(ULT_X, ULT_Y, 41 + pulse * 2);
+      this.ultimateBack.fillStyle(STORYBOOK_UI.goldLight, 0.34 + pulse * 0.2);
+      for (let i = 0; i < 4; i += 1) {
+        const angle = this.scene.time.now * 0.0018 + i * Math.PI * 0.5;
+        this.ultimateBack.fillCircle(ULT_X + Math.cos(angle) * 42, ULT_Y + Math.sin(angle) * 42, 1.7 + pulse);
+      }
+    }
     this.ultimateBack.lineStyle(1, 0xffffff, 0.18).strokeCircle(ULT_X, ULT_Y, 27);
     drawStar(this.ultimateBack, ULT_X, ULT_Y - 5, 13, accent, STORYBOOK_UI.gold, locked ? 0.42 : 1);
     this.ultimateBack.lineStyle(3, locked ? 0x665d78 : ready ? STORYBOOK_UI.goldLight : STORYBOOK_UI.xp, 0.9);
@@ -375,6 +414,19 @@ export class Hud {
     this.ultimateBack.arc(ULT_X, ULT_Y, 30, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.ultimateBack.strokePath();
     this.ultimateText.setText(locked ? '黒耀中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
+    this.ultimateText.setScale(ready && !locked ? 1 + pulse * 0.06 : 1);
+  }
+
+  private drawXpHighlight(xpRatio: number): void {
+    this.xpHighlight.clear();
+    if (this.scene.time.now >= this.xpHighlightUntilMs || xpRatio <= 0.02) return;
+    const progress = 1 - (this.xpHighlightUntilMs - this.scene.time.now) / 260;
+    const barX = 132;
+    const barY = 59;
+    const barW = Math.max(0, Math.round((126 - 6) * xpRatio));
+    const x = barX + 3 + Math.min(barW, Math.max(0, progress * (barW + 24) - 12));
+    this.xpHighlight.fillStyle(0xffffff, 0.5 * (1 - progress));
+    this.xpHighlight.fillRect(Math.round(x), barY + 2, Math.min(18, Math.max(0, barW)), 2);
   }
 
   private updatePortrait(berserk: BerserkState): void {
@@ -451,7 +503,7 @@ export class Hud {
   setVisible(visible: boolean): void {
     for (const object of [
       this.topBack, this.hpText, this.timeText, this.levelText, this.fragmentText,
-      this.hpBar, this.xpBar, this.topIcons, this.pauseZone, this.pausePressVisual,
+      this.hpDamageBar, this.hpBar, this.xpBar, this.xpHighlight, this.topIcons, this.pauseZone, this.pausePressVisual,
       this.speedBack, this.speedText, this.speedZone, this.speedPressVisual,
       this.inventoryBack, this.portraitFrame, this.portraitFlame, this.portraitCharge, this.portraitZone, this.portraitPressVisual,
       this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone, this.ultimatePressVisual,
@@ -468,6 +520,10 @@ export class Hud {
   destroy(): void {
     this.pauseZone.destroy();
     this.pausePressVisual.destroy();
+    this.hpDamageBar.destroy();
+    this.hpBar.destroy();
+    this.xpBar.destroy();
+    this.xpHighlight.destroy();
     this.speedBack.destroy();
     this.speedText.destroy();
     this.speedZone.destroy();

@@ -471,14 +471,14 @@ export class Overlays {
     const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
       ? ` (Lv ${settlement.characterLevelBefore}→${settlement.characterLevelAfter})`
       : '';
-    const rows: Array<{ icon: number; label: string; value: string }> = [
+    const rows: Array<{ icon: number; label: string; value: string; countTo?: number; format?: (value: number) => string }> = [
       { icon: 0xb8e0ff, label: '生存時間', value: `${mm}:${ss}` },
-      { icon: 0xffd693, label: '灯度（Lv）', value: `Lv.${state.player.level}` },
-      { icon: 0xc7b0ff, label: 'ほどいた影', value: `${stats.kills}` },
-      { icon: 0xfff1c8, label: '記憶のかけら', value: `${stats.memoryFragmentsCollected}` },
-      { icon: 0xffc1a8, label: 'カプセル', value: `${stats.capsulesOpened}` },
-      { icon: 0xf5d58a, label: '黒曜片', value: `+${settlement.currencyEarned}　(所持 ${ownedCurrency})` },
-      { icon: 0xa6e3a1, label: 'キャラEXP', value: `+${settlement.characterXpEarned}${levelUpText}` },
+      { icon: 0xffd693, label: '灯度（Lv）', value: `Lv.${state.player.level}`, countTo: state.player.level, format: (value) => `Lv.${value}` },
+      { icon: 0xc7b0ff, label: 'ほどいた影', value: `${stats.kills}`, countTo: stats.kills },
+      { icon: 0xfff1c8, label: '記憶のかけら', value: `${stats.memoryFragmentsCollected}`, countTo: stats.memoryFragmentsCollected },
+      { icon: 0xffc1a8, label: 'カプセル', value: `${stats.capsulesOpened}`, countTo: stats.capsulesOpened },
+      { icon: 0xf5d58a, label: '黒曜片', value: `+${settlement.currencyEarned}　(所持 ${ownedCurrency})`, countTo: settlement.currencyEarned, format: (value) => `+${value}　(所持 ${ownedCurrency})` },
+      { icon: 0xa6e3a1, label: 'キャラEXP', value: `+${settlement.characterXpEarned}${levelUpText}`, countTo: settlement.characterXpEarned, format: (value) => `+${value}${levelUpText}` },
     ];
 
     rows.forEach((row, i) => {
@@ -494,7 +494,7 @@ export class Overlays {
         resolution: 2,
       }).setOrigin(0, 0.5);
       root.add(labelText);
-      const valueText = this.scene.add.text(cardX + 138, y, row.value, {
+      const valueText = this.scene.add.text(cardX + 138, y, row.countTo == null ? row.value : (row.format ? row.format(0) : '0'), {
         fontFamily: STORYBOOK_FONT,
         fontSize: '15px',
         color: STORYBOOK_UI.textDark,
@@ -502,6 +502,7 @@ export class Overlays {
         resolution: 2,
       }).setOrigin(1, 0.5);
       root.add(valueText);
+      if (row.countTo != null) this.countUpText(valueText, row.countTo, row.format);
     });
 
     // 進化/合体行（あれば）
@@ -641,6 +642,22 @@ export class Overlays {
       fontStyle: 'bold',
       resolution: 2,
     }).setOrigin(0.5));
+  }
+
+  private countUpText(
+    target: Phaser.GameObjects.Text,
+    to: number,
+    format: (value: number) => string = (value) => String(value),
+  ): void {
+    const counter = { value: 0 };
+    this.scene.tweens.add({
+      targets: counter,
+      value: Math.max(0, to),
+      duration: 420,
+      ease: 'Cubic.easeOut',
+      onUpdate: () => target.setText(format(Math.round(counter.value))),
+      onComplete: () => target.setText(format(to)),
+    });
   }
 
   private button(
