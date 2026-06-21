@@ -44,7 +44,7 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
 function addCutinAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Container, mode: CharacterCutinMode): void {
   const isBerserk = mode === 'berserk';
   const shadeColor = isBerserk ? 0x07040d : 0x071021;
-  const shadeAlpha = isBerserk ? 0.52 : 0.34;
+  const shadeAlpha = isBerserk ? 0.58 : 0.46;
   const shade = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + 80, GAME_HEIGHT + 80, shadeColor, shadeAlpha);
   root.add(shade);
 
@@ -335,7 +335,10 @@ function animateCutin(scene: Phaser.Scene, root: Phaser.GameObjects.Container, m
         delay: CUTIN_HOLD_MS,
         duration: CUTIN_EXIT_MS,
         ease: 'Cubic.easeIn',
-        onComplete: () => root.destroy(true),
+        onComplete: () => {
+          root.destroy(true);
+          scene.cameras.main.flash(120, 255, 250, 240, false);
+        },
       });
     },
   });

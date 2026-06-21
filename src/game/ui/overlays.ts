@@ -125,7 +125,8 @@ export class Overlays {
     );
     root.add(dock);
 
-    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y, 'ひとつ選ぶ', 20, STORYBOOK_UI.textLight, true));
+    (this.scene as { _levelUpCardIndex?: number })._levelUpCardIndex = 0;
+    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y, 'ひとつ選ぶ', 22, STORYBOOK_UI.textLight, true));
     root.add(this.text(
       GAME_WIDTH / 2,
       LEVEL_UP_HEADER_Y + 25,
@@ -437,20 +438,26 @@ export class Overlays {
     onGrowth: () => void,
     onStageSelect: () => void,
   ): void {
-    const root = this.dim(0.8);
+    const root = this.dim(cleared ? 0.72 : 0.86);
+    if (cleared) this.addResultWarmGlow(root);
+
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 360, 760, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.98);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 366, 770, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.97);
     root.add(panel);
     const stats = state.stats;
     const survived = Math.floor(stats.survivedSec);
     const mm = Math.floor(survived / 60).toString().padStart(2, '0');
     const ss = (survived % 60).toString().padStart(2, '0');
 
-    // ヘッダー
     const titleText = cleared ? '夜明け' : '夜に飲まれた';
-    const titlePrefix = cleared ? '◆' : '◇'; // 絵文字依存を避け、装飾は記号で
-    root.add(this.text(GAME_WIDTH / 2, 86, `${titlePrefix} ${titleText}`, 26, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 116, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.goldLight, true));
+    const titleSize = cleared ? 32 : 26;
+    const titleColor = cleared ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textLight;
+    const resultTitle = this.text(GAME_WIDTH / 2, 80, titleText, titleSize, titleColor, true);
+    resultTitle.setScale(0.7).setAlpha(0);
+    root.add(resultTitle);
+    this.scene.tweens.add({ targets: resultTitle, scale: 1, alpha: 1, duration: 400, delay: 100, ease: 'Back.easeOut' });
+
+    root.add(this.text(GAME_WIDTH / 2, 118, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 14, STORYBOOK_UI.goldLight, true));
     this.addResultRank(root, cleared, state.player.level, stats.kills, stats.evolutions.length);
 
     // 「主要結果カード」: 紙パネル上に行ごとに アイコン色 + ラベル + 値
@@ -484,26 +491,34 @@ export class Overlays {
 
     rows.forEach((row, i) => {
       const y = cardTopY + 22 + i * 30;
-      // 行頭の色丸（簡易アイコン代わり。絵文字依存を避ける）
-      root.add(this.scene.add.circle(cardX - 142, y, 6, row.icon, 0.95));
-      // 行頭の縦罫（読みやすさのための装飾）
-      const labelText = this.scene.add.text(cardX - 128, y, row.label, {
+      const rowDelay = 200 + i * 90;
+      const iconCircle = this.scene.add.circle(cardX - 142, y, 7, row.icon, 0.95);
+      iconCircle.setStrokeStyle(1, row.icon, 0.4);
+      iconCircle.setAlpha(0);
+      root.add(iconCircle);
+      this.scene.tweens.add({ targets: iconCircle, alpha: 1, scale: { from: 0.5, to: 1 }, duration: 200, delay: rowDelay, ease: 'Back.easeOut' });
+
+      const labelText = this.scene.add.text(cardX - 126, y, row.label, {
         fontFamily: STORYBOOK_FONT,
         fontSize: '13px',
         color: STORYBOOK_UI.textDark,
         fontStyle: 'bold',
         resolution: 2,
-      }).setOrigin(0, 0.5);
+      }).setOrigin(0, 0.5).setAlpha(0);
       root.add(labelText);
+      this.scene.tweens.add({ targets: labelText, alpha: 1, x: labelText.x + 4, duration: 180, delay: rowDelay + 40, ease: 'Quad.easeOut' });
+      labelText.x -= 4;
+
       const valueText = this.scene.add.text(cardX + 138, y, row.countTo == null ? row.value : (row.format ? row.format(0) : '0'), {
         fontFamily: STORYBOOK_FONT,
         fontSize: '15px',
         color: STORYBOOK_UI.textDark,
         fontStyle: 'bold',
         resolution: 2,
-      }).setOrigin(1, 0.5);
+      }).setOrigin(1, 0.5).setAlpha(0);
       root.add(valueText);
-      if (row.countTo != null) this.countUpText(valueText, row.countTo, row.format);
+      this.scene.tweens.add({ targets: valueText, alpha: 1, duration: 160, delay: rowDelay + 80, ease: 'Quad.easeOut' });
+      if (row.countTo != null) this.scene.time.delayedCall(rowDelay + 80, () => this.countUpText(valueText, row.countTo!, row.format));
     });
 
     // 進化/合体行（あれば）
@@ -672,22 +687,59 @@ export class Overlays {
   ): void {
     const rank = resultRank(cleared, level, kills, evolutions);
     const accent = rank === 'S' ? 0xf5d58a : rank === 'A' ? 0xffc1a8 : rank === 'B' ? 0xa6e3a1 : 0xcabda8;
-    const seal = this.scene.add.circle(GAME_WIDTH - 58, 92, 30, 0x120f20, 0.92);
-    seal.setStrokeStyle(2, accent, 0.94);
-    const rankText = this.scene.add.text(GAME_WIDTH - 58, 91, rank, {
+    const sealX = GAME_WIDTH - 56;
+    const sealY = 88;
+    const sealRadius = rank === 'S' ? 38 : 34;
+
+    if (rank === 'S' || rank === 'A') {
+      const glow = this.scene.add.circle(sealX, sealY, sealRadius + 8, accent, 0.12).setBlendMode('ADD');
+      root.add(glow);
+      this.scene.tweens.add({ targets: glow, alpha: { from: 0.08, to: 0.22 }, scale: { from: 0.95, to: 1.1 }, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
+
+    const seal = this.scene.add.circle(sealX, sealY, sealRadius, 0x120f20, 0.94);
+    seal.setStrokeStyle(3, accent, 0.96);
+    const rankText = this.scene.add.text(sealX, sealY - 1, rank, {
       fontFamily: STORYBOOK_TITLE_FONT,
-      fontSize: '30px',
+      fontSize: rank === 'S' ? '38px' : '34px',
       color: colorString(accent),
       fontStyle: 'bold',
       resolution: 2,
     }).setOrigin(0.5);
     root.add([seal, rankText]);
+    seal.setScale(0); rankText.setScale(0);
     this.scene.tweens.add({
       targets: [seal, rankText],
-      scale: { from: 0.78, to: 1 },
-      duration: 260,
+      scale: 1,
+      duration: 380,
+      delay: 300,
       ease: 'Back.easeOut',
     });
+  }
+
+  private addResultWarmGlow(root: Phaser.GameObjects.Container): void {
+    const warm = this.scene.add.rectangle(GAME_WIDTH / 2, 120, GAME_WIDTH, 240, 0xf6d9a8, 0.04).setBlendMode('ADD');
+    root.add(warm);
+    this.scene.tweens.add({ targets: warm, alpha: { from: 0.02, to: 0.07 }, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+
+    for (let i = 0; i < 8; i += 1) {
+      const x = 30 + Math.random() * (GAME_WIDTH - 60);
+      const particle = this.scene.add.circle(x, GAME_HEIGHT, 1.5 + Math.random() * 1.5, 0xfff0b0, 0.2 + Math.random() * 0.15).setBlendMode('ADD');
+      root.add(particle);
+      this.scene.tweens.add({
+        targets: particle,
+        y: -20,
+        x: x + (Math.random() - 0.5) * 40,
+        alpha: 0,
+        duration: 5000 + Math.random() * 3000,
+        delay: Math.random() * 2000,
+        repeat: -1,
+        onRepeat: () => {
+          particle.setPosition(30 + Math.random() * (GAME_WIDTH - 60), GAME_HEIGHT);
+          particle.setAlpha(0.2 + Math.random() * 0.15);
+        },
+      });
+    }
   }
 
   private button(

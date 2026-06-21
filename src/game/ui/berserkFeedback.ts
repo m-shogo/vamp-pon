@@ -4,10 +4,10 @@ import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { VIEW_DEPTH } from './factory';
 import { playCharacterCutin } from './characterCutin';
 
-const ACTIVE_EDGE_ALPHA = 0.16;
-const FATIGUE_MAX_ALPHA = 0.2;
-const AFTERIMAGE_DURATION_MS = 180;
-const AFTERIMAGE_OFFSET_PX = 5;
+const ACTIVE_EDGE_ALPHA = 0.24;
+const FATIGUE_MAX_ALPHA = 0.22;
+const AFTERIMAGE_DURATION_MS = 200;
+const AFTERIMAGE_OFFSET_PX = 6;
 const FATIGUE_DURATION_SEC = 0.8;
 const COOLDOWN_RESET_EPSILON = 0.08;
 
@@ -53,14 +53,31 @@ export class BerserkFeedback {
     const weaponFired = this.detectWeaponCooldownReset(state);
 
     if (active && !this.wasActive) this.onBerserkStart(state);
-    if (!active && this.wasActive && fatigued) this.onFatigueStart(state);
+    if (!active && this.wasActive) {
+      if (fatigued) this.onFatigueStart(state);
+      this.onBerserkEnd(state);
+    }
     if (active && weaponFired) this.spawnAttackAfterimage(state);
     this.wasActive = active;
 
     if (active) {
       const pulse = 0.5 + 0.5 * Math.sin(state.elapsedSec * 10);
-      this.activeVeil.setAlpha(0.035 + pulse * 0.025);
+      this.activeVeil.setAlpha(0.04 + pulse * 0.03);
       this.setEdgeAlpha(ACTIVE_EDGE_ALPHA * (0.72 + pulse * 0.28));
+      if (Math.random() < 0.06) {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 18 + Math.random() * 14;
+        const dot = this.scene.add.circle(
+          state.player.x + Math.cos(angle) * dist,
+          state.player.y + Math.sin(angle) * dist,
+          1.8 + Math.random() * 1.5, 0x0a0712, 0.52,
+        ).setDepth(VIEW_DEPTH.player - 1);
+        this.scene.tweens.add({
+          targets: dot, y: dot.y - 12 - Math.random() * 12, alpha: 0, scale: 0.3,
+          duration: 320 + Math.random() * 200, ease: 'Quad.easeOut',
+          onComplete: () => dot.destroy(),
+        });
+      }
     } else {
       this.activeVeil.setAlpha(0);
       this.setEdgeAlpha(0);
@@ -144,6 +161,33 @@ export class BerserkFeedback {
     this.spawnInkRing(state.player.x, state.player.y, 0x24162f, 360);
     this.spawnInkRing(state.player.x, state.player.y, 0xb94b91, 520);
     this.spawnBlackFlame(state.player.x, state.player.y);
+  }
+
+  private onBerserkEnd(state: RuntimeState): void {
+    this.scene.cameras.main.flash(160, 240, 235, 220, false);
+    for (let i = 0; i < 8; i += 1) {
+      const angle = (Math.PI * 2 * i) / 8;
+      const particle = this.scene.add.circle(
+        state.player.x, state.player.y, 2.5, 0xfff4dc, 0.7,
+      ).setDepth(VIEW_DEPTH.player + 1).setBlendMode('ADD');
+      this.scene.tweens.add({
+        targets: particle,
+        x: state.player.x + Math.cos(angle) * 52,
+        y: state.player.y + Math.sin(angle) * 42,
+        alpha: 0,
+        scale: 0.3,
+        duration: 380,
+        ease: 'Quad.easeOut',
+        onComplete: () => particle.destroy(),
+      });
+    }
+    const purifyRing = this.scene.add.circle(state.player.x, state.player.y, 16, 0xfff4dc, 0.05)
+      .setDepth(VIEW_DEPTH.player + 1);
+    purifyRing.setStrokeStyle(2, 0xfff4dc, 0.6);
+    this.scene.tweens.add({
+      targets: purifyRing, scale: 3.5, alpha: 0, duration: 460, ease: 'Cubic.easeOut',
+      onComplete: () => purifyRing.destroy(),
+    });
   }
 
   private onFatigueStart(state: RuntimeState): void {

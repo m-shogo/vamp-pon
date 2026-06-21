@@ -67,13 +67,29 @@ export function createStorybookChoiceCard(
   });
   hit.on('pointerdown', () => {
     scene.tweens.killTweensOf(card);
+    const isSpecial = choice.rarity === 'rare' || choice.type === 'rare_new';
+
+    const siblings = card.parentContainer?.list.filter(
+      (child) => child !== card && child instanceof Phaser.GameObjects.Container,
+    ) ?? [];
+    for (const sibling of siblings) {
+      scene.tweens.add({ targets: sibling, alpha: 0.3, scale: 0.94, y: (sibling as Phaser.GameObjects.Container).y + 8, duration: 160, ease: 'Quad.easeOut' });
+    }
+
+    const confirmRing = scene.add.circle(0, 0, Math.max(width, height) * 0.5, isSpecial ? STORYBOOK_UI.goldLight : STORYBOOK_UI.gold, 0.06);
+    confirmRing.setStrokeStyle(isSpecial ? 3 : 2, isSpecial ? STORYBOOK_UI.goldLight : STORYBOOK_UI.gold, 0.7);
+    confirmRing.setBlendMode('ADD');
+    card.add(confirmRing);
+    scene.tweens.add({ targets: confirmRing, scale: 1.6, alpha: 0, duration: 300, ease: 'Cubic.easeOut', onComplete: () => confirmRing.destroy() });
+
     scene.tweens.add({
       targets: card,
-      scale: choice.rarity === 'rare' || choice.type === 'rare_new' ? 1.08 : 1.04,
-      duration: 78,
-      yoyo: true,
-      ease: 'Quad.easeOut',
-      onComplete: onClick,
+      scale: isSpecial ? 1.06 : 1.03,
+      duration: 140,
+      ease: 'Back.easeOut',
+      onComplete: () => {
+        scene.time.delayedCall(60, onClick);
+      },
     });
   });
   card.add(hit);
@@ -87,13 +103,20 @@ export function createStorybookChoiceCard(
     addVerticalContent(scene, card, width, height, choice, title, badge, accent);
   }
 
-  card.setY(cy + 26);
+  const cardIndex = (scene as { _levelUpCardIndex?: number })._levelUpCardIndex ?? 0;
+  (scene as { _levelUpCardIndex?: number })._levelUpCardIndex = cardIndex + 1;
+  const staggerDelay = cardIndex * 80;
+
+  card.setY(cy + 36);
   card.setAlpha(0);
+  card.setScale(0.88);
   scene.tweens.add({
     targets: card,
     y: cy,
     alpha: 1,
-    duration: GAME_FEEL_CONFIG.juice.levelUpCardRiseMs,
+    scale: 1,
+    duration: GAME_FEEL_CONFIG.juice.levelUpCardRiseMs + 60,
+    delay: staggerDelay,
     ease: 'Back.easeOut',
     onComplete: () => getEffectManager(scene).rewardCardPop(card, { strong: choice.rarity === 'rare' || choice.type === 'rare_new' }),
   });
@@ -110,15 +133,21 @@ function addRarityTab(
   accent: number,
 ): void {
   if (rarity === 'normal') return;
-  const label = rarity === 'rare' ? 'RARE' : 'GOOD';
-  const tab = scene.add.text(width / 2 - 43, -height / 2 + 13, label, {
+  const label = rarity === 'rare' ? '希少' : '灯り';
+  const tabBg = scene.add.graphics();
+  const tabW = rarity === 'rare' ? 48 : 42;
+  const tabH = 18;
+  const tabX = width / 2 - tabW / 2 - 12;
+  const tabY = -height / 2 + 4;
+  tabBg.fillStyle(accent, 0.92).fillRect(tabX - tabW / 2, tabY, tabW, tabH);
+  tabBg.lineStyle(1, 0xffffff, rarity === 'rare' ? 0.4 : 0.2).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
+  card.add(tabBg);
+  const tab = scene.add.text(tabX, tabY + tabH / 2, label, {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '9px',
+    fontSize: '11px',
     color: '#fff8e7',
     fontStyle: 'bold',
     resolution: 2,
-    backgroundColor: colorString(accent),
-    padding: { left: 5, right: 5, top: 2, bottom: 2 },
   }).setOrigin(0.5);
   card.add(tab);
 }
