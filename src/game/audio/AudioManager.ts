@@ -83,7 +83,11 @@ export class AudioManager {
     this.volumes = this.loadVolumes();
   }
 
-  preloadAudioAssets(scene: Phaser.Scene): void {
+  async preloadAudioAssets(scene: Phaser.Scene): Promise<void> {
+    try {
+      const res = await fetch('assets/audio/', { method: 'HEAD' });
+      if (!res.ok) return;
+    } catch { return; }
     for (const spec of AUDIO_ASSET_SPECS) {
       if (scene.cache.audio.exists(spec.key)) continue;
       scene.load.audio(spec.key, [
@@ -92,6 +96,7 @@ export class AudioManager {
         `assets/audio/${spec.key}.wav`,
       ]);
     }
+    scene.load.start();
   }
 
   unlockOnFirstInput(): void {
