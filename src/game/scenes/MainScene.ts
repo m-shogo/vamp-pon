@@ -161,9 +161,9 @@ export class MainScene extends Phaser.Scene {
         this.tweens.resumeAll();
         this.state.status = GAME_STATUS.PLAYING;
       },
-      () => this.goToTop(),
-      () => this.goToMenu('stage'),
-      () => this.goToMenu('growth'),
+      () => this.leavePausedScene(() => this.goToTop()),
+      () => this.leavePausedScene(() => this.goToMenu('stage')),
+      () => this.leavePausedScene(() => this.goToMenu('growth')),
     );
   }
 
@@ -435,6 +435,11 @@ export class MainScene extends Phaser.Scene {
   private goToTop(): void {
     this.replaceMenuUrl();
     this.scene.start('TopScene');
+  }
+
+  private leavePausedScene(go: () => void): void {
+    this.tweens.resumeAll();
+    go();
   }
 
   private goToMenu(mode: 'stage' | 'growth'): void {
