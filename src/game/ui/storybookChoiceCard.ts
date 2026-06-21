@@ -65,11 +65,22 @@ export function createStorybookChoiceCard(
     strong: choice.rarity === 'rare' || choice.type === 'rare_new',
     shake: choice.rarity === 'rare' || choice.type === 'rare_new',
   });
-  hit.on('pointerdown', onClick);
+  hit.on('pointerdown', () => {
+    scene.tweens.killTweensOf(card);
+    scene.tweens.add({
+      targets: card,
+      scale: choice.rarity === 'rare' || choice.type === 'rare_new' ? 1.08 : 1.04,
+      duration: 78,
+      yoyo: true,
+      ease: 'Quad.easeOut',
+      onComplete: onClick,
+    });
+  });
   card.add(hit);
 
   const title = choice.title.replace(/^✦ /, '').replace(/^入替: /, '');
   const badge = `${palette.label} / ${effectTag(choice)}`;
+  addRarityTab(scene, card, width, height, choice.rarity ?? 'normal', accent);
   if (width >= 250) {
     addHorizontalContent(scene, card, width, height, choice, title, badge, accent);
   } else {
@@ -88,6 +99,28 @@ export function createStorybookChoiceCard(
   });
 
   return card;
+}
+
+function addRarityTab(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  width: number,
+  height: number,
+  rarity: RewardRarity,
+  accent: number,
+): void {
+  if (rarity === 'normal') return;
+  const label = rarity === 'rare' ? 'RARE' : 'GOOD';
+  const tab = scene.add.text(width / 2 - 43, -height / 2 + 13, label, {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '9px',
+    color: '#fff8e7',
+    fontStyle: 'bold',
+    resolution: 2,
+    backgroundColor: colorString(accent),
+    padding: { left: 5, right: 5, top: 2, bottom: 2 },
+  }).setOrigin(0.5);
+  card.add(tab);
 }
 
 function addHorizontalContent(

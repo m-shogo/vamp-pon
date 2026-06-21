@@ -19,9 +19,10 @@ import { loadBondProgress } from '../persistence/bonds';
 import { characters } from '../data/characters';
 import { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';
 import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
+import { attachPressFeedback } from '../ui/pressFeedback';
 export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
@@ -343,9 +344,20 @@ export class StageSelectScene extends Phaser.Scene {
 
   private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
-    const fill = this.add.rectangle(0, 0, width, height, muted ? 0x3c355f : 0xb8954e, muted ? 0.82 : 0.95).setName('fill');
-    fill.setStrokeStyle(1, muted ? 0x6f6590 : 0xf5d58a, 0.9);
+    const fill = this.add.graphics().setName('fill');
+    if (muted) drawStorybookPanel(fill, 0, 0, width, height, 0x25213d, 0x6f6590, 0.9);
+    else drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, {
+      x,
+      y,
+      width,
+      height,
+      accent: muted ? 0x6f6590 : STORYBOOK_UI.goldLight,
+      depth: 1000,
+      strong: height >= 40,
+      shake: !muted && height >= 46,
+    });
     hit.on('pointerdown', onClick);
     c.add([fill, this.text(0, 0, label, 13, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
     return c;
