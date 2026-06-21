@@ -116,7 +116,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderDepthBlock(root, profile);
       this.renderCharacterSummary(root, profile);
       this.renderSubCharacterStatus(root, profile, 515);
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 102, 240, 50, '探索を始める', () => this.startRun(profile)));
+      root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 102, 260, 56, '探索を始める', () => this.startRun(profile)));
       root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
       root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 40, '成長へ', () => {
         this.mode = 'growth';
@@ -216,25 +216,31 @@ export class StageSelectScene extends Phaser.Scene {
   // --- 難易度（Easy/Normal/Hard） ---
   private renderDepthBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
     const blockY = 322;
-    root.add(this.text(GAME_WIDTH / 2, blockY, '探索の深さ', 14, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, blockY, '探索の深さ', 15, STORYBOOK_UI.textLight, true));
     DEPTH_ORDER.forEach((depthId, index) => {
       const depth = EXPLORATION_DEPTHS[depthId];
       const flavor = DEPTH_FLAVOR[depthId];
       const selected = depthId === profile.selectedDepth;
       const x = 56 + index * 96 + 48;
-      const y = blockY + 50;
-      const btn = this.button(x, y, 92, 50, depth.label, () => {
+      const y = blockY + 52;
+
+      if (selected) {
+        const glow = this.add.graphics();
+        glow.fillStyle(depth.tint, 0.08).fillRoundedRect(x - 50, y - 30, 100, 60, 6);
+        glow.lineStyle(2, depth.tint, 0.5).strokeRoundedRect(x - 50, y - 30, 100, 60, 6);
+        root.add(glow);
+      }
+
+      const btn = this.button(x, y, 94, 52, depth.label, () => {
         selectRun(profile.selectedStage, depthId);
         this.render();
       }, !selected);
-      btn.getByName('fill')?.setData('tint', depth.tint);
       root.add(btn);
-      root.add(this.text(x, y + 38, flavor.sub, 10, colorString(depth.tint), true));
-      root.add(this.text(x, y + 52, `報酬×${depth.reward.toFixed(1)}`, 10, STORYBOOK_UI.textMuted));
+      root.add(this.text(x, y + 40, flavor.sub, 11, colorString(depth.tint), true));
+      root.add(this.text(x, y + 54, `報酬×${depth.reward.toFixed(1)}`, 11, STORYBOOK_UI.textMuted));
     });
-    // 選択中のおすすめコメント
     const selected = DEPTH_FLAVOR[profile.selectedDepth];
-    root.add(this.text(GAME_WIDTH / 2, blockY + 116, `おすすめ: ${selected.recommend}`, 12, STORYBOOK_UI.goldLight));
+    root.add(this.text(GAME_WIDTH / 2, blockY + 120, `おすすめ: ${selected.recommend}`, 13, STORYBOOK_UI.goldLight));
   }
 
   private renderCharacterSummary(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
@@ -340,6 +346,25 @@ export class StageSelectScene extends Phaser.Scene {
       resolution: 2,
       lineSpacing: 3,
     }).setOrigin(0.5);
+  }
+
+  private primaryButton(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
+    fill.lineStyle(2, STORYBOOK_UI.goldLight, 0.5);
+    fill.strokeRoundedRect(-width / 2 + 6, -height / 2 + 6, width - 12, height - 12, 5);
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, {
+      x, y, width, height,
+      accent: STORYBOOK_UI.goldLight,
+      depth: 1000,
+      strong: true,
+      shake: true,
+    });
+    hit.on('pointerdown', onClick);
+    c.add([fill, this.text(0, 0, label, 18, STORYBOOK_UI.textDark, true), hit]);
+    return c;
   }
 
   private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {

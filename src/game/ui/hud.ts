@@ -115,18 +115,22 @@ export class Hud {
 
     this.hpText = scene.add.text(42, 12, '100 / 100', {
       fontFamily: STORYBOOK_NUMBER_FONT,
-      fontSize: '15px',
+      fontSize: '16px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 2,
     }).setOrigin(0, 0).setDepth(DEPTH + 3);
 
     this.timeText = scene.add.text(GAME_WIDTH / 2, 8, '04:32', {
       fontFamily: STORYBOOK_NUMBER_FONT,
-      fontSize: '25px',
+      fontSize: '26px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 3,
     }).setOrigin(0.5, 0).setDepth(DEPTH + 3);
 
     this.levelText = scene.add.text(GAME_WIDTH / 2, 39, 'Lv.1', {
@@ -139,10 +143,12 @@ export class Hud {
 
     this.fragmentText = scene.add.text(GAME_WIDTH - 76, 16, '0', {
       fontFamily: STORYBOOK_NUMBER_FONT,
-      fontSize: '15px',
+      fontSize: '16px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
       resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 2,
     }).setOrigin(0, 0).setDepth(DEPTH + 3);
 
     this.hpDamageBar = scene.add.graphics().setDepth(DEPTH + 1);

@@ -35,6 +35,8 @@ export const AUDIO_ASSET_SPECS: readonly AudioAssetSpec[] = [
   { key: 'se_blackMode', kind: 'se', durationSec: [0.5, 1.2], description: '黒耀化。黒炎の脈動。BGM duck対象。' },
   { key: 'se_bossWarning', kind: 'se', durationSec: [0.5, 1.0], description: 'ボス警告。短い低域と紙の震え。' },
   { key: 'se_clear', kind: 'se', durationSec: [0.6, 1.2], description: 'クリア/朝演出。BGM duck対象。' },
+  { key: 'se_select', kind: 'se', durationSec: [0.05, 0.1], description: 'カード選択/ボタン押下。軽い紙の捲れ音。' },
+  { key: 'se_reroll', kind: 'se', durationSec: [0.08, 0.15], description: 'リロール。紙を払う短い音。' },
   { key: 'bgm_stage1', kind: 'bgm', description: 'Stage1通常BGM。ループ前提。' },
   { key: 'bgm_boss', kind: 'bgm', description: 'ボス/オンブロBGM。ループ前提。' },
   { key: 'bgm_clear', kind: 'bgm', description: '朝/リザルト寄りBGM。ループまたは短尺。' },
