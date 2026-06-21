@@ -1,6 +1,6 @@
 # Audio Asset List
 
-Vamp Pon の音素材は未配置でも落ちない。実素材を追加する場合は、Phaser preload で下記キーを `se_<key>` または `bgm_<name>` として登録する。
+Vamp Pon の音素材は未配置でも落ちない。実素材を追加する場合は、`public/assets/audio/audio-manifest.json` に存在するファイルだけを書き、下記キーを `se_<key>` または `bgm_<name>` として登録する。
 
 ## SE
 
@@ -33,4 +33,5 @@ Vamp Pon の音素材は未配置でも落ちない。実素材を追加する�
 - LvUp、進化、必殺、黒耀化は BGM duck 対象。
 - 素材がない環境では Web Audio oscillator fallback を鳴らし、ゲーム進行は止めない。
 - 実装側の受け口は `src/game/audio/AudioManager.ts` の `AUDIO_ASSET_SPECS` を正本にする。
+- preload は `audio-manifest.json` に書かれたファイルのみ対象にする。ディレクトリ `HEAD` や拡張子総当たりは Vite の fallback/404/EncodingError を再発させやすいので使わない。
 - 素材キーは `se_<key>` / `bgm_*` のまま差し込めるようにし、演出コード側へファイル名を散らさない。

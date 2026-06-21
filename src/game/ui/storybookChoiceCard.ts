@@ -65,7 +65,10 @@ export function createStorybookChoiceCard(
     strong: choice.rarity === 'rare' || choice.type === 'rare_new',
     shake: choice.rarity === 'rare' || choice.type === 'rare_new',
   });
+  let selected = false;
   hit.on('pointerdown', () => {
+    if (selected) return;
+    selected = true;
     scene.tweens.killTweensOf(card);
     const isSpecial = choice.rarity === 'rare' || choice.type === 'rare_new';
 

@@ -26,6 +26,8 @@ export class BerserkFeedback {
   private readonly lastCooldownByWeaponId = new Map<string, number>();
   private wasActive = false;
   private destroyed = false;
+  private dotAccumulator = 0;
+  private lastElapsedSec = 0;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -48,6 +50,8 @@ export class BerserkFeedback {
 
   update(state: RuntimeState): void {
     if (this.destroyed) return;
+    const dt = state.elapsedSec - this.lastElapsedSec;
+    this.lastElapsedSec = state.elapsedSec;
     const active = state.berserk.activeRemaining > 0;
     const fatigued = state.berserk.fatigueRemaining > 0;
     const weaponFired = this.detectWeaponCooldownReset(state);
@@ -64,7 +68,9 @@ export class BerserkFeedback {
       const pulse = 0.5 + 0.5 * Math.sin(state.elapsedSec * 10);
       this.activeVeil.setAlpha(0.04 + pulse * 0.03);
       this.setEdgeAlpha(ACTIVE_EDGE_ALPHA * (0.72 + pulse * 0.28));
-      if (Math.random() < 0.06) {
+      this.dotAccumulator += dt * 3.6;
+      if (this.dotAccumulator >= 1) {
+        this.dotAccumulator -= 1;
         const angle = Math.random() * Math.PI * 2;
         const dist = 18 + Math.random() * 14;
         const dot = this.scene.add.circle(

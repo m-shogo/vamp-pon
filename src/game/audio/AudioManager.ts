@@ -23,6 +23,16 @@ export type AudioAssetSpec = {
   description: string;
 };
 
+type AudioManifestEntry = {
+  key: string;
+  url: string;
+};
+
+type AudioManifest = {
+  version?: number;
+  assets?: AudioManifestEntry[];
+};
+
 export const AUDIO_ASSET_SPECS: readonly AudioAssetSpec[] = [
   { key: 'se_hit', kind: 'se', durationSec: [0.04, 0.08], description: '敵に当たった瞬間。短く紙とインクが弾ける音。' },
   { key: 'se_enemyDeath', kind: 'se', durationSec: [0.08, 0.18], description: '影がほどける音。連続killでrateを少し上げる。' },
@@ -49,6 +59,8 @@ type AudioVolumes = {
   muted: boolean;
 };
 
+const AUDIO_MANIFEST_URL = '/assets/audio/audio-manifest.json';
+const KNOWN_AUDIO_KEYS = new Set(AUDIO_ASSET_SPECS.map((spec) => spec.key));
 const STORAGE_KEY = 'vampPon.audio.v1';
 const MIN_INTERVAL_MS: Partial<Record<SeKey, number>> = {
   hit: 42,
@@ -81,6 +93,25 @@ export class AudioManager {
   init(scene: Phaser.Scene): void {
     this.scene = scene;
     this.volumes = this.loadVolumes();
+  }
+
+  async preloadAudioAssets(scene: Phaser.Scene): Promise<void> {
+    let manifest: AudioManifest;
+    try {
+      const res = await fetch(AUDIO_MANIFEST_URL, { cache: 'no-store' });
+      if (!res.ok) return;
+      manifest = await res.json() as AudioManifest;
+    } catch { return; }
+
+    const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
+    let queued = 0;
+    for (const asset of assets) {
+      if (!KNOWN_AUDIO_KEYS.has(asset.key) || typeof asset.url !== 'string' || asset.url.length === 0) continue;
+      if (scene.cache.audio.exists(asset.key)) continue;
+      scene.load.audio(asset.key, asset.url);
+      queued += 1;
+    }
+    if (queued > 0) scene.load.start();
   }
 
   unlockOnFirstInput(): void {
