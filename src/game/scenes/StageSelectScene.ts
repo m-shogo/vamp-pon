@@ -23,6 +23,7 @@ import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, draw
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
 import { attachPressFeedback } from '../ui/pressFeedback';
+import { recipeForStage, stageRecipes } from '../data/waves';
 export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
@@ -200,7 +201,15 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(nextBtn);
 
     if (nextLocked) {
-      root.add(this.text(cardX, cardY + cardH / 2 + 14, '次のステージは未開放', 11, STORYBOOK_UI.textMuted));
+      const maxUnlocked = unlocked[unlocked.length - 1] ?? 1;
+      const nextStageNum = maxUnlocked + 1;
+      const hasNextRecipe = nextStageNum <= stageRecipes.length;
+      if (hasNextRecipe) {
+        const recipe = recipeForStage(nextStageNum);
+        root.add(this.text(cardX, cardY + cardH / 2 + 14, `Stage ${nextStageNum} ${recipe.name} — 夜明けまで進むと開放`, 10, 0x8b82a0));
+      } else {
+        root.add(this.text(cardX, cardY + cardH / 2 + 14, '次のステージは未開放', 11, STORYBOOK_UI.textMuted));
+      }
     }
   }
 

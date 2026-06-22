@@ -20,6 +20,7 @@ export class RunPacingEffects {
   private firedEliteWarnings = new Set<number>();
   private lastCountdownValue: number | null = null;
   private finalPushShown = false;
+  private lastStandShown = false;
 
   constructor(private scene: Phaser.Scene) {
     this.finalTint = scene.add.rectangle(
@@ -50,6 +51,7 @@ export class RunPacingEffects {
     }
 
     this.updateEliteWarnings(state.elapsedSec);
+    this.updateLastStand(state.elapsedSec, state.durationSec);
     this.updateFinalCountdown(state.elapsedSec, state.durationSec);
   }
 
@@ -104,6 +106,64 @@ export class RunPacingEffects {
         title.destroy();
         sub.destroy();
       },
+    });
+  }
+
+  private updateLastStand(elapsedSec: number, durationSec: number): void {
+    if (this.lastStandShown) return;
+    const remaining = durationSec - elapsedSec;
+    if (remaining > 30 || remaining <= FINAL_COUNTDOWN_SEC) return;
+    this.lastStandShown = true;
+    this.showLastStandBanner();
+  }
+
+  private showLastStandBanner(): void {
+    const depth = VIEW_DEPTH.hud + 5;
+    const cx = GAME_WIDTH / 2;
+
+    const scraps: Phaser.GameObjects.Rectangle[] = [];
+    for (let i = 0; i < 8; i++) {
+      const side = i % 2 === 0 ? -1 : 1;
+      const x = side * (GAME_WIDTH / 2 + 20 + (i % 3) * 10);
+      const y = 80 + (i % 4) * 160;
+      const size = 6 + (i % 3) * 3;
+      const scrap = this.scene.add.rectangle(cx + x, y, size, size * 0.6, 0x1a1428, 0.7)
+        .setDepth(depth - 1).setAlpha(0).setAngle(side * (10 + i * 8));
+      scraps.push(scrap);
+      this.scene.tweens.add({
+        targets: scrap,
+        alpha: 0.6,
+        x: cx + x * 0.3,
+        angle: scrap.angle + side * 40,
+        duration: 600 + i * 40,
+        delay: i * 30,
+        ease: 'Quad.easeOut',
+      });
+      this.scene.tweens.add({
+        targets: scrap,
+        alpha: 0,
+        duration: 400,
+        delay: 800 + i * 30,
+        ease: 'Quad.easeIn',
+        onComplete: () => scrap.destroy(),
+      });
+    }
+
+    const banner = this.scene.add.text(cx, 148, '影が集まる', {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '18px',
+      color: '#c4b8d8',
+      fontStyle: 'bold',
+      resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 3,
+    }).setOrigin(0.5).setDepth(depth).setAlpha(0);
+
+    this.scene.cameras.main.shake(80, 0.0015);
+    this.scene.tweens.add({
+      targets: banner, alpha: 1, duration: 220, ease: 'Quad.easeOut',
+      yoyo: true, hold: 700,
+      onComplete: () => banner.destroy(),
     });
   }
 
