@@ -2,6 +2,7 @@ import type { RuntimeState } from '../runtime';
 import { isValidSubCharacterSelection } from '../systems/subCharacterOptions';
 import { settleSavedBondRun } from './bonds';
 import { stageRecipes } from '../data/waves';
+import { stagePowerForStage } from '../data/stageScaling';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
 export type UpgradeId =
@@ -39,6 +40,7 @@ export type RunSettlement = {
   characterXpEarned: number;
   characterLevelBefore: number;
   characterLevelAfter: number;
+  stageBonus: number;
   depthBonus: number;
   noBerserkBonus: number;
   firstClearBonus: number;
@@ -300,10 +302,11 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
     state.player.level * 4 +
     state.stats.survivedSec * 0.08 +
     (cleared ? 90 : 0);
+  const stageReward = stagePowerForStage(state.stageNumber).reward;
   const noBerserkBonus = noBerserk ? bonuses.noBerserkMultiplier : 1;
   const firstClearBonus = firstClear ? 1.75 : 1;
-  const currencyEarned = Math.max(1, Math.floor(baseCurrency * depth.reward * bonuses.currencyMultiplier * noBerserkBonus * firstClearBonus));
-  const characterXpEarned = Math.max(1, Math.floor((state.stats.survivedSec * 0.6 + state.stats.kills * 0.8 + (cleared ? 120 : 0)) * depth.reward));
+  const currencyEarned = Math.max(1, Math.floor(baseCurrency * stageReward * depth.reward * bonuses.currencyMultiplier * noBerserkBonus * firstClearBonus));
+  const characterXpEarned = Math.max(1, Math.floor((state.stats.survivedSec * 0.6 + state.stats.kills * 0.8 + (cleared ? 120 : 0)) * stageReward * depth.reward));
 
   const progress = profile.characterProgress[state.characterId] ?? { level: 1, xp: 0, totalXp: 0 };
   const before = progress.level;
@@ -350,6 +353,7 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
     characterXpEarned,
     characterLevelBefore: before,
     characterLevelAfter: progress.level,
+    stageBonus: stageReward,
     depthBonus: depth.reward,
     noBerserkBonus,
     firstClearBonus,

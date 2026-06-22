@@ -549,16 +549,28 @@ export class Overlays {
       if (row.countTo != null) this.scene.time.delayedCall(rowDelay + 80, () => this.countUpText(valueText, row.countTo!, row.format));
     });
 
+    // ボーナス内訳（ステージ/深度/黒曜化不使用/初回クリア）
+    const bonusParts: string[] = [];
+    if (settlement.stageBonus > 1) bonusParts.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
+    if (settlement.depthBonus > 1) bonusParts.push(`深度×${settlement.depthBonus.toFixed(1)}`);
+    if (settlement.noBerserkBonus > 1) bonusParts.push(`黒曜化不使用×${settlement.noBerserkBonus.toFixed(2)}`);
+    if (settlement.firstClearBonus > 1) bonusParts.push(`初回クリア×${settlement.firstClearBonus.toFixed(2)}`);
+    let bonusOffset = 0;
+    if (bonusParts.length > 0) {
+      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 14, `▽ ${bonusParts.join('　')}`, 11, '#c8b8ff'));
+      bonusOffset = 18;
+    }
+
     // 進化/合体行（あれば）
     const evolutionLabels = stats.evolutions.map((id) => evolutionResultLabel(id));
     if (evolutionLabels.length > 0) {
       const visible = evolutionLabels.slice(0, 2).join(' / ');
       const more = evolutionLabels.length > 2 ? `　ほか ${evolutionLabels.length - 2}件` : '';
-      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 18, `◇ 進化/合体　${visible}${more}`, 12, STORYBOOK_UI.goldLight, true));
+      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 18 + bonusOffset, `◇ 進化/合体　${visible}${more}`, 12, STORYBOOK_UI.goldLight, true));
     }
 
     // ひとこと
-    const messageY = cardTopY + cardHeight + (evolutionLabels.length > 0 ? 44 : 22);
+    const messageY = cardTopY + cardHeight + bonusOffset + (evolutionLabels.length > 0 ? 44 : 22);
     const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
     const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
     root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));

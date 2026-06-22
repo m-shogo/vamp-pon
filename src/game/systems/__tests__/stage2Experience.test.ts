@@ -75,6 +75,59 @@ describe('Stage2体験差別化', () => {
   });
 });
 
+describe('Stage2 wave手動チューニング', () => {
+  it('Stage2序盤(wave0)は横/上の出現比率がStage1より高い', () => {
+    const w1 = wavesForStage(1);
+    const w2 = wavesForStage(2);
+    const s1Dir = w1[0]?.spawns[0]?.directionWeights;
+    const s2Dir = w2[0]?.spawns[0]?.directionWeights;
+    expect((s2Dir?.left ?? 0) + (s2Dir?.right ?? 0)).toBeGreaterThan(
+      (s1Dir?.left ?? 0) + (s1Dir?.right ?? 0),
+    );
+    expect(s2Dir?.top ?? 0).toBeGreaterThan(s1Dir?.top ?? 0);
+  });
+
+  it('Stage2終盤(最終wave)はaround/全方向で収束感がある', () => {
+    const w2 = wavesForStage(2);
+    const lastWave = w2[w2.length - 1];
+    const dir = lastWave?.spawns[0]?.directionWeights;
+    expect(dir?.bottom ?? 0).toBeLessThan(40);
+    expect((dir?.left ?? 0) + (dir?.right ?? 0)).toBeGreaterThanOrEqual(40);
+  });
+
+  it('Stage2はnight_hazeをStage1より早く導入する', () => {
+    const w1 = wavesForStage(1);
+    const w2 = wavesForStage(2);
+    const s1FirstHaze = w1.findIndex((w) => w.spawns.some((s) => s.enemyId === 'night_haze'));
+    const s2FirstHaze = w2.findIndex((w) => w.spawns.some((s) => s.enemyId === 'night_haze'));
+    expect(s2FirstHaze).toBeLessThan(s1FirstHaze);
+    expect(s2FirstHaze).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe('Stage報酬倍率', () => {
+  beforeEach(() => { vi.stubGlobal('window', fakeWindow()); });
+  afterEach(() => { vi.unstubAllGlobals(); });
+
+  it('Stage2の報酬がStage1より多い（stageBonus反映）', () => {
+    saveProfile(createDefaultProfile());
+    const s1 = settleRunProgress(makeState({ stageNumber: 1, kills: 100, survivedSec: 300, fragments: 50 }), false);
+    saveProfile(createDefaultProfile());
+    const s2 = settleRunProgress(makeState({ stageNumber: 2, kills: 100, survivedSec: 300, fragments: 50 }), false);
+    expect(s2.currencyEarned).toBeGreaterThan(s1.currencyEarned);
+    expect(s2.stageBonus).toBe(1.2);
+    expect(s1.stageBonus).toBe(1);
+  });
+
+  it('Stage2のcharacterXpもstageBonus分増える', () => {
+    saveProfile(createDefaultProfile());
+    const s1 = settleRunProgress(makeState({ stageNumber: 1, kills: 100, survivedSec: 300 }), false);
+    saveProfile(createDefaultProfile());
+    const s2 = settleRunProgress(makeState({ stageNumber: 2, kills: 100, survivedSec: 300 }), false);
+    expect(s2.characterXpEarned).toBeGreaterThan(s1.characterXpEarned);
+  });
+});
+
 describe('Stage unlock safety', () => {
   beforeEach(() => { vi.stubGlobal('window', fakeWindow()); });
   afterEach(() => { vi.unstubAllGlobals(); });

@@ -179,32 +179,148 @@ export const waves: WaveDefinition[] = rawWaves.map((wave) => ({
   spawns: wave.spawns.map(withPrimaryPattern),
 }));
 
-function stage2DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
-  return {
-    bottom: Math.max(24, Math.round((weights.bottom ?? 0) * 0.72)),
-    top: Math.round((weights.top ?? 0) * 1.22 + 5),
-    left: Math.round((weights.left ?? 0) * 1.12 + 3),
-    right: Math.round((weights.right ?? 0) * 1.12 + 3),
-    around: Math.round((weights.around ?? 0) + 8),
-  };
-}
+/**
+ * Stage2「にじむ地図帳」手動ウェーブ。
+ * コンセプト: 雨の路地——序盤は安全寄り、中盤から横流し/挟み込みが増え、
+ * 終盤は雨のように四方から敵が収束する。
+ * Stage1との差: bottom偏重を崩し left/right/around を増やす。
+ * night_haze（群れ＝雨粒）とlost_direction（回り込み＝路地裏の挟撃）を早期導入。
+ */
+const rawStage2Waves: WaveDefinition[] = [
+  {
+    start: 0, end: 20,
+    note: 'Stage2: 操作確認。Stage1より少し上・横からも降ってくる。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 0.98, maxAlive: 24, directionWeights: { bottom: 50, top: 18, left: 14, right: 14, around: 4 } },
+    ],
+  },
+  {
+    start: 20, end: 45,
+    note: 'Stage2: 回り込み敵を早期導入。路地の角から現れる感触。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.08, maxAlive: 28, directionWeights: { bottom: 45, top: 18, left: 16, right: 16, around: 5 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.08, maxAlive: 3, directionWeights: { bottom: 30, top: 20, left: 22, right: 22, around: 6 } },
+    ],
+  },
+  {
+    start: 45, end: 75,
+    note: 'Stage2: 突進敵が横から。路地の入口から突っ込んでくるイメージ。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.15, maxAlive: 34, directionWeights: { bottom: 42, top: 18, left: 18, right: 18, around: 4 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.2, maxAlive: 5, directionWeights: { bottom: 25, top: 15, left: 28, right: 28, around: 4 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.1, maxAlive: 4, directionWeights: { bottom: 28, top: 20, left: 24, right: 24, around: 4 } },
+    ],
+  },
+  {
+    start: 75, end: 120,
+    note: 'Stage2: 回り込みが本格化。左右から挟む配置。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.02, maxAlive: 34, directionWeights: { bottom: 38, top: 18, left: 20, right: 20, around: 4 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.28, maxAlive: 7, directionWeights: { bottom: 22, top: 14, left: 30, right: 30, around: 4 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.16, maxAlive: 7, directionWeights: { bottom: 24, top: 18, left: 26, right: 26, around: 6 } },
+    ],
+  },
+  {
+    start: 120, end: 150,
+    note: 'Stage2: 黒カプセルと夜のもやを早期導入。雨粒のように小さな群れが流れてくる。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 0.92, maxAlive: 32, directionWeights: { bottom: 38, top: 18, left: 20, right: 20, around: 4 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.28, maxAlive: 8, directionWeights: { bottom: 22, top: 14, left: 30, right: 30, around: 4 } },
+      { enemyId: 'night_haze', spawnRatePerSecond: 0.15, maxAlive: 8, directionWeights: { bottom: 30, top: 22, left: 22, right: 22, around: 4 } },
+      { enemyId: 'black_capsule', spawnRatePerSecond: 0.1, maxAlive: 2, directionWeights: { bottom: 40, top: 20, left: 18, right: 18, around: 4 } },
+    ],
+  },
+  {
+    start: 150, end: 151,
+    note: 'Stage2: エリート1。雨影の気配。',
+    spawns: [
+      { enemyId: 'black_label_shadow', spawnCount: 1, directionWeights: { bottom: 60, top: 20, left: 10, right: 10 } },
+    ],
+  },
+  {
+    start: 151, end: 210,
+    note: 'Stage2: エリート後の雨間。群れを多めにして爽快に倒させる。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.18, maxAlive: 44, directionWeights: { bottom: 36, top: 20, left: 20, right: 20, around: 4 } },
+      { enemyId: 'night_haze', spawnRatePerSecond: 0.22, maxAlive: 12, directionWeights: { bottom: 28, top: 22, left: 22, right: 22, around: 6 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.18, maxAlive: 10, directionWeights: { bottom: 26, top: 20, left: 24, right: 24, around: 6 } },
+    ],
+  },
+  {
+    start: 210, end: 270,
+    note: 'Stage2: 横流しが強まる。突進敵が左右から挟む。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 0.98, maxAlive: 42, directionWeights: { bottom: 32, top: 20, left: 22, right: 22, around: 4 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.46, maxAlive: 16, directionWeights: { bottom: 18, top: 12, left: 32, right: 32, around: 6 } },
+      { enemyId: 'night_haze', spawnRatePerSecond: 0.3, maxAlive: 16, directionWeights: { bottom: 26, top: 22, left: 24, right: 24, around: 4 } },
+      { enemyId: 'black_capsule', spawnRatePerSecond: 0.14, maxAlive: 5, directionWeights: { bottom: 36, top: 20, left: 20, right: 20, around: 4 } },
+    ],
+  },
+  {
+    start: 270, end: 300,
+    note: 'Stage2: 雨脚が強まる。全方向から群れが流れ込む。',
+    spawns: [
+      { enemyId: 'night_haze', spawnRatePerSecond: 0.52, maxAlive: 26, directionWeights: { bottom: 24, top: 24, left: 24, right: 24, around: 4 } },
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 0.85, maxAlive: 38, directionWeights: { bottom: 30, top: 22, left: 22, right: 22, around: 4 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.22, maxAlive: 14, directionWeights: { bottom: 22, top: 20, left: 26, right: 26, around: 6 } },
+    ],
+  },
+  {
+    start: 300, end: 301,
+    note: 'Stage2: エリート2。雨の壁。',
+    spawns: [
+      { enemyId: 'black_label_shadow', spawnCount: 1, directionWeights: { bottom: 50, top: 25, left: 12, right: 13 } },
+    ],
+  },
+  {
+    start: 301, end: 360,
+    note: 'Stage2: 挟み込みが激化。路地の両側から追い詰められる。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.05, maxAlive: 48, directionWeights: { bottom: 30, top: 22, left: 22, right: 22, around: 4 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.54, maxAlive: 20, directionWeights: { bottom: 16, top: 14, left: 32, right: 32, around: 6 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.38, maxAlive: 18, directionWeights: { bottom: 20, top: 18, left: 28, right: 28, around: 6 } },
+      { enemyId: 'black_capsule', spawnRatePerSecond: 0.16, maxAlive: 7, directionWeights: { bottom: 32, top: 20, left: 22, right: 22, around: 4 } },
+    ],
+  },
+  {
+    start: 360, end: 420,
+    note: 'Stage2: 雨の本番。群れが四方から収束する。',
+    spawns: [
+      { enemyId: 'night_haze', spawnRatePerSecond: 0.82, maxAlive: 40, directionWeights: { bottom: 22, top: 24, left: 24, right: 24, around: 6 } },
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 0.85, maxAlive: 44, directionWeights: { bottom: 26, top: 22, left: 24, right: 24, around: 4 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.24, maxAlive: 16, directionWeights: { bottom: 20, top: 20, left: 26, right: 26, around: 8 } },
+    ],
+  },
+  {
+    start: 420, end: 421,
+    note: 'Stage2: エリート3。雨影の集結。',
+    spawns: [
+      { enemyId: 'black_label_shadow', spawnCount: 1, directionWeights: { bottom: 40, top: 20, left: 20, right: 20 } },
+    ],
+  },
+  {
+    start: 421, end: 470,
+    note: 'Stage2: クライマックス。雨と影の全方向包囲。',
+    spawns: [
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.05, maxAlive: 52, directionWeights: { bottom: 26, top: 22, left: 24, right: 24, around: 4 } },
+      { enemyId: 'paper_scrap_shadow', spawnRatePerSecond: 0.58, maxAlive: 28, directionWeights: { bottom: 16, top: 16, left: 30, right: 30, around: 8 } },
+      { enemyId: 'lost_direction', spawnRatePerSecond: 0.42, maxAlive: 22, directionWeights: { bottom: 18, top: 18, left: 28, right: 28, around: 8 } },
+      { enemyId: 'night_haze', spawnRatePerSecond: 0.95, maxAlive: 50, directionWeights: { bottom: 22, top: 24, left: 24, right: 24, around: 6 } },
+    ],
+  },
+  {
+    start: 470, end: 480,
+    note: 'Stage2: 最後の豪雨。止む前の一番激しい雨。',
+    spawns: [
+      { enemyId: 'night_haze', spawnRatePerSecond: 1.35, maxAlive: 66, directionWeights: { bottom: 22, top: 24, left: 24, right: 24, around: 6 } },
+      { enemyId: 'ink_shadow', spawnRatePerSecond: 1.15, maxAlive: 58, directionWeights: { bottom: 24, top: 22, left: 24, right: 24, around: 6 } },
+    ],
+  },
+];
 
-function stage2Spawn(spawn: WaveSpawnDefinition, waveIndex: number): WaveSpawnDefinition {
-  const pressure = 1.08 + Math.min(0.16, waveIndex * 0.012);
-  return {
-    ...spawn,
-    spawnRatePerSecond: spawn.spawnRatePerSecond == null
-      ? undefined
-      : Number((spawn.spawnRatePerSecond * pressure).toFixed(2)),
-    maxAlive: spawn.maxAlive == null ? undefined : Math.ceil(spawn.maxAlive * 1.12),
-    directionWeights: stage2DirectionWeights(spawn.directionWeights),
-  };
-}
-
-export const stage2Waves: WaveDefinition[] = waves.map((wave, index) => ({
+export const stage2Waves: WaveDefinition[] = rawStage2Waves.map((wave) => ({
   ...wave,
-  note: `Stage2: ${wave.note}`,
-  spawns: wave.spawns.map((spawn) => stage2Spawn(spawn, index)),
+  spawns: wave.spawns.map(withPrimaryPattern),
 }));
 
 function stage3DirectionWeights(weights: WaveSpawnDefinition['directionWeights']): WaveSpawnDefinition['directionWeights'] {
