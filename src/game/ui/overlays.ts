@@ -39,6 +39,7 @@ import {
   drawStorybookPanel,
   storybookCategoryPalette,
 } from './storybookUi';
+import { getAudioManager } from '../audio/AudioManager';
 
 const D = VIEW_DEPTH.overlay;
 const LIST_ICON_SIZE = 46;
@@ -546,7 +547,14 @@ export class Overlays {
       }).setOrigin(1, 0.5).setAlpha(0);
       root.add(valueText);
       this.scene.tweens.add({ targets: valueText, alpha: 1, duration: 160, delay: rowDelay + 80, ease: 'Quad.easeOut' });
-      if (row.countTo != null) this.scene.time.delayedCall(rowDelay + 80, () => this.countUpText(valueText, row.countTo!, row.format));
+      if (row.countTo != null) {
+        this.scene.time.delayedCall(rowDelay + 80, () => {
+          getAudioManager(this.scene).playSe(row.label === '黒曜片' ? 'currency_gain' : 'result_count', {
+            volume: row.label === '黒曜片' ? 0.46 : 0.3,
+          });
+          this.countUpText(valueText, row.countTo!, row.format);
+        });
+      }
     });
 
     // 強敵撃破（あれば）
@@ -615,6 +623,9 @@ export class Overlays {
       root.add(unlockText);
       this.scene.tweens.add({
         targets: [unlockBg, unlockText], alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut',
+      });
+      this.scene.time.delayedCall(1200, () => {
+        getAudioManager(this.scene).playSe('stage_unlock', { volume: 0.6, priority: 2 });
       });
       const sparkle = this.scene.add.circle(GAME_WIDTH / 2 - 146, unlockY, 4, 0xf5d58a, 0);
       root.add(sparkle);
@@ -725,7 +736,10 @@ export class Overlays {
     row.add(graphics);
     const hit = this.scene.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this.scene, hit, row, { x, y, width, height, accent: palette.accent, depth: D + 8 });
-    hit.on('pointerdown', onClick);
+    hit.on('pointerdown', () => {
+      getAudioManager(this.scene).playSe('choice_select', { volume: 0.44, priority: 1 });
+      onClick();
+    });
     row.add(hit);
     this.addInventoryIcon(row, ref, -width / 2 + 34, 0, LIST_ICON_SIZE, palette.accent);
     row.add(this.scene.add.text(-width / 2 + 67, 0, wrapUiText(label, 18, 1), {
@@ -874,7 +888,10 @@ export class Overlays {
       strong: height >= 44,
       shake: height >= 44,
     });
-    hit.on('pointerdown', onClick);
+    hit.on('pointerdown', () => {
+      getAudioManager(this.scene).playSe(dark ? 'ui_select' : 'ui_confirm', { volume: dark ? 0.34 : 0.44 });
+      onClick();
+    });
     button.add(hit);
     button.add(this.scene.add.text(0, 0, label, {
       fontFamily: STORYBOOK_FONT,

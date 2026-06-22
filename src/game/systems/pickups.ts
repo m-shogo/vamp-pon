@@ -86,7 +86,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
         recordHealCollected(state.stats);
         pickup.dead = true;
         pickup.view.destroy();
-        getAudioManager(scene).playSe('heal', { volume: 0.7 });
+        getAudioManager(scene).playSe('heal_pickup', { volume: 0.55 });
         getEffectManager(scene).heal(p.x, p.y);
         collectSpark(scene, p.x, p.y);
       }
@@ -123,6 +123,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
       if (state.telemetry.firstCapsuleSec === null) state.telemetry.firstCapsuleSec = state.elapsedSec;
       state.pendingCapsule = generateCapsuleReward(state);
       state.status = GAME_STATUS.CAPSULE;
+      getAudioManager(scene).playSe('capsule_open', { volume: 0.58, priority: 1 });
       break;
     }
   }

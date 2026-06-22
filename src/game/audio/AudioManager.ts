@@ -2,97 +2,158 @@ import Phaser from 'phaser';
 import { GAME_FEEL_CONFIG } from '../config/GameFeelConfig';
 
 export type SeKey =
-  | 'hit'
-  | 'enemyDeath'
-  | 'expCollect'
-  | 'levelUp'
-  | 'evolution'
-  | 'heal'
-  | 'playerDamage'
-  | 'select'
-  | 'reroll'
-  | 'ultimate'
-  | 'blackMode'
-  | 'bossWarning'
-  | 'clear';
+  | 'ui_select' | 'ui_confirm' | 'ui_cancel' | 'ui_open' | 'ui_close'
+  | 'hit' | 'enemy_death' | 'enemy_death_elite' | 'player_damage'
+  | 'heal_pickup' | 'exp_pickup' | 'capsule_open'
+  | 'levelup' | 'choice_select' | 'evolution' | 'stage_unlock'
+  | 'result_count' | 'currency_gain'
+  | 'boss_warning' | 'boss_hit' | 'boss_defeat'
+  | 'berserk_ready' | 'berserk_start' | 'berserk_end'
+  | 'ultimate_ready' | 'ultimate_fire' | 'ultimate_cut_in'
+  | 'result_clear' | 'result_defeat';
+
+export type BgmKey = 'bgm_top' | 'bgm_stage1' | 'bgm_stage2' | 'bgm_result' | 'bgm_growth';
+export type AudioCategory = 'bgm' | 'ui' | 'combat' | 'reward' | 'boss' | 'berserk' | 'ultimate' | 'result';
 
 export type AudioAssetSpec = {
-  key: string;
+  key: SeKey | BgmKey;
   kind: 'se' | 'bgm';
-  durationSec?: [number, number];
+  category: AudioCategory;
+  recommendedVolume: number;
   description: string;
 };
 
-type AudioManifestEntry = {
-  key: string;
-  url: string;
-};
+export type AudioManifestEntry = { key: string; url: string };
+export type AudioManifest = { version?: number; assets?: AudioManifestEntry[]; optionalKeys?: string[] };
 
-type AudioManifest = {
-  version?: number;
-  assets?: AudioManifestEntry[];
-};
+const specs = (
+  category: AudioCategory,
+  recommendedVolume: number,
+  entries: ReadonlyArray<readonly [SeKey | BgmKey, string]>,
+): AudioAssetSpec[] => entries.map(([key, description]) => ({
+  key,
+  kind: category === 'bgm' ? 'bgm' : 'se',
+  category,
+  recommendedVolume,
+  description,
+}));
 
 export const AUDIO_ASSET_SPECS: readonly AudioAssetSpec[] = [
-  { key: 'se_hit', kind: 'se', durationSec: [0.04, 0.08], description: '敵に当たった瞬間。短く紙とインクが弾ける音。' },
-  { key: 'se_enemyDeath', kind: 'se', durationSec: [0.08, 0.18], description: '影がほどける音。連続killでrateを少し上げる。' },
-  { key: 'se_expCollect', kind: 'se', durationSec: [0.03, 0.08], description: '記憶片の取得。pitch ladder向け。' },
-  { key: 'se_levelUp', kind: 'se', durationSec: [0.5, 1.0], description: 'ご褒美感のあるランタン/紙片の上昇音。BGM duck対象。' },
-  { key: 'se_evolution', kind: 'se', durationSec: [0.8, 1.4], description: '進化専用。紙片が集まって光る音。BGM duck対象。' },
-  { key: 'se_heal', kind: 'se', durationSec: [0.1, 0.25], description: '柔らかい回復音。' },
-  { key: 'se_playerDamage', kind: 'se', durationSec: [0.1, 0.25], description: '被弾。痛いが耳に刺さらない低い紙擦れ。' },
-  { key: 'se_ultimate', kind: 'se', durationSec: [0.5, 1.2], description: '必殺。横方向の光と同期。BGM duck対象。' },
-  { key: 'se_blackMode', kind: 'se', durationSec: [0.5, 1.2], description: '黒耀化。黒炎の脈動。BGM duck対象。' },
-  { key: 'se_bossWarning', kind: 'se', durationSec: [0.5, 1.0], description: 'ボス警告。短い低域と紙の震え。' },
-  { key: 'se_clear', kind: 'se', durationSec: [0.6, 1.2], description: 'クリア/朝演出。BGM duck対象。' },
-  { key: 'se_select', kind: 'se', durationSec: [0.05, 0.1], description: 'カード選択/ボタン押下。軽い紙の捲れ音。' },
-  { key: 'se_reroll', kind: 'se', durationSec: [0.08, 0.15], description: 'リロール。紙を払う短い音。' },
-  { key: 'bgm_stage1', kind: 'bgm', description: 'Stage1通常BGM。ループ前提。' },
-  { key: 'bgm_boss', kind: 'bgm', description: 'ボス/オンブロBGM。ループ前提。' },
-  { key: 'bgm_clear', kind: 'bgm', description: '朝/リザルト寄りBGM。ループまたは短尺。' },
+  ...specs('bgm', 0.34, [
+    ['bgm_top', 'TOP/menu BGM'], ['bgm_stage1', 'Stage1 BGM'], ['bgm_stage2', 'Stage2 BGM'],
+    ['bgm_result', 'Result BGM'], ['bgm_growth', '成長/収集画面 BGM'],
+  ]),
+  ...specs('ui', 0.42, [
+    ['ui_select', 'カーソル/軽い選択'], ['ui_confirm', '決定'], ['ui_cancel', 'キャンセル'],
+    ['ui_open', 'パネルを開く'], ['ui_close', 'パネルを閉じる'],
+  ]),
+  ...specs('combat', 0.38, [
+    ['hit', '通常ヒット'], ['enemy_death', '通常敵撃破'], ['enemy_death_elite', 'エリート撃破'],
+    ['player_damage', 'プレイヤー被弾'], ['heal_pickup', '回復取得'], ['exp_pickup', 'EXP取得'],
+    ['capsule_open', 'カプセル開封'],
+  ]),
+  ...specs('reward', 0.55, [
+    ['levelup', 'レベルアップ'], ['choice_select', 'レベルアップ選択決定'], ['evolution', '進化/合体'],
+    ['stage_unlock', 'ステージ解放'], ['result_count', 'Resultカウント'], ['currency_gain', '通貨獲得'],
+  ]),
+  ...specs('boss', 0.64, [
+    ['boss_warning', 'ボス警告'], ['boss_hit', 'ボスへの強打'], ['boss_defeat', 'ボス撃破'],
+  ]),
+  ...specs('berserk', 0.58, [
+    ['berserk_ready', '黒耀準備完了'], ['berserk_start', '黒耀開始'], ['berserk_end', '黒耀終了'],
+  ]),
+  ...specs('ultimate', 0.62, [
+    ['ultimate_ready', '必殺準備完了'], ['ultimate_fire', '必殺発動'], ['ultimate_cut_in', '必殺カットイン'],
+  ]),
+  ...specs('result', 0.58, [
+    ['result_clear', 'クリア遷移'], ['result_defeat', '敗北遷移'],
+  ]),
 ] as const;
 
-type AudioVolumes = {
-  master: number;
-  bgm: number;
-  se: number;
-  muted: boolean;
+type AudioVolumes = { master: number; bgm: number; se: number; muted: boolean };
+export type PlaySeOptions = {
+  volume?: number;
+  rate?: number;
+  detune?: number;
+  cooldownMs?: number;
+  priority?: number;
 };
 
 const AUDIO_MANIFEST_URL = '/assets/audio/audio-manifest.json';
-const KNOWN_AUDIO_KEYS = new Set(AUDIO_ASSET_SPECS.map((spec) => spec.key));
+const KNOWN_AUDIO_KEYS = new Set<string>(AUDIO_ASSET_SPECS.map((spec) => spec.key));
 const STORAGE_KEY = 'vampPon.audio.v1';
 const MIN_INTERVAL_MS: Partial<Record<SeKey, number>> = {
-  hit: 42,
-  enemyDeath: 56,
-  expCollect: 38,
-  playerDamage: 140,
-  bossWarning: 900,
+  hit: 55,
+  enemy_death: 80,
+  enemy_death_elite: 120,
+  exp_pickup: 55,
+  result_count: 90,
+  player_damage: 160,
+  boss_hit: 100,
+  boss_warning: 900,
 };
 
 const DUCK_ON_SE: Partial<Record<SeKey, { duration: number; amount: number }>> = {
-  levelUp: { duration: 420, amount: 0.28 },
-  evolution: { duration: 620, amount: 0.42 },
-  ultimate: { duration: 420, amount: 0.34 },
-  blackMode: { duration: 520, amount: 0.32 },
-  clear: { duration: 900, amount: 0.48 },
+  levelup: { duration: 420, amount: 0.26 },
+  evolution: { duration: 620, amount: 0.4 },
+  boss_warning: { duration: 600, amount: 0.32 },
+  boss_defeat: { duration: 800, amount: 0.5 },
+  berserk_start: { duration: 520, amount: 0.3 },
+  ultimate_fire: { duration: 440, amount: 0.34 },
+  result_clear: { duration: 900, amount: 0.48 },
+  result_defeat: { duration: 650, amount: 0.56 },
 };
+
+export function bgmKeyForStage(stageNumber: number): BgmKey {
+  return stageNumber === 2 ? 'bgm_stage2' : 'bgm_stage1';
+}
+
+export function selectPreloadableAudioAssets(manifest: AudioManifest): AudioManifestEntry[] {
+  const seenKeys = new Set<string>();
+  const seenUrls = new Set<string>();
+  const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
+  return assets.filter((asset) => {
+    if (!KNOWN_AUDIO_KEYS.has(asset.key) || typeof asset.url !== 'string' || asset.url.trim().length === 0) return false;
+    if (seenKeys.has(asset.key) || seenUrls.has(asset.url)) return false;
+    seenKeys.add(asset.key);
+    seenUrls.add(asset.url);
+    return true;
+  });
+}
+
+export function isCooldownReady(lastPlayedAt: number | undefined, now: number, cooldownMs: number): boolean {
+  return now - (lastPlayedAt ?? Number.NEGATIVE_INFINITY) >= Math.max(0, cooldownMs);
+}
 
 export class AudioManager {
   private scene: Phaser.Scene | null = null;
   private volumes: AudioVolumes = { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false };
+  private volumesLoaded = false;
   private lastPlayedAt = new Map<SeKey, number>();
   private bgm: Phaser.Sound.BaseSound | null = null;
-  private unlocked = false;
+  private bgmKey: BgmKey | null = null;
+  private userActivated = false;
   private unlockHandler: (() => void) | null = null;
+  private pendingBgm: { key: BgmKey; options?: { volume?: number; loop?: boolean; fadeMs?: number } } | null = null;
   private warnedMissing = new Set<string>();
   private audioContext: AudioContext | null = null;
   private expLadder = 0;
   private lastExpAtMs = Number.NEGATIVE_INFINITY;
+  private lastPriority = 0;
+  private lastPriorityAt = Number.NEGATIVE_INFINITY;
 
   init(scene: Phaser.Scene): void {
+    if (this.scene !== scene && this.scene && this.unlockHandler) {
+      this.scene.input.off(Phaser.Input.Events.POINTER_DOWN, this.unlockHandler);
+      this.unlockHandler = null;
+    }
     this.scene = scene;
-    this.volumes = this.loadVolumes();
+    if (!this.volumesLoaded) {
+      this.volumes = this.loadVolumes();
+      this.volumesLoaded = true;
+    }
+    const sound = scene.sound as Phaser.Sound.BaseSoundManager & { setMute?: (muted: boolean) => void };
+    sound.setMute?.(this.volumes.muted);
   }
 
   async preloadAudioAssets(scene: Phaser.Scene): Promise<number> {
@@ -103,10 +164,8 @@ export class AudioManager {
       manifest = await res.json() as AudioManifest;
     } catch { return 0; }
 
-    const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
     let queued = 0;
-    for (const asset of assets) {
-      if (!KNOWN_AUDIO_KEYS.has(asset.key) || typeof asset.url !== 'string' || asset.url.length === 0) continue;
+    for (const asset of selectPreloadableAudioAssets(manifest)) {
       if (scene.cache.audio.exists(asset.key)) continue;
       scene.load.audio(asset.key, asset.url);
       queued += 1;
@@ -115,36 +174,44 @@ export class AudioManager {
   }
 
   unlockOnFirstInput(): void {
-    if (!this.scene || this.unlocked || this.unlockHandler) return;
+    if (!this.scene || this.userActivated || this.unlockHandler) return;
     const scene = this.scene;
     this.unlockHandler = () => {
-      this.unlocked = true;
+      this.userActivated = true;
       if ('unlock' in scene.sound && typeof scene.sound.unlock === 'function') scene.sound.unlock();
-      this.ensureAudioContext()?.resume?.();
+      void this.ensureAudioContext()?.resume?.();
       if (this.unlockHandler) scene.input.off(Phaser.Input.Events.POINTER_DOWN, this.unlockHandler);
       this.unlockHandler = null;
+      const pending = this.pendingBgm;
+      this.pendingBgm = null;
+      if (pending) this.playBgm(pending.key, pending.options);
     };
     scene.input.once(Phaser.Input.Events.POINTER_DOWN, this.unlockHandler);
   }
 
-  playSe(key: SeKey, options?: { volume?: number; rate?: number; detune?: number }): void {
-    if (!this.scene || this.volumes.muted) return;
+  playSe(key: SeKey, options?: PlaySeOptions): void {
+    if (!this.scene || this.volumes.muted || !this.userActivated) return;
     const now = this.scene.time.now;
-    const minInterval = MIN_INTERVAL_MS[key] ?? 0;
-    const last = this.lastPlayedAt.get(key) ?? Number.NEGATIVE_INFINITY;
-    if (now - last < minInterval) return;
+    const cooldown = options?.cooldownMs ?? MIN_INTERVAL_MS[key] ?? 0;
+    if (!isCooldownReady(this.lastPlayedAt.get(key), now, cooldown)) return;
+    const priority = options?.priority ?? 0;
+    if (priority < this.lastPriority && now - this.lastPriorityAt < 80) return;
     this.lastPlayedAt.set(key, now);
+    if (priority > 0) {
+      this.lastPriority = priority;
+      this.lastPriorityAt = now;
+    } else if (now - this.lastPriorityAt >= 80) {
+      this.lastPriority = 0;
+    }
     const duck = DUCK_ON_SE[key];
     if (duck) this.duckBgm(duck.duration, duck.amount);
 
-    const soundKey = soundKeyForSe(key);
-    if (!this.scene.cache.audio.exists(soundKey)) {
-      this.warnMissingOnce(soundKey);
+    if (!this.scene.cache.audio.exists(key)) {
+      this.warnMissingOnce(key);
       this.playFallbackSe(key, options);
       return;
     }
-
-    this.scene.sound.play(soundKey, {
+    this.scene.sound.play(key, {
       volume: this.resolveSeVolume(options?.volume),
       rate: options?.rate,
       detune: options?.detune,
@@ -156,43 +223,56 @@ export class AudioManager {
     const now = this.scene.time.now;
     this.expLadder = now - this.lastExpAtMs < 420 ? Math.min(this.expLadder + 1, 7) : 0;
     this.lastExpAtMs = now;
-    this.playSe('expCollect', {
-      volume: 0.28,
+    this.playSe('exp_pickup', {
+      volume: 0.24,
       rate: 1 + this.expLadder * 0.035 + Math.random() * 0.04,
       detune: this.expLadder * 18,
     });
   }
 
   playEnemyDeath(comboCount = 1, elite = false): void {
-    this.playSe('enemyDeath', {
-      volume: elite ? 0.88 : 0.52,
+    this.playSe(elite ? 'enemy_death_elite' : 'enemy_death', {
+      volume: elite ? 0.7 : 0.4,
       rate: (elite ? 0.9 : 0.98) + Math.min(comboCount, 20) * 0.006 + Math.random() * 0.04,
+      priority: elite ? 2 : 0,
     });
   }
 
-  playBgm(key: string, options?: { volume?: number; loop?: boolean }): void {
-    if (!this.scene || this.volumes.muted) return;
+  playBgm(key: BgmKey, options?: { volume?: number; loop?: boolean; fadeMs?: number }): boolean {
+    if (!this.scene) return false;
     if (!this.scene.cache.audio.exists(key)) {
       this.warnMissingOnce(key);
-      return;
+      return false;
     }
-    this.stopBgm();
+    if (this.volumes.muted || !this.userActivated) {
+      this.pendingBgm = { key, options };
+      return true;
+    }
+    if (this.bgm?.isPlaying && this.bgmKey === key) return true;
+    this.stopBgm({ fadeMs: options?.fadeMs });
+    const fadeMs = options?.fadeMs ?? 0;
+    const targetVolume = this.resolveBgmVolume(options?.volume ?? 1);
+    this.bgmKey = key;
     this.bgm = this.scene.sound.add(key, {
       loop: options?.loop ?? true,
-      volume: this.resolveBgmVolume(options?.volume),
+      volume: fadeMs > 0 ? 0 : targetVolume,
     });
     this.bgm.play();
+    if (fadeMs > 0 && 'setVolume' in this.bgm) {
+      this.scene.tweens.add({ targets: this.bgm, volume: targetVolume, duration: fadeMs });
+    }
+    return true;
   }
 
   stopBgm(options?: { fadeMs?: number }): void {
+    this.pendingBgm = null;
     if (!this.scene || !this.bgm) return;
     const bgm = this.bgm;
     this.bgm = null;
+    this.bgmKey = null;
     if (options?.fadeMs && options.fadeMs > 0 && 'setVolume' in bgm) {
       this.scene.tweens.add({
-        targets: bgm,
-        volume: 0,
-        duration: options.fadeMs,
+        targets: bgm, volume: 0, duration: options.fadeMs,
         onComplete: () => bgm.destroy(),
       });
       return;
@@ -203,16 +283,13 @@ export class AudioManager {
 
   fadeBgm(toVolume: number, duration: number): void {
     if (!this.scene || !this.bgm || !('setVolume' in this.bgm)) return;
-    this.scene.tweens.add({
-      targets: this.bgm,
-      volume: this.resolveBgmVolume(toVolume),
-      duration,
-    });
+    this.scene.tweens.add({ targets: this.bgm, volume: this.resolveBgmVolume(toVolume), duration });
   }
 
   duckBgm(duration: number, amount: number): void {
     if (!this.scene || !this.bgm || !('setVolume' in this.bgm)) return;
     const base = this.resolveBgmVolume();
+    this.scene.tweens.killTweensOf(this.bgm);
     this.scene.tweens.add({
       targets: this.bgm,
       volume: base * Math.max(0, 1 - amount),
@@ -224,32 +301,32 @@ export class AudioManager {
   setMasterVolume(value: number): void {
     this.volumes.master = clampVolume(value);
     this.saveVolumes();
+    const bgm = this.bgm as (Phaser.Sound.BaseSound & { setVolume?: (volume: number) => void }) | null;
+    bgm?.setVolume?.(this.resolveBgmVolume());
   }
-
   setBgmVolume(value: number): void {
     this.volumes.bgm = clampVolume(value);
     this.saveVolumes();
     const bgm = this.bgm as (Phaser.Sound.BaseSound & { setVolume?: (volume: number) => void }) | null;
-    if (bgm?.setVolume) bgm.setVolume(this.resolveBgmVolume());
+    bgm?.setVolume?.(this.resolveBgmVolume());
   }
-
-  setSeVolume(value: number): void {
-    this.volumes.se = clampVolume(value);
-    this.saveVolumes();
-  }
-
+  setSeVolume(value: number): void { this.volumes.se = clampVolume(value); this.saveVolumes(); }
   mute(): void {
     this.volumes.muted = true;
     this.saveVolumes();
     const sound = this.scene?.sound as (Phaser.Sound.BaseSoundManager & { setMute?: (muted: boolean) => void }) | undefined;
-    if (sound?.setMute) sound.setMute(true);
+    sound?.setMute?.(true);
   }
-
   unmute(): void {
     this.volumes.muted = false;
     this.saveVolumes();
     const sound = this.scene?.sound as (Phaser.Sound.BaseSoundManager & { setMute?: (muted: boolean) => void }) | undefined;
-    if (sound?.setMute) sound.setMute(false);
+    sound?.setMute?.(false);
+    const pending = this.pendingBgm;
+    if (pending && this.userActivated) {
+      this.pendingBgm = null;
+      this.playBgm(pending.key, pending.options);
+    }
   }
 
   destroy(): void {
@@ -267,7 +344,7 @@ export class AudioManager {
     return this.audioContext;
   }
 
-  private playFallbackSe(key: SeKey, options?: { volume?: number; rate?: number; detune?: number }): void {
+  private playFallbackSe(key: SeKey, options?: PlaySeOptions): void {
     const ctx = this.ensureAudioContext();
     if (!ctx || ctx.state === 'suspended') return;
     const spec = fallbackSpecFor(key);
@@ -275,12 +352,10 @@ export class AudioManager {
     const now = ctx.currentTime;
     const gain = ctx.createGain();
     const osc = ctx.createOscillator();
-    const rate = options?.rate ?? 1;
-    const detune = options?.detune ?? 0;
     const volume = this.resolveSeVolume(options?.volume ?? spec.volume);
     osc.type = spec.type;
-    osc.frequency.setValueAtTime(spec.frequency * rate, now);
-    osc.detune.setValueAtTime(detune, now);
+    osc.frequency.setValueAtTime(spec.frequency * (options?.rate ?? 1), now);
+    osc.detune.setValueAtTime(options?.detune ?? 0, now);
     gain.gain.setValueAtTime(0.0001, now);
     gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, volume), now + 0.008);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + spec.duration);
@@ -290,13 +365,8 @@ export class AudioManager {
     osc.stop(now + spec.duration + 0.02);
   }
 
-  private resolveSeVolume(volume = 1): number {
-    return clampVolume(volume) * this.volumes.se * this.volumes.master;
-  }
-
-  private resolveBgmVolume(volume = 1): number {
-    return clampVolume(volume) * this.volumes.bgm * this.volumes.master;
-  }
+  private resolveSeVolume(volume = 1): number { return clampVolume(volume) * this.volumes.se * this.volumes.master; }
+  private resolveBgmVolume(volume = 1): number { return clampVolume(volume) * this.volumes.bgm * this.volumes.master; }
 
   private loadVolumes(): AudioVolumes {
     if (typeof window === 'undefined') return { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false };
@@ -308,18 +378,12 @@ export class AudioManager {
         se: typeof parsed.se === 'number' ? clampVolume(parsed.se) : GAME_FEEL_CONFIG.audioVolumeDefaults.se,
         muted: parsed.muted === true,
       };
-    } catch {
-      return { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false };
-    }
+    } catch { return { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false }; }
   }
 
   private saveVolumes(): void {
     if (typeof window === 'undefined') return;
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.volumes));
-    } catch {
-      // Audio settings are nice-to-have only.
-    }
+    try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.volumes)); } catch { /* optional setting */ }
   }
 
   private warnMissingOnce(key: string): void {
@@ -330,47 +394,27 @@ export class AudioManager {
   }
 }
 
-function soundKeyForSe(key: SeKey): string {
-  return `se_${key}`;
-}
-
 function clampVolume(value: number): number {
   return Math.max(0, Math.min(1, Number.isFinite(value) ? value : 0));
 }
 
-declare global {
-  interface Window {
-    webkitAudioContext?: typeof AudioContext;
-  }
+declare global { interface Window { webkitAudioContext?: typeof AudioContext } }
+
+function fallbackSpecFor(key: SeKey): { frequency: number; duration: number; volume: number; type: OscillatorType } {
+  if (key === 'hit' || key === 'boss_hit') return { frequency: key === 'boss_hit' ? 150 : 210, duration: 0.045, volume: 0.04, type: 'triangle' };
+  if (key === 'enemy_death' || key === 'enemy_death_elite' || key === 'boss_defeat') return { frequency: key === 'boss_defeat' ? 100 : 130, duration: key === 'boss_defeat' ? 0.5 : 0.12, volume: 0.07, type: 'sawtooth' };
+  if (key === 'exp_pickup' || key === 'result_count' || key === 'currency_gain') return { frequency: 720, duration: 0.055, volume: 0.035, type: 'sine' };
+  if (key === 'player_damage' || key === 'result_defeat') return { frequency: 95, duration: 0.16, volume: 0.07, type: 'sawtooth' };
+  if (key === 'boss_warning' || key.startsWith('berserk_')) return { frequency: 170, duration: 0.42, volume: 0.065, type: 'square' };
+  if (key.startsWith('ultimate_')) return { frequency: 260, duration: 0.5, volume: 0.07, type: 'triangle' };
+  if (key === 'levelup' || key === 'evolution' || key === 'stage_unlock' || key === 'result_clear') return { frequency: 560, duration: 0.42, volume: 0.065, type: 'triangle' };
+  if (key === 'heal_pickup') return { frequency: 610, duration: 0.14, volume: 0.045, type: 'sine' };
+  return { frequency: key === 'ui_cancel' ? 330 : 420, duration: 0.08, volume: 0.035, type: 'sine' };
 }
 
-function fallbackSpecFor(key: SeKey): { frequency: number; duration: number; volume: number; type: OscillatorType } | null {
-  switch (key) {
-    case 'hit': return { frequency: 210, duration: 0.045, volume: 0.05, type: 'triangle' };
-    case 'enemyDeath': return { frequency: 130, duration: 0.12, volume: 0.09, type: 'sawtooth' };
-    case 'expCollect': return { frequency: 720, duration: 0.055, volume: 0.04, type: 'sine' };
-    case 'levelUp': return { frequency: 520, duration: 0.45, volume: 0.08, type: 'triangle' };
-    case 'evolution': return { frequency: 390, duration: 0.72, volume: 0.08, type: 'triangle' };
-    case 'heal': return { frequency: 610, duration: 0.14, volume: 0.05, type: 'sine' };
-    case 'playerDamage': return { frequency: 95, duration: 0.16, volume: 0.08, type: 'sawtooth' };
-    case 'ultimate': return { frequency: 260, duration: 0.56, volume: 0.08, type: 'triangle' };
-    case 'blackMode': return { frequency: 150, duration: 0.62, volume: 0.08, type: 'sawtooth' };
-    case 'bossWarning': return { frequency: 180, duration: 0.65, volume: 0.08, type: 'square' };
-    case 'clear': return { frequency: 660, duration: 0.7, volume: 0.08, type: 'triangle' };
-    case 'select':
-    case 'reroll':
-      return { frequency: key === 'select' ? 420 : 360, duration: 0.08, volume: 0.04, type: 'sine' };
-  }
-}
-
-const MANAGERS = new WeakMap<Phaser.Scene, AudioManager>();
+const MANAGER = new AudioManager();
 
 export function getAudioManager(scene: Phaser.Scene): AudioManager {
-  let manager = MANAGERS.get(scene);
-  if (!manager) {
-    manager = new AudioManager();
-    MANAGERS.set(scene, manager);
-  }
-  manager.init(scene);
-  return manager;
+  MANAGER.init(scene);
+  return MANAGER;
 }

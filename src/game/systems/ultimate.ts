@@ -91,7 +91,10 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   }
 
   ultimateFlash(scene);
-  getAudioManager(scene).playSe('ultimate', { volume: pairUltimate ? 1 : 0.88 });
+  getAudioManager(scene).playSe('ultimate_cut_in', { volume: pairUltimate ? 0.7 : 0.58, priority: 2 });
+  scene.time.delayedCall(55, () => {
+    getAudioManager(scene).playSe('ultimate_fire', { volume: pairUltimate ? 0.78 : 0.66, priority: 3 });
+  });
   getAudioManager(scene).duckBgm(pairUltimate ? 480 : 360, pairUltimate ? 0.28 : 0.35);
   getEffectManager(scene).ultimateFlash();
   playCharacterCutin(scene, 'ultimate');

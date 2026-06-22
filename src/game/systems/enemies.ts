@@ -75,7 +75,7 @@ export function spawnEnemy(
   state.enemies.push(enemy);
   if (def.id === 'black_label_shadow' && scene.data.get('vampPonBossWarningShown') !== true) {
     scene.data.set('vampPonBossWarningShown', true);
-    getAudioManager(scene).playSe('bossWarning', { volume: 0.72 });
+    getAudioManager(scene).playSe('boss_warning', { volume: 0.64, priority: 3 });
     getEffectManager(scene).bossWarning({ label: 'オンブロ 接近' });
   }
 }
@@ -105,7 +105,7 @@ export function applyPlayerDamage(
     p.y = clamp(p.y + dir.y * knockback, p.radius, GAME_HEIGHT - p.radius);
     state.playerView.setPosition(p.x, p.y);
   }
-  getAudioManager(scene).playSe('playerDamage', { volume: 0.82 });
+  getAudioManager(scene).playSe('player_damage', { volume: 0.66, priority: source?.strong ? 2 : 1 });
   const effects = getEffectManager(scene);
   effects.playerDamage();
   effects.playerDamageView(state.playerView, { sourceX: source?.x, sourceY: source?.y, strong: source?.strong });
@@ -124,6 +124,9 @@ export function damageEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Ene
   const effects = getEffectManager(scene);
   effects.enemyHitView(enemy.view, enemy.x, enemy.y, state.player.x, state.player.y, { elite: enemy.isElite });
   getAudioManager(scene).playSe('hit', { volume: 0.42, rate: 0.95 + Math.random() * 0.1 });
+  if (enemy.isElite && amount >= enemy.maxHp * 0.08) {
+    getAudioManager(scene).playSe('boss_hit', { volume: 0.48, rate: 0.94, priority: 1 });
+  }
   effects.hit(enemy.x, enemy.y, { elite: enemy.isElite, strong: amount >= enemy.maxHp * 0.2 });
   if (amount >= enemy.maxHp * 0.2) effects.hitStop(GAME_FEEL_CONFIG.hitStopMs.hit);
   const blob = enemy.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
@@ -150,6 +153,10 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     black: (state.berserk?.activeRemaining ?? 0) > 0,
   });
   getAudioManager(scene).playEnemyDeath(effects.combo(), enemy.isElite);
+
+  if (enemy.defId === 'black_label_shadow') {
+    getAudioManager(scene).playSe('boss_defeat', { volume: 0.72, priority: 4 });
+  }
 
   if (enemy.isElite) {
     showEliteDefeatBanner(scene, state.stageNumber);

@@ -12,7 +12,7 @@ import { evolutionBurst } from '../ui/effects';
 import { RunPacingEffects } from '../ui/runPacingEffects';
 import { StageAtmosphere } from '../ui/stageAtmosphere';
 import { BerserkFeedback } from '../ui/berserkFeedback';
-import { getAudioManager, type AudioManager } from '../audio/AudioManager';
+import { bgmKeyForStage, getAudioManager, type AudioManager } from '../audio/AudioManager';
 import { getEffectManager, type EffectManager } from '../effects/EffectManager';
 import { maxEnemiesForElapsed } from '../config/GameFeelConfig';
 import { weaponById } from '../data/weapons';
@@ -72,6 +72,8 @@ export class MainScene extends Phaser.Scene {
   private lastDebugSnapshotJson = '';
   private stageNumber = 1;
   private resultEntered = false;
+  private ultimateWasReady = false;
+  private berserkWasReady = false;
   private onBlur = (): void => this.tryAutoPause();
   private onVisibility = (): void => {
     if (document.hidden) this.tryAutoPause();
@@ -106,6 +108,9 @@ export class MainScene extends Phaser.Scene {
     this.stick = new VirtualStick(this);
     this.audio = getAudioManager(this);
     this.audio.unlockOnFirstInput();
+    this.audio.playBgm(bgmKeyForStage(this.stageNumber), { volume: 0.36, fadeMs: 320 });
+    this.ultimateWasReady = this.state.ultimate.ready;
+    this.berserkWasReady = this.state.berserk.ready;
     this.effects = getEffectManager(this);
     this.pacingEffects = new RunPacingEffects(this);
     this.pacingEffects.setStage(this.stageNumber);
@@ -187,15 +192,24 @@ export class MainScene extends Phaser.Scene {
       updateWeapons(this, state, dt);
       updatePickups(this, state, dt);
       updateUltimate(this, state, dt);
+      if (state.ultimate.ready && !this.ultimateWasReady) {
+        this.audio.playSe('ultimate_ready', { volume: 0.5, priority: 1 });
+      }
       const wasBerserkActive = state.berserk.activeRemaining > 0;
       const berserkActivated = updateBerserk(state, dt, this);
       if (berserkActivated) {
-        this.audio.playSe('blackMode', { volume: 0.86 });
+        this.audio.playSe('berserk_start', { volume: 0.68, priority: 3 });
         this.effects.blackAura(state.playerView);
       }
       if (wasBerserkActive && state.berserk.activeRemaining <= 0 && state.berserk.fatigueRemaining > 0) {
+        this.audio.playSe('berserk_end', { volume: 0.48, priority: 1 });
         this.effects.blackAuraRelease(state.player.x, state.player.y);
       }
+      if (state.berserk.ready && !this.berserkWasReady) {
+        this.audio.playSe('berserk_ready', { volume: 0.48, priority: 1 });
+      }
+      this.ultimateWasReady = state.ultimate.ready;
+      this.berserkWasReady = state.berserk.ready;
       this.berserkFeedback.update(state);
       this.resolveTransitions();
     }
@@ -265,7 +279,7 @@ export class MainScene extends Phaser.Scene {
     const previousEvolutions = new Set(state.stats.evolutions);
     applyChoice(state, choice);
     if (choice.type === 'rare_new') {
-      this.audio.playSe('levelUp', { volume: 0.62, rate: 1.08 });
+      this.audio.playSe('levelup', { volume: 0.5, rate: 1.08 });
       this.effects.rarePickup(state.player.x, state.player.y, { label: 'RARE' });
     }
     for (const evolvedWeaponId of state.stats.evolutions) {
@@ -304,7 +318,7 @@ export class MainScene extends Phaser.Scene {
       state,
       choices,
       (choice) => {
-        this.audio.playSe('select', { volume: 0.52 });
+        this.audio.playSe('choice_select', { volume: 0.48, priority: 1 });
         if (this.needsReplace(choice)) {
           this.overlays.showReplaceItem(
             state,
@@ -320,7 +334,6 @@ export class MainScene extends Phaser.Scene {
       () => {
         if (state.levelUpRerollsRemaining <= 0) return;
         state.levelUpRerollsRemaining -= 1;
-        this.audio.playSe('reroll', { volume: 0.5 });
         this.showLevelUpChoices(generateChoices(state));
       },
     );
@@ -355,7 +368,7 @@ export class MainScene extends Phaser.Scene {
       advanceLevel(state);
       if (state.player.level === 2 && state.telemetry.level2Sec === null) state.telemetry.level2Sec = state.elapsedSec;
       if (state.player.level === 3 && state.telemetry.level3Sec === null) state.telemetry.level3Sec = state.elapsedSec;
-      this.audio.playSe('levelUp', { volume: 0.9 });
+      this.audio.playSe('levelup', { volume: 0.62, priority: 2 });
       this.effects.levelUp(state.player.x, state.player.y, { label: `Lv.${state.player.level}` });
       state.status = GAME_STATUS.LEVELUP;
       this.showLevelUpChoices(generateChoices(state));
@@ -389,6 +402,9 @@ export class MainScene extends Phaser.Scene {
     console.log('[vamp-pon playlog]', JSON.stringify({ ...log, settlement, collectionSettlement }));
 
     const showResult = () => {
+      if (!this.audio.playBgm('bgm_result', { volume: 0.3, fadeMs: 420 })) {
+        this.audio.fadeBgm(0.16, 420);
+      }
       this.overlays.showResult(
         state,
         cleared,
@@ -406,13 +422,11 @@ export class MainScene extends Phaser.Scene {
     };
 
     if (cleared) {
-      this.audio.playSe('clear', { volume: 0.7 });
-      this.audio.duckBgm(900, 0.55);
+      this.audio.playSe('result_clear', { volume: 0.58, priority: 3 });
       this.effects.clearDawn();
       this.pacingEffects.playClearTransition(showResult);
     } else {
-      this.audio.playSe('playerDamage', { volume: 0.6 });
-      this.audio.duckBgm(600, 0.65);
+      this.audio.playSe('result_defeat', { volume: 0.5, priority: 3 });
       this.pacingEffects.playDefeatTransition(showResult);
     }
   }

@@ -1,5 +1,7 @@
 # Audio Asset List
 
+> 現行のkey一覧、manifest、fallback、ライセンス方針は [`docs/audio.md`](../audio.md) を正本とする。この文書は初期設計メモとして残す。
+
 Vamp Pon の音素材は未配置でも落ちない。実素材を追加する場合は、`public/assets/audio/audio-manifest.json` に存在するファイルだけを書き、下記キーを `se_<key>` または `bgm_<name>` として登録する。
 
 ## SE

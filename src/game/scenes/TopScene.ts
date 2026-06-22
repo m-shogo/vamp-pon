@@ -5,6 +5,7 @@ import { loadCollectionProgress } from '../persistence/collection';
 import { loadProfile } from '../persistence/profile';
 import { attachPressFeedback } from '../ui/pressFeedback';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
+import { getAudioManager } from '../audio/AudioManager';
 
 const PARTICLE_DEPTH = 2;
 const UI_DEPTH = 10;
@@ -22,6 +23,9 @@ export class TopScene extends Phaser.Scene {
 
   create(): void {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.shutdown, this);
+    const audio = getAudioManager(this);
+    audio.unlockOnFirstInput();
+    audio.playBgm('bgm_top', { volume: 0.32, fadeMs: 280 });
     const profile = loadProfile();
     const collection = loadCollectionProgress();
     const boardCount = collection.nightBoard.completedCellIds.length;
@@ -185,7 +189,10 @@ export class TopScene extends Phaser.Scene {
       strong: primary || height >= 46,
       shake: primary || (!muted && height >= 46),
     });
-    hit.on('pointerdown', onClick);
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe(primary ? 'ui_confirm' : 'ui_select', { volume: primary ? 0.48 : 0.36 });
+      onClick();
+    });
     const fontSize = primary ? 20 : 15;
     const labelText = this.text(0, 0, label, fontSize, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true);
     c.add([fill, labelText, hit]);
