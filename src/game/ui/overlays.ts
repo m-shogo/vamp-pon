@@ -29,7 +29,7 @@ import {
   wrapUiText,
 } from './itemSelectionLayout';
 import { attachPressFeedback } from './pressFeedback';
-import { createStorybookChoiceCard, categoryForChoice as storybookCategoryForChoice } from './storybookChoiceCard';
+import { createStorybookChoiceCard, categoryForChoice as storybookCategoryForChoice, type ChoiceSelectionLock } from './storybookChoiceCard';
 import {
   STORYBOOK_FONT,
   STORYBOOK_TITLE_FONT,
@@ -107,10 +107,10 @@ export class Overlays {
     const panel = this.scene.add.graphics();
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 344, 326, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.96);
     root.add(panel);
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, 'ヴァンサバ 改', 31, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '影を払い、記憶を拾い、朝まで残る', 12, STORYBOOK_UI.textMuted));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '夜の街で忘れ物を集める。', 13, STORYBOOK_UI.textLight));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動は画面をドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, 'VAMP PON', 31, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '忘れた名前を、夜から拾う', 12, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '影を払い、記憶のかけらを集める。', 13, STORYBOOK_UI.textLight));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動はドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
     root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 94, 180, 46, '夜へ進む', () => {
       this.clear();
       onStart();
@@ -148,6 +148,7 @@ export class Overlays {
       true,
     ));
 
+    const lock: ChoiceSelectionLock = { locked: false };
     const positions = levelUpCardPositions(choices.length, GAME_WIDTH);
     choices.slice(0, 3).forEach((choice, index) => {
       const position = positions[index];
@@ -162,6 +163,7 @@ export class Overlays {
           this.clear();
           onPick(choice);
         },
+        lock,
       ));
     });
 
@@ -503,7 +505,7 @@ export class Overlays {
 
     rows.forEach((row, i) => {
       const y = cardTopY + 22 + i * 30;
-      const rowDelay = 200 + i * 90;
+      const rowDelay = 180 + i * 70;
       const iconCircle = this.scene.add.circle(cardX - 142, y, 7, row.icon, 0.95);
       iconCircle.setStrokeStyle(1, row.icon, 0.4);
       iconCircle.setAlpha(0);
@@ -544,9 +546,7 @@ export class Overlays {
     // ひとこと
     const messageY = cardTopY + cardHeight + (evolutionLabels.length > 0 ? 44 : 22);
     const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
-    const motivationMessage = cleared
-      ? rank === 'S' ? '完璧な夜明け。すべての灯りが集まった。' : '黒いインクの下に、まだ道が残っている。'
-      : state.player.level >= 4 ? 'もう少しで夜明けだった。成長で灯りを強くしよう。' : 'まだ、戻せていない名前がある。';
+    const motivationMessage = resultMotivation(cleared, rank, state.player.level);
     root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));
 
     // 細かい時刻ログ（小さめ・緑）— 2行に分けて読みやすく
@@ -554,25 +554,45 @@ export class Overlays {
     root.add(this.text(GAME_WIDTH / 2, timeLineY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 11, '#9fe0a0'));
     root.add(this.text(GAME_WIDTH / 2, timeLineY + 16, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
 
-    // ボタン（2列×2段、押しやすいサイズ）
-    const btnYTop = GAME_HEIGHT - 142;
-    const btnYBot = GAME_HEIGHT - 84;
-    root.add(this.button(GAME_WIDTH / 2 - 86, btnYTop, 156, 46, 'もう一度', () => {
-      this.clear();
-      onRestart();
-    }));
-    root.add(this.button(GAME_WIDTH / 2 + 86, btnYTop, 156, 46, 'ステージ選択', () => {
-      this.clear();
-      onStageSelect();
-    }, true));
-    root.add(this.button(GAME_WIDTH / 2 - 86, btnYBot, 156, 42, '成長へ', () => {
-      this.clear();
-      onGrowth();
-    }, true));
-    root.add(this.button(GAME_WIDTH / 2 + 86, btnYBot, 156, 42, 'TOPへ', () => {
-      this.clear();
-      onTop();
-    }, true));
+    // ボタン — 勝利/敗北でCTA優先度を変える
+    const btnY1 = GAME_HEIGHT - 156;
+    const btnY2 = GAME_HEIGHT - 100;
+    const btnY3 = GAME_HEIGHT - 52;
+    if (cleared) {
+      root.add(this.button(GAME_WIDTH / 2, btnY1, 260, 48, 'もう一度探索', () => {
+        this.clear();
+        onRestart();
+      }));
+      root.add(this.button(GAME_WIDTH / 2 - 82, btnY2, 148, 42, '成長へ', () => {
+        this.clear();
+        onGrowth();
+      }, true));
+      root.add(this.button(GAME_WIDTH / 2 + 82, btnY2, 148, 42, 'ステージ選択', () => {
+        this.clear();
+        onStageSelect();
+      }, true));
+      root.add(this.button(GAME_WIDTH / 2, btnY3, 148, 36, 'TOPへ', () => {
+        this.clear();
+        onTop();
+      }, true));
+    } else {
+      root.add(this.button(GAME_WIDTH / 2, btnY1, 260, 48, '成長へ', () => {
+        this.clear();
+        onGrowth();
+      }));
+      root.add(this.button(GAME_WIDTH / 2, btnY2, 220, 42, 'もう一度挑戦', () => {
+        this.clear();
+        onRestart();
+      }, true));
+      root.add(this.button(GAME_WIDTH / 2 - 82, btnY3, 148, 36, 'ステージ選択', () => {
+        this.clear();
+        onStageSelect();
+      }, true));
+      root.add(this.button(GAME_WIDTH / 2 + 82, btnY3, 148, 36, 'TOPへ', () => {
+        this.clear();
+        onTop();
+      }, true));
+    }
     root.setAlpha(0);
     this.scene.tweens.add({ targets: root, alpha: 1, duration: 180, ease: 'Quad.easeOut' });
   }
@@ -588,8 +608,8 @@ export class Overlays {
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 312, 380, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
     root.add(panel);
 
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 138, 'やすみ中', 26, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 104, '夜路から、いったん戻れる', 12, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 138, 'ひと休み', 26, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 104, '夜路は逃げない', 12, STORYBOOK_UI.textMuted));
 
     // 一番大きい「つづける」を中央に。
     root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 42, 240, 52, 'つづける', () => {
@@ -828,6 +848,17 @@ function evolutionResultLabel(evolvedWeaponId: string): string {
 
 function formatSeconds(value: number | null): string {
   return value === null ? '--' : `${value.toFixed(1)}s`;
+}
+
+function resultMotivation(cleared: boolean, rank: string, level: number): string {
+  if (cleared) {
+    if (rank === 'S') return '完璧な夜明け。すべての灯りが集まった。';
+    if (rank === 'A') return '強い夜明け。まだ拾える灯りがある。';
+    return '夜を越えた。次はもう少し深くまで。';
+  }
+  if (level >= 4) return 'もう少しで夜明けだった。持ち帰った灯りで強くなれる。';
+  if (level >= 2) return 'まだ夜は深い。でも、黒曜片は残っている。';
+  return 'まだ、戻せていない名前がある。灯りを集めよう。';
 }
 
 function resultRank(cleared: boolean, level: number, kills: number, evolutions: number): string {

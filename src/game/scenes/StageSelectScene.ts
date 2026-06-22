@@ -126,8 +126,9 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderCharacterSummary(root, profile);
       this.renderSubCharacterStatus(root, profile, 136);
       this.renderUpgradeBlock(root, profile);
-      root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 40, '選択へ', () => {
+      root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 100, 240, 48, '探索へ出発', () => this.startRun(profile)));
+      root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
+      root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 38, 'ステージ選択', () => {
         this.mode = 'stage';
         this.render();
       }, true));
@@ -216,7 +217,7 @@ export class StageSelectScene extends Phaser.Scene {
   // --- 難易度（Easy/Normal/Hard） ---
   private renderDepthBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
     const blockY = 322;
-    root.add(this.text(GAME_WIDTH / 2, blockY, '探索の深さ', 15, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, blockY, '夜の深さ', 15, STORYBOOK_UI.textLight, true));
     DEPTH_ORDER.forEach((depthId, index) => {
       const depth = EXPLORATION_DEPTHS[depthId];
       const flavor = DEPTH_FLAVOR[depthId];
@@ -280,23 +281,32 @@ export class StageSelectScene extends Phaser.Scene {
     });
   }
 
-  // --- 成長画面（既存ロジック踏襲・縦位置だけ整える） ---
   private renderUpgradeBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
-    root.add(this.text(62, 154, '黒曜研究所', 16, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
-    root.add(this.button(GAME_WIDTH - 90, 154, 106, 30, 'リセット', () => {
+    root.add(this.text(GAME_WIDTH / 2, 172, '持ち帰った灯りで、次の夜を少し楽にする', 11, STORYBOOK_UI.textMuted));
+
+    root.add(this.button(GAME_WIDTH - 90, 196, 106, 28, 'リセット', () => {
       this.confirmingReset = true;
       this.render();
     }, true));
+
+    const anyAffordable = UPGRADE_ORDER.some((id) => {
+      const level = profile.upgrades[id] ?? 0;
+      return level < UPGRADE_DEFS[id].maxLevel && profile.currency >= upgradeCost(id, level);
+    });
+    if (!anyAffordable) {
+      root.add(this.text(GAME_WIDTH / 2, 196, '黒曜片が足りない — 探索で集めよう', 11, 0xc7a87a));
+    }
 
     UPGRADE_ORDER.forEach((id, index) => {
       const def = UPGRADE_DEFS[id];
       const level = profile.upgrades[id] ?? 0;
       const maxed = level >= def.maxLevel;
       const cost = upgradeCost(id, level);
-      const y = 196 + index * 39;
-      root.add(this.text(58, y - 7, `${def.name} Lv.${level}/${def.maxLevel}`, 12, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
-      root.add(this.text(58, y + 10, def.description, 12, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
-      const label = maxed ? '最大' : `${cost}`;
+      const y = 228 + index * 37;
+      const nameColor = maxed ? 0xa6e3a1 : STORYBOOK_UI.textLight;
+      root.add(this.text(58, y - 6, `${def.name} Lv.${level}/${def.maxLevel}`, 12, nameColor, true).setOrigin(0, 0.5));
+      root.add(this.text(58, y + 10, def.description, 11, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
+      const label = maxed ? '✓' : `${cost}`;
       const canBuy = !maxed && profile.currency >= cost;
       const b = this.button(GAME_WIDTH - 74, y, 74, 28, label, () => {
         buyUpgrade(id);

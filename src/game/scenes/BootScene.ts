@@ -10,6 +10,7 @@ import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
 import { isRunStartUrl } from '../utils/runStartUrl';
 import { loadGameFonts } from '../ui/fonts';
+import { getAudioManager } from '../audio/AudioManager';
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -27,6 +28,8 @@ export class BootScene extends Phaser.Scene {
       const stageNum = getRequestedStageNumber() ?? 1;
       count += await queueStageBackgrounds(this, stageNum);
     }
+
+    await getAudioManager(this).preloadAudioAssets(this);
 
     if (count > 0) {
       this.load.once(Phaser.Loader.Events.COMPLETE, () => this.startTarget());

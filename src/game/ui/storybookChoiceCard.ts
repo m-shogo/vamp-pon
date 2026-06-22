@@ -19,6 +19,8 @@ import {
   storybookCategoryPalette,
 } from './storybookUi';
 
+export type ChoiceSelectionLock = { locked: boolean };
+
 export function createStorybookChoiceCard(
   scene: Phaser.Scene,
   cx: number,
@@ -27,6 +29,7 @@ export function createStorybookChoiceCard(
   height: number,
   choice: LevelUpChoice,
   onClick: () => void,
+  selectionLock?: ChoiceSelectionLock,
 ): Phaser.GameObjects.Container {
   const card = scene.add.container(cx, cy);
   const category = categoryForChoice(choice);
@@ -65,10 +68,10 @@ export function createStorybookChoiceCard(
     strong: choice.rarity === 'rare' || choice.type === 'rare_new',
     shake: choice.rarity === 'rare' || choice.type === 'rare_new',
   });
-  let selected = false;
   hit.on('pointerdown', () => {
-    if (selected) return;
-    selected = true;
+    if (selectionLock?.locked) return;
+    if (selectionLock) selectionLock.locked = true;
+    hit.disableInteractive();
     scene.tweens.killTweensOf(card);
     const isSpecial = choice.rarity === 'rare' || choice.type === 'rare_new';
 
@@ -76,6 +79,7 @@ export function createStorybookChoiceCard(
       (child) => child !== card && child instanceof Phaser.GameObjects.Container,
     ) ?? [];
     for (const sibling of siblings) {
+      disableInteractiveRecursive(sibling as Phaser.GameObjects.Container);
       scene.tweens.add({ targets: sibling, alpha: 0.3, scale: 0.94, y: (sibling as Phaser.GameObjects.Container).y + 8, duration: 160, ease: 'Quad.easeOut' });
     }
 
@@ -367,6 +371,17 @@ function rarityAccent(rarity: RewardRarity, fallback: number): number {
     case 'rare': return STORYBOOK_UI.gold;
     case 'good': return 0xcaa36f;
     default: return fallback;
+  }
+}
+
+function disableInteractiveRecursive(container: Phaser.GameObjects.Container): void {
+  for (const child of container.list) {
+    if ('disableInteractive' in child && typeof child.disableInteractive === 'function') {
+      (child as Phaser.GameObjects.GameObject).disableInteractive();
+    }
+    if (child instanceof Phaser.GameObjects.Container) {
+      disableInteractiveRecursive(child);
+    }
   }
 }
 
