@@ -179,6 +179,8 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(this.text(cardX, cardY - 56, `Stage ${current}`, 22, STORYBOOK_UI.textLight, true, true));
     root.add(this.text(cardX, cardY - 28, stageName, 15, STORYBOOK_UI.goldLight, true));
     root.add(this.text(cardX, cardY + 4, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textLight));
+    const hint = this.stageHintFor(current);
+    if (hint) root.add(this.text(cardX, cardY + 22, hint, 10, 0xb0a8d0));
     root.add(this.text(cardX, cardY + cardH / 2 - 18, `開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.textMuted));
 
     // 前ボタン
@@ -220,6 +222,14 @@ export class StageSelectScene extends Phaser.Scene {
     if (stage === 4) return '橋の手前、深まる夜';
     if (stage === 5) return '夜主の気配、最初の節目';
     return '夜路はまだ続く';
+  }
+
+  private stageHintFor(stage: number): string | null {
+    if (stage === 2) return '横から挟む影が増える｜報酬 +20%';
+    if (stage === 3) return '四方から揺さぶる交差点｜報酬 +45%';
+    if (stage === 4) return '左右と周囲で道幅を削る｜報酬 +75%';
+    if (stage === 5) return '全方位から押し寄せる終盤｜報酬 +110%';
+    return null;
   }
 
   // --- 難易度（Easy/Normal/Hard） ---
