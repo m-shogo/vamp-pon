@@ -315,3 +315,7 @@ export const launchCoreKnowledgeLines: KnowledgeLine[] = [
     launchTier: 'launch-core',
   },
 ];
+
+export function isCommerciallySafeKnowledgeLine(line: KnowledgeLine): boolean {
+  return line.commercialStatus === 'safe-candidate';
+}

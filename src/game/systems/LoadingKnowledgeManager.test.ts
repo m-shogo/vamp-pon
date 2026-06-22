@@ -56,10 +56,11 @@ describe('LoadingKnowledgeManager', () => {
     expect(selected?.reply?.id).toBe('reply-a');
   });
 
-  it('do-not-display と hold は通常候補から除外する', () => {
+  it('safe-candidate だけを通常候補にする', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
     const manager = new LoadingKnowledgeManager(
       [
+        line({ id: 'final-check', category: 'quote', originalText: 'Final check', commercialStatus: 'final-check-required' }),
         line({ id: 'hidden', category: 'quote', originalText: 'Hidden', commercialStatus: 'do-not-display' }),
         line({ id: 'hold', category: 'quote', originalText: 'Hold', launchTier: 'hold' }),
         line({ id: 'visible', category: 'quote', originalText: 'Visible' }),
@@ -68,6 +69,18 @@ describe('LoadingKnowledgeManager', () => {
     );
 
     expect(manager.select()?.line.id).toBe('visible');
+  });
+
+  it('safe-candidate が無い場合は通常候補を返さない', () => {
+    const manager = new LoadingKnowledgeManager(
+      [
+        line({ id: 'final-check', category: 'quote', originalText: 'Final check', commercialStatus: 'final-check-required' }),
+        line({ id: 'hidden', category: 'quote', originalText: 'Hidden', commercialStatus: 'do-not-display' }),
+      ],
+      [],
+    );
+
+    expect(manager.select()).toBeNull();
   });
 
   it('selectedCharacterId に一致する返信を優先する', () => {

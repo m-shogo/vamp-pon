@@ -1,5 +1,5 @@
 import { launchCoreCharacterKnowledgeReplies } from '../data/characterKnowledgeReplies';
-import { launchCoreKnowledgeLines } from '../data/knowledgeLines';
+import { isCommerciallySafeKnowledgeLine, launchCoreKnowledgeLines } from '../data/knowledgeLines';
 import type {
   CharacterKnowledgeReply,
   KnowledgeCategory,
@@ -143,7 +143,7 @@ export class LoadingKnowledgeManager {
   }
 
   private isLineSelectable(line: KnowledgeLine, context: LoadingKnowledgeContext): boolean {
-    if (line.commercialStatus === 'do-not-display') return false;
+    if (!isCommerciallySafeKnowledgeLine(line)) return false;
     if (this.state.recentKnowledgeLineIds.includes(line.id)) return false;
     if (isSameCategoryRepeated(this.state.recentCategories, line.category)) return false;
     if (isRareWordRepeated(this.state.recentCategories, line.category)) return false;

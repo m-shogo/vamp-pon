@@ -9,7 +9,9 @@ import { collectionSections } from './collectionSections';
 import { keeperRecords } from './keeperRecords';
 import { lostItemRecords } from './lostItemRecords';
 import { launchCoreKnowledgeLines } from './knowledgeLines';
+import { collectionWordRecordLines } from './collectionWordRecords';
 import { launchCoreCharacterKnowledgeReplies } from './characterKnowledgeReplies';
+import { nightBoardRewardLabel } from '../ui/collectionAtlasLabels';
 
 function expectUniqueIds(items: Array<{ id: string }>, label: string): void {
   const ids = items.map((item) => item.id);
@@ -52,6 +54,39 @@ describe('collection atlas data', () => {
     expectUniqueIds(lostItemRecords, 'lostItemRecords');
   });
 
+  it('忘れ物絵札の関連先は存在する記録だけを参照する', () => {
+    const keeperIds = new Set(keeperRecords.map((record) => record.id));
+    const boardCellIds = new Set(forgottenStreetNightBoard.cells.map((cell) => cell.id));
+    for (const record of lostItemRecords) {
+      if (record.relatedKeeperId) {
+        expect(keeperIds.has(record.relatedKeeperId), `${record.id} references missing keeper`).toBe(true);
+      }
+      if (record.relatedBoardCellId) {
+        expect(boardCellIds.has(record.relatedBoardCellId), `${record.id} references missing board cell`).toBe(true);
+      }
+      expect(record.shortFlavor.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('灯し手記録はIP設計と見た目連続性を持つ', () => {
+    for (const record of keeperRecords) {
+      expect(record.personalItem.trim().length).toBeGreaterThan(0);
+      expect(record.hairstyle.trim().length).toBeGreaterThan(0);
+      expect(record.lightType.trim().length).toBeGreaterThan(0);
+      expect(record.reasonToFight.trim().length).toBeGreaterThan(0);
+      expect(record.merchandiseEmblem.trim().length).toBeGreaterThan(0);
+      expect(record.blackFormRisk.trim().length).toBeGreaterThan(0);
+      expect(record.dawnAftereffect.trim().length).toBeGreaterThan(0);
+      expect(record.visualContinuityNotes.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('夜明け星図の報酬文言は世界観に沿う', () => {
+    expect(nightBoardRewardLabel({ type: 'light_coin', amount: 10 })).toBe('黒曜片が少し戻った +10');
+    expect(nightBoardRewardLabel({ type: 'travel_prep', amount: 1 })).toBe('旅支度がひとつ整った');
+    expect(nightBoardRewardLabel({ type: 'memory_text' })).toContain('読めるようになった');
+  });
+
   it('言葉の記録は返信先のKnowledgeLineを参照している', () => {
     const lineIds = new Set(launchCoreKnowledgeLines.map((line) => line.id));
     for (const reply of launchCoreCharacterKnowledgeReplies) {
@@ -62,13 +97,23 @@ describe('collection atlas data', () => {
   it('CollectionSceneの初期選択IDが存在する', () => {
     expect(keeperRecords.some((record) => record.id === 'keeper-yui')).toBe(true);
     expect(lostItemRecords.some((record) => record.id === 'lost-small-bag-tag')).toBe(true);
-    expect(launchCoreKnowledgeLines.some((line) => line.id === 'quote-dickinson-dark')).toBe(true);
+    expect(collectionWordRecordLines.some((line) => line.id === 'rare-jp-kanwa-kyudai')).toBe(true);
+  });
+
+  it('言葉の記録の通常表示はsafe-candidateだけに限る', () => {
+    expect(collectionWordRecordLines.length).toBeGreaterThan(0);
+    expect(collectionWordRecordLines.every((line) => line.commercialStatus === 'safe-candidate')).toBe(true);
+    expect(collectionWordRecordLines.some((line) => line.commercialStatus === 'final-check-required')).toBe(false);
+    expect(collectionWordRecordLines.some((line) => line.commercialStatus === 'do-not-display')).toBe(false);
   });
 
   it('図鑑タブ背景アセットは全タブ分ある', () => {
     const sectionIds = new Set(collectionSections.map((section) => section.id));
     const assetSectionIds = new Set(collectionAtlasSectionAssets.map((asset) => asset.sectionId));
     expect(assetSectionIds).toEqual(sectionIds);
+    for (const asset of collectionAtlasSectionAssets) {
+      expect(asset.backdrop.path.startsWith('assets/prototypes/collection-atlas/tabs/')).toBe(true);
+    }
   });
 
   it('忘れ物絵札アセットは全忘れ物分ある', () => {

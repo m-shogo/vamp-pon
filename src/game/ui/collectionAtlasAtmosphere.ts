@@ -1,7 +1,7 @@
 import type Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import type { CollectionSection } from '../data/collectionSections';
-import { STORYBOOK_UI, drawStar } from './storybookUi';
+import { STORYBOOK_UI } from './storybookUi';
 import { renderCollectionAtlasBackdrop } from './CollectionAtlasBackdropRenderer';
 
 export function addCollectionAtlasAtmosphere(
@@ -80,42 +80,4 @@ export function addCollectionAtlasFallbackAtmosphere(
   }
 
   root.add(g);
-}
-
-export function drawCollectionSectionMotif(
-  g: Phaser.GameObjects.Graphics,
-  x: number,
-  y: number,
-  section: CollectionSection,
-): void {
-  switch (section.motif) {
-    case 'star-map':
-      drawStar(g, x, y, 22, section.accent, STORYBOOK_UI.goldLight, 0.95);
-      break;
-    case 'shadow-card':
-      g.fillStyle(section.accent, 0.45);
-      g.fillCircle(x, y, 22);
-      g.fillStyle(0x0b1022, 0.8);
-      g.fillCircle(x, y + 4, 15);
-      break;
-    case 'lost-item':
-      g.fillStyle(section.accent, 0.78);
-      g.fillRect(x - 18, y - 14, 36, 28);
-      g.lineStyle(1, STORYBOOK_UI.goldLight, 0.7);
-      g.strokeRect(x - 18, y - 14, 36, 28);
-      break;
-    case 'keeper':
-      g.lineStyle(2, section.accent, 0.9);
-      g.strokeCircle(x, y, 22);
-      g.fillStyle(STORYBOOK_UI.goldLight, 0.88);
-      g.fillCircle(x, y, 7);
-      break;
-    case 'words':
-      g.fillStyle(section.accent, 0.78);
-      g.fillRect(x - 24, y - 16, 48, 32);
-      g.lineStyle(1, STORYBOOK_UI.goldLight, 0.8);
-      g.lineBetween(x - 14, y - 5, x + 14, y - 5);
-      g.lineBetween(x - 14, y + 5, x + 10, y + 5);
-      break;
-  }
 }

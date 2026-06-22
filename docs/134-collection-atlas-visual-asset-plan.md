@@ -36,6 +36,16 @@ public/assets/prototypes/collection-atlas/
 最初はPNG素材なしでも Phaser 図形だけで表示する。
 画像が入ったら段階的に差し替える。
 
+### 現在の接続状態
+
+- `collectionAtlasAssetsLoader.ts` の preload はデフォルトOFF
+- `CollectionAtlasBackdropRenderer.ts` はtextureが存在する場合だけ画像を描画
+- 未配置・未ロード時は `collectionAtlasAtmosphere.ts` の図形へフォールバック
+- `CollectionScene` は `collectionAtlasSceneHooks.ts` 経由で上記を呼ぶ
+- 実装上のベースパスは `assets/prototypes/collection-atlas/` で、この文書の `public/` 配下と一致する
+
+そのため、PNGを一枚も置かない状態でも図鑑は落ちない。画像を有効化するときは、配置確認後にpreloadの `enabled` を明示的に切り替える。
+
 ---
 
 ## 3. 共通画像仕様

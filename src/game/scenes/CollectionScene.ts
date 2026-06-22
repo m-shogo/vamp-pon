@@ -10,9 +10,10 @@ import { keeperRecords } from '../data/keeperRecords';
 import type { KeeperRecord } from '../data/keeperRecords';
 import { lostItemRecords } from '../data/lostItemRecords';
 import type { LostItemRecord } from '../data/lostItemRecords';
-import { launchCoreKnowledgeLines } from '../data/knowledgeLines';
+import { collectionWordRecordLines } from '../data/collectionWordRecords';
 import { loadCollectionProgress } from '../persistence/collection';
 import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge';
+import { nightBoardRewardLabel } from '../ui/collectionAtlasLabels';
 import { attachCollectionAtlasAtmosphere } from '../ui/collectionAtlasSceneHooks';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawStar, drawStorybookPanel } from '../ui/storybookUi';
 
@@ -24,7 +25,7 @@ export class CollectionScene extends Phaser.Scene {
   private detailText: Phaser.GameObjects.Text | null = null;
   private activeSection: CollectionSectionId = 'dawn_atlas';
   private selectedKeeperRecordId: string = 'keeper-yui';
-  private selectedKnowledgeLineId: string = 'quote-dickinson-dark';
+  private selectedKnowledgeLineId: string = 'rare-jp-kanwa-kyudai';
   private selectedLostItemRecordId: string = 'lost-small-bag-tag';
 
   constructor() {
@@ -65,7 +66,7 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.text(
       GAME_WIDTH / 2,
       712,
-      `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　忘れ物 ${lostItemRecords.length}枚　言葉 ${launchCoreKnowledgeLines.length}`,
+      `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　忘れ物 ${lostItemRecords.length}枚　言葉 ${collectionWordRecordLines.length}`,
       11,
       STORYBOOK_UI.goldLight,
       true,
@@ -147,7 +148,7 @@ export class CollectionScene extends Phaser.Scene {
     this.detailText = this.add.text(
       GAME_WIDTH / 2,
       462,
-      '夜明け星図の絵札を押すと、条件と報酬が見えます。',
+      '絵札を押すと、夜に残った記憶が読めます。',
       {
         fontFamily: STORYBOOK_FONT,
         fontSize: '13px',
@@ -161,29 +162,6 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.detailText);
 
     this.renderBestiarySummary(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
-  }
-
-  private renderLockedSection(root: Phaser.GameObjects.Container, section: CollectionSection): void {
-    const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 330, 326, 280, STORYBOOK_UI.nightPanel, section.accent, 0.9);
-    root.add(card);
-
-    const motif = this.add.graphics();
-    this.drawSectionMotif(motif, GAME_WIDTH / 2, 232, section);
-    root.add(motif);
-
-    root.add(this.text(GAME_WIDTH / 2, 288, section.label, 20, STORYBOOK_UI.textLight, true, true));
-    const message = `${section.description}\n\n${section.lockedHint ?? 'この章は、記録が増えると少しずつ開きます。'}\n\n次はここを絵札形式で育てる。`;
-    const body = this.add.text(GAME_WIDTH / 2, 324, message, {
-      fontFamily: STORYBOOK_FONT,
-      fontSize: '13px',
-      color: colorString(STORYBOOK_UI.textMuted),
-      align: 'center',
-      resolution: 2,
-      lineSpacing: 6,
-      wordWrap: { width: 280 },
-    }).setOrigin(0.5, 0);
-    root.add(body);
   }
 
   private renderLostItemCardsPage(root: Phaser.GameObjects.Container): void {
@@ -256,7 +234,8 @@ export class CollectionScene extends Phaser.Scene {
       wordWrap: { width: 286 },
     }).setOrigin(0.5, 0);
 
-    const owner = this.add.text(0, -34, record.ownerHint, {
+    const relatedKeeper = keeperRecords.find((keeper) => keeper.id === record.relatedKeeperId);
+    const owner = this.add.text(0, -34, `気配：${record.aura}${relatedKeeper ? `　関連：${relatedKeeper.nameJa}` : ''}`, {
       fontFamily: STORYBOOK_FONT,
       fontSize: '11px',
       color: colorString(record.accent),
@@ -265,6 +244,15 @@ export class CollectionScene extends Phaser.Scene {
       align: 'center',
       wordWrap: { width: 286 },
       lineSpacing: 4,
+    }).setOrigin(0.5, 0);
+
+    const flavor = this.add.text(0, -8, record.shortFlavor, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 286 },
     }).setOrigin(0.5, 0);
 
     const memory = this.add.text(0, 24, record.memoryText, {
@@ -286,7 +274,7 @@ export class CollectionScene extends Phaser.Scene {
       wordWrap: { width: 282 },
     }).setOrigin(0.5, 0);
 
-    c.add([fill, name, owner, memory, hint]);
+    c.add([fill, name, owner, flavor, memory, hint]);
     return c;
   }
 
@@ -360,9 +348,9 @@ export class CollectionScene extends Phaser.Scene {
       wordWrap: { width: 280 },
     }).setOrigin(0.5, 0);
 
-    const forms = this.add.text(0, -30, `${record.lightMotif}\n${record.blackFormName}\n${record.dawnName}`, {
+    const forms = this.add.text(0, -30, `灯：${record.lightMotif}　紋章：${record.merchandiseEmblem}\n${record.blackFormName}\n${record.dawnName}`, {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '11px',
+      fontSize: '10px',
       color: colorString(STORYBOOK_UI.textMuted),
       resolution: 2,
       lineSpacing: 3,
@@ -401,14 +389,18 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.text(GAME_WIDTH / 2, 184, '言葉の記録', 20, STORYBOOK_UI.textLight, true, true));
     root.add(this.text(GAME_WIDTH / 2, 208, 'ロードで出会った言葉と、灯し手たちの返事。', 11, STORYBOOK_UI.textMuted));
 
-    const visibleLines = launchCoreKnowledgeLines.slice(0, 6);
+    const visibleLines = collectionWordRecordLines.slice(0, 6);
+    if (visibleLines.length === 0) {
+      root.add(this.text(GAME_WIDTH / 2, 382, 'いま読める紙片はありません。\n言葉の確認が済むまで、静かに綴じてあります。', 13, STORYBOOK_UI.textMuted));
+      return;
+    }
     visibleLines.forEach((line, index) => {
       const x = GAME_WIDTH / 2 - 110 + (index % 3) * 110;
       const y = 266 + Math.floor(index / 3) * 54;
       root.add(this.wordMiniCard(x, y, line));
     });
 
-    const selected = launchCoreKnowledgeLines.find((line) => line.id === this.selectedKnowledgeLineId) ?? launchCoreKnowledgeLines[0];
+    const selected = collectionWordRecordLines.find((line) => line.id === this.selectedKnowledgeLineId) ?? collectionWordRecordLines[0];
     const reply = launchCoreCharacterKnowledgeReplies.find((candidate) => candidate.knowledgeLineId === selected.id);
     root.add(this.wordDetailPanel(GAME_WIDTH / 2, 472, selected, reply));
   }
@@ -498,30 +490,6 @@ export class CollectionScene extends Phaser.Scene {
 
     c.add([fill, original, source, meaning, replyText]);
     return c;
-  }
-
-  private drawSectionMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, section: CollectionSection): void {
-    switch (section.motif) {
-      case 'star-map':
-        drawStar(g, x, y, 22, section.accent, STORYBOOK_UI.goldLight, 0.95);
-        break;
-      case 'shadow-card':
-        g.fillStyle(section.accent, 0.45).fillCircle(x, y, 22);
-        g.fillStyle(0x0b1022, 0.8).fillCircle(x, y + 4, 15);
-        break;
-      case 'lost-item':
-        g.fillStyle(section.accent, 0.78).fillRect(x - 18, y - 14, 36, 28);
-        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.7).strokeRect(x - 18, y - 14, 36, 28);
-        break;
-      case 'keeper':
-        g.lineStyle(2, section.accent, 0.9).strokeCircle(x, y, 22);
-        g.fillStyle(STORYBOOK_UI.goldLight, 0.88).fillCircle(x, y, 7);
-        break;
-      case 'words':
-        g.fillStyle(section.accent, 0.78).fillRect(x - 24, y - 16, 48, 32);
-        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.8).lineBetween(x - 14, y - 5, x + 14, y - 5).lineBetween(x - 14, y + 5, x + 10, y + 5);
-        break;
-    }
   }
 
   private drawLostItemMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, record: LostItemRecord, selected: boolean): void {
@@ -694,6 +662,23 @@ export class CollectionScene extends Phaser.Scene {
           ? 0x6f6590
           : 0x34304c;
 
+    const glow = state === 'completed'
+      ? this.add.rectangle(0, 0, size + 10, size + 10, STORYBOOK_UI.goldLight, 0.08)
+      : null;
+    if (glow) {
+      glow.setStrokeStyle(3, STORYBOOK_UI.goldLight, 0.34);
+      const pulse = this.tweens.add({
+        targets: glow,
+        alpha: { from: 0.42, to: 0.78 },
+        duration: 1100,
+        ease: 'Sine.InOut',
+        yoyo: true,
+        repeat: -1,
+      });
+      c.once('destroy', () => pulse.remove());
+      c.add(glow);
+    }
+
     const rect = this.add.rectangle(0, 0, size, size, fillColor, state === 'hidden' ? 0.78 : 0.95);
     rect.setStrokeStyle(state === 'completed' ? 2 : 1, strokeColor, 0.95);
     const art = this.add.graphics();
@@ -732,6 +717,8 @@ export class CollectionScene extends Phaser.Scene {
     if (state === 'hidden') {
       g.fillStyle(0x0b1022, 0.4).fillCircle(0, 0, 11);
       g.lineStyle(1, 0x50476d, 0.5).strokeCircle(0, 0, 13);
+      g.lineStyle(1, 0x50476d, 0.42).lineBetween(-7, -7, 7, 7);
+      g.lineBetween(7, -7, -7, 7);
       return;
     }
 
@@ -776,8 +763,8 @@ export class CollectionScene extends Phaser.Scene {
       this.detailText.setText(`${cell.hiddenTitle ?? '？？？'}\n${cell.hint ?? 'もう少し記録を集めると条件が見える。'}`);
       return;
     }
-    const reward = rewardLabel(cell);
-    this.detailText.setText(`${state === 'completed' ? '灯った絵札' : 'まだ灯っていない絵札'}：${cell.title}\n${cell.condition}${reward ? `\n報酬：${reward}` : ''}`);
+    const reward = nightBoardRewardLabel(cell.reward);
+    this.detailText.setText(`${state === 'completed' ? '灯った絵札' : 'まだ灯っていない絵札'}：${cell.title}\n${cell.condition}${reward ? `\n戻ったもの：${reward}` : ''}`);
   }
 
   private text(x: number, y: number, value: string, size: number, color: string | number, bold = false, title = false): Phaser.GameObjects.Text {
@@ -901,16 +888,6 @@ function shortCellLabel(value: string): string {
   if (value.includes('記録')) return '記録';
   if (value.includes('拾う')) return '拾う';
   return value.slice(0, 3);
-}
-
-function rewardLabel(cell: NightBoardCell): string {
-  switch (cell.reward.type) {
-    case 'light_coin': return `黒曜片 +${cell.reward.amount ?? 0}`;
-    case 'travel_prep': return `旅支度 +${cell.reward.amount ?? 0}`;
-    case 'memory_text': return '記憶文';
-    case 'cosmetic': return '見た目';
-    case 'sound': return '音';
-  }
 }
 
 function colorString(value: string | number): string {
