@@ -1,4 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import {
+  collectionAtlasSectionAssets,
+  keeperEmblemAssets,
+  lostItemCardAssets,
+} from './collectionAtlasAssets';
 import { forgottenStreetNightBoard } from './collectionProgress';
 import { collectionSections } from './collectionSections';
 import { keeperRecords } from './keeperRecords';
@@ -10,6 +15,11 @@ function expectUniqueIds(items: Array<{ id: string }>, label: string): void {
   const ids = items.map((item) => item.id);
   const unique = new Set(ids);
   expect(unique.size, `${label} ids must be unique`).toBe(ids.length);
+}
+
+function expectUniqueKeys(items: Array<{ image: { key: string } }>, label: string): void {
+  const keys = items.map((item) => item.image.key);
+  expect(new Set(keys).size, `${label} keys must be unique`).toBe(keys.length);
 }
 
 describe('collection atlas data', () => {
@@ -53,5 +63,25 @@ describe('collection atlas data', () => {
     expect(keeperRecords.some((record) => record.id === 'keeper-yui')).toBe(true);
     expect(lostItemRecords.some((record) => record.id === 'lost-small-bag-tag')).toBe(true);
     expect(launchCoreKnowledgeLines.some((line) => line.id === 'quote-dickinson-dark')).toBe(true);
+  });
+
+  it('図鑑タブ背景アセットは全タブ分ある', () => {
+    const sectionIds = new Set(collectionSections.map((section) => section.id));
+    const assetSectionIds = new Set(collectionAtlasSectionAssets.map((asset) => asset.sectionId));
+    expect(assetSectionIds).toEqual(sectionIds);
+  });
+
+  it('忘れ物絵札アセットは全忘れ物分ある', () => {
+    const lostItemIds = new Set(lostItemRecords.map((record) => record.id));
+    const assetIds = new Set(lostItemCardAssets.map((asset) => asset.id));
+    expect(assetIds).toEqual(lostItemIds);
+    expectUniqueKeys(lostItemCardAssets, 'lostItemCardAssets');
+  });
+
+  it('灯し手エンブレムアセットは全灯し手分ある', () => {
+    const keeperIds = new Set(keeperRecords.map((record) => record.id));
+    const assetIds = new Set(keeperEmblemAssets.map((asset) => asset.id));
+    expect(assetIds).toEqual(keeperIds);
+    expectUniqueKeys(keeperEmblemAssets, 'keeperEmblemAssets');
   });
 });
