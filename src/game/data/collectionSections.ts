@@ -1,0 +1,68 @@
+export type CollectionSectionId =
+  | 'dawn_atlas'
+  | 'bestiary'
+  | 'lost_item_cards'
+  | 'keeper_records'
+  | 'word_records';
+
+export type CollectionSection = {
+  id: CollectionSectionId;
+  label: string;
+  shortLabel: string;
+  description: string;
+  motif: 'star-map' | 'shadow-card' | 'lost-item' | 'keeper' | 'words';
+  accent: number;
+  lockedHint?: string;
+};
+
+export const collectionSections: CollectionSection[] = [
+  {
+    id: 'dawn_atlas',
+    label: '夜明け星図',
+    shortLabel: '星図',
+    description: '夜でほどいた記録が、絵札として灯っていく地図。',
+    motif: 'star-map',
+    accent: 0xf4d69a,
+  },
+  {
+    id: 'bestiary',
+    label: 'カゲモノ図鑑',
+    shortLabel: '影図鑑',
+    description: '出会ったカゲモノと、ほどいた数を記す頁。',
+    motif: 'shadow-card',
+    accent: 0x9c74c5,
+  },
+  {
+    id: 'lost_item_cards',
+    label: '忘れ物絵札',
+    shortLabel: '絵札',
+    description: '拾った忘れ物の由来と、持ち主の気配を残す札。',
+    motif: 'lost-item',
+    accent: 0xd7a65b,
+    lockedHint: '忘れ物を拾うと、札の輪郭が浮かびます。',
+  },
+  {
+    id: 'keeper_records',
+    label: '灯し手の記録',
+    shortLabel: '灯し手',
+    description: 'ユイたちの灯名、黒耀、朝明、関係性を記す頁。',
+    motif: 'keeper',
+    accent: 0x79bea9,
+    lockedHint: '灯し手の記録は、朝明や会話で少しずつ開きます。',
+  },
+  {
+    id: 'word_records',
+    label: '言葉の記録',
+    shortLabel: '言葉',
+    description: 'ロードで出会った名言、語句、キャラ返信を見返す頁。',
+    motif: 'words',
+    accent: 0xe0b0a6,
+    lockedHint: 'ロードで言葉を見ると、ここに写されます。',
+  },
+];
+
+export function getCollectionSection(id: CollectionSectionId): CollectionSection {
+  const section = collectionSections.find((candidate) => candidate.id === id);
+  if (!section) throw new Error(`Unknown collection section: ${id}`);
+  return section;
+}
