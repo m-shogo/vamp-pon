@@ -44,6 +44,7 @@ function makeState(opts: {
     player: { level: opts.playerLevel ?? 1 },
     stats: {
       kills: opts.kills ?? 0,
+      elitesKilled: 0,
       memoryFragmentsCollected: opts.fragments ?? 0,
       capsulesOpened: opts.capsules ?? 0,
       survivedSec: opts.survivedSec ?? 0,

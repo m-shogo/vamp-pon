@@ -122,9 +122,9 @@ const rawWaves: WaveDefinition[] = [
   {
     start: 420,
     end: 421,
-    note: 'エリート3。最後のカプセル機会。',
+    note: 'ボス役。夜明け前の最後の強敵。倒さなくてもクリアできるが、倒すと気持ちいい。',
     spawns: [
-      { enemyId: 'black_label_shadow', spawnCount: 1, directionWeights: { bottom: 70, top: 10, left: 10, right: 10 } },
+      { enemyId: 'black_label_shadow', spawnCount: 1, hpMultiplier: 1.8, directionWeights: { bottom: 70, top: 10, left: 10, right: 10 } },
     ],
   },
   {
@@ -293,9 +293,9 @@ const rawStage2Waves: WaveDefinition[] = [
   },
   {
     start: 420, end: 421,
-    note: 'Stage2: エリート3。雨影の集結。',
+    note: 'Stage2: ボス役。雨影の集結。Stage1より硬いが成長すれば勝てる。',
     spawns: [
-      { enemyId: 'black_label_shadow', spawnCount: 1, directionWeights: { bottom: 40, top: 20, left: 20, right: 20 } },
+      { enemyId: 'black_label_shadow', spawnCount: 1, hpMultiplier: 2.2, directionWeights: { bottom: 40, top: 20, left: 20, right: 20 } },
     ],
   },
   {

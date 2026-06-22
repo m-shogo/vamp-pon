@@ -549,6 +549,19 @@ export class Overlays {
       if (row.countTo != null) this.scene.time.delayedCall(rowDelay + 80, () => this.countUpText(valueText, row.countTo!, row.format));
     });
 
+    // 強敵撃破（あれば）
+    let eliteOffset = 0;
+    if (stats.elitesKilled > 0) {
+      const eliteLabel = state.stageNumber === 2
+        ? `◆ 雨影をほどいた ×${stats.elitesKilled}`
+        : `◆ 大きな影を越えた ×${stats.elitesKilled}`;
+      const eliteText = this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 14, eliteLabel, 12, '#ffd8a8', true);
+      eliteText.setAlpha(0);
+      root.add(eliteText);
+      this.scene.tweens.add({ targets: eliteText, alpha: 1, duration: 300, delay: 800, ease: 'Quad.easeOut' });
+      eliteOffset = 18;
+    }
+
     // ボーナス内訳（最大2行、390px幅で収まるよう短縮）
     const bonusLine1: string[] = [];
     const bonusLine2: string[] = [];
@@ -560,22 +573,24 @@ export class Overlays {
     const hasLine2 = bonusLine2.length > 0;
     let bonusOffset = 0;
     if (hasLine1 || hasLine2) {
-      const baseY = cardTopY + cardHeight + 14;
+      const baseY = cardTopY + cardHeight + 14 + eliteOffset;
       if (hasLine1) root.add(this.text(GAME_WIDTH / 2, baseY, `▽ ${bonusLine1.join('　')}`, 11, '#c8b8ff'));
       if (hasLine2) root.add(this.text(GAME_WIDTH / 2, hasLine1 ? baseY + 16 : baseY, `${hasLine1 ? '' : '▽ '}${bonusLine2.join('　')}`, 11, '#c8b8ff'));
       bonusOffset = hasLine1 && hasLine2 ? 34 : 18;
     }
+
+    const infoOffset = eliteOffset + bonusOffset;
 
     // 進化/合体行（あれば）
     const evolutionLabels = stats.evolutions.map((id) => evolutionResultLabel(id));
     if (evolutionLabels.length > 0) {
       const visible = evolutionLabels.slice(0, 2).join(' / ');
       const more = evolutionLabels.length > 2 ? `　ほか ${evolutionLabels.length - 2}件` : '';
-      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 18 + bonusOffset, `◇ 進化/合体　${visible}${more}`, 12, STORYBOOK_UI.goldLight, true));
+      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 18 + infoOffset, `◇ 進化/合体　${visible}${more}`, 12, STORYBOOK_UI.goldLight, true));
     }
 
     // ひとこと
-    const messageY = cardTopY + cardHeight + bonusOffset + (evolutionLabels.length > 0 ? 44 : 22);
+    const messageY = cardTopY + cardHeight + infoOffset + (evolutionLabels.length > 0 ? 44 : 22);
     const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
     const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
     root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));

@@ -24,6 +24,7 @@ function makeState(opts: {
   fragments?: number;
   capsules?: number;
   berserkUses?: number;
+  elitesKilled?: number;
 }): RuntimeState {
   return {
     stageNumber: opts.stageNumber ?? 1,
@@ -32,6 +33,7 @@ function makeState(opts: {
     player: { level: opts.playerLevel ?? 1 },
     stats: {
       kills: opts.kills ?? 0,
+      elitesKilled: opts.elitesKilled ?? 0,
       memoryFragmentsCollected: opts.fragments ?? 0,
       capsulesOpened: opts.capsules ?? 0,
       survivedSec: opts.survivedSec ?? 0,
@@ -158,5 +160,64 @@ describe('Stage unlock safety', () => {
     for (let i = 0; i < stageRecipes.length; i++) {
       expect(stageRecipes[i].stageNumber).toBe(i + 1);
     }
+  });
+});
+
+describe('ボス/エリート体験', () => {
+  it('Stage1の420sエリートにhpMultiplierが設定されている', () => {
+    const w = wavesForStage(1);
+    const bossWave = w.find((wave) => wave.start === 420);
+    expect(bossWave).toBeDefined();
+    const bossSpawn = bossWave!.spawns.find((s) => s.enemyId === 'black_label_shadow');
+    expect(bossSpawn).toBeDefined();
+    expect(bossSpawn!.hpMultiplier).toBeGreaterThan(1);
+  });
+
+  it('Stage2の420sエリートはStage1より硬い', () => {
+    const w1 = wavesForStage(1);
+    const w2 = wavesForStage(2);
+    const s1Boss = w1.find((w) => w.start === 420)!.spawns.find((s) => s.enemyId === 'black_label_shadow')!;
+    const s2Boss = w2.find((w) => w.start === 420)!.spawns.find((s) => s.enemyId === 'black_label_shadow')!;
+    expect(s2Boss.hpMultiplier!).toBeGreaterThan(s1Boss.hpMultiplier!);
+  });
+
+  it('Stage1のエリートタイミングが3回ある（150s, 300s, 420s）', () => {
+    const w = wavesForStage(1);
+    const eliteWaves = w.filter((wave) => wave.spawns.some((s) => s.enemyId === 'black_label_shadow'));
+    expect(eliteWaves.length).toBe(3);
+    expect(eliteWaves.map((e) => e.start)).toEqual([150, 300, 420]);
+  });
+});
+
+describe('エリート撃破報酬', () => {
+  beforeEach(() => { vi.stubGlobal('window', fakeWindow()); });
+  afterEach(() => { vi.unstubAllGlobals(); });
+
+  it('エリート撃破数が報酬に加算される', () => {
+    saveProfile(createDefaultProfile());
+    const noElite = settleRunProgress(makeState({ stageNumber: 1, kills: 100, survivedSec: 300, elitesKilled: 0 }), false);
+    saveProfile(createDefaultProfile());
+    const withElite = settleRunProgress(makeState({ stageNumber: 1, kills: 100, survivedSec: 300, elitesKilled: 3 }), false);
+    expect(withElite.currencyEarned).toBeGreaterThan(noElite.currencyEarned);
+  });
+
+  it('エリート未撃破でも報酬は0にならない', () => {
+    saveProfile(createDefaultProfile());
+    const result = settleRunProgress(makeState({ stageNumber: 1, kills: 50, survivedSec: 200, elitesKilled: 0 }), false);
+    expect(result.currencyEarned).toBeGreaterThanOrEqual(1);
+  });
+});
+
+describe('hpMultiplier型一貫性', () => {
+  it('spawnRatePerSecond系spawnでもhpMultiplierを設定できる', () => {
+    const spawn: import('../../domain/types').WaveSpawnDefinition = {
+      enemyId: 'ink_shadow',
+      spawnRatePerSecond: 1.0,
+      maxAlive: 10,
+      hpMultiplier: 1.5,
+      directionWeights: { bottom: 50, top: 20, left: 15, right: 15 },
+    };
+    expect(spawn.hpMultiplier).toBe(1.5);
+    expect(spawn.spawnRatePerSecond).toBe(1.0);
   });
 });

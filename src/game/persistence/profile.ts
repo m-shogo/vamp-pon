@@ -294,6 +294,7 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
   const firstClear = cleared && !profile.clears[key];
   const noBerserk = state.stats.berserkUses === 0;
   const bonuses = profileBonuses(profile);
+  const eliteBonus = (state.stats.elitesKilled ?? 0) * 15;
   const baseCurrency =
     state.stats.kills * 0.35 +
     state.stats.memoryFragmentsCollected * 0.7 +
@@ -301,6 +302,7 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
     state.stats.evolutions.length * 18 +
     state.player.level * 4 +
     state.stats.survivedSec * 0.08 +
+    eliteBonus +
     (cleared ? 90 : 0);
   const stageReward = stagePowerForStage(state.stageNumber).reward;
   const noBerserkBonus = noBerserk ? bonuses.noBerserkMultiplier : 1;

@@ -56,7 +56,7 @@ export class SpawnSystem {
     const count = Math.max(1, Math.round((spawn.spawnCount ?? 1) * depth.spawnCount * stage.spawnCount * Math.min(2, density)));
     for (let i = 0; i < count; i += 1) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
-      spawnEnemy(scene, state, def, pos.x, pos.y);
+      spawnEnemy(scene, state, def, pos.x, pos.y, spawn.hpMultiplier ?? 1);
     }
   }
 
@@ -90,7 +90,7 @@ export class SpawnSystem {
       state.enemies.length < caps.hard
     ) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
-      spawnEnemy(scene, state, def, pos.x, pos.y);
+      spawnEnemy(scene, state, def, pos.x, pos.y, spawn.hpMultiplier ?? 1);
       toSpawn -= 1;
     }
   }

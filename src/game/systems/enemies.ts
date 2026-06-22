@@ -37,6 +37,7 @@ export function spawnEnemy(
   def: EnemyDefinition,
   x: number,
   y: number,
+  hpMultiplier = 1,
 ): void {
   recordEnemySeen(state.stats, def.id);
   const depth = depthForState(state);
@@ -46,7 +47,7 @@ export function spawnEnemy(
   view.setPosition(x, y);
   const isElite = def.tags.includes('elite');
   const capsuleDropChance = capsuleDropChanceFor(def);
-  const hp = Math.max(1, def.hp * depth.enemyHp * stage.enemyHp);
+  const hp = Math.max(1, def.hp * depth.enemyHp * stage.enemyHp * hpMultiplier);
   const enemy: EnemyRuntime = {
     iid: nextIid(state),
     defId: def.id,
@@ -68,6 +69,9 @@ export function spawnEnemy(
     hpBar: isElite ? scene.add.graphics().setDepth(view.depth + 1) : null,
     dead: false,
   };
+  if (isElite) {
+    view.setScale(1.15);
+  }
   state.enemies.push(enemy);
   if (def.id === 'black_label_shadow' && scene.data.get('vampPonBossWarningShown') !== true) {
     scene.data.set('vampPonBossWarningShown', true);
@@ -146,6 +150,10 @@ export function killEnemy(scene: Phaser.Scene, state: RuntimeState, enemy: Enemy
     black: (state.berserk?.activeRemaining ?? 0) > 0,
   });
   getAudioManager(scene).playEnemyDeath(effects.combo(), enemy.isElite);
+
+  if (enemy.isElite) {
+    showEliteDefeatBanner(scene, state.stageNumber);
+  }
 
   const count = Math.max(1, Math.min(Math.ceil(enemy.xpDrop), 5));
   const per = (enemy.xpDrop * GAME_FEEL_CONFIG.expGemValueScale) / count;
@@ -290,6 +298,44 @@ function maybeUseSpecialAttack(scene: Phaser.Scene, state: RuntimeState, enemy: 
   }
 }
 
+function showEliteDefeatBanner(scene: Phaser.Scene, stageNumber: number): void {
+  const label = stageNumber === 2 ? '雨影がほどけた' : '影がほどけた';
+  const text = scene.add.text(GAME_WIDTH / 2, GAME_HEIGHT * 0.38, label, {
+    fontFamily: 'serif',
+    fontSize: '18px',
+    color: '#ffe7c8',
+    fontStyle: 'bold',
+    resolution: 2,
+  }).setOrigin(0.5).setDepth(210).setAlpha(0);
+  text.setStroke('#0a0816', 4);
+  scene.tweens.add({
+    targets: text,
+    alpha: { from: 0, to: 1 },
+    y: text.y - 12,
+    duration: 300,
+    ease: 'Quad.easeOut',
+    hold: 600,
+    yoyo: true,
+    onComplete: () => text.destroy(),
+  });
+}
+
+const ELITE_HP_BAR_WIDTH = 36;
+const ELITE_HP_BAR_HEIGHT = 4;
+
+function drawEliteHpBar(e: EnemyRuntime): void {
+  const bar = e.hpBar!;
+  bar.clear();
+  const ratio = Math.max(0, e.hp / e.maxHp);
+  const x = e.x - ELITE_HP_BAR_WIDTH / 2;
+  const y = e.y - e.radius * 1.4 - 6;
+  bar.fillStyle(0x0a0816, 0.7);
+  bar.fillRect(x - 1, y - 1, ELITE_HP_BAR_WIDTH + 2, ELITE_HP_BAR_HEIGHT + 2);
+  const fillColor = ratio > 0.5 ? 0xc8a0ff : ratio > 0.25 ? 0xffd080 : 0xff7070;
+  bar.fillStyle(fillColor, 0.9);
+  bar.fillRect(x, y, ELITE_HP_BAR_WIDTH * ratio, ELITE_HP_BAR_HEIGHT);
+}
+
 function createInkPuddleThreat(
   scene: Phaser.Scene,
   state: RuntimeState,
@@ -373,6 +419,10 @@ export function updateEnemies(scene: Phaser.Scene, state: RuntimeState, dt: numb
         const blob = e.view.getData('blob') as Phaser.GameObjects.Arc | undefined;
         if (blob) blob.setFillStyle(e.isElite ? COLORS.enemyElite : COLORS.enemyInk, 1);
       }
+    }
+
+    if (e.hpBar && e.isElite) {
+      drawEliteHpBar(e);
     }
 
     const d = distance(e.x, e.y, p.x, p.y);
