@@ -4,18 +4,21 @@ import { COLLECTION_LABELS, forgottenStreetNightBoard } from '../data/collection
 import type { CollectionProgressSaveData, NightBoardCell, NightBoardCellKind } from '../data/collectionProgress';
 import { collectionSections } from '../data/collectionSections';
 import type { CollectionSection, CollectionSectionId } from '../data/collectionSections';
+import { launchCoreCharacterKnowledgeReplies } from '../data/characterKnowledgeReplies';
 import { enemies } from '../data/enemies';
 import { keeperRecords } from '../data/keeperRecords';
 import type { KeeperRecord } from '../data/keeperRecords';
+import { launchCoreKnowledgeLines } from '../data/knowledgeLines';
 import { loadCollectionProgress } from '../persistence/collection';
+import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawStar, drawStorybookPanel } from '../ui/storybookUi';
 
 export class CollectionScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
   private detailText: Phaser.GameObjects.Text | null = null;
-  private keeperDetailText: Phaser.GameObjects.Text | null = null;
   private activeSection: CollectionSectionId = 'dawn_atlas';
   private selectedKeeperRecordId: string = 'keeper-yui';
+  private selectedKnowledgeLineId: string = 'quote-dickinson-dark';
 
   constructor() {
     super('CollectionScene');
@@ -28,7 +31,6 @@ export class CollectionScene extends Phaser.Scene {
   private render(): void {
     this.root?.destroy(true);
     this.detailText = null;
-    this.keeperDetailText = null;
 
     const progress = loadCollectionProgress();
     const completed = new Set(progress.nightBoard.completedCellIds);
@@ -52,7 +54,7 @@ export class CollectionScene extends Phaser.Scene {
 
     this.renderActiveSection(root, progress, completed, revealed, hinted);
 
-    root.add(this.text(GAME_WIDTH / 2, 712, `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　言葉 ${progress.unlockedMemoryTextIds.length}`, 12, STORYBOOK_UI.goldLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 712, `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　言葉 ${launchCoreKnowledgeLines.length}`, 12, STORYBOOK_UI.goldLight, true));
     root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 46, 148, 44, 'TOPへ', () => this.scene.start('TopScene'), true));
     root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 46, 148, 44, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
   }
@@ -106,8 +108,10 @@ export class CollectionScene extends Phaser.Scene {
       case 'keeper_records':
         this.renderKeeperRecordsPage(root);
         return;
-      case 'lost_item_cards':
       case 'word_records':
+        this.renderWordRecordsPage(root);
+        return;
+      case 'lost_item_cards':
         this.renderLockedSection(root, this.activeCollectionSection());
         return;
     }
@@ -268,6 +272,112 @@ export class CollectionScene extends Phaser.Scene {
     }).setOrigin(0.5, 0);
 
     c.add([fill, name, role, forms, poem, hint]);
+    return c;
+  }
+
+  private renderWordRecordsPage(root: Phaser.GameObjects.Container): void {
+    const card = this.add.graphics();
+    drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0xe0b0a6, 0.9);
+    root.add(card);
+    root.add(this.text(GAME_WIDTH / 2, 184, '言葉の記録', 20, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 208, 'ロードで出会った言葉と、灯し手たちの返事。', 11, STORYBOOK_UI.textMuted));
+
+    const visibleLines = launchCoreKnowledgeLines.slice(0, 6);
+    visibleLines.forEach((line, index) => {
+      const x = GAME_WIDTH / 2 - 110 + (index % 3) * 110;
+      const y = 266 + Math.floor(index / 3) * 54;
+      root.add(this.wordMiniCard(x, y, line));
+    });
+
+    const selected = launchCoreKnowledgeLines.find((line) => line.id === this.selectedKnowledgeLineId) ?? launchCoreKnowledgeLines[0];
+    const reply = launchCoreCharacterKnowledgeReplies.find((candidate) => candidate.knowledgeLineId === selected.id);
+    root.add(this.wordDetailPanel(GAME_WIDTH / 2, 472, selected, reply));
+  }
+
+  private wordMiniCard(x: number, y: number, line: KnowledgeLine): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const selected = line.id === this.selectedKnowledgeLineId;
+    const accent = knowledgeAccent(line.category);
+    const fill = this.add.rectangle(0, 0, 98, 42, selected ? accent : 0x26213f, selected ? 0.94 : 0.84);
+    fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : accent, selected ? 0.95 : 0.72);
+    const label = this.add.text(0, -14, shortKnowledgeLabel(line.originalText), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 86 },
+    }).setOrigin(0.5, 0);
+    const source = this.add.text(0, 9, knowledgeCategoryLabel(line.category), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '8px',
+      color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      align: 'center',
+    }).setOrigin(0.5, 0);
+    const hit = this.add.rectangle(0, 0, 98, 42, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    hit.on('pointerdown', () => {
+      this.selectedKnowledgeLineId = line.id;
+      this.render();
+    });
+    c.add([fill, label, source, hit]);
+    return c;
+  }
+
+  private wordDetailPanel(
+    x: number,
+    y: number,
+    line: KnowledgeLine,
+    reply: CharacterKnowledgeReply | undefined,
+  ): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const accent = knowledgeAccent(line.category);
+    const fill = this.add.graphics();
+    drawStorybookPanel(fill, 0, 0, 318, 218, STORYBOOK_UI.nightPanel, accent, 0.92);
+
+    const original = this.add.text(0, -96, line.originalText, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '16px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 286 },
+      lineSpacing: 3,
+    }).setOrigin(0.5, 0);
+
+    const source = this.add.text(0, original.y + original.height + 10, `— ${line.sourceLabel}`, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '9px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 280 },
+    }).setOrigin(0.5, 0);
+
+    const meaning = this.add.text(0, source.y + source.height + 12, line.meaningJa, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '12px',
+      color: colorString(STORYBOOK_UI.textLight),
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 284 },
+      lineSpacing: 4,
+    }).setOrigin(0.5, 0);
+
+    const replyText = this.add.text(0, meaning.y + meaning.height + 14, reply ? `${characterShortLabel(reply.characterId)}「${reply.replyJa}」` : 'まだ返事は記されていません。', {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '11px',
+      color: colorString(0xffe9b8),
+      fontStyle: 'bold',
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 284 },
+      lineSpacing: 4,
+    }).setOrigin(0.5, 0);
+
+    c.add([fill, original, source, meaning, replyText]);
     return c;
   }
 
@@ -559,6 +669,54 @@ function kindFill(kind: NightBoardCellKind): number {
     case 'mastery': return 0x3b2a58;
     case 'secret': return 0x563047;
   }
+}
+
+function knowledgeAccent(category: KnowledgeLine['category']): number {
+  switch (category) {
+    case 'everyday_phrase': return 0xd7a65b;
+    case 'rare_word': return 0x9fd4ff;
+    case 'quote': return 0xf4d69a;
+    case 'regional_quote': return 0x79bea9;
+    case 'vamp_original': return 0xe0b0a6;
+    case 'parody_prompt': return 0xd89cff;
+  }
+}
+
+function knowledgeCategoryLabel(category: KnowledgeLine['category']): string {
+  switch (category) {
+    case 'everyday_phrase': return '日常語';
+    case 'rare_word': return '言葉';
+    case 'quote': return '名文';
+    case 'regional_quote': return '地域';
+    case 'vamp_original': return '夜の言葉';
+    case 'parody_prompt': return '構造';
+  }
+}
+
+function shortKnowledgeLabel(value: string): string {
+  const normalized = value.replace(/[。.,]/g, '').trim();
+  if (normalized.length <= 12) return normalized;
+  return `${normalized.slice(0, 11)}…`;
+}
+
+function characterShortLabel(characterId: string): string {
+  const labels: Record<string, string> = {
+    yui: 'ユイ',
+    asa: 'アサ',
+    nagi: 'ナギ',
+    michiru: 'ミチル',
+    tomori: 'トモリ',
+    shino: 'シノ',
+    chloe: 'クロエ',
+    koharu: 'コハル',
+    iori: 'イオリ',
+    haku: 'ハク',
+    ritsu: 'リツ',
+    hinata: 'ヒナタ',
+    sena: 'セナ',
+    nemu: 'ネム',
+  };
+  return labels[characterId] ?? characterId;
 }
 
 function shortCellLabel(value: string): string {
