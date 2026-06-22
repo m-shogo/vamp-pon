@@ -200,6 +200,8 @@ export type WaveSpawnDefinition = {
   spawnRatePerSecond?: number;
   spawnCount?: number;
   maxAlive?: number;
+  /** 終盤ボス役など、特定出現枠のHP倍率。未指定は1。 */
+  hpMultiplier?: number;
   directionWeights: DirectionWeights;
 };
 
