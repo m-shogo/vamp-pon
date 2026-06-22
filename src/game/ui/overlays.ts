@@ -549,16 +549,21 @@ export class Overlays {
       if (row.countTo != null) this.scene.time.delayedCall(rowDelay + 80, () => this.countUpText(valueText, row.countTo!, row.format));
     });
 
-    // ボーナス内訳（ステージ/深度/黒曜化不使用/初回クリア）
-    const bonusParts: string[] = [];
-    if (settlement.stageBonus > 1) bonusParts.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
-    if (settlement.depthBonus > 1) bonusParts.push(`深度×${settlement.depthBonus.toFixed(1)}`);
-    if (settlement.noBerserkBonus > 1) bonusParts.push(`黒曜化不使用×${settlement.noBerserkBonus.toFixed(2)}`);
-    if (settlement.firstClearBonus > 1) bonusParts.push(`初回クリア×${settlement.firstClearBonus.toFixed(2)}`);
+    // ボーナス内訳（最大2行、390px幅で収まるよう短縮）
+    const bonusLine1: string[] = [];
+    const bonusLine2: string[] = [];
+    if (settlement.stageBonus > 1) bonusLine1.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
+    if (settlement.depthBonus > 1) bonusLine1.push(`深度×${settlement.depthBonus.toFixed(1)}`);
+    if (settlement.noBerserkBonus > 1) bonusLine2.push(`黒耀なし×${settlement.noBerserkBonus.toFixed(2)}`);
+    if (settlement.firstClearBonus > 1) bonusLine2.push(`初回×${settlement.firstClearBonus.toFixed(2)}`);
+    const hasLine1 = bonusLine1.length > 0;
+    const hasLine2 = bonusLine2.length > 0;
     let bonusOffset = 0;
-    if (bonusParts.length > 0) {
-      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 14, `▽ ${bonusParts.join('　')}`, 11, '#c8b8ff'));
-      bonusOffset = 18;
+    if (hasLine1 || hasLine2) {
+      const baseY = cardTopY + cardHeight + 14;
+      if (hasLine1) root.add(this.text(GAME_WIDTH / 2, baseY, `▽ ${bonusLine1.join('　')}`, 11, '#c8b8ff'));
+      if (hasLine2) root.add(this.text(GAME_WIDTH / 2, hasLine1 ? baseY + 16 : baseY, `${hasLine1 ? '' : '▽ '}${bonusLine2.join('　')}`, 11, '#c8b8ff'));
+      bonusOffset = hasLine1 && hasLine2 ? 34 : 18;
     }
 
     // 進化/合体行（あれば）
