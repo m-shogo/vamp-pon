@@ -406,7 +406,9 @@ export class MainScene extends Phaser.Scene {
       this.effects.clearDawn();
       this.pacingEffects.playClearTransition(showResult);
     } else {
-      showResult();
+      this.audio.playSe('playerDamage', { volume: 0.6 });
+      this.audio.duckBgm(600, 0.65);
+      this.pacingEffects.playDefeatTransition(showResult);
     }
   }
 

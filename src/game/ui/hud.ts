@@ -237,12 +237,14 @@ export class Hud {
     }).setOrigin(0.5).setDepth(DEPTH + 2).setVisible(!this.portraitImage);
     this.crestImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.crestNormal, 14, 14);
     this.crestImage?.setPosition(PORTRAIT_X + 20, PORTRAIT_Y - 20).setDepth(DEPTH + 5).setVisible(false);
-    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 5, '黒耀 0%', {
+    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 10, '黒耀 0%', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '10px',
+      fontSize: '11px',
       color: STORYBOOK_UI.textMuted,
       fontStyle: 'bold',
       resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 2,
     }).setOrigin(0.5, 1).setDepth(DEPTH + 5);
     this.portraitZone = scene.add.zone(PORTRAIT_X, PORTRAIT_Y, 70, 70)
       .setOrigin(0.5)
@@ -269,9 +271,11 @@ export class Hud {
     this.ultimateBack = scene.add.graphics().setDepth(DEPTH + 2);
     this.ultimateText = scene.add.text(ULT_X, ULT_Y + 18, '必殺', {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '10px',
+      fontSize: '11px',
       color: STORYBOOK_UI.textLight,
       fontStyle: 'bold',
+      stroke: '#0a0816',
+      strokeThickness: 2,
       resolution: 2,
     }).setOrigin(0.5).setDepth(DEPTH + 3);
     this.ultimatePressVisual = scene.add.container(ULT_X, ULT_Y).setDepth(DEPTH + 6);
@@ -420,7 +424,8 @@ export class Hud {
     this.ultimateBack.arc(ULT_X, ULT_Y, 30, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.ultimateBack.strokePath();
     this.ultimateText.setText(locked ? '黒耀中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
-    this.ultimateText.setScale(ready && !locked ? 1 + pulse * 0.06 : 1);
+    this.ultimateText.setColor(locked ? '#8b80a8' : ready ? '#ffe8a8' : STORYBOOK_UI.textLight);
+    this.ultimateText.setScale(ready && !locked ? 1 + pulse * 0.08 : 1);
   }
 
   private drawXpHighlight(xpRatio: number): void {
