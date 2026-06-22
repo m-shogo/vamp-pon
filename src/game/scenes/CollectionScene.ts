@@ -5,6 +5,8 @@ import type { CollectionProgressSaveData, NightBoardCell, NightBoardCellKind } f
 import { collectionSections } from '../data/collectionSections';
 import type { CollectionSection, CollectionSectionId } from '../data/collectionSections';
 import { enemies } from '../data/enemies';
+import { keeperRecords } from '../data/keeperRecords';
+import type { KeeperRecord } from '../data/keeperRecords';
 import { loadCollectionProgress } from '../persistence/collection';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawStar, drawStorybookPanel } from '../ui/storybookUi';
 
@@ -98,8 +100,10 @@ export class CollectionScene extends Phaser.Scene {
       case 'bestiary':
         this.renderBestiaryPage(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
         return;
-      case 'lost_item_cards':
       case 'keeper_records':
+        this.renderKeeperRecordsPage(root);
+        return;
+      case 'lost_item_cards':
       case 'word_records':
         this.renderLockedSection(root, this.activeCollectionSection());
         return;
@@ -158,6 +162,62 @@ export class CollectionScene extends Phaser.Scene {
       wordWrap: { width: 280 },
     }).setOrigin(0.5, 0);
     root.add(body);
+  }
+
+  private renderKeeperRecordsPage(root: Phaser.GameObjects.Container): void {
+    const card = this.add.graphics();
+    drawStorybookPanel(card, GAME_WIDTH / 2, 380, 336, 420, STORYBOOK_UI.nightPanel, 0x79bea9, 0.9);
+    root.add(card);
+    root.add(this.text(GAME_WIDTH / 2, 188, '灯し手の記録', 20, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 214, '灯名・黒耀・朝明・欠けた心を、絵札として残す頁。', 11, STORYBOOK_UI.textMuted));
+
+    keeperRecords.forEach((record, index) => {
+      const row = Math.floor(index / 2);
+      const col = index % 2;
+      const x = GAME_WIDTH / 2 - 82 + col * 164;
+      const y = 272 + row * 112;
+      root.add(this.keeperRecordCard(x, y, record));
+    });
+  }
+
+  private keeperRecordCard(x: number, y: number, record: KeeperRecord): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.rectangle(0, 0, 150, 96, 0x203144, 0.9);
+    fill.setStrokeStyle(1, record.accent, 0.9);
+
+    const icon = this.add.graphics();
+    icon.lineStyle(2, record.accent, 0.86).strokeCircle(-52, -25, 14);
+    icon.fillStyle(record.accent, 0.48).fillCircle(-52, -25, 7);
+    icon.fillStyle(STORYBOOK_UI.goldLight, 0.8).fillCircle(-52, -25, 3);
+
+    const name = this.add.text(-30, -42, `${record.nameJa} / ${record.nameEn}`, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '13px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      wordWrap: { width: 104 },
+    }).setOrigin(0, 0);
+
+    const role = this.add.text(-62, -16, record.roleTitle, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.goldLight),
+      resolution: 2,
+      wordWrap: { width: 124 },
+    }).setOrigin(0, 0);
+
+    const form = this.add.text(-62, 10, `${record.lightMotif}\n${record.blackFormName}\n${record.dawnName}`, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '9px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      lineSpacing: 2,
+      wordWrap: { width: 126 },
+    }).setOrigin(0, 0);
+
+    c.add([fill, icon, name, role, form]);
+    return c;
   }
 
   private drawSectionMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, section: CollectionSection): void {
