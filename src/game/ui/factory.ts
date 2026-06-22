@@ -443,6 +443,9 @@ export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Co
     targets: pulse, scale: 1.4, alpha: 0.3, duration: 800,
     yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
   });
+  c.once('destroy', () => {
+    scene.tweens.killTweensOf(pulse);
+  });
   c.setDepth(DEPTH.pickup);
   return c;
 }
