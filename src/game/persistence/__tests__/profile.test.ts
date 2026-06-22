@@ -174,4 +174,42 @@ describe('localStorage を伴う進行（保存・購入・精算）', () => {
     const result = settleRunProgress(makeState({ kills: 400, survivedSec: 300, playerLevel: 20 }), true);
     expect(result.characterLevelAfter).toBeGreaterThan(result.characterLevelBefore);
   });
+
+  it('初期状態ではStage1のみ解放', () => {
+    const profile = createDefaultProfile();
+    expect(profile.unlockedStages).toEqual([1]);
+  });
+
+  it('Stage1クリアでStage2が解放される', () => {
+    saveProfile(createDefaultProfile());
+    const result = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    expect(result.unlockedStage).toBe(2);
+    const profile = loadProfile();
+    expect(profile.unlockedStages).toContain(2);
+  });
+
+  it('Stage1 defeatではStage2は解放されない', () => {
+    saveProfile(createDefaultProfile());
+    const result = settleRunProgress(makeState({ stageNumber: 1, kills: 10, survivedSec: 200 }), false);
+    expect(result.unlockedStage).toBeUndefined();
+    const profile = loadProfile();
+    expect(profile.unlockedStages).toEqual([1]);
+  });
+
+  it('Stage2解放はreload後も維持される', () => {
+    saveProfile(createDefaultProfile());
+    settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    const reloaded = loadProfile();
+    expect(reloaded.unlockedStages).toContain(2);
+  });
+
+  it('再クリアでは重複解放しない', () => {
+    saveProfile(createDefaultProfile());
+    const first = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    expect(first.unlockedStage).toBe(2);
+    const second = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    expect(second.unlockedStage).toBeUndefined();
+    const profile = loadProfile();
+    expect(profile.unlockedStages.filter((s) => s === 2)).toHaveLength(1);
+  });
 });

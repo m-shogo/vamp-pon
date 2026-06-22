@@ -10,6 +10,7 @@ import { weaponById } from '../data/weapons';
 import { passiveById } from '../data/passives';
 import { rareItemById } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
+import { recipeForStage } from '../data/waves';
 import {
   getInventoryIconRequirement,
   resolveInventoryIconTexture,
@@ -553,6 +554,31 @@ export class Overlays {
     const timeLineY = messageY + 28;
     root.add(this.text(GAME_WIDTH / 2, timeLineY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 11, '#9fe0a0'));
     root.add(this.text(GAME_WIDTH / 2, timeLineY + 16, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
+
+    // ステージ解放通知
+    if (settlement.unlockedStage != null) {
+      const recipe = recipeForStage(settlement.unlockedStage);
+      const unlockY = timeLineY + 44;
+      const unlockBg = this.scene.add.graphics();
+      unlockBg.fillStyle(0x1a1638, 0.85);
+      unlockBg.fillRoundedRect(GAME_WIDTH / 2 - 150, unlockY - 18, 300, 36, 6);
+      unlockBg.lineStyle(1, 0xf5d58a, 0.6);
+      unlockBg.strokeRoundedRect(GAME_WIDTH / 2 - 150, unlockY - 18, 300, 36, 6);
+      root.add(unlockBg);
+      const unlockText = this.text(GAME_WIDTH / 2, unlockY, `新しい夜が開いた — ${recipe.name}`, 13, STORYBOOK_UI.goldLight, true);
+      unlockText.setAlpha(0);
+      root.add(unlockText);
+      this.scene.tweens.add({
+        targets: unlockText, alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut',
+      });
+      const sparkle = this.scene.add.circle(GAME_WIDTH / 2 - 146, unlockY, 4, 0xf5d58a, 0);
+      root.add(sparkle);
+      this.scene.tweens.add({
+        targets: sparkle, alpha: { from: 0, to: 0.8 }, scale: { from: 0.5, to: 1.2 },
+        duration: 300, delay: 1300, ease: 'Back.easeOut', yoyo: true, hold: 400,
+        onComplete: () => sparkle.destroy(),
+      });
+    }
 
     // ボタン — 勝利/敗北でCTA優先度を変える
     const btnY1 = GAME_HEIGHT - 156;
