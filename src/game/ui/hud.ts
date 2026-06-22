@@ -88,6 +88,7 @@ export class Hud {
   private previousXpRatio = 0;
   private hpShakeUntilMs = 0;
   private xpHighlightUntilMs = 0;
+  private ultimateReadyNotified = false;
 
   constructor(
     private scene: Phaser.Scene,
@@ -426,6 +427,29 @@ export class Hud {
     this.ultimateText.setText(locked ? '黒耀中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
     this.ultimateText.setColor(locked ? '#8b80a8' : ready ? '#ffe8a8' : STORYBOOK_UI.textLight);
     this.ultimateText.setScale(ready && !locked ? 1 + pulse * 0.08 : 1);
+    if (ready && !locked && !this.ultimateReadyNotified) {
+      this.ultimateReadyNotified = true;
+      this.showUltimateReadyNotice();
+    }
+  }
+
+  private showUltimateReadyNotice(): void {
+    const notice = this.scene.add.text(ULT_X, ULT_Y - 48, '必殺技が使える！', {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '12px',
+      color: '#ffe8a8',
+      fontStyle: 'bold',
+      resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 2,
+    }).setOrigin(0.5).setDepth(DEPTH + 10).setAlpha(0).setScale(0.8);
+    this.scene.tweens.add({
+      targets: notice, alpha: 1, scale: 1, y: notice.y - 6, duration: 280, ease: 'Back.easeOut',
+    });
+    this.scene.tweens.add({
+      targets: notice, alpha: 0, y: notice.y - 20, duration: 320, delay: 1200, ease: 'Quad.easeIn',
+      onComplete: () => notice.destroy(),
+    });
   }
 
   private drawXpHighlight(xpRatio: number): void {
