@@ -559,7 +559,7 @@ export class Overlays {
     if (settlement.unlockedStage != null) {
       const recipe = recipeForStage(settlement.unlockedStage);
       const unlockY = timeLineY + 44;
-      const unlockBg = this.scene.add.graphics();
+      const unlockBg = this.scene.add.graphics().setAlpha(0);
       unlockBg.fillStyle(0x1a1638, 0.85);
       unlockBg.fillRoundedRect(GAME_WIDTH / 2 - 150, unlockY - 18, 300, 36, 6);
       unlockBg.lineStyle(1, 0xf5d58a, 0.6);
@@ -569,7 +569,7 @@ export class Overlays {
       unlockText.setAlpha(0);
       root.add(unlockText);
       this.scene.tweens.add({
-        targets: unlockText, alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut',
+        targets: [unlockBg, unlockText], alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut',
       });
       const sparkle = this.scene.add.circle(GAME_WIDTH / 2 - 146, unlockY, 4, 0xf5d58a, 0);
       root.add(sparkle);
