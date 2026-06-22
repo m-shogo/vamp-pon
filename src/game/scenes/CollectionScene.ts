@@ -1,7 +1,9 @@
 import Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { COLLECTION_LABELS, forgottenStreetNightBoard } from '../data/collectionProgress';
-import type { NightBoardCell, NightBoardCellKind } from '../data/collectionProgress';
+import type { CollectionProgressSaveData, NightBoardCell, NightBoardCellKind } from '../data/collectionProgress';
+import { collectionSections } from '../data/collectionSections';
+import type { CollectionSection, CollectionSectionId } from '../data/collectionSections';
 import { enemies } from '../data/enemies';
 import { loadCollectionProgress } from '../persistence/collection';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawStar, drawStorybookPanel } from '../ui/storybookUi';
@@ -9,6 +11,7 @@ import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawS
 export class CollectionScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
   private detailText: Phaser.GameObjects.Text | null = null;
+  private activeSection: CollectionSectionId = 'dawn_atlas';
 
   constructor() {
     super('CollectionScene');
@@ -20,6 +23,8 @@ export class CollectionScene extends Phaser.Scene {
 
   private render(): void {
     this.root?.destroy(true);
+    this.detailText = null;
+
     const progress = loadCollectionProgress();
     const completed = new Set(progress.nightBoard.completedCellIds);
     const revealed = new Set(progress.nightBoard.revealedCellIds);
@@ -29,22 +34,93 @@ export class CollectionScene extends Phaser.Scene {
 
     root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1d1a34, 1));
     this.addSoftAtlasGlow(root);
+
     const panel = this.add.graphics();
     drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
     root.add(panel);
 
-    root.add(this.text(GAME_WIDTH / 2, 34, COLLECTION_LABELS.book, 26, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 66, `${forgottenStreetNightBoard.name}　${completed.size}/${forgottenStreetNightBoard.cells.length}`, 13, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, 96, '絵札を灯すほど、となりの夜明けが見えていく', 12, STORYBOOK_UI.textMuted));
+    const active = this.activeCollectionSection();
+    root.add(this.text(GAME_WIDTH / 2, 32, COLLECTION_LABELS.book, 25, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 61, active.label, 14, active.accent, true));
+    root.add(this.text(GAME_WIDTH / 2, 86, active.description, 11, STORYBOOK_UI.textMuted));
+    this.renderSectionTabs(root);
 
+    this.renderActiveSection(root, progress, completed, revealed, hinted);
+
+    root.add(this.text(GAME_WIDTH / 2, 712, `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　言葉 ${progress.unlockedMemoryTextIds.length}`, 12, STORYBOOK_UI.goldLight, true));
+    root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 46, 148, 44, 'TOPへ', () => this.scene.start('TopScene'), true));
+    root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 46, 148, 44, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
+  }
+
+  private activeCollectionSection(): CollectionSection {
+    return collectionSections.find((section) => section.id === this.activeSection) ?? collectionSections[0];
+  }
+
+  private renderSectionTabs(root: Phaser.GameObjects.Container): void {
+    const tabWidth = 60;
+    const tabHeight = 28;
+    const gap = 6;
+    const totalWidth = collectionSections.length * tabWidth + (collectionSections.length - 1) * gap;
+    const startX = GAME_WIDTH / 2 - totalWidth / 2 + tabWidth / 2;
+
+    collectionSections.forEach((section, index) => {
+      const x = startX + index * (tabWidth + gap);
+      root.add(this.sectionTab(x, 120, tabWidth, tabHeight, section));
+    });
+  }
+
+  private sectionTab(x: number, y: number, width: number, height: number, section: CollectionSection): Phaser.GameObjects.Container {
+    const isActive = section.id === this.activeSection;
+    const c = this.add.container(x, y);
+    const fill = this.add.rectangle(0, 0, width, height, isActive ? section.accent : 0x26213f, isActive ? 0.94 : 0.78);
+    fill.setStrokeStyle(isActive ? 2 : 1, isActive ? STORYBOOK_UI.goldLight : 0x6f6590, isActive ? 0.95 : 0.75);
+    const label = this.text(0, 0, section.shortLabel, 10, isActive ? STORYBOOK_UI.textDark : STORYBOOK_UI.textMuted, true);
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    hit.on('pointerdown', () => {
+      this.activeSection = section.id;
+      this.render();
+    });
+    c.add([fill, label, hit]);
+    return c;
+  }
+
+  private renderActiveSection(
+    root: Phaser.GameObjects.Container,
+    progress: CollectionProgressSaveData,
+    completed: Set<string>,
+    revealed: Set<string>,
+    hinted: Set<string>,
+  ): void {
+    switch (this.activeSection) {
+      case 'dawn_atlas':
+        this.renderDawnAtlas(root, completed, revealed, hinted, progress);
+        return;
+      case 'bestiary':
+        this.renderBestiaryPage(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
+        return;
+      case 'lost_item_cards':
+      case 'keeper_records':
+      case 'word_records':
+        this.renderLockedSection(root, this.activeCollectionSection());
+        return;
+    }
+  }
+
+  private renderDawnAtlas(
+    root: Phaser.GameObjects.Container,
+    completed: Set<string>,
+    revealed: Set<string>,
+    hinted: Set<string>,
+    progress: CollectionProgressSaveData,
+  ): void {
     this.renderBoard(root, completed, revealed, hinted);
 
     const detailPanel = this.add.graphics();
-    drawStorybookPanel(detailPanel, GAME_WIDTH / 2, 470, 330, 96, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.86);
+    drawStorybookPanel(detailPanel, GAME_WIDTH / 2, 498, 330, 92, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.86);
     root.add(detailPanel);
     this.detailText = this.add.text(
       GAME_WIDTH / 2,
-      430,
+      462,
       '夜明け星図の絵札を押すと、条件と報酬が見えます。',
       {
         fontFamily: STORYBOOK_FONT,
@@ -59,10 +135,53 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.detailText);
 
     this.renderBestiarySummary(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
+  }
 
-    root.add(this.text(GAME_WIDTH / 2, 712, `カゲモノ ${progress.seenEnemyIds.length}種発見　記憶文 ${progress.unlockedMemoryTextIds.length}`, 12, STORYBOOK_UI.goldLight, true));
-    root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 46, 148, 44, 'TOPへ', () => this.scene.start('TopScene'), true));
-    root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 46, 148, 44, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
+  private renderLockedSection(root: Phaser.GameObjects.Container, section: CollectionSection): void {
+    const card = this.add.graphics();
+    drawStorybookPanel(card, GAME_WIDTH / 2, 330, 326, 280, STORYBOOK_UI.nightPanel, section.accent, 0.9);
+    root.add(card);
+
+    const motif = this.add.graphics();
+    this.drawSectionMotif(motif, GAME_WIDTH / 2, 232, section);
+    root.add(motif);
+
+    root.add(this.text(GAME_WIDTH / 2, 288, section.label, 20, STORYBOOK_UI.textLight, true, true));
+    const message = `${section.description}\n\n${section.lockedHint ?? 'この章は、記録が増えると少しずつ開きます。'}\n\n次はここを絵札形式で育てる。`;
+    const body = this.add.text(GAME_WIDTH / 2, 324, message, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '13px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      align: 'center',
+      resolution: 2,
+      lineSpacing: 6,
+      wordWrap: { width: 280 },
+    }).setOrigin(0.5, 0);
+    root.add(body);
+  }
+
+  private drawSectionMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, section: CollectionSection): void {
+    switch (section.motif) {
+      case 'star-map':
+        drawStar(g, x, y, 22, section.accent, STORYBOOK_UI.goldLight, 0.95);
+        break;
+      case 'shadow-card':
+        g.fillStyle(section.accent, 0.45).fillCircle(x, y, 22);
+        g.fillStyle(0x0b1022, 0.8).fillCircle(x, y + 4, 15);
+        break;
+      case 'lost-item':
+        g.fillStyle(section.accent, 0.78).fillRect(x - 18, y - 14, 36, 28);
+        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.7).strokeRect(x - 18, y - 14, 36, 28);
+        break;
+      case 'keeper':
+        g.lineStyle(2, section.accent, 0.9).strokeCircle(x, y, 22);
+        g.fillStyle(STORYBOOK_UI.goldLight, 0.88).fillCircle(x, y, 7);
+        break;
+      case 'words':
+        g.fillStyle(section.accent, 0.78).fillRect(x - 24, y - 16, 48, 32);
+        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.8).lineBetween(x - 14, y - 5, x + 14, y - 5).lineBetween(x - 14, y + 5, x + 10, y + 5);
+        break;
+    }
   }
 
   private addSoftAtlasGlow(root: Phaser.GameObjects.Container): void {
@@ -81,7 +200,7 @@ export class CollectionScene extends Phaser.Scene {
     const cellSize = 48;
     const gap = 8;
     const startX = GAME_WIDTH / 2 - ((cellSize + gap) * forgottenStreetNightBoard.width - gap) / 2 + cellSize / 2;
-    const startY = 152;
+    const startY = 176;
 
     const lineLayer = this.add.graphics();
     lineLayer.lineStyle(1, STORYBOOK_UI.gold, 0.16);
@@ -113,19 +232,71 @@ export class CollectionScene extends Phaser.Scene {
   }
 
   private renderBestiarySummary(root: Phaser.GameObjects.Container, seenEnemyIds: string[], defeatedEnemyCounts: Record<string, number>): void {
-    root.add(this.text(GAME_WIDTH / 2, 552, COLLECTION_LABELS.bestiary, 14, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 584, COLLECTION_LABELS.bestiary, 14, STORYBOOK_UI.textLight, true));
     const seen = new Set(seenEnemyIds);
     const known = enemies.filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0);
-    const visible = known.slice(0, 4);
+    const visible = known.slice(0, 3);
     const more = known.length - visible.length;
     const rows = visible.map((enemy) => `${enemy.name} ×${defeatedEnemyCounts[enemy.id] ?? 0}`);
     if (more > 0) rows.push(`…ほか ${more}種`);
     const text = rows.length > 0
       ? rows.join('\n')
       : 'まだカゲモノは記されていません。\n夜路で出会うと、ここに残ります。';
-    const summary = this.text(GAME_WIDTH / 2, 600, text, 13, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
+    const summary = this.text(GAME_WIDTH / 2, 626, text, 12, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
     summary.setWordWrapWidth(306);
     root.add(summary);
+  }
+
+  private renderBestiaryPage(root: Phaser.GameObjects.Container, seenEnemyIds: string[], defeatedEnemyCounts: Record<string, number>): void {
+    const seen = new Set(seenEnemyIds);
+    const known = enemies.filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0);
+    const card = this.add.graphics();
+    drawStorybookPanel(card, GAME_WIDTH / 2, 366, 330, 390, STORYBOOK_UI.nightPanel, 0x9c74c5, 0.9);
+    root.add(card);
+    root.add(this.text(GAME_WIDTH / 2, 194, COLLECTION_LABELS.bestiary, 20, STORYBOOK_UI.textLight, true, true));
+
+    if (known.length === 0) {
+      root.add(this.text(GAME_WIDTH / 2, 320, 'まだ影の絵札は白紙です。\n夜路で出会うと、ここに輪郭が残ります。', 13, STORYBOOK_UI.textMuted));
+      return;
+    }
+
+    const visible = known.slice(0, 8);
+    visible.forEach((enemy, index) => {
+      const row = Math.floor(index / 2);
+      const col = index % 2;
+      const x = GAME_WIDTH / 2 - 78 + col * 156;
+      const y = 250 + row * 68;
+      root.add(this.enemyRecordCard(x, y, enemy.name, defeatedEnemyCounts[enemy.id] ?? 0));
+    });
+
+    if (known.length > visible.length) {
+      root.add(this.text(GAME_WIDTH / 2, 548, `ほか ${known.length - visible.length}種の影が記録済み`, 12, STORYBOOK_UI.goldLight, true));
+    }
+  }
+
+  private enemyRecordCard(x: number, y: number, name: string, count: number): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.rectangle(0, 0, 136, 52, 0x26213f, 0.88);
+    fill.setStrokeStyle(1, 0x9c74c5, 0.8);
+    const mark = this.add.graphics();
+    mark.fillStyle(0x9c74c5, 0.42).fillCircle(-48, -1, 14);
+    mark.fillStyle(0x0b1022, 0.72).fillCircle(-48, 2, 9);
+    const title = this.add.text(-26, -14, name, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '11px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      wordWrap: { width: 84 },
+    }).setOrigin(0, 0);
+    const sub = this.add.text(-26, 8, `ほどいた数 ${count}`, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+    }).setOrigin(0, 0);
+    c.add([fill, mark, title, sub]);
+    return c;
   }
 
   private boardCell(
@@ -186,6 +357,7 @@ export class CollectionScene extends Phaser.Scene {
     size: number,
     accent: number,
   ): void {
+    void size;
     if (state === 'hidden') {
       g.fillStyle(0x0b1022, 0.4).fillCircle(0, 0, 11);
       g.lineStyle(1, 0x50476d, 0.5).strokeCircle(0, 0, 13);
