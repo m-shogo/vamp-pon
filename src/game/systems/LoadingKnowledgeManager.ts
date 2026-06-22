@@ -18,13 +18,15 @@ const RECENT_REPLY_LIMIT = 5;
 const RECENT_CATEGORY_LIMIT = 3;
 const RECENT_REGION_LIMIT = 3;
 
-const DEFAULT_STATE: LoadingKnowledgeState = {
-  seenKnowledgeEntries: [],
-  recentKnowledgeLineIds: [],
-  recentReplyIds: [],
-  recentCategories: [],
-  recentRegions: [],
-};
+function createEmptyState(): LoadingKnowledgeState {
+  return {
+    seenKnowledgeEntries: [],
+    recentKnowledgeLineIds: [],
+    recentReplyIds: [],
+    recentCategories: [],
+    recentRegions: [],
+  };
+}
 
 type StoredHistory = Pick<
   LoadingKnowledgeState,
@@ -136,7 +138,7 @@ export class LoadingKnowledgeManager {
   }
 
   resetForDebug(): void {
-    this.state = { ...DEFAULT_STATE };
+    this.state = createEmptyState();
     this.saveState();
   }
 
@@ -199,7 +201,7 @@ export class LoadingKnowledgeManager {
   }
 
   private loadState(): LoadingKnowledgeState {
-    if (!isBrowserStorageAvailable()) return { ...DEFAULT_STATE };
+    if (!isBrowserStorageAvailable()) return createEmptyState();
 
     const seenKnowledgeEntries = safeParse<SeenKnowledgeEntry[]>(
       window.localStorage.getItem(SEEN_STORAGE_KEY),
