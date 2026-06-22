@@ -13,7 +13,9 @@ import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawS
 export class CollectionScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
   private detailText: Phaser.GameObjects.Text | null = null;
+  private keeperDetailText: Phaser.GameObjects.Text | null = null;
   private activeSection: CollectionSectionId = 'dawn_atlas';
+  private selectedKeeperRecordId: string = 'keeper-yui';
 
   constructor() {
     super('CollectionScene');
@@ -26,6 +28,7 @@ export class CollectionScene extends Phaser.Scene {
   private render(): void {
     this.root?.destroy(true);
     this.detailText = null;
+    this.keeperDetailText = null;
 
     const progress = loadCollectionProgress();
     const completed = new Set(progress.nightBoard.completedCellIds);
@@ -166,57 +169,105 @@ export class CollectionScene extends Phaser.Scene {
 
   private renderKeeperRecordsPage(root: Phaser.GameObjects.Container): void {
     const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 380, 336, 420, STORYBOOK_UI.nightPanel, 0x79bea9, 0.9);
+    drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0x79bea9, 0.9);
     root.add(card);
-    root.add(this.text(GAME_WIDTH / 2, 188, '灯し手の記録', 20, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 214, '灯名・黒耀・朝明・欠けた心を、絵札として残す頁。', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 184, '灯し手の記録', 20, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 208, '灯名・黒耀・朝明・欠けた心を、絵札として残す頁。', 11, STORYBOOK_UI.textMuted));
 
     keeperRecords.forEach((record, index) => {
-      const row = Math.floor(index / 2);
-      const col = index % 2;
-      const x = GAME_WIDTH / 2 - 82 + col * 164;
-      const y = 272 + row * 112;
-      root.add(this.keeperRecordCard(x, y, record));
+      const x = GAME_WIDTH / 2 - 132 + index * 66;
+      root.add(this.keeperMiniCard(x, 270, record));
     });
+
+    const selected = keeperRecords.find((record) => record.id === this.selectedKeeperRecordId) ?? keeperRecords[0];
+    root.add(this.keeperDetailPanel(GAME_WIDTH / 2, 440, selected));
   }
 
-  private keeperRecordCard(x: number, y: number, record: KeeperRecord): Phaser.GameObjects.Container {
+  private keeperMiniCard(x: number, y: number, record: KeeperRecord): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
-    const fill = this.add.rectangle(0, 0, 150, 96, 0x203144, 0.9);
-    fill.setStrokeStyle(1, record.accent, 0.9);
+    const selected = record.id === this.selectedKeeperRecordId;
+    const fill = this.add.rectangle(0, 0, 58, 70, selected ? record.accent : 0x203144, selected ? 0.95 : 0.9);
+    fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : record.accent, 0.9);
 
     const icon = this.add.graphics();
-    icon.lineStyle(2, record.accent, 0.86).strokeCircle(-52, -25, 14);
-    icon.fillStyle(record.accent, 0.48).fillCircle(-52, -25, 7);
-    icon.fillStyle(STORYBOOK_UI.goldLight, 0.8).fillCircle(-52, -25, 3);
+    icon.lineStyle(2, selected ? STORYBOOK_UI.textDark : record.accent, 0.86).strokeCircle(0, -16, 12);
+    icon.fillStyle(selected ? STORYBOOK_UI.textDark : record.accent, 0.45).fillCircle(0, -16, 6);
+    icon.fillStyle(selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textLight, 0.88).fillCircle(0, -16, 3);
 
-    const name = this.add.text(-30, -42, `${record.nameJa} / ${record.nameEn}`, {
+    const name = this.add.text(0, 10, record.nameJa, {
       fontFamily: STORYBOOK_TITLE_FONT,
-      fontSize: '13px',
+      fontSize: '12px',
+      color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      align: 'center',
+    }).setOrigin(0.5, 0);
+
+    const hit = this.add.rectangle(0, 0, 58, 70, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    hit.on('pointerdown', () => {
+      this.selectedKeeperRecordId = record.id;
+      this.render();
+    });
+
+    c.add([fill, icon, name, hit]);
+    return c;
+  }
+
+  private keeperDetailPanel(x: number, y: number, record: KeeperRecord): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawStorybookPanel(fill, 0, 0, 318, 210, STORYBOOK_UI.nightPanel, record.accent, 0.92);
+
+    const name = this.add.text(0, -88, `${record.nameJa} / ${record.nameEn}`, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '18px',
       color: colorString(STORYBOOK_UI.textLight),
       fontStyle: 'bold',
       resolution: 2,
-      wordWrap: { width: 104 },
-    }).setOrigin(0, 0);
+      align: 'center',
+    }).setOrigin(0.5, 0);
 
-    const role = this.add.text(-62, -16, record.roleTitle, {
+    const role = this.add.text(0, -60, record.roleTitle, {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '10px',
-      color: colorString(STORYBOOK_UI.goldLight),
+      fontSize: '12px',
+      color: colorString(record.accent),
+      fontStyle: 'bold',
       resolution: 2,
-      wordWrap: { width: 124 },
-    }).setOrigin(0, 0);
+      align: 'center',
+      wordWrap: { width: 280 },
+    }).setOrigin(0.5, 0);
 
-    const form = this.add.text(-62, 10, `${record.lightMotif}\n${record.blackFormName}\n${record.dawnName}`, {
+    const forms = this.add.text(0, -30, `${record.lightMotif}\n${record.blackFormName}\n${record.dawnName}`, {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '9px',
+      fontSize: '11px',
       color: colorString(STORYBOOK_UI.textMuted),
       resolution: 2,
-      lineSpacing: 2,
-      wordWrap: { width: 126 },
-    }).setOrigin(0, 0);
+      lineSpacing: 3,
+      align: 'center',
+      wordWrap: { width: 286 },
+    }).setOrigin(0.5, 0);
 
-    c.add([fill, icon, name, role, form]);
+    const poem = this.add.text(0, 34, record.shortPoem, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '12px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      lineSpacing: 5,
+      align: 'center',
+      wordWrap: { width: 286 },
+    }).setOrigin(0.5, 0);
+
+    const hint = this.add.text(0, 92, record.unlockHint, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 282 },
+    }).setOrigin(0.5, 0);
+
+    c.add([fill, name, role, forms, poem, hint]);
     return c;
   }
 
