@@ -68,7 +68,7 @@ export class BerserkFeedback {
       const pulse = 0.5 + 0.5 * Math.sin(state.elapsedSec * 10);
       this.activeVeil.setAlpha(0.04 + pulse * 0.03);
       this.setEdgeAlpha(ACTIVE_EDGE_ALPHA * (0.72 + pulse * 0.28));
-      this.dotAccumulator += dt * 3.6;
+      this.dotAccumulator += dt * 2.8;
       if (this.dotAccumulator >= 1) {
         this.dotAccumulator -= 1;
         const angle = Math.random() * Math.PI * 2;
@@ -170,7 +170,7 @@ export class BerserkFeedback {
   }
 
   private onBerserkEnd(state: RuntimeState): void {
-    this.scene.cameras.main.flash(160, 240, 235, 220, false);
+    this.scene.cameras.main.flash(120, 240, 235, 220, false);
     for (let i = 0; i < 8; i += 1) {
       const angle = (Math.PI * 2 * i) / 8;
       const particle = this.scene.add.circle(

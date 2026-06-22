@@ -35,3 +35,12 @@ Vamp Pon の音素材は未配置でも落ちない。実素材を追加する�
 - 実装側の受け口は `src/game/audio/AudioManager.ts` の `AUDIO_ASSET_SPECS` を正本にする。
 - preload は `audio-manifest.json` に書かれたファイルのみ対象にする。ディレクトリ `HEAD` や拡張子総当たりは Vite の fallback/404/EncodingError を再発させやすいので使わない。
 - 素材キーは `se_<key>` / `bgm_*` のまま差し込めるようにし、演出コード側へファイル名を散らさない。
+
+## 実音源追加手順
+
+1. 音源ファイルを `public/assets/audio/` に配置する（OGG/MP3/WAV）。
+2. `public/assets/audio/audio-manifest.json` の `assets` 配列に `{ "key": "se_hit", "url": "/assets/audio/hit.ogg" }` の形式で追加する。
+3. `key` は `AUDIO_ASSET_SPECS` に定義済みのキーのみ有効。未知のキーは無視される。
+4. `url` が空文字またはキーが未知の場合、そのエントリはスキップされる。
+5. manifest の fetch 自体が失敗しても fallback oscillator で動作は継続する。
+6. `pnpm test` で `AudioManager.test.ts` が通ることを確認する。

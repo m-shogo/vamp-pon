@@ -44,7 +44,7 @@ export class TopScene extends Phaser.Scene {
 
     this.text(GAME_WIDTH / 2, 192, `黒曜片 ${profile.currency}`, 16, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 1);
 
-    const mainBtn = this.button(GAME_WIDTH / 2, 292, 260, 62, 'はじめる', () => {
+    const mainBtn = this.button(GAME_WIDTH / 2, 292, 260, 62, '夜へ出る', () => {
       this.scene.start('StageSelectScene', { mode: 'stage' });
     }, false, true);
     mainBtn.setDepth(UI_DEPTH + 3);
