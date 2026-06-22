@@ -10,7 +10,7 @@ type StorybookUiTokens = {
   night: number;
   nightPanel: number;
   gold: number;
-  goldLight: any;
+  goldLight: number;
   paper: number;
   paperLight: number;
   paperShadow: number;

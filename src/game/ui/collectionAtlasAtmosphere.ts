@@ -1,3 +1,4 @@
+import type Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import type { CollectionSection } from '../data/collectionSections';
 import { STORYBOOK_UI, drawStar } from './storybookUi';
@@ -24,7 +25,8 @@ export function addCollectionAtlasFallbackAtmosphere(
   const top = 154;
   const bottom = 676;
 
-  g.fillStyle(section.accent, 0.035).fillRect(left, top, right - left, bottom - top);
+  g.fillStyle(section.accent, 0.035);
+  g.fillRect(left, top, right - left, bottom - top);
   g.lineStyle(1, section.accent, 0.12);
 
   switch (section.id) {
@@ -40,26 +42,39 @@ export function addCollectionAtlasFallbackAtmosphere(
       break;
     }
     case 'bestiary':
-      g.fillStyle(section.accent, 0.08).fillCircle(92, 248, 34).fillCircle(292, 388, 42).fillCircle(120, 548, 28);
-      g.fillStyle(0x050817, 0.28).fillCircle(92, 256, 20).fillCircle(292, 398, 24).fillCircle(120, 554, 16);
+      g.fillStyle(section.accent, 0.08);
+      g.fillCircle(92, 248, 34);
+      g.fillCircle(292, 388, 42);
+      g.fillCircle(120, 548, 28);
+      g.fillStyle(0x050817, 0.28);
+      g.fillCircle(92, 256, 20);
+      g.fillCircle(292, 398, 24);
+      g.fillCircle(120, 554, 16);
       break;
     case 'lost_item_cards':
       for (let i = 0; i < 8; i += 1) {
         const x = 64 + (i % 4) * 82;
         const y = 180 + Math.floor(i / 4) * 360;
-        g.fillStyle(section.accent, 0.08).fillRect(x, y, 34, 24);
-        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.12).strokeRect(x, y, 34, 24);
+        g.fillStyle(section.accent, 0.08);
+        g.fillRect(x, y, 34, 24);
+        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.12);
+        g.strokeRect(x, y, 34, 24);
       }
       break;
     case 'keeper_records':
-      g.lineStyle(1, section.accent, 0.18).strokeCircle(GAME_WIDTH / 2, 358, 112).strokeCircle(GAME_WIDTH / 2, 358, 70);
-      g.fillStyle(STORYBOOK_UI.goldLight, 0.12).fillCircle(GAME_WIDTH / 2, 358, 9);
+      g.lineStyle(1, section.accent, 0.18);
+      g.strokeCircle(GAME_WIDTH / 2, 358, 112);
+      g.strokeCircle(GAME_WIDTH / 2, 358, 70);
+      g.fillStyle(STORYBOOK_UI.goldLight, 0.12);
+      g.fillCircle(GAME_WIDTH / 2, 358, 9);
       break;
     case 'word_records':
       for (let i = 0; i < 9; i += 1) {
         const y = 170 + i * 54;
-        g.lineStyle(1, section.accent, 0.1).lineBetween(68, y, 322, y);
-        g.fillStyle(section.accent, 0.08).fillRect(78, y + 12, 110 + (i % 3) * 34, 2);
+        g.lineStyle(1, section.accent, 0.1);
+        g.lineBetween(68, y, 322, y);
+        g.fillStyle(section.accent, 0.08);
+        g.fillRect(78, y + 12, 110 + (i % 3) * 34, 2);
       }
       break;
   }
@@ -78,20 +93,29 @@ export function drawCollectionSectionMotif(
       drawStar(g, x, y, 22, section.accent, STORYBOOK_UI.goldLight, 0.95);
       break;
     case 'shadow-card':
-      g.fillStyle(section.accent, 0.45).fillCircle(x, y, 22);
-      g.fillStyle(0x0b1022, 0.8).fillCircle(x, y + 4, 15);
+      g.fillStyle(section.accent, 0.45);
+      g.fillCircle(x, y, 22);
+      g.fillStyle(0x0b1022, 0.8);
+      g.fillCircle(x, y + 4, 15);
       break;
     case 'lost-item':
-      g.fillStyle(section.accent, 0.78).fillRect(x - 18, y - 14, 36, 28);
-      g.lineStyle(1, STORYBOOK_UI.goldLight, 0.7).strokeRect(x - 18, y - 14, 36, 28);
+      g.fillStyle(section.accent, 0.78);
+      g.fillRect(x - 18, y - 14, 36, 28);
+      g.lineStyle(1, STORYBOOK_UI.goldLight, 0.7);
+      g.strokeRect(x - 18, y - 14, 36, 28);
       break;
     case 'keeper':
-      g.lineStyle(2, section.accent, 0.9).strokeCircle(x, y, 22);
-      g.fillStyle(STORYBOOK_UI.goldLight, 0.88).fillCircle(x, y, 7);
+      g.lineStyle(2, section.accent, 0.9);
+      g.strokeCircle(x, y, 22);
+      g.fillStyle(STORYBOOK_UI.goldLight, 0.88);
+      g.fillCircle(x, y, 7);
       break;
     case 'words':
-      g.fillStyle(section.accent, 0.78).fillRect(x - 24, y - 16, 48, 32);
-      g.lineStyle(1, STORYBOOK_UI.goldLight, 0.8).lineBetween(x - 14, y - 5, x + 14, y - 5).lineBetween(x - 14, y + 5, x + 10, y + 5);
+      g.fillStyle(section.accent, 0.78);
+      g.fillRect(x - 24, y - 16, 48, 32);
+      g.lineStyle(1, STORYBOOK_UI.goldLight, 0.8);
+      g.lineBetween(x - 14, y - 5, x + 14, y - 5);
+      g.lineBetween(x - 14, y + 5, x + 10, y + 5);
       break;
   }
 }

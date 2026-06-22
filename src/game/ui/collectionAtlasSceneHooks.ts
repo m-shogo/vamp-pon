@@ -1,3 +1,4 @@
+import type Phaser from 'phaser';
 import type { CollectionSection } from '../data/collectionSections';
 import { addCollectionAtlasAtmosphere } from './collectionAtlasAtmosphere';
 

@@ -13,7 +13,11 @@ import type { LostItemRecord } from '../data/lostItemRecords';
 import { launchCoreKnowledgeLines } from '../data/knowledgeLines';
 import { loadCollectionProgress } from '../persistence/collection';
 import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge';
+import { attachCollectionAtlasAtmosphere } from '../ui/collectionAtlasSceneHooks';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawStar, drawStorybookPanel } from '../ui/storybookUi';
+
+const GRAPHICS_TEXT_DARK = 0x2e2730;
+const GRAPHICS_TEXT_LIGHT = 0xf4e8cf;
 
 export class CollectionScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
@@ -50,7 +54,7 @@ export class CollectionScene extends Phaser.Scene {
     root.add(panel);
 
     const active = this.activeCollectionSection();
-    this.addSectionAtmosphere(root, active);
+    attachCollectionAtlasAtmosphere(this, root, active);
     root.add(this.text(GAME_WIDTH / 2, 32, COLLECTION_LABELS.book, 25, STORYBOOK_UI.textLight, true, true));
     root.add(this.text(GAME_WIDTH / 2, 61, active.label, 14, active.accent, true));
     root.add(this.text(GAME_WIDTH / 2, 86, active.description, 11, STORYBOOK_UI.textMuted));
@@ -309,9 +313,9 @@ export class CollectionScene extends Phaser.Scene {
     fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : record.accent, 0.9);
 
     const icon = this.add.graphics();
-    icon.lineStyle(2, selected ? STORYBOOK_UI.textDark : record.accent, 0.86).strokeCircle(0, -16, 12);
-    icon.fillStyle(selected ? STORYBOOK_UI.textDark : record.accent, 0.45).fillCircle(0, -16, 6);
-    icon.fillStyle(selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textLight, 0.88).fillCircle(0, -16, 3);
+    icon.lineStyle(2, selected ? GRAPHICS_TEXT_DARK : record.accent, 0.86).strokeCircle(0, -16, 12);
+    icon.fillStyle(selected ? GRAPHICS_TEXT_DARK : record.accent, 0.45).fillCircle(0, -16, 6);
+    icon.fillStyle(selected ? STORYBOOK_UI.goldLight : GRAPHICS_TEXT_LIGHT, 0.88).fillCircle(0, -16, 3);
 
     const name = this.add.text(0, 10, record.nameJa, {
       fontFamily: STORYBOOK_TITLE_FONT,
@@ -496,56 +500,6 @@ export class CollectionScene extends Phaser.Scene {
     return c;
   }
 
-  private addSectionAtmosphere(root: Phaser.GameObjects.Container, section: CollectionSection): void {
-    const g = this.add.graphics();
-    const left = GAME_WIDTH / 2 - 166;
-    const right = GAME_WIDTH / 2 + 166;
-    const top = 154;
-    const bottom = 676;
-
-    g.fillStyle(section.accent, 0.035).fillRect(left, top, right - left, bottom - top);
-    g.lineStyle(1, section.accent, 0.12);
-
-    switch (section.id) {
-      case 'dawn_atlas': {
-        const points: Array<[number, number]> = [[74, 176], [152, 220], [232, 188], [302, 254], [110, 326], [250, 360], [326, 424]];
-        for (let i = 0; i < points.length - 1; i += 1) {
-          const [x1, y1] = points[i];
-          const [x2, y2] = points[i + 1];
-          g.lineBetween(x1, y1, x2, y2);
-        }
-        g.fillStyle(STORYBOOK_UI.goldLight, 0.22);
-        points.forEach(([x, y]) => g.fillCircle(x, y, 2.5));
-        break;
-      }
-      case 'bestiary':
-        g.fillStyle(section.accent, 0.08).fillCircle(92, 248, 34).fillCircle(292, 388, 42).fillCircle(120, 548, 28);
-        g.fillStyle(0x050817, 0.28).fillCircle(92, 256, 20).fillCircle(292, 398, 24).fillCircle(120, 554, 16);
-        break;
-      case 'lost_item_cards':
-        for (let i = 0; i < 8; i += 1) {
-          const x = 64 + (i % 4) * 82;
-          const y = 180 + Math.floor(i / 4) * 360;
-          g.fillStyle(section.accent, 0.08).fillRect(x, y, 34, 24);
-          g.lineStyle(1, STORYBOOK_UI.goldLight, 0.12).strokeRect(x, y, 34, 24);
-        }
-        break;
-      case 'keeper_records':
-        g.lineStyle(1, section.accent, 0.18).strokeCircle(GAME_WIDTH / 2, 358, 112).strokeCircle(GAME_WIDTH / 2, 358, 70);
-        g.fillStyle(STORYBOOK_UI.goldLight, 0.12).fillCircle(GAME_WIDTH / 2, 358, 9);
-        break;
-      case 'word_records':
-        for (let i = 0; i < 9; i += 1) {
-          const y = 170 + i * 54;
-          g.lineStyle(1, section.accent, 0.1).lineBetween(68, y, 322, y);
-          g.fillStyle(section.accent, 0.08).fillRect(78, y + 12, 110 + (i % 3) * 34, 2);
-        }
-        break;
-    }
-
-    root.add(g);
-  }
-
   private drawSectionMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, section: CollectionSection): void {
     switch (section.motif) {
       case 'star-map':
@@ -571,8 +525,8 @@ export class CollectionScene extends Phaser.Scene {
   }
 
   private drawLostItemMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, record: LostItemRecord, selected: boolean): void {
-    const fill = selected ? STORYBOOK_UI.textDark : record.accent;
-    const edge = selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textLight;
+    const fill = selected ? GRAPHICS_TEXT_DARK : record.accent;
+    const edge = selected ? STORYBOOK_UI.goldLight : GRAPHICS_TEXT_LIGHT;
     switch (record.itemType) {
       case 'bag':
         g.fillStyle(fill, 0.62).fillRect(x - 10, y - 6, 20, 16);

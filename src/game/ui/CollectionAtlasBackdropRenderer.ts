@@ -1,3 +1,4 @@
+import type Phaser from 'phaser';
 import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { getCollectionSectionBackdrop } from '../data/collectionAtlasAssets';
 import type { CollectionSection } from '../data/collectionSections';

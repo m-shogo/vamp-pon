@@ -1,3 +1,4 @@
+import type Phaser from 'phaser';
 import {
   collectionAtlasSectionAssets,
   keeperEmblemAssets,
