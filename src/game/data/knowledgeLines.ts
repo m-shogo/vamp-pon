@@ -316,6 +316,9 @@ export const launchCoreKnowledgeLines: KnowledgeLine[] = [
   },
 ];
 
-export function isCommerciallySafeKnowledgeLine(line: KnowledgeLine): boolean {
+export function isStrictlyApprovedKnowledgeLine(line: KnowledgeLine): boolean {
   return line.commercialStatus === 'safe-candidate';
 }
+
+/** @deprecated 通常表示の厳格な承認境界には isStrictlyApprovedKnowledgeLine を使う。 */
+export const isCommerciallySafeKnowledgeLine = isStrictlyApprovedKnowledgeLine;

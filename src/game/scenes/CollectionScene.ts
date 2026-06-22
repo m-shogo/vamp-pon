@@ -12,6 +12,11 @@ import { lostItemRecords } from '../data/lostItemRecords';
 import type { LostItemRecord } from '../data/lostItemRecords';
 import { collectionWordRecordLines } from '../data/collectionWordRecords';
 import { loadCollectionProgress } from '../persistence/collection';
+import {
+  findNewCompletedCellIds,
+  loadCollectionAtlasViewState,
+  markCompletedCellsSeen,
+} from '../persistence/collectionAtlasViewState';
 import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge';
 import { nightBoardRewardLabel } from '../ui/collectionAtlasLabels';
 import { attachCollectionAtlasAtmosphere } from '../ui/collectionAtlasSceneHooks';
@@ -42,6 +47,10 @@ export class CollectionScene extends Phaser.Scene {
 
     const progress = loadCollectionProgress();
     const completed = new Set(progress.nightBoard.completedCellIds);
+    const viewState = loadCollectionAtlasViewState();
+    const newCompletedIds = findNewCompletedCellIds(progress.nightBoard.completedCellIds, viewState.seenCompletedCellIds);
+    const newlyCompleted = new Set(newCompletedIds);
+    if (newCompletedIds.length > 0) markCompletedCellsSeen(newCompletedIds);
     const revealed = new Set(progress.nightBoard.revealedCellIds);
     const hinted = new Set(progress.nightBoard.hintedCellIds);
     const root = this.add.container(0, 0);
@@ -61,7 +70,7 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.text(GAME_WIDTH / 2, 86, active.description, 11, STORYBOOK_UI.textMuted));
     this.renderSectionTabs(root);
 
-    this.renderActiveSection(root, progress, completed, revealed, hinted);
+    this.renderActiveSection(root, progress, completed, revealed, hinted, newlyCompleted);
 
     root.add(this.text(
       GAME_WIDTH / 2,
@@ -113,10 +122,11 @@ export class CollectionScene extends Phaser.Scene {
     completed: Set<string>,
     revealed: Set<string>,
     hinted: Set<string>,
+    newlyCompleted: Set<string>,
   ): void {
     switch (this.activeSection) {
       case 'dawn_atlas':
-        this.renderDawnAtlas(root, completed, revealed, hinted, progress);
+        this.renderDawnAtlas(root, completed, revealed, hinted, newlyCompleted, progress);
         return;
       case 'bestiary':
         this.renderBestiaryPage(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
@@ -138,9 +148,10 @@ export class CollectionScene extends Phaser.Scene {
     completed: Set<string>,
     revealed: Set<string>,
     hinted: Set<string>,
+    newlyCompleted: Set<string>,
     progress: CollectionProgressSaveData,
   ): void {
-    this.renderBoard(root, completed, revealed, hinted);
+    this.renderBoard(root, completed, revealed, hinted, newlyCompleted);
 
     const detailPanel = this.add.graphics();
     drawStorybookPanel(detailPanel, GAME_WIDTH / 2, 498, 330, 92, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.86);
@@ -301,9 +312,12 @@ export class CollectionScene extends Phaser.Scene {
     fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : record.accent, 0.9);
 
     const icon = this.add.graphics();
-    icon.lineStyle(2, selected ? GRAPHICS_TEXT_DARK : record.accent, 0.86).strokeCircle(0, -16, 12);
-    icon.fillStyle(selected ? GRAPHICS_TEXT_DARK : record.accent, 0.45).fillCircle(0, -16, 6);
-    icon.fillStyle(selected ? STORYBOOK_UI.goldLight : GRAPHICS_TEXT_LIGHT, 0.88).fillCircle(0, -16, 3);
+    icon.lineStyle(2, selected ? GRAPHICS_TEXT_DARK : record.accent, 0.86);
+    icon.strokeCircle(0, -16, 12);
+    icon.fillStyle(selected ? GRAPHICS_TEXT_DARK : record.accent, 0.45);
+    icon.fillCircle(0, -16, 6);
+    icon.fillStyle(selected ? STORYBOOK_UI.goldLight : GRAPHICS_TEXT_LIGHT, 0.88);
+    icon.fillCircle(0, -16, 3);
 
     const name = this.add.text(0, 10, record.nameJa, {
       fontFamily: STORYBOOK_TITLE_FONT,
@@ -497,36 +511,57 @@ export class CollectionScene extends Phaser.Scene {
     const edge = selected ? STORYBOOK_UI.goldLight : GRAPHICS_TEXT_LIGHT;
     switch (record.itemType) {
       case 'bag':
-        g.fillStyle(fill, 0.62).fillRect(x - 10, y - 6, 20, 16);
-        g.lineStyle(1, edge, 0.8).strokeRect(x - 10, y - 6, 20, 16).strokeRect(x - 5, y - 11, 10, 5);
+        g.fillStyle(fill, 0.62);
+        g.fillRect(x - 10, y - 6, 20, 16);
+        g.lineStyle(1, edge, 0.8);
+        g.strokeRect(x - 10, y - 6, 20, 16);
+        g.strokeRect(x - 5, y - 11, 10, 5);
         break;
       case 'paper':
-        g.fillStyle(fill, 0.58).fillTriangle(x - 11, y - 10, x + 12, y - 4, x - 2, y + 12);
-        g.lineStyle(1, edge, 0.72).lineBetween(x - 7, y - 2, x + 4, y + 1).lineBetween(x - 4, y + 4, x + 2, y + 6);
+        g.fillStyle(fill, 0.58);
+        g.fillTriangle(x - 11, y - 10, x + 12, y - 4, x - 2, y + 12);
+        g.lineStyle(1, edge, 0.72);
+        g.lineBetween(x - 7, y - 2, x + 4, y + 1);
+        g.lineBetween(x - 4, y + 4, x + 2, y + 6);
         break;
       case 'lamp':
-        g.lineStyle(1, edge, 0.85).strokeCircle(x, y, 10);
-        g.fillStyle(fill, 0.68).fillCircle(x, y, 5);
-        g.fillStyle(0xffffff, 0.55).fillRect(x - 1, y - 8, 2, 5);
+        g.lineStyle(1, edge, 0.85);
+        g.strokeCircle(x, y, 10);
+        g.fillStyle(fill, 0.68);
+        g.fillCircle(x, y, 5);
+        g.fillStyle(0xffffff, 0.55);
+        g.fillRect(x - 1, y - 8, 2, 5);
         break;
       case 'thread':
-        g.lineStyle(2, fill, 0.85).strokeCircle(x - 5, y, 7).strokeCircle(x + 5, y, 7);
-        g.fillStyle(edge, 0.65).fillCircle(x, y, 3);
+        g.lineStyle(2, fill, 0.85);
+        g.strokeCircle(x - 5, y, 7);
+        g.strokeCircle(x + 5, y, 7);
+        g.fillStyle(edge, 0.65);
+        g.fillCircle(x, y, 3);
         break;
       case 'coin':
-        g.fillStyle(fill, 0.72).fillCircle(x, y, 11);
-        g.lineStyle(1, edge, 0.85).strokeCircle(x, y, 11).strokeCircle(x, y, 6);
+        g.fillStyle(fill, 0.72);
+        g.fillCircle(x, y, 11);
+        g.lineStyle(1, edge, 0.85);
+        g.strokeCircle(x, y, 11);
+        g.strokeCircle(x, y, 6);
         break;
       case 'key':
-        g.lineStyle(2, fill, 0.88).strokeCircle(x - 6, y, 6).lineBetween(x, y, x + 13, y).lineBetween(x + 8, y, x + 8, y + 5).lineBetween(x + 12, y, x + 12, y + 4);
+        g.lineStyle(2, fill, 0.88);
+        g.strokeCircle(x - 6, y, 6);
+        g.lineBetween(x, y, x + 13, y);
+        g.lineBetween(x + 8, y, x + 8, y + 5);
+        g.lineBetween(x + 12, y, x + 12, y + 4);
         break;
     }
   }
 
   private addSoftAtlasGlow(root: Phaser.GameObjects.Container): void {
     const glow = this.add.graphics();
-    glow.fillStyle(0xf4d69a, 0.04).fillCircle(GAME_WIDTH / 2, 240, 180);
-    glow.fillStyle(0x8d76c9, 0.035).fillCircle(GAME_WIDTH / 2 + 40, 380, 150);
+    glow.fillStyle(0xf4d69a, 0.04);
+    glow.fillCircle(GAME_WIDTH / 2, 240, 180);
+    glow.fillStyle(0x8d76c9, 0.035);
+    glow.fillCircle(GAME_WIDTH / 2 + 40, 380, 150);
     root.add(glow);
   }
 
@@ -535,6 +570,7 @@ export class CollectionScene extends Phaser.Scene {
     completed: Set<string>,
     revealed: Set<string>,
     hinted: Set<string>,
+    newlyCompleted: Set<string>,
   ): void {
     const cellSize = 48;
     const gap = 8;
@@ -543,6 +579,7 @@ export class CollectionScene extends Phaser.Scene {
 
     const lineLayer = this.add.graphics();
     lineLayer.lineStyle(1, STORYBOOK_UI.gold, 0.16);
+    let newlyCompletedIndex = 0;
     for (const cell of forgottenStreetNightBoard.cells) {
       for (const parentId of cell.revealBy ?? []) {
         const parent = forgottenStreetNightBoard.cells.find((candidate) => candidate.id === parentId);
@@ -566,7 +603,10 @@ export class CollectionScene extends Phaser.Scene {
             : 'hidden';
       const x = startX + cell.x * (cellSize + gap);
       const y = startY + cell.y * (cellSize + gap);
-      root.add(this.boardCell(x, y, cellSize, cell, state));
+      const isNewlyCompleted = newlyCompleted.has(cell.id);
+      const arrivalDelay = isNewlyCompleted ? newlyCompletedIndex * 140 : 0;
+      if (isNewlyCompleted) newlyCompletedIndex += 1;
+      root.add(this.boardCell(x, y, cellSize, cell, state, isNewlyCompleted, arrivalDelay));
     }
   }
 
@@ -618,8 +658,10 @@ export class CollectionScene extends Phaser.Scene {
     const fill = this.add.rectangle(0, 0, 136, 52, 0x26213f, 0.88);
     fill.setStrokeStyle(1, 0x9c74c5, 0.8);
     const mark = this.add.graphics();
-    mark.fillStyle(0x9c74c5, 0.42).fillCircle(-48, -1, 14);
-    mark.fillStyle(0x0b1022, 0.72).fillCircle(-48, 2, 9);
+    mark.fillStyle(0x9c74c5, 0.42);
+    mark.fillCircle(-48, -1, 14);
+    mark.fillStyle(0x0b1022, 0.72);
+    mark.fillCircle(-48, 2, 9);
     const title = this.add.text(-26, -14, name, {
       fontFamily: STORYBOOK_FONT,
       fontSize: '11px',
@@ -644,6 +686,8 @@ export class CollectionScene extends Phaser.Scene {
     size: number,
     cell: NightBoardCell,
     state: 'hidden' | 'hinted' | 'revealed' | 'completed',
+    newlyCompleted: boolean,
+    arrivalDelay: number,
   ): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const accent = kindAccent(cell.kind);
@@ -683,6 +727,42 @@ export class CollectionScene extends Phaser.Scene {
     rect.setStrokeStyle(state === 'completed' ? 2 : 1, strokeColor, 0.95);
     const art = this.add.graphics();
     this.drawCellMotif(art, cell, state, size, accent);
+    let arrivalGlow: Phaser.GameObjects.Rectangle | null = null;
+    if (newlyCompleted) {
+      arrivalGlow = this.add.rectangle(0, 0, size + 18, size + 18, STORYBOOK_UI.goldLight, 0.06);
+      arrivalGlow.setStrokeStyle(4, STORYBOOK_UI.goldLight, 0.7);
+      const animatedGlow = arrivalGlow;
+
+      const arrivalTween = this.tweens.add({
+        targets: animatedGlow,
+        alpha: { from: 0.18, to: 0.9 },
+        scaleX: { from: 0.78, to: 1.18 },
+        scaleY: { from: 0.78, to: 1.18 },
+        delay: arrivalDelay,
+        duration: 420,
+        ease: 'Sine.Out',
+        yoyo: true,
+        repeat: 0,
+        onComplete: () => animatedGlow.destroy(),
+      });
+      art.setAlpha(0.62).setScale(0.88);
+      const starTween = this.tweens.add({
+        targets: art,
+        alpha: { from: 0.62, to: 1 },
+        scaleX: { from: 0.88, to: 1.12 },
+        scaleY: { from: 0.88, to: 1.12 },
+        delay: arrivalDelay + 100,
+        duration: 320,
+        ease: 'Sine.InOut',
+        yoyo: true,
+        repeat: 0,
+        onComplete: () => art.setAlpha(1).setScale(1),
+      });
+      c.once('destroy', () => {
+        arrivalTween.remove();
+        starTween.remove();
+      });
+    }
     const hit = this.add.rectangle(0, 0, size, size, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => this.showCellDetail(cell, state));
 
@@ -702,7 +782,7 @@ export class CollectionScene extends Phaser.Scene {
       lineSpacing: 1,
     }).setOrigin(0.5);
 
-    c.add([rect, art, label, hit]);
+    c.add(arrivalGlow ? [arrivalGlow, rect, art, label, hit] : [rect, art, label, hit]);
     return c;
   }
 
@@ -715,22 +795,28 @@ export class CollectionScene extends Phaser.Scene {
   ): void {
     void size;
     if (state === 'hidden') {
-      g.fillStyle(0x0b1022, 0.4).fillCircle(0, 0, 11);
-      g.lineStyle(1, 0x50476d, 0.5).strokeCircle(0, 0, 13);
-      g.lineStyle(1, 0x50476d, 0.42).lineBetween(-7, -7, 7, 7);
+      g.fillStyle(0x0b1022, 0.4);
+      g.fillCircle(0, 0, 11);
+      g.lineStyle(1, 0x50476d, 0.5);
+      g.strokeCircle(0, 0, 13);
+      g.lineStyle(1, 0x50476d, 0.42);
+      g.lineBetween(-7, -7, 7, 7);
       g.lineBetween(7, -7, -7, 7);
       return;
     }
 
     if (state === 'hinted') {
-      g.lineStyle(1, STORYBOOK_UI.gold, 0.45).strokeCircle(0, -3, 12);
-      g.fillStyle(STORYBOOK_UI.gold, 0.24).fillCircle(0, -3, 8);
+      g.lineStyle(1, STORYBOOK_UI.gold, 0.45);
+      g.strokeCircle(0, -3, 12);
+      g.fillStyle(STORYBOOK_UI.gold, 0.24);
+      g.fillCircle(0, -3, 8);
       return;
     }
 
     if (state === 'completed') {
       drawStar(g, 0, -6, 13, STORYBOOK_UI.goldLight, STORYBOOK_UI.paperEdge, 1);
-      g.fillStyle(0xffffff, 0.55).fillRect(-1, -15, 2, 8);
+      g.fillStyle(0xffffff, 0.55);
+      g.fillRect(-1, -15, 2, 8);
       return;
     }
 
@@ -739,16 +825,23 @@ export class CollectionScene extends Phaser.Scene {
         drawFragment(g, 0, -5, 11);
         break;
       case 'targeted':
-        g.lineStyle(2, accent, 0.9).strokeCircle(0, -5, 12);
-        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.75).lineBetween(-10, -5, 10, -5).lineBetween(0, -15, 0, 5);
+        g.lineStyle(2, accent, 0.9);
+        g.strokeCircle(0, -5, 12);
+        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.75);
+        g.lineBetween(-10, -5, 10, -5);
+        g.lineBetween(0, -15, 0, 5);
         break;
       case 'mastery':
         drawStar(g, 0, -5, 12, accent, STORYBOOK_UI.goldLight, 0.9);
-        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.45).strokeCircle(0, -5, 17);
+        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.45);
+        g.strokeCircle(0, -5, 17);
         break;
       case 'secret':
-        g.fillStyle(accent, 0.84).fillTriangle(0, -20, 14, -5, 0, 10).fillTriangle(0, -20, -14, -5, 0, 10);
-        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.55).strokeCircle(0, -5, 15);
+        g.fillStyle(accent, 0.84);
+        g.fillTriangle(0, -20, 14, -5, 0, 10);
+        g.fillTriangle(0, -20, -14, -5, 0, 10);
+        g.lineStyle(1, STORYBOOK_UI.goldLight, 0.55);
+        g.strokeCircle(0, -5, 15);
         break;
     }
   }

@@ -8,7 +8,7 @@ import { forgottenStreetNightBoard } from './collectionProgress';
 import { collectionSections } from './collectionSections';
 import { keeperRecords } from './keeperRecords';
 import { lostItemRecords } from './lostItemRecords';
-import { launchCoreKnowledgeLines } from './knowledgeLines';
+import { isStrictlyApprovedKnowledgeLine, launchCoreKnowledgeLines } from './knowledgeLines';
 import { collectionWordRecordLines } from './collectionWordRecords';
 import { launchCoreCharacterKnowledgeReplies } from './characterKnowledgeReplies';
 import { nightBoardRewardLabel } from '../ui/collectionAtlasLabels';
@@ -105,6 +105,17 @@ describe('collection atlas data', () => {
     expect(collectionWordRecordLines.every((line) => line.commercialStatus === 'safe-candidate')).toBe(true);
     expect(collectionWordRecordLines.some((line) => line.commercialStatus === 'final-check-required')).toBe(false);
     expect(collectionWordRecordLines.some((line) => line.commercialStatus === 'do-not-display')).toBe(false);
+  });
+
+  it('厳格承認filterは表示対象をsafe-candidateから広げない', () => {
+    const safe = launchCoreKnowledgeLines.find((line) => line.commercialStatus === 'safe-candidate');
+    const common = launchCoreKnowledgeLines.find((line) => line.commercialStatus === 'common-expression-candidate');
+    const publicDomain = launchCoreKnowledgeLines.find((line) => line.commercialStatus === 'public-domain-candidate');
+    const finalCheck = launchCoreKnowledgeLines.find((line) => line.commercialStatus === 'final-check-required');
+    expect(safe && isStrictlyApprovedKnowledgeLine(safe)).toBe(true);
+    expect(common && isStrictlyApprovedKnowledgeLine(common)).toBe(false);
+    expect(publicDomain && isStrictlyApprovedKnowledgeLine(publicDomain)).toBe(false);
+    expect(finalCheck && isStrictlyApprovedKnowledgeLine(finalCheck)).toBe(false);
   });
 
   it('図鑑タブ背景アセットは全タブ分ある', () => {
