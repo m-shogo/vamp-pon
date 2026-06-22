@@ -21,6 +21,7 @@ export class RunPacingEffects {
   private lastCountdownValue: number | null = null;
   private finalPushShown = false;
   private lastStandShown = false;
+  private stageNumber = 1;
 
   constructor(private scene: Phaser.Scene) {
     this.finalTint = scene.add.rectangle(
@@ -40,6 +41,10 @@ export class RunPacingEffects {
       resolution: 2,
       align: 'center',
     }).setOrigin(0.5).setDepth(VIEW_DEPTH.hud + 4).setVisible(false);
+  }
+
+  setStage(stageNumber: number): void {
+    this.stageNumber = stageNumber;
   }
 
   update(state: RuntimeState): void {
@@ -77,7 +82,8 @@ export class RunPacingEffects {
     ).setDepth(depth).setAlpha(0);
     banner.setStrokeStyle(2, 0x9a6f9f, 0.9);
 
-    const title = this.scene.add.text(GAME_WIDTH / 2, 146, '黒ラベルの影', {
+    const warningTitle = this.stageNumber === 2 ? '雨影の気配' : '黒ラベルの影';
+    const title = this.scene.add.text(GAME_WIDTH / 2, 146, warningTitle, {
       fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '18px',
       color: '#f2d8ee',
@@ -149,7 +155,8 @@ export class RunPacingEffects {
       });
     }
 
-    const banner = this.scene.add.text(cx, 148, '影が集まる', {
+    const lastStandLabel = this.stageNumber === 2 ? '雨が強まる' : '影が集まる';
+    const banner = this.scene.add.text(cx, 148, lastStandLabel, {
       fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '18px',
       color: '#c4b8d8',
@@ -199,7 +206,8 @@ export class RunPacingEffects {
 
   private showFinalPushBanner(): void {
     const depth = VIEW_DEPTH.hud + 5;
-    const banner = this.scene.add.text(GAME_WIDTH / 2, 128, '夜明け前の闇', {
+    const finalLabel = this.stageNumber === 2 ? '雨が止む前に' : '夜明け前の闇';
+    const banner = this.scene.add.text(GAME_WIDTH / 2, 128, finalLabel, {
       fontFamily: STORYBOOK_TITLE_FONT,
       fontSize: '20px',
       color: '#d4c8e6',
