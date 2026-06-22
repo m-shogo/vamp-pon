@@ -8,6 +8,8 @@ import { launchCoreCharacterKnowledgeReplies } from '../data/characterKnowledgeR
 import { enemies } from '../data/enemies';
 import { keeperRecords } from '../data/keeperRecords';
 import type { KeeperRecord } from '../data/keeperRecords';
+import { lostItemRecords } from '../data/lostItemRecords';
+import type { LostItemRecord } from '../data/lostItemRecords';
 import { launchCoreKnowledgeLines } from '../data/knowledgeLines';
 import { loadCollectionProgress } from '../persistence/collection';
 import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge';
@@ -19,6 +21,7 @@ export class CollectionScene extends Phaser.Scene {
   private activeSection: CollectionSectionId = 'dawn_atlas';
   private selectedKeeperRecordId: string = 'keeper-yui';
   private selectedKnowledgeLineId: string = 'quote-dickinson-dark';
+  private selectedLostItemRecordId: string = 'lost-small-bag-tag';
 
   constructor() {
     super('CollectionScene');
@@ -54,7 +57,14 @@ export class CollectionScene extends Phaser.Scene {
 
     this.renderActiveSection(root, progress, completed, revealed, hinted);
 
-    root.add(this.text(GAME_WIDTH / 2, 712, `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　言葉 ${launchCoreKnowledgeLines.length}`, 12, STORYBOOK_UI.goldLight, true));
+    root.add(this.text(
+      GAME_WIDTH / 2,
+      712,
+      `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　忘れ物 ${lostItemRecords.length}枚　言葉 ${launchCoreKnowledgeLines.length}`,
+      11,
+      STORYBOOK_UI.goldLight,
+      true,
+    ));
     root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 46, 148, 44, 'TOPへ', () => this.scene.start('TopScene'), true));
     root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 46, 148, 44, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
   }
@@ -112,7 +122,7 @@ export class CollectionScene extends Phaser.Scene {
         this.renderWordRecordsPage(root);
         return;
       case 'lost_item_cards':
-        this.renderLockedSection(root, this.activeCollectionSection());
+        this.renderLostItemCardsPage(root);
         return;
     }
   }
@@ -169,6 +179,110 @@ export class CollectionScene extends Phaser.Scene {
       wordWrap: { width: 280 },
     }).setOrigin(0.5, 0);
     root.add(body);
+  }
+
+  private renderLostItemCardsPage(root: Phaser.GameObjects.Container): void {
+    const card = this.add.graphics();
+    drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0xd7a65b, 0.9);
+    root.add(card);
+    root.add(this.text(GAME_WIDTH / 2, 184, '忘れ物絵札', 20, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 208, '拾われる前から、夜に残っていた小さな持ち物たち。', 11, STORYBOOK_UI.textMuted));
+
+    lostItemRecords.forEach((record, index) => {
+      const x = GAME_WIDTH / 2 - 110 + (index % 3) * 110;
+      const y = 276 + Math.floor(index / 3) * 68;
+      root.add(this.lostItemMiniCard(x, y, record));
+    });
+
+    const selected = lostItemRecords.find((record) => record.id === this.selectedLostItemRecordId) ?? lostItemRecords[0];
+    root.add(this.lostItemDetailPanel(GAME_WIDTH / 2, 492, selected));
+  }
+
+  private lostItemMiniCard(x: number, y: number, record: LostItemRecord): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const selected = record.id === this.selectedLostItemRecordId;
+    const fill = this.add.rectangle(0, 0, 96, 54, selected ? record.accent : 0x26213f, selected ? 0.95 : 0.86);
+    fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : record.accent, selected ? 0.95 : 0.75);
+
+    const motif = this.add.graphics();
+    this.drawLostItemMotif(motif, -32, -8, record, selected);
+
+    const label = this.add.text(-12, -20, shortLostItemLabel(record.nameJa), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      wordWrap: { width: 68 },
+      align: 'center',
+    }).setOrigin(0.5, 0);
+
+    const type = this.add.text(-12, 10, lostItemTypeLabel(record.itemType), {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '8px',
+      color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      align: 'center',
+    }).setOrigin(0.5, 0);
+
+    const hit = this.add.rectangle(0, 0, 96, 54, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    hit.on('pointerdown', () => {
+      this.selectedLostItemRecordId = record.id;
+      this.render();
+    });
+
+    c.add([fill, motif, label, type, hit]);
+    return c;
+  }
+
+  private lostItemDetailPanel(x: number, y: number, record: LostItemRecord): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawStorybookPanel(fill, 0, 0, 318, 190, STORYBOOK_UI.nightPanel, record.accent, 0.92);
+
+    const name = this.add.text(0, -82, `${record.nameJa}\n${record.nameEn}`, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '16px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+      align: 'center',
+      lineSpacing: 2,
+      wordWrap: { width: 286 },
+    }).setOrigin(0.5, 0);
+
+    const owner = this.add.text(0, -34, record.ownerHint, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '11px',
+      color: colorString(record.accent),
+      fontStyle: 'bold',
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 286 },
+      lineSpacing: 4,
+    }).setOrigin(0.5, 0);
+
+    const memory = this.add.text(0, 24, record.memoryText, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '12px',
+      color: colorString(STORYBOOK_UI.textLight),
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 286 },
+      lineSpacing: 5,
+    }).setOrigin(0.5, 0);
+
+    const hint = this.add.text(0, 80, record.unlockHint, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      resolution: 2,
+      align: 'center',
+      wordWrap: { width: 282 },
+    }).setOrigin(0.5, 0);
+
+    c.add([fill, name, owner, memory, hint]);
+    return c;
   }
 
   private renderKeeperRecordsPage(root: Phaser.GameObjects.Container): void {
@@ -401,6 +515,37 @@ export class CollectionScene extends Phaser.Scene {
       case 'words':
         g.fillStyle(section.accent, 0.78).fillRect(x - 24, y - 16, 48, 32);
         g.lineStyle(1, STORYBOOK_UI.goldLight, 0.8).lineBetween(x - 14, y - 5, x + 14, y - 5).lineBetween(x - 14, y + 5, x + 10, y + 5);
+        break;
+    }
+  }
+
+  private drawLostItemMotif(g: Phaser.GameObjects.Graphics, x: number, y: number, record: LostItemRecord, selected: boolean): void {
+    const fill = selected ? STORYBOOK_UI.textDark : record.accent;
+    const edge = selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textLight;
+    switch (record.itemType) {
+      case 'bag':
+        g.fillStyle(fill, 0.62).fillRect(x - 10, y - 6, 20, 16);
+        g.lineStyle(1, edge, 0.8).strokeRect(x - 10, y - 6, 20, 16).strokeRect(x - 5, y - 11, 10, 5);
+        break;
+      case 'paper':
+        g.fillStyle(fill, 0.58).fillTriangle(x - 11, y - 10, x + 12, y - 4, x - 2, y + 12);
+        g.lineStyle(1, edge, 0.72).lineBetween(x - 7, y - 2, x + 4, y + 1).lineBetween(x - 4, y + 4, x + 2, y + 6);
+        break;
+      case 'lamp':
+        g.lineStyle(1, edge, 0.85).strokeCircle(x, y, 10);
+        g.fillStyle(fill, 0.68).fillCircle(x, y, 5);
+        g.fillStyle(0xffffff, 0.55).fillRect(x - 1, y - 8, 2, 5);
+        break;
+      case 'thread':
+        g.lineStyle(2, fill, 0.85).strokeCircle(x - 5, y, 7).strokeCircle(x + 5, y, 7);
+        g.fillStyle(edge, 0.65).fillCircle(x, y, 3);
+        break;
+      case 'coin':
+        g.fillStyle(fill, 0.72).fillCircle(x, y, 11);
+        g.lineStyle(1, edge, 0.85).strokeCircle(x, y, 11).strokeCircle(x, y, 6);
+        break;
+      case 'key':
+        g.lineStyle(2, fill, 0.88).strokeCircle(x - 6, y, 6).lineBetween(x, y, x + 13, y).lineBetween(x + 8, y, x + 8, y + 5).lineBetween(x + 12, y, x + 12, y + 4);
         break;
     }
   }
@@ -697,6 +842,28 @@ function shortKnowledgeLabel(value: string): string {
   const normalized = value.replace(/[。.,]/g, '').trim();
   if (normalized.length <= 12) return normalized;
   return `${normalized.slice(0, 11)}…`;
+}
+
+function shortLostItemLabel(value: string): string {
+  if (value.length <= 6) return value;
+  if (value.includes('ランタン')) return 'ランタン硝子';
+  if (value.includes('地図')) return '地図の角';
+  if (value.includes('荷札')) return '消えた荷札';
+  if (value.includes('糸')) return '赤い糸';
+  if (value.includes('灯貨')) return '灯貨';
+  if (value.includes('鍵')) return '部屋の鍵';
+  return value.slice(0, 5);
+}
+
+function lostItemTypeLabel(type: LostItemRecord['itemType']): string {
+  switch (type) {
+    case 'bag': return 'かばん';
+    case 'paper': return '紙片';
+    case 'lamp': return '灯り';
+    case 'thread': return '糸';
+    case 'coin': return '灯貨';
+    case 'key': return '鍵';
+  }
 }
 
 function characterShortLabel(characterId: string): string {
