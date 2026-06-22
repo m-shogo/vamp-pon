@@ -315,6 +315,94 @@ export class RunPacingEffects {
     });
   }
 
+  playDefeatTransition(onComplete: () => void): void {
+    this.finalTint.setVisible(false).setAlpha(0);
+    this.countdownText.setVisible(false);
+
+    const depth = VIEW_DEPTH.overlay + 10;
+    const cx = GAME_WIDTH / 2;
+    const cy = GAME_HEIGHT / 2;
+    const trash: Array<Phaser.GameObjects.GameObject> = [];
+
+    const inkWash = this.scene.add.rectangle(cx, cy, GAME_WIDTH, GAME_HEIGHT, 0x0a0812, 0)
+      .setDepth(depth).setInteractive();
+    trash.push(inkWash);
+
+    const inkPool = this.scene.add.ellipse(cx, GAME_HEIGHT + 60, GAME_WIDTH * 1.4, 320, 0x07050e, 0)
+      .setDepth(depth + 1);
+    trash.push(inkPool);
+
+    const scraps = Array.from({ length: 6 }, (_, i) => {
+      const side = i % 2 === 0 ? -1 : 1;
+      const startX = cx + side * (30 + (i % 3) * 40) + (Math.random() - 0.5) * 20;
+      const startY = cy - 60 + (i % 3) * 30;
+      const color = [0xb8aecb, 0x9a92b0, 0x7a7394, 0xd4cce6][i % 4];
+      const scrap = this.scene.add.rectangle(startX, startY, 10 + (i % 3) * 3, 7 + (i % 2) * 2, color, 0)
+        .setDepth(depth + 2).setAngle(side * (8 + i * 6));
+      trash.push(scrap);
+      return scrap;
+    });
+
+    const title = this.scene.add.text(cx, cy - 40, '夜に沈む', {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '36px',
+      color: '#c8bfda',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(depth + 4).setAlpha(0).setScale(0.9);
+    trash.push(title);
+
+    const subtitle = this.scene.add.text(cx, cy + 8, 'けれど、持ち帰れるものがある', {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '13px',
+      color: '#8b82a0',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(depth + 4).setAlpha(0);
+    trash.push(subtitle);
+
+    this.scene.cameras.main.shake(200, 0.004);
+
+    this.scene.tweens.add({ targets: inkWash, alpha: 0.7, duration: 520, ease: 'Quad.easeIn' });
+    this.scene.tweens.add({
+      targets: inkPool, y: GAME_HEIGHT - 80, alpha: 0.85, duration: 680, ease: 'Quad.easeOut',
+    });
+
+    scraps.forEach((scrap, i) => {
+      this.scene.tweens.add({
+        targets: scrap,
+        alpha: 0.7,
+        y: scrap.y + 80 + (i % 3) * 20,
+        angle: scrap.angle + (i % 2 === 0 ? -30 : 30),
+        duration: 600 + i * 40,
+        delay: 100 + i * 50,
+        ease: 'Quad.easeIn',
+      });
+      this.scene.tweens.add({
+        targets: scrap,
+        alpha: 0,
+        duration: 300,
+        delay: 700 + i * 40,
+        ease: 'Quad.easeIn',
+      });
+    });
+
+    this.scene.tweens.add({
+      targets: title, alpha: 1, scale: 1, y: title.y - 6, duration: 420, delay: 260, ease: 'Back.easeOut',
+    });
+    this.scene.tweens.add({
+      targets: subtitle, alpha: 0.8, duration: 380, delay: 480, ease: 'Quad.easeOut',
+    });
+
+    this.scene.time.delayedCall(1200, () => {
+      this.scene.tweens.add({ targets: [title, subtitle], alpha: 0, duration: 200, ease: 'Quad.easeIn' });
+      this.scene.time.delayedCall(200, () => {
+        for (const obj of trash) obj.destroy();
+        onComplete();
+      });
+    });
+  }
+
   destroy(): void {
     this.finalTint.destroy();
     this.countdownText.destroy();

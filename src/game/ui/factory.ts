@@ -428,15 +428,21 @@ export function createHealPickupView(scene: Phaser.Scene): Phaser.GameObjects.Co
   if (sprite) {
     return addPickupReadability(scene, c, sprite, 30, COLORS.healMark, DEPTH.pickup);
   }
-  const glow = scene.add.circle(0, 0, PICKUP.visualSize + 4, COLORS.dawnWarm, GLOW_ALPHA_MAX);
+  const glow = scene.add.circle(0, 0, PICKUP.visualSize + 6, COLORS.dawnWarm, GLOW_ALPHA_MAX + 0.06);
   // 包帯紙（細長い紙）を斜めに重ねる
-  const strip = scene.add.rectangle(0, 0, 18, 9, COLORS.healPaper, 0.97);
-  strip.setStrokeStyle(STROKE.thin, COLORS.healMark, 0.9);
+  const strip = scene.add.rectangle(0, 0, 20, 10, COLORS.healPaper, 0.97);
+  strip.setStrokeStyle(STROKE.base, COLORS.healMark, 0.95);
   strip.setAngle(20);
   // 留めのステッチ
-  const stitch1 = scene.add.rectangle(-3, 0, STROKE.thin, 7, COLORS.healMark, 0.8).setAngle(20);
-  const stitch2 = scene.add.rectangle(3, 0, STROKE.thin, 7, COLORS.healMark, 0.8).setAngle(20);
-  c.add([glow, strip, stitch1, stitch2]);
+  const stitch1 = scene.add.rectangle(-4, 0, STROKE.thin, 8, COLORS.healMark, 0.85).setAngle(20);
+  const stitch2 = scene.add.rectangle(4, 0, STROKE.thin, 8, COLORS.healMark, 0.85).setAngle(20);
+  // 暖色の脈動マーカー
+  const pulse = scene.add.circle(0, 0, 3, COLORS.healMark, 0.7);
+  c.add([glow, strip, stitch1, stitch2, pulse]);
+  scene.tweens.add({
+    targets: pulse, scale: 1.4, alpha: 0.3, duration: 800,
+    yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
+  });
   c.setDepth(DEPTH.pickup);
   return c;
 }
