@@ -44,10 +44,10 @@ export type CollectionProgressSaveData = {
 };
 
 export const COLLECTION_LABELS = {
-  book: '忘れ物帳',
-  board: '夜明け盤',
+  book: '夜明け図鑑',
+  board: '夜明け星図',
   bestiary: 'カゲモノ図鑑',
-  lostItems: '忘れ物一覧',
+  lostItems: '忘れ物絵札',
   stageRecords: '夜路の記録',
   keeperRecords: '灯し手の記録',
 } as const;
@@ -346,7 +346,7 @@ export const forgottenStreetNightBoardCells: NightBoardCell[] = [
 
 export const forgottenStreetNightBoard = {
   id: FORGOTTEN_STREET_BOARD_ID,
-  name: '忘れ物通り 夜明け盤',
+  name: '忘れ物通り 夜明け星図',
   width: 5,
   height: 5,
   cells: forgottenStreetNightBoardCells,
