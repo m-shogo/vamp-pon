@@ -10,6 +10,7 @@ import { Overlays } from '../ui/overlays';
 import { VirtualStick } from '../ui/virtualStick';
 import { evolutionBurst } from '../ui/effects';
 import { RunPacingEffects } from '../ui/runPacingEffects';
+import { StageAtmosphere } from '../ui/stageAtmosphere';
 import { BerserkFeedback } from '../ui/berserkFeedback';
 import { getAudioManager, type AudioManager } from '../audio/AudioManager';
 import { getEffectManager, type EffectManager } from '../effects/EffectManager';
@@ -60,6 +61,7 @@ export class MainScene extends Phaser.Scene {
   private overlays!: Overlays;
   private stick!: VirtualStick;
   private pacingEffects!: RunPacingEffects;
+  private atmosphere: StageAtmosphere | null = null;
   private berserkFeedback!: BerserkFeedback;
   private audio!: AudioManager;
   private effects!: EffectManager;
@@ -106,6 +108,8 @@ export class MainScene extends Phaser.Scene {
     this.audio.unlockOnFirstInput();
     this.effects = getEffectManager(this);
     this.pacingEffects = new RunPacingEffects(this);
+    this.pacingEffects.setStage(this.stageNumber);
+    this.atmosphere = new StageAtmosphere(this, this.stageNumber);
     this.berserkFeedback = new BerserkFeedback(this);
 
     window.addEventListener('blur', this.onBlur);
@@ -118,6 +122,7 @@ export class MainScene extends Phaser.Scene {
       this.audio.destroy();
       this.effects.destroy();
       this.pacingEffects.destroy();
+      this.atmosphere?.destroy();
       this.stick.destroy();
       this.hud.destroy();
     });
@@ -129,7 +134,7 @@ export class MainScene extends Phaser.Scene {
     if (isRunStartUrl()) {
       startRun();
     } else {
-      this.overlays.showReady(startRun);
+      this.overlays.showReady(startRun, this.stageNumber);
     }
 
     this.hud.update(this.state);

@@ -103,19 +103,32 @@ export class Overlays {
     }).setOrigin(0.5);
   }
 
-  showReady(onStart: () => void): void {
+  showReady(onStart: () => void, stageNumber = 1): void {
     const root = this.dim(0.62);
     const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 344, 326, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.96);
+    const isStage2 = stageNumber === 2;
+    const panelBorder = isStage2 ? 0x7a9ec4 : STORYBOOK_UI.gold;
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 344, 326, STORYBOOK_UI.nightPanel, panelBorder, 0.96);
     root.add(panel);
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, 'VAMP PON', 31, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '忘れた名前を、夜から拾う', 12, STORYBOOK_UI.textMuted));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '影を払い、記憶のかけらを集める。', 13, STORYBOOK_UI.textLight));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動はドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
-    root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 94, 180, 46, '夜へ進む', () => {
-      this.clear();
-      onStart();
-    }));
+    if (isStage2) {
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, '二夜目', 28, 0x8bb8d8, true));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '雨ににじむ地図帳', 14, 0x9ab0cc, true));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '道の線が、少しだけずれている。', 13, STORYBOOK_UI.textLight));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動はドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 94, 180, 46, '雨の路地へ', () => {
+        this.clear();
+        onStart();
+      }));
+    } else {
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, 'VAMP PON', 31, STORYBOOK_UI.textLight, true));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '忘れた名前を、夜から拾う', 12, STORYBOOK_UI.textMuted));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '影を払い、記憶のかけらを集める。', 13, STORYBOOK_UI.textLight));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動はドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 94, 180, 46, '夜へ進む', () => {
+        this.clear();
+        onStart();
+      }));
+    }
   }
 
   showLevelUp(
@@ -547,7 +560,7 @@ export class Overlays {
     // ひとこと
     const messageY = cardTopY + cardHeight + (evolutionLabels.length > 0 ? 44 : 22);
     const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
-    const motivationMessage = resultMotivation(cleared, rank, state.player.level);
+    const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
     root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));
 
     // 細かい時刻ログ（小さめ・緑）— 2行に分けて読みやすく
@@ -876,7 +889,17 @@ function formatSeconds(value: number | null): string {
   return value === null ? '--' : `${value.toFixed(1)}s`;
 }
 
-function resultMotivation(cleared: boolean, rank: string, level: number): string {
+function resultMotivation(cleared: boolean, rank: string, level: number, stageNumber = 1): string {
+  if (stageNumber === 2) {
+    if (cleared) {
+      if (rank === 'S') return '雨ににじんだ線が、すべて戻った。';
+      if (rank === 'A') return '雨ににじんだ線が、少しだけ戻った。';
+      return '地図の線が読めるようになった。次の夜路へ。';
+    }
+    if (level >= 4) return '地図は濡れている。でも、まだ読める線がある。';
+    if (level >= 2) return '雨はまだ止まない。でも、灯りは残っている。';
+    return 'にじんだ地図を、もう一度開こう。';
+  }
   if (cleared) {
     if (rank === 'S') return '完璧な夜明け。すべての灯りが集まった。';
     if (rank === 'A') return '強い夜明け。まだ拾える灯りがある。';

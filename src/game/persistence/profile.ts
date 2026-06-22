@@ -1,6 +1,7 @@
 import type { RuntimeState } from '../runtime';
 import { isValidSubCharacterSelection } from '../systems/subCharacterOptions';
 import { settleSavedBondRun } from './bonds';
+import { stageRecipes } from '../data/waves';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
 export type UpgradeId =
@@ -319,8 +320,9 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
   let unlockedStage: number | undefined;
   if (cleared) {
     profile.clears[key] = true;
-    const next = Math.min(state.stageNumber + 1, 99);
-    if (!profile.unlockedStages.includes(next)) {
+    const next = state.stageNumber + 1;
+    const hasRecipe = stageRecipes.some((r) => r.stageNumber === next);
+    if (hasRecipe && !profile.unlockedStages.includes(next)) {
       profile.unlockedStages.push(next);
       profile.unlockedStages.sort((a, b) => a - b);
       unlockedStage = next;

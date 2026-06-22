@@ -213,10 +213,9 @@ export class StageSelectScene extends Phaser.Scene {
     }
   }
 
-  private stageBlurbFor(stage: number, entry: BackgroundStageEntry | undefined): string {
-    if (entry?.name && stage === 1) return '黒インクに沈む、最初の夜路';
+  private stageBlurbFor(stage: number, _entry: BackgroundStageEntry | undefined): string {
     if (stage === 1) return '黒インクに沈む、最初の夜路';
-    if (stage === 2) return '紙の街角、忘れ物が増える夜';
+    if (stage === 2) return '地図の線が、雨で少しだけずれている。';
     if (stage === 3) return '街灯の輪、灯りに集まる影';
     if (stage === 4) return '橋の手前、深まる夜';
     if (stage === 5) return '夜主の気配、最初の節目';
