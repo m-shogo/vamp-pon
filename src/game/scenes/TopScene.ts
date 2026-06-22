@@ -3,6 +3,8 @@ import { COLORS, GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { forgottenStreetNightBoard } from '../data/collectionProgress';
 import { loadCollectionProgress } from '../persistence/collection';
 import { loadProfile } from '../persistence/profile';
+import { loadingKnowledgeManager } from '../systems/LoadingKnowledgeManager';
+import { LoadingTextRenderer } from '../ui/LoadingTextRenderer';
 import { attachPressFeedback } from '../ui/pressFeedback';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
 
@@ -62,9 +64,24 @@ export class TopScene extends Phaser.Scene {
     const settingsBtn = this.button(GAME_WIDTH / 2, 504, 180, 42, '設定', () => this.showNotice('設定は準備中です'), true);
     settingsBtn.setDepth(UI_DEPTH + 2);
 
-    this.notice = this.text(GAME_WIDTH / 2, 580, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 1);
+    this.notice = this.text(GAME_WIDTH / 2, 548, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 1);
 
     this.addBottomDecoration();
+    this.addLoadingKnowledgePreview();
+  }
+
+  private addLoadingKnowledgePreview(): void {
+    const selection = loadingKnowledgeManager.select({ isFirstBoot: true });
+    if (!selection) return;
+
+    const renderer = new LoadingTextRenderer(this);
+    renderer.render(selection, {
+      x: GAME_WIDTH / 2,
+      y: 668,
+      width: 320,
+      depth: UI_DEPTH + 2,
+    });
+    loadingKnowledgeManager.markShown(selection);
   }
 
   private addBackgroundAtmosphere(): void {
