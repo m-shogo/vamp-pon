@@ -207,3 +207,17 @@ describe('エリート撃破報酬', () => {
     expect(result.currencyEarned).toBeGreaterThanOrEqual(1);
   });
 });
+
+describe('hpMultiplier型一貫性', () => {
+  it('spawnRatePerSecond系spawnでもhpMultiplierを設定できる', () => {
+    const spawn: import('../../domain/types').WaveSpawnDefinition = {
+      enemyId: 'ink_shadow',
+      spawnRatePerSecond: 1.0,
+      maxAlive: 10,
+      hpMultiplier: 1.5,
+      directionWeights: { bottom: 50, top: 20, left: 15, right: 15 },
+    };
+    expect(spawn.hpMultiplier).toBe(1.5);
+    expect(spawn.spawnRatePerSecond).toBe(1.0);
+  });
+});

@@ -90,7 +90,7 @@ export class SpawnSystem {
       state.enemies.length < caps.hard
     ) {
       const pos = pickSpawnPosition(spawn.directionWeights, state.player);
-      spawnEnemy(scene, state, def, pos.x, pos.y);
+      spawnEnemy(scene, state, def, pos.x, pos.y, spawn.hpMultiplier ?? 1);
       toSpawn -= 1;
     }
   }
