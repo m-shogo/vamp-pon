@@ -31,8 +31,15 @@ function reply(overrides: Partial<CharacterKnowledgeReply> & Pick<CharacterKnowl
   };
 }
 
+function clearStorageIfAvailable(): void {
+  if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return;
+  window.localStorage.removeItem('vampPon.seenKnowledgeEntries.v1');
+  window.localStorage.removeItem('vampPon.recentKnowledgeHistory.v1');
+}
+
 afterEach(() => {
   vi.restoreAllMocks();
+  clearStorageIfAvailable();
 });
 
 describe('LoadingKnowledgeManager', () => {
