@@ -95,13 +95,13 @@ export class AudioManager {
     this.volumes = this.loadVolumes();
   }
 
-  async preloadAudioAssets(scene: Phaser.Scene): Promise<void> {
+  async preloadAudioAssets(scene: Phaser.Scene): Promise<number> {
     let manifest: AudioManifest;
     try {
       const res = await fetch(AUDIO_MANIFEST_URL, { cache: 'no-store' });
-      if (!res.ok) return;
+      if (!res.ok) return 0;
       manifest = await res.json() as AudioManifest;
-    } catch { return; }
+    } catch { return 0; }
 
     const assets = Array.isArray(manifest.assets) ? manifest.assets : [];
     let queued = 0;
@@ -111,7 +111,7 @@ export class AudioManager {
       scene.load.audio(asset.key, asset.url);
       queued += 1;
     }
-    if (queued > 0) scene.load.start();
+    return queued;
   }
 
   unlockOnFirstInput(): void {

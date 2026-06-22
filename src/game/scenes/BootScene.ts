@@ -29,7 +29,7 @@ export class BootScene extends Phaser.Scene {
       count += await queueStageBackgrounds(this, stageNum);
     }
 
-    await getAudioManager(this).preloadAudioAssets(this);
+    count += await getAudioManager(this).preloadAudioAssets(this);
 
     if (count > 0) {
       this.load.once(Phaser.Loader.Events.COMPLETE, () => this.startTarget());
