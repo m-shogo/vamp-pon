@@ -19,6 +19,7 @@ export class RunPacingEffects {
   private countdownText: Phaser.GameObjects.Text;
   private firedEliteWarnings = new Set<number>();
   private lastCountdownValue: number | null = null;
+  private finalPushShown = false;
 
   constructor(private scene: Phaser.Scene) {
     this.finalTint = scene.add.rectangle(
@@ -129,7 +130,30 @@ export class RunPacingEffects {
         ease: 'Back.easeOut',
       });
       if (value <= 3) this.scene.cameras.main.shake(70, 0.0018);
+      if (value === FINAL_COUNTDOWN_SEC && !this.finalPushShown) {
+        this.finalPushShown = true;
+        this.showFinalPushBanner();
+      }
     }
+  }
+
+  private showFinalPushBanner(): void {
+    const depth = VIEW_DEPTH.hud + 5;
+    const banner = this.scene.add.text(GAME_WIDTH / 2, 128, '夜明け前の闇', {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '20px',
+      color: '#d4c8e6',
+      fontStyle: 'bold',
+      resolution: 2,
+      stroke: '#0a0816',
+      strokeThickness: 3,
+    }).setOrigin(0.5).setDepth(depth).setAlpha(0);
+    this.scene.cameras.main.shake(100, 0.002);
+    this.scene.tweens.add({
+      targets: banner, alpha: 1, duration: 200, ease: 'Quad.easeOut',
+      yoyo: true, hold: 800,
+      onComplete: () => banner.destroy(),
+    });
   }
 
   playClearTransition(onComplete: () => void): void {
