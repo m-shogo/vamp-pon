@@ -16,7 +16,7 @@ export const CHARACTER_CUTIN_TEXTURE = {
 
 const BERSERK_CUTIN_SHEET_FRAME = 15;
 const CUTIN_ENTER_MS = 170;
-const CUTIN_HOLD_MS = 680;
+const CUTIN_HOLD_MS = 700;
 const CUTIN_EXIT_MS = 260;
 const CUTIN_SOURCE_WIDTH = 1440;
 const CUTIN_SOURCE_HEIGHT = 360;
@@ -44,7 +44,7 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
 function addCutinAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Container, mode: CharacterCutinMode): void {
   const isBerserk = mode === 'berserk';
   const shadeColor = isBerserk ? 0x07040d : 0x071021;
-  const shadeAlpha = isBerserk ? 0.58 : 0.46;
+  const shadeAlpha = isBerserk ? 0.62 : 0.46;
   const shade = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + 80, GAME_HEIGHT + 80, shadeColor, shadeAlpha);
   root.add(shade);
 
@@ -54,7 +54,7 @@ function addCutinAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Contai
     addUltimateAtmosphere(scene, root);
   }
 
-  scene.cameras.main.shake(isBerserk ? 150 : 95, isBerserk ? 0.0038 : 0.0022);
+  scene.cameras.main.shake(isBerserk ? 160 : 95, isBerserk ? 0.004 : 0.0022);
 }
 
 function addUltimateAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Container): void {
@@ -133,6 +133,7 @@ function addBerserkAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Cont
   const edgeColor = 0x120818;
   const accent = 0xb94b91;
   const violet = 0x6f2a7c;
+  const lantern = 0xffd28a;
 
   for (let i = 0; i < 6; i += 1) {
     const left = i % 2 === 0;
@@ -142,30 +143,30 @@ function addBerserkAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Cont
       120 + i * 18,
       80 + (i % 3) * 28,
       edgeColor,
-      0.68,
+      0.72,
     )
       .setAngle(left ? -18 : 18);
     root.add(ink);
     scene.tweens.add({
       targets: ink,
       x: ink.x + (left ? 42 : -42),
-      scaleX: 1.45,
-      scaleY: 1.22,
+      scaleX: 1.5,
+      scaleY: 1.24,
       alpha: 0.1,
       delay: i * 24,
-      duration: 850,
+      duration: 870,
       ease: 'Sine.easeOut',
     });
   }
 
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < 12; i += 1) {
     const slash = scene.add.rectangle(
       12 + (i * 41) % GAME_WIDTH,
       CUTIN_CENTER_Y - 95 + (i * 37) % 190,
       64 + (i % 4) * 22,
       i % 2 === 0 ? 3 : 2,
-      i % 3 === 0 ? accent : violet,
-      0.44,
+      i % 5 === 0 ? lantern : i % 3 === 0 ? accent : violet,
+      i % 5 === 0 ? 0.3 : 0.44,
     )
       .setAngle(-38 + (i % 5) * 18)
       .setBlendMode('ADD');
@@ -175,44 +176,46 @@ function addBerserkAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Cont
       alpha: 0,
       scaleX: 1.9,
       x: slash.x + (i % 2 === 0 ? 54 : -54),
-      delay: 90 + i * 22,
-      duration: 560,
+      delay: 90 + i * 20,
+      duration: 580,
       ease: 'Cubic.easeOut',
     });
   }
 
-  for (let i = 0; i < 28; i += 1) {
+  for (let i = 0; i < 32; i += 1) {
+    const warm = i % 9 === 0;
     const particle = scene.add.circle(
       16 + (i * 53) % GAME_WIDTH,
       CUTIN_CENTER_Y - 92 + (i * 23) % 184,
-      2.5 + (i % 3),
-      i % 4 === 0 ? accent : 0x09040d,
-      i % 4 === 0 ? 0.8 : 0.62,
+      warm ? 2.1 : 2.5 + (i % 3),
+      warm ? lantern : i % 4 === 0 ? accent : 0x09040d,
+      warm ? 0.62 : i % 4 === 0 ? 0.8 : 0.62,
     );
-    if (i % 4 === 0) particle.setBlendMode('ADD');
+    if (i % 4 === 0 || warm) particle.setBlendMode('ADD');
     root.add(particle);
     scene.tweens.add({
       targets: particle,
-      x: GAME_WIDTH / 2 + (particle.x - GAME_WIDTH / 2) * 0.28,
-      y: CUTIN_CENTER_Y + (particle.y - CUTIN_CENTER_Y) * 0.2,
-      scale: 0.15,
+      x: GAME_WIDTH / 2 + (particle.x - GAME_WIDTH / 2) * (warm ? 0.52 : 0.28),
+      y: CUTIN_CENTER_Y + (particle.y - CUTIN_CENTER_Y) * (warm ? 0.42 : 0.2),
+      scale: warm ? 0.32 : 0.15,
       alpha: 0,
       delay: 80 + i * 12,
-      duration: 720,
+      duration: warm ? 640 : 720,
       ease: 'Cubic.easeIn',
     });
   }
 
-  for (let i = 0; i < 3; i += 1) {
-    const ring = scene.add.circle(GAME_WIDTH / 2, CUTIN_CENTER_Y, 48 + i * 24, accent, 0.04).setBlendMode('ADD');
-    ring.setStrokeStyle(3, i % 2 === 0 ? accent : 0xf0b6ff, 0.34);
+  for (let i = 0; i < 4; i += 1) {
+    const isLight = i === 3;
+    const ring = scene.add.circle(GAME_WIDTH / 2, CUTIN_CENTER_Y, 48 + i * 22, isLight ? lantern : accent, isLight ? 0.035 : 0.04).setBlendMode('ADD');
+    ring.setStrokeStyle(isLight ? 2 : 3, isLight ? lantern : i % 2 === 0 ? accent : 0xf0b6ff, isLight ? 0.42 : 0.34);
     root.add(ring);
     scene.tweens.add({
       targets: ring,
-      scale: 2.1 + i * 0.25,
+      scale: 2.1 + i * 0.22,
       alpha: 0,
       delay: 110 + i * 55,
-      duration: 780,
+      duration: isLight ? 860 : 780,
       ease: 'Cubic.easeOut',
     });
   }
@@ -226,22 +229,30 @@ function addImageCutin(
 ): void {
   const isBerserk = mode === 'berserk';
   const accent = isBerserk ? 0xb94b91 : 0xffcf70;
+  const lantern = 0xffd28a;
   const y = CUTIN_CENTER_Y;
 
   const image = scene.add.image(GAME_WIDTH / 2, y, textureKey)
     .setDisplaySize(CUTIN_BANNER_WIDTH, CUTIN_BANNER_HEIGHT)
     .setAlpha(0.99);
   const topLine = scene.add.rectangle(GAME_WIDTH / 2, y - CUTIN_BANNER_HEIGHT / 2 + 2, GAME_WIDTH + 72, 5, accent, 0.86).setBlendMode('ADD');
-  const bottomLine = scene.add.rectangle(GAME_WIDTH / 2, y + CUTIN_BANNER_HEIGHT / 2 - 2, GAME_WIDTH + 72, 5, accent, 0.66).setBlendMode('ADD');
+  const bottomLine = scene.add.rectangle(GAME_WIDTH / 2, y + CUTIN_BANNER_HEIGHT / 2 - 2, GAME_WIDTH + 72, 5, isBerserk ? lantern : accent, isBerserk ? 0.5 : 0.66).setBlendMode('ADD');
   const labelBack = scene.add.rectangle(86, y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, isBerserk ? 0x120818 : 0x2f2310, 0.78);
-  labelBack.setStrokeStyle(1, accent, 0.82);
+  labelBack.setStrokeStyle(1, isBerserk ? lantern : accent, 0.82);
   const label = scene.add.text(86, labelBack.y, isBerserk ? '黒耀化' : '必殺', {
     fontFamily: TITLE_FONT,
     fontSize: '18px',
-    color: isBerserk ? '#f4d9fa' : '#fff0b3',
+    color: isBerserk ? '#ffe1b8' : '#fff0b3',
     fontStyle: 'bold',
     resolution: 2,
   }).setOrigin(0.5);
+
+  if (isBerserk) {
+    const core = scene.add.circle(144, y + CUTIN_BANNER_HEIGHT / 2 - 28, 7, lantern, 0.34).setBlendMode('ADD');
+    const halo = scene.add.circle(144, y + CUTIN_BANNER_HEIGHT / 2 - 28, 22, lantern, 0.08).setBlendMode('ADD');
+    root.add([image, halo, core, topLine, bottomLine, labelBack, label]);
+    return;
+  }
 
   root.add([image, topLine, bottomLine, labelBack, label]);
 }
@@ -255,16 +266,21 @@ function addFallbackCutin(
   const isBerserk = mode === 'berserk';
   const accent = isBerserk ? 0x38203f : 0xd9b65f;
   const paper = isBerserk ? 0x17101f : 0xeee1bd;
-  const textColor = isBerserk ? '#f4d9fa' : '#332817';
+  const textColor = isBerserk ? '#ffe1b8' : '#332817';
   const title = isBerserk ? '黒耀化' : '灯りよ、帰り道を';
-  const subtitle = isBerserk ? '黒い灯りが記憶を照らす' : '忘れたものを照らし出す';
+  const subtitle = isBerserk ? '黒に沈んでも、灯りは残る' : '忘れたものを照らし出す';
 
   const panel = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y, GAME_WIDTH + 36, 184, paper, 0.97)
     .setAngle(-2);
   panel.setStrokeStyle(4, accent, 0.96);
   const inkLineTop = scene.add.rectangle(GAME_WIDTH / 2, panel.y - 92, GAME_WIDTH + 30, 6, accent, 0.92).setAngle(-2);
-  const inkLineBottom = scene.add.rectangle(GAME_WIDTH / 2, panel.y + 92, GAME_WIDTH + 30, 6, accent, 0.72).setAngle(-2);
+  const inkLineBottom = scene.add.rectangle(GAME_WIDTH / 2, panel.y + 92, GAME_WIDTH + 30, 6, isBerserk ? 0xffd28a : accent, isBerserk ? 0.5 : 0.72).setAngle(-2);
   root.add([panel, inkLineTop, inkLineBottom]);
+
+  const lanternGlow = isBerserk
+    ? scene.add.circle(GAME_WIDTH - 120, panel.y + 36, 42, 0xffd28a, 0.08).setBlendMode('ADD')
+    : null;
+  if (lanternGlow) root.add(lanternGlow);
 
   if (visual) {
     const portrait = scene.add.image(GAME_WIDTH - 76, panel.y, visual.textureKey, visual.frame)
@@ -289,7 +305,7 @@ function addFallbackCutin(
   const subtitleText = scene.add.text(25, panel.y + 12, subtitle, {
     fontFamily: FONT,
     fontSize: '12px',
-    color: isBerserk ? '#d8bedf' : '#5b4a2e',
+    color: isBerserk ? '#f0d5a8' : '#5b4a2e',
     fontStyle: 'bold',
     resolution: 2,
     wordWrap: { width: 246 },
@@ -300,12 +316,21 @@ function addFallbackCutin(
 function addFrontAccents(scene: Phaser.Scene, root: Phaser.GameObjects.Container, mode: CharacterCutinMode): void {
   const isBerserk = mode === 'berserk';
   const color = isBerserk ? 0xe9a2ff : 0xfff0b3;
-  const flash = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y, GAME_WIDTH + 80, CUTIN_BANNER_HEIGHT + 40, color, isBerserk ? 0.12 : 0.16)
+  const lantern = 0xffd28a;
+  const flash = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y, GAME_WIDTH + 80, CUTIN_BANNER_HEIGHT + 40, color, isBerserk ? 0.1 : 0.16)
     .setBlendMode('ADD');
   root.add(flash);
   scene.tweens.add({ targets: flash, alpha: 0, scaleX: 1.15, duration: 260, ease: 'Quad.easeOut' });
 
-  const sweep = scene.add.rectangle(-90, CUTIN_CENTER_Y, 64, CUTIN_BANNER_HEIGHT + 64, color, isBerserk ? 0.18 : 0.24)
+  if (isBerserk) {
+    const warmFlash = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y + 42, GAME_WIDTH + 60, 18, lantern, 0.12)
+      .setAngle(-8)
+      .setBlendMode('ADD');
+    root.add(warmFlash);
+    scene.tweens.add({ targets: warmFlash, alpha: 0, x: GAME_WIDTH / 2 + 80, duration: 360, ease: 'Quad.easeOut' });
+  }
+
+  const sweep = scene.add.rectangle(-90, CUTIN_CENTER_Y, 64, CUTIN_BANNER_HEIGHT + 64, isBerserk ? lantern : color, isBerserk ? 0.16 : 0.24)
     .setAngle(isBerserk ? -14 : -10)
     .setBlendMode('ADD');
   root.add(sweep);
@@ -322,8 +347,8 @@ function animateCutin(scene: Phaser.Scene, root: Phaser.GameObjects.Container, m
     onComplete: () => {
       scene.tweens.add({
         targets: root,
-        scaleX: mode === 'berserk' ? 1.025 : 1.017,
-        scaleY: mode === 'berserk' ? 1.025 : 1.017,
+        scaleX: mode === 'berserk' ? 1.027 : 1.017,
+        scaleY: mode === 'berserk' ? 1.027 : 1.017,
         yoyo: true,
         duration: Math.floor(CUTIN_HOLD_MS / 2),
         ease: 'Sine.easeInOut',
