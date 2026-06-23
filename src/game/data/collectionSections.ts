@@ -3,7 +3,8 @@ export type CollectionSectionId =
   | 'bestiary'
   | 'lost_item_cards'
   | 'keeper_records'
-  | 'word_records';
+  | 'word_records'
+  | 'achievements';
 
 export type CollectionSection = {
   id: CollectionSectionId;
@@ -58,6 +59,14 @@ export const collectionSections: CollectionSection[] = [
     motif: 'words',
     accent: 0xe0b0a6,
     lockedHint: 'ロードで言葉を見ると、ここに写されます。',
+  },
+  {
+    id: 'achievements',
+    label: 'しるしの記録',
+    shortLabel: '実績',
+    description: '夜を歩いた証。達成すると黒曜片が戻る。',
+    motif: 'star-map',
+    accent: 0xf5d58a,
   },
 ];
 

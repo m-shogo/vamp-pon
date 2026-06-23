@@ -11,6 +11,7 @@ import { attachPressFeedback } from '../ui/pressFeedback';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen, resetOnboarding } from '../persistence/onboarding';
+import { findNewAchievementIds, loadAchievementViewState } from '../persistence/achievementViewState';
 
 const PARTICLE_DEPTH = 2;
 const UI_DEPTH = 10;
@@ -74,14 +75,17 @@ export class TopScene extends Phaser.Scene {
 
     const viewState = loadCollectionAtlasViewState();
     const newCellCount = findNewCompletedCellIds(collection.nightBoard.completedCellIds, viewState.seenCompletedCellIds).length;
-    const collLabel = newCellCount > 0
-      ? `忘れ物帳 ${boardCount}/${boardTotal}　★${newCellCount}`
+    const achViewState = loadAchievementViewState();
+    const newAchCount = findNewAchievementIds(Object.keys(profile.achievements), achViewState.seenAchievementIds).length;
+    const totalNewCount = newCellCount + newAchCount;
+    const collLabel = totalNewCount > 0
+      ? `忘れ物帳 ${boardCount}/${boardTotal}　★${totalNewCount}`
       : `忘れ物帳 ${boardCount}/${boardTotal}`;
     const collBtn = this.button(GAME_WIDTH / 2, 440, 220, 48, collLabel, () => {
       this.scene.start('CollectionScene');
-    }, boardCount === 0 && newCellCount === 0);
+    }, boardCount === 0 && totalNewCount === 0);
     collBtn.setDepth(UI_DEPTH + 2);
-    if (newCellCount > 0) {
+    if (totalNewCount > 0) {
       const badge = this.add.circle(GAME_WIDTH / 2 + 114, 424, 6, 0xf5d58a, 0.92).setDepth(UI_DEPTH + 3);
       this.tweens.add({ targets: badge, alpha: { from: 0.6, to: 1 }, scale: { from: 0.9, to: 1.1 }, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     }

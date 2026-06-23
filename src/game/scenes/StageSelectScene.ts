@@ -26,6 +26,9 @@ import { attachPressFeedback } from '../ui/pressFeedback';
 import { recipeForStage, stageRecipes } from '../data/waves';
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen } from '../persistence/onboarding';
+import { findNewAchievementIds, loadAchievementViewState } from '../persistence/achievementViewState';
+import { findNewCompletedCellIds, loadCollectionAtlasViewState } from '../persistence/collectionAtlasViewState';
+import { loadCollectionProgress } from '../persistence/collection';
 export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
@@ -117,6 +120,8 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(this.text(GAME_WIDTH / 2, 34, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 25, STORYBOOK_UI.textLight, true, true));
     root.add(this.text(GAME_WIDTH / 2, 64, `黒曜片 ${profile.currency}`, 14, STORYBOOK_UI.goldLight, true));
 
+    const recordLabel = this.recordButtonLabel();
+
     if (this.mode === 'stage') {
       this.renderStagePreview(root, profile);
       this.renderDepthBlock(root, profile);
@@ -124,7 +129,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderSubCharacterStatus(root, profile, 515);
       root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 102, 260, 56, '探索を始める', () => this.startRun(profile)));
       root.add(this.button(GAME_WIDTH / 2 - 120, GAME_HEIGHT - 42, 108, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 40, '記録', () => {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 40, recordLabel, () => {
         getAudioManager(this).playSe('ui_open', { volume: 0.34 });
         this.scene.start('CollectionScene');
       }, true));
@@ -139,7 +144,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderUpgradeBlock(root, profile);
       root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 100, 240, 48, '探索へ出発', () => this.startRun(profile)));
       root.add(this.button(GAME_WIDTH / 2 - 120, GAME_HEIGHT - 42, 108, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 38, '記録', () => {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 38, recordLabel, () => {
         getAudioManager(this).playSe('ui_open', { volume: 0.34 });
         this.scene.start('CollectionScene');
       }, true));
@@ -377,6 +382,17 @@ export class StageSelectScene extends Phaser.Scene {
       this.confirmingReset = false;
       this.render();
     }));
+  }
+
+  private recordButtonLabel(): string {
+    const collection = loadCollectionProgress();
+    const atlasView = loadCollectionAtlasViewState();
+    const newCells = findNewCompletedCellIds(collection.nightBoard.completedCellIds, atlasView.seenCompletedCellIds).length;
+    const achView = loadAchievementViewState();
+    const profile = loadProfile();
+    const newAch = findNewAchievementIds(Object.keys(profile.achievements), achView.seenAchievementIds).length;
+    const total = newCells + newAch;
+    return total > 0 ? `記録 ★${total}` : '記録';
   }
 
   private showOnboardingHint(root: Phaser.GameObjects.Container, message: string, y: number): void {
