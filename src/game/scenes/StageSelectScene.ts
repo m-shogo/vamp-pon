@@ -122,8 +122,12 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderCharacterSummary(root, profile);
       this.renderSubCharacterStatus(root, profile, 515);
       root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 102, 260, 56, '探索を始める', () => this.startRun(profile)));
-      root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 40, '成長へ', () => {
+      root.add(this.button(GAME_WIDTH / 2 - 120, GAME_HEIGHT - 42, 108, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 40, '記録', () => {
+        getAudioManager(this).playSe('ui_open', { volume: 0.34 });
+        this.scene.start('CollectionScene');
+      }, true));
+      root.add(this.button(GAME_WIDTH / 2 + 120, GAME_HEIGHT - 42, 108, 40, '成長へ', () => {
         this.mode = 'growth';
         getAudioManager(this).playBgm('bgm_growth', { volume: 0.3, fadeMs: 220 });
         this.render();
@@ -133,8 +137,12 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderSubCharacterStatus(root, profile, 136);
       this.renderUpgradeBlock(root, profile);
       root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 100, 240, 48, '探索へ出発', () => this.startRun(profile)));
-      root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 38, 'ステージ選択', () => {
+      root.add(this.button(GAME_WIDTH / 2 - 120, GAME_HEIGHT - 42, 108, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 38, '記録', () => {
+        getAudioManager(this).playSe('ui_open', { volume: 0.34 });
+        this.scene.start('CollectionScene');
+      }, true));
+      root.add(this.button(GAME_WIDTH / 2 + 120, GAME_HEIGHT - 42, 108, 38, 'ステージ選択', () => {
         this.mode = 'stage';
         getAudioManager(this).playBgm('bgm_top', { volume: 0.3, fadeMs: 220 });
         this.render();

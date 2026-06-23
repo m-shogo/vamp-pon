@@ -432,7 +432,7 @@ export class MainScene extends Phaser.Scene {
 
   private showCollectionResultBadge(settlement: CollectionSettlement): void {
     if (settlement.newlyCompleted.length === 0) return;
-    const root = this.add.container(GAME_WIDTH / 2, 604).setDepth(10000);
+    const root = this.add.container(GAME_WIDTH / 2, 580).setDepth(10000);
     const bg = this.add.rectangle(0, 0, 312, 86, 0x121426, 0.94);
     bg.setStrokeStyle(1, 0xf5d58a, 0.92);
     const titles = settlement.newlyCompleted.slice(0, 3).map((cell) => `■ ${cell.title}`).join('\n');
@@ -450,7 +450,8 @@ export class MainScene extends Phaser.Scene {
     root.add([bg, text]);
     root.setScale(0.96);
     root.setAlpha(0);
-    this.tweens.add({ targets: root, alpha: 1, scale: 1, duration: 180, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: root, alpha: 1, scale: 1, duration: 180, delay: 1000, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: root, alpha: 0, duration: 400, delay: 5000, ease: 'Quad.easeIn' });
   }
 
   private goToTop(): void {

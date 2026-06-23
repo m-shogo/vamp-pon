@@ -213,4 +213,66 @@ describe('localStorage を伴う進行（保存・購入・精算）', () => {
     const profile = loadProfile();
     expect(profile.unlockedStages.filter((s) => s === 2)).toHaveLength(1);
   });
+
+  it('初回クリアで実績が付与されて報酬が入る', () => {
+    saveProfile(createDefaultProfile());
+    const result = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    expect(result.newAchievements).toContain('clear:s1:shallow');
+    expect(result.achievementReward).toBeGreaterThan(0);
+    const profile = loadProfile();
+    expect(profile.achievements['clear:s1:shallow']).toBe(true);
+    expect(profile.rewardedAchievements['clear:s1:shallow']).toBe(true);
+  });
+
+  it('同じ実績で二重報酬されない', () => {
+    saveProfile(createDefaultProfile());
+    const first = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    const firstReward = first.achievementReward;
+    expect(firstReward).toBeGreaterThan(0);
+    const second = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
+    expect(second.newAchievements).not.toContain('clear:s1:shallow');
+    const profile = loadProfile();
+    const totalFromAch = firstReward;
+    expect(profile.rewardedAchievements['clear:s1:shallow']).toBe(true);
+    expect(second.achievementReward).toBeLessThan(firstReward);
+  });
+
+  it('エリート撃破実績が付与される', () => {
+    saveProfile(createDefaultProfile());
+    const state = makeState({ kills: 10, survivedSec: 100 });
+    (state.stats as { elitesKilled: number }).elitesKilled = 1;
+    const result = settleRunProgress(state, false);
+    expect(result.newAchievements).toContain('elite.defeat.first');
+    const profile = loadProfile();
+    expect(profile.achievements['elite.defeat.first']).toBe(true);
+  });
+
+  it('進化実績が付与される', () => {
+    saveProfile(createDefaultProfile());
+    const state = makeState({ kills: 10, survivedSec: 100 });
+    (state.stats as { evolutions: string[] }).evolutions = ['test_evo'];
+    const result = settleRunProgress(state, false);
+    expect(result.newAchievements).toContain('evolution.first');
+  });
+
+  it('カプセル実績が付与される', () => {
+    saveProfile(createDefaultProfile());
+    const result = settleRunProgress(makeState({ kills: 10, survivedSec: 100, capsules: 1 }), false);
+    expect(result.newAchievements).toContain('capsule.first');
+  });
+
+  it('rewardedAchievementsがない古いデータでも落ちない', () => {
+    const oldProfile = { ...createDefaultProfile(), achievements: { 'clear:s1:shallow': true } };
+    delete (oldProfile as Record<string, unknown>).rewardedAchievements;
+    saveProfile(oldProfile as never);
+    const loaded = loadProfile();
+    expect(loaded.rewardedAchievements).toEqual({});
+    expect(loaded.achievements['clear:s1:shallow']).toBe(true);
+  });
+
+  it('defeatではclear実績が付与されない', () => {
+    saveProfile(createDefaultProfile());
+    const result = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 200 }), false);
+    expect(result.newAchievements).not.toContain('clear:s1:shallow');
+  });
 });
