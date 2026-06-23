@@ -37,7 +37,6 @@ export class InventorySlotView {
 
     this.frame = scene.add.graphics();
     drawPremiumPaperCard(this.frame, 0, 0, size + 7, size + 7, {
-      fill: undefined,
       accent: palette.accent,
       paper: 0x14172c,
       muted: true,
