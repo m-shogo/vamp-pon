@@ -4,8 +4,8 @@ import {
   resolveInventoryIconTexture,
   type InventoryIconCategory,
 } from '../assets/inventoryIcons';
-import { drawPixelPanel } from './pixelUi';
-import { STORYBOOK_FONT, storybookCategoryPalette } from './storybookUi';
+import { STORYBOOK_FONT, storybookCategoryPalette, STORYBOOK_UI } from './storybookUi';
+import { drawPremiumPaperCard } from './premiumPaperUi';
 
 export type InventorySlotItem = {
   category: InventoryIconCategory;
@@ -36,21 +36,23 @@ export class InventorySlotView {
     const palette = storybookCategoryPalette(category);
 
     this.frame = scene.add.graphics();
-    drawPixelPanel(this.frame, 0, 0, size + 5, size + 5, {
-      fill: 0x0d1329,
-      edge: palette.accent,
+    drawPremiumPaperCard(this.frame, 0, 0, size + 7, size + 7, {
       accent: palette.accent,
-      alpha: 0.96,
-      cut: 4,
-      border: 1,
+      paper: 0x14172c,
+      muted: true,
+      shadowAlpha: 0.18,
     });
+    this.frame.fillStyle(palette.accent, 0.12).fillCircle(-size / 2 + 7, -size / 2 + 7, 3);
+    this.frame.fillStyle(STORYBOOK_UI.paperLight, 0.08).fillRect(-size / 2 + 8, -size / 2 + 5, size - 10, 1);
 
     this.emptyMark = scene.add.graphics();
-    this.emptyMark.fillStyle(palette.accent, 0.66);
-    this.emptyMark.fillRect(-1, -5, 2, 10);
-    this.emptyMark.fillRect(-5, -1, 10, 2);
-    this.emptyMark.fillStyle(0xf3ead2, 0.72);
-    this.emptyMark.fillRect(-1, -1, 2, 2);
+    this.emptyMark.lineStyle(1, palette.accent, 0.38);
+    this.emptyMark.strokeCircle(0, -1, Math.max(6, size * 0.2));
+    this.emptyMark.fillStyle(palette.accent, 0.56);
+    this.emptyMark.fillRect(-1, -6, 2, 10);
+    this.emptyMark.fillRect(-5, -2, 10, 2);
+    this.emptyMark.fillStyle(0xf3ead2, 0.48);
+    this.emptyMark.fillRect(-1, -2, 2, 2);
 
     this.fallbackText = scene.add
       .text(0, -1, '', {
@@ -67,14 +69,12 @@ export class InventorySlotView {
     const badgeX = size / 2 - badgeSize / 2 + 2;
     const badgeY = size / 2 - badgeSize / 2 + 2;
     this.levelBadge = scene.add.graphics().setVisible(false);
-    drawPixelPanel(
-      this.levelBadge,
-      badgeX,
-      badgeY,
-      badgeSize,
-      badgeSize,
-      { fill: 0x080b18, edge: palette.accent, accent: palette.accent, cut: 3, border: 1 },
-    );
+    drawPremiumPaperCard(this.levelBadge, badgeX, badgeY, badgeSize, badgeSize, {
+      accent: palette.accent,
+      paper: 0x080b18,
+      selected: true,
+      shadowAlpha: 0.1,
+    });
 
     this.levelText = scene.add.text(badgeX, badgeY, '', {
       fontFamily: STORYBOOK_FONT,
@@ -104,6 +104,7 @@ export class InventorySlotView {
       this.emptyMark.setVisible(true);
       this.levelBadge.setVisible(false);
       this.levelText.setVisible(false);
+      this.container.setAlpha(0.78);
       this.container.setName('empty inventory slot');
       return;
     }
@@ -111,6 +112,7 @@ export class InventorySlotView {
     const requirement = getInventoryIconRequirement(item.category, item.itemId);
     const texture = resolveInventoryIconTexture(this.scene.textures, item.category, item.itemId);
     this.emptyMark.setVisible(false);
+    this.container.setAlpha(1);
 
     if (texture) {
       if (!this.iconImage) {
