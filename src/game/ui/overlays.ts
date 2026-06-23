@@ -603,8 +603,28 @@ export class Overlays {
     const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
     root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));
 
+    // 新規記録・実績報酬
+    let recordOffset = 0;
+    const hasNewAch = settlement.newAchievements.length > 0;
+    const hasAchReward = settlement.achievementReward > 0;
+    if (hasNewAch || hasAchReward) {
+      const parts: string[] = [];
+      if (hasNewAch) parts.push(`実績 +${settlement.newAchievements.length}`);
+      if (hasAchReward) parts.push(`報酬 +${settlement.achievementReward}`);
+      const recordText = this.text(GAME_WIDTH / 2, messageY + 24, `◆ 新しい記録　${parts.join('　')}`, 12, '#ffe9b8', true);
+      recordText.setAlpha(0);
+      root.add(recordText);
+      this.scene.tweens.add({ targets: recordText, alpha: 1, duration: 300, delay: 900, ease: 'Quad.easeOut' });
+      if (hasAchReward) {
+        this.scene.time.delayedCall(900, () => {
+          getAudioManager(this.scene).playSe('currency_gain', { volume: 0.36, priority: 1 });
+        });
+      }
+      recordOffset = 22;
+    }
+
     // 細かい時刻ログ（小さめ・緑）— 2行に分けて読みやすく
-    const timeLineY = messageY + 28;
+    const timeLineY = messageY + 28 + recordOffset;
     root.add(this.text(GAME_WIDTH / 2, timeLineY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 11, '#9fe0a0'));
     root.add(this.text(GAME_WIDTH / 2, timeLineY + 16, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
 
@@ -637,6 +657,7 @@ export class Overlays {
     }
 
     // ボタン — 勝利/敗北でCTA優先度を変える
+    const growthLabel = hasAchReward ? '黒曜片を使う' : '成長へ';
     const btnY1 = GAME_HEIGHT - 156;
     const btnY2 = GAME_HEIGHT - 100;
     const btnY3 = GAME_HEIGHT - 52;
@@ -645,7 +666,7 @@ export class Overlays {
         this.clear();
         onRestart();
       }));
-      root.add(this.button(GAME_WIDTH / 2 - 82, btnY2, 148, 42, '成長へ', () => {
+      root.add(this.button(GAME_WIDTH / 2 - 82, btnY2, 148, 42, growthLabel, () => {
         this.clear();
         onGrowth();
       }, true));
@@ -658,7 +679,7 @@ export class Overlays {
         onTop();
       }, true));
     } else {
-      root.add(this.button(GAME_WIDTH / 2, btnY1, 260, 48, '成長へ', () => {
+      root.add(this.button(GAME_WIDTH / 2, btnY1, 260, 48, growthLabel, () => {
         this.clear();
         onGrowth();
       }));

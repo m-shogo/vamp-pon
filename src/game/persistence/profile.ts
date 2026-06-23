@@ -3,6 +3,7 @@ import { isValidSubCharacterSelection } from '../systems/subCharacterOptions';
 import { settleSavedBondRun } from './bonds';
 import { stageRecipes } from '../data/waves';
 import { stagePowerForStage } from '../data/stageScaling';
+import { achievementRewardAmount } from '../data/achievements';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
 export type UpgradeId =
@@ -32,6 +33,7 @@ export type PlayerProfile = {
   upgrades: Record<UpgradeId, number>;
   codex: Record<string, true>;
   achievements: Record<string, true>;
+  rewardedAchievements: Record<string, true>;
   prestige: { count: number; essence: number };
 };
 
@@ -45,6 +47,8 @@ export type RunSettlement = {
   noBerserkBonus: number;
   firstClearBonus: number;
   unlockedStage?: number;
+  newAchievements: string[];
+  achievementReward: number;
 };
 
 export const EXPLORATION_DEPTHS: Record<ExplorationDepthId, {
@@ -158,6 +162,7 @@ export function createDefaultProfile(): PlayerProfile {
     upgrades: emptyUpgrades(),
     codex: {},
     achievements: {},
+    rewardedAchievements: {},
     prestige: { count: 0, essence: 0 },
   };
 }
@@ -183,6 +188,7 @@ function normalizeProfile(raw: unknown): PlayerProfile {
     upgrades: { ...base.upgrades, ...(obj.upgrades ?? {}) },
     codex: obj.codex ?? {},
     achievements: obj.achievements ?? {},
+    rewardedAchievements: obj.rewardedAchievements ?? {},
     prestige: obj.prestige ?? base.prestige,
   };
 }
@@ -336,8 +342,35 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
 
   profile.codex[`stage:${state.stageNumber}`] = true;
   profile.codex[`depth:${state.explorationDepth}`] = true;
-  if (cleared) profile.achievements[`clear:${key}`] = true;
-  if (noBerserk && cleared) profile.achievements[`no-berserk:${key}`] = true;
+  const beforeAchievements = new Set(Object.keys(profile.achievements));
+  const runAchievementIds: string[] = [];
+  const addAch = (id: string) => {
+    profile.achievements[id] = true;
+    if (!beforeAchievements.has(id)) runAchievementIds.push(id);
+  };
+  if (cleared) addAch(`clear:${key}`);
+  if (noBerserk && cleared) addAch(`no-berserk:${key}`);
+  if ((state.stats.elitesKilled ?? 0) > 0) addAch('elite.defeat.first');
+  if (state.stats.evolutions.length > 0) addAch('evolution.first');
+  if (state.stats.capsulesOpened > 0) addAch('capsule.first');
+  if (unlockedStage === 2) addAch('stage.unlock.2');
+
+  const newAchievements: string[] = [];
+  let achievementReward = 0;
+  for (const achId of runAchievementIds) {
+    if (profile.rewardedAchievements[achId]) continue;
+    const reward = achievementRewardAmount(achId);
+    if (reward > 0) {
+      achievementReward += reward;
+      profile.rewardedAchievements[achId] = true;
+      newAchievements.push(achId);
+    }
+  }
+  if (achievementReward > 0) {
+    profile.currency += achievementReward;
+    profile.totalCurrencyEarned += achievementReward;
+  }
+
   if (state.subCharacterId) {
     settleSavedBondRun({
       mainCharacterId: state.characterId,
@@ -360,5 +393,7 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
     noBerserkBonus,
     firstClearBonus,
     unlockedStage,
+    newAchievements,
+    achievementReward,
   };
 }
