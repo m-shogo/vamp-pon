@@ -28,7 +28,7 @@ export const collectionSections: CollectionSection[] = [
   {
     id: 'bestiary',
     label: 'カゲモノ図鑑',
-    shortLabel: '影図鑑',
+    shortLabel: '影',
     description: '出会ったカゲモノと、ほどいた数を記す頁。',
     motif: 'shadow-card',
     accent: 0x9c74c5,
@@ -45,7 +45,7 @@ export const collectionSections: CollectionSection[] = [
   {
     id: 'keeper_records',
     label: '灯し手の記録',
-    shortLabel: '灯し手',
+    shortLabel: '灯',
     description: 'ユイたちの灯名、黒耀、朝明、関係性を記す頁。',
     motif: 'keeper',
     accent: 0x79bea9,
