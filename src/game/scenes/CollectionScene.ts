@@ -17,6 +17,13 @@ import {
   loadCollectionAtlasViewState,
   markCompletedCellsSeen,
 } from '../persistence/collectionAtlasViewState';
+import {
+  findNewAchievementIds,
+  loadAchievementViewState,
+  markAchievementsSeen,
+} from '../persistence/achievementViewState';
+import { ACHIEVEMENT_DEFS } from '../data/achievements';
+import { loadProfile } from '../persistence/profile';
 import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge';
 import { nightBoardRewardLabel } from '../ui/collectionAtlasLabels';
 import { attachCollectionAtlasAtmosphere } from '../ui/collectionAtlasSceneHooks';
@@ -32,6 +39,7 @@ export class CollectionScene extends Phaser.Scene {
   private selectedKeeperRecordId: string = 'keeper-yui';
   private selectedKnowledgeLineId: string = 'rare-jp-kanwa-kyudai';
   private selectedLostItemRecordId: string = 'lost-small-bag-tag';
+  private achievementPage = 0;
 
   constructor() {
     super('CollectionScene');
@@ -139,6 +147,9 @@ export class CollectionScene extends Phaser.Scene {
         return;
       case 'lost_item_cards':
         this.renderLostItemCardsPage(root);
+        return;
+      case 'achievements':
+        this.renderAchievementsPage(root);
         return;
     }
   }
@@ -554,6 +565,115 @@ export class CollectionScene extends Phaser.Scene {
         g.lineBetween(x + 12, y, x + 12, y + 4);
         break;
     }
+  }
+
+  private renderAchievementsPage(root: Phaser.GameObjects.Container): void {
+    const profile = loadProfile();
+    const achieved = profile.achievements;
+    const rewarded = profile.rewardedAchievements;
+    const achievedIds = Object.keys(achieved);
+    const viewState = loadAchievementViewState();
+    const newIds = new Set(findNewAchievementIds(achievedIds, viewState.seenAchievementIds));
+
+    if (newIds.size > 0) markAchievementsSeen(achievedIds);
+
+    const achievedCount = ACHIEVEMENT_DEFS.filter((d) => achieved[d.id]).length;
+    const rewardedCount = ACHIEVEMENT_DEFS.filter((d) => rewarded[d.id]).length;
+
+    const card = this.add.graphics();
+    drawStorybookPanel(card, GAME_WIDTH / 2, 400, 336, 470, STORYBOOK_UI.nightPanel, 0xf5d58a, 0.9);
+    root.add(card);
+
+    root.add(this.text(GAME_WIDTH / 2, 172, 'しるしの記録', 20, STORYBOOK_UI.textLight, true, true));
+    const summaryParts = [`達成 ${achievedCount}/${ACHIEVEMENT_DEFS.length}`];
+    if (newIds.size > 0) summaryParts.push(`新着 ${newIds.size}`);
+    summaryParts.push(`報酬済 ${rewardedCount}`);
+    root.add(this.text(GAME_WIDTH / 2, 196, summaryParts.join('　'), 11, STORYBOOK_UI.goldLight, true));
+
+    const PAGE_SIZE = 4;
+    const totalPages = Math.ceil(ACHIEVEMENT_DEFS.length / PAGE_SIZE);
+    const page = Math.min(this.achievementPage, totalPages - 1);
+    const slice = ACHIEVEMENT_DEFS.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
+    slice.forEach((def, index) => {
+      const y = 232 + index * 100;
+      const isAchieved = !!achieved[def.id];
+      const isRewarded = !!rewarded[def.id];
+      const isNew = newIds.has(def.id);
+      const isHidden = !!def.hidden && !isAchieved;
+      root.add(this.achievementCard(GAME_WIDTH / 2, y, def, isAchieved, isRewarded, isNew, isHidden));
+    });
+
+    if (totalPages > 1) {
+      const pageLabel = `${page + 1}/${totalPages}`;
+      root.add(this.text(GAME_WIDTH / 2, 642, pageLabel, 12, STORYBOOK_UI.textMuted, true));
+      if (page > 0) {
+        root.add(this.button(GAME_WIDTH / 2 - 80, 642, 48, 28, '◀', () => {
+          this.achievementPage = page - 1;
+          this.render();
+        }, true));
+      }
+      if (page < totalPages - 1) {
+        root.add(this.button(GAME_WIDTH / 2 + 80, 642, 48, 28, '▶', () => {
+          this.achievementPage = page + 1;
+          this.render();
+        }, true));
+      }
+    }
+  }
+
+  private achievementCard(
+    x: number, y: number,
+    def: (typeof ACHIEVEMENT_DEFS)[number],
+    achieved: boolean, rewarded: boolean, isNew: boolean, hidden: boolean,
+  ): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const w = 310;
+    const h = 82;
+    const fillColor = achieved ? 0x3a3256 : 0x22203a;
+    const strokeColor = achieved ? 0xf5d58a : 0x4a456a;
+    const bg = this.add.rectangle(0, 0, w, h, fillColor, 0.92);
+    bg.setStrokeStyle(achieved ? 2 : 1, strokeColor, 0.9);
+    c.add(bg);
+
+    const mark = achieved ? '◆' : '◇';
+    const titleText = hidden ? `${mark} ？？？` : `${mark} ${def.title}`;
+    const titleColor = achieved ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted;
+    c.add(this.text(-w / 2 + 18, -26, titleText, 13, titleColor, true).setOrigin(0, 0.5));
+
+    const descText = hidden ? '条件はまだ見えない' : def.description;
+    c.add(this.text(-w / 2 + 18, -4, descText, 11, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
+
+    const rewardText = hidden
+      ? '報酬 +??'
+      : rewarded
+        ? `報酬 +${def.reward} 受取済`
+        : achieved
+          ? `報酬 +${def.reward}`
+          : `報酬 +${def.reward}`;
+    const rewardColor = rewarded ? 0xa6e3a1 : achieved ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted;
+    c.add(this.text(-w / 2 + 18, 18, rewardText, 10, rewardColor).setOrigin(0, 0.5));
+
+    const categoryLabel = achievementCategoryLabel(def.category);
+    c.add(this.text(w / 2 - 18, 18, categoryLabel, 9, STORYBOOK_UI.textMuted).setOrigin(1, 0.5));
+
+    if (isNew) {
+      const badge = this.add.circle(w / 2 - 14, -28, 5, 0xf5d58a, 0.95);
+      const badgeTween = this.tweens.add({
+        targets: badge,
+        alpha: { from: 0.6, to: 1 },
+        scale: { from: 0.9, to: 1.15 },
+        duration: 800,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut',
+      });
+      c.once('destroy', () => badgeTween.remove());
+      c.add(badge);
+      c.add(this.text(w / 2 - 14, -28, 'NEW', 7, STORYBOOK_UI.textDark, true));
+    }
+
+    return c;
   }
 
   private addSoftAtlasGlow(root: Phaser.GameObjects.Container): void {
@@ -981,6 +1101,16 @@ function shortCellLabel(value: string): string {
   if (value.includes('記録')) return '記録';
   if (value.includes('拾う')) return '拾う';
   return value.slice(0, 3);
+}
+
+function achievementCategoryLabel(category: string): string {
+  switch (category) {
+    case 'stage': return 'ステージ';
+    case 'combat': return '戦闘';
+    case 'build': return 'ビルド';
+    case 'challenge': return '挑戦';
+    default: return '';
+  }
 }
 
 function colorString(value: string | number): string {

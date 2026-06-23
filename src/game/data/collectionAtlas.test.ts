@@ -119,7 +119,8 @@ describe('collection atlas data', () => {
   });
 
   it('図鑑タブ背景アセットは全タブ分ある', () => {
-    const sectionIds = new Set(collectionSections.map((section) => section.id));
+    const SECTIONS_WITHOUT_BACKDROP = new Set(['achievements']);
+    const sectionIds = new Set(collectionSections.filter((s) => !SECTIONS_WITHOUT_BACKDROP.has(s.id)).map((s) => s.id));
     const assetSectionIds = new Set(collectionAtlasSectionAssets.map((asset) => asset.sectionId));
     expect(assetSectionIds).toEqual(sectionIds);
     for (const asset of collectionAtlasSectionAssets) {

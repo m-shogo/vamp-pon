@@ -616,7 +616,7 @@ export class Overlays {
       const parts: string[] = [];
       if (hasNewAch) parts.push(`実績 +${settlement.newAchievements.length}`);
       if (hasAchReward) parts.push(`報酬 +${settlement.achievementReward}`);
-      const recordText = this.text(GAME_WIDTH / 2, messageY + 24, `◆ 新しい記録　${parts.join('　')}`, 12, '#ffe9b8', true);
+      const recordText = this.text(GAME_WIDTH / 2, messageY + 24, `◆ 記録に追加　${parts.join('　')}`, 12, '#ffe9b8', true);
       recordText.setAlpha(0);
       root.add(recordText);
       this.scene.tweens.add({ targets: recordText, alpha: 1, duration: 300, delay: 900, ease: 'Quad.easeOut' });

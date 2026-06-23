@@ -77,6 +77,8 @@ export function addCollectionAtlasFallbackAtmosphere(
         g.fillRect(78, y + 12, 110 + (i % 3) * 34, 2);
       }
       break;
+    default:
+      break;
   }
 
   root.add(g);
