@@ -104,12 +104,13 @@ export class Overlays {
     }).setOrigin(0.5);
   }
 
-  showReady(onStart: () => void, stageNumber = 1): void {
+  showReady(onStart: () => void, stageNumber = 1, firstRun = false): void {
     const root = this.dim(0.62);
     const panel = this.scene.add.graphics();
     const isStage2 = stageNumber === 2;
+    const panelH = firstRun ? 380 : 326;
     const panelBorder = isStage2 ? 0x7a9ec4 : STORYBOOK_UI.gold;
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 344, 326, STORYBOOK_UI.nightPanel, panelBorder, 0.96);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 344, panelH, STORYBOOK_UI.nightPanel, panelBorder, 0.96);
     root.add(panel);
     if (isStage2) {
       root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, '二夜目', 28, 0x8bb8d8, true));
@@ -125,7 +126,11 @@ export class Overlays {
       root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '忘れた名前を、夜から拾う', 12, STORYBOOK_UI.textMuted));
       root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '影を払い、記憶のかけらを集める。', 13, STORYBOOK_UI.textLight));
       root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動はドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 94, 180, 46, '夜へ進む', () => {
+      if (firstRun) {
+        root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 42, '武器は自動で発射。EXPを拾ってレベルアップ。', 11, STORYBOOK_UI.goldLight));
+        root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 60, 'やられても黒曜片は持ち帰れる。', 11, STORYBOOK_UI.goldLight));
+      }
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + (firstRun ? 114 : 94), 180, 46, '夜へ進む', () => {
         this.clear();
         onStart();
       }));

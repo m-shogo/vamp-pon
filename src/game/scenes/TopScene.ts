@@ -10,6 +10,7 @@ import {
 import { attachPressFeedback } from '../ui/pressFeedback';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
 import { getAudioManager } from '../audio/AudioManager';
+import { loadOnboarding, markSeen, resetOnboarding } from '../persistence/onboarding';
 
 const PARTICLE_DEPTH = 2;
 const UI_DEPTH = 10;
@@ -27,6 +28,15 @@ export class TopScene extends Phaser.Scene {
 
   create(): void {
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, this.shutdown, this);
+
+    if (new URLSearchParams(window.location.search).get('resetOnboarding') === '1') {
+      resetOnboarding();
+      const params = new URLSearchParams(window.location.search);
+      params.delete('resetOnboarding');
+      const query = params.toString();
+      window.history.replaceState(null, '', `${window.location.pathname}${query ? `?${query}` : ''}`);
+    }
+
     const audio = getAudioManager(this);
     audio.unlockOnFirstInput();
     audio.playBgm('bgm_top', { volume: 0.32, fadeMs: 280 });
@@ -82,6 +92,12 @@ export class TopScene extends Phaser.Scene {
     this.notice = this.text(GAME_WIDTH / 2, 580, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 1);
 
     this.addBottomDecoration();
+
+    const onboarding = loadOnboarding();
+    if (!onboarding.topIntroSeen) {
+      this.showFirstTimeIntro(mainBtn);
+      markSeen('topIntroSeen');
+    }
   }
 
   private addBackgroundAtmosphere(): void {
@@ -161,6 +177,28 @@ export class TopScene extends Phaser.Scene {
     const mapLine = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 60, 140, 1, COLORS.mapLine, 0.18)
       .setDepth(depth);
     void mapLine;
+  }
+
+  private showFirstTimeIntro(mainBtn: Phaser.GameObjects.Container): void {
+    const introText = this.text(GAME_WIDTH / 2, 236, 'まずは夜へ。影をほどき、記憶を拾う。', 12, STORYBOOK_UI.goldLight, true)
+      .setDepth(UI_DEPTH + 4).setAlpha(0);
+    this.tweens.add({ targets: introText, alpha: 1, duration: 600, delay: 500, ease: 'Quad.easeOut' });
+    this.tweens.add({ targets: introText, alpha: 0, duration: 500, delay: 6000, ease: 'Quad.easeIn' });
+
+    const glow = this.add.rectangle(GAME_WIDTH / 2, 292, 270, 72, STORYBOOK_UI.goldLight, 0)
+      .setDepth(UI_DEPTH + 2);
+    this.tweens.add({
+      targets: glow,
+      alpha: { from: 0, to: 0.18 },
+      scaleX: { from: 1, to: 1.04 },
+      scaleY: { from: 1, to: 1.06 },
+      duration: 800,
+      delay: 600,
+      yoyo: true,
+      repeat: 3,
+      ease: 'Sine.easeInOut',
+    });
+    void mainBtn;
   }
 
   private showNotice(value: string): void {

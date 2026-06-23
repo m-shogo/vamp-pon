@@ -25,6 +25,7 @@ import { stageBackgroundTextureKey } from '../ui/background';
 import { attachPressFeedback } from '../ui/pressFeedback';
 import { recipeForStage, stageRecipes } from '../data/waves';
 import { getAudioManager } from '../audio/AudioManager';
+import { loadOnboarding, markSeen } from '../persistence/onboarding';
 export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
@@ -150,6 +151,15 @@ export class StageSelectScene extends Phaser.Scene {
     }
 
     if (this.confirmingReset) this.renderResetConfirm(root, profile);
+
+    const onboarding = loadOnboarding();
+    if (this.mode === 'stage' && !onboarding.stageSelectIntroSeen) {
+      this.showOnboardingHint(root, 'ステージと深さを選んで探索へ\n深さは Easy がおすすめ', 88);
+      markSeen('stageSelectIntroSeen');
+    } else if (this.mode === 'growth' && !onboarding.growthIntroSeen) {
+      this.showOnboardingHint(root, '黒曜片で強化して次の夜に備える\nいつでもリセット可能', 88);
+      markSeen('growthIntroSeen');
+    }
   }
 
   // --- ステージ選択（プレビュー + 前後ナビ） ---
@@ -367,6 +377,14 @@ export class StageSelectScene extends Phaser.Scene {
       this.confirmingReset = false;
       this.render();
     }));
+  }
+
+  private showOnboardingHint(root: Phaser.GameObjects.Container, message: string, y: number): void {
+    const hint = this.text(GAME_WIDTH / 2, y, message, 11, STORYBOOK_UI.goldLight, true).setAlpha(0);
+    hint.setStroke('#1a1638', 3);
+    root.add(hint);
+    this.tweens.add({ targets: hint, alpha: 1, duration: 500, delay: 300, ease: 'Quad.easeOut' });
+    this.tweens.add({ targets: hint, alpha: 0, duration: 400, delay: 5500, ease: 'Quad.easeIn' });
   }
 
   private startRun(profile: PlayerProfile): void {
