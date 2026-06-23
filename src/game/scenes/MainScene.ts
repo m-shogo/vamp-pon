@@ -318,7 +318,6 @@ export class MainScene extends Phaser.Scene {
       state,
       choices,
       (choice) => {
-        this.audio.playSe('choice_select', { volume: 0.48, priority: 1 });
         if (this.needsReplace(choice)) {
           this.overlays.showReplaceItem(
             state,
