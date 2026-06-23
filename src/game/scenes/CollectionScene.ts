@@ -40,6 +40,7 @@ export class CollectionScene extends Phaser.Scene {
   private selectedKnowledgeLineId: string = 'rare-jp-kanwa-kyudai';
   private selectedLostItemRecordId: string = 'lost-small-bag-tag';
   private achievementPage = 0;
+  private achievementSessionNewIds: Set<string> | null = null;
 
   constructor() {
     super('CollectionScene');
@@ -97,9 +98,11 @@ export class CollectionScene extends Phaser.Scene {
   }
 
   private renderSectionTabs(root: Phaser.GameObjects.Container): void {
-    const tabWidth = 60;
+    const margin = 12;
+    const gap = 4;
+    const available = GAME_WIDTH - margin * 2;
+    const tabWidth = Math.floor((available - (collectionSections.length - 1) * gap) / collectionSections.length);
     const tabHeight = 28;
-    const gap = 6;
     const totalWidth = collectionSections.length * tabWidth + (collectionSections.length - 1) * gap;
     const startX = GAME_WIDTH / 2 - totalWidth / 2 + tabWidth / 2;
 
@@ -117,6 +120,7 @@ export class CollectionScene extends Phaser.Scene {
     const label = this.text(0, 0, section.shortLabel, 10, isActive ? STORYBOOK_UI.textDark : STORYBOOK_UI.textMuted, true);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => {
+      if (this.activeSection !== section.id) this.achievementSessionNewIds = null;
       this.activeSection = section.id;
       this.render();
     });
@@ -572,10 +576,13 @@ export class CollectionScene extends Phaser.Scene {
     const achieved = profile.achievements;
     const rewarded = profile.rewardedAchievements;
     const achievedIds = Object.keys(achieved);
-    const viewState = loadAchievementViewState();
-    const newIds = new Set(findNewAchievementIds(achievedIds, viewState.seenAchievementIds));
 
-    if (newIds.size > 0) markAchievementsSeen(achievedIds);
+    if (!this.achievementSessionNewIds) {
+      const viewState = loadAchievementViewState();
+      this.achievementSessionNewIds = new Set(findNewAchievementIds(achievedIds, viewState.seenAchievementIds));
+      if (this.achievementSessionNewIds.size > 0) markAchievementsSeen(achievedIds);
+    }
+    const newIds = this.achievementSessionNewIds;
 
     const achievedCount = ACHIEVEMENT_DEFS.filter((d) => achieved[d.id]).length;
     const rewardedCount = ACHIEVEMENT_DEFS.filter((d) => rewarded[d.id]).length;
