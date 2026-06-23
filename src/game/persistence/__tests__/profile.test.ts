@@ -231,10 +231,10 @@ describe('localStorage を伴う進行（保存・購入・精算）', () => {
     expect(firstReward).toBeGreaterThan(0);
     const second = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 480 }), true);
     expect(second.newAchievements).not.toContain('clear:s1:shallow');
+    expect(second.achievementReward).toBe(0);
+    expect(second.newAchievements).toHaveLength(0);
     const profile = loadProfile();
-    const totalFromAch = firstReward;
     expect(profile.rewardedAchievements['clear:s1:shallow']).toBe(true);
-    expect(second.achievementReward).toBeLessThan(firstReward);
   });
 
   it('エリート撃破実績が付与される', () => {
@@ -274,5 +274,29 @@ describe('localStorage を伴う進行（保存・購入・精算）', () => {
     saveProfile(createDefaultProfile());
     const result = settleRunProgress(makeState({ stageNumber: 1, kills: 20, survivedSec: 200 }), false);
     expect(result.newAchievements).not.toContain('clear:s1:shallow');
+  });
+
+  it('過去にachievement trueだがrewardedが空でも今回未達成なら新記録に出ない', () => {
+    const profile = createDefaultProfile();
+    profile.achievements['clear:s1:shallow'] = true;
+    profile.achievements['elite.defeat.first'] = true;
+    saveProfile(profile);
+    const result = settleRunProgress(makeState({ stageNumber: 1, kills: 5, survivedSec: 60 }), false);
+    expect(result.newAchievements).not.toContain('clear:s1:shallow');
+    expect(result.newAchievements).not.toContain('elite.defeat.first');
+    expect(result.achievementReward).toBe(0);
+  });
+
+  it('今回初達成した実績だけnewAchievementsに出る', () => {
+    const profile = createDefaultProfile();
+    profile.achievements['capsule.first'] = true;
+    profile.rewardedAchievements['capsule.first'] = true;
+    saveProfile(profile);
+    const state = makeState({ stageNumber: 1, kills: 20, survivedSec: 480, capsules: 2 });
+    (state.stats as { elitesKilled: number }).elitesKilled = 1;
+    const result = settleRunProgress(state, true);
+    expect(result.newAchievements).toContain('clear:s1:shallow');
+    expect(result.newAchievements).toContain('elite.defeat.first');
+    expect(result.newAchievements).not.toContain('capsule.first');
   });
 });

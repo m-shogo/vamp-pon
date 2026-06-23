@@ -342,16 +342,22 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
 
   profile.codex[`stage:${state.stageNumber}`] = true;
   profile.codex[`depth:${state.explorationDepth}`] = true;
-  if (cleared) profile.achievements[`clear:${key}`] = true;
-  if (noBerserk && cleared) profile.achievements[`no-berserk:${key}`] = true;
-  if ((state.stats.elitesKilled ?? 0) > 0) profile.achievements['elite.defeat.first'] = true;
-  if (state.stats.evolutions.length > 0) profile.achievements['evolution.first'] = true;
-  if (state.stats.capsulesOpened > 0) profile.achievements['capsule.first'] = true;
-  if (unlockedStage === 2) profile.achievements['stage.unlock.2'] = true;
+  const beforeAchievements = new Set(Object.keys(profile.achievements));
+  const runAchievementIds: string[] = [];
+  const addAch = (id: string) => {
+    profile.achievements[id] = true;
+    if (!beforeAchievements.has(id)) runAchievementIds.push(id);
+  };
+  if (cleared) addAch(`clear:${key}`);
+  if (noBerserk && cleared) addAch(`no-berserk:${key}`);
+  if ((state.stats.elitesKilled ?? 0) > 0) addAch('elite.defeat.first');
+  if (state.stats.evolutions.length > 0) addAch('evolution.first');
+  if (state.stats.capsulesOpened > 0) addAch('capsule.first');
+  if (unlockedStage === 2) addAch('stage.unlock.2');
 
   const newAchievements: string[] = [];
   let achievementReward = 0;
-  for (const achId of Object.keys(profile.achievements)) {
+  for (const achId of runAchievementIds) {
     if (profile.rewardedAchievements[achId]) continue;
     const reward = achievementRewardAmount(achId);
     if (reward > 0) {
