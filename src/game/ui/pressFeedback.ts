@@ -29,31 +29,31 @@ function vibrate(ms: number): void {
 
 function pressBurst(scene: Phaser.Scene, x: number, y: number, width: number, height: number, accent: number, depth: number, strong: boolean): void {
   const ringRadius = Math.max(width, height) * (strong ? 0.5 : 0.43);
-  const ring = scene.add.circle(x, y, ringRadius, accent, strong ? 0.12 : 0.08).setDepth(depth).setBlendMode('ADD');
-  ring.setStrokeStyle(strong ? 4 : 3, accent, strong ? 0.88 : 0.62);
+  const ring = scene.add.circle(x, y, ringRadius, accent, strong ? 0.1 : 0.06).setDepth(depth).setBlendMode('ADD');
+  ring.setStrokeStyle(strong ? 3 : 2, accent, strong ? 0.74 : 0.48);
   scene.tweens.add({
     targets: ring,
-    scale: strong ? 1.55 : 1.32,
+    scale: strong ? 1.42 : 1.24,
     alpha: 0,
-    duration: strong ? 280 : 220,
+    duration: strong ? 240 : 190,
     ease: 'Cubic.easeOut',
     onComplete: () => ring.destroy(),
   });
 
-  const sparkCount = strong ? 8 : 5;
+  const sparkCount = strong ? 7 : 4;
   for (let i = 0; i < sparkCount; i += 1) {
     const angle = (Math.PI * 2 * i) / sparkCount;
-    const spark = scene.add.rectangle(x, y, strong ? 9 : 7, strong ? 2.4 : 2, accent, strong ? 0.82 : 0.62)
+    const spark = scene.add.rectangle(x, y, strong ? 8 : 6, strong ? 2.2 : 1.8, accent, strong ? 0.74 : 0.52)
       .setDepth(depth + 1)
       .setBlendMode('ADD')
       .setRotation(angle);
     scene.tweens.add({
       targets: spark,
-      x: x + Math.cos(angle) * (strong ? 42 : 30),
-      y: y + Math.sin(angle) * (strong ? 32 : 22),
+      x: x + Math.cos(angle) * (strong ? 34 : 24),
+      y: y + Math.sin(angle) * (strong ? 26 : 18),
       alpha: 0,
       scaleX: 0.35,
-      duration: strong ? 260 : 210,
+      duration: strong ? 230 : 180,
       ease: 'Quad.easeOut',
       onComplete: () => spark.destroy(),
     });
@@ -61,7 +61,7 @@ function pressBurst(scene: Phaser.Scene, x: number, y: number, width: number, he
 }
 
 /**
- * UIを押した瞬間に、縮み→戻り・光のリング・小さな振動を入れる共通フィードバック。
+ * UIを押した瞬間に、紙片が沈むような縮み・戻り・小さな灯りを入れる共通フィードバック。
  * ゲーム数値には触らず、入力レスポンスの気持ちよさだけを上げる。
  */
 export function attachPressFeedback(
@@ -72,6 +72,7 @@ export function attachPressFeedback(
 ): void {
   const baseScaleX = visual.scaleX;
   const baseScaleY = visual.scaleY;
+  const baseY = visual.y;
   const accent = options.accent ?? 0xffd77a;
   const width = options.width ?? 96;
   const height = options.height ?? 42;
@@ -86,7 +87,8 @@ export function attachPressFeedback(
       targets: visual,
       scaleX: baseScaleX,
       scaleY: baseScaleY,
-      duration: 120,
+      y: baseY,
+      duration: 130,
       ease: 'Back.easeOut',
     });
   };
@@ -95,8 +97,9 @@ export function attachPressFeedback(
     scene.tweens.killTweensOf(visual);
     scene.tweens.add({
       targets: visual,
-      scaleX: baseScaleX * 1.025,
-      scaleY: baseScaleY * 1.025,
+      scaleX: baseScaleX * 1.018,
+      scaleY: baseScaleY * 1.018,
+      y: baseY - 0.5,
       duration: 90,
       ease: 'Quad.easeOut',
     });
@@ -110,14 +113,14 @@ export function attachPressFeedback(
     scene.tweens.killTweensOf(visual);
     scene.tweens.add({
       targets: visual,
-      scaleX: baseScaleX * (strong ? 0.91 : 0.94),
-      scaleY: baseScaleY * (strong ? 0.91 : 0.94),
-      duration: 54,
-      yoyo: true,
+      scaleX: baseScaleX * (strong ? 0.94 : 0.965),
+      scaleY: baseScaleY * (strong ? 0.92 : 0.955),
+      y: baseY + (strong ? 2 : 1),
+      duration: 56,
       ease: 'Quad.easeOut',
     });
     pressBurst(scene, x, y, width, height, accent, depth, strong);
-    vibrate(strong ? 14 : 8);
-    if (options.shake) scene.cameras.main.shake(strong ? 70 : 45, strong ? 0.0018 : 0.0011);
+    vibrate(strong ? 12 : 6);
+    if (options.shake) scene.cameras.main.shake(strong ? 50 : 32, strong ? 0.0013 : 0.0008);
   });
 }
