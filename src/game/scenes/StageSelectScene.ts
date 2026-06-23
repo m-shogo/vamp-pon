@@ -19,7 +19,8 @@ import { loadBondProgress } from '../persistence/bonds';
 import { characters } from '../data/characters';
 import { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';
 import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import { drawInkVignette, drawMapThreads, drawPremiumPaperCard } from '../ui/premiumPaperUi';
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
 import { attachPressFeedback } from '../ui/pressFeedback';
@@ -112,13 +113,21 @@ export class StageSelectScene extends Phaser.Scene {
     const root = this.add.container(0, 0);
     this.root = root;
 
-    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1d1a34, 1));
+    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, this.mode === 'growth' ? 0x161225 : 0x17172e, 1));
+    const vignette = this.add.graphics();
+    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: this.mode === 'growth' ? 0.32 : 0.38 });
+    root.add(vignette);
+
     const panel = this.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.97);
     root.add(panel);
 
-    root.add(this.text(GAME_WIDTH / 2, 34, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 25, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 64, `黒曜片 ${profile.currency}`, 14, STORYBOOK_UI.goldLight, true));
+    const titleY = 34;
+    root.add(this.text(GAME_WIDTH / 2, titleY, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 25, STORYBOOK_UI.textLight, true, true));
+    const titleLine = this.add.graphics();
+    drawMapThreads(titleLine, GAME_WIDTH / 2, 56, 182, 0.16);
+    root.add(titleLine);
+    root.add(this.text(GAME_WIDTH / 2, 66, `黒曜片 ${profile.currency}`, 14, STORYBOOK_UI.goldLight, true));
 
     const recordLabel = this.recordButtonLabel();
 
@@ -182,6 +191,10 @@ export class StageSelectScene extends Phaser.Scene {
     const cardW = 322;
     const cardH = 168;
 
+    const paper = this.add.graphics();
+    drawPremiumPaperCard(paper, cardX, cardY, cardW + 12, cardH + 14, { accent: STORYBOOK_UI.gold, paper: 0x211d36, selected: true, muted: true });
+    root.add(paper);
+
     const entry = this.bgEntryByStage.get(current);
     const key = entry ? stageBackgroundTextureKey(entry) : null;
     if (key && this.textures.exists(key)) {
@@ -197,10 +210,15 @@ export class StageSelectScene extends Phaser.Scene {
     // 暗膜（文字を読ませる）
     const dim = this.add.rectangle(cardX, cardY, cardW, cardH, 0x0a0816, 0.42);
     root.add(dim);
+
+    const routeLines = this.add.graphics();
+    drawMapThreads(routeLines, cardX, cardY + cardH / 2 - 28, 220, 0.18);
+    root.add(routeLines);
+
     // 枠
     const border = this.add.graphics();
-    border.lineStyle(2, 0xf5d58a, 0.85);
-    border.strokeRoundedRect(cardX - cardW / 2, cardY - cardH / 2, cardW, cardH, 8);
+    border.lineStyle(2, 0xf5d58a, 0.75);
+    border.strokeRect(cardX - cardW / 2 + 4, cardY - cardH / 2 + 4, cardW - 8, cardH - 8);
     root.add(border);
 
     // ステージ番号 + 名前
@@ -272,11 +290,21 @@ export class StageSelectScene extends Phaser.Scene {
       const x = 56 + index * 96 + 48;
       const y = blockY + 52;
 
-      if (selected) {
-        const glow = this.add.graphics();
-        glow.fillStyle(depth.tint, 0.08).fillRoundedRect(x - 50, y - 30, 100, 60, 6);
-        glow.lineStyle(2, depth.tint, 0.5).strokeRoundedRect(x - 50, y - 30, 100, 60, 6);
-        root.add(glow);
+      const card = this.add.graphics();
+      drawPremiumPaperCard(card, x, y, 94, 52, {
+        accent: depth.tint,
+        paper: selected ? STORYBOOK_UI.paperLight : 0x28243d,
+        selected,
+        muted: !selected,
+      });
+      root.add(card);
+
+      if (depthId === 'middle') {
+        const stain = this.add.circle(x + 34, y - 17, 7, 0x181225, selected ? 0.1 : 0.18);
+        root.add(stain);
+      } else if (depthId === 'deep') {
+        root.add(this.add.circle(x + 31, y - 16, 10, 0x090812, selected ? 0.18 : 0.28));
+        root.add(this.add.circle(x - 34, y + 16, 6, 0x090812, selected ? 0.12 : 0.22));
       }
 
       const btn = this.button(x, y, 94, 52, depth.label, () => {
@@ -350,11 +378,21 @@ export class StageSelectScene extends Phaser.Scene {
       const maxed = level >= def.maxLevel;
       const cost = upgradeCost(id, level);
       const y = 228 + index * 37;
+      const canBuy = !maxed && profile.currency >= cost;
+      const row = this.add.graphics();
+      drawPremiumPaperCard(row, GAME_WIDTH / 2, y + 1, 306, 32, {
+        accent: canBuy ? STORYBOOK_UI.goldLight : 0x6f6590,
+        paper: canBuy ? 0x342a3c : 0x211e33,
+        muted: !canBuy,
+        selected: canBuy,
+        shadowAlpha: 0.16,
+      });
+      row.setAlpha(canBuy ? 0.7 : 0.45);
+      root.add(row);
       const nameColor = maxed ? 0xa6e3a1 : STORYBOOK_UI.textLight;
       root.add(this.text(58, y - 6, `${def.name} Lv.${level}/${def.maxLevel}`, 12, nameColor, true).setOrigin(0, 0.5));
       root.add(this.text(58, y + 10, def.description, 11, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
       const label = maxed ? '✓' : `${cost}`;
-      const canBuy = !maxed && profile.currency >= cost;
       const b = this.button(GAME_WIDTH - 74, y, 74, 28, label, () => {
         buyUpgrade(id);
         this.render();
@@ -427,9 +465,7 @@ export class StageSelectScene extends Phaser.Scene {
   private primaryButton(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
-    drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
-    fill.lineStyle(2, STORYBOOK_UI.goldLight, 0.5);
-    fill.strokeRoundedRect(-width / 2 + 6, -height / 2 + 6, width - 12, height - 12, 5);
+    drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperLight, selected: true });
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this, hit, c, {
       x, y, width, height,
@@ -449,8 +485,8 @@ export class StageSelectScene extends Phaser.Scene {
   private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const fill = this.add.graphics().setName('fill');
-    if (muted) drawStorybookPanel(fill, 0, 0, width, height, 0x25213d, 0x6f6590, 0.9);
-    else drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
+    if (muted) drawPremiumPaperCard(fill, 0, 0, width, height, { accent: 0x6f6590, paper: 0x25213d, muted: true });
+    else drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.gold, paper: STORYBOOK_UI.paperLight });
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this, hit, c, {
       x,
