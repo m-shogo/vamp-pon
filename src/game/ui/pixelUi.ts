@@ -37,15 +37,28 @@ export function drawPixelPanel(
     alpha,
   );
 
+  const halfW = width / 2;
+  const halfH = height / 2;
+  const innerLeft = Math.round(x - halfW + border + cut);
+  const innerRight = Math.round(x + halfW - border - cut);
+  const innerTop = Math.round(y - halfH + border + 2);
+  const innerBottom = Math.round(y + halfH - border - 4);
+  const shineAlpha = Math.min(0.22, alpha * 0.2);
+  const shadeAlpha = Math.min(0.24, alpha * 0.22);
+  graphics.fillStyle(0xffffff, shineAlpha).fillRect(innerLeft, innerTop, Math.max(1, innerRight - innerLeft), 1);
+  graphics.fillStyle(0x050817, shadeAlpha).fillRect(innerLeft, innerBottom, Math.max(1, innerRight - innerLeft), 1);
+
   if (options.accent !== undefined) {
-    graphics.fillStyle(options.accent, 0.9);
-    const halfW = width / 2;
-    const halfH = height / 2;
+    graphics.fillStyle(options.accent, 0.86);
     const dot = 2;
     graphics.fillRect(Math.round(x - halfW + cut + 1), Math.round(y - halfH + 2), dot, dot);
     graphics.fillRect(Math.round(x + halfW - cut - 3), Math.round(y - halfH + 2), dot, dot);
     graphics.fillRect(Math.round(x - halfW + cut + 1), Math.round(y + halfH - 4), dot, dot);
     graphics.fillRect(Math.round(x + halfW - cut - 3), Math.round(y + halfH - 4), dot, dot);
+    if (width >= 32 && height >= 24) {
+      graphics.fillStyle(options.accent, 0.16);
+      graphics.fillRect(Math.round(x - halfW + cut + 5), Math.round(y - halfH + 5), Math.max(4, Math.round(width * 0.22)), 1);
+    }
   }
 
   if (options.dots) {
@@ -86,6 +99,7 @@ export function drawPixelBar(
     graphics.fillRect(Math.round(cursor), innerY, Math.max(1, Math.round(drawWidth)), innerH);
     cursor += segmentWidth + segmentGap;
   }
+  graphics.fillStyle(0xffffff, 0.18 * safeRatio).fillRect(innerX, innerY, Math.max(1, Math.round(activeWidth)), 1);
   return graphics;
 }
 
