@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { STORYBOOK_UI } from './storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_UI } from './storybookUi';
 
 export function drawInkVignette(
   g: Phaser.GameObjects.Graphics,
@@ -85,8 +85,22 @@ export function drawPremiumPaperCard(
   g.lineStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, selected ? 0.98 : 0.86).strokePoints(points, true);
   g.lineStyle(1, accent, selected ? 0.82 : 0.46).strokeRect(left + 7, top + 7, width - 14, height - 14);
 
-  g.fillStyle(STORYBOOK_UI.paperLight, muted ? 0.08 : 0.34).fillRect(left + 12, top + 10, width - 24, 2);
-  g.fillStyle(STORYBOOK_UI.paperShadow, muted ? 0.12 : 0.28).fillRect(left + 12, bottom - 12, width - 24, 2);
+  const highlightAlpha = muted ? 0.08 : 0.34;
+  const shadowAlpha = muted ? 0.12 : 0.28;
+  g.fillStyle(STORYBOOK_UI.paperLight, highlightAlpha).fillRect(left + 12, top + 10, width - 24, 2);
+  g.fillStyle(STORYBOOK_UI.paperShadow, shadowAlpha).fillRect(left + 12, bottom - 12, width - 24, 2);
+
+  g.lineStyle(1, muted ? STORYBOOK_UI.gold : STORYBOOK_UI.paperEdge, muted ? 0.09 : 0.12);
+  g.lineBetween(left + 16, top + Math.max(18, Math.floor(height * 0.32)), right - 24, top + Math.max(19, Math.floor(height * 0.32)));
+  if (height >= 42) {
+    g.lineBetween(left + 22, bottom - Math.max(20, Math.floor(height * 0.26)), right - 32, bottom - Math.max(21, Math.floor(height * 0.26)));
+  }
+
+  g.fillStyle(accent, selected ? 0.18 : 0.1);
+  g.fillCircle(left + 12, top + 12, selected ? 4 : 3);
+  g.fillStyle(STORYBOOK_UI.paperEdge, muted ? 0.08 : 0.1);
+  g.fillRect(right - 17, bottom - 12, 8, 2);
+  g.fillRect(left + 13, bottom - 13, 5, 1);
 
   if (selected) {
     g.lineStyle(2, STORYBOOK_UI.goldLight, 0.16).strokeRect(left - 3, top - 3, width + 6, height + 6);
@@ -137,7 +151,7 @@ export function drawNewSparkBadge(
   const tag = scene.add.rectangle(17, -6, 24, 14, STORYBOOK_UI.nightPanel, 0.88);
   tag.setStrokeStyle(1, STORYBOOK_UI.gold, 0.72);
   const text = scene.add.text(17, -6, options.label ?? `${count}`, {
-    fontFamily: 'sans-serif',
+    fontFamily: STORYBOOK_FONT,
     fontSize: '10px',
     color: STORYBOOK_UI.textLight,
     fontStyle: 'bold',
