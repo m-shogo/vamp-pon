@@ -8,7 +8,15 @@ import {
   loadCollectionAtlasViewState,
 } from '../persistence/collectionAtlasViewState';
 import { attachPressFeedback } from '../ui/pressFeedback';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawPaperCard, drawStorybookPanel } from '../ui/storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import {
+  drawInkVignette,
+  drawLanternFocus,
+  drawMapThreads,
+  drawNewSparkBadge,
+  drawPaperScrap,
+  drawPremiumPaperCard,
+} from '../ui/premiumPaperUi';
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen, resetOnboarding } from '../persistence/onboarding';
 import { findNewAchievementIds, loadAchievementViewState } from '../persistence/achievementViewState';
@@ -46,54 +54,56 @@ export class TopScene extends Phaser.Scene {
     const boardCount = collection.nightBoard.completedCellIds.length;
     const boardTotal = forgottenStreetNightBoard.cells.length;
 
-    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x12101e, 1);
+    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x0b0d1d, 1);
     this.addBackgroundAtmosphere();
 
+    const vignette = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
+    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.38 });
+
     const panel = this.add.graphics().setDepth(UI_DEPTH);
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 356, 720, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.96);
+    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 6, 356, 734, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.94);
 
     this.addTitleDecoration();
 
-    const titleText = this.text(GAME_WIDTH / 2, 108, 'VAMP PON', 44, STORYBOOK_UI.textLight, true, true).setDepth(UI_DEPTH + 2);
+    const titleText = this.text(GAME_WIDTH / 2, 92, 'VAMP PON', 43, STORYBOOK_UI.textLight, true, true).setDepth(UI_DEPTH + 4);
+    titleText.setShadow(0, 2, '#070815', 3, true, true);
     this.tweens.add({ targets: titleText, y: titleText.y - 3, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    const subtitleText = this.text(GAME_WIDTH / 2, 156, '忘れた名前を、夜から拾う', 14, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 1);
+    const subtitleText = this.text(GAME_WIDTH / 2, 139, '忘れた名前を、夜から拾う', 14, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 3);
     subtitleText.setAlpha(0);
     this.tweens.add({ targets: subtitleText, alpha: 1, duration: 800, delay: 300, ease: 'Quad.easeOut' });
 
-    this.text(GAME_WIDTH / 2, 192, `黒曜片 ${profile.currency}`, 16, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 1);
+    this.addCurrencyTag(profile.currency);
+    this.addHeroLantern();
 
-    const mainBtn = this.button(GAME_WIDTH / 2, 292, 260, 62, '夜へ出る', () => {
+    const mainBtn = this.button(GAME_WIDTH / 2, 454, 270, 64, '夜へ出る', () => {
       this.scene.start('StageSelectScene', { mode: 'stage' });
     }, false, true);
-    mainBtn.setDepth(UI_DEPTH + 3);
+    mainBtn.setDepth(UI_DEPTH + 5);
 
-    const growthBtn = this.button(GAME_WIDTH / 2, 376, 220, 48, '成長', () => {
+    const growthBtn = this.button(GAME_WIDTH / 2, 532, 226, 48, '成長', () => {
       this.scene.start('StageSelectScene', { mode: 'growth' });
     }, true);
-    growthBtn.setDepth(UI_DEPTH + 2);
+    growthBtn.setDepth(UI_DEPTH + 4);
 
     const viewState = loadCollectionAtlasViewState();
     const newCellCount = findNewCompletedCellIds(collection.nightBoard.completedCellIds, viewState.seenCompletedCellIds).length;
     const achViewState = loadAchievementViewState();
     const newAchCount = findNewAchievementIds(Object.keys(profile.achievements), achViewState.seenAchievementIds).length;
     const totalNewCount = newCellCount + newAchCount;
-    const collLabel = totalNewCount > 0
-      ? `忘れ物帳 ${boardCount}/${boardTotal}　★${totalNewCount}`
-      : `忘れ物帳 ${boardCount}/${boardTotal}`;
-    const collBtn = this.button(GAME_WIDTH / 2, 440, 220, 48, collLabel, () => {
+    const collLabel = `忘れ物帳 ${boardCount}/${boardTotal}`;
+    const collBtn = this.button(GAME_WIDTH / 2, 592, 226, 48, collLabel, () => {
       this.scene.start('CollectionScene');
     }, boardCount === 0 && totalNewCount === 0);
-    collBtn.setDepth(UI_DEPTH + 2);
+    collBtn.setDepth(UI_DEPTH + 4);
     if (totalNewCount > 0) {
-      const badge = this.add.circle(GAME_WIDTH / 2 + 114, 424, 6, 0xf5d58a, 0.92).setDepth(UI_DEPTH + 3);
-      this.tweens.add({ targets: badge, alpha: { from: 0.6, to: 1 }, scale: { from: 0.9, to: 1.1 }, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      drawNewSparkBadge(this, GAME_WIDTH / 2 + 118, 576, totalNewCount, { depth: UI_DEPTH + 7 });
     }
 
-    const settingsBtn = this.button(GAME_WIDTH / 2, 504, 180, 42, '設定', () => this.showNotice('設定は準備中です'), true);
-    settingsBtn.setDepth(UI_DEPTH + 2);
+    const settingsBtn = this.button(GAME_WIDTH / 2, 652, 178, 42, '設定', () => this.showNotice('設定は準備中です'), true);
+    settingsBtn.setDepth(UI_DEPTH + 3);
 
-    this.notice = this.text(GAME_WIDTH / 2, 580, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 1);
+    this.notice = this.text(GAME_WIDTH / 2, 706, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
 
     this.addBottomDecoration();
 
@@ -105,12 +115,13 @@ export class TopScene extends Phaser.Scene {
   }
 
   private addBackgroundAtmosphere(): void {
-    for (let i = 0; i < 18; i += 1) {
+    for (let i = 0; i < 20; i += 1) {
       const x = 20 + Math.random() * (GAME_WIDTH - 40);
       const y = 60 + Math.random() * (GAME_HEIGHT - 120);
-      const size = 1.2 + Math.random() * 2.2;
-      const dot = this.add.circle(x, y, size, COLORS.lantern, 0.06 + Math.random() * 0.1)
-        .setDepth(PARTICLE_DEPTH);
+      const size = 1.2 + Math.random() * 2.4;
+      const dot = this.add.circle(x, y, size, COLORS.lantern, 0.05 + Math.random() * 0.1)
+        .setDepth(PARTICLE_DEPTH)
+        .setBlendMode('ADD');
       this.tweens.add({
         targets: dot,
         y: y - 30 - Math.random() * 60,
@@ -119,45 +130,59 @@ export class TopScene extends Phaser.Scene {
         delay: Math.random() * 3000,
         repeat: -1,
         onRepeat: () => {
-          dot.setPosition(20 + Math.random() * (GAME_WIDTH - 40), GAME_HEIGHT * 0.7 + Math.random() * (GAME_HEIGHT * 0.3));
-          dot.setAlpha(0.06 + Math.random() * 0.1);
+          dot.setPosition(20 + Math.random() * (GAME_WIDTH - 40), GAME_HEIGHT * 0.72 + Math.random() * (GAME_HEIGHT * 0.28));
+          dot.setAlpha(0.05 + Math.random() * 0.1);
         },
       });
     }
 
-    for (let i = 0; i < 6; i += 1) {
+    for (let i = 0; i < 9; i += 1) {
       const x = 30 + Math.random() * (GAME_WIDTH - 60);
-      const y = 140 + Math.random() * 500;
-      const size = 4 + Math.random() * 7;
-      const scrap = this.add.rectangle(x, y, size, size * 0.7, COLORS.paperScrap, 0.04 + Math.random() * 0.04)
-        .setAngle(Math.random() * 360)
-        .setDepth(PARTICLE_DEPTH);
+      const y = 120 + Math.random() * 560;
+      const width = 7 + Math.random() * 13;
+      const height = 4 + Math.random() * 9;
+      const scrap = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
+      drawPaperScrap(scrap, 0, 0, width, height, COLORS.paperScrap, 0.045 + Math.random() * 0.055);
+      scrap.setPosition(x, y).setAngle(Math.random() * 360);
       this.tweens.add({
         targets: scrap,
-        y: scrap.y - 20 - Math.random() * 30,
-        angle: scrap.angle + (Math.random() < 0.5 ? -1 : 1) * (15 + Math.random() * 30),
-        duration: 6000 + Math.random() * 4000,
+        y: scrap.y - 18 - Math.random() * 34,
+        angle: scrap.angle + (Math.random() < 0.5 ? -1 : 1) * (16 + Math.random() * 34),
+        duration: 6200 + Math.random() * 4200,
         yoyo: true,
         repeat: -1,
         ease: 'Sine.easeInOut',
       });
     }
+
+    for (let i = 0; i < 7; i += 1) {
+      const ink = this.add.circle(
+        Math.random() < 0.5 ? 10 + Math.random() * 26 : GAME_WIDTH - 36 + Math.random() * 26,
+        120 + Math.random() * 620,
+        5 + Math.random() * 18,
+        COLORS.ink,
+        0.035 + Math.random() * 0.045,
+      ).setDepth(PARTICLE_DEPTH);
+      void ink;
+    }
   }
 
   private addTitleDecoration(): void {
-    const depth = UI_DEPTH + 1;
+    const depth = UI_DEPTH + 2;
     const g = this.add.graphics().setDepth(depth);
 
-    g.lineStyle(1, STORYBOOK_UI.gold, 0.28);
-    g.strokeRect(GAME_WIDTH / 2 - 130, 72, 260, 2);
-    g.strokeRect(GAME_WIDTH / 2 - 110, 162, 220, 1);
+    g.fillStyle(0x060817, 0.34).fillRect(GAME_WIDTH / 2 - 136, 58, 272, 104);
+    g.lineStyle(1, STORYBOOK_UI.gold, 0.26);
+    g.strokeRect(GAME_WIDTH / 2 - 130, 68, 260, 1);
+    g.strokeRect(GAME_WIDTH / 2 - 110, 158, 220, 1);
+    drawMapThreads(g, GAME_WIDTH / 2, 166, 172, 0.14);
 
-    const lampGlow = this.add.circle(GAME_WIDTH / 2, 58, 8, COLORS.lantern, 0.18).setDepth(depth);
-    const lampCore = this.add.circle(GAME_WIDTH / 2, 58, 3, COLORS.lantern, 0.52).setDepth(depth);
+    const lampGlow = this.add.circle(GAME_WIDTH / 2, 52, 10, COLORS.lantern, 0.18).setDepth(depth).setBlendMode('ADD');
+    const lampCore = this.add.circle(GAME_WIDTH / 2, 52, 3, COLORS.lantern, 0.62).setDepth(depth).setBlendMode('ADD');
     this.tweens.add({
       targets: lampGlow,
-      alpha: { from: 0.12, to: 0.26 },
-      scale: { from: 0.9, to: 1.15 },
+      alpha: { from: 0.12, to: 0.28 },
+      scale: { from: 0.9, to: 1.18 },
       duration: 2200,
       yoyo: true,
       repeat: -1,
@@ -166,31 +191,65 @@ export class TopScene extends Phaser.Scene {
     void lampCore;
 
     [-1, 1].forEach((side) => {
-      const x = GAME_WIDTH / 2 + side * 138;
-      const inkDot = this.add.circle(x, 118, 4, COLORS.ink, 0.32).setDepth(depth);
+      const x = GAME_WIDTH / 2 + side * 142;
+      const inkDot = this.add.circle(x, 118, 4, COLORS.ink, 0.3).setDepth(depth);
       void inkDot;
     });
+  }
+
+  private addCurrencyTag(currency: number): void {
+    const tag = this.add.container(GAME_WIDTH / 2, 178).setDepth(UI_DEPTH + 3);
+    const g = this.add.graphics();
+    drawPremiumPaperCard(g, 0, 0, 132, 28, { accent: STORYBOOK_UI.gold, paper: 0x2a2540, muted: true });
+    const label = this.text(0, 0, `黒曜片 ${currency}`, 14, STORYBOOK_UI.goldLight, true);
+    tag.add([g, label]);
+  }
+
+  private addHeroLantern(): void {
+    drawLanternFocus(this, GAME_WIDTH / 2, 286, { radius: 110, depth: UI_DEPTH + 1, alpha: 0.16 });
+
+    const c = this.add.container(GAME_WIDTH / 2, 288).setDepth(UI_DEPTH + 3);
+    const g = this.add.graphics();
+    g.fillStyle(0x080915, 0.76).fillEllipse(0, 66, 92, 16);
+
+    g.fillStyle(0x1f1b32, 0.98).fillCircle(-16, 7, 24);
+    g.fillStyle(0x29223a, 0.98).fillEllipse(-10, 42, 46, 62);
+    g.fillStyle(0x0b0b18, 0.55).fillEllipse(-3, 48, 22, 52);
+
+    g.lineStyle(3, STORYBOOK_UI.goldLight, 0.42).lineBetween(8, 17, 28, 32);
+    g.fillStyle(0x6a5334, 0.94).fillRect(24, 26, 18, 24);
+    g.lineStyle(1, STORYBOOK_UI.goldLight, 0.86).strokeRect(23, 25, 20, 26);
+    g.fillStyle(STORYBOOK_UI.goldLight, 0.86).fillRect(29, 31, 8, 12);
+    g.fillStyle(STORYBOOK_UI.goldLight, 0.3).fillCircle(33, 38, 30);
+
+    g.lineStyle(2, 0x6f5840, 0.72).lineBetween(-25, 20, 12, 60);
+    g.fillStyle(0x3a2d31, 0.92).fillEllipse(18, 58, 20, 16);
+    g.fillStyle(STORYBOOK_UI.paperLight, 0.62).fillCircle(-22, 2, 3);
+
+    c.add(g);
+    this.tweens.add({ targets: c, y: c.y - 4, duration: 2300, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+
+    const whisper = this.text(GAME_WIDTH / 2, 382, '小さな灯りは、まだ消えない', 12, STORYBOOK_UI.textMuted, false).setDepth(UI_DEPTH + 3);
+    whisper.setAlpha(0.72);
   }
 
   private addBottomDecoration(): void {
     const depth = UI_DEPTH + 1;
     const g = this.add.graphics().setDepth(depth);
-    g.lineStyle(1, STORYBOOK_UI.gold, 0.16);
-    g.strokeRect(GAME_WIDTH / 2 - 80, 550, 160, 1);
-
-    const mapLine = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 60, 140, 1, COLORS.mapLine, 0.18)
-      .setDepth(depth);
-    void mapLine;
+    g.lineStyle(1, STORYBOOK_UI.gold, 0.14);
+    g.strokeRect(GAME_WIDTH / 2 - 86, 728, 172, 1);
+    drawMapThreads(g, GAME_WIDTH / 2, GAME_HEIGHT - 54, 156, 0.16);
   }
 
   private showFirstTimeIntro(mainBtn: Phaser.GameObjects.Container): void {
-    const introText = this.text(GAME_WIDTH / 2, 236, 'まずは夜へ。影をほどき、記憶を拾う。', 12, STORYBOOK_UI.goldLight, true)
-      .setDepth(UI_DEPTH + 4).setAlpha(0);
+    const introText = this.text(GAME_WIDTH / 2, 412, 'まずは夜へ。影をほどき、記憶を拾う。', 12, STORYBOOK_UI.goldLight, true)
+      .setDepth(UI_DEPTH + 6).setAlpha(0);
     this.tweens.add({ targets: introText, alpha: 1, duration: 600, delay: 500, ease: 'Quad.easeOut' });
     this.tweens.add({ targets: introText, alpha: 0, duration: 500, delay: 6000, ease: 'Quad.easeIn' });
 
-    const glow = this.add.rectangle(GAME_WIDTH / 2, 292, 270, 72, STORYBOOK_UI.goldLight, 0)
-      .setDepth(UI_DEPTH + 2);
+    const glow = this.add.rectangle(GAME_WIDTH / 2, 454, 282, 74, STORYBOOK_UI.goldLight, 0)
+      .setDepth(UI_DEPTH + 4)
+      .setBlendMode('ADD');
     this.tweens.add({
       targets: glow,
       alpha: { from: 0, to: 0.18 },
@@ -225,13 +284,14 @@ export class TopScene extends Phaser.Scene {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
     if (primary) {
-      drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
-      fill.lineStyle(2, STORYBOOK_UI.goldLight, 0.5);
-      fill.strokeRoundedRect(-width / 2 + 6, -height / 2 + 6, width - 12, height - 12, 5);
+      drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperLight, selected: true });
+      const idleGlow = this.add.rectangle(0, 0, width + 10, height + 10, STORYBOOK_UI.goldLight, 0.08).setBlendMode('ADD');
+      c.add(idleGlow);
+      this.tweens.add({ targets: idleGlow, alpha: { from: 0.05, to: 0.13 }, scaleX: { from: 1, to: 1.02 }, scaleY: { from: 1, to: 1.04 }, duration: 1900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     } else if (muted) {
-      drawStorybookPanel(fill, 0, 0, width, height, 0x25213d, 0x6f6590, 0.9);
+      drawPremiumPaperCard(fill, 0, 0, width, height, { accent: 0x76688d, paper: 0x27233e, muted: true });
     } else {
-      drawPaperCard(fill, 0, 0, width, height, STORYBOOK_UI.gold, STORYBOOK_UI.paperLight);
+      drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.gold, paper: STORYBOOK_UI.paperLight });
     }
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this, hit, c, {
@@ -239,7 +299,7 @@ export class TopScene extends Phaser.Scene {
       y,
       width,
       height,
-      accent: muted ? 0x6f6590 : STORYBOOK_UI.goldLight,
+      accent: muted ? 0x786991 : STORYBOOK_UI.goldLight,
       depth: 1000,
       strong: primary || height >= 46,
       shake: primary || (!muted && height >= 46),
