@@ -24,6 +24,7 @@ import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStag
 import { stageBackgroundTextureKey } from '../ui/background';
 import { attachPressFeedback } from '../ui/pressFeedback';
 import { recipeForStage, stageRecipes } from '../data/waves';
+import { getAudioManager } from '../audio/AudioManager';
 export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
@@ -66,6 +67,9 @@ export class StageSelectScene extends Phaser.Scene {
   }
 
   create(): void {
+    const audio = getAudioManager(this);
+    audio.unlockOnFirstInput();
+    audio.playBgm(this.mode === 'growth' ? 'bgm_growth' : 'bgm_top', { volume: 0.3, fadeMs: 220 });
     this.render();
     void this.ensureBackgroundManifest();
   }
@@ -121,6 +125,7 @@ export class StageSelectScene extends Phaser.Scene {
       root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
       root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 40, '成長へ', () => {
         this.mode = 'growth';
+        getAudioManager(this).playBgm('bgm_growth', { volume: 0.3, fadeMs: 220 });
         this.render();
       }, true));
     } else {
@@ -131,6 +136,7 @@ export class StageSelectScene extends Phaser.Scene {
       root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 42, 148, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
       root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 42, 148, 38, 'ステージ選択', () => {
         this.mode = 'stage';
+        getAudioManager(this).playBgm('bgm_top', { volume: 0.3, fadeMs: 220 });
         this.render();
       }, true));
     }
@@ -390,7 +396,10 @@ export class StageSelectScene extends Phaser.Scene {
       strong: true,
       shake: true,
     });
-    hit.on('pointerdown', onClick);
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe('ui_confirm', { volume: 0.48 });
+      onClick();
+    });
     c.add([fill, this.text(0, 0, label, 18, STORYBOOK_UI.textDark, true), hit]);
     return c;
   }
@@ -411,7 +420,10 @@ export class StageSelectScene extends Phaser.Scene {
       strong: height >= 40,
       shake: !muted && height >= 46,
     });
-    hit.on('pointerdown', onClick);
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe(muted ? 'ui_cancel' : 'ui_select', { volume: 0.36 });
+      onClick();
+    });
     c.add([fill, this.text(0, 0, label, 13, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true), hit]);
     return c;
   }

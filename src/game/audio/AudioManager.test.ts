@@ -1,42 +1,153 @@
-import { describe, it, expect } from 'vitest';
+import fs from 'node:fs';
+import path from 'node:path';
+import { describe, expect, it, vi } from 'vitest';
+import type Phaser from 'phaser';
 
-const KNOWN_SE_KEYS = [
-  'se_hit', 'se_enemyDeath', 'se_expCollect', 'se_levelUp',
-  'se_evolution', 'se_heal', 'se_playerDamage', 'se_ultimate',
-  'se_blackMode', 'se_bossWarning', 'se_clear', 'se_select', 'se_reroll',
-];
-const KNOWN_BGM_KEYS = ['bgm_stage1', 'bgm_boss', 'bgm_clear'];
-const ALL_KNOWN_KEYS = new Set([...KNOWN_SE_KEYS, ...KNOWN_BGM_KEYS]);
+vi.mock('phaser', () => ({
+  default: { Input: { Events: { POINTER_DOWN: 'pointerdown' } } },
+}));
+
+import {
+  AUDIO_ASSET_SPECS,
+  AudioManager,
+  bgmKeyForStage,
+  isCooldownReady,
+  selectPreloadableAudioAssets,
+  type AudioManifest,
+} from './AudioManager';
+
+function readManifest(): AudioManifest {
+  return JSON.parse(fs.readFileSync('public/assets/audio/audio-manifest.json', 'utf-8')) as AudioManifest;
+}
 
 describe('audio-manifest.json contract', () => {
-  it('manifest file is valid JSON with version and assets array', async () => {
-    const fs = await import('fs');
-    const raw = fs.readFileSync('public/assets/audio/audio-manifest.json', 'utf-8');
-    const manifest = JSON.parse(raw);
-    expect(manifest).toHaveProperty('version');
+  it('is valid JSON and separates loaded assets from optional keys', () => {
+    const manifest = readManifest();
+    expect(manifest.version).toBe(2);
     expect(Array.isArray(manifest.assets)).toBe(true);
+    expect(Array.isArray(manifest.optionalKeys)).toBe(true);
   });
 
-  it('all manifest entries have known keys and non-empty urls', async () => {
-    const fs = await import('fs');
-    const raw = fs.readFileSync('public/assets/audio/audio-manifest.json', 'utf-8');
-    const manifest = JSON.parse(raw);
-    for (const entry of manifest.assets) {
-      expect(ALL_KNOWN_KEYS.has(entry.key)).toBe(true);
-      if (entry.url !== undefined) {
-        expect(typeof entry.url).toBe('string');
-        expect(entry.url.length).toBeGreaterThan(0);
-      }
+  it('uses known, unique keys and URLs whose files exist', () => {
+    const manifest = readManifest();
+    const known = new Set(AUDIO_ASSET_SPECS.map((spec) => spec.key));
+    const keys = new Set<string>();
+    const urls = new Set<string>();
+    for (const entry of manifest.assets ?? []) {
+      expect(known.has(entry.key as never)).toBe(true);
+      expect(keys.has(entry.key)).toBe(false);
+      expect(urls.has(entry.url)).toBe(false);
+      expect(fs.existsSync(path.join('public', entry.url.replace(/^\//, '').replace(/^assets\//, 'assets/')))).toBe(true);
+      keys.add(entry.key);
+      urls.add(entry.url);
     }
   });
 
-  it('known keys list matches expected SE and BGM keys', () => {
-    expect(ALL_KNOWN_KEYS.size).toBe(KNOWN_SE_KEYS.length + KNOWN_BGM_KEYS.length);
-    for (const key of KNOWN_SE_KEYS) {
-      expect(key).toMatch(/^se_/);
-    }
-    for (const key of KNOWN_BGM_KEYS) {
-      expect(key).toMatch(/^bgm_/);
-    }
+  it('declares every file-less key optional without overlapping loaded assets', () => {
+    const manifest = readManifest();
+    const loaded = new Set((manifest.assets ?? []).map((entry) => entry.key));
+    const optional = manifest.optionalKeys ?? [];
+    expect(new Set(optional).size).toBe(optional.length);
+    expect(optional.every((key) => !loaded.has(key))).toBe(true);
+    expect(new Set([...loaded, ...optional])).toEqual(new Set(AUDIO_ASSET_SPECS.map((spec) => spec.key)));
+  });
+
+  it('filters unknown, empty and duplicate preload entries', () => {
+    expect(selectPreloadableAudioAssets({
+      assets: [
+        { key: 'hit', url: '/assets/audio/hit.ogg' },
+        { key: 'hit', url: '/assets/audio/hit-duplicate.ogg' },
+        { key: 'ui_select', url: '/assets/audio/hit.ogg' },
+        { key: 'unknown', url: '/assets/audio/unknown.ogg' },
+        { key: 'bgm_top', url: '' },
+      ],
+    })).toEqual([{ key: 'hit', url: '/assets/audio/hit.ogg' }]);
+  });
+});
+
+describe('AudioManager playback policy', () => {
+  it('throttles repeated events at the cooldown boundary', () => {
+    expect(isCooldownReady(100, 154, 55)).toBe(false);
+    expect(isCooldownReady(100, 155, 55)).toBe(true);
+    expect(isCooldownReady(undefined, 0, 55)).toBe(true);
+  });
+
+  it('does not throw when an optional SE is not loaded', () => {
+    let unlock: (() => void) | undefined;
+    const debug = vi.spyOn(console, 'debug').mockImplementation(() => undefined);
+    const scene = {
+      input: { once: (_event: string, cb: () => void) => { unlock = cb; }, off: vi.fn() },
+      sound: { setMute: vi.fn(), unlock: vi.fn(), play: vi.fn() },
+      cache: { audio: { exists: () => false } },
+      time: { now: 100 },
+      tweens: { killTweensOf: vi.fn(), add: vi.fn() },
+    } as unknown as Phaser.Scene;
+    const manager = new AudioManager();
+    manager.init(scene);
+    manager.unlockOnFirstInput();
+    unlock?.();
+    expect(() => manager.playSe('hit')).not.toThrow();
+    expect(debug).toHaveBeenCalledTimes(1);
+    debug.mockRestore();
+  });
+
+  it('does not start the same BGM twice and selects Stage keys', () => {
+    let unlock: (() => void) | undefined;
+    const play = vi.fn();
+    const add = vi.fn(() => ({ isPlaying: true, play, stop: vi.fn(), destroy: vi.fn() }));
+    const scene = {
+      input: { once: (_event: string, cb: () => void) => { unlock = cb; }, off: vi.fn() },
+      sound: { setMute: vi.fn(), unlock: vi.fn(), add },
+      cache: { audio: { exists: () => true } },
+      time: { now: 0 },
+      tweens: { add: vi.fn(), killTweensOf: vi.fn() },
+    } as unknown as Phaser.Scene;
+    const manager = new AudioManager();
+    manager.init(scene);
+    manager.unlockOnFirstInput();
+    unlock?.();
+    expect(manager.playBgm('bgm_stage1')).toBe(true);
+    expect(manager.playBgm('bgm_stage1')).toBe(true);
+    expect(add).toHaveBeenCalledTimes(1);
+    expect(play).toHaveBeenCalledTimes(1);
+    expect(bgmKeyForStage(1)).toBe('bgm_stage1');
+    expect(bgmKeyForStage(2)).toBe('bgm_stage2');
+  });
+
+  it('persists mute and volume settings and restores mute after a scene rebind', () => {
+    const values = new Map<string, string>();
+    vi.stubGlobal('window', {
+      localStorage: {
+        getItem: (key: string) => values.get(key) ?? null,
+        setItem: (key: string, value: string) => values.set(key, value),
+      },
+    });
+    const firstSetMute = vi.fn();
+    const firstOff = vi.fn();
+    const first = {
+      input: { once: vi.fn(), off: firstOff },
+      sound: { setMute: firstSetMute },
+    } as unknown as Phaser.Scene;
+    const secondSetMute = vi.fn();
+    const second = {
+      input: { once: vi.fn(), off: vi.fn() },
+      sound: { setMute: secondSetMute },
+    } as unknown as Phaser.Scene;
+
+    const manager = new AudioManager();
+    manager.init(first);
+    manager.unlockOnFirstInput();
+    manager.setMasterVolume(0.5);
+    manager.setBgmVolume(0.25);
+    manager.setSeVolume(0.4);
+    manager.mute();
+    manager.init(second);
+
+    expect(JSON.parse(values.get('vampPon.audio.v1') ?? '{}')).toEqual({
+      master: 0.5, bgm: 0.25, se: 0.4, muted: true,
+    });
+    expect(firstOff).toHaveBeenCalledTimes(1);
+    expect(secondSetMute).toHaveBeenCalledWith(true);
+    vi.unstubAllGlobals();
   });
 });
