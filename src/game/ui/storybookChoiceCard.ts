@@ -15,9 +15,9 @@ import {
   STORYBOOK_FONT,
   STORYBOOK_UI,
   drawHeart,
-  drawPaperCard,
   storybookCategoryPalette,
 } from './storybookUi';
+import { drawLanternFocus, drawPremiumPaperCard } from './premiumPaperUi';
 
 export type ChoiceSelectionLock = { locked: boolean };
 
@@ -35,20 +35,33 @@ export function createStorybookChoiceCard(
   const category = categoryForChoice(choice);
   const palette = storybookCategoryPalette(category);
   const accent = rarityAccent(choice.rarity ?? 'normal', palette.accent);
+  const isSpecial = choice.rarity === 'rare' || choice.type === 'rare_new';
+  const isGood = choice.rarity === 'good';
   const graphics = scene.add.graphics();
-  drawPaperCard(graphics, 0, 0, width, height, accent, palette.paper);
-  graphics.fillStyle(accent, 0.92).fillRect(-width / 2 + 5, -height / 2 + 5, 5, height - 10);
+  drawPremiumPaperCard(graphics, 0, 0, width, height, {
+    accent,
+    paper: palette.paper,
+    selected: isSpecial || isGood,
+    shadowAlpha: isSpecial ? 0.42 : 0.32,
+  });
+  graphics.fillStyle(accent, isSpecial ? 0.92 : 0.76).fillRect(-width / 2 + 8, -height / 2 + 10, 4, height - 20);
+  graphics.fillStyle(STORYBOOK_UI.paperShadow, 0.16).fillCircle(width / 2 - 14, height / 2 - 13, 5);
   card.add(graphics);
-  if (choice.rarity === 'rare' || choice.type === 'rare_new') {
+
+  if (isSpecial) {
+    const glowFocus = drawLanternFocus(scene, 0, 0, { radius: Math.max(width, height) * 0.48, depth: VIEW_DEPTH.overlay + 9, alpha: 0.055 });
+    glowFocus.setBlendMode('ADD');
+    card.addAt(glowFocus, 0);
+
     const glow = scene.add.graphics();
-    glow.lineStyle(3, STORYBOOK_UI.goldLight, 0.46);
-    glow.strokeRoundedRect(-width / 2 + 4, -height / 2 + 4, width - 8, height - 8, 9);
-    glow.lineStyle(1, 0xffffff, 0.24);
-    glow.strokeRoundedRect(-width / 2 + 10, -height / 2 + 10, width - 20, height - 20, 7);
+    glow.lineStyle(3, STORYBOOK_UI.goldLight, 0.42);
+    glow.strokeRect(-width / 2 + 5, -height / 2 + 5, width - 10, height - 10);
+    glow.lineStyle(1, 0xffffff, 0.2);
+    glow.strokeRect(-width / 2 + 12, -height / 2 + 12, width - 24, height - 24);
     card.add(glow);
     scene.tweens.add({
       targets: glow,
-      alpha: { from: 0.5, to: 1 },
+      alpha: { from: 0.48, to: 1 },
       duration: 780,
       yoyo: true,
       repeat: -1,
@@ -65,15 +78,14 @@ export function createStorybookChoiceCard(
     height,
     accent,
     depth: VIEW_DEPTH.overlay + 14,
-    strong: choice.rarity === 'rare' || choice.type === 'rare_new',
-    shake: choice.rarity === 'rare' || choice.type === 'rare_new',
+    strong: isSpecial,
+    shake: isSpecial,
   });
   hit.on('pointerdown', () => {
     if (selectionLock?.locked) return;
     if (selectionLock) selectionLock.locked = true;
     hit.disableInteractive();
     scene.tweens.killTweensOf(card);
-    const isSpecial = choice.rarity === 'rare' || choice.type === 'rare_new';
 
     const siblings = card.parentContainer?.list.filter(
       (child) => child !== card && child instanceof Phaser.GameObjects.Container,
@@ -125,7 +137,7 @@ export function createStorybookChoiceCard(
     duration: GAME_FEEL_CONFIG.juice.levelUpCardRiseMs + 60,
     delay: staggerDelay,
     ease: 'Back.easeOut',
-    onComplete: () => getEffectManager(scene).rewardCardPop(card, { strong: choice.rarity === 'rare' || choice.type === 'rare_new' }),
+    onComplete: () => getEffectManager(scene).rewardCardPop(card, { strong: isSpecial }),
   });
 
   return card;
@@ -142,14 +154,13 @@ function addRarityTab(
   if (rarity === 'normal') return;
   const label = rarity === 'rare' ? '希少' : '灯り';
   const tabBg = scene.add.graphics();
-  const tabW = rarity === 'rare' ? 48 : 42;
-  const tabH = 18;
+  const tabW = rarity === 'rare' ? 50 : 44;
+  const tabH = 20;
   const tabX = width / 2 - tabW / 2 - 12;
-  const tabY = -height / 2 + 4;
-  tabBg.fillStyle(accent, 0.92).fillRect(tabX - tabW / 2, tabY, tabW, tabH);
-  tabBg.lineStyle(1, 0xffffff, rarity === 'rare' ? 0.4 : 0.2).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
+  const tabY = -height / 2 + 5 + tabH / 2;
+  drawPremiumPaperCard(tabBg, tabX, tabY, tabW, tabH, { accent, paper: accent, selected: rarity === 'rare', shadowAlpha: 0.18 });
   card.add(tabBg);
-  const tab = scene.add.text(tabX, tabY + tabH / 2, label, {
+  const tab = scene.add.text(tabX, tabY, label, {
     fontFamily: STORYBOOK_FONT,
     fontSize: '11px',
     color: '#fff8e7',
@@ -280,15 +291,19 @@ function addBadge(
   label: string,
   accent: number,
 ): void {
-  card.add(scene.add.text(x, y, label, {
+  const badge = scene.add.container(x, y);
+  const bg = scene.add.graphics();
+  const width = Math.max(48, label.length * 8 + 12);
+  drawPremiumPaperCard(bg, 0, 0, width, 18, { accent, paper: accent, selected: false, shadowAlpha: 0.12 });
+  const text = scene.add.text(0, 0, label, {
     fontFamily: STORYBOOK_FONT,
     fontSize: '9px',
     color: '#fff8e7',
     fontStyle: 'bold',
     resolution: 2,
-    backgroundColor: colorString(accent),
-    padding: { left: 4, right: 4, top: 2, bottom: 2 },
-  }).setOrigin(0.5));
+  }).setOrigin(0.5);
+  badge.add([bg, text]);
+  card.add(badge);
 }
 
 function effectTag(choice: LevelUpChoice): string {
