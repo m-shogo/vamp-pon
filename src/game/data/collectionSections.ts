@@ -55,10 +55,10 @@ export const collectionSections: CollectionSection[] = [
     id: 'word_records',
     label: '言葉の記録',
     shortLabel: '言葉',
-    description: 'ロードで出会った名言、語句、キャラ返信を見返す頁。',
+    description: '夜路で出会った名言、語句、キャラ返信を見返す頁。',
     motif: 'words',
     accent: 0xe0b0a6,
-    lockedHint: 'ロードで言葉を見ると、ここに写されます。',
+    lockedHint: '夜路で言葉を見ると、ここに写されます。',
   },
   {
     id: 'achievements',
