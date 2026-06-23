@@ -32,6 +32,8 @@ import { loadProfile, settleRunProgress } from '../persistence/profile';
 import { settleCollectionProgress, type CollectionSettlement } from '../systems/collectionProgress';
 import { STORYBOOK_FONT } from '../ui/storybookUi';
 import { isRunStartUrl } from '../utils/runStartUrl';
+import { loadOnboarding, markSeen } from '../persistence/onboarding';
+import { MicroHintDisplay } from '../ui/microHint';
 
 const PLAYTEST_SNAPSHOT_INTERVAL_MS = 250;
 const SPEED_OPTIONS = [1, 1.3, 1.5] as const;
@@ -74,6 +76,8 @@ export class MainScene extends Phaser.Scene {
   private resultEntered = false;
   private ultimateWasReady = false;
   private berserkWasReady = false;
+  private microHint!: MicroHintDisplay;
+  private onboardingFlags!: ReturnType<typeof loadOnboarding>;
   private onBlur = (): void => this.tryAutoPause();
   private onVisibility = (): void => {
     if (document.hidden) this.tryAutoPause();
@@ -116,6 +120,8 @@ export class MainScene extends Phaser.Scene {
     this.pacingEffects.setStage(this.stageNumber);
     this.atmosphere = new StageAtmosphere(this, this.stageNumber);
     this.berserkFeedback = new BerserkFeedback(this);
+    this.microHint = new MicroHintDisplay(this);
+    this.onboardingFlags = loadOnboarding();
 
     window.addEventListener('blur', this.onBlur);
     document.addEventListener('visibilitychange', this.onVisibility);
@@ -128,6 +134,7 @@ export class MainScene extends Phaser.Scene {
       this.effects.destroy();
       this.pacingEffects.destroy();
       this.atmosphere?.destroy();
+      this.microHint.destroy();
       this.stick.destroy();
       this.hud.destroy();
     });
@@ -139,7 +146,9 @@ export class MainScene extends Phaser.Scene {
     if (isRunStartUrl()) {
       startRun();
     } else {
-      this.overlays.showReady(startRun, this.stageNumber);
+      const firstRun = !this.onboardingFlags.readyHintSeen;
+      if (firstRun) markSeen('readyHintSeen');
+      this.overlays.showReady(startRun, this.stageNumber, firstRun);
     }
 
     this.hud.update(this.state);
@@ -188,12 +197,28 @@ export class MainScene extends Phaser.Scene {
       updateInput(state, this.keys, this.stick.getVector());
       updateMovement(state, dt);
       this.spawnSystem.update(this, state, dt);
+      if (!this.onboardingFlags.eliteHintSeen && state.enemies.some((e) => e.isElite)) {
+        this.microHint.show('強敵出現！倒すとカプセルを落とす');
+        this.onboardingFlags.eliteHintSeen = true;
+        markSeen('eliteHintSeen');
+      }
       updateEnemies(this, state, dt);
       updateWeapons(this, state, dt);
+      const hpBefore = state.player.hp;
       updatePickups(this, state, dt);
+      if (state.player.hp > hpBefore && !this.onboardingFlags.healHintSeen) {
+        this.microHint.show('回復アイテムでHPが回復した');
+        this.onboardingFlags.healHintSeen = true;
+        markSeen('healHintSeen');
+      }
       updateUltimate(this, state, dt);
       if (state.ultimate.ready && !this.ultimateWasReady) {
         this.audio.playSe('ultimate_ready', { volume: 0.5, priority: 1 });
+        if (!this.onboardingFlags.ultimateHintSeen) {
+          this.microHint.show('必殺技が使える！右下のボタンをタップ');
+          this.onboardingFlags.ultimateHintSeen = true;
+          markSeen('ultimateHintSeen');
+        }
       }
       const wasBerserkActive = state.berserk.activeRemaining > 0;
       const berserkActivated = updateBerserk(state, dt, this);
@@ -207,6 +232,11 @@ export class MainScene extends Phaser.Scene {
       }
       if (state.berserk.ready && !this.berserkWasReady) {
         this.audio.playSe('berserk_ready', { volume: 0.48, priority: 1 });
+        if (!this.onboardingFlags.berserkHintSeen) {
+          this.microHint.show('暴走が使える！左下のボタンをタップ');
+          this.onboardingFlags.berserkHintSeen = true;
+          markSeen('berserkHintSeen');
+        }
       }
       this.ultimateWasReady = state.ultimate.ready;
       this.berserkWasReady = state.berserk.ready;
@@ -348,6 +378,10 @@ export class MainScene extends Phaser.Scene {
 
     if (state.status === GAME_STATUS.CAPSULE && state.pendingCapsule) {
       const reward = state.pendingCapsule;
+      if (!this.onboardingFlags.capsuleHintSeen) {
+        this.onboardingFlags.capsuleHintSeen = true;
+        markSeen('capsuleHintSeen');
+      }
       this.overlays.showCapsule(state, reward, () => {
         applyCapsule(state, reward);
         if (reward.type === 'evolution') {
@@ -369,6 +403,11 @@ export class MainScene extends Phaser.Scene {
       if (state.player.level === 3 && state.telemetry.level3Sec === null) state.telemetry.level3Sec = state.elapsedSec;
       this.audio.playSe('levelup', { volume: 0.62, priority: 2 });
       this.effects.levelUp(state.player.x, state.player.y, { label: `Lv.${state.player.level}` });
+      if (!this.onboardingFlags.levelUpHintSeen) {
+        this.microHint.show('武器や忘れ物を選んで強化しよう');
+        this.onboardingFlags.levelUpHintSeen = true;
+        markSeen('levelUpHintSeen');
+      }
       state.status = GAME_STATUS.LEVELUP;
       this.showLevelUpChoices(generateChoices(state));
       return;
@@ -399,6 +438,11 @@ export class MainScene extends Phaser.Scene {
     const collectionSettlement = settleCollectionProgress(state, cleared);
     // eslint-disable-next-line no-console
     console.log('[vamp-pon playlog]', JSON.stringify({ ...log, settlement, collectionSettlement }));
+
+    if (!this.onboardingFlags.resultHintSeen) {
+      this.onboardingFlags.resultHintSeen = true;
+      markSeen('resultHintSeen');
+    }
 
     const showResult = () => {
       if (!this.audio.playBgm('bgm_result', { volume: 0.3, fadeMs: 420 })) {
