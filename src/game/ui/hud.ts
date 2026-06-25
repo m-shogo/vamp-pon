@@ -16,8 +16,8 @@ import {
   drawHeart,
   drawPause,
   drawStar,
-  drawStorybookPanel,
 } from './storybookUi';
+import { drawPaperScrap, drawWaxSeal } from './premiumPaperUi';
 
 const DEPTH = VIEW_DEPTH.hud;
 const TOP_HEIGHT = 72;
@@ -98,16 +98,11 @@ export class Hud {
     private onSpeedToggle: () => void = () => {},
   ) {
     this.topBack = scene.add.graphics().setDepth(DEPTH);
-    drawStorybookPanel(
-      this.topBack,
-      GAME_WIDTH / 2,
-      TOP_HEIGHT / 2,
-      GAME_WIDTH,
-      TOP_HEIGHT,
-      STORYBOOK_UI.nightPanel,
-      STORYBOOK_UI.gold,
-      0.9,
-    );
+    this.topBack.fillStyle(STORYBOOK_UI.deepNight, 0.92).fillRect(0, 0, GAME_WIDTH, TOP_HEIGHT);
+    this.topBack.fillStyle(STORYBOOK_UI.inkViolet, 0.4).fillRect(0, TOP_HEIGHT - 3, GAME_WIDTH, 3);
+    this.topBack.lineStyle(1, STORYBOOK_UI.paperDark, 0.28).lineBetween(0, TOP_HEIGHT, GAME_WIDTH, TOP_HEIGHT);
+    drawPaperScrap(this.topBack, GAME_WIDTH / 2, 20, 140, 28, STORYBOOK_UI.paperBeige, 0.06);
+    drawPaperScrap(this.topBack, 60, 44, 120, 18, STORYBOOK_UI.paperBeige, 0.04);
 
     this.topIcons = scene.add.graphics().setDepth(DEPTH + 2);
     drawHeart(this.topIcons, 22, 23, 16);
@@ -211,19 +206,20 @@ export class Hud {
     );
 
     this.inventoryBack = scene.add.graphics().setDepth(DEPTH);
-    drawStorybookPanel(
-      this.inventoryBack,
-      GAME_WIDTH / 2,
-      INVENTORY_Y,
-      GAME_WIDTH - 8,
-      82,
-      STORYBOOK_UI.nightPanel,
-      STORYBOOK_UI.gold,
-      0.84,
-    );
+    const invLeft = 4;
+    const invTop = Math.round(INVENTORY_Y - 41);
+    const invW = GAME_WIDTH - 8;
+    const invH = 82;
+    this.inventoryBack.fillStyle(STORYBOOK_UI.deepNight, 0.88).fillRect(invLeft, invTop, invW, invH);
+    this.inventoryBack.fillStyle(STORYBOOK_UI.inkViolet, 0.3).fillRect(invLeft, invTop, invW, 3);
+    this.inventoryBack.lineStyle(1, STORYBOOK_UI.paperDark, 0.22).lineBetween(invLeft, invTop, invLeft + invW, invTop);
+    drawPaperScrap(this.inventoryBack, GAME_WIDTH / 2, INVENTORY_Y, 200, 30, STORYBOOK_UI.paperBeige, 0.04);
 
     this.portraitFrame = scene.add.graphics().setDepth(DEPTH + 1);
-    drawStorybookPanel(this.portraitFrame, PORTRAIT_X, PORTRAIT_Y, 60, 60, 0x10162d, STORYBOOK_UI.gold, 0.96);
+    this.portraitFrame.fillStyle(STORYBOOK_UI.inkBlack, 0.4).fillCircle(PORTRAIT_X + 2, PORTRAIT_Y + 2, 30);
+    this.portraitFrame.fillStyle(STORYBOOK_UI.deepNight, 0.96).fillCircle(PORTRAIT_X, PORTRAIT_Y, 30);
+    this.portraitFrame.lineStyle(2, STORYBOOK_UI.paperDark, 0.5).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 30);
+    this.portraitFrame.lineStyle(1, STORYBOOK_UI.warmAmber, 0.18).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 27);
     this.portraitFlame = scene.add.graphics().setDepth(DEPTH + 3);
     this.portraitCharge = scene.add.graphics().setDepth(DEPTH + 4);
     this.portraitPressVisual = scene.add.container(PORTRAIT_X, PORTRAIT_Y).setDepth(DEPTH + 7);
@@ -351,7 +347,7 @@ export class Hud {
     }
     this.previousXpRatio = xpRatio;
     this.xpBar.clear();
-    drawBar(this.xpBar, 132, 59, 126, 5, xpRatio, 0x302742, STORYBOOK_UI.xp);
+    drawBar(this.xpBar, 132, 59, 126, 5, xpRatio, 0x1a1428, STORYBOOK_UI.xp);
     this.drawXpHighlight(xpRatio);
 
     const berserk = state.berserk ?? EMPTY_BERSERK;
@@ -389,40 +385,39 @@ export class Hud {
   private updateSpeedButton(speedMultiplier: number): void {
     const isFast = speedMultiplier > 1.01;
     this.speedBack.clear();
-    drawStorybookPanel(
-      this.speedBack,
-      SPEED_X,
-      SPEED_Y,
-      SPEED_W,
-      SPEED_H,
-      isFast ? 0x241a10 : STORYBOOK_UI.nightPanel,
-      isFast ? STORYBOOK_UI.goldLight : STORYBOOK_UI.gold,
-      isFast ? 0.98 : 0.88,
-    );
+    const sl = Math.round(SPEED_X - SPEED_W / 2);
+    const st = Math.round(SPEED_Y - SPEED_H / 2);
+    this.speedBack.fillStyle(isFast ? 0x1e1508 : STORYBOOK_UI.deepNight, 0.94).fillRect(sl, st, SPEED_W, SPEED_H);
+    this.speedBack.lineStyle(1, isFast ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperDark, isFast ? 0.82 : 0.48).strokeRect(sl, st, SPEED_W, SPEED_H);
+    if (isFast) {
+      this.speedBack.fillStyle(STORYBOOK_UI.warmAmber, 0.1).fillRect(sl + 2, st + 2, SPEED_W - 4, SPEED_H - 4);
+    }
     this.speedText.setText(`x${speedMultiplier.toFixed(1)}`);
-    this.speedText.setColor(isFast ? '#fff0b3' : STORYBOOK_UI.textLight);
+    this.speedText.setColor(isFast ? '#ffe8a8' : STORYBOOK_UI.textLight);
   }
 
   private drawUltimate(ratio: number, ready: boolean, locked: boolean): void {
-    const accent = locked ? 0x665d78 : ready ? STORYBOOK_UI.goldLight : 0x8b80a8;
+    const accent = locked ? 0x665d78 : ready ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperDark;
     const pulse = ready && !locked ? 0.5 + 0.5 * Math.sin(this.scene.time.now * 0.006) : 0;
     this.ultimateBack.clear();
-    this.ultimateBack.fillStyle(0x0c1228, 0.48).fillCircle(ULT_X, ULT_Y, 33);
-    this.ultimateBack.lineStyle(2, accent, 0.9).strokeCircle(ULT_X, ULT_Y, 33);
+    drawWaxSeal(this.ultimateBack, ULT_X, ULT_Y, 30, {
+      color: locked ? 0x3a3548 : ready ? STORYBOOK_UI.dustyRose : 0x4a3d5a,
+      alpha: locked ? 0.6 : 0.88,
+      notches: 14,
+    });
     if (ready && !locked) {
-      this.ultimateBack.lineStyle(2, STORYBOOK_UI.goldLight, 0.32 + pulse * 0.28).strokeCircle(ULT_X, ULT_Y, 37 + pulse * 3);
-      this.ultimateBack.lineStyle(1, 0xffffff, 0.18 + pulse * 0.18).strokeCircle(ULT_X, ULT_Y, 41 + pulse * 2);
-      this.ultimateBack.fillStyle(STORYBOOK_UI.goldLight, 0.34 + pulse * 0.2);
+      this.ultimateBack.fillStyle(STORYBOOK_UI.lanternCore, 0.06 + pulse * 0.06).fillCircle(ULT_X, ULT_Y, 38 + pulse * 3);
+      this.ultimateBack.lineStyle(1, STORYBOOK_UI.warmAmber, 0.22 + pulse * 0.18).strokeCircle(ULT_X, ULT_Y, 38 + pulse * 3);
+      this.ultimateBack.fillStyle(STORYBOOK_UI.lanternCore, 0.3 + pulse * 0.2);
       for (let i = 0; i < 4; i += 1) {
         const angle = this.scene.time.now * 0.0018 + i * Math.PI * 0.5;
-        this.ultimateBack.fillCircle(ULT_X + Math.cos(angle) * 42, ULT_Y + Math.sin(angle) * 42, 1.7 + pulse);
+        this.ultimateBack.fillCircle(ULT_X + Math.cos(angle) * 40, ULT_Y + Math.sin(angle) * 40, 1.5 + pulse);
       }
     }
-    this.ultimateBack.lineStyle(1, 0xffffff, 0.18).strokeCircle(ULT_X, ULT_Y, 27);
-    drawStar(this.ultimateBack, ULT_X, ULT_Y - 5, 13, accent, STORYBOOK_UI.gold, locked ? 0.42 : 1);
-    this.ultimateBack.lineStyle(3, locked ? 0x665d78 : ready ? STORYBOOK_UI.goldLight : STORYBOOK_UI.xp, 0.9);
+    drawStar(this.ultimateBack, ULT_X, ULT_Y - 5, 12, accent, STORYBOOK_UI.paperDark, locked ? 0.42 : 1);
+    this.ultimateBack.lineStyle(3, locked ? 0x665d78 : ready ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.mutedTeal, 0.9);
     this.ultimateBack.beginPath();
-    this.ultimateBack.arc(ULT_X, ULT_Y, 30, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
+    this.ultimateBack.arc(ULT_X, ULT_Y, 27, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.ultimateBack.strokePath();
     this.ultimateText.setText(locked ? '黒曜中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
     this.ultimateText.setColor(locked ? '#8b80a8' : ready ? '#ffe8a8' : STORYBOOK_UI.textLight);
@@ -437,7 +432,7 @@ export class Hud {
     const notice = this.scene.add.text(ULT_X, ULT_Y - 48, '必殺技が使える！', {
       fontFamily: STORYBOOK_FONT,
       fontSize: '12px',
-      color: '#ffe8a8',
+      color: '#f4c46a',
       fontStyle: 'bold',
       resolution: 2,
       stroke: '#0a0816',
@@ -474,10 +469,10 @@ export class Hud {
         ? Math.max(0, Math.min(1, berserk.fatigueRemaining / 0.8))
         : Math.max(0, Math.min(1, berserk.charge / berserk.maxCharge));
     const pulse = active ? 0.72 + Math.sin(this.scene.time.now * 0.018) * 0.28 : 1;
-    const accent = active ? 0xff718c : fatigued ? 0x8b80a8 : ready ? 0xffc06a : STORYBOOK_UI.xp;
+    const accent = active ? STORYBOOK_UI.dustyRose : fatigued ? 0x8b80a8 : ready ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.mutedTeal;
 
     this.portraitCharge.clear();
-    this.portraitCharge.lineStyle(4, 0x090d1d, 0.9).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 33);
+    this.portraitCharge.lineStyle(4, STORYBOOK_UI.inkBlack, 0.8).strokeCircle(PORTRAIT_X, PORTRAIT_Y, 33);
     this.portraitCharge.lineStyle(active ? 4 : 3, accent, active ? pulse : active || ready ? 1 : 0.86);
     this.portraitCharge.beginPath();
     this.portraitCharge.arc(PORTRAIT_X, PORTRAIT_Y, 33, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
@@ -497,7 +492,7 @@ export class Hud {
     }
 
     this.berserkText.setText(active ? `黒曜 ${Math.ceil(berserk.activeRemaining)}秒` : fatigued ? '黒曜反動' : ready ? '黒曜 OK' : `黒曜 ${Math.floor(ratio * 100)}%`);
-    this.berserkText.setColor(active ? (pulse > 0.78 ? '#ffd6de' : '#ff8fa4') : fatigued ? '#b8b0cc' : ready ? '#ffe3a8' : STORYBOOK_UI.textMuted);
+    this.berserkText.setColor(active ? (pulse > 0.78 ? '#e8b0b8' : '#b96a76') : fatigued ? '#b8b0cc' : ready ? '#f4c46a' : STORYBOOK_UI.textMuted);
     this.portraitZone.setName(ready ? '黒曜化を発動' : '黒曜ゲージ');
   }
 
@@ -507,11 +502,11 @@ export class Hud {
 
     const flameAlpha = active ? 0.42 * pulse : 0.18;
     const edgeAlpha = active ? 0.88 * pulse : 0.32;
-    this.portraitFlame.lineStyle(active ? 3 : 2, active ? 0x0a0712 : 0x5d5572, edgeAlpha);
+    this.portraitFlame.lineStyle(active ? 3 : 2, active ? STORYBOOK_UI.inkBlack : 0x5d5572, edgeAlpha);
     this.portraitFlame.strokeCircle(PORTRAIT_X, PORTRAIT_Y, active ? 38 : 35);
     if (!active) return;
 
-    this.portraitFlame.fillStyle(0x090711, flameAlpha);
+    this.portraitFlame.fillStyle(STORYBOOK_UI.inkBlack, flameAlpha);
     for (let i = 0; i < 5; i += 1) {
       const angle = -Math.PI * 0.9 + i * Math.PI * 0.45 + Math.sin(this.scene.time.now * 0.004 + i) * 0.08;
       const x = PORTRAIT_X + Math.cos(angle) * 35;
