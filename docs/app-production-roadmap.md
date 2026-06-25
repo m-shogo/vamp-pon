@@ -21,6 +21,30 @@ Unityへ急がない。
 
 Web版で「面白さの正解」「画面の正解」「演出の正解」を作ってからUnityへ渡す。Unityは作り直し先ではなく、スマホアプリとして強くするための移植先。
 
+## Asset Production Docs
+
+素材量産とUnity移行を破綻させないため、以下を正本として参照する。
+
+| Doc | Purpose |
+|---|---|
+| `docs/asset-factory-master-plan.md` | Asset Factory全体構想 |
+| `docs/asset-quality-gate.md` | 画像素材の採用 / 不採用チェック |
+| `docs/enemy-factory-design.md` | 敵の量産ルール / Stage別敵案 |
+| `docs/weapon-item-factory-design.md` | 武器 / アイテム / 進化 / アイコン量産ルール |
+| `docs/forward-idea-board-asset-production.md` | 先回りアイディア保管場所 |
+
+### Asset Factory Policy
+
+素材は「画像として綺麗」ではなく、以下を満たすものだけ採用する。
+
+```txt
+Readable
+Consistent
+Exportable
+Playable
+Reusable
+```
+
 ## Phase 1: Web版で遊べる完成度を上げる
 
 ### 目的
