@@ -1,29 +1,35 @@
 import Phaser from 'phaser';
 import { queueExistingAssets, queuePrototypeAssets, queueStageBackgrounds } from '../assets/loadAssets';
-import { isCharacterCutinQaUrl } from './CharacterCutinQaScene';
-import { isCore5SpriteSheetPreviewUrl } from './Core5SpriteSheetPreviewScene';
-import { isEliteDefeatBeatQaUrl } from './EliteDefeatBeatQaScene';
-import { isSpriteInspectorUrl } from './SpriteInspectorScene';
-import { isGalleryUrl, isBackgroundPreviewUrl } from './VisualGalleryScene';
-import { isWeaponFeedbackQaUrl as isFxQaUrl } from './WeaponFeedbackQaScene';
-import { isYui96QaUrl } from './Yui96QaScene';
-import { isYuiRageCycleQaUrl } from './YuiRageCycleQaScene';
 import { getRequestedStageNumber } from '../ui/background';
 import { isRunStartUrl } from '../utils/runStartUrl';
 import { loadGameFonts } from '../ui/fonts';
 import { getAudioManager } from '../audio/AudioManager';
+import type { DevSceneRoute } from '../../dev/devSceneRoutes';
 
 export class BootScene extends Phaser.Scene {
+  private devRoutes: DevSceneRoute[] = [];
+  private devIsBackgroundPreview: (() => boolean) | null = null;
+
   constructor() {
     super('BootScene');
   }
 
   async create(): Promise<void> {
+    if (import.meta.env.DEV) {
+      const mod = await import('../../dev/devSceneRoutes');
+      this.devRoutes = mod.DEV_SCENE_ROUTES;
+      this.devIsBackgroundPreview = mod.isBackgroundPreviewUrl;
+    }
+
     await loadGameFonts();
     let count = await queueExistingAssets(this);
-    if (isGalleryUrl() || isCore5SpriteSheetPreviewUrl()) count += await queuePrototypeAssets(this);
 
-    if (isBackgroundPreviewUrl()) {
+    if (import.meta.env.DEV) {
+      const matched = this.devRoutes.find((r) => r.guard());
+      if (matched?.needsPrototypeAssets) count += await queuePrototypeAssets(this);
+    }
+
+    if (this.devIsBackgroundPreview?.()) {
       count += await queueStageBackgrounds(this);
     } else {
       const stageNum = getRequestedStageNumber() ?? 1;
@@ -41,37 +47,13 @@ export class BootScene extends Phaser.Scene {
   }
 
   private startTarget(): void {
-    if (isSpriteInspectorUrl()) {
-      this.scene.start('SpriteInspectorScene');
-      return;
-    }
-    if (isCore5SpriteSheetPreviewUrl()) {
-      this.scene.start('Core5SpriteSheetPreviewScene');
-      return;
-    }
-    if (isYui96QaUrl()) {
-      this.scene.start('Yui96QaScene');
-      return;
-    }
-    if (isYuiRageCycleQaUrl()) {
-      this.scene.start('YuiRageCycleQaScene');
-      return;
-    }
-    if (isCharacterCutinQaUrl()) {
-      this.scene.start('CharacterCutinQaScene');
-      return;
-    }
-    if (isEliteDefeatBeatQaUrl()) {
-      this.scene.start('EliteDefeatBeatQaScene');
-      return;
-    }
-    if (isFxQaUrl()) {
-      this.scene.start('WeaponFeedbackQaScene');
-      return;
-    }
-    if (isGalleryUrl()) {
-      this.scene.start('VisualGalleryScene');
-      return;
+    if (import.meta.env.DEV) {
+      for (const route of this.devRoutes) {
+        if (route.guard()) {
+          this.scene.start(route.sceneName);
+          return;
+        }
+      }
     }
     this.scene.start(isRunStartUrl() ? 'MainScene' : 'TopScene');
   }

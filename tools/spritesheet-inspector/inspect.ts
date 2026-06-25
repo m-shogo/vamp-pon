@@ -290,6 +290,10 @@ function inspectSheet(filePath: string, overrideFormat?: SheetFormat): InspectRe
     });
   }
 
+  if (ihdr.colorType !== 6 || ihdr.bitDepth !== 8 || ihdr.interlace !== 0) {
+    return { file: basename(filePath), format: fmt, warnings, cells: [] };
+  }
+
   const cellW = ihdr.width / fmt.columns;
   const cellH = ihdr.height / fmt.rows;
 

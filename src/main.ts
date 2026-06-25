@@ -1,6 +1,4 @@
 import Phaser from 'phaser';
-import { installLocalQaLauncher } from './dev/localQaLauncher';
-import { installQaErrorLogger } from './dev/qaErrorLogger';
 import { BootScene } from './game/scenes/BootScene';
 import { CollectionScene } from './game/scenes/CollectionScene';
 import { MainScene } from './game/scenes/MainScene';
@@ -8,7 +6,10 @@ import { StageSelectScene } from './game/scenes/StageSelectScene';
 import { TopScene } from './game/scenes/TopScene';
 import './styles.css';
 
-installQaErrorLogger();
+if (import.meta.env.DEV) {
+  const { installQaErrorLogger } = await import('./dev/qaErrorLogger');
+  installQaErrorLogger();
+}
 
 const productionScenes: Phaser.Types.Scenes.SceneType[] = [
   BootScene,
@@ -58,5 +59,8 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 const game = new Phaser.Game(config);
-if (import.meta.env.DEV) (window as unknown as { __game?: Phaser.Game }).__game = game;
-installLocalQaLauncher();
+if (import.meta.env.DEV) {
+  (window as unknown as { __game?: Phaser.Game }).__game = game;
+  const { installLocalQaLauncher } = await import('./dev/localQaLauncher');
+  installLocalQaLauncher();
+}
