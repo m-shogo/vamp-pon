@@ -10,6 +10,7 @@ import { MainScene } from './game/scenes/MainScene';
 import { StageSelectScene } from './game/scenes/StageSelectScene';
 import { TopScene } from './game/scenes/TopScene';
 import { VisualGalleryScene } from './game/scenes/VisualGalleryScene';
+import { SpriteInspectorScene } from './game/scenes/SpriteInspectorScene';
 import { WeaponFeedbackQaScene } from './game/scenes/WeaponFeedbackQaScene';
 import { Yui96QaScene } from './game/scenes/Yui96QaScene';
 import { YuiRageCycleQaScene } from './game/scenes/YuiRageCycleQaScene';
@@ -46,6 +47,7 @@ const config: Phaser.Types.Core.GameConfig = {
     YuiRageCycleQaScene,
     CharacterCutinQaScene,
     EliteDefeatBeatQaScene,
+    SpriteInspectorScene,
     WeaponFeedbackQaScene,
   ],
 };
