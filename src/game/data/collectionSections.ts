@@ -46,7 +46,7 @@ export const collectionSections: CollectionSection[] = [
     id: 'keeper_records',
     label: '灯し手の記録',
     shortLabel: '灯',
-    description: 'ユイたちの灯名、黒耀、朝明、関係性を記す頁。',
+    description: 'ユイたちの灯名、黒曜、朝明、関係性を記す頁。',
     motif: 'keeper',
     accent: 0x79bea9,
     lockedHint: '灯し手の記録は、朝明や会話で少しずつ開きます。',

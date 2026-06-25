@@ -309,7 +309,7 @@ export class CollectionScene extends Phaser.Scene {
     drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0x79bea9, 0.9);
     root.add(card);
     root.add(this.text(GAME_WIDTH / 2, 184, '灯し手の記録', 20, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 208, '灯名・黒耀・朝明・欠けた心を、絵札として残す頁。', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 208, '灯名・黒曜・朝明・欠けた心を、絵札として残す頁。', 11, STORYBOOK_UI.textMuted));
 
     keeperRecords.forEach((record, index) => {
       const x = GAME_WIDTH / 2 - 132 + index * 66;

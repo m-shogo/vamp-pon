@@ -34,10 +34,10 @@ const BASE_STATE: YuiVisualFrameState = {
 
 const STEPS: Array<{ label: string; state: YuiVisualFrameState }> = [
   { label: '通常待機', state: { ...BASE_STATE } },
-  { label: '黒耀充填 25%', state: { ...BASE_STATE, berserkCharge: 25 } },
-  { label: '黒耀充填 50%', state: { ...BASE_STATE, berserkCharge: 50 } },
-  { label: '黒耀充填 75%', state: { ...BASE_STATE, berserkCharge: 75 } },
-  { label: '黒耀化可能・震え', state: { ...BASE_STATE, berserkCharge: 100, berserkReady: true } },
+  { label: '黒曜充填 25%', state: { ...BASE_STATE, berserkCharge: 25 } },
+  { label: '黒曜充填 50%', state: { ...BASE_STATE, berserkCharge: 50 } },
+  { label: '黒曜充填 75%', state: { ...BASE_STATE, berserkCharge: 75 } },
+  { label: '黒曜化可能・震え', state: { ...BASE_STATE, berserkCharge: 100, berserkReady: true } },
   { label: '黒灯化・うずくまり', state: { ...BASE_STATE, berserkActiveRemaining: 7.9 } },
   { label: '黒灯化ピーク', state: { ...BASE_STATE, berserkActiveRemaining: 7.7 } },
   { label: '黒灯待機 A', state: { ...BASE_STATE, berserkActiveRemaining: 6.8, walkFrame: 0 } },
@@ -49,8 +49,8 @@ const STEPS: Array<{ label: string; state: YuiVisualFrameState }> = [
   { label: '黒灯・背面移動', state: { ...BASE_STATE, facing: 'back', moving: true, walkFrame: 0, berserkActiveRemaining: 3.5 } },
   { label: '黒灯中の被弾', state: { ...BASE_STATE, hurt: true, berserkActiveRemaining: 2.8 } },
   { label: '黒灯崩落', state: { ...BASE_STATE, berserkActiveRemaining: 0.4 } },
-  { label: '黒耀ゲージ切れ', state: { ...BASE_STATE, berserkActiveRemaining: 0.15 } },
-  { label: '黒耀反動', state: { ...BASE_STATE, berserkFatigueRemaining: 0.6 } },
+  { label: '黒曜ゲージ切れ', state: { ...BASE_STATE, berserkActiveRemaining: 0.15 } },
+  { label: '黒曜反動', state: { ...BASE_STATE, berserkFatigueRemaining: 0.6 } },
   { label: '通常へ復帰', state: { ...BASE_STATE } },
 ];
 

@@ -89,7 +89,7 @@ export const enemies: EnemyDefinition[] = [
     patternIds: ['chase.slowHeavy'],
     visualKind: 'label_elite',
     drops: [{ type: 'memory_capsule', chance: 1 }],
-    description: '黒耀に近づいた大型のカゲモノ。ほどくと、記憶カプセルを落とす。',
+    description: '黒曜に近づいた大型のカゲモノ。ほどくと、記憶カプセルを落とす。',
     lore: '名前の書かれたラベルが黒く塗りつぶされている。オンブロの中でも、夜が濃い個体。',
   },
 ];

@@ -44,10 +44,10 @@ export class CharacterCutinQaScene extends Phaser.Scene {
     }).setOrigin(0.5, 0);
 
     this.addFallbackPreview(105, 165, '通常fallback', 0xead9a6, 0xd9b65f, '#352c20');
-    this.addFallbackPreview(285, 165, '黒耀化fallback', 0x17101f, 0xcaa6d1, '#f4d9fa');
+    this.addFallbackPreview(285, 165, '黒曜化fallback', 0x17101f, 0xcaa6d1, '#f4d9fa');
 
     this.addButton(195, 270, '通常必殺を再生', 'ultimate');
-    this.addButton(195, 380, '黒耀化を再生', 'berserk');
+    this.addButton(195, 380, '黒曜化を再生', 'berserk');
 
     this.statusText = this.add.text(26, 492, '', {
       fontFamily: FONT,
@@ -103,18 +103,18 @@ export class CharacterCutinQaScene extends Phaser.Scene {
     this.statusText?.setText([
       '現在の解決結果',
       `通常必殺: ${formatVisual(ultimate)}`,
-      `黒耀化: ${formatVisual(berserk)}`,
+      `黒曜化: ${formatVisual(berserk)}`,
       '',
       `production ultimate: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.ultimate) ? 'loaded' : 'not loaded'}`,
       `production black: ${this.textures.exists(CHARACTER_CUTIN_TEXTURE.berserk) ? 'loaded' : 'not loaded'}`,
       '',
       'fallback色:',
       '・通常必殺 = 暖色紙パネル',
-      '・黒耀化 = 紫黒パネル',
+      '・黒曜化 = 紫黒パネル',
       '',
       '確認:',
       '・敵や弾を長時間隠さない',
-      '・通常必殺と黒耀化の色と意味が混ざらない',
+      '・通常必殺と黒曜化の色と意味が混ざらない',
       '・終了後に表示物が残らない',
     ]);
   }

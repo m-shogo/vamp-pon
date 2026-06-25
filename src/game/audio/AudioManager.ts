@@ -60,7 +60,7 @@ export const AUDIO_ASSET_SPECS: readonly AudioAssetSpec[] = [
     ['boss_warning', 'ボス警告'], ['boss_hit', 'ボスへの強打'], ['boss_defeat', 'ボス撃破'],
   ]),
   ...specs('berserk', 0.58, [
-    ['berserk_ready', '黒耀準備完了'], ['berserk_start', '黒耀開始'], ['berserk_end', '黒耀終了'],
+    ['berserk_ready', '黒曜準備完了'], ['berserk_start', '黒曜開始'], ['berserk_end', '黒曜終了'],
   ]),
   ...specs('ultimate', 0.62, [
     ['ultimate_ready', '必殺準備完了'], ['ultimate_fire', '必殺発動'], ['ultimate_cut_in', '必殺カットイン'],

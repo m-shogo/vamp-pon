@@ -15,6 +15,7 @@ type StorybookUiTokens = {
   paperLight: number;
   paperShadow: number;
   paperEdge: number;
+  paperDark: number;
   textDark: string;
   textSoft: string;
   textLight: string;
@@ -26,6 +27,15 @@ type StorybookUiTokens = {
   passive: number;
   rare: number;
   special: number;
+  deepNight: number;
+  inkViolet: number;
+  paperBeige: number;
+  warmAmber: number;
+  lanternCore: number;
+  mutedTeal: number;
+  dustyRose: number;
+  dawnPeach: number;
+  inkBlack: number;
 };
 
 export const STORYBOOK_UI: StorybookUiTokens = {
@@ -37,6 +47,7 @@ export const STORYBOOK_UI: StorybookUiTokens = {
   paperLight: 0xf4ead4,
   paperShadow: 0xc3aa85,
   paperEdge: 0x6c5747,
+  paperDark: 0x6e5a3b,
   textDark: '#2e2730',
   textSoft: '#6c5d52',
   textLight: '#f4e8cf',
@@ -48,6 +59,15 @@ export const STORYBOOK_UI: StorybookUiTokens = {
   passive: 0xa98bd2,
   rare: 0x79bea9,
   special: 0xd9879b,
+  deepNight: 0x0f1320,
+  inkViolet: 0x151020,
+  paperBeige: 0xd8c49a,
+  warmAmber: 0xf4c46a,
+  lanternCore: 0xffe7ae,
+  mutedTeal: 0x6fae9b,
+  dustyRose: 0xb96a76,
+  dawnPeach: 0xdfa07a,
+  inkBlack: 0x07060b,
 };
 
 export function storybookCategoryPalette(category: InventoryIconCategory | 'heal') {

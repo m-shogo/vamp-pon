@@ -18,7 +18,7 @@ import { getBondEntry, pairUltimateForBond } from './bondProgress';
 
 const ULTIMATE_POSE_SEC = 0.48;
 
-/** 必殺技ゲージの充填と発動。黒耀ゲージとは完全に独立。 */
+/** 必殺技ゲージの充填と発動。黒曜ゲージとは完全に独立。 */
 export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const ult = state.ultimate;
 

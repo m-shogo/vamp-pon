@@ -65,7 +65,7 @@ export const assetManifest: AssetManifestEntry[] = [
     width: 1440,
     height: 360,
     kind: 'ui',
-    description: 'ユイ黒耀化の横長カットイン。1440x360 RGBA。',
+    description: 'ユイ黒曜化の横長カットイン。1440x360 RGBA。',
     required: false,
     fallback: false,
   },

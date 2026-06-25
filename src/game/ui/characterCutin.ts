@@ -239,7 +239,7 @@ function addImageCutin(
   const bottomLine = scene.add.rectangle(GAME_WIDTH / 2, y + CUTIN_BANNER_HEIGHT / 2 - 2, GAME_WIDTH + 72, 5, isBerserk ? lantern : accent, isBerserk ? 0.5 : 0.66).setBlendMode('ADD');
   const labelBack = scene.add.rectangle(86, y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, isBerserk ? 0x120818 : 0x2f2310, 0.78);
   labelBack.setStrokeStyle(1, isBerserk ? lantern : accent, 0.82);
-  const label = scene.add.text(86, labelBack.y, isBerserk ? '黒耀化' : '必殺', {
+  const label = scene.add.text(86, labelBack.y, isBerserk ? '黒曜化' : '必殺', {
     fontFamily: TITLE_FONT,
     fontSize: '18px',
     color: isBerserk ? '#ffe1b8' : '#fff0b3',
@@ -267,7 +267,7 @@ function addFallbackCutin(
   const accent = isBerserk ? 0x38203f : 0xd9b65f;
   const paper = isBerserk ? 0x17101f : 0xeee1bd;
   const textColor = isBerserk ? '#ffe1b8' : '#332817';
-  const title = isBerserk ? '黒耀化' : '灯りよ、帰り道を';
+  const title = isBerserk ? '黒曜化' : '灯りよ、帰り道を';
   const subtitle = isBerserk ? '黒に沈んでも、灯りは残る' : '忘れたものを照らし出す';
 
   const panel = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y, GAME_WIDTH + 36, 184, paper, 0.97)

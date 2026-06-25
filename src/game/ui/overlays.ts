@@ -39,6 +39,15 @@ import {
   drawStorybookPanel,
   storybookCategoryPalette,
 } from './storybookUi';
+import {
+  drawDawnGlow,
+  drawInkDivider,
+  drawLargeNotebookPage,
+  drawPrimaryPaperCta,
+  drawRankSeal,
+  drawRewardIconCard,
+  drawSecondaryPaperButton,
+} from './premiumPaperUi';
 import { getAudioManager } from '../audio/AudioManager';
 
 const D = VIEW_DEPTH.overlay;
@@ -473,68 +482,74 @@ export class Overlays {
     onStageSelect: () => void,
   ): void {
     const root = this.dim(cleared ? 0.72 : 0.86);
-    if (cleared) this.addResultWarmGlow(root);
+    if (cleared) {
+      const dawn = drawDawnGlow(this.scene, GAME_WIDTH, { y: 40, height: 180, alpha: 0.08 });
+      root.add(dawn);
+    }
 
-    const panel = this.scene.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 366, 770, STORYBOOK_UI.nightPanel, cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special, 0.97);
-    root.add(panel);
     const stats = state.stats;
     const survived = Math.floor(stats.survivedSec);
     const mm = Math.floor(survived / 60).toString().padStart(2, '0');
     const ss = (survived % 60).toString().padStart(2, '0');
+    const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
+
+    const pageW = 360;
+    const pageH = 620;
+    const pageX = GAME_WIDTH / 2;
+    const pageY = 50 + pageH / 2;
+    const pageG = this.scene.add.graphics();
+    drawLargeNotebookPage(pageG, pageX, pageY, pageW, pageH, {
+      accent: cleared ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.dustyRose,
+    });
+    pageG.setAlpha(0);
+    root.add(pageG);
+    this.scene.tweens.add({ targets: pageG, alpha: 1, duration: 300, ease: 'Quad.easeOut' });
 
     const titleText = cleared ? '夜明け' : '夜に飲まれた';
-    const titleSize = cleared ? 32 : 26;
-    const titleColor = cleared ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textLight;
-    const resultTitle = this.text(GAME_WIDTH / 2, 80, titleText, titleSize, titleColor, true);
+    const titleSize = cleared ? 30 : 24;
+    const titleColor = cleared ? STORYBOOK_UI.textDark : STORYBOOK_UI.textDark;
+    const resultTitle = this.text(pageX, 88, titleText, titleSize, titleColor, true);
     resultTitle.setScale(0.7).setAlpha(0);
     root.add(resultTitle);
     this.scene.tweens.add({ targets: resultTitle, scale: 1, alpha: 1, duration: 400, delay: 100, ease: 'Back.easeOut' });
 
-    root.add(this.text(GAME_WIDTH / 2, 118, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 14, STORYBOOK_UI.goldLight, true));
-    this.addResultRank(root, cleared, state.player.level, stats.kills, stats.evolutions.length);
+    root.add(this.text(pageX, 120, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.textSoft, true));
 
-    // 「主要結果カード」: 紙パネル上に行ごとに アイコン色 + ラベル + 値
-    const cardX = GAME_WIDTH / 2;
-    const cardTopY = 144;
-    const cardHeight = 232;
-    const cardGraphics = this.scene.add.graphics();
-    drawPaperCard(
-      cardGraphics,
-      cardX,
-      cardTopY + cardHeight / 2,
-      316,
-      cardHeight,
-      cleared ? STORYBOOK_UI.gold : STORYBOOK_UI.special,
-      STORYBOOK_UI.paper,
-    );
-    root.add(cardGraphics);
+    const sealContainer = drawRankSeal(this.scene, pageX + pageW / 2 - 42, 106, rank, { radius: 32, depth: D + 2 });
+    sealContainer.setScale(0).setAlpha(0);
+    root.add(sealContainer);
+    this.scene.tweens.add({ targets: sealContainer, scale: 1, alpha: 1, duration: 380, delay: 300, ease: 'Back.easeOut' });
 
+    const divG = this.scene.add.graphics();
+    drawInkDivider(divG, pageX, 142, pageW - 60);
+    root.add(divG);
+
+    const recordsTopY = 160;
     const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
       ? ` (Lv ${settlement.characterLevelBefore}→${settlement.characterLevelAfter})`
       : '';
     const rows: Array<{ icon: number; label: string; value: string; countTo?: number; format?: (value: number) => string }> = [
-      { icon: 0xb8e0ff, label: '生存時間', value: `${mm}:${ss}` },
-      { icon: 0xffd693, label: '灯度（Lv）', value: `Lv.${state.player.level}`, countTo: state.player.level, format: (value) => `Lv.${value}` },
-      { icon: 0xc7b0ff, label: 'ほどいた影', value: `${stats.kills}`, countTo: stats.kills },
-      { icon: 0xfff1c8, label: '記憶のかけら', value: `${stats.memoryFragmentsCollected}`, countTo: stats.memoryFragmentsCollected },
-      { icon: 0xffc1a8, label: 'カプセル', value: `${stats.capsulesOpened}`, countTo: stats.capsulesOpened },
-      { icon: 0xf5d58a, label: '黒曜片', value: `+${settlement.currencyEarned}　(所持 ${ownedCurrency})`, countTo: settlement.currencyEarned, format: (value) => `+${value}　(所持 ${ownedCurrency})` },
-      { icon: 0xa6e3a1, label: 'キャラEXP', value: `+${settlement.characterXpEarned}${levelUpText}`, countTo: settlement.characterXpEarned, format: (value) => `+${value}${levelUpText}` },
+      { icon: STORYBOOK_UI.mutedTeal, label: '生存時間', value: `${mm}:${ss}` },
+      { icon: STORYBOOK_UI.warmAmber, label: '灯度（Lv）', value: `Lv.${state.player.level}`, countTo: state.player.level, format: (value) => `Lv.${value}` },
+      { icon: STORYBOOK_UI.dustyRose, label: 'ほどいた影', value: `${stats.kills}`, countTo: stats.kills },
+      { icon: STORYBOOK_UI.lanternCore, label: '記憶のかけら', value: `${stats.memoryFragmentsCollected}`, countTo: stats.memoryFragmentsCollected },
+      { icon: STORYBOOK_UI.dawnPeach, label: 'カプセル', value: `${stats.capsulesOpened}`, countTo: stats.capsulesOpened },
+      { icon: STORYBOOK_UI.warmAmber, label: '黒曜片', value: `+${settlement.currencyEarned}　(${ownedCurrency})`, countTo: settlement.currencyEarned, format: (value) => `+${value}　(${ownedCurrency})` },
+      { icon: STORYBOOK_UI.mutedTeal, label: 'キャラEXP', value: `+${settlement.characterXpEarned}${levelUpText}`, countTo: settlement.characterXpEarned, format: (value) => `+${value}${levelUpText}` },
     ];
 
     rows.forEach((row, i) => {
-      const y = cardTopY + 22 + i * 30;
-      const rowDelay = 180 + i * 70;
-      const iconCircle = this.scene.add.circle(cardX - 142, y, 7, row.icon, 0.95);
-      iconCircle.setStrokeStyle(1, row.icon, 0.4);
-      iconCircle.setAlpha(0);
-      root.add(iconCircle);
-      this.scene.tweens.add({ targets: iconCircle, alpha: 1, scale: { from: 0.5, to: 1 }, duration: 200, delay: rowDelay, ease: 'Back.easeOut' });
+      const y = recordsTopY + i * 28;
+      const rowDelay = 180 + i * 60;
+      const iconDot = this.scene.add.circle(pageX - 148, y, 5, row.icon, 0.85);
+      iconDot.setStrokeStyle(1, STORYBOOK_UI.paperEdge, 0.3);
+      iconDot.setAlpha(0);
+      root.add(iconDot);
+      this.scene.tweens.add({ targets: iconDot, alpha: 1, scale: { from: 0.5, to: 1 }, duration: 200, delay: rowDelay, ease: 'Back.easeOut' });
 
-      const labelText = this.scene.add.text(cardX - 126, y, row.label, {
+      const labelText = this.scene.add.text(pageX - 134, y, row.label, {
         fontFamily: STORYBOOK_FONT,
-        fontSize: '13px',
+        fontSize: '12px',
         color: STORYBOOK_UI.textDark,
         fontStyle: 'bold',
         resolution: 2,
@@ -543,9 +558,9 @@ export class Overlays {
       this.scene.tweens.add({ targets: labelText, alpha: 1, x: labelText.x + 4, duration: 180, delay: rowDelay + 40, ease: 'Quad.easeOut' });
       labelText.x -= 4;
 
-      const valueText = this.scene.add.text(cardX + 138, y, row.countTo == null ? row.value : (row.format ? row.format(0) : '0'), {
+      const valueText = this.scene.add.text(pageX + 142, y, row.countTo == null ? row.value : (row.format ? row.format(0) : '0'), {
         fontFamily: STORYBOOK_FONT,
-        fontSize: '15px',
+        fontSize: '13px',
         color: STORYBOOK_UI.textDark,
         fontStyle: 'bold',
         resolution: 2,
@@ -562,61 +577,53 @@ export class Overlays {
       }
     });
 
-    // 強敵撃破（あれば）
-    let eliteOffset = 0;
+    let infoY = recordsTopY + rows.length * 28 + 6;
+
     if (stats.elitesKilled > 0) {
       const eliteLabel = state.stageNumber === 2
         ? `◆ 雨影をほどいた ×${stats.elitesKilled}`
         : `◆ 大きな影を越えた ×${stats.elitesKilled}`;
-      const eliteText = this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 14, eliteLabel, 12, '#ffd8a8', true);
+      const eliteText = this.text(pageX, infoY, eliteLabel, 11, STORYBOOK_UI.textSoft, true);
       eliteText.setAlpha(0);
       root.add(eliteText);
       this.scene.tweens.add({ targets: eliteText, alpha: 1, duration: 300, delay: 800, ease: 'Quad.easeOut' });
-      eliteOffset = 18;
+      infoY += 18;
     }
 
-    // ボーナス内訳（最大2行、390px幅で収まるよう短縮）
-    const bonusLine1: string[] = [];
-    const bonusLine2: string[] = [];
-    if (settlement.stageBonus > 1) bonusLine1.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
-    if (settlement.depthBonus > 1) bonusLine1.push(`深度×${settlement.depthBonus.toFixed(1)}`);
-    if (settlement.noBerserkBonus > 1) bonusLine2.push(`黒耀なし×${settlement.noBerserkBonus.toFixed(2)}`);
-    if (settlement.firstClearBonus > 1) bonusLine2.push(`初回×${settlement.firstClearBonus.toFixed(2)}`);
-    const hasLine1 = bonusLine1.length > 0;
-    const hasLine2 = bonusLine2.length > 0;
-    let bonusOffset = 0;
-    if (hasLine1 || hasLine2) {
-      const baseY = cardTopY + cardHeight + 14 + eliteOffset;
-      if (hasLine1) root.add(this.text(GAME_WIDTH / 2, baseY, `▽ ${bonusLine1.join('　')}`, 11, '#c8b8ff'));
-      if (hasLine2) root.add(this.text(GAME_WIDTH / 2, hasLine1 ? baseY + 16 : baseY, `${hasLine1 ? '' : '▽ '}${bonusLine2.join('　')}`, 11, '#c8b8ff'));
-      bonusOffset = hasLine1 && hasLine2 ? 34 : 18;
+    const bonusParts: string[] = [];
+    if (settlement.stageBonus > 1) bonusParts.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
+    if (settlement.depthBonus > 1) bonusParts.push(`深度×${settlement.depthBonus.toFixed(1)}`);
+    if (settlement.noBerserkBonus > 1) bonusParts.push(`黒曜なし×${settlement.noBerserkBonus.toFixed(2)}`);
+    if (settlement.firstClearBonus > 1) bonusParts.push(`初回×${settlement.firstClearBonus.toFixed(2)}`);
+    if (bonusParts.length > 0) {
+      root.add(this.text(pageX, infoY, `▽ ${bonusParts.join('　')}`, 10, STORYBOOK_UI.textSoft));
+      infoY += 16;
     }
 
-    const infoOffset = eliteOffset + bonusOffset;
-
-    // 進化/合体行（あれば）
     const evolutionLabels = stats.evolutions.map((id) => evolutionResultLabel(id));
     if (evolutionLabels.length > 0) {
       const visible = evolutionLabels.slice(0, 2).join(' / ');
       const more = evolutionLabels.length > 2 ? `　ほか ${evolutionLabels.length - 2}件` : '';
-      root.add(this.text(GAME_WIDTH / 2, cardTopY + cardHeight + 18 + infoOffset, `◇ 進化/合体　${visible}${more}`, 12, STORYBOOK_UI.goldLight, true));
+      root.add(this.text(pageX, infoY, `◇ 進化/合体　${visible}${more}`, 11, STORYBOOK_UI.textSoft, true));
+      infoY += 18;
     }
 
-    // ひとこと
-    const messageY = cardTopY + cardHeight + infoOffset + (evolutionLabels.length > 0 ? 44 : 22);
-    const rank = resultRank(cleared, state.player.level, stats.kills, stats.evolutions.length);
-    const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
-    root.add(this.text(GAME_WIDTH / 2, messageY, motivationMessage, 12, STORYBOOK_UI.textMuted));
+    const divG2 = this.scene.add.graphics();
+    drawInkDivider(divG2, pageX, infoY + 4, pageW - 80);
+    root.add(divG2);
+    infoY += 14;
 
-    // 新規記録・実績報酬
-    let recordOffset = 0;
+    const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
+    root.add(this.text(pageX, infoY, motivationMessage, 11, STORYBOOK_UI.textSoft));
+    infoY += 18;
+
     const hasNewAch = settlement.newAchievements.length > 0;
     const hasAchReward = settlement.achievementReward > 0;
     if (hasNewAch || hasAchReward) {
       const parts: string[] = [];
       if (hasNewAch) parts.push(`実績 +${settlement.newAchievements.length}`);
       if (hasAchReward) parts.push(`報酬 +${settlement.achievementReward}`);
-      const recordText = this.text(GAME_WIDTH / 2, messageY + 24, `◆ 記録に追加　${parts.join('　')}`, 12, '#ffe9b8', true);
+      const recordText = this.text(pageX, infoY, `◆ 記録に追加　${parts.join('　')}`, 11, STORYBOOK_UI.textDark, true);
       recordText.setAlpha(0);
       root.add(recordText);
       this.scene.tweens.add({ targets: recordText, alpha: 1, duration: 300, delay: 900, ease: 'Quad.easeOut' });
@@ -625,78 +632,62 @@ export class Overlays {
           getAudioManager(this.scene).playSe('currency_gain', { volume: 0.36, priority: 1 });
         });
       }
-      recordOffset = 22;
+      infoY += 18;
     }
 
-    // 細かい時刻ログ（小さめ・緑）— 2行に分けて読みやすく
-    const timeLineY = messageY + 28 + recordOffset;
-    root.add(this.text(GAME_WIDTH / 2, timeLineY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 11, '#9fe0a0'));
-    root.add(this.text(GAME_WIDTH / 2, timeLineY + 16, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 11, '#9fe0a0'));
+    root.add(this.text(pageX, infoY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 10, STORYBOOK_UI.textSoft));
+    root.add(this.text(pageX, infoY + 14, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 10, STORYBOOK_UI.textSoft));
+    infoY += 32;
 
-    // ステージ解放通知
     if (settlement.unlockedStage != null) {
       const recipe = recipeForStage(settlement.unlockedStage);
-      const unlockY = timeLineY + 44;
-      const unlockBg = this.scene.add.graphics().setAlpha(0);
-      unlockBg.fillStyle(0x1a1638, 0.85);
-      unlockBg.fillRoundedRect(GAME_WIDTH / 2 - 150, unlockY - 18, 300, 36, 6);
-      unlockBg.lineStyle(1, 0xf5d58a, 0.6);
-      unlockBg.strokeRoundedRect(GAME_WIDTH / 2 - 150, unlockY - 18, 300, 36, 6);
-      root.add(unlockBg);
-      const unlockText = this.text(GAME_WIDTH / 2, unlockY, `新しい夜が開いた — ${recipe.name}`, 13, STORYBOOK_UI.goldLight, true);
+      const unlockG = this.scene.add.graphics().setAlpha(0);
+      drawSecondaryPaperButton(unlockG, pageX, infoY, 300, 32, { accent: STORYBOOK_UI.warmAmber });
+      root.add(unlockG);
+      const unlockText = this.text(pageX, infoY, `新しい夜が開いた — ${recipe.name}`, 12, STORYBOOK_UI.lanternCore, true);
       unlockText.setAlpha(0);
       root.add(unlockText);
-      this.scene.tweens.add({
-        targets: [unlockBg, unlockText], alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut',
-      });
+      this.scene.tweens.add({ targets: [unlockG, unlockText], alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut' });
       this.scene.time.delayedCall(1200, () => {
         getAudioManager(this.scene).playSe('stage_unlock', { volume: 0.6, priority: 2 });
       });
-      const sparkle = this.scene.add.circle(GAME_WIDTH / 2 - 146, unlockY, 4, 0xf5d58a, 0);
-      root.add(sparkle);
-      this.scene.tweens.add({
-        targets: sparkle, alpha: { from: 0, to: 0.8 }, scale: { from: 0.5, to: 1.2 },
-        duration: 300, delay: 1300, ease: 'Back.easeOut', yoyo: true, hold: 400,
-        onComplete: () => sparkle.destroy(),
-      });
     }
 
-    // ボタン — 勝利/敗北でCTA優先度を変える
     const growthLabel = hasAchReward ? '黒曜片を使う' : '成長へ';
-    const btnY1 = GAME_HEIGHT - 156;
-    const btnY2 = GAME_HEIGHT - 100;
-    const btnY3 = GAME_HEIGHT - 52;
+    const btnY1 = GAME_HEIGHT - 160;
+    const btnY2 = GAME_HEIGHT - 108;
+    const btnY3 = GAME_HEIGHT - 62;
     if (cleared) {
-      root.add(this.button(GAME_WIDTH / 2, btnY1, 260, 48, 'もう一度探索', () => {
+      root.add(this.resultPrimaryButton(pageX, btnY1, 280, 46, growthLabel, () => {
+        this.clear();
+        onGrowth();
+      }));
+      root.add(this.button(pageX, btnY2, 240, 40, 'もう一度探索', () => {
         this.clear();
         onRestart();
       }));
-      root.add(this.button(GAME_WIDTH / 2 - 82, btnY2, 148, 42, growthLabel, () => {
-        this.clear();
-        onGrowth();
-      }, true));
-      root.add(this.button(GAME_WIDTH / 2 + 82, btnY2, 148, 42, 'ステージ選択', () => {
+      root.add(this.button(pageX - 78, btnY3, 140, 34, 'ステージ選択', () => {
         this.clear();
         onStageSelect();
       }, true));
-      root.add(this.button(GAME_WIDTH / 2, btnY3, 148, 36, 'TOPへ', () => {
+      root.add(this.button(pageX + 78, btnY3, 140, 34, 'TOPへ', () => {
         this.clear();
         onTop();
       }, true));
     } else {
-      root.add(this.button(GAME_WIDTH / 2, btnY1, 260, 48, growthLabel, () => {
+      root.add(this.resultPrimaryButton(pageX, btnY1, 280, 46, growthLabel, () => {
         this.clear();
         onGrowth();
       }));
-      root.add(this.button(GAME_WIDTH / 2, btnY2, 220, 42, 'もう一度挑戦', () => {
+      root.add(this.button(pageX, btnY2, 240, 40, 'もう一度挑戦', () => {
         this.clear();
         onRestart();
-      }, true));
-      root.add(this.button(GAME_WIDTH / 2 - 82, btnY3, 148, 36, 'ステージ選択', () => {
+      }));
+      root.add(this.button(pageX - 78, btnY3, 140, 34, 'ステージ選択', () => {
         this.clear();
         onStageSelect();
       }, true));
-      root.add(this.button(GAME_WIDTH / 2 + 82, btnY3, 148, 36, 'TOPへ', () => {
+      root.add(this.button(pageX + 78, btnY3, 140, 34, 'TOPへ', () => {
         this.clear();
         onTop();
       }, true));
@@ -825,68 +816,33 @@ export class Overlays {
     });
   }
 
-  private addResultRank(
-    root: Phaser.GameObjects.Container,
-    cleared: boolean,
-    level: number,
-    kills: number,
-    evolutions: number,
-  ): void {
-    const rank = resultRank(cleared, level, kills, evolutions);
-    const accent = rank === 'S' ? 0xf5d58a : rank === 'A' ? 0xffc1a8 : rank === 'B' ? 0xa6e3a1 : 0xcabda8;
-    const sealX = GAME_WIDTH - 56;
-    const sealY = 88;
-    const sealRadius = rank === 'S' ? 38 : 34;
-
-    if (rank === 'S' || rank === 'A') {
-      const glow = this.scene.add.circle(sealX, sealY, sealRadius + 8, accent, 0.12).setBlendMode('ADD');
-      root.add(glow);
-      this.scene.tweens.add({ targets: glow, alpha: { from: 0.08, to: 0.22 }, scale: { from: 0.95, to: 1.1 }, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-    }
-
-    const seal = this.scene.add.circle(sealX, sealY, sealRadius, 0x120f20, 0.94);
-    seal.setStrokeStyle(3, accent, 0.96);
-    const rankText = this.scene.add.text(sealX, sealY - 1, rank, {
+  private resultPrimaryButton(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    label: string,
+    onClick: () => void,
+  ): Phaser.GameObjects.Container {
+    const btn = this.scene.add.container(x, y);
+    const g = this.scene.add.graphics();
+    drawPrimaryPaperCta(g, 0, 0, width, height);
+    btn.add(g);
+    const hit = this.scene.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this.scene, hit, btn, { x, y, width, height, accent: STORYBOOK_UI.warmAmber, depth: D + 10, strong: true, shake: true });
+    hit.on('pointerdown', () => {
+      getAudioManager(this.scene).playSe('ui_confirm', { volume: 0.48 });
+      onClick();
+    });
+    btn.add(hit);
+    btn.add(this.scene.add.text(0, 0, label, {
       fontFamily: STORYBOOK_TITLE_FONT,
-      fontSize: rank === 'S' ? '38px' : '34px',
-      color: colorString(accent),
+      fontSize: '16px',
+      color: STORYBOOK_UI.textDark,
       fontStyle: 'bold',
       resolution: 2,
-    }).setOrigin(0.5);
-    root.add([seal, rankText]);
-    seal.setScale(0); rankText.setScale(0);
-    this.scene.tweens.add({
-      targets: [seal, rankText],
-      scale: 1,
-      duration: 380,
-      delay: 300,
-      ease: 'Back.easeOut',
-    });
-  }
-
-  private addResultWarmGlow(root: Phaser.GameObjects.Container): void {
-    const warm = this.scene.add.rectangle(GAME_WIDTH / 2, 120, GAME_WIDTH, 240, 0xf6d9a8, 0.04).setBlendMode('ADD');
-    root.add(warm);
-    this.scene.tweens.add({ targets: warm, alpha: { from: 0.02, to: 0.07 }, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-
-    for (let i = 0; i < 8; i += 1) {
-      const x = 30 + Math.random() * (GAME_WIDTH - 60);
-      const particle = this.scene.add.circle(x, GAME_HEIGHT, 1.5 + Math.random() * 1.5, 0xfff0b0, 0.2 + Math.random() * 0.15).setBlendMode('ADD');
-      root.add(particle);
-      this.scene.tweens.add({
-        targets: particle,
-        y: -20,
-        x: x + (Math.random() - 0.5) * 40,
-        alpha: 0,
-        duration: 5000 + Math.random() * 3000,
-        delay: Math.random() * 2000,
-        repeat: -1,
-        onRepeat: () => {
-          particle.setPosition(30 + Math.random() * (GAME_WIDTH - 60), GAME_HEIGHT);
-          particle.setAlpha(0.2 + Math.random() * 0.15);
-        },
-      });
-    }
+    }).setOrigin(0.5));
+    return btn;
   }
 
   private button(

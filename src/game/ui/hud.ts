@@ -238,7 +238,7 @@ export class Hud {
     }).setOrigin(0.5).setDepth(DEPTH + 2).setVisible(!this.portraitImage);
     this.crestImage = spriteOrNull(scene, YUI_HUD_FRAME_IDS.crestNormal, 14, 14);
     this.crestImage?.setPosition(PORTRAIT_X + 20, PORTRAIT_Y - 20).setDepth(DEPTH + 5).setVisible(false);
-    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 10, '黒耀 0%', {
+    this.berserkText = scene.add.text(PORTRAIT_X, GAME_HEIGHT - 10, '黒曜 0%', {
       fontFamily: STORYBOOK_FONT,
       fontSize: '11px',
       color: STORYBOOK_UI.textMuted,
@@ -424,7 +424,7 @@ export class Hud {
     this.ultimateBack.beginPath();
     this.ultimateBack.arc(ULT_X, ULT_Y, 30, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ratio, false);
     this.ultimateBack.strokePath();
-    this.ultimateText.setText(locked ? '黒耀中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
+    this.ultimateText.setText(locked ? '黒曜中' : ready ? '必殺 OK' : `必殺 ${Math.floor(ratio * 100)}%`);
     this.ultimateText.setColor(locked ? '#8b80a8' : ready ? '#ffe8a8' : STORYBOOK_UI.textLight);
     this.ultimateText.setScale(ready && !locked ? 1 + pulse * 0.08 : 1);
     if (ready && !locked && !this.ultimateReadyNotified) {
@@ -496,9 +496,9 @@ export class Hud {
       this.crestImage.setVisible(active || ready);
     }
 
-    this.berserkText.setText(active ? `黒耀 ${Math.ceil(berserk.activeRemaining)}秒` : fatigued ? '黒耀反動' : ready ? '黒耀 OK' : `黒耀 ${Math.floor(ratio * 100)}%`);
+    this.berserkText.setText(active ? `黒曜 ${Math.ceil(berserk.activeRemaining)}秒` : fatigued ? '黒曜反動' : ready ? '黒曜 OK' : `黒曜 ${Math.floor(ratio * 100)}%`);
     this.berserkText.setColor(active ? (pulse > 0.78 ? '#ffd6de' : '#ff8fa4') : fatigued ? '#b8b0cc' : ready ? '#ffe3a8' : STORYBOOK_UI.textMuted);
-    this.portraitZone.setName(ready ? '黒耀化を発動' : '黒耀ゲージ');
+    this.portraitZone.setName(ready ? '黒曜化を発動' : '黒曜ゲージ');
   }
 
   private drawBerserkFlame(active: boolean, fatigued: boolean, pulse: number): void {
