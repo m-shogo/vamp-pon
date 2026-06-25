@@ -39,7 +39,6 @@ export class SpriteInspectorScene extends Phaser.Scene {
   private showBbox = true;
   private showAnchor = true;
   private fps = 8;
-  private playing = true;
   private selectedClipIndex = 0;
   private clips: { name: string; frames: number[] }[] = [];
   private bboxes: CellBbox[] = [];
@@ -47,6 +46,8 @@ export class SpriteInspectorScene extends Phaser.Scene {
   private gridContainer!: Phaser.GameObjects.Container;
   private uiContainer!: Phaser.GameObjects.Container;
   private animContainer!: Phaser.GameObjects.Container;
+  private clipButtonContainer!: Phaser.GameObjects.Container;
+  private clipButtonsY = 0;
   private animSprite?: Phaser.GameObjects.Sprite;
   private fpsLabel?: Phaser.GameObjects.Text;
   private clipLabel?: Phaser.GameObjects.Text;
@@ -120,6 +121,7 @@ export class SpriteInspectorScene extends Phaser.Scene {
     this.gridContainer = this.add.container(0, 0);
     this.uiContainer = this.add.container(0, 0);
     this.animContainer = this.add.container(0, 0);
+    this.clipButtonContainer = this.add.container(0, 0);
 
     this.drawBackground();
     this.drawHeader();
@@ -349,10 +351,13 @@ export class SpriteInspectorScene extends Phaser.Scene {
     this.uiContainer.add(anchorBtn);
 
     y += 24;
-    this.drawClipButtons(y);
+    this.clipButtonsY = y;
+    this.drawClipButtons();
   }
 
-  private drawClipButtons(startY: number): void {
+  private drawClipButtons(): void {
+    this.clipButtonContainer.removeAll(true);
+    const startY = this.clipButtonsY;
     const btnStyle = { fontFamily: 'monospace', fontSize: '8px', color: '#f3ead2', backgroundColor: '#3a3358', padding: { x: 4, y: 2 } };
     const activeStyle = { fontFamily: 'monospace', fontSize: '8px', color: '#35291e', backgroundColor: '#ffce7a', padding: { x: 4, y: 2 } };
 
@@ -365,12 +370,12 @@ export class SpriteInspectorScene extends Phaser.Scene {
       const style = i === this.selectedClipIndex ? activeStyle : btnStyle;
       const btn = this.add.text(x, y, clip.name, style).setInteractive({ useHandCursor: true });
       btn.on('pointerdown', () => this.playClip(i));
-      this.uiContainer.add(btn);
+      this.clipButtonContainer.add(btn);
     });
   }
 
   private rebuildClipButtons(): void {
-    // Clip buttons are rebuilt on scene restart or metadata load
+    if (this.clipButtonsY > 0) this.drawClipButtons();
   }
 
   private playClip(index: number): void {

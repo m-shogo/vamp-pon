@@ -4,14 +4,15 @@ import { inflateSync } from 'node:zlib';
 
 // --- PNG decode helpers (no deps) ---
 
-function readPngChunks(buf: Buffer): { ihdr: { width: number; height: number; bitDepth: number; colorType: number } } {
+function readPngChunks(buf: Buffer): { ihdr: { width: number; height: number; bitDepth: number; colorType: number; interlace: number } } {
   const sig = buf.subarray(0, 8);
   if (sig.toString('hex') !== '89504e470d0a1a0a') throw new Error('Not a PNG file');
   const width = buf.readUInt32BE(16);
   const height = buf.readUInt32BE(20);
   const bitDepth = buf[24];
   const colorType = buf[25];
-  return { ihdr: { width, height, bitDepth, colorType } };
+  const interlace = buf[28];
+  return { ihdr: { width, height, bitDepth, colorType, interlace } };
 }
 
 function decodePngRgba(buf: Buffer): { width: number; height: number; pixels: Uint8Array } {
@@ -272,6 +273,20 @@ function inspectSheet(filePath: string, overrideFormat?: SheetFormat): InspectRe
     warnings.push({
       level: 'error',
       message: `colorType=${ihdr.colorType} — RGBA(6)ではない。透過PNGか確認してください`,
+    });
+  }
+
+  if (ihdr.bitDepth !== 8) {
+    warnings.push({
+      level: 'error',
+      message: `bitDepth=${ihdr.bitDepth} — 8bit以外はサポート外（16bit等は事前変換が必要）`,
+    });
+  }
+
+  if (ihdr.interlace !== 0) {
+    warnings.push({
+      level: 'error',
+      message: `interlace=${ihdr.interlace} — インターレースPNGはサポート外（non-interlacedに変換してください）`,
     });
   }
 

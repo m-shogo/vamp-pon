@@ -10,7 +10,7 @@
 |---|---|
 | `tools/spritesheet-inspector/inspect.ts` | CLI検査スクリプト |
 | `src/game/scenes/SpriteInspectorScene.ts` | ブラウザプレビューScene |
-| `data/spritesheet-metadata/spritesheet-metadata.schema.ts` | メタデータ型定義 |
+| `src/game/assets/spritesheetMetadata.ts` | メタデータ型定義 |
 | `data/spritesheet-metadata/*.json` | キャラクター別メタデータ |
 
 ## CLI検査
