@@ -6,6 +6,15 @@ import { VIEW_DEPTH } from './factory';
 import { FONT } from './visualDesign';
 import { TITLE_FONT } from './fonts';
 
+const PALETTE = {
+  inkBlack: 0x07060b,
+  deepNight: 0x0f1320,
+  inkViolet: 0x151020,
+  dustyRose: 0xb96a76,
+  warmAmber: 0xf4c46a,
+  dawnPeach: 0xdfa07a,
+} as const;
+
 export type CharacterCutinMode = 'ultimate' | 'berserk';
 
 /** Runtime cutin texture keys. If the image is not loaded, the old fallback path still works. */
@@ -43,7 +52,7 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
 
 function addCutinAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Container, mode: CharacterCutinMode): void {
   const isBerserk = mode === 'berserk';
-  const shadeColor = isBerserk ? 0x07040d : 0x071021;
+  const shadeColor = isBerserk ? PALETTE.inkBlack : 0x071021;
   const shadeAlpha = isBerserk ? 0.62 : 0.46;
   const shade = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + 80, GAME_HEIGHT + 80, shadeColor, shadeAlpha);
   root.add(shade);
@@ -130,10 +139,10 @@ function addUltimateAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Con
 }
 
 function addBerserkAtmosphere(scene: Phaser.Scene, root: Phaser.GameObjects.Container): void {
-  const edgeColor = 0x120818;
-  const accent = 0xb94b91;
-  const violet = 0x6f2a7c;
-  const lantern = 0xffd28a;
+  const edgeColor = PALETTE.inkBlack;
+  const accent = PALETTE.dustyRose;
+  const violet = PALETTE.inkViolet;
+  const lantern = PALETTE.warmAmber;
 
   for (let i = 0; i < 6; i += 1) {
     const left = i % 2 === 0;
@@ -228,8 +237,8 @@ function addImageCutin(
   textureKey: string,
 ): void {
   const isBerserk = mode === 'berserk';
-  const accent = isBerserk ? 0xb94b91 : 0xffcf70;
-  const lantern = 0xffd28a;
+  const accent = isBerserk ? PALETTE.dustyRose : 0xffcf70;
+  const lantern = PALETTE.warmAmber;
   const y = CUTIN_CENTER_Y;
 
   const image = scene.add.image(GAME_WIDTH / 2, y, textureKey)
@@ -237,7 +246,7 @@ function addImageCutin(
     .setAlpha(0.99);
   const topLine = scene.add.rectangle(GAME_WIDTH / 2, y - CUTIN_BANNER_HEIGHT / 2 + 2, GAME_WIDTH + 72, 5, accent, 0.86).setBlendMode('ADD');
   const bottomLine = scene.add.rectangle(GAME_WIDTH / 2, y + CUTIN_BANNER_HEIGHT / 2 - 2, GAME_WIDTH + 72, 5, isBerserk ? lantern : accent, isBerserk ? 0.5 : 0.66).setBlendMode('ADD');
-  const labelBack = scene.add.rectangle(86, y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, isBerserk ? 0x120818 : 0x2f2310, 0.78);
+  const labelBack = scene.add.rectangle(86, y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, isBerserk ? PALETTE.inkBlack : 0x2f2310, 0.78);
   labelBack.setStrokeStyle(1, isBerserk ? lantern : accent, 0.82);
   const label = scene.add.text(86, labelBack.y, isBerserk ? '黒曜化' : '必殺', {
     fontFamily: TITLE_FONT,
@@ -264,11 +273,11 @@ function addFallbackCutin(
   visual: { textureKey: string; frame?: number } | null,
 ): void {
   const isBerserk = mode === 'berserk';
-  const accent = isBerserk ? 0x38203f : 0xd9b65f;
-  const paper = isBerserk ? 0x17101f : 0xeee1bd;
-  const textColor = isBerserk ? '#ffe1b8' : '#332817';
+  const accent = isBerserk ? PALETTE.inkViolet : 0xd9b65f;
+  const paper = isBerserk ? PALETTE.deepNight : 0xeee1bd;
+  const textColor = isBerserk ? '#ffe7ae' : '#332817';
   const title = isBerserk ? '黒曜化' : '灯りよ、帰り道を';
-  const subtitle = isBerserk ? '黒に沈んでも、灯りは残る' : '忘れたものを照らし出す';
+  const subtitle = isBerserk ? '記憶の灯火が、力に変わる' : '忘れたものを照らし出す';
 
   const panel = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y, GAME_WIDTH + 36, 184, paper, 0.97)
     .setAngle(-2);
@@ -278,7 +287,7 @@ function addFallbackCutin(
   root.add([panel, inkLineTop, inkLineBottom]);
 
   const lanternGlow = isBerserk
-    ? scene.add.circle(GAME_WIDTH - 120, panel.y + 36, 42, 0xffd28a, 0.08).setBlendMode('ADD')
+    ? scene.add.circle(GAME_WIDTH - 120, panel.y + 36, 42, PALETTE.warmAmber, 0.08).setBlendMode('ADD')
     : null;
   if (lanternGlow) root.add(lanternGlow);
 
@@ -305,7 +314,7 @@ function addFallbackCutin(
   const subtitleText = scene.add.text(25, panel.y + 12, subtitle, {
     fontFamily: FONT,
     fontSize: '12px',
-    color: isBerserk ? '#f0d5a8' : '#5b4a2e',
+    color: isBerserk ? '#f4c46a' : '#5b4a2e',
     fontStyle: 'bold',
     resolution: 2,
     wordWrap: { width: 246 },
@@ -315,8 +324,8 @@ function addFallbackCutin(
 
 function addFrontAccents(scene: Phaser.Scene, root: Phaser.GameObjects.Container, mode: CharacterCutinMode): void {
   const isBerserk = mode === 'berserk';
-  const color = isBerserk ? 0xe9a2ff : 0xfff0b3;
-  const lantern = 0xffd28a;
+  const color = isBerserk ? PALETTE.dawnPeach : 0xfff0b3;
+  const lantern = PALETTE.warmAmber;
   const flash = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y, GAME_WIDTH + 80, CUTIN_BANNER_HEIGHT + 40, color, isBerserk ? 0.1 : 0.16)
     .setBlendMode('ADD');
   root.add(flash);
