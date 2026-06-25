@@ -8,7 +8,7 @@ import {
   loadCollectionAtlasViewState,
 } from '../persistence/collectionAtlasViewState';
 import { attachPressFeedback } from '../ui/pressFeedback';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from '../ui/storybookUi';
 import {
   drawInkVignette,
   drawLanternFocus,
@@ -16,6 +16,7 @@ import {
   drawNewSparkBadge,
   drawPaperScrap,
   drawPremiumPaperCard,
+  drawStarMapBackdrop,
 } from '../ui/premiumPaperUi';
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen, resetOnboarding } from '../persistence/onboarding';
@@ -54,14 +55,21 @@ export class TopScene extends Phaser.Scene {
     const boardCount = collection.nightBoard.completedCellIds.length;
     const boardTotal = forgottenStreetNightBoard.cells.length;
 
-    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x0b0d1d, 1);
+    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, STORYBOOK_UI.deepNight, 1);
+    const starBg = this.add.graphics().setDepth(PARTICLE_DEPTH);
+    drawStarMapBackdrop(starBg, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.1, density: 18 });
     this.addBackgroundAtmosphere();
 
     const vignette = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
-    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.38 });
+    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.35 });
 
     const panel = this.add.graphics().setDepth(UI_DEPTH);
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2 + 6, 356, 734, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.94);
+    const panelLeft = Math.round(GAME_WIDTH / 2 - 178);
+    const panelTop = Math.round(GAME_HEIGHT / 2 + 6 - 367);
+    panel.fillStyle(STORYBOOK_UI.inkViolet, 0.38).fillRect(panelLeft, panelTop, 356, 734);
+    panel.lineStyle(1, STORYBOOK_UI.paperDark, 0.2).strokeRect(panelLeft, panelTop, 356, 734);
+    drawPaperScrap(panel, GAME_WIDTH / 2, panelTop + 20, 200, 16, STORYBOOK_UI.paperBeige, 0.04);
+    drawPaperScrap(panel, GAME_WIDTH / 2, panelTop + 714, 180, 12, STORYBOOK_UI.paperBeige, 0.03);
 
     this.addTitleDecoration();
 
@@ -171,11 +179,11 @@ export class TopScene extends Phaser.Scene {
     const depth = UI_DEPTH + 2;
     const g = this.add.graphics().setDepth(depth);
 
-    g.fillStyle(0x060817, 0.34).fillRect(GAME_WIDTH / 2 - 136, 58, 272, 104);
-    g.lineStyle(1, STORYBOOK_UI.gold, 0.26);
+    g.fillStyle(STORYBOOK_UI.inkBlack, 0.3).fillRect(GAME_WIDTH / 2 - 136, 58, 272, 104);
+    g.lineStyle(1, STORYBOOK_UI.paperDark, 0.22);
     g.strokeRect(GAME_WIDTH / 2 - 130, 68, 260, 1);
     g.strokeRect(GAME_WIDTH / 2 - 110, 158, 220, 1);
-    drawMapThreads(g, GAME_WIDTH / 2, 166, 172, 0.14);
+    drawMapThreads(g, GAME_WIDTH / 2, 166, 172, 0.12);
 
     const lampGlow = this.add.circle(GAME_WIDTH / 2, 52, 10, COLORS.lantern, 0.18).setDepth(depth).setBlendMode('ADD');
     const lampCore = this.add.circle(GAME_WIDTH / 2, 52, 3, COLORS.lantern, 0.62).setDepth(depth).setBlendMode('ADD');
@@ -236,9 +244,9 @@ export class TopScene extends Phaser.Scene {
   private addBottomDecoration(): void {
     const depth = UI_DEPTH + 1;
     const g = this.add.graphics().setDepth(depth);
-    g.lineStyle(1, STORYBOOK_UI.gold, 0.14);
+    g.lineStyle(1, STORYBOOK_UI.paperDark, 0.14);
     g.strokeRect(GAME_WIDTH / 2 - 86, 728, 172, 1);
-    drawMapThreads(g, GAME_WIDTH / 2, GAME_HEIGHT - 54, 156, 0.16);
+    drawMapThreads(g, GAME_WIDTH / 2, GAME_HEIGHT - 54, 156, 0.12);
   }
 
   private showFirstTimeIntro(mainBtn: Phaser.GameObjects.Container): void {
