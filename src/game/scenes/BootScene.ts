@@ -3,6 +3,7 @@ import { queueExistingAssets, queuePrototypeAssets, queueStageBackgrounds } from
 import { isCharacterCutinQaUrl } from './CharacterCutinQaScene';
 import { isCore5SpriteSheetPreviewUrl } from './Core5SpriteSheetPreviewScene';
 import { isEliteDefeatBeatQaUrl } from './EliteDefeatBeatQaScene';
+import { isSpriteInspectorUrl } from './SpriteInspectorScene';
 import { isGalleryUrl, isBackgroundPreviewUrl } from './VisualGalleryScene';
 import { isWeaponFeedbackQaUrl as isFxQaUrl } from './WeaponFeedbackQaScene';
 import { isYui96QaUrl } from './Yui96QaScene';
@@ -40,6 +41,10 @@ export class BootScene extends Phaser.Scene {
   }
 
   private startTarget(): void {
+    if (isSpriteInspectorUrl()) {
+      this.scene.start('SpriteInspectorScene');
+      return;
+    }
     if (isCore5SpriteSheetPreviewUrl()) {
       this.scene.start('Core5SpriteSheetPreviewScene');
       return;
