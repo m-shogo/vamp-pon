@@ -18,6 +18,7 @@ import {
 } from '../assets/inventoryIcons';
 import {
   LEVEL_UP_CARD_HEIGHT,
+  LEVEL_UP_CARD_TOP,
   LEVEL_UP_CARD_WIDTH,
   LEVEL_UP_HEADER_Y,
   LEVEL_UP_PANEL_TOP,
@@ -154,27 +155,28 @@ export class Overlays {
   ): void {
     const root = this.dim(0.3);
     const dock = this.scene.add.graphics();
-    drawStorybookPanel(
+    drawLargeNotebookPage(
       dock,
       GAME_WIDTH / 2,
       (LEVEL_UP_PANEL_TOP + GAME_HEIGHT) / 2,
-      GAME_WIDTH - 8,
-      GAME_HEIGHT - LEVEL_UP_PANEL_TOP - 4,
-      STORYBOOK_UI.nightPanel,
-      STORYBOOK_UI.gold,
-      0.97,
+      GAME_WIDTH - 12,
+      GAME_HEIGHT - LEVEL_UP_PANEL_TOP - 8,
+      { accent: STORYBOOK_UI.warmAmber, alpha: 0.97 },
     );
     root.add(dock);
 
     (this.scene as { _levelUpCardIndex?: number })._levelUpCardIndex = 0;
-    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y, 'ひとつ選ぶ', 22, STORYBOOK_UI.textLight, true));
+    const headerG = this.scene.add.graphics();
+    drawInkDivider(headerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 14, GAME_WIDTH - 80);
+    root.add(headerG);
+    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y - 6, 'Level Up', 20, STORYBOOK_UI.textDark, true));
+    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 10, '記憶をひとつ選ぶ', 11, STORYBOOK_UI.textSoft));
     root.add(this.text(
       GAME_WIDTH / 2,
-      LEVEL_UP_HEADER_Y + 25,
+      LEVEL_UP_HEADER_Y + 28,
       `武器 ${state.inventory.weapons.length}/${state.inventory.weaponSlots}　忘れ物 ${state.inventory.passives.length}/${state.inventory.passiveSlots}　レア ${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`,
-      10,
-      STORYBOOK_UI.textMuted,
-      true,
+      9,
+      STORYBOOK_UI.textSoft,
     ));
 
     const lock: ChoiceSelectionLock = { locked: false };
@@ -196,12 +198,21 @@ export class Overlays {
       ));
     });
 
+    const hintY = LEVEL_UP_CARD_TOP + LEVEL_UP_CARD_HEIGHT + 16;
+    root.add(this.text(GAME_WIDTH / 2, hintY, 'カードをタップして選ぶ', 10, STORYBOOK_UI.textSoft));
+
+    const ownedY = hintY + 22;
+    const ownedG = this.scene.add.graphics();
+    drawInkDivider(ownedG, GAME_WIDTH / 2, ownedY - 6, GAME_WIDTH - 100);
+    root.add(ownedG);
+    root.add(this.text(GAME_WIDTH / 2, ownedY + 6, `所持 ${state.stats.memoryFragmentsCollected}`, 10, STORYBOOK_UI.textSoft));
+
     const remaining = state.levelUpRerollsRemaining;
     const reroll = this.button(
       GAME_WIDTH - 57,
       LEVEL_UP_REROLL_Y,
       100,
-      30,
+      28,
       remaining > 0 ? `入替 ${remaining}/3` : '入替 0/3',
       () => {
         if (remaining <= 0) return;

@@ -1,10 +1,10 @@
-export const LEVEL_UP_PANEL_TOP = 360;
-export const LEVEL_UP_HEADER_Y = 386;
-export const LEVEL_UP_CARD_WIDTH = 354;
-export const LEVEL_UP_CARD_HEIGHT = 112;
+export const LEVEL_UP_PANEL_TOP = 300;
+export const LEVEL_UP_HEADER_Y = 326;
+export const LEVEL_UP_CARD_WIDTH = 114;
+export const LEVEL_UP_CARD_HEIGHT = 280;
 export const LEVEL_UP_CARD_GAP = 8;
-export const LEVEL_UP_CARD_TOP = 438;
-export const LEVEL_UP_REROLL_Y = 408;
+export const LEVEL_UP_CARD_TOP = 386;
+export const LEVEL_UP_REROLL_Y = 354;
 
 export const REPLACE_ROW_WIDTH = 318;
 export const REPLACE_ROW_HEIGHT = 62;
@@ -14,12 +14,13 @@ export const REPLACE_ACTION_Y = 778;
 
 export type LevelUpCardPosition = { x: number; y: number };
 
-/** スマホ幅では3列をやめ、読みやすい横長カードを縦に並べる。 */
 export function levelUpCardPositions(choiceCount: number, screenWidth = 390): LevelUpCardPosition[] {
   const count = Math.max(0, Math.min(3, choiceCount));
+  const totalW = count * LEVEL_UP_CARD_WIDTH + (count - 1) * LEVEL_UP_CARD_GAP;
+  const startX = (screenWidth - totalW) / 2 + LEVEL_UP_CARD_WIDTH / 2;
   return Array.from({ length: count }, (_, index) => ({
-    x: screenWidth / 2,
-    y: LEVEL_UP_CARD_TOP + LEVEL_UP_CARD_HEIGHT / 2 + index * (LEVEL_UP_CARD_HEIGHT + LEVEL_UP_CARD_GAP),
+    x: startX + index * (LEVEL_UP_CARD_WIDTH + LEVEL_UP_CARD_GAP),
+    y: LEVEL_UP_CARD_TOP + LEVEL_UP_CARD_HEIGHT / 2,
   }));
 }
 
