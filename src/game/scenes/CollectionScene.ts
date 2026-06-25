@@ -28,6 +28,16 @@ import type { CharacterKnowledgeReply, KnowledgeLine } from '../types/knowledge'
 import { nightBoardRewardLabel } from '../ui/collectionAtlasLabels';
 import { attachCollectionAtlasAtmosphere } from '../ui/collectionAtlasSceneHooks';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawFragment, drawStar, drawStorybookPanel } from '../ui/storybookUi';
+import {
+  drawInkDivider,
+  drawInkVignette,
+  drawLargeNotebookPage,
+  drawPrimaryPaperCta,
+  drawSecondaryPaperButton,
+  drawStarMapBackdrop,
+} from '../ui/premiumPaperUi';
+import { attachPressFeedback } from '../ui/pressFeedback';
+import { getAudioManager } from '../audio/AudioManager';
 
 const GRAPHICS_TEXT_DARK = 0x2e2730;
 const GRAPHICS_TEXT_LIGHT = 0xf4e8cf;
@@ -65,32 +75,44 @@ export class CollectionScene extends Phaser.Scene {
     const root = this.add.container(0, 0);
     this.root = root;
 
-    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x1d1a34, 1));
+    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, STORYBOOK_UI.deepNight, 1));
+    const stars = this.add.graphics();
+    drawStarMapBackdrop(stars, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.08, density: 20 });
+    root.add(stars);
+    const vignette = this.add.graphics();
+    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.35 });
+    root.add(vignette);
     this.addSoftAtlasGlow(root);
-
-    const panel = this.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.98);
-    root.add(panel);
 
     const active = this.activeCollectionSection();
     attachCollectionAtlasAtmosphere(this, root, active);
-    root.add(this.text(GAME_WIDTH / 2, 32, COLLECTION_LABELS.book, 25, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 61, active.label, 14, active.accent, true));
-    root.add(this.text(GAME_WIDTH / 2, 86, active.description, 11, STORYBOOK_UI.textMuted));
+
+    const titleBg = this.add.graphics();
+    drawLargeNotebookPage(titleBg, GAME_WIDTH / 2, 36, 260, 40, { accent: STORYBOOK_UI.paperDark, alpha: 0.95 });
+    root.add(titleBg);
+    root.add(this.text(GAME_WIDTH / 2, 36, COLLECTION_LABELS.book, 18, STORYBOOK_UI.textDark, true, true));
+    const titleDiv = this.add.graphics();
+    drawInkDivider(titleDiv, GAME_WIDTH / 2, 62, 180, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
+    root.add(titleDiv);
+    root.add(this.text(GAME_WIDTH / 2, 74, active.label, 13, active.accent, true));
+    root.add(this.text(GAME_WIDTH / 2, 92, active.description, 10, STORYBOOK_UI.textMuted));
     this.renderSectionTabs(root);
 
     this.renderActiveSection(root, progress, completed, revealed, hinted, newlyCompleted);
 
+    const progressDiv = this.add.graphics();
+    drawInkDivider(progressDiv, GAME_WIDTH / 2, 706, 300, { color: STORYBOOK_UI.paperDark, alpha: 0.15 });
+    root.add(progressDiv);
     root.add(this.text(
       GAME_WIDTH / 2,
-      712,
+      720,
       `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　忘れ物 ${lostItemRecords.length}枚　言葉 ${collectionWordRecordLines.length}`,
-      11,
-      STORYBOOK_UI.goldLight,
+      10,
+      STORYBOOK_UI.warmAmber,
       true,
     ));
-    root.add(this.button(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 46, 148, 44, 'TOPへ', () => this.scene.start('TopScene'), true));
-    root.add(this.button(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 46, 148, 44, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
+    root.add(this.secondaryNavButton(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 44, 148, 40, 'TOPへ', () => this.scene.start('TopScene')));
+    root.add(this.paperCtaButton(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 44, 148, 40, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
   }
 
   private activeCollectionSection(): CollectionSection {
@@ -115,13 +137,21 @@ export class CollectionScene extends Phaser.Scene {
   private sectionTab(x: number, y: number, width: number, height: number, section: CollectionSection): Phaser.GameObjects.Container {
     const isActive = section.id === this.activeSection;
     const c = this.add.container(x, y);
-    const fill = this.add.rectangle(0, 0, width, height, isActive ? section.accent : 0x26213f, isActive ? 0.94 : 0.78);
-    fill.setStrokeStyle(isActive ? 2 : 1, isActive ? STORYBOOK_UI.goldLight : 0x6f6590, isActive ? 0.95 : 0.75);
+    const fill = this.add.graphics();
+    if (isActive) {
+      fill.fillStyle(STORYBOOK_UI.paperBeige, 0.95).fillRect(-width / 2, -height / 2, width, height);
+      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.7).strokeRect(-width / 2, -height / 2, width, height);
+      fill.lineStyle(1, section.accent, 0.5).strokeRect(-width / 2 + 2, -height / 2 + 2, width - 4, height - 4);
+    } else {
+      fill.fillStyle(STORYBOOK_UI.deepNight, 0.85).fillRect(-width / 2, -height / 2, width, height);
+      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.35).strokeRect(-width / 2, -height / 2, width, height);
+    }
     const label = this.text(0, 0, section.shortLabel, 10, isActive ? STORYBOOK_UI.textDark : STORYBOOK_UI.textMuted, true);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => {
       if (this.activeSection !== section.id) this.achievementSessionNewIds = null;
       this.activeSection = section.id;
+      getAudioManager(this).playSe('ui_select', { volume: 0.3 });
       this.render();
     });
     c.add([fill, label, hit]);
@@ -169,7 +199,7 @@ export class CollectionScene extends Phaser.Scene {
     this.renderBoard(root, completed, revealed, hinted, newlyCompleted);
 
     const detailPanel = this.add.graphics();
-    drawStorybookPanel(detailPanel, GAME_WIDTH / 2, 498, 330, 92, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.86);
+    drawLargeNotebookPage(detailPanel, GAME_WIDTH / 2, 498, 330, 92, { accent: STORYBOOK_UI.paperDark, alpha: 0.9 });
     root.add(detailPanel);
     this.detailText = this.add.text(
       GAME_WIDTH / 2,
@@ -177,8 +207,8 @@ export class CollectionScene extends Phaser.Scene {
       '絵札を押すと、夜に残った記憶が読めます。',
       {
         fontFamily: STORYBOOK_FONT,
-        fontSize: '13px',
-        color: colorString(STORYBOOK_UI.textMuted),
+        fontSize: '12px',
+        color: colorString(STORYBOOK_UI.paperDark),
         align: 'center',
         resolution: 2,
         lineSpacing: 4,
@@ -192,10 +222,10 @@ export class CollectionScene extends Phaser.Scene {
 
   private renderLostItemCardsPage(root: Phaser.GameObjects.Container): void {
     const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0xd7a65b, 0.9);
+    drawLargeNotebookPage(card, GAME_WIDTH / 2, 382, 336, 424, { accent: STORYBOOK_UI.warmAmber, alpha: 0.92 });
     root.add(card);
-    root.add(this.text(GAME_WIDTH / 2, 184, '忘れ物絵札', 20, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 208, '拾われる前から、夜に残っていた小さな持ち物たち。', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 184, '忘れ物絵札', 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 208, '拾われる前から、夜に残っていた小さな持ち物たち。', 10, STORYBOOK_UI.paperDark));
 
     lostItemRecords.forEach((record, index) => {
       const x = GAME_WIDTH / 2 - 110 + (index % 3) * 110;
@@ -306,10 +336,10 @@ export class CollectionScene extends Phaser.Scene {
 
   private renderKeeperRecordsPage(root: Phaser.GameObjects.Container): void {
     const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0x79bea9, 0.9);
+    drawLargeNotebookPage(card, GAME_WIDTH / 2, 382, 336, 424, { accent: STORYBOOK_UI.mutedTeal, alpha: 0.92 });
     root.add(card);
-    root.add(this.text(GAME_WIDTH / 2, 184, '灯し手の記録', 20, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 208, '灯名・黒曜・朝明・欠けた心を、絵札として残す頁。', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 184, '灯し手の記録', 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 208, '灯名・黒曜・朝明・欠けた心を、絵札として残す頁。', 10, STORYBOOK_UI.paperDark));
 
     keeperRecords.forEach((record, index) => {
       const x = GAME_WIDTH / 2 - 132 + index * 66;
@@ -413,10 +443,10 @@ export class CollectionScene extends Phaser.Scene {
 
   private renderWordRecordsPage(root: Phaser.GameObjects.Container): void {
     const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 382, 336, 424, STORYBOOK_UI.nightPanel, 0xe0b0a6, 0.9);
+    drawLargeNotebookPage(card, GAME_WIDTH / 2, 382, 336, 424, { accent: STORYBOOK_UI.dawnPeach, alpha: 0.92 });
     root.add(card);
-    root.add(this.text(GAME_WIDTH / 2, 184, '言葉の記録', 20, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 208, 'ロードで出会った言葉と、灯し手たちの返事。', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 184, '言葉の記録', 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 208, 'ロードで出会った言葉と、灯し手たちの返事。', 10, STORYBOOK_UI.paperDark));
 
     const visibleLines = collectionWordRecordLines.slice(0, 6);
     if (visibleLines.length === 0) {
@@ -588,10 +618,10 @@ export class CollectionScene extends Phaser.Scene {
     const rewardedCount = ACHIEVEMENT_DEFS.filter((d) => rewarded[d.id]).length;
 
     const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 400, 336, 470, STORYBOOK_UI.nightPanel, 0xf5d58a, 0.9);
+    drawLargeNotebookPage(card, GAME_WIDTH / 2, 400, 336, 470, { accent: STORYBOOK_UI.warmAmber, alpha: 0.92 });
     root.add(card);
 
-    root.add(this.text(GAME_WIDTH / 2, 172, 'しるしの記録', 20, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 172, 'しるしの記録', 18, STORYBOOK_UI.textDark, true, true));
     const summaryParts = [`達成 ${achievedCount}/${ACHIEVEMENT_DEFS.length}`];
     if (newIds.size > 0) summaryParts.push(`新着 ${newIds.size}`);
     summaryParts.push(`報酬済 ${rewardedCount}`);
@@ -757,9 +787,9 @@ export class CollectionScene extends Phaser.Scene {
     const seen = new Set(seenEnemyIds);
     const known = enemies.filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0);
     const card = this.add.graphics();
-    drawStorybookPanel(card, GAME_WIDTH / 2, 366, 330, 390, STORYBOOK_UI.nightPanel, 0x9c74c5, 0.9);
+    drawLargeNotebookPage(card, GAME_WIDTH / 2, 366, 330, 390, { accent: STORYBOOK_UI.dustyRose, alpha: 0.92 });
     root.add(card);
-    root.add(this.text(GAME_WIDTH / 2, 194, COLLECTION_LABELS.bestiary, 20, STORYBOOK_UI.textLight, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 194, COLLECTION_LABELS.bestiary, 18, STORYBOOK_UI.textDark, true, true));
 
     if (known.length === 0) {
       root.add(this.text(GAME_WIDTH / 2, 320, 'まだ影の絵札は白紙です。\n夜路で出会うと、ここに輪郭が残ります。', 13, STORYBOOK_UI.textMuted));
@@ -997,6 +1027,34 @@ export class CollectionScene extends Phaser.Scene {
       resolution: 2,
       lineSpacing: 3,
     }).setOrigin(0.5);
+  }
+
+  private paperCtaButton(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.warmAmber });
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, { x, y, width, height, accent: STORYBOOK_UI.warmAmber, depth: 1000, strong: true });
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe('ui_confirm', { volume: 0.44 });
+      onClick();
+    });
+    c.add([fill, this.text(0, 0, label, 14, STORYBOOK_UI.textDark, true, true), hit]);
+    return c;
+  }
+
+  private secondaryNavButton(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawSecondaryPaperButton(fill, 0, 0, width, height, { accent: STORYBOOK_UI.paperDark });
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, { x, y, width, height, accent: STORYBOOK_UI.paperDark, depth: 1000 });
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe('ui_cancel', { volume: 0.36 });
+      onClick();
+    });
+    c.add([fill, this.text(0, 0, label, 12, STORYBOOK_UI.textLight, true), hit]);
+    return c;
   }
 
   private button(x: number, y: number, width: number, height: number, label: string, onClick: () => void, muted = false): Phaser.GameObjects.Container {
