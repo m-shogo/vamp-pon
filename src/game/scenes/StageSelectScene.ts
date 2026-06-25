@@ -19,8 +19,18 @@ import { loadBondProgress } from '../persistence/bonds';
 import { characters } from '../data/characters';
 import { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';
 import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI, drawStorybookPanel } from '../ui/storybookUi';
-import { drawInkVignette, drawMapThreads, drawPremiumPaperCard } from '../ui/premiumPaperUi';
+import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from '../ui/storybookUi';
+import {
+  drawInkDivider,
+  drawInkVignette,
+  drawLargeNotebookPage,
+  drawMapThreads,
+  drawPremiumPaperCard,
+  drawPrimaryPaperCta,
+  drawSecondaryPaperButton,
+  drawStarMapBackdrop,
+  drawWaxSeal,
+} from '../ui/premiumPaperUi';
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
 import { attachPressFeedback } from '../ui/pressFeedback';
@@ -113,21 +123,23 @@ export class StageSelectScene extends Phaser.Scene {
     const root = this.add.container(0, 0);
     this.root = root;
 
-    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, this.mode === 'growth' ? 0x161225 : 0x17172e, 1));
+    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, STORYBOOK_UI.deepNight, 1));
+    const stars = this.add.graphics();
+    drawStarMapBackdrop(stars, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.1, density: 24 });
+    root.add(stars);
     const vignette = this.add.graphics();
-    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: this.mode === 'growth' ? 0.32 : 0.38 });
+    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.42 });
     root.add(vignette);
 
-    const panel = this.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 370, 810, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.97);
-    root.add(panel);
-
-    const titleY = 34;
-    root.add(this.text(GAME_WIDTH / 2, titleY, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 25, STORYBOOK_UI.textLight, true, true));
-    const titleLine = this.add.graphics();
-    drawMapThreads(titleLine, GAME_WIDTH / 2, 56, 182, 0.16);
-    root.add(titleLine);
-    root.add(this.text(GAME_WIDTH / 2, 66, `黒曜片 ${profile.currency}`, 14, STORYBOOK_UI.goldLight, true));
+    const titleY = 36;
+    const titleBg = this.add.graphics();
+    drawLargeNotebookPage(titleBg, GAME_WIDTH / 2, titleY, 280, 44, { accent: STORYBOOK_UI.warmAmber, alpha: 0.95 });
+    root.add(titleBg);
+    root.add(this.text(GAME_WIDTH / 2, titleY, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 20, STORYBOOK_UI.textDark, true, true));
+    const titleDiv = this.add.graphics();
+    drawInkDivider(titleDiv, GAME_WIDTH / 2, 64, 200, { color: STORYBOOK_UI.paperDark, alpha: 0.25 });
+    root.add(titleDiv);
+    root.add(this.text(GAME_WIDTH / 2, 76, `黒曜片 ${profile.currency}`, 13, STORYBOOK_UI.lanternCore, true));
 
     const recordLabel = this.recordButtonLabel();
 
@@ -135,33 +147,33 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderStagePreview(root, profile);
       this.renderDepthBlock(root, profile);
       this.renderCharacterSummary(root, profile);
-      this.renderSubCharacterStatus(root, profile, 515);
-      root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 102, 260, 56, '探索を始める', () => this.startRun(profile)));
-      root.add(this.button(GAME_WIDTH / 2 - 120, GAME_HEIGHT - 42, 108, 40, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 40, recordLabel, () => {
+      this.renderSubCharacterStatus(root, profile, 556);
+      root.add(this.paperCta(GAME_WIDTH / 2, GAME_HEIGHT - 110, 280, 54, '探索を始める', () => this.startRun(profile)));
+      root.add(this.secondaryNav(GAME_WIDTH / 2 - 100, GAME_HEIGHT - 46, 88, 40, 'TOPへ', () => this.scene.start('TopScene')));
+      root.add(this.secondaryNav(GAME_WIDTH / 2 + 100, GAME_HEIGHT - 46, 88, 40, recordLabel, () => {
         getAudioManager(this).playSe('ui_open', { volume: 0.34 });
         this.scene.start('CollectionScene');
-      }, true));
-      root.add(this.button(GAME_WIDTH / 2 + 120, GAME_HEIGHT - 42, 108, 40, '成長へ', () => {
+      }));
+      root.add(this.secondaryNav(GAME_WIDTH / 2, GAME_HEIGHT - 46, 88, 40, '成長へ', () => {
         this.mode = 'growth';
         getAudioManager(this).playBgm('bgm_growth', { volume: 0.3, fadeMs: 220 });
         this.render();
-      }, true));
+      }));
     } else {
       this.renderCharacterSummary(root, profile);
       this.renderSubCharacterStatus(root, profile, 136);
       this.renderUpgradeBlock(root, profile);
-      root.add(this.primaryButton(GAME_WIDTH / 2, GAME_HEIGHT - 100, 240, 48, '探索へ出発', () => this.startRun(profile)));
-      root.add(this.button(GAME_WIDTH / 2 - 120, GAME_HEIGHT - 42, 108, 38, 'TOPへ', () => this.scene.start('TopScene'), true));
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT - 42, 108, 38, recordLabel, () => {
+      root.add(this.paperCta(GAME_WIDTH / 2, GAME_HEIGHT - 108, 260, 50, '探索へ出発', () => this.startRun(profile)));
+      root.add(this.secondaryNav(GAME_WIDTH / 2 - 100, GAME_HEIGHT - 46, 88, 40, 'TOPへ', () => this.scene.start('TopScene')));
+      root.add(this.secondaryNav(GAME_WIDTH / 2 + 100, GAME_HEIGHT - 46, 88, 40, recordLabel, () => {
         getAudioManager(this).playSe('ui_open', { volume: 0.34 });
         this.scene.start('CollectionScene');
-      }, true));
-      root.add(this.button(GAME_WIDTH / 2 + 120, GAME_HEIGHT - 42, 108, 38, 'ステージ選択', () => {
+      }));
+      root.add(this.secondaryNav(GAME_WIDTH / 2, GAME_HEIGHT - 46, 88, 40, 'ステージ選択', () => {
         this.mode = 'stage';
         getAudioManager(this).playBgm('bgm_top', { volume: 0.3, fadeMs: 220 });
         this.render();
-      }, true));
+      }));
     }
 
     if (this.confirmingReset) this.renderResetConfirm(root, profile);
@@ -185,53 +197,65 @@ export class StageSelectScene extends Phaser.Scene {
     const next = idx >= 0 && idx + 1 < unlocked.length ? unlocked[idx + 1] : null;
     const nextLocked = next == null;
 
-    // プレビューカード（背景画像があればそれ、なければ夜色＋テーマ色）
     const cardX = GAME_WIDTH / 2;
-    const cardY = 200;
-    const cardW = 322;
-    const cardH = 168;
+    const cardY = 210;
+    const cardW = 340;
+    const cardH = 200;
 
-    const paper = this.add.graphics();
-    drawPremiumPaperCard(paper, cardX, cardY, cardW + 12, cardH + 14, { accent: STORYBOOK_UI.gold, paper: 0x211d36, selected: true, muted: true });
-    root.add(paper);
+    const pageBg = this.add.graphics();
+    drawLargeNotebookPage(pageBg, cardX, cardY, cardW, cardH, { accent: STORYBOOK_UI.paperDark, alpha: 0.96 });
+    root.add(pageBg);
 
     const entry = this.bgEntryByStage.get(current);
     const key = entry ? stageBackgroundTextureKey(entry) : null;
+    const innerW = cardW - 40;
+    const innerH = 100;
+    const innerY = cardY - 14;
     if (key && this.textures.exists(key)) {
-      const tile = this.add.image(cardX, cardY, key).setDisplaySize(cardW, cardH).setDepth(0);
+      const tile = this.add.image(cardX, innerY, key).setDisplaySize(innerW, innerH);
       root.add(tile);
     } else {
-      // fallback: テーマ色のグラデっぽい二段塗り
-      const fallbackTop = this.add.rectangle(cardX, cardY - cardH / 4, cardW, cardH / 2, 0x2a2548, 1);
-      const fallbackBottom = this.add.rectangle(cardX, cardY + cardH / 4, cardW, cardH / 2, 0x1c1932, 1);
-      root.add(fallbackTop);
-      root.add(fallbackBottom);
+      root.add(this.add.rectangle(cardX, innerY, innerW, innerH, STORYBOOK_UI.inkViolet, 0.8));
     }
-    // 暗膜（文字を読ませる）
-    const dim = this.add.rectangle(cardX, cardY, cardW, cardH, 0x0a0816, 0.42);
-    root.add(dim);
+    root.add(this.add.rectangle(cardX, innerY, innerW, innerH, STORYBOOK_UI.inkBlack, 0.35));
 
     const routeLines = this.add.graphics();
-    drawMapThreads(routeLines, cardX, cardY + cardH / 2 - 28, 220, 0.18);
+    drawMapThreads(routeLines, cardX, innerY + 10, innerW - 40, 0.28);
     root.add(routeLines);
 
-    // 枠
-    const border = this.add.graphics();
-    border.lineStyle(2, 0xf5d58a, 0.75);
-    border.strokeRect(cardX - cardW / 2 + 4, cardY - cardH / 2 + 4, cardW - 8, cardH - 8);
-    root.add(border);
+    const routeBorder = this.add.graphics();
+    routeBorder.lineStyle(1, STORYBOOK_UI.paperDark, 0.6);
+    routeBorder.strokeRect(cardX - innerW / 2, innerY - innerH / 2, innerW, innerH);
+    root.add(routeBorder);
 
-    // ステージ番号 + 名前
     const stageName = entry?.name ?? '夜路';
-    root.add(this.text(cardX, cardY - 56, `Stage ${current}`, 22, STORYBOOK_UI.textLight, true, true));
-    root.add(this.text(cardX, cardY - 28, stageName, 15, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(cardX, cardY + 4, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textLight));
-    const hint = this.stageHintFor(current);
-    if (hint) root.add(this.text(cardX, cardY + 22, hint, 10, 0xb0a8d0));
-    root.add(this.text(cardX, cardY + cardH / 2 - 18, `開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(cardX - 20, cardY - 82, `Stage ${current}`, 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(cardX - 20, cardY - 64, stageName, 13, STORYBOOK_UI.paperDark, true));
 
-    // 前ボタン
-    const prevBtn = this.button(cardX - cardW / 2 - 8, cardY, 36, 56, '◀', () => {
+    const lvBadge = this.add.graphics();
+    const charProgress = profile.characterProgress[characters[0].id] ?? { level: 1, xp: 0, totalXp: 0 };
+    const lvX = cardX + cardW / 2 - 42;
+    const lvY = cardY - 78;
+    lvBadge.fillStyle(STORYBOOK_UI.deepNight, 0.85).fillRect(lvX - 24, lvY - 10, 48, 20);
+    lvBadge.lineStyle(1, STORYBOOK_UI.warmAmber, 0.6).strokeRect(lvX - 24, lvY - 10, 48, 20);
+    root.add(lvBadge);
+    root.add(this.text(lvX, lvY, `Lv.${charProgress.level}`, 12, STORYBOOK_UI.lanternCore, true));
+
+    const seal = this.add.graphics();
+    drawWaxSeal(seal, cardX + cardW / 2 - 38, cardY + 20, 26, { color: STORYBOOK_UI.dustyRose });
+    root.add(seal);
+
+    root.add(this.text(cardX - 10, cardY + 42, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textDark));
+    const hint = this.stageHintFor(current);
+    if (hint) root.add(this.text(cardX - 10, cardY + 58, hint, 10, STORYBOOK_UI.paperDark));
+
+    const divider = this.add.graphics();
+    drawInkDivider(divider, cardX, cardY + 74, cardW - 48, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
+    root.add(divider);
+
+    root.add(this.text(cardX, cardY + 88, `Best Record — 開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.paperDark));
+
+    const prevBtn = this.navArrow(18, cardY, '◀', () => {
       if (prev == null) return;
       selectRun(prev, profile.selectedDepth);
       void this.loadPreviewTextureFor(prev).then(() => this.render());
@@ -239,9 +263,7 @@ export class StageSelectScene extends Phaser.Scene {
     }, prev == null);
     root.add(prevBtn);
 
-    // 次ボタン
-    const nextLabel = nextLocked ? '×' : '▶';
-    const nextBtn = this.button(cardX + cardW / 2 + 8, cardY, 36, 56, nextLabel, () => {
+    const nextBtn = this.navArrow(GAME_WIDTH - 18, cardY, nextLocked ? '×' : '▶', () => {
       if (next == null) return;
       selectRun(next, profile.selectedDepth);
       void this.loadPreviewTextureFor(next).then(() => this.render());
@@ -255,9 +277,9 @@ export class StageSelectScene extends Phaser.Scene {
       const hasNextRecipe = nextStageNum <= stageRecipes.length;
       if (hasNextRecipe) {
         const recipe = recipeForStage(nextStageNum);
-        root.add(this.text(cardX, cardY + cardH / 2 + 14, `Stage ${nextStageNum} ${recipe.name} — 夜明けまで進むと開放`, 10, 0x8b82a0));
+        root.add(this.text(cardX, cardY + cardH / 2 + 12, `Stage ${nextStageNum} ${recipe.name} — 夜明けまで進むと開放`, 10, STORYBOOK_UI.textMuted));
       } else {
-        root.add(this.text(cardX, cardY + cardH / 2 + 14, '次のステージは未開放', 11, STORYBOOK_UI.textMuted));
+        root.add(this.text(cardX, cardY + cardH / 2 + 12, '次のステージは未開放', 10, STORYBOOK_UI.textMuted));
       }
     }
   }
@@ -281,51 +303,72 @@ export class StageSelectScene extends Phaser.Scene {
 
   // --- 難易度（Easy/Normal/Hard） ---
   private renderDepthBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
-    const blockY = 322;
-    root.add(this.text(GAME_WIDTH / 2, blockY, '夜の深さ', 15, STORYBOOK_UI.textLight, true));
+    const blockY = 346;
+    root.add(this.text(GAME_WIDTH / 2, blockY, '夜の深さ', 14, STORYBOOK_UI.lanternCore, true));
+
+    const cardW = 108;
+    const cardH = 130;
     DEPTH_ORDER.forEach((depthId, index) => {
       const depth = EXPLORATION_DEPTHS[depthId];
       const flavor = DEPTH_FLAVOR[depthId];
       const selected = depthId === profile.selectedDepth;
-      const x = 56 + index * 96 + 48;
-      const y = blockY + 52;
+      const x = GAME_WIDTH / 2 + (index - 1) * (cardW + 8);
+      const y = blockY + 90;
 
       const card = this.add.graphics();
-      drawPremiumPaperCard(card, x, y, 94, 52, {
-        accent: depth.tint,
-        paper: selected ? STORYBOOK_UI.paperLight : 0x28243d,
-        selected,
-        muted: !selected,
-      });
+      if (selected) {
+        drawLargeNotebookPage(card, x, y, cardW, cardH, { accent: STORYBOOK_UI.warmAmber, alpha: 1 });
+      } else {
+        drawPremiumPaperCard(card, x, y, cardW, cardH, {
+          accent: depth.tint,
+          paper: STORYBOOK_UI.deepNight,
+          muted: true,
+        });
+      }
       root.add(card);
 
-      if (depthId === 'middle') {
-        const stain = this.add.circle(x + 34, y - 17, 7, 0x181225, selected ? 0.1 : 0.18);
-        root.add(stain);
-      } else if (depthId === 'deep') {
-        root.add(this.add.circle(x + 31, y - 16, 10, 0x090812, selected ? 0.18 : 0.28));
-        root.add(this.add.circle(x - 34, y + 16, 6, 0x090812, selected ? 0.12 : 0.22));
+      const lanternG = this.add.graphics();
+      const lanternY = y - 24;
+      const lanternAlpha = depthId === 'shallow' ? 0.4 : depthId === 'middle' ? 0.65 : 0.95;
+      const lanternColor = selected ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperDark;
+      lanternG.fillStyle(lanternColor, lanternAlpha);
+      lanternG.fillRect(x - 3, lanternY - 14, 6, 8);
+      lanternG.fillStyle(STORYBOOK_UI.lanternCore, lanternAlpha * 0.8);
+      lanternG.fillCircle(x, lanternY, 8);
+      if (selected) {
+        lanternG.fillStyle(STORYBOOK_UI.lanternCore, 0.15);
+        lanternG.fillCircle(x, lanternY, 18);
       }
+      root.add(lanternG);
 
-      const btn = this.button(x, y, 94, 52, depth.label, () => {
+      const labelColor = selected ? STORYBOOK_UI.textDark : STORYBOOK_UI.textLight;
+      root.add(this.text(x, y + 6, depth.label, 14, labelColor, true));
+      root.add(this.text(x, y + 24, flavor.sub, 11, selected ? STORYBOOK_UI.paperDark : colorString(depth.tint)));
+      root.add(this.text(x, y + 40, `報酬×${depth.reward.toFixed(1)}`, 10, selected ? STORYBOOK_UI.paperDark : STORYBOOK_UI.textMuted));
+
+      const hit = this.add.rectangle(x, y, cardW, cardH, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+      attachPressFeedback(this, hit, root, {
+        x, y, width: cardW, height: cardH,
+        accent: depth.tint, depth: 1000,
+      });
+      hit.on('pointerdown', () => {
+        getAudioManager(this).playSe('ui_select', { volume: 0.36 });
         selectRun(profile.selectedStage, depthId);
         this.render();
-      }, !selected);
-      root.add(btn);
-      root.add(this.text(x, y + 40, flavor.sub, 11, colorString(depth.tint), true));
-      root.add(this.text(x, y + 54, `報酬×${depth.reward.toFixed(1)}`, 11, STORYBOOK_UI.textMuted));
+      });
+      root.add(hit);
     });
     const selected = DEPTH_FLAVOR[profile.selectedDepth];
-    root.add(this.text(GAME_WIDTH / 2, blockY + 120, `おすすめ: ${selected.recommend}`, 13, STORYBOOK_UI.goldLight));
+    root.add(this.text(GAME_WIDTH / 2, blockY + 168, selected.recommend, 12, STORYBOOK_UI.warmAmber));
   }
 
   private renderCharacterSummary(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
     const char = characters[0];
     const progress = profile.characterProgress[char.id] ?? { level: 1, xp: 0, totalXp: 0 };
     const need = characterXpToNext(progress.level);
-    const y = this.mode === 'growth' ? 100 : 470;
-    root.add(this.text(GAME_WIDTH / 2, y, `${char.name} Lv.${progress.level}　${progress.xp}/${need}`, 13, STORYBOOK_UI.goldLight, true));
-    root.add(this.text(GAME_WIDTH / 2, y + 18, '使うほどHPと攻撃が少しずつ伸びる', 11, STORYBOOK_UI.textMuted));
+    const y = this.mode === 'growth' ? 100 : 530;
+    root.add(this.text(GAME_WIDTH / 2, y, `${char.name} Lv.${progress.level}　${progress.xp}/${need}`, 12, STORYBOOK_UI.warmAmber, true));
+    root.add(this.text(GAME_WIDTH / 2, y + 16, '使うほどHPと攻撃が少しずつ伸びる', 10, STORYBOOK_UI.textMuted));
   }
 
   private renderSubCharacterStatus(root: Phaser.GameObjects.Container, profile: PlayerProfile, y: number): void {
@@ -357,7 +400,7 @@ export class StageSelectScene extends Phaser.Scene {
   }
 
   private renderUpgradeBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
-    root.add(this.text(GAME_WIDTH / 2, 172, '持ち帰った灯りで、次の夜を少し楽にする', 11, STORYBOOK_UI.textMuted));
+    root.add(this.text(GAME_WIDTH / 2, 172, '持ち帰った灯りで、次の夜を少し楽にする', 11, STORYBOOK_UI.lanternCore));
 
     root.add(this.button(GAME_WIDTH - 90, 196, 106, 28, 'リセット', () => {
       this.confirmingReset = true;
@@ -404,18 +447,17 @@ export class StageSelectScene extends Phaser.Scene {
 
   private renderResetConfirm(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
     const refund = upgradeRefundValue(profile);
-    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x05060f, 0.72).setInteractive());
+    root.add(this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, STORYBOOK_UI.inkBlack, 0.72).setInteractive());
     const panel = this.add.graphics();
-    drawStorybookPanel(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 220, STORYBOOK_UI.nightPanel, STORYBOOK_UI.gold, 0.99);
+    drawLargeNotebookPage(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 220, { accent: STORYBOOK_UI.warmAmber });
     root.add(panel);
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 66, '強化をリセット', 20, STORYBOOK_UI.textLight, true));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `黒曜片 ${refund} を全額返還します。
-いつでも振り直せます。`, 12, STORYBOOK_UI.textMuted));
-    root.add(this.button(GAME_WIDTH / 2 - 76, GAME_HEIGHT / 2 + 52, 136, 42, 'やめる', () => {
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 66, '強化をリセット', 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `黒曜片 ${refund} を全額返還します。\nいつでも振り直せます。`, 12, STORYBOOK_UI.paperDark));
+    root.add(this.secondaryNav(GAME_WIDTH / 2 - 76, GAME_HEIGHT / 2 + 52, 120, 38, 'やめる', () => {
       this.confirmingReset = false;
       this.render();
-    }, true));
-    root.add(this.button(GAME_WIDTH / 2 + 76, GAME_HEIGHT / 2 + 52, 136, 42, '返還する', () => {
+    }));
+    root.add(this.paperCta(GAME_WIDTH / 2 + 76, GAME_HEIGHT / 2 + 52, 120, 38, '返還する', () => {
       resetUpgrades();
       this.confirmingReset = false;
       this.render();
@@ -460,6 +502,52 @@ export class StageSelectScene extends Phaser.Scene {
       resolution: 2,
       lineSpacing: 3,
     }).setOrigin(0.5);
+  }
+
+  private paperCta(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.warmAmber });
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, { x, y, width, height, accent: STORYBOOK_UI.warmAmber, depth: 1000, strong: true, shake: true });
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe('ui_confirm', { volume: 0.48 });
+      onClick();
+    });
+    c.add([fill, this.text(0, 0, label, 17, STORYBOOK_UI.textDark, true, true), hit]);
+    return c;
+  }
+
+  private secondaryNav(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawSecondaryPaperButton(fill, 0, 0, width, height, { accent: STORYBOOK_UI.paperDark });
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, { x, y, width, height, accent: STORYBOOK_UI.paperDark, depth: 1000 });
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe('ui_cancel', { volume: 0.36 });
+      onClick();
+    });
+    c.add([fill, this.text(0, 0, label, 12, STORYBOOK_UI.textLight, true), hit]);
+    return c;
+  }
+
+  private navArrow(x: number, y: number, label: string, onClick: () => void, disabled: boolean): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawSecondaryPaperButton(fill, 0, 0, 32, 48, { accent: disabled ? 0x3a3650 : STORYBOOK_UI.paperDark });
+    const hit = this.add.rectangle(0, 0, 32, 48, 0x000000, 0.001).setInteractive({ useHandCursor: !disabled });
+    if (!disabled) {
+      attachPressFeedback(this, hit, c, { x, y, width: 32, height: 48, accent: STORYBOOK_UI.paperDark, depth: 1000 });
+    }
+    hit.on('pointerdown', () => {
+      if (disabled) return;
+      getAudioManager(this).playSe('ui_select', { volume: 0.36 });
+      onClick();
+    });
+    c.add([fill, this.text(0, 0, label, 14, disabled ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textLight, true), hit]);
+    c.setAlpha(disabled ? 0.5 : 1);
+    return c;
   }
 
   private primaryButton(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
