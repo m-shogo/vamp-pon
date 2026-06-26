@@ -30,7 +30,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "asset-factory:dev": "vite --config tools/asset-factory/vite.config.ts",
-    "asset-factory:build": "vite build --config tools/asset-factory/vite.config.ts"
+    "asset-factory:build": "vite build --config tools/asset-factory/vite.config.ts",
+    "asset-factory:preview": "vite preview --config tools/asset-factory/vite.config.ts"
   },
   "dependencies": {
     "phaser": "4.1.0",
