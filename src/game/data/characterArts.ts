@@ -1,4 +1,5 @@
 import type { Core5PrototypeCharacterId } from '../assets/core5PrototypeCharacters';
+import { characterCanon } from './characterCanon';
 import { WORLD_TERMS } from './worldTerms';
 
 export type CharacterArtTier = {
@@ -17,48 +18,27 @@ export type CharacterArtNameSet = {
   arts: CharacterArtSet;
 };
 
-export const core5CharacterArts: CharacterArtNameSet[] = [
-  {
-    characterId: 'yui',
+const core5Ids = new Set<Core5PrototypeCharacterId>(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
+
+export const core5CharacterArts: CharacterArtNameSet[] = characterCanon
+  .filter((entry) => entry.group === 'core5' && core5Ids.has(entry.id as Core5PrototypeCharacterId))
+  .map((entry) => ({
+    characterId: entry.id as Core5PrototypeCharacterId,
     arts: {
-      lampArt: { label: WORLD_TERMS.techniqueRanks.lampTechnique, name: '夜解きの灯' },
-      inheritedLight: { label: WORLD_TERMS.techniqueRanks.inheritedLight, name: '忘れ火の道標' },
-      dawnLight: { label: WORLD_TERMS.techniqueRanks.dawnLight, name: '消えない名前' },
+      lampArt: {
+        label: WORLD_TERMS.techniqueRanks.lampTechnique,
+        name: entry.arts.lampArt,
+      },
+      inheritedLight: {
+        label: WORLD_TERMS.techniqueRanks.inheritedLight,
+        name: entry.arts.inheritedLight,
+      },
+      dawnLight: {
+        label: WORLD_TERMS.techniqueRanks.dawnLight,
+        name: entry.arts.dawnLight,
+      },
     },
-  },
-  {
-    characterId: 'asa',
-    arts: {
-      lampArt: { label: WORLD_TERMS.techniqueRanks.lampTechnique, name: '名札灯し' },
-      inheritedLight: { label: WORLD_TERMS.techniqueRanks.inheritedLight, name: '暁綴り' },
-      dawnLight: { label: WORLD_TERMS.techniqueRanks.dawnLight, name: '暁に結ぶ名' },
-    },
-  },
-  {
-    characterId: 'nagi',
-    arts: {
-      lampArt: { label: WORLD_TERMS.techniqueRanks.lampTechnique, name: '月箱の鍵' },
-      inheritedLight: { label: WORLD_TERMS.techniqueRanks.inheritedLight, name: '封月の守り' },
-      dawnLight: { label: WORLD_TERMS.techniqueRanks.dawnLight, name: '夜をしまう箱' },
-    },
-  },
-  {
-    characterId: 'michiru',
-    arts: {
-      lampArt: { label: WORLD_TERMS.techniqueRanks.lampTechnique, name: '帰針' },
-      inheritedLight: { label: WORLD_TERMS.techniqueRanks.inheritedLight, name: '星図の道糸' },
-      dawnLight: { label: WORLD_TERMS.techniqueRanks.dawnLight, name: '帰り道の星' },
-    },
-  },
-  {
-    characterId: 'tomori',
-    arts: {
-      lampArt: { label: WORLD_TERMS.techniqueRanks.lampTechnique, name: '継火' },
-      inheritedLight: { label: WORLD_TERMS.techniqueRanks.inheritedLight, name: '修理灯' },
-      dawnLight: { label: WORLD_TERMS.techniqueRanks.dawnLight, name: '夜を直す灯' },
-    },
-  },
-];
+  }));
 
 export const characterArtById = new Map(core5CharacterArts.map((entry) => [entry.characterId, entry]));
 
