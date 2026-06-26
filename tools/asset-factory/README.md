@@ -65,9 +65,19 @@ pnpm asset-factory:build
   - 180x180 セルルール (Character / Enemy)
   - プリセット一覧 (Enemy / Weapon / Item)
   - ネガティブプロンプト
-  - 生成後チェックリスト (Asset Factory での確認手順)
+  - 生成後チェックリスト (アセットタイプ別: spritesheet / icon / cutin / background)
 - コピー / 全タイプコピー / ダウンロード / 全タイプDL
 - 文字数カウント表示
+
+#### アセットタイプ別仕様
+- **Character / Enemy**: 8x6 / 180px スプライトシート
+- **Weapon / Item**: 1024x1024 アイコン (64px/32px可読)
+- **Cutin**: 1440x360 横長ワイドカットイン (transparent PNG)
+- **Background**: 390x844 縦型モバイル戦闘背景 (endless runnerではない)
+
+#### 敵名表記
+- 小型敵: オンブ (Ombu) — 「オンブー」は誤表記
+- 大型敵/ボス: オンブロ (Omburo) — 「オンブロー」は誤表記
 
 #### プリセット別プロンプト展開 (v2)
 - Enemy (7種): ombu-small / ombu-shoe-zigzag / ombu-umbrella-shield / ombu-key-dasher / ombu-letter-shooter / omburo-lamppost-aura / forgotten-umbrella-keeper
@@ -79,7 +89,11 @@ pnpm asset-factory:build
 
 #### 再生成プロンプトビルダー (v2)
 - 検査結果から修正指示を自動生成
-- 検出する問題: 空セル / セル端接触 / 中心ガタつき / サイズ過小・過大 / シートサイズ不一致
+- アセットタイプ別に指示を分岐:
+  - character/enemy: 8x6 / 180px / cell edge / empty cell / jitter を重視
+  - weapon/item: 1024x1024 icon / centered / readable at 64px/32px
+  - background: 390x844 crop/readability / no UI baked in
+  - cutin: 1440x360 / transparent / horizontal cutin / character identity
 - 出力: Detected Issues / Fix Instructions / Original Asset Intent / Negative Prompt / Asset Factory Recheck Steps
 - 使い方: 画像読込 → 検査実行 → 検査結果タブの「再生成プロンプト作成」ボタン → テキストをコピーして画像AIに投入
 

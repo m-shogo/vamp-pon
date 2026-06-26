@@ -63,6 +63,11 @@ const state: AppState = {
 const $ = <T extends HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
 const $$ = <T extends HTMLElement>(sel: string) => document.querySelectorAll<T>(sel);
 
+function escapeHtml(value: unknown): string {
+  const s = String(value ?? '');
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 function init() {
   document.querySelector('#app')!.innerHTML = buildHTML();
   bindTabs();
@@ -373,7 +378,7 @@ function showFileInfo(file: File) {
   const info = $('#file-info');
   info.style.display = 'block';
   info.innerHTML = `
-    <span>${file.name}</span>
+    <span>${escapeHtml(file.name)}</span>
     <span>${state.imageWidth} x ${state.imageHeight} px</span>
     <span>${(file.size / 1024).toFixed(1)} KB</span>
   `;
@@ -532,7 +537,7 @@ function renderInspect() {
 
   container.innerHTML = `
     <div class="inspect-summary">
-      <h3>検査結果: ${r.fileName}</h3>
+      <h3>検査結果: ${escapeHtml(r.fileName)}</h3>
       <div class="stat-row">
         <span class="stat-label">画像サイズ:</span>
         <span class="stat-value">${r.width} x ${r.height} px</span>
@@ -560,7 +565,7 @@ function renderInspect() {
       <div class="warnings-list">
         ${r.warnings.map(w => `
           <div class="warning-item ${w.level}">
-            ${w.level === 'error' ? '❌' : '⚠️'} ${w.message}
+            ${w.level === 'error' ? '❌' : '⚠️'} ${escapeHtml(w.message)}
           </div>
         `).join('')}
       </div>
@@ -688,7 +693,7 @@ function renderManifest() {
       <div class="preset-selector">
         <h3>プリセット (${state.assetType})</h3>
         <div class="preset-list">
-          ${presets.map(p => `<button class="preset-btn" data-preset="${p.id}">${p.label}</button>`).join('')}
+          ${presets.map(p => `<button class="preset-btn" data-preset="${escapeHtml(p.id)}">${escapeHtml(p.label)}</button>`).join('')}
         </div>
       </div>
     `;
@@ -805,9 +810,9 @@ function renderManifestFields() {
       : String((m as Record<string, unknown>)[f.key] ?? '');
 
     if (f.type === 'textarea') {
-      return `<div class="field-group"><label>${f.label}</label><textarea data-field="${f.key}">${val}</textarea></div>`;
+      return `<div class="field-group"><label>${escapeHtml(f.label)}</label><textarea data-field="${f.key}">${escapeHtml(val)}</textarea></div>`;
     }
-    return `<div class="field-group"><label>${f.label}</label><input type="${f.type === 'number' ? 'number' : 'text'}" data-field="${f.key}" value="${val}"></div>`;
+    return `<div class="field-group"><label>${escapeHtml(f.label)}</label><input type="${f.type === 'number' ? 'number' : 'text'}" data-field="${f.key}" value="${escapeHtml(val)}"></div>`;
   }).join('');
 
   for (const input of editor.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-field]')) {
@@ -926,7 +931,7 @@ function renderPresetOptions() {
     <button class="pack-preset-btn${state.presetExpansion === 'none' ? ' active' : ''}" data-preset-exp="none">なし</button>
     <button class="pack-preset-btn${state.presetExpansion === 'all' ? ' active' : ''}" data-preset-exp="all">全プリセット</button>
     ${presets.map(p =>
-      `<button class="pack-preset-btn${state.presetExpansion === p.id ? ' active' : ''}" data-preset-exp="${p.id}">${p.label}</button>`
+      `<button class="pack-preset-btn${state.presetExpansion === p.id ? ' active' : ''}" data-preset-exp="${escapeHtml(p.id)}">${escapeHtml(p.label)}</button>`
     ).join('')}
   `;
 
@@ -987,14 +992,14 @@ function renderLibrary() {
   list.innerHTML = entries.map((entry, i) => `
     <div class="library-card">
       <div class="info">
-        <div class="name">${entry.manifest.displayName || entry.manifest.id || '(untitled)'}</div>
+        <div class="name">${escapeHtml(entry.manifest.displayName || entry.manifest.id || '(untitled)')}</div>
         <div class="meta">
-          ${entry.manifest.type} | ${entry.manifest.sourceFileName || '-'} | ${new Date(entry.updatedAt).toLocaleString()}
+          ${escapeHtml(entry.manifest.type)} | ${escapeHtml(entry.manifest.sourceFileName || '-')} | ${new Date(entry.updatedAt).toLocaleString()}
         </div>
         <div class="meta">
-          <span style="color:${STATUS_COLORS[entry.reviewStatus] || 'var(--text-dim)'}">${STATUS_LABELS[entry.reviewStatus] || entry.reviewStatus}</span>
+          <span style="color:${STATUS_COLORS[entry.reviewStatus] || 'var(--text-dim)'}">${escapeHtml(STATUS_LABELS[entry.reviewStatus] || entry.reviewStatus)}</span>
           | Q${entry.qualityScore}
-          ${entry.reviewNotes ? ` | ${entry.reviewNotes.slice(0, 40)}${entry.reviewNotes.length > 40 ? '...' : ''}` : ''}
+          ${entry.reviewNotes ? ` | ${escapeHtml(entry.reviewNotes.slice(0, 40))}${entry.reviewNotes.length > 40 ? '...' : ''}` : ''}
         </div>
       </div>
       <div class="actions">

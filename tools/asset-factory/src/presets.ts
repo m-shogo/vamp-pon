@@ -8,51 +8,51 @@ export type PresetEntry = {
 
 export const ENEMY_PRESETS: PresetEntry[] = [
   {
-    id: 'ombu-small', label: 'オンブー（小型基本）',
+    id: 'ombu-small', label: 'オンブ（小型基本）',
     manifest: {
       type: 'enemy', enemyId: 'ombu-small', baseFamily: 'ombu', motif: 'forgotten small object',
       behavior: 'wander', stage: 'stage-1', sizeTier: 'small', palette: 'dark-warm',
-      hpTier: 'low', speedTier: 'slow', expTier: 'low', displayName: 'オンブー（小型）',
+      hpTier: 'low', speedTier: 'slow', expTier: 'low', displayName: 'オンブ（小型）',
     } as Partial<EnemyManifest>,
   },
   {
-    id: 'ombu-shoe-zigzag', label: 'オンブー靴（ジグザグ）',
+    id: 'ombu-shoe-zigzag', label: 'オンブ靴（ジグザグ）',
     manifest: {
       type: 'enemy', enemyId: 'ombu-shoe-zigzag', baseFamily: 'ombu', motif: 'forgotten shoe',
       behavior: 'zigzag', stage: 'stage-1', sizeTier: 'small', palette: 'dark-warm',
-      hpTier: 'low', speedTier: 'medium', expTier: 'low', displayName: 'オンブー靴',
+      hpTier: 'low', speedTier: 'medium', expTier: 'low', displayName: 'オンブ靴',
     } as Partial<EnemyManifest>,
   },
   {
-    id: 'ombu-umbrella-shield', label: 'オンブー傘（シールド）',
+    id: 'ombu-umbrella-shield', label: 'オンブ傘（シールド）',
     manifest: {
       type: 'enemy', enemyId: 'ombu-umbrella-shield', baseFamily: 'ombu', motif: 'forgotten umbrella',
       behavior: 'shield', stage: 'stage-1', sizeTier: 'medium', palette: 'dark-warm',
-      hpTier: 'medium', speedTier: 'slow', expTier: 'medium', displayName: 'オンブー傘',
+      hpTier: 'medium', speedTier: 'slow', expTier: 'medium', displayName: 'オンブ傘',
     } as Partial<EnemyManifest>,
   },
   {
-    id: 'ombu-key-dasher', label: 'オンブー鍵（ダッシャー）',
+    id: 'ombu-key-dasher', label: 'オンブ鍵（ダッシャー）',
     manifest: {
       type: 'enemy', enemyId: 'ombu-key-dasher', baseFamily: 'ombu', motif: 'forgotten key',
       behavior: 'dash', stage: 'stage-1', sizeTier: 'small', palette: 'dark-warm',
-      hpTier: 'low', speedTier: 'fast', expTier: 'medium', displayName: 'オンブー鍵',
+      hpTier: 'low', speedTier: 'fast', expTier: 'medium', displayName: 'オンブ鍵',
     } as Partial<EnemyManifest>,
   },
   {
-    id: 'ombu-letter-shooter', label: 'オンブー手紙（シューター）',
+    id: 'ombu-letter-shooter', label: 'オンブ手紙（シューター）',
     manifest: {
       type: 'enemy', enemyId: 'ombu-letter-shooter', baseFamily: 'ombu', motif: 'forgotten letter',
       behavior: 'shoot', stage: 'stage-1', sizeTier: 'medium', palette: 'dark-warm',
-      hpTier: 'medium', speedTier: 'slow', expTier: 'medium', displayName: 'オンブー手紙',
+      hpTier: 'medium', speedTier: 'slow', expTier: 'medium', displayName: 'オンブ手紙',
     } as Partial<EnemyManifest>,
   },
   {
-    id: 'omburo-lamppost-aura', label: 'オンブロー街灯（オーラ）',
+    id: 'omburo-lamppost-aura', label: 'オンブロ街灯（オーラ）',
     manifest: {
       type: 'enemy', enemyId: 'omburo-lamppost-aura', baseFamily: 'omburo', motif: 'lamppost',
       behavior: 'aura', stage: 'stage-1', sizeTier: 'large', palette: 'dark-warm',
-      hpTier: 'high', speedTier: 'slow', expTier: 'high', displayName: 'オンブロー街灯',
+      hpTier: 'high', speedTier: 'slow', expTier: 'high', displayName: 'オンブロ街灯',
     } as Partial<EnemyManifest>,
   },
   {

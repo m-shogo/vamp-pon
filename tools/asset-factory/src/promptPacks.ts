@@ -19,8 +19,8 @@ const WORLD_RULES_JA = `## Vamp Pon 世界観ルール
 - ジャンル: モバイル2Dヴァンサバ系アクション
 - 世界観: 夜の忘れ物の世界。忘れられた物が命を持ち、小さな光だけが道を照らす
 - 主人公ユイ: ランタンを持つ少女。記憶を集める旅をしている
-- 敵 (オンブー): 忘れられた物が意思を持った存在。敵意は薄く、哀愁がある
-- ボス (オンブロー/番人): 大型の忘れ物の守護者
+- 敵 (オンブ): 忘れられた物が意思を持った存在。敵意は薄く、哀愁がある
+- ボス (オンブロ/番人): 大型の忘れ物の守護者
 - 色調: 暗いが温かみがある。黒インク、紙、小さな灯り、記憶の断片
 - UI: 夜空とランタンの光をモチーフにしたダークテーマ`;
 
@@ -30,7 +30,7 @@ const WORLD_RULES_EN = `## Vamp Pon World Rules
 - World: A nighttime world of forgotten things. Forgotten objects gain life; only small lights illuminate the path
 - Protagonist Yui: A girl carrying a lantern, on a journey to collect memories
 - Enemies (Ombu): Forgotten objects that gained consciousness. Not hostile — melancholic
-- Bosses (Omburo/Keepers): Large guardian spirits of forgotten things
+- Bosses (Omburo / Keepers): Large guardian spirits of forgotten things
 - Palette: Dark but warm. Black ink, paper, small lights, memory fragments
 - UI: Dark theme inspired by night sky and lantern glow`;
 
@@ -151,6 +151,46 @@ const AFTER_CHECK_EN = `## Post-Generation Checklist (Verify in Asset Factory)
    - [ ] Handedness / equipment placement coherent across directions
    - [ ] Fits Vamp Pon's night / memory / forgotten-object / small-light world
 5. **If OK** — edit metadata in Manifest tab and save to Library`;
+
+const AFTER_CHECK_CUTIN_JA = `## 生成後チェックリスト (カットイン専用)
+
+1. **Asset Factory に PNG を読み込む**
+2. **サイズ確認:** 1440 x 360 px であること
+3. **透過背景確認:** 市松模様モードで真の透過になっているか
+4. **禁止要素確認:** テキスト・ロゴ・ボーダー・チェッカーボード・白フリンジがないこと
+5. **キャラクター確認:** アイデンティティが正しく、ランタン配置が仕様通りか
+6. **演出確認:** 横長バトルカットインとして機能するか
+7. **OKなら** マニフェストタブで metadata を編集しライブラリに保存`;
+
+const AFTER_CHECK_CUTIN_EN = `## Post-Generation Checklist (Cutin)
+
+1. **Load PNG into Asset Factory**
+2. **Verify size:** must be 1440 x 360 px
+3. **Verify transparent background:** checkerboard mode confirms true transparency
+4. **Verify no prohibited elements:** no text / logo / border / checkerboard / white fringe
+5. **Verify character identity and lantern placement**
+6. **Verify it works as a horizontal battle cutin**
+7. **If OK** — edit metadata in Manifest tab and save to Library`;
+
+const AFTER_CHECK_BG_JA = `## 生成後チェックリスト (背景専用)
+
+1. **Asset Factory に PNG を読み込む**
+2. **390x844 クロップ/視認性確認:** 戦闘画面として成立するか
+3. **上部HUD安全領域確認:** UIが読めるか
+4. **プレイヤー/敵/EXP視認性確認:** 戦闘要素が背景に沈まないか
+5. **禁止要素確認:** UI・テキスト・キャラクターが画像に焼き込まれていないこと
+6. **世界観確認:** 暗いが読みやすいVamp Ponの雰囲気に合っているか
+7. **OKなら** マニフェストタブで metadata を編集しライブラリに保存`;
+
+const AFTER_CHECK_BG_EN = `## Post-Generation Checklist (Background)
+
+1. **Load PNG into Asset Factory**
+2. **Verify 390x844 crop/readability:** works as a battle screen
+3. **Check top HUD safe area:** UI remains readable
+4. **Check player/enemy/EXP readability:** combat elements don't sink into background
+5. **Verify no UI/text/character baked in**
+6. **Verify dark but readable Vamp Pon mood**
+7. **If OK** — edit metadata in Manifest tab and save to Library`;
 
 function buildCharacterPack(mode: PromptPackMode): string {
   const ja = mode === 'ja-detail';
@@ -495,52 +535,62 @@ function buildBackgroundPack(mode: PromptPackMode): string {
   if (compact) {
     return `# Background Prompt Pack (Compact)
 
-Stage background, 2D mobile game "Vamp Pon".
-Target: 1080x1920 portrait. Full illustration, no transparency needed.
+Portrait mobile battle background, 2D mobile game "Vamp Pon".
+Target: 390x844 px (portrait mobile). Larger master allowed only if crop-safe to 390x844.
+Full illustration, no transparency needed. Not endless runner, not platformer, not side-scroller.
 
-Must tile/scroll vertically for endless runner. Dark nighttime + warm small lights. Depth layers for parallax.
-Must not distract from foreground gameplay sprites.
+Combat readability first: player/enemy/EXP/HUD must remain visible.
+Safe top HUD area. Avoid noisy center. Avoid high contrast behind player.
+Dark but readable. Paper texture. Night street / memory / forgotten object / black ink mood.
 
-Style: dark warm, paper/memory/ink/small-light. No text/logo.
+Style: dark warm, paper/memory/ink/small-light. No text/logo/UI baked in/character baked in.
 
-Negative: text, logo, watermark, photorealistic, overly bright, 3D gloss, gore, sexual, IP copy.
+Negative: text, logo, watermark, UI elements, character baked in, photorealistic, overly bright, 3D gloss, gore, sexual, IP copy.
 
-Post-check: Asset Factory → load PNG → verify dimensions → check parallax layer readability → world fit.`;
+Post-check: Asset Factory → load PNG → verify 390x844 crop/readability → check top HUD safe area → player/enemy/EXP readability → no UI/text/character baked in → dark but readable Vamp Pon mood.`;
   }
 
   const world = ja ? WORLD_RULES_JA : WORLD_RULES_EN;
   const neg = ja ? NEGATIVE_PROMPT_JA : NEGATIVE_PROMPT_EN;
-  const check = ja ? AFTER_CHECK_JA : AFTER_CHECK_EN;
+  const check = ja ? AFTER_CHECK_BG_JA : AFTER_CHECK_BG_EN;
   const title = ja ? '背景 プロンプトパック' : 'Background Prompt Pack';
 
   const spec = ja
     ? `## 背景イラスト仕様
 
-- ターゲットサイズ: 1080 x 1920 px (モバイル縦向き)
+- ターゲットサイズ: 390 x 844 px (モバイル縦向き戦闘背景)
+- より大きいマスター画像は 390x844 へのクロップが安全な場合のみ許可
 - フル背景イラスト、透過不要
-- エンドレスランナーのゲームプレイに対応した垂直タイル/スクロール
-- 暗い夜の雰囲気 + 温かみのある小さな光源
-- パララックススクロール用の奥行きとレイヤー
-- 前景のゲームプレイスプライトを邪魔しないこと
+- エンドレスランナーではない、プラットフォーマーでもない、横スクロールでもない
+- 戦闘の視認性が最優先: プレイヤー・敵・EXP・HUD が見えること
+- 上部HUD安全領域を確保
+- 中央にうるさいパターンを置かない
+- プレイヤー背後の高コントラストを避ける
+- 暗いが読みやすい。紙テクスチャ
 
 ### 背景デザインルール
 - 夜の世界が舞台 — 月明かり、街灯、ランタンの光が点在
 - 忘れ物の世界感 — 古びた街角、忘れられた路地、薄暗い公園
-- ゲームプレイ領域は見通しが良く、背景の装飾で遮らない
+- 夜の通り / 記憶 / 忘れ物 / 黒インクの雰囲気
+- テキスト・ロゴ・UI・キャラクターを画像に焼き込まない
 - 過度に明るい部分を作らない`
     : `## Background Illustration Specification
 
-- Target size: 1080 x 1920 px (mobile portrait)
+- Target size: 390 x 844 px (portrait mobile battle background)
+- Larger master allowed only if clearly stated as crop-safe to 390x844
 - Full background illustration, no transparency needed
-- Must tile or scroll vertically for endless runner gameplay
-- Dark nighttime atmosphere with warm small light sources
-- Depth and layers for parallax scrolling
-- Must not distract from gameplay sprites in the foreground
+- Not endless runner, not platformer, not side-scroller
+- Combat readability first: player / enemy / EXP / HUD must remain visible
+- Safe top HUD area
+- Avoid noisy center
+- Avoid high contrast behind player
+- Dark but readable. Paper texture
 
 ### Background Design Rules
 - Nighttime world setting — moonlight, street lamps, lantern glow scattered throughout
 - Forgotten-things world — worn-down street corners, forgotten alleys, dim parks
-- Gameplay area must have clear visibility, not blocked by background decoration
+- Night street / memory / forgotten object / black ink mood
+- No text, no logo, no UI baked in, no character baked in
 - Avoid overly bright areas`;
 
   const styleRules = ja ? STYLE_RULES_JA : STYLE_RULES_EN;
@@ -565,49 +615,53 @@ function buildCutinPack(mode: PromptPackMode): string {
   if (compact) {
     return `# Cutin Prompt Pack (Compact)
 
-Cut-in illustration, 2D mobile game "Vamp Pon".
-Target: 1080x1920, transparent PNG.
+Horizontal wide cut-in illustration, 2D mobile game "Vamp Pon".
+Canvas: 1440x360 px, PNG RGBA, transparent background.
 
-Dynamic dramatic pose, upper body focus, expressive face. Works as UI overlay during gameplay.
+Full-width impact, readable silhouette, character identity stable.
+Normal / ultimate / kokuyou versions. Warm lantern core remains.
 Style: dark warm, paper/memory/ink/small-light.
 
-Negative: text, logo, checkerboard bg, white fringe, photorealistic, 3D gloss, gore, sexual, IP copy.
+Negative: text, logo, border, checkerboard bg, white fringe, photorealistic, 3D gloss, gore, sexual, IP copy.
 
-Post-check: Asset Factory → load PNG → verify transparency + dimensions → check visual impact → world fit.`;
+Post-check: Asset Factory → load PNG → verify 1440x360 → verify transparent bg → no text/logo/border/checkerboard/white fringe → character identity + lantern placement → works as horizontal battle cutin.`;
   }
 
   const world = ja ? WORLD_RULES_JA : WORLD_RULES_EN;
   const style = ja ? STYLE_RULES_JA : STYLE_RULES_EN;
   const yui = ja ? YUI_FIXED_RULES_JA : YUI_FIXED_RULES_EN;
   const neg = ja ? NEGATIVE_PROMPT_JA : NEGATIVE_PROMPT_EN;
-  const check = ja ? AFTER_CHECK_JA : AFTER_CHECK_EN;
+  const check = ja ? AFTER_CHECK_CUTIN_JA : AFTER_CHECK_CUTIN_EN;
   const title = ja ? 'カットイン プロンプトパック' : 'Cutin Prompt Pack';
 
   const spec = ja
     ? `## カットインイラスト仕様
 
-- ターゲットサイズ: 1080 x 1920 px
-- 透過背景 (真のアルファ) — ゲーム画面に重ねて表示する
-- ダイナミックで劇的なポーズ
-- 上半身フォーカス、表情豊かな顔
-- ゲームプレイ中のUIオーバーレイとして機能すること
+- キャンバス: 1440 x 360 px (横長ワイドカットイン)
+- PNG RGBA、透過背景 (真のアルファ)
+- 横幅いっぱいのインパクト
+- 読みやすいシルエット、キャラクターアイデンティティ安定
+- テキスト・ロゴ・ボーダー・チェッカーボード・白フリンジ禁止
+- 通常版 / 必殺版 / 黒曜版を想定
+- 黒曜版でもランタンの温かい芯は残す
 
 ### カットインデザインルール
-- レベルアップ・必殺技発動・ボス登場などの演出で使用
+- レベルアップ・必殺技発動・ボス登場などの横長演出で使用
 - キャラクターの個性が最も引き立つ構図
-- 背景は透過 or 暗い雰囲気的な処理`
+- 背景は透過 — ゲーム画面に重ねて表示する`
     : `## Cut-in Illustration Specification
 
-- Target size: 1080 x 1920 px
-- Transparent background (true alpha) — overlaid on game screen
-- Dynamic, dramatic pose
-- Upper body focus with expressive face
-- Must work as a UI overlay during gameplay
+- Canvas: 1440 x 360 px (horizontal wide cutin)
+- PNG RGBA, transparent background (true alpha)
+- Full-width impact, readable silhouette, character identity stable
+- No text, no logo, no border, no checkerboard, no white fringe
+- Normal / ultimate / kokuyou versions
+- Warm lantern core remains even in kokuyou version
 
 ### Cutin Design Rules
-- Used for level-up, special attack activation, boss appearance effects
+- Used for level-up, special attack activation, boss appearance — horizontal wide format
 - Composition that best highlights the character's personality
-- Background is transparent or has dark atmospheric treatment`;
+- Background is transparent — overlaid on game screen`;
 
   return `# ${title}
 
@@ -831,6 +885,10 @@ ${type === 'enemy' ? `- **Behavior:** ${m.behavior || '-'}\n- **Size:** ${m.size
 export function buildRegenerationPrompt(inspectResult: InspectResult, assetType: AssetType, displayName: string): string {
   const issues: string[] = [];
   const fixes: string[] = [];
+  const isSpriteSheet = assetType === 'character' || assetType === 'enemy';
+  const isIcon = assetType === 'weapon' || assetType === 'item';
+  const isBg = assetType === 'background';
+  const isCutin = assetType === 'cutin';
 
   const emptyCells = inspectResult.cells.filter(c => c.empty);
   const edgeTouchCells = inspectResult.cells.filter(c => c.touchesEdge);
@@ -839,32 +897,58 @@ export function buildRegenerationPrompt(inspectResult: InspectResult, assetType:
   const jitter = inspectResult.warnings.filter(w => w.message.includes('ガタつき'));
   const sizeError = inspectResult.warnings.filter(w => w.message.includes('シートサイズ'));
 
-  if (emptyCells.length > 0) {
-    issues.push(`Empty cells detected: ${emptyCells.length} cells have no opaque pixels (cells: ${emptyCells.map(c => `[${c.row},${c.col}]`).join(', ')})`);
-    fixes.push('All ' + inspectResult.totalCells + ' cells must contain a valid frame. Do not leave empty transparent cells.');
+  if (isSpriteSheet) {
+    if (emptyCells.length > 0) {
+      issues.push(`Empty cells detected: ${emptyCells.length} cells have no opaque pixels (cells: ${emptyCells.map(c => `[${c.row},${c.col}]`).join(', ')})`);
+      fixes.push('All ' + inspectResult.totalCells + ' cells must contain a valid frame. Do not leave empty transparent cells.');
+    }
+    if (edgeTouchCells.length > 0) {
+      issues.push(`Edge contact detected: ${edgeTouchCells.length} cells have opaque pixels touching cell edges (cells: ${edgeTouchCells.map(c => `[${c.row},${c.col}]`).join(', ')})`);
+      fixes.push('Keep at least 10px transparent padding inside each ' + inspectResult.format.cellWidth + 'x' + inspectResult.format.cellHeight + ' cell. No body part or effect may touch the cell edge.');
+    }
+    if (jitter.length > 0) {
+      issues.push(`Center jitter detected: ${jitter.length} cells have bbox centers offset from the average position`);
+      fixes.push('Keep character/enemy scale and center stable across all frames.');
+    }
+    if (tooSmall.length > 0) {
+      issues.push(`Too small: ${tooSmall.length} cells have very small opaque area`);
+      fixes.push('Make the subject larger and readable at 64px.');
+    }
+    if (tooLarge.length > 0) {
+      issues.push(`Too large: ${tooLarge.length} cells have opaque area filling most of the cell`);
+      fixes.push('Make the subject smaller and keep safe transparent padding.');
+    }
   }
 
-  if (edgeTouchCells.length > 0) {
-    issues.push(`Edge contact detected: ${edgeTouchCells.length} cells have opaque pixels touching cell edges (cells: ${edgeTouchCells.map(c => `[${c.row},${c.col}]`).join(', ')})`);
-    fixes.push('Keep at least 10px transparent padding inside each ' + inspectResult.format.cellWidth + 'x' + inspectResult.format.cellHeight + ' cell. No body part or effect may touch the cell edge.');
+  if (isIcon) {
+    if (tooSmall.length > 0) {
+      issues.push(`Icon subject too small — must be readable at 64px and 32px`);
+      fixes.push('Center the subject in the 1024x1024 canvas. Make it clearly readable at 64px and 32px display sizes.');
+    }
+    if (edgeTouchCells.length > 0) {
+      issues.push(`Subject touches canvas edge — must have transparent padding`);
+      fixes.push('Keep transparent padding around the subject. No part may touch the canvas edge.');
+    }
+    fixes.push('1024x1024 px icon, transparent background, centered, no text/logo/rarity frame, no white fringe.');
   }
 
-  if (jitter.length > 0) {
-    issues.push(`Center jitter detected: ${jitter.length} cells have bbox centers offset from the average position`);
-    fixes.push('Keep character/enemy scale and center stable across all frames.');
+  if (isBg) {
+    if (sizeError.length > 0) {
+      issues.push('Image dimensions do not match 390x844 battle background spec');
+      fixes.push('Use 390x844 px or a larger master that is crop-safe to 390x844.');
+    }
+    fixes.push('390x844 portrait mobile battle background. Combat readability first. No UI/text/character baked in. Dark but readable.');
   }
 
-  if (tooSmall.length > 0) {
-    issues.push(`Too small: ${tooSmall.length} cells have very small opaque area`);
-    fixes.push('Make the subject larger and readable at 64px.');
+  if (isCutin) {
+    if (sizeError.length > 0) {
+      issues.push('Image dimensions do not match 1440x360 cutin spec');
+      fixes.push('Use 1440x360 px canvas for horizontal wide cutin.');
+    }
+    fixes.push('1440x360 horizontal cutin, transparent background, character identity stable, no text/logo.');
   }
 
-  if (tooLarge.length > 0) {
-    issues.push(`Too large: ${tooLarge.length} cells have opaque area filling most of the cell`);
-    fixes.push('Make the subject smaller and keep safe transparent padding.');
-  }
-
-  if (sizeError.length > 0) {
+  if (sizeError.length > 0 && !isBg && !isCutin) {
     issues.push(`Sheet size mismatch: image dimensions do not match expected grid`);
     fixes.push('Use PNG RGBA with correct canvas size matching the grid specification.');
   }
@@ -883,6 +967,44 @@ export function buildRegenerationPrompt(inspectResult: InspectResult, assetType:
 - Blood, gore, violent expressions
 - Imitation of existing IP / brand designs`;
 
+  const outputSpec = isSpriteSheet
+    ? `- **Grid:** ${inspectResult.format.columns}x${inspectResult.format.rows} / ${inspectResult.format.cellWidth}x${inspectResult.format.cellHeight}px\n- **Expected Cells:** ${inspectResult.totalCells} (filled: ${inspectResult.filledCells}, empty: ${inspectResult.emptyCells})\n- 8x6 / 180px spritesheet, PNG RGBA, transparent background`
+    : isIcon
+      ? `- 1024x1024 px icon, PNG RGBA, transparent background, centered, readable at 64px and 32px`
+      : isBg
+        ? `- 390x844 px portrait battle background, no transparency needed`
+        : `- 1440x360 px horizontal cutin, PNG RGBA, transparent background`;
+
+  const recheckSteps = isSpriteSheet
+    ? `1. Load regenerated PNG into Asset Factory
+2. Select asset type: ${assetType}
+3. Run inspection — verify edge touch = 0, jitter within tolerance
+4. Check preview with grid overlay and checkerboard mode
+5. Verify 64px readability and identity consistency
+6. If passing, save to library with updated review status`
+    : isIcon
+      ? `1. Load regenerated PNG into Asset Factory
+2. Select asset type: ${assetType}
+3. Verify transparent background (checkerboard mode)
+4. Verify readability at 64px and 32px
+5. Verify no text/logo/rarity frame/white fringe
+6. If passing, save to library with updated review status`
+      : isBg
+        ? `1. Load regenerated PNG into Asset Factory
+2. Select asset type: background
+3. Verify 390x844 crop/readability
+4. Check top HUD safe area
+5. Check player/enemy/EXP readability
+6. Verify no UI/text/character baked in
+7. If passing, save to library with updated review status`
+        : `1. Load regenerated PNG into Asset Factory
+2. Select asset type: cutin
+3. Verify size is 1440x360
+4. Verify transparent background
+5. Verify character identity and lantern placement
+6. Verify it works as horizontal battle cutin
+7. If passing, save to library with updated review status`;
+
   return `# Regeneration Prompt
 
 ## Detected Issues
@@ -899,9 +1021,7 @@ ${fixes.map(f => '- ' + f).join('\n')}
 - **Asset Type:** ${assetType}
 - **Display Name:** ${displayName || '(unnamed)'}
 - **Source File:** ${inspectResult.fileName}
-- **Grid:** ${inspectResult.format.columns}x${inspectResult.format.rows} / ${inspectResult.format.cellWidth}x${inspectResult.format.cellHeight}px
-- **Expected Cells:** ${inspectResult.totalCells} (filled: ${inspectResult.filledCells}, empty: ${inspectResult.emptyCells})
-- Use PNG RGBA with true transparent background. No white background, no checkerboard.
+${outputSpec}
 
 ## Negative Prompt
 
@@ -909,12 +1029,7 @@ ${negPrompt}
 
 ## Asset Factory Recheck Steps
 
-1. Load regenerated PNG into Asset Factory
-2. Select asset type: ${assetType}
-3. Run inspection — verify edge touch = 0, jitter within tolerance
-4. Check preview with grid overlay and checkerboard mode
-5. Verify 64px readability and identity consistency
-6. If passing, save to library with updated review status`;
+${recheckSteps}`;
 }
 
 export function suggestQualityScore(inspectResult: InspectResult): number {
