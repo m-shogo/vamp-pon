@@ -5,6 +5,13 @@
       "name": "vamp-pon-dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["dev"],
+      "port": 5173,
+      "autoPort": false
+    },
+    {
+      "name": "asset-factory",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["asset-factory:dev"],
       "port": 5174,
       "autoPort": false
     }

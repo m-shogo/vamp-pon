@@ -54,6 +54,52 @@ pnpm asset-factory:build
 - 読込 / 複製 / 削除
 - ライブラリ JSON export / import
 
+### Prompt Packs (一括プロンプト)
+- 7種類のプロンプトパック: Character / Enemy / Weapon / Item / Background / Cutin / All-in-One
+- 3つのモード: 日本語 詳細 / English Detailed / コンパクト
+- 各パックに含まれる内容:
+  - Vamp Pon 世界観ルール
+  - 共通スタイルルール
+  - アセットタイプ別の仕様
+  - ユイ固定ルール (Character / Cutin)
+  - 180x180 セルルール (Character / Enemy)
+  - プリセット一覧 (Enemy / Weapon / Item)
+  - ネガティブプロンプト
+  - 生成後チェックリスト (Asset Factory での確認手順)
+- コピー / 全タイプコピー / ダウンロード / 全タイプDL
+- 文字数カウント表示
+
+#### プリセット別プロンプト展開 (v2)
+- Enemy (7種): ombu-small / ombu-shoe-zigzag / ombu-umbrella-shield / ombu-key-dasher / ombu-letter-shooter / omburo-lamppost-aura / forgotten-umbrella-keeper
+- Weapon (6種): north-star-lantern / night-pencil / paper-plane / black-ink-bottle / lamp-post-ring / ink-lamp-ring
+- Item (7種): warm-shoes / bigger-lantern-core / paper-armor / quiet-clock / dawn-ticket / cracked-map / keeper-bell
+- 展開モード: なし / 全プリセット / 個別プリセット選択
+- 各プリセットにはシルエット・配色・デザイン固有の指示が含まれる
+- 使い方: パックタイプ (Enemy/Weapon/Item) 選択 → プリセット展開セクションで対象を選択 → 生成
+
+#### 再生成プロンプトビルダー (v2)
+- 検査結果から修正指示を自動生成
+- 検出する問題: 空セル / セル端接触 / 中心ガタつき / サイズ過小・過大 / シートサイズ不一致
+- 出力: Detected Issues / Fix Instructions / Original Asset Intent / Negative Prompt / Asset Factory Recheck Steps
+- 使い方: 画像読込 → 検査実行 → 検査結果タブの「再生成プロンプト作成」ボタン → テキストをコピーして画像AIに投入
+
+### Review Status & Quality Score (v2)
+- 採用ステータス: unchecked / candidate / needs-regeneration / approved / rejected
+- 品質スコア: 1〜5 (ユーザー選択)
+- 検査結果からの推奨スコア自動算出 (エラー数・警告数ベース)
+- レビューメモ: 自由テキストで判断理由を記録
+- ライブラリカードにステータスラベル・スコア表示
+- 使い方: マニフェストタブ下部の「採用状態」セクションでステータス・スコア・メモを設定 → ライブラリに保存
+
+### 制作フロー (推奨)
+
+1. **プロンプト生成**: 一括プロンプトタブでタイプ・モード・プリセットを選んで生成
+2. **画像生成**: 生成したプロンプトを画像AIに投入
+3. **読込・検査**: 生成画像をAsset Factoryに読込 → 検査
+4. **レビュー**: マニフェスト記入 → 採用ステータス・品質スコア設定 → ライブラリ保存
+5. **問題がある場合**: 検査結果から再生成プロンプト作成 → 画像AIで修正生成 → 再検査
+6. **承認**: approved に設定してスコア確定
+
 ### Export
 - Manifest JSON ダウンロード
 - Inspection Report JSON ダウンロード

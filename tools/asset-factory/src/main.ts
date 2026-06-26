@@ -1,11 +1,16 @@
 import './style.css';
-import type { AssetType, AssetManifest, InspectResult, SheetFormat } from './types';
+import type { AssetType, AssetManifest, InspectResult, SheetFormat, ReviewStatus, QualityScore } from './types';
 import { inspectImage, detectFormat, FORMAT_8x6_180 } from './inspector';
 import { createDefaultManifest, applyPreset } from './manifest';
-import { getPresetsForType } from './presets';
+import { getPresetsForType, ENEMY_PRESETS, WEAPON_PRESETS, ITEM_PRESETS } from './presets';
 import { buildPrompt } from './promptBuilder';
 import {
-  loadLibrary, saveLibrary, addEntry, deleteEntry, duplicateEntry,
+  buildPromptPack, buildRegenerationPrompt, suggestQualityScore,
+  PACK_LABELS,
+  type PromptPackType, type PromptPackMode, type PresetExpansion,
+} from './promptPacks';
+import {
+  loadLibrary, saveLibrary, addEntry, updateEntry, deleteEntry, duplicateEntry,
   exportLibraryJSON, importLibraryJSON,
 } from './storage';
 
@@ -19,6 +24,12 @@ type AppState = {
   inspectResult: InspectResult | null;
   manifest: AssetManifest;
   prompt: string;
+  packType: PromptPackType;
+  packMode: PromptPackMode;
+  presetExpansion: PresetExpansion;
+  reviewStatus: ReviewStatus;
+  qualityScore: QualityScore;
+  reviewNotes: string;
   showGrid: boolean;
   showBbox: boolean;
   showCheckerboard: boolean;
@@ -36,6 +47,12 @@ const state: AppState = {
   inspectResult: null,
   manifest: createDefaultManifest('enemy', ''),
   prompt: '',
+  packType: 'character' as PromptPackType,
+  packMode: 'ja-detail' as PromptPackMode,
+  presetExpansion: 'none' as PresetExpansion,
+  reviewStatus: 'unchecked' as ReviewStatus,
+  qualityScore: 3 as QualityScore,
+  reviewNotes: '',
   showGrid: true,
   showBbox: true,
   showCheckerboard: true,
@@ -53,7 +70,9 @@ function init() {
   bindGridSettings();
   bindPreviewControls();
   bindManifest();
+  bindRegenPrompt();
   bindPrompt();
+  bindPromptPacks();
   bindLibrary();
   bindExport();
   switchTab('import');
@@ -71,6 +90,7 @@ function buildHTML(): string {
   <button class="tab-btn" data-tab="anchors">アンカー</button>
   <button class="tab-btn" data-tab="manifest">マニフェスト</button>
   <button class="tab-btn" data-tab="prompts">プロンプト</button>
+  <button class="tab-btn" data-tab="packs">一括プロンプト</button>
   <button class="tab-btn" data-tab="library">ライブラリ</button>
 </div>
 <div class="tab-content">
@@ -116,6 +136,16 @@ function buildHTML(): string {
     <div id="inspect-content">
       <div class="empty-state">画像を読み込んでください</div>
     </div>
+    <div id="regen-area" style="display:none;">
+      <h3 class="section-header">再生成プロンプト</h3>
+      <div class="btn-group" style="margin-top:0;margin-bottom:8px;">
+        <button class="btn btn-primary" id="btn-build-regen">再生成プロンプト作成</button>
+        <button class="btn" id="btn-copy-regen">コピー</button>
+      </div>
+      <div class="prompt-output">
+        <textarea id="regen-textarea" class="regen-output" placeholder="「再生成プロンプト作成」をクリック" readonly></textarea>
+      </div>
+    </div>
   </div>
 
   <!-- Anchors -->
@@ -142,6 +172,36 @@ function buildHTML(): string {
     <div id="preset-area"></div>
     <h3 class="section-header">マニフェスト編集</h3>
     <div class="manifest-editor" id="manifest-editor"></div>
+
+    <h3 class="section-header">レビュー</h3>
+    <div class="review-section">
+      <div class="review-row">
+        <label>採用状態:</label>
+        <select id="review-status">
+          <option value="unchecked">未確認</option>
+          <option value="candidate">候補</option>
+          <option value="needs-regeneration">再生成必要</option>
+          <option value="approved">採用</option>
+          <option value="rejected">不採用</option>
+        </select>
+      </div>
+      <div class="review-row">
+        <label>品質スコア:</label>
+        <select id="quality-score">
+          <option value="5">5 — そのまま採用</option>
+          <option value="4">4 — 軽微修正</option>
+          <option value="3" selected>3 — 仮素材</option>
+          <option value="2">2 — 方向性のみ</option>
+          <option value="1">1 — 不採用</option>
+        </select>
+        <span id="suggested-score" class="suggested-score"></span>
+      </div>
+      <div class="review-row">
+        <label>レビューメモ:</label>
+        <textarea id="review-notes" placeholder="レビューメモを入力"></textarea>
+      </div>
+    </div>
+
     <div class="btn-group">
       <button class="btn" id="btn-copy-manifest">JSON をコピー</button>
       <button class="btn btn-primary" id="btn-save-library">ライブラリに保存</button>
@@ -160,6 +220,31 @@ function buildHTML(): string {
     </div>
     <div class="prompt-output">
       <textarea id="prompt-textarea" placeholder="「プロンプト生成」をクリック"></textarea>
+    </div>
+  </div>
+
+  <!-- Prompt Packs -->
+  <div class="tab-panel" id="tab-packs">
+    <div class="packs-layout">
+      <div class="packs-sidebar">
+        <h3 class="section-header" style="margin-top:0;">パックタイプ</h3>
+        <div class="pack-type-list" id="pack-type-list"></div>
+        <h3 class="section-header">モード</h3>
+        <div class="pack-mode-list" id="pack-mode-list"></div>
+        <h3 class="section-header">プリセット展開</h3>
+        <div class="pack-preset-options" id="pack-preset-options"></div>
+      </div>
+      <div class="packs-main">
+        <div class="packs-toolbar">
+          <button class="btn btn-primary" id="btn-gen-pack">生成</button>
+          <button class="btn" id="btn-copy-pack">コピー</button>
+          <button class="btn" id="btn-copy-all-packs">全タイプコピー</button>
+          <button class="btn" id="btn-dl-pack">ダウンロード</button>
+          <button class="btn" id="btn-dl-all-packs">全タイプDL</button>
+          <span class="pack-char-count" id="pack-char-count"></span>
+        </div>
+        <textarea id="pack-textarea" class="pack-output" placeholder="「生成」をクリックしてプロンプトパックを表示" readonly></textarea>
+      </div>
     </div>
   </div>
 
@@ -204,6 +289,7 @@ function switchTab(tab: string) {
   if (tab === 'anchors') renderAnchors();
   if (tab === 'manifest') renderManifest();
   if (tab === 'prompts') renderPromptTab();
+  if (tab === 'packs') renderPacksTab();
   if (tab === 'library') renderLibrary();
 }
 
@@ -433,10 +519,13 @@ function runInspection() {
 
 function renderInspect() {
   const container = $('#inspect-content');
+  const regenArea = $('#regen-area');
   if (!state.inspectResult) {
     container.innerHTML = '<div class="empty-state">画像を読み込んで検査してください</div>';
+    if (regenArea) regenArea.style.display = 'none';
     return;
   }
+  if (regenArea) regenArea.style.display = 'block';
   const r = state.inspectResult;
   const errors = r.warnings.filter(w => w.level === 'error');
   const warns = r.warnings.filter(w => w.level === 'warn');
@@ -560,9 +649,34 @@ function bindManifest() {
     navigator.clipboard.writeText(JSON.stringify(state.manifest, null, 2));
   });
   $('#btn-save-library').addEventListener('click', () => {
-    addEntry(state.manifest, state.inspectResult ?? undefined, state.prompt || undefined);
+    addEntry(
+      state.manifest, state.inspectResult ?? undefined, state.prompt || undefined,
+      state.reviewStatus, state.qualityScore, state.reviewNotes,
+    );
     if (state.activeTab === 'library') renderLibrary();
     showToast('ライブラリに保存しました');
+  });
+  $<HTMLSelectElement>('#review-status').addEventListener('change', (e) => {
+    state.reviewStatus = (e.target as HTMLSelectElement).value as ReviewStatus;
+  });
+  $<HTMLSelectElement>('#quality-score').addEventListener('change', (e) => {
+    state.qualityScore = parseInt((e.target as HTMLSelectElement).value) as QualityScore;
+  });
+  $<HTMLTextAreaElement>('#review-notes').addEventListener('input', (e) => {
+    state.reviewNotes = (e.target as HTMLTextAreaElement).value;
+  });
+}
+
+// --- Regeneration Prompt ---
+function bindRegenPrompt() {
+  $('#btn-build-regen').addEventListener('click', () => {
+    if (!state.inspectResult) { showToast('検査結果がありません', true); return; }
+    const text = buildRegenerationPrompt(state.inspectResult, state.assetType, state.manifest.displayName);
+    $<HTMLTextAreaElement>('#regen-textarea').value = text;
+  });
+  $('#btn-copy-regen').addEventListener('click', () => {
+    const text = $<HTMLTextAreaElement>('#regen-textarea').value;
+    if (text) { navigator.clipboard.writeText(text); showToast('再生成プロンプトをコピーしました'); }
   });
 }
 
@@ -592,6 +706,22 @@ function renderManifest() {
   }
 
   renderManifestFields();
+  renderReviewState();
+}
+
+function renderReviewState() {
+  $<HTMLSelectElement>('#review-status').value = state.reviewStatus;
+  $<HTMLSelectElement>('#quality-score').value = String(state.qualityScore);
+  $<HTMLTextAreaElement>('#review-notes').value = state.reviewNotes;
+
+  const suggestedEl = $('#suggested-score');
+  if (state.inspectResult) {
+    const suggested = suggestQualityScore(state.inspectResult);
+    suggestedEl.textContent = `(検査推奨: ${suggested})`;
+    suggestedEl.style.display = 'inline';
+  } else {
+    suggestedEl.style.display = 'none';
+  }
 }
 
 function renderManifestFields() {
@@ -712,6 +842,107 @@ function renderPromptTab() {
   }
 }
 
+// --- Prompt Packs ---
+function bindPromptPacks() {
+  $('#btn-gen-pack').addEventListener('click', () => {
+    const text = buildPromptPack(state.packType, state.packMode, state.presetExpansion);
+    const ta = $<HTMLTextAreaElement>('#pack-textarea');
+    ta.value = text;
+    updatePackCharCount(text);
+  });
+  $('#btn-copy-pack').addEventListener('click', () => {
+    const text = $<HTMLTextAreaElement>('#pack-textarea').value;
+    if (text) { navigator.clipboard.writeText(text); showToast('コピーしました'); }
+  });
+  $('#btn-copy-all-packs').addEventListener('click', () => {
+    const types: PromptPackType[] = ['character', 'enemy', 'weapon', 'item', 'background', 'cutin'];
+    const sep = '\n\n---\n\n';
+    const all = types.map(t => buildPromptPack(t, state.packMode, state.presetExpansion)).join(sep);
+    navigator.clipboard.writeText(all);
+    showToast('全タイプをコピーしました');
+  });
+  $('#btn-dl-pack').addEventListener('click', () => {
+    const text = $<HTMLTextAreaElement>('#pack-textarea').value;
+    if (!text) { showToast('プロンプトパックがありません', true); return; }
+    downloadFile(`prompt-pack-${state.packType}.md`, text, 'text/markdown');
+  });
+  $('#btn-dl-all-packs').addEventListener('click', () => {
+    const types: PromptPackType[] = ['character', 'enemy', 'weapon', 'item', 'background', 'cutin'];
+    const sep = '\n\n---\n\n';
+    const all = types.map(t => buildPromptPack(t, state.packMode, state.presetExpansion)).join(sep);
+    downloadFile('prompt-pack-all.md', all, 'text/markdown');
+  });
+}
+
+function renderPacksTab() {
+  const typeList = $('#pack-type-list');
+  const allTypes: PromptPackType[] = ['character', 'enemy', 'weapon', 'item', 'background', 'cutin', 'all'];
+  typeList.innerHTML = allTypes.map(t =>
+    `<button class="pack-type-btn${t === state.packType ? ' active' : ''}" data-pack-type="${t}">${PACK_LABELS[t]}</button>`
+  ).join('');
+  for (const btn of typeList.querySelectorAll<HTMLButtonElement>('.pack-type-btn')) {
+    btn.addEventListener('click', () => {
+      state.packType = btn.dataset.packType as PromptPackType;
+      for (const b of typeList.querySelectorAll<HTMLButtonElement>('.pack-type-btn')) b.classList.toggle('active', b === btn);
+      renderPresetOptions();
+    });
+  }
+
+  const modeList = $('#pack-mode-list');
+  const modes: Array<{ value: PromptPackMode; label: string }> = [
+    { value: 'ja-detail', label: '日本語 詳細' },
+    { value: 'en-detail', label: 'English Detailed' },
+    { value: 'compact', label: 'コンパクト' },
+  ];
+  modeList.innerHTML = modes.map(m =>
+    `<button class="pack-mode-btn${m.value === state.packMode ? ' active' : ''}" data-pack-mode="${m.value}">${m.label}</button>`
+  ).join('');
+  for (const btn of modeList.querySelectorAll<HTMLButtonElement>('.pack-mode-btn')) {
+    btn.addEventListener('click', () => {
+      state.packMode = btn.dataset.packMode as PromptPackMode;
+      for (const b of modeList.querySelectorAll<HTMLButtonElement>('.pack-mode-btn')) b.classList.toggle('active', b === btn);
+    });
+  }
+
+  renderPresetOptions();
+}
+
+function renderPresetOptions() {
+  const container = $('#pack-preset-options');
+  const pt = state.packType;
+  const presets = pt === 'enemy' ? ENEMY_PRESETS
+    : pt === 'weapon' ? WEAPON_PRESETS
+    : pt === 'item' ? ITEM_PRESETS
+    : pt === 'all' ? [...ENEMY_PRESETS, ...WEAPON_PRESETS, ...ITEM_PRESETS]
+    : [];
+
+  if (presets.length === 0) {
+    container.innerHTML = '<span style="font-size:11px;color:var(--text-dim);">対象プリセットなし</span>';
+    state.presetExpansion = 'none';
+    return;
+  }
+
+  container.innerHTML = `
+    <button class="pack-preset-btn${state.presetExpansion === 'none' ? ' active' : ''}" data-preset-exp="none">なし</button>
+    <button class="pack-preset-btn${state.presetExpansion === 'all' ? ' active' : ''}" data-preset-exp="all">全プリセット</button>
+    ${presets.map(p =>
+      `<button class="pack-preset-btn${state.presetExpansion === p.id ? ' active' : ''}" data-preset-exp="${p.id}">${p.label}</button>`
+    ).join('')}
+  `;
+
+  for (const btn of container.querySelectorAll<HTMLButtonElement>('.pack-preset-btn')) {
+    btn.addEventListener('click', () => {
+      state.presetExpansion = btn.dataset.presetExp as PresetExpansion;
+      for (const b of container.querySelectorAll<HTMLButtonElement>('.pack-preset-btn')) b.classList.toggle('active', b === btn);
+    });
+  }
+}
+
+function updatePackCharCount(text: string) {
+  const el = $('#pack-char-count');
+  el.textContent = `${text.length.toLocaleString()} 文字`;
+}
+
 // --- Library ---
 function bindLibrary() {
   $('#btn-export-library').addEventListener('click', () => {
@@ -744,11 +975,27 @@ function renderLibrary() {
     list.innerHTML = '<div class="empty-state">ライブラリは空です</div>';
     return;
   }
+  const STATUS_LABELS: Record<string, string> = {
+    'unchecked': '未確認', 'candidate': '候補', 'needs-regeneration': '再生成',
+    'approved': '採用', 'rejected': '不採用',
+  };
+  const STATUS_COLORS: Record<string, string> = {
+    'unchecked': 'var(--text-dim)', 'candidate': 'var(--accent)',
+    'needs-regeneration': 'var(--warn)', 'approved': 'var(--success)', 'rejected': 'var(--error)',
+  };
+
   list.innerHTML = entries.map((entry, i) => `
     <div class="library-card">
       <div class="info">
         <div class="name">${entry.manifest.displayName || entry.manifest.id || '(untitled)'}</div>
-        <div class="meta">${entry.manifest.type} | ${entry.manifest.sourceFileName || '-'} | ${new Date(entry.updatedAt).toLocaleString()}</div>
+        <div class="meta">
+          ${entry.manifest.type} | ${entry.manifest.sourceFileName || '-'} | ${new Date(entry.updatedAt).toLocaleString()}
+        </div>
+        <div class="meta">
+          <span style="color:${STATUS_COLORS[entry.reviewStatus] || 'var(--text-dim)'}">${STATUS_LABELS[entry.reviewStatus] || entry.reviewStatus}</span>
+          | Q${entry.qualityScore}
+          ${entry.reviewNotes ? ` | ${entry.reviewNotes.slice(0, 40)}${entry.reviewNotes.length > 40 ? '...' : ''}` : ''}
+        </div>
       </div>
       <div class="actions">
         <button class="btn" data-lib-load="${i}">読込</button>
@@ -766,6 +1013,9 @@ function renderLibrary() {
         state.manifest = entry.manifest;
         state.assetType = entry.manifest.type;
         state.prompt = entry.prompt || '';
+        state.reviewStatus = entry.reviewStatus || 'unchecked';
+        state.qualityScore = entry.qualityScore || 3;
+        state.reviewNotes = entry.reviewNotes || '';
         if (entry.inspectResult) state.inspectResult = entry.inspectResult;
         for (const b of $$<HTMLButtonElement>('.type-btn')) b.classList.toggle('active', b.textContent === state.assetType);
         switchTab('manifest');

@@ -134,10 +134,16 @@ export type AssetManifest =
   | BackgroundManifest
   | CutinManifest;
 
+export type ReviewStatus = 'unchecked' | 'candidate' | 'needs-regeneration' | 'approved' | 'rejected';
+export type QualityScore = 1 | 2 | 3 | 4 | 5;
+
 export type LibraryEntry = {
   manifest: AssetManifest;
   inspectResult?: InspectResult;
   prompt?: string;
+  reviewStatus: ReviewStatus;
+  qualityScore: QualityScore;
+  reviewNotes: string;
   createdAt: string;
   updatedAt: string;
 };
