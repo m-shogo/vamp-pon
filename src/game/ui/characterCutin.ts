@@ -3,6 +3,7 @@ import { GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { YUI_FRAME_IDS } from '../assets/playerFrames';
 import { YUI_EXPRESSION_RAGE_SHEET } from '../assets/yuiExpressionRageSheet';
 import { characterArtById } from '../data/characterArts';
+import { kokuyouFormByCharacterId } from '../data/kokuyouForms';
 import { WORLD_TERMS } from '../data/worldTerms';
 import { VIEW_DEPTH } from './factory';
 import { FONT } from './visualDesign';
@@ -118,10 +119,11 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
 
 function resolveCutinCopy(mode: CharacterCutinMode, characterId: string): CutinCopy {
   if (mode === 'berserk') {
+    const form = kokuyouFormByCharacterId.get(characterId);
     return {
       label: WORLD_TERMS.kokuyou.transformation,
-      title: WORLD_TERMS.kokuyou.transformation,
-      subtitle: WORLD_TERMS.kokuyou.backlash,
+      title: form?.subtitle ?? WORLD_TERMS.kokuyou.transformation,
+      subtitle: form?.shortCopy ?? WORLD_TERMS.kokuyou.backlash,
     };
   }
   const art = characterArtById.get(characterId as never)?.arts.dawnLight;
