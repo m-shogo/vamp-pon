@@ -54,6 +54,22 @@ pnpm asset-factory:build
 - 読込 / 複製 / 削除
 - ライブラリ JSON export / import
 
+#### Library フィルタ & ソート (v2)
+- タイプ / ステータス / 最低スコア / テキスト検索で絞り込み
+- ソート: 更新日↓↑ / 作成日↓↑ / スコア↓↑ / タイプ / 名前
+- クイックフィルタボタン: 採用済み / 再生成待ち / 候補 / Score 4+ / クリア
+- フィルタ結果カウント表示 (「表示中: X / 全Y件」)
+- ライブラリカードにタイプ・ステータス・スコア・エラー/警告バッジ表示
+
+#### Approved Export (v2)
+4種類のエクスポート:
+- **Approved Library JSON**: 採用済みエントリの完全データ
+- **Approved Manifests JSON**: 採用済みマニフェストのみ抽出
+- **Unity Handoff JSON**: Unity 移行用構造化データ (exportedAt, tool, purpose, counts, assets)
+- **Regeneration Queue JSON**: 再生成待ちエントリ (warnings, prompt 含む)
+
+使い方: Libraryタブ → フィルタバー下部のExportボタンから出力
+
 ### Prompt Packs (一括プロンプト)
 - 7種類のプロンプトパック: Character / Enemy / Weapon / Item / Background / Cutin / All-in-One
 - 3つのモード: 日本語 詳細 / English Detailed / コンパクト
@@ -113,6 +129,8 @@ pnpm asset-factory:build
 4. **レビュー**: マニフェスト記入 → 採用ステータス・品質スコア設定 → ライブラリ保存
 5. **問題がある場合**: 検査結果から再生成プロンプト作成 → 画像AIで修正生成 → 再検査
 6. **承認**: approved に設定してスコア確定
+7. **エクスポート**: Libraryタブで採用済みフィルタ → Approved Export / Unity Handoff JSON 出力
+8. **再生成管理**: 再生成待ちフィルタ → Regeneration Queue JSON で修正対象を一覧化
 
 ### Export
 - Manifest JSON ダウンロード

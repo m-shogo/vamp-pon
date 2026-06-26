@@ -687,6 +687,127 @@ header .subtitle {
   line-height: 1.5;
 }
 
+/* Library filter bar */
+.library-filter-bar {
+  background: var(--bg-card);
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.filter-row:last-child { margin-bottom: 0; }
+
+.filter-row label {
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.filter-row select,
+.filter-row input {
+  padding: 4px 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.filter-row select:focus,
+.filter-row input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.filter-search {
+  flex: 1;
+  min-width: 120px;
+}
+
+.quick-filter-buttons {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.btn-small {
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.15s;
+}
+
+.btn-small:hover {
+  border-color: var(--accent-dim);
+  color: var(--text);
+}
+
+.filter-count {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Library card badges */
+.card-badges {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+}
+
+.badge-type {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+.badge-status {
+  border-color: currentColor;
+}
+
+.badge-score {
+  color: var(--text);
+}
+
+.badge-err {
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.badge-warn {
+  color: var(--warn);
+  border-color: var(--warn);
+}
+
 /* Responsive */
 @media (max-width: 800px) {
   .field-group {

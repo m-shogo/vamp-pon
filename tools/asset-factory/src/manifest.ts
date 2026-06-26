@@ -37,12 +37,12 @@ export function createDefaultManifest(type: AssetType, fileName: string): AssetM
     case 'background':
       return {
         ...base, type: 'background',
-        stageId: '', targetSize: '1080x1920', visibilityNotes: '',
+        stageId: '', targetSize: '390x844', visibilityNotes: '',
       } as BackgroundManifest;
     case 'cutin':
       return {
         ...base, type: 'cutin',
-        characterId: '', mode: '', targetSize: '1080x1920', transparentBackground: true,
+        characterId: '', mode: '', targetSize: '1440x360', transparentBackground: true,
       } as CutinManifest;
   }
 }

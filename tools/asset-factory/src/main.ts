@@ -12,6 +12,9 @@ import {
 import {
   loadLibrary, saveLibrary, addEntry, updateEntry, deleteEntry, duplicateEntry,
   exportLibraryJSON, importLibraryJSON,
+  filterLibrary, sortLibrary,
+  buildApprovedManifestsExport, buildUnityHandoffExport, buildRegenerationQueueExport,
+  type LibraryFilter, type LibrarySortKey,
 } from './storage';
 
 type AppState = {
@@ -35,6 +38,8 @@ type AppState = {
   showCheckerboard: boolean;
   darkBg: boolean;
   activeTab: string;
+  libraryFilter: LibraryFilter;
+  librarySortKey: LibrarySortKey;
 };
 
 const state: AppState = {
@@ -58,6 +63,8 @@ const state: AppState = {
   showCheckerboard: true,
   darkBg: true,
   activeTab: 'import',
+  libraryFilter: { assetType: 'all', reviewStatus: 'all', minScore: 1, search: '' } as LibraryFilter,
+  librarySortKey: 'updatedAt-desc' as LibrarySortKey,
 };
 
 const $ = <T extends HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
@@ -255,10 +262,75 @@ function buildHTML(): string {
 
   <!-- Library -->
   <div class="tab-panel" id="tab-library">
-    <h3 class="section-header">素材ライブラリ</h3>
-    <div class="btn-group" style="margin-top:0;margin-bottom:12px;">
+    <h3 class="section-header" style="margin-top:0;">素材ライブラリ</h3>
+
+    <div class="library-filter-bar">
+      <div class="filter-row">
+        <label>タイプ:
+          <select id="filter-type">
+            <option value="all">すべて</option>
+            <option value="character">character</option>
+            <option value="enemy">enemy</option>
+            <option value="weapon">weapon</option>
+            <option value="item">item</option>
+            <option value="background">background</option>
+            <option value="cutin">cutin</option>
+          </select>
+        </label>
+        <label>ステータス:
+          <select id="filter-status">
+            <option value="all">すべて</option>
+            <option value="unchecked">未確認</option>
+            <option value="candidate">候補</option>
+            <option value="needs-regeneration">再生成</option>
+            <option value="approved">採用</option>
+            <option value="rejected">不採用</option>
+          </select>
+        </label>
+        <label>最低スコア:
+          <select id="filter-min-score">
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+            <option value="5">5のみ</option>
+          </select>
+        </label>
+        <label>並び替え:
+          <select id="library-sort">
+            <option value="updatedAt-desc">更新日 新しい順</option>
+            <option value="updatedAt-asc">更新日 古い順</option>
+            <option value="createdAt-desc">作成日 新しい順</option>
+            <option value="createdAt-asc">作成日 古い順</option>
+            <option value="qualityScore-desc">スコア 高い順</option>
+            <option value="qualityScore-asc">スコア 低い順</option>
+            <option value="type">タイプ順</option>
+            <option value="displayName">名前順</option>
+          </select>
+        </label>
+      </div>
+      <div class="filter-row">
+        <input type="text" id="filter-search" placeholder="検索 (id, 名前, ファイル名, タグ, メモ)" class="filter-search">
+      </div>
+      <div class="filter-row">
+        <div class="quick-filter-buttons">
+          <button class="btn btn-small" id="qf-approved">採用のみ</button>
+          <button class="btn btn-small" id="qf-needs-regen">再生成待ち</button>
+          <button class="btn btn-small" id="qf-candidates">候補</button>
+          <button class="btn btn-small" id="qf-score4">スコア4+</button>
+          <button class="btn btn-small" id="qf-clear">フィルタークリア</button>
+        </div>
+        <span class="filter-count" id="filter-count"></span>
+      </div>
+    </div>
+
+    <div class="btn-group" style="margin-top:8px;margin-bottom:12px;">
       <button class="btn" id="btn-export-library">ライブラリJSON出力</button>
       <button class="btn" id="btn-import-library">ライブラリJSON読込</button>
+      <button class="btn" id="btn-export-approved">採用済みJSON</button>
+      <button class="btn" id="btn-export-manifests">採用マニフェスト</button>
+      <button class="btn" id="btn-export-unity">Unity Handoff</button>
+      <button class="btn" id="btn-export-regen-queue">再生成キュー</button>
       <input type="file" accept=".json" id="library-import-input" style="display:none">
     </div>
     <div class="library-list" id="library-list"></div>
@@ -971,44 +1043,144 @@ function bindLibrary() {
     };
     reader.readAsText(file);
   });
+
+  // Export buttons
+  $('#btn-export-approved').addEventListener('click', () => {
+    const entries = loadLibrary().filter(e => e.reviewStatus === 'approved');
+    if (entries.length === 0) { showToast('採用済みエントリがありません', true); return; }
+    downloadFile('approved-library.json', JSON.stringify(entries, null, 2), 'application/json');
+    showToast(`${entries.length} 件エクスポート`);
+  });
+  $('#btn-export-manifests').addEventListener('click', () => {
+    const json = buildApprovedManifestsExport();
+    const parsed = JSON.parse(json) as unknown[];
+    if (parsed.length === 0) { showToast('採用済みマニフェストがありません', true); return; }
+    downloadFile('approved-manifests.json', json, 'application/json');
+    showToast(`${parsed.length} 件マニフェスト`);
+  });
+  $('#btn-export-unity').addEventListener('click', () => {
+    const json = buildUnityHandoffExport();
+    downloadFile('unity-handoff.json', json, 'application/json');
+    showToast('Unity Handoff JSON出力');
+  });
+  $('#btn-export-regen-queue').addEventListener('click', () => {
+    const json = buildRegenerationQueueExport();
+    const parsed = JSON.parse(json) as unknown[];
+    if (parsed.length === 0) { showToast('再生成待ちがありません', true); return; }
+    downloadFile('regeneration-queue.json', json, 'application/json');
+    showToast(`${parsed.length} 件再生成キュー`);
+  });
+
+  // Filter controls
+  const applyFilter = () => renderLibrary();
+  $<HTMLSelectElement>('#filter-type').addEventListener('change', (e) => {
+    state.libraryFilter.assetType = (e.target as HTMLSelectElement).value as LibraryFilter['assetType'];
+    applyFilter();
+  });
+  $<HTMLSelectElement>('#filter-status').addEventListener('change', (e) => {
+    state.libraryFilter.reviewStatus = (e.target as HTMLSelectElement).value as LibraryFilter['reviewStatus'];
+    applyFilter();
+  });
+  $<HTMLSelectElement>('#filter-min-score').addEventListener('change', (e) => {
+    state.libraryFilter.minScore = parseInt((e.target as HTMLSelectElement).value);
+    applyFilter();
+  });
+  $<HTMLInputElement>('#filter-search').addEventListener('input', (e) => {
+    state.libraryFilter.search = (e.target as HTMLInputElement).value;
+    applyFilter();
+  });
+  $<HTMLSelectElement>('#library-sort').addEventListener('change', (e) => {
+    state.librarySortKey = (e.target as HTMLSelectElement).value as LibrarySortKey;
+    applyFilter();
+  });
+
+  // Quick filter buttons
+  const setQuickFilter = (status: LibraryFilter['reviewStatus'], minScore: number) => {
+    state.libraryFilter.reviewStatus = status;
+    state.libraryFilter.minScore = minScore;
+    state.libraryFilter.assetType = 'all';
+    state.libraryFilter.search = '';
+    syncFilterUI();
+    applyFilter();
+  };
+  $('#qf-approved').addEventListener('click', () => setQuickFilter('approved', 1));
+  $('#qf-needs-regen').addEventListener('click', () => setQuickFilter('needs-regeneration', 1));
+  $('#qf-candidates').addEventListener('click', () => setQuickFilter('candidate', 1));
+  $('#qf-score4').addEventListener('click', () => {
+    state.libraryFilter = { assetType: 'all', reviewStatus: 'all', minScore: 4, search: '' };
+    syncFilterUI();
+    applyFilter();
+  });
+  $('#qf-clear').addEventListener('click', () => {
+    state.libraryFilter = { assetType: 'all', reviewStatus: 'all', minScore: 1, search: '' };
+    syncFilterUI();
+    applyFilter();
+  });
 }
+
+function syncFilterUI() {
+  $<HTMLSelectElement>('#filter-type').value = state.libraryFilter.assetType;
+  $<HTMLSelectElement>('#filter-status').value = state.libraryFilter.reviewStatus;
+  $<HTMLSelectElement>('#filter-min-score').value = String(state.libraryFilter.minScore);
+  $<HTMLInputElement>('#filter-search').value = state.libraryFilter.search;
+  $<HTMLSelectElement>('#library-sort').value = state.librarySortKey;
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  'unchecked': '未確認', 'candidate': '候補', 'needs-regeneration': '再生成',
+  'approved': '採用', 'rejected': '不採用',
+};
+const STATUS_COLORS: Record<string, string> = {
+  'unchecked': 'var(--text-dim)', 'candidate': 'var(--accent)',
+  'needs-regeneration': 'var(--warn)', 'approved': 'var(--success)', 'rejected': 'var(--error)',
+};
 
 function renderLibrary() {
   const list = $('#library-list');
-  const entries = loadLibrary();
-  if (entries.length === 0) {
+  const allEntries = loadLibrary();
+  const filtered = filterLibrary(allEntries, state.libraryFilter);
+  const sorted = sortLibrary(filtered, state.librarySortKey);
+
+  $('#filter-count').textContent = `表示中: ${sorted.length} / 全${allEntries.length}件`;
+
+  if (allEntries.length === 0) {
     list.innerHTML = '<div class="empty-state">ライブラリは空です</div>';
     return;
   }
-  const STATUS_LABELS: Record<string, string> = {
-    'unchecked': '未確認', 'candidate': '候補', 'needs-regeneration': '再生成',
-    'approved': '採用', 'rejected': '不採用',
-  };
-  const STATUS_COLORS: Record<string, string> = {
-    'unchecked': 'var(--text-dim)', 'candidate': 'var(--accent)',
-    'needs-regeneration': 'var(--warn)', 'approved': 'var(--success)', 'rejected': 'var(--error)',
-  };
+  if (sorted.length === 0) {
+    list.innerHTML = '<div class="empty-state">条件に一致するエントリがありません</div>';
+    return;
+  }
 
-  list.innerHTML = entries.map((entry, i) => `
+  // Build index map: sorted entry → original index in allEntries
+  const indexMap = sorted.map(entry => allEntries.indexOf(entry));
+
+  list.innerHTML = sorted.map((entry, si) => {
+    const origIdx = indexMap[si];
+    const errCount = entry.inspectResult ? entry.inspectResult.warnings.filter(w => w.level === 'error').length : 0;
+    const warnCount = entry.inspectResult ? entry.inspectResult.warnings.filter(w => w.level === 'warn').length : 0;
+    return `
     <div class="library-card">
       <div class="info">
+        <div class="card-badges">
+          <span class="badge badge-type">${escapeHtml(entry.manifest.type)}</span>
+          <span class="badge badge-status" style="color:${STATUS_COLORS[entry.reviewStatus] || 'var(--text-dim)'}">${escapeHtml(STATUS_LABELS[entry.reviewStatus] || entry.reviewStatus)}</span>
+          <span class="badge badge-score">Q${entry.qualityScore}</span>
+          ${errCount > 0 ? `<span class="badge badge-err">${errCount}err</span>` : ''}
+          ${warnCount > 0 ? `<span class="badge badge-warn">${warnCount}warn</span>` : ''}
+        </div>
         <div class="name">${escapeHtml(entry.manifest.displayName || entry.manifest.id || '(untitled)')}</div>
-        <div class="meta">
-          ${escapeHtml(entry.manifest.type)} | ${escapeHtml(entry.manifest.sourceFileName || '-')} | ${new Date(entry.updatedAt).toLocaleString()}
-        </div>
-        <div class="meta">
-          <span style="color:${STATUS_COLORS[entry.reviewStatus] || 'var(--text-dim)'}">${escapeHtml(STATUS_LABELS[entry.reviewStatus] || entry.reviewStatus)}</span>
-          | Q${entry.qualityScore}
-          ${entry.reviewNotes ? ` | ${escapeHtml(entry.reviewNotes.slice(0, 40))}${entry.reviewNotes.length > 40 ? '...' : ''}` : ''}
-        </div>
+        <div class="meta">${escapeHtml(entry.manifest.id || '-')} | ${escapeHtml(entry.manifest.sourceFileName || '-')}</div>
+        <div class="meta">${new Date(entry.updatedAt).toLocaleString()}</div>
+        ${entry.reviewNotes ? `<div class="meta">${escapeHtml(entry.reviewNotes.slice(0, 60))}${entry.reviewNotes.length > 60 ? '...' : ''}</div>` : ''}
       </div>
       <div class="actions">
-        <button class="btn" data-lib-load="${i}">読込</button>
-        <button class="btn" data-lib-dup="${i}">複製</button>
-        <button class="btn btn-danger" data-lib-del="${i}">削除</button>
+        <button class="btn" data-lib-load="${origIdx}">読込</button>
+        <button class="btn" data-lib-dup="${origIdx}">複製</button>
+        <button class="btn btn-danger" data-lib-del="${origIdx}">削除</button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 
   for (const btn of list.querySelectorAll<HTMLButtonElement>('[data-lib-load]')) {
     btn.addEventListener('click', () => {
