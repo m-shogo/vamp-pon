@@ -1,6 +1,6 @@
 # 183. Character Theme Colors
 
-Purpose: preserve the Japanese-traditional-color direction for all 20 characters.
+Purpose: preserve the Japanese-traditional-color direction for all 20 characters plus official reserve characters.
 
 Runtime-facing data:
 
@@ -48,19 +48,25 @@ Runtime-facing data:
 | カゲール3 | 濃藍 | `#2D2D48` | 薄色 | `#C7A5CC` |
 | カゲール4 | 胡粉色 | `#F2F2ED` | 黒紅 | `#3C2F41` |
 
+## Official reserve
+
+| Character | Theme | Hex | Accent | Hex |
+| --- | --- | --- | --- | --- |
+| レン | 瓶覗 | `#A2D7DD` | 銀鼠 | `#A5A5A5` |
+
 ## New character handling
 
 New visual ideas are not deleted. They should either:
 
 1. merge into an existing 20-character slot if they strengthen that character, or
-2. go into a future reserve list only if they cannot fit the current roster.
+2. become an official reserve character if merging would weaken the existing roster.
 
-Current merge decision:
+Current placement:
 
-- glasses / round glasses -> シロ
+- glasses / round glasses / focus lens -> レン
 - library / unread page / archive -> シロ
 - teacher / chalk / classroom instruction -> セン
 - route / station / ticket -> トバリ or ゲン depending on age and role
 - dream / water-surface map -> ネム
 
-Do not create a 21st character until the existing 20 cannot absorb the idea without weakening their silhouette.
+Official reserve characters are formal canon, but they are not forced into the current playable build.
