@@ -137,6 +137,39 @@ pnpm asset-factory:build
 - Inspection Report JSON ダウンロード
 - Prompt Text ダウンロード
 
+## Fixture QA
+
+`tools/asset-factory/fixtures/` に QA 検証用の軽量 PNG を同梱。AI 生成素材ではなく、inspector / filter / export が壊れないことを確認するためのテストデータ。
+
+### Fixture 一覧
+
+| ファイル | サイズ | 検証内容 |
+|---------|--------|---------|
+| `valid-enemy-sheet-1440x1080.png` | 1440x1080 | 8x6 / 180px 正常シート。全48セルに図形、端接触なし |
+| `edge-touch-enemy-sheet-1440x1080.png` | 1440x1080 | 一部セルで端接触あり。再生成プロンプト検証用 |
+| `empty-cells-enemy-sheet-1440x1080.png` | 1440x1080 | 4セル空。空セル警告検証用 |
+| `weapon-icon-1024x1024.png` | 1024x1024 | 武器アイコン。中央にダイヤ図形 |
+| `cutin-1440x360.png` | 1440x360 | 横長カットイン。透明背景 |
+| `background-390x844.png` | 390x844 | 縦型戦闘背景。不透明 |
+
+### Fixture 再生成
+
+```bash
+node --experimental-strip-types tools/asset-factory/scripts/create-fixtures.ts
+```
+
+### QA 手順
+
+1. `pnpm asset-factory:dev` で起動
+2. 各 fixture を読込タブにドロップ
+3. 検査タブで警告・エラーを確認
+4. マニフェストタブでプリセット適用 → ライブラリ保存
+5. ライブラリタブでフィルタ・ソート・クイックフィルタ動作確認
+6. エクスポートボタンで JSON ダウンロード確認
+7. edge-touch シートで再生成プロンプト作成を確認
+
+詳細チェックリスト: [QA_CHECKLIST.md](./QA_CHECKLIST.md)
+
 ## v0 でできないこと
 
 - 画像生成 API 接続

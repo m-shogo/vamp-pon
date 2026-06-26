@@ -73,7 +73,7 @@ export function importLibraryJSON(json: string): number {
   const imported = JSON.parse(json) as LibraryEntry[];
   if (!Array.isArray(imported)) throw new Error('Invalid library JSON');
   const existing = loadLibrary();
-  existing.push(...imported);
+  existing.push(...imported.map(migrateEntry));
   saveLibrary(existing);
   return imported.length;
 }
