@@ -1,4 +1,4 @@
-import type { LibraryEntry, AssetManifest, InspectResult, AssetType, ReviewStatus, QualityScore } from './types';
+import type { LibraryEntry, AssetManifest, InspectResult, AssetType, ReviewStatus, QualityScore, ManualIssue } from './types';
 
 const STORAGE_KEY = 'vamp-pon-asset-factory-library';
 
@@ -6,6 +6,7 @@ function migrateEntry(e: LibraryEntry): LibraryEntry {
   if (!e.reviewStatus) e.reviewStatus = 'unchecked';
   if (!e.qualityScore) e.qualityScore = 3;
   if (e.reviewNotes === undefined) e.reviewNotes = '';
+  if (!Array.isArray(e.manualIssues)) e.manualIssues = [];
   return e;
 }
 
@@ -30,10 +31,11 @@ export function addEntry(
   reviewStatus: ReviewStatus = 'unchecked',
   qualityScore: QualityScore = 3,
   reviewNotes = '',
+  manualIssues: ManualIssue[] = [],
 ): LibraryEntry {
   const entries = loadLibrary();
   const now = new Date().toISOString();
-  const entry: LibraryEntry = { manifest, inspectResult, prompt, reviewStatus, qualityScore, reviewNotes, createdAt: now, updatedAt: now };
+  const entry: LibraryEntry = { manifest, inspectResult, prompt, reviewStatus, qualityScore, reviewNotes, manualIssues, createdAt: now, updatedAt: now };
   entries.push(entry);
   saveLibrary(entries);
   return entry;

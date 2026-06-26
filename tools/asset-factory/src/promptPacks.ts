@@ -42,7 +42,16 @@ const STYLE_RULES_JA = `## 共通スタイルルール
 - 透過PNG (真のアルファ、チェッカーボードではない)
 - テキスト・ロゴ・ボーダー・チェッカーボード・白フリンジ禁止
 - シルエットはシンプルで読みやすく
-- ゲーム品質のクオリティ`;
+- ゲーム品質のクオリティ
+
+### 実画像で起きやすい失敗 (必ず避ける)
+- 透過背景は実際のアルファチャンネルであること (白やチェッカーボードは不可)
+- 被写体周囲に白フリンジ・白い縁取りを残さない
+- 被写体は安全パディング内に収める (セル端・キャンバス端に接触しない)
+- 全セルでスケールとアイデンティティを統一する
+- テキスト・文字を画像に焼き込まない
+- 偽UIを画像に焼き込まない
+- 装飾フレームを素材に焼き込まない`;
 
 const STYLE_RULES_EN = `## Common Style Rules
 
@@ -52,7 +61,16 @@ const STYLE_RULES_EN = `## Common Style Rules
 - Transparent PNG (true alpha, not checkerboard)
 - No text, no logo, no border, no checkerboard, no white fringe
 - Keep silhouette simple and readable
-- Game-ready quality`;
+- Game-ready quality
+
+### Common Real-Image Pitfalls (must avoid)
+- Transparent background must be actual alpha, not white or checkerboard
+- No white fringe around the subject
+- Keep subject inside safe padding (no edge/canvas touch)
+- Keep same scale and identity across all cells
+- No baked text
+- No fake UI baked into the asset
+- No decorative frame baked into the asset`;
 
 const YUI_FIXED_RULES_JA = `## ユイ固定ルール
 
@@ -424,7 +442,7 @@ Post-check: Asset Factory → load PNG → verify transparency → check readabi
 - キャンバス: 1024 x 1024 px (マスターサイズ)
 - 透過背景 (真のアルファ)
 - 武器をキャンバス中央に配置
-- 64px および 32px 表示サイズで読めること
+- 32px HUDアイコンとして読めること
 - テキストを画像に焼き込まない
 - レアリティ枠やボーダーを焼き込まない (ゲームUIが付与する)
 - 明確で識別しやすいシルエット`
@@ -433,7 +451,7 @@ Post-check: Asset Factory → load PNG → verify transparency → check readabi
 - Canvas: 1024 x 1024 px (master size)
 - Transparent background (true alpha)
 - Weapon centered in canvas
-- Must be readable at 64px and 32px display sizes
+- Must be readable as 32px HUD icon
 - No text baked into the image
 - No rarity frame or border baked in (applied by game UI)
 - Clean silhouette with identifiable shape`;
@@ -495,7 +513,7 @@ Post-check: Asset Factory → load PNG → verify transparency → check readabi
 - キャンバス: 1024 x 1024 px (マスターサイズ)
 - 透過背景 (真のアルファ)
 - アイテムをキャンバス中央に配置
-- 64px および 32px 表示サイズで読めること
+- 32px HUDアイコンとして読めること
 - テキストを画像に焼き込まない
 - レアリティ枠やボーダーを焼き込まない (ゲームUIが付与する)
 - 明確で識別しやすいシルエット`
@@ -504,7 +522,7 @@ Post-check: Asset Factory → load PNG → verify transparency → check readabi
 - Canvas: 1024 x 1024 px (master size)
 - Transparent background (true alpha)
 - Item centered in canvas
-- Must be readable at 64px and 32px display sizes
+- Must be readable as 32px HUD icon
 - No text baked into the image
 - No rarity frame or border baked in (applied by game UI)
 - Clean silhouette with identifiable shape`;
@@ -573,7 +591,8 @@ Post-check: Asset Factory → load PNG → verify 390x844 crop/readability → c
 - 忘れ物の世界感 — 古びた街角、忘れられた路地、薄暗い公園
 - 夜の通り / 記憶 / 忘れ物 / 黒インクの雰囲気
 - テキスト・ロゴ・UI・キャラクターを画像に焼き込まない
-- 過度に明るい部分を作らない`
+- 過度に明るい部分を作らない
+- プレイヤー/敵/EXPの視認性を背景が奪わないこと`
     : `## Background Illustration Specification
 
 - Target size: 390 x 844 px (portrait mobile battle background)
@@ -591,7 +610,8 @@ Post-check: Asset Factory → load PNG → verify 390x844 crop/readability → c
 - Forgotten-things world — worn-down street corners, forgotten alleys, dim parks
 - Night street / memory / forgotten object / black ink mood
 - No text, no logo, no UI baked in, no character baked in
-- Avoid overly bright areas`;
+- Avoid overly bright areas
+- Do not compete with player/enemy/EXP visibility`;
 
   const styleRules = ja ? STYLE_RULES_JA : STYLE_RULES_EN;
 
@@ -648,7 +668,8 @@ Post-check: Asset Factory → load PNG → verify 1440x360 → verify transparen
 ### カットインデザインルール
 - レベルアップ・必殺技発動・ボス登場などの横長演出で使用
 - キャラクターの個性が最も引き立つ構図
-- 背景は透過 — ゲーム画面に重ねて表示する`
+- 背景は透過 — ゲーム画面に重ねて表示する
+- 横長構図であること (ポスター構図や縦長ポートレートにしない)`
     : `## Cut-in Illustration Specification
 
 - Canvas: 1440 x 360 px (horizontal wide cutin)
@@ -661,7 +682,8 @@ Post-check: Asset Factory → load PNG → verify 1440x360 → verify transparen
 ### Cutin Design Rules
 - Used for level-up, special attack activation, boss appearance — horizontal wide format
 - Composition that best highlights the character's personality
-- Background is transparent — overlaid on game screen`;
+- Background is transparent — overlaid on game screen
+- Horizontal composition only (not poster, not vertical portrait)`;
 
   return `# ${title}
 
@@ -930,6 +952,7 @@ export function buildRegenerationPrompt(inspectResult: InspectResult, assetType:
       fixes.push('Keep transparent padding around the subject. No part may touch the canvas edge.');
     }
     fixes.push('1024x1024 px icon, transparent background, centered, no text/logo/rarity frame, no white fringe.');
+    fixes.push('Do not bake rarity frame or decorative border into the icon — game UI applies these.');
   }
 
   if (isBg) {
@@ -938,6 +961,7 @@ export function buildRegenerationPrompt(inspectResult: InspectResult, assetType:
       fixes.push('Use 390x844 px or a larger master that is crop-safe to 390x844.');
     }
     fixes.push('390x844 portrait mobile battle background. Combat readability first. No UI/text/character baked in. Dark but readable.');
+    fixes.push('Avoid too-noisy center area — player/enemy/EXP must remain visible over the background.');
   }
 
   if (isCutin) {
@@ -946,6 +970,7 @@ export function buildRegenerationPrompt(inspectResult: InspectResult, assetType:
       fixes.push('Use 1440x360 px canvas for horizontal wide cutin.');
     }
     fixes.push('1440x360 horizontal cutin, transparent background, character identity stable, no text/logo.');
+    fixes.push('Use horizontal composition — not poster-like vertical portrait.');
   }
 
   if (sizeError.length > 0 && !isBg && !isCutin) {
@@ -1026,6 +1051,14 @@ ${outputSpec}
 ## Negative Prompt
 
 ${negPrompt}
+
+## Manual Visual Check (human eye required)
+
+These cannot be auto-detected — verify by visual inspection:
+- [ ] Background is true alpha transparency (not white, not checkerboard pattern)
+- [ ] No white fringe / halo around the subject edges
+${isIcon ? '- [ ] No rarity frame or decorative border baked into the icon\n' : ''}${isCutin ? '- [ ] Composition is horizontal wide, not poster-like vertical portrait\n' : ''}${isBg ? '- [ ] Center area is not too noisy — player/enemy/EXP must stay visible\n- [ ] No UI elements baked into the image\n' : ''}- [ ] Identity consistent — same character/enemy/item across all views
+- [ ] No baked text, watermark, or logo anywhere in the image
 
 ## Asset Factory Recheck Steps
 

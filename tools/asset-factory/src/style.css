@@ -808,6 +808,44 @@ header .subtitle {
   border-color: var(--warn);
 }
 
+/* Manual issues */
+.manual-issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.manual-issue-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 3px 6px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-input);
+  transition: all 0.15s;
+}
+
+.manual-issue-label:has(input:checked) {
+  border-color: var(--warn);
+  color: var(--warn);
+}
+
+.manual-issue-label input[type="checkbox"] {
+  accent-color: var(--warn);
+  margin: 0;
+}
+
+.manual-issues-tags {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
 /* Responsive */
 @media (max-width: 800px) {
   .field-group {

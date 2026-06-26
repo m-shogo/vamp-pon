@@ -70,6 +70,18 @@ pnpm asset-factory:build
 
 使い方: Libraryタブ → フィルタバー下部のExportボタンから出力
 
+#### Approved Export 注意事項
+- approved にする前に必ず実画像を目視確認すること (自動検査だけでは不十分)
+- fixture PNG は構造確認用であり、商用品質判定用ではない
+- Unity Handoff JSON は画像そのものを含まない — sourceFileName と manifest を元に実ファイルを別途管理する必要がある
+- 手動チェック問題 (Manual Issues) を確認してから approved に設定する
+
+### Manual Issues (手動チェック問題)
+- マニフェストタブで手動発見した問題をチェックボックスで記録
+- 自動検出できない問題: 白背景 / チェッカーボード背景 / 白フリンジ / アイデンティティずれ / テキスト焼込み / レアリティ枠焼込み / ポスター構図 / UI焼込み 等
+- ライブラリカードにバッジとして表示
+- 詳細: [REAL_ASSET_QA.md](./REAL_ASSET_QA.md)
+
 ### Prompt Packs (一括プロンプト)
 - 7種類のプロンプトパック: Character / Enemy / Weapon / Item / Background / Cutin / All-in-One
 - 3つのモード: 日本語 詳細 / English Detailed / コンパクト

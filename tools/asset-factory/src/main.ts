@@ -1,5 +1,6 @@
 import './style.css';
-import type { AssetType, AssetManifest, InspectResult, SheetFormat, ReviewStatus, QualityScore } from './types';
+import type { AssetType, AssetManifest, InspectResult, SheetFormat, ReviewStatus, QualityScore, ManualIssue } from './types';
+import { MANUAL_ISSUE_OPTIONS } from './types';
 import { inspectImage, detectFormat, FORMAT_8x6_180 } from './inspector';
 import { createDefaultManifest, applyPreset } from './manifest';
 import { getPresetsForType, ENEMY_PRESETS, WEAPON_PRESETS, ITEM_PRESETS } from './presets';
@@ -33,6 +34,7 @@ type AppState = {
   reviewStatus: ReviewStatus;
   qualityScore: QualityScore;
   reviewNotes: string;
+  manualIssues: ManualIssue[];
   showGrid: boolean;
   showBbox: boolean;
   showCheckerboard: boolean;
@@ -58,6 +60,7 @@ const state: AppState = {
   reviewStatus: 'unchecked' as ReviewStatus,
   qualityScore: 3 as QualityScore,
   reviewNotes: '',
+  manualIssues: [] as ManualIssue[],
   showGrid: true,
   showBbox: true,
   showCheckerboard: true,
@@ -213,6 +216,9 @@ function buildHTML(): string {
         <textarea id="review-notes" placeholder="レビューメモを入力"></textarea>
       </div>
     </div>
+
+    <h3 class="section-header">手動チェック問題</h3>
+    <div class="manual-issues" id="manual-issues"></div>
 
     <div class="btn-group">
       <button class="btn" id="btn-copy-manifest">JSON をコピー</button>
@@ -728,7 +734,7 @@ function bindManifest() {
   $('#btn-save-library').addEventListener('click', () => {
     addEntry(
       state.manifest, state.inspectResult ?? undefined, state.prompt || undefined,
-      state.reviewStatus, state.qualityScore, state.reviewNotes,
+      state.reviewStatus, state.qualityScore, state.reviewNotes, state.manualIssues,
     );
     if (state.activeTab === 'library') renderLibrary();
     showToast('ライブラリに保存しました');
@@ -742,6 +748,43 @@ function bindManifest() {
   $<HTMLTextAreaElement>('#review-notes').addEventListener('input', (e) => {
     state.reviewNotes = (e.target as HTMLTextAreaElement).value;
   });
+  renderManualIssues();
+}
+
+const MANUAL_ISSUE_LABELS: Record<string, string> = {
+  'white-background': '白背景',
+  'checkerboard-background': 'チェッカーボード背景',
+  'white-fringe': '白フリンジ',
+  'identity-drift': 'アイデンティティずれ',
+  'too-noisy': '中央がうるさい',
+  'baked-text': 'テキスト焼込み',
+  'wrong-size': 'サイズ不正',
+  'wrong-direction': '方向不正',
+  'lantern-missing': 'ランタン欠落',
+  'bag-position-wrong': 'カバン位置不正',
+  'rarity-frame-baked': 'レアリティ枠焼込み',
+  'poster-composition': 'ポスター構図',
+  'ui-baked-in': 'UI焼込み',
+};
+
+function renderManualIssues() {
+  const el = $('#manual-issues');
+  el.innerHTML = MANUAL_ISSUE_OPTIONS.map(issue => `
+    <label class="manual-issue-label">
+      <input type="checkbox" value="${issue}" ${state.manualIssues.includes(issue) ? 'checked' : ''}>
+      ${escapeHtml(MANUAL_ISSUE_LABELS[issue] || issue)}
+    </label>
+  `).join('');
+  for (const cb of el.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')) {
+    cb.addEventListener('change', () => {
+      const v = cb.value as ManualIssue;
+      if (cb.checked) {
+        if (!state.manualIssues.includes(v)) state.manualIssues.push(v);
+      } else {
+        state.manualIssues = state.manualIssues.filter(i => i !== v);
+      }
+    });
+  }
 }
 
 // --- Regeneration Prompt ---
@@ -799,6 +842,7 @@ function renderReviewState() {
   } else {
     suggestedEl.style.display = 'none';
   }
+  renderManualIssues();
 }
 
 function renderManifestFields() {
@@ -1173,6 +1217,7 @@ function renderLibrary() {
         <div class="meta">${escapeHtml(entry.manifest.id || '-')} | ${escapeHtml(entry.manifest.sourceFileName || '-')}</div>
         <div class="meta">${new Date(entry.updatedAt).toLocaleString()}</div>
         ${entry.reviewNotes ? `<div class="meta">${escapeHtml(entry.reviewNotes.slice(0, 60))}${entry.reviewNotes.length > 60 ? '...' : ''}</div>` : ''}
+        ${entry.manualIssues?.length ? `<div class="meta manual-issues-tags">${entry.manualIssues.map(i => `<span class="badge badge-warn">${escapeHtml(i)}</span>`).join(' ')}</div>` : ''}
       </div>
       <div class="actions">
         <button class="btn" data-lib-load="${origIdx}">読込</button>
@@ -1193,6 +1238,7 @@ function renderLibrary() {
         state.reviewStatus = entry.reviewStatus || 'unchecked';
         state.qualityScore = entry.qualityScore || 3;
         state.reviewNotes = entry.reviewNotes || '';
+        state.manualIssues = entry.manualIssues || [];
         if (entry.inspectResult) state.inspectResult = entry.inspectResult;
         for (const b of $$<HTMLButtonElement>('.type-btn')) b.classList.toggle('active', b.textContent === state.assetType);
         switchTab('manifest');

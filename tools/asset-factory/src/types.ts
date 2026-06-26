@@ -137,6 +137,24 @@ export type AssetManifest =
 export type ReviewStatus = 'unchecked' | 'candidate' | 'needs-regeneration' | 'approved' | 'rejected';
 export type QualityScore = 1 | 2 | 3 | 4 | 5;
 
+export const MANUAL_ISSUE_OPTIONS = [
+  'white-background',
+  'checkerboard-background',
+  'white-fringe',
+  'identity-drift',
+  'too-noisy',
+  'baked-text',
+  'wrong-size',
+  'wrong-direction',
+  'lantern-missing',
+  'bag-position-wrong',
+  'rarity-frame-baked',
+  'poster-composition',
+  'ui-baked-in',
+] as const;
+
+export type ManualIssue = typeof MANUAL_ISSUE_OPTIONS[number];
+
 export type LibraryEntry = {
   manifest: AssetManifest;
   inspectResult?: InspectResult;
@@ -144,6 +162,7 @@ export type LibraryEntry = {
   reviewStatus: ReviewStatus;
   qualityScore: QualityScore;
   reviewNotes: string;
+  manualIssues: ManualIssue[];
   createdAt: string;
   updatedAt: string;
 };
