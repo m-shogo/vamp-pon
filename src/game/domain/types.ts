@@ -72,6 +72,17 @@ export type CharacterBaseStats = {
   xpMultiplier: number;
 };
 
+export type CharacterArtDefinition = {
+  label: string;
+  name: string;
+};
+
+export type CharacterArtSetDefinition = {
+  lampArt: CharacterArtDefinition;
+  inheritedLight: CharacterArtDefinition;
+  dawnLight: CharacterArtDefinition;
+};
+
 export type CharacterUltimateDefinition = {
   id: Id;
   name: string;
@@ -89,6 +100,7 @@ export type CharacterDefinition = {
   role: string;
   initialWeaponId: Id;
   baseStats: CharacterBaseStats;
+  arts?: CharacterArtSetDefinition;
   ultimate: CharacterUltimateDefinition;
   description: string;
   lore?: string;
@@ -238,74 +250,33 @@ export type EvolutionDefinition = {
 export type LevelUpChoice =
   | {
     type: 'weapon_new';
-    itemId: Id;
-    title: string;
-    description: string;
-    lore?: string;
-    rarity?: RewardRarity;
-    initialLevel?: number;
+    id: Id;
+    rarity: RewardRarity;
   }
   | {
     type: 'weapon_upgrade';
-    itemId: Id;
-    nextLevel: number;
-    title: string;
-    description: string;
-    lore?: string;
-    rarity?: RewardRarity;
+    id: Id;
+    toLevel: number;
+    rarity: RewardRarity;
   }
   | {
     type: 'passive_new';
-    itemId: Id;
-    title: string;
-    description: string;
-    lore?: string;
-    rarity?: RewardRarity;
-    initialLevel?: number;
+    id: Id;
+    rarity: RewardRarity;
   }
   | {
     type: 'passive_upgrade';
-    itemId: Id;
-    nextLevel: number;
-    title: string;
-    description: string;
-    lore?: string;
-    rarity?: RewardRarity;
+    id: Id;
+    toLevel: number;
+    rarity: RewardRarity;
   }
   | {
-    type: 'rare_new';
-    itemId: Id;
-    title: string;
-    description: string;
-    lore?: string;
-    rarity?: RewardRarity;
+    type: 'rare_item';
+    id: Id;
+    rarity: RewardRarity;
   }
-  | {
-    type: 'heal';
-    amount: number;
-    title: string;
-    description: string;
-    lore?: string;
-    rarity?: RewardRarity;
-  };
-
-export type CapsuleReward =
   | {
     type: 'evolution';
-    evolutionId: Id;
-    evolutionKind: EvolutionKind;
-    evolvedWeaponId: Id;
-    title: string;
-    lore?: string;
-  }
-  | {
-    type: 'weapon_upgrade' | 'passive_upgrade';
-    itemId: Id;
-    nextLevel: number;
-    title: string;
-  }
-  | {
-    type: 'currency';
-    amount: number;
-    title: string;
+    id: Id;
+    rarity: RewardRarity;
   };
