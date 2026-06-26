@@ -173,7 +173,15 @@ fixture (構造テスト用) とは別に、実画像特有の問題を見つけ
 | ui-baked-in | UI焼込み | 偽UIが画像内 |
 
 これらは自動検出が難しいため、人間の目で確認してチェックする。
-チェック済みの問題はライブラリカードにバッジとして表示される。
+チェック済みの問題はライブラリカードに `Manual: N` バッジとして表示される。
+
+### Manual Issues の連動
+
+- **再生成プロンプト**: Manual Issues は再生成プロンプトに `Manual Issues Found` セクションとして自動反映される。各issueに修正指示が付く。
+- **Regeneration Queue JSON**: Manual Issues は再生成キュー JSON に `manualIssues` フィールドとして含まれる。
+- **Unity Handoff JSON**: approved エントリでも Manual Issues が残っている場合、`manualIssues` フィールドとして Unity 側に渡される。
+- **approved 前の警告**: Manual Issues が残った状態で approved に変更すると toast 警告が出る。変更自体は禁止されないが、品質スコアの推奨が ≤ 3 に下がる。
+- **approved の意味**: approved は「問題なし」ではなく「採用判断済み」を意味する。Manual Issues が残っていても approved にできるが、Unity 側で追加確認が必要。
 
 ## 推奨ワークフロー
 

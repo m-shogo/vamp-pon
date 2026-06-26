@@ -5,10 +5,13 @@ import {
   type LibraryFilter, type LibrarySortKey,
 } from './storage';
 
+import type { ManualIssue } from './types';
+
 function makeEntry(overrides: {
   id?: string; displayName?: string; type?: string; reviewStatus?: ReviewStatus;
   qualityScore?: QualityScore; tags?: string[]; notes?: string; reviewNotes?: string;
   sourceFileName?: string; updatedAt?: string; createdAt?: string;
+  manualIssues?: ManualIssue[];
 } = {}): LibraryEntry {
   const type = (overrides.type || 'enemy') as LibraryEntry['manifest']['type'];
   const manifest = {
@@ -24,6 +27,7 @@ function makeEntry(overrides: {
     reviewStatus: overrides.reviewStatus || 'unchecked',
     qualityScore: overrides.qualityScore || 3,
     reviewNotes: overrides.reviewNotes || '',
+    manualIssues: overrides.manualIssues || [],
     createdAt: overrides.createdAt || '2025-06-01T00:00:00Z',
     updatedAt: overrides.updatedAt || '2025-06-01T00:00:00Z',
   };
@@ -202,5 +206,49 @@ describe('localStorage-dependent functions', () => {
     const result = JSON.parse(buildRegenerationQueueExport());
     expect(result).toHaveLength(2);
     expect(result.map((e: { id: string }) => e.id)).toEqual(['r1', 'r3']);
+  });
+
+  it('buildRegenerationQueueExport includes manualIssues', async () => {
+    const { saveLibrary, buildRegenerationQueueExport } = await import('./storage');
+    saveLibrary([
+      makeEntry({ id: 'rq1', reviewStatus: 'needs-regeneration', manualIssues: ['white-background', 'white-fringe'] }),
+    ]);
+    const result = JSON.parse(buildRegenerationQueueExport());
+    expect(result).toHaveLength(1);
+    expect(result[0].manualIssues).toEqual(['white-background', 'white-fringe']);
+  });
+
+  it('buildUnityHandoffExport includes manualIssues', async () => {
+    const { saveLibrary, buildUnityHandoffExport } = await import('./storage');
+    saveLibrary([
+      makeEntry({ id: 'uh1', reviewStatus: 'approved', manualIssues: ['identity-drift'] }),
+      makeEntry({ id: 'uh2', reviewStatus: 'approved', manualIssues: [] }),
+    ]);
+    const result = JSON.parse(buildUnityHandoffExport());
+    expect(result.assets).toHaveLength(2);
+    expect(result.assets[0].manualIssues).toEqual(['identity-drift']);
+    expect(result.assets[1].manualIssues).toEqual([]);
+  });
+
+  it('importLibraryJSON migration sets manualIssues to empty array', async () => {
+    const { importLibraryJSON, loadLibrary } = await import('./storage');
+    const oldEntries = [
+      { manifest: { id: 'mi-old', displayName: 'Old', type: 'enemy', sourceFileName: 'old.png', tags: [], notes: '' }, createdAt: '2025-01-01T00:00:00Z', updatedAt: '2025-01-01T00:00:00Z' },
+    ];
+    importLibraryJSON(JSON.stringify(oldEntries));
+    const loaded = loadLibrary();
+    expect(loaded[0].manualIssues).toEqual([]);
+  });
+
+  it('approved entry with manualIssues is exported with issues preserved', async () => {
+    const { saveLibrary, buildUnityHandoffExport, buildApprovedManifestsExport } = await import('./storage');
+    const issues: ManualIssue[] = ['lantern-missing', 'bag-position-wrong'];
+    saveLibrary([
+      makeEntry({ id: 'ap-mi', reviewStatus: 'approved', qualityScore: 3, manualIssues: issues }),
+    ]);
+    const handoff = JSON.parse(buildUnityHandoffExport());
+    expect(handoff.assets[0].manualIssues).toEqual(issues);
+    const manifests = JSON.parse(buildApprovedManifestsExport());
+    expect(manifests).toHaveLength(1);
   });
 });

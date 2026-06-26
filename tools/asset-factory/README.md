@@ -79,7 +79,11 @@ pnpm asset-factory:build
 ### Manual Issues (手動チェック問題)
 - マニフェストタブで手動発見した問題をチェックボックスで記録
 - 自動検出できない問題: 白背景 / チェッカーボード背景 / 白フリンジ / アイデンティティずれ / テキスト焼込み / レアリティ枠焼込み / ポスター構図 / UI焼込み 等
-- ライブラリカードにバッジとして表示
+- ライブラリカードに `Manual: N` バッジとして表示
+- Manual Issues は再生成プロンプトに自動反映される (issue別の修正指示付き)
+- Manual Issues は Regeneration Queue JSON / Unity Handoff JSON に含まれる
+- Manual Issues が残ったまま approved にすると警告 toast が表示される
+- approved は「問題なし」ではなく「採用判断済み」を意味する — Manual Issues が残っていても approved にできるが、Unity 側での確認が必要
 - 詳細: [REAL_ASSET_QA.md](./REAL_ASSET_QA.md)
 
 ### Prompt Packs (一括プロンプト)

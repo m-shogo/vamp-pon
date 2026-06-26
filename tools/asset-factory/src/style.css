@@ -846,6 +846,16 @@ header .subtitle {
   margin-top: 4px;
 }
 
+.badge-manual-issues {
+  color: var(--warn);
+  border-color: var(--warn);
+  font-weight: 700;
+}
+
+.card-issues-warning {
+  border-left: 3px solid var(--warn);
+}
+
 /* Responsive */
 @media (max-width: 800px) {
   .field-group {

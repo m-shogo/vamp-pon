@@ -740,7 +740,14 @@ function bindManifest() {
     showToast('ライブラリに保存しました');
   });
   $<HTMLSelectElement>('#review-status').addEventListener('change', (e) => {
-    state.reviewStatus = (e.target as HTMLSelectElement).value as ReviewStatus;
+    const newStatus = (e.target as HTMLSelectElement).value as ReviewStatus;
+    if (newStatus === 'approved' && state.manualIssues.length > 0) {
+      showToast(`Manual Issues が ${state.manualIssues.length} 件残っています。approved前に確認してください。`, true);
+    }
+    if (newStatus === 'approved' && state.manualIssues.length > 0 && state.qualityScore > 3) {
+      showToast('Manual Issues ありのため品質スコア 3 以下を推奨します', true);
+    }
+    state.reviewStatus = newStatus;
   });
   $<HTMLSelectElement>('#quality-score').addEventListener('change', (e) => {
     state.qualityScore = parseInt((e.target as HTMLSelectElement).value) as QualityScore;
@@ -791,7 +798,10 @@ function renderManualIssues() {
 function bindRegenPrompt() {
   $('#btn-build-regen').addEventListener('click', () => {
     if (!state.inspectResult) { showToast('検査結果がありません', true); return; }
-    const text = buildRegenerationPrompt(state.inspectResult, state.assetType, state.manifest.displayName);
+    const text = buildRegenerationPrompt(
+      state.inspectResult, state.assetType, state.manifest.displayName,
+      state.manualIssues, state.reviewNotes,
+    );
     $<HTMLTextAreaElement>('#regen-textarea').value = text;
   });
   $('#btn-copy-regen').addEventListener('click', () => {
@@ -836,8 +846,13 @@ function renderReviewState() {
 
   const suggestedEl = $('#suggested-score');
   if (state.inspectResult) {
-    const suggested = suggestQualityScore(state.inspectResult);
-    suggestedEl.textContent = `(検査推奨: ${suggested})`;
+    let suggested = suggestQualityScore(state.inspectResult);
+    if (state.manualIssues.length > 0 && suggested > 3) suggested = 3;
+    const suffix = state.manualIssues.length > 0 ? ` / Manual Issues: ${state.manualIssues.length}` : '';
+    suggestedEl.textContent = `(検査推奨: ${suggested}${suffix})`;
+    suggestedEl.style.display = 'inline';
+  } else if (state.manualIssues.length > 0) {
+    suggestedEl.textContent = `(Manual Issues: ${state.manualIssues.length} — 推奨スコア ≤ 3)`;
     suggestedEl.style.display = 'inline';
   } else {
     suggestedEl.style.display = 'none';
@@ -1203,8 +1218,10 @@ function renderLibrary() {
     const origIdx = indexMap[si];
     const errCount = entry.inspectResult ? entry.inspectResult.warnings.filter(w => w.level === 'error').length : 0;
     const warnCount = entry.inspectResult ? entry.inspectResult.warnings.filter(w => w.level === 'warn').length : 0;
+    const miCount = entry.manualIssues?.length || 0;
+    const hasIssuesOnApproved = miCount > 0 && entry.reviewStatus === 'approved';
     return `
-    <div class="library-card">
+    <div class="library-card${hasIssuesOnApproved ? ' card-issues-warning' : ''}">
       <div class="info">
         <div class="card-badges">
           <span class="badge badge-type">${escapeHtml(entry.manifest.type)}</span>
@@ -1212,6 +1229,7 @@ function renderLibrary() {
           <span class="badge badge-score">Q${entry.qualityScore}</span>
           ${errCount > 0 ? `<span class="badge badge-err">${errCount}err</span>` : ''}
           ${warnCount > 0 ? `<span class="badge badge-warn">${warnCount}warn</span>` : ''}
+          ${miCount > 0 ? `<span class="badge badge-manual-issues">Manual: ${miCount}</span>` : ''}
         </div>
         <div class="name">${escapeHtml(entry.manifest.displayName || entry.manifest.id || '(untitled)')}</div>
         <div class="meta">${escapeHtml(entry.manifest.id || '-')} | ${escapeHtml(entry.manifest.sourceFileName || '-')}</div>

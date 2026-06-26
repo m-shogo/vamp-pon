@@ -144,6 +144,7 @@ export function buildUnityHandoffExport(): string {
     sourceFileName: e.manifest.sourceFileName,
     qualityScore: e.qualityScore,
     reviewNotes: e.reviewNotes,
+    manualIssues: e.manualIssues || [],
     manifest: e.manifest,
   }));
   return JSON.stringify({
@@ -164,6 +165,7 @@ export function buildRegenerationQueueExport(): string {
     sourceFileName: e.manifest.sourceFileName,
     qualityScore: e.qualityScore,
     reviewNotes: e.reviewNotes,
+    manualIssues: e.manualIssues || [],
     manifest: e.manifest,
     warnings: e.inspectResult?.warnings || [],
     prompt: e.prompt || null,

@@ -904,7 +904,29 @@ ${type === 'enemy' ? `- **Behavior:** ${m.behavior || '-'}\n- **Size:** ${m.size
 
 // --- Regeneration Prompt Builder ---
 
-export function buildRegenerationPrompt(inspectResult: InspectResult, assetType: AssetType, displayName: string): string {
+const MANUAL_ISSUE_FIX_INSTRUCTIONS: Record<string, string> = {
+  'white-background': 'Use true PNG alpha transparency. Do not use a white background.',
+  'checkerboard-background': 'Do not draw a checkerboard pattern. The background must be truly transparent.',
+  'white-fringe': 'Remove white fringe and white anti-aliasing bleed around the subject.',
+  'identity-drift': 'Keep the same character/enemy identity across all cells. Do not change face, silhouette, outfit, or motif between frames.',
+  'too-noisy': 'Simplify the center area. Do not compete with player/enemy/EXP readability.',
+  'baked-text': 'Remove all text, letters, numbers, logos, and watermarks.',
+  'wrong-size': 'Match the required target size exactly.',
+  'wrong-direction': 'Fix direction consistency. Do not flip body-relative equipment incorrectly.',
+  'lantern-missing': "Restore the lantern. Yui's lantern must stay in her right hand and remain visible in all directions.",
+  'bag-position-wrong': 'Restore bag position. Strap from right shoulder to left waist; bag body on left waist.',
+  'rarity-frame-baked': 'Remove baked rarity frame/border. Game UI will apply rarity frames separately.',
+  'poster-composition': 'Use horizontal wide cutin composition, not vertical poster composition.',
+  'ui-baked-in': 'Remove baked UI elements. Background/cutin/icon must not include fake buttons, bars, or UI panels.',
+};
+
+export function buildRegenerationPrompt(
+  inspectResult: InspectResult,
+  assetType: AssetType,
+  displayName: string,
+  manualIssues: string[] = [],
+  reviewNotes = '',
+): string {
   const issues: string[] = [];
   const fixes: string[] = [];
   const isSpriteSheet = assetType === 'character' || assetType === 'enemy';
@@ -978,10 +1000,21 @@ export function buildRegenerationPrompt(inspectResult: InspectResult, assetType:
     fixes.push('Use PNG RGBA with correct canvas size matching the grid specification.');
   }
 
-  if (issues.length === 0) {
+  if (issues.length === 0 && manualIssues.length === 0) {
     issues.push('No technical issues detected.');
     fixes.push('No fixes required — asset passes inspection.');
   }
+
+  const manualSection = manualIssues.length > 0
+    ? `\n## Manual Issues Found\n\n${manualIssues.map(issue => {
+        const fix = MANUAL_ISSUE_FIX_INSTRUCTIONS[issue] || issue;
+        return `- **${issue}**: ${fix}`;
+      }).join('\n')}\n`
+    : '';
+
+  const reviewNotesSection = reviewNotes
+    ? `\n## Reviewer Notes\n\n${reviewNotes}\n`
+    : '';
 
   const negPrompt = `- Text, letters, logos, watermarks
 - Grid lines, cell borders drawn on the image
@@ -1039,8 +1072,8 @@ ${issues.map(i => '- ' + i).join('\n')}
 ## Fix Instructions
 
 ${fixes.map(f => '- ' + f).join('\n')}
-- Regenerate the same asset, preserving identity and motif, fixing only the technical issues listed above.
-
+- Regenerate the same asset, preserving identity and motif, fixing only the issues listed above.
+${manualSection}${reviewNotesSection}
 ## Original Asset Intent
 
 - **Asset Type:** ${assetType}
