@@ -20,6 +20,11 @@ export type CharacterArtNameSet = {
 
 const core5Ids = new Set<Core5PrototypeCharacterId>(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
 
+function inheritedLightName(characterId: string, fallback: string): string {
+  if (characterId === 'tomori') return 'ほころび灯し';
+  return fallback;
+}
+
 export const core5CharacterArts: CharacterArtNameSet[] = characterCanon
   .filter((entry) => entry.group === 'core5' && core5Ids.has(entry.id as Core5PrototypeCharacterId))
   .map((entry) => ({
@@ -31,7 +36,7 @@ export const core5CharacterArts: CharacterArtNameSet[] = characterCanon
       },
       inheritedLight: {
         label: WORLD_TERMS.techniqueRanks.inheritedLight,
-        name: entry.arts.inheritedLight,
+        name: inheritedLightName(entry.id, entry.arts.inheritedLight),
       },
       dawnLight: {
         label: WORLD_TERMS.techniqueRanks.dawnLight,
