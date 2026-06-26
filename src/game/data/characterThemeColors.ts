@@ -91,7 +91,7 @@ export const characterThemeColors: CharacterThemeColor[] = [
   {
     characterId: 'shiro',
     name: 'シロ',
-    themeColor: { hex: '#E3E5E8', japaneseName: '白練', romaji: 'shironeri', note: '白いしおり、図書委員、丸メガネの反射。' },
+    themeColor: { hex: '#E3E5E8', japaneseName: '白練', romaji: 'shironeri', note: '白いしおり、図書委員、未分類ページの淡い白。' },
     accentColor: { hex: '#5B7E91', japaneseName: '藍鼠', romaji: 'ai-nezumi', note: '本棚と灯録UIに合う青鼠。' },
   },
   {
@@ -135,6 +135,12 @@ export const characterThemeColors: CharacterThemeColor[] = [
     name: 'カゲール4',
     themeColor: { hex: '#F2F2ED', japaneseName: '胡粉色', romaji: 'gofun-iro', note: '空白のカード。白だが不穏さを残す。' },
     accentColor: { hex: '#3C2F41', japaneseName: '黒紅', romaji: 'kurobeni', note: '余白の外側に残る黒耀。' },
+  },
+  {
+    characterId: 'ren',
+    name: 'レン',
+    themeColor: { hex: '#A2D7DD', japaneseName: '瓶覗', romaji: 'kamenozoki', note: '丸メガネのレンズ越しに見える薄い青。マドカの窓色より淡く、焦点キャラとして分ける。' },
+    accentColor: { hex: '#A5A5A5', japaneseName: '銀鼠', romaji: 'gin-nezumi', note: 'レンズ縁、反射、焦点メモの金属感。' },
   },
 ];
 
