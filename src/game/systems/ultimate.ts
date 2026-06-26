@@ -18,7 +18,7 @@ import { getBondEntry, pairUltimateForBond } from './bondProgress';
 
 const ULTIMATE_POSE_SEC = 0.48;
 
-/** 必殺技ゲージの充填と発動。黒曜ゲージとは完全に独立。 */
+/** 暁灯ゲージの充填と発動。黒耀瓶とは完全に独立。 */
 export function updateUltimate(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const ult = state.ultimate;
 
@@ -97,7 +97,7 @@ function activateUltimate(scene: Phaser.Scene, state: RuntimeState): void {
   });
   getAudioManager(scene).duckBgm(pairUltimate ? 480 : 360, pairUltimate ? 0.28 : 0.35);
   getEffectManager(scene).ultimateFlash();
-  playCharacterCutin(scene, 'ultimate');
+  playCharacterCutin(scene, 'ultimate', state.characterId);
   const ring = scene.add.circle(p.x, p.y, radius, pairUltimate ? STORYBOOK_PAIR_ULTIMATE_COLOR : COLORS.ultReady, pairUltimate ? 0.42 : 0.3).setDepth(35);
   ring.setScale(0.1);
   scene.tweens.add({
