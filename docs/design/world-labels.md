@@ -2,6 +2,9 @@
 
 Core labels are stored in `src/game/data/worldTerms.ts`.
 Core character art names are stored in `src/game/data/characterArts.ts`.
+Kokuyou character forms are stored in `src/game/data/kokuyouForms.ts`.
+Core5 pair arts are stored in `src/game/data/pairLightArts.ts`.
+Screen labels are stored in `src/game/data/screenLabels.ts`.
 
 ## Adopted labels
 
@@ -22,6 +25,23 @@ Core character art names are stored in `src/game/data/characterArts.ts`.
 | Stage clear | 夜明け |
 | Fragment currency | 記憶片 |
 
+## Screen labels
+
+| Target | Label |
+| --- | --- |
+| Home | 灯りの家 |
+| Start | 夜へ出る |
+| Continue | 灯を継ぐ |
+| Retry | もう一度、夜へ |
+| Character select | 旅人を選ぶ |
+| Character detail | 旅人の記録 |
+| Upgrade screen | 旅支度 |
+| Permanent upgrade | 支度 |
+| Shop | 忘れ物市 |
+| Settings | 設定 |
+| Initial weapon | 最初の忘れ物 |
+| Pair art list | 灯合わせ録 |
+
 ## Core5 art names
 
 | Character | 灯技 | 継灯 | 暁灯 |
@@ -30,8 +50,39 @@ Core character art names are stored in `src/game/data/characterArts.ts`.
 | アサ | 名札灯し | 暁綴り | 暁に結ぶ名 |
 | ナギ | 月箱の鍵 | 封月の守り | 夜をしまう箱 |
 | ミチル | 帰針 | 星図の道糸 | 帰り道の星 |
-| トモリ | 継火 | 修理灯 | 夜を直す灯 |
+| トモリ | 継火 | ほころび灯し | 夜を直す灯 |
+
+## Core5 Kokuyou subtitles
+
+| Character | Subtitle |
+| --- | --- |
+| ユイ | 呼びすぎた名前 |
+| アサ | 黒い名札 |
+| ナギ | 開いた月箱 |
+| ミチル | 迷い星図 |
+| トモリ | ほころぶ継火 |
+
+## Core5 pair arts
+
+| Pair | Name |
+| --- | --- |
+| ユイ x アサ | 名を呼ぶ灯 |
+| ユイ x ナギ | しまえない灯 |
+| ユイ x ミチル | 帰り道を呼ぶ灯 |
+| ユイ x トモリ | 消えかけを継ぐ灯 |
+| アサ x ナギ | 鍵つきの名札 |
+| アサ x ミチル | 暁の道しるべ |
+| アサ x トモリ | 綴じ直す名 |
+| ナギ x ミチル | 月箱の星図 |
+| ナギ x トモリ | 直した箱庭 |
+| ミチル x トモリ | 継ぎ星の道 |
+
+## Naming rule
+
+This game should avoid battle-only words such as 必殺, 殲滅, 暴走, and 覚醒 in player-facing UI unless the scene specifically needs danger.
+Prefer 灯す, 継ぐ, 結ぶ, しまう, 導く, 直す, 返す, and 夜明け.
+Kokuyou is the exception: it may use darker words, but the common visible label stays 黒耀化.
 
 ## Cutin rule
 
-Cutin art should stay textless. Draw character names, labels, and art names with UI text.
+Cutin art should stay textless. Draw character names, labels, subtitles, and art names with UI text.
