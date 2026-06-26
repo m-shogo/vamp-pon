@@ -5,6 +5,7 @@ Core character art names are stored in `src/game/data/characterArts.ts`.
 Kokuyou character forms are stored in `src/game/data/kokuyouForms.ts`.
 Core5 pair arts are stored in `src/game/data/pairLightArts.ts`.
 Screen labels are stored in `src/game/data/screenLabels.ts`.
+Item production canon is stored in `src/game/data/itemProductionCanon.ts` and `docs/design/item-and-character-production-canon.md`.
 
 ## Adopted labels
 
@@ -24,6 +25,28 @@ Screen labels are stored in `src/game/data/screenLabels.ts`.
 | Result | 旅の記録 |
 | Stage clear | 夜明け |
 | Fragment currency | 記憶片 |
+
+## Inventory labels
+
+| Target | Label |
+| --- | --- |
+| Weapon | 灯具 |
+| Passive | 持ち物 |
+| Rare item | 忘れ物 |
+| Field drop | 落とし物 |
+| Recovery | 朝露 |
+| Capsule | 記憶包み |
+| Currency | 記憶片 |
+
+## Stat labels
+
+| Target | Label |
+| --- | --- |
+| Magnet | 回収 |
+| Might | 灯力 |
+| XP | 成長 |
+| Move speed | 足取り |
+| Cooldown | 手数 |
 
 ## Screen labels
 
