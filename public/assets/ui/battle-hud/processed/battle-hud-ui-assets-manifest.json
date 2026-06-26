@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-06-26",
   "root": "public/assets/ui/battle-hud/processed",
-  "note": "Battle HUD UI asset candidates only. Runtime wiring is intentionally deferred.",
+  "note": "Battle HUD UI asset candidates. Runtime variants are separate processed outputs; full-size processed files remain as source/reference.",
   "assets": [
     {
       "key": "battle-hud-ultimate-seal-lantern-button",
@@ -22,6 +22,25 @@
       "notes": "右下必殺ボタン本体。封蝋＋ランタン。"
     },
     {
+      "key": "battle-hud-ultimate-seal-lantern-button",
+      "assetKey": "battle-hud-ultimate-seal-lantern-button",
+      "file": "battle-hud-ultimate-seal-lantern-button-runtime.png",
+      "fileName": "battle-hud-ultimate-seal-lantern-button-runtime.png",
+      "purpose": "右下必殺ボタン本体runtime版",
+      "scene": "Battle HUD",
+      "source": "public/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-v1.png",
+      "status": "adopted",
+      "variant": "runtime",
+      "alpha": true,
+      "size": "188x184",
+      "mode": "RGBA",
+      "hasAlpha": true,
+      "nonOpaquePct": "33.53%",
+      "greenPct": "0.00%",
+      "note": "右下必殺ボタン本体runtime版。188x184。フルサイズprocessedは比較/再生成元として残す。",
+      "notes": "右下必殺ボタン本体runtime版。188x184。フルサイズprocessedは比較/再生成元として残す。"
+    },
+    {
       "key": "battle-hud-kokuyou-bottle-frame",
       "assetKey": "battle-hud-kokuyou-bottle-frame",
       "file": "battle-hud-kokuyou-bottle-frame-v1.png",
@@ -38,6 +57,25 @@
       "greenPct": "0.00%",
       "note": "左下黒曜ゲージ瓶枠。",
       "notes": "左下黒曜ゲージ瓶枠。"
+    },
+    {
+      "key": "battle-hud-kokuyou-bottle-frame",
+      "assetKey": "battle-hud-kokuyou-bottle-frame",
+      "file": "battle-hud-kokuyou-bottle-frame-runtime.png",
+      "fileName": "battle-hud-kokuyou-bottle-frame-runtime.png",
+      "purpose": "左下黒曜ゲージ瓶枠runtime版",
+      "scene": "Battle HUD",
+      "source": "public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-v1.png",
+      "status": "adopted",
+      "variant": "runtime",
+      "alpha": true,
+      "size": "140x276",
+      "mode": "RGBA",
+      "hasAlpha": true,
+      "nonOpaquePct": "58.39%",
+      "greenPct": "0.00%",
+      "note": "左下黒曜ゲージ瓶枠runtime版。140x276。液面はPhaser Graphicsで描画。",
+      "notes": "左下黒曜ゲージ瓶枠runtime版。140x276。液面はPhaser Graphicsで描画。"
     },
     {
       "key": "kokuyouBottleLabel",
@@ -95,6 +133,25 @@
       "notes": "下部インベントリ通常スロット。"
     },
     {
+      "key": "battle-hud-inventory-paper-slot",
+      "assetKey": "battle-hud-inventory-paper-slot",
+      "file": "battle-hud-inventory-paper-slot-runtime.png",
+      "fileName": "battle-hud-inventory-paper-slot-runtime.png",
+      "purpose": "下部インベントリ通常スロットruntime版",
+      "scene": "Battle HUD",
+      "source": "public/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-v1.png",
+      "status": "adopted",
+      "variant": "runtime",
+      "alpha": true,
+      "size": "120x148",
+      "mode": "RGBA",
+      "hasAlpha": true,
+      "nonOpaquePct": "12.21%",
+      "greenPct": "0.00%",
+      "note": "下部インベントリ通常スロットruntime版。120x148。5枠で繰り返し使用するため優先軽量化。",
+      "notes": "下部インベントリ通常スロットruntime版。120x148。5枠で繰り返し使用するため優先軽量化。"
+    },
+    {
       "key": "battle-hud-dual-gauge-frame",
       "assetKey": "battle-hud-dual-gauge-frame",
       "file": "battle-hud-dual-gauge-frame-v1.png",
@@ -111,6 +168,25 @@
       "greenPct": "0.00%",
       "note": "HP/EXP 2段ゲージ外枠。",
       "notes": "HP/EXP 2段ゲージ外枠。"
+    },
+    {
+      "key": "battle-hud-dual-gauge-frame",
+      "assetKey": "battle-hud-dual-gauge-frame",
+      "file": "battle-hud-dual-gauge-frame-runtime.png",
+      "fileName": "battle-hud-dual-gauge-frame-runtime.png",
+      "purpose": "HP/EXP 2段ゲージ外枠runtime版",
+      "scene": "Battle HUD",
+      "source": "public/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-v1.png",
+      "status": "adopted",
+      "variant": "runtime",
+      "alpha": true,
+      "size": "232x92",
+      "mode": "RGBA",
+      "hasAlpha": true,
+      "nonOpaquePct": "9.57%",
+      "greenPct": "0.00%",
+      "note": "HP/EXP 2段ゲージ外枠runtime版。232x92。上部HUDで常時表示するため優先軽量化。",
+      "notes": "HP/EXP 2段ゲージ外枠runtime版。232x92。上部HUDで常時表示するため優先軽量化。"
     },
     {
       "key": "battle-hud-memory-street-progress-frame",
@@ -334,6 +410,6 @@
   ],
   "implementationNotes": [
     "battle-hud-kokuyou-bottle-fill-mask is planned as a Phaser Graphics/mask shape rather than a generated image asset.",
-    "Runtime wiring is intentionally deferred; do not load these from hud.ts yet."
+    "Runtime variants should keep the same game asset key when adopted, with only the manifest path swapped."
   ]
 }

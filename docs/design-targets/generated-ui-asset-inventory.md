@@ -16,9 +16,10 @@
 - RGB / alphaなし / 緑背景あり: 13
 - RGBA / alphaあり: 4
 - 市松模様焼き込み疑い: 0
-- processed出力: 18
-- processed採用: 12
+- processed出力: 22
+- processed採用: 16
 - processed保留: 6
+- runtime版採用: 5
 - processed出力先: `public/assets/ui/battle-hud/processed/`
 
 ## Image Inventory
@@ -75,11 +76,15 @@ RGB/alphaなし/緑背景ありだった当初12枚と、追加の黒曜瓶ラ�
 | status | asset key | processed file | source file | processing | notes |
 | -- | -- | -- | -- | -- | -- |
 | adopted | `battle-hud-ultimate-seal-lantern-button` | `public/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-v1.png` | `public/assets/ui/battle-hud/battle-hud-ultimate-seal-lantern-button.png` | sanitize RGBA | 必殺ボタン本体。 |
+| adopted | `battle-hud-ultimate-seal-lantern-button` | `public/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-runtime.png` | `public/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-v1.png` | resize 188×184 | 実表示94×92の2倍runtime版。実装では同じasset keyでこちらを優先使用。 |
 | adopted | `battle-hud-kokuyou-bottle-frame` | `public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-v1.png` | `public/assets/ui/battle-hud/battle-hud-kokuyou-bottle-frame.png` | sanitize RGBA | 黒曜瓶フレーム。 |
+| adopted | `battle-hud-kokuyou-bottle-frame` | `public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-runtime.png` | `public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-v1.png` | resize 140×276 | 実表示70×138の2倍runtime版。液面はPhaser Graphicsで描画。 |
 | adopted | `kokuyouBottleLabel` | `public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-label-v1.png` | `public/assets/ui/ChatGPT Image Jun 26, 2026, 03_28_38 PM.png` | green key to RGBA | 黒曜瓶ゲージの下ラベルとして使用。文字はPhaser Textで描画し、黒曜/BERSERK等は焼き込まない。 |
 | adopted | `kokuyouBottleLabelRuntime` | `public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-label-runtime.png` | `public/assets/ui/ChatGPT Image Jun 26, 2026, 03_28_38 PM.png` | green key to RGBA + resize 216×54 | 黒曜瓶ゲージの下ラベルruntime版。実装ではこちらを優先使用。文字はPhaser Textで描画する。 |
 | adopted | `battle-hud-inventory-paper-slot` | `public/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-v1.png` | `public/assets/ui/battle-hud/battle-hud-inventory-paper-slot.png` | sanitize RGBA | 通常スロット。 |
+| adopted | `battle-hud-inventory-paper-slot` | `public/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-runtime.png` | `public/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-v1.png` | resize 120×148 | 実表示60×74の2倍runtime版。5枠で繰り返し使うため優先軽量化。 |
 | adopted | `battle-hud-dual-gauge-frame` | `public/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-v1.png` | `public/assets/ui/battle-hud/battle-hud-dual-gauge-frame.png` | sanitize RGBA | HP/EXP枠。 |
+| adopted | `battle-hud-dual-gauge-frame` | `public/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-runtime.png` | `public/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-v1.png` | resize 232×92 | 実表示116×46の2倍runtime版。上部HUDで常時表示するため優先軽量化。 |
 | adopted | `battle-hud-memory-street-progress-frame` | `public/assets/ui/battle-hud/processed/battle-hud-memory-street-progress-paper-v1.png` | `public/assets/ui/ChatGPT Image Jun 26, 2026, 02_16_44 PM (5).png` | green key to RGBA | Memory Street進行バー。 |
 | adopted | `battle-hud-ultimate-button-label` | `public/assets/ui/battle-hud/processed/battle-hud-ultimate-button-label-v1.png` | `public/assets/ui/ChatGPT Image Jun 26, 2026, 02_16_44 PM (6).png` | green key to RGBA | 必殺ラベル帯。 |
 | adopted | `battle-hud-paper-tag-lv` | `public/assets/ui/battle-hud/processed/battle-hud-paper-tag-lv-v1.png` | `public/assets/ui/ChatGPT Image Jun 26, 2026, 02_22_23 PM (1).png` | green key to RGBA | LV札。 |
@@ -102,7 +107,40 @@ RGB/alphaなし/緑背景ありだった当初12枚と、追加の黒曜瓶ラ�
 - 画像の大規模リネームはしていない。実装用名はprocessed側の出力名として固定した。
 - `processed/battle-hud-kokuyou-bottle-label-v1.png` はRGBA、緑背景検出率0.00%。薄い緑フチ候補はごく少量で、92〜108px幅の実表示では強く出にくい見込み。
 - `processed/battle-hud-kokuyou-bottle-label-runtime.png` は216×54のRGBA runtime版。緑背景検出率0.00%。文字なし。
-- 390×844での最終配置確認は次フェーズ。現時点では素材単体の透過・命名整理まで。
+- `processed/battle-hud-ultimate-seal-lantern-button-runtime.png` は188×184のRGBA runtime版。緑背景検出率0.00%。
+- `processed/battle-hud-kokuyou-bottle-frame-runtime.png` は140×276のRGBA runtime版。緑背景検出率0.00%。
+- `processed/battle-hud-inventory-paper-slot-runtime.png` は120×148のRGBA runtime版。緑背景検出率0.00%。
+- `processed/battle-hud-dual-gauge-frame-runtime.png` は232×92のRGBA runtime版。緑背景検出率0.00%。
+- 390×844でのBattle HUD runtime確認スクリーンショットは `docs/design-targets/reviews/battle-hud-review-390x844-runtime-check.png` に保存済み。
+
+## Battle HUD Runtime Lightweighting Review
+
+Battle HUD実装後のruntime軽量化では、見た目を大きく変えず、読み込み時の無駄が大きい素材だけを優先した。
+game asset keyは維持し、`src/game/assets/battleHudUiAssets.ts` のpathのみruntime版へ差し替える。
+フルサイズprocessed版は比較・再生成元として残す。
+
+| asset key | current image size | display size | shrink factor | runtime needed | priority | action | reason |
+| -- | --: | --: | --: | -- | -- | -- | -- |
+| `battle-hud-ultimate-seal-lantern-button` | 1186×1150 | 94×92 | 約12.6× | yes | high | `battle-hud-ultimate-seal-lantern-button-runtime.png` を作成・採用 | 右下で常時表示。元画像が大きく、実表示との差が大きい。 |
+| `battle-hud-kokuyou-bottle-frame` | 716×1418 | 70×138 | 約10.2× | yes | high | `battle-hud-kokuyou-bottle-frame-runtime.png` を作成・採用 | 縦長で縮小率が高い。液面はコード描画なので枠だけ軽量化できる。 |
+| `battle-hud-inventory-paper-slot` | 912×1229 | 60×74 | 約15.2× | yes | high | `battle-hud-inventory-paper-slot-runtime.png` を作成・採用 | 5枠で繰り返し表示するため、軽量化効果が大きい。 |
+| `battle-hud-dual-gauge-frame` | 1788×714 | 116×46 | 約15.4× | yes | high | `battle-hud-dual-gauge-frame-runtime.png` を作成・採用 | 上部HUDで常時表示。元画像が過大。 |
+| `kokuyouBottleLabelRuntime` | 216×54 | 108×27 | 2.0× | already done | high | 既存runtime版を継続 | 前フェーズでruntime化済み。 |
+| `battle-hud-memory-street-progress-frame` | 2172×724 | 330×36 | 約6.6× | maybe | medium | 今回は維持 | ファイルサイズは比較的軽い。細い星ラインの劣化を単独確認してからruntime化したい。 |
+| `battle-hud-ultimate-button-label` | 2172×724 | 86×28 | 約25.3× | maybe | medium | 今回は維持 | 元画像は大きいが、紙縁が細く、縮小後のにじみ確認を別途行う。 |
+| `battle-hud-paper-tag-lv` | 1122×1402 | 56×78 | 約20.0× | maybe | medium | 今回は維持 | 紙札類は一括変更すると見た目差が出やすいため、次回候補。 |
+| `battle-hud-paper-tag-dawn` | 1122×1402 | 62×72 | 約18.1× | maybe | medium | 今回は維持 | Dawn装飾の縮小後の読みやすさを確認したい。 |
+| `battle-hud-paper-tag-currency` | 1536×1024 | 82×58 | 約18.7× | maybe | medium | 今回は維持 | 装飾入りで、通貨2段表示の可読性を優先して後回し。 |
+| `battle-hud-paper-tag-menu` | 1122×1402 | 44×64 | 約25.5× | maybe | medium | 今回は維持 | 1枚のみで影響が小さい。次回の紙札runtime化候補。 |
+
+### Runtime Asset Path Adoption
+
+| game asset key | previous path | adopted runtime path |
+| -- | -- | -- |
+| `battle_hud_ultimate_seal_lantern_button` | `/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-v1.png` | `/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-runtime.png` |
+| `battle_hud_kokuyou_bottle_frame` | `/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-v1.png` | `/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-runtime.png` |
+| `battle_hud_inventory_paper_slot` | `/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-v1.png` | `/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-runtime.png` |
+| `battle_hud_dual_gauge_frame` | `/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-v1.png` | `/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-runtime.png` |
 
 ### TOP
 

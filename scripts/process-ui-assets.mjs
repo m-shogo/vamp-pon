@@ -22,11 +22,27 @@ const MANIFEST = [
     'public/assets/ui/battle-hud/battle-hud-ultimate-seal-lantern-button.png',
     '右下必殺ボタン本体。封蝋＋ランタン。',
   ),
+  runtime(
+    'battle-hud-ultimate-seal-lantern-button',
+    'battle-hud-ultimate-seal-lantern-button-runtime.png',
+    'public/assets/ui/battle-hud/processed/battle-hud-ultimate-seal-lantern-button-v1.png',
+    '右下必殺ボタン本体runtime版。188x184。フルサイズprocessedは比較/再生成元として残す。',
+    188,
+    184,
+  ),
   adopted(
     'battle-hud-kokuyou-bottle-frame',
     'battle-hud-kokuyou-bottle-frame-v1.png',
     'public/assets/ui/battle-hud/battle-hud-kokuyou-bottle-frame.png',
     '左下黒曜ゲージ瓶枠。',
+  ),
+  runtime(
+    'battle-hud-kokuyou-bottle-frame',
+    'battle-hud-kokuyou-bottle-frame-runtime.png',
+    'public/assets/ui/battle-hud/processed/battle-hud-kokuyou-bottle-frame-v1.png',
+    '左下黒曜ゲージ瓶枠runtime版。140x276。液面はPhaser Graphicsで描画。',
+    140,
+    276,
   ),
   adopted(
     'kokuyouBottleLabel',
@@ -48,11 +64,27 @@ const MANIFEST = [
     'public/assets/ui/battle-hud/battle-hud-inventory-paper-slot.png',
     '下部インベントリ通常スロット。',
   ),
+  runtime(
+    'battle-hud-inventory-paper-slot',
+    'battle-hud-inventory-paper-slot-runtime.png',
+    'public/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-v1.png',
+    '下部インベントリ通常スロットruntime版。120x148。5枠で繰り返し使用するため優先軽量化。',
+    120,
+    148,
+  ),
   adopted(
     'battle-hud-dual-gauge-frame',
     'battle-hud-dual-gauge-frame-v1.png',
     'public/assets/ui/battle-hud/battle-hud-dual-gauge-frame.png',
     'HP/EXP 2段ゲージ外枠。',
+  ),
+  runtime(
+    'battle-hud-dual-gauge-frame',
+    'battle-hud-dual-gauge-frame-runtime.png',
+    'public/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-v1.png',
+    'HP/EXP 2段ゲージ外枠runtime版。232x92。上部HUDで常時表示するため優先軽量化。',
+    232,
+    92,
   ),
   adopted(
     'battle-hud-memory-street-progress-frame',
@@ -199,14 +231,14 @@ if (WRITE) {
     `${JSON.stringify({
       generatedAt: '2026-06-26',
       root: OUTPUT_DIR,
-      note: 'Battle HUD UI asset candidates only. Runtime wiring is intentionally deferred.',
+      note: 'Battle HUD UI asset candidates. Runtime variants are separate processed outputs; full-size processed files remain as source/reference.',
       assets: outputRows,
       missing: [
         'battle-hud-kokuyou-bottle-fill-mask',
       ],
       implementationNotes: [
         'battle-hud-kokuyou-bottle-fill-mask is planned as a Phaser Graphics/mask shape rather than a generated image asset.',
-        'Runtime wiring is intentionally deferred; do not load these from hud.ts yet.',
+        'Runtime variants should keep the same game asset key when adopted, with only the manifest path swapped.',
       ],
     }, null, 2)}\n`,
   );
