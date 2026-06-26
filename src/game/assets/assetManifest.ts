@@ -1,4 +1,5 @@
 import { inventoryIconAssetEntries } from './inventoryIcons.ts';
+import { battleHudUiAssetEntries } from './battleHudUiAssets.ts';
 import {
   YUI_EXPRESSION_FRAME_ASSETS,
   YUI_GAMEPLAY_FRAME_ASSETS,
@@ -48,6 +49,7 @@ export const assetManifest: AssetManifestEntry[] = [
   ...YUI_HUD_FRAME_ASSETS,
   ...YUI_EXPRESSION_FRAME_ASSETS,
   ...YUI_RAGE_FRAME_ASSETS,
+  ...battleHudUiAssetEntries,
 
   {
     id: 'yui_cutin_ultimate',
