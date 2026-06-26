@@ -14,6 +14,8 @@ export const WORLD_TERMS = {
     weaponEvolution: '灯継ぎ',
     secondStageEvolution: '暁開き',
     fusion: '灯合わせ',
+    upgrade: '灯継ぎ',
+    awakening: '暁開き',
   },
   records: {
     rareSlot: '忘れ物',
@@ -22,6 +24,22 @@ export const WORLD_TERMS = {
     result: '旅の記録',
     stageClear: '夜明け',
     fragment: '記憶片',
+  },
+  inventory: {
+    weapon: '灯具',
+    passive: '持ち物',
+    rareItem: '忘れ物',
+    fieldDrop: '落とし物',
+    recovery: '朝露',
+    capsule: '記憶包み',
+    currency: '記憶片',
+  },
+  statLabels: {
+    magnet: '回収',
+    might: '灯力',
+    xp: '成長',
+    moveSpeed: '足取り',
+    cooldown: '手数',
   },
   screens: {
     home: '灯りの家',
