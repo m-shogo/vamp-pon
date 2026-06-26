@@ -26,18 +26,18 @@ const DAWN_TAG = { x: 214, y: 48, w: 62, h: 72 } as const;
 const CURRENCY_TAG = { x: 294, y: 45, w: 82, h: 58 } as const;
 const MENU_TAG = { x: 364, y: 45, w: 44, h: 64, hitW: 48, hitH: 64 } as const;
 const MEMORY_BAR = { x: 195, y: 106, w: 330, h: 36 } as const;
-const BOTTLE = { x: 50, y: 674, w: 70, h: 138 } as const;
-const BOTTLE_LABEL = { x: 50, y: 744, w: 108, h: 27 } as const;
+const BOTTLE = { x: 50, y: 660, w: 70, h: 138 } as const;
+const BOTTLE_LABEL = { x: 50, y: 730, w: 108, h: 27 } as const;
 const INVENTORY_SLOT_CENTERS = [55, 125, 195, 265, 335] as const;
-const INVENTORY_SLOT_Y = 800;
-const INVENTORY_SLOT_W = 64;
-const INVENTORY_SLOT_H = 78;
-const INVENTORY_ICON_SIZE = 36;
+const INVENTORY_SLOT_Y = 803;
+const INVENTORY_SLOT_W = 60;
+const INVENTORY_SLOT_H = 74;
+const INVENTORY_ICON_SIZE = 34;
 const ULT_X = 323;
-const ULT_Y = 694;
+const ULT_Y = 684;
 const ULT_W = 94;
 const ULT_H = 92;
-const ULT_LABEL = { x: 323, y: 755, w: 90, h: 30 } as const;
+const ULT_LABEL = { x: 323, y: 742, w: 86, h: 28 } as const;
 const SPEED_X = 351;
 const SPEED_Y = 128;
 const SPEED_W = 56;
@@ -97,7 +97,6 @@ export class Hud {
   private portraitFallback: Phaser.GameObjects.Text;
   private crestImage: Phaser.GameObjects.Image | null;
   private berserkText: Phaser.GameObjects.Text;
-  private bottleFillMask: Phaser.GameObjects.Graphics;
   private bottleLabelImage: Phaser.GameObjects.Image | null;
   private bottleLabelFallback: Phaser.GameObjects.Graphics | null;
   private portraitZone: Phaser.GameObjects.Zone;
@@ -115,6 +114,7 @@ export class Hud {
   private hudImages: Phaser.GameObjects.Image[] = [];
   private hudFallbacks: Phaser.GameObjects.Graphics[] = [];
   private inventorySlotBacks: HudImageLayer[] = [];
+  private inventoryCategoryDots: Phaser.GameObjects.Graphics[] = [];
   private debugText: Phaser.GameObjects.Text;
   private delayedHpRatio = 1;
   private previousHpRatio = 1;
@@ -265,7 +265,7 @@ export class Hud {
       resolution: 2,
       stroke: '#090714',
       strokeThickness: 2,
-    }).setOrigin(0.5).setDepth(DEPTH + 4);
+    }).setOrigin(0.5).setDepth(DEPTH + 4).setVisible(false);
 
     this.speedBack = scene.add.graphics().setDepth(DEPTH + 5);
     this.speedText = scene.add.text(SPEED_X, SPEED_Y, 'x1.0', {
@@ -305,8 +305,6 @@ export class Hud {
     this.portraitFrame = scene.add.graphics().setDepth(DEPTH + 1);
     this.portraitFlame = scene.add.graphics().setDepth(DEPTH + 3);
     this.portraitCharge = scene.add.graphics().setDepth(DEPTH + 4);
-    this.bottleFillMask = scene.add.graphics().setVisible(false);
-    this.drawBottleMask();
     this.portraitPressVisual = scene.add.container(BOTTLE.x, BOTTLE.y + 12).setDepth(DEPTH + 7);
     const bottleLayer = this.addHudImage({
       key: BATTLE_HUD_UI_ASSET_KEYS.kokuyouBottleFrame,
@@ -420,10 +418,11 @@ export class Hud {
       fallback: drawInventorySlotFallback,
     }));
     this.weaponSlots = INVENTORY_SLOT_CENTERS.map((x) => new InventorySlotView(scene, x, INVENTORY_SLOT_Y + 8, INVENTORY_ICON_SIZE, DEPTH + 4, 'weapon'));
+    this.inventoryCategoryDots = INVENTORY_SLOT_CENTERS.map((x) => scene.add.graphics().setDepth(DEPTH + 6).setPosition(x, INVENTORY_SLOT_Y));
     this.passiveSlots = [];
     this.rareSlots = [];
 
-    this.debugText = scene.add.text(8, 112, '', {
+    this.debugText = scene.add.text(8, 140, '', {
       fontFamily: 'monospace',
       fontSize: '10px',
       color: '#9fe0a0',
@@ -535,12 +534,6 @@ export class Hud {
       const reached = i / 7 <= ratio;
       drawStar(this.memoryProgress, x, y, reached ? 4 : 3, reached ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperDark, STORYBOOK_UI.inkBlack, reached ? 0.9 : 0.42);
     }
-  }
-
-  private drawBottleMask(): void {
-    this.bottleFillMask.clear();
-    this.bottleFillMask.fillStyle(0xffffff, 1);
-    this.bottleFillMask.fillRoundedRect(BOTTLE.x - 19, BOTTLE.y - 51, 38, 104, 14);
   }
 
   private updateSpeedButton(speedMultiplier: number): void {
@@ -680,19 +673,33 @@ export class Hud {
       ...state.inventory.rareItems.map((item) => ({ category: 'rare' as const, itemId: item.id })),
     ];
     this.weaponSlots.forEach((slot, index) => {
-      slot.update(items[index] ?? null);
+      const item = items[index] ?? null;
+      slot.update(item);
+      this.drawInventoryCategoryDot(this.inventoryCategoryDots[index], item?.category ?? null);
     });
+  }
+
+  private drawInventoryCategoryDot(graphics: Phaser.GameObjects.Graphics, category: 'weapon' | 'passive' | 'rare' | null): void {
+    graphics.clear();
+    if (!category) return;
+    const color = category === 'weapon'
+      ? STORYBOOK_UI.dustyRose
+      : category === 'passive'
+        ? STORYBOOK_UI.mutedTeal
+        : STORYBOOK_UI.goldLight;
+    graphics.fillStyle(STORYBOOK_UI.inkBlack, 0.72).fillCircle(-20, 24, 5);
+    graphics.fillStyle(color, 0.92).fillCircle(-20, 24, 3);
   }
 
   setVisible(visible: boolean): void {
     for (const object of [
       this.topBack, this.hpText, this.xpText, this.timeText, this.levelText, this.fragmentText,
-      this.memoryStreetText, this.memoryCountText, this.memoryProgress,
+      this.memoryStreetText, this.memoryProgress,
       this.hpDamageBar, this.hpBar, this.xpBar, this.xpHighlight, this.topIcons, this.pauseZone, this.pausePressVisual,
       this.speedBack, this.speedText, this.speedZone, this.speedPressVisual,
       this.inventoryBack, this.portraitFrame, this.portraitFlame, this.portraitCharge, this.portraitZone, this.portraitPressVisual,
       this.berserkText, this.ultimateBack, this.ultimateText, this.ultimateZone, this.ultimatePressVisual,
-      ...this.hudImages, ...this.hudFallbacks,
+      ...this.hudImages, ...this.hudFallbacks, ...this.inventoryCategoryDots,
     ]) object.setVisible(visible);
     this.weaponSlots.forEach((slot) => slot.setVisible(visible));
     this.passiveSlots.forEach((slot) => slot.setVisible(visible));
@@ -728,7 +735,6 @@ export class Hud {
     this.portraitFrame.destroy();
     this.portraitFlame.destroy();
     this.portraitCharge.destroy();
-    this.bottleFillMask.destroy();
     this.portraitFallback.destroy();
     this.berserkText.destroy();
     this.ultimateBack.destroy();
@@ -739,6 +745,7 @@ export class Hud {
     this.ultimatePressVisual.destroy();
     this.hudImages.forEach((image) => image.destroy());
     this.hudFallbacks.forEach((graphics) => graphics.destroy());
+    this.inventoryCategoryDots.forEach((graphics) => graphics.destroy());
     this.weaponSlots.forEach((slot) => slot.destroy());
     this.passiveSlots.forEach((slot) => slot.destroy());
     this.rareSlots.forEach((slot) => slot.destroy());
