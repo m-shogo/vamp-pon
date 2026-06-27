@@ -26,6 +26,8 @@
     "story-map:check": "node --experimental-strip-types scripts/quality/check-story-map-data.ts",
     "story-map:serve": "cd docs/story-map && python3 -m http.server 4173",
     "asset-factory:catalog:export": "node --experimental-strip-types scripts/asset-factory/export-prompt-catalog.ts",
+    "asset-factory:prompt": "node --experimental-strip-types scripts/asset-factory/print-prompt.ts",
+    "asset-factory:prompt:list": "node --experimental-strip-types scripts/asset-factory/print-prompt.ts --list",
     "build": "tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
