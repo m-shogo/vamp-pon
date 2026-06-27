@@ -1,14 +1,20 @@
 # 180. Unified Character Canon
 
 This is the character canon index.
+For the latest production-facing index, read `docs/181-current-production-canon.md` first.
 
 Runtime-facing canonical data is stored in:
 
+- `src/game/data/worldTerms.ts`
 - `src/game/data/characterCanon.ts`
 - `src/game/data/reserveCharacterCanon.ts`
 - `src/game/data/characterThemeColors.ts`
 - `src/game/data/characterArts.ts`
-- `src/game/data/worldTerms.ts`
+- `src/game/data/kokuyouForms.ts`
+- `src/game/data/pairLightArts.ts`
+- `src/game/data/itemProductionCanon.ts`
+- `src/game/data/characterProductionPlans.ts`
+- `src/game/data/emblemCanon.ts`
 - `src/game/data/characters.ts`
 
 ## Current status
@@ -18,28 +24,44 @@ Runtime-facing canonical data is stored in:
 | Core5 relationships | canonical |
 | Core5 combat direction | canonical draft |
 | Core5 art names | canonical |
-| Core5 playable data | added to `characters.ts` |
-| 20 character relationships | canonical map |
-| 20 character combat direction | draft, now filled in `characterCanon.ts` |
-| 20 character cutin direction | draft, now filled in `characterCanon.ts` |
+| Core5 playable data | added to `characters.ts`, but full selection/UI/sprite wiring is still staged |
+| 20 character relationships | canonical map in `characterCanon.ts` |
+| 20 character combat direction | filled in `characterCanon.ts` |
+| 20 character cutin direction | filled in `characterCanon.ts` |
+| 20 character Kokuyou subtitles | filled in `kokuyouForms.ts` |
+| Core5 pair arts | 10 pairs filled in `pairLightArts.ts` |
+| 20 character item production plans | filled in `characterProductionPlans.ts` |
+| A-Z emblems | 20 filled in `emblemCanon.ts` |
 | official reserve character | レン added in `reserveCharacterCanon.ts` |
 | theme colors | 20 + reserve character stored in `characterThemeColors.ts` |
-| old naming integration | use `灯技 / 継灯 / 暁灯` going forward |
+| naming integration | use `灯技 / 継灯 / 暁灯`, `黒耀化`, `灯具 / 持ち物 / 忘れ物`, and `A-Z灯紋` going forward |
 
 ## Canon source order
 
-1. `src/game/data/worldTerms.ts`
+1. `docs/181-current-production-canon.md`
+   - Latest production-facing entrypoint.
+2. `src/game/data/worldTerms.ts`
    - UI vocabulary and naming labels.
-2. `src/game/data/characterCanon.ts`
+3. `src/game/data/characterCanon.ts`
    - The single source for 20-character relationships, combat direction, art names, and cutin direction.
-3. `src/game/data/reserveCharacterCanon.ts`
+4. `src/game/data/characterProductionPlans.ts`
+   - Per-character starter gear, passive, rare item, evolution names, pair candidates, and asset keywords.
+5. `src/game/data/emblemCanon.ts`
+   - A-Z灯紋, 灯紋具, phase rules, merch hooks, and visual keywords.
+6. `src/game/data/kokuyouForms.ts`
+   - Character-specific 黒耀化 subtitles and distortion rules.
+7. `src/game/data/pairLightArts.ts`
+   - Core5 灯合わせ names.
+8. `src/game/data/itemProductionCanon.ts`
+   - Item categories, motif lanes, field drops, and production requirements.
+9. `src/game/data/reserveCharacterCanon.ts`
    - Official reserve characters that should not be forced into the current playable build.
-4. `src/game/data/characterThemeColors.ts`
-   - Theme and accent colors for character cards, cutins, selection UI, collection UI, and asset prompts.
-5. `src/game/data/characterArts.ts`
-   - Core5-facing adapter derived from `characterCanon.ts`.
-6. `src/game/data/characters.ts`
-   - Playable-character runtime data. Core5 has draft playable data, but only the current game flow is guaranteed.
+10. `src/game/data/characterThemeColors.ts`
+    - Theme and accent colors for character cards, cutins, selection UI, collection UI, and asset prompts.
+11. `src/game/data/characterArts.ts`
+    - Core5-facing adapter derived from `characterCanon.ts`.
+12. `src/game/data/characters.ts`
+    - Playable-character runtime data. Core5 has draft playable data, but only the current game flow is guaranteed.
 
 Older documents can remain as planning history. New work should not branch from old release-name candidates.
 
@@ -53,15 +75,42 @@ Older documents can remain as planning history. New work should not branch from 
 | transformation | 黒耀化 |
 | transformation backlash | 煤返り |
 | transformation gauge | 黒耀瓶 |
-| evolution | 灯継ぎ |
-| second evolution | 暁開き |
-| fusion | 灯合わせ |
-| rare slot | 忘れ物 |
+| weapon / active item | 灯具 |
+| passive item | 持ち物 |
+| rare item | 忘れ物 |
+| field drop | 落とし物 |
+| recovery drop | 朝露 |
+| evolution / upgrade | 灯継ぎ |
+| second evolution / awakening | 暁開き |
+| fusion / pair art | 灯合わせ |
 | collection | 灯録 |
 | achievement | 記憶のしるし |
 | result | 旅の記録 |
 | stage clear | 夜明け |
 | fragment currency | 記憶片 |
+| emblem device | 灯紋具 |
+| character emblem | 灯紋 |
+| A-Z emblem series | A-Z灯紋 |
+
+## Character production rule
+
+New characters must not be added as name-only entries.
+For every character, prepare:
+
+1. Initial 灯具
+2. 持ち物
+3. 忘れ物
+4. 灯技
+5. 継灯
+6. 暁灯
+7. 灯継ぎ
+8. 暁開き
+9. 黒耀化副題
+10. 黒耀化の歪み
+11. 灯合わせ候補
+12. A-Z灯紋
+13. Asset keywords
+14. Merch hook
 
 ## Implementation boundary
 
@@ -69,19 +118,25 @@ Older documents can remain as planning history. New work should not branch from 
 `reserveCharacterCanon.ts` is allowed to contain official reserve characters such as Ren.
 `characters.ts` may contain Core5 draft playable data, but adding a character there does not mean that all selection UI, sprite wiring, balance, and cutin art are production-ready.
 
-## Cutin rule
+Core5 should be the first playable expansion target.
+Season seed / future seed / shadow characters should remain data-only until art, balance, and UI are ready.
 
-Cutin art stays textless. Display names are drawn with UI text.
+## Cutin and emblem rule
+
+Cutin and emblem art stay textless. Display names are drawn with UI text.
 
 - character name: UI text
 - art rank: UI text
 - art name: UI text
-- 黒耀化 title: UI text
+- 黒耀化 title/subtitle: UI text
+- A-Z code: UI text
+- emblem phase label: UI text
 - image asset: no baked text
 
 ## Next work
 
 1. Replace visible UI labels from old terms to `WORLD_TERMS` where safe.
-2. Update old docs to point to this file instead of treating old release names as current.
-3. Add QA for Core5 selection only after sprite wiring and balance are checked.
-4. Keep reserve characters formal, but do not force them into character select until art and balance are ready.
+2. Add Core5 missing entries to `weapons.ts`, `passives.ts`, `rareItems.ts`, and `evolutions.ts`.
+3. Add Core5 character selection only after sprite wiring and balance are checked.
+4. Add A-Z灯紋 display to 灯録, character detail, and character selection.
+5. Keep reserve characters formal, but do not force them into character select until art and balance are ready.
