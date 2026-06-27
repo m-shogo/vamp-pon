@@ -247,36 +247,66 @@ export type EvolutionDefinition = {
   lore?: string;
 };
 
+type LevelUpChoiceBase = {
+  title: string;
+  description: string;
+  lore?: string;
+  rarity?: RewardRarity;
+};
+
 export type LevelUpChoice =
-  | {
+  | (LevelUpChoiceBase & {
     type: 'weapon_new';
-    id: Id;
-    rarity: RewardRarity;
+    itemId: Id;
+    initialLevel?: number;
+  })
+  | (LevelUpChoiceBase & {
+    type: 'weapon_upgrade';
+    itemId: Id;
+    nextLevel: number;
+  })
+  | (LevelUpChoiceBase & {
+    type: 'passive_new';
+    itemId: Id;
+    initialLevel?: number;
+  })
+  | (LevelUpChoiceBase & {
+    type: 'passive_upgrade';
+    itemId: Id;
+    nextLevel: number;
+  })
+  | (LevelUpChoiceBase & {
+    type: 'rare_new';
+    itemId: Id;
+  })
+  | (LevelUpChoiceBase & {
+    type: 'heal';
+    amount: number;
+  });
+
+export type CapsuleReward =
+  | {
+    type: 'evolution';
+    evolutionId: Id;
+    evolutionKind: EvolutionKind;
+    evolvedWeaponId: Id;
+    title: string;
+    lore?: string;
   }
   | {
     type: 'weapon_upgrade';
-    id: Id;
-    toLevel: number;
-    rarity: RewardRarity;
-  }
-  | {
-    type: 'passive_new';
-    id: Id;
-    rarity: RewardRarity;
+    itemId: Id;
+    nextLevel: number;
+    title: string;
   }
   | {
     type: 'passive_upgrade';
-    id: Id;
-    toLevel: number;
-    rarity: RewardRarity;
+    itemId: Id;
+    nextLevel: number;
+    title: string;
   }
   | {
-    type: 'rare_item';
-    id: Id;
-    rarity: RewardRarity;
-  }
-  | {
-    type: 'evolution';
-    id: Id;
-    rarity: RewardRarity;
+    type: 'currency';
+    amount: number;
+    title: string;
   };
