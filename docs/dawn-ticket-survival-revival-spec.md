@@ -2,19 +2,20 @@
 
 `dawn-ticket` は、覚醒素材ではなく `survival_revival` role の復帰/救済レア候補として扱う。
 runtime ID は snake_case の `dawn_ticket` に統一する。prompt / Asset Factory 側の表示名や生成IDは `dawn-ticket` でもよいが、ゲームデータ、所持アイテム、テスト、QA/debug で参照するIDは `dawn_ticket` とする。
-このメモは runtime 追加前の仕様整理であり、Phase 1時点では `rareItems.ts` に追加しない。
-画像生成もしない。
+Phase 1では通常抽選へ入れず、QA/debug 経由で所持させる復帰レアとして runtime 追加する。
+アイコンは `public/assets/prototypes/sprite-sheets/rare/dawn_ticket.png` を原本として採用する。
 
 ## 現在の関連実装
 
 - レアアイテムは `RareItemDefinition.role` で分類する。
-- 既存4種のレアはすべて `awakening_material`。
+- 既存4種の覚醒レアはすべて `awakening_material`。
+- `dawn_ticket` は `survival_revival`。
 - 覚醒素材は `evolutions.ts` の `requiredRareItemId` / `consumedRareItemIds` で使われる。
 - HP0 は `applyPlayerDamage()` で `state.status = GAME_STATUS.GAMEOVER` になり、次の `MainScene.resolveTransitions()` で `enterResult(false)` へ進む。
 - `player.invulnRemaining` / `player.flashRemaining` は既にあり、復帰後の短い無敵に使える。
 - Result は `enterResult(cleared)` で一度だけ入るため、復帰処理は `GAMEOVER` を確定させる前に行うのが安全。
 - `tryConsumeSurvivalRevival()` は HP0確定前に呼ぶ専用フックであり、`GAMEOVER` 確定後の巻き戻し用途では使わない。
-- 汎用フックは実装済み。ただし Phase 1時点では `dawn_ticket` はまだ `rareItems.ts` に追加していないため、現runtimeでは発動しない。
+- 汎用フックは実装済み。Phase 1では `dawn_ticket` を `rareItems.ts` に追加し、QA/debug 所持時のみ現runtimeで発動する。
 
 ## 最小仕様案
 
@@ -28,9 +29,9 @@ runtime ID は snake_case の `dawn_ticket` に統一する。prompt / Asset Fac
 | 追加効果 | 短い無敵時間を付与する。周囲押し返しは後続候補 |
 | UI演出 | `EffectManager` に寄せる。朝焼けリング、小さな短文表示、HP回復表示 |
 | 失敗条件 | 未所持、または消費済みなら通常敗北 |
-| 画像 | 仕様確定まで生成しない |
+| 画像 | `public/assets/prototypes/sprite-sheets/rare/dawn_ticket.png` を採用 |
 
-## runtime 追加前の固定方針
+## Phase 1の固定方針
 
 - `dawn_ticket` は `role: 'survival_revival'` として定義する。
 - Stage1通常抽選、通常ドロップ、カプセル報酬にはまだ出さない。
@@ -41,7 +42,7 @@ runtime ID は snake_case の `dawn_ticket` に統一する。prompt / Asset Fac
 - UI通知は Overlay ではなく `EffectManager` に寄せる。
 - 操作停止演出はまだ入れない。
 - 敵押し返し、スロー演出、本格カットインは後続タスクに分ける。
-- 画像生成は runtime 確認後に行う。
+- アイコン原本は採用済み。UI枠、星、数字、文字は焼き込まない。
 
 ## 実装時の差し込み候補
 
@@ -108,4 +109,4 @@ tryConsumeSurvivalRevival(state)
 - 復帰時のUI演出は `EffectManager` の短い小演出に絞る。
 - 再取得不可、複数同IDはまとめて消費、という現仕様をテストで固定する。
 - `rareItems.ts` へ `dawn_ticket` を追加する。
-- runtime画像を生成する前に、32pxで「夜明けの切符」と読めるアイコン要件を再確認する。
+- 通常抽選へ入れる前に、出現条件、重み、再取得可否を別タスクで決める。

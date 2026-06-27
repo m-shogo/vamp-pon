@@ -22,25 +22,25 @@ describe('inventory icon stock', () => {
       expect(getInventoryIconRequirement('passive', passive.id), `passive:${passive.id}`).toBeTruthy();
       expect(getInventoryOriginalIcon('passive', passive.id), `original passive:${passive.id}`).toBeTruthy();
     }
-    for (const rare of rareItems.filter((item) => item.role === 'awakening_material')) {
+    for (const rare of rareItems) {
       expect(getInventoryIconRequirement('rare', rare.id), `rare:${rare.id}`).toBeTruthy();
       expect(getInventoryOriginalIcon('rare', rare.id), `original rare:${rare.id}`).toBeTruthy();
     }
   });
 
-  it('画像未作成の復帰レアは要件だけ持ち、原本アイコン必須リストに含めない', () => {
+  it('復帰レアも要件と原本アイコンを持つ', () => {
     const dawnTicket = rareItems.find((item) => item.id === 'dawn_ticket');
     expect(dawnTicket?.role).toBe('survival_revival');
     expect(getInventoryIconRequirement('rare', 'dawn_ticket')?.fallbackGlyph).toBe('暁');
-    expect(getInventoryOriginalIcon('rare', 'dawn_ticket')).toBeUndefined();
+    expect(getInventoryOriginalIcon('rare', 'dawn_ticket')?.path).toBe('assets/prototypes/sprite-sheets/rare/dawn_ticket.png');
   });
 
-  it('現在の要件数は武器15・忘れ物8・レア5の合計28件、原本は27件', () => {
+  it('現在の要件数は武器15・忘れ物8・レア5の合計28件、原本も28件', () => {
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'weapon')).toHaveLength(15);
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'passive')).toHaveLength(8);
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'rare')).toHaveLength(5);
     expect(INVENTORY_ICON_REQUIREMENTS).toHaveLength(28);
-    expect(INVENTORY_ORIGINAL_ICONS).toHaveLength(27);
+    expect(INVENTORY_ORIGINAL_ICONS).toHaveLength(28);
   });
 
   it('assetId・path・category:itemIdが重複しない', () => {
@@ -53,7 +53,7 @@ describe('inventory icon stock', () => {
   });
 
   it('現在は高品質180px原本を必須UI素材としてassetManifestへ渡す', () => {
-    expect(inventoryIconAssetEntries).toHaveLength(27);
+    expect(inventoryIconAssetEntries).toHaveLength(28);
     for (const asset of inventoryIconAssetEntries) {
       expect(asset.width).toBe(180);
       expect(asset.height).toBe(180);
