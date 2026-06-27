@@ -1,7 +1,10 @@
 # A-Z Emblem Canon
 
 A-Zエンブは、ゲーム内では `A-Z灯紋` と呼ぶ。
+最新の入口は `docs/181-current-production-canon.md`。
+詳細版は `docs/design/emblem-canon.md`。
 実装参照データは `src/game/data/emblemCanon.ts`。
+画像生成・手仕上げプロンプトは `docs/prompts/az-emblem-asset-prompts.md`。
 
 ## 採用名
 
