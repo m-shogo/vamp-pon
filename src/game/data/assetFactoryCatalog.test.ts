@@ -8,6 +8,7 @@ import {
   getAssetFactoryPrompt,
 } from './assetFactoryCatalog';
 import { enemyAssetPrompts } from './enemyProductionDatabase';
+import type { ItemAssetPromptKind } from './itemAssetProductionDatabase';
 import { itemAssetPrompts } from './itemAssetProductionDatabase';
 import { stageAssetPrompts } from './stageProductionDatabase';
 
@@ -44,7 +45,9 @@ describe('assetFactoryCatalog', () => {
     expect(getAssetFactoryPrompt('stage', 'forgotten_street', 'background_390x844')?.sourceId).toBe('forgotten_street');
 
     const firstItem = assetFactoryPromptCatalogByType.item[0];
-    expect(getAssetFactoryPrompt('item', firstItem.sourceId, firstItem.kind as never)?.sourceId).toBe(firstItem.sourceId);
+    expect(firstItem).toBeTruthy();
+    if (!firstItem) return;
+    expect(getAssetFactoryPrompt('item', firstItem.sourceId, firstItem.kind as ItemAssetPromptKind)?.sourceId).toBe(firstItem.sourceId);
     expect(getAssetFactoryPrompt('enemy', 'missing', 'reference')).toBeUndefined();
   });
 });
