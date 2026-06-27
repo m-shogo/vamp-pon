@@ -1,7 +1,9 @@
 # A-Z Emblem Canon
 
 キャラ量産・グッズ展開・UIアイコン共通化のための灯紋設計。
+最新の入口は `docs/181-current-production-canon.md`。
 実装参照データは `src/game/data/emblemCanon.ts`。
+画像生成・手仕上げプロンプトは `docs/prompts/az-emblem-asset-prompts.md`。
 
 ## 採用名
 
@@ -21,6 +23,7 @@
 
 - キャラ選択アイコン
 - 灯録のキャラ印
+- 旅人の記録のシンボル
 - 暁灯カットインの小紋
 - 黒耀化カットインの黒紋
 - 灯合わせUI
@@ -76,7 +79,7 @@
 ## A-Zコードのルール
 
 A-Zコードは実装・素材管理用の短い識別子。
-ユーザー向けには基本表示しない。
+ユーザー向けには基本表示しない。必要な場面では UI text で出す。
 
 - 既存キャラは20枠まで採用済み。
 - 残り6枠は新規キャラ・イベントキャラ・続編キャラに残す。
@@ -99,10 +102,18 @@ A-Zコードは実装・素材管理用の短い識別子。
 
 ```txt
 single small emblem icon, no text, no logo letters, no watermark,
-centered, transparent background, readable at 64px,
+centered, readable at 64px,
 storybook pixel-art flavored vector emblem,
 warm dark fantasy, paper texture, simple silhouette,
 no realistic metal, no complex ornament, no checkerboard
+```
+
+UI素材生成や切り抜き前提の場合:
+
+```txt
+one asset per image, pure #00FF00 chroma key background,
+no text, no letters, no numbers, no logo, no watermark,
+no checkerboard, no white fringe
 ```
 
 灯紋具画像を作る場合:
