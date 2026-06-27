@@ -1,11 +1,17 @@
 # World Labels
 
-Core labels are stored in `src/game/data/worldTerms.ts`.
-Core character art names are stored in `src/game/data/characterArts.ts`.
-Kokuyou character forms are stored in `src/game/data/kokuyouForms.ts`.
-Core5 pair arts are stored in `src/game/data/pairLightArts.ts`.
-Screen labels are stored in `src/game/data/screenLabels.ts`.
-Item production canon is stored in `src/game/data/itemProductionCanon.ts` and `docs/design/item-and-character-production-canon.md`.
+Latest production-facing index: `docs/181-current-production-canon.md`.
+
+Canonical data sources:
+
+- Core labels: `src/game/data/worldTerms.ts`
+- Core character art names: `src/game/data/characterArts.ts`
+- Kokuyou character forms: `src/game/data/kokuyouForms.ts`
+- Core5 pair arts: `src/game/data/pairLightArts.ts`
+- Screen labels: `src/game/data/screenLabels.ts`
+- Item production canon: `src/game/data/itemProductionCanon.ts` and `docs/design/item-and-character-production-canon.md`
+- Character production plans: `src/game/data/characterProductionPlans.ts` and `docs/design/character-production-plans.md`
+- A-Z emblems: `src/game/data/emblemCanon.ts`, `docs/design/emblem-canon.md`, and `docs/design/az-emblem-canon.md`
 
 ## Adopted labels
 
@@ -16,9 +22,9 @@ Item production canon is stored in `src/game/data/itemProductionCanon.ts` and `d
 | Kokuyou backlash | 煤返り |
 | Kokuyou gauge | 黒耀瓶 |
 | Kokuyou value | 黒耀値 |
-| Evolution | 灯継ぎ |
-| Second evolution | 暁開き |
-| Fusion art | 灯合わせ |
+| Evolution / upgrade | 灯継ぎ |
+| Second evolution / awakening | 暁開き |
+| Fusion / pair art | 灯合わせ |
 | Rare slot | 忘れ物 |
 | Collection | 灯録 |
 | Achievement | 記憶のしるし |
@@ -30,7 +36,7 @@ Item production canon is stored in `src/game/data/itemProductionCanon.ts` and `d
 
 | Target | Label |
 | --- | --- |
-| Weapon | 灯具 |
+| Weapon / active item | 灯具 |
 | Passive | 持ち物 |
 | Rare item | 忘れ物 |
 | Field drop | 落とし物 |
@@ -65,6 +71,18 @@ Item production canon is stored in `src/game/data/itemProductionCanon.ts` and `d
 | Initial weapon | 最初の忘れ物 |
 | Pair art list | 灯合わせ録 |
 
+## Emblem labels
+
+| Target | Label |
+| --- | --- |
+| Common device | 灯紋具 |
+| Character emblem | 灯紋 |
+| Unlocked blank phase | 無紋 |
+| Dawn phase | 暁紋 |
+| Kokuyou phase | 黒紋 |
+| Pair phase | 双灯紋 |
+| Emblem series | A-Z灯紋 |
+
 ## Core5 art names
 
 | Character | 灯技 | 継灯 | 暁灯 |
@@ -84,6 +102,8 @@ Item production canon is stored in `src/game/data/itemProductionCanon.ts` and `d
 | ナギ | 開いた月箱 |
 | ミチル | 迷い星図 |
 | トモリ | ほころぶ継火 |
+
+20-character Kokuyou subtitles are stored in `src/game/data/kokuyouForms.ts`.
 
 ## Core5 pair arts
 
@@ -106,6 +126,7 @@ This game should avoid battle-only words such as 必殺, 殲滅, 暴走, and 覚
 Prefer 灯す, 継ぐ, 結ぶ, しまう, 導く, 直す, 返す, and 夜明け.
 Kokuyou is the exception: it may use darker words, but the common visible label stays 黒耀化.
 
-## Cutin rule
+## Cutin and emblem rule
 
-Cutin art should stay textless. Draw character names, labels, subtitles, and art names with UI text.
+Cutin art and emblem art should stay textless.
+Draw character names, labels, subtitles, AZ codes, phase labels, and art names with UI text.
