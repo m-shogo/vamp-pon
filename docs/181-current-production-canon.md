@@ -10,6 +10,7 @@
 | UI/world terms | `src/game/data/worldTerms.ts` / `docs/design/world-labels.md` |
 | 20-character canon | `src/game/data/characterCanon.ts` / `docs/180-unified-character-canon.md` |
 | Character Database v1 | `src/game/data/characterDatabase.ts` / `docs/183-character-database-v1.md` |
+| Character Asset Factory prompts | `src/game/data/assetFactoryCharacterPrompts.ts` / `docs/prompts/character-asset-factory-prompts.md` |
 | Core5 art names | `src/game/data/characterArts.ts` |
 | Kokuyou forms | `src/game/data/kokuyouForms.ts` |
 | Pair light arts | `src/game/data/pairLightArts.ts` |
@@ -38,6 +39,7 @@
 13. 通常/黒耀化/暁の素材キーワード
 14. グッズ展開フック
 15. Unity Handoff 用 prefabId / addressableGroup / sceneEligibility
+16. Asset Factory 用の素材別プロンプトとreview checklist
 
 ## Current naming lock
 
@@ -88,6 +90,23 @@
 | Core5灯合わせ | `pairLightArts.ts` |
 | A-Z灯紋・グッズ展開 | `emblemCanon.ts` |
 | Unity Handoff fields | `characterDatabase.ts` |
+| Asset Factory prompt seed | `assetFactoryCharacterPrompts.ts` |
+
+## Asset Factory prompt set
+
+各キャラは `src/game/data/assetFactoryCharacterPrompts.ts` で、次の9種類の素材プロンプトを持つ。
+
+1. `sprite_sheet_180`
+2. `character_reference`
+3. `normal_cutin`
+4. `dawn_cutin`
+5. `kokuyou_cutin`
+6. `emblem_blank`
+7. `emblem_normal`
+8. `emblem_dawn`
+9. `emblem_kokuyou`
+
+出力ルールは `docs/prompts/character-asset-factory-prompts.md` を参照する。
 
 ## Kokuyou rule
 
@@ -133,6 +152,7 @@ A-Z灯紋はキャラ量産の必須要素。
 | World terms | 正本データあり。UI全体への参照置換は未完了。 |
 | 20 characters | 正本データあり。playable runtime はCore5から段階適用。 |
 | Character Database v1 | 20人分の統合データあり。ID/必須項目/integrity test あり。 |
+| Character Asset Factory prompts | 20人 x 9種類の素材プロンプトあり。integrity test あり。 |
 | Core5 arts | 正本データあり。 |
 | Kokuyou subtitles | 20人分あり。カットインの表示連動あり。 |
 | Pair arts | Core5 10組あり。 |
@@ -143,7 +163,7 @@ A-Z灯紋はキャラ量産の必須要素。
 
 1. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts` に Core5 分を先に反映する。
 2. HUD / level-up / result / collection UI の旧用語を `WORLD_TERMS` 参照へ寄せる。
-3. `characterDatabase.ts` を Asset Factory export / Unity handoff export / キャラ選択 / 灯録から参照する。
+3. `characterDatabase.ts` と `assetFactoryCharacterPrompts.ts` を Asset Factory export / Unity handoff export / キャラ選択 / 灯録から参照する。
 4. キャラ選択は Core5 のみ表示する。
 5. A-Z灯紋は灯録・キャラ詳細・キャラ選択に normal 相から表示する。
 6. season_seed / future_seed / shadow5 は、設計データとして保持し、選択画面には出さない。
