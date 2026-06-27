@@ -11,6 +11,9 @@
 | 20-character canon | `src/game/data/characterCanon.ts` / `docs/180-unified-character-canon.md` |
 | Character Database v1 | `src/game/data/characterDatabase.ts` / `docs/183-character-database-v1.md` |
 | Character Asset Factory prompts | `src/game/data/assetFactoryCharacterPrompts.ts` / `docs/prompts/character-asset-factory-prompts.md` |
+| Enemy production database | `src/game/data/enemyProductionDatabase.ts` / `docs/184-production-content-databases.md` |
+| Item asset production database | `src/game/data/itemAssetProductionDatabase.ts` / `docs/184-production-content-databases.md` |
+| Stage production database | `src/game/data/stageProductionDatabase.ts` / `docs/184-production-content-databases.md` |
 | Core5 art names | `src/game/data/characterArts.ts` |
 | Kokuyou forms | `src/game/data/kokuyouForms.ts` |
 | Pair light arts | `src/game/data/pairLightArts.ts` |
@@ -40,6 +43,8 @@
 14. グッズ展開フック
 15. Unity Handoff 用 prefabId / addressableGroup / sceneEligibility
 16. Asset Factory 用の素材別プロンプトとreview checklist
+
+敵・ステージ・アイテムも、意味・ゲーム役割・見た目・生成プロンプト・レビュー条件を持たせる。
 
 ## Current naming lock
 
@@ -106,7 +111,15 @@
 8. `emblem_dawn`
 9. `emblem_kokuyou`
 
-出力ルールは `docs/prompts/character-asset-factory-prompts.md` を参照する。
+敵・ステージ・アイテムのAsset Factory promptは `docs/184-production-content-databases.md` を参照する。
+
+## Production content databases
+
+| Database | Current scope |
+| --- | --- |
+| `enemyProductionDatabase.ts` | 48 enemies: 35 small / 10 medium or elite / 3 bosses, each with 4 asset prompt kinds. |
+| `itemAssetProductionDatabase.ts` | Character-linked gear/passive/rare/evolution items + field drops, each with 5 asset prompt kinds. |
+| `stageProductionDatabase.ts` | 20 stages, each with 4 asset prompt kinds. |
 
 ## Kokuyou rule
 
@@ -153,6 +166,9 @@ A-Z灯紋はキャラ量産の必須要素。
 | 20 characters | 正本データあり。playable runtime はCore5から段階適用。 |
 | Character Database v1 | 20人分の統合データあり。ID/必須項目/integrity test あり。 |
 | Character Asset Factory prompts | 20人 x 9種類の素材プロンプトあり。integrity test あり。 |
+| Enemy production DB | 48体分あり。asset prompt 4種類あり。 |
+| Item asset production DB | キャラ由来100件 + field drop 5件あり。asset prompt 5種類あり。 |
+| Stage production DB | 20ステージ分あり。asset prompt 4種類あり。 |
 | Core5 arts | 正本データあり。 |
 | Kokuyou subtitles | 20人分あり。カットインの表示連動あり。 |
 | Pair arts | Core5 10組あり。 |
@@ -161,9 +177,11 @@ A-Z灯紋はキャラ量産の必須要素。
 
 ## Next implementation order
 
-1. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts` に Core5 分を先に反映する。
-2. HUD / level-up / result / collection UI の旧用語を `WORLD_TERMS` 参照へ寄せる。
-3. `characterDatabase.ts` と `assetFactoryCharacterPrompts.ts` を Asset Factory export / Unity handoff export / キャラ選択 / 灯録から参照する。
-4. キャラ選択は Core5 のみ表示する。
-5. A-Z灯紋は灯録・キャラ詳細・キャラ選択に normal 相から表示する。
-6. season_seed / future_seed / shadow5 は、設計データとして保持し、選択画面には出さない。
+1. `pnpm test` / `pnpm build` / `pnpm assets:verify` でDB追加後の整合性を確認する。
+2. Asset Factory UI/CLIから character/enemy/item/stage のprompt DBを選べるようにする。
+3. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts` に Core5 分を先に反映する。
+4. HUD / level-up / result / collection UI の旧用語を `WORLD_TERMS` 参照へ寄せる。
+5. `characterDatabase.ts` と各 production DB を Asset Factory export / Unity handoff export / キャラ選択 / 灯録から参照する。
+6. キャラ選択は Core5 のみ表示する。
+7. A-Z灯紋は灯録・キャラ詳細・キャラ選択に normal 相から表示する。
+8. season_seed / future_seed / shadow5 は、設計データとして保持し、選択画面には出さない。
