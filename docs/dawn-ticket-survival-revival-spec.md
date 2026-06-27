@@ -1,7 +1,8 @@
 # dawn-ticket 復帰レア最小仕様
 
 `dawn-ticket` は、覚醒素材ではなく `survival_revival` role の復帰/救済レア候補として扱う。
-このメモは runtime 追加前の仕様整理であり、現時点では `rareItems.ts` に追加しない。
+runtime ID は snake_case の `dawn_ticket` に統一する。prompt / Asset Factory 側の表示名や生成IDは `dawn-ticket` でもよいが、ゲームデータ、所持アイテム、テスト、QA/debug で参照するIDは `dawn_ticket` とする。
+このメモは runtime 追加前の仕様整理であり、Phase 1時点では `rareItems.ts` に追加しない。
 画像生成もしない。
 
 ## 現在の関連実装
@@ -12,21 +13,35 @@
 - HP0 は `applyPlayerDamage()` で `state.status = GAME_STATUS.GAMEOVER` になり、次の `MainScene.resolveTransitions()` で `enterResult(false)` へ進む。
 - `player.invulnRemaining` / `player.flashRemaining` は既にあり、復帰後の短い無敵に使える。
 - Result は `enterResult(cleared)` で一度だけ入るため、復帰処理は `GAMEOVER` を確定させる前に行うのが安全。
-- `tryConsumeSurvivalRevival()` の汎用フックは実装済み。ただし `dawn_ticket` はまだ `rareItems.ts` に追加していないため、現runtimeでは発動しない。
+- `tryConsumeSurvivalRevival()` は HP0確定前に呼ぶ専用フックであり、`GAMEOVER` 確定後の巻き戻し用途では使わない。
+- 汎用フックは実装済み。ただし Phase 1時点では `dawn_ticket` はまだ `rareItems.ts` に追加していないため、現runtimeでは発動しない。
 
 ## 最小仕様案
 
 | 項目 | 仕様 |
 |---|---|
-| runtime ID | `dawn_ticket` 候補。実装時に命名を `dawn-ticket` prompt側と揃える |
+| runtime ID | `dawn_ticket` |
 | role | `survival_revival` |
 | 発動タイミング | HP0になる被弾時に自動発動 |
 | 消費条件 | 所持していれば1回だけ消費。消費後は同一run中に再発動しない |
 | 復帰HP | 最大HPの30%。`Math.ceil(maxHp * 0.3)` を候補値にする |
 | 追加効果 | 短い無敵時間を付与する。周囲押し返しは後続候補 |
-| UI演出 | 朝焼けリング、小さなカード表示、HP回復表示 |
+| UI演出 | `EffectManager` に寄せる。朝焼けリング、小さな短文表示、HP回復表示 |
 | 失敗条件 | 未所持、または消費済みなら通常敗北 |
 | 画像 | 仕様確定まで生成しない |
+
+## runtime 追加前の固定方針
+
+- `dawn_ticket` は `role: 'survival_revival'` として定義する。
+- Stage1通常抽選、通常ドロップ、カプセル報酬にはまだ出さない。
+- 最初は QA/debug 経由でのみ所持させ、HP0復帰の挙動を確認する。
+- 同一run中の再取得は不可とする。
+- 複数同IDを持っていた場合、現在の実装では同じ `dawn_ticket` がまとめて消費される。これは「1run中1回だけ」の仕様として許容する。
+- 将来、同一run中の再取得を許すなら、消費処理を「1個だけ消費」に変更する。
+- UI通知は Overlay ではなく `EffectManager` に寄せる。
+- 操作停止演出はまだ入れない。
+- 敵押し返し、スロー演出、本格カットインは後続タスクに分ける。
+- 画像生成は runtime 確認後に行う。
 
 ## 実装時の差し込み候補
 
@@ -81,18 +96,16 @@ tryConsumeSurvivalRevival(state)
 - 黒曜化中の復帰で `berserk.activeRemaining` / `fatigueRemaining` を破壊しない。
 - リザルトは復帰成功時に開かず、復帰失敗時だけ開く。
 
-## 未決定
+## 後続で決めること
 
-- `dawn_ticket` を抽選に出す条件。
+- `dawn_ticket` を通常抽選に出す条件。
 - レア枠を圧迫する救済アイテムとしての出現重み。
 - 周囲の敵を押し返すか、短い無敵だけに留めるか。
 - 復帰後に短いスロー演出を入れるか。
-- 同一run中に再取得できるか。
-- UI通知を `EffectManager` と `Overlay` のどちらに寄せるか。
 
 ## 実装に進む条件
 
-- 復帰時のUI演出を1種類に絞る。
-- 再取得可否を決める。
+- 復帰時のUI演出は `EffectManager` の短い小演出に絞る。
+- 再取得不可、複数同IDはまとめて消費、という現仕様をテストで固定する。
 - `rareItems.ts` へ `dawn_ticket` を追加する。
 - runtime画像を生成する前に、32pxで「夜明けの切符」と読めるアイコン要件を再確認する。

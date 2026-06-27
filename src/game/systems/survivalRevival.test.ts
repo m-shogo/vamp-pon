@@ -51,6 +51,23 @@ describe('tryConsumeSurvivalRevival', () => {
     expect(state.status).toBe(GAME_STATUS.PLAYING);
   });
 
+  it('同じ survival_revival レアを複数持つ場合はまとめて消費する', () => {
+    const state = makeState({
+      inventory: {
+        rareItems: [
+          { id: 'dawn_ticket' },
+          { id: 'dawn_ticket' },
+        ],
+      },
+    } as Partial<RuntimeState>);
+
+    const result = tryConsumeSurvivalRevival(state, new Map([[dawnTicket.id, dawnTicket]]));
+
+    expect(result?.itemId).toBe('dawn_ticket');
+    expect(state.inventory.rareItems).toEqual([]);
+    expect(state.status).toBe(GAME_STATUS.PLAYING);
+  });
+
   it('未所持なら何もしない', () => {
     const state = makeState();
     const result = tryConsumeSurvivalRevival(state, new Map([[dawnTicket.id, dawnTicket]]));

@@ -25,10 +25,10 @@ function survivalRevivalDef(
 }
 
 /**
- * Consumes one survival revival rare item and restores the player.
+ * Consumes a survival revival rare item and restores the player.
  *
- * Currently no runtime item has role `survival_revival`; this is an inactive
- * hook for the future dawn_ticket implementation.
+ * This hook is only for the HP0 pre-GAMEOVER path. Do not use it to rewind a
+ * state that has already committed GAMEOVER/result transitions.
  */
 export function tryConsumeSurvivalRevival(
   state: RuntimeState,
