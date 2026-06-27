@@ -9,6 +9,7 @@
 | --- | --- |
 | UI/world terms | `src/game/data/worldTerms.ts` / `docs/design/world-labels.md` |
 | 20-character canon | `src/game/data/characterCanon.ts` / `docs/180-unified-character-canon.md` |
+| Character Database v1 | `src/game/data/characterDatabase.ts` / `docs/183-character-database-v1.md` |
 | Core5 art names | `src/game/data/characterArts.ts` |
 | Kokuyou forms | `src/game/data/kokuyouForms.ts` |
 | Pair light arts | `src/game/data/pairLightArts.ts` |
@@ -36,6 +37,7 @@
 12. A-Z灯紋
 13. 通常/黒耀化/暁の素材キーワード
 14. グッズ展開フック
+15. Unity Handoff 用 prefabId / addressableGroup / sceneEligibility
 
 ## Current naming lock
 
@@ -72,6 +74,20 @@
 | ナギ | 月のしおり | 月明かりのしおり | 小さな銀の鍵 | 月箱の鍵 | 封月の守り | 夜をしまう箱 | N-03 月箱守りの灯紋 |
 | ミチル | 街灯の輪 | 外れた地図ピン | 折れたコンパス針 | 帰針 | 星図の道糸 | 帰り道の星 | M-04 帰星の灯紋 |
 | トモリ | 黒インクの小瓶 | 白い余白 | 切れた灯芯 | 継火 | ほころび灯し | 夜を直す灯 | T-05 ほころび継火の灯紋 |
+
+## Character Database v1
+
+`src/game/data/characterDatabase.ts` は、20キャラの正本データを実装用に束ねる統合レイヤー。
+手入力で重複管理せず、既存の正本から導出する。
+
+| Included | Source |
+| --- | --- |
+| 名前・関係・戦闘方向・技名 | `characterCanon.ts` |
+| 初期灯具・持ち物・忘れ物・進化・素材キーワード | `characterProductionPlans.ts` |
+| 黒耀化副題・歪み | `kokuyouForms.ts` |
+| Core5灯合わせ | `pairLightArts.ts` |
+| A-Z灯紋・グッズ展開 | `emblemCanon.ts` |
+| Unity Handoff fields | `characterDatabase.ts` |
 
 ## Kokuyou rule
 
@@ -116,6 +132,7 @@ A-Z灯紋はキャラ量産の必須要素。
 | --- | --- |
 | World terms | 正本データあり。UI全体への参照置換は未完了。 |
 | 20 characters | 正本データあり。playable runtime はCore5から段階適用。 |
+| Character Database v1 | 20人分の統合データあり。ID/必須項目/integrity test あり。 |
 | Core5 arts | 正本データあり。 |
 | Kokuyou subtitles | 20人分あり。カットインの表示連動あり。 |
 | Pair arts | Core5 10組あり。 |
@@ -126,6 +143,7 @@ A-Z灯紋はキャラ量産の必須要素。
 
 1. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts` に Core5 分を先に反映する。
 2. HUD / level-up / result / collection UI の旧用語を `WORLD_TERMS` 参照へ寄せる。
-3. キャラ選択は Core5 のみ表示する。
-4. A-Z灯紋は灯録・キャラ詳細・キャラ選択に normal 相から表示する。
-5. season_seed / future_seed / shadow5 は、設計データとして保持し、選択画面には出さない。
+3. `characterDatabase.ts` を Asset Factory export / Unity handoff export / キャラ選択 / 灯録から参照する。
+4. キャラ選択は Core5 のみ表示する。
+5. A-Z灯紋は灯録・キャラ詳細・キャラ選択に normal 相から表示する。
+6. season_seed / future_seed / shadow5 は、設計データとして保持し、選択画面には出さない。
