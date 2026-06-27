@@ -136,6 +136,19 @@ Item = SmallObject + StatEffect + RiskOrComfort + UIIconRule
 | unopened-letter | 未開封の手紙 | 選択 | 次LvUpでRare率上昇 | それまで選択肢-1 |
 | small-umbrella | 小さな傘 | 防御 | 一度だけ突進を防ぐ | 破れる |
 
+### Rare Item Role Taxonomy
+
+runtime のレアアイテムは、効果が混ざらないように `role` で分類する。
+
+| role | 用途 | runtime方針 |
+|---|---|---|
+| `awakening_material` | 武器Lv最大 + レアアイテムで覚醒武器へ変える素材 | 既存の `name_tag` / `cracked_lens` / `sealed_letter` / `wind_mark`。取得後、条件達成で消費される |
+| `survival_revival` | 復帰/救済/朝方向のレア | `dawn-ticket` 候補。復帰タイミング、消費条件、UI演出が固まるまでruntime追加しない |
+
+`name_tag` は `awakening_material` として扱う。
+`dawn-ticket` は `survival_revival` 候補として扱い、覚醒素材に混ぜない。
+復帰レアはゲームロジックへの影響が大きいため、画像だけ先にruntimeへ入れない。
+
 ## Icon Production Rules
 
 ### Master Size

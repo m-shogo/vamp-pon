@@ -16,6 +16,7 @@ const ENEMY_ROLES = new Set(['pressure', 'charger', 'flank', 'supply', 'swarm', 
 const VISUAL_KINDS = new Set(['ink_blob', 'paper_scrap', 'signpost', 'capsule', 'haze', 'label_elite']);
 const DIRECTIONS = new Set(['bottom', 'top', 'left', 'right', 'around']);
 const EVOLUTION_KINDS = new Set(['upgrade', 'fusion', 'awakening']);
+const RARE_ITEM_ROLES = new Set(['awakening_material', 'survival_revival']);
 
 const ENEMY_PATTERN_IDS = new Set(Object.keys(ENEMY_PATTERNS));
 
@@ -47,9 +48,26 @@ describe('passives データ', () => {
 });
 
 describe('rareItems データ', () => {
-  it('id が一意で、レベルを持たない', () => {
+  it('id と役割が一意で、レベルを持たない', () => {
     expect(new Set(rareItems.map((item) => item.id)).size).toBe(rareItems.length);
-    for (const item of rareItems) expect(item.category).toBe('rare_item');
+    for (const item of rareItems) {
+      expect(item.category).toBe('rare_item');
+      expect(RARE_ITEM_ROLES.has(item.role)).toBe(true);
+    }
+  });
+
+  it('覚醒素材は覚醒条件にだけ使われる', () => {
+    const awakeningRareIds = new Set(
+      evolutions
+        .filter((evo) => evo.kind === 'awakening')
+        .map((evo) => evo.requiredRareItemId)
+        .filter((id): id is string => id != null),
+    );
+
+    for (const item of rareItems.filter((rare) => rare.role === 'awakening_material')) {
+      expect(item.tags).toContain('awakening');
+      expect(awakeningRareIds.has(item.id)).toBe(true);
+    }
   });
 });
 

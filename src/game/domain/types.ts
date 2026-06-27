@@ -58,6 +58,7 @@ export type RareItemDefinition = {
   id: Id;
   name: string;
   category: 'rare_item';
+  role: 'awakening_material' | 'survival_revival';
   tags: string[];
   description: string;
   lore?: string;
