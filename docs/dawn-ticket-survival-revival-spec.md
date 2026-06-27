@@ -12,6 +12,7 @@
 - HP0 は `applyPlayerDamage()` で `state.status = GAME_STATUS.GAMEOVER` になり、次の `MainScene.resolveTransitions()` で `enterResult(false)` へ進む。
 - `player.invulnRemaining` / `player.flashRemaining` は既にあり、復帰後の短い無敵に使える。
 - Result は `enterResult(cleared)` で一度だけ入るため、復帰処理は `GAMEOVER` を確定させる前に行うのが安全。
+- `tryConsumeSurvivalRevival()` の汎用フックは実装済み。ただし `dawn_ticket` はまだ `rareItems.ts` に追加していないため、現runtimeでは発動しない。
 
 ## 最小仕様案
 
@@ -65,6 +66,7 @@ tryConsumeSurvivalRevival(state)
 - `reviveHpRatio` または role別定数。初期値は `0.3`
 - `reviveInvulnSec` または role別定数。候補は通常被弾無敵より少し長い値
 - 消費済み判定は、最小実装では `inventory.rareItems` から削除するだけで足りる
+- 現在の汎用フックでは `SURVIVAL_REVIVAL_HP_RATIO = 0.3`、`SURVIVAL_REVIVAL_INVULN_SEC = 1.25` を使う
 
 永続的な「消費済み履歴」は同一run内で再取得を許すかどうかを決めてから追加する。
 

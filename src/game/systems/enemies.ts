@@ -16,6 +16,7 @@ import { GAME_FEEL_CONFIG } from '../config/GameFeelConfig';
 import { getAudioManager } from '../audio/AudioManager';
 import { getEffectManager } from '../effects/EffectManager';
 import { recordEnemyDefeated, recordEnemySeen } from './runCollectionMetrics';
+import { tryConsumeSurvivalRevival } from './survivalRevival';
 import {
   ENEMY_PROTOTYPE_SHEETS,
   enemyPrototypeFacingForMotion,
@@ -111,6 +112,7 @@ export function applyPlayerDamage(
   effects.playerDamageView(state.playerView, { sourceX: source?.x, sourceY: source?.y, strong: source?.strong });
   shakeOnHit(scene);
   if (p.hp <= 0) {
+    if (tryConsumeSurvivalRevival(state)) return;
     p.hp = 0;
     state.status = GAME_STATUS.GAMEOVER;
   }
