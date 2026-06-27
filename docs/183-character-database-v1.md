@@ -2,6 +2,7 @@
 
 Character Database v1 は、20キャラの設計情報を実装・Unity移行・Asset Factoryへ渡すための統合レイヤー。
 実装参照データは `src/game/data/characterDatabase.ts`。
+Asset Factory 用の素材別プロンプトは `src/game/data/assetFactoryCharacterPrompts.ts` と `docs/prompts/character-asset-factory-prompts.md`。
 
 ## 目的
 
@@ -32,6 +33,7 @@ Manual Issues連動と実画像テストの次に必要な土台は、キャラ�
 | `kokuyouForms.ts` | 黒耀化副題、短文コピー、歪み |
 | `pairLightArts.ts` | Core5 灯合わせ名 |
 | `emblemCanon.ts` | A-Z灯紋、灯紋具、星座動物、グッズ展開 |
+| `assetFactoryCharacterPrompts.ts` | 各キャラx各素材種別の生成プロンプト |
 
 ## CharacterDefinition shape
 
@@ -72,6 +74,24 @@ CharacterDefinition
 └─ unityHandoff
 ```
 
+## Asset Factory prompts
+
+`assetFactoryCharacterPrompts.ts` は `characterDatabase.ts` を元に、20キャラ全員へ9種類の素材プロンプトを作る。
+
+| Kind | Output |
+| --- | --- |
+| `sprite_sheet_180` | 1440x1080 / 8x6 / 48セル / 180x180 / 透過 |
+| `character_reference` | 1024x1024 / 全身基準立ち絵 / 透過 |
+| `normal_cutin` | 1440x360 / 通常暁灯カットイン / 透過 |
+| `dawn_cutin` | 1440x360 / 暁開きカットイン / 透過 |
+| `kokuyou_cutin` | 1440x360 / 黒耀化カットイン / 透過 |
+| `emblem_blank` | 512x512 / 無紋 / 純緑 `#00FF00` source |
+| `emblem_normal` | 512x512 / 灯紋 / 純緑 `#00FF00` source |
+| `emblem_dawn` | 512x512 / 暁紋 / 純緑 `#00FF00` source |
+| `emblem_kokuyou` | 512x512 / 黒紋 / 純緑 `#00FF00` source |
+
+すべてのプロンプトは、文字焼き込み禁止、ロゴ禁止、AZコード焼き込み禁止、白フリンジ禁止を含む。
+
 ## Unity Handoff
 
 `unityHandoff` はまだUnity実装そのものではない。
@@ -105,8 +125,17 @@ Unityへ移行するときに、どのキャラをどのPrefab/Addressable/選�
 - Core5の灯合わせが10組すべてつながる
 - `characterDefinitionById` で全員引ける
 
+`src/game/data/assetFactoryCharacterPrompts.test.ts` で以下を検査する。
+
+- 全20キャラ分のprompt packがある
+- 1キャラにつき9種類のprompt kindが揃う
+- promptがキャラID/名前/outputPathHintに紐づく
+- sprite/cutin/reference/emblemの出力specが分かれる
+- lookup helperでキャラIDとkindからpromptを引ける
+
 ## Next work
 
 1. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts` へCore5分を反映する。
 2. `characterDatabase.ts` をキャラ選択、灯録、Asset Factory export、Unity handoff exportから参照する。
-3. 20人全員は正本データとして保持し、playable化はCore5から段階導入する。
+3. `assetFactoryCharacterPrompts.ts` をAsset Factoryの生成・再生成・レビュー導線へ接続する。
+4. 20人全員は正本データとして保持し、playable化はCore5から段階導入する。
