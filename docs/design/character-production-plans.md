@@ -1,6 +1,7 @@
 # Character Production Plans
 
 20キャラ全員に、キャラ量産テンプレを適用した正本。
+最新の入口は `docs/181-current-production-canon.md`。
 実装時の参照データは `src/game/data/characterProductionPlans.ts` と `src/game/data/emblemCanon.ts`。
 
 ## 量産時の必須7点
@@ -50,6 +51,13 @@
 | カゲール3 | 夜読みの定規 | 角度の火 | 割れた角度線 | 角度の火 | 測れない夜明け | J-19 夜測り角度の灯紋 | ミチル / ゲン / トバリ |
 | カゲール4 | 空白のカード | 余白の継ぎ目 | 黒い余白 | 余白の継ぎ目 | 続きを描く朝 | Q-20 余白継ぎ目の灯紋 | シロ / クロオリ / ユイ |
 
+## 使い分け
+
+- `playable_data`: まずCore5だけ実ゲームへ段階反映する。
+- `season_seed`: データ正本として保持し、まだキャラ選択には出さない。
+- `future_seed`: 将来のために保持し、P1の導線には出しすぎない。
+- `shadow5`: 影側の拡張枠。黒耀化・高難度・後半導線まで温存する。
+
 ## 次に実装へ流す順番
 
 1. 既存 `weapons.ts` に存在しない初期灯具を seed として追加する。
@@ -58,4 +66,4 @@
 4. `evolutions.ts` に灯継ぎ/暁開きを追加する。
 5. `emblemCanon.ts` から灯紋具UI、灯録、キャラ詳細、グッズ用出力に流す。
 6. キャラ選択は、まず playable_data の5人だけに限定する。
-7. season_seed / future_seed はデータだけ置き、選択画面には出さない。
+7. season_seed / future_seed / shadow5 はデータだけ置き、選択画面には出さない。
