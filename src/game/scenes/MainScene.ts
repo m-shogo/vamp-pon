@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
-import { createInitialState, isBerserkQaAutoRequested } from '../state';
+import { createInitialState, isBerserkQaAutoRequested, isDawnTicketQaRequested } from '../state';
 import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH } from '../domain/constants';
 import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
 import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
@@ -19,7 +19,7 @@ import { weaponById } from '../data/weapons';
 import { setupKeyboard, updateInput, type KeyboardKeys } from '../systems/input';
 import { updateMovement } from '../systems/movement';
 import { SpawnSystem } from '../systems/spawn';
-import { updateEnemies } from '../systems/enemies';
+import { applyPlayerDamage, updateEnemies } from '../systems/enemies';
 import { updateWeapons } from '../systems/weapons';
 import { updatePickups } from '../systems/pickups';
 import { updateUltimate } from '../systems/ultimate';
@@ -49,6 +49,10 @@ declare global {
       fragments: number;
       capsulesOpened: number;
       damageTaken: number;
+      rareItems: string[];
+      invulnRemaining: number;
+      berserkActiveRemaining: number;
+      berserkFatigueRemaining: number;
       enemiesById: Record<string, number>;
       firstCapsuleSec: number | null;
       eliteKillSecs: number[];
@@ -109,6 +113,12 @@ export class MainScene extends Phaser.Scene {
     this.overlays = new Overlays(this);
     this.spawnSystem = new SpawnSystem();
     this.keys = setupKeyboard(this);
+    if (isDawnTicketQaRequested()) {
+      this.input.keyboard?.on('keydown-K', () => {
+        if (this.state.status !== GAME_STATUS.PLAYING) return;
+        applyPlayerDamage(this, this.state, this.state.player.maxHp);
+      });
+    }
     this.stick = new VirtualStick(this);
     this.audio = getAudioManager(this);
     this.audio.unlockOnFirstInput();
@@ -273,6 +283,10 @@ export class MainScene extends Phaser.Scene {
       fragments: this.state.stats.memoryFragmentsCollected,
       capsulesOpened: this.state.stats.capsulesOpened,
       damageTaken: this.state.stats.damageTaken,
+      rareItems: this.state.inventory.rareItems.map((item) => item.id),
+      invulnRemaining: this.state.player.invulnRemaining,
+      berserkActiveRemaining: this.state.berserk.activeRemaining,
+      berserkFatigueRemaining: this.state.berserk.fatigueRemaining,
       enemiesById,
       firstCapsuleSec: this.state.telemetry.firstCapsuleSec,
       eliteKillSecs: [...this.state.telemetry.eliteKillSecs],

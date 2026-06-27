@@ -40,6 +40,17 @@ export function isQuickClearQaRequested(search = typeof window === 'undefined' ?
   return params.get('qa') === 'quick-clear' || params.get('qaClear') === 'quick';
 }
 
+export function isDawnTicketQaRequested(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
+  const params = new URLSearchParams(search);
+  const qa = params.get('qa') ?? params.get('debug') ?? '';
+  return qa === 'dawn-ticket' || qa === 'dawn-ticket-revival' || params.get('qaDawnTicket') === 'true';
+}
+
+export function isDawnTicketRevivalQaRequested(search = typeof window === 'undefined' ? '' : window.location.search): boolean {
+  const params = new URLSearchParams(search);
+  return params.get('qa') === 'dawn-ticket-revival';
+}
+
 export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAULT_CHARACTER_ID): RuntimeState {
   const profile = loadProfile();
   const bonuses = profileBonuses(profile);
@@ -64,6 +75,8 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
   debugHitCircle?.setVisible(debug);
   const qaBerserkReady = isBerserkQaReadyRequested();
   const qaQuickClear = isQuickClearQaRequested();
+  const qaDawnTicket = isDawnTicketQaRequested();
+  const qaDawnTicketRevival = isDawnTicketRevivalQaRequested();
   const stageNumber = requestedStageNumber();
   const baseHp = Math.floor((char.baseStats.hp * bonuses.maxHpMultiplier + charBonus.hpFlat) * subBonuses.hpMultiplier);
   const baseMoveSpeed = char.baseStats.moveSpeed * bonuses.moveSpeedMultiplier * subBonuses.moveSpeedMultiplier;
@@ -83,7 +96,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
       characterId: char.id,
       x: px,
       y: py,
-      hp: baseHp,
+      hp: qaDawnTicketRevival ? 1 : baseHp,
       maxHp: baseHp,
       baseMoveSpeed,
       moveSpeed: baseMoveSpeed,
@@ -101,7 +114,7 @@ export function createInitialState(scene: Phaser.Scene, characterId: Id = DEFAUL
     inventory: {
       weapons: [{ id: char.initialWeaponId, level: 1, cooldownRemaining: 0 }],
       passives: [],
-      rareItems: [],
+      rareItems: qaDawnTicket ? [{ id: 'dawn_ticket' }] : [],
       evolvedWeaponIds: [],
       weaponSlots: DEFAULT_GAME_CONFIG.weaponSlots,
       passiveSlots: DEFAULT_GAME_CONFIG.passiveSlots,
