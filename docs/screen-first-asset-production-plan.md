@@ -51,7 +51,7 @@ public/assets/prototypes/sprite-sheets/rare/<itemId>.png
 |---:|---|---|---|
 | 1 | `night_pencil` | 夜の鉛筆 | ユイ初期武器。最初に見えるが32pxで細すぎる |
 | 2 | `black_ink_bottle` | 黒インクの小瓶 | Stage1ビルドの主力候補。瓶/毒の誤読を避ける |
-| 3 | `old_ticket` | 古い切符 | 現runtimeの移動速度パッシブ。`warm-shoes`採用前の画面上の速度アイテム |
+| 3 | `old_ticket` | あったか靴 | 現runtimeの移動速度パッシブ。互換性のためIDは維持し、画面上のモチーフは `warm-shoes` 相当に寄せる |
 | 4 | `name_tag` | 誰かの名前札 | 夜の鉛筆の覚醒導線。レアの価値を画面で伝える |
 
 Asset Factory側の `warm-shoes` と `dawn-ticket` は良い制作対象だが、現runtimeにはまだ同名IDがない。採用する場合は、先にゲーム本体のデータへ入れるか、既存IDへ対応づける。
@@ -86,6 +86,6 @@ Asset Factory側の `warm-shoes` と `dawn-ticket` は良い制作対象だが�
 
 1. 既存27アイコンの180/64/32pxレビューシートを基準に、画面で弱いものを選ぶ。
 2. `night_pencil` と `black_ink_bottle` を先に作り直し、HUD/レベルアップカードで確認する。
-3. `old_ticket` を `warm-shoes` 相当に差し替えるか、`warm-shoes` をruntimeへ追加するか決める。
+3. `old_ticket` は互換性のためIDを維持し、表示名・説明・アイコンを `warm-shoes` 相当に寄せる。
 4. `name_tag` と `dawn-ticket` の役割を分ける。覚醒素材なのか、復帰アイテムなのかを混ぜない。
 5. ユイ/アサの画面表示へ進み、その後Stage1/2エネミーを実装順に作る。

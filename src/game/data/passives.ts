@@ -51,12 +51,12 @@ export const passives: PassiveDefinition[] = [
   },
   {
     id: 'old_ticket',
-    name: '古い切符',
+    name: 'あったか靴',
     category: 'passive',
     maxLevel: 5,
     stat: 'moveSpeedMultiplier',
-    description: '移動速度が上がる。',
-    lore: '行き先の文字はにじんでいる。帰りの切符ではなかったようだ。',
+    description: '歩く速さが少し上がる。',
+    lore: '長い夜道を歩いた靴。内側には、まだ少しだけぬくもりが残っている。',
     levels: [
       { level: 1, value: 1.04, label: '移動速度 +4%' },
       { level: 2, value: 1.08, label: '移動速度 +8%' },
