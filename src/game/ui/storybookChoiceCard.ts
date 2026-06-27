@@ -189,6 +189,7 @@ function addHorizontalContent(
 
   const textX = left + 103;
   const textWidth = width - 142;
+  const textParts = splitChoiceDescription(choice.description);
   card.add(scene.add.text(textX, -height / 2 + 13, wrapUiText(title, 20, 2), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '15px',
@@ -213,21 +214,26 @@ function addHorizontalContent(
     }).setOrigin(0, 0));
   }
 
-  const description = scene.add.text(textX, archetype ? 66 : 8, wrapUiText(choice.description, 24, archetype ? 2 : 3), {
+  const descY = archetype ? -height / 2 + 68 : -height / 2 + 48;
+  const descLines = textParts.hint ? 1 : archetype ? 2 : 3;
+  const description = scene.add.text(textX, descY, wrapUiText(textParts.description, 24, descLines), {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '12px',
+    fontSize: '11px',
     color: '#302932',
     fontStyle: 'bold',
     align: 'left',
-    lineSpacing: 3,
+    lineSpacing: 2,
     resolution: 2,
     wordWrap: { width: textWidth - 8, useAdvancedWrap: true },
     backgroundColor: '#f4ead4',
-    padding: { left: 4, right: 4, top: 3, bottom: 3 },
+    padding: { left: 4, right: 4, top: 2, bottom: 2 },
     fixedWidth: textWidth,
   }).setOrigin(0, 0);
-  description.setCrop(0, 0, textWidth, archetype ? 50 : 68);
   card.add(description);
+
+  if (textParts.hint) {
+    addHintPill(scene, card, textX, height / 2 - 29, textParts.hint, accent, textWidth);
+  }
 }
 
 function addVerticalContent(
@@ -241,6 +247,7 @@ function addVerticalContent(
   accent: number,
 ): void {
   const isRare = choice.rarity === 'rare' || choice.type === 'rare_new';
+  const textParts = splitChoiceDescription(choice.description);
   const iconSize = Math.min(60, width - 30);
   const iconY = -height / 2 + 68;
   addChoiceIcon(scene, card, choice, 0, iconY, iconSize);
@@ -263,8 +270,7 @@ function addVerticalContent(
   }).setOrigin(0.5, 0));
 
   const descY = titleY + 36;
-  const descMaxH = height / 2 - descY + height / 2 - 50;
-  const description = scene.add.text(0, descY, wrapUiText(choice.description, 9, 3), {
+  const description = scene.add.text(0, descY, wrapUiText(textParts.description, 9, textParts.hint ? 2 : 3), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '10px',
     color: STORYBOOK_UI.textSoft,
@@ -273,10 +279,12 @@ function addVerticalContent(
     resolution: 2,
     wordWrap: { width: width - 18, useAdvancedWrap: true },
   }).setOrigin(0.5, 0);
-  description.setCrop(0, 0, width - 14, Math.max(40, descMaxH));
   card.add(description);
 
   const statY = height / 2 - 22;
+  if (textParts.hint) {
+    addHintPill(scene, card, -width / 2 + 10, statY - 25, compactChoiceHint(textParts.hint), accent, width - 20);
+  }
   addBadge(scene, card, 0, statY, badge, accent);
 
   if (isRare) {
@@ -284,6 +292,55 @@ function addVerticalContent(
     drawWaxSeal(sealG, width / 2 - 14, height / 2 - 14, 12, { color: STORYBOOK_UI.dustyRose, alpha: 0.8 });
     card.add(sealG);
   }
+}
+
+type ChoiceDescriptionParts = {
+  description: string;
+  hint: string | null;
+};
+
+function splitChoiceDescription(description: string): ChoiceDescriptionParts {
+  const normalized = description.replace(/\s*\/\s*/g, ' / ').trim();
+  const hintPattern = / \/ (選ぶと(?:進化|合体|覚醒)可|(?:進化候補|合体候補|覚醒候補): .+)$/;
+  const match = normalized.match(hintPattern);
+  if (!match || match.index == null) return { description: normalized, hint: null };
+  const body = normalized.slice(0, match.index).trim();
+  return {
+    description: body || normalized,
+    hint: match[1],
+  };
+}
+
+function compactChoiceHint(hint: string): string {
+  const ready = hint.match(/^選ぶと(進化|合体|覚醒)可$/);
+  if (ready) return `選ぶと${ready[1]}`;
+
+  const candidate = hint.match(/^(進化候補|合体候補|覚醒候補):/);
+  if (candidate) return candidate[1];
+
+  return hint;
+}
+
+function addHintPill(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  x: number,
+  y: number,
+  label: string,
+  accent: number,
+  maxWidth: number,
+): void {
+  const text = scene.add.text(x, y, wrapUiText(label, Math.max(7, Math.floor(maxWidth / 11)), 1), {
+    fontFamily: STORYBOOK_FONT,
+    fontSize: '9px',
+    color: '#fff8e7',
+    fontStyle: 'bold',
+    resolution: 2,
+    backgroundColor: colorString(accent),
+    padding: { left: 5, right: 5, top: 2, bottom: 2 },
+    fixedWidth: maxWidth,
+  }).setOrigin(0, 0);
+  card.add(text);
 }
 
 function addBadge(
