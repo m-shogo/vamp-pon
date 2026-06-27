@@ -1,6 +1,8 @@
 # A-Z Emblem Asset Prompts
 
 A-Z灯紋の画像生成・手仕上げ用プロンプト集。
+最新の入口は `docs/181-current-production-canon.md`。
+灯紋の正本は `src/game/data/emblemCanon.ts` と `docs/design/emblem-canon.md`。
 画像は文字なし。AZコード、キャラ名、技名はUI textで出す。
 
 ## Common prompt block
@@ -20,6 +22,21 @@ blank phase: unopened emblem, faint outline only, object silhouette barely reada
 normal phase: character's core object and verb are readable, small warm or cool glow.
 dawn phase: dawn line repairs the outer rim, missing black chip becomes soft morning light.
 kokuyou phase: one black soot scar only, the character's strength is distorted, dark but not horror.
+```
+
+## Output naming rule
+
+```txt
+emblem-<character-id>-<az-code>-blank-v1.png
+emblem-<character-id>-<az-code>-normal-v1.png
+emblem-<character-id>-<az-code>-dawn-v1.png
+emblem-<character-id>-<az-code>-kokuyou-v1.png
+```
+
+Example:
+
+```txt
+emblem-yui-y01-normal-v1.png
 ```
 
 ## Core5 prompts
