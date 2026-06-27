@@ -25,6 +25,7 @@
     "spritesheet:inspect:enemy": "node --experimental-strip-types tools/spritesheet-inspector/inspect.ts --enemy",
     "story-map:check": "node --experimental-strip-types scripts/quality/check-story-map-data.ts",
     "story-map:serve": "cd docs/story-map && python3 -m http.server 4173",
+    "asset-factory:catalog:export": "node --experimental-strip-types scripts/asset-factory/export-prompt-catalog.ts",
     "build": "tsc && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
