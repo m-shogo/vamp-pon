@@ -28,18 +28,18 @@ describe('inventory icon stock', () => {
     }
   });
 
-  it('画像未作成の復帰レアは原本アイコン必須リストに含めない', () => {
+  it('画像未作成の復帰レアは要件だけ持ち、原本アイコン必須リストに含めない', () => {
     const dawnTicket = rareItems.find((item) => item.id === 'dawn_ticket');
     expect(dawnTicket?.role).toBe('survival_revival');
-    expect(getInventoryIconRequirement('rare', 'dawn_ticket')).toBeUndefined();
+    expect(getInventoryIconRequirement('rare', 'dawn_ticket')?.fallbackGlyph).toBe('暁');
     expect(getInventoryOriginalIcon('rare', 'dawn_ticket')).toBeUndefined();
   });
 
-  it('現在の必要数は武器15・忘れ物8・レア4の合計27件', () => {
+  it('現在の要件数は武器15・忘れ物8・レア5の合計28件、原本は27件', () => {
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'weapon')).toHaveLength(15);
     expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'passive')).toHaveLength(8);
-    expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'rare')).toHaveLength(4);
-    expect(INVENTORY_ICON_REQUIREMENTS).toHaveLength(27);
+    expect(INVENTORY_ICON_REQUIREMENTS.filter((item) => item.category === 'rare')).toHaveLength(5);
+    expect(INVENTORY_ICON_REQUIREMENTS).toHaveLength(28);
     expect(INVENTORY_ORIGINAL_ICONS).toHaveLength(27);
   });
 
