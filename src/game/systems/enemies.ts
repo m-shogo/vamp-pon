@@ -112,7 +112,12 @@ export function applyPlayerDamage(
   effects.playerDamageView(state.playerView, { sourceX: source?.x, sourceY: source?.y, strong: source?.strong });
   shakeOnHit(scene);
   if (p.hp <= 0) {
-    if (tryConsumeSurvivalRevival(state)) return;
+    const revival = tryConsumeSurvivalRevival(state);
+    if (revival) {
+      effects.survivalRevival(p.x, p.y, revival);
+      getAudioManager(scene).playSe('heal_pickup', { volume: 0.38, priority: 2 });
+      return;
+    }
     p.hp = 0;
     state.status = GAME_STATUS.GAMEOVER;
   }

@@ -12,6 +12,7 @@ vi.mock('../effects/EffectManager', () => ({
   getEffectManager: () => ({
     playerDamage: vi.fn(),
     playerDamageView: vi.fn(),
+    survivalRevival: vi.fn(),
   }),
 }));
 

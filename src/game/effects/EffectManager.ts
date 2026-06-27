@@ -55,6 +55,49 @@ export class EffectManager {
     this.radialGlow(x, y, '+HP', COLORS.healPaper, 20, 420);
   }
 
+  survivalRevival(x: number, y: number, options?: { itemId?: string; hpRestored?: number }): void {
+    this.screenFlashSoft(0xffd79a, 0.1, 160);
+    this.ring(x, y + 7, 20, COLORS.dawnWarm, 2, 2.7, 680);
+    this.ring(x, y + 7, 11, 0xfff3cf, 2, 3.4, 620);
+    this.glowPop(x, y + 4, 28, COLORS.dawnWarm, 0.16, 560);
+
+    const label = options?.itemId === 'dawn_ticket' ? '夜明けへ戻る' : '復帰';
+    const text = this.scene.add.text(x, y - 38, label, {
+      fontFamily: 'serif',
+      fontSize: '14px',
+      color: '#fff4d2',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(VIEW_DEPTH.overlay + 3);
+    text.setStroke('#5a3520', 4);
+
+    const hpText = this.scene.add.text(x, y - 20, `HP +${options?.hpRestored ?? ''}`, {
+      fontFamily: 'serif',
+      fontSize: '12px',
+      color: '#ffe0a8',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5).setDepth(VIEW_DEPTH.overlay + 3);
+    hpText.setStroke('#5a3520', 3);
+
+    this.scene.tweens.add({
+      targets: [text, hpText],
+      y: '-=22',
+      alpha: 0,
+      duration: 760,
+      ease: 'Quad.easeOut',
+      onComplete: () => {
+        text.destroy();
+        hpText.destroy();
+      },
+    });
+
+    if (!this.canEmit(6)) return;
+    for (let i = 0; i < this.qualityCount(6); i += 1) {
+      this.particle(x, y + 5, i % 2 === 0 ? COLORS.dawnWarm : 0xfff7df, 1.8, 420, -Math.PI / 2 + (Math.random() - 0.5) * 1.2, 16 + Math.random() * 18);
+    }
+  }
+
   playerDamage(): void {
     this.hitStop(GAME_FEEL_CONFIG.hitStopMs.playerDamage);
     const flash = this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0xd94545, 0.16)
