@@ -303,7 +303,7 @@ export function generateChoices(state: RuntimeState): LevelUpChoice[] {
     .map((def) => ({ type: 'passive_new' as const, itemId: def.id, title: passiveFull ? `入替: ${def.name}` : def.name, description: passiveFull ? `${def.description} / アイテムが満杯。` : def.description, lore: def.lore }));
 
   const rareNews: LevelUpChoice[] = rareItems
-    .filter((def) => !ownedRareItemIds.has(def.id) && !blockedRareItems.has(def.id))
+    .filter((def) => def.role === 'awakening_material' && !ownedRareItemIds.has(def.id) && !blockedRareItems.has(def.id))
     .map((def) => ({ type: 'rare_new' as const, itemId: def.id, title: rareFull ? `入替: ${def.name}` : def.name, description: rareFull ? `${def.description} / レア枠が満杯。` : def.description, lore: def.lore }));
 
   const pools: Record<Exclude<Category, 'heal'>, LevelUpChoice[]> = {
@@ -405,7 +405,8 @@ export function applyChoice(state: RuntimeState, choice: LevelUpChoice): void {
     }
     case 'rare_new': {
       const blocked = blockedRareItemIds(state, retiredWeaponIds(state));
-      if (!blocked.has(choice.itemId) && !inv.rareItems.some((item) => item.id === choice.itemId) && inv.rareItems.length < inv.rareItemSlots) {
+      const def = rareItems.find((item) => item.id === choice.itemId);
+      if (def?.role === 'awakening_material' && !blocked.has(choice.itemId) && !inv.rareItems.some((item) => item.id === choice.itemId) && inv.rareItems.length < inv.rareItemSlots) {
         inv.rareItems.push({ id: choice.itemId });
       }
       break;

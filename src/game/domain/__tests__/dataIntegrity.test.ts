@@ -77,6 +77,30 @@ describe('rareItems データ', () => {
       expect(rare?.role).toBe('awakening_material');
     }
   });
+
+  it('survival_revival role のレアは覚醒条件に使われない', () => {
+    const evolutionRareIds = new Set(
+      evolutions.flatMap((evo) => [
+        evo.requiredRareItemId,
+        ...(evo.consumedRareItemIds ?? []),
+      ]).filter((id): id is string => id != null),
+    );
+
+    for (const item of rareItems.filter((rare) => rare.role === 'survival_revival')) {
+      expect(evolutionRareIds.has(item.id), item.id).toBe(false);
+    }
+  });
+
+  it('dawn_ticket は復帰レアで、覚醒素材タグを持たず、覚醒条件に出ない', () => {
+    const dawnTicket = rareItemById.get('dawn_ticket');
+    expect(dawnTicket?.role).toBe('survival_revival');
+    expect(dawnTicket?.tags).not.toContain('awakening');
+
+    for (const evo of evolutions) {
+      expect(evo.requiredRareItemId).not.toBe('dawn_ticket');
+      expect(evo.consumedRareItemIds ?? []).not.toContain('dawn_ticket');
+    }
+  });
 });
 
 describe('buildArchetypes データ', () => {

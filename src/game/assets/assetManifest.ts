@@ -92,6 +92,7 @@ export const assetManifest: AssetManifestEntry[] = [
   fallbackOnly('rare_cracked_lens', 'rare', 'ひび割れたレンズ fallback。', 16, 16),
   fallbackOnly('rare_sealed_letter', 'rare', '封のされた手紙 fallback。', 16, 16),
   fallbackOnly('rare_wind_mark', 'rare', '風のしるし fallback。', 16, 16),
+  fallbackOnly('rare_dawn_ticket', 'rare', '夜明けの切符 fallback。', 16, 16),
   fallbackOnly('weapon_night_pencil', 'weapon', '夜の鉛筆 fallback。', 16, 8),
   fallbackOnly('weapon_marble', 'weapon', 'ビー玉 fallback。', 12, 12),
   fallbackOnly('weapon_bookmark_orbit', 'weapon', '月のしおり fallback。', 12, 16),
@@ -148,4 +149,5 @@ export const RARE_ASSET: Record<string, AssetId> = {
   cracked_lens: 'rare_cracked_lens',
   sealed_letter: 'rare_sealed_letter',
   wind_mark: 'rare_wind_mark',
+  dawn_ticket: 'rare_dawn_ticket',
 };

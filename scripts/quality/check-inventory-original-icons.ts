@@ -9,7 +9,9 @@ const ROOT = 'public/assets/prototypes/sprite-sheets';
 const icons = [
   ...weapons.map((item) => ({ itemId: item.id, filePath: `${ROOT}/weapon/${item.id}.png` })),
   ...passives.map((item) => ({ itemId: item.id, filePath: `${ROOT}/passive/${item.id}.png` })),
-  ...rareItems.map((item) => ({ itemId: item.id, filePath: `${ROOT}/rare/${item.id}.png` })),
+  ...rareItems
+    .filter((item) => item.role === 'awakening_material')
+    .map((item) => ({ itemId: item.id, filePath: `${ROOT}/rare/${item.id}.png` })),
 ];
 
 if (icons.length !== 27) {

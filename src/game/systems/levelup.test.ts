@@ -62,6 +62,23 @@ describe('levelup evolution guards', () => {
     expect(state.inventory.rareItems.some((item) => item.id === 'name_tag')).toBe(false);
   });
 
+  it('dawn_ticket は通常レベルアップ候補にも古いrare選択肢適用にも入れない', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    const state = makeState('unfinished_line');
+    for (let i = 0; i < 20; i += 1) {
+      const choices = generateChoices(state);
+      expect(choices.some((choice) => choice.type === 'rare_new' && choice.itemId === 'dawn_ticket')).toBe(false);
+    }
+
+    applyChoice(state, {
+      type: 'rare_new',
+      itemId: 'dawn_ticket',
+      title: '夜明けの切符',
+      description: '古い選択肢',
+    });
+    expect(state.inventory.rareItems.some((item) => item.id === 'dawn_ticket')).toBe(false);
+  });
+
   it('レアリティは色メタデータで表し、星や禁止ラベルを文章へ入れない', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
     const state = makeState('unfinished_line');

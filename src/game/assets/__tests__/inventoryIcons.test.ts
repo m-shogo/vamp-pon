@@ -22,10 +22,17 @@ describe('inventory icon stock', () => {
       expect(getInventoryIconRequirement('passive', passive.id), `passive:${passive.id}`).toBeTruthy();
       expect(getInventoryOriginalIcon('passive', passive.id), `original passive:${passive.id}`).toBeTruthy();
     }
-    for (const rare of rareItems) {
+    for (const rare of rareItems.filter((item) => item.role === 'awakening_material')) {
       expect(getInventoryIconRequirement('rare', rare.id), `rare:${rare.id}`).toBeTruthy();
       expect(getInventoryOriginalIcon('rare', rare.id), `original rare:${rare.id}`).toBeTruthy();
     }
+  });
+
+  it('画像未作成の復帰レアは原本アイコン必須リストに含めない', () => {
+    const dawnTicket = rareItems.find((item) => item.id === 'dawn_ticket');
+    expect(dawnTicket?.role).toBe('survival_revival');
+    expect(getInventoryIconRequirement('rare', 'dawn_ticket')).toBeUndefined();
+    expect(getInventoryOriginalIcon('rare', 'dawn_ticket')).toBeUndefined();
   });
 
   it('現在の必要数は武器15・忘れ物8・レア4の合計27件', () => {

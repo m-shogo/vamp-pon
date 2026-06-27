@@ -31,13 +31,15 @@ const passiveIcons: InventoryOriginalIcon[] = passives.map((item) => ({
   path: ROOT + '/passive/' + item.id + '.png',
 }));
 
-const rareIcons: InventoryOriginalIcon[] = rareItems.map((item) => ({
-  category: 'rare',
-  itemId: item.id,
-  name: item.name,
-  textureId: 'inventory_original_rare_' + item.id,
-  path: ROOT + '/rare/' + item.id + '.png',
-}));
+const rareIcons: InventoryOriginalIcon[] = rareItems
+  .filter((item) => item.role === 'awakening_material')
+  .map((item) => ({
+    category: 'rare',
+    itemId: item.id,
+    name: item.name,
+    textureId: 'inventory_original_rare_' + item.id,
+    path: ROOT + '/rare/' + item.id + '.png',
+  }));
 
 export const INVENTORY_ORIGINAL_ICONS: InventoryOriginalIcon[] = [
   ...weaponIcons,

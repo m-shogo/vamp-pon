@@ -37,6 +37,15 @@ export const rareItems: RareItemDefinition[] = [
     description: '紙ひこうきLv5を覚醒させ、夜を巡る武器に変える。',
     lore: '折り目のすきまに、まだ飛べる風が残っている。',
   },
+  {
+    id: 'dawn_ticket',
+    name: '夜明けの切符',
+    category: 'rare_item',
+    role: 'survival_revival',
+    tags: ['revival', 'dawn', 'ticket'],
+    description: '倒れた時、一度だけ最大HPの30%で復帰する。',
+    lore: '消えかけた切符の端に、帰り道を示す小さな朝が灯っている。',
+  },
 ];
 
 export const rareItemById = new Map(rareItems.map((item) => [item.id, item]));
