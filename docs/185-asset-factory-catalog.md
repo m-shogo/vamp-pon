@@ -2,6 +2,7 @@
 
 Asset Factory Catalog は、キャラ・敵・アイテム・ステージのプロンプトDBを1つの入口にまとめる統合カタログ。
 実装参照データは `src/game/data/assetFactoryCatalog.ts`。
+JSON export script は `scripts/asset-factory/export-prompt-catalog.ts`。
 
 ## 目的
 
@@ -65,6 +66,29 @@ getAssetFactoryPrompt('enemy', 'ombu_small_ink', 'reference')
 getAssetFactoryPrompt('stage', 'forgotten_street', 'background_390x844')
 ```
 
+## JSON export
+
+Asset Factory UI / external tooling / Unity handoff が静的JSONを必要とする場合は、次を実行する。
+
+```sh
+pnpm asset-factory:catalog:export
+```
+
+出力先:
+
+```txt
+data/asset-factory/prompt-catalog.json
+```
+
+export payload:
+
+```txt
+schemaVersion
+generatedBy
+summary
+prompts[]
+```
+
 ## Tests
 
 `src/game/data/assetFactoryCatalog.test.ts` checks:
@@ -96,6 +120,6 @@ getAssetFactoryPrompt('stage', 'forgotten_street', 'background_390x844')
 ## Next work
 
 1. Build the actual Asset Factory selector UI/CLI on top of this catalog.
-2. Add export to JSON if Unity or external tooling needs a static handoff.
+2. Run `pnpm asset-factory:catalog:export` and commit the generated JSON only if a static handoff file is needed.
 3. Generate only Core5 / Stage1 / baseline Onbu / basic item packs first.
 4. Do not generate all 20 characters and 48 enemies at once before review rules are proven.
