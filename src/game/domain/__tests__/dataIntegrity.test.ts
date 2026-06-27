@@ -48,7 +48,7 @@ describe('passives データ', () => {
 });
 
 describe('rareItems データ', () => {
-  it('id と役割が一意で、レベルを持たない', () => {
+  it('id が一意で、role が有効値', () => {
     expect(new Set(rareItems.map((item) => item.id)).size).toBe(rareItems.length);
     for (const item of rareItems) {
       expect(item.category).toBe('rare_item');
@@ -67,6 +67,14 @@ describe('rareItems データ', () => {
     for (const item of rareItems.filter((rare) => rare.role === 'awakening_material')) {
       expect(item.tags).toContain('awakening');
       expect(awakeningRareIds.has(item.id)).toBe(true);
+    }
+  });
+
+  it('覚醒条件で使うレアアイテムは必ず覚醒素材である', () => {
+    for (const evo of evolutions.filter((item) => item.kind === 'awakening')) {
+      expect(evo.requiredRareItemId).toBeDefined();
+      const rare = rareItemById.get(evo.requiredRareItemId!);
+      expect(rare?.role).toBe('awakening_material');
     }
   });
 });
