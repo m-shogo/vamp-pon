@@ -230,7 +230,7 @@ export function resolveCutinCopy(mode: CharacterCutinMode, characterId: string):
   return {
     label: art?.label ?? WORLD_TERMS.techniqueRanks.dawnLight,
     title: art?.name ?? '消えない名前',
-    subtitle: '忘れたものを照らし出す',
+    subtitle: '忘れた名を、灯りへ戻す',
   };
 }
 
