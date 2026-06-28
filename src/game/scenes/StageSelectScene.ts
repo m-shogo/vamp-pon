@@ -64,6 +64,11 @@ const DEPTH_FLAVOR: Record<ExplorationDepthId, { sub: string; recommend: string 
   middle:  { sub: '標準', recommend: 'バランスよく稼ぐ（Normal）' },
   deep:    { sub: '強め/多め', recommend: 'ビルドが整ったら（Hard）' },
 };
+const DEPTH_EN_LABEL: Record<ExplorationDepthId, string> = {
+  shallow: 'Easy',
+  middle: 'Normal',
+  deep: 'Hard',
+};
 
 export class StageSelectScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
@@ -147,7 +152,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderStagePreview(root, profile);
       this.renderDepthBlock(root, profile);
       this.renderCharacterSummary(root, profile);
-      this.renderSubCharacterStatus(root, profile, 556);
+      this.renderSubCharacterStatus(root, profile, 580);
       root.add(this.paperCta(GAME_WIDTH / 2, GAME_HEIGHT - 110, 280, 54, '探索を始める', () => this.startRun(profile)));
       root.add(this.secondaryNav(GAME_WIDTH / 2 - 100, GAME_HEIGHT - 46, 88, 40, 'TOPへ', () => this.scene.start('TopScene')));
       root.add(this.secondaryNav(GAME_WIDTH / 2 + 100, GAME_HEIGHT - 46, 88, 40, recordLabel, () => {
@@ -221,6 +226,20 @@ export class StageSelectScene extends Phaser.Scene {
 
     const routeLines = this.add.graphics();
     drawMapThreads(routeLines, cardX, innerY + 10, innerW - 40, 0.28);
+    const routeNodes = [
+      { x: cardX - 98, y: innerY + 24, r: 7, active: true },
+      { x: cardX - 34, y: innerY + 6, r: 5, active: false },
+      { x: cardX + 35, y: innerY + 16, r: 5, active: false },
+      { x: cardX + 106, y: innerY - 4, r: 12, active: false },
+    ];
+    routeNodes.forEach((node) => {
+      routeLines.fillStyle(node.active ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperBeige, node.active ? 0.72 : 0.34);
+      routeLines.fillCircle(node.x, node.y, node.r);
+      routeLines.lineStyle(node.active ? 2 : 1, node.active ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperLight, node.active ? 0.82 : 0.52);
+      routeLines.strokeCircle(node.x, node.y, node.r + 3);
+    });
+    routeLines.lineStyle(2, STORYBOOK_UI.dustyRose, 0.45);
+    routeLines.strokeCircle(cardX + 106, innerY - 4, 18);
     root.add(routeLines);
 
     const routeBorder = this.add.graphics();
@@ -321,10 +340,16 @@ export class StageSelectScene extends Phaser.Scene {
       } else {
         drawPremiumPaperCard(card, x, y, cardW, cardH, {
           accent: depth.tint,
-          paper: STORYBOOK_UI.deepNight,
-          muted: true,
+          paper: STORYBOOK_UI.paperLight,
         });
       }
+      card.fillStyle(depth.tint, selected ? 0.82 : 0.36);
+      card.fillPoints([
+        new Phaser.Math.Vector2(x - 9, y - cardH / 2 + 10),
+        new Phaser.Math.Vector2(x, y - cardH / 2 + 1),
+        new Phaser.Math.Vector2(x + 9, y - cardH / 2 + 10),
+        new Phaser.Math.Vector2(x, y - cardH / 2 + 19),
+      ], true);
       root.add(card);
 
       const lanternG = this.add.graphics();
@@ -341,10 +366,9 @@ export class StageSelectScene extends Phaser.Scene {
       }
       root.add(lanternG);
 
-      const labelColor = selected ? STORYBOOK_UI.textDark : STORYBOOK_UI.textLight;
-      root.add(this.text(x, y + 6, depth.label, 14, labelColor, true));
-      root.add(this.text(x, y + 24, flavor.sub, 11, selected ? STORYBOOK_UI.paperDark : colorString(depth.tint)));
-      root.add(this.text(x, y + 40, `報酬×${depth.reward.toFixed(1)}`, 10, selected ? STORYBOOK_UI.paperDark : STORYBOOK_UI.textMuted));
+      root.add(this.text(x, y + 2, DEPTH_EN_LABEL[depthId], 14, STORYBOOK_UI.textDark, true, true));
+      root.add(this.text(x, y + 21, depth.label, 12, STORYBOOK_UI.paperDark, true));
+      root.add(this.text(x, y + 38, `報酬×${depth.reward.toFixed(1)}`, 10, STORYBOOK_UI.textMuted));
 
       const hit = this.add.rectangle(x, y, cardW, cardH, 0x000000, 0.001).setInteractive({ useHandCursor: true });
       attachPressFeedback(this, hit, root, {
@@ -366,7 +390,7 @@ export class StageSelectScene extends Phaser.Scene {
     const char = characters[0];
     const progress = profile.characterProgress[char.id] ?? { level: 1, xp: 0, totalXp: 0 };
     const need = characterXpToNext(progress.level);
-    const y = this.mode === 'growth' ? 100 : 530;
+    const y = this.mode === 'growth' ? 100 : 538;
     root.add(this.text(GAME_WIDTH / 2, y, `${char.name} Lv.${progress.level}　${progress.xp}/${need}`, 12, STORYBOOK_UI.warmAmber, true));
     root.add(this.text(GAME_WIDTH / 2, y + 16, '使うほどHPと攻撃が少しずつ伸びる', 10, STORYBOOK_UI.textMuted));
   }
