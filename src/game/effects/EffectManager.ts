@@ -267,15 +267,15 @@ export class EffectManager {
 
   expAbsorbPop(x: number, y: number): void {
     this.registerExpAbsorb();
-    this.glowPop(x, y, 8, COLORS.fragmentGlow, 0.28, GAME_FEEL_CONFIG.juice.expAbsorbPopMs);
-    const ring = this.scene.add.circle(x, y, 8, 0xffffff, 0.04)
+    this.glowPop(x, y, 10, COLORS.fragmentGlow, 0.32, Math.max(170, GAME_FEEL_CONFIG.juice.expAbsorbPopMs));
+    const ring = this.scene.add.circle(x, y, 9, 0xffffff, 0.05)
       .setDepth(VIEW_DEPTH.pickup + 4)
       .setBlendMode(Phaser.BlendModes.ADD);
-    ring.setStrokeStyle(2, 0xffffff, 0.72);
-    this.scene.tweens.add({ targets: ring, scale: 2.2, alpha: 0, duration: 150, ease: 'Quad.easeOut', onComplete: () => ring.destroy() });
-    if (!loadGameFeelSettings().lowSpecMode && this.canEmit(4)) {
-      for (let i = 0; i < 4; i += 1) {
-        this.particle(x, y, 0xfff7e8, 1.8, 105 + Math.random() * 45, Math.random() * Math.PI * 2, 8 + Math.random() * 12);
+    ring.setStrokeStyle(2, 0xffffff, 0.82);
+    this.scene.tweens.add({ targets: ring, scale: 2.35, alpha: 0, duration: 175, ease: 'Quad.easeOut', onComplete: () => ring.destroy() });
+    if (!loadGameFeelSettings().lowSpecMode && this.canEmit(5)) {
+      for (let i = 0; i < 5; i += 1) {
+        this.particle(x, y, 0xfff7e8, 1.9, 105 + Math.random() * 45, Math.random() * Math.PI * 2, 10 + Math.random() * 14);
       }
     }
   }
