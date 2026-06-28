@@ -12,6 +12,7 @@ import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from '../ui/storyb
 import {
   drawInkVignette,
   drawLanternFocus,
+  drawLargeNotebookPage,
   drawMapThreads,
   drawNewSparkBadge,
   drawPaperScrap,
@@ -73,25 +74,29 @@ export class TopScene extends Phaser.Scene {
 
     this.addTitleDecoration();
 
-    const titleText = this.text(GAME_WIDTH / 2, 92, 'VAMP PON', 43, STORYBOOK_UI.textLight, true, true).setDepth(UI_DEPTH + 4);
+    const titleText = this.text(GAME_WIDTH / 2, 92, 'VAMP PON', 43, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
     titleText.setShadow(0, 2, '#070815', 3, true, true);
     this.tweens.add({ targets: titleText, y: titleText.y - 3, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    const subtitleText = this.text(GAME_WIDTH / 2, 139, '忘れた名前を、夜から拾う', 14, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 3);
+    const subtitleText = this.text(GAME_WIDTH / 2, 142, '忘れた名前を、夜から拾う', 14, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 3);
     subtitleText.setAlpha(0);
     this.tweens.add({ targets: subtitleText, alpha: 1, duration: 800, delay: 300, ease: 'Quad.easeOut' });
 
     this.addCurrencyTag(profile.currency);
+
+    const centerPanel = this.add.graphics().setDepth(UI_DEPTH + 1);
+    drawLargeNotebookPage(centerPanel, GAME_WIDTH / 2, 398, 314, 260, { accent: STORYBOOK_UI.gold, alpha: 0.92 });
+    drawMapThreads(centerPanel, GAME_WIDTH / 2, 322, 176, 0.14);
     this.addHeroLantern();
 
-    const mainBtn = this.button(GAME_WIDTH / 2, 454, 270, 64, '夜へ出る', () => {
+    const mainBtn = this.button(GAME_WIDTH / 2, 514, 284, 66, '夜へ出る', () => {
       this.scene.start('StageSelectScene', { mode: 'stage' });
     }, false, true);
     mainBtn.setDepth(UI_DEPTH + 5);
 
-    const growthBtn = this.button(GAME_WIDTH / 2, 532, 226, 48, '成長', () => {
+    const growthBtn = this.button(78, 628, 104, 64, '成長', () => {
       this.scene.start('StageSelectScene', { mode: 'growth' });
-    }, true);
+    });
     growthBtn.setDepth(UI_DEPTH + 4);
 
     const viewState = loadCollectionAtlasViewState();
@@ -99,16 +104,16 @@ export class TopScene extends Phaser.Scene {
     const achViewState = loadAchievementViewState();
     const newAchCount = findNewAchievementIds(Object.keys(profile.achievements), achViewState.seenAchievementIds).length;
     const totalNewCount = newCellCount + newAchCount;
-    const collLabel = `忘れ物帳 ${boardCount}/${boardTotal}`;
-    const collBtn = this.button(GAME_WIDTH / 2, 592, 226, 48, collLabel, () => {
+    const collBtn = this.button(GAME_WIDTH / 2, 628, 112, 64, '忘れ物帳', () => {
       this.scene.start('CollectionScene');
-    }, boardCount === 0 && totalNewCount === 0);
+    });
     collBtn.setDepth(UI_DEPTH + 4);
+    this.text(GAME_WIDTH / 2, 658, `${boardCount}/${boardTotal}`, 10, STORYBOOK_UI.textMuted, true).setDepth(UI_DEPTH + 6);
     if (totalNewCount > 0) {
-      drawNewSparkBadge(this, GAME_WIDTH / 2 + 118, 576, totalNewCount, { depth: UI_DEPTH + 7 });
+      drawNewSparkBadge(this, GAME_WIDTH / 2 + 48, 590, totalNewCount, { depth: UI_DEPTH + 7, label: 'NEW' });
     }
 
-    const settingsBtn = this.button(GAME_WIDTH / 2, 652, 178, 42, '設定', () => this.showNotice('設定は準備中です'), true);
+    const settingsBtn = this.button(312, 628, 104, 64, '設定', () => this.showNotice('設定は準備中です'));
     settingsBtn.setDepth(UI_DEPTH + 3);
 
     this.notice = this.text(GAME_WIDTH / 2, 706, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
@@ -179,11 +184,8 @@ export class TopScene extends Phaser.Scene {
     const depth = UI_DEPTH + 2;
     const g = this.add.graphics().setDepth(depth);
 
-    g.fillStyle(STORYBOOK_UI.inkBlack, 0.3).fillRect(GAME_WIDTH / 2 - 136, 58, 272, 104);
-    g.lineStyle(1, STORYBOOK_UI.paperDark, 0.22);
-    g.strokeRect(GAME_WIDTH / 2 - 130, 68, 260, 1);
-    g.strokeRect(GAME_WIDTH / 2 - 110, 158, 220, 1);
-    drawMapThreads(g, GAME_WIDTH / 2, 166, 172, 0.12);
+    drawPremiumPaperCard(g, GAME_WIDTH / 2, 100, 290, 96, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.48 });
+    drawMapThreads(g, GAME_WIDTH / 2, 164, 172, 0.16);
 
     const lampGlow = this.add.circle(GAME_WIDTH / 2, 52, 10, COLORS.lantern, 0.18).setDepth(depth).setBlendMode('ADD');
     const lampCore = this.add.circle(GAME_WIDTH / 2, 52, 3, COLORS.lantern, 0.62).setDepth(depth).setBlendMode('ADD');
@@ -250,12 +252,12 @@ export class TopScene extends Phaser.Scene {
   }
 
   private showFirstTimeIntro(mainBtn: Phaser.GameObjects.Container): void {
-    const introText = this.text(GAME_WIDTH / 2, 412, 'まずは夜へ。影をほどき、記憶を拾う。', 12, STORYBOOK_UI.goldLight, true)
+    const introText = this.text(GAME_WIDTH / 2, 472, 'まずは夜へ。影をほどき、記憶を拾う。', 12, STORYBOOK_UI.goldLight, true)
       .setDepth(UI_DEPTH + 6).setAlpha(0);
     this.tweens.add({ targets: introText, alpha: 1, duration: 600, delay: 500, ease: 'Quad.easeOut' });
     this.tweens.add({ targets: introText, alpha: 0, duration: 500, delay: 6000, ease: 'Quad.easeIn' });
 
-    const glow = this.add.rectangle(GAME_WIDTH / 2, 454, 282, 74, STORYBOOK_UI.goldLight, 0)
+    const glow = this.add.rectangle(GAME_WIDTH / 2, 514, 292, 76, STORYBOOK_UI.goldLight, 0)
       .setDepth(UI_DEPTH + 4)
       .setBlendMode('ADD');
     this.tweens.add({
