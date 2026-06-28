@@ -9,11 +9,13 @@ Vamp Ponの現行正史を一枚にまとめる。
 
 1. `docs/181-current-production-canon.md`
 2. `docs/180-unified-character-canon.md`
-3. `docs/design/world-labels.md`
-4. `docs/design/character-production-plans.md`
-5. `docs/design/emblem-canon.md`
-6. `docs/design/az-emblem-canon.md`
-7. `src/game/data/*` の正本データ
+3. `docs/183-character-database-v1.md`
+4. `docs/prompts/character-asset-factory-prompts.md`
+5. `docs/design/world-labels.md`
+6. `docs/design/character-production-plans.md`
+7. `docs/design/emblem-canon.md`
+8. `docs/design/az-emblem-canon.md`
+9. `src/game/data/*` の正本データ
 
 ---
 
@@ -24,6 +26,7 @@ Vamp Ponの現行正史を一枚にまとめる。
 ```txt
 P1はユイ基準。
 Core5は設計・データ正本あり。ただし、全員を一気に本番プレイアブル化しない。
+Character Database v1は20キャラ正本、runtime characters.tsは段階反映用のCore5軽量データ。
 きずな/2人選択/恋愛/次世代/重い関係はP1に入れない。
 ただし、将来拡張できる命名とデータ構造にする。
 ```

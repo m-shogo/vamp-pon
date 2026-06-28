@@ -24,6 +24,8 @@ describe('assetFactoryCharacterPrompts', () => {
   });
 
   it('keeps every prompt tied to the character identity and output path', () => {
+    const requiredNegativeTerms = ['no text', 'no letters', 'no logo', 'no watermark', 'no white fringe'];
+
     for (const pack of characterAssetPromptPacks) {
       for (const prompt of pack.prompts) {
         expect(prompt.characterId).toBe(pack.characterId);
@@ -31,8 +33,9 @@ describe('assetFactoryCharacterPrompts', () => {
         expect(prompt.outputPathHint).toContain(`/characters/${pack.characterId}/`);
         expect(prompt.prompt).toContain(pack.characterName);
         expect(prompt.prompt).toContain(pack.characterId);
-        expect(prompt.negativePrompt).toContain('no text');
-        expect(prompt.negativePrompt).toContain('no letters');
+        for (const term of requiredNegativeTerms) {
+          expect(prompt.negativePrompt).toContain(term);
+        }
         expect(prompt.reviewChecklist.length).toBeGreaterThanOrEqual(6);
       }
     }
@@ -50,6 +53,31 @@ describe('assetFactoryCharacterPrompts', () => {
     expect(yuiCutin?.sizeSpec).toContain('1440x360');
     expect(yuiEmblem?.sizeSpec).toContain('512x512');
     expect(yuiEmblem?.sizeSpec).toContain('#00FF00');
+  });
+
+  it('keeps kind-specific output specs explicit', () => {
+    for (const pack of characterAssetPromptPacks) {
+      for (const prompt of pack.prompts) {
+        if (prompt.kind === 'sprite_sheet_180') {
+          expect(prompt.sizeSpec).toContain('1440x1080');
+          expect(prompt.sizeSpec).toContain('8 columns x 6 rows');
+          expect(prompt.sizeSpec).toContain('48 cells');
+          expect(prompt.sizeSpec).toContain('180x180');
+          expect(prompt.sizeSpec).toContain('transparent background');
+        } else if (prompt.kind === 'character_reference') {
+          expect(prompt.sizeSpec).toContain('1024x1024');
+          expect(prompt.sizeSpec).toContain('transparent background');
+        } else if (prompt.kind.endsWith('_cutin')) {
+          expect(prompt.sizeSpec).toContain('1440x360');
+          expect(prompt.sizeSpec).toContain('transparent background');
+          expect(prompt.sizeSpec).toContain('horizontal wide');
+        } else if (prompt.kind.startsWith('emblem_')) {
+          expect(prompt.sizeSpec).toContain('512x512');
+          expect(prompt.sizeSpec).toContain('#00FF00 chroma key background');
+          expect(prompt.prompt).toContain('UI processing');
+        }
+      }
+    }
   });
 
   it('exposes lookup helpers', () => {

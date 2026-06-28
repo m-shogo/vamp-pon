@@ -17,7 +17,7 @@ export type CharacterDatabaseRuntimeStatus =
   | 'runtime_playable_seeded'
   | 'canon_seed_not_runtime_ready';
 
-export type CharacterDefinition = {
+export type CharacterDatabaseEntry = {
   id: string;
   no: number;
   name: string;
@@ -118,7 +118,7 @@ function buildPromptSeed(
   ].join('\n');
 }
 
-function buildCharacterDefinition(entry: CharacterCanonEntry): CharacterDefinition {
+function buildCharacterDatabaseEntry(entry: CharacterCanonEntry): CharacterDatabaseEntry {
   const plan = requireById(characterProductionPlanById, entry.id, 'characterProductionPlanById');
   const kokuyou = requireById(kokuyouFormByCharacterId, entry.id, 'kokuyouFormByCharacterId');
   const emblem = requireById(characterEmblemById, entry.id, 'characterEmblemById');
@@ -189,7 +189,7 @@ function buildCharacterDefinition(entry: CharacterCanonEntry): CharacterDefiniti
   };
 }
 
-export const characterDefinitions: CharacterDefinition[] = characterCanon.map(buildCharacterDefinition);
+export const characterDefinitions: CharacterDatabaseEntry[] = characterCanon.map(buildCharacterDatabaseEntry);
 
 export const characterDefinitionById = new Map(characterDefinitions.map((definition) => [definition.id, definition]));
 
@@ -222,6 +222,6 @@ export const characterDatabaseSummary = {
   requiredFields: CHARACTER_DATABASE_REQUIRED_FIELDS,
 } as const;
 
-export function getCharacterDefinition(characterId: string): CharacterDefinition | undefined {
+export function getCharacterDefinition(characterId: string): CharacterDatabaseEntry | undefined {
   return characterDefinitionById.get(characterId);
 }

@@ -117,7 +117,7 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
   });
 }
 
-function resolveCutinCopy(mode: CharacterCutinMode, characterId: string): CutinCopy {
+export function resolveCutinCopy(mode: CharacterCutinMode, characterId: string): CutinCopy {
   if (mode === 'berserk') {
     const form = kokuyouFormByCharacterId.get(characterId);
     return {

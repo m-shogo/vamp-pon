@@ -42,6 +42,15 @@ no white fringe, no glossy plastic, no realistic human, no gore
 | kokuyou_cutin | 1440x360 PNG RGBA / transparent / horizontal wide |
 | emblem_* | 512x512 PNG source / one emblem / pure #00FF00 chroma key source |
 
+## Emblem background rule
+
+character / cutin / sprite は true alpha transparency を要求する。
+emblem_* だけは、細い灯紋線・外周の欠け・白フリンジを後処理で検査しやすくするため、現時点では純緑 `#00FF00` chroma key source として生成する。
+
+この緑背景は最終素材ではない。
+Asset Factory QA では、クロマキー除去後のRGBA、64px/32px可読性、線欠け、緑フリンジの有無を確認してから candidate / approved に進める。
+透明PNGへ直接生成する運用へ切り替えるかは、emblem実画像QAで比較してから別タスクで判断する。
+
 ## Per-character prompt seeds
 
 この表は、各キャラのプロンプトで必ず入る核。

@@ -1,4 +1,4 @@
-import type { CharacterDefinition } from './characterDatabase';
+import type { CharacterDatabaseEntry } from './characterDatabase';
 import { characterDefinitions, characterDefinitionById } from './characterDatabase';
 import { EMBLEM_PHASE_RULES } from './emblemCanon';
 
@@ -75,7 +75,7 @@ const REFERENCE_SPEC = '1024x1024 PNG RGBA, full body, front 3/4 view, transpare
 const CUTIN_SPEC = '1440x360 PNG RGBA, horizontal wide cutin, transparent background, no baked text, no logo, no frame, no checkerboard.';
 const EMBLEM_SPEC = '512x512 PNG source, one emblem only, centered, pure #00FF00 chroma key background for UI processing, no text, no letters, no numbers.';
 
-function keywordLine(definition: CharacterDefinition): string {
+function keywordLine(definition: CharacterDatabaseEntry): string {
   return [
     definition.identity.vessel,
     definition.identity.lineage,
@@ -94,7 +94,7 @@ function keywordLine(definition: CharacterDefinition): string {
   ].join(', ');
 }
 
-function baseCharacterBrief(definition: CharacterDefinition): string {
+function baseCharacterBrief(definition: CharacterDatabaseEntry): string {
   return [
     `${COMMON_CHARACTER_STYLE}.`,
     `Character: ${definition.name} (${definition.id}).`,
@@ -110,11 +110,11 @@ function baseCharacterBrief(definition: CharacterDefinition): string {
   ].join('\n');
 }
 
-function outputBase(definition: CharacterDefinition): string {
+function outputBase(definition: CharacterDatabaseEntry): string {
   return `public/assets/prototypes/characters/${definition.id}`;
 }
 
-function checklistBase(definition: CharacterDefinition): string[] {
+function checklistBase(definition: CharacterDatabaseEntry): string[] {
   return [
     `${definition.name}の持ち物・光・シルエットが他キャラと被っていない`,
     '390x844のスマホ画面で読める',
@@ -125,7 +125,7 @@ function checklistBase(definition: CharacterDefinition): string[] {
 }
 
 function makePrompt(
-  definition: CharacterDefinition,
+  definition: CharacterDatabaseEntry,
   kind: CharacterAssetPromptKind,
   title: string,
   outputPathHint: string,
@@ -146,7 +146,7 @@ function makePrompt(
   };
 }
 
-function buildSpriteSheetPrompt(definition: CharacterDefinition): CharacterAssetPrompt {
+function buildSpriteSheetPrompt(definition: CharacterDatabaseEntry): CharacterAssetPrompt {
   return makePrompt(
     definition,
     'sprite_sheet_180',
@@ -168,7 +168,7 @@ function buildSpriteSheetPrompt(definition: CharacterDefinition): CharacterAsset
   );
 }
 
-function buildReferencePrompt(definition: CharacterDefinition): CharacterAssetPrompt {
+function buildReferencePrompt(definition: CharacterDatabaseEntry): CharacterAssetPrompt {
   return makePrompt(
     definition,
     'character_reference',
@@ -190,7 +190,7 @@ function buildReferencePrompt(definition: CharacterDefinition): CharacterAssetPr
   );
 }
 
-function buildNormalCutinPrompt(definition: CharacterDefinition): CharacterAssetPrompt {
+function buildNormalCutinPrompt(definition: CharacterDatabaseEntry): CharacterAssetPrompt {
   return makePrompt(
     definition,
     'normal_cutin',
@@ -212,7 +212,7 @@ function buildNormalCutinPrompt(definition: CharacterDefinition): CharacterAsset
   );
 }
 
-function buildDawnCutinPrompt(definition: CharacterDefinition): CharacterAssetPrompt {
+function buildDawnCutinPrompt(definition: CharacterDatabaseEntry): CharacterAssetPrompt {
   return makePrompt(
     definition,
     'dawn_cutin',
@@ -234,7 +234,7 @@ function buildDawnCutinPrompt(definition: CharacterDefinition): CharacterAssetPr
   );
 }
 
-function buildKokuyouCutinPrompt(definition: CharacterDefinition): CharacterAssetPrompt {
+function buildKokuyouCutinPrompt(definition: CharacterDatabaseEntry): CharacterAssetPrompt {
   return makePrompt(
     definition,
     'kokuyou_cutin',
@@ -258,7 +258,7 @@ function buildKokuyouCutinPrompt(definition: CharacterDefinition): CharacterAsse
   );
 }
 
-function buildEmblemPrompt(definition: CharacterDefinition, kind: CharacterAssetPromptKind): CharacterAssetPrompt {
+function buildEmblemPrompt(definition: CharacterDatabaseEntry, kind: CharacterAssetPromptKind): CharacterAssetPrompt {
   const phase = kind.replace('emblem_', '') as 'blank' | 'normal' | 'dawn' | 'kokuyou';
   const phaseLabel = {
     blank: '無紋',
@@ -297,7 +297,7 @@ function buildEmblemPrompt(definition: CharacterDefinition, kind: CharacterAsset
   );
 }
 
-function buildCharacterAssetPromptPack(definition: CharacterDefinition): CharacterAssetPromptPack {
+function buildCharacterAssetPromptPack(definition: CharacterDatabaseEntry): CharacterAssetPromptPack {
   return {
     characterId: definition.id,
     characterName: definition.name,

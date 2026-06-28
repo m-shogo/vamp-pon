@@ -4,6 +4,10 @@ Character Database v1 は、20キャラの設計情報を実装・Unity移行・
 実装参照データは `src/game/data/characterDatabase.ts`。
 Asset Factory 用の素材別プロンプトは `src/game/data/assetFactoryCharacterPrompts.ts` と `docs/prompts/character-asset-factory-prompts.md`。
 
+Character Database は20キャラの正本データであり、runtimeのプレイアブル一覧そのものではない。
+runtimeの `src/game/data/characters.ts` は、段階反映用の軽量データとしてCore5だけを持つ。
+20キャラ全員はまだplayableではなく、seed/shadowキャラは画像・バランス・UI確認が済むまでCharacterSelectへ出さない。
+
 ## 目的
 
 Manual Issues連動と実画像テストの次に必要な土台は、キャラそのものの設計・データ化・Unity移行の正本。
@@ -35,10 +39,13 @@ Manual Issues連動と実画像テストの次に必要な土台は、キャラ�
 | `emblemCanon.ts` | A-Z灯紋、灯紋具、星座動物、グッズ展開 |
 | `assetFactoryCharacterPrompts.ts` | 各キャラx各素材種別の生成プロンプト |
 
-## CharacterDefinition shape
+## CharacterDatabaseEntry shape
+
+production/canon側の型名は `CharacterDatabaseEntry`。
+runtime側の `src/game/domain/types.ts` にある `CharacterDefinition` とは別物として扱う。
 
 ```txt
-CharacterDefinition
+CharacterDatabaseEntry
 ├─ id / no / name / status / group
 ├─ identity
 │  ├─ vessel
@@ -92,6 +99,10 @@ CharacterDefinition
 
 すべてのプロンプトは、文字焼き込み禁止、ロゴ禁止、AZコード焼き込み禁止、白フリンジ禁止を含む。
 
+character / cutin / sprite は最終的に true alpha transparency を要求する。
+emblem source だけは、細い紋章線と透明縁のQAを安定させるため、現時点では純緑 `#00FF00` chroma key source として生成し、ローカル後処理でRGBA化する前提にする。
+透明PNGへ直接寄せるかどうかは、実画像QAでフリンジや線欠けを比較してから別タスクで判断する。
+
 ## Unity Handoff
 
 `unityHandoff` はまだUnity実装そのものではない。
@@ -112,6 +123,16 @@ Unityへ移行するときに、どのキャラをどのPrefab/Addressable/選�
 | `core5_character_select_candidate` | Core5。sprite wiring / balance / UI確認後にキャラ選択候補へ進める。 |
 | `seed_data_only` | Season/Future seed。設計データとして保持し、P1の選択画面には出さない。 |
 | `shadow_data_only` | Shadow5。黒耀化・後半・高難度導線まで温存。 |
+
+## Runtime promotion rule
+
+- `characterDatabase.ts` は正本データ。
+- `characters.ts` は現runtimeへ出す軽量データ。
+- Core5だけを段階的にruntimeへ出す。
+- 20キャラ全員を一括playable化しない。
+- Unity Handoff はUnity実装ではなく、移行時のID・Addressable・選択可否のメモ。
+- Asset Factory prompt は生成補助であり、生成画像は Asset Factory QA を通してから candidate / approved に進める。
+- runtime assetへの移動は approved 後の別タスクで行う。
 
 ## Integrity tests
 

@@ -7,7 +7,8 @@ import { buildArchetypes } from '../../data/buildArchetypes';
 import { ENEMY_PATTERNS } from '../../data/enemyPatterns';
 import { stageRecipes, waves } from '../../data/waves';
 import { evolutions } from '../../data/evolutions';
-import { characters } from '../../data/characters';
+import { characters, characterById, DEFAULT_CHARACTER_ID } from '../../data/characters';
+import { core5CharacterDefinitions, playableCharacterDefinitions, seedCharacterDefinitions } from '../../data/characterDatabase';
 import { enemyConsistencyError } from '../enemyRules';
 
 const PASSIVE_STATS = new Set(['magnetMultiplier', 'mightMultiplier', 'xpMultiplier', 'moveSpeedMultiplier', 'cooldownMultiplier']);
@@ -263,7 +264,53 @@ describe('evolutions データ', () => {
 });
 
 describe('characters データ', () => {
-  it('initialWeaponId が実在する', () => {
-    for (const c of characters) expect(weaponById.has(c.initialWeaponId)).toBe(true);
+  it('runtime character ids are unique and DEFAULT_CHARACTER_ID exists', () => {
+    const ids = characters.map((character) => character.id);
+
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(DEFAULT_CHARACTER_ID).toBe('yui');
+    expect(characterById.has(DEFAULT_CHARACTER_ID)).toBe(true);
+    for (const character of characters) {
+      expect(characterById.get(character.id)).toBe(character);
+    }
+  });
+
+  it('initialWeaponId が実在し、ゲーム開始時に使える武器を指す', () => {
+    for (const c of characters) {
+      const weapon = weaponById.get(c.initialWeaponId);
+
+      expect(c.initialWeaponId).toBeTruthy();
+      expect(weapon, c.id).toBeTruthy();
+      expect(weapon?.category).toBe('weapon');
+      expect(weapon?.levels.length, c.id).toBeGreaterThan(0);
+      expect(weapon?.levels[0]?.level, c.id).toBe(1);
+    }
+  });
+
+  it('runtime characters は Core5 のみで、Character Database のCore5と一致する', () => {
+    const runtimeIds = new Set(characters.map((character) => character.id));
+    const core5Ids = new Set(core5CharacterDefinitions.map((definition) => definition.id));
+
+    expect(characters).toHaveLength(5);
+    expect(playableCharacterDefinitions).toHaveLength(5);
+    expect(runtimeIds).toEqual(core5Ids);
+    for (const seed of seedCharacterDefinitions) {
+      expect(runtimeIds.has(seed.id), seed.id).toBe(false);
+    }
+  });
+
+  it('runtime character ultimate と baseStats が空でない', () => {
+    for (const c of characters) {
+      expect(c.ultimate.id, c.id).toBeTruthy();
+      expect(c.ultimate.name, c.id).toBeTruthy();
+      expect(c.ultimate.trigger, c.id).toBe('manual');
+      expect(c.ultimate.effect.type, c.id).toBe('pull_and_convert');
+      expect(c.baseStats.hp, c.id).toBeGreaterThan(0);
+      expect(c.baseStats.moveSpeed, c.id).toBeGreaterThan(0);
+      expect(c.baseStats.might, c.id).toBeGreaterThan(0);
+      expect(c.baseStats.cooldownMultiplier, c.id).toBeGreaterThan(0);
+      expect(c.baseStats.magnetMultiplier, c.id).toBeGreaterThan(0);
+      expect(c.baseStats.xpMultiplier, c.id).toBeGreaterThan(0);
+    }
   });
 });
