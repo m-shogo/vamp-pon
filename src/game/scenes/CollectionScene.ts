@@ -32,6 +32,7 @@ import {
   drawInkDivider,
   drawInkVignette,
   drawLargeNotebookPage,
+  drawPremiumPaperCard,
   drawPrimaryPaperCta,
   drawSecondaryPaperButton,
   drawStarMapBackdrop,
@@ -100,17 +101,7 @@ export class CollectionScene extends Phaser.Scene {
 
     this.renderActiveSection(root, progress, completed, revealed, hinted, newlyCompleted);
 
-    const progressDiv = this.add.graphics();
-    drawInkDivider(progressDiv, GAME_WIDTH / 2, 706, 300, { color: STORYBOOK_UI.paperDark, alpha: 0.15 });
-    root.add(progressDiv);
-    root.add(this.text(
-      GAME_WIDTH / 2,
-      720,
-      `星図 ${completed.size}/${forgottenStreetNightBoard.cells.length}　カゲモノ ${progress.seenEnemyIds.length}種　忘れ物 ${lostItemRecords.length}枚　言葉 ${collectionWordRecordLines.length}`,
-      10,
-      STORYBOOK_UI.warmAmber,
-      true,
-    ));
+    this.renderCollectionProgressFooter(root, progress, completed.size);
     root.add(this.secondaryNavButton(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 44, 148, 40, 'TOPへ', () => this.scene.start('TopScene')));
     root.add(this.paperCtaButton(GAME_WIDTH / 2 + 86, GAME_HEIGHT - 44, 148, 40, '夜へ', () => this.scene.start('StageSelectScene', { mode: 'stage' })));
   }
@@ -139,12 +130,16 @@ export class CollectionScene extends Phaser.Scene {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
     if (isActive) {
-      fill.fillStyle(STORYBOOK_UI.paperBeige, 0.95).fillRect(-width / 2, -height / 2, width, height);
-      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.7).strokeRect(-width / 2, -height / 2, width, height);
-      fill.lineStyle(1, section.accent, 0.5).strokeRect(-width / 2 + 2, -height / 2 + 2, width - 4, height - 4);
+      fill.fillStyle(STORYBOOK_UI.inkBlack, 0.28).fillRect(-width / 2 + 2, -height / 2 + 3, width, height);
+      fill.fillStyle(STORYBOOK_UI.paperBeige, 0.96).fillRect(-width / 2, -height / 2, width, height);
+      fill.fillStyle(section.accent, 0.18).fillRect(-width / 2, -height / 2, width, 5);
+      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.72).strokeRect(-width / 2, -height / 2, width, height);
+      fill.lineStyle(1, section.accent, 0.5).strokeRect(-width / 2 + 3, -height / 2 + 4, width - 6, height - 8);
     } else {
-      fill.fillStyle(STORYBOOK_UI.deepNight, 0.85).fillRect(-width / 2, -height / 2, width, height);
-      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.35).strokeRect(-width / 2, -height / 2, width, height);
+      fill.fillStyle(STORYBOOK_UI.inkBlack, 0.22).fillRect(-width / 2 + 1, -height / 2 + 2, width, height);
+      fill.fillStyle(STORYBOOK_UI.deepNight, 0.88).fillRect(-width / 2, -height / 2, width, height);
+      fill.fillStyle(section.accent, 0.08).fillRect(-width / 2, -height / 2, width, 4);
+      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.38).strokeRect(-width / 2, -height / 2, width, height);
     }
     const label = this.text(0, 0, section.shortLabel, 10, isActive ? STORYBOOK_UI.textDark : STORYBOOK_UI.textMuted, true);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
@@ -228,35 +223,36 @@ export class CollectionScene extends Phaser.Scene {
     root.add(this.text(GAME_WIDTH / 2, 208, '拾われる前から、夜に残っていた小さな持ち物たち。', 10, STORYBOOK_UI.paperDark));
 
     lostItemRecords.forEach((record, index) => {
-      const x = GAME_WIDTH / 2 - 110 + (index % 3) * 110;
-      const y = 276 + Math.floor(index / 3) * 68;
+      const x = GAME_WIDTH / 2 - 80 + (index % 2) * 160;
+      const y = 266 + Math.floor(index / 2) * 58;
       root.add(this.lostItemMiniCard(x, y, record));
     });
 
     const selected = lostItemRecords.find((record) => record.id === this.selectedLostItemRecordId) ?? lostItemRecords[0];
-    root.add(this.lostItemDetailPanel(GAME_WIDTH / 2, 492, selected));
+    root.add(this.lostItemDetailPanel(GAME_WIDTH / 2, 512, selected));
   }
 
   private lostItemMiniCard(x: number, y: number, record: LostItemRecord): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const selected = record.id === this.selectedLostItemRecordId;
-    const fill = this.add.rectangle(0, 0, 96, 54, selected ? record.accent : 0x26213f, selected ? 0.95 : 0.86);
-    fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : record.accent, selected ? 0.95 : 0.75);
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, 136, 48, { accent: record.accent, selected, muted: !selected });
+    this.drawPaperClip(fill, 46, -19, selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, selected ? 0.8 : 0.48);
 
     const motif = this.add.graphics();
-    this.drawLostItemMotif(motif, -32, -8, record, selected);
+    this.drawLostItemMotif(motif, -48, -2, record, selected);
 
-    const label = this.add.text(-12, -20, shortLostItemLabel(record.nameJa), {
+    const label = this.add.text(-18, -15, shortLostItemLabel(record.nameJa), {
       fontFamily: STORYBOOK_FONT,
       fontSize: '10px',
       color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textLight),
       fontStyle: 'bold',
       resolution: 2,
-      wordWrap: { width: 68 },
+      wordWrap: { width: 70 },
       align: 'center',
     }).setOrigin(0.5, 0);
 
-    const type = this.add.text(-12, 10, lostItemTypeLabel(record.itemType), {
+    const type = this.add.text(-18, 9, lostItemTypeLabel(record.itemType), {
       fontFamily: STORYBOOK_FONT,
       fontSize: '8px',
       color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textMuted),
@@ -264,7 +260,7 @@ export class CollectionScene extends Phaser.Scene {
       align: 'center',
     }).setOrigin(0.5, 0);
 
-    const hit = this.add.rectangle(0, 0, 96, 54, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    const hit = this.add.rectangle(0, 0, 136, 48, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => {
       this.selectedLostItemRecordId = record.id;
       this.render();
@@ -353,8 +349,9 @@ export class CollectionScene extends Phaser.Scene {
   private keeperMiniCard(x: number, y: number, record: KeeperRecord): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const selected = record.id === this.selectedKeeperRecordId;
-    const fill = this.add.rectangle(0, 0, 58, 70, selected ? record.accent : 0x203144, selected ? 0.95 : 0.9);
-    fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : record.accent, 0.9);
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, 58, 70, { accent: record.accent, selected, muted: !selected });
+    this.drawPaperClip(fill, 18, -31, selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, selected ? 0.75 : 0.42);
 
     const icon = this.add.graphics();
     icon.lineStyle(2, selected ? GRAPHICS_TEXT_DARK : record.accent, 0.86);
@@ -454,30 +451,31 @@ export class CollectionScene extends Phaser.Scene {
       return;
     }
     visibleLines.forEach((line, index) => {
-      const x = GAME_WIDTH / 2 - 110 + (index % 3) * 110;
-      const y = 266 + Math.floor(index / 3) * 54;
+      const x = GAME_WIDTH / 2 - 80 + (index % 2) * 160;
+      const y = 262 + Math.floor(index / 2) * 50;
       root.add(this.wordMiniCard(x, y, line));
     });
 
     const selected = collectionWordRecordLines.find((line) => line.id === this.selectedKnowledgeLineId) ?? collectionWordRecordLines[0];
     const reply = launchCoreCharacterKnowledgeReplies.find((candidate) => candidate.knowledgeLineId === selected.id);
-    root.add(this.wordDetailPanel(GAME_WIDTH / 2, 472, selected, reply));
+    root.add(this.wordDetailPanel(GAME_WIDTH / 2, 500, selected, reply));
   }
 
   private wordMiniCard(x: number, y: number, line: KnowledgeLine): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const selected = line.id === this.selectedKnowledgeLineId;
     const accent = knowledgeAccent(line.category);
-    const fill = this.add.rectangle(0, 0, 98, 42, selected ? accent : 0x26213f, selected ? 0.94 : 0.84);
-    fill.setStrokeStyle(selected ? 2 : 1, selected ? STORYBOOK_UI.goldLight : accent, selected ? 0.95 : 0.72);
-    const label = this.add.text(0, -14, shortKnowledgeLabel(line.originalText), {
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, 136, 42, { accent, selected, muted: !selected });
+    this.drawPaperClip(fill, 46, -16, selected ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, selected ? 0.72 : 0.42);
+    const label = this.add.text(0, -13, shortKnowledgeLabel(line.originalText), {
       fontFamily: STORYBOOK_FONT,
       fontSize: '10px',
       color: selected ? colorString(STORYBOOK_UI.textDark) : colorString(STORYBOOK_UI.textLight),
       fontStyle: 'bold',
       resolution: 2,
       align: 'center',
-      wordWrap: { width: 86 },
+      wordWrap: { width: 104 },
     }).setOrigin(0.5, 0);
     const source = this.add.text(0, 9, knowledgeCategoryLabel(line.category), {
       fontFamily: STORYBOOK_FONT,
@@ -486,7 +484,7 @@ export class CollectionScene extends Phaser.Scene {
       resolution: 2,
       align: 'center',
     }).setOrigin(0.5, 0);
-    const hit = this.add.rectangle(0, 0, 98, 42, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    const hit = this.add.rectangle(0, 0, 136, 42, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => {
       this.selectedKnowledgeLineId = line.id;
       this.render();
@@ -667,10 +665,13 @@ export class CollectionScene extends Phaser.Scene {
     const c = this.add.container(x, y);
     const w = 310;
     const h = 82;
-    const fillColor = achieved ? 0x3a3256 : 0x22203a;
-    const strokeColor = achieved ? 0xf5d58a : 0x4a456a;
-    const bg = this.add.rectangle(0, 0, w, h, fillColor, 0.92);
-    bg.setStrokeStyle(achieved ? 2 : 1, strokeColor, 0.9);
+    const bg = this.add.graphics();
+    drawPremiumPaperCard(bg, 0, 0, w, h, {
+      accent: achieved ? STORYBOOK_UI.goldLight : 0x6f6590,
+      selected: achieved,
+      muted: !achieved,
+    });
+    this.drawPaperClip(bg, w / 2 - 34, -h / 2 + 8, achieved ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, achieved ? 0.7 : 0.36);
     c.add(bg);
 
     const mark = achieved ? '◆' : '◇';
@@ -711,6 +712,42 @@ export class CollectionScene extends Phaser.Scene {
     }
 
     return c;
+  }
+
+  private renderCollectionProgressFooter(
+    root: Phaser.GameObjects.Container,
+    progress: CollectionProgressSaveData,
+    completedCount: number,
+  ): void {
+    const total = forgottenStreetNightBoard.cells.length;
+    const ratio = total > 0 ? completedCount / total : 0;
+    const panel = this.add.graphics();
+    drawLargeNotebookPage(panel, GAME_WIDTH / 2, 708, 326, 56, { accent: STORYBOOK_UI.warmAmber, alpha: 0.9 });
+    panel.fillStyle(STORYBOOK_UI.paperDark, 0.22).fillRect(92, 710, 206, 7);
+    panel.fillStyle(STORYBOOK_UI.mutedTeal, 0.82).fillRect(92, 710, Math.round(206 * ratio), 7);
+    panel.lineStyle(1, STORYBOOK_UI.paperDark, 0.32).strokeRect(92, 710, 206, 7);
+    root.add(panel);
+
+    root.add(this.text(GAME_WIDTH / 2, 696, `星図 ${completedCount}/${total}`, 11, STORYBOOK_UI.textDark, true));
+    root.add(this.text(
+      GAME_WIDTH / 2,
+      726,
+      `影 ${progress.seenEnemyIds.length}種　絵札 ${lostItemRecords.length}枚　言葉 ${collectionWordRecordLines.length}`,
+      9,
+      STORYBOOK_UI.textSoft,
+      true,
+    ));
+  }
+
+  private drawPaperClip(g: Phaser.GameObjects.Graphics, x: number, y: number, color: number, alpha = 0.55): void {
+    g.lineStyle(2, color, alpha);
+    g.lineBetween(x - 5, y + 10, x - 5, y - 10);
+    g.lineBetween(x - 5, y - 10, x + 7, y - 10);
+    g.lineBetween(x + 7, y - 10, x + 7, y + 13);
+    g.lineBetween(x + 7, y + 13, x - 1, y + 13);
+    g.lineBetween(x - 1, y + 13, x - 1, y - 6);
+    g.lineBetween(x - 1, y - 6, x + 4, y - 6);
+    g.lineBetween(x + 4, y - 6, x + 4, y + 9);
   }
 
   private addSoftAtlasGlow(root: Phaser.GameObjects.Container): void {
@@ -812,8 +849,9 @@ export class CollectionScene extends Phaser.Scene {
 
   private enemyRecordCard(x: number, y: number, name: string, count: number): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
-    const fill = this.add.rectangle(0, 0, 136, 52, 0x26213f, 0.88);
-    fill.setStrokeStyle(1, 0x9c74c5, 0.8);
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, 138, 54, { accent: 0x9c74c5, muted: true });
+    this.drawPaperClip(fill, 48, -22, STORYBOOK_UI.paperEdge, 0.42);
     const mark = this.add.graphics();
     mark.fillStyle(0x9c74c5, 0.42);
     mark.fillCircle(-48, -1, 14);
