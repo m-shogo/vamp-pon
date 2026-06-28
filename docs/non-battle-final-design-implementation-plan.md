@@ -25,6 +25,18 @@ Battle gameplay、Battle HUD、敵、XP、武器、スポーン、候補生成�
 - 注意: 画面へ1枚絵として貼らない。AI画像内に文字を持たせず、文字はゲーム側Textで描画する。
 - 実装では基本的に Phaser Graphics と既存UI helperを優先し、必要な場合だけ部品抽出候補として扱う。
 
+### 2026-06-28 pro polish 追加参照
+
+- `docs/design-targets/generated/result-pro-layout-helper-390x844.png`
+  - 用途: Resultの記憶ページ、封蝋ランク、Rewardsカード行、New Records行、下部CTA階層の実装参照。
+  - 注意: runtimeへ直接貼らない。文字はゲーム側Textで描画し、画像内の空バーは余白/階層の参考に留める。
+- `docs/design-targets/generated/collection-pro-layout-helper-390x844.png`
+  - 用途: Collectionの紙index、2列カード、クリップ、進捗バー、下部ナビ、ランタン/コンパス装飾の実装参照。
+  - 注意: runtimeへ直接貼らない。既存データ構造を保ったままPhaser Graphicsで分解して寄せる。
+- `docs/design-targets/generated/non-battle-final-polish-ui-kit-2026-06-28.png`
+  - 用途: Result / Collection / 黒曜化CTA周辺で使う紙部品、ランタン、封蝋、黒インク、キャッチ帯の参照。
+  - 注意: runtimeへ直接貼らない。ランタンは形が崩れない部品参考として扱い、必殺/黒曜化のキャッチはゲーム側Textで描画する。
+
 ## 採用要素
 
 - 紙札タイトルバナー、ノートページ、紙カード、紙タグ。
