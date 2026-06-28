@@ -101,6 +101,12 @@ describe('rareItems データ', () => {
       expect(evo.consumedRareItemIds ?? []).not.toContain('dawn_ticket');
     }
   });
+
+  it('rare item の ticket tag は復帰レア用途だけで使う', () => {
+    for (const item of rareItems.filter((rare) => rare.tags.includes('ticket'))) {
+      expect(item.role).toBe('survival_revival');
+    }
+  });
 });
 
 describe('buildArchetypes データ', () => {

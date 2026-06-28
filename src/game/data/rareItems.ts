@@ -33,7 +33,7 @@ export const rareItems: RareItemDefinition[] = [
     name: '風のしるし',
     category: 'rare_item',
     role: 'awakening_material',
-    tags: ['awakening', 'wind', 'ticket'],
+    tags: ['awakening', 'wind', 'mark'],
     description: '紙ひこうきLv5を覚醒させ、夜を巡る武器に変える。',
     lore: '折り目のすきまに、まだ飛べる風が残っている。',
   },

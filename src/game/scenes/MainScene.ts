@@ -50,6 +50,7 @@ declare global {
       capsulesOpened: number;
       damageTaken: number;
       rareItems: string[];
+      pendingChoices: Array<{ type: string; itemId?: string; title: string }>;
       invulnRemaining: number;
       berserkActiveRemaining: number;
       berserkFatigueRemaining: number;
@@ -284,6 +285,11 @@ export class MainScene extends Phaser.Scene {
       capsulesOpened: this.state.stats.capsulesOpened,
       damageTaken: this.state.stats.damageTaken,
       rareItems: this.state.inventory.rareItems.map((item) => item.id),
+      pendingChoices: this.state.pendingChoices.map((choice) => ({
+        type: choice.type,
+        itemId: 'itemId' in choice ? choice.itemId : undefined,
+        title: choice.title,
+      })),
       invulnRemaining: this.state.player.invulnRemaining,
       berserkActiveRemaining: this.state.berserk.activeRemaining,
       berserkFatigueRemaining: this.state.berserk.fatigueRemaining,
