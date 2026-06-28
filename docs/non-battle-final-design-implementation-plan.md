@@ -109,3 +109,45 @@ Battle gameplay、Battle HUD、敵、XP、武器、スポーン、候補生成�
 - 共通UI helperを追加した場合は単独commit。
 - 画面ごとに小さくcommit/push。
 - build/test/checkが壊れた場合は次画面へ進まない。
+
+---
+
+## 2026-06-28 pro polish 実施結果
+
+### 完了した画面
+
+- TOP: 既存final寄せ状態を維持。今回の追加変更なし。
+- Stage Select: 既存final寄せ状態を維持。今回の追加変更なし。
+- Result Clear / Fail:
+  - 大きな記憶ページ、封蝋ランク、4つの記録チップ、Rewards 3カード、New Records 3行、下部CTA階層へ整理。
+  - 報酬計算、黒曜片計算、保存処理は変更していない。
+  - 夜明け盤通知はResult本文を邪魔しない上端小タグへ圧縮。
+- Collection:
+  - 紙index 6タブ、2列のクリップ付きカード、紙の進捗バー、下部ナビを強めた。
+  - 既存データ構造、カテゴリ、解放条件は変更していない。
+- Level Up: 既存final寄せ状態を維持。今回の追加変更なし。
+- 黒曜化 / 通常必殺Cutin:
+  - 黒曜化の斜め構図、黒インクslash、暖色ランタンライン、CTAを維持。
+  - 通常必殺のキャッチを「忘れた名を、灯りへ戻す」に調整。
+
+### 生成した参照画像
+
+- `docs/design-targets/generated/result-pro-layout-helper-390x844.png`
+- `docs/design-targets/generated/collection-pro-layout-helper-390x844.png`
+- `docs/design-targets/generated/non-battle-final-polish-ui-kit-2026-06-28.png`
+
+これらは実装参照のみ。runtimeへ直接貼らない。
+
+### まだ弱い画面
+
+- Battle HUD / Battle gameplay: 今回対象外。Unity版で再設計する。
+- TOP / Stage Select: 既にWeb最終見本として十分だが、Unity版ではボタン階層とSafe Areaを再設計する。
+- Level Up: Webでは読める状態。Unity版ではカード本文とOwned rowをuGUI/TextMeshProで再調整する。
+- Collection: Webでは最終見本として成立。Unity版では一覧トップ型と詳細ページ型のどちらを主導線にするか再判断する。
+
+### Unity移行前に止めるライン
+
+- Webの非Battle画面は、Unity移行前の見本としてここで止める。
+- 追加のWeb演出、Battle HUD改修、キャラ素材の大規模作り直しは行わない。
+- ユイのランタン位置や必殺Cutin素材は、Unity移行後にキャラmaster / sprite sheetを参照して再評価する。
+- `public/assets/sprites/` はretiredのまま使わない。
