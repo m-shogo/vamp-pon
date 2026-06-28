@@ -332,6 +332,7 @@ export class EffectManager {
     this.screenFlashSoft(0xffffff, 0.32, 180);
     this.screenFlashSoft(0xffe6a8, 0.14, 320);
     this.radialGlow(x, y, options?.label ?? 'Lv Up', COLORS.fragmentGlow, 36, 560);
+    this.levelUpArrival(x, y);
     this.ring(x, y, 22, 0xfff0b0, 3, 3.2, 580);
     this.levelNumberPop(options?.label ?? 'Lv Up');
     if (this.canEmit(16)) {
@@ -633,6 +634,16 @@ export class EffectManager {
     ring.setStrokeStyle(width, color, 0.72);
     ring.setBlendMode(Phaser.BlendModes.ADD);
     this.scene.tweens.add({ targets: ring, scale, alpha: 0, duration, ease: 'Cubic.easeOut', onComplete: () => ring.destroy() });
+  }
+
+  private levelUpArrival(x: number, y: number): void {
+    this.glowPop(x, y + 8, 18, 0xfff1b8, 0.2, 380);
+    this.ring(x, y + 8, 13, 0xfff7df, 2, 2.45, 430);
+    this.ring(x, y + 8, 7, COLORS.fragmentGlow, 2, 3.1, 360);
+    if (loadGameFeelSettings().lowSpecMode || !this.canEmit(6)) return;
+    for (let i = 0; i < 6; i += 1) {
+      this.particle(x, y + 6, i % 2 === 0 ? 0xfff7df : COLORS.fragmentGlow, 1.8, 360, -Math.PI / 2 + (Math.random() - 0.5) * 1.1, 18 + Math.random() * 18);
+    }
   }
 
   private paperScrap(x: number, y: number, elite: boolean): void {
