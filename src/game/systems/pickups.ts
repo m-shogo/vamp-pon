@@ -14,11 +14,21 @@ import { getEffectManager } from '../effects/EffectManager';
 const CAPSULE_RADIUS = 14;
 const CLOSE_MAGNET_RANGE_RATIO = 0.55;
 const CLOSE_MAGNET_SPEED_MULTIPLIER = 1.18;
+const XP_DENSE_PICKUP_COUNT = 70;
+const XP_VERY_DENSE_PICKUP_COUNT = 120;
+const XP_BASE_SCALE = 0.72;
+const XP_ATTRACTING_SCALE = 0.76;
+const XP_FAR_DENSE_SCALE = 0.66;
+const XP_FAR_VERY_DENSE_SCALE = 0.62;
+const XP_FAR_DENSE_ALPHA = 0.76;
+const XP_FAR_VERY_DENSE_ALPHA = 0.64;
+const XP_VISIBILITY_SCALE_DELAY_MS = 130;
 
 export function spawnFragment(scene: Phaser.Scene, state: RuntimeState, x: number, y: number, xp: number): void {
   const view = createPickupView(scene);
   view.setPosition(x, y);
-  view.setScale(0.72);
+  view.setScale(XP_BASE_SCALE);
+  view.setData('xpSpawnedAtMs', scene.time.now);
   scene.tweens.add({
     targets: view,
     y: y - 8,
@@ -75,6 +85,7 @@ export function spawnCapsule(scene: Phaser.Scene, state: RuntimeState, x: number
 export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: number): void {
   const p = state.player;
   const magnetRange = PICKUP.magnetRange * p.magnetMultiplier;
+  const activeXpPickups = state.pickups.filter((pickup) => !pickup.dead && pickup.kind === 'fragment').length;
 
   for (const pickup of state.pickups) {
     if (pickup.dead) continue;
@@ -113,6 +124,7 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
       pickup.y += dir.y * PICKUP.magnetSpeed * speedMultiplier * dt;
       pickup.view.setPosition(pickup.x, pickup.y);
     }
+    updateXpPickupVisibility(scene, pickup, d, magnetRange, activeXpPickups);
   }
   state.pickups = state.pickups.filter((f) => !f.dead);
 
@@ -131,4 +143,35 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
     }
   }
   state.capsules = state.capsules.filter((c) => !c.dead);
+}
+
+function updateXpPickupVisibility(
+  scene: Phaser.Scene,
+  pickup: PickupRuntime,
+  distanceToPlayer: number,
+  magnetRange: number,
+  activeXpPickups: number,
+): void {
+  if (pickup.kind !== 'fragment') return;
+
+  const far = !pickup.magnetized && distanceToPlayer > magnetRange;
+  const veryDense = activeXpPickups >= XP_VERY_DENSE_PICKUP_COUNT;
+  const dense = activeXpPickups >= XP_DENSE_PICKUP_COUNT;
+
+  const spawnedAtMs = pickup.view.getData('xpSpawnedAtMs') as number | undefined;
+  const canAdjustScale = spawnedAtMs == null || scene.time.now - spawnedAtMs >= XP_VISIBILITY_SCALE_DELAY_MS;
+
+  if (far && veryDense) {
+    pickup.view.setAlpha(XP_FAR_VERY_DENSE_ALPHA);
+    if (canAdjustScale) pickup.view.setScale(XP_FAR_VERY_DENSE_SCALE);
+    return;
+  }
+  if (far && dense) {
+    pickup.view.setAlpha(XP_FAR_DENSE_ALPHA);
+    if (canAdjustScale) pickup.view.setScale(XP_FAR_DENSE_SCALE);
+    return;
+  }
+
+  pickup.view.setAlpha(1);
+  if (canAdjustScale) pickup.view.setScale(pickup.magnetized ? XP_ATTRACTING_SCALE : XP_BASE_SCALE);
 }
