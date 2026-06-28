@@ -115,7 +115,7 @@ export function createStorybookChoiceCard(
 
   const title = choice.title.replace(/^✦ /, '').replace(/^入替: /, '');
   const badge = `${palette.label} / ${effectTag(choice)}`;
-  addRarityTab(scene, card, width, height, choice.rarity ?? 'normal', accent);
+  addRarityTab(scene, card, width, height, choice.rarity ?? 'normal', accent, height < width ? 'horizontal' : 'vertical');
   if (height < width) {
     addHorizontalContent(scene, card, width, height, choice, title, badge, accent);
   } else {
@@ -150,21 +150,22 @@ function addRarityTab(
   height: number,
   rarity: RewardRarity,
   accent: number,
+  layout: 'horizontal' | 'vertical',
 ): void {
   const label = rarity === 'rare' ? 'Rare' : rarity === 'good' ? 'Good' : 'Normal';
   const tabColor = rarity === 'rare' ? STORYBOOK_UI.dustyRose : rarity === 'good' ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.mutedTeal;
   const tabBg = scene.add.graphics();
-  const tabW = Math.min(width - 16, 58);
-  const tabH = 22;
-  const tabX = 0;
-  const tabY = -height / 2 + 2;
+  const tabW = Math.min(width - 16, layout === 'horizontal' ? 50 : 58);
+  const tabH = layout === 'horizontal' ? 18 : 22;
+  const tabX = layout === 'horizontal' ? -width / 2 + 54 : 0;
+  const tabY = -height / 2 + (layout === 'horizontal' ? 8 : 2);
   tabBg.fillStyle(STORYBOOK_UI.inkBlack, 0.2).fillRect(tabX - tabW / 2 + 1, tabY + 1, tabW, tabH);
   tabBg.fillStyle(tabColor, 0.92).fillRect(tabX - tabW / 2, tabY, tabW, tabH);
   tabBg.lineStyle(1, STORYBOOK_UI.paperEdge, 0.5).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
   card.add(tabBg);
   const tab = scene.add.text(tabX, tabY + tabH / 2, label, {
     fontFamily: STORYBOOK_FONT,
-    fontSize: '10px',
+    fontSize: layout === 'horizontal' ? '9px' : '10px',
     color: '#fff8e7',
     fontStyle: 'bold',
     resolution: 2,
