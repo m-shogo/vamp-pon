@@ -28,6 +28,7 @@ Character Database v1 は20キャラの正本データ、`src/game/data/characte
 ## Known Risks
 
 - レア無し合体: 現在の `fusion` は `black_ink_bottle` + `streetlamp_ring` の武器同士合体で、rare item は要求しない。これは仕様上許容しているが、UI文言では覚醒レアと混同しないこと。
+- `black_ink_bottle` 実素材: test-pack内の `weapon-black-ink-bottle-icon-v1-clean-1024-rgba.png` はcandidate候補。トモリ初期武器かつ `streetlamp_ring` とのfusion素材だが、approved前にruntime参照中prototypeへ差し替えない。
 - 合体後素材武器再出現: `retiredWeaponIds()` と `consumedWeaponIds` により、素材武器は新規抽選へ戻らない前提。既存テストで退役扱いを確認している。
 - rare slot 2枠: 覚醒素材レアと `dawn_ticket` の復帰レアが同じrare枠を使う。通常抽選に復帰レアを出す前に出現重みと再取得可否を別タスクで決める。
 - 初期武器がキャラごとに違う時の抽選バランス: Core5は初期武器が異なるため、序盤候補の偏りや進化到達速度が変わる。P1では大きなバランス変更をせず、smokeと整合性確認を優先する。

@@ -95,7 +95,8 @@ Asset Factory で実画像制作フローを1周だけ検証するための最�
 |---|---|---|
 | Enemy | `public/assets/prototypes/sprite-sheets/enemies-original/enemy-48-right-1440x1080-rgba.png` / `enemy-48-left-1440x1080-rgba.png` | 1440x1080 RGBA。特定ID別ではないため、`ombu-small`/`ombu-umbrella-shield`の採用候補ではなく検査候補。 |
 | Weapon `night-pencil` | `public/assets/prototypes/sprite-sheets/weapon/night_pencil.png` | 180x180 RGBA。既存プロトタイプ候補。Asset Factoryの現行アイコン期待は1024x1024なので、本採用にはmaster再生成または手順の明確化が必要。 |
-| Weapon `black-ink-bottle` | `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` | 180x180 RGBA。既存プロトタイプ候補。1024x1024 masterではない。 |
+| Weapon `black-ink-bottle` | `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` | 180x180 RGBA。現runtime参照中の既存プロトタイプ。今回のcandidate評価では差し替えない。 |
+| Weapon `black-ink-bottle` | `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-1024-rgba.png` | 1024x1024 RGBA。test-pack内の実画像candidate候補。64px/32px縮小とdisplay-reviewあり。approved後の別タスクまでruntime昇格しない。 |
 | Item `dawn-ticket` | `public/assets/prototypes/sprite-sheets/passive/old_ticket.png` | 180x180 RGBA。夜明けチケットの近縁候補だが、ID/意味は未確定。 |
 | Cutin | `public/assets/prototypes/cutins/yui/yui-cutin-ultimate-normal-1440x360-rgba.png` | 1440x360 RGBA。通常カットイン候補として投入検査できる。 |
 | Cutin | `public/assets/prototypes/cutins/yui/yui-cutin-ultimate-black-v2-1440x360-rgba.png` | 1440x360 RGBA。黒曜カットイン候補として投入検査できる。 |
@@ -133,4 +134,3 @@ Asset Factory で実画像制作フローを1周だけ検証するための最�
 - `item-dawn-ticket.md`
 - `cutin-yui-normal.md`
 - `background-stage1-forgotten-street.md`
-

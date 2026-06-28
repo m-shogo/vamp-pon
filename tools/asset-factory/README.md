@@ -129,6 +129,12 @@ pnpm asset-factory:build
 - 生成画像は Asset Factory QA を通して candidate / approved を判断する。approved前に `public/assets/prototypes` からruntime assetへ移動しない
 - `emblem_*` は `#00FF00` source-only。最終素材ではなく、クロマキー除去後のRGBA、64px/32px可読性、緑フリンジを確認してからcandidate/approvedに進める
 
+#### black_ink_bottle candidate運用
+- `black_ink_bottle` はトモリ初期武器で、`streetlamp_ring` との `dawn_ink_lamp_fusion` 素材
+- test-pack候補は `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-1024-rgba.png`
+- Asset Factoryでは `weapon` / `black-ink-bottle` / `candidate` として扱い、64px/32px可読性と枠・文字・フリンジなしを確認する
+- approved前に `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` へruntime昇格しない
+
 #### 再生成プロンプトビルダー (v2)
 - 検査結果から修正指示を自動生成
 - アセットタイプ別に指示を分岐:
