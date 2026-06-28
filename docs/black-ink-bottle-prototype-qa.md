@@ -1,7 +1,7 @@
 # black_ink_bottle Prototype QA
 
 `black_ink_bottle` はトモリの初期武器であり、`streetlamp_ring` と組み合わせる `dawn_ink_lamp_fusion` の素材武器。
-この文書は、既存の実画像候補をruntimeへ昇格せず、Asset Factory の candidate 登録準備として評価した記録。
+この文書は、既存の実画像候補を Asset Factory candidate として評価し、390x844最終確認後に runtime参照中prototypeへ昇格した記録。
 
 ## Runtime確認
 
@@ -11,7 +11,7 @@
 - Fusion素材: `black_ink_bottle` + `streetlamp_ring`
 - Fusion結果: `dawn_ink_lamp`
 
-今回、weapon/evolution/character の挙動は変更しない。
+weapon/evolution/character の挙動は変更しない。
 
 ## Candidate候補
 
@@ -22,10 +22,11 @@
 | 64px review | `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-64.png` |
 | 32px review | `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-32.png` |
 | baseline比較 | `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-display-review.png` |
-| 現runtime参照中prototype | `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` |
+| runtime参照中prototype | `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` |
 
-`public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` は既にruntime側から参照されるprototypeであり、今回は差し替えない。
-候補評価は test-pack の `v1-clean` 一式に限定する。
+`public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` はruntime側から参照されるprototype。
+runtime用には1024px masterを直接使わず、既存運用に合わせた180px軽量PNGを使う。
+`black_ink_bottle.png` は `weapon-black-ink-bottle-icon-v1-clean-180.png` と同一ハッシュ。
 
 ## 検査結果
 
@@ -54,43 +55,42 @@
 
 - Asset Type: `weapon`
 - Preset: `black-ink-bottle`
-- Review Status: `candidate`
+- Review Status: `approved`
 - Quality Score: `4`
 - Manual Issues: なし
 - Review Notes:
 
 ```txt
-black_ink_bottle prototype icon. 1024x1024 PNG RGBA. Transparent background. No baked rarity frame, no text, no logo. Readable at 64px and acceptable at 32px. Candidate only; do not move to runtime assets until approved.
+black_ink_bottle prototype icon. 1024x1024 PNG RGBA master retained in test-pack. Runtime-referenced prototype uses the 180px lightweight derivative. Transparent background. No baked rarity frame, no text, no logo. Readable on Level Up Card and acceptable in HUD inventory. Promoted to current runtime-referenced prototype after 390x844 final wiring check.
 ```
 
 ## 採用境界
 
-今回の `candidate` は「runtime昇格候補」であり、`approved` ではない。
-approved後の別タスクでのみ、runtime参照中の `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` 差し替えを検討する。
+今回の昇格は `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` の差し替え判断であり、正式な `public/assets` runtime asset 領域への移動ではない。
+このrepoの現状では prototypes 配下の inventory original がruntime参照元なので、「runtime参照中prototypeをcandidate由来画像へ昇格」として扱う。
 
-approved前に確認すること:
+昇格後も注意すること:
 
-- レベルアップカード/HUDで390x844確認
-- `streetlamp_ring` と並んだ時に fusion素材として役割が混ざらない
-- `dawn_ink_lamp` と似すぎない
-- 32pxで黒い塊に見えすぎない
-- 光沢が強すぎる場合は、紙/インク/小さな灯りへ寄せる再生成を検討する
+- HUD 30px相当では下半分が暗めなので、将来HUD背景を暗くする場合は再確認する。
+- 光沢と立体感はやや強い。Core5全体のアイコン方向をより紙/記憶/小さな灯りへ寄せる場合は、次世代版で再生成を検討する。
+- 1024px masterは test-pack に残し、runtime参照中prototypeは180px運用を維持する。
 
 ## 390x844 UI Visibility QA
 
 実施範囲:
 
-- runtime asset差し替えなし
-- approved化なし
+- runtime参照中prototypeは `v1-clean-180` と同一状態で確認
+- approved化は Asset Factory登録案の状態更新として扱う
 - ゲームバランス/weapon/evolution挙動変更なし
-- `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` 未変更
+- 1024px masterは test-pack に残す
 
 確認方法:
 
 - `pnpm dev --host 127.0.0.1` でVisual Galleryを390x844 viewport表示
 - `?scene=visual-gallery` の拾得物/UI、通常武器、進化・合体・覚醒ページを確認
 - `weapon-black-ink-bottle-icon-v1-clean-display-review.png` で current / candidate の 180px / 64px / 32px を比較
-- runtime差し替えなしの一時QA previewとして、candidateを390x844キャンバス上のカード/HUD相当サイズへ配置して確認
+- runtime参照中prototypeとcandidate 180pxのhash一致を確認
+- 一時QA previewとして、runtime参照中prototypeを390x844キャンバス上のカード/HUD相当サイズへ配置して確認
 
 確認したUIサイズ:
 
@@ -104,7 +104,7 @@ approved前に確認すること:
 
 ### Level Up Card
 
-判定: pass / candidate keep
+判定: pass / approved-ready
 
 - 64pxから74px相当では、瓶の輪郭、コルク、黒いインク面が明確。
 - カード背景の淡い紙色には沈まない。
@@ -118,7 +118,7 @@ approved前に確認すること:
 
 ### HUD / Inventory Slot
 
-判定: pass with caution / candidate keep
+判定: pass with caution / approved-ready
 
 - 30px相当でも、小瓶の外形とコルクは残る。
 - 黒いインク面は潰れやすいが、単なる黒丸や毒瓶には見えにくい。
@@ -128,11 +128,11 @@ approved前に確認すること:
 Manual Issues案:
 
 - 既存Manual Issuesに該当する必須問題はなし。
-- 型追加は不要。気になる点は review notes に `slightly glossy; check final HUD contrast before runtime promotion` として残す。
+- 型追加は不要。気になる点は review notes に `slightly glossy; recheck final HUD contrast if HUD background changes` として残す。
 
 ### Fusion素材としての判定
 
-判定: pass / candidate keep
+判定: pass / approved-ready
 
 - `black_ink_bottle`: 黒い瓶、コルク、インク面。
 - `streetlamp_ring`: 暖色ランプと足元の輪。
@@ -144,24 +144,50 @@ Manual Issues案:
 
 ### 暫定判断
 
-判定: candidate keep / score 4
+判定: approved / score 4
 
-runtime昇格判断: B. approved-ready寄りだが、別タスクで昇格する。
+runtime昇格判断: runtime参照中prototypeをcandidate由来画像へ昇格済み。
 
 理由:
 
 - Level Up Cardでは十分に読みやすい。
-- HUD 30px相当でも許容範囲だが、暗いslot上で下半分が沈むため、昇格前にruntimeへ一時接続した390x844確認を別タスクで行うのが安全。
+- HUD 30px相当でも許容範囲。暗いslot上で下半分は沈むが、瓶の輪郭とコルクが残る。
 - `streetlamp_ring` / `dawn_ink_lamp` との役割差は明確。
-- runtime参照中prototypeを今回差し替える理由はまだない。
+- 1024px masterをruntimeへ直接使わず、既存の180px inventory original運用に合わせたため、描画負荷・容量面でも安全。
 
-Asset Factory登録案の更新:
+Asset Factory登録案の最終状態:
 
-- Review Status: `candidate`
+- Review Status: `approved`
 - Quality Score: `4`
 - Manual Issues: なし
 - Review Notes追記:
 
 ```txt
-390x844 UI visibility QA: readable on Level Up Card at 60-74px. HUD/inventory 30px is acceptable but slightly dark in the lower ink area. Distinct from streetlamp_ring and dawn_ink_lamp. Candidate keep; do not promote to runtime until a separate runtime wiring check.
+390x844 final wiring QA: readable on Level Up Card at 60-74px. HUD/inventory 30px is acceptable, with lower ink area slightly dark but still recognizable. Distinct from streetlamp_ring and dawn_ink_lamp. Promoted to current runtime-referenced prototype as 180px lightweight PNG; 1024px master remains in test-pack.
 ```
+
+## Runtime Promotion Final Check
+
+実施結果:
+
+- `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` は `weapon-black-ink-bottle-icon-v1-clean-180.png` と同一ハッシュ。
+- 使用サイズは180x180 PNG RGBA。
+- 1024x1024 masterはruntime参照へ直接使わず、test-packに保持。
+- `INVENTORY_ORIGINAL_SOURCE_SIZE = 180` の既存運用に一致。
+- `inventory-original-icons:check` で total=28 / ok。
+
+390x844確認:
+
+- Visual Galleryの通常武器ページ: console errorなし。黒インク武器は暗背景上では控えめだが、これは武器効果サンプル表示でありinventory iconの問題ではない。
+- 進化・合体・覚醒ページ: `black_ink_bottle` + `streetlamp_ring` -> `dawn_ink_lamp` の役割表示に破綻なし。
+- Level Up Card相当: 60px/74pxで瓶、コルク、黒インク面が読める。
+- HUD / inventory slot相当: 約30pxで小瓶外形とコルクが残る。下半分は暗いが許容。
+- Replace/list icon相当: 46pxでは瓶モチーフが維持される見込み。
+
+最終判断:
+
+- Runtime promotion: done
+- Scope: runtime参照中prototypeの昇格。正式runtime asset領域への移動ではない。
+- Review Status: approved
+- Quality Score: 4
+- Manual Issues: なし

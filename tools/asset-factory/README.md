@@ -131,9 +131,10 @@ pnpm asset-factory:build
 
 #### black_ink_bottle candidate運用
 - `black_ink_bottle` はトモリ初期武器で、`streetlamp_ring` との `dawn_ink_lamp_fusion` 素材
-- test-pack候補は `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-1024-rgba.png`
-- Asset Factoryでは `weapon` / `black-ink-bottle` / `candidate` として扱い、64px/32px可読性と枠・文字・フリンジなしを確認する
-- approved前に `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` へruntime昇格しない
+- test-pack masterは `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-1024-rgba.png`
+- runtime参照中prototypeは `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png`
+- 390x844最終確認後、`black_ink_bottle.png` は `v1-clean-180` と同一の180px軽量版として昇格済み
+- Asset Factoryでは `weapon` / `black-ink-bottle` / `approved` / score 4 / Manual Issuesなしとして扱う
 
 #### 再生成プロンプトビルダー (v2)
 - 検査結果から修正指示を自動生成
