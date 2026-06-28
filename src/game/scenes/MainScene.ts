@@ -256,7 +256,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     this.hud.update(state);
-    this.effects.dangerPulse(state.player.hp / state.player.maxHp);
+    this.effects.dangerPulse(state.status === GAME_STATUS.PLAYING ? state.player.hp / state.player.maxHp : 1);
     this.pacingEffects.update(state);
     this.updateDebugSnapshot();
   }

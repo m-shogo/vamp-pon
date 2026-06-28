@@ -24,6 +24,9 @@ export class EffectManager {
   private expAbsorbWindowCount = 0;
   private lastExpAbsorbAtMs = Number.NEGATIVE_INFINITY;
   private lastExpMassBurstAtMs = Number.NEGATIVE_INFINITY;
+  private dangerPulseEdges: Phaser.GameObjects.Rectangle[] = [];
+  private dangerPulseTween: Phaser.Tweens.Tween | null = null;
+  private dangerPulseAlpha = 0;
 
   constructor(private scene: Phaser.Scene) {}
 
@@ -430,9 +433,34 @@ export class EffectManager {
   }
 
   dangerPulse(hpRatio: number): void {
-    if (hpRatio > 0.3) return;
-    const alpha = hpRatio <= 0.16 ? 0.16 : 0.1;
-    this.edgeVignette(280, alpha, 0x4d1420);
+    if (hpRatio > 0.3) {
+      this.clearDangerPulse();
+      return;
+    }
+
+    const alpha = hpRatio <= 0.16 ? 0.16 : 0.09;
+    if (this.dangerPulseEdges.length > 0 && Math.abs(this.dangerPulseAlpha - alpha) < 0.01) return;
+
+    this.clearDangerPulse();
+    this.dangerPulseAlpha = alpha;
+    const color = 0x5c1320;
+    this.dangerPulseEdges = [
+      this.scene.add.rectangle(GAME_WIDTH / 2, 14, GAME_WIDTH, 28, color, alpha),
+      this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 14, GAME_WIDTH, 28, color, alpha),
+      this.scene.add.rectangle(6, GAME_HEIGHT / 2, 12, GAME_HEIGHT, color, alpha * 0.72),
+      this.scene.add.rectangle(GAME_WIDTH - 6, GAME_HEIGHT / 2, 12, GAME_HEIGHT, color, alpha * 0.72),
+    ];
+    for (const edge of this.dangerPulseEdges) {
+      edge.setDepth(VIEW_DEPTH.overlay - 10).setBlendMode(Phaser.BlendModes.ADD);
+    }
+    this.dangerPulseTween = this.scene.tweens.add({
+      targets: this.dangerPulseEdges,
+      alpha: { from: alpha * 0.45, to: alpha },
+      duration: 960,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+    });
   }
 
   hitStop(ms: number): void {
@@ -503,6 +531,15 @@ export class EffectManager {
     this.expAbsorbWindowCount = 0;
     this.lastExpAbsorbAtMs = Number.NEGATIVE_INFINITY;
     this.lastExpMassBurstAtMs = Number.NEGATIVE_INFINITY;
+    this.clearDangerPulse();
+  }
+
+  private clearDangerPulse(): void {
+    this.dangerPulseTween?.stop();
+    this.dangerPulseTween = null;
+    for (const edge of this.dangerPulseEdges) edge.destroy();
+    this.dangerPulseEdges = [];
+    this.dangerPulseAlpha = 0;
   }
 
   private scheduleHitStopRelease(): void {
