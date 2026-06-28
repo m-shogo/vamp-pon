@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import type { EvolutionKind, LevelUpChoice } from '../domain/types';
 import type { RuntimeState } from '../runtime';
 import { createInitialState, isBerserkQaAutoRequested, isDawnTicketQaRequested } from '../state';
-import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH } from '../domain/constants';
+import { DEFAULT_GAME_CONFIG, GAME_STATUS, GAME_WIDTH, PICKUP } from '../domain/constants';
 import { createBackground, createStageBackground, getRequestedStageNumber, stageBackgroundTextureKey } from '../ui/background';
 import { loadBackgroundManifest, getBackgroundByStageNumber, loadBackgroundMeta } from '../assets/backgroundManifest';
 import { Hud } from '../ui/hud';
@@ -47,6 +47,11 @@ declare global {
       level: number;
       kills: number;
       fragments: number;
+      activeXpPickups: number;
+      attractingXpPickups: number;
+      nearbyXpPickups: number;
+      farXpPickups: number;
+      collectedFragments: number;
       capsulesOpened: number;
       damageTaken: number;
       rareItems: string[];
@@ -275,6 +280,20 @@ export class MainScene extends Phaser.Scene {
     for (const enemy of this.state.enemies) {
       enemiesById[enemy.defId] = (enemiesById[enemy.defId] ?? 0) + 1;
     }
+    const magnetRange = PICKUP.magnetRange * this.state.player.magnetMultiplier;
+    let activeXpPickups = 0;
+    let attractingXpPickups = 0;
+    let nearbyXpPickups = 0;
+    let farXpPickups = 0;
+    for (const pickup of this.state.pickups) {
+      if (pickup.dead || pickup.kind !== 'fragment') continue;
+      activeXpPickups += 1;
+      if (pickup.magnetized) attractingXpPickups += 1;
+      const dx = pickup.x - this.state.player.x;
+      const dy = pickup.y - this.state.player.y;
+      if (Math.hypot(dx, dy) <= magnetRange) nearbyXpPickups += 1;
+      else farXpPickups += 1;
+    }
     const snapshot = {
       elapsedSec: this.state.elapsedSec,
       status: this.state.status,
@@ -282,6 +301,11 @@ export class MainScene extends Phaser.Scene {
       level: this.state.player.level,
       kills: this.state.stats.kills,
       fragments: this.state.stats.memoryFragmentsCollected,
+      activeXpPickups,
+      attractingXpPickups,
+      nearbyXpPickups,
+      farXpPickups,
+      collectedFragments: this.state.stats.memoryFragmentsCollected,
       capsulesOpened: this.state.stats.capsulesOpened,
       damageTaken: this.state.stats.damageTaken,
       rareItems: this.state.inventory.rareItems.map((item) => item.id),
