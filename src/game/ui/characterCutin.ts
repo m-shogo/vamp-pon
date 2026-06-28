@@ -42,6 +42,10 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
 
   root.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + 80, GAME_HEIGHT + 80, baseColor, isKokuyou ? 0.62 : 0.46));
 
+  if (isKokuyou) {
+    addKokuyouSlashBackdrop(scene, root);
+  }
+
   const imageKey = visual?.textureKey;
   if (imageKey && imageKey === CHARACTER_CUTIN_TEXTURE[mode] && visual.frame == null) {
     const image = scene.add.image(GAME_WIDTH / 2, CUTIN_CENTER_Y, imageKey)
@@ -76,34 +80,38 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
     scene.tweens.add({ targets: mark, x: mark.x + (isKokuyou ? 70 : 140), alpha: 0, duration: 560 + i * 8, ease: 'Cubic.easeOut' });
   }
 
-  const labelBack = scene.add.rectangle(86, CUTIN_CENTER_Y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, isKokuyou ? STORYBOOK_UI.inkBlack : 0x2f2310, 0.78);
-  labelBack.setStrokeStyle(1, isKokuyou ? STORYBOOK_UI.warmAmber : accent, 0.82);
-  const label = scene.add.text(86, labelBack.y, copy.label, {
-    fontFamily: TITLE_FONT,
-    fontSize: '18px',
-    color: isKokuyou ? '#ffe1b8' : '#fff0b3',
-    fontStyle: 'bold',
-    resolution: 2,
-  }).setOrigin(0.5);
-  const title = scene.add.text(22, CUTIN_CENTER_Y - 58, copy.title, {
-    fontFamily: TITLE_FONT,
-    fontSize: isKokuyou ? '31px' : '26px',
-    color: textColor,
-    fontStyle: 'bold',
-    resolution: 2,
-    stroke: isKokuyou ? '#090714' : '#fff6d6',
-    strokeThickness: isKokuyou ? 3 : 2,
-    wordWrap: { width: 270 },
-  });
-  const subtitle = scene.add.text(25, CUTIN_CENTER_Y + 12, copy.subtitle, {
-    fontFamily: FONT,
-    fontSize: '12px',
-    color: isKokuyou ? '#f4c46a' : '#5b4a2e',
-    fontStyle: 'bold',
-    resolution: 2,
-    wordWrap: { width: 250 },
-  });
-  root.add([labelBack, label, title, subtitle]);
+  if (isKokuyou) {
+    addKokuyouCopy(scene, root, copy);
+  } else {
+    const labelBack = scene.add.rectangle(86, CUTIN_CENTER_Y + CUTIN_BANNER_HEIGHT / 2 - 28, 144, 30, 0x2f2310, 0.78);
+    labelBack.setStrokeStyle(1, accent, 0.82);
+    const label = scene.add.text(86, labelBack.y, copy.label, {
+      fontFamily: TITLE_FONT,
+      fontSize: '18px',
+      color: '#fff0b3',
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5);
+    const title = scene.add.text(22, CUTIN_CENTER_Y - 58, copy.title, {
+      fontFamily: TITLE_FONT,
+      fontSize: '26px',
+      color: textColor,
+      fontStyle: 'bold',
+      resolution: 2,
+      stroke: '#fff6d6',
+      strokeThickness: 2,
+      wordWrap: { width: 270 },
+    });
+    const subtitle = scene.add.text(25, CUTIN_CENTER_Y + 12, copy.subtitle, {
+      fontFamily: FONT,
+      fontSize: '12px',
+      color: '#5b4a2e',
+      fontStyle: 'bold',
+      resolution: 2,
+      wordWrap: { width: 250 },
+    });
+    root.add([labelBack, label, title, subtitle]);
+  }
 
   scene.cameras.main.shake(isKokuyou ? 160 : 95, isKokuyou ? 0.004 : 0.0022);
   scene.tweens.add({
@@ -115,6 +123,98 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
       scene.tweens.add({ targets: root, x: GAME_WIDTH + 50, alpha: 0, delay: 700, duration: 260, ease: 'Cubic.easeIn', onComplete: () => root.destroy(true) });
     },
   });
+}
+
+function addKokuyouSlashBackdrop(scene: Phaser.Scene, root: Phaser.GameObjects.Container): void {
+  const ink = scene.add.graphics();
+  ink.fillStyle(0x030208, 0.88);
+  ink.fillTriangle(-40, 210, GAME_WIDTH + 70, 66, GAME_WIDTH + 44, 176);
+  ink.fillTriangle(-54, 472, GAME_WIDTH + 56, 236, GAME_WIDTH + 80, 358);
+  ink.fillTriangle(-64, 644, GAME_WIDTH + 52, 432, GAME_WIDTH + 82, 546);
+  ink.fillStyle(0x20112c, 0.72);
+  ink.fillTriangle(-30, 520, GAME_WIDTH + 40, 288, GAME_WIDTH + 62, 398);
+  ink.fillStyle(0x6c2449, 0.36);
+  ink.fillTriangle(-20, 474, GAME_WIDTH + 54, 286, GAME_WIDTH + 46, 340);
+  ink.fillStyle(STORYBOOK_UI.paperDark, 0.18);
+  ink.fillTriangle(-34, 250, GAME_WIDTH + 40, 116, GAME_WIDTH + 70, 150);
+  root.add(ink);
+
+  const lanternLine = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y + 102, GAME_WIDTH + 120, 4, STORYBOOK_UI.lanternCore, 0.78)
+    .setAngle(-17)
+    .setBlendMode('ADD');
+  const lanternLine2 = scene.add.rectangle(GAME_WIDTH / 2 - 44, CUTIN_CENTER_Y + 150, GAME_WIDTH + 80, 2, STORYBOOK_UI.warmAmber, 0.46)
+    .setAngle(-17)
+    .setBlendMode('ADD');
+  root.add([lanternLine, lanternLine2]);
+
+  for (let i = 0; i < 7; i += 1) {
+    const spark = scene.add.rectangle(
+      42 + i * 54,
+      CUTIN_CENTER_Y + 90 - (i % 3) * 22,
+      14 + (i % 2) * 8,
+      2,
+      STORYBOOK_UI.lanternCore,
+      0.32,
+    ).setAngle(-18).setBlendMode('ADD');
+    root.add(spark);
+  }
+}
+
+function addKokuyouCopy(scene: Phaser.Scene, root: Phaser.GameObjects.Container, copy: CutinCopy): void {
+  const topPlate = scene.add.rectangle(138, CUTIN_CENTER_Y - 114, 230, 42, STORYBOOK_UI.inkBlack, 0.74).setAngle(-7);
+  topPlate.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.34);
+  const topText = scene.add.text(40, CUTIN_CENTER_Y - 130, '記憶の力が、夜を切り開く', {
+    fontFamily: FONT,
+    fontSize: '12px',
+    color: '#f0cf9d',
+    fontStyle: 'bold',
+    resolution: 2,
+    wordWrap: { width: 210 },
+  }).setAngle(-7);
+
+  const titleBack = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y + 70, 286, 62, 0x110a18, 0.9);
+  titleBack.setStrokeStyle(2, STORYBOOK_UI.warmAmber, 0.5);
+  const title = scene.add.text(GAME_WIDTH / 2, CUTIN_CENTER_Y + 55, copy.label, {
+    fontFamily: TITLE_FONT,
+    fontSize: '38px',
+    color: '#f3dfbc',
+    fontStyle: 'bold',
+    resolution: 2,
+    stroke: '#07040b',
+    strokeThickness: 4,
+  }).setOrigin(0.5);
+  const subtitle = scene.add.text(GAME_WIDTH / 2, CUTIN_CENTER_Y + 88, '記憶の灯火が、力に変わる', {
+    fontFamily: FONT,
+    fontSize: '12px',
+    color: '#f4c46a',
+    fontStyle: 'bold',
+    resolution: 2,
+  }).setOrigin(0.5);
+
+  const formText = scene.add.text(28, CUTIN_CENTER_Y - 42, copy.title || copy.subtitle, {
+    fontFamily: TITLE_FONT,
+    fontSize: '17px',
+    color: '#ffe1b8',
+    fontStyle: 'bold',
+    resolution: 2,
+    stroke: '#090714',
+    strokeThickness: 3,
+    wordWrap: { width: 220 },
+  });
+
+  const ctaBack = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 122, 230, 34, 0x090713, 0.72);
+  ctaBack.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.52);
+  const ctaIcon = scene.add.circle(GAME_WIDTH / 2 - 70, GAME_HEIGHT - 122, 10, STORYBOOK_UI.lanternCore, 0.2).setBlendMode('ADD');
+  ctaIcon.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.68);
+  const cta = scene.add.text(GAME_WIDTH / 2 + 20, GAME_HEIGHT - 122, 'タップで発動', {
+    fontFamily: FONT,
+    fontSize: '13px',
+    color: '#f4c46a',
+    fontStyle: 'bold',
+    resolution: 2,
+  }).setOrigin(0.5);
+
+  root.add([topPlate, topText, titleBack, title, subtitle, formText, ctaBack, ctaIcon, cta]);
 }
 
 export function resolveCutinCopy(mode: CharacterCutinMode, characterId: string): CutinCopy {
