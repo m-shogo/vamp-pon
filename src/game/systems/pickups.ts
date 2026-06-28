@@ -12,6 +12,8 @@ import { getAudioManager } from '../audio/AudioManager';
 import { getEffectManager } from '../effects/EffectManager';
 
 const CAPSULE_RADIUS = 14;
+const CLOSE_MAGNET_RANGE_RATIO = 0.55;
+const CLOSE_MAGNET_SPEED_MULTIPLIER = 1.18;
 
 export function spawnFragment(scene: Phaser.Scene, state: RuntimeState, x: number, y: number, xp: number): void {
   const view = createPickupView(scene);
@@ -106,8 +108,9 @@ export function updatePickups(scene: Phaser.Scene, state: RuntimeState, dt: numb
     if (pickup.magnetized || d <= magnetRange) {
       pickup.magnetized = true;
       const dir = normalize(p.x - pickup.x, p.y - pickup.y);
-      pickup.x += dir.x * PICKUP.magnetSpeed * dt;
-      pickup.y += dir.y * PICKUP.magnetSpeed * dt;
+      const speedMultiplier = d <= magnetRange * CLOSE_MAGNET_RANGE_RATIO ? CLOSE_MAGNET_SPEED_MULTIPLIER : 1;
+      pickup.x += dir.x * PICKUP.magnetSpeed * speedMultiplier * dt;
+      pickup.y += dir.y * PICKUP.magnetSpeed * speedMultiplier * dt;
       pickup.view.setPosition(pickup.x, pickup.y);
     }
   }
