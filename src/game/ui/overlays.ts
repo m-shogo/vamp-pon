@@ -542,134 +542,138 @@ export class Overlays {
     drawInkDivider(divG, pageX, 142, pageW - 60);
     root.add(divG);
 
-    const recordsTopY = 160;
     const levelUpText = settlement.characterLevelAfter > settlement.characterLevelBefore
       ? ` (Lv ${settlement.characterLevelBefore}→${settlement.characterLevelAfter})`
       : '';
-    const rows: Array<{ icon: number; label: string; value: string; countTo?: number; format?: (value: number) => string }> = [
-      { icon: STORYBOOK_UI.mutedTeal, label: '生存時間', value: `${mm}:${ss}` },
-      { icon: STORYBOOK_UI.warmAmber, label: '灯度（Lv）', value: `Lv.${state.player.level}`, countTo: state.player.level, format: (value) => `Lv.${value}` },
-      { icon: STORYBOOK_UI.dustyRose, label: 'ほどいた影', value: `${stats.kills}`, countTo: stats.kills },
-      { icon: STORYBOOK_UI.lanternCore, label: '記憶のかけら', value: `${stats.memoryFragmentsCollected}`, countTo: stats.memoryFragmentsCollected },
-      { icon: STORYBOOK_UI.dawnPeach, label: 'カプセル', value: `${stats.capsulesOpened}`, countTo: stats.capsulesOpened },
-      { icon: STORYBOOK_UI.warmAmber, label: '黒曜片', value: `+${settlement.currencyEarned}　(${ownedCurrency})`, countTo: settlement.currencyEarned, format: (value) => `+${value}　(${ownedCurrency})` },
-      { icon: STORYBOOK_UI.mutedTeal, label: 'キャラEXP', value: `+${settlement.characterXpEarned}${levelUpText}`, countTo: settlement.characterXpEarned, format: (value) => `+${value}${levelUpText}` },
-    ];
 
-    rows.forEach((row, i) => {
-      const y = recordsTopY + i * 28;
-      const rowDelay = 180 + i * 60;
-      const iconDot = this.scene.add.circle(pageX - 148, y, 5, row.icon, 0.85);
-      iconDot.setStrokeStyle(1, STORYBOOK_UI.paperEdge, 0.3);
-      iconDot.setAlpha(0);
-      root.add(iconDot);
-      this.scene.tweens.add({ targets: iconDot, alpha: 1, scale: { from: 0.5, to: 1 }, duration: 200, delay: rowDelay, ease: 'Back.easeOut' });
+    root.add(this.text(pageX, 162, '夜の記録', 13, STORYBOOK_UI.textSoft, true));
+    const statChipW = 146;
+    root.add(this.resultStatChip(pageX - 78, 198, statChipW, 46, STORYBOOK_UI.mutedTeal, '生存', `${mm}:${ss}`));
+    root.add(this.resultStatChip(pageX + 78, 198, statChipW, 46, STORYBOOK_UI.warmAmber, '灯度', `Lv.${state.player.level}`));
+    root.add(this.resultStatChip(pageX - 78, 250, statChipW, 46, STORYBOOK_UI.dustyRose, 'ほどいた影', `${stats.kills}`));
+    root.add(this.resultStatChip(pageX + 78, 250, statChipW, 46, STORYBOOK_UI.lanternCore, '記憶片', `${stats.memoryFragmentsCollected}`));
 
-      const labelText = this.scene.add.text(pageX - 134, y, row.label, {
-        fontFamily: STORYBOOK_FONT,
-        fontSize: '12px',
-        color: STORYBOOK_UI.textDark,
-        fontStyle: 'bold',
-        resolution: 2,
-      }).setOrigin(0, 0.5).setAlpha(0);
-      root.add(labelText);
-      this.scene.tweens.add({ targets: labelText, alpha: 1, x: labelText.x + 4, duration: 180, delay: rowDelay + 40, ease: 'Quad.easeOut' });
-      labelText.x -= 4;
+    const rewardDiv = this.scene.add.graphics();
+    drawInkDivider(rewardDiv, pageX, 292, pageW - 96, { color: STORYBOOK_UI.paperDark, alpha: 0.22 });
+    root.add(rewardDiv);
+    root.add(this.text(pageX, 312, 'Rewards', 14, STORYBOOK_UI.textDark, true));
+    root.add(this.resultRewardCard(
+      pageX - 112,
+      360,
+      96,
+      72,
+      STORYBOOK_UI.warmAmber,
+      '黒曜片',
+      `+${settlement.currencyEarned}`,
+      settlement.currencyEarned,
+      (value) => `+${value}`,
+      520,
+      'currency_gain',
+    ));
+    root.add(this.resultRewardCard(
+      pageX,
+      360,
+      96,
+      72,
+      STORYBOOK_UI.mutedTeal,
+      'キャラEXP',
+      `+${settlement.characterXpEarned}${levelUpText}`,
+      settlement.characterXpEarned,
+      (value) => `+${value}${levelUpText}`,
+      640,
+      'result_count',
+    ));
+    root.add(this.resultRewardCard(
+      pageX + 112,
+      360,
+      96,
+      72,
+      STORYBOOK_UI.dawnPeach,
+      'カプセル',
+      `${stats.capsulesOpened}`,
+      stats.capsulesOpened,
+      undefined,
+      760,
+      'result_count',
+    ));
 
-      const valueText = this.scene.add.text(pageX + 142, y, row.countTo == null ? row.value : (row.format ? row.format(0) : '0'), {
-        fontFamily: STORYBOOK_FONT,
-        fontSize: '13px',
-        color: STORYBOOK_UI.textDark,
-        fontStyle: 'bold',
-        resolution: 2,
-      }).setOrigin(1, 0.5).setAlpha(0);
-      root.add(valueText);
-      this.scene.tweens.add({ targets: valueText, alpha: 1, duration: 160, delay: rowDelay + 80, ease: 'Quad.easeOut' });
-      if (row.countTo != null) {
-        this.scene.time.delayedCall(rowDelay + 80, () => {
-          getAudioManager(this.scene).playSe(row.label === '黒曜片' ? 'currency_gain' : 'result_count', {
-            volume: row.label === '黒曜片' ? 0.46 : 0.3,
-          });
-          this.countUpText(valueText, row.countTo!, row.format);
-        });
-      }
-    });
+    let infoY = 430;
+    const recordDiv = this.scene.add.graphics();
+    drawInkDivider(recordDiv, pageX, infoY - 20, pageW - 92, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
+    root.add(recordDiv);
+    root.add(this.text(pageX, infoY - 2, 'New Records', 13, STORYBOOK_UI.textDark, true));
+    infoY += 26;
 
-    let infoY = recordsTopY + rows.length * 28 + 6;
+    root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.mutedTeal, '初撃破', formatSeconds(log.firstKillSec), log.firstKillSec != null));
+    infoY += 34;
+    root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.warmAmber, 'Lv2到達', formatSeconds(log.level2Sec), log.level2Sec != null));
+    infoY += 34;
+    root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.dustyRose, '初被弾 / 初カプセル', `${formatSeconds(log.firstDamageSec)} / ${formatSeconds(log.firstCapsuleSec)}`, log.firstDamageSec != null || log.firstCapsuleSec != null));
+    infoY += 38;
 
     if (stats.elitesKilled > 0) {
       const eliteLabel = state.stageNumber === 2
-        ? `◆ 雨影をほどいた ×${stats.elitesKilled}`
-        : `◆ 大きな影を越えた ×${stats.elitesKilled}`;
-      const eliteText = this.text(pageX, infoY, eliteLabel, 11, STORYBOOK_UI.textSoft, true);
-      eliteText.setAlpha(0);
-      root.add(eliteText);
-      this.scene.tweens.add({ targets: eliteText, alpha: 1, duration: 300, delay: 800, ease: 'Quad.easeOut' });
-      infoY += 18;
+        ? `雨影をほどいた ×${stats.elitesKilled}`
+        : `大きな影を越えた ×${stats.elitesKilled}`;
+      root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.dustyRose, 'Elite', eliteLabel, true));
+      infoY += 34;
     }
 
+    const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
+    const hasNewAch = settlement.newAchievements.length > 0;
+    const hasAchReward = settlement.achievementReward > 0;
     const bonusParts: string[] = [];
     if (settlement.stageBonus > 1) bonusParts.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
     if (settlement.depthBonus > 1) bonusParts.push(`深度×${settlement.depthBonus.toFixed(1)}`);
     if (settlement.noBerserkBonus > 1) bonusParts.push(`黒曜なし×${settlement.noBerserkBonus.toFixed(2)}`);
     if (settlement.firstClearBonus > 1) bonusParts.push(`初回×${settlement.firstClearBonus.toFixed(2)}`);
+
+    const summaryLines: string[] = [motivationMessage];
     if (bonusParts.length > 0) {
-      root.add(this.text(pageX, infoY, `▽ ${bonusParts.join('　')}`, 10, STORYBOOK_UI.textSoft));
-      infoY += 16;
+      summaryLines.push(`Bonus: ${bonusParts.map((part) => part.split('×')[0]).join(' / ')}`);
     }
 
     const evolutionLabels = stats.evolutions.map((id) => evolutionResultLabel(id));
     if (evolutionLabels.length > 0) {
       const visible = evolutionLabels.slice(0, 2).join(' / ');
       const more = evolutionLabels.length > 2 ? `　ほか ${evolutionLabels.length - 2}件` : '';
-      root.add(this.text(pageX, infoY, `◇ 進化/合体　${visible}${more}`, 11, STORYBOOK_UI.textSoft, true));
-      infoY += 18;
+      summaryLines.push(`進化/合体: ${visible}${more}`);
     }
 
-    const divG2 = this.scene.add.graphics();
-    drawInkDivider(divG2, pageX, infoY + 4, pageW - 80);
-    root.add(divG2);
-    infoY += 14;
-
-    const motivationMessage = resultMotivation(cleared, rank, state.player.level, state.stageNumber);
-    root.add(this.text(pageX, infoY, motivationMessage, 11, STORYBOOK_UI.textSoft));
-    infoY += 18;
-
-    const hasNewAch = settlement.newAchievements.length > 0;
-    const hasAchReward = settlement.achievementReward > 0;
+    if (settlement.unlockedStage != null) {
+      const recipe = recipeForStage(settlement.unlockedStage);
+      summaryLines.push(`新しい夜が開いた — ${recipe.name}`);
+      this.scene.time.delayedCall(1200, () => {
+        getAudioManager(this.scene).playSe('stage_unlock', { volume: 0.6, priority: 2 });
+      });
+    }
     if (hasNewAch || hasAchReward) {
       const parts: string[] = [];
       if (hasNewAch) parts.push(`実績 +${settlement.newAchievements.length}`);
       if (hasAchReward) parts.push(`報酬 +${settlement.achievementReward}`);
-      const recordText = this.text(pageX, infoY, `◆ 記録に追加　${parts.join('　')}`, 11, STORYBOOK_UI.textDark, true);
-      recordText.setAlpha(0);
-      root.add(recordText);
-      this.scene.tweens.add({ targets: recordText, alpha: 1, duration: 300, delay: 900, ease: 'Quad.easeOut' });
+      summaryLines.push(`記録に追加: ${parts.join('　')}`);
       if (hasAchReward) {
         this.scene.time.delayedCall(900, () => {
           getAudioManager(this.scene).playSe('currency_gain', { volume: 0.36, priority: 1 });
         });
       }
-      infoY += 18;
     }
 
-    root.add(this.text(pageX, infoY, `初撃破 ${formatSeconds(log.firstKillSec)}　Lv2 ${formatSeconds(log.level2Sec)}`, 10, STORYBOOK_UI.textSoft));
-    root.add(this.text(pageX, infoY + 14, `初被弾 ${formatSeconds(log.firstDamageSec)}　初カプセル ${formatSeconds(log.firstCapsuleSec)}`, 10, STORYBOOK_UI.textSoft));
-    infoY += 32;
-
-    if (settlement.unlockedStage != null) {
-      const recipe = recipeForStage(settlement.unlockedStage);
-      const unlockG = this.scene.add.graphics().setAlpha(0);
-      drawSecondaryPaperButton(unlockG, pageX, infoY, 300, 32, { accent: STORYBOOK_UI.warmAmber });
-      root.add(unlockG);
-      const unlockText = this.text(pageX, infoY, `新しい夜が開いた — ${recipe.name}`, 12, STORYBOOK_UI.lanternCore, true);
-      unlockText.setAlpha(0);
-      root.add(unlockText);
-      this.scene.tweens.add({ targets: [unlockG, unlockText], alpha: 1, duration: 400, delay: 1200, ease: 'Quad.easeOut' });
-      this.scene.time.delayedCall(1200, () => {
-        getAudioManager(this.scene).playSe('stage_unlock', { volume: 0.6, priority: 2 });
-      });
-    }
+    const summaryG = this.scene.add.graphics();
+    drawSecondaryPaperButton(summaryG, pageX, 596, 306, 76, { accent: cleared ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.dustyRose });
+    summaryG.fillStyle(STORYBOOK_UI.paperLight, 0.04).fillRect(pageX - 144, 562, 288, 2);
+    root.add(summaryG);
+    summaryLines.slice(0, 4).forEach((line, index) => {
+      const compactLine = line.length > 32 ? `${line.slice(0, 31)}…` : line;
+      root.add(this.text(
+        pageX,
+        570 + index * 16,
+        compactLine,
+        index === 0 ? 10 : 9,
+        index === 0 ? STORYBOOK_UI.textLight : STORYBOOK_UI.textMuted,
+        index === 0,
+      ));
+    });
 
     const growthLabel = hasAchReward ? '黒曜片を使う' : '成長へ';
     const btnY1 = GAME_HEIGHT - 160;
@@ -816,6 +820,122 @@ export class Overlays {
       fontStyle: 'bold',
       resolution: 2,
     }).setOrigin(0.5));
+  }
+
+  private resultStatChip(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    accent: number,
+    label: string,
+    value: string,
+  ): Phaser.GameObjects.Container {
+    const c = this.scene.add.container(x, y);
+    const g = this.scene.add.graphics();
+    drawSecondaryPaperButton(g, 0, 0, width, height, { accent });
+    g.fillStyle(accent, 0.1).fillCircle(-width / 2 + 16, 0, 7);
+    g.fillStyle(STORYBOOK_UI.paperLight, 0.08).fillRect(-width / 2 + 34, -height / 2 + 8, width - 48, 2);
+    c.add(g);
+    c.add(this.scene.add.text(-width / 2 + 32, -8, label, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '9px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0, 0.5));
+    c.add(this.scene.add.text(width / 2 - 12, 9, value, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '15px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(1, 0.5));
+    return c;
+  }
+
+  private resultRewardCard(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    accent: number,
+    label: string,
+    value: string,
+    countTo?: number,
+    format?: (value: number) => string,
+    delay = 500,
+    sound: 'currency_gain' | 'result_count' = 'result_count',
+  ): Phaser.GameObjects.Container {
+    const c = this.scene.add.container(x, y);
+    const g = this.scene.add.graphics();
+    drawRewardIconCard(g, 0, 0, Math.min(width, height));
+    g.fillStyle(accent, 0.11).fillRect(-width / 2 + 6, height / 2 - 20, width - 12, 14);
+    g.fillStyle(accent, 0.16).fillCircle(0, -18, 10);
+    g.lineStyle(1, accent, 0.48).strokeCircle(0, -18, 14);
+    c.add(g);
+
+    c.add(this.scene.add.text(0, 8, label, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '9px',
+      color: colorString(STORYBOOK_UI.textSoft),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5));
+    const valueText = this.scene.add.text(0, 26, countTo == null ? value : (format ? format(0) : '0'), {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '13px',
+      color: colorString(STORYBOOK_UI.textDark),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5);
+    c.add(valueText);
+
+    if (countTo != null) {
+      this.scene.time.delayedCall(delay, () => {
+        getAudioManager(this.scene).playSe(sound, { volume: sound === 'currency_gain' ? 0.46 : 0.3 });
+        this.countUpText(valueText, countTo, format);
+      });
+    }
+    return c;
+  }
+
+  private resultRecordRow(
+    x: number,
+    y: number,
+    width: number,
+    accent: number,
+    label: string,
+    value: string,
+    checked: boolean,
+  ): Phaser.GameObjects.Container {
+    const c = this.scene.add.container(x, y);
+    const g = this.scene.add.graphics();
+    drawSecondaryPaperButton(g, 0, 0, width, 26, { accent });
+    g.fillStyle(accent, checked ? 0.18 : 0.08).fillRect(-width / 2 + 6, -8, 20, 16);
+    c.add(g);
+    c.add(this.scene.add.text(-width / 2 + 16, 0, checked ? '✓' : '•', {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '13px',
+      color: colorString(checked ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0.5));
+    c.add(this.scene.add.text(-width / 2 + 36, 0, label, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.textMuted),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0, 0.5));
+    c.add(this.scene.add.text(width / 2 - 12, 0, value, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '10px',
+      color: colorString(STORYBOOK_UI.textLight),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(1, 0.5));
+    return c;
   }
 
   private countUpText(

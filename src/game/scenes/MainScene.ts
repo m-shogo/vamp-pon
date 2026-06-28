@@ -520,20 +520,18 @@ export class MainScene extends Phaser.Scene {
 
   private showCollectionResultBadge(settlement: CollectionSettlement): void {
     if (settlement.newlyCompleted.length === 0) return;
-    const root = this.add.container(GAME_WIDTH / 2, 580).setDepth(10000);
-    const bg = this.add.rectangle(0, 0, 312, 86, 0x121426, 0.94);
+    const root = this.add.container(GAME_WIDTH / 2, 44).setDepth(10000);
+    const bg = this.add.rectangle(0, 0, 292, 34, 0x121426, 0.94);
     bg.setStrokeStyle(1, 0xf5d58a, 0.92);
-    const titles = settlement.newlyCompleted.slice(0, 3).map((cell) => `■ ${cell.title}`).join('\n');
-    const more = settlement.newlyCompleted.length > 3 ? `\nほか ${settlement.newlyCompleted.length - 3}マス` : '';
+    const more = settlement.newlyCompleted.length > 1 ? ` / ほか${settlement.newlyCompleted.length - 1}マス` : '';
     const reward = settlement.lightCoinReward > 0 ? `　黒曜片 +${settlement.lightCoinReward}` : '';
-    const text = this.add.text(0, 0, `夜明け盤 +${settlement.newlyCompleted.length}${reward}\n${titles}${more}`, {
+    const text = this.add.text(0, 0, `夜明け盤 +${settlement.newlyCompleted.length}${reward}${more}`, {
       fontFamily: STORYBOOK_FONT,
-      fontSize: '12px',
+      fontSize: '10px',
       color: '#f7edcf',
       fontStyle: 'bold',
       align: 'center',
       resolution: 2,
-      lineSpacing: 3,
     }).setOrigin(0.5);
     root.add([bg, text]);
     root.setScale(0.96);
