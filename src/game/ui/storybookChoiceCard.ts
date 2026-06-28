@@ -13,11 +13,12 @@ import { wrapUiText } from './itemSelectionLayout';
 import { attachPressFeedback } from './pressFeedback';
 import {
   STORYBOOK_FONT,
+  STORYBOOK_TITLE_FONT,
   STORYBOOK_UI,
   drawHeart,
   storybookCategoryPalette,
 } from './storybookUi';
-import { drawLanternFocus, drawPremiumPaperCard, drawWaxSeal } from './premiumPaperUi';
+import { drawInkDivider, drawLanternFocus, drawPremiumPaperCard, drawWaxSeal } from './premiumPaperUi';
 
 export type ChoiceSelectionLock = { locked: boolean };
 
@@ -38,13 +39,17 @@ export function createStorybookChoiceCard(
   const isSpecial = choice.rarity === 'rare' || choice.type === 'rare_new';
   const isGood = choice.rarity === 'good';
   const graphics = scene.add.graphics();
+  if (isSpecial) {
+    graphics.fillStyle(STORYBOOK_UI.lanternCore, 0.1).fillRect(-width / 2 - 5, -height / 2 - 5, width + 10, height + 10);
+    graphics.lineStyle(2, STORYBOOK_UI.lanternCore, 0.32).strokeRect(-width / 2 - 3, -height / 2 - 3, width + 6, height + 6);
+  }
   drawPremiumPaperCard(graphics, 0, 0, width, height, {
     accent,
     paper: palette.paper,
     selected: isSpecial || isGood,
     shadowAlpha: isSpecial ? 0.42 : 0.32,
   });
-  graphics.fillStyle(accent, isSpecial ? 0.92 : 0.76).fillRect(-width / 2 + 8, -height / 2 + 10, 4, height - 20);
+  graphics.fillStyle(accent, isSpecial ? 0.8 : 0.5).fillRect(-width / 2 + 8, -height / 2 + 16, 3, height - 32);
   graphics.fillStyle(STORYBOOK_UI.paperShadow, 0.16).fillCircle(width / 2 - 14, height / 2 - 13, 5);
   card.add(graphics);
 
@@ -114,13 +119,13 @@ export function createStorybookChoiceCard(
   card.add(hit);
 
   const title = choice.title.replace(/^✦ /, '').replace(/^入替: /, '');
-  const badge = `${palette.label} / ${effectTag(choice)}`;
-  addRarityTab(scene, card, width, height, choice.rarity ?? 'normal', accent, height < width ? 'horizontal' : 'vertical');
+  const badge = effectTag(choice);
   if (height < width) {
     addHorizontalContent(scene, card, width, height, choice, title, badge, accent);
   } else {
     addVerticalContent(scene, card, width, height, choice, title, badge, accent);
   }
+  addRarityTab(scene, card, width, height, choice.rarity ?? 'normal', accent, height < width ? 'horizontal' : 'vertical');
 
   const cardIndex = (scene as { _levelUpCardIndex?: number })._levelUpCardIndex ?? 0;
   (scene as { _levelUpCardIndex?: number })._levelUpCardIndex = cardIndex + 1;
@@ -155,17 +160,18 @@ function addRarityTab(
   const label = rarity === 'rare' ? 'Rare' : rarity === 'good' ? 'Good' : 'Normal';
   const tabColor = rarity === 'rare' ? STORYBOOK_UI.dustyRose : rarity === 'good' ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.mutedTeal;
   const tabBg = scene.add.graphics();
-  const tabW = Math.min(width - 16, layout === 'horizontal' ? 50 : 58);
-  const tabH = layout === 'horizontal' ? 18 : 22;
+  const tabW = Math.min(width - 10, layout === 'horizontal' ? 62 : 72);
+  const tabH = layout === 'horizontal' ? 20 : 24;
   const tabX = layout === 'horizontal' ? -width / 2 + 54 : 0;
-  const tabY = -height / 2 + (layout === 'horizontal' ? 8 : 2);
-  tabBg.fillStyle(STORYBOOK_UI.inkBlack, 0.2).fillRect(tabX - tabW / 2 + 1, tabY + 1, tabW, tabH);
+  const tabY = -height / 2 + (layout === 'horizontal' ? 8 : -12);
+  tabBg.fillStyle(STORYBOOK_UI.inkBlack, 0.24).fillRect(tabX - tabW / 2 + 2, tabY + 2, tabW, tabH);
   tabBg.fillStyle(tabColor, 0.92).fillRect(tabX - tabW / 2, tabY, tabW, tabH);
-  tabBg.lineStyle(1, STORYBOOK_UI.paperEdge, 0.5).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
+  tabBg.lineStyle(1, STORYBOOK_UI.paperEdge, 0.62).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
+  tabBg.lineStyle(1, STORYBOOK_UI.paperLight, 0.18).lineBetween(tabX - tabW / 2 + 6, tabY + 4, tabX + tabW / 2 - 6, tabY + 4);
   card.add(tabBg);
   const tab = scene.add.text(tabX, tabY + tabH / 2, label, {
-    fontFamily: STORYBOOK_FONT,
-    fontSize: layout === 'horizontal' ? '9px' : '10px',
+    fontFamily: STORYBOOK_TITLE_FONT,
+    fontSize: layout === 'horizontal' ? '10px' : '11px',
     color: '#fff8e7',
     fontStyle: 'bold',
     resolution: 2,
@@ -185,12 +191,16 @@ function addHorizontalContent(
 ): void {
   const left = -width / 2;
   const iconX = left + 54;
-  addChoiceIcon(scene, card, choice, iconX, -3, 74);
+  addIconFrame(scene, card, iconX, -3, 82, 82, accent, choice.rarity === 'rare' || choice.type === 'rare_new');
+  addChoiceIcon(scene, card, choice, iconX, -3, 68);
   addBadge(scene, card, iconX, height / 2 - 14, badge, accent);
 
   const textX = left + 103;
   const textWidth = width - 142;
   const textParts = splitChoiceDescription(choice.description);
+  const titleDivider = scene.add.graphics();
+  drawInkDivider(titleDivider, textX + textWidth / 2, -height / 2 + 43, textWidth - 8, { color: STORYBOOK_UI.paperDark, alpha: 0.16 });
+  card.add(titleDivider);
   card.add(scene.add.text(textX, -height / 2 + 13, wrapUiText(title, 20, 2), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '15px',
@@ -250,7 +260,8 @@ function addVerticalContent(
   const isRare = choice.rarity === 'rare' || choice.type === 'rare_new';
   const textParts = splitChoiceDescription(choice.description);
   const iconSize = Math.min(60, width - 30);
-  const iconY = -height / 2 + 68;
+  const iconY = -height / 2 + 72;
+  addIconFrame(scene, card, 0, iconY, Math.min(82, width - 22), 82, accent, isRare);
   addChoiceIcon(scene, card, choice, 0, iconY, iconSize);
 
   const innerG = scene.add.graphics();
@@ -258,7 +269,7 @@ function addVerticalContent(
   innerG.lineBetween(-width / 2 + 12, iconY + iconSize / 2 + 8, width / 2 - 12, iconY + iconSize / 2 + 8);
   card.add(innerG);
 
-  const titleY = iconY + iconSize / 2 + 18;
+  const titleY = iconY + iconSize / 2 + 20;
   card.add(scene.add.text(0, titleY, wrapUiText(title, 8, 2), {
     fontFamily: STORYBOOK_FONT,
     fontSize: '13px',
@@ -354,17 +365,39 @@ function addBadge(
 ): void {
   const badge = scene.add.container(x, y);
   const bg = scene.add.graphics();
-  const width = Math.max(48, label.length * 8 + 12);
-  drawPremiumPaperCard(bg, 0, 0, width, 18, { accent, paper: accent, selected: false, shadowAlpha: 0.12 });
+  const width = Math.max(52, label.length * 8 + 14);
+  drawPremiumPaperCard(bg, 0, 0, width, 18, { accent, paper: STORYBOOK_UI.paperBeige, selected: false, shadowAlpha: 0.1 });
   const text = scene.add.text(0, 0, label, {
     fontFamily: STORYBOOK_FONT,
     fontSize: '9px',
-    color: '#fff8e7',
+    color: colorString(STORYBOOK_UI.textDark),
     fontStyle: 'bold',
     resolution: 2,
   }).setOrigin(0.5);
   badge.add([bg, text]);
   card.add(badge);
+}
+
+function addIconFrame(
+  scene: Phaser.Scene,
+  card: Phaser.GameObjects.Container,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  accent: number,
+  warmGlow = false,
+): void {
+  const frame = scene.add.graphics();
+  if (warmGlow) {
+    frame.fillStyle(STORYBOOK_UI.lanternCore, 0.08).fillRect(x - width / 2 - 4, y - height / 2 - 4, width + 8, height + 8);
+  }
+  frame.fillStyle(STORYBOOK_UI.deepNight, 0.86).fillRect(x - width / 2, y - height / 2, width, height);
+  frame.lineStyle(2, warmGlow ? STORYBOOK_UI.lanternCore : accent, warmGlow ? 0.72 : 0.52).strokeRect(x - width / 2, y - height / 2, width, height);
+  frame.lineStyle(1, STORYBOOK_UI.paperLight, 0.18).strokeRect(x - width / 2 + 5, y - height / 2 + 5, width - 10, height - 10);
+  frame.fillStyle(STORYBOOK_UI.inkBlack, 0.12).fillCircle(x + width / 2 - 10, y - height / 2 + 10, 4);
+  frame.fillStyle(accent, warmGlow ? 0.18 : 0.1).fillCircle(x - width / 2 + 12, y + height / 2 - 12, 4);
+  card.add(frame);
 }
 
 function effectTag(choice: LevelUpChoice): string {

@@ -166,14 +166,20 @@ export class Overlays {
     root.add(dock);
 
     (this.scene as { _levelUpCardIndex?: number })._levelUpCardIndex = 0;
+    const bannerG = this.scene.add.graphics();
+    drawLargeNotebookPage(bannerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 2, 286, 66, {
+      accent: STORYBOOK_UI.warmAmber,
+      alpha: 0.96,
+    });
+    root.add(bannerG);
     const headerG = this.scene.add.graphics();
-    drawInkDivider(headerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 14, GAME_WIDTH - 80);
+    drawInkDivider(headerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 24, 206, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
     root.add(headerG);
-    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y - 6, 'Level Up', 20, STORYBOOK_UI.textDark, true));
-    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 10, '記憶をひとつ選ぶ', 11, STORYBOOK_UI.textSoft));
+    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y - 10, 'Level Up', 22, STORYBOOK_UI.textDark, true));
+    root.add(this.text(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 10, 'Choose a memory to strengthen', 10, STORYBOOK_UI.textSoft, true));
     root.add(this.text(
       GAME_WIDTH / 2,
-      LEVEL_UP_HEADER_Y + 28,
+      LEVEL_UP_HEADER_Y + 30,
       `武器 ${state.inventory.weapons.length}/${state.inventory.weaponSlots}　忘れ物 ${state.inventory.passives.length}/${state.inventory.passiveSlots}　レア ${state.inventory.rareItems.length}/${state.inventory.rareItemSlots}`,
       9,
       STORYBOOK_UI.textSoft,
@@ -203,9 +209,10 @@ export class Overlays {
 
     const ownedY = hintY + 22;
     const ownedG = this.scene.add.graphics();
-    drawInkDivider(ownedG, GAME_WIDTH / 2, ownedY - 6, GAME_WIDTH - 100);
+    drawSecondaryPaperButton(ownedG, GAME_WIDTH / 2, ownedY + 6, 168, 24, { accent: STORYBOOK_UI.paperDark });
+    ownedG.setAlpha(0.82);
     root.add(ownedG);
-    root.add(this.text(GAME_WIDTH / 2, ownedY + 6, `所持 ${state.stats.memoryFragmentsCollected}`, 10, STORYBOOK_UI.textSoft));
+    root.add(this.text(GAME_WIDTH / 2, ownedY + 6, `Owned  記憶片 ${state.stats.memoryFragmentsCollected}`, 10, STORYBOOK_UI.textLight, true));
 
     const remaining = state.levelUpRerollsRemaining;
     const reroll = this.button(
