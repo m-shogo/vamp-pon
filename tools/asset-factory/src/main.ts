@@ -11,6 +11,16 @@ import {
   type PromptPackType, type PromptPackMode, type PresetExpansion,
 } from './promptPacks';
 import {
+  buildCharacterPromptBatchMarkdown,
+  buildCharacterPromptMarkdown,
+  CHARACTER_ASSET_PROMPT_KINDS,
+  CHARACTER_PROMPT_KIND_LABELS,
+  getCharacterPromptOptions,
+  isEmblemPromptKind,
+  resolveCharacterPrompt,
+  type CharacterPromptScope,
+} from './characterPrompts';
+import {
   loadLibrary, saveLibrary, addEntry, updateEntry, deleteEntry, duplicateEntry,
   exportLibraryJSON, importLibraryJSON,
   filterLibrary, sortLibrary,
@@ -31,6 +41,9 @@ type AppState = {
   packType: PromptPackType;
   packMode: PromptPackMode;
   presetExpansion: PresetExpansion;
+  characterPromptScope: CharacterPromptScope;
+  characterPromptCharacterId: string;
+  characterPromptKind: typeof CHARACTER_ASSET_PROMPT_KINDS[number];
   reviewStatus: ReviewStatus;
   qualityScore: QualityScore;
   reviewNotes: string;
@@ -57,6 +70,9 @@ const state: AppState = {
   packType: 'character' as PromptPackType,
   packMode: 'ja-detail' as PromptPackMode,
   presetExpansion: 'none' as PresetExpansion,
+  characterPromptScope: 'core5' as CharacterPromptScope,
+  characterPromptCharacterId: 'yui',
+  characterPromptKind: 'sprite_sheet_180',
   reviewStatus: 'unchecked' as ReviewStatus,
   qualityScore: 3 as QualityScore,
   reviewNotes: '',
@@ -88,6 +104,7 @@ function init() {
   bindRegenPrompt();
   bindPrompt();
   bindPromptPacks();
+  bindCharacterPrompts();
   bindLibrary();
   bindExport();
   switchTab('import');
@@ -161,6 +178,7 @@ function buildHTML(): string {
         <textarea id="regen-textarea" class="regen-output" placeholder="「再生成プロンプト作成」をクリック" readonly></textarea>
       </div>
     </div>
+
   </div>
 
   <!-- Anchors -->
@@ -262,6 +280,47 @@ function buildHTML(): string {
           <span class="pack-char-count" id="pack-char-count"></span>
         </div>
         <textarea id="pack-textarea" class="pack-output" placeholder="「生成」をクリックしてプロンプトパックを表示" readonly></textarea>
+      </div>
+    </div>
+    <div class="character-prompts-panel">
+      <h3 class="section-header">Character Prompts</h3>
+      <p class="section-note">
+        Character Database v1 から生成した素材制作プロンプトです。これは正本/制作補助であり、20キャラをruntime playable化する導線ではありません。
+      </p>
+      <div class="character-prompt-controls">
+        <label>表示:
+          <select id="character-prompt-scope">
+            <option value="core5">Core5 only</option>
+            <option value="all">All 20 characters</option>
+          </select>
+        </label>
+        <label>Character:
+          <select id="character-prompt-character"></select>
+        </label>
+        <label>Kind:
+          <select id="character-prompt-kind"></select>
+        </label>
+      </div>
+      <div class="character-prompt-meta" id="character-prompt-meta"></div>
+      <div class="character-prompt-grid">
+        <div>
+          <h4>Prompt</h4>
+          <textarea id="character-prompt-preview" readonly></textarea>
+        </div>
+        <div>
+          <h4>Negative Prompt</h4>
+          <textarea id="character-negative-preview" readonly></textarea>
+        </div>
+      </div>
+      <div class="character-prompt-checklist" id="character-prompt-checklist"></div>
+      <div class="character-prompt-emblem-note" id="character-prompt-emblem-note"></div>
+      <div class="btn-group">
+        <button class="btn" id="btn-copy-character-prompt">Copy prompt</button>
+        <button class="btn" id="btn-copy-character-negative">Copy negative</button>
+        <button class="btn" id="btn-copy-character-all">Copy all</button>
+        <button class="btn" id="btn-dl-character-md">Download markdown</button>
+        <button class="btn" id="btn-dl-character-batch-core5">Core5 all markdown</button>
+        <button class="btn" id="btn-dl-character-batch-all">All 20 markdown</button>
       </div>
     </div>
   </div>
@@ -1010,6 +1069,44 @@ function bindPromptPacks() {
   });
 }
 
+function bindCharacterPrompts() {
+  $<HTMLSelectElement>('#character-prompt-scope').addEventListener('change', (e) => {
+    state.characterPromptScope = (e.target as HTMLSelectElement).value as CharacterPromptScope;
+    renderCharacterPromptSection();
+  });
+  $<HTMLSelectElement>('#character-prompt-character').addEventListener('change', (e) => {
+    state.characterPromptCharacterId = (e.target as HTMLSelectElement).value;
+    renderCharacterPromptSection();
+  });
+  $<HTMLSelectElement>('#character-prompt-kind').addEventListener('change', (e) => {
+    state.characterPromptKind = (e.target as HTMLSelectElement).value as typeof CHARACTER_ASSET_PROMPT_KINDS[number];
+    renderCharacterPromptSection();
+  });
+  $('#btn-copy-character-prompt').addEventListener('click', () => {
+    const text = $<HTMLTextAreaElement>('#character-prompt-preview').value;
+    if (text) { navigator.clipboard.writeText(text); showToast('Character prompt copied'); }
+  });
+  $('#btn-copy-character-negative').addEventListener('click', () => {
+    const text = $<HTMLTextAreaElement>('#character-negative-preview').value;
+    if (text) { navigator.clipboard.writeText(text); showToast('Negative prompt copied'); }
+  });
+  $('#btn-copy-character-all').addEventListener('click', () => {
+    const text = buildCharacterPromptMarkdown(state.characterPromptCharacterId, state.characterPromptKind);
+    navigator.clipboard.writeText(text);
+    showToast('Character prompt markdown copied');
+  });
+  $('#btn-dl-character-md').addEventListener('click', () => {
+    const fileName = `character-prompt-${state.characterPromptCharacterId}-${state.characterPromptKind}.md`;
+    downloadFile(fileName, buildCharacterPromptMarkdown(state.characterPromptCharacterId, state.characterPromptKind), 'text/markdown');
+  });
+  $('#btn-dl-character-batch-core5').addEventListener('click', () => {
+    downloadFile('character-prompts-core5-all.md', buildCharacterPromptBatchMarkdown('core5'), 'text/markdown');
+  });
+  $('#btn-dl-character-batch-all').addEventListener('click', () => {
+    downloadFile('character-prompts-all20-all.md', buildCharacterPromptBatchMarkdown('all'), 'text/markdown');
+  });
+}
+
 function renderPacksTab() {
   const typeList = $('#pack-type-list');
   const allTypes: PromptPackType[] = ['character', 'enemy', 'weapon', 'item', 'background', 'cutin', 'all'];
@@ -1041,6 +1138,45 @@ function renderPacksTab() {
   }
 
   renderPresetOptions();
+  renderCharacterPromptSection();
+}
+
+function renderCharacterPromptSection() {
+  const options = getCharacterPromptOptions(state.characterPromptScope);
+  if (!options.some((option) => option.id === state.characterPromptCharacterId)) {
+    state.characterPromptCharacterId = options[0]?.id ?? '';
+  }
+
+  const scopeSelect = $<HTMLSelectElement>('#character-prompt-scope');
+  const characterSelect = $<HTMLSelectElement>('#character-prompt-character');
+  const kindSelect = $<HTMLSelectElement>('#character-prompt-kind');
+  scopeSelect.value = state.characterPromptScope;
+  characterSelect.innerHTML = options.map((option) =>
+    `<option value="${escapeHtml(option.id)}">${escapeHtml(option.name)} / ${escapeHtml(option.id)} — ${escapeHtml(option.statusLabel)}</option>`
+  ).join('');
+  characterSelect.value = state.characterPromptCharacterId;
+  kindSelect.innerHTML = CHARACTER_ASSET_PROMPT_KINDS.map((kind) =>
+    `<option value="${escapeHtml(kind)}">${escapeHtml(CHARACTER_PROMPT_KIND_LABELS[kind])}</option>`
+  ).join('');
+  kindSelect.value = state.characterPromptKind;
+
+  const prompt = resolveCharacterPrompt(state.characterPromptCharacterId, state.characterPromptKind);
+  const option = options.find((candidate) => candidate.id === state.characterPromptCharacterId);
+  $('#character-prompt-meta').innerHTML = prompt ? `
+    <div><strong>${escapeHtml(prompt.characterName)} / ${escapeHtml(prompt.characterId)}</strong> <span class="badge badge-status">${escapeHtml(option?.statusLabel ?? '')}</span></div>
+    <div>Output: <code>${escapeHtml(prompt.outputPathHint)}</code></div>
+    <div>Size: ${escapeHtml(prompt.sizeSpec)}</div>
+  ` : '<div class="warning-item error">Prompt not found</div>';
+  $<HTMLTextAreaElement>('#character-prompt-preview').value = prompt?.prompt ?? '';
+  $<HTMLTextAreaElement>('#character-negative-preview').value = prompt?.negativePrompt ?? '';
+  $('#character-prompt-checklist').innerHTML = prompt ? `
+    <h4>Review Checklist</h4>
+    <ul>${prompt.reviewChecklist.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+  ` : '';
+  $('#character-prompt-emblem-note').innerHTML = prompt && isEmblemPromptKind(prompt.kind) ? `
+    <strong>#00FF00 source-only:</strong>
+    green background is not a final runtime asset. Chroma-key removal, RGBA QA, and green-fringe review are required before candidate/approved.
+  ` : '';
 }
 
 function renderPresetOptions() {

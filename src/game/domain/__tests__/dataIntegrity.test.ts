@@ -313,4 +313,48 @@ describe('characters データ', () => {
       expect(c.baseStats.xpMultiplier, c.id).toBeGreaterThan(0);
     }
   });
+
+  it('Core5 production loadout names stay mapped to runtime data or explicit future seeds', () => {
+    const futureRareNames = new Set(['小さな銀の鍵', '折れたコンパス針', '切れた灯芯']);
+
+    for (const definition of core5CharacterDefinitions) {
+      const runtime = characterById.get(definition.id);
+      const starterWeapon = weaponById.get(runtime?.initialWeaponId ?? '');
+      const passive = passives.find((item) => item.name === definition.combat.passiveItem);
+      const rare = rareItems.find((item) => item.name === definition.combat.rareItem);
+
+      expect(runtime, definition.id).toBeTruthy();
+      expect(starterWeapon?.name, definition.id).toBe(definition.combat.starterGear);
+      expect(passive?.category, definition.id).toBe('passive');
+      if (rare) {
+        expect(rare.category, definition.id).toBe('rare_item');
+      } else {
+        expect(futureRareNames.has(definition.combat.rareItem), definition.id).toBe(true);
+      }
+      expect(definition.combat.lampTsugi, definition.id).toBeTruthy();
+      expect(definition.combat.akatsukiBiraki, definition.id).toBeTruthy();
+    }
+  });
+
+  it('Core5進化参照は既存weapon/passive/rareを指し、合体はrareを要求しない', () => {
+    const weaponIds = new Set(weapons.map((weapon) => weapon.id));
+    const passiveIds = new Set(passives.map((passive) => passive.id));
+    const rareIds = new Set(rareItems.map((rare) => rare.id));
+
+    for (const evo of evolutions) {
+      expect(weaponIds.has(evo.fromWeaponId), evo.id).toBe(true);
+      expect(weaponIds.has(evo.evolvedWeaponId), evo.id).toBe(true);
+      if (evo.requiredWeaponId) expect(weaponIds.has(evo.requiredWeaponId), evo.id).toBe(true);
+      if (evo.requiredPassiveId) expect(passiveIds.has(evo.requiredPassiveId), evo.id).toBe(true);
+      if (evo.requiredRareItemId) expect(rareIds.has(evo.requiredRareItemId), evo.id).toBe(true);
+      for (const id of evo.consumedWeaponIds ?? []) expect(weaponIds.has(id), evo.id).toBe(true);
+      for (const id of evo.consumedRareItemIds ?? []) expect(rareIds.has(id), evo.id).toBe(true);
+
+      if (evo.kind === 'fusion') {
+        expect(evo.requiredWeaponId, evo.id).toBeTruthy();
+        expect(evo.requiredRareItemId, evo.id).toBeUndefined();
+        expect(evo.consumedRareItemIds, evo.id).toBeUndefined();
+      }
+    }
+  });
 });

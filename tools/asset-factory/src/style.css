@@ -374,6 +374,114 @@ header .subtitle {
   line-height: 1.5;
 }
 
+.section-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.character-prompts-panel {
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.character-prompt-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: end;
+  margin-bottom: 12px;
+}
+
+.character-prompt-controls label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.character-prompt-controls select {
+  min-width: 190px;
+  padding: 6px 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.character-prompt-meta {
+  display: grid;
+  gap: 3px;
+  margin: 8px 0 12px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.character-prompt-meta code {
+  color: var(--accent);
+}
+
+.character-prompt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.character-prompt-grid h4,
+.character-prompt-checklist h4 {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.character-prompt-grid textarea {
+  width: 100%;
+  min-height: 240px;
+  padding: 10px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px;
+  font-family: 'Fira Code', 'SF Mono', monospace;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.character-prompt-checklist {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.character-prompt-checklist ul {
+  padding-left: 18px;
+}
+
+.character-prompt-emblem-note {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--warn);
+  background: rgba(224, 160, 48, 0.08);
+  color: #e0c080;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+@media (max-width: 760px) {
+  .character-prompt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Library */
 .library-list {
   display: grid;

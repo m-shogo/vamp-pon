@@ -119,6 +119,16 @@ pnpm asset-factory:build
 - 各プリセットにはシルエット・配色・デザイン固有の指示が含まれる
 - 使い方: パックタイプ (Enemy/Weapon/Item) 選択 → プリセット展開セクションで対象を選択 → 生成
 
+#### Character Prompts (Character Database)
+- 一括プロンプトタブ内の Character Prompts セクションから、`src/game/data/assetFactoryCharacterPrompts.ts` の 20キャラ x 9種類の素材プロンプトを選択できる
+- Character選択: 初期表示は Core5 only。All 20 characters に切り替えると seed / shadow data も制作プロンプトとして表示する
+- Prompt kind: sprite sheet / reference / normal cutin / dawn cutin / kokuyou cutin / emblem 4相を選べる
+- 表示内容: prompt / negativePrompt / reviewChecklist / outputPathHint / sizeSpec
+- 操作: Copy prompt / Copy negative / Copy all / Download markdown / Core5一括markdown / All20一括markdown
+- Character Database は制作正本であり、runtime playable list ではない。All20を表示してもゲーム本体で20キャラがplayableになるわけではない
+- 生成画像は Asset Factory QA を通して candidate / approved を判断する。approved前に `public/assets/prototypes` からruntime assetへ移動しない
+- `emblem_*` は `#00FF00` source-only。最終素材ではなく、クロマキー除去後のRGBA、64px/32px可読性、緑フリンジを確認してからcandidate/approvedに進める
+
 #### 再生成プロンプトビルダー (v2)
 - 検査結果から修正指示を自動生成
 - アセットタイプ別に指示を分岐:
