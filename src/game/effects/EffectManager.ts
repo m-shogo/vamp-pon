@@ -214,6 +214,7 @@ export class EffectManager {
       }
     }
     this.glowPop(x, y, elite ? 24 : 17, elite ? 0xffd8a0 : COLORS.fragmentGlow, elite ? 0.24 : 0.18, elite ? 280 : 210);
+    this.shadowDissolve(x, y, elite);
     if (elite || options?.defId === 'black_label_shadow') this.cameraShakeSmall(options?.defId === 'black_label_shadow' ? 1.85 : 1.5);
     if (options?.black) this.blackAfterimage(x, y);
     this.comboFeedback(combo);
@@ -650,6 +651,7 @@ export class EffectManager {
     const scrap = this.scene.add.rectangle(x, y, elite ? 8 : 6, elite ? 5 : 4, COLORS.paperScrap, elite ? 0.82 : 0.68)
       .setDepth(VIEW_DEPTH.enemy + 2)
       .setAngle(Math.random() * 180);
+    scrap.setStrokeStyle(1, elite ? 0xffe0aa : 0xf2d39a, elite ? 0.42 : 0.3);
     this.activeParticles += 1;
     const angle = -Math.PI * 0.75 + Math.random() * Math.PI * 1.5;
     this.scene.tweens.add({
@@ -664,6 +666,20 @@ export class EffectManager {
         scrap.destroy();
         this.activeParticles = Math.max(0, this.activeParticles - 1);
       },
+    });
+  }
+
+  private shadowDissolve(x: number, y: number, elite: boolean): void {
+    const shade = this.scene.add.ellipse(x, y + 2, elite ? 32 : 24, elite ? 22 : 16, 0x080611, elite ? 0.3 : 0.22)
+      .setDepth(VIEW_DEPTH.enemy - 1);
+    this.scene.tweens.add({
+      targets: shade,
+      scaleX: elite ? 1.65 : 1.45,
+      scaleY: 0.55,
+      alpha: 0,
+      duration: elite ? 340 : 260,
+      ease: 'Quad.easeOut',
+      onComplete: () => shade.destroy(),
     });
   }
 
