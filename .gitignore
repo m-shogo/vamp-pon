@@ -7,6 +7,27 @@ dist/
 # OS
 .DS_Store
 
+# Unity generated files
+unity/**/[Ll]ibrary/
+unity/**/[Tt]emp/
+unity/**/[Oo]bj/
+unity/**/[Bb]uild/
+unity/**/[Bb]uilds/
+unity/**/[Ll]ogs/
+unity/**/[Uu]ser[Ss]ettings/
+unity/**/*.csproj
+unity/**/*.sln
+unity/**/*.user
+unity/**/*.userprefs
+unity/**/*.pidb
+unity/**/*.booproj
+unity/**/*.svd
+unity/**/*.pdb
+unity/**/*.mdb
+unity/**/.vs/
+unity/**/.gradle/
+unity/**/sysinfo.txt
+
 # Claude Code ローカル設定（マシン固有・コミットしない）
 .claude/settings.local.json
 .claude/*.lock

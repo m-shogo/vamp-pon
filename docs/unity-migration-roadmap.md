@@ -51,6 +51,7 @@
 - Web assetsの持ち込み方針 (PNG/JSON)
 - ScriptableObject設計方針の確認
 - docs/web-to-unity-system-map.md, docs/unity-asset-import-map.md, docs/unity-data-schema-map.md の整備
+- docs/unity-u0-project-setup-plan.md で空プロジェクト作成前の判断を固定
 
 ### Phase U1: Unity空プロジェクト / 縦画面基盤
 
@@ -173,6 +174,12 @@
 - [x] 8分通し確認 (または5分以上での破綻なし確認)
 - [x] build/test/check 全通過
 - [ ] Unity移行判断の最終確認 (チーム合意)
+
+2026-06-28追記:
+
+- Phase U0のプロジェクト準備方針は `docs/unity-u0-project-setup-plan.md` に固定する。
+- Unity空プロジェクトはU0では作成せず、U1でUnity Hub上の正確なEditor patchを確認してから `unity/VampPonUnity/` に作成する。
+- Web版Stage1はUnity移行前基準として凍結し、以後はWeb画面の追加改善ではなくUnity Vertical Sliceへ進む。
 
 ---
 
