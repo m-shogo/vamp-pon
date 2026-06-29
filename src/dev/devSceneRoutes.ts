@@ -42,6 +42,14 @@ export function isWeaponFeedbackQaUrl(): boolean {
   return sceneParam() === 'weapon-fx-qa';
 }
 
+export function isStageSelectPreviewUrl(): boolean {
+  return sceneParam() === 'stage-select';
+}
+
+export function isCollectionPreviewUrl(): boolean {
+  return sceneParam() === 'collection';
+}
+
 export function isGalleryUrl(): boolean {
   return GALLERY_SCENES.includes(sceneParam());
 }
@@ -60,5 +68,7 @@ export const DEV_SCENE_ROUTES: DevSceneRoute[] = [
   { guard: isCharacterCutinQaUrl, sceneName: 'CharacterCutinQaScene' },
   { guard: isEliteDefeatBeatQaUrl, sceneName: 'EliteDefeatBeatQaScene' },
   { guard: isWeaponFeedbackQaUrl, sceneName: 'WeaponFeedbackQaScene' },
+  { guard: isStageSelectPreviewUrl, sceneName: 'StageSelectScene' },
+  { guard: isCollectionPreviewUrl, sceneName: 'CollectionScene' },
   { guard: isGalleryUrl, sceneName: 'VisualGalleryScene', needsPrototypeAssets: true },
 ];

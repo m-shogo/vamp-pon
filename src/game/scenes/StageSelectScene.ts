@@ -203,19 +203,33 @@ export class StageSelectScene extends Phaser.Scene {
     const nextLocked = next == null;
 
     const cardX = GAME_WIDTH / 2;
-    const cardY = 210;
+    const cardY = 214;
     const cardW = 340;
-    const cardH = 200;
+    const cardH = 214;
 
     const pageBg = this.add.graphics();
     drawLargeNotebookPage(pageBg, cardX, cardY, cardW, cardH, { accent: STORYBOOK_UI.paperDark, alpha: 0.96 });
+    this.drawStageMapOrnaments(pageBg, cardX, cardY, cardW, cardH);
     root.add(pageBg);
 
     const entry = this.bgEntryByStage.get(current);
     const key = entry ? stageBackgroundTextureKey(entry) : null;
     const innerW = cardW - 40;
-    const innerH = 100;
-    const innerY = cardY - 14;
+    const innerH = 92;
+    const innerY = cardY - 2;
+
+    const titleStrip = this.add.graphics();
+    drawPremiumPaperCard(titleStrip, cardX - 18, cardY - 76, 218, 42, {
+      accent: STORYBOOK_UI.warmAmber,
+      paper: STORYBOOK_UI.paperLight,
+      selected: true,
+      shadowAlpha: 0.16,
+    });
+    root.add(titleStrip);
+    const stageName = entry?.name ?? '夜路';
+    root.add(this.text(cardX - 18, cardY - 84, `Stage ${current}`, 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(cardX - 18, cardY - 65, stageName, 12, STORYBOOK_UI.paperDark, true));
+
     if (key && this.textures.exists(key)) {
       const tile = this.add.image(cardX, innerY, key).setDisplaySize(innerW, innerH);
       root.add(tile);
@@ -225,12 +239,12 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(this.add.rectangle(cardX, innerY, innerW, innerH, STORYBOOK_UI.inkBlack, 0.35));
 
     const routeLines = this.add.graphics();
-    drawMapThreads(routeLines, cardX, innerY + 10, innerW - 40, 0.28);
+    drawMapThreads(routeLines, cardX, innerY + 11, innerW - 52, 0.38);
     const routeNodes = [
-      { x: cardX - 98, y: innerY + 24, r: 7, active: true },
-      { x: cardX - 34, y: innerY + 6, r: 5, active: false },
-      { x: cardX + 35, y: innerY + 16, r: 5, active: false },
-      { x: cardX + 106, y: innerY - 4, r: 12, active: false },
+      { x: cardX - 104, y: innerY + 22, r: 7, active: true },
+      { x: cardX - 38, y: innerY + 4, r: 5, active: false },
+      { x: cardX + 36, y: innerY + 15, r: 5, active: false },
+      { x: cardX + 108, y: innerY - 5, r: 12, active: false },
     ];
     routeNodes.forEach((node) => {
       routeLines.fillStyle(node.active ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperBeige, node.active ? 0.72 : 0.34);
@@ -238,41 +252,43 @@ export class StageSelectScene extends Phaser.Scene {
       routeLines.lineStyle(node.active ? 2 : 1, node.active ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperLight, node.active ? 0.82 : 0.52);
       routeLines.strokeCircle(node.x, node.y, node.r + 3);
     });
-    routeLines.lineStyle(2, STORYBOOK_UI.dustyRose, 0.45);
-    routeLines.strokeCircle(cardX + 106, innerY - 4, 18);
+    routeLines.lineStyle(3, STORYBOOK_UI.dustyRose, 0.48);
+    routeLines.strokeCircle(cardX + 108, innerY - 5, 19);
     root.add(routeLines);
 
     const routeBorder = this.add.graphics();
-    routeBorder.lineStyle(1, STORYBOOK_UI.paperDark, 0.6);
+    routeBorder.lineStyle(2, STORYBOOK_UI.paperDark, 0.68);
     routeBorder.strokeRect(cardX - innerW / 2, innerY - innerH / 2, innerW, innerH);
+    routeBorder.lineStyle(1, STORYBOOK_UI.goldLight, 0.18);
+    routeBorder.strokeRect(cardX - innerW / 2 + 5, innerY - innerH / 2 + 5, innerW - 10, innerH - 10);
     root.add(routeBorder);
-
-    const stageName = entry?.name ?? '夜路';
-    root.add(this.text(cardX - 20, cardY - 82, `Stage ${current}`, 18, STORYBOOK_UI.textDark, true, true));
-    root.add(this.text(cardX - 20, cardY - 64, stageName, 13, STORYBOOK_UI.paperDark, true));
 
     const lvBadge = this.add.graphics();
     const charProgress = profile.characterProgress[characters[0].id] ?? { level: 1, xp: 0, totalXp: 0 };
     const lvX = cardX + cardW / 2 - 42;
-    const lvY = cardY - 78;
-    lvBadge.fillStyle(STORYBOOK_UI.deepNight, 0.85).fillRect(lvX - 24, lvY - 10, 48, 20);
-    lvBadge.lineStyle(1, STORYBOOK_UI.warmAmber, 0.6).strokeRect(lvX - 24, lvY - 10, 48, 20);
+    const lvY = cardY - 80;
+    lvBadge.fillStyle(STORYBOOK_UI.deepNight, 0.9).fillRect(lvX - 28, lvY - 12, 56, 24);
+    lvBadge.lineStyle(1, STORYBOOK_UI.warmAmber, 0.72).strokeRect(lvX - 28, lvY - 12, 56, 24);
+    lvBadge.fillStyle(STORYBOOK_UI.warmAmber, 0.12).fillRect(lvX - 24, lvY - 8, 48, 16);
     root.add(lvBadge);
     root.add(this.text(lvX, lvY, `Lv.${charProgress.level}`, 12, STORYBOOK_UI.lanternCore, true));
 
     const seal = this.add.graphics();
-    drawWaxSeal(seal, cardX + cardW / 2 - 38, cardY + 20, 26, { color: STORYBOOK_UI.dustyRose });
+    drawWaxSeal(seal, cardX + cardW / 2 - 40, cardY + 35, 28, { color: STORYBOOK_UI.dustyRose });
+    seal.lineStyle(1, STORYBOOK_UI.paperDark, 0.32);
+    seal.lineBetween(cardX + cardW / 2 - 52, cardY + 35, cardX + cardW / 2 - 28, cardY + 35);
+    seal.lineBetween(cardX + cardW / 2 - 40, cardY + 23, cardX + cardW / 2 - 40, cardY + 47);
     root.add(seal);
 
-    root.add(this.text(cardX - 10, cardY + 42, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textDark));
+    root.add(this.text(cardX - 10, cardY + 54, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textDark));
     const hint = this.stageHintFor(current);
-    if (hint) root.add(this.text(cardX - 10, cardY + 58, hint, 10, STORYBOOK_UI.paperDark));
+    if (hint) root.add(this.text(cardX - 10, cardY + 70, hint, 10, STORYBOOK_UI.paperDark));
 
     const divider = this.add.graphics();
-    drawInkDivider(divider, cardX, cardY + 74, cardW - 48, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
+    drawInkDivider(divider, cardX, cardY + 88, cardW - 56, { color: STORYBOOK_UI.paperDark, alpha: 0.22 });
     root.add(divider);
 
-    root.add(this.text(cardX, cardY + 88, `Best Record — 開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.paperDark));
+    root.add(this.text(cardX, cardY + 102, `Best Record — 開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.paperDark));
 
     const prevBtn = this.navArrow(18, cardY, '◀', () => {
       if (prev == null) return;
@@ -296,11 +312,33 @@ export class StageSelectScene extends Phaser.Scene {
       const hasNextRecipe = nextStageNum <= stageRecipes.length;
       if (hasNextRecipe) {
         const recipe = recipeForStage(nextStageNum);
-        root.add(this.text(cardX, cardY + cardH / 2 + 12, `Stage ${nextStageNum} ${recipe.name} — 夜明けまで進むと開放`, 10, STORYBOOK_UI.textMuted));
+        root.add(this.text(cardX, cardY + cardH / 2 + 9, `Stage ${nextStageNum} ${recipe.name} — 夜明けまで進むと開放`, 9, STORYBOOK_UI.textMuted));
       } else {
-        root.add(this.text(cardX, cardY + cardH / 2 + 12, '次のステージは未開放', 10, STORYBOOK_UI.textMuted));
+        root.add(this.text(cardX, cardY + cardH / 2 + 9, '次のステージは未開放', 9, STORYBOOK_UI.textMuted));
       }
     }
+  }
+
+  private drawStageMapOrnaments(
+    g: Phaser.GameObjects.Graphics,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+  ): void {
+    const left = x - width / 2;
+    const top = y - height / 2;
+    g.fillStyle(STORYBOOK_UI.paperDark, 0.1).fillRect(left + 22, top + 28, width - 44, 1);
+    g.fillStyle(STORYBOOK_UI.paperDark, 0.08).fillRect(left + 22, top + height - 34, width - 44, 1);
+    g.lineStyle(1, STORYBOOK_UI.paperDark, 0.24);
+    g.strokeCircle(left + 46, top + 76, 20);
+    g.lineBetween(left + 46, top + 49, left + 46, top + 103);
+    g.lineBetween(left + 19, top + 76, left + 73, top + 76);
+    g.fillStyle(STORYBOOK_UI.gold, 0.2);
+    g.fillTriangle(left + 46, top + 58, left + 40, top + 76, left + 52, top + 76);
+    g.fillStyle(STORYBOOK_UI.dustyRose, 0.12).fillRect(left + width - 60, top + 36, 34, 46);
+    g.lineStyle(1, STORYBOOK_UI.dustyRose, 0.38);
+    g.strokeRect(left + width - 60, top + 36, 34, 46);
   }
 
   private stageBlurbFor(stage: number, _entry: BackgroundStageEntry | undefined): string {
@@ -322,7 +360,7 @@ export class StageSelectScene extends Phaser.Scene {
 
   // --- 難易度（Easy/Normal/Hard） ---
   private renderDepthBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
-    const blockY = 346;
+    const blockY = 358;
     root.add(this.text(GAME_WIDTH / 2, blockY, '夜の深さ', 14, STORYBOOK_UI.lanternCore, true));
 
     const cardW = 108;
@@ -332,7 +370,7 @@ export class StageSelectScene extends Phaser.Scene {
       const flavor = DEPTH_FLAVOR[depthId];
       const selected = depthId === profile.selectedDepth;
       const x = GAME_WIDTH / 2 + (index - 1) * (cardW + 8);
-      const y = blockY + 90;
+      const y = blockY + 86;
 
       const card = this.add.graphics();
       if (selected) {

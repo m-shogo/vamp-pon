@@ -84,6 +84,7 @@ export class CollectionScene extends Phaser.Scene {
     drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.35 });
     root.add(vignette);
     this.addSoftAtlasGlow(root);
+    this.addLedgerBinding(root, 152, 520);
 
     const active = this.activeCollectionSection();
     attachCollectionAtlasAtmosphere(this, root, active);
@@ -111,17 +112,17 @@ export class CollectionScene extends Phaser.Scene {
   }
 
   private renderSectionTabs(root: Phaser.GameObjects.Container): void {
-    const margin = 12;
-    const gap = 4;
+    const margin = 10;
+    const gap = 3;
     const available = GAME_WIDTH - margin * 2;
     const tabWidth = Math.floor((available - (collectionSections.length - 1) * gap) / collectionSections.length);
-    const tabHeight = 28;
+    const tabHeight = 36;
     const totalWidth = collectionSections.length * tabWidth + (collectionSections.length - 1) * gap;
     const startX = GAME_WIDTH / 2 - totalWidth / 2 + tabWidth / 2;
 
     collectionSections.forEach((section, index) => {
       const x = startX + index * (tabWidth + gap);
-      root.add(this.sectionTab(x, 120, tabWidth, tabHeight, section));
+      root.add(this.sectionTab(x, 128, tabWidth, tabHeight, section));
     });
   }
 
@@ -129,19 +130,32 @@ export class CollectionScene extends Phaser.Scene {
     const isActive = section.id === this.activeSection;
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
+    const tabTop = -height / 2 + (isActive ? -4 : 2);
+    const tabBottom = height / 2 + (isActive ? 4 : 0);
+    const chip = 5;
+    const points = [
+      new Phaser.Math.Vector2(-width / 2 + chip, tabTop),
+      new Phaser.Math.Vector2(width / 2 - chip, tabTop + 1),
+      new Phaser.Math.Vector2(width / 2, tabTop + chip + 2),
+      new Phaser.Math.Vector2(width / 2 - 1, tabBottom),
+      new Phaser.Math.Vector2(-width / 2 + 1, tabBottom),
+      new Phaser.Math.Vector2(-width / 2, tabTop + chip + 2),
+    ];
     if (isActive) {
-      fill.fillStyle(STORYBOOK_UI.inkBlack, 0.28).fillRect(-width / 2 + 2, -height / 2 + 3, width, height);
-      fill.fillStyle(STORYBOOK_UI.paperBeige, 0.96).fillRect(-width / 2, -height / 2, width, height);
-      fill.fillStyle(section.accent, 0.18).fillRect(-width / 2, -height / 2, width, 5);
-      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.72).strokeRect(-width / 2, -height / 2, width, height);
-      fill.lineStyle(1, section.accent, 0.5).strokeRect(-width / 2 + 3, -height / 2 + 4, width - 6, height - 8);
+      fill.fillStyle(STORYBOOK_UI.inkBlack, 0.34).fillPoints(points.map((p) => new Phaser.Math.Vector2(p.x + 2, p.y + 4)), true);
+      fill.fillStyle(STORYBOOK_UI.paperBeige, 0.98).fillPoints(points, true);
+      fill.fillStyle(section.accent, 0.24).fillRect(-width / 2 + 7, tabTop + 6, width - 14, 5);
+      fill.lineStyle(2, STORYBOOK_UI.paperEdge, 0.82).strokePoints(points, true);
+      fill.lineStyle(1, section.accent, 0.5).strokeRect(-width / 2 + 6, tabTop + 8, width - 12, tabBottom - tabTop - 14);
     } else {
-      fill.fillStyle(STORYBOOK_UI.inkBlack, 0.22).fillRect(-width / 2 + 1, -height / 2 + 2, width, height);
-      fill.fillStyle(STORYBOOK_UI.deepNight, 0.88).fillRect(-width / 2, -height / 2, width, height);
-      fill.fillStyle(section.accent, 0.08).fillRect(-width / 2, -height / 2, width, 4);
-      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.38).strokeRect(-width / 2, -height / 2, width, height);
+      fill.fillStyle(STORYBOOK_UI.inkBlack, 0.28).fillPoints(points.map((p) => new Phaser.Math.Vector2(p.x + 1, p.y + 3)), true);
+      fill.fillStyle(0x262139, 0.94).fillPoints(points, true);
+      fill.fillStyle(section.accent, 0.13).fillRect(-width / 2 + 7, tabTop + 6, width - 14, 4);
+      fill.lineStyle(1, STORYBOOK_UI.paperEdge, 0.42).strokePoints(points, true);
     }
-    const label = this.text(0, 0, section.shortLabel, 10, isActive ? STORYBOOK_UI.textDark : STORYBOOK_UI.textMuted, true);
+    const icon = this.add.graphics();
+    this.drawSectionIcon(icon, 0, -6, section.id, isActive ? GRAPHICS_TEXT_DARK : section.accent, isActive ? 0.82 : 0.58);
+    const label = this.text(0, 9, section.shortLabel, 9, isActive ? STORYBOOK_UI.textDark : STORYBOOK_UI.textMuted, true);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => {
       if (this.activeSection !== section.id) this.achievementSessionNewIds = null;
@@ -149,7 +163,7 @@ export class CollectionScene extends Phaser.Scene {
       getAudioManager(this).playSe('ui_select', { volume: 0.3 });
       this.render();
     });
-    c.add([fill, label, hit]);
+    c.add([fill, icon, label, hit]);
     return c;
   }
 
@@ -191,14 +205,29 @@ export class CollectionScene extends Phaser.Scene {
     newlyCompleted: Set<string>,
     progress: CollectionProgressSaveData,
   ): void {
+    const ledger = this.add.graphics();
+    drawLargeNotebookPage(ledger, GAME_WIDTH / 2, 378, 348, 462, { accent: STORYBOOK_UI.goldLight, alpha: 0.94 });
+    ledger.fillStyle(STORYBOOK_UI.paperDark, 0.08).fillRect(54, 168, 282, 1);
+    ledger.fillStyle(STORYBOOK_UI.paperDark, 0.08).fillRect(54, 586, 282, 1);
+    ledger.fillStyle(STORYBOOK_UI.paperEdge, 0.08).fillRect(72, 184, 1, 386);
+    root.add(ledger);
+
+    const compass = this.add.graphics();
+    this.drawCompassMark(compass, 74, 202, 24, STORYBOOK_UI.paperDark, 0.35);
+    this.drawWaxStampMark(compass, 316, 552, STORYBOOK_UI.dustyRose, 0.22);
+    root.add(compass);
+
+    root.add(this.text(GAME_WIDTH / 2, 178, '夜明け星図', 17, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 202, '灯した記憶を、絵札として綴じていく地図。', 10, STORYBOOK_UI.paperDark));
+
     this.renderBoard(root, completed, revealed, hinted, newlyCompleted);
 
     const detailPanel = this.add.graphics();
-    drawLargeNotebookPage(detailPanel, GAME_WIDTH / 2, 498, 330, 92, { accent: STORYBOOK_UI.paperDark, alpha: 0.9 });
+    drawLargeNotebookPage(detailPanel, GAME_WIDTH / 2, 538, 318, 84, { accent: STORYBOOK_UI.paperDark, alpha: 0.92 });
     root.add(detailPanel);
     this.detailText = this.add.text(
       GAME_WIDTH / 2,
-      462,
+      508,
       '絵札を押すと、夜に残った記憶が読めます。',
       {
         fontFamily: STORYBOOK_FONT,
@@ -207,7 +236,7 @@ export class CollectionScene extends Phaser.Scene {
         align: 'center',
         resolution: 2,
         lineSpacing: 4,
-        wordWrap: { width: 308 },
+        wordWrap: { width: 292 },
       },
     ).setOrigin(0.5, 0);
     root.add(this.detailText);
@@ -759,6 +788,24 @@ export class CollectionScene extends Phaser.Scene {
     root.add(glow);
   }
 
+  private addLedgerBinding(root: Phaser.GameObjects.Container, top: number, bottom: number): void {
+    const g = this.add.graphics();
+    g.fillStyle(0x060817, 0.52).fillRect(18, top - 24, 22, bottom - top + 48);
+    g.lineStyle(1, STORYBOOK_UI.gold, 0.26);
+    g.lineBetween(38, top - 20, 38, bottom + 20);
+    for (let y = top; y <= bottom; y += 78) {
+      g.lineStyle(5, 0x8c6b37, 0.52);
+      g.beginPath();
+      g.arc(36, y, 18, Math.PI * 0.58, Math.PI * 1.42);
+      g.strokePath();
+      g.lineStyle(2, STORYBOOK_UI.goldLight, 0.42);
+      g.beginPath();
+      g.arc(36, y, 14, Math.PI * 0.58, Math.PI * 1.42);
+      g.strokePath();
+    }
+    root.add(g);
+  }
+
   private renderBoard(
     root: Phaser.GameObjects.Container,
     completed: Set<string>,
@@ -766,13 +813,13 @@ export class CollectionScene extends Phaser.Scene {
     hinted: Set<string>,
     newlyCompleted: Set<string>,
   ): void {
-    const cellSize = 48;
-    const gap = 8;
+    const cellSize = 50;
+    const gap = 6;
     const startX = GAME_WIDTH / 2 - ((cellSize + gap) * forgottenStreetNightBoard.width - gap) / 2 + cellSize / 2;
-    const startY = 176;
+    const startY = 248;
 
     const lineLayer = this.add.graphics();
-    lineLayer.lineStyle(1, STORYBOOK_UI.gold, 0.16);
+    lineLayer.lineStyle(2, STORYBOOK_UI.gold, 0.13);
     let newlyCompletedIndex = 0;
     for (const cell of forgottenStreetNightBoard.cells) {
       for (const parentId of cell.revealBy ?? []) {
@@ -805,7 +852,7 @@ export class CollectionScene extends Phaser.Scene {
   }
 
   private renderBestiarySummary(root: Phaser.GameObjects.Container, seenEnemyIds: string[], defeatedEnemyCounts: Record<string, number>): void {
-    root.add(this.text(GAME_WIDTH / 2, 584, COLLECTION_LABELS.bestiary, 14, STORYBOOK_UI.textLight, true));
+    root.add(this.text(GAME_WIDTH / 2, 606, COLLECTION_LABELS.bestiary, 14, STORYBOOK_UI.textLight, true));
     const seen = new Set(seenEnemyIds);
     const known = enemies.filter((enemy) => seen.has(enemy.id) || (defeatedEnemyCounts[enemy.id] ?? 0) > 0);
     const visible = known.slice(0, 3);
@@ -815,7 +862,7 @@ export class CollectionScene extends Phaser.Scene {
     const text = rows.length > 0
       ? rows.join('\n')
       : 'まだカゲモノは記されていません。\n夜路で出会うと、ここに残ります。';
-    const summary = this.text(GAME_WIDTH / 2, 626, text, 12, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
+    const summary = this.text(GAME_WIDTH / 2, 642, text, 12, rows.length > 0 ? STORYBOOK_UI.goldLight : STORYBOOK_UI.textMuted, rows.length > 0);
     summary.setWordWrapWidth(306);
     root.add(summary);
   }
@@ -918,10 +965,24 @@ export class CollectionScene extends Phaser.Scene {
       c.add(glow);
     }
 
-    const rect = this.add.rectangle(0, 0, size, size, fillColor, state === 'hidden' ? 0.78 : 0.95);
-    rect.setStrokeStyle(state === 'completed' ? 2 : 1, strokeColor, 0.95);
+    const card = this.add.graphics();
+    drawPremiumPaperCard(card, 0, 0, size, size + 6, {
+      accent,
+      paper: state === 'completed' ? STORYBOOK_UI.paperBeige : fillColor,
+      selected: state === 'completed',
+      muted: state === 'hidden' || state === 'hinted',
+      shadowAlpha: state === 'completed' ? 0.22 : 0.16,
+    });
+    if (state === 'completed') {
+      card.fillStyle(accent, 0.22).fillRect(-size / 2 + 6, -size / 2 + 7, 12, size - 8);
+      card.lineStyle(1, STORYBOOK_UI.paperDark, 0.16).lineBetween(-size / 2 + 19, -size / 2 + 9, -size / 2 + 19, size / 2);
+    } else {
+      card.fillStyle(0x040612, state === 'hidden' ? 0.34 : 0.18).fillRect(-size / 2 + 5, -size / 2 + 7, size - 10, size - 8);
+      card.lineStyle(1, strokeColor, 0.42).strokeRect(-size / 2 + 7, -size / 2 + 9, size - 14, size - 12);
+    }
+    this.drawPaperClip(card, size / 2 - 12, -size / 2 + 9, state === 'completed' ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, state === 'completed' ? 0.44 : 0.24);
     const art = this.add.graphics();
-    this.drawCellMotif(art, cell, state, size, accent);
+    this.drawCellMotif(art, cell, state, size, state === 'completed' ? GRAPHICS_TEXT_DARK : accent);
     let arrivalGlow: Phaser.GameObjects.Rectangle | null = null;
     if (newlyCompleted) {
       arrivalGlow = this.add.rectangle(0, 0, size + 18, size + 18, STORYBOOK_UI.goldLight, 0.06);
@@ -977,8 +1038,66 @@ export class CollectionScene extends Phaser.Scene {
       lineSpacing: 1,
     }).setOrigin(0.5);
 
-    c.add(arrivalGlow ? [arrivalGlow, rect, art, label, hit] : [rect, art, label, hit]);
+    c.add(arrivalGlow ? [arrivalGlow, card, art, label, hit] : [card, art, label, hit]);
     return c;
+  }
+
+  private drawSectionIcon(
+    g: Phaser.GameObjects.Graphics,
+    x: number,
+    y: number,
+    id: CollectionSectionId,
+    color: number,
+    alpha: number,
+  ): void {
+    g.lineStyle(1, color, alpha);
+    g.fillStyle(color, alpha * 0.38);
+    switch (id) {
+      case 'dawn_atlas':
+        this.drawCompassMark(g, x, y, 7, color, alpha);
+        return;
+      case 'bestiary':
+        g.fillTriangle(x, y - 8, x + 8, y + 4, x, y + 8);
+        g.fillTriangle(x, y - 8, x - 8, y + 4, x, y + 8);
+        g.fillStyle(color, alpha * 0.82).fillCircle(x - 3, y, 1.5).fillCircle(x + 3, y, 1.5);
+        return;
+      case 'keeper_records':
+        g.strokeCircle(x, y, 7);
+        g.lineBetween(x, y + 7, x, y + 12);
+        g.lineBetween(x, y + 10, x + 5, y + 10);
+        return;
+      case 'word_records':
+        g.strokeRect(x - 7, y - 7, 14, 12);
+        g.lineBetween(x, y - 7, x, y + 5);
+        g.lineBetween(x - 4, y - 3, x - 1, y - 3);
+        g.lineBetween(x + 3, y - 3, x + 6, y - 3);
+        return;
+      case 'lost_item_cards':
+        g.fillCircle(x, y, 7);
+        g.lineStyle(1, STORYBOOK_UI.paperLight, alpha * 0.6).strokeCircle(x, y, 4);
+        return;
+      case 'achievements':
+        drawStar(g, x, y, 7, color, STORYBOOK_UI.paperLight, alpha);
+        return;
+    }
+  }
+
+  private drawCompassMark(g: Phaser.GameObjects.Graphics, x: number, y: number, radius: number, color: number, alpha: number): void {
+    g.lineStyle(1, color, alpha);
+    g.strokeCircle(x, y, radius);
+    g.lineBetween(x, y - radius - 5, x, y + radius + 5);
+    g.lineBetween(x - radius - 5, y, x + radius + 5, y);
+    g.fillStyle(color, alpha * 0.8);
+    g.fillTriangle(x, y - radius + 2, x - 4, y, x + 4, y);
+    g.fillTriangle(x, y + radius - 2, x - 3, y, x + 3, y);
+  }
+
+  private drawWaxStampMark(g: Phaser.GameObjects.Graphics, x: number, y: number, color: number, alpha: number): void {
+    g.fillStyle(color, alpha);
+    g.fillCircle(x, y, 21);
+    g.lineStyle(1, color, alpha * 1.8);
+    g.strokeCircle(x, y, 25);
+    this.drawCompassMark(g, x, y, 11, STORYBOOK_UI.paperDark, alpha * 1.2);
   }
 
   private drawCellMotif(
