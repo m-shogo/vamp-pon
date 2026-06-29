@@ -29,6 +29,10 @@ const PARTICLE_DEPTH = 2;
 const UI_DEPTH = 10;
 const TOP_BG_TEXTURE = 'top_stage1_background';
 const TOP_YUI_TEXTURE = 'top_yui_fullbody';
+const UI_TITLE_BANNER = 'ui_paper_title_banner_v1';
+const UI_CTA_BUTTON = 'ui_paper_cta_button_v1';
+const UI_SMALL_CARD = 'ui_paper_small_card_v1';
+const UI_WAX_SEAL = 'ui_wax_seal_badge_v1';
 
 export class TopScene extends Phaser.Scene {
   private notice: Phaser.GameObjects.Text | null = null;
@@ -113,7 +117,7 @@ export class TopScene extends Phaser.Scene {
     collBtn.setDepth(UI_DEPTH + 4);
     this.text(GAME_WIDTH / 2, 761, `${boardCount}/${boardTotal}`, 10, STORYBOOK_UI.paperDark, true).setDepth(UI_DEPTH + 6);
     if (totalNewCount > 0) {
-      drawNewSparkBadge(this, GAME_WIDTH / 2 + 50, 676, totalNewCount, { depth: UI_DEPTH + 7, label: 'NEW' });
+      this.addNewSealBadge(GAME_WIDTH / 2 + 48, 678, totalNewCount);
     }
 
     const settingsBtn = this.menuCard(313, 730, 106, 88, '設定', 'gear', () => this.showNotice('設定は準備中です'));
@@ -228,12 +232,31 @@ export class TopScene extends Phaser.Scene {
     const depth = UI_DEPTH + 2;
     const g = this.add.graphics().setDepth(depth);
 
-    drawPaperScrap(g, GAME_WIDTH / 2 - 10, 105, 338, 142, STORYBOOK_UI.paperDark, 0.24);
-    drawPaperScrap(g, GAME_WIDTH / 2 + 12, 100, 338, 134, STORYBOOK_UI.paperShadow, 0.6);
-    drawPremiumPaperCard(g, GAME_WIDTH / 2, 104, 328, 122, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.62 });
-    drawWaxSeal(g, GAME_WIDTH / 2 - 140, 140, 14, { color: STORYBOOK_UI.dustyRose, alpha: 0.9 });
-    drawWaxSeal(g, GAME_WIDTH / 2 + 142, 126, 7, { color: STORYBOOK_UI.paperDark, alpha: 0.55 });
-    drawMapThreads(g, GAME_WIDTH / 2, 166, 220, 0.24);
+    if (this.textures.exists(UI_TITLE_BANNER)) {
+      const shadow = this.add.image(GAME_WIDTH / 2 + 3, 107, UI_TITLE_BANNER)
+        .setDepth(depth)
+        .setDisplaySize(368, 132)
+        .setTint(0x211726)
+        .setAlpha(0.42);
+      const banner = this.add.image(GAME_WIDTH / 2, 101, UI_TITLE_BANNER)
+        .setDepth(depth + 1)
+        .setDisplaySize(368, 132);
+      banner.setAlpha(0.98);
+      if (this.textures.exists(UI_WAX_SEAL)) {
+        this.add.image(GAME_WIDTH / 2 - 144, 138, UI_WAX_SEAL)
+          .setDepth(depth + 2)
+          .setDisplaySize(36, 36)
+          .setAlpha(0.94);
+      }
+      void shadow;
+    } else {
+      drawPaperScrap(g, GAME_WIDTH / 2 - 10, 105, 338, 142, STORYBOOK_UI.paperDark, 0.24);
+      drawPaperScrap(g, GAME_WIDTH / 2 + 12, 100, 338, 134, STORYBOOK_UI.paperShadow, 0.6);
+      drawPremiumPaperCard(g, GAME_WIDTH / 2, 104, 328, 122, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.62 });
+      drawWaxSeal(g, GAME_WIDTH / 2 - 140, 140, 14, { color: STORYBOOK_UI.dustyRose, alpha: 0.9 });
+      drawWaxSeal(g, GAME_WIDTH / 2 + 142, 126, 7, { color: STORYBOOK_UI.paperDark, alpha: 0.55 });
+      drawMapThreads(g, GAME_WIDTH / 2, 166, 220, 0.24);
+    }
 
     const lampGlow = this.add.circle(GAME_WIDTH / 2, 52, 10, COLORS.lantern, 0.18).setDepth(depth).setBlendMode('ADD');
     const lampCore = this.add.circle(GAME_WIDTH / 2, 52, 3, COLORS.lantern, 0.62).setDepth(depth).setBlendMode('ADD');
@@ -393,12 +416,20 @@ export class TopScene extends Phaser.Scene {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
     if (primary) {
-      drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperLight });
-      drawWaxSeal(fill, width / 2 - 24, -height / 2 + 20, 11, { color: STORYBOOK_UI.dustyRose, alpha: 0.72 });
-      drawMapThreads(fill, 0, height / 2 - 12, width - 62, 0.2);
       const idleGlow = this.add.rectangle(0, 0, width + 10, height + 10, STORYBOOK_UI.goldLight, 0.08).setBlendMode('ADD');
       c.add(idleGlow);
       this.tweens.add({ targets: idleGlow, alpha: { from: 0.05, to: 0.13 }, scaleX: { from: 1, to: 1.02 }, scaleY: { from: 1, to: 1.04 }, duration: 1900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      if (this.textures.exists(UI_CTA_BUTTON)) {
+        const image = this.add.image(0, 0, UI_CTA_BUTTON).setDisplaySize(width + 28, height + 22);
+        c.add(image);
+        if (this.textures.exists(UI_WAX_SEAL)) {
+          c.add(this.add.image(width / 2 - 28, -height / 2 + 21, UI_WAX_SEAL).setDisplaySize(32, 32).setAlpha(0.9));
+        }
+      } else {
+        drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperLight });
+        drawWaxSeal(fill, width / 2 - 24, -height / 2 + 20, 11, { color: STORYBOOK_UI.dustyRose, alpha: 0.72 });
+        drawMapThreads(fill, 0, height / 2 - 12, width - 62, 0.2);
+      }
     } else if (muted) {
       drawPremiumPaperCard(fill, 0, 0, width, height, { accent: 0x76688d, paper: 0x27233e, muted: true });
     } else {
@@ -428,7 +459,13 @@ export class TopScene extends Phaser.Scene {
   private menuCard(x: number, y: number, width: number, height: number, label: string, icon: 'sprout' | 'book' | 'gear', onClick: () => void): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
-    drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.gold, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.48 });
+    if (this.textures.exists(UI_SMALL_CARD)) {
+      c.add(this.add.image(0, 0, UI_SMALL_CARD).setDisplaySize(width + 22, height + 22));
+      fill.fillStyle(STORYBOOK_UI.goldLight, 0.12).fillRoundedRect(-width / 2 + 10, -height / 2 + 10, width - 20, 30, 8);
+      fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.16).strokeRoundedRect(-width / 2 + 8, -height / 2 + 8, width - 16, height - 16, 8);
+    } else {
+      drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.gold, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.48 });
+    }
     this.drawMenuIcon(fill, icon, 0, -18);
     const labelText = this.text(0, 17, label, 15, STORYBOOK_UI.textDark, true);
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
@@ -448,6 +485,27 @@ export class TopScene extends Phaser.Scene {
     });
     c.add([fill, labelText, hit]);
     return c;
+  }
+
+  private addNewSealBadge(x: number, y: number, count: number): void {
+    if (!this.textures.exists(UI_WAX_SEAL)) {
+      drawNewSparkBadge(this, x, y, count, { depth: UI_DEPTH + 7, label: 'NEW' });
+      return;
+    }
+    const badge = this.add.container(x, y).setDepth(UI_DEPTH + 7);
+    badge.add(this.add.image(0, 0, UI_WAX_SEAL).setDisplaySize(52, 52).setAngle(-9));
+    const label = this.text(0, -3, 'NEW', 10, '#fff3cf', true).setStroke('#5b1714', 3);
+    const num = this.text(0, 12, String(count), 10, '#fff3cf', true).setStroke('#5b1714', 3);
+    badge.add([label, num]);
+    this.tweens.add({
+      targets: badge,
+      scale: { from: 0.96, to: 1.05 },
+      angle: { from: -1, to: 1 },
+      duration: 1400,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
+    });
   }
 
   private drawMenuIcon(g: Phaser.GameObjects.Graphics, icon: 'sprout' | 'book' | 'gear', x: number, y: number): void {

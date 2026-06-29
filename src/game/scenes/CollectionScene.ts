@@ -42,6 +42,8 @@ import { getAudioManager } from '../audio/AudioManager';
 
 const GRAPHICS_TEXT_DARK = 0x2e2730;
 const GRAPHICS_TEXT_LIGHT = 0xf4e8cf;
+const UI_CTA_BUTTON = 'ui_paper_cta_button_v1';
+const UI_SMALL_CARD = 'ui_paper_small_card_v1';
 
 export class CollectionScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
@@ -260,12 +262,18 @@ export class CollectionScene extends Phaser.Scene {
     const h = 98;
     const ratio = total > 0 ? Math.min(1, count / total) : 0;
     const fill = this.add.graphics();
-    drawPremiumPaperCard(fill, 0, 0, w, h, {
-      accent: section.accent,
-      paper: STORYBOOK_UI.paperLight,
-      selected: section.id === this.activeSection,
-      shadowAlpha: 0.36,
-    });
+    if (this.textures.exists(UI_SMALL_CARD)) {
+      c.add(this.add.image(0, 0, UI_SMALL_CARD).setDisplaySize(w + 18, h + 18).setAlpha(0.96));
+      fill.lineStyle(section.id === this.activeSection ? 3 : 1, section.accent, section.id === this.activeSection ? 0.64 : 0.26);
+      fill.strokeRoundedRect(-w / 2 + 8, -h / 2 + 8, w - 16, h - 16, 8);
+    } else {
+      drawPremiumPaperCard(fill, 0, 0, w, h, {
+        accent: section.accent,
+        paper: STORYBOOK_UI.paperLight,
+        selected: section.id === this.activeSection,
+        shadowAlpha: 0.36,
+      });
+    }
     fill.fillStyle(section.accent, 0.18).fillRect(-w / 2 + 10, -h / 2 + 8, 28, h - 18);
     this.drawPaperClip(fill, w / 2 - 22, -h / 2 + 14, STORYBOOK_UI.paperEdge, 0.58);
     fill.fillStyle(STORYBOOK_UI.paperDark, 0.18).fillRect(-w / 2 + 18, h / 2 - 20, w - 36, 5);
@@ -1249,7 +1257,11 @@ export class CollectionScene extends Phaser.Scene {
   private paperCtaButton(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
-    drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.warmAmber });
+    if (this.textures.exists(UI_CTA_BUTTON)) {
+      c.add(this.add.image(0, 0, UI_CTA_BUTTON).setDisplaySize(width + 20, height + 14));
+    } else {
+      drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.warmAmber });
+    }
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this, hit, c, { x, y, width, height, accent: STORYBOOK_UI.warmAmber, depth: 1000, strong: true });
     hit.on('pointerdown', () => {

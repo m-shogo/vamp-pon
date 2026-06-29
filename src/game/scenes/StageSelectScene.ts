@@ -68,6 +68,10 @@ const DEPTH_EN_LABEL: Record<ExplorationDepthId, string> = {
   middle: 'Normal',
   deep: 'Hard',
 };
+const UI_TITLE_BANNER = 'ui_paper_title_banner_v1';
+const UI_CTA_BUTTON = 'ui_paper_cta_button_v1';
+const UI_SMALL_CARD = 'ui_paper_small_card_v1';
+const UI_WAX_SEAL = 'ui_wax_seal_badge_v1';
 
 export class StageSelectScene extends Phaser.Scene {
   private root: Phaser.GameObjects.Container | null = null;
@@ -136,9 +140,16 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(vignette);
 
     const titleY = 36;
-    const titleBg = this.add.graphics();
-    drawLargeNotebookPage(titleBg, GAME_WIDTH / 2, titleY, 280, 44, { accent: STORYBOOK_UI.warmAmber, alpha: 0.95 });
-    root.add(titleBg);
+    if (this.textures.exists(UI_TITLE_BANNER)) {
+      root.add(this.add.image(GAME_WIDTH / 2, titleY + 1, UI_TITLE_BANNER).setDisplaySize(294, 64).setAlpha(0.96));
+      if (this.textures.exists(UI_WAX_SEAL)) {
+        root.add(this.add.image(GAME_WIDTH / 2 - 124, titleY + 16, UI_WAX_SEAL).setDisplaySize(26, 26).setAlpha(0.86));
+      }
+    } else {
+      const titleBg = this.add.graphics();
+      drawLargeNotebookPage(titleBg, GAME_WIDTH / 2, titleY, 280, 44, { accent: STORYBOOK_UI.warmAmber, alpha: 0.95 });
+      root.add(titleBg);
+    }
     root.add(this.text(GAME_WIDTH / 2, titleY, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 20, STORYBOOK_UI.textDark, true, true));
     const titleDiv = this.add.graphics();
     drawInkDivider(titleDiv, GAME_WIDTH / 2, 64, 200, { color: STORYBOOK_UI.paperDark, alpha: 0.25 });
@@ -272,22 +283,29 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(lvBadge);
     root.add(this.text(lvX, lvY, `Lv.${charProgress.level}`, 12, STORYBOOK_UI.lanternCore, true));
 
-    const seal = this.add.graphics();
-    drawWaxSeal(seal, cardX + cardW / 2 - 40, cardY + 35, 28, { color: STORYBOOK_UI.dustyRose });
-    seal.lineStyle(1, STORYBOOK_UI.paperDark, 0.32);
-    seal.lineBetween(cardX + cardW / 2 - 52, cardY + 35, cardX + cardW / 2 - 28, cardY + 35);
-    seal.lineBetween(cardX + cardW / 2 - 40, cardY + 23, cardX + cardW / 2 - 40, cardY + 47);
-    root.add(seal);
+    if (this.textures.exists(UI_WAX_SEAL)) {
+      root.add(this.add.image(cardX + cardW / 2 - 40, cardY + 36, UI_WAX_SEAL).setDisplaySize(66, 66).setAlpha(0.84).setAngle(-7));
+    } else {
+      const seal = this.add.graphics();
+      drawWaxSeal(seal, cardX + cardW / 2 - 40, cardY + 35, 28, { color: STORYBOOK_UI.dustyRose });
+      seal.lineStyle(1, STORYBOOK_UI.paperDark, 0.32);
+      seal.lineBetween(cardX + cardW / 2 - 52, cardY + 35, cardX + cardW / 2 - 28, cardY + 35);
+      seal.lineBetween(cardX + cardW / 2 - 40, cardY + 23, cardX + cardW / 2 - 40, cardY + 47);
+      root.add(seal);
+    }
 
     root.add(this.text(cardX - 10, cardY + 62, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textDark, true));
     const hint = this.stageHintFor(current);
     if (hint) root.add(this.text(cardX - 10, cardY + 78, hint, 10, STORYBOOK_UI.paperDark));
 
-    const divider = this.add.graphics();
-    drawInkDivider(divider, cardX, cardY + 96, cardW - 56, { color: STORYBOOK_UI.paperDark, alpha: 0.22 });
-    root.add(divider);
-
-    root.add(this.text(cardX, cardY + 108, `Best Record — 開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.paperDark));
+    const recordChip = this.add.graphics();
+    drawPremiumPaperCard(recordChip, cardX, cardY + 104, 210, 28, {
+      accent: STORYBOOK_UI.gold,
+      paper: STORYBOOK_UI.paperLight,
+      shadowAlpha: 0.12,
+    });
+    root.add(recordChip);
+    root.add(this.text(cardX, cardY + 104, `開放 ${unlocked.length}ステージ / Best Record`, 10, STORYBOOK_UI.paperDark, true));
 
     const prevBtn = this.navArrow(18, cardY, '◀', () => {
       if (prev == null) return;
@@ -363,15 +381,28 @@ export class StageSelectScene extends Phaser.Scene {
 
       const card = this.add.graphics();
       if (selected) {
-        drawLargeNotebookPage(card, x, y, cardW, cardH, { accent: STORYBOOK_UI.warmAmber, alpha: 1 });
-        card.fillStyle(STORYBOOK_UI.goldLight, 0.13).fillRect(x - cardW / 2 + 7, y - cardH / 2 + 8, cardW - 14, cardH - 16);
-        card.lineStyle(3, STORYBOOK_UI.goldLight, 0.18).strokeRect(x - cardW / 2 - 4, y - cardH / 2 - 4, cardW + 8, cardH + 8);
+        if (this.textures.exists(UI_SMALL_CARD)) {
+          root.add(this.add.image(x, y, UI_SMALL_CARD).setDisplaySize(cardW + 18, cardH + 18).setAlpha(0.98));
+          card.fillStyle(STORYBOOK_UI.goldLight, 0.13).fillRoundedRect(x - cardW / 2 + 8, y - cardH / 2 + 8, cardW - 16, cardH - 16, 9);
+          card.lineStyle(3, STORYBOOK_UI.goldLight, 0.56).strokeRoundedRect(x - cardW / 2 + 2, y - cardH / 2 + 2, cardW - 4, cardH - 4, 11);
+        } else {
+          drawLargeNotebookPage(card, x, y, cardW, cardH, { accent: STORYBOOK_UI.warmAmber, alpha: 1 });
+          card.fillStyle(STORYBOOK_UI.goldLight, 0.13).fillRect(x - cardW / 2 + 7, y - cardH / 2 + 8, cardW - 14, cardH - 16);
+          card.lineStyle(3, STORYBOOK_UI.goldLight, 0.18).strokeRect(x - cardW / 2 - 4, y - cardH / 2 - 4, cardW + 8, cardH + 8);
+        }
       } else {
-        drawPremiumPaperCard(card, x, y, cardW, cardH, {
-          accent: depth.tint,
-          paper: depthId === 'deep' ? 0xf0d6cf : 0xeadbb8,
-          shadowAlpha: 0.38,
-        });
+        if (this.textures.exists(UI_SMALL_CARD)) {
+          const paper = this.add.image(x, y, UI_SMALL_CARD).setDisplaySize(cardW + 12, cardH + 12).setAlpha(0.88);
+          if (depthId === 'deep') paper.setTint(0xffddd7);
+          root.add(paper);
+          card.lineStyle(2, depth.tint, 0.42).strokeRoundedRect(x - cardW / 2 + 8, y - cardH / 2 + 8, cardW - 16, cardH - 16, 9);
+        } else {
+          drawPremiumPaperCard(card, x, y, cardW, cardH, {
+            accent: depth.tint,
+            paper: depthId === 'deep' ? 0xf0d6cf : 0xeadbb8,
+            shadowAlpha: 0.38,
+          });
+        }
         card.fillStyle(STORYBOOK_UI.inkBlack, 0.06).fillRect(x - cardW / 2 + 9, y + 10, cardW - 18, 1);
       }
       card.fillStyle(depth.tint, selected ? 0.82 : 0.36);
@@ -562,7 +593,14 @@ export class StageSelectScene extends Phaser.Scene {
   private paperCta(x: number, y: number, width: number, height: number, label: string, onClick: () => void): Phaser.GameObjects.Container {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
-    drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.warmAmber });
+    if (this.textures.exists(UI_CTA_BUTTON)) {
+      c.add(this.add.image(0, 0, UI_CTA_BUTTON).setDisplaySize(width + 24, height + 18));
+      if (this.textures.exists(UI_WAX_SEAL)) {
+        c.add(this.add.image(width / 2 - 26, -height / 2 + 17, UI_WAX_SEAL).setDisplaySize(26, 26).setAlpha(0.88));
+      }
+    } else {
+      drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.warmAmber });
+    }
     const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this, hit, c, { x, y, width, height, accent: STORYBOOK_UI.warmAmber, depth: 1000, strong: true, shake: true });
     hit.on('pointerdown', () => {
