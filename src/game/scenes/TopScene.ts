@@ -83,11 +83,12 @@ export class TopScene extends Phaser.Scene {
 
     this.addTitleDecoration();
 
-    const titleText = this.text(GAME_WIDTH / 2, 90, 'VAMP PON', 40, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
+    const titleText = this.text(GAME_WIDTH / 2, 86, 'VAMP PON', 40, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
     titleText.setShadow(0, 2, '#070815', 3, true, true);
     this.tweens.add({ targets: titleText, y: titleText.y - 3, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    const subtitleText = this.text(GAME_WIDTH / 2, 148, '忘れられたものたちの夜', 15, STORYBOOK_UI.textDark, true).setDepth(UI_DEPTH + 4);
+    const subtitleText = this.text(GAME_WIDTH / 2, 136, '忘れられたものたちの夜', 14, STORYBOOK_UI.textDark, true).setDepth(UI_DEPTH + 4);
+    subtitleText.setStroke('#e6c78f', 2);
     subtitleText.setAlpha(0);
     this.tweens.add({ targets: subtitleText, alpha: 1, duration: 800, delay: 300, ease: 'Quad.easeOut' });
 
