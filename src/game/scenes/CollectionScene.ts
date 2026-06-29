@@ -274,7 +274,8 @@ export class CollectionScene extends Phaser.Scene {
         shadowAlpha: 0.36,
       });
     }
-    fill.fillStyle(section.accent, 0.18).fillRect(-w / 2 + 10, -h / 2 + 8, 28, h - 18);
+    fill.fillStyle(section.accent, 0.22).fillRoundedRect(-w / 2 + 10, -h / 2 + 8, 28, h - 18, 6);
+    fill.lineStyle(1, section.accent, 0.28).strokeRoundedRect(-w / 2 + 10, -h / 2 + 8, 28, h - 18, 6);
     this.drawPaperClip(fill, w / 2 - 22, -h / 2 + 14, STORYBOOK_UI.paperEdge, 0.58);
     fill.fillStyle(STORYBOOK_UI.paperDark, 0.18).fillRect(-w / 2 + 18, h / 2 - 20, w - 36, 5);
     fill.fillStyle(section.accent, 0.76).fillRect(-w / 2 + 18, h / 2 - 20, Math.max(4, Math.round((w - 36) * ratio)), 5);
@@ -289,6 +290,7 @@ export class CollectionScene extends Phaser.Scene {
       fontStyle: 'bold',
       resolution: 2,
     }).setOrigin(0, 0.5);
+    title.setShadow(0, 1, '#f6e2b4', 2, true, false);
     const subtitle = this.add.text(-17, -10, sub, {
       fontFamily: STORYBOOK_FONT,
       fontSize: '9px',
@@ -302,6 +304,8 @@ export class CollectionScene extends Phaser.Scene {
       fontStyle: 'bold',
       resolution: 2,
     }).setOrigin(0, 0.5);
+    progress.setStroke('#f3dfad', 2);
+    progress.setShadow(0, 1, '#261b1f', 1, false, true);
     const hit = this.add.rectangle(0, 0, w, h, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     hit.on('pointerdown', () => {
       this.activeSection = section.id;
