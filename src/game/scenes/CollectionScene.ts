@@ -205,6 +205,9 @@ export class CollectionScene extends Phaser.Scene {
     newlyCompleted: Set<string>,
     progress: CollectionProgressSaveData,
   ): void {
+    void revealed;
+    void hinted;
+    void newlyCompleted;
     const ledger = this.add.graphics();
     drawLargeNotebookPage(ledger, GAME_WIDTH / 2, 378, 348, 462, { accent: STORYBOOK_UI.goldLight, alpha: 0.94 });
     ledger.fillStyle(STORYBOOK_UI.paperDark, 0.08).fillRect(54, 168, 282, 1);
@@ -218,30 +221,87 @@ export class CollectionScene extends Phaser.Scene {
     root.add(compass);
 
     root.add(this.text(GAME_WIDTH / 2, 178, '夜明け星図', 17, STORYBOOK_UI.textDark, true, true));
-    root.add(this.text(GAME_WIDTH / 2, 202, '灯した記憶を、絵札として綴じていく地図。', 10, STORYBOOK_UI.paperDark));
+    root.add(this.text(GAME_WIDTH / 2, 202, '夜に残った記録を、頁ごとの絵札として綴じる。', 10, STORYBOOK_UI.paperDark));
 
-    this.renderBoard(root, completed, revealed, hinted, newlyCompleted);
+    const profile = loadProfile();
+    const achievedCount = ACHIEVEMENT_DEFS.filter((d) => profile.achievements[d.id]).length;
+    const cards: Array<{ section: CollectionSection; count: number; total: number; sub: string }> = [
+      { section: collectionSections[0], count: completed.size, total: forgottenStreetNightBoard.cells.length, sub: '記憶の地図' },
+      { section: collectionSections[1], count: progress.seenEnemyIds.length, total: enemies.length, sub: 'ほどいた影' },
+      { section: collectionSections[2], count: lostItemRecords.length, total: lostItemRecords.length, sub: '拾った持ち物' },
+      { section: collectionSections[3], count: keeperRecords.length, total: keeperRecords.length, sub: '灯し手' },
+      { section: collectionSections[4], count: collectionWordRecordLines.length, total: collectionWordRecordLines.length, sub: '夜路の言葉' },
+      { section: collectionSections[5], count: achievedCount, total: ACHIEVEMENT_DEFS.length, sub: '歩いた証' },
+    ];
 
-    const detailPanel = this.add.graphics();
-    drawLargeNotebookPage(detailPanel, GAME_WIDTH / 2, 538, 318, 84, { accent: STORYBOOK_UI.paperDark, alpha: 0.92 });
-    root.add(detailPanel);
-    this.detailText = this.add.text(
-      GAME_WIDTH / 2,
-      508,
-      '絵札を押すと、夜に残った記憶が読めます。',
-      {
-        fontFamily: STORYBOOK_FONT,
-        fontSize: '12px',
-        color: colorString(STORYBOOK_UI.paperDark),
-        align: 'center',
-        resolution: 2,
-        lineSpacing: 4,
-        wordWrap: { width: 292 },
-      },
-    ).setOrigin(0.5, 0);
-    root.add(this.detailText);
+    cards.forEach((card, index) => {
+      const x = GAME_WIDTH / 2 - 78 + (index % 2) * 156;
+      const y = 268 + Math.floor(index / 2) * 118;
+      root.add(this.ledgerOverviewCard(x, y, card.section, card.count, card.total, card.sub));
+    });
 
-    this.renderBestiarySummary(root, progress.seenEnemyIds, progress.defeatedEnemyCounts);
+    const note = this.add.graphics();
+    drawLargeNotebookPage(note, GAME_WIDTH / 2, 612, 318, 58, { accent: STORYBOOK_UI.paperDark, alpha: 0.9 });
+    root.add(note);
+    root.add(this.text(GAME_WIDTH / 2, 604, 'タブか絵札を押すと、詳しい頁へ移動します。', 11, STORYBOOK_UI.paperDark, true));
+    root.add(this.text(GAME_WIDTH / 2, 626, '未解放の記録も、夜を歩くほど輪郭が浮かびます。', 9, STORYBOOK_UI.textSoft));
+  }
+
+  private ledgerOverviewCard(
+    x: number,
+    y: number,
+    section: CollectionSection,
+    count: number,
+    total: number,
+    sub: string,
+  ): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const w = 140;
+    const h = 98;
+    const ratio = total > 0 ? Math.min(1, count / total) : 0;
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, w, h, {
+      accent: section.accent,
+      paper: STORYBOOK_UI.paperLight,
+      selected: section.id === this.activeSection,
+      shadowAlpha: 0.36,
+    });
+    fill.fillStyle(section.accent, 0.18).fillRect(-w / 2 + 10, -h / 2 + 8, 28, h - 18);
+    this.drawPaperClip(fill, w / 2 - 22, -h / 2 + 14, STORYBOOK_UI.paperEdge, 0.58);
+    fill.fillStyle(STORYBOOK_UI.paperDark, 0.18).fillRect(-w / 2 + 18, h / 2 - 20, w - 36, 5);
+    fill.fillStyle(section.accent, 0.76).fillRect(-w / 2 + 18, h / 2 - 20, Math.max(4, Math.round((w - 36) * ratio)), 5);
+    fill.lineStyle(1, STORYBOOK_UI.paperDark, 0.2).strokeRect(-w / 2 + 18, h / 2 - 20, w - 36, 5);
+
+    const icon = this.add.graphics();
+    this.drawSectionIcon(icon, -45, -13, section.id, section.accent, 0.95);
+    const title = this.add.text(-17, -31, section.shortLabel, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '17px',
+      color: colorString(STORYBOOK_UI.textDark),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0, 0.5);
+    const subtitle = this.add.text(-17, -10, sub, {
+      fontFamily: STORYBOOK_FONT,
+      fontSize: '9px',
+      color: colorString(STORYBOOK_UI.paperDark),
+      resolution: 2,
+    }).setOrigin(0, 0.5);
+    const progress = this.add.text(-w / 2 + 18, 22, `${count}/${total}`, {
+      fontFamily: STORYBOOK_TITLE_FONT,
+      fontSize: '15px',
+      color: colorString(section.accent),
+      fontStyle: 'bold',
+      resolution: 2,
+    }).setOrigin(0, 0.5);
+    const hit = this.add.rectangle(0, 0, w, h, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    hit.on('pointerdown', () => {
+      this.activeSection = section.id;
+      getAudioManager(this).playSe('ui_select', { volume: 0.3 });
+      this.render();
+    });
+    c.add([fill, icon, title, subtitle, progress, hit]);
+    return c;
   }
 
   private renderLostItemCardsPage(root: Phaser.GameObjects.Container): void {

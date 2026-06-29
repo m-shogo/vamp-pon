@@ -34,7 +34,6 @@ import {
 import { loadBackgroundManifest, getBackgroundByStageNumber, type BackgroundStageEntry } from '../assets/backgroundManifest';
 import { stageBackgroundTextureKey } from '../ui/background';
 import { attachPressFeedback } from '../ui/pressFeedback';
-import { recipeForStage, stageRecipes } from '../data/waves';
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen } from '../persistence/onboarding';
 import { findNewAchievementIds, loadAchievementViewState } from '../persistence/achievementViewState';
@@ -152,7 +151,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.renderStagePreview(root, profile);
       this.renderDepthBlock(root, profile);
       this.renderCharacterSummary(root, profile);
-      this.renderSubCharacterStatus(root, profile, 580);
+      this.renderSubCharacterStatus(root, profile, 600);
       root.add(this.paperCta(GAME_WIDTH / 2, GAME_HEIGHT - 110, 280, 54, '探索を始める', () => this.startRun(profile)));
       root.add(this.secondaryNav(GAME_WIDTH / 2 - 100, GAME_HEIGHT - 46, 88, 40, 'TOPへ', () => this.scene.start('TopScene')));
       root.add(this.secondaryNav(GAME_WIDTH / 2 + 100, GAME_HEIGHT - 46, 88, 40, recordLabel, () => {
@@ -203,9 +202,9 @@ export class StageSelectScene extends Phaser.Scene {
     const nextLocked = next == null;
 
     const cardX = GAME_WIDTH / 2;
-    const cardY = 214;
+    const cardY = 218;
     const cardW = 340;
-    const cardH = 214;
+    const cardH = 224;
 
     const pageBg = this.add.graphics();
     drawLargeNotebookPage(pageBg, cardX, cardY, cardW, cardH, { accent: STORYBOOK_UI.paperDark, alpha: 0.96 });
@@ -215,8 +214,8 @@ export class StageSelectScene extends Phaser.Scene {
     const entry = this.bgEntryByStage.get(current);
     const key = entry ? stageBackgroundTextureKey(entry) : null;
     const innerW = cardW - 40;
-    const innerH = 92;
-    const innerY = cardY - 2;
+    const innerH = 102;
+    const innerY = cardY + 2;
 
     const titleStrip = this.add.graphics();
     drawPremiumPaperCard(titleStrip, cardX - 18, cardY - 76, 218, 42, {
@@ -280,15 +279,15 @@ export class StageSelectScene extends Phaser.Scene {
     seal.lineBetween(cardX + cardW / 2 - 40, cardY + 23, cardX + cardW / 2 - 40, cardY + 47);
     root.add(seal);
 
-    root.add(this.text(cardX - 10, cardY + 54, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textDark));
+    root.add(this.text(cardX - 10, cardY + 62, this.stageBlurbFor(current, entry), 11, STORYBOOK_UI.textDark, true));
     const hint = this.stageHintFor(current);
-    if (hint) root.add(this.text(cardX - 10, cardY + 70, hint, 10, STORYBOOK_UI.paperDark));
+    if (hint) root.add(this.text(cardX - 10, cardY + 78, hint, 10, STORYBOOK_UI.paperDark));
 
     const divider = this.add.graphics();
-    drawInkDivider(divider, cardX, cardY + 88, cardW - 56, { color: STORYBOOK_UI.paperDark, alpha: 0.22 });
+    drawInkDivider(divider, cardX, cardY + 96, cardW - 56, { color: STORYBOOK_UI.paperDark, alpha: 0.22 });
     root.add(divider);
 
-    root.add(this.text(cardX, cardY + 102, `Best Record — 開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.paperDark));
+    root.add(this.text(cardX, cardY + 108, `Best Record — 開放 ${unlocked.length}ステージ`, 11, STORYBOOK_UI.paperDark));
 
     const prevBtn = this.navArrow(18, cardY, '◀', () => {
       if (prev == null) return;
@@ -306,17 +305,7 @@ export class StageSelectScene extends Phaser.Scene {
     }, nextLocked);
     root.add(nextBtn);
 
-    if (nextLocked) {
-      const maxUnlocked = unlocked[unlocked.length - 1] ?? 1;
-      const nextStageNum = maxUnlocked + 1;
-      const hasNextRecipe = nextStageNum <= stageRecipes.length;
-      if (hasNextRecipe) {
-        const recipe = recipeForStage(nextStageNum);
-        root.add(this.text(cardX, cardY + cardH / 2 + 9, `Stage ${nextStageNum} ${recipe.name} — 夜明けまで進むと開放`, 9, STORYBOOK_UI.textMuted));
-      } else {
-        root.add(this.text(cardX, cardY + cardH / 2 + 9, '次のステージは未開放', 9, STORYBOOK_UI.textMuted));
-      }
-    }
+    void nextLocked;
   }
 
   private drawStageMapOrnaments(
@@ -360,26 +349,30 @@ export class StageSelectScene extends Phaser.Scene {
 
   // --- 難易度（Easy/Normal/Hard） ---
   private renderDepthBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
-    const blockY = 358;
+    const blockY = 372;
     root.add(this.text(GAME_WIDTH / 2, blockY, '夜の深さ', 14, STORYBOOK_UI.lanternCore, true));
 
     const cardW = 108;
-    const cardH = 130;
+    const cardH = 124;
     DEPTH_ORDER.forEach((depthId, index) => {
       const depth = EXPLORATION_DEPTHS[depthId];
       const flavor = DEPTH_FLAVOR[depthId];
       const selected = depthId === profile.selectedDepth;
       const x = GAME_WIDTH / 2 + (index - 1) * (cardW + 8);
-      const y = blockY + 86;
+      const y = blockY + 82;
 
       const card = this.add.graphics();
       if (selected) {
         drawLargeNotebookPage(card, x, y, cardW, cardH, { accent: STORYBOOK_UI.warmAmber, alpha: 1 });
+        card.fillStyle(STORYBOOK_UI.goldLight, 0.13).fillRect(x - cardW / 2 + 7, y - cardH / 2 + 8, cardW - 14, cardH - 16);
+        card.lineStyle(3, STORYBOOK_UI.goldLight, 0.18).strokeRect(x - cardW / 2 - 4, y - cardH / 2 - 4, cardW + 8, cardH + 8);
       } else {
         drawPremiumPaperCard(card, x, y, cardW, cardH, {
           accent: depth.tint,
-          paper: STORYBOOK_UI.paperLight,
+          paper: depthId === 'deep' ? 0xf0d6cf : 0xeadbb8,
+          shadowAlpha: 0.38,
         });
+        card.fillStyle(STORYBOOK_UI.inkBlack, 0.06).fillRect(x - cardW / 2 + 9, y + 10, cardW - 18, 1);
       }
       card.fillStyle(depth.tint, selected ? 0.82 : 0.36);
       card.fillPoints([
@@ -421,14 +414,14 @@ export class StageSelectScene extends Phaser.Scene {
       root.add(hit);
     });
     const selected = DEPTH_FLAVOR[profile.selectedDepth];
-    root.add(this.text(GAME_WIDTH / 2, blockY + 168, selected.recommend, 12, STORYBOOK_UI.warmAmber));
+    root.add(this.text(GAME_WIDTH / 2, blockY + 152, selected.recommend, 12, STORYBOOK_UI.warmAmber));
   }
 
   private renderCharacterSummary(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
     const char = characters[0];
     const progress = profile.characterProgress[char.id] ?? { level: 1, xp: 0, totalXp: 0 };
     const need = characterXpToNext(progress.level);
-    const y = this.mode === 'growth' ? 100 : 538;
+    const y = this.mode === 'growth' ? 100 : 558;
     root.add(this.text(GAME_WIDTH / 2, y, `${char.name} Lv.${progress.level}　${progress.xp}/${need}`, 12, STORYBOOK_UI.warmAmber, true));
     root.add(this.text(GAME_WIDTH / 2, y + 16, '使うほどHPと攻撃が少しずつ伸びる', 10, STORYBOOK_UI.textMuted));
   }

@@ -27,6 +27,8 @@ import { findNewAchievementIds, loadAchievementViewState } from '../persistence/
 
 const PARTICLE_DEPTH = 2;
 const UI_DEPTH = 10;
+const TOP_BG_TEXTURE = 'top_stage1_background';
+const TOP_YUI_TEXTURE = 'top_yui_fullbody';
 
 export class TopScene extends Phaser.Scene {
   private notice: Phaser.GameObjects.Text | null = null;
@@ -58,24 +60,22 @@ export class TopScene extends Phaser.Scene {
     const boardCount = collection.nightBoard.completedCellIds.length;
     const boardTotal = forgottenStreetNightBoard.cells.length;
 
-    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, STORYBOOK_UI.deepNight, 1);
+    this.addTopImageBackground();
     const starBg = this.add.graphics().setDepth(PARTICLE_DEPTH);
-    drawStarMapBackdrop(starBg, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.1, density: 18 });
+    drawStarMapBackdrop(starBg, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.08, density: 16 });
     this.addBackgroundAtmosphere();
     this.addTopReferenceBackdrop();
 
     const vignette = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
-    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.35 });
+    drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.5 });
 
     const panel = this.add.graphics().setDepth(UI_DEPTH);
     const panelLeft = Math.round(GAME_WIDTH / 2 - 178);
     const panelTop = 28;
-    panel.fillStyle(STORYBOOK_UI.inkViolet, 0.14).fillRect(panelLeft, panelTop, 356, 778);
-    panel.lineStyle(1, STORYBOOK_UI.paperDark, 0.1).strokeRect(panelLeft, panelTop, 356, 778);
-    drawPaperScrap(panel, 56, 202, 104, 132, STORYBOOK_UI.paperBeige, 0.16);
-    drawPaperScrap(panel, 326, 238, 88, 108, STORYBOOK_UI.paperBeige, 0.13);
-    drawPaperScrap(panel, 70, 598, 102, 94, STORYBOOK_UI.paperBeige, 0.1);
-    drawPaperScrap(panel, 320, 574, 94, 104, STORYBOOK_UI.paperBeige, 0.1);
+    panel.fillStyle(0x040714, 0.2).fillRect(panelLeft, panelTop, 356, 778);
+    panel.lineStyle(1, STORYBOOK_UI.gold, 0.08).strokeRect(panelLeft, panelTop, 356, 778);
+    drawPaperScrap(panel, 40, 610, 90, 104, STORYBOOK_UI.paperBeige, 0.08);
+    drawPaperScrap(panel, 346, 608, 92, 112, STORYBOOK_UI.paperBeige, 0.08);
 
     this.addTitleDecoration();
 
@@ -89,16 +89,15 @@ export class TopScene extends Phaser.Scene {
 
     this.addCurrencyTag(profile.currency);
 
-    const centerPanel = this.add.graphics().setDepth(UI_DEPTH + 1);
-    this.addCentralMap(centerPanel);
+    this.addHeroBackdrop();
     this.addHeroLantern();
 
-    const mainBtn = this.button(GAME_WIDTH / 2, 596, 316, 78, '夜へ出る', () => {
+    const mainBtn = this.button(GAME_WIDTH / 2, 604, 318, 82, '夜へ出る', () => {
       this.scene.start('StageSelectScene', { mode: 'stage' });
     }, false, true);
     mainBtn.setDepth(UI_DEPTH + 5);
 
-    const growthBtn = this.menuCard(77, 724, 106, 88, '成長', 'sprout', () => {
+    const growthBtn = this.menuCard(77, 730, 106, 88, '成長', 'sprout', () => {
       this.scene.start('StageSelectScene', { mode: 'growth' });
     });
     growthBtn.setDepth(UI_DEPTH + 4);
@@ -108,19 +107,19 @@ export class TopScene extends Phaser.Scene {
     const achViewState = loadAchievementViewState();
     const newAchCount = findNewAchievementIds(Object.keys(profile.achievements), achViewState.seenAchievementIds).length;
     const totalNewCount = newCellCount + newAchCount;
-    const collBtn = this.menuCard(GAME_WIDTH / 2, 724, 114, 88, '忘れ物帳', 'book', () => {
+    const collBtn = this.menuCard(GAME_WIDTH / 2, 730, 114, 88, '忘れ物帳', 'book', () => {
       this.scene.start('CollectionScene');
     });
     collBtn.setDepth(UI_DEPTH + 4);
-    this.text(GAME_WIDTH / 2, 755, `${boardCount}/${boardTotal}`, 10, STORYBOOK_UI.paperDark, true).setDepth(UI_DEPTH + 6);
+    this.text(GAME_WIDTH / 2, 761, `${boardCount}/${boardTotal}`, 10, STORYBOOK_UI.paperDark, true).setDepth(UI_DEPTH + 6);
     if (totalNewCount > 0) {
       drawNewSparkBadge(this, GAME_WIDTH / 2 + 50, 676, totalNewCount, { depth: UI_DEPTH + 7, label: 'NEW' });
     }
 
-    const settingsBtn = this.menuCard(313, 724, 106, 88, '設定', 'gear', () => this.showNotice('設定は準備中です'));
+    const settingsBtn = this.menuCard(313, 730, 106, 88, '設定', 'gear', () => this.showNotice('設定は準備中です'));
     settingsBtn.setDepth(UI_DEPTH + 3);
 
-    this.notice = this.text(GAME_WIDTH / 2, 806, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
+    this.notice = this.text(GAME_WIDTH / 2, 816, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
 
     this.addBottomDecoration();
 
@@ -183,6 +182,20 @@ export class TopScene extends Phaser.Scene {
       void ink;
     }
   }
+
+  private addTopImageBackground(): void {
+    if (this.textures.exists(TOP_BG_TEXTURE)) {
+      const bg = this.add.image(GAME_WIDTH / 2, GAME_HEIGHT / 2, TOP_BG_TEXTURE)
+        .setDepth(0)
+        .setDisplaySize(GAME_WIDTH, GAME_HEIGHT);
+      bg.setTint(0x9aa0c8);
+      this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, 0x050713, 0.46).setDepth(1);
+      this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT * 0.42, GAME_WIDTH, GAME_HEIGHT * 0.58, 0x070814, 0.26).setDepth(1);
+      return;
+    }
+    this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, STORYBOOK_UI.deepNight, 1);
+  }
+
 
   private addTopReferenceBackdrop(): void {
     const g = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
@@ -251,7 +264,20 @@ export class TopScene extends Phaser.Scene {
   }
 
   private addHeroLantern(): void {
-    drawLanternFocus(this, GAME_WIDTH / 2 + 28, 388, { radius: 134, depth: UI_DEPTH + 2, alpha: 0.16 });
+    drawLanternFocus(this, GAME_WIDTH / 2 + 52, 392, { radius: 150, depth: UI_DEPTH + 2, alpha: 0.18 });
+
+    if (this.textures.exists(TOP_YUI_TEXTURE)) {
+      const shadow = this.add.ellipse(GAME_WIDTH / 2, 542, 180, 24, 0x02030a, 0.52).setDepth(UI_DEPTH + 3);
+      const yui = this.add.image(GAME_WIDTH / 2 + 4, 394, TOP_YUI_TEXTURE)
+        .setDepth(UI_DEPTH + 4)
+        .setDisplaySize(216, 338);
+      yui.setOrigin(0.5, 0.52);
+      this.tweens.add({ targets: [yui, shadow], y: '-=4', duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      const whisper = this.text(GAME_WIDTH / 2, 530, '小さな灯りは、まだ消えない', 12, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 5);
+      whisper.setStroke('#090812', 4);
+      whisper.setAlpha(0.92);
+      return;
+    }
 
     const c = this.add.container(GAME_WIDTH / 2, 384).setDepth(UI_DEPTH + 4);
     const g = this.add.graphics();
@@ -277,6 +303,17 @@ export class TopScene extends Phaser.Scene {
 
     const whisper = this.text(GAME_WIDTH / 2, 498, '小さな灯りは、まだ消えない', 12, STORYBOOK_UI.goldLight, false).setDepth(UI_DEPTH + 3);
     whisper.setAlpha(0.72);
+  }
+
+  private addHeroBackdrop(): void {
+    const g = this.add.graphics().setDepth(UI_DEPTH + 1);
+    g.fillStyle(0x050714, 0.42).fillEllipse(GAME_WIDTH / 2, 405, 282, 344);
+    g.lineStyle(1, STORYBOOK_UI.gold, 0.16).strokeEllipse(GAME_WIDTH / 2, 405, 278, 338);
+    g.lineStyle(1, STORYBOOK_UI.goldLight, 0.12).strokeCircle(GAME_WIDTH / 2, 400, 122);
+    g.lineStyle(1, STORYBOOK_UI.goldLight, 0.08).strokeCircle(GAME_WIDTH / 2, 400, 78);
+    drawMapThreads(g, GAME_WIDTH / 2, 256, 210, 0.24);
+    drawMapThreads(g, GAME_WIDTH / 2, 548, 180, 0.16);
+    drawWaxSeal(g, 326, 540, 10, { color: STORYBOOK_UI.dustyRose, alpha: 0.6 });
   }
 
   private addCentralMap(g: Phaser.GameObjects.Graphics): void {
