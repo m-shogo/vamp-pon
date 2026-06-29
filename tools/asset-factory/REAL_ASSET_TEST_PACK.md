@@ -97,6 +97,7 @@ Asset Factory で実画像制作フローを1周だけ検証するための最�
 | Weapon `night-pencil` | `public/assets/prototypes/sprite-sheets/weapon/night_pencil.png` | 180x180 RGBA。既存プロトタイプ候補。Asset Factoryの現行アイコン期待は1024x1024なので、本採用にはmaster再生成または手順の明確化が必要。 |
 | Weapon `black-ink-bottle` | `public/assets/prototypes/sprite-sheets/weapon/black_ink_bottle.png` | 180x180 RGBA。`v1-clean-180` と同一ハッシュ。390x844最終確認後、runtime参照中prototypeへ昇格済み。 |
 | Weapon `black-ink-bottle` | `public/assets/prototypes/sprite-sheets/weapon/asset-factory-test-pack/weapon-black-ink-bottle-icon-v1-clean-1024-rgba.png` | 1024x1024 RGBA。test-pack内のmaster。runtime参照には直接使わず、180px軽量版を使う。 |
+| Weapon `streetlamp-ring` | `public/assets/prototypes/sprite-sheets/weapon/streetlamp_ring.png` | 180x180 RGBA。現runtime参照中prototype。灯りの輪として読めるが、1024px master / 64px / 32px / display-review は未整備のため、candidate keep / score 3。 |
 | Item `dawn-ticket` | `public/assets/prototypes/sprite-sheets/passive/old_ticket.png` | 180x180 RGBA。夜明けチケットの近縁候補だが、ID/意味は未確定。 |
 | Cutin | `public/assets/prototypes/cutins/yui/yui-cutin-ultimate-normal-1440x360-rgba.png` | 1440x360 RGBA。通常カットイン候補として投入検査できる。 |
 | Cutin | `public/assets/prototypes/cutins/yui/yui-cutin-ultimate-black-v2-1440x360-rgba.png` | 1440x360 RGBA。黒曜カットイン候補として投入検査できる。 |

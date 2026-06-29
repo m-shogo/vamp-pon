@@ -136,6 +136,13 @@ pnpm asset-factory:build
 - 390x844最終確認後、`black_ink_bottle.png` は `v1-clean-180` と同一の180px軽量版として昇格済み
 - Asset Factoryでは `weapon` / `black-ink-bottle` / `approved` / score 4 / Manual Issuesなしとして扱う
 
+#### streetlamp_ring candidate運用
+- `streetlamp_ring` はミチル初期武器で、`black_ink_bottle` との `dawn_ink_lamp_fusion` 素材
+- runtime参照中prototypeは `public/assets/prototypes/sprite-sheets/weapon/streetlamp_ring.png`
+- 現prototypeは180x180 RGBAで、灯部・ポール・足元リングが読める
+- ただし test-pack master / 64px / 32px / display-review は未整備
+- Asset Factoryでは現時点で `weapon` / `lamp-post-ring` / `candidate` / score 3 / Manual Issuesなしとして扱い、approvedやruntime昇格は別タスクで判断する
+
 #### 再生成プロンプトビルダー (v2)
 - 検査結果から修正指示を自動生成
 - アセットタイプ別に指示を分岐:

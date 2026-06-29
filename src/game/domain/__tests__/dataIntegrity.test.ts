@@ -37,12 +37,16 @@ describe('weapons データ', () => {
     expect(new Set(weapons.map((w) => w.id)).size).toBe(weapons.length);
   });
 
-  it('black_ink_bottle はトモリ初期武器とfusion素材として存在する', () => {
-    const weapon = weaponById.get('black_ink_bottle');
+  it('black_ink_bottle と streetlamp_ring はCore5初期武器とfusion素材として存在する', () => {
+    const ink = weaponById.get('black_ink_bottle');
+    const lamp = weaponById.get('streetlamp_ring');
+    const michiru = characterById.get('michiru');
     const tomori = characterById.get('tomori');
     const fusion = evolutions.find((evo) => evo.id === 'dawn_ink_lamp_fusion');
 
-    expect(weapon?.name).toBe('黒インクの小瓶');
+    expect(ink?.name).toBe('黒インクの小瓶');
+    expect(lamp?.name).toBe('街灯の輪');
+    expect(michiru?.initialWeaponId).toBe('streetlamp_ring');
     expect(tomori?.initialWeaponId).toBe('black_ink_bottle');
     expect(fusion?.kind).toBe('fusion');
     expect(fusion?.fromWeaponId).toBe('black_ink_bottle');
