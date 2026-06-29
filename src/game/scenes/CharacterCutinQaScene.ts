@@ -63,6 +63,14 @@ export class CharacterCutinQaScene extends Phaser.Scene {
       fontSize: '10px',
       color: '#9eb3c5',
     }).setOrigin(0.5, 0);
+
+    const autoMode = new URLSearchParams(window.location.search).get('auto');
+    if (autoMode === 'ultimate' || autoMode === 'berserk') {
+      this.time.delayedCall(120, () => {
+        playCharacterCutin(this, autoMode);
+        this.renderStatus();
+      });
+    }
   }
 
   private addFallbackPreview(x: number, y: number, label: string, fill: number, stroke: number, color: string): void {

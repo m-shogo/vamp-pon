@@ -59,6 +59,8 @@ after polish:
 
 - `docs/design-targets/review-screenshots/2026-06-29-after-polish/collection-after-polish.png`
 - `docs/design-targets/review-screenshots/2026-06-29-after-polish/stage-select-after-polish.png`
+- `docs/design-targets/review-screenshots/2026-06-29-after-polish/normal-cutin-after-polish.png`
+- `docs/design-targets/review-screenshots/2026-06-29-after-polish/kokuyou-cutin-after-polish.png`
 
 FINAL比較用コピー:
 
@@ -74,8 +76,8 @@ FINAL比較用コピー:
 | Collection | 4 | 4 | pass | after-polishでリング綴じ、紙indexタブ、ノート台帳、大きめ絵札セル、クリップ、コンパス/封蝋装飾を追加。旧グリッド感から台帳UIへ明確に変化。 |
 | Stage Select | 4 | 4 | pass | after-polishで地図カードの見出し帯、ルートノード、Lv札、封蝋、内枠を強化。タイトルとプレビューの重なりを解消し、旅支度画面として読める。 |
 | Level Up | 4 | 4 | pass | 3カード、Normal/Good/Rare、Rare glow、Owned rowが読める。 |
-| Normal Cutin | 3 | 3 | keep | 構図とCTAは読める。FINAL参照は主に黒曜化向け。 |
-| Kokuyou Cutin | 3 | 3 | keep | 斜め構図、黒インク、ランタンラインは成立。さらに強くする余地あり。 |
+| Normal Cutin | 4 | 3 | pass | after-polishで実演中スクショを取得。横長production素材、暖色ライン、技名、ラベルが読める。FINAL参照は主に黒曜化向けなので達成度は3止まり。 |
+| Kokuyou Cutin | 4 | 4 | pass | after-polishで実演中スクショを取得。暗幕を強め、斜め黒インク、production素材、タイトル帯、CTAが背景から分離。 |
 | Battle HUD | 3 | 3 | compare only | 比較記録まで。battle gameplayは触っていない。 |
 
 3未満の画面: なし。
@@ -99,6 +101,10 @@ FINAL比較用コピー:
   - Stage見出しを背景プレビューから分離し、紙札として独立。
   - 地図プレビューの内枠、ルートノード、Lv札、封蝋を強化。
   - 「夜の深さ」ブロックとの縦余白を調整し、390x844で文字が重ならないようにした。
+- Cutin:
+  - `?scene=cutin-qa&auto=berserk` / `?scene=cutin-qa&auto=ultimate` で実演中スクショを撮れるようにした。
+  - 黒曜化/通常必殺カットインの暗幕を強め、QA背景やbattle背景に沈まないようにした。
+  - 黒曜化のタイトル帯と下部CTAを少し大きくし、FINALの「黒インクslash + 暖色ランタンライン + 発動CTA」の読み味へ寄せた。
 
 ## 生成画像の反映
 

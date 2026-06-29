@@ -40,7 +40,7 @@ export function playCharacterCutin(scene: Phaser.Scene, mode: CharacterCutinMode
   const paper = isKokuyou ? STORYBOOK_UI.deepNight : 0xeee1bd;
   const textColor = isKokuyou ? '#ffe7ae' : '#332817';
 
-  root.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + 80, GAME_HEIGHT + 80, baseColor, isKokuyou ? 0.62 : 0.46));
+  root.add(scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH + 80, GAME_HEIGHT + 80, baseColor, isKokuyou ? 0.78 : 0.58));
 
   if (isKokuyou) {
     addKokuyouSlashBackdrop(scene, root);
@@ -161,8 +161,8 @@ function addKokuyouSlashBackdrop(scene: Phaser.Scene, root: Phaser.GameObjects.C
 }
 
 function addKokuyouCopy(scene: Phaser.Scene, root: Phaser.GameObjects.Container, copy: CutinCopy): void {
-  const topPlate = scene.add.rectangle(138, CUTIN_CENTER_Y - 114, 230, 42, STORYBOOK_UI.inkBlack, 0.74).setAngle(-7);
-  topPlate.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.34);
+  const topPlate = scene.add.rectangle(142, CUTIN_CENTER_Y - 116, 248, 46, STORYBOOK_UI.inkBlack, 0.82).setAngle(-7);
+  topPlate.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.48);
   const topText = scene.add.text(40, CUTIN_CENTER_Y - 130, '記憶の力が、夜を切り開く', {
     fontFamily: FONT,
     fontSize: '12px',
@@ -172,7 +172,7 @@ function addKokuyouCopy(scene: Phaser.Scene, root: Phaser.GameObjects.Container,
     wordWrap: { width: 210 },
   }).setAngle(-7);
 
-  const titleBack = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y + 70, 286, 62, 0x110a18, 0.9);
+  const titleBack = scene.add.rectangle(GAME_WIDTH / 2, CUTIN_CENTER_Y + 70, 306, 70, 0x110a18, 0.94);
   titleBack.setStrokeStyle(2, STORYBOOK_UI.warmAmber, 0.5);
   const title = scene.add.text(GAME_WIDTH / 2, CUTIN_CENTER_Y + 55, copy.label, {
     fontFamily: TITLE_FONT,
@@ -202,8 +202,8 @@ function addKokuyouCopy(scene: Phaser.Scene, root: Phaser.GameObjects.Container,
     wordWrap: { width: 220 },
   });
 
-  const ctaBack = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 122, 230, 34, 0x090713, 0.72);
-  ctaBack.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.52);
+  const ctaBack = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 122, 260, 42, 0x090713, 0.84);
+  ctaBack.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.66);
   const ctaIcon = scene.add.circle(GAME_WIDTH / 2 - 70, GAME_HEIGHT - 122, 10, STORYBOOK_UI.lanternCore, 0.2).setBlendMode('ADD');
   ctaIcon.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.68);
   const cta = scene.add.text(GAME_WIDTH / 2 + 20, GAME_HEIGHT - 122, 'タップで発動', {
