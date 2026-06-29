@@ -8,7 +8,7 @@ import {
   loadCollectionAtlasViewState,
 } from '../persistence/collectionAtlasViewState';
 import { attachPressFeedback } from '../ui/pressFeedback';
-import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from '../ui/storybookUi';
+import { drawStar, STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from '../ui/storybookUi';
 import {
   drawInkVignette,
   drawLanternFocus,
@@ -16,8 +16,10 @@ import {
   drawMapThreads,
   drawNewSparkBadge,
   drawPaperScrap,
+  drawPrimaryPaperCta,
   drawPremiumPaperCard,
   drawStarMapBackdrop,
+  drawWaxSeal,
 } from '../ui/premiumPaperUi';
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen, resetOnboarding } from '../persistence/onboarding';
@@ -60,41 +62,43 @@ export class TopScene extends Phaser.Scene {
     const starBg = this.add.graphics().setDepth(PARTICLE_DEPTH);
     drawStarMapBackdrop(starBg, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.1, density: 18 });
     this.addBackgroundAtmosphere();
+    this.addTopReferenceBackdrop();
 
     const vignette = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
     drawInkVignette(vignette, GAME_WIDTH, GAME_HEIGHT, { alpha: 0.35 });
 
     const panel = this.add.graphics().setDepth(UI_DEPTH);
     const panelLeft = Math.round(GAME_WIDTH / 2 - 178);
-    const panelTop = Math.round(GAME_HEIGHT / 2 + 6 - 367);
-    panel.fillStyle(STORYBOOK_UI.inkViolet, 0.38).fillRect(panelLeft, panelTop, 356, 734);
-    panel.lineStyle(1, STORYBOOK_UI.paperDark, 0.2).strokeRect(panelLeft, panelTop, 356, 734);
-    drawPaperScrap(panel, GAME_WIDTH / 2, panelTop + 20, 200, 16, STORYBOOK_UI.paperBeige, 0.04);
-    drawPaperScrap(panel, GAME_WIDTH / 2, panelTop + 714, 180, 12, STORYBOOK_UI.paperBeige, 0.03);
+    const panelTop = 28;
+    panel.fillStyle(STORYBOOK_UI.inkViolet, 0.14).fillRect(panelLeft, panelTop, 356, 778);
+    panel.lineStyle(1, STORYBOOK_UI.paperDark, 0.1).strokeRect(panelLeft, panelTop, 356, 778);
+    drawPaperScrap(panel, 56, 202, 104, 132, STORYBOOK_UI.paperBeige, 0.16);
+    drawPaperScrap(panel, 326, 238, 88, 108, STORYBOOK_UI.paperBeige, 0.13);
+    drawPaperScrap(panel, 70, 598, 102, 94, STORYBOOK_UI.paperBeige, 0.1);
+    drawPaperScrap(panel, 320, 574, 94, 104, STORYBOOK_UI.paperBeige, 0.1);
 
     this.addTitleDecoration();
 
-    const titleText = this.text(GAME_WIDTH / 2, 92, 'VAMP PON', 43, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
+    const titleText = this.text(GAME_WIDTH / 2, 90, 'VAMP PON', 40, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
     titleText.setShadow(0, 2, '#070815', 3, true, true);
     this.tweens.add({ targets: titleText, y: titleText.y - 3, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    const subtitleText = this.text(GAME_WIDTH / 2, 142, '忘れた名前を、夜から拾う', 14, STORYBOOK_UI.goldLight, true).setDepth(UI_DEPTH + 3);
+    const subtitleText = this.text(GAME_WIDTH / 2, 148, '忘れられたものたちの夜', 15, STORYBOOK_UI.textDark, true).setDepth(UI_DEPTH + 4);
     subtitleText.setAlpha(0);
     this.tweens.add({ targets: subtitleText, alpha: 1, duration: 800, delay: 300, ease: 'Quad.easeOut' });
 
     this.addCurrencyTag(profile.currency);
 
     const centerPanel = this.add.graphics().setDepth(UI_DEPTH + 1);
-    drawLargeNotebookPage(centerPanel, GAME_WIDTH / 2, 398, 314, 260, { accent: STORYBOOK_UI.gold, alpha: 0.92 });
-    drawMapThreads(centerPanel, GAME_WIDTH / 2, 322, 176, 0.14);
+    this.addCentralMap(centerPanel);
     this.addHeroLantern();
 
-    const mainBtn = this.button(GAME_WIDTH / 2, 514, 284, 66, '夜へ出る', () => {
+    const mainBtn = this.button(GAME_WIDTH / 2, 596, 316, 78, '夜へ出る', () => {
       this.scene.start('StageSelectScene', { mode: 'stage' });
     }, false, true);
     mainBtn.setDepth(UI_DEPTH + 5);
 
-    const growthBtn = this.button(78, 628, 104, 64, '成長', () => {
+    const growthBtn = this.menuCard(77, 724, 106, 88, '成長', 'sprout', () => {
       this.scene.start('StageSelectScene', { mode: 'growth' });
     });
     growthBtn.setDepth(UI_DEPTH + 4);
@@ -104,19 +108,19 @@ export class TopScene extends Phaser.Scene {
     const achViewState = loadAchievementViewState();
     const newAchCount = findNewAchievementIds(Object.keys(profile.achievements), achViewState.seenAchievementIds).length;
     const totalNewCount = newCellCount + newAchCount;
-    const collBtn = this.button(GAME_WIDTH / 2, 628, 112, 64, '忘れ物帳', () => {
+    const collBtn = this.menuCard(GAME_WIDTH / 2, 724, 114, 88, '忘れ物帳', 'book', () => {
       this.scene.start('CollectionScene');
     });
     collBtn.setDepth(UI_DEPTH + 4);
-    this.text(GAME_WIDTH / 2, 658, `${boardCount}/${boardTotal}`, 10, STORYBOOK_UI.textMuted, true).setDepth(UI_DEPTH + 6);
+    this.text(GAME_WIDTH / 2, 755, `${boardCount}/${boardTotal}`, 10, STORYBOOK_UI.paperDark, true).setDepth(UI_DEPTH + 6);
     if (totalNewCount > 0) {
-      drawNewSparkBadge(this, GAME_WIDTH / 2 + 48, 590, totalNewCount, { depth: UI_DEPTH + 7, label: 'NEW' });
+      drawNewSparkBadge(this, GAME_WIDTH / 2 + 50, 676, totalNewCount, { depth: UI_DEPTH + 7, label: 'NEW' });
     }
 
-    const settingsBtn = this.button(312, 628, 104, 64, '設定', () => this.showNotice('設定は準備中です'));
+    const settingsBtn = this.menuCard(313, 724, 106, 88, '設定', 'gear', () => this.showNotice('設定は準備中です'));
     settingsBtn.setDepth(UI_DEPTH + 3);
 
-    this.notice = this.text(GAME_WIDTH / 2, 706, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
+    this.notice = this.text(GAME_WIDTH / 2, 806, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
 
     this.addBottomDecoration();
 
@@ -180,12 +184,43 @@ export class TopScene extends Phaser.Scene {
     }
   }
 
+  private addTopReferenceBackdrop(): void {
+    const g = this.add.graphics().setDepth(PARTICLE_DEPTH + 1);
+    g.fillStyle(STORYBOOK_UI.paperBeige, 0.52).fillCircle(58, 112, 27);
+    g.fillStyle(STORYBOOK_UI.deepNight, 0.96).fillCircle(68, 105, 24);
+    g.lineStyle(1, STORYBOOK_UI.gold, 0.24);
+    g.beginPath();
+    g.moveTo(96, 88);
+    g.lineTo(152, 70);
+    g.lineTo(221, 84);
+    g.lineTo(292, 62);
+    g.strokePath();
+    [96, 152, 221, 292].forEach((x, i) => {
+      drawStar(g, x, i % 2 === 0 ? 88 : 70, i === 2 ? 5 : 3, STORYBOOK_UI.goldLight, STORYBOOK_UI.gold, 0.45);
+    });
+
+    drawPaperScrap(g, 30, 48, 82, 76, STORYBOOK_UI.paperBeige, 0.1);
+    drawPaperScrap(g, 356, 50, 86, 82, STORYBOOK_UI.paperBeige, 0.1);
+    drawPaperScrap(g, 34, 786, 80, 56, STORYBOOK_UI.paperBeige, 0.08);
+    drawPaperScrap(g, 352, 784, 80, 56, STORYBOOK_UI.paperBeige, 0.08);
+
+    drawLanternFocus(this, GAME_WIDTH - 38, 584, { radius: 76, depth: PARTICLE_DEPTH + 1, alpha: 0.08 });
+    const lamp = this.add.graphics().setDepth(PARTICLE_DEPTH + 2);
+    lamp.lineStyle(2, STORYBOOK_UI.goldLight, 0.32).strokeRect(GAME_WIDTH - 55, 560, 20, 30);
+    lamp.fillStyle(STORYBOOK_UI.goldLight, 0.22).fillRect(GAME_WIDTH - 49, 568, 8, 12);
+    lamp.lineStyle(2, STORYBOOK_UI.paperDark, 0.22).lineBetween(GAME_WIDTH - 45, 552, GAME_WIDTH - 45, 560);
+  }
+
   private addTitleDecoration(): void {
     const depth = UI_DEPTH + 2;
     const g = this.add.graphics().setDepth(depth);
 
-    drawPremiumPaperCard(g, GAME_WIDTH / 2, 100, 290, 96, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.48 });
-    drawMapThreads(g, GAME_WIDTH / 2, 164, 172, 0.16);
+    drawPaperScrap(g, GAME_WIDTH / 2 - 10, 105, 338, 142, STORYBOOK_UI.paperDark, 0.24);
+    drawPaperScrap(g, GAME_WIDTH / 2 + 12, 100, 338, 134, STORYBOOK_UI.paperShadow, 0.6);
+    drawPremiumPaperCard(g, GAME_WIDTH / 2, 104, 328, 122, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.62 });
+    drawWaxSeal(g, GAME_WIDTH / 2 - 140, 140, 14, { color: STORYBOOK_UI.dustyRose, alpha: 0.9 });
+    drawWaxSeal(g, GAME_WIDTH / 2 + 142, 126, 7, { color: STORYBOOK_UI.paperDark, alpha: 0.55 });
+    drawMapThreads(g, GAME_WIDTH / 2, 166, 220, 0.24);
 
     const lampGlow = this.add.circle(GAME_WIDTH / 2, 52, 10, COLORS.lantern, 0.18).setDepth(depth).setBlendMode('ADD');
     const lampCore = this.add.circle(GAME_WIDTH / 2, 52, 3, COLORS.lantern, 0.62).setDepth(depth).setBlendMode('ADD');
@@ -201,14 +236,14 @@ export class TopScene extends Phaser.Scene {
     void lampCore;
 
     [-1, 1].forEach((side) => {
-      const x = GAME_WIDTH / 2 + side * 142;
-      const inkDot = this.add.circle(x, 118, 4, COLORS.ink, 0.3).setDepth(depth);
+      const x = GAME_WIDTH / 2 + side * 148;
+      const inkDot = this.add.circle(x, 128, 5, COLORS.ink, 0.36).setDepth(depth);
       void inkDot;
     });
   }
 
   private addCurrencyTag(currency: number): void {
-    const tag = this.add.container(GAME_WIDTH / 2, 178).setDepth(UI_DEPTH + 3);
+    const tag = this.add.container(GAME_WIDTH / 2, 190).setDepth(UI_DEPTH + 3);
     const g = this.add.graphics();
     drawPremiumPaperCard(g, 0, 0, 132, 28, { accent: STORYBOOK_UI.gold, paper: 0x2a2540, muted: true });
     const label = this.text(0, 0, `黒曜片 ${currency}`, 14, STORYBOOK_UI.goldLight, true);
@@ -216,31 +251,58 @@ export class TopScene extends Phaser.Scene {
   }
 
   private addHeroLantern(): void {
-    drawLanternFocus(this, GAME_WIDTH / 2, 286, { radius: 110, depth: UI_DEPTH + 1, alpha: 0.16 });
+    drawLanternFocus(this, GAME_WIDTH / 2 + 28, 388, { radius: 134, depth: UI_DEPTH + 2, alpha: 0.16 });
 
-    const c = this.add.container(GAME_WIDTH / 2, 288).setDepth(UI_DEPTH + 3);
+    const c = this.add.container(GAME_WIDTH / 2, 384).setDepth(UI_DEPTH + 4);
     const g = this.add.graphics();
-    g.fillStyle(0x080915, 0.76).fillEllipse(0, 66, 92, 16);
+    g.fillStyle(0x080915, 0.78).fillEllipse(0, 83, 126, 18);
 
-    g.fillStyle(0x1f1b32, 0.98).fillCircle(-16, 7, 24);
-    g.fillStyle(0x29223a, 0.98).fillEllipse(-10, 42, 46, 62);
-    g.fillStyle(0x0b0b18, 0.55).fillEllipse(-3, 48, 22, 52);
+    g.fillStyle(0x1f1b32, 0.98).fillCircle(-18, -8, 28);
+    g.fillStyle(0x29223a, 0.98).fillEllipse(-10, 40, 58, 84);
+    g.fillStyle(0x0b0b18, 0.56).fillEllipse(-2, 50, 32, 72);
+    g.fillStyle(0x1b1828, 0.98).fillTriangle(-48, 28, -6, 104, 28, 28);
 
-    g.lineStyle(3, STORYBOOK_UI.goldLight, 0.42).lineBetween(8, 17, 28, 32);
-    g.fillStyle(0x6a5334, 0.94).fillRect(24, 26, 18, 24);
-    g.lineStyle(1, STORYBOOK_UI.goldLight, 0.86).strokeRect(23, 25, 20, 26);
-    g.fillStyle(STORYBOOK_UI.goldLight, 0.86).fillRect(29, 31, 8, 12);
-    g.fillStyle(STORYBOOK_UI.goldLight, 0.3).fillCircle(33, 38, 30);
+    g.lineStyle(3, STORYBOOK_UI.goldLight, 0.5).lineBetween(8, 16, 38, 38);
+    g.fillStyle(0x6a5334, 0.95).fillRect(34, 31, 24, 32);
+    g.lineStyle(2, STORYBOOK_UI.goldLight, 0.9).strokeRect(33, 30, 26, 34);
+    g.fillStyle(STORYBOOK_UI.goldLight, 0.9).fillRect(42, 38, 9, 15);
+    g.fillStyle(STORYBOOK_UI.goldLight, 0.34).fillCircle(47, 47, 42);
 
-    g.lineStyle(2, 0x6f5840, 0.72).lineBetween(-25, 20, 12, 60);
-    g.fillStyle(0x3a2d31, 0.92).fillEllipse(18, 58, 20, 16);
+    g.lineStyle(2, 0x6f5840, 0.72).lineBetween(-29, 18, 16, 74);
+    g.fillStyle(0x3a2d31, 0.92).fillEllipse(22, 76, 24, 18);
     g.fillStyle(STORYBOOK_UI.paperLight, 0.62).fillCircle(-22, 2, 3);
 
     c.add(g);
     this.tweens.add({ targets: c, y: c.y - 4, duration: 2300, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    const whisper = this.text(GAME_WIDTH / 2, 382, '小さな灯りは、まだ消えない', 12, STORYBOOK_UI.textMuted, false).setDepth(UI_DEPTH + 3);
+    const whisper = this.text(GAME_WIDTH / 2, 498, '小さな灯りは、まだ消えない', 12, STORYBOOK_UI.goldLight, false).setDepth(UI_DEPTH + 3);
     whisper.setAlpha(0.72);
+  }
+
+  private addCentralMap(g: Phaser.GameObjects.Graphics): void {
+    drawPaperScrap(g, GAME_WIDTH / 2 - 6, 402, 344, 322, STORYBOOK_UI.paperDark, 0.28);
+    drawLargeNotebookPage(g, GAME_WIDTH / 2, 395, 338, 310, { accent: STORYBOOK_UI.paperDark, alpha: 0.9 });
+    g.fillStyle(STORYBOOK_UI.paperLight, 0.18).fillRect(44, 260, 294, 34);
+    g.fillStyle(STORYBOOK_UI.paperShadow, 0.16).fillRect(44, 492, 294, 22);
+    g.lineStyle(1, STORYBOOK_UI.paperDark, 0.22);
+    g.strokeCircle(GAME_WIDTH / 2, 390, 118);
+    g.strokeCircle(GAME_WIDTH / 2, 390, 72);
+    g.lineBetween(GAME_WIDTH / 2, 276, GAME_WIDTH / 2, 504);
+    g.lineBetween(76, 390, 314, 390);
+    drawStar(g, GAME_WIDTH / 2, 390, 18, STORYBOOK_UI.gold, STORYBOOK_UI.paperDark, 0.26);
+    drawMapThreads(g, GAME_WIDTH / 2, 304, 226, 0.32);
+    drawMapThreads(g, GAME_WIDTH / 2, 542, 190, 0.22);
+    for (let i = 0; i < 7; i += 1) {
+      const y = 272 + i * 34;
+      g.fillStyle(0x302534, 0.74).fillCircle(34, y, 8);
+      g.lineStyle(2, STORYBOOK_UI.paperDark, 0.62).strokeCircle(34, y, 8);
+      g.lineStyle(2, STORYBOOK_UI.goldLight, 0.18).lineBetween(34, y - 7, 48, y - 7);
+      g.lineStyle(2, STORYBOOK_UI.goldLight, 0.18).lineBetween(34, y + 7, 48, y + 7);
+    }
+    drawWaxSeal(g, 322, 518, 10, { color: STORYBOOK_UI.dustyRose, alpha: 0.65 });
+
+    g.fillStyle(0x111525, 0.9).fillRect(27, 520, 336, 34);
+    g.lineStyle(1, STORYBOOK_UI.gold, 0.34).strokeRect(27, 520, 336, 34);
   }
 
   private addBottomDecoration(): void {
@@ -257,7 +319,7 @@ export class TopScene extends Phaser.Scene {
     this.tweens.add({ targets: introText, alpha: 1, duration: 600, delay: 500, ease: 'Quad.easeOut' });
     this.tweens.add({ targets: introText, alpha: 0, duration: 500, delay: 6000, ease: 'Quad.easeIn' });
 
-    const glow = this.add.rectangle(GAME_WIDTH / 2, 514, 292, 76, STORYBOOK_UI.goldLight, 0)
+    const glow = this.add.rectangle(GAME_WIDTH / 2, 596, 324, 88, STORYBOOK_UI.goldLight, 0)
       .setDepth(UI_DEPTH + 4)
       .setBlendMode('ADD');
     this.tweens.add({
@@ -294,7 +356,9 @@ export class TopScene extends Phaser.Scene {
     const c = this.add.container(x, y);
     const fill = this.add.graphics();
     if (primary) {
-      drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperLight, selected: true });
+      drawPrimaryPaperCta(fill, 0, 0, width, height, { accent: STORYBOOK_UI.goldLight, paper: STORYBOOK_UI.paperLight });
+      drawWaxSeal(fill, width / 2 - 24, -height / 2 + 20, 11, { color: STORYBOOK_UI.dustyRose, alpha: 0.72 });
+      drawMapThreads(fill, 0, height / 2 - 12, width - 62, 0.2);
       const idleGlow = this.add.rectangle(0, 0, width + 10, height + 10, STORYBOOK_UI.goldLight, 0.08).setBlendMode('ADD');
       c.add(idleGlow);
       this.tweens.add({ targets: idleGlow, alpha: { from: 0.05, to: 0.13 }, scaleX: { from: 1, to: 1.02 }, scaleY: { from: 1, to: 1.04 }, duration: 1900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
@@ -322,6 +386,57 @@ export class TopScene extends Phaser.Scene {
     const labelText = this.text(0, 0, label, fontSize, muted ? STORYBOOK_UI.textMuted : STORYBOOK_UI.textDark, true);
     c.add([fill, labelText, hit]);
     return c;
+  }
+
+  private menuCard(x: number, y: number, width: number, height: number, label: string, icon: 'sprout' | 'book' | 'gear', onClick: () => void): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, width, height, { accent: STORYBOOK_UI.gold, paper: STORYBOOK_UI.paperBeige, shadowAlpha: 0.48 });
+    this.drawMenuIcon(fill, icon, 0, -18);
+    const labelText = this.text(0, 17, label, 15, STORYBOOK_UI.textDark, true);
+    const hit = this.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
+    attachPressFeedback(this, hit, c, {
+      x,
+      y,
+      width,
+      height,
+      accent: STORYBOOK_UI.goldLight,
+      depth: 1000,
+      strong: true,
+      shake: true,
+    });
+    hit.on('pointerdown', () => {
+      getAudioManager(this).playSe('ui_select', { volume: 0.36 });
+      onClick();
+    });
+    c.add([fill, labelText, hit]);
+    return c;
+  }
+
+  private drawMenuIcon(g: Phaser.GameObjects.Graphics, icon: 'sprout' | 'book' | 'gear', x: number, y: number): void {
+    g.lineStyle(3, STORYBOOK_UI.paperDark, 0.86);
+    g.fillStyle(STORYBOOK_UI.paperDark, 0.86);
+    if (icon === 'sprout') {
+      g.lineBetween(x, y + 17, x, y - 2);
+      g.fillEllipse(x - 8, y - 6, 16, 10);
+      g.fillEllipse(x + 9, y - 9, 18, 11);
+      g.fillStyle(STORYBOOK_UI.paperDark, 0.18).fillRect(x - 18, y + 16, 36, 5);
+      return;
+    }
+    if (icon === 'book') {
+      g.strokeRect(x - 20, y - 14, 17, 28);
+      g.strokeRect(x + 3, y - 14, 17, 28);
+      g.lineBetween(x, y - 13, x, y + 15);
+      drawStar(g, x + 11, y - 2, 5, STORYBOOK_UI.goldLight, STORYBOOK_UI.paperDark, 0.9);
+      return;
+    }
+    g.lineStyle(4, STORYBOOK_UI.paperDark, 0.86).strokeCircle(x, y, 12);
+    g.lineStyle(3, STORYBOOK_UI.paperDark, 0.86);
+    for (let i = 0; i < 8; i += 1) {
+      const a = (Math.PI * 2 * i) / 8;
+      g.lineBetween(x + Math.cos(a) * 16, y + Math.sin(a) * 16, x + Math.cos(a) * 21, y + Math.sin(a) * 21);
+    }
+    g.fillStyle(STORYBOOK_UI.paperDark, 0.86).fillCircle(x, y, 4);
   }
 }
 

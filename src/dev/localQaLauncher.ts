@@ -21,6 +21,7 @@ const HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
 const LAUNCHER_ID = 'vamp-pon-local-qa-launcher';
 
 export function shouldShowLocalQaLauncher(locationLike = window.location): boolean {
+  if (new URLSearchParams(locationLike.search).get('hideQa') === '1') return false;
   return HOSTS.has(locationLike.hostname);
 }
 
