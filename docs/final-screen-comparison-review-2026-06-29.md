@@ -61,6 +61,7 @@ after polish:
 - `docs/design-targets/review-screenshots/2026-06-29-after-polish/stage-select-after-polish.png`
 - `docs/design-targets/review-screenshots/2026-06-29-after-polish/normal-cutin-after-polish.png`
 - `docs/design-targets/review-screenshots/2026-06-29-after-polish/kokuyou-cutin-after-polish.png`
+- `docs/design-targets/review-screenshots/2026-06-29-after-polish/battle-runtime-after-polish.png`
 
 FINAL比較用コピー:
 
@@ -78,7 +79,7 @@ FINAL比較用コピー:
 | Level Up | 4 | 4 | pass | 3カード、Normal/Good/Rare、Rare glow、Owned rowが読める。 |
 | Normal Cutin | 4 | 3 | pass | after-polishで実演中スクショを取得。横長production素材、暖色ライン、技名、ラベルが読める。FINAL参照は主に黒曜化向けなので達成度は3止まり。 |
 | Kokuyou Cutin | 4 | 4 | pass | after-polishで実演中スクショを取得。暗幕を強め、斜め黒インク、production素材、タイトル帯、CTAが背景から分離。 |
-| Battle HUD | 3 | 3 | compare only | 比較記録まで。battle gameplayは触っていない。 |
+| Battle HUD | 4 | 3 | runtime compare | after-polishで実runスクショを追加。紙札HUD、黒曜ゲージ、必殺封蝋、下部inventoryがruntime上で読める。FINALほど情報密度は高くしない方が戦闘視認性は安全。 |
 
 3未満の画面: なし。
 
@@ -105,6 +106,10 @@ FINAL比較用コピー:
   - `?scene=cutin-qa&auto=berserk` / `?scene=cutin-qa&auto=ultimate` で実演中スクショを撮れるようにした。
   - 黒曜化/通常必殺カットインの暗幕を強め、QA背景やbattle背景に沈まないようにした。
   - 黒曜化のタイトル帯と下部CTAを少し大きくし、FINALの「黒インクslash + 暖色ランタンライン + 発動CTA」の読み味へ寄せた。
+- Battle HUD:
+  - `?play=1&stage=1&hideQa=1` の実runスクショを追加。
+  - HUDコードやbattle gameplayは今回は変更していない。
+  - FINALの高密度装飾は戦闘視認性と衝突しやすいため、Unity再評価まではruntime現状を基準にする。
 
 ## 生成画像の反映
 
