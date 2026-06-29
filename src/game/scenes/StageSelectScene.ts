@@ -161,8 +161,7 @@ export class StageSelectScene extends Phaser.Scene {
     if (this.mode === 'stage') {
       this.renderStagePreview(root, profile);
       this.renderDepthBlock(root, profile);
-      this.renderCharacterSummary(root, profile);
-      this.renderSubCharacterStatus(root, profile, 600);
+      this.renderTravelPrep(root, profile);
       root.add(this.paperCta(GAME_WIDTH / 2, GAME_HEIGHT - 110, 280, 54, '探索を始める', () => this.startRun(profile)));
       root.add(this.secondaryNav(GAME_WIDTH / 2 - 100, GAME_HEIGHT - 46, 88, 40, 'TOPへ', () => this.scene.start('TopScene')));
       root.add(this.secondaryNav(GAME_WIDTH / 2 + 100, GAME_HEIGHT - 46, 88, 40, recordLabel, () => {
@@ -483,6 +482,71 @@ export class StageSelectScene extends Phaser.Scene {
       btn.setAlpha(option.enabled ? 1 : 0.45);
       root.add(btn);
     });
+  }
+
+  private renderTravelPrep(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
+    const y = 604;
+    const char = characters[0];
+    const progress = profile.characterProgress[char.id] ?? { level: 1, xp: 0, totalXp: 0 };
+    const need = characterXpToNext(progress.level);
+    const main = characters[0];
+    const bonds = loadBondProgress();
+    const vm = buildStageSelectSubCharacterViewModel(profile, bonds, main.id);
+    const unreadTalkId = vm.selectedSubCharacterId ? nextUnreadBondTalkId(main.id, vm.selectedSubCharacterId, bonds) : null;
+
+    const panel = this.add.graphics();
+    drawPremiumPaperCard(panel, GAME_WIDTH / 2, y, 322, 112, {
+      accent: STORYBOOK_UI.gold,
+      paper: 0x221e35,
+      selected: true,
+      shadowAlpha: 0.22,
+    });
+    panel.fillStyle(STORYBOOK_UI.paperLight, 0.08).fillRoundedRect(48, y - 46, 294, 22, 9);
+    panel.lineStyle(1, STORYBOOK_UI.goldLight, 0.2).strokeRoundedRect(48, y - 46, 294, 22, 9);
+    panel.fillStyle(STORYBOOK_UI.goldLight, 0.12).fillCircle(67, y - 35, 8);
+    panel.fillStyle(STORYBOOK_UI.goldLight, 0.48).fillCircle(67, y - 35, 3);
+    root.add(panel);
+
+    root.add(this.text(95, y - 36, '旅支度', 12, STORYBOOK_UI.lanternCore, true).setOrigin(0, 0.5));
+    root.add(this.text(GAME_WIDTH - 54, y - 36, `Lv.${progress.level}`, 11, STORYBOOK_UI.goldLight, true));
+    root.add(this.text(58, y - 12, `${char.name}  ${progress.xp}/${need}`, 12, STORYBOOK_UI.textLight, true).setOrigin(0, 0.5));
+    root.add(this.text(58, y + 6, 'HPと攻撃が、夜を歩くほど少しずつ伸びる', 10, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
+
+    const effectLine = this.compactSubEffectLine(vm.effectLine);
+    const pairLine = unreadTalkId ? '未読会話あり' : this.compactPairUltimateLine(vm.pairUltimateLine);
+    root.add(this.text(58, y + 26, `同行: ${vm.selectedLine}`, 10, STORYBOOK_UI.goldLight, true).setOrigin(0, 0.5));
+    root.add(this.text(58, y + 42, `${effectLine} / ${pairLine}`, 9, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
+
+    const none = this.button(62, y + 70, 54, 28, 'なし', () => {
+      selectSubCharacter(undefined, main.id);
+      this.render();
+    }, !profile.selectedSubCharacterId);
+    root.add(none);
+
+    vm.options.slice(0, 4).forEach((option, index) => {
+      const x = 124 + index * 66;
+      const label = option.enabled ? option.name : '準備中';
+      const btn = this.button(x, y + 70, 58, 28, label, () => {
+        if (!option.enabled) return;
+        selectSubCharacter(option.characterId, main.id);
+        this.render();
+      }, !option.enabled || option.selected);
+      btn.setAlpha(option.enabled ? 1 : 0.45);
+      root.add(btn);
+    });
+  }
+
+  private compactSubEffectLine(value: string): string {
+    if (value.includes('同行すると好感度')) return 'サブ効果なし';
+    const [name] = value.split(':');
+    return name.length > 14 ? `${name.slice(0, 13)}…` : name;
+  }
+
+  private compactPairUltimateLine(value: string): string {
+    if (value.includes('未選択')) return 'ペア未設定';
+    if (value.startsWith('解放済み')) return 'ペア必殺 解放済み';
+    const match = value.match(/Lv\\d+で解放/);
+    return match ? match[0] : value;
   }
 
   private renderUpgradeBlock(root: Phaser.GameObjects.Container, profile: PlayerProfile): void {
