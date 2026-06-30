@@ -2,6 +2,18 @@
 
 ## App title
 
+Official title:
+
+```txt
+ヨルノシルベ
+```
+
+Romanized working notation:
+
+```txt
+Yoru no Shirube
+```
+
 `Vamp Pon`, `vanp pon`, and `ヴァンサバ改` are code names only.
 
 Do not use them as the final app title.
