@@ -29,6 +29,18 @@ message: Stageと報酬UIをFINAL寄りに調整
 
 ---
 
+## 追加された最新資料
+
+U1開始前に、次の資料も読む。
+
+| Document | 用途 |
+| --- | --- |
+| `docs/unity-current-doc-index-2026-06-30.md` | Unity移行docsの最新優先順位。最初に読む入口。 |
+| `docs/unity-u1-implementation-brief.md` | U1で作るもの、作らないもの、最小script/scene/asset方針。 |
+| `docs/unity-u1-agent-prompt.md` | Claude Code / Codex / 作業エージェントへ渡すU1開始用プロンプト。 |
+
+---
+
 ## 既存Unity移行土台の状態
 
 | Document | Status | U1での扱い |
