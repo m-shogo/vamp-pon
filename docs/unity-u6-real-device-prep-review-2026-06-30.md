@@ -44,3 +44,19 @@ U6では実機実行そのものは未実行。U6.1でiPhone / Android確認へ�
 実機実行: 未実行。
 
 U6.1でDevelopment Build + Autoconnect Profilerを使い、iPhoneとAndroidの少なくとも1台ずつで確認する。
+
+## U6.1 Follow-Up Status
+
+iPhone real device: not executed in the Codex session.
+
+Android real device: not executed in the Codex session.
+
+Reason:
+
+- No physical device install, device screen inspection, or device Profiler session was available from this execution context.
+- Editor/batchmode fallback verification was used instead.
+
+Next required action:
+
+- Run Development Build with Autoconnect Profiler on at least one iPhone and one Android device.
+- Record device name, OS version, FPS/memory rough result, Safe Area result, touch result, pause/resume result, and crash/error result in the U6.1 review doc.

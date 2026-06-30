@@ -29,6 +29,8 @@ U5.1以降、Editor screenshotだけで品質判断しないための実機確�
 
 U6 status: not executed yet. This checklist prepares U6.1 real device verification.
 
+U6.1 status: not executed in the Codex session. Device install, Development Build launch, and Profiler connection still require a human/device pass.
+
 ## Android
 
 - portrait orientation lock
@@ -55,6 +57,8 @@ U6 status: not executed yet. This checklist prepares U6.1 real device verificati
 7. Capture crash / ANR logs if the app terminates, hangs, or loses input.
 
 U6 status: not executed yet. This checklist prepares U6.1 real device verification.
+
+U6.1 status: not executed in the Codex session. Device install, Development Build launch, and Profiler connection still require a human/device pass.
 
 ## Safe Area
 
