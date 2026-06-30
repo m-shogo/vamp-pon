@@ -4,6 +4,8 @@
 
 U5.1は新規画像生成なし。U5 commit `cf56ad25eda5808d22a7457a52c9212b5169c1dd` のvisual candidateを、pro品質へ進める前の品質ゲートとして整備した。
 
+追加で、Unity移行中に美術方向が散らからないよう `docs/unity-visual-art-direction-lock-2026-06-30.md` を固定ルールとして追加した。
+
 ## Added Gate Set
 
 Rule docs:
@@ -11,6 +13,7 @@ Rule docs:
 - `docs/unity-asset-intake-gate-2026-06-30.md`
 - `docs/unity-sprite-import-policy-2026-06-30.md`
 - `docs/unity-real-device-test-checklist-2026-06-30.md`
+- `docs/unity-visual-art-direction-lock-2026-06-30.md`
 
 Manifest:
 
@@ -87,6 +90,29 @@ Green spill / edge touch:
 
 - `greenSpillRemainingPixels`: 8点すべて `0`
 - `edgeTouches`: 8点すべて `false`
+
+## Visual Art Direction Lock
+
+Unity移行中の垢抜け防止線として以下を固定した。
+
+1. 色数を増やしすぎない。
+2. 紙UI / 黒インク / ランタン光を主軸にする。
+3. レア演出だけ派手にする。
+4. 通常画面は静かにする。
+5. 文字可読性を最優先する。
+6. キャラ素材の質感をバラバラにしない。
+7. 生成画像をそのまま混ぜない。
+
+運用上の追加方針:
+
+- フル3D化を正解にしない。
+- 2Dゲーム + 3Dレンダー風素材 + Unity light/glow/particle/motion を基本にする。
+- 生成画像はdesign target / candidate / 部品化元として扱い、productionへ直接混ぜない。
+- レア/必殺/黒曜化以外の通常UIを常時キラキラさせない。
+- PC/WebGLだけで完了判断しない。
+- Prefab単位で品質を上げる。
+
+詳細は `docs/unity-visual-art-direction-lock-2026-06-30.md` を参照。
 
 ## Resources Policy
 
@@ -200,12 +226,14 @@ none observed in the U5/U4 verification logs and screenshot capture log
 - `Resources/U5Candidates` remains proof-only.
 - Real device checks are documented but not yet executed.
 - LevelUp layout is improved, but final card typography still needs production UI pass.
+- Visual Art Direction Lock is documented, but not yet automated. Future reviews must check it manually until a stronger art-direction linter/review checklist exists.
 
 ## Next
 
 - Decide whether U5 candidates are visually worth direct edit, regeneration, or rejection.
 - Start production asset provider design before asset scale grows.
 - Run real device checklist before U6 production-facing decisions.
+- Apply the Visual Art Direction Lock to U6+ visual quality passes.
 
 ## Git
 
