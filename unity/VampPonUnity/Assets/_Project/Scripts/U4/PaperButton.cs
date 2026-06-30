@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.U4
 {
-    public sealed class PaperButton : MonoBehaviour
+    public sealed class PaperButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private RectTransform rect;
         private Image bgImage;
@@ -80,6 +81,12 @@ namespace VampPon.UnitySpike.U4
             pulseTimer = 0.12f;
             onClick?.Invoke();
         }
+
+        public void OnPointerClick(PointerEventData eventData) => Press();
+
+        public void OnPointerEnter(PointerEventData eventData) => SetHovered(true);
+
+        public void OnPointerExit(PointerEventData eventData) => SetHovered(false);
 
         private void Update()
         {

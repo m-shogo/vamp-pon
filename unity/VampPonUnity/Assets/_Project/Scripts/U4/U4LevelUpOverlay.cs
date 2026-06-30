@@ -142,6 +142,11 @@ namespace VampPon.UnitySpike.U4
                 cards[i] = card;
             }
 
+            for (var i = 0; i < cards.Length; i++)
+            {
+                cards[i].SetClickCallback(OnCardClicked);
+            }
+
             confirmButton = PaperButton.Create(cardContainer, "決定", 140f, 40f, OnConfirmPressed);
             confirmButton.SetFont(japaneseFont);
             var btnRect = confirmButton.GetComponent<RectTransform>();
@@ -265,6 +270,17 @@ namespace VampPon.UnitySpike.U4
             {
                 cards[i].SetHovered(i == hoveredIndex && selectedIndex < 0);
             }
+        }
+
+        private void OnCardClicked(int index)
+        {
+            if (selectedIndex == index)
+            {
+                OnConfirmPressed();
+                return;
+            }
+
+            SelectCard(index);
         }
 
         private void OnConfirmPressed()

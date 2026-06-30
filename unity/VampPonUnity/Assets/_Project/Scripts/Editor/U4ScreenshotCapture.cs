@@ -7,7 +7,7 @@ namespace VampPon.UnitySpike.Editor
     public static class U4ScreenshotCapture
     {
         private static readonly string OutputDir = Path.GetFullPath(
-            Path.Combine(Application.dataPath, "../../../..", "docs/design-targets/generated/unity-u4"));
+            Path.Combine(Application.dataPath, "../../..", "docs/design-targets/generated/unity-u4"));
 
         [MenuItem("VampPon/U4/Capture Screenshot (current resolution)")]
         public static void CaptureCurrentResolution()

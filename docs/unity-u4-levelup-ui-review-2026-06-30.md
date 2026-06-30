@@ -85,6 +85,8 @@ U4では、U3のbattle feel prototypeの上に、LevelUp UIのdemo overlayを追
 - キーボード操作: W/S/↑/↓でカード間移動、Enter/Spaceで選択/決定
 - 数字キー: 1/2/3で直接選択
 - Escで選択解除
+- マウス/タッチ操作: カードクリックで選択、選択済みカード再クリックで決定、「決定」ボタンクリック対応
+- マウスホバー: カード・ボタンにhoverフィードバック（IPointerEnter/Exit）
 - 選択時: selected cardがscale pulse → 1.03x維持、他カードがdimmed
 - 決定ボタン「決定」が出現
 - overlay閉じ時: 0.15s fadeout → battle復帰
@@ -231,22 +233,44 @@ unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs
 unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs
 ```
 
+## U4.1 補完: マウス/タッチ選択
+
+### 実装内容
+
+- `PaperCard`: `IPointerClickHandler`, `IPointerEnterHandler`, `IPointerExitHandler` を実装
+  - カードクリックでcallbackをoverlayに通知
+  - マウスホバーでhover状態変更（selected中は無効）
+- `PaperButton`: `IPointerClickHandler`, `IPointerEnterHandler`, `IPointerExitHandler` を実装
+  - 「決定」ボタンクリックで `Press()` 呼び出し
+  - マウスホバーでhover状態変更
+- `U4LevelUpOverlay`: `OnCardClicked` メソッド追加
+  - 未選択時: クリックしたカードを選択
+  - 選択済みの同じカードをクリック: 決定（confirm）
+  - 選択済みの別カードをクリック: 選択切り替え
+
+### キーボード操作への影響
+
+- 既存のキーボード操作（W/S/↑/↓, Enter/Space, 1/2/3, Esc）は変更なし
+- マウスとキーボードの併用可能
+
+### パス修正
+
+- `U4LevelUpVerification.cs`, `U4ScreenshotCapture.cs`: repoRootパスを `../../../..`（4段）→ `../../..`（3段）に修正
+
 ## U4未解決の懸念
 
-1. **スクリーンショット未取得**: batchmodeではGameView screenshotが撮れない。Editor GUI操作でLキー押下後にスクリーンショットを撮る必要がある。
+1. **スクリーンショット未取得**: batchmodeではGameView screenshotが撮れない。Editor GUI操作でLキー押下後にMenu > VampPon > U4 > Capture Screenshotで撮影する。
 2. **TMP Font Assetのグリフ範囲**: demo用の限定的な漢字セットのみ生成。production用にはFallback FontかDynamic SDF生成が必要。
-3. **マウス/タッチ操作**: キーボード操作のみ実装。タッチ/クリック選択は未実装。
-4. **EXP閾値によるauto trigger**: EXP 5個collectでLevelUpが出るが、production tuningではない。
-5. **覚醒gate**: UI placeholderのみ。抽選ロジック・条件判定は未実装。
-6. **フォントファイルサイズ**: Regular + Medium + Bold = 約11.4MB。productionではsubset化やDynamic生成で軽量化が必要。
+3. **EXP閾値によるauto trigger**: EXP 5個collectでLevelUpが出るが、production tuningではない。
+4. **覚醒gate**: UI placeholderのみ。抽選ロジック・条件判定は未実装。
+5. **フォントファイルサイズ**: Regular + Medium + Bold = 約11.4MB。productionではsubset化やDynamic生成で軽量化が必要。
 
 ## 次のU5でやるべきこと
 
 1. Editor Game ViewでLevelUp overlayのスクリーンショットを撮る（390x844 / 360x800 / 430x932）
-2. マウス/タッチによるカード選択を追加
-3. LevelUp選択後のstatus反映（demo表示のみでもよい）
-4. Production用TMP Font Assetの最適化（Dynamic SDF / Fallback / subset）
-5. Result画面のdemo追加（U5以降）
-6. StageSelect画面のdemo追加（U5以降）
-7. 黒耀化 / cutin placeholderの方向性確認（U5以降）
-8. 実機テスト（touch input / performance / Safe Area）
+2. LevelUp選択後のstatus反映（demo表示のみでもよい）
+3. Production用TMP Font Assetの最適化（Dynamic SDF / Fallback / subset）
+4. Result画面のdemo追加（U5以降）
+5. StageSelect画面のdemo追加（U5以降）
+6. 黒耀化 / cutin placeholderの方向性確認（U5以降）
+7. 実機テスト（touch input / performance / Safe Area）

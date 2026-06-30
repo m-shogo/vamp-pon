@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.U4
 {
-    public sealed class PaperCard : MonoBehaviour
+    public sealed class PaperCard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private RectTransform rect;
         private Image bgImage;
@@ -35,8 +36,12 @@ namespace VampPon.UnitySpike.U4
         private static readonly Color DescColor = new(0.32f, 0.24f, 0.2f);
         private static readonly Color TypeColor = new(0.52f, 0.4f, 0.32f);
 
+        private System.Action<int> onClicked;
+
         public U4LevelUpChoice ChoiceData => choiceData;
         public int CardIndex => cardIndex;
+
+        public void SetClickCallback(System.Action<int> callback) => onClicked = callback;
 
         public static PaperCard Create(Transform parent, U4LevelUpChoice choice, int index, float width, float height, TMP_FontAsset font)
         {
@@ -200,6 +205,18 @@ namespace VampPon.UnitySpike.U4
             {
                 shimmerTimer -= Time.unscaledDeltaTime;
             }
+        }
+
+        public void OnPointerClick(PointerEventData eventData) => onClicked?.Invoke(cardIndex);
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!isSelected) SetHovered(true);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (!isSelected) SetHovered(false);
         }
 
         private static TextMeshProUGUI CreateLabel(Transform parent, string text, float fontSize, Color color,

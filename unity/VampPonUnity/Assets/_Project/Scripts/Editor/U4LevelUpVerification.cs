@@ -87,7 +87,7 @@ namespace VampPon.UnitySpike.Editor
                 report.AppendLine($"  dawn_ticket in candidates: {(hasDawnTicket ? "VIOLATION" : "clean")}");
             }
 
-            var repoRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "../../../.."));
+            var repoRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "../../.."));
             var reportPath = Path.Combine(repoRoot, "docs/design-targets/generated/unity-u4/u4-verification-report.txt");
             var dir = Path.GetDirectoryName(reportPath);
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
