@@ -108,7 +108,7 @@ Unity移行中の垢抜け防止線として以下を固定した。
 - フル3D化を正解にしない。
 - 2Dゲーム + 3Dレンダー風素材 + Unity light/glow/particle/motion を基本にする。
 - 生成画像はdesign target / candidate / 部品化元として扱い、productionへ直接混ぜない。
-- レア/必殺/黒曜化以外の通常UIを常時キラキラさせない。
+- レア/必殺/黒耀化以外の通常UIを常時キラキラさせない。
 - PC/WebGLだけで完了判断しない。
 - Prefab単位で品質を上げる。
 

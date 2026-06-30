@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Unity移行中に見た目が散らからないよう、Vamp Ponの美術方向を固定する。
+Unity移行中に見た目が散らからないよう、ヨルノシルベの美術方向を固定する。
 
 このdocは「最終ポリッシュ指示」ではなく、今後のUI、キャラ、敵、VFX、背景、生成素材投入で守る最低限の美術ルールである。
 
@@ -27,7 +27,7 @@ Unity移行中に見た目が散らからないよう、Vamp Ponの美術方向�
 
 ## Visual Core
 
-Vamp Ponの見た目の核:
+ヨルノシルベの見た目の核:
 
 - 夜
 - 記憶
@@ -46,11 +46,11 @@ Vamp Ponの見た目の核:
 
 主軸:
 
-- deep night: 背景、暗幕、黒曜化の土台
+- deep night: 背景、暗幕、黒耀化の土台
 - paper ivory / warm beige: 紙UI、カード、記憶帳
 - black ink / blue black / purple black: 敵、黒インク、影
 - lantern amber: 主人公、CTA、回復、希望、主導線
-- dusty rose / crimson black: 黒曜化、危険、暴走、rare accent
+- dusty rose / crimson black: 黒耀化、危険、暴走、rare accent
 - muted teal / soft blue: 補助情報、静かな選択状態
 
 禁止寄り:
@@ -66,9 +66,9 @@ Vamp Ponの見た目の核:
 光の主役はランタン。
 
 - 通常画面の光は暖色で小さく使う。
-- 強いglowはRare、必殺、黒曜化、クリア報酬に限定する。
+- 強いglowはRare、必殺、黒耀化、クリア報酬に限定する。
 - Battle中のhit flashは短く、白飛びさせすぎない。
-- 黒曜化は赤黒/紫黒で不穏にする。可愛いキラキラにしない。
+- 黒耀化は赤黒/紫黒で不穏にする。可愛いキラキラにしない。
 - 背景は暗めに保ち、UIとキャラの読みやすさを優先する。
 
 ## Material / Texture Rules
@@ -174,7 +174,7 @@ runtime productionへ入れる条件:
 2. 画面サイズで可読性を確認している。
 3. text-baked runtime imageではない。
 4. alpha / edge / green spill / watermarkのQAを通る。
-5. 質感がVamp PonのVisual Coreに合う。
+5. 質感がヨルノシルベのVisual Coreに合う。
 6. `candidate` と `approved` を混同しない。
 7. どのPrefab/Sceneがownerか明確である。
 
@@ -206,7 +206,7 @@ Unity素材やUIをproduction候補へ進める前に、以下を確認する。
 - Visual Coreから外れていない
 - 色数が増えすぎていない
 - 紙UI / 黒インク / ランタン光の軸が残っている
-- 通常画面とrare/必殺/黒曜化の強弱がある
+- 通常画面とrare/必殺/黒耀化の強弱がある
 - 文字が読める
 - キャラ/敵/背景/UIの質感がバラバラでない
 - 生成画像をそのまま混ぜていない
@@ -240,7 +240,7 @@ Unity移行は進めてよい。
 判断軸:
 
 ```txt
-Vamp Ponらしいか
+ヨルノシルベらしいか
 読めるか
 触って気持ちいいか
 通常とご褒美の差があるか

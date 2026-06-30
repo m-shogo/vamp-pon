@@ -11,6 +11,7 @@
     "design:review:verify": "node --experimental-strip-types scripts/quality/check-design-review-docs.ts",
     "unity:meta:check": "node --experimental-strip-types scripts/quality/check-unity-meta-guids.ts",
     "unity:asset-intake:check": "node --experimental-strip-types scripts/quality/check-unity-asset-intake.ts",
+    "unity:term-lock:check": "node --experimental-strip-types scripts/quality/check-unity-term-lock.ts",
     "greenback:alpha": "python3 scripts/assets/greenback_to_alpha.py",
     "character-assets:verify": "node --experimental-strip-types scripts/quality/check-character-assets.ts",
     "core5:sprites:slice-original": "node --experimental-strip-types scripts/prototypes/slice-core5-original-sheets.ts",
