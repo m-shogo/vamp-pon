@@ -1,9 +1,10 @@
-using UnityEngine;
+using VampPon.UnitySpike.Runtime;
 
 namespace VampPon.UnitySpike.U4
 {
     public static class U4TimeScaleGuard
     {
+        private const string OverlayOwner = "U4LevelUpOverlay";
         private static bool overlayPaused;
 
         public static bool IsOverlayPaused => overlayPaused;
@@ -11,19 +12,19 @@ namespace VampPon.UnitySpike.U4
         public static void PauseForOverlay()
         {
             overlayPaused = true;
-            Time.timeScale = 0f;
+            BattleTimeScaleService.RegisterPause(OverlayOwner);
         }
 
         public static void ResumeFromOverlay()
         {
             overlayPaused = false;
-            Time.timeScale = 1f;
+            BattleTimeScaleService.ReleasePause(OverlayOwner);
         }
 
         public static void ForceRestore()
         {
             overlayPaused = false;
-            Time.timeScale = 1f;
+            BattleTimeScaleService.ForceRestore();
         }
     }
 }

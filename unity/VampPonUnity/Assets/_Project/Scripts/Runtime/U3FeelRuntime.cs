@@ -5,6 +5,7 @@ namespace VampPon.UnitySpike.Runtime
 {
     public sealed class U3HitStopController : MonoBehaviour
     {
+        private const string HitStopOwner = "U3HitStop";
         private GameFeelConfig config;
         private float remaining;
         private float cooldownRemaining;
@@ -25,7 +26,7 @@ namespace VampPon.UnitySpike.Runtime
 
             remaining = config.hitStopSeconds;
             cooldownRemaining = config.hitStopCooldown;
-            Time.timeScale = 0.18f;
+            BattleTimeScaleService.TriggerHitStop(HitStopOwner, config.hitStopSeconds, 0.18f);
             TriggerCount++;
         }
 
@@ -45,13 +46,13 @@ namespace VampPon.UnitySpike.Runtime
             remaining -= delta;
             if (remaining <= 0f)
             {
-                Time.timeScale = 1f;
+                BattleTimeScaleService.ReleaseHitStop(HitStopOwner);
             }
         }
 
         private void OnDisable()
         {
-            Time.timeScale = 1f;
+            BattleTimeScaleService.ReleaseHitStop(HitStopOwner);
         }
     }
 

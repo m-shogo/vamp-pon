@@ -5,6 +5,7 @@ namespace VampPon.UnitySpike.U5
     public sealed class BattleVisualAssetSet
     {
         // Runtime-facing proof set only. Keep loading decisions outside battle logic.
+        public Sprite PlayerSprite { get; set; }
         public Sprite EnemySprite { get; set; }
         public Sprite ProjectileSprite { get; set; }
         public Sprite ExpSprite { get; set; }
@@ -24,6 +25,7 @@ namespace VampPon.UnitySpike.U5
             var spark = LoadVfxSprite("u5-lantern-spark");
             return new BattleVisualAssetSet
             {
+                PlayerSprite = LoadBattleSprite("u5-yui-battle-candidate"),
                 EnemySprite = LoadBattleSprite("u5-ombu-battle-candidate"),
                 ProjectileSprite = spark,
                 ExpSprite = LoadVfxSprite("u5-exp-fragment"),

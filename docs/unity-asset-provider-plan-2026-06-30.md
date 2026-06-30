@@ -90,3 +90,15 @@ AssetProviderは読み込みの入口であって、美術承認の代わりで�
 ## U6 Decision
 
 U6ではAssetProviderを設計するだけで、本格実装、Addressables導入、production approval昇格、新規画像生成は行わない。
+
+## U7 Proof Decision
+
+U7 adds a minimal runtime proof:
+
+- `IAssetProvider`
+- `U5ProofAssetProvider`
+- `BattleVisualAssetSet.PlayerSprite`
+
+`U5ProofAssetProvider` wraps `U5VisualAssetLibrary` and stays proof-only. It does not approve assets, introduce Addressables, add runtime images, or turn `Resources/U5Candidates` into a general asset folder.
+
+`U1Stage1SceneBootstrap` obtains `BattleVisualAssetSet` from the provider and passes only the visual set to `U2BattleController`. `U2BattleController` still does not know U5 asset ids or resource paths.

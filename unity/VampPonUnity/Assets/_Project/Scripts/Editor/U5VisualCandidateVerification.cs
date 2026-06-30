@@ -108,6 +108,7 @@ namespace VampPon.UnitySpike.Editor
 
             var report = BuildReport(playerObject, controller, movementStartPosition);
             U4TimeScaleGuard.ForceRestore();
+            report += Environment.NewLine + $"TimeScaleAfterRestore: {Time.timeScale:0.###}, serviceScale={BattleTimeScaleService.CurrentScale:0.###}, serviceReason={BattleTimeScaleService.DebugOwnerReason}";
             Finish(report, 0);
         }
 

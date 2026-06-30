@@ -64,3 +64,12 @@ U6では `U2BattleController` の大規模分割はしない。今後、キャ�
 ## U6 Decision
 
 U6 only adds documentation and safe boundary comments. No new runtime feature, asset generation, production approval, Addressables migration, Result implementation, StageSelect implementation, Collection implementation, 黒耀化 runtime implementation, or cut-in runtime implementation is included.
+
+## U7 Proof Update
+
+U7 adds only two small boundary proofs:
+
+- `BattleTimeScaleService` sits behind U3 hit stop and U4 LevelUp pause.
+- `IAssetProvider` / `U5ProofAssetProvider` sits before `BattleVisualAssetSet`.
+
+`U2BattleController` remains a prototype controller. It still receives `BattleVisualAssetSet`, does not build UI cards, does not own LevelUp card data, and does not contain U5 asset ids or resource paths.

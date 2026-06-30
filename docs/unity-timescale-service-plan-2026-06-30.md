@@ -79,3 +79,15 @@ HitStopは短時間・一時的。LevelUp/Pause/Resultは明示lock。黒耀化�
 ## U6 Decision
 
 No proof class is added in U6 because direct coexistence with `U3HitStopController` and `U4TimeScaleGuard` would create two ownership models. The safe pass is documentation plus existing verification.
+
+## U7 Proof Decision
+
+U7 adds a small `BattleTimeScaleService` proof and connects only the existing U3/U4 owners:
+
+- `U3HitStopController` keeps its public API and local cooldown/verification counters.
+- `U3HitStopController` now requests hit stop through `BattleTimeScaleService`.
+- `U4TimeScaleGuard` keeps `PauseForOverlay`, `ResumeFromOverlay`, `ForceRestore`, and `IsOverlayPaused`.
+- `U4TimeScaleGuard` now registers/releases the LevelUp overlay pause through `BattleTimeScaleService`.
+- `ForceRestore()` clears all proof owners and restores `Time.timeScale = 1`.
+
+U7 still does not implement production pause, result transition, 黒耀化 runtime timing, or a full BattleController split.

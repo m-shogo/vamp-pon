@@ -22,11 +22,15 @@ namespace VampPon.UnitySpike.Runtime
         private Transform overlayRoot;
         private Transform yui;
         private TextMeshProUGUI topHudLabel;
+        private IAssetProvider assetProvider;
+        private BattleVisualAssetSet battleVisualAssets;
         private static TMP_FontAsset cachedJapaneseFont;
 
         private void Awake()
         {
             Application.targetFrameRate = 60;
+            assetProvider = new U5ProofAssetProvider();
+            battleVisualAssets = assetProvider.LoadBattleVisuals();
             CreateCamera();
             CreateWorldRoots();
             CreateBackground();
@@ -94,7 +98,7 @@ namespace VampPon.UnitySpike.Runtime
             player.transform.position = new Vector3(0f, -1.45f, 0f);
             player.transform.localScale = Vector3.one * 0.9f;
             var renderer = player.GetComponent<SpriteRenderer>();
-            renderer.sprite = U5VisualAssetLibrary.LoadBattleSprite("u5-yui-battle-candidate")
+            renderer.sprite = battleVisualAssets?.PlayerSprite
                 ?? ProceduralSpriteFactory.CreateCharacterSprite(96, new Color(0.93f, 0.74f, 0.55f), new Color(0.23f, 0.12f, 0.16f));
             renderer.sortingOrder = 20;
             yui = player.transform;
@@ -137,7 +141,7 @@ namespace VampPon.UnitySpike.Runtime
             var controllerObject = new GameObject("U2BattleController", typeof(U2BattleController));
             controllerObject.transform.SetParent(poolRoot, false);
             var controller = controllerObject.GetComponent<U2BattleController>();
-            controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, U5VisualAssetLibrary.LoadBattleVisualSet());
+            controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, battleVisualAssets);
 
             CreateLevelUpDemo(controller);
         }
