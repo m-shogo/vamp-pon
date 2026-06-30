@@ -38,6 +38,14 @@ Do not treat Unity U1/U2/U3 procedural placeholders as final design. Do not use 
 
 Character climax art and Kokuyou art are full-screen art / full-screen cut-ins, and must also be treated as Collection/archive art candidates.
 
+## AI image production flow
+
+For AI image generation, transparency processing, QA, and Unity handoff, read:
+
+- `docs/image-generation-production-flow-2026-06-30.md`
+
+This is the single entry point for image-generation work.
+
 ## AI image transparency rule
 
 For AI-generated asset candidates that need transparency, read:
