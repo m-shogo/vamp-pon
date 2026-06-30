@@ -8,6 +8,27 @@ Purpose: AI-generated asset candidates should use a solid chroma key green backg
 scripts/assets/greenback_to_alpha.py
 ```
 
+## Setup
+
+Use a local Python virtual environment. Do not install Pillow globally just for this repo.
+
+```sh
+cd /Users/m-shogo/Developer/personal/vamp-pon
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+Quick check:
+
+```sh
+python - <<'PY'
+from PIL import Image
+print('Pillow OK')
+PY
+```
+
 ## Basic usage
 
 Single file:
