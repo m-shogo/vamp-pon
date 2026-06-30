@@ -16,6 +16,8 @@ Unity U1を開始する。
 - docs/unity-current-doc-index-2026-06-30.md
 - docs/unity-u1-current-handoff-2026-06-30.md
 - docs/unity-pre-migration-hardening-checklist.md
+- docs/unity-ai-asset-production-rules.md
+- docs/unity-roadmap-to-release.md
 - docs/unity-u1-implementation-brief.md
 - docs/unity-repo-layout-and-lfs.md
 - docs/unity-u0-project-setup-plan.md
@@ -30,6 +32,8 @@ Unity U1を開始する。
 - U1ではLFSを新規有効化しない
 - public/assets/sprites/ を使わない
 - U1では全移植しない
+- 本番Unity素材は既存Web素材の使い回し前提にしない
+- AI生成素材はcandidate -> QA -> approved -> Unity importで扱う
 
 作業範囲:
 - unity/VampPonUnity/ を作る
@@ -38,6 +42,14 @@ Unity U1を開始する。
 - 390x844縦画面を前提にする
 - SafeAreaCanvasを作る
 - Yui placeholder、Ombu placeholder、dark paper background、lantern glow、EXP pickup curve placeholderを作る
+
+素材方針:
+- U1〜U2では既存素材をplaceholderとして最小限だけ使ってよい
+- U1素材は本番採用扱いにしない
+- U3以降でUnity用素材仕様を確定する
+- 本番はUnity用に作り直したapproved素材だけを使う
+- 必要な素材はCodex / 画像生成AIでcandidateを作ってよい
+- 文字入り画像、完成画面スクショ、生成参照画像そのものはruntime UIに使わない
 
 守ること:
 - Web/Phaser側srcはU1では原則変更しない
@@ -67,4 +79,5 @@ U1完了条件:
 5. U1未実装
 6. 次のU2でやること
 7. 移行前チェックリストで未解決の項目
+8. U1で仮使用した素材と、本番では作り直す素材
 ```
