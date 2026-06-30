@@ -31,3 +31,14 @@ MonoBehaviour:
   projectilePoolSize: 28
   expPoolSize: 36
   vfxPoolSize: 28
+  hitStopSeconds: 0.028
+  hitStopCooldown: 0.22
+  impulseStrength: 0.055
+  impulseDuration: 0.14
+  damageFlashSeconds: 0.075
+  lanternPulseScale: 0.22
+  lanternPulseDuration: 0.18
+  expPopSpeed: 1.7
+  expPopSeconds: 0.16
+  expFinalSnapRadius: 0.36
+  maxActiveVfx: 18

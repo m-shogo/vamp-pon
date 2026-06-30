@@ -25,13 +25,20 @@ namespace VampPon.UnitySpike.Runtime
         private Sprite projectileSprite;
         private Sprite expSprite;
         private Sprite hitSprite;
+        private Sprite inkSprite;
+        private Sprite trailSprite;
         private Sprite collectSprite;
+        private U3HitStopController hitStop;
+        private U3CameraImpulseController cameraImpulse;
+        private U3LanternPulseController lanternPulse;
         private Rect spawnBounds;
         private Rect playerBounds;
         private float spawnTimer;
         private float projectileTimer;
         private float elapsedSeconds;
         private int expCollected;
+        private float hudPulseSeconds;
+        private Vector3 hudBaseScale = Vector3.one;
 
         public int SpawnedEnemyCount { get; private set; }
         public int DefeatedEnemyCount { get; private set; }
@@ -42,6 +49,15 @@ namespace VampPon.UnitySpike.Runtime
         public int ActiveProjectileCount => CountActive(projectiles);
         public int ActiveExpCount => CountActive(expFragments);
         public int ActiveVfxCount => CountActive(vfxActors);
+        public int PeakActiveVfxCount { get; private set; }
+        public int PlayedVfxCount { get; private set; }
+        public int DroppedVfxCount { get; private set; }
+        public int MaxActiveVfxCap => config != null ? config.maxActiveVfx : 0;
+        public int HitStopCount => hitStop != null ? hitStop.TriggerCount : 0;
+        public int CameraImpulseCount => cameraImpulse != null ? cameraImpulse.TriggerCount : 0;
+        public int LanternPulseCount => lanternPulse != null ? lanternPulse.TriggerCount : 0;
+        public int CollectTrailCount { get; private set; }
+        public int DeathBurstCount { get; private set; }
 
         public void Initialize(
             GameFeelConfig gameFeelConfig,
@@ -68,9 +84,13 @@ namespace VampPon.UnitySpike.Runtime
             projectileSprite = ProceduralSpriteFactory.CreateRadialSprite(56, new Color(1f, 0.72f, 0.28f, 0.88f));
             expSprite = ProceduralSpriteFactory.CreateDiamondSprite(42, new Color(0.38f, 0.94f, 0.92f));
             hitSprite = ProceduralSpriteFactory.CreateRadialSprite(64, new Color(1f, 0.52f, 0.18f, 0.8f));
+            inkSprite = ProceduralSpriteFactory.CreateRadialSprite(72, new Color(0.04f, 0.025f, 0.035f, 0.88f));
+            trailSprite = ProceduralSpriteFactory.CreateRadialSprite(48, new Color(0.45f, 1f, 0.9f, 0.48f));
             collectSprite = ProceduralSpriteFactory.CreateRadialSprite(80, new Color(0.5f, 1f, 0.9f, 0.68f));
+            hudBaseScale = topHudLabel != null ? topHudLabel.rectTransform.localScale : Vector3.one;
 
             PrewarmPools();
+            CreateFeelHelpers();
             UpdateHud();
         }
 
@@ -100,6 +120,7 @@ namespace VampPon.UnitySpike.Runtime
             TickProjectiles();
             TickExpFragments();
             TickVfx();
+            TickHudPulse();
 
             if (projectileTimer <= 0f)
             {
@@ -188,13 +209,15 @@ namespace VampPon.UnitySpike.Runtime
                 {
                     var hitPosition = projectile.transform.position;
                     projectile.Deactivate();
-                    projectile.Target.TakeDamage(config.projectileDamage);
-                    PlayVfx(hitPosition, hitSprite, 0.32f, 0.12f);
+                    projectile.Target.TakeDamage(config.projectileDamage, config.damageFlashSeconds);
+                    hitStop?.Request();
+                    PlayVfx(hitPosition, hitSprite, 0.34f, 0.11f, Color.white, Vector2.zero, U2VfxShape.Radial);
 
                     if (!projectile.Target.IsActive)
                     {
                         DefeatedEnemyCount++;
-                        PlayVfx(hitPosition, hitSprite, 0.72f, 0.18f);
+                        cameraImpulse?.Request(projectile.Target.transform.position - player.position);
+                        PlayDeathBurst(hitPosition);
                         DropExp(hitPosition);
                     }
                 }
@@ -215,13 +238,28 @@ namespace VampPon.UnitySpike.Runtime
                     continue;
                 }
 
-                fragment.Tick(player.position, config.expAttractRadius, config.expAttractSpeed, Time.deltaTime);
+                var previousPosition = fragment.transform.position;
+                var emittedTrail = fragment.Tick(player.position, config.expAttractRadius, config.expAttractSpeed, config.expFinalSnapRadius, Time.deltaTime);
+                if (emittedTrail)
+                {
+                    PlayTrail(previousPosition, fragment.transform.position);
+                    CollectTrailCount++;
+                }
+
                 if (Vector2.Distance(fragment.transform.position, player.position) <= 0.2f)
                 {
                     var collectPosition = fragment.transform.position;
+                    if (!emittedTrail)
+                    {
+                        PlayTrail(previousPosition, player.position);
+                        CollectTrailCount++;
+                    }
+
                     fragment.Deactivate();
                     expCollected++;
-                    PlayVfx(collectPosition, collectSprite, 0.44f, 0.16f);
+                    hudPulseSeconds = 0.16f;
+                    lanternPulse?.Request();
+                    PlayVfx(collectPosition, collectSprite, 0.55f, 0.18f, Color.white, Vector2.zero, U2VfxShape.Radial);
                 }
             }
         }
@@ -252,6 +290,7 @@ namespace VampPon.UnitySpike.Runtime
             }
 
             projectile.Activate(player.position, target, config.projectileSpeed);
+            lanternPulse?.Request();
             FiredProjectileCount++;
         }
 
@@ -311,20 +350,51 @@ namespace VampPon.UnitySpike.Runtime
                 return;
             }
 
-            var pop = new Vector2(UnityEngine.Random.Range(-0.24f, 0.24f), UnityEngine.Random.Range(0.12f, 0.34f));
-            fragment.Activate(position, pop);
+            var pop = new Vector2(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(0.16f, 0.42f)).normalized * config.expPopSpeed;
+            fragment.Activate(position, pop, config.expPopSeconds);
             DroppedExpCount++;
         }
 
-        private void PlayVfx(Vector3 position, Sprite sprite, float scale, float duration)
+        private void PlayDeathBurst(Vector3 position)
         {
-            var vfx = FirstInactive(vfxActors);
-            if (vfx == null)
+            DeathBurstCount++;
+            PlayVfx(position, inkSprite, 0.95f, 0.2f, new Color(0.16f, 0.09f, 0.14f, 0.95f), Vector2.zero, U2VfxShape.Radial);
+            PlayVfx(position + new Vector3(0.04f, 0.03f, 0f), hitSprite, 0.5f, 0.15f, new Color(1f, 0.62f, 0.25f, 0.85f), Vector2.zero, U2VfxShape.Radial);
+            for (var i = 0; i < 5; i++)
             {
+                var angle = i * 72f * Mathf.Deg2Rad;
+                var velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * UnityEngine.Random.Range(0.25f, 0.55f);
+                PlayVfx(position, inkSprite, UnityEngine.Random.Range(0.2f, 0.34f), 0.28f, new Color(0.05f, 0.03f, 0.045f, 0.82f), velocity, U2VfxShape.Radial);
+            }
+        }
+
+        private void PlayTrail(Vector3 from, Vector3 to)
+        {
+            var center = Vector3.Lerp(from, to, 0.5f);
+            var distance = Vector2.Distance(from, to);
+            var direction = to - from;
+            var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            PlayVfx(center, trailSprite, Mathf.Clamp(distance * 0.9f, 0.12f, 0.42f), 0.1f, new Color(0.45f, 1f, 0.9f, 0.5f), Vector2.zero, U2VfxShape.Trail, angle);
+        }
+
+        private void PlayVfx(Vector3 position, Sprite sprite, float scale, float duration, Color color, Vector2 velocity, U2VfxShape shape, float rotation = 0f)
+        {
+            if (ActiveVfxCount >= config.maxActiveVfx)
+            {
+                DroppedVfxCount++;
                 return;
             }
 
-            vfx.Activate(position, sprite, scale, duration);
+            var vfx = FirstInactive(vfxActors);
+            if (vfx == null)
+            {
+                DroppedVfxCount++;
+                return;
+            }
+
+            vfx.Activate(position, sprite, scale, duration, color, velocity, shape, rotation);
+            PlayedVfxCount++;
+            PeakActiveVfxCount = Mathf.Max(PeakActiveVfxCount, ActiveVfxCount);
         }
 
         private void UpdateHud()
@@ -336,6 +406,36 @@ namespace VampPon.UnitySpike.Runtime
 
             var seconds = Mathf.FloorToInt(elapsedSeconds);
             topHudLabel.text = $"Lv 1   {seconds / 60:00}:{seconds % 60:00}   EXP {expCollected}";
+        }
+
+        private void CreateFeelHelpers()
+        {
+            var camera = Camera.main != null ? Camera.main : FindAnyObjectByType<Camera>();
+            hitStop = gameObject.AddComponent<U3HitStopController>();
+            hitStop.Initialize(config);
+            cameraImpulse = gameObject.AddComponent<U3CameraImpulseController>();
+            cameraImpulse.Initialize(config, camera);
+            lanternPulse = gameObject.AddComponent<U3LanternPulseController>();
+            lanternPulse.Initialize(config, player, overlayRoot, hitSprite);
+        }
+
+        private void TickHudPulse()
+        {
+            if (topHudLabel == null)
+            {
+                return;
+            }
+
+            if (hudPulseSeconds <= 0f)
+            {
+                topHudLabel.rectTransform.localScale = hudBaseScale;
+                return;
+            }
+
+            hudPulseSeconds -= Time.unscaledDeltaTime;
+            var t = Mathf.Clamp01(hudPulseSeconds / 0.16f);
+            var pulse = 1f + Mathf.Sin(t * Mathf.PI) * 0.08f;
+            topHudLabel.rectTransform.localScale = hudBaseScale * pulse;
         }
 
         private static T FirstInactive<T>(List<T> actors) where T : U2PooledActor
@@ -426,11 +526,12 @@ namespace VampPon.UnitySpike.Runtime
             }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, float damageFlashSeconds)
         {
             hp -= damage;
-            flashSeconds = 0.05f;
-            transform.localScale = baseScale * 1.08f;
+            flashSeconds = damageFlashSeconds;
+            spriteRenderer.color = new Color(1f, 0.68f, 0.36f);
+            transform.localScale = baseScale * 1.12f;
             if (hp <= 0f)
             {
                 Deactivate();
@@ -497,6 +598,7 @@ namespace VampPon.UnitySpike.Runtime
         private SpriteRenderer spriteRenderer;
         private Vector3 driftVelocity;
         private float popSeconds;
+        private float trailTimer;
 
         public static U2ExpFragmentActor Create(string objectName, Transform parent, Sprite sprite)
         {
@@ -509,36 +611,60 @@ namespace VampPon.UnitySpike.Runtime
             return actor;
         }
 
-        public void Activate(Vector3 position, Vector2 popVelocity)
+        public void Activate(Vector3 position, Vector2 popVelocity, float popDuration)
         {
             transform.position = position;
             transform.localScale = Vector3.one;
             driftVelocity = popVelocity;
-            popSeconds = 0.12f;
+            popSeconds = popDuration;
+            trailTimer = 0f;
             IsActive = true;
             gameObject.SetActive(true);
         }
 
-        public void Tick(Vector3 playerPosition, float attractRadius, float attractSpeed, float deltaTime)
+        public bool Tick(Vector3 playerPosition, float attractRadius, float attractSpeed, float finalSnapRadius, float deltaTime)
         {
             var distance = Vector2.Distance(transform.position, playerPosition);
             if (popSeconds > 0f)
             {
                 popSeconds -= deltaTime;
+                driftVelocity = Vector3.Lerp(driftVelocity, Vector3.zero, 4.5f * deltaTime);
                 transform.position += driftVelocity * deltaTime;
+                return false;
             }
-            else if (distance <= attractRadius)
+
+            if (distance <= attractRadius)
             {
                 var toPlayer = playerPosition - transform.position;
-                var speed = attractSpeed * Mathf.Lerp(0.65f, 1.35f, 1f - Mathf.Clamp01(distance / Mathf.Max(0.01f, attractRadius)));
+                var normalizedDistance = Mathf.Clamp01(distance / Mathf.Max(0.01f, attractRadius));
+                var speed = attractSpeed * Mathf.Lerp(1.65f, 0.55f, normalizedDistance);
+                if (distance <= finalSnapRadius)
+                {
+                    speed *= 1.7f;
+                }
+
                 transform.position += toPlayer.normalized * speed * deltaTime;
                 transform.localScale = Vector3.one * Mathf.Lerp(0.65f, 1f, Mathf.Clamp01(distance / attractRadius));
+                trailTimer -= deltaTime;
+                if (trailTimer <= 0f)
+                {
+                    trailTimer = 0.045f;
+                    return true;
+                }
             }
             else
             {
                 transform.position += new Vector3(0f, Mathf.Sin(Time.time * 5.5f) * 0.008f, 0f);
             }
+
+            return false;
         }
+    }
+
+    public enum U2VfxShape
+    {
+        Radial,
+        Trail,
     }
 
     public sealed class U2VfxActor : U2PooledActor
@@ -547,6 +673,8 @@ namespace VampPon.UnitySpike.Runtime
         private float duration;
         private float elapsed;
         private float targetScale;
+        private Vector2 velocity;
+        private U2VfxShape shape;
 
         public static U2VfxActor Create(string objectName, Transform parent)
         {
@@ -558,13 +686,16 @@ namespace VampPon.UnitySpike.Runtime
             return actor;
         }
 
-        public void Activate(Vector3 position, Sprite sprite, float scale, float seconds)
+        public void Activate(Vector3 position, Sprite sprite, float scale, float seconds, Color color, Vector2 driftVelocity, U2VfxShape vfxShape, float rotation)
         {
             transform.position = position;
             transform.localScale = Vector3.one * 0.05f;
+            transform.rotation = Quaternion.Euler(0f, 0f, rotation);
             spriteRenderer.sprite = sprite;
-            spriteRenderer.color = Color.white;
+            spriteRenderer.color = color;
             targetScale = scale;
+            velocity = driftVelocity;
+            shape = vfxShape;
             duration = Mathf.Max(0.01f, seconds);
             elapsed = 0f;
             IsActive = true;
@@ -575,7 +706,11 @@ namespace VampPon.UnitySpike.Runtime
         {
             elapsed += deltaTime;
             var t = Mathf.Clamp01(elapsed / duration);
-            transform.localScale = Vector3.one * Mathf.Lerp(0.05f, targetScale, 1f - Mathf.Pow(1f - t, 2f));
+            transform.position += (Vector3)(velocity * deltaTime);
+            var eased = 1f - Mathf.Pow(1f - t, 2f);
+            transform.localScale = shape == U2VfxShape.Trail
+                ? new Vector3(Mathf.Lerp(0.05f, targetScale, eased), Mathf.Lerp(0.03f, 0.12f, eased), 1f)
+                : Vector3.one * Mathf.Lerp(0.05f, targetScale, eased);
             var color = spriteRenderer.color;
             color.a = 1f - t;
             spriteRenderer.color = color;

@@ -25,5 +25,17 @@ namespace VampPon.UnitySpike.Data
         [Min(1)] public int projectilePoolSize = 28;
         [Min(1)] public int expPoolSize = 36;
         [Min(1)] public int vfxPoolSize = 28;
+        [Header("U3 Juice / VFX")]
+        [Min(0f)] public float hitStopSeconds = 0.028f;
+        [Min(0f)] public float hitStopCooldown = 0.22f;
+        [Min(0f)] public float impulseStrength = 0.055f;
+        [Min(0f)] public float impulseDuration = 0.14f;
+        [Min(0f)] public float damageFlashSeconds = 0.075f;
+        [Min(0f)] public float lanternPulseScale = 0.22f;
+        [Min(0f)] public float lanternPulseDuration = 0.18f;
+        [Min(0f)] public float expPopSpeed = 1.7f;
+        [Min(0f)] public float expPopSeconds = 0.16f;
+        [Min(0f)] public float expFinalSnapRadius = 0.36f;
+        [Min(1)] public int maxActiveVfx = 18;
     }
 }
