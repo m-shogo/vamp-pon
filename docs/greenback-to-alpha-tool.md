@@ -14,10 +14,7 @@ Use a local Python virtual environment. Do not install Pillow globally just for 
 
 ```sh
 cd /Users/m-shogo/Developer/personal/vamp-pon
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+pnpm python:setup
 ```
 
 Quick check:
@@ -48,6 +45,8 @@ JSON report:
 ```sh
 pnpm greenback:alpha -- --input path/to/input.png --output path/to/output.png --json
 ```
+
+`pnpm greenback:alpha` runs `.venv/bin/python` intentionally, so normal image processing does not depend on globally installed Pillow. If `.venv` is missing, run `pnpm python:setup` first.
 
 ## Default key
 

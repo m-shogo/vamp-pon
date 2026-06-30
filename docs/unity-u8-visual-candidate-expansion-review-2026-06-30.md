@@ -70,6 +70,7 @@
     - 修正検討: `result_new_badge` は形がやや一般的で、Result/Collection上の識別性を上げたい。
     - 修正検討: `levelup_rare_ink_flare` は通常VFXとの差別化をさらに強くできる。
     - 修正検討: `kokuyou_fullscreen_ink_shadow_source` は緑味のあるインク表現を人間レビューで確認したい。
+    - U8.1で上記3点のrefined candidateを追加した。U8元素材はcandidateのまま維持し、U8.1素材もproduction approvedにはしていない。
 
 17. Reject
     - 現時点で即rejectはなし。

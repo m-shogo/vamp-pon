@@ -1,0 +1,83 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u8-1/greenback/kokuyou_fullscreen_ink_shadow_source_refined-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8-1/alpha/kokuyou_fullscreen_ink_shadow_source_refined-greenback-alpha.png",
+    "size": {
+      "width": 941,
+      "height": 1672
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 760143,
+    "semiTransparentPixels": 19560,
+    "opaquePixels": 793649,
+    "opaqueBounds": {
+      "x": 53,
+      "y": 58,
+      "width": 823,
+      "height": 1595
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8-1/greenback/levelup_rare_ink_flare_refined-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8-1/alpha/levelup_rare_ink_flare_refined-greenback-alpha.png",
+    "size": {
+      "width": 1023,
+      "height": 1537
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1035251,
+    "semiTransparentPixels": 12840,
+    "opaquePixels": 524260,
+    "opaqueBounds": {
+      "x": 110,
+      "y": 57,
+      "width": 817,
+      "height": 1423
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8-1/greenback/result_new_badge_refined-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8-1/alpha/result_new_badge_refined-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1125058,
+    "semiTransparentPixels": 1530,
+    "opaquePixels": 445928,
+    "opaqueBounds": {
+      "x": 187,
+      "y": 202,
+      "width": 856,
+      "height": 814
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

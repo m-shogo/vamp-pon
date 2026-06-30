@@ -1,0 +1,24 @@
+{
+  "passes": [
+    [
+      {
+        "path": "docs/design-targets/generated/unity-u8-1/alpha/kokuyou_fullscreen_ink_shadow_source_refined-greenback-alpha.png",
+        "greenTintPixelsShifted": 26998
+      },
+      {
+        "path": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+        "greenTintPixelsShifted": 26998
+      }
+    ],
+    [
+      {
+        "path": "docs/design-targets/generated/unity-u8-1/alpha/kokuyou_fullscreen_ink_shadow_source_refined-greenback-alpha.png",
+        "additionalGreenTintPixelsShifted": 46595
+      },
+      {
+        "path": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+        "additionalGreenTintPixelsShifted": 46595
+      }
+    ]
+  ]
+}

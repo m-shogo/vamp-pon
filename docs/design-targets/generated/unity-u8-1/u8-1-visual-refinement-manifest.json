@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "createdFor": "Unity U8.1 Visual Refinement",
+  "productionApprovedCount": 0,
+  "sourceAlphaReport": "docs/design-targets/generated/unity-u8-1/reports/u8-1-alpha-report.json",
+  "runtimeRoot": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined",
+  "items": [
+    {
+      "id": "result_new_badge_refined",
+      "replacesCandidate": "result_new_badge",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8-1/greenback/result_new_badge_refined-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8-1/alpha/result_new_badge_refined-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/UI/result_new_badge_refined.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8-1/reports/u8-1-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8.1 visual refinement",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 187,
+        "y": 202,
+        "width": 856,
+        "height": 814
+      },
+      "recommendation": "review-adopt",
+      "notes": "More distinctive torn paper memory marker than the U8 badge. Proof-only candidate. Not production approved."
+    },
+    {
+      "id": "levelup_rare_ink_flare_refined",
+      "replacesCandidate": "levelup_rare_ink_flare",
+      "category": "LevelUp rare",
+      "screen": "LevelUp",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8-1/greenback/levelup_rare_ink_flare_refined-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8-1/alpha/levelup_rare_ink_flare_refined-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/VFX/levelup_rare_ink_flare_refined.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8-1/reports/u8-1-alpha-report.json",
+      "atlasGroup": "VFX",
+      "owner": "U8.1 visual refinement",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1023,
+        "height": 1537
+      },
+      "opaqueBounds": {
+        "x": 110,
+        "y": 57,
+        "width": 817,
+        "height": 1423
+      },
+      "recommendation": "review-adopt",
+      "notes": "Stronger rare burst silhouette with memory tear feeling. Proof-only candidate. Not production approved."
+    },
+    {
+      "id": "kokuyou_fullscreen_ink_shadow_source_refined",
+      "replacesCandidate": "kokuyou_fullscreen_ink_shadow_source",
+      "category": "黒耀化 / cut-in",
+      "screen": "FullscreenArt",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8-1/greenback/kokuyou_fullscreen_ink_shadow_source_refined-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8-1/alpha/kokuyou_fullscreen_ink_shadow_source_refined-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8-1/reports/u8-1-alpha-report.json",
+      "atlasGroup": "FullscreenArt",
+      "owner": "U8.1 visual refinement",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 941,
+        "height": 1672
+      },
+      "opaqueBounds": {
+        "x": 53,
+        "y": 58,
+        "width": 823,
+        "height": 1595
+      },
+      "recommendation": "review-adopt",
+      "notes": "Reduced green impression with crimson and purple-black accents. Proof-only candidate. Not production approved."
+    }
+  ]
+}
