@@ -15,6 +15,12 @@ Do not modify any other repository.
 - Run the relevant checks, then commit and push.
 - Never call an image or implementation final without comparing it to the current in-repo baseline.
 
+## Title and term lock
+
+Before naming, UI text, design, or store-facing work, read:
+
+- `docs/title-and-term-lock-2026-06-30.md`
+
 ## Design source of truth
 
 Before any design-related work, read:
