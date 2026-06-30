@@ -160,7 +160,7 @@ namespace VampPon.UnitySpike.Runtime
             label.alignment = TextAlignmentOptions.Center;
             label.fontSize = 18f;
             label.color = new Color(0.96f, 0.86f, 0.62f);
-            label.enableWordWrapping = false;
+            label.textWrappingMode = TextWrappingModes.NoWrap;
         }
     }
 }
