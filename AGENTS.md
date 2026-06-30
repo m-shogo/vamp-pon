@@ -38,6 +38,20 @@ Do not treat Unity U1/U2/U3 procedural placeholders as final design. Do not use 
 
 Character climax art and Kokuyou art are full-screen art / full-screen cut-ins, and must also be treated as Collection/archive art candidates.
 
+## AI image transparency rule
+
+For AI-generated asset candidates that need transparency, read:
+
+- `docs/ai-image-greenback-transparency-rule-2026-06-30.md`
+
+Current best practice:
+
+- Do not rely on direct transparent background generation.
+- Generate on a solid chroma key green background.
+- Remove the green background after generation.
+- Export as transparent PNG.
+- Inspect alpha and edge fringe before Unity import.
+
 ## Visual work: reference first
 
 The old pixel-generation, palette, Aseprite, procedural-finisher, and mechanical scoring rules are not active instructions.
