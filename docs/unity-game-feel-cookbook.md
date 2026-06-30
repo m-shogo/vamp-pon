@@ -1,6 +1,6 @@
 # Unity Game Feel Cookbook
 
-Vamp Pon / Lantern Ledger をUnityで触って気持ちいいアプリにするための演出レシピ。
+ヨルノシルベをUnityで触って気持ちいいアプリにするための演出レシピ。
 
 目的は、派手にすることではなく、プレイヤーが「押したい」「集めたい」「もう1回やりたい」と感じる小さな反応を積み上げること。
 
@@ -46,14 +46,14 @@ EXP magnet travel: 0.18s - 0.35s
 levelup panel in: 0.22s - 0.35s
 result page in: 0.35s - 0.55s
 rank seal stamp: 0.18s - 0.28s
-黒曜化 cutin: 0.45s - 0.75s
+黒耀化 cutin: 0.45s - 0.75s
 ```
 
 Rules:
 
 - battle feedbackは短く。
 - menu/resultは少し長くてもよい。
-- 黒曜化は強くても、長すぎない。
+- 黒耀化は強くても、長すぎない。
 
 ## Enemy Hit Recipe
 
@@ -299,7 +299,7 @@ Avoid:
 - huge white flash
 - blocking too long
 
-## 黒曜化 Recipe
+## 黒耀化 Recipe
 
 Purpose:
 
@@ -312,7 +312,7 @@ Sequence:
 2. player lantern core brightens
 3. diagonal ink slash crosses screen
 4. short cutin band appears
-5. text 黒曜化 appears via TextMeshPro/game text
+5. text 黒耀化 appears via TextMeshPro/game text
 6. screen returns to battle with boosted state
 7. after effect fades into fatigue/slow state if applicable
 ```
@@ -480,7 +480,7 @@ For Unity demo:
 3. Button/card press feedback
 4. LevelUp card reveal
 5. Result rank seal stamp
-6. 黒曜化 cutin/edge ink
+6. 黒耀化 cutin/edge ink
 7. Stage route glow
 
 If time is short, do 1〜5 first.

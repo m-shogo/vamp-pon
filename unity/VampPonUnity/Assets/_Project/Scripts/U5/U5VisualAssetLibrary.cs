@@ -4,6 +4,7 @@ namespace VampPon.UnitySpike.U5
 {
     public sealed class BattleVisualAssetSet
     {
+        // Runtime-facing proof set only. Keep loading decisions outside battle logic.
         public Sprite EnemySprite { get; set; }
         public Sprite ProjectileSprite { get; set; }
         public Sprite ExpSprite { get; set; }
@@ -12,8 +13,8 @@ namespace VampPon.UnitySpike.U5
         public Sprite TrailSprite { get; set; }
     }
 
-    // U5 proof-only loader. Resources/U5Candidates is intentionally small and must not
-    // become the production asset loading layer.
+    // U5 proof-only loader. Resources/U5Candidates is intentionally small, candidate-only,
+    // and must not become the production asset loading layer or approval authority.
     public static class U5VisualAssetLibrary
     {
         private const string Root = "U5Candidates/";

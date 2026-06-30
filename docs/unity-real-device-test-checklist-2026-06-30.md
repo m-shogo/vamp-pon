@@ -17,6 +17,18 @@ U5.1以降、Editor screenshotだけで品質判断しないための実機確�
 - profiler connection
 - crash log collection
 
+### iPhone Execution Steps
+
+1. Build a Development Build with Autoconnect Profiler enabled.
+2. Install on at least one notch / Dynamic Island device if available.
+3. Launch in portrait and confirm the app never rotates away from portrait.
+4. Play Stage1 until enemy spawn, projectile hits, EXP collection, and LevelUp overlay are observed.
+5. Pause/resume by backgrounding and foregrounding the app.
+6. Connect Unity Profiler and record CPU, rendering, memory, GC allocation, and audio behavior.
+7. Save crash logs if the app terminates or becomes unresponsive.
+
+U6 status: not executed yet. This checklist prepares U6.1 real device verification.
+
 ## Android
 
 - portrait orientation lock
@@ -31,6 +43,18 @@ U5.1以降、Editor screenshotだけで品質判断しないための実機確�
 - memory stability
 - profiler connection
 - crash / ANR log collection
+
+### Android Execution Steps
+
+1. Build a Development Build with Autoconnect Profiler enabled.
+2. Install on devices or profiles covering 360x800, 393x852, and 412x915.
+3. Launch in portrait and confirm punch-hole / navigation bar / rounded-corner behavior.
+4. Play Stage1 until enemy spawn, projectile hits, EXP collection, and LevelUp overlay are observed.
+5. Test back gesture, app switch, lock/unlock, and audio focus changes.
+6. Connect Unity Profiler and record CPU, rendering, memory, GC allocation, and thermal behavior.
+7. Capture crash / ANR logs if the app terminates, hangs, or loses input.
+
+U6 status: not executed yet. This checklist prepares U6.1 real device verification.
 
 ## Safe Area
 
@@ -47,6 +71,15 @@ U5.1以降、Editor screenshotだけで品質判断しないための実機確�
 - no Instantiate/Destroy spikes during combat loop
 - no excessive transparent overdraw
 - no long GC spikes during battle
+
+## Profiler Minimum Checks
+
+- CPU frame time during enemy spawn, hit stop, EXP burst, and LevelUp open
+- Rendering cost, draw calls, batches, and transparent overdraw signs
+- Memory after repeated play and after LevelUp overlay close
+- GC allocations during battle Update and overlay animation
+- Audio one-shot latency and audio focus recovery
+- `Time.timeScale` restored to `1` after verification restore paths
 
 ## Store-Readiness Minimum
 

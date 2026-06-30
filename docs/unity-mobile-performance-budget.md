@@ -1,6 +1,6 @@
 # Unity Mobile Performance Budget
 
-UnityでVamp Pon / Lantern Ledgerをスマホ向けに作る時の性能予算。
+Unityでヨルノシルベをスマホ向けに作る時の性能予算。
 
 目的は、見た目を上げても、スマホで重くならない・読みにくくならない・量産不能にならないようにすること。
 
@@ -298,7 +298,7 @@ Minimum check for demo:
 Editor play: stable
 Phone test: at least plausible
 No visible hitch during EXP burst
-No hitch during 黒曜化
+No hitch during 黒耀化
 No hitch during LevelUp panel
 ```
 
@@ -310,7 +310,7 @@ These can spike performance:
 - EXP vacuum collecting many fragments
 - LevelUp overlay opening while particles exist
 - Result screen after clearing many rewards
-- 黒曜化 full-screen effect
+- 黒耀化 full-screen effect
 
 Budget each:
 
@@ -332,7 +332,7 @@ Budget each:
 - fade particles behind
 - no expensive layout rebuild loop
 
-### 黒曜化
+### 黒耀化
 
 - use few strong layers
 - edge ink sprite overlay
@@ -374,7 +374,7 @@ The Unity 30秒 demo passes if:
 
 - no obvious hitch during normal enemy death
 - no hitch during EXP collection
-- 黒曜化 feels strong but readable
+- 黒耀化 feels strong but readable
 - LevelUp panel opens smoothly
 - Result page appears smoothly
 - no constant overheating signs in short test

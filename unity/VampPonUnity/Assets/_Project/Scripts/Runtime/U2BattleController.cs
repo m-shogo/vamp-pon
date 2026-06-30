@@ -8,6 +8,8 @@ using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.Runtime
 {
+    // U6 boundary: keep UI construction, LevelUp card data, direct asset names, and
+    // direct Time.timeScale ownership out of this battle prototype controller.
     public sealed class U2BattleController : MonoBehaviour
     {
         private readonly List<U2EnemyActor> enemies = new(32);

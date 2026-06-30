@@ -39,7 +39,7 @@ Unity sprite import settings should be deliberate before assets move from candid
 - Pivot: center.
 - Sorting: above floor and below UI.
 - Max texture size: 64/128/256 target after production crop.
-- Atlas group: `Items` or `VFX` depending on behavior.
+- Atlas group: `Pickups` or `VFX` depending on behavior.
 
 ## VFX Source
 
@@ -71,12 +71,31 @@ Planned groups:
 
 - `Characters`
 - `Enemies`
-- `Items`
+- `Pickups`
 - `VFX`
 - `UI`
 - `FullscreenArt` separate from small sprites
 
-Do not introduce full Sprite Atlas workflow during U5.1. Keep folder and manifest categories compatible with future atlas adoption.
+Do not introduce full Sprite Atlas workflow during U6. Keep folder and manifest categories compatible with future atlas adoption.
+
+## U5 Candidate Atlas Group Draft
+
+U5Candidates are proof-only. The following groups are a draft for future approval work, not an approved Sprite Atlas setup.
+
+| Candidate | Draft group | Notes |
+| --- | --- | --- |
+| `u5-yui-battle-candidate` | `Characters` | Single-frame battle proof only. Production movement sheets need their own import pass. |
+| `u5-ombu-battle-candidate` | `Enemies` | Single-frame opponent proof only. Production enemy sheets need scale, pivot, and animation review. |
+| `u5-exp-fragment` | `Pickups` | Gameplay pickup. Keep readable at mobile scale and avoid large transparent padding. |
+| `u5-lantern-spark` | `VFX` | Projectile / hit / pulse source proof. Production use may split projectile and hit sprites. |
+| `u5-ink-burst` | `VFX` | Enemy defeat proof. Pool and cap before production. |
+| `u5-collect-trail` | `VFX` | EXP collect trail proof. Keep separate from UI glow. |
+| `u5-paper-panel` | `UI` | Material source only. Production UI should use Prefab / 9-slice / TMP, not text-baked images. |
+| `u5-icon-frame` | `UI` | Decorative frame source only. Production ownership belongs to UI Prefabs. |
+
+Full-screen 黒耀化 / ultimate / Collection art is separate from battle sprites. It should use `FullscreenArt` or a separate loading path, not the small battle sprite atlas.
+
+Production approved化する時にSprite Atlas分類を確定する。U5Candidatesはcandidateのままであり、`Resources/U5Candidates` is proof-only.
 
 ## U5Candidates
 
@@ -88,3 +107,5 @@ Current import settings:
 - Proof-only folder: `Assets/_Project/Resources/U5Candidates`
 
 These values are acceptable for U5 proof. They are not final production import policy.
+
+UI runtime textures must not bake text. UI text should be layered with TMP.
