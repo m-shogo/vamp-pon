@@ -240,3 +240,12 @@ This did not fail batchmode verification and is not a project compile/runtime er
 - Move more visual loading behind AssetProvider only after approved assets exist.
 - Keep U5 assets candidate-only until the intake gate explicitly promotes them.
 - Run real device verification after iOS / Android build support modules are installed.
+
+## U7.1 Verification Hardening
+
+U7.1 adds editor verification for the two U7 proof boundaries:
+
+- `U7TimeScaleServiceVerification`
+- `U7AssetProviderVerification`
+
+These checks verify multi-owner pause behavior, hit stop expiry, pause + hit stop interaction, `ForceRestore`, proof-only provider state, required U5 proof sprites, and the absence of U5 asset ids / resource paths in `U2BattleController`.
