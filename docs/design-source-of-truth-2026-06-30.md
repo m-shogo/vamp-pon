@@ -6,11 +6,12 @@ Codex / Claude Code must read this file before any design-related work.
 
 1. Title / term lock
 2. Current visual targets
-3. AI image greenback transparency rule
-4. Character reference
-5. Opponent reference
-6. Screen / UI design reference
-7. Unity verification screenshots
+3. Image generation production flow
+4. AI image greenback transparency rule
+5. Character reference
+6. Opponent reference
+7. Screen / UI design reference
+8. Unity verification screenshots
 
 ## Title / term lock
 
@@ -39,6 +40,14 @@ Current key images:
 ```txt
 docs/design-targets/generated/top-final.png
 docs/design-targets/generated/kokuyou-cutin-final.png
+```
+
+## Image generation production flow
+
+Use this as the single entry point for AI image generation, greenback transparency processing, QA, and Unity handoff:
+
+```txt
+docs/image-generation-production-flow-2026-06-30.md
 ```
 
 ## AI image greenback transparency rule
