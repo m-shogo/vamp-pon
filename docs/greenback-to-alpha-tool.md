@@ -83,3 +83,16 @@ solid chroma key green background, no white background, no checkerboard backgrou
 ```
 
 Avoid green colors on the subject itself, because chroma key removal can erase green clothing, green light, or green effects.
+
+## Local verification (2026-06-30)
+
+- Python: 3.14.5
+- Pillow: 12.2.0 (`pip install -r requirements.txt` → OK)
+- `from PIL import Image` → OK
+- `greenback_to_alpha.py --help` → OK
+- 180x180 greenback dummy image (green bg + red rect + blue circle) → converted to RGBA with real alpha
+- Background pixels: alpha=0 (transparent)
+- Subject pixels: alpha=255 (opaque)
+- `greenSpillRemainingPixels`: 0
+- `edgeTouches`: false
+- Temporary test images deleted, not committed
