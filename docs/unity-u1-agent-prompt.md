@@ -15,11 +15,21 @@ Unity U1を開始する。
 最初に読むdocs:
 - docs/unity-current-doc-index-2026-06-30.md
 - docs/unity-u1-current-handoff-2026-06-30.md
+- docs/unity-pre-migration-hardening-checklist.md
 - docs/unity-u1-implementation-brief.md
+- docs/unity-repo-layout-and-lfs.md
 - docs/unity-u0-project-setup-plan.md
 - docs/final-screen-comparison-review-2026-06-29.md
 - docs/unity-asset-import-map.md
 - docs/unity-data-schema-map.md
+
+作業前に確認すること:
+- Unity Hubで利用可能なUnity 6 LTS patch
+- unity/VampPonUnity/ 配置
+- .gitignore / .gitattributes 方針
+- U1ではLFSを新規有効化しない
+- public/assets/sprites/ を使わない
+- U1では全移植しない
 
 作業範囲:
 - unity/VampPonUnity/ を作る
@@ -36,6 +46,7 @@ Unity U1を開始する。
 - 20キャラ、48敵、全ステージ、全UI、Save、Collection、AchievementはU1で作らない
 - 生成参照画像をruntime UIにそのまま貼らない
 - 文字入り画像をUI素材にしない
+- Addressables、CI、store build、課金/広告はU1で入れない
 
 U1完了条件:
 - Unity Editorで再生できる
@@ -55,4 +66,5 @@ U1完了条件:
 4. git status --short
 5. U1未実装
 6. 次のU2でやること
+7. 移行前チェックリストで未解決の項目
 ```
