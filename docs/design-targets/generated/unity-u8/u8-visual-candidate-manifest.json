@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "createdFor": "Unity U8 Visual Candidate Expansion",
+  "productionApprovedCount": 0,
+  "sourceAlphaReport": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+  "runtimeRoot": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates",
+  "items": [
+    {
+      "id": "result_paper_ledger_panel",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/result_paper_ledger_panel-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/result_paper_ledger_panel-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_paper_ledger_panel.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1024,
+        "height": 1536
+      },
+      "opaqueBounds": {
+        "x": 88,
+        "y": 150,
+        "width": 874,
+        "height": 1205
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "result_rank_wax_seal",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/result_rank_wax_seal-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/result_rank_wax_seal-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_rank_wax_seal.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 207,
+        "y": 184,
+        "width": 851,
+        "height": 871
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "result_reward_memory_card",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/result_reward_memory_card-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/result_reward_memory_card-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_reward_memory_card.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1086,
+        "height": 1448
+      },
+      "opaqueBounds": {
+        "x": 205,
+        "y": 210,
+        "width": 685,
+        "height": 1028
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "result_new_badge",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/result_new_badge-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/result_new_badge-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_new_badge.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 225,
+        "y": 228,
+        "width": 819,
+        "height": 784
+      },
+      "recommendation": "review-fix",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "stageselect_paper_map_base",
+      "category": "StageSelect",
+      "screen": "StageSelect",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/stageselect_paper_map_base-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/stageselect_paper_map_base-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_paper_map_base.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1024,
+        "height": 1536
+      },
+      "opaqueBounds": {
+        "x": 79,
+        "y": 152,
+        "width": 871,
+        "height": 1228
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "stageselect_route_node",
+      "category": "StageSelect",
+      "screen": "StageSelect",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/stageselect_route_node-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/stageselect_route_node-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_route_node.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 385,
+        "y": 327,
+        "width": 485,
+        "height": 553
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "stageselect_route_line_ink",
+      "category": "StageSelect",
+      "screen": "StageSelect",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/stageselect_route_line_ink-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/stageselect_route_line_ink-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_route_line_ink.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1536,
+        "height": 1024
+      },
+      "opaqueBounds": {
+        "x": 121,
+        "y": 455,
+        "width": 1291,
+        "height": 116
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "stageselect_start_marker_lantern",
+      "category": "StageSelect",
+      "screen": "StageSelect",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/stageselect_start_marker_lantern-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/stageselect_start_marker_lantern-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_start_marker_lantern.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 416,
+        "y": 194,
+        "width": 409,
+        "height": 866
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "levelup_rare_ink_flare",
+      "category": "LevelUp rare",
+      "screen": "LevelUp",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/levelup_rare_ink_flare-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/levelup_rare_ink_flare-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/VFX/levelup_rare_ink_flare.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "VFX",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1197,
+        "height": 1315
+      },
+      "opaqueBounds": {
+        "x": 212,
+        "y": 75,
+        "width": 738,
+        "height": 1172
+      },
+      "recommendation": "review-fix",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "levelup_rare_lantern_pulse_ring",
+      "category": "LevelUp rare",
+      "screen": "LevelUp",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/levelup_rare_lantern_pulse_ring-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/levelup_rare_lantern_pulse_ring-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/VFX/levelup_rare_lantern_pulse_ring.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "VFX",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1196,
+        "height": 1315
+      },
+      "opaqueBounds": {
+        "x": 110,
+        "y": 167,
+        "width": 996,
+        "height": 962
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "kokuyou_fullscreen_ink_shadow_source",
+      "category": "黒耀化 / cut-in",
+      "screen": "FullscreenArt",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/kokuyou_fullscreen_ink_shadow_source-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/kokuyou_fullscreen_ink_shadow_source-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/FullscreenArt/kokuyou_fullscreen_ink_shadow_source.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "FullscreenArt",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 941,
+        "height": 1672
+      },
+      "opaqueBounds": {
+        "x": 65,
+        "y": 34,
+        "width": 804,
+        "height": 1604
+      },
+      "recommendation": "review-fix",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    },
+    {
+      "id": "cutin_black_ink_band",
+      "category": "黒耀化 / cut-in",
+      "screen": "CutIn",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u8/greenback/cutin_black_ink_band-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u8/alpha/cutin_black_ink_band-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/FullscreenArt/cutin_black_ink_band.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u8/reports/u8-alpha-report.json",
+      "atlasGroup": "FullscreenArt",
+      "owner": "U8 visual candidate expansion",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "sourceSize": {
+        "width": 1792,
+        "height": 1216
+      },
+      "opaqueBounds": {
+        "x": 128,
+        "y": 96,
+        "width": 1483,
+        "height": 723
+      },
+      "recommendation": "review-adopt",
+      "notes": "Proof-only Unity U8 candidate. Not production approved."
+    }
+  ]
+}

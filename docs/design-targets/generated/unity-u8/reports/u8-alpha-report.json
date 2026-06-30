@@ -1,0 +1,326 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/cutin_black_ink_band-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/cutin_black_ink_band-greenback-alpha.png",
+    "size": {
+      "width": 1792,
+      "height": 1216
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1768612,
+    "semiTransparentPixels": 7762,
+    "opaquePixels": 402698,
+    "opaqueBounds": {
+      "x": 128,
+      "y": 96,
+      "width": 1483,
+      "height": 723
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/kokuyou_fullscreen_ink_shadow_source-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/kokuyou_fullscreen_ink_shadow_source-greenback-alpha.png",
+    "size": {
+      "width": 941,
+      "height": 1672
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 843155,
+    "semiTransparentPixels": 24539,
+    "opaquePixels": 705658,
+    "opaqueBounds": {
+      "x": 65,
+      "y": 34,
+      "width": 804,
+      "height": 1604
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/levelup_rare_ink_flare-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/levelup_rare_ink_flare-greenback-alpha.png",
+    "size": {
+      "width": 1197,
+      "height": 1315
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1241519,
+    "semiTransparentPixels": 19152,
+    "opaquePixels": 313384,
+    "opaqueBounds": {
+      "x": 212,
+      "y": 75,
+      "width": 738,
+      "height": 1172
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/levelup_rare_lantern_pulse_ring-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/levelup_rare_lantern_pulse_ring-greenback-alpha.png",
+    "size": {
+      "width": 1196,
+      "height": 1315
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1375194,
+    "semiTransparentPixels": 21576,
+    "opaquePixels": 175970,
+    "opaqueBounds": {
+      "x": 110,
+      "y": 167,
+      "width": 996,
+      "height": 962
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/result_new_badge-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/result_new_badge-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1144644,
+    "semiTransparentPixels": 1516,
+    "opaquePixels": 426356,
+    "opaqueBounds": {
+      "x": 225,
+      "y": 228,
+      "width": 819,
+      "height": 784
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/result_paper_ledger_panel-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/result_paper_ledger_panel-greenback-alpha.png",
+    "size": {
+      "width": 1024,
+      "height": 1536
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 622659,
+    "semiTransparentPixels": 454,
+    "opaquePixels": 949751,
+    "opaqueBounds": {
+      "x": 88,
+      "y": 150,
+      "width": 874,
+      "height": 1205
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/result_rank_wax_seal-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/result_rank_wax_seal-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1073805,
+    "semiTransparentPixels": 5802,
+    "opaquePixels": 492909,
+    "opaqueBounds": {
+      "x": 207,
+      "y": 184,
+      "width": 851,
+      "height": 871
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/result_reward_memory_card-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/result_reward_memory_card-greenback-alpha.png",
+    "size": {
+      "width": 1086,
+      "height": 1448
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 876056,
+    "semiTransparentPixels": 515,
+    "opaquePixels": 695957,
+    "opaqueBounds": {
+      "x": 205,
+      "y": 210,
+      "width": 685,
+      "height": 1028
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/stageselect_paper_map_base-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/stageselect_paper_map_base-greenback-alpha.png",
+    "size": {
+      "width": 1024,
+      "height": 1536
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 532474,
+    "semiTransparentPixels": 475,
+    "opaquePixels": 1039915,
+    "opaqueBounds": {
+      "x": 79,
+      "y": 152,
+      "width": 871,
+      "height": 1228
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/stageselect_route_line_ink-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/stageselect_route_line_ink-greenback-alpha.png",
+    "size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1525212,
+    "semiTransparentPixels": 1287,
+    "opaquePixels": 46365,
+    "opaqueBounds": {
+      "x": 121,
+      "y": 455,
+      "width": 1291,
+      "height": 116
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/stageselect_route_node-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/stageselect_route_node-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1374823,
+    "semiTransparentPixels": 300,
+    "opaquePixels": 197393,
+    "opaqueBounds": {
+      "x": 385,
+      "y": 327,
+      "width": 485,
+      "height": 553
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u8/greenback/stageselect_start_marker_lantern-greenback.png",
+    "output": "docs/design-targets/generated/unity-u8/alpha/stageselect_start_marker_lantern-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1395678,
+    "semiTransparentPixels": 857,
+    "opaquePixels": 175981,
+    "opaqueBounds": {
+      "x": 416,
+      "y": 194,
+      "width": 409,
+      "height": 866
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]
