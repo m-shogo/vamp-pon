@@ -4,10 +4,41 @@ Codex / Claude Code must read this file before any design-related work.
 
 ## Read order
 
-1. Character reference
-2. Opponent reference
-3. Screen / UI design reference
-4. Unity verification screenshots
+1. Title / term lock
+2. Current visual targets
+3. Character reference
+4. Opponent reference
+5. Screen / UI design reference
+6. Unity verification screenshots
+
+## Title / term lock
+
+Use:
+
+```txt
+docs/title-and-term-lock-2026-06-30.md
+```
+
+Current title:
+
+```txt
+ヨルノシルベ
+```
+
+## Current visual targets
+
+Use:
+
+```txt
+docs/current-visual-targets-2026-06-30.md
+```
+
+Current key images:
+
+```txt
+docs/design-targets/generated/top-final.png
+docs/design-targets/generated/kokuyou-cutin-final.png
+```
 
 ## Character reference
 
@@ -81,7 +112,7 @@ text-baked UI screenshots as runtime UI
 
 ## Full-screen collection art rule
 
-Character climax art and Kokuyou art must be treated as full-screen illustrations / full-screen cut-ins.
+Character climax art and 黒耀化 art must be treated as full-screen illustrations / full-screen cut-ins.
 
 They must also be collectible art for Collection / archive pages.
 
@@ -103,7 +134,7 @@ Text must not be baked into these images. UI text should be layered in Unity wit
 4. Ombu Unity candidate
 5. EXP fragment / lantern spark / ink burst / collect trail candidate
 6. Character climax full-screen art candidate
-7. Kokuyou full-screen art candidate
+7. 黒耀化 full-screen art candidate
 
 Do not generate every character, every opponent, or every stage at once.
 
