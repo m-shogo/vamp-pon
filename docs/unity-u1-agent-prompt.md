@@ -1,20 +1,27 @@
 # Unity U1 Agent Prompt
 
-Unity U1開始時にそのまま渡す作業指示。
+Unity U1 / U1.1開始時にそのまま渡す作業指示。
 
 ---
 
 ```txt
 対象repo: m-shogo/vamp-pon
 対象path: /Users/m-shogo/Developer/personal/vamp-pon
+Unity project path: /Users/m-shogo/Developer/personal/vamp-pon/unity/VampPonUnity
+Unity Editor: 6000.5.1f1
+Unity Editor path: /Applications/Unity/Hub/Editor/6000.5.1f1/Unity.app
+Architecture: Apple Silicon
+Render Pipeline: 2D URP
 
 目的:
-Unity U1を開始する。
-全移植ではなく、unity/VampPonUnity/ にUnity 6 LTS 2D URPの最小technical spikeを作る。
+Unity U1 / U1.1を進める。
+全移植ではなく、unity/VampPonUnity/ にUnity 6.5.1f1 + 2D URPの最小technical spikeを作り、Editorで検証する。
 
 最初に読むdocs:
 - docs/unity-current-doc-index-2026-06-30.md
 - docs/unity-u1-current-handoff-2026-06-30.md
+- docs/unity-editor-version-lock-2026-06-30.md
+- docs/unity-pro-preflight-review-2026-06-30.md
 - docs/unity-pre-migration-hardening-checklist.md
 - docs/unity-responsive-screen-policy.md
 - docs/unity-ai-asset-production-rules.md
@@ -27,25 +34,36 @@ Unity U1を開始する。
 - docs/unity-data-schema-map.md
 
 作業前に確認すること:
-- Unity Hubで利用可能なUnity 6 LTS patch
+- /Applications/Unity/Hub/Editor/6000.5.1f1/Unity.app が存在する
+- ProjectSettings/ProjectVersion.txt を実Editor version 6000.5.1f1 に合わせる
 - unity/VampPonUnity/ 配置
 - .gitignore / .gitattributes 方針
 - U1ではLFSを新規有効化しない
 - public/assets/sprites/ を使わない
 - U1では全移植しない
+- Built-in Render Pipelineは使わない
+- HDRPは使わない
 - 390x844固定ではなく、各スマホ画面サイズ・アスペクト比・Safe Areaに合わせる
 - 390x844はdesign reference / minimum QA baselineとして扱う
 - 本番Unity素材は既存Web素材の使い回し前提にしない
 - AI生成素材はcandidate -> QA -> approved -> Unity importで扱う
 
 作業範囲:
-- unity/VampPonUnity/ を作る
-- Boot.unity / Stage1.unity を作る
-- Assets/_Project/ の最小フォルダを作る
+- Unity Editor 6000.5.1f1で unity/VampPonUnity/ を開く
+- Boot.unity / Stage1.unity をEditorで開いて保存する
+- Assets/_Project/ の最小フォルダを維持する
+- 2D URP Renderer Asset / 2D Renderer Data / GraphicsSettings / QualitySettings を正式生成・割当する
 - 390x844 referenceを基準にしつつ、複数スマホ縦解像度で確認する
-- SafeAreaCanvasを作る
+- SafeAreaCanvasを確認する
 - gameplay backgroundが各端末画面を自然に覆うようにする
-- Yui placeholder、Ombu placeholder、dark paper background、lantern glow、EXP pickup curve placeholderを作る
+- Yui placeholder、Ombu placeholder、dark paper background、lantern glow、EXP pickup curve placeholderを確認する
+
+Render Pipeline方針:
+- Vamp Pon Unity版は Unity 6.5.1f1 + 2D URP 固定
+- Built-in Render Pipelineは使わない
+- HDRPは使わない
+- Built-in material / shader前提の設定を増やさない
+- 既にBuilt-in寄りの設定が混ざっている場合は、U1.1範囲で最小限だけ2D URPへ寄せる
 
 画面方針:
 - Canvas ScalerはScale With Screen Size
@@ -73,7 +91,10 @@ Unity U1を開始する。
 - 文字入り画像をUI素材にしない
 - Addressables、CI、store build、課金/広告はU1で入れない
 
-U1完了条件:
+U1 / U1.1完了条件:
+- Unity Editor 6000.5.1f1で開ける
+- ProjectVersion.txt が実Editor version 6000.5.1f1 と一致する
+- 2D URPが正式設定されている
 - Unity Editorで再生できる
 - Boot -> Stage1へ遷移できる
 - Game View 390x844 referenceで破綻しない
@@ -89,11 +110,13 @@ U1完了条件:
 最後に報告すること:
 1. 作成/変更ファイル
 2. Unity Editor version
-3. 再生確認結果
-4. 確認したGame View解像度
-5. git status --short
-6. U1未実装
-7. 次のU2でやること
-8. 移行前チェックリストで未解決の項目
-9. U1で仮使用した素材と、本番では作り直す素材
+3. ProjectVersion.txt の内容
+4. 2D URP設定結果
+5. 再生確認結果
+6. 確認したGame View解像度
+7. git status --short
+8. U1未実装
+9. 次のU1.2 / U2でやること
+10. 移行前チェックリストで未解決の項目
+11. U1で仮使用した素材と、本番では作り直す素材
 ```
