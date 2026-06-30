@@ -39,6 +39,73 @@ Code names only: Vamp Pon / vanp pon / ヴァンサバ改
 
 Do not use `黒曜化` in new work.
 
+## Unity asset creation rule
+
+Unity work is not a simple migration of Web / Phaser assets.
+
+Existing Web assets, prototype sprites, generated references, and screenshots are reference material only unless a task explicitly says they are temporary placeholders.
+
+Use existing Web/prototype assets only for:
+
+```txt
+checking character identity
+checking silhouette
+checking color/world direction
+comparing against the previous baseline
+avoiding a regression from the existing design
+```
+
+Do not treat them as production Unity runtime assets.
+
+Unity runtime candidates must be created or finished for Unity use:
+
+```txt
+SpriteRenderer / UI Image / Particle / VFX source ready
+PPU / scale / pivot / sorting layer considered
+readable at gameplay size
+readable on 390x844 / 360x800 / 430x932
+correct alpha
+clean bounds
+no green fringe
+no edge touch
+atlas / prefab use considered
+```
+
+Forbidden:
+
+```txt
+copying Web PNGs into Unity and calling them production assets
+matching old Web assets only because they already exist
+being constrained by old 52px-only assumptions
+using text-baked screenshots as runtime UI
+pasting a finished screen image into Unity as UI
+calling an image Unity-ready only because it displays in the Editor
+```
+
+Correct direction:
+
+```txt
+Web assets = reference and comparison baseline
+Codex image generation = Unity-oriented candidate creation
+greenback-to-alpha = transparency finishing
+Unity import = sprite / UI part / VFX source proof
+review doc = why it is Unity-ready, what changed from Web, and what remains unfinished
+```
+
+If an output is just a Web/prototype copy or not suitable for Unity gameplay readability, revise it. Do not approve it.
+
+Yui / Ombu / VFX / UI material do not need to be identical to the Web version. Improve shape, proportion, texture, margin, and scale when that makes the Unity version more readable, more flexible, or more production-like.
+
+Still preserve:
+
+```txt
+Yui identity
+Ombu identity
+night / memory / black ink / small warm light / paper feeling
+ヨルノシルベ title and term rules
+mobile portrait readability
+```
+
 ## Current visual references
 
 Use these as current visual targets:
