@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Data;
 using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.U4;
+using VampPon.UnitySpike.U5;
 using VampPon.UnitySpike.UI;
 
 namespace VampPon.UnitySpike.Runtime
@@ -91,7 +93,8 @@ namespace VampPon.UnitySpike.Runtime
             player.transform.position = new Vector3(0f, -1.45f, 0f);
             player.transform.localScale = Vector3.one * 0.9f;
             var renderer = player.GetComponent<SpriteRenderer>();
-            renderer.sprite = ProceduralSpriteFactory.CreateCharacterSprite(96, new Color(0.93f, 0.74f, 0.55f), new Color(0.23f, 0.12f, 0.16f));
+            renderer.sprite = U5VisualAssetLibrary.LoadBattleSprite("u5-yui-battle-candidate")
+                ?? ProceduralSpriteFactory.CreateCharacterSprite(96, new Color(0.93f, 0.74f, 0.55f), new Color(0.23f, 0.12f, 0.16f));
             renderer.sortingOrder = 20;
             yui = player.transform;
         }
@@ -152,13 +155,29 @@ namespace VampPon.UnitySpike.Runtime
 
         private static TMP_FontAsset LoadJapaneseFont()
         {
+            var font = Resources.Load<Font>("ZenMaruGothic-Medium");
+            if (font != null)
+            {
+                var runtimeFont = TMP_FontAsset.CreateFontAsset(font, 36, 4, GlyphRenderMode.SDFAA, 1024, 1024);
+                runtimeFont.name = "ZenMaruGothic-Medium Runtime SDF";
+                return runtimeFont;
+            }
+
             var loaded = Resources.Load<TMP_FontAsset>("Fonts & Materials/ZenMaruGothic-Medium SDF");
-            if (loaded != null) return loaded;
+            if (IsUsableFontAsset(loaded)) return loaded;
 
             loaded = Resources.Load<TMP_FontAsset>("ZenMaruGothic-Medium SDF");
-            if (loaded != null) return loaded;
+            if (IsUsableFontAsset(loaded)) return loaded;
 
             return TMP_Settings.defaultFontAsset;
+        }
+
+        private static bool IsUsableFontAsset(TMP_FontAsset fontAsset)
+        {
+            return fontAsset != null &&
+                   fontAsset.atlasTextures != null &&
+                   fontAsset.atlasTextures.Length > 0 &&
+                   fontAsset.atlasTextures[0] != null;
         }
 
         private static void CreateHudPlate(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Vector2 anchoredPosition, Vector2 size, string text)

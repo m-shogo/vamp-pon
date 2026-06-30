@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -30,6 +31,8 @@ namespace VampPon.UnitySpike.U4
             button.rect = root.GetComponent<RectTransform>();
             button.rect.sizeDelta = new Vector2(width, height);
             button.bgImage = root.GetComponent<Image>();
+            button.bgImage.sprite = U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            button.bgImage.type = Image.Type.Simple;
             button.bgImage.color = NormalBg;
             button.onClick = callback;
             button.baseScale = Vector3.one;

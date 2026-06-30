@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -17,7 +18,9 @@ namespace VampPon.UnitySpike.U4
             rect.sizeDelta = new Vector2(size, size);
 
             var bg = root.GetComponent<Image>();
-            bg.color = new Color(0.12f, 0.08f, 0.07f, 0.55f);
+            bg.sprite = U5VisualAssetLibrary.LoadUiSprite("u5-icon-frame");
+            bg.type = Image.Type.Simple;
+            bg.color = bg.sprite != null ? Color.white : new Color(0.12f, 0.08f, 0.07f, 0.55f);
 
             var border = new GameObject("IconBorder", typeof(RectTransform), typeof(Image));
             border.transform.SetParent(root.transform, false);

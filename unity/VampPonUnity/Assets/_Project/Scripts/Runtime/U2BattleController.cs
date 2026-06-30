@@ -4,6 +4,7 @@ using UnityEngine;
 using VampPon.UnitySpike.Data;
 using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.U4;
+using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -82,12 +83,18 @@ namespace VampPon.UnitySpike.Runtime
             playerBounds = movementBounds;
             spawnBounds = enemySpawnBounds;
 
-            enemySprite = ProceduralSpriteFactory.CreateBlobSprite(88, new Color(0.36f, 0.23f, 0.36f), new Color(1f, 0.68f, 0.25f));
-            projectileSprite = ProceduralSpriteFactory.CreateRadialSprite(56, new Color(1f, 0.72f, 0.28f, 0.88f));
-            expSprite = ProceduralSpriteFactory.CreateDiamondSprite(42, new Color(0.38f, 0.94f, 0.92f));
-            hitSprite = ProceduralSpriteFactory.CreateRadialSprite(64, new Color(1f, 0.52f, 0.18f, 0.8f));
-            inkSprite = ProceduralSpriteFactory.CreateRadialSprite(72, new Color(0.04f, 0.025f, 0.035f, 0.88f));
-            trailSprite = ProceduralSpriteFactory.CreateRadialSprite(48, new Color(0.45f, 1f, 0.9f, 0.48f));
+            enemySprite = U5VisualAssetLibrary.LoadBattleSprite("u5-ombu-battle-candidate")
+                ?? ProceduralSpriteFactory.CreateBlobSprite(88, new Color(0.36f, 0.23f, 0.36f), new Color(1f, 0.68f, 0.25f));
+            projectileSprite = U5VisualAssetLibrary.LoadVfxSprite("u5-lantern-spark")
+                ?? ProceduralSpriteFactory.CreateRadialSprite(56, new Color(1f, 0.72f, 0.28f, 0.88f));
+            expSprite = U5VisualAssetLibrary.LoadVfxSprite("u5-exp-fragment")
+                ?? ProceduralSpriteFactory.CreateDiamondSprite(42, new Color(0.38f, 0.94f, 0.92f));
+            hitSprite = U5VisualAssetLibrary.LoadVfxSprite("u5-lantern-spark")
+                ?? ProceduralSpriteFactory.CreateRadialSprite(64, new Color(1f, 0.52f, 0.18f, 0.8f));
+            inkSprite = U5VisualAssetLibrary.LoadVfxSprite("u5-ink-burst")
+                ?? ProceduralSpriteFactory.CreateRadialSprite(72, new Color(0.04f, 0.025f, 0.035f, 0.88f));
+            trailSprite = U5VisualAssetLibrary.LoadVfxSprite("u5-collect-trail")
+                ?? ProceduralSpriteFactory.CreateRadialSprite(48, new Color(0.45f, 1f, 0.9f, 0.48f));
             collectSprite = ProceduralSpriteFactory.CreateRadialSprite(80, new Color(0.5f, 1f, 0.9f, 0.68f));
             hudBaseScale = topHudLabel != null ? topHudLabel.rectTransform.localScale : Vector3.one;
 

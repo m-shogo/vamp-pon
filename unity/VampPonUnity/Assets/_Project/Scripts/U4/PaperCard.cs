@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -56,6 +57,8 @@ namespace VampPon.UnitySpike.U4
             card.baseScale = Vector3.one;
 
             card.bgImage = root.GetComponent<Image>();
+            card.bgImage.sprite = U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            card.bgImage.type = Image.Type.Simple;
             card.bgImage.color = NormalCardBg;
 
             var borderColor = choice.Rarity switch

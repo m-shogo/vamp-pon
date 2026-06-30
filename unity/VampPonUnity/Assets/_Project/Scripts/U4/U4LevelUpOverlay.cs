@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.U4
@@ -194,12 +195,15 @@ namespace VampPon.UnitySpike.U4
             if (cards == null || cards.Length == 0) return;
 
             var moved = false;
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+            var keyboard = Keyboard.current;
+            if (keyboard == null) return;
+
+            if (keyboard.upArrowKey.wasPressedThisFrame || keyboard.wKey.wasPressedThisFrame)
             {
                 hoveredIndex = (hoveredIndex - 1 + cards.Length) % cards.Length;
                 moved = true;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+            else if (keyboard.downArrowKey.wasPressedThisFrame || keyboard.sKey.wasPressedThisFrame)
             {
                 hoveredIndex = (hoveredIndex + 1) % cards.Length;
                 moved = true;
@@ -210,7 +214,7 @@ namespace VampPon.UnitySpike.U4
                 UpdateHoverVisuals();
             }
 
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+            if (keyboard.enterKey.wasPressedThisFrame || keyboard.spaceKey.wasPressedThisFrame)
             {
                 if (selectedIndex >= 0)
                 {
@@ -222,11 +226,11 @@ namespace VampPon.UnitySpike.U4
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1) && cards.Length > 0) SelectCard(0);
-            if (Input.GetKeyDown(KeyCode.Alpha2) && cards.Length > 1) SelectCard(1);
-            if (Input.GetKeyDown(KeyCode.Alpha3) && cards.Length > 2) SelectCard(2);
+            if (keyboard.digit1Key.wasPressedThisFrame && cards.Length > 0) SelectCard(0);
+            if (keyboard.digit2Key.wasPressedThisFrame && cards.Length > 1) SelectCard(1);
+            if (keyboard.digit3Key.wasPressedThisFrame && cards.Length > 2) SelectCard(2);
 
-            if (selectedIndex >= 0 && Input.GetKeyDown(KeyCode.Escape))
+            if (selectedIndex >= 0 && keyboard.escapeKey.wasPressedThisFrame)
             {
                 DeselectAll();
             }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -58,13 +59,16 @@ namespace VampPon.UnitySpike.U4
         {
             if (overlay == null) return;
 
-            if (Input.GetKeyDown(KeyCode.L) && !IsOverlayActive)
+            var keyboard = Keyboard.current;
+            if (keyboard == null) return;
+
+            if (keyboard.lKey.wasPressedThisFrame && !IsOverlayActive)
             {
                 TriggerLevelUp();
                 DemoTriggered = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.K) && !IsOverlayActive)
+            if (keyboard.kKey.wasPressedThisFrame && !IsOverlayActive)
             {
                 TriggerLevelUpWithAwakening();
                 DemoTriggered = true;

@@ -1,0 +1,218 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-collect-trail-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-collect-trail-greenback-alpha.png",
+    "size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1532535,
+    "semiTransparentPixels": 7153,
+    "opaquePixels": 33176,
+    "opaqueBounds": {
+      "x": 475,
+      "y": 385,
+      "width": 621,
+      "height": 204
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-exp-fragment-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-exp-fragment-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1492209,
+    "semiTransparentPixels": 413,
+    "opaquePixels": 79894,
+    "opaqueBounds": {
+      "x": 485,
+      "y": 337,
+      "width": 286,
+      "height": 581
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-icon-frame-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-icon-frame-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1350654,
+    "semiTransparentPixels": 1224,
+    "opaquePixels": 220638,
+    "opaqueBounds": {
+      "x": 175,
+      "y": 139,
+      "width": 903,
+      "height": 924
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-ink-burst-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-ink-burst-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1431161,
+    "semiTransparentPixels": 1451,
+    "opaquePixels": 139904,
+    "opaqueBounds": {
+      "x": 319,
+      "y": 284,
+      "width": 665,
+      "height": 684
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-lantern-spark-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-lantern-spark-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1544217,
+    "semiTransparentPixels": 4410,
+    "opaquePixels": 23889,
+    "opaqueBounds": {
+      "x": 463,
+      "y": 437,
+      "width": 325,
+      "height": 350
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-ombu-battle-candidate-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-ombu-battle-candidate-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1327395,
+    "semiTransparentPixels": 1680,
+    "opaquePixels": 243441,
+    "opaqueBounds": {
+      "x": 277,
+      "y": 173,
+      "width": 706,
+      "height": 762
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-paper-panel-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-paper-panel-greenback-alpha.png",
+    "size": {
+      "width": 1536,
+      "height": 1024
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 753661,
+    "semiTransparentPixels": 734,
+    "opaquePixels": 818469,
+    "opaqueBounds": {
+      "x": 159,
+      "y": 146,
+      "width": 1227,
+      "height": 709
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  },
+  {
+    "source": "docs/design-targets/generated/unity-u5/greenback/u5-yui-battle-candidate-greenback.png",
+    "output": "docs/design-targets/generated/unity-u5/alpha/u5-yui-battle-candidate-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1197978,
+    "semiTransparentPixels": 890,
+    "opaquePixels": 373648,
+    "opaqueBounds": {
+      "x": 278,
+      "y": 98,
+      "width": 660,
+      "height": 1049
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]
