@@ -16,3 +16,18 @@ MonoBehaviour:
   expAttractionArcHeight: 1.05
   lanternGlowPulse: 0.08
   placeholderBobAmplitude: 0.035
+  playerMoveSpeed: 3.35
+  playerAcceleration: 15
+  playerDeceleration: 18
+  enemySpawnInterval: 1.35
+  enemyMoveSpeed: 0.98
+  enemyHp: 3
+  projectileSpeed: 6.4
+  projectileCooldown: 0.55
+  projectileDamage: 1
+  expAttractRadius: 1.45
+  expAttractSpeed: 7.2
+  enemyPoolSize: 18
+  projectilePoolSize: 28
+  expPoolSize: 36
+  vfxPoolSize: 28

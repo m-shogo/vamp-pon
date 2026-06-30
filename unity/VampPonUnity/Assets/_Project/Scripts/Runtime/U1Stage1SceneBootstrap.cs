@@ -1,8 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VampPon.UnitySpike.Enemies;
-using VampPon.UnitySpike.Pickups;
+using VampPon.UnitySpike.Data;
 using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.UI;
 
@@ -15,6 +14,11 @@ namespace VampPon.UnitySpike.Runtime
         private Transform playerRoot;
         private Transform enemyRoot;
         private Transform pickupRoot;
+        private Transform projectileRoot;
+        private Transform poolRoot;
+        private Transform overlayRoot;
+        private Transform yui;
+        private TextMeshProUGUI topHudLabel;
 
         private void Awake()
         {
@@ -24,9 +28,8 @@ namespace VampPon.UnitySpike.Runtime
             CreateBackground();
             CreateLanternGlow();
             CreatePlayer();
-            CreateEnemy();
-            CreateExpFragment();
             CreateSafeAreaHud();
+            CreateBattlePrototype();
         }
 
         private static void CreateCamera()
@@ -47,13 +50,16 @@ namespace VampPon.UnitySpike.Runtime
             playerRoot = new GameObject("PlayerRoot").transform;
             enemyRoot = new GameObject("EnemyRoot").transform;
             pickupRoot = new GameObject("PickupRoot").transform;
-            new GameObject("ProjectileRoot");
-            new GameObject("PoolRoot");
-            new GameObject("OverlayRoot");
+            projectileRoot = new GameObject("ProjectileRoot").transform;
+            poolRoot = new GameObject("PoolRoot").transform;
+            overlayRoot = new GameObject("OverlayRoot").transform;
 
             playerRoot.SetParent(stageRoot);
             enemyRoot.SetParent(stageRoot);
             pickupRoot.SetParent(stageRoot);
+            projectileRoot.SetParent(stageRoot);
+            poolRoot.SetParent(stageRoot);
+            overlayRoot.SetParent(stageRoot);
         }
 
         private static void CreateBackground()
@@ -86,32 +92,10 @@ namespace VampPon.UnitySpike.Runtime
             var renderer = player.GetComponent<SpriteRenderer>();
             renderer.sprite = ProceduralSpriteFactory.CreateCharacterSprite(96, new Color(0.93f, 0.74f, 0.55f), new Color(0.23f, 0.12f, 0.16f));
             renderer.sortingOrder = 20;
+            yui = player.transform;
         }
 
-        private void CreateEnemy()
-        {
-            var enemy = new GameObject("OmbuPlaceholder", typeof(SpriteRenderer));
-            enemy.transform.SetParent(enemyRoot);
-            enemy.transform.position = new Vector3(1.35f, -0.35f, 0f);
-            enemy.transform.localScale = Vector3.one * 1.15f;
-            var renderer = enemy.GetComponent<SpriteRenderer>();
-            renderer.sprite = ProceduralSpriteFactory.CreateBlobSprite(88, new Color(0.36f, 0.23f, 0.36f), new Color(1f, 0.68f, 0.25f));
-            renderer.sortingOrder = 15;
-            enemy.AddComponent<EnemyPlaceholder>();
-        }
-
-        private void CreateExpFragment()
-        {
-            var fragment = new GameObject("ExpFragmentPickupCurvePlaceholder", typeof(SpriteRenderer), typeof(ExpFragmentPlaceholder));
-            fragment.transform.SetParent(pickupRoot);
-            fragment.transform.position = new Vector3(-2.2f, 1.15f, 0f);
-            var renderer = fragment.GetComponent<SpriteRenderer>();
-            renderer.sprite = ProceduralSpriteFactory.CreateDiamondSprite(42, new Color(0.38f, 0.94f, 0.92f));
-            renderer.sortingOrder = 30;
-            fragment.GetComponent<ExpFragmentPlaceholder>().Initialize(new Vector3(0f, -1.25f, 0f));
-        }
-
-        private static void CreateSafeAreaHud()
+        private void CreateSafeAreaHud()
         {
             var canvasObject = new GameObject("SafeAreaCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(SafeAreaFitter));
             var canvas = canvasObject.GetComponent<Canvas>();
@@ -133,6 +117,22 @@ namespace VampPon.UnitySpike.Runtime
 
             CreateHudPlate(hudRoot.transform, "TopHudPlaceholder", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(326f, 46f), "Lv 1   00:00   EXP");
             CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(300f, 54f), "weapon placeholder");
+            topHudLabel = hudRoot.transform.Find("TopHudPlaceholder/Label")?.GetComponent<TextMeshProUGUI>();
+        }
+
+        private void CreateBattlePrototype()
+        {
+            var config = ScriptableObject.CreateInstance<GameFeelConfig>();
+            config.name = "U2RuntimeBattleFeelConfig";
+
+            var playerBounds = new Rect(-2.15f, -3.65f, 4.3f, 7.05f);
+            var spawnBounds = new Rect(-2.15f, -3.65f, 4.3f, 7.65f);
+            yui.GetComponent<PlayerController>().Initialize(config, playerBounds);
+
+            var controllerObject = new GameObject("U2BattleController", typeof(U2BattleController));
+            controllerObject.transform.SetParent(poolRoot, false);
+            var controller = controllerObject.GetComponent<U2BattleController>();
+            controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds);
         }
 
         private static void CreateHudPlate(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Vector2 anchoredPosition, Vector2 size, string text)
