@@ -1,5 +1,11 @@
 # Dependencies
 node_modules/
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
 
 # Build output
 dist/
