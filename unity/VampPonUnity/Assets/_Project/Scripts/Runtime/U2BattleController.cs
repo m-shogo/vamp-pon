@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using VampPon.UnitySpike.Data;
 using VampPon.UnitySpike.Player;
+using VampPon.UnitySpike.U4;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -31,6 +32,7 @@ namespace VampPon.UnitySpike.Runtime
         private U3HitStopController hitStop;
         private U3CameraImpulseController cameraImpulse;
         private U3LanternPulseController lanternPulse;
+        private U4LevelUpDemoController levelUpNotifier;
         private Rect spawnBounds;
         private Rect playerBounds;
         private float spawnTimer;
@@ -92,6 +94,11 @@ namespace VampPon.UnitySpike.Runtime
             PrewarmPools();
             CreateFeelHelpers();
             UpdateHud();
+        }
+
+        public void SetLevelUpNotifier(U4LevelUpDemoController notifier)
+        {
+            levelUpNotifier = notifier;
         }
 
         public void SpawnEnemyForVerification(Vector3 position)
@@ -260,6 +267,7 @@ namespace VampPon.UnitySpike.Runtime
                     hudPulseSeconds = 0.16f;
                     lanternPulse?.Request();
                     PlayVfx(collectPosition, collectSprite, 0.55f, 0.18f, Color.white, Vector2.zero, U2VfxShape.Radial);
+                    levelUpNotifier?.NotifyExpCollected(expCollected);
                 }
             }
         }

@@ -1,0 +1,24 @@
+=== U4 LevelUp UI Verification ===
+Unity: 6000.5.1f1
+Platform: OSXEditor
+ProjectVersion: OK
+ZenMaruGothic font: found
+Font license: found
+--- U4 Scripts ---
+  U4LevelUpDemoController.cs: OK
+  U4LevelUpOverlay.cs: OK
+  U4LevelUpData.cs: OK
+  U4TimeScaleGuard.cs: OK
+  PaperCard.cs: OK
+  PaperButton.cs: OK
+  IconFrame.cs: OK
+--- U2BattleController check ---
+  Card UI in BattleController: clean
+  LevelUp data in BattleController: clean
+  Minimal notifier hook: OK
+--- TimeScale guard ---
+  ForceRestore method: OK
+  OnDisable restore: OK
+  OnDestroy restore: OK
+--- dawn_ticket check ---
+  dawn_ticket in candidates: clean

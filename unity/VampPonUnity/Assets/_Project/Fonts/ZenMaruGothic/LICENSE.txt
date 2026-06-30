@@ -1,0 +1,9 @@
+Zen Maru Gothic
+Designer: Yoshimichi Ohira
+Source: Google Fonts (https://fonts.google.com/specimen/Zen+Maru+Gothic)
+License: SIL Open Font License 1.1 (OFL-1.1)
+Commercial use: Yes
+App bundling: Yes
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is available with a FAQ at: https://openfontlicense.org

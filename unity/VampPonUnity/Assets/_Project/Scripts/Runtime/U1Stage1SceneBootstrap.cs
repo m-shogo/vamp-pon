@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Data;
 using VampPon.UnitySpike.Player;
+using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.UI;
 
 namespace VampPon.UnitySpike.Runtime
@@ -133,6 +134,31 @@ namespace VampPon.UnitySpike.Runtime
             controllerObject.transform.SetParent(poolRoot, false);
             var controller = controllerObject.GetComponent<U2BattleController>();
             controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds);
+
+            CreateLevelUpDemo(controller);
+        }
+
+        private void CreateLevelUpDemo(U2BattleController battleController)
+        {
+            var font = LoadJapaneseFont();
+
+            var demoObj = new GameObject("U4LevelUpDemoController", typeof(U4LevelUpDemoController));
+            demoObj.transform.SetParent(poolRoot, false);
+            var demo = demoObj.GetComponent<U4LevelUpDemoController>();
+            demo.Initialize(font);
+
+            battleController.SetLevelUpNotifier(demo);
+        }
+
+        private static TMP_FontAsset LoadJapaneseFont()
+        {
+            var loaded = Resources.Load<TMP_FontAsset>("Fonts & Materials/ZenMaruGothic-Medium SDF");
+            if (loaded != null) return loaded;
+
+            loaded = Resources.Load<TMP_FontAsset>("ZenMaruGothic-Medium SDF");
+            if (loaded != null) return loaded;
+
+            return TMP_Settings.defaultFontAsset;
         }
 
         private static void CreateHudPlate(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Vector2 anchoredPosition, Vector2 size, string text)
