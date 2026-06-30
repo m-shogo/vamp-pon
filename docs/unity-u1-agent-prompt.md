@@ -16,6 +16,7 @@ Unity U1を開始する。
 - docs/unity-current-doc-index-2026-06-30.md
 - docs/unity-u1-current-handoff-2026-06-30.md
 - docs/unity-pre-migration-hardening-checklist.md
+- docs/unity-responsive-screen-policy.md
 - docs/unity-ai-asset-production-rules.md
 - docs/unity-roadmap-to-release.md
 - docs/unity-u1-implementation-brief.md
@@ -32,6 +33,8 @@ Unity U1を開始する。
 - U1ではLFSを新規有効化しない
 - public/assets/sprites/ を使わない
 - U1では全移植しない
+- 390x844固定ではなく、各スマホ画面サイズ・アスペクト比・Safe Areaに合わせる
+- 390x844はdesign reference / minimum QA baselineとして扱う
 - 本番Unity素材は既存Web素材の使い回し前提にしない
 - AI生成素材はcandidate -> QA -> approved -> Unity importで扱う
 
@@ -39,9 +42,19 @@ Unity U1を開始する。
 - unity/VampPonUnity/ を作る
 - Boot.unity / Stage1.unity を作る
 - Assets/_Project/ の最小フォルダを作る
-- 390x844縦画面を前提にする
+- 390x844 referenceを基準にしつつ、複数スマホ縦解像度で確認する
 - SafeAreaCanvasを作る
+- gameplay backgroundが各端末画面を自然に覆うようにする
 - Yui placeholder、Ombu placeholder、dark paper background、lantern glow、EXP pickup curve placeholderを作る
+
+画面方針:
+- Canvas ScalerはScale With Screen Size
+- Reference Resolutionは390x844
+- ただし実機表示は390x844固定ではない
+- 重要UIはSafe Area内に置く
+- 背景とgameplay領域は各スマホ画面いっぱいに表示する
+- Editor Game ViewではFree Aspectだけで確認しない
+- 390x844 referenceに加えて、iPhone/Android想定の複数縦解像度で確認する
 
 素材方針:
 - U1〜U2では既存素材をplaceholderとして最小限だけ使ってよい
@@ -63,7 +76,9 @@ Unity U1を開始する。
 U1完了条件:
 - Unity Editorで再生できる
 - Boot -> Stage1へ遷移できる
-- Game View 390x844相当で破綻しない
+- Game View 390x844 referenceで破綻しない
+- 複数スマホ縦解像度で重要UIがSafe Area内に収まる
+- gameplay backgroundが各端末画面を自然に覆う
 - SafeAreaCanvasがある
 - Yui placeholderが表示される
 - Ombu placeholderが表示される
@@ -75,9 +90,10 @@ U1完了条件:
 1. 作成/変更ファイル
 2. Unity Editor version
 3. 再生確認結果
-4. git status --short
-5. U1未実装
-6. 次のU2でやること
-7. 移行前チェックリストで未解決の項目
-8. U1で仮使用した素材と、本番では作り直す素材
+4. 確認したGame View解像度
+5. git status --short
+6. U1未実装
+7. 次のU2でやること
+8. 移行前チェックリストで未解決の項目
+9. U1で仮使用した素材と、本番では作り直す素材
 ```
