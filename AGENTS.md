@@ -15,6 +15,23 @@ Do not modify any other repository.
 - Run the relevant checks, then commit and push.
 - Never call an image or implementation final without comparing it to the current in-repo baseline.
 
+## Design source of truth
+
+Before any design-related work, read:
+
+- `docs/design-source-of-truth-2026-06-30.md`
+
+Design reference order:
+
+1. Character reference: `public/assets/prototypes/sprite-sheets/core5-original-frames/`
+2. Opponent reference: `public/assets/prototypes/sprite-sheets/enemies-original/`
+3. Screen/UI reference: `docs/final-screen-comparison-review-2026-06-29.md`, `docs/non-battle-final-design-implementation-plan.md`, `docs/design-targets/generated/`
+4. Unity verification screenshots: `docs/design-targets/generated/unity-u1-2/`, `docs/design-targets/generated/unity-u2/`, `docs/design-targets/generated/unity-u3/`
+
+Do not treat Unity U1/U2/U3 procedural placeholders as final design. Do not use old or retired design sources as the current source of truth.
+
+Character climax art and Kokuyou art are full-screen art / full-screen cut-ins, and must also be treated as Collection/archive art candidates.
+
 ## Visual work: reference first
 
 The old pixel-generation, palette, Aseprite, procedural-finisher, and mechanical scoring rules are not active instructions.
