@@ -55,6 +55,7 @@ Design / production notes should also track:
 - atlas group
 - prefab / runtime owner
 - approval reviewer and date when promoted
+- visual art direction check against `docs/unity-visual-art-direction-lock-2026-06-30.md`
 
 ## File Relationship
 
@@ -88,6 +89,7 @@ Before runtime import:
 - no watermark
 - no use of retired `public/assets/sprites/`
 - image is readable at gameplay/UI size
+- image does not violate the fixed visual rules in `docs/unity-visual-art-direction-lock-2026-06-30.md`
 - U5Candidates runtime files are all represented in manifest
 
 ## U5 Proof-Only Resources
@@ -112,6 +114,7 @@ Production direction:
 An asset can become `approved` only after:
 
 - art direction review passes against current visual target
+- visual art direction lock passes against `docs/unity-visual-art-direction-lock-2026-06-30.md`
 - alpha and edge QA pass
 - runtime scale / PPU / pivot are validated in gameplay or UI
 - mobile portrait readability passes at 390x844, 360x800, 430x932
@@ -129,5 +132,6 @@ Candidate assets may be used in runtime proof when:
 - review doc states they are not production approved
 - runtime usage is small and reversible
 - no dependency is introduced that blocks future asset provider work
+- candidate use does not expand the palette/material style beyond the fixed visual rules
 
 U5 satisfies this as a visual candidate pass only.
