@@ -53,6 +53,10 @@ import { getAudioManager } from '../audio/AudioManager';
 
 const D = VIEW_DEPTH.overlay;
 const LIST_ICON_SIZE = 46;
+const UI_TITLE_BANNER = 'ui_paper_title_banner_v1';
+const UI_CTA_BUTTON = 'ui_paper_cta_button_v1';
+const UI_SMALL_CARD = 'ui_paper_small_card_v1';
+const UI_WAX_SEAL = 'ui_wax_seal_badge_v1';
 
 type IconRef = { category: InventoryIconCategory; itemId: string };
 
@@ -166,12 +170,16 @@ export class Overlays {
     root.add(dock);
 
     (this.scene as { _levelUpCardIndex?: number })._levelUpCardIndex = 0;
-    const bannerG = this.scene.add.graphics();
-    drawLargeNotebookPage(bannerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 2, 286, 66, {
-      accent: STORYBOOK_UI.warmAmber,
-      alpha: 0.96,
-    });
-    root.add(bannerG);
+    if (this.scene.textures.exists(UI_TITLE_BANNER)) {
+      root.add(this.scene.add.image(GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 2, UI_TITLE_BANNER).setDisplaySize(318, 98).setAlpha(0.97));
+    } else {
+      const bannerG = this.scene.add.graphics();
+      drawLargeNotebookPage(bannerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 2, 286, 66, {
+        accent: STORYBOOK_UI.warmAmber,
+        alpha: 0.96,
+      });
+      root.add(bannerG);
+    }
     const headerG = this.scene.add.graphics();
     drawInkDivider(headerG, GAME_WIDTH / 2, LEVEL_UP_HEADER_Y + 24, 206, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
     root.add(headerG);
@@ -208,10 +216,14 @@ export class Overlays {
     root.add(this.text(GAME_WIDTH / 2, hintY, 'カードをタップして選ぶ', 10, STORYBOOK_UI.textSoft));
 
     const ownedY = hintY + 22;
-    const ownedG = this.scene.add.graphics();
-    drawSecondaryPaperButton(ownedG, GAME_WIDTH / 2, ownedY + 6, 168, 24, { accent: STORYBOOK_UI.paperDark });
-    ownedG.setAlpha(0.82);
-    root.add(ownedG);
+    if (this.scene.textures.exists(UI_CTA_BUTTON)) {
+      root.add(this.scene.add.image(GAME_WIDTH / 2, ownedY + 6, UI_CTA_BUTTON).setDisplaySize(194, 34).setAlpha(0.84).setTint(0x4b3a45));
+    } else {
+      const ownedG = this.scene.add.graphics();
+      drawSecondaryPaperButton(ownedG, GAME_WIDTH / 2, ownedY + 6, 168, 24, { accent: STORYBOOK_UI.paperDark });
+      ownedG.setAlpha(0.82);
+      root.add(ownedG);
+    }
     root.add(this.text(GAME_WIDTH / 2, ownedY + 6, `Owned  記憶片 ${state.stats.memoryFragmentsCollected}`, 10, STORYBOOK_UI.textLight, true));
 
     const remaining = state.levelUpRerollsRemaining;
@@ -526,14 +538,17 @@ export class Overlays {
     const titleText = cleared ? '夜明け' : '夜に飲まれた';
     const titleSize = cleared ? 30 : 24;
     const titleColor = cleared ? STORYBOOK_UI.textDark : STORYBOOK_UI.textDark;
-    const resultTitle = this.text(pageX, 88, titleText, titleSize, titleColor, true);
+    if (this.scene.textures.exists(UI_TITLE_BANNER)) {
+      root.add(this.scene.add.image(pageX, 90, UI_TITLE_BANNER).setDisplaySize(256, 92).setAlpha(0.92));
+    }
+    const resultTitle = this.text(pageX, 86, titleText, titleSize, titleColor, true);
     resultTitle.setScale(0.7).setAlpha(0);
     root.add(resultTitle);
     this.scene.tweens.add({ targets: resultTitle, scale: 1, alpha: 1, duration: 400, delay: 100, ease: 'Back.easeOut' });
 
-    root.add(this.text(pageX, 120, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.textSoft, true));
+    root.add(this.text(pageX, 122, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.textSoft, true));
 
-    const sealContainer = drawRankSeal(this.scene, pageX + pageW / 2 - 42, 106, rank, { radius: 32, depth: D + 2 });
+    const sealContainer = drawRankSeal(this.scene, pageX + pageW / 2 - 54, 108, rank, { radius: 40, depth: D + 2 });
     sealContainer.setScale(0).setAlpha(0);
     root.add(sealContainer);
     this.scene.tweens.add({ targets: sealContainer, scale: 1, alpha: 1, duration: 380, delay: 300, ease: 'Back.easeOut' });
@@ -869,7 +884,12 @@ export class Overlays {
   ): Phaser.GameObjects.Container {
     const c = this.scene.add.container(x, y);
     const g = this.scene.add.graphics();
-    drawRewardIconCard(g, 0, 0, Math.min(width, height));
+    if (this.scene.textures.exists(UI_SMALL_CARD)) {
+      c.add(this.scene.add.image(0, 0, UI_SMALL_CARD).setDisplaySize(width + 18, height + 20).setAlpha(0.94));
+      g.lineStyle(1, accent, 0.44).strokeRoundedRect(-width / 2 + 7, -height / 2 + 7, width - 14, height - 14, 6);
+    } else {
+      drawRewardIconCard(g, 0, 0, Math.min(width, height));
+    }
     g.fillStyle(accent, 0.11).fillRect(-width / 2 + 6, height / 2 - 20, width - 12, 14);
     g.fillStyle(accent, 0.16).fillCircle(0, -18, 10);
     g.lineStyle(1, accent, 0.48).strokeCircle(0, -18, 14);
@@ -964,7 +984,14 @@ export class Overlays {
   ): Phaser.GameObjects.Container {
     const btn = this.scene.add.container(x, y);
     const g = this.scene.add.graphics();
-    drawPrimaryPaperCta(g, 0, 0, width, height);
+    if (this.scene.textures.exists(UI_CTA_BUTTON)) {
+      btn.add(this.scene.add.image(0, 0, UI_CTA_BUTTON).setDisplaySize(width + 26, height + 18));
+      if (this.scene.textures.exists(UI_WAX_SEAL)) {
+        btn.add(this.scene.add.image(width / 2 - 28, -height / 2 + 17, UI_WAX_SEAL).setDisplaySize(28, 28).setAlpha(0.88));
+      }
+    } else {
+      drawPrimaryPaperCta(g, 0, 0, width, height);
+    }
     btn.add(g);
     const hit = this.scene.add.rectangle(0, 0, width, height, 0x000000, 0.001).setInteractive({ useHandCursor: true });
     attachPressFeedback(this.scene, hit, btn, { x, y, width, height, accent: STORYBOOK_UI.warmAmber, depth: D + 10, strong: true, shake: true });

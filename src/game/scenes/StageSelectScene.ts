@@ -517,23 +517,55 @@ export class StageSelectScene extends Phaser.Scene {
     root.add(this.text(58, y + 26, `同行: ${vm.selectedLine}`, 10, STORYBOOK_UI.goldLight, true).setOrigin(0, 0.5));
     root.add(this.text(58, y + 42, `${effectLine} / ${pairLine}`, 9, STORYBOOK_UI.textMuted).setOrigin(0, 0.5));
 
-    const none = this.button(62, y + 70, 54, 28, 'なし', () => {
+    const none = this.companionChip(62, y + 70, 54, 'なし', !profile.selectedSubCharacterId, () => {
       selectSubCharacter(undefined, main.id);
       this.render();
-    }, !profile.selectedSubCharacterId);
+    });
     root.add(none);
 
     vm.options.slice(0, 4).forEach((option, index) => {
       const x = 124 + index * 66;
       const label = option.enabled ? option.name : '準備中';
-      const btn = this.button(x, y + 70, 58, 28, label, () => {
+      const btn = this.companionChip(x, y + 70, 58, label, option.selected, () => {
         if (!option.enabled) return;
         selectSubCharacter(option.characterId, main.id);
         this.render();
-      }, !option.enabled || option.selected);
-      btn.setAlpha(option.enabled ? 1 : 0.45);
+      }, !option.enabled);
       root.add(btn);
     });
+  }
+
+  private companionChip(
+    x: number,
+    y: number,
+    width: number,
+    label: string,
+    selected: boolean,
+    onClick: () => void,
+    disabled = false,
+  ): Phaser.GameObjects.Container {
+    const c = this.add.container(x, y);
+    const fill = this.add.graphics();
+    drawPremiumPaperCard(fill, 0, 0, width, 30, {
+      accent: selected ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperDark,
+      paper: selected ? 0xeadbb8 : 0x28243b,
+      selected,
+      muted: disabled,
+      shadowAlpha: 0.16,
+    });
+    fill.fillStyle(selected ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperLight, selected ? 0.34 : 0.12).fillCircle(-width / 2 + 12, 0, 5);
+    const hit = this.add.rectangle(0, 0, width, 30, 0x000000, 0.001).setInteractive({ useHandCursor: !disabled });
+    if (!disabled) {
+      attachPressFeedback(this, hit, c, { x, y, width, height: 30, accent: selected ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperDark, depth: 1000 });
+    }
+    hit.on('pointerdown', () => {
+      if (disabled) return;
+      getAudioManager(this).playSe('ui_select', { volume: 0.34 });
+      onClick();
+    });
+    c.add([fill, this.text(5, 0, label, 10, selected ? STORYBOOK_UI.textDark : STORYBOOK_UI.textLight, true), hit]);
+    c.setAlpha(disabled ? 0.52 : 1);
+    return c;
   }
 
   private compactSubEffectLine(value: string): string {

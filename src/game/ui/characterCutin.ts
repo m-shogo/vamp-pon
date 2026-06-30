@@ -202,19 +202,20 @@ function addKokuyouCopy(scene: Phaser.Scene, root: Phaser.GameObjects.Container,
     wordWrap: { width: 220 },
   });
 
-  const ctaBack = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 122, 260, 42, 0x090713, 0.84);
-  ctaBack.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.66);
-  const ctaIcon = scene.add.circle(GAME_WIDTH / 2 - 70, GAME_HEIGHT - 122, 10, STORYBOOK_UI.lanternCore, 0.2).setBlendMode('ADD');
-  ctaIcon.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.68);
-  const cta = scene.add.text(GAME_WIDTH / 2 + 20, GAME_HEIGHT - 122, 'タップで発動', {
+  const ctaBack = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 122, 292, 46, 0x090713, 0.9);
+  ctaBack.setStrokeStyle(2, STORYBOOK_UI.dustyRose, 0.72);
+  const ctaGlow = scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT - 122, 286, 8, STORYBOOK_UI.dustyRose, 0.16).setBlendMode('ADD');
+  const ctaIcon = scene.add.circle(GAME_WIDTH / 2 - 86, GAME_HEIGHT - 122, 11, STORYBOOK_UI.lanternCore, 0.22).setBlendMode('ADD');
+  ctaIcon.setStrokeStyle(1, STORYBOOK_UI.warmAmber, 0.78);
+  const cta = scene.add.text(GAME_WIDTH / 2 + 18, GAME_HEIGHT - 122, '黒曜化を発動', {
     fontFamily: FONT,
-    fontSize: '13px',
+    fontSize: '14px',
     color: '#f4c46a',
     fontStyle: 'bold',
     resolution: 2,
   }).setOrigin(0.5);
 
-  root.add([topPlate, topText, titleBack, title, subtitle, formText, ctaBack, ctaIcon, cta]);
+  root.add([topPlate, topText, titleBack, title, subtitle, formText, ctaBack, ctaGlow, ctaIcon, cta]);
 }
 
 export function resolveCutinCopy(mode: CharacterCutinMode, characterId: string): CutinCopy {

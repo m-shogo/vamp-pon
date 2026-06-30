@@ -158,21 +158,25 @@ function addRarityTab(
   layout: 'horizontal' | 'vertical',
 ): void {
   const label = rarity === 'rare' ? 'Rare' : rarity === 'good' ? 'Good' : 'Normal';
-  const tabColor = rarity === 'rare' ? STORYBOOK_UI.dustyRose : rarity === 'good' ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.mutedTeal;
+  const tabColor = rarity === 'rare' ? STORYBOOK_UI.deepNight : rarity === 'good' ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.mutedTeal;
   const tabBg = scene.add.graphics();
-  const tabW = Math.min(width - 10, layout === 'horizontal' ? 62 : 72);
-  const tabH = layout === 'horizontal' ? 20 : 24;
+  const tabW = Math.min(width - 10, rarity === 'rare' && layout === 'vertical' ? 88 : layout === 'horizontal' ? 62 : 72);
+  const tabH = rarity === 'rare' && layout === 'vertical' ? 28 : layout === 'horizontal' ? 20 : 24;
   const tabX = layout === 'horizontal' ? -width / 2 + 54 : 0;
-  const tabY = -height / 2 + (layout === 'horizontal' ? 8 : -12);
+  const tabY = -height / 2 + (layout === 'horizontal' ? 8 : rarity === 'rare' ? -14 : -12);
   tabBg.fillStyle(STORYBOOK_UI.inkBlack, 0.24).fillRect(tabX - tabW / 2 + 2, tabY + 2, tabW, tabH);
   tabBg.fillStyle(tabColor, 0.92).fillRect(tabX - tabW / 2, tabY, tabW, tabH);
-  tabBg.lineStyle(1, STORYBOOK_UI.paperEdge, 0.62).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
-  tabBg.lineStyle(1, STORYBOOK_UI.paperLight, 0.18).lineBetween(tabX - tabW / 2 + 6, tabY + 4, tabX + tabW / 2 - 6, tabY + 4);
+  tabBg.lineStyle(rarity === 'rare' ? 2 : 1, rarity === 'rare' ? STORYBOOK_UI.goldLight : STORYBOOK_UI.paperEdge, rarity === 'rare' ? 0.88 : 0.62).strokeRect(tabX - tabW / 2, tabY, tabW, tabH);
+  tabBg.lineStyle(1, rarity === 'rare' ? STORYBOOK_UI.warmAmber : STORYBOOK_UI.paperLight, rarity === 'rare' ? 0.42 : 0.18).lineBetween(tabX - tabW / 2 + 6, tabY + 4, tabX + tabW / 2 - 6, tabY + 4);
+  if (rarity === 'rare') {
+    tabBg.fillStyle(STORYBOOK_UI.goldLight, 0.22).fillTriangle(tabX - tabW / 2, tabY + tabH, tabX - tabW / 2 - 9, tabY + tabH - 8, tabX - tabW / 2, tabY + tabH - 16);
+    tabBg.fillTriangle(tabX + tabW / 2, tabY + tabH, tabX + tabW / 2 + 9, tabY + tabH - 8, tabX + tabW / 2, tabY + tabH - 16);
+  }
   card.add(tabBg);
   const tab = scene.add.text(tabX, tabY + tabH / 2, label, {
     fontFamily: STORYBOOK_TITLE_FONT,
-    fontSize: layout === 'horizontal' ? '10px' : '11px',
-    color: '#fff8e7',
+    fontSize: rarity === 'rare' && layout === 'vertical' ? '13px' : layout === 'horizontal' ? '10px' : '11px',
+    color: rarity === 'rare' ? '#ffe7ae' : '#fff8e7',
     fontStyle: 'bold',
     resolution: 2,
   }).setOrigin(0.5);
