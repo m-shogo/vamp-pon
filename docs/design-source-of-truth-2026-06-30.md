@@ -6,10 +6,11 @@ Codex / Claude Code must read this file before any design-related work.
 
 1. Title / term lock
 2. Current visual targets
-3. Character reference
-4. Opponent reference
-5. Screen / UI design reference
-6. Unity verification screenshots
+3. AI image greenback transparency rule
+4. Character reference
+5. Opponent reference
+6. Screen / UI design reference
+7. Unity verification screenshots
 
 ## Title / term lock
 
@@ -39,6 +40,25 @@ Current key images:
 docs/design-targets/generated/top-final.png
 docs/design-targets/generated/kokuyou-cutin-final.png
 ```
+
+## AI image greenback transparency rule
+
+Use:
+
+```txt
+docs/ai-image-greenback-transparency-rule-2026-06-30.md
+```
+
+Current default:
+
+```txt
+solid chroma key green background
+then remove green background
+then export transparent PNG
+then inspect alpha and edge fringe
+```
+
+Do not rely on direct transparent background generation for new asset candidates.
 
 ## Character reference
 
