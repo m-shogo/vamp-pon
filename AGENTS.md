@@ -38,6 +38,20 @@ Do not treat Unity U1/U2/U3 procedural placeholders as final design. Do not use 
 
 Character climax art and Kokuyou art are full-screen art / full-screen cut-ins, and must also be treated as Collection/archive art candidates.
 
+## Unity asset creation rule
+
+Unity asset work is not a simple migration of Web / Phaser assets.
+
+- Web/prototype assets are reference and comparison baselines.
+- Unity runtime candidates must be newly created or finished for Unity use.
+- Do not copy Web PNGs into Unity and call them production assets.
+- Do not approve output that only matches old Web assets but is weak at Unity gameplay size.
+- Do not paste text-baked screenshots or completed screen images as Unity runtime UI.
+- Consider PPU, scale, pivot, sorting layer, alpha, bounds, atlas/prefab use, and 390x844 / 360x800 / 430x932 readability.
+- If an output is just a Web/prototype copy or not suitable for Unity gameplay readability, revise it before approval.
+
+Read `docs/image-generation-production-flow-2026-06-30.md` for the full rule.
+
 ## AI image production flow
 
 For AI image generation, transparency processing, QA, and Unity handoff, read:
