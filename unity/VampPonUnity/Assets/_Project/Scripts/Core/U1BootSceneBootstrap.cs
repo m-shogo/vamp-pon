@@ -23,6 +23,7 @@ namespace VampPon.UnitySpike.Core
         private static void CreateBootCamera()
         {
             var cameraObject = new GameObject("MainCamera");
+            cameraObject.transform.position = new Vector3(0f, 0f, -10f);
             var camera = cameraObject.AddComponent<Camera>();
             camera.orthographic = true;
             camera.orthographicSize = 5f;

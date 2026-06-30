@@ -32,6 +32,7 @@ namespace VampPon.UnitySpike.Runtime
         private static void CreateCamera()
         {
             var cameraObject = new GameObject("MainCamera");
+            cameraObject.transform.position = new Vector3(0f, 0f, -10f);
             var camera = cameraObject.AddComponent<Camera>();
             camera.orthographic = true;
             camera.orthographicSize = 5.4f;
@@ -89,13 +90,14 @@ namespace VampPon.UnitySpike.Runtime
 
         private void CreateEnemy()
         {
-            var enemy = new GameObject("OmbuPlaceholder", typeof(SpriteRenderer), typeof(EnemyPlaceholder));
+            var enemy = new GameObject("OmbuPlaceholder", typeof(SpriteRenderer));
             enemy.transform.SetParent(enemyRoot);
-            enemy.transform.position = new Vector3(1.15f, 0.7f, 0f);
-            enemy.transform.localScale = Vector3.one * 0.95f;
+            enemy.transform.position = new Vector3(1.35f, -0.35f, 0f);
+            enemy.transform.localScale = Vector3.one * 1.15f;
             var renderer = enemy.GetComponent<SpriteRenderer>();
-            renderer.sprite = ProceduralSpriteFactory.CreateBlobSprite(88, new Color(0.13f, 0.1f, 0.15f), new Color(0.78f, 0.47f, 0.18f));
+            renderer.sprite = ProceduralSpriteFactory.CreateBlobSprite(88, new Color(0.36f, 0.23f, 0.36f), new Color(1f, 0.68f, 0.25f));
             renderer.sortingOrder = 15;
+            enemy.AddComponent<EnemyPlaceholder>();
         }
 
         private void CreateExpFragment()
@@ -130,7 +132,7 @@ namespace VampPon.UnitySpike.Runtime
             hudRect.offsetMax = Vector2.zero;
 
             CreateHudPlate(hudRoot.transform, "TopHudPlaceholder", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(326f, 46f), "Lv 1   00:00   EXP");
-            CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(300f, 54f), "武器 placeholder");
+            CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(300f, 54f), "weapon placeholder");
         }
 
         private static void CreateHudPlate(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Vector2 anchoredPosition, Vector2 size, string text)
