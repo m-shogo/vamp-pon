@@ -1,8 +1,10 @@
-# Unity Repo Layout and LFS Guide
+# Unity Repo Layout and Git Asset Guide
 
-Unityへ進む時に、repoを壊さないための配置・Git・LFS方針。
+Unityへ進む時に、repoを壊さないための配置・Git・バイナリ管理方針。
 
-Unity projectはファイル数が多く、LibraryやTempなど巨大な生成物も出る。何も決めずに入れると、repoが重くなり、Phaser側の作業も邪魔する。
+この文書は 2026-06-30 時点のU1方針へ更新済み。
+
+---
 
 ## Core Rule
 
@@ -10,33 +12,11 @@ Unity projectを入れる前に、必ず配置とGit方針を決める。
 
 いきなりUnity project丸ごとcommitしない。
 
-## Recommended Options
+---
 
-### Option A: Separate Unity Repo
+## Current Decision
 
-```txt
-vamp-pon        = Phaser / docs / source of truth
-vamp-pon-unity  = Unity demo project
-```
-
-Pros:
-
-- Phaser repoを重くしない
-- Unity生成物の影響が少ない
-- Git LFSやUnity CIを別管理できる
-
-Cons:
-
-- docs/assets/dataの同期が必要
-- repoが2つになる
-
-Best if:
-
-- Unity本格移行がまだ確定していない
-- 30秒デモだけ作る
-- Phaser作業を止めたくない
-
-### Option B: Monorepo With Unity Subfolder
+U1では、このrepo内のサブフォルダへUnity projectを置く。
 
 ```txt
 vamp-pon/
@@ -44,47 +24,35 @@ vamp-pon/
   public/
   docs/
   unity/
-    LanternLedgerUnityDemo/
+    VampPonUnity/
       Assets/
       Packages/
       ProjectSettings/
 ```
 
-Pros:
+理由:
 
-- docsとUnity demoが同じrepoにある
-- Phaserからの移行差分が追いやすい
-- AI agentが参照しやすい
+- Web版のdocs/assets/dataと対応を追いやすい
+- U1は小さいtechnical spikeなので、別repo同期コストを増やさない
+- `.gitignore` と `.gitattributes` を先に整備済み
+- Unityが勝たなかった場合も、`unity/VampPonUnity/` を閉じれば撤退しやすい
 
-Cons:
+注意:
 
-- repoが重くなりやすい
-- .gitignore/LFS設定を失敗すると危険
-- Phaser PRとUnity PRが混ざりやすい
+- Unity本格化後、repo肥大化やLFS運用が重くなった場合はUnity専用repo分離を再検討する
+- U1では大量素材を持ち込まない
+- U1ではAddressablesやCIはまだ入れない
 
-Best if:
-
-- Unity移行がかなり濃厚
-- Unity demoもこのrepoで管理したい
-- Git LFSをきちんと管理できる
-
-### Recommendation
-
-最初の30秒Unity demoは、原則 **Option A: separate Unity repo** が安全。
-
-ただし、このrepoにUnity関連docsとexport checklistを残す。
-
-Unity本格移行が決まったら、Option BまたはUnity専用repoへ移行する。
+---
 
 ## Unity Files To Commit
 
 Commit:
 
 ```txt
-Assets/
-Packages/
-ProjectSettings/
-UserSettings? usually no
+unity/VampPonUnity/Assets/
+unity/VampPonUnity/Packages/
+unity/VampPonUnity/ProjectSettings/
 ```
 
 Usually commit:
@@ -97,9 +65,10 @@ Assets/**/*.cs
 Assets/**/*.prefab
 Assets/**/*.unity
 Assets/**/*.asset
-Assets/**/*.png if runtime asset
 Assets/**/*.mat
 Assets/**/*.controller
+Assets/**/*.meta
+Assets/**/*.png if runtime asset and small enough
 ```
 
 Do not commit:
@@ -112,6 +81,7 @@ Build/
 Builds/
 Logs/
 MemoryCaptures/
+UserSettings/
 .vs/
 .idea/
 .DS_Store
@@ -119,48 +89,76 @@ MemoryCaptures/
 *.sln
 ```
 
-## Unity .gitignore Draft
+---
 
-If Unity project is added, use a Unity-specific `.gitignore`.
+## Existing .gitignore Policy
+
+Repo root `.gitignore` already excludes Unity generated files under `unity/**`.
+
+Important excluded examples:
 
 ```gitignore
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-[Uu]ser[Ss]ettings/
-[Mm]emoryCaptures/
-
-*.csproj
-*.sln
-*.suo
-*.tmp
-*.user
-*.userprefs
-*.pidb
-*.booproj
-*.svd
-*.pdb
-*.mdb
-*.opendb
-*.VC.db
-
-.DS_Store
-Thumbs.db
-.vs/
-.idea/
+unity/**/[Ll]ibrary/
+unity/**/[Tt]emp/
+unity/**/[Oo]bj/
+unity/**/[Bb]uild/
+unity/**/[Bb]uilds/
+unity/**/[Ll]ogs/
+unity/**/[Uu]ser[Ss]ettings/
+unity/**/*.csproj
+unity/**/*.sln
+unity/**/.vs/
 ```
+
+U1 after project creation:
+
+```txt
+git status --short
+```
+
+must not show generated folders/files above.
+
+---
+
+## .gitattributes Policy
+
+Repo root `.gitattributes` is intentionally conservative.
+
+Current policy:
+
+- Unity YAML/text assets use LF normalization
+- image/audio/model/font files are marked binary
+- Git LFS is not enabled yet
+
+Reason:
+
+- U1 should stay small
+- enabling LFS before confirming hosting/storage/workflow can create friction
+- small runtime PNGs can stay as normal git binaries for now
+
+If Unity production becomes the primary path, revisit LFS before importing large assets.
+
+---
 
 ## Git LFS Policy
 
-Use Git LFS for large binary assets if Unity project enters repo.
-
-Likely LFS candidates:
+U1:
 
 ```txt
-*.png
+Do not enable new LFS rules yet.
+```
+
+Reconsider LFS only when one of these happens:
+
+- large PSD / Aseprite masters enter Unity runtime workflow
+- large audio files enter repo
+- generated screenshots/concepts start bloating history
+- mobile build assets become too large for normal git workflow
+- Unity project becomes the production source, not just spike
+
+Likely future LFS candidates:
+
+```txt
 *.psd
 *.aseprite
 *.wav
@@ -170,31 +168,12 @@ Likely LFS candidates:
 *.blend
 *.mp4
 *.mov
-*.unitypackage
+large *.png only if needed
 ```
 
-But be careful:
+Before adding LFS, confirm hosting/storage limits and team workflow.
 
-- small PNG icons do not always need LFS
-- design target screenshots may stay in docs but can bloat repo
-- do not add huge generated concepts as runtime assets
-
-Example `.gitattributes` candidate:
-
-```gitattributes
-*.png filter=lfs diff=lfs merge=lfs -text
-*.psd filter=lfs diff=lfs merge=lfs -text
-*.aseprite filter=lfs diff=lfs merge=lfs -text
-*.wav filter=lfs diff=lfs merge=lfs -text
-*.ogg filter=lfs diff=lfs merge=lfs -text
-*.mp3 filter=lfs diff=lfs merge=lfs -text
-*.fbx filter=lfs diff=lfs merge=lfs -text
-*.blend filter=lfs diff=lfs merge=lfs -text
-*.mp4 filter=lfs diff=lfs merge=lfs -text
-*.mov filter=lfs diff=lfs merge=lfs -text
-```
-
-Before adding LFS, confirm hosting/storage limits.
+---
 
 ## Asset Import Rules
 
@@ -207,80 +186,70 @@ Do not import:
 - duplicate design concepts
 - unused prototypes
 - 4K concept art
+- old `public/assets/sprites/`
 
 Import:
 
-- clean Yui sprite layer
-- clean enemy sprites
-- UI frame pieces
-- icons
-- effect textures
-- background pieces needed for demo
+- clean Yui sprite layer/frame subset
+- clean enemy sample sprites
+- UI frame pieces if needed
+- icons needed for U1/U2
+- effect textures needed for U1/U2
+- one background piece needed for demo
+
+---
 
 ## Folder Boundary
 
-If Unity project is inside this repo:
+Unity project path:
 
 ```txt
-unity/LanternLedgerUnityDemo/
+unity/VampPonUnity/
 ```
 
 Do not place Unity files directly under repo root.
 
-Do not mix Unity runtime assets with Phaser `public/assets` unless explicitly exporting/importing.
+Do not mix Unity runtime assets with Phaser `public/assets` unless explicitly copying/importing.
 
-## PR Rules For Unity Project
+Unity must not directly reference Web `public/` at runtime.
 
-### Good PRs
+---
 
-```txt
-PR U1: Unity project skeleton only
-PR U2: BattleDemo scene + placeholders
-PR U3: Object pooling + enemy/EXP demo
-PR U4: UI prefabs
-```
+## PR / Commit Rules For Unity Project
 
-### Bad PRs
+Good small commits:
 
 ```txt
-Unity project + all art + all data + all save + ads + build settings in one PR
+U1: Unity project skeleton only
+U1: Boot/Stage1 scene placeholders
+U1: SafeArea + 390x844 setup
+U1: Yui/Ombu/EXP placeholder demo
+U2: movement + enemy spawn
+U2: damage/death + pooling
 ```
 
-## Required Before First Unity Commit
-
-Checklist:
-
-- [ ] Decide separate repo or subfolder
-- [ ] Add Unity .gitignore
-- [ ] Decide Git LFS policy
-- [ ] Add README for Unity project
-- [ ] Confirm no Library/Temp committed
-- [ ] Confirm no giant concept screenshots committed as runtime assets
-- [ ] Confirm TextMeshPro text will be runtime text
-
-## If Using Separate Repo
-
-Keep this repo as source of truth for:
-
-- design docs
-- Phaser implementation
-- data map
-- asset pipeline
-- Unity runbook
-
-Create a handoff document listing:
+Bad commits:
 
 ```txt
-Phaser repo commit SHA
-Design target paths
-Runtime asset candidates
-Data files to port
-Unity repo commit SHA
-Open questions
+Unity project + all assets + all systems at once
+Unity setup mixed with Phaser UI changes
+Large generated screenshots added without review
+Library/ or Logs/ committed
+public/assets/sprites/ copied into Unity
 ```
 
-## Final Rule
+---
 
-Unity project structure must make the next PR easier, not heavier.
+## Exit / Rollback Plan
 
-If Unity files make Phaser development harder, keep Unity separate until migration is proven.
+U1 should be reversible.
+
+If Unity is not better, remove or stop updating:
+
+```txt
+unity/VampPonUnity/
+```
+
+Keep docs as research record.
+
+No Web/Phaser runtime source should be blocked by U1.
