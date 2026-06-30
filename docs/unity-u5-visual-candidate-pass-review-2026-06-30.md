@@ -205,6 +205,18 @@ U5.1またはU6でやること:
 - LevelUpカード本文の縦余白調整
 - 実機またはdevice simulatorでSafe Area確認
 
+## U5.1 Follow-Up
+
+U5.1で品質ゲートを追加。
+
+- asset intake gate: `docs/unity-asset-intake-gate-2026-06-30.md`
+- sprite import policy: `docs/unity-sprite-import-policy-2026-06-30.md`
+- candidate manifest: `docs/design-targets/generated/unity-u5/u5-visual-candidate-manifest.json`
+- asset intake checker: `pnpm unity:asset-intake:check`
+- meta GUID checker: `pnpm unity:meta:check`
+
+U5素材8点は引き続き全て `candidate`。Production approved素材は0。
+
 ## Git
 
 - commit hash: final completion reportに記載

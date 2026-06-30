@@ -22,6 +22,7 @@ namespace VampPon.UnitySpike.Runtime
         private Transform overlayRoot;
         private Transform yui;
         private TextMeshProUGUI topHudLabel;
+        private static TMP_FontAsset cachedJapaneseFont;
 
         private void Awake()
         {
@@ -136,7 +137,7 @@ namespace VampPon.UnitySpike.Runtime
             var controllerObject = new GameObject("U2BattleController", typeof(U2BattleController));
             controllerObject.transform.SetParent(poolRoot, false);
             var controller = controllerObject.GetComponent<U2BattleController>();
-            controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds);
+            controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, U5VisualAssetLibrary.LoadBattleVisualSet());
 
             CreateLevelUpDemo(controller);
         }
@@ -155,21 +156,36 @@ namespace VampPon.UnitySpike.Runtime
 
         private static TMP_FontAsset LoadJapaneseFont()
         {
+            if (cachedJapaneseFont != null)
+            {
+                return cachedJapaneseFont;
+            }
+
             var font = Resources.Load<Font>("ZenMaruGothic-Medium");
             if (font != null)
             {
                 var runtimeFont = TMP_FontAsset.CreateFontAsset(font, 36, 4, GlyphRenderMode.SDFAA, 1024, 1024);
                 runtimeFont.name = "ZenMaruGothic-Medium Runtime SDF";
-                return runtimeFont;
+                cachedJapaneseFont = runtimeFont;
+                return cachedJapaneseFont;
             }
 
             var loaded = Resources.Load<TMP_FontAsset>("Fonts & Materials/ZenMaruGothic-Medium SDF");
-            if (IsUsableFontAsset(loaded)) return loaded;
+            if (IsUsableFontAsset(loaded))
+            {
+                cachedJapaneseFont = loaded;
+                return cachedJapaneseFont;
+            }
 
             loaded = Resources.Load<TMP_FontAsset>("ZenMaruGothic-Medium SDF");
-            if (IsUsableFontAsset(loaded)) return loaded;
+            if (IsUsableFontAsset(loaded))
+            {
+                cachedJapaneseFont = loaded;
+                return cachedJapaneseFont;
+            }
 
-            return TMP_Settings.defaultFontAsset;
+            cachedJapaneseFont = TMP_Settings.defaultFontAsset;
+            return cachedJapaneseFont;
         }
 
         private static bool IsUsableFontAsset(TMP_FontAsset fontAsset)

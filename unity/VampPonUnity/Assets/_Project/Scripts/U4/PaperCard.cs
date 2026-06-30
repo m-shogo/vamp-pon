@@ -107,16 +107,16 @@ namespace VampPon.UnitySpike.U4
             iconFrame.anchorMin = new Vector2(0.5f, 1f);
             iconFrame.anchorMax = new Vector2(0.5f, 1f);
             iconFrame.pivot = new Vector2(0.5f, 1f);
-            iconFrame.anchoredPosition = new Vector2(0f, -10f);
+            iconFrame.anchoredPosition = new Vector2(0f, -8f);
 
             card.typeLabel = CreateLabel(contentArea.transform, choice.TypeLabelJa, 11f, TypeColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -54f), new Vector2(width - 24f, 16f), font);
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -50f), new Vector2(width - 24f, 14f), font);
 
             card.nameLabel = CreateLabel(contentArea.transform, choice.NameJa, 17f, NameColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -72f), new Vector2(width - 24f, 24f), font);
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -66f), new Vector2(width - 24f, 22f), font);
 
-            card.descLabel = CreateLabel(contentArea.transform, choice.DescriptionJa, 12f, DescColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -100f), new Vector2(width - 24f, 48f), font);
+            card.descLabel = CreateLabel(contentArea.transform, choice.DescriptionJa, 11f, DescColor,
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -92f), new Vector2(width - 24f, 60f), font);
             if (card.descLabel != null)
             {
                 card.descLabel.textWrappingMode = TextWrappingModes.Normal;

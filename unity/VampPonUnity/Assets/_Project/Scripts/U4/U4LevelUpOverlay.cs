@@ -93,7 +93,7 @@ namespace VampPon.UnitySpike.U4
             subRect.anchorMin = new Vector2(0.5f, 1f);
             subRect.anchorMax = new Vector2(0.5f, 1f);
             subRect.pivot = new Vector2(0.5f, 1f);
-            subRect.anchoredPosition = new Vector2(0f, -50f);
+            subRect.anchoredPosition = new Vector2(0f, -54f);
             subRect.sizeDelta = new Vector2(280f, 20f);
             var subTmp = subtitle.GetComponent<TextMeshProUGUI>();
             subTmp.text = "ひとつ選んでください";
@@ -107,7 +107,7 @@ namespace VampPon.UnitySpike.U4
             overlay.cardContainer.anchorMin = new Vector2(0.5f, 0.5f);
             overlay.cardContainer.anchorMax = new Vector2(0.5f, 0.5f);
             overlay.cardContainer.pivot = new Vector2(0.5f, 0.5f);
-            overlay.cardContainer.anchoredPosition = new Vector2(0f, 10f);
+            overlay.cardContainer.anchoredPosition = new Vector2(0f, -18f);
             overlay.cardContainer.sizeDelta = new Vector2(340f, 400f);
 
             root.SetActive(false);
@@ -126,8 +126,8 @@ namespace VampPon.UnitySpike.U4
             ClearCards();
 
             var cardWidth = 290f;
-            var cardHeight = 148f;
-            var spacing = 12f;
+            var cardHeight = 156f;
+            var spacing = 10f;
             var totalHeight = choices.Length * cardHeight + (choices.Length - 1) * spacing;
             var startY = totalHeight * 0.5f;
 
