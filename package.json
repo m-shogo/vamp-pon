@@ -21,6 +21,7 @@
     "unity:u13-prefab-flow:check": "node --experimental-strip-types scripts/quality/check-unity-u13-prefab-flow.ts",
     "unity:u14-scene-flow:check": "node --experimental-strip-types scripts/quality/check-unity-u14-scene-flow.ts",
     "unity:u15-contracts:check": "node --experimental-strip-types scripts/quality/check-unity-u15-contracts.ts",
+    "unity:u16-battle-result-hook:check": "node --experimental-strip-types scripts/quality/check-unity-u16-battle-result-hook.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
