@@ -48,6 +48,7 @@ function searchFiles(dir: string, pattern: RegExp): boolean {
     const path = join(entry.parentPath, entry.name);
     if (path.includes('/Editor/')) continue;
     if (path.includes('/U14/')) continue;
+    if (path.includes('/U18/')) continue;
     if (pattern.test(readFileSync(path, 'utf8'))) return true;
   }
   return false;
