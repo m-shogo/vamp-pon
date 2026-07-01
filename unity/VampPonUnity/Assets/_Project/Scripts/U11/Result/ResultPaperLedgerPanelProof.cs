@@ -11,7 +11,9 @@ namespace VampPon.UnitySpike.U11.Result
             Sprite ledgerSprite,
             Sprite rankSealSprite,
             Sprite badgeSprite,
-            TMP_FontAsset font)
+            TMP_FontAsset font,
+            string rankLabel = "A",
+            string memoryCountLabel = "拾った記憶 3")
         {
             var root = new GameObject("ResultPaperLedgerPanelProof", typeof(RectTransform), typeof(ResultPaperLedgerPanelProof));
             root.transform.SetParent(parent, false);
@@ -19,9 +21,9 @@ namespace VampPon.UnitySpike.U11.Result
             Stretch(ledger.GetComponent<RectTransform>());
 
             AddImage(root.transform, "RankSeal", rankSealSprite, new Vector2(104f, 168f), new Vector2(90f, 90f), Color.white);
-            AddLabel(root.transform, "RankLabel", "A", font, 22f, new Color32(245, 205, 154, 255), new Vector2(104f, 168f), new Vector2(56f, 30f));
+            AddLabel(root.transform, "RankLabel", rankLabel, font, 22f, new Color32(245, 205, 154, 255), new Vector2(104f, 168f), new Vector2(56f, 30f));
             AddImage(root.transform, "NewBadge", badgeSprite, new Vector2(-112f, 76f), new Vector2(54f, 54f), Color.white);
-            AddLabel(root.transform, "MemoryCount", "拾った記憶 3", font, 16f, new Color32(44, 31, 26, 255), new Vector2(0f, 118f), new Vector2(180f, 28f));
+            AddLabel(root.transform, "MemoryCount", memoryCountLabel, font, 16f, new Color32(44, 31, 26, 255), new Vector2(0f, 118f), new Vector2(180f, 28f));
             return root.GetComponent<ResultPaperLedgerPanelProof>();
         }
 

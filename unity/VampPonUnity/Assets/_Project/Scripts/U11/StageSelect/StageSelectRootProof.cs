@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using VampPon.UnitySpike.U11.Common;
@@ -8,11 +9,21 @@ namespace VampPon.UnitySpike.U11.StageSelect
     {
         public static StageSelectRootProof Create(Transform parent, StageSelectProofAssets assets, TMP_FontAsset font)
         {
+            return Create(parent, assets, font, StageSelectProofContent.Default, null);
+        }
+
+        public static StageSelectRootProof Create(
+            Transform parent,
+            StageSelectProofAssets assets,
+            TMP_FontAsset font,
+            StageSelectProofContent content,
+            Action<string> onStartProof)
+        {
             var root = new GameObject("StageSelectRootProof", typeof(RectTransform), typeof(StageSelectRootProof));
             root.transform.SetParent(parent, false);
             Stretch(root.GetComponent<RectTransform>());
 
-            AddLabel(root.transform, "StageSelectTitle", "今夜の行き先", font, 22f, new Color32(238, 222, 190, 255), new Vector2(0f, 362f), new Vector2(300f, 40f));
+            AddLabel(root.transform, "StageSelectTitle", content.Title, font, 22f, new Color32(238, 222, 190, 255), new Vector2(0f, 362f), new Vector2(300f, 40f));
 
             var map = StageMapPanelProof.Create(root.transform, assets.MapPanel);
             SetRect(map.GetComponent<RectTransform>(), new Vector2(0f, 62f), new Vector2(322f, 548f));
@@ -24,14 +35,14 @@ namespace VampPon.UnitySpike.U11.StageSelect
             var pos = new[] { new Vector2(-112f, 96f), new Vector2(-28f, 34f), new Vector2(72f, -40f), new Vector2(-44f, -154f), new Vector2(104f, -212f) };
             for (var i = 0; i < pos.Length; i++)
             {
-                var state = i < 3 ? StageRouteNodeProofState.Active : StageRouteNodeProofState.Locked;
+                var state = i < content.NodeStates.Length ? content.NodeStates[i] : StageRouteNodeProofState.Locked;
                 StageRouteNodeProof.Create(map.transform, assets.ActiveNode, assets.LockedNode, state, pos[i], font);
             }
             StageLanternMarkerProof.Create(map.transform, assets.LanternMarker, pos[0]);
 
-            var info = StageInfoPanelProof.Create(root.transform, font);
+            var info = StageInfoPanelProof.Create(root.transform, font, content.SelectedStageName, content.DifficultyLabel, content.StateLabel);
             SetRect(info.GetComponent<RectTransform>(), new Vector2(0f, -286f), new Vector2(318f, 104f));
-            var button = StageStartButtonProof.Create(info.transform, assets.StartButton, font);
+            var button = StageStartButtonProof.Create(info.transform, assets.StartButton, font, onStartProof);
             SetRect(button.GetComponent<RectTransform>(), new Vector2(108f, 0f), new Vector2(112f, 50f));
             return root.GetComponent<StageSelectRootProof>();
         }
@@ -78,5 +89,42 @@ namespace VampPon.UnitySpike.U11.StageSelect
         public Sprite ActiveNode { get; }
         public Sprite LockedNode { get; }
         public Sprite StartButton { get; }
+    }
+
+    public readonly struct StageSelectProofContent
+    {
+        public StageSelectProofContent(
+            string title,
+            string selectedStageName,
+            string difficultyLabel,
+            string stateLabel,
+            StageRouteNodeProofState[] nodeStates)
+        {
+            Title = title;
+            SelectedStageName = selectedStageName;
+            DifficultyLabel = difficultyLabel;
+            StateLabel = stateLabel;
+            NodeStates = nodeStates;
+        }
+
+        public string Title { get; }
+        public string SelectedStageName { get; }
+        public string DifficultyLabel { get; }
+        public string StateLabel { get; }
+        public StageRouteNodeProofState[] NodeStates { get; }
+
+        public static StageSelectProofContent Default => new(
+            "今夜の行き先",
+            "はじまりの路地",
+            "やさしい",
+            "選択中",
+            new[]
+            {
+                StageRouteNodeProofState.Active,
+                StageRouteNodeProofState.Active,
+                StageRouteNodeProofState.Active,
+                StageRouteNodeProofState.Locked,
+                StageRouteNodeProofState.Locked,
+            });
     }
 }

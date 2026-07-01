@@ -6,16 +6,21 @@ namespace VampPon.UnitySpike.U11.StageSelect
 {
     public sealed class StageInfoPanelProof : MonoBehaviour
     {
-        public static StageInfoPanelProof Create(Transform parent, TMP_FontAsset font)
+        public static StageInfoPanelProof Create(
+            Transform parent,
+            TMP_FontAsset font,
+            string stageName = "はじまりの路地",
+            string difficultyLabel = "やさしい",
+            string stateLabel = "選択中")
         {
             var root = new GameObject("StageInfoPanelProof", typeof(RectTransform), typeof(StageInfoPanelProof));
             root.transform.SetParent(parent, false);
             var bg = PaperPanelProof.Create(root.transform, "StageInfoPanelBg", null, new Color32(38, 31, 26, 225));
             Stretch(bg.GetComponent<RectTransform>());
 
-            AddLabel(root.transform, "StageName", "はじまりの路地", font, 18f, new Color32(238, 222, 190, 255), new Vector2(-58f, 24f), new Vector2(190f, 28f));
-            AddLabel(root.transform, "Difficulty", "やさしい", font, 13f, new Color32(205, 182, 143, 255), new Vector2(-98f, -4f), new Vector2(110f, 22f));
-            AddLabel(root.transform, "State", "選択中 / 未解放", font, 11f, new Color32(160, 140, 110, 220), new Vector2(-76f, -28f), new Vector2(160f, 20f));
+            AddLabel(root.transform, "StageName", stageName, font, 18f, new Color32(238, 222, 190, 255), new Vector2(-58f, 24f), new Vector2(190f, 28f));
+            AddLabel(root.transform, "Difficulty", difficultyLabel, font, 13f, new Color32(205, 182, 143, 255), new Vector2(-98f, -4f), new Vector2(110f, 22f));
+            AddLabel(root.transform, "State", stateLabel, font, 11.5f, new Color32(190, 166, 124, 235), new Vector2(-76f, -28f), new Vector2(160f, 20f));
             return root.GetComponent<StageInfoPanelProof>();
         }
 

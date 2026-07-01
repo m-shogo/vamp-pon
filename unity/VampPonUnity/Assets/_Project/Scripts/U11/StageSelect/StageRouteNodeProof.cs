@@ -20,10 +20,14 @@ namespace VampPon.UnitySpike.U11.StageSelect
             Sprite lockedSprite,
             StageRouteNodeProofState state,
             Vector2 pos,
-            TMP_FontAsset font)
+            TMP_FontAsset font,
+            bool showStateLabel = false)
         {
             var sprite = state == StageRouteNodeProofState.Active ? activeSprite : lockedSprite;
-            var node = PaperPanelProof.Create(parent, $"StageRouteNodeProof_{state}", sprite, Color.white);
+            var tint = state == StageRouteNodeProofState.Active
+                ? Color.white
+                : new Color(0.58f, 0.53f, 0.48f, 0.92f);
+            var node = PaperPanelProof.Create(parent, $"StageRouteNodeProof_{state}", sprite, tint);
             var rect = node.GetComponent<RectTransform>();
             rect.anchorMin = new Vector2(0.5f, 0.5f);
             rect.anchorMax = new Vector2(0.5f, 0.5f);
@@ -33,6 +37,11 @@ namespace VampPon.UnitySpike.U11.StageSelect
 
             var proof = node.gameObject.AddComponent<StageRouteNodeProof>();
             proof.State = state;
+            if (!showStateLabel)
+            {
+                return proof;
+            }
+
             var label = state == StageRouteNodeProofState.Active ? "選択中" : "未解放";
             var labelColor = state == StageRouteNodeProofState.Active
                 ? new Color32(248, 232, 200, 230)
