@@ -18,6 +18,7 @@
     "unity:u10-prefab-ready-visual:check": "node --experimental-strip-types scripts/quality/check-unity-u10-prefab-ready-visual.ts",
     "unity:u11-prefab-component-proof:check": "node --experimental-strip-types scripts/quality/check-unity-u11-prefab-component-proof.ts",
     "unity:u12-functional-proof:check": "node --experimental-strip-types scripts/quality/check-unity-u12-functional-proof.ts",
+    "unity:u13-prefab-flow:check": "node --experimental-strip-types scripts/quality/check-unity-u13-prefab-flow.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
