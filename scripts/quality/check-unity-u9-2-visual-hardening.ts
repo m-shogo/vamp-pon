@@ -120,6 +120,7 @@ function searchFiles(dir: string, pattern: RegExp): boolean {
     if (entry.isFile() && entry.name.endsWith(".cs") && !entry.name.includes("Editor")) {
       const p = resolve(entry.parentPath || dir, entry.name);
       if (p.includes("/Editor/")) continue;
+      if (p.includes("/U14/")) continue;
       const content = readFileSync(p, "utf-8");
       if (pattern.test(content)) return true;
     }

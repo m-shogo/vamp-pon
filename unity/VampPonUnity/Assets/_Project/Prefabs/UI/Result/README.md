@@ -8,3 +8,4 @@ U13時点ではformal prefab candidateです。
 - Addressables未使用
 - save / reward反映 / clear-fail本番判定は未接続
 - UI文字はTextMeshProで表示し、画像に焼き込まない
+- U14 Scene Flow proofで使う場合もproof-onlyであり、production approved扱いしない
