@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "createdFor": "Unity U10 Prefab-ready Visual Asset & Proof Pass",
+  "productionApprovedCount": 0,
+  "sourceAlphaReport": "docs/design-targets/generated/unity-u10/reports/u10-alpha-report.json",
+  "runtimeRoot": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates",
+  "proofOnly": true,
+  "formalResultImplementation": false,
+  "formalStageSelectImplementation": false,
+  "kokuyouRuntimeImplemented": false,
+  "addressablesIntroduced": false,
+  "items": [
+    {
+      "id": "result_continue_paper_button",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/result_continue_paper_button-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/result_continue_paper_button-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/result_continue_paper_button.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/result_continue_paper_button-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U10 prefab-ready visual candidate / ResultContinueButton / PaperButton",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 1672,
+        "height": 941
+      },
+      "opaqueBounds": {
+        "x": 69,
+        "y": 266,
+        "width": 1539,
+        "height": 410
+      },
+      "recommendation": "review-adopt",
+      "notes": "Result CTA paper button candidate; TMP label overlays text. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "result_stats_ink_strip",
+      "category": "Result",
+      "screen": "Result",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/result_stats_ink_strip-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/result_stats_ink_strip-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/result_stats_ink_strip.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/result_stats_ink_strip-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U10 prefab-ready visual candidate / ResultStatsLine",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 2039,
+        "height": 771
+      },
+      "opaqueBounds": {
+        "x": 71,
+        "y": 230,
+        "width": 1902,
+        "height": 313
+      },
+      "recommendation": "review-adopt",
+      "notes": "Result stats ink strip candidate; TMP values overlay text. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "stageselect_route_active_node",
+      "category": "StageSelect",
+      "screen": "StageSelect",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/stageselect_route_active_node-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/stageselect_route_active_node-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/stageselect_route_active_node.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/stageselect_route_active_node-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U10 prefab-ready visual candidate / StageRouteNode active",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 112,
+        "y": 115,
+        "width": 1016,
+        "height": 1009
+      },
+      "recommendation": "review-adopt",
+      "notes": "Active route node candidate for Route A proof. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "stageselect_route_locked_node",
+      "category": "StageSelect",
+      "screen": "StageSelect",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/stageselect_route_locked_node-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/stageselect_route_locked_node-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/stageselect_route_locked_node.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/stageselect_route_locked_node-alpha-report.json",
+      "atlasGroup": "UI",
+      "owner": "U10 prefab-ready visual candidate / StageRouteNode locked",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 53,
+        "y": 45,
+        "width": 1144,
+        "height": 1148
+      },
+      "recommendation": "review-adopt",
+      "notes": "Locked route node candidate for future state switching. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "kokuyou_fullscreen_final_candidate_a",
+      "category": "黒耀化 / cut-in",
+      "screen": "FullscreenArt",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/kokuyou_fullscreen_final_candidate_a-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/kokuyou_fullscreen_final_candidate_a-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_a.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/kokuyou_fullscreen_final_candidate_a-alpha-report.json",
+      "atlasGroup": "FullscreenArt",
+      "owner": "U10 prefab-ready visual candidate / FullscreenArtAssetSet future candidate",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 1024,
+        "height": 2021
+      },
+      "opaqueBounds": {
+        "x": 102,
+        "y": 101,
+        "width": 815,
+        "height": 1819
+      },
+      "recommendation": "review-adopt",
+      "notes": "Stronger 黒耀化 full-screen candidate A; padded for safer margins. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "kokuyou_fullscreen_final_candidate_b",
+      "category": "黒耀化 / cut-in",
+      "screen": "FullscreenArt",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/kokuyou_fullscreen_final_candidate_b-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/kokuyou_fullscreen_final_candidate_b-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_b.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/kokuyou_fullscreen_final_candidate_b-alpha-report.json",
+      "atlasGroup": "FullscreenArt",
+      "owner": "U10 prefab-ready visual candidate / FullscreenArtAssetSet future candidate",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 864,
+        "height": 1821
+      },
+      "opaqueBounds": {
+        "x": 11,
+        "y": 13,
+        "width": 841,
+        "height": 1795
+      },
+      "recommendation": "review-adopt",
+      "notes": "Stronger 黒耀化 full-screen candidate B with purple-black vortex. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "levelup_rare_memory_tear_burst",
+      "category": "LevelUp rare",
+      "screen": "LevelUp",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/levelup_rare_memory_tear_burst-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/levelup_rare_memory_tear_burst-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/VFX/levelup_rare_memory_tear_burst.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/levelup_rare_memory_tear_burst-alpha-report.json",
+      "atlasGroup": "VFX",
+      "owner": "U10 prefab-ready visual candidate / LevelUpRareEffect future candidate",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "opaqueBounds": {
+        "x": 139,
+        "y": 120,
+        "width": 975,
+        "height": 983
+      },
+      "recommendation": "review-adopt",
+      "notes": "Rare memory tear burst candidate, weaker than 黒耀化. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    },
+    {
+      "id": "cutin_black_ink_band_final_candidate",
+      "category": "黒耀化 / cut-in",
+      "screen": "Cutin",
+      "productionStatus": "candidate",
+      "runtimeIncluded": true,
+      "sourceGreenbackPath": "docs/design-targets/generated/unity-u10/greenback/cutin_black_ink_band_final_candidate-greenback.png",
+      "alphaOutputPath": "docs/design-targets/generated/unity-u10/alpha/cutin_black_ink_band_final_candidate-greenback-alpha.png",
+      "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/Cutin/cutin_black_ink_band_final_candidate.png",
+      "qaReportPath": "docs/design-targets/generated/unity-u10/reports/cutin_black_ink_band_final_candidate-alpha-report.json",
+      "atlasGroup": "Cutin",
+      "owner": "U10 prefab-ready visual candidate / CutinBand future candidate",
+      "textBakedRuntimeImage": false,
+      "visualArtDirectionCheck": "pending-human-review",
+      "greenSpillRemainingPixels": 0,
+      "edgeTouches": false,
+      "hasAlphaChannel": true,
+      "sourceSize": {
+        "width": 1983,
+        "height": 793
+      },
+      "opaqueBounds": {
+        "x": 20,
+        "y": 164,
+        "width": 1948,
+        "height": 458
+      },
+      "recommendation": "review-adopt",
+      "notes": "Horizontal cut-in band candidate with open center for TMP text. Proof-only candidate. Not production approved.",
+      "greenTintCleanupReportPath": "docs/design-targets/generated/unity-u10/reports/u10-green-tint-cleanup-report.json",
+      "remainingGreenHuePixels": 0
+    }
+  ]
+}

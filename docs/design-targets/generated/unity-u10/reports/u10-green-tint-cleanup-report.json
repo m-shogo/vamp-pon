@@ -1,0 +1,66 @@
+[
+  {
+    "id": "result_continue_paper_button",
+    "removedGreenHuePixels": 125,
+    "neutralizedGreenHuePixels": 3456,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/result_continue_paper_button-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/result_continue_paper_button.png"
+  },
+  {
+    "id": "result_stats_ink_strip",
+    "removedGreenHuePixels": 108,
+    "neutralizedGreenHuePixels": 4452,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/result_stats_ink_strip-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/result_stats_ink_strip.png"
+  },
+  {
+    "id": "stageselect_route_active_node",
+    "removedGreenHuePixels": 64,
+    "neutralizedGreenHuePixels": 1581,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/stageselect_route_active_node-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/stageselect_route_active_node.png"
+  },
+  {
+    "id": "stageselect_route_locked_node",
+    "removedGreenHuePixels": 104,
+    "neutralizedGreenHuePixels": 9662,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/stageselect_route_locked_node-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/stageselect_route_locked_node.png"
+  },
+  {
+    "id": "kokuyou_fullscreen_final_candidate_a",
+    "removedGreenHuePixels": 735,
+    "neutralizedGreenHuePixels": 22877,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/kokuyou_fullscreen_final_candidate_a-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_a.png"
+  },
+  {
+    "id": "kokuyou_fullscreen_final_candidate_b",
+    "removedGreenHuePixels": 443,
+    "neutralizedGreenHuePixels": 17989,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/kokuyou_fullscreen_final_candidate_b-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_b.png"
+  },
+  {
+    "id": "levelup_rare_memory_tear_burst",
+    "removedGreenHuePixels": 791,
+    "neutralizedGreenHuePixels": 35558,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/levelup_rare_memory_tear_burst-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/VFX/levelup_rare_memory_tear_burst.png"
+  },
+  {
+    "id": "cutin_black_ink_band_final_candidate",
+    "removedGreenHuePixels": 450,
+    "neutralizedGreenHuePixels": 13229,
+    "remainingGreenHuePixels": 0,
+    "output": "docs/design-targets/generated/unity-u10/alpha/cutin_black_ink_band_final_candidate-greenback-alpha.png",
+    "runtimePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/Cutin/cutin_black_ink_band_final_candidate.png"
+  }
+]

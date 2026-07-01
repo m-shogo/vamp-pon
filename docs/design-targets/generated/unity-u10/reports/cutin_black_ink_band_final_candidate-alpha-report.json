@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/cutin_black_ink_band_final_candidate-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/cutin_black_ink_band_final_candidate-greenback-alpha.png",
+    "size": {
+      "width": 1983,
+      "height": 793
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 958250,
+    "semiTransparentPixels": 3484,
+    "opaquePixels": 610785,
+    "opaqueBounds": {
+      "x": 20,
+      "y": 164,
+      "width": 1948,
+      "height": 458
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

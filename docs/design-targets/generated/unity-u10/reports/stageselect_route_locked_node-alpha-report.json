@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/stageselect_route_locked_node-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/stageselect_route_locked_node-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 554649,
+    "semiTransparentPixels": 851,
+    "opaquePixels": 1017016,
+    "opaqueBounds": {
+      "x": 53,
+      "y": 45,
+      "width": 1144,
+      "height": 1148
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

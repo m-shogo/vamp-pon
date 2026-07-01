@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/stageselect_route_active_node-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/stageselect_route_active_node-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 806816,
+    "semiTransparentPixels": 590,
+    "opaquePixels": 765110,
+    "opaqueBounds": {
+      "x": 112,
+      "y": 115,
+      "width": 1016,
+      "height": 1009
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

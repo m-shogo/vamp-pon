@@ -198,7 +198,8 @@
     - `pnpm unity:u8-1-asset-intake:check`: passed、productionApproved=0。
     - `pnpm unity:meta:check`: passed、163 unique GUIDs。
     - `pnpm design:review:verify`: passed（7 docs）。
-    - `git diff --check`: 既存meta fileのUnity正規化によるtrailing whitespace以外なし。
+    - `git diff --check`: passed。whitespace errorなし。
+    - Unityによる既存meta file正規化は発生したが、diff check上の問題はなし。
 
 23. U9.2 checker結果
     - `pnpm unity:u9-2-visual-hardening:check`: passed、screenshots=10、sdfFont=true、productionApproved=0。

@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/levelup_rare_memory_tear_burst-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/levelup_rare_memory_tear_burst-greenback-alpha.png",
+    "size": {
+      "width": 1254,
+      "height": 1254
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1148911,
+    "semiTransparentPixels": 7195,
+    "opaquePixels": 416410,
+    "opaqueBounds": {
+      "x": 139,
+      "y": 120,
+      "width": 975,
+      "height": 983
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

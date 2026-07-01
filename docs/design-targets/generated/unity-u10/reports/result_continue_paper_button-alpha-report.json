@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/result_continue_paper_button-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/result_continue_paper_button-greenback-alpha.png",
+    "size": {
+      "width": 1672,
+      "height": 941
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 995200,
+    "semiTransparentPixels": 848,
+    "opaquePixels": 577304,
+    "opaqueBounds": {
+      "x": 69,
+      "y": 266,
+      "width": 1539,
+      "height": 410
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

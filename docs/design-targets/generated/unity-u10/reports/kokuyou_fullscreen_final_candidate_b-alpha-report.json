@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/kokuyou_fullscreen_final_candidate_b-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/kokuyou_fullscreen_final_candidate_b-greenback-alpha.png",
+    "size": {
+      "width": 864,
+      "height": 1821
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 738169,
+    "semiTransparentPixels": 5131,
+    "opaquePixels": 830044,
+    "opaqueBounds": {
+      "x": 11,
+      "y": 13,
+      "width": 841,
+      "height": 1795
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]

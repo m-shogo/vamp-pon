@@ -1,0 +1,29 @@
+[
+  {
+    "source": "docs/design-targets/generated/unity-u10/greenback/result_stats_ink_strip-greenback.png",
+    "output": "docs/design-targets/generated/unity-u10/alpha/result_stats_ink_strip-greenback-alpha.png",
+    "size": {
+      "width": 2039,
+      "height": 771
+    },
+    "keyRgb": [
+      0,
+      255,
+      0
+    ],
+    "tolerance": 72.0,
+    "softEdge": 28.0,
+    "despill": true,
+    "transparentPixels": 1070748,
+    "semiTransparentPixels": 878,
+    "opaquePixels": 500443,
+    "opaqueBounds": {
+      "x": 71,
+      "y": 230,
+      "width": 1902,
+      "height": 313
+    },
+    "greenSpillRemainingPixels": 0,
+    "edgeTouches": false
+  }
+]
