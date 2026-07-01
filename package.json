@@ -14,6 +14,7 @@
     "unity:u8-asset-intake:check": "node --experimental-strip-types scripts/quality/check-unity-u8-asset-intake.ts",
     "unity:u8-1-asset-intake:check": "node --experimental-strip-types scripts/quality/check-unity-u8-1-asset-intake.ts",
     "unity:term-lock:check": "node --experimental-strip-types scripts/quality/check-unity-term-lock.ts",
+    "unity:u9-2-visual-hardening:check": "node --experimental-strip-types scripts/quality/check-unity-u9-2-visual-hardening.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
