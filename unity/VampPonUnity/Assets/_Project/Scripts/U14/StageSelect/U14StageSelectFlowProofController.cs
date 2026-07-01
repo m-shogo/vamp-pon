@@ -2,6 +2,7 @@ using UnityEngine;
 using VampPon.UnitySpike.U13.Flow;
 using VampPon.UnitySpike.U13.StageSelect;
 using VampPon.UnitySpike.U14.Flow;
+using VampPon.UnitySpike.U15.Mappers;
 
 namespace VampPon.UnitySpike.U14.StageSelect
 {
@@ -21,6 +22,8 @@ namespace VampPon.UnitySpike.U14.StageSelect
         {
             LastRequest = new BattleStartRequestProof(stageId, ViewModel.Info.DifficultyLabel, "proof-start");
             Debug.Log($"U14 StageSelect start requested: {LastRequest.SelectedStageId} / {LastRequest.SelectedDifficulty}");
+            var contract = U14ToU15ContractMapper.ToStageStartRequest(LastRequest, ViewModel.Info.SelectedStageTitle);
+            Debug.Log($"U15 contract mapped StageStartRequest: {contract.StageId} / {contract.DifficultyId}");
             router?.GoToBattle(LastRequest);
         }
 

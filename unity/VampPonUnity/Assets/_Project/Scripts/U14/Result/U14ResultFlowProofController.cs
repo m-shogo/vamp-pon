@@ -2,6 +2,7 @@ using UnityEngine;
 using VampPon.UnitySpike.U13.Flow;
 using VampPon.UnitySpike.U13.Result;
 using VampPon.UnitySpike.U14.Flow;
+using VampPon.UnitySpike.U15.Mappers;
 
 namespace VampPon.UnitySpike.U14.Result
 {
@@ -23,6 +24,9 @@ namespace VampPon.UnitySpike.U14.Result
         {
             Debug.Log("U14 Result continue requested");
             U14FlowState.SetResult(Summary ?? new BattleResultSummaryProof());
+            var contract = U14ToU15ContractMapper.ToBattleResultSummary(Summary);
+            var stageSelect = StageSelectPresentationMapper.FromSample(contract);
+            Debug.Log($"U15 presentation mapped StageSelectPresentationModel: {stageSelect.LastResultLabel}");
             router?.GoToStageSelect();
         }
 

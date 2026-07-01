@@ -70,6 +70,8 @@ function searchCs(root: string, pattern: RegExp): boolean {
   for (const entry of readdirSync(root, { withFileTypes: true, recursive: true })) {
     if (!entry.isFile() || !entry.name.endsWith('.cs') || entry.name.includes('Editor')) continue;
     const path = join(entry.parentPath, entry.name);
+    if (path.includes('/Editor/')) continue;
+    if (path.includes('/U14/') || path.includes('/U15/')) continue;
     const text = readFileSync(path, 'utf8');
     if (pattern.test(text)) return true;
   }

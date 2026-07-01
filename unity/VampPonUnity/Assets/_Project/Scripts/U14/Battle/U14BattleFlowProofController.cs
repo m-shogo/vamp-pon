@@ -1,5 +1,6 @@
 using UnityEngine;
 using VampPon.UnitySpike.U14.Flow;
+using VampPon.UnitySpike.U15.Mappers;
 
 namespace VampPon.UnitySpike.U14.Battle
 {
@@ -20,6 +21,10 @@ namespace VampPon.UnitySpike.U14.Battle
         {
             LastSummary = BattleResultSummaryProof.FromRequest(Request);
             Debug.Log($"U14 Battle proof summary created: {LastSummary.StageId}");
+            var contract = U14ToU15ContractMapper.ToBattleResultSummary(LastSummary);
+            var presentation = BattleResultToPresentationMapper.ToResultPresentationModel(contract);
+            Debug.Log($"U15 contract mapped BattleResultSummary: {contract.ClearState} / Rank {contract.Rank} / fragments {contract.Fragments}");
+            Debug.Log($"U15 presentation mapped ResultPresentationModel: {presentation.Title} / Rank {presentation.Rank}");
             return LastSummary;
         }
 
