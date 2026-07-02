@@ -123,6 +123,7 @@ function searchFiles(dir: string, pattern: RegExp): boolean {
       if (p.includes("/U14/")) continue;
       if (p.includes("/U18/")) continue;
       if (p.includes("/U19/")) continue;
+      if (p.includes("/U20/")) continue;
       const content = readFileSync(p, "utf-8");
       if (pattern.test(content)) return true;
     }
