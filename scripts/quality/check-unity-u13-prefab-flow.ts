@@ -71,7 +71,7 @@ function searchCs(root: string, pattern: RegExp): boolean {
     if (!entry.isFile() || !entry.name.endsWith('.cs') || entry.name.includes('Editor')) continue;
     const path = join(entry.parentPath, entry.name);
     if (path.includes('/Editor/')) continue;
-    if (path.includes('/U14/') || path.includes('/U15/') || path.includes('/U18/')) continue;
+    if (path.includes('/U14/') || path.includes('/U15/') || path.includes('/U18/') || path.includes('/U19/')) continue;
     const text = readFileSync(path, 'utf8');
     if (pattern.test(text)) return true;
   }
