@@ -1,0 +1,162 @@
+{
+  "version": "U31-2026-07-03",
+  "generatedAt": "generated-by-editor-batchmode",
+  "linkedApprovalGate": "U30 production approval gate",
+  "productionApproved": false,
+  "environment": "Unity Editor 390x844",
+  "deviceName": "Unity Editor",
+  "platform": "Editor",
+  "buildType": "Editor batchmode",
+  "resolution": "390x844",
+  "targetFps": 60,
+  "actualFps": "NOT_MEASURED",
+  "memory": "NOT_MEASURED",
+  "thermal": "NOT_MEASURED",
+  "audioLatency": "NOT_MEASURED",
+  "hapticStatus": "NOT_MEASURED",
+  "blockerCount": 1,
+  "cautionCount": 2,
+  "notMeasuredCount": 3,
+  "qaScenarioResults": [
+    {
+      "id": "stage-start",
+      "label": "StageSelectからStage1開始",
+      "verdict": "PASS",
+      "evidence": "01-stageselect-before-run-qa.png",
+      "note": "Editor flow evidence only."
+    },
+    {
+      "id": "first-30",
+      "label": "first 30 seconds",
+      "verdict": "CAUTION",
+      "evidence": "03-first-30-seconds-qa.png",
+      "note": "Opening density lightly tuned; mobile feel unmeasured."
+    },
+    {
+      "id": "first-levelup",
+      "label": "first LevelUp",
+      "verdict": "PASS",
+      "evidence": "04-first-levelup-qa.png",
+      "note": "U26 first LevelUp target remains 30 seconds."
+    },
+    {
+      "id": "weapon-passive",
+      "label": "weapon / passive選択",
+      "verdict": "PASS",
+      "evidence": "04-first-levelup-qa.png",
+      "note": "Choice count remains 3."
+    },
+    {
+      "id": "xp-pickup",
+      "label": "XP pickup feel",
+      "verdict": "CAUTION",
+      "evidence": "03-first-30-seconds-qa.png",
+      "note": "Pickup radius lightly widened; device touch feel unmeasured."
+    },
+    {
+      "id": "heal-pickup",
+      "label": "heal pickup feel",
+      "verdict": "CAUTION",
+      "evidence": "03-first-30-seconds-qa.png",
+      "note": "Recovery drop remains draft."
+    },
+    {
+      "id": "enemy-hit-defeat",
+      "label": "enemy hit / defeat feel",
+      "verdict": "CAUTION",
+      "evidence": "05-mid-wave-qa.png",
+      "note": "Basic weapon cooldown lightly reduced."
+    },
+    {
+      "id": "player-damage",
+      "label": "player damage",
+      "verdict": "CAUTION",
+      "evidence": "05-mid-wave-qa.png",
+      "note": "Opening safety unchanged."
+    },
+    {
+      "id": "rare",
+      "label": "rare pickup or rare candidate",
+      "verdict": "CAUTION",
+      "evidence": "06-rare-qa.png",
+      "note": "Rare remains draft candidate proof."
+    },
+    {
+      "id": "evolution",
+      "label": "evolution condition /演出",
+      "verdict": "CAUTION",
+      "evidence": "07-evolution-qa.png",
+      "note": "Evolution reachability proof, final art pending."
+    },
+    {
+      "id": "kokuyou",
+      "label": "Kokuyou ready / active / ending",
+      "verdict": "CAUTION",
+      "evidence": "08-kokuyou-qa.png",
+      "note": "Timing unchanged; device feel unmeasured."
+    },
+    {
+      "id": "clear-flow",
+      "label": "clear flow",
+      "verdict": "PASS",
+      "evidence": "09-result-clear-qa.png",
+      "note": "Result transition proof exists."
+    },
+    {
+      "id": "defeat-flow",
+      "label": "defeat flow",
+      "verdict": "CAUTION",
+      "evidence": "09-result-clear-qa.png",
+      "note": "Participation reward remains draft."
+    },
+    {
+      "id": "reward-unlock",
+      "label": "Result reward / unlock",
+      "verdict": "CAUTION",
+      "evidence": "10-result-reward-unlock-qa.png",
+      "note": "Economy not final."
+    },
+    {
+      "id": "stage-progress",
+      "label": "StageSelect progress reflection",
+      "verdict": "PASS",
+      "evidence": "11-stageselect-after-clear-qa.png",
+      "note": "Progress reflection proof exists."
+    },
+    {
+      "id": "retry",
+      "label": "Retry",
+      "verdict": "PASS",
+      "evidence": "12-retry-qa.png",
+      "note": "Retry proof exists."
+    },
+    {
+      "id": "save-persistence",
+      "label": "save persistence after restart",
+      "verdict": "NOT_MEASURED",
+      "evidence": "stage1-qa-session-editor.json",
+      "note": "Restart persistence requires device or PlayMode session follow-up."
+    },
+    {
+      "id": "audio-repeat",
+      "label": "audio連打確認",
+      "verdict": "CAUTION",
+      "evidence": "stage1-measurement-summary.json",
+      "note": "Cooldown and cap proof only; final clips not approved."
+    },
+    {
+      "id": "haptic-event",
+      "label": "haptic event確認",
+      "verdict": "NOT_MEASURED",
+      "evidence": "stage1-not-measured-list.json",
+      "note": "Editor haptic is no-op; device vibration not measured."
+    },
+    {
+      "id": "readability",
+      "label": "390x844 readability",
+      "verdict": "PASS",
+      "evidence": "screenshots",
+      "note": "Editor 390x844 screenshots generated."
+    }
+  ]
+}

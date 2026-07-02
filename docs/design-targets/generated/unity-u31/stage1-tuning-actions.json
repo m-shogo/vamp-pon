@@ -1,0 +1,33 @@
+{
+  "productionBalanceFinal": false,
+  "actions": [
+    {
+      "id": "u31-tune-pickup-radius",
+      "area": "pickup",
+      "before": "PickupRadius 1.65",
+      "after": "PickupRadius 1.75",
+      "reason": "Make opening pickup route easier to read at 390x844."
+    },
+    {
+      "id": "u31-tune-basic-cooldown",
+      "area": "weapon",
+      "before": "BasicWeaponCooldownMs 950",
+      "after": "BasicWeaponCooldownMs 900",
+      "reason": "Make early hit feedback less sparse without changing damage."
+    },
+    {
+      "id": "u31-tune-opening-wave",
+      "area": "enemy wave",
+      "before": "opening interval 2.8 / max 6",
+      "after": "opening interval 2.6 / max 7",
+      "reason": "Reduce empty opening moments while keeping safety."
+    },
+    {
+      "id": "u31-tune-first-pressure",
+      "area": "enemy wave",
+      "before": "first pressure interval 2.2 / max 11",
+      "after": "first pressure interval 2.1 / max 12",
+      "reason": "Make first LevelUp approach feel more active."
+    }
+  ]
+}

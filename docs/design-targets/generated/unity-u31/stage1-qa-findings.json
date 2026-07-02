@@ -1,0 +1,40 @@
+{
+  "findings": [
+    {
+      "id": "u31-finding-mobile-metrics",
+      "severity": "NOT_MEASURED",
+      "area": "performance",
+      "description": "Mobile FPS, memory, thermal, GC, and draw calls are not measured."
+    },
+    {
+      "id": "u31-finding-haptic-device",
+      "severity": "NOT_MEASURED",
+      "area": "haptic",
+      "description": "Device haptic intensity and fallback behavior are not measured."
+    },
+    {
+      "id": "u31-finding-save-restart",
+      "severity": "NOT_MEASURED",
+      "area": "save",
+      "description": "Restart persistence is not measured in Editor batchmode."
+    },
+    {
+      "id": "u31-finding-sprite-atlas",
+      "severity": "BLOCKER",
+      "area": "assets",
+      "description": "Production Sprite Atlas packing evidence remains incomplete."
+    },
+    {
+      "id": "u31-finding-economy",
+      "severity": "CAUTION",
+      "area": "reward",
+      "description": "Reward and unlock economy remains draft."
+    },
+    {
+      "id": "u31-finding-final-se",
+      "severity": "CAUTION",
+      "area": "audio",
+      "description": "SE routing is QA proof only; final SE is not approved."
+    }
+  ]
+}

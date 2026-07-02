@@ -1,0 +1,5 @@
+{
+  "notMeasured": ["mobile FPS", "memory", "thermal", "GC allocation", "draw call", "audio latency", "haptic device behavior", "restart persistence"],
+  "notPass": true,
+  "productionApproved": false
+}

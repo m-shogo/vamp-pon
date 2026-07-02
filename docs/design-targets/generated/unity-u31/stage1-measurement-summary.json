@@ -1,0 +1,14 @@
+{
+  "environment": "Unity Editor 390x844",
+  "mobileDeviceMeasured": false,
+  "actualFps": "NOT_MEASURED",
+  "memory": "NOT_MEASURED",
+  "thermal": "NOT_MEASURED",
+  "gcAllocation": "NOT_MEASURED",
+  "drawCall": "NOT_MEASURED",
+  "audioLatency": "NOT_MEASURED",
+  "hapticStatus": "NOT_MEASURED",
+  "blockerCount": 1,
+  "cautionCount": 2,
+  "productionApproved": false
+}

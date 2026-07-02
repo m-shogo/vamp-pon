@@ -28,8 +28,8 @@ namespace VampPon.UnitySpike.U26.FirstPlayableBalance
 
         public IReadOnlyList<Wave> Waves { get; } = new[]
         {
-            new Wave(0, 30, "opening", 2.8f, 1, 6, 5f),
-            new Wave(30, 120, "first_levelup_pressure", 2.2f, 2, 11, 6f),
+            new Wave(0, 30, "opening", 2.6f, 1, 7, 5f),
+            new Wave(30, 120, "first_levelup_pressure", 2.1f, 2, 12, 6f),
             new Wave(120, 240, "multi_choice_pressure", 1.85f, 2, 18, 7f),
             new Wave(240, 360, "wave_intensity", 1.45f, 3, 26, 8.5f),
             new Wave(360, 450, "kokuyou_ready", 1.2f, 3, 32, 10f),
