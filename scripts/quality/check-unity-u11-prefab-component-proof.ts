@@ -51,6 +51,7 @@ function searchFiles(dir: string, pattern: RegExp): boolean {
     if (path.includes('/U18/')) continue;
     if (path.includes('/U19/')) continue;
     if (path.includes('/U20/')) continue;
+    if (path.includes('/U21/')) continue;
     if (pattern.test(readFileSync(path, 'utf8'))) return true;
   }
   return false;

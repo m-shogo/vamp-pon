@@ -124,6 +124,7 @@ function searchFiles(dir: string, pattern: RegExp): boolean {
       if (p.includes("/U18/")) continue;
       if (p.includes("/U19/")) continue;
       if (p.includes("/U20/")) continue;
+      if (p.includes("/U21/")) continue;
       const content = readFileSync(p, "utf-8");
       if (pattern.test(content)) return true;
     }

@@ -26,6 +26,7 @@
     "unity:u18-kokuyou-runtime:check": "node --experimental-strip-types scripts/quality/check-unity-u18-kokuyou-runtime.ts",
     "unity:u19-game-feel:check": "node --experimental-strip-types scripts/quality/check-unity-u19-game-feel.ts",
     "unity:u20-mobile-feel:check": "node --experimental-strip-types scripts/quality/check-unity-u20-mobile-feel.ts",
+    "unity:u21-stage1-vertical-slice:check": "node --experimental-strip-types scripts/quality/check-unity-u21-stage1-vertical-slice.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

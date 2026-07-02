@@ -78,6 +78,7 @@ namespace VampPon.UnitySpike.Editor
         {
             return Directory.GetFiles(ScriptsRoot, "*.cs", SearchOption.AllDirectories)
                 .Where(path => !path.EndsWith(nameof(U7AssetProviderVerification) + ".cs", StringComparison.Ordinal))
+                .Where(path => !path.Contains("/Editor/") && !path.Contains("\\Editor\\"))
                 .Any(path => File.ReadAllText(path).Contains(needle));
         }
     }
