@@ -41,6 +41,7 @@ function searchFiles(dir: string, pattern: RegExp): boolean {
     if (path.includes('/U19/')) continue;
     if (path.includes('/U20/')) continue;
     if (path.includes('/U21/')) continue;
+    if (path.includes('/U22/')) continue;
     const text = readFileSync(path, 'utf8')
       .replace(/ResultFunctionalProofController/g, '')
       .replace(/StageSelectFunctionalProofController/g, '');
