@@ -32,6 +32,7 @@
     "unity:u23-ui-visual-polish:check": "node --experimental-strip-types scripts/quality/check-unity-u23-ui-visual-polish.ts",
     "unity:u24-climax-polish:check": "node --experimental-strip-types scripts/quality/check-unity-u24-climax-polish.ts",
     "unity:u25-stage1-production-battle-loop:check": "node --experimental-strip-types scripts/quality/check-unity-u25-stage1-production-battle-loop.ts",
+    "unity:u26-stage1-first-playable-balance:check": "node --experimental-strip-types scripts/quality/check-unity-u26-stage1-first-playable-balance.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
