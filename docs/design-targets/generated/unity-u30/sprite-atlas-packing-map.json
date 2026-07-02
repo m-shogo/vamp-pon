@@ -1,0 +1,14 @@
+{
+  "status": "draft packing map only; production .spriteatlas evidence incomplete",
+  "productionPackingComplete": false,
+  "criticalBlocker": true,
+  "addressables": "not introduced",
+  "groups": [
+    {"name":"U30Characters", "sources":["public/assets/prototypes/sprite-sheets/core5-original", "public/assets/prototypes/sprite-sheets/core5-original-frames"], "runtimeCandidate":"Unity-created or finished assets only"},
+    {"name":"U30Enemies", "sources":["public/assets/prototypes/sprite-sheets/enemies-original"], "runtimeCandidate":"requires Unity readability QA"},
+    {"name":"U30ItemsIcons", "sources":["public/assets/prototypes/sprite-sheets/weapon", "public/assets/prototypes/sprite-sheets/passive", "public/assets/prototypes/sprite-sheets/rare"], "runtimeCandidate":"icons and pickups only"},
+    {"name":"U30UiPaper", "sources":["Unity UI materials and paper sprites"], "runtimeCandidate":"exclude screenshots and design-target PNGs"},
+    {"name":"U30Effects", "sources":["Unity effect sprites and particles"], "runtimeCandidate":"exclude full-screen review art"}
+  ],
+  "excluded": ["docs/design-targets/generated", "generated screenshots", "fullscreen review art", "completed screen images"]
+}

@@ -1,0 +1,124 @@
+{
+  "gates": [
+    {
+      "id": "runtime-loop",
+      "label": "Stage1 runtime loop",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "U25 runtime loop and screenshots",
+      "note": "StageSelect to Battle to Result flow exists."
+    },
+    {
+      "id": "battle-feel",
+      "label": "Battle feel",
+      "status": "CAUTION",
+      "critical": false,
+      "evidence": "U22-U25 Editor proof",
+      "note": "Playable in Editor proof, but not final device feel."
+    },
+    {
+      "id": "levelup-choice",
+      "label": "LevelUp choice",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "U25/U26 proof",
+      "note": "First choice and multi-choice proof exist."
+    },
+    {
+      "id": "rare-evolution-kokuyou",
+      "label": "Rare / evolution / Kokuyou moments",
+      "status": "CAUTION",
+      "critical": false,
+      "evidence": "U24-U26 proof",
+      "note": "Moments exist, final art and device feel are not final approved."
+    },
+    {
+      "id": "result-reward-unlock",
+      "label": "Result reward unlock",
+      "status": "CAUTION",
+      "critical": false,
+      "evidence": "U27 proof",
+      "note": "Draft reward economy and unlock proof exist."
+    },
+    {
+      "id": "stageselect-retry",
+      "label": "StageSelect retry",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "U25/U27 proof",
+      "note": "Retry and cleared state proof exist."
+    },
+    {
+      "id": "save-safety",
+      "label": "Save safety",
+      "status": "CAUTION",
+      "critical": false,
+      "evidence": "U27 PlayerPrefs repository",
+      "note": "Local save proof exists; Cloud Save is not introduced."
+    },
+    {
+      "id": "se-haptic",
+      "label": "SE and haptic feel",
+      "status": "CAUTION",
+      "critical": false,
+      "evidence": "U28 routing proof",
+      "note": "Draft SE routing exists; mobile haptic device behavior is unmeasured."
+    },
+    {
+      "id": "mobile-performance",
+      "label": "Mobile FPS performance",
+      "status": "NOT_MEASURED",
+      "critical": true,
+      "evidence": "U29 budget and checklist",
+      "note": "Real device FPS, memory, thermal, draw calls, GC are not measured."
+    },
+    {
+      "id": "sprite-atlas",
+      "label": "Sprite Atlas packing",
+      "status": "FAIL",
+      "critical": true,
+      "evidence": "U29 policy and U30 draft map",
+      "note": "Production .spriteatlas packing evidence is incomplete."
+    },
+    {
+      "id": "visual-consistency",
+      "label": "Visual consistency",
+      "status": "CAUTION",
+      "critical": false,
+      "evidence": "U22-U29 screenshots",
+      "note": "Editor visual proof exists, final asset replacement remains."
+    },
+    {
+      "id": "viewport-readability",
+      "label": "390x844 readability",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "U25-U30 generated screenshots",
+      "note": "Portrait proof remains readable in Editor screenshots."
+    },
+    {
+      "id": "asset-boundary",
+      "label": "Production asset boundary",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "Boundary checker",
+      "note": "Generated proof images stay outside Unity runtime."
+    },
+    {
+      "id": "generated-final-safety",
+      "label": "Generated final image safety",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "Runtime scan",
+      "note": "Generated final PNGs are not used as runtime pasted screens."
+    },
+    {
+      "id": "regression-suite",
+      "label": "Regression suite",
+      "status": "PASS",
+      "critical": false,
+      "evidence": "U22-U29 checkers",
+      "note": "Regression targets are defined and re-run by U30."
+    }
+  ]
+}

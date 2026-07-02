@@ -1,0 +1,13 @@
+{
+  "checks": [
+    {"id":"u22", "script":"unity:u22-battle-visual-polish:check", "status":"required"},
+    {"id":"u23", "script":"unity:u23-ui-visual-polish:check", "status":"required"},
+    {"id":"u24", "script":"unity:u24-climax-polish:check", "status":"required"},
+    {"id":"u25", "script":"unity:u25-stage1-production-battle-loop:check", "status":"required"},
+    {"id":"u26", "script":"unity:u26-stage1-first-playable-balance:check", "status":"required"},
+    {"id":"u27", "script":"unity:u27-save-reward-unlock:check", "status":"required"},
+    {"id":"u28", "script":"unity:u28-se-haptic-feel:check", "status":"required"},
+    {"id":"u29", "script":"unity:u29-performance-mobile-fps:check", "status":"required"},
+    {"id":"u30", "script":"unity:u30-production-approval-gate:check", "status":"required"}
+  ]
+}

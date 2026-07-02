@@ -1,0 +1,16 @@
+{
+  "stageId": "stage1",
+  "versionTag": "U30-2026-07-03",
+  "productionApproved": false,
+  "internalPreviewReady": true,
+  "mobileQaReady": true,
+  "assetReplacementReady": false,
+  "performanceQaReady": true,
+  "gateCount": 15,
+  "passCount": 7,
+  "cautionCount": 6,
+  "failCount": 1,
+  "notMeasuredCount": 1,
+  "criticalBlockerCount": 2,
+  "verdict": "not production approved; ready for internal preview and mobile QA handoff"
+}
