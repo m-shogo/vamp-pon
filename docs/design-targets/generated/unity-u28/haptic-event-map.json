@@ -1,0 +1,16 @@
+{
+  "deviceVerification": "not executed; Editor safe no-op",
+  "events": [
+    { "id": "None", "intensityDraft": 0.00, "durationSecondsDraft": 0.000, "cooldownSeconds": 0.00, "platformSupportNote": "no haptic", "futureNote": "no-op" },
+    { "id": "LightTap", "intensityDraft": 0.18, "durationSecondsDraft": 0.025, "cooldownSeconds": 0.08, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "user setting can disable" },
+    { "id": "SoftPickup", "intensityDraft": 0.22, "durationSecondsDraft": 0.035, "cooldownSeconds": 0.10, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "pickup feedback not constant" },
+    { "id": "CardSelect", "intensityDraft": 0.24, "durationSecondsDraft": 0.030, "cooldownSeconds": 0.12, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "short card tap" },
+    { "id": "Damage", "intensityDraft": 0.50, "durationSecondsDraft": 0.070, "cooldownSeconds": 0.25, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "avoid repeated damage spam" },
+    { "id": "RarePulse", "intensityDraft": 0.34, "durationSecondsDraft": 0.060, "cooldownSeconds": 0.35, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "special but light" },
+    { "id": "EvolutionComplete", "intensityDraft": 0.56, "durationSecondsDraft": 0.090, "cooldownSeconds": 0.60, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "medium completion" },
+    { "id": "KokuyouReady", "intensityDraft": 0.30, "durationSecondsDraft": 0.050, "cooldownSeconds": 0.45, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "light warning" },
+    { "id": "KokuyouActivation", "intensityDraft": 0.68, "durationSecondsDraft": 0.120, "cooldownSeconds": 1.00, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "stronger dark activation" },
+    { "id": "ResultStamp", "intensityDraft": 0.42, "durationSecondsDraft": 0.060, "cooldownSeconds": 0.35, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "paper stamp" },
+    { "id": "UnlockReveal", "intensityDraft": 0.30, "durationSecondsDraft": 0.050, "cooldownSeconds": 0.30, "platformSupportNote": "Editor no-op; iOS / Android future adapter", "futureNote": "warm reveal" }
+  ]
+}

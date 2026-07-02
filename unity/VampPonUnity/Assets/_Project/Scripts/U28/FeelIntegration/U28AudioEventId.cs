@@ -1,0 +1,34 @@
+namespace VampPon.UnitySpike.U28.FeelIntegration
+{
+    public enum U28AudioEventId
+    {
+        BattleStart,
+        PlayerHit,
+        PlayerDamage,
+        EnemyHitSoft,
+        EnemyDefeatInk,
+        PickupXp,
+        PickupHeal,
+        PickupRare,
+        WeaponFireSoft,
+        LevelupReady,
+        LevelupOpen,
+        CardHover,
+        CardSelect,
+        CardConfirm,
+        RareSealPulse,
+        EvolutionConvergence,
+        EvolutionComplete,
+        KokuyouGaugeReady,
+        KokuyouActivation,
+        KokuyouActiveLoop,
+        KokuyouEnding,
+        ResultOpen,
+        ResultStamp,
+        RewardCard,
+        UnlockReveal,
+        StageSelectLantern,
+        StageRouteUnlock,
+        RetryConfirm,
+    }
+}

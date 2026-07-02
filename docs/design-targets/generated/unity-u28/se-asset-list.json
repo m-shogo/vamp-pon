@@ -1,0 +1,184 @@
+{
+  "generatedBy": "scripts/audio/generate-u28-draft-se.mjs",
+  "sourcePolicy": "original placeholder / draft SE generated in-repo; no external material",
+  "productionStatus": "draft-placeholder-not-final",
+  "sampleRate": 44100,
+  "assets": [
+    {
+      "fileName": "vp_battle_start_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_battle_start_soft.wav",
+      "durationSeconds": 0.24,
+      "peakDraft": 0.18,
+      "note": "warm lantern start",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_pickup_xp_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_pickup_xp_soft.wav",
+      "durationSeconds": 0.12,
+      "peakDraft": 0.14,
+      "note": "small paper sparkle",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_pickup_heal_warm.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_pickup_heal_warm.wav",
+      "durationSeconds": 0.18,
+      "peakDraft": 0.16,
+      "note": "warm recovery chime",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_pickup_rare_seal.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_pickup_rare_seal.wav",
+      "durationSeconds": 0.32,
+      "peakDraft": 0.2,
+      "note": "rare seal pulse",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_levelup_open_paper.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_levelup_open_paper.wav",
+      "durationSeconds": 0.28,
+      "peakDraft": 0.18,
+      "note": "paper fan open",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_card_select_ink.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_card_select_ink.wav",
+      "durationSeconds": 0.16,
+      "peakDraft": 0.16,
+      "note": "ink card tap",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_card_confirm.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_card_confirm.wav",
+      "durationSeconds": 0.18,
+      "peakDraft": 0.17,
+      "note": "soft card confirm",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_weapon_fire_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_weapon_fire_soft.wav",
+      "durationSeconds": 0.1,
+      "peakDraft": 0.12,
+      "note": "soft lantern shot",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_enemy_hit_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_enemy_hit_soft.wav",
+      "durationSeconds": 0.09,
+      "peakDraft": 0.14,
+      "note": "soft hit",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_enemy_defeat_ink.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_enemy_defeat_ink.wav",
+      "durationSeconds": 0.22,
+      "peakDraft": 0.2,
+      "note": "ink bloom defeat",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_player_damage_mute.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_player_damage_mute.wav",
+      "durationSeconds": 0.18,
+      "peakDraft": 0.18,
+      "note": "muted damage",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_evolution_convergence.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_evolution_convergence.wav",
+      "durationSeconds": 0.42,
+      "peakDraft": 0.2,
+      "note": "material convergence",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_evolution_complete.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_evolution_complete.wav",
+      "durationSeconds": 0.48,
+      "peakDraft": 0.22,
+      "note": "evolution complete",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_kokuyou_ready.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_kokuyou_ready.wav",
+      "durationSeconds": 0.34,
+      "peakDraft": 0.2,
+      "note": "dark ready",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_kokuyou_activation.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_kokuyou_activation.wav",
+      "durationSeconds": 0.56,
+      "peakDraft": 0.24,
+      "note": "dark activation",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_kokuyou_ending.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_kokuyou_ending.wav",
+      "durationSeconds": 0.36,
+      "peakDraft": 0.18,
+      "note": "dark release",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_result_stamp.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_result_stamp.wav",
+      "durationSeconds": 0.2,
+      "peakDraft": 0.2,
+      "note": "paper stamp",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_reward_card.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_reward_card.wav",
+      "durationSeconds": 0.22,
+      "peakDraft": 0.15,
+      "note": "reward card reveal",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_unlock_reveal.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_unlock_reveal.wav",
+      "durationSeconds": 0.3,
+      "peakDraft": 0.17,
+      "note": "warm unlock reveal",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_stage_lantern.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_stage_lantern.wav",
+      "durationSeconds": 0.24,
+      "peakDraft": 0.14,
+      "note": "stage lantern glow",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_stage_route_unlock.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_stage_route_unlock.wav",
+      "durationSeconds": 0.28,
+      "peakDraft": 0.16,
+      "note": "route line unlock",
+      "productionStatus": "draft-placeholder-not-final"
+    },
+    {
+      "fileName": "vp_retry_confirm.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/vp_retry_confirm.wav",
+      "durationSeconds": 0.14,
+      "peakDraft": 0.15,
+      "note": "retry confirm",
+      "productionStatus": "draft-placeholder-not-final"
+    }
+  ]
+}
