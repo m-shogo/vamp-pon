@@ -1,0 +1,8 @@
+{
+  "enemies": 38,
+  "pickups": 48,
+  "projectiles": 24,
+  "hitEffects": 16,
+  "particles": 64,
+  "fallback": "offscreen cleanup / spawn throttle / effect skip"
+}

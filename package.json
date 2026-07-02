@@ -35,6 +35,7 @@
     "unity:u26-stage1-first-playable-balance:check": "node --experimental-strip-types scripts/quality/check-unity-u26-stage1-first-playable-balance.ts",
     "unity:u27-save-reward-unlock:check": "node --experimental-strip-types scripts/quality/check-unity-u27-save-reward-unlock-integration.ts",
     "unity:u28-se-haptic-feel:check": "node --experimental-strip-types scripts/quality/check-unity-u28-se-haptic-feel-integration.ts",
+    "unity:u29-performance-mobile-fps:check": "node --experimental-strip-types scripts/quality/check-unity-u29-sprite-atlas-performance-mobile-fps.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

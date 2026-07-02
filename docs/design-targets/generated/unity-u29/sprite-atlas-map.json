@@ -1,0 +1,6 @@
+{
+  "status": "policy only; spriteatlas packing deferred to U30",
+  "groups": ["U29Characters", "U29Enemies", "U29ItemsIcons", "U29UiPaper", "U29Effects"],
+  "excluded": ["generated screenshots", "design targets", "fullscreen review art"],
+  "addressables": "not introduced"
+}

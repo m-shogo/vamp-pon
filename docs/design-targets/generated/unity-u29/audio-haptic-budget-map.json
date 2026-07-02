@@ -1,0 +1,8 @@
+{
+  "maxAudioVoices": 8,
+  "maxLowPriorityAudioVoices": 4,
+  "lightHapticCooldownSeconds": 0.08,
+  "damageHapticCooldownSeconds": 0.25,
+  "kokuyouHapticCooldownSeconds": 1.00,
+  "deviceMeasurement": "not measured on device"
+}

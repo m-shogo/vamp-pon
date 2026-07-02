@@ -1,0 +1,9 @@
+{
+  "targetResolution": "390x844",
+  "targetFpsDraft": 60,
+  "minimumFpsDraft": 30,
+  "deviceMeasurement": "not measured on device",
+  "maxActiveEnemies": 38,
+  "textureMemoryBudgetMbDraft": 32,
+  "drawCallBudgetDraft": 45
+}

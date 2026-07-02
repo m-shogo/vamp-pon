@@ -1,0 +1,6 @@
+{
+  "pixelArt": "Sprite / Point draft / mipmap off / readable off after processing",
+  "paperUi": "Sprite / Bilinear allowed / mipmap off / alpha preserved",
+  "itemIcons64": "Sprite / max 128 or 256 draft / mipmap off",
+  "screenshots": "not runtime assets"
+}
