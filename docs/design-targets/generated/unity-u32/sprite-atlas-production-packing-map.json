@@ -1,0 +1,14 @@
+{
+  "status": "production packing evidence map only; .spriteatlas assets not completed in U32",
+  "productionPackingComplete": false,
+  "addressables": "not introduced",
+  "performancePass": false,
+  "groups": [
+    {"name":"U32Characters", "include":["future Assets/_Project/Art/Characters/Stage1"], "exclude":["docs/design-targets/generated", "prototype sheets until Unity-finished"]},
+    {"name":"U32Enemies", "include":["future Assets/_Project/Art/Enemies/Stage1"], "exclude":["docs/design-targets/generated", "review screenshots"]},
+    {"name":"U32ItemsIcons", "include":["future Assets/_Project/Art/Icons/Stage1"], "exclude":["generated final PNG", "completed screen images"]},
+    {"name":"U32UiPaper", "include":["reviewed paper UI sprites"], "exclude":["fullscreen reference art", "docs/generated evidence"]},
+    {"name":"U32Effects", "include":["Unity-finished climax/effect sprites"], "exclude":["full-screen cut-in review PNG", "generated screenshots"]}
+  ],
+  "texturePolicy": "align with U29; no mass import changes in U32"
+}

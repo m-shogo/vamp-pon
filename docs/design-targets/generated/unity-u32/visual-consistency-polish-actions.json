@@ -1,0 +1,12 @@
+{
+  "actions": [
+    {"area":"Battle HUD", "action":"kept quiet/readable; no new palette"},
+    {"area":"Pickup feedback", "action":"kept U31 readability tuning"},
+    {"area":"Hit feedback", "action":"kept U31 cooldown tuning; no extra effect density"},
+    {"area":"LevelUp card", "action":"kept paper card direction"},
+    {"area":"Rare/Evolution/Kokuyou", "action":"kept special contrast only for climax moments"},
+    {"area":"Result/StageSelect/Retry", "action":"kept ledger, lantern, route, and retry readable"}
+  ],
+  "largeDesignChange": false,
+  "productionApproved": false
+}

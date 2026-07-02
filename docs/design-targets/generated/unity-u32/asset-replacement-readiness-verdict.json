@@ -1,0 +1,9 @@
+{
+  "assetReplacementReady": false,
+  "reason": "runtime inventory and guard improved, but production .spriteatlas packing and final production asset replacement are incomplete",
+  "productionApproved": false,
+  "needsReplacement": ["player sprites", "enemy sprites", "Kokuyou/Rare/Evolution effects", "draft SE"],
+  "needsReview": ["UI paper candidates", "item/passive/rare icon consistency", "texture import settings", "mobile device QA"],
+  "blockedFromRuntime": ["docs/design-targets/generated", "generated final PNG", "completed screen images", "review screenshots"],
+  "inventoryCount": 14
+}

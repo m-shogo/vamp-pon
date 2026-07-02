@@ -38,6 +38,7 @@
     "unity:u29-performance-mobile-fps:check": "node --experimental-strip-types scripts/quality/check-unity-u29-sprite-atlas-performance-mobile-fps.ts",
     "unity:u30-production-approval-gate:check": "node --experimental-strip-types scripts/quality/check-unity-u30-production-approval-gate.ts",
     "unity:u31-stage1-mobile-qa:check": "node --experimental-strip-types scripts/quality/check-unity-u31-stage1-mobile-qa-tuning.ts",
+    "unity:u32-production-asset-replacement:check": "node --experimental-strip-types scripts/quality/check-unity-u32-production-asset-replacement.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

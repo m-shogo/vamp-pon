@@ -1,0 +1,131 @@
+{
+  "assetReplacementReady": false,
+  "inventory": [
+    {
+      "key": "PlayerSprites",
+      "path": "public/assets/prototypes/sprite-sheets/core5-original-frames/",
+      "currentUsage": "reference baseline for player sprites",
+      "runtimeReferenced": false,
+      "productionStatus": "RuntimePrototype",
+      "risk": "prototype quality and web-origin source",
+      "nextAction": "replace with Unity-finished production sprites"
+    },
+    {
+      "key": "EnemySprites",
+      "path": "public/assets/prototypes/sprite-sheets/enemies-original/",
+      "currentUsage": "reference baseline for enemies",
+      "runtimeReferenced": false,
+      "productionStatus": "RuntimePrototype",
+      "risk": "readability needs Unity QA",
+      "nextAction": "replace or finish for Unity runtime"
+    },
+    {
+      "key": "WeaponProjectileSprites",
+      "path": "public/assets/prototypes/sprite-sheets/weapon/",
+      "currentUsage": "reference icons/projectile candidates",
+      "runtimeReferenced": false,
+      "productionStatus": "ProductionCandidate",
+      "risk": "needs import and scale review",
+      "nextAction": "register through replacement hook"
+    },
+    {
+      "key": "ItemPassiveIcons",
+      "path": "public/assets/prototypes/sprite-sheets/passive/; public/assets/prototypes/sprite-sheets/rare/",
+      "currentUsage": "reference icons",
+      "runtimeReferenced": false,
+      "productionStatus": "ProductionCandidate",
+      "risk": "icon consistency not final",
+      "nextAction": "review with UI cards"
+    },
+    {
+      "key": "PickupSprites",
+      "path": "Unity procedural/draft proof sprites",
+      "currentUsage": "runtime proof visuals",
+      "runtimeReferenced": true,
+      "productionStatus": "RuntimeApprovedDraft",
+      "risk": "not final art",
+      "nextAction": "replace through key while keeping fallback"
+    },
+    {
+      "key": "UiPaperParts",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/UI/",
+      "currentUsage": "paper UI candidates",
+      "runtimeReferenced": true,
+      "productionStatus": "NeedsReview",
+      "risk": "candidate resources still need final review",
+      "nextAction": "atlas only after review"
+    },
+    {
+      "key": "HudParts",
+      "path": "Unity UI generated from runtime presenters",
+      "currentUsage": "runtime HUD shapes/text",
+      "runtimeReferenced": true,
+      "productionStatus": "RuntimeApprovedDraft",
+      "risk": "visual proof not final art",
+      "nextAction": "keep readable and replace parts gradually"
+    },
+    {
+      "key": "LevelUpCards",
+      "path": "Unity UI generated from U23/U25 presenters",
+      "currentUsage": "LevelUp proof UI",
+      "runtimeReferenced": true,
+      "productionStatus": "RuntimeApprovedDraft",
+      "risk": "card art and icons not final",
+      "nextAction": "replace card assets by key"
+    },
+    {
+      "key": "ResultLedgerStampSeal",
+      "path": "Unity UI generated from U23/U27 presenters",
+      "currentUsage": "result ledger/reward proof",
+      "runtimeReferenced": true,
+      "productionStatus": "RuntimeApprovedDraft",
+      "risk": "economy and stamp polish not final",
+      "nextAction": "review after U33 balance"
+    },
+    {
+      "key": "StageSelectMapRouteLantern",
+      "path": "Unity UI generated from U23/U27 presenters",
+      "currentUsage": "StageSelect progress proof",
+      "runtimeReferenced": true,
+      "productionStatus": "RuntimeApprovedDraft",
+      "risk": "map art not final",
+      "nextAction": "replace route/lantern art by key"
+    },
+    {
+      "key": "KokuyouRareEvolutionEffects",
+      "path": "Unity proof effects and U24/U25 screenshots",
+      "currentUsage": "climax proof only",
+      "runtimeReferenced": true,
+      "productionStatus": "NeedsReplacement",
+      "risk": "final cut-in/effect art pending",
+      "nextAction": "replace with Unity-finished effects"
+    },
+    {
+      "key": "DraftSe",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U28DraftSe/",
+      "currentUsage": "draft SE routing",
+      "runtimeReferenced": true,
+      "productionStatus": "NeedsReview",
+      "risk": "draft-placeholder-not-final",
+      "nextAction": "replace with final SE later"
+    },
+    {
+      "key": "HapticDefinitions",
+      "path": "unity/VampPonUnity/Assets/_Project/Scripts/U28/FeelIntegration/",
+      "currentUsage": "haptic routing definitions",
+      "runtimeReferenced": true,
+      "productionStatus": "RuntimeApprovedDraft",
+      "risk": "device behavior not measured",
+      "nextAction": "verify on device"
+    },
+    {
+      "key": "GeneratedDocsEvidence",
+      "path": "generated QA evidence root",
+      "currentUsage": "QA evidence only",
+      "runtimeReferenced": false,
+      "productionStatus": "BlockedFromRuntime",
+      "risk": "must never be runtime referenced",
+      "nextAction": "keep checker blocking runtime references"
+    }
+  ]
+}
