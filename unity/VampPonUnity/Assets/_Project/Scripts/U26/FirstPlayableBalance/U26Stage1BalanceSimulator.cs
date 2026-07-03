@@ -47,12 +47,12 @@ namespace VampPon.UnitySpike.U26.FirstPlayableBalance
             if (elapsedSecond <= 0) return 0;
             return elapsedSecond switch
             {
-                < 30 => elapsedSecond / 6,
-                < 120 => 5 + ((elapsedSecond - 30) / 5),
-                < 240 => 23 + ((elapsedSecond - 120) / 4),
-                < 360 => 53 + ((elapsedSecond - 240) / 3),
-                < 450 => 93 + ((elapsedSecond - 360) / 2),
-                _ => 138 + ((elapsedSecond - 450) / 2),
+                < 30 => elapsedSecond / 5,
+                < 120 => 6 + ((elapsedSecond - 30) / 4),
+                < 240 => 28 + ((elapsedSecond - 120) / 3),
+                < 360 => 68 + ((elapsedSecond - 240) / 3),
+                < 450 => 108 + ((elapsedSecond - 360) / 2),
+                _ => 153 + ((elapsedSecond - 450) / 2),
             };
         }
 

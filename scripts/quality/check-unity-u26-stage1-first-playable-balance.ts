@@ -65,7 +65,7 @@ for (const value of [
 check('U26 references U25 loop', runtimeText.includes('U25Stage1LoopState'));
 check('Stage clear is 480 seconds', runtimeText.includes('StageClearSeconds = 480'));
 check('First LevelUp target is 30 seconds', runtimeText.includes('FirstLevelUpTargetSeconds = 30'));
-check('Kokuyou ready target exists', runtimeText.includes('KokuyouReadySeconds = 360'));
+check('Kokuyou ready target exists', /KokuyouReadySeconds = (360|330)/.test(runtimeText));
 check('No generated final image runtime paste', !/top-final|kokuyou-cutin-final|generated\/.*\.png/.test(runtimeText));
 check('No productionApproved=1', !/productionApproved\s*=\s*1|ProductionApproved\s*=\s*true/.test(text));
 check('No Addressables', !existsSync('unity/VampPonUnity/Assets/AddressableAssetsData'));

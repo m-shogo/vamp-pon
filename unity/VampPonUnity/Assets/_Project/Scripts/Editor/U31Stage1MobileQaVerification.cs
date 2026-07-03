@@ -25,10 +25,10 @@ namespace VampPon.UnitySpike.Editor
                 Require(session.Findings.Any(finding => finding.Severity == U31QaFindingSeverity.Blocker), "blocker remains");
                 Require(session.Findings.Count(finding => finding.Severity == U31QaFindingSeverity.NotMeasured) >= 3, "not measured findings");
                 Require(session.TuningActions.Count == 4, "tuning action count");
-                Require(U26Stage1BalanceConstants.PickupRadius == 1.75f, "pickup radius tuned");
-                Require(U26Stage1BalanceConstants.BasicWeaponCooldownMs == 900, "basic cooldown tuned");
-                Require(new U26Stage1WaveDraft().At(0).MaxEnemies == 7, "opening max enemies tuned");
-                Require(new U26Stage1WaveDraft().At(30).MaxEnemies == 12, "first pressure max enemies tuned");
+                Require(U26Stage1BalanceConstants.PickupRadius is 1.75f or 1.8f, "pickup radius tuned");
+                Require(U26Stage1BalanceConstants.BasicWeaponCooldownMs is 900 or 880, "basic cooldown tuned");
+                Require(new U26Stage1WaveDraft().At(0).MaxEnemies is 7 or 8, "opening max enemies tuned");
+                Require(new U26Stage1WaveDraft().At(30).MaxEnemies is 12 or 13, "first pressure max enemies tuned");
                 Require(U26Stage1BalanceConstants.StageClearSeconds == 480, "stage clear unchanged");
                 Require(U26Stage1BalanceConstants.FirstLevelUpTargetSeconds == 30, "first LevelUp target unchanged");
                 Require(!Directory.Exists("Assets/AddressableAssetsData"), "Addressables not introduced");

@@ -1,0 +1,29 @@
+{
+  "u33": "Stage1 balance hardening",
+  "productionApproved": false,
+  "assetReplacementReady": false,
+  "balanceHardeningReady": true,
+  "mobileMetricsReady": false,
+  "rcChecklistReady": false,
+  "mobileDeviceMetrics": "NOT_MEASURED",
+  "productionBalanceFinal": false,
+  "finalSeApproved": false,
+  "addressablesIntroduced": false,
+  "cloudSaveIntroduced": false,
+  "runtimeDocsGeneratedReference": false,
+  "runtimeGeneratedFinalPngPaste": false,
+  "summary": {
+    "first30Seconds": "opening density, pickup radius, and basic weapon feel lightly hardened",
+    "xpLevelUp": "early XP curve made shallower",
+    "enemyWaveDamage": "2:00-6:00 density increased within U29 cap",
+    "dropPickupHeal": "XP and Rare slightly increased; heal slightly reduced",
+    "weaponPassiveEvolution": "basic weapon and evolution reachability improved",
+    "kokuyouRare": "Kokuyou and Rare test reachability improved",
+    "resultRewardRetry": "U27 draft reward and retry flow preserved"
+  },
+  "handoff": {
+    "u35": "U35 mobile device metrics pass",
+    "u34": "U34 release candidate checklist",
+    "u36": "U36 Sprite Atlas production packing completion"
+  }
+}

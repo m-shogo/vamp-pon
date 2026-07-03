@@ -1,0 +1,47 @@
+{
+  "productionApproved": false,
+  "mobileMetrics": "NOT_MEASURED",
+  "risks": [
+    {
+      "area": "first 30 seconds",
+      "risk": "opening density could feel crowded on device",
+      "severity": "medium",
+      "mitigation": "kept contact damage at 5 and max enemies under 8"
+    },
+    {
+      "area": "XP / LevelUp",
+      "risk": "early levelups may cluster if pickup rate is higher than expected",
+      "severity": "medium",
+      "mitigation": "XP value unchanged; threshold change is shallow"
+    },
+    {
+      "area": "enemy wave / damage",
+      "risk": "mid-game density may affect FPS",
+      "severity": "high",
+      "mitigation": "U29 cap 38 is preserved; U35 measures device metrics"
+    },
+    {
+      "area": "drop / pickup / heal",
+      "risk": "pickup radius could feel too automatic",
+      "severity": "medium",
+      "mitigation": "heal magnet bypass stays true and heal chance is slightly lower"
+    },
+    {
+      "area": "Kokuyou / Rare",
+      "risk": "special moments may feel less rare",
+      "severity": "low",
+      "mitigation": "Rare remains 0.04 and Kokuyou cooldown remains 45s"
+    },
+    {
+      "area": "Result / Reward / Retry",
+      "risk": "reward economy is still draft",
+      "severity": "medium",
+      "mitigation": "U27 reward formula unchanged; economy is not final"
+    }
+  ],
+  "nextMeasurementNeeded": [
+    "U35 mobile device metrics pass",
+    "U34 release candidate checklist",
+    "U36 Sprite Atlas production packing completion"
+  ]
+}

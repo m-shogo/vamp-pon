@@ -1,0 +1,63 @@
+{
+  "productionApproved": false,
+  "assetReplacementReady": false,
+  "mobileMetrics": "NOT_MEASURED",
+  "productionBalanceFinal": false,
+  "changes": [
+    {
+      "id": "u33-pickup-radius",
+      "before": "PickupRadius 1.75",
+      "after": "PickupRadius 1.8",
+      "reason": "first pickup and XP route should feel slightly easier on 390x844.",
+      "expectedImpact": "earlier pickup feedback without full-screen magnet feel",
+      "risk": "may feel too automatic on touch device",
+      "nextMeasurementNeeded": "pickup collection rate and player feel in U35",
+      "relatedGate": "U31 first 30 seconds",
+      "relatedFile": "unity/VampPonUnity/Assets/_Project/Scripts/U26/FirstPlayableBalance/U26Stage1BalanceConstants.cs"
+    },
+    {
+      "id": "u33-xp-curve",
+      "before": "0/8/20/38/62/92/130/176",
+      "after": "0/7/18/34/56/84/120/162",
+      "reason": "make Lv2 and Lv3-Lv4 cadence visible in the first run.",
+      "expectedImpact": "less empty feeling before Lv5",
+      "risk": "levelups may cluster if real pickup rate is higher than Editor estimate",
+      "nextMeasurementNeeded": "level reached distribution in U35",
+      "relatedGate": "U33 balanceHardeningReady",
+      "relatedFile": "unity/VampPonUnity/Assets/_Project/Scripts/U26/FirstPlayableBalance/U26Stage1XpDraft.cs"
+    },
+    {
+      "id": "u33-opening-wave",
+      "before": "opening 2.6s/max7, first pressure 2.1s/max12",
+      "after": "opening 2.45s/max8, first pressure 2.0s/max13",
+      "reason": "reduce sparse first 30 seconds while keeping safety.",
+      "expectedImpact": "more early targets and faster XP pickup",
+      "risk": "new players may feel surrounded on smaller hands/device latency",
+      "nextMeasurementNeeded": "early damage and defeat rate in U35",
+      "relatedGate": "U31 mobile QA",
+      "relatedFile": "unity/VampPonUnity/Assets/_Project/Scripts/U26/FirstPlayableBalance/U26Stage1WaveDraft.cs"
+    },
+    {
+      "id": "u33-mid-wave",
+      "before": "multi 1.85/max18, mid 1.45/max26, climax 1.2/max32",
+      "after": "multi 1.75/max20, mid 1.4/max27, climax 1.15/max34",
+      "reason": "add 2:00-6:00 pressure without exceeding U29 runtime cap.",
+      "expectedImpact": "clearer build payoff and mid-game movement pressure",
+      "risk": "performance and draw call cost are unmeasured on device",
+      "nextMeasurementNeeded": "FPS, draw call, GC, thermal in U35",
+      "relatedGate": "U29 performance budget",
+      "relatedFile": "unity/VampPonUnity/Assets/_Project/Scripts/U26/FirstPlayableBalance/U26Stage1WaveDraft.cs"
+    },
+    {
+      "id": "u33-kokuyou-evolution-rare",
+      "before": "Kokuyou 360s, Evolution 210s, Rare 0.035",
+      "after": "Kokuyou 330s, Evolution 195s, Rare 0.04",
+      "reason": "make climax systems reachable during an 8 minute first run.",
+      "expectedImpact": "more visible Rare / Evolution / Kokuyou test moments",
+      "risk": "special moments may feel less rare if real run is faster",
+      "nextMeasurementNeeded": "reachability rate in U35",
+      "relatedGate": "U30 production approval gate",
+      "relatedFile": "unity/VampPonUnity/Assets/_Project/Scripts/U26/FirstPlayableBalance/U26Stage1BalanceConstants.cs"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "productionBalanceFinal": false,
+  "actions": [
+    {
+      "id": "u33-tune-first-pickup",
+      "area": "drop / pickup / heal",
+      "before": "PickupRadius 1.75 / XpDropChance 0.88 / RecoveryDropChance 0.045",
+      "after": "PickupRadius 1.8 / XpDropChance 0.9 / RecoveryDropChance 0.04",
+      "reason": "Make first pickup earlier while keeping heal pickup valuable.",
+      "expectedImpact": "Opening feels less empty and heal does not erase tension.",
+      "risk": "PickupRadius may feel too generous on mobile.",
+      "nextMeasurementNeeded": "U35 pickup route and heal timing."
+    },
+    {
+      "id": "u33-tune-level-cadence",
+      "area": "XP / LevelUp",
+      "before": "Level thresholds 0/8/20/38/62/92/130/176",
+      "after": "Level thresholds 0/7/18/34/56/84/120/162",
+      "reason": "Make Lv2 and Lv3-Lv4 visible in the first two minutes.",
+      "expectedImpact": "More frequent early build choices.",
+      "risk": "Candidate repetition may become more visible.",
+      "nextMeasurementNeeded": "U35 level distribution and candidate variety."
+    },
+    {
+      "id": "u33-tune-weapon-feel",
+      "area": "weapon / passive / evolution",
+      "before": "BasicWeaponCooldownMs 900 / BasicWeaponDamage 12",
+      "after": "BasicWeaponCooldownMs 880 / BasicWeaponDamage 13",
+      "reason": "Make the initial weapon feel active without adding new weapons.",
+      "expectedImpact": "Enemies feel less hard in the opening.",
+      "risk": "Clear push may become too easy.",
+      "nextMeasurementNeeded": "U35 kill count and clear rate."
+    },
+    {
+      "id": "u33-tune-wave-density",
+      "area": "enemy wave / damage",
+      "before": "opening 2.6/max7, first 2.1/max12, mid max26, climax max32",
+      "after": "opening 2.45/max8, first 2.0/max13, mid max27, climax max34",
+      "reason": "Add pressure and targets while respecting U29 max active enemies 38.",
+      "expectedImpact": "2:00-6:00 is less flat.",
+      "risk": "Device performance is NOT_MEASURED.",
+      "nextMeasurementNeeded": "U35 FPS, memory, thermal, draw call, GC allocation."
+    },
+    {
+      "id": "u33-tune-climax-reachability",
+      "area": "Kokuyou / Rare",
+      "before": "KokuyouReadySeconds 360 / EvolutionEarliestSeconds 210 / Rare 0.035",
+      "after": "KokuyouReadySeconds 330 / EvolutionEarliestSeconds 195 / Rare 0.04",
+      "reason": "Make climax systems easier to verify in one Stage1 run.",
+      "expectedImpact": "Rare / Evolution / Kokuyou moments appear before clear more often.",
+      "risk": "Special moments may need retuning after real play data.",
+      "nextMeasurementNeeded": "U35 reachability rate."
+    }
+  ]
+}
