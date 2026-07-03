@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "blocked": [
+    {
+      "path": "docs/design-targets/generated/",
+      "reason": "docsGeneratedOnly; QA evidence only"
+    },
+    {
+      "path": "docs/design-targets/generated/**/screenshots/",
+      "reason": "screenshots; never runtime assets"
+    },
+    {
+      "path": "public/assets/prototypes/",
+      "reason": "reference baseline; not final production by default"
+    },
+    {
+      "path": "generated final PNG references",
+      "reason": "must be finished into Unity runtime assets first"
+    }
+  ],
+  "runtimeBlockedReferenceCount": 0
+}

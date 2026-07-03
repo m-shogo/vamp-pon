@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "runtimeReferenceScan": {
+    "docsDesignTargetsGeneratedRuntimeRefs": 0,
+    "generatedFinalPngRuntimeRefs": 0,
+    "screenshotRuntimeRefs": 0,
+    "publicPrototypeRuntimeRefs": "classified reference-only / not final production",
+    "draftSeFinalApprovedClaims": 0,
+    "u39FinalCandidateSeFinalApprovedClaims": 0,
+    "addressablesIntroduced": false,
+    "cloudSaveIntroduced": false,
+    "productionApprovedTrue": false,
+    "rcReadyTrue": false
+  },
+  "scannedPolicy": "C# runtime scripts and U40 registry policy; generated docs remain evidence only"
+}

@@ -1,0 +1,163 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "replacements": [
+    {
+      "assetKey": "player_sprites",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png",
+      "replacementCandidate": "Assets/_Project/Art/Characters/Stage1/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "medium",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "enemy_sprites",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-ombu-battle-candidate.png",
+      "replacementCandidate": "Assets/_Project/Art/Enemies/Stage1/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "medium",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "weapon_projectile_sprites",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
+      "replacementCandidate": "Assets/_Project/Art/Projectiles/Stage1/",
+      "status": "runtimeApprovedDraft",
+      "reason": "kept with fallback and review note",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "item_passive_icons",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/UI/u5-icon-frame.png",
+      "replacementCandidate": "Assets/_Project/Art/Icons/Stage1/",
+      "status": "runtimeApprovedDraft",
+      "reason": "kept with fallback and review note",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "pickup_sprites",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-exp-fragment.png",
+      "replacementCandidate": "Assets/_Project/Art/Pickups/Stage1/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "ui_paper_parts",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/UI/result_new_badge_refined.png",
+      "replacementCandidate": "Assets/_Project/Art/UI/Paper/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "hud_parts",
+      "currentAsset": "Unity UI generated from runtime presenters",
+      "replacementCandidate": "Assets/_Project/Art/UI/HUD/",
+      "status": "runtimeApprovedDraft",
+      "reason": "kept with fallback and review note",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "levelup_cards",
+      "currentAsset": "Unity UI generated from U23/U25 presenters",
+      "replacementCandidate": "Assets/_Project/Art/UI/LevelUp/",
+      "status": "runtimeApprovedDraft",
+      "reason": "kept with fallback and review note",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "result_ledger_stamp_seal",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_rank_wax_seal.png",
+      "replacementCandidate": "Assets/_Project/Art/UI/Result/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "stageselect_map_route_lantern",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_start_marker_lantern.png",
+      "replacementCandidate": "Assets/_Project/Art/UI/StageSelect/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "kokuyou_rare_evolution_effects",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/VFX/levelup_rare_memory_tear_burst.png",
+      "replacementCandidate": "Assets/_Project/Art/Effects/Climax/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "medium",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "sprite_atlas_u36",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/",
+      "replacementCandidate": "same",
+      "status": "productionCandidate",
+      "reason": "kept with fallback and review note",
+      "visualConsistencyRisk": "low",
+      "performanceRisk": "device draw calls NOT_MEASURED",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 production approval re-check"
+    },
+    {
+      "assetKey": "u39_final_candidate_se",
+      "currentAsset": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/",
+      "replacementCandidate": "Assets/_Project/Audio/ProductionSe/",
+      "status": "finalCandidate",
+      "reason": "safe final candidate for Stage1 runtime boundary",
+      "visualConsistencyRisk": "medium",
+      "performanceRisk": "low-to-medium",
+      "mobileMeasurementNeed": true,
+      "finalApprovalNeed": true,
+      "targetFuturePhase": "U38 audio approval"
+    }
+  ]
+}

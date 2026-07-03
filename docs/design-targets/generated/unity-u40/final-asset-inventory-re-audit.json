@@ -1,0 +1,172 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "inventory": [
+    {
+      "assetKey": "player_sprites",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png",
+      "category": "player sprites",
+      "currentRuntimeUsage": "Stage1 player visual",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/Characters/Stage1/",
+      "blocker": "",
+      "risk": "medium",
+      "nextAction": "device readability review"
+    },
+    {
+      "assetKey": "enemy_sprites",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-ombu-battle-candidate.png",
+      "category": "enemy sprites",
+      "currentRuntimeUsage": "Stage1 enemy visual",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/Enemies/Stage1/",
+      "blocker": "",
+      "risk": "medium",
+      "nextAction": "device readability review"
+    },
+    {
+      "assetKey": "weapon_projectile_sprites",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
+      "category": "weapon / projectile sprites",
+      "currentRuntimeUsage": "soft projectile feedback",
+      "currentStatus": "runtimeApprovedDraft",
+      "replacementTarget": "Assets/_Project/Art/Projectiles/Stage1/",
+      "blocker": "needs final visual review",
+      "risk": "low",
+      "nextAction": "keep fallback"
+    },
+    {
+      "assetKey": "item_passive_icons",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/UI/u5-icon-frame.png",
+      "category": "item / passive icons",
+      "currentRuntimeUsage": "LevelUp card icon frame",
+      "currentStatus": "runtimeApprovedDraft",
+      "replacementTarget": "Assets/_Project/Art/Icons/Stage1/",
+      "blocker": "icon set still draft",
+      "risk": "low",
+      "nextAction": "review with economy hardening"
+    },
+    {
+      "assetKey": "pickup_sprites",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-exp-fragment.png",
+      "category": "pickup sprites",
+      "currentRuntimeUsage": "XP fragment pickup",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/Pickups/Stage1/",
+      "blocker": "",
+      "risk": "low",
+      "nextAction": "device speaker/visual density review"
+    },
+    {
+      "assetKey": "ui_paper_parts",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/UI/result_new_badge_refined.png",
+      "category": "UI paper parts",
+      "currentRuntimeUsage": "paper UI widgets",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/UI/Paper/",
+      "blocker": "",
+      "risk": "low",
+      "nextAction": "keep U36 atlas packing"
+    },
+    {
+      "assetKey": "hud_parts",
+      "path": "Unity UI generated from runtime presenters",
+      "category": "HUD parts",
+      "currentRuntimeUsage": "Time HP Lv EXP HUD",
+      "currentStatus": "runtimeApprovedDraft",
+      "replacementTarget": "Assets/_Project/Art/UI/HUD/",
+      "blocker": "procedural readable HUD",
+      "risk": "low",
+      "nextAction": "device readability review"
+    },
+    {
+      "assetKey": "levelup_cards",
+      "path": "Unity UI generated from U23/U25 presenters",
+      "category": "LevelUp cards",
+      "currentRuntimeUsage": "LevelUp choice UI",
+      "currentStatus": "runtimeApprovedDraft",
+      "replacementTarget": "Assets/_Project/Art/UI/LevelUp/",
+      "blocker": "card art final approval later",
+      "risk": "low",
+      "nextAction": "keep 390x844 readable"
+    },
+    {
+      "assetKey": "result_ledger_stamp_seal",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_rank_wax_seal.png",
+      "category": "Result ledger / stamp / seal",
+      "currentRuntimeUsage": "Result screen feedback",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/UI/Result/",
+      "blocker": "",
+      "risk": "low",
+      "nextAction": "reward economy review later"
+    },
+    {
+      "assetKey": "stageselect_map_route_lantern",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_start_marker_lantern.png",
+      "category": "StageSelect map / route / lantern",
+      "currentRuntimeUsage": "StageSelect route proof",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/UI/StageSelect/",
+      "blocker": "",
+      "risk": "low",
+      "nextAction": "Stage2 placeholder stays placeholder"
+    },
+    {
+      "assetKey": "kokuyou_rare_evolution_effects",
+      "path": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/VFX/levelup_rare_memory_tear_burst.png",
+      "category": "Kokuyou / Rare / Evolution effects",
+      "currentRuntimeUsage": "special moments only",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Art/Effects/Climax/",
+      "blocker": "",
+      "risk": "medium",
+      "nextAction": "device performance and readability review"
+    },
+    {
+      "assetKey": "sprite_atlas_u36",
+      "path": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/",
+      "category": "Sprite Atlas U36 assets",
+      "currentRuntimeUsage": "candidate atlas packing",
+      "currentStatus": "productionCandidate",
+      "replacementTarget": "same",
+      "blocker": "",
+      "risk": "low",
+      "nextAction": "draw calls / batches on device"
+    },
+    {
+      "assetKey": "u39_final_candidate_se",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/",
+      "category": "U39 finalCandidate SE",
+      "currentRuntimeUsage": "Stage1 SE candidate",
+      "currentStatus": "finalCandidate",
+      "replacementTarget": "Assets/_Project/Audio/ProductionSe/",
+      "blocker": "final approved SE not complete",
+      "risk": "medium",
+      "nextAction": "human/device audio review"
+    },
+    {
+      "assetKey": "generated_screenshots",
+      "path": "docs/design-targets/generated/",
+      "category": "generated screenshots / docs references",
+      "currentRuntimeUsage": "QA evidence only",
+      "currentStatus": "blockedFromRuntime",
+      "replacementTarget": "none",
+      "blocker": "runtime forbidden",
+      "risk": "high",
+      "nextAction": "keep checker blocking"
+    },
+    {
+      "assetKey": "public_prototypes",
+      "path": "public/assets/prototypes/",
+      "category": "public prototype references",
+      "currentRuntimeUsage": "reference only",
+      "currentStatus": "generatedReferenceOnly",
+      "replacementTarget": "none",
+      "blocker": "not runtime final",
+      "risk": "high",
+      "nextAction": "do not promote without Unity finishing"
+    }
+  ]
+}
