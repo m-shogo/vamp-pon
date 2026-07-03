@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: U36UiPaper
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 0
+      compressionQuality: 0
+      maxTextureSize: 0
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 4
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 0
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: c54e31a64ea3943d19b67fbd061f4b57, type: 3}
+    - {fileID: 2800000, guid: 1e6c9f55cbbdf41b0a86ddfa700e22c2, type: 3}
+    - {fileID: 2800000, guid: 1f0968743db2e45078feaffae5986dd9, type: 3}
+    - {fileID: 2800000, guid: ce9e262a814cf4e6ba8f92b667ceaa09, type: 3}
+    - {fileID: 2800000, guid: 67ac9e515af9048adac1196a923698a1, type: 3}
+    - {fileID: 2800000, guid: 4f1dbe8b2feb642fa850f76e93c4e6d8, type: 3}
+    - {fileID: 2800000, guid: e17209f1293094c8bb054b854e664909, type: 3}
+    - {fileID: 2800000, guid: ce32fccff471045dab7010d2538737e2, type: 3}
+    - {fileID: 2800000, guid: 36abee346766743f5b01777d2df51b10, type: 3}
+    - {fileID: 2800000, guid: 9bc9b20d641a04fce80e88cc6b1388b7, type: 3}
+    - {fileID: 2800000, guid: 30985c76a5579432b8e22a30df3cd837, type: 3}
+    - {fileID: 2800000, guid: 3dd625502bf6f49c89262d81c29c3a8e, type: 3}
+    - {fileID: 2800000, guid: c73f8918588b34f44a5c5f452f0721a9, type: 3}
+    - {fileID: 2800000, guid: 16c9d5418f2f74954b290ea540232a85, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys: []
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
+  m_RenderDataMap: {}
+  m_Tag: U36UiPaper
+  m_IsVariant: 0
+  m_Guid: 00000000000000000000000000000000

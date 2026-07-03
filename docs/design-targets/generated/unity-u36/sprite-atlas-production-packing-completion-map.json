@@ -1,0 +1,99 @@
+{
+  "productionApproved": false,
+  "assetReplacementReady": false,
+  "spriteAtlasProductionPackingComplete": true,
+  "addressablesUsed": false,
+  "atlases": [
+    {
+      "atlasName": "U36Characters",
+      "atlasPath": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/U36Characters.spriteatlas",
+      "targetCategory": "characters",
+      "packedAssetCount": 1,
+      "includedAssetPaths": ["Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png"],
+      "excludedAssetPaths": ["docs/design-targets/generated", "public/assets/prototypes", "Assets/_Project/Resources/*/FullscreenArt"],
+      "generatedAssetIncluded": false,
+      "docsGeneratedIncluded": false,
+      "addressablesUsed": false,
+      "productionPackingComplete": true,
+      "unresolvedRisks": ["final character art not approved", "mobile metrics NOT_MEASURED"]
+    },
+    {
+      "atlasName": "U36Enemies",
+      "atlasPath": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/U36Enemies.spriteatlas",
+      "targetCategory": "enemies",
+      "packedAssetCount": 1,
+      "includedAssetPaths": ["Assets/_Project/Resources/U5Candidates/Battle/u5-ombu-battle-candidate.png"],
+      "excludedAssetPaths": ["docs/design-targets/generated", "public/assets/prototypes"],
+      "generatedAssetIncluded": false,
+      "docsGeneratedIncluded": false,
+      "addressablesUsed": false,
+      "productionPackingComplete": true,
+      "unresolvedRisks": ["enemy readability needs mobile QA"]
+    },
+    {
+      "atlasName": "U36ItemsIcons",
+      "atlasPath": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/U36ItemsIcons.spriteatlas",
+      "targetCategory": "items / icons / pickup",
+      "packedAssetCount": 2,
+      "includedAssetPaths": [
+        "Assets/_Project/Resources/U5Candidates/UI/u5-icon-frame.png",
+        "Assets/_Project/Resources/U5Candidates/VFX/u5-exp-fragment.png"
+      ],
+      "excludedAssetPaths": ["docs/design-targets/generated", "public/assets/prototypes", "generated final PNG"],
+      "generatedAssetIncluded": false,
+      "docsGeneratedIncluded": false,
+      "addressablesUsed": false,
+      "productionPackingComplete": true,
+      "unresolvedRisks": ["icon consistency not final"]
+    },
+    {
+      "atlasName": "U36UiPaper",
+      "atlasPath": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/U36UiPaper.spriteatlas",
+      "targetCategory": "UI paper / HUD / LevelUp / Result / StageSelect",
+      "packedAssetCount": 14,
+      "includedAssetPaths": [
+        "Assets/_Project/Resources/U5Candidates/UI/u5-paper-panel.png",
+        "Assets/_Project/Resources/U8Candidates/UI/result_new_badge.png",
+        "Assets/_Project/Resources/U8Candidates/UI/result_paper_ledger_panel.png",
+        "Assets/_Project/Resources/U8Candidates/UI/result_rank_wax_seal.png",
+        "Assets/_Project/Resources/U8Candidates/UI/result_reward_memory_card.png",
+        "Assets/_Project/Resources/U8Candidates/UI/stageselect_paper_map_base.png",
+        "Assets/_Project/Resources/U8Candidates/UI/stageselect_route_line_ink.png",
+        "Assets/_Project/Resources/U8Candidates/UI/stageselect_route_node.png",
+        "Assets/_Project/Resources/U8Candidates/UI/stageselect_start_marker_lantern.png",
+        "Assets/_Project/Resources/U8Refined/UI/result_new_badge_refined.png",
+        "Assets/_Project/Resources/U10Candidates/UI/result_continue_paper_button.png",
+        "Assets/_Project/Resources/U10Candidates/UI/result_stats_ink_strip.png",
+        "Assets/_Project/Resources/U10Candidates/UI/stageselect_route_active_node.png",
+        "Assets/_Project/Resources/U10Candidates/UI/stageselect_route_locked_node.png"
+      ],
+      "excludedAssetPaths": ["docs/design-targets/generated", "screenshots", "completed screen images", "FullscreenArt"],
+      "generatedAssetIncluded": false,
+      "docsGeneratedIncluded": false,
+      "addressablesUsed": false,
+      "productionPackingComplete": true,
+      "unresolvedRisks": ["UI candidates still need final RC review"]
+    },
+    {
+      "atlasName": "U36Effects",
+      "atlasPath": "unity/VampPonUnity/Assets/_Project/SpriteAtlases/U36/U36Effects.spriteatlas",
+      "targetCategory": "effects",
+      "packedAssetCount": 7,
+      "includedAssetPaths": [
+        "Assets/_Project/Resources/U5Candidates/VFX/u5-collect-trail.png",
+        "Assets/_Project/Resources/U5Candidates/VFX/u5-ink-burst.png",
+        "Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
+        "Assets/_Project/Resources/U8Candidates/VFX/levelup_rare_ink_flare.png",
+        "Assets/_Project/Resources/U8Candidates/VFX/levelup_rare_lantern_pulse_ring.png",
+        "Assets/_Project/Resources/U8Refined/VFX/levelup_rare_ink_flare_refined.png",
+        "Assets/_Project/Resources/U10Candidates/VFX/levelup_rare_memory_tear_burst.png"
+      ],
+      "excludedAssetPaths": ["docs/design-targets/generated", "generated final PNG", "FullscreenArt", "Cutin review art"],
+      "generatedAssetIncluded": false,
+      "docsGeneratedIncluded": false,
+      "addressablesUsed": false,
+      "productionPackingComplete": true,
+      "unresolvedRisks": ["final climax effects pending", "mobile performance NOT_MEASURED"]
+    }
+  ]
+}

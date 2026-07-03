@@ -1,0 +1,14 @@
+{
+  "inventoryStatus": "U36 atlas candidate inventory",
+  "runtimeBoundary": "Unity _Project/Resources candidates only; public prototypes and docs generated evidence excluded",
+  "entries": [
+    {"path": "Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png", "category": "characters", "currentStatus": "runtime candidate", "atlasTarget": true, "risk": "final art not approved", "nextAction": "final replacement review"},
+    {"path": "Assets/_Project/Resources/U5Candidates/Battle/u5-ombu-battle-candidate.png", "category": "enemies", "currentStatus": "runtime candidate", "atlasTarget": true, "risk": "mobile readability not measured", "nextAction": "device QA"},
+    {"path": "Assets/_Project/Resources/U5Candidates/UI/u5-icon-frame.png", "category": "weapon / passive icons", "currentStatus": "icon candidate", "atlasTarget": true, "risk": "icon set incomplete", "nextAction": "U34 RC review"},
+    {"path": "Assets/_Project/Resources/U5Candidates/VFX/u5-exp-fragment.png", "category": "pickup sprites", "currentStatus": "pickup candidate", "atlasTarget": true, "risk": "final pickup art pending", "nextAction": "gameplay size review"},
+    {"path": "Assets/_Project/Resources/U8Candidates/UI/", "category": "UI paper parts", "currentStatus": "needs review", "atlasTarget": true, "risk": "UI candidate not final", "nextAction": "visual comparison"},
+    {"path": "Assets/_Project/Resources/U5Candidates/VFX/; Assets/_Project/Resources/U8Candidates/VFX/; Assets/_Project/Resources/U10Candidates/VFX/", "category": "effects", "currentStatus": "effect candidates", "atlasTarget": true, "risk": "final effects pending", "nextAction": "mobile performance pass"},
+    {"path": "public/assets/prototypes/", "category": "prototype", "currentStatus": "reference only", "atlasTarget": false, "risk": "web/prototype source", "nextAction": "keep excluded"},
+    {"path": "docs/design-targets/generated/", "category": "docsGeneratedOnly", "currentStatus": "QA evidence", "atlasTarget": false, "risk": "runtime paste risk", "nextAction": "keep checker blocked"}
+  ]
+}

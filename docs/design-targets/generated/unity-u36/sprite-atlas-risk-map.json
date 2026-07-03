@@ -1,0 +1,12 @@
+{
+  "spriteAtlasProductionPackingComplete": true,
+  "assetReplacementReady": false,
+  "mobileMetrics": "NOT_MEASURED",
+  "risks": [
+    {"area": "characters", "risk": "candidate art is not final production character art", "severity": "medium", "nextAction": "final asset replacement review"},
+    {"area": "enemies", "risk": "mobile readability and performance are NOT_MEASURED", "severity": "medium", "nextAction": "U37 mobile tuning"},
+    {"area": "UI paper", "risk": "candidate UI parts still need RC visual comparison", "severity": "medium", "nextAction": "U34 checklist"},
+    {"area": "effects", "risk": "final climax effects and draw calls are not measured on device", "severity": "high", "nextAction": "U37 after mobile metrics"},
+    {"area": "import settings", "risk": "platform compression not finalized", "severity": "medium", "nextAction": "production import pass"}
+  ]
+}

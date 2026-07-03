@@ -1,0 +1,17 @@
+{
+  "generatedAssetIncluded": false,
+  "docsGeneratedIncluded": false,
+  "excluded": [
+    {"path": "docs/design-targets/generated/", "reason": "QA evidence only; blocked from runtime and atlas"},
+    {"path": "docs/design-targets/generated/unity-u36/screenshots/", "reason": "Editor evidence screenshots"},
+    {"path": "public/assets/prototypes/", "reason": "prototype / web baseline, not Unity-finished runtime atlas target"},
+    {"path": "Assets/_Project/Resources/U8Candidates/FullscreenArt/", "reason": "fullscreen review art excluded from U36 runtime atlas"},
+    {"path": "Assets/_Project/Resources/U8Refined/FullscreenArt/", "reason": "fullscreen review art excluded from U36 runtime atlas"},
+    {"path": "Assets/_Project/Resources/U10Candidates/FullscreenArt/", "reason": "fullscreen review art excluded from U36 runtime atlas"},
+    {"path": "Assets/_Project/Resources/U10Candidates/Cutin/cutin_black_ink_band_final_candidate.png", "reason": "cutin review candidate; excluded to avoid generated final / fullscreen boundary blur"},
+    {"path": "Assets/_Project/Audio/U28DraftSe/", "reason": "draft SE, non-sprite, final SE not approved"}
+  ],
+  "addressablesUsed": false,
+  "cloudSaveIntroduced": false,
+  "productionApproved": false
+}
