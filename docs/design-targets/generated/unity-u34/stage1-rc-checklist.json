@@ -1,0 +1,28 @@
+{
+  "version": "U34",
+  "rcReady": false,
+  "productionApproved": false,
+  "items": [
+    {"id": "runtime-loop", "status": "PASS", "evidence": "U25 runtime loop"},
+    {"id": "battle-feel", "status": "CAUTION", "evidence": "Editor proof only"},
+    {"id": "first-30", "status": "CAUTION", "evidence": "U33 hardening"},
+    {"id": "timeline", "status": "CAUTION", "evidence": "U33 8min timeline"},
+    {"id": "xp-levelup", "status": "CAUTION", "evidence": "U33 XP review"},
+    {"id": "enemy-wave", "status": "CAUTION", "evidence": "U33 wave review"},
+    {"id": "drop-pickup-heal", "status": "CAUTION", "evidence": "U33 pickup review"},
+    {"id": "weapon-passive-evolution", "status": "CAUTION", "evidence": "U33 evolution review"},
+    {"id": "kokuyou-rare", "status": "CAUTION", "evidence": "U33 reachability"},
+    {"id": "result-reward-unlock", "status": "BLOCKED", "evidence": "reward economy draft"},
+    {"id": "stageselect-retry", "status": "CAUTION", "evidence": "U27/U31 evidence"},
+    {"id": "save-safety", "status": "NOT_MEASURED", "evidence": "restart persistence device check missing"},
+    {"id": "audio-haptic", "status": "BLOCKED", "evidence": "final SE and device haptic missing"},
+    {"id": "sprite-atlas-texture", "status": "PASS", "evidence": "U36 atlas packing complete"},
+    {"id": "runtime-asset-boundary", "status": "PASS", "evidence": "U32/U36 boundary checks"},
+    {"id": "readability-390x844", "status": "CAUTION", "evidence": "Editor evidence only"},
+    {"id": "mobile-metrics", "status": "NOT_MEASURED", "evidence": "U35 mobileMetricsReady=false"},
+    {"id": "performance-budget", "status": "NOT_MEASURED", "evidence": "device FPS/memory not measured"},
+    {"id": "production-assets", "status": "BLOCKED", "evidence": "assetReplacementReady=false"},
+    {"id": "regression", "status": "PASS", "evidence": "U22-U36 checkers"},
+    {"id": "release-notes", "status": "BLOCKED", "evidence": "known issues pass pending"}
+  ]
+}

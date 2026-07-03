@@ -40,6 +40,7 @@
     "unity:u31-stage1-mobile-qa:check": "node --experimental-strip-types scripts/quality/check-unity-u31-stage1-mobile-qa-tuning.ts",
     "unity:u32-production-asset-replacement:check": "node --experimental-strip-types scripts/quality/check-unity-u32-production-asset-replacement.ts",
     "unity:u33-stage1-balance-hardening:check": "node --experimental-strip-types scripts/quality/check-unity-u33-stage1-balance-hardening.ts",
+    "unity:u34-release-candidate-checklist:check": "node --experimental-strip-types scripts/quality/check-unity-u34-release-candidate-checklist.ts",
     "unity:u35-mobile-device-metrics:check": "node --experimental-strip-types scripts/quality/check-unity-u35-mobile-device-metrics.ts",
     "unity:u36-sprite-atlas-production-packing:check": "node --experimental-strip-types scripts/quality/check-unity-u36-sprite-atlas-production-packing.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",

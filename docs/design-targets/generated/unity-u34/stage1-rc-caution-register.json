@@ -1,0 +1,14 @@
+{
+  "cautions": [
+    {"id": "rc-caution-atlas-device", "risk": "Sprite Atlas packed but device performance unconfirmed", "targetPhase": "U37"},
+    {"id": "rc-caution-draft-se", "risk": "draft SE is not final audio", "targetPhase": "U39"},
+    {"id": "rc-caution-climax-reach", "risk": "Kokuyou / Rare / Evolution reachability is Editor-only", "targetPhase": "U37"},
+    {"id": "rc-caution-save", "risk": "save persistence is Editor evidence centered", "targetPhase": "U37"},
+    {"id": "rc-caution-cloud-save", "risk": "Cloud Save not introduced", "targetPhase": "U38"},
+    {"id": "rc-caution-addressables", "risk": "Addressables not introduced", "targetPhase": "U38"},
+    {"id": "rc-caution-economy", "risk": "economy draft", "targetPhase": "U41"},
+    {"id": "rc-caution-stage2", "risk": "Stage2 placeholder unlock", "targetPhase": "U42"},
+    {"id": "rc-caution-thermal", "risk": "mobile thermal not measured", "targetPhase": "U37"},
+    {"id": "rc-caution-audio-voices", "risk": "audio voice cap not checked on device speakers", "targetPhase": "U39"}
+  ]
+}

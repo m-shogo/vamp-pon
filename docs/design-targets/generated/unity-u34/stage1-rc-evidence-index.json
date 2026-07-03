@@ -1,0 +1,16 @@
+{
+  "evidence": [
+    {"unit": "U25", "type": "runtime loop", "path": "docs/design-targets/generated/unity-u25/screenshots/"},
+    {"unit": "U26", "type": "first playable balance", "path": "docs/design-targets/generated/unity-u26/screenshots/"},
+    {"unit": "U27", "type": "save reward unlock", "path": "docs/design-targets/generated/unity-u27/screenshots/"},
+    {"unit": "U28", "type": "audio haptic", "path": "docs/design-targets/generated/unity-u28/"},
+    {"unit": "U29", "type": "performance budget", "path": "docs/design-targets/generated/unity-u29/"},
+    {"unit": "U30", "type": "approval gate", "path": "docs/design-targets/generated/unity-u30/"},
+    {"unit": "U31", "type": "QA", "path": "docs/design-targets/generated/unity-u31/"},
+    {"unit": "U32", "type": "asset boundary", "path": "docs/design-targets/generated/unity-u32/"},
+    {"unit": "U33", "type": "balance hardening", "path": "docs/design-targets/generated/unity-u33/"},
+    {"unit": "U35", "type": "mobile metrics wiring", "path": "docs/design-targets/generated/unity-u35/"},
+    {"unit": "U36", "type": "sprite atlas packing", "path": "docs/design-targets/generated/unity-u36/"}
+  ],
+  "knownLimitations": ["mobile metrics NOT_MEASURED", "assetReplacementReady=false", "final SE unresolved", "production balance unresolved"]
+}

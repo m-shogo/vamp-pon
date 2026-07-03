@@ -1,0 +1,10 @@
+{
+  "nextActions": [
+    {"actionId": "u37", "title": "final mobile tuning after device metrics", "priority": "P0", "targetPhase": "U37"},
+    {"actionId": "u38", "title": "production approval re-check", "priority": "P0", "targetPhase": "U38"},
+    {"actionId": "u39", "title": "final SE / AudioMixer pass", "priority": "P0", "targetPhase": "U39"},
+    {"actionId": "u40", "title": "final production asset replacement pass", "priority": "P0", "targetPhase": "U40"},
+    {"actionId": "u41", "title": "economy / reward hardening", "priority": "P1", "targetPhase": "U41"},
+    {"actionId": "u42", "title": "release notes / known issues pass", "priority": "P1", "targetPhase": "U42"}
+  ]
+}

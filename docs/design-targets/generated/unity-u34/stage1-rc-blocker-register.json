@@ -1,0 +1,16 @@
+{
+  "rcReady": false,
+  "blockers": [
+    {"id": "rc-block-mobile-metrics", "severity": "P0", "reason": "mobile FPS / memory / thermal / GC / draw call NOT_MEASURED", "targetPhase": "U37"},
+    {"id": "rc-block-touch", "severity": "P0", "reason": "touch responsiveness実機未測定", "targetPhase": "U37"},
+    {"id": "rc-block-audio-latency", "severity": "P0", "reason": "audio latency実機未測定", "targetPhase": "U39"},
+    {"id": "rc-block-haptic", "severity": "P1", "reason": "haptic実機未測定", "targetPhase": "U39"},
+    {"id": "rc-block-final-assets", "severity": "P0", "reason": "final production asset replacement未完", "targetPhase": "U40"},
+    {"id": "rc-block-final-se", "severity": "P0", "reason": "final SE / AudioMixer未確定", "targetPhase": "U39"},
+    {"id": "rc-block-balance", "severity": "P0", "reason": "本番balance未確定", "targetPhase": "U37"},
+    {"id": "rc-block-economy", "severity": "P1", "reason": "reward economy / unlock economy draft", "targetPhase": "U41"},
+    {"id": "rc-block-asset-ready", "severity": "P0", "reason": "assetReplacementReady=false", "targetPhase": "U40"},
+    {"id": "rc-block-approval", "severity": "P0", "reason": "productionApproved=false", "targetPhase": "U38"},
+    {"id": "rc-block-mobile-ready", "severity": "P0", "reason": "mobileMetricsReady=false", "targetPhase": "U37"}
+  ]
+}

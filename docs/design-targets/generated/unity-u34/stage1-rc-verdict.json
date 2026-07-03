@@ -1,0 +1,14 @@
+{
+  "rcReady": false,
+  "productionApproved": false,
+  "internalPreviewReady": true,
+  "mobileQaReady": true,
+  "mobileMetricsReady": false,
+  "assetReplacementReady": false,
+  "balanceHardeningReady": true,
+  "spriteAtlasPackingReady": true,
+  "blockerCount": 11,
+  "cautionCount": 10,
+  "notMeasuredCount": 3,
+  "reason": "mobileMetricsReady=false, assetReplacementReady=false, final SE unresolved, production balance unresolved, economy draft"
+}
