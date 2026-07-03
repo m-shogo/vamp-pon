@@ -1,0 +1,19 @@
+{
+  "status": "EDITOR_ONLY",
+  "source": "U29 budget and U33 balance cap alignment",
+  "runtimeCounts": {
+    "activeEnemiesCount": 38,
+    "activePickupsCount": 48,
+    "activeProjectilesCount": 24,
+    "activeHitEffectsCount": 16,
+    "activeParticlesCount": 64
+  },
+  "scenarioMarkers": [
+    { "scenario": "first_30_seconds", "enemyCap": 8 },
+    { "scenario": "two_minute_wave", "enemyCap": 20 },
+    { "scenario": "four_minute_wave", "enemyCap": 27 },
+    { "scenario": "six_minute_climax", "enemyCap": 34 },
+    { "scenario": "clear_push", "enemyCap": 38 }
+  ],
+  "mobileMeasured": false
+}

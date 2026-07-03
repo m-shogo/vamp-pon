@@ -1,0 +1,30 @@
+{
+  "productionApproved": false,
+  "mobileMetricsReady": false,
+  "mobileMetricsReadyReason": "Only Editor evidence and metrics capture wiring are present; mobile device metrics are NOT_MEASURED.",
+  "measuredItems": [],
+  "editorOnlyItems": [
+    "metrics model",
+    "capture hook export shape",
+    "runtime count budget",
+    "390x844 evidence screenshots"
+  ],
+  "notMeasuredItems": [
+    "mobile FPS",
+    "memory",
+    "thermal",
+    "GC allocation",
+    "draw calls",
+    "audio latency",
+    "haptic behavior",
+    "touch responsiveness",
+    "save persistence",
+    "retry stability"
+  ],
+  "assetReplacementReady": false,
+  "spriteAtlasProductionPackingComplete": false,
+  "finalSeApproved": false,
+  "productionBalanceFinal": false,
+  "addressablesIntroduced": false,
+  "cloudSaveIntroduced": false
+}

@@ -1,0 +1,21 @@
+{
+  "productionApproved": false,
+  "notPass": true,
+  "mobileMetricsReady": false,
+  "notMeasured": [
+    "mobile FPS",
+    "memory",
+    "peak memory",
+    "thermal",
+    "battery drain",
+    "GC allocation",
+    "draw calls",
+    "batches",
+    "audio latency",
+    "audio clipping on device",
+    "haptic device behavior",
+    "touch responsiveness",
+    "save persistence after restart",
+    "retry stability on device"
+  ]
+}

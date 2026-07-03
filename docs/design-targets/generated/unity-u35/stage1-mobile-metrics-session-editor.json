@@ -1,0 +1,41 @@
+{
+  "version": "U35",
+  "productionApproved": false,
+  "mobileMetricsReady": false,
+  "sessionStatus": "EDITOR_ONLY",
+  "measuredAt": "EDITOR_ONLY",
+  "deviceProfile": {
+    "deviceName": "Unity Editor",
+    "platform": "Editor",
+    "osVersion": "EDITOR_ONLY",
+    "buildType": "Editor verification",
+    "resolution": "390x844",
+    "targetFps": 60
+  },
+  "performance": {
+    "status": "EDITOR_ONLY",
+    "averageFps": null,
+    "minFps": null,
+    "maxFps": null,
+    "frameTimeMs": null,
+    "memoryMb": null,
+    "peakMemoryMb": null,
+    "gcAllocPerMinute": null,
+    "drawCalls": null,
+    "batches": null,
+    "thermalState": "EDITOR_ONLY",
+    "batteryDrainNote": "EDITOR_ONLY"
+  },
+  "mobileMeasurement": {
+    "fps": "NOT_MEASURED",
+    "memory": "NOT_MEASURED",
+    "thermal": "NOT_MEASURED",
+    "gcAllocation": "NOT_MEASURED",
+    "drawCalls": "NOT_MEASURED",
+    "audioLatency": "NOT_MEASURED",
+    "hapticBehavior": "NOT_MEASURED",
+    "touchResponsiveness": "NOT_MEASURED",
+    "savePersistence": "NOT_MEASURED",
+    "retryStability": "NOT_MEASURED"
+  }
+}

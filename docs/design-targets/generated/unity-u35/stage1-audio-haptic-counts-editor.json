@@ -1,0 +1,17 @@
+{
+  "status": "EDITOR_ONLY",
+  "audio": {
+    "maxActiveVoices": 8,
+    "maxLowPriorityVoices": 4,
+    "audioLatencyStatus": "NOT_MEASURED",
+    "audioClippingStatus": "NOT_MEASURED_ON_DEVICE",
+    "finalSeApproved": false
+  },
+  "haptic": {
+    "lightCooldownSeconds": 0.08,
+    "damageCooldownSeconds": 0.25,
+    "kokuyouActivationCooldownSeconds": 1.0,
+    "hapticBehaviorStatus": "NOT_MEASURED"
+  },
+  "mobileMeasured": false
+}
