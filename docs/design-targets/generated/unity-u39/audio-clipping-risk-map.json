@@ -1,0 +1,189 @@
+{
+  "generatedBy": "scripts/audio/generate-u39-final-candidate-se.mjs",
+  "generatedAt": "2026-07-03",
+  "sourcePolicy": "original final-candidate SE generated in repo; no external audio material; no Web download",
+  "productionApproved": false,
+  "rcReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "audioClippingRisk": "low-to-medium-editor-static",
+  "deviceSpeakerClippingMeasured": false,
+  "clipping": [
+    {
+      "eventId": "battle_start",
+      "category": "Battle",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "pickup_xp",
+      "category": "Pickup",
+      "priority": "low",
+      "clippingRisk": "low",
+      "duplicateSuppression": "aggressive",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "pickup_heal",
+      "category": "Pickup",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "pickup_rare",
+      "category": "Pickup",
+      "priority": "high",
+      "clippingRisk": "medium",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "levelup_open",
+      "category": "UI",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "card_select",
+      "category": "UI",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "card_confirm",
+      "category": "UI",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "category": "Battle",
+      "priority": "low",
+      "clippingRisk": "low",
+      "duplicateSuppression": "aggressive",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "category": "Battle",
+      "priority": "low",
+      "clippingRisk": "low",
+      "duplicateSuppression": "aggressive",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "category": "Battle",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "player_damage",
+      "category": "Battle",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "evolution_convergence",
+      "category": "Climax",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "evolution_complete",
+      "category": "Climax",
+      "priority": "critical",
+      "clippingRisk": "medium",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "category": "Climax",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "category": "Climax",
+      "priority": "critical",
+      "clippingRisk": "medium",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "category": "Climax",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "result_stamp",
+      "category": "Result",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "reward_card",
+      "category": "Result",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "unlock_reveal",
+      "category": "Result",
+      "priority": "high",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "stage_lantern",
+      "category": "StageSelect",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "category": "StageSelect",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    },
+    {
+      "eventId": "retry_confirm",
+      "category": "UI",
+      "priority": "normal",
+      "clippingRisk": "low",
+      "duplicateSuppression": "cooldown",
+      "peakGuard": "measured peak stays below hard clipping and requires device speaker review"
+    }
+  ]
+}

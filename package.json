@@ -43,6 +43,7 @@
     "unity:u34-release-candidate-checklist:check": "node --experimental-strip-types scripts/quality/check-unity-u34-release-candidate-checklist.ts",
     "unity:u35-mobile-device-metrics:check": "node --experimental-strip-types scripts/quality/check-unity-u35-mobile-device-metrics.ts",
     "unity:u36-sprite-atlas-production-packing:check": "node --experimental-strip-types scripts/quality/check-unity-u36-sprite-atlas-production-packing.ts",
+    "unity:u39-final-se-audiomixer:check": "node --experimental-strip-types scripts/quality/check-unity-u39-final-se-audiomixer.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

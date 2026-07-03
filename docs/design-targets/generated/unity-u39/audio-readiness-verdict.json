@@ -1,0 +1,22 @@
+{
+  "generatedBy": "scripts/audio/generate-u39-final-candidate-se.mjs",
+  "generatedAt": "2026-07-03",
+  "sourcePolicy": "original final-candidate SE generated in repo; no external audio material; no Web download",
+  "productionApproved": false,
+  "rcReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "audioReadyForRc": false,
+  "finalSeReady": true,
+  "audioMixerReady": false,
+  "routingDraftReady": true,
+  "blocker": [
+    "audio latency NOT_MEASURED",
+    "haptic device behavior NOT_MEASURED",
+    "device speaker clipping not measured"
+  ],
+  "caution": [
+    "finalCandidate SE is not final approved",
+    "AudioMixer routing is draft until device mix review"
+  ]
+}

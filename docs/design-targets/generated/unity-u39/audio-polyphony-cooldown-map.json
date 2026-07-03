@@ -1,0 +1,168 @@
+{
+  "generatedBy": "scripts/audio/generate-u39-final-candidate-se.mjs",
+  "generatedAt": "2026-07-03",
+  "sourcePolicy": "original final-candidate SE generated in repo; no external audio material; no Web download",
+  "productionApproved": false,
+  "rcReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "maxActiveVoices": 8,
+  "maxLowPriorityVoices": 4,
+  "duplicateSuppression": true,
+  "polyphony": [
+    {
+      "eventId": "battle_start",
+      "category": "Battle",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "pickup_xp",
+      "category": "Pickup",
+      "priority": "low",
+      "maxVoices": 4,
+      "cooldownSeconds": 0.06
+    },
+    {
+      "eventId": "pickup_heal",
+      "category": "Pickup",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "pickup_rare",
+      "category": "Pickup",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "levelup_open",
+      "category": "UI",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "card_select",
+      "category": "UI",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "card_confirm",
+      "category": "UI",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "category": "Battle",
+      "priority": "low",
+      "maxVoices": 4,
+      "cooldownSeconds": 0.06
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "category": "Battle",
+      "priority": "low",
+      "maxVoices": 4,
+      "cooldownSeconds": 0.06
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "category": "Battle",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "player_damage",
+      "category": "Battle",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "evolution_convergence",
+      "category": "Climax",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.6
+    },
+    {
+      "eventId": "evolution_complete",
+      "category": "Climax",
+      "priority": "critical",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.6
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "category": "Climax",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.6
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "category": "Climax",
+      "priority": "critical",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.6
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "category": "Climax",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.6
+    },
+    {
+      "eventId": "result_stamp",
+      "category": "Result",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "reward_card",
+      "category": "Result",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "unlock_reveal",
+      "category": "Result",
+      "priority": "high",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "stage_lantern",
+      "category": "StageSelect",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "category": "StageSelect",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    },
+    {
+      "eventId": "retry_confirm",
+      "category": "UI",
+      "priority": "normal",
+      "maxVoices": 1,
+      "cooldownSeconds": 0.18
+    }
+  ]
+}

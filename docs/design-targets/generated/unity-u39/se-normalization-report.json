@@ -1,0 +1,188 @@
+{
+  "generatedBy": "scripts/audio/generate-u39-final-candidate-se.mjs",
+  "generatedAt": "2026-07-03",
+  "sourcePolicy": "original final-candidate SE generated in repo; no external audio material; no Web download",
+  "productionApproved": false,
+  "rcReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "sampleRate": 44100,
+  "normalization": [
+    {
+      "eventId": "battle_start",
+      "targetPeak": 0.18,
+      "measuredPeak": 0.1999,
+      "peakDbEstimate": -13.98,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "pickup_xp",
+      "targetPeak": 0.12,
+      "measuredPeak": 0.1302,
+      "peakDbEstimate": -17.71,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "pickup_heal",
+      "targetPeak": 0.14,
+      "measuredPeak": 0.1536,
+      "peakDbEstimate": -16.27,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "pickup_rare",
+      "targetPeak": 0.18,
+      "measuredPeak": 0.2033,
+      "peakDbEstimate": -13.84,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "medium"
+    },
+    {
+      "eventId": "levelup_open",
+      "targetPeak": 0.16,
+      "measuredPeak": 0.1811,
+      "peakDbEstimate": -14.84,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "card_select",
+      "targetPeak": 0.13,
+      "measuredPeak": 0.1488,
+      "peakDbEstimate": -16.55,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "card_confirm",
+      "targetPeak": 0.15,
+      "measuredPeak": 0.1635,
+      "peakDbEstimate": -15.73,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "targetPeak": 0.1,
+      "measuredPeak": 0.1056,
+      "peakDbEstimate": -19.53,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "targetPeak": 0.11,
+      "measuredPeak": 0.1026,
+      "peakDbEstimate": -19.78,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "targetPeak": 0.16,
+      "measuredPeak": 0.1791,
+      "peakDbEstimate": -14.94,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "player_damage",
+      "targetPeak": 0.15,
+      "measuredPeak": 0.1548,
+      "peakDbEstimate": -16.21,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "evolution_convergence",
+      "targetPeak": 0.17,
+      "measuredPeak": 0.1852,
+      "peakDbEstimate": -14.65,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "evolution_complete",
+      "targetPeak": 0.19,
+      "measuredPeak": 0.2183,
+      "peakDbEstimate": -13.22,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "medium"
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "targetPeak": 0.17,
+      "measuredPeak": 0.1833,
+      "peakDbEstimate": -14.74,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "targetPeak": 0.2,
+      "measuredPeak": 0.2191,
+      "peakDbEstimate": -13.19,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "medium"
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "targetPeak": 0.16,
+      "measuredPeak": 0.1759,
+      "peakDbEstimate": -15.09,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "result_stamp",
+      "targetPeak": 0.17,
+      "measuredPeak": 0.18,
+      "peakDbEstimate": -14.9,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "reward_card",
+      "targetPeak": 0.13,
+      "measuredPeak": 0.1443,
+      "peakDbEstimate": -16.81,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "unlock_reveal",
+      "targetPeak": 0.15,
+      "measuredPeak": 0.1686,
+      "peakDbEstimate": -15.46,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "stage_lantern",
+      "targetPeak": 0.12,
+      "measuredPeak": 0.1334,
+      "peakDbEstimate": -17.49,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "targetPeak": 0.14,
+      "measuredPeak": 0.1549,
+      "peakDbEstimate": -16.2,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    },
+    {
+      "eventId": "retry_confirm",
+      "targetPeak": 0.13,
+      "measuredPeak": 0.1329,
+      "peakDbEstimate": -17.53,
+      "clickPopGuard": "short attack/release envelope",
+      "clippingRisk": "low"
+    }
+  ]
+}

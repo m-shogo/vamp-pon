@@ -1,0 +1,202 @@
+{
+  "generatedBy": "scripts/audio/generate-u39-final-candidate-se.mjs",
+  "generatedAt": "2026-07-03",
+  "sourcePolicy": "original final-candidate SE generated in repo; no external audio material; no Web download",
+  "productionApproved": false,
+  "rcReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "audioMixerReady": false,
+  "routingDraftReady": true,
+  "mixerAsset": "Unity .mixer asset not created in U39; policy-draft-runtime-map only",
+  "groups": [
+    "Master",
+    "UI",
+    "Battle",
+    "Pickup",
+    "Climax",
+    "Result",
+    "StageSelect"
+  ],
+  "masterVolumeDraft": 0.82,
+  "seVolumeDraft": 0.78,
+  "missingMixerFallback": true,
+  "routing": [
+    {
+      "eventId": "battle_start",
+      "category": "Battle",
+      "group": "Battle",
+      "volumeDraft": 0.58,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "pickup_xp",
+      "category": "Pickup",
+      "group": "Pickup",
+      "volumeDraft": 0.38,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "pickup_heal",
+      "category": "Pickup",
+      "group": "Pickup",
+      "volumeDraft": 0.45,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "pickup_rare",
+      "category": "Pickup",
+      "group": "Pickup",
+      "volumeDraft": 0.58,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "levelup_open",
+      "category": "UI",
+      "group": "UI",
+      "volumeDraft": 0.51,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "card_select",
+      "category": "UI",
+      "group": "UI",
+      "volumeDraft": 0.42,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "card_confirm",
+      "category": "UI",
+      "group": "UI",
+      "volumeDraft": 0.48,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "category": "Battle",
+      "group": "Battle",
+      "volumeDraft": 0.32,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "category": "Battle",
+      "group": "Battle",
+      "volumeDraft": 0.35,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "category": "Battle",
+      "group": "Battle",
+      "volumeDraft": 0.51,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "player_damage",
+      "category": "Battle",
+      "group": "Battle",
+      "volumeDraft": 0.48,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "evolution_convergence",
+      "category": "Climax",
+      "group": "Climax",
+      "volumeDraft": 0.54,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "evolution_complete",
+      "category": "Climax",
+      "group": "Climax",
+      "volumeDraft": 0.61,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "category": "Climax",
+      "group": "Climax",
+      "volumeDraft": 0.54,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "category": "Climax",
+      "group": "Climax",
+      "volumeDraft": 0.64,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "category": "Climax",
+      "group": "Climax",
+      "volumeDraft": 0.51,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "result_stamp",
+      "category": "Result",
+      "group": "Result",
+      "volumeDraft": 0.54,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "reward_card",
+      "category": "Result",
+      "group": "Result",
+      "volumeDraft": 0.42,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "unlock_reveal",
+      "category": "Result",
+      "group": "Result",
+      "volumeDraft": 0.48,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "stage_lantern",
+      "category": "StageSelect",
+      "group": "StageSelect",
+      "volumeDraft": 0.38,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "category": "StageSelect",
+      "group": "StageSelect",
+      "volumeDraft": 0.45,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    },
+    {
+      "eventId": "retry_confirm",
+      "category": "UI",
+      "group": "UI",
+      "volumeDraft": 0.42,
+      "fallback": "U28 safe missing clip fallback",
+      "futureUserSettingsHook": true
+    }
+  ]
+}

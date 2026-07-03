@@ -1,0 +1,167 @@
+{
+  "generatedBy": "scripts/audio/generate-u39-final-candidate-se.mjs",
+  "generatedAt": "2026-07-03",
+  "sourcePolicy": "original final-candidate SE generated in repo; no external audio material; no Web download",
+  "productionApproved": false,
+  "rcReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "finalSeReady": true,
+  "finalApproved": false,
+  "assets": [
+    {
+      "eventId": "battle_start",
+      "fileName": "vp_battle_start_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_battle_start_soft.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "pickup_xp",
+      "fileName": "vp_pickup_xp_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_pickup_xp_soft.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "pickup_heal",
+      "fileName": "vp_pickup_heal_warm.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_pickup_heal_warm.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "pickup_rare",
+      "fileName": "vp_pickup_rare_seal.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_pickup_rare_seal.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "levelup_open",
+      "fileName": "vp_levelup_open_paper.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_levelup_open_paper.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "card_select",
+      "fileName": "vp_card_select_ink.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_card_select_ink.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "card_confirm",
+      "fileName": "vp_card_confirm.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_card_confirm.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "fileName": "vp_weapon_fire_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_weapon_fire_soft.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "fileName": "vp_enemy_hit_soft.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_enemy_hit_soft.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "fileName": "vp_enemy_defeat_ink.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_enemy_defeat_ink.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "player_damage",
+      "fileName": "vp_player_damage_mute.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_player_damage_mute.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "evolution_convergence",
+      "fileName": "vp_evolution_convergence.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_evolution_convergence.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "evolution_complete",
+      "fileName": "vp_evolution_complete.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_evolution_complete.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "fileName": "vp_kokuyou_ready.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_kokuyou_ready.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "fileName": "vp_kokuyou_activation.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_kokuyou_activation.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "fileName": "vp_kokuyou_ending.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_kokuyou_ending.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "result_stamp",
+      "fileName": "vp_result_stamp.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_result_stamp.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "reward_card",
+      "fileName": "vp_reward_card.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_reward_card.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "unlock_reveal",
+      "fileName": "vp_unlock_reveal.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_unlock_reveal.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "stage_lantern",
+      "fileName": "vp_stage_lantern.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_stage_lantern.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "fileName": "vp_stage_route_unlock.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_stage_route_unlock.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    },
+    {
+      "eventId": "retry_confirm",
+      "fileName": "vp_retry_confirm.wav",
+      "path": "unity/VampPonUnity/Assets/_Project/Audio/U39FinalCandidateSe/vp_retry_confirm.wav",
+      "productionStatus": "finalCandidate-not-final-approved",
+      "sourcePolicy": "generated in repo; no external material"
+    }
+  ]
+}
