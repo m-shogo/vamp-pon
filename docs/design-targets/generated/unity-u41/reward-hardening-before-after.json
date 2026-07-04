@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "before": {
+    "clearReward": 10,
+    "defeatReward": 3,
+    "firstClearBonus": 8,
+    "rareBonus": 3,
+    "evolutionBonus": 4,
+    "maxRewardCapDraft": "none explicit"
+  },
+  "after": {
+    "clearReward": 12,
+    "defeatReward": 4,
+    "firstClearBonus": 10,
+    "rareBonus": 4,
+    "evolutionBonus": 5,
+    "maxFragmentRewardCapDraft": 36,
+    "minFragmentRewardDraft": 4
+  },
+  "productionEconomyFinal": false
+}

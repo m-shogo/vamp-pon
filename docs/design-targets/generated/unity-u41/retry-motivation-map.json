@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "defeat": [
+    "show participation reward",
+    "show next rank hint",
+    "keep retry primary but not pushy"
+  ],
+  "clear": [
+    "show best updated if true",
+    "show StageSelect route progress",
+    "keep retry for rank chase"
+  ],
+  "hints": [
+    "あと少しでB",
+    "初回clear報酬あり",
+    "新しい記憶を確認"
+  ],
+  "gachaLikePressure": false
+}

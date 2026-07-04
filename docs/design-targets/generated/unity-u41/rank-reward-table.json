@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "rankTable": [
+    {
+      "rank": "S",
+      "criteria": "clear, <=420s, kills>=125, level>=6, collected>=24",
+      "rewardBand": "clear + rank 6",
+      "reason": "chase rank"
+    },
+    {
+      "rank": "A",
+      "criteria": "clear, kills>=105, level>=5, collected>=16",
+      "rewardBand": "clear + rank 4",
+      "reason": "strong first clear target"
+    },
+    {
+      "rank": "B",
+      "criteria": "clear or near-clear, kills>=70, level>=4",
+      "rewardBand": "clear + rank 2",
+      "reason": "good run"
+    },
+    {
+      "rank": "C",
+      "criteria": "defeat with level>=3 or clear below B",
+      "rewardBand": "participation + small band",
+      "reason": "progress kept"
+    },
+    {
+      "rank": "D",
+      "criteria": "early defeat",
+      "rewardBand": "minimum reward",
+      "reason": "try again safely"
+    }
+  ]
+}

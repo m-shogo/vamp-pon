@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "unlocks": [
+    {
+      "unlockId": "stage_02_placeholder",
+      "unlockType": "StagePlaceholder",
+      "unlockReason": "Stage1 clear",
+      "displayLabel": "Stage2 placeholder",
+      "priority": 10,
+      "resultDisplay": "Result + StageSelect",
+      "duplicateGuard": true,
+      "readinessStatus": "rcCandidatePlaceholder",
+      "futureProductionNote": "Stage2 body not implemented"
+    },
+    {
+      "unlockId": "knowledge_first_clear_stage1",
+      "unlockType": "KnowledgePlaceholder",
+      "unlockReason": "first clear",
+      "displayLabel": "朝の記憶 placeholder",
+      "priority": 20,
+      "resultDisplay": "Result",
+      "duplicateGuard": true,
+      "readinessStatus": "rcCandidatePlaceholder",
+      "futureProductionNote": "Collection later"
+    },
+    {
+      "unlockId": "reward_card_level5_stage1",
+      "unlockType": "RewardCardPlaceholder",
+      "unlockReason": "level reached",
+      "displayLabel": "ランタン強化 card placeholder",
+      "priority": 30,
+      "resultDisplay": "Result",
+      "duplicateGuard": true,
+      "readinessStatus": "rcCandidatePlaceholder",
+      "futureProductionNote": "Card catalog later"
+    },
+    {
+      "unlockId": "collection_evolution_stage1",
+      "unlockType": "CollectionEntryPlaceholder",
+      "unlockReason": "evolution achieved",
+      "displayLabel": "進化記録 placeholder",
+      "priority": 40,
+      "resultDisplay": "Result",
+      "duplicateGuard": true,
+      "readinessStatus": "rcCandidatePlaceholder",
+      "futureProductionNote": "Collection later"
+    },
+    {
+      "unlockId": "rare_memory_stage1",
+      "unlockType": "RareMemoryPlaceholder",
+      "unlockReason": "rare acquired",
+      "displayLabel": "レア記憶 placeholder",
+      "priority": 50,
+      "resultDisplay": "Result",
+      "duplicateGuard": true,
+      "readinessStatus": "rcCandidatePlaceholder",
+      "futureProductionNote": "Collection later"
+    }
+  ]
+}

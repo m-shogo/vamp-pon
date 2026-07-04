@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "firstClearBonusDuplicateGuard": true,
+  "attemptsIncrement": true,
+  "clearsIncrement": true,
+  "bestValueUpdate": true,
+  "lastResultSaved": true,
+  "unlockedRewardIdsDuplicateGuard": true,
+  "unlockedKnowledgeIdsDuplicateGuard": true,
+  "corruptedDataFallback": true,
+  "resetDebugEditorOnly": true,
+  "cloudSaveIntroduced": false,
+  "playerPrefsDirectWriteIncreased": false,
+  "productionEconomyFinal": false
+}

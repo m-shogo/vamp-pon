@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "audit": [
+    {
+      "item": "clear reward",
+      "currentValue": "10 fragments",
+      "currentStatus": "draft",
+      "issue": "clear is nice but not inflated",
+      "playerFeeling": "win feels rewarded",
+      "risk": "low",
+      "u41Action": "raise to RC candidate 12"
+    },
+    {
+      "item": "defeat participation reward",
+      "currentValue": "3 fragments",
+      "currentStatus": "draft",
+      "issue": "defeat progress is small",
+      "playerFeeling": "still progressed",
+      "risk": "low",
+      "u41Action": "raise to 4 with cap"
+    },
+    {
+      "item": "first clear bonus",
+      "currentValue": "8 fragments",
+      "currentStatus": "draft",
+      "issue": "first clear could read stronger",
+      "playerFeeling": "first win feels special",
+      "risk": "medium",
+      "u41Action": "raise to 10 and label clearly"
+    },
+    {
+      "item": "time bonus",
+      "currentValue": "3 if <=420s",
+      "currentStatus": "draft",
+      "issue": "too binary",
+      "playerFeeling": "speed has small value",
+      "risk": "low",
+      "u41Action": "keep small band"
+    },
+    {
+      "item": "kill bonus",
+      "currentValue": "kill / 24",
+      "currentStatus": "draft",
+      "issue": "can be opaque",
+      "playerFeeling": "combat effort visible",
+      "risk": "low",
+      "u41Action": "reason label and cap"
+    },
+    {
+      "item": "collected bonus",
+      "currentValue": "collected / 5",
+      "currentStatus": "draft",
+      "issue": "could inflate",
+      "playerFeeling": "pickup effort visible",
+      "risk": "low",
+      "u41Action": "cap and label"
+    },
+    {
+      "item": "level bonus",
+      "currentValue": "level / 2",
+      "currentStatus": "draft",
+      "issue": "simple and readable",
+      "playerFeeling": "growth visible",
+      "risk": "low",
+      "u41Action": "keep"
+    },
+    {
+      "item": "rare bonus",
+      "currentValue": "3 memory",
+      "currentStatus": "draft",
+      "issue": "rare should feel special",
+      "playerFeeling": "special find",
+      "risk": "medium",
+      "u41Action": "raise to 4 memory"
+    },
+    {
+      "item": "evolution bonus",
+      "currentValue": "4 memory",
+      "currentStatus": "draft",
+      "issue": "good special reward",
+      "playerFeeling": "build achieved",
+      "risk": "medium",
+      "u41Action": "raise to 5 memory"
+    },
+    {
+      "item": "Kokuyou flavor bonus",
+      "currentValue": "1 memory",
+      "currentStatus": "draft",
+      "issue": "flavor only",
+      "playerFeeling": "black ink moment",
+      "risk": "low",
+      "u41Action": "keep small"
+    },
+    {
+      "item": "rank calculation",
+      "currentValue": "A/B/C/D",
+      "currentStatus": "draft",
+      "issue": "no S chase",
+      "playerFeeling": "clear quality visible",
+      "risk": "medium",
+      "u41Action": "add S and defeat C/D guard"
+    },
+    {
+      "item": "best updated stamp",
+      "currentValue": "best updated / best kept",
+      "currentStatus": "draft",
+      "issue": "readable but plain",
+      "playerFeeling": "retry motivation",
+      "risk": "low",
+      "u41Action": "label priority"
+    },
+    {
+      "item": "unlock ids",
+      "currentValue": "5 placeholder ids",
+      "currentStatus": "draft",
+      "issue": "duplicate display risk",
+      "playerFeeling": "progress visible",
+      "risk": "medium",
+      "u41Action": "priority + duplicate guard"
+    },
+    {
+      "item": "reward cards",
+      "currentValue": "draft cards",
+      "currentStatus": "draft",
+      "issue": "too many cards can crowd result",
+      "playerFeeling": "ledger clarity",
+      "risk": "medium",
+      "u41Action": "max 4 cards + overflow"
+    },
+    {
+      "item": "StageSelect previous result stamp",
+      "currentValue": "last rank / KO",
+      "currentStatus": "draft",
+      "issue": "motivates retry",
+      "playerFeeling": "retry hook",
+      "risk": "low",
+      "u41Action": "add next target hint"
+    }
+  ]
+}

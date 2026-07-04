@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "maxDisplayedRewardCards": 4,
+  "overflowHandling": "show +N more line after priority cards",
+  "order": [
+    "rank seal",
+    "best updated stamp",
+    "fragment reward",
+    "memory reward",
+    "new unlocks",
+    "retry",
+    "stage select"
+  ],
+  "labels": [
+    "獲得した記憶",
+    "欠片",
+    "新しい手がかり",
+    "もう一度"
+  ],
+  "readability": "390x844 ledger layout, no glow-heavy text"
+}
