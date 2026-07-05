@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-07-05",
+  "productionApproved": false,
+  "rcReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "evidenceKind": "Editor evidence / static runtime repair evidence",
+  "bootScene": "Assets/_Project/Scenes/Boot/Boot.unity",
+  "stage1Scene": "Assets/_Project/Scenes/Stage1/Stage1.unity",
+  "proofScenesInBuild": false,
+  "buildSceneCorrect": true
+}

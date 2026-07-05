@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-07-05",
+  "productionApproved": false,
+  "rcReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "evidenceKind": "Editor evidence / static runtime repair evidence",
+  "userReportedFailures": [
+    "not dot character",
+    "cannot move",
+    "cannot click",
+    "runtime design missing",
+    "no sound",
+    "no vibration"
+  ],
+  "fixedRuntimeAreas": [
+    "scene bootstrap",
+    "touch input",
+    "event system",
+    "tap UI",
+    "audio source hook",
+    "haptic hook"
+  ],
+  "devicePlayableReady": false
+}

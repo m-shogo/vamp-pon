@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VampPon.UnitySpike.Runtime;
 using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
@@ -82,6 +83,7 @@ namespace VampPon.UnitySpike.U4
         public void Press()
         {
             pulseTimer = 0.12f;
+            U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
             onClick?.Invoke();
         }
 

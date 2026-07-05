@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-07-05",
+  "productionApproved": false,
+  "rcReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "evidenceKind": "Editor evidence / static runtime repair evidence",
+  "buildSceneCorrect": true,
+  "characterRuntimeAssetReady": true,
+  "mobileTouchMovementReady": true,
+  "uiTapReady": true,
+  "runtimeVisualConnectionReady": true,
+  "audioRuntimeHookReady": true,
+  "hapticRuntimeHookReady": true,
+  "devicePlayableReady": false
+}

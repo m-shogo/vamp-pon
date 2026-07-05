@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VampPon.UnitySpike.Runtime;
 using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
@@ -210,7 +211,11 @@ namespace VampPon.UnitySpike.U4
             }
         }
 
-        public void OnPointerClick(PointerEventData eventData) => onClicked?.Invoke(cardIndex);
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
+            onClicked?.Invoke(cardIndex);
+        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {

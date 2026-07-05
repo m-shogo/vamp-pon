@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-07-05",
+  "productionApproved": false,
+  "rcReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "evidenceKind": "Editor evidence / static runtime repair evidence",
+  "playerObject": "YuiRuntimeDotCharacter",
+  "runtimeSpriteSource": "Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png",
+  "pointFilterApplied": true,
+  "generatedRuntimeReference": false
+}

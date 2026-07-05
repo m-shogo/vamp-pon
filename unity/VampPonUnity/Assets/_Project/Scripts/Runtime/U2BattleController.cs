@@ -35,6 +35,7 @@ namespace VampPon.UnitySpike.Runtime
         private U3HitStopController hitStop;
         private U3CameraImpulseController cameraImpulse;
         private U3LanternPulseController lanternPulse;
+        private U43RuntimeFeedbackBridge feedbackBridge;
         private U4LevelUpDemoController levelUpNotifier;
         private Rect spawnBounds;
         private Rect playerBounds;
@@ -109,6 +110,11 @@ namespace VampPon.UnitySpike.Runtime
         public void SetLevelUpNotifier(U4LevelUpDemoController notifier)
         {
             levelUpNotifier = notifier;
+        }
+
+        public void SetRuntimeFeedbackBridge(U43RuntimeFeedbackBridge bridge)
+        {
+            feedbackBridge = bridge;
         }
 
         public void SpawnEnemyForVerification(Vector3 position)
@@ -227,12 +233,14 @@ namespace VampPon.UnitySpike.Runtime
                     var hitPosition = projectile.transform.position;
                     projectile.Deactivate();
                     projectile.Target.TakeDamage(config.projectileDamage, config.damageFlashSeconds);
+                    feedbackBridge?.PlayEnemyHit();
                     hitStop?.Request();
                     PlayVfx(hitPosition, hitSprite, 0.34f, 0.11f, Color.white, Vector2.zero, U2VfxShape.Radial);
 
                     if (!projectile.Target.IsActive)
                     {
                         DefeatedEnemyCount++;
+                        feedbackBridge?.PlayEnemyDefeat();
                         cameraImpulse?.Request(projectile.Target.transform.position - player.position);
                         PlayDeathBurst(hitPosition);
                         DropExp(hitPosition);
@@ -274,6 +282,7 @@ namespace VampPon.UnitySpike.Runtime
 
                     fragment.Deactivate();
                     expCollected++;
+                    feedbackBridge?.PlayPickup();
                     hudPulseSeconds = 0.16f;
                     lanternPulse?.Request();
                     PlayVfx(collectPosition, collectSprite, 0.55f, 0.18f, Color.white, Vector2.zero, U2VfxShape.Radial);
@@ -308,6 +317,7 @@ namespace VampPon.UnitySpike.Runtime
             }
 
             projectile.Activate(player.position, target, config.projectileSpeed);
+            feedbackBridge?.PlayWeaponFire();
             lanternPulse?.Request();
             FiredProjectileCount++;
         }

@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VampPon.UnitySpike.Runtime;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -37,6 +38,7 @@ namespace VampPon.UnitySpike.U4
 
             var choices = U4LevelUpCandidatePool.PickThree();
             overlay.Show(choices, OnChoiceConfirmed);
+            U43RuntimeFeedbackBridge.Instance?.PlayLevelUp();
         }
 
         public void TriggerLevelUpWithAwakening()
@@ -46,6 +48,7 @@ namespace VampPon.UnitySpike.U4
             var choices = U4LevelUpCandidatePool.PickThree();
             choices[2] = U4LevelUpCandidatePool.GetAwakeningPlaceholder();
             overlay.Show(choices, OnChoiceConfirmed);
+            U43RuntimeFeedbackBridge.Instance?.PlayEvolution();
         }
 
         private void OnChoiceConfirmed(U4LevelUpChoice choice)
@@ -53,6 +56,18 @@ namespace VampPon.UnitySpike.U4
             levelUpCount++;
             expForNextLevel += 5;
             DemoTriggered = false;
+            if (choice.IsAwakeningGate)
+            {
+                U43RuntimeFeedbackBridge.Instance?.PlayEvolution();
+            }
+            else if (choice.Rarity == U4ItemRarity.Rare)
+            {
+                U43RuntimeFeedbackBridge.Instance?.PlayRare();
+            }
+            else
+            {
+                U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
+            }
         }
 
         private void Update()

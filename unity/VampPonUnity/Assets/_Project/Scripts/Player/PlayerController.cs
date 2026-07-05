@@ -47,9 +47,120 @@ namespace VampPon.UnitySpike.Player
         }
     }
 
+    public sealed class DevicePointerMoveInputSource : IMoveInputSource
+    {
+        private const float StickRadiusPixels = 92f;
+        private const float DeadZonePixels = 16f;
+        private Vector2 anchor;
+        private bool dragging;
+
+        public Vector2 ReadMove()
+        {
+            if (TryReadTouch(out var touchMove))
+            {
+                return touchMove;
+            }
+
+            return TryReadMouse(out var mouseMove) ? mouseMove : Vector2.zero;
+        }
+
+        private bool TryReadTouch(out Vector2 move)
+        {
+            move = Vector2.zero;
+            var touchscreen = Touchscreen.current;
+            if (touchscreen == null)
+            {
+                dragging = false;
+                return false;
+            }
+
+            foreach (var touch in touchscreen.touches)
+            {
+                if (!touch.press.isPressed)
+                {
+                    continue;
+                }
+
+                var position = touch.position.ReadValue();
+                if (!dragging)
+                {
+                    if (!IsMovementArea(position))
+                    {
+                        continue;
+                    }
+
+                    anchor = position;
+                    dragging = true;
+                }
+
+                move = DeltaToMove(position - anchor);
+                return true;
+            }
+
+            dragging = false;
+            return false;
+        }
+
+        private bool TryReadMouse(out Vector2 move)
+        {
+            move = Vector2.zero;
+            var mouse = Mouse.current;
+            if (mouse == null || !mouse.leftButton.isPressed)
+            {
+                if (mouse != null && mouse.leftButton.wasReleasedThisFrame)
+                {
+                    dragging = false;
+                }
+                return false;
+            }
+
+            var position = mouse.position.ReadValue();
+            if (!dragging)
+            {
+                if (!IsMovementArea(position))
+                {
+                    return false;
+                }
+
+                anchor = position;
+                dragging = true;
+            }
+
+            move = DeltaToMove(position - anchor);
+            return true;
+        }
+
+        private static bool IsMovementArea(Vector2 position)
+        {
+            return position.x <= Screen.width * 0.72f && position.y <= Screen.height * 0.72f;
+        }
+
+        private static Vector2 DeltaToMove(Vector2 delta)
+        {
+            if (delta.magnitude < DeadZonePixels)
+            {
+                return Vector2.zero;
+            }
+
+            return Vector2.ClampMagnitude(delta / StickRadiusPixels, 1f);
+        }
+    }
+
+    public sealed class CompositeMoveInputSource : IMoveInputSource
+    {
+        private readonly DevicePointerMoveInputSource pointerInput = new();
+        private readonly KeyboardMoveInputSource keyboardInput = new();
+
+        public Vector2 ReadMove()
+        {
+            var pointerMove = pointerInput.ReadMove();
+            return pointerMove.sqrMagnitude > 0.001f ? pointerMove : keyboardInput.ReadMove();
+        }
+    }
+
     public sealed class PlayerController : MonoBehaviour
     {
-        private readonly KeyboardMoveInputSource keyboardInput = new();
+        private readonly CompositeMoveInputSource defaultInput = new();
         private GameFeelConfig config;
         private IMoveInputSource inputSource;
         private Vector2 verificationInput;
@@ -60,7 +171,7 @@ namespace VampPon.UnitySpike.Player
 
         private void Awake()
         {
-            inputSource = keyboardInput;
+            inputSource = defaultInput;
             baseScale = transform.localScale;
         }
 
