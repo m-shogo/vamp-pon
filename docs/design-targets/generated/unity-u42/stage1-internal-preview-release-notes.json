@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "purpose": "internal preview / QA handoff",
+  "formalReleaseNotes": false,
+  "commitRange": "U25 Stage1 runtime loop through U41 economy reward unlock hardening",
+  "readyAreas": [
+    "Stage1 runtime loop",
+    "Editor balance hardening candidate",
+    "Sprite Atlas packing",
+    "Asset replacement boundary",
+    "final-candidate SE inventory",
+    "economy / reward / unlock RC candidate"
+  ],
+  "notReadyAreas": [
+    "mobile metrics NOT_MEASURED",
+    "audio latency NOT_MEASURED",
+    "haptic device behavior NOT_MEASURED",
+    "AudioMixer final not ready",
+    "production balance not final",
+    "production economy not final"
+  ]
+}

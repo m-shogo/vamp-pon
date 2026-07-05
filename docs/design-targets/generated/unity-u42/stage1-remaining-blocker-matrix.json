@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "blockerMatrix": [
+    {
+      "blocker": "mobile metrics measurement",
+      "priority": "P0",
+      "targetPhase": "U37",
+      "requiredEvidence": "FPS/memory/thermal/GC/draw calls",
+      "whyItBlocksRc": "mobileMetricsReady=false",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "crash / freeze check",
+      "priority": "P0",
+      "targetPhase": "U37",
+      "requiredEvidence": "device logs and sustained run video",
+      "whyItBlocksRc": "stability unknown",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "touch responsiveness",
+      "priority": "P0",
+      "targetPhase": "U37",
+      "requiredEvidence": "touch scenario video",
+      "whyItBlocksRc": "mobile input unknown",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "save persistence on device",
+      "priority": "P0",
+      "targetPhase": "U37",
+      "requiredEvidence": "restart before/after evidence",
+      "whyItBlocksRc": "progression safety unknown",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "audio latency / clipping",
+      "priority": "P1",
+      "targetPhase": "Audio device pass",
+      "requiredEvidence": "speaker and latency evidence",
+      "whyItBlocksRc": "audioReadyForRc=false",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "haptic device behavior",
+      "priority": "P1",
+      "targetPhase": "Haptic device pass",
+      "requiredEvidence": "iOS/Android behavior evidence",
+      "whyItBlocksRc": "hapticMeasured=false",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "AudioMixer final",
+      "priority": "P1",
+      "targetPhase": "AudioMixer final",
+      "requiredEvidence": "mixer asset and mix review",
+      "whyItBlocksRc": "audioMixerReady=false",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "final mobile tuning after device metrics",
+      "priority": "P1",
+      "targetPhase": "U37",
+      "requiredEvidence": "metrics driven tuning result",
+      "whyItBlocksRc": "tuning must be device-informed",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "release approval re-check",
+      "priority": "P2",
+      "targetPhase": "U38",
+      "requiredEvidence": "updated gate report",
+      "whyItBlocksRc": "productionApproved=false",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    },
+    {
+      "blocker": "release notes finalization",
+      "priority": "P2",
+      "targetPhase": "final refresh",
+      "requiredEvidence": "updated known issues",
+      "whyItBlocksRc": "U42 is internal preview only",
+      "expectedFixType": "measurement, tuning, review, or gate update",
+      "riskIfIgnored": "RC decision may hide a known unverified risk"
+    }
+  ]
+}

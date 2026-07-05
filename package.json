@@ -46,6 +46,7 @@
     "unity:u39-final-se-audiomixer:check": "node --experimental-strip-types scripts/quality/check-unity-u39-final-se-audiomixer.ts",
     "unity:u40-final-production-asset-replacement:check": "node --experimental-strip-types scripts/quality/check-unity-u40-final-production-asset-replacement.ts",
     "unity:u41-economy-reward-unlock:check": "node --experimental-strip-types scripts/quality/check-unity-u41-economy-reward-unlock-hardening.ts",
+    "unity:u42-release-notes-known-issues:check": "node --experimental-strip-types scripts/quality/check-unity-u42-release-notes-known-issues.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

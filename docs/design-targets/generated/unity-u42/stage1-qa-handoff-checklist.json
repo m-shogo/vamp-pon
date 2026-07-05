@@ -1,0 +1,189 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "qa": [
+    {
+      "item": "app launch",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "StageSelect idle",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Stage1 start",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "first 30 seconds",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "first LevelUp",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "2:00 wave",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "4:00 wave",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "6:00 climax",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Kokuyou",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Evolution",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Rare",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Result clear",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Result defeat",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Reward / Unlock",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "StageSelect after run",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Retry",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Save persistence after restart",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Audio clipping",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Audio latency",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Haptic behavior",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Touch responsiveness",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "FPS",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Memory",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Thermal",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Battery",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    },
+    {
+      "item": "Crash / freeze",
+      "passCriteria": "works on target device with required evidence",
+      "cautionCriteria": "minor issue, no progression loss",
+      "failCriteria": "crash, freeze, progression loss, unreadable, or repeated input failure",
+      "evidenceRequired": "device, OS, build, screenshot/video/log as applicable"
+    }
+  ]
+}

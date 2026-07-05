@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "roadmap": [
+    {
+      "order": 1,
+      "step": "実機測定"
+    },
+    {
+      "order": 2,
+      "step": "U37 final mobile tuning after device metrics"
+    },
+    {
+      "order": 3,
+      "step": "AudioMixer final / device speaker pass"
+    },
+    {
+      "order": 4,
+      "step": "Haptic device pass"
+    },
+    {
+      "order": 5,
+      "step": "U38 production approval re-check"
+    },
+    {
+      "order": 6,
+      "step": "final release notes / known issues refresh"
+    }
+  ],
+  "doNotRunU37BeforeDeviceMetrics": true,
+  "doNotRunU38Now": true
+}

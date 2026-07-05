@@ -1,0 +1,172 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "issues": [
+    {
+      "id": "u42-ki-mobile-fps",
+      "severity": "P0",
+      "category": "mobile metrics",
+      "status": "NOT_MEASURED",
+      "evidence": "実機FPS未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U37",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-memory",
+      "severity": "P0",
+      "category": "mobile metrics",
+      "status": "NOT_MEASURED",
+      "evidence": "memory未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U37",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-thermal",
+      "severity": "P0",
+      "category": "mobile metrics",
+      "status": "NOT_MEASURED",
+      "evidence": "thermal未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U37",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-gc",
+      "severity": "P0",
+      "category": "performance",
+      "status": "NOT_MEASURED",
+      "evidence": "GC allocation未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U37",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-draw-calls",
+      "severity": "P0",
+      "category": "performance",
+      "status": "NOT_MEASURED",
+      "evidence": "draw calls未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U37",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-audio-latency",
+      "severity": "P1",
+      "category": "audio",
+      "status": "NOT_MEASURED",
+      "evidence": "audio latency未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "Audio device pass",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-haptic-device",
+      "severity": "P1",
+      "category": "haptic",
+      "status": "NOT_MEASURED",
+      "evidence": "haptic実機挙動未測定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "Haptic device pass",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-audiomixer-final",
+      "severity": "P1",
+      "category": "audio",
+      "status": "OPEN",
+      "evidence": "AudioMixer final未確定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "AudioMixer final",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-speaker-clipping",
+      "severity": "P1",
+      "category": "audio",
+      "status": "NOT_MEASURED",
+      "evidence": "device speaker clipping未確認",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "Audio device pass",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-production-balance",
+      "severity": "P1",
+      "category": "balance",
+      "status": "OPEN",
+      "evidence": "本番balance未確定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U37",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-production-economy",
+      "severity": "P1",
+      "category": "economy",
+      "status": "OPEN",
+      "evidence": "本番経済未確定",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U38",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-cloud-save",
+      "severity": "P2",
+      "category": "save",
+      "status": "NOT_APPLICABLE",
+      "evidence": "Cloud Save未導入",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "Product decision",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-addressables",
+      "severity": "P2",
+      "category": "asset loading",
+      "status": "NOT_APPLICABLE",
+      "evidence": "Addressables未導入",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "Product decision",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-stage2-placeholder",
+      "severity": "P2",
+      "category": "content",
+      "status": "OPEN",
+      "evidence": "Stage2 placeholder unlock",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "Stage2 phase",
+      "unblockCondition": "collect evidence and re-run gate"
+    },
+    {
+      "id": "u42-ki-final-approval",
+      "severity": "P0",
+      "category": "release gate",
+      "status": "BLOCKED",
+      "evidence": "final production approval未実施",
+      "impact": "RC judgement cannot close this item yet",
+      "workaround": "keep documented as internal preview limitation",
+      "owner": "U38",
+      "unblockCondition": "collect evidence and re-run gate"
+    }
+  ]
+}

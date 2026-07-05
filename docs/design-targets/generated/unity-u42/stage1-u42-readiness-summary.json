@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-07-03",
+  "productionApproved": false,
+  "rcReady": false,
+  "flags": {
+    "internalPreviewReady": true,
+    "mobileQaReady": true,
+    "balanceHardeningReady": true,
+    "spriteAtlasPackingReady": true,
+    "assetReplacementReady": true,
+    "finalSeReady": true,
+    "economyReadyForRc": true,
+    "rewardReadyForRc": true,
+    "unlockReadyForRc": true,
+    "saveEconomySafe": true,
+    "mobileMetricsReady": false,
+    "audioMixerReady": false,
+    "audioLatencyMeasured": false,
+    "hapticMeasured": false,
+    "rcReady": false,
+    "productionApproved": false
+  },
+  "nextRecommendedAction": "実機測定"
+}
