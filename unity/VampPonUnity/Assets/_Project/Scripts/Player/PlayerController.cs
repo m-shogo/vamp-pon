@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using VampPon.UnitySpike.Data;
 
@@ -82,6 +83,13 @@ namespace VampPon.UnitySpike.Player
                 }
 
                 var position = touch.position.ReadValue();
+                var pointerId = touch.touchId.ReadValue();
+                if (IsPointerOverUi(pointerId))
+                {
+                    dragging = false;
+                    continue;
+                }
+
                 if (!dragging)
                 {
                     if (!IsMovementArea(position))
@@ -115,6 +123,12 @@ namespace VampPon.UnitySpike.Player
             }
 
             var position = mouse.position.ReadValue();
+            if (IsPointerOverUi())
+            {
+                dragging = false;
+                return false;
+            }
+
             if (!dragging)
             {
                 if (!IsMovementArea(position))
@@ -132,7 +146,19 @@ namespace VampPon.UnitySpike.Player
 
         private static bool IsMovementArea(Vector2 position)
         {
-            return position.x <= Screen.width * 0.72f && position.y <= Screen.height * 0.72f;
+            return position.x <= Screen.width * 0.42f && position.y <= Screen.height * 0.34f;
+        }
+
+        private static bool IsPointerOverUi(int pointerId = -1)
+        {
+            if (EventSystem.current == null)
+            {
+                return false;
+            }
+
+            return pointerId >= 0
+                ? EventSystem.current.IsPointerOverGameObject(pointerId)
+                : EventSystem.current.IsPointerOverGameObject();
         }
 
         private static Vector2 DeltaToMove(Vector2 delta)
@@ -165,6 +191,7 @@ namespace VampPon.UnitySpike.Player
         private IMoveInputSource inputSource;
         private Vector2 verificationInput;
         private bool useVerificationInput;
+        private bool runtimeInputBlocked;
         private Vector2 velocity;
         private Rect worldBounds = new(-2.2f, -4.5f, 4.4f, 8.2f);
         private Vector3 baseScale = Vector3.one;
@@ -193,8 +220,22 @@ namespace VampPon.UnitySpike.Player
             useVerificationInput = false;
         }
 
+        public void SetRuntimeInputBlocked(bool blocked)
+        {
+            runtimeInputBlocked = blocked;
+            if (blocked)
+            {
+                velocity = Vector2.zero;
+            }
+        }
+
         private void Update()
         {
+            if (runtimeInputBlocked)
+            {
+                return;
+            }
+
             var moveInput = useVerificationInput ? verificationInput : inputSource.ReadMove();
             var moveSpeed = config != null ? config.playerMoveSpeed : 3.35f;
             var acceleration = config != null ? config.playerAcceleration : 15f;

@@ -30,11 +30,15 @@ U5 battle candidate spriteをruntimeでPoint filterへ設定し、Yui / Ombu imp
 
 ## Touch movement修正
 
-左下touch / mouse drag virtual stickを実装し、keyboard互換を維持した。
+左下touch / mouse drag virtual stickを実装し、keyboard互換を維持した。2026-07-06の最終点検でvirtual stick領域を左下に限定し、UI上のtap / dragをmovementとして拾わないguardを追加した。
 
 ## UI tap修正
 
 EventSystem + InputSystemUIInputModuleを生成し、StageSelect / Result / Retry / LevelUp cardがPointer eventを受けられるようにした。
+
+## Runtime pause gate修正
+
+StageSelect overlay中とResult overlay中はBattle updateとplayer movementを止める。Stage1へtap後だけBattleをresumeする。これによりStart前やResult表示中にenemy spawn、projectile、pickup、timer、damageが裏で進む状態を禁止する。
 
 ## Visual runtime connection修正
 
@@ -42,15 +46,17 @@ StageSelect overlay、Result overlay、Retry / StageSelect return buttonをStage
 
 ## Audio runtime修正
 
-AudioListenerとAudioSource runtime hookを追加した。button tap、pickup、hit、level up、rare、evolution、Kokuyou、result、retry、stage selectのhookがある。AudioMixer未確定、audio latency未測定は維持。
+AudioListenerとAudioSource runtime hookを追加した。button tap、pickup、hit、level up、rare、evolution、Kokuyou、result、retry、stage selectのhookがある。`AudioClip.Create` toneはruntime hook確認用で、final SEではない。AudioMixer未確定、audio latency未測定は維持。
 
 ## Haptic runtime修正
 
-iOS / Androidで `Handheld.Vibrate()` を呼ぶruntime hookを追加した。実機挙動未測定のためhapticMeasured=false。
+iOS / Androidで `Handheld.Vibrate()` を呼ぶruntime hookを追加した。これはdevice hook確認用で、本番haptic設計とは分ける。実機挙動未測定のためhapticMeasured=false。
 
 ## まだ実機再確認が必要なもの
 
 キャラの見え方、touch movement、tap、SE、haptic、device screenshot、crash/freeze、mobile metrics、audio latency、speaker clipping。
+
+加えて、StageSelect / Result overlay中に裏でBattleが進まないことを確認する。
 
 ## rcReady=falseの理由
 

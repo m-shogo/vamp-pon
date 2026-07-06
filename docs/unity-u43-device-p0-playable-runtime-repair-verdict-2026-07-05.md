@@ -9,6 +9,9 @@
 | runtimeVisualConnectionReady | true | StageSelect / Battle HUD / LevelUp / Result / Retryをruntime接続 |
 | audioRuntimeHookReady | true | AudioListener + AudioSource hookを追加 |
 | hapticRuntimeHookReady | true | iOS / Android haptic request hookを追加 |
+| stageSelectBattlePaused | true | StageSelect overlay中はBattle updateとplayer movementを止める |
+| resultBattlePaused | true | Result overlay中はBattle updateとplayer movementを止める |
+| uiPointerMovementCollisionGuard | true | UI pointer hitと左下virtual stick領域でmovement衝突を避ける |
 | devicePlayableReady | false | 実機再確認がまだない |
 | mobileMetricsReady | false | mobile metrics NOT_MEASURED |
 | audioMixerReady | false | AudioMixer final未確定 |
@@ -20,3 +23,14 @@
 ## next
 
 実機でStageSelect tap、移動、LevelUp tap、Result / Retry tap、音、振動hookを確認する。その後mobile metrics取得へ進む。
+
+## smoke test checklist
+
+Use:
+
+```txt
+docs/unity-u43-device-playable-smoke-test-checklist-2026-07-06.md
+docs/unity-u43-runtime-pause-gate-evidence-2026-07-06.md
+```
+
+StageSelect / Result overlay中に裏でBattleが進まないことも実機で確認する。

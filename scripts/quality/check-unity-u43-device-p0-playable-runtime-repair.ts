@@ -14,6 +14,8 @@ const docs = [
   'docs/unity-u43-device-failure-addendum-2026-07-05.md',
   'docs/unity-u43-device-p0-playable-runtime-repair-verdict-2026-07-05.md',
   'docs/unity-u43-device-p0-playable-runtime-repair-review-2026-07-05.md',
+  'docs/unity-u43-device-playable-smoke-test-checklist-2026-07-06.md',
+  'docs/unity-u43-runtime-pause-gate-evidence-2026-07-06.md',
 ];
 const artifacts = [
   'build-scene-audit.json',
@@ -25,6 +27,7 @@ const artifacts = [
   'haptic-runtime-repair.json',
   'device-failure-addendum.json',
   'u43-readiness-verdict.json',
+  'runtime-pause-gate-smoke-readiness.json',
 ];
 const screenshots = [
   '01-runtime-stageselect.png',
@@ -72,6 +75,7 @@ const docsText = docs.map(read).join('\n');
 const artifactText = artifacts.map((artifact) => read(join('docs/design-targets/generated/unity-u43', artifact))).join('\n');
 const runtimeFiles = walk('unity/VampPonUnity/Assets/_Project/Scripts').filter((path) => !path.includes('/Editor/'));
 const runtime = runtimeFiles.map(read).join('\n');
+const stage1Bootstrap = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs');
 const packageJson = read('package.json');
 const buildSettings = read('unity/VampPonUnity/ProjectSettings/EditorBuildSettings.asset');
 const yuiMeta = read('unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png.meta');
@@ -86,8 +90,16 @@ check('touch input implemented', runtime.includes('DevicePointerMoveInputSource'
 check('EventSystem implemented', runtime.includes('InputSystemUIInputModule') && runtime.includes('EnsureEventSystem'));
 check('StageSelect runtime overlay implemented', runtime.includes('U43StageSelectRuntimeOverlay') && runtime.includes('Stage1へ'));
 check('Result retry runtime overlay implemented', runtime.includes('U43ResultRuntimeOverlay') && runtime.includes('Retry') && runtime.includes('StageSelect'));
+check('StageSelect battle paused before start', /CreateStageSelectOverlay\(\);\s*SetOverlayBattlePaused\(true\);/s.test(runtime) && /stageSelectOverlay\.SetActive\(false\);\s*SetOverlayBattlePaused\(false\);/s.test(runtime));
+check('Result battle paused while open', /OpenResultOverlay\(bool clear\)[\s\S]*SetOverlayBattlePaused\(true\);\s*resultOverlay\.SetActive\(true\);/.test(runtime));
+check('StageSelect return keeps battle paused', /resultOverlay\.SetActive\(false\);\s*stageSelectOverlay\.SetActive\(true\);\s*SetOverlayBattlePaused\(true\);/.test(runtime));
+check('Battle update pause gate exists', /private bool runtimePaused = true;/.test(runtime) && /public bool IsRuntimePaused => runtimePaused;/.test(runtime) && /if \(runtimePaused\)[\s\S]*return;[\s\S]*elapsedSeconds \+= Time\.deltaTime;/.test(runtime));
+check('Overlay movement input blocked', /SetRuntimeInputBlocked\(paused\)/.test(runtime) && /public void SetRuntimeInputBlocked\(bool blocked\)/.test(runtime) && /if \(runtimeInputBlocked\)[\s\S]*return;/.test(runtime));
+check('UI tap movement collision guard exists', runtime.includes('EventSystem.current.IsPointerOverGameObject') && runtime.includes('IsPointerOverUi') && runtime.includes('dragging = false'));
+check('Virtual stick lower-left only', runtime.includes('Screen.width * 0.42f') && runtime.includes('Screen.height * 0.34f'));
 check('Audio listener/source implemented', runtime.includes('AudioListener') && runtime.includes('AudioSource') && runtime.includes('PlayOneShot'));
 check('Haptic runtime hook implemented', runtime.includes('Handheld.Vibrate') && runtime.includes('HapticRuntimeHookReady'));
+check('Feedback bridge boundary explicit', runtime.includes('UsesRuntimeHookToneOnly') && runtime.includes('AudioMixerReady => false') && runtime.includes('AudioLatencyMeasured => false') && runtime.includes('HapticMeasured => false') && runtime.includes('not final SE') && runtime.includes('final haptic design stays separate'));
 check('Battle feedback hooks implemented', runtime.includes('SetRuntimeFeedbackBridge') && runtime.includes('PlayPickup') && runtime.includes('PlayEnemyHit'));
 check('LevelUp tap hooks implemented', runtime.includes('PlayLevelUp') && runtime.includes('PaperCard') && runtime.includes('PlayButtonTapIfAvailable'));
 check('Runtime player dot object named', runtime.includes('YuiRuntimeDotCharacter'));
@@ -104,6 +116,10 @@ for (const value of [
   'audioRuntimeHookReady',
   'hapticRuntimeHookReady',
   'devicePlayableReady',
+  'stageSelectBattlePaused',
+  'resultBattlePaused',
+  'uiPointerMovementCollisionGuard',
+  'virtualStickLowerLeftOnly',
   'DEVICE_SCREENSHOT_NOT_PROVIDED',
 ]) {
   check(`contains ${value}`, allText.includes(value));
@@ -116,6 +132,13 @@ check('verdict tap true', /"uiTapReady": true/.test(artifactText));
 check('verdict visual true', /"runtimeVisualConnectionReady": true/.test(artifactText));
 check('verdict audio hook true', /"audioRuntimeHookReady": true/.test(artifactText));
 check('verdict haptic hook true', /"hapticRuntimeHookReady": true/.test(artifactText));
+check('stage select paused true', /"stageSelectBattlePaused": true/.test(artifactText));
+check('result paused true', /"resultBattlePaused": true/.test(artifactText));
+check('overlay movement blocked true', /"overlayMovementBlocked": true/.test(artifactText));
+check('ui movement collision guard true', /"uiPointerMovementCollisionGuard": true/.test(artifactText));
+check('virtual stick lower-left true', /"virtualStickLowerLeftOnly": true/.test(artifactText));
+check('runtime tone not final SE', /"runtimeToneFinalSe": false/.test(artifactText));
+check('device vibrate not final haptic', /"deviceVibrateFinalHaptic": false/.test(artifactText));
 check('verdict device playable false', /"devicePlayableReady": false/.test(artifactText));
 check('mobile metrics false', /"mobileMetricsReady": false/.test(artifactText));
 check('audio mixer false', /"audioMixerReady": false/.test(artifactText));
@@ -130,6 +153,8 @@ check('No mobileMetricsReady true', !/"mobileMetricsReady": true|mobileMetricsRe
 check('No audio mixer ready true', !/"audioMixerReady": true|audioMixerReady=true|AudioMixerReady\s*=\s*true/.test(allText));
 check('No audio latency measured true', !/"audioLatencyMeasured": true|audioLatencyMeasured=true/.test(allText));
 check('No haptic measured true', !/"hapticMeasured": true|hapticMeasured=true|HapticMeasured\s*=\s*true/.test(allText));
+check('No device playable true', !/"devicePlayableReady": true|devicePlayableReady=true|DevicePlayableReady\s*=\s*true/.test(allText));
+check('No code-name UI title string in Stage1 runtime', !stage1Bootstrap.includes('Vamp Pon') && stage1Bootstrap.includes('ヨルノシルベ'));
 check('No runtime docs generated refs', !/docs\/design-targets\/generated/.test(runtime));
 check('No generated final image runtime paste', !/top-final|kokuyou-cutin-final|generated\/.*\.png|completed screen image/i.test(runtime));
 check('No Addressables folder', !existsSync('unity/VampPonUnity/Assets/AddressableAssetsData'));

@@ -13,6 +13,7 @@ U28 hapticはproof router / placeholder adapter中心で、Stage1 actual runtime
 - `U43RuntimeFeedbackBridge` にhaptic runtime hookを追加。
 - iOS / Android buildでは重要eventで `Handheld.Vibrate()` を呼ぶ。
 - button、level up、rare、evolution、Kokuyou、result、retry、stage selectでhaptic requestを出す。
+- `Handheld.Vibrate()` はdevice hook確認用で、本番haptic設計とは分ける。
 
 ## 維持する未確定
 

@@ -18,6 +18,10 @@ namespace VampPon.UnitySpike.Runtime
         public int HapticRequestCount { get; private set; }
         public bool AudioRuntimeHookReady => source != null;
         public bool HapticRuntimeHookReady => true;
+        public bool UsesRuntimeHookToneOnly => true;
+        public bool AudioMixerReady => false;
+        public bool AudioLatencyMeasured => false;
+        public bool HapticMeasured => false;
         public string FinalCandidateReferenceRoot => U39FinalCandidateClipLibrary.FinalCandidateRoot;
 
         private void Awake()
@@ -86,6 +90,7 @@ namespace VampPon.UnitySpike.Runtime
         public void RequestHaptic()
         {
             HapticRequestCount++;
+            // Device hook smoke check only; final haptic design stays separate.
 #if UNITY_IOS || UNITY_ANDROID
             Handheld.Vibrate();
 #endif
@@ -125,6 +130,7 @@ namespace VampPon.UnitySpike.Runtime
 
         private static AudioClip CreateTone(string name, float frequency, float duration)
         {
+            // Runtime hook smoke tone only. This is not final SE or AudioMixer evidence.
             const int sampleRate = 44100;
             var sampleCount = Mathf.Max(1, Mathf.RoundToInt(sampleRate * duration));
             var samples = new float[sampleCount];

@@ -45,6 +45,7 @@ namespace VampPon.UnitySpike.Runtime
         private int expCollected;
         private float hudPulseSeconds;
         private Vector3 hudBaseScale = Vector3.one;
+        private bool runtimePaused = true;
 
         public int SpawnedEnemyCount { get; private set; }
         public int DefeatedEnemyCount { get; private set; }
@@ -64,6 +65,7 @@ namespace VampPon.UnitySpike.Runtime
         public int LanternPulseCount => lanternPulse != null ? lanternPulse.TriggerCount : 0;
         public int CollectTrailCount { get; private set; }
         public int DeathBurstCount { get; private set; }
+        public bool IsRuntimePaused => runtimePaused;
 
         public void Initialize(
             GameFeelConfig gameFeelConfig,
@@ -117,6 +119,11 @@ namespace VampPon.UnitySpike.Runtime
             feedbackBridge = bridge;
         }
 
+        public void SetRuntimePaused(bool paused)
+        {
+            runtimePaused = paused;
+        }
+
         public void SpawnEnemyForVerification(Vector3 position)
         {
             SpawnEnemy(position);
@@ -126,6 +133,12 @@ namespace VampPon.UnitySpike.Runtime
         {
             if (config == null || player == null)
             {
+                return;
+            }
+
+            if (runtimePaused)
+            {
+                TickHudPulse();
                 return;
             }
 

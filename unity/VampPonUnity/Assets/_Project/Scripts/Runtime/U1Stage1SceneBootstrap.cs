@@ -30,6 +30,8 @@ namespace VampPon.UnitySpike.Runtime
         private IAssetProvider assetProvider;
         private BattleVisualAssetSet battleVisualAssets;
         private U43RuntimeFeedbackBridge feedbackBridge;
+        private U2BattleController battleController;
+        private PlayerController playerController;
         private static TMP_FontAsset cachedJapaneseFont;
 
         private void Awake()
@@ -48,6 +50,7 @@ namespace VampPon.UnitySpike.Runtime
             CreateSafeAreaHud();
             CreateBattlePrototype();
             CreateStageSelectOverlay();
+            SetOverlayBattlePaused(true);
         }
 
         private void Start()
@@ -191,16 +194,17 @@ namespace VampPon.UnitySpike.Runtime
 
             var playerBounds = new Rect(-2.15f, -3.65f, 4.3f, 7.05f);
             var spawnBounds = new Rect(-2.15f, -3.65f, 4.3f, 7.65f);
-            yui.GetComponent<PlayerController>().Initialize(config, playerBounds);
+            playerController = yui.GetComponent<PlayerController>();
+            playerController.Initialize(config, playerBounds);
 
             var controllerObject = new GameObject("U2BattleController", typeof(U2BattleController));
             controllerObject.transform.SetParent(poolRoot, false);
-            var controller = controllerObject.GetComponent<U2BattleController>();
-            controller.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, battleVisualAssets);
-            controller.SetRuntimeFeedbackBridge(feedbackBridge);
+            battleController = controllerObject.GetComponent<U2BattleController>();
+            battleController.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, battleVisualAssets);
+            battleController.SetRuntimeFeedbackBridge(feedbackBridge);
+            battleController.SetRuntimePaused(true);
 
-            CreateLevelUpDemo(controller);
-            feedbackBridge?.PlayBattleStart();
+            CreateLevelUpDemo(battleController);
         }
 
         private void CreateLevelUpDemo(U2BattleController battleController)
@@ -255,7 +259,7 @@ namespace VampPon.UnitySpike.Runtime
             backdrop.GetComponent<Image>().color = new Color(0.03f, 0.024f, 0.02f, 0.72f);
 
             var panel = CreatePanel(stageSelectOverlay.transform, "StageSelectPanel", new Vector2(0.07f, 0.17f), new Vector2(0.93f, 0.84f), new Color(0.88f, 0.78f, 0.58f, 0.96f));
-            CreateLabel(panel.transform, "Vamp Pon", 28f, new Color(0.12f, 0.07f, 0.05f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -28f), new Vector2(260f, 40f), font);
+            CreateLabel(panel.transform, "ヨルノシルベ", 28f, new Color(0.12f, 0.07f, 0.05f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -28f), new Vector2(260f, 40f), font);
             CreateLabel(panel.transform, "Stage1  墨夜の通り道", 18f, new Color(0.18f, 0.1f, 0.07f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -86f), new Vector2(286f, 32f), font);
             CreateLabel(panel.transform, "左下をドラッグして移動。カードとボタンはタップできます。", 14f, new Color(0.24f, 0.16f, 0.12f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 30f), new Vector2(282f, 60f), font);
 
@@ -263,6 +267,8 @@ namespace VampPon.UnitySpike.Runtime
             {
                 U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
                 stageSelectOverlay.SetActive(false);
+                SetOverlayBattlePaused(false);
+                feedbackBridge?.PlayBattleStart();
             });
             startButton.SetFont(font);
             var startRect = startButton.GetComponent<RectTransform>();
@@ -285,6 +291,7 @@ namespace VampPon.UnitySpike.Runtime
                 title.text = clear ? "Stage Clear" : "Result Preview";
             }
 
+            SetOverlayBattlePaused(true);
             resultOverlay.SetActive(true);
         }
 
@@ -332,6 +339,7 @@ namespace VampPon.UnitySpike.Runtime
                 feedbackBridge?.PlayStageSelect();
                 resultOverlay.SetActive(false);
                 stageSelectOverlay.SetActive(true);
+                SetOverlayBattlePaused(true);
             });
             stageButton.SetFont(font);
             var stageRect = stageButton.GetComponent<RectTransform>();
@@ -341,6 +349,12 @@ namespace VampPon.UnitySpike.Runtime
             stageRect.anchoredPosition = new Vector2(0f, 38f);
 
             resultOverlay.SetActive(false);
+        }
+
+        private void SetOverlayBattlePaused(bool paused)
+        {
+            battleController?.SetRuntimePaused(paused);
+            playerController?.SetRuntimeInputBlocked(paused);
         }
 
         private static GameObject CreatePanel(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Color color)

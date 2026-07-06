@@ -13,6 +13,7 @@ U28 / U39のAudioRouterはevent readinessやclip存在確認を持つが、Stage
 - MainCameraにAudioListenerを追加。
 - `U43RuntimeFeedbackBridge` を追加し、AudioSourceでbutton tap、pickup、hit、level up、rare、evolution、Kokuyou、result、retry、stage selectのhookを鳴らす。
 - U39 final-candidate SE rootを参照情報として保持するが、AudioMixer final扱いにはしない。
+- `AudioClip.Create` のtoneはruntime hook確認用で、final SEではない。
 
 ## 維持する未確定
 

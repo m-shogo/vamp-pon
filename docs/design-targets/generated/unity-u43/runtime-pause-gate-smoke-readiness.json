@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-07-06",
+  "productionApproved": false,
+  "rcReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "devicePlayableReady": false,
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "evidenceKind": "static runtime gate evidence / device smoke checklist",
+  "stageSelectBattlePaused": true,
+  "resultBattlePaused": true,
+  "overlayMovementBlocked": true,
+  "uiPointerMovementCollisionGuard": true,
+  "virtualStickLowerLeftOnly": true,
+  "runtimeToneFinalSe": false,
+  "deviceVibrateFinalHaptic": false
+}
