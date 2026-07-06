@@ -17,5 +17,8 @@
   "hapticRuntimeHookReady": true,
   "actualDeviceSmokeResultProvided": false,
   "failureItemsProvided": false,
+  "predeviceAutomatedSmokeEvidence": "docs/design-targets/generated/unity-u43/predevice-automated-smoke-readiness.json",
+  "predeviceAutomatedSmokeKind": "Editor automated pre-device smoke",
+  "predeviceAutomatedSmokeCompleted": true,
   "devicePlayableReady": false
 }

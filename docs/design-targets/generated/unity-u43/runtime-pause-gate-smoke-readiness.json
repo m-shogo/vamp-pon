@@ -17,5 +17,10 @@
   "runtimeToneFinalSe": false,
   "deviceVibrateFinalHaptic": false,
   "actualDeviceSmokeResultProvided": false,
-  "devicePauseGateConfirmed": false
+  "devicePauseGateConfirmed": false,
+  "predeviceAutomatedSmokeEvidence": "docs/design-targets/generated/unity-u43/predevice-automated-smoke-readiness.json",
+  "predevicePauseGateEvidenceOnly": true,
+  "predeviceStageSelectPauseGateReady": true,
+  "predeviceResultPauseGateReady": true,
+  "predeviceStageSelectReturnPauseReady": true
 }

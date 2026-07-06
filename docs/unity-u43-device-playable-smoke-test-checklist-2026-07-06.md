@@ -10,6 +10,8 @@ Status: `NOT_PROVIDED`
 
 2026-07-06時点で実機確認結果の各項目は空欄で提供された。確認済みのpass/failとして扱わず、すべてhuman-check-neededのまま維持する。失敗項目も特定できないため、追加runtime修正は行わない。
 
+Pre-device automated smokeを追加しても、actual device smoke result remains NOT_PROVIDED. Editor evidenceは実機pass/failではない。
+
 | item | submitted result | current evidence status |
 | --- | --- | --- |
 | StageSelect表示 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
@@ -29,6 +31,19 @@ Status: `NOT_PROVIDED`
 | crash/freeze | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
 | キャラのドット見た目 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
 | その他気になった点 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+
+## pre-device automated smoke
+
+Evidence:
+
+```txt
+docs/unity-u43-predevice-automated-smoke-2026-07-06.md
+docs/design-targets/generated/unity-u43/predevice-automated-smoke-readiness.json
+```
+
+This is Editor automated pre-device smoke only. It can confirm compile / scene / runtime gate / hook breakages before device work, but cannot mark device playable ready.
+
+2026-07-06 pre-device automated smoke result: completed in Unity batchmode. See `predevice-automated-smoke-readiness.json`. Actual device smoke remains `NOT_PROVIDED`.
 
 ## smoke test items
 

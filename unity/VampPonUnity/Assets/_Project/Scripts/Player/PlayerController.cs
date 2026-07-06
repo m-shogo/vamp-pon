@@ -196,6 +196,9 @@ namespace VampPon.UnitySpike.Player
         private Rect worldBounds = new(-2.2f, -4.5f, 4.4f, 8.2f);
         private Vector3 baseScale = Vector3.one;
 
+        public bool RuntimeInputBlocked => runtimeInputBlocked;
+        public Vector2 CurrentVelocity => velocity;
+
         private void Awake()
         {
             inputSource = defaultInput;
