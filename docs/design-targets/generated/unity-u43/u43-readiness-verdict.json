@@ -15,5 +15,7 @@
   "runtimeVisualConnectionReady": true,
   "audioRuntimeHookReady": true,
   "hapticRuntimeHookReady": true,
+  "actualDeviceSmokeResultProvided": false,
+  "failureItemsProvided": false,
   "devicePlayableReady": false
 }

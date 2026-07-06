@@ -15,5 +15,7 @@
   "uiPointerMovementCollisionGuard": true,
   "virtualStickLowerLeftOnly": true,
   "runtimeToneFinalSe": false,
-  "deviceVibrateFinalHaptic": false
+  "deviceVibrateFinalHaptic": false,
+  "actualDeviceSmokeResultProvided": false,
+  "devicePauseGateConfirmed": false
 }

@@ -28,6 +28,7 @@ const artifacts = [
   'device-failure-addendum.json',
   'u43-readiness-verdict.json',
   'runtime-pause-gate-smoke-readiness.json',
+  'device-smoke-test-result.json',
 ];
 const screenshots = [
   '01-runtime-stageselect.png',
@@ -120,6 +121,8 @@ for (const value of [
   'resultBattlePaused',
   'uiPointerMovementCollisionGuard',
   'virtualStickLowerLeftOnly',
+  'actualDeviceSmokeResultProvided',
+  'HUMAN_CHECK_NEEDED',
   'DEVICE_SCREENSHOT_NOT_PROVIDED',
 ]) {
   check(`contains ${value}`, allText.includes(value));
@@ -139,6 +142,9 @@ check('ui movement collision guard true', /"uiPointerMovementCollisionGuard": tr
 check('virtual stick lower-left true', /"virtualStickLowerLeftOnly": true/.test(artifactText));
 check('runtime tone not final SE', /"runtimeToneFinalSe": false/.test(artifactText));
 check('device vibrate not final haptic', /"deviceVibrateFinalHaptic": false/.test(artifactText));
+check('device smoke result not provided', /"actualDeviceSmokeResultProvided": false/.test(artifactText) && /"allItemsStatus": "HUMAN_CHECK_NEEDED"/.test(artifactText));
+check('no failure item provided', /"failureItemsProvided": false/.test(artifactText));
+check('no runtime fix claimed for missing device result', /"runtimeFixApplied": false/.test(artifactText));
 check('verdict device playable false', /"devicePlayableReady": false/.test(artifactText));
 check('mobile metrics false', /"mobileMetricsReady": false/.test(artifactText));
 check('audio mixer false', /"audioMixerReady": false/.test(artifactText));
@@ -154,6 +160,7 @@ check('No audio mixer ready true', !/"audioMixerReady": true|audioMixerReady=tru
 check('No audio latency measured true', !/"audioLatencyMeasured": true|audioLatencyMeasured=true/.test(allText));
 check('No haptic measured true', !/"hapticMeasured": true|hapticMeasured=true|HapticMeasured\s*=\s*true/.test(allText));
 check('No device playable true', !/"devicePlayableReady": true|devicePlayableReady=true|DevicePlayableReady\s*=\s*true/.test(allText));
+check('No actual device smoke result true', !/"actualDeviceSmokeResultProvided": true/.test(allText));
 check('No code-name UI title string in Stage1 runtime', !stage1Bootstrap.includes('Vamp Pon') && stage1Bootstrap.includes('ヨルノシルベ'));
 check('No runtime docs generated refs', !/docs\/design-targets\/generated/.test(runtime));
 check('No generated final image runtime paste', !/top-final|kokuyou-cutin-final|generated\/.*\.png|completed screen image/i.test(runtime));

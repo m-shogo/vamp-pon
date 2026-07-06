@@ -4,6 +4,32 @@ Date: 2026-07-06
 
 Purpose: U43で修復したStage1 actual runtimeを、実機再確認前のdevice playable smoke testにかけるための最終点検リスト。これはmetrics tuningではない。
 
+## submitted device result
+
+Status: `NOT_PROVIDED`
+
+2026-07-06時点で実機確認結果の各項目は空欄で提供された。確認済みのpass/failとして扱わず、すべてhuman-check-neededのまま維持する。失敗項目も特定できないため、追加runtime修正は行わない。
+
+| item | submitted result | current evidence status |
+| --- | --- | --- |
+| StageSelect表示 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| StageSelect中に裏でBattleが進まない | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| Stage1へtap | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| touch movement | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| UI tapとmovement衝突 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| enemy hit | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| pickup | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| LevelUp card tap | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| Result open | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| Result中に裏でBattleが進まない | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| Retry | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| StageSelect return | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| SE | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| haptic | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| crash/freeze | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| キャラのドット見た目 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+| その他気になった点 | NOT_PROVIDED | HUMAN_CHECK_NEEDED |
+
 ## smoke test items
 
 - StageSelect tap: Stage1へボタンが反応する。
