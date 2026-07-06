@@ -7,6 +7,7 @@ const evidencePath = 'docs/design-targets/generated/unity-u43/predevice-automate
 const deviceChecklistPath = 'docs/unity-u43-device-playable-smoke-test-checklist-2026-07-06.md';
 const runtimePausePath = 'docs/design-targets/generated/unity-u43/runtime-pause-gate-smoke-readiness.json';
 const verdictPath = 'docs/design-targets/generated/unity-u43/u43-readiness-verdict.json';
+const iosBuildEvidencePath = 'docs/design-targets/generated/unity-u43/ios-build-generation-preflight.json';
 const runtimeFiles = [
   'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs',
   'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs',
@@ -32,8 +33,9 @@ const evidence = read(evidencePath);
 const deviceChecklist = read(deviceChecklistPath);
 const runtimePause = read(runtimePausePath);
 const verdict = read(verdictPath);
+const iosBuildEvidence = read(iosBuildEvidencePath);
 const runtime = runtimeFiles.map(read).join('\n');
-const allText = `${doc}\n${evidence}\n${deviceChecklist}\n${runtimePause}\n${verdict}\n${runtime}`;
+const allText = `${doc}\n${evidence}\n${deviceChecklist}\n${runtimePause}\n${verdict}\n${iosBuildEvidence}\n${runtime}`;
 
 check(`doc exists: ${docPath}`, existsSync(docPath));
 check(`evidence exists: ${evidencePath}`, existsSync(evidencePath));
@@ -65,7 +67,8 @@ check('readiness verdict still device false', /"devicePlayableReady": false/.tes
 check('no ready or approved true from predevice', !/"devicePlayableReady": true|"mobileMetricsReady": true|"audioMixerReady": true|"audioLatencyMeasured": true|"hapticMeasured": true|"rcReady": true|"productionApproved": true/.test(allText));
 check('no actual device smoke result true', !/"actualDeviceSmokeResultProvided": true/.test(allText));
 check('no actual pass claim', !/actual device smoke[^.\n]*(pass|passed|approved|ready)/i.test(allText));
-check('iOS build not treated as device ready', /"iosBuildGenerationReady": false/.test(evidence) && evidence.includes('NOT_RUN'));
+check('iOS build evidence exists', existsSync(iosBuildEvidencePath));
+check('iOS build not treated as device ready', /"iosBuildGenerationReady": true/.test(evidence) && /"iosBuildGenerationIsDeviceEvidence": false/.test(verdict) && /"deviceRunConfirmed": false/.test(iosBuildEvidence));
 
 for (const name of [
   'unityBatchmodeCompileReady',

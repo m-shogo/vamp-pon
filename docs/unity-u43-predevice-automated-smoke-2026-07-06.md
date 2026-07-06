@@ -53,9 +53,13 @@ Automated checks confirmed:
 - Haptic request counters increase in Editor
 - Editor pre-device screenshots were generated
 
+Additional preflight:
+
+- iOS build generation completed with exit code 0 after the output folder was explicitly allowed for this request.
+- The iOS build generation result is recorded separately in `docs/design-targets/generated/unity-u43/ios-build-generation-preflight.json`.
+
 Not run:
 
-- iOS build generation, because the requested safe output folder is outside the allowed touch scope for this request.
 - Actual device smoke, because no device results were provided.
 
 ## boundary
@@ -70,7 +74,16 @@ Not run:
 
 ## iOS build generation
 
-Not run in this pass because the requested safe destination is outside `/Users/m-shogo/Developer/personal/vamp-pon`, while the task also forbids touching other folders. This is recorded as `iosBuildGenerationReady=false`.
+Run in this pass because `/Users/m-shogo/Developer/personal/vamp-pon-builds/ios-u43-predevice-smoke` was explicitly allowed as the build output folder.
+
+- `iosBuildGenerationAttempted=true`
+- `iosBuildGenerationReady=true`
+- `iosBuildResult=Succeeded`
+- `iosBuildTotalErrors=0`
+- `iosBuildTotalWarnings=3`
+- `iosBuildGenerationError=null`
+
+This is still not device install evidence and does not change `devicePlayableReady`.
 
 ## READY flags
 
@@ -88,5 +101,7 @@ Keep false:
 
 ```txt
 docs/design-targets/generated/unity-u43/predevice-automated-smoke-readiness.json
+docs/design-targets/generated/unity-u43/ios-build-generation-preflight.json
 docs/design-targets/generated/unity-u43/predevice-smoke/
+/Users/m-shogo/Developer/personal/vamp-pon-builds/ios-u43-predevice-smoke
 ```

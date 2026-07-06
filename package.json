@@ -49,6 +49,7 @@
     "unity:u42-release-notes-known-issues:check": "node --experimental-strip-types scripts/quality/check-unity-u42-release-notes-known-issues.ts",
     "unity:u43-device-p0-playable-runtime-repair:check": "node --experimental-strip-types scripts/quality/check-unity-u43-device-p0-playable-runtime-repair.ts",
     "unity:u43-predevice-automated-smoke:check": "node --experimental-strip-types scripts/quality/check-unity-u43-predevice-automated-smoke.ts",
+    "unity:u43-ios-build-generation-preflight:check": "node --experimental-strip-types scripts/quality/check-unity-u43-ios-build-generation-preflight.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

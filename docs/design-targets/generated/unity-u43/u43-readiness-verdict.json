@@ -20,5 +20,9 @@
   "predeviceAutomatedSmokeEvidence": "docs/design-targets/generated/unity-u43/predevice-automated-smoke-readiness.json",
   "predeviceAutomatedSmokeKind": "Editor automated pre-device smoke",
   "predeviceAutomatedSmokeCompleted": true,
+  "iosBuildGenerationPreflightEvidence": "docs/design-targets/generated/unity-u43/ios-build-generation-preflight.json",
+  "iosBuildGenerationAttempted": true,
+  "iosBuildGenerationReady": true,
+  "iosBuildGenerationIsDeviceEvidence": false,
   "devicePlayableReady": false
 }
