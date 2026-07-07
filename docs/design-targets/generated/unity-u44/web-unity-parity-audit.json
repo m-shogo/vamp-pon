@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-07-06",
+  "evidenceKind": "U44 Web to Unity parity audit",
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "sections": ["Web-only", "Unity-only", "Missing in Unity", "Needs Asset", "Needs Runtime", "Later Phase"],
+  "webOnly": ["Top screen", "Collection screen", "collection atlas", "weapon/passive/rare/evolution data", "profile/bonds/onboarding persistence", "dev QA scenes"],
+  "unityOnly": ["pre-device automated smoke", "iOS build generation preflight", "U10-U43 proof/evidence chain", "runtime hook tone bridge"],
+  "missingInUnity": ["Top runtime screen", "Collection runtime screen", "full item/evolution runtime", "final Battle HUD", "final Result ledger", "final audio mixer", "measured haptics"],
+  "safeFoundationAdded": "unity/VampPonUnity/Assets/_Project/Scripts/UI/AppQualityStyleTokens.cs",
+  "generatedImagesRuntimeBoundary": "Generated images are references only unless explicitly approved as sliced runtime assets."
+}

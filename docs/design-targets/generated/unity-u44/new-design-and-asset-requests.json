@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-07-06",
+  "evidenceKind": "U44 new design and asset requests",
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "categories": ["Unity UI recreation only", "Asset required", "Existing generated reference available", "Existing runtime asset available", "Later phase"],
+  "requests": [
+    {"assetId": "u44_stage_map_panel", "screen": "StageSelect", "purpose": "paper map panel", "size": "720x900", "format": "PNG sliced", "transparentBackgroundRequired": true, "style": "paper map, black ink, lantern light", "runtimeUsage": "StageSelect panel", "fallbackPlaceholderDesign": "uGUI PaperPanel", "priority": "P0"},
+    {"assetId": "u44_battle_hud_frame", "screen": "Battle HUD", "purpose": "readable HUD strips", "size": "760x160", "format": "PNG sliced", "transparentBackgroundRequired": true, "style": "quiet paper HUD", "runtimeUsage": "top and bottom HUD", "fallbackPlaceholderDesign": "current HUD plates", "priority": "P0"},
+    {"assetId": "u44_virtual_stick", "screen": "Battle", "purpose": "movement affordance", "size": "256x256", "format": "PNG", "transparentBackgroundRequired": true, "style": "soft ink ring", "runtimeUsage": "lower-left virtual stick", "fallbackPlaceholderDesign": "procedural circles", "priority": "P0"},
+    {"assetId": "u44_levelup_card_rare", "screen": "LevelUp", "purpose": "rare card frame", "size": "360x560", "format": "PNG sliced", "transparentBackgroundRequired": true, "style": "paper card with lantern flare", "runtimeUsage": "LevelUp rare choice", "fallbackPlaceholderDesign": "uGUI paper card", "priority": "P0"},
+    {"assetId": "u44_result_ledger", "screen": "Result", "purpose": "memory ledger page", "size": "720x980", "format": "PNG sliced", "transparentBackgroundRequired": true, "style": "paper ledger", "runtimeUsage": "Result root", "fallbackPlaceholderDesign": "PaperPanel", "priority": "P0"},
+    {"assetId": "u44_collection_book", "screen": "Collection", "purpose": "album page", "size": "780x1120", "format": "PNG sliced", "transparentBackgroundRequired": true, "style": "memory album", "runtimeUsage": "Collection root", "fallbackPlaceholderDesign": "uGUI tabs/cards", "priority": "P1"},
+    {"assetId": "u44_kokuyou_cutin", "screen": "Kokuyou", "purpose": "full-screen cutin", "size": "1440x2560", "format": "PNG", "transparentBackgroundRequired": false, "style": "black ink, lantern, morning after", "runtimeUsage": "cutin and collection art", "fallbackPlaceholderDesign": "existing proof band", "priority": "P1"}
+  ],
+  "generatedImagesRuntimeBoundary": "Do not treat generated references as final runtime assets without approval."
+}

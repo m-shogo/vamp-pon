@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-07-06",
+  "evidenceKind": "U44 design target reference map",
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "generatedImagesAreFinalRuntimeAssets": false,
+  "references": [
+    {"referencePath": "docs/design-targets/generated/top-final.png", "intendedScreen": "TOP", "currentUnityUsage": "not connected", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/final/stage-select-final.png", "intendedScreen": "StageSelect", "currentUnityUsage": "partial proof/runtime", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/final/battle-final.png", "intendedScreen": "Battle HUD", "currentUnityUsage": "partial proof/runtime", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/final/level-up-final.png", "intendedScreen": "LevelUp", "currentUnityUsage": "partial demo", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/final/result-clear-final.png", "intendedScreen": "Result", "currentUnityUsage": "partial proof/runtime", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/final/collection-final.png", "intendedScreen": "Collection", "currentUnityUsage": "not connected", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/generated/kokuyou-cutin-final.png", "intendedScreen": "Kokuyou cutin", "currentUnityUsage": "reference/proof only", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": true, "needsUnityUiRecreation": true},
+    {"referencePath": "docs/design-targets/generated/unity-u43/predevice-smoke/01-stage-select-paused.png", "intendedScreen": "StageSelect smoke", "currentUnityUsage": "evidence only", "runtimeConnected": false, "approvedAsFinalAsset": false, "safeToUseAsVisualReference": true, "needsNewAsset": false, "needsUnityUiRecreation": true}
+  ]
+}
