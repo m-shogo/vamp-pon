@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Runtime;
+using VampPon.UnitySpike.UI;
 using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
@@ -30,11 +31,12 @@ namespace VampPon.UnitySpike.U4
             root.transform.SetParent(parent, false);
             var button = root.GetComponent<PaperButton>();
             button.rect = root.GetComponent<RectTransform>();
-            button.rect.sizeDelta = new Vector2(width, height);
+            button.rect.sizeDelta = new Vector2(Mathf.Max(width, AppQualityTapTargets.Minimum), Mathf.Max(height, AppQualityTapTargets.Minimum));
             button.bgImage = root.GetComponent<Image>();
-            button.bgImage.sprite = U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
-            button.bgImage.type = Image.Type.Simple;
-            button.bgImage.color = NormalBg;
+            var candidate = AppQualityAssetProvider.PaperButtonFrame;
+            button.bgImage.sprite = candidate != null ? candidate : U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            button.bgImage.type = button.bgImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
+            button.bgImage.color = button.bgImage.sprite != null ? Color.white : NormalBg;
             button.onClick = callback;
             button.baseScale = Vector3.one;
 
@@ -61,6 +63,7 @@ namespace VampPon.UnitySpike.U4
             button.label.alignment = TextAlignmentOptions.Center;
             button.label.color = TextColor;
             button.label.textWrappingMode = TextWrappingModes.NoWrap;
+            AppQualityUiFactory.FitText(button.label, 12f);
 
             return button;
         }
@@ -76,7 +79,7 @@ namespace VampPon.UnitySpike.U4
         public void SetHovered(bool hovered)
         {
             isHovered = hovered;
-            bgImage.color = hovered ? HoverBg : NormalBg;
+            bgImage.color = bgImage.sprite != null ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (hovered ? HoverBg : NormalBg);
             borderImage.color = hovered ? HoverBorder : NormalBorder;
         }
 

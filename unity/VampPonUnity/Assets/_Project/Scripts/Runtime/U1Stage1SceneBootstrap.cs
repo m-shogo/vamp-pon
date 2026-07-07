@@ -182,7 +182,9 @@ namespace VampPon.UnitySpike.Runtime
             hudRect.offsetMax = Vector2.zero;
 
             CreateHudPlate(hudRoot.transform, "TopHudPlaceholder", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(326f, 46f), "Lv 1   00:00   EXP");
-            CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(300f, 54f), "weapon placeholder");
+            CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(318f, 62f), "");
+            CreateBattleInventorySlots(hudRoot.transform);
+            CreateVirtualStickVisual(hudRoot.transform);
             CreateRuntimeButtons(hudRoot.transform);
             topHudLabel = hudRoot.transform.Find("TopHudPlaceholder/Label")?.GetComponent<TextMeshProUGUI>();
         }
@@ -222,7 +224,7 @@ namespace VampPon.UnitySpike.Runtime
         private void CreateRuntimeButtons(Transform parent)
         {
             var font = LoadJapaneseFont();
-            var resultButton = PaperButton.Create(parent, "結果", 96f, 38f, () =>
+            var resultButton = PaperButton.Create(parent, "結果", AppQualityTapTargets.ResultButtonWidth, AppQualityTapTargets.ResultButtonHeight, () =>
             {
                 feedbackBridge?.PlayResult();
                 OpenResultOverlay(false);
@@ -232,7 +234,7 @@ namespace VampPon.UnitySpike.Runtime
             rect.anchorMin = new Vector2(1f, 1f);
             rect.anchorMax = new Vector2(1f, 1f);
             rect.pivot = new Vector2(1f, 1f);
-            rect.anchoredPosition = new Vector2(-22f, -86f);
+            rect.anchoredPosition = new Vector2(-18f, -88f);
         }
 
         private void CreateStageSelectOverlay()
@@ -259,11 +261,17 @@ namespace VampPon.UnitySpike.Runtime
             backdrop.GetComponent<Image>().color = new Color(0.03f, 0.024f, 0.02f, 0.72f);
 
             var panel = CreatePanel(stageSelectOverlay.transform, "StageSelectPanel", new Vector2(0.07f, 0.17f), new Vector2(0.93f, 0.84f), new Color(0.88f, 0.78f, 0.58f, 0.96f));
+            var panelImage = panel.GetComponent<Image>();
+            AppQualityUiFactory.ApplyCandidate(panelImage, AppQualityAssetProvider.StageSelectMapPanel, new Color(0.88f, 0.78f, 0.58f, 0.96f));
+            AppQualityUiFactory.CreateDecorativeImage(panel.transform, "U45StageSelectLanternAccent", AppQualityAssetProvider.SmallLanternAccent, new Vector2(1f, 1f), new Vector2(48f, 48f), new Vector2(-32f, -32f), new Color(1f, 0.62f, 0.24f, 0.28f));
+            AppQualityUiFactory.CreateDecorativeImage(panel.transform, "U45StageSelectInkDivider", AppQualityAssetProvider.BlackInkDivider, new Vector2(0.5f, 1f), new Vector2(236f, 30f), new Vector2(0f, -69f), new Color(0.08f, 0.05f, 0.04f, 0.45f));
             CreateLabel(panel.transform, "ヨルノシルベ", 28f, new Color(0.12f, 0.07f, 0.05f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -28f), new Vector2(260f, 40f), font);
-            CreateLabel(panel.transform, "Stage1  墨夜の通り道", 18f, new Color(0.18f, 0.1f, 0.07f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -86f), new Vector2(286f, 32f), font);
-            CreateLabel(panel.transform, "左下をドラッグして移動。カードとボタンはタップできます。", 14f, new Color(0.24f, 0.16f, 0.12f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 30f), new Vector2(282f, 60f), font);
+            var stageCard = CreatePanel(panel.transform, "U45Stage1CardFrame", new Vector2(0.12f, 0.39f), new Vector2(0.88f, 0.67f), new Color(0.93f, 0.84f, 0.64f, 0.94f));
+            AppQualityUiFactory.ApplyCandidate(stageCard.GetComponent<Image>(), AppQualityAssetProvider.StageCardFrame, new Color(0.93f, 0.84f, 0.64f, 0.94f));
+            CreateLabel(stageCard.transform, "Stage1  墨夜の通り道", 18f, new Color(0.18f, 0.1f, 0.07f), new Vector2(0.5f, 0.72f), new Vector2(0.5f, 0.72f), Vector2.zero, new Vector2(246f, 32f), font);
+            CreateLabel(stageCard.transform, "左下だけで移動 / カードとボタンはタップ", 13f, new Color(0.24f, 0.16f, 0.12f), new Vector2(0.5f, 0.34f), new Vector2(0.5f, 0.34f), Vector2.zero, new Vector2(250f, 42f), font);
 
-            var startButton = PaperButton.Create(panel.transform, "Stage1へ", 180f, 48f, () =>
+            var startButton = PaperButton.Create(panel.transform, "Stage1へ", AppQualityTapTargets.StageStartWidth, AppQualityTapTargets.StageStartHeight, () =>
             {
                 U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
                 stageSelectOverlay.SetActive(false);
@@ -275,7 +283,7 @@ namespace VampPon.UnitySpike.Runtime
             startRect.anchorMin = new Vector2(0.5f, 0f);
             startRect.anchorMax = new Vector2(0.5f, 0f);
             startRect.pivot = new Vector2(0.5f, 0f);
-            startRect.anchoredPosition = new Vector2(0f, 42f);
+            startRect.anchoredPosition = new Vector2(0f, 44f);
         }
 
         private void OpenResultOverlay(bool clear)
@@ -397,6 +405,7 @@ namespace VampPon.UnitySpike.Runtime
             label.color = color;
             label.alignment = TextAlignmentOptions.Center;
             label.textWrappingMode = TextWrappingModes.Normal;
+            AppQualityUiFactory.FitText(label, Mathf.Max(9f, fontSize - 6f));
             if (font != null)
             {
                 label.font = font;
@@ -459,7 +468,11 @@ namespace VampPon.UnitySpike.Runtime
             rect.sizeDelta = size;
 
             var image = plate.GetComponent<Image>();
-            image.color = new Color(0.18f, 0.12f, 0.09f, 0.72f);
+            AppQualityUiFactory.ApplyCandidate(image, AppQualityAssetProvider.BattleHudTopFrame, new Color(0.18f, 0.12f, 0.09f, 0.72f));
+            if (name == "BottomInventoryPlaceholder")
+            {
+                image.color = new Color(1f, 1f, 1f, 0.72f);
+            }
 
             var labelObject = new GameObject("Label", typeof(TextMeshProUGUI));
             labelObject.transform.SetParent(plate.transform, false);
@@ -475,6 +488,46 @@ namespace VampPon.UnitySpike.Runtime
             label.fontSize = 18f;
             label.color = new Color(0.96f, 0.86f, 0.62f);
             label.textWrappingMode = TextWrappingModes.NoWrap;
+            AppQualityUiFactory.FitText(label, 13f);
+        }
+
+        private static void CreateBattleInventorySlots(Transform parent)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                var slot = AppQualityUiFactory.CreateDecorativeImage(
+                    parent,
+                    $"U45BattleInventorySlot_{i + 1:00}",
+                    AppQualityAssetProvider.BattleInventorySlotFrame,
+                    new Vector2(0.5f, 0f),
+                    new Vector2(42f, 42f),
+                    new Vector2(-96f + i * 48f, 38f),
+                    new Color(0.18f, 0.12f, 0.09f, 0.42f));
+                slot.raycastTarget = false;
+            }
+        }
+
+        private static void CreateVirtualStickVisual(Transform parent)
+        {
+            var ring = AppQualityUiFactory.CreateDecorativeImage(
+                parent,
+                "U45VirtualStickLowerLeftRing",
+                AppQualityAssetProvider.VirtualStickRing,
+                new Vector2(0f, 0f),
+                new Vector2(118f, 118f),
+                new Vector2(78f, 82f),
+                new Color(0.72f, 0.52f, 0.28f, 0.16f));
+            ring.color = new Color(ring.color.r, ring.color.g, ring.color.b, 0.52f);
+
+            var knob = AppQualityUiFactory.CreateDecorativeImage(
+                parent,
+                "U45VirtualStickLowerLeftKnob",
+                AppQualityAssetProvider.VirtualStickKnob,
+                new Vector2(0f, 0f),
+                new Vector2(42f, 42f),
+                new Vector2(78f, 82f),
+                new Color(0.18f, 0.12f, 0.09f, 0.35f));
+            knob.color = new Color(knob.color.r, knob.color.g, knob.color.b, 0.42f);
         }
     }
 }

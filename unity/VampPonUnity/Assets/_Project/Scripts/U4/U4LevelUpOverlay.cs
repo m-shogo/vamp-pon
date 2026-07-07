@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using VampPon.UnitySpike.UI;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -38,7 +39,7 @@ namespace VampPon.UnitySpike.U4
 
             var scaler = root.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(390f, 844f);
+            scaler.referenceResolution = AppQualityStyleTokens.ReferenceResolution;
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.matchWidthOrHeight = 0.5f;
 
@@ -52,16 +53,16 @@ namespace VampPon.UnitySpike.U4
             dimRect.anchorMax = Vector2.one;
             dimRect.offsetMin = Vector2.zero;
             dimRect.offsetMax = Vector2.zero;
-            dimBg.GetComponent<Image>().color = new Color(0.02f, 0.015f, 0.015f, 0.72f);
+            dimBg.GetComponent<Image>().color = new Color(0.02f, 0.015f, 0.015f, 0.76f);
 
             var panel = new GameObject("Panel", typeof(RectTransform), typeof(Image));
             panel.transform.SetParent(root.transform, false);
             var panelRect = panel.GetComponent<RectTransform>();
-            panelRect.anchorMin = new Vector2(0.05f, 0.12f);
-            panelRect.anchorMax = new Vector2(0.95f, 0.88f);
+            panelRect.anchorMin = new Vector2(0.045f, 0.105f);
+            panelRect.anchorMax = new Vector2(0.955f, 0.895f);
             panelRect.offsetMin = Vector2.zero;
             panelRect.offsetMax = Vector2.zero;
-            panel.GetComponent<Image>().color = new Color(0.08f, 0.055f, 0.05f, 0.88f);
+            AppQualityUiFactory.ApplyCandidate(panel.GetComponent<Image>(), AppQualityAssetProvider.StageSelectMapPanel, new Color(0.08f, 0.055f, 0.05f, 0.88f));
 
             var innerPanel = new GameObject("InnerPanel", typeof(RectTransform), typeof(Image));
             innerPanel.transform.SetParent(panel.transform, false);
@@ -70,7 +71,8 @@ namespace VampPon.UnitySpike.U4
             innerRect.anchorMax = Vector2.one;
             innerRect.offsetMin = new Vector2(4f, 4f);
             innerRect.offsetMax = new Vector2(-4f, -4f);
-            innerPanel.GetComponent<Image>().color = new Color(0.12f, 0.085f, 0.07f, 0.75f);
+            innerPanel.GetComponent<Image>().color = new Color(0.12f, 0.085f, 0.07f, 0.42f);
+            AppQualityUiFactory.CreateDecorativeImage(innerPanel.transform, "U45LevelUpLanternAccent", AppQualityAssetProvider.SmallLanternAccent, new Vector2(1f, 1f), new Vector2(44f, 44f), new Vector2(-28f, -28f), new Color(1f, 0.62f, 0.24f, 0.24f));
 
             var titleObj = new GameObject("Title", typeof(RectTransform), typeof(TextMeshProUGUI));
             titleObj.transform.SetParent(innerPanel.transform, false);
@@ -85,6 +87,7 @@ namespace VampPon.UnitySpike.U4
             overlay.titleLabel.fontSize = 22f;
             overlay.titleLabel.alignment = TextAlignmentOptions.Center;
             overlay.titleLabel.color = new Color(0.96f, 0.86f, 0.62f);
+            AppQualityUiFactory.FitText(overlay.titleLabel, 16f);
             if (font != null) overlay.titleLabel.font = font;
 
             var subtitle = new GameObject("Subtitle", typeof(RectTransform), typeof(TextMeshProUGUI));
@@ -100,6 +103,7 @@ namespace VampPon.UnitySpike.U4
             subTmp.fontSize = 14f;
             subTmp.alignment = TextAlignmentOptions.Center;
             subTmp.color = new Color(0.72f, 0.62f, 0.5f);
+            AppQualityUiFactory.FitText(subTmp, 11f);
             if (font != null) subTmp.font = font;
 
             overlay.cardContainer = new GameObject("CardContainer", typeof(RectTransform)).GetComponent<RectTransform>();
@@ -107,8 +111,8 @@ namespace VampPon.UnitySpike.U4
             overlay.cardContainer.anchorMin = new Vector2(0.5f, 0.5f);
             overlay.cardContainer.anchorMax = new Vector2(0.5f, 0.5f);
             overlay.cardContainer.pivot = new Vector2(0.5f, 0.5f);
-            overlay.cardContainer.anchoredPosition = new Vector2(0f, -18f);
-            overlay.cardContainer.sizeDelta = new Vector2(340f, 400f);
+            overlay.cardContainer.anchoredPosition = new Vector2(0f, -20f);
+            overlay.cardContainer.sizeDelta = new Vector2(348f, 430f);
 
             root.SetActive(false);
             return overlay;
@@ -125,8 +129,8 @@ namespace VampPon.UnitySpike.U4
 
             ClearCards();
 
-            var cardWidth = 290f;
-            var cardHeight = 156f;
+            var cardWidth = AppQualityTapTargets.LevelUpCardWidth;
+            var cardHeight = AppQualityTapTargets.LevelUpCardHeight;
             var spacing = 10f;
             var totalHeight = choices.Length * cardHeight + (choices.Length - 1) * spacing;
             var startY = totalHeight * 0.5f;
@@ -148,7 +152,7 @@ namespace VampPon.UnitySpike.U4
                 cards[i].SetClickCallback(OnCardClicked);
             }
 
-            confirmButton = PaperButton.Create(cardContainer, "決定", 140f, 40f, OnConfirmPressed);
+            confirmButton = PaperButton.Create(cardContainer, "決定", 148f, AppQualityTapTargets.Comfortable, OnConfirmPressed);
             confirmButton.SetFont(japaneseFont);
             var btnRect = confirmButton.GetComponent<RectTransform>();
             btnRect.anchorMin = new Vector2(0.5f, 0.5f);

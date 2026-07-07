@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-07-06",
+  "phase": "U45",
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "connections": [
+    {
+      "screen": "StageSelect",
+      "unityFile": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "candidateAssetIds": [
+        "u45-stage-select-map-panel",
+        "u45-stage-card-frame",
+        "u45-small-lantern-accent",
+        "u45-black-ink-divider",
+        "u45-paper-button-frame"
+      ],
+      "runtimeConnected": true,
+      "fallback": "CreatePanel + Image.color fallback",
+      "tapRoutePreserved": true,
+      "pauseGatePreserved": true,
+      "smokeRisk": "low",
+      "notes": "U43StageSelectRuntimeOverlay and Stage1へ route preserved."
+    },
+    {
+      "screen": "BattleHUD",
+      "unityFile": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "candidateAssetIds": [
+        "u45-battle-hud-top-frame",
+        "u45-battle-inventory-slot-frame",
+        "u45-virtual-stick-ring",
+        "u45-virtual-stick-knob"
+      ],
+      "runtimeConnected": true,
+      "fallback": "HUD plates and decorative Images with raycastTarget=false",
+      "tapRoutePreserved": true,
+      "pauseGatePreserved": true,
+      "smokeRisk": "low",
+      "notes": "Virtual stick visual is decorative; PlayerController movement area and UI guard unchanged."
+    },
+    {
+      "screen": "LevelUp",
+      "unityFile": "unity/VampPonUnity/Assets/_Project/Scripts/U4/PaperCard.cs",
+      "candidateAssetIds": [
+        "u45-levelup-card-common",
+        "u45-levelup-card-rare",
+        "u45-levelup-card-evolution",
+        "u45-paper-button-frame"
+      ],
+      "runtimeConnected": true,
+      "fallback": "U5 paper panel and color cards",
+      "tapRoutePreserved": true,
+      "pauseGatePreserved": true,
+      "smokeRisk": "medium",
+      "notes": "Card tap callback and U4TimeScaleGuard preserved."
+    }
+  ]
+}

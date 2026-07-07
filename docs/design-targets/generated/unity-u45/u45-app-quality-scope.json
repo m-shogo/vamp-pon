@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-07-06",
+  "phase": "U45",
+  "targetScreens": [
+    "StageSelect",
+    "BattleHUD",
+    "LevelUp"
+  ],
+  "basedOnU44Commit": "8fbaad60a8e52badcc877bfd1ff185521b6c68f6",
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "notInScope": [
+    "Top",
+    "Collection",
+    "ResultFullReplace",
+    "KokuyouRuntime",
+    "EvolutionRuntime",
+    "AudioMixerFinal",
+    "MobileMetrics"
+  ]
+}

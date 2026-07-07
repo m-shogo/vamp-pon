@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-07-06",
+  "phase": "U45",
+  "evidenceKind": "Generated candidate asset QA",
+  "candidateAssetsGenerated": true,
+  "candidateAssetsApprovedAsFinal": false,
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "items": [
+    {
+      "assetId": "u45-stage-select-map-panel",
+      "screen": "StageSelect",
+      "purpose": "paper map panel background",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-stage-select-map-panel.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-select-map-panel.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "768x1024",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-stage-card-frame",
+      "screen": "StageSelect",
+      "purpose": "stage card frame",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-stage-card-frame.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "512x256",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-battle-hud-top-frame",
+      "screen": "BattleHUD",
+      "purpose": "top HUD frame",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-battle-hud-top-frame.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "768x160",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-battle-inventory-slot-frame",
+      "screen": "BattleHUD",
+      "purpose": "inventory slot frame",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-battle-inventory-slot-frame.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "128x128",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-virtual-stick-ring",
+      "screen": "BattleHUD",
+      "purpose": "virtual stick ring",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-virtual-stick-ring.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-virtual-stick-ring.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "256x256",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-virtual-stick-knob",
+      "screen": "BattleHUD",
+      "purpose": "virtual stick knob",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-virtual-stick-knob.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-virtual-stick-knob.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "128x128",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-levelup-card-common",
+      "screen": "LevelUp",
+      "purpose": "common card background",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-levelup-card-common.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-common.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "512x720",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-levelup-card-rare",
+      "screen": "LevelUp",
+      "purpose": "rare card background",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-levelup-card-rare.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-rare.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "512x720",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-levelup-card-evolution",
+      "screen": "LevelUp",
+      "purpose": "evolution card background",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-levelup-card-evolution.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-evolution.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "512x720",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-small-lantern-accent",
+      "screen": "Shared",
+      "purpose": "corner lantern accent",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-small-lantern-accent.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-small-lantern-accent.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "128x128",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-black-ink-divider",
+      "screen": "Shared",
+      "purpose": "panel divider",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-black-ink-divider.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-black-ink-divider.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "512x64",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    },
+    {
+      "assetId": "u45-paper-button-frame",
+      "screen": "Shared",
+      "purpose": "paper button frame",
+      "generatedPath": "docs/design-targets/generated/unity-u45/assets/u45-paper-button-frame.png",
+      "unityCandidatePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "exists": true,
+      "transparentBackgroundExpected": true,
+      "transparentBackgroundObserved": true,
+      "size": "384x128",
+      "safeForRuntimeCandidate": true,
+      "approvedAsFinal": false,
+      "reason": "Candidate-only generated UI part with no readable text/logo/characters; requires device and art approval before final use.",
+      "issues": [
+        "candidate asset, not final production art"
+      ],
+      "replacementNeeded": false,
+      "importSettings": "Texture Type Sprite, alphaIsTransparency=1, mipmaps disabled, candidate under Resources/U45Candidates/UI",
+      "fallbackPlaceholder": "Unity uGUI paper/ink color fallback via AppQualityUiFactory"
+    }
+  ]
+}

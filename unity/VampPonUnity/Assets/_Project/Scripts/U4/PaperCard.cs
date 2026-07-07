@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Runtime;
+using VampPon.UnitySpike.UI;
 using VampPon.UnitySpike.U5;
 
 namespace VampPon.UnitySpike.U4
@@ -52,15 +53,16 @@ namespace VampPon.UnitySpike.U4
 
             var card = root.GetComponent<PaperCard>();
             card.rect = root.GetComponent<RectTransform>();
-            card.rect.sizeDelta = new Vector2(width, height);
+            card.rect.sizeDelta = new Vector2(Mathf.Max(width, AppQualityTapTargets.Minimum), Mathf.Max(height, AppQualityTapTargets.Minimum));
             card.choiceData = choice;
             card.cardIndex = index;
             card.baseScale = Vector3.one;
 
             card.bgImage = root.GetComponent<Image>();
-            card.bgImage.sprite = U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
-            card.bgImage.type = Image.Type.Simple;
-            card.bgImage.color = NormalCardBg;
+            card.bgImage.sprite = AppQualityAssetProvider.LevelUpCardFor(choice.Rarity == U4ItemRarity.Rare, choice.IsAwakeningGate)
+                                  ?? U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            card.bgImage.type = card.bgImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
+            card.bgImage.color = card.bgImage.sprite != null ? Color.white : NormalCardBg;
 
             var borderColor = choice.Rarity switch
             {
@@ -74,8 +76,8 @@ namespace VampPon.UnitySpike.U4
             var ibRect = innerBorder.GetComponent<RectTransform>();
             ibRect.anchorMin = Vector2.zero;
             ibRect.anchorMax = Vector2.one;
-            ibRect.offsetMin = new Vector2(3f, 3f);
-            ibRect.offsetMax = new Vector2(-3f, -3f);
+            ibRect.offsetMin = new Vector2(6f, 6f);
+            ibRect.offsetMax = new Vector2(-6f, -6f);
             card.innerBorderImage = innerBorder.GetComponent<Image>();
             card.innerBorderImage.color = borderColor;
 
@@ -84,10 +86,10 @@ namespace VampPon.UnitySpike.U4
             var contentRect = contentArea.GetComponent<RectTransform>();
             contentRect.anchorMin = Vector2.zero;
             contentRect.anchorMax = Vector2.one;
-            contentRect.offsetMin = new Vector2(4f, 4f);
-            contentRect.offsetMax = new Vector2(-4f, -4f);
+            contentRect.offsetMin = new Vector2(10f, 8f);
+            contentRect.offsetMax = new Vector2(-10f, -8f);
             var contentBg = contentArea.AddComponent<Image>();
-            contentBg.color = NormalCardBg;
+            contentBg.color = new Color(0.96f, 0.9f, 0.78f, card.bgImage.sprite != null ? 0.12f : 0.92f);
 
             if (choice.Rarity == U4ItemRarity.Rare || choice.IsAwakeningGate)
             {
@@ -111,13 +113,13 @@ namespace VampPon.UnitySpike.U4
             iconFrame.anchoredPosition = new Vector2(0f, -8f);
 
             card.typeLabel = CreateLabel(contentArea.transform, choice.TypeLabelJa, 11f, TypeColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -50f), new Vector2(width - 24f, 14f), font);
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -50f), new Vector2(width - 34f, 14f), font);
 
             card.nameLabel = CreateLabel(contentArea.transform, choice.NameJa, 17f, NameColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -66f), new Vector2(width - 24f, 22f), font);
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -66f), new Vector2(width - 34f, 22f), font);
 
             card.descLabel = CreateLabel(contentArea.transform, choice.DescriptionJa, 11f, DescColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -92f), new Vector2(width - 24f, 60f), font);
+                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -92f), new Vector2(width - 34f, 62f), font);
             if (card.descLabel != null)
             {
                 card.descLabel.textWrappingMode = TextWrappingModes.Normal;
@@ -160,7 +162,7 @@ namespace VampPon.UnitySpike.U4
                 shimmerTimer = 0.25f;
             }
 
-            bgImage.color = selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg);
+            bgImage.color = bgImage.sprite != null ? (selected ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg));
         }
 
         public void SetHovered(bool hovered)
@@ -168,7 +170,7 @@ namespace VampPon.UnitySpike.U4
             isHovered = hovered;
             if (!isSelected)
             {
-                bgImage.color = hovered ? HoveredCardBg : NormalCardBg;
+                bgImage.color = bgImage.sprite != null ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (hovered ? HoveredCardBg : NormalCardBg);
                 rect.localScale = hovered ? baseScale * 1.02f : baseScale;
             }
         }
@@ -245,6 +247,7 @@ namespace VampPon.UnitySpike.U4
             tmp.alignment = TextAlignmentOptions.Center;
             tmp.textWrappingMode = TextWrappingModes.NoWrap;
             tmp.overflowMode = TextOverflowModes.Ellipsis;
+            AppQualityUiFactory.FitText(tmp, Mathf.Max(8f, fontSize - 4f));
             if (font != null)
             {
                 tmp.font = font;

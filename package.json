@@ -51,6 +51,7 @@
     "unity:u43-predevice-automated-smoke:check": "node --experimental-strip-types scripts/quality/check-unity-u43-predevice-automated-smoke.ts",
     "unity:u43-ios-build-generation-preflight:check": "node --experimental-strip-types scripts/quality/check-unity-u43-ios-build-generation-preflight.ts",
     "unity:u44-web-to-unity-parity-audit:check": "node --experimental-strip-types scripts/quality/check-unity-u44-web-to-unity-parity-audit.ts",
+    "unity:u45-stage-battle-levelup-app-quality:check": "node --experimental-strip-types scripts/quality/check-unity-u45-stage-battle-levelup-app-quality.ts",
     "python:setup": "python3 -m venv .venv && .venv/bin/python -m pip install --upgrade pip && .venv/bin/python -m pip install -r requirements.txt",
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",

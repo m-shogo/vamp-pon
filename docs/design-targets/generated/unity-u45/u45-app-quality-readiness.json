@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-07-06",
+  "phase": "U45",
+  "evidenceKind": "Editor pre-device app-quality visual pass",
+  "stageSelectAppQualityCandidateReady": true,
+  "battleHudAppQualityCandidateReady": true,
+  "levelUpAppQualityCandidateReady": true,
+  "candidateAssetsGenerated": true,
+  "candidateAssetsApprovedAsFinal": false,
+  "editorScreenshotsReady": true,
+  "actualDeviceSmokeResultProvided": false,
+  "actualDeviceSmokeResult": "NOT_PROVIDED",
+  "deviceScreenshot": "DEVICE_SCREENSHOT_NOT_PROVIDED",
+  "devicePlayableReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "editorScreenshots": [
+    "01-stage-select-app-quality.png",
+    "02-battle-hud-app-quality.png",
+    "03-levelup-common-card.png",
+    "04-levelup-rare-card.png",
+    "05-levelup-evolution-card.png",
+    "06-mobile-tap-targets.png"
+  ],
+  "notes": [
+    "Editor pre-device screenshot only",
+    "Not actual device smoke",
+    "Generated assets are candidates only"
+  ]
+}
