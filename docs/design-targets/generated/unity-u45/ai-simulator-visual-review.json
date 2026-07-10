@@ -1,0 +1,101 @@
+{
+  "generatedAt": "2026-07-10",
+  "phase": "U45",
+  "evidenceKind": "AI visual review of iOS Simulator smoke",
+  "device": "iPhone 17 Pro",
+  "runtime": "iOS 26.5 (23F77)",
+  "orientation": "portrait",
+  "aiSimulatorVisualReviewReady": true,
+  "overallVerdict": "PASS_WITH_ISSUES",
+  "screens": [
+    {
+      "file": "01-stage-select.png",
+      "verdict": "PASS",
+      "issues": []
+    },
+    {
+      "file": "02-battle-hud.png",
+      "verdict": "PASS_WITH_ISSUES",
+      "issues": [
+        {
+          "severity": "P2",
+          "region": "top HUD and lower inventory strip",
+          "problem": "HUD labels and slot details have low contrast against the dark battlefield.",
+          "fixCandidate": "Raise text and icon contrast without expanding HUD coverage.",
+          "fixBeforeDeviceSmoke": false,
+          "mayDeferTo": "U46"
+        }
+      ]
+    },
+    {
+      "file": "03-levelup-common.png",
+      "verdict": "PASS_WITH_ISSUES",
+      "issues": [
+        {
+          "severity": "P2",
+          "region": "three card stack",
+          "problem": "Descriptions and rarity labels sit close to card edges and are lower contrast than titles.",
+          "fixCandidate": "Increase inner padding and secondary-text contrast.",
+          "fixBeforeDeviceSmoke": false,
+          "mayDeferTo": "U46"
+        }
+      ]
+    },
+    {
+      "file": "04-levelup-rare.png",
+      "verdict": "PASS_WITH_ISSUES",
+      "issues": [
+        {
+          "severity": "P2",
+          "region": "overlay heading and rare cards",
+          "problem": "Rare tint reduces separation between card surface, rarity label, and dimmed background.",
+          "fixCandidate": "Strengthen rare-card border and heading contrast.",
+          "fixBeforeDeviceSmoke": false,
+          "mayDeferTo": "U46"
+        }
+      ]
+    },
+    {
+      "file": "05-levelup-evolution.png",
+      "verdict": "PASS_WITH_ISSUES",
+      "issues": [
+        {
+          "severity": "P2",
+          "region": "evolution card",
+          "problem": "Evolution treatment is distinguishable but the purple surface competes with its body text.",
+          "fixCandidate": "Increase body-text contrast while preserving the evolution distinction.",
+          "fixBeforeDeviceSmoke": false,
+          "mayDeferTo": "U46"
+        }
+      ]
+    },
+    {
+      "file": "06-result.png",
+      "verdict": "PASS_WITH_ISSUES",
+      "issues": [
+        {
+          "severity": "P1",
+          "region": "result panel body",
+          "problem": "Result Preview is a sparse runtime placeholder and is not final product-quality result composition.",
+          "fixCandidate": "Replace the preview body with the approved result hierarchy in a dedicated later pass.",
+          "fixBeforeDeviceSmoke": false,
+          "mayDeferTo": "U46 or later"
+        }
+      ]
+    },
+    {
+      "file": "07-stage-select-return.png",
+      "verdict": "PASS",
+      "issues": []
+    }
+  ],
+  "blackOrSingleColorScreenDetected": false,
+  "portraitReady": true,
+  "safeAreaP0Detected": false,
+  "textClippingP0Detected": false,
+  "transparentSpriteBlackBoxDetected": false,
+  "candidateSpriteStretchDetected": false,
+  "candidateAssetsApprovedAsFinal": false,
+  "devicePlayableReady": false,
+  "productionApproved": false
+}

@@ -1,0 +1,22 @@
+U45 AI-only iOS Simulator system log summary
+generatedAt: 2026-07-10
+device: iPhone 17 Pro
+runtime: iOS 26.5 (23F77)
+bundle identifier: com.mshogo.vamppon.u1
+launch PID: 45380
+
+Observed:
+- RunningBoard moved the app to running-active / UserInteractiveFocal.
+- UIKit completed scene activation for com.mshogo.vamppon.u1-default.
+- Metal compiled shaders during startup.
+- The simulator audio service connection opened.
+- The app remained running after the automated route completed.
+
+Not observed during the smoke window:
+- crash or abnormal termination
+- assertion failure
+- unhandled exception
+- missing shader, sprite, resource, or font message
+- duplicated EventSystem or AudioListener indication
+
+Player-side result recorded unhandledExceptionCount=0 and crashDetected=false.

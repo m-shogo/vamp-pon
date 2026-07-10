@@ -1,0 +1,21 @@
+U45 AI-only iOS Simulator xcodebuild summary
+generatedAt: 2026-07-10
+Xcode: 26.6 (17F113)
+SDK/runtime: iPhoneSimulator 26.5 / iOS 26.5 (23F77)
+destination: iPhone 17 Pro (UDID recorded in player evidence)
+architecture: arm64
+scheme: Unity-iPhone
+configuration: Debug
+CODE_SIGNING_ALLOWED: NO
+result: Succeeded
+error lines: 0
+warning lines on clean build: 31
+app: DerivedData/Build/Products/Debug-iphonesimulator/VampPonUnitySpike.app
+bundle identifier: com.mshogo.vamppon.u1
+
+Warning classes observed:
+- Unity-generated iOS source uses deprecated GameController and rendering APIs.
+- AppIcon catalog lacks the 1024x1024 App Store icon.
+- GameAssembly Run Script phase declares no outputs.
+
+These warnings did not block the Simulator build. This is not an App Store archive or actual-device approval.

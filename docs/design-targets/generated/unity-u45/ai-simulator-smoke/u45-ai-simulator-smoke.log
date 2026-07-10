@@ -1,0 +1,4 @@
+[2026-07-10T03:42:48.2882540Z] Warning: Shadowmap RenderTexture requested without a depth buffer. Changing to a 16 bit depth buffer. To resolve this warning, please specify the desired number of depth bits when creating the render texture.
+Stage1 runtime=True
+enemy hit and pickup=True
+Retry Stage1=True
