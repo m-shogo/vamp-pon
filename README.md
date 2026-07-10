@@ -8,77 +8,80 @@
 影を払い、記憶を拾い、朝まで残る。
 ```
 
-夜にあふれる影を払い、消えかけた記憶を朝までに取り戻します。
-
----
-
-## 最新の正本入口
+## 最初に読む
 
 ```txt
+docs/unity-big-implementation-control-center-v1.md
+docs/unity-current-doc-index-2026-07-10.md
 docs/181-current-production-canon.md
+docs/unity-runtime-ownership-contract-v1.md
+docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
-docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-重要な現行資料:
-
-```txt
-docs/180-unified-character-canon.md
-docs/183-character-database-v1.md
-docs/184-production-content-databases.md
-docs/185-asset-factory-catalog.md
-docs/design/world-labels.md
-docs/design/item-and-character-production-canon.md
-docs/design/character-production-plans.md
-docs/design/emblem-canon.md
-docs/design/az-emblem-canon.md
-```
-
-古い資料と矛盾した場合、上記正本と `src/game/data/*` を優先します。
-
----
+古いprototype資料と矛盾した場合、上記、`src/game/data/*`、現行Unity runtime、最新evidence/checkerを優先します。
 
 ## 現在の開発状態
 
 ### Web
 
-Web版はゲーム仕様・データ・画面比較・素材確認の正本/検証環境です。Stage1の8分ループ、灯具、持ち物、進化、旅の記録などが存在します。
+Web版はゲーム仕様、データ、画面比較、素材確認の正本/検証環境です。
+製品runtimeはUnityへ段階移行しています。
 
 ### Unity
 
-Unity 6000.5.1f1 / 2D URPへ製品runtimeを移行中です。
+```txt
+Unity Editor: 6000.5.1f1
+Render Pipeline: 2D URP
+Runtime UI: uGUI
+Reference viewport: 390x844 portrait
+Bundle Identifier: com.mshogo.vamppon.u1
+```
+
+到達済み:
 
 ```txt
 U43: 実機前P0 runtime repair
-U44: Web → Unity parity audit / app-quality計画
-U45: StageSelect / Battle HUD / LevelUp app-quality candidate
+U44: Web -> Unity parity audit
+U45: StageSelect / Battle HUD / LevelUp candidate
 U45: Unity設定安全化 / iOS build generation
 U45: AI-only iOS Simulator smoke
 U45.1 gate: Runtime Visual Readiness誤判定防止
 U46 foundation: UI Design System
+Big Implementation control-plane: source / ownership / preflight整理
 ```
 
-AI-only iOS Simulator smoke確認済み:
+## 現在の最優先
+
+U46より先に実施します。
 
 ```txt
-Simulator build / install / launch
-StageSelect pause / Stage1開始
-左下virtual stick移動 / release停止
-UI movement collision guard
-enemy hit / pickup
-LevelUp common / rare / evolution
-Result pause / Retry / StageSelect復帰
-Audio / haptic request hook
-crashなし / unhandled exception 0
+U45.1 Character and Enemy Dot Runtime Pass
 ```
 
-Simulator smokeは操作・route・pause・crash確認の証拠であり、キャラクターや敵のドット表現・animation・production asset承認の証拠ではありません。
+必須:
 
-境界:
+- production visual provider
+- ユイ Sprite Mode Multiple
+- idle / walk / hurt / attack
+- 左右向き、ランタン、バッグ位置確認
+- オンブ Sprite Mode Multiple
+- idle / move / hurt / death
+- proof providerをproduction経路から外す
+- procedural fallbackをdevelopment-onlyへ限定
+- Golden Identity Reference
+- Generation Lineage
+- gameplay-size review
+- Simulator regression
+
+現在のStage1はproof用Single spriteです。Point Filter、GameObject名、操作可能、Simulator route成功だけではドットruntime完成と扱いません。
+
+## 現在のreadiness
 
 ```txt
+implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
 simulatorCharacterVisualApprovalInvalidated=true
@@ -86,64 +89,62 @@ characterDotRuntimeReady=false
 characterAnimationReady=false
 enemyDotRuntimeReady=false
 enemyAnimationReady=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
 runtimeVisualReady=false
+versionedSaveServiceImplemented=false
+sceneFlowCoordinatorImplemented=false
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
+mobileMetricsReady=false
+audioMixerReady=false
+hapticMeasured=false
 candidateAssetsApprovedAsFinal=false
+rcReady=false
 productionApproved=false
 ```
 
-現在のStage1キャラクターは `U5ProofAssetProvider` 経由のproof用Single spriteで、Point Filter適用済みですがsprite sheet / idle / walk / hurt / attack animationは未接続です。Point FilterやGameObject名だけではドットruntime完成と扱いません。
+`implementationFoundationReady=true` は、正本と責務とpreflightが整理された意味です。製品runtime完成やリリース承認ではありません。
 
----
-
-## 次の主作業
-
-U46より先にU45.1を実施します。
+## 次の順序
 
 ```txt
-U45.1 Character and Enemy Dot Runtime Pass
-1. ユイidentity Golden Reference登録
-2. ユイproduction candidate sprite sheet選定
-3. idle / walk / hurt / attackのsliceとruntime接続
-4. 左右反転、ランタン、バッグ位置確認
-5. オンブidle / move / hurt / death接続
-6. production asset provider追加
-7. proof providerを製品runtimeから外す
-8. procedural fallbackを明示的エラー経路へ限定
-9. Simulatorでanimationと実寸visualを再確認
-10. runtime visual readiness evidence/checker更新
+U45.1 production dot/animation/provider
+↓
+Simulator regression
+↓
+U46 AppFlow/Pause + Result read model + SaveService v1 + 灯録
+↓
+U47 weapon/passive/rare/evolution/黒耀化 runtime
+↓
+U48 remaining production assets/background/VFX
+↓
+U49 actual-device audio/haptic
+↓
+U50 device performance/touch metrics
+↓
+U51 RC
 ```
 
-その後U46へ進みます。
+## Runtime ownership
+
+正本:
 
 ```txt
-1. Result ledger / Retry / StageSelect復帰の製品品質化
-2. Collection / 灯録のUnity実装
-3. UI Design Systemを使ったPrefab Variant移行
-4. Compact / Standard / Largeのレイアウト確認
-5. Asset Generation Contractに沿った素材制作
-6. Component Catalog / import checker / Simulator screenshotで回帰確認
+docs/unity-runtime-ownership-contract-v1.md
 ```
 
-現在の主な見た目課題:
+重要ルール:
 
-```txt
-P0: ユイがproof用Single spriteで本物のドットanimationではない
-P0: オンブもproof用Single spriteでanimation未接続
-P1: Resultが疎なruntime placeholder
-P2: Battle HUDの文字・slotコントラスト
-P2: LevelUp説明文の余白と副テキストのコントラスト
-P2: rare / evolution cardの文字分離
-```
-
----
+- UIはcommandを送るがbattle/saveを直接実装しない
+- pause/navigationは単一ownerを通す
+- Definition / Runtime State / Save DTOを分離する
+- Saveはversioned JSONでIDだけ保存する
+- Result/灯録はread modelを描画する
+- `U1Stage1SceneBootstrap`と`U2BattleController`へ新機能を集中させない
+- proof providerとproduction providerを分離する
 
 ## Unity UI Design System
 
-9-sliceだけでなく、以下を正式採用しています。
+正式採用:
 
 ```txt
 9-slice / Sprite Border
@@ -151,9 +152,9 @@ ScriptableObject Theme
 Visual State
 Responsive Layout Profile
 Editor Component Catalog
-Prefab Variant policy
+Base -> Variant prefab policy
 UI Sprite Import Policy
-Sprite Atlas運用
+Sprite Atlas
 ```
 
 正本:
@@ -162,79 +163,27 @@ Sprite Atlas運用
 docs/unity-ui-design-system-v1.md
 ```
 
-基本方針:
+新規画面はCompact / Standard / Largeを確認し、生成された完成画面画像をそのままruntimeへ貼りません。
 
-```txt
-runtime UIはuGUIを維持
-UI ToolkitはEditor専用
-Prefab継承はBase → Variantの2階層まで
-生成画面画像をそのままruntimeへ貼らない
-UIとpixel gameplay spriteのimport設定を分離
-```
+## Asset Generation Consistency
 
-Unityメニュー:
-
-```txt
-VampPon > UI > Create or Refresh Design System Assets
-VampPon > UI > Open Component Catalog
-VampPon > UI > Validate UI Sprite Import Policy
-```
-
-検査:
-
-```sh
-pnpm unity:ui-design-system:check
-```
-
----
-
-## Runtime Visual Readiness Gate
-
-キャラクターや敵のvisual readinessは、操作可能・Point Filter・object名・静止画表示だけでは上げません。
-
-正本:
-
-```txt
-docs/unity-runtime-visual-readiness-gate-v1.md
-docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
-```
-
-必須条件:
-
-```txt
-production provider
-Sprite Mode Multiple
-実frame slice
-idle / walk / hurt / attack
-左右反転確認
-Golden Identity Reference
-Generation Lineage
-final/runtime approval
-gameplay-size visual review
-Simulator animation evidence
-```
-
-検査:
-
-```sh
-pnpm unity:runtime-visual-readiness:check
-```
-
----
-
-## Asset Generation Consistency System
-
-生成素材の別人化・別画風化・未承認runtime混入を防ぐため、以下を正式採用しています。
+正式採用:
 
 ```txt
 Asset Generation Contract
 Golden Reference Registry
-Generation Lineage manifest
-4候補比較
-prompt / reference / output SHA-256
-Generator名・version・seed・source commit記録
+Generation Lineage
+同一Contractで4候補比較
+prompt/reference/output SHA-256
 Automatic QA + Human Review
-candidate / final / runtime approval分離
+candidate/final/runtime approval分離
+```
+
+初期値:
+
+```txt
+approvedAsFinal=false
+runtimeApproved=false
 ```
 
 正本:
@@ -243,45 +192,46 @@ candidate / final / runtime approval分離
 docs/asset-generation-consistency-system-v1.md
 ```
 
-絶対ルール:
+## 主要コマンド
 
-```txt
-1枚生成して即final採用しない
-Golden Referenceなしでfinal承認しない
-Lineageなしでfinal承認しない
-4候補を同一Contractで比較する
-approvedAsFinal=falseを初期値にする
-runtimeApproved=falseを初期値にする
-candidate画像をproduction runtimeへ直接接続しない
-```
-
-Contract / Registry export:
+大規模実装前の静的確認:
 
 ```sh
-pnpm asset-factory:contracts:export
+pnpm implementation:preflight:check
 ```
 
-生成画像のLineage作成:
+既存checker、asset検査、test、buildを束ねた完全確認:
 
 ```sh
-pnpm asset-factory:lineage:create -- \
-  --key character:yui:normal_cutin \
-  --output <generated-image.png> \
-  --generator codex-image \
-  --generator-version <version> \
-  --reference-sets global:visual-style-v1,character:yui:identity-v1
+pnpm implementation:preflight:full
 ```
 
-検査:
+個別確認:
 
 ```sh
 pnpm asset-generation:check
 pnpm assets:verify
+pnpm unity:runtime-visual-readiness:check
+pnpm unity:ui-design-system:check
+pnpm unity:u45-ai-simulator-smoke:check
+pnpm unity:meta:check
+pnpm test
+pnpm build
 ```
 
----
+GitHub接続だけで編集した場合、ローカル実行済みと記録しません。
 
-## 現行の用語
+## 対応解像度
+
+```txt
+Compact: 360x800 / 375x812
+Standard: 390x844 / 393x852
+Large: 412x915 / 430x932
+```
+
+Safe Area、タップ領域、HUD役割、virtual stick位置、icon比率は固定し、padding/card width/gapをtierで調整します。
+
+## 現行用語
 
 ```txt
 灯技 / 継灯 / 暁灯
@@ -294,88 +244,24 @@ pnpm assets:verify
 
 `黒曜化`ではなく、必ず **黒耀化** と表記します。
 
----
-
-## 開発・検査
-
-### Web
-
-```sh
-pnpm install
-pnpm dev
-pnpm build
-pnpm test
-```
-
-### Asset
-
-```sh
-pnpm asset-generation:check
-pnpm asset-factory:catalog:export
-pnpm asset-factory:contracts:export
-pnpm assets:verify
-```
-
-### Unity
-
-```sh
-pnpm unity:meta:check
-pnpm unity:ui-design-system:check
-pnpm unity:runtime-visual-readiness:check
-pnpm unity:u43-predevice-automated-smoke:check
-pnpm unity:u45-stage-battle-levelup-app-quality:check
-pnpm unity:u45-settings-repair:check
-pnpm unity:u45-ai-simulator-smoke:check
-```
-
-Unity project:
-
-```txt
-unity/VampPonUnity
-```
-
-基準解像度:
-
-```txt
-390x844 portrait
-```
-
-確認解像度:
-
-```txt
-360x800
-375x812
-390x844
-393x852
-412x915
-430x932
-```
-
----
-
 ## 技術方針
 
 ```txt
 Web: TypeScript + Phaser + Vite
 Unity: 6000.5.1f1 / 2D URP / uGUI
-Editor design tools: UI ToolkitまたはEditorWindow
-Mobile: iOS優先、縦持ち
+Editor tools: UI ToolkitまたはEditorWindow
+Mobile: iOS優先 / portrait
 ```
-
-Webは仕様・データ・見た目の比較元として維持し、製品runtimeはUnityへ段階移行します。
 
 現段階では採用しません。
 
-```txt
-runtime UI Toolkit全面移行
-Addressablesの早期導入
-大規模外部UIフレームワーク
-生成画面画像の直貼り
-未追跡生成assetのfinal/runtime採用
-proof providerやSingle spriteのproduction-ready扱い
-```
-
----
+- runtime UI Toolkit全面移行
+- Addressablesの早期導入
+- 大規模外部UIフレームワーク
+- 生成画面画像の直貼り
+- 未追跡生成assetのfinal/runtime採用
+- proof providerやSingle spriteのproduction-ready扱い
+- cloud save / account / ads / analyticsの先行導入
 
 ## 採用ビジュアル方向
 
@@ -397,12 +283,8 @@ A-Z灯紋
 レア・進化・黒耀化だけ強く。
 ```
 
-詳細は `docs/88-adopted-visual-direction.md`、`docs/unity-ui-design-system-v1.md`、`docs/asset-generation-consistency-system-v1.md`、`docs/unity-runtime-visual-readiness-gate-v1.md` を参照してください。
-
----
-
 ## 機密情報・ライセンス
 
-パスワード、認証コード、秘密鍵、Apple Team ID、Provisioning Profile、証明書、トークンなどを保存しないでください。
+パスワード、認証コード、秘密鍵、Apple Team ID、Provisioning Profile、証明書、トークンなどを保存しません。
 
-外部素材を使う場合は `docs/asset-license-log.md` に出所とライセンスを記録します。
+外部素材は `docs/asset-license-log.md` に出所とライセンスを記録します。
