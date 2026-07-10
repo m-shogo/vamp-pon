@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b39a9c766ff4e4a8ec6908bdb445dc9, type: 3}
+  m_Name: YorunoShirubeResponsiveLayout
+  m_EditorClassIdentifier:
+  CompactMaxWidth: 379
+  LargeMinWidth: 410
+  CompactSpacingMultiplier: 0.82
+  CompactCardWidth: 96
+  CompactCardGap: 6
+  CompactHorizontalPadding: 12
+  CompactHudHeight: 68
+  StandardSpacingMultiplier: 1
+  StandardCardWidth: 108
+  StandardCardGap: 10
+  StandardHorizontalPadding: 16
+  StandardHudHeight: 72
+  LargeSpacingMultiplier: 1.12
+  LargeCardWidth: 118
+  LargeCardGap: 12
+  LargeHorizontalPadding: 20
+  LargeHudHeight: 76
