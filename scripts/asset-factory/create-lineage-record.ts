@@ -74,7 +74,11 @@ const references = referenceSetIds.map((referenceSetId) => {
 });
 
 const registeredSetIds = new Set(references.filter((reference) => reference.registered).map((reference) => reference.referenceSetId));
-const finalApprovalBlockedReasons: string[] = [];
+const finalApprovalBlockedReasons: string[] = [
+  'automatic QA has not passed',
+  'human review has not passed',
+  'four-candidate comparison sheet has not been recorded',
+];
 for (const requiredSetId of contract.referencePolicy.requiredReferenceSetIds) {
   if (!registeredSetIds.has(requiredSetId)) finalApprovalBlockedReasons.push(`missing reference set: ${requiredSetId}`);
 }
@@ -133,6 +137,4 @@ mkdirSync(dirname(manifestPath), { recursive: true });
 writeFileSync(manifestPath, `${JSON.stringify(lineage, null, 2)}\n`);
 console.log(`lineage manifest created: ${manifestPath}`);
 console.log('approvedAsFinal=false / runtimeApproved=false');
-if (finalApprovalBlockedReasons.length > 0) {
-  console.log(`final approval blockers: ${finalApprovalBlockedReasons.join('; ')}`);
-}
+console.log(`final approval blockers: ${finalApprovalBlockedReasons.join('; ')}`);
