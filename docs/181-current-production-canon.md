@@ -1,7 +1,7 @@
 # 181. Current Production Canon
 
-最新のキャラ量産・アイテム・A-Z灯紋・UI用語の入口。
-古い検討メモと矛盾した場合は、この文書と下記の runtime data を優先する。
+最新のキャラ量産・敵・アイテム・ステージ・A-Z灯紋・Unity UI・生成素材運用の入口。
+古い検討メモと矛盾した場合は、この文書と下記のruntime data / adopted docsを優先する。
 
 ## Source of truth
 
@@ -14,6 +14,10 @@
 | Enemy production database | `src/game/data/enemyProductionDatabase.ts` / `docs/184-production-content-databases.md` |
 | Item asset production database | `src/game/data/itemAssetProductionDatabase.ts` / `docs/184-production-content-databases.md` |
 | Stage production database | `src/game/data/stageProductionDatabase.ts` / `docs/184-production-content-databases.md` |
+| Unified Asset Factory Catalog | `src/game/data/assetFactoryCatalog.ts` / `docs/185-asset-factory-catalog.md` |
+| Asset Generation Contract | `src/game/data/assetGenerationPolicy.ts` / `docs/asset-generation-consistency-system-v1.md` |
+| Golden Reference Registry | `src/game/data/goldenReferenceRegistry.ts` / `docs/asset-generation-consistency-system-v1.md` |
+| Unity UI Design System | `docs/unity-ui-design-system-v1.md` |
 | Core5 art names | `src/game/data/characterArts.ts` |
 | Kokuyou forms | `src/game/data/kokuyouForms.ts` |
 | Pair light arts | `src/game/data/pairLightArts.ts` |
@@ -24,8 +28,7 @@
 
 ## Current rule
 
-キャラ量産は、キャラだけ増やさない。
-1人につき必ず次を同時に持たせる。
+キャラ量産は、キャラだけ増やさない。1人につき必ず次を同時に持たせる。
 
 1. 初期灯具
 2. 持ち物
@@ -41,10 +44,11 @@
 12. A-Z灯紋
 13. 通常/黒耀化/暁の素材キーワード
 14. グッズ展開フック
-15. Unity Handoff 用 prefabId / addressableGroup / sceneEligibility
-16. Asset Factory 用の素材別プロンプトとreview checklist
+15. Unity Handoff用prefabId / addressableGroup / sceneEligibility
+16. Asset Factory用の素材別prompt / negative prompt / review checklist
+17. Asset Generation Contract / Golden Reference / Generation Lineage
 
-敵・ステージ・アイテムも、意味・ゲーム役割・見た目・生成プロンプト・レビュー条件を持たせる。
+敵・ステージ・アイテムも、意味・ゲーム役割・見た目・生成prompt・review条件・承認境界を持たせる。
 
 ## Current naming lock
 
@@ -72,6 +76,8 @@
 | Character emblem | 灯紋 |
 | A-Z series | A-Z灯紋 |
 
+`黒曜化`ではなく、必ず **黒耀化** と表記する。
+
 ## Core5 production set
 
 | Character | 初期灯具 | 持ち物 | 忘れ物 | 灯技 | 継灯 | 暁灯 | A-Z灯紋 |
@@ -84,8 +90,7 @@
 
 ## Character Database v1
 
-`src/game/data/characterDatabase.ts` は、20キャラの正本データを実装用に束ねる統合レイヤー。
-手入力で重複管理せず、既存の正本から導出する。
+`src/game/data/characterDatabase.ts`は20キャラの正本データを実装用に束ねる統合レイヤー。手入力で重複管理せず、既存の正本から導出する。
 
 | Included | Source |
 | --- | --- |
@@ -99,7 +104,7 @@
 
 ## Asset Factory prompt set
 
-各キャラは `src/game/data/assetFactoryCharacterPrompts.ts` で、次の9種類の素材プロンプトを持つ。
+各キャラは`src/game/data/assetFactoryCharacterPrompts.ts`で次の9種類を持つ。
 
 1. `sprite_sheet_180`
 2. `character_reference`
@@ -111,7 +116,52 @@
 8. `emblem_dawn`
 9. `emblem_kokuyou`
 
-敵・ステージ・アイテムのAsset Factory promptは `docs/184-production-content-databases.md` を参照する。
+敵・ステージ・アイテムのpromptは`docs/184-production-content-databases.md`、統合入口は`docs/185-asset-factory-catalog.md`を参照する。
+
+## Asset Generation Consistency rule
+
+生成画像はPromptだけで採用しない。`docs/asset-generation-consistency-system-v1.md`を正本とする。
+
+必須:
+
+```txt
+Asset Generation Contract
+Golden Reference Registry
+Generation Lineage manifest
+同一Contractによる4候補比較
+prompt/reference/output SHA-256
+Generator名/version/seed/source commit
+Automatic QA + Human Review
+candidate/final/runtime approval分離
+```
+
+初期値:
+
+```txt
+review.status=candidate
+approvedAsFinal=false
+runtimeApproved=false
+finalApprovalBlocked=true
+```
+
+Identity Golden Reference未登録でもcandidate生成は可能だが、final/runtime採用は禁止する。
+
+禁止:
+
+- 1枚生成して即final採用
+- Lineageなしの採用
+- Golden Referenceなしのfinal承認
+- candidate pathのproduction runtime直結
+- 既存assetの無断上書き
+- promptを個別手修正して同一Contract扱いすること
+- UI全画面への文字・ボタン焼き込み
+
+検査:
+
+```sh
+pnpm asset-generation:check
+pnpm assets:verify
+```
 
 ## Production content databases
 
@@ -123,8 +173,7 @@
 
 ## Kokuyou rule
 
-黒耀化は共通システム名。
-ただし、表示ではキャラ別副題を持たせる。
+黒耀化は共通システム名。ただし表示ではキャラ別副題を持たせる。
 
 | Character | 黒耀化副題 |
 | --- | --- |
@@ -134,12 +183,11 @@
 | ミチル | 迷い星図 |
 | トモリ | ほころぶ継火 |
 
-20人分の副題は `src/game/data/kokuyouForms.ts` を参照する。
+20人分は`src/game/data/kokuyouForms.ts`を参照する。
 
 ## A-Z emblem rule
 
-A-Z灯紋はキャラ量産の必須要素。
-1キャラにつき最低4相を作る。
+A-Z灯紋はキャラ量産の必須要素。1キャラにつき最低4相を作る。
 
 | Phase | Display | Rule |
 | --- | --- | --- |
@@ -152,36 +200,46 @@ A-Z灯紋はキャラ量産の必須要素。
 ## Asset rule
 
 - カットイン画像・灯紋画像に文字を焼かない。
-- キャラ名、AZコード、技名、ラベルはUI textで出す。
-- 1画像1アセット。
-- UI素材生成時は純緑 `#00FF00` 背景を使う。
-- 透過化後の白フリンジ・市松模様・ロゴ・文字は禁止。
+- キャラ名、A-Zコード、技名、ラベルはUI textで出す。
+- 1画像1asset。
+- UI素材生成時は必要な場合のみ純緑`#00FF00`背景を使用し、処理後は透過する。
+- 白フリンジ、市松模様、ロゴ、文字は禁止。
 - 390x844のスマホ縦画面で読めることを優先する。
+- 生成assetは4候補を比較する。
+- Golden ReferenceとLineageが揃うまでcandidate扱い。
+- reference承認とruntime承認を混同しない。
 
 ## Implementation status
 
 | Area | Status |
 | --- | --- |
 | World terms | 正本データあり。UI全体への参照置換は未完了。 |
-| 20 characters | 正本データあり。playable runtime はCore5から段階適用。 |
-| Character Database v1 | 20人分の統合データあり。ID/必須項目/integrity test あり。 |
-| Character Asset Factory prompts | 20人 x 9種類の素材プロンプトあり。integrity test あり。 |
-| Enemy production DB | 48体分あり。asset prompt 4種類あり。 |
-| Item asset production DB | キャラ由来100件 + field drop 5件あり。asset prompt 5種類あり。 |
-| Stage production DB | 20ステージ分あり。asset prompt 4種類あり。 |
+| 20 characters | 正本データあり。playable runtimeはCore5から段階適用。 |
+| Character Database v1 | 20人分の統合データ、ID/必須項目/integrity testあり。 |
+| Unified Asset Factory Catalog | character/enemy/item/stageを統合済み。 |
+| Asset Generation Contract | Prompt Catalog全recordから導出するv1実装あり。 |
+| Golden Reference Registry | Global styleとU45 UI candidate referenceを登録済み。identity referenceは段階登録。 |
+| Generation Lineage | SHA-256、generator/version、source commit、approval境界を記録するCLI/templateあり。 |
+| Asset generation checker | Contract/Registry/Lineage/未承認境界を静的検査。 |
+| Character Asset Factory prompts | 20人 x 9種類あり。 |
+| Enemy production DB | 48体分、asset prompt 4種類あり。 |
+| Item asset production DB | キャラ由来100件 + field drop 5件、asset prompt 5種類あり。 |
+| Stage production DB | 20ステージ分、asset prompt 4種類あり。 |
+| Unity UI Design System | 9-slice、Theme、Visual State、Responsive、Catalog、Import Policyあり。 |
 | Core5 arts | 正本データあり。 |
-| Kokuyou subtitles | 20人分あり。カットインの表示連動あり。 |
+| Kokuyou subtitles | 20人分あり。 |
 | Pair arts | Core5 10組あり。 |
-| Item production plans | 20人分あり。既存 weapons/passives/rareItems/evolutions への全反映は未完了。 |
 | A-Z emblems | 20人分あり。画像生成/実UI反映は未完了。 |
 
 ## Next implementation order
 
-1. `pnpm test` / `pnpm build` / `pnpm assets:verify` でDB追加後の整合性を確認する。
-2. Asset Factory UI/CLIから character/enemy/item/stage のprompt DBを選べるようにする。
-3. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts` に Core5 分を先に反映する。
-4. HUD / level-up / result / collection UI の旧用語を `WORLD_TERMS` 参照へ寄せる。
-5. `characterDatabase.ts` と各 production DB を Asset Factory export / Unity handoff export / キャラ選択 / 灯録から参照する。
-6. キャラ選択は Core5 のみ表示する。
-7. A-Z灯紋は灯録・キャラ詳細・キャラ選択に normal 相から表示する。
-8. season_seed / future_seed / shadow5 は、設計データとして保持し、選択画面には出さない。
+1. `pnpm asset-generation:check` / `pnpm test` / `pnpm build` / `pnpm assets:verify`を実行する。
+2. `pnpm asset-factory:contracts:export`でContract/Registry JSONを出力する。
+3. Core5からidentity Golden Referenceを承認・登録する。
+4. Core5 / Stage1素材を同一Contractで4候補生成し、Lineageを作る。
+5. 4候補comparison sheetとvisual similarity検査を追加する。
+6. Result / 灯録をUnity UI Design Systemで実装する。
+7. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts`へCore5分を先に反映する。
+8. HUD / LevelUp / Result / Collectionの旧用語を`WORLD_TERMS`参照へ寄せる。
+9. A-Z灯紋は灯録・キャラ詳細・キャラ選択にnormal相から表示する。
+10. season_seed / future_seed / shadow5は設計データとして保持し、選択画面には出さない。
