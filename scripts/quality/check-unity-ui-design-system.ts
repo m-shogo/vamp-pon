@@ -37,7 +37,6 @@ const tokens = read('unity/VampPonUnity/Assets/_Project/Scripts/UI/AppQualitySty
 const docs = read('docs/unity-ui-design-system-v1.md');
 const packageJson = read('package.json');
 const readme = read('README.md');
-const canon = read('docs/181-current-production-canon.md');
 const roadmap = read('docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md');
 
 check('package script exists', packageJson.includes('unity:ui-design-system:check'));
@@ -54,7 +53,7 @@ check('legacy tokens bridge to new system', tokens.includes('UiThemeRuntime.Curr
 check('docs preserve uGUI runtime', docs.includes('runtime UIはuGUIを維持') && docs.includes('UI ToolkitはEditor専用'));
 check('docs cover theme, state, responsive, catalog, import, prefab, atlas', ['ScriptableObject Theme', 'Visual State', 'Responsive Layout', 'Component Catalog', 'Import', 'Prefab Variant', 'Sprite Atlas'].every(term => docs.includes(term)));
 check('README links design system', readme.includes('docs/unity-ui-design-system-v1.md'));
-check('canon links design system', canon.includes('docs/unity-ui-design-system-v1.md'));
+check('README reflects Unity product runtime', readme.includes('Unity 6000.5.1f1') && readme.includes('simulatorPlayableCandidateReady=true'));
 check('roadmap includes design system gate', roadmap.includes('UI Design System'));
 
 const slicedAssets = [
