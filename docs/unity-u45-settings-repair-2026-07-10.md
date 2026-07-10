@@ -74,3 +74,7 @@ Unity 6000.5.1f1 batchmode verification passed:
 This is not actual device smoke evidence. Device installation, device launch, signing completion, touch behavior, audio, haptic feedback, performance, and crash/freeze behavior still require human verification.
 
 All device, metrics, audio, haptic, RC, production, and candidate-final readiness flags remain false.
+
+## Checker Coverage
+
+All Unity checker scripts present in `package.json` from U22 through U42 were run. U37 and U38 have no corresponding checker scripts in the current package configuration.

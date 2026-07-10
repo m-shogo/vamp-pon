@@ -44,7 +44,16 @@ check('repair based on settings commit', repair.basedOnSettingsCommit === expect
 check('repair evidence kind', repair.evidenceKind === 'Unity settings post-commit repair');
 check('bundle identifier reviewed', repair.bundleIdentifierReviewed === true);
 check('iOS bundle identifier ready', repair.iosBundleIdentifierReady === true);
-for (const key of ['iosBundleIdentifier', 'iosApplicationIdentifier', 'androidApplicationIdentifier', 'standaloneApplicationIdentifier', 'xcodeProductBundleIdentifier']) {
+for (const key of [
+  'iosBundleIdentifier',
+  'androidBundleIdentifier',
+  'standaloneBundleIdentifier',
+  'xcodeBundleIdentifier',
+  'iosApplicationIdentifier',
+  'androidApplicationIdentifier',
+  'standaloneApplicationIdentifier',
+  'xcodeProductBundleIdentifier',
+]) {
   check(`${key} exact`, repair[key] === expectedIdentifier);
 }
 check('application identifiers serialized', ['Android', 'Standalone', 'iPhone'].every(target => projectSettings.includes(`${target}: ${expectedIdentifier}`)));
@@ -53,13 +62,37 @@ check('provisioning profile empty in project', /iOSManualSigningProvisioningProf
 check('Apple team not committed', repair.appleDeveloperTeamIdCommitted === false);
 check('provisioning profile not committed', repair.provisioningProfileCommitted === false);
 
-for (const key of ['defaultVolumeProfileReviewed', 'defaultProfileNeutral', 'urpAssetReviewed', 'urpGlobalSettingsReviewed', 'shaderGraphSettingsReviewed', 'unityBatchmodeCompileReady', 'unitySettingsVerificationReady', 'iosBuildGenerationReady']) {
+for (const key of [
+  'defaultVolumeProfileReviewed',
+  'defaultProfileNeutral',
+  'defaultVolumeProfileUsesUrpBuildPreprocessNormalization',
+  'dangerousPostProcessesEffectivelyInactive',
+  'urpAssetReviewed',
+  'urpGlobalSettingsReviewed',
+  'shaderGraphSettingsReviewed',
+  'unityBatchmodeCompileReady',
+  'unitySettingsVerifyReady',
+  'unitySettingsVerificationReady',
+  'iosBuildGenerationReady',
+]) {
   check(`${key} true`, repair[key] === true);
 }
 check('iOS build succeeded', repair.iosBuildResult === 'Succeeded' && repair.iosBuildTotalErrors === 0);
 check('iOS build output exact', repair.iosBuildOutputPath === expectedOutput);
 check('generated build payload recorded', repair.xcodeProjectPresent === true && repair.infoPlistPresent === true && repair.bootAndStage1PayloadPresent === true && repair.candidateAssetsBuildPayloadPresent === true);
-check('risky effects neutral in evidence', repair.depthOfFieldActive === false && repair.motionBlurActive === false && repair.bloomIntensity === 0 && repair.vignetteIntensity === 0 && repair.screenSpaceLensFlareIntensity === 0);
+check('risky effects neutral in evidence',
+  repair.depthOfFieldEffectivelyActive === false &&
+  repair.motionBlurEffectivelyActive === false &&
+  repair.depthOfFieldActive === false &&
+  repair.motionBlurActive === false &&
+  repair.bloomIntensity === 0 &&
+  repair.vignetteIntensity === 0 &&
+  repair.screenSpaceLensFlareIntensity === 0 &&
+  repair.chromaticAberrationIntensity === 0 &&
+  repair.filmGrainIntensity === 0 &&
+  repair.paniniProjectionEffectivelyActive === false &&
+  repair.lensDistortionIntensity === 0 &&
+  repair.colorLookupContribution === 0);
 check('repair script verifies runtime effect state', repairScript.includes('IsEffectInactive<DepthOfField>') && repairScript.includes('IsEffectInactive<MotionBlur>') && repairScript.includes('DepthOfFieldMode.Off'));
 check('lens flare support disabled', urpAsset.includes('m_SupportDataDrivenLensFlare: 0') && urpAsset.includes('m_SupportScreenSpaceLensFlare: 0'));
 check('Unity required default profile behavior documented', reviewDoc.includes('build preprocessor') && reviewDoc.includes('component `active` flags are not used as the safety criterion'));
