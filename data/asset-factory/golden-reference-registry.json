@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "seed snapshot; refresh with scripts/asset-factory/export-generation-contracts.ts",
+  "generatedAt": "2026-07-10",
+  "referenceSetCount": 6,
+  "referenceSets": [
+    {
+      "id": "global:visual-style-v1",
+      "version": 1,
+      "scope": "global",
+      "status": "approved-style-reference",
+      "immutableUntilVersionBump": true,
+      "assets": [
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "role": "style",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        },
+        {
+          "path": "docs/design-targets/generated/kokuyou-cutin-final.png",
+          "role": "style",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        }
+      ],
+      "documents": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/unity-ui-design-system-v1.md"
+      ],
+      "notes": "全素材が参照する世界観基準。runtime final承認とは別。"
+    },
+    {
+      "id": "ui:stage-select-v1",
+      "version": 1,
+      "scope": "ui",
+      "sourceId": "stage-select",
+      "status": "candidate-reference",
+      "immutableUntilVersionBump": true,
+      "assets": [
+        {
+          "path": "docs/design-targets/generated/unity-u45/screenshots/01-stage-select-app-quality.png",
+          "role": "composition",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        }
+      ],
+      "documents": ["docs/unity-ui-design-system-v1.md"],
+      "notes": "U45構成基準。final runtime承認ではない。"
+    },
+    {
+      "id": "ui:battle-hud-v1",
+      "version": 1,
+      "scope": "ui",
+      "sourceId": "battle-hud",
+      "status": "candidate-reference",
+      "immutableUntilVersionBump": true,
+      "assets": [
+        {
+          "path": "docs/design-targets/generated/unity-u45/screenshots/02-battle-hud-app-quality.png",
+          "role": "gameplay-size",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        }
+      ],
+      "documents": ["docs/unity-ui-design-system-v1.md"],
+      "notes": "HUD実寸基準。P2コントラスト課題は継続。"
+    },
+    {
+      "id": "ui:levelup-common-v1",
+      "version": 1,
+      "scope": "ui",
+      "sourceId": "levelup-common",
+      "status": "candidate-reference",
+      "immutableUntilVersionBump": true,
+      "assets": [
+        {
+          "path": "docs/design-targets/generated/unity-u45/screenshots/03-levelup-common-card.png",
+          "role": "composition",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        }
+      ],
+      "documents": ["docs/unity-ui-design-system-v1.md"],
+      "notes": "Commonカード構成基準。"
+    },
+    {
+      "id": "ui:levelup-rare-v1",
+      "version": 1,
+      "scope": "ui",
+      "sourceId": "levelup-rare",
+      "status": "candidate-reference",
+      "immutableUntilVersionBump": true,
+      "assets": [
+        {
+          "path": "docs/design-targets/generated/unity-u45/screenshots/04-levelup-rare-card.png",
+          "role": "palette",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        }
+      ],
+      "documents": ["docs/unity-ui-design-system-v1.md"],
+      "notes": "Rare差分基準。"
+    },
+    {
+      "id": "ui:levelup-evolution-v1",
+      "version": 1,
+      "scope": "ui",
+      "sourceId": "levelup-evolution",
+      "status": "candidate-reference",
+      "immutableUntilVersionBump": true,
+      "assets": [
+        {
+          "path": "docs/design-targets/generated/unity-u45/screenshots/05-levelup-evolution-card.png",
+          "role": "palette",
+          "approvedForReference": true,
+          "approvedForRuntime": false
+        }
+      ],
+      "documents": ["docs/unity-ui-design-system-v1.md"],
+      "notes": "進化差分基準。"
+    }
+  ]
+}
