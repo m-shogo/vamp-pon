@@ -67,7 +67,7 @@ const runtimeScripts = collectCsFiles('unity/VampPonUnity/Assets/_Project/Script
 const actualProofProviderActive = stageBootstrap.includes('new U5ProofAssetProvider()')
   || (proofProvider.includes('U5ProofAssetProvider') && proofProvider.includes('IsProofOnly => true'));
 const actualProductionProviderConnected = !actualProofProviderActive
-  && /Production.*AssetProvider|RuntimeVisualAssetProvider/.test(stageBootstrap + runtimeScripts);
+  && /ProductionVisualAssetProvider|RuntimeVisualAssetProvider|ProductionBattleAssetProvider/.test(stageBootstrap + runtimeScripts);
 const actualProceduralCharacterFallback = stageBootstrap.includes('ProceduralSpriteFactory.CreateCharacterSprite');
 const actualProceduralEnemyFallback = battleController.includes('ProceduralSpriteFactory.CreateBlobSprite');
 const actualPlayerSourceIsProofCandidate = proofLibrary.includes('u5-yui-battle-candidate')
@@ -77,7 +77,7 @@ const actualSpriteModeSingle = /spriteMode:\s*1/.test(playerMeta);
 const actualFrameCount = actualSpriteModeMultiple ? countSpriteEntries(playerMeta) : (actualSpriteModeSingle ? 1 : 0);
 const actualPointFilter = /filterMode:\s*0/.test(playerMeta);
 const actualMipmapOff = /enableMipMap:\s*0/.test(playerMeta);
-const actualAnimatorMarker = /PlayerSpriteAnimator|CharacterSpriteAnimator|Animator/.test(runtimeScripts);
+const actualAnimatorMarker = /PlayerSpriteAnimator|CharacterSpriteAnimator|YuiSpriteAnimator|RuntimeCharacterAnimator/.test(runtimeScripts);
 const requiredAnimationMarkers = ['idle', 'walk', 'hurt', 'attack'];
 const actualRequiredAnimationMarkers = requiredAnimationMarkers.every((state) =>
   new RegExp(`(?:${state}|${state[0].toUpperCase()}${state.slice(1)})`).test(runtimeScripts),
@@ -96,9 +96,13 @@ check('proof candidate source evidence matches runtime', readiness.playerSpriteS
 check('sprite mode Multiple evidence matches importer', readiness.playerSpriteModeMultiple === actualSpriteModeMultiple);
 check('sprite mode text matches importer', readiness.playerSpriteMode === (actualSpriteModeMultiple ? 'Multiple' : actualSpriteModeSingle ? 'Single' : 'Unknown'));
 check('frame count evidence matches importer', readiness.playerSpriteFrameCount === actualFrameCount);
-check('current player has no runtime animator claim', readiness.playerAnimatorConnected === actualAnimatorMarker);
+check('player animator evidence matches dedicated runtime marker', readiness.playerAnimatorConnected === actualAnimatorMarker);
 check('current importer uses Point', actualPointFilter);
 check('current importer has mipmap off', actualMipmapOff);
+check('static checker is recorded ready', readiness.staticCheckerReady === true);
+check('checker execution is not fabricated', readiness.staticCheckerExecutedAfterCommit === false);
+check('Unity compile after gate is not fabricated', readiness.unityCompileVerifiedAfterGate === false);
+check('Simulator rerun after gate is not fabricated', readiness.simulatorRegressionRerunAfterGate === false);
 
 for (const key of [
   'characterDotRuntimeReady',
@@ -130,12 +134,21 @@ if (readiness.characterDotRuntimeReady === true) {
   check('dot-ready cannot retain procedural character fallback', !actualProceduralCharacterFallback);
   check('dot-ready requires Sprite Mode Multiple', actualSpriteModeMultiple);
   check('dot-ready requires sliced frames', actualFrameCount >= 6);
-  check('dot-ready requires animation runtime marker', actualAnimatorMarker);
+  check('dot-ready requires dedicated animation runtime marker', actualAnimatorMarker);
   check('dot-ready requires animation state markers', actualRequiredAnimationMarkers);
   check('dot-ready requires direction flip verification', readiness.playerDirectionFlipVerified === true);
   check('dot-ready requires gameplay-size review', readiness.playerGameplaySizeVisualReviewPassed === true);
   check('dot-ready requires Golden Identity Reference', readiness.playerGoldenIdentityReferenceRegistered === true);
   check('dot-ready requires Lineage', readiness.playerGenerationLineageReady === true);
+}
+
+if (readiness.characterAnimationReady === true) {
+  check('animation-ready requires dot runtime ready', readiness.characterDotRuntimeReady === true);
+  check('animation-ready requires dedicated runtime marker', actualAnimatorMarker);
+  check('animation-ready requires required state markers', actualRequiredAnimationMarkers);
+  for (const state of requiredAnimationMarkers) {
+    check(`animation-ready requires ${state} frames`, Number(animationStates[state]) > 0);
+  }
 }
 
 if (readiness.productionCharacterAssetReady === true) {
@@ -179,6 +192,7 @@ check('README links runtime visual readiness gate', readme.includes('docs/unity-
 check('README exposes character readiness false', readme.includes('characterDotRuntimeReady=false'));
 check('canon links runtime visual readiness gate', canon.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
 check('package script exists', read('package.json').includes('unity:runtime-visual-readiness:check'));
+check('assets verify includes runtime visual gate', read('package.json').includes('pnpm unity:runtime-visual-readiness:check'));
 
 if (failures.length > 0) {
   console.error('Unity runtime visual readiness check failed');
