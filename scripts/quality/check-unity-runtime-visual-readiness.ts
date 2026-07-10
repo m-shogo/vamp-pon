@@ -11,10 +11,16 @@ function check(label: string, ok: boolean): void {
   if (!ok) failures.push(label);
 }
 
-function countSpriteEntries(meta: string): number {
-  const spriteSheetMatch = meta.match(/spriteSheet:\s*[\s\S]*?sprites:\s*([\s\S]*?)\n\s*outline:/);
-  if (!spriteSheetMatch) return 0;
-  return (spriteSheetMatch[1].match(/\n\s*- serializedVersion:/g) ?? []).length;
+function collectCsFiles(root: string): string[] {
+  if (!existsSync(root)) return [];
+  const files: string[] = [];
+  for (const name of readdirSync(root)) {
+    const path = join(root, name);
+    const stat = statSync(path);
+    if (stat.isDirectory()) files.push(...collectCsFiles(path));
+    else if (name.endsWith('.cs')) files.push(path);
+  }
+  return files;
 }
 
 function spriteMode(meta: string): 'Multiple' | 'Single' | 'Unknown' {
@@ -25,21 +31,14 @@ function spriteMode(meta: string): 'Multiple' | 'Single' | 'Unknown' {
 
 function frameCount(meta: string): number {
   const mode = spriteMode(meta);
-  if (mode === 'Multiple') return countSpriteEntries(meta);
   if (mode === 'Single') return 1;
-  return 0;
+  if (mode !== 'Multiple') return 0;
+  const match = meta.match(/spriteSheet:\s*[\s\S]*?sprites:\s*([\s\S]*?)\n\s*outline:/);
+  return match ? (match[1].match(/\n\s*- serializedVersion:/g) ?? []).length : 0;
 }
 
-function collectCsFiles(root: string): string[] {
-  if (!existsSync(root)) return [];
-  const result: string[] = [];
-  for (const name of readdirSync(root)) {
-    const path = join(root, name);
-    const stat = statSync(path);
-    if (stat.isDirectory()) result.push(...collectCsFiles(path));
-    else if (name.endsWith('.cs')) result.push(path);
-  }
-  return result;
+function stateMarkersReady(source: string, states: string[]): boolean {
+  return states.every((state) => new RegExp(`(?:${state}|${state[0].toUpperCase()}${state.slice(1)})`).test(source));
 }
 
 function checkOptionalExecutionEvidence(
@@ -50,13 +49,12 @@ function checkOptionalExecutionEvidence(
   evidencePath: unknown,
 ): void {
   check(`${label} executed flag is boolean`, typeof executed === 'boolean');
-  if (executed === true) {
-    check(`${label} result passed`, result === 'passed' || result === 'Succeeded');
-    check(`${label} commit recorded`, typeof commit === 'string' && commit.length >= 7);
-    check(`${label} evidence path recorded`, typeof evidencePath === 'string' && evidencePath.length > 0);
-    if (typeof evidencePath === 'string' && evidencePath.length > 0) {
-      check(`${label} evidence exists: ${evidencePath}`, existsSync(evidencePath));
-    }
+  if (executed !== true) return;
+  check(`${label} result passed`, result === 'passed' || result === 'Succeeded');
+  check(`${label} commit recorded`, typeof commit === 'string' && commit.length >= 7);
+  check(`${label} evidence path recorded`, typeof evidencePath === 'string' && evidencePath.length > 0);
+  if (typeof evidencePath === 'string' && evidencePath.length > 0) {
+    check(`${label} evidence exists: ${evidencePath}`, existsSync(evidencePath));
   }
 }
 
@@ -77,6 +75,7 @@ const paths = {
   docsIndex: 'docs/00-index.md',
   agents: 'AGENTS.md',
   claude: 'CLAUDE.md',
+  packageJson: 'package.json',
 };
 
 for (const path of Object.values(paths)) check(`required file exists: ${path}`, existsSync(path));
@@ -101,25 +100,26 @@ const proofProvider = read(paths.proofProvider);
 const proofLibrary = read(paths.proofLibrary);
 const playerMeta = read(playerMetaPath);
 const enemyMeta = read(enemyMetaPath);
-const policy = read(paths.policy);
-const foundation = read(paths.foundation);
-const u43Doc = read(paths.u43Doc);
-const simulatorChecker = read(paths.simulatorChecker);
-const readme = read(paths.readme);
-const canon = read(paths.canon);
-const roadmap = read(paths.roadmap);
-const visualQa = read(paths.visualQa);
-const docsIndex = read(paths.docsIndex);
-const agents = read(paths.agents);
-const claude = read(paths.claude);
 const runtimeScripts = collectCsFiles('unity/VampPonUnity/Assets/_Project/Scripts').map(read).join('\n');
 
-const actualProofProviderActive = stageBootstrap.includes('new U5ProofAssetProvider()')
-  || (proofProvider.includes('U5ProofAssetProvider') && proofProvider.includes('IsProofOnly => true'));
-const actualProductionProviderConnected = !actualProofProviderActive
-  && /ProductionVisualAssetProvider|RuntimeVisualAssetProvider|ProductionBattleAssetProvider/.test(stageBootstrap + runtimeScripts);
-const actualProceduralCharacterFallback = stageBootstrap.includes('ProceduralSpriteFactory.CreateCharacterSprite');
-const actualProceduralEnemyFallback = battleController.includes('ProceduralSpriteFactory.CreateBlobSprite');
+const providerMatch = stageBootstrap.match(/assetProvider\s*=\s*new\s+([A-Za-z0-9_]+AssetProvider)\s*\(/);
+const actualProviderName = providerMatch?.[1] ?? 'UNKNOWN';
+const actualProofProviderActive = actualProviderName === 'U5ProofAssetProvider';
+const providerClassExists = actualProviderName !== 'UNKNOWN'
+  && new RegExp(`class\\s+${actualProviderName}\\b`).test(runtimeScripts);
+const providerDeclaresProduction = actualProviderName !== 'UNKNOWN'
+  && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?IsProofOnly\\s*=>\\s*false`).test(runtimeScripts);
+const actualProductionProviderConnected = !actualProofProviderActive && providerClassExists && providerDeclaresProduction;
+
+const characterFallbackPresent = stageBootstrap.includes('ProceduralSpriteFactory.CreateCharacterSprite');
+const characterFallbackDevelopmentOnly = characterFallbackPresent
+  && stageBootstrap.includes('VAMPPON_DEVELOPMENT_VISUAL_FALLBACK');
+const actualProceduralCharacterFallback = characterFallbackPresent && !characterFallbackDevelopmentOnly;
+const enemyFallbackPresent = battleController.includes('ProceduralSpriteFactory.CreateBlobSprite');
+const enemyFallbackDevelopmentOnly = enemyFallbackPresent
+  && battleController.includes('VAMPPON_DEVELOPMENT_VISUAL_FALLBACK');
+const actualProceduralEnemyFallback = enemyFallbackPresent && !enemyFallbackDevelopmentOnly;
+
 const actualPlayerSourceIsProofCandidate = String(readiness.playerSpriteSource).includes('U5Candidates')
   || (proofLibrary.includes('u5-yui-battle-candidate') && proofLibrary.includes('U5Candidates'));
 const actualEnemySourceIsProofCandidate = String(readiness.enemySpriteSource).includes('U5Candidates')
@@ -132,17 +132,19 @@ const actualPlayerPointFilter = /filterMode:\s*0/.test(playerMeta);
 const actualEnemyPointFilter = /filterMode:\s*0/.test(enemyMeta);
 const actualPlayerMipmapOff = /enableMipMap:\s*0/.test(playerMeta);
 const actualEnemyMipmapOff = /enableMipMap:\s*0/.test(enemyMeta);
-const actualAnimatorMarker = /PlayerSpriteAnimator|CharacterSpriteAnimator|YuiSpriteAnimator|RuntimeCharacterAnimator/.test(runtimeScripts);
-const requiredAnimationMarkers = ['idle', 'walk', 'hurt', 'attack'];
-const actualRequiredAnimationMarkers = requiredAnimationMarkers.every((state) =>
-  new RegExp(`(?:${state}|${state[0].toUpperCase()}${state.slice(1)})`).test(runtimeScripts),
-);
+
+const actualPlayerAnimator = /PlayerSpriteAnimator|CharacterSpriteAnimator|YuiSpriteAnimator|RuntimeCharacterAnimator/.test(runtimeScripts);
+const actualEnemyAnimator = /EnemySpriteAnimator|OnbuSpriteAnimator|RuntimeEnemyAnimator/.test(runtimeScripts);
+const playerRequiredStates = ['idle', 'walk', 'hurt', 'attack'];
+const enemyRequiredStates = ['idle', 'move', 'hurt', 'death'];
+const actualPlayerStateMarkers = stateMarkersReady(runtimeScripts, playerRequiredStates);
+const actualEnemyStateMarkers = stateMarkersReady(runtimeScripts, enemyRequiredStates);
 
 const expectedClassification = actualProofProviderActive && actualPlayerMode === 'Single'
   ? 'proof-static-single-sprite'
-  : actualProductionProviderConnected && actualPlayerMode === 'Multiple' && actualAnimatorMarker
+  : actualProductionProviderConnected && actualPlayerMode === 'Multiple' && actualPlayerAnimator
     ? (readiness.productionCharacterAssetReady === true ? 'production-approved' : 'production-animated-sprite')
-    : actualPlayerMode === 'Multiple' && actualAnimatorMarker
+    : actualPlayerMode === 'Multiple' && actualPlayerAnimator
       ? 'candidate-animated-sprite'
       : actualProceduralCharacterFallback && !readiness.playerSpriteSource
         ? 'procedural-placeholder'
@@ -150,22 +152,25 @@ const expectedClassification = actualProofProviderActive && actualPlayerMode ===
 
 check('evidence kind exact', readiness.evidenceKind === 'Unity runtime visual readiness gate');
 check('runtime classification matches implementation', readiness.runtimeVisualClassification === expectedClassification);
+check('runtime provider name matches Stage1 assignment', readiness.runtimeAssetProviderName === actualProviderName);
+check('proof provider file declares proof-only', proofProvider.includes('IsProofOnly => true'));
+check('proof provider evidence matches Stage1 assignment', readiness.proofProviderActive === actualProofProviderActive);
+check('production provider evidence matches implementation', readiness.productionProviderConnected === actualProductionProviderConnected);
 check('object name is not accepted as evidence', readiness.playerRuntimeObjectNameAcceptedAsDotEvidence === false);
 check('point filter is not accepted as evidence', readiness.pointFilterAcceptedAsDotEvidence === false);
 check('Point filter remains recorded', readiness.pointFilterApplied === actualPlayerPointFilter);
-check('proof provider evidence matches runtime', readiness.proofProviderActive === actualProofProviderActive);
-check('production provider evidence matches runtime', readiness.productionProviderConnected === actualProductionProviderConnected);
 check('procedural character fallback evidence matches runtime', readiness.proceduralCharacterFallbackActive === actualProceduralCharacterFallback);
 check('procedural enemy fallback evidence matches runtime', readiness.proceduralEnemyFallbackActive === actualProceduralEnemyFallback);
-check('player proof candidate source evidence matches runtime', readiness.playerSpriteSourceIsProofCandidate === actualPlayerSourceIsProofCandidate);
-check('enemy proof candidate source evidence matches runtime', readiness.enemySpriteSourceIsProofCandidate === actualEnemySourceIsProofCandidate);
-check('player sprite mode Multiple evidence matches importer', readiness.playerSpriteModeMultiple === (actualPlayerMode === 'Multiple'));
-check('player sprite mode text matches importer', readiness.playerSpriteMode === actualPlayerMode);
+check('player proof source evidence matches runtime', readiness.playerSpriteSourceIsProofCandidate === actualPlayerSourceIsProofCandidate);
+check('enemy proof source evidence matches runtime', readiness.enemySpriteSourceIsProofCandidate === actualEnemySourceIsProofCandidate);
+check('player mode evidence matches importer', readiness.playerSpriteMode === actualPlayerMode);
+check('player Multiple evidence matches importer', readiness.playerSpriteModeMultiple === (actualPlayerMode === 'Multiple'));
 check('player frame count evidence matches importer', readiness.playerSpriteFrameCount === actualPlayerFrameCount);
-check('enemy sprite mode Multiple evidence matches importer', readiness.enemySpriteModeMultiple === (actualEnemyMode === 'Multiple'));
-check('enemy sprite mode text matches importer', readiness.enemySpriteMode === actualEnemyMode);
+check('enemy mode evidence matches importer', readiness.enemySpriteMode === actualEnemyMode);
+check('enemy Multiple evidence matches importer', readiness.enemySpriteModeMultiple === (actualEnemyMode === 'Multiple'));
 check('enemy frame count evidence matches importer', readiness.enemySpriteFrameCount === actualEnemyFrameCount);
-check('player animator evidence matches dedicated runtime marker', readiness.playerAnimatorConnected === actualAnimatorMarker);
+check('player animator evidence matches runtime', readiness.playerAnimatorConnected === actualPlayerAnimator);
+check('enemy animator evidence matches runtime', readiness.enemyAnimatorConnected === actualEnemyAnimator);
 check('player importer uses Point', actualPlayerPointFilter);
 check('enemy importer uses Point', actualEnemyPointFilter);
 check('player importer has mipmap off', actualPlayerMipmapOff);
@@ -194,7 +199,7 @@ checkOptionalExecutionEvidence(
   readiness.simulatorRegressionEvidencePath,
 );
 
-if (actualProofProviderActive || actualPlayerMode !== 'Multiple' || !actualAnimatorMarker) {
+if (actualProofProviderActive || actualPlayerMode !== 'Multiple' || !actualPlayerAnimator) {
   for (const key of [
     'characterDotRuntimeReady',
     'characterAnimationReady',
@@ -203,109 +208,127 @@ if (actualProofProviderActive || actualPlayerMode !== 'Multiple' || !actualAnima
     'devicePlayableReady',
     'rcReady',
     'productionApproved',
-  ]) {
-    check(`${key} remains false while character proof/static runtime is active`, readiness[key] === false);
-  }
+  ]) check(`${key} remains false while character proof/static runtime is active`, readiness[key] === false);
 }
 
-if (actualProofProviderActive || actualEnemyMode !== 'Multiple' || actualProceduralEnemyFallback) {
+if (actualProofProviderActive || actualEnemyMode !== 'Multiple' || !actualEnemyAnimator || actualProceduralEnemyFallback) {
   for (const key of [
     'enemyDotRuntimeReady',
     'enemyAnimationReady',
     'productionEnemyAssetReady',
     'runtimeVisualReady',
-  ]) {
-    check(`${key} remains false while enemy proof/static runtime is active`, readiness[key] === false);
-  }
+  ]) check(`${key} remains false while enemy proof/static runtime is active`, readiness[key] === false);
 }
 
 check('Simulator route evidence remains separately valid', readiness.simulatorRouteEvidenceStillValid === true);
 check('Simulator character visual approval is invalidated', readiness.simulatorCharacterVisualApprovalInvalidated === true);
 check('next required phase recorded', readiness.nextRequiredPhase === 'U45.1 Character and Enemy Dot Runtime Pass');
 
-const animationStates = readiness.playerAnimationStates ?? {};
+const playerStates = readiness.playerAnimationStates ?? {};
+const enemyStates = readiness.enemyAnimationStates ?? {};
 if (readiness.characterAnimationReady !== true) {
-  for (const state of requiredAnimationMarkers) {
-    check(`current ${state} animation remains unready`, Number(animationStates[state]) === 0);
-  }
+  for (const state of playerRequiredStates) check(`current player ${state} remains unready`, Number(playerStates[state]) === 0);
+}
+if (readiness.enemyAnimationReady !== true) {
+  for (const state of enemyRequiredStates) check(`current enemy ${state} remains unready`, Number(enemyStates[state]) === 0);
 }
 
 if (readiness.characterDotRuntimeReady === true) {
-  check('dot-ready cannot use proof provider', !actualProofProviderActive);
-  check('dot-ready requires production provider', actualProductionProviderConnected);
-  check('dot-ready cannot retain procedural character fallback', !actualProceduralCharacterFallback);
-  check('dot-ready requires Sprite Mode Multiple', actualPlayerMode === 'Multiple');
-  check('dot-ready requires sliced frames', actualPlayerFrameCount >= 6);
-  check('dot-ready requires dedicated animation runtime marker', actualAnimatorMarker);
-  check('dot-ready requires animation state markers', actualRequiredAnimationMarkers);
-  check('dot-ready requires direction flip verification', readiness.playerDirectionFlipVerified === true);
-  check('dot-ready requires gameplay-size review', readiness.playerGameplaySizeVisualReviewPassed === true);
-  check('dot-ready requires Golden Identity Reference', readiness.playerGoldenIdentityReferenceRegistered === true);
-  check('dot-ready requires Lineage', readiness.playerGenerationLineageReady === true);
+  check('character dot-ready cannot use proof provider', !actualProofProviderActive);
+  check('character dot-ready requires production provider', actualProductionProviderConnected);
+  check('character dot-ready cannot retain active procedural fallback', !actualProceduralCharacterFallback);
+  check('character dot-ready requires Multiple', actualPlayerMode === 'Multiple');
+  check('character dot-ready requires sliced frames', actualPlayerFrameCount >= 6);
+  check('character dot-ready requires animator', actualPlayerAnimator);
+  check('character dot-ready requires state markers', actualPlayerStateMarkers);
+  check('character dot-ready requires direction flip review', readiness.playerDirectionFlipVerified === true);
+  check('character dot-ready requires gameplay-size review', readiness.playerGameplaySizeVisualReviewPassed === true);
+  check('character dot-ready requires identity reference', readiness.playerGoldenIdentityReferenceRegistered === true);
+  check('character dot-ready requires lineage', readiness.playerGenerationLineageReady === true);
 }
 
 if (readiness.characterAnimationReady === true) {
-  check('animation-ready requires dot runtime ready', readiness.characterDotRuntimeReady === true);
-  check('animation-ready requires dedicated runtime marker', actualAnimatorMarker);
-  check('animation-ready requires required state markers', actualRequiredAnimationMarkers);
-  for (const state of requiredAnimationMarkers) {
-    check(`animation-ready requires ${state} frames`, Number(animationStates[state]) > 0);
-  }
+  check('character animation-ready requires dot runtime', readiness.characterDotRuntimeReady === true);
+  check('character animation-ready requires animator', actualPlayerAnimator);
+  check('character animation-ready requires state markers', actualPlayerStateMarkers);
+  for (const state of playerRequiredStates) check(`character animation-ready requires ${state} frames`, Number(playerStates[state]) > 0);
 }
 
 if (readiness.productionCharacterAssetReady === true) {
   check('production character requires final approval', readiness.playerAssetApprovedAsFinal === true);
   check('production character requires runtime approval', readiness.playerAssetRuntimeApproved === true);
-  check('production character requires dot runtime ready', readiness.characterDotRuntimeReady === true);
-  check('production character requires animation ready', readiness.characterAnimationReady === true);
+  check('production character requires dot runtime', readiness.characterDotRuntimeReady === true);
+  check('production character requires animation', readiness.characterAnimationReady === true);
 }
 
 if (readiness.enemyDotRuntimeReady === true) {
-  check('enemy dot-ready cannot retain procedural enemy fallback', !actualProceduralEnemyFallback);
-  check('enemy dot-ready requires Sprite Mode Multiple', actualEnemyMode === 'Multiple');
+  check('enemy dot-ready cannot use proof provider', !actualProofProviderActive);
+  check('enemy dot-ready requires production provider', actualProductionProviderConnected);
+  check('enemy dot-ready cannot retain active procedural fallback', !actualProceduralEnemyFallback);
+  check('enemy dot-ready requires Multiple', actualEnemyMode === 'Multiple');
   check('enemy dot-ready requires sliced frames', actualEnemyFrameCount >= 4);
-  check('enemy dot-ready requires animation states', readiness.enemyAnimationStatesReady === true);
+  check('enemy dot-ready requires animator', actualEnemyAnimator);
+  check('enemy dot-ready requires state markers', actualEnemyStateMarkers);
+  check('enemy dot-ready requires state evidence', readiness.enemyAnimationStatesReady === true);
   check('enemy dot-ready requires gameplay-size review', readiness.enemyGameplaySizeVisualReviewPassed === true);
+}
+
+if (readiness.enemyAnimationReady === true) {
+  check('enemy animation-ready requires dot runtime', readiness.enemyDotRuntimeReady === true);
+  check('enemy animation-ready requires animator', actualEnemyAnimator);
+  check('enemy animation-ready requires state markers', actualEnemyStateMarkers);
+  for (const state of enemyRequiredStates) check(`enemy animation-ready requires ${state} frames`, Number(enemyStates[state]) > 0);
 }
 
 if (readiness.productionEnemyAssetReady === true) {
   check('production enemy requires final approval', readiness.enemyAssetApprovedAsFinal === true);
   check('production enemy requires runtime approval', readiness.enemyAssetRuntimeApproved === true);
-  check('production enemy requires dot runtime ready', readiness.enemyDotRuntimeReady === true);
-  check('production enemy requires animation ready', readiness.enemyAnimationReady === true);
+  check('production enemy requires dot runtime', readiness.enemyDotRuntimeReady === true);
+  check('production enemy requires animation', readiness.enemyAnimationReady === true);
 }
 
 if (readiness.runtimeVisualReady === true) {
-  check('runtime visual ready requires production character', readiness.productionCharacterAssetReady === true);
-  check('runtime visual ready requires production enemy', readiness.productionEnemyAssetReady === true);
+  check('runtime visual requires production character', readiness.productionCharacterAssetReady === true);
+  check('runtime visual requires production enemy', readiness.productionEnemyAssetReady === true);
 }
 
+const policy = read(paths.policy);
 for (const phrase of [
   'Point Filterは既存画像の補間を止めるだけ',
   'object名もvisual evidenceではない',
   'proof-static-single-sprite',
   'characterDotRuntimeReady=true',
   'U45.1 Character and Enemy Dot Runtime Pass',
-]) {
-  check(`policy includes: ${phrase}`, policy.includes(phrase));
-}
+]) check(`policy includes: ${phrase}`, policy.includes(phrase));
 
-check('foundation records current proof classification', foundation.includes('runtimeVisualClassification=proof-static-single-sprite'));
-check('U43 historical doc contains correction boundary', u43Doc.includes('Point Filterだけではドット絵完成を意味しない'));
+const foundation = read(paths.foundation);
+const u43Doc = read(paths.u43Doc);
+const simulatorChecker = read(paths.simulatorChecker);
+const readme = read(paths.readme);
+const canon = read(paths.canon);
+const roadmap = read(paths.roadmap);
+const visualQa = read(paths.visualQa);
+const docsIndex = read(paths.docsIndex);
+const agents = read(paths.agents);
+const claude = read(paths.claude);
+const packageJson = read(paths.packageJson);
+
+check('foundation records proof classification', foundation.includes('runtimeVisualClassification=proof-static-single-sprite'));
+check('U43 doc contains correction', u43Doc.includes('Point Filterだけではドット絵完成を意味しない'));
 check('Simulator checker links runtime visual gate', simulatorChecker.includes('unity-runtime-visual-readiness/readiness.json'));
-check('README links runtime visual readiness gate', readme.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
+check('README links runtime gate', readme.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
 check('README exposes character readiness false', readme.includes('characterDotRuntimeReady=false'));
-check('canon links runtime visual readiness gate', canon.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
+check('canon links runtime gate', canon.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
 check('roadmap places U45.1 before U46', roadmap.includes('U45.1 Character and Enemy Dot Runtime Pass') && roadmap.indexOf('## U45.1') < roadmap.indexOf('## U46'));
 check('visual QA contains runtime gate', visualQa.includes('## Gate 11: Runtime Visual Readiness'));
 check('visual QA uses correct 黒耀化 term', !visualQa.includes('黒曜化'));
 check('docs index exposes runtime gate', docsIndex.includes('unity-runtime-visual-readiness-gate-v1.md'));
 check('AGENTS blocks Point Filter false positive', agents.includes('Point Filter only disables texture interpolation'));
-check('AGENTS requires runtime visual checker', agents.includes('pnpm unity:runtime-visual-readiness:check'));
+check('AGENTS requires checker', agents.includes('pnpm unity:runtime-visual-readiness:check'));
 check('CLAUDE blocks Point Filter false positive', claude.includes('Point Filter only disables interpolation'));
-check('CLAUDE requires runtime visual checker', claude.includes('pnpm unity:runtime-visual-readiness:check'));
-check('package script exists', read('package.json').includes('unity:runtime-visual-readiness:check'));
-check('assets verify includes runtime visual gate', read('package.json').includes('pnpm unity:runtime-visual-readiness:check'));
+check('CLAUDE requires checker', claude.includes('pnpm unity:runtime-visual-readiness:check'));
+check('package script exists', packageJson.includes('unity:runtime-visual-readiness:check'));
+check('assets verify includes runtime visual gate', packageJson.includes('pnpm unity:runtime-visual-readiness:check'));
 
 if (failures.length > 0) {
   console.error('Unity runtime visual readiness check failed');
@@ -313,4 +336,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Unity runtime visual readiness check passed: ${expectedClassification}; naming, Point Filter and route smoke cannot promote dot/production readiness.`);
+console.log(`Unity runtime visual readiness check passed: provider=${actualProviderName}, classification=${expectedClassification}; naming, Point Filter and route smoke cannot promote dot/production readiness.`);
