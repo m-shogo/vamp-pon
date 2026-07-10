@@ -5,43 +5,91 @@ Only work in:
 - `/Users/m-shogo/Developer/personal/vamp-pon`
 - `https://github.com/m-shogo/vamp-pon.git`
 
-## Current source of truth
+## Mandatory current entry
 
-Before design, asset, Unity runtime, character, enemy, or UI work, read:
+Before large Unity, design, asset, character, enemy, UI, Result, Collection, save, or gameplay work, read:
 
 ```txt
+docs/unity-big-implementation-control-center-v1.md
+docs/unity-current-doc-index-2026-07-10.md
 docs/181-current-production-canon.md
+docs/unity-runtime-ownership-contract-v1.md
+docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
-docs/unity-runtime-visual-readiness-gate-v1.md
 ```
 
-Use the formal title **ヨルノシルベ**. `Vamp Pon` / `ヴァンサバ改` are development code names.
+Historical phase docs are supporting evidence, not standalone current instructions.
+
+Before a large phase:
+
+```sh
+pnpm implementation:preflight:check
+```
+
+Before declaring a large phase complete:
+
+```sh
+pnpm implementation:preflight:full
+```
+
+Do not claim local commands were executed when working only through GitHub connector access.
+
+Use the formal title **ヨルノシルベ**.
 Use **黒耀化**, never `黒曜化`.
+
+## Current phase order
+
+```txt
+U45.1 Character and Enemy Dot Runtime Pass
+then U46 Result / Retry / StageSelect / Collection
+then U47 gameplay data/runtime
+```
+
+Do not skip U45.1 for runtime/visual implementation unless the task is explicitly docs/checker-only.
+
+## Runtime ownership
+
+Source of truth:
+
+```txt
+docs/unity-runtime-ownership-contract-v1.md
+```
+
+Rules:
+
+- navigation and pause have one owner
+- presentation sends commands; it does not own battle or save file I/O
+- separate immutable Definition, per-run Runtime State, and versioned Save DTO
+- save stable IDs only
+- Result and Collection consume read models
+- proof and production visual providers remain separate
+- do not keep adding feature logic directly to `U1Stage1SceneBootstrap`
+- do not add Result, Collection, save, or permanent progression to `U2BattleController`
 
 ## Runtime visual readiness safety
 
-The current Unity Stage1 character/enemy path is classified as:
+Current classification:
 
 ```txt
 proof-static-single-sprite
 ```
 
-It uses `U5ProofAssetProvider`, Single sprites, and procedural fallbacks. Point Filter is applied, but required animation is not connected.
+The current Stage1 path uses `U5ProofAssetProvider`, Single sprites, and procedural fallback. Point Filter is applied, but required animation is not connected.
 
-Never treat any of the following as proof of a completed dot character or enemy:
+Never treat these as completed dot-runtime evidence:
 
-- a GameObject name containing `Dot`, `Pixel`, `Runtime`, or `Production`
+- Dot/Pixel/Runtime/Production in a GameObject name
 - Point Filter
 - Mipmap OFF
-- successful sprite display
-- successful player movement
+- a visible static sprite
+- successful movement
 - successful Simulator route smoke
 - renaming a proof provider
 
 Point Filter only disables interpolation. It does not create dot art.
 
-Do not set these true while proof provider, Sprite Mode Single, missing required animation, or procedural fallback remains in the product runtime route:
+Do not promote these while proof provider, Sprite Mode Single, missing required animation, or active procedural fallback remains:
 
 ```txt
 characterDotRuntimeReady
@@ -53,62 +101,95 @@ productionEnemyAssetReady
 runtimeVisualReady
 ```
 
-`characterDotRuntimeReady=true` requires:
+Character minimum:
 
 - production runtime provider
-- proof provider removed from product runtime
+- proof provider removed from product route
 - Sprite Mode Multiple
 - actual sliced frames
 - idle / walk / hurt / attack
-- direction flip verification
+- direction/equipment verification
 - gameplay-size visual review
 - Golden Identity Reference
 - Generation Lineage
 
-`productionCharacterAssetReady=true` additionally requires:
+Enemy minimum:
 
-- `approvedAsFinal=true`
-- `runtimeApproved=true`
-- `characterAnimationReady=true`
+- production runtime provider
+- Multiple frames
+- idle / move / hurt / death
+- family-canon review
+- gameplay-size visual review
 
-Enemy promotion requires the equivalent boundaries and idle / move / hurt / death.
+The Simulator smoke remains valid for route/pause/input/crash only. It is not character/enemy art approval.
 
-The Simulator smoke result remains valid for route/pause/input/crash evidence only. It is not character/enemy art approval.
-
-Before U46 Result / Collection implementation, complete the minimum U45.1 Character and Enemy Dot Runtime Pass unless the task is explicitly docs/checker-only.
-
-Required check:
+Required:
 
 ```sh
 pnpm unity:runtime-visual-readiness:check
 ```
 
-Do not weaken or bypass the checker. Runtime implementation, evidence, and checker must change together.
+Do not weaken or bypass the checker.
 
-## Current visual policy
+## UI implementation
 
-Do not automatically apply the repository's old dot-generation rules, fixed palettes, 52px V2a construction rules, procedural-finisher rules, Aseprite hand-finish workflow, or mechanical quality-score templates.
+Runtime remains uGUI. UI Toolkit is editor-only.
 
-For every character commission, the actual reference images are mandatory inputs:
+New/touched screens use:
+
+- Theme
+- Visual State
+- 9-slice / Sprite Border
+- Responsive Layout Profile
+- Base -> Variant, maximum two prefab levels
+- Import Policy
+- Component Catalog
+- Compact / Standard / Large review
+
+Do not paste a completed generated screen image into runtime UI.
+
+## Asset generation
+
+All generated output begins as candidate.
+
+Require:
+
+- Asset Generation Contract
+- approved Golden Reference
+- four candidates generated from the same contract
+- generator/version/seed when supported
+- prompt/reference/output hashes
+- Generation Lineage
+- automatic QA
+- human review
+- `approvedAsFinal=true`
+- `runtimeApproved=true`
+
+Do not copy Web PNGs into Unity and call them production assets.
+Do not connect candidate art to production runtime.
+
+## Character visual policy
+
+For character work, inspect actual references:
 
 ```txt
 assets/reference/character-master/core5/<character>-character-master-v1.png
 public/assets/prototypes/sprite-sheets/core5-original/<character>-sprite-sheet-v1.png
 ```
 
-Open both images and pass both to the image-producing model or human artist. Text descriptions alone are insufficient.
+Text-only descriptions are insufficient.
 
 Judge in this order:
 
-1. Is the character more appealing than the current references?
-2. Is it unmistakably the same character?
-3. Does the silhouette, face, prop, and movement read at game size?
-4. Are poses, directions, handedness, and equipment placement coherent?
-5. Does it fit the night / memory / forgotten-object / small-light world?
-6. Does it satisfy the Golden Reference and Generation Lineage boundary?
-7. Only then check canvas, grid, alpha, naming, and cell bounds.
+1. visual appeal
+2. unmistakable identity
+3. gameplay-size silhouette/face/prop/movement
+4. pose/direction/handedness/equipment continuity
+5. night/memory/forgotten-object/small-light world fit
+6. Golden Reference and Lineage
+7. dimensions/grid/alpha/naming/bounds
 
-Technical compliance cannot rescue weak art. Reject any output that is visually worse than the current `core5-original` sheet.
+Technical compliance cannot rescue weak art.
 
 ## Image-production workflow
 
@@ -116,52 +197,42 @@ Follow:
 
 ```txt
 docs/154-sprite-image-production-playbook.md
-docs/asset-generation-consistency-system-v1.md
+docs/image-generation-production-flow-2026-06-30.md
+docs/ai-image-greenback-transparency-rule-2026-06-30.md
 ```
 
-- Separate visual approval from technical asset finishing.
-- All generated output begins as candidate.
-- Require the same Asset Generation Contract for all four compared candidates.
-- Record generator name/version, prompt hash, reference hashes, output hash, seed when supported, and source commit.
-- Once art is approved, freeze good cells and do not regenerate the whole sheet to fix size or transparency.
-- Correct only explicitly named weak cells.
-- Use scripts or image tools for exact dimensions, real alpha, slicing, naming, manifests, runtime registration, and QA.
-- A visible checkerboard is not proof of transparency; inspect the alpha channel.
-- Do not call a result perfect based only on structural checks.
-- Do not connect candidate art to production runtime without final/runtime approval.
+- separate visual approval from technical finishing
+- freeze approved cells
+- correct only named weak cells
+- use deterministic tools for dimensions, alpha, slicing, manifests, lineage, and runtime registration
+- checkerboard is not proof of transparency
+- do not call a result perfect from structural checks alone
 
-## Shared handedness and equipment continuity
+## Handedness and equipment continuity
 
-Apply this to all characters, enemies, weapon poses, transformed states, and asymmetric assets.
+- define body-relative ownership of persistent props/features
+- derive front/back/left/right screen placement
+- do not confuse body-left/right with screen-left/right
+- do not mirror asymmetric art without correction
+- preserve hand/shoulder/hip attachment through all states
 
-- Before directional art, define which body side owns each persistent item or feature.
-- Record right-hand items, left-hand items, shoulder straps, hip bags, sheaths, pouches, armor parts, horns, wings, and other one-sided details.
-- Derive front, back, left-facing, and right-facing screen placement from that body-relative map.
-- Do not confuse screen-left/right with body-left/right.
-- Do not mirror asymmetric art without correcting handedness, attachment points, and occlusion.
-- Preserve the same hand, shoulder, hip, and attachment point through all actions unless an intentional transfer is part of the design.
-- Do not copy one character's right/left assignments to another character without checking that character's own master.
+## Shared 180x180 rule
 
-## Shared 180x180 asset-cell rule
+Unless explicitly overridden:
 
-Use the same base rule for characters, items, weapons, pickups, effects, and enemies unless the task explicitly specifies another format.
+- cell is `180 x 180 px`
+- subject does not fill the whole cell
+- preserve transparent room for animation/effects
+- no opaque/glow/shadow pixel touches the edge
+- keep gameplay-size readability and consistent scale
+- Sprite Mode Single is not an animated sheet
 
-- Canvas or sprite-sheet cell: `180 x 180 px`.
-- The subject must not fill the whole 180 px.
-- Place it at an appropriate readable scale with transparent room for silhouette, animation, equipment, weapons, glow, and effects.
-- No opaque pixel, accessory, shadow, glow, or effect may touch a cell edge.
-- Do not shrink the subject so far that it becomes unreadable at gameplay size.
-- Keep the scale consistent across related frames and related assets.
-- Sprite Mode Single is not an animated sprite sheet.
-- Point Filter is necessary for pixel presentation but is not proof that the art itself is pixel art.
-
-`public/assets/sprites/` is retired. Do not regenerate it. Runtime character art comes from approved/sliced production sources, not from a renamed proof sprite.
+`public/assets/sprites/` is retired and must not be recreated.
 
 ## Engineering safety
 
-- Do not change gameplay values during visual cleanup.
-- Do not touch other repositories.
-- Keep optional fallback rendering explicit and detectable.
-- Do not approve screenshots produced by a procedural fallback as production visual evidence.
-- Run relevant checks, including `pnpm unity:runtime-visual-readiness:check`, `pnpm character-assets:verify`, `pnpm runtime-assets:verify`, `pnpm asset-generation:check`, `pnpm test`, and `pnpm build`.
-- Commit and push completed work.
+- do not change gameplay values during visual cleanup
+- do not touch other repositories
+- keep fallback rendering explicit and detectable
+- do not approve procedural fallback screenshots as production evidence
+- run relevant checks, commit, and push completed work
