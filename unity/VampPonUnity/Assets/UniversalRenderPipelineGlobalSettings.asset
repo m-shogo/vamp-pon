@@ -68,27 +68,40 @@ MonoBehaviour:
       - rid: 4874694280467185700
       - rid: 4874694280467185701
     m_RuntimeSettings:
-      m_List: []
+      m_List:
+      - rid: 4874694280467185668
+      - rid: 4874694280467185669
+      - rid: 4874694280467185674
+      - rid: 4874694280467185675
+      - rid: 4874694280467185677
+      - rid: 4874694280467185681
+      - rid: 4874694280467185682
+      - rid: 4874694280467185686
+      - rid: 4874694280467185689
+      - rid: 4874694280467185691
+      - rid: 4874694280467185693
+      - rid: 4874694280467185698
+      - rid: 4874694280467185700
   m_AssetVersion: 10
   m_ObsoleteDefaultVolumeProfile: {fileID: 0}
   m_RenderingLayerNames:
   - Default
   m_ValidRenderingLayers: 0
-  lightLayerName0:
-  lightLayerName1:
-  lightLayerName2:
-  lightLayerName3:
-  lightLayerName4:
-  lightLayerName5:
-  lightLayerName6:
-  lightLayerName7:
+  lightLayerName0: 
+  lightLayerName1: 
+  lightLayerName2: 
+  lightLayerName3: 
+  lightLayerName4: 
+  lightLayerName5: 
+  lightLayerName6: 
+  lightLayerName7: 
   apvScenesData:
     obsoleteSceneBounds:
       m_Keys: []
       m_Values: []
     obsoleteHasProbeVolumes:
       m_Keys: []
-      m_Values:
+      m_Values: 
   references:
     version: 2
     RefIds:
@@ -333,7 +346,7 @@ MonoBehaviour:
         m_version: 0
         m_IncludeReferencedInScenes: 0
         m_IncludeAssetsByLabel: 0
-        m_LabelToInclude:
+        m_LabelToInclude: 
     - rid: 4874694280467185691
       type: {class: LightmapSamplingSettings, ns: UnityEngine.Rendering, asm: Unity.RenderPipelines.Core.Runtime}
       data:
