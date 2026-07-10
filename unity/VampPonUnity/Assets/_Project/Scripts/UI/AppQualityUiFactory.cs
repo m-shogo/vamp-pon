@@ -9,9 +9,37 @@ namespace VampPon.UnitySpike.UI
         public static Image ApplyCandidate(Image image, Sprite sprite, Color fallbackColor, Image.Type imageType = Image.Type.Sliced)
         {
             image.sprite = sprite;
-            image.type = sprite != null ? imageType : Image.Type.Simple;
+            image.type = sprite != null ? ResolveImageType(sprite, imageType) : Image.Type.Simple;
             image.color = sprite != null ? Color.white : fallbackColor;
             return image;
+        }
+
+        public static bool SupportsSlicing(Sprite sprite)
+        {
+            return sprite != null && sprite.border.sqrMagnitude > 0.01f;
+        }
+
+        public static Image.Type ResolveImageType(Sprite sprite, Image.Type requested)
+        {
+            if (requested == Image.Type.Sliced && !SupportsSlicing(sprite))
+            {
+                return Image.Type.Simple;
+            }
+
+            return requested;
+        }
+
+        public static UiVisualStateView AttachVisualState(
+            GameObject root,
+            Image background,
+            Image border = null,
+            CanvasGroup group = null,
+            UiVisualState initialState = UiVisualState.Normal)
+        {
+            var view = root.GetComponent<UiVisualStateView>() ?? root.AddComponent<UiVisualStateView>();
+            view.Bind(background, border, group);
+            view.Apply(initialState);
+            return view;
         }
 
         public static Image CreateDecorativeImage(
