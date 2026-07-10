@@ -42,11 +42,18 @@
   "rcReady": false,
   "productionApproved": false,
   "staticPreflightExecutedAfterCommit": false,
+  "staticPreflightResult": "NOT_RUN",
+  "staticPreflightCommit": "",
   "fullPreflightExecutedAfterCommit": false,
+  "fullPreflightResult": "NOT_RUN",
+  "fullPreflightCommit": "",
   "unityCompileVerifiedAfterControlPlane": false,
+  "unityCompileResult": "NOT_RUN",
+  "unityCompileCommit": "",
   "notes": [
     "implementationFoundationReady means the control-plane is documented, not that product runtime is production-ready",
     "U45.1 remains mandatory before U46",
-    "proof/static character and enemy visuals remain unapproved"
+    "proof/static character and enemy visuals remain unapproved",
+    "execution flags may become true only with PASSED result and a recorded commit"
   ]
 }
