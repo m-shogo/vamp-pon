@@ -1,6 +1,6 @@
-import type { CharacterDatabaseEntry } from './characterDatabase';
-import { characterDefinitions, characterDefinitionById } from './characterDatabase';
-import { EMBLEM_PHASE_RULES } from './emblemCanon';
+import type { CharacterDatabaseEntry } from './characterDatabase.ts';
+import { characterDefinitions, characterDefinitionById } from './characterDatabase.ts';
+import { EMBLEM_PHASE_RULES } from './emblemCanon.ts';
 
 export type CharacterAssetPromptKind =
   | 'sprite_sheet_180'

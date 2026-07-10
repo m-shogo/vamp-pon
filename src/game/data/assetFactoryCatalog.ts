@@ -1,11 +1,11 @@
-import type { CharacterAssetPromptKind } from './assetFactoryCharacterPrompts';
-import { characterAssetPrompts, characterAssetPromptPacks } from './assetFactoryCharacterPrompts';
-import type { EnemyAssetPromptKind } from './enemyProductionDatabase';
-import { enemyAssetPrompts, enemyProductionSummary } from './enemyProductionDatabase';
-import type { ItemAssetPromptKind } from './itemAssetProductionDatabase';
-import { itemAssetProductionSummary, itemAssetPrompts } from './itemAssetProductionDatabase';
-import type { StageAssetPromptKind } from './stageProductionDatabase';
-import { stageAssetPrompts, stageProductionSummary } from './stageProductionDatabase';
+import type { CharacterAssetPromptKind } from './assetFactoryCharacterPrompts.ts';
+import { characterAssetPrompts, characterAssetPromptPacks } from './assetFactoryCharacterPrompts.ts';
+import type { EnemyAssetPromptKind } from './enemyProductionDatabase.ts';
+import { enemyAssetPrompts, enemyProductionSummary } from './enemyProductionDatabase.ts';
+import type { ItemAssetPromptKind } from './itemAssetProductionDatabase.ts';
+import { itemAssetProductionSummary, itemAssetPrompts } from './itemAssetProductionDatabase.ts';
+import type { StageAssetPromptKind } from './stageProductionDatabase.ts';
+import { stageAssetPrompts, stageProductionSummary } from './stageProductionDatabase.ts';
 
 export type AssetFactoryContentType = 'character' | 'enemy' | 'item' | 'stage';
 

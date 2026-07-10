@@ -1,10 +1,11 @@
 using UnityEngine;
+using VampPon.UnitySpike.Runtime.Visuals;
 
 namespace VampPon.UnitySpike.U5
 {
     public sealed class BattleVisualAssetSet
     {
-        // Runtime-facing proof set only. Keep loading decisions outside battle logic.
+        // Runtime-facing visual set. Keep loading decisions outside battle logic.
         public Sprite PlayerSprite { get; set; }
         public Sprite EnemySprite { get; set; }
         public Sprite ProjectileSprite { get; set; }
@@ -12,6 +13,16 @@ namespace VampPon.UnitySpike.U5
         public Sprite HitSprite { get; set; }
         public Sprite InkSprite { get; set; }
         public Sprite TrailSprite { get; set; }
+        public RuntimeCharacterAnimationSet PlayerAnimation { get; set; }
+        public RuntimeEnemyAnimationSet EnemyAnimation { get; set; }
+        public string PlayerSourcePath { get; set; }
+        public string EnemySourcePath { get; set; }
+        public float PlayerPixelsPerUnit { get; set; }
+        public float EnemyPixelsPerUnit { get; set; }
+        public Vector2 PlayerPivot { get; set; }
+        public Vector2 EnemyPivot { get; set; }
+        public float PlayerVisualScale { get; set; } = 1f;
+        public float EnemyVisualScale { get; set; } = 1f;
     }
 
     // U5 proof-only loader. Resources/U5Candidates is intentionally small, candidate-only,

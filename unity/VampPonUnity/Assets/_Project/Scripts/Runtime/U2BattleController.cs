@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,7 @@ using VampPon.UnitySpike.Data;
 using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.U5;
+using VampPon.UnitySpike.Runtime.Visuals;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -32,6 +34,8 @@ namespace VampPon.UnitySpike.Runtime
         private Sprite inkSprite;
         private Sprite trailSprite;
         private Sprite collectSprite;
+        private RuntimeEnemyAnimationSet enemyAnimation;
+        private float enemyVisualScale;
         private U3HitStopController hitStop;
         private U3CameraImpulseController cameraImpulse;
         private U3LanternPulseController lanternPulse;
@@ -66,6 +70,8 @@ namespace VampPon.UnitySpike.Runtime
         public int CollectTrailCount { get; private set; }
         public int DeathBurstCount { get; private set; }
         public bool IsRuntimePaused => runtimePaused;
+        public event Action PlayerAttackFired;
+        public event Action PlayerDamageVisualRequested;
 
         public void Initialize(
             GameFeelConfig gameFeelConfig,
@@ -89,8 +95,9 @@ namespace VampPon.UnitySpike.Runtime
             playerBounds = movementBounds;
             spawnBounds = enemySpawnBounds;
 
-            enemySprite = visualAssets?.EnemySprite
-                ?? ProceduralSpriteFactory.CreateBlobSprite(88, new Color(0.36f, 0.23f, 0.36f), new Color(1f, 0.68f, 0.25f));
+            enemySprite = visualAssets?.EnemySprite ?? throw new InvalidOperationException("Runtime enemy sprite is required");
+            enemyAnimation = visualAssets.EnemyAnimation ?? throw new InvalidOperationException("Runtime enemy animation is required");
+            enemyVisualScale = visualAssets.EnemyVisualScale;
             projectileSprite = visualAssets?.ProjectileSprite
                 ?? ProceduralSpriteFactory.CreateRadialSprite(56, new Color(1f, 0.72f, 0.28f, 0.88f));
             expSprite = visualAssets?.ExpSprite
@@ -128,6 +135,34 @@ namespace VampPon.UnitySpike.Runtime
         {
             SpawnEnemy(position);
         }
+
+        public U2EnemyActor FindActiveEnemyForVerification()
+        {
+            return enemies.Find(enemy => enemy.IsActive);
+        }
+
+        public void NotifyPlayerDamageVisual()
+        {
+            PlayerDamageVisualRequested?.Invoke();
+        }
+
+#if VAMPPON_AI_SIMULATOR_SMOKE
+        public void ClearTransientVisualsForVerification()
+        {
+            projectiles.ForEach(projectile => projectile.Deactivate());
+            expFragments.ForEach(fragment => fragment.Deactivate());
+            vfxActors.ForEach(vfx => vfx.Deactivate());
+        }
+
+        public void IsolateEnemyForVerification(U2EnemyActor focusEnemy, Vector3 position)
+        {
+            enemies.ForEach(enemy =>
+            {
+                if (enemy != focusEnemy) enemy.Deactivate();
+            });
+            focusEnemy.transform.position = position;
+        }
+#endif
 
         private void Update()
         {
@@ -179,7 +214,7 @@ namespace VampPon.UnitySpike.Runtime
         {
             for (var i = 0; i < count; i++)
             {
-                var actor = U2EnemyActor.Create($"OmbuPooled_{i:00}", enemyRoot, enemySprite);
+                var actor = U2EnemyActor.Create($"OmbuPooled_{i:00}", enemyRoot, enemySprite, enemyAnimation, enemyVisualScale);
                 actor.gameObject.SetActive(false);
                 enemies.Add(actor);
             }
@@ -240,17 +275,17 @@ namespace VampPon.UnitySpike.Runtime
                 }
 
                 projectile.Tick(Time.deltaTime);
-                if (projectile.Target != null && projectile.Target.IsActive &&
+                if (projectile.Target != null && projectile.Target.IsTargetable &&
                     Vector2.Distance(projectile.transform.position, projectile.Target.transform.position) <= 0.28f)
                 {
                     var hitPosition = projectile.transform.position;
                     projectile.Deactivate();
-                    projectile.Target.TakeDamage(config.projectileDamage, config.damageFlashSeconds);
+                    var defeated = projectile.Target.TakeDamage(config.projectileDamage, config.damageFlashSeconds);
                     feedbackBridge?.PlayEnemyHit();
                     hitStop?.Request();
                     PlayVfx(hitPosition, hitSprite, 0.34f, 0.11f, Color.white, Vector2.zero, U2VfxShape.Radial);
 
-                    if (!projectile.Target.IsActive)
+                    if (defeated)
                     {
                         DefeatedEnemyCount++;
                         feedbackBridge?.PlayEnemyDefeat();
@@ -333,6 +368,7 @@ namespace VampPon.UnitySpike.Runtime
             feedbackBridge?.PlayWeaponFire();
             lanternPulse?.Request();
             FiredProjectileCount++;
+            PlayerAttackFired?.Invoke();
         }
 
         private U2EnemyActor FindNearestEnemy()
@@ -343,7 +379,7 @@ namespace VampPon.UnitySpike.Runtime
             for (var i = 0; i < enemies.Count; i++)
             {
                 var enemy = enemies[i];
-                if (!enemy.IsActive)
+                if (!enemy.IsTargetable)
                 {
                     continue;
                 }
@@ -521,19 +557,28 @@ namespace VampPon.UnitySpike.Runtime
     public sealed class U2EnemyActor : U2PooledActor
     {
         private SpriteRenderer spriteRenderer;
+        private OnbuSpriteAnimator spriteAnimator;
         private float hp;
         private float flashSeconds;
         private Vector3 baseScale;
+        private bool dying;
 
-        public static U2EnemyActor Create(string objectName, Transform parent, Sprite sprite)
+        public bool IsTargetable => IsActive && !dying;
+        public bool IsDying => dying;
+        public RuntimeEnemyAnimationState AnimationState => spriteAnimator != null ? spriteAnimator.State : RuntimeEnemyAnimationState.Idle;
+        public int AnimationFrameIndex => spriteAnimator != null ? spriteAnimator.FrameIndex : 0;
+
+        public static U2EnemyActor Create(string objectName, Transform parent, Sprite sprite, RuntimeEnemyAnimationSet animationSet, float visualScale)
         {
-            var instance = new GameObject(objectName, typeof(SpriteRenderer), typeof(U2EnemyActor));
+            var instance = new GameObject(objectName, typeof(SpriteRenderer), typeof(OnbuSpriteAnimator), typeof(U2EnemyActor));
             instance.transform.SetParent(parent, false);
             var actor = instance.GetComponent<U2EnemyActor>();
             actor.spriteRenderer = instance.GetComponent<SpriteRenderer>();
             actor.spriteRenderer.sprite = sprite;
             actor.spriteRenderer.sortingOrder = 15;
-            actor.baseScale = Vector3.one * 1.05f;
+            actor.spriteAnimator = instance.GetComponent<OnbuSpriteAnimator>();
+            actor.spriteAnimator.Initialize(animationSet);
+            actor.baseScale = Vector3.one * visualScale;
             instance.transform.localScale = actor.baseScale;
             return actor;
         }
@@ -542,20 +587,31 @@ namespace VampPon.UnitySpike.Runtime
         {
             hp = maxHp;
             flashSeconds = 0f;
+            dying = false;
             transform.position = position;
             transform.localScale = baseScale;
             spriteRenderer.color = Color.white;
+            spriteAnimator.ResetForPool();
             IsActive = true;
             gameObject.SetActive(true);
         }
 
         public void Tick(Vector3 playerPosition, float speed, float deltaTime)
         {
+            if (dying)
+            {
+                spriteAnimator.Tick(deltaTime);
+                if (spriteAnimator.DeathComplete) Deactivate();
+                return;
+            }
+
             var toPlayer = playerPosition - transform.position;
             if (toPlayer.sqrMagnitude > 0.0001f)
             {
                 transform.position += toPlayer.normalized * speed * deltaTime;
             }
+            spriteAnimator.SetMoving(toPlayer.sqrMagnitude > 0.0001f);
+            spriteAnimator.Tick(deltaTime);
 
             var wobble = Mathf.Sin(Time.time * 5.2f + transform.position.x) * 0.04f;
             transform.localScale = baseScale * (1f + wobble);
@@ -567,16 +623,24 @@ namespace VampPon.UnitySpike.Runtime
             }
         }
 
-        public void TakeDamage(float damage, float damageFlashSeconds)
+        public bool TakeDamage(float damage, float damageFlashSeconds)
         {
+            if (!IsTargetable) return false;
             hp -= damage;
             flashSeconds = damageFlashSeconds;
             spriteRenderer.color = new Color(1f, 0.68f, 0.36f);
             transform.localScale = baseScale * 1.12f;
+            spriteAnimator.PlayHurt(damageFlashSeconds);
             if (hp <= 0f)
             {
-                Deactivate();
+                dying = true;
+                flashSeconds = 0f;
+                spriteRenderer.color = Color.white;
+                transform.localScale = baseScale;
+                spriteAnimator.PlayDeath();
+                return true;
             }
+            return false;
         }
     }
 
@@ -615,7 +679,7 @@ namespace VampPon.UnitySpike.Runtime
 
         public void Tick(float deltaTime)
         {
-            if (Target != null && Target.IsActive)
+            if (Target != null && Target.IsTargetable)
             {
                 var desired = (Target.transform.position - transform.position);
                 if (desired.sqrMagnitude > 0.0001f)

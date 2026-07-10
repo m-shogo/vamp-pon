@@ -1,12 +1,12 @@
-import type { CharacterCanonEntry } from './characterCanon';
-import { characterCanon } from './characterCanon';
-import type { CharacterProductionPlan } from './characterProductionPlans';
-import { characterProductionPlanById } from './characterProductionPlans';
-import type { KokuyouForm } from './kokuyouForms';
-import { kokuyouFormByCharacterId } from './kokuyouForms';
-import type { CharacterEmblemCanon } from './emblemCanon';
-import { characterEmblemById } from './emblemCanon';
-import { core5PairLightArts } from './pairLightArts';
+import type { CharacterCanonEntry } from './characterCanon.ts';
+import { characterCanon } from './characterCanon.ts';
+import type { CharacterProductionPlan } from './characterProductionPlans.ts';
+import { characterProductionPlanById } from './characterProductionPlans.ts';
+import type { KokuyouForm } from './kokuyouForms.ts';
+import { kokuyouFormByCharacterId } from './kokuyouForms.ts';
+import type { CharacterEmblemCanon } from './emblemCanon.ts';
+import { characterEmblemById } from './emblemCanon.ts';
+import { core5PairLightArts } from './pairLightArts.ts';
 
 export type CharacterDatabaseSceneEligibility =
   | 'core5_character_select_candidate'

@@ -1,4 +1,4 @@
-import { WORLD_TERMS } from './worldTerms';
+import { WORLD_TERMS } from './worldTerms.ts';
 
 export type ItemCanonCategory = {
   id: string;

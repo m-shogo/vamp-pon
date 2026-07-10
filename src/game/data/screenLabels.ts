@@ -1,4 +1,4 @@
-import { WORLD_TERMS } from './worldTerms';
+import { WORLD_TERMS } from './worldTerms.ts';
 
 export const SCREEN_LABELS = {
   home: WORLD_TERMS.screens.home,

@@ -1,5 +1,5 @@
-import { characterProductionPlans } from './characterProductionPlans';
-import { FIELD_DROP_CANON } from './itemProductionCanon';
+import { characterProductionPlans } from './characterProductionPlans.ts';
+import { FIELD_DROP_CANON } from './itemProductionCanon.ts';
 
 export type ItemProductionKind = 'starter_gear' | 'passive_item' | 'rare_item' | 'lamp_tsugi' | 'akatsuki_biraki' | 'field_drop';
 export type ItemAssetPromptKind = 'icon_64' | 'card_512' | 'pickup_32' | 'evolution_burst' | 'ui_slot';

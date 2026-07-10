@@ -10,6 +10,7 @@ using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.U5;
 using VampPon.UnitySpike.UI;
+using VampPon.UnitySpike.Runtime.Visuals;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -32,12 +33,18 @@ namespace VampPon.UnitySpike.Runtime
         private U43RuntimeFeedbackBridge feedbackBridge;
         private U2BattleController battleController;
         private PlayerController playerController;
+        private YuiSpriteAnimator yuiAnimator;
         private static TMP_FontAsset cachedJapaneseFont;
+
+        public string AssetProviderName => assetProvider?.ProviderName ?? string.Empty;
+        public bool AssetProviderIsProofOnly => assetProvider?.IsProofOnly ?? true;
+        public bool DevelopmentVisualFallbackUsed => assetProvider is RuntimeVisualAssetProvider provider && provider.DevelopmentFallbackUsed;
+        public BattleVisualAssetSet BattleVisualAssets => battleVisualAssets;
 
         private void Awake()
         {
             Application.targetFrameRate = 60;
-            assetProvider = new U5ProofAssetProvider();
+            assetProvider = new RuntimeVisualAssetProvider();
             battleVisualAssets = assetProvider.LoadBattleVisuals();
             ApplyPixelRuntimeSettings(battleVisualAssets);
             EnsureEventSystem();
@@ -149,13 +156,12 @@ namespace VampPon.UnitySpike.Runtime
 
         private void CreatePlayer()
         {
-            var player = new GameObject("YuiRuntimeDotCharacter", typeof(SpriteRenderer), typeof(PlayerController));
+            var player = new GameObject("YuiRuntimeDotCharacter", typeof(SpriteRenderer), typeof(PlayerController), typeof(YuiSpriteAnimator));
             player.transform.SetParent(playerRoot);
             player.transform.position = new Vector3(0f, -1.45f, 0f);
-            player.transform.localScale = Vector3.one * 0.9f;
+            player.transform.localScale = Vector3.one * battleVisualAssets.PlayerVisualScale;
             var renderer = player.GetComponent<SpriteRenderer>();
-            renderer.sprite = battleVisualAssets?.PlayerSprite
-                ?? ProceduralSpriteFactory.CreateCharacterSprite(96, new Color(0.93f, 0.74f, 0.55f), new Color(0.23f, 0.12f, 0.16f));
+            renderer.sprite = battleVisualAssets.PlayerSprite;
             SetPointFilter(renderer.sprite);
             renderer.sortingOrder = 20;
             yui = player.transform;
@@ -205,6 +211,9 @@ namespace VampPon.UnitySpike.Runtime
             battleController.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, battleVisualAssets);
             battleController.SetRuntimeFeedbackBridge(feedbackBridge);
             battleController.SetRuntimePaused(true);
+            yuiAnimator = yui.GetComponent<YuiSpriteAnimator>();
+            yuiAnimator.Initialize(battleVisualAssets.PlayerAnimation, playerController, battleController);
+            yuiAnimator.SetRuntimePaused(true);
 
             CreateLevelUpDemo(battleController);
         }
@@ -363,6 +372,7 @@ namespace VampPon.UnitySpike.Runtime
         {
             battleController?.SetRuntimePaused(paused);
             playerController?.SetRuntimeInputBlocked(paused);
+            yuiAnimator?.SetRuntimePaused(paused);
         }
 
         private static GameObject CreatePanel(Transform parent, string name, Vector2 anchorMin, Vector2 anchorMax, Color color)

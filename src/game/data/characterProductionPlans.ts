@@ -1,5 +1,5 @@
-import { SCREEN_LABELS } from './screenLabels';
-import { WORLD_TERMS } from './worldTerms';
+import { SCREEN_LABELS } from './screenLabels.ts';
+import { WORLD_TERMS } from './worldTerms.ts';
 
 export type CharacterProductionPlan = {
   characterId: string;

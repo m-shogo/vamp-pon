@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-07-10",
+  "phase": "U45.1",
+  "originKind": "deterministic_derivation",
+  "sourceCommit": "83f61c92ce6258c04bed77d50400db62d15f578e",
+  "playerSourcePath": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
+  "playerSourceHash": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+  "playerOutputPath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+  "playerOutputHash": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+  "enemySourcePath": "public/assets/prototypes/sprite-sheets/enemies-original/enemy-ombu-small-sheet-v2-1440x1080.png",
+  "enemySourceHash": "7d356a131623adf2a95b6c493cfbcee1eee0af00fed44722d287ebc3d6c92c15",
+  "enemyOutputPath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+  "enemyOutputHash": "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+  "frameGrid": "8x6 / 180x180 / 48 frames",
+  "playerPPU": 150,
+  "enemyPPU": 120,
+  "playerPivot": [0.5, 0.02],
+  "enemyPivot": [0.5, 0.08],
+  "importSettings": "Sprite Multiple; Point; mipmap off; clamp; alpha transparency; uncompressed; FullRect",
+  "transformationSteps": ["copy Yui approved reference candidate without source overwrite", "quantize Onbu into deterministic 3x3 nearest-color blocks", "slice 8x6 with feet pivots"],
+  "approvedAsFinal": false,
+  "runtimeApproved": false
+}

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23ca8251f7943d4953ad766b3f4dded, type: 3}
+  m_Name: Stage1RuntimeVisualAssetRegistry
+  m_EditorClassIdentifier: Assembly-CSharp::VampPon.UnitySpike.Runtime.Visuals.Stage1RuntimeVisualAssetRegistry
+  playerSourcePath: RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet
+  enemySourcePath: RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet
+  playerPixelsPerUnit: 150
+  enemyPixelsPerUnit: 120
+  playerPivot: {x: 0.5, y: 0.02}
+  enemyPivot: {x: 0.5, y: 0.08}
+  playerVisualScale: 0.9
+  enemyVisualScale: 1.05
+  playerFrameDuration: 0.12
+  enemyFrameDuration: 0.1
+  playerIdleLeft:
+  - {fileID: -17027112, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  - {fileID: 548787615, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerIdleRight:
+  - {fileID: 1910997997, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  - {fileID: 1282726667, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerWalkLeft:
+  - {fileID: 1747993720, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  - {fileID: -1040154116, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerWalkRight:
+  - {fileID: 1211266785, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  - {fileID: -345690309, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerHurtLeft:
+  - {fileID: 13233989, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerHurtRight:
+  - {fileID: 1842160147, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerAttackLeft:
+  - {fileID: -170307296, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  - {fileID: 740343376, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  playerAttackRight:
+  - {fileID: -1585794277, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  - {fileID: -23902025, guid: 51518ddd039284fbea8df2a7173cd5a2, type: 3}
+  enemyIdle:
+  - {fileID: -1932404567, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: 771100013, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: 690668816, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -91755694, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  enemyMove:
+  - {fileID: -883253102, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -654016139, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -255051360, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: 1850519892, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  enemyHurt:
+  - {fileID: -1768499534, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -93830763, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  enemyDeath:
+  - {fileID: -113706919, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -38642398, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -99303232, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -1306037689, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -1773850254, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: -1057015102, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: 1094153757, guid: 113baf5cd906949919742b4f032c0969, type: 3}
+  - {fileID: 1247581779, guid: 113baf5cd906949919742b4f032c0969, type: 3}

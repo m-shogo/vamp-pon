@@ -1,5 +1,5 @@
-import type { AssetFactoryContentType, AssetFactoryPromptRecord } from './assetFactoryCatalog';
-import { assetFactoryPromptCatalog } from './assetFactoryCatalog';
+import type { AssetFactoryContentType, AssetFactoryPromptRecord } from './assetFactoryCatalog.ts';
+import { assetFactoryPromptCatalog } from './assetFactoryCatalog.ts';
 
 export const ASSET_GENERATION_CONTRACT_SCHEMA_VERSION = 1 as const;
 export const ASSET_GENERATION_POLICY_VERSION = '2026-07-10-v1' as const;

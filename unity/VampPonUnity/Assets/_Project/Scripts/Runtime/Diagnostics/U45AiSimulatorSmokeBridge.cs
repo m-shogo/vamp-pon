@@ -14,6 +14,7 @@ using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.Runtime;
 using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.UI;
+using VampPon.UnitySpike.Runtime.Visuals;
 
 namespace VampPon.UnitySpike.Diagnostics
 {
@@ -53,6 +54,24 @@ namespace VampPon.UnitySpike.Diagnostics
         private bool duplicateEventSystemDetected;
         private bool duplicateAudioListenerDetected;
         private bool screenshotsReady;
+        private bool productionVisualProviderReady;
+        private bool proofProviderUnused;
+        private bool runtimeVisualSourcesReady;
+        private bool yuiIdleReady;
+        private bool yuiWalkRightReady;
+        private bool yuiWalkLeftReady;
+        private bool yuiReleaseIdleReady;
+        private bool yuiFacingHeldOnRelease;
+        private bool yuiHurtReady;
+        private bool yuiAttackReady;
+        private bool yuiPauseReady;
+        private bool yuiRetryResetReady;
+        private bool onbuMoveReady;
+        private bool onbuHurtReady;
+        private bool onbuDeathReady;
+        private bool onbuPoolReturnReady;
+        private bool onbuRespawnResetReady;
+        private bool proceduralFallbackUnused;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Install()
@@ -111,6 +130,14 @@ namespace VampPon.UnitySpike.Diagnostics
 
             var controller = FindController();
             var player = FindPlayer();
+            var bootstrap = UnityEngine.Object.FindAnyObjectByType<U1Stage1SceneBootstrap>();
+            var yuiAnimator = UnityEngine.Object.FindAnyObjectByType<YuiSpriteAnimator>();
+            productionVisualProviderReady = bootstrap != null && bootstrap.AssetProviderName == "RuntimeVisualAssetProvider";
+            proofProviderUnused = bootstrap != null && !bootstrap.AssetProviderIsProofOnly;
+            runtimeVisualSourcesReady = bootstrap?.BattleVisualAssets?.PlayerSourcePath?.Contains("RuntimeVisuals", StringComparison.Ordinal) == true &&
+                                        bootstrap.BattleVisualAssets.EnemySourcePath?.Contains("RuntimeVisuals", StringComparison.Ordinal) == true;
+            proceduralFallbackUnused = bootstrap != null && !bootstrap.DevelopmentVisualFallbackUsed;
+            yuiIdleReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Idle;
             var stageSelect = GameObject.Find("U43StageSelectRuntimeOverlay");
             stageSelectVisible = stageSelect != null && stageSelect.activeInHierarchy;
             var stageSnapshot = new Snapshot(controller);
@@ -124,7 +151,7 @@ namespace VampPon.UnitySpike.Diagnostics
             controller = FindController();
             player = FindPlayer();
             battleResumeReady = controller != null && !controller.IsRuntimePaused && player != null && !player.RuntimeInputBlocked;
-            yield return Capture("02-battle-hud.png");
+            yield return Capture("02-yui-idle.png");
 
             if (player != null)
             {
@@ -132,14 +159,68 @@ namespace VampPon.UnitySpike.Diagnostics
                 player.SetVerificationMoveInput(new Vector2(0.85f, 0.35f));
                 yield return new WaitForSecondsRealtime(0.55f);
                 movementRouteReady = Vector2.Distance(before, player.transform.position) > 0.05f && player.CurrentVelocity.sqrMagnitude > 0.01f;
-                yield return Capture("virtual-stick.png");
+                yuiWalkRightReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Walk && yuiAnimator.Facing == RuntimeFacing.Right;
+                yield return Capture("03-yui-walk-right.png");
+
+                player.SetVerificationMoveInput(new Vector2(-0.85f, 0.2f));
+                yield return new WaitForSecondsRealtime(0.45f);
+                yield return WaitUntil(
+                    () => yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Walk && yuiAnimator.Facing == RuntimeFacing.Left,
+                    2f,
+                    "Yui walk left");
+                yuiWalkLeftReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Walk && yuiAnimator.Facing == RuntimeFacing.Left;
+                yield return Capture("04-yui-walk-left.png");
                 player.SetVerificationMoveInput(Vector2.zero);
                 yield return new WaitForSecondsRealtime(0.5f);
                 movementStopsOnRelease = player.CurrentVelocity.sqrMagnitude < 0.01f;
+                yield return WaitUntil(() => yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Idle, 2f, "Yui release idle");
+                yuiReleaseIdleReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Idle;
+                yuiFacingHeldOnRelease = yuiAnimator != null && yuiAnimator.Facing == RuntimeFacing.Left;
                 player.ClearVerificationMoveInput();
             }
 
             nonStickAreaIgnored = VerifyMovementAreaGeometry();
+
+            controller?.NotifyPlayerDamageVisual();
+            yield return WaitUntil(() => yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Hurt, 2f, "Yui hurt");
+            yuiHurtReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Hurt;
+            yield return Capture("05-yui-hurt.png");
+            yield return new WaitForSecondsRealtime(0.35f);
+
+            if (controller != null && player != null)
+            {
+                controller.SpawnEnemyForVerification(player.transform.position + new Vector3(1.35f, 0f, 0f));
+                yield return WaitUntil(() => yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Attack, 5f, "Yui attack event");
+                yuiAttackReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Attack;
+                yield return Capture("06-yui-attack.png");
+
+                var animatedEnemy = controller.FindActiveEnemyForVerification();
+                if (animatedEnemy != null)
+                {
+                    yield return new WaitForSecondsRealtime(0.2f);
+                    yield return WaitUntil(() => animatedEnemy.AnimationState == RuntimeEnemyAnimationState.Move, 2f, "Onbu move");
+                    controller.IsolateEnemyForVerification(animatedEnemy, player.transform.position + new Vector3(1.55f, 0.15f, 0f));
+                    controller.SetRuntimePaused(true);
+                    onbuMoveReady = animatedEnemy.AnimationState == RuntimeEnemyAnimationState.Move;
+                    yield return Capture("07-onbu-move.png");
+                    animatedEnemy.TakeDamage(0.01f, 0.45f);
+                    yield return null;
+                    onbuHurtReady = animatedEnemy.AnimationState == RuntimeEnemyAnimationState.Hurt;
+                    yield return Capture("08-onbu-hurt.png");
+                    animatedEnemy.TakeDamage(float.MaxValue, 0.45f);
+                    for (var frame = 0; frame < 4; frame++)
+                        animatedEnemy.Tick(player.transform.position, 0f, 0.1f);
+                    yield return null;
+                    onbuDeathReady = animatedEnemy.IsDying && animatedEnemy.AnimationState == RuntimeEnemyAnimationState.Death;
+                    yield return Capture("09-onbu-death.png");
+                    controller.SetRuntimePaused(false);
+                    yield return WaitUntil(() => !animatedEnemy.IsActive, 3f, "Onbu death pool return");
+                    onbuPoolReturnReady = !animatedEnemy.IsActive;
+                    controller.SpawnEnemyForVerification(player.transform.position + new Vector3(1.8f, 0.1f, 0f));
+                    yield return null;
+                    onbuRespawnResetReady = animatedEnemy.IsActive && !animatedEnemy.IsDying && animatedEnemy.AnimationFrameIndex == 0;
+                }
+            }
 
             var bridge = U43RuntimeFeedbackBridge.Instance;
             var audioBefore = bridge != null ? bridge.AudioPlayCount : 0;
@@ -180,21 +261,23 @@ namespace VampPon.UnitySpike.Diagnostics
                     player.ClearVerificationMoveInput();
                 }
                 levelUpTapReady = CardsMeetTapTarget();
-                yield return Capture("03-levelup-common.png");
+                var pausedState = yuiAnimator?.State;
+                var pausedFrame = yuiAnimator?.FrameIndex;
+                yield return new WaitForSecondsRealtime(0.45f);
+                yuiPauseReady = yuiAnimator != null && yuiAnimator.State == pausedState && yuiAnimator.FrameIndex == pausedFrame;
+                yield return Capture("10-levelup-paused-animation.png");
                 CloseFirstCard();
                 yield return new WaitForSecondsRealtime(0.35f);
 
                 overlay.Show(RareChoices(), _ => { });
                 yield return new WaitForSecondsRealtime(0.3f);
                 levelUpRareReady = overlay.IsActive;
-                yield return Capture("04-levelup-rare.png");
                 CloseFirstCard();
                 yield return new WaitForSecondsRealtime(0.35f);
 
                 overlay.Show(EvolutionChoices(), _ => { });
                 yield return new WaitForSecondsRealtime(0.3f);
                 levelUpEvolutionReady = overlay.IsActive;
-                yield return Capture("05-levelup-evolution.png");
                 CloseFirstCard();
                 yield return new WaitForSecondsRealtime(0.4f);
             }
@@ -204,7 +287,11 @@ namespace VampPon.UnitySpike.Diagnostics
             var resultSnapshot = new Snapshot(FindController());
             yield return new WaitForSecondsRealtime(0.7f);
             resultPauseReady = IsPausedAndFrozen(resultSnapshot, requireStageSelect: false, requireResult: true);
-            yield return Capture("06-result.png");
+            var resultAnimationState = yuiAnimator?.State;
+            var resultAnimationFrame = yuiAnimator?.FrameIndex;
+            yield return new WaitForSecondsRealtime(0.4f);
+            yuiPauseReady &= yuiAnimator != null && yuiAnimator.State == resultAnimationState && yuiAnimator.FrameIndex == resultAnimationFrame;
+            yield return Capture("11-result-paused-animation.png");
 
             retryReady = FindButton("Retry") != null;
             PressButton("Retry");
@@ -213,6 +300,10 @@ namespace VampPon.UnitySpike.Diagnostics
             duplicateEventSystemDetected = UnityEngine.Object.FindObjectsByType<EventSystem>(FindObjectsInactive.Include).Length != 1;
             duplicateAudioListenerDetected = UnityEngine.Object.FindObjectsByType<AudioListener>(FindObjectsInactive.Include).Length != 1;
             retryReady &= !duplicateEventSystemDetected && !duplicateAudioListenerDetected && FindPlayer() != null;
+            yuiAnimator = UnityEngine.Object.FindAnyObjectByType<YuiSpriteAnimator>();
+            yuiRetryResetReady = yuiAnimator != null && yuiAnimator.State == RuntimeCharacterAnimationState.Idle &&
+                                 yuiAnimator.FrameIndex == 0 && yuiAnimator.RuntimePaused;
+            yield return Capture("12-retry-reset.png");
 
             PressButton("Stage1へ");
             yield return new WaitForSecondsRealtime(0.4f);
@@ -223,7 +314,7 @@ namespace VampPon.UnitySpike.Diagnostics
             var returnSnapshot = new Snapshot(FindController());
             yield return new WaitForSecondsRealtime(0.65f);
             stageSelectReturnReady = IsPausedAndFrozen(returnSnapshot, requireStageSelect: true, requireResult: false) && FindButton("Stage1へ") != null;
-            yield return Capture("07-stage-select-return.png");
+            yield return Capture("13-stage-select-return.png");
 
             screenshotsReady = RequiredScreenshots().All(File.Exists);
             WriteEvidence();
@@ -233,6 +324,7 @@ namespace VampPon.UnitySpike.Diagnostics
 
         private IEnumerator Capture(string name)
         {
+            FindController()?.ClearTransientVisualsForVerification();
             Canvas.ForceUpdateCanvases();
             yield return new WaitForEndOfFrame();
             var texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGBA32, false);
@@ -338,8 +430,10 @@ namespace VampPon.UnitySpike.Diagnostics
 
         private IEnumerable<string> RequiredScreenshots() => new[]
         {
-            "01-stage-select.png", "02-battle-hud.png", "03-levelup-common.png",
-            "04-levelup-rare.png", "05-levelup-evolution.png", "06-result.png", "07-stage-select-return.png",
+            "01-stage-select.png", "02-yui-idle.png", "03-yui-walk-right.png", "04-yui-walk-left.png",
+            "05-yui-hurt.png", "06-yui-attack.png", "07-onbu-move.png", "08-onbu-hurt.png",
+            "09-onbu-death.png", "10-levelup-paused-animation.png", "11-result-paused-animation.png",
+            "12-retry-reset.png", "13-stage-select-return.png",
         }.Select(name => Path.Combine(screenshotRoot, Path.ChangeExtension(name, ".ppm")));
 
         private static void WritePpm(Texture2D texture, string path)
@@ -372,7 +466,11 @@ namespace VampPon.UnitySpike.Diagnostics
             enemyHitReady && pickupReady && levelUpCommonReady && levelUpRareReady && levelUpEvolutionReady &&
             levelUpTapReady && resultPauseReady && retryReady && stageSelectReturnReady &&
             audioHookRequestReady && hapticHookRequestReady && unhandledExceptionCount == 0 && !crashDetected &&
-            !duplicateEventSystemDetected && !duplicateAudioListenerDetected && screenshotsReady;
+            !duplicateEventSystemDetected && !duplicateAudioListenerDetected && screenshotsReady &&
+            productionVisualProviderReady && proofProviderUnused && runtimeVisualSourcesReady && proceduralFallbackUnused &&
+            yuiIdleReady && yuiWalkRightReady && yuiWalkLeftReady && yuiReleaseIdleReady && yuiFacingHeldOnRelease && yuiHurtReady &&
+            yuiAttackReady && yuiPauseReady && yuiRetryResetReady && onbuMoveReady && onbuHurtReady &&
+            onbuDeathReady && onbuPoolReturnReady && onbuRespawnResetReady;
 
         private void WriteEvidence()
         {
@@ -404,6 +502,16 @@ namespace VampPon.UnitySpike.Diagnostics
             $"  \"unhandledExceptionCount\": {unhandledExceptionCount},\n" + Bool("crashDetected", crashDetected) +
             Bool("duplicateEventSystemDetected", duplicateEventSystemDetected) +
             Bool("duplicateAudioListenerDetected", duplicateAudioListenerDetected) +
+            Bool("productionVisualProviderReady", productionVisualProviderReady) + Bool("proofProviderUnused", proofProviderUnused) +
+            Bool("runtimeVisualSourcesReady", runtimeVisualSourcesReady) + Bool("proceduralFallbackUnused", proceduralFallbackUnused) +
+            Bool("yuiIdleReady", yuiIdleReady) + Bool("yuiWalkRightReady", yuiWalkRightReady) +
+            Bool("yuiWalkLeftReady", yuiWalkLeftReady) + Bool("yuiReleaseIdleReady", yuiReleaseIdleReady) +
+            Bool("yuiFacingHeldOnRelease", yuiFacingHeldOnRelease) +
+            Bool("yuiHurtReady", yuiHurtReady) + Bool("yuiAttackReady", yuiAttackReady) +
+            Bool("yuiPauseReady", yuiPauseReady) + Bool("yuiRetryResetReady", yuiRetryResetReady) +
+            Bool("onbuMoveReady", onbuMoveReady) + Bool("onbuHurtReady", onbuHurtReady) +
+            Bool("onbuDeathReady", onbuDeathReady) + Bool("onbuPoolReturnReady", onbuPoolReturnReady) +
+            Bool("onbuRespawnResetReady", onbuRespawnResetReady) +
             Bool("screenshotsReady", screenshotsReady) +
             $"  \"simulatorPlayableCandidateReady\": {(SimulatorPlayableCandidateReady ? "true" : "false")}\n";
 

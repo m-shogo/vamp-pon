@@ -9,6 +9,8 @@ export type GoldenReferenceAsset = {
   role: 'style' | 'identity' | 'composition' | 'gameplay-size' | 'palette';
   approvedForReference: boolean;
   approvedForRuntime: false;
+  approvedAsFinal?: false;
+  sha256?: string;
 };
 
 export type GoldenReferenceSet = {
@@ -142,6 +144,54 @@ export const goldenReferenceSets: GoldenReferenceSet[] = [
     ],
     documents: ['docs/unity-ui-design-system-v1.md'],
     notes: '進化差分の基準。紫面と本文コントラストはU46以降で改善する。',
+  },
+  {
+    id: 'character:yui:identity-v1',
+    version: 1,
+    scope: 'character',
+    sourceId: 'yui',
+    status: 'approved-style-reference',
+    immutableUntilVersionBump: true,
+    assets: [
+      {
+        path: 'assets/reference/character-master/core5/yui-character-master-v1.png',
+        role: 'identity',
+        approvedForReference: true,
+        approvedForRuntime: false,
+        approvedAsFinal: false,
+        sha256: '7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe',
+      },
+      {
+        path: 'public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png',
+        role: 'gameplay-size',
+        approvedForReference: true,
+        approvedForRuntime: false,
+        approvedAsFinal: false,
+        sha256: 'a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e',
+      },
+    ],
+    documents: ['docs/153-character-visual-reference-policy.md', 'docs/154-sprite-image-production-playbook.md'],
+    notes: 'Identity anchors: brown bob hair, navy hood and cape, warm lantern. Body-relative continuity: lantern in right hand, strap from right shoulder to bag at left waist. Reference approval only; final/runtime approval remains false.',
+  },
+  {
+    id: 'enemy:onbu:identity-v1',
+    version: 1,
+    scope: 'enemy',
+    sourceId: 'onbu',
+    status: 'approved-style-reference',
+    immutableUntilVersionBump: true,
+    assets: [
+      {
+        path: 'public/assets/prototypes/sprite-sheets/enemies-original/enemy-ombu-small-sheet-v2-1440x1080.png',
+        role: 'identity',
+        approvedForReference: true,
+        approvedForRuntime: false,
+        approvedAsFinal: false,
+        sha256: '7d356a131623adf2a95b6c493cfbcee1eee0af00fed44722d287ebc3d6c92c15',
+      },
+    ],
+    documents: ['docs/enemies/enemy-48-sprite-sheet-plan.md', 'docs/181-current-production-canon.md'],
+    notes: 'Identity anchors: small armless rounded ink shadow, one short ink sprout, no mouth, thin face haze, black/deep navy/purple-black/blue-gray palette. Reference approval only; final/runtime approval remains false.',
   },
 ];
 
