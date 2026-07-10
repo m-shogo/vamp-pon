@@ -10,6 +10,23 @@ function check(label: string, ok: boolean): void {
   if (!ok) failures.push(label);
 }
 
+function checkExecutionEvidence(
+  label: string,
+  executed: unknown,
+  result: unknown,
+  commit: unknown,
+): void {
+  if (executed === true) {
+    check(`${label} executed result is PASSED`, result === 'PASSED');
+    check(`${label} executed commit recorded`, typeof commit === 'string' && commit.length >= 7);
+    return;
+  }
+
+  check(`${label} executed flag false when not run`, executed === false);
+  check(`${label} unexecuted result is NOT_RUN`, result === 'NOT_RUN');
+  check(`${label} unexecuted commit empty`, commit === '');
+}
+
 const paths = {
   controlCenter: 'docs/unity-big-implementation-control-center-v1.md',
   ownership: 'docs/unity-runtime-ownership-contract-v1.md',
@@ -130,10 +147,26 @@ for (const key of [
   'candidateAssetsApprovedAsFinal',
   'rcReady',
   'productionApproved',
-  'staticPreflightExecutedAfterCommit',
-  'fullPreflightExecutedAfterCommit',
-  'unityCompileVerifiedAfterControlPlane',
 ]) check(`${key} remains false`, readiness[key] === false);
+
+checkExecutionEvidence(
+  'static preflight',
+  readiness.staticPreflightExecutedAfterCommit,
+  readiness.staticPreflightResult,
+  readiness.staticPreflightCommit,
+);
+checkExecutionEvidence(
+  'full preflight',
+  readiness.fullPreflightExecutedAfterCommit,
+  readiness.fullPreflightResult,
+  readiness.fullPreflightCommit,
+);
+checkExecutionEvidence(
+  'Unity compile after control-plane',
+  readiness.unityCompileVerifiedAfterControlPlane,
+  readiness.unityCompileResult,
+  readiness.unityCompileCommit,
+);
 
 check('current required phase exact', readiness.currentRequiredPhase === 'U45.1 Character and Enemy Dot Runtime Pass');
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
@@ -163,4 +196,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Unity big implementation readiness check passed: control center, ownership, phase order and false readiness boundaries are consistent.');
+console.log('Unity big implementation readiness check passed: control center, ownership, phase order, execution evidence and false product-readiness boundaries are consistent.');
