@@ -1,6 +1,6 @@
 # 181. Current Production Canon
 
-最新のキャラ量産・敵・アイテム・ステージ・A-Z灯紋・Unity UI・生成素材運用の入口。
+最新のキャラ量産・敵・アイテム・ステージ・A-Z灯紋・Unity UI・生成素材・runtime visual運用の入口。
 古い検討メモと矛盾した場合は、この文書と下記のruntime data / adopted docsを優先する。
 
 ## Source of truth
@@ -18,6 +18,7 @@
 | Asset Generation Contract | `src/game/data/assetGenerationPolicy.ts` / `docs/asset-generation-consistency-system-v1.md` |
 | Golden Reference Registry | `src/game/data/goldenReferenceRegistry.ts` / `docs/asset-generation-consistency-system-v1.md` |
 | Unity UI Design System | `docs/unity-ui-design-system-v1.md` |
+| Unity Runtime Visual Readiness | `docs/unity-runtime-visual-readiness-gate-v1.md` / `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json` |
 | Core5 art names | `src/game/data/characterArts.ts` |
 | Kokuyou forms | `src/game/data/kokuyouForms.ts` |
 | Pair light arts | `src/game/data/pairLightArts.ts` |
@@ -47,6 +48,7 @@
 15. Unity Handoff用prefabId / addressableGroup / sceneEligibility
 16. Asset Factory用の素材別prompt / negative prompt / review checklist
 17. Asset Generation Contract / Golden Reference / Generation Lineage
+18. Runtime Visual Readiness classification / animation evidence / production provider境界
 
 敵・ステージ・アイテムも、意味・ゲーム役割・見た目・生成prompt・review条件・承認境界を持たせる。
 
@@ -163,6 +165,55 @@ pnpm asset-generation:check
 pnpm assets:verify
 ```
 
+## Unity Runtime Visual Readiness rule
+
+キャラクターや敵は、Point Filter、GameObject名、静止画表示、操作可能、Simulator route smokeだけではドットruntime完成と認めない。正本は`docs/unity-runtime-visual-readiness-gate-v1.md`。
+
+現在の分類:
+
+```txt
+runtimeVisualClassification=proof-static-single-sprite
+simulatorPlayableCandidateReady=true
+simulatorRouteEvidenceStillValid=true
+simulatorCharacterVisualApprovalInvalidated=true
+characterDotRuntimeReady=false
+characterAnimationReady=false
+enemyDotRuntimeReady=false
+enemyAnimationReady=false
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
+runtimeVisualReady=false
+```
+
+`characterDotRuntimeReady=true`の最低条件:
+
+- production provider
+- proof provider除外
+- Sprite Mode Multiple
+- 実frame slice
+- idle / walk / hurt / attack
+- 左右反転確認
+- Golden Identity Reference
+- Generation Lineage
+- final/runtime approval
+- gameplay-size visual review
+- Simulator animation evidence
+
+`enemyDotRuntimeReady=true`の最低条件:
+
+- production provider
+- proof/procedural fallback除外
+- Multiple spriteまたは同等の正本frame source
+- idle / move / hurt / death
+- 敵family正本との一致
+- gameplay-size visual review
+
+検査:
+
+```sh
+pnpm unity:runtime-visual-readiness:check
+```
+
 ## Production content databases
 
 | Database | Current scope |
@@ -208,6 +259,9 @@ A-Z灯紋はキャラ量産の必須要素。1キャラにつき最低4相を作
 - 生成assetは4候補を比較する。
 - Golden ReferenceとLineageが揃うまでcandidate扱い。
 - reference承認とruntime承認を混同しない。
+- Point Filterをドット絵完成の証拠にしない。
+- Single spriteをanimated sprite sheetとして扱わない。
+- proof providerをproduction providerと呼ばない。
 
 ## Implementation status
 
@@ -221,6 +275,9 @@ A-Z灯紋はキャラ量産の必須要素。1キャラにつき最低4相を作
 | Golden Reference Registry | Global styleとU45 UI candidate referenceを登録済み。identity referenceは段階登録。 |
 | Generation Lineage | SHA-256、generator/version、source commit、approval境界を記録するCLI/templateあり。 |
 | Asset generation checker | Contract/Registry/Lineage/未承認境界を静的検査。 |
+| Runtime Visual Readiness Gate | proof/staticとproduction/animatedを分離。現在はcharacter/enemyとも未ready。 |
+| Character runtime visual | U5 proof用Single sprite。Point Filterのみ。idle/walk/hurt/attack未接続。 |
+| Enemy runtime visual | U5 proof用Single sprite。idle/move/hurt/death未接続。 |
 | Character Asset Factory prompts | 20人 x 9種類あり。 |
 | Enemy production DB | 48体分、asset prompt 4種類あり。 |
 | Item asset production DB | キャラ由来100件 + field drop 5件、asset prompt 5種類あり。 |
@@ -233,13 +290,19 @@ A-Z灯紋はキャラ量産の必須要素。1キャラにつき最低4相を作
 
 ## Next implementation order
 
-1. `pnpm asset-generation:check` / `pnpm test` / `pnpm build` / `pnpm assets:verify`を実行する。
-2. `pnpm asset-factory:contracts:export`でContract/Registry JSONを出力する。
-3. Core5からidentity Golden Referenceを承認・登録する。
-4. Core5 / Stage1素材を同一Contractで4候補生成し、Lineageを作る。
-5. 4候補comparison sheetとvisual similarity検査を追加する。
-6. Result / 灯録をUnity UI Design Systemで実装する。
-7. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts`へCore5分を先に反映する。
-8. HUD / LevelUp / Result / Collectionの旧用語を`WORLD_TERMS`参照へ寄せる。
-9. A-Z灯紋は灯録・キャラ詳細・キャラ選択にnormal相から表示する。
-10. season_seed / future_seed / shadow5は設計データとして保持し、選択画面には出さない。
+1. `pnpm unity:runtime-visual-readiness:check`で現在の未ready境界を確認する。
+2. U45.1でユイidentity Golden Referenceを承認・登録する。
+3. ユイのproduction candidate sprite sheetを選定し、idle / walk / hurt / attackを接続する。
+4. オンブのidle / move / hurt / deathを接続する。
+5. production asset providerを追加し、U5 proof providerを製品runtimeから外す。
+6. procedural fallbackを明示的エラー経路へ限定する。
+7. Simulatorでanimation、左右反転、実寸visualを再確認する。
+8. `pnpm asset-generation:check` / `pnpm test` / `pnpm build` / `pnpm assets:verify`を実行する。
+9. `pnpm asset-factory:contracts:export`でContract/Registry JSONを出力する。
+10. Core5 / Stage1素材を同一Contractで4候補生成し、Lineageを作る。
+11. 4候補comparison sheetとvisual similarity検査を追加する。
+12. Result / 灯録をUnity UI Design Systemで実装する。
+13. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts`へCore5分を先に反映する。
+14. HUD / LevelUp / Result / Collectionの旧用語を`WORLD_TERMS`参照へ寄せる。
+15. A-Z灯紋は灯録・キャラ詳細・キャラ選択にnormal相から表示する。
+16. season_seed / future_seed / shadow5は設計データとして保持し、選択画面には出さない。
