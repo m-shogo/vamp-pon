@@ -141,7 +141,9 @@ namespace VampPon.UnitySpike.Editor
             EditorGUI.DrawRect(rect, style.Background);
             var borderRect = new Rect(rect.x, rect.y, rect.width, 3f);
             EditorGUI.DrawRect(borderRect, style.Border);
-            GUI.Label(rect, $"  alpha {style.Alpha:0.00} / scale {style.Scale:0.00}", new GUIStyle(EditorStyles.label) { normal = { textColor = style.Text } });
+            var labelStyle = new GUIStyle(EditorStyles.label);
+            labelStyle.normal.textColor = style.Text;
+            GUI.Label(rect, $"  alpha {style.Alpha:0.00} / scale {style.Scale:0.00}", labelStyle);
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }
