@@ -45,6 +45,7 @@ function collectCsFiles(root: string): string[] {
 const paths = {
   readiness: 'docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json',
   policy: 'docs/unity-runtime-visual-readiness-gate-v1.md',
+  foundation: 'docs/unity-runtime-visual-readiness-gate-foundation-2026-07-10.md',
   stageBootstrap: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs',
   battleController: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs',
   proofProvider: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U5ProofAssetProvider.cs',
@@ -53,6 +54,11 @@ const paths = {
   simulatorChecker: 'scripts/quality/check-unity-u45-ai-simulator-smoke.ts',
   readme: 'README.md',
   canon: 'docs/181-current-production-canon.md',
+  roadmap: 'docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md',
+  visualQa: 'docs/visual-qa-gates.md',
+  docsIndex: 'docs/00-index.md',
+  agents: 'AGENTS.md',
+  claude: 'CLAUDE.md',
 };
 
 for (const path of Object.values(paths)) check(`required file exists: ${path}`, existsSync(path));
@@ -78,10 +84,16 @@ const proofLibrary = read(paths.proofLibrary);
 const playerMeta = read(playerMetaPath);
 const enemyMeta = read(enemyMetaPath);
 const policy = read(paths.policy);
+const foundation = read(paths.foundation);
 const u43Doc = read(paths.u43Doc);
 const simulatorChecker = read(paths.simulatorChecker);
 const readme = read(paths.readme);
 const canon = read(paths.canon);
+const roadmap = read(paths.roadmap);
+const visualQa = read(paths.visualQa);
+const docsIndex = read(paths.docsIndex);
+const agents = read(paths.agents);
+const claude = read(paths.claude);
 const runtimeScripts = collectCsFiles('unity/VampPonUnity/Assets/_Project/Scripts').map(read).join('\n');
 
 const actualProofProviderActive = stageBootstrap.includes('new U5ProofAssetProvider()')
@@ -241,11 +253,20 @@ for (const phrase of [
   check(`policy includes: ${phrase}`, policy.includes(phrase));
 }
 
+check('foundation records current proof classification', foundation.includes('runtimeVisualClassification=proof-static-single-sprite'));
 check('U43 historical doc contains correction boundary', u43Doc.includes('Point Filterだけではドット絵完成を意味しない'));
 check('Simulator checker links runtime visual gate', simulatorChecker.includes('unity-runtime-visual-readiness/readiness.json'));
 check('README links runtime visual readiness gate', readme.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
 check('README exposes character readiness false', readme.includes('characterDotRuntimeReady=false'));
 check('canon links runtime visual readiness gate', canon.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
+check('roadmap places U45.1 before U46', roadmap.includes('U45.1 Character and Enemy Dot Runtime Pass') && roadmap.indexOf('## U45.1') < roadmap.indexOf('## U46'));
+check('visual QA contains runtime gate', visualQa.includes('## Gate 11: Runtime Visual Readiness'));
+check('visual QA uses correct 黒耀化 term', !visualQa.includes('黒曜化'));
+check('docs index exposes runtime gate', docsIndex.includes('unity-runtime-visual-readiness-gate-v1.md'));
+check('AGENTS blocks Point Filter false positive', agents.includes('Point Filter only disables texture interpolation'));
+check('AGENTS requires runtime visual checker', agents.includes('pnpm unity:runtime-visual-readiness:check'));
+check('CLAUDE blocks Point Filter false positive', claude.includes('Point Filter only disables interpolation'));
+check('CLAUDE requires runtime visual checker', claude.includes('pnpm unity:runtime-visual-readiness:check'));
 check('package script exists', read('package.json').includes('unity:runtime-visual-readiness:check'));
 check('assets verify includes runtime visual gate', read('package.json').includes('pnpm unity:runtime-visual-readiness:check'));
 
