@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-07-10",
+  "phase": "U45.1",
+  "evidenceKind": "AI visual review of character and enemy runtime animation smoke",
+  "overallVerdict": "PASS_WITH_P2",
+  "reviewedScreenshotCount": 13,
+  "characterIdentityReadableAtGameplaySize": true,
+  "lanternContinuityReadable": true,
+  "rightMovementUsesRightFacingArt": true,
+  "leftMovementUsesLeftFacingArt": true,
+  "horizontalFlipUsed": false,
+  "yuiStateDifferenceReadable": true,
+  "onbuStateDifferenceReadable": true,
+  "pauseFramesRemainFrozen": true,
+  "retryResetsAnimation": true,
+  "p0Issues": [],
+  "p1Issues": [],
+  "p2Issues": [
+    {
+      "scope": "existing Stage1 presentation outside U45.1 character/enemy pass",
+      "problem": "Battle background and HUD remain very dark and sparse; Result remains a placeholder.",
+      "deferTo": "U46 presentation pass"
+    },
+    {
+      "scope": "candidate art approval",
+      "problem": "Yui and Onbu are runtime candidates and have not received device-backed final art approval.",
+      "deferTo": "production art approval gate"
+    }
+  ],
+  "candidateAssetsApprovedAsFinal": false,
+  "devicePlayableReady": false,
+  "productionApproved": false
+}

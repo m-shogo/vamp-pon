@@ -16,6 +16,7 @@ const paths = {
   buildScript: 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/U45IosSimulatorBuild.cs',
   bridge: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U45AiSimulatorSmokeBridge.cs',
   runtimeVisualReadiness: 'docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json',
+  u451Readiness: 'docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json',
 };
 
 const screenshots = [
@@ -43,10 +44,12 @@ let readiness: Record<string, unknown> = {};
 let visual: Record<string, unknown> = {};
 let player: Record<string, unknown> = {};
 let runtimeVisual: Record<string, unknown> = {};
+let u451: Record<string, unknown> = {};
 try { readiness = JSON.parse(read(paths.readiness)); } catch { failures.push('readiness JSON parses'); }
 try { visual = JSON.parse(read(paths.visual)); } catch { failures.push('visual JSON parses'); }
 try { player = JSON.parse(read(paths.playerResult)); } catch { failures.push('player result JSON parses'); }
 try { runtimeVisual = JSON.parse(read(paths.runtimeVisualReadiness)); } catch { failures.push('runtime visual readiness JSON parses'); }
+try { u451 = JSON.parse(read(paths.u451Readiness)); } catch { failures.push('U45.1 readiness JSON parses'); }
 
 const bridge = read(paths.bridge);
 const buildScript = read(paths.buildScript);
@@ -92,16 +95,17 @@ for (const key of [
 check('actual device smoke remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 
 check('Simulator route evidence remains valid', runtimeVisual.simulatorRouteEvidenceStillValid === true);
-check('Simulator visual approval does not approve character dot runtime', runtimeVisual.simulatorCharacterVisualApprovalInvalidated === true);
+check('U45.1 rerun replaces invalidated character review', runtimeVisual.simulatorCharacterVisualApprovalInvalidated === false);
 for (const key of [
   'characterDotRuntimeReady',
   'characterAnimationReady',
   'enemyDotRuntimeReady',
   'enemyAnimationReady',
-  'productionCharacterAssetReady',
-  'productionEnemyAssetReady',
   'runtimeVisualReady',
-]) check(`Simulator smoke cannot promote ${key}`, runtimeVisual[key] === false);
+]) check(`U45.1 independently promotes ${key}`, runtimeVisual[key] === true && u451[key] === true);
+for (const key of ['productionCharacterAssetReady', 'productionEnemyAssetReady']) {
+  check(`U45.1 cannot promote ${key}`, runtimeVisual[key] === false && u451[key] === false);
+}
 
 check('bridge compile guarded', bridge.startsWith('#if VAMPPON_AI_SIMULATOR_SMOKE') && bridge.trimEnd().endsWith('#endif'));
 check('launch argument retained', bridge.includes('--u45-ai-simulator-smoke'));
@@ -123,4 +127,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('unity U45 AI Simulator smoke check passed: route candidate ready; character/enemy dot, animation and production visual readiness remain independently false.');
+console.log('unity U45 AI Simulator smoke check passed: U45 route evidence remains valid; U45.1 animation evidence is independent and production visual readiness remains false.');

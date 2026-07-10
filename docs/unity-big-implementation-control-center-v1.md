@@ -38,11 +38,13 @@ Bundle Identifier: com.mshogo.vamppon.u1
 simulatorPlayableCandidateReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
-characterDotRuntimeReady=false
-characterAnimationReady=false
-enemyDotRuntimeReady=false
-enemyAnimationReady=false
-runtimeVisualReady=false
+characterDotRuntimeReady=true
+characterAnimationReady=true
+enemyDotRuntimeReady=true
+enemyAnimationReady=true
+runtimeVisualReady=true
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
 candidateAssetsApprovedAsFinal=false
 rcReady=false
 productionApproved=false
@@ -58,7 +60,7 @@ Simulator smokeはroute、pause、input、hit、pickup、LevelUp、Result、Retr
 
 ### U45.1 Character and Enemy Dot Runtime Pass
 
-U46より先に実施する。
+完了。U46以降でprovider、animation、pause、candidate/final境界を壊さない。
 
 必須:
 
@@ -302,5 +304,5 @@ GitHub接続だけで編集した場合、ローカル実行済みと記録し�
 
 ## 現在の結論
 
-大規模実装を始めるための設計整理は可能だが、製品runtimeがreadyという意味ではない。
-次はU45.1を完了し、その後U46でnavigation/save/read modelを契約どおり実装する。
+大規模実装の設計整理とU45.1 candidate animation runtimeは完了したが、最終美術・実機・製品承認がreadyという意味ではない。
+次はU46でnavigation/save/read modelを契約どおり実装する。

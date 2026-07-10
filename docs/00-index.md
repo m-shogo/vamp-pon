@@ -18,17 +18,19 @@ unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ## 現在の最優先
 
 ```txt
-U45.1 Character and Enemy Dot Runtime Pass
+U46 Result / Retry / StageSelect / Collection
 ```
 
-現在のUnity Stage1はroute/input/pauseのSimulator証跡がありますが、ユイとオンブはproof用Single spriteです。
+U45.1でユイとオンブのMultiple sprite、実animation、provider、Simulator回帰証跡を接続済み。候補runtimeと最終美術/実機承認は分離する。
 
 ```txt
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
-characterDotRuntimeReady=false
-enemyDotRuntimeReady=false
-runtimeVisualReady=false
+characterDotRuntimeReady=true
+enemyDotRuntimeReady=true
+runtimeVisualReady=true
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
 versionedSaveServiceImplemented=false
 sceneFlowCoordinatorImplemented=false
 actualDeviceSmokeResult=NOT_PROVIDED
@@ -36,6 +38,14 @@ productionApproved=false
 ```
 
 Point Filter、GameObject名、操作可能、Simulator route成功だけではvisual完成と扱いません。
+
+U45.1 evidence:
+
+```txt
+unity-u45-1-character-enemy-dot-runtime-pass-2026-07-10.md
+unity-u45-1-ios-simulator-animation-smoke-2026-07-10.md
+design-targets/generated/unity-u45-1/
+```
 
 ## 大規模実装の責務
 

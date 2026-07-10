@@ -33,7 +33,7 @@ Web版はゲーム仕様、データ、画面比較、素材確認の正本/検�
 ### Unity
 
 ```txt
-Unity Editor: 6000.5.1f1
+Unity 6000.5.1f1
 Render Pipeline: 2D URP
 Runtime UI: uGUI
 Reference viewport: 390x844 portrait
@@ -49,34 +49,18 @@ U45: StageSelect / Battle HUD / LevelUp candidate
 U45: Unity設定安全化 / iOS build generation
 U45: AI-only iOS Simulator smoke
 U45.1 gate: Runtime Visual Readiness誤判定防止
+U45.1: Character / Enemy Multiple animation runtime
 U46 foundation: UI Design System
 Big Implementation control-plane: source / ownership / preflight整理
 ```
 
 ## 現在の最優先
 
-U46より先に実施します。
-
 ```txt
-U45.1 Character and Enemy Dot Runtime Pass
+U46 Result / Retry / StageSelect / Collection
 ```
 
-必須:
-
-- production visual provider
-- ユイ Sprite Mode Multiple
-- idle / walk / hurt / attack
-- 左右向き、ランタン、バッグ位置確認
-- オンブ Sprite Mode Multiple
-- idle / move / hurt / death
-- proof providerをproduction経路から外す
-- procedural fallbackをdevelopment-onlyへ限定
-- Golden Identity Reference
-- Generation Lineage
-- gameplay-size review
-- Simulator regression
-
-現在のStage1はproof用Single spriteです。Point Filter、GameObject名、操作可能、Simulator route成功だけではドットruntime完成と扱いません。
+U45.1でユイとオンブを48-frame Multiple sprite、実animation、production provider経路へ接続した。候補runtimeはreadyだが、最終美術と実機承認は未完了。
 
 ## 現在のreadiness
 
@@ -84,12 +68,14 @@ U45.1 Character and Enemy Dot Runtime Pass
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
-simulatorCharacterVisualApprovalInvalidated=true
-characterDotRuntimeReady=false
-characterAnimationReady=false
-enemyDotRuntimeReady=false
-enemyAnimationReady=false
-runtimeVisualReady=false
+simulatorCharacterVisualApprovalInvalidated=false
+characterDotRuntimeReady=true
+characterAnimationReady=true
+enemyDotRuntimeReady=true
+enemyAnimationReady=true
+runtimeVisualReady=true
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
 versionedSaveServiceImplemented=false
 sceneFlowCoordinatorImplemented=false
 actualDeviceSmokeResult=NOT_PROVIDED
@@ -107,10 +93,6 @@ productionApproved=false
 ## 次の順序
 
 ```txt
-U45.1 production dot/animation/provider
-↓
-Simulator regression
-↓
 U46 AppFlow/Pause + Result read model + SaveService v1 + 灯録
 ↓
 U47 weapon/passive/rare/evolution/黒耀化 runtime

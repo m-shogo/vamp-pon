@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-07-10",
+  "phase": "U45.1",
+  "result": "passed",
+  "playerFrameCount": 48,
+  "enemyFrameCount": 48,
+  "playerSpriteMode": "Multiple",
+  "enemySpriteMode": "Multiple",
+  "playerFilterMode": "Point",
+  "enemyFilterMode": "Point",
+  "mipmapsEnabled": false,
+  "cellSize": [180, 180],
+  "cellEdgeOpaquePixels": {
+    "player": 0,
+    "enemy": 0
+  }
+}

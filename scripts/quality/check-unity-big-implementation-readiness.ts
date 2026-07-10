@@ -101,7 +101,7 @@ check('review keeps production readiness false', review.includes('Production rea
 
 check('new current index is current', currentIndex.includes('Status: current'));
 check('new current index starts from control center', currentIndex.includes('docs/unity-big-implementation-control-center-v1.md'));
-check('new current index records U45.1 current', currentIndex.includes('Current: U45.1'));
+check('new current index records U46 current', currentIndex.includes('Current: U46'));
 check('new current index records Unity 6000.5.1f1', currentIndex.includes('6000.5.1f1'));
 check('new current index does not claim Unity 6.5.1f1', !currentIndex.includes('Unity 6.5.1f1'));
 check('old index is historical', oldIndex.includes('Status: historical / superseded'));
@@ -131,12 +131,6 @@ for (const key of [
   'productionDataRegistryImplemented',
   'resultReadModelImplemented',
   'collectionReadModelImplemented',
-  'productionVisualAssetProviderConnected',
-  'characterDotRuntimeReady',
-  'characterAnimationReady',
-  'enemyDotRuntimeReady',
-  'enemyAnimationReady',
-  'runtimeVisualReady',
   'uiShellReady',
   'actualDeviceSmokeResultProvided',
   'devicePlayableReady',
@@ -148,6 +142,15 @@ for (const key of [
   'rcReady',
   'productionApproved',
 ]) check(`${key} remains false`, readiness[key] === false);
+
+for (const key of [
+  'productionVisualAssetProviderConnected',
+  'characterDotRuntimeReady',
+  'characterAnimationReady',
+  'enemyDotRuntimeReady',
+  'enemyAnimationReady',
+  'runtimeVisualReady',
+]) check(`${key} true after U45.1`, readiness[key] === true);
 
 checkExecutionEvidence(
   'static preflight',
@@ -168,11 +171,11 @@ checkExecutionEvidence(
   readiness.unityCompileCommit,
 );
 
-check('current required phase exact', readiness.currentRequiredPhase === 'U45.1 Character and Enemy Dot Runtime Pass');
+check('current required phase exact', readiness.currentRequiredPhase === 'U46 Result / Retry / StageSelect / Collection');
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
-check('runtime visual current proof/static', runtimeVisual.runtimeVisualClassification === 'proof-static-single-sprite');
-check('runtime visual remains false', runtimeVisual.runtimeVisualReady === false);
+check('runtime visual current candidate animation', runtimeVisual.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
+check('runtime visual ready after U45.1', runtimeVisual.runtimeVisualReady === true);
 
 check('roadmap keeps U45.1 before U46', roadmap.includes('## U45.1') && roadmap.indexOf('## U45.1') < roadmap.indexOf('## U46'));
 check('canon links control center', canon.includes('unity-big-implementation-control-center-v1.md'));
@@ -196,4 +199,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Unity big implementation readiness check passed: control center, ownership, phase order, execution evidence and false product-readiness boundaries are consistent.');
+console.log('Unity big implementation readiness check passed: U45.1 candidate animation runtime is ready, U46 is current, and final/device/product boundaries remain false.');

@@ -164,16 +164,16 @@ Point Filter、GameObject名、静止画表示、操作可能、Simulator route 
 現在:
 
 ```txt
-runtimeVisualClassification=proof-static-single-sprite
+runtimeVisualClassification=candidate-animated-multiple-sprite
 simulatorPlayableCandidateReady=true
-simulatorCharacterVisualApprovalInvalidated=true
-characterDotRuntimeReady=false
-characterAnimationReady=false
-enemyDotRuntimeReady=false
-enemyAnimationReady=false
+simulatorCharacterVisualApprovalInvalidated=false
+characterDotRuntimeReady=true
+characterAnimationReady=true
+enemyDotRuntimeReady=true
+enemyAnimationReady=true
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-runtimeVisualReady=false
+runtimeVisualReady=true
 ```
 
 `characterDotRuntimeReady=true`最低条件:
@@ -265,17 +265,12 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 ## Next implementation order
 
 1. `pnpm implementation:preflight:check`
-2. U45.1 production visual provider
-3. ユイ idle/walk/hurt/attack
-4. オンブ idle/move/hurt/death
-5. Golden Identity Reference / Lineage / gameplay-size review
-6. Simulator regression
-7. U46 AppFlow/Pause + Result ViewModel + SaveService v1 + 灯録
-8. U47 gameplay definitions/runtime state
-9. U48 remaining assets/background/VFX
-10. U49 actual-device audio/haptic
-11. U50 performance/touch metrics
-12. U51 RC
+2. U46 AppFlow/Pause + Result ViewModel + SaveService v1 + 灯録
+3. U47 gameplay definitions/runtime state
+4. U48 remaining assets/background/VFX
+5. U49 actual-device audio/haptic
+6. U50 performance/touch metrics
+7. U51 RC
 
 ## Required checks
 

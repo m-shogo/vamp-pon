@@ -1,0 +1,12 @@
+U45.1 iOS Simulator build
+result=Succeeded
+configuration=Release
+sdk=iphonesimulator
+architecture=arm64
+destination=iPhone 17 Pro / iOS 26.5 (23F77)
+errors=0
+warnings=20
+unityBuildResult=Succeeded
+unityBuildErrors=0
+unityBuildWarnings=4
+unitySettingsRestored=true

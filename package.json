@@ -55,6 +55,7 @@
     "unity:u45-ios-build-generation-preflight:check": "node --experimental-strip-types scripts/quality/check-unity-u45-ios-build-generation-preflight.ts",
     "unity:u45-settings-repair:check": "node --experimental-strip-types scripts/quality/check-unity-u45-settings-repair.ts",
     "unity:u45-ai-simulator-smoke:check": "node --experimental-strip-types scripts/quality/check-unity-u45-ai-simulator-smoke.ts",
+    "unity:u45-1-runtime-dot-animation:check": "node --experimental-strip-types scripts/quality/check-unity-u45-1-runtime-dot-animation.ts",
     "unity:ui-design-system:check": "node --experimental-strip-types scripts/quality/check-unity-ui-design-system.ts",
     "unity:runtime-visual-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-runtime-visual-readiness.ts",
     "implementation:preflight:check": "node --experimental-strip-types scripts/quality/check-unity-big-implementation-readiness.ts",

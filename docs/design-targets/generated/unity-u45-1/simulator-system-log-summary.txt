@@ -1,0 +1,7 @@
+U45.1 Simulator system log review
+process=VampPonUnitySpike
+unhandledApplicationException=0
+crashDetected=false
+freezeDetected=false
+knownSimulatorNoise=missing CoreMotion preference/cache files
+verdict=passed

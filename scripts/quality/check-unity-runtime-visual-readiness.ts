@@ -33,8 +33,7 @@ function frameCount(meta: string): number {
   const mode = spriteMode(meta);
   if (mode === 'Single') return 1;
   if (mode !== 'Multiple') return 0;
-  const match = meta.match(/spriteSheet:\s*[\s\S]*?sprites:\s*([\s\S]*?)\n\s*outline:/);
-  return match ? (match[1].match(/\n\s*- serializedVersion:/g) ?? []).length : 0;
+  return (meta.match(/\n\s{6}name:\s/g) ?? []).length;
 }
 
 function stateMarkersReady(source: string, states: string[]): boolean {
@@ -76,6 +75,12 @@ const paths = {
   agents: 'AGENTS.md',
   claude: 'CLAUDE.md',
   packageJson: 'package.json',
+  u451Readiness: 'docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json',
+  u451Smoke: 'docs/design-targets/generated/unity-u45-1/animation-smoke-result.json',
+  u451Visual: 'docs/design-targets/generated/unity-u45-1/visual-review.json',
+  registry: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/Stage1RuntimeVisualAssetRegistry.cs',
+  playerAnimator: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/YuiSpriteAnimator.cs',
+  enemyAnimator: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/OnbuSpriteAnimator.cs',
 };
 
 for (const path of Object.values(paths)) check(`required file exists: ${path}`, existsSync(path));
@@ -120,10 +125,8 @@ const enemyFallbackDevelopmentOnly = enemyFallbackPresent
   && battleController.includes('VAMPPON_DEVELOPMENT_VISUAL_FALLBACK');
 const actualProceduralEnemyFallback = enemyFallbackPresent && !enemyFallbackDevelopmentOnly;
 
-const actualPlayerSourceIsProofCandidate = String(readiness.playerSpriteSource).includes('U5Candidates')
-  || (proofLibrary.includes('u5-yui-battle-candidate') && proofLibrary.includes('U5Candidates'));
-const actualEnemySourceIsProofCandidate = String(readiness.enemySpriteSource).includes('U5Candidates')
-  || (proofLibrary.includes('u5-ombu-battle-candidate') && proofLibrary.includes('U5Candidates'));
+const actualPlayerSourceIsProofCandidate = String(readiness.playerSpriteSource).includes('U5Candidates');
+const actualEnemySourceIsProofCandidate = String(readiness.enemySpriteSource).includes('U5Candidates');
 const actualPlayerMode = spriteMode(playerMeta);
 const actualEnemyMode = spriteMode(enemyMeta);
 const actualPlayerFrameCount = frameCount(playerMeta);
@@ -143,7 +146,7 @@ const actualEnemyStateMarkers = stateMarkersReady(runtimeScripts, enemyRequiredS
 const expectedClassification = actualProofProviderActive && actualPlayerMode === 'Single'
   ? 'proof-static-single-sprite'
   : actualProductionProviderConnected && actualPlayerMode === 'Multiple' && actualPlayerAnimator
-    ? (readiness.productionCharacterAssetReady === true ? 'production-approved' : 'production-animated-sprite')
+    ? (readiness.productionCharacterAssetReady === true ? 'production-approved' : 'candidate-animated-multiple-sprite')
     : actualPlayerMode === 'Multiple' && actualPlayerAnimator
       ? 'candidate-animated-sprite'
       : actualProceduralCharacterFallback && !readiness.playerSpriteSource
@@ -221,8 +224,8 @@ if (actualProofProviderActive || actualEnemyMode !== 'Multiple' || !actualEnemyA
 }
 
 check('Simulator route evidence remains separately valid', readiness.simulatorRouteEvidenceStillValid === true);
-check('Simulator character visual approval is invalidated', readiness.simulatorCharacterVisualApprovalInvalidated === true);
-check('next required phase recorded', readiness.nextRequiredPhase === 'U45.1 Character and Enemy Dot Runtime Pass');
+check('U45.1 Simulator character visual approval is current', readiness.simulatorCharacterVisualApprovalInvalidated === false);
+check('next required phase recorded', readiness.nextRequiredPhase === 'U46 Result / Retry / StageSelect / Collection');
 
 const playerStates = readiness.playerAnimationStates ?? {};
 const enemyStates = readiness.enemyAnimationStates ?? {};
@@ -242,6 +245,8 @@ if (readiness.characterDotRuntimeReady === true) {
   check('character dot-ready requires animator', actualPlayerAnimator);
   check('character dot-ready requires state markers', actualPlayerStateMarkers);
   check('character dot-ready requires direction flip review', readiness.playerDirectionFlipVerified === true);
+  check('character dot-ready uses explicit left/right frames', readiness.playerExplicitLeftRightFrames === true);
+  check('character dot-ready does not use flipX', readiness.playerFlipXUsed === false);
   check('character dot-ready requires gameplay-size review', readiness.playerGameplaySizeVisualReviewPassed === true);
   check('character dot-ready requires identity reference', readiness.playerGoldenIdentityReferenceRegistered === true);
   check('character dot-ready requires lineage', readiness.playerGenerationLineageReady === true);
@@ -288,15 +293,39 @@ if (readiness.productionEnemyAssetReady === true) {
 }
 
 if (readiness.runtimeVisualReady === true) {
-  check('runtime visual requires production character', readiness.productionCharacterAssetReady === true);
-  check('runtime visual requires production enemy', readiness.productionEnemyAssetReady === true);
+  check('runtime visual requires character dot runtime', readiness.characterDotRuntimeReady === true);
+  check('runtime visual requires character animation', readiness.characterAnimationReady === true);
+  check('runtime visual requires enemy dot runtime', readiness.enemyDotRuntimeReady === true);
+  check('runtime visual requires enemy animation', readiness.enemyAnimationReady === true);
+  check('runtime visual requires U45.1 Simulator review', readiness.u451SimulatorVisualReviewPassed === true);
 }
+
+let u451: Record<string, any> = {};
+let u451Smoke: Record<string, any> = {};
+let u451Visual: Record<string, any> = {};
+try { u451 = JSON.parse(read(paths.u451Readiness)); } catch { failures.push('U45.1 readiness JSON parses'); }
+try { u451Smoke = JSON.parse(read(paths.u451Smoke)); } catch { failures.push('U45.1 smoke JSON parses'); }
+try { u451Visual = JSON.parse(read(paths.u451Visual)); } catch { failures.push('U45.1 visual JSON parses'); }
+check('U45.1 readiness mirrors runtime candidate', u451.runtimeVisualReady === true && u451.runtimeVisualClassification === expectedClassification);
+check('U45.1 smoke has all 13 screenshots', u451Smoke.screenshotsReady === true && u451Smoke.requiredScreenshotCount === 13);
+check('U45.1 smoke has no crash or exception', u451Smoke.crashDetected === false && u451Smoke.unhandledExceptionCount === 0);
+check('U45.1 visual review has no P0/P1', Array.isArray(u451Visual.p0Issues) && u451Visual.p0Issues.length === 0 && Array.isArray(u451Visual.p1Issues) && u451Visual.p1Issues.length === 0);
+check('U45.1 assets remain candidate-only', u451.playerAssetApprovedAsFinal === false && u451.enemyAssetApprovedAsFinal === false);
+
+const registry = read(paths.registry);
+const playerAnimator = read(paths.playerAnimator);
+const enemyAnimator = read(paths.enemyAnimator);
+check('registry contains explicit directional arrays', registry.includes('playerWalkLeft') && registry.includes('playerWalkRight'));
+check('player animator disables horizontal flip', playerAnimator.includes('spriteRenderer.flipX = false'));
+check('enemy animator disables horizontal flip', enemyAnimator.includes('spriteRenderer.flipX = false'));
+check('player animator owns required transitions', playerAnimator.includes('PlayHurt') && playerAnimator.includes('OnAttack') && playerAnimator.includes('CurrentVelocity'));
+check('enemy animator owns required transitions', enemyAnimator.includes('PlayHurt') && enemyAnimator.includes('PlayDeath') && enemyAnimator.includes('ResetForPool'));
 
 const policy = read(paths.policy);
 for (const phrase of [
   'Point Filterは既存画像の補間を止めるだけ',
   'object名もvisual evidenceではない',
-  'proof-static-single-sprite',
+  'candidate-animated-multiple-sprite',
   'characterDotRuntimeReady=true',
   'U45.1 Character and Enemy Dot Runtime Pass',
 ]) check(`policy includes: ${phrase}`, policy.includes(phrase));
@@ -317,7 +346,7 @@ check('foundation records proof classification', foundation.includes('runtimeVis
 check('U43 doc contains correction', u43Doc.includes('Point Filterだけではドット絵完成を意味しない'));
 check('Simulator checker links runtime visual gate', simulatorChecker.includes('unity-runtime-visual-readiness/readiness.json'));
 check('README links runtime gate', readme.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
-check('README exposes character readiness false', readme.includes('characterDotRuntimeReady=false'));
+check('README exposes candidate runtime readiness', readme.includes('characterDotRuntimeReady=true'));
 check('canon links runtime gate', canon.includes('docs/unity-runtime-visual-readiness-gate-v1.md'));
 check('roadmap places U45.1 before U46', roadmap.includes('U45.1 Character and Enemy Dot Runtime Pass') && roadmap.indexOf('## U45.1') < roadmap.indexOf('## U46'));
 check('visual QA contains runtime gate', visualQa.includes('## Gate 11: Runtime Visual Readiness'));

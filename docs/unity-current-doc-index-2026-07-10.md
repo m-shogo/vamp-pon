@@ -15,11 +15,11 @@ Status: current
 ## 現在のPhase
 
 ```txt
-Current: U45.1 Character and Enemy Dot Runtime Pass
-Next: U46 Result / Retry / StageSelect / 灯録
+Current: U46 Result / Retry / StageSelect / 灯録
+Completed prerequisite: U45.1 Character and Enemy Dot Runtime Pass
 ```
 
-U46より先に、ユイとオンブのproduction provider、Multiple sprite、animation、方向、Golden Reference、Lineage、gameplay-size reviewを完了する。
+U45.1のprovider、Multiple sprite、animation、方向、Golden Reference、Lineage、gameplay-size review、Simulator回帰を維持してU46へ進む。
 
 ## 現在の境界
 
@@ -29,9 +29,11 @@ Unity Editor=6000.5.1f1
 uGUI runtime
 simulatorPlayableCandidateReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
-characterDotRuntimeReady=false
-enemyDotRuntimeReady=false
-runtimeVisualReady=false
+characterDotRuntimeReady=true
+enemyDotRuntimeReady=true
+runtimeVisualReady=true
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
 devicePlayableReady=false
 productionApproved=false
 ```
@@ -55,6 +57,8 @@ productionApproved=false
 ## Current evidence
 
 - `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json`
+- `docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json`
+- `docs/design-targets/generated/unity-u45-1/animation-smoke-result.json`
 - `docs/design-targets/generated/unity-u45/ai-simulator-smoke-readiness.json`
 - `docs/design-targets/generated/unity-u45/settings-repair-readiness.json`
 - `docs/design-targets/generated/asset-generation-consistency/readiness.json`

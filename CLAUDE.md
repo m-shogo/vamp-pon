@@ -41,12 +41,12 @@ Use **黒耀化**, never `黒曜化`.
 ## Current phase order
 
 ```txt
-U45.1 Character and Enemy Dot Runtime Pass
-then U46 Result / Retry / StageSelect / Collection
+U46 Result / Retry / StageSelect / Collection
+U45.1 Character and Enemy Dot Runtime Pass is the completed prerequisite
 then U47 gameplay data/runtime
 ```
 
-Do not skip U45.1 for runtime/visual implementation unless the task is explicitly docs/checker-only.
+Preserve the completed U45.1 provider, animation, pause, and candidate/final boundaries during U46 work.
 
 ## Runtime ownership
 
@@ -72,10 +72,10 @@ Rules:
 Current classification:
 
 ```txt
-proof-static-single-sprite
+candidate-animated-multiple-sprite
 ```
 
-The current Stage1 path uses `U5ProofAssetProvider`, Single sprites, and procedural fallback. Point Filter is applied, but required animation is not connected.
+The current Stage1 path uses `RuntimeVisualAssetProvider`, 48-frame Multiple sprites, explicit Yui left/right frames, and Yui/Onbu animators. Candidate runtime readiness is true, while production character/enemy asset readiness remains false.
 
 Never treat these as completed dot-runtime evidence:
 
@@ -89,7 +89,7 @@ Never treat these as completed dot-runtime evidence:
 
 Point Filter only disables interpolation. It does not create dot art.
 
-Do not promote these while proof provider, Sprite Mode Single, missing required animation, or active procedural fallback remains:
+Do not promote these from naming, Point Filter, route smoke alone, or while proof provider, Sprite Mode Single, missing required animation, or active procedural fallback remains:
 
 ```txt
 characterDotRuntimeReady
@@ -98,8 +98,9 @@ enemyDotRuntimeReady
 enemyAnimationReady
 productionCharacterAssetReady
 productionEnemyAssetReady
-runtimeVisualReady
 ```
+
+`runtimeVisualReady` may be true for a verified candidate animation runtime. It does not promote final art, device, RC, or production approval.
 
 Character minimum:
 

@@ -343,7 +343,7 @@ Every visual PR should include:
 ## Visual intent
 
 ## Asset/runtime classification
-procedural-placeholder / proof-static-single-sprite / candidate-animated-sprite / production-animated-sprite / production-approved
+procedural-placeholder / proof-static-single-sprite / candidate-animated-multiple-sprite / production-animated-sprite / production-approved
 
 ## Gameplay logic changes
 None / explain
@@ -410,15 +410,17 @@ docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
 Current state:
 
 ```txt
-runtimeVisualClassification=proof-static-single-sprite
-characterDotRuntimeReady=false
-characterAnimationReady=false
-enemyDotRuntimeReady=false
-enemyAnimationReady=false
+runtimeVisualClassification=candidate-animated-multiple-sprite
+characterDotRuntimeReady=true
+characterAnimationReady=true
+enemyDotRuntimeReady=true
+enemyAnimationReady=true
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-runtimeVisualReady=false
+runtimeVisualReady=true
 ```
+
+`runtimeVisualReady=true`はU45.1 candidate animation runtimeの証跡であり、production asset、actual device、RC、production approvalを意味しない。
 
 `characterDotRuntimeReady=true` requires all:
 

@@ -11,14 +11,17 @@ U45 visual candidate: complete
 U45 settings repair: complete
 U45 AI-only iOS Simulator route smoke: complete
 U45.1 Runtime Visual Readiness gate: adopted
+U45.1 Character and Enemy Dot Runtime Pass: complete as candidate runtime
 Big Implementation control-plane: adopted
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
-characterDotRuntimeReady=false
-characterAnimationReady=false
-enemyDotRuntimeReady=false
-enemyAnimationReady=false
-runtimeVisualReady=false
+characterDotRuntimeReady=true
+characterAnimationReady=true
+enemyDotRuntimeReady=true
+enemyAnimationReady=true
+runtimeVisualReady=true
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
 productionApproved=false
@@ -68,12 +71,12 @@ This foundation does not promote runtime, device, audio, haptic, RC, or producti
 
 - Status: complete as UI candidate / not final art.
 - Route/pause/input/crash evidence is valid.
-- Character/enemy art and animation are not approved.
-- Remaining: character/enemy proof static sprite P0; Result placeholder P1; HUD/LevelUp contrast P2.
+- Character/enemy candidate animation runtime is connected; final art is not approved.
+- Remaining: Result placeholder P1; HUD/LevelUp contrast P2; device-backed art approval.
 
 ## U45.1 Character and Enemy Dot Runtime Pass
 
-- Status: required before U46.
+- Status: complete as candidate runtime; final art remains unapproved.
 - Goal: replace proof-static visuals with minimum real animated dot runtime.
 
 Source of truth:
@@ -86,10 +89,11 @@ docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
 Current:
 
 ```txt
-runtimeVisualClassification=proof-static-single-sprite
-runtime provider=U5ProofAssetProvider
-player/enemy Sprite Mode=Single
-player/enemy animation=not connected
+runtimeVisualClassification=candidate-animated-multiple-sprite
+runtime provider=RuntimeVisualAssetProvider
+player/enemy Sprite Mode=Multiple / 48 frames
+player animation=idle / walk / hurt / attack
+enemy animation=idle / move / hurt / death
 ```
 
 Implementation:

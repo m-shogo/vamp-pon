@@ -355,7 +355,7 @@ Presenter/Viewは以下を所有する。
 方針:
 
 - 今すぐ全面rewriteしない
-- U45.1でvisual provider/animatorを分離
+- U45.1でvisual provider/animatorを分離済み
 - U46でAppFlow/Result/Collection presenterを分離
 - U47でdata/runtime state ownerを分離
 - 新規機能を直接追加し続けない
@@ -375,7 +375,7 @@ Presenter/Viewは以下を所有する。
 
 方針:
 
-- U45.1でvisual animation ownerを外へ出す
+- U45.1でvisual animation ownerを分離済み
 - U46でResult/Collectionを追加しない
 - U47でWeapon/Inventory/Progressionをsubsystemへ分離
 - SaveServiceを参照させない

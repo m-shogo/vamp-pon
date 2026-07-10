@@ -36,11 +36,11 @@ runtime visualは必ず次のいずれかへ分類する。
 | --- | --- |
 | `procedural-placeholder` | procedural生成だけで動いている |
 | `proof-static-single-sprite` | proof/candidate静止画1枚を表示している |
-| `candidate-animated-sprite` | candidate sprite sheetと最低animationがruntime接続済み |
+| `candidate-animated-multiple-sprite` | candidate Multiple sprite sheetと最低animationがruntime接続済み |
 | `production-animated-sprite` | production provider、承認済みasset、animation、QAがruntime接続済み |
 | `production-approved` | 実寸visual review、Lineage、final/runtime承認まで完了 |
 
-現在は `proof-static-single-sprite`。
+現在は `candidate-animated-multiple-sprite`。U45.1でproof routeを外し、実frameとanimatorを接続した。
 
 ## 証拠として認めないもの
 
@@ -110,12 +110,13 @@ attack
 - Asset Generation Contractに従う
 - Generation Lineage manifestが存在
 - 4候補比較または既存正本assetの由来記録がある
-- `approvedAsFinal=true`
-- `runtimeApproved=true`
+- Golden ReferenceとGeneration Lineageにcandidate境界が明記されている
+
+`approvedAsFinal=true`と`runtimeApproved=true`は`productionCharacterAssetReady=true`の条件であり、U45.1 candidate runtimeの条件とは分離する。
 
 ### Gameplay-size visual review
 
-最低限、次の解像度で確認する。
+production承認では最低限、次の解像度で確認する。
 
 ```txt
 360x800
@@ -192,22 +193,24 @@ devicePlayableReady
 productionApproved
 ```
 
-Simulatorのroute smokeが成功しても、character/enemy visual readinessは自動的にtrueにならない。
+Simulatorのroute smokeだけが成功しても、character/enemy visual readinessは自動的にtrueにならない。U45.1のprovider、Multiple import、state transition、左右実画、fallback未使用、gameplay-size reviewがすべて揃った場合だけcandidate runtimeを昇格できる。
 
 現在の正しい状態:
 
 ```txt
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
-simulatorCharacterVisualApprovalInvalidated=true
-characterDotRuntimeReady=false
-characterAnimationReady=false
-enemyDotRuntimeReady=false
-enemyAnimationReady=false
+simulatorCharacterVisualApprovalInvalidated=false
+characterDotRuntimeReady=true
+characterAnimationReady=true
+enemyDotRuntimeReady=true
+enemyAnimationReady=true
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-runtimeVisualReady=false
+runtimeVisualReady=true
 ```
+
+`runtimeVisualReady=true`は候補素材を使う実animation runtimeがStage1で動き、P0/P1がないことを表す。final art、実機、RC、productionの承認ではない。
 
 ## Checker policy
 
