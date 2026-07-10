@@ -14,6 +14,7 @@ Do not modify any other repository.
 - Prefer the smallest coherent change.
 - Run the relevant checks, then commit and push.
 - Never call an image or implementation final without comparing it to the current in-repo baseline.
+- Never promote proof/candidate visuals by editing readiness evidence alone.
 
 ## Title and term lock
 
@@ -21,22 +22,95 @@ Before naming, UI text, design, or store-facing work, read:
 
 - `docs/title-and-term-lock-2026-06-30.md`
 
+Use the formal title **ヨルノシルベ**. `Vamp Pon` / `ヴァンサバ改` are development code names.
+Use **黒耀化**, never `黒曜化`.
+
 ## Design source of truth
 
 Before any design-related work, read:
 
 - `docs/design-source-of-truth-2026-06-30.md`
+- `docs/181-current-production-canon.md`
+- `docs/unity-ui-design-system-v1.md`
+- `docs/asset-generation-consistency-system-v1.md`
+- `docs/unity-runtime-visual-readiness-gate-v1.md`
 
 Design reference order:
 
 1. Character reference: `public/assets/prototypes/sprite-sheets/core5-original-frames/`
 2. Opponent reference: `public/assets/prototypes/sprite-sheets/enemies-original/`
 3. Screen/UI reference: `docs/final-screen-comparison-review-2026-06-29.md`, `docs/non-battle-final-design-implementation-plan.md`, `docs/design-targets/generated/`
-4. Unity verification screenshots: `docs/design-targets/generated/unity-u1-2/`, `docs/design-targets/generated/unity-u2/`, `docs/design-targets/generated/unity-u3/`
+4. Unity verification screenshots: current evidence under `docs/design-targets/generated/`
 
-Do not treat Unity U1/U2/U3 procedural placeholders as final design. Do not use old or retired design sources as the current source of truth.
+Do not treat Unity procedural placeholders, U5 proof assets, or candidate screenshots as final design. Do not use old or retired design sources as the current source of truth.
 
 Character climax art and Kokuyou art are full-screen art / full-screen cut-ins, and must also be treated as Collection/archive art candidates.
+
+## Unity runtime visual readiness rule
+
+This rule is mandatory for character, enemy, sprite, animation, asset-provider, and gameplay visual tasks.
+
+Current source of truth:
+
+- `docs/unity-runtime-visual-readiness-gate-v1.md`
+- `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json`
+- `scripts/quality/check-unity-runtime-visual-readiness.ts`
+
+Current classification is `proof-static-single-sprite`.
+
+Never use any of the following as proof that a character or enemy is a finished dot runtime asset:
+
+- GameObject names containing `Dot`, `Pixel`, `Runtime`, or `Production`
+- Point Filter
+- Mipmap OFF
+- a visible static sprite
+- successful player movement
+- successful Simulator route smoke
+- changing a proof provider's name
+
+Point Filter only disables texture interpolation. It does not convert a non-dot image into dot art.
+
+Do not set any of the following to true while `U5ProofAssetProvider`, Sprite Mode Single, missing required animation states, or procedural character/enemy fallback remains in the product runtime route:
+
+```txt
+characterDotRuntimeReady
+characterAnimationReady
+enemyDotRuntimeReady
+enemyAnimationReady
+productionCharacterAssetReady
+productionEnemyAssetReady
+runtimeVisualReady
+```
+
+`characterDotRuntimeReady=true` requires at minimum:
+
+- production runtime provider
+- proof provider removed from the product route
+- Sprite Mode Multiple
+- actual sliced frames
+- idle / walk / hurt / attack
+- direction flip verification
+- gameplay-size visual review
+- Golden Identity Reference
+- Generation Lineage
+
+`productionCharacterAssetReady=true` additionally requires:
+
+- `approvedAsFinal=true`
+- `runtimeApproved=true`
+- `characterAnimationReady=true`
+
+Enemy promotion requires the equivalent provider/import/QA boundaries and idle / move / hurt / death.
+
+Before U46 Result / Collection work, complete the minimum U45.1 Character and Enemy Dot Runtime Pass unless the task is explicitly docs/checker-only.
+
+Required check:
+
+```sh
+pnpm unity:runtime-visual-readiness:check
+```
+
+Do not weaken, remove, or bypass this checker to make a task pass. Update runtime implementation and evidence together.
 
 ## Unity asset creation rule
 
@@ -49,6 +123,9 @@ Unity asset work is not a simple migration of Web / Phaser assets.
 - Do not paste text-baked screenshots or completed screen images as Unity runtime UI.
 - Consider PPU, scale, pivot, sorting layer, alpha, bounds, atlas/prefab use, and 390x844 / 360x800 / 430x932 readability.
 - If an output is just a Web/prototype copy or not suitable for Unity gameplay readability, revise it before approval.
+- Sprite Mode Single is not an animated sprite sheet.
+- A proof provider must expose itself as proof-only and must not be used as the production approval authority.
+- Procedural fallback must be explicit and detectable; a fallback screenshot cannot be approved as production visual evidence.
 
 Read `docs/image-generation-production-flow-2026-06-30.md` for the full rule.
 
@@ -57,8 +134,11 @@ Read `docs/image-generation-production-flow-2026-06-30.md` for the full rule.
 For AI image generation, transparency processing, QA, and Unity handoff, read:
 
 - `docs/image-generation-production-flow-2026-06-30.md`
+- `docs/asset-generation-consistency-system-v1.md`
 
-This is the single entry point for image-generation work.
+These are the entry points for image-generation work.
+
+All generated assets begin as candidate assets. Golden Reference, Generation Lineage, comparison, QA, final approval, and runtime approval are separate stages.
 
 ## AI image transparency rule
 
@@ -87,7 +167,7 @@ Do not replace this visual input with a text-only description.
 
 The character master explains the person. The current sprite sheet is the minimum visual-quality baseline. A new result is rejected when it is less appealing, less coherent, or less readable than either reference, even when dimensions and transparency are correct.
 
-Keep only the character's identity anchors and explicit technical delivery format fixed. Shape language, facial construction, costume details, pose, palette balance, and pixel treatment may be redesigned freely when that improves the character.
+Keep only the character's identity anchors and explicit technical delivery format fixed. Shape language, facial construction, costume details, pose, palette balance, and pixel treatment may be redesigned when that improves the character without causing identity drift or violating the approved Golden Reference.
 
 ## Image-production workflow
 
@@ -98,6 +178,7 @@ Follow `docs/154-sprite-image-production-playbook.md`.
 - Correct only named weak cells.
 - Use deterministic tools for exact dimensions, alpha, slicing, manifests, and runtime registration.
 - A visible checkerboard is not proof of transparency; inspect alpha.
+- A valid grid, alpha channel, or Point Filter cannot rescue weak or non-dot artwork.
 
 ## Shared handedness and equipment continuity
 
