@@ -15,6 +15,7 @@ const paths = {
   xcodeSummary: `${smokeRoot}/xcodebuild-summary.txt`,
   buildScript: 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/U45IosSimulatorBuild.cs',
   bridge: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U45AiSimulatorSmokeBridge.cs',
+  runtimeVisualReadiness: 'docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json',
 };
 
 const screenshots = [
@@ -41,9 +42,11 @@ for (const screenshot of screenshots) check(`screenshot exists: ${screenshot}`, 
 let readiness: Record<string, unknown> = {};
 let visual: Record<string, unknown> = {};
 let player: Record<string, unknown> = {};
+let runtimeVisual: Record<string, unknown> = {};
 try { readiness = JSON.parse(read(paths.readiness)); } catch { failures.push('readiness JSON parses'); }
 try { visual = JSON.parse(read(paths.visual)); } catch { failures.push('visual JSON parses'); }
 try { player = JSON.parse(read(paths.playerResult)); } catch { failures.push('player result JSON parses'); }
+try { runtimeVisual = JSON.parse(read(paths.runtimeVisualReadiness)); } catch { failures.push('runtime visual readiness JSON parses'); }
 
 const bridge = read(paths.bridge);
 const buildScript = read(paths.buildScript);
@@ -88,6 +91,18 @@ for (const key of [
 ]) check(`${key} false`, readiness[key] === false);
 check('actual device smoke remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 
+check('Simulator route evidence remains valid', runtimeVisual.simulatorRouteEvidenceStillValid === true);
+check('Simulator visual approval does not approve character dot runtime', runtimeVisual.simulatorCharacterVisualApprovalInvalidated === true);
+for (const key of [
+  'characterDotRuntimeReady',
+  'characterAnimationReady',
+  'enemyDotRuntimeReady',
+  'enemyAnimationReady',
+  'productionCharacterAssetReady',
+  'productionEnemyAssetReady',
+  'runtimeVisualReady',
+]) check(`Simulator smoke cannot promote ${key}`, runtimeVisual[key] === false);
+
 check('bridge compile guarded', bridge.startsWith('#if VAMPPON_AI_SIMULATOR_SMOKE') && bridge.trimEnd().endsWith('#endif'));
 check('launch argument retained', bridge.includes('--u45-ai-simulator-smoke'));
 check('normal launch gated', bridge.includes('if (!argumentEnabled && !environmentEnabled) return;'));
@@ -108,4 +123,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('unity U45 AI Simulator smoke check passed: Simulator candidate ready, actual device remains NOT_PROVIDED');
+console.log('unity U45 AI Simulator smoke check passed: route candidate ready; character/enemy dot, animation and production visual readiness remain independently false.');
