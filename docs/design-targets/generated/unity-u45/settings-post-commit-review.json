@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-07-10",
+  "phase": "U45",
+  "evidenceKind": "Unity settings post-commit review",
+  "basedOnSettingsCommit": "eb0aa1b427f426a9a0f06616881c553c2891dfff",
+  "reviewedFiles": [
+    {
+      "path": "unity/VampPonUnity/Assets/DefaultVolumeProfile.asset",
+      "classification": "Unity global default profile generation plus runtime-neutral safety review",
+      "iosImpact": true,
+      "mobilePerformanceImpact": true,
+      "repairRequired": true
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/UniversalRenderPipelineGlobalSettings.asset",
+      "classification": "Unity 6000.5.1f1 render-pipeline settings migration",
+      "iosImpact": true,
+      "mobilePerformanceImpact": false,
+      "repairRequired": false
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Settings/U1UniversalRenderPipelineAsset.asset",
+      "classification": "Unity shader prefilter serialization plus lens-flare capability review",
+      "iosImpact": true,
+      "mobilePerformanceImpact": true,
+      "buildSizeImpact": true,
+      "repairRequired": true
+    },
+    {
+      "path": "unity/VampPonUnity/ProjectSettings/ProjectSettings.asset",
+      "classification": "Unity 6000.5.1f1 schema migration with lost explicit application identifiers",
+      "iosImpact": true,
+      "repairRequired": true
+    },
+    {
+      "path": "unity/VampPonUnity/ProjectSettings/ShaderGraphSettings.asset",
+      "classification": "Serialization-only",
+      "iosImpact": false,
+      "repairRequired": false
+    }
+  ],
+  "unityReserializationPreserved": true,
+  "largeScaleUrpTuningDeferred": true,
+  "humanDeviceCheckNeeded": true,
+  "candidateAssetsApprovedAsFinal": false,
+  "productionApproved": false
+}
