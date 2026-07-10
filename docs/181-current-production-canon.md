@@ -1,56 +1,40 @@
 # 181. Current Production Canon
 
-最新のキャラ量産・敵・アイテム・ステージ・A-Z灯紋・Unity UI・生成素材・runtime visual運用の入口。
-古い検討メモと矛盾した場合は、この文書と下記のruntime data / adopted docsを優先する。
+Date: 2026-07-10
+Status: current production canon
+
+ヨルノシルベのキャラ、敵、アイテム、ステージ、用語、Unity実装、生成素材、runtime visual運用の正本入口。
+
+大規模実装では最初に次を読む。
+
+```txt
+docs/unity-big-implementation-control-center-v1.md
+docs/unity-current-doc-index-2026-07-10.md
+docs/unity-runtime-ownership-contract-v1.md
+```
 
 ## Source of truth
 
 | Layer | Runtime / doc |
 | --- | --- |
+| implementation control | `docs/unity-big-implementation-control-center-v1.md` |
+| current Unity index | `docs/unity-current-doc-index-2026-07-10.md` |
+| runtime ownership / navigation / save | `docs/unity-runtime-ownership-contract-v1.md` |
 | UI/world terms | `src/game/data/worldTerms.ts` / `docs/design/world-labels.md` |
 | 20-character canon | `src/game/data/characterCanon.ts` / `docs/180-unified-character-canon.md` |
-| Character Database v1 | `src/game/data/characterDatabase.ts` / `docs/183-character-database-v1.md` |
-| Character Asset Factory prompts | `src/game/data/assetFactoryCharacterPrompts.ts` / `docs/prompts/character-asset-factory-prompts.md` |
-| Enemy production database | `src/game/data/enemyProductionDatabase.ts` / `docs/184-production-content-databases.md` |
-| Item asset production database | `src/game/data/itemAssetProductionDatabase.ts` / `docs/184-production-content-databases.md` |
-| Stage production database | `src/game/data/stageProductionDatabase.ts` / `docs/184-production-content-databases.md` |
-| Unified Asset Factory Catalog | `src/game/data/assetFactoryCatalog.ts` / `docs/185-asset-factory-catalog.md` |
-| Asset Generation Contract | `src/game/data/assetGenerationPolicy.ts` / `docs/asset-generation-consistency-system-v1.md` |
-| Golden Reference Registry | `src/game/data/goldenReferenceRegistry.ts` / `docs/asset-generation-consistency-system-v1.md` |
-| Unity UI Design System | `docs/unity-ui-design-system-v1.md` |
-| Unity Runtime Visual Readiness | `docs/unity-runtime-visual-readiness-gate-v1.md` / `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json` |
-| Core5 art names | `src/game/data/characterArts.ts` |
-| Kokuyou forms | `src/game/data/kokuyouForms.ts` |
-| Pair light arts | `src/game/data/pairLightArts.ts` |
-| Item production canon | `src/game/data/itemProductionCanon.ts` / `docs/design/item-and-character-production-canon.md` |
-| Character production plans | `src/game/data/characterProductionPlans.ts` / `docs/design/character-production-plans.md` |
-| A-Z emblems | `src/game/data/emblemCanon.ts` / `docs/design/emblem-canon.md` / `docs/design/az-emblem-canon.md` |
-| A-Z emblem prompts | `docs/prompts/az-emblem-asset-prompts.md` |
+| Character Database | `src/game/data/characterDatabase.ts` / `docs/183-character-database-v1.md` |
+| Character prompts | `src/game/data/assetFactoryCharacterPrompts.ts` |
+| Enemy database | `src/game/data/enemyProductionDatabase.ts` |
+| Item database | `src/game/data/itemAssetProductionDatabase.ts` |
+| Stage database | `src/game/data/stageProductionDatabase.ts` |
+| Asset Factory Catalog | `src/game/data/assetFactoryCatalog.ts` / `docs/185-asset-factory-catalog.md` |
+| generation contract / references | `src/game/data/assetGenerationPolicy.ts` / `src/game/data/goldenReferenceRegistry.ts` |
+| asset generation operation | `docs/asset-generation-consistency-system-v1.md` |
+| UI system | `docs/unity-ui-design-system-v1.md` |
+| runtime visual approval | `docs/unity-runtime-visual-readiness-gate-v1.md` |
+| current roadmap | `docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md` |
 
-## Current rule
-
-キャラ量産は、キャラだけ増やさない。1人につき必ず次を同時に持たせる。
-
-1. 初期灯具
-2. 持ち物
-3. 忘れ物
-4. 灯技
-5. 継灯
-6. 暁灯
-7. 灯継ぎ
-8. 暁開き
-9. 黒耀化副題
-10. 黒耀化の歪み
-11. 灯合わせ候補
-12. A-Z灯紋
-13. 通常/黒耀化/暁の素材キーワード
-14. グッズ展開フック
-15. Unity Handoff用prefabId / addressableGroup / sceneEligibility
-16. Asset Factory用の素材別prompt / negative prompt / review checklist
-17. Asset Generation Contract / Golden Reference / Generation Lineage
-18. Runtime Visual Readiness classification / animation evidence / production provider境界
-
-敵・ステージ・アイテムも、意味・ゲーム役割・見た目・生成prompt・review条件・承認境界を持たせる。
+古い検討メモと矛盾した場合は、この表、`src/game/data/*`、現行Unity runtime、最新evidence/checkerを優先する。
 
 ## Current naming lock
 
@@ -80,6 +64,29 @@
 
 `黒曜化`ではなく、必ず **黒耀化** と表記する。
 
+## Character production contract
+
+1キャラにつき最低限次を同時に持たせる。
+
+1. 初期灯具
+2. 持ち物
+3. 忘れ物
+4. 灯技
+5. 継灯
+6. 暁灯
+7. 灯継ぎ
+8. 暁開き
+9. 黒耀化副題
+10. 黒耀化の歪み
+11. 灯合わせ候補
+12. A-Z灯紋
+13. 通常/黒耀化/暁の素材キーワード
+14. グッズ展開フック
+15. Unity handoff ID
+16. Asset Factory prompt / negative prompt / review checklist
+17. Asset Generation Contract / Golden Reference / Lineage
+18. Runtime Visual Readiness / animation evidence / provider境界
+
 ## Core5 production set
 
 | Character | 初期灯具 | 持ち物 | 忘れ物 | 灯技 | 継灯 | 暁灯 | A-Z灯紋 |
@@ -90,46 +97,41 @@
 | ミチル | 街灯の輪 | 外れた地図ピン | 折れたコンパス針 | 帰針 | 星図の道糸 | 帰り道の星 | M-04 帰星の灯紋 |
 | トモリ | 黒インクの小瓶 | 白い余白 | 切れた灯芯 | 継火 | ほころび灯し | 夜を直す灯 | T-05 ほころび継火の灯紋 |
 
-## Character Database v1
+## Production databases
 
-`src/game/data/characterDatabase.ts`は20キャラの正本データを実装用に束ねる統合レイヤー。手入力で重複管理せず、既存の正本から導出する。
-
-| Included | Source |
+| Database | Current scope |
 | --- | --- |
-| 名前・関係・戦闘方向・技名 | `characterCanon.ts` |
-| 初期灯具・持ち物・忘れ物・進化・素材キーワード | `characterProductionPlans.ts` |
-| 黒耀化副題・歪み | `kokuyouForms.ts` |
-| Core5灯合わせ | `pairLightArts.ts` |
-| A-Z灯紋・グッズ展開 | `emblemCanon.ts` |
-| Unity Handoff fields | `characterDatabase.ts` |
-| Asset Factory prompt seed | `assetFactoryCharacterPrompts.ts` |
+| Character Database | 20人の統合データ |
+| Character prompts | 20人 x 9種類 |
+| Enemy production DB | 48体: 雑魚35 / 中ボス10 / 大ボス3 |
+| Item asset DB | キャラ由来100件 + field drop 5件 |
+| Stage production DB | 20ステージ |
+| A-Z emblems | 20人分のnormal/dawn/kokuyou等 |
 
-## Asset Factory prompt set
+キャラprompt種類:
 
-各キャラは`src/game/data/assetFactoryCharacterPrompts.ts`で次の9種類を持つ。
+```txt
+sprite_sheet_180
+character_reference
+normal_cutin
+dawn_cutin
+kokuyou_cutin
+emblem_blank
+emblem_normal
+emblem_dawn
+emblem_kokuyou
+```
 
-1. `sprite_sheet_180`
-2. `character_reference`
-3. `normal_cutin`
-4. `dawn_cutin`
-5. `kokuyou_cutin`
-6. `emblem_blank`
-7. `emblem_normal`
-8. `emblem_dawn`
-9. `emblem_kokuyou`
+## Asset Generation rule
 
-敵・ステージ・アイテムのpromptは`docs/184-production-content-databases.md`、統合入口は`docs/185-asset-factory-catalog.md`を参照する。
-
-## Asset Generation Consistency rule
-
-生成画像はPromptだけで採用しない。`docs/asset-generation-consistency-system-v1.md`を正本とする。
+生成画像はpromptだけで採用しない。
 
 必須:
 
 ```txt
 Asset Generation Contract
 Golden Reference Registry
-Generation Lineage manifest
+Generation Lineage
 同一Contractによる4候補比較
 prompt/reference/output SHA-256
 Generator名/version/seed/source commit
@@ -146,35 +148,24 @@ runtimeApproved=false
 finalApprovalBlocked=true
 ```
 
-Identity Golden Reference未登録でもcandidate生成は可能だが、final/runtime採用は禁止する。
-
 禁止:
 
 - 1枚生成して即final採用
-- Lineageなしの採用
 - Golden Referenceなしのfinal承認
+- Lineageなしの採用
 - candidate pathのproduction runtime直結
 - 既存assetの無断上書き
-- promptを個別手修正して同一Contract扱いすること
-- UI全画面への文字・ボタン焼き込み
+- UI全画面への文字/ボタン焼き込み
 
-検査:
+## Runtime Visual Readiness rule
 
-```sh
-pnpm asset-generation:check
-pnpm assets:verify
-```
+Point Filter、GameObject名、静止画表示、操作可能、Simulator route smokeだけではドットruntime完成と認めない。
 
-## Unity Runtime Visual Readiness rule
-
-キャラクターや敵は、Point Filter、GameObject名、静止画表示、操作可能、Simulator route smokeだけではドットruntime完成と認めない。正本は`docs/unity-runtime-visual-readiness-gate-v1.md`。
-
-現在の分類:
+現在:
 
 ```txt
 runtimeVisualClassification=proof-static-single-sprite
 simulatorPlayableCandidateReady=true
-simulatorRouteEvidenceStillValid=true
 simulatorCharacterVisualApprovalInvalidated=true
 characterDotRuntimeReady=false
 characterAnimationReady=false
@@ -185,124 +176,116 @@ productionEnemyAssetReady=false
 runtimeVisualReady=false
 ```
 
-`characterDotRuntimeReady=true`の最低条件:
+`characterDotRuntimeReady=true`最低条件:
 
 - production provider
 - proof provider除外
 - Sprite Mode Multiple
-- 実frame slice
+-実frame slice
 - idle / walk / hurt / attack
-- 左右反転確認
+- 左右向きと装備位置
 - Golden Identity Reference
 - Generation Lineage
-- final/runtime approval
-- gameplay-size visual review
+- gameplay-size review
 - Simulator animation evidence
 
-`enemyDotRuntimeReady=true`の最低条件:
+`enemyDotRuntimeReady=true`最低条件:
 
 - production provider
 - proof/procedural fallback除外
-- Multiple spriteまたは同等の正本frame source
+- Sprite Mode Multipleまたは承認済みframe source
 - idle / move / hurt / death
-- 敵family正本との一致
-- gameplay-size visual review
+- family正本との一致
+- gameplay-size review
 
-検査:
+## Runtime ownership / data / save rule
 
-```sh
-pnpm unity:runtime-visual-readiness:check
+正本:
+
+```txt
+docs/unity-runtime-ownership-contract-v1.md
 ```
 
-## Production content databases
+必須:
 
-| Database | Current scope |
-| --- | --- |
-| `enemyProductionDatabase.ts` | 48 enemies: 35 small / 10 medium or elite / 3 bosses, each with 4 asset prompt kinds. |
-| `itemAssetProductionDatabase.ts` | Character-linked gear/passive/rare/evolution items + field drops, each with 5 asset prompt kinds. |
-| `stageProductionDatabase.ts` | 20 stages, each with 4 asset prompt kinds. |
+- UIはcommandを送るだけでbattle/saveを直接実装しない
+- navigation/pauseは単一owner
+- Definition / Runtime State / Save DTOを分離
+- saveはversioned JSON
+- saveにはIDだけ保存
+- Result/灯録はread modelを表示
+- proof providerとproduction providerを分離
+- `U1Stage1SceneBootstrap`と`U2BattleController`へ責務を増殖させない
 
-## Kokuyou rule
+## Unity UI rule
 
-黒耀化は共通システム名。ただし表示ではキャラ別副題を持たせる。
+新規画面は次を使う。
 
-| Character | 黒耀化副題 |
-| --- | --- |
-| ユイ | 呼びすぎた名前 |
-| アサ | 黒い名札 |
-| ナギ | 開いた月箱 |
-| ミチル | 迷い星図 |
-| トモリ | ほころぶ継火 |
+- Theme
+- Visual State
+- 9-slice
+- Responsive Layout Profile
+- Base -> Variant最大2階層
+- Import Policy
+- Component Catalog
+- Compact / Standard / Large確認
 
-20人分は`src/game/data/kokuyouForms.ts`を参照する。
-
-## A-Z emblem rule
-
-A-Z灯紋はキャラ量産の必須要素。1キャラにつき最低4相を作る。
-
-| Phase | Display | Rule |
-| --- | --- | --- |
-| blank | 無紋 | 未解放。薄い線だけで持ち物シルエットは読めない。 |
-| normal | 灯紋 | 通常解放。持ち物、動詞、光の形が紋になる。 |
-| dawn | 暁紋 | 暁灯/暁開き後。外周に朝の線が入る。 |
-| kokuyou | 黒紋 | 黒耀化中。長所が歪んだ黒い傷を1つだけ入れる。 |
-| pair | 双灯紋 | 灯合わせ。2人の灯紋が半分ずつ重なる。 |
+runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 
 ## Asset rule
 
-- カットイン画像・灯紋画像に文字を焼かない。
-- キャラ名、A-Zコード、技名、ラベルはUI textで出す。
-- 1画像1asset。
-- UI素材生成時は必要な場合のみ純緑`#00FF00`背景を使用し、処理後は透過する。
-- 白フリンジ、市松模様、ロゴ、文字は禁止。
-- 390x844のスマホ縦画面で読めることを優先する。
-- 生成assetは4候補を比較する。
-- Golden ReferenceとLineageが揃うまでcandidate扱い。
-- reference承認とruntime承認を混同しない。
-- Point Filterをドット絵完成の証拠にしない。
-- Single spriteをanimated sprite sheetとして扱わない。
-- proof providerをproduction providerと呼ばない。
+- カットイン/灯紋画像に文字を焼かない
+- UI textはruntimeで描画する
+- 1画像1asset
+- 白フリンジ、市松模様、ロゴ、文字は禁止
+- 390x844のgameplay-sizeを優先
+- reference承認とruntime承認を混同しない
+- Point Filterをドット完成の証拠にしない
+- Single spriteをanimated sheetとして扱わない
+- proof providerをproduction providerと呼ばない
 
 ## Implementation status
 
 | Area | Status |
 | --- | --- |
-| World terms | 正本データあり。UI全体への参照置換は未完了。 |
-| 20 characters | 正本データあり。playable runtimeはCore5から段階適用。 |
-| Character Database v1 | 20人分の統合データ、ID/必須項目/integrity testあり。 |
-| Unified Asset Factory Catalog | character/enemy/item/stageを統合済み。 |
-| Asset Generation Contract | Prompt Catalog全recordから導出するv1実装あり。 |
-| Golden Reference Registry | Global styleとU45 UI candidate referenceを登録済み。identity referenceは段階登録。 |
-| Generation Lineage | SHA-256、generator/version、source commit、approval境界を記録するCLI/templateあり。 |
-| Asset generation checker | Contract/Registry/Lineage/未承認境界を静的検査。 |
-| Runtime Visual Readiness Gate | proof/staticとproduction/animatedを分離。現在はcharacter/enemyとも未ready。 |
-| Character runtime visual | U5 proof用Single sprite。Point Filterのみ。idle/walk/hurt/attack未接続。 |
-| Enemy runtime visual | U5 proof用Single sprite。idle/move/hurt/death未接続。 |
-| Character Asset Factory prompts | 20人 x 9種類あり。 |
-| Enemy production DB | 48体分、asset prompt 4種類あり。 |
-| Item asset production DB | キャラ由来100件 + field drop 5件、asset prompt 5種類あり。 |
-| Stage production DB | 20ステージ分、asset prompt 4種類あり。 |
-| Unity UI Design System | 9-slice、Theme、Visual State、Responsive、Catalog、Import Policyあり。 |
-| Core5 arts | 正本データあり。 |
-| Kokuyou subtitles | 20人分あり。 |
-| Pair arts | Core5 10組あり。 |
-| A-Z emblems | 20人分あり。画像生成/実UI反映は未完了。 |
+| implementation control | control center / current index / preflightあり |
+| runtime ownership contract | documented / implementation incremental |
+| world terms and content DB | source dataあり |
+| Asset Generation Contract | foundationあり |
+| Golden Reference | global/UIあり、identityは段階登録 |
+| Runtime Visual Readiness | gateあり、character/enemy未ready |
+| UI Design System | foundationあり、全画面移行は未完了 |
+| AppFlow/Pause production owner | 未実装 |
+| versioned SaveService | 未実装 |
+| production DataRegistry | 未実装 |
+| Result/Collection read model | 未実装 |
+| actual device/audio/haptic/performance | 未確認 |
+| RC/production | false |
 
 ## Next implementation order
 
-1. `pnpm unity:runtime-visual-readiness:check`で現在の未ready境界を確認する。
-2. U45.1でユイidentity Golden Referenceを承認・登録する。
-3. ユイのproduction candidate sprite sheetを選定し、idle / walk / hurt / attackを接続する。
-4. オンブのidle / move / hurt / deathを接続する。
-5. production asset providerを追加し、U5 proof providerを製品runtimeから外す。
-6. procedural fallbackを明示的エラー経路へ限定する。
-7. Simulatorでanimation、左右反転、実寸visualを再確認する。
-8. `pnpm asset-generation:check` / `pnpm test` / `pnpm build` / `pnpm assets:verify`を実行する。
-9. `pnpm asset-factory:contracts:export`でContract/Registry JSONを出力する。
-10. Core5 / Stage1素材を同一Contractで4候補生成し、Lineageを作る。
-11. 4候補comparison sheetとvisual similarity検査を追加する。
-12. Result / 灯録をUnity UI Design Systemで実装する。
-13. `weapons.ts` / `passives.ts` / `rareItems.ts` / `evolutions.ts`へCore5分を先に反映する。
-14. HUD / LevelUp / Result / Collectionの旧用語を`WORLD_TERMS`参照へ寄せる。
-15. A-Z灯紋は灯録・キャラ詳細・キャラ選択にnormal相から表示する。
-16. season_seed / future_seed / shadow5は設計データとして保持し、選択画面には出さない。
+1. `pnpm implementation:preflight:check`
+2. U45.1 production visual provider
+3. ユイ idle/walk/hurt/attack
+4. オンブ idle/move/hurt/death
+5. Golden Identity Reference / Lineage / gameplay-size review
+6. Simulator regression
+7. U46 AppFlow/Pause + Result ViewModel + SaveService v1 + 灯録
+8. U47 gameplay definitions/runtime state
+9. U48 remaining assets/background/VFX
+10. U49 actual-device audio/haptic
+11. U50 performance/touch metrics
+12. U51 RC
+
+## Required checks
+
+```sh
+pnpm implementation:preflight:check
+pnpm implementation:preflight:full
+pnpm asset-generation:check
+pnpm unity:runtime-visual-readiness:check
+pnpm unity:ui-design-system:check
+pnpm unity:u45-ai-simulator-smoke:check
+```
+
+READYは実装、evidence、checkerが揃った時だけ上げる。
