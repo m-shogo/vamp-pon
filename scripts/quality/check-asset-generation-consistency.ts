@@ -20,7 +20,9 @@ const requiredFiles = [
   'scripts/asset-factory/export-generation-contracts.ts',
   'scripts/asset-factory/create-lineage-record.ts',
   'data/asset-factory/generation-lineage.template.json',
+  'data/asset-factory/golden-reference-registry.json',
   'docs/asset-generation-consistency-system-v1.md',
+  'docs/design-targets/generated/asset-generation-consistency/readiness.json',
 ];
 for (const path of requiredFiles) check(`required file exists: ${path}`, existsSync(path));
 
@@ -70,6 +72,15 @@ for (const set of goldenReferenceSets) {
   }
 }
 
+const registrySnapshot = JSON.parse(read('data/asset-factory/golden-reference-registry.json') || '{}') as Record<string, any>;
+check('registry snapshot schema v1', registrySnapshot.schemaVersion === 1);
+check('registry snapshot count matches source', registrySnapshot.referenceSetCount === goldenReferenceSets.length);
+check(
+  'registry snapshot never grants runtime approval',
+  Array.isArray(registrySnapshot.referenceSets)
+    && registrySnapshot.referenceSets.every((set: any) => set.assets.every((asset: any) => asset.approvedForRuntime === false)),
+);
+
 const lineageTemplate = JSON.parse(read('data/asset-factory/generation-lineage.template.json') || '{}') as Record<string, any>;
 check('lineage template candidate default', lineageTemplate.review?.status === 'candidate');
 check('lineage template final false', lineageTemplate.approval?.approvedAsFinal === false);
@@ -77,6 +88,13 @@ check('lineage template runtime false', lineageTemplate.approval?.runtimeApprove
 check('lineage template final blocked', lineageTemplate.approval?.finalApprovalBlocked === true);
 check('lineage template four candidates', lineageTemplate.candidateBatchPolicy?.requiredCandidateCount === 4);
 check('lineage template comparison required', lineageTemplate.candidateBatchPolicy?.comparisonSheetRequired === true);
+
+const lineageCli = read('scripts/asset-factory/create-lineage-record.ts');
+for (const blocker of ['automatic QA has not passed', 'human review has not passed', 'four-candidate comparison sheet has not been recorded']) {
+  check(`lineage CLI initial blocker exists: ${blocker}`, lineageCli.includes(blocker));
+}
+check('lineage CLI cannot approve final', !lineageCli.includes("approvedAsFinal: true"));
+check('lineage CLI cannot approve runtime', !lineageCli.includes("runtimeApproved: true"));
 
 const toolTypes = read('tools/asset-factory/src/types.ts');
 for (const issue of ['identity-drift', 'proportion-drift', 'palette-drift', 'reference-missing', 'prompt-lineage-missing', 'unapproved-runtime-use']) {
@@ -99,6 +117,32 @@ for (const term of ['Asset Generation Contract', 'Golden Reference Registry', 'G
 check('README links consistency system', read('README.md').includes('docs/asset-generation-consistency-system-v1.md'));
 check('production canon links consistency system', read('docs/181-current-production-canon.md').includes('docs/asset-generation-consistency-system-v1.md'));
 check('catalog docs link consistency system', read('docs/185-asset-factory-catalog.md').includes('docs/asset-generation-consistency-system-v1.md'));
+
+const readiness = JSON.parse(read('docs/design-targets/generated/asset-generation-consistency/readiness.json') || '{}') as Record<string, any>;
+for (const field of [
+  'repositoryFoundationReady',
+  'assetGenerationContractReady',
+  'goldenReferenceRegistryReady',
+  'generationLineageCliReady',
+  'fourCandidatePolicyReady',
+  'candidateFinalRuntimeBoundaryReady',
+  'staticCheckerReady',
+]) {
+  check(`readiness true: ${field}`, readiness[field] === true);
+}
+for (const field of [
+  'allIdentityGoldenReferencesRegistered',
+  'comparisonSheetAutomationReady',
+  'visualSimilarityAutomationReady',
+  'legacyAssetLineageBackfillReady',
+  'generatedAssetApprovedAsFinal',
+  'generatedAssetRuntimeApproved',
+  'candidateAssetsApprovedAsFinal',
+  'rcReady',
+  'productionApproved',
+]) {
+  check(`readiness remains false: ${field}`, readiness[field] === false);
+}
 
 if (failures.length > 0) {
   console.error('Asset generation consistency check failed');
