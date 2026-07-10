@@ -55,7 +55,21 @@ docs/design-targets/generated/unity-u45/u45-app-quality-scope.json
 docs/design-targets/generated/unity-u45/u45-app-quality-readiness.json
 docs/design-targets/generated/unity-u45/u45-runtime-connection-map.json
 docs/design-targets/generated/unity-u45/generated-asset-qa.json
+docs/design-targets/generated/unity-u45/ios-build-generation-preflight.json
 ```
+
+## iOS build generation preflight
+
+The post-U45 Unity batchmode compile/import check and iOS Xcode project generation completed successfully on 2026-07-10.
+
+- Build result: `Succeeded`
+- Errors: `0`
+- Warnings: `3`
+- Output: `/Users/m-shogo/Developer/personal/vamp-pon-builds/ios-u45-app-quality-smoke`
+- Device install/run: not attempted
+- Actual device smoke: `NOT_PROVIDED`
+
+This is not actual device smoke evidence. U45 generated assets remain candidate-only, and the READY flags below remain false.
 
 ## readiness
 
