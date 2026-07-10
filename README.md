@@ -18,6 +18,7 @@
 docs/181-current-production-canon.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
+docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
@@ -55,6 +56,7 @@ U44: Web → Unity parity audit / app-quality計画
 U45: StageSelect / Battle HUD / LevelUp app-quality candidate
 U45: Unity設定安全化 / iOS build generation
 U45: AI-only iOS Simulator smoke
+U45.1 gate: Runtime Visual Readiness誤判定防止
 U46 foundation: UI Design System
 ```
 
@@ -72,23 +74,50 @@ Audio / haptic request hook
 crashなし / unhandled exception 0
 ```
 
+Simulator smokeは操作・route・pause・crash確認の証拠であり、キャラクターや敵のドット表現・animation・production asset承認の証拠ではありません。
+
 境界:
 
 ```txt
 simulatorPlayableCandidateReady=true
+simulatorRouteEvidenceStillValid=true
+simulatorCharacterVisualApprovalInvalidated=true
+characterDotRuntimeReady=false
+characterAnimationReady=false
+enemyDotRuntimeReady=false
+enemyAnimationReady=false
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
+runtimeVisualReady=false
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
 candidateAssetsApprovedAsFinal=false
 productionApproved=false
 ```
 
-Simulator結果は実機証跡や最終美術承認の代替ではありません。
+現在のStage1キャラクターは `U5ProofAssetProvider` 経由のproof用Single spriteで、Point Filter適用済みですがsprite sheet / idle / walk / hurt / attack animationは未接続です。Point FilterやGameObject名だけではドットruntime完成と扱いません。
 
 ---
 
 ## 次の主作業
 
-U46:
+U46より先にU45.1を実施します。
+
+```txt
+U45.1 Character and Enemy Dot Runtime Pass
+1. ユイidentity Golden Reference登録
+2. ユイproduction candidate sprite sheet選定
+3. idle / walk / hurt / attackのsliceとruntime接続
+4. 左右反転、ランタン、バッグ位置確認
+5. オンブidle / move / hurt / death接続
+6. production asset provider追加
+7. proof providerを製品runtimeから外す
+8. procedural fallbackを明示的エラー経路へ限定
+9. Simulatorでanimationと実寸visualを再確認
+10. runtime visual readiness evidence/checker更新
+```
+
+その後U46へ進みます。
 
 ```txt
 1. Result ledger / Retry / StageSelect復帰の製品品質化
@@ -102,6 +131,8 @@ U46:
 現在の主な見た目課題:
 
 ```txt
+P0: ユイがproof用Single spriteで本物のドットanimationではない
+P0: オンブもproof用Single spriteでanimation未接続
 P1: Resultが疎なruntime placeholder
 P2: Battle HUDの文字・slotコントラスト
 P2: LevelUp説明文の余白と副テキストのコントラスト
@@ -153,6 +184,40 @@ VampPon > UI > Validate UI Sprite Import Policy
 
 ```sh
 pnpm unity:ui-design-system:check
+```
+
+---
+
+## Runtime Visual Readiness Gate
+
+キャラクターや敵のvisual readinessは、操作可能・Point Filter・object名・静止画表示だけでは上げません。
+
+正本:
+
+```txt
+docs/unity-runtime-visual-readiness-gate-v1.md
+docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
+```
+
+必須条件:
+
+```txt
+production provider
+Sprite Mode Multiple
+実frame slice
+idle / walk / hurt / attack
+左右反転確認
+Golden Identity Reference
+Generation Lineage
+final/runtime approval
+gameplay-size visual review
+Simulator animation evidence
+```
+
+検査:
+
+```sh
+pnpm unity:runtime-visual-readiness:check
 ```
 
 ---
@@ -256,6 +321,7 @@ pnpm assets:verify
 ```sh
 pnpm unity:meta:check
 pnpm unity:ui-design-system:check
+pnpm unity:runtime-visual-readiness:check
 pnpm unity:u43-predevice-automated-smoke:check
 pnpm unity:u45-stage-battle-levelup-app-quality:check
 pnpm unity:u45-settings-repair:check
@@ -306,6 +372,7 @@ Addressablesの早期導入
 大規模外部UIフレームワーク
 生成画面画像の直貼り
 未追跡生成assetのfinal/runtime採用
+proof providerやSingle spriteのproduction-ready扱い
 ```
 
 ---
@@ -330,7 +397,7 @@ A-Z灯紋
 レア・進化・黒耀化だけ強く。
 ```
 
-詳細は `docs/88-adopted-visual-direction.md`、`docs/unity-ui-design-system-v1.md`、`docs/asset-generation-consistency-system-v1.md` を参照してください。
+詳細は `docs/88-adopted-visual-direction.md`、`docs/unity-ui-design-system-v1.md`、`docs/asset-generation-consistency-system-v1.md`、`docs/unity-runtime-visual-readiness-gate-v1.md` を参照してください。
 
 ---
 
