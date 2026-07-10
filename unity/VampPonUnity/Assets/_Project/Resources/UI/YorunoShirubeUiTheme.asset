@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f463f564582a4f9a80db46cd30327d62, type: 3}
+  m_Name: YorunoShirubeUiTheme
+  m_EditorClassIdentifier:
+  PaperBase: {r: 0.84, g: 0.76, b: 0.58, a: 1}
+  PaperRaised: {r: 0.94, g: 0.89, b: 0.8, a: 1}
+  PaperEdge: {r: 0.47, g: 0.34, b: 0.2, a: 1}
+  InkText: {r: 0.09, g: 0.07, b: 0.06, a: 1}
+  SecondaryText: {r: 0.3, g: 0.23, b: 0.18, a: 1}
+  WarmLantern: {r: 1, g: 0.63, b: 0.24, a: 1}
+  QuietNight: {r: 0.03, g: 0.026, b: 0.026, a: 1}
+  Rare: {r: 0.82, g: 0.58, b: 0.28, a: 1}
+  Evolution: {r: 0.65, g: 0.45, b: 0.78, a: 1}
+  Disabled: {r: 0.34, g: 0.31, b: 0.28, a: 1}
+  Completed: {r: 0.5, g: 0.68, b: 0.46, a: 1}
+  Kokuyou: {r: 0.11, g: 0.07, b: 0.14, a: 1}
+  SpacingXs: 4
+  SpacingS: 8
+  SpacingM: 16
+  SpacingL: 24
+  SpacingXl: 32
+  CaptionSize: 12
+  BodySize: 14
+  ButtonSize: 16
+  HeadingSize: 22
+  TitleSize: 28
+  MinimumTapTarget: 44
+  ComfortableTapTarget: 56
+  PressedScale: 0.96
+  FastTransitionSeconds: 0.12
+  StandardTransitionSeconds: 0.2
