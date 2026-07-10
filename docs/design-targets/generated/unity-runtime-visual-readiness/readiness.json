@@ -3,6 +3,7 @@
   "phase": "U45.1-gate",
   "evidenceKind": "Unity runtime visual readiness gate",
   "runtimeVisualClassification": "proof-static-single-sprite",
+  "runtimeAssetProviderName": "U5ProofAssetProvider",
   "playerRuntimeObjectName": "YuiRuntimeDotCharacter",
   "playerRuntimeObjectNameAcceptedAsDotEvidence": false,
   "pointFilterApplied": true,
@@ -37,6 +38,13 @@
   "enemySpriteMode": "Single",
   "enemySpriteModeMultiple": false,
   "enemySpriteFrameCount": 1,
+  "enemyAnimatorConnected": false,
+  "enemyAnimationStates": {
+    "idle": 0,
+    "move": 0,
+    "hurt": 0,
+    "death": 0
+  },
   "enemyAnimationStatesReady": false,
   "enemyGameplaySizeVisualReviewPassed": false,
   "enemyAssetApprovedAsFinal": false,
