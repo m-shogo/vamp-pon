@@ -59,6 +59,7 @@ productionApproved=false
 - `docs/design-targets/generated/unity-u45/settings-repair-readiness.json`
 - `docs/design-targets/generated/asset-generation-consistency/readiness.json`
 - `docs/design-targets/generated/unity-u46/ui-design-system-readiness.json`
+- `docs/design-targets/generated/unity-big-implementation/readiness.json`
 
 ## Current checks
 
@@ -83,7 +84,7 @@ U0〜U43のPhase docsは履歴と証跡として残す。
 - U1 technical spike手順
 - placeholder/proof-only合格条件
 - Point Filterだけをvisual completionとみなす古い記述
-- `Unity 6.5.1f1`表記
+- 6.5.1f1という旧version誤記
 
 ## Final rule
 
