@@ -142,6 +142,11 @@ export const MANUAL_ISSUE_OPTIONS = [
   'checkerboard-background',
   'white-fringe',
   'identity-drift',
+  'proportion-drift',
+  'palette-drift',
+  'reference-missing',
+  'prompt-lineage-missing',
+  'unapproved-runtime-use',
   'too-noisy',
   'baked-text',
   'wrong-size',
@@ -155,6 +160,22 @@ export const MANUAL_ISSUE_OPTIONS = [
 
 export type ManualIssue = typeof MANUAL_ISSUE_OPTIONS[number];
 
+export type GenerationTracking = {
+  promptCatalogKey: string;
+  contractId: string;
+  contractVersion: number;
+  promptHash: string;
+  generator: string;
+  generatorVersion: string;
+  referenceSetIds: string[];
+  lineageManifestPath: string;
+  comparisonSheetPath?: string;
+  automaticQaPassed: boolean;
+  humanReviewPassed: boolean;
+  approvedAsFinal: boolean;
+  runtimeApproved: boolean;
+};
+
 export type LibraryEntry = {
   manifest: AssetManifest;
   inspectResult?: InspectResult;
@@ -163,6 +184,7 @@ export type LibraryEntry = {
   qualityScore: QualityScore;
   reviewNotes: string;
   manualIssues: ManualIssue[];
+  generationTracking?: GenerationTracking;
   createdAt: string;
   updatedAt: string;
 };
