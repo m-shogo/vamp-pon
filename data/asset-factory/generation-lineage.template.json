@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "evidenceKind": "Asset generation lineage",
+  "assetId": "REQUIRED",
+  "promptCatalogKey": "REQUIRED",
+  "contractId": "REQUIRED",
+  "contractVersion": 1,
+  "policyVersion": "2026-07-10-v1",
+  "promptHashAlgorithm": "sha256",
+  "promptHash": "REQUIRED",
+  "generator": "REQUIRED",
+  "generatorVersion": "REQUIRED",
+  "seed": "NOT_SUPPORTED_OR_NOT_PROVIDED",
+  "sourceCommit": "REQUIRED",
+  "generatedAt": "REQUIRED",
+  "output": {
+    "path": "REQUIRED",
+    "sha256": "REQUIRED",
+    "sizeSpec": "REQUIRED",
+    "expectedPathHint": "REQUIRED"
+  },
+  "referenceSetIds": [
+    "global:visual-style-v1"
+  ],
+  "references": [],
+  "candidateBatchPolicy": {
+    "requiredCandidateCount": 4,
+    "comparisonSheetRequired": true,
+    "oneShotFinalForbidden": true
+  },
+  "review": {
+    "status": "candidate",
+    "automaticQaPassed": false,
+    "humanReviewPassed": false,
+    "comparisonSheetPath": null,
+    "reviewNotes": "",
+    "issues": []
+  },
+  "approval": {
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "finalApprovalBlocked": true,
+    "finalApprovalBlockedReasons": [
+      "identity reference is not registered",
+      "automatic QA has not passed",
+      "human review has not passed"
+    ]
+  }
+}
