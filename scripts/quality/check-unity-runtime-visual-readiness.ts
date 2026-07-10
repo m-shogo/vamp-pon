@@ -42,6 +42,24 @@ function collectCsFiles(root: string): string[] {
   return result;
 }
 
+function checkOptionalExecutionEvidence(
+  label: string,
+  executed: unknown,
+  result: unknown,
+  commit: unknown,
+  evidencePath: unknown,
+): void {
+  check(`${label} executed flag is boolean`, typeof executed === 'boolean');
+  if (executed === true) {
+    check(`${label} result passed`, result === 'passed' || result === 'Succeeded');
+    check(`${label} commit recorded`, typeof commit === 'string' && commit.length >= 7);
+    check(`${label} evidence path recorded`, typeof evidencePath === 'string' && evidencePath.length > 0);
+    if (typeof evidencePath === 'string' && evidencePath.length > 0) {
+      check(`${label} evidence exists: ${evidencePath}`, existsSync(evidencePath));
+    }
+  }
+}
+
 const paths = {
   readiness: 'docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json',
   policy: 'docs/unity-runtime-visual-readiness-gate-v1.md',
@@ -153,9 +171,28 @@ check('enemy importer uses Point', actualEnemyPointFilter);
 check('player importer has mipmap off', actualPlayerMipmapOff);
 check('enemy importer has mipmap off', actualEnemyMipmapOff);
 check('static checker is recorded ready', readiness.staticCheckerReady === true);
-check('checker execution is not fabricated', readiness.staticCheckerExecutedAfterCommit === false);
-check('Unity compile after gate is not fabricated', readiness.unityCompileVerifiedAfterGate === false);
-check('Simulator rerun after gate is not fabricated', readiness.simulatorRegressionRerunAfterGate === false);
+
+checkOptionalExecutionEvidence(
+  'static checker',
+  readiness.staticCheckerExecutedAfterCommit,
+  readiness.staticCheckerResult,
+  readiness.staticCheckerCommit,
+  readiness.staticCheckerEvidencePath,
+);
+checkOptionalExecutionEvidence(
+  'Unity compile after gate',
+  readiness.unityCompileVerifiedAfterGate,
+  readiness.unityCompileResult,
+  readiness.unityCompileCommit,
+  readiness.unityCompileEvidencePath,
+);
+checkOptionalExecutionEvidence(
+  'Simulator rerun after gate',
+  readiness.simulatorRegressionRerunAfterGate,
+  readiness.simulatorRegressionResult,
+  readiness.simulatorRegressionCommit,
+  readiness.simulatorRegressionEvidencePath,
+);
 
 if (actualProofProviderActive || actualPlayerMode !== 'Multiple' || !actualAnimatorMarker) {
   for (const key of [
