@@ -34,7 +34,7 @@ Required:
 
 ### Visual Implementation
 
-- Phaser画面の見た目変更
+- Phaser/Unity画面の見た目変更
 - UI helper追加
 - animation/effect調整
 
@@ -43,6 +43,7 @@ Required:
 - gameplay logic変更なし、または明記
 - 390x844確認
 - build/test実行
+- proof / candidate / production / finalを明記
 
 ### Gameplay Change
 
@@ -82,6 +83,7 @@ Merge OK if:
 - 主要テキストが390x844で読める
 - CTAがどれか分かる
 - Battleでユイ/敵/EXP/HUDが見える
+- ユイと敵がproof静止画かproduction animationかを判別・記録できる
 - LevelUpで3択内容が分かる
 - Resultで報酬と次の行動が分かる
 
@@ -92,6 +94,7 @@ Reject / Rework if:
 - 全ボタンが同じ強さに見える
 - Rare演出が説明文を隠す
 - カットインが長すぎてテンポを壊す
+- proof静止画をドットanimation完成と報告している
 
 ## Gate 3: Tap Clarity
 
@@ -152,12 +155,16 @@ High-risk files:
 - `src/game/scenes/CollectionScene.ts`
 - `src/game/scenes/StageSelectScene.ts`
 - `src/game/scenes/TopScene.ts`
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs`
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs`
+- production asset provider / sprite importer / animation controller
 
 Merge OK if:
 
 - diffが関数単位で読みやすい
 - helper切り出しがある
 - 既存のinput/update/stateを大きく触っていない
+- provider、fallback、readiness evidenceの変更理由が明記されている
 
 Reject / Rework if:
 
@@ -165,6 +172,7 @@ Reject / Rework if:
 - unrelated formattingが大量に入っている
 - UI改善とロジック変更が混在している
 - 既存scene lifecycleを変えている
+- readiness JSONだけをtrueへ変更している
 
 ## Gate 7: Screen-Specific Checks
 
@@ -206,7 +214,10 @@ Must pass:
 - EXP readable
 - HP/time/level readable
 - Ultimate readable
-- 黒曜化 gauge readable
+- 黒耀化 gauge readable
+- player/enemy runtime classificationがevidenceと一致
+- animation完成を主張する場合、required stateと実frameが確認できる
+- production完成を主張する場合、proof providerが製品経路から外れている
 
 Fail if:
 
@@ -214,6 +225,11 @@ Fail if:
 - effects hide enemies
 - UI blocks gameplay
 - hit/EXP feedback is invisible
+- GameObject名だけでドット完成扱い
+- Point Filterだけでドット完成扱い
+- Sprite Mode Singleをsprite sheet扱い
+- Simulator route smokeをcharacter/enemy美術承認へ流用
+- procedural fallback中の画面をproduction visualとして承認
 
 ### LevelUp
 
@@ -261,11 +277,11 @@ Fail if:
 - red badge spam
 - tabs unreadable
 
-### 黒曜化 / Ultimate
+### 黒耀化 / Ultimate
 
 Must pass:
 
-- display text is `黒曜化`
+- display text is `黒耀化`
 - dangerous but heroic
 - warm lantern core remains
 - not too long/blocking
@@ -287,19 +303,32 @@ pnpm test
 pnpm stage1:fun-pass:verify
 pnpm character-assets:verify
 pnpm runtime-assets:verify
+pnpm asset-generation:check
+pnpm unity:runtime-visual-readiness:check
+```
+
+Unity UI/runtime変更時は追加:
+
+```bash
+pnpm unity:ui-design-system:check
+pnpm unity:u45-ai-simulator-smoke:check
+pnpm unity:meta:check
 ```
 
 For docs-only PRs:
 
 - commands may be skipped
 - must state `docs only`
+- readinessを上げない
 
 For asset-only PRs:
 
 Recommended:
 
 ```bash
+pnpm asset-generation:check
 pnpm runtime-assets:verify
+pnpm unity:runtime-visual-readiness:check
 ```
 
 ## Gate 9: PR Report Template
@@ -313,6 +342,9 @@ Every visual PR should include:
 
 ## Visual intent
 
+## Asset/runtime classification
+procedural-placeholder / proof-static-single-sprite / candidate-animated-sprite / production-animated-sprite / production-approved
+
 ## Gameplay logic changes
 None / explain
 
@@ -325,6 +357,16 @@ Checked / not checked
 - pnpm stage1:fun-pass:verify:
 - pnpm character-assets:verify:
 - pnpm runtime-assets:verify:
+- pnpm asset-generation:check:
+- pnpm unity:runtime-visual-readiness:check:
+
+## Runtime visual readiness
+- characterDotRuntimeReady:
+- characterAnimationReady:
+- enemyDotRuntimeReady:
+- enemyAnimationReady:
+- productionCharacterAssetReady:
+- productionEnemyAssetReady:
 
 ## Screens affected
 
@@ -335,13 +377,16 @@ Checked / not checked
 
 ## Gate 10: Unity Readiness
 
-A Phaser visual PR improves Unity readiness if:
+A Phaser/Unity visual PR improves Unity readiness if:
 
 - components are clearly separated
 - UI hierarchy is fixed
 - generated images are documented as reference
 - actual UI text remains game-rendered
 - visual language is documented
+- production/provider/proof boundaries are explicit
+- sprite import mode, frame count and required animation states are machine-checkable
+- procedural fallback is detectable
 
 It hurts Unity readiness if:
 
@@ -349,6 +394,52 @@ It hurts Unity readiness if:
 - images are baked with text
 - gameplay state and drawing logic are tangled
 - screen-specific magic numbers are everywhere
+- proof provider is hidden behind a production-sounding name
+- object naming is used as visual evidence
+- Single sprite is reported as animated
+
+## Gate 11: Runtime Visual Readiness
+
+Source of truth:
+
+```txt
+docs/unity-runtime-visual-readiness-gate-v1.md
+docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
+```
+
+Current state:
+
+```txt
+runtimeVisualClassification=proof-static-single-sprite
+characterDotRuntimeReady=false
+characterAnimationReady=false
+enemyDotRuntimeReady=false
+enemyAnimationReady=false
+productionCharacterAssetReady=false
+productionEnemyAssetReady=false
+runtimeVisualReady=false
+```
+
+`characterDotRuntimeReady=true` requires all:
+
+- production provider
+- proof provider removed from product runtime
+- procedural character fallback disabled or explicit development error-only
+- Sprite Mode Multiple
+- actual sliced frames
+- idle / walk / hurt / attack
+- direction flip verification
+- gameplay-size visual review
+- Golden Identity Reference
+- Generation Lineage
+
+`productionCharacterAssetReady=true` additionally requires:
+
+- `approvedAsFinal=true`
+- `runtimeApproved=true`
+- `characterAnimationReady=true`
+
+Enemy promotion follows the same separation and requires idle / move / hurt / death.
 
 ## Merge Decision
 
@@ -359,6 +450,7 @@ It hurts Unity readiness if:
 - tests pass or correctly skipped
 - no logic drift
 - world/readability/tap clarity pass
+- runtime classification and readiness evidence match actual implementation
 
 ### Hold
 
@@ -366,6 +458,8 @@ It hurts Unity readiness if:
 - screenshots missing
 - 390x844 not checked
 - minor labels inconsistent
+- runtime visual gate added but not executed
+- animation/provider implementation incomplete
 
 ### Rework
 
@@ -375,9 +469,12 @@ It hurts Unity readiness if:
 - battle readability worsened
 - large files rewritten wholesale
 - generic/gacha/SF look introduced
+- Point Filter/object名だけでドット完成扱い
+- proof/candidate assetをproduction-ready扱い
+- readiness evidenceだけをtrueへ変更
 
 ## Final Rule
 
 A PR is not good because it adds more effects.
 
-A PR is good when the next developer can safely build the next screen on top of it.
+A PR is good when the next developer can safely build the next screen on top of it and cannot accidentally promote proof visuals to production readiness.
