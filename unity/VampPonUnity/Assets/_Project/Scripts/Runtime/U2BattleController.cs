@@ -70,6 +70,7 @@ namespace VampPon.UnitySpike.Runtime
         public int CollectTrailCount { get; private set; }
         public int DeathBurstCount { get; private set; }
         public bool IsRuntimePaused => runtimePaused;
+        public float ElapsedSeconds => elapsedSeconds;
         public event Action PlayerAttackFired;
         public event Action PlayerDamageVisualRequested;
 
@@ -129,6 +130,28 @@ namespace VampPon.UnitySpike.Runtime
         public void SetRuntimePaused(bool paused)
         {
             runtimePaused = paused;
+        }
+
+        public void ResetRunState()
+        {
+            enemies.ForEach(actor => actor.Deactivate());
+            projectiles.ForEach(actor => actor.Deactivate());
+            expFragments.ForEach(actor => actor.Deactivate());
+            vfxActors.ForEach(actor => actor.Deactivate());
+            spawnTimer = 0f;
+            projectileTimer = 0f;
+            elapsedSeconds = 0f;
+            expCollected = 0;
+            SpawnedEnemyCount = 0;
+            DefeatedEnemyCount = 0;
+            FiredProjectileCount = 0;
+            DroppedExpCount = 0;
+            PlayedVfxCount = 0;
+            DroppedVfxCount = 0;
+            PeakActiveVfxCount = 0;
+            CollectTrailCount = 0;
+            DeathBurstCount = 0;
+            UpdateHud();
         }
 
         public void SpawnEnemyForVerification(Vector3 position)

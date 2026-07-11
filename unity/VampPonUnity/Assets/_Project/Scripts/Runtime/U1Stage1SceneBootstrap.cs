@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Data;
@@ -11,6 +10,7 @@ using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.U5;
 using VampPon.UnitySpike.UI;
 using VampPon.UnitySpike.Runtime.Visuals;
+using VampPon.UnitySpike.Runtime.AppFlow;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -34,6 +34,8 @@ namespace VampPon.UnitySpike.Runtime
         private U2BattleController battleController;
         private PlayerController playerController;
         private YuiSpriteAnimator yuiAnimator;
+        private U4LevelUpDemoController levelUpController;
+        private U46RuntimeShell u46Shell;
         private static TMP_FontAsset cachedJapaneseFont;
 
         public string AssetProviderName => assetProvider?.ProviderName ?? string.Empty;
@@ -58,8 +60,7 @@ namespace VampPon.UnitySpike.Runtime
             CreatePlayer();
             CreateSafeAreaHud();
             CreateBattlePrototype();
-            CreateStageSelectOverlay();
-            SetOverlayBattlePaused(true);
+            CreateU46RuntimeShell();
         }
 
         private void Start()
@@ -226,10 +227,18 @@ namespace VampPon.UnitySpike.Runtime
 
             var demoObj = new GameObject("U4LevelUpDemoController", typeof(U4LevelUpDemoController));
             demoObj.transform.SetParent(poolRoot, false);
-            var demo = demoObj.GetComponent<U4LevelUpDemoController>();
-            demo.Initialize(font);
+            levelUpController = demoObj.GetComponent<U4LevelUpDemoController>();
+            levelUpController.Initialize(font);
 
-            battleController.SetLevelUpNotifier(demo);
+            battleController.SetLevelUpNotifier(levelUpController);
+        }
+
+        private void CreateU46RuntimeShell()
+        {
+            var shellObject = new GameObject("U46RuntimeShell", typeof(U46RuntimeShell));
+            shellObject.transform.SetParent(overlayRoot, false);
+            u46Shell = shellObject.GetComponent<U46RuntimeShell>();
+            u46Shell.Initialize(battleController, playerController, yuiAnimator, levelUpController);
         }
 
         private void CreateRuntimeButtons(Transform parent)
@@ -238,7 +247,7 @@ namespace VampPon.UnitySpike.Runtime
             var resultButton = PaperButton.Create(parent, "結果", AppQualityTapTargets.ResultButtonWidth, AppQualityTapTargets.ResultButtonHeight, () =>
             {
                 feedbackBridge?.PlayResult();
-                OpenResultOverlay(false);
+                u46Shell?.OpenVerificationResult(false);
             });
             resultButton.SetFont(font);
             var rect = resultButton.GetComponent<RectTransform>();
@@ -307,7 +316,7 @@ namespace VampPon.UnitySpike.Runtime
             var title = resultOverlay.transform.Find("ResultPanel/Title")?.GetComponent<TextMeshProUGUI>();
             if (title != null)
             {
-                title.text = clear ? "Stage Clear" : "Result Preview";
+                title.text = clear ? "踏破" : "帰還";
             }
 
             SetOverlayBattlePaused(true);
@@ -338,13 +347,13 @@ namespace VampPon.UnitySpike.Runtime
             blocker.GetComponent<Image>().color = new Color(0.02f, 0.015f, 0.015f, 0.65f);
 
             var panel = CreatePanel(resultOverlay.transform, "ResultPanel", new Vector2(0.07f, 0.2f), new Vector2(0.93f, 0.8f), new Color(0.92f, 0.84f, 0.66f, 0.97f));
-            CreateLabel(panel.transform, "Result Preview", 24f, new Color(0.12f, 0.07f, 0.05f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -28f), new Vector2(260f, 36f), font, "Title");
+            CreateLabel(panel.transform, "今夜、持ち帰った記憶", 24f, new Color(0.12f, 0.07f, 0.05f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -28f), new Vector2(260f, 36f), font, "Title");
             CreateLabel(panel.transform, "欠片 +12 / 新しい手がかり / Retry導線", 15f, new Color(0.22f, 0.14f, 0.1f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 26f), new Vector2(288f, 56f), font);
 
             var retryButton = PaperButton.Create(panel.transform, "Retry", 126f, 44f, () =>
             {
                 feedbackBridge?.PlayRetry();
-                SceneManager.LoadScene("Stage1");
+                u46Shell?.Flow.Execute(AppFlowCommand.RetryRun());
             });
             retryButton.SetFont(font);
             var retryRect = retryButton.GetComponent<RectTransform>();

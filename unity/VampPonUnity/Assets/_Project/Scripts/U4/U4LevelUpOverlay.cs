@@ -163,7 +163,6 @@ namespace VampPon.UnitySpike.U4
 
             UpdateHoverVisuals();
             gameObject.SetActive(true);
-            U4TimeScaleGuard.PauseForOverlay();
         }
 
         public void Hide()
@@ -181,7 +180,6 @@ namespace VampPon.UnitySpike.U4
                 overlayGroup.alpha = Mathf.Clamp01(fadeOutTimer / 0.15f);
                 if (fadeOutTimer <= 0f)
                 {
-                    U4TimeScaleGuard.ResumeFromOverlay();
                     ClearCards();
                     gameObject.SetActive(false);
                 }

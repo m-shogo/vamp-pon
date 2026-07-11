@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,8 @@ namespace VampPon.UnitySpike.U4
         private int expForNextLevel = 5;
         private int currentExp;
         public bool DemoTriggered { get; private set; }
+        public event Action OverlayOpened;
+        public event Action OverlayClosed;
 
         public int LevelUpCount => levelUpCount;
         public bool IsOverlayActive => overlay != null && overlay.IsActive;
@@ -37,6 +40,7 @@ namespace VampPon.UnitySpike.U4
             if (IsOverlayActive) return;
 
             var choices = U4LevelUpCandidatePool.PickThree();
+            OverlayOpened?.Invoke();
             overlay.Show(choices, OnChoiceConfirmed);
             U43RuntimeFeedbackBridge.Instance?.PlayLevelUp();
         }
@@ -47,12 +51,14 @@ namespace VampPon.UnitySpike.U4
 
             var choices = U4LevelUpCandidatePool.PickThree();
             choices[2] = U4LevelUpCandidatePool.GetAwakeningPlaceholder();
+            OverlayOpened?.Invoke();
             overlay.Show(choices, OnChoiceConfirmed);
             U43RuntimeFeedbackBridge.Instance?.PlayEvolution();
         }
 
         private void OnChoiceConfirmed(U4LevelUpChoice choice)
         {
+            OverlayClosed?.Invoke();
             levelUpCount++;
             expForNextLevel += 5;
             DemoTriggered = false;
