@@ -53,6 +53,8 @@ U45.1 gate: Runtime Visual Readiness誤判定防止
 U45.1: Character / Enemy Multiple animation runtime
 U45.1: candidate/production readiness and Asset Factory hardening
 U46 foundation: UI Design System
+
+U46.1 Result / Save Hardening completed: verification UI removal, read-model-only empty states, copy-on-write persistence, failure status, and subscription cleanup.
 Big Implementation control-plane: source / ownership / preflight整理
 ```
 

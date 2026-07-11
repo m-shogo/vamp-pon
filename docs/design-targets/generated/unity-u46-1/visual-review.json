@@ -1,0 +1,15 @@
+{
+  "result": "PASS_WITH_ISSUES",
+  "reviewedScreenshots": 12,
+  "responsiveTiers": ["Compact", "Standard", "Large"],
+  "p0Issues": [],
+  "p1Issues": [],
+  "fixed": [
+    "通常HUDのverification Result buttonを除去",
+    "Result empty stateから架空報酬と架空新記録を除去",
+    "Compact titleの1文字改行を解消",
+    "保存失敗表示をCTAと干渉しない位置へ追加"
+  ],
+  "remainingP2": ["Result stat chip ornament competes slightly with label"],
+  "candidateAssetsApprovedAsFinal": false
+}

@@ -1,0 +1,10 @@
+{
+  "result": "passed",
+  "copyOnWrite": true,
+  "saveSuccessUpdatesCurrent": true,
+  "saveFailurePreservesCurrent": true,
+  "saveFailureVisible": true,
+  "saveFailureLabel": "記録を保存できませんでした",
+  "retryAfterFailure": true,
+  "stageSelectReturnAfterFailure": true
+}

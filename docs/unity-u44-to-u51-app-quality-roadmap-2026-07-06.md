@@ -166,6 +166,8 @@ pnpm unity:ui-design-system:check
 
 ## U46 AppFlow + Result + Retry + StageSelect + 灯録: Completed Candidate
 
+U46.1 Result / Save Hardeningもcompleted。通常buildのverification UI除去、read-model-only empty state、copy-on-write保存、event unsubscribeを確認済み。
+
 - Goal: create a complete non-battle shell without adding more responsibility to bootstrap/battle controller.
 - Prerequisites: U45.1 minimum complete, runtime ownership contract active, UI Design System validated.
 

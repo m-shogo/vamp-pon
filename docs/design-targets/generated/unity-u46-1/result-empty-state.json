@@ -1,0 +1,11 @@
+{
+  "result": "passed",
+  "clearRewards": true,
+  "clearEmpty": true,
+  "failRewards": true,
+  "failEmpty": true,
+  "inventedRewardFallbacks": false,
+  "inventedRecordFallbacks": false,
+  "emptyRewardLabel": "持ち帰った記憶はありません",
+  "emptyRecordLabel": "新しい記録はありません"
+}

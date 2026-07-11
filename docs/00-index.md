@@ -1,6 +1,6 @@
 # ヨルノシルベ ドキュメント入口
 
-U46 completion: `unity-u46-app-flow-save-result-collection-2026-07-11.md`, `unity-u46-ui-asset-generation-2026-07-11.md`, `unity-u46-ios-simulator-smoke-2026-07-11.md`, `unity-u46-visual-review-2026-07-11.md`。
+U46 completion: `unity-u46-app-flow-save-result-collection-2026-07-11.md`, `unity-u46-ui-asset-generation-2026-07-11.md`, `unity-u46-ios-simulator-smoke-2026-07-11.md`, `unity-u46-visual-review-2026-07-11.md`。U46.1 hardening: `unity-u46-1-result-save-hardening-2026-07-11.md`, `unity-u46-1-ios-simulator-regression-2026-07-11.md`。
 
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
@@ -21,6 +21,7 @@ unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 
 ```txt
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
+Completed: U46.1 Result / Save Hardening
 Current: U47 gameplay data/runtime
 ```
 

@@ -1,0 +1,21 @@
+{
+  "phase": "U46.1",
+  "verificationResultUiRemovedFromNormalBuild": true,
+  "resultEmptyStateUsesOnlyReadModelData": true,
+  "resultSaveCopyOnWriteReady": true,
+  "resultSaveFailureVisible": true,
+  "resultSaveFailurePreservesCurrent": true,
+  "eventSubscriptionsReleased": true,
+  "u46UiImportRuleSimplified": true,
+  "u46RegressionPassed": true,
+  "u46HardeningReady": true,
+  "u47Ready": true,
+  "runtimeVisualReady": false,
+  "devicePlayableReady": false,
+  "mobileMetricsReady": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "rcReady": false,
+  "productionApproved": false
+}

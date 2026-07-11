@@ -80,6 +80,8 @@ runtime passとHardeningは完了。U46以降でprovider approval level、animat
 
 ### U46 Result / Retry / StageSelect / 灯録: Completed Candidate
 
+U46.1 Result / Save Hardeningも完了。通常HUDのverification導線を除去し、Result empty state、copy-on-write保存、保存失敗表示、event unsubscribeをSimulator回帰済み。
+
 U45.1とFoundation Gateを壊さず、非戦闘shellを製品品質化する。
 
 必須:

@@ -43,6 +43,7 @@ Do not claim these commands ran when working only through GitHub connector acces
 Completed: U45.1 Character and Enemy Dot Runtime Pass
 Completed: U45.1 Hardening
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
+Completed: U46.1 Result / Save Hardening
 Current: U47 gameplay data/runtime
 ```
 

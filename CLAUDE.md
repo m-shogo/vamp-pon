@@ -44,6 +44,7 @@ Use **黒耀化**, never `黒曜化`.
 Completed: U45.1 Character and Enemy Dot Runtime Pass
 Completed: U45.1 Hardening
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
+Completed: U46.1 Result / Save Hardening
 Current: U47 gameplay data/runtime
 ```
 

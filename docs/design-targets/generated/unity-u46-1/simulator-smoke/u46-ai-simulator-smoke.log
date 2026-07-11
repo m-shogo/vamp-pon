@@ -1,0 +1,40 @@
+[2026-07-11T13:56:00.0159350Z] Warning: Shadowmap RenderTexture requested without a depth buffer. Changing to a 16 bit depth buffer. To resolve this warning, please specify the desired number of depth bits when creating the render texture.
+[2026-07-11T13:56:00.6598080Z] Log: AudioClip.SetData failed; AudioClip  contains no data
+runtime shell=True
+bootToStageSelect=True
+stageSelectPause=True
+battle start=True
+[2026-07-11T13:56:01.4156330Z] Log: AudioClip.SetData failed; AudioClip  contains no data
+battleStart=True
+verificationButtonAbsent=True
+[2026-07-11T13:56:01.7407860Z] Log: AudioClip.SetData failed; AudioClip  contains no data
+levelUpPause=True
+[2026-07-11T13:56:02.0977970Z] Log: AudioClip.SetData failed; AudioClip  contains no data
+[2026-07-11T13:56:02.3299960Z] Log: AudioClip.SetData failed; AudioClip  contains no data
+levelUpResume=True
+subscriptionsSingleAfterReinitialize=True
+clear rewards=True
+clearRewards=True
+retry=True
+retryReset=True
+clearEmpty=True
+clear empty retry=True
+failRewards=True
+fail rewards retry=True
+failEmpty=True
+fail empty retry=True
+saveFailureVisible=True
+saveFailurePreservesCurrent=True
+save failure retry=True
+saveFailureRetry=True
+result return=True
+saveFailureStageSelectReturn=True
+open collection=True
+collectionRoute=True
+collection close=True
+saveGenerated=True
+saveReload=True
+eventSystemUnique=True
+audioListenerUnique=True
+candidateProviderBoundary=True
+productionProviderFalse=True
