@@ -417,14 +417,15 @@ enemyDotRuntimeReady=true
 enemyAnimationReady=true
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
 ```
 
-`runtimeVisualReady=true`はU45.1 candidate animation runtimeの証跡であり、production asset、actual device、RC、production approvalを意味しない。
+`runtimeVisualCandidateReady=true`はU45.1 candidate animation runtimeの証跡。`runtimeVisualReady=true`はfinal/runtime承認済みproduction visual専用であり、現在はfalse。
 
 `characterDotRuntimeReady=true` requires all:
 
-- production provider
+- candidate or production provider with explicit approval level
 - proof provider removed from product runtime
 - procedural character fallback disabled or explicit development error-only
 - Sprite Mode Multiple

@@ -304,15 +304,24 @@ U5ProofAssetProvider
 IsProofOnly=true
 ```
 
-production候補は別classを使用する。
+candidate runtimeは別classを使用し、approval levelを明示する。
+
+candidate provider条件:
+
+- `IsProofOnly=false`
+- `ApprovalLevel=Candidate`
+- `IsProductionApproved=false`
+- proof pathを返さず、candidate sourceであることを隠さない
+- candidate runtime asset registryを参照する
+- missing required assetをprocedural production表示へ黙ってfallbackしない
+- development fallbackはcompile defineまたは明示debug設定で限定する
 
 production provider条件:
 
-- `IsProofOnly=false`
-- proof/candidate pathを返さない
-- approved runtime asset registryを参照する
-- missing required assetをprocedural production表示へ黙ってfallbackしない
-- development fallbackはcompile defineまたは明示debug設定で限定する
+- `ApprovalLevel=Production`
+- `IsProductionApproved=true`
+- registry内assetが`approvedAsFinal=true`かつ`runtimeApproved=true`
+- device gameplay-size visual review済み
 
 Asset Providerは`approvedAsFinal`を決めない。承認結果をregistryから読むだけにする。
 

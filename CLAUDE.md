@@ -41,8 +41,9 @@ Use **黒耀化**, never `黒曜化`.
 ## Current phase order
 
 ```txt
-U46 Result / Retry / StageSelect / Collection
-U45.1 Character and Enemy Dot Runtime Pass is the completed prerequisite
+Completed: U45.1 Character and Enemy Dot Runtime Pass
+Completed: U45.1 Hardening
+Current: U46 Result / Retry / StageSelect / Collection
 then U47 gameplay data/runtime
 ```
 
@@ -63,7 +64,7 @@ Rules:
 - separate immutable Definition, per-run Runtime State, and versioned Save DTO
 - save stable IDs only
 - Result and Collection consume read models
-- proof and production visual providers remain separate
+- proof, candidate, and production visual approval levels remain separate
 - do not keep adding feature logic directly to `U1Stage1SceneBootstrap`
 - do not add Result, Collection, save, or permanent progression to `U2BattleController`
 
@@ -75,7 +76,7 @@ Current classification:
 candidate-animated-multiple-sprite
 ```
 
-The current Stage1 path uses `RuntimeVisualAssetProvider`, 48-frame Multiple sprites, explicit Yui left/right frames, and Yui/Onbu animators. Candidate runtime readiness is true, while production character/enemy asset readiness remains false.
+The current Stage1 path uses the candidate-level `RuntimeVisualAssetProvider`, 48-frame Multiple sprites, explicit Yui left/right frames, and Yui/Onbu animators. `runtimeVisualCandidateReady=true`; production visual readiness remains false.
 
 Never treat these as completed dot-runtime evidence:
 
@@ -100,11 +101,11 @@ productionCharacterAssetReady
 productionEnemyAssetReady
 ```
 
-`runtimeVisualReady` may be true for a verified candidate animation runtime. It does not promote final art, device, RC, or production approval.
+`runtimeVisualCandidateReady` may be true for a verified candidate animation runtime. `runtimeVisualReady` is reserved for final/runtime-approved production visuals and remains false.
 
 Character minimum:
 
-- production runtime provider
+- candidate or production provider with explicit approval level
 - proof provider removed from product route
 - Sprite Mode Multiple
 - actual sliced frames
@@ -116,7 +117,7 @@ Character minimum:
 
 Enemy minimum:
 
-- production runtime provider
+- candidate or production provider with explicit approval level
 - Multiple frames
 - idle / move / hurt / death
 - family-canon review
@@ -131,6 +132,10 @@ pnpm unity:runtime-visual-readiness:check
 ```
 
 Do not weaken or bypass the checker.
+
+## Asset generation export
+
+`src/game/data/assetGenerationPolicy.ts` is the Contract source of truth. `data/asset-factory/generation-contracts.json` is a reproducible local export and is not Git-managed. The tracked review surface is `data/asset-factory/generation-contracts.summary.json`.
 
 ## UI implementation
 

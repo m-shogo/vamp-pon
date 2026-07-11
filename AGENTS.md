@@ -40,8 +40,9 @@ Do not claim these commands ran when working only through GitHub connector acces
 ## Current phase order
 
 ```txt
-U46 Result / Retry / StageSelect / Collection
-U45.1 Character and Enemy Dot Runtime Pass is the completed prerequisite
+Completed: U45.1 Character and Enemy Dot Runtime Pass
+Completed: U45.1 Hardening
+Current: U46 Result / Retry / StageSelect / Collection
 then U47 gameplay data/runtime
 ```
 
@@ -72,7 +73,7 @@ Rules:
 - separate Definition, Runtime State, and Save DTO
 - save IDs only in versioned JSON
 - Result and Collection use read models
-- proof and production asset providers remain separate
+- proof, candidate, and production asset approval levels remain separate
 - do not keep adding features directly to `U1Stage1SceneBootstrap`
 - do not add Result, Collection, save, or permanent progression into `U2BattleController`
 
@@ -114,7 +115,7 @@ Do not treat procedural placeholders, U5 proof assets, or candidate screenshots 
 
 Current classification is `candidate-animated-multiple-sprite`.
 
-Stage1 uses `RuntimeVisualAssetProvider`, explicit left/right Yui frames, and animated Onbu frames. Candidate runtime readiness is true; production character/enemy asset readiness remains false.
+Stage1 uses the candidate-level `RuntimeVisualAssetProvider`, explicit left/right Yui frames, and animated Onbu frames. `runtimeVisualCandidateReady=true`; production visual readiness remains false.
 
 Never use these as finished dot-runtime evidence:
 
@@ -139,11 +140,11 @@ productionCharacterAssetReady
 productionEnemyAssetReady
 ```
 
-`runtimeVisualReady` may be true for a verified candidate animation runtime. It never implies final art, device, RC, or production approval.
+`runtimeVisualCandidateReady` may be true for a verified candidate animation runtime. `runtimeVisualReady` is reserved for final/runtime-approved production visuals and remains false.
 
 Character minimum:
 
-- production provider
+- candidate or production provider with explicit approval level
 - proof provider removed from product route
 - Sprite Mode Multiple
 - actual frames
@@ -155,7 +156,7 @@ Character minimum:
 
 Enemy minimum:
 
-- production provider
+- candidate or production provider with explicit approval level
 - Multiple frames
 - idle / move / hurt / death
 - family-canon review
@@ -168,6 +169,10 @@ pnpm unity:runtime-visual-readiness:check
 ```
 
 Do not weaken the checker to make a task pass.
+
+## Asset generation export
+
+`src/game/data/assetGenerationPolicy.ts` is the Contract source of truth. The local full export `data/asset-factory/generation-contracts.json` is reproducible and ignored by Git. Commit only `data/asset-factory/generation-contracts.summary.json` plus the TypeScript source and checker changes.
 
 ## Unity UI rule
 

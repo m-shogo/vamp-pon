@@ -166,19 +166,23 @@ Point Filter、GameObject名、静止画表示、操作可能、Simulator route 
 ```txt
 runtimeVisualClassification=candidate-animated-multiple-sprite
 simulatorPlayableCandidateReady=true
-simulatorCharacterVisualApprovalInvalidated=false
+simulatorCandidateAnimationVisualReviewPassed=true
+simulatorFinalArtApprovalProvided=false
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 ```
 
 `characterDotRuntimeReady=true`最低条件:
 
-- production provider
+- candidate or production provider with explicit approval level
 - proof provider除外
 - Sprite Mode Multiple
 -実frame slice
@@ -191,7 +195,7 @@ runtimeVisualReady=true
 
 `enemyDotRuntimeReady=true`最低条件:
 
-- production provider
+- candidate or production provider with explicit approval level
 - proof/procedural fallback除外
 - Sprite Mode Multipleまたは承認済みframe source
 - idle / move / hurt / death
@@ -214,7 +218,7 @@ docs/unity-runtime-ownership-contract-v1.md
 - saveはversioned JSON
 - saveにはIDだけ保存
 - Result/灯録はread modelを表示
-- proof providerとproduction providerを分離
+- proof / candidate / production provider approval levelを分離
 - `U1Stage1SceneBootstrap`と`U2BattleController`へ責務を増殖させない
 
 ## Unity UI rule

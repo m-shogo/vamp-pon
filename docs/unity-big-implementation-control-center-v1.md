@@ -42,7 +42,10 @@ characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
 candidateAssetsApprovedAsFinal=false
@@ -60,12 +63,12 @@ Simulator smokeはroute、pause、input、hit、pickup、LevelUp、Result、Retr
 
 ### U45.1 Character and Enemy Dot Runtime Pass
 
-完了。U46以降でprovider、animation、pause、candidate/final境界を壊さない。
+runtime passとHardeningは完了。U46以降でprovider approval level、animation、pause、candidate/production境界を壊さない。
 
 必須:
 
 - `U5ProofAssetProvider`をproduction経路から外す
-- production visual providerを接続する
+- candidate approval levelのruntime visual providerを接続する
 - ユイをSprite Mode Multipleへ移行する
 - idle / walk / hurt / attackを実装する
 - 左右向き、ランタン、バッグ、装備位置を検証する

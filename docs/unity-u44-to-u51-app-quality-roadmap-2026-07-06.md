@@ -12,6 +12,7 @@ U45 settings repair: complete
 U45 AI-only iOS Simulator route smoke: complete
 U45.1 Runtime Visual Readiness gate: adopted
 U45.1 Character and Enemy Dot Runtime Pass: complete as candidate runtime
+U45.1 Hardening: complete
 Big Implementation control-plane: adopted
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
@@ -19,7 +20,10 @@ characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
 actualDeviceSmokeResult=NOT_PROVIDED
@@ -40,10 +44,10 @@ docs/unity-current-doc-index-2026-07-10.md
 Required before large implementation:
 
 - source of truth order is current
-- U45.1 remains before U46
+- U45.1 runtime pass and Hardening remain completed prerequisites for U46
 - navigation/pause ownership is explicit
 - Definition / Runtime State / Save DTO are separated
-- proof and production asset providers are separated
+- proof, candidate, and production asset approval levels are separated
 - UI Design System and Asset Generation Contract remain active
 - readiness flags remain evidence-based
 
@@ -90,7 +94,9 @@ Current:
 
 ```txt
 runtimeVisualClassification=candidate-animated-multiple-sprite
-runtime provider=RuntimeVisualAssetProvider
+runtime provider=RuntimeVisualAssetProvider / approval level Candidate
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
 player/enemy Sprite Mode=Multiple / 48 frames
 player animation=idle / walk / hurt / attack
 enemy animation=idle / move / hurt / death

@@ -21,14 +21,17 @@ unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 U46 Result / Retry / StageSelect / Collection
 ```
 
-U45.1でユイとオンブのMultiple sprite、実animation、provider、Simulator回帰証跡を接続済み。候補runtimeと最終美術/実機承認は分離する。
+U45.1でユイとオンブのMultiple sprite、実animation、candidate provider、Simulator回帰証跡を接続済み。Hardeningも完了し、候補runtimeとproduction visual/実機承認を分離した。
 
 ```txt
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 characterDotRuntimeReady=true
 enemyDotRuntimeReady=true
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
 versionedSaveServiceImplemented=false
@@ -45,6 +48,8 @@ U45.1 evidence:
 unity-u45-1-character-enemy-dot-runtime-pass-2026-07-10.md
 unity-u45-1-ios-simulator-animation-smoke-2026-07-10.md
 design-targets/generated/unity-u45-1/
+unity-u45-1-hardening-2026-07-10.md
+design-targets/generated/unity-u45-1-hardening/readiness.json
 ```
 
 ## 大規模実装の責務

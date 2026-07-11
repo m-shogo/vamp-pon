@@ -17,6 +17,7 @@ Status: current
 ```txt
 Current: U46 Result / Retry / StageSelect / 灯録
 Completed prerequisite: U45.1 Character and Enemy Dot Runtime Pass
+Completed hardening: U45.1 candidate/production readiness and Asset Factory export
 ```
 
 U45.1のprovider、Multiple sprite、animation、方向、Golden Reference、Lineage、gameplay-size review、Simulator回帰を維持してU46へ進む。
@@ -31,7 +32,10 @@ simulatorPlayableCandidateReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
 characterDotRuntimeReady=true
 enemyDotRuntimeReady=true
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
 devicePlayableReady=false
@@ -59,6 +63,7 @@ productionApproved=false
 - `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json`
 - `docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json`
 - `docs/design-targets/generated/unity-u45-1/animation-smoke-result.json`
+- `docs/design-targets/generated/unity-u45-1-hardening/readiness.json`
 - `docs/design-targets/generated/unity-u45/ai-simulator-smoke-readiness.json`
 - `docs/design-targets/generated/unity-u45/settings-repair-readiness.json`
 - `docs/design-targets/generated/asset-generation-consistency/readiness.json`

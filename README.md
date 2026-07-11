@@ -18,6 +18,7 @@ docs/unity-runtime-ownership-contract-v1.md
 docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
+docs/unity-u45-1-hardening-2026-07-10.md
 docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
@@ -50,6 +51,7 @@ U45: Unity設定安全化 / iOS build generation
 U45: AI-only iOS Simulator smoke
 U45.1 gate: Runtime Visual Readiness誤判定防止
 U45.1: Character / Enemy Multiple animation runtime
+U45.1: candidate/production readiness and Asset Factory hardening
 U46 foundation: UI Design System
 Big Implementation control-plane: source / ownership / preflight整理
 ```
@@ -60,7 +62,7 @@ Big Implementation control-plane: source / ownership / preflight整理
 U46 Result / Retry / StageSelect / Collection
 ```
 
-U45.1でユイとオンブを48-frame Multiple sprite、実animation、production provider経路へ接続した。候補runtimeはreadyだが、最終美術と実機承認は未完了。
+U45.1でユイとオンブを48-frame Multiple sprite、実animation、candidate provider経路へ接続した。Hardeningでcandidate readinessとproduction readinessを分離済み。最終美術と実機承認は未完了。
 
 ## 現在のreadiness
 
@@ -68,12 +70,16 @@ U45.1でユイとオンブを48-frame Multiple sprite、実animation、productio
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
-simulatorCharacterVisualApprovalInvalidated=false
+simulatorCandidateAnimationVisualReviewPassed=true
+simulatorFinalArtApprovalProvided=false
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
 versionedSaveServiceImplemented=false
@@ -122,7 +128,7 @@ docs/unity-runtime-ownership-contract-v1.md
 - Saveはversioned JSONでIDだけ保存する
 - Result/灯録はread modelを描画する
 - `U1Stage1SceneBootstrap`と`U2BattleController`へ新機能を集中させない
-- proof providerとproduction providerを分離する
+- proof / candidate / production provider approval levelを分離する
 
 ## Unity UI Design System
 
@@ -166,6 +172,13 @@ candidate/final/runtime approval分離
 ```txt
 approvedAsFinal=false
 runtimeApproved=false
+```
+
+Contract source of truthは`src/game/data/assetGenerationPolicy.ts`。`pnpm asset-factory:contracts:export`はローカルfull JSONとGit管理する軽量summaryを生成する。
+
+```txt
+local / ignored: data/asset-factory/generation-contracts.json
+tracked: data/asset-factory/generation-contracts.summary.json
 ```
 
 正本:
