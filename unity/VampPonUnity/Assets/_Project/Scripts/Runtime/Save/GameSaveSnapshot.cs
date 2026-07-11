@@ -8,6 +8,8 @@ namespace VampPon.UnitySpike.Runtime.Save
     {
         public string id;
         public int level;
+
+        public PermanentUpgradeSave DeepCopy() => new() { id = id, level = level };
     }
 
     [Serializable]
@@ -16,6 +18,13 @@ namespace VampPon.UnitySpike.Runtime.Save
         public float masterVolume = 1f;
         public bool hapticEnabled = true;
         public string locale = "ja";
+
+        public GameSettingsSave DeepCopy() => new()
+        {
+            masterVolume = masterVolume,
+            hapticEnabled = hapticEnabled,
+            locale = locale,
+        };
     }
 
     [Serializable]
@@ -33,6 +42,23 @@ namespace VampPon.UnitySpike.Runtime.Save
         public List<string> collectionSeenIds = new();
         public List<string> achievementIds = new();
         public GameSettingsSave settings = new();
+
+        public GameSaveSnapshot DeepCopy()
+        {
+            return new GameSaveSnapshot
+            {
+                schemaVersion = schemaVersion,
+                createdAt = createdAt,
+                updatedAt = updatedAt,
+                unlockedCharacterIds = new List<string>(unlockedCharacterIds ?? new List<string>()),
+                unlockedStageIds = new List<string>(unlockedStageIds ?? new List<string>()),
+                permanentUpgrades = (permanentUpgrades ?? new List<PermanentUpgradeSave>()).ConvertAll(x => x?.DeepCopy()),
+                collectionUnlockedIds = new List<string>(collectionUnlockedIds ?? new List<string>()),
+                collectionSeenIds = new List<string>(collectionSeenIds ?? new List<string>()),
+                achievementIds = new List<string>(achievementIds ?? new List<string>()),
+                settings = settings?.DeepCopy() ?? new GameSettingsSave(),
+            };
+        }
 
         public static GameSaveSnapshot CreateDefault(string now)
         {

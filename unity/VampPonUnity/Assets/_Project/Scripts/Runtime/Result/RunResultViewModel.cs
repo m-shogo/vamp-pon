@@ -16,5 +16,7 @@ namespace VampPon.UnitySpike.Runtime.Result
         public IReadOnlyList<string> NewRecordRows { get; set; }
         public bool CanRetry { get; set; }
         public bool CanReturnToStageSelect { get; set; }
+        public bool SaveSucceeded { get; set; }
+        public string SaveStatusLabel { get; set; }
     }
 }

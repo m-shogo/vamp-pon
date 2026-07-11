@@ -20,18 +20,20 @@ namespace VampPon.UnitySpike.Runtime.Save
         private readonly string backupPath;
         private readonly string temporaryPath;
         private readonly Func<string> now;
+        private Func<GameSaveSnapshot, string> writeFailure;
         private readonly SaveMigration migration = new();
 
         public GameSaveSnapshot Current { get; private set; }
         public string SavePath => savePath;
 
-        public SaveService(string directory = null, Func<string> nowProvider = null)
+        public SaveService(string directory = null, Func<string> nowProvider = null, Func<GameSaveSnapshot, string> writeFailureProvider = null)
         {
             var root = directory ?? Application.persistentDataPath;
             savePath = Path.Combine(root, FileName);
             backupPath = savePath + ".bak";
             temporaryPath = savePath + ".tmp";
             now = nowProvider ?? (() => DateTime.UtcNow.ToString("O"));
+            writeFailure = writeFailureProvider;
         }
 
         public SaveLoadResult Load()
@@ -56,6 +58,8 @@ namespace VampPon.UnitySpike.Runtime.Save
             var valid = migration.Migrate(candidate, now());
             if (!valid.Succeeded) { error = valid.Error; return false; }
             valid.Snapshot.updatedAt = now();
+            var injectedError = writeFailure?.Invoke(valid.Snapshot);
+            if (!string.IsNullOrEmpty(injectedError)) { error = injectedError; return false; }
             Directory.CreateDirectory(Path.GetDirectoryName(savePath) ?? string.Empty);
             try
             {
@@ -80,6 +84,10 @@ namespace VampPon.UnitySpike.Runtime.Save
             }
         }
 
+#if VAMPPON_AI_SIMULATOR_SMOKE
+        internal void SetVerificationWriteFailure(Func<GameSaveSnapshot, string> provider) => writeFailure = provider;
+#endif
+
         public bool MarkCollectionSeen(string entryId, out string error)
         {
             if (Current == null) Load();
@@ -88,8 +96,9 @@ namespace VampPon.UnitySpike.Runtime.Save
                 error = "Only an unlocked stable entry ID can be marked seen.";
                 return false;
             }
-            if (!Current.collectionSeenIds.Contains(entryId)) Current.collectionSeenIds.Add(entryId);
-            return Save(Current, out error);
+            var candidate = Current.DeepCopy();
+            if (!candidate.collectionSeenIds.Contains(entryId)) candidate.collectionSeenIds.Add(entryId);
+            return Save(candidate, out error);
         }
 
         private SaveLoadResult TryLoad(string path)

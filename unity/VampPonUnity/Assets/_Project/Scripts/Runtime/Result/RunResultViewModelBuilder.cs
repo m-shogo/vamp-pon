@@ -5,7 +5,7 @@ namespace VampPon.UnitySpike.Runtime.Result
 {
     public sealed class RunResultViewModelBuilder
     {
-        public RunResultViewModel Build(RunResultSnapshot snapshot)
+        public RunResultViewModel Build(RunResultSnapshot snapshot, bool saveSucceeded = true)
         {
             if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
             var duration = TimeSpan.FromSeconds(Math.Max(0d, snapshot.elapsedTime));
@@ -24,6 +24,8 @@ namespace VampPon.UnitySpike.Runtime.Result
                 NewRecordRows = snapshot.newlyUnlockedIds?.Take(3).Select(DisplayName).ToArray() ?? Array.Empty<string>(),
                 CanRetry = true,
                 CanReturnToStageSelect = true,
+                SaveSucceeded = saveSucceeded,
+                SaveStatusLabel = saveSucceeded ? "記録しました" : "記録を保存できませんでした",
             };
         }
 

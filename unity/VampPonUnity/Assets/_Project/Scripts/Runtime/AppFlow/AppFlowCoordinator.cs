@@ -28,6 +28,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         public AppFlowState State { get; private set; } = AppFlowState.Boot;
         public string ActiveStageId { get; private set; }
         public RunResultSnapshot LastResult { get; private set; }
+        public bool LastPersistenceSucceeded { get; private set; } = true;
+        public string LastPersistenceError { get; private set; } = string.Empty;
         public event Action<AppFlowState> StateChanged;
         public event Action<string> CollectionSeen;
 
@@ -91,16 +93,13 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private AppFlowCommandResult CompleteRun(RunResultSnapshot snapshot)
         {
             if (snapshot == null) return AppFlowCommandResult.Failure("Run result snapshot is required.");
-            var previous = LastResult;
+            if (!CanTransition(AppFlowState.Result))
+                return AppFlowCommandResult.Failure($"Invalid app-flow transition: {State} -> {AppFlowState.Result}");
+            LastPersistenceSucceeded = ApplyResultToSave(snapshot, out var persistenceError);
+            LastPersistenceError = persistenceError;
             LastResult = snapshot;
             var result = Transition(AppFlowState.Result);
-            if (!result.Succeeded)
-            {
-                LastResult = previous;
-                return result;
-            }
             pause.Acquire(RunPauseReason.Result);
-            ApplyResultToSave(snapshot);
             return result;
         }
 
@@ -110,6 +109,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             if (!result.Succeeded) return result;
             pause.ResetForRetry();
             LastResult = null;
+            LastPersistenceSucceeded = true;
+            LastPersistenceError = string.Empty;
             resetRun?.Invoke();
             return result;
         }
@@ -119,6 +120,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             var result = Transition(AppFlowState.StageSelect);
             if (!result.Succeeded) return result;
             LastResult = null;
+            LastPersistenceSucceeded = true;
+            LastPersistenceError = string.Empty;
             pause.ResetToStageSelect();
             return result;
         }
@@ -149,17 +152,19 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             return AppFlowCommandResult.Success();
         }
 
-        private void ApplyResultToSave(RunResultSnapshot snapshot)
+        private bool ApplyResultToSave(RunResultSnapshot snapshot, out string error)
         {
-            var current = save.Current;
+            var candidate = save.Current.DeepCopy();
             foreach (var id in snapshot.newlyUnlockedIds ?? new List<string>())
-                if (!current.collectionUnlockedIds.Contains(id)) current.collectionUnlockedIds.Add(id);
-            save.Save(current, out _);
+                if (!candidate.collectionUnlockedIds.Contains(id)) candidate.collectionUnlockedIds.Add(id);
+            return save.Save(candidate, out error);
         }
+
+        private bool CanTransition(AppFlowState next) => ValidTransitions.Contains((State, next));
 
         private AppFlowCommandResult Transition(AppFlowState next)
         {
-            if (!ValidTransitions.Contains((State, next)))
+            if (!CanTransition(next))
                 return AppFlowCommandResult.Failure($"Invalid app-flow transition: {State} -> {next}");
             State = next;
             StateChanged?.Invoke(State);

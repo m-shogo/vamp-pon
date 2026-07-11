@@ -60,51 +60,67 @@ namespace VampPon.UnitySpike.Diagnostics
             Set("bootToStageSelect", shell?.Flow.State == AppFlowState.StageSelect);
             Set("stageSelectPause", shell != null && shell.Pause.IsPaused && FindAnyObjectByType<U2BattleController>().IsRuntimePaused);
             yield return Capture("01-stage-select.png");
-
-            Invoke("OpenCollectionButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Collection, 4f, "open collection");
-            Set("collectionOpen", shell.Flow.State == AppFlowState.Collection);
-            yield return Capture("02-collection-index.png");
-            Invoke("Entry_character_unknown"); yield return new WaitForSecondsRealtime(0.3f);
-            Set("collectionLockedEntry", GameObject.Find("CollectionDetailOverlay") != null && FindText("???"));
-            yield return Capture("03-collection-locked.png");
-            Invoke("CloseDetailButton"); Invoke("Entry_character_yui"); yield return new WaitForSecondsRealtime(0.4f);
-            Set("collectionUnlockedDetail", GameObject.Find("CollectionDetailOverlay") != null && FindText("ユイ"));
-            yield return Capture("04-collection-detail.png");
-            Invoke("CloseDetailButton");
-            Set("collectionMarkSeen", shell.Save.Current.collectionSeenIds.Contains("character_yui"));
-            yield return Capture("05-collection-seen.png");
-            Invoke("CloseCollectionButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.StageSelect, 4f, "collection close");
-            Set("collectionReturn", shell.Flow.State == AppFlowState.StageSelect && shell.Pause.IsPaused);
-
+            var openedBefore = shell.VerificationLevelUpOpenedCount;
+            var closedBefore = shell.VerificationLevelUpClosedCount;
+            shell.ReinitializeForVerification();
+            yield return new WaitForSecondsRealtime(0.3f);
             Invoke("StartStageButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "battle start");
             Set("battleStart", !shell.Pause.IsPaused);
-            yield return Capture("06-battle-return.png");
+            Set("verificationButtonAbsent", !FindObjectsByType<Button>(FindObjectsInactive.Include).Any(x => x.GetComponentInChildren<TextMeshProUGUI>(true)?.text == "結果"));
+            yield return Capture("12-no-verification-button.png");
             var levelUp = FindAnyObjectByType<U4LevelUpDemoController>(); levelUp?.TriggerLevelUp();
             yield return new WaitForSecondsRealtime(0.35f);
             Set("levelUpPause", shell.Flow.State == AppFlowState.LevelUpModal && shell.Pause.Contains(RunPauseReason.LevelUp));
             CloseFirstLevelUpCard(); yield return new WaitForSecondsRealtime(0.5f);
             Set("levelUpResume", shell.Flow.State == AppFlowState.Running && !shell.Pause.IsPaused);
+            Set("subscriptionsSingleAfterReinitialize", shell.VerificationLevelUpOpenedCount - openedBefore == 1 && shell.VerificationLevelUpClosedCount - closedBefore == 1 && FindObjectsByType<Canvas>(FindObjectsInactive.Include).Count(x => x.name == "U46AppFlowCanvas") == 1);
 
-            shell.OpenVerificationResult(true); yield return WaitFor(() => shell.Flow.State == AppFlowState.Result, 4f, "clear result");
+            shell.CompleteVerificationRun(true, true); yield return WaitFor(() => shell.Flow.State == AppFlowState.Result, 4f, "clear rewards");
             yield return new WaitForSecondsRealtime(0.4f);
-            Set("resultClear", FindText("踏破") && shell.Pause.IsPaused);
-            yield return Capture("07-result-clear.png");
-            ApplyReferenceResolution(new Vector2(360f, 800f)); yield return Capture("08-result-clear-compact.png"); ApplyReferenceResolution(new Vector2(390f, 844f));
+            Set("clearRewards", FindText("踏破") && FindText("記憶の欠片") && !FindText("持ち帰った記憶はありません"));
+            yield return Capture("02-result-clear-rewards.png");
             Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "retry");
             Set("retryReset", !shell.Pause.IsPaused && FindAnyObjectByType<U2BattleController>().ElapsedSeconds < 1f);
-            yield return Capture("09-retry.png");
 
-            shell.OpenVerificationResult(false); yield return WaitFor(() => shell.Flow.State == AppFlowState.Result, 4f, "fail result");
-            yield return new WaitForSecondsRealtime(1.2f);
-            Set("resultFail", FindText("帰還") && shell.Pause.IsPaused);
-            yield return Capture("10-result-fail.png");
+            shell.CompleteVerificationRun(true, false); yield return new WaitForSecondsRealtime(0.5f);
+            Set("clearEmpty", FindText("持ち帰った記憶はありません") && FindText("新しい記録はありません") && !FindText("夜の足跡"));
+            yield return Capture("03-result-clear-empty.png");
+            Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "clear empty retry");
+
+            shell.CompleteVerificationRun(false, true); yield return new WaitForSecondsRealtime(0.5f);
+            Set("failRewards", FindText("帰還") && FindText("記憶の欠片"));
+            yield return Capture("04-result-fail-rewards.png");
+            Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "fail rewards retry");
+
+            shell.CompleteVerificationRun(false, false); yield return new WaitForSecondsRealtime(0.5f);
+            Set("failEmpty", FindText("帰還") && FindText("持ち帰った記憶はありません") && FindText("新しい記録はありません"));
+            yield return Capture("05-result-fail-empty.png");
+            Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "fail empty retry");
+
+            var beforeFailure = shell.Save.Current;
+            var unlockCount = beforeFailure.collectionUnlockedIds.Count;
+            shell.CompleteVerificationRun(true, true, true); yield return new WaitForSecondsRealtime(0.5f);
+            Set("saveFailureVisible", !shell.Flow.LastPersistenceSucceeded && FindText("記録を保存できませんでした"));
+            Set("saveFailurePreservesCurrent", ReferenceEquals(beforeFailure, shell.Save.Current) && shell.Save.Current.collectionUnlockedIds.Count == unlockCount);
+            yield return Capture("06-result-save-failed.png");
+            Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "save failure retry");
+            Set("saveFailureRetry", shell.Flow.State == AppFlowState.Running && !shell.Pause.IsPaused);
+            yield return Capture("07-result-save-failed-retry.png");
+
+            shell.CompleteVerificationRun(false, false, true); yield return new WaitForSecondsRealtime(0.4f);
             Invoke("StageSelectButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.StageSelect, 4f, "result return");
-            Set("resultStageSelectReturn", shell.Pause.Contains(RunPauseReason.StageSelect));
-            yield return Capture("11-result-stage-select-return.png");
+            Set("saveFailureStageSelectReturn", shell.Pause.Contains(RunPauseReason.StageSelect));
+            yield return Capture("08-stage-select-return.png");
 
-            Invoke("StartStageButton"); shell.OpenVerificationResult(true); ApplyReferenceResolution(new Vector2(430f, 932f)); yield return new WaitForSecondsRealtime(0.4f);
-            yield return Capture("12-large-result.png"); Invoke("StageSelectButton"); Invoke("OpenCollectionButton"); yield return new WaitForSecondsRealtime(0.4f);
-            yield return Capture("13-large-collection.png"); ApplyReferenceResolution(new Vector2(390f, 844f));
+            Invoke("OpenCollectionButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Collection, 4f, "open collection");
+            Set("collectionRoute", shell.Flow.State == AppFlowState.Collection);
+            yield return Capture("09-collection-index.png");
+            Invoke("CloseCollectionButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.StageSelect, 4f, "collection close");
+
+            Invoke("StartStageButton"); shell.CompleteVerificationRun(true, false); ApplyReferenceResolution(new Vector2(430f, 932f)); yield return new WaitForSecondsRealtime(0.4f);
+            yield return Capture("10-large-result.png");
+            ApplyReferenceResolution(new Vector2(360f, 800f)); yield return new WaitForSecondsRealtime(0.3f); yield return Capture("11-compact-result.png");
+            ApplyReferenceResolution(new Vector2(390f, 844f));
 
             var reload = new SaveService(Path.GetDirectoryName(shell.Save.SavePath)).Load();
             Set("saveGenerated", File.Exists(shell.Save.SavePath)); Set("saveReload", reload.Succeeded && reload.Snapshot.schemaVersion == 1);
@@ -166,7 +182,7 @@ namespace VampPon.UnitySpike.Diagnostics
 
         private void WriteEvidence()
         {
-            var required = new[] { "bootToStageSelect", "stageSelectPause", "collectionOpen", "collectionLockedEntry", "collectionUnlockedDetail", "collectionMarkSeen", "collectionReturn", "battleStart", "levelUpPause", "levelUpResume", "resultClear", "retryReset", "resultFail", "resultStageSelectReturn", "saveGenerated", "saveReload", "eventSystemUnique", "audioListenerUnique", "candidateProviderBoundary", "productionProviderFalse" };
+            var required = new[] { "bootToStageSelect", "stageSelectPause", "battleStart", "verificationButtonAbsent", "levelUpPause", "levelUpResume", "subscriptionsSingleAfterReinitialize", "clearRewards", "clearEmpty", "failRewards", "failEmpty", "retryReset", "saveFailureVisible", "saveFailurePreservesCurrent", "saveFailureRetry", "saveFailureStageSelectReturn", "collectionRoute", "saveGenerated", "saveReload", "eventSystemUnique", "audioListenerUnique", "candidateProviderBoundary", "productionProviderFalse" };
             var ready = required.All(x => checks.TryGetValue(x, out var value) && value) && exceptionCount == 0 && !crash;
             var fields = string.Join(",\n", checks.OrderBy(x => x.Key).Select(x => $"  \"{x.Key}\": {x.Value.ToString().ToLowerInvariant()}"));
             File.WriteAllText(Path.Combine(root, "u46-ai-simulator-smoke-result.json"), "{\n" + fields + ",\n" +

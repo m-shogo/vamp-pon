@@ -194,7 +194,6 @@ namespace VampPon.UnitySpike.Runtime
             CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(318f, 62f), "");
             CreateBattleInventorySlots(hudRoot.transform);
             CreateVirtualStickVisual(hudRoot.transform);
-            CreateRuntimeButtons(hudRoot.transform);
             topHudLabel = hudRoot.transform.Find("TopHudPlaceholder/Label")?.GetComponent<TextMeshProUGUI>();
         }
 
@@ -239,22 +238,6 @@ namespace VampPon.UnitySpike.Runtime
             shellObject.transform.SetParent(overlayRoot, false);
             u46Shell = shellObject.GetComponent<U46RuntimeShell>();
             u46Shell.Initialize(battleController, playerController, yuiAnimator, levelUpController);
-        }
-
-        private void CreateRuntimeButtons(Transform parent)
-        {
-            var font = LoadJapaneseFont();
-            var resultButton = PaperButton.Create(parent, "結果", AppQualityTapTargets.ResultButtonWidth, AppQualityTapTargets.ResultButtonHeight, () =>
-            {
-                feedbackBridge?.PlayResult();
-                u46Shell?.OpenVerificationResult(false);
-            });
-            resultButton.SetFont(font);
-            var rect = resultButton.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(1f, 1f);
-            rect.anchorMax = new Vector2(1f, 1f);
-            rect.pivot = new Vector2(1f, 1f);
-            rect.anchoredPosition = new Vector2(-18f, -88f);
         }
 
         private void CreateStageSelectOverlay()

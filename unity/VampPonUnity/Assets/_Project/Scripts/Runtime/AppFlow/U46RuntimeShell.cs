@@ -27,7 +27,14 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private ResultView result;
         private CollectionView collection;
         private U4LevelUpDemoController levelUp;
+        private GameObject appFlowCanvas;
         private Vector3 initialPlayerPosition;
+#if VAMPPON_AI_SIMULATOR_SMOKE
+        internal int VerificationLevelUpOpenedCount { get; private set; }
+        internal int VerificationLevelUpClosedCount { get; private set; }
+        internal int VerificationPauseChangedCount { get; private set; }
+        internal int VerificationStateChangedCount { get; private set; }
+#endif
 
         public AppFlowCoordinator Flow => flow;
         public RunPauseCoordinator Pause => pause;
@@ -35,6 +42,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
 
         public void Initialize(U2BattleController battleController, PlayerController playerController, YuiSpriteAnimator yuiAnimator, U4LevelUpDemoController levelUpController)
         {
+            DisposeSubscriptions();
+            if (appFlowCanvas != null) Destroy(appFlowCanvas);
             battle = battleController; player = playerController; animator = yuiAnimator; levelUp = levelUpController;
             initialPlayerPosition = player.transform.position;
             pause = new RunPauseCoordinator();
@@ -44,33 +53,69 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             flow.StateChanged += ApplyState;
             if (levelUp != null)
             {
-                levelUp.OverlayOpened += () => flow.Execute(AppFlowCommand.OpenLevelUp());
-                levelUp.OverlayClosed += () => flow.Execute(AppFlowCommand.CloseLevelUp());
+                levelUp.OverlayOpened += HandleLevelUpOpened;
+                levelUp.OverlayClosed += HandleLevelUpClosed;
             }
             BuildViews();
             flow.Initialize();
             ApplyState(flow.State);
         }
 
-        public void OpenVerificationResult(bool clear)
+#if VAMPPON_AI_SIMULATOR_SMOKE
+        internal void ReinitializeForVerification() => Initialize(battle, player, animator, levelUp);
+
+        internal void CompleteVerificationRun(bool clear, bool includeRewards = true, bool failSave = false)
         {
             if (flow.State != AppFlowState.Running) return;
+            save.SetVerificationWriteFailure(failSave ? _ => "U46.1 verification write failure." : null);
             var snapshot = new RunResultSnapshot
             {
                 runId = Guid.NewGuid().ToString("N"), outcome = clear ? RunOutcome.Clear : RunOutcome.Fail,
                 stageId = flow.ActiveStageId ?? "stage_01", characterId = "character_yui", elapsedTime = battle.ElapsedSeconds,
                 defeatedEnemyCount = battle.DefeatedEnemyCount, collectedFragments = battle.CollectedExpCount,
                 reachedLevel = Math.Max(1, 1 + battle.CollectedExpCount / 5),
-                rewardIds = new System.Collections.Generic.List<string> { "記憶の欠片", "夜の足跡" },
-                newlyUnlockedIds = new System.Collections.Generic.List<string> { "memory_first_return", "enemy_onbu" },
+                rewardIds = includeRewards ? new System.Collections.Generic.List<string> { "memory_fragment", "night_trace" } : new System.Collections.Generic.List<string>(),
+                newlyUnlockedIds = includeRewards ? new System.Collections.Generic.List<string> { "memory_first_return", "enemy_onbu" } : new System.Collections.Generic.List<string>(),
                 completedAt = DateTime.UtcNow.ToString("O"),
             };
             flow.Execute(AppFlowCommand.CompleteRun(snapshot));
+            save.SetVerificationWriteFailure(null);
         }
+#endif
+
+        private void HandleLevelUpOpened()
+        {
+#if VAMPPON_AI_SIMULATOR_SMOKE
+            VerificationLevelUpOpenedCount++;
+#endif
+            flow?.Execute(AppFlowCommand.OpenLevelUp());
+        }
+
+        private void HandleLevelUpClosed()
+        {
+#if VAMPPON_AI_SIMULATOR_SMOKE
+            VerificationLevelUpClosedCount++;
+#endif
+            flow?.Execute(AppFlowCommand.CloseLevelUp());
+        }
+
+        private void DisposeSubscriptions()
+        {
+            if (pause != null) pause.PauseChanged -= ApplyPause;
+            if (flow != null) flow.StateChanged -= ApplyState;
+            if (levelUp != null)
+            {
+                levelUp.OverlayOpened -= HandleLevelUpOpened;
+                levelUp.OverlayClosed -= HandleLevelUpClosed;
+            }
+        }
+
+        private void OnDestroy() => DisposeSubscriptions();
 
         private void BuildViews()
         {
             var canvasObject = new GameObject("U46AppFlowCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            appFlowCanvas = canvasObject;
             canvasObject.transform.SetParent(transform, false);
             var canvas = canvasObject.GetComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 90;
             var scaler = canvasObject.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; scaler.referenceResolution = new Vector2(390f, 844f); scaler.matchWidthOrHeight = 0.5f;
@@ -84,6 +129,9 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
 
         private void ApplyState(AppFlowState state)
         {
+#if VAMPPON_AI_SIMULATOR_SMOKE
+            VerificationStateChangedCount++;
+#endif
             if (stageSelect != null) stageSelect.gameObject.SetActive(state == AppFlowState.StageSelect);
             if (collection != null && state == AppFlowState.Collection) collection.Show(); else if (collection != null) collection.gameObject.SetActive(false);
             if (result != null && state == AppFlowState.Result) result.Show(flow.LastResult); else if (result != null) result.gameObject.SetActive(false);
@@ -91,6 +139,9 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
 
         private void ApplyPause(bool pausedState)
         {
+#if VAMPPON_AI_SIMULATOR_SMOKE
+            VerificationPauseChangedCount++;
+#endif
             battle?.SetRuntimePaused(pausedState);
             player?.SetRuntimeInputBlocked(pausedState);
             animator?.SetRuntimePaused(pausedState);
