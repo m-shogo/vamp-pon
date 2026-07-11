@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "contractId": "u46-ui-component-kit-v1",
+  "generator": "OpenAI built-in image generation",
+  "generatorVersion": "built-in-2026-07-11",
+  "seed": "NOT_SUPPORTED",
+  "candidateCount": 4,
+  "goldenReferences": [
+    "docs/design-targets/final/result-clear-final.png",
+    "docs/design-targets/final/collection-final.png",
+    "docs/design-targets/generated/non-battle-final-polish-ui-kit-2026-06-28.png"
+  ],
+  "candidateHashes": {
+    "01": "18dc907f4cb4e2e8a505481e95827ea67b59380e1d7fba5745a73d8cce38563e",
+    "02-selected-source": "08c68e49776c625fce73582a1eaaf43501524def5c9c94efc39463dfbe723210",
+    "03": "1c7e001169a31018f470ebace9d426d1716bf474ea4436088501f673c2e9a2eb",
+    "04": "50e55602269412179ec516a6b73db6f76b4ca3cfcc51e97bd9896211cb5c3f85"
+  },
+  "selectedCandidate": "02",
+  "alphaOutputHash": "f084e6faeafb4fac23bd48dc2de772c187f7a7abdbe32a33375f7e91974be94c",
+  "generationMethod": "built_in_image_generation_then_chroma_key_and_deterministic_component_slicing",
+  "automaticQa": {
+    "transparentCorners": true,
+    "bakedTextDetected": false,
+    "componentCount": 22,
+    "unityImportValidated": true,
+    "nineSliceValidated": true
+  },
+  "humanReviewState": "candidate-selected",
+  "approvalLevel": "Candidate",
+  "approvedAsFinal": false,
+  "runtimeApproved": false
+}
