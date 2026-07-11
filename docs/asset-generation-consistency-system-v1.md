@@ -37,6 +37,7 @@ Status: adopted / source of truth for generated visual assets
 | --- | --- |
 | Unified prompt catalog | `src/game/data/assetFactoryCatalog.ts` |
 | Asset Generation Contract | `src/game/data/assetGenerationPolicy.ts` |
+| Contract summary snapshot | `data/asset-factory/generation-contracts.summary.json` |
 | Golden Reference Registry | `src/game/data/goldenReferenceRegistry.ts` |
 | Contract export | `scripts/asset-factory/export-generation-contracts.ts` |
 | Lineage creation | `scripts/asset-factory/create-lineage-record.ts` |
@@ -384,8 +385,16 @@ pnpm asset-factory:contracts:export
 出力:
 
 ```txt
-data/asset-factory/generation-contracts.json
+data/asset-factory/generation-contracts.json (local derived output / Git ignored)
+data/asset-factory/generation-contracts.summary.json (tracked review surface)
 data/asset-factory/golden-reference-registry.json
+```
+
+full JSONは`src/game/data/assetGenerationPolicy.ts`とprompt catalogから完全再生成でき、runtime/CIの直接入力ではない。clone、diff、review、merge conflictを軽量化するためGit管理しない。summaryはcontract count、content type別件数、policy version、contract set hashだけを保持する。
+
+```sh
+pnpm asset-factory:contracts:export -- --summary-only
+pnpm asset-factory:contracts:export -- --output /tmp/generation-contracts.json
 ```
 
 整合検査:

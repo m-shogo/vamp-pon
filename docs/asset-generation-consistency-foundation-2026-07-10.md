@@ -101,6 +101,8 @@ pnpm test
 pnpm build
 ```
 
+`generation-contracts.json`は再生成可能なlocal derived outputでGit ignored。レビューとcheckerはGit管理する`data/asset-factory/generation-contracts.summary.json`を使用する。
+
 ## Verification boundary
 
 GitHub上へsource、docs、JSON snapshot、test、checkerを追加済み。

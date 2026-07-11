@@ -12,6 +12,7 @@ tmp/
 
 # Build output
 dist/
+data/asset-factory/generation-contracts.json
 
 # OS
 .DS_Store

@@ -1,9 +1,13 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { assetFactoryPromptCatalog } from '../../src/game/data/assetFactoryCatalog.ts';
+import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
+import { existsSync, readFileSync, statSync } from 'node:fs';
+import { assetFactoryPromptByKey, assetFactoryPromptCatalog } from '../../src/game/data/assetFactoryCatalog.ts';
 import { assetGenerationContracts } from '../../src/game/data/assetGenerationPolicy.ts';
 import { goldenReferenceSets } from '../../src/game/data/goldenReferenceRegistry.ts';
 
 const failures: string[] = [];
+const fullContractPath = 'data/asset-factory/generation-contracts.json';
+const contractSummaryPath = 'data/asset-factory/generation-contracts.summary.json';
 
 function check(label: string, ok: boolean) {
   if (!ok) failures.push(label);
@@ -20,6 +24,7 @@ const requiredFiles = [
   'scripts/asset-factory/export-generation-contracts.ts',
   'scripts/asset-factory/create-lineage-record.ts',
   'data/asset-factory/generation-lineage.template.json',
+  contractSummaryPath,
   'data/asset-factory/golden-reference-registry.json',
   'docs/asset-generation-consistency-system-v1.md',
   'docs/design-targets/generated/asset-generation-consistency/readiness.json',
@@ -59,6 +64,54 @@ check('golden reference ids unique', new Set(goldenReferenceSets.map((set) => se
 const globalReference = goldenReferenceSets.find((set) => set.id === 'global:visual-style-v1');
 check('global visual reference exists', Boolean(globalReference));
 check('global visual reference approved for style', globalReference?.status === 'approved-style-reference');
+
+const exportedContracts = assetGenerationContracts.map((contract) => {
+  const prompt = assetFactoryPromptByKey.get(contract.promptCatalogKey);
+  if (!prompt) return null;
+  const promptMaterial = [
+    prompt.key,
+    prompt.sizeSpec,
+    prompt.prompt,
+    prompt.negativePrompt,
+    ...prompt.reviewChecklist,
+  ].join('\n---\n');
+  return {
+    ...contract,
+    promptHashAlgorithm: 'sha256',
+    promptHash: createHash('sha256').update(promptMaterial, 'utf8').digest('hex'),
+  };
+});
+check('all contract exports resolve prompts', exportedContracts.every(Boolean));
+const validExportedContracts = exportedContracts.filter((contract) => contract !== null);
+const expectedCounts = Object.fromEntries(
+  [...new Set(assetGenerationContracts.map((contract) => contract.contentType))]
+    .sort()
+    .map((contentType) => [
+      contentType,
+      assetGenerationContracts.filter((contract) => contract.contentType === contentType).length,
+    ]),
+);
+const contractSummary = JSON.parse(read(contractSummaryPath) || '{}') as Record<string, any>;
+check('contract summary schema v1', contractSummary.schemaVersion === 1);
+check('contract summary count matches source', contractSummary.contractCount === assetGenerationContracts.length);
+check('contract summary category counts match source', JSON.stringify(contractSummary.contractCountsByContentType) === JSON.stringify(expectedCounts));
+check(
+  'contract summary policy versions match source',
+  JSON.stringify(contractSummary.policyVersions) === JSON.stringify([...new Set(assetGenerationContracts.map((contract) => contract.policyVersion))].sort()),
+);
+check(
+  'contract summary set hash matches derived exports',
+  contractSummary.contractSetHash === createHash('sha256').update(JSON.stringify(validExportedContracts), 'utf8').digest('hex'),
+);
+check('contract summary source commit recorded', /^[0-9a-f]{40}$/.test(String(contractSummary.sourceCommit)));
+check('contract summary remains lightweight', statSync(contractSummaryPath).size < 4096);
+
+const trackedFull = spawnSync('git', ['ls-files', '--', fullContractPath], { encoding: 'utf8' });
+check('full contract JSON is not Git tracked', trackedFull.status === 0 && trackedFull.stdout.trim() === '');
+const trackedSummary = spawnSync('git', ['ls-files', '--', contractSummaryPath], { encoding: 'utf8' });
+check('contract summary JSON is Git tracked', trackedSummary.status === 0 && trackedSummary.stdout.trim() === contractSummaryPath);
+const ignoredFull = spawnSync('git', ['check-ignore', '-q', fullContractPath]);
+check('full contract JSON is ignored', ignoredFull.status === 0);
 
 for (const set of goldenReferenceSets) {
   check(`${set.id}: immutable without version bump`, set.immutableUntilVersionBump === true);
@@ -110,8 +163,14 @@ check('lineage create package script exists', packageJson.includes('asset-factor
 check('generation consistency checker package script exists', packageJson.includes('asset-generation:check'));
 check('assets verify includes generation guard', packageJson.includes('pnpm asset-generation:check'));
 
+const exportScript = read('scripts/asset-factory/export-generation-contracts.ts');
+check('contract export supports summary only', exportScript.includes('--summary-only'));
+check('contract export supports custom full output', exportScript.includes('--output'));
+check('contract export writes lightweight summary', exportScript.includes('generation-contracts.summary.json'));
+check('full contract remains locally reproducible', exportScript.includes('contracts: exportedContracts'));
+
 const docs = read('docs/asset-generation-consistency-system-v1.md');
-for (const term of ['Asset Generation Contract', 'Golden Reference Registry', 'Generation Lineage', '4候補', 'approvedAsFinal=false', 'runtimeApproved=false']) {
+for (const term of ['Asset Generation Contract', 'Golden Reference Registry', 'Generation Lineage', '4候補', 'approvedAsFinal=false', 'runtimeApproved=false', 'generation-contracts.summary.json']) {
   check(`consistency docs include: ${term}`, docs.includes(term));
 }
 check('README links consistency system', read('README.md').includes('docs/asset-generation-consistency-system-v1.md'));
@@ -122,6 +181,9 @@ const readiness = JSON.parse(read('docs/design-targets/generated/asset-generatio
 for (const field of [
   'repositoryFoundationReady',
   'assetGenerationContractReady',
+  'generationContractsFullExportReproducible',
+  'generationContractsSummaryReady',
+  'generationContractsSummaryGitTracked',
   'goldenReferenceRegistryReady',
   'generationLineageCliReady',
   'fourCandidatePolicyReady',
@@ -130,6 +192,7 @@ for (const field of [
 ]) {
   check(`readiness true: ${field}`, readiness[field] === true);
 }
+check('readiness records full JSON not tracked', readiness.generationContractsFullJsonGitTracked === false);
 for (const field of [
   'allIdentityGoldenReferencesRegistered',
   'comparisonSheetAutomationReady',

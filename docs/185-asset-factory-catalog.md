@@ -95,8 +95,11 @@ pnpm asset-factory:contracts:export
 
 ```txt
 data/asset-factory/generation-contracts.json
+data/asset-factory/generation-contracts.summary.json
 data/asset-factory/golden-reference-registry.json
 ```
+
+full `generation-contracts.json`はlocal derived outputとしてGit ignored。Git reviewとCI checkerは軽量summaryを使い、fullが必要なときはexport commandで再生成する。
 
 各Contractは次を固定する。
 

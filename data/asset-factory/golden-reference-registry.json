@@ -1,7 +1,9 @@
 {
   "schemaVersion": 1,
   "generatedBy": "scripts/asset-factory/export-generation-contracts.ts",
-  "generatedAt": "2026-07-10T08:33:47.450Z",
+  "generatedAt": "2026-07-11T03:04:00.889Z",
+  "sourceCommit": "b5c7cb2d87aeeb9e7df9ee7bb6eb7b0ded66de6f",
+  "referenceSetHash": "bf1637e3158d282a618d6acdfc507574edcd234c2d0b1143602dfccb65f3dd28",
   "referenceSetCount": 8,
   "referenceSets": [
     {
