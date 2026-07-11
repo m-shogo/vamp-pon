@@ -59,7 +59,7 @@ Big Implementation control-plane: source / ownership / preflight整理
 ## 現在の最優先
 
 ```txt
-U46 Result / Retry / StageSelect / Collection
+U47 gameplay data/runtime
 ```
 
 U45.1でユイとオンブを48-frame Multiple sprite、実animation、candidate provider経路へ接続した。Hardeningでcandidate readinessとproduction readinessを分離済み。最終美術と実機承認は未完了。
@@ -82,8 +82,8 @@ runtimeCandidateAssetProviderConnected=true
 productionVisualAssetProviderConnected=false
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-versionedSaveServiceImplemented=false
-sceneFlowCoordinatorImplemented=false
+versionedSaveServiceImplemented=true
+sceneFlowCoordinatorImplemented=true
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
 mobileMetricsReady=false
@@ -99,8 +99,6 @@ productionApproved=false
 ## 次の順序
 
 ```txt
-U46 AppFlow/Pause + Result read model + SaveService v1 + 灯録
-↓
 U47 weapon/passive/rare/evolution/黒耀化 runtime
 ↓
 U48 remaining production assets/background/VFX

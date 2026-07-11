@@ -1,0 +1,13 @@
+{
+  "result": "passed",
+  "categories": ["Characters", "Enemies", "Weapons", "Items", "Stages", "Memories"],
+  "lockedSpoilerBoundaryPassed": true,
+  "unlockedEntryPassed": true,
+  "newIndicatorPassed": true,
+  "seenUpdatePassed": true,
+  "categoryFilterPassed": true,
+  "emptyStatePassed": true,
+  "progressPassed": true,
+  "unknownDefinitionIgnored": true,
+  "stableIdSaveOnly": true
+}

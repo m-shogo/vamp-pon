@@ -255,7 +255,7 @@ runtimeVisualReady
 
 ## 現在のフェーズ
 
-U45.1 Character and Enemy Dot Runtime PassとU45.1 Hardeningは完了。現在はU46 Result / Retry / StageSelect / 灯録。U46ではcandidate provider、animation、pause、readiness分離を維持する。
+U45.1 Character and Enemy Dot Runtime Pass、Hardening、U46 AppFlow / Save / Result / 灯録 candidateは完了。現在はU47 gameplay data/runtime。candidate provider、animation、pause、readiness分離を維持する。
 
 ## Source of truth
 

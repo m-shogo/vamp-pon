@@ -89,13 +89,19 @@ check('build scene stage1 included', /Assets\/_Project\/Scenes\/Stage1\/Stage1\.
 check('proof scene not in build settings', !/Assets\/_Project\/Scenes\/Proof\//.test(buildSettings));
 check('touch input implemented', runtime.includes('DevicePointerMoveInputSource') && runtime.includes('Touchscreen.current') && runtime.includes('CompositeMoveInputSource'));
 check('EventSystem implemented', runtime.includes('InputSystemUIInputModule') && runtime.includes('EnsureEventSystem'));
-check('StageSelect runtime overlay implemented', runtime.includes('U43StageSelectRuntimeOverlay') && runtime.includes('Stage1へ'));
-check('Result retry runtime overlay implemented', runtime.includes('U43ResultRuntimeOverlay') && runtime.includes('Retry') && runtime.includes('StageSelect'));
-check('StageSelect battle paused before start', /CreateStageSelectOverlay\(\);\s*SetOverlayBattlePaused\(true\);/s.test(runtime) && /stageSelectOverlay\.SetActive\(false\);\s*SetOverlayBattlePaused\(false\);/s.test(runtime));
-check('Result battle paused while open', /OpenResultOverlay\(bool clear\)[\s\S]*SetOverlayBattlePaused\(true\);\s*resultOverlay\.SetActive\(true\);/.test(runtime));
-check('StageSelect return keeps battle paused', /resultOverlay\.SetActive\(false\);\s*stageSelectOverlay\.SetActive\(true\);\s*SetOverlayBattlePaused\(true\);/.test(runtime));
+check('StageSelect runtime overlay implemented', (runtime.includes('U43StageSelectRuntimeOverlay') && runtime.includes('Stage1へ')) || (runtime.includes('StageSelectView') && runtime.includes('StartStageButton')));
+check('Result retry runtime overlay implemented', (runtime.includes('U43ResultRuntimeOverlay') && runtime.includes('Retry')) || (runtime.includes('ResultView') && runtime.includes('RetryButton') && runtime.includes('StageSelectButton')));
+check('StageSelect battle paused before start',
+  (/CreateStageSelectOverlay\(\);\s*SetOverlayBattlePaused\(true\);/s.test(runtime) && /stageSelectOverlay\.SetActive\(false\);\s*SetOverlayBattlePaused\(false\);/s.test(runtime)) ||
+  (runtime.includes('pause.ResetToStageSelect()') && runtime.includes('pause.Release(RunPauseReason.StageSelect)') && runtime.includes('AppFlowCommand.StartStage')));
+check('Result battle paused while open',
+  /OpenResultOverlay\(bool clear\)[\s\S]*SetOverlayBattlePaused\(true\);\s*resultOverlay\.SetActive\(true\);/.test(runtime) ||
+  (runtime.includes('pause.Acquire(RunPauseReason.Result)') && runtime.includes('AppFlowCommand.CompleteRun')));
+check('StageSelect return keeps battle paused',
+  /resultOverlay\.SetActive\(false\);\s*stageSelectOverlay\.SetActive\(true\);\s*SetOverlayBattlePaused\(true\);/.test(runtime) ||
+  (runtime.includes('ReturnToStageSelect') && runtime.includes('pause.ResetToStageSelect()')));
 check('Battle update pause gate exists', /private bool runtimePaused = true;/.test(runtime) && /public bool IsRuntimePaused => runtimePaused;/.test(runtime) && /if \(runtimePaused\)[\s\S]*return;[\s\S]*elapsedSeconds \+= Time\.deltaTime;/.test(runtime));
-check('Overlay movement input blocked', /SetRuntimeInputBlocked\(paused\)/.test(runtime) && /public void SetRuntimeInputBlocked\(bool blocked\)/.test(runtime) && /if \(runtimeInputBlocked\)[\s\S]*return;/.test(runtime));
+check('Overlay movement input blocked', /SetRuntimeInputBlocked\(paused(State)?\)/.test(runtime) && /public void SetRuntimeInputBlocked\(bool blocked\)/.test(runtime) && /if \(runtimeInputBlocked\)[\s\S]*return;/.test(runtime));
 check('UI tap movement collision guard exists', runtime.includes('EventSystem.current.IsPointerOverGameObject') && runtime.includes('IsPointerOverUi') && runtime.includes('dragging = false'));
 check('Virtual stick lower-left only', runtime.includes('Screen.width * 0.42f') && runtime.includes('Screen.height * 0.34f'));
 check('Audio listener/source implemented', runtime.includes('AudioListener') && runtime.includes('AudioSource') && runtime.includes('PlayOneShot'));

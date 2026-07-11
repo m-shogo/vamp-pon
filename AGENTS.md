@@ -42,8 +42,8 @@ Do not claim these commands ran when working only through GitHub connector acces
 ```txt
 Completed: U45.1 Character and Enemy Dot Runtime Pass
 Completed: U45.1 Hardening
-Current: U46 Result / Retry / StageSelect / Collection
-then U47 gameplay data/runtime
+Completed: U46 AppFlow / Save / Result / 灯録 candidate
+Current: U47 gameplay data/runtime
 ```
 
 Preserve the completed U45.1 provider, animation, pause, and candidate/final boundaries during U46 work.

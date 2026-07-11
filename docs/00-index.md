@@ -1,5 +1,7 @@
 # ヨルノシルベ ドキュメント入口
 
+U46 completion: `unity-u46-app-flow-save-result-collection-2026-07-11.md`, `unity-u46-ui-asset-generation-2026-07-11.md`, `unity-u46-ios-simulator-smoke-2026-07-11.md`, `unity-u46-visual-review-2026-07-11.md`。
+
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
 ## 最初に読む
@@ -18,7 +20,8 @@ unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ## 現在の最優先
 
 ```txt
-U46 Result / Retry / StageSelect / Collection
+Completed: U46 AppFlow / Save / Result / 灯録 candidate
+Current: U47 gameplay data/runtime
 ```
 
 U45.1でユイとオンブのMultiple sprite、実animation、candidate provider、Simulator回帰証跡を接続済み。Hardeningも完了し、候補runtimeとproduction visual/実機承認を分離した。

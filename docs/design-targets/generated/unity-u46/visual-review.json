@@ -1,0 +1,20 @@
+{
+  "result": "PASS_WITH_ISSUES",
+  "reviewedScreens": ["StageSelect", "Collection index", "Collection locked", "Collection unlocked detail", "Result Clear", "Result Fail", "Compact Result", "Large Result", "Large Collection"],
+  "p0Issues": [],
+  "p1Issues": [],
+  "issues": [
+    {
+      "severity": "P2",
+      "screen": "Result stat chips",
+      "problem": "Generated navy chip ornament competes slightly with the first label word.",
+      "evidence": "simulator-smoke/screenshots/07-result-clear.png",
+      "recommendedFix": "Refine the candidate chip during final art approval without changing the read model.",
+      "fixed": false,
+      "remaining": true
+    }
+  ],
+  "candidateUiReviewed": true,
+  "finalArtApproved": false,
+  "actualDeviceReviewed": false
+}

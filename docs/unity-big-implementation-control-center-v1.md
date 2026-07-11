@@ -78,7 +78,7 @@ runtime passとHardeningは完了。U46以降でprovider approval level、animat
 - Golden Identity Reference / Lineage / gameplay-size reviewを揃える
 - Simulator regressionを再実行する
 
-### U46 Result / Retry / StageSelect / 灯録
+### U46 Result / Retry / StageSelect / 灯録: Completed Candidate
 
 U45.1とFoundation Gateを壊さず、非戦闘shellを製品品質化する。
 

@@ -269,8 +269,8 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 ## Next implementation order
 
 1. `pnpm implementation:preflight:check`
-2. U46 AppFlow/Pause + Result ViewModel + SaveService v1 + 灯録
-3. U47 gameplay definitions/runtime state
+2. U46 AppFlow/Pause + Result ViewModel + SaveService v1 + 灯録: completed candidate
+3. U47 gameplay definitions/runtime state: current
 4. U48 remaining assets/background/VFX
 5. U49 actual-device audio/haptic
 6. U50 performance/touch metrics

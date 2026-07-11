@@ -1,5 +1,7 @@
 # Unity Current Doc Index 2026-07-10
 
+U46 completion sources: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`, `docs/unity-u46-ui-asset-generation-2026-07-11.md`, `docs/unity-u46-ios-simulator-smoke-2026-07-11.md`, `docs/unity-u46-visual-review-2026-07-11.md`。
+
 Status: current
 
 ## 最初に読む
@@ -15,7 +17,8 @@ Status: current
 ## 現在のPhase
 
 ```txt
-Current: U46 Result / Retry / StageSelect / 灯録
+Completed: U46 AppFlow / Save / Result / 灯録 candidate
+Current: U47 gameplay data/runtime
 Completed prerequisite: U45.1 Character and Enemy Dot Runtime Pass
 Completed hardening: U45.1 candidate/production readiness and Asset Factory export
 ```

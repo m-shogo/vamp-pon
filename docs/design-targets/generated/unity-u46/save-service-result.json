@@ -1,0 +1,15 @@
+{
+  "result": "passed",
+  "schemaVersion": 1,
+  "fileName": "yoru-no-shirube-save-v1.json",
+  "persistentDataPath": true,
+  "atomicTemporaryWrite": true,
+  "backupWrite": true,
+  "corruptJsonRecoveryPassed": true,
+  "futureSchemaRejected": true,
+  "missingFieldsDefaulted": true,
+  "duplicateIdsNormalized": true,
+  "unknownIdsNotSubstituted": true,
+  "atomicWriteFailurePreservedMemory": true,
+  "cloudSaveIntroduced": false
+}

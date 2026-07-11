@@ -11,6 +11,7 @@ const scripts = [
   'unity:u45-settings-repair:check',
   'unity:u45-ai-simulator-smoke:check',
   'unity:u45-1-runtime-dot-animation:check',
+  'unity:u46-app-flow-save-result-collection:check',
   'unity:runtime-visual-readiness:check',
   'unity:meta:check',
   'test',

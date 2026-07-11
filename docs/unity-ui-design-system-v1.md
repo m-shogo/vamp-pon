@@ -1,5 +1,7 @@
 # ヨルノシルベ Unity UI Design System v1
 
+U46 Result/灯録は`Resources/U46Candidates/UI`のtyped Candidate catalog、9-slice、Safe Area、Compact/Standard/Large reviewを採用した。final/runtime承認ではない。
+
 Date: 2026-07-10
 Status: adopted foundation / U46 onward source of truth
 

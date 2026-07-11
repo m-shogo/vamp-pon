@@ -164,7 +164,7 @@ Check:
 pnpm unity:ui-design-system:check
 ```
 
-## U46 AppFlow + Result + Retry + StageSelect + 灯録
+## U46 AppFlow + Result + Retry + StageSelect + 灯録: Completed Candidate
 
 - Goal: create a complete non-battle shell without adding more responsibility to bootstrap/battle controller.
 - Prerequisites: U45.1 minimum complete, runtime ownership contract active, UI Design System validated.
@@ -275,8 +275,8 @@ Done: Stage1 remains playable, item state is visible, invalid drops/evolutions a
 Foundation preflight
 -> U45.1 dot runtime
 -> Simulator regression
--> U46 AppFlow/Save/Result/灯録
--> U47 gameplay data
+-> U46 AppFlow/Save/Result/灯録 completed candidate
+-> U47 gameplay data current
 -> U48 asset expansion
 -> U49 audio/haptic device
 -> U50 performance/touch device

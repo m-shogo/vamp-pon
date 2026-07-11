@@ -1,5 +1,7 @@
 # ヨルノシルベ Asset Generation Consistency System v1
 
+U46はcomponent-kit contract 1件、4候補、source/output hash、chroma-key alpha、deterministic slicing、automatic QA、Candidate境界を`docs/design-targets/generated/unity-u46/ui-generation/lineage.json`へ記録した。
+
 Date: 2026-07-10  
 Status: adopted / source of truth for generated visual assets
 

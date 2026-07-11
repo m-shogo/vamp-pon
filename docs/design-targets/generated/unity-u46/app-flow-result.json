@@ -1,0 +1,12 @@
+{
+  "result": "passed",
+  "states": ["Boot", "StageSelect", "Running", "LevelUpModal", "Result", "Collection"],
+  "validTransitionTestsPassed": true,
+  "invalidTransitionTestsPassed": true,
+  "retryResetPassed": true,
+  "stageSelectReturnPaused": true,
+  "collectionOpenClosePassed": true,
+  "levelUpOpenClosePassed": true,
+  "uiDirectSceneManagerCalls": 0,
+  "uiDirectTimeScaleCalls": 0
+}

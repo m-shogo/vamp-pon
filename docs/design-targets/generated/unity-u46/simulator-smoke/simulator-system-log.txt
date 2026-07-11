@@ -1,0 +1,233 @@
+Timestamp               Ty Process[PID:TID]
+2026-07-11 16:42:53.257 Df VampPonUnitySpike[9757:48e9b06] (libMobileGestalt.dylib) No persisted cache on this platform.
+2026-07-11 16:42:53.259 Df VampPonUnitySpike[9757:48e9b40] [com.apple.BoardServices:XPCErrors] [C:1] Alloc com.apple.frontboard.systemappservices
+2026-07-11 16:42:53.259 Df VampPonUnitySpike[9757:48e9b40] [com.apple.xpc:connection] [0x1014bdfa0] activating connection: mach=false listener=false peer=false name=(anonymous)
+2026-07-11 16:42:53.263 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x1014bc9c0] activating connection: mach=true listener=false peer=false name=com.apple.cfprefsd.daemon
+2026-07-11 16:42:53.265 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:UIScreen] Evaluated capturing state as 0 on <UIScreen: 0x1014be180> for initial
+2026-07-11 16:42:53.265 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:UIScreen] Evaluated capturing state as 0 on <UIScreen: 0x1014be180> for CADisplay KVO
+2026-07-11 16:42:53.267 Df VampPonUnitySpike[9757:48e9b06] [com.apple.Accessibility:AXSupportCommon] Read CategoryName: per-app = 1, category name = (null)
+2026-07-11 16:42:53.267 Df VampPonUnitySpike[9757:48e9b06] [com.apple.Accessibility:AXSupportCommon] Read CategoryName: per-app = 0, category name = (null)
+2026-07-11 16:42:53.271 Df VampPonUnitySpike[9757:48e9b06] (UnityFramework) Built from '6000.5/staging' branch, Version '6000.5.1f1 (0d9463e84828)', Build type 'Development', Scripting Backend 'il2cpp'
+2026-07-11 16:42:53.272 Df VampPonUnitySpike[9757:48e9b06] (UnityFramework) MemoryManager: Using 'Dynamic Heap' Allocator.
+2026-07-11 16:42:53.282 A  VampPonUnitySpike[9757:48e9b40] (CoreFoundation) Loading Preferences From User Session CFPrefsD
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b42] [com.apple.UIKit:BackgroundTask] Creating new assertion because there is no existing background assertion.
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b42] [com.apple.UIKit:BackgroundTask] Creating new background assertion
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b42] [com.apple.UIKit:BackgroundTask] Created new background assertion <BKSProcessAssertion: 0x101dee440>
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b42] [com.apple.runningboard:connection] Initializing connection
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b42] [com.apple.runningboard:process] Removing all cached process handles
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b40] [com.apple.runningboard:connection] Sending handshake request attempt #1 to server
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b40] [com.apple.runningboard:connection] Creating connection to com.apple.runningboard
+2026-07-11 16:42:53.283 Df VampPonUnitySpike[9757:48e9b40] [com.apple.xpc:connection] [0x101e64a00] activating connection: mach=true listener=false peer=false name=com.apple.runningboard
+2026-07-11 16:42:53.284 A  VampPonUnitySpike[9757:48e9b41] (RunningBoardServices) didChangeInheritances
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b40] [com.apple.runningboard:connection] Handshake succeeded
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b40] [com.apple.runningboard:connection] Identity resolved as app<com.mshogo.vamppon.u1((null))>
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason added: 10; deactivation reasons: 0 -> 1024; animating application lifecycle event: 0
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b42] [com.apple.UIKit:BackgroundTask] Incrementing reference count for background assertion <BKSProcessAssertion: 0x101dee440>
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b42] [com.apple.UIKit:BackgroundTask] Created background task <_UIBackgroundTaskInfo: 0x101c4cc80>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 3165668 (elapsed = 0).
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b06] [com.apple.BoardServices:Injection] activating monitor for service com.apple.frontboard.open
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UIApplicationSceneKeyboardSettings on FBSSceneSettings
+2026-07-11 16:42:53.284 Df VampPonUnitySpike[9757:48e9b06] [com.apple.BoardServices:Injection] activating monitor for service com.apple.frontboard.workspace-service
+2026-07-11 16:42:53.285 Df VampPonUnitySpike[9757:48e9b06] [com.apple.FrontBoard:Common] FBSWorkspace registering source: com.apple.frontboard.systemappservices
+2026-07-11 16:42:53.285 Df VampPonUnitySpike[9757:48e9b06] [com.apple.FrontBoard:Common] FBSWorkspace connected to endpoint : <BSServiceConnectionEndpoint: 0x101d58ec0; target: com.apple.frontboard.systemappservices; service: com.apple.frontboard.workspace-service>
+2026-07-11 16:42:53.287 Df VampPonUnitySpike[9757:48e9b06] [com.apple.FrontBoard:Common] <FBSWorkspaceScenesClient:0x101e20460 com.apple.frontboard.systemappservices> attempting immediate handshake from activate
+2026-07-11 16:42:53.287 Df VampPonUnitySpike[9757:48e9b06] [com.apple.FrontBoard:Common] <FBSWorkspaceScenesClient:0x101e20460 com.apple.frontboard.systemappservices> sent handshake
+2026-07-11 16:42:53.287 Df VampPonUnitySpike[9757:48e9b06] [com.apple.runningboard:general] Added observer for process assertions expiration warning: <_RBSExpirationWarningClient: 0x101d59560>
+2026-07-11 16:42:53.287 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneOcclusionSettings> on FBSSceneSettings
+2026-07-11 16:42:53.288 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneInterfaceProtectionSettings> on FBSSceneSettings
+2026-07-11 16:42:53.288 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneLayoutPreferencesHostSettingsExtension on FBSSceneSettings
+2026-07-11 16:42:53.288 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneSafeAreaSettingsExtension on FBSSceneSettings
+2026-07-11 16:42:53.289 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneLayoutPreferenceClientSettingsExtension on FBSSceneClientSettings
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UIHomeAffordanceHostSceneSettings> on FBSSceneSettings
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISystemShellSceneHostingEnvironmentSettings on FBSSceneSettings
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneRenderingEnvironmentSettings on FBSSceneSettings
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b06] [com.apple.dt.xctest:Default] Registering for test daemon availability notify post.
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b06] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b06] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-07-11 16:42:53.290 Df VampPonUnitySpike[9757:48e9b06] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneRenderingEnvironmentClientSettings> on FBSSceneClientSettings
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneTransitioningHostSettings> on FBSSceneSettings
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneFocusSystemSettings> on FBSSceneSettings
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneOrientationSettingsExtension on FBSSceneSettings
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneOrientationClientSettingsExtension on FBSSceneClientSettings
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneWindowingControlClientSettings on FBSSceneClientSettings
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason added: 11; deactivation reasons: 1024 -> 3072; animating application lifecycle event: 0
+2026-07-11 16:42:53.291 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingContentSizePreferenceClientSettings> on FBSSceneClientSettings
+2026-07-11 16:42:53.292 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension _UISceneHostingTraitCollectionPropagationSettings on FBSSceneSettings
+2026-07-11 16:42:53.292 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingSheetPresentationSettings> on FBSSceneSettings
+2026-07-11 16:42:53.293 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason removed: 10; deactivation reasons: 3072 -> 2048; animating application lifecycle event: 0
+2026-07-11 16:42:53.293 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingSheetPresentationClientSettings> on FBSSceneClientSettings
+2026-07-11 16:42:53.293 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingEventDeferringSettings> on FBSSceneSettings
+2026-07-11 16:42:53.293 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <UIKit__UITypedKeyValueSceneSettings> on FBSSceneSettings
+2026-07-11 16:42:53.293 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <UIKit__UITypedKeyValueSceneSettings> on FBSSceneClientSettings
+2026-07-11 16:42:53.293 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneHostingViewControllerPreferencePropagationClientSettings> on FBSSceneClientSettings
+2026-07-11 16:42:53.294 Df VampPonUnitySpike[9757:48e9b42] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneZoomTransitionSettings> on FBSSceneSettings
+2026-07-11 16:42:53.294 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:EventBus] Event Timing Profile for Touch: not found, path="/System/Library/EventTimingProfiles/Sim.Touch.plist"
+2026-07-11 16:42:53.294 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:EventBus] Event Timing Profile for Pencil: not found, path="/System/Library/EventTimingProfiles/Sim.Pencil.plist"
+2026-07-11 16:42:53.294 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:UpdateScheduler] Selected display: name=LCD (PurpleMain), id=1
+2026-07-11 16:42:53.294 Df VampPonUnitySpike[9757:48e9b40] [com.apple.FrontBoard:SceneExtension] Realizing settings extension FBSSceneSettingsCore on FBSSceneSettings
+2026-07-11 16:42:53.295 Df VampPonUnitySpike[9757:48e9b40] [com.apple.FrontBoard:SceneExtension] Realizing settings extension FBSSceneClientSettingsCore on FBSSceneClientSettings
+2026-07-11 16:42:53.300 Df VampPonUnitySpike[9757:48e9b40] [com.apple.FrontBoard:SceneExtension] UIMutableApplicationSceneSettings setting counterpart class: UIApplicationSceneSettings
+2026-07-11 16:42:53.300 Df VampPonUnitySpike[9757:48e9b40] [com.apple.FrontBoard:SceneExtension] UIMutableApplicationSceneClientSettings setting counterpart class: UIApplicationSceneClientSettings
+2026-07-11 16:42:53.300 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x101e64f00] activating connection: mach=true listener=false peer=false name=com.apple.lsd.mapdb
+2026-07-11 16:42:53.300 Df VampPonUnitySpike[9757:48e9b40] [com.apple.FrontBoard:SceneExtension] Realizing settings extension FBSSceneTransitionContextCore on FBSSceneTransitionContext
+2026-07-11 16:42:53.308 Df VampPonUnitySpike[9757:48e9b06] [com.apple.BoardServices:XPCErrors] [C:2] Alloc com.apple.backboard.hid-services.xpc
+2026-07-11 16:42:53.308 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x101e652c0] activating connection: mach=false listener=false peer=false name=(anonymous)
+2026-07-11 16:42:53.309 Df VampPonUnitySpike[9757:48e9b41] [com.apple.BackBoard:EventDelivery] BKSHIDEventDeliveryManager - connection activation
+2026-07-11 16:42:53.310 Df VampPonUnitySpike[9757:48e9b06] [com.apple.app_launch_measurement:ApplicationLaunch] alm_acquire_pageins_recording_assertion: acquired pageins recording assertion!
+2026-07-11 16:42:53.312 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:BackgroundTask] Will add backgroundTask with taskName: Persistent SceneSession Map Update, expirationHandler: <__NSGlobalBlock__: 0x1e78c84e8>
+2026-07-11 16:42:53.312 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:BackgroundTask] Reusing background assertion <BKSProcessAssertion: 0x101dee440>
+2026-07-11 16:42:53.312 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:BackgroundTask] Incrementing reference count for background assertion <BKSProcessAssertion: 0x101dee440>
+2026-07-11 16:42:53.312 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:BackgroundTask] Created background task <_UIBackgroundTaskInfo: 0x101f7db00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 3165668 (elapsed = 0).
+2026-07-11 16:42:53.312 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason added: 5; deactivation reasons: 2048 -> 2080; animating application lifecycle event: 1
+2026-07-11 16:42:53.312 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Should send trait collection or coordinate space update, interface style 1 -> 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.313 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.313 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:HomeAffordanceObservation] Initializing: <_UIHomeAffordanceSceneNotifier: 0x101f995e0>; with scene: <UIWindowScene: 0x101e00800>
+2026-07-11 16:42:53.314 Df VampPonUnitySpike[9757:48e9b06] [com.apple.BacklightServices:scenes] 0x101c16ee0 setDelegate:<0x101c16e50 _UIBacklightEnvironment> hasDelegate:YES for environment:sceneID:com.mshogo.vamppon.u1-default
+2026-07-11 16:42:53.314 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.314 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:EventDeferring] [0x101f98e00] Initialized with scene: <UIWindowScene: 0x101e00800>; behavior: <_UIEventDeferringBehavior_iOS: 0x10e0393a0>; availableForProcess: 1, systemShellManagesKeyboardFocus: 1
+2026-07-11 16:42:53.314 Df VampPonUnitySpike[9757:48e9b41] [com.apple.BackBoard:EventDelivery] BKSHIDEventObserver - connection activation
+2026-07-11 16:42:53.314 Df VampPonUnitySpike[9757:48e9b06] [com.apple.BackBoard:EventDelivery] policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x101c21920; process scope; status: target> was:none
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Setting default evaluation strategy for UIUserInterfaceIdiomPhone to LastOneWins
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Scene target of keyboard event deferring environment did change: 1; scene: UIWindowScene: 0x101e00800; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.mshogo.vamppon.u1-default
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:EventDeferring] [0x101f98e00] Scene target of event deferring environments did update: scene: 0x101e00800; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Scene became target of keyboard event deferring environment: UIWindowScene: 0x101e00800; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.mshogo.vamppon.u1-default
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Stack[KeyWindow] 0x101c16c10: Taking no further action for migration from LastOneWins -> SystemShellManaged as there are no scenes
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Setting default evaluation strategy for UIUserInterfaceIdiomPhone to SystemShellManaged
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Key window needs update: 0; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x101e00800; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x0; reason: UIWindowScene: 0x101e00800: Window scene became target of keyboard environment
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.315 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.316 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.316 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:53.544 E  VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:OverscanCompensation] Requesting to set overscan compensation when we do not have a window scene
+2026-07-11 16:42:53.561 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x101e66580] activating connection: mach=true listener=false peer=false name=com.apple.metal.simulator
+2026-07-11 16:42:53.563 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x101e666c0] activating connection: mach=true listener=false peer=false name=com.apple.metal.simulator
+2026-07-11 16:42:53.563 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x101e66800] activating connection: mach=true listener=false peer=false name=com.apple.metal.simulator
+2026-07-11 16:42:53.575 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Orientation] <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90) Scene updated orientation preferences: none -> ( Pu )
+2026-07-11 16:42:53.576 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Key window API is scene-level: YES
+2026-07-11 16:42:53.576 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] UIWindowScene: 0x101e00800: Window became key in scene: UIWindow: 0x101ee0000; contextId: 0x2F8A7000: reason: UIWindowScene: 0x101e00800: Window requested to become key in scene: 0x101ee0000
+2026-07-11 16:42:53.576 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Key window needs update: 1; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x101e00800; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x101ee0000; reason: UIWindowScene: 0x101e00800: Window requested to become key in scene: 0x101ee0000
+2026-07-11 16:42:53.576 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Window did become application key: UIWindow: 0x101ee0000; contextId: 0x2F8A7000; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.mshogo.vamppon.u1-default
+2026-07-11 16:42:53.576 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:EventDeferring] [0x101f98e00] Begin local event deferring requested for token: 0x101c22b80; environments: 1; reason: UIWindowScene: 0x101e00800: Begin event deferring in keyboardFocus for window: 0x101ee0000
+2026-07-11 16:42:53.577 Df VampPonUnitySpike[9757:48e9b41] [com.apple.BackBoard:EventDelivery] policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x101c21920; token: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.mshogo.vamppon.u1-default; status: ancestor> was:target
+2026-07-11 16:42:53.584 Df VampPonUnitySpike[9757:48e9b41] [com.apple.xpc:connection] [0x11cd78640] activating connection: mach=true listener=false peer=false name=com.apple.fontservicesd
+2026-07-11 16:42:53.638 Df VampPonUnitySpike[9757:48e9b40] [com.apple.launchservices:db] NotifyToken::RegisterDispatch(com.apple.LaunchServices.database) fired for session key LSSessionKey(system: 0 uid: 501)
+2026-07-11 16:42:53.716 Df VampPonUnitySpike[9757:48e9b06] [com.apple.gamecontroller:Session] Creating the shared game controller session...
+2026-07-11 16:42:53.719 Df VampPonUnitySpike[9757:48e9b06] [com.apple.BackBoard:EventDelivery] policyStatus:<BKSHIDEventDeliveryPolicyObserver: 0x101c22820; process scope; status: target> was:none
+2026-07-11 16:42:53.719 A  VampPonUnitySpike[9757:48e9b06] (GameController) [GCDeviceSession] Activate
+2026-07-11 16:42:53.825 Df VampPonUnitySpike[9757:48e9b40] [com.apple.UIKit:BackgroundTask] Ending background task with UIBackgroundTaskIdentifier: 2
+2026-07-11 16:42:53.825 Df VampPonUnitySpike[9757:48e9b40] [com.apple.UIKit:BackgroundTask] Ending task with identifier 2 and description: <_UIBackgroundTaskInfo: 0x101f7db00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 3165668 (elapsed = 1), _expireHandler: <__NSGlobalBlock__: 0x1e78c84e8>
+2026-07-11 16:42:53.825 Df VampPonUnitySpike[9757:48e9b40] [com.apple.UIKit:BackgroundTask] Decrementing reference count for assertion <BKSProcessAssertion: 0x101dee440> (used by background task with identifier 2: <_UIBackgroundTaskInfo: 0x101f7db00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 3165668 (elapsed = 1))
+2026-07-11 16:42:53.911 A  VampPonUnitySpike[9757:48e9b40] (LocationSupport) CL: Sending cached messages to daemon
+2026-07-11 16:42:53.911 Df VampPonUnitySpike[9757:48e9b40] [com.apple.LocationSupport:Connection] {"msg":"Sending cached messages to daemon", "event":activity}
+2026-07-11 16:42:53.911 Df VampPonUnitySpike[9757:48e9b40] [com.apple.xpc:connection] [0x11ce0b0c0] activating connection: mach=true listener=false peer=false name=com.apple.locationd.registration
+2026-07-11 16:42:53.935 E  VampPonUnitySpike[9757:48e9bb9] [com.apple.locationd.Core:Core] {"msg":"file does not exist... clearing", "file":/Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/private/var/Managed Preferences/kCFPreferencesCurrentUser/com.apple.CoreMotion.plist, "error":Error Domain=NSCocoaErrorDomain Code=260 "ファイル“com.apple.CoreMotion.plist”は存在しないため、開けませんでした。" UserInfo={NSFilePath=/Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/private/var/Managed Preferences/kCFPreferencesCurrentUser/com.apple.CoreMotion.plist, NSURL=file:///Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS%2026.5.simruntime/Contents/Resources/RuntimeRoot/private/var/Managed%20Preferences/kCFPreferencesCurrentUser/com.apple.CoreMotion.plist, NSUnderlyingError=0x11ce14720 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}}
+2026-07-11 16:42:53.935 A  VampPonUnitySpike[9757:48e9bb9] (CoreFoundation) Loading Preferences From User Session CFPrefsD
+2026-07-11 16:42:53.964 E  VampPonUnitySpike[9757:48e9ba7] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-07-11 16:42:53.964 Df VampPonUnitySpike[9757:48e9ba7] (libCoreFSCache.dylib) Invalidating cache
+2026-07-11 16:42:53.964 Df VampPonUnitySpike[9757:48e9ba7] [com.apple.xpc:connection] [0x11ce0b200] activating connection: mach=false listener=false peer=false name=com.apple.MTLCompilerService
+2026-07-11 16:42:53.988 Df VampPonUnitySpike[9757:48e9ba7] [com.apple.xpc:connection] [0x11ce0b340] activating connection: mach=false listener=false peer=false name=com.apple.MTLCompilerService
+2026-07-11 16:42:53.988 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.305 Df VampPonUnitySpike[9757:48e9b41] [com.apple.UIKit:BackgroundTask] Ending background task with UIBackgroundTaskIdentifier: 1
+2026-07-11 16:42:54.305 Df VampPonUnitySpike[9757:48e9b41] [com.apple.UIKit:BackgroundTask] Ending task with identifier 1 and description: <_UIBackgroundTaskInfo: 0x101c4cc80>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 3165668 (elapsed = 1), _expireHandler: (null)
+2026-07-11 16:42:54.306 Df VampPonUnitySpike[9757:48e9b41] [com.apple.UIKit:BackgroundTask] Decrementing reference count for assertion <BKSProcessAssertion: 0x101dee440> (used by background task with identifier 1: <_UIBackgroundTaskInfo: 0x101c4cc80>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 3165668 (elapsed = 1))
+2026-07-11 16:42:54.306 Df VampPonUnitySpike[9757:48e9b41] [com.apple.UIKit:BackgroundTask] Will invalidate assertion: <BKSProcessAssertion: 0x101dee440> for task identifier: 1
+2026-07-11 16:42:54.494 A  VampPonUnitySpike[9757:48e9b41] (RunningBoardServices) didChangeInheritances
+2026-07-11 16:42:54.527 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.587 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.591 E  VampPonUnitySpike[9757:48e9ba7] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-07-11 16:42:54.591 Df VampPonUnitySpike[9757:48e9ba7] (libCoreFSCache.dylib) Invalidating cache
+2026-07-11 16:42:54.591 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.609 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.611 Df VampPonUnitySpike[9757:48e9ba7] [com.apple.xpc:connection] [0x11ce0b5c0] activating connection: mach=true listener=false peer=false name=com.apple.IOSurface.Remote
+2026-07-11 16:42:54.613 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.618 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.674 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.675 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.675 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:54.681 Df VampPonUnitySpike[9757:48e9b06] [com.apple.audio.caulk:alloc] Registered notify signal com.apple.caulk.alloc.rtdump (0)
+2026-07-11 16:42:54.707 Df VampPonUnitySpike[9757:48e9b06] (CoreAudio)   HALPlugInManagement.cpp:443    HALPlugInManagement::RegisterPlugIns: loading in-process plug-ins
+2026-07-11 16:42:54.707 E  VampPonUnitySpike[9757:48e9b06] [com.apple.CFBundle:plugin] AddInstanceForFactory: No factory registered for id <CFUUID 0x10e12b460> F8BB1C28-BAE8-11D6-9C31-00039315CD46
+2026-07-11 16:42:54.716 Df VampPonUnitySpike[9757:48e9b5b] (CoreAudio)      HALC_ProxyObject.cpp:1456   HALC_Object_PropertyListener: not initialized
+2026-07-11 16:42:54.720 Df VampPonUnitySpike[9757:48e9b06] [com.apple.coreaudio:as_client] AVAudioSessionImpl_Simulator.mm:111   Set volume on device 72 to 0.60
+2026-07-11 16:42:54.720 Df VampPonUnitySpike[9757:48e9b06] [com.apple.coreaudio:as_client] AVAudioSessionImpl_Simulator.mm:111   Set volume on device 72 to 0.60
+2026-07-11 16:42:54.722 Df VampPonUnitySpike[9757:48e9b06] [com.apple.coreaudio:ddagg]        AggregateDevice.mm:887   Creating DefaultDeviceAggregate
+2026-07-11 16:42:54.730 Df VampPonUnitySpike[9757:48e9b06] [com.apple.coreaudio:ddagg]        AggregateDevice.mm:688   Built valid aggregate 113
+2026-07-11 16:42:54.730 Df VampPonUnitySpike[9757:48e9b06] [com.apple.coreaudio:ddagg]        AggregateDevice.mm:1008  PrimarySessionActiveWithInputEnabled 0 -> 0
+2026-07-11 16:42:54.732 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.mshogo.vamppon.u1-default  persistentID: 11D4C08E-9230-425E-9456-D76E76956C90
+2026-07-11 16:42:54.732 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Ignoring already applied deactivation reason: 5; deactivation reasons: 2080
+2026-07-11 16:42:54.732 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason added: 12; deactivation reasons: 2080 -> 6176; animating application lifecycle event: 1
+2026-07-11 16:42:54.732 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason removed: 11; deactivation reasons: 6176 -> 4128; animating application lifecycle event: 1
+2026-07-11 16:42:54.732 Df VampPonUnitySpike[9757:48e9b06] [com.apple.FrontBoard:SceneExtension] Realizing settings extension <_UISceneIntelligenceSupportSettings> on FBSSceneSettings
+2026-07-11 16:42:54.733 Df VampPonUnitySpike[9757:48e9b5b] [com.apple.UIIntelligenceSupport:xpc] establishing connection to agent
+2026-07-11 16:42:54.733 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:54.733 Df VampPonUnitySpike[9757:48e9b5b] [com.apple.xpc:session] [0x11cedfb60] Session created.
+2026-07-11 16:42:54.733 Df VampPonUnitySpike[9757:48e9b5b] [com.apple.xpc:session] [0x11cedfb60] Session created from connection [0x11ce0be80]
+2026-07-11 16:42:54.733 Df VampPonUnitySpike[9757:48e9b5b] [com.apple.xpc:connection] [0x11ce0be80] activating connection: mach=true listener=false peer=false name=com.apple.uiintelligencesupport.agent
+2026-07-11 16:42:54.733 Df VampPonUnitySpike[9757:48e9b5b] [com.apple.xpc:session] [0x11cedfb60] Session activated
+2026-07-11 16:42:54.736 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] Create activity from XPC object <nw_activity 50:1 [3CCB1EC4-2C00-4B36-9AA6-92E87285C15B] (reporting strategy default)>
+2026-07-11 16:42:54.736 Df VampPonUnitySpike[9757:48e9b40] [com.apple.CoreAnalytics:client] No XPC connection in Simulator
+2026-07-11 16:42:54.736 E  VampPonUnitySpike[9757:48e9b40] [com.apple.app_launch_measurement:General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+2026-07-11 16:42:54.736 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] Create activity from XPC object <nw_activity 50:2 [9F40DFD6-3693-4862-8658-26A67662F09C] (reporting strategy default)>
+2026-07-11 16:42:54.736 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] Set activity <nw_activity 50:1 [3CCB1EC4-2C00-4B36-9AA6-92E87285C15B] (reporting strategy default)> as the global parent
+2026-07-11 16:42:54.736 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:EventDeferring] [0x101f98e00] Scene target of event deferring environments did update: scene: 0x101e00800; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+2026-07-11 16:42:54.736 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyWindow] Scene became target of keyboard event deferring environment: UIWindowScene: 0x101e00800; scene identity: com.apple.frontboard.systemappservices/FBSceneManager:sceneID%3Acom.mshogo.vamppon.u1-default
+2026-07-11 16:42:54.736 A  VampPonUnitySpike[9757:48e9b40] (RunningBoardServices) didChangeInheritances
+2026-07-11 16:42:54.738 A  VampPonUnitySpike[9757:48e9b5b] (RunningBoardServices) didChangeInheritances
+2026-07-11 16:42:54.741 Df VampPonUnitySpike[9757:48e9b06] [com.apple.gamecontroller:Session] Connected devices changed (2 added, 0 removed) -> [2] {(
+    <GCController 0x101e30f00 'MFi'/'Gamepad'>,
+    <GCKeyboard 0x11ce04300 'Generic Keyboard'>
+)}
+2026-07-11 16:42:54.741 Df VampPonUnitySpike[9757:48e9b06] [com.apple.gamecontroller:Session] Connected devices changed (0 added, 0 removed) -> [2] {(
+    <GCController 0x101e30f00 'MFi'/'Gamepad'>,
+    <GCKeyboard 0x11ce04300 'Generic Keyboard'>
+)}
+2026-07-11 16:42:54.742 Df VampPonUnitySpike[9757:48e9b06] [com.apple.gamecontroller:Session] Connected devices changed (0 added, 0 removed) -> [2] {(
+    <GCController 0x101e30f00 'MFi'/'Gamepad'>,
+    <GCKeyboard 0x11ce04300 'Generic Keyboard'>
+)}
+2026-07-11 16:42:54.742 A  VampPonUnitySpike[9757:48e9b06] (GameControllerFoundation) [HID Event System Client] Activate
+2026-07-11 16:42:54.742 Df VampPonUnitySpike[9757:48e9b06] [com.apple.Accessibility:AXCommon] Read Per-App on Init: Smart invert = (null)
+2026-07-11 16:42:54.742 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.mshogo.vamppon.u1-default  persistentID: 11D4C08E-9230-425E-9456-D76E76956C90
+2026-07-11 16:42:54.742 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:54.742 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:UpdateScheduler] Target list changed: <CADisplay:LCD PurpleMain>
+2026-07-11 16:42:54.743 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x101e00800> (11D4C08E-9230-425E-9456-D76E76956C90)
+2026-07-11 16:42:54.743 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:com.mshogo.vamppon.u1-default  persistentID: 11D4C08E-9230-425E-9456-D76E76956C90
+2026-07-11 16:42:54.743 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason removed: 12; deactivation reasons: 4128 -> 32; animating application lifecycle event: 1
+2026-07-11 16:42:54.743 Df VampPonUnitySpike[9757:48e9b06] [com.apple.KeyboardArbiter:Client] Send setDeactivating: N (-DeactivationReason:SuspendedEventsOnly)
+2026-07-11 16:42:54.743 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:Application] Deactivation reason removed: 5; deactivation reasons: 32 -> 0; animating application lifecycle event: 0
+2026-07-11 16:42:54.743 A  VampPonUnitySpike[9757:48e9b06] (GameController) Notify ApplicationDidBecomeActive
+2026-07-11 16:42:54.743 Df VampPonUnitySpike[9757:48e9b06] [com.apple.KeyboardArbiter:Client] startConnection
+2026-07-11 16:42:54.744 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x11cd783c0] activating connection: mach=true listener=false peer=false name=com.apple.UIKit.KeyboardManagement.hosted
+2026-07-11 16:42:54.745 Df VampPonUnitySpike[9757:48e9b06] [com.apple.KeyboardArbiter:Client] handleKeyboardChange: set currentKeyboard:N (wasKeyboard:N)
+2026-07-11 16:42:54.745 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyboardSceneDelegate] forceReloadInputViews
+2026-07-11 16:42:54.745 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for key-window scene responder: <(null): 0x0; > force:Y
+2026-07-11 16:42:54.746 Df VampPonUnitySpike[9757:48e9b06] [com.apple.UIKit:KeyboardArbiterClientLog] isWritingToolsHandlingKeyboardTracking:Y (WT ready:Y, Arbiter ready:Y)
+2026-07-11 16:42:54.781 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] <nw_activity 50:1 [3CCB1EC4-2C00-4B36-9AA6-92E87285C15B] (global parent) (reporting strategy default) complete (reason success)> complete with reason 2 (success), duration 1880ms
+2026-07-11 16:42:54.781 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] <nw_activity 50:2 [9F40DFD6-3693-4862-8658-26A67662F09C] (reporting strategy default) complete (reason success)> complete with reason 2 (success), duration 1880ms
+2026-07-11 16:42:54.781 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] Unsetting the global parent activity <nw_activity 50:1 [3CCB1EC4-2C00-4B36-9AA6-92E87285C15B] (global parent) (reporting strategy default) complete (reason success)>
+2026-07-11 16:42:54.781 Df VampPonUnitySpike[9757:48e9b06] [com.apple.network:activity] Unset the global parent activity
+2026-07-11 16:42:54.781 Df VampPonUnitySpike[9757:48e9b06] [com.apple.app_launch_measurement:ApplicationLaunch] alm_release_pageins_recording_assertion: releasing pageins recording assertion
+2026-07-11 16:42:54.781 E  VampPonUnitySpike[9757:48e9b40] [com.apple.app_launch_measurement:General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+2026-07-11 16:42:54.844 A  VampPonUnitySpike[9757:48e9b40] (RunningBoardServices) didChangeInheritances
+2026-07-11 16:42:56.261 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.271 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.272 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.327 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.328 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.329 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.330 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.335 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.336 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.336 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.337 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.345 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.398 A  VampPonUnitySpike[9757:48e9b40] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.399 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.400 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.863 Df VampPonUnitySpike[9757:48e9b06] [com.apple.xpc:connection] [0x11cd7b340] activating connection: mach=true listener=false peer=false name=com.apple.audio.SystemSoundServer-Sim
+2026-07-11 16:42:56.903 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.912 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.920 A  VampPonUnitySpike[9757:48e9b41] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.974 A  VampPonUnitySpike[9757:48e9b5b] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.975 A  VampPonUnitySpike[9757:48e9b41] (Metal) Metal Compiling Shader
+2026-07-11 16:42:56.976 A  VampPonUnitySpike[9757:48e9b41] (Metal) Metal Compiling Shader

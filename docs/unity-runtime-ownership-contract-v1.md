@@ -1,5 +1,7 @@
 # ヨルノシルベ Unity Runtime Ownership Contract v1
 
+U46は`AppFlowCoordinator`、`RunPauseCoordinator`、`SaveService`、Result/Collection read modelでこの境界を実装した。UIはcommand forwardingのみを行う。
+
 Date: 2026-07-10
 Status: adopted architecture boundary / implementation follows incrementally
 
