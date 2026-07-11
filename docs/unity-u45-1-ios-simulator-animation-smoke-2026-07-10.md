@@ -32,7 +32,7 @@
 
 追加確認:
 
-- production provider active
+- candidate approval-level provider active
 - proof provider unused
 - RuntimeVisuals source active
 - procedural character/enemy fallback unused
@@ -44,7 +44,14 @@
 
 ## Visual review
 
-P0/P1は0。右入力と左入力の実画向き、ランタン継続、hurt/attack差、Onbuのmove/hurt/death差をgameplay sizeで確認した。
+U45.1 animation/runtime visual reviewは`PASS_WITH_P2`。P0/P1は0。右入力と左入力の実画向き、ランタン継続、hurt/attack差、Onbuのmove/hurt/death差をgameplay sizeで確認した。
+
+```txt
+final character art approval=NOT_PROVIDED
+final enemy art approval=NOT_PROVIDED
+device-backed visual approval=NOT_PROVIDED
+production visual approval=false
+```
 
 既存Stage1の暗い背景/HUD、Result placeholder、候補素材の最終承認不足はP2または後続gateとして残す。U45.1のcharacter/enemy runtime state証跡を妨げないが、製品美術完成とは扱わない。
 

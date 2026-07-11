@@ -37,7 +37,9 @@ namespace VampPon.UnitySpike.Runtime
         private static TMP_FontAsset cachedJapaneseFont;
 
         public string AssetProviderName => assetProvider?.ProviderName ?? string.Empty;
+        public AssetApprovalLevel AssetProviderApprovalLevel => assetProvider?.ApprovalLevel ?? AssetApprovalLevel.Proof;
         public bool AssetProviderIsProofOnly => assetProvider?.IsProofOnly ?? true;
+        public bool AssetProviderIsProductionApproved => assetProvider?.IsProductionApproved ?? false;
         public bool DevelopmentVisualFallbackUsed => assetProvider is RuntimeVisualAssetProvider provider && provider.DevelopmentFallbackUsed;
         public BattleVisualAssetSet BattleVisualAssets => battleVisualAssets;
 

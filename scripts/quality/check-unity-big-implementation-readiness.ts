@@ -44,6 +44,7 @@ const paths = {
   agents: 'AGENTS.md',
   claude: 'CLAUDE.md',
   packageJson: 'package.json',
+  hardening: 'docs/design-targets/generated/unity-u45-1-hardening/readiness.json',
 };
 
 for (const path of Object.values(paths)) check(`required file exists: ${path}`, existsSync(path));
@@ -139,17 +140,19 @@ for (const key of [
   'audioLatencyMeasured',
   'hapticMeasured',
   'candidateAssetsApprovedAsFinal',
+  'productionVisualAssetProviderConnected',
+  'runtimeVisualReady',
   'rcReady',
   'productionApproved',
 ]) check(`${key} remains false`, readiness[key] === false);
 
 for (const key of [
-  'productionVisualAssetProviderConnected',
+  'runtimeCandidateAssetProviderConnected',
   'characterDotRuntimeReady',
   'characterAnimationReady',
   'enemyDotRuntimeReady',
   'enemyAnimationReady',
-  'runtimeVisualReady',
+  'runtimeVisualCandidateReady',
 ]) check(`${key} true after U45.1`, readiness[key] === true);
 
 checkExecutionEvidence(
@@ -175,7 +178,11 @@ check('current required phase exact', readiness.currentRequiredPhase === 'U46 Re
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
 check('runtime visual current candidate animation', runtimeVisual.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
-check('runtime visual ready after U45.1', runtimeVisual.runtimeVisualReady === true);
+check('candidate runtime visual ready after U45.1', runtimeVisual.runtimeVisualCandidateReady === true);
+check('production runtime visual remains false', runtimeVisual.runtimeVisualReady === false);
+
+const hardening = JSON.parse(read(paths.hardening) || '{}') as Record<string, any>;
+check('U45.1 hardening is complete', hardening.u46Ready === true && hardening.productionApproved === false);
 
 check('roadmap keeps U45.1 before U46', roadmap.includes('## U45.1') && roadmap.indexOf('## U45.1') < roadmap.indexOf('## U46'));
 check('canon links control center', canon.includes('unity-big-implementation-control-center-v1.md'));

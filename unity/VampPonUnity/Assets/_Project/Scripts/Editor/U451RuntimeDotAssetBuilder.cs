@@ -55,7 +55,7 @@ namespace VampPon.UnitySpike.Editor
         {
             var repoRoot = RepoRoot();
             Copy(Path.Combine(repoRoot, YuiSource), YuiAsset);
-            Pixelate(Path.Combine(repoRoot, OnbuSource), OnbuAsset, 3);
+            ApplyDeterministicBlockSampling(Path.Combine(repoRoot, OnbuSource), OnbuAsset, 3);
             CopyCommon("u5-lantern-spark.png", "runtime-lantern-spark.png");
             CopyCommon("u5-exp-fragment.png", "runtime-exp-fragment.png");
             CopyCommon("u5-ink-burst.png", "runtime-ink-burst.png");
@@ -208,7 +208,7 @@ namespace VampPon.UnitySpike.Editor
             sprites.FirstOrDefault(sprite => sprite.name == name)
             ?? throw new InvalidOperationException("Runtime visual frame missing: " + name)).ToArray();
 
-        private static void Pixelate(string sourcePath, string assetPath, int blockSize)
+        private static void ApplyDeterministicBlockSampling(string sourcePath, string assetPath, int blockSize)
         {
             var source = new Texture2D(2, 2, TextureFormat.RGBA32, false);
             if (!ImageConversion.LoadImage(source, File.ReadAllBytes(sourcePath), false))
@@ -275,7 +275,7 @@ namespace VampPon.UnitySpike.Editor
                 "  \"playerPivot\": [0.5, 0.02],\n" +
                 "  \"enemyPivot\": [0.5, 0.08],\n" +
                 "  \"importSettings\": \"Sprite Multiple; Point; mipmap off; clamp; alpha transparency; uncompressed; FullRect\",\n" +
-                "  \"transformationSteps\": [\"copy Yui approved reference candidate without source overwrite\", \"quantize Onbu into deterministic 3x3 nearest-color blocks\", \"slice 8x6 with feet pivots\"],\n" +
+                "  \"transformationSteps\": [\"copy Yui source without modifying source\", \"apply deterministic 3x3 block sampling to Onbu source\", \"slice 8x6 with stable sprite IDs and feet pivots\"],\n" +
                 "  \"approvedAsFinal\": false,\n" +
                 "  \"runtimeApproved\": false\n" +
                 "}\n";

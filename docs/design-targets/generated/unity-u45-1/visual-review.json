@@ -3,6 +3,7 @@
   "phase": "U45.1",
   "evidenceKind": "AI visual review of character and enemy runtime animation smoke",
   "overallVerdict": "PASS_WITH_P2",
+  "reviewScope": "runtime animation candidate visual review",
   "reviewedScreenshotCount": 13,
   "characterIdentityReadableAtGameplaySize": true,
   "lanternContinuityReadable": true,
@@ -27,6 +28,10 @@
       "deferTo": "production art approval gate"
     }
   ],
+  "finalCharacterArtApproval": "NOT_PROVIDED",
+  "finalEnemyArtApproval": "NOT_PROVIDED",
+  "deviceBackedVisualApproval": "NOT_PROVIDED",
+  "productionVisualApproval": false,
   "candidateAssetsApprovedAsFinal": false,
   "devicePlayableReady": false,
   "productionApproved": false

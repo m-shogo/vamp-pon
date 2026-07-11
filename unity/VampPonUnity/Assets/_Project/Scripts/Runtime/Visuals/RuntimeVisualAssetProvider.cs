@@ -10,7 +10,9 @@ namespace VampPon.UnitySpike.Runtime.Visuals
         private const string CommonResourceRoot = "RuntimeVisuals/Stage1/Common/";
 
         public string ProviderName => "RuntimeVisualAssetProvider";
+        public AssetApprovalLevel ApprovalLevel => AssetApprovalLevel.Candidate;
         public bool IsProofOnly => false;
+        public bool IsProductionApproved => false;
         public bool DevelopmentFallbackUsed { get; private set; }
 
         public BattleVisualAssetSet LoadBattleVisuals()

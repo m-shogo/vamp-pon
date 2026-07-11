@@ -95,14 +95,16 @@ for (const key of [
 check('actual device smoke remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 
 check('Simulator route evidence remains valid', runtimeVisual.simulatorRouteEvidenceStillValid === true);
-check('U45.1 rerun replaces invalidated character review', runtimeVisual.simulatorCharacterVisualApprovalInvalidated === false);
+check('U45.1 candidate animation review passed', runtimeVisual.simulatorCandidateAnimationVisualReviewPassed === true);
+check('U45.1 final art approval remains absent', runtimeVisual.simulatorFinalArtApprovalProvided === false);
 for (const key of [
   'characterDotRuntimeReady',
   'characterAnimationReady',
   'enemyDotRuntimeReady',
   'enemyAnimationReady',
-  'runtimeVisualReady',
+  'runtimeVisualCandidateReady',
 ]) check(`U45.1 independently promotes ${key}`, runtimeVisual[key] === true && u451[key] === true);
+check('U45.1 does not promote production runtime visual', runtimeVisual.runtimeVisualReady === false && u451.runtimeVisualReady === false);
 for (const key of ['productionCharacterAssetReady', 'productionEnemyAssetReady']) {
   check(`U45.1 cannot promote ${key}`, runtimeVisual[key] === false && u451[key] === false);
 }

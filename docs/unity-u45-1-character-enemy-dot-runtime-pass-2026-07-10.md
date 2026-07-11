@@ -4,7 +4,7 @@
 
 Stage1のproof用Single sprite経路を、`RuntimeVisualAssetProvider`と`Stage1RuntimeVisualAssetRegistry`を使う48フレームMultiple sprite経路へ置換した。ユイはidle / walk / hurt / attack、オンブはidle / move / hurt / deathを実際のSprite差し替えで再生する。
 
-U45.1の最低runtime要件は満たしたため、`characterDotRuntimeReady`、`characterAnimationReady`、`enemyDotRuntimeReady`、`enemyAnimationReady`、`runtimeVisualReady`はtrueとする。ただし、これは候補素材を使うStage1 runtime経路の準備完了であり、最終美術承認ではない。
+U45.1の最低runtime要件は満たしたため、`characterDotRuntimeReady`、`characterAnimationReady`、`enemyDotRuntimeReady`、`enemyAnimationReady`、`runtimeVisualCandidateReady`はtrueとする。`runtimeVisualReady`はfinal/runtime承認済みproduction visual専用でありfalseを維持する。
 
 ## Runtime構成
 
@@ -17,7 +17,7 @@ U45.1の最低runtime要件は満たしたため、`characterDotRuntimeReady`、
 - import: Multiple / Point / mipmap off / uncompressed / FullRect
 - grid: 8 x 6、180 x 180、48 frames
 
-`U5ProofAssetProvider`はコード上に比較・proof境界として残すが、Stage1 product routeでは使用しない。character/enemy required spriteが欠けた場合は例外にし、procedural fallbackへ黙って戻さない。
+`U5ProofAssetProvider`はコード上に比較・proof境界として残すが、Stage1 product routeでは使用しない。`RuntimeVisualAssetProvider`のapproval levelはCandidateで、production承認済みとは扱わない。character/enemy required spriteが欠けた場合は例外にし、procedural fallbackへ黙って戻さない。
 
 ## Directionと装備継続
 
@@ -35,9 +35,9 @@ U45.1の最低runtime要件は満たしたため、`characterDotRuntimeReady`、
 
 ## Deterministic asset path
 
-`U451RuntimeDotAssetBuilder`がsource copy/quantize、48分割、PPU/pivot/import設定、registry、lineage manifestを再生成する。sprite IDはasset pathとframe名のSHA-256由来で固定し、再生成で参照IDが揺れない。
+`U451RuntimeDotAssetBuilder`がsource copy/block sampling、48分割、PPU/pivot/import設定、registry、lineage manifestを再生成する。sprite IDはasset pathとframe名のSHA-256由来で固定し、再生成で参照IDが揺れない。
 
-Yuiはsourceをそのまま候補runtimeへ複製する。Onbuは3 x 3 blockのnearest-color量子化を決定的に適用する。sourceは上書きしない。
+Yuiはsourceをそのまま候補runtimeへ複製する。Onbuは各3 x 3 blockの中心sample pixelをblock全体へ複製するdeterministic block samplingを適用する。palette変換や手作業ドット化ではなく、block-sampled runtime animation candidateである。sourceは上書きしない。
 
 ## Readiness boundary
 
@@ -48,7 +48,7 @@ characterDotRuntimeReady
 characterAnimationReady
 enemyDotRuntimeReady
 enemyAnimationReady
-runtimeVisualReady
+runtimeVisualCandidateReady
 ```
 
 false:
@@ -60,6 +60,8 @@ enemyAssetApprovedAsFinal
 enemyAssetRuntimeApproved
 productionCharacterAssetReady
 productionEnemyAssetReady
+runtimeVisualReady
+productionVisualAssetProviderConnected
 devicePlayableReady
 mobileMetricsReady
 audioMixerReady

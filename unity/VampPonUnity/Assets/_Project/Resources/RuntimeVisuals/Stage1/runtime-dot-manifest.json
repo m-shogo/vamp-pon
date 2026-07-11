@@ -17,7 +17,7 @@
   "playerPivot": [0.5, 0.02],
   "enemyPivot": [0.5, 0.08],
   "importSettings": "Sprite Multiple; Point; mipmap off; clamp; alpha transparency; uncompressed; FullRect",
-  "transformationSteps": ["copy Yui approved reference candidate without source overwrite", "quantize Onbu into deterministic 3x3 nearest-color blocks", "slice 8x6 with feet pivots"],
+  "transformationSteps": ["copy Yui source without modifying source", "apply deterministic 3x3 block sampling to Onbu source", "slice 8x6 with stable sprite IDs and feet pivots"],
   "approvedAsFinal": false,
   "runtimeApproved": false
 }

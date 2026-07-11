@@ -28,7 +28,9 @@ namespace VampPon.UnitySpike.Editor
 
                 var provider = new U5ProofAssetProvider();
                 Expect(report, "case provider name", !string.IsNullOrWhiteSpace(provider.ProviderName), ref failed);
+                Expect(report, "case approval level proof", provider.ApprovalLevel == AssetApprovalLevel.Proof, ref failed);
                 Expect(report, "case proof-only flag", provider.IsProofOnly, ref failed);
+                Expect(report, "case proof not production approved", !provider.IsProductionApproved, ref failed);
 
                 var visuals = provider.LoadBattleVisuals();
                 Expect(report, "case load battle visuals", visuals != null, ref failed);

@@ -54,7 +54,7 @@ namespace VampPon.UnitySpike.Diagnostics
         private bool duplicateEventSystemDetected;
         private bool duplicateAudioListenerDetected;
         private bool screenshotsReady;
-        private bool productionVisualProviderReady;
+        private bool candidateVisualProviderReady;
         private bool proofProviderUnused;
         private bool runtimeVisualSourcesReady;
         private bool yuiIdleReady;
@@ -132,7 +132,9 @@ namespace VampPon.UnitySpike.Diagnostics
             var player = FindPlayer();
             var bootstrap = UnityEngine.Object.FindAnyObjectByType<U1Stage1SceneBootstrap>();
             var yuiAnimator = UnityEngine.Object.FindAnyObjectByType<YuiSpriteAnimator>();
-            productionVisualProviderReady = bootstrap != null && bootstrap.AssetProviderName == "RuntimeVisualAssetProvider";
+            candidateVisualProviderReady = bootstrap != null &&
+                                           bootstrap.AssetProviderApprovalLevel == AssetApprovalLevel.Candidate &&
+                                           !bootstrap.AssetProviderIsProductionApproved;
             proofProviderUnused = bootstrap != null && !bootstrap.AssetProviderIsProofOnly;
             runtimeVisualSourcesReady = bootstrap?.BattleVisualAssets?.PlayerSourcePath?.Contains("RuntimeVisuals", StringComparison.Ordinal) == true &&
                                         bootstrap.BattleVisualAssets.EnemySourcePath?.Contains("RuntimeVisuals", StringComparison.Ordinal) == true;
@@ -467,7 +469,7 @@ namespace VampPon.UnitySpike.Diagnostics
             levelUpTapReady && resultPauseReady && retryReady && stageSelectReturnReady &&
             audioHookRequestReady && hapticHookRequestReady && unhandledExceptionCount == 0 && !crashDetected &&
             !duplicateEventSystemDetected && !duplicateAudioListenerDetected && screenshotsReady &&
-            productionVisualProviderReady && proofProviderUnused && runtimeVisualSourcesReady && proceduralFallbackUnused &&
+            candidateVisualProviderReady && proofProviderUnused && runtimeVisualSourcesReady && proceduralFallbackUnused &&
             yuiIdleReady && yuiWalkRightReady && yuiWalkLeftReady && yuiReleaseIdleReady && yuiFacingHeldOnRelease && yuiHurtReady &&
             yuiAttackReady && yuiPauseReady && yuiRetryResetReady && onbuMoveReady && onbuHurtReady &&
             onbuDeathReady && onbuPoolReturnReady && onbuRespawnResetReady;
@@ -502,7 +504,7 @@ namespace VampPon.UnitySpike.Diagnostics
             $"  \"unhandledExceptionCount\": {unhandledExceptionCount},\n" + Bool("crashDetected", crashDetected) +
             Bool("duplicateEventSystemDetected", duplicateEventSystemDetected) +
             Bool("duplicateAudioListenerDetected", duplicateAudioListenerDetected) +
-            Bool("productionVisualProviderReady", productionVisualProviderReady) + Bool("proofProviderUnused", proofProviderUnused) +
+            Bool("candidateVisualProviderReady", candidateVisualProviderReady) + Bool("proofProviderUnused", proofProviderUnused) +
             Bool("runtimeVisualSourcesReady", runtimeVisualSourcesReady) + Bool("proceduralFallbackUnused", proceduralFallbackUnused) +
             Bool("yuiIdleReady", yuiIdleReady) + Bool("yuiWalkRightReady", yuiWalkRightReady) +
             Bool("yuiWalkLeftReady", yuiWalkLeftReady) + Bool("yuiReleaseIdleReady", yuiReleaseIdleReady) +

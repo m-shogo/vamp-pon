@@ -36,9 +36,9 @@ runtime visualは必ず次のいずれかへ分類する。
 | --- | --- |
 | `procedural-placeholder` | procedural生成だけで動いている |
 | `proof-static-single-sprite` | proof/candidate静止画1枚を表示している |
-| `candidate-animated-multiple-sprite` | candidate Multiple sprite sheetと最低animationがruntime接続済み |
-| `production-animated-sprite` | production provider、承認済みasset、animation、QAがruntime接続済み |
-| `production-approved` | 実寸visual review、Lineage、final/runtime承認まで完了 |
+| `candidate-animated-multiple-sprite` | candidate assetを使うMultiple animation runtime。U46開始条件を満たすがfinal/runtime承認ではない |
+| `production-animated-sprite` | `approvedAsFinal=true`、`runtimeApproved=true`、production provider/registry、device gameplay-size review済み |
+| `production-approved` | production animationにfinal device visual reviewとrelease QAを加えた状態 |
 
 現在は `candidate-animated-multiple-sprite`。U45.1でproof routeを外し、実frameとanimatorを接続した。
 
@@ -63,7 +63,7 @@ checkerがファイル存在だけを確認する
 
 ### Asset source
 
-- production runtime providerを使用している
+- candidateまたはproduction approval levelのruntime providerを使用している
 - `U5ProofAssetProvider`などproof専用providerを製品経路で使用していない
 - production asset pathが明記されている
 - proof/candidate pathをfinal runtime pathとして偽装していない
@@ -188,6 +188,7 @@ enemyDotRuntimeReady
 enemyAnimationReady
 productionCharacterAssetReady
 productionEnemyAssetReady
+runtimeVisualCandidateReady
 runtimeVisualReady
 devicePlayableReady
 productionApproved
@@ -200,17 +201,23 @@ Simulatorのroute smokeだけが成功しても、character/enemy visual readine
 ```txt
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
-simulatorCharacterVisualApprovalInvalidated=false
+simulatorCandidateAnimationVisualReviewPassed=true
+simulatorFinalArtApprovalProvided=false
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
 productionCharacterAssetReady=false
 productionEnemyAssetReady=false
-runtimeVisualReady=true
+runtimeVisualCandidateReady=true
+runtimeVisualReady=false
+runtimeCandidateAssetProviderConnected=true
+productionVisualAssetProviderConnected=false
 ```
 
-`runtimeVisualReady=true`は候補素材を使う実animation runtimeがStage1で動き、P0/P1がないことを表す。final art、実機、RC、productionの承認ではない。
+`runtimeVisualCandidateReady=true`は候補素材を使う実animation runtimeがStage1で動き、candidate visual reviewにP0/P1がないことを表す。
+
+`runtimeVisualReady=true`はfinal/runtime承認済みasset、production provider、device visual reviewが揃ったproduction visualだけに使用する。現在はfalse。
 
 ## Checker policy
 
@@ -246,27 +253,9 @@ runtimeVisualReady
 - candidate画像をLineageなしでruntime finalへ昇格する
 - checkerを通すためにevidenceだけtrueへ書き換える
 
-## 次の必須フェーズ
+## 現在のフェーズ
 
-U46のResult / 灯録より先に、次を実施する。
-
-```txt
-U45.1 Character and Enemy Dot Runtime Pass
-```
-
-内容:
-
-1. ユイのidentity Golden Referenceを登録
-2. ユイのproduction candidate sprite sheetを選定
-3. idle / walk / hurt / attackをslice
-4. runtime animationを接続
-5. 左右反転を修正
-6. オンブのidle / move / hurt / deathを接続
-7. production asset providerを追加
-8. proof providerを製品runtimeから外す
-9. procedural fallbackを明示的エラー経路へ限定
-10. Simulatorでanimationと実寸visualを再確認
-11. checker/evidenceを更新
+U45.1 Character and Enemy Dot Runtime PassとU45.1 Hardeningは完了。現在はU46 Result / Retry / StageSelect / 灯録。U46ではcandidate provider、animation、pause、readiness分離を維持する。
 
 ## Source of truth
 

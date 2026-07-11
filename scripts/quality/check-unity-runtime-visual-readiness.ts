@@ -112,8 +112,13 @@ const actualProviderName = providerMatch?.[1] ?? 'UNKNOWN';
 const actualProofProviderActive = actualProviderName === 'U5ProofAssetProvider';
 const providerClassExists = actualProviderName !== 'UNKNOWN'
   && new RegExp(`class\\s+${actualProviderName}\\b`).test(runtimeScripts);
+const providerDeclaresCandidate = actualProviderName !== 'UNKNOWN'
+  && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?ApprovalLevel\\s*=>\\s*AssetApprovalLevel\\.Candidate`).test(runtimeScripts)
+  && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?IsProductionApproved\\s*=>\\s*false`).test(runtimeScripts);
 const providerDeclaresProduction = actualProviderName !== 'UNKNOWN'
-  && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?IsProofOnly\\s*=>\\s*false`).test(runtimeScripts);
+  && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?ApprovalLevel\\s*=>\\s*AssetApprovalLevel\\.Production`).test(runtimeScripts)
+  && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?IsProductionApproved\\s*=>\\s*true`).test(runtimeScripts);
+const actualCandidateProviderConnected = !actualProofProviderActive && providerClassExists && providerDeclaresCandidate;
 const actualProductionProviderConnected = !actualProofProviderActive && providerClassExists && providerDeclaresProduction;
 
 const characterFallbackPresent = stageBootstrap.includes('ProceduralSpriteFactory.CreateCharacterSprite');
@@ -146,9 +151,11 @@ const actualEnemyStateMarkers = stateMarkersReady(runtimeScripts, enemyRequiredS
 const expectedClassification = actualProofProviderActive && actualPlayerMode === 'Single'
   ? 'proof-static-single-sprite'
   : actualProductionProviderConnected && actualPlayerMode === 'Multiple' && actualPlayerAnimator
-    ? (readiness.productionCharacterAssetReady === true ? 'production-approved' : 'candidate-animated-multiple-sprite')
+    ? (readiness.productionApproved === true ? 'production-approved' : 'production-animated-sprite')
+    : actualCandidateProviderConnected && actualPlayerMode === 'Multiple' && actualPlayerAnimator
+      ? 'candidate-animated-multiple-sprite'
     : actualPlayerMode === 'Multiple' && actualPlayerAnimator
-      ? 'candidate-animated-sprite'
+      ? 'candidate-animated-multiple-sprite'
       : actualProceduralCharacterFallback && !readiness.playerSpriteSource
         ? 'procedural-placeholder'
         : 'candidate-static-single-sprite';
@@ -156,9 +163,11 @@ const expectedClassification = actualProofProviderActive && actualPlayerMode ===
 check('evidence kind exact', readiness.evidenceKind === 'Unity runtime visual readiness gate');
 check('runtime classification matches implementation', readiness.runtimeVisualClassification === expectedClassification);
 check('runtime provider name matches Stage1 assignment', readiness.runtimeAssetProviderName === actualProviderName);
+check('runtime provider approval level is Candidate', readiness.runtimeAssetProviderApprovalLevel === 'Candidate');
 check('proof provider file declares proof-only', proofProvider.includes('IsProofOnly => true'));
 check('proof provider evidence matches Stage1 assignment', readiness.proofProviderActive === actualProofProviderActive);
-check('production provider evidence matches implementation', readiness.productionProviderConnected === actualProductionProviderConnected);
+check('candidate provider evidence matches implementation', readiness.runtimeCandidateAssetProviderConnected === actualCandidateProviderConnected);
+check('production provider evidence matches implementation', readiness.productionVisualAssetProviderConnected === actualProductionProviderConnected);
 check('object name is not accepted as evidence', readiness.playerRuntimeObjectNameAcceptedAsDotEvidence === false);
 check('point filter is not accepted as evidence', readiness.pointFilterAcceptedAsDotEvidence === false);
 check('Point filter remains recorded', readiness.pointFilterApplied === actualPlayerPointFilter);
@@ -207,6 +216,7 @@ if (actualProofProviderActive || actualPlayerMode !== 'Multiple' || !actualPlaye
     'characterDotRuntimeReady',
     'characterAnimationReady',
     'productionCharacterAssetReady',
+    'runtimeVisualCandidateReady',
     'runtimeVisualReady',
     'devicePlayableReady',
     'rcReady',
@@ -219,12 +229,14 @@ if (actualProofProviderActive || actualEnemyMode !== 'Multiple' || !actualEnemyA
     'enemyDotRuntimeReady',
     'enemyAnimationReady',
     'productionEnemyAssetReady',
+    'runtimeVisualCandidateReady',
     'runtimeVisualReady',
   ]) check(`${key} remains false while enemy proof/static runtime is active`, readiness[key] === false);
 }
 
 check('Simulator route evidence remains separately valid', readiness.simulatorRouteEvidenceStillValid === true);
-check('U45.1 Simulator character visual approval is current', readiness.simulatorCharacterVisualApprovalInvalidated === false);
+check('U45.1 candidate animation review passed', readiness.simulatorCandidateAnimationVisualReviewPassed === true);
+check('Simulator final art approval remains absent', readiness.simulatorFinalArtApprovalProvided === false);
 check('next required phase recorded', readiness.nextRequiredPhase === 'U46 Result / Retry / StageSelect / Collection');
 
 const playerStates = readiness.playerAnimationStates ?? {};
@@ -238,7 +250,7 @@ if (readiness.enemyAnimationReady !== true) {
 
 if (readiness.characterDotRuntimeReady === true) {
   check('character dot-ready cannot use proof provider', !actualProofProviderActive);
-  check('character dot-ready requires production provider', actualProductionProviderConnected);
+  check('character dot-ready requires candidate or production provider', actualCandidateProviderConnected || actualProductionProviderConnected);
   check('character dot-ready cannot retain active procedural fallback', !actualProceduralCharacterFallback);
   check('character dot-ready requires Multiple', actualPlayerMode === 'Multiple');
   check('character dot-ready requires sliced frames', actualPlayerFrameCount >= 6);
@@ -268,7 +280,7 @@ if (readiness.productionCharacterAssetReady === true) {
 
 if (readiness.enemyDotRuntimeReady === true) {
   check('enemy dot-ready cannot use proof provider', !actualProofProviderActive);
-  check('enemy dot-ready requires production provider', actualProductionProviderConnected);
+  check('enemy dot-ready requires candidate or production provider', actualCandidateProviderConnected || actualProductionProviderConnected);
   check('enemy dot-ready cannot retain active procedural fallback', !actualProceduralEnemyFallback);
   check('enemy dot-ready requires Multiple', actualEnemyMode === 'Multiple');
   check('enemy dot-ready requires sliced frames', actualEnemyFrameCount >= 4);
@@ -292,12 +304,22 @@ if (readiness.productionEnemyAssetReady === true) {
   check('production enemy requires animation', readiness.enemyAnimationReady === true);
 }
 
+if (readiness.runtimeVisualCandidateReady === true) {
+  check('candidate runtime visual requires candidate provider', actualCandidateProviderConnected);
+  check('candidate runtime visual requires character dot runtime', readiness.characterDotRuntimeReady === true);
+  check('candidate runtime visual requires character animation', readiness.characterAnimationReady === true);
+  check('candidate runtime visual requires enemy dot runtime', readiness.enemyDotRuntimeReady === true);
+  check('candidate runtime visual requires enemy animation', readiness.enemyAnimationReady === true);
+  check('candidate runtime visual requires Simulator review', readiness.simulatorCandidateAnimationVisualReviewPassed === true);
+}
+
 if (readiness.runtimeVisualReady === true) {
-  check('runtime visual requires character dot runtime', readiness.characterDotRuntimeReady === true);
-  check('runtime visual requires character animation', readiness.characterAnimationReady === true);
-  check('runtime visual requires enemy dot runtime', readiness.enemyDotRuntimeReady === true);
-  check('runtime visual requires enemy animation', readiness.enemyAnimationReady === true);
-  check('runtime visual requires U45.1 Simulator review', readiness.u451SimulatorVisualReviewPassed === true);
+  check('production runtime visual requires production provider', actualProductionProviderConnected);
+  check('production runtime visual requires final player approval', readiness.playerAssetApprovedAsFinal === true && readiness.playerAssetRuntimeApproved === true);
+  check('production runtime visual requires final enemy approval', readiness.enemyAssetApprovedAsFinal === true && readiness.enemyAssetRuntimeApproved === true);
+  check('production runtime visual requires production asset readiness', readiness.productionCharacterAssetReady === true && readiness.productionEnemyAssetReady === true);
+} else {
+  check('production runtime visual remains false for candidate provider', !actualProductionProviderConnected);
 }
 
 let u451: Record<string, any> = {};
@@ -306,11 +328,12 @@ let u451Visual: Record<string, any> = {};
 try { u451 = JSON.parse(read(paths.u451Readiness)); } catch { failures.push('U45.1 readiness JSON parses'); }
 try { u451Smoke = JSON.parse(read(paths.u451Smoke)); } catch { failures.push('U45.1 smoke JSON parses'); }
 try { u451Visual = JSON.parse(read(paths.u451Visual)); } catch { failures.push('U45.1 visual JSON parses'); }
-check('U45.1 readiness mirrors runtime candidate', u451.runtimeVisualReady === true && u451.runtimeVisualClassification === expectedClassification);
+check('U45.1 readiness mirrors runtime candidate', u451.runtimeVisualCandidateReady === true && u451.runtimeVisualReady === false && u451.runtimeVisualClassification === expectedClassification);
 check('U45.1 smoke has all 13 screenshots', u451Smoke.screenshotsReady === true && u451Smoke.requiredScreenshotCount === 13);
 check('U45.1 smoke has no crash or exception', u451Smoke.crashDetected === false && u451Smoke.unhandledExceptionCount === 0);
 check('U45.1 visual review has no P0/P1', Array.isArray(u451Visual.p0Issues) && u451Visual.p0Issues.length === 0 && Array.isArray(u451Visual.p1Issues) && u451Visual.p1Issues.length === 0);
 check('U45.1 assets remain candidate-only', u451.playerAssetApprovedAsFinal === false && u451.enemyAssetApprovedAsFinal === false);
+check('U45.1 final visual approvals remain absent', u451Visual.finalCharacterArtApproval === 'NOT_PROVIDED' && u451Visual.finalEnemyArtApproval === 'NOT_PROVIDED' && u451Visual.deviceBackedVisualApproval === 'NOT_PROVIDED');
 
 const registry = read(paths.registry);
 const playerAnimator = read(paths.playerAnimator);
@@ -320,6 +343,7 @@ check('player animator disables horizontal flip', playerAnimator.includes('sprit
 check('enemy animator disables horizontal flip', enemyAnimator.includes('spriteRenderer.flipX = false'));
 check('player animator owns required transitions', playerAnimator.includes('PlayHurt') && playerAnimator.includes('OnAttack') && playerAnimator.includes('CurrentVelocity'));
 check('enemy animator owns required transitions', enemyAnimator.includes('PlayHurt') && enemyAnimator.includes('PlayDeath') && enemyAnimator.includes('ResetForPool'));
+check('candidate provider does not decide final approval', !runtimeScripts.includes('approvedAsFinal => true') && !runtimeScripts.includes('runtimeApproved => true'));
 
 const policy = read(paths.policy);
 for (const phrase of [

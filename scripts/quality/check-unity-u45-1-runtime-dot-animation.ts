@@ -1,4 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const failures: string[] = [];
 
@@ -12,6 +14,10 @@ function json(path: string): Record<string, any> {
 
 function check(label: string, ok: boolean): void {
   if (!ok) failures.push(label);
+}
+
+function fileHash(path: string): string {
+  return existsSync(path) ? createHash('sha256').update(readFileSync(path)).digest('hex') : '';
 }
 
 const root = 'docs/design-targets/generated/unity-u45-1';
@@ -36,6 +42,12 @@ const paths = {
   golden: 'data/asset-factory/golden-reference-registry.json',
   implementationDoc: 'docs/unity-u45-1-character-enemy-dot-runtime-pass-2026-07-10.md',
   smokeDoc: 'docs/unity-u45-1-ios-simulator-animation-smoke-2026-07-10.md',
+  hardeningDoc: 'docs/unity-u45-1-hardening-2026-07-10.md',
+  hardeningReadiness: 'docs/design-targets/generated/unity-u45-1-hardening/readiness.json',
+  providerInterface: 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/IAssetProvider.cs',
+  contractSummary: 'data/asset-factory/generation-contracts.summary.json',
+  contractExport: 'scripts/asset-factory/export-generation-contracts.ts',
+  gitignore: '.gitignore',
 };
 
 for (const path of Object.values(paths)) check(`exists: ${path}`, existsSync(path));
@@ -65,10 +77,19 @@ const stage = read(paths.stage);
 const battle = read(paths.battle);
 const bridge = read(paths.bridge);
 const golden = read(paths.golden);
+const providerInterface = read(paths.providerInterface);
+const implementationDoc = read(paths.implementationDoc);
+const hardeningDoc = read(paths.hardeningDoc);
+const hardening = json(paths.hardeningReadiness);
+const contractSummary = json(paths.contractSummary);
+const contractExport = read(paths.contractExport);
 
 check('classification is candidate animated Multiple', readiness.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
 check('Stage1 uses runtime provider', stage.includes('new RuntimeVisualAssetProvider'));
 check('provider is non-proof', provider.includes('IsProofOnly => false'));
+check('provider approval level is Candidate', provider.includes('ApprovalLevel => AssetApprovalLevel.Candidate'));
+check('provider is not production approved', provider.includes('IsProductionApproved => false'));
+check('provider interface separates approval level', providerInterface.includes('AssetApprovalLevel') && providerInterface.includes('IsProductionApproved'));
 check('provider loads typed registry', provider.includes('Stage1RuntimeVisualAssetRegistry') && provider.includes('Resources.Load'));
 check('required visuals do not silently fallback', provider.includes('throw new InvalidOperationException'));
 check('procedural character fallback absent', !stage.includes('ProceduralSpriteFactory.CreateCharacterSprite'));
@@ -91,14 +112,22 @@ check('enemy pool reset exists', enemyAnimator.includes('ResetForPool') && battl
 check('death disables target and returns to pool', battle.includes('!dying') && battle.includes('DeathComplete') && battle.includes('Deactivate()'));
 
 check('builder uses stable sprite IDs', builder.includes('StableSpriteId') && builder.includes('SHA256.Create'));
-check('builder uses deterministic Onbu quantize', builder.includes('Pixelate') && builder.includes('OnbuAsset, 3'));
+check('builder uses deterministic Onbu block sampling', builder.includes('ApplyDeterministicBlockSampling') && builder.includes('OnbuAsset, 3'));
+check('manifest describes deterministic 3x3 block sampling', Array.isArray(manifest.transformationSteps) && manifest.transformationSteps.includes('apply deterministic 3x3 block sampling to Onbu source'));
+for (const [label, source] of [['builder', builder], ['manifest', JSON.stringify(manifest)], ['implementation doc', implementationDoc], ['hardening doc', hardeningDoc]] as const) {
+  check(`${label} does not mislabel Onbu transform as nearest-color quantization`, !source.toLowerCase().includes('nearest-color quantization') && !source.includes('nearest-color量子化'));
+}
 check('manifest has source/output hashes', typeof manifest.playerSourceHash === 'string' && manifest.playerSourceHash.length === 64 && typeof manifest.enemyOutputHash === 'string' && manifest.enemyOutputHash.length === 64);
+check('Yui source hash matches manifest', fileHash(String(manifest.playerSourcePath)) === manifest.playerSourceHash);
+check('Yui output hash matches manifest', fileHash(`unity/VampPonUnity/${manifest.playerOutputPath}`) === manifest.playerOutputHash);
+check('Onbu source hash matches manifest', fileHash(String(manifest.enemySourcePath)) === manifest.enemySourceHash);
+check('Onbu output hash matches manifest', fileHash(`unity/VampPonUnity/${manifest.enemyOutputPath}`) === manifest.enemyOutputHash);
 check('manifest preserves candidate boundary', manifest.approvedAsFinal === false && manifest.runtimeApproved === false);
 check('golden identities registered', golden.includes('character:yui:identity-v1') && golden.includes('enemy:onbu:identity-v1'));
 check('golden entries remain non-final', golden.includes('"approvedAsFinal": false') && golden.includes('"approvedForRuntime": false'));
 
 for (const key of [
-  'productionVisualProviderReady', 'proofProviderUnused', 'runtimeVisualSourcesReady', 'proceduralFallbackUnused',
+  'candidateVisualProviderReady', 'proofProviderUnused', 'runtimeVisualSourcesReady', 'proceduralFallbackUnused',
   'yuiIdleReady', 'yuiWalkRightReady', 'yuiWalkLeftReady', 'yuiReleaseIdleReady', 'yuiFacingHeldOnRelease',
   'yuiHurtReady', 'yuiAttackReady', 'yuiPauseReady', 'yuiRetryResetReady', 'onbuMoveReady',
   'onbuHurtReady', 'onbuDeathReady', 'onbuPoolReturnReady', 'onbuRespawnResetReady',
@@ -110,15 +139,30 @@ check('bridge remains Simulator-only', bridge.startsWith('#if VAMPPON_AI_SIMULAT
 check('asset validation passed', validation.result === 'passed' && validation.playerFrameCount === 48 && validation.enemyFrameCount === 48);
 check('visual review has no P0/P1', Array.isArray(visual.p0Issues) && visual.p0Issues.length === 0 && Array.isArray(visual.p1Issues) && visual.p1Issues.length === 0);
 
-for (const key of ['characterDotRuntimeReady', 'characterAnimationReady', 'enemyDotRuntimeReady', 'enemyAnimationReady', 'runtimeVisualReady']) {
+for (const key of ['characterDotRuntimeReady', 'characterAnimationReady', 'enemyDotRuntimeReady', 'enemyAnimationReady', 'runtimeVisualCandidateReady']) {
   check(`${key} promoted by U45.1`, readiness[key] === true && canonical[key] === true);
 }
+check('production runtime visual readiness remains false', readiness.runtimeVisualReady === false && canonical.runtimeVisualReady === false);
+check('candidate provider is connected', readiness.runtimeCandidateAssetProviderConnected === true && canonical.runtimeCandidateAssetProviderConnected === true);
+check('production provider remains disconnected', readiness.productionVisualAssetProviderConnected === false && canonical.productionVisualAssetProviderConnected === false);
 for (const key of [
   'productionCharacterAssetReady', 'productionEnemyAssetReady', 'devicePlayableReady', 'mobileMetricsReady',
   'rcReady', 'productionApproved',
 ]) check(`${key} remains false`, readiness[key] === false && canonical[key] === false);
 for (const key of ['audioMixerReady', 'audioLatencyMeasured', 'hapticMeasured']) check(`${key} remains false`, canonical[key] === false);
 check('next phase is U46', readiness.nextRequiredPhase === 'U46 Result / Retry / StageSelect / Collection' && canonical.nextRequiredPhase === readiness.nextRequiredPhase);
+
+const trackedFull = spawnSync('git', ['ls-files', '--', 'data/asset-factory/generation-contracts.json'], { encoding: 'utf8' });
+check('full generation contracts JSON is not tracked', trackedFull.status === 0 && trackedFull.stdout.trim() === '');
+const trackedSummary = spawnSync('git', ['ls-files', '--', paths.contractSummary], { encoding: 'utf8' });
+check('generation contract summary is tracked', trackedSummary.status === 0 && trackedSummary.stdout.trim() === paths.contractSummary);
+check('full generation contracts JSON is ignored', read(paths.gitignore).includes('data/asset-factory/generation-contracts.json'));
+check('generation contract summary matches 977 source contracts', contractSummary.contractCount === 977);
+check('generation contract summary categories are recorded', contractSummary.contractCountsByContentType?.character === 180 && contractSummary.contractCountsByContentType?.enemy === 192 && contractSummary.contractCountsByContentType?.item === 525 && contractSummary.contractCountsByContentType?.stage === 80);
+check('generation contracts remain locally reproducible', contractExport.includes('contracts: exportedContracts') && contractExport.includes('--summary-only'));
+
+check('hardening readiness separates candidate and production', hardening.runtimeVisualCandidateReady === true && hardening.runtimeVisualReady === false && hardening.productionVisualAssetProviderConnected === false);
+check('hardening marks U46 ready without production approval', hardening.u46Ready === true && hardening.productionApproved === false);
 
 if (failures.length > 0) {
   console.error('Unity U45.1 runtime dot animation check failed');
