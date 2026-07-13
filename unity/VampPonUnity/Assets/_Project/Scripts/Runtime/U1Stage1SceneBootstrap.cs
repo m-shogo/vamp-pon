@@ -11,6 +11,7 @@ using VampPon.UnitySpike.U5;
 using VampPon.UnitySpike.UI;
 using VampPon.UnitySpike.Runtime.Visuals;
 using VampPon.UnitySpike.Runtime.AppFlow;
+using VampPon.UnitySpike.Runtime.Gameplay;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -28,6 +29,7 @@ namespace VampPon.UnitySpike.Runtime
         private GameObject stageSelectOverlay;
         private GameObject resultOverlay;
         private TextMeshProUGUI topHudLabel;
+        private Transform safeHudRoot;
         private IAssetProvider assetProvider;
         private BattleVisualAssetSet battleVisualAssets;
         private U43RuntimeFeedbackBridge feedbackBridge;
@@ -36,6 +38,7 @@ namespace VampPon.UnitySpike.Runtime
         private YuiSpriteAnimator yuiAnimator;
         private U4LevelUpDemoController levelUpController;
         private U46RuntimeShell u46Shell;
+        private Stage1GameplayRuntimeCoordinator gameplayRuntime;
         private static TMP_FontAsset cachedJapaneseFont;
 
         public string AssetProviderName => assetProvider?.ProviderName ?? string.Empty;
@@ -189,6 +192,7 @@ namespace VampPon.UnitySpike.Runtime
             hudRect.anchorMax = Vector2.one;
             hudRect.offsetMin = Vector2.zero;
             hudRect.offsetMax = Vector2.zero;
+            safeHudRoot = hudRoot.transform;
 
             CreateHudPlate(hudRoot.transform, "TopHudPlaceholder", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(326f, 46f), "Lv 1   00:00   EXP");
             CreateHudPlate(hudRoot.transform, "BottomInventoryPlaceholder", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(318f, 62f), "");
@@ -213,11 +217,17 @@ namespace VampPon.UnitySpike.Runtime
             battleController.Initialize(config, yui, enemyRoot, projectileRoot, pickupRoot, overlayRoot, topHudLabel, playerBounds, spawnBounds, battleVisualAssets);
             battleController.SetRuntimeFeedbackBridge(feedbackBridge);
             battleController.SetRuntimePaused(true);
+            gameplayRuntime = controllerObject.AddComponent<Stage1GameplayRuntimeCoordinator>();
+            gameplayRuntime.Initialize(battleController, playerController);
+            gameplayRuntime.SetRuntimePaused(true);
             yuiAnimator = yui.GetComponent<YuiSpriteAnimator>();
             yuiAnimator.Initialize(battleVisualAssets.PlayerAnimation, playerController, battleController);
             yuiAnimator.SetRuntimePaused(true);
 
             CreateLevelUpDemo(battleController);
+            levelUpController.BindGameplayRuntime(gameplayRuntime);
+            var inventoryHud = new GameObject("U47InventoryHudPresenter", typeof(U47InventoryHudPresenter)).GetComponent<U47InventoryHudPresenter>();
+            inventoryHud.transform.SetParent(safeHudRoot, false); inventoryHud.Build(safeHudRoot, LoadJapaneseFont(), gameplayRuntime);
         }
 
         private void CreateLevelUpDemo(U2BattleController battleController)

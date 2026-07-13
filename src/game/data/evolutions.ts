@@ -1,5 +1,5 @@
 import type { EvolutionDefinition } from '../domain/types';
-import { weaponById } from './weapons';
+import { weaponById } from './weapons.ts';
 
 /**
  * 進化発動に必要な「from武器」の現在maxLevel。

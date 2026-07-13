@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "captureId": "03-levelup-actual-choices",
+  "baseRouteId": "levelup",
+  "expectedStateId": "03-levelup-actual-choices",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "levelUpModalVisible": true,
+    "registryDrivenChoices": true,
+    "threeDistinctChoices": true
+  },
+  "details": {
+    "offeredDefinitionIds": ["night_pencil","white_margin","black_ink_bottle"]
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

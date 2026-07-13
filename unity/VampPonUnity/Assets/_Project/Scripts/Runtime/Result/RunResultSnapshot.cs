@@ -19,6 +19,9 @@ namespace VampPon.UnitySpike.Runtime.Result
         public List<string> acquiredItemIds = new();
         public List<string> rewardIds = new();
         public List<string> newlyUnlockedIds = new();
+        public List<string> evolutionIds = new();
+        public int revivalUsedCount;
+        public int kokuyouActivationCount;
         public string completedAt;
     }
 }

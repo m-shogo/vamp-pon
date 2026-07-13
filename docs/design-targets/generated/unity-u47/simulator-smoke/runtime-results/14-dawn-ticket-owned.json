@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "captureId": "14-dawn-ticket-owned",
+  "baseRouteId": "rare-item",
+  "expectedStateId": "14-dawn-ticket-owned",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "dawnTicketAcquired": true,
+    "rareHasNoLevel": true,
+    "rareInventoryVisible": true
+  },
+  "details": {
+
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

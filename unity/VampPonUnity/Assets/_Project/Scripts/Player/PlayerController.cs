@@ -195,6 +195,7 @@ namespace VampPon.UnitySpike.Player
         private Vector2 velocity;
         private Rect worldBounds = new(-2.2f, -4.5f, 4.4f, 8.2f);
         private Vector3 baseScale = Vector3.one;
+        private float gameplayMoveSpeedMultiplier = 1f;
 
         public bool RuntimeInputBlocked => runtimeInputBlocked;
         public Vector2 CurrentVelocity => velocity;
@@ -232,6 +233,8 @@ namespace VampPon.UnitySpike.Player
             }
         }
 
+        public void SetGameplayMoveSpeedMultiplier(float value) => gameplayMoveSpeedMultiplier = Mathf.Max(0f, value);
+
         private void Update()
         {
             if (runtimeInputBlocked)
@@ -240,7 +243,7 @@ namespace VampPon.UnitySpike.Player
             }
 
             var moveInput = useVerificationInput ? verificationInput : inputSource.ReadMove();
-            var moveSpeed = config != null ? config.playerMoveSpeed : 3.35f;
+            var moveSpeed = (config != null ? config.playerMoveSpeed : 3.35f) * gameplayMoveSpeedMultiplier;
             var acceleration = config != null ? config.playerAcceleration : 15f;
             var deceleration = config != null ? config.playerDeceleration : 18f;
             var targetVelocity = moveInput * moveSpeed;

@@ -1,5 +1,8 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
+using VampPon.UnitySpike.Runtime.Gameplay.Definitions;
 
 namespace VampPon.UnitySpike.Runtime.Result
 {
@@ -26,7 +29,17 @@ namespace VampPon.UnitySpike.Runtime.Result
                 CanReturnToStageSelect = true,
                 SaveSucceeded = saveSucceeded,
                 SaveStatusLabel = saveSucceeded ? "記録しました" : "記録を保存できませんでした",
+                GameplaySummary = BuildGameplaySummary(snapshot),
             };
+        }
+
+        private static string BuildGameplaySummary(RunResultSnapshot snapshot)
+        {
+            var registry = Resources.Load<Stage1GameplayDataRegistry>("GameplayData/Stage1/Stage1GameplayDataRegistry");
+            string Name(string id) { var value = registry?.Weapons.FirstOrDefault(v=>v.Id==id)?.DisplayName ?? registry?.Passives.FirstOrDefault(v=>v.Id==id)?.DisplayName ?? registry?.RareItems.FirstOrDefault(v=>v.Id==id)?.DisplayName; if(value!=null)return value; Debug.LogWarning("Unknown U47 result ID: " + id); return "不明な記憶"; }
+            var items = snapshot.acquiredItemIds?.Take(5).Select(Name).ToArray() ?? System.Array.Empty<string>();
+            var evolutions = snapshot.evolutionIds?.Take(2).Select(id => { try { return registry?.GetEvolution(id)?.DisplayName ?? "不明な進化"; } catch { return "不明な進化"; } }).ToArray() ?? System.Array.Empty<string>();
+            return $"今夜のビルド  {(items.Length == 0 ? "獲得なし" : string.Join(" / ", items))}\n進化した記憶  {(evolutions.Length == 0 ? "ありません" : string.Join(" / ", evolutions))}　黒耀化 ×{snapshot.kokuyouActivationCount}　復帰 ×{snapshot.revivalUsedCount}";
         }
 
         private static string RankFor(RunResultSnapshot snapshot)

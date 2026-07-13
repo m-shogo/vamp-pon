@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372b18b235e55468eaab7933e8f8a2c5, type: 3}
+  m_Name: Stage1GameplayDataRegistry
+  m_EditorClassIdentifier: Assembly-CSharp::VampPon.UnitySpike.Runtime.Gameplay.Definitions.Stage1GameplayDataRegistry
+  schemaVersion: 1
+  sourceHash: e332e3b25eaee12aa8ffc233c2700eb1ede180c839e1aad1082f11e72b376202
+  exportHash: ff8455c9f5d812c13055fabeede405579c30ecb4bd8ef54d5c101200dd3b9714
+  character:
+    id: yui
+    displayName: "\u30E6\u30A4"
+    title: "\u5FD8\u308C\u7269\u4FC2"
+    initialWeaponId: night_pencil
+    hp: 110
+    moveSpeed: 115
+    might: 1
+    cooldownMultiplier: 1
+    magnetMultiplier: 1.15
+    xpMultiplier: 1
+  weaponSlots: 5
+  passiveSlots: 5
+  rareItemSlots: 2
+  weapons:
+  - {fileID: 11400000, guid: cb02207612e934b1daca0b56c23bf74f, type: 2}
+  - {fileID: 11400000, guid: af43291e1b6d1417483286ee1d12fe6f, type: 2}
+  - {fileID: 11400000, guid: bb2eedd0406724b769b5be36269d90cf, type: 2}
+  - {fileID: 11400000, guid: 042fde5e7afac4737993d9020cb9937b, type: 2}
+  - {fileID: 11400000, guid: aaee58574facc4b76829fd6ce6de5739, type: 2}
+  passives:
+  - {fileID: 11400000, guid: 47c38b1bbe8d546939f972e7728811c5, type: 2}
+  - {fileID: 11400000, guid: daecbdb26127b4ecdb28935ee283f91b, type: 2}
+  - {fileID: 11400000, guid: a0c00a57eb9d74b78bfc88f40ce3bd84, type: 2}
+  - {fileID: 11400000, guid: d3704a43e035a4b33b6722a4ba3c41bc, type: 2}
+  rareItems:
+  - {fileID: 11400000, guid: b5a593890fab04559922490806f3bcd0, type: 2}
+  - {fileID: 11400000, guid: a721523cdaf054c97a4b6f58689ae434, type: 2}
+  evolutions:
+  - {fileID: 11400000, guid: 4b33f2515cd614b85baf71174c04c56e, type: 2}
+  - {fileID: 11400000, guid: 424c483dc57e04a4098889dcc0f9852f, type: 2}

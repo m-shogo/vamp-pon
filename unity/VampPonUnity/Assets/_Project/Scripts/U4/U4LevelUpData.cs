@@ -24,6 +24,8 @@ namespace VampPon.UnitySpike.U4
         public U4ItemType ItemType;
         public int Level;
         public bool IsAwakeningGate;
+        public bool RequiresReplacement;
+        public object RuntimeChoice;
     }
 
     public static class U4LevelUpCandidatePool

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 2,
+  "captureId": "15-revival-30-percent",
+  "baseRouteId": "dawn-ticket-revival",
+  "expectedStateId": "15-revival-30-percent",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "gameOverSuppressed": true,
+    "hpThirtyPercent": true,
+    "revivalTriggered": true,
+    "secondRevivalPrevented": true,
+    "ticketConsumed": true
+  },
+  "details": {
+    "actualRevivedHp": 33,
+    "beforeHp": 110,
+    "expectedRevivedHp": 33,
+    "gameOverSuppressed": true,
+    "gameplayContinued": true,
+    "incomingLethalDamage": 220,
+    "maxHp": 110,
+    "revivalTriggered": true,
+    "roundingRule": "floor(maxHp * RevivalHpRatio + 0.0001), minimum 1",
+    "secondRevivalPrevented": true,
+    "ticketCountAfter": 0,
+    "ticketCountBefore": 1,
+    "ticketDefinitionId": "dawn_ticket"
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

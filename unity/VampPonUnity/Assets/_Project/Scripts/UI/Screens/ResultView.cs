@@ -39,6 +39,7 @@ namespace VampPon.UnitySpike.UI.Screens
             U46ScreenFactory.Label(content, "Rank", vm.Rank, 27f, Ink(), new Vector2(0.75f, 0.77f), new Vector2(0.91f, 0.89f), TextAlignmentOptions.Center, font);
             Stat(0.08f, "時間", vm.ElapsedTimeLabel); Stat(0.51f, "影払い", vm.DefeatedEnemyLabel);
             Stat(0.08f, "記憶の欠片", vm.FragmentLabel, 0.61f); Stat(0.51f, "到達", vm.ReachedLevelLabel, 0.61f);
+            U46ScreenFactory.Label(content, "U47GameplaySummary", vm.GameplaySummary, 11f, Ink(), new Vector2(0.08f, 0.535f), new Vector2(0.92f, 0.605f), TextAlignmentOptions.Left, font);
             U46ScreenFactory.Label(content, "RewardsTitle", "持ち帰った記憶", 16f, Ink(), new Vector2(0.08f, 0.48f), new Vector2(0.92f, 0.54f), TextAlignmentOptions.Left, font);
             if (vm.RewardCards.Count == 0)
                 U46ScreenFactory.Label(content, "RewardsEmpty", "持ち帰った記憶はありません", 13f, Silver(), new Vector2(0.08f, 0.36f), new Vector2(0.92f, 0.45f), TextAlignmentOptions.Left, font);

@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.Runtime.Collection;
+using VampPon.UnitySpike.Runtime.Gameplay;
 using VampPon.UnitySpike.Runtime.Pause;
 using VampPon.UnitySpike.Runtime.Result;
 using VampPon.UnitySpike.Runtime.Save;
@@ -78,6 +80,16 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
                 newlyUnlockedIds = includeRewards ? new System.Collections.Generic.List<string> { "memory_first_return", "enemy_onbu" } : new System.Collections.Generic.List<string>(),
                 completedAt = DateTime.UtcNow.ToString("O"),
             };
+            var gameplay=FindAnyObjectByType<Stage1GameplayRuntimeCoordinator>();
+            if(gameplay!=null)
+            {
+                snapshot.acquiredItemIds.AddRange(gameplay.Run.Inventory.Weapons.Select(value=>value.Id));
+                snapshot.acquiredItemIds.AddRange(gameplay.Run.Inventory.Passives.Select(value=>value.Id));
+                snapshot.acquiredItemIds.AddRange(gameplay.Run.Inventory.RareItems.Select(value=>value.Id));
+                if(gameplay.Run.Inventory.HasWeapon("dawn_ink_lamp"))snapshot.evolutionIds.Add("dawn_ink_lamp_fusion");
+                if(gameplay.Run.Inventory.HasWeapon("unforgotten_name"))snapshot.evolutionIds.Add("unforgotten_name_awakening");
+                snapshot.revivalUsedCount=gameplay.Run.RevivalUsedCount;snapshot.kokuyouActivationCount=gameplay.Run.Kokuyou.ActivationCount;
+            }
             flow.Execute(AppFlowCommand.CompleteRun(snapshot));
             save.SetVerificationWriteFailure(null);
         }

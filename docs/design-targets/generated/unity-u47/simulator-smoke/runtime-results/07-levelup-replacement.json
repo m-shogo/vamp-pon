@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 2,
+  "captureId": "07-levelup-replacement",
+  "baseRouteId": "levelup",
+  "expectedStateId": "07-levelup-replacement",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "actualUiButtonClick": true,
+    "registryDisplayNames": true,
+    "replacementUiVisible": true
+  },
+  "details": {
+    "duplicateCount": 0,
+    "passiveAfterSlotIds": ["old_ticket","travel_badge","white_margin"],
+    "passiveBeforeSlotIds": ["old_ticket","gold_compass","travel_badge"],
+    "unknownDefinitionCount": 0,
+    "weaponAfterSlotIds": ["night_pencil","streetlamp_ring"],
+    "weaponBeforeSlotIds": ["night_pencil","black_ink_bottle"]
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

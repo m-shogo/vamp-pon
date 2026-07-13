@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "reviewedCaptureCount": 23,
+  "result": "PASS",
+  "contactSheets": [
+    "docs/design-targets/generated/unity-u47/simulator-smoke/contact-sheet-01-captures-01-12.png",
+    "docs/design-targets/generated/unity-u47/simulator-smoke/contact-sheet-02-captures-13-23.png"
+  ],
+  "checks": {
+    "captureLabelsReadable": true,
+    "allCanonicalCapturesVisible": true,
+    "replacementModalWithinSafeArea": true,
+    "registryDisplayNamesVisible": true,
+    "groundAreaVisualsDistinct": true,
+    "groundAreasBehindActorsAndHud": true,
+    "revivedHpVisible": true,
+    "kokuyouPhasesVisible": true,
+    "resultSummaryVisible": true,
+    "candidateCrystalWithinGameplayBounds": true,
+    "compactViewportRendered": true,
+    "largeViewportRendered": true
+  },
+  "notes": [
+    "captures 01-21 are 390x844 Standard renders",
+    "capture 22 is a live 360x800 Compact render of stage1-gameplay",
+    "capture 23 is a live 430x932 Large render of stage1-gameplay",
+    "U47 gameplay visuals remain candidate assets and are not promoted to final visual assets"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 2,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "expectedCaptureCount": 23,
+  "completedCaptureCount": 23,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "captureId": "08-black-ink-area",
+  "baseRouteId": "ground-area",
+  "expectedStateId": "08-black-ink-area",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "actorVisible": true,
+    "blackInkDotExecutor": true,
+    "damageTicksApplied": true,
+    "durationDespawned": true,
+    "inventoryUnchanged": true
+  },
+  "details": {
+    "actorSortingOrder": 8,
+    "damageHitCountAtCapture": 2,
+    "damagePerSecond": 8,
+    "damageTickCountAtCapture": 3,
+    "damageTickCountFinal": 9,
+    "definitionId": "black_ink_bottle",
+    "duplicateExecutorCount": 0,
+    "duration": 2.3,
+    "durationEndedAndDespawned": true,
+    "effectRadius": 0.52,
+    "executorType": "GroundArea",
+    "hudBehind": true,
+    "pickupProcessing": false,
+    "tickInterval": 0.25,
+    "worldPosition": {"x":0.12,"y":-1.33,"z":0}
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

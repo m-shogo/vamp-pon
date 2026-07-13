@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "captureId": "09-streetlamp-area",
+  "baseRouteId": "ground-area",
+  "expectedStateId": "09-streetlamp-area",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "actorVisible": true,
+    "damageTicksApplied": true,
+    "durationDespawned": true,
+    "inventoryUnchanged": true,
+    "streetlampDotExecutor": true
+  },
+  "details": {
+    "actorSortingOrder": 8,
+    "damageHitCountAtCapture": 2,
+    "damagePerSecond": 6,
+    "damageTickCountAtCapture": 3,
+    "damageTickCountFinal": 13,
+    "definitionId": "streetlamp_ring",
+    "duplicateExecutorCount": 0,
+    "duration": 3.2,
+    "durationEndedAndDespawned": true,
+    "effectRadius": 0.64,
+    "executorType": "GroundArea",
+    "hudBehind": true,
+    "pickupProcessing": false,
+    "tickInterval": 0.25,
+    "worldPosition": {"x":0.12,"y":-1.33,"z":0}
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

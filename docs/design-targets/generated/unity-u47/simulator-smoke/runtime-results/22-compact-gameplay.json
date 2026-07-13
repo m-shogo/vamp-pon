@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 2,
+  "captureId": "22-compact-gameplay",
+  "baseRouteId": "stage1-gameplay",
+  "expectedStateId": "stage1-playing",
+  "captureKind": "viewport-variant",
+  "sizeKey": "compact",
+  "width": 360,
+  "height": 800,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "candidateCrystalWithinBounds": true,
+    "gameplayVisible": true,
+    "safeAreaValid": true
+  },
+  "details": {
+    "appliedScale": 0.048804,
+    "calculatedPreClampScale": 0.048804,
+    "colliderAfter": "none",
+    "colliderBefore": "none",
+    "finalWorldHeight": 0.34,
+    "finalWorldWidth": 0.34,
+    "maxWorldDimension": 0.34,
+    "pickupRadiusChanged": false,
+    "pixelsPerUnit": 180,
+    "scaleFinite": true,
+    "sourceSpriteWidthPx": 1254
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

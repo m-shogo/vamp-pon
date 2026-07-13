@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "captureId": "11-dawn-ink-lamp",
+  "baseRouteId": "ground-area",
+  "expectedStateId": "11-dawn-ink-lamp",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "actorVisible": true,
+    "damageTicksApplied": true,
+    "dawnInkDotExecutor": true,
+    "durationDespawned": true,
+    "inventoryUnchanged": true,
+    "validFusionApplied": true
+  },
+  "details": {
+    "actorSortingOrder": 8,
+    "damageHitCountAtCapture": 1,
+    "damagePerSecond": 28,
+    "damageTickCountAtCapture": 3,
+    "damageTickCountFinal": 25,
+    "definitionId": "dawn_ink_lamp",
+    "duplicateExecutorCount": 0,
+    "duration": 6.5,
+    "durationEndedAndDespawned": true,
+    "effectRadius": 1.28,
+    "executorType": "GroundArea",
+    "hudBehind": true,
+    "pickupProcessing": false,
+    "tickInterval": 0.25,
+    "worldPosition": {"x":0.12,"y":-1.33,"z":0}
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

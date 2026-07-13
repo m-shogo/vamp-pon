@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using VampPon.UnitySpike.UI;
+using VampPon.UnitySpike.Runtime.Gameplay.State;
 
 namespace VampPon.UnitySpike.U4
 {
@@ -27,7 +28,7 @@ namespace VampPon.UnitySpike.U4
         public static U4LevelUpOverlay Create(Transform parent, TMP_FontAsset font)
         {
             var root = new GameObject("U4LevelUpOverlay", typeof(RectTransform), typeof(Canvas),
-                typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(CanvasGroup), typeof(U4LevelUpOverlay));
+                typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(CanvasGroup), typeof(SafeAreaFitter), typeof(U4LevelUpOverlay));
             root.transform.SetParent(parent, false);
 
             var overlay = root.GetComponent<U4LevelUpOverlay>();
@@ -170,6 +171,15 @@ namespace VampPon.UnitySpike.U4
             if (isClosing) return;
             isClosing = true;
             fadeOutTimer = 0.15f;
+        }
+
+        public void ShowReplacement(U4LevelUpChoice incoming, InventoryState inventory, System.Func<string, string> displayName, System.Action<int> replace)
+        {
+            ClearCards(); isClosing = false; titleLabel.text = $"{incoming.NameJa} と入れ替える";
+            var owned = incoming.ItemType == U4ItemType.Weapon ? inventory.Weapons.ConvertAll(v => v.Id) : inventory.Passives.ConvertAll(v => v.Id);
+            for (var i=0;i<owned.Count;i++) { var slot=i; var button=PaperButton.Create(cardContainer,$"枠 {i+1}: {displayName(owned[i])}",300f,44f,()=>{ replace(slot); Hide(); }); button.gameObject.name=$"ReplacementSlotButton_{i}"; button.SetFont(japaneseFont); var rect=button.GetComponent<RectTransform>(); rect.anchoredPosition=new Vector2(0,150f-i*52f); }
+            var decline=PaperButton.Create(cardContainer,"受け取らない",220f,44f,()=>{ FindFirstObjectByType<U4LevelUpDemoController>()?.DeclineChoice(); Hide(); }); decline.SetFont(japaneseFont); decline.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-170f);
+            gameObject.SetActive(true); overlayGroup.alpha=1f;
         }
 
         private void Update()

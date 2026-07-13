@@ -1,0 +1,379 @@
+{
+  "schemaVersion": 2,
+  "expectedCaptureCount": 23,
+  "semanticRouteCount": 11,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "captures": [
+    {
+      "captureId": "01-stage-select",
+      "baseRouteId": "stage-select",
+      "captureKind": "state",
+      "expectedStateId": "01-stage-select",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "stageSelectVisible",
+        "verificationControlAbsent"
+      ]
+    },
+    {
+      "captureId": "02-initial-night-pencil",
+      "baseRouteId": "stage1-gameplay",
+      "captureKind": "state",
+      "expectedStateId": "02-initial-night-pencil",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "stage1Playing",
+        "initialWeaponNightPencil",
+        "productionCapacity"
+      ]
+    },
+    {
+      "captureId": "03-levelup-actual-choices",
+      "baseRouteId": "levelup",
+      "captureKind": "state",
+      "expectedStateId": "03-levelup-actual-choices",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "registryDrivenChoices",
+        "threeDistinctChoices",
+        "levelUpModalVisible"
+      ]
+    },
+    {
+      "captureId": "04-inventory-weapon-passive",
+      "baseRouteId": "inventory",
+      "captureKind": "state",
+      "expectedStateId": "04-inventory-weapon-passive",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "weaponVisible",
+        "passiveVisible",
+        "inventoryHudMatchesState"
+      ]
+    },
+    {
+      "captureId": "05-inventory-full",
+      "baseRouteId": "inventory",
+      "captureKind": "state",
+      "expectedStateId": "05-inventory-full",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "weaponInventoryFull",
+        "distinctRegisteredIds",
+        "capacityUnchanged"
+      ]
+    },
+    {
+      "captureId": "06-levelup-decline",
+      "baseRouteId": "levelup",
+      "captureKind": "state",
+      "expectedStateId": "06-levelup-decline",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "replacementOfferVisible",
+        "declineCommandApplied",
+        "inventoryUnchanged"
+      ]
+    },
+    {
+      "captureId": "07-levelup-replacement",
+      "baseRouteId": "levelup",
+      "captureKind": "state",
+      "expectedStateId": "07-levelup-replacement",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "replacementUiVisible",
+        "registryDisplayNames",
+        "actualUiButtonClick"
+      ]
+    },
+    {
+      "captureId": "08-black-ink-area",
+      "baseRouteId": "ground-area",
+      "captureKind": "state",
+      "expectedStateId": "08-black-ink-area",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "blackInkDotExecutor",
+        "actorVisible",
+        "damageTicksApplied",
+        "inventoryUnchanged"
+      ]
+    },
+    {
+      "captureId": "09-streetlamp-area",
+      "baseRouteId": "ground-area",
+      "captureKind": "state",
+      "expectedStateId": "09-streetlamp-area",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "streetlampDotExecutor",
+        "actorVisible",
+        "damageTicksApplied",
+        "inventoryUnchanged"
+      ]
+    },
+    {
+      "captureId": "10-fusion-ready",
+      "baseRouteId": "evolution",
+      "captureKind": "state",
+      "expectedStateId": "10-fusion-ready",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "fusionRequirementsMet",
+        "invalidFusionPreviouslyBlocked"
+      ]
+    },
+    {
+      "captureId": "11-dawn-ink-lamp",
+      "baseRouteId": "ground-area",
+      "captureKind": "state",
+      "expectedStateId": "11-dawn-ink-lamp",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "validFusionApplied",
+        "dawnInkDotExecutor",
+        "actorVisible",
+        "damageTicksApplied"
+      ]
+    },
+    {
+      "captureId": "12-name-tag-owned",
+      "baseRouteId": "rare-item",
+      "captureKind": "state",
+      "expectedStateId": "12-name-tag-owned",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "nameTagAcquired",
+        "rareInventoryVisible",
+        "rareHasNoLevel"
+      ]
+    },
+    {
+      "captureId": "13-unforgotten-name",
+      "baseRouteId": "evolution",
+      "captureKind": "state",
+      "expectedStateId": "13-unforgotten-name",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "validAwakeningApplied",
+        "nameTagConsumed",
+        "unforgottenNameRuntime"
+      ]
+    },
+    {
+      "captureId": "14-dawn-ticket-owned",
+      "baseRouteId": "rare-item",
+      "captureKind": "state",
+      "expectedStateId": "14-dawn-ticket-owned",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "dawnTicketAcquired",
+        "rareInventoryVisible",
+        "rareHasNoLevel"
+      ]
+    },
+    {
+      "captureId": "15-revival-30-percent",
+      "baseRouteId": "dawn-ticket-revival",
+      "captureKind": "state",
+      "expectedStateId": "15-revival-30-percent",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "revivalTriggered",
+        "gameOverSuppressed",
+        "hpThirtyPercent",
+        "ticketConsumed",
+        "secondRevivalPrevented"
+      ]
+    },
+    {
+      "captureId": "16-kokuyou-charging",
+      "baseRouteId": "kokuyou",
+      "captureKind": "state",
+      "expectedStateId": "16-kokuyou-charging",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "damageChargesGauge",
+        "kokuyouCharging",
+        "inventoryHudPreserved"
+      ]
+    },
+    {
+      "captureId": "17-kokuyou-ready",
+      "baseRouteId": "kokuyou",
+      "captureKind": "state",
+      "expectedStateId": "17-kokuyou-ready",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "kokuyouReady",
+        "manualActivationRequired",
+        "inventoryHudPreserved"
+      ]
+    },
+    {
+      "captureId": "18-kokuyou-active",
+      "baseRouteId": "kokuyou",
+      "captureKind": "state",
+      "expectedStateId": "18-kokuyou-active",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "manualActivationApplied",
+        "activeDamageMultiplier",
+        "inventoryHudPreserved"
+      ]
+    },
+    {
+      "captureId": "19-kokuyou-recovery",
+      "baseRouteId": "kokuyou",
+      "captureKind": "state",
+      "expectedStateId": "19-kokuyou-recovery",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "recoverySlowApplied",
+        "inventoryHudPreserved"
+      ]
+    },
+    {
+      "captureId": "20-result-u47-summary",
+      "baseRouteId": "result",
+      "captureKind": "state",
+      "expectedStateId": "20-result-u47-summary",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "resultSnapshotBuilt",
+        "resultViewModelBuilt",
+        "registryDisplayNames",
+        "finalInventoryMatches"
+      ]
+    },
+    {
+      "captureId": "21-retry-reset",
+      "baseRouteId": "retry",
+      "captureKind": "state",
+      "expectedStateId": "21-retry-reset",
+      "viewport": {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      "requiredAssertions": [
+        "retryBoundaryExecuted",
+        "runStateReset",
+        "productionCapacityRestored"
+      ]
+    },
+    {
+      "captureId": "22-compact-gameplay",
+      "baseRouteId": "stage1-gameplay",
+      "captureKind": "viewport-variant",
+      "expectedStateId": "stage1-playing",
+      "viewport": {
+        "sizeKey": "compact",
+        "width": 360,
+        "height": 800
+      },
+      "requiredAssertions": [
+        "gameplayVisible",
+        "safeAreaValid",
+        "candidateCrystalWithinBounds"
+      ]
+    },
+    {
+      "captureId": "23-large-gameplay",
+      "baseRouteId": "stage1-gameplay",
+      "captureKind": "viewport-variant",
+      "expectedStateId": "stage1-playing",
+      "viewport": {
+        "sizeKey": "large",
+        "width": 430,
+        "height": 932
+      },
+      "requiredAssertions": [
+        "gameplayVisible",
+        "safeAreaValid",
+        "candidateCrystalWithinBounds"
+      ]
+    }
+  ]
+}

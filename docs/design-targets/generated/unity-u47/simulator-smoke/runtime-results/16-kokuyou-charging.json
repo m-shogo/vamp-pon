@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "captureId": "16-kokuyou-charging",
+  "baseRouteId": "kokuyou",
+  "expectedStateId": "16-kokuyou-charging",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "damageChargesGauge": true,
+    "inventoryHudPreserved": true,
+    "kokuyouCharging": true
+  },
+  "details": {
+
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

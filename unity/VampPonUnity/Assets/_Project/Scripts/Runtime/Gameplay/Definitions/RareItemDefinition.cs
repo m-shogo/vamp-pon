@@ -1,0 +1,2 @@
+using System.Collections.Generic; using UnityEngine;
+namespace VampPon.UnitySpike.Runtime.Gameplay.Definitions { [CreateAssetMenu(menuName="YorunoShirube/U47/Rare Item")] public sealed class RareItemDefinition : GameDefinition { [SerializeField] private RareItemRole role; [SerializeField] private string[] tags; public RareItemRole Role=>role; public IReadOnlyList<string> Tags=>tags; public void SetData(RareItemRole value,string[] tagValues){role=value;tags=tagValues;} } }

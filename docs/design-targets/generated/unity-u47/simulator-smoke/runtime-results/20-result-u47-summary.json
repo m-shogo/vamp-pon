@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 2,
+  "captureId": "20-result-u47-summary",
+  "baseRouteId": "result",
+  "expectedStateId": "20-result-u47-summary",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "finalInventoryMatches": true,
+    "registryDisplayNames": true,
+    "resultSnapshotBuilt": true,
+    "resultViewModelBuilt": true
+  },
+  "details": {
+    "finalInventoryIds": ["night_pencil","streetlamp_ring","old_ticket","travel_badge","white_margin","dawn_ticket"]
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

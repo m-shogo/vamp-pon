@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "captureId": "06-levelup-decline",
+  "baseRouteId": "levelup",
+  "expectedStateId": "06-levelup-decline",
+  "captureKind": "state",
+  "sizeKey": "standard",
+  "width": 390,
+  "height": 844,
+  "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
+  "checks": {
+    "declineCommandApplied": true,
+    "inventoryUnchanged": true,
+    "replacementOfferVisible": true
+  },
+  "details": {
+    "beforeSlotIds": ["night_pencil","black_ink_bottle"]
+  },
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

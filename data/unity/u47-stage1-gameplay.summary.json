@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "sourceHash": "e332e3b25eaee12aa8ffc233c2700eb1ede180c839e1aad1082f11e72b376202",
+  "exportHash": "ff8455c9f5d812c13055fabeede405579c30ecb4bd8ef54d5c101200dd3b9714",
+  "outputSha256": "bd9c3ada103bcc4259bef4cd1ecf955d0995e301c9f9f13c016998dc2dae0953",
+  "counts": {
+    "weapons": 5,
+    "passives": 4,
+    "rareItems": 2,
+    "evolutions": 2
+  },
+  "includedIds": {
+    "character": [
+      "yui"
+    ],
+    "weapons": [
+      "night_pencil",
+      "black_ink_bottle",
+      "streetlamp_ring",
+      "unforgotten_name",
+      "dawn_ink_lamp"
+    ],
+    "passives": [
+      "old_ticket",
+      "gold_compass",
+      "travel_badge",
+      "white_margin"
+    ],
+    "rareItems": [
+      "name_tag",
+      "dawn_ticket"
+    ],
+    "evolutions": [
+      "unforgotten_name_awakening",
+      "dawn_ink_lamp_fusion"
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2726f8460a8fe41c6bba70d0c863d9f4, type: 3}
+  m_Name: Weapon_dawn_ink_lamp
+  m_EditorClassIdentifier: Assembly-CSharp::VampPon.UnitySpike.Runtime.Gameplay.Definitions.WeaponDefinition
+  id: dawn_ink_lamp
+  displayName: "\u591C\u660E\u3051\u306E\u30A4\u30F3\u30AF\u706F"
+  description: "\u9ED2\u30A4\u30F3\u30AF\u3068\u8857\u706F\u304C\u6DF7\u3056\u308A\u3001\u5E83\u3044\u591C\u660E\u3051\u306E\u8F2A\u3092\u6B8B\u3059\u3002"
+  maxLevel: 3
+  tags:
+  - area
+  - damage_over_time
+  - fusion
+  - evolved
+  effectType: 1
+  levels:
+  - level: 1
+    label: "\u5DE8\u5927\u306A\u591C\u660E\u3051\u306E\u8F2A\u3092\u6B21\u3005\u306B\u6B8B\u3059\u3002\u9ED2\u30A4\u30F3\u30AF\u5C0F\u74F6\u3068\u8857\u706F\u306E\u8F2A\u304C1\u67A0\u306B\u307E\u3068\u307E\u308B\u3002"
+    damage: 0
+    damagePerSecond: 28
+    projectiles: 0
+    cooldown: 1.15
+    pierce: 0
+    duration: 6.5
+    radius: 128
+    maxAreas: 3
+    targeting: nearest
+    damageAdd: 0
+    damagePerSecondAdd: 0
+    projectilesAdd: 0
+    cooldownMultiplier: 1
+    pierceAdd: 0
+    durationAdd: 0
+    durationMultiplier: 1
+    radiusAdd: 0
+    maxAreasAdd: 0
+  - level: 2
+    label: "\u8F2A\u304C\u4E00\u56DE\u308A\u5E83\u304C\u308A\u3001\u7F6E\u3051\u308B\u6570\u3082\u5897\u3048\u308B\u3002"
+    damage: 0
+    damagePerSecond: 34
+    projectiles: 0
+    cooldown: 1.05
+    pierce: 0
+    duration: 7
+    radius: 140
+    maxAreas: 4
+    targeting: nearest
+    damageAdd: 0
+    damagePerSecondAdd: 0
+    projectilesAdd: 0
+    cooldownMultiplier: 1
+    pierceAdd: 0
+    durationAdd: 0
+    durationMultiplier: 1
+    radiusAdd: 0
+    maxAreasAdd: 0
+  - level: 3
+    label: "\u591C\u660E\u3051\u306E\u8F2A\u304C\u591C\u3058\u3085\u3046\u3092\u7167\u3089\u3059\u3002"
+    damage: 0
+    damagePerSecond: 42
+    projectiles: 0
+    cooldown: 0.95
+    pierce: 0
+    duration: 7.5
+    radius: 152
+    maxAreas: 5
+    targeting: nearest
+    damageAdd: 0
+    damagePerSecondAdd: 0
+    projectilesAdd: 0
+    cooldownMultiplier: 1
+    pierceAdd: 0
+    durationAdd: 0
+    durationMultiplier: 1
+    radiusAdd: 0
+    maxAreasAdd: 0
+  isEvolved: 1

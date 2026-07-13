@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24e95f2aa9ed465b92b85862f11e6e2, type: 3}
+  m_Name: Evolution_dawn_ink_lamp_fusion
+  m_EditorClassIdentifier: Assembly-CSharp::VampPon.UnitySpike.Runtime.Gameplay.Definitions.EvolutionDefinition
+  id: dawn_ink_lamp_fusion
+  displayName: "\u591C\u660E\u3051\u306E\u30A4\u30F3\u30AF\u706F"
+  description:
+  kind: 1
+  fromWeaponId: black_ink_bottle
+  requiredWeaponId: streetlamp_ring
+  requiredRareItemId:
+  consumedWeaponIds:
+  - black_ink_bottle
+  - streetlamp_ring
+  consumedRareItemIds: []
+  evolvedWeaponId: dawn_ink_lamp
+  title: "\u9ED2\u3068\u706F\u308A\u304C\u6DF7\u3056\u3063\u305F"
+  lore: "\u6D88\u3059\u305F\u3081\u306E\u9ED2\u3068\u3001\u7167\u3089\u3059\u305F\u3081\u306E\u706F\u308A\u3002\u6DF7\u3056\u308B\u3068\u3001\u671D\u306E\u8272\u306B\u306A\u308B\u3002"

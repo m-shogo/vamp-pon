@@ -7,6 +7,7 @@ using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.U5;
 using VampPon.UnitySpike.Runtime.Visuals;
+using VampPon.UnitySpike.Runtime.Gameplay;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -50,6 +51,7 @@ namespace VampPon.UnitySpike.Runtime
         private float hudPulseSeconds;
         private Vector3 hudBaseScale = Vector3.one;
         private bool runtimePaused = true;
+        private bool gameplayRuntimeConnected;
 
         public int SpawnedEnemyCount { get; private set; }
         public int DefeatedEnemyCount { get; private set; }
@@ -71,8 +73,10 @@ namespace VampPon.UnitySpike.Runtime
         public int DeathBurstCount { get; private set; }
         public bool IsRuntimePaused => runtimePaused;
         public float ElapsedSeconds => elapsedSeconds;
+        public Sprite ExistingInkCandidateSprite => inkSprite;
         public event Action PlayerAttackFired;
         public event Action PlayerDamageVisualRequested;
+        public event Action<int> ExperienceCollected;
 
         public void Initialize(
             GameFeelConfig gameFeelConfig,
@@ -130,10 +134,35 @@ namespace VampPon.UnitySpike.Runtime
         public void SetRuntimePaused(bool paused)
         {
             runtimePaused = paused;
+            GetComponent<Stage1GameplayRuntimeCoordinator>()?.SetRuntimePaused(paused);
+        }
+
+        public void SetGameplayRuntimeConnected(bool connected) => gameplayRuntimeConnected = connected;
+
+        public bool FireGameplayProjectile(float damage, int pierce)
+        {
+            var target = FindNearestEnemy();
+            var projectile = FirstInactive(projectiles);
+            if (target == null || projectile == null) return false;
+            projectile.Activate(player.position, target, config.projectileSpeed, damage, pierce);
+            feedbackBridge?.PlayWeaponFire(); FiredProjectileCount++; PlayerAttackFired?.Invoke(); return true;
+        }
+
+        public bool TryGetNearestEnemyPosition(out Vector3 position)
+        {
+            var target = FindNearestEnemy(); position = target != null ? target.transform.position : player.position; return target != null;
+        }
+
+        public int DamageEnemiesInRadius(Vector3 center, float radius, float damage)
+        {
+            var hits = 0;
+            foreach (var enemy in enemies) if (enemy.IsTargetable && Vector2.Distance(center, enemy.transform.position) <= radius) { if (enemy.TakeDamage(damage, config.damageFlashSeconds)) { DefeatedEnemyCount++; DropExp(enemy.transform.position); } hits++; }
+            return hits;
         }
 
         public void ResetRunState()
         {
+            GetComponent<Stage1GameplayRuntimeCoordinator>()?.ResetRun();
             enemies.ForEach(actor => actor.Deactivate());
             projectiles.ForEach(actor => actor.Deactivate());
             expFragments.ForEach(actor => actor.Deactivate());
@@ -216,7 +245,7 @@ namespace VampPon.UnitySpike.Runtime
             TickVfx();
             TickHudPulse();
 
-            if (projectileTimer <= 0f)
+            if (!gameplayRuntimeConnected && projectileTimer <= 0f)
             {
                 TryFireAtNearestEnemy();
                 projectileTimer = config.projectileCooldown;
@@ -302,8 +331,9 @@ namespace VampPon.UnitySpike.Runtime
                     Vector2.Distance(projectile.transform.position, projectile.Target.transform.position) <= 0.28f)
                 {
                     var hitPosition = projectile.transform.position;
-                    projectile.Deactivate();
-                    var defeated = projectile.Target.TakeDamage(config.projectileDamage, config.damageFlashSeconds);
+                    var hitTarget = projectile.Target;
+                    projectile.ConsumeHit();
+                    var defeated = hitTarget.TakeDamage(projectile.Damage > 0f ? projectile.Damage : config.projectileDamage, config.damageFlashSeconds);
                     feedbackBridge?.PlayEnemyHit();
                     hitStop?.Request();
                     PlayVfx(hitPosition, hitSprite, 0.34f, 0.11f, Color.white, Vector2.zero, U2VfxShape.Radial);
@@ -312,7 +342,7 @@ namespace VampPon.UnitySpike.Runtime
                     {
                         DefeatedEnemyCount++;
                         feedbackBridge?.PlayEnemyDefeat();
-                        cameraImpulse?.Request(projectile.Target.transform.position - player.position);
+                        cameraImpulse?.Request(hitTarget.transform.position - player.position);
                         PlayDeathBurst(hitPosition);
                         DropExp(hitPosition);
                     }
@@ -353,6 +383,7 @@ namespace VampPon.UnitySpike.Runtime
 
                     fragment.Deactivate();
                     expCollected++;
+                    ExperienceCollected?.Invoke(1);
                     feedbackBridge?.PlayPickup();
                     hudPulseSeconds = 0.16f;
                     lanternPulse?.Request();
@@ -675,6 +706,8 @@ namespace VampPon.UnitySpike.Runtime
         private float lifeSeconds;
 
         public U2EnemyActor Target { get; private set; }
+        public float Damage { get; private set; }
+        public int PierceRemaining { get; private set; }
 
         public static U2ProjectileActor Create(string objectName, Transform parent, Sprite sprite)
         {
@@ -690,7 +723,14 @@ namespace VampPon.UnitySpike.Runtime
 
         public void Activate(Vector3 origin, U2EnemyActor target, float projectileSpeed)
         {
+            Activate(origin, target, projectileSpeed, 0f, 0);
+        }
+
+        public void Activate(Vector3 origin, U2EnemyActor target, float projectileSpeed, float damage, int pierce)
+        {
             Target = target;
+            Damage = damage;
+            PierceRemaining = Mathf.Max(0, pierce);
             speed = projectileSpeed;
             lifeSeconds = 1.8f;
             transform.position = origin;
@@ -698,6 +738,11 @@ namespace VampPon.UnitySpike.Runtime
             direction = (targetPosition - origin).sqrMagnitude > 0.0001f ? (targetPosition - origin).normalized : Vector3.up;
             IsActive = true;
             gameObject.SetActive(true);
+        }
+
+        public void ConsumeHit()
+        {
+            if (PierceRemaining <= 0) Deactivate(); else { PierceRemaining--; Target = null; }
         }
 
         public void Tick(float deltaTime)
@@ -723,7 +768,9 @@ namespace VampPon.UnitySpike.Runtime
 
     public sealed class U2ExpFragmentActor : U2PooledActor
     {
+        private const float MaxWorldSize = 0.34f;
         private SpriteRenderer spriteRenderer;
+        private float visualScale = 1f;
         private Vector3 driftVelocity;
         private float popSeconds;
         private float trailTimer;
@@ -736,13 +783,20 @@ namespace VampPon.UnitySpike.Runtime
             actor.spriteRenderer = instance.GetComponent<SpriteRenderer>();
             actor.spriteRenderer.sprite = sprite;
             actor.spriteRenderer.sortingOrder = 30;
+            if (sprite != null)
+            {
+                var largestBound = Mathf.Max(sprite.bounds.size.x, sprite.bounds.size.y);
+                actor.visualScale = float.IsFinite(largestBound) && largestBound > 0f
+                    ? Mathf.Clamp(MaxWorldSize / largestBound, 0.01f, 1f)
+                    : 1f;
+            }
             return actor;
         }
 
         public void Activate(Vector3 position, Vector2 popVelocity, float popDuration)
         {
             transform.position = position;
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one * visualScale;
             driftVelocity = popVelocity;
             popSeconds = popDuration;
             trailTimer = 0f;
@@ -772,7 +826,7 @@ namespace VampPon.UnitySpike.Runtime
                 }
 
                 transform.position += toPlayer.normalized * speed * deltaTime;
-                transform.localScale = Vector3.one * Mathf.Lerp(0.65f, 1f, Mathf.Clamp01(distance / attractRadius));
+                transform.localScale = Vector3.one * visualScale * Mathf.Lerp(0.65f, 1f, Mathf.Clamp01(distance / attractRadius));
                 trailTimer -= deltaTime;
                 if (trailTimer <= 0f)
                 {

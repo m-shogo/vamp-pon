@@ -18,5 +18,6 @@ namespace VampPon.UnitySpike.Runtime.Result
         public bool CanReturnToStageSelect { get; set; }
         public bool SaveSucceeded { get; set; }
         public string SaveStatusLabel { get; set; }
+        public string GameplaySummary { get; set; }
     }
 }
