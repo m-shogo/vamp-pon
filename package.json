@@ -73,6 +73,7 @@
     "unity:u48-batch-a-contracts:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-a-contracts.ts",
     "unity:u48-batch-a-candidates:build": "python3 scripts/unity/build-u48-batch-a-candidates.py",
     "unity:u48-batch-a-candidates:qa": "python3 scripts/unity/qa-u48-batch-a-candidates.py",
+    "unity:u48-batch-a-simulator:capture": "python3 scripts/unity/capture-u48-batch-a-simulator.py",
     "unity:ui-design-system:check": "node --experimental-strip-types scripts/quality/check-unity-ui-design-system.ts",
     "unity:runtime-visual-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-runtime-visual-readiness.ts",
     "implementation:preflight:check": "node --experimental-strip-types scripts/quality/check-unity-big-implementation-readiness.ts",

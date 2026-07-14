@@ -36,6 +36,8 @@ check(binder.includes('StopAllCoroutines()') && binder.includes('Restore()') && 
 check(bridge.includes('VAMPPON_U48_PREVIEW_EXPECT_ACTIVE') && bridge.includes('Application.logMessageReceived -= OnLog') && bridge.includes('cleanupPassed'), 'verification expectation and event cleanup');
 check(bootstrap.includes('#if VAMPPON_U48_ASSET_PREVIEW') && bootstrap.includes('U48AssetPreviewProvider.CreateOrDefault(normalProvider)') && bootstrap.includes('(assetProvider as System.IDisposable)?.Dispose()'), 'bootstrap guarded activation and cleanup');
 check(build.includes('extraScriptingDefines = preview ? new[] { PreviewDefine }') && build.includes('CreateTemporaryCatalog') && build.includes('AssetDatabase.DeleteAsset(TempCatalogDirectory)'), 'build-local define and temporary catalog cleanup');
+check(build.includes('entries.Count != 36') && build.includes('AssetDatabase.CopyAsset(sourceAssetPath, destinationAssetPath)'), 'Batch A candidates are copied only into the temporary preview build catalog');
+check(bridge.includes('VAMPPON_U48_PREVIEW_CAPTURE') && bridge.includes('standardFileResizeReuse') && bridge.includes('verificationPresentationOnly'), 'candidate-specific live capture is explicit and verification-only');
 check(!existsSync(resolve(root, 'unity/VampPonUnity/Assets/_Project/Resources/U48Preview')), 'temporary preview catalog is not committed');
 
 check(contracts.schemaVersion === 1 && contracts.activeComparisonGroupCount === 30 && contracts.comparisonGroups.length === 30, '30 active UI comparison units');

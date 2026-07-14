@@ -31,7 +31,7 @@ namespace VampPon.UnitySpike.Runtime.Visuals
             yield return null;
             var entry = U48AssetPreviewProvider.ActiveEntry ?? throw new InvalidOperationException("U48 preview session ended before scene binding.");
             var slot = Enum.Parse<U48AssetPreviewSlot>(entry.slot, true);
-            if (slot is U48AssetPreviewSlot.Player or U48AssetPreviewSlot.Enemy or U48AssetPreviewSlot.ExpPickup or U48AssetPreviewSlot.Projectile or U48AssetPreviewSlot.Hit or U48AssetPreviewSlot.EnemyDeath or U48AssetPreviewSlot.Trail or U48AssetPreviewSlot.GroundArea)
+            if (slot is U48AssetPreviewSlot.Player or U48AssetPreviewSlot.Enemy or U48AssetPreviewSlot.ExpPickup or U48AssetPreviewSlot.HealingPickup or U48AssetPreviewSlot.Projectile or U48AssetPreviewSlot.Hit or U48AssetPreviewSlot.EnemyDeath or U48AssetPreviewSlot.Trail or U48AssetPreviewSlot.GroundArea)
             {
                 binding = null;
                 yield break;
