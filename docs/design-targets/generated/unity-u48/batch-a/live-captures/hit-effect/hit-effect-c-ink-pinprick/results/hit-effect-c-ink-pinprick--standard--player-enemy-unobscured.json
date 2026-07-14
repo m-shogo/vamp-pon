@@ -1,0 +1,16 @@
+{
+  "assetGroup": "hit-effect",
+  "candidateId": "hit-effect-c-ink-pinprick",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "player-enemy-unobscured",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png",
+  "sourceSha256": "882b9f4a9becc19dfb1064f677817184c8ab85314281a142d3469cf296ec6562",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

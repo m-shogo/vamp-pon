@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-onbu",
+  "candidateId": "enemy-onbu-c-sprout-mist",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "player-enemy-together",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
+  "sourceSha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

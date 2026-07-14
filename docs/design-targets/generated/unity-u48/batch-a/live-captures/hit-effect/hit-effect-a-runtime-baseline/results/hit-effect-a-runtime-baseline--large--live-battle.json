@@ -1,0 +1,16 @@
+{
+  "assetGroup": "hit-effect",
+  "candidateId": "hit-effect-a-runtime-baseline",
+  "viewport": "large",
+  "width": 430,
+  "height": 932,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png",
+  "sourceSha256": "ce19588904d1117be540ca40d0e34c5e43ac9b543528e789fdd3210121307b24",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

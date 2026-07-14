@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-death-effect",
+  "candidateId": "enemy-death-effect-d-paper-ink-burst",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "player-enemy-unobscured",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
+  "sourceSha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

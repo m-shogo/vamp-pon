@@ -1,0 +1,16 @@
+{
+  "assetGroup": "player-yui",
+  "candidateId": "player-yui-d-paper-ink",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "movement-representative",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png",
+  "sourceSha256": "f44e02d8f37c63b6c82c57d79a8042b4212f6e00bb30a1ce3c97197fd7ee23e7",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

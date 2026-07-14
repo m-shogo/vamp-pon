@@ -1,0 +1,16 @@
+{
+  "assetGroup": "healing-pickup",
+  "candidateId": "healing-pickup-b-bandaged-paper-charm",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "candidate-crystal-together",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png",
+  "sourceSha256": "09775e23218cba747eac6fb3827d20be3a2306669f6b761e25b57a3c4bb7337e",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

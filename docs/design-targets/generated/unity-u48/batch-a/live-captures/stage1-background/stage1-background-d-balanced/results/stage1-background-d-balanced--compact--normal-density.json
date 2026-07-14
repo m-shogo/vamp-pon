@@ -1,0 +1,16 @@
+{
+  "assetGroup": "stage1-background",
+  "candidateId": "stage1-background-d-balanced",
+  "viewport": "compact",
+  "width": 360,
+  "height": 800,
+  "captureKind": "normal-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png",
+  "sourceSha256": "f7bcead164f073d445bfe64390b03dd887587cd1df9aa6a5686c8eebd1078417",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

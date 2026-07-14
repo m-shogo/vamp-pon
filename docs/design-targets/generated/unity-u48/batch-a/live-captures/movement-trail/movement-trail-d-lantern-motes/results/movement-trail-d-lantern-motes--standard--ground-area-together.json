@@ -1,0 +1,16 @@
+{
+  "assetGroup": "movement-trail",
+  "candidateId": "movement-trail-d-lantern-motes",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "ground-area-together",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png",
+  "sourceSha256": "4495283e3a8b040f2bdcfa862ac1df4e29d81d38b8cedcd1e5b83737a407566d",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -1,0 +1,16 @@
+{
+  "assetGroup": "common-projectile",
+  "candidateId": "common-projectile-c-paper-streak",
+  "viewport": "compact",
+  "width": 360,
+  "height": 800,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
+  "sourceSha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

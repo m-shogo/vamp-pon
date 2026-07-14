@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '../..');
 const read = (path: string) => readFileSync(resolve(root, path), 'utf8');
@@ -7,7 +8,6 @@ const json = (path: string) => JSON.parse(read(path));
 const check = (value: unknown, message: string) => { if (!value) throw new Error(`U48 startup check failed: ${message}`); };
 
 const baseline = '642c87b26ca7713064c8172d2497613597caead9';
-const approvalPackBaseline = 'c65e910136552fcbb1e3b698b0049e81cbf6ec35';
 const audit = json('docs/design-targets/generated/unity-u48/asset-audit.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const completion = json('docs/design-targets/generated/unity-u48/completion-summary.json');
@@ -18,7 +18,11 @@ const bootstrap = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Sta
 const battle = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs');
 
 check(audit.sourceHead === baseline, 'asset audit baseline source head');
-check(readiness.sourceHead === approvalPackBaseline && completion.sourceHead === approvalPackBaseline, 'approval pack checkpoint source head');
+for (const [label, sourceHead] of [['readiness', readiness.sourceHead], ['completion', completion.sourceHead]] as const) {
+  check(/^[0-9a-f]{40}$/.test(sourceHead), `${label} source head format`);
+  try { execFileSync('git', ['merge-base', '--is-ancestor', sourceHead, 'HEAD'], { cwd: root, stdio: 'ignore' }); }
+  catch { check(false, `${label} source head is an audited ancestor`); }
+}
 check(audit.auditPassed === true && audit.productionExpansionReady === false, 'audit result and incomplete boundary');
 check(audit.summary.productionApproved === 0 && audit.summary.candidateOrPrototype === 14 && audit.summary.missing === 5 && audit.summary.proceduralPlaceholder === 3 && audit.summary.deferredToLaterPhase === 3, 'production/candidate/missing/procedural/deferred counts');
 check(audit.items.some((item: { assetKey: string; status: string }) => item.assetKey === 'player-remaining-core5' && item.status === 'missing'), 'remaining Core5 gap');

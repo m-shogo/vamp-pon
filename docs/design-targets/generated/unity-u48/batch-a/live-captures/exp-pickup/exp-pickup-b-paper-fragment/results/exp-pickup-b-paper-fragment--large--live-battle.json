@@ -1,0 +1,16 @@
+{
+  "assetGroup": "exp-pickup",
+  "candidateId": "exp-pickup-b-paper-fragment",
+  "viewport": "large",
+  "width": 430,
+  "height": 932,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
+  "sourceSha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -1,0 +1,16 @@
+{
+  "assetGroup": "healing-pickup",
+  "candidateId": "healing-pickup-a-dawn-drop",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "high-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png",
+  "sourceSha256": "f828feeff4ae89e624665ebe6a0431b17a3f7dfa66175ecf386d93a03f37630a",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

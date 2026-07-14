@@ -1,0 +1,16 @@
+{
+  "assetGroup": "movement-trail",
+  "candidateId": "movement-trail-c-paper-flecks",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "single",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
+  "sourceSha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

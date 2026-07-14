@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "94fce1a97503e0edc7965ad6a38186f85a8693c7",
+  "generatedAtUtc": "2026-07-14T09:14:21Z",
+  "batch": "A",
+  "scope": "Stage1 gameplay core asset human-review preparation",
+  "results": {
+    "unityNormalBatchmodeCompile": "PASS",
+    "unityNoPreviewDefineIosSimulatorExport": "PASS",
+    "unityPreviewDefineCompileAndIosSimulatorExport": "PASS",
+    "xcodeReleaseSimulatorBuild": "PASS",
+    "simulatorInstall": "PASS",
+    "simulatorCandidateLaunches": "PASS_36_OF_36",
+    "candidateSpecificLiveCapture": "PASS_280",
+    "previewCleanup": "PASS_36_OF_36",
+    "unhandledExceptionCount": 0,
+    "assertionFailureCount": 0,
+    "staleEvidenceCount": 0,
+    "automaticQa": "PASS_36_WARNING_0_FAIL_0",
+    "duplicateContentHashCount": 0,
+    "duplicateGuidCount": 0,
+    "webTests": "PASS_418",
+    "webBuild": "PASS",
+    "unityMeta": "PASS_880_UNIQUE",
+    "u47EditorVerification": "PASS",
+    "u47CaptureCatalog": "PASS_23",
+    "u47SimulatorManifest": "PASS_STALE_0",
+    "u47Completion": "PASS",
+    "implementationPreflightFull": "PASS",
+    "productionProviderDiffLineCount": 0
+  },
+  "inventory": {
+    "assetGroupCount": 9,
+    "candidateCount": 36,
+    "candidatesPerGroup": 4,
+    "groupsBelowFourCandidates": 0,
+    "duplicateCandidatesExcluded": 0,
+    "goldenReferenceStatus": {
+      "complete": 0,
+      "composite": 8,
+      "missing": 1
+    },
+    "lineage": {
+      "complete": 28,
+      "reconstructedPartial": 8,
+      "unknown": 0
+    },
+    "captures": {
+      "standard": 208,
+      "compact": 36,
+      "large": 36,
+      "highDensity": 28,
+      "total": 280,
+      "standardFileResizeReuse": 0
+    }
+  },
+  "approvalBoundary": {
+    "batchAStage1GameplayCoreApprovalReady": true,
+    "humanReviewStatus": "pending",
+    "humanApprovedCandidateIdCount": 0,
+    "approvedAsFinalCount": 0,
+    "runtimeApprovedCount": 0,
+    "productionAssetApprovalPackReady": false,
+    "approvedProductionAssetSetAvailable": false,
+    "runtimeVisualReady": false,
+    "simulatorReady": false,
+    "physicalDeviceReady": false,
+    "audioReady": false,
+    "hapticReady": false,
+    "performanceReady": false,
+    "rcReady": false,
+    "productionApproved": false,
+    "u48Status": "IN_PROGRESS_BLOCKED"
+  },
+  "notes": [
+    "Simulator execution and Batch A candidate capture PASS do not promote the game-wide simulatorReady gate.",
+    "Preview candidates are copied into temporary Resources only for the define-gated build and are deleted after export.",
+    "Healing pickup uses a non-approved reference contract because a human-approved Golden Reference is missing.",
+    "AI rank is a recommendation for human review and never selects or connects a production asset."
+  ]
+}

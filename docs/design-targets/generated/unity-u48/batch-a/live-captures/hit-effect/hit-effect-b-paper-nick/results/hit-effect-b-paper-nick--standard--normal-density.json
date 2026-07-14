@@ -1,0 +1,16 @@
+{
+  "assetGroup": "hit-effect",
+  "candidateId": "hit-effect-b-paper-nick",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "normal-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
+  "sourceSha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

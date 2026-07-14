@@ -1,0 +1,16 @@
+{
+  "assetGroup": "movement-trail",
+  "candidateId": "movement-trail-b-pencil-dust",
+  "viewport": "large",
+  "width": 430,
+  "height": 932,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png",
+  "sourceSha256": "ae8751b3d3f181e2cbf56cff960a6d11edce200493051c8599316b36f8db107e",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -1,0 +1,16 @@
+{
+  "assetGroup": "movement-trail",
+  "candidateId": "movement-trail-a-runtime-baseline",
+  "viewport": "large",
+  "width": 430,
+  "height": 932,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png",
+  "sourceSha256": "6517663c0f24705bf0e69641df763c96cb545cce87b63b6b4ccc31d898a07edf",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

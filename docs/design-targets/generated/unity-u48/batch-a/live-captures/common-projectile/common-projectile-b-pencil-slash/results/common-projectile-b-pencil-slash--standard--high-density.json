@@ -1,0 +1,16 @@
+{
+  "assetGroup": "common-projectile",
+  "candidateId": "common-projectile-b-pencil-slash",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "high-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png",
+  "sourceSha256": "3e5457d86bdc576e5d0bcf6acc51317c4edd827ac781addaba0481f93c1a8db1",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

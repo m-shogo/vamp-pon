@@ -1,0 +1,16 @@
+{
+  "assetGroup": "player-yui",
+  "candidateId": "player-yui-b-silhouette",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "movement-representative",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png",
+  "sourceSha256": "42df39bb06fe914456066e5ec2cd5704172c9a7ad988c01d60ba316539b38f4b",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

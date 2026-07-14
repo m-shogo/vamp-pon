@@ -1,0 +1,16 @@
+{
+  "assetGroup": "stage1-background",
+  "candidateId": "stage1-background-c-night-street",
+  "viewport": "large",
+  "width": 430,
+  "height": 932,
+  "captureKind": "normal-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
+  "sourceSha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

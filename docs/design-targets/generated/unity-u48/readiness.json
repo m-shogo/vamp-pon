@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "c65e910136552fcbb1e3b698b0049e81cbf6ec35",
+  "sourceHead": "94fce1a97503e0edc7965ad6a38186f85a8693c7",
   "generatedAtUtc": "2026-07-14T02:47:34Z",
   "status": "IN_PROGRESS_BLOCKED",
   "u47GameplayDataRuntimeReady": true,
@@ -20,8 +20,11 @@
   "productionApproved": false,
   "completionBlocked": true,
   "blockers": [
+    "Batch A Stage1 gameplay core is review-ready, but human candidate approval and production connection are pending",
+    "Batch A Stage1 gameplay core is review-ready, but human candidate approval and production connection are pending",
+    "Batch A Stage1 gameplay core is review-ready, but human candidate approval and production connection are pending",
+    "Batch A Stage1 gameplay core is review-ready, but human candidate approval and production connection are pending",
     "Priority A approval inventory exists, but 13 groups have fewer than four meaningful unique candidates and the 30 split UI comparison units still require equivalent candidates",
-    "candidate-specific live previews for Standard/Compact/Large are not captured",
     "candidate lineage is partial or unknown and human approval is pending",
     "no U48 target asset has approvedAsFinal=true and runtimeApproved=true",
     "remaining Core5 and enemy family runtime assets are missing",
@@ -30,5 +33,6 @@
     "physical-device final visual review is not executed",
     "audio/haptic device readiness belongs to U49 and is not measured",
     "device performance readiness belongs to U50 and is not measured"
-  ]
+  ],
+  "batchAStage1GameplayCoreApprovalReady": true
 }

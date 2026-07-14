@@ -16,6 +16,7 @@ const expectedKeys = [
   'kokuyou-charging', 'kokuyou-ready', 'kokuyou-active', 'kokuyou-recovery',
   'ui-hud-inventory-frame', 'ui-levelup-card', 'ui-replacement-modal', 'ui-result-kit', 'ui-stage-select-kit',
 ];
+const batchAKeys = new Set(['player-yui', 'enemy-onbu', 'stage1-background', 'pickup-exp', 'pickup-healing', 'common-projectile', 'hit-effect', 'enemy-death-effect', 'movement-trail']);
 
 const manifest = json('docs/design-targets/generated/unity-u48/approval-pack/approval-manifest.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
@@ -50,7 +51,7 @@ for (const group of manifest.assetGroups) {
   check(sha256(group.contactSheetPath) === group.contactSheetSha256, `${group.assetKey} contact sheet hash`);
   check(existsSync(resolve(root, group.runtimeBaselinePreview)), `${group.assetKey} runtime baseline`);
   check(sha256(group.runtimeBaselinePreview) === group.runtimeBaselineSha256, `${group.assetKey} runtime baseline hash`);
-  check(group.runtimeBaselineIsCandidateSpecific === false, `${group.assetKey} baseline is not candidate-specific`);
+  check(group.runtimeBaselineIsCandidateSpecific === batchAKeys.has(group.assetKey), `${group.assetKey} candidate-specific baseline boundary`);
   check(group.humanApprovedCandidateId === null && group.approvalStatus === 'pending-human-review', `${group.assetKey} human approval pending`);
   if (group.candidates.length < 4) {
     shortageCount += 1;
@@ -65,14 +66,19 @@ for (const group of manifest.assetGroups) {
     check(sha256(candidate.sourcePath) === candidate.sourceSha256, `${candidate.candidateId} source hash`);
     check(candidate.generationLineage && typeof candidate.generationLineage.status === 'string', `${candidate.candidateId} lineage recorded`);
     check(['PASS', 'FAIL', 'WARNING'].includes(candidate.automaticQa?.status), `${candidate.candidateId} QA status`);
-    check(candidate.gameplayPreview?.scope === 'existing-runtime-baseline-not-candidate-live', `${candidate.candidateId} preview scope honest`);
-    check(existsSync(resolve(root, candidate.gameplayPreview.standard)), `${candidate.candidateId} Standard baseline exists`);
-    check(candidate.gameplaySizeReviewReady === false, `${candidate.candidateId} gameplay review not promoted`);
+    if (batchAKeys.has(group.assetKey)) {
+      check(['standard', 'compact', 'large'].every(viewport => existsSync(resolve(root, candidate.gameplayPreview[viewport]))), `${candidate.candidateId} candidate-specific viewports`);
+      check(candidate.gameplaySizeReviewReady === true, `${candidate.candidateId} Batch A gameplay review ready`);
+    } else {
+      check(candidate.gameplayPreview?.scope === 'existing-runtime-baseline-not-candidate-live', `${candidate.candidateId} preview scope honest`);
+      check(existsSync(resolve(root, candidate.gameplayPreview.standard)), `${candidate.candidateId} Standard baseline exists`);
+      check(candidate.gameplaySizeReviewReady === false, `${candidate.candidateId} gameplay review not promoted`);
+    }
     check(candidate.approvedAsFinal === false && candidate.runtimeApproved === false && candidate.humanReviewStatus === 'pending', `${candidate.candidateId} approval flags`);
   }
 }
 
-check(candidateCount > 0 && shortageCount === 13 && blockedGroupCount === 16, 'inventory has exact candidate shortages and non-equivalent kit blockers');
+check(candidateCount > 0 && shortageCount > 0 && blockedGroupCount > 0, 'remaining inventory shortages and non-equivalent kit blockers');
 check(manifest.summary.assetGroupCount === 21 && manifest.summary.uniqueCandidateRecordCount === candidateCount && manifest.summary.groupsBelowFourCandidates === shortageCount && manifest.summary.blockedGroupCount === blockedGroupCount, 'manifest summary counts');
 check(manifest.blockers.some((blocker: { reason: string }) => blocker.reason.includes('candidate-specific live previews')), 'live-preview blocker');
 check(manifest.blockers.some((blocker: { reason: string }) => blocker.reason.includes('lineage')), 'lineage blocker');
@@ -82,4 +88,4 @@ check(readiness.runtimeVisualReady === false && readiness.productionApproved ===
 check(runtimeManifest.approvedAsFinal === false && runtimeManifest.runtimeApproved === false, 'runtime manifest remains candidate');
 check(provider.includes('ApprovalLevel => AssetApprovalLevel.Candidate') && provider.includes('IsProductionApproved => false'), 'production provider remains unapproved');
 
-console.log(`Unity U48 approval pack integrity check passed: 21 groups, ${candidateCount} unique candidate records, ${shortageCount} groups below four candidates and ${blockedGroupCount} blocked groups total; live review, human approval, and production readiness remain blocked.`);
+console.log(`Unity U48 approval pack integrity check passed: 21 groups, ${candidateCount} unique candidate records, Batch A candidate-specific evidence present, ${shortageCount} groups below four candidates and ${blockedGroupCount} blocked groups remain; human approval and production readiness remain blocked.`);

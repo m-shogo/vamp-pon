@@ -1,0 +1,16 @@
+{
+  "assetGroup": "exp-pickup",
+  "candidateId": "exp-pickup-c-small-crystal",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "magnet-motion",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png",
+  "sourceSha256": "ba85d311106449b0190a736f0f26fe7055d577bfe018066c2cc66b9ed29f5aab",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

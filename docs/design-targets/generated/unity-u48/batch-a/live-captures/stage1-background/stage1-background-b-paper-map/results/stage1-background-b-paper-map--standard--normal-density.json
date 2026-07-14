@@ -1,0 +1,16 @@
+{
+  "assetGroup": "stage1-background",
+  "candidateId": "stage1-background-b-paper-map",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "normal-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png",
+  "sourceSha256": "6842e97deba8185b252cfd841c911700be73306e2aa83f4f3f8095f3fe796282",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

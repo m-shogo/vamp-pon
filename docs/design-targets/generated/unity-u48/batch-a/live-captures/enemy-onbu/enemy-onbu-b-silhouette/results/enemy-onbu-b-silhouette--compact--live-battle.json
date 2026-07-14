@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-onbu",
+  "candidateId": "enemy-onbu-b-silhouette",
+  "viewport": "compact",
+  "width": 360,
+  "height": 800,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png",
+  "sourceSha256": "155eaa454ae746b804da5338b5f67983957c7a74aa0235ddeef921e5df25c9ca",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

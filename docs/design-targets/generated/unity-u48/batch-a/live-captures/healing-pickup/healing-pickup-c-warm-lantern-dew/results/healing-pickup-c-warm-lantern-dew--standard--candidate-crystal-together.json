@@ -1,0 +1,16 @@
+{
+  "assetGroup": "healing-pickup",
+  "candidateId": "healing-pickup-c-warm-lantern-dew",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "candidate-crystal-together",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png",
+  "sourceSha256": "fda47607e4d509a51fbfde75b62f31e646c27d7210fc44edb2ad0c763d695bf0",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

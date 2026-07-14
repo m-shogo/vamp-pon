@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "94fce1a97503e0edc7965ad6a38186f85a8693c7",
+  "batch": "A",
+  "generatedAtUtc": "2026-07-14T09:10:44.881148Z",
+  "recommendationIsApproval": false,
+  "humanReviewStatus": "pending",
+  "entries": [
+    {
+      "assetGroup": "player-yui",
+      "recommendedCandidateId": "player-yui-c-lantern-bag",
+      "rankedCandidateIds": [
+        "player-yui-c-lantern-bag",
+        "player-yui-d-paper-ink",
+        "player-yui-b-silhouette",
+        "player-yui-a-runtime-baseline"
+      ],
+      "reason": "Lantern and left-hip bag remain most legible at gameplay size without changing Yui's identity.",
+      "remainingRisk": "Human frame-by-frame handedness and equipment continuity review remains required.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/player-yui.png",
+      "contactSheetSha256": "e0d2e96a12bee1bed83c2ccf0f001468ecd05aeb5ea42b738e4f53e44f18d637"
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "recommendedCandidateId": "enemy-onbu-c-sprout-mist",
+      "rankedCandidateIds": [
+        "enemy-onbu-c-sprout-mist",
+        "enemy-onbu-d-ink-death",
+        "enemy-onbu-b-silhouette",
+        "enemy-onbu-a-runtime-baseline"
+      ],
+      "reason": "The short sprout, face mist, and enemy silhouette separate cleanly from Yui and the night field.",
+      "remainingRisk": "Human death-transition timing and family-canon review remains required.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/enemy-onbu.png",
+      "contactSheetSha256": "d58cead23f0749149485aae7f854001b6b7e8bb7ccc59a747eb09091139d05d5"
+    },
+    {
+      "assetGroup": "stage1-background",
+      "recommendedCandidateId": "stage1-background-c-night-street",
+      "rankedCandidateIds": [
+        "stage1-background-c-night-street",
+        "stage1-background-d-balanced",
+        "stage1-background-b-paper-map",
+        "stage1-background-a-procedural-baseline"
+      ],
+      "reason": "The restrained night-street field gives the strongest actor and pickup contrast with the least central decoration.",
+      "remainingRisk": "Scroll seam and long-session repetition require human motion review.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/stage1-background.png",
+      "contactSheetSha256": "b8f4d81a60c8775d0fb553a5ad0a6918aba16cd35429909db9ee1ad5fe56e6d6"
+    },
+    {
+      "assetGroup": "exp-pickup",
+      "recommendedCandidateId": "exp-pickup-b-paper-fragment",
+      "rankedCandidateIds": [
+        "exp-pickup-b-paper-fragment",
+        "exp-pickup-d-ink-light-hybrid",
+        "exp-pickup-a-runtime-baseline",
+        "exp-pickup-c-small-crystal"
+      ],
+      "reason": "The paper fragment reads as a small memory piece and stays distinct from healing and candidate crystals.",
+      "remainingRisk": "At minimum scale, the paper glyph may need one-pixel contrast tuning.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/exp-pickup.png",
+      "contactSheetSha256": "48013ed30cbf95649cf3a9914a39300ec7f52839b0fc26d93cf37c60db6f32a2"
+    },
+    {
+      "assetGroup": "healing-pickup",
+      "recommendedCandidateId": "healing-pickup-d-restorative-bottle",
+      "rankedCandidateIds": [
+        "healing-pickup-d-restorative-bottle",
+        "healing-pickup-b-bandaged-paper-charm",
+        "healing-pickup-a-dawn-drop",
+        "healing-pickup-c-warm-lantern-dew"
+      ],
+      "reason": "The restorative bottle communicates manual healing while remaining distinct from EXP and generic heart symbols.",
+      "remainingRisk": "No approved Golden Reference exists; the reference contract is not human-approved.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/healing-pickup.png",
+      "contactSheetSha256": "4272ff43c905168b5341a4a9735cad173e121102688c6e251c93b3f4d0f48ad7"
+    },
+    {
+      "assetGroup": "common-projectile",
+      "recommendedCandidateId": "common-projectile-c-paper-streak",
+      "rankedCandidateIds": [
+        "common-projectile-c-paper-streak",
+        "common-projectile-b-pencil-slash",
+        "common-projectile-d-ink-line",
+        "common-projectile-a-lantern-spark"
+      ],
+      "reason": "The paper streak gives clear travel direction and stays quieter than the bright runtime spark at density.",
+      "remainingRisk": "Direction and lifetime must be reviewed during sustained weapon density.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/common-projectile.png",
+      "contactSheetSha256": "4e0a6a1f1d676be16c5ef44d5f12d36f5c13b3e009ac72282fd942e337aeaed4"
+    },
+    {
+      "assetGroup": "hit-effect",
+      "recommendedCandidateId": "hit-effect-b-paper-nick",
+      "rankedCandidateIds": [
+        "hit-effect-b-paper-nick",
+        "hit-effect-d-lantern-cross",
+        "hit-effect-a-runtime-baseline",
+        "hit-effect-c-ink-pinprick"
+      ],
+      "reason": "The small paper nick communicates impact without masking Onbu or competing with the death effect.",
+      "remainingRisk": "Lifetime and stacking intensity remain runtime-timing review items.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/hit-effect.png",
+      "contactSheetSha256": "66354ea79c076b04fda79188618d68a81d33d4b69aea9b2856b8f43b5a426b5f"
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "recommendedCandidateId": "enemy-death-effect-d-paper-ink-burst",
+      "rankedCandidateIds": [
+        "enemy-death-effect-d-paper-ink-burst",
+        "enemy-death-effect-b-paper-scatter",
+        "enemy-death-effect-a-runtime-baseline",
+        "enemy-death-effect-c-ink-dissolve"
+      ],
+      "reason": "The paper/ink burst is stronger than hit feedback while remaining bounded under density.",
+      "remainingRisk": "Pool lifetime and overlap at burst kills remain human review items.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/enemy-death-effect.png",
+      "contactSheetSha256": "b34b0f7b82daad6a9117279928be7116f44d2381988bb044c87014ff6a19e2d2"
+    },
+    {
+      "assetGroup": "movement-trail",
+      "recommendedCandidateId": "movement-trail-c-paper-flecks",
+      "rankedCandidateIds": [
+        "movement-trail-c-paper-flecks",
+        "movement-trail-b-pencil-dust",
+        "movement-trail-d-lantern-motes",
+        "movement-trail-a-runtime-baseline"
+      ],
+      "reason": "Short paper flecks communicate direction with low glow and minimal player occlusion.",
+      "remainingRisk": "Continuous movement cadence and joystick-area distraction remain human review items.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/movement-trail.png",
+      "contactSheetSha256": "59d1be309f2b05183df4f86970e72cd72da3599f732204ad240b8945b9329805"
+    }
+  ]
+}

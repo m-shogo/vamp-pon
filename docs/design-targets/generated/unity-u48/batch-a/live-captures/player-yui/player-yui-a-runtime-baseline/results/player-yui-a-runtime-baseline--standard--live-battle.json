@@ -1,0 +1,16 @@
+{
+  "assetGroup": "player-yui",
+  "candidateId": "player-yui-a-runtime-baseline",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png",
+  "sourceSha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -19,6 +19,7 @@ const scripts = [
   'unity:u48-production-asset-approval-pack:check',
   'unity:u48-candidate-live-preview:check',
   'unity:u48-batch-a-contracts:check',
+  'unity:u48-batch-a-review-ready:check',
   'unity:runtime-visual-readiness:check',
   'unity:meta:check',
   'test',

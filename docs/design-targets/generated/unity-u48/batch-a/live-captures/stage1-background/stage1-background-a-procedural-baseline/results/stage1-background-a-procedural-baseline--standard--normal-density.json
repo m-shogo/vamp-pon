@@ -1,0 +1,16 @@
+{
+  "assetGroup": "stage1-background",
+  "candidateId": "stage1-background-a-procedural-baseline",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "normal-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png",
+  "sourceSha256": "50234e23943b9a675ed86802388f517775795c4627771cb29c3fb92b059c0a6b",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -1,0 +1,16 @@
+{
+  "assetGroup": "player-yui",
+  "candidateId": "player-yui-c-lantern-bag",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "movement-representative",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
+  "sourceSha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

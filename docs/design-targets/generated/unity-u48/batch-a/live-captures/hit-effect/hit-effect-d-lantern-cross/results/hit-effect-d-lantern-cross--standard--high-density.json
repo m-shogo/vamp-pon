@@ -1,0 +1,16 @@
+{
+  "assetGroup": "hit-effect",
+  "candidateId": "hit-effect-d-lantern-cross",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "high-density",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png",
+  "sourceSha256": "4e0dba66cebba94190c9b9fb252f9e710086b4f1aa9b9f5c5e7f2c3f143bca6c",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

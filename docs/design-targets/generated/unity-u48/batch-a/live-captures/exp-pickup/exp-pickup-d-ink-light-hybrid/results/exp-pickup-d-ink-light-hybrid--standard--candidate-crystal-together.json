@@ -1,0 +1,16 @@
+{
+  "assetGroup": "exp-pickup",
+  "candidateId": "exp-pickup-d-ink-light-hybrid",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "candidate-crystal-together",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png",
+  "sourceSha256": "f8e47b2cea4b4be300042f00c3fc9d254370568eb76f807f749ca68d6945412a",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

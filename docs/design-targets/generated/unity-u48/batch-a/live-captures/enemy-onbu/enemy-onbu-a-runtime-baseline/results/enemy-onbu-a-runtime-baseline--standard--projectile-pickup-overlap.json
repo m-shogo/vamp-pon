@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-onbu",
+  "candidateId": "enemy-onbu-a-runtime-baseline",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "projectile-pickup-overlap",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png",
+  "sourceSha256": "987022951cdd740dd83bb6e7fe869c5fde2ba0abbc0f33d8a7369e408ab57525",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

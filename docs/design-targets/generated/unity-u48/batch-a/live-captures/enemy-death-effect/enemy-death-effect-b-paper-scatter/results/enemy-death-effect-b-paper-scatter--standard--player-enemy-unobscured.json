@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-death-effect",
+  "candidateId": "enemy-death-effect-b-paper-scatter",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "player-enemy-unobscured",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png",
+  "sourceSha256": "16bf379ac8ae15c3204affa72b67217ac7e2dc4575114d11b4b80927009352b6",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "c65e910136552fcbb1e3b698b0049e81cbf6ec35",
+  "sourceHead": "94fce1a97503e0edc7965ad6a38186f85a8693c7",
   "generatedAtUtc": "2026-07-14T02:56:31Z",
   "scope": "U48 Priority A Stage1 production asset approval preparation",
   "packStatus": "IN_PROGRESS_BLOCKED",
@@ -13,177 +13,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "player-yui-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
-          "sourceType": "runtime-candidate",
+          "candidateId": "player-yui-a-runtime-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png",
+          "sourceType": "existing",
           "sourceSha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-a-runtime-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1440,
-            "height": 1080,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              5,
-              20,
-              1424,
-              1074
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "51518ddd039284fbea8df2a7173cd5a2",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-a-runtime-baseline/screenshots/player-yui-a-runtime-baseline--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-a-runtime-baseline/screenshots/player-yui-a-runtime-baseline--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-a-runtime-baseline/screenshots/player-yui-a-runtime-baseline--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "player-yui-candidate-b",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "c18df3c666079b0a536e6e1fcf0cdd4c29b129ca8e582f00fd1a4efc949cae71",
+          "candidateId": "player-yui-b-silhouette",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "42df39bb06fe914456066e5ec2cd5704172c9a7ad988c01d60ba316539b38f4b",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-b-silhouette.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1254,
-            "height": 1254,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              278,
-              98,
-              938,
-              1147
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "cb8fc9978e42b4afaaaa794e92963dbe",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-b-silhouette/screenshots/player-yui-b-silhouette--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-b-silhouette/screenshots/player-yui-b-silhouette--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-b-silhouette/screenshots/player-yui-b-silhouette--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "player-yui-candidate-c",
-          "sourcePath": "public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png",
-          "sourceType": "prototype",
-          "sourceSha256": "d22ddf4b80e84390cbfe11d12aaaf6a474339ee50ab2c61f2ad0fc81f2a0300f",
+          "candidateId": "player-yui-c-lantern-bag",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "repo prototype manifest or adjacent metadata",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-c-lantern-bag.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "WARNING",
-            "format": "PNG",
-            "mode": "RGB",
-            "width": 1448,
-            "height": 1086,
-            "alphaPresent": false,
-            "nonEmptyBounds": [
-              0,
-              0,
-              1448,
-              1086
-            ],
-            "edgeContact": true,
-            "unityMetaPresent": false,
-            "guid": null,
-            "warnings": [
-              "alpha-edge-contact",
-              "unity-meta-guid-unavailable"
-            ],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
-          "automaticQaPassed": false,
+          "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-c-lantern-bag/screenshots/player-yui-c-lantern-bag--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-c-lantern-bag/screenshots/player-yui-c-lantern-bag--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-c-lantern-bag/screenshots/player-yui-c-lantern-bag--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "player-yui-d-paper-ink",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "f44e02d8f37c63b6c82c57d79a8042b4212f6e00bb30a1ce3c97197fd7ee23e7",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-d-paper-ink.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-d-paper-ink/screenshots/player-yui-d-paper-ink--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-d-paper-ink/screenshots/player-yui-d-paper-ink--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-d-paper-ink/screenshots/player-yui-d-paper-ink--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
-      "duplicateOrMissingSourcesExcluded": [
-        {
-          "sourcePath": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
-          "reason": "duplicate-content-hash"
-        }
-      ],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 3/4; 候補別live renderとanimation continuity確認後に選定する",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/player-yui.png",
-      "contactSheetSha256": "9e386a708366e7d113fc255805c49441a55c9f02d7d94be531af87027ceddd6b",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
-      "runtimeBaselineSha256": "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "player-yui-c-lantern-bag",
+      "recommendation": "Lantern and left-hip bag remain most legible at gameplay size without changing Yui's identity.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/player-yui.png",
+      "contactSheetSha256": "e0d2e96a12bee1bed83c2ccf0f001468ecd05aeb5ea42b738e4f53e44f18d637",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-a-runtime-baseline/screenshots/player-yui-a-runtime-baseline--standard--background-contrast.png",
+      "runtimeBaselineSha256": "a29999a5338fe77083fcea44a0573f57e6fa1b20304accd5de24f37d22326b17",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -193,209 +152,121 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "enemy-onbu-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+          "candidateId": "enemy-onbu-a-runtime-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png",
+          "sourceType": "existing",
+          "sourceSha256": "987022951cdd740dd83bb6e7fe869c5fde2ba0abbc0f33d8a7369e408ab57525",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-a-runtime-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1440,
-            "height": 1080,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              45,
-              42,
-              1395,
-              1041
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "113baf5cd906949919742b4f032c0969",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-a-runtime-baseline/screenshots/enemy-onbu-a-runtime-baseline--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-a-runtime-baseline/screenshots/enemy-onbu-a-runtime-baseline--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-a-runtime-baseline/screenshots/enemy-onbu-a-runtime-baseline--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "enemy-onbu-candidate-b",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-ombu-battle-candidate.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "232da1f69fa18eb3b681eefa9cb41eb00fe9d2d48729407aad5df0e4f25f03fa",
+          "candidateId": "enemy-onbu-b-silhouette",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "155eaa454ae746b804da5338b5f67983957c7a74aa0235ddeef921e5df25c9ca",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-b-silhouette.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1254,
-            "height": 1254,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              277,
-              173,
-              983,
-              935
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "9adbb31e810b441b08a3f971418913f2",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-b-silhouette/screenshots/enemy-onbu-b-silhouette--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-b-silhouette/screenshots/enemy-onbu-b-silhouette--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-b-silhouette/screenshots/enemy-onbu-b-silhouette--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "enemy-onbu-candidate-c",
-          "sourcePath": "public/assets/prototypes/sprite-sheets/enemies-original/enemy-ombu-small-sheet-v2-1440x1080.png",
-          "sourceType": "prototype",
-          "sourceSha256": "7d356a131623adf2a95b6c493cfbcee1eee0af00fed44722d287ebc3d6c92c15",
+          "candidateId": "enemy-onbu-c-sprout-mist",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "repo prototype manifest or adjacent metadata",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-c-sprout-mist.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "WARNING",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1440,
-            "height": 1080,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              44,
-              42,
-              1395,
-              1041
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": false,
-            "guid": null,
-            "warnings": [
-              "unity-meta-guid-unavailable"
-            ],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
-          "automaticQaPassed": false,
+          "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-c-sprout-mist/screenshots/enemy-onbu-c-sprout-mist--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-c-sprout-mist/screenshots/enemy-onbu-c-sprout-mist--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-c-sprout-mist/screenshots/enemy-onbu-c-sprout-mist--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "enemy-onbu-candidate-d",
-          "sourcePath": "public/assets/prototypes/sprite-sheets/enemies-original/asset-factory-test-pack/enemy-ombu-small-sheet-1440x1080.png",
-          "sourceType": "prototype",
-          "sourceSha256": "faabdec5a167cd2ad9ecb09c4ba039207e1145830986e76edf5df8d801b37df7",
+          "candidateId": "enemy-onbu-d-ink-death",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "abb1826db7c466f7a0c0f74c81130fe888a2a2dff0213790c6cc042acd5b5f51",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "repo prototype manifest or adjacent metadata",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-d-ink-death.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "WARNING",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1440,
-            "height": 1080,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              48,
-              40,
-              1388,
-              1024
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": false,
-            "guid": null,
-            "warnings": [
-              "unity-meta-guid-unavailable"
-            ],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
-          "automaticQaPassed": false,
+          "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-d-ink-death/screenshots/enemy-onbu-d-ink-death--standard--background-contrast.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-d-ink-death/screenshots/enemy-onbu-d-ink-death--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-d-ink-death/screenshots/enemy-onbu-d-ink-death--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
@@ -404,13 +275,13 @@
       "duplicateOrMissingSourcesExcluded": [],
       "candidateGenerationBlocked": false,
       "candidateGenerationBlockReason": null,
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/enemy-onbu.png",
-      "contactSheetSha256": "016d54a9f1f0762f2aa3babbed72f9d125620770aa4c862ab4721440f63fc332",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
-      "runtimeBaselineSha256": "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "recommendedCandidateId": "enemy-onbu-c-sprout-mist",
+      "recommendation": "The short sprout, face mist, and enemy silhouette separate cleanly from Yui and the night field.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/enemy-onbu.png",
+      "contactSheetSha256": "d58cead23f0749149485aae7f854001b6b7e8bb7ccc59a747eb09091139d05d5",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-a-runtime-baseline/screenshots/enemy-onbu-a-runtime-baseline--standard--background-contrast.png",
+      "runtimeBaselineSha256": "81dfe533c39c36ed072a96cc6121059d61dfddf134c23b29dac3aee684358edd",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -420,178 +291,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "stage1-background-candidate-a",
-          "sourcePath": "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
-          "sourceType": "prototype",
-          "sourceSha256": "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+          "candidateId": "stage1-background-a-procedural-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png",
+          "sourceType": "reconstructed",
+          "sourceSha256": "50234e23943b9a675ed86802388f517775795c4627771cb29c3fb92b059c0a6b",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "repo prototype manifest or adjacent metadata",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-a-procedural-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "WARNING",
-            "format": "PNG",
-            "mode": "RGB",
-            "width": 941,
-            "height": 1672,
-            "alphaPresent": false,
-            "nonEmptyBounds": [
-              0,
-              0,
-              941,
-              1672
-            ],
-            "edgeContact": true,
-            "unityMetaPresent": false,
-            "guid": null,
-            "warnings": [
-              "alpha-edge-contact",
-              "unity-meta-guid-unavailable"
-            ],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
-          "automaticQaPassed": false,
-          "runtimeReference": false,
+          "automaticQaPassed": true,
+          "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-a-procedural-baseline/screenshots/stage1-background-a-procedural-baseline--standard--high-density.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-a-procedural-baseline/screenshots/stage1-background-a-procedural-baseline--compact--normal-density.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-a-procedural-baseline/screenshots/stage1-background-a-procedural-baseline--large--normal-density.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "stage1-background-candidate-b",
-          "sourcePath": "assets/reference/backgrounds/stage1_night_tile_reference.png",
-          "sourceType": "reference-or-design-target",
-          "sourceSha256": "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+          "candidateId": "stage1-background-b-paper-map",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "6842e97deba8185b252cfd841c911700be73306e2aa83f4f3f8095f3fe796282",
           "generationLineage": {
-            "status": "unknown",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-b-paper-map.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "WARNING",
-            "format": "PNG",
-            "mode": "RGB",
-            "width": 1448,
-            "height": 1086,
-            "alphaPresent": false,
-            "nonEmptyBounds": [
-              0,
-              0,
-              1448,
-              1086
-            ],
-            "edgeContact": true,
-            "unityMetaPresent": false,
-            "guid": null,
-            "warnings": [
-              "alpha-edge-contact",
-              "unity-meta-guid-unavailable"
-            ],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
-          "automaticQaPassed": false,
+          "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-b-paper-map/screenshots/stage1-background-b-paper-map--standard--high-density.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-b-paper-map/screenshots/stage1-background-b-paper-map--compact--normal-density.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-b-paper-map/screenshots/stage1-background-b-paper-map--large--normal-density.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         },
         {
-          "candidateId": "stage1-background-candidate-c",
-          "sourcePath": "assets/concept-design/01_world/world_night-town_01.png",
-          "sourceType": "reference-or-design-target",
-          "sourceSha256": "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+          "candidateId": "stage1-background-c-night-street",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
           "generationLineage": {
-            "status": "unknown",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-c-night-street.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
-          "lineageComplete": false,
+          "lineageComplete": true,
           "automaticQa": {
-            "status": "WARNING",
-            "format": "PNG",
-            "mode": "RGB",
-            "width": 1024,
-            "height": 1536,
-            "alphaPresent": false,
-            "nonEmptyBounds": [
-              0,
-              0,
-              1024,
-              1536
-            ],
-            "edgeContact": true,
-            "unityMetaPresent": false,
-            "guid": null,
-            "warnings": [
-              "alpha-edge-contact",
-              "unity-meta-guid-unavailable"
-            ],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
-          "automaticQaPassed": false,
+          "automaticQaPassed": true,
           "runtimeReference": false,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-c-night-street/screenshots/stage1-background-c-night-street--standard--high-density.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-c-night-street/screenshots/stage1-background-c-night-street--compact--normal-density.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-c-night-street/screenshots/stage1-background-c-night-street--large--normal-density.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "stage1-background-d-balanced",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png",
+          "sourceType": "generated-from-master",
+          "sourceSha256": "f7bcead164f073d445bfe64390b03dd887587cd1df9aa6a5686c8eebd1078417",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-d-balanced.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-d-balanced/screenshots/stage1-background-d-balanced--standard--high-density.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-d-balanced/screenshots/stage1-background-d-balanced--compact--normal-density.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-d-balanced/screenshots/stage1-background-d-balanced--large--normal-density.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 3/4; runtimeはproceduralのため、tile/overdrawをlive比較してから選定する",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/stage1-background.png",
-      "contactSheetSha256": "9ab2b8d256a4f680ca910ed2814da09d32a57597541bfc5dc47f268da1023813",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "stage1-background-c-night-street",
+      "recommendation": "The restrained night-street field gives the strongest actor and pickup contrast with the least central decoration.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/stage1-background.png",
+      "contactSheetSha256": "b8f4d81a60c8775d0fb553a5ad0a6918aba16cd35429909db9ee1ad5fe56e6d6",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-a-procedural-baseline/screenshots/stage1-background-a-procedural-baseline--standard--high-density.png",
+      "runtimeBaselineSha256": "0fc3965ade9632ea5a486c4d46784d465fe5cfb9f57d8310a9ceefcae55e55ca",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -601,72 +430,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "pickup-exp-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+          "candidateId": "exp-pickup-a-runtime-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png",
+          "sourceType": "existing",
+          "sourceSha256": "af97e95e674dea22ba88f7c609ab438038f30b986505207fe5c3cafed1428451",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-a-runtime-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1254,
-            "height": 1254,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              485,
-              337,
-              771,
-              918
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "bf9203996f6e04322988c1b14e688dbd",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-a-runtime-baseline/screenshots/exp-pickup-a-runtime-baseline--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-a-runtime-baseline/screenshots/exp-pickup-a-runtime-baseline--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-a-runtime-baseline/screenshots/exp-pickup-a-runtime-baseline--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "exp-pickup-b-paper-fragment",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-b-paper-fragment.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-b-paper-fragment/screenshots/exp-pickup-b-paper-fragment--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-b-paper-fragment/screenshots/exp-pickup-b-paper-fragment--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-b-paper-fragment/screenshots/exp-pickup-b-paper-fragment--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "exp-pickup-c-small-crystal",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "ba85d311106449b0190a736f0f26fe7055d577bfe018066c2cc66b9ed29f5aab",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-c-small-crystal.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-c-small-crystal/screenshots/exp-pickup-c-small-crystal--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-c-small-crystal/screenshots/exp-pickup-c-small-crystal--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-c-small-crystal/screenshots/exp-pickup-c-small-crystal--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "exp-pickup-d-ink-light-hybrid",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "f8e47b2cea4b4be300042f00c3fc9d254370568eb76f807f749ca68d6945412a",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-d-ink-light-hybrid.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-d-ink-light-hybrid/screenshots/exp-pickup-d-ink-light-hybrid--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-d-ink-light-hybrid/screenshots/exp-pickup-d-ink-light-hybrid--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-d-ink-light-hybrid/screenshots/exp-pickup-d-ink-light-hybrid--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
-      "duplicateOrMissingSourcesExcluded": [
-        {
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-exp-fragment.png",
-          "reason": "duplicate-content-hash"
-        }
-      ],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/pickup-exp.png",
-      "contactSheetSha256": "d0bbded1cd14d658a871b45fcfc95e048c5165b5cd9090c66df3627cfaf86ae6",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "exp-pickup-b-paper-fragment",
+      "recommendation": "The paper fragment reads as a small memory piece and stays distinct from healing and candidate crystals.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/exp-pickup.png",
+      "contactSheetSha256": "48013ed30cbf95649cf3a9914a39300ec7f52839b0fc26d93cf37c60db6f32a2",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-a-runtime-baseline/screenshots/exp-pickup-a-runtime-baseline--standard--candidate-crystal-together.png",
+      "runtimeBaselineSha256": "8ee1b167f1f45fd2534ab5b55b41fa003ad2b870db4101bfe9a4035685468ed4",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -674,17 +567,138 @@
       "assetKey": "pickup-healing",
       "displayName": "Healing pickup",
       "requiredForStage1": true,
-      "candidates": [],
+      "candidates": [
+        {
+          "candidateId": "healing-pickup-a-dawn-drop",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "f828feeff4ae89e624665ebe6a0431b17a3f7dfa66175ecf386d93a03f37630a",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-a-dawn-drop.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-a-dawn-drop/screenshots/healing-pickup-a-dawn-drop--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-a-dawn-drop/screenshots/healing-pickup-a-dawn-drop--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-a-dawn-drop/screenshots/healing-pickup-a-dawn-drop--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "healing-pickup-b-bandaged-paper-charm",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "09775e23218cba747eac6fb3827d20be3a2306669f6b761e25b57a3c4bb7337e",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-b-bandaged-paper-charm.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-b-bandaged-paper-charm/screenshots/healing-pickup-b-bandaged-paper-charm--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-b-bandaged-paper-charm/screenshots/healing-pickup-b-bandaged-paper-charm--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-b-bandaged-paper-charm/screenshots/healing-pickup-b-bandaged-paper-charm--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "healing-pickup-c-warm-lantern-dew",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "fda47607e4d509a51fbfde75b62f31e646c27d7210fc44edb2ad0c763d695bf0",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-c-warm-lantern-dew.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-c-warm-lantern-dew/screenshots/healing-pickup-c-warm-lantern-dew--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-c-warm-lantern-dew/screenshots/healing-pickup-c-warm-lantern-dew--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-c-warm-lantern-dew/screenshots/healing-pickup-c-warm-lantern-dew--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "healing-pickup-d-restorative-bottle",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-d-restorative-bottle.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-d-restorative-bottle/screenshots/healing-pickup-d-restorative-bottle--standard--candidate-crystal-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-d-restorative-bottle/screenshots/healing-pickup-d-restorative-bottle--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-d-restorative-bottle/screenshots/healing-pickup-d-restorative-bottle--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
       "duplicateOrMissingSourcesExcluded": [],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 0/4; source assetと正式生成recipeが存在しない",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/pickup-healing.png",
-      "contactSheetSha256": "9f531097f5857604c2ff28037695fadc0e30d7d6edeade5b7a0b596ee9130926",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png",
-      "runtimeBaselineSha256": "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "healing-pickup-d-restorative-bottle",
+      "recommendation": "The restorative bottle communicates manual healing while remaining distinct from EXP and generic heart symbols.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/healing-pickup.png",
+      "contactSheetSha256": "4272ff43c905168b5341a4a9735cad173e121102688c6e251c93b3f4d0f48ad7",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-a-dawn-drop/screenshots/healing-pickup-a-dawn-drop--standard--candidate-crystal-together.png",
+      "runtimeBaselineSha256": "f445a3e8f8aa852256bddac9fca6b51e5b13972f9630ba72c1ec6b5fef961c9d",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -694,72 +708,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "common-projectile-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+          "candidateId": "common-projectile-a-lantern-spark",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png",
+          "sourceType": "existing",
+          "sourceSha256": "0a81a193061bb2d71db93b1e2f18dc18fb8c62d51c2157466feab44bb9a070cf",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-a-lantern-spark.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1254,
-            "height": 1254,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              463,
-              437,
-              788,
-              787
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "e87b89bcee2664793b5c07f15b76b0b2",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-a-lantern-spark/screenshots/common-projectile-a-lantern-spark--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-a-lantern-spark/screenshots/common-projectile-a-lantern-spark--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-a-lantern-spark/screenshots/common-projectile-a-lantern-spark--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "common-projectile-b-pencil-slash",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "3e5457d86bdc576e5d0bcf6acc51317c4edd827ac781addaba0481f93c1a8db1",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-b-pencil-slash.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-b-pencil-slash/screenshots/common-projectile-b-pencil-slash--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-b-pencil-slash/screenshots/common-projectile-b-pencil-slash--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-b-pencil-slash/screenshots/common-projectile-b-pencil-slash--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "common-projectile-c-paper-streak",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-c-paper-streak.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-c-paper-streak/screenshots/common-projectile-c-paper-streak--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-c-paper-streak/screenshots/common-projectile-c-paper-streak--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-c-paper-streak/screenshots/common-projectile-c-paper-streak--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "common-projectile-d-ink-line",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "686240f262e234e843e45292b4d566730fa7a7eb57b9e8a18d97e27e4077448c",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-d-ink-line.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-d-ink-line/screenshots/common-projectile-d-ink-line--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-d-ink-line/screenshots/common-projectile-d-ink-line--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-d-ink-line/screenshots/common-projectile-d-ink-line--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
-      "duplicateOrMissingSourcesExcluded": [
-        {
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
-          "reason": "duplicate-content-hash"
-        }
-      ],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; projectile専用の複数候補と高密度live比較が必要",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/common-projectile.png",
-      "contactSheetSha256": "747f5437fc3039a451a64d40944207853f6a522617a3b7fde2031ef7069c031a",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "common-projectile-c-paper-streak",
+      "recommendation": "The paper streak gives clear travel direction and stays quieter than the bright runtime spark at density.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/common-projectile.png",
+      "contactSheetSha256": "4e0a6a1f1d676be16c5ef44d5f12d36f5c13b3e009ac72282fd942e337aeaed4",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-a-lantern-spark/screenshots/common-projectile-a-lantern-spark--standard--ground-area-together.png",
+      "runtimeBaselineSha256": "7833d20ddb7d07d9477c195fa248fd7e2088898c48e3a27488897c2ce011a185",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -769,72 +847,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "hit-effect-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+          "candidateId": "hit-effect-a-runtime-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png",
+          "sourceType": "reconstructed",
+          "sourceSha256": "ce19588904d1117be540ca40d0e34c5e43ac9b543528e789fdd3210121307b24",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-a-runtime-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1254,
-            "height": 1254,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              463,
-              437,
-              788,
-              787
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "e87b89bcee2664793b5c07f15b76b0b2",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-a-runtime-baseline/screenshots/hit-effect-a-runtime-baseline--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-a-runtime-baseline/screenshots/hit-effect-a-runtime-baseline--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-a-runtime-baseline/screenshots/hit-effect-a-runtime-baseline--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "hit-effect-b-paper-nick",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-b-paper-nick.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-b-paper-nick/screenshots/hit-effect-b-paper-nick--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-b-paper-nick/screenshots/hit-effect-b-paper-nick--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-b-paper-nick/screenshots/hit-effect-b-paper-nick--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "hit-effect-c-ink-pinprick",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "882b9f4a9becc19dfb1064f677817184c8ab85314281a142d3469cf296ec6562",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-c-ink-pinprick.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-c-ink-pinprick/screenshots/hit-effect-c-ink-pinprick--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-c-ink-pinprick/screenshots/hit-effect-c-ink-pinprick--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-c-ink-pinprick/screenshots/hit-effect-c-ink-pinprick--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "hit-effect-d-lantern-cross",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "4e0dba66cebba94190c9b9fb252f9e710086b4f1aa9b9f5c5e7f2c3f143bca6c",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-d-lantern-cross.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-d-lantern-cross/screenshots/hit-effect-d-lantern-cross--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-d-lantern-cross/screenshots/hit-effect-d-lantern-cross--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-d-lantern-cross/screenshots/hit-effect-d-lantern-cross--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
-      "duplicateOrMissingSourcesExcluded": [
-        {
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
-          "reason": "duplicate-content-hash"
-        }
-      ],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; projectileと共有しないhit専用候補が必要",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/hit-effect.png",
-      "contactSheetSha256": "8f41779ae8514e1128862783e4aaff9117b9f33e381e89038d7f6527af59e7bd",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png",
-      "runtimeBaselineSha256": "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "hit-effect-b-paper-nick",
+      "recommendation": "The small paper nick communicates impact without masking Onbu or competing with the death effect.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/hit-effect.png",
+      "contactSheetSha256": "66354ea79c076b04fda79188618d68a81d33d4b69aea9b2856b8f43b5a426b5f",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-a-runtime-baseline/screenshots/hit-effect-a-runtime-baseline--standard--ground-area-together.png",
+      "runtimeBaselineSha256": "eea78a692e2cd5fe15d3c2b914b6e1617f97362a9df3003fbd5df8545f4551cd",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -844,72 +986,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "enemy-death-effect-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "candidateId": "enemy-death-effect-a-runtime-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png",
+          "sourceType": "existing",
+          "sourceSha256": "afd93e9c0b17e0fc32da8e703727eec303da7c3d5aadd97b4569849aac65689b",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-a-runtime-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1254,
-            "height": 1254,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              319,
-              284,
-              984,
-              968
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "c2f246aa2bceb4bceb682dc4e1a88002",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-a-runtime-baseline/screenshots/enemy-death-effect-a-runtime-baseline--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-a-runtime-baseline/screenshots/enemy-death-effect-a-runtime-baseline--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-a-runtime-baseline/screenshots/enemy-death-effect-a-runtime-baseline--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "enemy-death-effect-b-paper-scatter",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "16bf379ac8ae15c3204affa72b67217ac7e2dc4575114d11b4b80927009352b6",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-b-paper-scatter.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-b-paper-scatter/screenshots/enemy-death-effect-b-paper-scatter--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-b-paper-scatter/screenshots/enemy-death-effect-b-paper-scatter--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-b-paper-scatter/screenshots/enemy-death-effect-b-paper-scatter--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "enemy-death-effect-c-ink-dissolve",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "2ec7b4fca23cfe6e9fd60730c1148df663c97c0d36af13023b02f560ec055a97",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-c-ink-dissolve.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-c-ink-dissolve/screenshots/enemy-death-effect-c-ink-dissolve--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-c-ink-dissolve/screenshots/enemy-death-effect-c-ink-dissolve--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-c-ink-dissolve/screenshots/enemy-death-effect-c-ink-dissolve--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "enemy-death-effect-d-paper-ink-burst",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-d-paper-ink-burst.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-d-paper-ink-burst/screenshots/enemy-death-effect-d-paper-ink-burst--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-d-paper-ink-burst/screenshots/enemy-death-effect-d-paper-ink-burst--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-d-paper-ink-burst/screenshots/enemy-death-effect-d-paper-ink-burst--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
-      "duplicateOrMissingSourcesExcluded": [
-        {
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-ink-burst.png",
-          "reason": "duplicate-content-hash"
-        }
-      ],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; death専用候補と高密度live比較が必要",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/enemy-death-effect.png",
-      "contactSheetSha256": "f580be8f703386990d4f4fc4dbefe7db5ed49ceda0f06d7852c2e845e06b7006",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png",
-      "runtimeBaselineSha256": "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "enemy-death-effect-d-paper-ink-burst",
+      "recommendation": "The paper/ink burst is stronger than hit feedback while remaining bounded under density.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/enemy-death-effect.png",
+      "contactSheetSha256": "b34b0f7b82daad6a9117279928be7116f44d2381988bb044c87014ff6a19e2d2",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-a-runtime-baseline/screenshots/enemy-death-effect-a-runtime-baseline--standard--ground-area-together.png",
+      "runtimeBaselineSha256": "528aedb53466e5788603f807f015a2b7d76a0139dfa591562c91ffccca2d0c29",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -919,72 +1125,136 @@
       "requiredForStage1": true,
       "candidates": [
         {
-          "candidateId": "movement-trail-candidate-a",
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
-          "sourceType": "runtime-candidate",
-          "sourceSha256": "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+          "candidateId": "movement-trail-a-runtime-baseline",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png",
+          "sourceType": "existing",
+          "sourceSha256": "6517663c0f24705bf0e69641df763c96cb545cce87b63b6b4ccc31d898a07edf",
           "generationLineage": {
-            "status": "partial",
-            "sourceDocument": "unknown",
-            "promptOrRecipe": "unknown",
-            "parentAsset": "unknown",
-            "generatedAt": "unknown",
-            "tool": "unknown"
+            "status": "reconstructed-partial",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-a-runtime-baseline.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
           },
           "lineageComplete": false,
           "automaticQa": {
-            "status": "PASS",
-            "format": "PNG",
-            "mode": "RGBA",
-            "width": 1536,
-            "height": 1024,
-            "alphaPresent": true,
-            "nonEmptyBounds": [
-              475,
-              385,
-              1096,
-              589
-            ],
-            "edgeContact": false,
-            "unityMetaPresent": true,
-            "guid": "9e0476f081bf644e1bdcc1d9d1f8cda6",
-            "warnings": [],
-            "notAutomated": [
-              "PPU/pivot/filter/compression/mipmap when no Unity meta",
-              "animation continuity",
-              "gameplay readability",
-              "fill-rate and sorting",
-              "Safe Area/tap target/contrast"
-            ]
+            "status": "PASS"
           },
           "automaticQaPassed": true,
           "runtimeReference": true,
           "gameplayPreview": {
-            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-            "scope": "existing-runtime-baseline-not-candidate-live"
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-a-runtime-baseline/screenshots/movement-trail-a-runtime-baseline--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-a-runtime-baseline/screenshots/movement-trail-a-runtime-baseline--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-a-runtime-baseline/screenshots/movement-trail-a-runtime-baseline--large--live-battle.png"
           },
-          "gameplaySizeReviewReady": false,
-          "recommendedRank": null,
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 4,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "movement-trail-b-pencil-dust",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "ae8751b3d3f181e2cbf56cff960a6d11edce200493051c8599316b36f8db107e",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-b-pencil-dust.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-b-pencil-dust/screenshots/movement-trail-b-pencil-dust--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-b-pencil-dust/screenshots/movement-trail-b-pencil-dust--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-b-pencil-dust/screenshots/movement-trail-b-pencil-dust--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 2,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "movement-trail-c-paper-flecks",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-c-paper-flecks.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-c-paper-flecks/screenshots/movement-trail-c-paper-flecks--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-c-paper-flecks/screenshots/movement-trail-c-paper-flecks--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-c-paper-flecks/screenshots/movement-trail-c-paper-flecks--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 1,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "movement-trail-d-lantern-motes",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png",
+          "sourceType": "procedural-authored",
+          "sourceSha256": "4495283e3a8b040f2bdcfa862ac1df4e29d81d38b8cedcd1e5b83737a407566d",
+          "generationLineage": {
+            "status": "complete",
+            "recipe": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+            "prompt": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-d-lantern-motes.txt",
+            "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+            "toolVersion": "1",
+            "generatedAt": "2026-07-14T08:36:04.161294Z"
+          },
+          "lineageComplete": true,
+          "automaticQa": {
+            "status": "PASS"
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-d-lantern-motes/screenshots/movement-trail-d-lantern-motes--standard--ground-area-together.png",
+            "compact": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-d-lantern-motes/screenshots/movement-trail-d-lantern-motes--compact--live-battle.png",
+            "large": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-d-lantern-motes/screenshots/movement-trail-d-lantern-motes--large--live-battle.png"
+          },
+          "gameplaySizeReviewReady": true,
+          "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "pending"
         }
       ],
-      "duplicateOrMissingSourcesExcluded": [
-        {
-          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-collect-trail.png",
-          "reason": "duplicate-content-hash"
-        }
-      ],
-      "candidateGenerationBlocked": true,
-      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要",
-      "recommendedCandidateId": null,
-      "recommendation": "pending candidate-specific live review",
-      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/movement-trail.png",
-      "contactSheetSha256": "e5d99819ddf17aa3f78d2ccb415f245f13e4556d61a969713f4f9440740903df",
-      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
-      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
-      "runtimeBaselineIsCandidateSpecific": false,
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": "movement-trail-c-paper-flecks",
+      "recommendation": "Short paper flecks communicate direction with low glow and minimal player occlusion.",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/movement-trail.png",
+      "contactSheetSha256": "59d1be309f2b05183df4f86970e72cd72da3599f732204ad240b8945b9329805",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-a-runtime-baseline/screenshots/movement-trail-a-runtime-baseline--standard--ground-area-together.png",
+      "runtimeBaselineSha256": "f9e272d29939eb00f5a17010652170791c1b60b330165a2086b350e6fc0c8307",
+      "runtimeBaselineIsCandidateSpecific": true,
       "humanApprovedCandidateId": null,
       "approvalStatus": "pending-human-review"
     },
@@ -2922,38 +3192,6 @@
   ],
   "blockers": [
     {
-      "assetKey": "player-yui",
-      "reason": "meaningful unique candidates 3/4; 候補別live renderとanimation continuity確認後に選定する"
-    },
-    {
-      "assetKey": "stage1-background",
-      "reason": "meaningful unique candidates 3/4; runtimeはproceduralのため、tile/overdrawをlive比較してから選定する"
-    },
-    {
-      "assetKey": "pickup-exp",
-      "reason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要"
-    },
-    {
-      "assetKey": "pickup-healing",
-      "reason": "meaningful unique candidates 0/4; source assetと正式生成recipeが存在しない"
-    },
-    {
-      "assetKey": "common-projectile",
-      "reason": "meaningful unique candidates 1/4; projectile専用の複数候補と高密度live比較が必要"
-    },
-    {
-      "assetKey": "hit-effect",
-      "reason": "meaningful unique candidates 1/4; projectileと共有しないhit専用候補が必要"
-    },
-    {
-      "assetKey": "enemy-death-effect",
-      "reason": "meaningful unique candidates 1/4; death専用候補と高密度live比較が必要"
-    },
-    {
-      "assetKey": "movement-trail",
-      "reason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要"
-    },
-    {
       "assetKey": "ground-area-black-ink-bottle",
       "reason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要"
     },
@@ -2987,15 +3225,15 @@
     },
     {
       "assetKey": "all",
-      "reason": "candidate-specific live previews and required viewports are not captured"
-    },
-    {
-      "assetKey": "all",
       "reason": "generation lineage is incomplete or unknown"
     },
     {
       "assetKey": "all",
       "reason": "human approval is pending"
+    },
+    {
+      "assetKey": "all",
+      "reason": "Batch B/C candidate-specific live previews are not captured"
     }
   ],
   "approvedAsFinalCount": 0,
@@ -3005,18 +3243,18 @@
   "staleEvidenceCount": 0,
   "summary": {
     "assetGroupCount": 21,
-    "uniqueCandidateRecordCount": 48,
-    "groupsBelowFourCandidates": 13,
-    "blockedGroupCount": 16,
+    "uniqueCandidateRecordCount": 69,
+    "groupsBelowFourCandidates": 5,
+    "blockedGroupCount": 8,
     "automaticQa": {
-      "PASS": 33,
-      "WARNING": 15,
+      "PASS": 60,
+      "WARNING": 9,
       "FAIL": 0
     },
     "lineage": {
-      "complete": 0,
-      "partial": 41,
-      "unknown": 7
+      "complete": 28,
+      "partial": 36,
+      "unknown": 5
     }
   }
 }

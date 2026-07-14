@@ -1,0 +1,16 @@
+{
+  "assetGroup": "common-projectile",
+  "candidateId": "common-projectile-d-ink-line",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "single",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png",
+  "sourceSha256": "686240f262e234e843e45292b4d566730fa7a7eb57b9e8a18d97e27e4077448c",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

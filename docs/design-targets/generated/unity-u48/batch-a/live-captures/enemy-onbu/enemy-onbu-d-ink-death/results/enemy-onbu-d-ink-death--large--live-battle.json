@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-onbu",
+  "candidateId": "enemy-onbu-d-ink-death",
+  "viewport": "large",
+  "width": 430,
+  "height": 932,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png",
+  "sourceSha256": "abb1826db7c466f7a0c0f74c81130fe888a2a2dff0213790c6cc042acd5b5f51",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

@@ -1,0 +1,16 @@
+{
+  "assetGroup": "enemy-death-effect",
+  "candidateId": "enemy-death-effect-c-ink-dissolve",
+  "viewport": "compact",
+  "width": 360,
+  "height": 800,
+  "captureKind": "live-battle",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png",
+  "sourceSha256": "2ec7b4fca23cfe6e9fd60730c1148df663c97c0d36af13023b02f560ec055a97",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

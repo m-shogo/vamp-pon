@@ -1,0 +1,16 @@
+{
+  "assetGroup": "healing-pickup",
+  "candidateId": "healing-pickup-d-restorative-bottle",
+  "viewport": "standard",
+  "width": 390,
+  "height": 844,
+  "captureKind": "near-player",
+  "sourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
+  "sourceSha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
+  "liveRender": true,
+  "standardFileResizeReuse": false,
+  "verificationPresentationOnly": true,
+  "previewCleanupPassed": true,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}
