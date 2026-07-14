@@ -65,6 +65,8 @@
     "unity:u47-contact-sheets:generate": "python3 scripts/unity/generate-u47-contact-sheets.py",
     "unity:u47-gameplay-data-runtime:check": "node --experimental-strip-types scripts/quality/check-unity-u47-gameplay-data-runtime.ts",
     "unity:u48-production-asset-expansion:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-asset-expansion.ts",
+    "unity:u48-production-asset-approval-pack:generate": "python3 scripts/unity/generate-u48-production-asset-approval-pack.py",
+    "unity:u48-production-asset-approval-pack:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-asset-approval-pack.ts",
     "unity:ui-design-system:check": "node --experimental-strip-types scripts/quality/check-unity-ui-design-system.ts",
     "unity:runtime-visual-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-runtime-visual-readiness.ts",
     "implementation:preflight:check": "node --experimental-strip-types scripts/quality/check-unity-big-implementation-readiness.ts",

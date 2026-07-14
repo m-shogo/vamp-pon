@@ -1,0 +1,3022 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "c65e910136552fcbb1e3b698b0049e81cbf6ec35",
+  "generatedAtUtc": "2026-07-14T02:56:31Z",
+  "scope": "U48 Priority A Stage1 production asset approval preparation",
+  "packStatus": "IN_PROGRESS_BLOCKED",
+  "productionAssetApprovalPackReady": false,
+  "candidateSpecificLivePreviewReady": false,
+  "assetGroups": [
+    {
+      "assetKey": "player-yui",
+      "displayName": "Yui player sprite",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "player-yui-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1440,
+            "height": 1080,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              5,
+              20,
+              1424,
+              1074
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "51518ddd039284fbea8df2a7173cd5a2",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "player-yui-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-yui-battle-candidate.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "c18df3c666079b0a536e6e1fcf0cdd4c29b129ca8e582f00fd1a4efc949cae71",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              278,
+              98,
+              938,
+              1147
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "cb8fc9978e42b4afaaaa794e92963dbe",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "player-yui-candidate-c",
+          "sourcePath": "public/assets/prototypes/sprite-sheets/core5-52px/yui-52px-sprite-sheet-v1.png",
+          "sourceType": "prototype",
+          "sourceSha256": "d22ddf4b80e84390cbfe11d12aaaf6a474339ee50ab2c61f2ad0fc81f2a0300f",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "repo prototype manifest or adjacent metadata",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1448,
+            "height": 1086,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              1448,
+              1086
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [
+        {
+          "sourcePath": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
+          "reason": "duplicate-content-hash"
+        }
+      ],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 3/4; 候補別live renderとanimation continuity確認後に選定する",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/player-yui.png",
+      "contactSheetSha256": "9e386a708366e7d113fc255805c49441a55c9f02d7d94be531af87027ceddd6b",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
+      "runtimeBaselineSha256": "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "enemy-onbu",
+      "displayName": "Onbu enemy sprite",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "enemy-onbu-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1440,
+            "height": 1080,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              45,
+              42,
+              1395,
+              1041
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "113baf5cd906949919742b4f032c0969",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "enemy-onbu-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/Battle/u5-ombu-battle-candidate.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "232da1f69fa18eb3b681eefa9cb41eb00fe9d2d48729407aad5df0e4f25f03fa",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              277,
+              173,
+              983,
+              935
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "9adbb31e810b441b08a3f971418913f2",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "enemy-onbu-candidate-c",
+          "sourcePath": "public/assets/prototypes/sprite-sheets/enemies-original/enemy-ombu-small-sheet-v2-1440x1080.png",
+          "sourceType": "prototype",
+          "sourceSha256": "7d356a131623adf2a95b6c493cfbcee1eee0af00fed44722d287ebc3d6c92c15",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "repo prototype manifest or adjacent metadata",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1440,
+            "height": 1080,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              44,
+              42,
+              1395,
+              1041
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "enemy-onbu-candidate-d",
+          "sourcePath": "public/assets/prototypes/sprite-sheets/enemies-original/asset-factory-test-pack/enemy-ombu-small-sheet-1440x1080.png",
+          "sourceType": "prototype",
+          "sourceSha256": "faabdec5a167cd2ad9ecb09c4ba039207e1145830986e76edf5df8d801b37df7",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "repo prototype manifest or adjacent metadata",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1440,
+            "height": 1080,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              48,
+              40,
+              1388,
+              1024
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/enemy-onbu.png",
+      "contactSheetSha256": "016d54a9f1f0762f2aa3babbed72f9d125620770aa4c862ab4721440f63fc332",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+      "runtimeBaselineSha256": "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "stage1-background",
+      "displayName": "Stage1 background",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "stage1-background-candidate-a",
+          "sourcePath": "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
+          "sourceType": "prototype",
+          "sourceSha256": "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "repo prototype manifest or adjacent metadata",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              941,
+              1672
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "stage1-background-candidate-b",
+          "sourcePath": "assets/reference/backgrounds/stage1_night_tile_reference.png",
+          "sourceType": "reference-or-design-target",
+          "sourceSha256": "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1448,
+            "height": 1086,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              1448,
+              1086
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "stage1-background-candidate-c",
+          "sourcePath": "assets/concept-design/01_world/world_night-town_01.png",
+          "sourceType": "reference-or-design-target",
+          "sourceSha256": "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1024,
+            "height": 1536,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              1024,
+              1536
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 3/4; runtimeはproceduralのため、tile/overdrawをlive比較してから選定する",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/stage1-background.png",
+      "contactSheetSha256": "9ab2b8d256a4f680ca910ed2814da09d32a57597541bfc5dc47f268da1023813",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "pickup-exp",
+      "displayName": "EXP pickup",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "pickup-exp-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              485,
+              337,
+              771,
+              918
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "bf9203996f6e04322988c1b14e688dbd",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [
+        {
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-exp-fragment.png",
+          "reason": "duplicate-content-hash"
+        }
+      ],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/pickup-exp.png",
+      "contactSheetSha256": "d0bbded1cd14d658a871b45fcfc95e048c5165b5cd9090c66df3627cfaf86ae6",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "pickup-healing",
+      "displayName": "Healing pickup",
+      "requiredForStage1": true,
+      "candidates": [],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 0/4; source assetと正式生成recipeが存在しない",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/pickup-healing.png",
+      "contactSheetSha256": "9f531097f5857604c2ff28037695fadc0e30d7d6edeade5b7a0b596ee9130926",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png",
+      "runtimeBaselineSha256": "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "common-projectile",
+      "displayName": "Common projectile",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "common-projectile-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              463,
+              437,
+              788,
+              787
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "e87b89bcee2664793b5c07f15b76b0b2",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [
+        {
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
+          "reason": "duplicate-content-hash"
+        }
+      ],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; projectile専用の複数候補と高密度live比較が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/common-projectile.png",
+      "contactSheetSha256": "747f5437fc3039a451a64d40944207853f6a522617a3b7fde2031ef7069c031a",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "hit-effect",
+      "displayName": "Hit effect",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "hit-effect-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              463,
+              437,
+              788,
+              787
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "e87b89bcee2664793b5c07f15b76b0b2",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [
+        {
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-lantern-spark.png",
+          "reason": "duplicate-content-hash"
+        }
+      ],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; projectileと共有しないhit専用候補が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/hit-effect.png",
+      "contactSheetSha256": "8f41779ae8514e1128862783e4aaff9117b9f33e381e89038d7f6527af59e7bd",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png",
+      "runtimeBaselineSha256": "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "enemy-death-effect",
+      "displayName": "Enemy death effect",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "enemy-death-effect-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              319,
+              284,
+              984,
+              968
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "c2f246aa2bceb4bceb682dc4e1a88002",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [
+        {
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-ink-burst.png",
+          "reason": "duplicate-content-hash"
+        }
+      ],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; death専用候補と高密度live比較が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/enemy-death-effect.png",
+      "contactSheetSha256": "f580be8f703386990d4f4fc4dbefe7db5ed49ceda0f06d7852c2e845e06b7006",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png",
+      "runtimeBaselineSha256": "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "movement-trail",
+      "displayName": "Movement trail",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "movement-trail-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1536,
+            "height": 1024,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              475,
+              385,
+              1096,
+              589
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "9e0476f081bf644e1bdcc1d9d1f8cda6",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [
+        {
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U5Candidates/VFX/u5-collect-trail.png",
+          "reason": "duplicate-content-hash"
+        }
+      ],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/movement-trail.png",
+      "contactSheetSha256": "e5d99819ddf17aa3f78d2ccb415f245f13e4556d61a969713f4f9440740903df",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "runtimeBaselineSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ground-area-black-ink-bottle",
+      "displayName": "black_ink_bottle ground-area",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ground-area-black-ink-bottle-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              319,
+              284,
+              984,
+              968
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "c2f246aa2bceb4bceb682dc4e1a88002",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ground-area-black-ink-bottle.png",
+      "contactSheetSha256": "bb98ec6b1da340e49207270eaa303878682e6cca167950331b91906202f292c7",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+      "runtimeBaselineSha256": "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ground-area-streetlamp-ring",
+      "displayName": "streetlamp_ring ground-area",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ground-area-streetlamp-ring-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              319,
+              284,
+              984,
+              968
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "c2f246aa2bceb4bceb682dc4e1a88002",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ground-area-streetlamp-ring.png",
+      "contactSheetSha256": "d417b4ae49f083b367868a0bc5a880634bf9917bb07474e8f8de62d77cd8ec0e",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+      "runtimeBaselineSha256": "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ground-area-dawn-ink-lamp",
+      "displayName": "dawn_ink_lamp ground-area",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ground-area-dawn-ink-lamp-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              319,
+              284,
+              984,
+              968
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "c2f246aa2bceb4bceb682dc4e1a88002",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": true,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ground-area-dawn-ink-lamp.png",
+      "contactSheetSha256": "5c654353d644c20d4cc6d13302864c54cce1ccfe0a2dbbffd0ee8db2884eeb85",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+      "runtimeBaselineSha256": "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "kokuyou-charging",
+      "displayName": "黒耀化 charging",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "kokuyou-charging-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/FullscreenArt/kokuyou_fullscreen_ink_shadow_source.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "865b2232febabed6594311700595ea993aee9c8e2984a431d08752111a49474d",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              65,
+              34,
+              869,
+              1638
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "88099407faa9c4c66b90f1acc9dad505",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-charging-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "bee05c1b6e24feaca8bfb39c8ffaade17cd46b20b522b8f6339ab9c68f72a0ec",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              53,
+              58,
+              876,
+              1653
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "1c02260653fe546ba9d6cb24588df595",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-charging-candidate-c",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_a.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "af6f5a5cd171a51fc1961dcf256fbb2fe2ba1e6d27627c88ab997cb51704c174",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1024,
+            "height": 2021,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              102,
+              102,
+              917,
+              1920
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "9eb82fdd1aa0a40a4bc6e41d6d9c4c56",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-charging-candidate-d",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_b.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "900ae3f12c964d3f37ff0c1433a9704c99f905d0d708525a3b5c96987379f20f",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 864,
+            "height": 1821,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              11,
+              13,
+              852,
+              1808
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "cb68b8de849a044b6a64efad1a3fb348",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/kokuyou-charging.png",
+      "contactSheetSha256": "f82f35f06cd43ee5037cd1ac85f4c5777031f3a6752c163e7aec7d51a854916b",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
+      "runtimeBaselineSha256": "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "kokuyou-ready",
+      "displayName": "黒耀化 ready",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "kokuyou-ready-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/FullscreenArt/kokuyou_fullscreen_ink_shadow_source.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "865b2232febabed6594311700595ea993aee9c8e2984a431d08752111a49474d",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              65,
+              34,
+              869,
+              1638
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "88099407faa9c4c66b90f1acc9dad505",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-ready-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "bee05c1b6e24feaca8bfb39c8ffaade17cd46b20b522b8f6339ab9c68f72a0ec",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              53,
+              58,
+              876,
+              1653
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "1c02260653fe546ba9d6cb24588df595",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-ready-candidate-c",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_a.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "af6f5a5cd171a51fc1961dcf256fbb2fe2ba1e6d27627c88ab997cb51704c174",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1024,
+            "height": 2021,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              102,
+              102,
+              917,
+              1920
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "9eb82fdd1aa0a40a4bc6e41d6d9c4c56",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-ready-candidate-d",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_b.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "900ae3f12c964d3f37ff0c1433a9704c99f905d0d708525a3b5c96987379f20f",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 864,
+            "height": 1821,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              11,
+              13,
+              852,
+              1808
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "cb68b8de849a044b6a64efad1a3fb348",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/kokuyou-ready.png",
+      "contactSheetSha256": "0d8b7653f85f1723ab124b623f5bb991c6da1f9a49863167826d26949f7ed604",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+      "runtimeBaselineSha256": "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "kokuyou-active",
+      "displayName": "黒耀化 active",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "kokuyou-active-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/FullscreenArt/kokuyou_fullscreen_ink_shadow_source.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "865b2232febabed6594311700595ea993aee9c8e2984a431d08752111a49474d",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              65,
+              34,
+              869,
+              1638
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "88099407faa9c4c66b90f1acc9dad505",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-active-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "bee05c1b6e24feaca8bfb39c8ffaade17cd46b20b522b8f6339ab9c68f72a0ec",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              53,
+              58,
+              876,
+              1653
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "1c02260653fe546ba9d6cb24588df595",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-active-candidate-c",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_a.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "af6f5a5cd171a51fc1961dcf256fbb2fe2ba1e6d27627c88ab997cb51704c174",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1024,
+            "height": 2021,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              102,
+              102,
+              917,
+              1920
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "9eb82fdd1aa0a40a4bc6e41d6d9c4c56",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-active-candidate-d",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_b.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "900ae3f12c964d3f37ff0c1433a9704c99f905d0d708525a3b5c96987379f20f",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 864,
+            "height": 1821,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              11,
+              13,
+              852,
+              1808
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "cb68b8de849a044b6a64efad1a3fb348",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/kokuyou-active.png",
+      "contactSheetSha256": "1db931ea7c6da4d343d999ab0a99e0ee375157b81db1928db2577294e13e4a9b",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
+      "runtimeBaselineSha256": "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "kokuyou-recovery",
+      "displayName": "黒耀化 recovery",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "kokuyou-recovery-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/FullscreenArt/kokuyou_fullscreen_ink_shadow_source.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "865b2232febabed6594311700595ea993aee9c8e2984a431d08752111a49474d",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              65,
+              34,
+              869,
+              1638
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "88099407faa9c4c66b90f1acc9dad505",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-recovery-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Refined/FullscreenArt/kokuyou_fullscreen_ink_shadow_source_refined.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "bee05c1b6e24feaca8bfb39c8ffaade17cd46b20b522b8f6339ab9c68f72a0ec",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 941,
+            "height": 1672,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              53,
+              58,
+              876,
+              1653
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "1c02260653fe546ba9d6cb24588df595",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-recovery-candidate-c",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_a.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "af6f5a5cd171a51fc1961dcf256fbb2fe2ba1e6d27627c88ab997cb51704c174",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1024,
+            "height": 2021,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              102,
+              102,
+              917,
+              1920
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "9eb82fdd1aa0a40a4bc6e41d6d9c4c56",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "kokuyou-recovery-candidate-d",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/FullscreenArt/kokuyou_fullscreen_final_candidate_b.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "900ae3f12c964d3f37ff0c1433a9704c99f905d0d708525a3b5c96987379f20f",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 864,
+            "height": 1821,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              11,
+              13,
+              852,
+              1808
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "cb68b8de849a044b6a64efad1a3fb348",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": false,
+      "candidateGenerationBlockReason": null,
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/kokuyou-recovery.png",
+      "contactSheetSha256": "8522a61a80532b829a4c29bbfaeaf64db9f34f87e3bd46eaa8e7b6743f0ba3f6",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
+      "runtimeBaselineSha256": "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ui-hud-inventory-frame",
+      "displayName": "HUD / inventory frame",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ui-hud-inventory-frame-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 768,
+            "height": 160,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              5,
+              0,
+              764,
+              156
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": true,
+            "guid": "4b86ce50b7c540c681ede6912179a4af",
+            "warnings": [
+              "alpha-edge-contact"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-hud-inventory-frame-candidate-b",
+          "sourcePath": "public/assets/ui/battle-hud/processed/battle-hud-dual-gauge-frame-runtime.png",
+          "sourceType": "prototype",
+          "sourceSha256": "a714a9186eba1e80eab5ee9ff950788930b2abb300b6e0edf330b7d72d963b8b",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 232,
+            "height": 92,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              3,
+              3,
+              229,
+              89
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-hud-inventory-frame-candidate-c",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 128,
+            "height": 128,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              5,
+              0,
+              128,
+              124
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": true,
+            "guid": "76aff992d9f34b1cacd4d6e554137456",
+            "warnings": [
+              "alpha-edge-contact"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-hud-inventory-frame-candidate-d",
+          "sourcePath": "public/assets/ui/battle-hud/processed/battle-hud-inventory-paper-slot-runtime.png",
+          "sourceType": "prototype",
+          "sourceSha256": "f7fb68a2d4633965f5c57d738b038decb72e8d793c536828207edb54ed1cd3ac",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 120,
+            "height": 148,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              3,
+              3,
+              117,
+              145
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "source records are non-equivalent kit components; component roleが異なるためkit単位の候補化と全viewport live比較が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ui-hud-inventory-frame.png",
+      "contactSheetSha256": "12cea25f9e8ab18391ac9999d9e760027fdedf9439ad55ea21e154a5d8e12c5c",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+      "runtimeBaselineSha256": "8d8466d91f81a4740b933e8dd78c871918ecb25180853680807fe35cf25ac6ad",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ui-levelup-card",
+      "displayName": "LevelUp card",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ui-levelup-card-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-common.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "cfb84e6e1fe0d710693bf5583b4798e485c895ea27558c4713dc7c51cf1c841e",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 512,
+            "height": 720,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              25,
+              11,
+              512,
+              696
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": true,
+            "guid": "fe7c54b4b24c4fcd8689be4d697015c1",
+            "warnings": [
+              "alpha-edge-contact"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-levelup-card-candidate-b",
+          "sourcePath": "assets/concept-design/05_ui/ui_card-levelup_01.png",
+          "sourceType": "reference-or-design-target",
+          "sourceSha256": "f83340afcee938dbc7acc2e72ebee27af3323c458e5db40ee14a6268d26e80af",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1024,
+            "height": 1536,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              1024,
+              1536
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 2/4; common cardの独立候補が不足し全viewport live比較も未実施",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ui-levelup-card.png",
+      "contactSheetSha256": "2e8ead6760a6e646ec029a72fd301af1f7db73030b364d8e301e0b4e59447b0a",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+      "runtimeBaselineSha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ui-replacement-modal",
+      "displayName": "Replacement modal",
+      "requiredForStage1": true,
+      "candidates": [],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "meaningful unique candidates 0/4; 専用raw candidateと正式生成recipeが存在しない",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ui-replacement-modal.png",
+      "contactSheetSha256": "94d03475f89cb3b4e6af042315ab57a2581327d7d5bdbab622f935f9e00f14ab",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+      "runtimeBaselineSha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ui-result-kit",
+      "displayName": "Result component kit",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ui-result-kit-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-memory-page.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "3489557bea641650182702c9976d299d0053ed817bb717b3925ee0ca1edef359",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 526,
+            "height": 271,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              8,
+              8,
+              518,
+              263
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "5ba81e7c1770f424eb7857eed4948a6e",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-result-kit-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/result_paper_ledger_panel.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "92d4ca24fbbcf0c623e8bf4210da7a80b17b9101fcfbd9f8fd06b9b80d4a4ede",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1024,
+            "height": 1536,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              88,
+              150,
+              962,
+              1355
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "1f0968743db2e45078feaffae5986dd9",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-result-kit-candidate-c",
+          "sourcePath": "docs/design-targets/final/result-clear-final.png",
+          "sourceType": "reference-or-design-target",
+          "sourceSha256": "ef439170b49bc538937e5d8a0092b181053176f60c0afb75bbd2854399694786",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 853,
+            "height": 1844,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              853,
+              1844
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-result-kit-candidate-d",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/result_stats_ink_strip.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "5a088f3fed684327dda05d2017b1af4eec5813c4a39a90c54a901668a0421a2d",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 2039,
+            "height": 771,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              71,
+              230,
+              1973,
+              543
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "3dd625502bf6f49c89262d81c29c3a8e",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "source records are non-equivalent kit components; component roleが異なるためkit単位の候補化と全viewport live比較が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ui-result-kit.png",
+      "contactSheetSha256": "92787c39e98180a3e922c2f0a4e47adc13072b2f3edfd9d7728b49bcf7462f5f",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+      "runtimeBaselineSha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    },
+    {
+      "assetKey": "ui-stage-select-kit",
+      "displayName": "StageSelect component kit",
+      "requiredForStage1": true,
+      "candidates": [
+        {
+          "candidateId": "ui-stage-select-kit-candidate-a",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-select-map-panel.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "bcecbe02b952c8dd322e8bcd74c4634472b01315e8b61d08d4c90ae2154a31b2",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 768,
+            "height": 1024,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              39,
+              3,
+              768,
+              986
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": true,
+            "guid": "dfb6a140904a4a6fb31b24d8bb034c1a",
+            "warnings": [
+              "alpha-edge-contact"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-stage-select-kit-candidate-b",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U8Candidates/UI/stageselect_paper_map_base.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "e01ace15de6fd85da65edb322b02e74d350ca31bcc272d1bb24d30dd169d28eb",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1024,
+            "height": 1536,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              79,
+              152,
+              950,
+              1380
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "4f1dbe8b2feb642fa850f76e93c4e6d8",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-stage-select-kit-candidate-c",
+          "sourcePath": "docs/design-targets/final/stage-select-final.png",
+          "sourceType": "reference-or-design-target",
+          "sourceSha256": "45cba2285a7a5d09870ed53803498a38e66b53a1bec44863e5f0b10e96bfb387",
+          "generationLineage": {
+            "status": "unknown",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "WARNING",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 853,
+            "height": 1844,
+            "alphaPresent": false,
+            "nonEmptyBounds": [
+              0,
+              0,
+              853,
+              1844
+            ],
+            "edgeContact": true,
+            "unityMetaPresent": false,
+            "guid": null,
+            "warnings": [
+              "alpha-edge-contact",
+              "unity-meta-guid-unavailable"
+            ],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": false,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        },
+        {
+          "candidateId": "ui-stage-select-kit-candidate-d",
+          "sourcePath": "unity/VampPonUnity/Assets/_Project/Resources/U10Candidates/UI/stageselect_route_active_node.png",
+          "sourceType": "runtime-candidate",
+          "sourceSha256": "495f483a7cc628fa75e54fcb6f52b4949b7cb8afb856f9a2279256a78d1cf798",
+          "generationLineage": {
+            "status": "partial",
+            "sourceDocument": "unknown",
+            "promptOrRecipe": "unknown",
+            "parentAsset": "unknown",
+            "generatedAt": "unknown",
+            "tool": "unknown"
+          },
+          "lineageComplete": false,
+          "automaticQa": {
+            "status": "PASS",
+            "format": "PNG",
+            "mode": "RGBA",
+            "width": 1254,
+            "height": 1254,
+            "alphaPresent": true,
+            "nonEmptyBounds": [
+              112,
+              115,
+              1128,
+              1124
+            ],
+            "edgeContact": false,
+            "unityMetaPresent": true,
+            "guid": "c73f8918588b34f44a5c5f452f0721a9",
+            "warnings": [],
+            "notAutomated": [
+              "PPU/pivot/filter/compression/mipmap when no Unity meta",
+              "animation continuity",
+              "gameplay readability",
+              "fill-rate and sorting",
+              "Safe Area/tap target/contrast"
+            ]
+          },
+          "automaticQaPassed": true,
+          "runtimeReference": false,
+          "gameplayPreview": {
+            "standard": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+            "scope": "existing-runtime-baseline-not-candidate-live"
+          },
+          "gameplaySizeReviewReady": false,
+          "recommendedRank": null,
+          "approvedAsFinal": false,
+          "runtimeApproved": false,
+          "humanReviewStatus": "pending"
+        }
+      ],
+      "duplicateOrMissingSourcesExcluded": [],
+      "candidateGenerationBlocked": true,
+      "candidateGenerationBlockReason": "source records are non-equivalent kit components; component roleが異なるためkit単位の候補化と全viewport live比較が必要",
+      "recommendedCandidateId": null,
+      "recommendation": "pending candidate-specific live review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/approval-pack/contact-sheets/ui-stage-select-kit.png",
+      "contactSheetSha256": "71c05e132fa290ba6e226baa8d7d65d93443c54eb7305a025bd674e54c2f59bc",
+      "runtimeBaselinePreview": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+      "runtimeBaselineSha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
+      "runtimeBaselineIsCandidateSpecific": false,
+      "humanApprovedCandidateId": null,
+      "approvalStatus": "pending-human-review"
+    }
+  ],
+  "blockers": [
+    {
+      "assetKey": "player-yui",
+      "reason": "meaningful unique candidates 3/4; 候補別live renderとanimation continuity確認後に選定する"
+    },
+    {
+      "assetKey": "stage1-background",
+      "reason": "meaningful unique candidates 3/4; runtimeはproceduralのため、tile/overdrawをlive比較してから選定する"
+    },
+    {
+      "assetKey": "pickup-exp",
+      "reason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要"
+    },
+    {
+      "assetKey": "pickup-healing",
+      "reason": "meaningful unique candidates 0/4; source assetと正式生成recipeが存在しない"
+    },
+    {
+      "assetKey": "common-projectile",
+      "reason": "meaningful unique candidates 1/4; projectile専用の複数候補と高密度live比較が必要"
+    },
+    {
+      "assetKey": "hit-effect",
+      "reason": "meaningful unique candidates 1/4; projectileと共有しないhit専用候補が必要"
+    },
+    {
+      "assetKey": "enemy-death-effect",
+      "reason": "meaningful unique candidates 1/4; death専用候補と高密度live比較が必要"
+    },
+    {
+      "assetKey": "movement-trail",
+      "reason": "meaningful unique candidates 1/4; unique sourceが不足し候補生成が必要"
+    },
+    {
+      "assetKey": "ground-area-black-ink-bottle",
+      "reason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要"
+    },
+    {
+      "assetKey": "ground-area-streetlamp-ring",
+      "reason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要"
+    },
+    {
+      "assetKey": "ground-area-dawn-ink-lamp",
+      "reason": "meaningful unique candidates 1/4; 三種共有spriteを脱し、area専用候補が必要"
+    },
+    {
+      "assetKey": "ui-hud-inventory-frame",
+      "reason": "source records are non-equivalent kit components; component roleが異なるためkit単位の候補化と全viewport live比較が必要"
+    },
+    {
+      "assetKey": "ui-levelup-card",
+      "reason": "meaningful unique candidates 2/4; common cardの独立候補が不足し全viewport live比較も未実施"
+    },
+    {
+      "assetKey": "ui-replacement-modal",
+      "reason": "meaningful unique candidates 0/4; 専用raw candidateと正式生成recipeが存在しない"
+    },
+    {
+      "assetKey": "ui-result-kit",
+      "reason": "source records are non-equivalent kit components; component roleが異なるためkit単位の候補化と全viewport live比較が必要"
+    },
+    {
+      "assetKey": "ui-stage-select-kit",
+      "reason": "source records are non-equivalent kit components; component roleが異なるためkit単位の候補化と全viewport live比較が必要"
+    },
+    {
+      "assetKey": "all",
+      "reason": "candidate-specific live previews and required viewports are not captured"
+    },
+    {
+      "assetKey": "all",
+      "reason": "generation lineage is incomplete or unknown"
+    },
+    {
+      "assetKey": "all",
+      "reason": "human approval is pending"
+    }
+  ],
+  "approvedAsFinalCount": 0,
+  "runtimeApprovedCount": 0,
+  "humanApprovedCount": 0,
+  "productionProviderModified": false,
+  "staleEvidenceCount": 0,
+  "summary": {
+    "assetGroupCount": 21,
+    "uniqueCandidateRecordCount": 48,
+    "groupsBelowFourCandidates": 13,
+    "blockedGroupCount": 16,
+    "automaticQa": {
+      "PASS": 33,
+      "WARNING": 15,
+      "FAIL": 0
+    },
+    "lineage": {
+      "complete": 0,
+      "partial": 41,
+      "unknown": 7
+    }
+  }
+}

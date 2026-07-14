@@ -7,6 +7,7 @@ const json = (path: string) => JSON.parse(read(path));
 const check = (value: unknown, message: string) => { if (!value) throw new Error(`U48 startup check failed: ${message}`); };
 
 const baseline = '642c87b26ca7713064c8172d2497613597caead9';
+const approvalPackBaseline = 'c65e910136552fcbb1e3b698b0049e81cbf6ec35';
 const audit = json('docs/design-targets/generated/unity-u48/asset-audit.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const completion = json('docs/design-targets/generated/unity-u48/completion-summary.json');
@@ -16,7 +17,8 @@ const provider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visual
 const bootstrap = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs');
 const battle = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs');
 
-check(audit.sourceHead === baseline && readiness.sourceHead === baseline, 'baseline source head');
+check(audit.sourceHead === baseline, 'asset audit baseline source head');
+check(readiness.sourceHead === approvalPackBaseline && completion.sourceHead === approvalPackBaseline, 'approval pack checkpoint source head');
 check(audit.auditPassed === true && audit.productionExpansionReady === false, 'audit result and incomplete boundary');
 check(audit.summary.productionApproved === 0 && audit.summary.candidateOrPrototype === 14 && audit.summary.missing === 5 && audit.summary.proceduralPlaceholder === 3 && audit.summary.deferredToLaterPhase === 3, 'production/candidate/missing/procedural/deferred counts');
 check(audit.items.some((item: { assetKey: string; status: string }) => item.assetKey === 'player-remaining-core5' && item.status === 'missing'), 'remaining Core5 gap');
@@ -27,9 +29,10 @@ check(bootstrap.includes('ProceduralSpriteFactory.CreatePaperSprite') && bootstr
 check(battle.includes('collectSprite = ProceduralSpriteFactory.CreateRadialSprite'), 'procedural collect feedback detected');
 check(u47.weaponRuntimeSliceReady === true && u47.passiveRuntimeSliceReady === true && u47.u47SimulatorSmokeReady === true && u47.u47GameplayCandidateReady === true && u47.productionApproved === true, 'U47 slice readiness preserved');
 check(readiness.productionAssetAuditReady === true && readiness.approvedProductionAssetSetAvailable === false && readiness.productionVisualAssetProviderConnected === false, 'audit ready is separate from production asset completion');
-check(readiness.status === 'IN_PROGRESS' && readiness.runtimeVisualReady === false && readiness.simulatorReady === false && readiness.physicalDeviceReady === false, 'U48 visual/device readiness remains false');
+check(readiness.status === 'IN_PROGRESS_BLOCKED' && readiness.productionAssetApprovalPackReady === false && readiness.runtimeVisualReady === false && readiness.simulatorReady === false && readiness.physicalDeviceReady === false, 'U48 approval pack/visual/device readiness remains false');
 check(readiness.audioReady === false && readiness.hapticReady === false && readiness.performanceReady === false && readiness.rcReady === false && readiness.productionApproved === false, 'later-phase and game-wide readiness remains false');
 check(completion.auditCheckpointCommitAllowed === true && completion.auditCheckpointPushAllowed === true, 'audit checkpoint may be committed and pushed');
+check(completion.approvalPackCheckpointCommitAllowed === true && completion.approvalPackCheckpointPushAllowed === true, 'blocked approval pack checkpoint may be committed and pushed');
 check(completion.u48CompletionCommitAllowed === false && completion.u48CompletionPushAllowed === false, 'U48 completion commit remains blocked');
 for (const file of ['device-matrix.json','audio-matrix.json','haptic-matrix.json','performance-metrics.json','completion-summary.json']) check(existsSync(resolve(root, `docs/design-targets/generated/unity-u48/${file}`)), `missing ${file}`);
 

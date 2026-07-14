@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "642c87b26ca7713064c8172d2497613597caead9",
-  "generatedAtUtc": "2026-07-14T02:13:56Z",
+  "sourceHead": "c65e910136552fcbb1e3b698b0049e81cbf6ec35",
+  "generatedAtUtc": "2026-07-14T02:47:34Z",
   "phase": "U48 production asset expansion",
   "status": "IN_PROGRESS_BLOCKED",
   "completed": [
@@ -13,13 +13,22 @@
     "U47 static/capture/manifest regression checks",
     "implementation full preflight including 64 test files and 418 tests",
     "TypeScript and Vite production build",
-    "828 Unity meta GUID uniqueness check"
+    "828 Unity meta GUID uniqueness check",
+    "Priority A 21-group source inventory",
+    "48 unique candidate records with source hashes",
+    "21 blocked-state contact sheets",
+    "automatic PNG QA: 33 PASS, 15 WARNING, 0 FAIL",
+    "lineage inventory: 0 complete, 41 partial, 7 unknown"
   ],
   "notCompleted": [
     "approved production asset acquisition",
     "production provider connection",
     "U48 visual implementation",
-    "U48 Simulator screenshots/contact sheets",
+    "candidate-specific U48 Simulator live screenshots",
+    "complete four-candidate comparison for 13 short groups",
+    "equivalent kit comparisons for HUD, Result and StageSelect",
+    "complete Generation Lineage",
+    "human asset approval",
     "physical-device smoke",
     "audio/haptic device pass",
     "performance metrics",
@@ -36,6 +45,8 @@
   "xcodeBuildResult": "NOT_RUN",
   "auditCheckpointCommitAllowed": true,
   "auditCheckpointPushAllowed": true,
+  "approvalPackCheckpointCommitAllowed": true,
+  "approvalPackCheckpointPushAllowed": true,
   "u48CompletionCommitAllowed": false,
   "u48CompletionPushAllowed": false
 }
