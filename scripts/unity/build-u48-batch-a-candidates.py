@@ -69,7 +69,7 @@ def copy_sheet(source: Path, group: str, candidate_id: str, mode: str) -> Path:
                     outline.putalpha(ImageChops.subtract(expanded, alpha))
                     frame = Image.alpha_composite(outline, frame)
                 elif mode == "readability":
-                    pixels = list(frame.getdata())
+                    pixels = list(frame.get_flattened_data())
                     adjusted = []
                     for red, green, blue, a in pixels:
                         if a == 0:
@@ -86,7 +86,7 @@ def copy_sheet(source: Path, group: str, candidate_id: str, mode: str) -> Path:
                     outline.putalpha(ImageChops.subtract(expanded, alpha).point(lambda value: min(210, value)))
                     frame = Image.alpha_composite(outline, frame)
                 elif mode == "paper-ink":
-                    pixels = list(frame.getdata())
+                    pixels = list(frame.get_flattened_data())
                     adjusted = []
                     for index, (red, green, blue, a) in enumerate(pixels):
                         if a == 0:
@@ -101,7 +101,7 @@ def copy_sheet(source: Path, group: str, candidate_id: str, mode: str) -> Path:
                             adjusted.append((max(0, min(255, red + grain + 4)), max(0, min(240, green + grain)), max(0, min(225, blue + grain - 3)), a))
                     frame.putdata(adjusted)
                 elif mode == "sprout-mist":
-                    pixels = list(frame.getdata())
+                    pixels = list(frame.get_flattened_data())
                     adjusted = []
                     for index, (red, green, blue, a) in enumerate(pixels):
                         y = index // CELL
@@ -113,7 +113,7 @@ def copy_sheet(source: Path, group: str, candidate_id: str, mode: str) -> Path:
                             adjusted.append((0, 0, 0, 0))
                     frame.putdata(adjusted)
                 elif mode == "ink-death":
-                    pixels = list(frame.getdata())
+                    pixels = list(frame.get_flattened_data())
                     adjusted = []
                     death_row = row >= 3
                     for index, (red, green, blue, a) in enumerate(pixels):

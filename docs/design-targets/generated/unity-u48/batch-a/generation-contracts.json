@@ -42,9 +42,9 @@
       "recipeId": "player-yui-a-runtime-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-a-runtime-baseline.txt",
       "promptSha256": "36290e6170e4ac5bb164ce690e8d8a2d6211a793d4784a5508267c28388cd1d6",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -78,7 +78,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -120,9 +120,9 @@
       "recipeId": "player-yui-b-silhouette",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-b-silhouette.txt",
       "promptSha256": "e9558f8f421b5ba6a730c737338273ce5b70f4071293220c29017fd0bd22a981",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png",
-      "outputSha256": null,
+      "outputSha256": "42df39bb06fe914456066e5ec2cd5704172c9a7ad988c01d60ba316539b38f4b",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -156,7 +156,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -198,9 +198,9 @@
       "recipeId": "player-yui-c-lantern-bag",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-c-lantern-bag.txt",
       "promptSha256": "1726a0098d5bd75b908c3432ce8a92adbe176f0dce6b9c423f1c2ecd24ece633",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
-      "outputSha256": null,
+      "outputSha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -234,7 +234,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -276,9 +276,9 @@
       "recipeId": "player-yui-d-paper-ink",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-d-paper-ink.txt",
       "promptSha256": "93ac7e2c0d3758aed8754ea0b667a4074de7f47134c417ff00835ac5b725ac0c",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png",
-      "outputSha256": null,
+      "outputSha256": "f44e02d8f37c63b6c82c57d79a8042b4212f6e00bb30a1ce3c97197fd7ee23e7",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -312,7 +312,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -356,9 +356,9 @@
       "recipeId": "enemy-onbu-a-runtime-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-a-runtime-baseline.txt",
       "promptSha256": "9c346f6f126bfbe23fd6e2dcfb7258860fa761ec5e9389b6ec61d588144e49f5",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "987022951cdd740dd83bb6e7fe869c5fde2ba0abbc0f33d8a7369e408ab57525",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -392,7 +392,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -436,9 +436,9 @@
       "recipeId": "enemy-onbu-b-silhouette",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-b-silhouette.txt",
       "promptSha256": "7813cc9e72d9955f9ee64425a900f97dd0937162f8c6eed093b1e263a078bc62",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png",
-      "outputSha256": null,
+      "outputSha256": "155eaa454ae746b804da5338b5f67983957c7a74aa0235ddeef921e5df25c9ca",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -472,7 +472,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -516,9 +516,9 @@
       "recipeId": "enemy-onbu-c-sprout-mist",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-c-sprout-mist.txt",
       "promptSha256": "2e95fd64e8a3803145d71e00575d25175700a73bbfe9f37e1ffb4a62fb394f90",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
-      "outputSha256": null,
+      "outputSha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -552,7 +552,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -596,9 +596,9 @@
       "recipeId": "enemy-onbu-d-ink-death",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-d-ink-death.txt",
       "promptSha256": "d6261e8cd5ddbf435026be376ccd00406727c3b135510fa85df0226292642f64",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png",
-      "outputSha256": null,
+      "outputSha256": "abb1826db7c466f7a0c0f74c81130fe888a2a2dff0213790c6cc042acd5b5f51",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -632,7 +632,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -676,9 +676,9 @@
       "recipeId": "stage1-background-a-procedural-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-a-procedural-baseline.txt",
       "promptSha256": "9614e33b37233e26ca39eb8f56dd7db5280e57b6ad0f571fd1ff67143912dfd5",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "50234e23943b9a675ed86802388f517775795c4627771cb29c3fb92b059c0a6b",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -707,7 +707,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -751,9 +751,9 @@
       "recipeId": "stage1-background-b-paper-map",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-b-paper-map.txt",
       "promptSha256": "f833bae8c499d13962d9309c9a93ae89c70f7ed54500d3458770a2380eccd9f3",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png",
-      "outputSha256": null,
+      "outputSha256": "6842e97deba8185b252cfd841c911700be73306e2aa83f4f3f8095f3fe796282",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -782,7 +782,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -826,9 +826,9 @@
       "recipeId": "stage1-background-c-night-street",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-c-night-street.txt",
       "promptSha256": "94fb4222b179aa3b305bdd9b7494bcbbeafb2a5083621c42a82dbbfe1e4d4ccd",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
-      "outputSha256": null,
+      "outputSha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -857,7 +857,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -901,9 +901,9 @@
       "recipeId": "stage1-background-d-balanced",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-d-balanced.txt",
       "promptSha256": "9866690328c385ebd7087e9e5d72a2332d875026d54b519ebe297fa25c6cf04a",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png",
-      "outputSha256": null,
+      "outputSha256": "f7bcead164f073d445bfe64390b03dd887587cd1df9aa6a5686c8eebd1078417",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -932,7 +932,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false

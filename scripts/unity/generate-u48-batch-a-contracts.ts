@@ -9,6 +9,11 @@ const outputRoot = resolve(root, 'docs/design-targets/generated/unity-u48/batch-
 const candidateRoot = 'unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA';
 const sourceHead = '192471e044124885e432d6ecc4166ccfdf8134e8';
 const sha256 = (path: string) => createHash('sha256').update(readFileSync(resolve(root, path))).digest('hex');
+const buildManifestPath = resolve(outputRoot, 'candidate-build-manifest.json');
+const buildManifest = existsSync(buildManifestPath) ? JSON.parse(readFileSync(buildManifestPath, 'utf8')) : null;
+const recordedGroups = process.env.U48_BATCH_A_GENERATED_GROUPS
+  ? new Set(process.env.U48_BATCH_A_GENERATED_GROUPS.split(',').filter(Boolean))
+  : null;
 
 type GoldenSpec = {
   status: 'complete' | 'composite' | 'missing';
@@ -219,7 +224,11 @@ const generationContracts = Object.entries(candidates).flatMap(([assetGroup, val
   const canonicalPrompt = canonicalKey ? assetFactoryPromptByKey.get(canonicalKey) : undefined;
   return values.map((candidate) => {
     const outputPath = `${candidateRoot}/${assetGroup}/${candidate.id}.png`;
-    const outputExists = existsSync(resolve(root, outputPath));
+    const outputExists = (recordedGroups === null || recordedGroups.has(assetGroup)) && existsSync(resolve(root, outputPath));
+    const builtOutput = buildManifest?.outputs?.find((value: { path: string }) => value.path === outputPath);
+    const lineageStatus = outputExists
+      ? candidate.sourceType === 'existing' || candidate.sourceType === 'reconstructed' ? 'reconstructed-partial' : 'complete'
+      : 'unknown';
     return {
       schemaVersion: 1,
       assetGroup,
@@ -239,9 +248,9 @@ const generationContracts = Object.entries(candidates).flatMap(([assetGroup, val
       recipeId: candidate.id,
       promptPath: `docs/design-targets/generated/unity-u48/batch-a/prompts/${candidate.id}.txt`,
       promptSha256: null,
-      createdAtUtc: null,
+      createdAtUtc: outputExists ? buildManifest?.generatedAtUtc ?? null : null,
       outputPath,
-      outputSha256: outputExists ? sha256(outputPath) : null,
+      outputSha256: outputExists ? builtOutput?.sha256 ?? sha256(outputPath) : null,
       targetImportContract: {
         format: 'PNG RGBA', filterMode: 'Point', compression: 'None', mipmap: false,
         spriteMode: assetGroup === 'player-yui' || assetGroup === 'enemy-onbu' ? 'Multiple' : 'Single',
@@ -259,7 +268,7 @@ const generationContracts = Object.entries(candidates).flatMap(([assetGroup, val
         'Point filter, no compression, mipmap off', 'finite non-empty bounds and edge-contact review', 'gameplay-size contrast review',
       ],
       canonicalPrompt: canonicalPrompt?.prompt ?? groupPrompts[assetGroup],
-      lineageStatus: outputExists ? 'complete' : 'unknown',
+      lineageStatus,
       humanReviewStatus: 'pending',
       approvedAsFinal: false,
       runtimeApproved: false,

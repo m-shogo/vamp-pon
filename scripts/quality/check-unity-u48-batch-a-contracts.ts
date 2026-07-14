@@ -48,7 +48,13 @@ for (const contract of contracts.contracts) {
   check(contract.targetImportContract.format === 'PNG RGBA' && contract.targetImportContract.filterMode === 'Point' && contract.targetImportContract.compression === 'None' && contract.targetImportContract.mipmap === false, `${contract.candidateId} import contract`);
   check(contract.runtimeContract.worldSizeUnchanged === true && contract.runtimeContract.gameplayValuesUnchanged === true, `${contract.candidateId} gameplay contract`);
   check(contract.humanReviewStatus === 'pending' && contract.approvedAsFinal === false && contract.runtimeApproved === false, `${contract.candidateId} approval boundary`);
-  if (contract.outputSha256 === null) check(contract.createdAtUtc === null && contract.lineageStatus === 'unknown', `${contract.candidateId} pending lineage is honest`);
+  if (contract.outputSha256 === null) {
+    check(contract.createdAtUtc === null && contract.lineageStatus === 'unknown', `${contract.candidateId} pending lineage is honest`);
+  } else {
+    check(existsSync(resolve(root, contract.outputPath)) && sha256(contract.outputPath) === contract.outputSha256, `${contract.candidateId} output hash`);
+    check(existsSync(resolve(root, `${contract.outputPath}.meta`)), `${contract.candidateId} Unity meta`);
+    check(typeof contract.createdAtUtc === 'string' && ['complete', 'reconstructed-partial'].includes(contract.lineageStatus), `${contract.candidateId} generated lineage`);
+  }
 }
 
 const providerPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs';

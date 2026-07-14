@@ -1,0 +1,644 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "192471e044124885e432d6ecc4166ccfdf8134e8",
+  "batch": "A",
+  "generatedAtUtc": "2026-07-14T08:42:03.206034Z",
+  "candidateCount": 12,
+  "duplicateContentHashCount": 0,
+  "duplicateGuidCount": 0,
+  "summary": {
+    "PASS": 12,
+    "WARNING": 0,
+    "FAIL": 0
+  },
+  "entries": [
+    {
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png",
+      "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        5,
+        20,
+        1424,
+        1074
+      ],
+      "edgeContact": false,
+      "occupancy": 0.961694,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "ec7dad504738e880ce0fa5aeb5e0138a",
+        "ppu": 150.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.4507716049382716,
+        "coverageMax": 0.850462962962963,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-b-silhouette",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png",
+      "sha256": "42df39bb06fe914456066e5ec2cd5704172c9a7ad988c01d60ba316539b38f4b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        4,
+        19,
+        1425,
+        1075
+      ],
+      "edgeContact": false,
+      "occupancy": 0.964877,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png.meta",
+      "meta": {
+        "guid": "2da578faa40e8f93239c620835bbb91f",
+        "ppu": 150.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.4658333333333333,
+        "coverageMax": 0.8710802469135802,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-c-lantern-bag",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
+      "sha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        4,
+        19,
+        1425,
+        1075
+      ],
+      "edgeContact": false,
+      "occupancy": 0.964877,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png.meta",
+      "meta": {
+        "guid": "6be5e33b8b02e3f3b4249f4413e0c3f4",
+        "ppu": 150.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.4658333333333333,
+        "coverageMax": 0.8710802469135802,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-d-paper-ink",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png",
+      "sha256": "f44e02d8f37c63b6c82c57d79a8042b4212f6e00bb30a1ce3c97197fd7ee23e7",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        5,
+        20,
+        1424,
+        1074
+      ],
+      "edgeContact": false,
+      "occupancy": 0.961694,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png.meta",
+      "meta": {
+        "guid": "2bced023c687f632d66e9e812685cce5",
+        "ppu": 150.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.4507716049382716,
+        "coverageMax": 0.850462962962963,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png",
+      "sha256": "987022951cdd740dd83bb6e7fe869c5fde2ba0abbc0f33d8a7369e408ab57525",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        45,
+        42,
+        1395,
+        1041
+      ],
+      "edgeContact": false,
+      "occupancy": 0.867188,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "7d4e59cf0d0d6f2f664bc2d2b4c57e5d",
+        "ppu": 120.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.0575,
+        "coverageMax": 0.4477777777777778,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-b-silhouette",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png",
+      "sha256": "155eaa454ae746b804da5338b5f67983957c7a74aa0235ddeef921e5df25c9ca",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        44,
+        41,
+        1396,
+        1042
+      ],
+      "edgeContact": false,
+      "occupancy": 0.870211,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png.meta",
+      "meta": {
+        "guid": "89935c0280b09596db707f6ddf1e218a",
+        "ppu": 120.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.06354938271604939,
+        "coverageMax": 0.46327160493827163,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-c-sprout-mist",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
+      "sha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        45,
+        42,
+        1395,
+        1041
+      ],
+      "edgeContact": false,
+      "occupancy": 0.867188,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png.meta",
+      "meta": {
+        "guid": "0bbb3846f9244134a24b26b4d93bb5d9",
+        "ppu": 120.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.0575,
+        "coverageMax": 0.4477777777777778,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-d-ink-death",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png",
+      "sha256": "abb1826db7c466f7a0c0f74c81130fe888a2a2dff0213790c6cc042acd5b5f51",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 1440,
+      "height": 1080,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        45,
+        42,
+        1395,
+        1041
+      ],
+      "edgeContact": false,
+      "occupancy": 0.867188,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png.meta",
+      "meta": {
+        "guid": "0b9fb185fc3e1efd0f7289a6042ce851",
+        "ppu": 120.0,
+        "spriteMode": 2,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": {
+        "expectedFrameCount": 48,
+        "detectedFrameCount": 48,
+        "grid": "8x6",
+        "cellSize": "180x180",
+        "emptyFrameCount": 0,
+        "clippedFrameCount": 0,
+        "coverageMin": 0.0575,
+        "coverageMax": 0.4477777777777778,
+        "directionContractRecorded": true,
+        "continuityRequiresLiveReview": true
+      },
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-a-procedural-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png",
+      "sha256": "50234e23943b9a675ed86802388f517775795c4627771cb29c3fb92b059c0a6b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 390,
+      "height": 844,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "edgeContact": true,
+      "occupancy": 1.0,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png.meta",
+      "meta": {
+        "guid": "a35950ca270f73bbfb3d0a2f578520e6",
+        "ppu": 64.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": {
+        "exactRuntimeDimensions": true,
+        "meanRgb": [
+          12.839,
+          11.323,
+          10.226
+        ],
+        "varianceRgb": [
+          3.75,
+          2.994,
+          2.433
+        ],
+        "seamReview": "live-capture-required",
+        "contrastReview": "live-capture-required",
+        "excessiveSaturation": false
+      },
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-b-paper-map",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png",
+      "sha256": "6842e97deba8185b252cfd841c911700be73306e2aa83f4f3f8095f3fe796282",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 390,
+      "height": 844,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "edgeContact": true,
+      "occupancy": 1.0,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png.meta",
+      "meta": {
+        "guid": "c4aa10b093866437db057f0cf32a2c77",
+        "ppu": 64.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": {
+        "exactRuntimeDimensions": true,
+        "meanRgb": [
+          38.747,
+          35.829,
+          38.698
+        ],
+        "varianceRgb": [
+          32.442,
+          23.861,
+          19.656
+        ],
+        "seamReview": "live-capture-required",
+        "contrastReview": "live-capture-required",
+        "excessiveSaturation": false
+      },
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-c-night-street",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
+      "sha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 390,
+      "height": 844,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "edgeContact": true,
+      "occupancy": 1.0,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png.meta",
+      "meta": {
+        "guid": "8609971eda803b7ff707aeb7c06bbaa5",
+        "ppu": 64.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": {
+        "exactRuntimeDimensions": true,
+        "meanRgb": [
+          37.411,
+          34.836,
+          55.916
+        ],
+        "varianceRgb": [
+          143.687,
+          101.71,
+          151.657
+        ],
+        "seamReview": "live-capture-required",
+        "contrastReview": "live-capture-required",
+        "excessiveSaturation": false
+      },
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-d-balanced",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png",
+      "sha256": "f7bcead164f073d445bfe64390b03dd887587cd1df9aa6a5686c8eebd1078417",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 390,
+      "height": 844,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "edgeContact": true,
+      "occupancy": 1.0,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png.meta",
+      "meta": {
+        "guid": "ea7ed201e4a6a1442fdab3ca06abfa3d",
+        "ppu": 64.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": {
+        "exactRuntimeDimensions": true,
+        "meanRgb": [
+          53.53,
+          53.107,
+          65.236
+        ],
+        "varianceRgb": [
+          790.765,
+          655.089,
+          518.36
+        ],
+        "seamReview": "live-capture-required",
+        "contrastReview": "live-capture-required",
+        "excessiveSaturation": false
+      },
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    }
+  ]
+}
