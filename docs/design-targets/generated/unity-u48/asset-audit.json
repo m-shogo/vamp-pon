@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "642c87b26ca7713064c8172d2497613597caead9",
+  "generatedAtUtc": "2026-07-14T02:13:56Z",
+  "scope": "U48 production asset expansion startup audit",
+  "summary": {
+    "productionApproved": 0,
+    "candidateOrPrototype": 14,
+    "proceduralPlaceholder": 3,
+    "missing": 5,
+    "deferredToLaterPhase": 3
+  },
+  "items": [
+    {
+      "assetKey": "player-yui",
+      "category": "player character",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+      "status": "candidate-animated-multiple-sprite",
+      "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+      "import": { "spriteMode": "Multiple", "filter": "Point", "ppu": 150, "alpha": true },
+      "issues": ["approvedAsFinal=false", "runtimeApproved=false", "physical-device final visual review missing"]
+    },
+    {
+      "assetKey": "player-remaining-core5",
+      "category": "player character",
+      "runtimePath": null,
+      "status": "missing",
+      "issues": ["Asa/Nagi/Michiru/Tomori have no production runtime registry entries"]
+    },
+    {
+      "assetKey": "enemy-onbu",
+      "category": "enemy",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+      "status": "candidate-animated-multiple-sprite",
+      "sha256": "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+      "import": { "spriteMode": "Multiple", "filter": "Point", "ppu": 120, "alpha": true },
+      "issues": ["approvedAsFinal=false", "runtimeApproved=false", "physical-device final visual review missing"]
+    },
+    {
+      "assetKey": "enemy-remaining-families",
+      "category": "enemy",
+      "runtimePath": null,
+      "status": "missing",
+      "issues": ["only Onbu is registered in the Stage1 runtime visual registry"]
+    },
+    {
+      "assetKey": "stage-background",
+      "category": "background",
+      "runtimePath": "U1Stage1SceneBootstrap.CreateBackground",
+      "status": "procedural-placeholder",
+      "issues": ["CreatePaperSprite runtime generation", "no approved stage asset", "visual consistency and overdraw not device-reviewed"]
+    },
+    {
+      "assetKey": "lantern-glow",
+      "category": "background light",
+      "runtimePath": "U1Stage1SceneBootstrap.CreateLanternGlow",
+      "status": "procedural-placeholder",
+      "issues": ["CreateRadialSprite runtime generation", "object remains named Placeholder"]
+    },
+    {
+      "assetKey": "weapon-projectile",
+      "category": "weapon/projectile",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+      "status": "runtime-candidate",
+      "sha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+      "issues": ["single shared candidate sprite", "not final/runtime approved"]
+    },
+    {
+      "assetKey": "hit-effect",
+      "category": "VFX",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+      "status": "runtime-candidate",
+      "issues": ["shares projectile art", "not final/runtime approved"]
+    },
+    {
+      "assetKey": "death-effect",
+      "category": "VFX",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+      "status": "runtime-candidate",
+      "sha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+      "issues": ["not final/runtime approved", "device density/performance review missing"]
+    },
+    {
+      "assetKey": "exp-pickup",
+      "category": "pickup",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+      "status": "runtime-candidate",
+      "sha256": "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+      "import": { "spriteMode": "Single", "filter": "Point", "ppu": 180, "alpha": true },
+      "issues": ["source is 1254x1254", "runtime size is safely capped to 0.34 but art remains candidate"]
+    },
+    {
+      "assetKey": "exp-collect-trail",
+      "category": "VFX",
+      "runtimePath": "Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+      "status": "runtime-candidate",
+      "sha256": "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+      "issues": ["not final/runtime approved"]
+    },
+    {
+      "assetKey": "exp-collect-feedback",
+      "category": "VFX",
+      "runtimePath": "U2BattleController.collectSprite",
+      "status": "procedural-placeholder",
+      "issues": ["always created with CreateRadialSprite", "not supplied by RuntimeVisualAssetProvider"]
+    },
+    {
+      "assetKey": "ground-area-three-types",
+      "category": "weapon/VFX",
+      "runtimePath": "U47GroundAreaActor using runtime-ink-burst.png",
+      "status": "runtime-candidate",
+      "issues": ["three definitions share one candidate sprite", "distinction depends on tint and scale", "production art missing"],
+      "u47ContractPreserved": true
+    },
+    {
+      "assetKey": "healing-pickup",
+      "category": "pickup",
+      "runtimePath": null,
+      "status": "missing",
+      "issues": ["no Stage1 runtime healing pickup asset or actor found"]
+    },
+    {
+      "assetKey": "item-icons",
+      "category": "weapon/passive/rare UI icon",
+      "runtimePath": "generic IconFrame/UI tint",
+      "status": "missing",
+      "issues": ["no distinct Registry-bound icon set", "u47GameplayIconCoverageComplete=false"]
+    },
+    {
+      "assetKey": "ui-frames",
+      "category": "UI frame",
+      "runtimePath": "Assets/_Project/Resources/U45Candidates/UI/",
+      "status": "runtime-candidate",
+      "issues": ["candidate naming/path", "final/runtime approval missing"]
+    },
+    {
+      "assetKey": "inventory-hud",
+      "category": "HUD",
+      "runtimePath": "U47InventoryHudPresenter + U45 candidate frame",
+      "status": "runtime-candidate",
+      "issues": ["text-led inventory without distinct icons", "physical-device readability not reviewed"]
+    },
+    {
+      "assetKey": "levelup-and-replacement",
+      "category": "UI/UX",
+      "runtimePath": "U4LevelUpOverlay/PaperCard + U45 candidate UI",
+      "status": "runtime-candidate",
+      "issues": ["safe-area/runtime route verified", "final art and physical-device tap/readability review missing"]
+    },
+    {
+      "assetKey": "kokuyou-presentation",
+      "category": "黒耀化 VFX/HUD",
+      "runtimePath": "U47InventoryHudPresenter phase label",
+      "status": "missing",
+      "issues": ["state is visible as text", "production charging/ready/active/recovery visual treatment is not connected", "U10 candidate fullscreen art is not runtime-approved"]
+    },
+    {
+      "assetKey": "result",
+      "category": "Result UI",
+      "runtimePath": "Assets/_Project/Resources/U46Candidates/UI/Result/",
+      "status": "runtime-candidate",
+      "issues": ["U46 candidate component kit", "final/runtime approval missing"]
+    },
+    {
+      "assetKey": "stage-select",
+      "category": "StageSelect UI",
+      "runtimePath": "Assets/_Project/Resources/U45Candidates/UI/",
+      "status": "runtime-candidate",
+      "issues": ["candidate component art", "Stage2 remains out of scope"]
+    },
+    {
+      "assetKey": "fonts",
+      "category": "font",
+      "runtimePath": "Assets/_Project/Resources/ZenMaruGothic-Medium.ttf",
+      "status": "runtime-candidate",
+      "issues": ["runtime readable", "release license/source audit not present in U48 evidence"]
+    },
+    {
+      "assetKey": "audio",
+      "category": "Audio",
+      "runtimePath": "Assets/_Project/Audio/U39FinalCandidateSe/",
+      "status": "deferred-u49",
+      "issues": ["finalCandidate only", "AudioMixerReady=false", "device latency/speaker review missing"]
+    },
+    {
+      "assetKey": "haptic",
+      "category": "Haptic",
+      "runtimePath": "U28 haptic routing/placeholder adapter",
+      "status": "deferred-u49",
+      "issues": ["physical-device behavior not measured"]
+    },
+    {
+      "assetKey": "mobile-performance",
+      "category": "Performance",
+      "runtimePath": null,
+      "status": "deferred-u50",
+      "issues": ["FPS/frame time/memory/GC/thermal/draw calls not measured on device"]
+    }
+  ],
+  "unsafeGeneratedRuntimeReferences": 0,
+  "u47ContractChanged": false,
+  "auditPassed": true,
+  "productionExpansionReady": false
+}

@@ -102,7 +102,7 @@ check('review keeps production readiness false', review.includes('Production rea
 
 check('new current index is current', currentIndex.includes('Status: current'));
 check('new current index starts from control center', currentIndex.includes('docs/unity-big-implementation-control-center-v1.md'));
-check('new current index records U47 current', currentIndex.includes('Current: U47'));
+check('new current index records U47 completed and U48 current', currentIndex.includes('Completed: U47') && currentIndex.includes('Current: U48'));
 check('new current index records Unity 6000.5.1f1', currentIndex.includes('6000.5.1f1'));
 check('new current index does not claim Unity 6.5.1f1', !currentIndex.includes('Unity 6.5.1f1'));
 check('old index is historical', oldIndex.includes('Status: historical / superseded'));
@@ -135,7 +135,6 @@ for (const key of [
 ]) check(`${key} true after U46`, readiness[key] === true);
 
 for (const key of [
-  'productionDataRegistryImplemented',
   'actualDeviceSmokeResultProvided',
   'devicePlayableReady',
   'mobileMetricsReady',
@@ -148,6 +147,8 @@ for (const key of [
   'rcReady',
   'productionApproved',
 ]) check(`${key} remains false`, readiness[key] === false);
+
+check('production DataRegistry implemented after U47', readiness.productionDataRegistryImplemented === true);
 
 for (const key of [
   'runtimeCandidateAssetProviderConnected',
@@ -177,7 +178,8 @@ checkExecutionEvidence(
   readiness.unityCompileCommit,
 );
 
-check('current required phase exact', readiness.currentRequiredPhase === 'U47 gameplay data/runtime');
+check('current required phase exact', readiness.currentRequiredPhase === 'U48 production asset expansion');
+check('next phase remains U49 actual-device audio/haptic', readiness.nextPhaseAfterCurrent === 'U49 actual-device audio/haptic');
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
 check('runtime visual current candidate animation', runtimeVisual.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
@@ -209,4 +211,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Unity big implementation readiness check passed: U46 candidate shell is complete, U47 is current, and final/device/product boundaries remain false.');
+console.log('Unity big implementation readiness check passed: U47 is complete, U48 asset expansion is current, and final/device/product boundaries remain false.');

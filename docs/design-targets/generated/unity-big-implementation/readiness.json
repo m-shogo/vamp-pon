@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-11",
+  "generatedAt": "2026-07-14",
   "evidenceKind": "Unity big implementation control-plane readiness",
-  "phase": "U46 candidate completed; U47 current",
+  "phase": "U47 gameplay data/runtime completed; U48 production asset expansion current",
   "controlCenterReady": true,
   "currentDocIndexReady": true,
   "runtimeOwnershipContractDefined": true,
@@ -14,13 +14,13 @@
   "fullPreflightRunnerReady": true,
   "implementationFoundationReady": true,
   "largeImplementationMayStartUnderPhaseOrder": true,
-  "currentRequiredPhase": "U47 gameplay data/runtime",
-  "nextPhaseAfterCurrent": "U48 remaining production assets/background/VFX",
+  "currentRequiredPhase": "U48 production asset expansion",
+  "nextPhaseAfterCurrent": "U49 actual-device audio/haptic",
   "sceneFlowCoordinatorImplemented": true,
   "pauseCoordinatorImplemented": true,
   "versionedSaveServiceImplemented": true,
   "saveMigrationTestsReady": true,
-  "productionDataRegistryImplemented": false,
+  "productionDataRegistryImplemented": true,
   "resultReadModelImplemented": true,
   "collectionReadModelImplemented": true,
   "runtimeCandidateAssetProviderConnected": true,
@@ -55,6 +55,8 @@
   "notes": [
     "implementationFoundationReady means the control-plane is documented, not that product runtime is production-ready",
     "U45.1 candidate animation runtime is complete before U46",
+    "U47 gameplay data/runtime and production DataRegistry are complete",
+    "U48 has started but approved production visual assets are not yet available",
     "character and enemy assets remain unapproved as final production art",
     "execution flags may become true only with PASSED result and a recorded commit"
   ]

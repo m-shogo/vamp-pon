@@ -15,6 +15,7 @@ const scripts = [
   'unity:u47-capture-catalog:check',
   'unity:u47-simulator-manifest:check',
   'unity:u47-gameplay-data-runtime:check',
+  'unity:u48-production-asset-expansion:check',
   'unity:runtime-visual-readiness:check',
   'unity:meta:check',
   'test',

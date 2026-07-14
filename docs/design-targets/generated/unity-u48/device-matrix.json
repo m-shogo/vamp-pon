@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "642c87b26ca7713064c8172d2497613597caead9",
+  "generatedAtUtc": "2026-07-14T02:13:56Z",
+  "devices": [
+    {
+      "deviceClass": "physical",
+      "model": "iPhone 16",
+      "os": "iOS 18.7.8",
+      "connectedAtAudit": true,
+      "developerMode": true,
+      "u48BuildInstalled": false,
+      "u48SmokeExecuted": false,
+      "result": "NOT_RUN"
+    }
+  ],
+  "identifiersRecorded": false,
+  "physicalDeviceReady": false
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "phaseOwner": "U49",
+  "status": "DEFERRED_NOT_MEASURED",
+  "routingDefinitionsPresent": true,
+  "physicalDeviceEventsVerified": false,
+  "rateLimitVerified": false,
+  "disabledSettingVerified": false,
+  "backgroundSuppressionVerified": false,
+  "hapticReady": false
+}

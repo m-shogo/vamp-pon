@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "642c87b26ca7713064c8172d2497613597caead9",
+  "generatedAtUtc": "2026-07-14T02:13:56Z",
+  "phase": "U48 production asset expansion",
+  "status": "IN_PROGRESS_BLOCKED",
+  "completed": [
+    "Phase 0 git/source-of-truth preflight",
+    "U48 scope derivation from current roadmap",
+    "runtime visual asset inventory",
+    "candidate/procedural/missing/deferred classification",
+    "connected physical device inventory without private identifiers",
+    "U47 static/capture/manifest regression checks",
+    "implementation full preflight including 64 test files and 418 tests",
+    "TypeScript and Vite production build",
+    "828 Unity meta GUID uniqueness check"
+  ],
+  "notCompleted": [
+    "approved production asset acquisition",
+    "production provider connection",
+    "U48 visual implementation",
+    "U48 Simulator screenshots/contact sheets",
+    "physical-device smoke",
+    "audio/haptic device pass",
+    "performance metrics",
+    "full Unity/U47 runtime regression after U48 visual changes (no U48 visual changes exist yet)",
+    "U48 readiness promotion"
+  ],
+  "staleEvidenceCount": null,
+  "unhandledExceptionCount": null,
+  "assertionFailureCount": null,
+  "fullPreflightResult": "PASS",
+  "u47StaticRegressionResult": "PASS",
+  "unityCompileResult": "NOT_RUN_NO_UNITY_CHANGE",
+  "iosExportResult": "NOT_RUN",
+  "xcodeBuildResult": "NOT_RUN",
+  "auditCheckpointCommitAllowed": true,
+  "auditCheckpointPushAllowed": true,
+  "u48CompletionCommitAllowed": false,
+  "u48CompletionPushAllowed": false
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "phaseOwner": "U49",
+  "status": "DEFERRED_NOT_MEASURED",
+  "finalCandidateSePresent": true,
+  "audioMixerReady": false,
+  "deviceLatencyMeasured": false,
+  "deviceSpeakerClippingReviewed": false,
+  "backgroundPauseResumeVerified": false,
+  "audioReady": false
+}

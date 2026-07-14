@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "phaseOwner": "U50",
+  "status": "DEFERRED_NOT_MEASURED",
+  "device": null,
+  "averageFps": null,
+  "onePercentLowFps": null,
+  "frameTimeMs": null,
+  "cpuMainThreadMs": null,
+  "gpuTimeMs": null,
+  "managedAllocationPerFrameBytes": null,
+  "gcSpikeMs": null,
+  "memoryMb": null,
+  "textureMemoryMb": null,
+  "drawCalls": null,
+  "batches": null,
+  "thermalState": "NOT_MEASURED",
+  "performanceReady": false
+}

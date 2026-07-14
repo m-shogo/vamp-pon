@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "642c87b26ca7713064c8172d2497613597caead9",
+  "generatedAtUtc": "2026-07-14T02:13:56Z",
+  "status": "IN_PROGRESS",
+  "u47GameplayDataRuntimeReady": true,
+  "productionAssetAuditReady": true,
+  "approvedProductionAssetSetAvailable": false,
+  "productionVisualAssetProviderConnected": false,
+  "runtimeVisualReady": false,
+  "simulatorReady": false,
+  "physicalDeviceReady": false,
+  "audioReady": false,
+  "hapticReady": false,
+  "performanceReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "completionBlocked": true,
+  "blockers": [
+    "no U48 target asset has approvedAsFinal=true and runtimeApproved=true",
+    "remaining Core5 and enemy family runtime assets are missing",
+    "background, lantern glow and collect feedback still use procedural placeholders",
+    "distinct gameplay icons, healing pickup and production Kokuyou presentation are missing",
+    "physical-device final visual review is not executed",
+    "audio/haptic device readiness belongs to U49 and is not measured",
+    "device performance readiness belongs to U50 and is not measured"
+  ]
+}
