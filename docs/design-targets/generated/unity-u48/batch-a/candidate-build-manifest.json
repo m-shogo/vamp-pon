@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "192471e044124885e432d6ecc4166ccfdf8134e8",
+  "tool": "scripts/unity/build-u48-batch-a-candidates.py",
+  "toolVersion": "1",
+  "generatedAtUtc": "2026-07-14T08:36:04.161294Z",
+  "outputCount": 36,
+  "outputs": [
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png",
+      "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png",
+      "sha256": "42df39bb06fe914456066e5ec2cd5704172c9a7ad988c01d60ba316539b38f4b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
+      "sha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png",
+      "sha256": "f44e02d8f37c63b6c82c57d79a8042b4212f6e00bb30a1ce3c97197fd7ee23e7",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png",
+      "sha256": "987022951cdd740dd83bb6e7fe869c5fde2ba0abbc0f33d8a7369e408ab57525",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png",
+      "sha256": "155eaa454ae746b804da5338b5f67983957c7a74aa0235ddeef921e5df25c9ca",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
+      "sha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png",
+      "sha256": "abb1826db7c466f7a0c0f74c81130fe888a2a2dff0213790c6cc042acd5b5f51",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png",
+      "sha256": "50234e23943b9a675ed86802388f517775795c4627771cb29c3fb92b059c0a6b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png",
+      "sha256": "6842e97deba8185b252cfd841c911700be73306e2aa83f4f3f8095f3fe796282",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
+      "sha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png",
+      "sha256": "f7bcead164f073d445bfe64390b03dd887587cd1df9aa6a5686c8eebd1078417",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png",
+      "sha256": "af97e95e674dea22ba88f7c609ab438038f30b986505207fe5c3cafed1428451",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
+      "sha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png",
+      "sha256": "ba85d311106449b0190a736f0f26fe7055d577bfe018066c2cc66b9ed29f5aab",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png",
+      "sha256": "f8e47b2cea4b4be300042f00c3fc9d254370568eb76f807f749ca68d6945412a",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png",
+      "sha256": "f828feeff4ae89e624665ebe6a0431b17a3f7dfa66175ecf386d93a03f37630a",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png",
+      "sha256": "09775e23218cba747eac6fb3827d20be3a2306669f6b761e25b57a3c4bb7337e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png",
+      "sha256": "fda47607e4d509a51fbfde75b62f31e646c27d7210fc44edb2ad0c763d695bf0",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
+      "sha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png",
+      "sha256": "0a81a193061bb2d71db93b1e2f18dc18fb8c62d51c2157466feab44bb9a070cf",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png",
+      "sha256": "3e5457d86bdc576e5d0bcf6acc51317c4edd827ac781addaba0481f93c1a8db1",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
+      "sha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png",
+      "sha256": "686240f262e234e843e45292b4d566730fa7a7eb57b9e8a18d97e27e4077448c",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png",
+      "sha256": "ce19588904d1117be540ca40d0e34c5e43ac9b543528e789fdd3210121307b24",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
+      "sha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png",
+      "sha256": "882b9f4a9becc19dfb1064f677817184c8ab85314281a142d3469cf296ec6562",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png",
+      "sha256": "4e0dba66cebba94190c9b9fb252f9e710086b4f1aa9b9f5c5e7f2c3f143bca6c",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png",
+      "sha256": "afd93e9c0b17e0fc32da8e703727eec303da7c3d5aadd97b4569849aac65689b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png",
+      "sha256": "16bf379ac8ae15c3204affa72b67217ac7e2dc4575114d11b4b80927009352b6",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png",
+      "sha256": "2ec7b4fca23cfe6e9fd60730c1148df663c97c0d36af13023b02f560ec055a97",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
+      "sha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png",
+      "sha256": "6517663c0f24705bf0e69641df763c96cb545cce87b63b6b4ccc31d898a07edf",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png",
+      "sha256": "ae8751b3d3f181e2cbf56cff960a6d11edce200493051c8599316b36f8db107e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
+      "sha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png.meta"
+    },
+    {
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png",
+      "sha256": "4495283e3a8b040f2bdcfa862ac1df4e29d81d38b8cedcd1e5b83737a407566d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png.meta"
+    }
+  ]
+}

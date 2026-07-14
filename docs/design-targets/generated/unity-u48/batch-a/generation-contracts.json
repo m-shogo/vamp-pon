@@ -972,9 +972,9 @@
       "recipeId": "exp-pickup-a-runtime-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-a-runtime-baseline.txt",
       "promptSha256": "4e2bc25fab77a36e121a145dd1e11dbadaaa0e5635718867f8521118f2d9835a",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "af97e95e674dea22ba88f7c609ab438038f30b986505207fe5c3cafed1428451",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1003,7 +1003,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1043,9 +1043,9 @@
       "recipeId": "exp-pickup-b-paper-fragment",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-b-paper-fragment.txt",
       "promptSha256": "6af2a5cd7994d9fdc2ca4f20051bd063d07bc77ed97c79a62e884e4acee0f5f0",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
-      "outputSha256": null,
+      "outputSha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1074,7 +1074,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1114,9 +1114,9 @@
       "recipeId": "exp-pickup-c-small-crystal",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-c-small-crystal.txt",
       "promptSha256": "05eacd1e0342f399a9d1c1ade5cb367f36de8890ed6f6a94b46e090415a3045c",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png",
-      "outputSha256": null,
+      "outputSha256": "ba85d311106449b0190a736f0f26fe7055d577bfe018066c2cc66b9ed29f5aab",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1145,7 +1145,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1185,9 +1185,9 @@
       "recipeId": "exp-pickup-d-ink-light-hybrid",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-d-ink-light-hybrid.txt",
       "promptSha256": "9c0a8c22acb0ab0add9e4e9fdca6c951c2a66e2e859b3314354bc1e2c67a3f86",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png",
-      "outputSha256": null,
+      "outputSha256": "f8e47b2cea4b4be300042f00c3fc9d254370568eb76f807f749ca68d6945412a",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1216,7 +1216,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1256,9 +1256,9 @@
       "recipeId": "healing-pickup-a-dawn-drop",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-a-dawn-drop.txt",
       "promptSha256": "a56db223012488a15923b222839997c95eea896670ab1c45d2b5963e54408665",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png",
-      "outputSha256": null,
+      "outputSha256": "f828feeff4ae89e624665ebe6a0431b17a3f7dfa66175ecf386d93a03f37630a",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1287,7 +1287,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1327,9 +1327,9 @@
       "recipeId": "healing-pickup-b-bandaged-paper-charm",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-b-bandaged-paper-charm.txt",
       "promptSha256": "dc9c463734543949ba3eea8c99835ae9597e53c40d202e025110bc5fc9407337",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png",
-      "outputSha256": null,
+      "outputSha256": "09775e23218cba747eac6fb3827d20be3a2306669f6b761e25b57a3c4bb7337e",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1358,7 +1358,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1398,9 +1398,9 @@
       "recipeId": "healing-pickup-c-warm-lantern-dew",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-c-warm-lantern-dew.txt",
       "promptSha256": "f241740f55ecf69c53cde48484020608a44ab58096fe00343bf854d6fe64cdb1",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png",
-      "outputSha256": null,
+      "outputSha256": "fda47607e4d509a51fbfde75b62f31e646c27d7210fc44edb2ad0c763d695bf0",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1429,7 +1429,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1469,9 +1469,9 @@
       "recipeId": "healing-pickup-d-restorative-bottle",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-d-restorative-bottle.txt",
       "promptSha256": "24b45b4e6a6af7475830ad85ad3dd19833784179e40a709ad55e23bd686f6822",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
-      "outputSha256": null,
+      "outputSha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1500,7 +1500,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1540,9 +1540,9 @@
       "recipeId": "common-projectile-a-lantern-spark",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-a-lantern-spark.txt",
       "promptSha256": "09c42979c26116814a06f4209c00c62009a2f9934e76f2707c7d6429f2fa6b82",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png",
-      "outputSha256": null,
+      "outputSha256": "0a81a193061bb2d71db93b1e2f18dc18fb8c62d51c2157466feab44bb9a070cf",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1571,7 +1571,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1611,9 +1611,9 @@
       "recipeId": "common-projectile-b-pencil-slash",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-b-pencil-slash.txt",
       "promptSha256": "d36486aef72f9908bbd0e0541f2c74e4144bb809e14cea492ecc2b38a81a1c45",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png",
-      "outputSha256": null,
+      "outputSha256": "3e5457d86bdc576e5d0bcf6acc51317c4edd827ac781addaba0481f93c1a8db1",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1642,7 +1642,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1682,9 +1682,9 @@
       "recipeId": "common-projectile-c-paper-streak",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-c-paper-streak.txt",
       "promptSha256": "63cb9cd9408c2918cd4b98b3ea56ed1e8bb52c07f095b5ed404c5643abfa49bc",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
-      "outputSha256": null,
+      "outputSha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1713,7 +1713,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1753,9 +1753,9 @@
       "recipeId": "common-projectile-d-ink-line",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-d-ink-line.txt",
       "promptSha256": "3580c3470b2d71da7b94505b2102472bfa773b58d0e75e4385f18c93d4dd068d",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png",
-      "outputSha256": null,
+      "outputSha256": "686240f262e234e843e45292b4d566730fa7a7eb57b9e8a18d97e27e4077448c",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1784,7 +1784,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1824,9 +1824,9 @@
       "recipeId": "hit-effect-a-runtime-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-a-runtime-baseline.txt",
       "promptSha256": "f83a299fe269274feff12ce38e92146cba436d6024dcc44d9a564ff28c584fb0",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "ce19588904d1117be540ca40d0e34c5e43ac9b543528e789fdd3210121307b24",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1855,7 +1855,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1895,9 +1895,9 @@
       "recipeId": "hit-effect-b-paper-nick",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-b-paper-nick.txt",
       "promptSha256": "0ed204bc87e09f11d38e6220bc83bf264488f13cdee5491b078ae3b79aacfec5",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
-      "outputSha256": null,
+      "outputSha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1926,7 +1926,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1966,9 +1966,9 @@
       "recipeId": "hit-effect-c-ink-pinprick",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-c-ink-pinprick.txt",
       "promptSha256": "ae8649c31d3e6fdc60c5521f4cc1188ccbaf65d5c02a5cffb98959b287599d5f",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png",
-      "outputSha256": null,
+      "outputSha256": "882b9f4a9becc19dfb1064f677817184c8ab85314281a142d3469cf296ec6562",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -1997,7 +1997,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2037,9 +2037,9 @@
       "recipeId": "hit-effect-d-lantern-cross",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-d-lantern-cross.txt",
       "promptSha256": "9b7b719b1aa0901c08dbeaf5c280cdd25bbc3a5afff45537b52953f5e2d53ece",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png",
-      "outputSha256": null,
+      "outputSha256": "4e0dba66cebba94190c9b9fb252f9e710086b4f1aa9b9f5c5e7f2c3f143bca6c",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2068,7 +2068,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2108,9 +2108,9 @@
       "recipeId": "enemy-death-effect-a-runtime-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-a-runtime-baseline.txt",
       "promptSha256": "ed2783c36370a13f8a7fe0c52a89a8bbec7b6ab1251ef8149d6587fda382ec0c",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "afd93e9c0b17e0fc32da8e703727eec303da7c3d5aadd97b4569849aac65689b",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2139,7 +2139,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2179,9 +2179,9 @@
       "recipeId": "enemy-death-effect-b-paper-scatter",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-b-paper-scatter.txt",
       "promptSha256": "98fad6930d48965508c6664064fcc442ed2253aecc2cfdba553e99adf18a27b3",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png",
-      "outputSha256": null,
+      "outputSha256": "16bf379ac8ae15c3204affa72b67217ac7e2dc4575114d11b4b80927009352b6",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2210,7 +2210,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2250,9 +2250,9 @@
       "recipeId": "enemy-death-effect-c-ink-dissolve",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-c-ink-dissolve.txt",
       "promptSha256": "539143ee4b4b0349242446247db6f238e28e3cccb21a8910f803621019b9d610",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png",
-      "outputSha256": null,
+      "outputSha256": "2ec7b4fca23cfe6e9fd60730c1148df663c97c0d36af13023b02f560ec055a97",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2281,7 +2281,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2321,9 +2321,9 @@
       "recipeId": "enemy-death-effect-d-paper-ink-burst",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-d-paper-ink-burst.txt",
       "promptSha256": "c8d6025f9f1e0318526740fa7cf272ba0ef79a53fbf8ed3030f21654af80da92",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
-      "outputSha256": null,
+      "outputSha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2352,7 +2352,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2392,9 +2392,9 @@
       "recipeId": "movement-trail-a-runtime-baseline",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-a-runtime-baseline.txt",
       "promptSha256": "62c1275a6976eb50752b6c4dfa5df2d703d0d1f2545efef1ae38c63dd7280b1c",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "6517663c0f24705bf0e69641df763c96cb545cce87b63b6b4ccc31d898a07edf",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2423,7 +2423,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2463,9 +2463,9 @@
       "recipeId": "movement-trail-b-pencil-dust",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-b-pencil-dust.txt",
       "promptSha256": "b96b114802fece94e840a6e13906d4552acd1d52b4ba94013c6596e5facb4db1",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png",
-      "outputSha256": null,
+      "outputSha256": "ae8751b3d3f181e2cbf56cff960a6d11edce200493051c8599316b36f8db107e",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2494,7 +2494,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2534,9 +2534,9 @@
       "recipeId": "movement-trail-c-paper-flecks",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-c-paper-flecks.txt",
       "promptSha256": "f35371e2f0114555d7332cf8e96e55b4d2dcb780aab62deeb04e8a5e3bb35fff",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
-      "outputSha256": null,
+      "outputSha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2565,7 +2565,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2605,9 +2605,9 @@
       "recipeId": "movement-trail-d-lantern-motes",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-d-lantern-motes.txt",
       "promptSha256": "3f6eb424798449fad9e16f5e837067825994d7f8e68fbebea13591059924e9e4",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-14T08:36:04.161294Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png",
-      "outputSha256": null,
+      "outputSha256": "4495283e3a8b040f2bdcfa862ac1df4e29d81d38b8cedcd1e5b83737a407566d",
       "targetImportContract": {
         "format": "PNG RGBA",
         "filterMode": "Point",
@@ -2636,7 +2636,7 @@
         "gameplay-size contrast review"
       ],
       "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false

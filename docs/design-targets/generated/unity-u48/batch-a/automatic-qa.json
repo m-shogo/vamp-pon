@@ -2,12 +2,12 @@
   "schemaVersion": 1,
   "sourceHead": "192471e044124885e432d6ecc4166ccfdf8134e8",
   "batch": "A",
-  "generatedAtUtc": "2026-07-14T08:42:03.206034Z",
-  "candidateCount": 12,
+  "generatedAtUtc": "2026-07-14T08:43:08.814741Z",
+  "candidateCount": 36,
   "duplicateContentHashCount": 0,
   "duplicateGuidCount": 0,
   "summary": {
-    "PASS": 12,
+    "PASS": 36,
     "WARNING": 0,
     "FAIL": 0
   },
@@ -630,6 +630,966 @@
         "contrastReview": "live-capture-required",
         "excessiveSaturation": false
       },
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png",
+      "sha256": "af97e95e674dea22ba88f7c609ab438038f30b986505207fe5c3cafed1428451",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        58,
+        26,
+        121,
+        154
+      ],
+      "edgeContact": false,
+      "occupancy": 0.248889,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "f8267e9e9b82bdd02490452003cd442d",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-b-paper-fragment",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
+      "sha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        60,
+        44,
+        126,
+        124
+      ],
+      "edgeContact": false,
+      "occupancy": 0.162963,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png.meta",
+      "meta": {
+        "guid": "686e2b82b0ab5c6f08b3852fb86933ad",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-c-small-crystal",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png",
+      "sha256": "ba85d311106449b0190a736f0f26fe7055d577bfe018066c2cc66b9ed29f5aab",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        54,
+        36,
+        126,
+        138
+      ],
+      "edgeContact": false,
+      "occupancy": 0.226667,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png.meta",
+      "meta": {
+        "guid": "04b73b0673c752c3ceeb719e9c0f3704",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-d-ink-light-hybrid",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png",
+      "sha256": "f8e47b2cea4b4be300042f00c3fc9d254370568eb76f807f749ca68d6945412a",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        56,
+        46,
+        130,
+        132
+      ],
+      "edgeContact": false,
+      "occupancy": 0.19642,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png.meta",
+      "meta": {
+        "guid": "dc2e7c0a84c5a0e5485a64a1f2b50c45",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-a-dawn-drop",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png",
+      "sha256": "f828feeff4ae89e624665ebe6a0431b17a3f7dfa66175ecf386d93a03f37630a",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        58,
+        34,
+        124,
+        142
+      ],
+      "edgeContact": false,
+      "occupancy": 0.22,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png.meta",
+      "meta": {
+        "guid": "ccdf4b857f2821d8824957201e3f24f6",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-b-bandaged-paper-charm",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png",
+      "sha256": "09775e23218cba747eac6fb3827d20be3a2306669f6b761e25b57a3c4bb7337e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        58,
+        42,
+        130,
+        138
+      ],
+      "edgeContact": false,
+      "occupancy": 0.213333,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png.meta",
+      "meta": {
+        "guid": "4afef4357b44ea00e4698f82882b7db1",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-c-warm-lantern-dew",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png",
+      "sha256": "fda47607e4d509a51fbfde75b62f31e646c27d7210fc44edb2ad0c763d695bf0",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        52,
+        34,
+        130,
+        134
+      ],
+      "edgeContact": false,
+      "occupancy": 0.240741,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png.meta",
+      "meta": {
+        "guid": "14704d96d5044f11e6e6d87b23ace526",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-d-restorative-bottle",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
+      "sha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        66,
+        38,
+        120,
+        134
+      ],
+      "edgeContact": false,
+      "occupancy": 0.16,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png.meta",
+      "meta": {
+        "guid": "1bcdce90c3a5266a490606303e075abe",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-a-lantern-spark",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png",
+      "sha256": "0a81a193061bb2d71db93b1e2f18dc18fb8c62d51c2157466feab44bb9a070cf",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        35,
+        31,
+        145,
+        149
+      ],
+      "edgeContact": false,
+      "occupancy": 0.400617,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png.meta",
+      "meta": {
+        "guid": "59c707a7aec166e7038524e5eb783408",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-b-pencil-slash",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png",
+      "sha256": "3e5457d86bdc576e5d0bcf6acc51317c4edd827ac781addaba0481f93c1a8db1",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        34,
+        48,
+        162,
+        134
+      ],
+      "edgeContact": false,
+      "occupancy": 0.339753,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png.meta",
+      "meta": {
+        "guid": "0167b1da8aa56eb15b8ca4e35feccb39",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-c-paper-streak",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
+      "sha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        28,
+        56,
+        156,
+        120
+      ],
+      "edgeContact": false,
+      "occupancy": 0.25284,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png.meta",
+      "meta": {
+        "guid": "90ad291e2ae83d65439673b50d041eb8",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-d-ink-line",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png",
+      "sha256": "686240f262e234e843e45292b4d566730fa7a7eb57b9e8a18d97e27e4077448c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        26,
+        50,
+        158,
+        130
+      ],
+      "edgeContact": false,
+      "occupancy": 0.325926,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png.meta",
+      "meta": {
+        "guid": "4f1f4db8333dcef31eedc8cf3360a850",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png",
+      "sha256": "ce19588904d1117be540ca40d0e34c5e43ac9b543528e789fdd3210121307b24",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        55,
+        53,
+        124,
+        127
+      ],
+      "edgeContact": false,
+      "occupancy": 0.157593,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "aab8f0681d4c4369ea1b2dbff5d21062",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-b-paper-nick",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
+      "sha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        54,
+        54,
+        124,
+        124
+      ],
+      "edgeContact": false,
+      "occupancy": 0.151235,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png.meta",
+      "meta": {
+        "guid": "3f8fb6cbdf333be104eec2e1b5e86fe5",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-c-ink-pinprick",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png",
+      "sha256": "882b9f4a9becc19dfb1064f677817184c8ab85314281a142d3469cf296ec6562",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        62,
+        60,
+        124,
+        116
+      ],
+      "edgeContact": false,
+      "occupancy": 0.10716,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png.meta",
+      "meta": {
+        "guid": "01a6c9492defbb0b4e3050e453f35225",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-d-lantern-cross",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png",
+      "sha256": "4e0dba66cebba94190c9b9fb252f9e710086b4f1aa9b9f5c5e7f2c3f143bca6c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        54,
+        54,
+        128,
+        128
+      ],
+      "edgeContact": false,
+      "occupancy": 0.169012,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png.meta",
+      "meta": {
+        "guid": "b04287326f3c369f39a909d3c678d8dd",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png",
+      "sha256": "afd93e9c0b17e0fc32da8e703727eec303da7c3d5aadd97b4569849aac65689b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        21,
+        19,
+        159,
+        161
+      ],
+      "edgeContact": false,
+      "occupancy": 0.604815,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "49e50efbef9c228f31664171a4f0742e",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-b-paper-scatter",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png",
+      "sha256": "16bf379ac8ae15c3204affa72b67217ac7e2dc4575114d11b4b80927009352b6",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        50,
+        46,
+        132,
+        138
+      ],
+      "edgeContact": false,
+      "occupancy": 0.23284,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png.meta",
+      "meta": {
+        "guid": "e04e9adc261fdf0dd66ce9aaa16a070f",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-c-ink-dissolve",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png",
+      "sha256": "2ec7b4fca23cfe6e9fd60730c1148df663c97c0d36af13023b02f560ec055a97",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        48,
+        52,
+        136,
+        134
+      ],
+      "edgeContact": false,
+      "occupancy": 0.222716,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png.meta",
+      "meta": {
+        "guid": "cca01700257948013bf8f962f045730b",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-d-paper-ink-burst",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
+      "sha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        40,
+        54,
+        142,
+        146
+      ],
+      "edgeContact": false,
+      "occupancy": 0.28963,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png.meta",
+      "meta": {
+        "guid": "d964e037884bed2bb4a99fa07f4bc452",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png",
+      "sha256": "6517663c0f24705bf0e69641df763c96cb545cce87b63b6b4ccc31d898a07edf",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        22,
+        67,
+        158,
+        112
+      ],
+      "edgeContact": false,
+      "occupancy": 0.188889,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "6a26a16e3a6d9912a7d3f34b93980fb5",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-b-pencil-dust",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png",
+      "sha256": "ae8751b3d3f181e2cbf56cff960a6d11edce200493051c8599316b36f8db107e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        40,
+        74,
+        128,
+        130
+      ],
+      "edgeContact": false,
+      "occupancy": 0.152099,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png.meta",
+      "meta": {
+        "guid": "f0b4af199816e23256a77f54cde8c64b",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-c-paper-flecks",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
+      "sha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        42,
+        68,
+        138,
+        128
+      ],
+      "edgeContact": false,
+      "occupancy": 0.177778,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png.meta",
+      "meta": {
+        "guid": "02dbca556ba4de2355a89830ff0cfb4b",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
+      "failures": [],
+      "warnings": [],
+      "notAutomated": [
+        "animation jitter",
+        "silhouette/identity drift",
+        "gameplay-size visibility",
+        "density/overdraw",
+        "live sorting and lifetime"
+      ]
+    },
+    {
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-d-lantern-motes",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png",
+      "sha256": "4495283e3a8b040f2bdcfa862ac1df4e29d81d38b8cedcd1e5b83737a407566d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        38,
+        72,
+        132,
+        130
+      ],
+      "edgeContact": false,
+      "occupancy": 0.168272,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png.meta",
+      "meta": {
+        "guid": "7821bd8ca641e6bf20f99cda6fea93e5",
+        "ppu": 100.0,
+        "spriteMode": 1,
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "defaultCompressionNone": true
+      },
+      "frameQa": null,
+      "backgroundQa": null,
       "failures": [],
       "warnings": [],
       "notAutomated": [
