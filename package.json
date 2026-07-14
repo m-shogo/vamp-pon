@@ -67,6 +67,8 @@
     "unity:u48-production-asset-expansion:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-asset-expansion.ts",
     "unity:u48-production-asset-approval-pack:generate": "python3 scripts/unity/generate-u48-production-asset-approval-pack.py",
     "unity:u48-production-asset-approval-pack:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-asset-approval-pack.ts",
+    "unity:u48-ui-comparison-contracts:generate": "node --experimental-strip-types scripts/unity/generate-u48-ui-comparison-contracts.ts",
+    "unity:u48-candidate-live-preview:check": "node --experimental-strip-types scripts/quality/check-unity-u48-candidate-live-preview.ts",
     "unity:ui-design-system:check": "node --experimental-strip-types scripts/quality/check-unity-ui-design-system.ts",
     "unity:runtime-visual-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-runtime-visual-readiness.ts",
     "implementation:preflight:check": "node --experimental-strip-types scripts/quality/check-unity-big-implementation-readiness.ts",

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "05d20c04007bf7e980c62f98730e7c004b727e51",
+  "capturedAtUtc": "2026-07-14T04:10:28Z",
+  "compileDefine": "VAMPPON_U48_ASSET_PREVIEW",
+  "results": {
+    "normalBatchmodeCompile": "PASS",
+    "normalIosSimulatorExport": "PASS",
+    "previewDefineCompileAndIosSimulatorExport": "PASS",
+    "previewDefineXcodeReleaseSimulatorBuild": "PASS",
+    "simulatorInstall": "PASS",
+    "simulatorLaunch": "PASS",
+    "environmentDisabled": "PASS",
+    "registeredCandidateActivation": "PASS",
+    "unregisteredCandidateExplicitFailure": "PASS",
+    "loadExceptionCleanup": "PASS",
+    "u47EditorVerification": "PASS",
+    "u47CatalogChecker": "PASS",
+    "u47ManifestChecker": "PASS",
+    "u47CompletionChecker": "PASS",
+    "unityMetaGuidCheck": "PASS",
+    "temporaryCatalogCleanup": "PASS"
+  },
+  "successfulRuntime": {
+    "unhandledExceptionCount": 0,
+    "assertionFailureCount": 0,
+    "staleEvidenceCount": 0
+  },
+  "expectedNegativeCases": {
+    "unregisteredCandidateExceptionCount": 1,
+    "missingResourceExceptionCount": 1,
+    "assertionFailureCount": 0,
+    "cleanupPassed": true
+  },
+  "productionIsolation": {
+    "compileDefineRequired": true,
+    "environmentEnableRequired": true,
+    "assetGroupRequired": true,
+    "candidateIdRequired": true,
+    "temporaryBuildCatalogCommitted": false,
+    "productionProviderChanged": false,
+    "productionReadinessPromoted": false
+  }
+}

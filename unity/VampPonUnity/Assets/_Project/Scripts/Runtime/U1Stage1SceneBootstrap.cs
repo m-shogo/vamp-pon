@@ -51,8 +51,22 @@ namespace VampPon.UnitySpike.Runtime
         private void Awake()
         {
             Application.targetFrameRate = 60;
+#if VAMPPON_U48_ASSET_PREVIEW
+            var normalProvider = new RuntimeVisualAssetProvider();
+            assetProvider = U48AssetPreviewProvider.CreateOrDefault(normalProvider);
+            try
+            {
+                battleVisualAssets = assetProvider.LoadBattleVisuals();
+            }
+            catch
+            {
+                (assetProvider as System.IDisposable)?.Dispose();
+                throw;
+            }
+#else
             assetProvider = new RuntimeVisualAssetProvider();
             battleVisualAssets = assetProvider.LoadBattleVisuals();
+#endif
             ApplyPixelRuntimeSettings(battleVisualAssets);
             EnsureEventSystem();
             CreateCamera();
@@ -64,7 +78,18 @@ namespace VampPon.UnitySpike.Runtime
             CreateSafeAreaHud();
             CreateBattlePrototype();
             CreateU46RuntimeShell();
+#if VAMPPON_U48_ASSET_PREVIEW
+            U48AssetPreviewSceneBinder.AttachIfActive(gameObject);
+#endif
         }
+
+#if VAMPPON_U48_ASSET_PREVIEW
+        private void OnDestroy()
+        {
+            GetComponent<U48AssetPreviewSceneBinder>()?.Restore();
+            (assetProvider as System.IDisposable)?.Dispose();
+        }
+#endif
 
         private void Start()
         {

@@ -17,6 +17,7 @@ const scripts = [
   'unity:u47-gameplay-data-runtime:check',
   'unity:u48-production-asset-expansion:check',
   'unity:u48-production-asset-approval-pack:check',
+  'unity:u48-candidate-live-preview:check',
   'unity:runtime-visual-readiness:check',
   'unity:meta:check',
   'test',

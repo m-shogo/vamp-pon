@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "05d20c04007bf7e980c62f98730e7c004b727e51",
+  "cases": [
+    {
+      "caseId": "environment-disabled",
+      "expectedOutcome": "normal-provider",
+      "previewExpectedActive": false,
+      "previewActivated": false,
+      "cleanupPassed": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0,
+      "applicationResultPassed": true,
+      "casePassed": true
+    },
+    {
+      "caseId": "registered-candidate",
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-candidate-a",
+      "expectedOutcome": "preview-provider-active",
+      "previewExpectedActive": true,
+      "previewActivated": true,
+      "cleanupPassed": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0,
+      "applicationResultPassed": true,
+      "casePassed": true
+    },
+    {
+      "caseId": "unregistered-candidate",
+      "assetGroup": "common-projectile",
+      "candidateId": "unregistered-candidate",
+      "expectedOutcome": "explicit-failure-no-fallback",
+      "previewExpectedActive": true,
+      "previewActivated": false,
+      "cleanupPassed": true,
+      "unhandledExceptionCount": 1,
+      "assertionFailureCount": 0,
+      "failure": "InvalidOperationException: U48 preview candidate resolution failed: assetGroup=common-projectile, candidateId=unregistered-candidate, matches=0",
+      "applicationResultPassed": false,
+      "casePassed": true
+    },
+    {
+      "caseId": "registered-missing-resource",
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-missing-resource-verification",
+      "expectedOutcome": "load-exception-with-cleanup",
+      "previewExpectedActive": true,
+      "previewActivated": false,
+      "cleanupPassed": true,
+      "unhandledExceptionCount": 1,
+      "assertionFailureCount": 0,
+      "failure": "InvalidOperationException: U48 preview sprite missing: U48Preview/intentionally-missing-resource",
+      "applicationResultPassed": false,
+      "casePassed": true
+    }
+  ]
+}

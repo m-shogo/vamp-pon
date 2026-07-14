@@ -5,6 +5,8 @@
   "status": "IN_PROGRESS_BLOCKED",
   "u47GameplayDataRuntimeReady": true,
   "productionAssetAuditReady": true,
+  "uiComparisonContractsReady": true,
+  "candidateLivePreviewFoundationReady": true,
   "productionAssetApprovalPackReady": false,
   "approvedProductionAssetSetAvailable": false,
   "productionVisualAssetProviderConnected": false,
@@ -18,7 +20,7 @@
   "productionApproved": false,
   "completionBlocked": true,
   "blockers": [
-    "Priority A approval inventory exists, but 13 groups have fewer than four meaningful unique candidates and 3 UI groups contain non-equivalent kit components",
+    "Priority A approval inventory exists, but 13 groups have fewer than four meaningful unique candidates and the 30 split UI comparison units still require equivalent candidates",
     "candidate-specific live previews for Standard/Compact/Large are not captured",
     "candidate lineage is partial or unknown and human approval is pending",
     "no U48 target asset has approvedAsFinal=true and runtimeApproved=true",

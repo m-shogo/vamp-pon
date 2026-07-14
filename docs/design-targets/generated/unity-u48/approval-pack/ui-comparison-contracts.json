@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "05d20c04007bf7e980c62f98730e7c004b727e51",
+  "status": "IN_PROGRESS_BLOCKED",
+  "deprecatedGroups": [
+    {
+      "assetGroup": "ui-hud-inventory-frame",
+      "historyStatus": "split-required",
+      "splitInto": [
+        "hud-top-status-frame",
+        "hud-hp-frame",
+        "hud-timer-frame",
+        "hud-inventory-weapon-slot",
+        "hud-inventory-passive-slot",
+        "hud-inventory-rare-slot",
+        "hud-kokuyou-gauge-frame"
+      ]
+    },
+    {
+      "assetGroup": "ui-levelup-card",
+      "historyStatus": "split-required",
+      "splitInto": [
+        "levelup-card-background",
+        "levelup-icon-frame",
+        "levelup-title-area",
+        "levelup-description-area",
+        "levelup-selection-feedback",
+        "levelup-decline-button"
+      ]
+    },
+    {
+      "assetGroup": "ui-replacement-modal",
+      "historyStatus": "split-required",
+      "splitInto": [
+        "replacement-modal-background",
+        "replacement-incoming-candidate-panel",
+        "replacement-owned-slot-row",
+        "replacement-selected-slot-state",
+        "replacement-confirm-button",
+        "replacement-decline-cancel-button"
+      ]
+    },
+    {
+      "assetGroup": "ui-result-kit",
+      "historyStatus": "split-required",
+      "splitInto": [
+        "result-main-panel",
+        "result-summary-header",
+        "result-inventory-row",
+        "result-evolution-awakening-row",
+        "result-retry-button",
+        "result-return-button"
+      ]
+    },
+    {
+      "assetGroup": "ui-stage-select-kit",
+      "historyStatus": "split-required",
+      "splitInto": [
+        "stage-select-stage-card",
+        "stage-select-locked-unlocked-state",
+        "stage-select-primary-button",
+        "stage-select-title-frame",
+        "stage-select-difficulty-metadata-row"
+      ]
+    }
+  ],
+  "comparisonGroups": [
+    {
+      "assetGroup": "hud-top-status-frame",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "low-hp"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "occupied",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "occupied",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "hud-inventory-rare-slot",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "occupied",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "owner": "hud",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "charging",
+          "ready",
+          "active",
+          "recovery"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "owner": "levelup",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "owner": "levelup",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "owner": "levelup",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "owner": "levelup",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "owner": "levelup",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "owner": "levelup",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "owner": "replacement",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "owner": "replacement",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "owner": "replacement",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "owner": "replacement",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "owner": "replacement",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "replacement-decline-cancel-button",
+      "owner": "replacement",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "owner": "result",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "clear",
+          "failed"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "owner": "result",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "clear",
+          "failed"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "owner": "result",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "empty"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "owner": "result",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "empty"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "owner": "result",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "result-return-button",
+      "owner": "result",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "owner": "stageSelect",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "locked",
+          "unlocked",
+          "completed",
+          "selected"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "owner": "stageSelect",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "locked",
+          "unlocked"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "owner": "stageSelect",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "pressed",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "owner": "stageSelect",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "selected"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    },
+    {
+      "assetGroup": "stage-select-difficulty-metadata-row",
+      "owner": "stageSelect",
+      "historyStatus": "active-comparison-unit",
+      "comparisonContract": {
+        "samePurpose": true,
+        "sameLogicalSize": true,
+        "sameTextSafeArea": true,
+        "sameRuntimePosition": true,
+        "sameRequiredStates": [
+          "default",
+          "disabled"
+        ]
+      },
+      "candidateStatus": "generation-required",
+      "approvalReviewReady": false
+    }
+  ],
+  "activeComparisonGroupCount": 30,
+  "approvedAsFinal": false,
+  "runtimeApproved": false,
+  "humanReviewStatus": "pending"
+}
