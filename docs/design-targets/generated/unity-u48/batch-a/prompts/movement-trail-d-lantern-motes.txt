@@ -1,0 +1,4 @@
+Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.
+Candidate role: readability-improvement.
+Inherit: 短く静かな移動方向cue; 紙粉・小インク・弱い灯粒.
+Avoid: 長いbeam; damage判定を示すring; 強い発光; 常時画面残留.

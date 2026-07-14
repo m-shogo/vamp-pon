@@ -1,0 +1,4 @@
+Create a small memory-fragment pickup that stays distinct from healing and candidate crystals at gameplay size.
+Candidate role: paper-fragment.
+Inherit: 小さな記憶片; 淡い青白光; 紙片または小水晶の単一object.
+Avoid: 赤いハート; 大きな宝石; 強い点滅; UI frame; text.

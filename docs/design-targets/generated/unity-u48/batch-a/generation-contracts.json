@@ -1,0 +1,2645 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "192471e044124885e432d6ecc4166ccfdf8134e8",
+  "batch": "A",
+  "assetGroupCount": 9,
+  "candidateCount": 36,
+  "contracts": [
+    {
+      "schemaVersion": 1,
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "existing",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/character-master/core5/yui-character-master-v1.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+        "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e"
+      ],
+      "canonicalPromptCatalogKey": "character:yui:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:character:yui:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "player-yui-a-runtime-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-a-runtime-baseline.txt",
+      "promptSha256": "36290e6170e4ac5bb164ce690e8d8a2d6211a793d4784a5508267c28388cd1d6",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 150,
+        "pivot": [
+          0.5,
+          0.02
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-b-silhouette",
+      "candidateRole": "silhouette-improvement",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/character-master/core5/yui-character-master-v1.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+        "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e"
+      ],
+      "canonicalPromptCatalogKey": "character:yui:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:character:yui:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "player-yui-b-silhouette",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-b-silhouette.txt",
+      "promptSha256": "e9558f8f421b5ba6a730c737338273ce5b70f4071293220c29017fd0bd22a981",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-b-silhouette.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 150,
+        "pivot": [
+          0.5,
+          0.02
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-c-lantern-bag",
+      "candidateRole": "readability-improvement",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/character-master/core5/yui-character-master-v1.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+        "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e"
+      ],
+      "canonicalPromptCatalogKey": "character:yui:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:character:yui:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "player-yui-c-lantern-bag",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-c-lantern-bag.txt",
+      "promptSha256": "1726a0098d5bd75b908c3432ce8a92adbe176f0dce6b9c423f1c2ecd24ece633",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 150,
+        "pivot": [
+          0.5,
+          0.02
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-d-paper-ink",
+      "candidateRole": "lineage-rebuild",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/character-master/core5/yui-character-master-v1.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+        "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e"
+      ],
+      "canonicalPromptCatalogKey": "character:yui:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:character:yui:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "player-yui-d-paper-ink",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/player-yui-d-paper-ink.txt",
+      "promptSha256": "93ac7e2c0d3758aed8754ea0b667a4074de7f47134c417ff00835ac5b725ac0c",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-d-paper-ink.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 150,
+        "pivot": [
+          0.5,
+          0.02
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon character asset, storybook pixel-art flavor, paper fragments, memory, black ink, small light, warm night mood, mobile game readable silhouette, charming but not baby-like, dark but not horror, textless production asset.\nCharacter: ユイ (yui).\nCore vessel: ランタン.\nLineage: 火 / 記憶火.\nCombat role: 回収安定型.\nPlay feel: 拾う、集める、戻す。初心者向けで欠片回収が強い.\nStarter gear: 夜の鉛筆.\nPassive item: 金のコンパス.\nRare item: 誰かの名前札.\nArt names: 夜解きの灯 / 忘れ火の道標 / 消えない名前.\nVisual keywords: ランタン, 火 / 記憶火, 回収安定型, 夜の鉛筆, 金のコンパス, 誰かの名前札, 夜解きの灯, 忘れ火の道標, 消えない名前, 呼びすぎた名前, Y-01, 消えない名の灯紋, ランタン, 青フード, 紙片, 暖色の横光, round lantern crest, warm small flame, paper fragment, fawn constellation.\nAsset focus: Create a 48-frame character sprite sheet for gameplay prototype. Frames should cover idle, walk, hurt, attack/skill, dawn light pose, and kokuyou pose variations. Keep the starter gear readable: 夜の鉛筆. Keep the vessel readable: ランタン. Use simple readable poses; do not over-detail the face.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, character fully inside every cell, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "existing",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/enemies/ink_enemy_family_reference.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+        "docs/design/world/the-truth-of-onbu.md"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3452cb08dc67fe71a1d919d51f6bdda64b00743ce4ad284bebe8c19783da3fa7",
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+        "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
+        "4c083dffac4e2489824e7467f30f7989c75bd5f2b852fe6fa620a684fc88a8fa"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02"
+      ],
+      "canonicalPromptCatalogKey": "enemy:ombu_small_ink:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:enemy:ombu_small_ink:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-onbu-a-runtime-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-a-runtime-baseline.txt",
+      "promptSha256": "9c346f6f126bfbe23fd6e2dcfb7258860fa761ec5e9389b6ec61d588144e49f5",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 120,
+        "pivot": [
+          0.5,
+          0.08
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-b-silhouette",
+      "candidateRole": "silhouette-improvement",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/enemies/ink_enemy_family_reference.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+        "docs/design/world/the-truth-of-onbu.md"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3452cb08dc67fe71a1d919d51f6bdda64b00743ce4ad284bebe8c19783da3fa7",
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+        "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
+        "4c083dffac4e2489824e7467f30f7989c75bd5f2b852fe6fa620a684fc88a8fa"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02"
+      ],
+      "canonicalPromptCatalogKey": "enemy:ombu_small_ink:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:enemy:ombu_small_ink:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-onbu-b-silhouette",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-b-silhouette.txt",
+      "promptSha256": "7813cc9e72d9955f9ee64425a900f97dd0937162f8c6eed093b1e263a078bc62",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-b-silhouette.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 120,
+        "pivot": [
+          0.5,
+          0.08
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-c-sprout-mist",
+      "candidateRole": "readability-improvement",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/enemies/ink_enemy_family_reference.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+        "docs/design/world/the-truth-of-onbu.md"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3452cb08dc67fe71a1d919d51f6bdda64b00743ce4ad284bebe8c19783da3fa7",
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+        "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
+        "4c083dffac4e2489824e7467f30f7989c75bd5f2b852fe6fa620a684fc88a8fa"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02"
+      ],
+      "canonicalPromptCatalogKey": "enemy:ombu_small_ink:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:enemy:ombu_small_ink:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-onbu-c-sprout-mist",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-c-sprout-mist.txt",
+      "promptSha256": "2e95fd64e8a3803145d71e00575d25175700a73bbfe9f37e1ffb4a62fb394f90",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 120,
+        "pivot": [
+          0.5,
+          0.08
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-d-ink-death",
+      "candidateRole": "lineage-rebuild",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "assets/reference/enemies/ink_enemy_family_reference.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+        "docs/design/world/the-truth-of-onbu.md"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3452cb08dc67fe71a1d919d51f6bdda64b00743ce4ad284bebe8c19783da3fa7",
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+        "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
+        "4c083dffac4e2489824e7467f30f7989c75bd5f2b852fe6fa620a684fc88a8fa"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png"
+      ],
+      "parentSourceSha256": [
+        "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02"
+      ],
+      "canonicalPromptCatalogKey": "enemy:ombu_small_ink:sprite_sheet_180",
+      "canonicalContractId": "asset-contract:enemy:ombu_small_ink:sprite_sheet_180:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-onbu-d-ink-death",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-onbu-d-ink-death.txt",
+      "promptSha256": "d6261e8cd5ddbf435026be376ccd00406727c3b135510fa85df0226292642f64",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-d-ink-death.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 120,
+        "pivot": [
+          0.5,
+          0.08
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": {
+          "columns": 8,
+          "rows": 6,
+          "cellWidth": 180,
+          "cellHeight": 180
+        }
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon enemy asset, paper storybook pixel-art flavor, black ink memory shadow, readable mobile game silhouette, dark but not horror.\nEnemy: オンブ 墨 (ombu_small_ink).\nRank/family: small / ombu.\nReadable role: 基準雑魚。最初に読ませる黒い影。.\nWrong reading: ただの黒い塊に見える.\nReleased clue: 短い名前の端.\nMovement: ゆっくり直進. Attack cue: 体が一瞬だけ前へ伸びる.\nSilhouette: 腕なし、短い一本のインク芽、丸い影炎.\nPalette: ink black, deep navy.\nKeywords: small ink shadow, one short sprout, round soft body, no arms.\nOutput spec: 1440x1080 PNG RGBA, 8 columns x 6 rows, 48 cells, 180x180 per cell, transparent background, no edge contact.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-a-procedural-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
+        "assets/reference/backgrounds/stage1_night_tile_reference.png",
+        "assets/concept-design/01_world/world_night-town_01.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+        "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+        "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/ProceduralSpriteFactory.cs"
+      ],
+      "parentSourceSha256": [
+        "bb549e8cdeb5f42dbb66bb8b4686802926a9824843f9730e352279b59bc9b6bd"
+      ],
+      "canonicalPromptCatalogKey": "stage:forgotten_street:background_390x844",
+      "canonicalContractId": "asset-contract:stage:forgotten_street:background_390x844:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "stage1-background-a-procedural-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-a-procedural-baseline.txt",
+      "promptSha256": "9614e33b37233e26ca39eb8f56dd7db5280e57b6ad0f571fd1ff67143912dfd5",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-a-procedural-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 64,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-b-paper-map",
+      "candidateRole": "paper-map-priority",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
+        "assets/reference/backgrounds/stage1_night_tile_reference.png",
+        "assets/concept-design/01_world/world_night-town_01.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+        "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+        "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "assets/reference/backgrounds/stage1_night_tile_reference.png"
+      ],
+      "parentSourceSha256": [
+        "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f"
+      ],
+      "canonicalPromptCatalogKey": "stage:forgotten_street:background_390x844",
+      "canonicalContractId": "asset-contract:stage:forgotten_street:background_390x844:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "stage1-background-b-paper-map",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-b-paper-map.txt",
+      "promptSha256": "f833bae8c499d13962d9309c9a93ae89c70f7ed54500d3458770a2380eccd9f3",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-b-paper-map.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 64,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-c-night-street",
+      "candidateRole": "night-street-priority",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
+        "assets/reference/backgrounds/stage1_night_tile_reference.png",
+        "assets/concept-design/01_world/world_night-town_01.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+        "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+        "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "assets/concept-design/01_world/world_night-town_01.png"
+      ],
+      "parentSourceSha256": [
+        "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e"
+      ],
+      "canonicalPromptCatalogKey": "stage:forgotten_street:background_390x844",
+      "canonicalContractId": "asset-contract:stage:forgotten_street:background_390x844:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "stage1-background-c-night-street",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-c-night-street.txt",
+      "promptSha256": "94fb4222b179aa3b305bdd9b7494bcbbeafb2a5083621c42a82dbbfe1e4d4ccd",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 64,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-d-balanced",
+      "candidateRole": "readability-improvement",
+      "sourceType": "generated-from-master",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
+        "assets/reference/backgrounds/stage1_night_tile_reference.png",
+        "assets/concept-design/01_world/world_night-town_01.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+        "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+        "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "public/assets/prototypes/backgrounds/stage-01/environment-master.png"
+      ],
+      "parentSourceSha256": [
+        "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542"
+      ],
+      "canonicalPromptCatalogKey": "stage:forgotten_street:background_390x844",
+      "canonicalContractId": "asset-contract:stage:forgotten_street:background_390x844:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "stage1-background-d-balanced",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/stage1-background-d-balanced.txt",
+      "promptSha256": "9866690328c385ebd7087e9e5d72a2332d875026d54b519ebe297fa25c6cf04a",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-d-balanced.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 64,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon stage asset, vertical mobile survival roguelite background, paper storybook pixel-art flavor, night memory mood, clear gameplay readability.\nStage: 忘れられた夜道 (forgotten_street).\nPhase: core5. Leads: yui.\nCore question: 誰のものか分からない記憶を、ユイは間違えずに拾えるか。.\nStory seed: 街灯の下に名前のない紙片が落ちている。.\nMotifs: 夜の街, ランタン, 紙片, 黒インクの水たまり.\nEnemy affinity: ombu_small_ink, omburo_ink_arm, boss_name_without_owner. Item seeds: 記憶片, 朝露, 夜の鉛筆.\nMechanic seed: 基準ステージ。視認性と8分サバイバルの読みやすさを優先。.\nColor script: deep navy, warm amber, paper cream.\nKeywords: forgotten street, paper fragments, warm lantern glow, black ink puddles.\nOutput spec: 390x844 PNG concept source, vertical mobile background, no UI text, readable play area, dark but clear.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "existing",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png"
+      ],
+      "parentSourceSha256": [
+        "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_memory_fragment:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_memory_fragment:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "exp-pickup-a-runtime-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-a-runtime-baseline.txt",
+      "promptSha256": "4e2bc25fab77a36e121a145dd1e11dbadaaa0e5635718867f8521118f2d9835a",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-b-paper-fragment",
+      "candidateRole": "paper-fragment",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_memory_fragment:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_memory_fragment:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "exp-pickup-b-paper-fragment",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-b-paper-fragment.txt",
+      "promptSha256": "6af2a5cd7994d9fdc2ca4f20051bd063d07bc77ed97c79a62e884e4acee0f5f0",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-c-small-crystal",
+      "candidateRole": "small-crystal",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_memory_fragment:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_memory_fragment:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "exp-pickup-c-small-crystal",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-c-small-crystal.txt",
+      "promptSha256": "05eacd1e0342f399a9d1c1ade5cb367f36de8890ed6f6a94b46e090415a3045c",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-c-small-crystal.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "exp-pickup",
+      "candidateId": "exp-pickup-d-ink-light-hybrid",
+      "candidateRole": "readability-improvement",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+        "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_memory_fragment:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_memory_fragment:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "exp-pickup-d-ink-light-hybrid",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/exp-pickup-d-ink-light-hybrid.txt",
+      "promptSha256": "9c0a8c22acb0ab0add9e4e9fdca6c951c2a66e2e859b3314354bc1e2c67a3f86",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-d-ink-light-hybrid.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 記憶片 (field_drop_memory_fragment).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 経験と通貨の中間。拾う気持ちよさの中心。.\nLore hook: 記憶片 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 記憶片を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 記憶片, 経験と通貨の中間。拾う気持ちよさの中心。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-a-dawn-drop",
+      "candidateRole": "dawn-drop",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "missing",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "src/game/data/itemAssetProductionDatabase.ts",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ae7acd59d9905641806e056ad940e8a0e2427f2ff465df49a5c532474d5c20d5",
+        "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_morning_dew:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_morning_dew:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "healing-pickup-a-dawn-drop",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-a-dawn-drop.txt",
+      "promptSha256": "a56db223012488a15923b222839997c95eea896670ab1c45d2b5963e54408665",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-a-dawn-drop.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-b-bandaged-paper-charm",
+      "candidateRole": "bandaged-paper-charm",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "missing",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "src/game/data/itemAssetProductionDatabase.ts",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ae7acd59d9905641806e056ad940e8a0e2427f2ff465df49a5c532474d5c20d5",
+        "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_morning_dew:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_morning_dew:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "healing-pickup-b-bandaged-paper-charm",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-b-bandaged-paper-charm.txt",
+      "promptSha256": "dc9c463734543949ba3eea8c99835ae9597e53c40d202e025110bc5fc9407337",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-b-bandaged-paper-charm.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-c-warm-lantern-dew",
+      "candidateRole": "warm-lantern-dew",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "missing",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "src/game/data/itemAssetProductionDatabase.ts",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ae7acd59d9905641806e056ad940e8a0e2427f2ff465df49a5c532474d5c20d5",
+        "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_morning_dew:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_morning_dew:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "healing-pickup-c-warm-lantern-dew",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-c-warm-lantern-dew.txt",
+      "promptSha256": "f241740f55ecf69c53cde48484020608a44ab58096fe00343bf854d6fe64cdb1",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-c-warm-lantern-dew.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "healing-pickup",
+      "candidateId": "healing-pickup-d-restorative-bottle",
+      "candidateRole": "small-restorative-bottle",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "missing",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "src/game/data/itemAssetProductionDatabase.ts",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ae7acd59d9905641806e056ad940e8a0e2427f2ff465df49a5c532474d5c20d5",
+        "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": "item:field_drop_morning_dew:pickup_32",
+      "canonicalContractId": "asset-contract:item:field_drop_morning_dew:pickup_32:v1",
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "healing-pickup-d-restorative-bottle",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/healing-pickup-d-restorative-bottle.txt",
+      "promptSha256": "24b45b4e6a6af7475830ad85ad3dd19833784179e40a709ad55e23bd686f6822",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Vamp Pon item asset, paper storybook pixel-art flavor, small meaningful object, memory and night mood, mobile game readable icon.\nItem: 朝露 (field_drop_morning_dew).\nKind: field_drop. Role: 戦闘中の落とし物.\nGameplay use: 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。.\nLore hook: 朝露 は戦闘中に拾う短期的な意味片。.\nVisual anchor: 朝露を32pxでも拾いたくなる小物にする.\nMotif lanes: memory. Palette: pickup glow, paper cream, clear aqua.\nKeywords: 朝露, 回復。吸い寄せず、プレイヤーが取りに行く判断を残す。, small pickup icon, memory drop.\nOutput spec: 32x32 PNG RGBA source, high readability pickup silhouette, transparent background.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-a-lantern-spark",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "existing",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/06-yui-attack.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "5dd76a391995985ef028fc9b10da78dab3640eeda41275f43185d0740612ecea"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png"
+      ],
+      "parentSourceSha256": [
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "common-projectile-a-lantern-spark",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-a-lantern-spark.txt",
+      "promptSha256": "09c42979c26116814a06f4209c00c62009a2f9934e76f2707c7d6429f2fa6b82",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-a-lantern-spark.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-b-pencil-slash",
+      "candidateRole": "pencil-slash",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/06-yui-attack.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "5dd76a391995985ef028fc9b10da78dab3640eeda41275f43185d0740612ecea"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "common-projectile-b-pencil-slash",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-b-pencil-slash.txt",
+      "promptSha256": "d36486aef72f9908bbd0e0541f2c74e4144bb809e14cea492ecc2b38a81a1c45",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-b-pencil-slash.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-c-paper-streak",
+      "candidateRole": "paper-streak",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/06-yui-attack.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "5dd76a391995985ef028fc9b10da78dab3640eeda41275f43185d0740612ecea"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "common-projectile-c-paper-streak",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-c-paper-streak.txt",
+      "promptSha256": "63cb9cd9408c2918cd4b98b3ea56ed1e8bb52c07f095b5ed404c5643abfa49bc",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-d-ink-line",
+      "candidateRole": "ink-line",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/06-yui-attack.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "5dd76a391995985ef028fc9b10da78dab3640eeda41275f43185d0740612ecea"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "common-projectile-d-ink-line",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/common-projectile-d-ink-line.txt",
+      "promptSha256": "3580c3470b2d71da7b94505b2102472bfa773b58d0e75e4385f18c93d4dd068d",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-d-ink-line.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png"
+      ],
+      "parentSourceSha256": [
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "hit-effect-a-runtime-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-a-runtime-baseline.txt",
+      "promptSha256": "f83a299fe269274feff12ce38e92146cba436d6024dcc44d9a564ff28c584fb0",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-b-paper-nick",
+      "candidateRole": "paper-nick",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "hit-effect-b-paper-nick",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-b-paper-nick.txt",
+      "promptSha256": "0ed204bc87e09f11d38e6220bc83bf264488f13cdee5491b078ae3b79aacfec5",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-c-ink-pinprick",
+      "candidateRole": "ink-pinprick",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "hit-effect-c-ink-pinprick",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-c-ink-pinprick.txt",
+      "promptSha256": "ae8649c31d3e6fdc60c5521f4cc1188ccbaf65d5c02a5cffb98959b287599d5f",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-c-ink-pinprick.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-d-lantern-cross",
+      "candidateRole": "readability-improvement",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+        "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "hit-effect-d-lantern-cross",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/hit-effect-d-lantern-cross.txt",
+      "promptSha256": "9b7b719b1aa0901c08dbeaf5c280cdd25bbc3a5afff45537b52953f5e2d53ece",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-d-lantern-cross.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "existing",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-death-effect-a-runtime-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-a-runtime-baseline.txt",
+      "promptSha256": "ed2783c36370a13f8a7fe0c52a89a8bbec7b6ab1251ef8149d6587fda382ec0c",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-b-paper-scatter",
+      "candidateRole": "paper-scatter",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-death-effect-b-paper-scatter",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-b-paper-scatter.txt",
+      "promptSha256": "98fad6930d48965508c6664064fcc442ed2253aecc2cfdba553e99adf18a27b3",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-b-paper-scatter.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-c-ink-dissolve",
+      "candidateRole": "ink-dissolve",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-death-effect-c-ink-dissolve",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-c-ink-dissolve.txt",
+      "promptSha256": "539143ee4b4b0349242446247db6f238e28e3cccb21a8910f803621019b9d610",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-c-ink-dissolve.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-d-paper-ink-burst",
+      "candidateRole": "readability-improvement",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "enemy-death-effect-d-paper-ink-burst",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/enemy-death-effect-d-paper-ink-burst.txt",
+      "promptSha256": "c8d6025f9f1e0318526740fa7cf272ba0ef79a53fbf8ed3030f21654af80da92",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "existing",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/03-yui-walk-right.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+        "ba7094c1cec8934be53d61806fa584e0d30a7f3bb54514623f5c2fc3ccfba956"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png"
+      ],
+      "parentSourceSha256": [
+        "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "movement-trail-a-runtime-baseline",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-a-runtime-baseline.txt",
+      "promptSha256": "62c1275a6976eb50752b6c4dfa5df2d703d0d1f2545efef1ae38c63dd7280b1c",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-b-pencil-dust",
+      "candidateRole": "pencil-dust",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/03-yui-walk-right.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+        "ba7094c1cec8934be53d61806fa584e0d30a7f3bb54514623f5c2fc3ccfba956"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "movement-trail-b-pencil-dust",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-b-pencil-dust.txt",
+      "promptSha256": "b96b114802fece94e840a6e13906d4552acd1d52b4ba94013c6596e5facb4db1",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-b-pencil-dust.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-c-paper-flecks",
+      "candidateRole": "paper-flecks",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/03-yui-walk-right.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+        "ba7094c1cec8934be53d61806fa584e0d30a7f3bb54514623f5c2fc3ccfba956"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "movement-trail-c-paper-flecks",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-c-paper-flecks.txt",
+      "promptSha256": "f35371e2f0114555d7332cf8e96e55b4d2dcb780aab62deeb04e8a5e3bb35fff",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-d-lantern-motes",
+      "candidateRole": "readability-improvement",
+      "sourceType": "procedural-authored",
+      "goldenReferenceStatus": "composite",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/181-current-production-canon.md",
+        "docs/design-targets/generated/top-final.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+        "docs/design-targets/generated/unity-u45-1/screenshots/03-yui-walk-right.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+        "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+        "ba7094c1cec8934be53d61806fa584e0d30a7f3bb54514623f5c2fc3ccfba956"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/generated/top-final.png"
+      ],
+      "parentSourceSha256": [
+        "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc"
+      ],
+      "canonicalPromptCatalogKey": null,
+      "canonicalContractId": null,
+      "generationTool": "scripts/unity/build-u48-batch-a-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-a/generation-recipes.json",
+      "recipeId": "movement-trail-d-lantern-motes",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-a/prompts/movement-trail-d-lantern-motes.txt",
+      "promptSha256": "3f6eb424798449fad9e16f5e837067825994d7f8e68fbebea13591059924e9e4",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-d-lantern-motes.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "runtimeContract": {
+        "viewportReference": "390x844 portrait",
+        "worldSizeUnchanged": true,
+        "gameplayValuesUnchanged": true,
+        "frameGrid": null
+      },
+      "automaticQaContract": [
+        "file exists and PNG is RGBA",
+        "source/output SHA-256 match",
+        "duplicate content hash excluded",
+        ".meta exists and GUID is unique",
+        "Point filter, no compression, mipmap off",
+        "finite non-empty bounds and edge-contact review",
+        "gameplay-size contrast review"
+      ],
+      "canonicalPrompt": "Create a short quiet movement-direction cue that never implies damage and does not cover Yui or joystick space.",
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    }
+  ]
+}

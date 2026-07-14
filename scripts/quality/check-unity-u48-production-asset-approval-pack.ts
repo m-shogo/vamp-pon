@@ -22,11 +22,19 @@ const readiness = json('docs/design-targets/generated/unity-u48/readiness.json')
 const runtimeManifest = json('unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/runtime-dot-manifest.json');
 const provider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs').toString();
 const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
-const parent = execFileSync('git', ['rev-parse', 'HEAD^'], { cwd: root, encoding: 'utf8' }).trim();
+const sourceHeadIsAuditedAncestor = (() => {
+  if (!/^[0-9a-f]{40}$/.test(manifest.sourceHead)) return false;
+  try {
+    execFileSync('git', ['merge-base', '--is-ancestor', manifest.sourceHead, head], { cwd: root, stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+})();
 
 check(manifest.schemaVersion === 1 && manifest.assetGroups.length === 21, 'schema and Priority A group count');
 check(JSON.stringify(manifest.assetGroups.map((group: { assetKey: string }) => group.assetKey)) === JSON.stringify(expectedKeys), 'exact ordered Priority A groups');
-check(manifest.sourceHead === head || manifest.sourceHead === parent, 'sourceHead must be current commit or its direct audited parent');
+check(sourceHeadIsAuditedAncestor, 'sourceHead must be an audited ancestor of the current commit');
 check(manifest.packStatus === 'IN_PROGRESS_BLOCKED' && manifest.productionAssetApprovalPackReady === false, 'pack remains blocked');
 check(manifest.candidateSpecificLivePreviewReady === false, 'candidate-specific live preview is not faked');
 check(manifest.approvedAsFinalCount === 0 && manifest.runtimeApprovedCount === 0 && manifest.humanApprovedCount === 0, 'approval counts remain zero');

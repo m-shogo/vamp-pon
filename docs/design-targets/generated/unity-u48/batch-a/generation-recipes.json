@@ -1,0 +1,475 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "192471e044124885e432d6ecc4166ccfdf8134e8",
+  "toolVersion": "1",
+  "recipes": [
+    {
+      "recipeId": "player-yui-a-runtime-baseline",
+      "assetGroup": "player-yui",
+      "operation": "copy-sheet",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "player-yui-b-silhouette",
+      "assetGroup": "player-yui",
+      "operation": "sheet-outline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "player-yui-c-lantern-bag",
+      "assetGroup": "player-yui",
+      "operation": "sheet-lantern-bag-contrast",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "player-yui-d-paper-ink",
+      "assetGroup": "player-yui",
+      "operation": "sheet-paper-ink-texture",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-onbu-a-runtime-baseline",
+      "assetGroup": "enemy-onbu",
+      "operation": "copy-sheet",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-onbu-b-silhouette",
+      "assetGroup": "enemy-onbu",
+      "operation": "sheet-outline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-onbu-c-sprout-mist",
+      "assetGroup": "enemy-onbu",
+      "operation": "sheet-sprout-mist-contrast",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-onbu-d-ink-death",
+      "assetGroup": "enemy-onbu",
+      "operation": "sheet-ink-death-texture",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "stage1-background-a-procedural-baseline",
+      "assetGroup": "stage1-background",
+      "operation": "procedural-paper-baseline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "stage1-background-b-paper-map",
+      "assetGroup": "stage1-background",
+      "operation": "background-paper-map",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "stage1-background-c-night-street",
+      "assetGroup": "stage1-background",
+      "operation": "background-night-street",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "stage1-background-d-balanced",
+      "assetGroup": "stage1-background",
+      "operation": "background-balanced",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "exp-pickup-a-runtime-baseline",
+      "assetGroup": "exp-pickup",
+      "operation": "fit-single-sprite",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "exp-pickup-b-paper-fragment",
+      "assetGroup": "exp-pickup",
+      "operation": "draw-exp-paper-fragment",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "exp-pickup-c-small-crystal",
+      "assetGroup": "exp-pickup",
+      "operation": "draw-exp-small-crystal",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "exp-pickup-d-ink-light-hybrid",
+      "assetGroup": "exp-pickup",
+      "operation": "draw-exp-ink-light-hybrid",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "healing-pickup-a-dawn-drop",
+      "assetGroup": "healing-pickup",
+      "operation": "draw-healing-dawn-drop",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "healing-pickup-b-bandaged-paper-charm",
+      "assetGroup": "healing-pickup",
+      "operation": "draw-healing-paper-charm",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "healing-pickup-c-warm-lantern-dew",
+      "assetGroup": "healing-pickup",
+      "operation": "draw-healing-lantern-dew",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "healing-pickup-d-restorative-bottle",
+      "assetGroup": "healing-pickup",
+      "operation": "draw-healing-restorative-bottle",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "common-projectile-a-lantern-spark",
+      "assetGroup": "common-projectile",
+      "operation": "fit-projectile-baseline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "common-projectile-b-pencil-slash",
+      "assetGroup": "common-projectile",
+      "operation": "draw-projectile-pencil",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "common-projectile-c-paper-streak",
+      "assetGroup": "common-projectile",
+      "operation": "draw-projectile-paper",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "common-projectile-d-ink-line",
+      "assetGroup": "common-projectile",
+      "operation": "draw-projectile-ink",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "hit-effect-a-runtime-baseline",
+      "assetGroup": "hit-effect",
+      "operation": "derive-hit-baseline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "hit-effect-b-paper-nick",
+      "assetGroup": "hit-effect",
+      "operation": "draw-hit-paper-nick",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "hit-effect-c-ink-pinprick",
+      "assetGroup": "hit-effect",
+      "operation": "draw-hit-ink-pinprick",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "hit-effect-d-lantern-cross",
+      "assetGroup": "hit-effect",
+      "operation": "draw-hit-lantern-cross",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-death-effect-a-runtime-baseline",
+      "assetGroup": "enemy-death-effect",
+      "operation": "fit-death-baseline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-death-effect-b-paper-scatter",
+      "assetGroup": "enemy-death-effect",
+      "operation": "draw-death-paper-scatter",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-death-effect-c-ink-dissolve",
+      "assetGroup": "enemy-death-effect",
+      "operation": "draw-death-ink-dissolve",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "enemy-death-effect-d-paper-ink-burst",
+      "assetGroup": "enemy-death-effect",
+      "operation": "draw-death-paper-ink",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "movement-trail-a-runtime-baseline",
+      "assetGroup": "movement-trail",
+      "operation": "fit-trail-baseline",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "movement-trail-b-pencil-dust",
+      "assetGroup": "movement-trail",
+      "operation": "draw-trail-pencil-dust",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "movement-trail-c-paper-flecks",
+      "assetGroup": "movement-trail",
+      "operation": "draw-trail-paper-flecks",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    },
+    {
+      "recipeId": "movement-trail-d-lantern-motes",
+      "assetGroup": "movement-trail",
+      "operation": "draw-trail-lantern-motes",
+      "toolPath": "scripts/unity/build-u48-batch-a-candidates.py",
+      "toolVersion": "1",
+      "deterministic": true,
+      "parameters": {
+        "outputCellSize": 180,
+        "quantization": "nearest-neighbor",
+        "seed": 4801
+      }
+    }
+  ]
+}

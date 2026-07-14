@@ -1,0 +1,4 @@
+Create a quiet portrait Stage1 night-street paper-map background with an unobstructed low-detail combat center and limited warm lantern accents.
+Candidate role: paper-map-priority.
+Inherit: 夜の街; 紙地図・旅の記録; 静かな低彩度; 限定された暖色灯.
+Avoid: 真っ黒な面; 高彩度ネオン; 中央の巨大建造物; 読める看板文字; 強い反復tile seam.

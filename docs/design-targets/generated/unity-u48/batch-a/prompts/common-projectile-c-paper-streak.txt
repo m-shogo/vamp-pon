@@ -1,0 +1,4 @@
+Create a short directional normal-attack projectile; keep it distinct from hit, death, trail, pickup, and ground-area visuals.
+Candidate role: paper-streak.
+Inherit: 進行方向が読める短い軸; 紙・鉛筆・黒インク・小さな灯のmotif; 静かな通常攻撃.
+Avoid: 大きな火球; 全白beam; 円形ground area; 長い常時trail.

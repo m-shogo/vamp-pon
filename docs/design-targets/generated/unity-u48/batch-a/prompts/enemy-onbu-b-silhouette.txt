@@ -1,0 +1,4 @@
+Preserve the existing 8x6 Onbu animation and arm-less small-enemy identity; compare silhouette, sprout/mist readability, and ink/death compatibility only.
+Candidate role: silhouette-improvement.
+Inherit: 腕なしの小型silhouette; 短い1本のインク芽; 短く丸い影炎; 薄い顔前モヤ; 口なし; 8x6・180px cell animation contract.
+Avoid: 腕; 口; 複数の長い芽; 長く尖った影炎; 過度に可愛い表情; 強いホラー表現.

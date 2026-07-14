@@ -1,0 +1,4 @@
+Create a restrained paper-and-black-ink enemy disappearance effect, stronger than hit but below rare effects.
+Candidate role: paper-scatter.
+Inherit: 紙片と黒インクの散り; hitより一段広い消滅輪郭.
+Avoid: 全画面burst; 大量の白光; 長寿命煙; gore.

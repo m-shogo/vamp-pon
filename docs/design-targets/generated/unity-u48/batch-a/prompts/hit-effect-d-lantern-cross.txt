@@ -1,0 +1,4 @@
+Create a very small instantaneous enemy-hit mark that remains distinct from projectile and death visuals at high density.
+Candidate role: readability-improvement.
+Inherit: 瞬間的で小さい接触mark; 紙傷・小インク点・暖色spark.
+Avoid: 画面flash; 大きな爆発; 長寿命ring; deathと同じ散布範囲.

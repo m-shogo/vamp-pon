@@ -1,0 +1,537 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "192471e044124885e432d6ecc4166ccfdf8134e8",
+  "batch": "A",
+  "assetGroupCount": 9,
+  "entries": [
+    {
+      "assetGroup": "player-yui",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "assets/reference/character-master/core5/yui-character-master-v1.png",
+          "sha256": "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+          "role": "shape"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Characters/Yui/yui-runtime-dot-sheet.png",
+          "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+          "role": "animation"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u45-1/screenshots/02-yui-idle.png",
+          "sha256": "f3d054dd913156b0be78f455b5e84bfdc384290929621cd766443b1c5c087ba2",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "ユイの髪型と小さな旅人の頭身",
+        "右手ランタン",
+        "右肩から左腰へのバッグ紐と左腰バッグ",
+        "紙・黒インク・暖色灯の質感",
+        "8x6・180px cell animation contract"
+      ],
+      "doNotInherit": [
+        "title screen baked text/control",
+        "runtime sheetの候補承認状態",
+        "背景やUI"
+      ],
+      "runtimeReadabilityContract": [
+        "頭・身体・ランタン・進行方向を390x844で識別できる",
+        "Onbuと夜背景からsilhouetteが分離する",
+        "左右移動でランタンとバッグのbody-relative ownershipを維持する"
+      ],
+      "prohibitedExpressions": [
+        "baby-like",
+        "過剰な萌え表現",
+        "glossy plastic",
+        "別人物化",
+        "左手ランタン",
+        "右腰バッグ"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "assets/reference/enemies/ink_enemy_family_reference.png",
+          "sha256": "3452cb08dc67fe71a1d919d51f6bdda64b00743ce4ad284bebe8c19783da3fa7",
+          "role": "shape"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Enemies/Onbu/onbu-runtime-dot-sheet.png",
+          "sha256": "418cb01abb014d4f975d8d5c368ae59083cf4d61b67f87aa4cd25a804274ae02",
+          "role": "animation"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u45-1/screenshots/07-onbu-move.png",
+          "sha256": "5960ca2c75de2a7dfabc9a0f1157b7f9647a9f071068fd1dc788845243c344da",
+          "role": "runtime-size"
+        },
+        {
+          "path": "docs/design/world/the-truth-of-onbu.md",
+          "sha256": "4c083dffac4e2489824e7467f30f7989c75bd5f2b852fe6fa620a684fc88a8fa",
+          "role": "worldbuilding"
+        }
+      ],
+      "inherit": [
+        "腕なしの小型silhouette",
+        "短い1本のインク芽",
+        "短く丸い影炎",
+        "薄い顔前モヤ",
+        "口なし",
+        "8x6・180px cell animation contract"
+      ],
+      "doNotInherit": [
+        "enemy family reference内の他個体",
+        "強い恐怖表現",
+        "player proportions"
+      ],
+      "runtimeReadabilityContract": [
+        "Yuiと明確に区別できる",
+        "小型でも敵として認識できる",
+        "move・hurt・deathの輪郭が連続する"
+      ],
+      "prohibitedExpressions": [
+        "腕",
+        "口",
+        "複数の長い芽",
+        "長く尖った影炎",
+        "過度に可愛い表情",
+        "強いホラー表現"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "stage1-background",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "public/assets/prototypes/backgrounds/stage-01/environment-master.png",
+          "sha256": "3cca9ce085cdcc6819398fdb0ac9993922b99d9efd76db1a67377f8db31f8542",
+          "role": "shape"
+        },
+        {
+          "path": "assets/reference/backgrounds/stage1_night_tile_reference.png",
+          "sha256": "979bd69a435a766e1dfa39f4e8d34bdb852d35c97873aa5b727ae38acf5f553f",
+          "role": "texture"
+        },
+        {
+          "path": "assets/concept-design/01_world/world_night-town_01.png",
+          "sha256": "a99df6b59b785a3c3003a7e26fa2538dc87eec588616804e548d5d21a615ca9e",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+          "sha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "夜の街",
+        "紙地図・旅の記録",
+        "静かな低彩度",
+        "限定された暖色灯"
+      ],
+      "doNotInherit": [
+        "中央の大型装飾",
+        "baked character",
+        "baked pickup",
+        "prototypeの未調整コントラスト"
+      ],
+      "runtimeReadabilityContract": [
+        "player・enemy・pickup・projectileの輪郭を埋没させない",
+        "CompactからLargeまで中央戦闘領域を空ける",
+        "縦scrollで急な継ぎ目を作らない"
+      ],
+      "prohibitedExpressions": [
+        "真っ黒な面",
+        "高彩度ネオン",
+        "中央の巨大建造物",
+        "読める看板文字",
+        "強い反復tile seam"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "exp-pickup",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-exp-fragment.png",
+          "sha256": "808c3f3f53a578c1cecfff0cb405f92b688ccd66ee69c789df33fb5eeeb584c6",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+          "sha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "小さな記憶片",
+        "淡い青白光",
+        "紙片または小水晶の単一object"
+      ],
+      "doNotInherit": [
+        "候補水晶の大きな輪郭",
+        "healingの暖色朝光",
+        "過剰なspark"
+      ],
+      "runtimeReadabilityContract": [
+        "大量出現でも画面を埋めない",
+        "吸い寄せ方向が輪郭で読める",
+        "healingと同時表示で識別できる"
+      ],
+      "prohibitedExpressions": [
+        "赤いハート",
+        "大きな宝石",
+        "強い点滅",
+        "UI frame",
+        "text"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "healing-pickup",
+      "goldenReferenceStatus": "missing",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "src/game/data/itemAssetProductionDatabase.ts",
+          "sha256": "ae7acd59d9905641806e056ad940e8a0e2427f2ff465df49a5c532474d5c20d5",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png",
+          "sha256": "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "夜・紙・朝の光",
+        "落とし物としての小型単一object",
+        "手動取得で見失わない暖色輪郭"
+      ],
+      "doNotInherit": [
+        "revival gameplay仕様",
+        "EXPの青白水晶",
+        "generic red heart"
+      ],
+      "runtimeReadabilityContract": [
+        "EXPおよび候補水晶と同時表示で識別できる",
+        "player近傍で輪郭を維持する",
+        "過剰発光なしで回復用途を示す"
+      ],
+      "prohibitedExpressions": [
+        "赤いハート単体",
+        "医療十字",
+        "大型potion",
+        "neon green",
+        "text"
+      ],
+      "approvedForReference": false,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "common-projectile",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+          "sha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u45-1/screenshots/06-yui-attack.png",
+          "sha256": "5dd76a391995985ef028fc9b10da78dab3640eeda41275f43185d0740612ecea",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "進行方向が読める短い軸",
+        "紙・鉛筆・黒インク・小さな灯のmotif",
+        "静かな通常攻撃"
+      ],
+      "doNotInherit": [
+        "hit effect",
+        "death burst",
+        "ground-area ring",
+        "EXP crystal"
+      ],
+      "runtimeReadabilityContract": [
+        "高密度でもYuiとOnbuを隠さない",
+        "hit位置へ向く",
+        "白面積を抑える"
+      ],
+      "prohibitedExpressions": [
+        "大きな火球",
+        "全白beam",
+        "円形ground area",
+        "長い常時trail"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "hit-effect",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-lantern-spark.png",
+          "sha256": "9c7434c53fc4596b5fa1de471c61278a839f38de13398c9b27a00cccbb9bb5c8",
+          "role": "color"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u45-1/screenshots/08-onbu-hurt.png",
+          "sha256": "c880f69f098f0153b24fcb163146138b74dca9c0dbe464e5adea3e08747f401d",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "瞬間的で小さい接触mark",
+        "紙傷・小インク点・暖色spark"
+      ],
+      "doNotInherit": [
+        "projectile本体の長い軸",
+        "death effectの広い散り",
+        "白flash"
+      ],
+      "runtimeReadabilityContract": [
+        "enemy被弾点だけを短く示す",
+        "高密度でenemy silhouetteを覆わない"
+      ],
+      "prohibitedExpressions": [
+        "画面flash",
+        "大きな爆発",
+        "長寿命ring",
+        "deathと同じ散布範囲"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u45-1/screenshots/09-onbu-death.png",
+          "sha256": "b957249b091916e0ce619cb8808f032cdef75a57c0fd63eb72fc09b978193c98",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙片と黒インクの散り",
+        "hitより一段広い消滅輪郭"
+      ],
+      "doNotInherit": [
+        "rare演出の全画面性",
+        "hit effectの小ささ",
+        "長く残るdead sprite mask"
+      ],
+      "runtimeReadabilityContract": [
+        "enemy消滅を認識できる",
+        "高密度でも戦闘中央を覆い続けない"
+      ],
+      "prohibitedExpressions": [
+        "全画面burst",
+        "大量の白光",
+        "長寿命煙",
+        "gore"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "movement-trail",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/generated/top-final.png",
+          "sha256": "fd55744f03d998c52e7ddb61645abf10e9f027bcfbcb0263cb5acf32958985cc",
+          "role": "color"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-collect-trail.png",
+          "sha256": "a2cbaacf2f454b2b5c21ccdfb7cd3d0917d957006d66c1a93ce551812ed44096",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u45-1/screenshots/03-yui-walk-right.png",
+          "sha256": "ba7094c1cec8934be53d61806fa584e0d30a7f3bb54514623f5c2fc3ccfba956",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "短く静かな移動方向cue",
+        "紙粉・小インク・弱い灯粒"
+      ],
+      "doNotInherit": [
+        "damage area",
+        "黒耀化専用強表現",
+        "projectileの鋭い軸"
+      ],
+      "runtimeReadabilityContract": [
+        "player本体とjoystickを隠さない",
+        "enemy・projectile・pickupと識別できる"
+      ],
+      "prohibitedExpressions": [
+        "長いbeam",
+        "damage判定を示すring",
+        "強い発光",
+        "常時画面残留"
+      ],
+      "approvedForReference": true,
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    }
+  ]
+}

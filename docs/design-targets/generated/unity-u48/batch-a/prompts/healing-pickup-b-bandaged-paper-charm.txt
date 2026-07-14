@@ -1,0 +1,4 @@
+Create a small manual healing pickup in the night-paper-dawn-light world; do not use a generic red heart or medical cross.
+Candidate role: bandaged-paper-charm.
+Inherit: 夜・紙・朝の光; 落とし物としての小型単一object; 手動取得で見失わない暖色輪郭.
+Avoid: 赤いハート単体; 医療十字; 大型potion; neon green; text.

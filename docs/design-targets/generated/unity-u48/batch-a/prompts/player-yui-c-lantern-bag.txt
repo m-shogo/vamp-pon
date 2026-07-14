@@ -1,0 +1,4 @@
+Preserve the existing 8x6 animation frames and Yui identity; compare silhouette, lantern/bag readability, and paper/ink integration only.
+Candidate role: readability-improvement.
+Inherit: ユイの髪型と小さな旅人の頭身; 右手ランタン; 右肩から左腰へのバッグ紐と左腰バッグ; 紙・黒インク・暖色灯の質感; 8x6・180px cell animation contract.
+Avoid: baby-like; 過剰な萌え表現; glossy plastic; 別人物化; 左手ランタン; 右腰バッグ.
