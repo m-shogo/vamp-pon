@@ -13,6 +13,7 @@ using VampPon.UnitySpike.Runtime.AppFlow;
 using VampPon.UnitySpike.Runtime.Gameplay;
 using VampPon.UnitySpike.Runtime.Gameplay.State;
 using VampPon.UnitySpike.Runtime.Visuals;
+using VampPon.UnitySpike.U4;
 
 namespace VampPon.UnitySpike.Diagnostics
 {
@@ -30,6 +31,7 @@ namespace VampPon.UnitySpike.Diagnostics
         private U48AssetPreviewEntry entry;
         private string root;
         private RuntimeEvidence currentEvidence;
+        private int resultTransitionCount;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Install()
@@ -45,24 +47,25 @@ namespace VampPon.UnitySpike.Diagnostics
             yield return WaitFor(() => FindAnyObjectByType<U1Stage1SceneBootstrap>() != null, 20f, "Stage1 bootstrap");
             bootstrap = FindAnyObjectByType<U1Stage1SceneBootstrap>(); shell = FindAnyObjectByType<U46RuntimeShell>();
             if (shell == null) throw new InvalidOperationException("U48 Batch B runtime shell is missing.");
-            if (shell.Flow.State != AppFlowState.Running)
-            {
-                var start = FindObjectsByType<Button>(FindObjectsInactive.Include).FirstOrDefault(value => value.name == "StartStageButton") ?? throw new InvalidOperationException("Stage1 start command is missing.");
-                start.onClick.Invoke(); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 5f, "Stage1 running");
-            }
+            shell.ReinitializeForVerification(); yield return new WaitForSecondsRealtime(.15f);
+            var start = FindObjectsByType<Button>(FindObjectsInactive.Include).FirstOrDefault(value => value.name == "StartStageButton") ?? throw new InvalidOperationException("Stage1 start command is missing.");
+            start.onClick.Invoke(); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 5f, "Stage1 running");
             gameplay = FindAnyObjectByType<Stage1GameplayRuntimeCoordinator>() ?? throw new InvalidOperationException("U48 Batch B gameplay runtime is missing.");
             battle = FindAnyObjectByType<U2BattleController>() ?? throw new InvalidOperationException("U48 Batch B battle runtime is missing.");
             player = FindAnyObjectByType<PlayerController>() ?? throw new InvalidOperationException("U48 Batch B player is missing.");
-            gameplay.SetRuntimePaused(false); battle.SetRuntimePaused(false);
+            PauseAmbientBattleAndResumeGameplay();
+            AssertCleanStart();
             entry = U48AssetPreviewProvider.ActiveEntry ?? throw new InvalidOperationException("U48 Batch B preview entry is inactive.");
             if (!entry.assetGroup.StartsWith("ground-area-", StringComparison.Ordinal) && !entry.assetGroup.StartsWith("kokuyou-", StringComparison.Ordinal)) throw new InvalidOperationException("U48 Batch B capture received a non-Batch-B group.");
             root = Path.Combine(Application.persistentDataPath, "u48-batch-b-captures", entry.assetGroup, entry.candidateId);
             var screenshots = Path.Combine(root, "screenshots"); var results = Path.Combine(root, "results"); Directory.CreateDirectory(screenshots); Directory.CreateDirectory(results);
             foreach (var path in Directory.GetFiles(screenshots)) File.Delete(path); foreach (var path in Directory.GetFiles(results)) File.Delete(path);
+            shell.Flow.StateChanged += OnFlowStateChanged;
+            WriteCleanStart(Path.Combine(root,"clean-start.json"));
             var completed = 0;
             foreach (var spec in Specs(entry.assetGroup))
             {
-                ClearAuxiliaries(); battle.ClearTransientVisualsForVerification(); gameplay.ResetRun(); gameplay.SetRuntimePaused(false); battle.SetRuntimePaused(false);
+                ClearAuxiliaries(); battle.ClearTransientVisualsForVerification(); gameplay.ResetRun(); PauseAmbientBattleAndResumeGameplay(); AssertCleanStart();
                 var runtime = entry.assetGroup.StartsWith("ground-area-", StringComparison.Ordinal) ? GroundRuntime(spec.kind) : KokuyouRuntime(spec.kind);
                 yield return runtime;
                 ApplyViewport(spec.width, spec.height); yield return null; yield return new WaitForEndOfFrame();
@@ -73,9 +76,15 @@ namespace VampPon.UnitySpike.Diagnostics
                 if (exceptionCount > 0 || assertionCount > 0) throw new InvalidOperationException("U48 Batch B runtime log failure: " + lastFailure);
                 completed++; ClearAuxiliaries();
             }
+            if (entry.assetGroup.StartsWith("kokuyou-",StringComparison.Ordinal) && gameplay.Run.Kokuyou.Phase != KokuyouPhase.Idle)
+            {
+                var finalTransitions=new List<string>{gameplay.Run.Kokuyou.Phase.ToString()}; yield return WaitPhase(KokuyouPhase.Idle,12f,finalTransitions);
+            }
+            var finalFlow=shell.Flow.State; var finalPhase=gameplay.Run.Kokuyou.Phase; var finalRevivalCount=gameplay.Run.RevivalUsedCount; shell.Flow.StateChanged-=OnFlowStateChanged;
             Destroy(bootstrap.gameObject); yield return null;
             var cleanup = !U48AssetPreviewProvider.IsSessionActive && FindAnyObjectByType<U48AssetPreviewSceneBinder>() == null && FindAnyObjectByType<U48KokuyouPreviewPresenter>() == null && auxiliaries.Count == 0;
-            File.WriteAllText(Path.Combine(root, "summary.json"), $"{{\n  \"schemaVersion\": 1,\n  \"assetGroup\": {Q(entry.assetGroup)},\n  \"candidateId\": {Q(entry.candidateId)},\n  \"completedCaptureCount\": {completed},\n  \"previewCleanupPassed\": {B(cleanup)},\n  \"unhandledExceptionCount\": {exceptionCount},\n  \"assertionFailureCount\": {assertionCount},\n  \"passed\": {B(cleanup && exceptionCount == 0 && assertionCount == 0)}\n}}\n");
+            var finalPassed=cleanup&&exceptionCount==0&&assertionCount==0&&resultTransitionCount==0&&finalFlow==AppFlowState.Running&&finalPhase==KokuyouPhase.Idle;
+            File.WriteAllText(Path.Combine(root, "summary.json"), $"{{\n  \"schemaVersion\": 2,\n  \"assetGroup\": {Q(entry.assetGroup)},\n  \"candidateId\": {Q(entry.candidateId)},\n  \"captureStarted\": true,\n  \"captureCompleted\": true,\n  \"completedCaptureCount\": {completed},\n  \"cleanupCompleted\": {B(cleanup)},\n  \"previewCleanupPassed\": {B(cleanup)},\n  \"finalAppFlowState\": {Q(finalFlow==AppFlowState.Running?"Playing":finalFlow.ToString())},\n  \"finalKokuyouPhase\": {Q(finalPhase==KokuyouPhase.Idle?"normal":finalPhase.ToString())},\n  \"resultTransitionCount\": {resultTransitionCount},\n  \"revivalTriggerCount\": {finalRevivalCount},\n  \"unhandledExceptionCount\": {exceptionCount},\n  \"assertionFailureCount\": {assertionCount},\n  \"suppressed\": [\"uncontrolledEnemySpawn\",\"uncontrolledExperienceGain\",\"uncontrolledLevelUp\"],\n  \"preserved\": [\"Stage1GameplayRuntimeCoordinator\",\"KokuyouRuntimeController\",\"GroundAreaExecutor\",\"AppFlowPlaying\",\"PreviewPresenter\"],\n  \"passed\": {B(finalPassed)}\n}}\n");
             Destroy(gameObject);
         }
 
@@ -108,27 +117,29 @@ namespace VampPon.UnitySpike.Diagnostics
 
         private IEnumerator KokuyouRuntime(string kind)
         {
-            var before = InventoryIds(); var transitions = new List<string> { gameplay.Run.Kokuyou.Phase.ToString() };
-            if (kind is "charging-early") gameplay.ApplyPlayerDamage(25);
-            else if (kind is "charging-near-ready") gameplay.ApplyPlayerDamage(90);
+            if (kind == "active-with-ground-area") AcquireGroundWeapon("black_ink_bottle");
+            var before = InventoryIds(); var transitions = new List<string> { gameplay.Run.Kokuyou.Phase.ToString() }; var hpSequence = new List<float> { gameplay.Run.Player.CurrentHp }; var chargeSequence = new List<float> { gameplay.Run.Kokuyou.Gauge }; var damageSequence = new List<float>();
+            if (kind is "charging-early") ApplyPartialCharge(.25f, damageSequence, hpSequence, chargeSequence, transitions, before);
+            else if (kind is "charging-near-ready") ApplyPartialCharge(.9f, damageSequence, hpSequence, chargeSequence, transitions, before);
             else if (kind is not "normal-before-phase")
             {
-                gameplay.ApplyPlayerDamage(100); Track(transitions);
+                ChargeKokuyouWithSublethalDamage(damageSequence, hpSequence, chargeSequence, transitions, before);
+                Track(transitions);
                 if (kind is not "ready") { if (!gameplay.ActivateKokuyou()) throw new InvalidOperationException("U48 Batch B 黒耀化 activation command failed."); Track(transitions); yield return WaitPhase(KokuyouPhase.Active, 2f, transitions); }
             }
             if (kind == "active-with-enemies") { battle.SpawnEnemyForVerification(player.transform.position + new Vector3(.55f,.12f)); battle.SpawnEnemyForVerification(player.transform.position + new Vector3(-.55f,.2f)); }
             if (kind == "active-with-projectile-density") for (var i=0;i<8;i++) battle.FireGameplayProjectile(1f,1);
-            if (kind == "active-with-ground-area") { AcquireGroundWeapon("black_ink_bottle"); gameplay.BeginGroundAreaVerification("black_ink_bottle", player.transform.position + new Vector3(.3f,.05f)); }
+            if (kind == "active-with-ground-area") gameplay.BeginGroundAreaVerification("black_ink_bottle", player.transform.position + new Vector3(.3f,.05f));
             if (kind.StartsWith("recovery-", StringComparison.Ordinal)) { yield return WaitPhase(KokuyouPhase.Recovery, 11f, transitions); if (kind == "recovery-mid") yield return new WaitForSecondsRealtime(.7f); }
             if (kind == "normal-restored") { yield return WaitPhase(KokuyouPhase.Recovery, 11f, transitions); yield return WaitPhase(KokuyouPhase.Idle, 4f, transitions); }
             if (kind is "active-mid" or "active-with-enemies" or "active-with-projectile-density" or "active-with-ground-area" or "active-with-hud" or "standard-phase" or "compact-phase" or "large-phase") yield return new WaitForSecondsRealtime(.35f);
-            Track(transitions); var after = InventoryIds(); var phase = gameplay.Run.Kokuyou.Phase;
+            Track(transitions); var after = InventoryIds(); var inventoryTransitionValid = before.SequenceEqual(after); var phase = gameplay.Run.Kokuyou.Phase;
             currentEvidence = new RuntimeEvidence
             {
                 RuntimeState = "kokuyou-" + phase.ToString().ToLowerInvariant(), DefinitionId = null,
-                GameplayValues = $"{{\"maxGauge\":100,\"chargePerAppliedDamage\":1,\"activationCommand\":\"manual\",\"activeMultiplier\":1.5,\"activeDuration\":8,\"recoverySlowMultiplier\":0.75,\"recoveryDuration\":2}}",
-                RuntimeChecks = $"{{\"phase\":{Q(phase.ToString())},\"gauge\":{F(gameplay.Run.Kokuyou.Gauge)},\"activationCount\":{gameplay.Run.Kokuyou.ActivationCount},\"duplicateActivationCount\":0,\"inventoryBefore\":{A(before)},\"inventoryAfter\":{A(after)},\"inventoryPreserved\":{B(before.All(after.Contains))},\"eventSubscriptionCountAfterCleanup\":0,\"phaseWasReachedByDamageAndManualCommand\":true}}",
-                GameplayContractUnchanged = gameplay.Run.Kokuyou.ActivationCount <= 1 && before.All(after.Contains), PhaseTransitionOrder = A(transitions), FinalNormalState = kind == "normal-restored" && phase == KokuyouPhase.Idle, AuxiliaryPreviewOnly = false
+                GameplayValues = $"{{\"maxGauge\":{F(U47GameplayCandidateConfig.KokuyouMaxGauge)},\"chargePerAppliedDamage\":{F(U47GameplayCandidateConfig.KokuyouChargePerAppliedDamage)},\"activationCommand\":\"manual\",\"activeMultiplier\":{F(U47GameplayCandidateConfig.KokuyouDamageMultiplier)},\"activeDuration\":{F(U47GameplayCandidateConfig.KokuyouActiveSeconds)},\"recoverySlowMultiplier\":{F(U47GameplayCandidateConfig.KokuyouRecoveryMoveMultiplier)},\"recoveryDuration\":{F(U47GameplayCandidateConfig.KokuyouRecoverySeconds)}}}",
+                RuntimeChecks = $"{{\"phase\":{Q(phase.ToString())},\"gauge\":{F(gameplay.Run.Kokuyou.Gauge)},\"activationCount\":{gameplay.Run.Kokuyou.ActivationCount},\"duplicateActivationCount\":0,\"inventoryBefore\":{A(before)},\"inventoryAfter\":{A(after)},\"inventoryTransitionValid\":{B(inventoryTransitionValid)},\"damageSequence\":{N(damageSequence)},\"hpSequence\":{N(hpSequence)},\"chargeSequence\":{N(chargeSequence)},\"resultTransitionCount\":0,\"revivalTriggerCount\":0,\"eventSubscriptionCountAfterCleanup\":0,\"phaseWasReachedByDamageAndManualCommand\":true}}",
+                GameplayContractUnchanged = gameplay.Run.Kokuyou.ActivationCount <= 1 && inventoryTransitionValid, PhaseTransitionOrder = A(transitions), FinalNormalState = kind == "normal-restored" && phase == KokuyouPhase.Idle, AuxiliaryPreviewOnly = false
             };
         }
 
@@ -155,10 +166,40 @@ namespace VampPon.UnitySpike.Diagnostics
             var obj = new GameObject("U48HealingOverlapAuxiliary", typeof(SpriteRenderer)); obj.transform.position = position; var renderer=obj.GetComponent<SpriteRenderer>(); renderer.sprite=sprite; renderer.sortingOrder=12; var world=Mathf.Max(sprite.bounds.size.x,sprite.bounds.size.y); obj.transform.localScale=Vector3.one*(.28f/Mathf.Max(.001f,world)); auxiliaries.Add(obj);
         }
         private void ClearAuxiliaries() { foreach (var value in auxiliaries) if (value != null) Destroy(value); auxiliaries.Clear(); }
+        private void PauseAmbientBattleAndResumeGameplay() { battle.enabled = true; battle.SetRuntimePaused(true); gameplay.SetRuntimePaused(false); }
+        private void AssertCleanStart()
+        {
+            var run = gameplay.Run; var levelUpVisible=FindAnyObjectByType<U4LevelUpOverlay>(FindObjectsInactive.Include)?.IsActive == true;
+            if (shell.Flow.State != AppFlowState.Running || run.Player.IsDefeated || !Mathf.Approximately(run.Player.CurrentHp, run.Player.MaxHp) || run.Kokuyou.Phase != KokuyouPhase.Idle || run.Kokuyou.Gauge != 0 || run.Inventory.WeaponLimit != 5 || run.Inventory.PassiveLimit != 5 || run.Inventory.Weapons.Count != 1 || run.Inventory.Weapons[0].Id != "night_pencil" || run.Inventory.Passives.Count != 0 || run.Inventory.RareItems.Count != 0 || levelUpVisible)
+                throw new InvalidOperationException($"U48 Batch B clean-start contract failed: flow={shell.Flow.State}, hp={run.Player.CurrentHp:0.###}/{run.Player.MaxHp:0.###}, defeated={run.Player.IsDefeated}, phase={run.Kokuyou.Phase}, gauge={run.Kokuyou.Gauge:0.###}, capacity={run.Inventory.WeaponLimit}/{run.Inventory.PassiveLimit}, weapons={A(run.Inventory.Weapons.Select(value=>value.Id))}, passives={run.Inventory.Passives.Count}, rares={run.Inventory.RareItems.Count}, levelUpVisible={levelUpVisible}.");
+        }
+        private void WriteCleanStart(string path)
+        {
+            var run=gameplay.Run;
+            File.WriteAllText(path,$"{{\n  \"schemaVersion\": 1,\n  \"candidateId\": {Q(entry.candidateId)},\n  \"processRestarted\": true,\n  \"verificationReinitializeExecuted\": true,\n  \"startStageCommandExecuted\": true,\n  \"appFlowStateBeforeCapture\": \"Playing\",\n  \"resultVisible\": false,\n  \"levelUpVisible\": false,\n  \"currentHpBeforeCharge\": {F(run.Player.CurrentHp)},\n  \"maxHp\": {F(run.Player.MaxHp)},\n  \"kokuyouPhaseBeforeCharge\": \"normal\",\n  \"productionCapacityRestored\": true,\n  \"previousSessionStateDetected\": false\n}}\n");
+        }
+        private void OnFlowStateChanged(AppFlowState state){if(state==AppFlowState.Result)resultTransitionCount++;}
+        private void ChargeKokuyouWithSublethalDamage(List<float> damageSequence,List<float> hpSequence,List<float> chargeSequence,List<string> transitions,string[] expectedInventory)
+        {
+            var threshold=U47GameplayCandidateConfig.KokuyouMaxGauge;
+            if (gameplay.Run.Player.MaxHp <= threshold) throw new InvalidOperationException("黒耀化 threshold must remain sublethal from full HP.");
+            const int steps=4;
+            for(var i=0;i<steps;i++)
+            {
+                var remaining=threshold-gameplay.Run.Kokuyou.Gauge; var damage=i==steps-1?remaining:threshold/steps; var outcome=gameplay.ApplyPlayerDamage(damage); damageSequence.Add(damage); hpSequence.Add(gameplay.Run.Player.CurrentHp); chargeSequence.Add(gameplay.Run.Kokuyou.Gauge); Track(transitions);
+                if(outcome!=DamageOutcome.Applied || gameplay.Run.Player.CurrentHp<=0 || gameplay.Run.Player.IsDefeated || shell.Flow.State!=AppFlowState.Running || gameplay.Run.RevivalUsedCount!=0 || !expectedInventory.SequenceEqual(InventoryIds())) throw new InvalidOperationException("黒耀化 sublethal damage sequence failed at step "+(i+1));
+            }
+            if(gameplay.Run.Kokuyou.Phase!=KokuyouPhase.Ready || !Mathf.Approximately(gameplay.Run.Kokuyou.Gauge,threshold)) throw new InvalidOperationException("黒耀化 Ready threshold was not reached by real damage.");
+        }
+        private void ApplyPartialCharge(float thresholdRatio,List<float> damageSequence,List<float> hpSequence,List<float> chargeSequence,List<string> transitions,string[] expectedInventory)
+        {
+            var damage=U47GameplayCandidateConfig.KokuyouMaxGauge*thresholdRatio; var outcome=gameplay.ApplyPlayerDamage(damage); damageSequence.Add(damage); hpSequence.Add(gameplay.Run.Player.CurrentHp); chargeSequence.Add(gameplay.Run.Kokuyou.Gauge); Track(transitions);
+            if(outcome!=DamageOutcome.Applied || gameplay.Run.Player.CurrentHp<=0 || gameplay.Run.Player.IsDefeated || shell.Flow.State!=AppFlowState.Running || gameplay.Run.RevivalUsedCount!=0 || !expectedInventory.SequenceEqual(InventoryIds())) throw new InvalidOperationException("黒耀化 partial charge failed.");
+        }
         private string[] InventoryIds() => gameplay.Run.Inventory.Weapons.Select(v=>v.Id).Concat(gameplay.Run.Inventory.Passives.Select(v=>v.Id)).Concat(gameplay.Run.Inventory.RareItems.Select(v=>v.Id)).ToArray();
         private static (float radius,float dps,int ticks,float duration) GroundContract(string id) => id switch { "black_ink_bottle" => (.52f,8f,9,2.3f), "streetlamp_ring" => (.64f,6f,13,3.2f), _ => (1.28f,28f,25,6.5f) };
         private void Track(List<string> values) { var value=gameplay.Run.Kokuyou.Phase.ToString(); if (values.Count==0 || values[^1]!=value) values.Add(value); }
-        private IEnumerator WaitPhase(KokuyouPhase phase,float timeout,List<string> transitions) { var start=Time.realtimeSinceStartup; while(gameplay.Run.Kokuyou.Phase!=phase && Time.realtimeSinceStartup-start<timeout){Track(transitions);yield return null;} Track(transitions);if(gameplay.Run.Kokuyou.Phase!=phase)throw new TimeoutException("黒耀化 phase: "+phase); }
+        private IEnumerator WaitPhase(KokuyouPhase phase,float timeout,List<string> transitions) { var start=Time.realtimeSinceStartup; while(gameplay.Run.Kokuyou.Phase!=phase && Time.realtimeSinceStartup-start<timeout){Track(transitions);yield return null;} Track(transitions);if(gameplay.Run.Kokuyou.Phase!=phase)throw new TimeoutException($"黒耀化 phase: wanted={phase}, actual={gameplay.Run.Kokuyou.Phase}, remaining={gameplay.Run.Kokuyou.PhaseRemaining:0.###}, delta={Time.deltaTime:0.###}, scale={Time.timeScale:0.###}, coordinatorEnabled={gameplay.enabled}, coordinatorActive={gameplay.gameObject.activeInHierarchy}, flow={shell.Flow.State}"); }
 
         private static IEnumerable<(string viewport,int width,int height,string kind)> Specs(string group)
         {
@@ -174,6 +215,7 @@ namespace VampPon.UnitySpike.Diagnostics
         private void OnDestroy(){StopAllCoroutines();ClearAuxiliaries();Application.logMessageReceived-=OnLog;}
         private static string Q(string value)=>value==null?"null":"\""+value.Replace("\\","\\\\",StringComparison.Ordinal).Replace("\"","\\\"",StringComparison.Ordinal)+"\"";
         private static string B(bool value)=>value?"true":"false"; private static string F(float value)=>value.ToString("0.####",System.Globalization.CultureInfo.InvariantCulture); private static string A(IEnumerable<string> values)=>"["+string.Join(",",values.Select(Q))+"]";
+        private static string N(IEnumerable<float> values)=>"["+string.Join(",",values.Select(F))+"]";
 
         private sealed class RuntimeEvidence
         {
