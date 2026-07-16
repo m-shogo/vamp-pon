@@ -81,11 +81,6 @@ namespace VampPon.UnitySpike.Diagnostics
                 return;
             }
 
-            if (Environment.GetEnvironmentVariable("VAMPPON_U48_BATCH_C_CAPTURE") == "1")
-            {
-                return;
-            }
-
             var probeRoot = Path.Combine(Application.persistentDataPath, "u45-ai-simulator-smoke");
             Directory.CreateDirectory(probeRoot);
             File.WriteAllText(

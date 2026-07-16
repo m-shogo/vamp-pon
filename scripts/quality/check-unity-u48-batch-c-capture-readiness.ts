@@ -12,9 +12,7 @@ const stageSelect = read('unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/
 const save = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Save/GameSaveSnapshot.cs');
 const flow = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs');
 const preview = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U48AssetPreviewVerificationBridge.cs');
-const u45 = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U45AiSimulatorSmokeBridge.cs');
 const u46 = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U46AiSimulatorSmokeBridge.cs');
-const u47 = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U47AiSimulatorSmokeBridge.cs');
 
 check(audit.schemaVersion === 1 && audit.batch === 'C', 'audit identity');
 check(audit.status === 'BLOCKED' && audit.reviewReady === false, 'blocked status is explicit');
@@ -28,8 +26,10 @@ check(!stageSelect.includes('Stage2Card') && !stageSelect.includes('interactable
 check(save.includes('unlockedStageIds = new List<string> { "stage_01" }'), 'default save unlock set remains Stage 1 only');
 check(!flow.includes('unlockedStageIds.Contains(command.TargetId)'), 'start command has no unlock-gated disabled route');
 
-for (const [name, source] of [['generic-preview', preview], ['U45', u45], ['U46', u46], ['U47', u47]]) {
+for (const [name, source] of [['generic-preview', preview], ['U46', u46]]) {
   check(source.includes('VAMPPON_U48_BATCH_C_CAPTURE'), `${name} bridge yields to the isolated Batch C capture route`);
 }
+check(read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U45AiSimulatorSmokeBridge.cs').includes('VAMPPON_U45_AI_SIMULATOR_SMOKE'), 'U45 remains isolated by its existing explicit launch gate');
+check(read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U47AiSimulatorSmokeBridge.cs').includes('VAMPPON_U47_AI_SIMULATOR_SMOKE') && !read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U47AiSimulatorSmokeBridge.cs').includes('VAMPPON_U48_BATCH_C_CAPTURE'), 'U47 remains fingerprint-stable and isolated by its existing explicit launch gate');
 
 console.log('Unity U48 Batch C capture readiness check passed: verification bridges are isolated and the missing production StageSelect locked/selected/disabled route is recorded as a hard review-ready blocker without state injection.');
