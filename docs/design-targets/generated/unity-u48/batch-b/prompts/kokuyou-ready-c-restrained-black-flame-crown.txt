@@ -1,0 +1,5 @@
+U48 Batch B / kokuyou-ready / kokuyou-ready-c-restrained-black-flame-crown
+抑えた黒炎冠
+Inherit: 発動可能の緊張; 完成した暗い輪; active未満の強度
+Avoid: 可愛い目; 過剰点滅; active以上の強度; 汎用紫オーラだけ
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.

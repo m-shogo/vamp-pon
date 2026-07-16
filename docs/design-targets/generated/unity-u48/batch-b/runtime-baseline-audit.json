@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "b69a64095a580077327d49daac009a69c81efaa5",
+  "groundArea": {
+    "summary": "三種とも同一candidate runtime-ink-burst spriteをweapon別tintとgameplay radius由来scaleで区別する。専用animation、spawn/despawn transition、DoT tick visualはない。",
+    "sharedElements": [
+      "sprite",
+      "material",
+      "pivot",
+      "PPU",
+      "sorting order",
+      "instant spawn/despawn"
+    ],
+    "entries": [
+      {
+        "definitionId": "black_ink_bottle",
+        "spriteSourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "contentSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "metaPath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png.meta",
+        "metaSha256": "6b2fedaca7838573aa8397b26063a523a5d215a9f79081f5ea17ca727d995dd0",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "sortingLayer": "Default",
+        "sortingOrder": 8,
+        "material": "SpriteRenderer default",
+        "animation": "none",
+        "spawnVisual": "immediate enable",
+        "despawnVisual": "immediate disable after duration",
+        "dotTickVisual": "none",
+        "visualScaleFormula": "Vector3.one * max(0.25, gameplayRadius * 2)",
+        "visualScale": 1.04,
+        "alpha": 0.55,
+        "tint": [
+          0.035,
+          0.02,
+          0.03,
+          0.55
+        ],
+        "gameplayRadius": 0.52,
+        "damagePerSecond": 8,
+        "tickInterval": 0.25,
+        "finalTickCount": 9,
+        "duration": 2.3,
+        "lifetimeMatchesGameplayDuration": true
+      },
+      {
+        "definitionId": "streetlamp_ring",
+        "spriteSourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "contentSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "metaPath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png.meta",
+        "metaSha256": "6b2fedaca7838573aa8397b26063a523a5d215a9f79081f5ea17ca727d995dd0",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "sortingLayer": "Default",
+        "sortingOrder": 8,
+        "material": "SpriteRenderer default",
+        "animation": "none",
+        "spawnVisual": "immediate enable",
+        "despawnVisual": "immediate disable after duration",
+        "dotTickVisual": "none",
+        "visualScaleFormula": "Vector3.one * max(0.25, gameplayRadius * 2)",
+        "visualScale": 1.28,
+        "alpha": 0.34,
+        "tint": [
+          1,
+          0.58,
+          0.18,
+          0.34
+        ],
+        "gameplayRadius": 0.64,
+        "damagePerSecond": 6,
+        "tickInterval": 0.25,
+        "finalTickCount": 13,
+        "duration": 3.2,
+        "lifetimeMatchesGameplayDuration": true
+      },
+      {
+        "definitionId": "dawn_ink_lamp",
+        "spriteSourcePath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+        "contentSha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+        "metaPath": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png.meta",
+        "metaSha256": "6b2fedaca7838573aa8397b26063a523a5d215a9f79081f5ea17ca727d995dd0",
+        "sourceDimensions": [
+          1254,
+          1254
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "sortingLayer": "Default",
+        "sortingOrder": 8,
+        "material": "SpriteRenderer default",
+        "animation": "none",
+        "spawnVisual": "immediate enable",
+        "despawnVisual": "immediate disable after duration",
+        "dotTickVisual": "none",
+        "visualScaleFormula": "Vector3.one * max(0.25, gameplayRadius * 2)",
+        "visualScale": 2.56,
+        "alpha": 0.46,
+        "tint": [
+          0.45,
+          0.18,
+          0.12,
+          0.46
+        ],
+        "gameplayRadius": 1.28,
+        "damagePerSecond": 28,
+        "tickInterval": 0.25,
+        "finalTickCount": 25,
+        "duration": 6.5,
+        "lifetimeMatchesGameplayDuration": true
+      }
+    ]
+  },
+  "kokuyou": {
+    "summary": "U47 production runtimeはInventory HUDのphase文字だけを表示し、専用player sprite変化/aura/trail/screen overlay/camera/post-process/material/particleを持たない。",
+    "chargingVisual": "HUD phase text only",
+    "readyVisual": "HUD phase text only",
+    "activeVisual": "HUD phase text only",
+    "recoveryVisual": "HUD phase text only",
+    "playerSpriteChange": "none",
+    "aura": "none",
+    "trail": "none",
+    "screenOverlay": "none",
+    "hudGauge": "text gauge",
+    "phaseText": true,
+    "cameraOrPostProcess": "none",
+    "material": "none",
+    "particle": "none",
+    "phaseTransitionOwner": "KokuyouRuntimeController",
+    "cleanup": "state reset to Idle; no dedicated visual object exists",
+    "normalReturn": true,
+    "baselineDeficiency": "phase文字だけではcandidate visualとして数えられない。Batch B candidate Aはこの不足を明記したreconstructed-partial visual proxyであり、既存production visualとは扱わない。"
+  }
+}

@@ -1,0 +1,5 @@
+U48 Batch B / kokuyou-recovery / kokuyou-recovery-c-dragging-ink-shadow
+dragging ink shadow
+Inherit: active後の疲労と重さ; 短い煤とink残滓; 通常復帰への自然な減衰
+Avoid: 可愛い目; active同等の炎; 永続残留; 汎用紫オーラだけ
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.

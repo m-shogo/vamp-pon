@@ -1,0 +1,316 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "b69a64095a580077327d49daac009a69c81efaa5",
+  "tool": "scripts/unity/build-u48-batch-b-candidates.py",
+  "toolVersion": "1",
+  "recipes": [
+    {
+      "recipeId": "batch-b:ground-area-black-ink-bottle-a-runtime-baseline:v1",
+      "candidateId": "ground-area-black-ink-bottle-a-runtime-baseline",
+      "operation": "runtime common ink spriteを180pxへ正規化したbaseline",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1830008,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-black-ink-bottle-b-irregular-ink-blot:v1",
+      "candidateId": "ground-area-black-ink-bottle-b-irregular-ink-blot",
+      "operation": "不規則な小型ink blotと滴",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1642164735,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-black-ink-bottle-c-breathing-ink-edge:v1",
+      "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+      "operation": "脈動を示す二重の吸収edge",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 443793327,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-black-ink-bottle-d-paper-absorption-bottle:v1",
+      "candidateId": "ground-area-black-ink-bottle-d-paper-absorption-bottle",
+      "operation": "紙吸収と小瓶motifを統合",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 2640776487,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-streetlamp-ring-a-runtime-baseline:v1",
+      "candidateId": "ground-area-streetlamp-ring-a-runtime-baseline",
+      "operation": "共通ink spriteの現行tint/scale運用を正規化",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 3741078536,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-streetlamp-ring-b-defined-lantern-ring:v1",
+      "candidateId": "ground-area-streetlamp-ring-b-defined-lantern-ring",
+      "operation": "街灯輪の明確な節と灯芯",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 3511054245,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-streetlamp-ring-c-broken-paper-light:v1",
+      "candidateId": "ground-area-streetlamp-ring-c-broken-paper-light",
+      "operation": "紙切れ状のbroken light circumference",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1788269380,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-streetlamp-ring-d-ink-shadow-warm-light:v1",
+      "candidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+      "operation": "外周ink shadowと内周warm light",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1177134126,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-a-runtime-baseline:v1",
+      "candidateId": "ground-area-dawn-ink-lamp-a-runtime-baseline",
+      "operation": "共通ink spriteの現行evolution tint/scale運用を正規化",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 2602637994,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-b-dual-layer-ink-light:v1",
+      "candidateId": "ground-area-dawn-ink-lamp-b-dual-layer-ink-light",
+      "operation": "inkとlightの二層ring",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 611235199,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-c-dawn-paper-rays:v1",
+      "candidateId": "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
+      "operation": "朝色の紙rayと呼吸する外周",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 423071785,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring:v1",
+      "candidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+      "operation": "central lamp markと広いink dawn ring",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 2881777030,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-charging-a-runtime-baseline:v1",
+      "candidateId": "kokuyou-charging-a-runtime-baseline",
+      "operation": "文字のみbaselineへ添える最小ink影",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1611493983,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-charging-b-small-ink-wisps:v1",
+      "candidateId": "kokuyou-charging-b-small-ink-wisps",
+      "operation": "小さなink wisps",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 3233924045,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-charging-c-lantern-shadow-flicker:v1",
+      "candidateId": "kokuyou-charging-c-lantern-shadow-flicker",
+      "operation": "lantern shadowの抑制flicker",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 3948571234,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-charging-d-paper-edge-corruption:v1",
+      "candidateId": "kokuyou-charging-d-paper-edge-corruption",
+      "operation": "紙縁の侵食",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1957808889,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-ready-a-runtime-baseline:v1",
+      "candidateId": "kokuyou-ready-a-runtime-baseline",
+      "operation": "文字のみbaselineへ添える閉じた暗輪",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 339012250,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-ready-b-complete-dark-ring:v1",
+      "candidateId": "kokuyou-ready-b-complete-dark-ring",
+      "operation": "complete dark ring",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1316895146,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-ready-c-restrained-black-flame-crown:v1",
+      "candidateId": "kokuyou-ready-c-restrained-black-flame-crown",
+      "operation": "抑えた黒炎冠",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 3532998292,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-ready-d-lantern-inversion-pulse:v1",
+      "candidateId": "kokuyou-ready-d-lantern-inversion-pulse",
+      "operation": "反転lanternとready pulse",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 1801348638,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-active-a-runtime-baseline:v1",
+      "candidateId": "kokuyou-active-a-runtime-baseline",
+      "operation": "文字のみbaselineへ添える強いink aura",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 2262060698,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-active-b-controlled-black-flame:v1",
+      "candidateId": "kokuyou-active-b-controlled-black-flame",
+      "operation": "controlled black flame",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 4101730884,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-active-c-ink-fracture-aura:v1",
+      "candidateId": "kokuyou-active-c-ink-fracture-aura",
+      "operation": "ink fracture aura",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 2298172404,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-active-d-lantern-eclipse-paper-distortion:v1",
+      "candidateId": "kokuyou-active-d-lantern-eclipse-paper-distortion",
+      "operation": "lantern eclipseと紙歪み",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 2689317529,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-recovery-a-runtime-baseline:v1",
+      "candidateId": "kokuyou-recovery-a-runtime-baseline",
+      "operation": "文字のみbaselineへ添える弱い煤残り",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 689330549,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-recovery-b-fading-soot:v1",
+      "candidateId": "kokuyou-recovery-b-fading-soot",
+      "operation": "fading soot",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 965236787,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-recovery-c-dragging-ink-shadow:v1",
+      "candidateId": "kokuyou-recovery-c-dragging-ink-shadow",
+      "operation": "dragging ink shadow",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 4294667205,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-b:kokuyou-recovery-d-dim-lantern-paper-ash:v1",
+      "candidateId": "kokuyou-recovery-d-dim-lantern-paper-ash",
+      "operation": "dim lanternとpaper ash",
+      "canvas": [
+        180,
+        180
+      ],
+      "seed": 209991576,
+      "deterministic": true
+    }
+  ]
+}

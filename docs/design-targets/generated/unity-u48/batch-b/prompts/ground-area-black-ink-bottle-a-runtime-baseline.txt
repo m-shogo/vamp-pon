@@ -1,0 +1,5 @@
+U48 Batch B / ground-area-black-ink-bottle / ground-area-black-ink-bottle-a-runtime-baseline
+runtime common ink spriteを180pxへ正規化したbaseline
+Inherit: 小瓶から漏れた小さく濃い黒インク; 重く粘るにじみ; 紙への吸収; 通常武器相当の静かな強度
+Avoid: 単純な色付きdisc; pickup中心icon; 大きな白発光; HUD前面
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.

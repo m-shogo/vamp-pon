@@ -1,0 +1,2113 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "b69a64095a580077327d49daac009a69c81efaa5",
+  "batch": "B",
+  "generatedAtUtc": "2026-07-16T03:53:30.966970Z",
+  "candidateCount": 28,
+  "contracts": [
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-black-ink-bottle-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-a-runtime-baseline.txt",
+      "promptSha256": "75ecf9538d8ce0ebe6fdd75662ffafa82a24fef595abd103b1ee2d2b9098e1ba",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "black_ink_bottle",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-b-irregular-ink-blot",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-black-ink-bottle-b-irregular-ink-blot:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-b-irregular-ink-blot.txt",
+      "promptSha256": "3ad2375c0147c70bd853ed3103e9cf0c802f4dc272f0899742efc67918841034",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-b-irregular-ink-blot.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "black_ink_bottle",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-black-ink-bottle-c-breathing-ink-edge:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-c-breathing-ink-edge.txt",
+      "promptSha256": "d3aa0366cc5873fa918eb88b80dae1b89426bf3bbed0daa22b2fab56a0ee8d7f",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "black_ink_bottle",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-d-paper-absorption-bottle",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-black-ink-bottle-d-paper-absorption-bottle:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-d-paper-absorption-bottle.txt",
+      "promptSha256": "7e0a8cf99c429e2140287dbb5ffac56f777832fe910b498f8b579993ad8e8ae3",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-d-paper-absorption-bottle.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "black_ink_bottle",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-streetlamp-ring-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-a-runtime-baseline.txt",
+      "promptSha256": "b1e1e8bba9097286a079ca528578783a82aac6ecd1a96988a05218ee0091457e",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "streetlamp_ring",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-b-defined-lantern-ring",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-streetlamp-ring-b-defined-lantern-ring:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-b-defined-lantern-ring.txt",
+      "promptSha256": "8936cba843b9ef6ea2fceaeb747af35be9cbbe8e5bfa36dc45bfb8396e3eb64a",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-b-defined-lantern-ring.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "streetlamp_ring",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-c-broken-paper-light",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-streetlamp-ring-c-broken-paper-light:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-c-broken-paper-light.txt",
+      "promptSha256": "49f9cdf7eff9fa391aca628a2a79413577d3b474197857801db6f947796804bc",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-c-broken-paper-light.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "streetlamp_ring",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/ui/inventory-icon-design-bible.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+        "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-streetlamp-ring-d-ink-shadow-warm-light:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-d-ink-shadow-warm-light.txt",
+      "promptSha256": "c612b571a855c39a66b6d391f6945d09ffabc7e34b84bc082f53365f1287325a",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "streetlamp_ring",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/pixel-art-generation-prompts.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "a2f5beb83669df0ccc5984df8e47ef3e68f4f2cc899a938fdd0e2021f4676dbd",
+        "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-a-runtime-baseline.txt",
+      "promptSha256": "ba24ce5fe615672d871516e4c16800eeb74113cb4ae0b340cc8c0ee325da3189",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "dawn_ink_lamp",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-b-dual-layer-ink-light",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/pixel-art-generation-prompts.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "a2f5beb83669df0ccc5984df8e47ef3e68f4f2cc899a938fdd0e2021f4676dbd",
+        "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-b-dual-layer-ink-light:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-b-dual-layer-ink-light.txt",
+      "promptSha256": "f077c07a044b86d979e377fc65815a693a8aaf18f220af2415e4005ff5efb8a6",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-b-dual-layer-ink-light.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "dawn_ink_lamp",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/pixel-art-generation-prompts.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "a2f5beb83669df0ccc5984df8e47ef3e68f4f2cc899a938fdd0e2021f4676dbd",
+        "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-c-dawn-paper-rays:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-c-dawn-paper-rays.txt",
+      "promptSha256": "2f4ddbaec32565e0388edd7d0727f3cd4e02be5da37b27257aa565f4cfc3598c",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-c-dawn-paper-rays.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "dawn_ink_lamp",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/black-ink-bottle-prototype-qa.md",
+        "docs/streetlamp-ring-prototype-qa.md",
+        "docs/pixel-art-generation-prompts.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+        "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+        "a2f5beb83669df0ccc5984df8e47ef3e68f4f2cc899a938fdd0e2021f4676dbd",
+        "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.txt",
+      "promptSha256": "1572b211828921a9347abb85d99d0b527ed5e1aafd57fada8a78582bf727c3c1",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": "dawn_ink_lamp",
+        "kokuyouPhase": null,
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-charging-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-a-runtime-baseline.txt",
+      "promptSha256": "bb61e71d34468bb790b6520a809fe4a14dcfea2d9d5993acdb6d7eb62e191fe6",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Charging",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-b-small-ink-wisps",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-charging-b-small-ink-wisps:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-b-small-ink-wisps.txt",
+      "promptSha256": "f9417de6b4aac50f1c754189298db394c6a714666149156bc0deee3fad38c9ca",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Charging",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-c-lantern-shadow-flicker",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-charging-c-lantern-shadow-flicker:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-c-lantern-shadow-flicker.txt",
+      "promptSha256": "5b722f6970f4731d49752b64df26a0bdd018b4d76ade5d560278cee5705a782b",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-c-lantern-shadow-flicker.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Charging",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-d-paper-edge-corruption",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-charging-d-paper-edge-corruption:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-d-paper-edge-corruption.txt",
+      "promptSha256": "bd711ce9e49de91ce5371ee51b86083ed177ea97172d85b083adf7142a3fa351",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-d-paper-edge-corruption.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Charging",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-ready-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-a-runtime-baseline.txt",
+      "promptSha256": "9eb69fd4e6f818081ac3da2facf6ca036da916dda4f4840b55c6efb4f0a8630d",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Ready",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-b-complete-dark-ring",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-ready-b-complete-dark-ring:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-b-complete-dark-ring.txt",
+      "promptSha256": "f1ec81fcf48514e2b63352253a4cbcd47ac935febcf8ea572caec7ec4b2a781d",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Ready",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-c-restrained-black-flame-crown",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-ready-c-restrained-black-flame-crown:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-c-restrained-black-flame-crown.txt",
+      "promptSha256": "4e19ed8881be85ef54531f35bcff81a7ceff797807140429b3b2c0cab550c165",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-c-restrained-black-flame-crown.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Ready",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-d-lantern-inversion-pulse",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-ready-d-lantern-inversion-pulse:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-d-lantern-inversion-pulse.txt",
+      "promptSha256": "aa2c4286d48136049a8df67bf63a8cf1f55d97c5304667088ceb88fb5e31af9d",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-d-lantern-inversion-pulse.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Ready",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-active-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-a-runtime-baseline.txt",
+      "promptSha256": "0227a9c2fab01ba94da6abf05285bf59046c74fc3898c615f552851f25edaa8b",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Active",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-b-controlled-black-flame",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-active-b-controlled-black-flame:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-b-controlled-black-flame.txt",
+      "promptSha256": "9d48f0df4b9388286a4c2981ad717adc06c8e7af17ea01cce332cf3caaf0736e",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Active",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-c-ink-fracture-aura",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-active-c-ink-fracture-aura:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-c-ink-fracture-aura.txt",
+      "promptSha256": "fca6ec931e27c00af20ba0497ffde2a6d566e40bef1ae517e640f3fb40f7c8eb",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-c-ink-fracture-aura.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Active",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-d-lantern-eclipse-paper-distortion",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-active-d-lantern-eclipse-paper-distortion:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-d-lantern-eclipse-paper-distortion.txt",
+      "promptSha256": "aa7d148df0554b9b87bfdc3e905a4803af7f53d5e8f51c8e690bbe27027cbb4e",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-d-lantern-eclipse-paper-distortion.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Active",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-a-runtime-baseline",
+      "candidateRole": "runtime-baseline",
+      "sourceType": "reconstructed",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f"
+      ],
+      "parentSourcePaths": [
+        "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png"
+      ],
+      "parentSourceSha256": [
+        "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-recovery-a-runtime-baseline:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-a-runtime-baseline.txt",
+      "promptSha256": "e66266785492a2420825f8515c4d9fa9ec989d17b02fb7b412ab53134391fb4a",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-a-runtime-baseline.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Recovery",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-b-fading-soot",
+      "candidateRole": "shape-distinction",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-recovery-b-fading-soot:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-b-fading-soot.txt",
+      "promptSha256": "d70f506bf8d0d302652b1d95c206665b90c2ccf5e6f37901ccc6e9cea4803183",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Recovery",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-c-dragging-ink-shadow",
+      "candidateRole": "motion-readability",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-recovery-c-dragging-ink-shadow:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-c-dragging-ink-shadow.txt",
+      "promptSha256": "3a6ee3fa23d85f7dc590655d18836d645ae5781b870c00838ecb013f5031e46e",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-c-dragging-ink-shadow.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Recovery",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    },
+    {
+      "schemaVersion": 1,
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-d-dim-lantern-paper-ash",
+      "candidateRole": "worldbuilding-integration",
+      "sourceType": "procedural-authored",
+      "goldenReferencePaths": [
+        "docs/88-adopted-visual-direction.md",
+        "docs/design-targets/final/kokuyou-cutin-final.png",
+        "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+        "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png"
+      ],
+      "goldenReferenceSha256": [
+        "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+        "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+        "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f"
+      ],
+      "parentSourcePaths": [
+        "docs/design-targets/final/kokuyou-cutin-final.png"
+      ],
+      "parentSourceSha256": [
+        "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df"
+      ],
+      "generationTool": "scripts/unity/build-u48-batch-b-candidates.py",
+      "generationToolVersion": "1",
+      "recipePath": "docs/design-targets/generated/unity-u48/batch-b/generation-recipes.json",
+      "recipeId": "batch-b:kokuyou-recovery-d-dim-lantern-paper-ash:v1",
+      "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-d-dim-lantern-paper-ash.txt",
+      "promptSha256": "5d1883b03078d2daaafbee829cbe643760bfa2fe5e9a77de53736a0cf3baae0f",
+      "createdAtUtc": null,
+      "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-d-dim-lantern-paper-ash.png",
+      "outputSha256": null,
+      "targetImportContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "runtimeContract": {
+        "definitionId": null,
+        "kokuyouPhase": "Recovery",
+        "previewOnly": true,
+        "gameplayValuesUnchanged": true,
+        "productionProviderUnchanged": true
+      },
+      "automaticQaContract": [
+        "exists",
+        "png-rgba",
+        "alpha",
+        "180x180",
+        "unique-content-sha",
+        "unique-guid",
+        "point",
+        "mipmap-off",
+        "compression-none",
+        "finite-non-empty-bounds",
+        "no-edge-contact",
+        "gameplay-size-live-review"
+      ],
+      "lineageStatus": "unknown",
+      "humanReviewStatus": "pending",
+      "approvedAsFinal": false,
+      "runtimeApproved": false
+    }
+  ]
+}

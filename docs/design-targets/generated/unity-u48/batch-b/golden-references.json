@@ -1,0 +1,374 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "b69a64095a580077327d49daac009a69c81efaa5",
+  "batch": "B",
+  "entries": [
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/black-ink-bottle-prototype-qa.md",
+          "sha256": "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+          "role": "shape"
+        },
+        {
+          "path": "docs/ui/inventory-icon-design-bible.md",
+          "sha256": "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
+          "sha256": "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "小瓶から漏れた小さく濃い黒インク",
+        "重く粘るにじみ",
+        "紙への吸収",
+        "通常武器相当の静かな強度"
+      ],
+      "doNotInherit": [
+        "streetlampの暖色輪",
+        "dawnの広い朝光",
+        "pickup actor",
+        "現行共通spriteのcandidate承認状態"
+      ],
+      "runtimeReadabilityContract": [
+        "radius 0.52へvisualを合わせる",
+        "enemy/player/projectile/pickupを隠さない",
+        "DoT tickとdurationを動きで読める"
+      ],
+      "prohibitedExpressions": [
+        "単純な色付きdisc",
+        "pickup中心icon",
+        "大きな白発光",
+        "HUD前面"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/streetlamp-ring-prototype-qa.md",
+          "sha256": "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+          "role": "shape"
+        },
+        {
+          "path": "docs/ui/inventory-icon-design-bible.md",
+          "sha256": "032336b5ce429cacf271bf1f18421726924d5053109411e5484963b841ad4dbf",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
+          "sha256": "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙上へ落ちる暖色の街灯輪",
+        "black inkの薄い影",
+        "輪郭のある通常武器"
+      ],
+      "doNotInherit": [
+        "black inkの色違いだけ",
+        "dawnの進化強度",
+        "neon/SF表現",
+        "現行共通spriteのcandidate承認状態"
+      ],
+      "runtimeReadabilityContract": [
+        "radius 0.64へvisualを合わせる",
+        "black inkより明るくdawnより弱い",
+        "broken circumferenceでも作用域を読める"
+      ],
+      "prohibitedExpressions": [
+        "完全なneon円",
+        "過剰な白発光",
+        "進化武器より強い表現",
+        "HUD前面"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/black-ink-bottle-prototype-qa.md",
+          "sha256": "4b6b13213b01cc36b2fd44645673dcd7ebbe293cda211b359a01b9457330a686",
+          "role": "evolution"
+        },
+        {
+          "path": "docs/streetlamp-ring-prototype-qa.md",
+          "sha256": "a3b568ce90e59fc8e543d59276f0b99e059c334d321948b0fdb604148c7c073a",
+          "role": "evolution"
+        },
+        {
+          "path": "docs/pixel-art-generation-prompts.md",
+          "sha256": "a2f5beb83669df0ccc5984df8e47ef3e68f4f2cc899a938fdd0e2021f4676dbd",
+          "role": "shape"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
+          "sha256": "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1/Common/runtime-ink-burst.png",
+          "sha256": "ef483bc5bb668364a92656dc5d0d97906002de4f481628eb763783eb2b806e4b",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "black inkとstreetlampの合体",
+        "黒・灯り・朝色の三層",
+        "三種中最大で最強の輪"
+      ],
+      "doNotInherit": [
+        "素材武器の単純拡大",
+        "全画面flash",
+        "UI modal枠",
+        "現行共通spriteのcandidate承認状態"
+      ],
+      "runtimeReadabilityContract": [
+        "radius 1.28へvisualを合わせる",
+        "evolutionの強さを示しつつactorを隠さない",
+        "広い輪でも中央視界を保つ"
+      ],
+      "prohibitedExpressions": [
+        "単純2倍scale",
+        "全画面白flash",
+        "高輝度の塗りつぶし",
+        "固定UI枠"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/final/kokuyou-cutin-final.png",
+          "sha256": "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+          "role": "color"
+        },
+        {
+          "path": "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+          "sha256": "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+          "role": "motion"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
+          "sha256": "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "低強度の黒インクと影の集積",
+        "通常playを邪魔しない",
+        "理性が静かに揺らぐ"
+      ],
+      "doNotInherit": [
+        "activeの強さ",
+        "phase文字そのもの",
+        "cutinの全画面構図"
+      ],
+      "runtimeReadabilityContract": [
+        "phase文字なしでもchargingと通常を最低限区別",
+        "player identityとHUDを維持",
+        "damage gaugeの進行と連続する"
+      ],
+      "prohibitedExpressions": [
+        "可愛い目",
+        "コミカルな表情",
+        "汎用紫オーラだけ",
+        "強い点滅"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/final/kokuyou-cutin-final.png",
+          "sha256": "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+          "role": "color"
+        },
+        {
+          "path": "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+          "sha256": "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+          "role": "motion"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+          "sha256": "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "発動可能の緊張",
+        "完成した暗い輪",
+        "active未満の強度"
+      ],
+      "doNotInherit": [
+        "activeの黒炎量",
+        "phase文字そのもの",
+        "全画面cutin"
+      ],
+      "runtimeReadabilityContract": [
+        "chargingとの差を明確にする",
+        "manual activation可能性を静かなpulseで示す",
+        "HUDとplayer silhouetteを維持"
+      ],
+      "prohibitedExpressions": [
+        "可愛い目",
+        "過剰点滅",
+        "active以上の強度",
+        "汎用紫オーラだけ"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/final/kokuyou-cutin-final.png",
+          "sha256": "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+          "role": "color"
+        },
+        {
+          "path": "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+          "sha256": "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+          "role": "motion"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
+          "sha256": "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "黒炎と邪念",
+        "通常との差が最大",
+        "player本人のsilhouette保持"
+      ],
+      "doNotInherit": [
+        "可愛い目",
+        "cutinの全画面占有",
+        "汎用紫オーラ"
+      ],
+      "runtimeReadabilityContract": [
+        "damage multiplier中と分かる",
+        "enemy/projectile/pickup/ground-areaを隠さない",
+        "長時間でも視認負荷を抑える"
+      ],
+      "prohibitedExpressions": [
+        "コミカルな暴走",
+        "全画面白flash",
+        "player identity消失",
+        "高頻度点滅"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "worldbuilding"
+        },
+        {
+          "path": "docs/design-targets/final/kokuyou-cutin-final.png",
+          "sha256": "65eced666daeafcde59891bf252b8da305269094c31bdde357c5d035277649df",
+          "role": "color"
+        },
+        {
+          "path": "docs/unity-u24-kokuyou-climax-visual-target-alignment-2026-07-01.md",
+          "sha256": "3bb0d110b6b9ecbe6884b88f1ccf3d946c07760c821f393b6b488e5cba106799",
+          "role": "motion"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
+          "sha256": "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "active後の疲労と重さ",
+        "短い煤とink残滓",
+        "通常復帰への自然な減衰"
+      ],
+      "doNotInherit": [
+        "chargingの集積方向",
+        "activeの強さ",
+        "phase文字そのもの"
+      ],
+      "runtimeReadabilityContract": [
+        "chargingへ戻ったと誤認しない",
+        "slow中の重さを示す",
+        "normal復帰後に残留しない"
+      ],
+      "prohibitedExpressions": [
+        "可愛い目",
+        "active同等の炎",
+        "永続残留",
+        "汎用紫オーラだけ"
+      ],
+      "approvedForRuntime": false,
+      "humanApprovedGoldenReference": false
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+U48 Batch B / ground-area-streetlamp-ring / ground-area-streetlamp-ring-a-runtime-baseline
+共通ink spriteの現行tint/scale運用を正規化
+Inherit: 紙上へ落ちる暖色の街灯輪; black inkの薄い影; 輪郭のある通常武器
+Avoid: 完全なneon円; 過剰な白発光; 進化武器より強い表現; HUD前面
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.

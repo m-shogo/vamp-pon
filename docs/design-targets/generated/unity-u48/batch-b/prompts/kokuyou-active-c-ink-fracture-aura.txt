@@ -1,0 +1,5 @@
+U48 Batch B / kokuyou-active / kokuyou-active-c-ink-fracture-aura
+ink fracture aura
+Inherit: 黒炎と邪念; 通常との差が最大; player本人のsilhouette保持
+Avoid: コミカルな暴走; 全画面白flash; player identity消失; 高頻度点滅
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.

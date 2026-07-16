@@ -1,0 +1,5 @@
+U48 Batch B / ground-area-dawn-ink-lamp / ground-area-dawn-ink-lamp-b-dual-layer-ink-light
+inkとlightの二層ring
+Inherit: black inkとstreetlampの合体; 黒・灯り・朝色の三層; 三種中最大で最強の輪
+Avoid: 単純2倍scale; 全画面白flash; 高輝度の塗りつぶし; 固定UI枠
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.

@@ -1,0 +1,5 @@
+U48 Batch B / kokuyou-charging / kokuyou-charging-a-runtime-baseline
+文字のみbaselineへ添える最小ink影
+Inherit: 低強度の黒インクと影の集積; 通常playを邪魔しない; 理性が静かに揺らぐ
+Avoid: 可愛い目; コミカルな表情; 汎用紫オーラだけ; 強い点滅
+Textless transparent 180x180 PNG RGBA, Point filter, no edge contact.
