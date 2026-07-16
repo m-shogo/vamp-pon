@@ -1,0 +1,426 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "7f4ec593",
+  "tool": "scripts/unity/build-u48-batch-c-candidates.py",
+  "toolVersion": "1",
+  "generatedAtUtc": "2026-07-16T06:39:08.429944Z",
+  "outputCount": 52,
+  "outputs": [
+    {
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-a-runtime-baseline.png",
+      "sha256": "3e81b9e2e4000f89a4cacd34c764474cb10b84e06823ddd0b7797575fc276180",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png",
+      "sha256": "95b4a13730fd6d4c5310a9e5e81fe49b9038931371f5a04ff0cb392f7ef0edf7",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-c-paper-ink.png",
+      "sha256": "23587e348fcc58410b865b731efa972cbef990b0fe1bf3f7ec2e6dfefad01988",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-d-production-balanced.png",
+      "sha256": "2bf16d900021df138037ea7778724d1a34f74134ca71866c48155333a5abf30b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-a-runtime-baseline.png",
+      "sha256": "fed3e3df55b1b6802b138332f49bc23f66631f3d468ace31132aebb1f3ff9b2d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png",
+      "sha256": "3d1701110f17f36de4e5436d63f62876d3c37c17cc25d1c2611ce9d55b8942dd",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-c-paper-ink.png",
+      "sha256": "108915a9bd2ad58a652ba1687f77229ec16914a7ceef272655e8799352df23f6",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-d-production-balanced.png",
+      "sha256": "d378cd614996c8a05eee4cdb7abc459461d8add60ac37c29dcf3851d9d98ad85",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-a-runtime-baseline.png",
+      "sha256": "2980fc16e4574f6552a771189b7047467600fb076fad1a98e06e3015512435f4",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png",
+      "sha256": "256a8f90a8dd6fc32d1477a79cd37b6efff6b0a853a58595be91a925cd6aeb51",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-c-paper-ink.png",
+      "sha256": "7940f28bb29a1539d4b433772582e9828686e2a2165f88df52fb6df246eefece",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-d-production-balanced.png",
+      "sha256": "1ab6b5541be53b1bab20134a2a65a6f70f598ec6bd971beb4d92bf0a1dfb7ae4",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-a-runtime-baseline.png",
+      "sha256": "bd289bf97b44ae30c1b3ec15a16df14988cc92be3ac43a91cf3ca2ae02472750",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-b-readability.png",
+      "sha256": "9e05f44daaaf34ec8392d26a8861fbd8eed013a949ff03e351161588adc07fcc",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png",
+      "sha256": "94c9250ad7ce8414daaaac1eee5c239bf308b10f573d1cc5d3a66f498d76d15f",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-d-production-balanced.png",
+      "sha256": "7f0215197e1aa8a2ceb9a68501b141c5fd14dcb0a7fcdeb22d6d590ba8b1bdbe",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-a-runtime-baseline.png",
+      "sha256": "93c59384e7dfd31ff73e7d9e6e03386e1119b772f67ffff185118c13ca751444",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-b-readability.png",
+      "sha256": "9090743c0b37ecbf19edf14c7540a0c0d60d8b512025e1459e2e00c55226a07f",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png",
+      "sha256": "d5188afa9e8b54a99a9046a6406b2b00dc7a9bf5205219091bdf2b7a2bbbb5cd",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-d-production-balanced.png",
+      "sha256": "cb7e0842f9189e784ad683330e42f4c00a26fd05125dcc3ff7bd014e118df708",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-a-runtime-baseline.png",
+      "sha256": "2791e78defee20f197a7d66122a707b793d14e0ae8f4254c9d0ea7a46e029d22",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-b-readability.png",
+      "sha256": "3d8cd4d35d58d79cc782bc6bfd65a1c4a64f376f1b99e7f5e3a309275d0a5817",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-c-paper-ink.png",
+      "sha256": "473caa1fd117c81e493e3f511eb17ccb0c9108faa5bab42311e55d30cc8fbca2",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png",
+      "sha256": "644978f25686d07b63a56d61289f034423614775f49452378067f898fe470b90",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-a-runtime-baseline",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-a-runtime-baseline.png",
+      "sha256": "11bb26c9f9e8c8c2694a16369d84048f5ba9c9160c6e11e62eea4185505568c2",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-b-readability",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-b-readability.png",
+      "sha256": "c82801e5045375cda562fa496070d63ec07928331f429b6da224701c7dd4c063",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-c-paper-ink",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-c-paper-ink.png",
+      "sha256": "a20e23f14c12b03196c402cab01ec44b606de9083b9178dcc66893638194662a",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
+      "owner": "hud",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png",
+      "sha256": "a2b3bb6ede5f6f720e2d821c5650219a0950d6d939550f1f81a94da41a0ac69d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-a-runtime-baseline",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-a-runtime-baseline.png",
+      "sha256": "66861a50c2b2db9f9316ec4934471690e2bd6a2625cd4e0a83e7955d999dcb28",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-b-readability",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-b-readability.png",
+      "sha256": "ba2c3aae5dc02489c59432e08878641dc5c6e54fad4f133ff096c339de49a98b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-c-paper-ink",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-c-paper-ink.png",
+      "sha256": "555c12731ff468a5519692c36bee8e63e5aa8a4c4a5a88370aaf6a291ac47a53",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-d-production-balanced",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png",
+      "sha256": "130c4d4bf71bb383f5da7efc06a5b953e2cfad8e84bc5822d16c84d84002ee26",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-a-runtime-baseline",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-a-runtime-baseline.png",
+      "sha256": "94ebf2350a107915769b4b3427cb671fa126eff46e2a8351be76e7367de19165",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-b-readability",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png",
+      "sha256": "948c92117607d5461446aa1226a6275fc4a8220e56f11cd0c718384222b7c81d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-c-paper-ink",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-c-paper-ink.png",
+      "sha256": "1e1f60dc516c2060108d7400410bf195c0b95698152f2fc328540ce4af21f40b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-d-production-balanced",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-d-production-balanced.png",
+      "sha256": "9809fad79d5b4516b67ea465dd5841e5684c14b58c06fccce4ece9552780af97",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-a-runtime-baseline",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-a-runtime-baseline.png",
+      "sha256": "18b558ceb0d1d98e98bcc0ce24de77652957a1876e1fd15548723c4e426aa3dd",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-b-readability",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-b-readability.png",
+      "sha256": "be4e169ae8540f868f56e133577a64b50b957d0ced2d53cdcbf0adbdf640cf3b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-c-paper-ink",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-c-paper-ink.png",
+      "sha256": "1d85975ed5950d6bea9fd79f39bd477075281a8b9d74d356e2f574bfb2bcec91",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-d-production-balanced",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png",
+      "sha256": "d77177daa5e3ed54e3eae1b866c317c3514690232f8e77f2cb3f562ad84fe09d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-a-runtime-baseline",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-a-runtime-baseline.png",
+      "sha256": "99db1f9b7faf59e9fbe2036cf8b75429d3d1ae026f6221735f48d94eaffe53a5",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-b-readability",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png",
+      "sha256": "1f224b71d566489a893b9a8a69ee128be794e8c5e4cd78b1b24638ab01a27111",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-c-paper-ink",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-c-paper-ink.png",
+      "sha256": "45c1fd2ac1536ccfbd604b5dd86429453a60383092e33aab2b80c4371cf86920",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-d-production-balanced",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-d-production-balanced.png",
+      "sha256": "303c109f577d2011216bf366003abbae16d9d482ba7339780ace593be5cf841e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-a-runtime-baseline",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-a-runtime-baseline.png",
+      "sha256": "194175c801cf5827da3fcb30043511ffe698cb28903cb5c03c748b6ddb0b0cf0",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-b-readability",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-b-readability.png",
+      "sha256": "8df3f58e1afde526874b91a2e52b0ed9f8aeab598dc6ad83fd5fa783471953e2",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-c-paper-ink",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png",
+      "sha256": "5ce9bda752af50556b4a09025ea2267b784831ccc8a419b28080cd9d8ecdee04",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-d-production-balanced",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-d-production-balanced.png",
+      "sha256": "ddc53c02d536026c1e3a361ebe919e4785571ceb95ae873e0a7dfae1c494a6af",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-a-runtime-baseline",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-a-runtime-baseline.png",
+      "sha256": "69a8a723e05c32471df18c27ea74e26d3e7815de9996f7c8473a559a107c1e0f",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-b-readability",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png",
+      "sha256": "7cdd9f5e179e9f48ee61501fcb89731eede8a856143d0cdc5c3f7c0c24c2f9cb",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-c-paper-ink",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-c-paper-ink.png",
+      "sha256": "4ea4f8c35c46a26477b9ab542e3ab22d3c850dca5a0bdbfe7273a46b34b05ecb",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-d-production-balanced",
+      "owner": "levelup",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-d-production-balanced.png",
+      "sha256": "8064c304c9a21d869617068eefabbab79ec508adf0ec442e7f2c81662eb26a12",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-d-production-balanced.png.meta"
+    }
+  ]
+}

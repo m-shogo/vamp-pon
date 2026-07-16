@@ -111,6 +111,10 @@ CANDIDATES = [
 
 
 def baseline_audit() -> dict:
+    existing_audit = EVIDENCE / "runtime-baseline-audit.json"
+    generated_at = "2026-07-16T06:34:06.513237Z"
+    if existing_audit.exists():
+        generated_at = json.loads(existing_audit.read_text()).get("generatedAtUtc", generated_at)
     entries = []
     for group, owner, component, asset, asset_type, logical, states, inset, tap in GROUPS:
         rect = {
@@ -147,7 +151,7 @@ def baseline_audit() -> dict:
             "knownProblems": ["candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"],
         })
     return {
-        "schemaVersion": 1, "sourceHead": SOURCE_HEAD, "generatedAtUtc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "schemaVersion": 1, "sourceHead": SOURCE_HEAD, "generatedAtUtc": generated_at,
         "scope": "U48 Batch C current production runtime UI baseline; audit only",
         "assetGroupCount": len(entries), "entries": entries,
         "productionProviderModified": False, "gameplayContractChanged": False,
