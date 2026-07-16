@@ -1,0 +1,1248 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "b69a64095a580077327d49daac009a69c81efaa5",
+  "batch": "B",
+  "generatedAtUtc": "2026-07-16T03:55:57.436174Z",
+  "candidateCount": 28,
+  "duplicateContentHashCount": 0,
+  "duplicateGuidCount": 0,
+  "summary": {
+    "PASS": 28,
+    "WARNING": 0,
+    "FAIL": 0
+  },
+  "entries": [
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-a-runtime-baseline.png",
+      "sha256": "811503bdd8933bfa5436cc53b94a35d37286dcb9ddef3dd4743055c72bc3ba8e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        20,
+        19,
+        159,
+        161
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.609198,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "e75dfd34bbdf63709b4d8f36e95c14e7",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-b-irregular-ink-blot",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-b-irregular-ink-blot.png",
+      "sha256": "f6b8b07bada9a9cc042ba5cc88b0402b312ed22c5d0ebff0bc802e196c7bca3d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        32,
+        48,
+        152,
+        138
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.333333,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-b-irregular-ink-blot.png.meta",
+      "meta": {
+        "guid": "a5a6884667040216772361663499eed3",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
+      "sha256": "7416946b0d494b8ae05fc34e28cc4793c29b41df5d465c90cb5bf173b4c09d19",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        32,
+        42,
+        150,
+        148
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.386049,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png.meta",
+      "meta": {
+        "guid": "b5d306f33119caaa682591cbb6348ad9",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-d-paper-absorption-bottle",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-d-paper-absorption-bottle.png",
+      "sha256": "68c05a456571b377bcda0ec9b01ef9196fc5c4f7ef88251b404fe77003d6ced4",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        26,
+        34,
+        154,
+        152
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.466173,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-d-paper-absorption-bottle.png.meta",
+      "meta": {
+        "guid": "bfdb4f8ddd76509f141e13e92b3b9db3",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-a-runtime-baseline.png",
+      "sha256": "1a30b82aaefb05a2763e88f00935bdb6033cafc6ba19c176419b2ae34a211bcd",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        15,
+        13,
+        165,
+        167
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.712963,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "5fde397f5354a98e2a5efb600c5bee32",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-b-defined-lantern-ring",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-b-defined-lantern-ring.png",
+      "sha256": "99c12cb726f5e04a1ca3373392f938a423b0e501e60b7c3894125622df53f0f4",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        30,
+        30,
+        152,
+        152
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.459383,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-b-defined-lantern-ring.png.meta",
+      "meta": {
+        "guid": "1595be43f0673ee45d72504254006ce9",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-c-broken-paper-light",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-c-broken-paper-light.png",
+      "sha256": "cbec052f44c7aa67de6b5fa6013d564161d0cf3b6790dbbf1dff87ee98e25907",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        28,
+        28,
+        154,
+        154
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.49,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-c-broken-paper-light.png.meta",
+      "meta": {
+        "guid": "9b13f75e1b9b4338c76a96670afefe5a",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
+      "sha256": "6a092b2cac6122abd9f8e2347556e8df7e152b67645c63f580e1836f273fa74d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        24,
+        24,
+        158,
+        158
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.554198,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png.meta",
+      "meta": {
+        "guid": "9e53205c92a4218c004c70c8911d5469",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-a-runtime-baseline.png",
+      "sha256": "97db4f006d1b5d0822e726227f78743d96aee9c86c58279548110ce9630e6b40",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        11,
+        9,
+        169,
+        171
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.79,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "ff90d3900c4471f5bd0f9a59f41885ae",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-b-dual-layer-ink-light",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-b-dual-layer-ink-light.png",
+      "sha256": "7ef1dad6fe953708fbfc0071e3cd34ac8005bcea98f123c6d26e6760bd99c910",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        14,
+        14,
+        168,
+        168
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.731975,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-b-dual-layer-ink-light.png.meta",
+      "meta": {
+        "guid": "854ad33528879ec6508a7b6ea791c807",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-c-dawn-paper-rays.png",
+      "sha256": "5248ef65d345c1064b9d25de6384d96f8b46711c67619f6bc7f1a62c7bebdccb",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        14,
+        14,
+        168,
+        168
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.731975,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-c-dawn-paper-rays.png.meta",
+      "meta": {
+        "guid": "f1269ed0f1bb42d2e26d4be0695a8c25",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
+      "sha256": "59f02f24aa809fe54b0bf4f794db26ab2e6c9ba9a2849050cfac3cccc01285d1",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        12,
+        12,
+        170,
+        170
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.770494,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png.meta",
+      "meta": {
+        "guid": "43630cf5e80e8953d4ac3ced58a6e8a6",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 8,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-a-runtime-baseline.png",
+      "sha256": "92ea10497b53891f596041d5b879b4f79081100a12ab516ffce106b42395b2ef",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        36,
+        26,
+        146,
+        146
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.407407,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "1cf0114ef1b0cee839d41943fd66478f",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-b-small-ink-wisps",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
+      "sha256": "c796341c1eba5b630d4c06118da581c41f943b5be078ffbb666b84edd40ab1e0",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        40,
+        24,
+        150,
+        108
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.285185,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png.meta",
+      "meta": {
+        "guid": "3107c57611a789c004432c71d63db614",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": false,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-c-lantern-shadow-flicker",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-c-lantern-shadow-flicker.png",
+      "sha256": "26ff7761181b5a3cd859709d67a251d3d04540c5b635673f3f07d2793635889f",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        34,
+        24,
+        148,
+        150
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.443333,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-c-lantern-shadow-flicker.png.meta",
+      "meta": {
+        "guid": "5d0ccf381324b566305f2718e58073e6",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-d-paper-edge-corruption",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-d-paper-edge-corruption.png",
+      "sha256": "d0c9f2ef0392773865a665306831d07b7dc5510d5a1e13a3f8c7857a1bea2eb9",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        32,
+        20,
+        158,
+        152
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.513333,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-d-paper-edge-corruption.png.meta",
+      "meta": {
+        "guid": "a03df81a0d1f711babb76d144db86ba7",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-a-runtime-baseline.png",
+      "sha256": "f484a769d55cd6d9719810d371412f1ef70d099159dc564a37dc5cf7b657522f",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        36,
+        26,
+        146,
+        146
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.407407,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "2d7b26f26529edadf4acc044086ce96e",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-b-complete-dark-ring",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
+      "sha256": "62cdde6fff2decd53b5af130f8a62daa1abef2bc581b6f65b2f9e8263f0f0838",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        24,
+        16,
+        158,
+        154
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.570741,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png.meta",
+      "meta": {
+        "guid": "c1ed58e54c81962c2cecde6976029e8b",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-c-restrained-black-flame-crown",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-c-restrained-black-flame-crown.png",
+      "sha256": "403e67e642f7b94e1c590fda2afa0c539a4a2d2e01dd03995c0c72ea5dd7aff4",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        22,
+        14,
+        160,
+        160
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.621852,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-c-restrained-black-flame-crown.png.meta",
+      "meta": {
+        "guid": "5a290c9bb2f9749271a3b97d4d4adea1",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-d-lantern-inversion-pulse",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-d-lantern-inversion-pulse.png",
+      "sha256": "b3fe5c58585a5b9b15fe6828a5cd8c526cca42840953dd8ecc488c0d8d749767",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        20,
+        12,
+        162,
+        162
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.657407,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-d-lantern-inversion-pulse.png.meta",
+      "meta": {
+        "guid": "b1d7e68ff1bf2893ecc06dbda2fd33df",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-a-runtime-baseline.png",
+      "sha256": "d0fbd33baed5730ddb82f3c0781d5768fa9a4aee6127ca9d935064767afec253",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        36,
+        26,
+        146,
+        146
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.407407,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "a66c1d116abcb618ea81d428401407ac",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-b-controlled-black-flame",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
+      "sha256": "b0da2202773356c169cd583efdb0c585ce13b9ec9aa1065cc184a6749a9e26b5",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        18,
+        12,
+        164,
+        162
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.675926,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png.meta",
+      "meta": {
+        "guid": "d8012082644049bd6feca5ea26d45b36",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-c-ink-fracture-aura",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-c-ink-fracture-aura.png",
+      "sha256": "029af5d38dbf37b01a6a586b3286be4a69dd94d2c2c609918ee5b364558855da",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        14,
+        10,
+        168,
+        164
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.731975,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-c-ink-fracture-aura.png.meta",
+      "meta": {
+        "guid": "ce0a709f1a217fe140467629f43e4dd7",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-d-lantern-eclipse-paper-distortion",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-d-lantern-eclipse-paper-distortion.png",
+      "sha256": "ecc60ab8ac9fe93efb7f9fed79ea6124c9cdb192a41869a3c5b1c4cb95d1e30c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        14,
+        8,
+        170,
+        168
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.77037,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-d-lantern-eclipse-paper-distortion.png.meta",
+      "meta": {
+        "guid": "c918ddb181ba79129ef6fefdf100e2ee",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-a-runtime-baseline",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-a-runtime-baseline.png",
+      "sha256": "99c470f6087cb400238021074bbbe718111c787ef82e134a26c9410e6d5107c1",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        36,
+        26,
+        146,
+        146
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.407407,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "66eb47e64e6376a5944c150067965453",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-b-fading-soot",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
+      "sha256": "702f8e2d84f7463a8c22162add893704742efc8208dedeac7188dab5c5f925e5",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        40,
+        38,
+        144,
+        138
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.320988,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png.meta",
+      "meta": {
+        "guid": "0f819f8a99201396577e97607f164d4a",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-c-dragging-ink-shadow",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-c-dragging-ink-shadow.png",
+      "sha256": "3639626d200ca3a2acf89b8fceaf3ae273b6b12b16c15a516ce5ef6308671405",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        34,
+        36,
+        152,
+        146
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.400617,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-c-dragging-ink-shadow.png.meta",
+      "meta": {
+        "guid": "77e249f6273663470df60be1248f6318",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": true,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-d-dim-lantern-paper-ash",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-d-dim-lantern-paper-ash.png",
+      "sha256": "8e8f32d2a28e25b65a6fee4383b26d780c224ad8ba81b229013d95033b4edfce",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 180,
+      "height": 180,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        40,
+        30,
+        156,
+        144
+      ],
+      "finiteBounds": true,
+      "edgeContact": false,
+      "occupancy": 0.408148,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-d-dim-lantern-paper-ash.png.meta",
+      "meta": {
+        "guid": "0ed892b0ad8baff214e1b0d182049eda",
+        "ppu": 180.0,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterModePoint": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1
+      },
+      "failures": [],
+      "warnings": [],
+      "runtimeQa": {
+        "visualRadiusReview": "live-required",
+        "centerAlignment": false,
+        "sortingOrderExpected": 9,
+        "phaseIdentification": "live-required",
+        "overdrawRisk": "human-review",
+        "cleanup": "live-required"
+      }
+    }
+  ]
+}

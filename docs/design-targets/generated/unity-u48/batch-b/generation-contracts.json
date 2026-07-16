@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "sourceHead": "b69a64095a580077327d49daac009a69c81efaa5",
   "batch": "B",
-  "generatedAtUtc": "2026-07-16T03:53:30.966970Z",
+  "generatedAtUtc": "2026-07-16T03:55:57.128932Z",
   "candidateCount": 28,
   "contracts": [
     {
@@ -37,9 +37,9 @@
       "recipeId": "batch-b:ground-area-black-ink-bottle-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-a-runtime-baseline.txt",
       "promptSha256": "75ecf9538d8ce0ebe6fdd75662ffafa82a24fef595abd103b1ee2d2b9098e1ba",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "811503bdd8933bfa5436cc53b94a35d37286dcb9ddef3dd4743055c72bc3ba8e",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -76,7 +76,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -113,9 +113,9 @@
       "recipeId": "batch-b:ground-area-black-ink-bottle-b-irregular-ink-blot:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-b-irregular-ink-blot.txt",
       "promptSha256": "3ad2375c0147c70bd853ed3103e9cf0c802f4dc272f0899742efc67918841034",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-b-irregular-ink-blot.png",
-      "outputSha256": null,
+      "outputSha256": "f6b8b07bada9a9cc042ba5cc88b0402b312ed22c5d0ebff0bc802e196c7bca3d",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -152,7 +152,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -189,9 +189,9 @@
       "recipeId": "batch-b:ground-area-black-ink-bottle-c-breathing-ink-edge:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-c-breathing-ink-edge.txt",
       "promptSha256": "d3aa0366cc5873fa918eb88b80dae1b89426bf3bbed0daa22b2fab56a0ee8d7f",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
-      "outputSha256": null,
+      "outputSha256": "7416946b0d494b8ae05fc34e28cc4793c29b41df5d465c90cb5bf173b4c09d19",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -228,7 +228,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -265,9 +265,9 @@
       "recipeId": "batch-b:ground-area-black-ink-bottle-d-paper-absorption-bottle:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-black-ink-bottle-d-paper-absorption-bottle.txt",
       "promptSha256": "7e0a8cf99c429e2140287dbb5ffac56f777832fe910b498f8b579993ad8e8ae3",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-d-paper-absorption-bottle.png",
-      "outputSha256": null,
+      "outputSha256": "68c05a456571b377bcda0ec9b01ef9196fc5c4f7ef88251b404fe77003d6ced4",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -304,7 +304,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -341,9 +341,9 @@
       "recipeId": "batch-b:ground-area-streetlamp-ring-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-a-runtime-baseline.txt",
       "promptSha256": "b1e1e8bba9097286a079ca528578783a82aac6ecd1a96988a05218ee0091457e",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "1a30b82aaefb05a2763e88f00935bdb6033cafc6ba19c176419b2ae34a211bcd",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -380,7 +380,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -417,9 +417,9 @@
       "recipeId": "batch-b:ground-area-streetlamp-ring-b-defined-lantern-ring:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-b-defined-lantern-ring.txt",
       "promptSha256": "8936cba843b9ef6ea2fceaeb747af35be9cbbe8e5bfa36dc45bfb8396e3eb64a",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-b-defined-lantern-ring.png",
-      "outputSha256": null,
+      "outputSha256": "99c12cb726f5e04a1ca3373392f938a423b0e501e60b7c3894125622df53f0f4",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -456,7 +456,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -493,9 +493,9 @@
       "recipeId": "batch-b:ground-area-streetlamp-ring-c-broken-paper-light:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-c-broken-paper-light.txt",
       "promptSha256": "49f9cdf7eff9fa391aca628a2a79413577d3b474197857801db6f947796804bc",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-c-broken-paper-light.png",
-      "outputSha256": null,
+      "outputSha256": "cbec052f44c7aa67de6b5fa6013d564161d0cf3b6790dbbf1dff87ee98e25907",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -532,7 +532,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -569,9 +569,9 @@
       "recipeId": "batch-b:ground-area-streetlamp-ring-d-ink-shadow-warm-light:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-streetlamp-ring-d-ink-shadow-warm-light.txt",
       "promptSha256": "c612b571a855c39a66b6d391f6945d09ffabc7e34b84bc082f53365f1287325a",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
-      "outputSha256": null,
+      "outputSha256": "6a092b2cac6122abd9f8e2347556e8df7e152b67645c63f580e1836f273fa74d",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -608,7 +608,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -647,9 +647,9 @@
       "recipeId": "batch-b:ground-area-dawn-ink-lamp-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-a-runtime-baseline.txt",
       "promptSha256": "ba24ce5fe615672d871516e4c16800eeb74113cb4ae0b340cc8c0ee325da3189",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "97db4f006d1b5d0822e726227f78743d96aee9c86c58279548110ce9630e6b40",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -686,7 +686,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -725,9 +725,9 @@
       "recipeId": "batch-b:ground-area-dawn-ink-lamp-b-dual-layer-ink-light:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-b-dual-layer-ink-light.txt",
       "promptSha256": "f077c07a044b86d979e377fc65815a693a8aaf18f220af2415e4005ff5efb8a6",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-b-dual-layer-ink-light.png",
-      "outputSha256": null,
+      "outputSha256": "7ef1dad6fe953708fbfc0071e3cd34ac8005bcea98f123c6d26e6760bd99c910",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -764,7 +764,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -803,9 +803,9 @@
       "recipeId": "batch-b:ground-area-dawn-ink-lamp-c-dawn-paper-rays:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-c-dawn-paper-rays.txt",
       "promptSha256": "2f4ddbaec32565e0388edd7d0727f3cd4e02be5da37b27257aa565f4cfc3598c",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-c-dawn-paper-rays.png",
-      "outputSha256": null,
+      "outputSha256": "5248ef65d345c1064b9d25de6384d96f8b46711c67619f6bc7f1a62c7bebdccb",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -842,7 +842,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -881,9 +881,9 @@
       "recipeId": "batch-b:ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.txt",
       "promptSha256": "1572b211828921a9347abb85d99d0b527ed5e1aafd57fada8a78582bf727c3c1",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
-      "outputSha256": null,
+      "outputSha256": "59f02f24aa809fe54b0bf4f794db26ab2e6c9ba9a2849050cfac3cccc01285d1",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -920,7 +920,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -955,9 +955,9 @@
       "recipeId": "batch-b:kokuyou-charging-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-a-runtime-baseline.txt",
       "promptSha256": "bb61e71d34468bb790b6520a809fe4a14dcfea2d9d5993acdb6d7eb62e191fe6",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "92ea10497b53891f596041d5b879b4f79081100a12ab516ffce106b42395b2ef",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -994,7 +994,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1029,9 +1029,9 @@
       "recipeId": "batch-b:kokuyou-charging-b-small-ink-wisps:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-b-small-ink-wisps.txt",
       "promptSha256": "f9417de6b4aac50f1c754189298db394c6a714666149156bc0deee3fad38c9ca",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
-      "outputSha256": null,
+      "outputSha256": "c796341c1eba5b630d4c06118da581c41f943b5be078ffbb666b84edd40ab1e0",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1068,7 +1068,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1103,9 +1103,9 @@
       "recipeId": "batch-b:kokuyou-charging-c-lantern-shadow-flicker:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-c-lantern-shadow-flicker.txt",
       "promptSha256": "5b722f6970f4731d49752b64df26a0bdd018b4d76ade5d560278cee5705a782b",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-c-lantern-shadow-flicker.png",
-      "outputSha256": null,
+      "outputSha256": "26ff7761181b5a3cd859709d67a251d3d04540c5b635673f3f07d2793635889f",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1142,7 +1142,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1177,9 +1177,9 @@
       "recipeId": "batch-b:kokuyou-charging-d-paper-edge-corruption:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-charging-d-paper-edge-corruption.txt",
       "promptSha256": "bd711ce9e49de91ce5371ee51b86083ed177ea97172d85b083adf7142a3fa351",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-d-paper-edge-corruption.png",
-      "outputSha256": null,
+      "outputSha256": "d0c9f2ef0392773865a665306831d07b7dc5510d5a1e13a3f8c7857a1bea2eb9",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1216,7 +1216,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1251,9 +1251,9 @@
       "recipeId": "batch-b:kokuyou-ready-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-a-runtime-baseline.txt",
       "promptSha256": "9eb69fd4e6f818081ac3da2facf6ca036da916dda4f4840b55c6efb4f0a8630d",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "f484a769d55cd6d9719810d371412f1ef70d099159dc564a37dc5cf7b657522f",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1290,7 +1290,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1325,9 +1325,9 @@
       "recipeId": "batch-b:kokuyou-ready-b-complete-dark-ring:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-b-complete-dark-ring.txt",
       "promptSha256": "f1ec81fcf48514e2b63352253a4cbcd47ac935febcf8ea572caec7ec4b2a781d",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
-      "outputSha256": null,
+      "outputSha256": "62cdde6fff2decd53b5af130f8a62daa1abef2bc581b6f65b2f9e8263f0f0838",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1364,7 +1364,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1399,9 +1399,9 @@
       "recipeId": "batch-b:kokuyou-ready-c-restrained-black-flame-crown:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-c-restrained-black-flame-crown.txt",
       "promptSha256": "4e19ed8881be85ef54531f35bcff81a7ceff797807140429b3b2c0cab550c165",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-c-restrained-black-flame-crown.png",
-      "outputSha256": null,
+      "outputSha256": "403e67e642f7b94e1c590fda2afa0c539a4a2d2e01dd03995c0c72ea5dd7aff4",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1438,7 +1438,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1473,9 +1473,9 @@
       "recipeId": "batch-b:kokuyou-ready-d-lantern-inversion-pulse:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-ready-d-lantern-inversion-pulse.txt",
       "promptSha256": "aa2c4286d48136049a8df67bf63a8cf1f55d97c5304667088ceb88fb5e31af9d",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-d-lantern-inversion-pulse.png",
-      "outputSha256": null,
+      "outputSha256": "b3fe5c58585a5b9b15fe6828a5cd8c526cca42840953dd8ecc488c0d8d749767",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1512,7 +1512,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1547,9 +1547,9 @@
       "recipeId": "batch-b:kokuyou-active-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-a-runtime-baseline.txt",
       "promptSha256": "0227a9c2fab01ba94da6abf05285bf59046c74fc3898c615f552851f25edaa8b",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "d0fbd33baed5730ddb82f3c0781d5768fa9a4aee6127ca9d935064767afec253",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1586,7 +1586,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1621,9 +1621,9 @@
       "recipeId": "batch-b:kokuyou-active-b-controlled-black-flame:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-b-controlled-black-flame.txt",
       "promptSha256": "9d48f0df4b9388286a4c2981ad717adc06c8e7af17ea01cce332cf3caaf0736e",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
-      "outputSha256": null,
+      "outputSha256": "b0da2202773356c169cd583efdb0c585ce13b9ec9aa1065cc184a6749a9e26b5",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1660,7 +1660,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1695,9 +1695,9 @@
       "recipeId": "batch-b:kokuyou-active-c-ink-fracture-aura:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-c-ink-fracture-aura.txt",
       "promptSha256": "fca6ec931e27c00af20ba0497ffde2a6d566e40bef1ae517e640f3fb40f7c8eb",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-c-ink-fracture-aura.png",
-      "outputSha256": null,
+      "outputSha256": "029af5d38dbf37b01a6a586b3286be4a69dd94d2c2c609918ee5b364558855da",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1734,7 +1734,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1769,9 +1769,9 @@
       "recipeId": "batch-b:kokuyou-active-d-lantern-eclipse-paper-distortion:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-active-d-lantern-eclipse-paper-distortion.txt",
       "promptSha256": "aa7d148df0554b9b87bfdc3e905a4803af7f53d5e8f51c8e690bbe27027cbb4e",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-d-lantern-eclipse-paper-distortion.png",
-      "outputSha256": null,
+      "outputSha256": "ecc60ab8ac9fe93efb7f9fed79ea6124c9cdb192a41869a3c5b1c4cb95d1e30c",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1808,7 +1808,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1843,9 +1843,9 @@
       "recipeId": "batch-b:kokuyou-recovery-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-a-runtime-baseline.txt",
       "promptSha256": "e66266785492a2420825f8515c4d9fa9ec989d17b02fb7b412ab53134391fb4a",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-a-runtime-baseline.png",
-      "outputSha256": null,
+      "outputSha256": "99c470f6087cb400238021074bbbe718111c787ef82e134a26c9410e6d5107c1",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1882,7 +1882,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "reconstructed-partial",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1917,9 +1917,9 @@
       "recipeId": "batch-b:kokuyou-recovery-b-fading-soot:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-b-fading-soot.txt",
       "promptSha256": "d70f506bf8d0d302652b1d95c206665b90c2ccf5e6f37901ccc6e9cea4803183",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
-      "outputSha256": null,
+      "outputSha256": "702f8e2d84f7463a8c22162add893704742efc8208dedeac7188dab5c5f925e5",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -1956,7 +1956,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -1991,9 +1991,9 @@
       "recipeId": "batch-b:kokuyou-recovery-c-dragging-ink-shadow:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-c-dragging-ink-shadow.txt",
       "promptSha256": "3a6ee3fa23d85f7dc590655d18836d645ae5781b870c00838ecb013f5031e46e",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-c-dragging-ink-shadow.png",
-      "outputSha256": null,
+      "outputSha256": "3639626d200ca3a2acf89b8fceaf3ae273b6b12b16c15a516ce5ef6308671405",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -2030,7 +2030,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
@@ -2065,9 +2065,9 @@
       "recipeId": "batch-b:kokuyou-recovery-d-dim-lantern-paper-ash:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-b/prompts/kokuyou-recovery-d-dim-lantern-paper-ash.txt",
       "promptSha256": "5d1883b03078d2daaafbee829cbe643760bfa2fe5e9a77de53736a0cf3baae0f",
-      "createdAtUtc": null,
+      "createdAtUtc": "2026-07-16T03:55:57.128932Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-d-dim-lantern-paper-ash.png",
-      "outputSha256": null,
+      "outputSha256": "8e8f32d2a28e25b65a6fee4383b26d780c224ad8ba81b229013d95033b4edfce",
       "targetImportContract": {
         "format": "PNG RGBA",
         "dimensions": [
@@ -2104,7 +2104,7 @@
         "no-edge-contact",
         "gameplay-size-live-review"
       ],
-      "lineageStatus": "unknown",
+      "lineageStatus": "complete",
       "humanReviewStatus": "pending",
       "approvedAsFinal": false,
       "runtimeApproved": false
