@@ -1,0 +1,31 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { stageProductionEntries } from '../../src/game/data/stageProductionDatabase.ts';
+
+const root = resolve(import.meta.dirname, '../..');
+const read = (path: string) => readFileSync(resolve(root, path), 'utf8');
+const check = (value: unknown, message: string) => { if (!value) throw new Error(`U48 StageSelect runtime check failed: ${message}`); };
+const audit = JSON.parse(read('docs/design-targets/generated/unity-u48/batch-c/stage-select-canon-audit.json'));
+const catalog = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageCatalog.cs');
+const model = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageSelectModel.cs');
+const flow = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs');
+const view = read('unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs');
+const verification = JSON.parse(read('docs/design-targets/generated/unity-u48/batch-c/stage-select-runtime-verification.json'));
+
+check(audit.knownStageIds.length === 20 && new Set(audit.knownStageIds).size === 20, '20 unique canonical stages');
+check(JSON.stringify(audit.knownStageIds) === JSON.stringify(stageProductionEntries.map(value => value.id)), 'canonical deterministic order');
+check(stageProductionEntries.every(value => audit.canonicalDisplayNames[value.id] === value.name), 'canonical display names');
+check(audit.runtimeImplementedStageIds.join(',') === 'forgotten_street' && audit.documentedButNotImplementedStageIds.length === 19, 'implemented and locked split');
+check(audit.defaultUnlockCanonicalResolution.stage_01 === 'forgotten_street' && audit.saveMutationRequired === false, 'legacy save alias without mutation');
+for (const value of stageProductionEntries) check(catalog.includes(`\"${value.id}\", \"${value.name}\"`), `catalog entry ${value.id}`);
+check(catalog.includes('"forgotten_street", "忘れられた夜道", true, 1, "stage_01"'), 'Stage 1 canonical implementation and compatibility alias');
+check(model.includes('StageSelectVisualState.SelectedUnlocked') && model.includes('StageSelectVisualState.SelectedLocked') && model.includes('StageSelectVisualState.Disabled'), 'selection visual states');
+check(model.includes('save.unlockedStageIds.Contains(entry.StageId)') && model.includes('entry.LegacyIds.Any(save.unlockedStageIds.Contains)'), 'save-derived unlock state');
+check(flow.includes('StageStartResultCode.UnknownStage') && flow.includes('StageStartResultCode.Locked') && flow.includes('StageStartResultCode.NotImplemented') && flow.includes('StageStartResultCode.Duplicate'), 'domain start guards');
+check(view.includes('button.onClick.AddListener(() => coordinator.StageSelection.Select(captured))') && view.includes('startButton.interactable = coordinator.StageSelection.CanStartSelected'), 'actual card interaction and disabled button');
+check(view.includes('RectMask2D') && view.includes('ScrollRect') && view.includes('StageCatalogContent'), 'responsive scroll catalog');
+check(verification.passed === true && verification.assertionCount >= 30 && verification.failureCount === 0, 'Editor runtime verification evidence');
+check(verification.unknownStageRejected && verification.lockedStageRejected && verification.unimplementedStageRejected && verification.duplicateStartRejected, 'command rejection evidence');
+check(verification.unlockedCardTap && verification.lockedCardTap && verification.disabledButton && verification.enabledButtonTap, 'actual UI interaction evidence');
+check(verification.saveUnchangedAfterRejectedCommands && verification.listenerCleanupPassed, 'save/listener invariants');
+console.log('Unity U48 StageSelect runtime check passed: 20 canonical stages, save-derived lock state, model-owned selection, guarded start commands and actual Button interaction evidence.');

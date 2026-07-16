@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using VampPon.UnitySpike.Runtime.Pause;
 using VampPon.UnitySpike.Runtime.Result;
 using VampPon.UnitySpike.Runtime.Save;
+using VampPon.UnitySpike.Runtime.StageSelect;
 
 namespace VampPon.UnitySpike.Runtime.AppFlow
 {
@@ -30,6 +31,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         public RunResultSnapshot LastResult { get; private set; }
         public bool LastPersistenceSucceeded { get; private set; } = true;
         public string LastPersistenceError { get; private set; } = string.Empty;
+        public StageSelectModel StageSelection { get; } = new();
+        public StageStartResult LastStageStartResult { get; private set; } = new(StageStartResultCode.None, null, null);
         public event Action<AppFlowState> StateChanged;
         public event Action<string> CollectionSeen;
 
@@ -43,6 +46,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         public AppFlowCommandResult Initialize()
         {
             save.Load();
+            StageSelection.Refresh(save.Current);
             pause.ResetToStageSelect();
             return Transition(AppFlowState.StageSelect);
         }
@@ -66,14 +70,26 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
 
         private AppFlowCommandResult StartStage(string stageId)
         {
-            if (string.IsNullOrWhiteSpace(stageId)) return AppFlowCommandResult.Failure("A stable stage ID is required.");
+            var entry = StageCatalog.Find(stageId);
+            if (entry == null) return RejectStageStart(StageStartResultCode.UnknownStage, stageId, "Unknown stage ID.");
+            if (State == AppFlowState.Running && ActiveStageId == entry.StageId) return RejectStageStart(StageStartResultCode.Duplicate, entry.StageId, "Stage start command was already accepted.");
+            if (State != AppFlowState.StageSelect) return RejectStageStart(StageStartResultCode.InvalidFlowState, entry.StageId, $"Invalid app-flow transition: {State} -> {AppFlowState.Running}");
+            if (!StageSelection.IsUnlocked(entry)) return RejectStageStart(StageStartResultCode.Locked, entry.StageId, "Stage is locked.");
+            if (!entry.RuntimeImplemented) return RejectStageStart(StageStartResultCode.NotImplemented, entry.StageId, "Stage battle runtime is not implemented.");
             var result = Transition(AppFlowState.Running);
-            if (!result.Succeeded) return result;
-            ActiveStageId = stageId;
+            if (!result.Succeeded) return RejectStageStart(StageStartResultCode.InvalidFlowState, entry.StageId, result.Error);
+            ActiveStageId = entry.StageId;
+            LastStageStartResult = new StageStartResult(StageStartResultCode.Started, entry.StageId, null);
             LastResult = null;
             pause.Release(RunPauseReason.StageSelect);
             resetRun?.Invoke();
             return result;
+        }
+
+        private AppFlowCommandResult RejectStageStart(StageStartResultCode code, string stageId, string error)
+        {
+            LastStageStartResult = new StageStartResult(code, stageId, error);
+            return AppFlowCommandResult.Failure(error);
         }
 
         private AppFlowCommandResult OpenLevelUp()
@@ -123,6 +139,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             LastPersistenceSucceeded = true;
             LastPersistenceError = string.Empty;
             pause.ResetToStageSelect();
+            StageSelection.Refresh(save.Current);
             return result;
         }
 

@@ -53,4 +53,16 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         public static AppFlowCommandResult Success() => new(true, string.Empty);
         public static AppFlowCommandResult Failure(string error) => new(false, error);
     }
+
+    public enum StageStartResultCode { None, Started, Locked, NotImplemented, UnknownStage, InvalidFlowState, Duplicate }
+
+    public readonly struct StageStartResult
+    {
+        public StageStartResult(StageStartResultCode code, string stageId, string error)
+        { Code = code; StageId = stageId; Error = error ?? string.Empty; }
+        public StageStartResultCode Code { get; }
+        public string StageId { get; }
+        public string Error { get; }
+        public bool Succeeded => Code == StageStartResultCode.Started;
+    }
 }

@@ -1,0 +1,344 @@
+{
+  "schemaVersion": 1,
+  "sourceOfTruth": "src/game/data/stageProductionDatabase.ts",
+  "knownStageIds": [
+    "forgotten_street",
+    "name_tag_alley",
+    "moon_box_library",
+    "return_map_crossing",
+    "repair_lamp_workshop",
+    "chalk_classroom",
+    "half_candy_arcade",
+    "paper_cord_playground",
+    "old_compass_station",
+    "pressed_flower_archive",
+    "unposted_post_office",
+    "paper_plane_window",
+    "white_bookmark_library",
+    "ticket_gate_station",
+    "dream_waterway",
+    "black_origami_roof",
+    "erased_name_wall",
+    "ruler_rooftop",
+    "blank_card_room",
+    "dawn_return_square"
+  ],
+  "canonicalDisplayNames": {
+    "forgotten_street": "忘れられた夜道",
+    "name_tag_alley": "名札の路地",
+    "moon_box_library": "月箱の書庫",
+    "return_map_crossing": "帰り道の交差点",
+    "repair_lamp_workshop": "継火の修理工房",
+    "chalk_classroom": "白線の教室",
+    "half_candy_arcade": "半分の駄菓子横丁",
+    "paper_cord_playground": "紙縒りの遊び場",
+    "old_compass_station": "古針の駅前",
+    "pressed_flower_archive": "押花の保管庫",
+    "unposted_post_office": "未配達の郵便局",
+    "paper_plane_window": "窓際の紙翼",
+    "white_bookmark_library": "白栞の未分類棚",
+    "ticket_gate_station": "片道ではない改札",
+    "dream_waterway": "夢頁の水路",
+    "black_origami_roof": "黒折り紙の屋根",
+    "erased_name_wall": "消し跡の壁",
+    "ruler_rooftop": "夜測りの屋上",
+    "blank_card_room": "余白の部屋",
+    "dawn_return_square": "夜明け前の広場"
+  },
+  "canonicalSubtitles": {
+    "forgotten_street": null,
+    "name_tag_alley": null,
+    "moon_box_library": null,
+    "return_map_crossing": null,
+    "repair_lamp_workshop": null,
+    "chalk_classroom": null,
+    "half_candy_arcade": null,
+    "paper_cord_playground": null,
+    "old_compass_station": null,
+    "pressed_flower_archive": null,
+    "unposted_post_office": null,
+    "paper_plane_window": null,
+    "white_bookmark_library": null,
+    "ticket_gate_station": null,
+    "dream_waterway": null,
+    "black_origami_roof": null,
+    "erased_name_wall": null,
+    "ruler_rooftop": null,
+    "blank_card_room": null,
+    "dawn_return_square": null
+  },
+  "canonicalMetadata": {
+    "forgotten_street": [],
+    "name_tag_alley": [],
+    "moon_box_library": [],
+    "return_map_crossing": [],
+    "repair_lamp_workshop": [],
+    "chalk_classroom": [],
+    "half_candy_arcade": [],
+    "paper_cord_playground": [],
+    "old_compass_station": [],
+    "pressed_flower_archive": [],
+    "unposted_post_office": [],
+    "paper_plane_window": [],
+    "white_bookmark_library": [],
+    "ticket_gate_station": [],
+    "dream_waterway": [],
+    "black_origami_roof": [],
+    "erased_name_wall": [],
+    "ruler_rooftop": [],
+    "blank_card_room": [],
+    "dawn_return_square": []
+  },
+  "runtimeImplementedStageIds": [
+    "forgotten_street"
+  ],
+  "defaultUnlockedStageIds": [
+    "stage_01"
+  ],
+  "defaultUnlockCanonicalResolution": {
+    "stage_01": "forgotten_street"
+  },
+  "startableStageIds": [
+    "forgotten_street"
+  ],
+  "documentedButNotImplementedStageIds": [
+    "name_tag_alley",
+    "moon_box_library",
+    "return_map_crossing",
+    "repair_lamp_workshop",
+    "chalk_classroom",
+    "half_candy_arcade",
+    "paper_cord_playground",
+    "old_compass_station",
+    "pressed_flower_archive",
+    "unposted_post_office",
+    "paper_plane_window",
+    "white_bookmark_library",
+    "ticket_gate_station",
+    "dream_waterway",
+    "black_origami_roof",
+    "erased_name_wall",
+    "ruler_rooftop",
+    "blank_card_room",
+    "dawn_return_square"
+  ],
+  "missingCanonicalFields": [
+    {
+      "stageId": "forgotten_street",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "forgotten_street",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "name_tag_alley",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "name_tag_alley",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "moon_box_library",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "moon_box_library",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "return_map_crossing",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "return_map_crossing",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "repair_lamp_workshop",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "repair_lamp_workshop",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "chalk_classroom",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "chalk_classroom",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "half_candy_arcade",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "half_candy_arcade",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "paper_cord_playground",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "paper_cord_playground",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "old_compass_station",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "old_compass_station",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "pressed_flower_archive",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "pressed_flower_archive",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "unposted_post_office",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "unposted_post_office",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "paper_plane_window",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "paper_plane_window",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "white_bookmark_library",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "white_bookmark_library",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "ticket_gate_station",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "ticket_gate_station",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "dream_waterway",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "dream_waterway",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "black_origami_roof",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "black_origami_roof",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "erased_name_wall",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "erased_name_wall",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "ruler_rooftop",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "ruler_rooftop",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "blank_card_room",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "blank_card_room",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "dawn_return_square",
+      "field": "subtitle",
+      "metadataStatus": "missing"
+    },
+    {
+      "stageId": "dawn_return_square",
+      "field": "uiMetadata",
+      "metadataStatus": "missing"
+    }
+  ],
+  "legacyRuntimeDiscrepancies": [
+    {
+      "field": "stageId",
+      "legacyValue": "stage_01",
+      "canonicalValue": "forgotten_street",
+      "handling": "read-only compatibility alias"
+    },
+    {
+      "field": "displayName",
+      "legacyValue": "墨夜の通り道",
+      "canonicalValue": "忘れられた夜道",
+      "handling": "production UI uses canonical value"
+    }
+  ],
+  "productionCatalogUsesCanonicalContentOnly": true,
+  "captureOnlyProductionContentAdded": false,
+  "saveMutationRequired": false
+}

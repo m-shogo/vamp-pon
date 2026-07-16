@@ -1,36 +1,42 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "batch": "C",
-  "status": "BLOCKED",
+  "status": "READY",
+  "captureReadiness": "READY",
   "reviewReady": false,
-  "blockReason": "STAGE_SELECT_REQUIRED_RUNTIME_STATES_UNREACHABLE",
-  "productionRuntimeChanged": false,
+  "blockReason": null,
+  "productionRouteBlockerResolved": true,
+  "productionRuntimeChanged": true,
   "unlockRulesChanged": false,
   "directStateInjectionUsed": false,
   "productionProviderChanged": false,
+  "knownStageCount": 20,
+  "runtimeImplementedStageCount": 1,
+  "lockedDisplayStageCount": 19,
   "reproducibleRequiredStates": [
     "initial-open",
     "unlocked",
-    "button-default",
-    "pressed"
-  ],
-  "blockedRequiredStates": [
+    "no-selection-disabled",
+    "selected-unlocked",
+    "button-default-enabled",
+    "button-pressed-enabled",
     "locked",
-    "selected",
-    "disabled",
-    "long-title",
-    "maximum-metadata"
+    "selected-locked",
+    "locked-selection-disabled",
+    "unimplemented-disabled",
+    "live-runtime-longest-canonical-title",
+    "live-runtime-maximum-canonical-metadata"
   ],
+  "blockedRequiredStates": [],
+  "canonicalLongestTitle": "半分の駄菓子横丁",
+  "canonicalMaximumMetadataRows": 0,
+  "layoutFixtureRequired": false,
   "evidence": {
+    "catalogOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageCatalog.cs",
+    "selectionOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageSelectModel.cs",
     "stageSelectOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
-    "defaultSaveOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Save/GameSaveSnapshot.cs",
-    "startCommandOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs",
-    "actualRuntimeFacts": [
-      "StageSelectView builds only Stage1Card and StartStageButton",
-      "StartStageButton dispatches StartStage(stage_01)",
-      "the default save unlock set contains only stage_01",
-      "no production locked-stage card, selection model, disabled start control, long-title fixture, or maximum-metadata fixture is rendered"
-    ]
+    "commandGuardOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs",
+    "verification": "docs/design-targets/generated/unity-u48/batch-c/stage-select-runtime-verification.json"
   },
-  "decision": "Do not synthesize the missing states, alter unlock rules, or claim the 120-candidate capture manifest/review-ready gate. Continue only independently verifiable categories until an actual production interaction route exists."
+  "decision": "Resume Batch C candidate-specific live capture through actual card Button and guarded StartStage routes."
 }
