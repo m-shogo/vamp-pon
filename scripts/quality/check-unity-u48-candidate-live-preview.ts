@@ -10,20 +10,22 @@ const providerPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals
 const binderPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/U48AssetPreviewSceneBinder.cs';
 const bridgePath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U48AssetPreviewVerificationBridge.cs';
 const buildPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/U48AssetPreviewIosSimulatorBuild.cs';
+const uiBinderPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/U48BatchCUiPreviewBinder.cs';
 const bootstrapPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs';
-for (const path of [providerPath, binderPath, bridgePath, buildPath]) check(existsSync(resolve(root, path)), `missing ${path}`);
+for (const path of [providerPath, binderPath, bridgePath, buildPath, uiBinderPath]) check(existsSync(resolve(root, path)), `missing ${path}`);
 
 const provider = read(providerPath);
 const binder = read(binderPath);
 const bridge = read(bridgePath);
 const build = read(buildPath);
+const uiBinder = read(uiBinderPath);
 const bootstrap = read(bootstrapPath);
 const contracts = json('docs/design-targets/generated/unity-u48/approval-pack/ui-comparison-contracts.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const verification = json('docs/design-targets/generated/unity-u48/preview-foundation/verification-summary.json');
 const runtimeCases = json('docs/design-targets/generated/unity-u48/preview-foundation/runtime-cases.json');
 
-for (const [name, value] of [['provider', provider], ['binder', binder], ['bridge', bridge]]) {
+for (const [name, value] of [['provider', provider], ['binder', binder], ['bridge', bridge], ['uiBinder', uiBinder]]) {
   check(value.startsWith('#if VAMPPON_U48_ASSET_PREVIEW') && value.trimEnd().endsWith('#endif'), `${name} compile define isolation`);
   check(!value.includes('PlayerPrefs'), `${name} does not persist PlayerPrefs`);
 }
@@ -36,17 +38,20 @@ check(binder.includes('StopAllCoroutines()') && binder.includes('Restore()') && 
 check(bridge.includes('VAMPPON_U48_PREVIEW_EXPECT_ACTIVE') && bridge.includes('Application.logMessageReceived -= OnLog') && bridge.includes('cleanupPassed'), 'verification expectation and event cleanup');
 check(bootstrap.includes('#if VAMPPON_U48_ASSET_PREVIEW') && bootstrap.includes('U48AssetPreviewProvider.CreateOrDefault(normalProvider)') && bootstrap.includes('(assetProvider as System.IDisposable)?.Dispose()'), 'bootstrap guarded activation and cleanup');
 check(build.includes('extraScriptingDefines = preview ? new[] { PreviewDefine, "VAMPPON_AI_SIMULATOR_SMOKE" }') && build.includes('CreateTemporaryCatalog') && build.includes('AssetDatabase.DeleteAsset(TempCatalogDirectory)'), 'build-local preview/U47 verification defines and temporary catalog cleanup');
-check(build.includes('batchACount != 36 || batchBCount != 28') && build.includes('AssetDatabase.CopyAsset(sourceAssetPath, destinationAssetPath)'), 'Batch A 36 and Batch B 28 candidates are copied only into the temporary preview build catalog');
+check(build.includes('batchACount != 36 || batchBCount != 28 || batchCCount != 120') && build.includes('AssetDatabase.CopyAsset(sourceAssetPath, destinationAssetPath)'), 'Batch A 36, Batch B 28 and Batch C 120 candidates are copied only into the temporary preview build catalog');
+check(uiBinder.includes('image.sprite = candidate') && uiBinder.includes('image.type = candidate.border') && uiBinder.includes('original.Image.raycastTarget = original.RaycastTarget'), 'UI binder changes only candidate presentation and restores interaction state');
+check(uiBinder.includes('BindDynamicTargets') && uiBinder.includes('StopAllCoroutines()') && uiBinder.includes('Restore()'), 'dynamic UI binding and cleanup');
 check(bridge.includes('VAMPPON_U48_PREVIEW_CAPTURE') && bridge.includes('standardFileResizeReuse') && bridge.includes('verificationPresentationOnly'), 'candidate-specific live capture is explicit and verification-only');
 check(!existsSync(resolve(root, 'unity/VampPonUnity/Assets/_Project/Resources/U48Preview')), 'temporary preview catalog is not committed');
 
 check(contracts.schemaVersion === 1 && contracts.activeComparisonGroupCount === 30 && contracts.comparisonGroups.length === 30, '30 active UI comparison units');
-check(contracts.deprecatedGroups.length === 5 && contracts.deprecatedGroups.every((value: { historyStatus: string; splitInto: string[] }) => value.historyStatus === 'split-required' && value.splitInto.length > 0), 'five non-equivalent legacy groups retained as split-required');
+check(contracts.deprecatedGroups.length === 5 && contracts.deprecatedGroups.every((value: { historyStatus: string; splitInto: string[] }) => value.historyStatus === 'split-required-resolved' && value.splitInto.length > 0), 'five non-equivalent legacy groups retained as split-required-resolved history');
 const groupIds = new Set<string>();
 for (const value of contracts.comparisonGroups) {
   check(!groupIds.has(value.assetGroup), `duplicate comparison group ${value.assetGroup}`);
   groupIds.add(value.assetGroup);
   check(value.comparisonContract.samePurpose === true && value.comparisonContract.sameLogicalSize === true && value.comparisonContract.sameTextSafeArea === true && value.comparisonContract.sameRuntimePosition === true, `${value.assetGroup} equivalent comparison contract`);
+  check(value.comparisonContract.sameInteractionOwner === true && value.comparisonContract.sameContentContract === true && value.comparisonContract.sameTapTargetContract === true, `${value.assetGroup} ownership/content/tap contract`);
   check(Array.isArray(value.comparisonContract.sameRequiredStates) && value.comparisonContract.sameRequiredStates.length > 0, `${value.assetGroup} required states`);
   check(value.approvalReviewReady === false, `${value.assetGroup} remains unready`);
 }

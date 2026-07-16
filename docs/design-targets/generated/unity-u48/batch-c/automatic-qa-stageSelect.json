@@ -1,0 +1,2147 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "batch": "C",
+  "scopeOwners": [
+    "stageSelect"
+  ],
+  "generatedAtUtc": "2026-07-16T06:41:55.502129Z",
+  "candidateCount": 20,
+  "duplicateContentHashCount": 0,
+  "duplicateGuidCount": 0,
+  "summary": {
+    "PASS": 20,
+    "WARNING": 0,
+    "FAIL": 0
+  },
+  "entries": [
+    {
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-a-runtime-baseline",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-a-runtime-baseline.png",
+      "sha256": "62b461d213c7da30e3686325adcb7f09e1aabd66efa7c9381cf073548438312c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "56b18387d7707904b075db7b5c230897",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked",
+            "completed",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-b-readability",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-b-readability.png",
+      "sha256": "c86a8749b6418eac247b0a4bcdf130cb50066906999a0e7f437a954b427820b9",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-b-readability.png.meta",
+      "meta": {
+        "guid": "d570454b51d5932323f437f8a48efa80",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked",
+            "completed",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-c-paper-ink",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-c-paper-ink.png",
+      "sha256": "15bd48c5fd81fe357964fc95694ce283e5673b4e03050dd10d185fb1e600905c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "3100885625ca75495f922961511cffff",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked",
+            "completed",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-d-production-balanced",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png",
+      "sha256": "73ee9960c6390e8478b1cdedecd4e0ae9b289025adec78931c5ff88932726bc1",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "cfe67523222faca7b9206c1716122353",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked",
+            "completed",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-a-runtime-baseline",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-a-runtime-baseline.png",
+      "sha256": "135491828730b67aa820108b10cdab55958eed8074aa504aa2c31449ee6efc95",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "9584ffafe620d004fa08e5c1cdf45aa3",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-b-readability",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-b-readability.png",
+      "sha256": "b2120ac5d21703874b37ef21cc4db8cc37d07948f6b8f10784e57ca975c5a4ea",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-b-readability.png.meta",
+      "meta": {
+        "guid": "3bdc327f2ee3aec04067209da414a6ff",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-c-paper-ink",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-c-paper-ink.png",
+      "sha256": "0e08afeb7190369a9add33dab77fe0d25105455e40e7c3eb4271df41d3d69c61",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "8d794cc8ef5b0747b23a8c86152e8eba",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-d-production-balanced",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png",
+      "sha256": "d9a88b73205b575def40757ccbdb81eba962530165717b834622db09f3c10d65",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "0be0998e93dd5eb0c5bc0c2c4a4aedfe",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            243,
+            168
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            275,
+            192
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "locked",
+            "unlocked"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-a-runtime-baseline",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-a-runtime-baseline.png",
+      "sha256": "4e40ec8ca6d7e7a68b2970b7fddc42d5034bd62c200230d36943ac579cd502f4",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "d647671c39504eb73cee1edfb5c80792",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            220,
+            59
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            248,
+            71
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-b-readability",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png",
+      "sha256": "c574e9546ad921bcf547e27ef8d10345175010fae742f560c61bf4d50f06bd84",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png.meta",
+      "meta": {
+        "guid": "4c0340a5b76c360237786e277942f1ac",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            220,
+            59
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            248,
+            71
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-c-paper-ink",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-c-paper-ink.png",
+      "sha256": "a42ad8b8ecef3393648478d4cf1c9ae9d55ba3cb3c9fda9ea7de5504d77151fa",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "6fb587c4aa71eac61e408faf459fe17a",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            220,
+            59
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            248,
+            71
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-d-production-balanced",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-d-production-balanced.png",
+      "sha256": "d99d76580fff053a919ec5a01f46cec03abeed0844dac70650cc8a91ac1a043a",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "1e0473d04dc8bfd8bb73c6bcd5a3c6e9",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            220,
+            59
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            248,
+            71
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-a-runtime-baseline",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-a-runtime-baseline.png",
+      "sha256": "68b649042feeb23fd40bd61baa1afe08ef02b208d7f8fd9124d438462fed2875",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "e194a65d4ab4a1fe37d8d97ee24e8656",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            267,
+            74
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-b-readability",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-b-readability.png",
+      "sha256": "159792e3a719b8b29dc6d5b8834944441b7d6dce94b60442314486eedaac7527",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-b-readability.png.meta",
+      "meta": {
+        "guid": "9dfcdf578539680b1638f4ee861c68d8",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            267,
+            74
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-c-paper-ink",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-c-paper-ink.png",
+      "sha256": "554896e19355e1eb354a25c9aa729e76909c196be9b6ed8f48a9d19f5bde016a",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "9ef954762d380ba726738fc33664f163",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            267,
+            74
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-d-production-balanced",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-d-production-balanced.png",
+      "sha256": "2676914b58b85058d811ff7ee73d63ac66dfdffae22462e784d9d06febd40323",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "62f1e2f9fcd731ac39acb3e2c038b1de",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            267,
+            74
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-a-runtime-baseline",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-a-runtime-baseline.png",
+      "sha256": "db97869d61d9ad532eaebc193c86a8373bf3216429d1ba299f28063bda2c3d9a",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "7138dec69ca76ba8a677f2a95807205f",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            224,
+            49
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-b-readability",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-b-readability.png",
+      "sha256": "c180161ee7f59e7b816866c07de7bda129e073b305385c309030df88f2922fb5",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-b-readability.png.meta",
+      "meta": {
+        "guid": "cab6311dccb007bc9e5af960e352600b",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            224,
+            49
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-c-paper-ink",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-c-paper-ink.png",
+      "sha256": "dad829486887a646ce0bb8fa998ca45daa337c7620d0002e73fb11e40fdd5378",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "3daefe40b147eaa4e7ce64c034638108",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            224,
+            49
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-d-production-balanced",
+      "owner": "stageSelect",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png",
+      "sha256": "d3168342cb59e53e86c98fc0805172232bcc2990f175f1eb11e4e96e073e88ce",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "fd60a3fd99f167fcae5a805a580adf11",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            224,
+            49
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    }
+  ]
+}

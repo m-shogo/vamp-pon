@@ -15,6 +15,7 @@ namespace VampPon.UnitySpike.Runtime.Visuals
         private Coroutine binding;
         private U48KokuyouPreviewPresenter kokuyouPresenter;
         private U48GroundAreaPreviewTintBinder groundAreaTintBinder;
+        private U48BatchCUiPreviewBinder uiBinder;
         private bool restored;
 
         public static void AttachIfActive(GameObject owner)
@@ -41,6 +42,13 @@ namespace VampPon.UnitySpike.Runtime.Visuals
                 yield break;
             }
             if (slot == U48AssetPreviewSlot.GroundArea) groundAreaTintBinder = gameObject.AddComponent<U48GroundAreaPreviewTintBinder>();
+            if (slot is U48AssetPreviewSlot.Hud or U48AssetPreviewSlot.LevelUp or U48AssetPreviewSlot.Replacement or U48AssetPreviewSlot.Result or U48AssetPreviewSlot.StageSelect)
+            {
+                uiBinder = gameObject.AddComponent<U48BatchCUiPreviewBinder>();
+                uiBinder.Initialize(entry, U48AssetPreviewProvider.LoadPrimarySprite(entry.resourcePath));
+                binding = null;
+                yield break;
+            }
             if (slot is U48AssetPreviewSlot.Player or U48AssetPreviewSlot.Enemy or U48AssetPreviewSlot.ExpPickup or U48AssetPreviewSlot.HealingPickup or U48AssetPreviewSlot.Projectile or U48AssetPreviewSlot.Hit or U48AssetPreviewSlot.EnemyDeath or U48AssetPreviewSlot.Trail or U48AssetPreviewSlot.GroundArea)
             {
                 binding = null;
@@ -74,6 +82,7 @@ namespace VampPon.UnitySpike.Runtime.Visuals
             imageOriginals.Clear();
             if (kokuyouPresenter != null) { Destroy(kokuyouPresenter); kokuyouPresenter = null; }
             if (groundAreaTintBinder != null) { groundAreaTintBinder.Restore(); Destroy(groundAreaTintBinder); groundAreaTintBinder = null; }
+            if (uiBinder != null) { uiBinder.Restore(); Destroy(uiBinder); uiBinder = null; }
         }
 
         private void OnDisable() => Restore();

@@ -16,7 +16,7 @@ namespace VampPon.UnitySpike.Editor
         private const string PreviewDefine = "VAMPPON_U48_ASSET_PREVIEW";
         private const string TempCatalogDirectory = "Assets/_Project/Resources/U48Preview";
         private const string TempCatalogPath = TempCatalogDirectory + "/preview-catalog.json";
-        private static readonly string[] CandidateRoots = { "Assets/_Project/Art/Candidates/U48/BatchA", "Assets/_Project/Art/Candidates/U48/BatchB" };
+        private static readonly string[] CandidateRoots = { "Assets/_Project/Art/Candidates/U48/BatchA", "Assets/_Project/Art/Candidates/U48/BatchB", "Assets/_Project/Art/Candidates/U48/BatchC" };
         private static readonly string[] Scenes = { "Assets/_Project/Scenes/Boot/Boot.unity", "Assets/_Project/Scenes/Stage1/Stage1.unity" };
 
         [MenuItem("VampPon/U48/Build iOS Simulator Without Preview")]
@@ -80,7 +80,8 @@ namespace VampPon.UnitySpike.Editor
             }
             var batchACount = entries.Count(value => value.sourcePath.Contains("/BatchA/", StringComparison.Ordinal));
             var batchBCount = entries.Count(value => value.sourcePath.Contains("/BatchB/", StringComparison.Ordinal));
-            if (batchACount != 36 || batchBCount != 28) throw new InvalidOperationException($"U48 preview catalog expected Batch A=36 and Batch B=28 candidates, found A={batchACount}, B={batchBCount}.");
+            var batchCCount = entries.Count(value => value.sourcePath.Contains("/BatchC/", StringComparison.Ordinal));
+            if (batchACount != 36 || batchBCount != 28 || batchCCount != 120) throw new InvalidOperationException($"U48 preview catalog expected Batch A=36, Batch B=28 and Batch C=120 candidates, found A={batchACount}, B={batchBCount}, C={batchCCount}.");
             entries.Add(new PreviewEntry
             {
                 assetGroup = "common-projectile", candidateId = "common-projectile-missing-resource-verification", slot = "Projectile",
@@ -102,6 +103,11 @@ namespace VampPon.UnitySpike.Editor
                 "hit-effect" => "Hit", "enemy-death-effect" => "EnemyDeath", "movement-trail" => "Trail",
                 _ when group.StartsWith("ground-area-", StringComparison.Ordinal) => "GroundArea",
                 _ when group.StartsWith("kokuyou-", StringComparison.Ordinal) => "Kokuyou",
+                _ when group.StartsWith("hud-", StringComparison.Ordinal) => "Hud",
+                _ when group.StartsWith("levelup-", StringComparison.Ordinal) => "LevelUp",
+                _ when group.StartsWith("replacement-", StringComparison.Ordinal) => "Replacement",
+                _ when group.StartsWith("result-", StringComparison.Ordinal) => "Result",
+                _ when group.StartsWith("stage-select-", StringComparison.Ordinal) => "StageSelect",
                 _ => throw new InvalidOperationException("Unexpected U48 candidate group: " + group),
             };
             var entry = new PreviewEntry
