@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "batch": "C",
+  "status": "BLOCKED",
+  "reviewReady": false,
+  "blockReason": "STAGE_SELECT_REQUIRED_RUNTIME_STATES_UNREACHABLE",
+  "productionRuntimeChanged": false,
+  "unlockRulesChanged": false,
+  "directStateInjectionUsed": false,
+  "productionProviderChanged": false,
+  "reproducibleRequiredStates": [
+    "initial-open",
+    "unlocked",
+    "button-default",
+    "pressed"
+  ],
+  "blockedRequiredStates": [
+    "locked",
+    "selected",
+    "disabled",
+    "long-title",
+    "maximum-metadata"
+  ],
+  "evidence": {
+    "stageSelectOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
+    "defaultSaveOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Save/GameSaveSnapshot.cs",
+    "startCommandOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs",
+    "actualRuntimeFacts": [
+      "StageSelectView builds only Stage1Card and StartStageButton",
+      "StartStageButton dispatches StartStage(stage_01)",
+      "the default save unlock set contains only stage_01",
+      "no production locked-stage card, selection model, disabled start control, long-title fixture, or maximum-metadata fixture is rendered"
+    ]
+  },
+  "decision": "Do not synthesize the missing states, alter unlock rules, or claim the 120-candidate capture manifest/review-ready gate. Continue only independently verifiable categories until an actual production interaction route exists."
+}

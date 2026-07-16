@@ -39,6 +39,7 @@ namespace VampPon.UnitySpike.Diagnostics
         private static void Install()
         {
             if (Application.platform != RuntimePlatform.IPhonePlayer) return;
+            if (Environment.GetEnvironmentVariable("VAMPPON_U48_BATCH_C_CAPTURE") == "1") return;
             if (Environment.GetEnvironmentVariable("VAMPPON_U47_AI_SIMULATOR_SMOKE") != "1") return;
             DontDestroyOnLoad(new GameObject("U47AiSimulatorSmokeBridge", typeof(U47AiSimulatorSmokeBridge)));
         }

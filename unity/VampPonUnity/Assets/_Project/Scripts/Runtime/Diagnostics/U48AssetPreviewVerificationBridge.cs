@@ -26,6 +26,7 @@ namespace VampPon.UnitySpike.Diagnostics
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Install()
         {
+            if (Environment.GetEnvironmentVariable("VAMPPON_U48_BATCH_C_CAPTURE") == "1") return;
             if (Environment.GetEnvironmentVariable(VerificationEnvironmentVariable) != "1") return;
             DontDestroyOnLoad(new GameObject("U48AssetPreviewVerificationBridge", typeof(U48AssetPreviewVerificationBridge)));
         }
