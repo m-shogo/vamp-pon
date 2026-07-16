@@ -3,8 +3,8 @@
   "sourceHead": "7f4ec593",
   "tool": "scripts/unity/build-u48-batch-c-candidates.py",
   "toolVersion": "1",
-  "generatedAtUtc": "2026-07-16T06:39:08.429944Z",
-  "outputCount": 52,
+  "generatedAtUtc": "2026-07-16T06:40:46.957482Z",
+  "outputCount": 100,
   "outputs": [
     {
       "assetGroup": "hud-top-status-frame",
@@ -421,6 +421,390 @@
       "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-d-production-balanced.png",
       "sha256": "8064c304c9a21d869617068eefabbab79ec508adf0ec442e7f2c81662eb26a12",
       "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-a-runtime-baseline",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-a-runtime-baseline.png",
+      "sha256": "b477a81175d48ba5df5489daa77516c1153baabeb9e95ed72c25900c5da2f92c",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-b-readability",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-b-readability.png",
+      "sha256": "c9c9dfe32f2e3132c2af397189a0caed7cee8c1f93aae13f24b3f0d7cb377715",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-c-paper-ink",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-c-paper-ink.png",
+      "sha256": "ad392e9c43166d7e989f435e13f07947936fa89d456abb983aa64cac032f67dd",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-d-production-balanced",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
+      "sha256": "8ac297c030c10f41e3eb80b3859ece170d9927fbf4f08222b43826ca670836fd",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-a-runtime-baseline",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-a-runtime-baseline.png",
+      "sha256": "9a1ed2393dddb11cd5f4a571a4affd797c82b5cb028ee997834bc3948ae9aeac",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-b-readability",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-b-readability.png",
+      "sha256": "4265a1ef909b20fa07093192976b2d536ba19dae2ee31362d30a5dce6be1faaf",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-c-paper-ink",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-c-paper-ink.png",
+      "sha256": "e26c10d27e27cafff99e8c050f07e730188daf5ce928d693bee8c9eed91e3821",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-d-production-balanced",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
+      "sha256": "416637ebc12d055ad371a5b676f4cb7adff3c0d13a9a01d8f45f73baa6749e2d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-a-runtime-baseline",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-a-runtime-baseline.png",
+      "sha256": "2b0b52a784043bc353b9159d0d4bd1f54925fe2c78f0cfa205ebeb313492478d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-b-readability",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-b-readability.png",
+      "sha256": "ad01e801b536756ef8b8c70f6e3ccd65679b48973169ab42b1b5fb7ff829fa53",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-c-paper-ink",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
+      "sha256": "f2999eba7a3ea6c7cfdf3b4dc34b572c8867d80416753acab4636db6f01e2284",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-d-production-balanced",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-d-production-balanced.png",
+      "sha256": "be3d9b163cdc0d6ae51160f832002a3cbd40b92413c658996f5a3c15349d412e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-a-runtime-baseline",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-a-runtime-baseline.png",
+      "sha256": "8de4abfa366ea733372f891aa372a0d28b34aab68aac317cf3d9b9cec7607e6f",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-b-readability",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-b-readability.png",
+      "sha256": "4183a88575c390101ce610633bfcc1bc261d6c64d2e3b1d27d5082177b721011",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-c-paper-ink",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
+      "sha256": "cc5a6e7a45e35ce540326cf316232c5173fa5847ca7053c1182d18dc462c0304",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-d-production-balanced",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-d-production-balanced.png",
+      "sha256": "28de6a8aadc26061a153e1bf8100426fd7d9bf880befc31b1dd87f71e873ba2d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-a-runtime-baseline",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-a-runtime-baseline.png",
+      "sha256": "d40ec8958311a1fe129ea5cdd221bf5e71ab94a3ea5c3750e541d26aeb9f4c91",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-b-readability",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
+      "sha256": "7cfecadc902cfff91ba634f915c4dccafe0cc2f6e622be87aaeac6fe2738656e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-c-paper-ink",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-c-paper-ink.png",
+      "sha256": "d94b2787fda1f5e7dedb046de29f4401bc077604938b91cd85700d324328ab61",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-d-production-balanced",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-d-production-balanced.png",
+      "sha256": "06426855774ff5d50ae089f0441cbda54d70b15f12b63f60c7f97f888ea87c2e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-a-runtime-baseline",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline.png",
+      "sha256": "f76c5e3587661aa4970091794857d339749492349b287c5afcff67348d1f62d6",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-b-readability",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
+      "sha256": "2eb2d891597de756f18da7bab30fd5b17181de16b1727b87ec696c23508fcccf",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-c-paper-ink",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-c-paper-ink.png",
+      "sha256": "fb8d7ac8aba17624272fb560145046d98a17822c695fcf1ed7ec996c1fcface5",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-d-production-balanced",
+      "owner": "replacement",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-d-production-balanced.png",
+      "sha256": "325124ca6c60903b315dcea07a15bf3546ec40a6e70e4cd8cff834c2e86357e0",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-a-runtime-baseline",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-a-runtime-baseline.png",
+      "sha256": "fd5d8061881bbd7c753900eb8b49490a1bc4c6a140bbcc7b32dbcbd4d466ad05",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-b-readability",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-b-readability.png",
+      "sha256": "097dfa9e98bc2e9963f84cc632963b32fa3aef4f3c76ea215c67291763eebc3e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-c-paper-ink",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-c-paper-ink.png",
+      "sha256": "a173a8dbb037437ea7e2954a05aa8d2f0d304c4785a4fdceb726e1183f461371",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-d-production-balanced",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-d-production-balanced.png",
+      "sha256": "d363ecc05852dcd6af60c3341ac084a68dfb31be0b1b131e177b20760d8859b8",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-a-runtime-baseline",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-a-runtime-baseline.png",
+      "sha256": "39ce70a792b110297909ea13f6caeeedb6adebe6d908d796f981bcb9908fb47d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-b-readability",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-b-readability.png",
+      "sha256": "8e053f7b09f8df3304f4523f991ced10efa09e3f11f856252102029539f81e63",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-c-paper-ink",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-c-paper-ink.png",
+      "sha256": "82aa68a1653ae8a53e010ef28cb8ba7f1023ef42c48a4bd8e9d5eed34fea7edc",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-d-production-balanced",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
+      "sha256": "9c54e25847fa8d546ab64b0a0ca88819b8b13d4647523f70a3dae2544d098b99",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-a-runtime-baseline",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-a-runtime-baseline.png",
+      "sha256": "183640d93343d039f097466ea6f41593ab1987e45ec6d20d27e534a6f6260fb9",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-b-readability",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-b-readability.png",
+      "sha256": "6dd6db6d0a6f84eed498b601fa5f5ff84221b5fd6386430bc9cc0ce0659cef4b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-c-paper-ink",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
+      "sha256": "f457449551fd28d97106897ade21e555fdff99d229e4839e9d16c52c27d3708e",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-d-production-balanced",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-d-production-balanced.png",
+      "sha256": "1af2fecd5c4dda469564579d02c3042e666d3661a29d65e53c1a0c48d5adcfca",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-a-runtime-baseline",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline.png",
+      "sha256": "d7647f9b4495f17d4e502de4ae66ab43ba56220ef5c408a127bee4512108b533",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-b-readability",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-b-readability.png",
+      "sha256": "cc091c339dca583ffdc035edc780d721d34785366e199dd1bcd5d2b2c548b98d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-c-paper-ink",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
+      "sha256": "6bf621b0889c64d1cc5c73448bcf3f2f1af32bc272416e6aa3604c0371ec6f92",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-d-production-balanced",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-d-production-balanced.png",
+      "sha256": "9f1c8105772e288164b36527c4cea992eb378ff9451b7f4b46abcce7b16eb053",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-a-runtime-baseline",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-a-runtime-baseline.png",
+      "sha256": "a9ad50074d79913b9b287d0c689e750a5090a0d86a3cf26d4082a4c9660be06b",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-b-readability",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
+      "sha256": "f54d844ebcbb1ff7d52110c76b061ea0c729f490a922dd401f11ddfa096087e6",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-c-paper-ink",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-c-paper-ink.png",
+      "sha256": "0786eae27ea162320e9b782f1870f04f2a0e0132220c7c1931098cc09d4bbff7",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-d-production-balanced",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-d-production-balanced.png",
+      "sha256": "545d9489b86aad9ee5a124d1d639b1c36f2feed91e0ac2c139220c1d9bf90a70",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-d-production-balanced.png.meta"
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-a-runtime-baseline",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-a-runtime-baseline.png",
+      "sha256": "ce4459570586a3bfca5a723da6cc7da9d45c9c3ee039f53e3dbb929f2ee12f15",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-a-runtime-baseline.png.meta"
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-b-readability",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
+      "sha256": "5ad7d32b23b4d4e849216dceb24c2abf90cde112aa0f19384ef443f22f6ecf2d",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png.meta"
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-c-paper-ink",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-c-paper-ink.png",
+      "sha256": "7a4b631230cd3a2d7d1b1ecf27971539e15d30e2e8b2b843d3abef81eb7c9670",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-c-paper-ink.png.meta"
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-d-production-balanced",
+      "owner": "result",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-d-production-balanced.png",
+      "sha256": "6a14e6d04e7126a0090d61888bea96402283034eb82bf1f14fe215fe4233e313",
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-d-production-balanced.png.meta"
     }
   ]
 }

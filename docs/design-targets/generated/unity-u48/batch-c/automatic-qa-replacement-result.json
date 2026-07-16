@@ -1,0 +1,5108 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "batch": "C",
+  "scopeOwners": [
+    "replacement",
+    "result"
+  ],
+  "generatedAtUtc": "2026-07-16T06:40:47.521563Z",
+  "candidateCount": 48,
+  "duplicateContentHashCount": 0,
+  "duplicateGuidCount": 0,
+  "summary": {
+    "PASS": 48,
+    "WARNING": 0,
+    "FAIL": 0
+  },
+  "entries": [
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-a-runtime-baseline",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-a-runtime-baseline.png",
+      "sha256": "b477a81175d48ba5df5489daa77516c1153baabeb9e95ed72c25900c5da2f92c",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "92435e40026641438b766f1d9ac5892b",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            308,
+            554
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-b-readability",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-b-readability.png",
+      "sha256": "c9c9dfe32f2e3132c2af397189a0caed7cee8c1f93aae13f24b3f0d7cb377715",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-b-readability.png.meta",
+      "meta": {
+        "guid": "0486409c482078cf54cd6133e3110c2e",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            308,
+            554
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-c-paper-ink",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-c-paper-ink.png",
+      "sha256": "ad392e9c43166d7e989f435e13f07947936fa89d456abb983aa64cac032f67dd",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "8430bc266c487969d6c55ceba611973d",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            308,
+            554
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-d-production-balanced",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
+      "sha256": "8ac297c030c10f41e3eb80b3859ece170d9927fbf4f08222b43826ca670836fd",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "7172160da62191d9c4722e4acedc9487",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            308,
+            554
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-a-runtime-baseline",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-a-runtime-baseline.png",
+      "sha256": "9a1ed2393dddb11cd5f4a571a4affd797c82b5cb028ee997834bc3948ae9aeac",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "69139b25935d98389e1e854468012540",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            60
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-b-readability",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-b-readability.png",
+      "sha256": "4265a1ef909b20fa07093192976b2d536ba19dae2ee31362d30a5dce6be1faaf",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-b-readability.png.meta",
+      "meta": {
+        "guid": "49a277b2218d10ddf2675081dbe31590",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            60
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-c-paper-ink",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-c-paper-ink.png",
+      "sha256": "e26c10d27e27cafff99e8c050f07e730188daf5ce928d693bee8c9eed91e3821",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "798d8761cb9af112a5b6d72ea541cb7c",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            60
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-d-production-balanced",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
+      "sha256": "416637ebc12d055ad371a5b676f4cb7adff3c0d13a9a01d8f45f73baa6749e2d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "439feee0e3b414d4941a86d8b8857097",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            60
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-a-runtime-baseline",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-a-runtime-baseline.png",
+      "sha256": "2b0b52a784043bc353b9159d0d4bd1f54925fe2c78f0cfa205ebeb313492478d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "0aedfd3e150fa48d28dd460d9221d131",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-b-readability",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-b-readability.png",
+      "sha256": "ad01e801b536756ef8b8c70f6e3ccd65679b48973169ab42b1b5fb7ff829fa53",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-b-readability.png.meta",
+      "meta": {
+        "guid": "ffacae11d8fa49036fba4d760f8a5f34",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-c-paper-ink",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
+      "sha256": "f2999eba7a3ea6c7cfdf3b4dc34b572c8867d80416753acab4636db6f01e2284",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "0f956ba1d04d5eee4c9ad9ca48eaf5f6",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-d-production-balanced",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-d-production-balanced.png",
+      "sha256": "be3d9b163cdc0d6ae51160f832002a3cbd40b92413c658996f5a3c15349d412e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "874bf9d96cef6d4a814fe3b63762815a",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-a-runtime-baseline",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-a-runtime-baseline.png",
+      "sha256": "8de4abfa366ea733372f891aa372a0d28b34aab68aac317cf3d9b9cec7607e6f",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "dee21764ba933f96ccc7233b6a896ca8",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-b-readability",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-b-readability.png",
+      "sha256": "4183a88575c390101ce610633bfcc1bc261d6c64d2e3b1d27d5082177b721011",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-b-readability.png.meta",
+      "meta": {
+        "guid": "7f9c9d9d0ffa54666c72c675737175f7",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-c-paper-ink",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
+      "sha256": "cc5a6e7a45e35ce540326cf316232c5173fa5847ca7053c1182d18dc462c0304",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "dad92d0db44ff16e2e79219c3cb5326c",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-d-production-balanced",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-d-production-balanced.png",
+      "sha256": "28de6a8aadc26061a153e1bf8100426fd7d9bf880befc31b1dd87f71e873ba2d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "361d17f1425a3b9b5db85abaf1a3e4fe",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "selected",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-a-runtime-baseline",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-a-runtime-baseline.png",
+      "sha256": "d40ec8958311a1fe129ea5cdd221bf5e71ab94a3ea5c3750e541d26aeb9f4c91",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "12b6486ac0b0af64779f82c0aa5e389c",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-b-readability",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
+      "sha256": "7cfecadc902cfff91ba634f915c4dccafe0cc2f6e622be87aaeac6fe2738656e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png.meta",
+      "meta": {
+        "guid": "6929480a7c1a0264fd13171bbf357b64",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-c-paper-ink",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-c-paper-ink.png",
+      "sha256": "d94b2787fda1f5e7dedb046de29f4401bc077604938b91cd85700d324328ab61",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "48ecd7a5388d70f65b688d4185de261e",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-d-production-balanced",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-d-production-balanced.png",
+      "sha256": "06426855774ff5d50ae089f0441cbda54d70b15f12b63f60c7f97f888ea87c2e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "7c150d52d5966af31a6918a384cc4c60",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            276,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            300,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-a-runtime-baseline",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline.png",
+      "sha256": "f76c5e3587661aa4970091794857d339749492349b287c5afcff67348d1f62d6",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "4fe9dee21d6e25cc3f85d44290a2d611",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            196,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            220,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-b-readability",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
+      "sha256": "2eb2d891597de756f18da7bab30fd5b17181de16b1727b87ec696c23508fcccf",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png.meta",
+      "meta": {
+        "guid": "a4557f0d3584793660c8801b86b3a2dc",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            196,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            220,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-c-paper-ink",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-c-paper-ink.png",
+      "sha256": "fb8d7ac8aba17624272fb560145046d98a17822c695fcf1ed7ec996c1fcface5",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "c7087a86fe0892d38771221c847eaae8",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            196,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            220,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-d-production-balanced",
+      "owner": "replacement",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-d-production-balanced.png",
+      "sha256": "325124ca6c60903b315dcea07a15bf3546ec40a6e70e4cd8cff834c2e86357e0",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "d05bfc2597fb274e892de536ea1c4dc7",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            196,
+            34
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            220,
+            48
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-a-runtime-baseline",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-a-runtime-baseline.png",
+      "sha256": "fd5d8061881bbd7c753900eb8b49490a1bc4c6a140bbcc7b32dbcbd4d466ad05",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "8c81545457ae397588850c4edaf1b29b",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            315,
+            716
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-b-readability",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-b-readability.png",
+      "sha256": "097dfa9e98bc2e9963f84cc632963b32fa3aef4f3c76ea215c67291763eebc3e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-b-readability.png.meta",
+      "meta": {
+        "guid": "ae9338f8574d2a8b7f04b39bd72418b2",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            315,
+            716
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-c-paper-ink",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-c-paper-ink.png",
+      "sha256": "a173a8dbb037437ea7e2954a05aa8d2f0d304c4785a4fdceb726e1183f461371",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "23475d9c39ac1aee839f31727fdff10f",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            315,
+            716
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-d-production-balanced",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-d-production-balanced.png",
+      "sha256": "d363ecc05852dcd6af60c3341ac084a68dfb31be0b1b131e177b20760d8859b8",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "d66cca01dd95f5e40fff55b519c10ad3",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            315,
+            716
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-a-runtime-baseline",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-a-runtime-baseline.png",
+      "sha256": "39ce70a792b110297909ea13f6caeeedb6adebe6d908d796f981bcb9908fb47d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "b79c3536ea42174633184631929b450c",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            290,
+            126
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-b-readability",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-b-readability.png",
+      "sha256": "8e053f7b09f8df3304f4523f991ced10efa09e3f11f856252102029539f81e63",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-b-readability.png.meta",
+      "meta": {
+        "guid": "c3a24d6043968cc2dd78a0ac9842a3e8",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            290,
+            126
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-c-paper-ink",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-c-paper-ink.png",
+      "sha256": "82aa68a1653ae8a53e010ef28cb8ba7f1023ef42c48a4bd8e9d5eed34fea7edc",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "18be759297efd27691d1360ecf7c0276",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            290,
+            126
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-d-production-balanced",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
+      "sha256": "9c54e25847fa8d546ab64b0a0ca88819b8b13d4647523f70a3dae2544d098b99",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "e22c23a6cf194d2a0b2a4423ca706494",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            290,
+            126
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "clear",
+            "failed"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-a-runtime-baseline",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-a-runtime-baseline.png",
+      "sha256": "183640d93343d039f097466ea6f41593ab1987e45ec6d20d27e534a6f6260fb9",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "95e79fd8341efc8713e3ee59f8f0a1ee",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-b-readability",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-b-readability.png",
+      "sha256": "6dd6db6d0a6f84eed498b601fa5f5ff84221b5fd6386430bc9cc0ce0659cef4b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-b-readability.png.meta",
+      "meta": {
+        "guid": "2057911aafcb15a69ac16e7ed3a5e9cc",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-c-paper-ink",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
+      "sha256": "f457449551fd28d97106897ade21e555fdff99d229e4839e9d16c52c27d3708e",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "865af90612904024f6044011890b68b6",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-d-production-balanced",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-d-production-balanced.png",
+      "sha256": "1af2fecd5c4dda469564579d02c3042e666d3661a29d65e53c1a0c48d5adcfca",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "c8a00b6b5ed9a8b6d096e10f0f2ac90d",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-a-runtime-baseline",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline.png",
+      "sha256": "d7647f9b4495f17d4e502de4ae66ab43ba56220ef5c408a127bee4512108b533",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "5dcfe70c5a5f892e7e3d9bbf0a2ae4cf",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-b-readability",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-b-readability.png",
+      "sha256": "cc091c339dca583ffdc035edc780d721d34785366e199dd1bcd5d2b2c548b98d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-b-readability.png.meta",
+      "meta": {
+        "guid": "944bfc3b1019978f3e4f2a291b31e0f6",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-c-paper-ink",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
+      "sha256": "6bf621b0889c64d1cc5c73448bcf3f2f1af32bc272416e6aa3604c0371ec6f92",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "813057e1e2d6488c10dce41d4655e75d",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-d-production-balanced",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-d-production-balanced.png",
+      "sha256": "9f1c8105772e288164b36527c4cea992eb378ff9451b7f4b46abcce7b16eb053",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "a2170b62e82204651b87acae41a5db07",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            302,
+            54
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": null,
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "empty"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-a-runtime-baseline",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-a-runtime-baseline.png",
+      "sha256": "a9ad50074d79913b9b287d0c689e750a5090a0d86a3cf26d4082a4c9660be06b",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "41ea6361b4b56a3f47060cc6ecf879a1",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            268,
+            47
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            296,
+            59
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-b-readability",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
+      "sha256": "f54d844ebcbb1ff7d52110c76b061ea0c729f490a922dd401f11ddfa096087e6",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png.meta",
+      "meta": {
+        "guid": "c5e5382a707a7192420a5ee5c259a5db",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            268,
+            47
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            296,
+            59
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-c-paper-ink",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-c-paper-ink.png",
+      "sha256": "0786eae27ea162320e9b782f1870f04f2a0e0132220c7c1931098cc09d4bbff7",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "65b6ace7d394a6291f9f23e2136fd0dd",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            268,
+            47
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            296,
+            59
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-d-production-balanced",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-d-production-balanced.png",
+      "sha256": "545d9489b86aad9ee5a124d1d639b1c36f2feed91e0ac2c139220c1d9bf90a70",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "e162710e893c10236fda855400569f1a",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            268,
+            47
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            296,
+            59
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-a-runtime-baseline",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-a-runtime-baseline.png",
+      "sha256": "ce4459570586a3bfca5a723da6cc7da9d45c9c3ee039f53e3dbb929f2ee12f15",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-a-runtime-baseline.png.meta",
+      "meta": {
+        "guid": "3287716d3c7a8892e7a97536fcef907b",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            190,
+            43
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            218,
+            55
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-b-readability",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
+      "sha256": "5ad7d32b23b4d4e849216dceb24c2abf90cde112aa0f19384ef443f22f6ecf2d",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png.meta",
+      "meta": {
+        "guid": "e2f3469ae2d1664c19f28d6ebd0cd2b8",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            190,
+            43
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            218,
+            55
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-c-paper-ink",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-c-paper-ink.png",
+      "sha256": "7a4b631230cd3a2d7d1b1ecf27971539e15d30e2e8b2b843d3abef81eb7c9670",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        2,
+        2,
+        238,
+        118
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-c-paper-ink.png.meta",
+      "meta": {
+        "guid": "42466871b300caf8b9da848f9d51ed2a",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            190,
+            43
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            218,
+            55
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-d-production-balanced",
+      "owner": "result",
+      "status": "PASS",
+      "path": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-d-production-balanced.png",
+      "sha256": "6a14e6d04e7126a0090d61888bea96402283034eb82bf1f14fe215fe4233e313",
+      "format": "PNG",
+      "mode": "RGBA",
+      "width": 240,
+      "height": 120,
+      "alphaChannelPresent": true,
+      "nonEmptyBounds": [
+        1,
+        1,
+        239,
+        119
+      ],
+      "edgeContact": false,
+      "edgeContactExpectedForSlicedPanel": true,
+      "metaPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-d-production-balanced.png.meta",
+      "meta": {
+        "guid": "fd6ba92641c721341739703dd739c1c7",
+        "ppu": 100.0,
+        "filterModeBilinear": true,
+        "mipmapDisabled": true,
+        "compressionNone": true,
+        "spriteMode": 1,
+        "border": [
+          18.0,
+          18.0,
+          18.0,
+          18.0
+        ]
+      },
+      "qa": {
+        "nineSlice": {
+          "passed": true,
+          "border": [
+            18.0,
+            18.0,
+            18.0,
+            18.0
+          ],
+          "fixtures": {
+            "0.75x": true,
+            "1.0x": true,
+            "1.5x": true,
+            "2.0x": true,
+            "tall": true,
+            "wide": true,
+            "extreme": true
+          },
+          "cornerPreserved": true,
+          "seamFree": true,
+          "textureBleed": false
+        },
+        "text": {
+          "passed": true,
+          "safeArea": [
+            190,
+            43
+          ],
+          "fixtures": [
+            "short-japanese",
+            "long-japanese",
+            "latin",
+            "number",
+            "punctuation",
+            "one-line",
+            "two-line",
+            "maximum-lines"
+          ],
+          "overflow": false,
+          "clipping": false,
+          "fontSizeChanged": false
+        },
+        "layout": {
+          "passed": true,
+          "viewports": {
+            "Compact": true,
+            "Standard": true,
+            "Large": true
+          },
+          "safeArea": true,
+          "anchorsUnchanged": true,
+          "pivotUnchanged": true,
+          "dynamicContentHeight": true
+        },
+        "interaction": {
+          "passed": true,
+          "tapTarget": [
+            218,
+            55
+          ],
+          "raycastOwnerUnchanged": true,
+          "states": [
+            "default",
+            "pressed",
+            "disabled"
+          ],
+          "duplicateListener": 0,
+          "listenerAfterClose": 0
+        }
+      },
+      "failures": [],
+      "warnings": []
+    }
+  ]
+}
