@@ -1,0 +1,5 @@
+U48 Batch C / hud-timer-frame / hud-timer-frame-c-paper-ink
+Purpose: TopHudPlaceholder/Label timer region
+Operation: matte paper fibers, irregular black-ink edge and restrained lantern accent
+Logical size: [104, 46]; states: ['default']; text-safe inset: [10, 6, 10, 6]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

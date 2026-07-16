@@ -1,0 +1,5 @@
+U48 Batch C / result-evolution-awakening-row / result-evolution-awakening-row-a-runtime-baseline
+Purpose: RewardCard evolution/awakening
+Operation: current runtime structure with explicit safe border
+Logical size: [326, 70]; states: ['default', 'empty']; text-safe inset: [12, 8, 12, 8]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

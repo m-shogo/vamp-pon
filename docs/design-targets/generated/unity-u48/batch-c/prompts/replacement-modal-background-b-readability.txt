@@ -1,0 +1,5 @@
+U48 Batch C / replacement-modal-background / replacement-modal-background-b-readability
+Purpose: U4LevelUpOverlay/Panel
+Operation: strong hierarchy, wider text-safe center and state-readable corners
+Logical size: [344, 590]; states: ['default']; text-safe inset: [18, 18, 18, 18]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

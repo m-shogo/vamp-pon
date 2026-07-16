@@ -1,0 +1,5 @@
+U48 Batch C / result-summary-header / result-summary-header-a-runtime-baseline
+Purpose: Outcome+Title+Stage+Rank
+Operation: current runtime structure with explicit safe border
+Logical size: [326, 150]; states: ['clear', 'failed']; text-safe inset: [18, 12, 18, 12]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

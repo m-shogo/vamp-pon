@@ -5,20 +5,20 @@
   "deprecatedGroups": [
     {
       "assetGroup": "ui-hud-inventory-frame",
-      "historyStatus": "split-required",
+      "historyStatus": "split-required-resolved",
       "splitInto": [
         "hud-top-status-frame",
         "hud-hp-frame",
         "hud-timer-frame",
         "hud-inventory-weapon-slot",
         "hud-inventory-passive-slot",
-        "hud-inventory-rare-slot",
+        "hud-rare-slot",
         "hud-kokuyou-gauge-frame"
       ]
     },
     {
       "assetGroup": "ui-levelup-card",
-      "historyStatus": "split-required",
+      "historyStatus": "split-required-resolved",
       "splitInto": [
         "levelup-card-background",
         "levelup-icon-frame",
@@ -30,19 +30,19 @@
     },
     {
       "assetGroup": "ui-replacement-modal",
-      "historyStatus": "split-required",
+      "historyStatus": "split-required-resolved",
       "splitInto": [
         "replacement-modal-background",
         "replacement-incoming-candidate-panel",
         "replacement-owned-slot-row",
         "replacement-selected-slot-state",
         "replacement-confirm-button",
-        "replacement-decline-cancel-button"
+        "replacement-cancel-button"
       ]
     },
     {
       "assetGroup": "ui-result-kit",
-      "historyStatus": "split-required",
+      "historyStatus": "split-required-resolved",
       "splitInto": [
         "result-main-panel",
         "result-summary-header",
@@ -54,13 +54,13 @@
     },
     {
       "assetGroup": "ui-stage-select-kit",
-      "historyStatus": "split-required",
+      "historyStatus": "split-required-resolved",
       "splitInto": [
         "stage-select-stage-card",
         "stage-select-locked-unlocked-state",
         "stage-select-primary-button",
         "stage-select-title-frame",
-        "stage-select-difficulty-metadata-row"
+        "stage-select-metadata-row"
       ]
     }
   ],
@@ -74,9 +74,12 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -90,10 +93,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "low-hp"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -107,9 +113,12 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -123,12 +132,15 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "occupied",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -142,18 +154,21 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "occupied",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
     },
     {
-      "assetGroup": "hud-inventory-rare-slot",
+      "assetGroup": "hud-rare-slot",
       "owner": "hud",
       "historyStatus": "active-comparison-unit",
       "comparisonContract": {
@@ -161,12 +176,15 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "occupied",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -180,12 +198,15 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "charging",
           "ready",
           "active",
           "recovery"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -199,11 +220,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -217,11 +241,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -235,11 +262,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -253,11 +283,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -271,11 +304,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -289,11 +325,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "pressed",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -307,9 +346,12 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -323,11 +365,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -341,11 +386,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -359,11 +407,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -377,17 +428,20 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "pressed",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
     },
     {
-      "assetGroup": "replacement-decline-cancel-button",
+      "assetGroup": "replacement-cancel-button",
       "owner": "replacement",
       "historyStatus": "active-comparison-unit",
       "comparisonContract": {
@@ -395,11 +449,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "pressed",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -413,10 +470,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "clear",
           "failed"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -430,10 +490,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "clear",
           "failed"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -447,10 +510,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "empty"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -464,10 +530,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "empty"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -481,11 +550,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "pressed",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -499,11 +571,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "pressed",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -517,12 +592,15 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "locked",
           "unlocked",
           "completed",
           "selected"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -536,10 +614,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "locked",
           "unlocked"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -553,11 +634,14 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "pressed",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
@@ -571,16 +655,19 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "selected"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false
     },
     {
-      "assetGroup": "stage-select-difficulty-metadata-row",
+      "assetGroup": "stage-select-metadata-row",
       "owner": "stageSelect",
       "historyStatus": "active-comparison-unit",
       "comparisonContract": {
@@ -588,10 +675,13 @@
         "sameLogicalSize": true,
         "sameTextSafeArea": true,
         "sameRuntimePosition": true,
+        "sameInteractionOwner": true,
         "sameRequiredStates": [
           "default",
           "disabled"
-        ]
+        ],
+        "sameContentContract": true,
+        "sameTapTargetContract": true
       },
       "candidateStatus": "generation-required",
       "approvalReviewReady": false

@@ -1,0 +1,5 @@
+U48 Batch C / stage-select-metadata-row / stage-select-metadata-row-a-runtime-baseline
+Purpose: Stage1Card/StageDetail
+Operation: current runtime structure with explicit safe border
+Logical size: [248, 61]; states: ['default', 'disabled']; text-safe inset: [12, 6, 12, 6]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

@@ -1,0 +1,1958 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "generatedAtUtc": "2026-07-16T06:34:06.513237Z",
+  "scope": "U48 Batch C current production runtime UI baseline; audit only",
+  "assetGroupCount": 30,
+  "entries": [
+    {
+      "assetGroup": "hud-top-status-frame",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "TopHudPlaceholder/Image",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "4b86ce50b7c540c681ede6912179a4af",
+      "currentSha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          326,
+          46
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        12,
+        6,
+        12,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "TopHudPlaceholder/Label HP region",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "4b86ce50b7c540c681ede6912179a4af",
+      "currentSha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          108,
+          46
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "low-hp"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        10,
+        6,
+        10,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "TopHudPlaceholder/Label timer region",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "4b86ce50b7c540c681ede6912179a4af",
+      "currentSha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          104,
+          46
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        10,
+        6,
+        10,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "U45BattleInventorySlot/Image",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "76aff992d9f34b1cacd4d6e554137456",
+      "currentSha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          48,
+          48
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "U47ActualInventoryHud/Image passive region",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "76aff992d9f34b1cacd4d6e554137456",
+      "currentSha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          48,
+          48
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "U47ActualInventoryHud/Image rare region",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "76aff992d9f34b1cacd4d6e554137456",
+      "currentSha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          48,
+          48
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs",
+      "runtimeComponent": "U47ActualInventoryHud/Image gauge region",
+      "currentAssetPath": null,
+      "assetType": "color-only",
+      "currentGuid": null,
+      "currentSha256": null,
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 0,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          350,
+          22
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaCanvas/SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "charging",
+        "ready",
+        "active",
+        "recovery"
+      ],
+      "imageType": "Simple/no-sprite",
+      "spriteBorder": null,
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        8,
+        3,
+        8,
+        3
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperCard/bgImage",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-common.png",
+      "assetType": "sprite",
+      "currentGuid": "fe7c54b4b24c4fcd8689be4d697015c1",
+      "currentSha256": "cfb84e6e1fe0d710693bf5583b4798e485c895ea27558c4713dc7c51cf1c841e",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          300,
+          132
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "PaperCard/bgImage",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        300,
+        132
+      ],
+      "textSafeInset": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperCard/Content/IconFrame",
+      "currentAssetPath": null,
+      "assetType": "procedural",
+      "currentGuid": null,
+      "currentSha256": null,
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          40,
+          40
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Simple/no-sprite",
+      "spriteBorder": null,
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperCard/Content nameLabel",
+      "currentAssetPath": null,
+      "assetType": "layout-only",
+      "currentGuid": null,
+      "currentSha256": null,
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          266,
+          22
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Simple/no-sprite",
+      "spriteBorder": null,
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        8,
+        2,
+        8,
+        2
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperCard/Content descLabel",
+      "currentAssetPath": null,
+      "assetType": "layout-only",
+      "currentGuid": null,
+      "currentSha256": null,
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          266,
+          62
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Simple/no-sprite",
+      "spriteBorder": null,
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        8,
+        4,
+        8,
+        4
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperCard/InnerBorder+CanvasGroup",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-common.png",
+      "assetType": "sprite",
+      "currentGuid": "fe7c54b4b24c4fcd8689be4d697015c1",
+      "currentSha256": "cfb84e6e1fe0d710693bf5583b4798e485c895ea27558c4713dc7c51cf1c841e",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          300,
+          132
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "PaperCard/InnerBorder+CanvasGroup",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        300,
+        132
+      ],
+      "textSafeInset": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperButton",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "94978453822541398a8c81535c111ec4",
+      "currentSha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          220,
+          44
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "PaperButton",
+      "currentStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        220,
+        48
+      ],
+      "textSafeInset": [
+        12,
+        5,
+        12,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "U4LevelUpOverlay/Panel",
+      "currentAssetPath": null,
+      "assetType": "color-only",
+      "currentGuid": null,
+      "currentSha256": null,
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          344,
+          590
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default"
+      ],
+      "imageType": "Simple/no-sprite",
+      "spriteBorder": null,
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "U4LevelUpOverlay/Title+Panel",
+      "currentAssetPath": null,
+      "assetType": "layout-only",
+      "currentGuid": null,
+      "currentSha256": null,
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          300,
+          76
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Simple/no-sprite",
+      "spriteBorder": null,
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        12,
+        8,
+        12,
+        8
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "ReplacementSlotButton",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "94978453822541398a8c81535c111ec4",
+      "currentSha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          300,
+          44
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "ReplacementSlotButton",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        300,
+        48
+      ],
+      "textSafeInset": [
+        12,
+        5,
+        12,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "ReplacementSlotButton hovered state",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "94978453822541398a8c81535c111ec4",
+      "currentSha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          300,
+          44
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "ReplacementSlotButton hovered state",
+      "currentStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        300,
+        48
+      ],
+      "textSafeInset": [
+        12,
+        5,
+        12,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "ReplacementSlotButton actual confirm",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "94978453822541398a8c81535c111ec4",
+      "currentSha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          300,
+          44
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "ReplacementSlotButton actual confirm",
+      "currentStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        300,
+        48
+      ],
+      "textSafeInset": [
+        12,
+        5,
+        12,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs",
+      "runtimeComponent": "PaperButton 受け取らない",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "94978453822541398a8c81535c111ec4",
+      "currentSha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 100,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          220,
+          44
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "PaperButton 受け取らない",
+      "currentStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        220,
+        48
+      ],
+      "textSafeInset": [
+        12,
+        5,
+        12,
+        5
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs",
+      "runtimeComponent": "ResultMemoryPage/Image",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-memory-page.png",
+      "assetType": "sprite",
+      "currentGuid": "5ba81e7c1770f424eb7857eed4948a6e",
+      "currentSha256": "3489557bea641650182702c9976d299d0053ed817bb717b3925ee0ca1edef359",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          355,
+          756
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "clear",
+        "failed"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs",
+      "runtimeComponent": "Outcome+Title+Stage+Rank",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-memory-page.png",
+      "assetType": "sprite",
+      "currentGuid": "5ba81e7c1770f424eb7857eed4948a6e",
+      "currentSha256": "3489557bea641650182702c9976d299d0053ed817bb717b3925ee0ca1edef359",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          326,
+          150
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "clear",
+        "failed"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        18,
+        12,
+        18,
+        12
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs",
+      "runtimeComponent": "U47GameplaySummary+RewardCard",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-reward-card.png",
+      "assetType": "sprite",
+      "currentGuid": "a71f62127f0be46a3b67d6bf4b5edd5c",
+      "currentSha256": "01e1c060607fbba33289a1df473552381fbfb170cf36b335261a4ff006bcf29f",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          326,
+          70
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "empty"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        12,
+        8,
+        12,
+        8
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs",
+      "runtimeComponent": "RewardCard evolution/awakening",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-reward-card.png",
+      "assetType": "sprite",
+      "currentGuid": "a71f62127f0be46a3b67d6bf4b5edd5c",
+      "currentSha256": "01e1c060607fbba33289a1df473552381fbfb170cf36b335261a4ff006bcf29f",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          326,
+          70
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "empty"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        12,
+        8,
+        12,
+        8
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs",
+      "runtimeComponent": "RetryButton",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-primary-button.png",
+      "assetType": "sprite",
+      "currentGuid": "f1ab6f45c5be94af6ac8c5e287b84afc",
+      "currentSha256": "159535ff944b7c24ae5713e3579c9fdb0d77ec5ce9a19a5e5e4cb60e9901ece9",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          296,
+          59
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "RetryButton",
+      "currentStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        296,
+        59
+      ],
+      "textSafeInset": [
+        14,
+        6,
+        14,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "result-return-button",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs",
+      "runtimeComponent": "StageSelectButton",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-secondary-button.png",
+      "assetType": "sprite",
+      "currentGuid": "90127f1a9df9846eea9cda92d71f85bb",
+      "currentSha256": "8adc16ccbe77110325b4cc4586e9ad686fee71869bd9a8409fe2ca00a8eecac9",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          218,
+          55
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "StageSelectButton",
+      "currentStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        218,
+        55
+      ],
+      "textSafeInset": [
+        14,
+        6,
+        14,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
+      "runtimeComponent": "Stage1Card/Image",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "88374565ba514351aebb1688ce3af208",
+      "currentSha256": "6ef43b3f987c686707776e4eae4551b7fad603b4346f6e2374e562924036d9ee",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          275,
+          192
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "Stage1Card/Image",
+      "currentStates": [
+        "locked",
+        "unlocked",
+        "completed",
+        "selected"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        275,
+        192
+      ],
+      "textSafeInset": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
+      "runtimeComponent": "Stage1Card visual state",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "88374565ba514351aebb1688ce3af208",
+      "currentSha256": "6ef43b3f987c686707776e4eae4551b7fad603b4346f6e2374e562924036d9ee",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          275,
+          192
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "Stage1Card visual state",
+      "currentStates": [
+        "locked",
+        "unlocked"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        275,
+        192
+      ],
+      "textSafeInset": [
+        16,
+        12,
+        16,
+        12
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
+      "runtimeComponent": "StartStageButton",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "94978453822541398a8c81535c111ec4",
+      "currentSha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          248,
+          71
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "StartStageButton",
+      "currentStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": null,
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": true,
+      "buttonHitArea": [
+        248,
+        71
+      ],
+      "textSafeInset": [
+        14,
+        6,
+        14,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
+      "runtimeComponent": "StageSelectPaperMap/Title+Subtitle",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-select-map-panel.png",
+      "assetType": "sprite",
+      "currentGuid": "dfb6a140904a4a6fb31b24d8bb034c1a",
+      "currentSha256": "bcecbe02b952c8dd322e8bcd74c4634472b01315e8b61d08d4c90ae2154a31b2",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          303,
+          94
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "selected"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        18,
+        10,
+        18,
+        10
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "runtimeOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
+      "runtimeComponent": "Stage1Card/StageDetail",
+      "currentAssetPath": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+      "assetType": "sprite",
+      "currentGuid": "88374565ba514351aebb1688ce3af208",
+      "currentSha256": "6ef43b3f987c686707776e4eae4551b7fad603b4346f6e2374e562924036d9ee",
+      "renderMode": "ScreenSpaceOverlay/uGUI",
+      "sortingOrder": 90,
+      "rectTransform": {
+        "anchorMin": [
+          0.0,
+          0.0
+        ],
+        "anchorMax": [
+          1.0,
+          1.0
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "sizeDelta": [
+          248,
+          61
+        ]
+      },
+      "canvasScalerContract": {
+        "mode": "ScaleWithScreenSize",
+        "referenceResolution": [
+          390,
+          844
+        ],
+        "matchWidthOrHeight": 0.5
+      },
+      "safeAreaOwner": "SafeAreaFitter",
+      "interactionOwner": "presentation-only",
+      "currentStates": [
+        "default",
+        "disabled"
+      ],
+      "imageType": "Sliced",
+      "spriteBorder": "read-from-meta",
+      "material": "UI/Default",
+      "color": "runtime theme/fallback color",
+      "alpha": "runtime component value",
+      "font": "ZenMaruGothic-Medium Runtime SDF",
+      "fontSizePolicy": "existing runtime value; candidate may not change it",
+      "wrappingOverflow": "existing runtime TextMeshPro contract",
+      "layout": "existing RectTransform; candidate may not change anchors/pivot/size",
+      "raycastTarget": false,
+      "buttonHitArea": null,
+      "textSafeInset": [
+        12,
+        6,
+        12,
+        6
+      ],
+      "knownProblems": [
+        "candidate-specific 9-slice/text/safe-area/tap-target review was not previously available"
+      ]
+    }
+  ],
+  "productionProviderModified": false,
+  "gameplayContractChanged": false
+}

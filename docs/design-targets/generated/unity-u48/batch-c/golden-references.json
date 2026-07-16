@@ -1,0 +1,2047 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "batch": "C",
+  "entries": [
+    {
+      "assetGroup": "hud-top-status-frame",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+          "sha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+          "sha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-hud-top-frame.png",
+          "sha256": "336cb9e2e6308160f28762d97ce14bee3be7421b7fc192cddcc2fd8caa2d1cd6",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+          "sha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+          "sha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-battle-inventory-slot-frame.png",
+          "sha256": "e7402c56b8330165a7a0915fe16f6babcb67a0d82ad2a00a5c848fd167f63d5f",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
+          "sha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+          "sha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-common.png",
+          "sha256": "cfb84e6e1fe0d710693bf5583b4798e485c895ea27558c4713dc7c51cf1c841e",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+          "sha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+          "sha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+          "sha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+          "sha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-levelup-card-common.png",
+          "sha256": "cfb84e6e1fe0d710693bf5583b4798e485c895ea27558c4713dc7c51cf1c841e",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+          "sha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+          "sha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+          "sha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+          "sha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+          "role": "runtime-size"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+          "sha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+          "sha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+          "sha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+          "sha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+          "sha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+          "sha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+          "sha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+          "sha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+          "sha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-memory-page.png",
+          "sha256": "3489557bea641650182702c9976d299d0053ed817bb717b3925ee0ca1edef359",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+          "sha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-memory-page.png",
+          "sha256": "3489557bea641650182702c9976d299d0053ed817bb717b3925ee0ca1edef359",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+          "sha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-reward-card.png",
+          "sha256": "01e1c060607fbba33289a1df473552381fbfb170cf36b335261a4ff006bcf29f",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+          "sha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-reward-card.png",
+          "sha256": "01e1c060607fbba33289a1df473552381fbfb170cf36b335261a4ff006bcf29f",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+          "sha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-primary-button.png",
+          "sha256": "159535ff944b7c24ae5713e3579c9fdb0d77ec5ce9a19a5e5e4cb60e9901ece9",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "result-return-button",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+          "sha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U46Candidates/UI/Result/u46-result-secondary-button.png",
+          "sha256": "8adc16ccbe77110325b4cc4586e9ad686fee71869bd9a8409fe2ca00a8eecac9",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+          "sha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+          "sha256": "6ef43b3f987c686707776e4eae4551b7fad603b4346f6e2374e562924036d9ee",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+          "sha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+          "sha256": "6ef43b3f987c686707776e4eae4551b7fad603b4346f6e2374e562924036d9ee",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+          "sha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-paper-button-frame.png",
+          "sha256": "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+          "sha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-select-map-panel.png",
+          "sha256": "bcecbe02b952c8dd322e8bcd74c4634472b01315e8b61d08d4c90ae2154a31b2",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "goldenReferenceStatus": "composite",
+      "references": [
+        {
+          "path": "docs/unity-ui-design-system-v1.md",
+          "sha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+          "role": "policy"
+        },
+        {
+          "path": "docs/unity-responsive-screen-policy.md",
+          "sha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+          "role": "policy"
+        },
+        {
+          "path": "docs/181-current-production-canon.md",
+          "sha256": "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
+          "role": "policy"
+        },
+        {
+          "path": "docs/88-adopted-visual-direction.md",
+          "sha256": "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
+          "role": "policy"
+        },
+        {
+          "path": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+          "sha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
+          "role": "runtime-size"
+        },
+        {
+          "path": "unity/VampPonUnity/Assets/_Project/Resources/U45Candidates/UI/u45-stage-card-frame.png",
+          "sha256": "6ef43b3f987c686707776e4eae4551b7fad603b4346f6e2374e562924036d9ee",
+          "role": "runtime-baseline"
+        }
+      ],
+      "inherit": [
+        "紙UI",
+        "黒インク",
+        "抑制されたランタン光",
+        "existing runtime logical size and hierarchy"
+      ],
+      "doNotInherit": [
+        "generic fantasy",
+        "glossy plastic",
+        "neon/SF HUD",
+        "baked text",
+        "unapproved runtime status"
+      ],
+      "runtimeReadabilityContract": [
+        "Compact/Standard/Large",
+        "existing font and content retained",
+        "text-safe area retained",
+        "no overflow",
+        "Safe Area retained"
+      ],
+      "interactionContract": [
+        "existing interaction owner",
+        "existing hit area unchanged",
+        "default/selected/pressed/disabled/locked states as applicable"
+      ],
+      "prohibitedExpressions": [
+        "text or controls baked into sprite",
+        "color-only candidate inflation",
+        "unsafe 9-slice ornament",
+        "candidate-specific RectTransform change"
+      ],
+      "humanApprovedGoldenReference": false,
+      "approvedForRuntime": false
+    }
+  ]
+}

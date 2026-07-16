@@ -1,0 +1,5 @@
+U48 Batch C / result-retry-button / result-retry-button-b-readability
+Purpose: RetryButton
+Operation: strong hierarchy, wider text-safe center and state-readable corners
+Logical size: [296, 59]; states: ['default', 'pressed', 'disabled']; text-safe inset: [14, 6, 14, 6]; tap target: [296, 59]
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

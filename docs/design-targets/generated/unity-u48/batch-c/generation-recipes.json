@@ -1,0 +1,2648 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "tool": "scripts/unity/build-u48-batch-c-candidates.py",
+  "toolVersion": "1",
+  "recipes": [
+    {
+      "recipeId": "batch-c:hud-top-status-frame-a-runtime-baseline:v1",
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        326,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3562294104,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-top-status-frame-b-readability:v1",
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        326,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2844659764,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-top-status-frame-c-paper-ink:v1",
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        326,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3138507760,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-top-status-frame-d-production-balanced:v1",
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        326,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 650312428,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-hp-frame-a-runtime-baseline:v1",
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        108,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3181719861,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-hp-frame-b-readability:v1",
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        108,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2272593144,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-hp-frame-c-paper-ink:v1",
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        108,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2159836653,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-hp-frame-d-production-balanced:v1",
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        108,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2468444957,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-timer-frame-a-runtime-baseline:v1",
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        104,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1753287551,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-timer-frame-b-readability:v1",
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        104,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1160276413,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-timer-frame-c-paper-ink:v1",
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        104,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1859683134,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-timer-frame-d-production-balanced:v1",
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        104,
+        46
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3747654194,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-weapon-slot-a-runtime-baseline:v1",
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4104862680,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-weapon-slot-b-readability:v1",
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3269014849,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-weapon-slot-c-paper-ink:v1",
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1376162453,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-weapon-slot-d-production-balanced:v1",
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3209627343,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-passive-slot-a-runtime-baseline:v1",
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2918594308,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-passive-slot-b-readability:v1",
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 72576780,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-passive-slot-c-paper-ink:v1",
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2393009693,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-inventory-passive-slot-d-production-balanced:v1",
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4173150000,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-rare-slot-a-runtime-baseline:v1",
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 885510542,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-rare-slot-b-readability:v1",
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 96695054,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-rare-slot-c-paper-ink:v1",
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 768606917,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-rare-slot-d-production-balanced:v1",
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        48,
+        48
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3988125875,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-kokuyou-gauge-frame-a-runtime-baseline:v1",
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        350,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 761051086,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-kokuyou-gauge-frame-b-readability:v1",
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        350,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1704636630,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-kokuyou-gauge-frame-c-paper-ink:v1",
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        350,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2495997629,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:hud-kokuyou-gauge-frame-d-production-balanced:v1",
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        350,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1665648225,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-card-background-a-runtime-baseline:v1",
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2674897020,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-card-background-b-readability:v1",
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 620076914,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-card-background-c-paper-ink:v1",
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2898401254,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-card-background-d-production-balanced:v1",
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4113673515,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-icon-frame-a-runtime-baseline:v1",
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        40,
+        40
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2909012331,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-icon-frame-b-readability:v1",
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        40,
+        40
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1460338433,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-icon-frame-c-paper-ink:v1",
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        40,
+        40
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 264624980,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-icon-frame-d-production-balanced:v1",
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        40,
+        40
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2484572097,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-title-area-a-runtime-baseline:v1",
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        266,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2145972389,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-title-area-b-readability:v1",
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        266,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3876045909,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-title-area-c-paper-ink:v1",
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        266,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3957678882,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-title-area-d-production-balanced:v1",
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        266,
+        22
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 378723703,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-description-area-a-runtime-baseline:v1",
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        266,
+        62
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1797632981,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-description-area-b-readability:v1",
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        266,
+        62
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 168419576,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-description-area-c-paper-ink:v1",
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        266,
+        62
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1610793679,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-description-area-d-production-balanced:v1",
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        266,
+        62
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3524148882,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-selection-feedback-a-runtime-baseline:v1",
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4194125195,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-selection-feedback-b-readability:v1",
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1627359190,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-selection-feedback-c-paper-ink:v1",
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2265189858,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-selection-feedback-d-production-balanced:v1",
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        300,
+        132
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1849184526,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-decline-button-a-runtime-baseline:v1",
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 350608716,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-decline-button-b-readability:v1",
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2188835270,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-decline-button-c-paper-ink:v1",
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1807044902,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:levelup-decline-button-d-production-balanced:v1",
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4127693044,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-modal-background-a-runtime-baseline:v1",
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        344,
+        590
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 964011137,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-modal-background-b-readability:v1",
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        344,
+        590
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3507226512,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-modal-background-c-paper-ink:v1",
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        344,
+        590
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1489276793,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-modal-background-d-production-balanced:v1",
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        344,
+        590
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3623762600,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-incoming-candidate-panel-a-runtime-baseline:v1",
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        300,
+        76
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 960447138,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-incoming-candidate-panel-b-readability:v1",
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        300,
+        76
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1294520994,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-incoming-candidate-panel-c-paper-ink:v1",
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        300,
+        76
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 166976224,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-incoming-candidate-panel-d-production-balanced:v1",
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        300,
+        76
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2759886199,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-owned-slot-row-a-runtime-baseline:v1",
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2314107849,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-owned-slot-row-b-readability:v1",
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2873354364,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-owned-slot-row-c-paper-ink:v1",
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 547987090,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-owned-slot-row-d-production-balanced:v1",
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 174944780,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-selected-slot-state-a-runtime-baseline:v1",
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1930249024,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-selected-slot-state-b-readability:v1",
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3116518585,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-selected-slot-state-c-paper-ink:v1",
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 257297877,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-selected-slot-state-d-production-balanced:v1",
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 183468546,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-confirm-button-a-runtime-baseline:v1",
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2283382800,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-confirm-button-b-readability:v1",
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4125988452,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-confirm-button-c-paper-ink:v1",
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 949100120,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-confirm-button-d-production-balanced:v1",
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        300,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 91472444,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-cancel-button-a-runtime-baseline:v1",
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 358993962,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-cancel-button-b-readability:v1",
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 101828348,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-cancel-button-c-paper-ink:v1",
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3112633372,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:replacement-cancel-button-d-production-balanced:v1",
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        220,
+        44
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 771124901,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-main-panel-a-runtime-baseline:v1",
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        355,
+        756
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3068080871,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-main-panel-b-readability:v1",
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        355,
+        756
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2756153314,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-main-panel-c-paper-ink:v1",
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        355,
+        756
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1988394591,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-main-panel-d-production-balanced:v1",
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        355,
+        756
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 589333829,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-summary-header-a-runtime-baseline:v1",
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        326,
+        150
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3766837941,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-summary-header-b-readability:v1",
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        326,
+        150
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3121485838,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-summary-header-c-paper-ink:v1",
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        326,
+        150
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 300209359,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-summary-header-d-production-balanced:v1",
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        326,
+        150
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 4110240692,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-inventory-row-a-runtime-baseline:v1",
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1109205678,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-inventory-row-b-readability:v1",
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2577988102,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-inventory-row-c-paper-ink:v1",
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2448815015,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-inventory-row-d-production-balanced:v1",
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3083333150,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-evolution-awakening-row-a-runtime-baseline:v1",
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3584617571,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-evolution-awakening-row-b-readability:v1",
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1539406163,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-evolution-awakening-row-c-paper-ink:v1",
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2689080638,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-evolution-awakening-row-d-production-balanced:v1",
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        326,
+        70
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 567773271,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-retry-button-a-runtime-baseline:v1",
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        296,
+        59
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3535447536,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-retry-button-b-readability:v1",
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        296,
+        59
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3988221924,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-retry-button-c-paper-ink:v1",
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        296,
+        59
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3965164130,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-retry-button-d-production-balanced:v1",
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        296,
+        59
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 49123304,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-return-button-a-runtime-baseline:v1",
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        218,
+        55
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2693259576,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-return-button-b-readability:v1",
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        218,
+        55
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3725844849,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-return-button-c-paper-ink:v1",
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        218,
+        55
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2673403806,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:result-return-button-d-production-balanced:v1",
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        218,
+        55
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 463618386,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-stage-card-a-runtime-baseline:v1",
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3838144862,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-stage-card-b-readability:v1",
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3559386281,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-stage-card-c-paper-ink:v1",
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3437421557,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-stage-card-d-production-balanced:v1",
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 396879038,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-locked-unlocked-state-a-runtime-baseline:v1",
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 716265219,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-locked-unlocked-state-b-readability:v1",
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1774287622,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-locked-unlocked-state-c-paper-ink:v1",
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 97481872,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-locked-unlocked-state-d-production-balanced:v1",
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        275,
+        192
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 920624862,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-primary-button-a-runtime-baseline:v1",
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        248,
+        71
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3836528513,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-primary-button-b-readability:v1",
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        248,
+        71
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2918074308,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-primary-button-c-paper-ink:v1",
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        248,
+        71
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 455080100,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-primary-button-d-production-balanced:v1",
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        248,
+        71
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1609581836,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-title-frame-a-runtime-baseline:v1",
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        303,
+        94
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1208087740,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-title-frame-b-readability:v1",
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        303,
+        94
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2340750808,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-title-frame-c-paper-ink:v1",
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        303,
+        94
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 902820553,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-title-frame-d-production-balanced:v1",
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        303,
+        94
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 1554436661,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-metadata-row-a-runtime-baseline:v1",
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-a-runtime-baseline",
+      "operation": "current runtime structure with explicit safe border",
+      "logicalSize": [
+        248,
+        61
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2126969515,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-metadata-row-b-readability:v1",
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-b-readability",
+      "operation": "strong hierarchy, wider text-safe center and state-readable corners",
+      "logicalSize": [
+        248,
+        61
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 3348026924,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-metadata-row-c-paper-ink:v1",
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-c-paper-ink",
+      "operation": "matte paper fibers, irregular black-ink edge and restrained lantern accent",
+      "logicalSize": [
+        248,
+        61
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 2634734334,
+      "deterministic": true
+    },
+    {
+      "recipeId": "batch-c:stage-select-metadata-row-d-production-balanced:v1",
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-d-production-balanced",
+      "operation": "balanced readability, paper-ink identity and scalable ornament density",
+      "logicalSize": [
+        248,
+        61
+      ],
+      "sourcePixelSize": [
+        240,
+        120
+      ],
+      "border": [
+        18,
+        18,
+        18,
+        18
+      ],
+      "seed": 455172265,
+      "deterministic": true
+    }
+  ]
+}

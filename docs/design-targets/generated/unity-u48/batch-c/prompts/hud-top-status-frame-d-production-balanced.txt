@@ -1,0 +1,5 @@
+U48 Batch C / hud-top-status-frame / hud-top-status-frame-d-production-balanced
+Purpose: TopHudPlaceholder/Image
+Operation: balanced readability, paper-ink identity and scalable ornament density
+Logical size: [326, 46]; states: ['default']; text-safe inset: [12, 6, 12, 6]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

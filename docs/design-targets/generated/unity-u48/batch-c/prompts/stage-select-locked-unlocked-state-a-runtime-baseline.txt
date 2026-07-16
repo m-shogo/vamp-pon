@@ -1,0 +1,5 @@
+U48 Batch C / stage-select-locked-unlocked-state / stage-select-locked-unlocked-state-a-runtime-baseline
+Purpose: Stage1Card visual state
+Operation: current runtime structure with explicit safe border
+Logical size: [275, 192]; states: ['locked', 'unlocked']; text-safe inset: [16, 12, 16, 12]; tap target: [275, 192]
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

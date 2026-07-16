@@ -1,0 +1,5 @@
+U48 Batch C / levelup-decline-button / levelup-decline-button-b-readability
+Purpose: PaperButton
+Operation: strong hierarchy, wider text-safe center and state-readable corners
+Logical size: [220, 44]; states: ['default', 'pressed', 'disabled']; text-safe inset: [12, 5, 12, 5]; tap target: [220, 48]
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

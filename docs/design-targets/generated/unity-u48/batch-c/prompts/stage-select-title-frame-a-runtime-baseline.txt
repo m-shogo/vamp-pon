@@ -1,0 +1,5 @@
+U48 Batch C / stage-select-title-frame / stage-select-title-frame-a-runtime-baseline
+Purpose: StageSelectPaperMap/Title+Subtitle
+Operation: current runtime structure with explicit safe border
+Logical size: [303, 94]; states: ['default', 'selected']; text-safe inset: [18, 10, 18, 10]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

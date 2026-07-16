@@ -1,0 +1,5 @@
+U48 Batch C / hud-kokuyou-gauge-frame / hud-kokuyou-gauge-frame-d-production-balanced
+Purpose: U47ActualInventoryHud/Image gauge region
+Operation: balanced readability, paper-ink identity and scalable ornament density
+Logical size: [350, 22]; states: ['charging', 'ready', 'active', 'recovery']; text-safe inset: [8, 3, 8, 3]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

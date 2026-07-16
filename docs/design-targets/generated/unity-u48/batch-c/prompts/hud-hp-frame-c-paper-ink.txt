@@ -1,0 +1,5 @@
+U48 Batch C / hud-hp-frame / hud-hp-frame-c-paper-ink
+Purpose: TopHudPlaceholder/Label HP region
+Operation: matte paper fibers, irregular black-ink edge and restrained lantern accent
+Logical size: [108, 46]; states: ['default', 'low-hp']; text-safe inset: [10, 6, 10, 6]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

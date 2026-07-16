@@ -1,0 +1,5 @@
+U48 Batch C / levelup-selection-feedback / levelup-selection-feedback-a-runtime-baseline
+Purpose: PaperCard/InnerBorder+CanvasGroup
+Operation: current runtime structure with explicit safe border
+Logical size: [300, 132]; states: ['default', 'selected', 'disabled']; text-safe inset: [16, 12, 16, 12]; tap target: [300, 132]
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

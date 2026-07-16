@@ -82,6 +82,8 @@
     "unity:u48-batch-b-simulator:capture": "python3 scripts/unity/capture-u48-batch-b-simulator.py",
     "unity:u48-batch-b-review-pack:generate": "python3 scripts/unity/generate-u48-batch-b-review-pack.py",
     "unity:u48-batch-b-review-ready:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-b-review-ready.ts",
+    "unity:u48-batch-c-contracts:generate": "python3 scripts/unity/generate-u48-batch-c-contracts.py",
+    "unity:u48-batch-c-contracts:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-c-contracts.ts",
     "unity:ui-design-system:check": "node --experimental-strip-types scripts/quality/check-unity-ui-design-system.ts",
     "unity:runtime-visual-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-runtime-visual-readiness.ts",
     "implementation:preflight:check": "node --experimental-strip-types scripts/quality/check-unity-big-implementation-readiness.ts",

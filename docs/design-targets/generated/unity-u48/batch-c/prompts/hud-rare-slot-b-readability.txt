@@ -1,0 +1,5 @@
+U48 Batch C / hud-rare-slot / hud-rare-slot-b-readability
+Purpose: U47ActualInventoryHud/Image rare region
+Operation: strong hierarchy, wider text-safe center and state-readable corners
+Logical size: [48, 48]; states: ['default', 'occupied', 'selected', 'disabled']; text-safe inset: [5, 5, 5, 5]; tap target: None
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.

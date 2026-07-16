@@ -1,0 +1,5 @@
+U48 Batch C / replacement-owned-slot-row / replacement-owned-slot-row-c-paper-ink
+Purpose: ReplacementSlotButton
+Operation: matte paper fibers, irregular black-ink edge and restrained lantern accent
+Logical size: [300, 44]; states: ['default', 'selected', 'disabled']; text-safe inset: [12, 5, 12, 5]; tap target: [300, 48]
+Textless matte paper UI component, black ink, restrained lantern warmth. Transparent PNG RGBA, stable 9-slice corners, no logo, no baked text, no glossy plastic or neon.
