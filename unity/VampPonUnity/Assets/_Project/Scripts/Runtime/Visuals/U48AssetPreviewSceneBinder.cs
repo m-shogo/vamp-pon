@@ -13,6 +13,8 @@ namespace VampPon.UnitySpike.Runtime.Visuals
         private readonly List<(SpriteRenderer renderer, Sprite sprite)> rendererOriginals = new();
         private readonly List<(Image image, Sprite sprite)> imageOriginals = new();
         private Coroutine binding;
+        private U48KokuyouPreviewPresenter kokuyouPresenter;
+        private U48GroundAreaPreviewTintBinder groundAreaTintBinder;
         private bool restored;
 
         public static void AttachIfActive(GameObject owner)
@@ -31,6 +33,14 @@ namespace VampPon.UnitySpike.Runtime.Visuals
             yield return null;
             var entry = U48AssetPreviewProvider.ActiveEntry ?? throw new InvalidOperationException("U48 preview session ended before scene binding.");
             var slot = Enum.Parse<U48AssetPreviewSlot>(entry.slot, true);
+            if (slot == U48AssetPreviewSlot.Kokuyou)
+            {
+                kokuyouPresenter = gameObject.AddComponent<U48KokuyouPreviewPresenter>();
+                kokuyouPresenter.Initialize(entry, U48AssetPreviewProvider.LoadPrimarySprite(entry.resourcePath));
+                binding = null;
+                yield break;
+            }
+            if (slot == U48AssetPreviewSlot.GroundArea) groundAreaTintBinder = gameObject.AddComponent<U48GroundAreaPreviewTintBinder>();
             if (slot is U48AssetPreviewSlot.Player or U48AssetPreviewSlot.Enemy or U48AssetPreviewSlot.ExpPickup or U48AssetPreviewSlot.HealingPickup or U48AssetPreviewSlot.Projectile or U48AssetPreviewSlot.Hit or U48AssetPreviewSlot.EnemyDeath or U48AssetPreviewSlot.Trail or U48AssetPreviewSlot.GroundArea)
             {
                 binding = null;
@@ -62,6 +72,8 @@ namespace VampPon.UnitySpike.Runtime.Visuals
             foreach (var value in imageOriginals) if (value.image != null) value.image.sprite = value.sprite;
             rendererOriginals.Clear();
             imageOriginals.Clear();
+            if (kokuyouPresenter != null) { Destroy(kokuyouPresenter); kokuyouPresenter = null; }
+            if (groundAreaTintBinder != null) { groundAreaTintBinder.Restore(); Destroy(groundAreaTintBinder); groundAreaTintBinder = null; }
         }
 
         private void OnDisable() => Restore();

@@ -32,6 +32,8 @@ namespace VampPon.UnitySpike.Runtime.Visuals
         public string resourcePath;
         public string sourcePath;
         public string sourceSha256;
+        public string runtimeDefinitionId;
+        public string kokuyouPhase;
         public string[] targetObjectNames;
         public string[] idleLeft;
         public string[] idleRight;

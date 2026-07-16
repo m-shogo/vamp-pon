@@ -16,7 +16,7 @@ namespace VampPon.UnitySpike.Editor
         private const string PreviewDefine = "VAMPPON_U48_ASSET_PREVIEW";
         private const string TempCatalogDirectory = "Assets/_Project/Resources/U48Preview";
         private const string TempCatalogPath = TempCatalogDirectory + "/preview-catalog.json";
-        private const string CandidateRoot = "Assets/_Project/Art/Candidates/U48/BatchA";
+        private static readonly string[] CandidateRoots = { "Assets/_Project/Art/Candidates/U48/BatchA", "Assets/_Project/Art/Candidates/U48/BatchB" };
         private static readonly string[] Scenes = { "Assets/_Project/Scenes/Boot/Boot.unity", "Assets/_Project/Scenes/Stage1/Stage1.unity" };
 
         [MenuItem("VampPon/U48/Build iOS Simulator Without Preview")]
@@ -47,7 +47,7 @@ namespace VampPon.UnitySpike.Editor
                     locationPathName = output,
                     target = BuildTarget.iOS,
                     options = BuildOptions.None,
-                    extraScriptingDefines = preview ? new[] { PreviewDefine } : Array.Empty<string>(),
+                    extraScriptingDefines = preview ? new[] { PreviewDefine, "VAMPPON_AI_SIMULATOR_SMOKE" } : Array.Empty<string>(),
                 });
                 result = report.summary.result;
                 if (result != BuildResult.Succeeded) throw new InvalidOperationException($"U48 Simulator build failed: {result}, errors={report.summary.totalErrors}");
@@ -68,7 +68,7 @@ namespace VampPon.UnitySpike.Editor
             if (AssetDatabase.IsValidFolder(TempCatalogDirectory)) AssetDatabase.DeleteAsset(TempCatalogDirectory);
             Directory.CreateDirectory(Path.Combine(projectRoot, TempCatalogDirectory));
             var entries = new List<PreviewEntry>();
-            foreach (var sourceAssetPath in AssetDatabase.FindAssets("t:Texture2D", new[] { CandidateRoot }).Select(AssetDatabase.GUIDToAssetPath).OrderBy(value => value, StringComparer.Ordinal))
+            foreach (var sourceAssetPath in AssetDatabase.FindAssets("t:Texture2D", CandidateRoots).Select(AssetDatabase.GUIDToAssetPath).OrderBy(value => value, StringComparer.Ordinal))
             {
                 var group = Path.GetFileName(Path.GetDirectoryName(sourceAssetPath));
                 var candidateId = Path.GetFileNameWithoutExtension(sourceAssetPath);
@@ -78,7 +78,9 @@ namespace VampPon.UnitySpike.Editor
                 if (!AssetDatabase.CopyAsset(sourceAssetPath, destinationAssetPath)) throw new InvalidOperationException("U48 preview candidate copy failed: " + sourceAssetPath);
                 entries.Add(CreateEntry(projectRoot, sourceAssetPath, group, candidateId));
             }
-            if (entries.Count != 36) throw new InvalidOperationException($"U48 Batch A preview catalog expected 36 candidates, found {entries.Count}.");
+            var batchACount = entries.Count(value => value.sourcePath.Contains("/BatchA/", StringComparison.Ordinal));
+            var batchBCount = entries.Count(value => value.sourcePath.Contains("/BatchB/", StringComparison.Ordinal));
+            if (batchACount != 36 || batchBCount != 28) throw new InvalidOperationException($"U48 preview catalog expected Batch A=36 and Batch B=28 candidates, found A={batchACount}, B={batchBCount}.");
             entries.Add(new PreviewEntry
             {
                 assetGroup = "common-projectile", candidateId = "common-projectile-missing-resource-verification", slot = "Projectile",
@@ -98,13 +100,17 @@ namespace VampPon.UnitySpike.Editor
                 "player-yui" => "Player", "enemy-onbu" => "Enemy", "stage1-background" => "Background",
                 "exp-pickup" => "ExpPickup", "healing-pickup" => "HealingPickup", "common-projectile" => "Projectile",
                 "hit-effect" => "Hit", "enemy-death-effect" => "EnemyDeath", "movement-trail" => "Trail",
-                _ => throw new InvalidOperationException("Unexpected U48 Batch A group: " + group),
+                _ when group.StartsWith("ground-area-", StringComparison.Ordinal) => "GroundArea",
+                _ when group.StartsWith("kokuyou-", StringComparison.Ordinal) => "Kokuyou",
+                _ => throw new InvalidOperationException("Unexpected U48 candidate group: " + group),
             };
             var entry = new PreviewEntry
             {
                 assetGroup = group, candidateId = candidateId, slot = slot, resourcePath = resourcePath,
                 sourcePath = "unity/VampPonUnity/" + sourceAssetPath, sourceSha256 = Hash(Path.Combine(projectRoot, sourceAssetPath)),
                 targetObjectNames = group == "stage1-background" ? new[] { "DarkPaperNightBackground" } : Array.Empty<string>(),
+                runtimeDefinitionId = group switch { "ground-area-black-ink-bottle" => "black_ink_bottle", "ground-area-streetlamp-ring" => "streetlamp_ring", "ground-area-dawn-ink-lamp" => "dawn_ink_lamp", _ => null },
+                kokuyouPhase = group.StartsWith("kokuyou-", StringComparison.Ordinal) ? group["kokuyou-".Length..] : null,
             };
             if (group == "player-yui")
             {
@@ -131,7 +137,7 @@ namespace VampPon.UnitySpike.Editor
         [Serializable] private sealed class PreviewCatalog { public int schemaVersion; public PreviewEntry[] entries; }
         [Serializable] private sealed class PreviewEntry
         {
-            public string assetGroup, candidateId, slot, resourcePath, sourcePath, sourceSha256;
+            public string assetGroup, candidateId, slot, resourcePath, sourcePath, sourceSha256, runtimeDefinitionId, kokuyouPhase;
             public string[] targetObjectNames, idleLeft, idleRight, walkLeft, walkRight, hurtLeft, hurtRight, attackLeft, attackRight;
             public string[] enemyIdle, enemyMove, enemyHurt, enemyDeath;
         }
