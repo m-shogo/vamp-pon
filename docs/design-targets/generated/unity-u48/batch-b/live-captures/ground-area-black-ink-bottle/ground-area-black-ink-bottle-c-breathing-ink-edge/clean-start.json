@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+  "processRestarted": true,
+  "verificationReinitializeExecuted": true,
+  "startStageCommandExecuted": true,
+  "appFlowStateBeforeCapture": "Playing",
+  "resultVisible": false,
+  "levelUpVisible": false,
+  "currentHpBeforeCharge": 110,
+  "maxHp": 110,
+  "kokuyouPhaseBeforeCharge": "normal",
+  "productionCapacityRestored": true,
+  "previousSessionStateDetected": false
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
+  "processRestarted": true,
+  "verificationReinitializeExecuted": true,
+  "startStageCommandExecuted": true,
+  "appFlowStateBeforeCapture": "Playing",
+  "resultVisible": false,
+  "levelUpVisible": false,
+  "currentHpBeforeCharge": 110,
+  "maxHp": 110,
+  "kokuyouPhaseBeforeCharge": "normal",
+  "productionCapacityRestored": true,
+  "previousSessionStateDetected": false
+}

@@ -1,6 +1,6 @@
 # Unity Current Doc Index 2026-07-10
 
-U46 completion sources: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`, `docs/unity-u46-ui-asset-generation-2026-07-11.md`, `docs/unity-u46-ios-simulator-smoke-2026-07-11.md`, `docs/unity-u46-visual-review-2026-07-11.md`。U46.1 hardening sources: `docs/unity-u46-1-result-save-hardening-2026-07-11.md`, `docs/unity-u46-1-ios-simulator-regression-2026-07-11.md`。U47 completion source: `docs/unity-u47-gameplay-data-runtime-2026-07-13.md`。U48 startup source: `docs/unity-u48-production-asset-expansion-plan-2026-07-14.md`。U48 approval pack checkpoint: `docs/unity-u48-production-asset-approval-pack-2026-07-14.md`。U48 candidate live preview foundation checkpoint: `docs/unity-u48-candidate-live-preview-foundation-2026-07-14.md`。U48 Batch A generation contract checkpoint: `docs/unity-u48-batch-a-generation-contracts-2026-07-14.md`。
+U46 completion sources: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`, `docs/unity-u46-ui-asset-generation-2026-07-11.md`, `docs/unity-u46-ios-simulator-smoke-2026-07-11.md`, `docs/unity-u46-visual-review-2026-07-11.md`。U46.1 hardening sources: `docs/unity-u46-1-result-save-hardening-2026-07-11.md`, `docs/unity-u46-1-ios-simulator-regression-2026-07-11.md`。U47 completion source: `docs/unity-u47-gameplay-data-runtime-2026-07-13.md`。U48 startup source: `docs/unity-u48-production-asset-expansion-plan-2026-07-14.md`。U48 approval pack checkpoint: `docs/unity-u48-production-asset-approval-pack-2026-07-14.md`。U48 candidate live preview foundation checkpoint: `docs/unity-u48-candidate-live-preview-foundation-2026-07-14.md`。U48 Batch A generation contract checkpoint: `docs/unity-u48-batch-a-generation-contracts-2026-07-14.md`。U48 Batch B human-review checkpoint: `docs/unity-u48-batch-b-human-review-ready-2026-07-16.md`。
 
 Status: current
 
@@ -74,6 +74,8 @@ productionApproved=false
 - `docs/design-targets/generated/asset-generation-consistency/readiness.json`
 - `docs/design-targets/generated/unity-u46/ui-design-system-readiness.json`
 - `docs/design-targets/generated/unity-big-implementation/readiness.json`
+- `docs/design-targets/generated/unity-u48/batch-b/verification-summary.json`
+- `docs/design-targets/generated/unity-u48/batch-b/capture-manifest.json`
 
 ## Current checks
 
@@ -85,6 +87,7 @@ pnpm unity:ui-design-system:check
 pnpm asset-generation:check
 pnpm unity:u45-ai-simulator-smoke:check
 pnpm unity:meta:check
+pnpm unity:u48-batch-b-review-ready:check
 ```
 
 ## Historical documents

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "candidateId": "kokuyou-charging-c-lantern-shadow-flicker",
+  "processRestarted": true,
+  "verificationReinitializeExecuted": true,
+  "startStageCommandExecuted": true,
+  "appFlowStateBeforeCapture": "Playing",
+  "resultVisible": false,
+  "levelUpVisible": false,
+  "currentHpBeforeCharge": 110,
+  "maxHp": 110,
+  "kokuyouPhaseBeforeCharge": "normal",
+  "productionCapacityRestored": true,
+  "previousSessionStateDetected": false
+}

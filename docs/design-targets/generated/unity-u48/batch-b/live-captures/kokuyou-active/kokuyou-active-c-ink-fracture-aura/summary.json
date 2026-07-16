@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "assetGroup": "kokuyou-active",
+  "candidateId": "kokuyou-active-c-ink-fracture-aura",
+  "captureStarted": true,
+  "captureCompleted": true,
+  "completedCaptureCount": 16,
+  "cleanupCompleted": true,
+  "previewCleanupPassed": true,
+  "finalAppFlowState": "Playing",
+  "finalKokuyouPhase": "normal",
+  "resultTransitionCount": 0,
+  "revivalTriggerCount": 0,
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "suppressed": ["uncontrolledEnemySpawn","uncontrolledExperienceGain","uncontrolledLevelUp"],
+  "preserved": ["Stage1GameplayRuntimeCoordinator","KokuyouRuntimeController","GroundAreaExecutor","AppFlowPlaying","PreviewPresenter"],
+  "passed": true
+}

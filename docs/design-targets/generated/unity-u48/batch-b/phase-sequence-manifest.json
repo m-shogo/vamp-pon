@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "057f4cee7a322932dd47df21039f83e5172f3b84",
+  "systems": [
+    {
+      "system": "A",
+      "path": "docs/design-targets/generated/unity-u48/batch-b/phase-sequences/kokuyou-system-a.png",
+      "sha256": "58a7966c09fda2e9fbf563d8e48d7c80ee649b5519f5f06b75fbe89ca8805392",
+      "humanReviewStatus": "pending"
+    },
+    {
+      "system": "B",
+      "path": "docs/design-targets/generated/unity-u48/batch-b/phase-sequences/kokuyou-system-b.png",
+      "sha256": "19f1e93d2f11a210ea70d512bbc5be22053b5b8304a544859e58917449721817",
+      "humanReviewStatus": "pending"
+    },
+    {
+      "system": "C",
+      "path": "docs/design-targets/generated/unity-u48/batch-b/phase-sequences/kokuyou-system-c.png",
+      "sha256": "db44353148cc604ee64eef0269d79ec8a1809fd4c1bb712f118f71a08b972526",
+      "humanReviewStatus": "pending"
+    },
+    {
+      "system": "D",
+      "path": "docs/design-targets/generated/unity-u48/batch-b/phase-sequences/kokuyou-system-d.png",
+      "sha256": "7f8a704724a7491f36713dbe164d260370eac4eb937e659da0db8673cfb44332",
+      "humanReviewStatus": "pending"
+    }
+  ]
+}

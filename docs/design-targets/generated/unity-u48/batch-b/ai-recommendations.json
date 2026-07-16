@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "057f4cee7a322932dd47df21039f83e5172f3b84",
+  "batch": "B",
+  "generatedAtUtc": "2026-07-16T05:46:18.214217Z",
+  "recommendationIsApproval": false,
+  "humanReviewStatus": "pending",
+  "entries": [
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "recommendedCandidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+      "rankedCandidateIds": [
+        "ground-area-black-ink-bottle-c-breathing-ink-edge",
+        "ground-area-black-ink-bottle-b-irregular-ink-blot",
+        "ground-area-black-ink-bottle-d-paper-absorption-bottle",
+        "ground-area-black-ink-bottle-a-runtime-baseline"
+      ],
+      "reason": "Breathing ink edge preserves the irregular bottle identity while keeping the damage radius readable and quiet under projectile density.",
+      "remainingRisk": "Human review must confirm edge motion cadence and small-radius legibility against the actual moving enemy set.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/ground-area-black-ink-bottle.png",
+      "contactSheetSha256": "42955251f6401dd65dea9299aea4b95c1924fc25f1c3eaa74cc0c87c118dc3a1"
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "recommendedCandidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+      "rankedCandidateIds": [
+        "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+        "ground-area-streetlamp-ring-b-defined-lantern-ring",
+        "ground-area-streetlamp-ring-c-broken-paper-light",
+        "ground-area-streetlamp-ring-a-runtime-baseline"
+      ],
+      "reason": "Ink shadow plus restrained warm light best separates the streetlamp field from black ink without obscuring enemies or HUD.",
+      "remainingRisk": "Warm-light intensity may need human tuning after sustained overlap with lantern projectiles.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/ground-area-streetlamp-ring.png",
+      "contactSheetSha256": "b3ca716c509a092cbf8e78e9e63ced9ba479019b1965c97dd1384a9e72738eba"
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "recommendedCandidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+      "rankedCandidateIds": [
+        "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+        "ground-area-dawn-ink-lamp-b-dual-layer-ink-light",
+        "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
+        "ground-area-dawn-ink-lamp-a-runtime-baseline"
+      ],
+      "reason": "The wide dawn ring communicates the evolved scale and dual-source fusion most clearly at all three portrait sizes.",
+      "remainingRisk": "The evolved wide ring needs device fill-rate and overlap review before production connection.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/ground-area-dawn-ink-lamp.png",
+      "contactSheetSha256": "338fb8f8bb1a863012dc01ec369bc862afc1650eac29c7c77d0ba83d7116ab22"
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "recommendedCandidateId": "kokuyou-charging-b-small-ink-wisps",
+      "rankedCandidateIds": [
+        "kokuyou-charging-b-small-ink-wisps",
+        "kokuyou-charging-c-lantern-shadow-flicker",
+        "kokuyou-charging-d-paper-edge-corruption",
+        "kokuyou-charging-a-runtime-baseline"
+      ],
+      "reason": "Small ink wisps communicate accumulation without reading as Ready or Active and preserve the normal player silhouette.",
+      "remainingRisk": "Charging cadence and frame animation are presentation candidates only and still need human temporal review.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-charging.png",
+      "contactSheetSha256": "5d528987edc83be757c6e8afc0847bb2b0aa282699d079f52fe1cfcc865e861c"
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "recommendedCandidateId": "kokuyou-ready-b-complete-dark-ring",
+      "rankedCandidateIds": [
+        "kokuyou-ready-b-complete-dark-ring",
+        "kokuyou-ready-d-lantern-inversion-pulse",
+        "kokuyou-ready-c-restrained-black-flame-crown",
+        "kokuyou-ready-a-runtime-baseline"
+      ],
+      "reason": "The complete dark ring gives the clearest stable Ready signal without prematurely using the full Active flame language.",
+      "remainingRisk": "Ready pulse timing and accessibility contrast require human review.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-ready.png",
+      "contactSheetSha256": "7405a24eeff204d67c4334175ab46ee0d113b50dbc45a009a8891fc62b9efa15"
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "recommendedCandidateId": "kokuyou-active-b-controlled-black-flame",
+      "rankedCandidateIds": [
+        "kokuyou-active-b-controlled-black-flame",
+        "kokuyou-active-c-ink-fracture-aura",
+        "kokuyou-active-d-lantern-eclipse-paper-distortion",
+        "kokuyou-active-a-runtime-baseline"
+      ],
+      "reason": "Controlled black flame provides the strongest phase contrast while remaining bounded around Yui in enemy, projectile, ground-area and HUD overlaps.",
+      "remainingRisk": "Eight-second density, direction continuity and device performance remain unapproved.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-active.png",
+      "contactSheetSha256": "94b1cc362b27ea79818f4b7156b2c36c2503e96a7ee3522fb2ba940a221b73b3"
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "recommendedCandidateId": "kokuyou-recovery-b-fading-soot",
+      "rankedCandidateIds": [
+        "kokuyou-recovery-b-fading-soot",
+        "kokuyou-recovery-c-dragging-ink-shadow",
+        "kokuyou-recovery-d-dim-lantern-paper-ash",
+        "kokuyou-recovery-a-runtime-baseline"
+      ],
+      "reason": "Fading soot communicates loss of power and recovery drag with less residual dominance than the longer shadow alternatives.",
+      "remainingRisk": "Recovery fade timing must be judged together with the 0.75 movement multiplier on device.",
+      "humanReviewStatus": "pending",
+      "humanApprovedCandidateId": null,
+      "approvedAsFinal": false,
+      "runtimeApproved": false,
+      "approvalStatus": "pending-human-review",
+      "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-recovery.png",
+      "contactSheetSha256": "fc20bfca960090d83e0a1a3c84a3868f0c87c2cd8ce9feea4845a49d1eeb7f02"
+    }
+  ]
+}

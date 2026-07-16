@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "057f4cee7a322932dd47df21039f83e5172f3b84",
+  "generatedAtUtc": "2026-07-16T05:46:18.217348Z",
+  "batch": "B",
+  "scope": "ground-area three definitions and Kokuyou four phases; review-ready only",
+  "results": {
+    "assetGroupCount": 7,
+    "candidateCount": 28,
+    "candidateSpecificLiveCapture": "PASS_448",
+    "standardCaptureCount": 392,
+    "compactCaptureCount": 28,
+    "largeCaptureCount": 28,
+    "highDensityCaptureCount": 28,
+    "duplicateContentHashCount": 0,
+    "duplicateGuidCount": 0,
+    "duplicateScreenshotHashCount": 0,
+    "gameplayContractChangedCount": 0,
+    "resultTransitionCount": 0,
+    "revivalTriggerCount": 0,
+    "cleanStartFailureCount": 0,
+    "cleanupFailureCount": 0,
+    "unhandledExceptionCount": 0,
+    "assertionFailureCount": 0,
+    "staleEvidenceCount": 0
+  },
+  "runtimeContracts": {
+    "groundArea": {
+      "black_ink_bottle": {
+        "radius": 0.52,
+        "damagePerSecond": 8,
+        "interval": 0.25,
+        "finalTicks": 9,
+        "duration": 2.3
+      },
+      "streetlamp_ring": {
+        "radius": 0.64,
+        "damagePerSecond": 6,
+        "interval": 0.25,
+        "finalTicks": 13,
+        "duration": 3.2
+      },
+      "dawn_ink_lamp": {
+        "radius": 1.28,
+        "damagePerSecond": 28,
+        "interval": 0.25,
+        "finalTicks": 25,
+        "duration": 6.5
+      }
+    },
+    "kokuyou": {
+      "chargeThreshold": 100,
+      "damageSequence": [
+        25,
+        25,
+        25,
+        25
+      ],
+      "hpSequence": [
+        110,
+        85,
+        60,
+        35,
+        10
+      ],
+      "chargeSequence": [
+        0,
+        25,
+        50,
+        75,
+        100
+      ],
+      "activeMultiplier": 1.5,
+      "activeDuration": 8,
+      "recoverySlowMultiplier": 0.75,
+      "recoveryDuration": 2,
+      "phaseStateDirectWriteUsed": false
+    }
+  },
+  "approvalBoundary": {
+    "batchAStage1GameplayCoreApprovalReady": true,
+    "batchBGroundAreaKokuyouApprovalReady": true,
+    "productionAssetApprovalPackReady": false,
+    "approvedProductionAssetSetAvailable": false,
+    "runtimeVisualReady": false,
+    "humanReviewStatus": "pending",
+    "u48Status": "IN_PROGRESS_BLOCKED"
+  },
+  "notes": [
+    "AI recommendations are not human approval.",
+    "Production RuntimeVisualAssetProvider is unchanged.",
+    "All candidates remain approvedAsFinal=false and runtimeApproved=false."
+  ]
+}
