@@ -12,9 +12,9 @@ U47 full-slot replacement scenarioだけ、通常取得可能なdistinct候補�
 
 ## Full-slot replacement
 
-正常な登録済みIDだけを使い、weaponは`night_pencil + black_ink_bottle`の2枠満杯から未所持の`streetlamp_ring`を提示し、実replacement UIのslot 1を押して`black_ink_bottle`だけを除去した。結果は`night_pencil + streetlamp_ring`である。
+正常な登録済みIDだけを使い、weaponは`night_pencil + black_ink_bottle`の2枠満杯から未所持の`streetlamp_ring`を提示する。実replacement UIで内部index 1のslotを選択してもinventoryは変化せず、selected rowと有効化された確定ボタンを確認後、実confirm buttonを押して`black_ink_bottle`だけを除去した。結果は`night_pencil + streetlamp_ring`である。
 
-passiveは`old_ticket + gold_compass + travel_badge`の3枠満杯から未所持の`white_margin`を提示し、実replacement UIのslot 1を押して`gold_compass`だけを除去した。結果は`old_ticket + travel_badge + white_margin`である。duplicate ID、未登録ID、進化武器の直接注入は使用していない。UI表示名はRegistry正本を使う。
+passiveは`old_ticket + gold_compass + travel_badge`の3枠満杯から未所持の`white_margin`を提示し、内部index 1のslot選択後もinventory不変を確認してから実confirm buttonを押し、`gold_compass`だけを除去した。結果は`old_ticket + travel_badge + white_margin`である。未選択confirmはdisabled、cancelはcommit 0でinventory不変、modal close後はselection/listenerを消去する。duplicate ID、未登録ID、進化武器の直接注入は使用していない。UI表示名はRegistry正本を使う。
 
 ## Ground-area DoT
 

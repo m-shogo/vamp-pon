@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using VampPon.UnitySpike.UI;
+using VampPon.UnitySpike.Runtime.Gameplay;
 using VampPon.UnitySpike.Runtime.Gameplay.State;
 
 namespace VampPon.UnitySpike.U4
@@ -22,6 +23,9 @@ namespace VampPon.UnitySpike.U4
         private float fadeOutTimer;
         private bool isClosing;
         private System.Action<U4LevelUpChoice> onChoiceConfirmed;
+        private System.Action<int> onReplacementSlotSelected;
+        private System.Action onReplacementConfirmed;
+        private System.Action onReplacementCancelled;
 
         public bool IsActive => gameObject.activeSelf && !isClosing;
 
@@ -173,12 +177,20 @@ namespace VampPon.UnitySpike.U4
             fadeOutTimer = 0.15f;
         }
 
-        public void ShowReplacement(U4LevelUpChoice incoming, InventoryState inventory, System.Func<string, string> displayName, System.Action<int> replace)
+        public void ShowReplacement(ReplacementModalViewModel model, System.Action<int> select, System.Action confirm, System.Action cancel)
         {
-            ClearCards(); isClosing = false; titleLabel.text = $"{incoming.NameJa} と入れ替える";
-            var owned = incoming.ItemType == U4ItemType.Weapon ? inventory.Weapons.ConvertAll(v => v.Id) : inventory.Passives.ConvertAll(v => v.Id);
-            for (var i=0;i<owned.Count;i++) { var slot=i; var button=PaperButton.Create(cardContainer,$"枠 {i+1}: {displayName(owned[i])}",300f,44f,()=>{ replace(slot); Hide(); }); button.gameObject.name=$"ReplacementSlotButton_{i}"; button.SetFont(japaneseFont); var rect=button.GetComponent<RectTransform>(); rect.anchoredPosition=new Vector2(0,150f-i*52f); }
-            var decline=PaperButton.Create(cardContainer,"受け取らない",220f,44f,()=>{ FindFirstObjectByType<U4LevelUpDemoController>()?.DeclineChoice(); Hide(); }); decline.SetFont(japaneseFont); decline.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-170f);
+            ClearCards(); isClosing = false; titleLabel.text = $"{model.IncomingCandidate.DisplayName} と入れ替える";
+            onReplacementSlotSelected = select; onReplacementConfirmed = confirm; onReplacementCancelled = cancel;
+            foreach (var owned in model.OwnedSlots)
+            {
+                var slot = owned.SlotIndex;
+                var prefix = owned.IsSelected ? "選択中  " : string.Empty;
+                var button = PaperButton.Create(cardContainer,$"{prefix}枠 {slot+1}: {owned.DisplayName}",300f,44f,()=>onReplacementSlotSelected?.Invoke(slot));
+                button.gameObject.name=$"ReplacementSlotButton_{slot}"; button.SetFont(japaneseFont); button.SetSelected(owned.IsSelected); button.SetInteractable(owned.IsReplaceable);
+                var rect=button.GetComponent<RectTransform>(); rect.anchoredPosition=new Vector2(0,150f-slot*52f);
+            }
+            confirmButton=PaperButton.Create(cardContainer,"この枠と入れ替える",220f,44f,()=>onReplacementConfirmed?.Invoke()); confirmButton.gameObject.name="ReplacementConfirmButton"; confirmButton.SetFont(japaneseFont); confirmButton.SetInteractable(model.ConfirmEnabled); confirmButton.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-112f);
+            var decline=PaperButton.Create(cardContainer,"受け取らない",220f,44f,()=>onReplacementCancelled?.Invoke()); decline.gameObject.name="ReplacementCancelButton"; decline.SetFont(japaneseFont); decline.SetInteractable(model.CancelEnabled); decline.GetComponent<RectTransform>().anchoredPosition=new Vector2(0,-170f);
             gameObject.SetActive(true); overlayGroup.alpha=1f;
         }
 
@@ -191,6 +203,7 @@ namespace VampPon.UnitySpike.U4
                 if (fadeOutTimer <= 0f)
                 {
                     ClearCards();
+                    onReplacementSlotSelected = null; onReplacementConfirmed = null; onReplacementCancelled = null;
                     gameObject.SetActive(false);
                 }
                 return;

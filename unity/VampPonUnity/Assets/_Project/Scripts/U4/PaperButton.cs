@@ -17,6 +17,8 @@ namespace VampPon.UnitySpike.U4
         private Vector3 baseScale;
         private float pulseTimer;
         private bool isHovered;
+        private bool isSelected;
+        private bool interactable = true;
         private System.Action onClick;
 
         private static readonly Color NormalBg = new(0.94f, 0.89f, 0.82f, 0.92f);
@@ -78,13 +80,37 @@ namespace VampPon.UnitySpike.U4
 
         public void SetHovered(bool hovered)
         {
+            if (!interactable) return;
             isHovered = hovered;
-            bgImage.color = bgImage.sprite != null ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (hovered ? HoverBg : NormalBg);
-            borderImage.color = hovered ? HoverBorder : NormalBorder;
+            RefreshVisual();
+        }
+
+        public bool IsInteractable => interactable;
+
+        public void SetInteractable(bool value)
+        {
+            interactable = value;
+            bgImage.raycastTarget = value;
+            RefreshVisual();
+        }
+
+        public void SetSelected(bool value)
+        {
+            isSelected = value;
+            RefreshVisual();
+        }
+
+        private void RefreshVisual()
+        {
+            var highlighted = interactable && (isHovered || isSelected);
+            bgImage.color = !interactable ? new Color(.42f, .39f, .35f, .92f) : bgImage.sprite != null ? (highlighted ? new Color(1f, .92f, .7f, 1f) : Color.white) : (highlighted ? HoverBg : NormalBg);
+            borderImage.color = !interactable ? new Color(.28f, .25f, .22f, .75f) : highlighted ? HoverBorder : NormalBorder;
+            label.color = interactable ? TextColor : new Color(.72f, .68f, .62f, 1f);
         }
 
         public void Press()
         {
+            if (!interactable) return;
             pulseTimer = 0.12f;
             U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
             onClick?.Invoke();

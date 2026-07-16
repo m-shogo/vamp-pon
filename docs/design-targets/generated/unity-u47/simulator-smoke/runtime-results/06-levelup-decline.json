@@ -9,12 +9,16 @@
   "height": 844,
   "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
   "checks": {
+    "confirmBeforeSelectionCommitCountZero": true,
+    "confirmInitiallyDisabled": true,
     "declineCommandApplied": true,
     "inventoryUnchanged": true,
+    "listenerCleanup": true,
     "replacementOfferVisible": true
   },
   "details": {
-    "beforeSlotIds": ["night_pencil","black_ink_bottle"]
+    "beforeSlotIds": ["night_pencil","black_ink_bottle"],
+    "cancelCommitCount": 0
   },
   "unhandledExceptionCount": 0,
   "assertionFailureCount": 0,

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 2,
-  "generatedAtUtc": "2026-07-13T09:08:14.764Z",
-  "sourceHead": "06490c985b3fe7dbaf4c122ee15177d7d2bdfc0f",
-  "sourceFingerprint": "c17987108fb87c04193946fa4e4efb9f2b30cbb740e58adb023d716ea2d0691f",
+  "generatedAtUtc": "2026-07-16T09:01:30.449Z",
+  "sourceHead": "af40b4c9d0bc96a38a7d4a74a3cdf04a1fa36fdd",
+  "sourceFingerprint": "52f9c82da526eccbca153ad4a7b171b6d070c352f0eec0080314d20a1d24162c",
   "routeCatalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
   "expectedCaptureCount": 23,
   "semanticRouteCount": 11,
-  "runStartedAtUtc": "2026-07-13T09:08:14.519Z",
-  "runCompletedAtUtc": "2026-07-13T09:08:14.524Z",
+  "runStartedAtUtc": "2026-07-16T08:59:04.012Z",
+  "runCompletedAtUtc": "2026-07-16T09:01:30.042Z",
   "entries": [
     {
       "captureId": "01-stage-select",
@@ -20,7 +20,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/01-stage-select.json",
       "screenshotSha256": "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
       "runtimeResultSha256": "f8177dd91f2cc6761f1131fce62b175a31769ff0754a23af3bf0c686c9d3d01b",
-      "capturedAtUtc": "2026-07-13T09:08:14.519Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.700Z",
       "passed": true
     },
     {
@@ -34,7 +34,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/02-initial-night-pencil.json",
       "screenshotSha256": "ae0dc10e6c6ffeffb63bb6b15e2306a8044bbd44f9678ecfb8fa64e0590a5245",
       "runtimeResultSha256": "dd4bf97a17e8baf2db4b875f9b4ce388e4e5292d4c17cb3e638ed095ecfe1d1f",
-      "capturedAtUtc": "2026-07-13T09:08:14.519Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.716Z",
       "passed": true
     },
     {
@@ -48,7 +48,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/03-levelup-actual-choices.json",
       "screenshotSha256": "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
       "runtimeResultSha256": "1de0eb6e7c81acf0f66c0c895c4febf9d2c0786fadb0f6bdad38d2d649b7c833",
-      "capturedAtUtc": "2026-07-13T09:08:14.520Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.730Z",
       "passed": true
     },
     {
@@ -62,7 +62,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/04-inventory-weapon-passive.json",
       "screenshotSha256": "8d8466d91f81a4740b933e8dd78c871918ecb25180853680807fe35cf25ac6ad",
       "runtimeResultSha256": "0a7a8f4430bde9688768121d5564ef79fb76dd7b08bf3b6518cccb2a0a4e9537",
-      "capturedAtUtc": "2026-07-13T09:08:14.520Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.745Z",
       "passed": true
     },
     {
@@ -76,7 +76,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/05-inventory-full.json",
       "screenshotSha256": "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
       "runtimeResultSha256": "0784504b15ebb7585a9e68bbe03b7b4bab8cd9a6342b20ce19b50bc7dfce8c3a",
-      "capturedAtUtc": "2026-07-13T09:08:14.520Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.760Z",
       "passed": true
     },
     {
@@ -88,9 +88,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/06-levelup-decline.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/06-levelup-decline.json",
-      "screenshotSha256": "96c0f9a5493b4361182cdad1c5107870e950cb7a29d78e8a4c41ceb2598e79bd",
-      "runtimeResultSha256": "622550475682fc7c5efc08ed4ba8c1109d5c517ea9083cf3b477230c0af80d52",
-      "capturedAtUtc": "2026-07-13T09:08:14.520Z",
+      "screenshotSha256": "6af4bdd6549e5679559d3aa98e150392789dfcbb3f3a8f46046d772d8096b241",
+      "runtimeResultSha256": "ddb498aad65da4e2b6ff58e3717474a2a98db55697719c3e2e6431a888f42815",
+      "capturedAtUtc": "2026-07-16T08:59:04.012Z",
       "passed": true
     },
     {
@@ -102,9 +102,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/07-levelup-replacement.json",
-      "screenshotSha256": "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
-      "runtimeResultSha256": "589cec145d5e564d2f36c9fa40d9ffaaaedbf1d19078e15e1d68c82574cfc7a0",
-      "capturedAtUtc": "2026-07-13T09:08:14.521Z",
+      "screenshotSha256": "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
+      "runtimeResultSha256": "402679fc67c3ba406a17891d2a8d8fcc17430891bf02ea1828d8e77b740240aa",
+      "capturedAtUtc": "2026-07-16T08:59:04.189Z",
       "passed": true
     },
     {
@@ -118,7 +118,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/08-black-ink-area.json",
       "screenshotSha256": "2805aa7eb5dd118b1577e1d41f59d0c07912fbedd45a66b7d31240b0bbbc761c",
       "runtimeResultSha256": "fe9c2057f4b0c04cb16bfaef68d0672c5b12a5b4576324bc12194f823892d53d",
-      "capturedAtUtc": "2026-07-13T09:08:14.521Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.775Z",
       "passed": true
     },
     {
@@ -132,7 +132,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/09-streetlamp-area.json",
       "screenshotSha256": "2910212c5229bc5d6a4e1efab435744586fddb286a43a1f771c58426c8e1480a",
       "runtimeResultSha256": "f529933322edd250161b48fa5c383a65da45d9681625120bebcf9e0c161c8adf",
-      "capturedAtUtc": "2026-07-13T09:08:14.521Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.791Z",
       "passed": true
     },
     {
@@ -146,7 +146,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/10-fusion-ready.json",
       "screenshotSha256": "8a741b0d468f3c137e8ee4284694e4ac6f3df8e3f5b48ab71d70ed7b88a83cc9",
       "runtimeResultSha256": "9e98beaa67e9fa1caa30206994979ab44ff357f1090f0498d6a80a9eae52e133",
-      "capturedAtUtc": "2026-07-13T09:08:14.521Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.806Z",
       "passed": true
     },
     {
@@ -160,7 +160,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/11-dawn-ink-lamp.json",
       "screenshotSha256": "c6bdd0e9c6a3bbeb8c3db38fc598b41733a8bf81e511e4563bfbe845ec3ecf41",
       "runtimeResultSha256": "a7ec84df2aad74fd425259462642fb3a70d1a13cabeb000b43620f8b7c166e83",
-      "capturedAtUtc": "2026-07-13T09:08:14.522Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.823Z",
       "passed": true
     },
     {
@@ -174,7 +174,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/12-name-tag-owned.json",
       "screenshotSha256": "a820373c8fd209579da75dc7383a180aed68eb3635efafb95eae0b4d79605bda",
       "runtimeResultSha256": "2d333414700c20e97388dcc43d8ee9b0eda0503c80df6163dfad8a3e06b5f941",
-      "capturedAtUtc": "2026-07-13T09:08:14.522Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.839Z",
       "passed": true
     },
     {
@@ -188,7 +188,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/13-unforgotten-name.json",
       "screenshotSha256": "8a0bb05340e3a26a4008176eeacaceba1b75edef871b2a69595b5fb36d579a75",
       "runtimeResultSha256": "5d64e3c0f81552be189c39032d766adb8f4f74d58a003d78dba0b66727b4c97e",
-      "capturedAtUtc": "2026-07-13T09:08:14.522Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.857Z",
       "passed": true
     },
     {
@@ -202,7 +202,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/14-dawn-ticket-owned.json",
       "screenshotSha256": "56d13902b0bcdae27bb6f1e517a532f0a390487f3b31418a1683ea4614ab56a1",
       "runtimeResultSha256": "dac3ba8acddd79b06d7ac52aba43cf2a3299c5de75f951fa5013f1d04d8f1647",
-      "capturedAtUtc": "2026-07-13T09:08:14.522Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.874Z",
       "passed": true
     },
     {
@@ -216,7 +216,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/15-revival-30-percent.json",
       "screenshotSha256": "a58f72abbcb37ac556bac4e367489c852890fc6b07be7a5c79284e8273243e1f",
       "runtimeResultSha256": "a9c496e99da3dd955f59f07c3245e7a12b27dad23246c9a7364bd43f9095429a",
-      "capturedAtUtc": "2026-07-13T09:08:14.522Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.891Z",
       "passed": true
     },
     {
@@ -230,7 +230,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/16-kokuyou-charging.json",
       "screenshotSha256": "86c4c73c07f073d624b8126d8477ffb240942bfd27202fb1eb196036c9ca65d6",
       "runtimeResultSha256": "907c7685d0466fccd59311182273945fb99449f91f2a2f6207405d16d8dd2145",
-      "capturedAtUtc": "2026-07-13T09:08:14.523Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.909Z",
       "passed": true
     },
     {
@@ -244,7 +244,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/17-kokuyou-ready.json",
       "screenshotSha256": "be9e9eb422a5167a7a360273856dc2326d18c73c99ecd712cf60d43a18c948e2",
       "runtimeResultSha256": "8044ce0081ffd410cea2db4ca840add7208d85e3d3f1aa663e437ffb0bfdb417",
-      "capturedAtUtc": "2026-07-13T09:08:14.523Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.927Z",
       "passed": true
     },
     {
@@ -258,7 +258,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/18-kokuyou-active.json",
       "screenshotSha256": "e41a176d7a5c1028e265ec7ec0c5e6b7c532f8526c3271264e6c36f39f7b7c83",
       "runtimeResultSha256": "1cc310bb962baa6fccc495a2e5e84753d3b89e4985887ef5573bf475e4c0bb7a",
-      "capturedAtUtc": "2026-07-13T09:08:14.523Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.944Z",
       "passed": true
     },
     {
@@ -272,7 +272,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/19-kokuyou-recovery.json",
       "screenshotSha256": "a7f04f999cb55aefaf007c8b7c081d4606d6010cc3e29d3ae5c133780228050f",
       "runtimeResultSha256": "83cc5466a953e8b777b1f4cc53e78f0beb059cb9a01fdb2729099e934292dd1d",
-      "capturedAtUtc": "2026-07-13T09:08:14.523Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.962Z",
       "passed": true
     },
     {
@@ -286,7 +286,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/20-result-u47-summary.json",
       "screenshotSha256": "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
       "runtimeResultSha256": "53a54aa1a9ceb51c07663f713715383853fef8f794b6e6ccae32e3c60a01db73",
-      "capturedAtUtc": "2026-07-13T09:08:14.523Z",
+      "capturedAtUtc": "2026-07-16T09:01:29.984Z",
       "passed": true
     },
     {
@@ -300,7 +300,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/21-retry-reset.json",
       "screenshotSha256": "7134e75adc1a07e5193baaa6488ca9e89c0fb73dc4987609c7086e1ab6fc3ae3",
       "runtimeResultSha256": "57b77e07c5cf9745bd68d8f0f8787a034fc4012c14a806d5dd6bf3c1ac4f51d1",
-      "capturedAtUtc": "2026-07-13T09:08:14.524Z",
+      "capturedAtUtc": "2026-07-16T09:01:30.005Z",
       "passed": true
     },
     {
@@ -314,7 +314,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/22-compact-gameplay.json",
       "screenshotSha256": "fcd014a17e6b939f1f7ec83bcbefa1b3bf6970c3141c7d51806eeb55c9f53167",
       "runtimeResultSha256": "8bd66ec983eef9f174f7a44a908a5a74e3b170c6060210108c05c67328373fba",
-      "capturedAtUtc": "2026-07-13T09:08:14.524Z",
+      "capturedAtUtc": "2026-07-16T09:01:30.024Z",
       "passed": true
     },
     {
@@ -328,7 +328,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/23-large-gameplay.json",
       "screenshotSha256": "e6030972a499fc057921e155a0391c9e7b94f8e43ebaf849c9ab664a1a6e48ab",
       "runtimeResultSha256": "b6e3130ef0b4a0b8d6b9ff43ca5242363e0d4489551ccde349e9a8eca7445a5c",
-      "capturedAtUtc": "2026-07-13T09:08:14.524Z",
+      "capturedAtUtc": "2026-07-16T09:01:30.042Z",
       "passed": true
     }
   ]

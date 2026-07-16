@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "passed": true,
+  "assertionCount": 34,
+  "failureCount": 0,
+  "weapon": {
+    "modalOpened": true,
+    "initialSelection": null,
+    "confirmInitiallyDisabled": true,
+    "slotButtonClicked": true,
+    "selectedSlotIndex": 1,
+    "inventoryChangedBeforeConfirm": false,
+    "confirmClicked": true,
+    "replacementCommitCount": 1,
+    "inventoryAfter": ["night_pencil", "streetlamp_ring"]
+  },
+  "passive": {
+    "modalOpened": true,
+    "initialSelection": null,
+    "confirmInitiallyDisabled": true,
+    "slotButtonClicked": true,
+    "selectedSlotIndex": 1,
+    "inventoryChangedBeforeConfirm": false,
+    "confirmClicked": true,
+    "replacementCommitCount": 1,
+    "inventoryAfter": ["old_ticket", "travel_badge", "white_margin"]
+  },
+  "cancel": {
+    "beforeSelection": "inventory-unchanged",
+    "afterSelection": "inventory-unchanged"
+  },
+  "guards": {
+    "noSelection": true,
+    "invalidSlot": true,
+    "staleInventory": true,
+    "staleOffer": true,
+    "unknownIncomingId": true,
+    "duplicateCommit": true
+  },
+  "cleanup": {
+    "selectionCleared": true,
+    "reopenSelectionNull": true,
+    "listenerCount": 0
+  },
+  "measured": {
+    "weaponCommitCount": 1,
+    "passiveCommitCount": 1,
+    "guardCount": 7
+  },
+  "exceptionCount": 0,
+  "assertionFailureCount": 0
+}

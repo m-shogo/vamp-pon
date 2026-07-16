@@ -17,6 +17,8 @@ namespace VampPon.UnitySpike.U4
         private int currentExp;
         private Stage1GameplayRuntimeCoordinator gameplay;
         private int choiceSeed = 4700;
+        private ReplacementInteractionModel replacement;
+        private LevelUpChoice replacementOffer;
         public bool DemoTriggered { get; private set; }
         public event Action OverlayOpened;
         public event Action OverlayClosed;
@@ -71,7 +73,7 @@ namespace VampPon.UnitySpike.U4
         {
             if (gameplay != null && choice.RuntimeChoice is LevelUpChoice runtimeChoice)
             {
-                if (runtimeChoice.RequiresReplacement) { overlay.ShowReplacement(choice, gameplay.Run.Inventory, id => DisplayName(runtimeChoice.Kind, id), slot => { if (gameplay.ReplaceInventorySlot(runtimeChoice, slot)) FinishRuntimeDecision(); }); return; }
+                if (runtimeChoice.RequiresReplacement) { BeginReplacement(runtimeChoice); return; }
                 if (!gameplay.AcceptChoice(runtimeChoice)) return;
                 FinishRuntimeDecision(); return;
             }
@@ -95,11 +97,56 @@ namespace VampPon.UnitySpike.U4
 
         private void FinishRuntimeDecision()
         {
+            ClearReplacement();
             gameplay.Run.ConsumePendingLevelUp(); OverlayClosed?.Invoke(); levelUpCount++; U43RuntimeFeedbackBridge.PlayButtonTapIfAvailable();
             if (gameplay.Run.PendingLevelUps > 0) Invoke(nameof(TriggerLevelUp), .05f);
         }
 
-        public void DeclineChoice() { if (gameplay == null) return; gameplay.DeclineChoice(); OverlayClosed?.Invoke(); if (gameplay.Run.PendingLevelUps > 0) Invoke(nameof(TriggerLevelUp), .05f); }
+        public void DeclineChoice() { if (gameplay == null) return; replacement?.Cancel(); ClearReplacement(); gameplay.DeclineChoice(); OverlayClosed?.Invoke(); if (gameplay.Run.PendingLevelUps > 0) Invoke(nameof(TriggerLevelUp), .05f); }
+
+        private void BeginReplacement(LevelUpChoice offer)
+        {
+            var result = ReplacementInteractionModel.TryCreate(gameplay.Registry, gameplay.Run, offer, out replacement);
+            if (result != ReplacementInteractionResult.Ready) { replacement = null; replacementOffer = null; overlay.Hide(); return; }
+            replacementOffer = offer;
+            RenderReplacement();
+        }
+
+        private void RenderReplacement() => overlay.ShowReplacement(replacement.BuildViewModel(), SelectReplacementSlot, ConfirmReplacement, CancelReplacement);
+
+        private void SelectReplacementSlot(int slotIndex)
+        {
+            if (replacement?.SelectSlot(slotIndex, gameplay.Run, replacementOffer) == ReplacementInteractionResult.Selected) RenderReplacement();
+        }
+
+        private void ConfirmReplacement()
+        {
+            if (replacement == null) return;
+            var result = replacement.Commit(gameplay.Run, replacementOffer, slot => gameplay.ReplaceInventorySlot(replacementOffer, slot));
+            if (result != ReplacementInteractionResult.Committed) { RenderReplacement(); return; }
+            overlay.Hide();
+            FinishRuntimeDecision();
+        }
+
+        private void CancelReplacement()
+        {
+            if (replacement?.Cancel() != ReplacementInteractionResult.Cancelled) return;
+            overlay.Hide();
+            ClearReplacement();
+            gameplay.DeclineChoice();
+            OverlayClosed?.Invoke();
+            if (gameplay.Run.PendingLevelUps > 0) Invoke(nameof(TriggerLevelUp), .05f);
+        }
+
+        private void ClearReplacement()
+        {
+            replacement?.ClearForClose();
+            replacement = null;
+            replacementOffer = null;
+        }
+
+        internal ReplacementModalViewModel ActiveReplacementViewModel => replacement?.BuildViewModel();
+        internal int ReplacementCommitCount => replacement?.CommitCount ?? 0;
 
         private U4LevelUpChoice[] BuildRuntimeChoices()
         {
@@ -108,10 +155,6 @@ namespace VampPon.UnitySpike.U4
             for (var i=0;i<choices.Count;i++) { var choice=choices[i]; string name, description; var rarity=U4ItemRarity.Normal; var type=U4ItemType.Weapon; if (choice.Kind==GameplayChoiceKind.Weapon) { var definition=gameplay.Registry.GetWeapon(choice.DefinitionId); name=definition.DisplayName; description=definition.Description; } else if(choice.Kind==GameplayChoiceKind.Passive) { var definition=gameplay.Registry.GetPassive(choice.DefinitionId); name=definition.DisplayName; description=definition.Description; type=U4ItemType.Passive; } else { var definition=gameplay.Registry.GetEvolution(choice.DefinitionId); name=definition.DisplayName; description=definition.Lore; rarity=U4ItemRarity.Rare; type=U4ItemType.Special; } result[i]=new U4LevelUpChoice { Id=choice.DefinitionId, NameJa=name, DescriptionJa=description, TypeLabelJa=choice.Kind==GameplayChoiceKind.Evolution?"進化":choice.Kind==GameplayChoiceKind.Passive?"パッシブ":"武器", Rarity=rarity, ItemType=type, Level=choice.NextLevel, IsAwakeningGate=choice.Kind==GameplayChoiceKind.Evolution, RequiresReplacement=choice.RequiresReplacement, RuntimeChoice=choice }; }
             return result;
         }
-
-        private string DisplayName(GameplayChoiceKind kind, string id) => kind == GameplayChoiceKind.Weapon
-            ? gameplay.Registry.GetWeapon(id).DisplayName
-            : gameplay.Registry.GetPassive(id).DisplayName;
 
 #if VAMPPON_AI_SIMULATOR_SMOKE
         internal void ShowReplacementForVerification(LevelUpChoice choice)
@@ -131,7 +174,7 @@ namespace VampPon.UnitySpike.U4
         }
 #endif
 
-        private void OnDestroy() { if (gameplay != null) gameplay.LevelUpRequested -= TriggerLevelUp; }
+        private void OnDestroy() { ClearReplacement(); if (gameplay != null) gameplay.LevelUpRequested -= TriggerLevelUp; }
 
         private void Update()
         {

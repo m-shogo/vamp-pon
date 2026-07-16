@@ -9,17 +9,28 @@
   "height": 844,
   "catalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
   "checks": {
+    "actualConfirmButtonClick": true,
     "actualUiButtonClick": true,
+    "confirmEnabledAfterSelection": true,
+    "confirmInitiallyDisabled": true,
+    "inventoryUnchangedBeforeConfirm": true,
+    "listenerCleanup": true,
+    "passiveConfirmEnabled": true,
+    "passiveInventoryUnchangedBeforeConfirm": true,
     "registryDisplayNames": true,
-    "replacementUiVisible": true
+    "replacementUiVisible": true,
+    "selectedRowVisible": true
   },
   "details": {
     "duplicateCount": 0,
     "passiveAfterSlotIds": ["old_ticket","travel_badge","white_margin"],
     "passiveBeforeSlotIds": ["old_ticket","gold_compass","travel_badge"],
+    "passiveSelectedSlotIndex": 1,
+    "replacementCommitCount": 2,
     "unknownDefinitionCount": 0,
     "weaponAfterSlotIds": ["night_pencil","streetlamp_ring"],
-    "weaponBeforeSlotIds": ["night_pencil","black_ink_bottle"]
+    "weaponBeforeSlotIds": ["night_pencil","black_ink_bottle"],
+    "weaponSelectedSlotIndex": 1
   },
   "unhandledExceptionCount": 0,
   "assertionFailureCount": 0,

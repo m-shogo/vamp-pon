@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "currentInteraction": {
+    "modalOpen": true,
+    "ownedSlotClickImmediatelyReplaces": true,
+    "selectedSlotStateExists": false,
+    "confirmActionExists": false,
+    "cancelActionExists": true,
+    "modalClosesAfterSlotClick": true
+  },
+  "domainOwners": {
+    "offer": "U4LevelUpDemoController",
+    "selection": null,
+    "commit": "Stage1GameplayRuntimeCoordinator -> LevelUpChoiceApplier",
+    "cancel": "U4LevelUpDemoController.DeclineChoice"
+  },
+  "currentRisks": [
+    "accidental replacement",
+    "no review before destructive action",
+    "selected row unavailable"
+  ],
+  "auditedSourceHead": "af40b4c9d0bc96a38a7d4a74a3cdf04a1fa36fdd"
+}

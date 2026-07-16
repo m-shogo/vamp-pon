@@ -54,8 +54,10 @@ check(!bridge.includes('unknown_') && !bridge.includes('duplicate_') && !bridge.
 
 const overlay = read('unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpOverlay.cs');
 const levelUpController = read('unity/VampPonUnity/Assets/_Project/Scripts/U4/U4LevelUpDemoController.cs');
+const replacementModel = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/ReplacementInteractionModel.cs');
 check(overlay.includes('SafeAreaFitter') && overlay.includes('ClearCards()') && overlay.includes('Destroy(cardContainer.GetChild(i).gameObject)'), 'replacement overlay safe area/listener cleanup');
-check(levelUpController.includes('gameplay.Registry.GetWeapon(id).DisplayName') && levelUpController.includes('gameplay.Registry.GetPassive(id).DisplayName'), 'replacement Registry display names');
+check(replacementModel.includes('registry.GetWeapon(id).DisplayName') && replacementModel.includes('registry.GetPassive(id).DisplayName'), 'replacement Registry display names');
+check(overlay.includes('ReplacementConfirmButton') && overlay.includes('SetInteractable(model.ConfirmEnabled)') && levelUpController.includes('ReplacementInteractionModel.TryCreate'), 'replacement two-step interaction');
 check(levelUpController.includes('gameplay.LevelUpRequested -= TriggerLevelUp') && levelUpController.includes('gameplay.LevelUpRequested += TriggerLevelUp'), 'level-up event subscription replacement');
 
 const bootstrap = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs');
