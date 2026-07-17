@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "levelup-description-area",
+  "candidateId": "levelup-description-area-b-readability",
+  "captureStarted": true,
+  "captureCompleted": true,
+  "expectedCaptureCount": 5,
+  "actualCaptureCount": 5,
+  "requiredStateCount": 9,
+  "reachedStates": ["open","actual-three-candidates","default","non-selected","longest-canonical-title","longest-canonical-description","selected","decline","close"],
+  "productionCapacity": {"weapon":5,"passive":5,"rare":2},
+  "verificationCapacity": {"weapon":2,"passive":3,"rare":2},
+  "verificationCapacityUsed": false,
+  "cleanupCompleted": true,
+  "runtimeContractUnchanged": true,
+  "finalFlowState": "LevelUpModal",
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "batch": "C",
-  "generatedAtUtc": "2026-07-17T03:43:50.994236Z",
-  "completedCandidateCount": 5,
-  "captureCount": 22,
+  "generatedAtUtc": "2026-07-17T04:00:03.614645Z",
+  "completedCandidateCount": 55,
+  "captureCount": 269,
   "screenCandidateCounts": {
-    "hud": 1,
-    "levelUp": 1,
+    "hud": 28,
+    "levelUp": 24,
     "replacement": 1,
     "result": 1,
     "stageSelect": 1
   },
-  "quarantineCount": 19,
+  "quarantineCount": 23,
   "quarantined": [
     {
       "candidateId": "hud-hp-frame-a-runtime-baseline",
@@ -107,6 +107,26 @@
       "candidateId": "hud-top-status-frame-d-production-balanced",
       "reason": "missing-sentinel",
       "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246668024Z/hud-top-status-frame/hud-top-status-frame-d-production-balanced"
+    },
+    {
+      "candidateId": "hud-kokuyou-gauge-frame-a-runtime-baseline",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T035905586730Z/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-a-runtime-baseline"
+    },
+    {
+      "candidateId": "hud-kokuyou-gauge-frame-b-readability",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T035920449029Z/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-b-readability"
+    },
+    {
+      "candidateId": "hud-kokuyou-gauge-frame-c-paper-ink",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T035934853267Z/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-c-paper-ink"
+    },
+    {
+      "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T035949125841Z/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced"
     }
   ]
 }

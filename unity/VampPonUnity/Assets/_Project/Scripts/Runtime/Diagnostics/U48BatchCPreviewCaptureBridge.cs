@@ -38,6 +38,9 @@ namespace VampPon.UnitySpike.Diagnostics
         private string canonicalState;
         private string[] standardStates;
         private int expectedCaptureCount;
+        private readonly HashSet<string> capturedStandardStates = new();
+        private string screenshotsDirectory, resultsDirectory;
+        private int captures;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Install()
@@ -73,32 +76,33 @@ namespace VampPon.UnitySpike.Diagnostics
                 throw new InvalidOperationException("Batch C capture matrix environment is inconsistent.");
 
             root = Path.Combine(Application.persistentDataPath, "u48-batch-c-captures", entry.assetGroup, entry.candidateId);
-            var screenshots = Path.Combine(root, "screenshots"); var results = Path.Combine(root, "results");
-            Directory.CreateDirectory(screenshots); Directory.CreateDirectory(results);
-            foreach (var path in Directory.GetFiles(screenshots)) File.Delete(path);
-            foreach (var path in Directory.GetFiles(results)) File.Delete(path);
+            screenshotsDirectory = Path.Combine(root, "screenshots"); resultsDirectory = Path.Combine(root, "results");
+            Directory.CreateDirectory(screenshotsDirectory); Directory.CreateDirectory(resultsDirectory);
+            foreach (var path in Directory.GetFiles(screenshotsDirectory)) File.Delete(path);
+            foreach (var path in Directory.GetFiles(resultsDirectory)) File.Delete(path);
 
             shell.ReinitializeForVerification(); yield return new WaitForSecondsRealtime(.12f);
             productionCapacityObserved = gameplay.Run.Inventory.WeaponLimit == 5 && gameplay.Run.Inventory.PassiveLimit == 5 && gameplay.Run.Inventory.RareItemLimit == 2;
             yield return PrepareCategory();
             if (exceptionCount > 0 || assertionCount > 0) throw new InvalidOperationException("Batch C runtime log failure: " + lastFailure);
 
-            var captures = 0;
             foreach (var state in standardStates)
             {
+                if (capturedStandardStates.Contains(state)) continue;
                 ApplyComparisonState(state);
                 ApplyViewport(390, 844); yield return null; yield return new WaitForEndOfFrame();
                 var id = $"{entry.candidateId}--standard--component-state-{state}";
-                yield return Capture(Path.Combine(screenshots, id + ".ppm"), 390, 844);
-                WriteResult(Path.Combine(results, id + ".json"), "standard", 390, 844, "component-required-state", state); captures++;
+                yield return Capture(Path.Combine(screenshotsDirectory, id + ".ppm"), 390, 844);
+                WriteResult(Path.Combine(resultsDirectory, id + ".json"), "standard", 390, 844, "component-required-state", state); captures++;
+                capturedStandardStates.Add(state);
             }
             foreach (var spec in new[] { (viewport: "compact", width: 360, height: 800), (viewport: "large", width: 430, height: 932) })
             {
                 ApplyComparisonState(canonicalState);
                 ApplyViewport(spec.width, spec.height); yield return null; yield return new WaitForEndOfFrame();
                 var id = $"{entry.candidateId}--{spec.viewport}--canonical-{canonicalState}";
-                yield return Capture(Path.Combine(screenshots, id + ".ppm"), spec.width, spec.height);
-                WriteResult(Path.Combine(results, id + ".json"), spec.viewport, spec.width, spec.height, "canonical-viewport", canonicalState); captures++;
+                yield return Capture(Path.Combine(screenshotsDirectory, id + ".ppm"), spec.width, spec.height);
+                WriteResult(Path.Combine(resultsDirectory, id + ".json"), spec.viewport, spec.width, spec.height, "canonical-viewport", canonicalState); captures++;
             }
 
             if (verificationCapacityUsed) gameplay.EndVerificationScenario();
@@ -119,7 +123,15 @@ namespace VampPon.UnitySpike.Diagnostics
             else if (entry.slot == nameof(U48AssetPreviewSlot.LevelUp))
             {
                 // 「受け取らない」のproduction ownerはfull-slot Replacement cancel。
-                if (entry.assetGroup == "levelup-decline-button") yield return PrepareReplacement(true);
+                if (entry.assetGroup == "levelup-decline-button")
+                {
+                    yield return PrepareLevelUp();
+                    shell.ReinitializeForVerification(); yield return new WaitForSecondsRealtime(.12f);
+                    StartStage(); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 5f, "Stage1 running for decline route");
+                    yield return PrepareReplacement(true);
+                    var levelUpStates = new HashSet<string>(new[] { "open", "actual-three-candidates", "default", "selected", "non-selected", "decline", "close", "longest-canonical-title", "longest-canonical-description" });
+                    reachedStates.RemoveAll(value => !levelUpStates.Contains(value));
+                }
                 else yield return PrepareLevelUp();
             }
             else if (entry.slot == nameof(U48AssetPreviewSlot.Replacement)) yield return PrepareReplacement(true);
@@ -142,17 +154,37 @@ namespace VampPon.UnitySpike.Diagnostics
         {
             reachedStates.Add("initial");
             gameplay.BeginVerificationScenario(RunGameplayScenarioOptions.SimulatorFullSlotReplacement(gameplay.Registry)); verificationCapacityUsed = true;
+            yield return CaptureRequestedStandardState("disabled");
             AcceptWeapon("black_ink_bottle"); AcceptPassive("old_ticket"); reachedStates.Add("partial-inventory");
+            yield return CaptureRequestedStandardState("default");
             foreach (var id in new[] { "gold_compass", "travel_badge" }) AcceptPassive(id);
             if (gameplay.Run.Inventory.Weapons.Count != 2 || gameplay.Run.Inventory.Passives.Count != 3) throw new InvalidOperationException("HUD verification full inventory failed.");
             reachedStates.Add("full-inventory");
+            yield return CaptureRequestedStandardState("occupied");
             gameplay.RareItems.Acquire(gameplay.Run, "dawn_ticket"); gameplay.Run.NotifyChanged(); reachedStates.Add("rare-owned");
+            yield return CaptureRequestedStandardState("selected");
             gameplay.ApplyPlayerDamage(30); reachedStates.Add("hp-low"); reachedStates.Add("kokuyou-charging");
+            yield return CaptureRequestedStandardState("low-hp");
+            yield return CaptureRequestedStandardState("charging");
             gameplay.ApplyPlayerDamage(70); reachedStates.Add("kokuyou-ready");
+            yield return CaptureRequestedStandardState("ready");
             if (!gameplay.ActivateKokuyou()) throw new InvalidOperationException("HUD 黒耀化 activation failed.");
             yield return WaitFor(() => gameplay.Run.Kokuyou.Phase == KokuyouPhase.Active, 2f, "HUD active"); reachedStates.Add("kokuyou-active");
+            yield return CaptureRequestedStandardState("active");
             yield return WaitFor(() => gameplay.Run.Kokuyou.Phase == KokuyouPhase.Recovery, 12f, "HUD recovery"); reachedStates.Add("kokuyou-recovery");
+            yield return CaptureRequestedStandardState("recovery");
             levelUp.TriggerLevelUp(); yield return new WaitForSecondsRealtime(.15f); reachedStates.Add("levelup-overlay-overlap");
+        }
+
+        private IEnumerator CaptureRequestedStandardState(string state)
+        {
+            if (!standardStates.Contains(state, StringComparer.Ordinal) || capturedStandardStates.Contains(state)) yield break;
+            ApplyViewport(390, 844); yield return null; yield return new WaitForEndOfFrame();
+            var id = $"{entry.candidateId}--standard--component-state-{state}";
+            yield return Capture(Path.Combine(screenshotsDirectory, id + ".ppm"), 390, 844);
+            WriteResult(Path.Combine(resultsDirectory, id + ".json"), "standard", 390, 844, "component-required-state", state);
+            captures++;
+            capturedStandardStates.Add(state);
         }
 
         private IEnumerator PrepareLevelUp()
