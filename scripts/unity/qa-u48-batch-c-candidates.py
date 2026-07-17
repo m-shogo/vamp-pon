@@ -102,7 +102,7 @@ def main() -> None:
         previous = json.loads(output_path.read_text())
         previous_without_time = {key: value for key, value in previous.items() if key != "generatedAtUtc"}
         output_without_time = {key: value for key, value in output.items() if key != "generatedAtUtc"}
-        if previous_without_time == output_without_time:
+        if json.dumps(previous_without_time, sort_keys=True) == json.dumps(output_without_time, sort_keys=True):
             output["generatedAtUtc"] = previous["generatedAtUtc"]
     output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n")
     print(f"U48 Batch C QA ({slug}): candidates={len(entries)}, PASS={counts['PASS']}, WARNING={counts['WARNING']}, FAIL={counts['FAIL']}, duplicate hash={len(duplicate_hashes)}, duplicate GUID={len(duplicate_guids)}")
