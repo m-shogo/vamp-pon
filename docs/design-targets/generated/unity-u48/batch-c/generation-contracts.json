@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "sourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
   "batch": "C",
-  "generatedAtUtc": "2026-07-16T06:41:55.119265Z",
+  "generatedAtUtc": "2026-07-17T03:42:24.840515Z",
   "assetGroupCount": 30,
   "candidateCount": 120,
   "contracts": [
@@ -40,7 +40,7 @@
       "recipeId": "batch-c:hud-top-status-frame-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-top-status-frame-a-runtime-baseline.txt",
       "promptSha256": "5383c59b3f3dd65b19f05e6636d3c6237d55c1951c38271711a337bff94344d3",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-a-runtime-baseline.png",
       "outputSha256": "3e81b9e2e4000f89a4cacd34c764474cb10b84e06823ddd0b7797575fc276180",
       "targetImportContract": {
@@ -149,7 +149,7 @@
       "recipeId": "batch-c:hud-top-status-frame-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-top-status-frame-b-readability.txt",
       "promptSha256": "086f53445857132c1e8dac4e41ee510b6ef80f9d8aba05368faec8878a5322b8",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png",
       "outputSha256": "95b4a13730fd6d4c5310a9e5e81fe49b9038931371f5a04ff0cb392f7ef0edf7",
       "targetImportContract": {
@@ -258,7 +258,7 @@
       "recipeId": "batch-c:hud-top-status-frame-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-top-status-frame-c-paper-ink.txt",
       "promptSha256": "488cc87736f5483e40fdd8d461e0e0563f171eafbaac4070deba83075586a47a",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-c-paper-ink.png",
       "outputSha256": "23587e348fcc58410b865b731efa972cbef990b0fe1bf3f7ec2e6dfefad01988",
       "targetImportContract": {
@@ -367,7 +367,7 @@
       "recipeId": "batch-c:hud-top-status-frame-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-top-status-frame-d-production-balanced.txt",
       "promptSha256": "4c2745c905249b11db0eb2f6b27e473ee18ab3750a8b0496b771711968644d18",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-d-production-balanced.png",
       "outputSha256": "2bf16d900021df138037ea7778724d1a34f74134ca71866c48155333a5abf30b",
       "targetImportContract": {
@@ -476,7 +476,7 @@
       "recipeId": "batch-c:hud-hp-frame-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-hp-frame-a-runtime-baseline.txt",
       "promptSha256": "4c08b8befe6ac92d1aef0e56a67f3318c9a62068f1c43c9c12a2604d66b823bb",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-a-runtime-baseline.png",
       "outputSha256": "fed3e3df55b1b6802b138332f49bc23f66631f3d468ace31132aebb1f3ff9b2d",
       "targetImportContract": {
@@ -586,7 +586,7 @@
       "recipeId": "batch-c:hud-hp-frame-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-hp-frame-b-readability.txt",
       "promptSha256": "4029e9443a69adb97a0beff9c06ae34a64187280da58f29f88314dd60607e3df",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png",
       "outputSha256": "3d1701110f17f36de4e5436d63f62876d3c37c17cc25d1c2611ce9d55b8942dd",
       "targetImportContract": {
@@ -696,7 +696,7 @@
       "recipeId": "batch-c:hud-hp-frame-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-hp-frame-c-paper-ink.txt",
       "promptSha256": "da40db7e93c2d3449bbc76e14d105aba784a648ba7af8a313abb5eda83128649",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-c-paper-ink.png",
       "outputSha256": "108915a9bd2ad58a652ba1687f77229ec16914a7ceef272655e8799352df23f6",
       "targetImportContract": {
@@ -806,7 +806,7 @@
       "recipeId": "batch-c:hud-hp-frame-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-hp-frame-d-production-balanced.txt",
       "promptSha256": "f17a1d1a4ca44bfcfc3961e6eb72739feef2e8064ef6bc97ee562ffd6e127c42",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-d-production-balanced.png",
       "outputSha256": "d378cd614996c8a05eee4cdb7abc459461d8add60ac37c29dcf3851d9d98ad85",
       "targetImportContract": {
@@ -916,7 +916,7 @@
       "recipeId": "batch-c:hud-timer-frame-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-timer-frame-a-runtime-baseline.txt",
       "promptSha256": "d93da65b660de23c6cef1d59dd95ff7a64081cc32f4f0f0fe5aef590a92c7a45",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-a-runtime-baseline.png",
       "outputSha256": "2980fc16e4574f6552a771189b7047467600fb076fad1a98e06e3015512435f4",
       "targetImportContract": {
@@ -1025,7 +1025,7 @@
       "recipeId": "batch-c:hud-timer-frame-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-timer-frame-b-readability.txt",
       "promptSha256": "e03d2a8e8900ef818d5e858a8b7e9d429da9415375b00a6ab8482b1979944b67",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png",
       "outputSha256": "256a8f90a8dd6fc32d1477a79cd37b6efff6b0a853a58595be91a925cd6aeb51",
       "targetImportContract": {
@@ -1134,7 +1134,7 @@
       "recipeId": "batch-c:hud-timer-frame-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-timer-frame-c-paper-ink.txt",
       "promptSha256": "f6fb863bfee642e79ea039519a979307711deb6ffcce0152b29a7b7e49d47603",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-c-paper-ink.png",
       "outputSha256": "7940f28bb29a1539d4b433772582e9828686e2a2165f88df52fb6df246eefece",
       "targetImportContract": {
@@ -1243,7 +1243,7 @@
       "recipeId": "batch-c:hud-timer-frame-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-timer-frame-d-production-balanced.txt",
       "promptSha256": "49d9607b49f06fa757babc6a8e3064792baa3296769599aa5e3705a6773171d3",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-d-production-balanced.png",
       "outputSha256": "1ab6b5541be53b1bab20134a2a65a6f70f598ec6bd971beb4d92bf0a1dfb7ae4",
       "targetImportContract": {
@@ -1352,7 +1352,7 @@
       "recipeId": "batch-c:hud-inventory-weapon-slot-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-weapon-slot-a-runtime-baseline.txt",
       "promptSha256": "206664d7718957d4d9b7d857730e650133d3d9cf37ad9ede30d0be9cd3c6c757",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-a-runtime-baseline.png",
       "outputSha256": "bd289bf97b44ae30c1b3ec15a16df14988cc92be3ac43a91cf3ca2ae02472750",
       "targetImportContract": {
@@ -1464,7 +1464,7 @@
       "recipeId": "batch-c:hud-inventory-weapon-slot-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-weapon-slot-b-readability.txt",
       "promptSha256": "d941a244516b161b1f96025e2ec558a657a8807786d92c4eb68893c9c9ac3b0f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-b-readability.png",
       "outputSha256": "9e05f44daaaf34ec8392d26a8861fbd8eed013a949ff03e351161588adc07fcc",
       "targetImportContract": {
@@ -1576,7 +1576,7 @@
       "recipeId": "batch-c:hud-inventory-weapon-slot-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-weapon-slot-c-paper-ink.txt",
       "promptSha256": "c6818ade0c1ca70418e2344e8e1825335be7e2089fca320e3f7f1b5cd8b1b7c4",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png",
       "outputSha256": "94c9250ad7ce8414daaaac1eee5c239bf308b10f573d1cc5d3a66f498d76d15f",
       "targetImportContract": {
@@ -1688,7 +1688,7 @@
       "recipeId": "batch-c:hud-inventory-weapon-slot-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-weapon-slot-d-production-balanced.txt",
       "promptSha256": "dda6007a99f9ec63be727868aed554cc98af971ec6ac0eaf866e0a4a0559c53d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-d-production-balanced.png",
       "outputSha256": "7f0215197e1aa8a2ceb9a68501b141c5fd14dcb0a7fcdeb22d6d590ba8b1bdbe",
       "targetImportContract": {
@@ -1800,7 +1800,7 @@
       "recipeId": "batch-c:hud-inventory-passive-slot-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-passive-slot-a-runtime-baseline.txt",
       "promptSha256": "0d500a3782d1dbd23f1c7a71de792167492ffa06ca659f3930bfb07e704a97c0",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-a-runtime-baseline.png",
       "outputSha256": "93c59384e7dfd31ff73e7d9e6e03386e1119b772f67ffff185118c13ca751444",
       "targetImportContract": {
@@ -1912,7 +1912,7 @@
       "recipeId": "batch-c:hud-inventory-passive-slot-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-passive-slot-b-readability.txt",
       "promptSha256": "79bcb321898e5ccd67091a168f00f1d527eb9de1aab0a46dd13b99fae20dbd87",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-b-readability.png",
       "outputSha256": "9090743c0b37ecbf19edf14c7540a0c0d60d8b512025e1459e2e00c55226a07f",
       "targetImportContract": {
@@ -2024,7 +2024,7 @@
       "recipeId": "batch-c:hud-inventory-passive-slot-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-passive-slot-c-paper-ink.txt",
       "promptSha256": "20667eda344eb7af6c9b548b5862f71cbd92a1366dab6238c45cc99648423beb",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png",
       "outputSha256": "d5188afa9e8b54a99a9046a6406b2b00dc7a9bf5205219091bdf2b7a2bbbb5cd",
       "targetImportContract": {
@@ -2136,7 +2136,7 @@
       "recipeId": "batch-c:hud-inventory-passive-slot-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-inventory-passive-slot-d-production-balanced.txt",
       "promptSha256": "51ee136c5c595c728a409a2606740a6f78366394dc5df27ad6f2da62ad75090c",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-d-production-balanced.png",
       "outputSha256": "cb7e0842f9189e784ad683330e42f4c00a26fd05125dcc3ff7bd014e118df708",
       "targetImportContract": {
@@ -2248,7 +2248,7 @@
       "recipeId": "batch-c:hud-rare-slot-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-rare-slot-a-runtime-baseline.txt",
       "promptSha256": "de3747faab80ee6fb33b9da90a2ca68f1c2e1c60c8d7409b466b70174c4c58d0",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-a-runtime-baseline.png",
       "outputSha256": "2791e78defee20f197a7d66122a707b793d14e0ae8f4254c9d0ea7a46e029d22",
       "targetImportContract": {
@@ -2360,7 +2360,7 @@
       "recipeId": "batch-c:hud-rare-slot-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-rare-slot-b-readability.txt",
       "promptSha256": "4208431bc8dfc515bcba080d662f643a258ba4934bf9a0043c2f09f5e5ffc8c1",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-b-readability.png",
       "outputSha256": "3d8cd4d35d58d79cc782bc6bfd65a1c4a64f376f1b99e7f5e3a309275d0a5817",
       "targetImportContract": {
@@ -2472,7 +2472,7 @@
       "recipeId": "batch-c:hud-rare-slot-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-rare-slot-c-paper-ink.txt",
       "promptSha256": "cc67c467e95203073ff1523ebb5d0031e04861b1d02151fdfae05de55b656f23",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-c-paper-ink.png",
       "outputSha256": "473caa1fd117c81e493e3f511eb17ccb0c9108faa5bab42311e55d30cc8fbca2",
       "targetImportContract": {
@@ -2584,7 +2584,7 @@
       "recipeId": "batch-c:hud-rare-slot-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-rare-slot-d-production-balanced.txt",
       "promptSha256": "b8ef31309e8cbc65a64e69c21b94363149fbe66d8c0008cb7ccc3699ccc30065",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png",
       "outputSha256": "644978f25686d07b63a56d61289f034423614775f49452378067f898fe470b90",
       "targetImportContract": {
@@ -2694,7 +2694,7 @@
       "recipeId": "batch-c:hud-kokuyou-gauge-frame-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-kokuyou-gauge-frame-a-runtime-baseline.txt",
       "promptSha256": "ec160e18881168fb96ea0e7084e79ed566381c36e5ee7cbff6250c4ec25ed296",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-a-runtime-baseline.png",
       "outputSha256": "11bb26c9f9e8c8c2694a16369d84048f5ba9c9160c6e11e62eea4185505568c2",
       "targetImportContract": {
@@ -2804,7 +2804,7 @@
       "recipeId": "batch-c:hud-kokuyou-gauge-frame-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-kokuyou-gauge-frame-b-readability.txt",
       "promptSha256": "403d6cb4d4509b50cdae0fa451b58d303463bbea7b26036a0e0b877998aae113",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-b-readability.png",
       "outputSha256": "c82801e5045375cda562fa496070d63ec07928331f429b6da224701c7dd4c063",
       "targetImportContract": {
@@ -2914,7 +2914,7 @@
       "recipeId": "batch-c:hud-kokuyou-gauge-frame-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-kokuyou-gauge-frame-c-paper-ink.txt",
       "promptSha256": "731d0b2dc6d9d9b876b58c6c2d41460804156c0336de7fae1d7757c3a8c962d2",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-c-paper-ink.png",
       "outputSha256": "a20e23f14c12b03196c402cab01ec44b606de9083b9178dcc66893638194662a",
       "targetImportContract": {
@@ -3024,7 +3024,7 @@
       "recipeId": "batch-c:hud-kokuyou-gauge-frame-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/hud-kokuyou-gauge-frame-d-production-balanced.txt",
       "promptSha256": "32ed25193e80cd309d367a447d560d3a714fc928870113fae43e9d0021394d1f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png",
       "outputSha256": "a2b3bb6ede5f6f720e2d821c5650219a0950d6d939550f1f81a94da41a0ac69d",
       "targetImportContract": {
@@ -3136,7 +3136,7 @@
       "recipeId": "batch-c:levelup-card-background-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-card-background-a-runtime-baseline.txt",
       "promptSha256": "73920b4d531f322202bf4fe34e279fc23a743b189f256123641756e391b5df98",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-a-runtime-baseline.png",
       "outputSha256": "66861a50c2b2db9f9316ec4934471690e2bd6a2625cd4e0a83e7955d999dcb28",
       "targetImportContract": {
@@ -3250,7 +3250,7 @@
       "recipeId": "batch-c:levelup-card-background-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-card-background-b-readability.txt",
       "promptSha256": "cec5b9663f60ed309a8b0698fef06915cf55a421904d369eecc5423208e5349a",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-b-readability.png",
       "outputSha256": "ba2c3aae5dc02489c59432e08878641dc5c6e54fad4f133ff096c339de49a98b",
       "targetImportContract": {
@@ -3364,7 +3364,7 @@
       "recipeId": "batch-c:levelup-card-background-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-card-background-c-paper-ink.txt",
       "promptSha256": "ab65c5f59b9e0034444895bd925951263d07fc8544c80f582ddb8083f3a1ccbc",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-c-paper-ink.png",
       "outputSha256": "555c12731ff468a5519692c36bee8e63e5aa8a4c4a5a88370aaf6a291ac47a53",
       "targetImportContract": {
@@ -3478,7 +3478,7 @@
       "recipeId": "batch-c:levelup-card-background-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-card-background-d-production-balanced.txt",
       "promptSha256": "c6ab4296aac9390858ec8b09e5a7eb81aff5d7b72d7a35adf142014c75009f4f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png",
       "outputSha256": "130c4d4bf71bb383f5da7efc06a5b953e2cfad8e84bc5822d16c84d84002ee26",
       "targetImportContract": {
@@ -3590,7 +3590,7 @@
       "recipeId": "batch-c:levelup-icon-frame-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-icon-frame-a-runtime-baseline.txt",
       "promptSha256": "a4cae79cdc98bb0a9e2e67b3c7a174b47fee42d84aa58d30b217ae8757a22792",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-a-runtime-baseline.png",
       "outputSha256": "94ebf2350a107915769b4b3427cb671fa126eff46e2a8351be76e7367de19165",
       "targetImportContract": {
@@ -3699,7 +3699,7 @@
       "recipeId": "batch-c:levelup-icon-frame-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-icon-frame-b-readability.txt",
       "promptSha256": "4194a21fec6521377f580de4c99a9f8edad8b419abda6e2a191755b3abfdcb9d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png",
       "outputSha256": "948c92117607d5461446aa1226a6275fc4a8220e56f11cd0c718384222b7c81d",
       "targetImportContract": {
@@ -3808,7 +3808,7 @@
       "recipeId": "batch-c:levelup-icon-frame-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-icon-frame-c-paper-ink.txt",
       "promptSha256": "a96ec54e2582b85cae62a5b9aea39c45c62b33fbd7c388741fc6466468870e9c",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-c-paper-ink.png",
       "outputSha256": "1e1f60dc516c2060108d7400410bf195c0b95698152f2fc328540ce4af21f40b",
       "targetImportContract": {
@@ -3917,7 +3917,7 @@
       "recipeId": "batch-c:levelup-icon-frame-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-icon-frame-d-production-balanced.txt",
       "promptSha256": "4195c3372deb85adc8b734c9b0ae68c370824aa663df1244a7d45d6f77cd3964",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-d-production-balanced.png",
       "outputSha256": "9809fad79d5b4516b67ea465dd5841e5684c14b58c06fccce4ece9552780af97",
       "targetImportContract": {
@@ -4026,7 +4026,7 @@
       "recipeId": "batch-c:levelup-title-area-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-title-area-a-runtime-baseline.txt",
       "promptSha256": "0ab38374ffd66256297444c8cb9144756aaa52181cd0b83df388bf7bce07565a",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-a-runtime-baseline.png",
       "outputSha256": "18b558ceb0d1d98e98bcc0ce24de77652957a1876e1fd15548723c4e426aa3dd",
       "targetImportContract": {
@@ -4135,7 +4135,7 @@
       "recipeId": "batch-c:levelup-title-area-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-title-area-b-readability.txt",
       "promptSha256": "8417d90e7685b195367b20a9a72cb234d936d69e9275a7cc694df91b4cf8fe1f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-b-readability.png",
       "outputSha256": "be4e169ae8540f868f56e133577a64b50b957d0ced2d53cdcbf0adbdf640cf3b",
       "targetImportContract": {
@@ -4244,7 +4244,7 @@
       "recipeId": "batch-c:levelup-title-area-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-title-area-c-paper-ink.txt",
       "promptSha256": "28036dc25a257af7a4ff187d627953e724850fe1dfd5d1713ae7f94244ab93c0",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-c-paper-ink.png",
       "outputSha256": "1d85975ed5950d6bea9fd79f39bd477075281a8b9d74d356e2f574bfb2bcec91",
       "targetImportContract": {
@@ -4353,7 +4353,7 @@
       "recipeId": "batch-c:levelup-title-area-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-title-area-d-production-balanced.txt",
       "promptSha256": "8e905681aa795ed8eff00e4a9bc61397f4025d81135b380c127b061c703dcc8c",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png",
       "outputSha256": "d77177daa5e3ed54e3eae1b866c317c3514690232f8e77f2cb3f562ad84fe09d",
       "targetImportContract": {
@@ -4462,7 +4462,7 @@
       "recipeId": "batch-c:levelup-description-area-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-description-area-a-runtime-baseline.txt",
       "promptSha256": "325113fc746ba95f5eb2a4f3ded0b8c62577504407177573566a187d6aa3e124",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-a-runtime-baseline.png",
       "outputSha256": "99db1f9b7faf59e9fbe2036cf8b75429d3d1ae026f6221735f48d94eaffe53a5",
       "targetImportContract": {
@@ -4571,7 +4571,7 @@
       "recipeId": "batch-c:levelup-description-area-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-description-area-b-readability.txt",
       "promptSha256": "836b210d4e41a0eff85a5280fb3f6f6122c934cf22b16cb30fb453071aa697eb",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png",
       "outputSha256": "1f224b71d566489a893b9a8a69ee128be794e8c5e4cd78b1b24638ab01a27111",
       "targetImportContract": {
@@ -4680,7 +4680,7 @@
       "recipeId": "batch-c:levelup-description-area-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-description-area-c-paper-ink.txt",
       "promptSha256": "93f77166f981b6e2a587db1b4cd9ecff4e8fafccd02179ee276d54737e6f98bd",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-c-paper-ink.png",
       "outputSha256": "45c1fd2ac1536ccfbd604b5dd86429453a60383092e33aab2b80c4371cf86920",
       "targetImportContract": {
@@ -4789,7 +4789,7 @@
       "recipeId": "batch-c:levelup-description-area-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-description-area-d-production-balanced.txt",
       "promptSha256": "709bfa0916b86617e634889e021a2ee2b2aeb71e4b8b1db9120d2df826330d49",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-d-production-balanced.png",
       "outputSha256": "303c109f577d2011216bf366003abbae16d9d482ba7339780ace593be5cf841e",
       "targetImportContract": {
@@ -4900,7 +4900,7 @@
       "recipeId": "batch-c:levelup-selection-feedback-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-selection-feedback-a-runtime-baseline.txt",
       "promptSha256": "0949841f54d79fe7d1c01b32bdc4bd70b0dee7acea3333da4cc6e914743eb472",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-a-runtime-baseline.png",
       "outputSha256": "194175c801cf5827da3fcb30043511ffe698cb28903cb5c03c748b6ddb0b0cf0",
       "targetImportContract": {
@@ -5014,7 +5014,7 @@
       "recipeId": "batch-c:levelup-selection-feedback-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-selection-feedback-b-readability.txt",
       "promptSha256": "b75cf4f7bc28147a63ebf6b74331a02b67d42d978c2da3ae932ba9618ab18bfe",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-b-readability.png",
       "outputSha256": "8df3f58e1afde526874b91a2e52b0ed9f8aeab598dc6ad83fd5fa783471953e2",
       "targetImportContract": {
@@ -5128,7 +5128,7 @@
       "recipeId": "batch-c:levelup-selection-feedback-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-selection-feedback-c-paper-ink.txt",
       "promptSha256": "3e0dbda4cfdc7fe6f882db44f6a444ad03fbc25b24b19f8b7961bf9a6bffd082",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png",
       "outputSha256": "5ce9bda752af50556b4a09025ea2267b784831ccc8a419b28080cd9d8ecdee04",
       "targetImportContract": {
@@ -5242,7 +5242,7 @@
       "recipeId": "batch-c:levelup-selection-feedback-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-selection-feedback-d-production-balanced.txt",
       "promptSha256": "38a899bd6f7e3893f1a9b6324e6102564175126f25a013ca91ffbd297c0c63fe",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-d-production-balanced.png",
       "outputSha256": "ddc53c02d536026c1e3a361ebe919e4785571ceb95ae873e0a7dfae1c494a6af",
       "targetImportContract": {
@@ -5356,7 +5356,7 @@
       "recipeId": "batch-c:levelup-decline-button-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-decline-button-a-runtime-baseline.txt",
       "promptSha256": "22d14cca33629d39b58bde5b36e8c74abcbbdb21175e2fd01f3636126e50163d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-a-runtime-baseline.png",
       "outputSha256": "69a8a723e05c32471df18c27ea74e26d3e7815de9996f7c8473a559a107c1e0f",
       "targetImportContract": {
@@ -5470,7 +5470,7 @@
       "recipeId": "batch-c:levelup-decline-button-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-decline-button-b-readability.txt",
       "promptSha256": "06a9fe00168ede541982bd154e943bc0cdd60397ef920a7c4e25d3734ea8529f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png",
       "outputSha256": "7cdd9f5e179e9f48ee61501fcb89731eede8a856143d0cdc5c3f7c0c24c2f9cb",
       "targetImportContract": {
@@ -5584,7 +5584,7 @@
       "recipeId": "batch-c:levelup-decline-button-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-decline-button-c-paper-ink.txt",
       "promptSha256": "9db86eb6561a5ffae722b06b7ef457f37991cf3a61d2c6931c4bf457b404577f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-c-paper-ink.png",
       "outputSha256": "4ea4f8c35c46a26477b9ab542e3ab22d3c850dca5a0bdbfe7273a46b34b05ecb",
       "targetImportContract": {
@@ -5698,7 +5698,7 @@
       "recipeId": "batch-c:levelup-decline-button-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/levelup-decline-button-d-production-balanced.txt",
       "promptSha256": "4e65e3c6f9908af872789d6c6bf0883aadb05b8e5c7be7da60bae05dc4943ca8",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-d-production-balanced.png",
       "outputSha256": "8064c304c9a21d869617068eefabbab79ec508adf0ec442e7f2c81662eb26a12",
       "targetImportContract": {
@@ -5796,13 +5796,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -5810,7 +5810,7 @@
       "recipeId": "batch-c:replacement-modal-background-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-modal-background-a-runtime-baseline.txt",
       "promptSha256": "bfa535c148b8c11e57ba2d76a17c06ac9560d3cf0c2836e1f4429ac09436aee4",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-a-runtime-baseline.png",
       "outputSha256": "b477a81175d48ba5df5489daa77516c1153baabeb9e95ed72c25900c5da2f92c",
       "targetImportContract": {
@@ -5903,13 +5903,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -5917,7 +5917,7 @@
       "recipeId": "batch-c:replacement-modal-background-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-modal-background-b-readability.txt",
       "promptSha256": "ba4cc1fc6279025d029c6b1145edaeec8114242b04e27fae9976f4e7ef91b1d4",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-b-readability.png",
       "outputSha256": "c9c9dfe32f2e3132c2af397189a0caed7cee8c1f93aae13f24b3f0d7cb377715",
       "targetImportContract": {
@@ -6010,13 +6010,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -6024,7 +6024,7 @@
       "recipeId": "batch-c:replacement-modal-background-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-modal-background-c-paper-ink.txt",
       "promptSha256": "701c0e0e56eb05bc12519a4ca7c7f94f41e4d60da40ed1504f0240c3e45fc0c0",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-c-paper-ink.png",
       "outputSha256": "ad392e9c43166d7e989f435e13f07947936fa89d456abb983aa64cac032f67dd",
       "targetImportContract": {
@@ -6117,13 +6117,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -6131,7 +6131,7 @@
       "recipeId": "batch-c:replacement-modal-background-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-modal-background-d-production-balanced.txt",
       "promptSha256": "9260c8d80ce32aa2de30c7768b8931457ea8f3b201fbced28cbdf8331017edec",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
       "outputSha256": "8ac297c030c10f41e3eb80b3859ece170d9927fbf4f08222b43826ca670836fd",
       "targetImportContract": {
@@ -6224,13 +6224,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -6238,7 +6238,7 @@
       "recipeId": "batch-c:replacement-incoming-candidate-panel-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-incoming-candidate-panel-a-runtime-baseline.txt",
       "promptSha256": "059c464f9880bf9a2b8dc87bdfa51499014bbfb8781b054cbfd19db8e4fd54f6",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-a-runtime-baseline.png",
       "outputSha256": "9a1ed2393dddb11cd5f4a571a4affd797c82b5cb028ee997834bc3948ae9aeac",
       "targetImportContract": {
@@ -6333,13 +6333,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -6347,7 +6347,7 @@
       "recipeId": "batch-c:replacement-incoming-candidate-panel-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-incoming-candidate-panel-b-readability.txt",
       "promptSha256": "9dd2b93fc18d6e4b65772a9539b4f3fd38ce9de52199f9807d34b4f39762f4f4",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-b-readability.png",
       "outputSha256": "4265a1ef909b20fa07093192976b2d536ba19dae2ee31362d30a5dce6be1faaf",
       "targetImportContract": {
@@ -6442,13 +6442,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -6456,7 +6456,7 @@
       "recipeId": "batch-c:replacement-incoming-candidate-panel-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-incoming-candidate-panel-c-paper-ink.txt",
       "promptSha256": "0d47c3330337203147932b9c2dd38d6965c2115b5b354dd65b69ba829bebf951",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-c-paper-ink.png",
       "outputSha256": "e26c10d27e27cafff99e8c050f07e730188daf5ce928d693bee8c9eed91e3821",
       "targetImportContract": {
@@ -6551,13 +6551,13 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "parentSourcePaths": [
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "parentSourceSha256": [
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef"
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
       ],
       "generationTool": "scripts/unity/build-u48-batch-c-candidates.py",
       "generationToolVersion": "1",
@@ -6565,7 +6565,7 @@
       "recipeId": "batch-c:replacement-incoming-candidate-panel-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-incoming-candidate-panel-d-production-balanced.txt",
       "promptSha256": "1a1b072d1509e2790d2e534b307400decbfc48b00eb21e65fbf54db89089a01f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
       "outputSha256": "416637ebc12d055ad371a5b676f4cb7adff3c0d13a9a01d8f45f73baa6749e2d",
       "targetImportContract": {
@@ -6661,7 +6661,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -6676,7 +6676,7 @@
       "recipeId": "batch-c:replacement-owned-slot-row-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-owned-slot-row-a-runtime-baseline.txt",
       "promptSha256": "cb344b0c377d1c3cdffedffa80318041482da9a83f8a0121739c896c133beebf",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-a-runtime-baseline.png",
       "outputSha256": "2b0b52a784043bc353b9159d0d4bd1f54925fe2c78f0cfa205ebeb313492478d",
       "targetImportContract": {
@@ -6775,7 +6775,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -6790,7 +6790,7 @@
       "recipeId": "batch-c:replacement-owned-slot-row-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-owned-slot-row-b-readability.txt",
       "promptSha256": "809c9e8c7a94e943756a0e642dd01f96abf12810ecca308eecceea98a834d279",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-b-readability.png",
       "outputSha256": "ad01e801b536756ef8b8c70f6e3ccd65679b48973169ab42b1b5fb7ff829fa53",
       "targetImportContract": {
@@ -6889,7 +6889,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -6904,7 +6904,7 @@
       "recipeId": "batch-c:replacement-owned-slot-row-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-owned-slot-row-c-paper-ink.txt",
       "promptSha256": "60c0b76e051f856e8eca12c5291b2625d2162b75bb6cf870514da86278ce4bbd",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
       "outputSha256": "f2999eba7a3ea6c7cfdf3b4dc34b572c8867d80416753acab4636db6f01e2284",
       "targetImportContract": {
@@ -7003,7 +7003,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7018,7 +7018,7 @@
       "recipeId": "batch-c:replacement-owned-slot-row-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-owned-slot-row-d-production-balanced.txt",
       "promptSha256": "c4f4c9c4ddc17299be4dfdcae8bda42dda7092c38ea5a32fb2b186e310d49519",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-d-production-balanced.png",
       "outputSha256": "be3d9b163cdc0d6ae51160f832002a3cbd40b92413c658996f5a3c15349d412e",
       "targetImportContract": {
@@ -7117,7 +7117,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7132,7 +7132,7 @@
       "recipeId": "batch-c:replacement-selected-slot-state-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-selected-slot-state-a-runtime-baseline.txt",
       "promptSha256": "efa41ee72ed14df56893da7cfa62ea9ad995922775bf528c57928c32f2c0bd45",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-a-runtime-baseline.png",
       "outputSha256": "8de4abfa366ea733372f891aa372a0d28b34aab68aac317cf3d9b9cec7607e6f",
       "targetImportContract": {
@@ -7231,7 +7231,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7246,7 +7246,7 @@
       "recipeId": "batch-c:replacement-selected-slot-state-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-selected-slot-state-b-readability.txt",
       "promptSha256": "9a536e03f9a40073a753d080110da8c255833a40a04afee2f84cc45a428bbdff",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-b-readability.png",
       "outputSha256": "4183a88575c390101ce610633bfcc1bc261d6c64d2e3b1d27d5082177b721011",
       "targetImportContract": {
@@ -7345,7 +7345,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7360,7 +7360,7 @@
       "recipeId": "batch-c:replacement-selected-slot-state-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-selected-slot-state-c-paper-ink.txt",
       "promptSha256": "37108fe7d6a5c0ea5a2fc45ba41620242bce1839d4e7055e3f39d626b473842c",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
       "outputSha256": "cc5a6e7a45e35ce540326cf316232c5173fa5847ca7053c1182d18dc462c0304",
       "targetImportContract": {
@@ -7459,7 +7459,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7474,7 +7474,7 @@
       "recipeId": "batch-c:replacement-selected-slot-state-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-selected-slot-state-d-production-balanced.txt",
       "promptSha256": "67939fd1b3764651a7143edc8b90ebe09f171f9ece8f57a08576f24ebecf5207",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-d-production-balanced.png",
       "outputSha256": "28de6a8aadc26061a153e1bf8100426fd7d9bf880befc31b1dd87f71e873ba2d",
       "targetImportContract": {
@@ -7573,7 +7573,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7588,7 +7588,7 @@
       "recipeId": "batch-c:replacement-confirm-button-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-confirm-button-a-runtime-baseline.txt",
       "promptSha256": "13373049d2df69ec1c4f07529f342aacd96feb599ea7e9ecc3bfb1fccf6e457f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-a-runtime-baseline.png",
       "outputSha256": "d40ec8958311a1fe129ea5cdd221bf5e71ab94a3ea5c3750e541d26aeb9f4c91",
       "targetImportContract": {
@@ -7687,7 +7687,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7702,7 +7702,7 @@
       "recipeId": "batch-c:replacement-confirm-button-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-confirm-button-b-readability.txt",
       "promptSha256": "8bc55f0ec06f6ecbc083693b34c3ace40370e1e95d060900834ced6dba2cb937",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
       "outputSha256": "7cfecadc902cfff91ba634f915c4dccafe0cc2f6e622be87aaeac6fe2738656e",
       "targetImportContract": {
@@ -7801,7 +7801,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7816,7 +7816,7 @@
       "recipeId": "batch-c:replacement-confirm-button-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-confirm-button-c-paper-ink.txt",
       "promptSha256": "bac84f9dc4273eac5d1af1b545c9e4e50ad1e5402c428ec2747e91ea04ec9012",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-c-paper-ink.png",
       "outputSha256": "d94b2787fda1f5e7dedb046de29f4401bc077604938b91cd85700d324328ab61",
       "targetImportContract": {
@@ -7915,7 +7915,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -7930,7 +7930,7 @@
       "recipeId": "batch-c:replacement-confirm-button-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-confirm-button-d-production-balanced.txt",
       "promptSha256": "e1dd9ee8578b3ece798aabc74957d1364fc7bcc4b4a53a5b98671de5978b7149",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-d-production-balanced.png",
       "outputSha256": "06426855774ff5d50ae089f0441cbda54d70b15f12b63f60c7f97f888ea87c2e",
       "targetImportContract": {
@@ -8029,7 +8029,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -8044,7 +8044,7 @@
       "recipeId": "batch-c:replacement-cancel-button-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-cancel-button-a-runtime-baseline.txt",
       "promptSha256": "50c61229cab989aeddb1de1c64aaf296f091669523b1f2afead68ab4efee5c7d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline.png",
       "outputSha256": "f76c5e3587661aa4970091794857d339749492349b287c5afcff67348d1f62d6",
       "targetImportContract": {
@@ -8143,7 +8143,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -8158,7 +8158,7 @@
       "recipeId": "batch-c:replacement-cancel-button-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-cancel-button-b-readability.txt",
       "promptSha256": "0d5a08aee5d8a028b8c1387b94ea06963d865906003943a3192e0611df6e1464",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
       "outputSha256": "2eb2d891597de756f18da7bab30fd5b17181de16b1727b87ec696c23508fcccf",
       "targetImportContract": {
@@ -8257,7 +8257,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -8272,7 +8272,7 @@
       "recipeId": "batch-c:replacement-cancel-button-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-cancel-button-c-paper-ink.txt",
       "promptSha256": "72ab1a8fd8555de19217609bffdec155edeb2c13ad9695586c52d2a34deccf98",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-c-paper-ink.png",
       "outputSha256": "fb8d7ac8aba17624272fb560145046d98a17822c695fcf1ed7ec996c1fcface5",
       "targetImportContract": {
@@ -8371,7 +8371,7 @@
         "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "cf0ecd8f52e7ab76324179d4ee46516a5035a2a946f3405429cd189378a24ca7",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
-        "363c4044ab069b7491427e59337d039d12bfc7268fac658c8424eb0dca3fbaef",
+        "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
         "1888be3dcdc499ba97c499cd897a0ad297dc1e85b2838c1c80470ef86ad9105a"
       ],
       "parentSourcePaths": [
@@ -8386,7 +8386,7 @@
       "recipeId": "batch-c:replacement-cancel-button-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/replacement-cancel-button-d-production-balanced.txt",
       "promptSha256": "1709765be023207a2761ed250fa9b824ffaf924d0989dca28705a121abf66d11",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-d-production-balanced.png",
       "outputSha256": "325124ca6c60903b315dcea07a15bf3546ec40a6e70e4cd8cff834c2e86357e0",
       "targetImportContract": {
@@ -8500,7 +8500,7 @@
       "recipeId": "batch-c:result-main-panel-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-main-panel-a-runtime-baseline.txt",
       "promptSha256": "029278a738fa4e699391a376e95909b1c0fb1e1069a069dca1d4a5bdf4935ccc",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-a-runtime-baseline.png",
       "outputSha256": "fd5d8061881bbd7c753900eb8b49490a1bc4c6a140bbcc7b32dbcbd4d466ad05",
       "targetImportContract": {
@@ -8610,7 +8610,7 @@
       "recipeId": "batch-c:result-main-panel-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-main-panel-b-readability.txt",
       "promptSha256": "0229fff3f90c6d72545a85354efd0fc89524704b4b7a951b7339633bfa2634c3",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-b-readability.png",
       "outputSha256": "097dfa9e98bc2e9963f84cc632963b32fa3aef4f3c76ea215c67291763eebc3e",
       "targetImportContract": {
@@ -8720,7 +8720,7 @@
       "recipeId": "batch-c:result-main-panel-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-main-panel-c-paper-ink.txt",
       "promptSha256": "14da81f2bf4a21292cac8bc930bea7c35f6227cc559a562a6a424fbfd07806d1",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-c-paper-ink.png",
       "outputSha256": "a173a8dbb037437ea7e2954a05aa8d2f0d304c4785a4fdceb726e1183f461371",
       "targetImportContract": {
@@ -8830,7 +8830,7 @@
       "recipeId": "batch-c:result-main-panel-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-main-panel-d-production-balanced.txt",
       "promptSha256": "a2ce53abb4c2198b8e0ea0810f867df55dcc0d3fd3359fb0fb3b96f67cd9994e",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-d-production-balanced.png",
       "outputSha256": "d363ecc05852dcd6af60c3341ac084a68dfb31be0b1b131e177b20760d8859b8",
       "targetImportContract": {
@@ -8940,7 +8940,7 @@
       "recipeId": "batch-c:result-summary-header-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-summary-header-a-runtime-baseline.txt",
       "promptSha256": "e5b54bbd7daa6f47f8469f2b744be538f2a2de62fef5d4e538e0bec23486cf42",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-a-runtime-baseline.png",
       "outputSha256": "39ce70a792b110297909ea13f6caeeedb6adebe6d908d796f981bcb9908fb47d",
       "targetImportContract": {
@@ -9050,7 +9050,7 @@
       "recipeId": "batch-c:result-summary-header-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-summary-header-b-readability.txt",
       "promptSha256": "65cf0f24334baf1fb43ac8dad0f7b8267f570392b1838ed34dac2bffab854f50",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-b-readability.png",
       "outputSha256": "8e053f7b09f8df3304f4523f991ced10efa09e3f11f856252102029539f81e63",
       "targetImportContract": {
@@ -9160,7 +9160,7 @@
       "recipeId": "batch-c:result-summary-header-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-summary-header-c-paper-ink.txt",
       "promptSha256": "6c041dfa60ae3a8ff4136c17c30f6b5eb7ec301525277c8bab9f1c794ad6cd7c",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-c-paper-ink.png",
       "outputSha256": "82aa68a1653ae8a53e010ef28cb8ba7f1023ef42c48a4bd8e9d5eed34fea7edc",
       "targetImportContract": {
@@ -9270,7 +9270,7 @@
       "recipeId": "batch-c:result-summary-header-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-summary-header-d-production-balanced.txt",
       "promptSha256": "27ac2bd0a4850b6ce5f341a5aea0ef2cfb8b4ef12e933339605cd16a61548b10",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
       "outputSha256": "9c54e25847fa8d546ab64b0a0ca88819b8b13d4647523f70a3dae2544d098b99",
       "targetImportContract": {
@@ -9380,7 +9380,7 @@
       "recipeId": "batch-c:result-inventory-row-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-inventory-row-a-runtime-baseline.txt",
       "promptSha256": "6cb624f2217da41fdcbeb3cf98b50224b3e3184b0259bc885e72fc526ae8bbd8",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-a-runtime-baseline.png",
       "outputSha256": "183640d93343d039f097466ea6f41593ab1987e45ec6d20d27e534a6f6260fb9",
       "targetImportContract": {
@@ -9490,7 +9490,7 @@
       "recipeId": "batch-c:result-inventory-row-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-inventory-row-b-readability.txt",
       "promptSha256": "b885ee7c515d0c4c595a305d2c6cd4ea65a00ea1a2958a247756707a007ad756",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-b-readability.png",
       "outputSha256": "6dd6db6d0a6f84eed498b601fa5f5ff84221b5fd6386430bc9cc0ce0659cef4b",
       "targetImportContract": {
@@ -9600,7 +9600,7 @@
       "recipeId": "batch-c:result-inventory-row-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-inventory-row-c-paper-ink.txt",
       "promptSha256": "70f3e883069233668808db23505d5277dba1f48d0a6c927fdbe049078a3a7d9c",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
       "outputSha256": "f457449551fd28d97106897ade21e555fdff99d229e4839e9d16c52c27d3708e",
       "targetImportContract": {
@@ -9710,7 +9710,7 @@
       "recipeId": "batch-c:result-inventory-row-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-inventory-row-d-production-balanced.txt",
       "promptSha256": "74732984cacefb3ca1c182dda7d1fed002c892d5b2d1d8ad82382ff0657d2106",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-d-production-balanced.png",
       "outputSha256": "1af2fecd5c4dda469564579d02c3042e666d3661a29d65e53c1a0c48d5adcfca",
       "targetImportContract": {
@@ -9820,7 +9820,7 @@
       "recipeId": "batch-c:result-evolution-awakening-row-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-evolution-awakening-row-a-runtime-baseline.txt",
       "promptSha256": "0ecced1defa23a48cf1603ce749fa06872899527e1b0fe4bd96231552fcfbe61",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline.png",
       "outputSha256": "d7647f9b4495f17d4e502de4ae66ab43ba56220ef5c408a127bee4512108b533",
       "targetImportContract": {
@@ -9930,7 +9930,7 @@
       "recipeId": "batch-c:result-evolution-awakening-row-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-evolution-awakening-row-b-readability.txt",
       "promptSha256": "bb84dfb6a891bf9233a650765e24e575933454e8d202187d1d27262516d19b28",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-b-readability.png",
       "outputSha256": "cc091c339dca583ffdc035edc780d721d34785366e199dd1bcd5d2b2c548b98d",
       "targetImportContract": {
@@ -10040,7 +10040,7 @@
       "recipeId": "batch-c:result-evolution-awakening-row-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-evolution-awakening-row-c-paper-ink.txt",
       "promptSha256": "dc0539e95cbb3eb06350206fcb8004d53489a38d397ace0b41f12792e201e4dd",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
       "outputSha256": "6bf621b0889c64d1cc5c73448bcf3f2f1af32bc272416e6aa3604c0371ec6f92",
       "targetImportContract": {
@@ -10150,7 +10150,7 @@
       "recipeId": "batch-c:result-evolution-awakening-row-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-evolution-awakening-row-d-production-balanced.txt",
       "promptSha256": "fd887a9cd8368f2c5019569c78ddf557e08700d67f0e1b46207208fc899a3535",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-d-production-balanced.png",
       "outputSha256": "9f1c8105772e288164b36527c4cea992eb378ff9451b7f4b46abcce7b16eb053",
       "targetImportContract": {
@@ -10260,7 +10260,7 @@
       "recipeId": "batch-c:result-retry-button-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-retry-button-a-runtime-baseline.txt",
       "promptSha256": "43a9140f529b780cd9eb187688cb37eab8657f025febc2e733e21cdcd652dc41",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-a-runtime-baseline.png",
       "outputSha256": "a9ad50074d79913b9b287d0c689e750a5090a0d86a3cf26d4082a4c9660be06b",
       "targetImportContract": {
@@ -10374,7 +10374,7 @@
       "recipeId": "batch-c:result-retry-button-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-retry-button-b-readability.txt",
       "promptSha256": "8064bb297b23dc4b80413fe1ab9b4e7b00e911ceb8f97fc61b9c4c1634b66681",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
       "outputSha256": "f54d844ebcbb1ff7d52110c76b061ea0c729f490a922dd401f11ddfa096087e6",
       "targetImportContract": {
@@ -10488,7 +10488,7 @@
       "recipeId": "batch-c:result-retry-button-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-retry-button-c-paper-ink.txt",
       "promptSha256": "808feda3695a88502db1f4486dfc6c4cc27749c10475195b909a0c73b67d764b",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-c-paper-ink.png",
       "outputSha256": "0786eae27ea162320e9b782f1870f04f2a0e0132220c7c1931098cc09d4bbff7",
       "targetImportContract": {
@@ -10602,7 +10602,7 @@
       "recipeId": "batch-c:result-retry-button-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-retry-button-d-production-balanced.txt",
       "promptSha256": "fbe4db9e3c1a8858d5d47036e0675ecc8aca45e4e30dc62b447049a0ad0cc4f1",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-d-production-balanced.png",
       "outputSha256": "545d9489b86aad9ee5a124d1d639b1c36f2feed91e0ac2c139220c1d9bf90a70",
       "targetImportContract": {
@@ -10716,7 +10716,7 @@
       "recipeId": "batch-c:result-return-button-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-return-button-a-runtime-baseline.txt",
       "promptSha256": "86a032a8e0601a5626acbe5956fe358ac9e71060664e572b7ceb094d51c3001d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-a-runtime-baseline.png",
       "outputSha256": "ce4459570586a3bfca5a723da6cc7da9d45c9c3ee039f53e3dbb929f2ee12f15",
       "targetImportContract": {
@@ -10830,7 +10830,7 @@
       "recipeId": "batch-c:result-return-button-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-return-button-b-readability.txt",
       "promptSha256": "1b8fd29d255f8220d62adde2f26e6f7c02398394fd41941e6656239acf54d5b7",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
       "outputSha256": "5ad7d32b23b4d4e849216dceb24c2abf90cde112aa0f19384ef443f22f6ecf2d",
       "targetImportContract": {
@@ -10944,7 +10944,7 @@
       "recipeId": "batch-c:result-return-button-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-return-button-c-paper-ink.txt",
       "promptSha256": "91bf821a81fe97912592e1f458c617097cf5ceff8595bc4a56b224604aba5098",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-c-paper-ink.png",
       "outputSha256": "7a4b631230cd3a2d7d1b1ecf27971539e15d30e2e8b2b843d3abef81eb7c9670",
       "targetImportContract": {
@@ -11058,7 +11058,7 @@
       "recipeId": "batch-c:result-return-button-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/result-return-button-d-production-balanced.txt",
       "promptSha256": "9400b3758d9b2f03fddb8cebf6a3d518c99c161da4f4da634078e0e5122212cf",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-d-production-balanced.png",
       "outputSha256": "6a14e6d04e7126a0090d61888bea96402283034eb82bf1f14fe215fe4233e313",
       "targetImportContract": {
@@ -11172,7 +11172,7 @@
       "recipeId": "batch-c:stage-select-stage-card-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-stage-card-a-runtime-baseline.txt",
       "promptSha256": "a06a8b2de03f7d8b8a3b6b3b37938ca1b774596b7007c4f618a38caad049c33b",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-a-runtime-baseline.png",
       "outputSha256": "62b461d213c7da30e3686325adcb7f09e1aabd66efa7c9381cf073548438312c",
       "targetImportContract": {
@@ -11287,7 +11287,7 @@
       "recipeId": "batch-c:stage-select-stage-card-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-stage-card-b-readability.txt",
       "promptSha256": "8312cd1ed492472798eb7629f1469baab381af2b354b16e198d4d97c84708aba",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-b-readability.png",
       "outputSha256": "c86a8749b6418eac247b0a4bcdf130cb50066906999a0e7f437a954b427820b9",
       "targetImportContract": {
@@ -11402,7 +11402,7 @@
       "recipeId": "batch-c:stage-select-stage-card-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-stage-card-c-paper-ink.txt",
       "promptSha256": "e5eb5e3944f78c9956d2354d6e2f599d6356672d862a95523abd0638558b6397",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-c-paper-ink.png",
       "outputSha256": "15bd48c5fd81fe357964fc95694ce283e5673b4e03050dd10d185fb1e600905c",
       "targetImportContract": {
@@ -11517,7 +11517,7 @@
       "recipeId": "batch-c:stage-select-stage-card-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-stage-card-d-production-balanced.txt",
       "promptSha256": "679c3b4b9c9cef2e5643b8fc466e40995e5f49b079fe3c85cd3ba8d9938a9c1a",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png",
       "outputSha256": "73ee9960c6390e8478b1cdedecd4e0ae9b289025adec78931c5ff88932726bc1",
       "targetImportContract": {
@@ -11632,7 +11632,7 @@
       "recipeId": "batch-c:stage-select-locked-unlocked-state-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-locked-unlocked-state-a-runtime-baseline.txt",
       "promptSha256": "d90e5e72b4cb7d4de29a72adbdb981a9a9f04b2414f56e3881b6b9d421d04a74",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-a-runtime-baseline.png",
       "outputSha256": "135491828730b67aa820108b10cdab55958eed8074aa504aa2c31449ee6efc95",
       "targetImportContract": {
@@ -11745,7 +11745,7 @@
       "recipeId": "batch-c:stage-select-locked-unlocked-state-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-locked-unlocked-state-b-readability.txt",
       "promptSha256": "73b347508981a05cd6b559e032760fec8b9b01d01d63277149cfa1d5aaff7a41",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-b-readability.png",
       "outputSha256": "b2120ac5d21703874b37ef21cc4db8cc37d07948f6b8f10784e57ca975c5a4ea",
       "targetImportContract": {
@@ -11858,7 +11858,7 @@
       "recipeId": "batch-c:stage-select-locked-unlocked-state-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-locked-unlocked-state-c-paper-ink.txt",
       "promptSha256": "95d192c6b87c14ba0eb19153b8684a35186d54ea6fd474fbaa24bba23de05f05",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-c-paper-ink.png",
       "outputSha256": "0e08afeb7190369a9add33dab77fe0d25105455e40e7c3eb4271df41d3d69c61",
       "targetImportContract": {
@@ -11971,7 +11971,7 @@
       "recipeId": "batch-c:stage-select-locked-unlocked-state-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-locked-unlocked-state-d-production-balanced.txt",
       "promptSha256": "16878b73c1d843ee920ee5239000176cc24f4fd2d6f8529cae703d47aad7c47f",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png",
       "outputSha256": "d9a88b73205b575def40757ccbdb81eba962530165717b834622db09f3c10d65",
       "targetImportContract": {
@@ -12084,7 +12084,7 @@
       "recipeId": "batch-c:stage-select-primary-button-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-primary-button-a-runtime-baseline.txt",
       "promptSha256": "af0d0491153ebc4db80e73a9dfd484df379ee189eae60b17ca3d87bd8dd898cf",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-a-runtime-baseline.png",
       "outputSha256": "4e40ec8ca6d7e7a68b2970b7fddc42d5034bd62c200230d36943ac579cd502f4",
       "targetImportContract": {
@@ -12198,7 +12198,7 @@
       "recipeId": "batch-c:stage-select-primary-button-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-primary-button-b-readability.txt",
       "promptSha256": "22d6e6c2c2e4ec3d2dbb2b49179f9a411756a00ce60317ae08c50fc466eba8ad",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png",
       "outputSha256": "c574e9546ad921bcf547e27ef8d10345175010fae742f560c61bf4d50f06bd84",
       "targetImportContract": {
@@ -12312,7 +12312,7 @@
       "recipeId": "batch-c:stage-select-primary-button-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-primary-button-c-paper-ink.txt",
       "promptSha256": "ea1b412d6ae6879c165ecdea7b1d2e424a017c6171e3c97b8d49ee341bdbc681",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-c-paper-ink.png",
       "outputSha256": "a42ad8b8ecef3393648478d4cf1c9ae9d55ba3cb3c9fda9ea7de5504d77151fa",
       "targetImportContract": {
@@ -12426,7 +12426,7 @@
       "recipeId": "batch-c:stage-select-primary-button-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-primary-button-d-production-balanced.txt",
       "promptSha256": "b37c21fb89f8a4172b086f11db4c1000352ef54ecbd678b65e8fb2ccc8c31900",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-d-production-balanced.png",
       "outputSha256": "d99d76580fff053a919ec5a01f46cec03abeed0844dac70650cc8a91ac1a043a",
       "targetImportContract": {
@@ -12540,7 +12540,7 @@
       "recipeId": "batch-c:stage-select-title-frame-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-title-frame-a-runtime-baseline.txt",
       "promptSha256": "1ec337a59374166a7e71daad4007df018dac8cb03046541a8954fe50bf88100d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-a-runtime-baseline.png",
       "outputSha256": "68b649042feeb23fd40bd61baa1afe08ef02b208d7f8fd9124d438462fed2875",
       "targetImportContract": {
@@ -12650,7 +12650,7 @@
       "recipeId": "batch-c:stage-select-title-frame-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-title-frame-b-readability.txt",
       "promptSha256": "d550177c2a508e9372a92c2a7fc10ff0a8fdf32a7312479385fb430d3e37da80",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-b-readability.png",
       "outputSha256": "159792e3a719b8b29dc6d5b8834944441b7d6dce94b60442314486eedaac7527",
       "targetImportContract": {
@@ -12760,7 +12760,7 @@
       "recipeId": "batch-c:stage-select-title-frame-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-title-frame-c-paper-ink.txt",
       "promptSha256": "805e722705092a4dc3ac4adaa0b1717d424750c2b8e31ee3e758b2adf37b4925",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-c-paper-ink.png",
       "outputSha256": "554896e19355e1eb354a25c9aa729e76909c196be9b6ed8f48a9d19f5bde016a",
       "targetImportContract": {
@@ -12870,7 +12870,7 @@
       "recipeId": "batch-c:stage-select-title-frame-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-title-frame-d-production-balanced.txt",
       "promptSha256": "dc480c6d2e4e2b799fdee2e06ae97805463f15499c448df50ed172996a5e6b20",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-d-production-balanced.png",
       "outputSha256": "2676914b58b85058d811ff7ee73d63ac66dfdffae22462e784d9d06febd40323",
       "targetImportContract": {
@@ -12980,7 +12980,7 @@
       "recipeId": "batch-c:stage-select-metadata-row-a-runtime-baseline:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-metadata-row-a-runtime-baseline.txt",
       "promptSha256": "51efc8fca204cadd4c0f952c224695ca5bee8a3d8188c13dbb10b9e43d8ae747",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-a-runtime-baseline.png",
       "outputSha256": "db97869d61d9ad532eaebc193c86a8373bf3216429d1ba299f28063bda2c3d9a",
       "targetImportContract": {
@@ -13090,7 +13090,7 @@
       "recipeId": "batch-c:stage-select-metadata-row-b-readability:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-metadata-row-b-readability.txt",
       "promptSha256": "3cbf13da3f01e4f4060ef2cc4a57a4ea917d19a8aaccef63bc691b780985332b",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-b-readability.png",
       "outputSha256": "c180161ee7f59e7b816866c07de7bda129e073b305385c309030df88f2922fb5",
       "targetImportContract": {
@@ -13200,7 +13200,7 @@
       "recipeId": "batch-c:stage-select-metadata-row-c-paper-ink:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-metadata-row-c-paper-ink.txt",
       "promptSha256": "475b4747ffe74e3d870f9d41796f8cbabbc9e6ce23d44a9bfd7b3e482526680e",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-c-paper-ink.png",
       "outputSha256": "dad829486887a646ce0bb8fa998ca45daa337c7620d0002e73fb11e40fdd5378",
       "targetImportContract": {
@@ -13310,7 +13310,7 @@
       "recipeId": "batch-c:stage-select-metadata-row-d-production-balanced:v1",
       "promptPath": "docs/design-targets/generated/unity-u48/batch-c/prompts/stage-select-metadata-row-d-production-balanced.txt",
       "promptSha256": "a22b738f5f1b1e2c36fbe2adecf14bb9d7db9720288ead8f2e8fe179196a7e8d",
-      "createdAtUtc": "2026-07-16T06:41:55.119265Z",
+      "createdAtUtc": "2026-07-17T03:42:24.840515Z",
       "outputPath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png",
       "outputSha256": "d3168342cb59e53e86c98fc0805172232bcc2990f175f1eb11e4e96e073e88ce",
       "targetImportContract": {

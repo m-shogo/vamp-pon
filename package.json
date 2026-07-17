@@ -86,6 +86,8 @@
     "unity:u48-batch-c-contracts:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-c-contracts.ts",
     "unity:u48-batch-c-candidates:build": "python3 scripts/unity/build-u48-batch-c-candidates.py",
     "unity:u48-batch-c-candidates:qa": "python3 scripts/unity/qa-u48-batch-c-candidates.py",
+    "unity:u48-batch-c-capture-matrix:generate": "python3 scripts/unity/generate-u48-batch-c-capture-matrix.py",
+    "unity:u48-batch-c-simulator:capture": "python3 scripts/unity/capture-u48-batch-c-simulator.py",
     "unity:u48-batch-c-capture-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-c-capture-readiness.ts",
     "unity:u48-stage-select-canon-audit:generate": "node --experimental-strip-types scripts/unity/generate-u48-stage-select-canon-audit.ts",
     "unity:u48-stage-select-runtime:check": "node --experimental-strip-types scripts/quality/check-unity-u48-stage-select-runtime.ts",

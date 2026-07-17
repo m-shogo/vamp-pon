@@ -13,6 +13,7 @@ tmp/
 # Build output
 dist/
 data/asset-factory/generation-contracts.json
+docs/design-targets/generated/unity-u48/batch-c/quarantine/*/
 
 # OS
 .DS_Store

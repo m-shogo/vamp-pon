@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "batch": "C",
+  "status": "PASS",
+  "pilotCount": 5,
+  "results": [
+    {
+      "screen": "hud",
+      "candidateId": "hud-hp-frame-a-runtime-baseline",
+      "passed": true,
+      "resumed": true,
+      "expectedCaptureCount": 4,
+      "actualCaptureCount": 4,
+      "cleanupCompleted": true,
+      "runtimeContractUnchanged": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0
+    },
+    {
+      "screen": "levelUp",
+      "candidateId": "levelup-card-background-a-runtime-baseline",
+      "passed": true,
+      "resumed": true,
+      "expectedCaptureCount": 5,
+      "actualCaptureCount": 5,
+      "cleanupCompleted": true,
+      "runtimeContractUnchanged": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0
+    },
+    {
+      "screen": "replacement",
+      "candidateId": "replacement-cancel-button-a-runtime-baseline",
+      "passed": true,
+      "resumed": true,
+      "expectedCaptureCount": 5,
+      "actualCaptureCount": 5,
+      "cleanupCompleted": true,
+      "runtimeContractUnchanged": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0
+    },
+    {
+      "screen": "result",
+      "candidateId": "result-evolution-awakening-row-a-runtime-baseline",
+      "passed": true,
+      "resumed": true,
+      "expectedCaptureCount": 4,
+      "actualCaptureCount": 4,
+      "cleanupCompleted": true,
+      "runtimeContractUnchanged": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0
+    },
+    {
+      "screen": "stageSelect",
+      "candidateId": "stage-select-locked-unlocked-state-a-runtime-baseline",
+      "passed": true,
+      "resumed": true,
+      "expectedCaptureCount": 4,
+      "actualCaptureCount": 4,
+      "cleanupCompleted": true,
+      "runtimeContractUnchanged": true,
+      "unhandledExceptionCount": 0,
+      "assertionFailureCount": 0
+    }
+  ],
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0
+}

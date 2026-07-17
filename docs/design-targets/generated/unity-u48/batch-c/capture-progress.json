@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "batch": "C",
+  "generatedAtUtc": "2026-07-17T03:43:50.994236Z",
+  "completedCandidateCount": 5,
+  "captureCount": 22,
+  "screenCandidateCounts": {
+    "hud": 1,
+    "levelUp": 1,
+    "replacement": 1,
+    "result": 1,
+    "stageSelect": 1
+  },
+  "quarantineCount": 19,
+  "quarantined": [
+    {
+      "candidateId": "hud-hp-frame-a-runtime-baseline",
+      "reason": "required-state-coverage",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034134692440Z/hud-hp-frame/hud-hp-frame-a-runtime-baseline"
+    },
+    {
+      "candidateId": "levelup-card-background-a-runtime-baseline",
+      "reason": "required-state-coverage",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034148878182Z/levelup-card-background/levelup-card-background-a-runtime-baseline"
+    },
+    {
+      "candidateId": "replacement-cancel-button-a-runtime-baseline",
+      "reason": "required-state-coverage",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034153948276Z/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline"
+    },
+    {
+      "candidateId": "result-evolution-awakening-row-a-runtime-baseline",
+      "reason": "required-state-coverage",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034200444375Z/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline"
+    },
+    {
+      "candidateId": "stage-select-locked-unlocked-state-a-runtime-baseline",
+      "reason": "required-state-coverage",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034207461269Z/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-a-runtime-baseline"
+    },
+    {
+      "candidateId": "hud-hp-frame-b-readability",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246664863Z/hud-hp-frame/hud-hp-frame-b-readability"
+    },
+    {
+      "candidateId": "hud-hp-frame-c-paper-ink",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246665295Z/hud-hp-frame/hud-hp-frame-c-paper-ink"
+    },
+    {
+      "candidateId": "hud-hp-frame-d-production-balanced",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246665452Z/hud-hp-frame/hud-hp-frame-d-production-balanced"
+    },
+    {
+      "candidateId": "hud-inventory-weapon-slot-a-runtime-baseline",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246665637Z/hud-inventory-weapon-slot/hud-inventory-weapon-slot-a-runtime-baseline"
+    },
+    {
+      "candidateId": "hud-inventory-weapon-slot-b-readability",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246665795Z/hud-inventory-weapon-slot/hud-inventory-weapon-slot-b-readability"
+    },
+    {
+      "candidateId": "hud-inventory-weapon-slot-c-paper-ink",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246665936Z/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink"
+    },
+    {
+      "candidateId": "hud-timer-frame-a-runtime-baseline",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246666234Z/hud-timer-frame/hud-timer-frame-a-runtime-baseline"
+    },
+    {
+      "candidateId": "hud-timer-frame-b-readability",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246666437Z/hud-timer-frame/hud-timer-frame-b-readability"
+    },
+    {
+      "candidateId": "hud-timer-frame-c-paper-ink",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246666842Z/hud-timer-frame/hud-timer-frame-c-paper-ink"
+    },
+    {
+      "candidateId": "hud-timer-frame-d-production-balanced",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246667190Z/hud-timer-frame/hud-timer-frame-d-production-balanced"
+    },
+    {
+      "candidateId": "hud-top-status-frame-a-runtime-baseline",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246667432Z/hud-top-status-frame/hud-top-status-frame-a-runtime-baseline"
+    },
+    {
+      "candidateId": "hud-top-status-frame-b-readability",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246667644Z/hud-top-status-frame/hud-top-status-frame-b-readability"
+    },
+    {
+      "candidateId": "hud-top-status-frame-c-paper-ink",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246667832Z/hud-top-status-frame/hud-top-status-frame-c-paper-ink"
+    },
+    {
+      "candidateId": "hud-top-status-frame-d-production-balanced",
+      "reason": "missing-sentinel",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T034246668024Z/hud-top-status-frame/hud-top-status-frame-d-production-balanced"
+    }
+  ]
+}

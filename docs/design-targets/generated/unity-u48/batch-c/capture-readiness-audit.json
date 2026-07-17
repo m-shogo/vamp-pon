@@ -1,42 +1,618 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "batch": "C",
   "status": "READY",
   "captureReadiness": "READY",
   "reviewReady": false,
-  "blockReason": null,
-  "productionRouteBlockerResolved": true,
-  "productionRuntimeChanged": true,
-  "unlockRulesChanged": false,
+  "screenReadiness": {
+    "hud": {
+      "status": "READY",
+      "captureReadiness": "READY",
+      "requiredStateCount": 10,
+      "states": [
+        {
+          "state": "initial",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "partial-inventory",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "full-inventory",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "hp-low",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "rare-owned",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "kokuyou-charging",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "kokuyou-ready",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "kokuyou-active",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "kokuyou-recovery",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "levelup-overlay-overlap",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "BattleHudPresenter/Stage1GameplayRuntimeCoordinator",
+          "trigger": "production-gameplay-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        }
+      ]
+    },
+    "levelUp": {
+      "status": "READY",
+      "captureReadiness": "READY",
+      "requiredStateCount": 9,
+      "states": [
+        {
+          "state": "open",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "actual-three-candidates",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "default",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "selected",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "non-selected",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "decline",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "close",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "longest-canonical-title",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "longest-canonical-description",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U4LevelUpDemoController/LevelUpPresenter",
+          "trigger": "actual-levelup-and-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        }
+      ]
+    },
+    "replacement": {
+      "status": "READY",
+      "captureReadiness": "READY",
+      "requiredStateCount": 15,
+      "states": [
+        {
+          "state": "modal-open",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "no-selection-confirm-disabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "incoming-candidate",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "owned-slot-rows",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "selected-row",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "confirm-enabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "confirm-pressed",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "cancel-before-selection",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "cancel-after-selection",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "weapon-before-confirm",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "weapon-after-confirm",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "passive-before-confirm",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "passive-after-confirm",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "close-cleanup",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "reopen-selection-null",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "ReplacementInteractionModel/U4LevelUpDemoController",
+          "trigger": "actual-slot-confirm-cancel-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        }
+      ]
+    },
+    "result": {
+      "status": "READY",
+      "captureReadiness": "READY",
+      "requiredStateCount": 10,
+      "states": [
+        {
+          "state": "actual-result",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "max-inventory",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "replacement-after-state",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "evolution",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "awakening",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "rare",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "retry",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "return",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "longest-registry-name",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "maximum-canonical-content",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "U46RuntimeShell/ResultPresenter",
+          "trigger": "immutable-result-read-model-and-actual-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        }
+      ]
+    },
+    "stageSelect": {
+      "status": "READY",
+      "captureReadiness": "READY",
+      "requiredStateCount": 12,
+      "states": [
+        {
+          "state": "initial-open",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "unlocked",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "no-selection-disabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "selected-unlocked",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "button-default-enabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "button-pressed-enabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "locked",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "selected-locked",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "locked-selection-disabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "unimplemented-disabled",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "live-runtime-longest-canonical-title",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        },
+        {
+          "state": "live-runtime-maximum-canonical-metadata",
+          "reachable": true,
+          "productionRoute": true,
+          "routeOwner": "StageSelectModel/StageSelectView/AppFlowCoordinator",
+          "trigger": "actual-card-and-start-button-command",
+          "directInjection": false,
+          "layoutFixture": false,
+          "blockReason": null
+        }
+      ]
+    }
+  },
+  "blockedRequiredStates": [],
   "directStateInjectionUsed": false,
+  "saveMutationUsed": false,
+  "playerPrefsMutationUsed": false,
+  "layoutFixtureUsed": false,
   "productionProviderChanged": false,
+  "unlockRulesChanged": false,
   "knownStageCount": 20,
   "runtimeImplementedStageCount": 1,
   "lockedDisplayStageCount": 19,
-  "reproducibleRequiredStates": [
-    "initial-open",
-    "unlocked",
-    "no-selection-disabled",
-    "selected-unlocked",
-    "button-default-enabled",
-    "button-pressed-enabled",
-    "locked",
-    "selected-locked",
-    "locked-selection-disabled",
-    "unimplemented-disabled",
-    "live-runtime-longest-canonical-title",
-    "live-runtime-maximum-canonical-metadata"
-  ],
-  "blockedRequiredStates": [],
   "canonicalLongestTitle": "半分の駄菓子横丁",
   "canonicalMaximumMetadataRows": 0,
-  "layoutFixtureRequired": false,
-  "evidence": {
-    "catalogOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageCatalog.cs",
-    "selectionOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageSelectModel.cs",
-    "stageSelectOwner": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs",
-    "commandGuardOwner": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs",
-    "verification": "docs/design-targets/generated/unity-u48/batch-c/stage-select-runtime-verification.json"
-  },
-  "decision": "Resume Batch C candidate-specific live capture through actual card Button and guarded StartStage routes."
+  "captureMatrixPath": "docs/design-targets/generated/unity-u48/batch-c/capture-matrix.json",
+  "captureMatrixSha256": "c090d855ac10e493a361ed927e9c646fb1957c6b0021e23414dc5d0d3c26ae6c"
 }

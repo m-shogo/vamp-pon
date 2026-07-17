@@ -1,0 +1,1245 @@
+{
+  "schemaVersion": 1,
+  "batch": "C",
+  "assetGroupCount": 30,
+  "candidateCount": 120,
+  "candidatePerGroup": 4,
+  "viewports": [
+    {
+      "id": "compact",
+      "width": 360,
+      "height": 800
+    },
+    {
+      "id": "standard",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "id": "large",
+      "width": 430,
+      "height": 932
+    }
+  ],
+  "minimumViewportCaptureCount": 360,
+  "expectedCaptureCount": 564,
+  "matrixSha256": "1eefa74380166f4ad02993e424421a10f675f895edfb41e5e1ddceef18a11b78",
+  "groups": [
+    {
+      "assetGroup": "hud-hp-frame",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-hp-frame-a-runtime-baseline",
+        "hud-hp-frame-b-readability",
+        "hud-hp-frame-c-paper-ink",
+        "hud-hp-frame-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "low-hp"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "default",
+        "low-hp"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-inventory-passive-slot-a-runtime-baseline",
+        "hud-inventory-passive-slot-b-readability",
+        "hud-inventory-passive-slot-c-paper-ink",
+        "hud-inventory-passive-slot-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 6
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-inventory-weapon-slot-a-runtime-baseline",
+        "hud-inventory-weapon-slot-b-readability",
+        "hud-inventory-weapon-slot-c-paper-ink",
+        "hud-inventory-weapon-slot-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 6
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-kokuyou-gauge-frame-a-runtime-baseline",
+        "hud-kokuyou-gauge-frame-b-readability",
+        "hud-kokuyou-gauge-frame-c-paper-ink",
+        "hud-kokuyou-gauge-frame-d-production-balanced"
+      ],
+      "canonicalComparisonState": "charging",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "charging",
+        "ready",
+        "active",
+        "recovery"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "charging",
+        "ready",
+        "active",
+        "recovery"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 6
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-rare-slot-a-runtime-baseline",
+        "hud-rare-slot-b-readability",
+        "hud-rare-slot-c-paper-ink",
+        "hud-rare-slot-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "default",
+        "occupied",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 6
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-timer-frame-a-runtime-baseline",
+        "hud-timer-frame-b-readability",
+        "hud-timer-frame-c-paper-ink",
+        "hud-timer-frame-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "default"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 3
+    },
+    {
+      "assetGroup": "hud-top-status-frame",
+      "screen": "hud",
+      "candidateIds": [
+        "hud-top-status-frame-a-runtime-baseline",
+        "hud-top-status-frame-b-readability",
+        "hud-top-status-frame-c-paper-ink",
+        "hud-top-status-frame-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default"
+      ],
+      "screenRequiredStates": [
+        "initial",
+        "partial-inventory",
+        "full-inventory",
+        "hp-low",
+        "rare-owned",
+        "kokuyou-charging",
+        "kokuyou-ready",
+        "kokuyou-active",
+        "kokuyou-recovery",
+        "levelup-overlay-overlap"
+      ],
+      "componentContractStates": [
+        "default"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 3
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "screen": "levelUp",
+      "candidateIds": [
+        "levelup-card-background-a-runtime-baseline",
+        "levelup-card-background-b-readability",
+        "levelup-card-background-c-paper-ink",
+        "levelup-card-background-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "open",
+        "actual-three-candidates",
+        "default",
+        "selected",
+        "non-selected",
+        "decline",
+        "close",
+        "longest-canonical-title",
+        "longest-canonical-description"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "screen": "levelUp",
+      "candidateIds": [
+        "levelup-decline-button-a-runtime-baseline",
+        "levelup-decline-button-b-readability",
+        "levelup-decline-button-c-paper-ink",
+        "levelup-decline-button-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "open",
+        "actual-three-candidates",
+        "default",
+        "selected",
+        "non-selected",
+        "decline",
+        "close",
+        "longest-canonical-title",
+        "longest-canonical-description"
+      ],
+      "componentContractStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "screen": "levelUp",
+      "candidateIds": [
+        "levelup-description-area-a-runtime-baseline",
+        "levelup-description-area-b-readability",
+        "levelup-description-area-c-paper-ink",
+        "levelup-description-area-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "open",
+        "actual-three-candidates",
+        "default",
+        "selected",
+        "non-selected",
+        "decline",
+        "close",
+        "longest-canonical-title",
+        "longest-canonical-description"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "screen": "levelUp",
+      "candidateIds": [
+        "levelup-icon-frame-a-runtime-baseline",
+        "levelup-icon-frame-b-readability",
+        "levelup-icon-frame-c-paper-ink",
+        "levelup-icon-frame-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "open",
+        "actual-three-candidates",
+        "default",
+        "selected",
+        "non-selected",
+        "decline",
+        "close",
+        "longest-canonical-title",
+        "longest-canonical-description"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "screen": "levelUp",
+      "candidateIds": [
+        "levelup-selection-feedback-a-runtime-baseline",
+        "levelup-selection-feedback-b-readability",
+        "levelup-selection-feedback-c-paper-ink",
+        "levelup-selection-feedback-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "open",
+        "actual-three-candidates",
+        "default",
+        "selected",
+        "non-selected",
+        "decline",
+        "close",
+        "longest-canonical-title",
+        "longest-canonical-description"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "screen": "levelUp",
+      "candidateIds": [
+        "levelup-title-area-a-runtime-baseline",
+        "levelup-title-area-b-readability",
+        "levelup-title-area-c-paper-ink",
+        "levelup-title-area-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "open",
+        "actual-three-candidates",
+        "default",
+        "selected",
+        "non-selected",
+        "decline",
+        "close",
+        "longest-canonical-title",
+        "longest-canonical-description"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "screen": "replacement",
+      "candidateIds": [
+        "replacement-cancel-button-a-runtime-baseline",
+        "replacement-cancel-button-b-readability",
+        "replacement-cancel-button-c-paper-ink",
+        "replacement-cancel-button-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "modal-open",
+        "no-selection-confirm-disabled",
+        "incoming-candidate",
+        "owned-slot-rows",
+        "selected-row",
+        "confirm-enabled",
+        "confirm-pressed",
+        "cancel-before-selection",
+        "cancel-after-selection",
+        "weapon-before-confirm",
+        "weapon-after-confirm",
+        "passive-before-confirm",
+        "passive-after-confirm",
+        "close-cleanup",
+        "reopen-selection-null"
+      ],
+      "componentContractStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "screen": "replacement",
+      "candidateIds": [
+        "replacement-confirm-button-a-runtime-baseline",
+        "replacement-confirm-button-b-readability",
+        "replacement-confirm-button-c-paper-ink",
+        "replacement-confirm-button-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "modal-open",
+        "no-selection-confirm-disabled",
+        "incoming-candidate",
+        "owned-slot-rows",
+        "selected-row",
+        "confirm-enabled",
+        "confirm-pressed",
+        "cancel-before-selection",
+        "cancel-after-selection",
+        "weapon-before-confirm",
+        "weapon-after-confirm",
+        "passive-before-confirm",
+        "passive-after-confirm",
+        "close-cleanup",
+        "reopen-selection-null"
+      ],
+      "componentContractStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "screen": "replacement",
+      "candidateIds": [
+        "replacement-incoming-candidate-panel-a-runtime-baseline",
+        "replacement-incoming-candidate-panel-b-readability",
+        "replacement-incoming-candidate-panel-c-paper-ink",
+        "replacement-incoming-candidate-panel-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "modal-open",
+        "no-selection-confirm-disabled",
+        "incoming-candidate",
+        "owned-slot-rows",
+        "selected-row",
+        "confirm-enabled",
+        "confirm-pressed",
+        "cancel-before-selection",
+        "cancel-after-selection",
+        "weapon-before-confirm",
+        "weapon-after-confirm",
+        "passive-before-confirm",
+        "passive-after-confirm",
+        "close-cleanup",
+        "reopen-selection-null"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "screen": "replacement",
+      "candidateIds": [
+        "replacement-modal-background-a-runtime-baseline",
+        "replacement-modal-background-b-readability",
+        "replacement-modal-background-c-paper-ink",
+        "replacement-modal-background-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default"
+      ],
+      "screenRequiredStates": [
+        "modal-open",
+        "no-selection-confirm-disabled",
+        "incoming-candidate",
+        "owned-slot-rows",
+        "selected-row",
+        "confirm-enabled",
+        "confirm-pressed",
+        "cancel-before-selection",
+        "cancel-after-selection",
+        "weapon-before-confirm",
+        "weapon-after-confirm",
+        "passive-before-confirm",
+        "passive-after-confirm",
+        "close-cleanup",
+        "reopen-selection-null"
+      ],
+      "componentContractStates": [
+        "default"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 3
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "screen": "replacement",
+      "candidateIds": [
+        "replacement-owned-slot-row-a-runtime-baseline",
+        "replacement-owned-slot-row-b-readability",
+        "replacement-owned-slot-row-c-paper-ink",
+        "replacement-owned-slot-row-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "modal-open",
+        "no-selection-confirm-disabled",
+        "incoming-candidate",
+        "owned-slot-rows",
+        "selected-row",
+        "confirm-enabled",
+        "confirm-pressed",
+        "cancel-before-selection",
+        "cancel-after-selection",
+        "weapon-before-confirm",
+        "weapon-after-confirm",
+        "passive-before-confirm",
+        "passive-after-confirm",
+        "close-cleanup",
+        "reopen-selection-null"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "screen": "replacement",
+      "candidateIds": [
+        "replacement-selected-slot-state-a-runtime-baseline",
+        "replacement-selected-slot-state-b-readability",
+        "replacement-selected-slot-state-c-paper-ink",
+        "replacement-selected-slot-state-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "modal-open",
+        "no-selection-confirm-disabled",
+        "incoming-candidate",
+        "owned-slot-rows",
+        "selected-row",
+        "confirm-enabled",
+        "confirm-pressed",
+        "cancel-before-selection",
+        "cancel-after-selection",
+        "weapon-before-confirm",
+        "weapon-after-confirm",
+        "passive-before-confirm",
+        "passive-after-confirm",
+        "close-cleanup",
+        "reopen-selection-null"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "screen": "result",
+      "candidateIds": [
+        "result-evolution-awakening-row-a-runtime-baseline",
+        "result-evolution-awakening-row-b-readability",
+        "result-evolution-awakening-row-c-paper-ink",
+        "result-evolution-awakening-row-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "empty"
+      ],
+      "screenRequiredStates": [
+        "actual-result",
+        "max-inventory",
+        "replacement-after-state",
+        "evolution",
+        "awakening",
+        "rare",
+        "retry",
+        "return",
+        "longest-registry-name",
+        "maximum-canonical-content"
+      ],
+      "componentContractStates": [
+        "default",
+        "empty"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "screen": "result",
+      "candidateIds": [
+        "result-inventory-row-a-runtime-baseline",
+        "result-inventory-row-b-readability",
+        "result-inventory-row-c-paper-ink",
+        "result-inventory-row-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "empty"
+      ],
+      "screenRequiredStates": [
+        "actual-result",
+        "max-inventory",
+        "replacement-after-state",
+        "evolution",
+        "awakening",
+        "rare",
+        "retry",
+        "return",
+        "longest-registry-name",
+        "maximum-canonical-content"
+      ],
+      "componentContractStates": [
+        "default",
+        "empty"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "screen": "result",
+      "candidateIds": [
+        "result-main-panel-a-runtime-baseline",
+        "result-main-panel-b-readability",
+        "result-main-panel-c-paper-ink",
+        "result-main-panel-d-production-balanced"
+      ],
+      "canonicalComparisonState": "clear",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "clear",
+        "failed"
+      ],
+      "screenRequiredStates": [
+        "actual-result",
+        "max-inventory",
+        "replacement-after-state",
+        "evolution",
+        "awakening",
+        "rare",
+        "retry",
+        "return",
+        "longest-registry-name",
+        "maximum-canonical-content"
+      ],
+      "componentContractStates": [
+        "clear",
+        "failed"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "screen": "result",
+      "candidateIds": [
+        "result-retry-button-a-runtime-baseline",
+        "result-retry-button-b-readability",
+        "result-retry-button-c-paper-ink",
+        "result-retry-button-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "actual-result",
+        "max-inventory",
+        "replacement-after-state",
+        "evolution",
+        "awakening",
+        "rare",
+        "retry",
+        "return",
+        "longest-registry-name",
+        "maximum-canonical-content"
+      ],
+      "componentContractStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "result-return-button",
+      "screen": "result",
+      "candidateIds": [
+        "result-return-button-a-runtime-baseline",
+        "result-return-button-b-readability",
+        "result-return-button-c-paper-ink",
+        "result-return-button-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "actual-result",
+        "max-inventory",
+        "replacement-after-state",
+        "evolution",
+        "awakening",
+        "rare",
+        "retry",
+        "return",
+        "longest-registry-name",
+        "maximum-canonical-content"
+      ],
+      "componentContractStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "screen": "result",
+      "candidateIds": [
+        "result-summary-header-a-runtime-baseline",
+        "result-summary-header-b-readability",
+        "result-summary-header-c-paper-ink",
+        "result-summary-header-d-production-balanced"
+      ],
+      "canonicalComparisonState": "clear",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "clear",
+        "failed"
+      ],
+      "screenRequiredStates": [
+        "actual-result",
+        "max-inventory",
+        "replacement-after-state",
+        "evolution",
+        "awakening",
+        "rare",
+        "retry",
+        "return",
+        "longest-registry-name",
+        "maximum-canonical-content"
+      ],
+      "componentContractStates": [
+        "clear",
+        "failed"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "screen": "stageSelect",
+      "candidateIds": [
+        "stage-select-locked-unlocked-state-a-runtime-baseline",
+        "stage-select-locked-unlocked-state-b-readability",
+        "stage-select-locked-unlocked-state-c-paper-ink",
+        "stage-select-locked-unlocked-state-d-production-balanced"
+      ],
+      "canonicalComparisonState": "locked",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "locked",
+        "unlocked"
+      ],
+      "screenRequiredStates": [
+        "initial-open",
+        "unlocked",
+        "no-selection-disabled",
+        "selected-unlocked",
+        "button-default-enabled",
+        "button-pressed-enabled",
+        "locked",
+        "selected-locked",
+        "locked-selection-disabled",
+        "unimplemented-disabled",
+        "live-runtime-longest-canonical-title",
+        "live-runtime-maximum-canonical-metadata"
+      ],
+      "componentContractStates": [
+        "locked",
+        "unlocked"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "screen": "stageSelect",
+      "candidateIds": [
+        "stage-select-metadata-row-a-runtime-baseline",
+        "stage-select-metadata-row-b-readability",
+        "stage-select-metadata-row-c-paper-ink",
+        "stage-select-metadata-row-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "initial-open",
+        "unlocked",
+        "no-selection-disabled",
+        "selected-unlocked",
+        "button-default-enabled",
+        "button-pressed-enabled",
+        "locked",
+        "selected-locked",
+        "locked-selection-disabled",
+        "unimplemented-disabled",
+        "live-runtime-longest-canonical-title",
+        "live-runtime-maximum-canonical-metadata"
+      ],
+      "componentContractStates": [
+        "default",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "screen": "stageSelect",
+      "candidateIds": [
+        "stage-select-primary-button-a-runtime-baseline",
+        "stage-select-primary-button-b-readability",
+        "stage-select-primary-button-c-paper-ink",
+        "stage-select-primary-button-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "screenRequiredStates": [
+        "initial-open",
+        "unlocked",
+        "no-selection-disabled",
+        "selected-unlocked",
+        "button-default-enabled",
+        "button-pressed-enabled",
+        "locked",
+        "selected-locked",
+        "locked-selection-disabled",
+        "unimplemented-disabled",
+        "live-runtime-longest-canonical-title",
+        "live-runtime-maximum-canonical-metadata"
+      ],
+      "componentContractStates": [
+        "default",
+        "pressed",
+        "disabled"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 5
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "screen": "stageSelect",
+      "candidateIds": [
+        "stage-select-stage-card-a-runtime-baseline",
+        "stage-select-stage-card-b-readability",
+        "stage-select-stage-card-c-paper-ink",
+        "stage-select-stage-card-d-production-balanced"
+      ],
+      "canonicalComparisonState": "locked",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "locked",
+        "unlocked",
+        "completed",
+        "selected"
+      ],
+      "screenRequiredStates": [
+        "initial-open",
+        "unlocked",
+        "no-selection-disabled",
+        "selected-unlocked",
+        "button-default-enabled",
+        "button-pressed-enabled",
+        "locked",
+        "selected-locked",
+        "locked-selection-disabled",
+        "unimplemented-disabled",
+        "live-runtime-longest-canonical-title",
+        "live-runtime-maximum-canonical-metadata"
+      ],
+      "componentContractStates": [
+        "locked",
+        "unlocked",
+        "completed",
+        "selected"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 6
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "screen": "stageSelect",
+      "candidateIds": [
+        "stage-select-title-frame-a-runtime-baseline",
+        "stage-select-title-frame-b-readability",
+        "stage-select-title-frame-c-paper-ink",
+        "stage-select-title-frame-d-production-balanced"
+      ],
+      "canonicalComparisonState": "default",
+      "requiredViewports": [
+        "compact",
+        "standard",
+        "large"
+      ],
+      "requiredStandardStates": [
+        "default",
+        "selected"
+      ],
+      "screenRequiredStates": [
+        "initial-open",
+        "unlocked",
+        "no-selection-disabled",
+        "selected-unlocked",
+        "button-default-enabled",
+        "button-pressed-enabled",
+        "locked",
+        "selected-locked",
+        "locked-selection-disabled",
+        "unimplemented-disabled",
+        "live-runtime-longest-canonical-title",
+        "live-runtime-maximum-canonical-metadata"
+      ],
+      "componentContractStates": [
+        "default",
+        "selected"
+      ],
+      "layoutFixtures": [],
+      "expectedCaptureCountPerCandidate": 4
+    }
+  ]
+}
