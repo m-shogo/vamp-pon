@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "057f4cee7a322932dd47df21039f83e5172f3b84",
-  "generatedAtUtc": "2026-07-16T05:46:18.217165Z",
+  "sourceHead": "11d99639802c0d26c8408a53edb5aca52889f8ce",
+  "generatedAtUtc": "2026-07-17T04:19:40.449606Z",
   "status": "IN_PROGRESS_BLOCKED",
   "u47GameplayDataRuntimeReady": true,
   "productionAssetAuditReady": true,
@@ -20,19 +20,17 @@
   "productionApproved": false,
   "completionBlocked": true,
   "blockers": [
+    "Batch C UI components are review-ready, but human candidate approval and production connection are pending",
     "Batch A Stage1 gameplay core is review-ready, but human candidate approval and production connection are pending",
-    "Batch B ground-area / 黒耀化 is review-ready, but human candidate approval and production connection are pending",
-    "Priority A approval inventory exists, but 13 groups have fewer than four meaningful unique candidates and the 30 split UI comparison units still require equivalent candidates",
     "candidate lineage is partial or unknown and human approval is pending",
     "no U48 target asset has approvedAsFinal=true and runtimeApproved=true",
     "remaining Core5 and enemy family runtime assets are missing",
     "background, lantern glow and collect feedback still use procedural placeholders",
-    "distinct gameplay icons, healing pickup and production Kokuyou presentation are missing",
     "physical-device final visual review is not executed",
     "audio/haptic device readiness belongs to U49 and is not measured",
-    "device performance readiness belongs to U50 and is not measured",
-    "Batch C UI candidate-specific live previews remain uncaptured"
+    "device performance readiness belongs to U50 and is not measured"
   ],
   "batchAStage1GameplayCoreApprovalReady": true,
-  "batchBGroundAreaKokuyouApprovalReady": true
+  "batchBGroundAreaKokuyouApprovalReady": true,
+  "batchCUiComponentsApprovalReady": true
 }

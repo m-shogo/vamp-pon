@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "11d99639802c0d26c8408a53edb5aca52889f8ce",
+  "generatedAtUtc": "2026-07-17T04:19:40.449606Z",
+  "batch": "C",
+  "scope": "30 UI component groups / 120 candidates / five production UI routes; review-ready only",
+  "results": {
+    "assetGroupCount": 30,
+    "candidateCount": 120,
+    "candidateSpecificLiveCapture": "PASS_564",
+    "compactCaptureCount": 120,
+    "standardCaptureCount": 324,
+    "largeCaptureCount": 120,
+    "requiredStateCaptureCount": 324,
+    "goldenReferenceCount": 30,
+    "generationContractCount": 120,
+    "lineageCompleteCount": 90,
+    "lineageReconstructedPartialCount": 30,
+    "lineageUnknownCount": 0,
+    "automaticQa": {
+      "PASS": 120,
+      "WARNING": 0,
+      "FAIL": 0
+    },
+    "liveQa": {
+      "PASS": 564,
+      "WARNING": 0,
+      "FAIL": 0
+    },
+    "duplicateScreenshotHashCount": 0,
+    "staleEvidenceCount": 0,
+    "resizeReuseCount": 0,
+    "cleanupFailureCount": 0,
+    "unhandledExceptionCount": 0,
+    "assertionFailureCount": 0,
+    "nineSliceFailureCount": 0,
+    "textSafeAreaFailureCount": 0,
+    "tapTargetFailureCount": 0,
+    "safeAreaFailureCount": 0
+  },
+  "runtimeContracts": {
+    "hud": {
+      "owner": "hud",
+      "uiCommandRoutePreserved": true,
+      "gameplayOrSaveDirectWriteUsed": false,
+      "productionProviderChanged": false
+    },
+    "levelUp": {
+      "owner": "levelUp",
+      "uiCommandRoutePreserved": true,
+      "gameplayOrSaveDirectWriteUsed": false,
+      "productionProviderChanged": false
+    },
+    "replacement": {
+      "owner": "replacement",
+      "uiCommandRoutePreserved": true,
+      "gameplayOrSaveDirectWriteUsed": false,
+      "productionProviderChanged": false
+    },
+    "result": {
+      "owner": "result",
+      "uiCommandRoutePreserved": true,
+      "gameplayOrSaveDirectWriteUsed": false,
+      "productionProviderChanged": false
+    },
+    "stageSelect": {
+      "owner": "stageSelect",
+      "uiCommandRoutePreserved": true,
+      "gameplayOrSaveDirectWriteUsed": false,
+      "productionProviderChanged": false
+    }
+  },
+  "approvalBoundary": {
+    "batchAStage1GameplayCoreApprovalReady": true,
+    "batchBGroundAreaKokuyouApprovalReady": true,
+    "batchCUiComponentsApprovalReady": true,
+    "productionAssetApprovalPackReady": false,
+    "approvedProductionAssetSetAvailable": false,
+    "productionVisualAssetProviderConnected": false,
+    "runtimeVisualReady": false,
+    "humanReviewStatus": "pending",
+    "u48Status": "IN_PROGRESS_BLOCKED"
+  },
+  "notes": [
+    "AI recommendations are not human approval.",
+    "Production RuntimeVisualAssetProvider is unchanged.",
+    "All candidates remain approvedAsFinal=false and runtimeApproved=false."
+  ]
+}
