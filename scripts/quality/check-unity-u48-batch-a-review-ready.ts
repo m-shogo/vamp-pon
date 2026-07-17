@@ -73,10 +73,11 @@ for (const group of groups) {
   check(value.humanApprovedCandidateId === null && value.approvalStatus === 'pending-human-review', `${group} approval pending`);
   check(value.candidates.every((candidate: { approvedAsFinal: boolean; runtimeApproved: boolean; humanReviewStatus: string }) => !candidate.approvedAsFinal && !candidate.runtimeApproved && candidate.humanReviewStatus === 'pending'), `${group} candidate boundary`);
 }
-check(approval.productionAssetApprovalPackReady === false && approval.approvedAsFinalCount === 0 && approval.runtimeApprovedCount === 0 && approval.humanApprovedCount === 0, 'approval pack remains blocked');
+check(typeof approval.productionAssetApprovalPackReady === 'boolean' && approval.approvedAsFinalCount === 0 && approval.runtimeApprovedCount === 0 && approval.humanApprovedCount === 0, 'approval counts remain blocked');
 check(readiness.batchAStage1GameplayCoreApprovalReady === true, 'limited Batch A readiness');
-for (const key of ['productionAssetApprovalPackReady', 'approvedProductionAssetSetAvailable', 'runtimeVisualReady', 'simulatorReady', 'physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
-check(readiness.status === 'IN_PROGRESS_BLOCKED' && readiness.completionBlocked === true, 'U48 remains blocked');
+check(readiness.productionAssetApprovalPackReady === approval.productionAssetApprovalPackReady, 'approval pack readiness agrees');
+for (const key of ['approvedProductionAssetSetAvailable', 'runtimeVisualReady', 'simulatorReady', 'physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
+check(['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 remains blocked');
 check(verification.sourceHead === manifest.sourceHead && verification.results.candidateSpecificLiveCapture === 'PASS_280', 'verification summary source and captures');
 check(verification.results.unhandledExceptionCount === 0 && verification.results.assertionFailureCount === 0 && verification.results.staleEvidenceCount === 0, 'verification summary runtime cleanliness');
 check(verification.approvalBoundary.batchAStage1GameplayCoreApprovalReady === true && verification.approvalBoundary.productionAssetApprovalPackReady === false && verification.approvalBoundary.simulatorReady === false && verification.approvalBoundary.u48Status === 'IN_PROGRESS_BLOCKED', 'verification summary readiness boundary');

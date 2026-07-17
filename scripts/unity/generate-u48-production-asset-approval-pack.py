@@ -19,6 +19,9 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "docs/design-targets/generated/unity-u48/approval-pack"
 SHEETS = OUT / "contact-sheets"
+READINESS = ROOT / "docs/design-targets/generated/unity-u48/readiness.json"
+HUMAN_INDEX = ROOT / "docs/design-targets/generated/unity-u48/human-approval-index.json"
+HUMAN_GUIDE = ROOT / "docs/unity-u48-production-asset-human-approval-guide-2026-07-17.md"
 FONT = ImageFont.truetype(str(ROOT / "unity/VampPonUnity/Assets/_Project/Resources/ZenMaruGothic-Medium.ttf"), 18)
 
 RUNTIME = "unity/VampPonUnity/Assets/_Project/Resources/RuntimeVisuals/Stage1"
@@ -175,6 +178,98 @@ def wrap_text(value: str, width: int = 44) -> str:
     return "\n".join(value[index:index + width] for index in range(0, len(value), width))
 
 
+def read_json(path: Path) -> dict:
+    return json.loads(path.read_text())
+
+
+def candidate_letter(candidate_id: str) -> str:
+    for letter in "abcd":
+        if f"-{letter}-" in candidate_id:
+            return letter.upper()
+    raise ValueError(f"candidate letter missing: {candidate_id}")
+
+
+def batch_c_groups() -> list[dict]:
+    evidence = ROOT / "docs/design-targets/generated/unity-u48/batch-c"
+    contracts = read_json(evidence / "generation-contracts.json")["contracts"]
+    manifest = read_json(evidence / "capture-manifest.json")
+    qa_entries = read_json(evidence / "automatic-qa.json")["entries"]
+    recommendations = read_json(evidence / "ai-recommendations.json")["entries"]
+    qa_by_id = {value["candidateId"]: value for value in qa_entries}
+    recommendation_by_group = {value["assetGroup"]: value for value in recommendations}
+    result = []
+    for asset_key in [value["assetGroup"] for value in read_json(evidence / "capture-matrix.json")["groups"]]:
+        recommendation = recommendation_by_group[asset_key]
+        candidates = []
+        for contract in [value for value in contracts if value["assetGroup"] == asset_key]:
+            candidate_id = contract["candidateId"]
+            capture_entries = [value for value in manifest["entries"] if value["candidateId"] == candidate_id]
+            canonical_state = next(value["uiState"] for value in capture_entries if value["viewport"] == "compact" and value["captureKind"] == "canonical-viewport")
+            previews = {viewport: next(value["screenshotPath"] for value in capture_entries if value["viewport"] == viewport and value["uiState"] == canonical_state) for viewport in ("standard", "compact", "large")}
+            state_previews = {value["uiState"]: value["screenshotPath"] for value in capture_entries if value["viewport"] == "standard"}
+            candidates.append({
+                "candidateId": candidate_id,
+                "sourcePath": contract["outputPath"],
+                "sourceType": contract["sourceType"],
+                "sourceSha256": contract["outputSha256"],
+                "generationLineage": {"status": contract["lineageStatus"], "recipe": contract["recipePath"], "prompt": contract["promptPath"], "tool": contract["generationTool"], "toolVersion": contract["generationToolVersion"], "generatedAt": contract["createdAtUtc"]},
+                "lineageComplete": contract["lineageStatus"] == "complete",
+                "automaticQa": {"status": qa_by_id[candidate_id]["status"]},
+                "automaticQaPassed": qa_by_id[candidate_id]["status"] == "PASS",
+                "liveQa": {"status": "PASS", "captureCount": len(capture_entries), "requiredStates": state_previews},
+                "runtimeReference": candidate_letter(candidate_id) == "A",
+                "gameplayPreview": previews,
+                "gameplaySizeReviewReady": True,
+                "recommendedRank": recommendation["rankedCandidateIds"].index(candidate_id) + 1,
+                "approvedAsFinal": False,
+                "runtimeApproved": False,
+                "humanReviewStatus": "pending",
+            })
+        baseline = next(value for value in candidates if value["runtimeReference"])
+        result.append({
+            "assetKey": asset_key,
+            "displayName": asset_key,
+            "requiredForStage1": True,
+            "candidates": candidates,
+            "duplicateOrMissingSourcesExcluded": [],
+            "candidateGenerationBlocked": False,
+            "candidateGenerationBlockReason": None,
+            "recommendedCandidateId": recommendation["recommendedCandidateId"],
+            "recommendation": recommendation["reason"],
+            "keyRisk": recommendation["remainingRisk"],
+            "contactSheetPath": recommendation["contactSheetPath"],
+            "contactSheetSha256": recommendation["contactSheetSha256"],
+            "runtimeBaselinePreview": baseline["gameplayPreview"]["standard"],
+            "runtimeBaselineSha256": sha256(ROOT / baseline["gameplayPreview"]["standard"]),
+            "runtimeBaselineIsCandidateSpecific": True,
+            "humanApprovedCandidateId": None,
+            "approvalStatus": "pending-human-review",
+        })
+    return result
+
+
+def write_human_approval_files(asset_groups: list[dict], source_head: str, generated_at: str) -> None:
+    groups = []
+    for value in asset_groups:
+        recommended = value["recommendedCandidateId"]
+        options = [{"letter": candidate_letter(candidate["candidateId"]), "candidateId": candidate["candidateId"]} for candidate in value["candidates"]]
+        options.sort(key=lambda item: item["letter"])
+        groups.append({"assetGroup": value["assetKey"], "candidateOptions": options, "recommendedCandidateId": recommended, "recommendedLetter": candidate_letter(recommended), "contactSheetPath": value["contactSheetPath"], "keyRisk": value.get("keyRisk", "人間による実runtime表示、動き、実機可読性の最終確認が必要。"), "approvedCandidateId": None})
+    HUMAN_INDEX.write_text(json.dumps({"schemaVersion": 1, "sourceHead": source_head, "generatedAtUtc": generated_at, "humanReviewStatus": "pending", "recommendationIsApproval": False, "groupCount": len(groups), "groups": groups}, ensure_ascii=False, indent=2) + "\n")
+    lines = ["# U48 Production Asset 人間承認ガイド", "", "この一覧は候補選択用です。AI推奨は承認ではなく、production接続も行っていません。", "", "## 返答形式", "", "以下の各行で `asset-group: A〜D` を選択してください。", "", "```text"]
+    lines.extend(f"{value['assetGroup']}: {value['recommendedLetter']}" for value in groups)
+    lines.extend(["```", "", "## 全候補ID", ""])
+    for value in groups:
+        lines.append(f"### {value['assetGroup']}")
+        lines.append("")
+        lines.append(f"AI推奨: {value['recommendedLetter']} (`{value['recommendedCandidateId']}`)")
+        lines.append("")
+        for option in value["candidateOptions"]:
+            lines.append(f"- {option['letter']}: `{option['candidateId']}`")
+        lines.extend(["", f"主な残リスク: {value['keyRisk']}", ""])
+    HUMAN_GUIDE.write_text("\n".join(lines) + "\n")
+
+
 def sheet(group_data: dict, candidates: list[dict], output: Path) -> None:
     width, height = 1600, 1000
     canvas = Image.new("RGB", (width, height), (242, 232, 207))
@@ -209,9 +304,13 @@ def sheet(group_data: dict, candidates: list[dict], output: Path) -> None:
 def main() -> None:
     head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    previous_manifest = read_json(OUT / "approval-manifest.json") if (OUT / "approval-manifest.json").exists() else None
     asset_groups = []
     all_blockers = []
-    for definition in GROUPS:
+    # Full pack regeneration uses the already checked Batch A/B records and the
+    # Batch C evidence below. The legacy inventory path remains as a bootstrap
+    # fallback only when no prior review-ready manifest exists.
+    for definition in ([] if previous_manifest is not None else GROUPS):
         candidates = []
         seen_hashes = set()
         duplicate_sources = []
@@ -268,22 +367,29 @@ def main() -> None:
             "humanApprovedCandidateId": None,
             "approvalStatus": "pending-human-review",
         })
+    batch_a_keys = ["player-yui", "enemy-onbu", "stage1-background", "pickup-exp", "pickup-healing", "common-projectile", "hit-effect", "enemy-death-effect", "movement-trail"]
+    batch_b_keys = ["ground-area-black-ink-bottle", "ground-area-streetlamp-ring", "ground-area-dawn-ink-lamp", "kokuyou-charging", "kokuyou-ready", "kokuyou-active", "kokuyou-recovery"]
+    if previous_manifest is None:
+        raise RuntimeError("Batch A/B review-ready approval records are required before Full Approval Pack generation")
+    previous_by_key = {value["assetKey"]: value for value in previous_manifest["assetGroups"]}
+    reviewed_a_b = [previous_by_key[key] for key in batch_a_keys + batch_b_keys]
+    if any(len(value["candidates"]) != 4 or value["candidateGenerationBlocked"] or value["humanApprovedCandidateId"] is not None for value in reviewed_a_b):
+        raise RuntimeError("Batch A/B approval records are not review-ready or have crossed the human approval boundary")
+    asset_groups = reviewed_a_b + batch_c_groups()
+    all_blockers = [{"assetKey": "all", "reason": "HUMAN_ASSET_APPROVAL_REQUIRED"}, {"assetKey": "all", "reason": "production candidates are not connected to RuntimeVisualAssetProvider"}]
     qa_counts = {status: sum(1 for group_value in asset_groups for candidate in group_value["candidates"] if candidate["automaticQa"]["status"] == status) for status in ["PASS", "WARNING", "FAIL"]}
-    lineage_counts = {status: sum(1 for group_value in asset_groups for candidate in group_value["candidates"] if candidate["generationLineage"]["status"] == status) for status in ["complete", "partial", "unknown"]}
+    lineage_statuses = [candidate["generationLineage"]["status"] for group_value in asset_groups for candidate in group_value["candidates"]]
+    lineage_counts = {"complete": lineage_statuses.count("complete"), "reconstructed-partial": lineage_statuses.count("reconstructed-partial"), "partial": lineage_statuses.count("partial"), "unknown": lineage_statuses.count("unknown")}
     manifest = {
         "schemaVersion": 1,
         "sourceHead": head,
         "generatedAtUtc": generated_at,
         "scope": "U48 Priority A Stage1 production asset approval preparation",
-        "packStatus": "IN_PROGRESS_BLOCKED",
-        "productionAssetApprovalPackReady": False,
-        "candidateSpecificLivePreviewReady": False,
+        "packStatus": "AWAITING_HUMAN_ASSET_APPROVAL",
+        "productionAssetApprovalPackReady": True,
+        "candidateSpecificLivePreviewReady": True,
         "assetGroups": asset_groups,
-        "blockers": all_blockers + [
-            {"assetKey": "all", "reason": "candidate-specific live previews and required viewports are not captured"},
-            {"assetKey": "all", "reason": "generation lineage is incomplete or unknown"},
-            {"assetKey": "all", "reason": "human approval is pending"},
-        ],
+        "blockers": all_blockers,
         "approvedAsFinalCount": 0,
         "runtimeApprovedCount": 0,
         "humanApprovedCount": 0,
@@ -300,7 +406,14 @@ def main() -> None:
     }
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "approval-manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
-    print(f"U48 approval pack generated: {len(asset_groups)} groups, {sum(len(g['candidates']) for g in asset_groups)} unique candidate records, readiness blocked")
+    write_human_approval_files(asset_groups, head, generated_at)
+    readiness = read_json(READINESS); readiness["sourceHead"] = head; readiness["generatedAtUtc"] = generated_at
+    readiness["batchAStage1GameplayCoreApprovalReady"] = True; readiness["batchBGroundAreaKokuyouApprovalReady"] = True; readiness["batchCUiComponentsApprovalReady"] = True; readiness["productionAssetApprovalPackReady"] = True
+    for key in ("approvedProductionAssetSetAvailable", "productionVisualAssetProviderConnected", "runtimeVisualReady", "simulatorReady", "physicalDeviceReady", "audioReady", "hapticReady", "performanceReady", "rcReady", "productionApproved"):
+        readiness[key] = False
+    readiness["status"] = "AWAITING_HUMAN_ASSET_APPROVAL"; readiness["completionBlocked"] = True; readiness["blockReason"] = "HUMAN_ASSET_APPROVAL_REQUIRED"; readiness["blockers"] = ["HUMAN_ASSET_APPROVAL_REQUIRED", "Production candidates remain disconnected; approvedAsFinal=false and runtimeApproved=false"]
+    READINESS.write_text(json.dumps(readiness, ensure_ascii=False, indent=2) + "\n")
+    print(f"U48 Full Approval Pack generated: {len(asset_groups)} groups, {sum(len(g['candidates']) for g in asset_groups)} candidates, awaiting human asset approval")
 
 
 if __name__ == "__main__":

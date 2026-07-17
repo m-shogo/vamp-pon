@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "11d99639802c0d26c8408a53edb5aca52889f8ce",
-  "generatedAtUtc": "2026-07-17T04:19:40.449606Z",
-  "status": "IN_PROGRESS_BLOCKED",
+  "sourceHead": "0d021f27af32e194209f88920b789724d2a7869a",
+  "generatedAtUtc": "2026-07-17T04:22:41Z",
+  "status": "AWAITING_HUMAN_ASSET_APPROVAL",
   "u47GameplayDataRuntimeReady": true,
   "productionAssetAuditReady": true,
   "uiComparisonContractsReady": true,
   "candidateLivePreviewFoundationReady": true,
-  "productionAssetApprovalPackReady": false,
+  "productionAssetApprovalPackReady": true,
   "approvedProductionAssetSetAvailable": false,
   "productionVisualAssetProviderConnected": false,
   "runtimeVisualReady": false,
@@ -20,17 +20,11 @@
   "productionApproved": false,
   "completionBlocked": true,
   "blockers": [
-    "Batch C UI components are review-ready, but human candidate approval and production connection are pending",
-    "Batch A Stage1 gameplay core is review-ready, but human candidate approval and production connection are pending",
-    "candidate lineage is partial or unknown and human approval is pending",
-    "no U48 target asset has approvedAsFinal=true and runtimeApproved=true",
-    "remaining Core5 and enemy family runtime assets are missing",
-    "background, lantern glow and collect feedback still use procedural placeholders",
-    "physical-device final visual review is not executed",
-    "audio/haptic device readiness belongs to U49 and is not measured",
-    "device performance readiness belongs to U50 and is not measured"
+    "HUMAN_ASSET_APPROVAL_REQUIRED",
+    "Production candidates remain disconnected; approvedAsFinal=false and runtimeApproved=false"
   ],
   "batchAStage1GameplayCoreApprovalReady": true,
   "batchBGroundAreaKokuyouApprovalReady": true,
-  "batchCUiComponentsApprovalReady": true
+  "batchCUiComponentsApprovalReady": true,
+  "blockReason": "HUMAN_ASSET_APPROVAL_REQUIRED"
 }

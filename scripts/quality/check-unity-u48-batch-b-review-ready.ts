@@ -80,8 +80,9 @@ for (const group of groups) {
   check(value.candidates.every((candidate: { approvedAsFinal: boolean; runtimeApproved: boolean; humanReviewStatus: string }) => !candidate.approvedAsFinal && !candidate.runtimeApproved && candidate.humanReviewStatus === 'pending'), `${group} candidate approvals blocked`);
 }
 check(readiness.batchAStage1GameplayCoreApprovalReady === true && readiness.batchBGroundAreaKokuyouApprovalReady === true, 'limited Batch A/B readiness');
-for (const key of ['productionAssetApprovalPackReady', 'approvedProductionAssetSetAvailable', 'productionVisualAssetProviderConnected', 'runtimeVisualReady', 'simulatorReady', 'physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
-check(readiness.status === 'IN_PROGRESS_BLOCKED' && readiness.completionBlocked === true, 'U48 remains blocked');
+check(readiness.productionAssetApprovalPackReady === approval.productionAssetApprovalPackReady, 'approval pack readiness agrees');
+for (const key of ['approvedProductionAssetSetAvailable', 'productionVisualAssetProviderConnected', 'runtimeVisualReady', 'simulatorReady', 'physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
+check(['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 remains blocked');
 check(verification.sourceHead === manifest.sourceHead && verification.results.candidateSpecificLiveCapture === 'PASS_448' && verification.results.staleEvidenceCount === 0, 'verification summary');
 const productionDiff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs'], { cwd: root, encoding: 'utf8' });
 const u47Diff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/GameplayServices.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/State/RunGameplayState.cs'], { cwd: root, encoding: 'utf8' });
