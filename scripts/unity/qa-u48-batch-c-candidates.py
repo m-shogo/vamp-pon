@@ -98,6 +98,12 @@ def main() -> None:
     slug = "-".join(sorted(owners)) if owners else "all"
     output_path = EVIDENCE / ("automatic-qa.json" if owners is None else f"automatic-qa-{slug}.json")
     output = {"schemaVersion": 1, "sourceHead": source["sourceHead"], "batch": "C", "scopeOwners": sorted(owners) if owners else ["all"], "generatedAtUtc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"), "candidateCount": len(entries), "duplicateContentHashCount": len(duplicate_hashes), "duplicateGuidCount": len(duplicate_guids), "summary": counts, "entries": entries}
+    if output_path.exists():
+        previous = json.loads(output_path.read_text())
+        previous_without_time = {key: value for key, value in previous.items() if key != "generatedAtUtc"}
+        output_without_time = {key: value for key, value in output.items() if key != "generatedAtUtc"}
+        if previous_without_time == output_without_time:
+            output["generatedAtUtc"] = previous["generatedAtUtc"]
     output_path.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n")
     print(f"U48 Batch C QA ({slug}): candidates={len(entries)}, PASS={counts['PASS']}, WARNING={counts['WARNING']}, FAIL={counts['FAIL']}, duplicate hash={len(duplicate_hashes)}, duplicate GUID={len(duplicate_guids)}")
     if counts["FAIL"]:
