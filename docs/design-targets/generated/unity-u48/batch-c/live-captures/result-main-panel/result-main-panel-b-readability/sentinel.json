@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "result-main-panel",
+  "candidateId": "result-main-panel-b-readability",
+  "captureStarted": true,
+  "captureCompleted": true,
+  "expectedCaptureCount": 4,
+  "actualCaptureCount": 4,
+  "requiredStateCount": 10,
+  "reachedStates": ["actual-result","max-inventory","replacement-after-state","evolution","awakening","rare","retry","return","longest-registry-name","maximum-canonical-content"],
+  "productionCapacity": {"weapon":5,"passive":5,"rare":2},
+  "verificationCapacity": {"weapon":2,"passive":3,"rare":2},
+  "verificationCapacityUsed": true,
+  "cleanupCompleted": true,
+  "runtimeContractUnchanged": true,
+  "finalFlowState": "Result",
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

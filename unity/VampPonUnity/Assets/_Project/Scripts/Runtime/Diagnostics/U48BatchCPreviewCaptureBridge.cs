@@ -6,12 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VampPon.UnitySpike.Runtime;
 using VampPon.UnitySpike.Runtime.AppFlow;
 using VampPon.UnitySpike.Runtime.Gameplay;
 using VampPon.UnitySpike.Runtime.Gameplay.State;
 using VampPon.UnitySpike.Runtime.Visuals;
+using VampPon.UnitySpike.UI;
 using VampPon.UnitySpike.U4;
 
 namespace VampPon.UnitySpike.Diagnostics
@@ -90,9 +92,13 @@ namespace VampPon.UnitySpike.Diagnostics
             {
                 if (capturedStandardStates.Contains(state)) continue;
                 ApplyComparisonState(state);
-                ApplyViewport(390, 844); yield return null; yield return new WaitForEndOfFrame();
+                ApplyViewport(390, 844); yield return null;
+                var pressedButton = state == "pressed" ? BeginPressedUnityButtonState() : null;
+                if (pressedButton != null) yield return new WaitForSecondsRealtime(.12f);
+                yield return new WaitForEndOfFrame();
                 var id = $"{entry.candidateId}--standard--component-state-{state}";
                 yield return Capture(Path.Combine(screenshotsDirectory, id + ".ppm"), 390, 844);
+                EndPressedUnityButtonState(pressedButton);
                 WriteResult(Path.Combine(resultsDirectory, id + ".json"), "standard", 390, 844, "component-required-state", state); captures++;
                 capturedStandardStates.Add(state);
             }
@@ -276,8 +282,30 @@ namespace VampPon.UnitySpike.Diagnostics
         private static PaperButton FindPaperButton(string name) => FindObjectsByType<PaperButton>(FindObjectsInactive.Include).FirstOrDefault(value => value.gameObject.name == name);
         private static PaperButton[] Slots() => FindObjectsByType<PaperButton>(FindObjectsInactive.Exclude).Where(value => value.gameObject.name.StartsWith("ReplacementSlotButton_", StringComparison.Ordinal)).OrderBy(value => value.gameObject.name).ToArray();
 
+        private Button BeginPressedUnityButtonState()
+        {
+            var buttonName = entry.assetGroup switch
+            {
+                "result-retry-button" => "RetryButton",
+                "result-return-button" => "StageSelectButton",
+                "stage-select-primary-button" => "StartStageButton",
+                _ => null
+            };
+            if (buttonName == null) return null;
+            var button = FindObjectsByType<Button>(FindObjectsInactive.Exclude).FirstOrDefault(value => value.name == buttonName);
+            if (button == null || !button.IsInteractable()) throw new InvalidOperationException("Pressed comparison target is unavailable: " + buttonName);
+            button.OnPointerDown(new PointerEventData(EventSystem.current));
+            return button;
+        }
+
+        private static void EndPressedUnityButtonState(Button button)
+        {
+            if (button != null) button.OnPointerUp(new PointerEventData(EventSystem.current));
+        }
+
         private void ApplyComparisonState(string state)
         {
+            ApplyStageCardComparisonState(state);
             var selected = state is "selected" or "completed" or "occupied" or "clear";
             var disabled = state is "disabled" or "empty" or "failed";
             var pressed = state == "pressed";
@@ -300,6 +328,24 @@ namespace VampPon.UnitySpike.Diagnostics
                 if (button.name == "StartStageButton" || button.name == "RetryButton" || button.name == "StageSelectButton")
                     button.interactable = !disabled;
             }
+        }
+
+        private void ApplyStageCardComparisonState(string state)
+        {
+            if (entry.assetGroup != "stage-select-stage-card") return;
+            var card = FindObjectsByType<Image>(FindObjectsInactive.Exclude).FirstOrDefault(value => value.name == "Stage1Card");
+            if (card == null) throw new InvalidOperationException("Stage1 comparison card is unavailable.");
+            var visualState = state switch
+            {
+                "locked" => UiVisualState.Locked,
+                "selected" => UiVisualState.Selected,
+                "completed" => UiVisualState.Completed,
+                _ => UiVisualState.Normal
+            };
+            var style = UiThemeRuntime.Resolve(visualState);
+            card.color = style.Background;
+            card.rectTransform.localScale = Vector3.one * style.Scale;
+            foreach (var label in card.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true)) label.color = style.Text;
         }
 
         private void WriteResult(string path, string viewport, int width, int height, string kind, string state)

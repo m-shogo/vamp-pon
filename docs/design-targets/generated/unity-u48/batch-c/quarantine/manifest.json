@@ -115,6 +115,66 @@
       "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
       "reason": "complete",
       "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T035949125841Z/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced"
+    },
+    {
+      "candidateId": "result-retry-button-a-runtime-baseline",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040909251987Z/result-retry-button/result-retry-button-a-runtime-baseline"
+    },
+    {
+      "candidateId": "result-retry-button-b-readability",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040917463335Z/result-retry-button/result-retry-button-b-readability"
+    },
+    {
+      "candidateId": "result-retry-button-c-paper-ink",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040925094866Z/result-retry-button/result-retry-button-c-paper-ink"
+    },
+    {
+      "candidateId": "result-retry-button-d-production-balanced",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040932698095Z/result-retry-button/result-retry-button-d-production-balanced"
+    },
+    {
+      "candidateId": "result-return-button-a-runtime-baseline",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040940304353Z/result-return-button/result-return-button-a-runtime-baseline"
+    },
+    {
+      "candidateId": "result-return-button-b-readability",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040947885563Z/result-return-button/result-return-button-b-readability"
+    },
+    {
+      "candidateId": "result-return-button-c-paper-ink",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T040955565539Z/result-return-button/result-return-button-c-paper-ink"
+    },
+    {
+      "candidateId": "result-return-button-d-production-balanced",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T041003166025Z/result-return-button/result-return-button-d-production-balanced"
+    },
+    {
+      "candidateId": "stage-select-stage-card-a-runtime-baseline",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T041422905744Z/stage-select-stage-card/stage-select-stage-card-a-runtime-baseline"
+    },
+    {
+      "candidateId": "stage-select-stage-card-b-readability",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T041428492424Z/stage-select-stage-card/stage-select-stage-card-b-readability"
+    },
+    {
+      "candidateId": "stage-select-stage-card-c-paper-ink",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T041433492757Z/stage-select-stage-card/stage-select-stage-card-c-paper-ink"
+    },
+    {
+      "candidateId": "stage-select-stage-card-d-production-balanced",
+      "reason": "complete",
+      "path": "docs/design-targets/generated/unity-u48/batch-c/quarantine/20260717T041438513195Z/stage-select-stage-card/stage-select-stage-card-d-production-balanced"
     }
   ]
 }

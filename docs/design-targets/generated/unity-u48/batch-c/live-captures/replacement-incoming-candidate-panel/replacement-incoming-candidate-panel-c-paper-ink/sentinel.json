@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "replacement-incoming-candidate-panel",
+  "candidateId": "replacement-incoming-candidate-panel-c-paper-ink",
+  "captureStarted": true,
+  "captureCompleted": true,
+  "expectedCaptureCount": 5,
+  "actualCaptureCount": 5,
+  "requiredStateCount": 15,
+  "reachedStates": ["modal-open","no-selection-confirm-disabled","incoming-candidate","owned-slot-rows","cancel-before-selection","close-cleanup","reopen-selection-null","cancel-after-selection","selected-row","confirm-enabled","weapon-before-confirm","confirm-pressed","weapon-after-confirm","passive-before-confirm","passive-after-confirm"],
+  "productionCapacity": {"weapon":5,"passive":5,"rare":2},
+  "verificationCapacity": {"weapon":2,"passive":3,"rare":2},
+  "verificationCapacityUsed": true,
+  "cleanupCompleted": true,
+  "runtimeContractUnchanged": true,
+  "finalFlowState": "Running",
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

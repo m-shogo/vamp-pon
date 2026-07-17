@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "stage-select-title-frame",
+  "candidateId": "stage-select-title-frame-b-readability",
+  "captureStarted": true,
+  "captureCompleted": true,
+  "expectedCaptureCount": 4,
+  "actualCaptureCount": 4,
+  "requiredStateCount": 12,
+  "reachedStates": ["initial-open","unlocked","no-selection-disabled","selected-unlocked","button-default-enabled","button-pressed-enabled","locked","selected-locked","locked-selection-disabled","unimplemented-disabled","live-runtime-longest-canonical-title","live-runtime-maximum-canonical-metadata"],
+  "productionCapacity": {"weapon":5,"passive":5,"rare":2},
+  "verificationCapacity": {"weapon":2,"passive":3,"rare":2},
+  "verificationCapacityUsed": false,
+  "cleanupCompleted": true,
+  "runtimeContractUnchanged": true,
+  "finalFlowState": "StageSelect",
+  "unhandledExceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}
