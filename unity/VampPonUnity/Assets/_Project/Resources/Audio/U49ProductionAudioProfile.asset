@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8076889235fe34d66843e796705188bd, type: 3}
+  m_Name: U49ProductionAudioProfile
+  m_EditorClassIdentifier: Assembly-CSharp::VampPon.UnitySpike.U49.AudioHaptic.U49ProductionAudioProfile
+  mixer: {fileID: 24100000, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  masterGroup: {fileID: 24300002, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  bgmGroup: {fileID: 9111487179776315363, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  seGroup: {fileID: -8273940003126246943, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  uiGroup: {fileID: -4458293362740694471, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  battleGroup: {fileID: 940855861528184386, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  pickupGroup: {fileID: -1758289721966785818, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  climaxGroup: {fileID: 7759942590856693852, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  resultGroup: {fileID: -5957146396064879614, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  stageSelectGroup: {fileID: 596977535961823739, guid: 285ca9cf15fa745b2b21ba21f28bee11, type: 2}
+  eventClips:
+  - eventId: 0
+    clip: {fileID: 8300000, guid: 7c8e1b2b6064848ccb224c9d71af5e07, type: 3}
+  - eventId: 5
+    clip: {fileID: 8300000, guid: 9dddf9f05b01c4e158563796c54dfc6c, type: 3}
+  - eventId: 6
+    clip: {fileID: 8300000, guid: dfd8c59cf48cd40a5bd03f737106b22d, type: 3}
+  - eventId: 7
+    clip: {fileID: 8300000, guid: 8572560148d91415d9c2cd1fbfc161b2, type: 3}
+  - eventId: 10
+    clip: {fileID: 8300000, guid: f322cff0a17b842268bbe706bdb5d02f, type: 3}
+  - eventId: 12
+    clip: {fileID: 8300000, guid: d10b239819c0f4524a0fcd8ba286b17a, type: 3}
+  - eventId: 13
+    clip: {fileID: 8300000, guid: 38be575cbec394b40a8c32973c14fa68, type: 3}
+  - eventId: 8
+    clip: {fileID: 8300000, guid: cf3414d1ce5884c46b0cc7b67bb0f4b5, type: 3}
+  - eventId: 3
+    clip: {fileID: 8300000, guid: 993681ad6d7704529b18c83ddefbfdc8, type: 3}
+  - eventId: 4
+    clip: {fileID: 8300000, guid: 098c25ccfe9e942828b278e0e8fed839, type: 3}
+  - eventId: 2
+    clip: {fileID: 8300000, guid: afa4805c2868f4e4e90a2716b81650c3, type: 3}
+  - eventId: 15
+    clip: {fileID: 8300000, guid: c512157379fce4d5a9f7da5b02b61aab, type: 3}
+  - eventId: 16
+    clip: {fileID: 8300000, guid: 590ec920864fb4c7b8826bb4fb7cbc13, type: 3}
+  - eventId: 17
+    clip: {fileID: 8300000, guid: 33fdba8a9560e44e19410437d67a215a, type: 3}
+  - eventId: 18
+    clip: {fileID: 8300000, guid: bcd557cbf9d774707aa724cf27c7d6cf, type: 3}
+  - eventId: 20
+    clip: {fileID: 8300000, guid: cb18c9d8607fe4e59b947dbaf52f90bc, type: 3}
+  - eventId: 22
+    clip: {fileID: 8300000, guid: ccef04c6021124a01b1fcd127a26fb53, type: 3}
+  - eventId: 23
+    clip: {fileID: 8300000, guid: 75f13ee1872cc4d1f9d41737eec2be36, type: 3}
+  - eventId: 24
+    clip: {fileID: 8300000, guid: 9915297a97ce54aa09662a07472051dd, type: 3}
+  - eventId: 25
+    clip: {fileID: 8300000, guid: 0c63a210cf502475aa2fd29a88e8d191, type: 3}
+  - eventId: 26
+    clip: {fileID: 8300000, guid: c54ae47f4902e4de78c2c70e6f6e6ff6, type: 3}
+  - eventId: 27
+    clip: {fileID: 8300000, guid: dca4f72f53c39403090f75f3bf7bb972, type: 3}
+  defaultBgmVolume: 0.65
+  defaultSeVolume: 0.78
+  defaultUiVolume: 0.82

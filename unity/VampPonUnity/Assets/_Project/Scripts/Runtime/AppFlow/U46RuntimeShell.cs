@@ -146,7 +146,14 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
 #endif
             if (stageSelect != null) stageSelect.gameObject.SetActive(state == AppFlowState.StageSelect);
             if (collection != null && state == AppFlowState.Collection) collection.Show(); else if (collection != null) collection.gameObject.SetActive(false);
-            if (result != null && state == AppFlowState.Result) result.Show(flow.LastResult); else if (result != null) result.gameObject.SetActive(false);
+            if (result != null && state == AppFlowState.Result)
+            {
+                result.Show(flow.LastResult);
+                U43RuntimeFeedbackBridge.Instance?.PlayResult();
+                if (flow.LastResult?.rewardIds?.Count > 0) U43RuntimeFeedbackBridge.Instance?.PlayRewardCard();
+                if (flow.LastResult?.newlyUnlockedIds?.Count > 0) U43RuntimeFeedbackBridge.Instance?.PlayUnlockReveal();
+            }
+            else if (result != null) result.gameObject.SetActive(false);
         }
 
         private void ApplyPause(bool pausedState)

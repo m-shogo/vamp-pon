@@ -32,8 +32,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             lastCompletedArea=null;verificationArea=null;verificationSuppressWeaponSpawns=false;
 #endif
             Run.Reset(registry, scenarioOptions); statCalculator.Recalculate(Run, registry); ApplyPlayerStats(); RuntimeChanged?.Invoke(); }
-        public bool ActivateKokuyou() => kokuyou.Activate(Run, runtimePaused);
-        public DamageOutcome ApplyPlayerDamage(float amount) { var result = Damage.Apply(Run, amount, runtimePaused); statCalculator.Recalculate(Run, registry); ApplyPlayerStats(); return result; }
+        public bool ActivateKokuyou() { var activated = kokuyou.Activate(Run, runtimePaused); if (activated) U43RuntimeFeedbackBridge.Instance?.PlayKokuyou(); return activated; }
+        public DamageOutcome ApplyPlayerDamage(float amount) { var before = Run.Kokuyou.Phase; var result = Damage.Apply(Run, amount, runtimePaused); if (result != DamageOutcome.Blocked) U43RuntimeFeedbackBridge.Instance?.PlayPlayerDamage(); if (before != KokuyouPhase.Ready && Run.Kokuyou.Phase == KokuyouPhase.Ready) U43RuntimeFeedbackBridge.Instance?.PlayKokuyouReady(); statCalculator.Recalculate(Run, registry); ApplyPlayerStats(); return result; }
         private void OnDestroy() { if (battle != null) battle.ExperienceCollected -= OnExperienceCollected; if (Run != null) Run.Changed -= OnRunChanged; }
         private void OnRunChanged() => RuntimeChanged?.Invoke();
         public List<LevelUpChoice> CreateLevelUpChoices(int seed) => CandidateService.CreateChoices(Run, new SeededRandomSource(seed));
@@ -63,7 +63,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
         private void Update()
         {
             if (Run == null || runtimePaused) return; var dt = Time.deltaTime; if (Run.Player.RevivalInvulnerabilityRemaining > 0) Run.Player.RevivalInvulnerabilityRemaining = Mathf.Max(0, Run.Player.RevivalInvulnerabilityRemaining - dt); if (Run.Player.RecoverySlowRemaining > 0) Run.Player.RecoverySlowRemaining = Mathf.Max(0, Run.Player.RecoverySlowRemaining - dt);
-            kokuyou.Tick(Run, dt, false); statCalculator.Recalculate(Run, registry); ApplyPlayerStats(); TickWeapons(dt); TickAreas(dt);
+            var previousKokuyouPhase = Run.Kokuyou.Phase; kokuyou.Tick(Run, dt, false); if (previousKokuyouPhase == KokuyouPhase.Active && Run.Kokuyou.Phase == KokuyouPhase.Ending) U43RuntimeFeedbackBridge.Instance?.PlayKokuyouEnding(); statCalculator.Recalculate(Run, registry); ApplyPlayerStats(); TickWeapons(dt); TickAreas(dt);
         }
 
         private void TickWeapons(float dt)

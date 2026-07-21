@@ -104,9 +104,9 @@ check('Battle update pause gate exists', /private bool runtimePaused = true;/.te
 check('Overlay movement input blocked', /SetRuntimeInputBlocked\(paused(State)?\)/.test(runtime) && /public void SetRuntimeInputBlocked\(bool blocked\)/.test(runtime) && /if \(runtimeInputBlocked\)[\s\S]*return;/.test(runtime));
 check('UI tap movement collision guard exists', runtime.includes('EventSystem.current.IsPointerOverGameObject') && runtime.includes('IsPointerOverUi') && runtime.includes('dragging = false'));
 check('Virtual stick lower-left only', runtime.includes('Screen.width * 0.42f') && runtime.includes('Screen.height * 0.34f'));
-check('Audio listener/source implemented', runtime.includes('AudioListener') && runtime.includes('AudioSource') && runtime.includes('PlayOneShot'));
-check('Haptic runtime hook implemented', runtime.includes('Handheld.Vibrate') && runtime.includes('HapticRuntimeHookReady'));
-check('Feedback bridge boundary explicit', runtime.includes('UsesRuntimeHookToneOnly') && runtime.includes('AudioMixerReady => false') && runtime.includes('AudioLatencyMeasured => false') && runtime.includes('HapticMeasured => false') && runtime.includes('not final SE') && runtime.includes('final haptic design stays separate'));
+check('Audio listener/source implemented', runtime.includes('AudioListener') && runtime.includes('AudioSource') && (runtime.includes('PlayOneShot') || (runtime.includes('PlayScheduled') && runtime.includes('U49ProductionAudioProfile'))));
+check('Haptic runtime hook implemented', runtime.includes('HapticRuntimeHookReady') && (runtime.includes('Handheld.Vibrate') || (runtime.includes('VP_Haptics_Play') && runtime.includes('IU28HapticPlatformAdapter'))));
+check('Feedback bridge boundary explicit', runtime.includes('UsesRuntimeHookToneOnly => false') && runtime.includes('AudioMixerAssetConnected') && runtime.includes('AudioMixerReady => false') && runtime.includes('AudioLatencyMeasured => false') && runtime.includes('HapticMeasured => false'));
 check('Battle feedback hooks implemented', runtime.includes('SetRuntimeFeedbackBridge') && runtime.includes('PlayPickup') && runtime.includes('PlayEnemyHit'));
 check('LevelUp tap hooks implemented', runtime.includes('PlayLevelUp') && runtime.includes('PaperCard') && runtime.includes('PlayButtonTapIfAvailable'));
 check('Runtime player dot object named', runtime.includes('YuiRuntimeDotCharacter'));

@@ -358,7 +358,8 @@ namespace VampPon.UnitySpike.Editor
                                      (stageSelect == null || !stageSelect.activeInHierarchy);
             audioHookEditorReady = bridge != null &&
                                    bridge.AudioRuntimeHookReady &&
-                                   bridge.UsesRuntimeHookToneOnly &&
+                                   !bridge.UsesRuntimeHookToneOnly &&
+                                   bridge.AudioMixerAssetConnected &&
                                    !bridge.AudioMixerReady &&
                                    !bridge.AudioLatencyMeasured &&
                                    bridge.AudioPlayCount > audioBefore;
