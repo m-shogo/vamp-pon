@@ -75,8 +75,10 @@ productionApproved=false
 - `docs/design-targets/generated/asset-generation-consistency/readiness.json`
 - `docs/design-targets/generated/unity-u46/ui-design-system-readiness.json`
 - `docs/design-targets/generated/unity-big-implementation/readiness.json`
-- `docs/design-targets/generated/unity-u48/batch-b/verification-summary.json`
-- `docs/design-targets/generated/unity-u48/batch-b/capture-manifest.json`
+- `docs/design-targets/generated/unity-u48/readiness.json`
+- `docs/design-targets/generated/unity-u48/approved-production-set.json`
+- `docs/design-targets/generated/unity-u48/production-visual-connection-verification.json`
+- `docs/design-targets/generated/unity-u48/production-verification/manifest.json`
 
 ## Current checks
 
@@ -88,7 +90,12 @@ pnpm unity:ui-design-system:check
 pnpm asset-generation:check
 pnpm unity:u45-ai-simulator-smoke:check
 pnpm unity:meta:check
-pnpm unity:u48-batch-b-review-ready:check
+pnpm unity:u47-gameplay-data-runtime:check
+pnpm unity:u48-production-asset-expansion:check
+pnpm unity:u48-approved-production-set:check
+pnpm unity:u48-production-visual-connection:check
+pnpm unity:u48-production-visual-verification:check
+pnpm unity:u49-actual-device-audio-haptic:check
 ```
 
 ## Historical documents

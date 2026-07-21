@@ -257,13 +257,14 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 | world terms and content DB | source dataあり |
 | Asset Generation Contract | foundationあり |
 | Golden Reference | global/UIあり、identityは段階登録 |
-| Runtime Visual Readiness | gateあり、character/enemy未ready |
+| Runtime Visual Readiness | U48 production visual scope ready / device・whole-app approvalは別 |
 | UI Design System | foundationあり、全画面移行は未完了 |
-| AppFlow/Pause production owner | 未実装 |
-| versioned SaveService | 未実装 |
-| production DataRegistry | 未実装 |
-| Result/Collection read model | 未実装 |
-| actual device/audio/haptic/performance | 未確認 |
+| AppFlow/Pause production owner | U46実装済み |
+| versioned SaveService | U46実装、U46.1 hardening済み |
+| production DataRegistry | U47実装済み |
+| Result/Collection read model | U46実装済み |
+| U48 production asset expansion | 46 asset / 138 Simulator captureで完了 |
+| actual device/audio/haptic/performance | U49開始時点では未確認 |
 | RC/production | false |
 
 ## Next implementation order

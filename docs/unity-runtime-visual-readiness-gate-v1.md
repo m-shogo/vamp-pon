@@ -40,7 +40,7 @@ runtime visualは必ず次のいずれかへ分類する。
 | `production-animated-sprite` | `approvedAsFinal=true`、`runtimeApproved=true`、production provider/registry、device gameplay-size review済み |
 | `production-approved` | production animationにfinal device visual reviewとrelease QAを加えた状態 |
 
-現在は `candidate-animated-multiple-sprite`。U45.1でproof routeを外し、実frameとanimatorを接続した。
+現在は `production-animated-sprite`。U48で承認済みproduction catalog/providerへ接続し、46 assetを138 Simulator captureで検証した。実機・音・振動・性能・RC・アプリ全体のproduction承認は別gateである。
 
 ## 証拠として認めないもの
 
@@ -202,22 +202,22 @@ Simulatorのroute smokeだけが成功しても、character/enemy visual readine
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
 simulatorCandidateAnimationVisualReviewPassed=true
-simulatorFinalArtApprovalProvided=false
+simulatorFinalArtApprovalProvided=true
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
 ```
 
-`runtimeVisualCandidateReady=true`は候補素材を使う実animation runtimeがStage1で動き、candidate visual reviewにP0/P1がないことを表す。
+`runtimeVisualCandidateReady=false`はU48のproduction promotion後にcandidate providerを製品経路から外したことを表す。
 
-`runtimeVisualReady=true`はfinal/runtime承認済みasset、production provider、device visual reviewが揃ったproduction visualだけに使用する。現在はfalse。
+`runtimeVisualReady=true`はfinal/runtime承認済みassetとproduction providerをU48 Simulator verificationで確認したproduction visual scopeだけに使用する。実機・音・振動・性能・RC・whole-app production承認を意味しない。
 
 ## Checker policy
 
@@ -229,7 +229,7 @@ pnpm unity:runtime-visual-readiness:check
 
 checkerは現在のruntime実装とreadiness JSONを照合する。
 
-現在proof providerが有効な間は、以下がfalseであることを必須とする。
+proof providerが有効な場合は、以下がfalseであることを必須とする。
 
 ```txt
 characterDotRuntimeReady
@@ -255,7 +255,7 @@ runtimeVisualReady
 
 ## 現在のフェーズ
 
-U45.1 Character and Enemy Dot Runtime Pass、Hardening、U46 AppFlow / Save / Result / 灯録 candidateは完了。現在はU47 gameplay data/runtime。candidate provider、animation、pause、readiness分離を維持する。
+U45.1 Character and Enemy Dot Runtime Pass、Hardening、U46/U46.1、U47、U48 production asset expansionは完了。現在はU49 actual-device audio/haptic。production visual provider、animation、pause、visual/device/audio readiness分離を維持する。
 
 ## Source of truth
 

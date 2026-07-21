@@ -92,7 +92,7 @@ U45.1とFoundation Gateを壊さず、非戦闘shellを製品品質化する。
 - Theme / Visual State / Responsive Profile / Base→Variantを使用する
 - Compact / Standard / Largeを確認する
 
-### U47 Gameplay Data Runtime
+### U47 Gameplay Data Runtime: Completed
 
 武器、持ち物、忘れ物、進化、黒耀化を段階接続する。
 
@@ -107,9 +107,13 @@ U45.1とFoundation Gateを壊さず、非戦闘shellを製品品質化する。
 
 人間承認46件を安定production pathへ昇格し、固定production catalogからruntime接続した。Preview defineなしのiOS Simulator buildで46 group / 138 capture（Compact / Standard / Large）を検証済み。これはU48 visual runtime scopeの完了であり、実機、音、振動、性能、RC、アプリ全体のproduction承認は含まない。
 
-### U49以降
+### U49 Actual-device Audio / Haptic: Current
 
-残りの背景、VFX、全asset replacement、音、振動、性能、RCを証跡付きで進める。
+U28/U39のrequest hook、final-candidate SE、routing draftを棚卸しし、production AudioMixer、platform haptic adapter、development-only device verification harnessを実装する。実機測定と人間判断が揃うまで`audioLatencyMeasured`、`hapticMeasured`、`devicePlayableReady`を上げない。
+
+### U50以降
+
+実機性能、touch metrics、RCを証跡付きで進める。U49が完了するまでU50へ進まない。
 
 ## 変更禁止ではなく責務禁止
 

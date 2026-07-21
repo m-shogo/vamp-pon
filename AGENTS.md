@@ -44,7 +44,9 @@ Completed: U45.1 Character and Enemy Dot Runtime Pass
 Completed: U45.1 Hardening
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
 Completed: U46.1 Result / Save Hardening
-Current: U47 gameplay data/runtime
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
 ```
 
 Preserve the completed U45.1 provider, animation, pause, and candidate/final boundaries during U46 work.
@@ -114,9 +116,9 @@ Do not treat procedural placeholders, U5 proof assets, or candidate screenshots 
 
 ## Runtime visual readiness
 
-Current classification is `candidate-animated-multiple-sprite`.
+Current classification is `production-animated-sprite`.
 
-Stage1 uses the candidate-level `RuntimeVisualAssetProvider`, explicit left/right Yui frames, and animated Onbu frames. `runtimeVisualCandidateReady=true`; production visual readiness remains false.
+Stage1 uses the production-level `RuntimeVisualAssetProvider`, explicit left/right Yui frames, animated Onbu frames, and the U48 approved production catalog. `runtimeVisualReady=true`; actual-device, audio, haptic, performance, RC, and whole-app production approval remain false.
 
 Never use these as finished dot-runtime evidence:
 
@@ -141,7 +143,7 @@ productionCharacterAssetReady
 productionEnemyAssetReady
 ```
 
-`runtimeVisualCandidateReady` may be true for a verified candidate animation runtime. `runtimeVisualReady` is reserved for final/runtime-approved production visuals and remains false.
+`runtimeVisualCandidateReady` is false after the U48 production promotion. `runtimeVisualReady=true` is limited to the verified U48 production visual scope and does not imply device or whole-app production readiness.
 
 Character minimum:
 

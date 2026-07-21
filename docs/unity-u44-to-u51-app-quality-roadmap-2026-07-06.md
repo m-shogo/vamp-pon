@@ -13,6 +13,10 @@ U45 AI-only iOS Simulator route smoke: complete
 U45.1 Runtime Visual Readiness gate: adopted
 U45.1 Character and Enemy Dot Runtime Pass: complete as candidate runtime
 U45.1 Hardening: complete
+U46/U46.1 AppFlow / Save / Result / 灯録: complete
+U47 gameplay data/runtime: complete
+U48 production asset expansion: complete
+U49 actual-device audio/haptic: current
 Big Implementation control-plane: adopted
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
@@ -20,12 +24,12 @@ characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
 productionApproved=false
@@ -246,12 +250,13 @@ Not allowed:
 
 Done: Stage1 remains playable, item state is visible, invalid drops/evolutions are blocked, data registry checks pass.
 
-## U48 Production asset expansion
+## U48 Production asset expansion: Completed
 
 - Goal: expand U45.1 provider/animation path to remaining Core5, enemy families, background, pickup and VFX.
 - Prerequisites: approved assets, alpha/fringe QA, provider path proven.
 - Checks: Runtime Visual Readiness, PPU/scale, alpha bounds, atlas references, import policy separation.
 - Not allowed: Web PNG copied as production without approval.
+- Result: 46 approved production assets, production provider connection, and 138 Compact/Standard/Large Simulator captures verified.
 
 ## U49 Actual-device Audio / Haptic
 
@@ -278,9 +283,9 @@ Foundation preflight
 -> U45.1 dot runtime
 -> Simulator regression
 -> U46 AppFlow/Save/Result/灯録 completed candidate
--> U47 gameplay data current
--> U48 asset expansion
--> U49 audio/haptic device
+-> U47 gameplay data completed
+-> U48 asset expansion completed
+-> U49 audio/haptic device current
 -> U50 performance/touch device
 -> U51 RC
 ```
