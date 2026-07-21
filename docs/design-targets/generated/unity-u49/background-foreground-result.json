@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "physicalDevice": true,
+  "backgroundObserved": false,
+  "foregroundObserved": false,
+  "sameProcessConfirmed": false,
+  "audioRecovered": false,
+  "hapticRecovered": false,
+  "passed": false,
+  "status": "NOT_MEASURED"
+}

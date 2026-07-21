@@ -101,6 +101,7 @@
     "unity:u48-stage-select-canon-audit:generate": "node --experimental-strip-types scripts/unity/generate-u48-stage-select-canon-audit.ts",
     "unity:u48-stage-select-runtime:check": "node --experimental-strip-types scripts/quality/check-unity-u48-stage-select-runtime.ts",
     "unity:u48-replacement-interaction:check": "node --experimental-strip-types scripts/quality/check-unity-u48-replacement-interaction.ts",
+    "unity:u49-actual-device-audio-haptic:check": "node --experimental-strip-types scripts/quality/check-unity-u49-actual-device-audio-haptic.ts",
     "unity:ui-design-system:check": "node --experimental-strip-types scripts/quality/check-unity-ui-design-system.ts",
     "unity:runtime-visual-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-runtime-visual-readiness.ts",
     "implementation:preflight:check": "node --experimental-strip-types scripts/quality/check-unity-big-implementation-readiness.ts",

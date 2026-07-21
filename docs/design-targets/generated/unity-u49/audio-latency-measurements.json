@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "platform": "iOS physical device",
+  "method": "NOT_MEASURED: harness did not launch. Planned scope is request-to-router and device-side DSP scheduling latency plus human perceived-delay review; acoustic speaker latency requires separate external capture and will not be inferred.",
+  "simulatorSamplesIncluded": false,
+  "sampleCount": 0,
+  "eventSampleCounts": {},
+  "p50Milliseconds": null,
+  "p95Milliseconds": null,
+  "maxMilliseconds": null,
+  "backgroundRecoveryFirstEventMilliseconds": null,
+  "humanPerceivedDelayPassed": false,
+  "audioLatencyMeasured": false
+}

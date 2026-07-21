@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "phase": "U49 actual-device audio/haptic",
+  "status": "U49_BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE",
+  "productionAudioArchitectureImplemented": true,
+  "productionHapticArchitectureImplemented": true,
+  "actualAudioMixerAssetExists": true,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "audioReady": false,
+  "hapticReady": false,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "humanAudioApprovalProvided": false,
+  "humanHapticApprovalProvided": false,
+  "performanceReady": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "u50Blocked": true,
+  "blockers": [
+    "Device developer profile trust is required before launch.",
+    "Device harness session has not run.",
+    "Human audio and haptic decision is not provided."
+  ]
+}

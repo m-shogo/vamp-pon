@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "platform": "iOS physical device",
+  "nativeAdapter": "U49IosHapticAdapter",
+  "supportsHaptics": "NOT_MEASURED",
+  "nativeAdapterExecuted": false,
+  "eventObservationCount": 0,
+  "settingOffPassed": false,
+  "settingOnPassed": false,
+  "cooldownPassed": false,
+  "spamGuardPassed": false,
+  "backgroundForegroundPassed": false,
+  "humanObservationProvided": false,
+  "hapticMeasured": false
+}

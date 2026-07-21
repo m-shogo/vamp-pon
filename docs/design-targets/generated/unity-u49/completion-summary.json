@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "status": "BLOCKED",
+  "u49": "BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE",
+  "completed": false,
+  "implementationPassed": true,
+  "audioMixerGroupCount": 9,
+  "exposedParameterCount": 4,
+  "seEventCount": 22,
+  "hapticEventCount": 10,
+  "duplicatePcmHashCount": 0,
+  "missingCriticalEventCount": 0,
+  "unityCompilePassed": true,
+  "iosDeviceExportPassed": true,
+  "xcodeReleaseBuildPassed": true,
+  "installPassed": true,
+  "launchPassed": false,
+  "humanDecisionProvided": false,
+  "nextPhase": null,
+  "u50Blocked": true
+}

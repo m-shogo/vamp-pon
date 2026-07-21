@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "physicalDevice": true,
+  "humanObservationProvided": false,
+  "speakerVolumesReviewed": [],
+  "headphoneReviewed": false,
+  "bgmPolicy": "INTENTIONAL_SILENCE_NO_PRODUCTION_BGM_CANDIDATE",
+  "audibleClipping": "NOT_MEASURED",
+  "harshness": "NOT_MEASURED",
+  "seMasking": "NOT_MEASURED",
+  "pickupSpam": "NOT_MEASURED",
+  "climaxBalance": "NOT_MEASURED",
+  "resultBalance": "NOT_MEASURED",
+  "backgroundRecovery": "NOT_MEASURED",
+  "mixReviewPassed": false
+}

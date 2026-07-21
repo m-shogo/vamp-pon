@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "platform": "iOS",
+  "physicalDevice": true,
+  "launchPassed": false,
+  "verificationHarnessReached": false,
+  "automaticSequenceStarted": false,
+  "automaticSequenceCompleted": false,
+  "supportsHaptics": "NOT_MEASURED",
+  "audioEventRequestCount": 0,
+  "hapticEventRequestCount": 0,
+  "sameProcessRecoveryPassed": false,
+  "status": "BLOCKED_BY_DEVICE_DEVELOPER_PROFILE_TRUST"
+}
