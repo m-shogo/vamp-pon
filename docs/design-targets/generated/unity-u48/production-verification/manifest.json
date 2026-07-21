@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "ebebf644bc51a53b5648b6b89030f2f148f6fbd1",
-  "generatedAtUtc": "2026-07-21T04:04:57.067276Z",
+  "sourceHead": "e386ca74f75600da6bb7e34c4d37851d551af75a",
+  "generatedAtUtc": "2026-07-21T04:45:20.853203Z",
   "verificationBuild": "production-catalog-with-smoke-capture-bridge",
   "previewDefineEnabled": false,
   "assetGroupCount": 46,
@@ -14,7 +14,7 @@
     "standard": 46,
     "large": 46
   },
-  "duplicateScreenshotHashCount": 15,
+  "duplicateScreenshotHashCount": 0,
   "previewDependencyUsedCount": 0,
   "resizeReuseCount": 0,
   "exceptionCount": 0,
@@ -36,7 +36,7 @@
         "player-movement"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/player-yui/screenshots/player-yui--compact--production.png",
-      "screenshotSha256": "9f2e89461c35bc1af90909358e281f3cc87407337afcc5c184555f6e49033fe1",
+      "screenshotSha256": "0392b01fe05298c72f6f9de399e55b1462ab4eac62fc0829c72059bdf3cfd5e9",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/player-yui/results/player-yui--compact--production.json",
       "runtimeResultSha256": "a49a916b84bcfc3b63617bdf703c7280c229b97e860b96c081a6be507ced01d9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
@@ -69,7 +69,7 @@
         "player-movement"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/player-yui/screenshots/player-yui--large--production.png",
-      "screenshotSha256": "523a942a3492b3018e844c8a5f5bf240bcc95813a1f8f73a7578d37a6aa4f493",
+      "screenshotSha256": "8e31d0cbdf941eb8c73e6733e788a87aad01b9e640bdebb7c75275c1403a5a0c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/player-yui/results/player-yui--large--production.json",
       "runtimeResultSha256": "017b49c72d08865700c0b3b9a27aa8158ad8072bc5a737d3cd3e9e33337aaef9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
@@ -102,7 +102,7 @@
         "player-movement"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/player-yui/screenshots/player-yui--standard--production.png",
-      "screenshotSha256": "3a44c9cdca5bdec897b8b5dd767c28e0a738c31b35fcb265a99c2b54f4c37349",
+      "screenshotSha256": "33526b729be41e0efef54526c8f43431f5a53f54384fb473641f5fdd568179be",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/player-yui/results/player-yui--standard--production.json",
       "runtimeResultSha256": "ec6e78ca750a8f779b2f4a2a5ef28cd3747821156ca69f08998901df26c6261e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
@@ -135,7 +135,7 @@
         "enemy-normal"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-onbu/screenshots/enemy-onbu--compact--production.png",
-      "screenshotSha256": "063b0ce0f5f00ee046c30ccd4cf8afa111ebd44b64c41f5c241901b96b9e1bde",
+      "screenshotSha256": "ba2d3d3dbe2a951b2642107fb1e0fef63e8f101f8857837bc951060cbbbbbd19",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-onbu/results/enemy-onbu--compact--production.json",
       "runtimeResultSha256": "b77c1803b31894fb99072f372fb55f42062b9f5045a8a11a0a383dd5cc1567b4",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
@@ -168,7 +168,7 @@
         "enemy-normal"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-onbu/screenshots/enemy-onbu--large--production.png",
-      "screenshotSha256": "a3e4cf0c6494195da40dd4285d9d365621e1671d0ad7becb92f83b8625195598",
+      "screenshotSha256": "69fb0887c4f97622e35836be45ebe158bd1d7a170f66db8e5507220cab0a0dad",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-onbu/results/enemy-onbu--large--production.json",
       "runtimeResultSha256": "8cc04d21eb23b81cadf337843f45046090430e871fcc50e9d7c6acad9c0cadbc",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
@@ -201,7 +201,7 @@
         "enemy-normal"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-onbu/screenshots/enemy-onbu--standard--production.png",
-      "screenshotSha256": "44fe013c940501df784771658696bd1a70bdc1f8f8f065f9da785c855208b1bf",
+      "screenshotSha256": "0b349f2bcfd6009c157475a3456dfd2c6ed390057dd11b41c420bfb1e38368a6",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-onbu/results/enemy-onbu--standard--production.json",
       "runtimeResultSha256": "ea3ff2f0cd49487938398f3f1c1436e1847db1a99ed1c5f7788c38a657be58d0",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
@@ -236,7 +236,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage1-background/screenshots/stage1-background--compact--production.png",
-      "screenshotSha256": "e0e3063b180ec93e69aec78240864c76accb608e07da7d5236c215d271632a8b",
+      "screenshotSha256": "1850b30f84794b3ae4a5c584a0f0dc915510f14ff8be359161f5401cf821a9cc",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage1-background/results/stage1-background--compact--production.json",
       "runtimeResultSha256": "fa0d4ee648a681bd81bd9877f84585dd253256ecb350d507ee96bc3a4f1acb90",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
@@ -271,7 +271,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage1-background/screenshots/stage1-background--large--production.png",
-      "screenshotSha256": "7809d1b66368e2dc88cdcbdf552091c16b86bb5dffb64c00c17c90484d8d4e8c",
+      "screenshotSha256": "78a7a560883eefbb7f8bdfcb5f0d7b982a21885836aeea8311d75ba96314b7ca",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage1-background/results/stage1-background--large--production.json",
       "runtimeResultSha256": "3dfaa1def2bbd1b07aa14ceed42c1f7967713c922862db78a82b26f9b1294084",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
@@ -306,7 +306,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage1-background/screenshots/stage1-background--standard--production.png",
-      "screenshotSha256": "7fa054d766bbacdbf46d9787eb7099d75b2c10d0f5e78e540699a31de937765f",
+      "screenshotSha256": "7b9d42cdef7a99d5446a54ef90a11cc2c7ea2395ba84d243033a835ae12c5f38",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage1-background/results/stage1-background--standard--production.json",
       "runtimeResultSha256": "4a31571d33fdeb45adf80c80fd17bb5f4eb34c8c44f5932d36eb322f67c4811f",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
@@ -339,7 +339,7 @@
         "exp-pickup"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-exp/screenshots/pickup-exp--compact--production.png",
-      "screenshotSha256": "b378dc066ac5e5007112b99b2d88e90dca11a0db81f5cb150d8803e972246695",
+      "screenshotSha256": "3e67cfeb3e246f9ecbaca9e430780a0c9250423fb4069cfcf047bd31d13442f4",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-exp/results/pickup-exp--compact--production.json",
       "runtimeResultSha256": "871197325ca84045fcd5ea3d1a2013d994284ebbfcdc7b114ef7b6aaa8399495",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
@@ -372,7 +372,7 @@
         "exp-pickup"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-exp/screenshots/pickup-exp--large--production.png",
-      "screenshotSha256": "98781ab2a63d7a2d394043a23347620f0422e1d60401a83589da77726abf18fb",
+      "screenshotSha256": "56f66e2a5782f8ce720afb07550345f735c8f4981e14eb4032f6839de542827a",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-exp/results/pickup-exp--large--production.json",
       "runtimeResultSha256": "f8f15eb67a530a7c48b67ebb6097d0db5ef12603e3af8a27cdf412cc31ac7a52",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
@@ -405,7 +405,7 @@
         "exp-pickup"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-exp/screenshots/pickup-exp--standard--production.png",
-      "screenshotSha256": "3b883dade7129da9454caa1954d98869de26944ddbf9f42de3d78b47ccf5646f",
+      "screenshotSha256": "c6050a64b7778f20c7e568639e2cac618fa4396b493b0c2e280fa6e6db1e7612",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-exp/results/pickup-exp--standard--production.json",
       "runtimeResultSha256": "0dab3b12d53853570adb574f8f26c89fa29c23e03cd889a72084554b94fff287",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
@@ -438,7 +438,7 @@
         "healing-pickup"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-healing/screenshots/pickup-healing--compact--production.png",
-      "screenshotSha256": "c3330c61e35d3d2815c6029e3c2d4a023de3cd70e58e40de6e59da16401c945a",
+      "screenshotSha256": "2546075ff53426a2baf97b8175d17fdba6f78606145a56ad8dd36a8bfab14fba",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-healing/results/pickup-healing--compact--production.json",
       "runtimeResultSha256": "ebb9c6051248cd2bd51491c9b67e0e9ef63cb9c3d1bf502a4bac28d66c5d2334",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
@@ -471,7 +471,7 @@
         "healing-pickup"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-healing/screenshots/pickup-healing--large--production.png",
-      "screenshotSha256": "04048f93a72ab94fe2f1112dc49d3147f3261771274d47a34b237fe98610ac02",
+      "screenshotSha256": "40e961961587693dfa2746b6680f3003a2f9961f9a48ea1d32465c0dec5a58d8",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-healing/results/pickup-healing--large--production.json",
       "runtimeResultSha256": "b84312bcadfc33659378a460ecbbb9fd97b857eafaf830c64935ce6a0933676c",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
@@ -504,7 +504,7 @@
         "healing-pickup"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-healing/screenshots/pickup-healing--standard--production.png",
-      "screenshotSha256": "ad37866fa4d4ded6f4fb9a22b2cbcf1e7ae5d886b5142da60e7647812ea41581",
+      "screenshotSha256": "05f7464c852af679b2c084678981e9839c4f5c01fdfc73689d2d2605d8b01706",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/pickup-healing/results/pickup-healing--standard--production.json",
       "runtimeResultSha256": "00e8e71805191151f7641e251004604ab0ea8386db511acfc38f7ba0774986c2",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
@@ -537,7 +537,7 @@
         "projectile"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/common-projectile/screenshots/common-projectile--compact--production.png",
-      "screenshotSha256": "b351f05faf4e375ee22c3f1b599476758a156e034a8671d163a2ef1f2d50a021",
+      "screenshotSha256": "94d7beab28a195a4aacb1b7c93027fc405657e76a263a770a00229a97a78b052",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/common-projectile/results/common-projectile--compact--production.json",
       "runtimeResultSha256": "a972f927483f67b592651de6fecbc51b0ebf5a0d92e4944e29ca813a6b125e25",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
@@ -570,7 +570,7 @@
         "projectile"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/common-projectile/screenshots/common-projectile--large--production.png",
-      "screenshotSha256": "ceb170717c8b6a1a55c1fb785f8ab167c74b656d52a468904daf28cbe8344530",
+      "screenshotSha256": "712b0e7c6b263c96e25e094d4d79aa587893d8742ab0baa3d0aa1f2807f3bfb4",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/common-projectile/results/common-projectile--large--production.json",
       "runtimeResultSha256": "b16d2f364fd4cf07e91ee31a25f32e5f7f2ba733c825b80be9b9586f35448b94",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
@@ -603,7 +603,7 @@
         "projectile"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/common-projectile/screenshots/common-projectile--standard--production.png",
-      "screenshotSha256": "e0c2662607995f33bfae913f103a8e5484986dba4833cece85f179a7809c0b24",
+      "screenshotSha256": "94a0f20e1dc905845e4ee31c7d14c89137918f743730d9187f0540adc179e544",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/common-projectile/results/common-projectile--standard--production.json",
       "runtimeResultSha256": "30f751f4318eb7190e1a6aa04ea509cb14a321ff10b7f5657923dd13b2080c48",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
@@ -636,7 +636,7 @@
         "hit"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hit-effect/screenshots/hit-effect--compact--production.png",
-      "screenshotSha256": "69f8df33d2ff8dea5678ee3aab5968910f29287e4f719bdfdc21c9788855cc62",
+      "screenshotSha256": "26261f087b7f5236378721b61c86a7a4263f9dd7ab4b3dabd75ae793c121f72e",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hit-effect/results/hit-effect--compact--production.json",
       "runtimeResultSha256": "e315fb206e2bbbc2555a6f6e2ec544fd71c0b9e3d6e23e1facfe6444006bc990",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
@@ -669,7 +669,7 @@
         "hit"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hit-effect/screenshots/hit-effect--large--production.png",
-      "screenshotSha256": "498328d2595d20593bb8c67cdde68e336a9eb3983954572a1e081519feeebd04",
+      "screenshotSha256": "db8483e3f77de7c17b7a7896aef12ebc9e2b49572857b9248f0a32208cd0b1b6",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hit-effect/results/hit-effect--large--production.json",
       "runtimeResultSha256": "cae8193748197e4c775eed7c236d3919d3532e4cd9f37f97477abbc29614f1c7",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
@@ -702,7 +702,7 @@
         "hit"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hit-effect/screenshots/hit-effect--standard--production.png",
-      "screenshotSha256": "d9240129c146f3f86cd54119bb15033532ab1cb343c0f80b2ac0e4c26cdf1b36",
+      "screenshotSha256": "455499faa490e385c813b5563e24c4097c7c80b4eb8578ea490ba058f4d85fe3",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hit-effect/results/hit-effect--standard--production.json",
       "runtimeResultSha256": "f3f7b3b9398e3577ad52a66e58551dfe7e0c65cb7c46b835ab84afee82f88a45",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
@@ -735,7 +735,7 @@
         "enemy-death"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-death-effect/screenshots/enemy-death-effect--compact--production.png",
-      "screenshotSha256": "4fea4425cefc042971ce2600fb9eea9b9f373ed47607401633b1bb22ed4f2e40",
+      "screenshotSha256": "170f71d3d6f59873951f69a1b88f394350fe05fdd87547148289eb3dda3bfcc2",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-death-effect/results/enemy-death-effect--compact--production.json",
       "runtimeResultSha256": "5e0f8756abca4a4d46c567e4d534951a028eb6587818b8d7fb6e4cedea8e28fd",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
@@ -768,7 +768,7 @@
         "enemy-death"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-death-effect/screenshots/enemy-death-effect--large--production.png",
-      "screenshotSha256": "a49a63586af701a87b49e1c95bcbd0eccec358d853def80c9286b6ec31a252ac",
+      "screenshotSha256": "39dc83ca1ed178c6b2d516bd26b0f9363641852f8b605428d0c25f20da55c538",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-death-effect/results/enemy-death-effect--large--production.json",
       "runtimeResultSha256": "c1b97d3ec3f572d93c80307cdd5c5c7f4ff3d036e1f16f28b2dbf468eb8d4f7a",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
@@ -801,7 +801,7 @@
         "enemy-death"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-death-effect/screenshots/enemy-death-effect--standard--production.png",
-      "screenshotSha256": "780456aafbe542c93e160bd334364aef2cc01c0f393470d91d2faf2d489cae60",
+      "screenshotSha256": "bfb2897ea1c49cfcd4b78d797c92c0944e19bab798ca2f86507fbe805f3f1c1c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/enemy-death-effect/results/enemy-death-effect--standard--production.json",
       "runtimeResultSha256": "1572cf04cf60d1fe05ce6a8a2e65902ebcc9b1587f7e4270b198aa1d258ad1b0",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
@@ -834,7 +834,7 @@
         "movement-trail"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/movement-trail/screenshots/movement-trail--compact--production.png",
-      "screenshotSha256": "5b140a1b6bdecb87a9eb89ba871d46fa758e2625fb89ba9f726561dbb816a746",
+      "screenshotSha256": "6017a4b3eff7640ecbde0a6b2914091d95a74cd82ca226ca56c3249dd73625c5",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/movement-trail/results/movement-trail--compact--production.json",
       "runtimeResultSha256": "385e6c844caafe3c6c9aa204632c4478ee2fa4c899e3653ec63d4a3e30772c49",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
@@ -867,7 +867,7 @@
         "movement-trail"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/movement-trail/screenshots/movement-trail--large--production.png",
-      "screenshotSha256": "f227a7695505d757a98408e97c73830d7f2e8520bc3dc0bae67652c35ccb5844",
+      "screenshotSha256": "4a786d45dc2082f0641fddacce5764d68afec162ff36325fc57722876cde1141",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/movement-trail/results/movement-trail--large--production.json",
       "runtimeResultSha256": "59bc1b5294f56a5f8e9b209fc8462de5bd3941489c40f779c5ab7c02a658cb21",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
@@ -900,7 +900,7 @@
         "movement-trail"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/movement-trail/screenshots/movement-trail--standard--production.png",
-      "screenshotSha256": "d1e41a11706560dcaa0c74353028d20c1e501d873563581f457cbea686cdd8e7",
+      "screenshotSha256": "5b912b75c1239ae3516eb91f3d38c720e5b364c28a1be8deb9c8629579e99174",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/movement-trail/results/movement-trail--standard--production.json",
       "runtimeResultSha256": "e1486016ce82d695e4bf0c71c421a5a91e29d52551b1d995a294d2ee12ba245f",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
@@ -941,7 +941,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-black-ink-bottle/screenshots/ground-area-black-ink-bottle--compact--production.png",
-      "screenshotSha256": "096a3d313bacda48137db9d48ef05c259d15c42cfbaf69d6cfea082ca3d5890e",
+      "screenshotSha256": "26ddf9090c0642b2c2300bd96b7bc8abb3ef7c4cb45e50179010b0b0e8ce5898",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-black-ink-bottle/results/ground-area-black-ink-bottle--compact--production.json",
       "runtimeResultSha256": "2fceb083026fbf1d811234ec784d55dfa79d8f0224a257733e2c01838ce9878a",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
@@ -982,7 +982,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-black-ink-bottle/screenshots/ground-area-black-ink-bottle--large--production.png",
-      "screenshotSha256": "7bf3b49ec7640a6f23301b5cde6ca559b2440b70374733a80060eb9bf36593a4",
+      "screenshotSha256": "3cb41e3ab01a22007be39179396c5a2fdea1bf2c5f40179ee89f8b737d9bfdc9",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-black-ink-bottle/results/ground-area-black-ink-bottle--large--production.json",
       "runtimeResultSha256": "92234f8e6462c5f2cff9aded63d08cab471af346fe9dc3e009aad95fd0f9db83",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
@@ -1023,7 +1023,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-black-ink-bottle/screenshots/ground-area-black-ink-bottle--standard--production.png",
-      "screenshotSha256": "129175797c5c054bbae199b61cc3e589ee6f954f43390cbc43505345c1773c14",
+      "screenshotSha256": "a8444798f1e1508643e089324bf510a4fe436132f2f5cd6cbdad629245ddedca",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-black-ink-bottle/results/ground-area-black-ink-bottle--standard--production.json",
       "runtimeResultSha256": "07121446ae5b5bd5c2809b88816873406fe7ac1c8b2398ec2d0b3d25e1c9f093",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
@@ -1064,7 +1064,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-streetlamp-ring/screenshots/ground-area-streetlamp-ring--compact--production.png",
-      "screenshotSha256": "13d4cf4a2036788b61aaac65182ceeed77702fea4b9e30f725fb4a70d411cf5b",
+      "screenshotSha256": "f88fc49f23623c6e1907d8ebebef679421ff97cb43a32e02b2deeb8c2c16bedf",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-streetlamp-ring/results/ground-area-streetlamp-ring--compact--production.json",
       "runtimeResultSha256": "405b56516ba4ff4103f7e337ed8ed7b5325450a9eafdb350c018272ea2c6d886",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
@@ -1105,7 +1105,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-streetlamp-ring/screenshots/ground-area-streetlamp-ring--large--production.png",
-      "screenshotSha256": "017dee00fb8a89a70cbeeb2fd5ccc12c95a3c553b3e9c64de021616bff5ee0df",
+      "screenshotSha256": "0a5ac06c940deda034fe1097888112b6c4fceb87113771c20ad92d78f5e390c4",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-streetlamp-ring/results/ground-area-streetlamp-ring--large--production.json",
       "runtimeResultSha256": "4345f5b2a7e830a64f5fcfdac47e832ad48f1a8a5b79a872890e1f356f37731d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
@@ -1146,7 +1146,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-streetlamp-ring/screenshots/ground-area-streetlamp-ring--standard--production.png",
-      "screenshotSha256": "cdb6d9418cba9f3fe65fa7f37e8f38c64366a80f089854ca093f6b20995e3624",
+      "screenshotSha256": "c155598cebd33bcfe2d810183236f39c4f124eb3e7c526bd54d4c16c5ad07f8b",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-streetlamp-ring/results/ground-area-streetlamp-ring--standard--production.json",
       "runtimeResultSha256": "a7635f3359c33d9e69b6ceb94899b08901d804e66593ba4cef99c1a81ed0e72c",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
@@ -1187,7 +1187,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-dawn-ink-lamp/screenshots/ground-area-dawn-ink-lamp--compact--production.png",
-      "screenshotSha256": "1c9abba20063436626cfe75724afc610bc592b36847eaf8e3193b0e315afe04a",
+      "screenshotSha256": "6950f68354c00ff783bd4de183c5694f031c9155337e8047475880b6dd75ae7a",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-dawn-ink-lamp/results/ground-area-dawn-ink-lamp--compact--production.json",
       "runtimeResultSha256": "c1710474d0817534a82923ca19b85a95ca84735af6991e9e53b0257e08a2b560",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
@@ -1228,7 +1228,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-dawn-ink-lamp/screenshots/ground-area-dawn-ink-lamp--large--production.png",
-      "screenshotSha256": "7bf772140b7c1f4458c94095100abebab4ddaef3aa2927ef204fe1c6868d4cbb",
+      "screenshotSha256": "380eb40d3567589f5dd7beff434cd111aa0b5ebaecbf1a978263a1ad4c98c533",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-dawn-ink-lamp/results/ground-area-dawn-ink-lamp--large--production.json",
       "runtimeResultSha256": "67cc1e0fe91537578d9618f9f74e42e61555fa61fb12fa10ae6a090dd340339e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
@@ -1269,7 +1269,7 @@
         "high-density"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-dawn-ink-lamp/screenshots/ground-area-dawn-ink-lamp--standard--production.png",
-      "screenshotSha256": "bcdce99f6ecf9f88988b8a0f45d1588c9bcec1481ec09a425c2b1dba36fd23f1",
+      "screenshotSha256": "37c6c85a6b6e500796ae0be9666722d7af8d58e87f544b32a974f42976824b32",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/ground-area-dawn-ink-lamp/results/ground-area-dawn-ink-lamp--standard--production.json",
       "runtimeResultSha256": "af3da10a254524e2aecbe3e589e308fec7710a21ae5952aed0b93a868f205165",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
@@ -1312,7 +1312,7 @@
         "charging"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-charging/screenshots/kokuyou-charging--compact--production.png",
-      "screenshotSha256": "9b0b612efb0139b21e5a220e542ce486e85625e5453a5df45733cb3bab8658e7",
+      "screenshotSha256": "e64a39dfd04600789a0c239c362ab21e58e33b5bacdbe5b3ef3380c0092f791c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-charging/results/kokuyou-charging--compact--production.json",
       "runtimeResultSha256": "6ef501041ed546a4ab6688779c9f6cfd5f12b698554c0c83a9a02b32a5b6a86b",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
@@ -1355,7 +1355,7 @@
         "charging"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-charging/screenshots/kokuyou-charging--large--production.png",
-      "screenshotSha256": "db56d99269eb915bd79efa4dbdfa9d51fb8b975e6b22982ec49f2062b124dea2",
+      "screenshotSha256": "42197098ed2b8a08a306e3a6f97fa5afab7c48ab698276735849aea1db7ea3e8",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-charging/results/kokuyou-charging--large--production.json",
       "runtimeResultSha256": "d23697ae5624f087fb16d53110b627961a96f4203421a7acd3ab7118762bfe32",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
@@ -1398,7 +1398,7 @@
         "charging"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-charging/screenshots/kokuyou-charging--standard--production.png",
-      "screenshotSha256": "f679f802bcd2464949cc8307917a095d7b7b676c24a08b4a6ba40835802d9948",
+      "screenshotSha256": "f50abc7f8ebb7a7a18f02f8bc26bcdb11fb94381591d9686eab27c89c4c7b2b2",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-charging/results/kokuyou-charging--standard--production.json",
       "runtimeResultSha256": "04db03d1e879f610fcc5724fd067d9256628afb634ed853386531bcff1c72ac0",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
@@ -1440,7 +1440,7 @@
         "normal-restored"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-ready/screenshots/kokuyou-ready--compact--production.png",
-      "screenshotSha256": "e131fcd588230e02e1f33be19def68537fe417d96c9d036afdc6e575b9e1ac6d",
+      "screenshotSha256": "77f2b79e2acb01573580b4d56fd20c15abb9852e64b6597f25b8d5a6efc91247",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-ready/results/kokuyou-ready--compact--production.json",
       "runtimeResultSha256": "98d7ba7b03419ba425489e4a021718b16d587423332583138fc48bddd6723ab9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
@@ -1482,7 +1482,7 @@
         "normal-restored"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-ready/screenshots/kokuyou-ready--large--production.png",
-      "screenshotSha256": "7db9690e83533b9e2f575df5a9babb86e3ed575e0f671627683fc00c2af77dac",
+      "screenshotSha256": "eb5f4f9efe45c4a7d4610a1a62441a380b4169ffe7ea9b69503058d9b52396b1",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-ready/results/kokuyou-ready--large--production.json",
       "runtimeResultSha256": "75f7e7a87d0a383f96e3d3c64b7ee072a738212a6b1259537dab1bb43118bfec",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
@@ -1524,7 +1524,7 @@
         "normal-restored"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-ready/screenshots/kokuyou-ready--standard--production.png",
-      "screenshotSha256": "a17d724c1f2aeedd6eeb0d5c45cef673dbf9fae0b9818ce6a5c3cfcce54c67c6",
+      "screenshotSha256": "d9ac4461b9000e6909250a6acdbe8ac481f42b325b6dfc1636407baf8976eb31",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-ready/results/kokuyou-ready--standard--production.json",
       "runtimeResultSha256": "f9f2ff90e1ce965d4518ec793e9786d6dfdb3725d16c475681967434d33d4bd2",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
@@ -1567,7 +1567,7 @@
         "active"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-active/screenshots/kokuyou-active--compact--production.png",
-      "screenshotSha256": "f645842f1e7548ec45da07115f6db611c6a8fb6efffdc82eb3b079abbdb1bce1",
+      "screenshotSha256": "b4cc392e4e3b5197511ae94a5a72057db67bde1d7dc47485e91118bb537c2ae0",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-active/results/kokuyou-active--compact--production.json",
       "runtimeResultSha256": "2c425b9f27cd131dc7b52a8d5193d3e43348976032e1b0f544cfbda8ea30854b",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
@@ -1610,7 +1610,7 @@
         "active"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-active/screenshots/kokuyou-active--large--production.png",
-      "screenshotSha256": "934abdfd3819dfa928d709917d4a6163c7ccf84ec27d148d634d2b7ad419666e",
+      "screenshotSha256": "85a72e8819c035d01eb2cf9e5db26ba149cae6e7e70a74d21dfd313b0dde0ec3",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-active/results/kokuyou-active--large--production.json",
       "runtimeResultSha256": "8f60063186d4cc53a3ec1693f50ffce0fcf362198b778fe8042b96aa392a7b01",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
@@ -1653,7 +1653,7 @@
         "active"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-active/screenshots/kokuyou-active--standard--production.png",
-      "screenshotSha256": "992df622d92994e0b700e201032d2637b41329956e769fccd74483219fa2fe41",
+      "screenshotSha256": "2239cb16fdaba9f8f49dc0ff0610c5219aed64fdb32c71d21b8c9587471c51e8",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-active/results/kokuyou-active--standard--production.json",
       "runtimeResultSha256": "5a4ab4fa9631b9939d50c8667a844c1be7af2f3324e9d16dde9786d505791bf6",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
@@ -1696,7 +1696,7 @@
         "recovery"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-recovery/screenshots/kokuyou-recovery--compact--production.png",
-      "screenshotSha256": "04026013a78a324c5cc975e82c50952b6815422e798d0ac9745b8afb84a07a7f",
+      "screenshotSha256": "de9e0481afaa5205d38ff5334c804c3771a39dd2576d3b2f9ddd95a2bacb0fd0",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-recovery/results/kokuyou-recovery--compact--production.json",
       "runtimeResultSha256": "91244b3ebaf6faa73aeca88e7b6ecd46bb37f8a669a86070914252c611f4ac66",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
@@ -1739,7 +1739,7 @@
         "recovery"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-recovery/screenshots/kokuyou-recovery--large--production.png",
-      "screenshotSha256": "bad0a09d24043d7f7a2b2982c4ae44ad085546732ad0d2147a269265bb4d3c87",
+      "screenshotSha256": "a0f686f0fe06f809ee18fe7b27789f51efa3a8ecee8c7e4c32b440c1362a665c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-recovery/results/kokuyou-recovery--large--production.json",
       "runtimeResultSha256": "11a6b773866454cb581638ed8dea8dadbec3cb33f8ebff6acbb34a60418a0a0d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
@@ -1782,7 +1782,7 @@
         "recovery"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-recovery/screenshots/kokuyou-recovery--standard--production.png",
-      "screenshotSha256": "81ad3172b7932c521eca5485e908ab8fda2033f6d104975904a1a42a83656899",
+      "screenshotSha256": "58efdd81b7181a917930a44273d08bb1f1289c9199091666b2e075fe0b1fd45d",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/kokuyou-recovery/results/kokuyou-recovery--standard--production.json",
       "runtimeResultSha256": "41b1ea23aba4322f9852ea49fc2c3a7b927758ec416503bd3e938acc7a01b913",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
@@ -1823,7 +1823,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-hp-frame/screenshots/hud-hp-frame--compact--production.png",
-      "screenshotSha256": "5f52bd2eb770f4b499fe7051a3a5c60f0a83f3acbb16fa417cd0251968aa1a3e",
+      "screenshotSha256": "a0477f09d54a30c77103fa1c2cf16751ff739986681b0ef7be6f4cf9f1f5c6b7",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-hp-frame/results/hud-hp-frame--compact--production.json",
       "runtimeResultSha256": "910485463e219b8b65eeefef0dd5ca3844c2470e3ea731ae2410ffe1edc20e17",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png",
@@ -1864,7 +1864,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-hp-frame/screenshots/hud-hp-frame--large--production.png",
-      "screenshotSha256": "00d1cef4f9c058a1dcb7c1f44702642ab9feaaacf9e883cc23a19bbfc0f71b60",
+      "screenshotSha256": "9bf5721faf6f36652a3bae0744dc3ad2706d2dbf7340afb49dd6834bf39a34ab",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-hp-frame/results/hud-hp-frame--large--production.json",
       "runtimeResultSha256": "2bf1bd9b112293c4311ec27219ee9404aa4a98cb5ef2328f6c794d3c7a9eadfe",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png",
@@ -1905,7 +1905,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-hp-frame/screenshots/hud-hp-frame--standard--production.png",
-      "screenshotSha256": "4c3215134b090360a559942e1a3a2e043b024343d9028bf947256799e7631836",
+      "screenshotSha256": "f807bb02ab431b30bfd9c1a77738e47a340eeae94cd6f568cbe6c1ac907910a5",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-hp-frame/results/hud-hp-frame--standard--production.json",
       "runtimeResultSha256": "48ad2acc978849e27e1800a7f411402e04d810c3a2435088dd88f7abc337d38e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png",
@@ -1946,7 +1946,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-passive-slot/screenshots/hud-inventory-passive-slot--compact--production.png",
-      "screenshotSha256": "bdfb3914b081ce270ffc37b48905733d1ff106b49f27dd941033bf5da8107352",
+      "screenshotSha256": "987878ddab6ed02fce4c7d5e14553cf2438d8d5ff6d9df8b42e24b1158435381",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-passive-slot/results/hud-inventory-passive-slot--compact--production.json",
       "runtimeResultSha256": "29ba8b050c445378164e7fa94adf259f1b081c62383a5d259a7eec486f40f2ee",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png",
@@ -1987,7 +1987,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-passive-slot/screenshots/hud-inventory-passive-slot--large--production.png",
-      "screenshotSha256": "e281bd6e0453cac11b8a9e12a47c5d958ccef77e8f269e7191792a13f4a87408",
+      "screenshotSha256": "f9493f277d6d40b5f3af197b76f6910094d23dd84005eb87dfd902a3ff5a7975",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-passive-slot/results/hud-inventory-passive-slot--large--production.json",
       "runtimeResultSha256": "552c346e7c818bfc60a33d693a3874663219de9498e0a7894efbf2e54ab1e8bb",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png",
@@ -2028,7 +2028,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-passive-slot/screenshots/hud-inventory-passive-slot--standard--production.png",
-      "screenshotSha256": "5a1b0e5ea4e12d56c30968115fbaa9e0ad64890bec31b248207e0c04544cc076",
+      "screenshotSha256": "5570826e4ed5b90b4fc09eccac0368ba1dddf9428e385750a1a76fbf60997951",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-passive-slot/results/hud-inventory-passive-slot--standard--production.json",
       "runtimeResultSha256": "e57927ac8ba3d98a6fd4804b330d2d40a1bc10f0c35f89b322993aae91a22e5a",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png",
@@ -2069,7 +2069,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-weapon-slot/screenshots/hud-inventory-weapon-slot--compact--production.png",
-      "screenshotSha256": "73e9cd211607a6b9c1e5e689b12fec4d4b857023bd1b3a6aa1ec43567a05de19",
+      "screenshotSha256": "e392973acf65feb9fc76256d9db74606d25469f9cd9b3e4b79bb075b8f02042b",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-weapon-slot/results/hud-inventory-weapon-slot--compact--production.json",
       "runtimeResultSha256": "bd043c4ec8e6a5570d0400287e71526dab16c9c40aecadaf55ff8c68dc4c9028",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png",
@@ -2110,7 +2110,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-weapon-slot/screenshots/hud-inventory-weapon-slot--large--production.png",
-      "screenshotSha256": "b2c4e6f2d28da3f9a3df48a97b5d15d3203617338012b6d53555fb3d665c5116",
+      "screenshotSha256": "c384a524c1d0bd35c0b7bde34305bdb9ca6cbdd029db9a1debf09100d75141ae",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-weapon-slot/results/hud-inventory-weapon-slot--large--production.json",
       "runtimeResultSha256": "d5ea66be8997d45bff33a14d128e7dffd526b9f41e733a4501fdb763efc06872",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png",
@@ -2151,7 +2151,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-weapon-slot/screenshots/hud-inventory-weapon-slot--standard--production.png",
-      "screenshotSha256": "d7aca5a5cc294b6b0e53675ec37f512aaae5ba0b212ccc8aaae779d2a2b77a9c",
+      "screenshotSha256": "6b824d15af0e951a81c1d5214210c544dbe6705afbff415953a535bb5ae12145",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-inventory-weapon-slot/results/hud-inventory-weapon-slot--standard--production.json",
       "runtimeResultSha256": "7bb35917d0665e5082e262ab30c48d866e660a0ac665df91507d65112a117252",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png",
@@ -2192,7 +2192,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-kokuyou-gauge-frame/screenshots/hud-kokuyou-gauge-frame--compact--production.png",
-      "screenshotSha256": "4ad9ac673b50728ac4c7e7f71af50cccbe6dea9a996e243360aef04c31e3e92b",
+      "screenshotSha256": "fe6d0466a50ed82945ca381636728d8ae7fe56e8a6644c723a62564e29cb1b71",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-kokuyou-gauge-frame/results/hud-kokuyou-gauge-frame--compact--production.json",
       "runtimeResultSha256": "df6e15127494a3e523ac13f1516109b4df2325ca6c85ce2eb1670ba1a679457e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png",
@@ -2233,7 +2233,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-kokuyou-gauge-frame/screenshots/hud-kokuyou-gauge-frame--large--production.png",
-      "screenshotSha256": "60f06864f40d99f871b5fae9b4e436039f594ef8d4f0481e11060315e513bf70",
+      "screenshotSha256": "ada7814b97cbf48217014c8abfdfbf20407ad14d87a10aa2b0c693c078c71abd",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-kokuyou-gauge-frame/results/hud-kokuyou-gauge-frame--large--production.json",
       "runtimeResultSha256": "84136546b2e863b1aa805c3a2e6d0cd980b76d7fd6185db0e5a94e3797376cde",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png",
@@ -2274,7 +2274,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-kokuyou-gauge-frame/screenshots/hud-kokuyou-gauge-frame--standard--production.png",
-      "screenshotSha256": "beab2fb8d548f4bea9ac7c22f0da9cc8779ea04bd90704d8578d36b767f76d6e",
+      "screenshotSha256": "e51160d8a2dcb5a2e4e573fa156cf42432dc5c58ddfc0b56215b1c033bcb2ce7",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-kokuyou-gauge-frame/results/hud-kokuyou-gauge-frame--standard--production.json",
       "runtimeResultSha256": "5b29b8b20533a15b9888daa5e989a562b1ddc5707e513c2a31d0d5a9ab4bd82d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png",
@@ -2315,7 +2315,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-rare-slot/screenshots/hud-rare-slot--compact--production.png",
-      "screenshotSha256": "861ad383c8ed17f1e440ca373298283125689c1443e13b4f1e7d3c2db74cdaef",
+      "screenshotSha256": "7eadc726396f40f526a14a4e645fb695e60a473d570fd8217d94916c69bdc3ec",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-rare-slot/results/hud-rare-slot--compact--production.json",
       "runtimeResultSha256": "4ddaf6863a6a2143d79f8a30b634917c1ef79f930089126f2c5d687c7c3d4911",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png",
@@ -2356,7 +2356,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-rare-slot/screenshots/hud-rare-slot--large--production.png",
-      "screenshotSha256": "dbf5a5b6173588367fa6b51e7142ab3cc839ad74e5f6061faa8c17a11abcc5b6",
+      "screenshotSha256": "8cd73fbfcea04235c947236b59c2a5feb7fe9aa391bff8d115b3f861b7bd8f27",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-rare-slot/results/hud-rare-slot--large--production.json",
       "runtimeResultSha256": "039a98ab34ecabea6587de636b5b4a88beae66feb9371729adbf98902ae0675e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png",
@@ -2397,7 +2397,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-rare-slot/screenshots/hud-rare-slot--standard--production.png",
-      "screenshotSha256": "db13bcfefb58f37fa2f4e60f9ed60c187889265eaa484992276d066ed0ad2e56",
+      "screenshotSha256": "6325fc5dcccd51dbd0486de8f6ad9d26dc075b8ab8c464ed2a088634c88b3630",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-rare-slot/results/hud-rare-slot--standard--production.json",
       "runtimeResultSha256": "aaba5c7f36b2286dadd0cd450a22c936e9ebe2afaadf751cf3e19519e565cd53",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png",
@@ -2438,7 +2438,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-timer-frame/screenshots/hud-timer-frame--compact--production.png",
-      "screenshotSha256": "badd163d19469b433433bdbcc8c3f9c586b145d680744491ca528fa68d914908",
+      "screenshotSha256": "9f30a4ab5c8bb3b11f41ed189feba5ec83ff204d7cfa75e0ea689255d01780f0",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-timer-frame/results/hud-timer-frame--compact--production.json",
       "runtimeResultSha256": "4c7ddf11186a70d0e1f65bb3da4fde5e942cd9a067536bb01f830ea1cef188b5",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png",
@@ -2479,7 +2479,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-timer-frame/screenshots/hud-timer-frame--large--production.png",
-      "screenshotSha256": "afe1bcbf95e8cc4f11982b7af9618debb95efd460a1893e11322d03ebfd5745c",
+      "screenshotSha256": "6c5cb7268444da1c7ba29e012b6d8d1382049ee0ebdc4672ff5e6fba7b6cea54",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-timer-frame/results/hud-timer-frame--large--production.json",
       "runtimeResultSha256": "acecb21187cc3f9148d6e15df2b610b61ad1c15ba6e4619b3f3e72c9c5343ce7",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png",
@@ -2520,7 +2520,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-timer-frame/screenshots/hud-timer-frame--standard--production.png",
-      "screenshotSha256": "d0186d58e859bb8258c99353cac62473e31d41cc425edce776c3b5fca5c03138",
+      "screenshotSha256": "79c4374271f5146cbffc092e25e18a4ce2043fcb4e26c59ca0af630fdf2712fd",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-timer-frame/results/hud-timer-frame--standard--production.json",
       "runtimeResultSha256": "9053483aa99dd09bae2466937f80cb2365e168df31795eacebde5bc4da123ef7",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png",
@@ -2561,7 +2561,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-top-status-frame/screenshots/hud-top-status-frame--compact--production.png",
-      "screenshotSha256": "3741f7ef5b279b6f233acbe1a2ccf4c446d2954583ad1b585cdb0d76d71dfbf1",
+      "screenshotSha256": "4b35c2aea935fc443739e7743692672701648b038e49e65e856fd0ce15699963",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-top-status-frame/results/hud-top-status-frame--compact--production.json",
       "runtimeResultSha256": "ce42685c9e5096e8e34f27522d69e1ddc7b0e84359f6e0bf8317fcfd121f4b0c",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png",
@@ -2602,7 +2602,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-top-status-frame/screenshots/hud-top-status-frame--large--production.png",
-      "screenshotSha256": "daf0da6170e867cf6ce70292e7bee3f975b7f46970d1d3687cced5339323348b",
+      "screenshotSha256": "b01ed27b8f43f944dbca4ffcb5a073820940a4fd641e86e88dac317238bb1fea",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-top-status-frame/results/hud-top-status-frame--large--production.json",
       "runtimeResultSha256": "de8b9e191238a3420a73db20d68747f47288a5b087cac2543ec8de31031d99ae",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png",
@@ -2643,7 +2643,7 @@
         "levelup-overlap"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-top-status-frame/screenshots/hud-top-status-frame--standard--production.png",
-      "screenshotSha256": "d88fc6eef04bfc9f90187229e9d106be613739d30acf5700a136bbd1fe6ae83a",
+      "screenshotSha256": "9e1f4f944363eb94d57a8074b9f993b9e0b200c26ed44e40a98550e95b68acee",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/hud-top-status-frame/results/hud-top-status-frame--standard--production.json",
       "runtimeResultSha256": "e33cd383fa7ff74a240f5d8a790787467134e49e28004083d0ee9969728efa70",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png",
@@ -2680,7 +2680,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-card-background/screenshots/levelup-card-background--compact--production.png",
-      "screenshotSha256": "fe21d11a18c8a25692f16c3dc97e1ad47ae0702e221411f3114646976ee3579e",
+      "screenshotSha256": "ee547eee4edffbe3e6f213aef05259b401d1378db45fe4425f52b7490011c700",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-card-background/results/levelup-card-background--compact--production.json",
       "runtimeResultSha256": "8d21b87b9912c3f27979babcc1a01777dd9d34fa81007aad9d0627a24e8f3931",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png",
@@ -2717,7 +2717,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-card-background/screenshots/levelup-card-background--large--production.png",
-      "screenshotSha256": "377c3faaded911df35e20e42048ad5a06e210c83c3e1e46fc2a65880209ca2e0",
+      "screenshotSha256": "512693e105bdfeb9ff6c4e28eea5a90c1b9f66f863b4d2491d90de61b951a2dd",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-card-background/results/levelup-card-background--large--production.json",
       "runtimeResultSha256": "3ec08c2d21b72aa0103861f4179dae12f2a1fa7be26ea50b8982df6702cbb14e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png",
@@ -2754,7 +2754,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-card-background/screenshots/levelup-card-background--standard--production.png",
-      "screenshotSha256": "d31f1ba1e59d5a250cd2d6c5808dae77344f8dd5fa19de6eae10097b296699c9",
+      "screenshotSha256": "101e79c0b4a0fd2ce95f1b4068d4c9123216b3411dc42690ca2c58638c053a9c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-card-background/results/levelup-card-background--standard--production.json",
       "runtimeResultSha256": "44171367572cf4592b45e3290047eddae7d2f9eec98fa44fa34256391155be92",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png",
@@ -2791,7 +2791,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-decline-button/screenshots/levelup-decline-button--compact--production.png",
-      "screenshotSha256": "e378d24f19f3f05e2d1755a2ab6a1903a6f5d86373705c9e165ab0155c2a39bf",
+      "screenshotSha256": "436bf7c03512d0a71d6848473371ed14a426af188324d50e2e18c8936c145b91",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-decline-button/results/levelup-decline-button--compact--production.json",
       "runtimeResultSha256": "f1451a72bb6077b31633072ef579f8e9fb116630589f5ebb2ea0f14d11b08e93",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png",
@@ -2828,7 +2828,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-decline-button/screenshots/levelup-decline-button--large--production.png",
-      "screenshotSha256": "6cc3a6b5bc373de8f795b7a610bca519b0996fe2aea4fc062f1d9990729cc166",
+      "screenshotSha256": "d0e9124096d39c0c55c1545173fb6fcbc5b753b8835996d4f665e1f21f98bb41",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-decline-button/results/levelup-decline-button--large--production.json",
       "runtimeResultSha256": "1ce1948b31c65f82a5065b062be76cd88ea38d96e9eb124c5163a1d46139c8b4",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png",
@@ -2865,7 +2865,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-decline-button/screenshots/levelup-decline-button--standard--production.png",
-      "screenshotSha256": "8879138641528ce93ca1a00885b733ab1481f7bada8690e0a990b4042b20f0d5",
+      "screenshotSha256": "f15352c70f9512ab30b37bd3fa429395595c0a2eb867a4808e15e087cd2f534c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-decline-button/results/levelup-decline-button--standard--production.json",
       "runtimeResultSha256": "9c720859320582c74c30fda18a5f36f057a466dc28b07318fe5373775340bf54",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png",
@@ -2902,7 +2902,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-description-area/screenshots/levelup-description-area--compact--production.png",
-      "screenshotSha256": "a6a3558986b0b0a9999ed2734e2825ed5251b6b37bcb7dedf30a9b58813ddc2c",
+      "screenshotSha256": "99685e1a774992bd85a4c58a7042306aa010f17a81d5bd54374bf9392c05021f",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-description-area/results/levelup-description-area--compact--production.json",
       "runtimeResultSha256": "606ebd7a18d623ca2cbca2acb718716933ec80070c8d940a9d30601a6bac1228",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png",
@@ -2939,7 +2939,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-description-area/screenshots/levelup-description-area--large--production.png",
-      "screenshotSha256": "def42e518d666760177c8a60b1472b9d7e19de1499bef13542c283cf8ede9d5b",
+      "screenshotSha256": "20edafe9ed9abd290d7a231205e0893d18cfc402f05fb93808e8dd425b059f17",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-description-area/results/levelup-description-area--large--production.json",
       "runtimeResultSha256": "65e2cb263b1e75c32360f8cc709598bd3b9d4273c4783e0185df32503f421cc5",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png",
@@ -2976,7 +2976,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-description-area/screenshots/levelup-description-area--standard--production.png",
-      "screenshotSha256": "5daf64be11e5e377dd88b7cb9fd5fa1532085f2de4a5ea1f388d9d0f0d20ff99",
+      "screenshotSha256": "48e79c59d2f9ea289c3b974bc107131ca2ebf8169e011fe85938e70b0cdde9fb",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-description-area/results/levelup-description-area--standard--production.json",
       "runtimeResultSha256": "57307dbec5367fa9741ae9ecd72982f53a2f078241fc23d1862e6a0867499d8f",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png",
@@ -3013,7 +3013,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-icon-frame/screenshots/levelup-icon-frame--compact--production.png",
-      "screenshotSha256": "a146f59ba41af0133794a884e7312436378d3a10b430fdb1c1b98b5ac27d57e6",
+      "screenshotSha256": "0a594d388b5d957e2af5c093cfa5d2ca9fa458ad30da1e5d77f96e681de5a9cd",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-icon-frame/results/levelup-icon-frame--compact--production.json",
       "runtimeResultSha256": "aa9dfc537d78d410bec233d1287590e03ca6b4305c0969e2eac67495ae4d848e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png",
@@ -3050,7 +3050,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-icon-frame/screenshots/levelup-icon-frame--large--production.png",
-      "screenshotSha256": "4dc57f85546864ecf7535e25e60f47acda0da3e3cda52737d7ab6edd8f442c8a",
+      "screenshotSha256": "37b161eb7bb943131f8f028b57a3221b61534334f5bb7f75ed1e48c82c4a8db2",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-icon-frame/results/levelup-icon-frame--large--production.json",
       "runtimeResultSha256": "1a5b421fa799f0c08537c61c69c63fcf86ebd3cde8860da782fd163158f2b83a",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png",
@@ -3087,7 +3087,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-icon-frame/screenshots/levelup-icon-frame--standard--production.png",
-      "screenshotSha256": "0d5b90a96100d0b1d55259e82f55ae3e5e80ad75ce761c577f287fbdc2c7618e",
+      "screenshotSha256": "a99eef753175c2fd668a1e6f7c01461ef39a48fa7012b9a6983cf1d734f81561",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-icon-frame/results/levelup-icon-frame--standard--production.json",
       "runtimeResultSha256": "0df6fb87491e80fe7b53f4f5a8d89e705225bbca1893468e22729c4bea41defc",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png",
@@ -3124,7 +3124,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-selection-feedback/screenshots/levelup-selection-feedback--compact--production.png",
-      "screenshotSha256": "d1e566d6ccb4ad9a2a1b9cd0ede306823bf6ab18d8ffdf69ee0bf81da4c3c275",
+      "screenshotSha256": "42cae9f45b77c5e46b68a47f5411a7502448657f38556c33ba1cf730538f038b",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-selection-feedback/results/levelup-selection-feedback--compact--production.json",
       "runtimeResultSha256": "ae770ca1c1dde7e323bd7aacb595ad9cc83bd2d61a3f7e3dffb083a093888762",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png",
@@ -3161,7 +3161,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-selection-feedback/screenshots/levelup-selection-feedback--large--production.png",
-      "screenshotSha256": "db35ffc94ca10c3059c7a458571b784beef5b893493d0f9de7c3099155499fd5",
+      "screenshotSha256": "0b827026ea578f0236505043103b9187917d2c17f3b27b0fcde6d98f8b743039",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-selection-feedback/results/levelup-selection-feedback--large--production.json",
       "runtimeResultSha256": "7ac238f336f4aa57ef0129ad6e5aae560d865418bb0d0bf1ebfd49a7d5ea7d0f",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png",
@@ -3198,7 +3198,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-selection-feedback/screenshots/levelup-selection-feedback--standard--production.png",
-      "screenshotSha256": "ae617916ccfc6cf9a17612ce0e1fbf1eff76d910c46640dee1b3317fa747bfd0",
+      "screenshotSha256": "1a6b94d50369b8adb428c9afbf12fb91baeac5434a9ef9d3bfa180cc2ce2c365",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-selection-feedback/results/levelup-selection-feedback--standard--production.json",
       "runtimeResultSha256": "e4596e8b512e8711befabfc5e81c4947ce919c82a703eb7d412c0c3518a25e80",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png",
@@ -3235,7 +3235,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-title-area/screenshots/levelup-title-area--compact--production.png",
-      "screenshotSha256": "98c724d760e2e09531e3a4e8eb21aea4cc3f81cb5145ec1cc0707b801e3b9cc7",
+      "screenshotSha256": "9728f8a48bd40954e993fecaeb2f3402659bb0065a8e7b69da6a277dcb1d2294",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-title-area/results/levelup-title-area--compact--production.json",
       "runtimeResultSha256": "7be522186e7c4cd1f08d8ab2330a439572db7ff3a178dfcd3e3d4d55e574befb",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png",
@@ -3272,7 +3272,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-title-area/screenshots/levelup-title-area--large--production.png",
-      "screenshotSha256": "7bc7bd708dd189567d5446b7ec5a7a8b42b3f1e1772ebcd780e53c70d5c4b14d",
+      "screenshotSha256": "324c325789a70ead22a749488941a945914f909c296c807912eb9d734a34b0a5",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-title-area/results/levelup-title-area--large--production.json",
       "runtimeResultSha256": "29656a70bebdc3d34c2cd110b5153915f0ed3464b29e2a2b37fa6d57dfa8dcc1",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png",
@@ -3309,7 +3309,7 @@
         "longest-canonical-text"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-title-area/screenshots/levelup-title-area--standard--production.png",
-      "screenshotSha256": "0c13559312ef965267ccd546a20d01811b1bd679acabeb571dd281f493c8e107",
+      "screenshotSha256": "aa019ac734f5b622ae0f21a9609af6b65f5b30af8eed221931741856b0923fbe",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/levelup-title-area/results/levelup-title-area--standard--production.json",
       "runtimeResultSha256": "c704c01136350d7a7d79369b7cc815328a5472a65c6edccf4ed6c16ff0b78527",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png",
@@ -3348,7 +3348,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-cancel-button/screenshots/replacement-cancel-button--compact--production.png",
-      "screenshotSha256": "5632cf36597c08632e59eec13ff0d16eea28db521e1c76ddd279bdb6ab12ed47",
+      "screenshotSha256": "ef3b868c34ee7b21bc7c0f9ee680e5dbdbb3f9dec11c4dbad7de86e4d8a4dbe1",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-cancel-button/results/replacement-cancel-button--compact--production.json",
       "runtimeResultSha256": "5ec996e63a27c01fc19abb1da2301ce5315d98340a5730941d48a9626764f0d9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
@@ -3387,7 +3387,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-cancel-button/screenshots/replacement-cancel-button--large--production.png",
-      "screenshotSha256": "15d701bebd9096590ca71521a441169b1a1d8ce9669cbee4637acd2e71184363",
+      "screenshotSha256": "ad8b9eda5a4efd608b4f9d2b85b61c7af663e137da148eefd56e9a1aa317f5d0",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-cancel-button/results/replacement-cancel-button--large--production.json",
       "runtimeResultSha256": "8978b611684b0e92e6a3ba960dfec43ff7a76b08e0ad3c75997e317b15199be5",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
@@ -3426,7 +3426,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-cancel-button/screenshots/replacement-cancel-button--standard--production.png",
-      "screenshotSha256": "64ae20d5e5137ac7a403b2b91505caa13cb8e996877b60b5e395aade588bd43f",
+      "screenshotSha256": "1e42606504b8bb0a15c63612a2c793cd4e7c39e152068eb17ec48ba5774c66b4",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-cancel-button/results/replacement-cancel-button--standard--production.json",
       "runtimeResultSha256": "fccdf37b1b2a417621c962042c46698579bdb2863778f66aed432712056a0eaf",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
@@ -3465,7 +3465,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-confirm-button/screenshots/replacement-confirm-button--compact--production.png",
-      "screenshotSha256": "68adc0bd8caa90dfe6c8f1b9a222d973f55978eb7fcb74a00b704e7f8dc5c785",
+      "screenshotSha256": "7db417dd9b3186cfebb3248af6aef48c2662f224cd7dd1075afd33a9ba73d7d7",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-confirm-button/results/replacement-confirm-button--compact--production.json",
       "runtimeResultSha256": "82093e97a86230c00f5f8aecadaf9fbc94e78aaac191059c62fd16a91cd16219",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
@@ -3504,7 +3504,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-confirm-button/screenshots/replacement-confirm-button--large--production.png",
-      "screenshotSha256": "af1e6892600930ff588626f01cdf0feed3d432260fc57590fe0faf7a08f424de",
+      "screenshotSha256": "b050c7e1952ff94c228632eb79602476caa894ab72d48f73d47824bc5ad587e2",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-confirm-button/results/replacement-confirm-button--large--production.json",
       "runtimeResultSha256": "9d196c58bdc95368cd0f0833eb5ffb31ffd6b0115c8c444425b640212a6ffe4d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
@@ -3543,7 +3543,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-confirm-button/screenshots/replacement-confirm-button--standard--production.png",
-      "screenshotSha256": "9b649871a33141886e209d5f46c59707b8cc2a903e82375429aca4958bbddc31",
+      "screenshotSha256": "d653c473e33458d1f52402acec5e4421fdd317f7104f78c2616fc6cece8b2341",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-confirm-button/results/replacement-confirm-button--standard--production.json",
       "runtimeResultSha256": "a1b7aab3fba19b91af425ff52f260e236ffe20b5f97844fddd76b98c99c45518",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
@@ -3582,7 +3582,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-incoming-candidate-panel/screenshots/replacement-incoming-candidate-panel--compact--production.png",
-      "screenshotSha256": "365a35b6b2cc7284df3c59de75b2a98d0c8687b828549046d84971b689c636b1",
+      "screenshotSha256": "3518a5c34fbee74bdbdcac9532baef13e4a5a59893aaa1c34da04231e441b0ae",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-incoming-candidate-panel/results/replacement-incoming-candidate-panel--compact--production.json",
       "runtimeResultSha256": "684a8b62c557a7e216dbd492725953281afb8c375304a4f0e11c9196eea07822",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
@@ -3621,7 +3621,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-incoming-candidate-panel/screenshots/replacement-incoming-candidate-panel--large--production.png",
-      "screenshotSha256": "c8f15e21d603d677caa9fb938291401258ef78b19ea92acaebc061d346ec3cc3",
+      "screenshotSha256": "b549b50fcb4039e7a2b78c95e92a4fda7cb20f89a904fcd79650b6610fed9723",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-incoming-candidate-panel/results/replacement-incoming-candidate-panel--large--production.json",
       "runtimeResultSha256": "6b0bf95424ff37e1ec6a600da7c8a634f3f389d8ae6b2918b3becdd110c33ff9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
@@ -3660,7 +3660,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-incoming-candidate-panel/screenshots/replacement-incoming-candidate-panel--standard--production.png",
-      "screenshotSha256": "d2595f97f3442648c8053a3f7b33fcd4cc8e9c7b4cd14335a48771961e099c6b",
+      "screenshotSha256": "ca2a2191bef2c48d3b753338374b0097689ccf4ea5433536d9d1a20707a6c616",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-incoming-candidate-panel/results/replacement-incoming-candidate-panel--standard--production.json",
       "runtimeResultSha256": "0d874541ac02c43eb1acc1e36a27c7c3338ed58ad19cec680797854e289730e9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
@@ -3699,7 +3699,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-modal-background/screenshots/replacement-modal-background--compact--production.png",
-      "screenshotSha256": "f8d5f058564a9e7bb0a1fb3e15057e9bd7fcda4d33f3a9ea8b3ecdc3ebe0a995",
+      "screenshotSha256": "eb2899e22c7b71da12ec14f7dceea57e2f8a1c6f725981bf043db41933c9e1b4",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-modal-background/results/replacement-modal-background--compact--production.json",
       "runtimeResultSha256": "4b9be0b232de015db417463e3a3cca409693d75ffef7fa107e597991ad258bae",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
@@ -3738,7 +3738,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-modal-background/screenshots/replacement-modal-background--large--production.png",
-      "screenshotSha256": "62b75de3c2e4896d3df905ce89ae318eaa405adce61a8c795c1a4e940915bad5",
+      "screenshotSha256": "666a62653bace9e6442aaa306f81f31b3c1add3098790c6e1c45c88add42ab0d",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-modal-background/results/replacement-modal-background--large--production.json",
       "runtimeResultSha256": "f0922562586bcf3f0b0f942f31d0888b6de02e248a4f9d63874f2d54402c7005",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
@@ -3777,7 +3777,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-modal-background/screenshots/replacement-modal-background--standard--production.png",
-      "screenshotSha256": "82c684933b5d86a89b9fb5f68256fbab1ec6a5e7db2a703ed33afbe0c83a341e",
+      "screenshotSha256": "0da68d999349a254877852e63d1a1f2a2f21ee3a0355159ed732974b3ab67ca3",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-modal-background/results/replacement-modal-background--standard--production.json",
       "runtimeResultSha256": "c07b56247f7779e6c432afbd2339c14c1bc6d48cab4df7c5394dc4f0ff546688",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
@@ -3816,7 +3816,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-owned-slot-row/screenshots/replacement-owned-slot-row--compact--production.png",
-      "screenshotSha256": "5d1bdcf59025033e83a8da76ee84e4d3d0764e2f666de854c8369d61e9b14b8c",
+      "screenshotSha256": "b004f1c71b936f0540395fca5bb3de8e741211899d894bfa10bb496bca7e0efd",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-owned-slot-row/results/replacement-owned-slot-row--compact--production.json",
       "runtimeResultSha256": "ae3515483dfa461e7961865d8fa092c8bc292519ebc86101ecaddce52116773d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
@@ -3855,7 +3855,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-owned-slot-row/screenshots/replacement-owned-slot-row--large--production.png",
-      "screenshotSha256": "aa24b40d35045ac42f025435f2e3e7c987c5493741d9910fb096195c59eaf499",
+      "screenshotSha256": "ff485828f3c4ec6efe21b5aad89287ff6f6277823867baee79a3901629c970f7",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-owned-slot-row/results/replacement-owned-slot-row--large--production.json",
       "runtimeResultSha256": "191a6e2411479c655ce7ded79cc83e731fa289a99d894f9eefeb41cc03d38003",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
@@ -3894,7 +3894,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-owned-slot-row/screenshots/replacement-owned-slot-row--standard--production.png",
-      "screenshotSha256": "d9c5708925ab09166e1068de08db464a0d5a06698a655a3d7f3b04a8633aab77",
+      "screenshotSha256": "e182b1b7a023e20e8512d4a8443ae40fca416511ad2bbef727679985d4021afa",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-owned-slot-row/results/replacement-owned-slot-row--standard--production.json",
       "runtimeResultSha256": "4bff7756c8543bf12cdc66a36077aa5cdc8f4d645f734420fb68fe813e27f697",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
@@ -3933,7 +3933,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-selected-slot-state/screenshots/replacement-selected-slot-state--compact--production.png",
-      "screenshotSha256": "9346ae09be33bc382d18b3886f9c29ebf039561106fc2401621ca073c0242fb7",
+      "screenshotSha256": "4c607445e7c752b1211c28095aea4b5ed1a87f9b5ec065a9146ec35999647f4c",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-selected-slot-state/results/replacement-selected-slot-state--compact--production.json",
       "runtimeResultSha256": "8f88a5fc081010fccaa28308d6bd3b379a644b7e12399f402af57754176d260c",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
@@ -3972,7 +3972,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-selected-slot-state/screenshots/replacement-selected-slot-state--large--production.png",
-      "screenshotSha256": "3d037a35e7f7e945f615febfd6609c6d0b5ad49e3a1770fa2e7e86ff14502338",
+      "screenshotSha256": "e71f4485b34e0fa4f467701a794024c87b762aeb31b072f638894641b9349e22",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-selected-slot-state/results/replacement-selected-slot-state--large--production.json",
       "runtimeResultSha256": "7cc4d28281532f0ba6edb0cbbd8553bca13fc9bca0f2c41a70ab8da5bb129245",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
@@ -4011,7 +4011,7 @@
         "reopen-reset"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-selected-slot-state/screenshots/replacement-selected-slot-state--standard--production.png",
-      "screenshotSha256": "4055901d5def89bcc23796ac3a163cd1c38d227347c07768858fcaeb42f00507",
+      "screenshotSha256": "82856bd18d553592c4a9d5ed95a4e7babd4e2cd2c11a487d289e950a57753fc3",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/replacement-selected-slot-state/results/replacement-selected-slot-state--standard--production.json",
       "runtimeResultSha256": "b0ca48923b8ef2e7dd3851755c1bcc1a71156c935275ece2ff33df0847f6859a",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
@@ -4048,7 +4048,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-evolution-awakening-row/screenshots/result-evolution-awakening-row--compact--production.png",
-      "screenshotSha256": "8729b8ed8757deb39cf950ce3f45202f97a68b3213ce6d824f64a8566251ddab",
+      "screenshotSha256": "38794ae8d256ede0baf9ba145053438d3867749c9da70fb717426e00c19f082b",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-evolution-awakening-row/results/result-evolution-awakening-row--compact--production.json",
       "runtimeResultSha256": "7bd33346c98a358c6e7e1ce225a227d721e97f1a12cb6f80fbd7d2a5a69b75e6",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
@@ -4085,7 +4085,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-evolution-awakening-row/screenshots/result-evolution-awakening-row--large--production.png",
-      "screenshotSha256": "e31b8ca303f29cf90a36bdb849d17b0989b827ec019b6aef3cb5f4b3c4398cbe",
+      "screenshotSha256": "047a3cd1d47366a5f046b785406cef8c2b684232e342b1a71b78d26f5839fad8",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-evolution-awakening-row/results/result-evolution-awakening-row--large--production.json",
       "runtimeResultSha256": "e20aba2b173ed0bcd9d004b1f275d3f873b36849ce551d7f514ac271aaed2623",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
@@ -4122,7 +4122,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-evolution-awakening-row/screenshots/result-evolution-awakening-row--standard--production.png",
-      "screenshotSha256": "3f754af96454d9b26acee1b4a38f5f3a085859bae180430650fb389ce611d04a",
+      "screenshotSha256": "df2ee4969c6918fb0e6cb1825c395cd5ef588fd65d6823f8397f95da1edb95d5",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-evolution-awakening-row/results/result-evolution-awakening-row--standard--production.json",
       "runtimeResultSha256": "1c95340900224918e61f73692c7b89e7e8c8204e167526abb168e0e7871ad8d2",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
@@ -4159,7 +4159,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-inventory-row/screenshots/result-inventory-row--compact--production.png",
-      "screenshotSha256": "b330b62a86ab7596fe9dcdd59fc47cd742ed9abe019f48b0da4e79acbd666dca",
+      "screenshotSha256": "13ca9a9c27319457a29bbb832b2875fbea61464ab86ecd2a1ea06f0ca0aaffca",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-inventory-row/results/result-inventory-row--compact--production.json",
       "runtimeResultSha256": "e3120561d36cefb073662073233d87359d36efb934f82f579ad2c141c503b4f1",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
@@ -4196,7 +4196,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-inventory-row/screenshots/result-inventory-row--large--production.png",
-      "screenshotSha256": "293fdafd9216e7e79b08d5d59ad0eb840d21fd754332f35bc4a004d4379f4df9",
+      "screenshotSha256": "7e264cc07c78ee7654651502dbc08c136d0ef5908bda5ea20088fb98ddca30f1",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-inventory-row/results/result-inventory-row--large--production.json",
       "runtimeResultSha256": "1a4ca30458d83bc6ee8e57347e2c144f0b266f69cf1bbb61b7773c526df3082b",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
@@ -4233,7 +4233,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-inventory-row/screenshots/result-inventory-row--standard--production.png",
-      "screenshotSha256": "8f47af96c1aa23a79c26bc5e2f4417ff7832b37f2f8195e4ca3bf78632110c44",
+      "screenshotSha256": "c19dde8fc62f9041d0b38cc680bb806a6de5042c42cd90c4d5e77d4b0660d5fe",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-inventory-row/results/result-inventory-row--standard--production.json",
       "runtimeResultSha256": "5817eadacc28af7a9ba902c3d49d47ae95f6ec5df2f40580ad0b0940668b8284",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
@@ -4381,7 +4381,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-retry-button/screenshots/result-retry-button--compact--production.png",
-      "screenshotSha256": "b330b62a86ab7596fe9dcdd59fc47cd742ed9abe019f48b0da4e79acbd666dca",
+      "screenshotSha256": "d6c1abc4ae6c2b76c59eba42d5cfc137cdb1b3ef59487e293c27fe1c97962765",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-retry-button/results/result-retry-button--compact--production.json",
       "runtimeResultSha256": "40e785e4645b8b352e342538d7f37e92dc6749390fea82898732f2b565f8881c",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
@@ -4418,7 +4418,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-retry-button/screenshots/result-retry-button--large--production.png",
-      "screenshotSha256": "293fdafd9216e7e79b08d5d59ad0eb840d21fd754332f35bc4a004d4379f4df9",
+      "screenshotSha256": "ed200485bab0d28540bff010d30448a2f485a1dc9a7174c98d1a2d31fb240d7e",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-retry-button/results/result-retry-button--large--production.json",
       "runtimeResultSha256": "9e7e5ea432fa37fe7f856ed3ccb4bedc4b0ee1aec9f9de2bfd2f230ea17ee433",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
@@ -4455,7 +4455,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-retry-button/screenshots/result-retry-button--standard--production.png",
-      "screenshotSha256": "8f47af96c1aa23a79c26bc5e2f4417ff7832b37f2f8195e4ca3bf78632110c44",
+      "screenshotSha256": "970441dedf0e7770dc6c43b8d63e0a6026a8d73ca11f3c1e43b12be00c80d3f3",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-retry-button/results/result-retry-button--standard--production.json",
       "runtimeResultSha256": "30bde148b46707bdad94ce16cff4f059d97da5b8037607b4dc7934e92b53a919",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
@@ -4492,7 +4492,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-return-button/screenshots/result-return-button--compact--production.png",
-      "screenshotSha256": "b330b62a86ab7596fe9dcdd59fc47cd742ed9abe019f48b0da4e79acbd666dca",
+      "screenshotSha256": "6f1c897ab4f64b0cb3468b9c911a1e920d18d89e117829d8a9bdff8e6aa4215d",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-return-button/results/result-return-button--compact--production.json",
       "runtimeResultSha256": "152cfccb64b3fcd41d7d0dd843048a60493ba25d2d4c36d2f66aacb3fb6c1845",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
@@ -4529,7 +4529,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-return-button/screenshots/result-return-button--large--production.png",
-      "screenshotSha256": "293fdafd9216e7e79b08d5d59ad0eb840d21fd754332f35bc4a004d4379f4df9",
+      "screenshotSha256": "b834fca5095ef1d960250fe217180716daeb3f5bf1dca9a4d4bc62774daa560a",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-return-button/results/result-return-button--large--production.json",
       "runtimeResultSha256": "725f8c0234049faf1503a5f06f4d77052f8e5566307bc4a34a07f8233d8fd514",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
@@ -4566,7 +4566,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-return-button/screenshots/result-return-button--standard--production.png",
-      "screenshotSha256": "8f47af96c1aa23a79c26bc5e2f4417ff7832b37f2f8195e4ca3bf78632110c44",
+      "screenshotSha256": "bbc6a1778585c518457ff09ca3922bfe41c8ddc746f385fcb7015220783b7655",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-return-button/results/result-return-button--standard--production.json",
       "runtimeResultSha256": "0658ea06f63bd133498e2c60a5ae21698bb54ae3f81f4924b00fefc256cbf120",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
@@ -4603,7 +4603,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-summary-header/screenshots/result-summary-header--compact--production.png",
-      "screenshotSha256": "a713dc1cbd3c038a4d60b34a86a32ee98a5c5a325ff09c28aa3caffb85d5a67a",
+      "screenshotSha256": "b330b62a86ab7596fe9dcdd59fc47cd742ed9abe019f48b0da4e79acbd666dca",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-summary-header/results/result-summary-header--compact--production.json",
       "runtimeResultSha256": "e1d6cfa020872f791bbf8c366d1b7d3db635700d471eb37e4345b14286ee1df5",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
@@ -4640,7 +4640,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-summary-header/screenshots/result-summary-header--large--production.png",
-      "screenshotSha256": "ee3997441316d470fa4161e189c954a2814e76566384c7ff3dba75e23e7706fb",
+      "screenshotSha256": "293fdafd9216e7e79b08d5d59ad0eb840d21fd754332f35bc4a004d4379f4df9",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-summary-header/results/result-summary-header--large--production.json",
       "runtimeResultSha256": "3dad9c6dacd757b10efab31a9f96c30c8ce0ee6b37b27b6cd1f24945f6e75344",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
@@ -4677,7 +4677,7 @@
         "return"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-summary-header/screenshots/result-summary-header--standard--production.png",
-      "screenshotSha256": "f1a41cff3d785bfc535b9bde3de4adcbae963f464a341152ac08c6341ca74fe1",
+      "screenshotSha256": "8f47af96c1aa23a79c26bc5e2f4417ff7832b37f2f8195e4ca3bf78632110c44",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/result-summary-header/results/result-summary-header--standard--production.json",
       "runtimeResultSha256": "406c01337fa5cd463f895e4c9f511a73a1af6c642c07c1e8576a3c946bfe7002",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
@@ -4716,7 +4716,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-locked-unlocked-state/screenshots/stage-select-locked-unlocked-state--compact--production.png",
-      "screenshotSha256": "50f6903e0a4f0e6bb033bb69bde3d7b836ad1cb2228b68300b34804f4ce7d7fd",
+      "screenshotSha256": "486405632bc8e1e34f6a641f19c7d77a2df072940dd6b14106cea632c6d259bf",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-locked-unlocked-state/results/stage-select-locked-unlocked-state--compact--production.json",
       "runtimeResultSha256": "83e4f68fe45c171746339496fe5025850828e58451853a467d75edce831bd1ae",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png",
@@ -4755,7 +4755,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-locked-unlocked-state/screenshots/stage-select-locked-unlocked-state--large--production.png",
-      "screenshotSha256": "11a94590b12feaf12d0c30355d9ea5c792138d8ee70d2b05dc0bdf3ed4266b51",
+      "screenshotSha256": "607fbe195cfaf1956e8ce54aee5df78cd1e40275e322da51b1d5c3ccaabe42b9",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-locked-unlocked-state/results/stage-select-locked-unlocked-state--large--production.json",
       "runtimeResultSha256": "ce79c0f80006df63086833d92497412119579a1db251382e998cdcd4a2eded9e",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png",
@@ -4794,7 +4794,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-locked-unlocked-state/screenshots/stage-select-locked-unlocked-state--standard--production.png",
-      "screenshotSha256": "2c786ef0878cd60d75f96b099d7faadabd3232f930e1d3a813c1d73a4dea36fc",
+      "screenshotSha256": "ebf62715066b7229112952075cc2c2296a54b3022f253bed7d7d4abba9c032fc",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-locked-unlocked-state/results/stage-select-locked-unlocked-state--standard--production.json",
       "runtimeResultSha256": "b67e7cb25260532275dfaa8cc67997e014e4883d6f57729c5546be9750d992c6",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png",
@@ -4833,7 +4833,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-metadata-row/screenshots/stage-select-metadata-row--compact--production.png",
-      "screenshotSha256": "6d2726d526071e00c87d7d1086034e08fbcecf86012bbc9a6bf868e5e164272c",
+      "screenshotSha256": "77b8b181c0ca4668151c96f2443e5d7aa4dc0078539db5075fda3e5393d57448",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-metadata-row/results/stage-select-metadata-row--compact--production.json",
       "runtimeResultSha256": "48e0ece921bb61d6a9495b4905912e9e32ad325012c3472d9055d548a70276c9",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png",
@@ -4872,7 +4872,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-metadata-row/screenshots/stage-select-metadata-row--large--production.png",
-      "screenshotSha256": "955eec206c7f759c324b282a94dc95b0e923f99da144f8623de00f01d3152a52",
+      "screenshotSha256": "8297abfcfccc9f5aad081b0521f3fb413d0379e397aff37782670f7860298b15",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-metadata-row/results/stage-select-metadata-row--large--production.json",
       "runtimeResultSha256": "eb780585ac1482a4c161537a88d57ce61ca598688da1e7a05d43753b057fc83a",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png",
@@ -4911,7 +4911,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-metadata-row/screenshots/stage-select-metadata-row--standard--production.png",
-      "screenshotSha256": "743278641b7221078c9c77ee4d1a7dc69f25b16ad5ef0f2f72445723084911d9",
+      "screenshotSha256": "0cc1811df8106bcc23b4e61b310644e6193e1e811404ef987865073b0ebfb903",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-metadata-row/results/stage-select-metadata-row--standard--production.json",
       "runtimeResultSha256": "7dbd98599ecda9c60e89b3ee6e7826a1816ca17fd78040a8723cbcc8284ba0b2",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png",
@@ -4950,7 +4950,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-primary-button/screenshots/stage-select-primary-button--compact--production.png",
-      "screenshotSha256": "88f88b49b2efa274674ffe7f67a83d7fda233fa132090f6b7372ff3fc7c67ace",
+      "screenshotSha256": "b02fba0245b124ecc012849920b929acb83aa1e6cebcad78f817e1a6f559a029",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-primary-button/results/stage-select-primary-button--compact--production.json",
       "runtimeResultSha256": "5ffabc7839fbf08b1a6a18ec9ebfda40f3a3959cdc0ce46a87fd718c8888efdc",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png",
@@ -4989,7 +4989,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-primary-button/screenshots/stage-select-primary-button--large--production.png",
-      "screenshotSha256": "ef3712ff51b8d1114d829797a2b93c870bcfcd82c965b2166f355d2220df5e1a",
+      "screenshotSha256": "3be3dec229576049767deec105d79184b3ac819474fb8d7e28bdc6ed8b6a20b6",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-primary-button/results/stage-select-primary-button--large--production.json",
       "runtimeResultSha256": "b3deae438f0e6bfb2f155a8c931d41a3919c303a701cf50ba3dc0cb4b69a2b8d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png",
@@ -5028,7 +5028,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-primary-button/screenshots/stage-select-primary-button--standard--production.png",
-      "screenshotSha256": "39e8ed3ee30a148cbde1776079d358e4fe8917058c3a1afb3e60b0b49ac6892c",
+      "screenshotSha256": "4d700420484b75cb35e39961ea20d8e5ab9d0f4b29f748bd54a9d7b4cc400c30",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-primary-button/results/stage-select-primary-button--standard--production.json",
       "runtimeResultSha256": "66f618cdb39f85d881fbdc90690563be75a9576a8ef6da3c5ac3e92521fd87a2",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png",
@@ -5067,7 +5067,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-stage-card/screenshots/stage-select-stage-card--compact--production.png",
-      "screenshotSha256": "88f88b49b2efa274674ffe7f67a83d7fda233fa132090f6b7372ff3fc7c67ace",
+      "screenshotSha256": "43c058c2c599ded30bf4201899d464cba3264fe64c1d9ab21a5233d046ea57c7",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-stage-card/results/stage-select-stage-card--compact--production.json",
       "runtimeResultSha256": "4fc09aa98783879102312adc372c653ab7eef74dfc0d95adbb3fdc1853f3a538",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png",
@@ -5106,7 +5106,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-stage-card/screenshots/stage-select-stage-card--large--production.png",
-      "screenshotSha256": "ef3712ff51b8d1114d829797a2b93c870bcfcd82c965b2166f355d2220df5e1a",
+      "screenshotSha256": "4358f9544aa0b76afe6defe2c8eb4e087b3043f588ba4b309b3c76fb09ec3485",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-stage-card/results/stage-select-stage-card--large--production.json",
       "runtimeResultSha256": "06e9864380a3972d7451c09e4351cbfb4c798d907eb846a737ab7c3c0f70c09d",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png",
@@ -5145,7 +5145,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-stage-card/screenshots/stage-select-stage-card--standard--production.png",
-      "screenshotSha256": "39e8ed3ee30a148cbde1776079d358e4fe8917058c3a1afb3e60b0b49ac6892c",
+      "screenshotSha256": "4c59723e9ab45ddfd545ebeb0302eb670d5994be2c180cbb3abd91fef7a6d7ac",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-stage-card/results/stage-select-stage-card--standard--production.json",
       "runtimeResultSha256": "be1ac3d3146812e24e58d07581c724747afd86cf0de88af375df7905024378dc",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png",
@@ -5184,7 +5184,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-title-frame/screenshots/stage-select-title-frame--compact--production.png",
-      "screenshotSha256": "88f88b49b2efa274674ffe7f67a83d7fda233fa132090f6b7372ff3fc7c67ace",
+      "screenshotSha256": "864b1e78bf1f991c9367219969c79b6a3dfd8881ca5644c66b34a4d3cb134950",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-title-frame/results/stage-select-title-frame--compact--production.json",
       "runtimeResultSha256": "c54b73a45bd1ed82f8a7247a18b7fd1c7c39ffa250fffe41169ba8b48aa11cfd",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-d-production-balanced.png",
@@ -5262,7 +5262,7 @@
         "disabled"
       ],
       "screenshotPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-title-frame/screenshots/stage-select-title-frame--standard--production.png",
-      "screenshotSha256": "39e8ed3ee30a148cbde1776079d358e4fe8917058c3a1afb3e60b0b49ac6892c",
+      "screenshotSha256": "8b53488e1e25d72cf6402d5167deaef3d5043b5eed992c4cd01eff65963e9afc",
       "runtimeResultPath": "docs/design-targets/generated/unity-u48/production-verification/live-captures/stage-select-title-frame/results/stage-select-title-frame--standard--production.json",
       "runtimeResultSha256": "b683b44bb799bd4853c7d813e9170938b9eedd739031da06348f1d3626df2619",
       "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-d-production-balanced.png",

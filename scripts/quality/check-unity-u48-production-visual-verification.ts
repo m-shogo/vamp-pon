@@ -16,6 +16,7 @@ check(manifest.assetGroupCount===46&&manifest.gameplayGroupCount===16&&manifest.
 check(manifest.entryCount===138&&manifest.expectedEntryCount===138&&manifest.entries.length===138,'138 capture entries');
 check(JSON.stringify(manifest.viewportCounts)===JSON.stringify({compact:46,standard:46,large:46}),'three viewport counts');
 check(manifest.previewDependencyUsedCount===0&&manifest.resizeReuseCount===0&&manifest.exceptionCount===0&&manifest.assertionFailureCount===0&&manifest.cleanupFailureCount===0&&manifest.staleCount===0,'runtime integrity counters');
+check(manifest.duplicateScreenshotHashCount===0,'duplicate screenshot hashes');
 check(matrix.totalCaptureCount===138&&matrix.groups.length===46&&JSON.stringify(matrix.viewportCounts)===JSON.stringify(matrix.expectedViewportCounts),'capture matrix');
 const approvedByGroup=new Map(approved.entries.map((entry:any)=>[entry.assetGroup,entry]));
 for(const run of manifest.groupRuns){
@@ -35,4 +36,4 @@ for(const entry of manifest.entries){
 }
 check(new Set(manifest.entries.map((entry:any)=>entry.assetGroup)).size===46,'46 captured groups');
 check(new Set(manifest.entries.map((entry:any)=>`${entry.assetGroup}:${entry.viewport}`)).size===138,'unique group/viewport matrix');
-console.log(`U48 production visual verification passed: groups=46, captures=138, compact=46, standard=46, large=46, preview dependency=0, duplicate screenshots=${manifest.duplicateScreenshotHashCount} (shared production screens).`);
+console.log('U48 production visual verification passed: groups=46, captures=138, compact=46, standard=46, large=46, preview dependency=0, duplicate screenshots=0.');
