@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "8676d355a49d404ace4235a471f63c36657c411b",
+  "audioFileCount": 44,
+  "bgmAssetCount": 0,
+  "bgmAssets": [],
+  "bgmRuntimeOwnerExists": false,
+  "loopPointDefined": false,
+  "phaseDecision": "INTENTIONAL_SILENCE",
+  "rationale": "StageSelect and Stage1 are currently supported by restrained UI, pickup, battle, climax, and result SE. No rights-cleared production BGM candidate exists; U49 will not create a low-quality substitute.",
+  "blocker": null
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "phase": "U49",
+  "sourceHead": "8676d355a49d404ace4235a471f63c36657c411b",
+  "measuredAtUtc": "2026-07-21T05:18:39Z",
+  "worktreeCleanAtPhaseStart": true,
+  "u48RuntimeVisualReady": true,
+  "u48ProductionAssetCount": 46,
+  "u48ProductionReferenceCount": 46,
+  "u48PreviewDependencyCount": 0,
+  "u39FinalCandidateSeCount": 22,
+  "actualAudioMixerAssetExists": false,
+  "mobileHapticAdapterIsPlaceholder": true,
+  "physicalDeviceEvidenceExists": false,
+  "phaseStartRuntimeAudioSourceCount": 1,
+  "phaseStartRuntimeUsesGeneratedTone": true,
+  "phaseStartRuntimeUsesU39Clips": false,
+  "phaseStartAudioListenerPolicy": "one listener created by U1Stage1SceneBootstrap camera",
+  "phaseStartSaveSettings": [
+    "masterVolume",
+    "hapticEnabled",
+    "locale"
+  ],
+  "blockers": [
+    "actual AudioMixer asset missing",
+    "U39 clips not connected to production runtime",
+    "runtime uses generated tone",
+    "production haptic route uses Handheld.Vibrate instead of Core Haptics adapter",
+    "physical-device and human audio/haptic evidence missing"
+  ]
+}
