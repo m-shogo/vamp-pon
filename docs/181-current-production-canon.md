@@ -164,20 +164,20 @@ Point Filter、GameObject名、静止画表示、操作可能、Simulator route 
 現在:
 
 ```txt
-runtimeVisualClassification=candidate-animated-multiple-sprite
+runtimeVisualClassification=production-animated-sprite
 simulatorPlayableCandidateReady=true
 simulatorCandidateAnimationVisualReviewPassed=true
-simulatorFinalArtApprovalProvided=false
+simulatorFinalArtApprovalProvided=true
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
 ```
 
 `characterDotRuntimeReady=true`最低条件:
@@ -271,9 +271,9 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 1. `pnpm implementation:preflight:check`
 2. U46 AppFlow/Pause + Result ViewModel + SaveService v1 + 灯録: completed candidate
    - U46.1 Result empty state / copy-on-write save / subscription hardening: completed
-3. U47 gameplay definitions/runtime state: current
-4. U48 remaining assets/background/VFX
-5. U49 actual-device audio/haptic
+3. U47 gameplay definitions/runtime state: completed
+4. U48 remaining assets/background/VFX: completed
+5. U49 actual-device audio/haptic: current
 6. U50 performance/touch metrics
 7. U51 RC
 

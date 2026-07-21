@@ -42,13 +42,13 @@ characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
-candidateAssetsApprovedAsFinal=false
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
 rcReady=false
 productionApproved=false
 ```
@@ -103,7 +103,11 @@ U45.1とFoundation Gateを壊さず、非戦闘shellを製品品質化する。
 - battle controllerへ画面生成や保存処理を追加しない
 - drop、進化、復帰、黒耀化のstate transitionをtest可能にする
 
-### U48以降
+### U48 Production Asset Expansion: Completed
+
+人間承認46件を安定production pathへ昇格し、固定production catalogからruntime接続した。Preview defineなしのiOS Simulator buildで46 group / 138 capture（Compact / Standard / Large）を検証済み。これはU48 visual runtime scopeの完了であり、実機、音、振動、性能、RC、アプリ全体のproduction承認は含まない。
+
+### U49以降
 
 残りの背景、VFX、全asset replacement、音、振動、性能、RCを証跡付きで進める。
 

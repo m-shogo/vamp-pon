@@ -49,7 +49,7 @@ check(!bridge.includes('Add(new WeaponRuntimeState') && !bridge.includes('unknow
 for (const protectedPath of [
   'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/State/RunGameplayState.cs',
   'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/Stage1GameplayDataRegistry.cs',
-  'docs/design-targets/generated/unity-u48/batch-a',
+  'unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA',
   'docs/design-targets/generated/unity-u48/batch-b',
 ]) {
   try { execFileSync('git', ['diff', '--quiet', 'af40b4c9', '--', protectedPath], { cwd: root }); }

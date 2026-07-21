@@ -39,7 +39,9 @@ namespace VampPon.UnitySpike.Diagnostics
         private static void Install()
         {
             if (Application.platform != RuntimePlatform.IPhonePlayer) return;
-            if (Environment.GetEnvironmentVariable("VAMPPON_U47_AI_SIMULATOR_SMOKE") != "1") return;
+            var request = Path.Combine(Application.persistentDataPath, "u47-simulator-capture-request.txt");
+            if (Environment.GetEnvironmentVariable("VAMPPON_U47_AI_SIMULATOR_SMOKE") != "1" && !File.Exists(request)) return;
+            if (File.Exists(request)) File.Delete(request);
             DontDestroyOnLoad(new GameObject("U47AiSimulatorSmokeBridge", typeof(U47AiSimulatorSmokeBridge)));
         }
 

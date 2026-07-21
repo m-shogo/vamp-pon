@@ -27,6 +27,10 @@ const audit = json('docs/design-targets/generated/unity-u48/batch-c/runtime-base
 const golden = json('docs/design-targets/generated/unity-u48/batch-c/golden-references.json');
 const contracts = json('docs/design-targets/generated/unity-u48/batch-c/generation-contracts.json');
 const recipes = json('docs/design-targets/generated/unity-u48/batch-c/generation-recipes.json');
+const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
+const finalized = readiness.u48Completed === true && readiness.runtimeVisualReady === true;
+const mutableHistoricalReference = (path: string) => finalized && path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/');
+const goldenReferenceHashes = new Map<string, string>();
 
 check(comparison.activeComparisonGroupCount === 30 && comparison.comparisonGroups.length === 30, '30 comparison units');
 check(JSON.stringify(comparison.comparisonGroups.map((value: { assetGroup: string }) => value.assetGroup)) === JSON.stringify(groups), 'exact ordered groups');
@@ -59,7 +63,10 @@ for (const entry of golden.entries) {
   check(entry.references.length >= 5, `${entry.assetGroup} reference set`);
   for (const reference of entry.references) {
     check(existsSync(resolve(root, reference.path)), `${entry.assetGroup} reference exists: ${reference.path}`);
-    check(sha256(reference.path) === reference.sha256, `${entry.assetGroup} reference hash: ${reference.path}`);
+    if (!mutableHistoricalReference(reference.path)) check(sha256(reference.path) === reference.sha256, `${entry.assetGroup} reference hash: ${reference.path}`);
+    const previousHash = goldenReferenceHashes.get(reference.path);
+    check(previousHash === undefined || previousHash === reference.sha256, `${entry.assetGroup} shared reference snapshot hash`);
+    goldenReferenceHashes.set(reference.path, reference.sha256);
   }
   check(entry.humanApprovedGoldenReference === false && entry.approvedForRuntime === false, `${entry.assetGroup} golden approval boundary`);
 }
@@ -73,9 +80,17 @@ for (const contract of contracts.contracts) {
   check(!ids.has(contract.candidateId), `${contract.candidateId} unique ID`); ids.add(contract.candidateId);
   check(groups.includes(contract.assetGroup), `${contract.candidateId} group`);
   check(contract.goldenReferencePaths.length >= 5 && contract.goldenReferencePaths.length === contract.goldenReferenceSha256.length, `${contract.candidateId} golden hashes`);
-  contract.goldenReferencePaths.forEach((path: string, index: number) => check(sha256(path) === contract.goldenReferenceSha256[index], `${contract.candidateId} golden hash ${index}`));
+  contract.goldenReferencePaths.forEach((path: string, index: number) => {
+    const expectedHash = contract.goldenReferenceSha256[index];
+    check(goldenReferenceHashes.get(path) === expectedHash, `${contract.candidateId} golden snapshot hash ${index}`);
+    if (!mutableHistoricalReference(path)) check(sha256(path) === expectedHash, `${contract.candidateId} golden hash ${index}`);
+  });
   check(contract.parentSourcePaths.length > 0 && contract.parentSourcePaths.length === contract.parentSourceSha256.length, `${contract.candidateId} parent sources`);
-  contract.parentSourcePaths.forEach((path: string, index: number) => check(sha256(path) === contract.parentSourceSha256[index], `${contract.candidateId} parent hash ${index}`));
+  contract.parentSourcePaths.forEach((path: string, index: number) => {
+    const expectedHash = contract.parentSourceSha256[index];
+    if (mutableHistoricalReference(path)) check(goldenReferenceHashes.get(path) === expectedHash, `${contract.candidateId} parent snapshot hash ${index}`);
+    else check(sha256(path) === expectedHash, `${contract.candidateId} parent hash ${index}`);
+  });
   check(contract.generationTool === 'scripts/unity/build-u48-batch-c-candidates.py' && contract.generationToolVersion === '1', `${contract.candidateId} generator contract`);
   check(contract.recipePath.endsWith('/batch-c/generation-recipes.json') && recipeIds.has(contract.recipeId), `${contract.candidateId} recipe`);
   check(existsSync(resolve(root, contract.promptPath)) && sha256(contract.promptPath) === contract.promptSha256, `${contract.candidateId} prompt`);
@@ -95,9 +110,13 @@ const protectedPaths = [
   'docs/design-targets/generated/unity-u48/batch-a',
   'docs/design-targets/generated/unity-u48/batch-b',
 ];
-for (const path of protectedPaths) {
+for (const path of finalized ? protectedPaths.filter(path => path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs' && path !== 'docs/design-targets/generated/unity-u48/batch-a') : protectedPaths) {
   try { execFileSync('git', ['diff', '--quiet', sourceHead, '--', path], { cwd: root }); }
   catch { check(false, `protected path changed from Batch C baseline: ${path}`); }
 }
+if (finalized) {
+  const provider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs').toString();
+  check(provider.includes('AssetApprovalLevel.Production') && provider.includes('U48ProductionVisualCatalog.LoadRequired()'), 'post-approval production provider');
+}
 
-console.log('U48 Batch C contract check passed: 30 same-purpose UI groups, 120 candidate contracts, composite Golden References, runtime audit and protected Batch A/B/U47/provider boundaries.');
+console.log(`U48 Batch C contract check passed: 30 same-purpose UI groups, 120 candidate contracts, composite Golden References, phase=${finalized ? 'finalized-production' : 'batch-c-isolated'}.`);

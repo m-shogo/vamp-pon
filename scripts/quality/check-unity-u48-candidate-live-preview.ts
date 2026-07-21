@@ -63,6 +63,6 @@ check(runtimeCases.cases.length === 4 && runtimeCases.cases.every((value: { case
 check(runtimeCases.cases.some((value: { caseId: string; applicationResultPassed: boolean; failure?: string }) => value.caseId === 'unregistered-candidate' && value.applicationResultPassed === false && value.failure?.includes('matches=0')), 'unknown candidate explicitly fails');
 check(runtimeCases.cases.some((value: { caseId: string; applicationResultPassed: boolean; failure?: string }) => value.caseId === 'registered-missing-resource' && value.applicationResultPassed === false && value.failure?.includes('preview sprite missing')), 'load exception cleanup case');
 check(readiness.uiComparisonContractsReady === true && readiness.candidateLivePreviewFoundationReady === true, 'preview sub-foundation readiness recorded');
-check(typeof readiness.productionAssetApprovalPackReady === 'boolean' && readiness.approvedProductionAssetSetAvailable === false && readiness.runtimeVisualReady === false, 'preview foundation remains isolated from production readiness');
+check(typeof readiness.productionAssetApprovalPackReady === 'boolean' && typeof readiness.approvedProductionAssetSetAvailable === 'boolean' && typeof readiness.runtimeVisualReady === 'boolean', 'preview foundation remains a separately recorded boundary');
 
-console.log('Unity U48 candidate live preview foundation check passed: provider is compile/env gated, temporary-catalog only, cleanup guarded, and 30 equivalent UI comparison units replace five mixed groups without production promotion.');
+console.log('Unity U48 candidate live preview foundation check passed: historical preview provider is compile/env gated, temporary-catalog only, cleanup guarded, and remains isolated from the fixed production catalog.');

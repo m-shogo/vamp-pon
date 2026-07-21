@@ -118,7 +118,7 @@ const providerDeclaresCandidate = actualProviderName !== 'UNKNOWN'
 const providerDeclaresProduction = actualProviderName !== 'UNKNOWN'
   && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?ApprovalLevel\\s*=>\\s*AssetApprovalLevel\\.Production`).test(runtimeScripts)
   && new RegExp(`class\\s+${actualProviderName}[\\s\\S]*?IsProductionApproved\\s*=>\\s*true`).test(runtimeScripts);
-const actualCandidateProviderConnected = !actualProofProviderActive && providerClassExists && providerDeclaresCandidate;
+const actualCandidateProviderConnected = !actualProofProviderActive && providerClassExists && providerDeclaresCandidate && !providerDeclaresProduction;
 const actualProductionProviderConnected = !actualProofProviderActive && providerClassExists && providerDeclaresProduction;
 
 const characterFallbackPresent = stageBootstrap.includes('ProceduralSpriteFactory.CreateCharacterSprite');
@@ -163,7 +163,7 @@ const expectedClassification = actualProofProviderActive && actualPlayerMode ===
 check('evidence kind exact', readiness.evidenceKind === 'Unity runtime visual readiness gate');
 check('runtime classification matches implementation', readiness.runtimeVisualClassification === expectedClassification);
 check('runtime provider name matches Stage1 assignment', readiness.runtimeAssetProviderName === actualProviderName);
-check('runtime provider approval level is Candidate', readiness.runtimeAssetProviderApprovalLevel === 'Candidate');
+check('runtime provider approval level matches implementation', readiness.runtimeAssetProviderApprovalLevel === (actualProductionProviderConnected ? 'Production' : 'Candidate'));
 check('proof provider file declares proof-only', proofProvider.includes('IsProofOnly => true'));
 check('proof provider evidence matches Stage1 assignment', readiness.proofProviderActive === actualProofProviderActive);
 check('candidate provider evidence matches implementation', readiness.runtimeCandidateAssetProviderConnected === actualCandidateProviderConnected);
@@ -236,8 +236,8 @@ if (actualProofProviderActive || actualEnemyMode !== 'Multiple' || !actualEnemyA
 
 check('Simulator route evidence remains separately valid', readiness.simulatorRouteEvidenceStillValid === true);
 check('U45.1 candidate animation review passed', readiness.simulatorCandidateAnimationVisualReviewPassed === true);
-check('Simulator final art approval remains absent', readiness.simulatorFinalArtApprovalProvided === false);
-check('next required phase recorded', readiness.nextRequiredPhase === 'U46 Result / Retry / StageSelect / Collection');
+check('Simulator final art approval matches production readiness', readiness.simulatorFinalArtApprovalProvided === actualProductionProviderConnected);
+check('next required phase recorded', readiness.nextRequiredPhase === (actualProductionProviderConnected ? 'U49 actual-device audio/haptic' : 'U46 Result / Retry / StageSelect / Collection'));
 
 const playerStates = readiness.playerAnimationStates ?? {};
 const enemyStates = readiness.enemyAnimationStates ?? {};
@@ -328,7 +328,7 @@ let u451Visual: Record<string, any> = {};
 try { u451 = JSON.parse(read(paths.u451Readiness)); } catch { failures.push('U45.1 readiness JSON parses'); }
 try { u451Smoke = JSON.parse(read(paths.u451Smoke)); } catch { failures.push('U45.1 smoke JSON parses'); }
 try { u451Visual = JSON.parse(read(paths.u451Visual)); } catch { failures.push('U45.1 visual JSON parses'); }
-check('U45.1 readiness mirrors runtime candidate', u451.runtimeVisualCandidateReady === true && u451.runtimeVisualReady === false && u451.runtimeVisualClassification === expectedClassification);
+check('U45.1 historical readiness remains candidate evidence', u451.runtimeVisualCandidateReady === true && u451.runtimeVisualReady === false && u451.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
 check('U45.1 smoke has all 13 screenshots', u451Smoke.screenshotsReady === true && u451Smoke.requiredScreenshotCount === 13);
 check('U45.1 smoke has no crash or exception', u451Smoke.crashDetected === false && u451Smoke.unhandledExceptionCount === 0);
 check('U45.1 visual review has no P0/P1', Array.isArray(u451Visual.p0Issues) && u451Visual.p0Issues.length === 0 && Array.isArray(u451Visual.p1Issues) && u451Visual.p1Issues.length === 0);

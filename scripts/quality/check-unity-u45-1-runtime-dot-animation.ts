@@ -87,8 +87,8 @@ const contractExport = read(paths.contractExport);
 check('classification is candidate animated Multiple', readiness.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
 check('Stage1 uses runtime provider', stage.includes('new RuntimeVisualAssetProvider'));
 check('provider is non-proof', provider.includes('IsProofOnly => false'));
-check('provider approval level is Candidate', provider.includes('ApprovalLevel => AssetApprovalLevel.Candidate'));
-check('provider is not production approved', provider.includes('IsProductionApproved => false'));
+check('current provider approval level is Production after U48', provider.includes('ApprovalLevel => AssetApprovalLevel.Production'));
+check('current provider is production approved after U48', provider.includes('IsProductionApproved => true'));
 check('provider interface separates approval level', providerInterface.includes('AssetApprovalLevel') && providerInterface.includes('IsProductionApproved'));
 check('provider loads typed registry', provider.includes('Stage1RuntimeVisualAssetRegistry') && provider.includes('Resources.Load'));
 check('required visuals do not silently fallback', provider.includes('throw new InvalidOperationException'));
@@ -139,18 +139,15 @@ check('bridge remains Simulator-only', bridge.startsWith('#if VAMPPON_AI_SIMULAT
 check('asset validation passed', validation.result === 'passed' && validation.playerFrameCount === 48 && validation.enemyFrameCount === 48);
 check('visual review has no P0/P1', Array.isArray(visual.p0Issues) && visual.p0Issues.length === 0 && Array.isArray(visual.p1Issues) && visual.p1Issues.length === 0);
 
-for (const key of ['characterDotRuntimeReady', 'characterAnimationReady', 'enemyDotRuntimeReady', 'enemyAnimationReady', 'runtimeVisualCandidateReady']) {
-  check(`${key} promoted by U45.1`, readiness[key] === true && canonical[key] === true);
-}
-check('production runtime visual readiness remains false', readiness.runtimeVisualReady === false && canonical.runtimeVisualReady === false);
-check('candidate provider is connected', readiness.runtimeCandidateAssetProviderConnected === true && canonical.runtimeCandidateAssetProviderConnected === true);
-check('production provider remains disconnected', readiness.productionVisualAssetProviderConnected === false && canonical.productionVisualAssetProviderConnected === false);
-for (const key of [
-  'productionCharacterAssetReady', 'productionEnemyAssetReady', 'devicePlayableReady', 'mobileMetricsReady',
-  'rcReady', 'productionApproved',
-]) check(`${key} remains false`, readiness[key] === false && canonical[key] === false);
+for (const key of ['characterDotRuntimeReady', 'characterAnimationReady', 'enemyDotRuntimeReady', 'enemyAnimationReady']) check(`${key} remains valid from U45.1`, readiness[key] === true && canonical[key] === true);
+check('U45.1 candidate readiness is historical after U48', readiness.runtimeVisualCandidateReady === true && canonical.runtimeVisualCandidateReady === false);
+check('U45.1 production readiness was false and U48 now promotes it', readiness.runtimeVisualReady === false && canonical.runtimeVisualReady === true);
+check('candidate provider was connected in U45.1 and is superseded now', readiness.runtimeCandidateAssetProviderConnected === true && canonical.runtimeCandidateAssetProviderConnected === false);
+check('production provider was disconnected in U45.1 and connected by U48', readiness.productionVisualAssetProviderConnected === false && canonical.productionVisualAssetProviderConnected === true);
+for (const key of ['productionCharacterAssetReady', 'productionEnemyAssetReady']) check(`${key} was false in U45.1 and is true after U48`, readiness[key] === false && canonical[key] === true);
+for (const key of ['devicePlayableReady', 'mobileMetricsReady', 'rcReady', 'productionApproved']) check(`${key} remains false`, readiness[key] === false && canonical[key] === false);
 for (const key of ['audioMixerReady', 'audioLatencyMeasured', 'hapticMeasured']) check(`${key} remains false`, canonical[key] === false);
-check('next phase is U46', readiness.nextRequiredPhase === 'U46 Result / Retry / StageSelect / Collection' && canonical.nextRequiredPhase === readiness.nextRequiredPhase);
+check('historical next phase is U46 and current next phase is U49', readiness.nextRequiredPhase === 'U46 Result / Retry / StageSelect / Collection' && canonical.nextRequiredPhase === 'U49 actual-device audio/haptic');
 
 const trackedFull = spawnSync('git', ['ls-files', '--', 'data/asset-factory/generation-contracts.json'], { encoding: 'utf8' });
 check('full generation contracts JSON is not tracked', trackedFull.status === 0 && trackedFull.stdout.trim() === '');
@@ -170,4 +167,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Unity U45.1 runtime dot animation check passed: Yui/Onbu Multiple animation candidate runtime ready; final art, device, RC and production gates remain false.');
+console.log('Unity U45.1 runtime dot animation check passed: historical Yui/Onbu candidate animation evidence remains valid; U48 production promotion is independently recorded.');

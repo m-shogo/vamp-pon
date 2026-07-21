@@ -60,4 +60,4 @@
 
 ## Current boundary
 
-Selected 46 candidates are `approvedAsFinal=true` and `runtimeApproved=false`. Production connection and Simulator verification remain pending.
+Selected 46 candidates are `approvedAsFinal=true` and `runtimeApproved=true` after fixed production-catalog connection and production-only iOS Simulator verification. This promotes the U48 visual runtime scope only; physical-device, audio, haptic, performance, RC, and application-wide production approval remain false.

@@ -9,10 +9,12 @@
   "recommendationMatchCount": 46,
   "humanApprovedCandidateCount": 46,
   "approvedAsFinalCount": 46,
-  "runtimeApprovedCount": 0,
+  "runtimeApprovedCount": 46,
   "productionConnectedCount": 46,
   "nonSelectedCandidateCount": 138,
   "nonSelectedApprovedAsFinalCount": 0,
   "nonSelectedRuntimeApprovedCount": 0,
-  "productionConnectionStatus": "connected-awaiting-runtime-verification"
+  "productionConnectionStatus": "runtime-approved",
+  "runtimeVerificationEvidence": "docs/design-targets/generated/unity-u48/production-verification/manifest.json",
+  "runtimeVerificationCommit": "58f213f6"
 }

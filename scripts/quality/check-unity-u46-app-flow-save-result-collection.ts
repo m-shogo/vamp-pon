@@ -90,7 +90,7 @@ check('hardening visual P0/P1 zero', hardeningVisual.p0Issues?.length === 0 && h
 
 for (const key of ['sceneFlowCoordinatorImplemented','pauseCoordinatorImplemented','versionedSaveServiceImplemented','saveMigrationTestsReady','resultReadModelImplemented','collectionReadModelImplemented','u46ResultCandidateReady','u46CollectionCandidateReady','u46SimulatorSmokeReady','uiShellReady']) check(`${key} true`, readiness[key] === true);
 for (const key of ['runtimeVisualReady','productionVisualAssetProviderConnected','productionCharacterAssetReady','productionEnemyAssetReady','candidateAssetsApprovedAsFinal','actualDeviceSmokeResultProvided','devicePlayableReady','mobileMetricsReady','audioMixerReady','audioLatencyMeasured','hapticMeasured','rcReady','productionApproved','u46UiAssetsApprovedAsFinal','u46UiAssetsRuntimeApproved']) check(`${key} false`, readiness[key] === false);
-check('U45.1 candidate preserved', readiness.runtimeVisualCandidateReady === true && runtime.runtimeVisualCandidateReady === true && runtime.runtimeVisualReady === false);
+check('U46 candidate boundary remains historical after U48 production supersession', readiness.runtimeVisualCandidateReady === true && runtime.runtimeVisualCandidateReady === false && runtime.runtimeVisualReady === true);
 
 const newText = Object.values(files).filter(x => x.endsWith('.cs') || x.endsWith('.json')).map(read).join('\n');
 check('forbidden term absent', !newText.includes('黒曜化'));

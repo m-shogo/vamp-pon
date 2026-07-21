@@ -1,6 +1,6 @@
 # Unity Current Doc Index 2026-07-10
 
-U46 completion sources: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`, `docs/unity-u46-ui-asset-generation-2026-07-11.md`, `docs/unity-u46-ios-simulator-smoke-2026-07-11.md`, `docs/unity-u46-visual-review-2026-07-11.md`。U46.1 hardening sources: `docs/unity-u46-1-result-save-hardening-2026-07-11.md`, `docs/unity-u46-1-ios-simulator-regression-2026-07-11.md`。U47 completion source: `docs/unity-u47-gameplay-data-runtime-2026-07-13.md`。U48 startup source: `docs/unity-u48-production-asset-expansion-plan-2026-07-14.md`。U48 approval pack checkpoint: `docs/unity-u48-production-asset-approval-pack-2026-07-14.md`。U48 candidate live preview foundation checkpoint: `docs/unity-u48-candidate-live-preview-foundation-2026-07-14.md`。U48 Batch A generation contract checkpoint: `docs/unity-u48-batch-a-generation-contracts-2026-07-14.md`。U48 Batch B human-review checkpoint: `docs/unity-u48-batch-b-human-review-ready-2026-07-16.md`。
+U46 completion sources: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`, `docs/unity-u46-ui-asset-generation-2026-07-11.md`, `docs/unity-u46-ios-simulator-smoke-2026-07-11.md`, `docs/unity-u46-visual-review-2026-07-11.md`。U46.1 hardening sources: `docs/unity-u46-1-result-save-hardening-2026-07-11.md`, `docs/unity-u46-1-ios-simulator-regression-2026-07-11.md`。U47 completion source: `docs/unity-u47-gameplay-data-runtime-2026-07-13.md`。U48 completion source: `docs/unity-u48-production-asset-expansion-completion-2026-07-21.md`。Human decision: `docs/unity-u48-human-asset-approval-2026-07-21.md`。
 
 Status: current
 
@@ -20,7 +20,8 @@ Status: current
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
 Completed: U46.1 Result / Save Hardening
 Completed: U47 gameplay data/runtime
-Current: U48 production asset expansion (IN_PROGRESS / asset approval blocked)
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
 Completed prerequisite: U45.1 Character and Enemy Dot Runtime Pass
 Completed hardening: U45.1 candidate/production readiness and Asset Factory export
 ```
@@ -37,12 +38,12 @@ simulatorPlayableCandidateReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
 characterDotRuntimeReady=true
 enemyDotRuntimeReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
 devicePlayableReady=false
 productionApproved=false
 ```

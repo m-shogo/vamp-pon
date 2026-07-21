@@ -102,7 +102,7 @@ check('review keeps production readiness false', review.includes('Production rea
 
 check('new current index is current', currentIndex.includes('Status: current'));
 check('new current index starts from control center', currentIndex.includes('docs/unity-big-implementation-control-center-v1.md'));
-check('new current index records U47 completed and U48 current', currentIndex.includes('Completed: U47') && currentIndex.includes('Current: U48'));
+check('new current index records U48 completed and U49 current', currentIndex.includes('Completed: U48') && currentIndex.includes('Current: U49'));
 check('new current index records Unity 6000.5.1f1', currentIndex.includes('6000.5.1f1'));
 check('new current index does not claim Unity 6.5.1f1', !currentIndex.includes('Unity 6.5.1f1'));
 check('old index is historical', oldIndex.includes('Status: historical / superseded'));
@@ -141,23 +141,20 @@ for (const key of [
   'audioMixerReady',
   'audioLatencyMeasured',
   'hapticMeasured',
-  'candidateAssetsApprovedAsFinal',
-  'productionVisualAssetProviderConnected',
-  'runtimeVisualReady',
   'rcReady',
   'productionApproved',
 ]) check(`${key} remains false`, readiness[key] === false);
+for (const key of ['candidateAssetsApprovedAsFinal','productionVisualAssetProviderConnected','runtimeVisualReady','u48ProductionVisualRuntimeReady']) check(`${key} true after U48`, readiness[key] === true);
 
 check('production DataRegistry implemented after U47', readiness.productionDataRegistryImplemented === true);
 
 for (const key of [
-  'runtimeCandidateAssetProviderConnected',
   'characterDotRuntimeReady',
   'characterAnimationReady',
   'enemyDotRuntimeReady',
   'enemyAnimationReady',
-  'runtimeVisualCandidateReady',
 ]) check(`${key} true after U45.1`, readiness[key] === true);
+check('candidate provider is superseded by production provider', readiness.runtimeCandidateAssetProviderConnected === false && readiness.runtimeVisualCandidateReady === false);
 
 checkExecutionEvidence(
   'static preflight',
@@ -178,13 +175,13 @@ checkExecutionEvidence(
   readiness.unityCompileCommit,
 );
 
-check('current required phase exact', readiness.currentRequiredPhase === 'U48 production asset expansion');
-check('next phase remains U49 actual-device audio/haptic', readiness.nextPhaseAfterCurrent === 'U49 actual-device audio/haptic');
+check('current required phase exact', readiness.currentRequiredPhase === 'U49 actual-device audio/haptic');
+check('next phase remains U50 performance/touch metrics', readiness.nextPhaseAfterCurrent === 'U50 performance/touch metrics');
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
-check('runtime visual current candidate animation', runtimeVisual.runtimeVisualClassification === 'candidate-animated-multiple-sprite');
-check('candidate runtime visual ready after U45.1', runtimeVisual.runtimeVisualCandidateReady === true);
-check('production runtime visual remains false', runtimeVisual.runtimeVisualReady === false);
+check('runtime visual current production animation', runtimeVisual.runtimeVisualClassification === 'production-animated-sprite');
+check('candidate runtime visual superseded after U48', runtimeVisual.runtimeVisualCandidateReady === false);
+check('production runtime visual ready after U48', runtimeVisual.runtimeVisualReady === true);
 
 const hardening = JSON.parse(read(paths.hardening) || '{}') as Record<string, any>;
 check('U45.1 hardening is complete', hardening.u46Ready === true && hardening.productionApproved === false);
@@ -211,4 +208,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Unity big implementation readiness check passed: U47 is complete, U48 asset expansion is current, and final/device/product boundaries remain false.');
+console.log('Unity big implementation readiness check passed: U48 visual runtime is complete, U49 is current, and device/RC/product boundaries remain false.');

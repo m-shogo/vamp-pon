@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "sourceHead": "3effe3a223af04e4ce44645f8350382f7815e1f9",
-  "generatedAtUtc": "2026-07-17T04:22:41Z",
-  "status": "PRODUCTION_VISUAL_CONNECTED_AWAITING_SIMULATOR_VERIFICATION",
+  "generatedAtUtc": "2026-07-21T04:47:37.342632Z",
+  "status": "U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_READY",
   "u47GameplayDataRuntimeReady": true,
   "productionAssetAuditReady": true,
   "uiComparisonContractsReady": true,
@@ -10,20 +10,24 @@
   "productionAssetApprovalPackReady": true,
   "approvedProductionAssetSetAvailable": true,
   "productionVisualAssetProviderConnected": true,
-  "runtimeVisualReady": false,
-  "simulatorReady": false,
+  "runtimeVisualReady": true,
+  "simulatorReady": true,
   "physicalDeviceReady": false,
   "audioReady": false,
   "hapticReady": false,
   "performanceReady": false,
   "rcReady": false,
   "productionApproved": false,
-  "completionBlocked": true,
-  "blockers": [
-    "PRODUCTION_VISUAL_SIMULATOR_VERIFICATION_REQUIRED"
-  ],
+  "completionBlocked": false,
+  "blockers": [],
   "batchAStage1GameplayCoreApprovalReady": true,
   "batchBGroundAreaKokuyouApprovalReady": true,
   "batchCUiComponentsApprovalReady": true,
-  "blockReason": "PRODUCTION_VISUAL_SIMULATOR_VERIFICATION_REQUIRED"
+  "blockReason": null,
+  "runtimeApprovedAssetCount": 46,
+  "productionVerificationCaptureCount": 138,
+  "productionVerificationEvidence": "docs/design-targets/generated/unity-u48/production-verification/manifest.json",
+  "productionVerificationCommit": "58f213f6",
+  "u48Completed": true,
+  "nextRequiredPhase": "U49 actual-device audio/haptic"
 }

@@ -96,17 +96,17 @@ check('actual device smoke remains NOT_PROVIDED', readiness.actualDeviceSmokeRes
 
 check('Simulator route evidence remains valid', runtimeVisual.simulatorRouteEvidenceStillValid === true);
 check('U45.1 candidate animation review passed', runtimeVisual.simulatorCandidateAnimationVisualReviewPassed === true);
-check('U45.1 final art approval remains absent', runtimeVisual.simulatorFinalArtApprovalProvided === false);
+check('current final art approval is supplied by later U48 evidence', runtimeVisual.simulatorFinalArtApprovalProvided === true);
 for (const key of [
   'characterDotRuntimeReady',
   'characterAnimationReady',
   'enemyDotRuntimeReady',
   'enemyAnimationReady',
-  'runtimeVisualCandidateReady',
 ]) check(`U45.1 independently promotes ${key}`, runtimeVisual[key] === true && u451[key] === true);
-check('U45.1 does not promote production runtime visual', runtimeVisual.runtimeVisualReady === false && u451.runtimeVisualReady === false);
+check('U45.1 candidate readiness remains historical after U48 supersession', runtimeVisual.runtimeVisualCandidateReady === false && u451.runtimeVisualCandidateReady === true);
+check('U45.1 did not promote production runtime visual; U48 now does', runtimeVisual.runtimeVisualReady === true && u451.runtimeVisualReady === false);
 for (const key of ['productionCharacterAssetReady', 'productionEnemyAssetReady']) {
-  check(`U45.1 cannot promote ${key}`, runtimeVisual[key] === false && u451[key] === false);
+  check(`U45.1 cannot promote ${key}; U48 now does`, runtimeVisual[key] === true && u451[key] === false);
 }
 
 check('bridge compile guarded', bridge.startsWith('#if VAMPPON_AI_SIMULATOR_SMOKE') && bridge.trimEnd().endsWith('#endif'));
@@ -129,4 +129,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('unity U45 AI Simulator smoke check passed: U45 route evidence remains valid; U45.1 animation evidence is independent and production visual readiness remains false.');
+console.log('unity U45 AI Simulator smoke check passed: U45 route and U45.1 candidate evidence remain historical; U48 production readiness is independently verified.');

@@ -16,6 +16,7 @@ const runtimeManifest = json('unity/VampPonUnity/Assets/_Project/Resources/Runti
 const provider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs');
 const bootstrap = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs');
 const battle = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs');
+const finalized = readiness.u48Completed === true;
 
 check(audit.sourceHead === baseline, 'asset audit baseline source head');
 for (const [label, sourceHead] of [['readiness', readiness.sourceHead], ['completion', completion.sourceHead]] as const) {
@@ -28,16 +29,16 @@ check(audit.summary.productionApproved === 0 && audit.summary.candidateOrPrototy
 check(audit.items.some((item: { assetKey: string; status: string }) => item.assetKey === 'player-remaining-core5' && item.status === 'missing'), 'remaining Core5 gap');
 check(audit.items.some((item: { assetKey: string; status: string }) => item.assetKey === 'enemy-remaining-families' && item.status === 'missing'), 'remaining enemy family gap');
 check(runtimeManifest.approvedAsFinal === false && runtimeManifest.runtimeApproved === false, 'candidate manifest approval boundary');
-check(provider.includes('ApprovalLevel => AssetApprovalLevel.Candidate') && provider.includes('IsProductionApproved => false'), 'candidate provider boundary');
-check(bootstrap.includes('ProceduralSpriteFactory.CreatePaperSprite') && bootstrap.includes('WarmLanternGlowPlaceholder'), 'procedural background/glow detected');
-check(battle.includes('collectSprite = ProceduralSpriteFactory.CreateRadialSprite'), 'procedural collect feedback detected');
+check(finalized ? provider.includes('ApprovalLevel => AssetApprovalLevel.Production') && provider.includes('IsProductionApproved => true') : provider.includes('ApprovalLevel => AssetApprovalLevel.Candidate') && provider.includes('IsProductionApproved => false'), 'provider boundary matches phase state');
+check(finalized ? bootstrap.includes('U48ProductionVisualBinder.Attach(gameObject);') : bootstrap.includes('ProceduralSpriteFactory.CreatePaperSprite') && bootstrap.includes('WarmLanternGlowPlaceholder'), 'background production/audit state');
+check(finalized ? provider.includes('catalog.SpriteFor("pickup-exp")') : battle.includes('collectSprite = ProceduralSpriteFactory.CreateRadialSprite'), 'collect visual production/audit state');
 check(u47.weaponRuntimeSliceReady === true && u47.passiveRuntimeSliceReady === true && u47.u47SimulatorSmokeReady === true && u47.u47GameplayCandidateReady === true && u47.productionApproved === true, 'U47 slice readiness preserved');
-check(readiness.productionAssetAuditReady === true && readiness.approvedProductionAssetSetAvailable === false && readiness.productionVisualAssetProviderConnected === false, 'audit ready is separate from production asset completion');
-check(['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && typeof readiness.productionAssetApprovalPackReady === 'boolean' && readiness.runtimeVisualReady === false && readiness.simulatorReady === false && readiness.physicalDeviceReady === false, 'U48 approval pack state is explicit while visual/device readiness remains false');
+check(readiness.productionAssetAuditReady === true && readiness.approvedProductionAssetSetAvailable === finalized && readiness.productionVisualAssetProviderConnected === finalized, 'audit and current production state are explicit');
+check(finalized ? readiness.status === 'U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_READY' && readiness.runtimeVisualReady === true && readiness.simulatorReady === true && readiness.physicalDeviceReady === false : ['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.runtimeVisualReady === false && readiness.simulatorReady === false && readiness.physicalDeviceReady === false, 'U48 phase readiness boundary');
 check(readiness.audioReady === false && readiness.hapticReady === false && readiness.performanceReady === false && readiness.rcReady === false && readiness.productionApproved === false, 'later-phase and game-wide readiness remains false');
 check(completion.auditCheckpointCommitAllowed === true && completion.auditCheckpointPushAllowed === true, 'audit checkpoint may be committed and pushed');
 check(completion.approvalPackCheckpointCommitAllowed === true && completion.approvalPackCheckpointPushAllowed === true, 'blocked approval pack checkpoint may be committed and pushed');
-check(completion.u48CompletionCommitAllowed === false && completion.u48CompletionPushAllowed === false, 'U48 completion commit remains blocked');
+check(completion.u48CompletionCommitAllowed === finalized && completion.u48CompletionPushAllowed === finalized, 'U48 completion commit follows verified readiness');
 for (const file of ['device-matrix.json','audio-matrix.json','haptic-matrix.json','performance-metrics.json','completion-summary.json']) check(existsSync(resolve(root, `docs/design-targets/generated/unity-u48/${file}`)), `missing ${file}`);
 
-console.log('Unity U48 startup audit check passed: audit evidence is checkpoint-ready, while production asset completion and all downstream readiness remain false.');
+console.log(`Unity U48 startup audit check passed: historical audit preserved; U48 finalized=${finalized}; downstream device/RC/product readiness remains false.`);

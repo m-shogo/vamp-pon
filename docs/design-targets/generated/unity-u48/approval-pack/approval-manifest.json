@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "sourceHead": "3effe3a223af04e4ce44645f8350382f7815e1f9",
-  "generatedAtUtc": "2026-07-17T04:22:41Z",
+  "generatedAtUtc": "2026-07-21T04:47:37.342632Z",
   "scope": "U48 Priority A Stage1 production asset approval preparation",
-  "packStatus": "HUMAN_APPROVED_PRODUCTION_CONNECTION_PENDING",
+  "packStatus": "PRODUCTION_RUNTIME_APPROVED",
   "productionAssetApprovalPackReady": true,
   "candidateSpecificLivePreviewReady": true,
   "assetGroups": [
@@ -103,9 +103,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -252,9 +252,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -401,9 +401,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -518,9 +518,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -731,9 +731,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -848,9 +848,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -965,9 +965,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -1178,9 +1178,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -1295,9 +1295,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -1444,9 +1444,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -1625,9 +1625,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -1774,9 +1774,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -1859,9 +1859,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -2008,9 +2008,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -2157,9 +2157,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -2306,9 +2306,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -2471,9 +2471,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -2699,9 +2699,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -2889,9 +2889,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -3121,9 +3121,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -3311,9 +3311,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -3411,9 +3411,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -3589,9 +3589,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -3853,9 +3853,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -3957,9 +3957,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -4143,9 +4143,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -4329,9 +4329,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -4556,9 +4556,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -4783,9 +4783,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -4887,9 +4887,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -5073,9 +5073,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -5341,9 +5341,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -5519,9 +5519,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -5664,9 +5664,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -5850,9 +5850,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -6033,9 +6033,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -6215,9 +6215,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -6437,9 +6437,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -6541,9 +6541,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -6727,9 +6727,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -6991,9 +6991,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -7173,9 +7173,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -7355,9 +7355,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -7459,9 +7459,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         },
@@ -7731,9 +7731,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -7913,9 +7913,9 @@
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
           "approvedAsFinal": true,
-          "runtimeApproved": false,
+          "runtimeApproved": true,
           "humanReviewStatus": "approved",
-          "approvalStatus": "human-approved",
+          "approvalStatus": "runtime-approved",
           "approvalSource": "user-provided-human-decision",
           "productionConnected": true
         }
@@ -7936,14 +7936,9 @@
       "approvalSource": "user-provided-human-decision"
     }
   ],
-  "blockers": [
-    {
-      "assetKey": "all",
-      "reason": "PRODUCTION_VISUAL_CONNECTION_REQUIRED"
-    }
-  ],
+  "blockers": [],
   "approvedAsFinalCount": 46,
-  "runtimeApprovedCount": 0,
+  "runtimeApprovedCount": 46,
   "humanApprovedCount": 46,
   "productionProviderModified": true,
   "staleEvidenceCount": 0,
@@ -7962,6 +7957,8 @@
       "reconstructed-partial": 45,
       "partial": 0,
       "unknown": 0
-    }
+    },
+    "runtimeApprovedCount": 46,
+    "productionConnectionStatus": "runtime-approved"
   }
 }

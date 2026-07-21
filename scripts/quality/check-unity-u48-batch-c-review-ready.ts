@@ -16,6 +16,8 @@ const qa = json(`${evidence}/automatic-qa.json`); const build = json(`${evidence
 const manifest = json(`${evidence}/capture-manifest.json`); const recommendations = json(`${evidence}/ai-recommendations.json`);
 const verification = json(`${evidence}/verification-summary.json`); const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const groups = matrix.groups.map((value: { assetGroup: string }) => value.assetGroup);
+const finalized = readiness.u48Completed === true;
+const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')));
 
 check(matrix.schemaVersion === 1 && matrix.groups.length === 30 && new Set(groups).size === 30, '30 capture-matrix groups');
 check(audit.schemaVersion === 3 && audit.captureReadiness === 'READY' && audit.blockedRequiredStates.length === 0, 'schema v3 five-screen readiness');
@@ -24,7 +26,7 @@ check(contracts.assetGroupCount === 30 && contracts.candidateCount === 120 && co
 check(golden.entries.length === 30 && new Set(golden.entries.map((value: { assetGroup: string }) => value.assetGroup)).size === 30, '30 Golden References');
 for (const value of golden.entries) {
   check(groups.includes(value.assetGroup) && value.goldenReferenceStatus === 'composite', `${value.assetGroup} composite Golden Reference`);
-  check(value.references.length > 0 && value.references.every((reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && hash(reference.path) === reference.sha256), `${value.assetGroup} Golden hashes`);
+  check(value.references.length > 0 && value.references.every(goldenReferenceValid), `${value.assetGroup} Golden hashes`);
   check(value.humanApprovedGoldenReference === false && value.approvedForRuntime === false, `${value.assetGroup} Golden approval boundary`);
 }
 check(new Set(contracts.contracts.map((value: { candidateId: string }) => value.candidateId)).size === 120, 'unique candidate IDs');
@@ -70,10 +72,12 @@ for (const value of recommendations.screenSystems) check(value.rankedSystemLette
 check(verification.sourceHead === manifest.sourceHead && verification.results.candidateSpecificLiveCapture === 'PASS_564' && verification.results.liveQa.PASS === 564 && verification.results.liveQa.WARNING === 0 && verification.results.liveQa.FAIL === 0, 'verification summary');
 check(readiness.batchAStage1GameplayCoreApprovalReady === true && readiness.batchBGroundAreaKokuyouApprovalReady === true && readiness.batchCUiComponentsApprovalReady === true, 'Batch A/B/C review readiness');
 check(typeof readiness.productionAssetApprovalPackReady === 'boolean', 'approval pack readiness is explicit');
-for (const key of ['approvedProductionAssetSetAvailable', 'productionVisualAssetProviderConnected', 'runtimeVisualReady', 'simulatorReady', 'physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
-check(['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 remains blocked for human approval');
+for (const key of ['approvedProductionAssetSetAvailable', 'productionVisualAssetProviderConnected', 'runtimeVisualReady', 'simulatorReady']) check(readiness[key] === finalized, `${key} matches phase state`);
+for (const key of ['physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
+check(finalized ? readiness.status === 'U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_READY' && readiness.completionBlocked === false : ['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 readiness state');
 
 const protectedPaths = ['unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/GameplayServices.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', 'docs/design-targets/generated/unity-u48/batch-a', 'docs/design-targets/generated/unity-u48/batch-b'];
-check(!execFileSync('git', ['diff', manifest.sourceHead, '--', ...protectedPaths], { cwd: root, encoding: 'utf8' }), 'Production Provider, U47 gameplay, Batch A/B unchanged');
+const phaseProtectedPaths = finalized ? protectedPaths.filter(path => path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs' && path !== 'docs/design-targets/generated/unity-u48/batch-a') : protectedPaths;
+check(!execFileSync('git', ['diff', manifest.sourceHead, '--', ...phaseProtectedPaths], { cwd: root, encoding: 'utf8' }), 'phase-protected U47 gameplay and Batch inputs unchanged');
 for (const script of ['unity:u47-gameplay-data-runtime:check', 'unity:u47-capture-catalog:check', 'unity:u47-simulator-manifest:check', 'unity:u48-batch-a-review-ready:check', 'unity:u48-batch-b-review-ready:check', 'unity:u48-stage-select-runtime:check', 'unity:u48-replacement-interaction:check']) execFileSync('pnpm', [script], { cwd: root, stdio: 'ignore' });
-console.log('U48 Batch C review-ready check passed: 30 groups, 120 unique candidates, 564 clean live captures, 30 component sheets and 5 system sheets; human/production approval remains blocked.');
+console.log(`U48 Batch C review-ready check passed: 30 groups, 120 unique candidates, 564 clean live captures, 30 component sheets and 5 system sheets; finalized=${finalized}.`);

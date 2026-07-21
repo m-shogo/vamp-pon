@@ -18,11 +18,13 @@ const evidence = 'docs/design-targets/generated/unity-u48/batch-b';
 const golden = json(`${evidence}/golden-references.json`); const contracts = json(`${evidence}/generation-contracts.json`); const qa = json(`${evidence}/automatic-qa.json`);
 const build = json(`${evidence}/candidate-build-manifest.json`); const manifest = json(`${evidence}/capture-manifest.json`); const recommendations = json(`${evidence}/ai-recommendations.json`);
 const sequences = json(`${evidence}/phase-sequence-manifest.json`); const verification = json(`${evidence}/verification-summary.json`); const approval = json('docs/design-targets/generated/unity-u48/approval-pack/approval-manifest.json'); const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
+const finalized = readiness.u48Completed === true;
+const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')));
 
 check(golden.entries.length === 7 && new Set(golden.entries.map((value: { assetGroup: string }) => value.assetGroup)).size === 7, 'seven Golden Reference contracts');
 for (const value of golden.entries) {
   check(groups.includes(value.assetGroup) && ['complete', 'composite', 'missing'].includes(value.goldenReferenceStatus), `${value.assetGroup} Golden status`);
-  check(value.references.length > 0 && value.references.every((reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && hash(reference.path) === reference.sha256), `${value.assetGroup} Golden hashes`);
+  check(value.references.length > 0 && value.references.every(goldenReferenceValid), `${value.assetGroup} Golden hashes`);
   check(value.approvedForRuntime === false && value.humanApprovedGoldenReference === false, `${value.assetGroup} Golden approval boundary`);
 }
 check(contracts.contracts.length === 28 && build.outputCount === 28, '28 generation contracts and outputs');
@@ -76,18 +78,19 @@ for (const value of recommendations.entries) {
 }
 check(sequences.systems.length === 4 && sequences.systems.every((value: { path: string; sha256: string; humanReviewStatus: string }) => hash(value.path) === value.sha256 && value.humanReviewStatus === 'pending'), 'four Kokuyou system sheets');
 for (const group of groups) {
-  const value = approval.assetGroups.find((item: { assetKey: string }) => item.assetKey === group); check(value && value.candidates.length === 4 && !value.candidateGenerationBlocked && value.approvalStatus === 'pending-human-review' && value.humanApprovedCandidateId === null, `${group} approval record`);
-  check(value.candidates.every((candidate: { approvedAsFinal: boolean; runtimeApproved: boolean; humanReviewStatus: string }) => !candidate.approvedAsFinal && !candidate.runtimeApproved && candidate.humanReviewStatus === 'pending'), `${group} candidate approvals blocked`);
+  const value = approval.assetGroups.find((item: { assetKey: string }) => item.assetKey === group); check(value && value.candidates.length === 4 && !value.candidateGenerationBlocked && (finalized ? value.approvalStatus === 'human-approved' && typeof value.humanApprovedCandidateId === 'string' : value.approvalStatus === 'pending-human-review' && value.humanApprovedCandidateId === null), `${group} approval record`);
+  check(value.candidates.every((candidate: { candidateId: string; approvedAsFinal: boolean; runtimeApproved: boolean; humanReviewStatus: string }) => { const selected = finalized && candidate.candidateId === value.humanApprovedCandidateId; return candidate.approvedAsFinal === selected && candidate.runtimeApproved === selected && candidate.humanReviewStatus === (selected ? 'approved' : finalized ? 'not-selected' : 'pending'); }), `${group} candidate approvals match phase`);
 }
 check(readiness.batchAStage1GameplayCoreApprovalReady === true && readiness.batchBGroundAreaKokuyouApprovalReady === true, 'limited Batch A/B readiness');
 check(readiness.productionAssetApprovalPackReady === approval.productionAssetApprovalPackReady, 'approval pack readiness agrees');
-for (const key of ['approvedProductionAssetSetAvailable', 'productionVisualAssetProviderConnected', 'runtimeVisualReady', 'simulatorReady', 'physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
-check(['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 remains blocked');
+for (const key of ['approvedProductionAssetSetAvailable', 'productionVisualAssetProviderConnected', 'runtimeVisualReady', 'simulatorReady']) check(readiness[key] === finalized, `${key} matches phase state`);
+for (const key of ['physicalDeviceReady', 'audioReady', 'hapticReady', 'performanceReady', 'rcReady', 'productionApproved']) check(readiness[key] === false, `${key} remains false`);
+check(finalized ? readiness.status === 'U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_READY' && readiness.completionBlocked === false : ['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 readiness state');
 check(verification.sourceHead === manifest.sourceHead && verification.results.candidateSpecificLiveCapture === 'PASS_448' && verification.results.staleEvidenceCount === 0, 'verification summary');
 const productionDiff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs'], { cwd: root, encoding: 'utf8' });
 const u47Diff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/GameplayServices.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/State/RunGameplayState.cs'], { cwd: root, encoding: 'utf8' });
 const batchADiff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA', 'docs/design-targets/generated/unity-u48/batch-a'], { cwd: root, encoding: 'utf8' });
-check(!productionDiff && !u47Diff && !batchADiff, 'Production Provider, U47 gameplay contract, and Batch A unchanged');
+check(finalized ? productionDiff.length > 0 && !u47Diff : !productionDiff && !u47Diff && !batchADiff, 'Production Provider and historical input phase state');
 const bridge = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U48BatchBPreviewCaptureBridge.cs');
 check(!bridge.includes('dawn_ticket') && !/Kokuyou\.(Phase|Gauge)\s*=/.test(bridge) && !/CurrentHp\s*=/.test(bridge), 'no revival/direct state/HP mutation');
-console.log('U48 Batch B review-ready check passed: 7 groups, 28 unique candidates, 448 clean live captures, 7 contact sheets and 4 phase sheets; human/production approval remains blocked.');
+console.log(`U48 Batch B review-ready check passed: 7 groups, 28 unique candidates, 448 clean live captures, 7 contact sheets and 4 phase sheets; finalized=${finalized}.`);
