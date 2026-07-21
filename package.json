@@ -69,6 +69,8 @@
     "unity:u48-production-asset-approval-pack:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-asset-approval-pack.ts",
     "unity:u48-human-selection:record": "python3 scripts/unity/record-u48-human-selection.py",
     "unity:u48-human-selection:check": "node --experimental-strip-types scripts/quality/check-unity-u48-human-selection.ts",
+    "unity:u48-approved-production-set:promote": "python3 scripts/unity/promote-u48-approved-assets.py",
+    "unity:u48-approved-production-set:check": "node --experimental-strip-types scripts/quality/check-unity-u48-approved-production-set.ts",
     "unity:u48-ui-comparison-contracts:generate": "node --experimental-strip-types scripts/unity/generate-u48-ui-comparison-contracts.ts",
     "unity:u48-candidate-live-preview:check": "node --experimental-strip-types scripts/quality/check-unity-u48-candidate-live-preview.ts",
     "unity:u48-batch-a-contracts:generate": "node --experimental-strip-types scripts/unity/generate-u48-batch-a-contracts.ts",

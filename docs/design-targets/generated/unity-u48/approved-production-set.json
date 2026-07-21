@@ -1,0 +1,1696 @@
+{
+  "schemaVersion": 1,
+  "selectionSource": "docs/design-targets/generated/unity-u48/human-selection-decision.json",
+  "assetGroupCount": 46,
+  "selectedCandidateCount": 46,
+  "gameplayGroupCount": 16,
+  "uiGroupCount": 30,
+  "productionConnectionStatus": "pending",
+  "runtimeApprovedCount": 0,
+  "productionConnectedCount": 0,
+  "entries": [
+    {
+      "assetGroup": "player-yui",
+      "candidateId": "player-yui-c-lantern-bag",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/player-yui/player-yui-c-lantern-bag.png",
+      "candidateSourceSha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/player-yui.png",
+      "productionSha256": "e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca",
+      "productionGuid": "88806a2d42f354c582d11578d77f276a",
+      "candidateGuid": "6be5e33b8b02e3f3b4249f4413e0c3f4",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 150,
+        "pivot": [
+          0.5,
+          0.02
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "player-yui"
+    },
+    {
+      "assetGroup": "enemy-onbu",
+      "candidateId": "enemy-onbu-c-sprout-mist",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-onbu/enemy-onbu-c-sprout-mist.png",
+      "candidateSourceSha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/enemy-onbu.png",
+      "productionSha256": "1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f",
+      "productionGuid": "8a238654260a576ea95d9013829280c2",
+      "candidateGuid": "0bbb3846f9244134a24b26b4d93bb5d9",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Multiple",
+        "ppu": 120,
+        "pivot": [
+          0.5,
+          0.08
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "enemy-onbu"
+    },
+    {
+      "assetGroup": "stage1-background",
+      "candidateId": "stage1-background-c-night-street",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/stage1-background/stage1-background-c-night-street.png",
+      "candidateSourceSha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/stage1-background.png",
+      "productionSha256": "b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17",
+      "productionGuid": "09a8aa1dee5f527282b79c3e2c3e7821",
+      "candidateGuid": "8609971eda803b7ff707aeb7c06bbaa5",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 64,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "stage1-background"
+    },
+    {
+      "assetGroup": "pickup-exp",
+      "candidateId": "exp-pickup-b-paper-fragment",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/exp-pickup/exp-pickup-b-paper-fragment.png",
+      "candidateSourceSha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/pickup-exp.png",
+      "productionSha256": "b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196",
+      "productionGuid": "fee555f2da5a59148170336f1ee788ef",
+      "candidateGuid": "686e2b82b0ab5c6f08b3852fb86933ad",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "pickup-exp"
+    },
+    {
+      "assetGroup": "pickup-healing",
+      "candidateId": "healing-pickup-d-restorative-bottle",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/healing-pickup/healing-pickup-d-restorative-bottle.png",
+      "candidateSourceSha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/pickup-healing.png",
+      "productionSha256": "235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b",
+      "productionGuid": "5666aaad24bc507eb4e8824dfd5df316",
+      "candidateGuid": "1bcdce90c3a5266a490606303e075abe",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "pickup-healing"
+    },
+    {
+      "assetGroup": "common-projectile",
+      "candidateId": "common-projectile-c-paper-streak",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/common-projectile/common-projectile-c-paper-streak.png",
+      "candidateSourceSha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/common-projectile.png",
+      "productionSha256": "2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386",
+      "productionGuid": "f5c9f157f87a516c993fe0dc1b6594c4",
+      "candidateGuid": "90ad291e2ae83d65439673b50d041eb8",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "common-projectile"
+    },
+    {
+      "assetGroup": "hit-effect",
+      "candidateId": "hit-effect-b-paper-nick",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/hit-effect/hit-effect-b-paper-nick.png",
+      "candidateSourceSha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/hit-effect.png",
+      "productionSha256": "83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521",
+      "productionGuid": "acf4c3e1ecc95038af8f13e5f422c938",
+      "candidateGuid": "3f8fb6cbdf333be104eec2e1b5e86fe5",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hit-effect"
+    },
+    {
+      "assetGroup": "enemy-death-effect",
+      "candidateId": "enemy-death-effect-d-paper-ink-burst",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/enemy-death-effect/enemy-death-effect-d-paper-ink-burst.png",
+      "candidateSourceSha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/enemy-death-effect.png",
+      "productionSha256": "3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8",
+      "productionGuid": "6774735a8a6e57d5867b587ac5429d53",
+      "candidateGuid": "d964e037884bed2bb4a99fa07f4bc452",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "enemy-death-effect"
+    },
+    {
+      "assetGroup": "movement-trail",
+      "candidateId": "movement-trail-c-paper-flecks",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA/movement-trail/movement-trail-c-paper-flecks.png",
+      "candidateSourceSha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/movement-trail.png",
+      "productionSha256": "db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1",
+      "productionGuid": "f9813a9161135ba1a7ca200079555820",
+      "candidateGuid": "02dbca556ba4de2355a89830ff0cfb4b",
+      "importContract": {
+        "format": "PNG RGBA",
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false,
+        "spriteMode": "Single",
+        "ppu": 100,
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "movement-trail"
+    },
+    {
+      "assetGroup": "ground-area-black-ink-bottle",
+      "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-black-ink-bottle/ground-area-black-ink-bottle-c-breathing-ink-edge.png",
+      "candidateSourceSha256": "7416946b0d494b8ae05fc34e28cc4793c29b41df5d465c90cb5bf173b4c09d19",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/ground-area-black-ink-bottle.png",
+      "productionSha256": "7416946b0d494b8ae05fc34e28cc4793c29b41df5d465c90cb5bf173b4c09d19",
+      "productionGuid": "65739907542158908ecdc5bcf716c1fa",
+      "candidateGuid": "b5d306f33119caaa682591cbb6348ad9",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "ground-area-black-ink-bottle"
+    },
+    {
+      "assetGroup": "ground-area-streetlamp-ring",
+      "candidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-streetlamp-ring/ground-area-streetlamp-ring-d-ink-shadow-warm-light.png",
+      "candidateSourceSha256": "6a092b2cac6122abd9f8e2347556e8df7e152b67645c63f580e1836f273fa74d",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/ground-area-streetlamp-ring.png",
+      "productionSha256": "6a092b2cac6122abd9f8e2347556e8df7e152b67645c63f580e1836f273fa74d",
+      "productionGuid": "a2a3537ea56655e68afcc0cfdc1f2cb1",
+      "candidateGuid": "9e53205c92a4218c004c70c8911d5469",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "ground-area-streetlamp-ring"
+    },
+    {
+      "assetGroup": "ground-area-dawn-ink-lamp",
+      "candidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring.png",
+      "candidateSourceSha256": "59f02f24aa809fe54b0bf4f794db26ab2e6c9ba9a2849050cfac3cccc01285d1",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/ground-area-dawn-ink-lamp.png",
+      "productionSha256": "59f02f24aa809fe54b0bf4f794db26ab2e6c9ba9a2849050cfac3cccc01285d1",
+      "productionGuid": "df79a98be43a56528545f6826ed0097b",
+      "candidateGuid": "43630cf5e80e8953d4ac3ced58a6e8a6",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "ground-area-dawn-ink-lamp"
+    },
+    {
+      "assetGroup": "kokuyou-charging",
+      "candidateId": "kokuyou-charging-b-small-ink-wisps",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-charging/kokuyou-charging-b-small-ink-wisps.png",
+      "candidateSourceSha256": "c796341c1eba5b630d4c06118da581c41f943b5be078ffbb666b84edd40ab1e0",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-charging.png",
+      "productionSha256": "c796341c1eba5b630d4c06118da581c41f943b5be078ffbb666b84edd40ab1e0",
+      "productionGuid": "3af1e0bf428f5f59ba98d3a69ce94481",
+      "candidateGuid": "3107c57611a789c004432c71d63db614",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "kokuyou-charging"
+    },
+    {
+      "assetGroup": "kokuyou-ready",
+      "candidateId": "kokuyou-ready-b-complete-dark-ring",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-ready/kokuyou-ready-b-complete-dark-ring.png",
+      "candidateSourceSha256": "62cdde6fff2decd53b5af130f8a62daa1abef2bc581b6f65b2f9e8263f0f0838",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-ready.png",
+      "productionSha256": "62cdde6fff2decd53b5af130f8a62daa1abef2bc581b6f65b2f9e8263f0f0838",
+      "productionGuid": "bf23d31fbe695ccbbff6c76c2c57cc7b",
+      "candidateGuid": "c1ed58e54c81962c2cecde6976029e8b",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "kokuyou-ready"
+    },
+    {
+      "assetGroup": "kokuyou-active",
+      "candidateId": "kokuyou-active-b-controlled-black-flame",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-active/kokuyou-active-b-controlled-black-flame.png",
+      "candidateSourceSha256": "b0da2202773356c169cd583efdb0c585ce13b9ec9aa1065cc184a6749a9e26b5",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-active.png",
+      "productionSha256": "b0da2202773356c169cd583efdb0c585ce13b9ec9aa1065cc184a6749a9e26b5",
+      "productionGuid": "d0117f37774e560ca1b7a246d025388f",
+      "candidateGuid": "d8012082644049bd6feca5ea26d45b36",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "kokuyou-active"
+    },
+    {
+      "assetGroup": "kokuyou-recovery",
+      "candidateId": "kokuyou-recovery-b-fading-soot",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchB/kokuyou-recovery/kokuyou-recovery-b-fading-soot.png",
+      "candidateSourceSha256": "702f8e2d84f7463a8c22162add893704742efc8208dedeac7188dab5c5f925e5",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-recovery.png",
+      "productionSha256": "702f8e2d84f7463a8c22162add893704742efc8208dedeac7188dab5c5f925e5",
+      "productionGuid": "f50a1ca225c45afea48d734f6535d430",
+      "candidateGuid": "0f819f8a99201396577e97607f164d4a",
+      "importContract": {
+        "format": "PNG RGBA",
+        "dimensions": [
+          180,
+          180
+        ],
+        "pixelsPerUnit": 180,
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "filterMode": "Point",
+        "compression": "None",
+        "mipmap": false
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "kokuyou-recovery"
+    },
+    {
+      "assetGroup": "hud-hp-frame",
+      "candidateId": "hud-hp-frame-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-hp-frame/hud-hp-frame-b-readability.png",
+      "candidateSourceSha256": "3d1701110f17f36de4e5436d63f62876d3c37c17cc25d1c2611ce9d55b8942dd",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-hp-frame.png",
+      "productionSha256": "3d1701110f17f36de4e5436d63f62876d3c37c17cc25d1c2611ce9d55b8942dd",
+      "productionGuid": "ef94410c02f4599da40c83301f92db2a",
+      "candidateGuid": "0d9f14113b3f35881de5ca3a40515007",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          108,
+          46
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-hp-frame"
+    },
+    {
+      "assetGroup": "hud-inventory-passive-slot",
+      "candidateId": "hud-inventory-passive-slot-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-passive-slot/hud-inventory-passive-slot-c-paper-ink.png",
+      "candidateSourceSha256": "d5188afa9e8b54a99a9046a6406b2b00dc7a9bf5205219091bdf2b7a2bbbb5cd",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-inventory-passive-slot.png",
+      "productionSha256": "d5188afa9e8b54a99a9046a6406b2b00dc7a9bf5205219091bdf2b7a2bbbb5cd",
+      "productionGuid": "0fe9675e64ba5c47aa0e875f726b9f13",
+      "candidateGuid": "b83c9b58dbda495ecf5d15acda171b0e",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          48,
+          48
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-inventory-passive-slot"
+    },
+    {
+      "assetGroup": "hud-inventory-weapon-slot",
+      "candidateId": "hud-inventory-weapon-slot-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-inventory-weapon-slot/hud-inventory-weapon-slot-c-paper-ink.png",
+      "candidateSourceSha256": "94c9250ad7ce8414daaaac1eee5c239bf308b10f573d1cc5d3a66f498d76d15f",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-inventory-weapon-slot.png",
+      "productionSha256": "94c9250ad7ce8414daaaac1eee5c239bf308b10f573d1cc5d3a66f498d76d15f",
+      "productionGuid": "b553b0f3be935e769e193edc9d7c0bd9",
+      "candidateGuid": "25844751d09866c3681be0efe1307c31",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          48,
+          48
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-inventory-weapon-slot"
+    },
+    {
+      "assetGroup": "hud-kokuyou-gauge-frame",
+      "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-d-production-balanced.png",
+      "candidateSourceSha256": "a2b3bb6ede5f6f720e2d821c5650219a0950d6d939550f1f81a94da41a0ac69d",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-kokuyou-gauge-frame.png",
+      "productionSha256": "a2b3bb6ede5f6f720e2d821c5650219a0950d6d939550f1f81a94da41a0ac69d",
+      "productionGuid": "96375ff357eb5735b4c97dbbd4f7beb7",
+      "candidateGuid": "e67babbbc768a89e44471b0c57a0ca05",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          350,
+          22
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-kokuyou-gauge-frame"
+    },
+    {
+      "assetGroup": "hud-rare-slot",
+      "candidateId": "hud-rare-slot-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-rare-slot/hud-rare-slot-d-production-balanced.png",
+      "candidateSourceSha256": "644978f25686d07b63a56d61289f034423614775f49452378067f898fe470b90",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-rare-slot.png",
+      "productionSha256": "644978f25686d07b63a56d61289f034423614775f49452378067f898fe470b90",
+      "productionGuid": "fe51a74738df586681729e330820dadf",
+      "candidateGuid": "9e68f6bfd10479d1f20f086c0e3766ce",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          48,
+          48
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-rare-slot"
+    },
+    {
+      "assetGroup": "hud-timer-frame",
+      "candidateId": "hud-timer-frame-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-timer-frame/hud-timer-frame-b-readability.png",
+      "candidateSourceSha256": "256a8f90a8dd6fc32d1477a79cd37b6efff6b0a853a58595be91a925cd6aeb51",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-timer-frame.png",
+      "productionSha256": "256a8f90a8dd6fc32d1477a79cd37b6efff6b0a853a58595be91a925cd6aeb51",
+      "productionGuid": "92fee0406e7a52a5ba9ef240bc75c5a3",
+      "candidateGuid": "717387a139a408400f9bc0dc953386fb",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          104,
+          46
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-timer-frame"
+    },
+    {
+      "assetGroup": "hud-top-status-frame",
+      "candidateId": "hud-top-status-frame-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/hud-top-status-frame/hud-top-status-frame-b-readability.png",
+      "candidateSourceSha256": "95b4a13730fd6d4c5310a9e5e81fe49b9038931371f5a04ff0cb392f7ef0edf7",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-top-status-frame.png",
+      "productionSha256": "95b4a13730fd6d4c5310a9e5e81fe49b9038931371f5a04ff0cb392f7ef0edf7",
+      "productionGuid": "fcf3ef50a83b55a5a7d791864ba2d710",
+      "candidateGuid": "eb8d75059a4ed82b8d8e31a8123242ab",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          326,
+          46
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "hud-top-status-frame"
+    },
+    {
+      "assetGroup": "levelup-card-background",
+      "candidateId": "levelup-card-background-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-card-background/levelup-card-background-d-production-balanced.png",
+      "candidateSourceSha256": "130c4d4bf71bb383f5da7efc06a5b953e2cfad8e84bc5822d16c84d84002ee26",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-card-background.png",
+      "productionSha256": "130c4d4bf71bb383f5da7efc06a5b953e2cfad8e84bc5822d16c84d84002ee26",
+      "productionGuid": "0ed63de4497c58aab538f6a334353966",
+      "candidateGuid": "cccf42dbf4ffd671efe222ffac143fd2",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          300,
+          132
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "levelup-card-background"
+    },
+    {
+      "assetGroup": "levelup-decline-button",
+      "candidateId": "levelup-decline-button-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-decline-button/levelup-decline-button-b-readability.png",
+      "candidateSourceSha256": "7cdd9f5e179e9f48ee61501fcb89731eede8a856143d0cdc5c3f7c0c24c2f9cb",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-decline-button.png",
+      "productionSha256": "7cdd9f5e179e9f48ee61501fcb89731eede8a856143d0cdc5c3f7c0c24c2f9cb",
+      "productionGuid": "a2210272b6a350f2a5948e118d37d19b",
+      "candidateGuid": "62c0d30f61cb66d7a73aa3f8980dcdc5",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          220,
+          44
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "levelup-decline-button"
+    },
+    {
+      "assetGroup": "levelup-description-area",
+      "candidateId": "levelup-description-area-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-description-area/levelup-description-area-b-readability.png",
+      "candidateSourceSha256": "1f224b71d566489a893b9a8a69ee128be794e8c5e4cd78b1b24638ab01a27111",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-description-area.png",
+      "productionSha256": "1f224b71d566489a893b9a8a69ee128be794e8c5e4cd78b1b24638ab01a27111",
+      "productionGuid": "936fc44dc84d589ca301f82900d55a3d",
+      "candidateGuid": "3fad26df8bb8cb9ac6d374798359a31b",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          266,
+          62
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "levelup-description-area"
+    },
+    {
+      "assetGroup": "levelup-icon-frame",
+      "candidateId": "levelup-icon-frame-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-icon-frame/levelup-icon-frame-b-readability.png",
+      "candidateSourceSha256": "948c92117607d5461446aa1226a6275fc4a8220e56f11cd0c718384222b7c81d",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-icon-frame.png",
+      "productionSha256": "948c92117607d5461446aa1226a6275fc4a8220e56f11cd0c718384222b7c81d",
+      "productionGuid": "ce8651a2075a53d8872b4e40f2c6b214",
+      "candidateGuid": "877472339c19ce5fb9772ec99b860653",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          40,
+          40
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "levelup-icon-frame"
+    },
+    {
+      "assetGroup": "levelup-selection-feedback",
+      "candidateId": "levelup-selection-feedback-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-selection-feedback/levelup-selection-feedback-c-paper-ink.png",
+      "candidateSourceSha256": "5ce9bda752af50556b4a09025ea2267b784831ccc8a419b28080cd9d8ecdee04",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-selection-feedback.png",
+      "productionSha256": "5ce9bda752af50556b4a09025ea2267b784831ccc8a419b28080cd9d8ecdee04",
+      "productionGuid": "294c4cf48dc158bb9194c5acf56ac1b1",
+      "candidateGuid": "392cb5c9d24850a45e9cb8b9d531321a",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          300,
+          132
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "levelup-selection-feedback"
+    },
+    {
+      "assetGroup": "levelup-title-area",
+      "candidateId": "levelup-title-area-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/levelup-title-area/levelup-title-area-d-production-balanced.png",
+      "candidateSourceSha256": "d77177daa5e3ed54e3eae1b866c317c3514690232f8e77f2cb3f562ad84fe09d",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-title-area.png",
+      "productionSha256": "d77177daa5e3ed54e3eae1b866c317c3514690232f8e77f2cb3f562ad84fe09d",
+      "productionGuid": "041de17f305b5fe98d7c8cc7d331aa3e",
+      "candidateGuid": "8b7fccda3d82efa3ef4c95f6d0c7e7b1",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          266,
+          22
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "levelup-title-area"
+    },
+    {
+      "assetGroup": "replacement-cancel-button",
+      "candidateId": "replacement-cancel-button-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-cancel-button/replacement-cancel-button-b-readability.png",
+      "candidateSourceSha256": "2eb2d891597de756f18da7bab30fd5b17181de16b1727b87ec696c23508fcccf",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-cancel-button.png",
+      "productionSha256": "2eb2d891597de756f18da7bab30fd5b17181de16b1727b87ec696c23508fcccf",
+      "productionGuid": "266aa61a01ea5ae6a9f17044f48abe6d",
+      "candidateGuid": "a4557f0d3584793660c8801b86b3a2dc",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          220,
+          44
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "replacement-cancel-button"
+    },
+    {
+      "assetGroup": "replacement-confirm-button",
+      "candidateId": "replacement-confirm-button-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-confirm-button/replacement-confirm-button-b-readability.png",
+      "candidateSourceSha256": "7cfecadc902cfff91ba634f915c4dccafe0cc2f6e622be87aaeac6fe2738656e",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-confirm-button.png",
+      "productionSha256": "7cfecadc902cfff91ba634f915c4dccafe0cc2f6e622be87aaeac6fe2738656e",
+      "productionGuid": "e402256858cb5fbeafcbeb69693ba68b",
+      "candidateGuid": "6929480a7c1a0264fd13171bbf357b64",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          300,
+          44
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "replacement-confirm-button"
+    },
+    {
+      "assetGroup": "replacement-incoming-candidate-panel",
+      "candidateId": "replacement-incoming-candidate-panel-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-d-production-balanced.png",
+      "candidateSourceSha256": "416637ebc12d055ad371a5b676f4cb7adff3c0d13a9a01d8f45f73baa6749e2d",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-incoming-candidate-panel.png",
+      "productionSha256": "416637ebc12d055ad371a5b676f4cb7adff3c0d13a9a01d8f45f73baa6749e2d",
+      "productionGuid": "789926d35e8654b98b8922e8351deba8",
+      "candidateGuid": "439feee0e3b414d4941a86d8b8857097",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          300,
+          76
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "replacement-incoming-candidate-panel"
+    },
+    {
+      "assetGroup": "replacement-modal-background",
+      "candidateId": "replacement-modal-background-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-modal-background/replacement-modal-background-d-production-balanced.png",
+      "candidateSourceSha256": "8ac297c030c10f41e3eb80b3859ece170d9927fbf4f08222b43826ca670836fd",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-modal-background.png",
+      "productionSha256": "8ac297c030c10f41e3eb80b3859ece170d9927fbf4f08222b43826ca670836fd",
+      "productionGuid": "a802fc368a35591287e100d9b393f890",
+      "candidateGuid": "7172160da62191d9c4722e4acedc9487",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          344,
+          590
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "replacement-modal-background"
+    },
+    {
+      "assetGroup": "replacement-owned-slot-row",
+      "candidateId": "replacement-owned-slot-row-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-owned-slot-row/replacement-owned-slot-row-c-paper-ink.png",
+      "candidateSourceSha256": "f2999eba7a3ea6c7cfdf3b4dc34b572c8867d80416753acab4636db6f01e2284",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-owned-slot-row.png",
+      "productionSha256": "f2999eba7a3ea6c7cfdf3b4dc34b572c8867d80416753acab4636db6f01e2284",
+      "productionGuid": "889f9fa1c7035550ab70f8393080172c",
+      "candidateGuid": "0f956ba1d04d5eee4c9ad9ca48eaf5f6",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          300,
+          44
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "replacement-owned-slot-row"
+    },
+    {
+      "assetGroup": "replacement-selected-slot-state",
+      "candidateId": "replacement-selected-slot-state-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/replacement-selected-slot-state/replacement-selected-slot-state-c-paper-ink.png",
+      "candidateSourceSha256": "cc5a6e7a45e35ce540326cf316232c5173fa5847ca7053c1182d18dc462c0304",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-selected-slot-state.png",
+      "productionSha256": "cc5a6e7a45e35ce540326cf316232c5173fa5847ca7053c1182d18dc462c0304",
+      "productionGuid": "a3b31c7beaf35f30af8ed09eba94867f",
+      "candidateGuid": "dad92d0db44ff16e2e79219c3cb5326c",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          300,
+          44
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "replacement-selected-slot-state"
+    },
+    {
+      "assetGroup": "result-evolution-awakening-row",
+      "candidateId": "result-evolution-awakening-row-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-evolution-awakening-row/result-evolution-awakening-row-c-paper-ink.png",
+      "candidateSourceSha256": "6bf621b0889c64d1cc5c73448bcf3f2f1af32bc272416e6aa3604c0371ec6f92",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-evolution-awakening-row.png",
+      "productionSha256": "6bf621b0889c64d1cc5c73448bcf3f2f1af32bc272416e6aa3604c0371ec6f92",
+      "productionGuid": "4a3c01c3876a5a38af3ad70a4460077d",
+      "candidateGuid": "813057e1e2d6488c10dce41d4655e75d",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          326,
+          70
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "result-evolution-awakening-row"
+    },
+    {
+      "assetGroup": "result-inventory-row",
+      "candidateId": "result-inventory-row-c-paper-ink",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-inventory-row/result-inventory-row-c-paper-ink.png",
+      "candidateSourceSha256": "f457449551fd28d97106897ade21e555fdff99d229e4839e9d16c52c27d3708e",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-inventory-row.png",
+      "productionSha256": "f457449551fd28d97106897ade21e555fdff99d229e4839e9d16c52c27d3708e",
+      "productionGuid": "cdaf325414215413b2efd4221fe06cd1",
+      "candidateGuid": "865af90612904024f6044011890b68b6",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          326,
+          70
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "result-inventory-row"
+    },
+    {
+      "assetGroup": "result-main-panel",
+      "candidateId": "result-main-panel-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-main-panel/result-main-panel-d-production-balanced.png",
+      "candidateSourceSha256": "d363ecc05852dcd6af60c3341ac084a68dfb31be0b1b131e177b20760d8859b8",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-main-panel.png",
+      "productionSha256": "d363ecc05852dcd6af60c3341ac084a68dfb31be0b1b131e177b20760d8859b8",
+      "productionGuid": "0edc1823ebb95c0ca8a214d46e64c5ab",
+      "candidateGuid": "d66cca01dd95f5e40fff55b519c10ad3",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          355,
+          756
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "result-main-panel"
+    },
+    {
+      "assetGroup": "result-retry-button",
+      "candidateId": "result-retry-button-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-retry-button/result-retry-button-b-readability.png",
+      "candidateSourceSha256": "f54d844ebcbb1ff7d52110c76b061ea0c729f490a922dd401f11ddfa096087e6",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-retry-button.png",
+      "productionSha256": "f54d844ebcbb1ff7d52110c76b061ea0c729f490a922dd401f11ddfa096087e6",
+      "productionGuid": "bf8502c1c50c52489df8eaf7eac2ba07",
+      "candidateGuid": "c5e5382a707a7192420a5ee5c259a5db",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          296,
+          59
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "result-retry-button"
+    },
+    {
+      "assetGroup": "result-return-button",
+      "candidateId": "result-return-button-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-return-button/result-return-button-b-readability.png",
+      "candidateSourceSha256": "5ad7d32b23b4d4e849216dceb24c2abf90cde112aa0f19384ef443f22f6ecf2d",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-return-button.png",
+      "productionSha256": "5ad7d32b23b4d4e849216dceb24c2abf90cde112aa0f19384ef443f22f6ecf2d",
+      "productionGuid": "9dca3695997b546bbe1e8b7e1c345cd8",
+      "candidateGuid": "e2f3469ae2d1664c19f28d6ebd0cd2b8",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          218,
+          55
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "result-return-button"
+    },
+    {
+      "assetGroup": "result-summary-header",
+      "candidateId": "result-summary-header-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/result-summary-header/result-summary-header-d-production-balanced.png",
+      "candidateSourceSha256": "9c54e25847fa8d546ab64b0a0ca88819b8b13d4647523f70a3dae2544d098b99",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-summary-header.png",
+      "productionSha256": "9c54e25847fa8d546ab64b0a0ca88819b8b13d4647523f70a3dae2544d098b99",
+      "productionGuid": "41c66b34f5bf5684b13708e9063e529c",
+      "candidateGuid": "e22c23a6cf194d2a0b2a4423ca706494",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          326,
+          150
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "result-summary-header"
+    },
+    {
+      "assetGroup": "stage-select-locked-unlocked-state",
+      "candidateId": "stage-select-locked-unlocked-state-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-d-production-balanced.png",
+      "candidateSourceSha256": "d9a88b73205b575def40757ccbdb81eba962530165717b834622db09f3c10d65",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-locked-unlocked-state.png",
+      "productionSha256": "d9a88b73205b575def40757ccbdb81eba962530165717b834622db09f3c10d65",
+      "productionGuid": "20fc3b20fab95a28bc45f943b2425f40",
+      "candidateGuid": "0be0998e93dd5eb0c5bc0c2c4a4aedfe",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          275,
+          192
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "stage-select-locked-unlocked-state"
+    },
+    {
+      "assetGroup": "stage-select-metadata-row",
+      "candidateId": "stage-select-metadata-row-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-metadata-row/stage-select-metadata-row-d-production-balanced.png",
+      "candidateSourceSha256": "d3168342cb59e53e86c98fc0805172232bcc2990f175f1eb11e4e96e073e88ce",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-metadata-row.png",
+      "productionSha256": "d3168342cb59e53e86c98fc0805172232bcc2990f175f1eb11e4e96e073e88ce",
+      "productionGuid": "4749a3044b5a53f6a9367083904bca0a",
+      "candidateGuid": "fd60a3fd99f167fcae5a805a580adf11",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          248,
+          61
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "stage-select-metadata-row"
+    },
+    {
+      "assetGroup": "stage-select-primary-button",
+      "candidateId": "stage-select-primary-button-b-readability",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-primary-button/stage-select-primary-button-b-readability.png",
+      "candidateSourceSha256": "c574e9546ad921bcf547e27ef8d10345175010fae742f560c61bf4d50f06bd84",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-primary-button.png",
+      "productionSha256": "c574e9546ad921bcf547e27ef8d10345175010fae742f560c61bf4d50f06bd84",
+      "productionGuid": "c2bef4da70205eeda76d755f36b37e3b",
+      "candidateGuid": "4c0340a5b76c360237786e277942f1ac",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          248,
+          71
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "stage-select-primary-button"
+    },
+    {
+      "assetGroup": "stage-select-stage-card",
+      "candidateId": "stage-select-stage-card-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-stage-card/stage-select-stage-card-d-production-balanced.png",
+      "candidateSourceSha256": "73ee9960c6390e8478b1cdedecd4e0ae9b289025adec78931c5ff88932726bc1",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-stage-card.png",
+      "productionSha256": "73ee9960c6390e8478b1cdedecd4e0ae9b289025adec78931c5ff88932726bc1",
+      "productionGuid": "3a88a7c798f755458706c0a53c87d8ca",
+      "candidateGuid": "cfe67523222faca7b9206c1716122353",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          275,
+          192
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "stage-select-stage-card"
+    },
+    {
+      "assetGroup": "stage-select-title-frame",
+      "candidateId": "stage-select-title-frame-d-production-balanced",
+      "candidateSourcePath": "unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchC/stage-select-title-frame/stage-select-title-frame-d-production-balanced.png",
+      "candidateSourceSha256": "2676914b58b85058d811ff7ee73d63ac66dfdffae22462e784d9d06febd40323",
+      "productionPath": "unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-title-frame.png",
+      "productionSha256": "2676914b58b85058d811ff7ee73d63ac66dfdffae22462e784d9d06febd40323",
+      "productionGuid": "0ad1d43c92d1574787f6499816fa8eb5",
+      "candidateGuid": "62f1e2f9fcd731ac39acb3e2c038b1de",
+      "importContract": {
+        "format": "PNG RGBA",
+        "sourcePixelSize": [
+          240,
+          120
+        ],
+        "logicalSize": [
+          303,
+          94
+        ],
+        "filterMode": "Bilinear",
+        "compression": "None",
+        "mipmap": false,
+        "imageType": "Sliced",
+        "pixelsPerUnit": 100,
+        "border": [
+          18,
+          18,
+          18,
+          18
+        ],
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      },
+      "humanApproved": true,
+      "approvedAsFinal": true,
+      "runtimeApproved": false,
+      "productionConnected": false,
+      "runtimeProviderKey": "stage-select-title-frame"
+    }
+  ]
+}

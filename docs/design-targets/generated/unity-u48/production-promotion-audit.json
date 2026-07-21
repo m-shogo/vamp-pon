@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "currentProductionSource": "Assets/_Project/Resources/RuntimeVisuals/Stage1 and AppQualityAssetProvider",
+  "ownerComponents": [
+    "RuntimeVisualAssetProvider",
+    "AppQualityAssetProvider",
+    "U46ScreenFactory",
+    "U4LevelUpOverlay"
+  ],
+  "providerKeyStrategy": "stable asset-group ID",
+  "destinationRoot": "unity/VampPonUnity/Assets/_Project/Art/Production/U48",
+  "importSettingsStrategy": "copy approved candidate TextureImporter settings; replace GUID only",
+  "guidStrategy": "deterministic UUIDv5 per stable asset group; candidate GUID is never reused",
+  "atlasStrategy": "no SpriteAtlas is currently used; direct imported Sprite references through production provider",
+  "bindingStrategy": "Resources production catalog plus stable provider keys; no preview define/environment selector",
+  "rollbackSource": "immutable candidate source plus approved-production-set source/destination hashes",
+  "currentFallback": "candidate RuntimeVisualAssetProvider and AppQualityAssetProvider before connection checkpoint",
+  "requiredCheckers": [
+    "unity:u48-human-selection:check",
+    "unity:u48-approved-production-set:check",
+    "unity:u48-production-visual-connection:check"
+  ],
+  "candidateSourcesImmutable": true,
+  "candidateGuidReused": false,
+  "productionPathDependsOnCandidateId": false,
+  "gameplayGroupCount": 16,
+  "uiGroupCount": 30
+}
