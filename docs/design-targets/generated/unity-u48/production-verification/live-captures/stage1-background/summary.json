@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "stage1-background",
+  "completedCaptureCount": 3,
+  "requiredStateCount": 4,
+  "productionProvider": true,
+  "previewDependencyUsed": false,
+  "cleanupPassed": true,
+  "exceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

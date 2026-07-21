@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "kokuyou-ready",
+  "completedCaptureCount": 3,
+  "requiredStateCount": 11,
+  "productionProvider": true,
+  "previewDependencyUsed": false,
+  "cleanupPassed": true,
+  "exceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}

@@ -73,6 +73,7 @@
     "unity:u48-approved-production-set:check": "node --experimental-strip-types scripts/quality/check-unity-u48-approved-production-set.ts",
     "unity:u48-production-visual-connection:mark": "python3 scripts/unity/mark-u48-production-connected.py",
     "unity:u48-production-visual-connection:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-visual-connection.ts",
+    "unity:u48-production-visual-verification:check": "node --experimental-strip-types scripts/quality/check-unity-u48-production-visual-verification.ts",
     "unity:u48-ui-comparison-contracts:generate": "node --experimental-strip-types scripts/unity/generate-u48-ui-comparison-contracts.ts",
     "unity:u48-candidate-live-preview:check": "node --experimental-strip-types scripts/quality/check-unity-u48-candidate-live-preview.ts",
     "unity:u48-batch-a-contracts:generate": "node --experimental-strip-types scripts/unity/generate-u48-batch-a-contracts.ts",

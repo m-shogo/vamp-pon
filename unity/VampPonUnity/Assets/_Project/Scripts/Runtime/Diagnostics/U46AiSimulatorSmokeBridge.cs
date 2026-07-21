@@ -36,6 +36,9 @@ namespace VampPon.UnitySpike.Diagnostics
             if (Environment.GetEnvironmentVariable("VAMPPON_U47_AI_SIMULATOR_SMOKE") == "1") return;
             if (Environment.GetEnvironmentVariable("VAMPPON_U48_BATCH_B_CAPTURE") == "1") return;
             if (Environment.GetEnvironmentVariable("VAMPPON_U48_BATCH_C_CAPTURE") == "1") return;
+            if (Environment.GetEnvironmentVariable("VAMPPON_U48_PRODUCTION_CAPTURE") == "1" ||
+                Environment.GetCommandLineArgs().Contains("--u48-production-capture", StringComparer.Ordinal) ||
+                File.Exists(Path.Combine(Application.persistentDataPath, "u48-production-capture-request.txt"))) return;
             DontDestroyOnLoad(new GameObject("U46AiSimulatorSmokeBridge", typeof(U46AiSimulatorSmokeBridge)));
         }
 

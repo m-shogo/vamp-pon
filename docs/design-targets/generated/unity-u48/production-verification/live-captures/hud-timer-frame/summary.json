@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "assetGroup": "hud-timer-frame",
+  "completedCaptureCount": 3,
+  "requiredStateCount": 10,
+  "productionProvider": true,
+  "previewDependencyUsed": false,
+  "cleanupPassed": true,
+  "exceptionCount": 0,
+  "assertionFailureCount": 0,
+  "passed": true
+}
