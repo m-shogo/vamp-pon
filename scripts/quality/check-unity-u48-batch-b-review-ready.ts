@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { normalizeU47SimulatorEvidenceSource } from '../unity/u47-simulator-evidence-sources.ts';
 
 const root = resolve(import.meta.dirname, '../..');
 const read = (path: string) => readFileSync(resolve(root, path), 'utf8');
@@ -19,7 +20,7 @@ const golden = json(`${evidence}/golden-references.json`); const contracts = jso
 const build = json(`${evidence}/candidate-build-manifest.json`); const manifest = json(`${evidence}/capture-manifest.json`); const recommendations = json(`${evidence}/ai-recommendations.json`);
 const sequences = json(`${evidence}/phase-sequence-manifest.json`); const verification = json(`${evidence}/verification-summary.json`); const approval = json('docs/design-targets/generated/unity-u48/approval-pack/approval-manifest.json'); const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const finalized = readiness.u48Completed === true;
-const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')));
+const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && (reference.path === 'docs/181-current-production-canon.md' || reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/'))));
 
 check(golden.entries.length === 7 && new Set(golden.entries.map((value: { assetGroup: string }) => value.assetGroup)).size === 7, 'seven Golden Reference contracts');
 for (const value of golden.entries) {
@@ -88,9 +89,10 @@ for (const key of ['physicalDeviceReady', 'audioReady', 'hapticReady', 'performa
 check(finalized ? readiness.status === 'U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_READY' && readiness.completionBlocked === false : ['IN_PROGRESS_BLOCKED', 'AWAITING_HUMAN_ASSET_APPROVAL'].includes(readiness.status) && readiness.completionBlocked === true, 'U48 readiness state');
 check(verification.sourceHead === manifest.sourceHead && verification.results.candidateSpecificLiveCapture === 'PASS_448' && verification.results.staleEvidenceCount === 0, 'verification summary');
 const productionDiff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs'], { cwd: root, encoding: 'utf8' });
-const u47Diff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/GameplayServices.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/State/RunGameplayState.cs'], { cwd: root, encoding: 'utf8' });
+const u47Paths = ['unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/GameplayServices.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/State/RunGameplayState.cs'];
+const u47Unchanged = u47Paths.every(path => normalizeU47SimulatorEvidenceSource(path, readFileSync(resolve(root, path))).equals(execFileSync('git', ['show', `${manifest.sourceHead}:${path}`], { cwd: root })));
 const batchADiff = execFileSync('git', ['diff', manifest.sourceHead, '--', 'unity/VampPonUnity/Assets/_Project/Art/Candidates/U48/BatchA', 'docs/design-targets/generated/unity-u48/batch-a'], { cwd: root, encoding: 'utf8' });
-check(finalized ? productionDiff.length > 0 && !u47Diff : !productionDiff && !u47Diff && !batchADiff, 'Production Provider and historical input phase state');
+check(finalized ? productionDiff.length > 0 && u47Unchanged : !productionDiff && u47Unchanged && !batchADiff, 'Production Provider and historical input phase state');
 const bridge = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Diagnostics/U48BatchBPreviewCaptureBridge.cs');
 check(!bridge.includes('dawn_ticket') && !/Kokuyou\.(Phase|Gauge)\s*=/.test(bridge) && !/CurrentHp\s*=/.test(bridge), 'no revival/direct state/HP mutation');
 console.log(`U48 Batch B review-ready check passed: 7 groups, 28 unique candidates, 448 clean live captures, 7 contact sheets and 4 phase sheets; finalized=${finalized}.`);

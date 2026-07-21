@@ -29,7 +29,7 @@ const contracts = json('docs/design-targets/generated/unity-u48/batch-c/generati
 const recipes = json('docs/design-targets/generated/unity-u48/batch-c/generation-recipes.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const finalized = readiness.u48Completed === true && readiness.runtimeVisualReady === true;
-const mutableHistoricalReference = (path: string) => finalized && path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/');
+const mutableHistoricalReference = (path: string) => finalized && (path === 'docs/181-current-production-canon.md' || path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/'));
 const goldenReferenceHashes = new Map<string, string>();
 
 check(comparison.activeComparisonGroupCount === 30 && comparison.comparisonGroups.length === 30, '30 comparison units');

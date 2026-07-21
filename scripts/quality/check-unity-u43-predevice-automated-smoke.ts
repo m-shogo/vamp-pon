@@ -35,6 +35,11 @@ const runtimePause = read(runtimePausePath);
 const verdict = read(verdictPath);
 const iosBuildEvidence = read(iosBuildEvidencePath);
 const runtime = runtimeFiles.map(read).join('\n');
+const u49Owner = read('unity/VampPonUnity/Assets/_Project/Scripts/U49/AudioHaptic/U49AudioHapticRuntimeOwner.cs');
+const u49IosAdapter = read('unity/VampPonUnity/Assets/_Project/Scripts/U49/AudioHaptic/U49IosHapticAdapter.cs');
+const u49NativeHaptics = read('unity/VampPonUnity/Assets/Plugins/iOS/VampPonHaptics.mm');
+const u49MixerExists = existsSync('unity/VampPonUnity/Assets/_Project/Audio/Production/U49/YorunoShirubeProduction.mixer');
+const u49Readiness = read('docs/design-targets/generated/unity-u49/readiness.json');
 const allText = `${doc}\n${evidence}\n${deviceChecklist}\n${runtimePause}\n${verdict}\n${iosBuildEvidence}\n${runtime}`;
 
 check(`doc exists: ${docPath}`, existsSync(docPath));
@@ -59,8 +64,12 @@ check('StageSelect return pause exists', runtime.includes('stageSelectOverlay.Se
 check('UI movement collision guard exists', runtime.includes('EventSystem.current.IsPointerOverGameObject') && runtime.includes('IsPointerOverUi'));
 check('virtual stick lower-left only exists', runtime.includes('Screen.width * 0.42f') && runtime.includes('Screen.height * 0.34f'));
 check('runtime input blocked visible to harness', runtime.includes('RuntimeInputBlocked') && runtime.includes('CurrentVelocity'));
-check('AudioClip.Create tone not final SE', runtime.includes('AudioClip.Create') && runtime.includes('not final SE') && /"audioMixerReady": false/.test(evidence));
-check('Handheld.Vibrate not final haptic', runtime.includes('Handheld.Vibrate') && runtime.includes('final haptic design stays separate') && /"hapticMeasured": false/.test(evidence));
+const historicalToneBoundary = runtime.includes('AudioClip.Create') && runtime.includes('not final SE');
+const u49ProductionAudioBoundary = !runtime.includes('AudioClip.Create') && u49MixerExists && u49Owner.includes('PlayScheduled') && u49Owner.includes('outputAudioMixerGroup') && /"audioMixerReady": false/.test(u49Readiness);
+check('historical generated tone boundary or U49 production audio replacement', (historicalToneBoundary || u49ProductionAudioBoundary) && /"audioMixerReady": false/.test(evidence));
+const historicalHapticBoundary = runtime.includes('Handheld.Vibrate') && runtime.includes('final haptic design stays separate');
+const u49ProductionHapticBoundary = !runtime.includes('Handheld.Vibrate') && u49IosAdapter.includes('IU28HapticPlatformAdapter') && u49NativeHaptics.includes('CHHapticEngine') && /"hapticMeasured": false/.test(u49Readiness);
+check('historical placeholder boundary or U49 Core Haptics replacement', (historicalHapticBoundary || u49ProductionHapticBoundary) && /"hapticMeasured": false/.test(evidence));
 check('predevice vs actual device separated in docs', doc.includes('pre-device evidence only') && deviceChecklist.includes('actual device smoke result remains NOT_PROVIDED'));
 check('actual device evidence not confused with predevice', /"actualDeviceSmokeResultProvided": false/.test(evidence) && /"devicePauseGateConfirmed": false/.test(runtimePause));
 check('readiness verdict still device false', /"devicePlayableReady": false/.test(verdict) && /"actualDeviceSmokeResultProvided": false/.test(verdict));

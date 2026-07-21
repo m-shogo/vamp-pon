@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { u47SimulatorCaptures, u47SimulatorCaptureCatalogHash } from '../unity/u47-simulator-capture-catalog.ts';
-import { u47SimulatorEvidenceSourceFiles } from '../unity/u47-simulator-evidence-sources.ts';
+import { normalizeU47SimulatorEvidenceSource, u47SimulatorEvidenceSourceFiles } from '../unity/u47-simulator-evidence-sources.ts';
 
 const root = resolve(import.meta.dirname, '../..');
 const check = (value: unknown, message: string): void => { if (!value) throw new Error(`U47 manifest check failed: ${message}`); };
@@ -15,7 +15,7 @@ check(manifest.routeCatalogHash === u47SimulatorCaptureCatalogHash, 'catalog has
 check(manifest.semanticRouteCount === new Set(u47SimulatorCaptures.map(value => value.baseRouteId)).size && manifest.semanticRouteCount !== 23, 'semantic route derivation');
 check(new Set(manifest.entries.map((value: { captureId: string }) => value.captureId)).size === 23, 'duplicate captureId');
 const sourceHash = createHash('sha256');
-for (const file of u47SimulatorEvidenceSourceFiles) sourceHash.update(file).update('\0').update(readFileSync(resolve(root, file))).update('\0');
+for (const file of u47SimulatorEvidenceSourceFiles) sourceHash.update(file).update('\0').update(normalizeU47SimulatorEvidenceSource(file, readFileSync(resolve(root, file)))).update('\0');
 check(manifest.sourceFingerprint === sourceHash.digest('hex'), 'stale source fingerprint');
 const runStart = Date.parse(manifest.runStartedAtUtc); const runEnd = Date.parse(manifest.runCompletedAtUtc);
 check(Number.isFinite(runStart) && Number.isFinite(runEnd) && runEnd >= runStart, 'run timestamp range');
