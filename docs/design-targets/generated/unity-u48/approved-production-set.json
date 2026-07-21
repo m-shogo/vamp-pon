@@ -5,9 +5,9 @@
   "selectedCandidateCount": 46,
   "gameplayGroupCount": 16,
   "uiGroupCount": 30,
-  "productionConnectionStatus": "pending",
+  "productionConnectionStatus": "connected-awaiting-runtime-verification",
   "runtimeApprovedCount": 0,
-  "productionConnectedCount": 0,
+  "productionConnectedCount": 46,
   "entries": [
     {
       "assetGroup": "player-yui",
@@ -33,7 +33,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "player-yui"
     },
     {
@@ -60,7 +60,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "enemy-onbu"
     },
     {
@@ -87,7 +87,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "stage1-background"
     },
     {
@@ -114,7 +114,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "pickup-exp"
     },
     {
@@ -141,7 +141,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "pickup-healing"
     },
     {
@@ -168,7 +168,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "common-projectile"
     },
     {
@@ -195,7 +195,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hit-effect"
     },
     {
@@ -222,7 +222,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "enemy-death-effect"
     },
     {
@@ -249,7 +249,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "movement-trail"
     },
     {
@@ -279,7 +279,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "ground-area-black-ink-bottle"
     },
     {
@@ -309,7 +309,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "ground-area-streetlamp-ring"
     },
     {
@@ -339,7 +339,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "ground-area-dawn-ink-lamp"
     },
     {
@@ -369,7 +369,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "kokuyou-charging"
     },
     {
@@ -399,7 +399,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "kokuyou-ready"
     },
     {
@@ -429,7 +429,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "kokuyou-active"
     },
     {
@@ -459,7 +459,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "kokuyou-recovery"
     },
     {
@@ -500,7 +500,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-hp-frame"
     },
     {
@@ -541,7 +541,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-inventory-passive-slot"
     },
     {
@@ -582,7 +582,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-inventory-weapon-slot"
     },
     {
@@ -623,7 +623,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-kokuyou-gauge-frame"
     },
     {
@@ -664,7 +664,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-rare-slot"
     },
     {
@@ -705,7 +705,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-timer-frame"
     },
     {
@@ -746,7 +746,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "hud-top-status-frame"
     },
     {
@@ -787,7 +787,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "levelup-card-background"
     },
     {
@@ -828,7 +828,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "levelup-decline-button"
     },
     {
@@ -869,7 +869,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "levelup-description-area"
     },
     {
@@ -910,7 +910,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "levelup-icon-frame"
     },
     {
@@ -951,7 +951,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "levelup-selection-feedback"
     },
     {
@@ -992,7 +992,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "levelup-title-area"
     },
     {
@@ -1033,7 +1033,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "replacement-cancel-button"
     },
     {
@@ -1074,7 +1074,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "replacement-confirm-button"
     },
     {
@@ -1115,7 +1115,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "replacement-incoming-candidate-panel"
     },
     {
@@ -1156,7 +1156,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "replacement-modal-background"
     },
     {
@@ -1197,7 +1197,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "replacement-owned-slot-row"
     },
     {
@@ -1238,7 +1238,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "replacement-selected-slot-state"
     },
     {
@@ -1279,7 +1279,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "result-evolution-awakening-row"
     },
     {
@@ -1320,7 +1320,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "result-inventory-row"
     },
     {
@@ -1361,7 +1361,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "result-main-panel"
     },
     {
@@ -1402,7 +1402,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "result-retry-button"
     },
     {
@@ -1443,7 +1443,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "result-return-button"
     },
     {
@@ -1484,7 +1484,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "result-summary-header"
     },
     {
@@ -1525,7 +1525,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "stage-select-locked-unlocked-state"
     },
     {
@@ -1566,7 +1566,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "stage-select-metadata-row"
     },
     {
@@ -1607,7 +1607,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "stage-select-primary-button"
     },
     {
@@ -1648,7 +1648,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "stage-select-stage-card"
     },
     {
@@ -1689,7 +1689,7 @@
       "humanApproved": true,
       "approvedAsFinal": true,
       "runtimeApproved": false,
-      "productionConnected": false,
+      "productionConnected": true,
       "runtimeProviderKey": "stage-select-title-frame"
     }
   ]

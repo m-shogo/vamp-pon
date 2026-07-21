@@ -23,8 +23,9 @@ for (const entry of approved.entries) {
   const sourceMeta = text(entry.candidateSourcePath + '.meta').replace(/^guid: .*$/m, 'guid: <normalized>');
   const productionMeta = text(entry.productionPath + '.meta').replace(/^guid: .*$/m, 'guid: <normalized>');
   check(sourceMeta === productionMeta && entry.productionGuid !== entry.candidateGuid && text(entry.productionPath + '.meta').includes(`guid: ${entry.productionGuid}`), `${entry.assetGroup} importer/GUID`);
-  check(entry.humanApproved === true && entry.approvedAsFinal === true && entry.runtimeApproved === false && entry.productionConnected === false, `${entry.assetGroup} promotion boundary`);
+  check(entry.humanApproved === true && entry.approvedAsFinal === true && typeof entry.runtimeApproved === 'boolean' && typeof entry.productionConnected === 'boolean', `${entry.assetGroup} promotion boundary`);
   check(entry.importContract && entry.runtimeProviderKey === entry.assetGroup, `${entry.assetGroup} import/provider contract`);
 }
 check(audit.candidateSourcesImmutable === true && audit.candidateGuidReused === false && audit.productionPathDependsOnCandidateId === false, 'promotion strategy boundary');
-console.log('U48 approved production set check passed: 46 stable copies, source/destination SHA match, 46 unique production GUIDs, runtime connection pending.');
+check([0,46].includes(approved.runtimeApprovedCount) && [0,46].includes(approved.productionConnectedCount), 'all-or-none runtime/connection counts');
+console.log(`U48 approved production set check passed: 46 stable copies, source/destination SHA match, 46 unique production GUIDs, connected=${approved.productionConnectedCount}, runtimeApproved=${approved.runtimeApprovedCount}.`);

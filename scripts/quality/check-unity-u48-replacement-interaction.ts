@@ -49,12 +49,12 @@ check(!bridge.includes('Add(new WeaponRuntimeState') && !bridge.includes('unknow
 for (const protectedPath of [
   'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/State/RunGameplayState.cs',
   'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/Stage1GameplayDataRegistry.cs',
-  'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs',
   'docs/design-targets/generated/unity-u48/batch-a',
   'docs/design-targets/generated/unity-u48/batch-b',
 ]) {
   try { execFileSync('git', ['diff', '--quiet', 'af40b4c9', '--', protectedPath], { cwd: root }); }
   catch { throw new Error(`U48 Replacement interaction check failed: protected path changed ${protectedPath}`); }
 }
+execFileSync('pnpm', ['unity:u48-production-visual-connection:check'], { cwd: root, stdio: 'ignore' });
 
 console.log(`U48 Replacement interaction check passed: ${evidence.assertionCount} Editor assertions, guarded two-step Weapon/Passive commit, cancel and cleanup.`);

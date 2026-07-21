@@ -10,6 +10,7 @@ namespace VampPon.UnitySpike.U5
         public Sprite EnemySprite { get; set; }
         public Sprite ProjectileSprite { get; set; }
         public Sprite ExpSprite { get; set; }
+        public Sprite HealingSprite { get; set; }
         public Sprite HitSprite { get; set; }
         public Sprite InkSprite { get; set; }
         public Sprite TrailSprite { get; set; }

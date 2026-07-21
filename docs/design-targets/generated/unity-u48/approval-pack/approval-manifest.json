@@ -41,7 +41,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "player-yui-b-silhouette",
@@ -72,7 +73,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "player-yui-c-lantern-bag",
@@ -104,7 +106,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "player-yui-d-paper-ink",
@@ -135,7 +138,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -186,7 +190,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "enemy-onbu-b-silhouette",
@@ -217,7 +222,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "enemy-onbu-c-sprout-mist",
@@ -249,7 +255,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "enemy-onbu-d-ink-death",
@@ -280,7 +287,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -331,7 +339,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage1-background-b-paper-map",
@@ -362,7 +371,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage1-background-c-night-street",
@@ -394,7 +404,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "stage1-background-d-balanced",
@@ -425,7 +436,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -476,7 +488,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "exp-pickup-b-paper-fragment",
@@ -508,7 +521,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "exp-pickup-c-small-crystal",
@@ -539,7 +553,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "exp-pickup-d-ink-light-hybrid",
@@ -570,7 +585,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -621,7 +637,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "healing-pickup-b-bandaged-paper-charm",
@@ -652,7 +669,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "healing-pickup-c-warm-lantern-dew",
@@ -683,7 +701,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "healing-pickup-d-restorative-bottle",
@@ -715,7 +734,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -766,7 +786,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "common-projectile-b-pencil-slash",
@@ -797,7 +818,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "common-projectile-c-paper-streak",
@@ -829,7 +851,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "common-projectile-d-ink-line",
@@ -860,7 +883,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -911,7 +935,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hit-effect-b-paper-nick",
@@ -943,7 +968,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "hit-effect-c-ink-pinprick",
@@ -974,7 +1000,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hit-effect-d-lantern-cross",
@@ -1005,7 +1032,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1056,7 +1084,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "enemy-death-effect-b-paper-scatter",
@@ -1087,7 +1116,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "enemy-death-effect-c-ink-dissolve",
@@ -1118,7 +1148,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "enemy-death-effect-d-paper-ink-burst",
@@ -1150,7 +1181,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1201,7 +1233,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "movement-trail-b-pencil-dust",
@@ -1232,7 +1265,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "movement-trail-c-paper-flecks",
@@ -1264,7 +1298,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "movement-trail-d-lantern-motes",
@@ -1295,7 +1330,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1346,7 +1382,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-black-ink-bottle-b-irregular-ink-blot",
@@ -1377,7 +1414,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
@@ -1409,7 +1447,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "ground-area-black-ink-bottle-d-paper-absorption-bottle",
@@ -1440,7 +1479,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1491,7 +1531,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-streetlamp-ring-b-defined-lantern-ring",
@@ -1522,7 +1563,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-streetlamp-ring-c-broken-paper-light",
@@ -1553,7 +1595,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
@@ -1585,7 +1628,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1636,7 +1680,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-dawn-ink-lamp-b-dual-layer-ink-light",
@@ -1667,7 +1712,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
@@ -1698,7 +1744,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
@@ -1730,7 +1777,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1781,7 +1829,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-charging-b-small-ink-wisps",
@@ -1813,7 +1862,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "kokuyou-charging-c-lantern-shadow-flicker",
@@ -1844,7 +1894,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-charging-d-paper-edge-corruption",
@@ -1875,7 +1926,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1926,7 +1978,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-ready-b-complete-dark-ring",
@@ -1958,7 +2011,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "kokuyou-ready-c-restrained-black-flame-crown",
@@ -1989,7 +2043,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-ready-d-lantern-inversion-pulse",
@@ -2020,7 +2075,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2071,7 +2127,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-active-b-controlled-black-flame",
@@ -2103,7 +2160,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "kokuyou-active-c-ink-fracture-aura",
@@ -2134,7 +2192,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-active-d-lantern-eclipse-paper-distortion",
@@ -2165,7 +2224,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2216,7 +2276,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-recovery-b-fading-soot",
@@ -2248,7 +2309,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "kokuyou-recovery-c-dragging-ink-shadow",
@@ -2279,7 +2341,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "kokuyou-recovery-d-dim-lantern-paper-ash",
@@ -2310,7 +2373,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2369,7 +2433,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-hp-frame-b-readability",
@@ -2409,7 +2474,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "hud-hp-frame-c-paper-ink",
@@ -2448,7 +2514,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-hp-frame-d-production-balanced",
@@ -2487,7 +2554,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2549,7 +2617,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-inventory-passive-slot-b-readability",
@@ -2590,7 +2659,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-inventory-passive-slot-c-paper-ink",
@@ -2632,7 +2702,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "hud-inventory-passive-slot-d-production-balanced",
@@ -2673,7 +2744,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2735,7 +2807,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-inventory-weapon-slot-b-readability",
@@ -2776,7 +2849,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-inventory-weapon-slot-c-paper-ink",
@@ -2818,7 +2892,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "hud-inventory-weapon-slot-d-production-balanced",
@@ -2859,7 +2934,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2921,7 +2997,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-kokuyou-gauge-frame-b-readability",
@@ -2962,7 +3039,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-kokuyou-gauge-frame-c-paper-ink",
@@ -3003,7 +3081,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
@@ -3045,7 +3124,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3107,7 +3187,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-rare-slot-b-readability",
@@ -3148,7 +3229,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-rare-slot-c-paper-ink",
@@ -3189,7 +3271,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-rare-slot-d-production-balanced",
@@ -3231,7 +3314,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3290,7 +3374,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-timer-frame-b-readability",
@@ -3329,7 +3414,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "hud-timer-frame-c-paper-ink",
@@ -3367,7 +3453,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-timer-frame-d-production-balanced",
@@ -3405,7 +3492,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3464,7 +3552,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-top-status-frame-b-readability",
@@ -3503,7 +3592,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "hud-top-status-frame-c-paper-ink",
@@ -3541,7 +3631,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "hud-top-status-frame-d-production-balanced",
@@ -3579,7 +3670,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3640,7 +3732,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-card-background-b-readability",
@@ -3680,7 +3773,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-card-background-c-paper-ink",
@@ -3720,7 +3814,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-card-background-d-production-balanced",
@@ -3761,7 +3856,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3822,7 +3918,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-decline-button-b-readability",
@@ -3863,7 +3960,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "levelup-decline-button-c-paper-ink",
@@ -3903,7 +4001,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-decline-button-d-production-balanced",
@@ -3943,7 +4042,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4004,7 +4104,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-description-area-b-readability",
@@ -4045,7 +4146,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "levelup-description-area-c-paper-ink",
@@ -4085,7 +4187,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-description-area-d-production-balanced",
@@ -4125,7 +4228,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4186,7 +4290,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-icon-frame-b-readability",
@@ -4227,7 +4332,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "levelup-icon-frame-c-paper-ink",
@@ -4267,7 +4373,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-icon-frame-d-production-balanced",
@@ -4307,7 +4414,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4368,7 +4476,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-selection-feedback-b-readability",
@@ -4408,7 +4517,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-selection-feedback-c-paper-ink",
@@ -4449,7 +4559,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "levelup-selection-feedback-d-production-balanced",
@@ -4489,7 +4600,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4550,7 +4662,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-title-area-b-readability",
@@ -4590,7 +4703,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-title-area-c-paper-ink",
@@ -4630,7 +4744,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "levelup-title-area-d-production-balanced",
@@ -4671,7 +4786,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4732,7 +4848,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-cancel-button-b-readability",
@@ -4773,7 +4890,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "replacement-cancel-button-c-paper-ink",
@@ -4813,7 +4931,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-cancel-button-d-production-balanced",
@@ -4853,7 +4972,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4914,7 +5034,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-confirm-button-b-readability",
@@ -4955,7 +5076,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "replacement-confirm-button-c-paper-ink",
@@ -4995,7 +5117,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-confirm-button-d-production-balanced",
@@ -5035,7 +5158,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5096,7 +5220,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-incoming-candidate-panel-b-readability",
@@ -5136,7 +5261,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-incoming-candidate-panel-c-paper-ink",
@@ -5176,7 +5302,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-incoming-candidate-panel-d-production-balanced",
@@ -5217,7 +5344,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5276,7 +5404,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-modal-background-b-readability",
@@ -5314,7 +5443,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-modal-background-c-paper-ink",
@@ -5352,7 +5482,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-modal-background-d-production-balanced",
@@ -5391,7 +5522,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5452,7 +5584,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-owned-slot-row-b-readability",
@@ -5492,7 +5625,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-owned-slot-row-c-paper-ink",
@@ -5533,7 +5667,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "replacement-owned-slot-row-d-production-balanced",
@@ -5573,7 +5708,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5634,7 +5770,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-selected-slot-state-b-readability",
@@ -5674,7 +5811,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "replacement-selected-slot-state-c-paper-ink",
@@ -5715,7 +5853,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "replacement-selected-slot-state-d-production-balanced",
@@ -5755,7 +5894,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5815,7 +5955,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-evolution-awakening-row-b-readability",
@@ -5854,7 +5995,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-evolution-awakening-row-c-paper-ink",
@@ -5894,7 +6036,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "result-evolution-awakening-row-d-production-balanced",
@@ -5933,7 +6076,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5993,7 +6137,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-inventory-row-b-readability",
@@ -6032,7 +6177,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-inventory-row-c-paper-ink",
@@ -6072,7 +6218,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "result-inventory-row-d-production-balanced",
@@ -6111,7 +6258,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6171,7 +6319,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-main-panel-b-readability",
@@ -6210,7 +6359,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-main-panel-c-paper-ink",
@@ -6249,7 +6399,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-main-panel-d-production-balanced",
@@ -6289,7 +6440,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6350,7 +6502,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-retry-button-b-readability",
@@ -6391,7 +6544,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "result-retry-button-c-paper-ink",
@@ -6431,7 +6585,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-retry-button-d-production-balanced",
@@ -6471,7 +6626,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6532,7 +6688,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-return-button-b-readability",
@@ -6573,7 +6730,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "result-return-button-c-paper-ink",
@@ -6613,7 +6771,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-return-button-d-production-balanced",
@@ -6653,7 +6812,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6713,7 +6873,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-summary-header-b-readability",
@@ -6752,7 +6913,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-summary-header-c-paper-ink",
@@ -6791,7 +6953,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "result-summary-header-d-production-balanced",
@@ -6831,7 +6994,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6891,7 +7055,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-locked-unlocked-state-b-readability",
@@ -6930,7 +7095,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-locked-unlocked-state-c-paper-ink",
@@ -6969,7 +7135,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-locked-unlocked-state-d-production-balanced",
@@ -7009,7 +7176,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7069,7 +7237,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-metadata-row-b-readability",
@@ -7108,7 +7277,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-metadata-row-c-paper-ink",
@@ -7147,7 +7317,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-metadata-row-d-production-balanced",
@@ -7187,7 +7358,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7248,7 +7420,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-primary-button-b-readability",
@@ -7289,7 +7462,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         },
         {
           "candidateId": "stage-select-primary-button-c-paper-ink",
@@ -7329,7 +7503,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-primary-button-d-production-balanced",
@@ -7369,7 +7544,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7431,7 +7607,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-stage-card-b-readability",
@@ -7472,7 +7649,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-stage-card-c-paper-ink",
@@ -7513,7 +7691,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-stage-card-d-production-balanced",
@@ -7555,7 +7734,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7615,7 +7795,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-title-frame-b-readability",
@@ -7654,7 +7835,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-title-frame-c-paper-ink",
@@ -7693,7 +7875,8 @@
           "approvedAsFinal": false,
           "runtimeApproved": false,
           "humanReviewStatus": "not-selected",
-          "approvalStatus": "not-selected"
+          "approvalStatus": "not-selected",
+          "productionConnected": false
         },
         {
           "candidateId": "stage-select-title-frame-d-production-balanced",
@@ -7733,7 +7916,8 @@
           "runtimeApproved": false,
           "humanReviewStatus": "approved",
           "approvalStatus": "human-approved",
-          "approvalSource": "user-provided-human-decision"
+          "approvalSource": "user-provided-human-decision",
+          "productionConnected": true
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7761,7 +7945,7 @@
   "approvedAsFinalCount": 46,
   "runtimeApprovedCount": 0,
   "humanApprovedCount": 46,
-  "productionProviderModified": false,
+  "productionProviderModified": true,
   "staleEvidenceCount": 0,
   "summary": {
     "assetGroupCount": 46,

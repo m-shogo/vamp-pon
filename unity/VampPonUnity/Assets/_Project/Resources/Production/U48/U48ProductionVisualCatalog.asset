@@ -1,0 +1,385 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6464953061de42c7a9a5f70cba2e9f82, type: 3}
+  m_Name: U48ProductionVisualCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::VampPon.UnitySpike.Runtime.Visuals.U48ProductionVisualCatalog
+  entries:
+  - assetGroup: common-projectile
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/common-projectile.png
+    productionSha256: 2745ae1981c023fbb010c0146fea95f00f66e0b148a6f62a1960095cfbc54386
+    primary: {fileID: 21300000, guid: f5c9f157f87a516c993fe0dc1b6594c4, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: f5c9f157f87a516c993fe0dc1b6594c4, type: 3}
+  - assetGroup: enemy-death-effect
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/enemy-death-effect.png
+    productionSha256: 3c3e75c35bb5f2cd70758ae459926da5cbdddf2a061e701d5cb0e6a6d43ff0d8
+    primary: {fileID: 21300000, guid: 6774735a8a6e57d5867b587ac5429d53, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 6774735a8a6e57d5867b587ac5429d53, type: 3}
+  - assetGroup: enemy-onbu
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/enemy-onbu.png
+    productionSha256: 1b5fe597999802f66e980d850d24822a2e2f0af2e65a972d680baa655a2d9c2f
+    primary: {fileID: -113706919, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    sprites:
+    - {fileID: -113706919, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -38642398, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -99303232, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1306037689, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1773850254, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1057015102, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1094153757, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1247581779, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1768499534, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -93830763, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1166195348, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -510717815, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -132298604, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1573249067, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -821222742, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 715929795, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1932404567, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 771100013, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 690668816, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -91755694, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 906938191, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 390633482, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1218415727, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -2115336735, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -2144452249, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -313143837, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1838959475, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 328444599, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -876821116, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1807798236, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1149231530, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 2113407044, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -883253102, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -654016139, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -255051360, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1850519892, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 687984023, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -694420394, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1985536259, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1217454476, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -566560575, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -1938299205, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1423916105, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -245735819, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 825597793, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1201918799, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: 1491066952, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+    - {fileID: -882458233, guid: 8a238654260a576ea95d9013829280c2, type: 3}
+  - assetGroup: ground-area-black-ink-bottle
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/ground-area-black-ink-bottle.png
+    productionSha256: 7416946b0d494b8ae05fc34e28cc4793c29b41df5d465c90cb5bf173b4c09d19
+    primary: {fileID: 21300000, guid: 65739907542158908ecdc5bcf716c1fa, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 65739907542158908ecdc5bcf716c1fa, type: 3}
+  - assetGroup: ground-area-dawn-ink-lamp
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/ground-area-dawn-ink-lamp.png
+    productionSha256: 59f02f24aa809fe54b0bf4f794db26ab2e6c9ba9a2849050cfac3cccc01285d1
+    primary: {fileID: 21300000, guid: df79a98be43a56528545f6826ed0097b, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: df79a98be43a56528545f6826ed0097b, type: 3}
+  - assetGroup: ground-area-streetlamp-ring
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/ground-area-streetlamp-ring.png
+    productionSha256: 6a092b2cac6122abd9f8e2347556e8df7e152b67645c63f580e1836f273fa74d
+    primary: {fileID: 21300000, guid: a2a3537ea56655e68afcc0cfdc1f2cb1, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: a2a3537ea56655e68afcc0cfdc1f2cb1, type: 3}
+  - assetGroup: hit-effect
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/hit-effect.png
+    productionSha256: 83b9b9404719deb3782aba021ade48f89c9d5ad2070c562e6d7f443df362b521
+    primary: {fileID: 21300000, guid: acf4c3e1ecc95038af8f13e5f422c938, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: acf4c3e1ecc95038af8f13e5f422c938, type: 3}
+  - assetGroup: kokuyou-active
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-active.png
+    productionSha256: b0da2202773356c169cd583efdb0c585ce13b9ec9aa1065cc184a6749a9e26b5
+    primary: {fileID: 21300000, guid: d0117f37774e560ca1b7a246d025388f, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: d0117f37774e560ca1b7a246d025388f, type: 3}
+  - assetGroup: kokuyou-charging
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-charging.png
+    productionSha256: c796341c1eba5b630d4c06118da581c41f943b5be078ffbb666b84edd40ab1e0
+    primary: {fileID: 21300000, guid: 3af1e0bf428f5f59ba98d3a69ce94481, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 3af1e0bf428f5f59ba98d3a69ce94481, type: 3}
+  - assetGroup: kokuyou-ready
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-ready.png
+    productionSha256: 62cdde6fff2decd53b5af130f8a62daa1abef2bc581b6f65b2f9e8263f0f0838
+    primary: {fileID: 21300000, guid: bf23d31fbe695ccbbff6c76c2c57cc7b, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: bf23d31fbe695ccbbff6c76c2c57cc7b, type: 3}
+  - assetGroup: kokuyou-recovery
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/kokuyou-recovery.png
+    productionSha256: 702f8e2d84f7463a8c22162add893704742efc8208dedeac7188dab5c5f925e5
+    primary: {fileID: 21300000, guid: f50a1ca225c45afea48d734f6535d430, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: f50a1ca225c45afea48d734f6535d430, type: 3}
+  - assetGroup: movement-trail
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/movement-trail.png
+    productionSha256: db562b5acca91f77ebf2581440132f325296d91cf6fd5c9ab1cafa4fdac4fdc1
+    primary: {fileID: 21300000, guid: f9813a9161135ba1a7ca200079555820, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: f9813a9161135ba1a7ca200079555820, type: 3}
+  - assetGroup: pickup-exp
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/pickup-exp.png
+    productionSha256: b00ff1f545b028bfbffad81f34e6a08dea96a080daba5e8925a239c07581d196
+    primary: {fileID: 21300000, guid: fee555f2da5a59148170336f1ee788ef, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: fee555f2da5a59148170336f1ee788ef, type: 3}
+  - assetGroup: pickup-healing
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/pickup-healing.png
+    productionSha256: 235afe67dd9c2e9942b589012b81d1c37e8d50d2484a5e6bec1e8ffcd231973b
+    primary: {fileID: 21300000, guid: 5666aaad24bc507eb4e8824dfd5df316, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 5666aaad24bc507eb4e8824dfd5df316, type: 3}
+  - assetGroup: player-yui
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/player-yui.png
+    productionSha256: e7a84505cacf22b82f988a5bbf5e926775e69c3390af1a6f79dc978336fd11ca
+    primary: {fileID: 627044611, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    sprites:
+    - {fileID: 627044611, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 898918264, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -170307296, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 740343376, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1585794277, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -23902025, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -325910372, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 831462667, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -537919212, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1631208726, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -719490767, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1602983169, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 897973681, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -43284509, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1964884689, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1986686301, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 13233989, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1842160147, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1100659532, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 428730252, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1993331227, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -17027112, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 548787615, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1910997997, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1282726667, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 925084878, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -489804031, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 2005969386, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -594695411, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1642014828, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 2058598416, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 130276798, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 354526225, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1908530079, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 841142078, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1611547023, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 842812252, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 134899313, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1529674306, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1921263569, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -725308004, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 499232517, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1072909010, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1092887670, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1747993720, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -1040154116, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: 1211266785, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+    - {fileID: -345690309, guid: 88806a2d42f354c582d11578d77f276a, type: 3}
+  - assetGroup: stage1-background
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/Gameplay/stage1-background.png
+    productionSha256: b07e10ab845f6e342dee06f81cbbf22a50a8ce3ea8f89a79ce810f57d4ac1c17
+    primary: {fileID: 21300000, guid: 09a8aa1dee5f527282b79c3e2c3e7821, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 09a8aa1dee5f527282b79c3e2c3e7821, type: 3}
+  - assetGroup: hud-hp-frame
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-hp-frame.png
+    productionSha256: 3d1701110f17f36de4e5436d63f62876d3c37c17cc25d1c2611ce9d55b8942dd
+    primary: {fileID: 21300000, guid: ef94410c02f4599da40c83301f92db2a, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: ef94410c02f4599da40c83301f92db2a, type: 3}
+  - assetGroup: hud-inventory-passive-slot
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-inventory-passive-slot.png
+    productionSha256: d5188afa9e8b54a99a9046a6406b2b00dc7a9bf5205219091bdf2b7a2bbbb5cd
+    primary: {fileID: 21300000, guid: 0fe9675e64ba5c47aa0e875f726b9f13, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 0fe9675e64ba5c47aa0e875f726b9f13, type: 3}
+  - assetGroup: hud-inventory-weapon-slot
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-inventory-weapon-slot.png
+    productionSha256: 94c9250ad7ce8414daaaac1eee5c239bf308b10f573d1cc5d3a66f498d76d15f
+    primary: {fileID: 21300000, guid: b553b0f3be935e769e193edc9d7c0bd9, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: b553b0f3be935e769e193edc9d7c0bd9, type: 3}
+  - assetGroup: hud-kokuyou-gauge-frame
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-kokuyou-gauge-frame.png
+    productionSha256: a2b3bb6ede5f6f720e2d821c5650219a0950d6d939550f1f81a94da41a0ac69d
+    primary: {fileID: 21300000, guid: 96375ff357eb5735b4c97dbbd4f7beb7, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 96375ff357eb5735b4c97dbbd4f7beb7, type: 3}
+  - assetGroup: hud-rare-slot
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-rare-slot.png
+    productionSha256: 644978f25686d07b63a56d61289f034423614775f49452378067f898fe470b90
+    primary: {fileID: 21300000, guid: fe51a74738df586681729e330820dadf, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: fe51a74738df586681729e330820dadf, type: 3}
+  - assetGroup: hud-timer-frame
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-timer-frame.png
+    productionSha256: 256a8f90a8dd6fc32d1477a79cd37b6efff6b0a853a58595be91a925cd6aeb51
+    primary: {fileID: 21300000, guid: 92fee0406e7a52a5ba9ef240bc75c5a3, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 92fee0406e7a52a5ba9ef240bc75c5a3, type: 3}
+  - assetGroup: hud-top-status-frame
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/hud-top-status-frame.png
+    productionSha256: 95b4a13730fd6d4c5310a9e5e81fe49b9038931371f5a04ff0cb392f7ef0edf7
+    primary: {fileID: 21300000, guid: fcf3ef50a83b55a5a7d791864ba2d710, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: fcf3ef50a83b55a5a7d791864ba2d710, type: 3}
+  - assetGroup: levelup-card-background
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-card-background.png
+    productionSha256: 130c4d4bf71bb383f5da7efc06a5b953e2cfad8e84bc5822d16c84d84002ee26
+    primary: {fileID: 21300000, guid: 0ed63de4497c58aab538f6a334353966, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 0ed63de4497c58aab538f6a334353966, type: 3}
+  - assetGroup: levelup-decline-button
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-decline-button.png
+    productionSha256: 7cdd9f5e179e9f48ee61501fcb89731eede8a856143d0cdc5c3f7c0c24c2f9cb
+    primary: {fileID: 21300000, guid: a2210272b6a350f2a5948e118d37d19b, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: a2210272b6a350f2a5948e118d37d19b, type: 3}
+  - assetGroup: levelup-description-area
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-description-area.png
+    productionSha256: 1f224b71d566489a893b9a8a69ee128be794e8c5e4cd78b1b24638ab01a27111
+    primary: {fileID: 21300000, guid: 936fc44dc84d589ca301f82900d55a3d, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 936fc44dc84d589ca301f82900d55a3d, type: 3}
+  - assetGroup: levelup-icon-frame
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-icon-frame.png
+    productionSha256: 948c92117607d5461446aa1226a6275fc4a8220e56f11cd0c718384222b7c81d
+    primary: {fileID: 21300000, guid: ce8651a2075a53d8872b4e40f2c6b214, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: ce8651a2075a53d8872b4e40f2c6b214, type: 3}
+  - assetGroup: levelup-selection-feedback
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-selection-feedback.png
+    productionSha256: 5ce9bda752af50556b4a09025ea2267b784831ccc8a419b28080cd9d8ecdee04
+    primary: {fileID: 21300000, guid: 294c4cf48dc158bb9194c5acf56ac1b1, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 294c4cf48dc158bb9194c5acf56ac1b1, type: 3}
+  - assetGroup: levelup-title-area
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/levelup-title-area.png
+    productionSha256: d77177daa5e3ed54e3eae1b866c317c3514690232f8e77f2cb3f562ad84fe09d
+    primary: {fileID: 21300000, guid: 041de17f305b5fe98d7c8cc7d331aa3e, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 041de17f305b5fe98d7c8cc7d331aa3e, type: 3}
+  - assetGroup: replacement-cancel-button
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-cancel-button.png
+    productionSha256: 2eb2d891597de756f18da7bab30fd5b17181de16b1727b87ec696c23508fcccf
+    primary: {fileID: 21300000, guid: 266aa61a01ea5ae6a9f17044f48abe6d, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 266aa61a01ea5ae6a9f17044f48abe6d, type: 3}
+  - assetGroup: replacement-confirm-button
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-confirm-button.png
+    productionSha256: 7cfecadc902cfff91ba634f915c4dccafe0cc2f6e622be87aaeac6fe2738656e
+    primary: {fileID: 21300000, guid: e402256858cb5fbeafcbeb69693ba68b, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: e402256858cb5fbeafcbeb69693ba68b, type: 3}
+  - assetGroup: replacement-incoming-candidate-panel
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-incoming-candidate-panel.png
+    productionSha256: 416637ebc12d055ad371a5b676f4cb7adff3c0d13a9a01d8f45f73baa6749e2d
+    primary: {fileID: 21300000, guid: 789926d35e8654b98b8922e8351deba8, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 789926d35e8654b98b8922e8351deba8, type: 3}
+  - assetGroup: replacement-modal-background
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-modal-background.png
+    productionSha256: 8ac297c030c10f41e3eb80b3859ece170d9927fbf4f08222b43826ca670836fd
+    primary: {fileID: 21300000, guid: a802fc368a35591287e100d9b393f890, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: a802fc368a35591287e100d9b393f890, type: 3}
+  - assetGroup: replacement-owned-slot-row
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-owned-slot-row.png
+    productionSha256: f2999eba7a3ea6c7cfdf3b4dc34b572c8867d80416753acab4636db6f01e2284
+    primary: {fileID: 21300000, guid: 889f9fa1c7035550ab70f8393080172c, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 889f9fa1c7035550ab70f8393080172c, type: 3}
+  - assetGroup: replacement-selected-slot-state
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/replacement-selected-slot-state.png
+    productionSha256: cc5a6e7a45e35ce540326cf316232c5173fa5847ca7053c1182d18dc462c0304
+    primary: {fileID: 21300000, guid: a3b31c7beaf35f30af8ed09eba94867f, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: a3b31c7beaf35f30af8ed09eba94867f, type: 3}
+  - assetGroup: result-evolution-awakening-row
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-evolution-awakening-row.png
+    productionSha256: 6bf621b0889c64d1cc5c73448bcf3f2f1af32bc272416e6aa3604c0371ec6f92
+    primary: {fileID: 21300000, guid: 4a3c01c3876a5a38af3ad70a4460077d, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 4a3c01c3876a5a38af3ad70a4460077d, type: 3}
+  - assetGroup: result-inventory-row
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-inventory-row.png
+    productionSha256: f457449551fd28d97106897ade21e555fdff99d229e4839e9d16c52c27d3708e
+    primary: {fileID: 21300000, guid: cdaf325414215413b2efd4221fe06cd1, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: cdaf325414215413b2efd4221fe06cd1, type: 3}
+  - assetGroup: result-main-panel
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-main-panel.png
+    productionSha256: d363ecc05852dcd6af60c3341ac084a68dfb31be0b1b131e177b20760d8859b8
+    primary: {fileID: 21300000, guid: 0edc1823ebb95c0ca8a214d46e64c5ab, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 0edc1823ebb95c0ca8a214d46e64c5ab, type: 3}
+  - assetGroup: result-retry-button
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-retry-button.png
+    productionSha256: f54d844ebcbb1ff7d52110c76b061ea0c729f490a922dd401f11ddfa096087e6
+    primary: {fileID: 21300000, guid: bf8502c1c50c52489df8eaf7eac2ba07, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: bf8502c1c50c52489df8eaf7eac2ba07, type: 3}
+  - assetGroup: result-return-button
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-return-button.png
+    productionSha256: 5ad7d32b23b4d4e849216dceb24c2abf90cde112aa0f19384ef443f22f6ecf2d
+    primary: {fileID: 21300000, guid: 9dca3695997b546bbe1e8b7e1c345cd8, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 9dca3695997b546bbe1e8b7e1c345cd8, type: 3}
+  - assetGroup: result-summary-header
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/result-summary-header.png
+    productionSha256: 9c54e25847fa8d546ab64b0a0ca88819b8b13d4647523f70a3dae2544d098b99
+    primary: {fileID: 21300000, guid: 41c66b34f5bf5684b13708e9063e529c, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 41c66b34f5bf5684b13708e9063e529c, type: 3}
+  - assetGroup: stage-select-locked-unlocked-state
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-locked-unlocked-state.png
+    productionSha256: d9a88b73205b575def40757ccbdb81eba962530165717b834622db09f3c10d65
+    primary: {fileID: 21300000, guid: 20fc3b20fab95a28bc45f943b2425f40, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 20fc3b20fab95a28bc45f943b2425f40, type: 3}
+  - assetGroup: stage-select-metadata-row
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-metadata-row.png
+    productionSha256: d3168342cb59e53e86c98fc0805172232bcc2990f175f1eb11e4e96e073e88ce
+    primary: {fileID: 21300000, guid: 4749a3044b5a53f6a9367083904bca0a, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 4749a3044b5a53f6a9367083904bca0a, type: 3}
+  - assetGroup: stage-select-primary-button
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-primary-button.png
+    productionSha256: c574e9546ad921bcf547e27ef8d10345175010fae742f560c61bf4d50f06bd84
+    primary: {fileID: 21300000, guid: c2bef4da70205eeda76d755f36b37e3b, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: c2bef4da70205eeda76d755f36b37e3b, type: 3}
+  - assetGroup: stage-select-stage-card
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-stage-card.png
+    productionSha256: 73ee9960c6390e8478b1cdedecd4e0ae9b289025adec78931c5ff88932726bc1
+    primary: {fileID: 21300000, guid: 3a88a7c798f755458706c0a53c87d8ca, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 3a88a7c798f755458706c0a53c87d8ca, type: 3}
+  - assetGroup: stage-select-title-frame
+    productionPath: unity/VampPonUnity/Assets/_Project/Art/Production/U48/UI/stage-select-title-frame.png
+    productionSha256: 2676914b58b85058d811ff7ee73d63ac66dfdffae22462e784d9d06febd40323
+    primary: {fileID: 21300000, guid: 0ad1d43c92d1574787f6499816fa8eb5, type: 3}
+    sprites:
+    - {fileID: 21300000, guid: 0ad1d43c92d1574787f6499816fa8eb5, type: 3}

@@ -78,6 +78,7 @@ namespace VampPon.UnitySpike.Runtime
             CreateSafeAreaHud();
             CreateBattlePrototype();
             CreateU46RuntimeShell();
+            U48ProductionVisualBinder.Attach(gameObject);
 #if VAMPPON_U48_ASSET_PREVIEW
             U48AssetPreviewSceneBinder.AttachIfActive(gameObject);
 #endif
@@ -168,7 +169,7 @@ namespace VampPon.UnitySpike.Runtime
         {
             var background = new GameObject("DarkPaperNightBackground");
             var spriteRenderer = background.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = ProceduralSpriteFactory.CreatePaperSprite(256, 512);
+            spriteRenderer.sprite = U48ProductionVisualCatalog.LoadRequired().SpriteFor("stage1-background");
             spriteRenderer.drawMode = SpriteDrawMode.Sliced;
             spriteRenderer.size = new Vector2(8.8f, 12.4f);
             spriteRenderer.sortingOrder = -100;

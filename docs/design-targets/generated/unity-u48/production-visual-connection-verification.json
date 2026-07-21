@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "catalogEntryCount": 46,
+  "gameplayConnectionCount": 16,
+  "uiBindingCount": 30,
+  "providerApprovalLevel": "Production",
+  "productionApproved": true,
+  "previewDependencyCount": 0,
+  "nonSelectedReferenceCount": 0,
+  "passed": true
+}

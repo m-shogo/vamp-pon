@@ -10,9 +10,9 @@
   "humanApprovedCandidateCount": 46,
   "approvedAsFinalCount": 46,
   "runtimeApprovedCount": 0,
-  "productionConnectedCount": 0,
+  "productionConnectedCount": 46,
   "nonSelectedCandidateCount": 138,
   "nonSelectedApprovedAsFinalCount": 0,
   "nonSelectedRuntimeApprovedCount": 0,
-  "productionConnectionStatus": "pending"
+  "productionConnectionStatus": "connected-awaiting-runtime-verification"
 }

@@ -135,6 +135,7 @@ namespace VampPon.UnitySpike.Runtime.Visuals
                     result.EnemySourcePath = entry.sourcePath;
                     break;
                 case U48AssetPreviewSlot.ExpPickup: result.ExpSprite = primary; break;
+                case U48AssetPreviewSlot.HealingPickup: result.HealingSprite = primary; break;
                 case U48AssetPreviewSlot.Projectile: result.ProjectileSprite = primary; break;
                 case U48AssetPreviewSlot.Hit: result.HitSprite = primary; break;
                 case U48AssetPreviewSlot.EnemyDeath: result.InkSprite = primary; break;
@@ -190,7 +191,7 @@ namespace VampPon.UnitySpike.Runtime.Visuals
         private static BattleVisualAssetSet Clone(BattleVisualAssetSet value) => new()
         {
             PlayerSprite = value.PlayerSprite, EnemySprite = value.EnemySprite, ProjectileSprite = value.ProjectileSprite,
-            ExpSprite = value.ExpSprite, HitSprite = value.HitSprite, InkSprite = value.InkSprite, TrailSprite = value.TrailSprite,
+            ExpSprite = value.ExpSprite, HealingSprite = value.HealingSprite, HitSprite = value.HitSprite, InkSprite = value.InkSprite, TrailSprite = value.TrailSprite,
             PlayerAnimation = value.PlayerAnimation, EnemyAnimation = value.EnemyAnimation,
             PlayerSourcePath = value.PlayerSourcePath, EnemySourcePath = value.EnemySourcePath,
             PlayerPixelsPerUnit = value.PlayerPixelsPerUnit, EnemyPixelsPerUnit = value.EnemyPixelsPerUnit,
