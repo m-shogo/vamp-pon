@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "0d021f27af32e194209f88920b789724d2a7869a",
+  "sourceHead": "3effe3a223af04e4ce44645f8350382f7815e1f9",
   "generatedAtUtc": "2026-07-17T04:22:41Z",
-  "status": "AWAITING_HUMAN_ASSET_APPROVAL",
+  "status": "HUMAN_APPROVED_PRODUCTION_CONNECTION_PENDING",
   "u47GameplayDataRuntimeReady": true,
   "productionAssetAuditReady": true,
   "uiComparisonContractsReady": true,
@@ -20,11 +20,10 @@
   "productionApproved": false,
   "completionBlocked": true,
   "blockers": [
-    "HUMAN_ASSET_APPROVAL_REQUIRED",
-    "Production candidates remain disconnected; approvedAsFinal=false and runtimeApproved=false"
+    "PRODUCTION_VISUAL_CONNECTION_REQUIRED"
   ],
   "batchAStage1GameplayCoreApprovalReady": true,
   "batchBGroundAreaKokuyouApprovalReady": true,
   "batchCUiComponentsApprovalReady": true,
-  "blockReason": "HUMAN_ASSET_APPROVAL_REQUIRED"
+  "blockReason": "PRODUCTION_VISUAL_CONNECTION_REQUIRED"
 }

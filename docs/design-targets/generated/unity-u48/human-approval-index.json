@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "0d021f27af32e194209f88920b789724d2a7869a",
+  "sourceHead": "3effe3a223af04e4ce44645f8350382f7815e1f9",
   "generatedAtUtc": "2026-07-17T04:22:41Z",
-  "humanReviewStatus": "pending",
+  "humanReviewStatus": "approved",
   "recommendationIsApproval": false,
   "groupCount": 46,
   "groups": [
@@ -30,7 +30,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/player-yui.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "player-yui-c-lantern-bag"
     },
     {
       "assetGroup": "enemy-onbu",
@@ -56,7 +56,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/enemy-onbu.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "enemy-onbu-c-sprout-mist"
     },
     {
       "assetGroup": "stage1-background",
@@ -82,7 +82,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/stage1-background.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "stage1-background-c-night-street"
     },
     {
       "assetGroup": "pickup-exp",
@@ -108,7 +108,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/exp-pickup.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "exp-pickup-b-paper-fragment"
     },
     {
       "assetGroup": "pickup-healing",
@@ -134,7 +134,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/healing-pickup.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "healing-pickup-d-restorative-bottle"
     },
     {
       "assetGroup": "common-projectile",
@@ -160,7 +160,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/common-projectile.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "common-projectile-c-paper-streak"
     },
     {
       "assetGroup": "hit-effect",
@@ -186,7 +186,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/hit-effect.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hit-effect-b-paper-nick"
     },
     {
       "assetGroup": "enemy-death-effect",
@@ -212,7 +212,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/enemy-death-effect.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "enemy-death-effect-d-paper-ink-burst"
     },
     {
       "assetGroup": "movement-trail",
@@ -238,7 +238,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-a/contact-sheets/movement-trail.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "movement-trail-c-paper-flecks"
     },
     {
       "assetGroup": "ground-area-black-ink-bottle",
@@ -264,7 +264,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/ground-area-black-ink-bottle.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge"
     },
     {
       "assetGroup": "ground-area-streetlamp-ring",
@@ -290,7 +290,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/ground-area-streetlamp-ring.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light"
     },
     {
       "assetGroup": "ground-area-dawn-ink-lamp",
@@ -316,7 +316,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/ground-area-dawn-ink-lamp.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring"
     },
     {
       "assetGroup": "kokuyou-charging",
@@ -342,7 +342,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-charging.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "kokuyou-charging-b-small-ink-wisps"
     },
     {
       "assetGroup": "kokuyou-ready",
@@ -368,7 +368,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-ready.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "kokuyou-ready-b-complete-dark-ring"
     },
     {
       "assetGroup": "kokuyou-active",
@@ -394,7 +394,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-active.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "kokuyou-active-b-controlled-black-flame"
     },
     {
       "assetGroup": "kokuyou-recovery",
@@ -420,7 +420,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-b/contact-sheets/kokuyou-recovery.png",
       "keyRisk": "人間による実runtime表示、動き、実機可読性の最終確認が必要。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "kokuyou-recovery-b-fading-soot"
     },
     {
       "assetGroup": "hud-hp-frame",
@@ -446,7 +446,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-hp-frame.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, low-hp。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-hp-frame-b-readability"
     },
     {
       "assetGroup": "hud-inventory-passive-slot",
@@ -472,7 +472,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-inventory-passive-slot.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, occupied, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-inventory-passive-slot-c-paper-ink"
     },
     {
       "assetGroup": "hud-inventory-weapon-slot",
@@ -498,7 +498,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-inventory-weapon-slot.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, occupied, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-inventory-weapon-slot-c-paper-ink"
     },
     {
       "assetGroup": "hud-kokuyou-gauge-frame",
@@ -524,7 +524,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-kokuyou-gauge-frame.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: charging, ready, active, recovery。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-kokuyou-gauge-frame-d-production-balanced"
     },
     {
       "assetGroup": "hud-rare-slot",
@@ -550,7 +550,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-rare-slot.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, occupied, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-rare-slot-d-production-balanced"
     },
     {
       "assetGroup": "hud-timer-frame",
@@ -576,7 +576,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-timer-frame.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-timer-frame-b-readability"
     },
     {
       "assetGroup": "hud-top-status-frame",
@@ -602,7 +602,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/hud-top-status-frame.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "hud-top-status-frame-b-readability"
     },
     {
       "assetGroup": "levelup-card-background",
@@ -628,7 +628,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/levelup-card-background.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "levelup-card-background-d-production-balanced"
     },
     {
       "assetGroup": "levelup-decline-button",
@@ -654,7 +654,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/levelup-decline-button.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, pressed, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "levelup-decline-button-b-readability"
     },
     {
       "assetGroup": "levelup-description-area",
@@ -680,7 +680,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/levelup-description-area.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "levelup-description-area-b-readability"
     },
     {
       "assetGroup": "levelup-icon-frame",
@@ -706,7 +706,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/levelup-icon-frame.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "levelup-icon-frame-b-readability"
     },
     {
       "assetGroup": "levelup-selection-feedback",
@@ -732,7 +732,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/levelup-selection-feedback.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "levelup-selection-feedback-c-paper-ink"
     },
     {
       "assetGroup": "levelup-title-area",
@@ -758,7 +758,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/levelup-title-area.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "levelup-title-area-d-production-balanced"
     },
     {
       "assetGroup": "replacement-cancel-button",
@@ -784,7 +784,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/replacement-cancel-button.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, pressed, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "replacement-cancel-button-b-readability"
     },
     {
       "assetGroup": "replacement-confirm-button",
@@ -810,7 +810,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/replacement-confirm-button.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, pressed, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "replacement-confirm-button-b-readability"
     },
     {
       "assetGroup": "replacement-incoming-candidate-panel",
@@ -836,7 +836,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/replacement-incoming-candidate-panel.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "replacement-incoming-candidate-panel-d-production-balanced"
     },
     {
       "assetGroup": "replacement-modal-background",
@@ -862,7 +862,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/replacement-modal-background.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "replacement-modal-background-d-production-balanced"
     },
     {
       "assetGroup": "replacement-owned-slot-row",
@@ -888,7 +888,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/replacement-owned-slot-row.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "replacement-owned-slot-row-c-paper-ink"
     },
     {
       "assetGroup": "replacement-selected-slot-state",
@@ -914,7 +914,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/replacement-selected-slot-state.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "replacement-selected-slot-state-c-paper-ink"
     },
     {
       "assetGroup": "result-evolution-awakening-row",
@@ -940,7 +940,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/result-evolution-awakening-row.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, empty。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "result-evolution-awakening-row-c-paper-ink"
     },
     {
       "assetGroup": "result-inventory-row",
@@ -966,7 +966,7 @@
       "recommendedLetter": "C",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/result-inventory-row.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, empty。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "result-inventory-row-c-paper-ink"
     },
     {
       "assetGroup": "result-main-panel",
@@ -992,7 +992,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/result-main-panel.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: clear, failed。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "result-main-panel-d-production-balanced"
     },
     {
       "assetGroup": "result-retry-button",
@@ -1018,7 +1018,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/result-retry-button.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, pressed, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "result-retry-button-b-readability"
     },
     {
       "assetGroup": "result-return-button",
@@ -1044,7 +1044,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/result-return-button.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, pressed, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "result-return-button-b-readability"
     },
     {
       "assetGroup": "result-summary-header",
@@ -1070,7 +1070,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/result-summary-header.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: clear, failed。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "result-summary-header-d-production-balanced"
     },
     {
       "assetGroup": "stage-select-locked-unlocked-state",
@@ -1096,7 +1096,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/stage-select-locked-unlocked-state.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: locked, unlocked。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "stage-select-locked-unlocked-state-d-production-balanced"
     },
     {
       "assetGroup": "stage-select-metadata-row",
@@ -1122,7 +1122,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/stage-select-metadata-row.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "stage-select-metadata-row-d-production-balanced"
     },
     {
       "assetGroup": "stage-select-primary-button",
@@ -1148,7 +1148,7 @@
       "recommendedLetter": "B",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/stage-select-primary-button.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, pressed, disabled。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "stage-select-primary-button-b-readability"
     },
     {
       "assetGroup": "stage-select-stage-card",
@@ -1174,7 +1174,7 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/stage-select-stage-card.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: locked, unlocked, completed, selected。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "stage-select-stage-card-d-production-balanced"
     },
     {
       "assetGroup": "stage-select-title-frame",
@@ -1200,7 +1200,9 @@
       "recommendedLetter": "D",
       "contactSheetPath": "docs/design-targets/generated/unity-u48/batch-c/contact-sheets/stage-select-title-frame.png",
       "keyRisk": "人間は実機の文字密度、隣接component整合、操作中の見分けやすさを確認する必要がある。対象state: default, selected。",
-      "approvedCandidateId": null
+      "approvedCandidateId": "stage-select-title-frame-d-production-balanced"
     }
-  ]
+  ],
+  "humanDecisionSource": "user-provided-human-decision",
+  "humanDecisionText": "AI推奨46件をすべて人間承認として採用する。"
 }

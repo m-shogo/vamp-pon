@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "sourceHead": "0d021f27af32e194209f88920b789724d2a7869a",
+  "sourceHead": "3effe3a223af04e4ce44645f8350382f7815e1f9",
   "generatedAtUtc": "2026-07-17T04:22:41Z",
   "scope": "U48 Priority A Stage1 production asset approval preparation",
-  "packStatus": "AWAITING_HUMAN_ASSET_APPROVAL",
+  "packStatus": "HUMAN_APPROVED_PRODUCTION_CONNECTION_PENDING",
   "productionAssetApprovalPackReady": true,
   "candidateSpecificLivePreviewReady": true,
   "assetGroups": [
@@ -40,7 +40,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "player-yui-b-silhouette",
@@ -70,7 +71,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "player-yui-c-lantern-bag",
@@ -98,9 +100,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "player-yui-d-paper-ink",
@@ -130,7 +134,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -143,8 +148,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/player-yui/player-yui-a-runtime-baseline/screenshots/player-yui-a-runtime-baseline--standard--background-contrast.png",
       "runtimeBaselineSha256": "a29999a5338fe77083fcea44a0573f57e6fa1b20304accd5de24f37d22326b17",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "player-yui-c-lantern-bag",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "enemy-onbu",
@@ -179,7 +185,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "enemy-onbu-b-silhouette",
@@ -209,7 +216,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "enemy-onbu-c-sprout-mist",
@@ -237,9 +245,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "enemy-onbu-d-ink-death",
@@ -269,7 +279,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -282,8 +293,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-onbu/enemy-onbu-a-runtime-baseline/screenshots/enemy-onbu-a-runtime-baseline--standard--background-contrast.png",
       "runtimeBaselineSha256": "81dfe533c39c36ed072a96cc6121059d61dfddf134c23b29dac3aee684358edd",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "enemy-onbu-c-sprout-mist",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "stage1-background",
@@ -318,7 +330,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage1-background-b-paper-map",
@@ -348,7 +361,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage1-background-c-night-street",
@@ -376,9 +390,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "stage1-background-d-balanced",
@@ -408,7 +424,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -421,8 +438,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/stage1-background/stage1-background-a-procedural-baseline/screenshots/stage1-background-a-procedural-baseline--standard--high-density.png",
       "runtimeBaselineSha256": "0fc3965ade9632ea5a486c4d46784d465fe5cfb9f57d8310a9ceefcae55e55ca",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "stage1-background-c-night-street",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "pickup-exp",
@@ -457,7 +475,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "exp-pickup-b-paper-fragment",
@@ -485,9 +504,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "exp-pickup-c-small-crystal",
@@ -517,7 +538,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "exp-pickup-d-ink-light-hybrid",
@@ -547,7 +569,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -560,8 +583,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/exp-pickup/exp-pickup-a-runtime-baseline/screenshots/exp-pickup-a-runtime-baseline--standard--candidate-crystal-together.png",
       "runtimeBaselineSha256": "8ee1b167f1f45fd2534ab5b55b41fa003ad2b870db4101bfe9a4035685468ed4",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "exp-pickup-b-paper-fragment",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "pickup-healing",
@@ -596,7 +620,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "healing-pickup-b-bandaged-paper-charm",
@@ -626,7 +651,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "healing-pickup-c-warm-lantern-dew",
@@ -656,7 +682,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "healing-pickup-d-restorative-bottle",
@@ -684,9 +711,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -699,8 +728,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/healing-pickup/healing-pickup-a-dawn-drop/screenshots/healing-pickup-a-dawn-drop--standard--candidate-crystal-together.png",
       "runtimeBaselineSha256": "f445a3e8f8aa852256bddac9fca6b51e5b13972f9630ba72c1ec6b5fef961c9d",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "healing-pickup-d-restorative-bottle",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "common-projectile",
@@ -735,7 +765,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "common-projectile-b-pencil-slash",
@@ -765,7 +796,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "common-projectile-c-paper-streak",
@@ -793,9 +825,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "common-projectile-d-ink-line",
@@ -825,7 +859,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -838,8 +873,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/common-projectile/common-projectile-a-lantern-spark/screenshots/common-projectile-a-lantern-spark--standard--ground-area-together.png",
       "runtimeBaselineSha256": "7833d20ddb7d07d9477c195fa248fd7e2088898c48e3a27488897c2ce011a185",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "common-projectile-c-paper-streak",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hit-effect",
@@ -874,7 +910,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hit-effect-b-paper-nick",
@@ -902,9 +939,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "hit-effect-c-ink-pinprick",
@@ -934,7 +973,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hit-effect-d-lantern-cross",
@@ -964,7 +1004,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -977,8 +1018,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/hit-effect/hit-effect-a-runtime-baseline/screenshots/hit-effect-a-runtime-baseline--standard--ground-area-together.png",
       "runtimeBaselineSha256": "eea78a692e2cd5fe15d3c2b914b6e1617f97362a9df3003fbd5df8545f4551cd",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hit-effect-b-paper-nick",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "enemy-death-effect",
@@ -1013,7 +1055,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "enemy-death-effect-b-paper-scatter",
@@ -1043,7 +1086,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "enemy-death-effect-c-ink-dissolve",
@@ -1073,7 +1117,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "enemy-death-effect-d-paper-ink-burst",
@@ -1101,9 +1146,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1116,8 +1163,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/enemy-death-effect/enemy-death-effect-a-runtime-baseline/screenshots/enemy-death-effect-a-runtime-baseline--standard--ground-area-together.png",
       "runtimeBaselineSha256": "528aedb53466e5788603f807f015a2b7d76a0139dfa591562c91ffccca2d0c29",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "enemy-death-effect-d-paper-ink-burst",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "movement-trail",
@@ -1152,7 +1200,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "movement-trail-b-pencil-dust",
@@ -1182,7 +1231,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "movement-trail-c-paper-flecks",
@@ -1210,9 +1260,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "movement-trail-d-lantern-motes",
@@ -1242,7 +1294,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1255,8 +1308,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-a/live-captures/movement-trail/movement-trail-a-runtime-baseline/screenshots/movement-trail-a-runtime-baseline--standard--ground-area-together.png",
       "runtimeBaselineSha256": "f9e272d29939eb00f5a17010652170791c1b60b330165a2086b350e6fc0c8307",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "movement-trail-c-paper-flecks",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "ground-area-black-ink-bottle",
@@ -1291,7 +1345,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-black-ink-bottle-b-irregular-ink-blot",
@@ -1321,7 +1376,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
@@ -1349,9 +1405,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "ground-area-black-ink-bottle-d-paper-absorption-bottle",
@@ -1381,7 +1439,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1394,8 +1453,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/ground-area-black-ink-bottle/ground-area-black-ink-bottle-a-runtime-baseline/screenshots/ground-area-black-ink-bottle-a-runtime-baseline--standard--active-mid-duration.png",
       "runtimeBaselineSha256": "046ea7c40cfdda5b7976883f0e0410b22a209bc4aca0ac918ff4b39b30dbefc4",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "ground-area-black-ink-bottle-c-breathing-ink-edge",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "ground-area-streetlamp-ring",
@@ -1430,7 +1490,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-streetlamp-ring-b-defined-lantern-ring",
@@ -1460,7 +1521,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-streetlamp-ring-c-broken-paper-light",
@@ -1490,7 +1552,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
@@ -1518,9 +1581,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1533,8 +1598,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/ground-area-streetlamp-ring/ground-area-streetlamp-ring-a-runtime-baseline/screenshots/ground-area-streetlamp-ring-a-runtime-baseline--standard--active-mid-duration.png",
       "runtimeBaselineSha256": "9be0def94503ac6947cd01f22d4b68874ac4f4b995bc789c3949d2271991d371",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "ground-area-streetlamp-ring-d-ink-shadow-warm-light",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "ground-area-dawn-ink-lamp",
@@ -1569,7 +1635,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-dawn-ink-lamp-b-dual-layer-ink-light",
@@ -1599,7 +1666,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-dawn-ink-lamp-c-dawn-paper-rays",
@@ -1629,7 +1697,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
@@ -1657,9 +1726,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1672,8 +1743,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/ground-area-dawn-ink-lamp/ground-area-dawn-ink-lamp-a-runtime-baseline/screenshots/ground-area-dawn-ink-lamp-a-runtime-baseline--standard--active-mid-duration.png",
       "runtimeBaselineSha256": "dce0a9147a39f48a26113d0d7f4e1b0372b1c75fa529c96a93223adc0ffb41a5",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "ground-area-dawn-ink-lamp-d-lamp-wide-dawn-ring",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "kokuyou-charging",
@@ -1708,7 +1780,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-charging-b-small-ink-wisps",
@@ -1736,9 +1809,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "kokuyou-charging-c-lantern-shadow-flicker",
@@ -1768,7 +1843,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-charging-d-paper-edge-corruption",
@@ -1798,7 +1874,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1811,8 +1888,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/kokuyou-charging/kokuyou-charging-a-runtime-baseline/screenshots/kokuyou-charging-a-runtime-baseline--standard--active-mid.png",
       "runtimeBaselineSha256": "4a16164578d0e0e6daaee39e41d5a54da5f4901c7ee2637804d63b937037e219",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "kokuyou-charging-b-small-ink-wisps",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "kokuyou-ready",
@@ -1847,7 +1925,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-ready-b-complete-dark-ring",
@@ -1875,9 +1954,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "kokuyou-ready-c-restrained-black-flame-crown",
@@ -1907,7 +1988,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-ready-d-lantern-inversion-pulse",
@@ -1937,7 +2019,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -1950,8 +2033,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/kokuyou-ready/kokuyou-ready-a-runtime-baseline/screenshots/kokuyou-ready-a-runtime-baseline--standard--active-mid.png",
       "runtimeBaselineSha256": "a980add18af98702eac21df219a316e58c2764dd7433523350d772e1c21f154f",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "kokuyou-ready-b-complete-dark-ring",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "kokuyou-active",
@@ -1986,7 +2070,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-active-b-controlled-black-flame",
@@ -2014,9 +2099,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "kokuyou-active-c-ink-fracture-aura",
@@ -2046,7 +2133,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-active-d-lantern-eclipse-paper-distortion",
@@ -2076,7 +2164,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2089,8 +2178,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/kokuyou-active/kokuyou-active-a-runtime-baseline/screenshots/kokuyou-active-a-runtime-baseline--standard--active-mid.png",
       "runtimeBaselineSha256": "d8749cf0dfe2eb434cc6762b851ef4f0d18cc2458692303ef023c7ff782b8f21",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "kokuyou-active-b-controlled-black-flame",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "kokuyou-recovery",
@@ -2125,7 +2215,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-recovery-b-fading-soot",
@@ -2153,9 +2244,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "kokuyou-recovery-c-dragging-ink-shadow",
@@ -2185,7 +2278,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "kokuyou-recovery-d-dim-lantern-paper-ash",
@@ -2215,7 +2309,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2228,8 +2323,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-b/live-captures/kokuyou-recovery/kokuyou-recovery-a-runtime-baseline/screenshots/kokuyou-recovery-a-runtime-baseline--standard--active-mid.png",
       "runtimeBaselineSha256": "7f41617972bb80f213e5939726b9d7e60d37b3456a5851e7001620126d5020c8",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "kokuyou-recovery-b-fading-soot",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-hp-frame",
@@ -2272,7 +2368,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-hp-frame-b-readability",
@@ -2308,9 +2405,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "hud-hp-frame-c-paper-ink",
@@ -2348,7 +2447,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-hp-frame-d-production-balanced",
@@ -2386,7 +2486,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2400,8 +2501,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-hp-frame/hud-hp-frame-a-runtime-baseline/screenshots/hud-hp-frame-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "4391d63199a2c82b736d1f59af13a650481f0b8f440de1abd999df01378e4c26",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-hp-frame-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-inventory-passive-slot",
@@ -2446,7 +2548,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-inventory-passive-slot-b-readability",
@@ -2486,7 +2589,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-inventory-passive-slot-c-paper-ink",
@@ -2524,9 +2628,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "hud-inventory-passive-slot-d-production-balanced",
@@ -2566,7 +2672,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2580,8 +2687,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-inventory-passive-slot/hud-inventory-passive-slot-a-runtime-baseline/screenshots/hud-inventory-passive-slot-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "77f7ce97210fbbe0186b94b38dab4df4014b16aa44ade1647c25a27383107b64",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-inventory-passive-slot-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-inventory-weapon-slot",
@@ -2626,7 +2734,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-inventory-weapon-slot-b-readability",
@@ -2666,7 +2775,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-inventory-weapon-slot-c-paper-ink",
@@ -2704,9 +2814,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "hud-inventory-weapon-slot-d-production-balanced",
@@ -2746,7 +2858,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2760,8 +2873,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-inventory-weapon-slot/hud-inventory-weapon-slot-a-runtime-baseline/screenshots/hud-inventory-weapon-slot-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "27e5e017a02b7f013863d43c49c605e87d643f64ef722a513558eba5ccac651d",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-inventory-weapon-slot-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-kokuyou-gauge-frame",
@@ -2806,7 +2920,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-kokuyou-gauge-frame-b-readability",
@@ -2846,7 +2961,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-kokuyou-gauge-frame-c-paper-ink",
@@ -2886,7 +3002,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
@@ -2924,9 +3041,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -2940,8 +3059,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-kokuyou-gauge-frame/hud-kokuyou-gauge-frame-a-runtime-baseline/screenshots/hud-kokuyou-gauge-frame-a-runtime-baseline--standard--component-state-charging.png",
       "runtimeBaselineSha256": "393045015efbab46b71c0fdf8fa8ac6046bef21f6775b5471562c52251b4c519",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-kokuyou-gauge-frame-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-rare-slot",
@@ -2986,7 +3106,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-rare-slot-b-readability",
@@ -3026,7 +3147,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-rare-slot-c-paper-ink",
@@ -3066,7 +3188,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-rare-slot-d-production-balanced",
@@ -3104,9 +3227,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3120,8 +3245,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-rare-slot/hud-rare-slot-a-runtime-baseline/screenshots/hud-rare-slot-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "de9242a63959dcc190021f69c8fd12d2895929ac449870051fe3b9e64b68c5c9",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-rare-slot-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-timer-frame",
@@ -3163,7 +3289,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-timer-frame-b-readability",
@@ -3198,9 +3325,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "hud-timer-frame-c-paper-ink",
@@ -3237,7 +3366,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-timer-frame-d-production-balanced",
@@ -3274,7 +3404,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3288,8 +3419,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-timer-frame/hud-timer-frame-a-runtime-baseline/screenshots/hud-timer-frame-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "1af1df36a32f4f37fda93a7b3988fe811e8e5b2691582c53eb346b7a38bfd453",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-timer-frame-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "hud-top-status-frame",
@@ -3331,7 +3463,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-top-status-frame-b-readability",
@@ -3366,9 +3499,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "hud-top-status-frame-c-paper-ink",
@@ -3405,7 +3540,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "hud-top-status-frame-d-production-balanced",
@@ -3442,7 +3578,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3456,8 +3593,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/hud-top-status-frame/hud-top-status-frame-a-runtime-baseline/screenshots/hud-top-status-frame-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "37dc954f9f8af9b881032dba9d1811d92656a73e5cd71f475777cd7bbb9f36a0",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "hud-top-status-frame-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "levelup-card-background",
@@ -3501,7 +3639,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-card-background-b-readability",
@@ -3540,7 +3679,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-card-background-c-paper-ink",
@@ -3579,7 +3719,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-card-background-d-production-balanced",
@@ -3616,9 +3757,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3632,8 +3775,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/levelup-card-background/levelup-card-background-a-runtime-baseline/screenshots/levelup-card-background-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "9496b250bb7032815819fcd0b60bbe7aa4a0c9ff2ee686f2257239dd48046af3",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "levelup-card-background-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "levelup-decline-button",
@@ -3677,7 +3821,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-decline-button-b-readability",
@@ -3714,9 +3859,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "levelup-decline-button-c-paper-ink",
@@ -3755,7 +3902,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-decline-button-d-production-balanced",
@@ -3794,7 +3942,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3808,8 +3957,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/levelup-decline-button/levelup-decline-button-a-runtime-baseline/screenshots/levelup-decline-button-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "d516c6eeb29ae11ea34e6e34c4be4e8270cb524afb1870aad3cfaba4748e6bda",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "levelup-decline-button-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "levelup-description-area",
@@ -3853,7 +4003,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-description-area-b-readability",
@@ -3890,9 +4041,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "levelup-description-area-c-paper-ink",
@@ -3931,7 +4084,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-description-area-d-production-balanced",
@@ -3970,7 +4124,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -3984,8 +4139,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/levelup-description-area/levelup-description-area-a-runtime-baseline/screenshots/levelup-description-area-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "ec4bb04c987a01c9ccc6692b374bc2447317c2df002a7c48ca2505e069c89013",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "levelup-description-area-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "levelup-icon-frame",
@@ -4029,7 +4185,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-icon-frame-b-readability",
@@ -4066,9 +4223,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "levelup-icon-frame-c-paper-ink",
@@ -4107,7 +4266,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-icon-frame-d-production-balanced",
@@ -4146,7 +4306,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4160,8 +4321,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/levelup-icon-frame/levelup-icon-frame-a-runtime-baseline/screenshots/levelup-icon-frame-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "1dc0dfd04759f5b52eaefc5552357049b9c6a1fed5d14d6be228fb6c0f43274c",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "levelup-icon-frame-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "levelup-selection-feedback",
@@ -4205,7 +4367,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-selection-feedback-b-readability",
@@ -4244,7 +4407,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-selection-feedback-c-paper-ink",
@@ -4281,9 +4445,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "levelup-selection-feedback-d-production-balanced",
@@ -4322,7 +4488,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4336,8 +4503,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/levelup-selection-feedback/levelup-selection-feedback-a-runtime-baseline/screenshots/levelup-selection-feedback-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "a716f750dbc9fb072c40c4c29556b39dd582255c0d6eed9825d87d402a9350ea",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "levelup-selection-feedback-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "levelup-title-area",
@@ -4381,7 +4549,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-title-area-b-readability",
@@ -4420,7 +4589,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-title-area-c-paper-ink",
@@ -4459,7 +4629,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "levelup-title-area-d-production-balanced",
@@ -4496,9 +4667,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4512,8 +4685,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/levelup-title-area/levelup-title-area-a-runtime-baseline/screenshots/levelup-title-area-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "fbf838732e29f4703456ea103cdbe9c13f2c5c14081aa4d220b308ce2756d7d8",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "levelup-title-area-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "replacement-cancel-button",
@@ -4557,7 +4731,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-cancel-button-b-readability",
@@ -4594,9 +4769,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "replacement-cancel-button-c-paper-ink",
@@ -4635,7 +4812,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-cancel-button-d-production-balanced",
@@ -4674,7 +4852,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4688,8 +4867,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/replacement-cancel-button/replacement-cancel-button-a-runtime-baseline/screenshots/replacement-cancel-button-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "5d83a6c06e69531b9e612e4c171402467f58b0b8460d5acc92e932fae60a1c40",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "replacement-cancel-button-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "replacement-confirm-button",
@@ -4733,7 +4913,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-confirm-button-b-readability",
@@ -4770,9 +4951,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "replacement-confirm-button-c-paper-ink",
@@ -4811,7 +4994,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-confirm-button-d-production-balanced",
@@ -4850,7 +5034,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -4864,8 +5049,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/replacement-confirm-button/replacement-confirm-button-a-runtime-baseline/screenshots/replacement-confirm-button-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "8b342a3fbf68f5fe124e443f31d7c5a93e276bd2896dd06f334ed0975b294185",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "replacement-confirm-button-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "replacement-incoming-candidate-panel",
@@ -4909,7 +5095,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-incoming-candidate-panel-b-readability",
@@ -4948,7 +5135,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-incoming-candidate-panel-c-paper-ink",
@@ -4987,7 +5175,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-incoming-candidate-panel-d-production-balanced",
@@ -5024,9 +5213,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5040,8 +5231,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/replacement-incoming-candidate-panel/replacement-incoming-candidate-panel-a-runtime-baseline/screenshots/replacement-incoming-candidate-panel-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "61d331b43956f72387f50c180d80fe58e548adac9e36b49a60ceba8f373ac204",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "replacement-incoming-candidate-panel-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "replacement-modal-background",
@@ -5083,7 +5275,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-modal-background-b-readability",
@@ -5120,7 +5313,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-modal-background-c-paper-ink",
@@ -5157,7 +5351,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-modal-background-d-production-balanced",
@@ -5192,9 +5387,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5208,8 +5405,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/replacement-modal-background/replacement-modal-background-a-runtime-baseline/screenshots/replacement-modal-background-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "2739819456a461e26d18a12ff162e907e60f2e8610703c3f0f9d2f18ac030e6b",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "replacement-modal-background-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "replacement-owned-slot-row",
@@ -5253,7 +5451,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-owned-slot-row-b-readability",
@@ -5292,7 +5491,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-owned-slot-row-c-paper-ink",
@@ -5329,9 +5529,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "replacement-owned-slot-row-d-production-balanced",
@@ -5370,7 +5572,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5384,8 +5587,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/replacement-owned-slot-row/replacement-owned-slot-row-a-runtime-baseline/screenshots/replacement-owned-slot-row-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "8d9a63e420d57dc89ee1c6c0d818bbb72500e8245ba8071104fb4dbe35c87774",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "replacement-owned-slot-row-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "replacement-selected-slot-state",
@@ -5429,7 +5633,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-selected-slot-state-b-readability",
@@ -5468,7 +5673,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "replacement-selected-slot-state-c-paper-ink",
@@ -5505,9 +5711,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "replacement-selected-slot-state-d-production-balanced",
@@ -5546,7 +5754,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5560,8 +5769,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/replacement-selected-slot-state/replacement-selected-slot-state-a-runtime-baseline/screenshots/replacement-selected-slot-state-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "fcd9afb446141ba355ec4961aa43f57fab6d9f4ae926e6ec69a11d4c5c97c000",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "replacement-selected-slot-state-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "result-evolution-awakening-row",
@@ -5604,7 +5814,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-evolution-awakening-row-b-readability",
@@ -5642,7 +5853,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-evolution-awakening-row-c-paper-ink",
@@ -5678,9 +5890,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "result-evolution-awakening-row-d-production-balanced",
@@ -5718,7 +5932,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5732,8 +5947,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/result-evolution-awakening-row/result-evolution-awakening-row-a-runtime-baseline/screenshots/result-evolution-awakening-row-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "cd35047dda69082541fb849e16b7f8cc50a380375b3a7480007408d5ca639124",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "result-evolution-awakening-row-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "result-inventory-row",
@@ -5776,7 +5992,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-inventory-row-b-readability",
@@ -5814,7 +6031,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-inventory-row-c-paper-ink",
@@ -5850,9 +6068,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "result-inventory-row-d-production-balanced",
@@ -5890,7 +6110,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -5904,8 +6125,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/result-inventory-row/result-inventory-row-a-runtime-baseline/screenshots/result-inventory-row-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "f37c38dd9ab8c47b5d3c76eb7974b547ed12a001f8af2651e66f71b0ff8d0370",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "result-inventory-row-c-paper-ink",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "result-main-panel",
@@ -5948,7 +6170,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-main-panel-b-readability",
@@ -5986,7 +6209,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-main-panel-c-paper-ink",
@@ -6024,7 +6248,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-main-panel-d-production-balanced",
@@ -6060,9 +6285,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6076,8 +6303,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/result-main-panel/result-main-panel-a-runtime-baseline/screenshots/result-main-panel-a-runtime-baseline--standard--component-state-clear.png",
       "runtimeBaselineSha256": "382bae6b6fc59586d8025a7037fb41a12580b3b4ba1b3ed196aa44d2eecbf1c9",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "result-main-panel-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "result-retry-button",
@@ -6121,7 +6349,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-retry-button-b-readability",
@@ -6158,9 +6387,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "result-retry-button-c-paper-ink",
@@ -6199,7 +6430,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-retry-button-d-production-balanced",
@@ -6238,7 +6470,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6252,8 +6485,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/result-retry-button/result-retry-button-a-runtime-baseline/screenshots/result-retry-button-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "8845a067a1304bb7b78a408627a22b0402df07116547e61febd9e1cecd8f3170",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "result-retry-button-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "result-return-button",
@@ -6297,7 +6531,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-return-button-b-readability",
@@ -6334,9 +6569,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "result-return-button-c-paper-ink",
@@ -6375,7 +6612,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-return-button-d-production-balanced",
@@ -6414,7 +6652,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6428,8 +6667,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/result-return-button/result-return-button-a-runtime-baseline/screenshots/result-return-button-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "1e516f2a8b79144bf1237a9a24fe4b14d10a3e206f8106d868d9bd3c4f7e260f",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "result-return-button-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "result-summary-header",
@@ -6472,7 +6712,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-summary-header-b-readability",
@@ -6510,7 +6751,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-summary-header-c-paper-ink",
@@ -6548,7 +6790,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "result-summary-header-d-production-balanced",
@@ -6584,9 +6827,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6600,8 +6845,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/result-summary-header/result-summary-header-a-runtime-baseline/screenshots/result-summary-header-a-runtime-baseline--standard--component-state-clear.png",
       "runtimeBaselineSha256": "1376b2e0fb938c128ba07cde0ec38b152381f80b9a3abc1ab895f19fe7f88388",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "result-summary-header-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "stage-select-locked-unlocked-state",
@@ -6644,7 +6890,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-locked-unlocked-state-b-readability",
@@ -6682,7 +6929,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-locked-unlocked-state-c-paper-ink",
@@ -6720,7 +6968,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-locked-unlocked-state-d-production-balanced",
@@ -6756,9 +7005,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6772,8 +7023,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/stage-select-locked-unlocked-state/stage-select-locked-unlocked-state-a-runtime-baseline/screenshots/stage-select-locked-unlocked-state-a-runtime-baseline--standard--component-state-locked.png",
       "runtimeBaselineSha256": "c6e34543d41c72132d1070791f94d23069c1eb84ce538b23d11146c11a1605ff",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "stage-select-locked-unlocked-state-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "stage-select-metadata-row",
@@ -6816,7 +7068,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-metadata-row-b-readability",
@@ -6854,7 +7107,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-metadata-row-c-paper-ink",
@@ -6892,7 +7146,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-metadata-row-d-production-balanced",
@@ -6928,9 +7183,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -6944,8 +7201,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/stage-select-metadata-row/stage-select-metadata-row-a-runtime-baseline/screenshots/stage-select-metadata-row-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "594a8460875fcb6b9abd4ea43265c936d694c5dd01773e02145f4956e4e1ee45",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "stage-select-metadata-row-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "stage-select-primary-button",
@@ -6989,7 +7247,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-primary-button-b-readability",
@@ -7026,9 +7285,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         },
         {
           "candidateId": "stage-select-primary-button-c-paper-ink",
@@ -7067,7 +7328,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-primary-button-d-production-balanced",
@@ -7106,7 +7368,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7120,8 +7383,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/stage-select-primary-button/stage-select-primary-button-a-runtime-baseline/screenshots/stage-select-primary-button-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "d28394b2a39ef85d127eb82be11c00ab49a7fdf5bb32ab24170ad228bb61e906",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "stage-select-primary-button-b-readability",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "stage-select-stage-card",
@@ -7166,7 +7430,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-stage-card-b-readability",
@@ -7206,7 +7471,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-stage-card-c-paper-ink",
@@ -7246,7 +7512,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-stage-card-d-production-balanced",
@@ -7284,9 +7551,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7300,8 +7569,9 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/stage-select-stage-card/stage-select-stage-card-a-runtime-baseline/screenshots/stage-select-stage-card-a-runtime-baseline--standard--component-state-locked.png",
       "runtimeBaselineSha256": "bb528c5d2257ee78e41bfec98c4073dde90cc5b21a1bfd4f83c3c00f51906352",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "stage-select-stage-card-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     },
     {
       "assetKey": "stage-select-title-frame",
@@ -7344,7 +7614,8 @@
           "recommendedRank": 4,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-title-frame-b-readability",
@@ -7382,7 +7653,8 @@
           "recommendedRank": 3,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-title-frame-c-paper-ink",
@@ -7420,7 +7692,8 @@
           "recommendedRank": 2,
           "approvedAsFinal": false,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "not-selected",
+          "approvalStatus": "not-selected"
         },
         {
           "candidateId": "stage-select-title-frame-d-production-balanced",
@@ -7456,9 +7729,11 @@
           },
           "gameplaySizeReviewReady": true,
           "recommendedRank": 1,
-          "approvedAsFinal": false,
+          "approvedAsFinal": true,
           "runtimeApproved": false,
-          "humanReviewStatus": "pending"
+          "humanReviewStatus": "approved",
+          "approvalStatus": "human-approved",
+          "approvalSource": "user-provided-human-decision"
         }
       ],
       "duplicateOrMissingSourcesExcluded": [],
@@ -7472,23 +7747,20 @@
       "runtimeBaselinePreview": "docs/design-targets/generated/unity-u48/batch-c/live-captures/stage-select-title-frame/stage-select-title-frame-a-runtime-baseline/screenshots/stage-select-title-frame-a-runtime-baseline--standard--component-state-default.png",
       "runtimeBaselineSha256": "e9df8c6245fbf85be7eb100416b97ad3cc6e825989505b90cafb9268c75e8324",
       "runtimeBaselineIsCandidateSpecific": true,
-      "humanApprovedCandidateId": null,
-      "approvalStatus": "pending-human-review"
+      "humanApprovedCandidateId": "stage-select-title-frame-d-production-balanced",
+      "approvalStatus": "human-approved",
+      "approvalSource": "user-provided-human-decision"
     }
   ],
   "blockers": [
     {
       "assetKey": "all",
-      "reason": "HUMAN_ASSET_APPROVAL_REQUIRED"
-    },
-    {
-      "assetKey": "all",
-      "reason": "production candidates are not connected to RuntimeVisualAssetProvider"
+      "reason": "PRODUCTION_VISUAL_CONNECTION_REQUIRED"
     }
   ],
-  "approvedAsFinalCount": 0,
+  "approvedAsFinalCount": 46,
   "runtimeApprovedCount": 0,
-  "humanApprovedCount": 0,
+  "humanApprovedCount": 46,
   "productionProviderModified": false,
   "staleEvidenceCount": 0,
   "summary": {

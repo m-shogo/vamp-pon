@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "decisionSource": "user-provided-human-decision",
+  "decisionText": "AI推奨46件をすべて人間承認として採用する。",
+  "decidedAtUtc": "2026-07-21T03:15:15Z",
+  "decidedAtJst": "2026-07-21T12:15:15+09:00",
+  "selectionSource": "docs/design-targets/generated/unity-u48/human-selection-decision.json",
+  "selectionCount": 46,
+  "recommendationMatchCount": 46,
+  "humanApprovedCandidateCount": 46,
+  "approvedAsFinalCount": 46,
+  "runtimeApprovedCount": 0,
+  "productionConnectedCount": 0,
+  "nonSelectedCandidateCount": 138,
+  "nonSelectedApprovedAsFinalCount": 0,
+  "nonSelectedRuntimeApprovedCount": 0,
+  "productionConnectionStatus": "pending"
+}
