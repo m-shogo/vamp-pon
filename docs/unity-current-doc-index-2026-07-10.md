@@ -89,9 +89,9 @@ productionApproved=false
 - `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json`
 - `docs/design-targets/generated/unity-u47/simulator-smoke/manifest.json`
 - `docs/design-targets/generated/unity-u48/approval-pack/approval-manifest.json`
-- `docs/design-targets/generated/unity-u48/human-selection.json`
+- `docs/design-targets/generated/unity-u48/human-selection-decision.json`
 - `docs/design-targets/generated/unity-u48/approved-production-set.json`
-- `docs/design-targets/generated/unity-u48/production-connection.json`
+- `docs/design-targets/generated/unity-u48/production-visual-connection.json`
 - `docs/design-targets/generated/unity-u48/production-verification/manifest.json`
 
 U45.1 evidence remains historical prerequisite evidence and must not override the current U48 readiness:
