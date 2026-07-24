@@ -73,6 +73,7 @@ simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
 simulatorCandidateAnimationVisualReviewPassed=true
 simulatorFinalArtApprovalProvided=true
+runtimeVisualClassification=production-animated-sprite
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
