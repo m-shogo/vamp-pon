@@ -1,7 +1,5 @@
 # ヨルノシルベ ドキュメント入口
 
-U46 completion: `unity-u46-app-flow-save-result-collection-2026-07-11.md`, `unity-u46-ui-asset-generation-2026-07-11.md`, `unity-u46-ios-simulator-smoke-2026-07-11.md`, `unity-u46-visual-review-2026-07-11.md`。U46.1 hardening: `unity-u46-1-result-save-hardening-2026-07-11.md`, `unity-u46-1-ios-simulator-regression-2026-07-11.md`。
-
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
 ## 最初に読む
@@ -17,43 +15,74 @@ asset-generation-consistency-system-v1.md
 unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-## 現在の最優先
+## 現在のPhase
 
 ```txt
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
 Completed: U46.1 Result / Save Hardening
-Current: U47 gameplay data/runtime
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
+Next: U50 performance/touch metrics
+Then: U51 RC
 ```
 
-U45.1でユイとオンブのMultiple sprite、実animation、candidate provider、Simulator回帰証跡を接続済み。Hardeningも完了し、候補runtimeとproduction visual/実機承認を分離した。
+U48では人間承認済み46 visual groupをproduction runtimeへ接続し、Preview defineなしのiOS Simulator buildでCompact / Standard / Large、合計138 captureを検証済みです。
+
+この状態はU48 visual runtime scopeの完了です。実機操作、音、振動、性能、RC、アプリ全体のproduction承認は含みません。
+
+## 現在のreadiness
 
 ```txt
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 characterDotRuntimeReady=true
+characterAnimationReady=true
 enemyDotRuntimeReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
-versionedSaveServiceImplemented=false
-sceneFlowCoordinatorImplemented=false
+enemyAnimationReady=true
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
+versionedSaveServiceImplemented=true
+sceneFlowCoordinatorImplemented=true
+productionDataRegistryImplemented=true
 actualDeviceSmokeResult=NOT_PROVIDED
+devicePlayableReady=false
+mobileMetricsReady=false
+audioMixerReady=false
+audioLatencyMeasured=false
+hapticMeasured=false
+rcReady=false
 productionApproved=false
 ```
 
-Point Filter、GameObject名、操作可能、Simulator route成功だけではvisual完成と扱いません。
+Point Filter、GameObject名、静止画表示、操作可能、Simulator route成功だけではvisual完成と扱いません。`runtimeVisualReady=true` はfinal/runtime承認済みU48 assetがproduction providerへ接続され、responsive Simulator verificationを通過したことを表します。actual-device/release承認は別ゲートです。
 
-U45.1 evidence:
+## Current completion sources
 
 ```txt
-unity-u45-1-character-enemy-dot-runtime-pass-2026-07-10.md
-unity-u45-1-ios-simulator-animation-smoke-2026-07-10.md
-design-targets/generated/unity-u45-1/
-unity-u45-1-hardening-2026-07-10.md
-design-targets/generated/unity-u45-1-hardening/readiness.json
+unity-u46-app-flow-save-result-collection-2026-07-11.md
+unity-u46-1-result-save-hardening-2026-07-11.md
+unity-u47-gameplay-data-runtime-2026-07-13.md
+unity-u48-human-asset-approval-2026-07-21.md
+unity-u48-production-asset-expansion-completion-2026-07-21.md
+```
+
+## Current evidence
+
+```txt
+design-targets/generated/unity-big-implementation/readiness.json
+design-targets/generated/unity-runtime-visual-readiness/readiness.json
+design-targets/generated/unity-u47/simulator-smoke/manifest.json
+design-targets/generated/unity-u48/approval-pack/approval-manifest.json
+design-targets/generated/unity-u48/human-selection.json
+design-targets/generated/unity-u48/approved-production-set.json
+design-targets/generated/unity-u48/production-connection.json
+design-targets/generated/unity-u48/production-verification/manifest.json
 ```
 
 ## 大規模実装の責務
@@ -70,7 +99,7 @@ unity-runtime-ownership-contract-v1.md
 - Definition / Runtime State / Save DTOを分離
 - UIからbattle/saveを直接操作しない
 - Result/灯録はread modelを表示
-- proof providerとproduction providerを分離
+- proof/candidate/production providerを分離
 - Bootstrap/BattleControllerへ新責務を集中させない
 
 ## 主な品質チェック
@@ -87,14 +116,24 @@ checker、asset、test、buildをまとめたfull preflight:
 pnpm implementation:preflight:full
 ```
 
-個別:
+U48 production chain:
+
+```sh
+pnpm unity:u48-production-asset-expansion:check
+pnpm unity:u48-production-asset-approval-pack:check
+pnpm unity:u48-human-selection:check
+pnpm unity:u48-approved-production-set:check
+pnpm unity:u48-production-visual-connection:check
+pnpm unity:u48-production-visual-verification:check
+```
+
+基盤:
 
 ```sh
 pnpm asset-generation:check
 pnpm assets:verify
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
-pnpm unity:u45-ai-simulator-smoke:check
 pnpm unity:meta:check
 ```
 
@@ -103,17 +142,17 @@ pnpm unity:meta:check
 古いprototype資料や個別Phase資料と矛盾した場合:
 
 1. Big Implementation Control Center
-2. Current Production Canon
-3. Runtime Ownership Contract
-4. UI / Asset / Runtime Visualのadopted docs
-5. `src/game/data/*`
-6. 現行Unity runtime
-7. 最新evidence/checker
+2. Current Doc Index
+3. Current Production Canon
+4. Runtime Ownership Contract
+5. UI / Asset / Runtime Visualのadopted docs
+6. `src/game/data/*`
+7. 現行Unity runtime
+8. 最新evidence/checker
 
 ## Historical docs
 
-U0〜U43の資料、初期コンセプト、U1開始promptは履歴として残します。
-現在のEditor version、Phase順、asset承認、READY判定には単独使用しません。
+U0〜U45.1の個別資料、初期コンセプト、U1開始prompt、candidate時代のevidenceは履歴として残します。現在のEditor version、Phase順、asset承認、READY判定には単独使用しません。
 
 ## 最優先の判断基準
 
