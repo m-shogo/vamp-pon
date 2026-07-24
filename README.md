@@ -48,14 +48,17 @@ U45: StageSelect / Battle HUD / LevelUp candidate
 U45.1: Character / Enemy Multiple animation runtime + readiness hardening
 U46: AppFlow / Save / Result / Retry / StageSelect / 灯録 candidate
 U46.1: Result / Save hardening
-U47: gameplay definitions / runtime state / production DataRegistry
-U48: production visual asset expansion / approval / runtime connection / Simulator verification
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
+Next: U50 performance/touch metrics
+Then: U51 RC
 ```
 
 ## 現在の最優先
 
 ```txt
-U49 actual-device audio / haptic
+Current: U49 actual-device audio/haptic
 ```
 
 U48では、人間承認済み46 visual groupをproduction catalogへ昇格し、production providerからruntime接続しました。Preview defineなしのiOS Simulator buildでCompact / Standard / Large、合計138 captureを検証済みです。
@@ -99,9 +102,9 @@ productionApproved=false
 ## 次の順序
 
 ```txt
-U49 actual-device audio / haptic
+U49 actual-device audio/haptic
 ↓
-U50 device performance / touch metrics
+U50 device performance/touch metrics
 ↓
 U51 RC
 ```
