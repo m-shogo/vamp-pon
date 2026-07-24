@@ -9,7 +9,7 @@ Do not modify any other repository.
 
 ## Mandatory current entry
 
-Before any large Unity implementation, read:
+Before large Unity, gameplay, design, asset, UI, save, audio, haptic, performance, or release work, read:
 
 ```txt
 docs/unity-big-implementation-control-center-v1.md
@@ -19,9 +19,10 @@ docs/unity-runtime-ownership-contract-v1.md
 docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
+docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-Historical U0-U43 documents are evidence/history, not standalone current instructions.
+Historical U0-U45.1 documents are evidence/history, not standalone current instructions. A historical readiness JSON must never override the current readiness JSON.
 
 Required static preflight before a large phase:
 
@@ -44,10 +45,37 @@ Completed: U45.1 Character and Enemy Dot Runtime Pass
 Completed: U45.1 Hardening
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
 Completed: U46.1 Result / Save Hardening
-Current: U47 gameplay data/runtime
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
+Next: U50 performance/touch metrics
+Then: U51 RC
 ```
 
-Preserve the completed U45.1 provider, animation, pause, and candidate/final boundaries during U46 work.
+Preserve the completed U47 data/runtime boundaries and U48 production visual provider/approval chain while working on U49.
+
+## Current readiness boundary
+
+```txt
+runtimeVisualClassification=production-animated-sprite
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
+actualDeviceSmokeResult=NOT_PROVIDED
+devicePlayableReady=false
+mobileMetricsReady=false
+audioMixerReady=false
+audioLatencyMeasured=false
+hapticMeasured=false
+rcReady=false
+productionApproved=false
+```
+
+`runtimeVisualReady=true` is limited to the U48 production visual runtime scope. It does not prove actual-device playability, audio/haptic quality, performance, RC readiness, or store approval.
 
 ## Engineering
 
@@ -56,8 +84,10 @@ Preserve the completed U45.1 provider, animation, pause, and candidate/final bou
 - Prefer the smallest coherent change.
 - Do not mass-rewrite transitional classes without a phase need.
 - Run relevant checks, commit, and push completed work.
-- Never call an image or implementation final without comparison to current in-repo baseline.
+- Never call an image or implementation final without comparison to the current in-repo baseline.
 - Never promote readiness by editing evidence alone.
+- Never use an older Phase result as proof for the current Phase.
+- If active source-of-truth documents disagree, stop feature work and repair the contradiction first.
 
 ## Runtime ownership
 
@@ -72,16 +102,15 @@ Rules:
 - navigation and pause have one owner
 - UI sends commands; it does not implement battle or file I/O
 - separate Definition, Runtime State, and Save DTO
-- save IDs only in versioned JSON
+- save stable IDs only in versioned JSON
 - Result and Collection use read models
 - proof, candidate, and production asset approval levels remain separate
 - do not keep adding features directly to `U1Stage1SceneBootstrap`
-- do not add Result, Collection, save, or permanent progression into `U2BattleController`
+- do not add Result, Collection, save, permanent progression, AudioMixer policy, or release logic into `U2BattleController`
 
 ## Title and term lock
 
-Use the formal title **ヨルノシルベ**.
-`Vamp Pon` / `ヴァンサバ改` are development code names.
+Use the formal title **ヨルノシルベ**. `Vamp Pon` / `ヴァンサバ改` are development code names.
 
 Use **黒耀化**, never `黒曜化`.
 
@@ -92,33 +121,20 @@ docs/title-and-term-lock-2026-06-30.md
 docs/181-current-production-canon.md
 ```
 
-## Design source of truth
-
-Read:
-
-```txt
-docs/design-source-of-truth-2026-06-30.md
-docs/unity-ui-design-system-v1.md
-docs/asset-generation-consistency-system-v1.md
-docs/unity-runtime-visual-readiness-gate-v1.md
-```
-
-Reference order:
-
-1. Character masters and approved Golden Identity References
-2. Current Core5/enemy sheets
-3. Current screen/design references
-4. Current Unity evidence screenshots
-
-Do not treat procedural placeholders, U5 proof assets, or candidate screenshots as final design.
-
 ## Runtime visual readiness
 
-Current classification is `candidate-animated-multiple-sprite`.
+Source of truth:
 
-Stage1 uses the candidate-level `RuntimeVisualAssetProvider`, explicit left/right Yui frames, and animated Onbu frames. `runtimeVisualCandidateReady=true`; production visual readiness remains false.
+```txt
+docs/unity-runtime-visual-readiness-gate-v1.md
+docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
+```
 
-Never use these as finished dot-runtime evidence:
+Current classification is `production-animated-sprite`.
+
+The Stage1 production path uses final/runtime-approved U48 assets through the production visual provider. U45.1 candidate runtime evidence remains valid historical prerequisite evidence, but it is no longer the current provider/readiness state.
+
+Never use these alone as finished dot-runtime or production evidence:
 
 - GameObject name containing Dot/Pixel/Runtime/Production
 - Point Filter
@@ -126,42 +142,10 @@ Never use these as finished dot-runtime evidence:
 - a visible static sprite
 - successful movement
 - successful Simulator route smoke
-- renaming a proof provider
+- renaming a provider
+- editing readiness JSON without runtime/evidence/checker changes
 
 Point Filter only disables texture interpolation. It does not convert artwork into dot art.
-
-Do not promote these from naming, Point Filter, route smoke alone, or while proof provider, Sprite Mode Single, missing animation states, or active procedural fallback remains:
-
-```txt
-characterDotRuntimeReady
-characterAnimationReady
-enemyDotRuntimeReady
-enemyAnimationReady
-productionCharacterAssetReady
-productionEnemyAssetReady
-```
-
-`runtimeVisualCandidateReady` may be true for a verified candidate animation runtime. `runtimeVisualReady` is reserved for final/runtime-approved production visuals and remains false.
-
-Character minimum:
-
-- candidate or production provider with explicit approval level
-- proof provider removed from product route
-- Sprite Mode Multiple
-- actual frames
-- idle / walk / hurt / attack
-- direction/equipment verification
-- gameplay-size review
-- Golden Identity Reference
-- Generation Lineage
-
-Enemy minimum:
-
-- candidate or production provider with explicit approval level
-- Multiple frames
-- idle / move / hurt / death
-- family-canon review
-- gameplay-size review
 
 Required check:
 
@@ -171,11 +155,20 @@ pnpm unity:runtime-visual-readiness:check
 
 Do not weaken the checker to make a task pass.
 
-## Asset generation export
+## U49 actual-device audio/haptic boundary
 
-`src/game/data/assetGenerationPolicy.ts` is the Contract source of truth. The local full export `data/asset-factory/generation-contracts.json` is reproducible and ignored by Git. Commit only `data/asset-factory/generation-contracts.summary.json` plus the TypeScript source and checker changes.
+U49 readiness must be based on actual-device observations. Editor or Simulator hooks may verify routing, but they must not promote:
 
-## Unity UI rule
+```txt
+devicePlayableReady
+audioMixerReady
+audioLatencyMeasured
+hapticMeasured
+```
+
+Required evidence should identify device/build, tested SE/BGM/haptic sequence, foreground/background recovery, failure observations, and human-review result. Do not promote U50 or U51 from U49 automation alone.
+
+## UI implementation
 
 Runtime remains uGUI. UI Toolkit is editor-only.
 
@@ -192,24 +185,28 @@ New/touched screens use:
 
 Do not paste a completed generated screen image into runtime UI.
 
-## Asset generation rule
+## Asset generation and production approval
 
-All generated assets start as candidates.
+`src/game/data/assetGenerationPolicy.ts` is the Contract source of truth. The local full export `data/asset-factory/generation-contracts.json` is reproducible and ignored by Git. Commit the TypeScript source, tracked summary, manifests, and checker changes required by the task.
 
-Required before runtime final:
+All new generated output begins as candidate. U48 approval applies only to the explicitly recorded 46 selected groups; it is not a blanket approval for later replacements.
+
+Required before a new asset becomes runtime final:
 
 - Asset Generation Contract
 - Golden Reference
-- four-candidate comparison
+- four-candidate comparison or documented existing-source lineage
 - prompt/reference/output hashes
 - Generation Lineage
 - automatic QA
 - human review
 - `approvedAsFinal=true`
 - `runtimeApproved=true`
+- gameplay-size review
+- production provider/registry connection
+- verification evidence
 
-Do not copy a Web PNG into Unity and call it production.
-Do not bake text or controls into a full-screen image.
+Do not copy a Web PNG into Unity and call it production. Do not bake text or controls into a full-screen image.
 
 ## Image-production workflow
 
@@ -246,7 +243,7 @@ Unless explicitly overridden:
 - cell is `180 x 180 px`
 - subject does not fill the entire cell
 - preserve transparent motion/effect room
-- no opaque/glow/shadow pixel touches cell edge
+- no opaque/glow/shadow pixel touches the cell edge
 - keep gameplay-size readability
 - keep scale consistent across related frames
 
