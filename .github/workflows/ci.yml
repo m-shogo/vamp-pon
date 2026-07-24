@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify active implementation contracts
+        run: pnpm implementation:preflight:check
+
       - name: Verify Core5 gameplay frames
         run: |
           test -f public/assets/prototypes/sprite-sheets/core5-original-frames/yui/00_r01_c01_idle_front.png
