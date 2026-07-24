@@ -36,6 +36,7 @@ U48では人間承認済み46 visual groupをproduction runtimeへ接続し、Pr
 ```txt
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
+runtimeVisualClassification=production-animated-sprite
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
