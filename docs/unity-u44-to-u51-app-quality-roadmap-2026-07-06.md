@@ -1,35 +1,52 @@
 # Unity U44 to U51 App Quality Roadmap
 
-Date: 2026-07-10
+Original roadmap date: 2026-07-06  
+Last synchronized: 2026-07-24  
 Status: current
 
 ## Current status
 
 ```txt
 U44: complete
-U45 visual candidate: complete
-U45 settings repair: complete
-U45 AI-only iOS Simulator route smoke: complete
-U45.1 Runtime Visual Readiness gate: adopted
-U45.1 Character and Enemy Dot Runtime Pass: complete as candidate runtime
-U45.1 Hardening: complete
-Big Implementation control-plane: adopted
+U45 visual candidate / settings repair / AI-only Simulator route smoke: complete
+U45.1 Runtime Visual Readiness gate and candidate animation runtime: complete historical prerequisite
+U46 AppFlow / Save / Result / Retry / StageSelect / 灯録 candidate: complete
+U46.1 Result / Save Hardening: complete
+U47 gameplay data/runtime and production DataRegistry: complete
+U48 production asset expansion: complete
+U49 actual-device audio/haptic: current
+U50 device performance/touch metrics: not started
+U51 RC: not started
+```
+
+Current readiness:
+
+```txt
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
+productionDataRegistryImplemented=true
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
+mobileMetricsReady=false
+audioMixerReady=false
+audioLatencyMeasured=false
+hapticMeasured=false
+rcReady=false
 productionApproved=false
 ```
+
+`runtimeVisualReady=true` is limited to the completed U48 production visual runtime scope. It does not promote device, audio, haptic, performance, RC, or product readiness.
 
 ## Cross-phase Big Implementation Foundation Gate
 
@@ -43,13 +60,14 @@ docs/unity-current-doc-index-2026-07-10.md
 
 Required before large implementation:
 
-- source of truth order is current
-- U45.1 runtime pass and Hardening remain completed prerequisites for U46
+- source-of-truth order is current
+- active documents agree on Phase and readiness
 - navigation/pause ownership is explicit
 - Definition / Runtime State / Save DTO are separated
 - proof, candidate, and production asset approval levels are separated
 - UI Design System and Asset Generation Contract remain active
 - readiness flags remain evidence-based
+- historical Phase evidence is not reused as current evidence
 
 Static preflight:
 
@@ -63,78 +81,48 @@ Full preflight:
 pnpm implementation:preflight:full
 ```
 
-This foundation does not promote runtime, device, audio, haptic, RC, or production readiness.
-
 ## U44 Web to Unity parity audit
 
 - Status: complete.
 - Goal: freeze Web/Unity gap, design references, asset requests, and quality rules.
-- Not allowed: device pass, READY promotion, generated full-screen UI paste.
+- Historical output must not override later U47/U48 implementation evidence.
 
 ## U45 StageSelect + Battle HUD + LevelUp candidate
 
-- Status: complete as UI candidate / not final art.
-- Route/pause/input/crash evidence is valid.
-- Character/enemy candidate animation runtime is connected; final art is not approved.
-- Remaining: Result placeholder P1; HUD/LevelUp contrast P2; device-backed art approval.
+- Status: complete historical candidate milestone.
+- Route/pause/input/crash evidence remains useful regression evidence.
+- Its candidate-art status is not the current U48 production visual state.
 
 ## U45.1 Character and Enemy Dot Runtime Pass
 
-- Status: complete as candidate runtime; final art remains unapproved.
-- Goal: replace proof-static visuals with minimum real animated dot runtime.
+- Status: complete historical prerequisite.
+- Goal: replace proof-static visuals with the first real Multiple animation runtime.
+- Historical classification: `candidate-animated-multiple-sprite`.
+- Current classification after U48: `production-animated-sprite`.
 
-Source of truth:
+Historical U45.1 evidence remains intentionally candidate-only:
 
 ```txt
-docs/unity-runtime-visual-readiness-gate-v1.md
+docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json
+docs/design-targets/generated/unity-u45-1/animation-smoke-result.json
+docs/design-targets/generated/unity-u45-1/visual-review.json
+```
+
+Current state is defined by:
+
+```txt
 docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
+docs/design-targets/generated/unity-u48/approved-production-set.json
+docs/design-targets/generated/unity-u48/production-verification/manifest.json
 ```
 
-Current:
+Required invariant:
 
-```txt
-runtimeVisualClassification=candidate-animated-multiple-sprite
-runtime provider=RuntimeVisualAssetProvider / approval level Candidate
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-player/enemy Sprite Mode=Multiple / 48 frames
-player animation=idle / walk / hurt / attack
-enemy animation=idle / move / hurt / death
-```
-
-Implementation:
-
-- approve/register Yui Golden Identity Reference
-- select Yui production candidate sheet
-- create Lineage and QA evidence
-- import as Sprite Mode Multiple
-- connect idle / walk / hurt / attack
-- verify direction and lantern/bag continuity
-- connect Onbu idle / move / hurt / death
-- add production runtime visual provider
-- remove proof provider from product route
-- restrict procedural fallback to development error route
-- capture Compact / Standard / Large gameplay-size evidence
-- rerun Simulator route and animation regression
-
-Required checks:
-
-```sh
-pnpm unity:runtime-visual-readiness:check
-pnpm asset-generation:check
-pnpm assets:verify
-```
-
-Done:
-
-```txt
-characterDotRuntimeReady=true
-characterAnimationReady=true
-enemyDotRuntimeReady=true
-enemyAnimationReady=true
-```
-
-Production asset readiness remains independently guarded by final/runtime approval.
+- proof provider is excluded from product route
+- player/enemy Sprite Mode remains Multiple
+- required animation states remain connected
+- procedural fallback remains development-only
+- explicit direction/equipment continuity remains verified
 
 ## Cross-phase UI Design System Gate
 
@@ -164,53 +152,12 @@ Check:
 pnpm unity:ui-design-system:check
 ```
 
-## U46 AppFlow + Result + Retry + StageSelect + 灯録: Completed Candidate
+## U46 AppFlow + Result + Retry + StageSelect + 灯録
 
-U46.1 Result / Save Hardeningもcompleted。通常buildのverification UI除去、read-model-only empty state、copy-on-write保存、event unsubscribeを確認済み。
+- Status: complete candidate shell.
+- U46.1 Result / Save Hardening: complete.
 
-- Goal: create a complete non-battle shell without adding more responsibility to bootstrap/battle controller.
-- Prerequisites: U45.1 minimum complete, runtime ownership contract active, UI Design System validated.
-
-Architecture foundation:
-
-- implement AppFlow state owner
-- implement single pause owner/reason model
-- keep U43 pause/input/tap behavior
-- implement minimal versioned SaveService schema v1
-- add save default/migration/validation tests
-- implement Result read model
-- implement Collection read model
-
-UI implementation:
-
-- replace sparse Result placeholder with ledger hierarchy
-- retain Retry and StageSelect return
-- add Collection/灯録 book and tabs
-- use Theme / Visual State / Responsive Profile
-- create Base/Variant buttons/cards/entries
-- resolve shared HUD/LevelUp P2 contrast where touched
-
-Not allowed:
-
-- Result UI directly writing files
-- Collection directly mutating battle state
-- UI directly changing `Time.timeScale`
-- cloud save
-- runtime UI Toolkit migration
-- production approval
-
-Evidence:
-
-- AppFlow transitions
-- pause reasons
-- Result clear/fail
-- Retry
-- StageSelect return
-- Collection open/close/seen
-- SaveService schema/migration tests
-- Compact/Standard/Large screenshots
-
-Done:
+Completed boundaries:
 
 ```txt
 sceneFlowCoordinatorImplemented=true
@@ -222,65 +169,101 @@ collectionReadModelImplemented=true
 uiShellReady=true
 ```
 
+Preserve:
+
+- Result/Collection do not own battle simulation
+- UI does not own file I/O
+- pause/navigation use one owner
+- Save DTO remains versioned and ID-based
+
 ## U47 Weapon / Item / Passive / Rare / Evolution / 黒耀化
 
-- Goal: bring Web runtime item systems into Unity in staged slices.
-- Prerequisites: stable U45.1/U46 shell and data/save boundaries.
+- Status: complete.
+- Production DataRegistry and definition/runtime separation are established.
+- Stage1 remains playable, item state is visible, invalid drops/evolutions are blocked, and U47 data/runtime checks pass.
 
-Implementation:
+Preserve:
 
-- build Stage1/Core5 definition export/import slice
-- production DataRegistry
-- separate definitions from runtime state
-- connect limited weapon/passive/rare/evolution set
-- connect inventory and LevelUp presentation
-- connect 黒耀化 presenter and state transition
-- keep save IDs stable and migrated
-
-Not allowed:
-
-- full Stage2
-- Addressables
-- battle controller owning save/UI construction
-- balance changes hidden inside architecture work
-
-Done: Stage1 remains playable, item state is visible, invalid drops/evolutions are blocked, data registry checks pass.
+- stable IDs and migration boundaries
+- definition / runtime state / save DTO separation
+- LevelUp/inventory presentation does not become rule ownership
+- battle controller does not absorb save or screen construction
 
 ## U48 Production asset expansion
 
-- Goal: expand U45.1 provider/animation path to remaining Core5, enemy families, background, pickup and VFX.
-- Prerequisites: approved assets, alpha/fringe QA, provider path proven.
-- Checks: Runtime Visual Readiness, PPU/scale, alpha bounds, atlas references, import policy separation.
-- Not allowed: Web PNG copied as production without approval.
+- Status: complete for the defined U48 visual runtime scope.
+- Human approval: 46 selected visual groups.
+- Production connection: complete.
+- Verification: 46 groups / 138 captures across Compact / Standard / Large in a Preview-define-free iOS Simulator build.
+
+Required current chain:
+
+```txt
+human-selection.json
+-> approved-production-set.json
+-> production-connection.json
+-> production-verification/manifest.json
+-> runtime visual readiness promotion
+```
+
+Checks:
+
+```sh
+pnpm unity:u48-production-asset-expansion:check
+pnpm unity:u48-production-asset-approval-pack:check
+pnpm unity:u48-human-selection:check
+pnpm unity:u48-approved-production-set:check
+pnpm unity:u48-production-visual-connection:check
+pnpm unity:u48-production-visual-verification:check
+pnpm unity:runtime-visual-readiness:check
+```
+
+U48 completion does not include actual-device audio/haptic, device performance, RC, or store approval.
 
 ## U49 Actual-device Audio / Haptic
 
-- Goal: replace request hooks with final SE/BGM/mixer/haptic evidence.
-- Prerequisite: actual-device observations.
-- Do not set `audioMixerReady`, `audioLatencyMeasured`, or `hapticMeasured` from Editor/Simulator hooks.
+- Status: current.
+- Goal: replace request-hook confidence with actual-device SE/BGM/mixer/haptic evidence.
+- Prerequisite: actual-device launch and observation.
+
+Required evidence:
+
+- tested device and build identity
+- deterministic SE sequence coverage
+- deterministic haptic sequence coverage
+- mixer/BGM behavior
+- foreground/background recovery
+- mute/volume behavior where implemented
+- no duplicate or missing feedback
+- human review result
+- known issues and retry conditions
+
+Do not set `audioMixerReady`, `audioLatencyMeasured`, `hapticMeasured`, or `devicePlayableReady` from Editor/Simulator hooks alone.
 
 ## U50 Device Performance / Touch Metrics
 
-- Goal: measure FPS, frame pacing, memory, GC, draw calls, UI rebuild, touch feel, heat.
+- Status: not started.
+- Goal: measure FPS, frame pacing, memory, GC, draw calls, UI rebuild, touch feel, heat, and sustained behavior.
 - Use `docs/unity-mobile-performance-budget.md`.
 - `mobileMetricsReady` requires measured device data.
+- U49 success does not automatically promote U50.
 
 ## U51 RC
 
-- Goal: close P0/P1, prepare release notes/known issues/store readiness, and produce device-backed RC verdict.
-- Prerequisites: U45.1-U50 completed and actual device smoke.
+- Status: not started.
+- Goal: close P0/P1, prepare release notes/known issues/store readiness, and produce a device-backed RC verdict.
+- Prerequisites: U45.1-U50 completed and actual-device smoke.
 - `rcReady` and `productionApproved` require explicit evidence and checker coverage.
 
 ## Final order
 
 ```txt
 Foundation preflight
--> U45.1 dot runtime
--> Simulator regression
--> U46 AppFlow/Save/Result/灯録 completed candidate
--> U47 gameplay data current
--> U48 asset expansion
--> U49 audio/haptic device
--> U50 performance/touch device
+-> completed U45.1 runtime prerequisite
+-> completed U46 shell/save
+-> completed U47 gameplay data/runtime
+-> completed U48 production visual runtime
+-> current U49 actual-device audio/haptic
+-> U50 performance/touch device metrics
 -> U51 RC
 ```
