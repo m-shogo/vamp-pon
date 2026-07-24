@@ -1,178 +1,163 @@
 # Visual QA Gates
 
-画面品質改善PRをmergeする前の判定基準。
+Last synchronized: 2026-07-24  
+Status: current review policy
 
-目的は、見た目を上げながら、390x844の可読性・既存ロジック・世界観・今後のUnity移行を壊さないこと。
+画面品質改善PRをmergeする前の判定基準です。見た目を上げながら、portrait mobileの可読性、既存ロジック、世界観、Unity runtime ownership、asset approval、release境界を壊さないことを目的とします。
 
 ## Gate 0: Scope Check
 
-PRの種類を最初に分類する。
+最初にPRの種類を分類します。
 
 ### Docs Only
 
 - docs追加/更新のみ
 - runtime変更なし
 - assets変更なし
-
-Required:
-
-- 変更範囲がdocsのみであること
-- build/test未実行なら理由を書く
+- readinessを上げない
+- command未実行なら理由を明記する
 
 ### Asset Organization
 
-- 画像整理
-- ファイル名変更
-- docs/design-targets整備
-
-Required:
-
-- UUID画像を意味ある名前へ変更
-- `assets/` 直下に参照画像を残さない
-- final / implementation / unknown を分類
+- 画像整理、命名、manifest/evidence更新
+- final / implementation / historical / unknownを分類する
+- UUID画像を意味ある名前へ変更する
+- `assets/` 直下へ未分類参照画像を残さない
 - 画像を本番UIとして一枚貼りしない
 
 ### Visual Implementation
 
 - Phaser/Unity画面の見た目変更
-- UI helper追加
+- UI helper/component追加
 - animation/effect調整
-
-Required:
-
-- gameplay logic変更なし、または明記
-- 390x844確認
-- build/test実行
-- proof / candidate / production / finalを明記
+- gameplay logic変更なし、または変更を明記する
+- Compact / Standard / Largeを確認する
+- proof / candidate / production / product-approvedを明記する
 
 ### Gameplay Change
 
-- balance
-- reward
-- spawn
-- unlock
-- save
-
-Required:
-
+- balance / reward / spawn / unlock / save
 - Visual PRと分ける
-- テスト追加または更新
-- 仕様説明
+- 仕様とテストを追加・更新する
 
 ## Gate 1: World Consistency
 
-Merge OK if:
+Merge OK:
 
-- 夜 / 記憶 / 忘れ物 / 黒インク / ランタン / 紙 / 星図 のうち複数が自然に入っている
-- 汎用ファンタジーUIになっていない
-- ソシャゲ風の金属・ネオン・宝石UIになっていない
-- 390x844で世界観が読める
+- 夜 / 記憶 / 忘れ物 / 黒インク / ランタン / 紙 / 星図が自然に統合されている
+- 汎用ファンタジー、generic anime gacha、metallic sci-fiへ寄っていない
+- 紙UI / 黒インク / ランタン光が主軸
+- 通常画面は静かで、レア演出だけが相対的に強い
+- asset間の質感と色数が統一されている
 
-Reject / Rework if:
+Reject / Rework:
 
-- generic anime gachaに見える
-- metallic sci-fiに見える
 - horrorに寄りすぎる
-- AI画像そのままの読めない文字がある
+- AI生成由来の読めない文字が残る
 - 画面ごとに別ゲームのように見える
+- glossy plastic、ネオン、宝石、金属装飾が主役になる
+- 生成画像を未調整のまま混在させる
 
 ## Gate 2: Readability
 
-Merge OK if:
+Merge OK:
 
-- 主要テキストが390x844で読める
-- CTAがどれか分かる
-- Battleでユイ/敵/EXP/HUDが見える
-- ユイと敵がproof静止画かproduction animationかを判別・記録できる
-- LevelUpで3択内容が分かる
-- Resultで報酬と次の行動が分かる
+- Compact / Standard / Largeで主要テキストが読める
+- primary CTAが明確
+- Battleでplayer / enemy / EXP / HUD / Ultimate / 黒耀化が識別できる
+- player/enemy runtime classificationがevidenceと一致する
+- LevelUpで選択内容、rarity、所有状態、入替状態が理解できる
+- Resultで報酬と次の行動が理解できる
 
-Reject / Rework if:
+Reject / Rework:
 
-- 装飾が文字を邪魔している
-- 背景が敵やEXPを邪魔している
+- 装飾やeffectが文字、敵、EXPを隠す
 - 全ボタンが同じ強さに見える
 - Rare演出が説明文を隠す
 - カットインが長すぎてテンポを壊す
-- proof静止画をドットanimation完成と報告している
+- proof/static assetをanimation完成と報告する
+- candidate runtimeをproduction visualまたはrelease approvalと報告する
 
 ## Gate 3: Tap Clarity
 
-Merge OK if:
+Merge OK:
 
 - primary CTAが最も押したく見える
-- secondary CTAが控えめだが分かる
-- disabled/lockedが分かる
-- selected/activeが分かる
-- touch targetが小さすぎない
+- secondary CTAは控えめだが明確
+- disabled / locked / selected / activeが判別できる
+- touch targetとSafe Areaが端末tierで維持される
+- decorationとinteractive regionが区別できる
 
-Reject / Rework if:
+Reject / Rework:
 
-- 押せる場所と装飾の区別がつかない
-- 小さい紙片がボタンに見える
-- Start/Growth/Retryが弱い
-- 右下Ultimateが押しづらい
+- 小さい紙片や装飾がボタンに見える
+- Start / Growth / Retryが埋もれる
+- Ultimateや入替操作が押しづらい
+- invisible overlayが入力を奪う
 
 ## Gate 4: Reusability
 
-Merge OK if:
+Merge OK:
 
-- paper card / paper button / seal / badge などが再利用可能
-- 画面固有の一回きり描画が増えすぎていない
-- 色やサイズが引数化されている
-- helperが既存UIと共存している
+- paper card / paper button / seal / badge等がcomponentとして再利用可能
+- Theme / Visual State / Responsive Layout Profileを使う
+- 9-slice / Sprite Borderを使う
+- Base -> Variantは最大2階層
+- 色、spacing、sizeがtoken/profile化されている
 
-Reject / Rework if:
+Reject / Rework:
 
-- コピペGraphicsが大量に増える
-- 同じ紙カードを画面ごとに別実装している
-- helperが巨大化して読めない
-- 一画面のためだけに汎用ファイルを壊している
+- コピペGraphicsや画面固有magic numberが大量に増える
+- 同じ紙カードを画面ごとに別実装する
+- helperが巨大化してruntime ownershipを侵食する
+- 完成画面画像へtext/controlを焼き込む
 
 ## Gate 5: Logic Safety
 
-Merge OK if:
+Merge OK:
 
-- visual変更だけでgameplayロジックが変わっていない
-- save/localStorageに影響しない
-- reward/unlock/spawnに影響しない
-- existing tests pass
+- visual変更だけでgameplay logicが変わっていない
+- save / reward / unlock / spawn / LevelUp抽選に影響しない
+- UIはcommandを送り、battle/saveを直接所有しない
+- pause/navigationは単一ownerを通る
+- existing tests/checkersが通る
 
-Reject / Rework if:
+Reject / Rework:
 
-- 見た目PRで報酬量が変わった
-- 見た目PRで敵の湧きが変わった
-- LevelUp抽選が変わった
-- Collection seen/newが壊れた
-- Result保存が変わった
+- 見た目PRで報酬量、敵spawn、抽選、保存が変わる
+- Collection seen/newやResult保存が壊れる
+- UIから`Time.timeScale`やfile I/Oを直接操作する
+- readiness JSONだけをtrueへ変更する
 
-## Gate 6: File Safety
+## Gate 6: File and Ownership Safety
 
 High-risk files:
 
-- `src/game/ui/overlays.ts`
-- `src/game/ui/hud.ts`
-- `src/game/scenes/CollectionScene.ts`
-- `src/game/scenes/StageSelectScene.ts`
-- `src/game/scenes/TopScene.ts`
-- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs`
-- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs`
-- production asset provider / sprite importer / animation controller
+```txt
+src/game/ui/overlays.ts
+src/game/ui/hud.ts
+src/game/scenes/CollectionScene.ts
+src/game/scenes/StageSelectScene.ts
+src/game/scenes/TopScene.ts
+unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs
+unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs
+production asset provider / registry / sprite importer / animator
+```
 
-Merge OK if:
+Merge OK:
 
-- diffが関数単位で読みやすい
-- helper切り出しがある
-- 既存のinput/update/stateを大きく触っていない
-- provider、fallback、readiness evidenceの変更理由が明記されている
+- diffが責務単位で読める
+- unrelated formattingやmass rewriteがない
+- input/update/state lifecycleを不必要に変えない
+- provider、fallback、approval、readiness変更理由が明記される
+- Definition / Runtime State / Save DTOの境界を維持する
 
-Reject / Rework if:
+Reject / Rework:
 
-- 大ファイルが丸ごと置換されている
-- unrelated formattingが大量に入っている
-- UI改善とロジック変更が混在している
-- 既存scene lifecycleを変えている
-- readiness JSONだけをtrueへ変更している
+- Bootstrap/BattleControllerへ画面、save、AudioMixer、approval、release責務を追加する
+- proof/candidate/production境界を曖昧にする
+- source of truth同士が異なる現在値を持つ
+- 古いPhase evidenceを現在Phaseの証拠に流用する
 
 ## Gate 7: Screen-Specific Checks
 
@@ -182,158 +167,115 @@ Must pass:
 
 - main CTAが強い
 - secondary buttonsが整理されている
-- タイトルは差し替え可能
-- 大きいキャラ絵に依存しない
-
-Fail if:
-
-- Webフォーム風
-- 汎用タイトル画面
-- 何を押すか分からない
+- タイトル、背景、装飾が差し替え可能
+- 大きいキャラ一枚絵だけに依存しない
 
 ### StageSelect
 
 Must pass:
 
-- stage previewが地図カードに見える
-- Easy/Normal/Hardの差が文字以外で分かる
+- stage previewが地図/記憶カードとして読める
+- 難易度差が文字以外でも分かる
 - Start CTAが強い
-
-Fail if:
-
-- stage cardがただの画像枠
-- 難易度が同じ見た目
-- CTAが埋もれる
+- current production UI catalogと一致する
 
 ### Battle
 
 Must pass:
 
-- player readable
-- enemies readable
-- EXP readable
-- HP/time/level readable
-- Ultimate readable
-- 黒耀化 gauge readable
-- player/enemy runtime classificationがevidenceと一致
-- animation完成を主張する場合、required stateと実frameが確認できる
-- production完成を主張する場合、proof providerが製品経路から外れている
+- player / enemy / EXP / HP / time / level / Ultimate / 黒耀化が読める
+- runtime classificationがcurrent readiness JSONと一致する
+- required animation stateと実frameが確認できる
+- production完成を主張する場合、proof/candidate providerが製品経路から外れている
+- procedural fallbackが通常product routeで動いていない
 
 Fail if:
 
-- background too detailed
-- effects hide enemies
-- UI blocks gameplay
-- hit/EXP feedback is invisible
-- GameObject名だけでドット完成扱い
-- Point Filterだけでドット完成扱い
-- Sprite Mode Singleをsprite sheet扱い
-- Simulator route smokeをcharacter/enemy美術承認へ流用
-- procedural fallback中の画面をproduction visualとして承認
+- background/effectがgameplay entityを隠す
+- GameObject名やPoint Filterだけでドット完成扱いする
+- Sprite Mode Singleをsprite sheet扱いする
+- Simulator route smokeだけを美術承認へ流用する
+- `runtimeVisualReady=true`をactual-device/release承認へ流用する
 
-### LevelUp
+### LevelUp / Replacement
 
 Must pass:
 
-- 3 cards readable
-- icon/title/description/rarity structure clear
-- Rare special but tasteful
-- tap target clear
+- cardsのicon / title / description / rarityが読める
+- ownership、slot capacity、replacement対象、declineが理解できる
+- Rareは強いが通常情報を隠さない
+- tap targetとfocus orderが明確
 
-Fail if:
-
-- description too small
-- card variants too inconsistent
-- neon/gacha look
-
-### Result Clear
+### Result
 
 Must pass:
 
-- memory page feeling
-- rank seal clear
-- reward row clear
-- Growth CTA strongest
-- retry/stage/top secondary
+- 記憶ページ/ledgerの階層が読める
+- rank / reward / clear-fail / next actionが明確
+- Retry / StageSelect / TOPの戻り先が正しい
+- Result UIがbattle simulationやfile I/Oを所有しない
 
-Fail if:
-
-- spreadsheet feeling
-- rewards scattered
-- next action unclear
-
-### Collection
+### Collection / 灯録
 
 Must pass:
 
-- notebook/ledger feeling
-- six tabs readable
-- NEW is lantern dot
-- locked is black ink
-
-Fail if:
-
-- database feeling
-- red badge spam
-- tabs unreadable
+- notebook/ledgerとして読める
+- tabs / NEW / locked / seenが明確
+- read modelを表示し、runtime battle stateを直接変更しない
 
 ### 黒耀化 / Ultimate
 
 Must pass:
 
-- display text is `黒耀化`
+- display textは **黒耀化**
 - dangerous but heroic
-- warm lantern core remains
-- not too long/blocking
+- warm lantern coreが残る
+- 長すぎずgameplayを隠さない
 
 Fail if:
 
-- `KOKUYOU` appears in UI
-- red-eye demon look
-- unreadable chaos
-- generic anime slash only
+- `KOKUYOU`をproduct UIへ表示する
+- red-eye demonやgeneric anime slashだけになる
+- readable state transitionが失われる
 
 ## Gate 8: Required Commands
 
-For implementation PRs:
+大規模実装前:
+
+```bash
+pnpm implementation:preflight:check
+```
+
+大規模Phase完了前:
+
+```bash
+pnpm implementation:preflight:full
+```
+
+Visual/runtime implementationの最低確認:
 
 ```bash
 pnpm build
 pnpm test
-pnpm stage1:fun-pass:verify
-pnpm character-assets:verify
-pnpm runtime-assets:verify
+pnpm assets:verify
 pnpm asset-generation:check
 pnpm unity:runtime-visual-readiness:check
-```
-
-Unity UI/runtime変更時は追加:
-
-```bash
 pnpm unity:ui-design-system:check
-pnpm unity:u45-ai-simulator-smoke:check
 pnpm unity:meta:check
 ```
 
-For docs-only PRs:
-
-- commands may be skipped
-- must state `docs only`
-- readinessを上げない
-
-For asset-only PRs:
-
-Recommended:
+U48 production visual chain変更時:
 
 ```bash
-pnpm asset-generation:check
-pnpm runtime-assets:verify
-pnpm unity:runtime-visual-readiness:check
+pnpm unity:u48-human-selection:check
+pnpm unity:u48-approved-production-set:check
+pnpm unity:u48-production-visual-connection:check
+pnpm unity:u48-production-visual-verification:check
 ```
 
-## Gate 9: PR Report Template
+GitHub connectorだけで変更した場合、ローカルcommandを実行済みと報告しません。PR CI結果を別に記録します。
 
-Every visual PR should include:
+## Gate 9: PR Report Template
 
 ```md
 ## Summary
@@ -348,25 +290,18 @@ procedural-placeholder / proof-static-single-sprite / candidate-animated-multipl
 ## Gameplay logic changes
 None / explain
 
-## 390x844 check
-Checked / not checked
+## Responsive review
+Compact / Standard / Large
 
 ## Verification
-- pnpm build:
-- pnpm test:
-- pnpm stage1:fun-pass:verify:
-- pnpm character-assets:verify:
-- pnpm runtime-assets:verify:
-- pnpm asset-generation:check:
-- pnpm unity:runtime-visual-readiness:check:
+- implementation preflight:
+- runtime visual readiness:
+- asset checks:
+- tests:
+- build:
+- actual device:
 
-## Runtime visual readiness
-- characterDotRuntimeReady:
-- characterAnimationReady:
-- enemyDotRuntimeReady:
-- enemyAnimationReady:
-- productionCharacterAssetReady:
-- productionEnemyAssetReady:
+## Readiness changes
 
 ## Screens affected
 
@@ -377,26 +312,23 @@ Checked / not checked
 
 ## Gate 10: Unity Readiness
 
-A Phaser/Unity visual PR improves Unity readiness if:
+A visual PR improves Unity readiness when:
 
-- components are clearly separated
-- UI hierarchy is fixed
-- generated images are documented as reference
+- component、hierarchy、runtime ownerが明確
 - actual UI text remains game-rendered
-- visual language is documented
+- generated images have contract/lineage/approval records
 - production/provider/proof boundaries are explicit
-- sprite import mode, frame count and required animation states are machine-checkable
-- procedural fallback is detectable
+- import mode、frame count、animation stateがmachine-checkable
+- procedural fallbackが検出可能
+- responsive evidenceが再現可能
 
-It hurts Unity readiness if:
+It hurts Unity readiness when:
 
-- everything becomes one-off Phaser Graphics
-- images are baked with text
-- gameplay state and drawing logic are tangled
-- screen-specific magic numbers are everywhere
-- proof provider is hidden behind a production-sounding name
-- object naming is used as visual evidence
-- Single sprite is reported as animated
+- one-off drawingやmagic numberが増える
+- imageへtext/controlを焼き込む
+- gameplay stateとdrawing logicが絡む
+- proof providerをproduction風の名前で隠す
+- naming/import settingだけをvisual evidenceにする
 
 ## Gate 11: Runtime Visual Readiness
 
@@ -410,74 +342,58 @@ docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
 Current state:
 
 ```txt
-runtimeVisualClassification=candidate-animated-multiple-sprite
+runtimeVisualClassification=production-animated-sprite
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+devicePlayableReady=false
+mobileMetricsReady=false
+rcReady=false
+productionApproved=false
 ```
 
-`runtimeVisualCandidateReady=true`はU45.1 candidate animation runtimeの証跡。`runtimeVisualReady=true`はfinal/runtime承認済みproduction visual専用であり、現在はfalse。
+`runtimeVisualReady=true` はU48のfinal/runtime承認済みasset、production provider/registry、required animation、Compact / Standard / Large runtime verificationが揃ったことを表します。
 
-`characterDotRuntimeReady=true` requires all:
-
-- candidate or production provider with explicit approval level
-- proof provider removed from product runtime
-- procedural character fallback disabled or explicit development error-only
-- Sprite Mode Multiple
-- actual sliced frames
-- idle / walk / hurt / attack
-- direction flip verification
-- gameplay-size visual review
-- Golden Identity Reference
-- Generation Lineage
-
-`productionCharacterAssetReady=true` additionally requires:
-
-- `approvedAsFinal=true`
-- `runtimeApproved=true`
-- `characterAnimationReady=true`
-
-Enemy promotion follows the same separation and requires idle / move / hurt / death.
+これはactual-device playability、audio/haptic、performance、RC、store release approvalではありません。U45.1の`candidate-animated-multiple-sprite` evidenceは歴史的前提として保持し、current stateへ戻してはいけません。
 
 ## Merge Decision
 
 ### Merge
 
-- docs-only safe
-- visual scope clear
-- tests pass or correctly skipped
-- no logic drift
-- world/readability/tap clarity pass
-- runtime classification and readiness evidence match actual implementation
+- scopeとownershipが明確
+- current source of truthが一致
+- tests/checkersがpass、またはdocs-only skip理由が正しい
+- world/readability/tap clarityがpass
+- runtime classificationと実装/evidenceが一致
+- readiness promotionに実装・evidence・checkerが揃う
 
 ### Hold
 
-- visual direction good but tests missing
-- screenshots missing
-- 390x844 not checked
-- minor labels inconsistent
-- runtime visual gate added but not executed
-- animation/provider implementation incomplete
+- visual directionは良いがresponsive evidenceやtestが不足
+- actual-deviceが必要な項目をSimulatorだけで判定している
+- animation/provider/approval chainが未完了
+- CI結果が未確定
 
 ### Rework
 
-- gameplay logic changed silently
-- AI image used as full UI
-- text baked into image
-- battle readability worsened
-- large files rewritten wholesale
-- generic/gacha/SF look introduced
+- gameplay logicが無断変更
+- AI画像をfull UIとして直貼り
+- text/controlを画像へ焼き込み
+- battle readability悪化
+- large transitional classesを無関係に全面置換
+- generic/gacha/SF look導入
 - Point Filter/object名だけでドット完成扱い
 - proof/candidate assetをproduction-ready扱い
+- runtime visual readyをrelease ready扱い
 - readiness evidenceだけをtrueへ変更
 
 ## Final Rule
 
-A PR is not good because it adds more effects.
-
-A PR is good when the next developer can safely build the next screen on top of it and cannot accidentally promote proof visuals to production readiness.
+PRの価値はeffect数ではなく、次の開発者が安全に積み上げられ、proof/candidate/production/device/release境界を誤昇格できないことです。
