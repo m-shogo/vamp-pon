@@ -31,7 +31,18 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Verify active implementation contracts
-        run: pnpm implementation:preflight:check
+        run: |
+          set -o pipefail
+          pnpm implementation:preflight:check 2>&1 | tee implementation-preflight.log
+
+      - name: Upload implementation preflight log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: implementation-preflight-${{ github.run_id }}
+          path: implementation-preflight.log
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Verify Core5 gameplay frames
         run: |
