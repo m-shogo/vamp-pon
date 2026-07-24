@@ -201,9 +201,9 @@ human decision
 U48 current evidence:
 
 ```txt
-docs/design-targets/generated/unity-u48/human-selection.json
+docs/design-targets/generated/unity-u48/human-selection-decision.json
 docs/design-targets/generated/unity-u48/approved-production-set.json
-docs/design-targets/generated/unity-u48/production-connection.json
+docs/design-targets/generated/unity-u48/production-visual-connection.json
 docs/design-targets/generated/unity-u48/production-verification/manifest.json
 docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
 ```
