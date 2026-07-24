@@ -20,6 +20,16 @@ const scripts = [
   'unity:u48-candidate-live-preview:check',
   'unity:u48-batch-a-contracts:check',
   'unity:u48-batch-a-review-ready:check',
+  'unity:u48-batch-b-review-ready:check',
+  'unity:u48-batch-c-contracts:check',
+  'unity:u48-batch-c-capture-readiness:check',
+  'unity:u48-batch-c-review-ready:check',
+  'unity:u48-human-selection:check',
+  'unity:u48-approved-production-set:check',
+  'unity:u48-production-visual-connection:check',
+  'unity:u48-production-visual-verification:check',
+  'unity:u48-stage-select-runtime:check',
+  'unity:u48-replacement-interaction:check',
   'unity:runtime-visual-readiness:check',
   'unity:meta:check',
   'test',
@@ -45,4 +55,4 @@ for (const script of scripts) {
   }
 }
 
-console.log('\nUnity big implementation full preflight passed. This does not promote device, visual, audio, haptic, RC or production readiness by itself.');
+console.log('\nUnity big implementation full preflight passed. U48 approval/promotion/connection/verification are covered; device, audio, haptic, performance, RC and production readiness are not promoted by this command.');
