@@ -53,6 +53,7 @@ const paths = {
   readiness: 'docs/design-targets/generated/unity-big-implementation/readiness.json',
   runtimeVisual: 'docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json',
   runtimeVisualPolicy: 'docs/unity-runtime-visual-readiness-gate-v1.md',
+  visualQa: 'docs/visual-qa-gates.md',
   uiDesignSystem: 'docs/unity-ui-design-system-v1.md',
   assetConsistency: 'docs/asset-generation-consistency-system-v1.md',
   roadmap: 'docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md',
@@ -80,6 +81,7 @@ const review = read(paths.review);
 const currentIndex = read(paths.currentIndex);
 const oldIndex = read(paths.oldIndex);
 const runtimeVisualPolicy = read(paths.runtimeVisualPolicy);
+const visualQa = read(paths.visualQa);
 const roadmap = read(paths.roadmap);
 const canon = read(paths.canon);
 const readme = read(paths.readme);
@@ -241,6 +243,11 @@ check('runtime visual policy records current production classification', runtime
 check('runtime visual policy separates production animated from product approval', runtimeVisualPolicy.includes('productionApproved=true') && runtimeVisualPolicy.includes('actual-device'));
 checkCurrentVisualBoundary('runtime visual policy', runtimeVisualPolicy);
 
+check('visual QA is current review policy', visualQa.includes('Status: current review policy'));
+check('visual QA keeps runtime visual gate', visualQa.includes('## Gate 11: Runtime Visual Readiness'));
+check('visual QA records current production classification', visualQa.includes('runtimeVisualClassification=production-animated-sprite'));
+checkCurrentVisualBoundary('visual QA', visualQa);
+
 check('canon links control center', canon.includes('unity-big-implementation-control-center-v1.md'));
 check('canon links ownership contract', canon.includes('unity-runtime-ownership-contract-v1.md'));
 check('README links control center', readme.includes('unity-big-implementation-control-center-v1.md'));
@@ -273,4 +280,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log('Unity big implementation readiness check passed: active docs agree on U48 completion/U49 current, production visual runtime is ready, and device/RC/product boundaries remain false.');
+console.log('Unity big implementation readiness check passed: active docs and visual QA agree on U48 completion/U49 current, production visual runtime is ready, and device/RC/product boundaries remain false.');
