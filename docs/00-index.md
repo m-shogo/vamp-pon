@@ -79,9 +79,9 @@ design-targets/generated/unity-big-implementation/readiness.json
 design-targets/generated/unity-runtime-visual-readiness/readiness.json
 design-targets/generated/unity-u47/simulator-smoke/manifest.json
 design-targets/generated/unity-u48/approval-pack/approval-manifest.json
-design-targets/generated/unity-u48/human-selection.json
+design-targets/generated/unity-u48/human-selection-decision.json
 design-targets/generated/unity-u48/approved-production-set.json
-design-targets/generated/unity-u48/production-connection.json
+design-targets/generated/unity-u48/production-visual-connection.json
 design-targets/generated/unity-u48/production-verification/manifest.json
 ```
 
