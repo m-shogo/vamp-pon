@@ -30,6 +30,7 @@ const activeFiles = [
   'docs/mobile-release-qa-gates.md',
   'docs/unity-current-doc-index-2026-07-10.md',
   'docs/unity-mobile-performance-budget.md',
+  'docs/unity-responsive-screen-policy.md',
   'docs/unity-runtime-visual-readiness-gate-v1.md',
   'docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md',
   'docs/visual-qa-gates.md',
@@ -79,10 +80,30 @@ const contentContracts: ContentContract[] = [
     ],
   },
   {
+    file: 'docs/unity-responsive-screen-policy.md',
+    required: [
+      'Status: current iOS responsive source',
+      'Platform scope: iOS first / current iOS-only product scope',
+      'Compact: 360x800 / 375x812',
+      'Standard: 390x844 / 393x852',
+      'Large: 412x915 / 430x932',
+      'actual-device Safe Area review',
+      '390x844は設計のものさし',
+    ],
+    forbidden: [
+      'iPhone / Android',
+      'Android common portrait',
+      'Android narrow portrait',
+      'Android tall portrait',
+      'U1 acceptance wording',
+    ],
+  },
+  {
     file: 'docs/unity-current-doc-index-2026-07-10.md',
     required: [
       'docs/unity-mobile-performance-budget.md',
       'docs/mobile-release-qa-gates.md',
+      'docs/unity-responsive-screen-policy.md',
     ],
     forbidden: [
       'docs/mobile-release-readiness-checklist.md',
@@ -91,6 +112,7 @@ const contentContracts: ContentContract[] = [
   {
     file: '.github/workflows/ci.yml',
     required: [
+      'fetch-depth: 0',
       'cancel-in-progress: true',
       'timeout-minutes: 20',
       'pnpm implementation:preflight:check',
