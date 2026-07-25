@@ -262,3 +262,29 @@ Mobile: iOS優先 / portrait
 - 未追跡生成assetのfinal/runtime採用
 - proof providerやSingle spriteのproduction-ready扱い
 - cloud save / account / ads / analyticsの先行導入
+
+## 採用ビジュアル方向
+
+```txt
+紙片・絵本風ドット
+夜の街
+黒インクの影
+小さなランタン
+光る記憶片
+紙カードUI
+A-Z灯紋
+やさしい不穏さ
+```
+
+```txt
+コンセプトは濃く。
+実装は見やすく軽く。
+通常画面は静かに。
+レア・進化・黒耀化だけ強く。
+```
+
+## 機密情報・ライセンス
+
+パスワード、認証コード、秘密鍵、Apple Team ID、Provisioning Profile、証明書、トークンなどを保存しません。
+
+外部素材は `docs/asset-license-log.md` に出所とライセンスを記録します。
