@@ -233,6 +233,28 @@ docs/ai-image-greenback-transparency-rule-2026-06-30.md
 - do not mirror asymmetric art without correction
 - preserve hand/shoulder/hip attachment through every action
 
+## Shared 180x180 rule
+
+Unless explicitly overridden:
+
+- cell is `180 x 180 px`
+- subject does not fill the whole cell
+- preserve transparent room for animation/effects
+- no opaque/glow/shadow pixel touches the edge
+- keep gameplay-size readability and consistent scale
+- Sprite Mode Single is not an animated sheet
+
+`public/assets/sprites/` is retired and must not be recreated.
+
+## Engineering safety
+
+- do not change gameplay values during visual or documentation cleanup
+- do not touch other repositories
+- keep fallback rendering explicit and detectable
+- do not approve procedural fallback screenshots as production evidence
+- preserve user uncommitted and unpushed work; do not reset, clean, or force-push it
+- run relevant checks, commit, and push coherent completed work
+
 ## Repository integrity
 
 - if active source-of-truth documents disagree on Phase, provider, approval, or readiness, stop feature work and repair the contradiction first
