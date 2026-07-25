@@ -49,16 +49,19 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Verify U48 production visual chain
+      - name: Run full implementation preflight
         run: |
-          pnpm unity:u48-production-asset-expansion:check
-          pnpm unity:u48-production-asset-approval-pack:check
-          pnpm unity:u48-human-selection:check
-          pnpm unity:u48-approved-production-set:check
-          pnpm unity:u48-production-visual-connection:check
-          pnpm unity:u48-production-visual-verification:check
-          pnpm unity:u48-stage-select-runtime:check
-          pnpm unity:u48-replacement-interaction:check
+          set -o pipefail
+          pnpm implementation:preflight:full 2>&1 | tee implementation-full-preflight.log
+
+      - name: Upload full implementation preflight log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: implementation-full-preflight-${{ github.run_id }}
+          path: implementation-full-preflight.log
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Verify Core5 gameplay frames
         run: |
@@ -92,9 +95,3 @@ jobs:
 
       - name: Verify 180px inventory originals
         run: node --experimental-strip-types scripts/quality/check-inventory-original-icons.ts
-
-      - name: Test
-        run: pnpm test
-
-      - name: Build
-        run: pnpm build
