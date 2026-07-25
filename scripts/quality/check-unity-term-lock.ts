@@ -84,6 +84,25 @@ const contentContracts: ContentContract[] = [
       'docs/unity-mobile-performance-budget.md',
       'docs/mobile-release-qa-gates.md',
     ],
+    forbidden: [
+      'docs/mobile-release-readiness-checklist.md',
+    ],
+  },
+  {
+    file: '.github/workflows/ci.yml',
+    required: [
+      'cancel-in-progress: true',
+      'timeout-minutes: 20',
+      'pnpm implementation:preflight:check',
+      'Upload implementation preflight log',
+      'Verify U48 production visual chain',
+      'pnpm unity:u48-human-selection:check',
+      'pnpm unity:u48-approved-production-set:check',
+      'pnpm unity:u48-production-visual-connection:check',
+      'pnpm unity:u48-production-visual-verification:check',
+      'pnpm test',
+      'pnpm build',
+    ],
     forbidden: [],
   },
 ];
@@ -146,7 +165,7 @@ for (const file of files) {
 
 for (const contract of contentContracts) {
   if (!existsSync(contract.file)) {
-    findings.push({ file: contract.file, line: 0, message: 'current mobile contract file is missing' });
+    findings.push({ file: contract.file, line: 0, message: 'current contract file is missing' });
     continue;
   }
 
@@ -164,7 +183,7 @@ for (const contract of contentContracts) {
 }
 
 if (findings.length > 0) {
-  console.error('unity term and active mobile contract check failed');
+  console.error('unity term and active contract check failed');
   for (const finding of findings) {
     const location = finding.line > 0 ? `${finding.file}:${finding.line}` : finding.file;
     console.error(`- ${location}: ${finding.message}`);
@@ -172,4 +191,4 @@ if (findings.length > 0) {
   process.exit(1);
 }
 
-console.log(`unity term and active mobile contract check passed: checked ${files.length} term-lock file(s) and ${contentContracts.length} current contract(s)`);
+console.log(`unity term and active contract check passed: checked ${files.length} term-lock file(s) and ${contentContracts.length} current contract(s)`);
