@@ -1,0 +1,41 @@
+name: Temporary U48 Policy Hash Refresh
+
+on:
+  push:
+    branches:
+      - maintenance/u49-integrity-audit-20260724
+
+permissions:
+  contents: write
+
+concurrency:
+  group: u48-policy-hash-refresh-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          ref: maintenance/u49-integrity-audit-20260724
+          fetch-depth: 0
+
+      - name: Refresh tracked policy hashes
+        run: python3 scripts/unity/refresh-u48-batch-c-policy-hashes.py
+
+      - name: Commit refreshed manifests
+        run: |
+          if git diff --quiet -- docs/design-targets/generated/unity-u48/batch-c/golden-references.json docs/design-targets/generated/unity-u48/batch-c/generation-contracts.json; then
+            echo "U48 Batch C policy hashes are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/design-targets/generated/unity-u48/batch-c/golden-references.json
+          git add docs/design-targets/generated/unity-u48/batch-c/generation-contracts.json
+          git commit -m "Refresh U48 Batch C policy reference hashes"
+          git push origin HEAD:maintenance/u49-integrity-audit-20260724
