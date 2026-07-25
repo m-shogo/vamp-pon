@@ -9,9 +9,14 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,6 +48,17 @@ jobs:
           path: implementation-preflight.log
           if-no-files-found: error
           retention-days: 14
+
+      - name: Verify U48 production visual chain
+        run: |
+          pnpm unity:u48-production-asset-expansion:check
+          pnpm unity:u48-production-asset-approval-pack:check
+          pnpm unity:u48-human-selection:check
+          pnpm unity:u48-approved-production-set:check
+          pnpm unity:u48-production-visual-connection:check
+          pnpm unity:u48-production-visual-verification:check
+          pnpm unity:u48-stage-select-runtime:check
+          pnpm unity:u48-replacement-interaction:check
 
       - name: Verify Core5 gameplay frames
         run: |
