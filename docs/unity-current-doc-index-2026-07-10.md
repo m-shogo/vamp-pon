@@ -42,6 +42,7 @@ Then: U51 RC
 Unity Editor=6000.5.1f1
 2D URP
 uGUI runtime
+runtimeVisualClassification=production-animated-sprite
 simulatorPlayableCandidateReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
 characterDotRuntimeReady=true
