@@ -102,9 +102,12 @@ namespace VampPon.UnitySpike.Runtime.Visuals
             }
 
             frameTimer += Time.deltaTime;
-            if (frameTimer >= animationSet.FrameDuration)
+            var frameDuration = State == RuntimeCharacterAnimationState.Idle
+                ? animationSet.FrameDuration * 4f
+                : animationSet.FrameDuration;
+            if (frameTimer >= frameDuration)
             {
-                frameTimer -= animationSet.FrameDuration;
+                frameTimer -= frameDuration;
                 var frames = animationSet.Frames(State, Facing);
                 frameIndex = (frameIndex + 1) % frames.Length;
                 ApplyFrame();

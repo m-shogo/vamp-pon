@@ -83,6 +83,10 @@ Next: U50 performance/touch metrics
 Then: U51 RC
 ```
 
+U49の実機人間reviewがFAILの場合はU50へ進めず、
+`docs/unity-u49-actual-device-quality-remediation-2026-07-27.md`
+のruntime・audio・UI是正と再reviewを優先する。
+
 ```txt
 implementationFoundationReady=true
 runtimeVisualClassification=production-animated-sprite

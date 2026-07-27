@@ -56,7 +56,8 @@ for (const key of ['devicePlayableReady', 'mobileMetricsReady', 'audioMixerReady
 check('generated images candidate only', allText.includes('candidate-only') && allText.includes('not final'));
 check('StageSelect pause gate remains', u1.includes('SetOverlayBattlePaused(true)') && u1.includes('U43StageSelectRuntimeOverlay'));
 check('Result pause gate remains', u1.includes('OpenResultOverlay') && u1.includes('U43ResultRuntimeOverlay'));
-check('UI movement guard remains', player.includes('EventSystem.current.IsPointerOverGameObject') && player.includes('IsMovementArea') && player.includes('Screen.width * 0.42f'));
+check('UI movement guard remains', player.includes('EventSystem.current.IsPointerOverGameObject') && player.includes('IsMovementArea') &&
+  player.includes('Screen.width * 0.52f') && player.includes('activeTouchId') && player.includes('touch.press.wasPressedThisFrame'));
 check('U43 predevice remains valid', predevice.includes('"evidenceKind": "Editor automated pre-device smoke"') && predevice.includes('"actualDeviceSmokeResult": "NOT_PROVIDED"'));
 check('U43 iOS preflight remains valid', ios.includes('"evidenceKind": "iOS build generation preflight"') && ios.includes('"iosBuildGenerationReady": true') && ios.includes('"deviceRunConfirmed": false'));
 check('AppQualityStyleTokens preserved', read(required[7]).includes('ReferenceWidth = 390f') && read(required[7]).includes('Generated screen images are references only'));

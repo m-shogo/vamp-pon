@@ -14,8 +14,8 @@ namespace VampPon.UnitySpike.UI
         public const float ComfortableTapTarget = 56f;
         public const float PaperPanelRadius = 8f;
         public const float HudTopReservedHeight = 72f;
-        public const float VirtualStickMaxWidthRatio = 0.42f;
-        public const float VirtualStickMaxHeightRatio = 0.34f;
+        public const float VirtualStickMaxWidthRatio = 0.52f;
+        public const float VirtualStickMaxHeightRatio = 0.46f;
 
         public const float SpacingXs = 4f;
         public const float SpacingS = 8f;

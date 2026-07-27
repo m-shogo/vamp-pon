@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
   "physicalDevice": true,
-  "backgroundObserved": false,
+  "backgroundObserved": true,
   "foregroundObserved": false,
   "sameProcessConfirmed": false,
   "audioRecovered": false,
   "hapticRecovered": false,
   "passed": false,
-  "status": "NOT_MEASURED"
+  "status": "BACKGROUND_OBSERVED_FOREGROUND_RECOVERY_NOT_PROVEN"
 }

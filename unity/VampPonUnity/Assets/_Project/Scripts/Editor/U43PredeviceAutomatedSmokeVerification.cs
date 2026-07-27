@@ -180,8 +180,10 @@ namespace VampPon.UnitySpike.Editor
             uiMovementCollisionGuardReady = SourceContains("EventSystem.current.IsPointerOverGameObject") &&
                                             SourceContains("IsPointerOverUi") &&
                                             SourceContains("dragging = false");
-            virtualStickLowerLeftOnly = SourceContains("Screen.width * 0.42f") &&
-                                        SourceContains("Screen.height * 0.34f");
+            virtualStickLowerLeftOnly = SourceContains("Screen.width * 0.52f") &&
+                                        SourceContains("Screen.height * 0.46f") &&
+                                        SourceContains("activeTouchId") &&
+                                        SourceContains("touch.press.wasPressedThisFrame");
             SavePreflight();
             report.Add($"preflight: bootSceneOpen={bootSceneOpenReady}, stage1SceneOpen={stage1SceneOpenReady}, buildSceneReady={buildSceneReady}, proofSceneExcluded={proofSceneExcluded}");
         }

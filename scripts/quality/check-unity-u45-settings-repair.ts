@@ -108,7 +108,8 @@ check('no embedded provisioning value in docs/evidence', !/provisioning(Profile)
 
 check('StageSelect pause guard preserved', u1Runtime.includes('SetOverlayBattlePaused(true)') && u1Runtime.includes('SetOverlayBattlePaused(false)'));
 check('Result pause guard preserved', u1Runtime.includes('OpenResultOverlay') && u1Runtime.includes('U43ResultRuntimeOverlay'));
-check('input/tap guard preserved', player.includes('EventSystem.current.IsPointerOverGameObject') && player.includes('IsMovementArea') && player.includes('Screen.width * 0.42f'));
+check('input/tap guard preserved', player.includes('EventSystem.current.IsPointerOverGameObject') && player.includes('IsMovementArea') &&
+  player.includes('Screen.width * 0.52f') && player.includes('activeTouchId') && player.includes('touch.press.wasPressedThisFrame'));
 check('U45 candidates remain not final', u45Readiness.includes('"candidateAssetsApprovedAsFinal": false') && u45Readiness.includes('"actualDeviceSmokeResult": "NOT_PROVIDED"'));
 
 if (failures.length > 0) {

@@ -288,7 +288,7 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 | production DataRegistry | U47実装済み |
 | Result/Collection read model | U46実装済み |
 | U48 production asset expansion | 46 asset / 138 Simulator captureで完了 |
-| actual device/audio/haptic | U49 architecture・signed device build・installまで実施済み。現行runtimeの再build、launch、測定、人間判定は未完了 |
+| actual device/audio/haptic | U49 build・install・launch、22 SE、10 haptic、Core Haptics Supportedまで実機確認済み。音質は人間FAIL、touch/UI/黒耀化操作の是正と18項目reviewは未完了 |
 | performance/touch metrics | U50 threshold calibration前、未確認 |
 | RC/production | false |
 

@@ -1,17 +1,18 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
   "physicalDevice": true,
-  "humanObservationProvided": false,
+  "humanObservationProvided": true,
   "speakerVolumesReviewed": [],
   "headphoneReviewed": false,
   "bgmPolicy": "INTENTIONAL_SILENCE_NO_PRODUCTION_BGM_CANDIDATE",
   "audibleClipping": "NOT_MEASURED",
-  "harshness": "NOT_MEASURED",
+  "harshness": "REJECTED: sounds cheap and lacks impact or exhilaration",
   "seMasking": "NOT_MEASURED",
   "pickupSpam": "NOT_MEASURED",
   "climaxBalance": "NOT_MEASURED",
   "resultBalance": "NOT_MEASURED",
   "backgroundRecovery": "NOT_MEASURED",
-  "mixReviewPassed": false
+  "mixReviewPassed": false,
+  "humanVerdict": "FAIL"
 }

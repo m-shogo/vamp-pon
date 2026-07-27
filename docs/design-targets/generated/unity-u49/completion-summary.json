@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
   "status": "BLOCKED",
   "u49": "BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE",
   "completed": false,
@@ -15,8 +15,8 @@
   "iosDeviceExportPassed": true,
   "xcodeReleaseBuildPassed": true,
   "installPassed": true,
-  "launchPassed": false,
+  "launchPassed": true,
   "humanDecisionProvided": false,
-  "nextPhase": null,
+  "nextPhase": "U49 remediation and repeat physical-device review",
   "u50Blocked": true
 }

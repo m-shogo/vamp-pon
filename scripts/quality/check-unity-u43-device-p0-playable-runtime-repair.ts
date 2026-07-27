@@ -103,7 +103,8 @@ check('StageSelect return keeps battle paused',
 check('Battle update pause gate exists', /private bool runtimePaused = true;/.test(runtime) && /public bool IsRuntimePaused => runtimePaused;/.test(runtime) && /if \(runtimePaused\)[\s\S]*return;[\s\S]*elapsedSeconds \+= Time\.deltaTime;/.test(runtime));
 check('Overlay movement input blocked', /SetRuntimeInputBlocked\(paused(State)?\)/.test(runtime) && /public void SetRuntimeInputBlocked\(bool blocked\)/.test(runtime) && /if \(runtimeInputBlocked\)[\s\S]*return;/.test(runtime));
 check('UI tap movement collision guard exists', runtime.includes('EventSystem.current.IsPointerOverGameObject') && runtime.includes('IsPointerOverUi') && runtime.includes('dragging = false'));
-check('Virtual stick lower-left only', runtime.includes('Screen.width * 0.42f') && runtime.includes('Screen.height * 0.34f'));
+check('Virtual stick lower-left only', runtime.includes('Screen.width * 0.52f') && runtime.includes('Screen.height * 0.46f') &&
+  runtime.includes('activeTouchId') && runtime.includes('touch.press.wasPressedThisFrame'));
 check('Audio listener/source implemented', runtime.includes('AudioListener') && runtime.includes('AudioSource') && (runtime.includes('PlayOneShot') || (runtime.includes('PlayScheduled') && runtime.includes('U49ProductionAudioProfile'))));
 check('Haptic runtime hook implemented', runtime.includes('HapticRuntimeHookReady') && (runtime.includes('Handheld.Vibrate') || (runtime.includes('VP_Haptics_Play') && runtime.includes('IU28HapticPlatformAdapter'))));
 check('Feedback bridge boundary explicit', runtime.includes('UsesRuntimeHookToneOnly => false') && runtime.includes('AudioMixerAssetConnected') && runtime.includes('AudioMixerReady => false') && runtime.includes('AudioLatencyMeasured => false') && runtime.includes('HapticMeasured => false'));

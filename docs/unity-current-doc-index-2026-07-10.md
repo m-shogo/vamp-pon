@@ -60,6 +60,10 @@ Next: U50 performance/touch metrics
 Then: U51 RC
 ```
 
+U49実機reviewで音質、touch、常時揺れ、TOP/StageSelect/LevelUp、黒耀化操作経路の不合格が確認された。U50へ進む前に
+`docs/unity-u49-actual-device-quality-remediation-2026-07-27.md`
+を完了する。
+
 ## 現在の境界
 
 ```txt

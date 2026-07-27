@@ -62,7 +62,8 @@ check('StageSelect pause gate exists', runtime.includes('SetOverlayBattlePaused(
 check('Result pause gate exists', runtime.includes('OpenResultOverlay') && runtime.includes('resultPauseGateReady'));
 check('StageSelect return pause exists', runtime.includes('stageSelectOverlay.SetActive(true)') && runtime.includes('stageSelectReturnPauseReady'));
 check('UI movement collision guard exists', runtime.includes('EventSystem.current.IsPointerOverGameObject') && runtime.includes('IsPointerOverUi'));
-check('virtual stick lower-left only exists', runtime.includes('Screen.width * 0.42f') && runtime.includes('Screen.height * 0.34f'));
+check('virtual stick lower-left only exists', runtime.includes('Screen.width * 0.52f') && runtime.includes('Screen.height * 0.46f') &&
+  runtime.includes('activeTouchId') && runtime.includes('touch.press.wasPressedThisFrame'));
 check('runtime input blocked visible to harness', runtime.includes('RuntimeInputBlocked') && runtime.includes('CurrentVelocity'));
 const historicalToneBoundary = runtime.includes('AudioClip.Create') && runtime.includes('not final SE');
 const u49ProductionAudioBoundary = !runtime.includes('AudioClip.Create') && u49MixerExists && u49Owner.includes('PlayScheduled') && u49Owner.includes('outputAudioMixerGroup') && /"audioMixerReady": false/.test(u49Readiness);
