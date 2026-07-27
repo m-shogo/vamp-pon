@@ -64,6 +64,10 @@ U49実機reviewで音質、touch、常時揺れ、TOP/StageSelect/LevelUp、黒�
 `docs/unity-u49-actual-device-quality-remediation-2026-07-27.md`
 を完了する。
 
+StageSelect／LevelUpはstructural remediation後も人間reviewで`FAIL`となった。キャラクター・敵以外のwhole-app visualは未承認であり、U49 Audio/Hapticとは分離したHeavy Design Phaseで扱う。phase IDを割り当て、実装を開始する前の監査正本は
+`docs/unity-whole-app-heavy-design-audit-2026-07-27.md`
+とする。既存の`runtimeVisualReady=true`はU48 asset connectionの履歴値であり、whole-app human visual approvalを意味しない。
+
 ## 現在の境界
 
 ```txt
@@ -129,6 +133,8 @@ productionApproved=false
 - `docs/design-targets/generated/unity-u49/readiness.json`
 - `docs/design-targets/generated/unity-u49/device-build-result.json`
 - `docs/design-targets/generated/unity-u49/device-install-launch-result.json`
+- `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json`
+- `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/human-visual-rejection.json`
 - `docs/design-targets/generated/unity-u50/thresholds.json`
 - `docs/design-targets/generated/unity-current-state/state.json`
 

@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "auditId": "whole-app-heavy-design-audit-2026-07-27",
+  "runtimeSourceCommit": "6a18de469426f923aa107c7e5f1d5ebd9bc814c9",
+  "branch": "integration/u49-pr75-integrity-20260727",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "scope": "visual audit only; no runtime design implementation",
+  "captureProvenance": {
+    "auditedRuntimeTreeCommit": "6a18de469426f923aa107c7e5f1d5ebd9bc814c9",
+    "u47CaptureTiming": "captured immediately before the audit source tree was committed as 6a18de469426f923aa107c7e5f1d5ebd9bc814c9",
+    "u47ManifestSourceHeadNote": "the U47 manifest records its pre-commit parent because capture artifacts were included in the same commit; the runtime-relevant source tree is identical to 6a18de469426f923aa107c7e5f1d5ebd9bc814c9",
+    "collectionCapture": "recaptured from the same unchanged Simulator build with the existing U46 diagnostic route on 2026-07-27"
+  },
+  "humanDecision": {
+    "stageSelect": "FAIL",
+    "levelUp": "FAIL",
+    "wholeAppVisualAccepted": false,
+    "statement": "キャラクターと敵キャラクターの画像は良いが、それ以外の画面要素は仮UIに見え、ヨルノシルベ固有の完成デザインとして未承認",
+    "supersedesAutomatedVisualApproval": true
+  },
+  "classificationDefinitions": {
+    "KEEP": "完成品質の候補として残せる",
+    "POLISH": "素材は再利用できるが構成・質感・実機可読性の調整が必要",
+    "REPLACE": "仮UI、汎用UI、世界観不一致のため画面または主要部を作り直す",
+    "MISSING": "必要な正式画面または専用素材が存在しない"
+  },
+  "screens": [
+    {
+      "id": "top",
+      "classification": "MISSING",
+      "capture": null,
+      "reason": "独立TOP stateと完成画面が存在せず、BootからStageSelectへ直接遷移する"
+    },
+    {
+      "id": "stage-select",
+      "classification": "REPLACE",
+      "capture": "screenshots/01-stage-select.png",
+      "sha256": "94975f011b127849fcad031a96b29bf1c8b198c5fd6b0783638db6dada5b9ea7",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+      "formalImageUse": [
+        "U48 stage-select title/card/state/metadata/button PNG",
+        "U45 paper map panel, lantern accent, ink divider"
+      ],
+      "primitiveUse": [
+        "C# generated ScrollRect and RectMask2D",
+        "3px単色Imageを回転したroute line",
+        "TextMeshPro labels",
+        "fixed anchor and color state composition"
+      ]
+    },
+    {
+      "id": "battle-background",
+      "classification": "POLISH",
+      "capture": "screenshots/02-battle-hud-background.png",
+      "sha256": "3d5e2d46bc972b74c5f264f4ba6982d084de4356d43629023cfcf93f842a7245",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "formalImageUse": [
+        "U48 stage1-background production PNG",
+        "U48 Yui and Onbu production sprite sheets",
+        "U48 gameplay VFX and pickups"
+      ],
+      "primitiveUse": [
+        "procedural radial lantern glow",
+        "single sliced background plane",
+        "C# positioned HUD and controls"
+      ]
+    },
+    {
+      "id": "battle-hud",
+      "classification": "REPLACE",
+      "capture": "screenshots/02-battle-hud-background.png",
+      "sha256": "3d5e2d46bc972b74c5f264f4ba6982d084de4356d43629023cfcf93f842a7245",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "formalImageUse": [
+        "U48 HP/timer/top status/inventory/rare/黒耀化 frame PNG"
+      ],
+      "primitiveUse": [
+        "C# generated bars, labels, slot rows and anchors",
+        "generic text-heavy status rows",
+        "formal item icon art is absent"
+      ]
+    },
+    {
+      "id": "pause",
+      "classification": "MISSING",
+      "capture": null,
+      "reason": "pause ownership and SystemMenu reason exist, but player-facing pause screen and formal assets do not exist"
+    },
+    {
+      "id": "level-up",
+      "classification": "REPLACE",
+      "capture": "screenshots/03-levelup.png",
+      "sha256": "8767232a96572db7f9d2d4021de7daeec7e88c40620ea3ccbece721f7995a207",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+      "formalImageUse": [
+        "U48 card/title/description/icon-frame/selection PNG",
+        "U45 card candidates"
+      ],
+      "primitiveUse": [
+        "C# generated card hierarchy and inner borders",
+        "solid-color rarity borders and glow",
+        "TextMeshPro rarity labels",
+        "placeholder icon frames without item-specific formal icon art"
+      ]
+    },
+    {
+      "id": "inventory",
+      "classification": "REPLACE",
+      "capture": "screenshots/04-inventory.png",
+      "sha256": "2d149032eb86d625a544e6341a46fc2d2b3cd0177be96f3b97177d488ae0b56b",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+      "formalImageUse": [
+        "U48 weapon/passive/rare slot frame PNG"
+      ],
+      "primitiveUse": [
+        "C# generated rows, progress, text and empty slot treatment",
+        "item-specific formal icon art is absent"
+      ]
+    },
+    {
+      "id": "replacement",
+      "classification": "REPLACE",
+      "capture": "screenshots/05-replacement.png",
+      "sha256": "7e6e933987298d5b2a1aa6c9e8d7cc92208b375811cd4f3a087593c16a8cc5fe",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+      "formalImageUse": [
+        "U48 modal/candidate/slot/selected/confirm/cancel PNG"
+      ],
+      "primitiveUse": [
+        "C# generated modal hierarchy",
+        "text-led comparison rows",
+        "selection presentation built from tint and rectangle composition"
+      ]
+    },
+    {
+      "id": "evolution",
+      "classification": "REPLACE",
+      "capture": "screenshots/06-evolution-ready.png",
+      "sha256": "2e41a5555314d200b007e70c3c7f00e3dd806cfef8dbbe4eaba3eb0b46690685",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/10-fusion-ready.png",
+      "supportingCapture": "screenshots/07-evolution-runtime.png",
+      "supportingSha256": "95e4423576b7e165260f4a7b304e286ea59679031b412b4c13ac19fe5abf0cab",
+      "formalImageUse": [
+        "U48 ground-area/VFX PNG"
+      ],
+      "primitiveUse": [
+        "dedicated evolution reveal screen is absent",
+        "screen-level climax, seal break and rarity presentation are absent"
+      ]
+    },
+    {
+      "id": "awakening",
+      "classification": "REPLACE",
+      "capture": "screenshots/08-awakening.png",
+      "sha256": "12532f805343efbbad4a4938b18a2a8a2eba4c6ab6a3a256ad972b07b736c03d",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/13-unforgotten-name.png",
+      "formalImageUse": [
+        "U48 gameplay sprites and VFX"
+      ],
+      "primitiveUse": [
+        "dedicated awakening presentation and memory reveal UI are absent"
+      ]
+    },
+    {
+      "id": "kokuyou",
+      "classification": "POLISH",
+      "capture": "screenshots/09-kokuyou-ready.png",
+      "sha256": "7594e67d6a8fabb652e0c9cb3d11fa32b3b3c6f790fb59b0a20197eec9b19238",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+      "supportingCapture": "screenshots/10-kokuyou-active.png",
+      "supportingSha256": "57b34ea0597062035e7df82ed96db709636b5166414ca1f7baa17260e2a9c427",
+      "formalImageUse": [
+        "U48 charging/ready/active/recovery aura PNG",
+        "U48 黒耀化 gauge frame"
+      ],
+      "primitiveUse": [
+        "C# phase binding and simple scale composition",
+        "activation reveal, lighting transition and screen treatment are insufficient"
+      ]
+    },
+    {
+      "id": "result",
+      "classification": "REPLACE",
+      "capture": "screenshots/11-result.png",
+      "sha256": "c797b187b366a4713bb0e732c7262e3cc20843b6ec4cadb044e794c70b723ce1",
+      "source": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+      "formalImageUse": [
+        "U46 candidate memory page/seal/chip/card/button PNG",
+        "U48 result panel/header/row/button PNG"
+      ],
+      "primitiveUse": [
+        "C# generated labels, stat grid and reward rows",
+        "text-heavy report layout",
+        "screen hierarchy remains ledger/dashboard-like"
+      ]
+    },
+    {
+      "id": "collection",
+      "classification": "POLISH",
+      "capture": "screenshots/12-collection.png",
+      "sha256": "1464464fc41028bee191cdff478ea6d05d5ad6f7c849c67647638502b1aef1c3",
+      "source": "current runtime U46AiSimulatorSmokeBridge/09-collection-index.ppm, downsampled to 390x844",
+      "formalImageUse": [
+        "U46 candidate book page/tab/entry/lock/badge/nav PNG"
+      ],
+      "primitiveUse": [
+        "C# generated tabs, entry grid, labels and detail overlay",
+        "generic TMP typography",
+        "large empty page area and weak selection hierarchy"
+      ]
+    }
+  ],
+  "assetLevelFindings": {
+    "keepCandidates": [
+      "Yui production animation sprites",
+      "Onbu production animation sprites",
+      "enemy death effect"
+    ],
+    "reusableWithPolish": [
+      "stage1 background base",
+      "黒耀化 aura assets",
+      "Collection book/page base"
+    ],
+    "missingFormalFamilies": [
+      "TOP composition",
+      "pause composition",
+      "StageSelect night-road background/path/node/lantern/ink-lock/stage vignette",
+      "item-specific weapon/passive/rare icons",
+      "LevelUp memory-slip and rarity-specific complete families",
+      "formal typography hierarchy",
+      "transition and selection VFX families",
+      "unified button/card/panel/tag/seal/stamp 9-slice system"
+    ]
+  },
+  "crossScreenElements": [
+    {
+      "id": "buttons",
+      "classification": "REPLACE",
+      "reason": "画像frameは存在するが画面横断の形、押下、選択、disabled階層が未統一"
+    },
+    {
+      "id": "cards",
+      "classification": "REPLACE",
+      "reason": "矩形と文字の比率が強く、記憶札、記録頁、戦利品の意味差が弱い"
+    },
+    {
+      "id": "frames",
+      "classification": "POLISH",
+      "reason": "一部PNGは再利用候補だが、線幅、角、紙質、実機pixel-fitの再設計が必要"
+    },
+    {
+      "id": "icons",
+      "classification": "MISSING",
+      "reason": "weapon、passive、rare、settings、navigationの正式な統一icon familyがない"
+    },
+    {
+      "id": "typography",
+      "classification": "REPLACE",
+      "reason": "TMPの汎用配置が主体で、見出し、本文、数値、印の階層と和文組版が未完成"
+    },
+    {
+      "id": "transitions",
+      "classification": "MISSING",
+      "reason": "紙、黒インク、ランタン光を用いた画面遷移familyがない"
+    },
+    {
+      "id": "backgrounds",
+      "classification": "POLISH",
+      "reason": "battleとCollectionのbase再利用余地はあるが、TOP、StageSelect、Pause、Resultの完成背景が不足"
+    },
+    {
+      "id": "particles",
+      "classification": "POLISH",
+      "reason": "gameplay VFXはあるが、UI選択、rare、unlock、transition用familyが不足"
+    },
+    {
+      "id": "lighting",
+      "classification": "POLISH",
+      "reason": "procedural glowと一部auraのみで、画面意味と同期したlantern lighting systemがない"
+    },
+    {
+      "id": "selection-states",
+      "classification": "REPLACE",
+      "reason": "tint、単色glow、文字label中心で特別感と状態差が不足"
+    },
+    {
+      "id": "disabled-locked-states",
+      "classification": "REPLACE",
+      "reason": "黒インク封印、記憶欠落、未解放の世界観表現が弱く、汎用disabledに見える"
+    }
+  ],
+  "preservedStructuralWork": [
+    "battle HUD hidden on non-battle screens",
+    "StageSelect clipping fix",
+    "LevelUp readable information order",
+    "tap targets",
+    "safe area",
+    "runtime hooks",
+    "Simulator smoke and existing assertions"
+  ],
+  "u49Boundary": {
+    "audioHapticEvidenceModified": false,
+    "readinessPromoted": false,
+    "readinessRolledBack": false,
+    "designPhaseId": "UNASSIGNED",
+    "u49RemainsActualDeviceAudioHapticOnly": true
+  }
+}

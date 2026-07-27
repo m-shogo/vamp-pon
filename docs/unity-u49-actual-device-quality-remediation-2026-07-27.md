@@ -30,6 +30,9 @@ u50Blocked=true
 - 音は再生されるが、安っぽく爽快感がないため人間承認はFAIL。
 - 現在の22 clipは`approvedAsFinal=false`のままであり、mix調整だけで最終化しない。
 - TOP相当の入口、StageSelect、LevelUp選択は実機で見た目を拒否された。
+- StageSelectとLevelUpは、端切れ・情報順序の改善後も人間reviewで明示的に`FAIL`となった。キャラクターと敵以外は仮UIに見えるというwhole-app visual rejectionを
+  `docs/unity-whole-app-heavy-design-audit-2026-07-27.md`
+  に分離して記録した。
 - backgroundは観測したがforeground callback、same-process recovery、復帰直後latencyは未証明。
 - 18項目human reviewは未完了。
 
@@ -52,8 +55,8 @@ u50Blocked=true
 ## 次に必要な是正
 
 1. 22 SEをイベント階層、attack、transient、body、world identityで再設計し、候補比較後に差し替える。
-2. 独立TOP stateの必要性は、現行AppFlowのBoot -> StageSelect契約を広げる前にStageSelect実機再reviewで判定する。
-3. StageSelect / LevelUpのcurrent runtimeを実機で再確認し、人間比較する。
+2. TOPを含む全画面designはU49から分離したHeavy Design Phaseで扱う。phase IDはroadmap合意前のため`UNASSIGNED`とし、U49 branchで場当たり的なprimitive追加をしない。
+3. StageSelect / LevelUpのstructural fixは維持するが、現runtimeを`temporary structural UI`としvisual approvalには使用しない。
 4. 最新source buildでdeterministic sequenceとsame-process background / foreground recoveryを取り直す。
 5. 18項目をcontract順に明示回答する。
 
