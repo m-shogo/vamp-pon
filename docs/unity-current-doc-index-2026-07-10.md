@@ -47,6 +47,7 @@ Status: current
 7. `docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md`
 8. `docs/design-heavy-production-future-roadmap-2026-07-27.md`
 9. `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
+10. `docs/design-production-completeness-gates-v1.md`
 
 ## 現在のPhase
 
@@ -74,7 +75,9 @@ Heavy Designは現在`HOLD / documentation only`であり、画像生成・Unity
 `docs/design-heavy-production-future-roadmap-2026-07-27.md`
 を正本とする。次のチャットで方針を探し直さず継続するための再開入口、過去ミスの再発防止、プロ制作工程、画像生成brief、未確定事項は
 `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
-を読む。ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
+を読む。さらに、technical art予算、export/import仕様、component state網羅、初回体験、accessibility、商用利用・provenance、store surface、第三者reviewを含む画像生成前の必須完成ゲートは
+`docs/design-production-completeness-gates-v1.md`
+を必ず読む。ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
 
 ## 現在の境界
 
@@ -125,6 +128,7 @@ productionApproved=false
 | generated assets | `docs/asset-generation-consistency-system-v1.md` |
 | heavy design future roadmap | `docs/design-heavy-production-future-roadmap-2026-07-27.md` |
 | heavy design next-chat handoff | `docs/design-heavy-production-next-chat-handoff-2026-07-27.md` |
+| heavy design completeness gates | `docs/design-production-completeness-gates-v1.md` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
 | mobile QA | `docs/mobile-release-qa-gates.md` |
