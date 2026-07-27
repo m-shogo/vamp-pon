@@ -1,6 +1,6 @@
 # Repository Integrity Audit — 2026-07-24 to 2026-07-25
 
-Status: **COMPLETE on review branch / GitHub Actions verified**
+Status: **INTEGRATED AND LOCALLY VERIFIED / remote validation pending**
 
 ## Scope
 
@@ -11,16 +11,18 @@ Repository only:
 https://github.com/m-shogo/vamp-pon.git
 ```
 
-Remote baseline and review branch:
+Audited implementation inputs:
 
 ```txt
 origin/main baseline=9af0418418eece712a5ea6f170630c4ee8770086
-branch=maintenance/u49-integrity-audit-20260724
-verified head=7d6ccb3ee975553f5982ad083fe3cd427fd16733
-pull request=#75
+local U49 implementation head=6f90c234f07ab40dee6ff71f29a0ba0674a004e4
+PR #75 audit head=74aceef453266b1710991e352ac915d287e7e8e3
+integration branch=integration/u49-pr75-integrity-20260727
+report commit=current document commit; resolve through Git
+latest validating workflow=resolve from the integration Draft PR checks
 ```
 
-This audit used the GitHub repository as the accessible remote source of truth. The local Mac worktree and any unpushed U49/device-test commits were not accessible through the connector and were intentionally not reset, cleaned, stashed, overwritten, or force-pushed. No other repository was inspected or modified.
+The local U49 work was protected by `backup/u49-before-pr75-integration-20260727` before PR #75 was squash-integrated. The integration did not reset, clean, stash, amend, rebase, overwrite, or force-push the seven U49 commits. No other repository was inspected or modified.
 
 ## Audit objectives
 
@@ -101,11 +103,11 @@ Impact: contradictory source-of-truth files could pass `implementation:preflight
 
 Resolution:
 
-- cross-check current Phase and visual boundary across current index, README, docs index, AGENTS, CLAUDE, roadmap, runtime visual policy, and visual QA
-- reject U47-current regression
-- reject candidate-provider reconnection
-- reject device-ready or production-approved promotion without evidence
-- verify full-preflight and CI coverage contracts
+- added one canonical current-state registry and one shared active-document manifest
+- embedded exactly one fenced JSON current-state block in every active source
+- reject duplicate keys, unknown keys, malformed blocks, duplicate markers, and canonical mismatch
+- reject U47-current regression, candidate-provider reconnection, and unsupported readiness promotion
+- verify full-preflight and CI coverage contracts from typed manifests
 
 ### P0: formal term checker did not cover active operating documents
 
@@ -135,7 +137,12 @@ Added coverage for:
 - StageSelect runtime
 - Replacement interaction
 - current runtime visual readiness
+- U49 static/evidence checker
+- U50 unresolved-threshold gate
+- Unity meta GUID checker
 - tests and build
+
+The runner and static checker now import the same typed manifest. Missing critical checks, duplicate entries, unknown package scripts, or invalid phase/dependency order fail static preflight.
 
 ### P1: CI did not execute source-of-truth or full preflight
 
@@ -162,6 +169,8 @@ fetch-depth: 0
 ```
 
 The ancestry checker was preserved without weakening its evidence contract.
+
+`fetch-depth: 0` downloads full reachable branch history and costs more network/time than a shallow checkout. This is intentional while recorded evidence can reference older ancestors. A future optimization may fetch only the base/head plus each recorded evidence commit, but must prove every ancestry check before replacing the full-history checkout.
 
 ### P1: U49 scope could absorb completed U48 visual work
 
@@ -198,9 +207,9 @@ Current contracts now require:
 - U51 device-backed RC, privacy/store/known-issues, and explicit human verdict
 - no device/performance/RC promotion from Editor or Simulator alone
 
-### P1: Golden Reference SHA-256 became stale after current policy repair
+### P1: U48 Golden Reference provenance mixed historical and current policy
 
-`docs/unity-responsive-screen-policy.md` is a tracked U48 Batch C Golden Reference. Correcting the active responsive policy legitimately changed its SHA-256, causing the strict Batch C checker to reject stale manifest hashes.
+PR #75 rewrote U48 Batch C historical manifests to the hash of the current `docs/unity-responsive-screen-policy.md` while keeping the historical `sourceHead`. That mixed two points in time and broke reproducibility.
 
 Old hash:
 
@@ -208,21 +217,46 @@ Old hash:
 2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f
 ```
 
-Current hash:
+Immutable historical snapshot:
 
 ```txt
-5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae
+docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md
+SHA-256=2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f
 ```
 
 Resolution:
 
-- added `scripts/unity/refresh-u48-batch-c-policy-hashes.py`
-- it updates/checks only explicitly mutable policy-reference hashes
-- it does not regenerate timestamps, recipes, prompts, candidate outputs, or historical screenshots
-- refreshed the exact references in:
+- restored the policy content from historical source HEAD `eba336591d6414465a87cbe72db69715d7517d61`
+- changed historical manifests to reference the immutable snapshot
+- added `policy-supersession.json` for the separately reviewed current policy hash and compatibility result
+- changed `scripts/unity/refresh-u48-batch-c-policy-hashes.py` into a read-only integrity checker
+- prohibited current-policy references in:
   - `docs/design-targets/generated/unity-u48/batch-c/golden-references.json`
   - `docs/design-targets/generated/unity-u48/batch-c/generation-contracts.json`
-- full preflight now runs the utility in `--check` mode before the Batch C contract checker
+- did not regenerate timestamps, prompts, candidates, runtime assets, human approval, or historical screenshots
+
+### P1: U49 BGM QA contradicted intentional silence
+
+U49 had no production-approved BGM candidate, but the QA text required an audible BGM sequence and treated any silence as a failure.
+
+Resolution:
+
+- adopted machine-readable `INTENTIONALLY_DISABLED`
+- production BGM clip count remains 0 and audible expectation remains false
+- missing/null clip errors, unexpected playback, and duplicate sources remain failures
+- static AudioMixer implementation is separated from actual-device verification
+- intentional silence does not promote `audioReady`
+
+### P1: U50 thresholds were not machine-decidable
+
+No calibrated target device class or measured baseline exists, so numeric PASS thresholds were not invented.
+
+Resolution:
+
+- added `docs/design-targets/generated/unity-u50/thresholds.json`
+- all required numeric/method/acceptance fields remain `null`
+- `u50ThresholdsDefined=false`, `calibrationRequired=true`, and `mobileMetricsReady=false`
+- U50 stays blocked until threshold calibration and a future checker/schema promotion
 
 ### P2: Batch C hash failures lacked actionable diagnostics
 
@@ -287,12 +321,12 @@ scripts/unity/refresh-u48-batch-c-policy-hashes.py
 ## Explicit non-changes
 
 - no gameplay implementation change
-- no Unity C# runtime change
+- no U49 Unity C# runtime change made by the integrity integration; the seven pre-existing U49 commits are preserved
 - no image/audio asset change
 - no importer/meta change
 - no save schema change
 - no balance/reward/spawn change
-- no current readiness JSON mutation
+- no device/audio/haptic/performance/RC readiness promotion
 - no actual-device readiness promotion
 - no U50/U51 promotion
 - no direct update to `main`
@@ -300,44 +334,41 @@ scripts/unity/refresh-u48-batch-c-policy-hashes.py
 
 ## GitHub Actions verification
 
-Verified head:
+This repository document does not freeze its own report commit SHA, a moving branch HEAD, or a workflow run as “latest.” Resolve the report commit through Git and use the integration Draft PR checks for the latest validation.
+
+PR #75 CI and Stage1 Quality successes are historical input evidence only; they did not include the local U49 commits and are not validation of this integration branch.
+
+The CI contract is:
+
+- repository contracts / static preflight / full preflight / broad regression
+- U48 provenance and approval/promotion/connection/verification chain
+- U49 static/evidence checker
+- Unity meta, test, and build through the typed full-preflight manifest
+- retained static/full logs
+
+Stage1 Quality is a separate gameplay/assets fun-pass regression layer. Its overlap is intentional defense in depth; neither workflow result promotes actual-device readiness.
+
+## Local integration verification
+
+The integration worktree completed:
 
 ```txt
-7d6ccb3ee975553f5982ad083fe3cd427fd16733
-```
-
-Results:
-
-```txt
-CI #1100: SUCCESS
-run id: 30141205525
-Stage1 Quality #931: SUCCESS
-run id: 30141205511
-```
-
-CI steps confirmed:
-
-- active implementation contracts: PASS
-- full implementation preflight: PASS
-- Core5 gameplay frame existence: PASS
-- enemy 48 design catalog: PASS
-- inventory icon stock: PASS
-- 180px inventory originals: PASS
-
-Full preflight highlights:
-
-```txt
-U48 policy hash sync check: PASS
-U48 human approval/promotion/connection/verification chain: PASS
+pnpm install --frozen-lockfile: PASS
+pnpm implementation:preflight:check: PASS
+pnpm implementation:preflight:full: PASS
+pnpm test: 64 files / 418 tests PASS
+pnpm build: TypeScript and Vite production build PASS
+pnpm unity:meta:check: 1160 / 1160 unique GUIDs PASS
+U48 provenance/approval/promotion/connection/verification chain: PASS
 Replacement interaction: 34 Editor assertions PASS
-runtime visual provider: RuntimeVisualAssetProvider
-runtime visual classification: production-animated-sprite
-Unity meta GUIDs: 1137 / 1137 unique
-Vitest: 64 files / 418 tests PASS
-TypeScript + Vite production build: PASS
+U49 checker: PASS with U49_BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE
+U50 threshold checker: PASS with BLOCKED_THRESHOLD_CALIBRATION
+Unity 6000.5.1f1 normal batch compile: PASS
 ```
 
-The GitHub Actions artifacts retain static and full preflight logs for 14 days.
+The Unity compile emitted non-fatal licensing-client reconnect and shutdown warnings, then reported script compilation success and exited batchmode with code 0. No tracked Unity file changed.
+
+iOS export/Xcode Release build was not repeated because this integrity integration did not modify the preserved U49 C#, AudioMixer, or native Core Haptics implementation. Existing tracked U49 build evidence remains historical evidence; it does not replace pending physical-device launch and human review.
 
 ## Evidence boundary
 
@@ -354,16 +385,4 @@ Those remain U49-U51 evidence responsibilities.
 
 ## Merge and local integration safety
 
-This branch started from remote `origin/main` at `9af0418418eece712a5ea6f170630c4ee8770086` and is intentionally isolated from unpushed local U49 work.
-
-Before integration:
-
-1. record the actual local U49 branch, HEAD, `origin/main`, and `git status --short`
-2. preserve all uncommitted/untracked/unpushed work
-3. merge or rebase the audit branch into the real local U49 branch/worktree
-4. resolve only genuine overlaps in current docs/checkers
-5. do not reset, clean, discard, or overwrite device-test work
-6. rerun `pnpm implementation:preflight:check` and `pnpm implementation:preflight:full`
-7. rerun the relevant Unity compile/build/device sequence before any U49 readiness promotion
-
-The PR should remain reviewable/squash-mergeable until local U49 integration is explicitly safe.
+The integration branch starts from the protected local U49 HEAD and incorporates PR #75 as one squash-equivalent commit. It must remain Draft while actual-device audio/haptic human review is incomplete. Repository integration can be complete independently, but U49 readiness promotion and U50 start remain blocked.
