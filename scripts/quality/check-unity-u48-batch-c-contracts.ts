@@ -51,7 +51,8 @@ for (const entry of audit.entries) {
   check(entry.safeAreaOwner && entry.interactionOwner && Array.isArray(entry.currentStates), `${entry.assetGroup} ownership audit`);
   if (entry.currentAssetPath) {
     check(existsSync(resolve(root, entry.currentAssetPath)), `${entry.assetGroup} current asset exists`);
-    check(sha256(entry.currentAssetPath) === entry.currentSha256, `${entry.assetGroup} current asset hash`);
+    const actualCurrentHash = sha256(entry.currentAssetPath);
+    check(actualCurrentHash === entry.currentSha256, `${entry.assetGroup} current asset hash expected=${entry.currentSha256} actual=${actualCurrentHash}`);
     check(typeof entry.currentGuid === 'string' && entry.currentGuid.length === 32, `${entry.assetGroup} current GUID`);
   }
 }
@@ -63,7 +64,10 @@ for (const entry of golden.entries) {
   check(entry.references.length >= 5, `${entry.assetGroup} reference set`);
   for (const reference of entry.references) {
     check(existsSync(resolve(root, reference.path)), `${entry.assetGroup} reference exists: ${reference.path}`);
-    if (!mutableHistoricalReference(reference.path)) check(sha256(reference.path) === reference.sha256, `${entry.assetGroup} reference hash: ${reference.path}`);
+    if (!mutableHistoricalReference(reference.path)) {
+      const actualReferenceHash = sha256(reference.path);
+      check(actualReferenceHash === reference.sha256, `${entry.assetGroup} reference hash: ${reference.path} expected=${reference.sha256} actual=${actualReferenceHash}`);
+    }
     const previousHash = goldenReferenceHashes.get(reference.path);
     check(previousHash === undefined || previousHash === reference.sha256, `${entry.assetGroup} shared reference snapshot hash`);
     goldenReferenceHashes.set(reference.path, reference.sha256);
@@ -83,13 +87,19 @@ for (const contract of contracts.contracts) {
   contract.goldenReferencePaths.forEach((path: string, index: number) => {
     const expectedHash = contract.goldenReferenceSha256[index];
     check(goldenReferenceHashes.get(path) === expectedHash, `${contract.candidateId} golden snapshot hash ${index}`);
-    if (!mutableHistoricalReference(path)) check(sha256(path) === expectedHash, `${contract.candidateId} golden hash ${index}`);
+    if (!mutableHistoricalReference(path)) {
+      const actualGoldenHash = sha256(path);
+      check(actualGoldenHash === expectedHash, `${contract.candidateId} golden hash ${index} path=${path} expected=${expectedHash} actual=${actualGoldenHash}`);
+    }
   });
   check(contract.parentSourcePaths.length > 0 && contract.parentSourcePaths.length === contract.parentSourceSha256.length, `${contract.candidateId} parent sources`);
   contract.parentSourcePaths.forEach((path: string, index: number) => {
     const expectedHash = contract.parentSourceSha256[index];
     if (mutableHistoricalReference(path)) check(goldenReferenceHashes.get(path) === expectedHash, `${contract.candidateId} parent snapshot hash ${index}`);
-    else check(sha256(path) === expectedHash, `${contract.candidateId} parent hash ${index}`);
+    else {
+      const actualParentHash = sha256(path);
+      check(actualParentHash === expectedHash, `${contract.candidateId} parent hash ${index} path=${path} expected=${expectedHash} actual=${actualParentHash}`);
+    }
   });
   check(contract.generationTool === 'scripts/unity/build-u48-batch-c-candidates.py' && contract.generationToolVersion === '1', `${contract.candidateId} generator contract`);
   check(contract.recipePath.endsWith('/batch-c/generation-recipes.json') && recipeIds.has(contract.recipeId), `${contract.candidateId} recipe`);

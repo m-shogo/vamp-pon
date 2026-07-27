@@ -1,50 +1,42 @@
 # ヨルノシルベ Unity Runtime Visual Readiness Gate v1
 
-Date: 2026-07-10  
+Original adoption date: 2026-07-10
+Last synchronized: 2026-07-24
 Status: adopted source of truth
 
 ## 目的
 
-Unity runtimeで「キャラクター名にDotが入っている」「Point Filterが設定されている」「操作できる」といった一部条件だけを根拠に、ドットキャラクター完成・製品ビジュアル完成と誤判定しないための昇格ゲート。
+Unity runtimeで「キャラクター名にDotが入っている」「Point Filterが設定されている」「操作できる」といった一部条件だけを根拠に、ドットキャラクター完成・製品ビジュアル完成と誤判定しないための昇格ゲートです。
 
-この文書は、キャラクター・敵・戦闘用spriteのruntime readiness判定における正本とする。
+この文書は、キャラクター・敵・戦闘用sprite・production visual providerのruntime readiness判定における正本です。
 
-## 発生した事故
+## 発生した事故と恒久ルール
 
-U43では実機上でキャラクターがドットに見えない問題に対して、次の修正が行われた。
+U43では、runtime object名変更、Point Filter、静止画表示、操作可能だけでvisual repairが進んだように見えましたが、実際にはproof用Single sprite、animationなし、procedural fallbackを含む経路が残っていました。
 
-- runtime object名を `YuiRuntimeDotCharacter` へ変更
-- U5 candidate spriteへPoint Filterを適用
-- TextureImporterのFilter ModeをPointへ変更
-
-しかし実際のruntimeは次のままだった。
-
-- `U5ProofAssetProvider`を使用
-- proof用の静止画1枚を使用
-- Sprite ModeはSingle
-- sprite sheet分割なし
-- idle / walk / hurt / attack animationなし
-- asset load失敗時はprocedural characterへfallback
-
-Point Filterは既存画像の補間を止めるだけであり、非ドット素材をドット絵へ変換しない。object名もvisual evidenceではない。
+**Point Filterは既存画像の補間を止めるだけ**であり、非ドット素材をドット絵へ変換しません。**object名もvisual evidenceではない**ため、命名・import setting・route成功だけでreadinessを昇格してはいけません。
 
 ## Readiness classification
 
-runtime visualは必ず次のいずれかへ分類する。
+runtime visualは必ず次のいずれかへ分類します。
 
 | Classification | 意味 |
 | --- | --- |
 | `procedural-placeholder` | procedural生成だけで動いている |
 | `proof-static-single-sprite` | proof/candidate静止画1枚を表示している |
-| `candidate-animated-multiple-sprite` | candidate assetを使うMultiple animation runtime。U46開始条件を満たすがfinal/runtime承認ではない |
-| `production-animated-sprite` | `approvedAsFinal=true`、`runtimeApproved=true`、production provider/registry、device gameplay-size review済み |
-| `production-approved` | production animationにfinal device visual reviewとrelease QAを加えた状態 |
+| `candidate-animated-multiple-sprite` | candidate assetを使うMultiple animation runtime。歴史的U45.1到達点でありfinal/runtime承認ではない |
+| `production-animated-sprite` | `approvedAsFinal=true`、`runtimeApproved=true`、production provider/registry、responsive gameplay-size verificationが揃ったproduction runtime |
+| `production-approved` | production animationにactual-device visual review、performance/release QA、明示的product approvalを加えた状態 |
 
-現在は `production-animated-sprite`。U48で承認済みproduction catalog/providerへ接続し、46 assetを138 Simulator captureで検証した。実機・音・振動・性能・RC・アプリ全体のproduction承認は別gateである。
+現在は `production-animated-sprite` です。
+
+U48で人間承認済み46 visual groupをproduction catalogへ昇格し、production providerへ接続しました。Preview defineなしのiOS Simulator buildでCompact / Standard / Large、合計138 captureを検証済みです。
+
+この分類はactual-device、音、振動、性能、RC、store release approvalを意味しません。
 
 ## 証拠として認めないもの
 
-以下は単独では、ドットruntime完成の証拠として扱わない。
+以下は単独では、ドットruntime完成またはproduction visual完成の証拠として扱いません。
 
 ```txt
 GameObject名にDot / Pixel / Productionが含まれる
@@ -52,22 +44,24 @@ Texture filterModeがPoint
 MipmapがOFF
 静止画が表示される
 キャラクターを操作できる
-Simulator smokeが完走する
+Simulator route smokeが完走する
 Object名がplaceholderではなくなる
 checkerがファイル存在だけを確認する
+readiness JSONだけがtrueになる
+古いPhaseの成功証跡が存在する
 ```
 
-## `characterDotRuntimeReady=true` の必須条件
+## Character runtime minimum
 
-すべて満たした場合だけtrueへ変更できる。
+`characterDotRuntimeReady=true` の最低条件:
 
 ### Asset source
 
 - candidateまたはproduction approval levelのruntime providerを使用している
 - `U5ProofAssetProvider`などproof専用providerを製品経路で使用していない
-- production asset pathが明記されている
+- asset pathとprovider/registry keyが明記されている
 - proof/candidate pathをfinal runtime pathとして偽装していない
-- procedural fallbackは開発時の明示的エラー表示に限定されている
+- procedural fallbackは開発時の明示的エラー経路に限定されている
 - fallback発生をログ・evidenceで検出できる
 
 ### Sprite import
@@ -83,7 +77,7 @@ checkerがファイル存在だけを確認する
 
 ### Animation
 
-最低限、次のruntime stateが存在する。
+最低限、次のruntime stateが存在します。
 
 ```txt
 idle
@@ -92,65 +86,28 @@ hurt
 attack
 ```
 
-さらに以下を満たす。
+さらに以下を満たします。
 
 - 各stateが1枚の同一静止画を使い回していない
 - walkは2frame以上
-- idleは2frame以上を推奨。最低でも静止画使用理由を記録
 - hurt / attackは視認可能な差分がある
-- 移動方向に応じた左右反転が正しい
-- 左向き時にランタン・バッグ等の正本配置を意図せず壊していない
+- 左右方向とランタン/バッグ配置が正しい
 - input release後にwalkからidleへ戻る
 - 被弾・攻撃後に状態が戻る
 
 ### Character identity
 
 - Golden Identity Referenceが登録済み
-- 髪型、頭身、顔、ランタン、バッグ、左右配置を比較
+- 髪型、頭身、顔、ランタン、バッグ、左右配置を比較済み
 - Asset Generation Contractに従う
-- Generation Lineage manifestが存在
-- 4候補比較または既存正本assetの由来記録がある
-- Golden ReferenceとGeneration Lineageにcandidate境界が明記されている
+- Generation Lineage manifestが存在する
+- gameplay-size reviewを通過する
 
-`approvedAsFinal=true`と`runtimeApproved=true`は`productionCharacterAssetReady=true`の条件であり、U45.1 candidate runtimeの条件とは分離する。
+## Enemy runtime minimum
 
-### Gameplay-size visual review
+`enemyDotRuntimeReady=true` はキャラクターと同様にproof静止画とPoint Filterだけでは昇格しません。
 
-production承認では最低限、次の解像度で確認する。
-
-```txt
-360x800
-390x844
-430x932
-```
-
-確認項目:
-
-- ドット粒と輪郭が視認できる
-- ぼやけていない
-- 小さすぎない
-- 巨大すぎない
-- 背景や敵と同化しない
-- ランタンとバッグが読める
-- animationがちらつかない
-- pixel snapping由来の不自然な振動がない
-
-### Automated evidence
-
-- Unity compile成功
-- runtime provider検査成功
-- Sprite Mode Multiple検査成功
-- frame count検査成功
-- required animation states検査成功
-- procedural fallback未使用確認
-- Simulatorでanimation state transition確認
-- screenshot / capture証跡がある
-
-## `enemyDotRuntimeReady=true` の必須条件
-
-キャラクターと同様に、proof静止画とPoint Filterだけではtrueにしない。
-
-オンブ最低条件:
+オンブ最低state:
 
 ```txt
 idle
@@ -159,26 +116,19 @@ hurt
 death
 ```
 
-オンブ正本:
+必要条件:
 
-- 腕なし
-- 短い1本のインク芽
-- 影炎は短く丸い
-- 顔前のモヤは薄い
-- 口なし
-- 柔らかい影
+- candidateまたはproduction provider
+- Multiple frames
+- required animation state
+- family-canon review
+- gameplay-size review
+- procedural fallback非稼働
+- runtime evidence/checker一致
 
-オンブロ正本:
+## Candidate / production / releaseの分離
 
-- 両腕が太い
-- 手先は鈍い3房
-- 攻撃時に右腕が伸びる
-- 頭芽2本
-- 待機時に垂れる
-
-## Readinessの分離
-
-以下を混同しない。
+以下を混同しません。
 
 ```txt
 simulatorPlayableCandidateReady
@@ -191,14 +141,27 @@ productionEnemyAssetReady
 runtimeVisualCandidateReady
 runtimeVisualReady
 devicePlayableReady
+mobileMetricsReady
+rcReady
 productionApproved
 ```
 
-Simulatorのroute smokeだけが成功しても、character/enemy visual readinessは自動的にtrueにならない。U45.1のprovider、Multiple import、state transition、左右実画、fallback未使用、gameplay-size reviewがすべて揃った場合だけcandidate runtimeを昇格できる。
+### `runtimeVisualCandidateReady=true`
 
-現在の正しい状態:
+candidate providerを使う実animation runtimeが動き、candidate visual reviewにP0/P1がない状態です。これはU45.1 Character and Enemy Dot Runtime Passの歴史的到達点です。
+
+### `runtimeVisualReady=true`
+
+final/runtime承認済みasset、production provider/registry、required animation、responsive gameplay-size verification、production connection evidenceが揃った状態です。
+
+### `productionApproved=true`
+
+actual-device visual/playability、audio/haptic、performance、release QA、既知問題、明示的承認が揃った最終状態です。`runtimeVisualReady=true`から自動昇格しません。
+
+## 現在の正しい状態
 
 ```txt
+runtimeVisualClassification=production-animated-sprite
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
 simulatorCandidateAnimationVisualReviewPassed=true
@@ -213,21 +176,51 @@ runtimeVisualCandidateReady=false
 runtimeVisualReady=true
 runtimeCandidateAssetProviderConnected=false
 productionVisualAssetProviderConnected=true
+actualDeviceSmokeResult=NOT_PROVIDED
+devicePlayableReady=false
+mobileMetricsReady=false
+rcReady=false
+productionApproved=false
 ```
 
 `runtimeVisualCandidateReady=false`はU48のproduction promotion後にcandidate providerを製品経路から外したことを表す。
 
+U45.1のcandidate readiness JSONは歴史的証跡としてcandidate値を保持します。現在値を決めるのは `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json` です。
+
 `runtimeVisualReady=true`はfinal/runtime承認済みassetとproduction providerをU48 Simulator verificationで確認したproduction visual scopeだけに使用する。実機・音・振動・性能・RC・whole-app production承認を意味しない。
+
+## Production visual promotion chain
+
+production visualを昇格する場合、少なくとも次を同一の追跡可能なchainとして揃えます。
+
+```txt
+human decision
+-> approved production set
+-> production provider/registry connection
+-> runtime verification manifest
+-> current readiness JSON
+-> checker
+```
+
+U48 current evidence:
+
+```txt
+docs/design-targets/generated/unity-u48/human-selection-decision.json
+docs/design-targets/generated/unity-u48/approved-production-set.json
+docs/design-targets/generated/unity-u48/production-visual-connection.json
+docs/design-targets/generated/unity-u48/production-verification/manifest.json
+docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json
+```
 
 ## Checker policy
 
-repository checker:
+Repository checker:
 
 ```sh
 pnpm unity:runtime-visual-readiness:check
 ```
 
-checkerは現在のruntime実装とreadiness JSONを照合する。
+Checkerは現在のruntime実装、provider approval level、Sprite importer、animation markers、fallback状態、readiness JSONを照合します。
 
 proof providerが有効な場合は、以下がfalseであることを必須とする。
 
@@ -241,27 +234,31 @@ runtimeVisualReady
 
 将来これらをtrueへ変更する場合は、checkerも単純に削除・緩和してはならない。production provider、Multiple sprite、animation state、QA evidenceを実装し、同じcommitで判定条件を更新する。
 
+proof providerが無効な現在も、将来classificationやreadinessを変更する場合はcheckerを単純に削除・緩和してはいけません。実装・evidence・checkerを同じ変更単位で更新します。
+
 ## 禁止
 
 - object名の変更だけでreadinessを上げる
 - Point Filterだけで「ドット化完了」と記録する
 - Single spriteをsprite sheet扱いする
-- animationなしでcharacter animation readyにする
+- animationなしでcharacter/enemy animation readyにする
 - proof providerをproduction providerと呼び替える
 - procedural fallbackが発生した状態でスクショを承認する
-- Simulator route smokeを美術承認に流用する
+- Simulator route smokeだけをproduction visual承認に流用する
 - candidate画像をLineageなしでruntime finalへ昇格する
 - checkerを通すためにevidenceだけtrueへ書き換える
+- U45.1 candidate evidenceを現在のproduction stateとして扱う
+- `runtimeVisualReady=true`をactual-device/release approvalとして扱う
 
 ## 現在のフェーズ
 
-U45.1 Character and Enemy Dot Runtime Pass、Hardening、U46/U46.1、U47、U48 production asset expansionは完了。現在はU49 actual-device audio/haptic。production visual provider、animation、pause、visual/device/audio readiness分離を維持する。
+U45.1、U46、U47、U48は完了。現在はU49 actual-device audio/hapticです。U48 production provider、animation、approval、readiness分離を維持し、actual-device evidenceなしでdevice/audio/haptic readinessを上げません。
 
 ## Source of truth
 
 - `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json`
 - `scripts/quality/check-unity-runtime-visual-readiness.ts`
+- `docs/design-targets/generated/unity-u48/approved-production-set.json`
+- `docs/design-targets/generated/unity-u48/production-verification/manifest.json`
 - `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U1Stage1SceneBootstrap.cs`
-- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U5ProofAssetProvider.cs`
-- `unity/VampPonUnity/Assets/_Project/Scripts/U5/U5VisualAssetLibrary.cs`
-- `docs/asset-generation-consistency-system-v1.md`
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/Stage1RuntimeVisualAssetRegistry.cs`

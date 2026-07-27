@@ -7,7 +7,7 @@ Only work in:
 
 ## Mandatory current entry
 
-Before large Unity, design, asset, character, enemy, UI, Result, Collection, save, or gameplay work, read:
+Before large Unity, design, asset, character, enemy, UI, Result, Collection, save, gameplay, audio, haptic, performance, or release work, read:
 
 ```txt
 docs/unity-big-implementation-control-center-v1.md
@@ -17,9 +17,10 @@ docs/unity-runtime-ownership-contract-v1.md
 docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
+docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-Historical phase docs are supporting evidence, not standalone current instructions.
+Historical phase docs are supporting evidence, not standalone current instructions. Never let a historical readiness JSON override the current readiness JSON.
 
 Before a large phase:
 
@@ -35,8 +36,7 @@ pnpm implementation:preflight:full
 
 Do not claim local commands were executed when working only through GitHub connector access.
 
-Use the formal title **ヨルノシルベ**.
-Use **黒耀化**, never `黒曜化`.
+Use the formal title **ヨルノシルベ**. Use **黒耀化**, never `黒曜化`.
 
 ## Current phase order
 
@@ -48,9 +48,34 @@ Completed: U46.1 Result / Save Hardening
 Completed: U47 gameplay data/runtime
 Completed: U48 production asset expansion
 Current: U49 actual-device audio/haptic
+Next: U50 performance/touch metrics
+Then: U51 RC
 ```
 
-Preserve the completed U45.1 provider, animation, pause, and candidate/final boundaries during U46 work.
+Preserve U47 data/runtime ownership and U48 production provider/approval boundaries during U49 work.
+
+## Current readiness boundary
+
+```txt
+runtimeVisualClassification=production-animated-sprite
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
+actualDeviceSmokeResult=NOT_PROVIDED
+devicePlayableReady=false
+mobileMetricsReady=false
+audioMixerReady=false
+audioLatencyMeasured=false
+hapticMeasured=false
+rcReady=false
+productionApproved=false
+```
+
+`runtimeVisualReady=true` covers the U48 production visual runtime only. It does not prove actual-device playability, audio/haptic quality, performance, RC readiness, or release approval.
 
 ## Runtime ownership
 
@@ -69,7 +94,7 @@ Rules:
 - Result and Collection consume read models
 - proof, candidate, and production visual approval levels remain separate
 - do not keep adding feature logic directly to `U1Stage1SceneBootstrap`
-- do not add Result, Collection, save, or permanent progression to `U2BattleController`
+- do not add Result, Collection, save, permanent progression, AudioMixer policy, or release logic to `U2BattleController`
 
 ## Runtime visual readiness safety
 
@@ -79,9 +104,9 @@ Current classification:
 production-animated-sprite
 ```
 
-The current Stage1 path uses the production-level `RuntimeVisualAssetProvider`, 48-frame Multiple sprites, explicit Yui left/right frames, Yui/Onbu animators, and the U48 approved production catalog. `runtimeVisualReady=true`; actual-device, audio, haptic, performance, RC, and whole-app production approval remain false.
+The current Stage1 path uses final/runtime-approved U48 assets through the production visual provider, 48-frame Multiple sprites, explicit Yui left/right frames, and Yui/Onbu animators. U45.1 candidate animation evidence remains historical prerequisite evidence, not the current provider state. `runtimeVisualReady=true`; actual-device, audio, haptic, performance, RC, and whole-app production approval remain false.
 
-Never treat these as completed dot-runtime evidence:
+Never treat these as completed dot-runtime or production evidence by themselves:
 
 - Dot/Pixel/Runtime/Production in a GameObject name
 - Point Filter
@@ -89,7 +114,8 @@ Never treat these as completed dot-runtime evidence:
 - a visible static sprite
 - successful movement
 - successful Simulator route smoke
-- renaming a proof provider
+- renaming a provider
+- editing readiness JSON without runtime/evidence/checker changes
 
 Point Filter only disables interpolation. It does not create dot art.
 
@@ -127,7 +153,6 @@ Enemy minimum:
 - gameplay-size visual review
 
 The Simulator smoke remains valid for route/pause/input/crash only. It is not character/enemy art approval.
-
 Required:
 
 ```sh
@@ -136,9 +161,24 @@ pnpm unity:runtime-visual-readiness:check
 
 Do not weaken or bypass the checker.
 
+## U49 actual-device audio/haptic safety
+
+Editor and Simulator can prove request routing, deterministic sequences, and crash absence. They cannot promote actual-device readiness.
+
+Do not set the following true without actual-device evidence:
+
+```txt
+devicePlayableReady
+audioMixerReady
+audioLatencyMeasured
+hapticMeasured
+```
+
+Record the device/build, SE/BGM/haptic sequence, background/foreground recovery, observed failures, human review, and evidence path. U49 completion must not automatically promote U50 or U51.
+
 ## Asset generation export
 
-`src/game/data/assetGenerationPolicy.ts` is the Contract source of truth. `data/asset-factory/generation-contracts.json` is a reproducible local export and is not Git-managed. The tracked review surface is `data/asset-factory/generation-contracts.summary.json`.
+`src/game/data/assetGenerationPolicy.ts` is the Contract source of truth. `data/asset-factory/generation-contracts.json` is a reproducible local export and is not Git-managed. The tracked review surface is `data/asset-factory/generation-contracts.summary.json` plus task-specific manifests/evidence.
 
 ## UI implementation
 
@@ -157,15 +197,15 @@ New/touched screens use:
 
 Do not paste a completed generated screen image into runtime UI.
 
-## Asset generation
+## Asset generation and production approval
 
-All generated output begins as candidate.
+All new generated output begins as candidate. U48 approval applies only to the explicitly recorded 46 production groups and must not be generalized to later replacements.
 
 Require:
 
 - Asset Generation Contract
 - approved Golden Reference
-- four candidates generated from the same contract
+- four candidates generated from the same contract, or documented existing-source lineage
 - generator/version/seed when supported
 - prompt/reference/output hashes
 - Generation Lineage
@@ -173,9 +213,11 @@ Require:
 - human review
 - `approvedAsFinal=true`
 - `runtimeApproved=true`
+- gameplay-size review
+- production provider/registry connection
+- verification evidence
 
-Do not copy Web PNGs into Unity and call them production assets.
-Do not connect candidate art to production runtime.
+Do not copy Web PNGs into Unity and call them production assets. Do not connect candidate art to production runtime.
 
 ## Character visual policy
 
@@ -223,7 +265,7 @@ docs/ai-image-greenback-transparency-rule-2026-06-30.md
 - derive front/back/left/right screen placement
 - do not confuse body-left/right with screen-left/right
 - do not mirror asymmetric art without correction
-- preserve hand/shoulder/hip attachment through all states
+- preserve hand/shoulder/hip attachment through every action
 
 ## Shared 180x180 rule
 
@@ -240,8 +282,17 @@ Unless explicitly overridden:
 
 ## Engineering safety
 
-- do not change gameplay values during visual cleanup
+- do not change gameplay values during visual or documentation cleanup
 - do not touch other repositories
 - keep fallback rendering explicit and detectable
 - do not approve procedural fallback screenshots as production evidence
-- run relevant checks, commit, and push completed work
+- preserve user uncommitted and unpushed work; do not reset, clean, or force-push it
+- run relevant checks, commit, and push coherent completed work
+
+## Repository integrity
+
+- if active source-of-truth documents disagree on Phase, provider, approval, or readiness, stop feature work and repair the contradiction first
+- never promote readiness by docs-only changes
+- never use older Phase evidence as current Phase evidence
+- run the relevant checker after changing an adopted document or readiness contract
+- commit and push coherent verified changes

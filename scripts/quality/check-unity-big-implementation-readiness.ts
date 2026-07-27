@@ -27,6 +27,23 @@ function checkExecutionEvidence(
   check(`${label} unexecuted commit empty`, commit === '');
 }
 
+function checkCurrentPhaseDocument(label: string, source: string): void {
+  check(`${label} records U47 completed`, source.includes('Completed: U47'));
+  check(`${label} records U48 completed`, source.includes('Completed: U48'));
+  check(`${label} records U49 current`, source.includes('Current: U49'));
+  check(`${label} does not keep U47 current`, !source.includes('Current: U47 gameplay data/runtime'));
+}
+
+function checkCurrentVisualBoundary(label: string, source: string): void {
+  check(`${label} records production visual classification`, source.includes('production-animated-sprite'));
+  check(`${label} records production visual ready`, source.includes('runtimeVisualReady=true'));
+  check(`${label} records candidate visual superseded`, source.includes('runtimeVisualCandidateReady=false'));
+  check(`${label} records production provider connected`, source.includes('productionVisualAssetProviderConnected=true'));
+  check(`${label} records candidate provider disconnected`, source.includes('runtimeCandidateAssetProviderConnected=false'));
+  check(`${label} keeps device readiness false`, source.includes('devicePlayableReady=false'));
+  check(`${label} keeps production approval false`, source.includes('productionApproved=false'));
+}
+
 const paths = {
   controlCenter: 'docs/unity-big-implementation-control-center-v1.md',
   ownership: 'docs/unity-runtime-ownership-contract-v1.md',
@@ -35,6 +52,8 @@ const paths = {
   oldIndex: 'docs/unity-current-doc-index-2026-06-30.md',
   readiness: 'docs/design-targets/generated/unity-big-implementation/readiness.json',
   runtimeVisual: 'docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json',
+  runtimeVisualPolicy: 'docs/unity-runtime-visual-readiness-gate-v1.md',
+  visualQa: 'docs/visual-qa-gates.md',
   uiDesignSystem: 'docs/unity-ui-design-system-v1.md',
   assetConsistency: 'docs/asset-generation-consistency-system-v1.md',
   roadmap: 'docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md',
@@ -45,6 +64,8 @@ const paths = {
   claude: 'CLAUDE.md',
   packageJson: 'package.json',
   hardening: 'docs/design-targets/generated/unity-u45-1-hardening/readiness.json',
+  fullPreflight: 'scripts/quality/run-unity-big-implementation-preflight.ts',
+  ci: '.github/workflows/ci.yml',
 };
 
 for (const path of Object.values(paths)) check(`required file exists: ${path}`, existsSync(path));
@@ -59,6 +80,8 @@ const ownership = read(paths.ownership);
 const review = read(paths.review);
 const currentIndex = read(paths.currentIndex);
 const oldIndex = read(paths.oldIndex);
+const runtimeVisualPolicy = read(paths.runtimeVisualPolicy);
+const visualQa = read(paths.visualQa);
 const roadmap = read(paths.roadmap);
 const canon = read(paths.canon);
 const readme = read(paths.readme);
@@ -66,10 +89,14 @@ const docsIndex = read(paths.docsIndex);
 const agents = read(paths.agents);
 const claude = read(paths.claude);
 const packageJson = read(paths.packageJson);
+const fullPreflight = read(paths.fullPreflight);
+const ci = read(paths.ci);
 
 check('control center is adopted', controlCenter.includes('Status: adopted'));
 check('control center points to ownership contract', controlCenter.includes('docs/unity-runtime-ownership-contract-v1.md'));
 check('control center keeps U45.1 before U46', controlCenter.indexOf('### U45.1') >= 0 && controlCenter.indexOf('### U45.1') < controlCenter.indexOf('### U46'));
+check('control center records U48 completed', controlCenter.includes('### U48 Production Asset Expansion: Completed'));
+check('control center records current production visual ready', controlCenter.includes('runtimeVisualReady=true'));
 check('control center blocks bootstrap growth', controlCenter.includes('U1Stage1SceneBootstrap') && controlCenter.includes('U2BattleController'));
 check('control center defines definition/runtime/save boundary', controlCenter.includes('Definition / Runtime / Save Boundary'));
 check('control center defines stop conditions', controlCenter.includes('## Stop Conditions'));
@@ -97,14 +124,17 @@ check('ownership contract uses correct 黒耀化 term', !ownership.includes('黒
 
 check('review records obsolete index risk', review.includes('Current Unity doc index was obsolete'));
 check('review records monolith risk', review.includes('Bootstrap and Battle Controller are transitional monoliths'));
-check('review records save not implemented', review.includes('Save architecture is documented but not implemented'));
-check('review keeps production readiness false', review.includes('Production readiness: false'));
+check('review records historical save gap', review.includes('Save architecture is documented but not implemented'));
+check('review keeps historical production readiness false', review.includes('Production readiness: false'));
 
 check('new current index is current', currentIndex.includes('Status: current'));
 check('new current index starts from control center', currentIndex.includes('docs/unity-big-implementation-control-center-v1.md'));
-check('new current index records U48 completed and U49 current', currentIndex.includes('Completed: U48') && currentIndex.includes('Current: U49'));
-check('new current index records Unity 6000.5.1f1', currentIndex.includes('6000.5.1f1'));
-check('new current index does not claim Unity 6.5.1f1', !currentIndex.includes('Unity 6.5.1f1'));
+checkCurrentPhaseDocument('current index', currentIndex);
+checkCurrentVisualBoundary('current index', currentIndex);
+check('current index records Unity 6000.5.1f1', currentIndex.includes('6000.5.1f1'));
+check('current index does not claim Unity 6.5.1f1', !currentIndex.includes('Unity 6.5.1f1'));
+check('current index exposes final U48 human check', currentIndex.includes('unity:u48-human-selection:check'));
+check('current index exposes final U48 runtime verification', currentIndex.includes('unity:u48-production-visual-verification:check'));
 check('old index is historical', oldIndex.includes('Status: historical / superseded'));
 check('old index redirects to current', oldIndex.includes('unity-current-doc-index-2026-07-10.md'));
 
@@ -144,7 +174,13 @@ for (const key of [
   'rcReady',
   'productionApproved',
 ]) check(`${key} remains false`, readiness[key] === false);
-for (const key of ['candidateAssetsApprovedAsFinal','productionVisualAssetProviderConnected','runtimeVisualReady','u48ProductionVisualRuntimeReady']) check(`${key} true after U48`, readiness[key] === true);
+
+for (const key of [
+  'candidateAssetsApprovedAsFinal',
+  'productionVisualAssetProviderConnected',
+  'runtimeVisualReady',
+  'u48ProductionVisualRuntimeReady',
+]) check(`${key} true after U48`, readiness[key] === true);
 
 check('production DataRegistry implemented after U47', readiness.productionDataRegistryImplemented === true);
 
@@ -182,11 +218,36 @@ check('simulator route remains separately true', readiness.simulatorPlayableCand
 check('runtime visual current production animation', runtimeVisual.runtimeVisualClassification === 'production-animated-sprite');
 check('candidate runtime visual superseded after U48', runtimeVisual.runtimeVisualCandidateReady === false);
 check('production runtime visual ready after U48', runtimeVisual.runtimeVisualReady === true);
+check('runtime visual device readiness remains false', runtimeVisual.devicePlayableReady === false);
+check('runtime visual production approval remains false', runtimeVisual.productionApproved === false);
 
 const hardening = JSON.parse(read(paths.hardening) || '{}') as Record<string, any>;
-check('U45.1 hardening is complete', hardening.u46Ready === true && hardening.productionApproved === false);
+check('U45.1 hardening is complete historical prerequisite', hardening.u46Ready === true && hardening.productionApproved === false);
+
+checkCurrentPhaseDocument('README', readme);
+checkCurrentVisualBoundary('README', readme);
+checkCurrentPhaseDocument('docs index', docsIndex);
+checkCurrentVisualBoundary('docs index', docsIndex);
+checkCurrentPhaseDocument('AGENTS', agents);
+checkCurrentVisualBoundary('AGENTS', agents);
+checkCurrentPhaseDocument('CLAUDE', claude);
+checkCurrentVisualBoundary('CLAUDE', claude);
 
 check('roadmap keeps U45.1 before U46', roadmap.includes('## U45.1') && roadmap.indexOf('## U45.1') < roadmap.indexOf('## U46'));
+check('roadmap records U48 complete', roadmap.includes('U48 production asset expansion: complete'));
+check('roadmap records U49 current', roadmap.includes('U49 actual-device audio/haptic: current'));
+checkCurrentVisualBoundary('roadmap', roadmap);
+
+check('runtime visual policy is adopted source of truth', runtimeVisualPolicy.includes('Status: adopted source of truth'));
+check('runtime visual policy records current production classification', runtimeVisualPolicy.includes('現在は `production-animated-sprite`'));
+check('runtime visual policy separates production animated from product approval', runtimeVisualPolicy.includes('productionApproved=true') && runtimeVisualPolicy.includes('actual-device'));
+checkCurrentVisualBoundary('runtime visual policy', runtimeVisualPolicy);
+
+check('visual QA is current review policy', visualQa.includes('Status: current review policy'));
+check('visual QA keeps runtime visual gate', visualQa.includes('## Gate 11: Runtime Visual Readiness'));
+check('visual QA records current production classification', visualQa.includes('runtimeVisualClassification=production-animated-sprite'));
+checkCurrentVisualBoundary('visual QA', visualQa);
+
 check('canon links control center', canon.includes('unity-big-implementation-control-center-v1.md'));
 check('canon links ownership contract', canon.includes('unity-runtime-ownership-contract-v1.md'));
 check('README links control center', readme.includes('unity-big-implementation-control-center-v1.md'));
@@ -202,10 +263,21 @@ check('package has full preflight script', packageJson.includes('implementation:
 check('UI design system remains present', read(paths.uiDesignSystem).includes('Status: adopted foundation'));
 check('asset consistency remains present', read(paths.assetConsistency).includes('Asset Generation Contract'));
 
+for (const script of [
+  'unity:u48-human-selection:check',
+  'unity:u48-approved-production-set:check',
+  'unity:u48-production-visual-connection:check',
+  'unity:u48-production-visual-verification:check',
+  'unity:u48-batch-b-review-ready:check',
+  'unity:u48-batch-c-review-ready:check',
+]) check(`full preflight includes ${script}`, fullPreflight.includes(`'${script}'`));
+
+check('CI runs static implementation preflight', ci.includes('pnpm implementation:preflight:check'));
+
 if (failures.length > 0) {
   console.error('Unity big implementation readiness check failed');
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
 
-console.log('Unity big implementation readiness check passed: U48 visual runtime is complete, U49 is current, and device/RC/product boundaries remain false.');
+console.log('Unity big implementation readiness check passed: active docs and visual QA agree on U48 completion/U49 current, production visual runtime is ready, and device/RC/product boundaries remain false.');

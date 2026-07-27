@@ -1,67 +1,99 @@
-# Unity Responsive Screen Policy
+# ヨルノシルベ Unity Responsive Screen Policy
 
-目的: Unity版で 390x844 に固定表示する誤解を防ぎ、各スマホ画面に合わせた表示方針を固定する。
+Last synchronized: 2026-07-25  
+Status: current iOS responsive source
 
----
+## 目的
 
-## 結論
+390x844を固定表示サイズと誤解せず、iOS portrait deviceの実screen、aspect ratio、Safe Area、notch、Dynamic Island、home indicatorへ適応する方針を固定します。
 
-Unity版は 390x844 固定ではない。
+現在のproduction scopeはiOS-onlyです。Android固有のnavigation bar、device matrix、store requirementはこの文書へ混在させません。360x800や412x915等はAndroid対応宣言ではなく、layout破綻を早期検出するsynthetic responsive profileとして使用します。
+
+## Current boundary
 
 ```txt
-390x844 = design reference / minimum QA baseline
-actual devices = each smartphone screen size, aspect ratio, resolution, and Safe Areaに合わせて可変
+Reference viewport: 390x844 portrait
+Runtime UI: uGUI
+Responsive tiers: Compact / Standard / Large
+Platform scope: iOS first / current iOS-only product scope
+Current Phase: U49 actual-device audio/haptic
+Next Phase: U50 performance/touch metrics
 ```
 
-実機では、iPhone / Android / notch / dynamic island / navigation bar / rounded corner を考慮して、画面いっぱいに表示する。
+## Core rule
 
----
+```txt
+390x844 = design reference and comparison baseline
+actual device = current screen/aspect/Safe Areaに合わせて可変
+```
 
-## Why 390x844 still exists
+390x844は固定render targetでも、唯一の合格画面でもありません。
 
-390x844は、以下のための基準値。
+## Responsive tiers
 
-- UI設計の共通ものさし
-- 縦スマホで最低限読めるかのQA baseline
-- Canvas ScalerのReference Resolution
-- screenshot comparison / design review の基準
-- 小さいスマホ寄りでも破綻しないかの確認
+```txt
+Compact: 360x800 / 375x812
+Standard: 390x844 / 393x852
+Large: 412x915 / 430x932
+```
 
-つまり、390x844は「固定サイズ」ではなく「設計基準」。
+各tierの目的:
 
----
+- Compact: narrow width、短いheight、tight Safe Areaでのoverflow検出
+- Standard: design comparisonと主要screenshot baseline
+- Large: tall/wide portraitでの間延び、bottom reach、world framing検出
 
-## Runtime rule
+全screenで最低限確認:
 
-Unity実行時は、各端末の画面に合わせる。
+- TOP
+- StageSelect
+- Battle HUD
+- LevelUp
+- Replacement
+- Pause/dialog
+- Result
+- 灯録
+- Settings/audio controls
 
-- gameplay backgroundは画面全体を覆う
-- world cameraは縦画面のaspect差に応じて表示範囲を調整する
-- HUD / buttons / LevelUp / Result / dialogs are placed inside Safe Area
-- decorative background can extend outside Safe Area
-- gameplay objects may use full screen, but important readable UI must stay inside Safe Area
-
----
-
-## UI policy
-
-Canvas:
+## Canvas policy
 
 ```txt
 Canvas Scaler: Scale With Screen Size
 Reference Resolution: 390 x 844
 Screen Match Mode: Match Width Or Height
-Match: initial 0.5, tune after device checks
+Match: initial 0.5; measured screen evidenceで調整
 ```
 
-This does not mean the app renders only 390x844.
-It means UI positions and sizes are designed against a reference and scaled to the actual device.
+`Reference Resolution`はlayout座標系の基準です。実deviceを390x844へcrop/letterboxする意味ではありません。
 
----
+## Safe Area policy
 
-## Camera policy
+Safe Area内に置くcritical UI:
 
-MainCamera:
+- title/navigation
+- HP/time/level
+- pause
+- primary CTA
+- LevelUp/Replacement choices
+- Result actions
+- Settings controls
+- Ultimate / 黒耀化 control
+
+Safe Area外へ延長可能:
+
+- background
+- non-interactive vignette
+- decorative ink/paper/light
+- world rendering
+
+禁止:
+
+- notch/Dynamic Island/home indicatorへcritical text/controlが重なる
+- Safe Area補正をscreenごとに別実装
+- insetをmagic numberで重複保持
+- decorative full-screen overlayがinput raycastを奪う
+
+## World camera policy
 
 ```txt
 Projection: Orthographic
@@ -69,47 +101,135 @@ Orientation: Portrait
 World view: aspect-aware
 ```
 
-U1はカメラの完成設計ではない。
-ただし、次を避ける。
+Rules:
 
-- 390x844以外でUIが欠ける
-- wide/tall devicesでplayerが見切れる
-- notch / home indicatorにbuttonが被る
-- backgroundが黒帯になる
-- LevelUp cardがSafe Area外にはみ出る
+- playerのreadable areaを維持
+- top/bottom aspect差でspawn visibilityを壊さない
+- backgroundは黒帯を作らず自然にcover
+- narrow profileでworldを過度にzoomしない
+- large profileでbattle entityを小さくしすぎない
+- camera framing変更はspawn/attack/gameplay constantを暗黙変更しない
 
----
+## UI layout policy
 
-## QA device profiles
+- anchors/pivotsを意図的に設定
+- fixed pixel位置だけに依存しない
+- horizontal/vertical layoutはcontent sizeとoverflowを検証
+- card width、gap、padding、font sizeをresponsive profileで調整
+- icon ratio、tap target、information hierarchyは維持
+- completed screen imageへtext/controlを焼き込まない
+- Base -> Variantは最大2階層
+- Theme / Visual State / Responsive Layout Profileを使用
 
-U1/U2で最低限見る画面プロファイル:
+## Tap and reach policy
+
+U49/U50 actual-device reviewで確認:
+
+- primary CTA
+- StageSelect difficulty/start
+- virtual stick
+- pause
+- LevelUp/Replacement card
+- Ultimate/黒耀化
+- Result retry/stage/top
+- Settings volume/mute/haptic
+
+合格条件:
+
+- Compactでもtap targetが潰れない
+- Largeでも重要controlが遠すぎない
+- screen edge/controlがhome indicatorと競合しない
+- simultaneous movement + actionでinput lossがない
+- modal close後にinvisible raycast blockerが残らない
+- background/foreground後にstuck touchがない
+
+## Text and localization resilience
+
+- critical textは各tierでtruncate/overflowしない
+- small labelsを画像へ焼き込まない
+- Japanese textのline breakを確認
+- decorative Englishは差替可能
+- dynamic valueの桁増加を確認
+- font fallback/missing glyphを検出
+- accessibility text scalingを将来阻害しない構造にする
+
+## Screen-specific minimums
+
+### TOP / StageSelect
+
+- titleとprimary CTAがSafe Area内
+- map/card/descriptionがCompactでoverflowしない
+- difficulty stateが文字だけに依存しない
+
+### Battle HUD
+
+- player/enemy/EXPをUIが隠さない
+- HP/time/level/pause/Ultimateが各tierで読める
+- bottom controlがhome indicatorへ重ならない
+- large profileでHUDとworldの間延びを抑える
+
+### LevelUp / Replacement
+
+- card内容とbutton/tap areaがCompactで成立
+- scrollが必要なら意図的に設計
+- close/decline/replace actionがSafe Area内
+- overlay中にbattleが進まない
+
+### Result / 灯録
+
+- reward/action hierarchyが各tierで維持
+- bottom actionがSafe Area内
+- long list/tab/contentのoverflowを検出
+- empty/error stateも同じresponsive policyを使う
+
+## Evidence contract
+
+screen evidenceは最低限次を持ちます。
 
 ```txt
-390x844 reference
-375x812 iPhone small notch-like
-393x852 Android common portrait
-430x932 iPhone large portrait
-360x800 Android narrow portrait
-412x915 Android tall portrait
+screen/route name
+responsive tier and exact resolution
+Safe Area inset or profile
+source commit/build
+capture timestamp
+runtime assertion result
+P0/P1/P2 findings
+human review result
 ```
 
-Editor Game Viewでは、Free Aspectだけで判断しない。
-複数の固定解像度を作って確認する。
+同じscreenshotをresizeして複数tier evidenceに使いません。各profileを実際にrender/captureします。
 
----
+## Readiness boundary
+
+Responsive screenshot PASSだけでは次を昇格しません。
+
+```txt
+devicePlayableReady
+audioMixerReady
+audioLatencyMeasured
+hapticMeasured
+mobileMetricsReady
+rcReady
+productionApproved
+```
+
+- Simulatorはroute/layout/crash確認
+- actual deviceはtouch/audio/haptic/Safe Area feel
+- U50はperformance/touch metrics
+- U51はRC/product review
+
+それぞれ別evidenceとcheckerを必要とします。
 
 ## Wording rule
 
-今後のdocsでは次の表現を使う。
-
-OK:
+Use:
 
 ```txt
 390x844 reference
-390x844 baseline
-390x844基準
-各スマホ画面にresponsive対応
-Safe Area内に重要UIを配置
+390x844 comparison baseline
+Compact / Standard / Large
+actual-device Safe Area review
+responsive portrait layout
 ```
 
 Avoid:
@@ -117,26 +237,21 @@ Avoid:
 ```txt
 390x844固定
 390x844だけで確認
-390x844で表示する
+1枚のscreenshotをresizeして全tier PASS
+Simulatorで実機touch PASS
 ```
 
----
+## Required checks
 
-## U1 acceptance wording
-
-U1の合格条件は以下。
-
-```txt
-- 390x844 referenceで破綻しない
-- 複数スマホ縦解像度で重要UIがSafe Area内に収まる
-- gameplay backgroundが各端末画面を自然に覆う
-- Boot -> Stage1が実機サイズ想定で崩れない
+```sh
+pnpm implementation:preflight:check
+pnpm unity:ui-design-system:check
+pnpm unity:runtime-visual-readiness:check
+pnpm implementation:preflight:full
 ```
 
----
+GitHub connectorだけで変更した場合、Unity Game View、Simulator、actual-device captureを実行済みと報告しません。
 
 ## Final rule
 
-Unity版は、各スマホにぴったり合わせる。
-
-390x844は固定サイズではなく、設計・QA・比較のための基準値として使う。
+**390x844は設計のものさしであり、製品screenの固定枠ではありません。** 各tierとactual-device Safe Areaで、読める・押せる・worldが自然に見える状態を維持します。

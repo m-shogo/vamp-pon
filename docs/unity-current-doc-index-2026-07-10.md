@@ -1,8 +1,16 @@
-# Unity Current Doc Index 2026-07-10
+# Unity Current Doc Index
 
-U46 completion sources: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`, `docs/unity-u46-ui-asset-generation-2026-07-11.md`, `docs/unity-u46-ios-simulator-smoke-2026-07-11.md`, `docs/unity-u46-visual-review-2026-07-11.md`。U46.1 hardening sources: `docs/unity-u46-1-result-save-hardening-2026-07-11.md`, `docs/unity-u46-1-ios-simulator-regression-2026-07-11.md`。U47 completion source: `docs/unity-u47-gameplay-data-runtime-2026-07-13.md`。U48 completion source: `docs/unity-u48-production-asset-expansion-completion-2026-07-21.md`。Human decision: `docs/unity-u48-human-asset-approval-2026-07-21.md`。
-
+Original adoption date: 2026-07-10
+Last synchronized: 2026-07-24
 Status: current
+
+## Completion sources
+
+- U46: `docs/unity-u46-app-flow-save-result-collection-2026-07-11.md`
+- U46.1: `docs/unity-u46-1-result-save-hardening-2026-07-11.md`
+- U47: `docs/unity-u47-gameplay-data-runtime-2026-07-13.md`
+- U48 human decision: `docs/unity-u48-human-asset-approval-2026-07-21.md`
+- U48 completion: `docs/unity-u48-production-asset-expansion-completion-2026-07-21.md`
 
 ## 最初に読む
 
@@ -17,16 +25,16 @@ Status: current
 ## 現在のPhase
 
 ```txt
+Completed: U45.1 Character and Enemy Dot Runtime Pass
+Completed: U45.1 candidate/production readiness hardening
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
 Completed: U46.1 Result / Save Hardening
 Completed: U47 gameplay data/runtime
 Completed: U48 production asset expansion
 Current: U49 actual-device audio/haptic
-Completed prerequisite: U45.1 Character and Enemy Dot Runtime Pass
-Completed hardening: U45.1 candidate/production readiness and Asset Factory export
+Next: U50 performance/touch metrics
+Then: U51 RC
 ```
-
-U45.1のprovider、Multiple sprite、animation、方向、Golden Reference、Lineage、gameplay-size review、Simulator回帰を維持してU46へ進む。
 
 ## 現在の境界
 
@@ -34,19 +42,31 @@ U45.1のprovider、Multiple sprite、animation、方向、Golden Reference、Lin
 Unity Editor=6000.5.1f1
 2D URP
 uGUI runtime
+runtimeVisualClassification=production-animated-sprite
 simulatorPlayableCandidateReady=true
 actualDeviceSmokeResult=NOT_PROVIDED
 characterDotRuntimeReady=true
+characterAnimationReady=true
 enemyDotRuntimeReady=true
+enemyAnimationReady=true
 runtimeVisualCandidateReady=false
 runtimeVisualReady=true
 runtimeCandidateAssetProviderConnected=false
 productionVisualAssetProviderConnected=true
 productionCharacterAssetReady=true
 productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
+productionDataRegistryImplemented=true
 devicePlayableReady=false
+mobileMetricsReady=false
+audioMixerReady=false
+audioLatencyMeasured=false
+hapticMeasured=false
+rcReady=false
 productionApproved=false
 ```
+
+`runtimeVisualReady=true` はU48で承認されたvisual groupがproduction providerへ接続され、responsive Simulator verificationを通過した意味です。actual-device、音、振動、性能、RC、store release approvalは別ゲートです。
 
 ## 領域別正本
 
@@ -66,7 +86,17 @@ productionApproved=false
 
 ## Current evidence
 
+- `docs/design-targets/generated/unity-big-implementation/readiness.json`
 - `docs/design-targets/generated/unity-runtime-visual-readiness/readiness.json`
+- `docs/design-targets/generated/unity-u47/simulator-smoke/manifest.json`
+- `docs/design-targets/generated/unity-u48/approval-pack/approval-manifest.json`
+- `docs/design-targets/generated/unity-u48/human-selection-decision.json`
+- `docs/design-targets/generated/unity-u48/approved-production-set.json`
+- `docs/design-targets/generated/unity-u48/production-visual-connection.json`
+- `docs/design-targets/generated/unity-u48/production-verification/manifest.json`
+
+U45.1 evidence remains historical prerequisite evidence and must not override the current U48 readiness:
+
 - `docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json`
 - `docs/design-targets/generated/unity-u45-1/animation-smoke-result.json`
 - `docs/design-targets/generated/unity-u45-1-hardening/readiness.json`
@@ -88,29 +118,31 @@ pnpm implementation:preflight:full
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
 pnpm asset-generation:check
-pnpm unity:u45-ai-simulator-smoke:check
-pnpm unity:meta:check
+pnpm assets:verify
 pnpm unity:u47-gameplay-data-runtime:check
 pnpm unity:u48-production-asset-expansion:check
+pnpm unity:u48-production-asset-approval-pack:check
+pnpm unity:u48-human-selection:check
 pnpm unity:u48-approved-production-set:check
 pnpm unity:u48-production-visual-connection:check
 pnpm unity:u48-production-visual-verification:check
+pnpm unity:meta:check
 pnpm unity:u49-actual-device-audio-haptic:check
 ```
 
 ## Historical documents
 
-U0〜U43のPhase docsは履歴と証跡として残す。
-現在の実装順、Editor version、asset approval、READY判定を決める正本として単独使用しない。
+U0〜U45.1のPhase docsは履歴と証跡として残します。現在の実装順、Editor version、asset approval、READY判定を決める正本として単独使用しません。
 
-特に以下はhistorical:
+特に以下はhistoricalです。
 
 - U1開始用prompt
 - U1 technical spike手順
 - placeholder/proof-only合格条件
 - Point Filterだけをvisual completionとみなす古い記述
+- U45.1 candidate runtimeが現在値であるように見える記述
 - 6.5.1f1という旧version誤記
 
 ## Final rule
 
-新規エージェントはこのindexから入り、対象Phaseの個別docだけで判断しない。
+新規エージェントはこのindexから入り、対象Phaseの個別docだけで判断しません。active source of truth同士でPhase、readiness、provider、approval stateが一致しない場合は作業を停止し、先に整合性を修復します。

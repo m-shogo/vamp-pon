@@ -1,102 +1,36 @@
 # Agent PR Workflow Guide
 
-Claude Code / Codex / ChatGPT / other coding agents に作業を投げる時のPR運用ルール。
+Last synchronized: 2026-07-24  
+Status: current agent workflow
 
-目的は、スピードを落とさず、壊れにくいPRに分割すること。
+Claude Code / Codex / ChatGPT / other coding agentsへ作業を渡す時のPR運用ルールです。速度を落とさず、未push作業、runtime ownership、source of truth、readinessを壊さないことを目的とします。
 
 ## Core Rule
 
-Agentには大きい目的を渡してもよい。  
-ただし、PRは小さくする。
+Agentには大きい目的を渡してよいですが、実装単位と証跡単位は分けます。
 
 Good:
 
 ```txt
-目的: 画面品質を上げる
-PR1: 画像整理
-PR2: design docs
-PR3: Result visual
-PR4: LevelUp visual
-PR5: StageSelect visual
+目的: U49 actual-device audio/hapticを完了する
+1. device launch blocker解消
+2. deterministic audio/haptic sequence実行
+3. foreground/background回帰
+4. human review
+5. evidence/checker/readiness同期
 ```
 
 Bad:
 
 ```txt
-1PRで画像整理、全画面実装、HUD改造、Result改造、Collection改造、バランス変更
+1作業でU49、U50、U51、全画面改修、balance変更、asset再生成を同時実施
 ```
 
-## Default PR Size
+大きな統合promptを渡す場合も、agentはPhase / responsibility / evidence familyごとにcommitを分け、stop conditionを守ります。
 
-Target:
+## Repository Scope
 
-- docs-only: up to several files OK
-- visual helper: 1〜3 files
-- screen implementation: 1 screen per PR
-- gameplay logic: 1 system per PR
-- asset move: naming/folders only unless trivial
-
-Avoid:
-
-- unrelated formatting
-- broad rename
-- silent logic changes
-- multiple risky files in one PR
-
-## Preferred PR Order for Visual Upgrade
-
-1. Asset organization
-2. Design system / QA docs
-3. Shared UI helper
-4. Result Clear
-5. LevelUp
-6. StageSelect
-7. Collection
-8. Battle HUD
-9. Ultimate / 黒曜化
-10. TOP final pass
-
-Reason:
-
-- Result is low-risk and high-impact.
-- LevelUp is contained.
-- StageSelect is scene UI but not combat-critical.
-- Battle HUD is high-risk because readability matters.
-- Cutin/黒曜化 can easily become noisy, so it comes after rules are fixed.
-
-## Prompt Structure for Agents
-
-Every prompt should include:
-
-```txt
-Target repo:
-/Users/m-shogo/Developer/personal/vamp-pon only
-
-Goal:
-One clear goal
-
-Scope:
-Files or screens allowed
-
-Do not touch:
-Explicit forbidden files/systems
-
-Must preserve:
-Existing gameplay/save/test behavior
-
-Design references:
-Docs/images to use
-
-Verification:
-Commands to run
-
-Report:
-Required output format
-```
-
-## Required Opening Instruction
-
-Use this at the top of heavy prompts:
+Every heavy prompt must begin with:
 
 ```txt
 あなたは `/Users/m-shogo/Developer/personal/vamp-pon` のみを対象に作業してください。
@@ -104,278 +38,332 @@ GitHub repo は `https://github.com/m-shogo/vamp-pon.git` です。
 このrepo以外、他ディレクトリ、他プロジェクトは絶対に触らないでください。
 ```
 
-## Visual PR Prompt Template
+## Mandatory Current Entry
+
+作業前に読む順番:
 
 ```txt
-目的:
-<screen> の見た目を design-system に沿って改善してください。
-
-参照:
-- docs/design-system.md
-- docs/ui-implementation-contract.md
-- docs/visual-qa-gates.md
-- docs/asset-pipeline.md
-- docs/design-targets/README.md
-
-対象:
-- <file path>
-
-やる:
-- <specific visual tasks>
-
-やらない:
-- gameplay logic変更
-- reward/balance変更
-- save/localStorage変更
-- AI画像の一枚貼り
-- 画像内文字の使用
-
-実装方針:
-- 既存ロジックは維持
-- UIはPhaser Graphics/Text/helperで分解して再現
-- 390x844可読性を最優先
-- 大きいファイルは関数単位で最小編集
-
-検証:
-pnpm build
-pnpm test
-pnpm stage1:fun-pass:verify
-pnpm character-assets:verify
-pnpm runtime-assets:verify
-
-完了レポート:
-1. 変更ファイル
-2. gameplay logic変更有無
-3. 390x844確認
-4. 実行コマンド結果
-5. 残リスク
-6. 次PR候補
+docs/unity-big-implementation-control-center-v1.md
+docs/unity-current-doc-index-2026-07-10.md
+docs/181-current-production-canon.md
+docs/unity-runtime-ownership-contract-v1.md
+docs/unity-runtime-visual-readiness-gate-v1.md
+docs/unity-ui-design-system-v1.md
+docs/asset-generation-consistency-system-v1.md
+docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
+docs/visual-qa-gates.md
 ```
 
-## Asset Organization Prompt Template
+Historical Phase docsはsupporting evidenceです。current index/readinessを上書きする指示として使いません。
+
+Current boundary:
+
+```txt
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
+runtimeVisualClassification=production-animated-sprite
+runtimeVisualReady=true
+devicePlayableReady=false
+mobileMetricsReady=false
+rcReady=false
+productionApproved=false
+```
+
+## Before Editing
+
+1. `git status --short`とbranch/HEAD/originを確認する
+2. uncommitted/untracked workを勝手に削除・stash・resetしない
+3. 同じfile/pathを別作業が編集していないか確認する
+4. source of truth同士のPhase/readinessが一致するか確認する
+5. 大規模作業前に実行する
+
+```sh
+pnpm implementation:preflight:check
+```
+
+矛盾がある場合、feature workより先に整合性を修復します。
+
+## Default Change Size
+
+- docs/policy synchronization: coherent source-of-truth family
+- visual helper/component: 1 responsibility
+- screen implementation: 1 screen/state family
+- gameplay logic: 1 system/state transition family
+- asset change: 1 contract/approval/promotion family
+- device validation: 1 evidence matrix
+
+Avoid:
+
+- unrelated formatting
+- broad rename
+- silent logic/balance changes
+- multiple transitional monolithsの同時大改造
+- docs/readinessだけの昇格
+
+## Prompt Structure
+
+Every prompt should include:
+
+```txt
+Target repo:
+Allowed branch/worktree:
+Baseline HEAD / origin:
+Goal:
+Current Phase/readiness:
+Scope:
+Do not touch:
+Must preserve:
+Source of truth:
+Stop conditions:
+Verification:
+Evidence:
+Commit/push policy:
+Completion report:
+```
+
+## Current Visual / UI Prompt Template
 
 ```txt
 目的:
-assets直下や生成画像を整理し、docs/design-targetsとruntime assetsを分離してください。
+<screen/state> を現行production visual、UI Design System、Visual QA Gatesに沿って改善する。
 
-参照:
-- docs/asset-pipeline.md
-- docs/design-system.md
+必須参照:
+- docs/unity-current-doc-index-2026-07-10.md
+- docs/181-current-production-canon.md
+- docs/unity-ui-design-system-v1.md
+- docs/unity-runtime-visual-readiness-gate-v1.md
+- docs/visual-qa-gates.md
 
-やる:
-- UUID画像を分類
-- design targetはdocs/design-targetsへ移動
-- runtime assetはpublic/assets配下へ安定命名
-- docs/design-targets/README.mdを更新
+対象:
+- <explicit file paths>
 
-やらない:
-- 画像を本番UIとして貼る
-- コードの大改造
-- gameplay変更
+維持:
+- gameplay/save/balance
+- navigation/pause ownership
+- production provider/registry
+- proof/candidate/production approval境界
+- Compact / Standard / Large readability
+- 正式表記「黒耀化」
+
+禁止:
+- AI画像のfull-screen直貼り
+- text/controlの画像焼き込み
+- candidate assetのproduction昇格
+- readiness JSONだけの変更
+- U1Stage1SceneBootstrap / U2BattleControllerへの無関係な責務追加
+
+検証:
+pnpm implementation:preflight:check
+pnpm unity:runtime-visual-readiness:check
+pnpm unity:ui-design-system:check
+pnpm assets:verify
+pnpm test
+pnpm build
 
 完了レポート:
-1. 移動前→移動後一覧
-2. final/implementation/unknown分類
-3. runtime採用候補
-4. 再生成が必要な画像とprompt
-5. 実行コマンド
+1. baseline / end HEAD
+2. changed files and owners
+3. gameplay/save/readiness changes
+4. Compact / Standard / Large evidence
+5. command results
+6. known risks
+7. commit/push/CI
+```
+
+## Asset Prompt Template
+
+```txt
+目的:
+<asset group> をcandidate生成からapproval/runtime verificationまで安全に進める。
+
+必須:
+- Asset Generation Contract
+- Golden Reference
+- prompt/reference/output hashes
+- Generation Lineage
+- automatic QA
+- human review
+- approvedAsFinal/runtimeApproved分離
+- production provider/registry connection
+- gameplay-size verification
+
+禁止:
+- 未承認assetのproduction path接続
+- Web PNGを由来記録なしでproduction化
+- 既存U48承認を新規assetへ自動継承
+- filename/import設定だけでvisual approval
+```
+
+## U49 Actual-device Prompt Template
+
+```txt
+目的:
+U49 actual-device audio/hapticを、同一buildと端末証跡で検証する。
+
+必須:
+- device/build identity
+- deterministic SE sequence
+- deterministic haptic sequence
+- mixer/BGM/mute behavior
+- foreground/background recovery
+- duplicate/missing feedback確認
+- human review
+- evidence/checker/readiness同期
+
+境界:
+- Editor/SimulatorだけでaudioMixerReady/audioLatencyMeasured/hapticMeasuredを上げない
+- U49結果からmobileMetricsReady/rcReady/productionApprovedを自動昇格しない
+- launch blockerがある場合はBLOCKEDとして記録し、偽PASSにしない
 ```
 
 ## Review Prompt Template
 
-Agentが完了報告を出したら、次のレビューをかける。
-
 ```txt
-レビューしてください。
-
-参照:
-- docs/design-system.md
-- docs/ui-implementation-contract.md
-- docs/visual-qa-gates.md
-- docs/asset-pipeline.md
+このPRを、実装・evidence・checker・docsの4面でレビューしてください。
 
 確認:
-1. PR scopeが広すぎないか
-2. gameplay logicが変わっていないか
-3. AI画像を一枚貼りしていないか
-4. 文字を画像に依存していないか
-5. 390x844で読めるか
-6. high-risk filesを丸ごと書き換えていないか
-7. Result/LevelUp/Battleなど画面別gateを満たしているか
-8. build/test/verify結果はあるか
+1. repo/branch/baselineは正しいか
+2. userの未push作業を破壊していないか
+3. scopeとruntime ownerは適切か
+4. gameplay/save/balanceにsilent driftがないか
+5. proof/candidate/production/device/release境界が維持されるか
+6. source of truth同士が一致するか
+7. Compact / Standard / Largeで読めるか
+8. required commands/evidenceが実行・記録されているか
+9. historical evidenceをcurrent evidenceへ流用していないか
+10. P0/P1と残リスクは何か
 
 出力:
-- merge OK / hold / rework
-- 理由
-- 必須修正
-- 任意改善
+- MERGE / HOLD / REWORK
+- findingsをP0/P1/P2順
+- required fixes
+- verification gaps
+- merge/local-work safety
 ```
-
-## Merge Decision Rules
-
-### Merge OK
-
-- docs-only and scoped
-- visual-only and tests pass
-- no logic drift
-- 390x844 considered
-- code diff understandable
-- high-risk files not rewritten wholesale
-
-### Hold
-
-- direction is good but verification missing
-- screenshots missing
-- 390x844 not confirmed
-- minor label mismatch
-- docs references incomplete
-
-### Rework
-
-- gameplay logic changed silently
-- AI image used as full UI
-- text baked into production image
-- battle readability worsened
-- result/growth flow broken
-- save/localStorage touched without need
-- large files rewritten wholesale
 
 ## File Risk Tiers
 
 ### Low Risk
 
-- docs
-- isolated UI helper
-- design target README
-- test docs
+- isolated docs/history additions
+- independent test fixture
+- generated report with stable schema
 
 ### Medium Risk
 
-- `premiumPaperUi.ts`
-- `storybookChoiceCard.ts`
-- `inventorySlot.ts`
-- `pressFeedback.ts`
-- `collectionAtlasAtmosphere.ts`
+- current index/policy/checker
+- reusable UI component
+- asset manifest/catalog
+- read model/presenter
 
 ### High Risk
 
-- `overlays.ts`
-- `hud.ts`
-- `TopScene.ts`
-- `StageSelectScene.ts`
-- `CollectionScene.ts`
-- main battle scene files
-- save/localStorage files
-- data definitions used by tests
+- `U1Stage1SceneBootstrap.cs`
+- `U2BattleController.cs`
+- AppFlow/pause/save owner
+- production asset provider/registry
+- Sprite importer/animator
+- gameplay definition/runtime state
+- readiness evidence/checker pair
+- CI/preflight runner
 
 Rules:
 
-- Low risk can be larger.
-- Medium risk should be focused.
-- High risk must be tiny and reviewed carefully.
-
-## Agent Report Requirements
-
-Every agent completion should include:
-
-```md
-## Summary
-
-## Changed files
-
-## What changed visually
-
-## Gameplay logic changes
-None / explain
-
-## Asset moves
-None / list
-
-## Verification
-- pnpm build:
-- pnpm test:
-- pnpm stage1:fun-pass:verify:
-- pnpm character-assets:verify:
-- pnpm runtime-assets:verify:
-
-## 390x844 check
-Checked / not checked
-
-## Risks
-
-## Next suggested PR
-```
-
-## Do Not Ask Agents To
-
-Avoid prompts like:
-
-- `全部いい感じにして`
-- `全画面プロっぽくして`
-- `好きに直して`
-- `Unityみたいにして`
-- `一気に全部やって`
-
-Replace with:
-
-- `Result Clearだけ`
-- `LevelUpカードだけ`
-- `StageSelectの地図カードだけ`
-- `Battle HUDのframeだけ`
-- `画像整理だけ`
+- high-risk changes require small responsibility scope and explicit regression evidence
+- current docs + checker should change together when a contract changes
+- readiness promotion requires implementation + evidence + checker
 
 ## Safe Parallel Work
 
-When one agent is implementing UI, another can safely work on:
+Safe when paths and ownership do not overlap:
 
-- docs
-- Unity prep
-- design prompts
-- QA checklists
-- naming conventions
-- asset inventory
+- device verification vs unrelated historical docs
+- asset inventory vs isolated UI component
+- QA checklist vs runtime implementation
 
 Avoid parallel edits to:
 
-- same scene file
-- same UI helper
-- same asset paths
-- same data file
+- same scene/controller
+- same provider/registry
+- same evidence manifest
+- same current index/readiness JSON
+- same branch with uncommitted work
 
 ## Conflict Prevention
 
-Before starting a new branch:
+1. fetch/compare latest remote before branching
+2. preserve user worktree changes
+3. use a dedicated branch when local work is stopped or unpushed
+4. do not force-push or reset shared work without explicit instruction
+5. rebase/merge only after checking actual overlap
+6. do not merge a maintenance PR over newer unpushed device evidence blindly
 
-1. base from latest `main`
-2. avoid branches already being worked on
-3. keep docs-only work separate from implementation
-4. do not rename files another PR is editing
+## Verification and Reporting
 
-## Good Commit Messages
+Do not claim commands or device actions that were not executed.
 
-Examples:
+Agent completion must include:
 
-```txt
-Add design system foundation
-Add asset pipeline guide
-Polish result memory page UI
-Polish level up paper cards
-Organize design target images
-Add battle HUD paper frame helpers
+```md
+## Result
+COMPLETE / CONDITIONAL / BLOCKED
+
+## Git
+Start HEAD:
+End HEAD:
+Branch:
+origin/main:
+Worktree:
+Commit/push/PR:
+
+## Changed scope
+
+## Runtime/gameplay/save/readiness impact
+
+## Verification
+- static preflight:
+- full preflight:
+- tests:
+- build:
+- Unity compile/export:
+- Simulator:
+- actual device:
+- CI:
+
+## Evidence
+
+## P0/P1/P2 findings resolved
+
+## Remaining risks
 ```
 
-Avoid:
+## Merge Decision
 
-```txt
-fix
-update
-色々
-全部修正
-デザイン
-```
+### MERGE
+
+- source of truth一致
+- scope/ownership明確
+- required checks/evidence PASS
+- no silent gameplay/save/readiness drift
+- local unpushed workとの統合方法が安全
+
+### HOLD
+
+- CI/evidence/human review不足
+- actual-device必須項目が未実施
+- minor contradiction/reference gap
+- merge baseが古く、local workとの重複確認が必要
+
+### REWORK
+
+- user worktreeを破壊
+- wrong repo/path変更
+- readiness docs-only promotion
+- candidate/proofをproduction扱い
+- Simulatorをactual-device evidence扱い
+- 正式用語、ownership、save migration、source of truth破壊
 
 ## Final Rule
 
-Velocity is good only when the next PR is easier.
-
-A PR that looks impressive but makes the next change harder is not progress.
+Velocity is valuable only when the next change becomes safer. 見栄えの良い大量差分より、次の開発者が現在地を誤認せず、未push作業を失わず、同じcheckerで再検証できる変更を優先します。
