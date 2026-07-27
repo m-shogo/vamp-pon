@@ -45,6 +45,7 @@ Status: current
 5. `docs/unity-ui-design-system-v1.md`
 6. `docs/asset-generation-consistency-system-v1.md`
 7. `docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md`
+8. `docs/design-heavy-production-future-roadmap-2026-07-27.md`
 
 ## 現在のPhase
 
@@ -67,6 +68,10 @@ U49実機reviewで音質、touch、常時揺れ、TOP/StageSelect/LevelUp、黒�
 StageSelect／LevelUpはstructural remediation後も人間reviewで`FAIL`となった。キャラクター・敵以外のwhole-app visualは未承認であり、U49 Audio/Hapticとは分離したHeavy Design Phaseで扱う。phase IDを割り当て、実装を開始する前の監査正本は
 `docs/unity-whole-app-heavy-design-audit-2026-07-27.md`
 とする。既存の`runtimeVisualReady=true`はU48 asset connectionの履歴値であり、whole-app human visual approvalを意味しない。
+
+Heavy Designは現在`HOLD / documentation only`であり、画像生成・Unity実装は未開始とする。今後の制作順、既存targetの再評価、ChatGPT人間監督下での画像生成、Unity実装開始ゲートは
+`docs/design-heavy-production-future-roadmap-2026-07-27.md`
+を正本とする。ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
 
 ## 現在の境界
 
@@ -115,6 +120,7 @@ productionApproved=false
 | runtime visual approval | `docs/unity-runtime-visual-readiness-gate-v1.md` |
 | UI | `docs/unity-ui-design-system-v1.md` |
 | generated assets | `docs/asset-generation-consistency-system-v1.md` |
+| heavy design future roadmap | `docs/design-heavy-production-future-roadmap-2026-07-27.md` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
 | mobile QA | `docs/mobile-release-qa-gates.md` |
