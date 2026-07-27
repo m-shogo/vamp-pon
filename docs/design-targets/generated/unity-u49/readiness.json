@@ -6,6 +6,8 @@
   "productionAudioArchitectureImplemented": true,
   "productionHapticArchitectureImplemented": true,
   "actualAudioMixerAssetExists": true,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
   "audioMixerReady": false,
   "audioLatencyMeasured": false,
   "hapticMeasured": false,

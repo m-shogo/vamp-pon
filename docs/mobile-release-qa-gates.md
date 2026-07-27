@@ -156,7 +156,7 @@ devicePlayableReady
 
 - request hookが呼ばれただけでaudio ready扱い
 - Simulator speakerだけでfinal判定
-- missing clipを無音のままPASS
+- 未定義・missing clipによる意図しない無音をPASS（machine-readableな`INTENTIONALLY_DISABLED` policyに基づくBGM無効は、error・unexpected playback・duplicate sourceがないことを検証する）
 - rapid pickupで音が飽和
 - background/foreground後に二重BGMまたはmute解除
 

@@ -52,6 +52,7 @@ for (const file of evidenceFiles) {
 for (const file of documentFiles) check(existsSync(resolve(root, file)), `missing document ${file}`);
 
 const manifest = json(`${evidenceRoot}/production-audio-manifest.json`);
+const bgm = json(`${evidenceRoot}/bgm-inventory.json`);
 const analysis = json(`${evidenceRoot}/audio-analysis-report.json`);
 const imports = json(`${evidenceRoot}/audio-import-report.json`);
 const mixerMap = json(`${evidenceRoot}/audio-mixer-routing-map.json`);
@@ -71,6 +72,12 @@ const u48 = json('docs/design-targets/generated/unity-u48/readiness.json');
 
 check(u48.u48Completed === true && u48.status === 'U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_READY', 'U48 completion preserved');
 check(u48.runtimeApprovedAssetCount === 46 && u48.productionVerificationCaptureCount === 138, 'U48 46 assets / 138 captures preserved');
+
+check(bgm.bgmPolicy === 'INTENTIONALLY_DISABLED', 'BGM policy is explicitly intentionally disabled');
+check(bgm.bgmProductionClipCount === 0 && bgm.bgmAssetCount === 0 && bgm.bgmExpectedAudible === false, 'BGM policy declares zero production clips and no expected playback');
+check(bgm.bgmRuntimeOwnerExists === false && bgm.loopPointDefined === false, 'disabled BGM has no runtime owner or synthetic loop point');
+check(bgm.missingClipErrorAllowed === false && bgm.unexpectedPlaybackAllowed === false, 'disabled BGM forbids missing-clip errors and unexpected playback');
+check(typeof bgm.reason === 'string' && bgm.reason.length > 0, 'disabled BGM policy has a reason');
 
 check(manifest.seAssetCount === 22 && manifest.uniqueEventCount === 22 && manifest.uniqueClipShaCount === 22, '22 unique production SE registrations');
 check(manifest.duplicatePcmHashCount === 0 && manifest.duplicateGuidCount === 0, 'no duplicate PCM or GUID');
@@ -123,18 +130,19 @@ check(install.physicalDevice === true && install.deviceFamily === 'iPhone' && in
 check(install.deviceIdentifierTracked === false && install.profileIdentifierTracked === false, 'device/profile identifiers are not tracked');
 
 const complete = readiness.status === 'U49_COMPLETED_ACTUAL_DEVICE_AUDIO_HAPTIC_READY';
+check(readiness.audioMixerImplemented === true && readiness.actualAudioMixerAssetExists === true, 'static AudioMixer implementation is recorded separately');
 if (complete) {
   check(install.launchPassed === true && session.launchPassed === true && session.verificationHarnessReached === true, 'completed state has launched physical-device harness');
   check(session.automaticSequenceStarted === true && session.automaticSequenceCompleted === true, 'completed state has completed sequence');
   check(session.audioEventRequestCount >= 22 && session.hapticEventRequestCount >= 10, 'completed session requested all events');
   check(latency.audioLatencyMeasured === true && mix.mixReviewPassed === true && haptic.hapticMeasured === true && lifecycle.passed === true, 'completed measurements all pass');
   check(human.provided === true && human.humanAudioApprovalProvided === true && human.humanHapticApprovalProvided === true && human.overallAccepted === true, 'completed state has explicit human approval');
-  check(readiness.audioMixerReady === true && readiness.audioLatencyMeasured === true && readiness.hapticMeasured === true, 'completed measured readiness flags');
+  check(readiness.audioMixerDeviceVerified === true && readiness.audioMixerReady === true && readiness.audioLatencyMeasured === true && readiness.hapticMeasured === true, 'completed measured readiness flags');
   check(readiness.audioReady === true && readiness.hapticReady === true && readiness.physicalDeviceReady === true && readiness.devicePlayableReady === true, 'completed device readiness');
   check(completion.completed === true && completion.status === 'COMPLETED' && completion.u50Blocked === false, 'completion summary matches ready state');
 } else {
   check(readiness.status === 'U49_BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE', 'incomplete state remains explicitly blocked');
-  check(readiness.audioMixerReady === false && readiness.audioLatencyMeasured === false && readiness.hapticMeasured === false, 'blocked state does not promote measured flags');
+  check(readiness.audioMixerDeviceVerified === false && readiness.audioMixerReady === false && readiness.audioLatencyMeasured === false && readiness.hapticMeasured === false, 'blocked state does not promote measured flags');
   check(readiness.audioReady === false && readiness.hapticReady === false && readiness.physicalDeviceReady === false && readiness.devicePlayableReady === false, 'blocked state does not promote device readiness');
   check(human.provided === false && human.humanAudioApprovalProvided === false && human.humanHapticApprovalProvided === false, 'blocked state has no fabricated human approval');
   check(completion.completed === false && completion.status === 'BLOCKED' && completion.u50Blocked === true, 'completion summary remains blocked');

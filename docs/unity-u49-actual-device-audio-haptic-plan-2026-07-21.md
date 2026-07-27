@@ -36,12 +36,14 @@ U49は音・振動・実機playable smokeだけを対象とする。U48の46 pro
 
 ## BGM判断
 
-U49では`INTENTIONAL_SILENCE`を採用する。現在、権利と品質が確定したproduction BGM候補がない。StageSelect、Stage1、ResultはUI・battle・pickup・climax・result SEで空間を支える。即席合成BGMを追加してPASS扱いにしない。
+U49ではmachine-readableな`INTENTIONALLY_DISABLED` policyを採用する。現在、権利と品質が確定したproduction BGM候補がない。StageSelect、Stage1、ResultはUI・battle・pickup・climax・result SEで空間を支える。即席合成BGMを追加してPASS扱いにしない。
+
+このpolicyではproduction BGM clip countは0、expected audibleはfalseとする。未定義・missing clipによるerror、予期しない再生、scene transitionやforeground復帰による二重AudioSourceは許可しない。BGM channel設定が存在する場合は保存・復帰しても破損させない。BGM無効は`audioReady=true`の根拠にしない。
 
 将来BGMを追加する場合はBGM group、loop seam、transition、pause/resume、speaker/headphone maskingを別途実機承認する。
 
 ## Readiness境界
 
-実AudioMixerとrouteが実装されても、人間の端末確認前は`audioMixerReady=false`、`audioLatencyMeasured=false`、`hapticMeasured=false`を維持する。物理iPhoneでbuild/install/launch、device-side scheduling計測、background/foreground、OFF/ON、speaker/触覚判断がすべてPASSした後だけU49 readinessを検討する。
+実AudioMixerとrouteの静的実装は`audioMixerImplemented=true`、実機確認は`audioMixerDeviceVerified=false`として分離する。人間の端末確認前は互換flagの`audioMixerReady=false`、`audioLatencyMeasured=false`、`hapticMeasured=false`を維持する。物理iPhoneでbuild/install/launch、device-side scheduling計測、background/foreground、OFF/ON、speaker/触覚判断がすべてPASSした後だけU49 readinessを検討する。
 
 U49完了まではU50へ進まない。`performanceReady`、`mobileMetricsReady`、`rcReady`、`productionApproved`はU49ではfalseを維持する。
