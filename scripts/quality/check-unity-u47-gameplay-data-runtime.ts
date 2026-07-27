@@ -73,6 +73,8 @@ check(!playerController.includes('Mathf.Sin(Time.time * 8.5f)') && yuiAnimator.i
   yuiAnimator.includes('animationSet.FrameDuration * 4f'), 'player has no perpetual scale bob and keeps a calmer explicit idle animation');
 check(visualProvider.includes('R("yui_idle_l_00","yui_idle_l_01"),R("yui_idle_r_01")') &&
   !visualProvider.includes('R("yui_idle_r_00","yui_idle_r_01")'), 'known left-facing frame is excluded from the production right-idle route');
+check(visualProvider.includes('R("yui_attack_r_00","yui_attack_r_01"),R("yui_attack_l_00","yui_attack_l_01")') &&
+  !visualProvider.includes('R("yui_attack_l_00","yui_attack_l_01"),R("yui_attack_r_00","yui_attack_r_01")'), 'production attack route corrects the source sheet reversed direction labels');
 check(inventoryHud.includes('"KokuyouActivationButton"') && inventoryHud.includes('kokuyouButton.onClick.AddListener(ActivateKokuyou)') &&
   inventoryHud.includes('gameplay?.ActivateKokuyou()') && inventoryHud.includes('KokuyouPhase.Ready'), 'normal gameplay exposes the manual Kokuyou command');
 for (const id of ['08-black-ink-area', '09-streetlamp-area', '11-dawn-ink-lamp']) {

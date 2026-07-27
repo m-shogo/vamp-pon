@@ -40,6 +40,8 @@ u50Blocked=true
 - gameplay全体へ常時適用していた主人公scale bobを除去する。
 - 左向きidleは複数実frameを維持しながら切替周期を落ち着かせる。
 - `yui_idle_r_00`は実画像が左向きだったためright-idle routeから除外し、右向きidleは正しいframeへ固定して停止中の左右反転を止める。右向きの第2 idle frameはasset是正後に再導入する。
+- `yui_attack_l_*`と`yui_attack_r_*`は実画像の向きが命名と逆だったため、production providerで左右routeを交換する。
+- hurt / recoilは現シートに明確な右向きframeが不足しているため、非対称装備を機械的にmirrorせずasset是正対象として残す。
 - HUDから`Stage1GameplayRuntimeCoordinator.ActivateKokuyou()`へcommandを送る黒耀化ボタンを追加する。
 - 上記経路を静的checkerへ追加する。
 
