@@ -30,6 +30,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private CollectionView collection;
         private U4LevelUpDemoController levelUp;
         private GameObject appFlowCanvas;
+        private Transform battleHudRoot;
         private Vector3 initialPlayerPosition;
 #if VAMPPON_AI_SIMULATOR_SMOKE
         internal int VerificationLevelUpOpenedCount { get; private set; }
@@ -42,11 +43,12 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         public RunPauseCoordinator Pause => pause;
         public SaveService Save => save;
 
-        public void Initialize(U2BattleController battleController, PlayerController playerController, YuiSpriteAnimator yuiAnimator, U4LevelUpDemoController levelUpController)
+        public void Initialize(U2BattleController battleController, PlayerController playerController, YuiSpriteAnimator yuiAnimator, U4LevelUpDemoController levelUpController, Transform gameplayHudRoot)
         {
             DisposeSubscriptions();
             if (appFlowCanvas != null) Destroy(appFlowCanvas);
             battle = battleController; player = playerController; animator = yuiAnimator; levelUp = levelUpController;
+            battleHudRoot = gameplayHudRoot;
             initialPlayerPosition = player.transform.position;
             pause = new RunPauseCoordinator();
             save = new SaveService();
@@ -64,7 +66,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         }
 
 #if VAMPPON_AI_SIMULATOR_SMOKE
-        internal void ReinitializeForVerification() => Initialize(battle, player, animator, levelUp);
+        internal void ReinitializeForVerification() => Initialize(battle, player, animator, levelUp, battleHudRoot);
 
         internal void CompleteVerificationRun(bool clear, bool includeRewards = true, bool failSave = false)
         {
@@ -145,6 +147,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             VerificationStateChangedCount++;
 #endif
             if (stageSelect != null) stageSelect.gameObject.SetActive(state == AppFlowState.StageSelect);
+            if (battleHudRoot != null) battleHudRoot.gameObject.SetActive(state is AppFlowState.Running or AppFlowState.LevelUpModal);
             if (collection != null && state == AppFlowState.Collection) collection.Show(); else if (collection != null) collection.gameObject.SetActive(false);
             if (result != null && state == AppFlowState.Result)
             {

@@ -4,7 +4,8 @@
 
 ```txt
 status=U49_BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE
-sourceBuild=25ea836dbee8e9c579f69844080c726e0bfc3887
+installedSourceBuild=b3e7350e8a47000efdb50af9f4250a5d5104cc27
+deterministicSequenceSourceBuild=4b3b4eac832b0e255c137070b476ca11b8e58100
 deviceLaunch=PASS
 deterministicAudioSequence=22/22
 deterministicHapticSequence=10/10
@@ -21,15 +22,14 @@ u50Blocked=true
 - 22 SEは要求IDの欠落・重複なく実行され、全IDにrequest-to-router latency sampleがある。
 - 10 haptic IDは欠落なく要求され、設定OFF block / ON restoreも診断上成立した。
 - 敵の消滅表現は人間レビューで肯定された。
+- タッチ移動、停止時の方向保持、黒耀化ボタンからの手動発動は実機で成立した。
+- 停止中の左右反転は解消し、右攻撃と左攻撃はともに実機で正しい向きを維持した。
 
 ## 不合格・未完了
 
 - 音は再生されるが、安っぽく爽快感がないため人間承認はFAIL。
 - 現在の22 clipは`approvedAsFinal=false`のままであり、mix調整だけで最終化しない。
 - TOP相当の入口、StageSelect、LevelUp選択は実機で見た目を拒否された。
-- タッチ移動が扱いにくい。
-- 主人公が常時揺れて見える。
-- 黒耀化runtimeは存在するが、通常プレイの手動発動command UIがなく到達不能だった。
 - backgroundは観測したがforeground callback、same-process recovery、復帰直後latencyは未証明。
 - 18項目human reviewは未完了。
 
@@ -44,16 +44,18 @@ u50Blocked=true
 - hurt / recoilは現シートに明確な右向きframeが不足しているため、非対称装備を機械的にmirrorせずasset是正対象として残す。
 - HUDから`Stage1GameplayRuntimeCoordinator.ActivateKokuyou()`へcommandを送る黒耀化ボタンを追加する。
 - 上記経路を静的checkerへ追加する。
+- StageSelectを2列の汎用card gridから、20夜を順に辿るresponsive縦routeへ再構成する。
+- StageSelect / Result / 灯録ではbattle HUDを非表示にし、画面背後の情報衝突を除去する。
+- LevelUp cardをicon左・名称と効果右の選択行へ再構成し、選択時labelと非選択時の可読性を改善する。
+- 上記UI変更後のU47 Simulator smokeは23 capture / 11 semantic route、例外0、assertion失敗0で再取得する。これは実機human approvalの代替にはしない。
 
 ## 次に必要な是正
 
-1. 実機でtouch、停止、方向保持、黒耀化発動を再確認する。
-2. 22 SEをイベント階層、attack、transient、body、world identityで再設計し、候補比較後に差し替える。
-3. TOPをStageSelectの別名で済ませず、ゲームの顔としてAppFlowへ定義する。
-4. StageSelectを汎用カードgridから夜路を選ぶ地図帳表現へ再構成する。
-5. LevelUpは候補の差、即時理解、選択の高揚が伝わる構成へ再調整する。
-6. current runtimeのCompact / Standard / Largeと実機を再撮影し、人間比較する。
-7. 18項目をcontract順に明示回答する。
+1. 22 SEをイベント階層、attack、transient、body、world identityで再設計し、候補比較後に差し替える。
+2. 独立TOP stateの必要性は、現行AppFlowのBoot -> StageSelect契約を広げる前にStageSelect実機再reviewで判定する。
+3. StageSelect / LevelUpのcurrent runtimeを実機で再確認し、人間比較する。
+4. 最新source buildでdeterministic sequenceとsame-process background / foreground recoveryを取り直す。
+5. 18項目をcontract順に明示回答する。
 
 ## Readiness境界
 

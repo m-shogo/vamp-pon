@@ -18,6 +18,7 @@ namespace VampPon.UnitySpike.U4
         private TextMeshProUGUI descLabel;
         private TextMeshProUGUI typeLabel;
         private TextMeshProUGUI levelLabel;
+        private TextMeshProUGUI selectionLabel;
         private U4LevelUpChoice choiceData;
         private Vector3 baseScale;
         private float selectPulseTimer;
@@ -107,24 +108,27 @@ namespace VampPon.UnitySpike.U4
             }
 
             var iconFrame = IconFrame.Create(contentArea.transform, choice.ItemType, 40f);
-            iconFrame.anchorMin = new Vector2(0.5f, 1f);
-            iconFrame.anchorMax = new Vector2(0.5f, 1f);
-            iconFrame.pivot = new Vector2(0.5f, 1f);
-            iconFrame.anchoredPosition = new Vector2(0f, -8f);
+            iconFrame.anchorMin = new Vector2(0f, 0.5f);
+            iconFrame.anchorMax = new Vector2(0f, 0.5f);
+            iconFrame.pivot = new Vector2(0.5f, 0.5f);
+            iconFrame.anchoredPosition = new Vector2(34f, 4f);
 
             card.typeLabel = CreateLabel(contentArea.transform, choice.TypeLabelJa, 11f, TypeColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -50f), new Vector2(width - 34f, 14f), font);
+                new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(150f, -16f), new Vector2(width - 124f, 16f), font);
 
             card.nameLabel = CreateLabel(contentArea.transform, choice.NameJa, 17f, NameColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -66f), new Vector2(width - 34f, 22f), font);
+                new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(150f, -38f), new Vector2(width - 124f, 24f), font);
 
             card.descLabel = CreateLabel(contentArea.transform, choice.DescriptionJa, 11f, DescColor,
-                new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -92f), new Vector2(width - 34f, 62f), font);
+                new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(150f, -68f), new Vector2(width - 124f, 62f), font);
             if (card.descLabel != null)
             {
                 card.descLabel.textWrappingMode = TextWrappingModes.Normal;
                 card.descLabel.overflowMode = TextOverflowModes.Ellipsis;
             }
+            card.typeLabel.alignment = TextAlignmentOptions.Left;
+            card.nameLabel.alignment = TextAlignmentOptions.Left;
+            card.descLabel.alignment = TextAlignmentOptions.TopLeft;
 
             var rarityText = choice.Rarity switch
             {
@@ -150,12 +154,18 @@ namespace VampPon.UnitySpike.U4
                     new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(8f, 8f), new Vector2(36f, 14f), font);
             }
 
+            card.selectionLabel = CreateLabel(contentArea.transform, "これを選ぶ", 10f, new Color(0.52f, 0.3f, 0.12f),
+                new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-58f, 8f), new Vector2(92f, 16f), font);
+            card.selectionLabel.alignment = TextAlignmentOptions.Right;
+            card.selectionLabel.gameObject.SetActive(false);
+
             return card;
         }
 
         public void SetSelected(bool selected)
         {
             isSelected = selected;
+            if (selectionLabel != null) selectionLabel.gameObject.SetActive(selected);
             if (selected)
             {
                 selectPulseTimer = 0.15f;
@@ -183,7 +193,7 @@ namespace VampPon.UnitySpike.U4
                 group = gameObject.AddComponent<CanvasGroup>();
             }
 
-            group.alpha = dimmed ? 0.45f : 1f;
+            group.alpha = dimmed ? 0.7f : 1f;
         }
 
         private void Update()
