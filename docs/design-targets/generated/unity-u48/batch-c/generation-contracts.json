@@ -14,7 +14,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -22,7 +22,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -123,7 +123,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -131,7 +131,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -232,7 +232,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -240,7 +240,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -341,7 +341,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -349,7 +349,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -450,7 +450,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -458,7 +458,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -560,7 +560,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -568,7 +568,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -670,7 +670,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -678,7 +678,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -780,7 +780,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -788,7 +788,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -890,7 +890,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -898,7 +898,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -999,7 +999,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1007,7 +1007,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1108,7 +1108,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1116,7 +1116,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1217,7 +1217,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1225,7 +1225,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1326,7 +1326,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1334,7 +1334,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1438,7 +1438,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1446,7 +1446,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1550,7 +1550,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1558,7 +1558,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1662,7 +1662,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1670,7 +1670,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1774,7 +1774,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1782,7 +1782,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1886,7 +1886,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -1894,7 +1894,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -1998,7 +1998,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -2006,7 +2006,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -2110,7 +2110,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -2118,7 +2118,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -2222,7 +2222,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -2230,7 +2230,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -2334,7 +2334,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -2342,7 +2342,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -2446,7 +2446,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -2454,7 +2454,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -2558,7 +2558,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
@@ -2566,7 +2566,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60",
@@ -2670,14 +2670,14 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60"
@@ -2780,14 +2780,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60"
@@ -2890,14 +2890,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60"
@@ -3000,14 +3000,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "eb18074f0338f94700bdc8d544c93aeb5b994dea254d1ea3ee826dafa3903e60"
@@ -3110,7 +3110,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -3118,7 +3118,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -3224,7 +3224,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -3232,7 +3232,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -3338,7 +3338,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -3346,7 +3346,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -3452,7 +3452,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -3460,7 +3460,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -3566,14 +3566,14 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -3675,14 +3675,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -3784,14 +3784,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -3893,14 +3893,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4002,14 +4002,14 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4111,14 +4111,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4220,14 +4220,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4329,14 +4329,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4438,14 +4438,14 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4547,14 +4547,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4656,14 +4656,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4765,14 +4765,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d"
@@ -4874,7 +4874,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -4882,7 +4882,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -4988,7 +4988,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -4996,7 +4996,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5102,7 +5102,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -5110,7 +5110,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5216,7 +5216,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -5224,7 +5224,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5330,7 +5330,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -5338,7 +5338,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5444,7 +5444,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -5452,7 +5452,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5558,7 +5558,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -5566,7 +5566,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5672,7 +5672,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
@@ -5680,7 +5680,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "ef76da5cb19bdfee3569db2fbe70d6b88a87fc5093f00cd517cb8b9c102dac0d",
@@ -5786,14 +5786,14 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -5893,14 +5893,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6000,14 +6000,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6107,14 +6107,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6214,14 +6214,14 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6323,14 +6323,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6432,14 +6432,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6541,14 +6541,14 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png"
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5"
@@ -6650,7 +6650,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -6658,7 +6658,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -6764,7 +6764,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -6772,7 +6772,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -6878,7 +6878,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -6886,7 +6886,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -6992,7 +6992,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7000,7 +7000,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7106,7 +7106,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7114,7 +7114,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7220,7 +7220,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7228,7 +7228,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7334,7 +7334,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7342,7 +7342,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7448,7 +7448,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7456,7 +7456,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7562,7 +7562,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7570,7 +7570,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7676,7 +7676,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7684,7 +7684,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7790,7 +7790,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7798,7 +7798,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -7904,7 +7904,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -7912,7 +7912,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -8018,7 +8018,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -8026,7 +8026,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -8132,7 +8132,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -8140,7 +8140,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -8246,7 +8246,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -8254,7 +8254,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -8360,7 +8360,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
@@ -8368,7 +8368,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "83696ec3a812cc1ec73bf9f2be11cea4202c34481a77fe82e6f3feb188893fb5",
@@ -8474,7 +8474,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -8482,7 +8482,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -8584,7 +8584,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -8592,7 +8592,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -8694,7 +8694,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -8702,7 +8702,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -8804,7 +8804,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -8812,7 +8812,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -8914,7 +8914,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -8922,7 +8922,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9024,7 +9024,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9032,7 +9032,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9134,7 +9134,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9142,7 +9142,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9244,7 +9244,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9252,7 +9252,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9354,7 +9354,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9362,7 +9362,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9464,7 +9464,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9472,7 +9472,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9574,7 +9574,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9582,7 +9582,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9684,7 +9684,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9692,7 +9692,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9794,7 +9794,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9802,7 +9802,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -9904,7 +9904,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -9912,7 +9912,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10014,7 +10014,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10022,7 +10022,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10124,7 +10124,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10132,7 +10132,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10234,7 +10234,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10242,7 +10242,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10348,7 +10348,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10356,7 +10356,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10462,7 +10462,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10470,7 +10470,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10576,7 +10576,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10584,7 +10584,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10690,7 +10690,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10698,7 +10698,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10804,7 +10804,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10812,7 +10812,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -10918,7 +10918,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -10926,7 +10926,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -11032,7 +11032,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
@@ -11040,7 +11040,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "fd772444ddccc91628810d6a3666df9d966335361622784b2daf19bbe2f05be2",
@@ -11146,7 +11146,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11154,7 +11154,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11261,7 +11261,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11269,7 +11269,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11376,7 +11376,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11384,7 +11384,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11491,7 +11491,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11499,7 +11499,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11606,7 +11606,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11614,7 +11614,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11719,7 +11719,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11727,7 +11727,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11832,7 +11832,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11840,7 +11840,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -11945,7 +11945,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -11953,7 +11953,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12058,7 +12058,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12066,7 +12066,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12172,7 +12172,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12180,7 +12180,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12286,7 +12286,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12294,7 +12294,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12400,7 +12400,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12408,7 +12408,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12514,7 +12514,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12522,7 +12522,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12624,7 +12624,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12632,7 +12632,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12734,7 +12734,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12742,7 +12742,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12844,7 +12844,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12852,7 +12852,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -12954,7 +12954,7 @@
       "sourceType": "reconstructed",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -12962,7 +12962,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -13064,7 +13064,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -13072,7 +13072,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -13174,7 +13174,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -13182,7 +13182,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",
@@ -13284,7 +13284,7 @@
       "sourceType": "procedural-authored",
       "goldenReferencePaths": [
         "docs/unity-ui-design-system-v1.md",
-        "docs/unity-responsive-screen-policy.md",
+        "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
         "docs/181-current-production-canon.md",
         "docs/88-adopted-visual-direction.md",
         "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
@@ -13292,7 +13292,7 @@
       ],
       "goldenReferenceSha256": [
         "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
-        "5c757ea87aa4396ec59a23ffd2aeef3e7c74b76e183b1b9ecbc3fa7921a34cae",
+        "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
         "6d1ae2d2ce33b0b68e3f1afa47f0faf49a369d72091f96286a1f418744e122f1",
         "74306faab52f02353a9b0d236b059eb3e26a852897b11c3aa47a44b6192c8f00",
         "87c5329d4e3d68b5988ccaf3a0a7e3cd0ca6323ce84bf0292b25d8a0cb034b39",

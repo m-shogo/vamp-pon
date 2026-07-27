@@ -120,11 +120,22 @@ const protectedPaths = [
   'docs/design-targets/generated/unity-u48/batch-a',
   'docs/design-targets/generated/unity-u48/batch-b',
 ];
-for (const path of finalized ? protectedPaths.filter(path => path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs' && path !== 'docs/design-targets/generated/unity-u48/batch-a') : protectedPaths) {
+const postU48FeedbackPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs';
+for (const path of finalized ? protectedPaths.filter(path =>
+  path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs'
+  && path !== postU48FeedbackPath
+  && path !== 'docs/design-targets/generated/unity-u48/batch-a'
+) : protectedPaths) {
   try { execFileSync('git', ['diff', '--quiet', sourceHead, '--', path], { cwd: root }); }
   catch { check(false, `protected path changed from Batch C baseline: ${path}`); }
 }
 if (finalized) {
+  const feedbackDiff = execFileSync('git', ['diff', '--unified=0', sourceHead, '--', postU48FeedbackPath], { cwd: root, encoding: 'utf8' });
+  const addedFeedbackLines = feedbackDiff.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++'));
+  const removedFeedbackLines = feedbackDiff.split('\n').filter(line => line.startsWith('-') && !line.startsWith('---'));
+  check(addedFeedbackLines.length === 3 && removedFeedbackLines.length === 3, 'post-U48 gameplay coordinator change is limited to three U49 feedback hooks');
+  check(addedFeedbackLines.every(line => line.includes('U43RuntimeFeedbackBridge.Instance?')), 'post-U48 gameplay coordinator additions are only U49 feedback hooks');
+  check(!feedbackDiff.includes('RuntimeVisualAssetProvider') && !feedbackDiff.includes('U48ProductionVisualCatalog'), 'post-U48 feedback hooks do not alter visual ownership');
   const provider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs').toString();
   check(provider.includes('AssetApprovalLevel.Production') && provider.includes('U48ProductionVisualCatalog.LoadRequired()'), 'post-approval production provider');
 }
