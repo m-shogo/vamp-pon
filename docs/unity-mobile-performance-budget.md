@@ -48,6 +48,19 @@ productionApproved=false
 
 U49のactual-device audio/haptic成功はU50完了を意味しません。U50の性能測定成功もU51 RCやproduction approvalを自動昇格しません。
 
+## Threshold calibration gate
+
+現在はtarget device classと実測baselineが確定していないため、数値のPASS基準を推測しません。正本は`docs/design-targets/generated/unity-u50/thresholds.json`です。
+
+```txt
+u50ThresholdsDefined=false
+calibrationRequired=true
+mobileMetricsReady=false
+status=BLOCKED_THRESHOLD_CALIBRATION
+```
+
+U50開始前に、target device model/class、minimum sustained run duration、warm-up exclusion、p95/p99 frame time、33.33ms超過率、maximum long frame、retry loop count、memory growth、normal battle GC allocation、GC count/duration、touch response測定法、loss/ghost/stuck input許容値、thermal HOLD条件、background/foreground反復回数をcalibrationし、machine-readable thresholdを埋めます。`null`はPASSや0ではなく未確定を意味します。
+
 ## Scope
 
 ```txt

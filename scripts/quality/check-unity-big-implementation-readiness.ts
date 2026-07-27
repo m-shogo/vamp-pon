@@ -88,9 +88,11 @@ for (const path of Object.values(paths)) check(`required file exists: ${path}`, 
 let readiness: Record<string, any> = {};
 let runtimeVisual: Record<string, any> = {};
 let u49Readiness: Record<string, any> = {};
+let u50Thresholds: Record<string, any> = {};
 try { readiness = JSON.parse(read(paths.readiness)); } catch { failures.push('big implementation readiness JSON parses'); }
 try { runtimeVisual = JSON.parse(read(paths.runtimeVisual)); } catch { failures.push('runtime visual readiness JSON parses'); }
 try { u49Readiness = JSON.parse(read('docs/design-targets/generated/unity-u49/readiness.json')); } catch { failures.push('U49 readiness JSON parses'); }
+try { u50Thresholds = JSON.parse(read('docs/design-targets/generated/unity-u50/thresholds.json')); } catch { failures.push('U50 thresholds JSON parses'); }
 const canonicalState = readCanonicalCurrentState();
 
 const controlCenter = read(paths.controlCenter);
@@ -263,6 +265,8 @@ for (const key of [
   check(`canonical ${key} matches U49 readiness`, canonicalState[key] === u49Readiness[u49Key]);
 }
 check('canonical U50 threshold gate remains unresolved', canonicalState.u50ThresholdsDefined === false);
+check('canonical U50 threshold gate matches threshold registry', canonicalState.u50ThresholdsDefined === u50Thresholds.u50ThresholdsDefined);
+check('U50 threshold registry keeps mobile metrics false', u50Thresholds.status === 'BLOCKED_THRESHOLD_CALIBRATION' && u50Thresholds.mobileMetricsReady === false);
 check('all active current-state documents are registered', activeCurrentStateDocuments.length === 14);
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
