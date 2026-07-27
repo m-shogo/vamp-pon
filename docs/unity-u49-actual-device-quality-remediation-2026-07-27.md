@@ -38,7 +38,8 @@ u50Blocked=true
 - touch開始時のactive fingerを固定し、別touch/UI touchへの切替を禁止する。
 - joystickのdead zoneとradiusを固定pixelから画面短辺比率へ変更する。
 - gameplay全体へ常時適用していた主人公scale bobを除去する。
-- idleは複数実frameを維持しながら切替周期を落ち着かせる。
+- 左向きidleは複数実frameを維持しながら切替周期を落ち着かせる。
+- `yui_idle_r_00`は実画像が左向きだったためright-idle routeから除外し、右向きidleは正しいframeへ固定して停止中の左右反転を止める。右向きの第2 idle frameはasset是正後に再導入する。
 - HUDから`Stage1GameplayRuntimeCoordinator.ActivateKokuyou()`へcommandを送る黒耀化ボタンを追加する。
 - 上記経路を静的checkerへ追加する。
 

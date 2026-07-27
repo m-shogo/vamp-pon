@@ -65,11 +65,14 @@ check(bootstrap.includes('sortingOrder = -100') && bootstrap.includes('sortingOr
 check(u2.includes('sortingOrder = 15'), 'enemy sorting contract');
 const playerController = read('unity/VampPonUnity/Assets/_Project/Scripts/Player/PlayerController.cs');
 const yuiAnimator = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/YuiSpriteAnimator.cs');
+const visualProvider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs');
 const inventoryHud = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/U47InventoryHudPresenter.cs');
 check(playerController.includes('activeTouchId') && playerController.includes('touch.press.wasPressedThisFrame') &&
   playerController.includes('StickRadiusScreenRatio') && playerController.includes('DeadZoneScreenRatio'), 'physical-device touch owns one finger and scales by screen');
 check(!playerController.includes('Mathf.Sin(Time.time * 8.5f)') && yuiAnimator.includes('RuntimeCharacterAnimationState.Idle') &&
   yuiAnimator.includes('animationSet.FrameDuration * 4f'), 'player has no perpetual scale bob and keeps a calmer explicit idle animation');
+check(visualProvider.includes('R("yui_idle_l_00","yui_idle_l_01"),R("yui_idle_r_01")') &&
+  !visualProvider.includes('R("yui_idle_r_00","yui_idle_r_01")'), 'known left-facing frame is excluded from the production right-idle route');
 check(inventoryHud.includes('"KokuyouActivationButton"') && inventoryHud.includes('kokuyouButton.onClick.AddListener(ActivateKokuyou)') &&
   inventoryHud.includes('gameplay?.ActivateKokuyou()') && inventoryHud.includes('KokuyouPhase.Ready'), 'normal gameplay exposes the manual Kokuyou command');
 for (const id of ['08-black-ink-area', '09-streetlamp-area', '11-dawn-ink-lamp']) {
