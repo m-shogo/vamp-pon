@@ -98,6 +98,7 @@
     "unity:u48-batch-c-capture-readiness:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-c-capture-readiness.ts",
     "unity:u48-batch-c-review-pack:generate": "python3 scripts/unity/generate-u48-batch-c-review-pack.py",
     "unity:u48-batch-c-review-ready:check": "node --experimental-strip-types scripts/quality/check-unity-u48-batch-c-review-ready.ts",
+    "unity:u48-policy-provenance:check": "python3 scripts/unity/refresh-u48-batch-c-policy-hashes.py",
     "unity:u48-stage-select-canon-audit:generate": "node --experimental-strip-types scripts/unity/generate-u48-stage-select-canon-audit.ts",
     "unity:u48-stage-select-runtime:check": "node --experimental-strip-types scripts/quality/check-unity-u48-stage-select-runtime.ts",
     "unity:u48-replacement-interaction:check": "node --experimental-strip-types scripts/quality/check-unity-u48-replacement-interaction.ts",

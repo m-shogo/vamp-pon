@@ -4,6 +4,10 @@ import {
   assertActiveCurrentStateDocuments,
   readCanonicalCurrentState,
 } from './unity-current-state.ts';
+import {
+  assertFullPreflightManifest,
+  requiredFullPreflightChecks,
+} from './unity-full-preflight-manifest.ts';
 
 const failures: string[] = [];
 
@@ -103,7 +107,6 @@ const docsIndex = read(paths.docsIndex);
 const agents = read(paths.agents);
 const claude = read(paths.claude);
 const packageJson = read(paths.packageJson);
-const fullPreflight = read(paths.fullPreflight);
 const ci = read(paths.ci);
 
 check('control center is adopted', controlCenter.includes('Status: adopted'));
@@ -311,14 +314,13 @@ check('package has full preflight script', packageJson.includes('implementation:
 check('UI design system remains present', read(paths.uiDesignSystem).includes('Status: adopted foundation'));
 check('asset consistency remains present', read(paths.assetConsistency).includes('Asset Generation Contract'));
 
-for (const script of [
-  'unity:u48-human-selection:check',
-  'unity:u48-approved-production-set:check',
-  'unity:u48-production-visual-connection:check',
-  'unity:u48-production-visual-verification:check',
-  'unity:u48-batch-b-review-ready:check',
-  'unity:u48-batch-c-review-ready:check',
-]) check(`full preflight includes ${script}`, fullPreflight.includes(`'${script}'`));
+try {
+  const parsedPackage = JSON.parse(packageJson) as { scripts?: Record<string, unknown> };
+  assertFullPreflightManifest(parsedPackage.scripts ?? {});
+} catch (error) {
+  failures.push((error as Error).message);
+}
+check('full preflight manifest has expected breadth', requiredFullPreflightChecks.length >= 30);
 
 check('CI runs static implementation preflight', ci.includes('pnpm implementation:preflight:check'));
 
