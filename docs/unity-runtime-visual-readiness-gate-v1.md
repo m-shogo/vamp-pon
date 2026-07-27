@@ -1,5 +1,29 @@
 # ヨルノシルベ Unity Runtime Visual Readiness Gate v1
 
+<!-- CURRENT_STATE_BEGIN -->
+```json
+{
+  "schemaVersion": 1,
+  "currentPhase": "U49 actual-device audio/haptic",
+  "nextPhase": "U50 performance/touch metrics",
+  "thenPhase": "U51 RC",
+  "runtimeVisualReady": true,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioReady": false,
+  "audioLatencyMeasured": false,
+  "hapticReady": false,
+  "hapticMeasured": false,
+  "u50ThresholdsDefined": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false
+}
+```
+<!-- CURRENT_STATE_END -->
+
 Original adoption date: 2026-07-10
 Last synchronized: 2026-07-24
 Status: adopted source of truth

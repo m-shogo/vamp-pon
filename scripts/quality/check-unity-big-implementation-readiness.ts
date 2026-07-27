@@ -1,6 +1,17 @@
 import { existsSync, readFileSync } from 'node:fs';
+import {
+  activeCurrentStateDocuments,
+  assertActiveCurrentStateDocuments,
+  readCanonicalCurrentState,
+} from './unity-current-state.ts';
 
 const failures: string[] = [];
+
+try {
+  assertActiveCurrentStateDocuments();
+} catch (error) {
+  failures.push((error as Error).message);
+}
 
 function read(path: string): string {
   return existsSync(path) ? readFileSync(path, 'utf8') : '';
@@ -72,8 +83,11 @@ for (const path of Object.values(paths)) check(`required file exists: ${path}`, 
 
 let readiness: Record<string, any> = {};
 let runtimeVisual: Record<string, any> = {};
+let u49Readiness: Record<string, any> = {};
 try { readiness = JSON.parse(read(paths.readiness)); } catch { failures.push('big implementation readiness JSON parses'); }
 try { runtimeVisual = JSON.parse(read(paths.runtimeVisual)); } catch { failures.push('runtime visual readiness JSON parses'); }
+try { u49Readiness = JSON.parse(read('docs/design-targets/generated/unity-u49/readiness.json')); } catch { failures.push('U49 readiness JSON parses'); }
+const canonicalState = readCanonicalCurrentState();
 
 const controlCenter = read(paths.controlCenter);
 const ownership = read(paths.ownership);
@@ -213,6 +227,40 @@ checkExecutionEvidence(
 
 check('current required phase exact', readiness.currentRequiredPhase === 'U49 actual-device audio/haptic');
 check('next phase remains U50 performance/touch metrics', readiness.nextPhaseAfterCurrent === 'U50 performance/touch metrics');
+check('canonical current phase exact', canonicalState.currentPhase === readiness.currentRequiredPhase);
+check('canonical next phase exact', canonicalState.nextPhase === readiness.nextPhaseAfterCurrent);
+check('canonical then phase exact', canonicalState.thenPhase === 'U51 RC');
+for (const key of [
+  'runtimeVisualReady',
+  'devicePlayableReady',
+  'audioMixerReady',
+  'audioLatencyMeasured',
+  'hapticMeasured',
+  'mobileMetricsReady',
+  'rcReady',
+  'productionApproved',
+] as const) {
+  const canonicalKey = key === 'audioMixerReady' ? 'audioMixerDeviceVerified' : key;
+  check(`canonical ${canonicalKey} matches big implementation readiness`, canonicalState[canonicalKey] === readiness[key]);
+}
+for (const key of [
+  'physicalDeviceReady',
+  'devicePlayableReady',
+  'audioMixerImplemented',
+  'audioMixerDeviceVerified',
+  'audioReady',
+  'audioLatencyMeasured',
+  'hapticReady',
+  'hapticMeasured',
+  'mobileMetricsReady',
+  'rcReady',
+  'productionApproved',
+] as const) {
+  const u49Key = key === 'audioMixerDeviceVerified' ? 'audioMixerReady' : key;
+  check(`canonical ${key} matches U49 readiness`, canonicalState[key] === u49Readiness[u49Key]);
+}
+check('canonical U50 threshold gate remains unresolved', canonicalState.u50ThresholdsDefined === false);
+check('all active current-state documents are registered', activeCurrentStateDocuments.length === 14);
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
 check('runtime visual current production animation', runtimeVisual.runtimeVisualClassification === 'production-animated-sprite');

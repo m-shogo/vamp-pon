@@ -1,5 +1,29 @@
 # ヨルノシルベ
 
+<!-- CURRENT_STATE_BEGIN -->
+```json
+{
+  "schemaVersion": 1,
+  "currentPhase": "U49 actual-device audio/haptic",
+  "nextPhase": "U50 performance/touch metrics",
+  "thenPhase": "U51 RC",
+  "runtimeVisualReady": true,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioReady": false,
+  "audioLatencyMeasured": false,
+  "hapticReady": false,
+  "hapticMeasured": false,
+  "u50ThresholdsDefined": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false
+}
+```
+<!-- CURRENT_STATE_END -->
+
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。正式販売タイトルは **ヨルノシルベ** です。
 
 スマホ縦持ち向けのサバイバルローグライト。

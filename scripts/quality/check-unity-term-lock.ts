@@ -1,5 +1,6 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+import { activeCurrentStateDocuments } from './unity-current-state.ts';
 
 type Finding = {
   file: string;
@@ -18,22 +19,6 @@ const explicitFiles = [
   'docs/unity-asset-intake-gate-2026-06-30.md',
   'docs/unity-sprite-import-policy-2026-06-30.md',
   'docs/unity-u5-1-quality-gate-review-2026-06-30.md',
-];
-
-const activeFiles = [
-  'README.md',
-  'AGENTS.md',
-  'CLAUDE.md',
-  'docs/00-index.md',
-  'docs/181-current-production-canon.md',
-  'docs/agent-pr-workflow.md',
-  'docs/mobile-release-qa-gates.md',
-  'docs/unity-current-doc-index-2026-07-10.md',
-  'docs/unity-mobile-performance-budget.md',
-  'docs/unity-responsive-screen-policy.md',
-  'docs/unity-runtime-visual-readiness-gate-v1.md',
-  'docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md',
-  'docs/visual-qa-gates.md',
 ];
 
 const contentContracts: ContentContract[] = [
@@ -159,7 +144,7 @@ function isExplicitCorrection(line: string, term: string): boolean {
   return /(never|ではなく|use|誤記|禁止|not\s+use|必ず)/i.test(line);
 }
 
-const files = Array.from(new Set([...explicitFiles, ...activeFiles, ...listFutureUnityU6Docs()]));
+const files = Array.from(new Set([...explicitFiles, ...activeCurrentStateDocuments, ...listFutureUnityU6Docs()]));
 const findings: Finding[] = [];
 
 for (const file of files) {
