@@ -31,6 +31,8 @@ U49のproduction AudioMixer、22 SE route、iOS Core Haptics adapter、developme
 
 Unity normal compile、U49 Editor verification、iOS Device export、Xcode Release build、署名、CoreHaptics link、物理iPhoneへのinstallまではPASSした。ローカルcode signatureも検証済み。
 
+その後のruntime integrity hardeningで、非対応端末のcapability状態、suspend/resume diagnostics、production profileの重複/null binding拒否を修正した。このため既存のbuild/install証跡は履歴として保持するが、U49 completionへ使う前に現行Unity runtimeから再build・再installする。checkerはcompletion時にbuild source以後のUnity runtime差分を拒否する。
+
 ## Current blocker
 
 物理iPhoneはbooted、paired、Developer services availableだが、端末がインストール済みdeveloper profileを未信頼としてlaunchを拒否した。端末側で明示的に信頼されるまでは、harness sequence、audio latency、speaker mix、Core Haptics実行、background/foreground、human decisionを測定できない。
@@ -39,4 +41,4 @@ Unity normal compile、U49 Editor verification、iOS Device export、Xcode Relea
 
 ## Readiness rule
 
-端末launch後に自動sequenceを完走し、同一processのbackground/foreground復帰とsettings OFF/ONを確認し、最後に人間が18項目をまとめて判定した場合だけU49 readinessを再評価する。ログ、native call count、AI判断だけで音質・触覚を承認しない。
+現行Unity runtimeを再build・再installしてから端末launch後に自動sequenceを完走し、同一processのbackground/foreground復帰とsettings OFF/ONを確認し、最後に`device-review-contract.json`の18項目をまとめて判定した場合だけU49 readinessを再評価する。22/10の件数だけではなく必須event ID集合一致とCore Haptics対応・native実行を要求する。ログ、native call count、AI判断だけで音質・触覚を承認しない。

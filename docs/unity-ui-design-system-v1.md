@@ -1,5 +1,29 @@
 # ヨルノシルベ Unity UI Design System v1
 
+<!-- CURRENT_STATE_BEGIN -->
+```json
+{
+  "schemaVersion": 1,
+  "currentPhase": "U49 actual-device audio/haptic",
+  "nextPhase": "U50 performance/touch metrics",
+  "thenPhase": "U51 RC",
+  "runtimeVisualReady": true,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioReady": false,
+  "audioLatencyMeasured": false,
+  "hapticReady": false,
+  "hapticMeasured": false,
+  "u50ThresholdsDefined": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false
+}
+```
+<!-- CURRENT_STATE_END -->
+
 U46 Result/灯録は`Resources/U46Candidates/UI`のtyped Candidate catalog、9-slice、Safe Area、Compact/Standard/Large reviewを採用した。final/runtime承認ではない。
 
 Date: 2026-07-10
@@ -288,17 +312,19 @@ Stage1 Vertical Sliceでは導入しない。
 
 ## 11. 現在の境界
 
-U45 AI-only iOS Simulator smokeは`simulatorPlayableCandidateReady=true`。
-ただし以下は未承認のまま維持する。
+U45 AI-only iOS Simulator smokeとU46 UI Design System readinessは履歴証跡であり、そこで使ったUI candidateはfinal未承認のまま維持する。一方、current全体ではU48で承認された46 production visual assetがruntimeへ接続済みであり、`runtimeVisualReady=true`。この2つを混同しない。
 
 ```txt
 actualDeviceSmokeResult=NOT_PROVIDED
+runtimeVisualReady=true
+audioMixerImplemented=true
+audioMixerDeviceVerified=false
 devicePlayableReady=false
 mobileMetricsReady=false
 audioMixerReady=false
 audioLatencyMeasured=false
 hapticMeasured=false
-candidateAssetsApprovedAsFinal=false
+U45UiCandidateAssetsApprovedAsFinal=false
 rcReady=false
 productionApproved=false
 ```

@@ -10,11 +10,13 @@ export const activeCurrentStateDocuments = [
   'docs/181-current-production-canon.md',
   'docs/agent-pr-workflow.md',
   'docs/mobile-release-qa-gates.md',
+  'docs/asset-generation-consistency-system-v1.md',
   'docs/unity-big-implementation-control-center-v1.md',
   'docs/unity-current-doc-index-2026-07-10.md',
   'docs/unity-mobile-performance-budget.md',
   'docs/unity-responsive-screen-policy.md',
   'docs/unity-runtime-visual-readiness-gate-v1.md',
+  'docs/unity-ui-design-system-v1.md',
   'docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md',
   'docs/visual-qa-gates.md',
 ] as const;
@@ -85,18 +87,21 @@ export function readCanonicalCurrentState(): CurrentState {
   return parseFlatJsonWithDuplicateGuard(readFileSync(currentStatePath, 'utf8'), currentStatePath);
 }
 
-export function parseDocumentCurrentState(path: string): CurrentState {
-  const source = readFileSync(path, 'utf8');
+export function parseDocumentCurrentStateSource(source: string, label: string): CurrentState {
   if (count(source, beginMarker) !== 1 || count(source, endMarker) !== 1) {
-    throw new Error(`${path}: current-state markers must each appear exactly once`);
+    throw new Error(`${label}: current-state markers must each appear exactly once`);
   }
   const begin = source.indexOf(beginMarker) + beginMarker.length;
   const end = source.indexOf(endMarker);
-  if (begin >= end) throw new Error(`${path}: malformed current-state marker order`);
+  if (begin >= end) throw new Error(`${label}: malformed current-state marker order`);
   const block = source.slice(begin, end).trim();
   const match = block.match(/^```json\s*\n([\s\S]*?)\n```$/);
-  if (!match) throw new Error(`${path}: current-state block must contain exactly one fenced JSON object`);
-  return parseFlatJsonWithDuplicateGuard(match[1], path);
+  if (!match) throw new Error(`${label}: current-state block must contain exactly one fenced JSON object`);
+  return parseFlatJsonWithDuplicateGuard(match[1], label);
+}
+
+export function parseDocumentCurrentState(path: string): CurrentState {
+  return parseDocumentCurrentStateSource(readFileSync(path, 'utf8'), path);
 }
 
 export function assertActiveCurrentStateDocuments(): void {

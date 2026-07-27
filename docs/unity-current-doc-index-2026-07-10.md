@@ -25,7 +25,7 @@
 <!-- CURRENT_STATE_END -->
 
 Original adoption date: 2026-07-10
-Last synchronized: 2026-07-24
+Last synchronized: 2026-07-27
 Status: current
 
 ## Completion sources
@@ -81,6 +81,10 @@ productionCharacterAssetReady=true
 productionEnemyAssetReady=true
 candidateAssetsApprovedAsFinal=true
 productionDataRegistryImplemented=true
+audioMixerImplemented=true
+audioMixerDeviceVerified=false
+audioReady=false
+hapticReady=false
 devicePlayableReady=false
 mobileMetricsReady=false
 audioMixerReady=false
@@ -118,6 +122,11 @@ productionApproved=false
 - `docs/design-targets/generated/unity-u48/approved-production-set.json`
 - `docs/design-targets/generated/unity-u48/production-visual-connection.json`
 - `docs/design-targets/generated/unity-u48/production-verification/manifest.json`
+- `docs/design-targets/generated/unity-u49/readiness.json`
+- `docs/design-targets/generated/unity-u49/device-build-result.json`
+- `docs/design-targets/generated/unity-u49/device-install-launch-result.json`
+- `docs/design-targets/generated/unity-u50/thresholds.json`
+- `docs/design-targets/generated/unity-current-state/state.json`
 
 U45.1 evidence remains historical prerequisite evidence and must not override the current U48 readiness:
 
@@ -152,6 +161,7 @@ pnpm unity:u48-production-visual-connection:check
 pnpm unity:u48-production-visual-verification:check
 pnpm unity:meta:check
 pnpm unity:u49-actual-device-audio-haptic:check
+pnpm unity:u50-thresholds:check
 ```
 
 ## Historical documents

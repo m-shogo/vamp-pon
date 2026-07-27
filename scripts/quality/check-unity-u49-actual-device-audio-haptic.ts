@@ -35,6 +35,7 @@ const evidenceFiles = [
   'haptic-device-observation.json',
   'background-foreground-result.json',
   'human-device-decision.json',
+  'device-review-contract.json',
   'readiness.json',
   'completion-summary.json',
 ];
@@ -66,6 +67,7 @@ const mix = json(`${evidenceRoot}/audio-mix-observation.json`);
 const haptic = json(`${evidenceRoot}/haptic-device-observation.json`);
 const lifecycle = json(`${evidenceRoot}/background-foreground-result.json`);
 const human = json(`${evidenceRoot}/human-device-decision.json`);
+const reviewContract = json(`${evidenceRoot}/device-review-contract.json`);
 const readiness = json(`${evidenceRoot}/readiness.json`);
 const completion = json(`${evidenceRoot}/completion-summary.json`);
 const u48 = json('docs/design-targets/generated/unity-u48/readiness.json');
@@ -107,14 +109,20 @@ check(expectedParameters.every(parameter => mixerAsset.includes(`name: ${paramet
 
 check(audioCoverage.requiredEventCount === 22 && audioCoverage.coveredEventCount === 22 && audioCoverage.missingCriticalEventCount === 0 && audioCoverage.duplicateEventCount === 0, '22 audio events covered');
 check(hapticCoverage.requiredEventCount === 10 && hapticCoverage.coveredEventCount === 10 && hapticCoverage.missingCriticalEventCount === 0, '10 haptic events covered');
+const requiredHumanAnswers = reviewContract.answers.map((answer: { id: string }) => answer.id);
+check(reviewContract.requiredAnswerCount === 18 && requiredHumanAnswers.length === 18 && new Set(requiredHumanAnswers).size === 18, 'device review contract has 18 unique answers');
 
 const owner = read('unity/VampPonUnity/Assets/_Project/Scripts/U49/AudioHaptic/U49AudioHapticRuntimeOwner.cs');
+const profile = read('unity/VampPonUnity/Assets/_Project/Scripts/U49/AudioHaptic/U49ProductionAudioProfile.cs');
 const bridge = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U43RuntimeFeedbackBridge.cs');
 const iosAdapter = read('unity/VampPonUnity/Assets/_Project/Scripts/U49/AudioHaptic/U49IosHapticAdapter.cs');
 const nativeHaptics = read('unity/VampPonUnity/Assets/Plugins/iOS/VampPonHaptics.mm');
 const postprocess = read('unity/VampPonUnity/Assets/_Project/Scripts/Editor/U49IosPostprocessBuild.cs');
 const harness = read('unity/VampPonUnity/Assets/_Project/Scripts/U49/AudioHaptic/U49DeviceVerificationHarness.cs');
 check(owner.includes('private const int VoicePoolSize = 8') && owner.includes('source.outputAudioMixerGroup = profile.SeGroup') && owner.includes('voice.Source.outputAudioMixerGroup = group'), '8 routed 2D production voices');
+check(profile.includes('RequiredPrimaryEvents.All(boundEvents.Contains)') && profile.includes('boundClips.Count == RequiredPrimaryEventCount'), 'runtime profile rejects missing, duplicate, or null production bindings');
+check(iosAdapter.includes('capabilityChecked') && iosAdapter.includes('!capabilityChecked ? U49HapticCapability.Unknown'), 'haptic capability distinguishes unchecked from unsupported devices');
+check(owner.includes('Diagnostics.hapticInitialized = false') && owner.includes('Diagnostics.hapticInitialized = InitializeHaptics()'), 'haptic diagnostics follow suspend/resume lifecycle');
 check(!owner.includes('U28MobileHapticPlaceholderAdapter') && !bridge.includes('U28MobileHapticPlaceholderAdapter'), 'placeholder haptic adapter is outside product route');
 check(!owner.includes('Handheld.Vibrate') && !bridge.includes('Handheld.Vibrate'), 'no direct legacy vibration');
 check(!owner.includes('AudioClip.Create') && !bridge.includes('AudioClip.Create') && !bridge.includes('Mathf.Sin'), 'no generated-tone product fallback');
@@ -132,10 +140,46 @@ check(install.deviceIdentifierTracked === false && install.profileIdentifierTrac
 const complete = readiness.status === 'U49_COMPLETED_ACTUAL_DEVICE_AUDIO_HAPTIC_READY';
 check(readiness.audioMixerImplemented === true && readiness.actualAudioMixerAssetExists === true, 'static AudioMixer implementation is recorded separately');
 if (complete) {
+  const buildSource = build.sourceHead ?? build.sourceCommit;
+  for (const [label, evidence] of Object.entries({ install, session, latency, mix, haptic, lifecycle, human })) {
+    check((evidence.sourceHead ?? evidence.sourceCommit) === buildSource, `completed ${label} evidence uses the built source commit`);
+  }
+  const runtimeChangesAfterBuild = execFileSync(
+    'git',
+    ['diff', '--name-only', `${buildSource}..HEAD`, '--',
+      'unity/VampPonUnity/Assets',
+      'unity/VampPonUnity/Packages',
+      'unity/VampPonUnity/ProjectSettings'],
+    { cwd: root, encoding: 'utf8' },
+  ).trim();
+  check(runtimeChangesAfterBuild.length === 0, 'completed device evidence is not stale after Unity runtime changes');
   check(install.launchPassed === true && session.launchPassed === true && session.verificationHarnessReached === true, 'completed state has launched physical-device harness');
   check(session.automaticSequenceStarted === true && session.automaticSequenceCompleted === true, 'completed state has completed sequence');
-  check(session.audioEventRequestCount >= 22 && session.hapticEventRequestCount >= 10, 'completed session requested all events');
-  check(latency.audioLatencyMeasured === true && mix.mixReviewPassed === true && haptic.hapticMeasured === true && lifecycle.passed === true, 'completed measurements all pass');
+  const expectedAudioEvents = manifest.assets.map((asset: { u28EventId: string }) => asset.u28EventId);
+  const expectedHapticEvents = json(`${evidenceRoot}/haptic-event-inventory.json`).events.map((event: { id: string }) => event.id);
+  check(Array.isArray(session.requestedAudioEvents) && new Set(session.requestedAudioEvents).size === 22 &&
+    expectedAudioEvents.every((id: string) => session.requestedAudioEvents.includes(id)), 'completed session contains every required audio event ID');
+  check(Array.isArray(session.requestedHapticEvents) && new Set(session.requestedHapticEvents).size === 10 &&
+    expectedHapticEvents.every((id: string) => session.requestedHapticEvents.includes(id)), 'completed session contains every required haptic event ID');
+  check(session.audioEventRequestCount >= 22 && session.hapticEventRequestCount >= 10, 'completed session request counts cover all events');
+  check(session.supportsHaptics === true && session.hapticCapability === 'Supported', 'completed session used a Core Haptics-capable physical device');
+  check(latency.audioLatencyMeasured === true && latency.sampleCount >= 22 &&
+    expectedAudioEvents.every((id: string) => latency.eventSampleCounts?.[id] >= 1) &&
+    [latency.p50Milliseconds, latency.p95Milliseconds, latency.maxMilliseconds, latency.backgroundRecoveryFirstEventMilliseconds]
+      .every((value: unknown) => typeof value === 'number' && Number.isFinite(value) && value >= 0) &&
+    latency.humanPerceivedDelayPassed === true, 'completed latency evidence has finite measurements for every audio event');
+  check(mix.humanObservationProvided === true && Array.isArray(mix.speakerVolumesReviewed) &&
+    mix.speakerVolumesReviewed.length >= 3 && mix.mixReviewPassed === true, 'completed mix evidence covers human speaker review');
+  check(haptic.supportsHaptics === true && haptic.nativeAdapterExecuted === true &&
+    haptic.eventObservationCount >= 10 && haptic.settingOffPassed === true &&
+    haptic.settingOnPassed === true && haptic.cooldownPassed === true &&
+    haptic.spamGuardPassed === true && haptic.backgroundForegroundPassed === true &&
+    haptic.humanObservationProvided === true && haptic.hapticMeasured === true, 'completed haptic evidence covers execution, settings, guards, lifecycle, and human review');
+  check(lifecycle.backgroundObserved === true && lifecycle.foregroundObserved === true &&
+    lifecycle.sameProcessConfirmed === true && lifecycle.audioRecovered === true &&
+    lifecycle.hapticRecovered === true && lifecycle.passed === true, 'completed lifecycle evidence proves same-process audio/haptic recovery');
+  check(requiredHumanAnswers.every((id: string) => human.answers?.[id] === true) &&
+    Object.keys(human.answers ?? {}).length === requiredHumanAnswers.length, 'completed human decision answers the exact 18-item review contract');
   check(human.provided === true && human.humanAudioApprovalProvided === true && human.humanHapticApprovalProvided === true && human.overallAccepted === true, 'completed state has explicit human approval');
   check(readiness.audioMixerDeviceVerified === true && readiness.audioMixerReady === true && readiness.audioLatencyMeasured === true && readiness.hapticMeasured === true, 'completed measured readiness flags');
   check(readiness.audioReady === true && readiness.hapticReady === true && readiness.physicalDeviceReady === true && readiness.devicePlayableReady === true, 'completed device readiness');

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using VampPon.UnitySpike.U28.FeelIntegration;
@@ -20,6 +21,31 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
     {
         public const string ResourcesPath = "Audio/U49ProductionAudioProfile";
         public const int RequiredPrimaryEventCount = 22;
+        private static readonly U28AudioEventId[] RequiredPrimaryEvents =
+        {
+            U28AudioEventId.StageSelectLantern,
+            U28AudioEventId.BattleStart,
+            U28AudioEventId.PickupXp,
+            U28AudioEventId.PickupHeal,
+            U28AudioEventId.PickupRare,
+            U28AudioEventId.WeaponFireSoft,
+            U28AudioEventId.EnemyHitSoft,
+            U28AudioEventId.EnemyDefeatInk,
+            U28AudioEventId.PlayerDamage,
+            U28AudioEventId.LevelupOpen,
+            U28AudioEventId.CardSelect,
+            U28AudioEventId.CardConfirm,
+            U28AudioEventId.EvolutionConvergence,
+            U28AudioEventId.EvolutionComplete,
+            U28AudioEventId.KokuyouGaugeReady,
+            U28AudioEventId.KokuyouActivation,
+            U28AudioEventId.KokuyouEnding,
+            U28AudioEventId.ResultStamp,
+            U28AudioEventId.RewardCard,
+            U28AudioEventId.UnlockReveal,
+            U28AudioEventId.StageRouteUnlock,
+            U28AudioEventId.RetryConfirm,
+        };
 
         [SerializeField] private AudioMixer mixer;
         [SerializeField] private AudioMixerGroup masterGroup;
@@ -69,9 +95,24 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
 
         public bool HasCompleteRouting()
         {
-            return mixer != null && masterGroup != null && bgmGroup != null && seGroup != null &&
-                   uiGroup != null && battleGroup != null && pickupGroup != null && climaxGroup != null &&
-                   resultGroup != null && stageSelectGroup != null && eventClips.Count == RequiredPrimaryEventCount;
+            if (mixer == null || masterGroup == null || bgmGroup == null || seGroup == null ||
+                uiGroup == null || battleGroup == null || pickupGroup == null || climaxGroup == null ||
+                resultGroup == null || stageSelectGroup == null || eventClips == null ||
+                eventClips.Count != RequiredPrimaryEventCount)
+            {
+                return false;
+            }
+
+            if (eventClips.Any(binding => binding == null || binding.Clip == null))
+            {
+                return false;
+            }
+
+            var boundEvents = eventClips.Select(binding => binding.EventId).ToHashSet();
+            var boundClips = eventClips.Select(binding => binding.Clip).ToHashSet();
+            return boundEvents.Count == RequiredPrimaryEventCount &&
+                   boundClips.Count == RequiredPrimaryEventCount &&
+                   RequiredPrimaryEvents.All(boundEvents.Contains);
         }
 
         private Dictionary<U28AudioEventId, AudioClip> BuildClipMap()

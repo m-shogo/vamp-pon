@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "historicalSourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "historicalPolicyPath": "docs/unity-ui-design-system-v1.md",
+  "historicalPolicySha256": "769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497",
+  "historicalPolicyStorage": "GIT_OBJECT_AT_SOURCE_HEAD",
+  "currentPolicyPath": "docs/unity-ui-design-system-v1.md",
+  "currentPolicySha256": "c829ccb031e1116726fa3aa2712fe6936552786e269288dba218576936c345b1",
+  "compatibilityResult": "COMPATIBLE_WITH_U48_OUTPUT",
+  "compatibilityReason": "The current-state block and U45/U48 readiness clarification do not change U48 Batch C geometry, interaction, import, or visual generation contracts.",
+  "runtimeAssetsRegenerated": false,
+  "historicalScreenshotsRegenerated": false,
+  "humanApprovalReusedForNewAssets": false
+}

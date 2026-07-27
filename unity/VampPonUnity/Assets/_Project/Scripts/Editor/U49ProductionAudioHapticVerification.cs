@@ -53,6 +53,7 @@ namespace VampPon.UnitySpike.Editor
                 Require(!owner.HapticEnabled && !owner.PlayHaptic(U28HapticEventId.LightTap), "haptic setting off blocks route");
                 owner.SetHapticEnabled(true);
                 Require(!owner.HapticRuntimeSupported, "Editor is explicit no-op haptic route");
+                Require(owner.Diagnostics.hapticCapability == U49HapticCapability.Unsupported.ToString(), "Editor reports unsupported rather than unknown haptic capability");
                 Require(owner.Play(U28AudioEventId.BattleStart, true, Time.realtimeSinceStartupAsDouble), "production clip schedules");
                 Require(owner.Diagnostics.audioPlayCount == 1 && owner.Diagnostics.missingClipCount == 0, "runtime diagnostics record real clip");
                 Require(!owner.Play(U28AudioEventId.BattleStart, true, Time.realtimeSinceStartupAsDouble), "duplicate cooldown guard");

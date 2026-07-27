@@ -29,7 +29,15 @@ const contracts = json('docs/design-targets/generated/unity-u48/batch-c/generati
 const recipes = json('docs/design-targets/generated/unity-u48/batch-c/generation-recipes.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const finalized = readiness.u48Completed === true && readiness.runtimeVisualReady === true;
-const mutableHistoricalReference = (path: string) => finalized && (path === 'docs/181-current-production-canon.md' || path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/'));
+const uiPolicyPath = 'docs/unity-ui-design-system-v1.md';
+const uiPolicyHistoricalHash = '769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497';
+const historicalUiPolicy = execFileSync('git', ['show', `${sourceHead}:${uiPolicyPath}`], { cwd: root });
+check(createHash('sha256').update(historicalUiPolicy).digest('hex') === uiPolicyHistoricalHash, 'historical UI policy Git object hash');
+const mutableHistoricalReference = (path: string) => finalized && (
+  path === 'docs/181-current-production-canon.md' ||
+  path === uiPolicyPath ||
+  path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')
+);
 const goldenReferenceHashes = new Map<string, string>();
 
 check(comparison.activeComparisonGroupCount === 30 && comparison.comparisonGroups.length === 30, '30 comparison units');

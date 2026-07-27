@@ -19,17 +19,17 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 10
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22'
           cache: pnpm
@@ -44,7 +44,7 @@ jobs:
 
       - name: Upload implementation preflight log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: implementation-preflight-${{ github.run_id }}
           path: implementation-preflight.log
@@ -58,7 +58,7 @@ jobs:
 
       - name: Upload full implementation preflight log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: implementation-full-preflight-${{ github.run_id }}
           path: implementation-full-preflight.log

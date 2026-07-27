@@ -6,23 +6,27 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
 {
     public sealed class U49IosHapticAdapter : IU28HapticPlatformAdapter
     {
-        private bool initialized;
+        private bool capabilityChecked;
+        private bool engineStarted;
         private bool supported;
 
-        public bool IsDeviceExecutionSupported => initialized && supported;
+        public bool IsDeviceExecutionSupported => engineStarted && supported;
         public bool LastExecutionSucceeded { get; private set; }
-        public U49HapticCapability Capability => !initialized ? U49HapticCapability.Unknown : supported ? U49HapticCapability.Supported : U49HapticCapability.Unsupported;
+        public U49HapticCapability Capability => !capabilityChecked ? U49HapticCapability.Unknown : supported ? U49HapticCapability.Supported : U49HapticCapability.Unsupported;
         public string LastError => ReadLastError();
 
         public bool Initialize()
         {
 #if UNITY_IOS && !UNITY_EDITOR
+            if (engineStarted || (capabilityChecked && !supported)) return true;
             supported = VP_Haptics_IsSupported() == 1;
-            initialized = supported && VP_Haptics_Start() == 1;
-            return !supported || initialized;
+            capabilityChecked = true;
+            engineStarted = supported && VP_Haptics_Start() == 1;
+            return !supported || engineStarted;
 #else
             supported = false;
-            initialized = true;
+            capabilityChecked = true;
+            engineStarted = false;
             return true;
 #endif
         }
@@ -39,9 +43,10 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
         public void Suspend()
         {
 #if UNITY_IOS && !UNITY_EDITOR
-            if (initialized && supported) VP_Haptics_Stop();
+            if (engineStarted && supported) VP_Haptics_Stop();
 #endif
-            initialized = false;
+            engineStarted = false;
+            LastExecutionSucceeded = false;
         }
 
         public void Resume() => Initialize();
@@ -52,7 +57,8 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
             VP_Haptics_Stop();
             VP_Haptics_Reset();
 #endif
-            initialized = false;
+            capabilityChecked = false;
+            engineStarted = false;
             supported = false;
             LastExecutionSucceeded = false;
         }

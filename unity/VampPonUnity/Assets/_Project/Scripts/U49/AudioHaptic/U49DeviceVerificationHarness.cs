@@ -14,7 +14,7 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
         [Serializable]
         private sealed class Session
         {
-            public int schemaVersion = 1;
+            public int schemaVersion = 2;
             public string platform = "iOS";
             public string deviceFamily = "iPhone";
             public string osVersion;
@@ -25,6 +25,7 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
             public bool sequenceCompleted;
             public bool sequenceStopped;
             public bool supportsHaptics;
+            public string hapticCapability;
             public bool hapticSettingOffBlockedExecution;
             public bool hapticSettingOnRestoredExecution;
             public int backgroundCount;
@@ -176,6 +177,7 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
             if (session == null || owner == null) return;
             var diagnostics = owner.Diagnostics;
             session.supportsHaptics = owner.HapticRuntimeSupported;
+            session.hapticCapability = diagnostics.hapticCapability;
             session.audioPlayCount = diagnostics.audioPlayCount;
             session.audioGuardedCount = diagnostics.audioGuardedCount;
             session.missingClipCount = diagnostics.missingClipCount;

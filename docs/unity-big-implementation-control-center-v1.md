@@ -25,7 +25,7 @@
 <!-- CURRENT_STATE_END -->
 
 Original adoption date: 2026-07-10
-Last synchronized: 2026-07-25
+Last synchronized: 2026-07-27
 Status: adopted / 大規模実装の単一入口
 
 ## 目的
@@ -95,6 +95,10 @@ productionCharacterAssetReady=true
 productionEnemyAssetReady=true
 candidateAssetsApprovedAsFinal=true
 actualDeviceSmokeResult=NOT_PROVIDED
+audioMixerImplemented=true
+audioMixerDeviceVerified=false
+audioReady=false
+hapticReady=false
 devicePlayableReady=false
 mobileMetricsReady=false
 audioMixerReady=false

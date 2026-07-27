@@ -267,7 +267,7 @@ for (const key of [
 check('canonical U50 threshold gate remains unresolved', canonicalState.u50ThresholdsDefined === false);
 check('canonical U50 threshold gate matches threshold registry', canonicalState.u50ThresholdsDefined === u50Thresholds.u50ThresholdsDefined);
 check('U50 threshold registry keeps mobile metrics false', u50Thresholds.status === 'BLOCKED_THRESHOLD_CALIBRATION' && u50Thresholds.mobileMetricsReady === false);
-check('all active current-state documents are registered', activeCurrentStateDocuments.length === 14);
+check('all active current-state documents are registered', activeCurrentStateDocuments.length === 16);
 check('actual device remains NOT_PROVIDED', readiness.actualDeviceSmokeResult === 'NOT_PROVIDED');
 check('simulator route remains separately true', readiness.simulatorPlayableCandidateReady === true);
 check('runtime visual current production animation', runtimeVisual.runtimeVisualClassification === 'production-animated-sprite');

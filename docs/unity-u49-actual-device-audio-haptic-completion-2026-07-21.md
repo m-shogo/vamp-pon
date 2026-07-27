@@ -35,4 +35,4 @@ U49では`performanceReady=false`、`mobileMetricsReady=false`、`rcReady=false`
 
 ## Required unblock
 
-端末でインストール済みdeveloper profileを明示的に信頼し、同じ署名済みbuildをlaunchする。その後、U49 harness sequence、background/foreground、18項目の人間確認を実施し、machine-readable evidenceとcheckerが一致した場合のみcompletionへ昇格する。
+端末でdeveloper profileを明示的に信頼する。既存build後にruntime integrity hardeningが入ったため、現行Unity runtimeから署名buildを再生成・再installしてlaunchする。その後、U49 harness sequence、background/foreground、18項目の人間確認を実施し、全測定証跡が同じbuild source commitを指し、以後にUnity runtime差分がなく、machine-readable evidenceとcheckerが一致した場合のみcompletionへ昇格する。

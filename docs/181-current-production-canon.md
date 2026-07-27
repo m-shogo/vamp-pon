@@ -288,7 +288,8 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 | production DataRegistry | U47実装済み |
 | Result/Collection read model | U46実装済み |
 | U48 production asset expansion | 46 asset / 138 Simulator captureで完了 |
-| actual device/audio/haptic/performance | U49開始時点では未確認 |
+| actual device/audio/haptic | U49 architecture・signed device build・installまで実施済み。現行runtimeの再build、launch、測定、人間判定は未完了 |
+| performance/touch metrics | U50 threshold calibration前、未確認 |
 | RC/production | false |
 
 ## Next implementation order
@@ -311,6 +312,8 @@ pnpm asset-generation:check
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
 pnpm unity:u45-ai-simulator-smoke:check
+pnpm unity:u49-actual-device-audio-haptic:check
+pnpm unity:u50-thresholds:check
 ```
 
 READYは実装、evidence、checkerが揃った時だけ上げる。

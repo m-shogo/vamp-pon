@@ -34,6 +34,8 @@ U49は音・振動・実機playable smokeだけを対象とする。U48の46 pro
 7. development define限定のU49 harnessは製品と同じowner/routerを呼ぶ。通常buildでは到達不能にする。
 8. application backgroundではAudioSourceを停止しhaptic engineを停止、foregroundではengineを再初期化する。
 
+人間確認の18項目IDは`docs/design-targets/generated/unity-u49/device-review-contract.json`を正本とする。完了時は22 audio event IDと10 haptic event IDの集合一致、Core Haptics対応端末でのnative実行、event別latency sample、3段階以上のspeaker volume、人間回答18件の全trueをcheckerで確認する。件数だけ、重複event、`Unknown`/非対応capabilityでは完了にしない。
+
 ## BGM判断
 
 U49ではmachine-readableな`INTENTIONALLY_DISABLED` policyを採用する。現在、権利と品質が確定したproduction BGM候補がない。StageSelect、Stage1、ResultはUI・battle・pickup・climax・result SEで空間を支える。即席合成BGMを追加してPASS扱いにしない。

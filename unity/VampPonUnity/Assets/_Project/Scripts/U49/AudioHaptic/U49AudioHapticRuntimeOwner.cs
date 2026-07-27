@@ -37,7 +37,8 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
         private float masterVolume = 1f;
 
         public U49AudioHapticDiagnostics Diagnostics { get; } = new();
-        public bool AudioRuntimeReady => profile != null && Diagnostics.mixerRoutingComplete && voices.Count == VoicePoolSize;
+        public bool AudioRuntimeReady => profile != null && Diagnostics.mixerRoutingComplete &&
+                                         voices.Count == VoicePoolSize;
         public bool HapticRuntimeSupported => hapticAdapter?.IsDeviceExecutionSupported == true;
         public bool HapticEnabled => hapticEnabled;
         public U49ProductionAudioProfile Profile => profile;
@@ -46,10 +47,10 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
 
         public bool Initialize()
         {
-            if (profile != null) return AudioRuntimeReady;
-            audioRegistry = new U28AudioEventRegistry();
-            hapticRegistry = new U28HapticRegistry();
-            budget = new U29AudioPerformanceBudget();
+            if (AudioRuntimeReady) return true;
+            audioRegistry ??= new U28AudioEventRegistry();
+            hapticRegistry ??= new U28HapticRegistry();
+            budget ??= new U29AudioPerformanceBudget();
             profile = Resources.Load<U49ProductionAudioProfile>(U49ProductionAudioProfile.ResourcesPath);
             Diagnostics.profileLoaded = profile != null;
             Diagnostics.mixerRoutingComplete = profile != null && profile.HasCompleteRouting();
@@ -59,8 +60,8 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
                 return false;
             }
 
-            CreateVoicePool();
-            CreateHapticAdapter();
+            if (voices.Count == 0) CreateVoicePool();
+            if (hapticAdapter == null) CreateHapticAdapter();
             ApplyMixerVolumes();
             return AudioRuntimeReady;
         }
@@ -231,13 +232,13 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
         {
             iosHapticAdapter?.Suspend();
             noopHapticAdapter?.Suspend();
+            Diagnostics.hapticInitialized = false;
             UpdateHapticDiagnostics();
         }
 
         private void ResumeHaptics()
         {
-            iosHapticAdapter?.Resume();
-            noopHapticAdapter?.Resume();
+            Diagnostics.hapticInitialized = InitializeHaptics();
             UpdateHapticDiagnostics();
         }
 

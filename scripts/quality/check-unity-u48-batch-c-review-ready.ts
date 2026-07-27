@@ -18,7 +18,19 @@ const manifest = json(`${evidence}/capture-manifest.json`); const recommendation
 const verification = json(`${evidence}/verification-summary.json`); const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const groups = matrix.groups.map((value: { assetGroup: string }) => value.assetGroup);
 const finalized = readiness.u48Completed === true;
-const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && (reference.path === 'docs/181-current-production-canon.md' || reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/'))));
+const uiPolicyPath = 'docs/unity-ui-design-system-v1.md';
+const historicalUiPolicyHash = createHash('sha256')
+  .update(execFileSync('git', ['show', `${manifest.sourceHead}:${uiPolicyPath}`], { cwd: root }))
+  .digest('hex');
+const goldenReferenceValid = (reference: { path: string; sha256: string }) =>
+  existsSync(resolve(root, reference.path)) && (
+    hash(reference.path) === reference.sha256 ||
+    (finalized && reference.path === uiPolicyPath && historicalUiPolicyHash === reference.sha256) ||
+    (finalized && (
+      reference.path === 'docs/181-current-production-canon.md' ||
+      reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')
+    ))
+  );
 
 check(matrix.schemaVersion === 1 && matrix.groups.length === 30 && new Set(groups).size === 30, '30 capture-matrix groups');
 check(audit.schemaVersion === 3 && audit.captureReadiness === 'READY' && audit.blockedRequiredStates.length === 0, 'schema v3 five-screen readiness');
