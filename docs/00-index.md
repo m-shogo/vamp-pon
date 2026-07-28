@@ -50,6 +50,7 @@ Enemy / Kagemono
 → ENEMIES.md
 → enemy-encounter-relationship-pressure-v1.md
 → enemy-ecology-and-encounter-recipes-v1.md
+→ kagemono-collection-entry-book-v1.md
 → src/game/data/enemyProductionDatabase.ts
 ```
 
