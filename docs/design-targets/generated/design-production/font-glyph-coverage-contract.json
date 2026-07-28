@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-28",
+  "status": "SOURCE_FONT_COVERAGE_AUTOMATION_DEFINED_STATIC_ATLAS_PENDING",
+  "auditDocument": "docs/design-font-license-glyph-audit-v1.md",
+  "sourceFontPath": "unity/VampPonUnity/Assets/_Project/Fonts/ZenMaruGothic/ZenMaruGothic-Medium.ttf",
+  "fontAssetPath": "unity/VampPonUnity/Assets/_Project/Fonts/ZenMaruGothic/ZenMaruGothic-Medium SDF.asset",
+  "checkerPath": "scripts/quality/check-design-font-source-coverage.ts",
+  "scanRoots": [
+    "unity/VampPonUnity/Assets/_Project/Scripts",
+    "unity/VampPonUnity/Assets/StreamingAssets",
+    "unity/VampPonUnity/Assets/_Project/Data"
+  ],
+  "includedExtensions": [
+    ".cs",
+    ".json"
+  ],
+  "excludedPathFragments": [
+    "/Editor/",
+    "/Tests/",
+    "/Test/"
+  ],
+  "currentFontAssetFacts": {
+    "atlasPopulationMode": "DYNAMIC",
+    "serializedGlyphTableEmpty": true,
+    "serializedCharacterTableEmpty": true,
+    "sourceFontBound": true,
+    "multiAtlasEnabled": true,
+    "clearDynamicDataOnBuild": true
+  },
+  "automatedGate": {
+    "sourceFontCoverageCheckedInStage1Quality": true,
+    "missingFromSourceFontMustEqual": 0,
+    "writesEphemeralLog": "Logs/design-font-source-coverage.json",
+    "mutatesRuntime": false
+  },
+  "deferredGate": {
+    "strategy": "CONTROLLED_STATIC_PRODUCT_SET_RECOMMENDED",
+    "staticAtlasBaked": false,
+    "fontAssetAvailableCodepointsRecorded": false,
+    "atlasMemoryMeasured": false,
+    "deviceBuildVerified": false,
+    "fullProductGlyphCoverageComplete": false
+  },
+  "promotionRule": "Source font coverage PASS alone does not promote fullProductGlyphCoverageComplete. Static atlas or approved controlled-dynamic build evidence and physical-device verification are required."
+}
