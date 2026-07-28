@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "protocol": "docs/design-human-decision-interaction-protocol-v1.md",
+  "interactionMode": "SINGLE_DECISION_CLICK_SELECT",
+  "oneDecisionPerTurn": true,
+  "preferredOptionCount": 3,
+  "minimumOptionCount": 2,
+  "maximumOptionCount": 4,
+  "recommendedOptionFirst": true,
+  "fallbackInteraction": "A_B_C_SINGLE_CHARACTER_REPLY",
+  "pendingHumanDecisionCount": 0,
+  "activeDecision": null,
+  "decisions": [],
+  "boundaries": {
+    "heavyDesignStatus": "HOLD",
+    "imageGenerationStarted": false,
+    "unityDesignImplementationStarted": false,
+    "u49EvidenceMutation": false,
+    "wholeAppHumanVisualAccepted": false
+  },
+  "nextAction": "CONTINUE_DOCUMENTATION_REFINEMENT_AUTONOMOUSLY"
+}
