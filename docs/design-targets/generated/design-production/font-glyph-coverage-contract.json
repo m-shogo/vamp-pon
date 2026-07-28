@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-07-28",
-  "status": "SOURCE_FONT_COVERAGE_AUTOMATION_DEFINED_STATIC_ATLAS_PENDING",
+  "status": "SOURCE_FONT_RUNTIME_STRING_COVERAGE_PASS_STATIC_ATLAS_PENDING",
   "auditDocument": "docs/design-font-license-glyph-audit-v1.md",
   "sourceFontPath": "unity/VampPonUnity/Assets/_Project/Fonts/ZenMaruGothic/ZenMaruGothic-Medium.ttf",
   "fontAssetPath": "unity/VampPonUnity/Assets/_Project/Fonts/ZenMaruGothic/ZenMaruGothic-Medium SDF.asset",
@@ -30,7 +30,12 @@
   },
   "automatedGate": {
     "sourceFontCoverageCheckedInStage1Quality": true,
-    "missingFromSourceFontMustEqual": 0,
+    "sourceFontRuntimeStringCoverageResult": "PASS",
+    "missingFromSourceFont": 0,
+    "lastVerifiedHead": "5e8851e72ef54263b00cb4805f9f5bacd18be822",
+    "lastVerifiedWorkflow": "Stage1 Quality",
+    "lastVerifiedRunNumber": 1002,
+    "lastVerifiedStep": "Verify runtime font source coverage",
     "writesEphemeralLog": "Logs/design-font-source-coverage.json",
     "mutatesRuntime": false
   },
@@ -42,5 +47,5 @@
     "deviceBuildVerified": false,
     "fullProductGlyphCoverageComplete": false
   },
-  "promotionRule": "Source font coverage PASS alone does not promote fullProductGlyphCoverageComplete. Static atlas or approved controlled-dynamic build evidence and physical-device verification are required."
+  "promotionRule": "Source font runtime-string coverage PASS alone does not promote fullProductGlyphCoverageComplete. Static atlas or approved controlled-dynamic build evidence and physical-device verification are required."
 }
