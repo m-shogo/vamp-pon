@@ -2,6 +2,8 @@
   "schemaVersion": 1,
   "updatedAt": "2026-07-28",
   "stateMachine": "docs/design-production-state-machine-v1.md",
+  "foundationReview": "docs/design-targets/generated/design-production/documentation-foundation-review.json",
+  "foundationReviewDocument": "docs/design-documentation-foundation-review-2026-07-28.md",
   "currentState": "DOCUMENTATION_FOUNDATION",
   "currentStateCode": "HD0",
   "previousState": null,
@@ -25,6 +27,7 @@
   "transitionAuthority": "LATEST_EXPLICIT_HUMAN_DECISION",
   "currentInvariants": {
     "documentationFoundationGatePassed": true,
+    "documentationFoundationReviewPassed": true,
     "artDirectionDecisionRecorded": true,
     "activeWave1BriefHumanApproved": false,
     "imageGenerationStarted": false,
@@ -41,11 +44,11 @@
       "state": "DOCUMENTATION_FOUNDATION",
       "stateCode": "HD0",
       "enteredAt": "2026-07-28",
-      "reason": "Art Direction A, 13 screen specifications, state/accessibility matrix, motion, technical art, Wave 1 briefs, rights boundary, contradiction audit, implementation plan, and documentation checker are prepared while image generation and Unity implementation remain stopped.",
+      "reason": "Art Direction A, 13 screen specifications, state/accessibility matrix, motion, technical art, Wave 1 briefs, rights boundary, contradiction audit, implementation plan, phase-aware checker, and foundation review are prepared while image generation and Unity implementation remain stopped.",
       "humanDecisionIds": [
         "HD-ART-DIRECTION-001"
       ]
     }
   ],
-  "nextAction": "CONTINUE_DOCUMENTATION_COMPLETENESS_AND_PREPARE_CLICK_APPROVAL_FOR_W1_01_ONLY_WHEN_USER_INTENDS_TO_START_GENERATION"
+  "nextAction": "HOLD_AT_HD0_UNTIL_USER_INTENTIONALLY_APPROVES_W1_01_TOP_GENERATION_OR_REQUESTS_FURTHER_DOCUMENT_REVIEW"
 }
