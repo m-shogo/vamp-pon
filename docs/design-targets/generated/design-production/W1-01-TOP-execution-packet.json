@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-28",
+  "requestId": "W1-01-TOP",
+  "document": "docs/design-generation-execution-packet-W1-01-TOP-v1.md",
+  "workflowStateRequired": "WAVE1_GENERATION_APPROVED",
+  "currentWorkflowState": "DOCUMENTATION_FOUNDATION",
+  "status": "PREPARED_NOT_HUMAN_APPROVED",
+  "humanApproved": false,
+  "generationStarted": false,
+  "generationAuthority": "CHATGPT_HUMAN_SUPERVISED",
+  "repositoryAgentMayGenerateImages": false,
+  "artDirection": {
+    "decisionId": "HD-ART-DIRECTION-001",
+    "optionId": "A",
+    "value": "QUIET_NIGHT_SMALL_WARMTH"
+  },
+  "output": {
+    "candidateCount": 3,
+    "separateImagesRequired": true,
+    "contactSheetAsPrimaryOutputForbidden": true,
+    "masterWidth": 1170,
+    "masterHeight": 2532,
+    "comparisonWidth": 390,
+    "comparisonHeight": 844,
+    "opaqueBackground": true,
+    "textFree": true,
+    "logoFree": true,
+    "pseudoTextForbidden": true,
+    "wholeScreenRuntimeUseForbidden": true
+  },
+  "baseline": {
+    "runtimeState": "MISSING",
+    "runtimeCapture": null,
+    "mode": "ABSENCE_EVIDENCE",
+    "sources": [
+      "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json",
+      "docs/design-targets/generated/design-production/current-runtime-comparison-manifest.json#TOP",
+      "docs/design-targets/generated/design-production/reference-registry.json",
+      "docs/design-targets/final/top-final.png"
+    ]
+  },
+  "criticalContentBounds390x844": {
+    "left": 24,
+    "right": 366,
+    "zones": [
+      {"id": "TOP_ATMOSPHERE", "yMin": 0, "yMax": 72},
+      {"id": "TITLE_BREATHING_SPACE", "yMin": 72, "yMax": 220},
+      {"id": "FOCAL_NIGHT_SCENE", "yMin": 220, "yMax": 536},
+      {"id": "TRANSITION_QUIET_ZONE", "yMin": 536, "yMax": 596},
+      {"id": "PRIMARY_ACTION", "yMin": 596, "yMax": 684},
+      {"id": "SECONDARY_ACTIONS", "yMin": 700, "yMax": 780},
+      {"id": "BOTTOM_ATMOSPHERE", "yMin": 780, "yMax": 844}
+    ]
+  },
+  "candidates": [
+    {
+      "candidateId": "W1-01-TOP-C01-NIGHT-ROAD-ENTRANCE",
+      "order": 1,
+      "label": "夜路の入口",
+      "recommendedExploration": true,
+      "characterAllowed": false,
+      "primaryMotif": "small lantern beside a narrow road receding into the deep night",
+      "primaryRisk": "generic dark-road wallpaper"
+    },
+    {
+      "candidateId": "W1-01-TOP-C02-MEMORY-WINDOW",
+      "order": 2,
+      "label": "記憶の窓",
+      "recommendedExploration": false,
+      "characterAllowed": false,
+      "primaryMotif": "asymmetric small memory apertures and restrained paper fragments in the night",
+      "primaryRisk": "gallery or card-management appearance"
+    },
+    {
+      "candidateId": "W1-01-TOP-C03-LIGHT-STOP",
+      "order": 3,
+      "label": "灯りの停留所",
+      "recommendedExploration": false,
+      "characterAllowed": false,
+      "primaryMotif": "a small quiet stopping place with one forgotten object and a restrained lantern",
+      "primaryRisk": "background illustration overpowering the primary action"
+    }
+  ],
+  "componentExtractionTargets": [
+    "BG_FAR_NIGHT",
+    "BG_MID_WORLD_HINT",
+    "BG_NEAR_ROAD_OR_STOP",
+    "FOG_DEPTH",
+    "LANTERN_CORE",
+    "LANTERN_HALO",
+    "MEMORY_FRAGMENT_SMALL",
+    "TITLE_SUPPORT_ORNAMENT",
+    "PRIMARY_BUTTON_SURFACE",
+    "SECONDARY_BUTTON_SURFACE",
+    "AMBIENT_PARTICLE_SHAPES",
+    "INK_EDGE_OR_DIVIDER"
+  ],
+  "technicalBudget": {
+    "parallaxBackgroundLayerMinimum": 2,
+    "parallaxBackgroundLayerMaximum": 3,
+    "fullScreenFogLayerMaximum": 1,
+    "alwaysOnParticleMaximum": 20,
+    "realtimeBlurMaximum": 0,
+    "distinctMaterialTargetMaximum": 4,
+    "fullScreenBloomMaximum": 0,
+    "continuousLargeAnimationMaximum": 0
+  },
+  "comparisonPack": {
+    "topAbsenceOverride": true,
+    "requiredFiles": [
+      "00-context.md",
+      "01-existing-target.png",
+      "02-current-runtime-absence-evidence.md",
+      "03-candidate-C01.png",
+      "04-candidate-C02.png",
+      "05-candidate-C03.png",
+      "06-side-by-side.png",
+      "07-scorecard.json",
+      "08-human-decision.json",
+      "09-component-extraction-notes.md",
+      "10-provenance.json"
+    ]
+  },
+  "scoreGate": {
+    "dimensionCount": 10,
+    "minimumPerDimension": 3,
+    "minimumTotal": 36,
+    "requiredFourDimensions": [
+      "brandDistinctiveness",
+      "interactionClarity",
+      "componentExtractability",
+      "mobileFit"
+    ],
+    "forbiddenMotifMaximum": 0,
+    "aiTextMaximum": 0,
+    "humanDirectionSelectionRequired": true
+  },
+  "nextLegalTransition": "WAVE1_GENERATION_APPROVED",
+  "nextAction": "WAIT_FOR_EXPLICIT_HUMAN_APPROVAL_OF_W1_01_TOP"
+}
