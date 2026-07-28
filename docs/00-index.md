@@ -26,6 +26,49 @@
 
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
+## 企画 / Character / Enemy のCurrent入口
+
+Runtime Phase資料とは別に、人物・関係・敵を設計する時は次を入口にする。
+
+```txt
+全体Canon
+→ CANON.md
+
+Character
+→ CHARACTERS.md
+→ character-book-v4.md
+→ character-deep-core-book-v1.md
+
+Character voice / relationship
+→ RELATIONSHIPS.md
+→ character-relationship-arc-book-v1.md
+→ character-dialogue-relationship-book-v1.md
+→ character-ensemble-daily-scene-bank-v1.md
+→ BOND.md
+
+Enemy / Kagemono
+→ ENEMIES.md
+→ enemy-encounter-relationship-pressure-v1.md
+→ enemy-ecology-and-encounter-recipes-v1.md
+→ src/game/data/enemyProductionDatabase.ts
+```
+
+機械可読のdesign memory:
+
+```txt
+design-targets/generated/character-relationship-arc-map-v1.json
+design-targets/generated/character-relationship-coverage-v1.json
+design-targets/generated/enemy-relationship-pressure-map-v1.json
+```
+
+境界:
+
+- Current21とFuture15を混ぜない
+- Future15のbridgeはCandidateでありCurrent昇格ではない
+- EnemyのCurrent identityは `src/game/data/enemyProductionDatabase.ts` を優先
+- Legacy enemyからはmechanic / telegraph / silhouetteを回収しても、旧name / 旧character対応をCurrentへ戻さない
+- この企画資料追加だけでU49 / U50 / RC readinessを昇格しない
+
 ## 最初に読む
 
 ```txt
