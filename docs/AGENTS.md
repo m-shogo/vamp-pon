@@ -8,9 +8,10 @@ For character, relationship, Bond, story, mystery, collection, achievement, perm
 
 ```txt
 docs/CANON.md
+docs/game-core-book-v1.md
 ```
 
-Then route through the three equal shared-memory books when relevant:
+Then route through the shared-memory books when relevant:
 
 ```txt
 Character Book -> docs/character-book-v3.md
@@ -20,11 +21,28 @@ Idea Book      -> docs/idea-book-v1.md
 
 Use them as:
 
+- Game Core Book = remember what game this is and what must not be lost
 - Character Book = remember people
 - Story Book = remember the story and unresolved mysteries
 - Idea Book = remember user ideas without automatically canonizing them
 
 Do **not** begin with repo-wide searches for old design notes.
+
+## Game Core priority
+
+`docs/game-core-book-v1.md` is above Idea Book in design priority.
+
+It defines:
+
+- Vampire-Survivors-like run/build/replay as the main game
+- Clear Getter / 夜明け星図 as meta gameplay
+- Support/Bond as gameplay progression, not only conversation collection
+- 黒耀化 as a risky power choice
+- fail-forward without making failure optimal
+- lore/information as an optional side effect of play
+- Happy End as part of the emotional core
+
+If a new idea conflicts with Game Core, do not silently bend the Core. Preserve the idea and surface the conflict for Human decision.
 
 ## Idea memory rule
 
@@ -40,8 +58,9 @@ When a meaningful new idea is given:
 
 1. preserve it in Idea Book or the matching current Book/master,
 2. label it accurately (`USER IDEA`, `USER DIRECTION`, `HIGH-VALUE CANDIDATE`, `OPEN QUESTION`),
-3. do not promote it to CANON unless explicitly decided or implementation requires a formal decision,
-4. do not make the user repeat it later if it is already preserved.
+3. compare it with Game Core,
+4. do not promote it to CANON unless explicitly decided or implementation requires a formal decision,
+5. do not make the user repeat it later if it is already preserved.
 
 ## Legacy policy
 
@@ -71,6 +90,7 @@ move it into the appropriate Current master / Book
 
 ```txt
 docs/CANON.md
+├ docs/game-core-book-v1.md
 ├ docs/character-book-v3.md
 ├ docs/story-book-v1.md
 ├ docs/idea-book-v1.md
@@ -91,9 +111,12 @@ docs/CANON.md
 
 - Formal title: **ヨルノシルベ**.
 - Use **黒耀化**, never `黒曜化` in new canon.
+- Game Core Book is the top-level game identity reference.
 - Main Game is Vampire-Survivors-like combat/build/replay.
 - Lore/information is an optional side effect of play, not the main reward loop.
 - Gameplay rewards come first; reading is never required to claim power.
+- Clear Getter / 夜明け星図 is meta gameplay, not merely collection.
+- Bond/Support must return value to gameplay.
 - Happy End is the canonical ending direction.
 - Game Over is not permanent character death.
 - Main Mystery and Character Mystery are separate lanes with selective intersections.
