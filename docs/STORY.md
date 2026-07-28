@@ -3,56 +3,78 @@
 Date: 2026-07-28  
 Status: **CURRENT STORY ENTRYPOINT**
 
-> 物語、世界の謎、人物の謎、伏線、エンディング、続編について考える時は最初にこのファイルを見る。  
+> 物語、世界の謎、人物の謎、伏線、Happy End、続編について考える時は最初にここへ入る。  
 > repo全体から古いscenario資料を探し直さない。
 
 ---
 
-# 1. Current master
+# 1. まずStory Book
+
+**`docs/story-book-v1.md`**
+
+Character Bookと同じレベルの人物理解用master。
+
+ここを読むと:
+
+- ヨルノシルベがどんな物語か
+- 何をHappy Endとするか
+- どう泣かせたいか
+- Main Mystery / Character Mystery
+- 夜 / Game Over / Retry
+- 黒インクの強いCandidate
+- Shadowの思想
+- 日常伏線
+- optional report
+- 1で閉じるもの / 2へ残すもの
+- open questions
+
+まで一度に戻れる。
+
+---
+
+# 2. Story detail masters
+
+Story Bookで足りない時だけ読む。
 
 | Area | Current master |
 | --- | --- |
-| Story ↔ Gameplay logic | `docs/STORY-ENGINE.md` |
+| Gameplay ↔ Lore engine | `docs/STORY-ENGINE.md` |
 | Happy End / tears / sequel | `docs/story-ending-sequel-architecture-v1.md` |
 | Main Mystery vs Character Mystery | `docs/story-foreshadowing-payoff-map-v1.md` |
 | Character | `docs/CHARACTERS.md` |
 | Optional reports / archive | `docs/PROGRESSION-ARCHIVE.md` |
-| Meta progression | `docs/GAMEPLAY-META-PROGRESSION.md` |
-
-旧Season Truth / world logic / long-term scenario / game-over資料の有効要素は `STORY-ENGINE.md` へ移植済み。
-通常は旧資料を読まない。
+| Gameplay / meta | `docs/GAMEPLAY-META-PROGRESSION.md` |
+| Ideas not yet fixed | `docs/idea-book-v1.md` |
 
 ---
 
-# 2. 現在の物語方向 — CURRENT
+# 3. Current story direction
 
 - 世界は暗いが、人間の性格は明暗を揃えない
 - 全員がその人らしいまま成長する群像劇
 - Main Gameはヴァンサバ系の戦闘 / build / replay
 - loreはプレイの副作用として増える
 - Main MysteryとCharacter Mysteryは別レーン
-- Character Mysteryを100%解かなくても本編は理解・クリアできる
-- 深掘るほどMain Mysteryの見え方が増える
-- 正史はHappy Endのみ
+- Character Mysteryを100%解かなくても本編は理解・clearできる
+- 深掘るほど世界と人物がつながって見える
+- 正史はHappy End
 - Permanent deathを泣き装置の中心にしない
-- 夜は夢 / 記憶 / 仮想 / shared mental spaceに近い非現実レイヤー
 - Game Overは死亡ではない
-- 1作の中心人物 / 中心感情は1作で救い切る
-- シリーズ謎は小物・挙動・記録の違和感として残せる
-- 続編で1の小物の意味が変わっても、1のHappy Endは無効化しない
+- 日常の蓄積から感動を作る
+- 1作の中心人物 / 中心感情は1作で救う
+- series mysteryは違和感 / props / reportとして残せる
+- sequelで1の意味が変わっても、1のHappy Endは無効化しない
 
 ---
 
-# 3. 情報の扱い
-
-物語情報を集めることをMain Gameの作業にしない。
+# 4. Story information is optional
 
 ```txt
 戦闘 / 達成
 ↓
 Gameplay reward
 +
-情報が自然に解放
+Story / Character informationが自然に解放
 ```
 
 読む人:
@@ -67,16 +89,14 @@ Gameplay reward
 
 読まない人:
 
-- 「新しい強化が開いた」だけ理解すればよい
-- Main Story / Happy Endに到達できる
-
-情報量は任意閲覧なら多くてよい。
+- 新しい強化 / build / character / Supportが開いたことだけ分かればよい
+- Main Story / Happy Endへ到達できる
 
 ---
 
-# 4. Story Engineの最有力Candidate
+# 5. High-value Story Engine Candidate
 
-旧設計から、非常に整合が高いがまだ最終LOCKしない候補:
+旧設計から非常に整合の高い候補:
 
 > 悲しい出来事は消えない。  
 > ただ、その出来事についた「間違った意味」が黒インクで固定される。  
@@ -91,15 +111,13 @@ Gameplay reward
 - Game Over = その読み方では朝に届かなかった
 - Retry = 未確定の夜を別buildで読む
 
-というGameplayとの二重意味が作れる。
+という二重意味が作れる。
 
-詳細: `docs/STORY-ENGINE.md`
-
-**この具体的な世界真相はHIGH-VALUE CANDIDATEであり、まだ最終正史ではない。**
+**まだMain Mysteryの最終正史ではない。**
 
 ---
 
-# 5. 謎の階層
+# 6. Mystery lanes
 
 ## Character Mystery
 
@@ -108,7 +126,7 @@ Gameplay reward
 例:
 
 - ユイとトモリの獅子座共有
-- クロオリが何を守っているか
+- クロオリが守っているもの
 - アサと名前の関係
 
 ## Main Mystery
@@ -124,13 +142,13 @@ Gameplay reward
 
 ## Series Mystery
 
-1作で答えなくてよい一段上の問い。
+1で答えなくてもよい一段上の問い。
 
-1作の感情決着を邪魔しない。
+1の感情決着を邪魔しない。
 
 ---
 
-# 6. 1作とシリーズ
+# 7. Sequel structure
 
 強い構造:
 
@@ -139,19 +157,21 @@ Gameplay reward
 シリーズ = meta mystery continues
 ```
 
-謎を3層に分けられる。
+謎を:
 
 - **C級** — その作品で必ず回収
 - **B級** — 後作で意味が変わるSeed
-- **A級** — シリーズ全体の問い
+- **A級** — series全体の問い
 
-続編のためにC級を投げない。
+に分けられる。
+
+A級を残すためにC級を投げない。
 
 ---
 
-# 7. 伏線の置き方
+# 8. Foreshadowing style
 
-説明台詞より先に:
+説明台詞より:
 
 ```txt
 小物
@@ -169,15 +189,15 @@ Bond / Result / 灯録で意味が少し変わる
 
 1. 初見の意味
 2. 1作内で分かる意味
-3. シリーズ後に再解釈される意味
+3. series後に再解釈される意味
 
-の三重意味を持てる。
+を持てる。
 
-ヤバタニエン的な「配置や行動を後で再解釈する気持ちよさ」は構造として参考にするが、救いのない正史やPermanent deathは採用しない。
+ヤバタニエン的な「後から配置や行動の意味が変わる」気持ちよさは参考にするが、正史の救いは維持する。
 
 ---
 
-# 8. 泣きの方向
+# 9. Tears / daily life
 
 泣きは死亡人数ではなく**普通だった時間の蓄積**から作る。
 
@@ -191,56 +211,65 @@ Bond / Result / 灯録で意味が少し変わる
 - 雨
 - 何気ない約束
 
-を先に好きになってもらう。
-
-終盤で:
-
-- 初めて名前を呼ぶ
-- いつもしていた行動ができない
-- 一時的に離れる
-- 忘れたように見える
-- 朝側で同じ癖を見せる
-- 再会する
-
-ことで泣かせる。
+終盤でそれらを返す。
 
 ---
 
-# 9. Sequel direction
+# 10. Sequel hook
 
-1は必ず一度完結する。
+1は必ず一度Happy Endで閉じる。
 
-続編hookは:
+続編hookは露骨な「2へ続く」ではなく:
 
-- 露骨な「2へ続く」ではなく違和感
 - 知らない折り目
 - 見覚えのない綴じ糸
-- 誰のものでもない星獣
+- 誰も知らない星獣の足跡
 - 現実側にあるはずのない紙片
 
-などの小さなSeedが向く。
+などの小さな違和感が向く。
 
-2を遊んだ後、1の最後を見直すと意味が変わるのが理想。
+2を遊んだ後、1の最後や小物を見ると意味が変わるのが理想。
 
 ---
 
-# 10. 今は固定しない
+# 11. Open questions
 
-- 夜の正体が夢 / 仮想空間 / shared memoryのどれなのか
+まだ決めない:
+
+- 夜の正体が夢 / virtual / shared memoryのどれなのか
 - 「間違った意味」Engineを最終真相にするか
 - 誰が夜を作ったか
 - なぜ夜が必要だったか
-- 地図帳 / 忘れ物係の正体
+- 星獣の完全な仕組み
 - ユイとトモリの獅子座共有の真相
 - sequel protagonist
-- sequel stage / region
+- sequel setting
 - final cliffhanger
 
-伏線整合とMain Game規模を見て決める。
+**面白い問いを持っていること自体を資産として残す。**
 
 ---
 
-# 11. Legacy no-read
+# 12. Idea memory
+
+まだ物語正史にしていない案も忘れない。
+
+- `docs/idea-book-v1.md`
+
+例:
+
+- 年を取らない魔女 × 年を取る弟子
+- optional report
+- クリアゲッターとのstory連携
+- 集合TOP
+- future characters
+- sequel seeds
+
+Story Bookへ書かれたUSER IDEA / OPEN QUESTIONも、Human decision前に勝手にCANONへ昇格しない。
+
+---
+
+# 13. Legacy no-read
 
 移行済み旧Story docsは通常読まない。
 
@@ -255,5 +284,7 @@ docs/CANON.md
 ↓
 docs/STORY.md
 ↓
-必要なCurrent master 1つ
+docs/story-book-v1.md
+↓
+必要なCurrent detail 1つ
 ```
