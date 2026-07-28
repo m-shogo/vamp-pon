@@ -4,6 +4,15 @@
   "status": "DOCUMENTATION_FOUNDATION_PREPARED",
   "controlCenter": "docs/design-documentation-readiness-control-center-v1.md",
   "sourceBranch": "integration/u49-pr75-integrity-20260727",
+  "workflowState": {
+    "source": "docs/design-targets/generated/design-production/workflow-state.json",
+    "stateMachine": "docs/design-production-state-machine-v1.md",
+    "currentState": "DOCUMENTATION_FOUNDATION",
+    "currentStateCode": "HD0",
+    "allowedNextStates": [
+      "WAVE1_GENERATION_APPROVED"
+    ]
+  },
   "selectedArtDirection": {
     "decisionId": "HD-ART-DIRECTION-001",
     "optionId": "A",
@@ -25,6 +34,7 @@
   "documentation": {
     "artDirection": "DOCUMENTED_HUMAN_DIRECTION_SELECTED",
     "designLanguage": "DEFINED_PROPOSAL",
+    "productionStateMachine": "DOCUMENTED_PHASE_AWARE",
     "screenSpecifications": {"status": "DOCUMENTED", "screenCount": 13},
     "componentStateMatrix": "DOCUMENTED_COMPLETE",
     "firstTimeFlow": "DEFINED",
@@ -41,7 +51,7 @@
     "provenanceTemplate": "DEFINED",
     "implementationHandoffTemplate": "DEFINED",
     "implementationExecutionPlan": "DOCUMENTED_LOW_REWORK_SEQUENCE",
-    "automatedDocumentationCheck": "ACTIVE_IN_STAGE1_QUALITY",
+    "automatedDocumentationCheck": "ACTIVE_PHASE_AWARE_IN_STAGE1_QUALITY",
     "fontLicenseAudit": "PASS",
     "glyphCoverageVerificationPlan": "DEFINED_NOT_EXECUTED",
     "referenceRightsBoundary": "CONFIRMED",
@@ -59,7 +69,9 @@
     "rightsBoundaryDefined": true,
     "contradictionScanComplete": true,
     "implementationExecutionPlanDefined": true,
+    "productionStateMachineDefined": true,
     "automatedCheckerRegistered": true,
+    "automatedCheckerPhaseAware": true,
     "imageGenerationStillFalse": true,
     "unityImplementationStillFalse": true,
     "gatePassed": true
@@ -120,5 +132,5 @@
     "perform fresh-eyes review after representative visuals exist",
     "perform candidate-by-candidate commercial use review after image generation"
   ],
-  "nextAction": "HOLD_UNTIL_USER_INTENTIONALLY_APPROVES_FIRST_WAVE1_GENERATION_BRIEF_OR_REQUESTS_FURTHER_DOCUMENT_REVIEW"
+  "nextAction": "HOLD_AT_HD0_UNTIL_USER_INTENTIONALLY_APPROVES_W1_01_GENERATION_OR_REQUESTS_FURTHER_DOCUMENT_REVIEW"
 }
