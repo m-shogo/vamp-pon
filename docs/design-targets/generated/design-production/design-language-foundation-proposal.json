@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "PROPOSED_AWAITING_HUMAN_DIRECTION_SELECTION",
+  "status": "PROPOSED_DIRECTION_SELECTED_AWAITING_DETAIL_REVIEW",
   "sourceBranch": "integration/u49-pr75-integrity-20260727",
   "documentationPath": "docs/design-language-foundation-proposal-v1.md",
   "runtimeSources": [
@@ -50,7 +50,7 @@
   "humanDecision": {
     "decisionId": "HD-ART-DIRECTION-001",
     "question": "ヨルノシルベ全体の感情の基調はどれにしますか？",
-    "status": "PENDING",
+    "status": "SELECTED",
     "recommendedOptionId": "A",
     "options": [
       {
@@ -72,18 +72,21 @@
         "impact": "紙の明るさと柔らかさを増やし、初見の入りやすさを優先する。"
       }
     ],
-    "selectedOptionId": null,
-    "decidedAt": null,
-    "decisionSource": null
+    "selectedOptionId": "A",
+    "selectedLabel": "静かな夜と小さな温かさ",
+    "decidedAt": "2026-07-28",
+    "decisionSource": "USER_CHAT_EXPLICIT_SELECTION",
+    "decisionRecord": "docs/design-targets/generated/design-production/human-decisions/HD-ART-DIRECTION-001.json",
+    "clickSelectPreferredForFutureDecisions": true
   },
   "readiness": {
     "currentRuntimeTokensInspected": true,
     "sharedTokenArchitectureProposed": true,
-    "overallEmotionalDirectionSelected": false,
+    "overallEmotionalDirectionSelected": true,
     "finalPaletteLocked": false,
     "finalTypographyLocked": false,
     "generationBriefsMayStart": false,
     "unityImplementationMayStart": false
   },
-  "nextAction": "WAIT_FOR_SINGLE_HUMAN_DIRECTION_DECISION"
+  "nextAction": "REFINE_DIRECTION_A_COLOR_PAPER_LANTERN_TYPOGRAPHY_AND_PRESENT_NEXT_CLICK_DECISION_ONLY_WHEN_REQUIRED"
 }
