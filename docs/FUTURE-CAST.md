@@ -1,6 +1,6 @@
 # ヨルノシルベ Future Cast Hub
 
-Date: 2026-07-28  
+Date: 2026-07-29  
 Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 
 > Current21以外の将来人物を考える時は、古いcandidate資料を探し直さずここから入る。
@@ -12,6 +12,7 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 | **全36候補の人数 /役割 /重複監査** | `docs/CHARACTER-ROSTER-REVIEW.md` |
 | **重複risk人物の具体ブラッシュアップ** | `docs/character-roster-polish-pass-v1.md` |
 | **Future候補の統一プロフィール** | `docs/future-cast-profile-book-v1.md` |
+| **Future15の関係arc / Gameplay / wrong arrival / small payoff** | `docs/future-cast-relationship-story-reservoir-v1.md` |
 | **褐色2 / 動物2 / Robot2 / Gay / Lesbian / Bisexual / 男の娘 / 性別不詳 / 双子 / disability等の設計原則** | `docs/character-future-diversity-and-nonhuman-expansion-v2.md` |
 | 不老の魔女 / 複数世代の弟子 / 恋愛・結婚・家族・別離 | `docs/character-long-lived-witch-arc-v1.md` |
 | Current21との時代差 / 物の継承 | `docs/story-temporal-layer-and-character-connections-v1.md` |
@@ -96,6 +97,21 @@ Future poolの中でも:
 15. **アマネ** — wheelchair user / speed courier / 治ることをHappy Endにしない
 
 これは「次回作で15人全追加」を意味しない。シリーズ全体のFuture pool。
+
+## Future depth update — 2026-07-29
+
+15人全員について `future-cast-relationship-story-reservoir-v1.md` に:
+
+- distinctive relation
+- daily friction
+- wrong arrival / OPEN boundary
+- Gameplay identity
+- small payoff
+
+まで追加済み。
+
+動物2人は人間と同じ黒耀化を無理に付与していない。
+Future15は依然としてCurrent21へ昇格していない。
 
 ## Robot distinction
 
@@ -185,6 +201,8 @@ docs/CHARACTER-ROSTER-REVIEW.md
 docs/FUTURE-CAST.md
 ↓
 docs/future-cast-profile-book-v1.md
+↓
+docs/future-cast-relationship-story-reservoir-v1.md
 ↓
 必要なら character-roster-polish-pass-v1.md / detail master
 ```
