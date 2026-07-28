@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_CROSS_DOMAIN_DESIGN_NOT_RUNTIME_IMPLEMENTATION",
+  "source": "docs/character-story-gameplay-payoff-matrix-v1.md",
+  "records": [
+    {"id":"yui","verb":"pickup","relations":["アサ","クロオリ","トモリ"],"enemy":["紙片","鈴","持ち主不明"],"clearGetter":"保留対象を残す/Support違い","dawn":"owner確認"},
+    {"id":"asa","verb":"mark","relations":["ユイ","カスミ"],"enemy":["名札","消印","label"],"clearGetter":"未確定mark/カスミSupport","dawn":"呼び方確認"},
+    {"id":"nagi","verb":"seal","relations":["カナメ","トバリ"],"enemy":["鍵穴","箱","封鎖"],"clearGetter":"出口を残してseal","dawn":"reopen条件確認"},
+    {"id":"michiru","verb":"route","relations":["トキ","ゲン"],"enemy":["切符","方位","地図"],"clearGetter":"route switch","dawn":"複数route"},
+    {"id":"tomori","verb":"repair","relations":["ツムギ","ユイ"],"enemy":["糸","ボタン","継ぎ目"],"clearGetter":"scar traitを残す","dawn":"修理跡を残す"},
+    {"id":"sen","verb":"guide","relations":["コヨリ","シロ"],"enemy":["白線","定規"],"clearGetter":"guide外行動を含める","dawn":"相手に次を聞く"},
+    {"id":"ritsu","verb":"distribute_guard","relations":["コヨリ","カナメ"],"enemy":["リボン","墨腕"],"clearGetter":"risk分配No-down","dawn":"任せる"},
+    {"id":"koyori","verb":"tether","relations":["リツ","セン"],"enemy":["鈴","リボン","名札"],"clearGetter":"tether解除","dawn":"別行動を許す"},
+    {"id":"gen","verb":"old_route","relations":["ミチル","トキ"],"enemy":["古梟","方位","旧道"],"clearGetter":"old/new route両方","dawn":"今の道を認める"},
+    {"id":"hana","verb":"preserve","relations":["ツムギ","シロ"],"enemy":["押花","古写真"],"clearGetter":"保存slotをrelease","dawn":"花瓶へ置く"},
+    {"id":"yubi","verb":"delivery","relations":["トバリ","カスミ","クロオリ"],"enemy":["封筒","消印","改札"],"clearGetter":"hold delivery","dawn":"あとで渡す"},
+    {"id":"madoka","verb":"warn","relations":["レン","ネム","トキ"],"enemy":["窓","レンズ","古写真"],"clearGetter":"uncertain warning回避","dawn":"確度付き共有"},
+    {"id":"shiro","verb":"classify","relations":["ツムギ","セン","ハナ"],"enemy":["しおり","余白","消し跡"],"clearGetter":"unknown tagを残す","dawn":"未分類保存"},
+    {"id":"tobari","verb":"gate","relations":["ユウビ","ナギ"],"enemy":["切符","改札","route"],"clearGetter":"gate reopen","dawn":"管理せず帰還を待つ"},
+    {"id":"nemu","verb":"dream_overlay","relations":["トキ","マドカ"],"enemy":["羊夢","青灰","夢波"],"clearGetter":"dream fieldから自力離脱","dawn":"自分から起きる"},
+    {"id":"kuroori","verb":"fold","relations":["ユイ","ユウビ"],"enemy":["烏紙","黒折","封"],"clearGetter":"sealed itemをreopen","dawn":"本人へ判断を返す"},
+    {"id":"kage1","verb":"intercept","relations":["ナギ","リツ"],"enemy":["狼火","墨腕"],"clearGetter":"guard受け渡し","dawn":"頼む"},
+    {"id":"kage2","verb":"conceal","relations":["アサ","ユウビ"],"enemy":["消し跡","霞","レンズ"],"clearGetter":"private state解除","dawn":"消す前に聞く"},
+    {"id":"kage3","verb":"measure","relations":["ミチル","ネム","レン","ゲン"],"enemy":["定規","迷針","角度"],"clearGetter":"perfect windowを外す","dawn":"暫定"},
+    {"id":"kage4","verb":"stitch","relations":["トモリ","シロ","ハナ"],"enemy":["糸","余白","継ぎ目"],"clearGetter":"unfinishedをfinish","dawn":"完成＋新しい白紙"},
+    {"id":"ren","verb":"delta","relations":["マドカ","トキ"],"enemy":["レンズ","古写真","variant"],"clearGetter":"difference party share","dawn":"理由不明でも共有"}
+  ],
+  "coverage":"21/21",
+  "runtimeChanged": false
+}
