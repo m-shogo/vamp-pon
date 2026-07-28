@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_DESIGN_NOT_RUNTIME_PROMOTION",
+  "source": "docs/character-black-youka-rescue-book-v1.md",
+  "invariant": "allies create additional choices; the character chooses to return",
+  "characters": [
+    {"id":"yui","name":"ユイ","form":"黒灯化","primary":"クロオリ","secondary":["アサ"],"choice":"回収/保留/残す","mastery":"selective pickup"},
+    {"id":"asa","name":"アサ","form":"黒銘化","primary":"カスミ","secondary":["ユイ"],"choice":"mark/confirm/未確定","mastery":"consent mark"},
+    {"id":"nagi","name":"ナギ","form":"黒箱化","primary":"カナメ","secondary":["トバリ"],"choice":"hazard seal + reopen","mastery":"targeted timed seal"},
+    {"id":"michiru","name":"ミチル","form":"黒針化","primary":"トキ","secondary":["ゲン"],"choice":"route switch","mastery":"dynamic reroute"},
+    {"id":"tomori","name":"トモリ","form":"黒継化","primary":"ツムギ","secondary":["ユイ"],"choice":"restore/scar","mastery":"repair with preserved scar"},
+    {"id":"sen","name":"セン","form":"黒線化","primary":"コヨリ","secondary":["シロ"],"choice":"guide/on-line/off-line","mastery":"advisory guide"},
+    {"id":"ritsu","name":"リツ","form":"黒片化","primary":"コヨリ","secondary":["カナメ"],"choice":"self-take/distribute","mastery":"shared guard"},
+    {"id":"koyori","name":"コヨリ","form":"黒綴化","primary":"リツ","secondary":["セン"],"choice":"tether/release","mastery":"voluntary tether"},
+    {"id":"gen","name":"ゲン","form":"黒路化","primary":"ミチル","secondary":["トキ"],"choice":"old/new route segments","mastery":"historical overlay"},
+    {"id":"hana","name":"ハナ","form":"黒花化","primary":"ツムギ","secondary":["シロ"],"choice":"preserve/release","mastery":"preservation with release"},
+    {"id":"yubi","name":"ユウビ","form":"黒封化","primary":"トバリ","secondary":["カスミ","クロオリ"],"choice":"immediate/hold/return","mastery":"timed delivery"},
+    {"id":"madoka","name":"マドカ","form":"黒窓化","primary":"レン","secondary":["ネム"],"choice":"all warnings/priority pin","mastery":"priority forecast"},
+    {"id":"shiro","name":"シロ","form":"黒頁化","primary":"ツムギ","secondary":["セン","ハナ"],"choice":"classify/provisional/unknown","mastery":"provisional classification"},
+    {"id":"tobari","name":"トバリ","form":"黒門化","primary":"ユウビ","secondary":["ナギ"],"choice":"close/open/return anchor","mastery":"controlled gate"},
+    {"id":"nemu","name":"ネム","form":"黒夢化","primary":"トキ","secondary":["マドカ"],"choice":"dream stay/wake with clue","mastery":"short dream overlay"},
+    {"id":"kuroori","name":"クロオリ","form":"黒折化","primary":"ユイ","secondary":["ユウビ"],"choice":"fold/reopen trigger","mastery":"owner-confirmed timed seal"},
+    {"id":"kage1","name":"カナメ","form":"黒影化","primary":"ナギ","secondary":["リツ"],"choice":"intercept/pass guard","mastery":"rotating guard"},
+    {"id":"kage2","name":"カスミ","form":"黒霞化","primary":"アサ","secondary":["ユウビ"],"choice":"private/party/public","mastery":"selective privacy"},
+    {"id":"kage3","name":"トキ","form":"黒刻化","primary":"ミチル","secondary":["ネム","レン"],"choice":"perfect/adaptive timing","mastery":"adaptive measurement"},
+    {"id":"kage4","name":"ツムギ","form":"黒糸化","primary":"トモリ","secondary":["シロ","ハナ"],"choice":"unfinished/finish/open slot","mastery":"completion plus intentional blank"},
+    {"id":"ren","name":"レン","form":"黒硝化","primary":"マドカ","secondary":["トキ"],"choice":"single focus/party share","mastery":"shared delta detection"}
+  ],
+  "coverage": {"current21":"21/21","future15":"not_in_current_map"},
+  "runtimeChanged": false
+}
