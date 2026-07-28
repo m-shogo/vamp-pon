@@ -1,7 +1,16 @@
 # 180. Unified Character Canon
 
 This is the character canon index.
-For the latest production-facing index, read `docs/181-current-production-canon.md` first.
+
+**For any character question, design task, dialogue work, relationship work, profile work, Bond/Support work, or character-image brief, read `docs/CHARACTERS.md` first.**
+
+For the latest production-facing index, read `docs/181-current-production-canon.md` first when the task affects runtime / release state.
+
+Human/AI character understanding entrypoints:
+
+- `docs/CHARACTERS.md` — single character hub; start here instead of repo-wide search
+- `docs/character-book-v2.md` — 21-person readable character book, growth, relationships, future directions
+- `docs/character-bond-support-system-v1.md` — battle Support, Bond, name/honorific changes, Pair Trait and 灯合わせ direction
 
 Runtime-facing canonical data is stored in:
 
@@ -27,6 +36,9 @@ Story/profile-facing canonical data is stored in:
 
 | Area | Status |
 | --- | --- |
+| character single entrypoint | `docs/CHARACTERS.md`; character work must start here before repo-wide search |
+| readable character book | `docs/character-book-v2.md`; current 21 + user directions + candidates clearly separated |
+| Bond / Support direction | `docs/character-bond-support-system-v1.md`; user-direction design only, not runtime implemented |
 | Core5 relationships | canonical |
 | Core5 combat direction | canonical draft |
 | Core5 art names | canonical |
@@ -49,6 +61,16 @@ Story/profile-facing canonical data is stored in:
 
 ## Canon source order
 
+### Character planning / conversation / profile tasks
+
+1. `docs/CHARACTERS.md`
+   - Single entrypoint. Read before searching the repository.
+2. `docs/character-book-v2.md`
+   - Human-readable overview of current 21, growth directions, key relationships, mystery seeds, future candidate directions.
+3. Only then descend into the detailed source required by the question.
+
+### Runtime / production tasks
+
 1. `docs/181-current-production-canon.md`
    - Latest production-facing entrypoint.
 2. `src/game/data/worldTerms.ts`
@@ -65,26 +87,30 @@ Story/profile-facing canonical data is stored in:
    - Default constellation assignment is unique. A duplicate is meaningful canon only when the document gives a sibling/family/lineage/memory/succession/hidden-relationship reason.
 6. `docs/character-silhouette-diversity-current-canon-v1.md`
    - Current canonical body-type, mature-character, glasses, and silhouette-diversity assignments for the existing roster.
-7. `src/game/data/characterProductionPlans.ts`
+7. `docs/character-bond-support-system-v1.md`
+   - User-direction design for Support/Bond/name-honorific evolution/Pair Trait; not runtime implementation authority.
+8. `src/game/data/characterProductionPlans.ts`
    - Per-character starter gear, passive, rare item, evolution names, pair candidates, and asset keywords.
-8. `src/game/data/emblemCanon.ts`
+9. `src/game/data/emblemCanon.ts`
    - A-Z灯紋, 灯紋具, phase rules, merch hooks, and visual keywords.
-9. `src/game/data/kokuyouForms.ts`
+10. `src/game/data/kokuyouForms.ts`
    - Character-specific 黒耀化 subtitles and distortion rules.
-10. `src/game/data/pairLightArts.ts`
-    - Core5 灯合わせ names.
-11. `src/game/data/itemProductionCanon.ts`
-    - Item categories, motif lanes, field drops, and production requirements.
-12. `src/game/data/reserveCharacterCanon.ts`
-    - Official reserve characters that should not be forced into the current playable build.
-13. `src/game/data/characterThemeColors.ts`
-    - Theme and accent colors for character cards, cutins, selection UI, collection UI, and asset prompts.
-14. `src/game/data/characterArts.ts`
-    - Core5-facing adapter derived from `characterCanon.ts`.
-15. `src/game/data/characters.ts`
-    - Playable-character runtime data. Core5 has draft playable data, but only the current game flow is guaranteed.
+11. `src/game/data/pairLightArts.ts`
+   - Core5 灯合わせ names.
+12. `src/game/data/itemProductionCanon.ts`
+   - Item categories, motif lanes, field drops, and production requirements.
+13. `src/game/data/reserveCharacterCanon.ts`
+   - Official reserve characters that should not be forced into the current playable build.
+14. `src/game/data/characterThemeColors.ts`
+   - Theme and accent colors for character cards, cutins, selection UI, collection UI, and asset prompts.
+15. `src/game/data/characterArts.ts`
+   - Core5-facing adapter derived from `characterCanon.ts`.
+16. `src/game/data/characters.ts`
+   - Playable-character runtime data. Core5 has draft playable data, but only the current game flow is guaranteed.
 
 Older documents can remain as planning history. New work should not branch from old release-name candidates, old Shadow numeric planning labels, old birthday-zodiac assignments, or superseded silhouette candidates.
+
+**Do not rediscover character foundations with repo-wide search when `docs/CHARACTERS.md` already routes to the answer. Repo-wide search is the fallback for genuinely missing or historical information.**
 
 ## Adopted naming rule
 
@@ -152,6 +178,8 @@ Star-beast canon adoption does not implement summons or combat assists. Shared c
 
 Silhouette-diversity canon adoption does not automatically replace current production sprites; those visual changes follow Heavy Design candidate → human approval → production promotion.
 
+Bond/Support design adoption does not implement Support slots, save data, gameplay modifiers, or relationship progression in runtime. Those require a separate gameplay implementation gate and prototype.
+
 ## Cutin and emblem rule
 
 Cutin and emblem art stay textless. Display names are drawn with UI text.
@@ -174,3 +202,4 @@ Cutin and emblem art stay textless. Display names are drawn with UI text.
 6. When Shadow characters are promoted toward visible UI, migrate `characterCanon.ts` display names to カナメ / カスミ / トキ / ツムギ in a dedicated compatibility-checked data-sync commit while preserving their stable IDs.
 7. When Character Detail / 灯録 profile UI is implemented, use `character-star-beast-constellation-canon-v1.md`, never the superseded birthday-zodiac fields.
 8. Do not implement star-beast combat behavior until its own gameplay/design gate exists.
+9. Keep `docs/CHARACTERS.md` and `docs/character-book-v2.md` synchronized whenever current character identity, relationships, growth direction, star-beast role, silhouette role, or Bond direction changes.
