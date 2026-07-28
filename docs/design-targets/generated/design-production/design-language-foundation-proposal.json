@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "status": "PROPOSED_AWAITING_HUMAN_DIRECTION_SELECTION",
+  "sourceBranch": "integration/u49-pr75-integrity-20260727",
+  "documentationPath": "docs/design-language-foundation-proposal-v1.md",
+  "runtimeSources": [
+    "unity/VampPonUnity/Assets/_Project/Scripts/UI/AppQualityStyleTokens.cs",
+    "unity/VampPonUnity/Assets/_Project/Scripts/UI/YorunoShirubeUiTheme.cs",
+    "unity/VampPonUnity/Assets/_Project/Scripts/UI/ResponsiveLayoutProfile.cs",
+    "unity/VampPonUnity/Assets/_Project/Scripts/UI/UiVisualState.cs",
+    "unity/VampPonUnity/Assets/_Project/Scripts/Editor/U4FontSetup.cs"
+  ],
+  "boundaries": {
+    "documentationOnly": true,
+    "imageGenerationStarted": false,
+    "unityDesignImplementationStarted": false,
+    "runtimeMutation": false,
+    "u49EvidenceMutation": false,
+    "wholeAppHumanVisualAccepted": false
+  },
+  "currentRuntimeFoundation": {
+    "referenceViewport": "390x844",
+    "minimumTapTarget": 44,
+    "comfortableTapTarget": 56,
+    "spacingScale": [4, 8, 16, 24, 32],
+    "responsiveTiers": ["Compact", "Standard", "Large"],
+    "fontAsset": "ZenMaruGothic-Medium SDF",
+    "visualStates": [
+      "Normal",
+      "Pressed",
+      "Selected",
+      "Disabled",
+      "Locked",
+      "New",
+      "Rare",
+      "Completed",
+      "Kokuyou"
+    ]
+  },
+  "sharedRules": {
+    "quietNormalScreens": true,
+    "specialEffectsReserved": true,
+    "primaryMaterials": ["Night", "Paper", "Ink"],
+    "persistentAccentMaximum": 2,
+    "stateMayNotDependOnColorAlone": true,
+    "aiTextForbidden": true,
+    "wholeScreenGeneratedImageRuntimeUseForbidden": true,
+    "deviceViewportReviewRequired": true
+  },
+  "humanDecision": {
+    "decisionId": "HD-ART-DIRECTION-001",
+    "question": "ヨルノシルベ全体の感情の基調はどれにしますか？",
+    "status": "PENDING",
+    "recommendedOptionId": "A",
+    "options": [
+      {
+        "id": "A",
+        "label": "静かな夜と小さな温かさ",
+        "recommended": true,
+        "impact": "深い夜の中に安心と好奇心を残し、ランタンと朝を自然につなぐ。"
+      },
+      {
+        "id": "B",
+        "label": "寂しく幻想的な夜",
+        "recommended": false,
+        "impact": "青紫、霧、遠い光を強め、記憶と忘れ物の寂しさを前面に出す。"
+      },
+      {
+        "id": "C",
+        "label": "親しみやすい夜の絵本",
+        "recommended": false,
+        "impact": "紙の明るさと柔らかさを増やし、初見の入りやすさを優先する。"
+      }
+    ],
+    "selectedOptionId": null,
+    "decidedAt": null,
+    "decisionSource": null
+  },
+  "readiness": {
+    "currentRuntimeTokensInspected": true,
+    "sharedTokenArchitectureProposed": true,
+    "overallEmotionalDirectionSelected": false,
+    "finalPaletteLocked": false,
+    "finalTypographyLocked": false,
+    "generationBriefsMayStart": false,
+    "unityImplementationMayStart": false
+  },
+  "nextAction": "WAIT_FOR_SINGLE_HUMAN_DIRECTION_DECISION"
+}
