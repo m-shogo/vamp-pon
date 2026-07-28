@@ -13,7 +13,7 @@ Story Book     -> docs/story-book-v1.md
 Idea Book      -> docs/idea-book-v1.md
 ```
 
-5. For deep character work use:
+5. For deep Current21 character work use:
 
 ```txt
 docs/CHARACTERS.md
@@ -22,22 +22,41 @@ docs/CHARACTERS.md
 → only the needed detail master
 ```
 
-6. Do not search migrated legacy docs as normal authority.
-7. Check `docs/legacy-design-migration-2026-07-28.md` before opening an old design file.
-8. If a legacy file is marked `MIGRATED_NO_NORMAL_READ` or `HISTORY_ONLY`, do not use it for new design except explicit history/migration audit.
+6. For all-cast profile comparison use:
+
+```txt
+docs/CAST-PROFILES.md
+```
+
+7. For Future cast use:
+
+```txt
+docs/FUTURE-CAST.md
+→ docs/future-cast-profile-book-v1.md
+→ docs/character-future-diversity-and-nonhuman-expansion-v2.md
+→ only the needed future detail master
+```
+
+8. Do not search migrated legacy docs as normal authority.
+9. Check `docs/legacy-design-migration-2026-07-28.md` before opening an old design file.
+10. If a legacy file is marked `MIGRATED_NO_NORMAL_READ` or `HISTORY_ONLY`, do not use it for new design except explicit history/migration audit.
 
 ## Memory semantics
 
 ```txt
 Game Core Book      = remember what game this is
 GAME-DESIGN         = remember what design is complete, partial, proposed, or still open
-Character Book v4   = remember people quickly
-Character Deep Core = remember why each person is compelling, how they distort, and how they grow
+Character Book v4   = remember Current21 quickly
+Character Deep Core = remember why each Current21 person is compelling, how they distort, and how they grow
+Cast Profiles Hub   = compare Current21 + Future while preserving status boundaries
+Future Cast Hub     = remember non-Current21 directions
+Future Profile Book = remember concrete Future candidates, daily life, identity, gameplay, and unresolved details
 Story Book          = remember story, emotion, mysteries, sequel space
 Idea Book           = remember user ideas without premature canonization
 ```
 
 `docs/character-book-v3.md` is superseded and must not be used as Current character authority.
+`docs/character-future-diversity-and-nonhuman-expansion-v1.md` is superseded by v2 and must not be used as Current Future authority.
 
 Game Core has higher design priority than an undecided Idea.
 
@@ -92,7 +111,7 @@ one 黒耀化 wrong arrival
 one growth that changes gameplay without erasing the original personality
 ```
 
-Keep Current21 relationships varied:
+Keep relationships varied:
 
 1. direct family / mentorship / romance / old acquaintance
 2. inherited objects / words / techniques
@@ -100,6 +119,37 @@ Keep Current21 relationships varied:
 4. **relationships first created inside ヨルノシルベ**
 
 Do not let past-lore connections replace the player's observed relationship-building time.
+
+## Future cast rules
+
+Current Future profile pool is documented in `docs/future-cast-profile-book-v1.md`.
+
+Preserved directions include:
+
+- 2 brown/dark-skinned humans
+- 2 real animals distinct from Star Beasts
+- 2 robot/artificial-person identity systems
+- Gay character
+- Lesbian character
+- Bisexual character
+- adult feminine-presenting male / 男の娘 character
+- adult gender-undisclosed / hard-to-classify character whose sex/gender is not a reveal reward
+- human twins
+- long-lived witch + aging apprentices
+- wheelchair-user candidate
+
+Representation is part of the person, not a replacement for personality.
+
+Do not write:
+
+- bisexual = indecisive / promiscuous
+- feminine-presenting man = automatically gay / secretly a woman / needs masculine correction
+- gender-undisclosed character = guessing game
+- queer character = only discrimination tragedy
+- brown skin = exotic culture shorthand
+- wheelchair = movement penalty / cure arc
+- twins = one is merely the copy of the other
+- Robot Star Beast = automatic proof of soul / ghost
 
 ## Long-lived witch Candidate
 
@@ -151,18 +201,22 @@ Do not prematurely lock exact balance numbers merely to remove an OPEN status.
 ## Current routing
 
 ```txt
-Game Core       -> docs/game-core-book-v1.md
-Design coverage -> docs/GAME-DESIGN.md
-Character       -> docs/CHARACTERS.md
-Character book  -> docs/character-book-v4.md
-Character depth -> docs/character-deep-core-book-v1.md
-Bond / Support  -> docs/BOND.md
-黒耀化          -> docs/BLACK-YOUKA.md
-Gameplay / Meta -> docs/GAMEPLAY-META-PROGRESSION.md
-Archive / Lore  -> docs/PROGRESSION-ARCHIVE.md
-Story / Mystery -> docs/STORY.md
-Story logic     -> docs/STORY-ENGINE.md
-Runtime         -> docs/181-current-production-canon.md
+Game Core        -> docs/game-core-book-v1.md
+Design coverage  -> docs/GAME-DESIGN.md
+All cast profiles-> docs/CAST-PROFILES.md
+Current Character-> docs/CHARACTERS.md
+Character book   -> docs/character-book-v4.md
+Character depth  -> docs/character-deep-core-book-v1.md
+Future cast      -> docs/FUTURE-CAST.md
+Future profiles  -> docs/future-cast-profile-book-v1.md
+Future design    -> docs/character-future-diversity-and-nonhuman-expansion-v2.md
+Bond / Support   -> docs/BOND.md
+黒耀化           -> docs/BLACK-YOUKA.md
+Gameplay / Meta  -> docs/GAMEPLAY-META-PROGRESSION.md
+Archive / Lore   -> docs/PROGRESSION-ARCHIVE.md
+Story / Mystery  -> docs/STORY.md
+Story logic      -> docs/STORY-ENGINE.md
+Runtime          -> docs/181-current-production-canon.md
 ```
 
 ## Design invariants
@@ -178,8 +232,10 @@ Runtime         -> docs/181-current-production-canon.md
 - Game Over is not permanent death
 - Main Mystery and Character Mystery remain separate lanes
 - HIGH-VALUE CANDIDATE is not CANON until explicitly promoted
-- Keep Current 21 separate from future candidates
+- Keep Current21 separate from Future candidates
 - Character Book v4 supersedes v3
-- Character depth must keep different causes, different relationship shapes, and different daily-life expression
+- Future diversity/nonhuman expansion v2 supersedes v1
+- Character depth must keep different causes, relationship shapes, and daily-life expression
 - 黒耀化 is integrated self, not disposable external evil
+- Representation never substitutes for ordinary personality, gameplay identity, or daily life
 - Design-doc work must not promote U49/U50/runtime readiness
