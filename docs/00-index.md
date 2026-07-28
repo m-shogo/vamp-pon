@@ -38,6 +38,8 @@ Character / Story / Gameplay 統合
 → CHARACTER-STORY-INTEGRATION.md
 → character-black-youka-rescue-book-v1.md
 → story-stage-character-relationship-placement-v1.md
+→ story-main-beat-sheet-v1.md
+→ STAGE-ENCOUNTER-DESIGN.md
 → character-dawn-proof-book-v1.md
 → character-story-gameplay-payoff-matrix-v1.md
 
@@ -81,6 +83,7 @@ design-targets/generated/character-story-gameplay-payoff-map-v1.json
 - EnemyのCurrent identityは `src/game/data/enemyProductionDatabase.ts` を優先
 - Legacy enemyからはmechanic / telegraph / silhouetteを回収しても、旧name / 旧character対応をCurrentへ戻さない
 - Character rescue / Stage placement / Dawn proofの具体sceneはproduction directionであり、台詞・Boss配置・数値を自動Canon LOCKしない
+- Stage1〜5のEncounter directionがCurrentになっても、20-stage全体のwave/balance設計完了とは扱わない
 - この企画資料追加だけでUnity runtime / U49 / U50 / RC readinessを昇格しない
 
 ## 最初に読む
