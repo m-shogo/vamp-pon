@@ -51,7 +51,7 @@
     "provenanceTemplate": "DEFINED",
     "implementationHandoffTemplate": "DEFINED",
     "implementationExecutionPlan": "DOCUMENTED_LOW_REWORK_SEQUENCE",
-    "automatedDocumentationCheck": "ACTIVE_PHASE_AWARE_IN_STAGE1_QUALITY",
+    "automatedDocumentationCheck": "ACTIVE_IN_STAGE1_QUALITY",
     "fontLicenseAudit": "PASS",
     "glyphCoverageVerificationPlan": "DEFINED_NOT_EXECUTED",
     "referenceRightsBoundary": "CONFIRMED",
