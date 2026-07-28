@@ -17,20 +17,51 @@ docs/GAME-DESIGN.md
 Then route through the shared-memory books when relevant:
 
 ```txt
-Character Book -> docs/character-book-v3.md
+Character Book -> docs/character-book-v4.md
 Story Book     -> docs/story-book-v1.md
 Idea Book      -> docs/idea-book-v1.md
+```
+
+For deep character work:
+
+```txt
+docs/CHARACTERS.md
+→ docs/character-book-v4.md
+→ docs/character-deep-core-book-v1.md
+→ only the needed detail master
 ```
 
 Use them as:
 
 - Game Core Book = remember what game this is and what must not be lost
 - GAME-DESIGN = remember which design domains are Current / Partial / Proposed / Open
-- Character Book = remember people
+- Character Book v4 = remember people quickly
+- Character Deep Core = remember life contradictions, growth, Black Transformation, time hooks, and relationship depth
 - Story Book = remember the story and unresolved mysteries
 - Idea Book = remember user ideas without automatically canonizing them
 
 Do **not** begin with repo-wide searches for old design notes.
+
+## Character routing invariant
+
+`docs/character-book-v3.md` is superseded by v4 and is not normal Current authority.
+
+Current character references:
+
+```txt
+Character summary      -> docs/character-book-v4.md
+Character depth        -> docs/character-deep-core-book-v1.md
+Character hub          -> docs/CHARACTERS.md
+Life / speech          -> docs/CHARACTER-LIFE-AND-SPEECH.md
+Bond / support         -> docs/BOND.md
+黒耀化                  -> docs/BLACK-YOUKA.md
+Star Beast             -> docs/character-star-beast-constellation-canon-v1.md
+Temporal connections   -> docs/story-temporal-layer-and-character-connections-v1.md
+Connection candidates  -> docs/character-connection-web-high-value-candidates-v1.md
+Long-lived witch       -> docs/character-long-lived-witch-arc-v1.md
+```
+
+Do not restore the superseded idea that the long-lived witch has no romantic history with apprentices. Current Candidate understanding allows different apprentices to have different relationships: pure mentorship, family-like bonds, friendship, adult romance, marriage, children, separation, and reunion.
 
 ## Game Core priority
 
@@ -113,7 +144,8 @@ move it into the appropriate Current master / Book
 docs/CANON.md
 ├ docs/game-core-book-v1.md
 ├ docs/GAME-DESIGN.md
-├ docs/character-book-v3.md
+├ docs/character-book-v4.md
+│  └ docs/character-deep-core-book-v1.md
 ├ docs/story-book-v1.md
 ├ docs/idea-book-v1.md
 ├ docs/CHARACTERS.md
@@ -142,6 +174,8 @@ docs/CANON.md
 - Happy End is the canonical ending direction.
 - Game Over is not permanent character death.
 - Main Mystery and Character Mystery are separate lanes with selective intersections.
+- Character depth must not be created by giving everyone the same tragedy, blood relation, betrayal, or amnesia.
+- 黒耀化 is an integrated alternate self / wrong arrival, not an external evil personality to discard.
 - Do not auto-promote HIGH-VALUE CANDIDATE story truths to CANON.
 - Do not mix Current 21 characters with future candidates.
 - Do not mutate Unity/runtime/U49/U50 merely because a design doc was updated.
