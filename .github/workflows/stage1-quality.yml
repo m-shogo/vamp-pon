@@ -40,7 +40,7 @@ jobs:
         run: pnpm unity:term-lock:check
 
       - name: Verify Heavy Design documentation
-        run: node --experimental-strip-types scripts/quality/check-heavy-design-documentation.ts
+        run: pnpm design:heavy-documentation:check
 
       - name: Verify Stage1 quality
         run: pnpm stage1:fun-pass:verify
