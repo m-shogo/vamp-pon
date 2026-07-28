@@ -33,7 +33,7 @@ Game Core BookはCharacter / Story / Ideaより上位のgame identity master。
 
 ---
 
-# 2. 3冊の共有記憶
+# 2. 3冊の共有記憶 + Integration Hub
 
 Game Coreを理解した上で使う。
 
@@ -42,11 +42,14 @@ Game Coreを理解した上で使う。
 | **Character Book** | `docs/character-book-v4.md` | 誰が誰か、関係、成長、星獣、年代差をすぐ戻す |
 | **Story Book** | `docs/story-book-v1.md` | 物語、謎、Happy End、続編余地を戻す |
 | **Idea Book** | `docs/idea-book-v1.md` | 会話で出た大事な案を早く固定せず覚える |
+| **Character / Story Integration** | `docs/CHARACTER-STORY-INTEGRATION.md` | Character・関係・黒耀化・Enemy・Stage・Dawnを一つの作品として追う |
 
 さらにCharacterを深く扱う時:
 
 - `docs/character-deep-core-book-v1.md` — 21人の人生の核 / 矛盾 / 黒耀化 /成長 /関係
 - `docs/character-dialogue-relationship-book-v1.md` — Current21の声 / 口癖 / 仲間との会話 + Future15のvoice seed
+- `docs/character-black-youka-rescue-book-v1.md` — Current21が黒耀化から「別の選択肢」を得る構造
+- `docs/character-dawn-proof-book-v1.md` — 成長を夜明け後の日常の小さい差で見せる
 
 `character-book-v3.md` はv4によりsuperseded。通常参照しない。
 
@@ -62,6 +65,9 @@ Character Deep Core
 
 Character Dialogue / Relationship Book
 = その人がどう喋り、誰といる時に何が変わるか
+
+Character / Story Integration
+= 人物の長所が戦闘・関係・黒耀化・敵・周回・夜明けでどう同じ根を持つか
 
 Story Book
 = 遊んだ時間にどんな意味が残るか
@@ -81,16 +87,22 @@ Idea Book
 | --- | --- | --- |
 | Game identity / Core | `docs/game-core-book-v1.md` | Run / Meta / Attachment loop |
 | Design completeness | `docs/GAME-DESIGN.md` | Gap / Current / Partial / Open |
+| Character / Story integration | `docs/CHARACTER-STORY-INTEGRATION.md` | 36人物候補 / 関係 / 黒耀化 / Stage / Enemy / Dawnの横断routing |
 | Character | `docs/CHARACTERS.md` | Current21 /人物 /年代差 /関係 routing |
 | Character summary | `docs/character-book-v4.md` | 21人をすぐ理解 |
 | Character depth | `docs/character-deep-core-book-v1.md` | 人生の核 /矛盾 /黒耀化 /成長 |
 | Character voice / relationship | `docs/character-dialogue-relationship-book-v1.md` | 口癖 /会話 /Bond差分 /関係lane /Future voice seed |
+| Relationship | `docs/RELATIONSHIPS.md` | Current21 relation coverage / arc routing |
+| Future cast | `docs/FUTURE-CAST.md` | Future15 profile / representation / series pool |
 | Bond / Support | `docs/BOND.md` | 同行 /関係成長 /連携強化 |
 | 黒耀化 | `docs/BLACK-YOUKA.md` | 共通system /もう一つの自分 /固有呼称 |
+| 黒耀化 rescue | `docs/character-black-youka-rescue-book-v1.md` | 21人の戻り方 / safe mastery / Support差 |
 | Enemy / Kagemono | `docs/ENEMIES.md` | Current48 /敵の意味 /legacy統合 /Boss方向 /production routing |
+| Stage1–5 Encounter | `docs/STAGE-ENCOUNTER-DESIGN.md` | Story questionをEnemy pressure /別buildへ変換 |
 | Gameplay / Meta | `docs/GAMEPLAY-META-PROGRESSION.md` | 永続強化 /achievement /fail-forward |
 | Achievement / Archive | `docs/PROGRESSION-ARCHIVE.md` | 灯録 /夜明け星図 /任意情報 |
 | Story / Mystery | `docs/STORY.md` | Main /Character Mystery /Happy End /続編 |
+| Main Story beats | `docs/story-main-beat-sheet-v1.md` | Stage1〜5のMain Story候補 / C-B-A mystery debt |
 | Story/Game logic | `docs/STORY-ENGINE.md` | Gameplayと世界法則の接続 |
 | Production / Runtime | `docs/181-current-production-canon.md` | Unity /production正本 |
 
@@ -103,6 +115,11 @@ Character Hubから必要時だけ読む。
 - `docs/character-book-v4.md` — Current人物理解master
 - `docs/character-deep-core-book-v1.md` — Deep Core master
 - `docs/character-dialogue-relationship-book-v1.md` — 口癖 / base voice / Bond delta / Crisis delta / pair dialogue
+- `docs/RELATIONSHIPS.md` — Current21 relationship entrypoint
+- `docs/character-relationship-arc-book-v1.md` — relationをFirst read→Dawnまで育てる
+- `docs/character-black-youka-rescue-book-v1.md` — 黒耀化で仲間が増やす別の選択肢
+- `docs/character-dawn-proof-book-v1.md` — 21人の小さなHappy End proof
+- `docs/character-story-gameplay-payoff-matrix-v1.md` — Character設定をGameplay / Enemy / Clear Getterへ返す
 - `docs/character-personal-profile-canon-v1.md` — 誕生日 /好物 /趣味
 - `docs/character-star-beast-constellation-canon-v1.md` — 星座 /星獣 /由来
 - `docs/character-silhouette-diversity-current-canon-v1.md` — 体型 /年齢感 /眼鏡
@@ -112,6 +129,8 @@ Character Hubから必要時だけ読む。
 - `docs/story-temporal-layer-and-character-connections-v1.md` — 別時代 /夜の時間層
 - `docs/character-connection-web-high-value-candidates-v1.md` — 物 /思想 /年代差のconnection
 - `docs/character-long-lived-witch-arc-v1.md` — 不老魔女Candidate
+- `docs/FUTURE-CAST.md` — Future15 entrypoint
+- `docs/future-cast-relationship-story-reservoir-v1.md` — Future15のrelation / gameplay / payoff reservoir
 - current `src/game/data/*` — production/runtime data
 
 ### Important current character directions
@@ -122,9 +141,12 @@ Character Hubから必要時だけ読む。
 - Current人物は現実では必ずしも同時代ではない
 - 人は別時代でも物 / 言葉 / 記録が現実時間を渡れる
 - 黒耀化 = 外部悪人格ではなく「もう一つの自分 / 間違った到達」
+- 黒耀化救出 = 仲間が本人を治すのでなく、本人が戻るための選択肢を増やす
 - 全員を血縁 /昔からの知人にしない
 - ヨルノシルベで初めて作る友情を必ず残す
 - 深み = 全員へ同じ悲劇を盛ることではない
+- Current21 relation design coverage = 21/21 with >=2 distinctive lanes
+- Future15は15/15 relationship/story reservoirを持つがCurrent21へ昇格しない
 
 ### Future不老魔女
 
@@ -152,6 +174,9 @@ Current Candidateでは長い人生の中で複数の弟子と:
 Story Bookから必要時だけ読む。
 
 - `docs/story-book-v1.md`
+- `docs/story-main-beat-sheet-v1.md`
+- `docs/story-stage-character-relationship-placement-v1.md`
+- `docs/STAGE-ENCOUNTER-DESIGN.md`
 - `docs/STORY-ENGINE.md`
 - `docs/story-ending-sequel-architecture-v1.md`
 - `docs/story-foreshadowing-payoff-map-v1.md`
@@ -160,6 +185,19 @@ Story Bookから必要時だけ読む。
 - `docs/PROGRESSION-ARCHIVE.md`
 
 Main Mysteryの強いCandidateもHuman decision前に最終正史へLOCKしない。
+
+Stage1〜5のCore spineは:
+
+```txt
+Stage1 ユイ   = 戻す
+Stage2 アサ   = 名前
+Stage3 ナギ   = 守る
+Stage4 ミチル = 道
+Stage5 トモリ = 直す
+```
+
+をCurrent production directionとして使う。
+Exact dialogue / Boss assignment / wave値は別途review前にLOCKしない。
 
 ---
 
@@ -208,6 +246,14 @@ Human decision /実装上の必要
 docs/CANON.md
 ├ game-core-book-v1.md
 ├ GAME-DESIGN.md
+├ CHARACTER-STORY-INTEGRATION.md
+│  ├ character-black-youka-rescue-book-v1.md
+│  ├ story-stage-character-relationship-placement-v1.md
+│  ├ story-main-beat-sheet-v1.md
+│  ├ STAGE-ENCOUNTER-DESIGN.md
+│  ├ character-dawn-proof-book-v1.md
+│  ├ character-story-gameplay-payoff-matrix-v1.md
+│  └ character-story-integration-audit-2026-07-29.md
 ├ character-book-v4.md
 │  └ character-deep-core-book-v1.md
 ├ story-book-v1.md
@@ -215,15 +261,21 @@ docs/CANON.md
 ├ CHARACTERS.md
 │  ├ CHARACTER-LIFE-AND-SPEECH.md
 │  ├ character-dialogue-relationship-book-v1.md
+│  ├ RELATIONSHIPS.md
 │  ├ BOND.md
 │  ├ BLACK-YOUKA.md
 │  ├ story-temporal-layer-and-character-connections-v1.md
 │  ├ character-connection-web-high-value-candidates-v1.md
 │  └ character-long-lived-witch-arc-v1.md
+├ FUTURE-CAST.md
+│  ├ future-cast-profile-book-v1.md
+│  └ future-cast-relationship-story-reservoir-v1.md
 ├ ENEMIES.md
 │  ├ src/game/data/enemyProductionDatabase.ts
 │  ├ docs/enemies/omb-ombro-selected-direction.md
-│  └ data/enemy-assets/enemy-design-*.json
+│  ├ enemy-encounter-relationship-pressure-v1.md
+│  ├ enemy-ecology-and-encounter-recipes-v1.md
+│  └ kagemono-collection-entry-book-v1.md
 ├ GAMEPLAY-META-PROGRESSION.md
 │  └ PROGRESSION-ARCHIVE.md
 ├ STORY.md
@@ -251,7 +303,8 @@ Legacy移行状況:
 2. docs/game-core-book-v1.md
 3. docs/GAME-DESIGN.md
 4. Character / Story / Enemy / Ideaの必要Book
-5. 必要ならdomain master
+5. 複数domainを跨ぐなら docs/CHARACTER-STORY-INTEGRATION.md
+6. 必要ならdomain master
 ```
 
 ## Character
@@ -262,7 +315,19 @@ CANON
 → character-book-v4
 → deep workなら character-deep-core-book-v1
 → voice / interactionなら character-dialogue-relationship-book-v1
+→ Story / 黒耀化 / Enemyまで跨ぐなら CHARACTER-STORY-INTEGRATION
 ```
+
+## Future Character
+
+```txt
+CANON
+→ FUTURE-CAST
+→ future-cast-profile-book-v1
+→ future-cast-relationship-story-reservoir-v1
+```
+
+Future15をCurrent21へ自動昇格しない。
 
 ## Enemy / Kagemono
 
@@ -271,6 +336,7 @@ CANON
 → ENEMIES
 → current identityが必要なら src/game/data/enemyProductionDatabase.ts
 → visual familyなら docs/enemies/omb-ombro-selected-direction.md
+→ encounterなら STAGE-ENCOUNTER-DESIGN / enemy-ecology-and-encounter-recipes-v1.md
 → mechanic detailだけ必要なら data/enemy-assets/enemy-design-*.json
 ```
 
@@ -283,6 +349,7 @@ CANON
 → Game Core
 → STORY
 → story-book-v1
+→ Main Stageなら story-main-beat-sheet-v1 / story-stage-character-relationship-placement-v1
 ```
 
 ## 「前にこういうIdea話したよね？」
@@ -309,6 +376,7 @@ CANON
 - Ideaを勝手にCanonへ昇格
 - 未確定を理由にIdeaを忘れる
 - IdeaのためにGame Coreを無自覚に曲げる
+- Character設定をGameplay / relation / payoffへ接続せず「秘密だから面白い」で増やす
 
 ---
 
