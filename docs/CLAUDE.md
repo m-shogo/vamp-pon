@@ -4,7 +4,8 @@ For any work under `docs/` involving characters, relationships, Bond, story, mys
 
 1. Read `docs/CANON.md` first.
 2. Read `docs/game-core-book-v1.md` to preserve game identity.
-3. Use the shared-memory books when relevant:
+3. Read `docs/GAME-DESIGN.md` to understand which design domains are Current / Partial / Proposed / Open.
+4. Use the shared-memory books when relevant:
 
 ```txt
 Character Book -> docs/character-book-v3.md
@@ -12,15 +13,16 @@ Story Book     -> docs/story-book-v1.md
 Idea Book      -> docs/idea-book-v1.md
 ```
 
-4. Read the matching Current detail master only when the Book is insufficient.
-5. Do not search migrated legacy docs as normal authority.
-6. Check `docs/legacy-design-migration-2026-07-28.md` before opening an old design file.
-7. If a legacy file is marked `MIGRATED_NO_NORMAL_READ` or `HISTORY_ONLY`, do not use it for new design except explicit history/migration audit.
+5. Read the matching Current detail master only when the Book is insufficient.
+6. Do not search migrated legacy docs as normal authority.
+7. Check `docs/legacy-design-migration-2026-07-28.md` before opening an old design file.
+8. If a legacy file is marked `MIGRATED_NO_NORMAL_READ` or `HISTORY_ONLY`, do not use it for new design except explicit history/migration audit.
 
 ## Memory semantics
 
 ```txt
 Game Core Book = remember what game this is
+GAME-DESIGN    = remember what design is complete, partial, proposed, or still open
 Character Book = remember people
 Story Book     = remember story, emotion, mysteries, sequel space
 Idea Book      = remember user ideas without premature canonization
@@ -50,10 +52,32 @@ Preserve meaningful user ideas with accurate labels:
 Do not force a USER IDEA into a hard rule too early.
 Do not make the user restate a preserved idea later.
 
+## Completeness rule
+
+Do not call the game design complete/perfect only because Game Core, Character Book, Story Book, and Idea Book exist.
+
+Use `docs/GAME-DESIGN.md` as the gap map.
+
+Known high-value domains that still need consolidation/design include:
+
+- combat / run pacing
+- stage / encounter design
+- first-run onboarding
+- mobile input / control experience
+- difficulty / player aids
+- meta economy shape
+- postgame / endgame
+- creative audio / haptic direction
+- fun / balance playtest metrics
+
+Some of these already have useful implementation notes or Proposed docs. Do not confuse those with a Current design master.
+Do not prematurely lock exact balance numbers merely to remove an OPEN status.
+
 ## Current routing
 
 ```txt
 Game Core       -> docs/game-core-book-v1.md
+Design coverage -> docs/GAME-DESIGN.md
 Character       -> docs/CHARACTERS.md
 Bond / Support  -> docs/BOND.md
 黒耀化          -> docs/BLACK-YOUKA.md
