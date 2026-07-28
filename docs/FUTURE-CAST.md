@@ -9,6 +9,8 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 
 | Area | Current master |
 | --- | --- |
+| **全36候補の人数 /役割 /重複監査** | `docs/CHARACTER-ROSTER-REVIEW.md` |
+| **重複risk人物の具体ブラッシュアップ** | `docs/character-roster-polish-pass-v1.md` |
 | **Future候補の統一プロフィール** | `docs/future-cast-profile-book-v1.md` |
 | **褐色2 / 動物2 / Robot2 / Gay / Lesbian / Bisexual / 男の娘 / 性別不詳 / 双子 / disability等の設計原則** | `docs/character-future-diversity-and-nonhuman-expansion-v2.md` |
 | 不老の魔女 / 複数世代の弟子 / 恋愛・結婚・家族・別離 | `docs/character-long-lived-witch-arc-v1.md` |
@@ -16,6 +18,49 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 | Current21 | `docs/CHARACTERS.md` |
 
 `character-future-diversity-and-nonhuman-expansion-v1.md` はv2によりsuperseded。通常参照しない。
+
+## Roster review result
+
+現時点:
+
+```txt
+Future pool = 15候補を維持
+DELETE NOW = 0
+MERGE NOW = 0
+NEW CAST FREEZE = temporarily YES
+```
+
+新しいrepresentation categoryを埋めるだけの追加は一度止め、まず既存36候補を磨く。
+
+Future poolの中でも:
+
+### Series / sequel anchor potential
+
+- クロエ
+- ノア
+- ルム
+- カイ / ナオ
+
+### High-priority future
+
+- ヒヨリ
+- トウマ
+- クウ
+- ヨモ
+- スズ
+- イオ
+- アマネ
+
+### Deepen before promotion
+
+- セリカ
+- マキ
+- レンジ
+
+特に**レンジは現時点でクロエ依存が強いため、Playable rosterへ急いで昇格しない。**
+`character-roster-polish-pass-v1.md` で独立人物としての強化方向を定義済み。
+
+これは人気順位予測ではなく、現時点の設計成熟度 / 交換不能性によるrouting。
 
 ## User directions currently preserved
 
@@ -37,7 +82,7 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 1. **ヒヨリ** — 褐色肌 / ギャルマインド / 自分の弱音を遅らせる
 2. **セリカ** — お嬢様 / Lesbian Candidate / 頼ることも礼儀
 3. **クロエ**（working） — 不老の魔女 / 長い恋愛・家族・弟子史
-4. **レンジ**（working） — 年を取る弟子 / 有限だから進む
+4. **レンジ**（working） — 年を取る弟子 / 有限だから進む / Playable promotion pending
 5. **トウマ** — 褐色肌 / 職人 / Gay / 名前より仕事を残したがる
 6. **クウ** — 現実由来の犬 / 名前なしでも人を覚える
 7. **ヨモ**（working） — 複数名を持つ猫 / 違う名でも一匹
@@ -111,32 +156,37 @@ Sexual orientation、gender presentation、肌色、身体条件等は人物の�
 - 男の娘は成人男性。feminine presentationを矯正対象にしない
 - 性別不詳キャラは後から性別を明かすことをreward / twistにしない
 
-## Additional high-value gap candidate
+## Additional gap handling
 
-今回Future profileへ **wheelchair user / アマネ** を追加。
+今は新規character追加をdefaultにしない。
 
-引き続きmandatoryではないが検討価値がある:
+既にFuture profileへwheelchair user / アマネまである。
+
+今後:
 
 - hearing difference / Deaf / hard-of-hearing
 - prosthetic / limb difference
-- explicitly nonbinary human（イオとは別。イオはgender undisclosed Candidate）
+- explicitly nonbinary human
 - 職業・階級・生活背景の差
 
-「カテゴリを全部埋める」ことを目的にはしない。
-ヨルノシルベのTheme / Gameplay / 人物魅力を増やせる時だけ採用する。
+等の案が出ても、まず既存36人へ統合できるか確認する。
+
+> **カテゴリを埋めることではなく、人物・Gameplay・Themeを強くする時だけ新規追加する。**
 
 ## Normal Future-Cast routing
 
 ```txt
 docs/CANON.md
 ↓
+docs/CAST-PROFILES.md
+↓
+docs/CHARACTER-ROSTER-REVIEW.md
+↓
 docs/FUTURE-CAST.md
 ↓
 docs/future-cast-profile-book-v1.md
 ↓
-docs/character-future-diversity-and-nonhuman-expansion-v2.md
-↓
-必要なdetail master 1つ
+必要なら character-roster-polish-pass-v1.md / detail master
 ```
 
 Current21は引き続き:
