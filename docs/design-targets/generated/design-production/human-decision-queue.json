@@ -24,11 +24,12 @@
     }
   ],
   "boundaries": {
-    "heavyDesignStatus": "HOLD",
+    "heavyDesignStatus": "DOCUMENTATION_FOUNDATION_PREPARED",
     "imageGenerationStarted": false,
     "unityDesignImplementationStarted": false,
     "u49EvidenceMutation": false,
     "wholeAppHumanVisualAccepted": false
   },
-  "nextAction": "CONTINUE_DIRECTION_A_DOCUMENTATION_REFINEMENT_AUTONOMOUSLY"
+  "nextDecisionTrigger": "USER_INTENTIONALLY_STARTS_WAVE1_IMAGE_GENERATION_OR_NEW_SUBJECTIVE_DECISION_IS_REQUIRED",
+  "nextAction": "HOLD_WITH_NO_PENDING_DECISION"
 }
