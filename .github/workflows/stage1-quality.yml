@@ -36,5 +36,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify active terminology
+        run: pnpm unity:term-lock:check
+
+      - name: Verify Heavy Design documentation
+        run: node --experimental-strip-types scripts/quality/check-heavy-design-documentation.ts
+
       - name: Verify Stage1 quality
         run: pnpm stage1:fun-pass:verify
