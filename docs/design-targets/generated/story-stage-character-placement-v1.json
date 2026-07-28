@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_STORY_PRODUCTION_DIRECTION_NOT_EXACT_SCENARIO_LOCK",
+  "source": "docs/story-stage-character-relationship-placement-v1.md",
+  "stages": [
+    {"stage":1,"core":"ユイ","question":"見つけたものは全部戻すべきか","mainMirrors":["アサ","クロオリ"],"supporting":["コヨリ","ユウビ","マドカ","トモリ"],"verbs":["pickup","owner","hold"],"enemyMotifs":["紙片","墨","鈴","名札"],"dawnProof":"拾う前にowner確認"},
+    {"stage":2,"core":"アサ","question":"名前を戻せば本人を分かったことになるか","mainMirrors":["カスミ","ユイ"],"supporting":["セン","コヨリ","シロ","ユウビ"],"verbs":["mark","visibility","consent"],"enemyMotifs":["名札","消印","blank tag","decoy label"],"boss46Affinity":"HIGH_VALUE_NOT_LOCKED","dawnProof":"本人に呼び方を聞く"},
+    {"stage":3,"core":"ナギ","question":"守るためなら選択肢を閉じてよいか","mainMirrors":["カナメ","トバリ"],"supporting":["リツ","コヨリ","クロオリ","ハナ"],"verbs":["seal","guard","reopen"],"enemyMotifs":["鍵穴","箱","lane close","shield"],"boss47Affinity":"HIGH_VALUE_NOT_LOCKED","dawnProof":"閉じる前にreopen条件を本人へ確認"},
+    {"stage":4,"core":"ミチル","question":"正しい道は一つか","mainMirrors":["トキ","ゲン"],"supporting":["マドカ","レン","ネム"],"verbs":["route","measurement","reroute"],"enemyMotifs":["切符","方位","地図ピン","迷針","改札"],"boss48Affinity":"HIGH_VALUE_NOT_LOCKED","cGradeReveal":"夜は単一の現実年代ではない","dawnProof":"複数routeを地図へ残す"},
+    {"stage":5,"core":"トモリ","question":"元通りだけが修復か","mainMirrors":["ツムギ","ユイ"],"supporting":["ハナ","シロ","クロオリ","ネム","アサ","ナギ","ミチル"],"verbs":["repair","scar","completion"],"enemyMotifs":["糸","マッチ","朝露","片ボタン","継ぎ目","灯り"],"legacyAsamade":"FUTURE_RESERVOIR_NOT_CURRENT_BOSS","themeConvergence":"大切にすることは一つの完成形へ固定し続けることではない","dawnProof":"古い修理跡を消さない"}
+  ],
+  "narrativeDensity":{"spine":["ユイ","アサ","ナギ","ミチル","トモリ","クロオリ"],"majorRotating":["カナメ","カスミ","トキ","ツムギ","リツ","コヨリ","ネム"],"supportingOptional":["セン","ゲン","ハナ","ユウビ","マドカ","シロ","トバリ","レン"]},
+  "runtimeChanged": false
+}
