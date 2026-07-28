@@ -10,12 +10,13 @@ const requiredFiles = [
   'docs/design-motion-transition-spec-v1.md',
   'docs/design-technical-art-asset-pipeline-spec-v1.md',
   'docs/design-generation-briefs-wave1-v1.md',
+  'docs/design-implementation-execution-plan-v1.md',
+  'docs/design-implementation-handoff-template-v1.md',
   'docs/design-production-completeness-gates-v1.md',
   'docs/design-human-decision-interaction-protocol-v1.md',
   'docs/design-documentation-contradiction-register-v1.md',
   'docs/design-font-license-glyph-audit-v1.md',
   'docs/design-reference-rights-boundary-v1.md',
-  'docs/design-implementation-handoff-template-v1.md',
   'docs/design-targets/generated/design-production/documentation-readiness.json',
   'docs/design-targets/generated/design-production/human-decision-queue.json',
   'docs/design-targets/generated/design-production/generation-request-queue.json',
@@ -58,7 +59,11 @@ expect(readiness.selectedArtDirection?.visuallyLocked === false, 'visual lock mu
 expect(readiness.documentation?.screenSpecifications?.screenCount === 13, 'screen specification count must be 13');
 expect(readiness.documentation?.motionTransitions?.familyCount === 7, 'motion transition family count must be 7');
 expect(readiness.documentation?.wave1GenerationBriefs?.briefCount === 3, 'Wave 1 brief count must be 3');
+expect(readiness.documentation?.implementationExecutionPlan === 'DOCUMENTED_LOW_REWORK_SEQUENCE', 'implementation execution plan must be documented');
+expect(readiness.documentation?.automatedDocumentationCheck === 'ACTIVE_IN_STAGE1_QUALITY', 'automated documentation check must be active in Stage1 Quality');
 expect(readiness.documentation?.contradictionScan?.activeContradictions === 0, 'active documentation contradictions must be 0');
+expect(readiness.documentationGate?.implementationExecutionPlanDefined === true, 'documentation gate must require the implementation execution plan');
+expect(readiness.documentationGate?.automatedCheckerRegistered === true, 'documentation gate must register the automated checker');
 expect(readiness.documentationGate?.gatePassed === true, 'documentation foundation gate must pass');
 expect(Array.isArray(readiness.remainingDocumentationTasks) && readiness.remainingDocumentationTasks.length === 0, 'remainingDocumentationTasks must be empty');
 
@@ -77,6 +82,7 @@ for (const [key, expected] of Object.entries({
 
 expect(readiness.preGenerationGate?.gatePassed === false, 'pre-generation gate must remain false until an active brief is explicitly approved');
 expect(readiness.preGenerationGate?.activeWave1BriefHumanApproved === false, 'active Wave 1 brief must remain unapproved');
+expect(readiness.implementationGate?.implementationExecutionPlanDefined === true, 'implementation gate must require the execution plan');
 expect(readiness.implementationGate?.gatePassed === false, 'implementation gate must remain false');
 expect(readiness.implementationGate?.humanImplementationStartApproval === false, 'human implementation start approval must remain false');
 
@@ -145,4 +151,4 @@ if (errors.length > 0) {
   throw new Error(`Heavy Design documentation check failed:\n- ${errors.join('\n- ')}`);
 }
 
-console.log('Heavy Design documentation check passed: 13 screens, 3 Wave 1 briefs, Art Direction A, no active generation or Unity implementation.');
+console.log('Heavy Design documentation check passed: 13 screens, 3 Wave 1 briefs, execution plan documented, Art Direction A, no active generation or Unity implementation.');
