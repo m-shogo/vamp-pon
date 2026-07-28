@@ -42,6 +42,7 @@ Character / Story / Gameplay 統合
 → STAGE-ENCOUNTER-DESIGN.md
 → character-dawn-proof-book-v1.md
 → character-story-gameplay-payoff-matrix-v1.md
+→ character-story-integration-audit-2026-07-29.md
 
 Character
 → CHARACTERS.md
@@ -55,6 +56,11 @@ Character voice / relationship
 → character-voice-differentiation-guardrails-v1.md
 → character-ensemble-daily-scene-bank-v1.md
 → BOND.md
+
+Future15
+→ FUTURE-CAST.md
+→ future-cast-profile-book-v1.md
+→ future-cast-relationship-story-reservoir-v1.md
 
 Enemy / Kagemono
 → ENEMIES.md
@@ -74,16 +80,30 @@ design-targets/generated/character-black-youka-rescue-map-v1.json
 design-targets/generated/story-stage-character-placement-v1.json
 design-targets/generated/character-dawn-proof-map-v1.json
 design-targets/generated/character-story-gameplay-payoff-map-v1.json
+design-targets/generated/future-cast-relationship-story-map-v1.json
+design-targets/generated/character-story-integration-coverage-v1.json
+```
+
+現在のdesign coverage要約:
+
+```txt
+Current21 character integration  = 21/21
+Future15 story reservoir         = 15/15 (Future only)
+Current enemy identity/writing   = 48/48
+Stage1-5 story/encounter direction = 5/5
+Full Stage6-20 encounter system  = PARTIAL / NOT COMPLETE
 ```
 
 境界:
 
 - Current21とFuture15を混ぜない
 - Future15のbridgeはCandidateでありCurrent昇格ではない
+- Future15は次回作cast確定ではない
 - EnemyのCurrent identityは `src/game/data/enemyProductionDatabase.ts` を優先
 - Legacy enemyからはmechanic / telegraph / silhouetteを回収しても、旧name / 旧character対応をCurrentへ戻さない
 - Character rescue / Stage placement / Dawn proofの具体sceneはproduction directionであり、台詞・Boss配置・数値を自動Canon LOCKしない
 - Stage1〜5のEncounter directionがCurrentになっても、20-stage全体のwave/balance設計完了とは扱わない
+- Main Mysteryの最終回答はHuman decision前にLOCKしない
 - この企画資料追加だけでUnity runtime / U49 / U50 / RC readinessを昇格しない
 
 ## 最初に読む
