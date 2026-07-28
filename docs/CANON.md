@@ -12,20 +12,21 @@ Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
 まず読む:
 
-- **`docs/game-core-book-v1.md`** — ヨルノシルベは何を遊ぶゲームか / 何を絶対に見失わないか
+- **`docs/game-core-book-v1.md`** — 何を遊ぶゲームか / 何を絶対に見失わないか
+- **`docs/GAME-DESIGN.md`** — どの設計がCurrent / Partial / Proposed / Openか
 
-Game Core Bookは、Character / Story / Ideaより上位の**ゲーム identidade / core understanding master**。
+Game Core BookはCharacter / Story / Ideaより上位のgame identity master。
 
-ここで覚えるもの:
+ここで覚える:
 
-- ヴァンサバ系の1runの爽快感
+- ヴァンサバ系1runの爽快感
 - buildを作る楽しさ
 - 周回で遊び方が増えるMeta Loop
 - Clear Getter / 夜明け星図
-- Support / BondがGameplayへ返ること
-- 黒耀化が危険だが強い選択であること
+- Support / BondがGameplayへ返る
+- 黒耀化が危険だが強い選択
 - fail-forward
-- 情報はGameplayの副作用であること
+- 情報はGameplayの副作用
 - Happy Endを含むEmotional Core
 
 具体数値・全設定・Main Mysteryの最終回答まで固定する本ではない。
@@ -34,20 +35,29 @@ Game Core Bookは、Character / Story / Ideaより上位の**ゲーム identidad
 
 # 2. 3冊の共有記憶
 
-Game Coreを理解した上で、次の3冊を同格の長期共有記憶として使う。
+Game Coreを理解した上で使う。
 
 | Book | File | 役割 |
 | --- | --- | --- |
-| **Character Book** | `docs/character-book-v3.md` | 誰が誰か、関係、成長、日常、星獣をすぐ思い出す |
-| **Story Book** | `docs/story-book-v1.md` | どんな物語か、何を救うか、謎、Happy End、続編をすぐ思い出す |
-| **Idea Book** | `docs/idea-book-v1.md` | 会話で出た面白い案を、早く固定せず忘れない |
+| **Character Book** | `docs/character-book-v4.md` | 誰が誰か、関係、成長、星獣、年代差をすぐ戻す |
+| **Story Book** | `docs/story-book-v1.md` | 物語、謎、Happy End、続編余地を戻す |
+| **Idea Book** | `docs/idea-book-v1.md` | 会話で出た大事な案を早く固定せず覚える |
+
+さらにCharacterを深く扱う時:
+
+- `docs/character-deep-core-book-v1.md` — 21人の人生の核 / 矛盾 / 黒耀化 /成長 /関係
+
+`docs/character-book-v3.md` はv4によりsuperseded。通常参照しない。
 
 ```txt
 Game Core Book
 = 何を遊ぶゲームか
 
-Character Book
+Character Book v4
 = 誰と遊ぶか
+
+Character Deep Core
+= なぜその人を好きになり、どう歪み、どう成長するか
 
 Story Book
 = 遊んだ時間にどんな意味が残るか
@@ -57,8 +67,7 @@ Idea Book
 ```
 
 **Idea BookにあるだけではCANONではない。**
-
-一方で、Idea Bookにある案を「決まっていないから忘れてよい」とも扱わない。
+一方で未確定だから忘れてよいとも扱わない。
 
 ---
 
@@ -66,138 +75,183 @@ Idea Book
 
 | Domain | First read | Purpose |
 | --- | --- | --- |
-| Game identity / Core | `docs/game-core-book-v1.md` | Run / Meta / Attachment loop、Core判断 |
-| Character | `docs/CHARACTERS.md` | 21人、人物像、日常、星獣、関係 |
-| Bond / Support | `docs/BOND.md` | 同行、関係成長、連携強化、安定/不安定ペア |
-| 黒耀化 | `docs/BLACK-YOUKA.md` | 共通システム名、固有呼称、歪み、星獣反応 |
-| Gameplay / Meta detail | `docs/GAMEPLAY-META-PROGRESSION.md` | 永続強化、achievement、fail-forward |
-| Achievement / Archive | `docs/PROGRESSION-ARCHIVE.md` | 灯録、夜明け星図、記憶のしるし、任意情報 |
-| Story / Mystery | `docs/STORY.md` | Main Mystery、Character Mystery、Happy End、続編 |
-| Story/Game logic | `docs/STORY-ENGINE.md` | Gameplayと世界法則の接続、再解釈型伏線 |
-| Production / Runtime | `docs/181-current-production-canon.md` | 現在のUnity / production正本 |
+| Game identity / Core | `docs/game-core-book-v1.md` | Run / Meta / Attachment loop |
+| Design completeness | `docs/GAME-DESIGN.md` | Gap / Current / Partial / Open |
+| Character | `docs/CHARACTERS.md` | Current21 /人物 /年代差 /関係 routing |
+| Character summary | `docs/character-book-v4.md` | 21人をすぐ理解 |
+| Character depth | `docs/character-deep-core-book-v1.md` | 人生の核 /矛盾 /黒耀化 /成長 |
+| Bond / Support | `docs/BOND.md` | 同行 /関係成長 /連携強化 |
+| 黒耀化 | `docs/BLACK-YOUKA.md` | 共通system /もう一つの自分 /固有呼称 |
+| Gameplay / Meta | `docs/GAMEPLAY-META-PROGRESSION.md` | 永続強化 /achievement /fail-forward |
+| Achievement / Archive | `docs/PROGRESSION-ARCHIVE.md` | 灯録 /夜明け星図 /任意情報 |
+| Story / Mystery | `docs/STORY.md` | Main /Character Mystery /Happy End /続編 |
+| Story/Game logic | `docs/STORY-ENGINE.md` | Gameplayと世界法則の接続 |
+| Production / Runtime | `docs/181-current-production-canon.md` | Unity /production正本 |
 
 ---
 
 # 4. Character detail masters
 
-Character Hubから必要時だけ読むCurrent detail:
+Character Hubから必要時だけ読む。
 
-- `docs/character-book-v3.md` — 人物理解master
-- `docs/character-personal-profile-canon-v1.md` — 誕生日、好物、趣味、日常profile
-- `docs/character-star-beast-constellation-canon-v1.md` — 星座 / 星獣 / 由来
-- `docs/character-silhouette-diversity-current-canon-v1.md` — 体型 / 年齢感 / 眼鏡
-- `docs/CHARACTER-LIFE-AND-SPEECH.md` — 日常、癖、怒り、嘘、呼び方 / 敬語
+- `docs/character-book-v4.md` — Current人物理解master
+- `docs/character-deep-core-book-v1.md` — Deep Core master
+- `docs/character-personal-profile-canon-v1.md` — 誕生日 /好物 /趣味
+- `docs/character-star-beast-constellation-canon-v1.md` — 星座 /星獣 /由来
+- `docs/character-silhouette-diversity-current-canon-v1.md` — 体型 /年齢感 /眼鏡
+- `docs/CHARACTER-LIFE-AND-SPEECH.md` — 日常 /癖 /怒り /嘘 /呼び方
+- `docs/BOND.md` — Gameplay-first relationship progression
+- `docs/BLACK-YOUKA.md` — 黒耀化
+- `docs/story-temporal-layer-and-character-connections-v1.md` — 別時代 /夜の時間層
+- `docs/character-connection-web-high-value-candidates-v1.md` — 物 /思想 /年代差のconnection
+- `docs/character-long-lived-witch-arc-v1.md` — 不老魔女Candidate
 - current `src/game/data/*` — production/runtime data
+
+### Important current character directions
+
+- Current roster = 20 + reserve 1
+- ユイ×アサ = 主人公級バディ、恋愛なし
+- リツ×コヨリ = 兄妹、恋愛なし
+- Current人物は現実では必ずしも同時代ではない
+- 人は別時代でも物 / 言葉 / 記録が現実時間を渡れる
+- 黒耀化 = 外部悪人格ではなく「もう一つの自分 / 間違った到達」
+- 全員を血縁 /昔からの知人にしない
+- ヨルノシルベで初めて作る友情を必ず残す
+- 深み = 全員へ同じ悲劇を盛ることではない
+
+### Future不老魔女
+
+旧「弟子との恋愛なし」は撤回済み。
+
+Current Candidateでは長い人生の中で複数の弟子と:
+
+- 純粋な師弟
+- 家族
+- 親友
+- adult romance
+- 結婚
+- 子ども
+- 別離
+- 再会
+
+など異なる関係を経験し得る。
+
+全弟子が恋愛対象という意味ではない。
 
 ---
 
 # 5. Story detail masters
 
-Story Bookから必要時だけ読む:
+Story Bookから必要時だけ読む。
 
-- `docs/story-book-v1.md` — Story理解master
-- `docs/STORY-ENGINE.md` — GameplayとLoreの二重意味 / Story Engine Candidate
-- `docs/story-ending-sequel-architecture-v1.md` — Happy End / 泣き / sequel architecture
-- `docs/story-foreshadowing-payoff-map-v1.md` — Main Mystery / Character Mystery
-- `docs/PROGRESSION-ARCHIVE.md` — optional report / 灯録
+- `docs/story-book-v1.md`
+- `docs/STORY-ENGINE.md`
+- `docs/story-ending-sequel-architecture-v1.md`
+- `docs/story-foreshadowing-payoff-map-v1.md`
+- `docs/story-backbone-high-value-candidates-v1.md`
+- `docs/story-temporal-layer-and-character-connections-v1.md`
+- `docs/PROGRESSION-ARCHIVE.md`
+
+Main Mysteryの強いCandidateもHuman decision前に最終正史へLOCKしない。
 
 ---
 
 # 6. Idea memory
 
-`docs/idea-book-v1.md` は正本仕様書ではなく**共有記憶**。
+`docs/idea-book-v1.md` は共有記憶。
 
-代表的に保存するもの:
+代表:
 
 - クリアゲッター
-- 読む人 / 読まない人
+- 読む人 /読まない人
 - Happy End
-- Little Busters!的な非現実空間の救い
-- CLANNAD的な日常蓄積からの涙
-- ヤバタニエン的な再解釈伏線
-- アンセムレポート的な任意資料
+- 非現実空間だから成立する別れと救い
+- 日常蓄積からの涙
+- 再解釈型伏線
+- optional report
 - 仲間Support / Bond
-- 不仲ペアのGameplay
+- 不仲Pair gameplay
 - 黒耀化個別呼称
 - 星獣
 - 集合TOP
-- ギャル / お嬢様 / 魔女と弟子
+- ギャル /お嬢様 /不老魔女
 - ヨルノシルベ2への余白
 
-## Idea → Canon
-
 ```txt
-会話でアイディアが出る
+会話でIdea
 ↓
-Idea Bookまたは該当Bookへ保存
+Book / matching Current memoryへ保存
 ↓
-既存Core / Currentと比較しながら育てる
+Game Coreと衝突確認
 ↓
-Human decisionまたは実装上の必要性
+まだ案ならIdea / Candidateのまま育てる
 ↓
-確定した時だけCurrent masterへ昇格
+Human decision /実装上の必要
+↓
+確定した時だけCanonへ昇格
 ```
 
-**「覚える」と「決める」は別。**
+**覚える ≠ 決める。**
 
 ---
 
 # 7. Canon layers
 
-## CURRENT / SHARED MEMORY
-
 ```txt
 docs/CANON.md
 ├ game-core-book-v1.md
-├ character-book-v3.md
+├ GAME-DESIGN.md
+├ character-book-v4.md
+│  └ character-deep-core-book-v1.md
 ├ story-book-v1.md
-├ idea-book-v1.md          ← shared memory; individual entries may be non-canon
-├ docs/CHARACTERS.md
+├ idea-book-v1.md
+├ CHARACTERS.md
 │  ├ CHARACTER-LIFE-AND-SPEECH.md
 │  ├ BOND.md
-│  └ BLACK-YOUKA.md
-├ docs/GAMEPLAY-META-PROGRESSION.md
+│  ├ BLACK-YOUKA.md
+│  ├ story-temporal-layer-and-character-connections-v1.md
+│  ├ character-connection-web-high-value-candidates-v1.md
+│  └ character-long-lived-witch-arc-v1.md
+├ GAMEPLAY-META-PROGRESSION.md
 │  └ PROGRESSION-ARCHIVE.md
-├ docs/STORY.md
+├ STORY.md
 │  ├ STORY-ENGINE.md
 │  ├ story-ending-sequel-architecture-v1.md
 │  └ story-foreshadowing-payoff-map-v1.md
-└ docs/181-current-production-canon.md
+└ 181-current-production-canon.md
 ```
 
-`docs/180-unified-character-canon.md` とcurrent `src/game/data/*` はproduction-facing canonical dataとして保持する。
+`docs/180-unified-character-canon.md` とcurrent `src/game/data/*` はproduction-facing canonical dataとして保持。
 
-## LEGACY SOURCE
-
-移行状況:
-
+Legacy移行状況:
 - `docs/legacy-design-migration-2026-07-28.md`
 
-移植済み資料は通常作業では読まない。
+移植済み資料は通常読まない。
 
 ---
 
 # 8. Mandatory read policy
 
-## 企画 / 会話を続ける時
+## 企画 / 会話
 
 ```txt
 1. docs/CANON.md
 2. docs/game-core-book-v1.md
-3. Character / Story / Idea Bookの必要なもの
-4. 必要ならdomain master
+3. docs/GAME-DESIGN.md
+4. Character / Story / Ideaの必要Book
+5. 必要ならdomain master
 ```
 
-### Character質問
+## Character
 
 ```txt
 CANON
-→ Game Core（必要範囲）
 → CHARACTERS
-→ character-book-v3
+→ character-book-v4
+→ deep workなら character-deep-core-book-v1
 ```
 
-### Story質問
+## Story
 
 ```txt
 CANON
@@ -206,27 +260,28 @@ CANON
 → story-book-v1
 ```
 
-### 「前にこういうアイディア話したよね？」
+## 「前にこういうIdea話したよね？」
 
 ```txt
 CANON
 → Game Coreとの衝突確認
-→ idea-book-v1
+→ idea-book-v1 / matching Current Book
 ```
 
-## Legacyを読む例外
+## Legacy例外
 
-- migration ledgerに`MIGRATION PENDING`とある領域を一度だけ回収
-- 過去の変更理由 / regression / history監査
+- migration ledgerにMIGRATION PENDINGの領域を一度だけ回収
+- 過去の変更理由 /regression /history監査
 
 禁止:
 
-- repo-wide searchで最初に古い資料へ入る
-- migrated legacyをCurrent設計根拠へ戻す
-- 古いキャラ名 / 旧星獣 / 旧用語を復活
-- Current 21とfuture candidateを混ぜる
+- repo-wide searchで最初にlegacyへ入る
+- migrated legacyをCurrent根拠へ戻す
+- character-book-v3をCurrentとして読む
+- 古いキャラ名 /旧星獣 /旧用語を復活
+- Current21とfuture candidateを混ぜる
 - Ideaを勝手にCanonへ昇格
-- Ideaが未確定という理由で忘れる
+- 未確定を理由にIdeaを忘れる
 - IdeaのためにGame Coreを無自覚に曲げる
 
 ---
@@ -239,29 +294,29 @@ CANON
 戦う
 → buildする
 → 強くなる
-→ 違うキャラ / Support / 条件を試す
-→ 達成 / 永続成長
+→ 違うcharacter / Support /条件を試す
+→ 達成 /永続成長
 → また戦う
 ```
 
-情報はプレイの副作用として増える。
+情報はplayの副作用。
 
 ## 読まない人
 
-- パラメータ / trait / 機能が上がった
-- 新しいbuildが開いた
+- parameter /trait /機能が上がった
+- 新buildが開いた
 - 「ラッキー」でよい
-- Main Game / Main Storyは完走できる
+- Main Game / Main Story完走可能
 
 ## 読む人
 
-- キャラをもっと好きになる
-- 人物の過去や日常を読む
-- 世界の観測記録を読む
-- 伏線 / 矛盾を考察する
-- 続編で意味が変わるSeedに気づく
+- characterをもっと好きになる
+- 人物の過去 /日常
+- 世界の観測記録
+- 伏線 /矛盾
+- sequelで意味が変わるSeed
 
-**任意閲覧である限り、情報量は豊富でよい。**
+**任意閲覧なら情報量は豊富でよい。**
 
 ---
 
@@ -269,49 +324,47 @@ CANON
 
 | Current | Meaning |
 | --- | --- |
-| 灯録 | 収集・記録の総合Hub |
-| 夜明け星図 | Clear Getter型の達成盤view |
-| 記憶のしるし | 星図上の個別achievement |
-| 灯し手の記録 | キャラ / Bond / 成長 / 黒耀化 |
-| カゲモノ図鑑 | 敵の遭遇 / 攻略 / 背景記録 |
-| 忘れ物絵札 | 灯具 / 持ち物 / 忘れ物 / 所有者の気配 |
-| 言葉の記録 | 会話 / 短文 / 関係変化 |
-| 夜の観測記録 | Main Mysteryを任意で深掘るreport群のworking label |
-| 黒耀化 | 共通システム名 |
-| キャラ別黒耀呼称 | 各人物固有の黒耀化名（具体名は一部Working） |
+| 灯録 | 収集・記録Hub |
+| 夜明け星図 | Clear Getter型達成盤 |
+| 記憶のしるし | 星図上achievement |
+| 灯し手の記録 | character /Bond /成長 /黒耀化 |
+| カゲモノ図鑑 | enemy遭遇 /攻略 /背景 |
+| 忘れ物絵札 | 灯具 /持ち物 /忘れ物 |
+| 言葉の記録 | 会話 /短文 /関係変化 |
+| 夜の観測記録 | Main Mystery optional report working label |
+| 黒耀化 | 共通system名 |
+| Character固有黒耀呼称 | 各人物固有名。多くはWorking |
 
 ---
 
 # 11. Status labels
 
-重要設計は状態を明示する。
-
-- **CORE / CURRENT** — ゲーム identidade。変えるなら明示的Human decisionが必要
+- **CORE / CURRENT** — game identity。変更は明示的Human decision
 - **CANON / CURRENT** — 今後の設計前提
-- **USER DIRECTION** — ユーザーが明示した強い方向
+- **USER DIRECTION** — user明示の強い方向
 - **USER IDEA** — 覚えて育てる
-- **HIGH-VALUE CANDIDATE** — 強い候補だが未LOCK
+- **HIGH-VALUE CANDIDATE** — 強いが未LOCK
 - **OPEN QUESTION** — 答えを急がない
 - **LEGACY** — 履歴専用
 
-特にMain Mysteryの具体的答えは、整合が高くてもHuman decision前にCANONへ昇格しない。
+Main Mysteryの具体的答えは整合が高くてもHuman decision前にCANONへ昇格しない。
 
 ---
 
 # 12. Update rule
 
-ユーザーとの会話で新しい大事な案が出た時:
-
 ```txt
+新しい大事なIdea
+↓
 Book / Current memoryへ記録
 ↓
-Game Coreとの関係を確認
+Game Coreとの関係確認
 ↓
-まだ案ならIdea / Candidateのまま育てる
+案ならIdea / Candidateのまま育てる
 ↓
 確定した時だけdetail Current masterへ昇格
 ↓
-Hub / CANONを同期
+Hub / CANON同期
 ```
 
-Game Core自体を変更する場合は、普通のIdea昇格として扱わず、**「ゲームの中心を変える判断」**として明示する。
+Game Core自体を変える場合は普通のIdea昇格ではなく、**ゲーム中心を変えるHuman decision**として明示する。
