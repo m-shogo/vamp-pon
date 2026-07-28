@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "status": "CURRENT_ROSTER_REVIEW",
+  "date": "2026-07-28",
+  "scope": {
+    "currentCharacters": 21,
+    "futureCandidates": 15,
+    "seriesPoolTotal": 36
+  },
+  "recommendation": {
+    "deleteNow": [],
+    "mergeNow": [],
+    "deepenFirst": ["madoka", "ren", "renji-working", "sen", "yuubi"],
+    "keepCurrent21": true,
+    "keepFuture15AsCandidatePool": true,
+    "temporarilyFreezeCategoryDrivenNewCharacters": true,
+    "title1FrontFacingTargetApprox": 13,
+    "title1PlayableMayIncludeCurrent21": true
+  },
+  "title1NarrativeSpine": ["yui", "asa", "nagi", "michiru", "tomori", "kuroori"],
+  "title1MajorRotating": ["kaname", "kasumi", "toki", "tsumugi", "ritsu", "koyori", "nemu"],
+  "title1SupportingOptional": ["sen", "gen", "hana", "yuubi", "madoka", "shiro", "tobari", "ren"],
+  "futureSeriesAnchorPotential": ["chloe-working", "noa", "rumu", "kai", "nao"],
+  "futureHighPriority": ["hiyori", "touma", "kuu", "yomo-working", "suzu", "io", "amane"],
+  "futureDeepenBeforePromotion": ["serika", "maki", "renji-working"],
+  "overlapGroups": [
+    {
+      "characters": ["sen", "shiro", "io"],
+      "boundary": "teach vs preserve-unknown vs listen-before-classification"
+    },
+    {
+      "characters": ["nagi", "tobari", "kuroori"],
+      "boundary": "seal-danger-object vs gate-passage vs memory-consent"
+    },
+    {
+      "characters": ["michiru", "gen", "amane"],
+      "boundary": "relational-route vs historical-route vs embodied-route-optimization"
+    },
+    {
+      "characters": ["tomori", "touma"],
+      "boundary": "repair-scar-continuity vs craft-authorship-maker-trace"
+    },
+    {
+      "characters": ["madoka", "ren", "toki"],
+      "boundary": "witness vs discrepancy vs measurement"
+    },
+    {
+      "characters": ["asa", "maki"],
+      "boundary": "initiative-name vs decision-ownership"
+    },
+    {
+      "characters": ["hana", "serika", "kaname"],
+      "boundary": "care vs duty vs physical-protection"
+    }
+  ],
+  "documents": {
+    "review": "docs/CHARACTER-ROSTER-REVIEW.md",
+    "polish": "docs/character-roster-polish-pass-v1.md",
+    "profileHub": "docs/CAST-PROFILES.md",
+    "futureHub": "docs/FUTURE-CAST.md"
+  },
+  "runtimeMutation": false,
+  "u49ReadinessMutation": false
+}
