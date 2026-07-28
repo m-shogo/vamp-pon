@@ -31,20 +31,30 @@ docs/CHARACTERS.md
 → only the needed detail master
 ```
 
+For profile comparison across Current21 and Future cast:
+
+```txt
+docs/CAST-PROFILES.md
+```
+
 For future-cast work outside Current21:
 
 ```txt
 docs/FUTURE-CAST.md
-→ only the matching future-cast master
+→ docs/future-cast-profile-book-v1.md
+→ docs/character-future-diversity-and-nonhuman-expansion-v2.md
+→ only the matching detail master
 ```
 
 Use them as:
 
 - Game Core Book = remember what game this is and what must not be lost
 - GAME-DESIGN = remember which design domains are Current / Partial / Proposed / Open
-- Character Book v4 = remember people quickly
-- Character Deep Core = remember life contradictions, growth, Black Transformation, time hooks, and relationship depth
+- Character Book v4 = remember Current21 quickly
+- Character Deep Core = remember Current21 life contradictions, growth, 黒耀化, time hooks, and relationship depth
+- Cast Profiles Hub = compare Current21 and Future profiles without mixing their status
 - Future Cast Hub = remember non-Current21 cast directions without silently promoting them into the active roster
+- Future Cast Profile Book = remember concrete future candidate people, daily life, gameplay identity, and unresolved status
 - Story Book = remember the story and unresolved mysteries
 - Idea Book = remember user ideas without automatically canonizing them
 
@@ -53,27 +63,43 @@ Do **not** begin with repo-wide searches for old design notes.
 ## Character routing invariant
 
 `docs/character-book-v3.md` is superseded by v4 and is not normal Current authority.
+`docs/character-future-diversity-and-nonhuman-expansion-v1.md` is superseded by v2 and is not normal Future authority.
 
 Current character references:
 
 ```txt
-Character summary      -> docs/character-book-v4.md
-Character depth        -> docs/character-deep-core-book-v1.md
-Character hub          -> docs/CHARACTERS.md
-Future cast hub        -> docs/FUTURE-CAST.md
-Future diversity / AI  -> docs/character-future-diversity-and-nonhuman-expansion-v1.md
-Life / speech          -> docs/CHARACTER-LIFE-AND-SPEECH.md
-Bond / support         -> docs/BOND.md
-黒耀化                  -> docs/BLACK-YOUKA.md
-Star Beast             -> docs/character-star-beast-constellation-canon-v1.md
-Temporal connections   -> docs/story-temporal-layer-and-character-connections-v1.md
-Connection candidates  -> docs/character-connection-web-high-value-candidates-v1.md
-Long-lived witch       -> docs/character-long-lived-witch-arc-v1.md
+All cast profiles       -> docs/CAST-PROFILES.md
+Character summary       -> docs/character-book-v4.md
+Character depth         -> docs/character-deep-core-book-v1.md
+Character hub           -> docs/CHARACTERS.md
+Future cast hub         -> docs/FUTURE-CAST.md
+Future profile book     -> docs/future-cast-profile-book-v1.md
+Future diversity / AI   -> docs/character-future-diversity-and-nonhuman-expansion-v2.md
+Life / speech           -> docs/CHARACTER-LIFE-AND-SPEECH.md
+Bond / support          -> docs/BOND.md
+黒耀化                   -> docs/BLACK-YOUKA.md
+Star Beast              -> docs/character-star-beast-constellation-canon-v1.md
+Temporal connections    -> docs/story-temporal-layer-and-character-connections-v1.md
+Connection candidates   -> docs/character-connection-web-high-value-candidates-v1.md
+Long-lived witch        -> docs/character-long-lived-witch-arc-v1.md
 ```
 
 Do not restore the superseded idea that the long-lived witch has no romantic history with apprentices. Current Candidate understanding allows different apprentices to have different relationships: pure mentorship, family-like bonds, friendship, adult romance, marriage, children, separation, and reunion.
 
-Future-cast directions currently preserved include two brown/dark-skinned human characters, two real-animal characters distinct from Star Beasts, two robot/artificial-person characters with different identity questions, and gay/lesbian representation. These are USER DIRECTION / HIGH-VALUE CANDIDATE layers until explicitly promoted; do not auto-insert them into Current21.
+Future-cast directions currently preserved include:
+
+- two brown/dark-skinned human characters
+- two real-animal characters distinct from Star Beasts
+- two robot/artificial-person character systems with different identity questions
+- Gay, Lesbian, and Bisexual characters
+- an adult feminine-presenting male / 男の娘 character
+- an adult character whose gender remains undisclosed / hard to classify without turning it into a reveal puzzle
+- human twins
+- a wheelchair-user candidate whose mobility is gameplay identity rather than a defect to cure
+
+These are USER DIRECTION / HIGH-VALUE CANDIDATE layers until explicitly promoted; do not auto-insert them into Current21.
+
+Representation is not a character substitute. Every future character still needs ordinary likes, dislikes, work, humor, daily-life behavior, relationship hooks, gameplay identity, a strength/weakness contradiction, and a 黒耀化 direction where applicable.
 
 ## Game Core priority
 
@@ -156,10 +182,12 @@ move it into the appropriate Current master / Book
 docs/CANON.md
 ├ docs/game-core-book-v1.md
 ├ docs/GAME-DESIGN.md
+├ docs/CAST-PROFILES.md
 ├ docs/character-book-v4.md
 │  └ docs/character-deep-core-book-v1.md
 ├ docs/FUTURE-CAST.md
-│  ├ docs/character-future-diversity-and-nonhuman-expansion-v1.md
+│  ├ docs/future-cast-profile-book-v1.md
+│  ├ docs/character-future-diversity-and-nonhuman-expansion-v2.md
 │  └ docs/character-long-lived-witch-arc-v1.md
 ├ docs/story-book-v1.md
 ├ docs/idea-book-v1.md
@@ -191,6 +219,7 @@ docs/CANON.md
 - Main Mystery and Character Mystery are separate lanes with selective intersections.
 - Character depth must not be created by giving everyone the same tragedy, blood relation, betrayal, or amnesia.
 - 黒耀化 is an integrated alternate self / wrong arrival, not an external evil personality to discard.
+- Identity / orientation / skin tone / disability / gender presentation are parts of people, not substitutes for personality or gameplay identity.
 - Do not auto-promote HIGH-VALUE CANDIDATE story truths to CANON.
 - Do not mix Current 21 characters with future candidates.
 - Do not mutate Unity/runtime/U49/U50 merely because a design doc was updated.
