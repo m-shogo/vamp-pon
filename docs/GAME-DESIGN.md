@@ -1,6 +1,6 @@
 # ヨルノシルベ Game Design Coverage Hub
 
-Date: 2026-07-28  
+Date: 2026-07-29  
 Status: **CURRENT DESIGN COVERAGE / GAP MAP**  
 Purpose: 「設計がある」と「設計が完成している」を混同しないための一覧。数値や内容を早く固定するためのルールブックではない。
 
@@ -14,7 +14,7 @@ Purpose: 「設計がある」と「設計が完成している」を混同し�
 | Status | 意味 |
 | --- | --- |
 | **CURRENT** | Current masterがあり、通常設計で参照できる |
-| **PARTIAL** | 有効な設計はあるが、Current masterとして一本化されていない / 重要な穴が残る |
+| **PARTIAL** | 有効な設計 / Current masterはあるが、対象scope全体には重要な穴が残る |
 | **PROPOSED** | 良い設計案はあるが、まだCurrent方針として扱わない |
 | **IMPLEMENTED-NOT-DESIGN-MASTER** | runtime実装/証跡はあるが、プレイヤー体験の設計正本としては不足 |
 | **OPEN** | まだ設計が必要。未決定であること自体を明示する |
@@ -29,17 +29,18 @@ Purpose: 「設計がある」と「設計が完成している」を混同し�
 | Domain | Status | Current / existing source | 監査結果 |
 | --- | --- | --- | --- |
 | Game identity / core promise | **CURRENT** | `game-core-book-v1.md` | Run / Meta / Attachmentの3 loop、Gameplay-firstが明確 |
-| Character | **CURRENT** | `CHARACTERS.md`, `character-book-v3.md` | 21人、人物像、成長、日常、星獣まで入口あり |
-| Story / Mystery | **CURRENT** | `STORY.md`, `story-book-v1.md`, `STORY-ENGINE.md` | Main / Character Mystery分離、Happy End、series余地あり |
-| Bond / Support | **CURRENT** | `BOND.md` | Gameplay一次報酬、呼び方等二次報酬、stable/unstable関係あり |
-| 黒耀化 | **CURRENT** | `BLACK-YOUKA.md` | Core上のrisk/rewardと人物側の歪みを接続済み |
-| Clear Getter / achievements | **CURRENT-DIRECTION** | `GAMEPLAY-META-PROGRESSION.md`, `PROGRESSION-ARCHIVE.md` | 次runを生むMeta Gameplayとして成立。盤面数値は未LOCKでよい |
-| Lore / Collection | **CURRENT** | `PROGRESSION-ARCHIVE.md` | 読む/読まない両立、情報は副作用 |
+| Character | **CURRENT** | `CHARACTERS.md`, `character-book-v4.md`, `character-deep-core-book-v1.md`, `CHARACTER-STORY-INTEGRATION.md` | Current21は人物像・声・関係・黒耀化・Gameplay payoff・Dawn proofまで21/21 routing済み。Future15は別reservoirで15/15、Currentへ未昇格 |
+| Story / Mystery | **CURRENT** | `STORY.md`, `story-book-v1.md`, `story-main-beat-sheet-v1.md`, `STORY-ENGINE.md` | Main / Character Mystery分離、Happy End、C/B/A mystery debt、Stage1〜5 beat directionあり。Main Mystery最終回答は未LOCK |
+| Bond / Support | **CURRENT** | `BOND.md`, `RELATIONSHIPS.md`, `character-relationship-arc-book-v1.md` | Gameplay一次報酬、呼び方等二次報酬、stable/unstable関係あり。Current21はdistinctive relation lane >=2を21/21確保 |
+| 黒耀化 | **CURRENT** | `BLACK-YOUKA.md`, `character-black-youka-rescue-book-v1.md` | Core上のrisk/rewardと人物側の歪みを接続。21/21で「仲間が別の選択肢を作り本人が戻る」rescue directionあり |
+| Clear Getter / achievements | **CURRENT-DIRECTION** | `GAMEPLAY-META-PROGRESSION.md`, `PROGRESSION-ARCHIVE.md`, `character-story-gameplay-payoff-matrix-v1.md` | 次runを生むMeta Gameplayとして成立。Character growthを別play条件へ返せる。盤面数値は未LOCKでよい |
+| Lore / Collection | **CURRENT** | `PROGRESSION-ARCHIVE.md`, `kagemono-collection-entry-book-v1.md` | 読む/読まない両立、情報は副作用。Current48は攻略→手掛かり→re-readingのwriting layerあり |
 | Fail-forward | **CURRENT-DIRECTION** | `GAMEPLAY-META-PROGRESSION.md`, `PROGRESSION-ARCHIVE.md` | 失敗を無意味にしないがfailure farmingはさせない |
 | Save / AppFlow / ownership | **CURRENT-PRODUCTION** | `unity-runtime-ownership-contract-v1.md`, U46 evidence | 実装境界は強い。ユーザー向けreset/respec体験は別途検討余地 |
 | Current Stage1 gameplay implementation | **IMPLEMENTED-NOT-DESIGN-MASTER** | `unity-u47-gameplay-data-runtime-2026-07-13.md` | weapon/passive/rare枠、replacement、evolution、revival等はruntime実証済み |
 | Game feel / juice | **PARTIAL** | `unity-game-feel-cookbook.md` | hit stop、death、pickup、LevelUp、Resultまで強いがCoreから孤立していた |
-| Enemy / item / stage content database | **CURRENT-PRODUCTION-DATA** | `184-production-content-databases.md`, `src/game/data/*` | 内容/asset seedは大量にある。ただしEncounter pacing正本とは別 |
+| Enemy / item / stage content database | **CURRENT-PRODUCTION-DATA** | `184-production-content-databases.md`, `src/game/data/*`, `ENEMIES.md` | Current48 identityとlegacy吸収ルールは一本化済み。ただし全production stageのencounter pacingとは別 |
+| Stage / Encounter design | **PARTIAL — Stage1〜5 CURRENT DIRECTION** | `STAGE-ENCOUNTER-DESIGN.md`, `story-stage-character-relationship-placement-v1.md`, Enemy masters | Stage1〜5はpressure arc / enemy grammar / alternate build / Clear Getter seedまでCurrent direction化。Stage6〜20、exact wave、boss assignment、difficulty tuningは未完 |
 | Visual / UI production | **CURRENT-SEPARATE-TRACK** | Heavy Design docs | 詳細は充実。Game DesignとVisual approvalは分離維持 |
 | Accessibility / component states | **PROPOSED** | `design-component-state-accessibility-matrix-v1.md` | tap、reduced motion、VoiceOver、first-time flow案あり。Current化は未完 |
 | Performance / release | **CURRENT-ENGINEERING** | U50/U51 roadmap / budgets | Game designではなくengineering trackとして別管理でよい |
@@ -71,28 +72,41 @@ Coreには「1run中にどんどん強くなる」があるが、Currentな一�
 
 ---
 
-## P0-B. Stage / Encounter Design Master — **OPEN / 最重要**
+## P0-B. Stage / Encounter Design Master — **PARTIAL — Stage1〜5 CURRENT DIRECTION / 全20Stageは未完**
 
-20-stage production DBには、name / lead characters / core question / story seed / enemy affinity / `stageMechanicSeed` がある。
+2026-07-29時点で `STAGE-ENCOUNTER-DESIGN.md` を追加し、Narrative SpineのStage1〜5についてはCurrentなEncounter directionを作った。
 
-不足しているのは、各Stageを「遊んだ時にどう違うか」のCurrent master。
+現在Stage1〜5で揃ったもの:
 
-必要な観点:
+- Character question → Gameplay verbへの接続
+- `Read → Mix → Tempt → Punish excess → Alternate answer → Climax → Release` のpressure arc
+- movement pressure / controller / modifierの基本recipe
+- 敵family / motifの投入方向
+- Characterの得意playを最初に気持ちよく使わせる方針
+- 同じ一択の過剰だけを崩すEncounter
+- 別build / 別Support / 別routeを回答にする方針
+- special Clear Getter seed
+- Boss46〜48とのaffinity候補
+- Story / Enemy / Relationとのcross-domain routing
 
-- Stage固有mechanic
-- wave / encounter rhythm
-- 敵familyの投入順
-- safe / pressure / climax区間
-- elite / boss設計
-- Stageごとに向くbuild / 苦手build
-- environmental hazardの有無
-- character / Supportを変えたくなる理由
-- Easy / Normal / Hardで何を変えるか
-- clear condition / special condition
+ただしproduction scope全体はまだPARTIAL。
 
-Asset DBだけではEncounter Designにはならない。
+未完:
 
-**必要:** `STAGE-ENCOUNTER-DESIGN.md`。
+- Stage6〜20の個別Encounter identity
+- exact wave / encounter timing
+- enemy familyの最終投入順
+- safe / pressure / climax区間の実時間
+- elite / bossの正式配置
+- Stageごとのstrong / weak buildのbalance実証
+- environmental hazard最終選定
+- Easy / Normal / Hard差分
+- clear / special conditionの全Stage設計
+- playtest / tuning / evidence
+
+20-stage production DBにname / lead characters / core question / story seed / enemy affinity / `stageMechanicSeed` があっても、それだけでは全Stage Encounter完成とは扱わない。
+
+**次に必要:** `STAGE-ENCOUNTER-DESIGN.md` をStage6〜20へ拡張し、Combat/Run Pacing masterと接続してplaytestする。
 
 ---
 
@@ -145,17 +159,17 @@ Runtime上の操作は存在しても、Game Designとして:
 ## P1-A. Difficulty / Player Aid Philosophy — **PARTIAL**
 
 旧MVPにはEasy / Normal / Hardや「敵を硬くするより数・速度・出現方向で難しくする」がある。
-
 Accessibility案もある。
+`STAGE-ENCOUNTER-DESIGN.md` では、telegraph duration / pressure overlap / spawn direction / recovery window / controller enemy頻度などを候補とし、HP spongeへ寄せない方向まで整理した。
 
 しかしCurrentとして:
 
 - difficultyを何のために分けるか
 - Story accessを難易度で塞ぐか
 - Assist mode / reduced intensityの扱い
-- Hardは敵HP spongeにしない
 - reward差をどこまで付けるか
 - Clear Getterの高難度条件と通常クリアをどう分離するか
+- exact difficulty変数の組合せ
 
 が未整理。
 
@@ -289,16 +303,17 @@ Core完成前に固定しなくてよい。
 
 ```txt
 GAME IDENTITY          strong
-CHARACTER              strong
-STORY                   strong
+CHARACTER              strong / 21 Current + 15 Future separated
+STORY                   strong direction / Main Mystery answer open
 BOND                    strong
 CLEAR GETTER / META     strong direction
-BLACK-YOUKA             strong direction
+BLACK-YOUKA             strong direction + 21 rescue paths
 CONTENT DATABASE        large
+ENEMY SEMANTICS         48/48 integrated
 RUNTIME FOUNDATION      strong
 
 COMBAT PACING           needs current master
-STAGE ENCOUNTER         needs current master
+STAGE ENCOUNTER         Stage1-5 current direction / full 20-stage PARTIAL
 FIRST RUN               needs current master
 MOBILE CONTROL          needs current master
 DIFFICULTY              needs consolidation
@@ -310,7 +325,7 @@ FUN METRICS             needs design
 
 という状態。
 
-**土台が弱いのではなく、最後にゲームを「遊びとして仕上げる設計層」がまだ散っている / 未定義。**
+**Character / Story / Enemyの魂はかなり一本化したが、ゲーム全体を「遊びとして仕上げる設計層」はまだ未完。**
 
 ---
 
@@ -320,7 +335,7 @@ FUN METRICS             needs design
 
 ```txt
 1. COMBAT-RUN-DESIGN
-2. STAGE-ENCOUNTER-DESIGN
+2. STAGE-ENCOUNTER-DESIGN — Stage6〜20 expansion / playtest
 3. FIRST-RUN-EXPERIENCE
 4. MOBILE-CONTROL-EXPERIENCE
 5. DIFFICULTY-AND-PLAYER-AIDS
@@ -340,6 +355,15 @@ FUN METRICS             needs design
 
 の順を守る。
 
+Character / Story領域については、新設定の追加より:
+
+- scene repetition / payoff精度
+- Main Storyへ何を出さないか
+- C級Mysteryを本当に1で払えるか
+- Character verbがGameplayとして楽しいか
+
+を優先する。
+
 ---
 
 # 7. Completeness gate
@@ -349,7 +373,7 @@ Game Designを「大枠完成」と呼べる最低条件:
 - Game Core BookがCurrent
 - Character / Story / Bond / 黒耀化 / Clear GetterのCurrent masterがある
 - Combat / Run pacingのCurrent masterがある
-- Stage / EncounterのCurrent masterがある
+- **launch scopeのStage / EncounterがCurrentで、必要Stageの差別化とplaytestが済んでいる**
 - First-run flowがCurrent
 - Mobile controlsがCurrent
 - Difficulty philosophyがCurrent
@@ -359,5 +383,7 @@ Game Designを「大枠完成」と呼べる最低条件:
 - Accessibility baselineがCurrentまたは実装契約へ接続済み
 - Audio/Haptic creative directionがU49 engineeringと矛盾しない
 - 数値未LOCK項目は「未決定」と明示されている
+
+現時点ではStage1〜5 directionがCurrentになっただけで、このgate全体はまだ通っていない。
 
 このgateを通るまでは「設計完璧」と表現しない。
