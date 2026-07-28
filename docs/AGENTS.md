@@ -4,15 +4,44 @@ This file applies to design/documentation work under `docs/`.
 
 ## Mandatory design entry
 
-For character, relationship, Bond, story, mystery, collection, achievement, permanent progression, 黒耀化, or lore work, read first:
+For character, relationship, Bond, story, mystery, collection, achievement, permanent progression, 黒耀化, lore, or idea-memory work, read first:
 
 ```txt
 docs/CANON.md
 ```
 
-Then read only the matching Current master listed there.
+Then route through the three equal shared-memory books when relevant:
+
+```txt
+Character Book -> docs/character-book-v3.md
+Story Book     -> docs/story-book-v1.md
+Idea Book      -> docs/idea-book-v1.md
+```
+
+Use them as:
+
+- Character Book = remember people
+- Story Book = remember the story and unresolved mysteries
+- Idea Book = remember user ideas without automatically canonizing them
 
 Do **not** begin with repo-wide searches for old design notes.
+
+## Idea memory rule
+
+A user idea must not be lost merely because it is not yet canon.
+
+At the same time:
+
+```txt
+USER IDEA != CANON
+```
+
+When a meaningful new idea is given:
+
+1. preserve it in Idea Book or the matching current Book/master,
+2. label it accurately (`USER IDEA`, `USER DIRECTION`, `HIGH-VALUE CANDIDATE`, `OPEN QUESTION`),
+3. do not promote it to CANON unless explicitly decided or implementation requires a formal decision,
+4. do not make the user repeat it later if it is already preserved.
 
 ## Legacy policy
 
@@ -32,7 +61,7 @@ Only open migrated legacy when:
 If a useful old idea is found during an allowed migration:
 
 ```txt
-move it into the appropriate Current master
+move it into the appropriate Current master / Book
 → update the domain Hub if needed
 → update migration ledger
 → stop using the legacy file for normal design
@@ -42,8 +71,10 @@ move it into the appropriate Current master
 
 ```txt
 docs/CANON.md
+├ docs/character-book-v3.md
+├ docs/story-book-v1.md
+├ docs/idea-book-v1.md
 ├ docs/CHARACTERS.md
-│  ├ docs/character-book-v2.md
 │  ├ docs/CHARACTER-LIFE-AND-SPEECH.md
 │  ├ docs/BOND.md
 │  └ docs/BLACK-YOUKA.md
@@ -61,7 +92,7 @@ docs/CANON.md
 - Formal title: **ヨルノシルベ**.
 - Use **黒耀化**, never `黒曜化` in new canon.
 - Main Game is Vampire-Survivors-like combat/build/replay.
-- Lore/information is optional side effect of play, not the main reward loop.
+- Lore/information is an optional side effect of play, not the main reward loop.
 - Gameplay rewards come first; reading is never required to claim power.
 - Happy End is the canonical ending direction.
 - Game Over is not permanent character death.
