@@ -46,6 +46,14 @@ CHARACTER-STORY-INTEGRATION.md
 │ ├ character-dawn-proof-book-v1.md
 │ └ character-story-gameplay-payoff-matrix-v1.md
 │
+├ FUTURE15
+│ ├ FUTURE-CAST.md
+│ ├ future-cast-profile-book-v1.md
+│ └ future-cast-relationship-story-reservoir-v1.md
+│
+├ AUDIT
+│ └ character-story-integration-audit-2026-07-29.md
+│
 └ ENEMY
   ├ ENEMIES.md
   ├ enemy-encounter-relationship-pressure-v1.md
@@ -77,6 +85,8 @@ CHARACTER-STORY-INTEGRATION.md
 これは全10項目をMain Story cutsceneへ出す意味ではない。
 
 情報の出し場所を分散する。
+
+Future15もprofileだけでなくrelation / gameplay / wrong arrivalまたはOPEN boundary / small payoffまでreservoir化したが、Current21へ昇格していない。
 
 ---
 
@@ -236,7 +246,31 @@ Stage1〜5で実際にどうpressureを組むかは `STAGE-ENCOUNTER-DESIGN.md` 
 
 ---
 
-# 9. Runtime boundary
+# 9. Integration audit result
+
+`character-story-integration-audit-2026-07-29.md` で現時点を監査。
+
+設計coverage:
+
+- Current21 profile/core = 21/21
+- Current21 relation lanes >=2 = 21/21
+- Current21 black-youka rescue = 21/21
+- Current21 dawn proof = 21/21
+- Future15 relationship/story reservoir = 15/15
+- Current48 kagemono collection writing = 48/48
+- Stage1–5 story / encounter direction = 5/5
+
+未完扱いを維持:
+
+- exact scenario script
+- exact boss assignment
+- 20-stage全体のencounter差別化
+- runtime implementation
+- Main Mystery final answer
+
+---
+
+# 10. Runtime boundary
 
 このIntegration Hubと関連docsは**企画 / production design memory**。
 
@@ -257,15 +291,16 @@ Stage1〜5で実際にどうpressureを組むかは `STAGE-ENCOUNTER-DESIGN.md` 
 
 ---
 
-# 10. Machine-readable memory
+# 11. Machine-readable memory
 
 - `docs/design-targets/generated/character-black-youka-rescue-map-v1.json`
 - `docs/design-targets/generated/story-stage-character-placement-v1.json`
 - `docs/design-targets/generated/character-dawn-proof-map-v1.json`
 - `docs/design-targets/generated/character-story-gameplay-payoff-map-v1.json`
+- `docs/design-targets/generated/future-cast-relationship-story-map-v1.json`
 
 ---
 
-# 11. 一文
+# 12. 一文
 
 > **ヨルノシルベの人物は、プロフィール・会話・戦闘・黒耀化・敵・周回・夜明けを別々に作らず、同じ長所がその全部で違う形を取るように設計する。**
