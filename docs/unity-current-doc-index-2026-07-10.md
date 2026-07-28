@@ -208,6 +208,7 @@ productionApproved=false
 | font audit | `docs/design-font-license-glyph-audit-v1.md` |
 | reference rights | `docs/design-reference-rights-boundary-v1.md` |
 | implementation handoff | `docs/design-implementation-handoff-template-v1.md` |
+| automated documentation check | `scripts/quality/check-heavy-design-documentation.ts` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
 | mobile QA | `docs/mobile-release-qa-gates.md` |
@@ -245,6 +246,8 @@ U45.1 evidence remains historical prerequisite evidence and must not override cu
 ```sh
 pnpm implementation:preflight:check
 pnpm implementation:preflight:full
+pnpm unity:term-lock:check
+node --experimental-strip-types scripts/quality/check-heavy-design-documentation.ts
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
 pnpm asset-generation:check
@@ -261,7 +264,7 @@ pnpm unity:u49-actual-device-audio-haptic:check
 pnpm unity:u50-thresholds:check
 ```
 
-Heavy Design documentation専用checkerは未追加。追加する場合もruntimeを変更せず、正本存在、JSON整合、13 screens、pending decision、generation/implementation falseを検査する。
+Heavy Design documentation checkerは、正本存在、Art Direction A、13 screens、3 Wave 1 briefs、runtime baseline、pending decision、reference approval境界、画像生成・Unity実装が未開始であることを検査する。Stage1 Qualityでは用語lockの後、asset／test／buildより前に実行する。
 
 ## Historical documents
 
