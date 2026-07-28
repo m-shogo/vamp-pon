@@ -57,9 +57,11 @@ Status: current
 5. `docs/design-motion-transition-spec-v1.md`
 6. `docs/design-technical-art-asset-pipeline-spec-v1.md`
 7. `docs/design-generation-briefs-wave1-v1.md`
-8. `docs/design-production-completeness-gates-v1.md`
-9. `docs/design-human-decision-interaction-protocol-v1.md`
-10. `docs/design-documentation-contradiction-register-v1.md`
+8. `docs/design-implementation-execution-plan-v1.md`
+9. `docs/design-implementation-handoff-template-v1.md`
+10. `docs/design-production-completeness-gates-v1.md`
+11. `docs/design-human-decision-interaction-protocol-v1.md`
+12. `docs/design-documentation-contradiction-register-v1.md`
 
 Historical handoff/roadmap:
 
@@ -202,12 +204,13 @@ productionApproved=false
 | motion / transitions | `docs/design-motion-transition-spec-v1.md` |
 | technical art / pipeline | `docs/design-technical-art-asset-pipeline-spec-v1.md` |
 | Wave1 generation briefs | `docs/design-generation-briefs-wave1-v1.md` |
+| implementation execution | `docs/design-implementation-execution-plan-v1.md` |
+| implementation handoff | `docs/design-implementation-handoff-template-v1.md` |
 | completeness gates | `docs/design-production-completeness-gates-v1.md` |
 | human decision interaction | `docs/design-human-decision-interaction-protocol-v1.md` |
 | contradiction register | `docs/design-documentation-contradiction-register-v1.md` |
 | font audit | `docs/design-font-license-glyph-audit-v1.md` |
 | reference rights | `docs/design-reference-rights-boundary-v1.md` |
-| implementation handoff | `docs/design-implementation-handoff-template-v1.md` |
 | automated documentation check | `scripts/quality/check-heavy-design-documentation.ts` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
