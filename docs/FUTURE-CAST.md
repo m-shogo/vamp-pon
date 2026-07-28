@@ -9,7 +9,8 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 
 | Area | Current master |
 | --- | --- |
-| 褐色2 / 動物2 / Robot2 / Gay / Lesbian / additional diversity | `docs/character-future-diversity-and-nonhuman-expansion-v1.md` |
+| **Future候補の統一プロフィール** | `docs/future-cast-profile-book-v1.md` |
+| 褐色2 / 動物2 / Robot2 / Gay / Lesbian / Bisexual / 男の娘 / 性別不詳 / 双子 / disability等 | `docs/character-future-diversity-and-nonhuman-expansion-v1.md` |
 | 不老の魔女 / 複数世代の弟子 / 恋愛・結婚・家族・別離 | `docs/character-long-lived-witch-arc-v1.md` |
 | Current21との時代差 / 物の継承 | `docs/story-temporal-layer-and-character-connections-v1.md` |
 | Current21 | `docs/CHARACTERS.md` |
@@ -19,10 +20,35 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 - future human castに褐色キャラ2人を入れたい
 - 現実由来の動物キャラ2人を入れたい
 - Robotキャラ2人を入れたい
-- Gay人物、Lesbian人物を入れたい
+- Gay人物、Lesbian人物、Bisexual人物を入れたい
+- 成人男性のfeminine presentation / **男の娘**キャラを入れたい
+- 性別が外見・声から分からず、作中でも答えを大オチにしない人物を入れたい
+- 人間の双子を入れたい
 - representationだけの記号にはしない
 - Current21へ勝手に後付けしない
-- exact names / eras / romance pairs / roster numberはまだLOCKしない
+- exact names / eras / romance pairs / final roster numberはHuman decision前にLOCKしない
+
+## Current Future Profile Pool
+
+`docs/future-cast-profile-book-v1.md` の15候補:
+
+1. **ヒヨリ** — 褐色肌 / ギャルマインド / 自分の弱音を遅らせる
+2. **セリカ** — お嬢様 / Lesbian Candidate / 頼ることも礼儀
+3. **クロエ**（working） — 不老の魔女 / 長い恋愛・家族・弟子史
+4. **レンジ**（working） — 年を取る弟子 / 有限だから進む
+5. **トウマ** — 褐色肌 / 職人 / Gay / 名前より仕事を残したがる
+6. **クウ** — 現実由来の犬 / 名前なしでも人を覚える
+7. **ヨモ**（working） — 複数名を持つ猫 / 違う名でも一匹
+8. **ノア** — Robot A / 同一snapshotから二body / continuity
+9. **ルム** — Robot B / 灯守機 / collective memory→individuality
+10. **マキ** — Bisexual / 決断の速い大人 / sexualityと迷いを結び付けない
+11. **スズ** — 成人男性 / feminine presentation / 男の娘 / 装うことは嘘ではない
+12. **イオ** — 成人 / 性別非公開・判別しにくい / 性別当てをMysteryにしない
+13. **カイ** — 双子A / 二人でいる安心を失うのが怖い
+14. **ナオ** — 双子B / 違いを証明するため違わせすぎる
+15. **アマネ** — wheelchair user / speed courier / 治ることをHappy Endにしない
+
+これは「次回作で15人全追加」を意味しない。シリーズ全体のFuture pool。
 
 ## Robot distinction
 
@@ -40,6 +66,24 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 
 二人を同じAI哲学キャラにしない。
 
+## Twins as a third identity mirror
+
+人間の双子はRobotと同じテーマのコピーにしない。
+
+```txt
+双子
+= 同じ遺伝 / 家庭 /共有体験があっても、最初から二人の人間
+
+Robot A
+= 同じsnapshotから二bodyが起動した時、いつから二人なのか
+
+Robot B
+= 集合memoryから「ぼく」が生まれる時、何が個なのか
+```
+
+カイ / ナオは同じ **Pisces / うお座** を共有するCandidate。
+兄弟理由で同じ星座を持てるCurrent ruleと整合する。
+
 ## Animal distinction
 
 星獣とは別。
@@ -50,24 +94,52 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 strong candidates:
 
 - 犬 = 名前を知らなくても匂い・声・歩き方で人を覚える
-- 猫 = 複数の人から違う名前で呼ばれても本人は一つ
+- 猫 = 複数の人から違う名前で呼ばれても本人は一匹
 
 ## Representation boundary
 
-Sexual orientation、肌色、身体条件等は人物の一部。
+Sexual orientation、gender presentation、肌色、身体条件等は人物の一部。
 
 - それだけでCharacter Coreを作らない
 - それだけを悲劇装置にしない
-- 恋愛以外の日常 /友情 /仕事 /Gameplay /黒耀化も同じ密度で持つ
-- 一人へ複数representationを全部背負わせない
+- 恋愛以外の日常 / 友情 / 仕事 / Gameplay / 黒耀化も同じ密度で持つ
+- 一人へrepresentationを全部背負わせない
+- Gay / Lesbian / Bisexualそれぞれを別人格・別人生として描く
+- Bisexualを「選べない」「誰でも好き」と描かない
+- 男の娘は成人男性。feminine presentationを矯正対象にしない
+- 性別不詳キャラは後から性別を明かすことをreward / twistにしない
 
 ## Additional high-value gap candidate
 
-mandatoryではないが、今後検討価値が高い:
+今回Future profileへ **wheelchair user / アマネ** を追加。
 
-- mobility disability / wheelchair / cane / prosthetic
-- nonbinary / gender-nonconforming human
+引き続きmandatoryではないが検討価値がある:
+
+- hearing difference / Deaf / hard-of-hearing
+- prosthetic / limb difference
+- explicitly nonbinary human（イオとは別。イオはgender undisclosed Candidate）
 - 職業・階級・生活背景の差
 
 「カテゴリを全部埋める」ことを目的にはしない。
-ヨルノシルベのTheme / Gameplay /人物魅力を増やせる時だけ採用する。
+ヨルノシルベのTheme / Gameplay / 人物魅力を増やせる時だけ採用する。
+
+## Normal Future-Cast routing
+
+```txt
+docs/CANON.md
+↓
+docs/FUTURE-CAST.md
+↓
+docs/future-cast-profile-book-v1.md
+↓
+必要なdetail master 1つ
+```
+
+Current21は引き続き:
+
+```txt
+docs/CHARACTERS.md
+→ docs/character-book-v4.md
+```
+
+Future castとCurrent21を混同しない。
