@@ -13,9 +13,17 @@
       "order": 1,
       "screenId": "TOP",
       "brief": "docs/design-generation-briefs-wave1-v1.md#W1-01-TOP",
+      "executionPacket": "docs/design-generation-execution-packet-W1-01-TOP-v1.md",
+      "machineReadableExecutionPacket": "docs/design-targets/generated/design-production/W1-01-TOP-execution-packet.json",
+      "executionPacketPrepared": true,
       "status": "PREPARED_NOT_APPROVED",
       "candidateCount": 3,
-      "explorationDirections": ["A1 夜路の入口", "A2 記憶の窓", "A3 灯りの停留所"],
+      "candidateIds": [
+        "W1-01-TOP-C01-NIGHT-ROAD-ENTRANCE",
+        "W1-01-TOP-C02-MEMORY-WINDOW",
+        "W1-01-TOP-C03-LIGHT-STOP"
+      ],
+      "explorationDirections": ["C01 夜路の入口", "C02 記憶の窓", "C03 灯りの停留所"],
       "requiresCurrentRuntimeCapture": false,
       "requiresRuntimeBaselineEvidence": true,
       "runtimeBaselineMode": "ABSENCE_EVIDENCE",
@@ -29,6 +37,8 @@
       "order": 2,
       "screenId": "STAGE_SELECT",
       "brief": "docs/design-generation-briefs-wave1-v1.md#W1-02-StageSelect",
+      "executionPacket": null,
+      "executionPacketPrepared": false,
       "status": "BLOCKED_BY_PREVIOUS_REQUEST",
       "candidateCount": 3,
       "explorationDirections": ["A1 細い夜道", "A2 紙の旅程", "A3 忘れられた街の標識"],
@@ -45,6 +55,8 @@
       "order": 3,
       "screenId": "LEVEL_UP",
       "brief": "docs/design-generation-briefs-wave1-v1.md#W1-03-LevelUp",
+      "executionPacket": null,
+      "executionPacketPrepared": false,
       "status": "BLOCKED_BY_PREVIOUS_REQUEST",
       "candidateCount": 3,
       "explorationDirections": ["A1 記憶札", "A2 灯りの標本", "A3 綴じられた頁"],
@@ -64,7 +76,8 @@
     "activeBriefHumanApproved": false,
     "technicalBudgetReviewed": true,
     "comparisonPackPrepared": true,
-    "reservedPathsDefined": true
+    "reservedPathsDefined": true,
+    "activeExecutionPacketPrepared": true
   },
   "boundaries": {
     "unityDesignImplementationStarted": false,
@@ -72,5 +85,5 @@
     "u49EvidenceMutation": false,
     "wholeAppHumanVisualAccepted": false
   },
-  "nextAction": "WAIT_FOR_INTENTIONAL_WAVE1_BRIEF_APPROVAL"
+  "nextAction": "WAIT_FOR_EXPLICIT_W1_01_TOP_APPROVAL"
 }
