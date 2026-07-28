@@ -35,10 +35,12 @@ CHARACTER-STORY-INTEGRATION.md
 │ ├ BLACK-YOUKA.md
 │ └ character-black-youka-rescue-book-v1.md
 │
-├ STORY PLACEMENT
+├ STORY / STAGE
 │ ├ STORY.md
 │ ├ story-book-v1.md
-│ └ story-stage-character-relationship-placement-v1.md
+│ ├ story-main-beat-sheet-v1.md
+│ ├ story-stage-character-relationship-placement-v1.md
+│ └ STAGE-ENCOUNTER-DESIGN.md
 │
 ├ PAYOFF
 │ ├ character-dawn-proof-book-v1.md
@@ -229,6 +231,8 @@ repair / preservation:
 ```
 
 この横断性で敵数を増やさず再プレイ時の意味を増やす。
+
+Stage1〜5で実際にどうpressureを組むかは `STAGE-ENCOUNTER-DESIGN.md` をCurrent masterとして使う。
 
 ---
 
