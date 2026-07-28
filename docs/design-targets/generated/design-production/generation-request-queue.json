@@ -16,7 +16,10 @@
       "status": "PREPARED_NOT_APPROVED",
       "candidateCount": 3,
       "explorationDirections": ["A1 夜路の入口", "A2 記憶の窓", "A3 灯りの停留所"],
-      "requiresCurrentRuntimeCapture": true,
+      "requiresCurrentRuntimeCapture": false,
+      "requiresRuntimeBaselineEvidence": true,
+      "runtimeBaselineMode": "ABSENCE_EVIDENCE",
+      "runtimeBaselineSource": "docs/design-targets/generated/design-production/current-runtime-comparison-manifest.json#TOP",
       "requiresExistingReferenceComparison": true,
       "blocksNextUntilDirectionSelected": true,
       "reservedOutputRoot": "docs/design-targets/generated/design-production/candidates/W1-01-TOP/"
@@ -30,6 +33,9 @@
       "candidateCount": 3,
       "explorationDirections": ["A1 細い夜道", "A2 紙の旅程", "A3 忘れられた街の標識"],
       "requiresCurrentRuntimeCapture": true,
+      "requiresRuntimeBaselineEvidence": true,
+      "runtimeBaselineMode": "CAPTURE",
+      "runtimeBaselineSource": "docs/design-targets/generated/design-production/current-runtime-comparison-manifest.json#STAGE_SELECT",
       "requiresExistingReferenceComparison": true,
       "dependsOn": ["W1-01-TOP:DIRECTION_SELECTED"],
       "reservedOutputRoot": "docs/design-targets/generated/design-production/candidates/W1-02-STAGE-SELECT/"
@@ -43,6 +49,9 @@
       "candidateCount": 3,
       "explorationDirections": ["A1 記憶札", "A2 灯りの標本", "A3 綴じられた頁"],
       "requiresCurrentRuntimeCapture": true,
+      "requiresRuntimeBaselineEvidence": true,
+      "runtimeBaselineMode": "CAPTURE",
+      "runtimeBaselineSource": "docs/design-targets/generated/design-production/current-runtime-comparison-manifest.json#LEVEL_UP",
       "requiresExistingReferenceComparison": true,
       "dependsOn": ["W1-02-STAGE-SELECT:DIRECTION_SELECTED"],
       "reservedOutputRoot": "docs/design-targets/generated/design-production/candidates/W1-03-LEVEL-UP/"
@@ -51,7 +60,7 @@
   "generationStartRequirements": {
     "artDirectionHumanDirectionLocked": true,
     "referenceRegistryReviewed": true,
-    "currentRuntimeCaptureAvailable": false,
+    "runtimeBaselineEvidenceReady": true,
     "activeBriefHumanApproved": false,
     "technicalBudgetReviewed": true,
     "comparisonPackPrepared": true,
@@ -63,5 +72,5 @@
     "u49EvidenceMutation": false,
     "wholeAppHumanVisualAccepted": false
   },
-  "nextAction": "COMPLETE_DOCUMENTATION_READINESS_REVIEW"
+  "nextAction": "WAIT_FOR_INTENTIONAL_WAVE1_BRIEF_APPROVAL"
 }
