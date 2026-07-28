@@ -42,6 +42,9 @@ jobs:
       - name: Verify Heavy Design documentation
         run: pnpm design:heavy-documentation:check
 
+      - name: Verify W1-01 TOP generation packet
+        run: node --experimental-strip-types scripts/quality/check-design-w1-top-packet.ts
+
       - name: Verify runtime font source coverage
         run: node --experimental-strip-types scripts/quality/check-design-font-source-coverage.ts
 
