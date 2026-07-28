@@ -43,6 +43,7 @@ Character voice / relationship
 → RELATIONSHIPS.md
 → character-relationship-arc-book-v1.md
 → character-dialogue-relationship-book-v1.md
+→ character-voice-differentiation-guardrails-v1.md
 → character-ensemble-daily-scene-bank-v1.md
 → BOND.md
 
