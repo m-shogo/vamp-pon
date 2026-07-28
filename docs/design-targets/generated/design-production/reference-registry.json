@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-28",
+  "sourceBranch": "integration/u49-pr75-integrity-20260727",
+  "status": "CURRENT_REFERENCE_CLASSIFICATION",
+  "classificationBasis": [
+    "latest explicit human visual rejection",
+    "docs/design-art-direction-quiet-night-warmth-v1.md",
+    "docs/design-screen-completion-specifications-v1.md",
+    "docs/non-battle-final-design-implementation-plan.md",
+    "docs/current-visual-targets-2026-06-30.md"
+  ],
+  "rules": {
+    "fileNameFinalDoesNotMeanApproved": true,
+    "historicalCurrentTargetTextDoesNotOverrideLatestHumanDecision": true,
+    "directWholeScreenRuntimeUseForbidden": true,
+    "explicitCurrentHumanApprovalRequiredForCurrentApprovedTarget": true,
+    "imageFilesMovedOrDeleted": false
+  },
+  "allowedClassifications": [
+    "CURRENT_APPROVED_TARGET",
+    "KEEP_CANDIDATE",
+    "REWORK_SOURCE",
+    "COMPOSITION_REFERENCE_ONLY",
+    "COMPONENT_REFERENCE_ONLY",
+    "REJECTED",
+    "HISTORICAL"
+  ],
+  "references": [
+    {
+      "path": "docs/design-targets/final/top-final.png",
+      "screenId": "TOP",
+      "classification": "REWORK_SOURCE",
+      "currentHumanApproved": false,
+      "use": ["composition comparison", "gap analysis", "component extraction ideas"],
+      "doNotUse": ["direct runtime image", "automatic approval", "giant character portrait dependency"],
+      "reason": "旧final targetとして価値はあるが、現在のwhole-app human rejectionとA方向の静かな入口を満たすか再比較が必要。"
+    },
+    {
+      "path": "docs/design-targets/final/stage-select-final.png",
+      "screenId": "STAGE_SELECT",
+      "classification": "REWORK_SOURCE",
+      "currentHumanApproved": false,
+      "use": ["route composition comparison", "paper/node component ideas"],
+      "doNotUse": ["direct runtime image", "flowchart-like node reproduction without review"],
+      "reason": "StageSelectは現行human reviewでFAIL。連続した夜路へ再構成する必要がある。"
+    },
+    {
+      "path": "docs/design-targets/final/result-clear-final.png",
+      "screenId": "RESULT",
+      "classification": "COMPOSITION_REFERENCE_ONLY",
+      "currentHumanApproved": false,
+      "use": ["memory page hierarchy", "rank seal", "reward grouping", "CTA hierarchy"],
+      "doNotUse": ["direct runtime image", "text baking", "whole-screen approval inference"],
+      "reason": "Resultの情報階層参考として有効だが、現在のUnity画面とDesign Languageで再構成・device比較が必要。"
+    },
+    {
+      "path": "docs/design-targets/final/collection-final.png",
+      "screenId": "COLLECTION",
+      "classification": "COMPOSITION_REFERENCE_ONLY",
+      "currentHumanApproved": false,
+      "use": ["index/page rhythm", "entry composition", "completion presentation"],
+      "doNotUse": ["direct runtime image", "inventory grid reproduction", "spoiler boundary override"],
+      "reason": "索引・紙pageの参考として残すが、現在のread model、seen/completed state、spoiler境界へ合わせ直す。"
+    },
+    {
+      "path": "docs/design-targets/final/level-up-final.png",
+      "screenId": "LEVEL_UP",
+      "classification": "REWORK_SOURCE",
+      "currentHumanApproved": false,
+      "use": ["three-card hierarchy", "rarity/evolution comparison"],
+      "doNotUse": ["direct runtime image", "old card proportions as final", "color-only rarity"],
+      "reason": "LevelUpは現行human reviewでFAIL。icon-left/info-right構造を保ちつつmemory card familyを再設計する。"
+    },
+    {
+      "path": "docs/design-targets/final/kokuyou-cutin-final.png",
+      "screenId": "KOKUYOU",
+      "classification": "REWORK_SOURCE",
+      "currentHumanApproved": false,
+      "use": ["diagonal composition", "ink/light conflict", "cutin pacing reference"],
+      "doNotUse": ["direct runtime image", "generic purple aura", "incorrect term usage"],
+      "reason": "斜め構図とink/lightの参考価値はあるが、正しい用語は黒耀化。gameplay readabilityとA方向へ再調整する。"
+    },
+    {
+      "path": "docs/design-targets/final/battle-final.png",
+      "screenId": "BATTLE",
+      "classification": "HISTORICAL",
+      "currentHumanApproved": false,
+      "use": ["historical comparison", "background/HUD gap analysis"],
+      "doNotUse": ["current battle approval", "character/enemy replacement authority", "direct runtime image"],
+      "reason": "キャラクター・敵は別のU48 production approval chainで管理される。Battle HUD/backgroundは新screen specで再設計する。"
+    },
+    {
+      "path": "docs/design-targets/generated/non-battle-ui-helper-2026-06-28.png",
+      "screenId": "SHARED_UI",
+      "classification": "COMPONENT_REFERENCE_ONLY",
+      "currentHumanApproved": false,
+      "use": ["paper", "button", "seal", "lantern", "ink ornament ideas"],
+      "doNotUse": ["direct runtime image", "component approval inference"],
+      "reason": "旧helperとしてcomponent探索に限定。現在のstate matrix、technical spec、A方向で再制作する。"
+    },
+    {
+      "path": "docs/design-targets/generated/result-pro-layout-helper-390x844.png",
+      "screenId": "RESULT",
+      "classification": "COMPOSITION_REFERENCE_ONLY",
+      "currentHumanApproved": false,
+      "use": ["ledger layout", "rank seal", "rewards/new records hierarchy"],
+      "doNotUse": ["direct runtime image", "text baking"],
+      "reason": "Result Waveの比較材料として保持。"
+    },
+    {
+      "path": "docs/design-targets/generated/collection-pro-layout-helper-390x844.png",
+      "screenId": "COLLECTION",
+      "classification": "COMPOSITION_REFERENCE_ONLY",
+      "currentHumanApproved": false,
+      "use": ["index", "card rhythm", "progress and navigation"],
+      "doNotUse": ["direct runtime image", "existing data contract override"],
+      "reason": "Collection Waveの比較材料として保持。"
+    },
+    {
+      "path": "docs/design-targets/generated/non-battle-final-polish-ui-kit-2026-06-28.png",
+      "screenId": "SHARED_UI",
+      "classification": "COMPONENT_REFERENCE_ONLY",
+      "currentHumanApproved": false,
+      "use": ["paper component", "lantern", "seal", "ink", "CTA ornament"],
+      "doNotUse": ["direct runtime image", "automatic formal asset promotion"],
+      "reason": "部品候補の参考。現行Design Languageとstate familyで再評価する。"
+    }
+  ],
+  "summary": {
+    "currentApprovedTargetCount": 0,
+    "keepCandidateCount": 0,
+    "reworkSourceCount": 4,
+    "compositionReferenceOnlyCount": 4,
+    "componentReferenceOnlyCount": 2,
+    "historicalCount": 1,
+    "rejectedCount": 0,
+    "requiresNewHumanComparison": true
+  },
+  "nextAction": "PREPARE_WAVE1_GENERATION_BRIEFS_WITHOUT_GENERATING_IMAGES"
+}
