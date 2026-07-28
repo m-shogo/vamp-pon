@@ -106,7 +106,7 @@ pendingHumanDecisionCount=0
 Current readiness:
 
 ```txt
-documentationFoundation=PREPARED_FOR_COMPLETENESS_REVIEW
+documentationFoundation=DOCUMENTATION_FOUNDATION_PREPARED
 artDirectionHumanDirectionLocked=true
 artDirectionVisuallyLocked=false
 screenSpecifications=13/13
@@ -274,7 +274,7 @@ U0〜U45.1および旧Web final planは履歴と証跡として残す。現在�
 - Point Filterだけをvisual completionとみなす古い記述
 - Web画面をcurrent finalとする記述
 - `final` filenameをapprovalとする解釈
-- `黒曜化`表記
+- 正式用語ではない旧表記
 - U45.1 candidate runtimeが現在値であるように見える記述
 - 6.5.1f1という旧version誤記
 
