@@ -26,7 +26,7 @@
 
 Original adoption date: 2026-07-10
 Last synchronized: 2026-07-28
-Status: **current**
+Status: current
 Repository: `m-shogo/vamp-pon`
 
 ## 1. 最初に読む
@@ -69,12 +69,12 @@ Historical handoff/roadmap:
 - `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
 - `docs/design-language-foundation-proposal-v1.md`
 
-Historical proposal内の方向未選択表現は現在値ではない。現在の人間判断は次である。
+Historical proposal内の方向未選択表現は現在値ではない。
 
 ```txt
 HD-ART-DIRECTION-001=A
-QUIET_NIGHT_SMALL_WARMTH
-静かな夜と小さな温かさ
+selectedArtDirection=QUIET_NIGHT_SMALL_WARMTH
+label=静かな夜と小さな温かさ
 ```
 
 ## 2. 現在のPhase
@@ -94,7 +94,7 @@ Then: U51 RC
 
 U49は現在のsigned buildを物理iPhoneで確認するまで`BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE`を維持する。
 
-Heavy DesignはU49 Audio/Hapticと独立管理する。Heavy Designの文書commit、画像候補、Unity visual実装により、U49 evidence／readinessを変更しない。
+Heavy DesignはU49 Audio/Hapticと独立管理する。Heavy Designの文書commit、画像候補、Unity visual実装によりU49 evidence／readinessを変更しない。
 
 StageSelect／LevelUpはstructural remediation後も人間reviewで`FAIL`。キャラクター・敵以外のwhole-app visualは未承認である。
 
@@ -106,9 +106,37 @@ docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-aud
 docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/human-visual-rejection.json
 ```
 
-`runtimeVisualReady=true`はU48 approved production visual groupsがproviderへ接続され、該当scopeのresponsive Simulator verificationを通過した履歴値である。Whole-app human visual approval、actual-device、audio、haptic、performance、RC、store approvalを意味しない。
+## 3. Runtime visual boundary
 
-## 3. Heavy Design現在地
+```txt
+UnityEditor=6000.5.1f1
+RenderPipeline=2D_URP
+RuntimeUI=uGUI
+runtimeVisualClassification=production-animated-sprite
+runtimeVisualReady=true
+runtimeVisualCandidateReady=false
+productionVisualAssetProviderConnected=true
+runtimeCandidateAssetProviderConnected=false
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+devicePlayableReady=false
+productionApproved=false
+```
+
+`runtimeVisualReady=true`はU48 approved production visual groupsがproviderへ接続され、該当scopeのresponsive Simulator verificationを通過した意味である。
+
+次は別gateである。
+
+```txt
+whole-app human visual approval
+actual-device quality
+audio / haptic quality
+performance
+RC
+store approval
+```
+
+## 4. Heavy Design現在地
 
 ### Workflow state
 
@@ -147,7 +175,7 @@ WholeAppHumanVisualAccepted=false
 PendingHumanDecisionCount=0
 ```
 
-Machine-readable sources:
+Sources:
 
 ```txt
 docs/design-targets/generated/design-production/documentation-readiness.json
@@ -155,11 +183,11 @@ docs/design-targets/generated/design-production/documentation-foundation-review.
 docs/design-targets/generated/design-production/human-decision-queue.json
 ```
 
-Documentation foundation PASSは、実装前設計が揃ったことを意味する。画像生成、candidate採用、Design Language visual lock、Unity実装、whole-app approvalを意味しない。
+Documentation foundation PASSは実装前設計が揃ったことを意味する。画像生成、candidate採用、Design Language visual lock、Unity実装、whole-app approvalを意味しない。
 
-## 4. W1-01 TOP
+## 5. W1-01 TOP
 
-W1-01 TOPは次の正本を使う。
+正本:
 
 ```txt
 docs/design-generation-execution-packet-W1-01-TOP-v1.md
@@ -167,7 +195,7 @@ docs/design-targets/generated/design-production/W1-01-TOP-execution-packet.json
 docs/design-targets/generated/design-production/generation-request-queue.json
 ```
 
-現在:
+Current:
 
 ```txt
 status=PREPARED_NOT_HUMAN_APPROVED
@@ -187,38 +215,28 @@ capture=null
 runtimeBaselineMode=ABSENCE_EVIDENCE
 ```
 
-存在しないruntime captureを開始条件にしない。Whole-app audit、Boot→StageSelect route、existing references、W1-01 packetを正式baselineとする。
+存在しないruntime captureを開始条件にしない。Whole-app audit、Boot→StageSelect route、existing references、W1-01 execution packetを正式baselineとする。
 
 画像生成はこのChatGPT会話で1 briefずつ行う。Repository agentは画像を生成しない。
 
-## 5. Font現在地
-
-Font:
+## 6. Font現在地
 
 ```txt
-Zen Maru Gothic Medium
+Font=Zen Maru Gothic Medium
 License=SIL Open Font License 1.1
-Commercial use=PASS
-App bundling=PASS
-```
-
-Current TMP asset:
-
-```txt
+CommercialUse=PASS
+AppBundling=PASS
 PopulationMode=DYNAMIC
 SerializedGlyphTableEmpty=true
 SerializedCharacterTableEmpty=true
 SourceFontBound=true
 MultiAtlasEnabled=true
 ClearDynamicDataOnBuild=true
-```
-
-Automated source TTF coverage:
-
-```txt
-Result=PASS
+SourceTtfRuntimeStringCoverage=PASS
 MissingFromSourceFont=0
-Stage1QualityRun=1002
+StaticAtlasCoverage=NOT_EXECUTED
+DeviceGlyphDisplay=NOT_VERIFIED
+FullProductGlyphCoverage=false
 ```
 
 正本:
@@ -229,9 +247,9 @@ docs/design-font-source-coverage-result-2026-07-28.md
 docs/design-targets/generated/design-production/font-glyph-coverage-contract.json
 ```
 
-Source TTF coverage PASSだけでは`fullProductGlyphCoverageComplete`へ昇格しない。Controlled static atlas生成、atlas memory、physical iPhone表示確認が必要である。
+Source TTF coverage PASSだけでは`fullProductGlyphCoverageComplete`へ昇格しない。Controlled static atlas、atlas memory、physical iPhone表示確認が必要である。
 
-## 6. 人間判断の運用
+## 7. 人間判断
 
 正本:
 
@@ -246,48 +264,14 @@ Rules:
 - ユーザーには原則1回1問。
 - 2〜4択のクリック式を優先する。
 - UIが利用できない場合のみA／B／Cで代替する。
-- 技術事項をユーザーへ丸投げしない。
 - 未回答中は依存するLOCK、生成、実装へ進まない。
-
-Current queue:
 
 ```txt
 pending=0
 activeDecision=null
 ```
 
-次の人間判断は、ユーザーが画像生成開始を意図した時点の`W1-01 TOP brief approval`である。
-
-## 7. 現在のruntime境界
-
-```txt
-UnityEditor=6000.5.1f1
-RenderPipeline=2D_URP
-RuntimeUI=uGUI
-EditorOnlyUI=UI_Toolkit
-runtimeVisualClassification=production-animated-sprite
-simulatorPlayableCandidateReady=true
-actualDeviceSmokeResult=NOT_PROVIDED
-characterDotRuntimeReady=true
-characterAnimationReady=true
-enemyDotRuntimeReady=true
-enemyAnimationReady=true
-runtimeVisualReady=true
-productionVisualAssetProviderConnected=true
-productionCharacterAssetReady=true
-productionEnemyAssetReady=true
-productionDataRegistryImplemented=true
-audioMixerImplemented=true
-audioMixerDeviceVerified=false
-audioReady=false
-hapticReady=false
-devicePlayableReady=false
-mobileMetricsReady=false
-audioLatencyMeasured=false
-hapticMeasured=false
-rcReady=false
-productionApproved=false
-```
+次の人間判断は、画像生成開始を意図した時点の`W1-01 TOP brief approval`である。
 
 ## 8. 領域別正本
 
@@ -301,7 +285,7 @@ productionApproved=false
 | UI foundation | `docs/unity-ui-design-system-v1.md` |
 | generated assets | `docs/asset-generation-consistency-system-v1.md` |
 | Heavy Design control | `docs/design-documentation-readiness-control-center-v1.md` |
-| Heavy Design state machine | `docs/design-production-state-machine-v1.md` |
+| state machine | `docs/design-production-state-machine-v1.md` |
 | foundation review | `docs/design-documentation-foundation-review-2026-07-28.md` |
 | selected Art Direction | `docs/design-art-direction-quiet-night-warmth-v1.md` |
 | screen specifications | `docs/design-screen-completion-specifications-v1.md` |
@@ -384,7 +368,7 @@ pnpm unity:u49-actual-device-audio-haptic:check
 pnpm unity:u50-thresholds:check
 ```
 
-Stage1 Qualityは次を順に実行する。
+Stage1 Quality:
 
 ```txt
 active terminology
