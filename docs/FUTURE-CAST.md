@@ -10,10 +10,12 @@ Status: **CURRENT FUTURE-CAST ENTRYPOINT / CANDIDATES ARE NOT CURRENT-21 CANON**
 | Area | Current master |
 | --- | --- |
 | **Future候補の統一プロフィール** | `docs/future-cast-profile-book-v1.md` |
-| 褐色2 / 動物2 / Robot2 / Gay / Lesbian / Bisexual / 男の娘 / 性別不詳 / 双子 / disability等 | `docs/character-future-diversity-and-nonhuman-expansion-v1.md` |
+| **褐色2 / 動物2 / Robot2 / Gay / Lesbian / Bisexual / 男の娘 / 性別不詳 / 双子 / disability等の設計原則** | `docs/character-future-diversity-and-nonhuman-expansion-v2.md` |
 | 不老の魔女 / 複数世代の弟子 / 恋愛・結婚・家族・別離 | `docs/character-long-lived-witch-arc-v1.md` |
 | Current21との時代差 / 物の継承 | `docs/story-temporal-layer-and-character-connections-v1.md` |
 | Current21 | `docs/CHARACTERS.md` |
+
+`character-future-diversity-and-nonhuman-expansion-v1.md` はv2によりsuperseded。通常参照しない。
 
 ## User directions currently preserved
 
@@ -131,6 +133,8 @@ docs/CANON.md
 docs/FUTURE-CAST.md
 ↓
 docs/future-cast-profile-book-v1.md
+↓
+docs/character-future-diversity-and-nonhuman-expansion-v2.md
 ↓
 必要なdetail master 1つ
 ```
