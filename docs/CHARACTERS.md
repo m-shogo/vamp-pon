@@ -4,68 +4,41 @@ Date: 2026-07-28
 Status: **CURRENT CHARACTER ENTRYPOINT**
 
 > キャラクターに関する質問・設計・画像brief・会話・好感度・関係性を扱う時は、まずこの1ファイルを読む。  
-> repo全体から毎回キャラ設定を探し直さない。
+> repo全体から毎回キャラ設定を探し直さない。移行済みlegacyは通常読まない。
 
 ---
 
-# 1. 最初に読むもの
+# 1. 最初に読むCurrent master
 
-## 人物理解
-
-- `docs/character-book-v2.md`
-  - 21人一覧
-  - 一言説明
-  - 星獣
-  - 外見記号
-  - 成長方向
-  - メイン関係
-  - 謎 / 伏線
-  - future candidate
-
-## 戦闘と好感度
-
-- `docs/character-bond-support-system-v1.md`
-  - 仲間を戦闘へ呼ぶ
-  - Bond / 好感度
-  - 呼び方 / 敬語変化
-  - キャラ固有Support
-  - Pair Trait
-  - 灯合わせ
-
-この2冊で通常のキャラ質問の大半を答える。
-
----
-
-# 2. 詳細が必要な時だけ読む正本
-
-| 知りたいこと | 正本 |
+| 知りたいこと | Current master |
 | --- | --- |
-| 20人の戦闘・関係・art名 | `src/game/data/characterCanon.ts` |
-| 20人+レンの日常profile | `docs/character-personal-profile-canon-v1.md` |
+| 21人をすぐ理解する | `docs/character-book-v2.md` |
+| 日常 / 癖 / 怒り / 嘘 / 口調 / 呼び方 | `docs/CHARACTER-LIFE-AND-SPEECH.md` |
+| 仲間同行 / Bond / 戦闘連携 / 不安定ペア | `docs/BOND.md` |
+| 黒耀化 / 21人の固有呼称 / 歪み | `docs/BLACK-YOUKA.md` |
+| 誕生日 / 好物 / 趣味 | `docs/character-personal-profile-canon-v1.md` |
 | 星座 / 星獣 / 由来 | `docs/character-star-beast-constellation-canon-v1.md` |
-| 体型 / 年齢感 / 眼鏡 / silhouette | `docs/character-silhouette-diversity-current-canon-v1.md` |
+| 体型 / 年齢感 / 眼鏡 | `docs/character-silhouette-diversity-current-canon-v1.md` |
+| production combat / art data | `src/game/data/characterCanon.ts` / `docs/180-unified-character-canon.md` |
 | Core5灯合わせ | `src/game/data/pairLightArts.ts` |
-| 黒耀化 | `src/game/data/kokuyouForms.ts` |
-| 日常会 | `docs/design/daily-life/daily-life-intermission-bible.md` |
-| 呼び方 / 口調 / 好感度変化 | `docs/design/characters/relationship-speech-evolution.md` |
-| 会話 / 相関 / お嬢様候補 | `docs/design/characters/dialogue-relationship-bible-and-ojousama.md` |
-| ED / キャライベント / ペア相性 | `docs/design/characters/character-event-ending-affinity-bible.md` |
+
+通常の人物質問は `character-book-v2.md` までで答え、必要な時だけ1つdetail masterへ降りる。
 
 ---
 
-# 3. Current roster
+# 2. Current roster
 
 ## Core 5
 
-ユイ / アサ / ナギ / ミチル / トモリ
+**ユイ / アサ / ナギ / ミチル / トモリ**
 
 ## Circle 10
 
-セン / リツ / コヨリ / ゲン / ハナ / ユウビ / マドカ / シロ / トバリ / ネム
+**セン / リツ / コヨリ / ゲン / ハナ / ユウビ / マドカ / シロ / トバリ / ネム**
 
 ## Shadow / Rival 5
 
-クロオリ / カナメ / カスミ / トキ / ツムギ
+**クロオリ / カナメ / カスミ / トキ / ツムギ**
 
 Stable runtime IDs:
 
@@ -79,28 +52,31 @@ kage4 = ツムギ
 
 ## Official Reserve
 
-レン
+**レン**
 
 Current character scope: **20 + reserve 1 = 21人**
 
 ---
 
-# 4. 今回追加された重要方向
+# 3. 人物トーン
 
-## Character tone
+世界は暗い。
+人物の性格は揃えない。
 
-- 世界は暗い
-- 人物の明暗は揃えない
-- ネガティブな人もいる
-- 明るい人もいる
-- ギャルもいる
-- 無口もいる
-- 暗いキャラを無理に明るくしない
-- ただし全員それぞれに成長がある
+- 明るい
+- ネガティブ
+- 無口
+- 強気
+- 怖がり
+- ギャル
+- お嬢様
+- 子ども
+- ぽっちゃり
+- 渋い大人
 
-成長は性格変更ではない。
+などが同居してよい。
 
-例:
+全員に必要なのは「ポジティブ化」ではなく**その人らしい成長**。
 
 ```txt
 ネガティブ → ポジティブ
@@ -109,41 +85,80 @@ Current character scope: **20 + reserve 1 = 21人**
 ではなく、
 
 ```txt
-ネガティブなまま一人で抱え込まなくなる
+ネガティブなまま人を頼れる
 ```
 
-のように、その人らしさを残す。
+のような成長を狙う。
 
-## Bond / Support
+---
+
+# 4. Gameplay-first Bond
+
+好感度 / Bondは情報を見るための作業ではない。
 
 ```txt
-一緒に戦う
+Supportとして一緒に戦う
 ↓
-Bondが上がる
+Bondが育つ
 ↓
-日常会 / 戦闘後会話が変わる
+Personal / Support / Pair性能が強くなる
 ↓
-呼び方 / 敬語 / 弱音 / 冗談がキャラ別に変化
-↓
-Pair Trait / Assist / 灯合わせが育つ
+別の組み合わせも試したくなる
 ```
 
-Bondは恋愛値ではない。
+副作用として:
 
-兄妹・師弟・親族・友情・ライバル・恋愛で共通して使える関係経験値。
+- 呼び方
+- 敬語
+- 戦闘中台詞
+- リザルト
+- 日常会
+- 人物情報
 
-## Star Beast
+が変わる。
+
+読む人は読む。
+読まない人は「性能が上がってラッキー」でよい。
+
+詳細: `docs/BOND.md`
+
+---
+
+# 5. Relationship gameplay
+
+**仲が良い = 強い / 仲が悪い = 弱い**だけにはしない。
+
+- 安定ペア: 可靠性 / utility / timingが安定
+- 不安定ペア: 思想差や誤解があり、high-risk / high-upside候補
+- 片寄りペア: 特定条件で強い
+- 禁忌ペア: 高難度hidden build候補。強いが明確なrun内cost
+
+数値は未LOCK。
+
+人物成長によって、不仲が全部仲良しになる必要もない。
+「嫌いだけど次の動きを信じられる」関係も成立する。
+
+---
+
+# 6. Star Beast
 
 - 誕生日占いではない
 - 好き / 共鳴する生物星座
-- 星獣という小さなマスコットになる
+- 星獣という小さなマスコット
 - 原則重複なし
-- 兄弟 / 親族 / 継承 / hidden relationなど理由がある時だけ重複可
-- ユイ = 獅子座
-- ユイ × トモリの獅子座重複は伏線
-- リツ × コヨリのりょうけん座重複は兄妹理由
+- 兄弟 / 親族 / 継承 / shared memory / hidden relation等の理由がある時だけ重複可
 
-## Silhouette diversity
+重要:
+
+- ユイ = 獅子座
+- ユイ × トモリ = 獅子座重複。関係の正体は未確定
+- リツ × コヨリ = りょうけん座重複。兄妹理由
+
+---
+
+# 7. Silhouette diversity
+
+Current:
 
 - ぽっちゃり女性 = ハナ
 - ぽっちゃり男性 = カナメ
@@ -151,112 +166,110 @@ Bondは恋愛値ではない。
 - メガネ = シロ / レン
 - 作業ゴーグル = トモリ
 
+体型や年齢をギャグ扱いしない。
+
 ---
 
-# 5. Strong relationship directions
+# 8. 黒耀化
+
+共通システム名は **黒耀化**。
+
+さらに21人それぞれに**キャラ固有呼称**がある。
+
+例:
+
+- ユイ — 黒灯化
+- アサ — 黒銘化
+- ナギ — 黒箱化
+- ミチル — 黒針化
+- トモリ — 黒継化
+
+全21人: `docs/BLACK-YOUKA.md`
+
+黒耀化は闇落ちではなく、本人の長所 / 願い / 守り方の過剰化。
+星獣もその危うさへ反応する。
+
+---
+
+# 9. Strong relationship directions
 
 ## ユイ × アサ
 
-USER DIRECTION: 主人公級バディ。恋愛なし。
+**USER DIRECTION: 主人公級バディ。恋愛なし。**
+
+片方が付属品にならない。思想差や喧嘩もあるが、違いを残したまま背中を預けられる関係へ成長する。
 
 ## リツ × コヨリ
 
-CANON: 兄妹。互いに互いを救う。
+**CANON: 兄妹。恋愛なし。**
+
+兄だけが妹を救うのではなく、互いに互いを救う。
 
 ## ユイ × クロオリ
 
-取り戻す vs 閉じて守る。思想的ライバル。
+「取り戻す」vs「閉じて守る」の思想的ライバル。
 
 ## ユイ × トモリ
 
-同じ獅子座。関係の正体は未確定。親族 / 火の系譜 / 継承 / 記憶火などを候補として保持。
+同じ獅子座。
+
+候補:
+
+- 親族
+- 遠い血縁
+- 火の系譜
+- 継承
+- shared memory fire
+
+真相は未LOCK。
 
 ## 年を取らない魔女 × 年を取る弟子
 
-USER DIRECTION / CANDIDATE:
+Future high-priority candidate:
 
 - クロエ = 年を取らない魔女候補
 - レンジ = 年を取る弟子候補
 - 師弟
 - 恋愛なし
-- 時間の進み方が違っても関係が続くエモさ
 
 ---
 
-# 6. Future candidate directions
+# 10. Future candidate directions
 
-まだCurrent 21へ自動追加しない。
+Current 21へまだ自動追加しない。
 
-- ヒヨリ: ギャルマインド / 明るい肯定
-- セリカ: お嬢様 / 礼儀 / 責任感
-- クロエ: 年を取らない魔女
-- レンジ: 年を取る弟子 / 渋い大人
+- **ヒヨリ** — ギャルマインド / 人を肯定する明るさ
+- **セリカ** — お嬢様 / 礼儀 / 責任感。語尾だけで作らない
+- **クロエ** — 年を取らない魔女
+- **レンジ** — 年を取る弟子 / 大人
 
-候補資料に既存設計がある場合、**新しく0から作る前に必ず既存候補を読む。**
+既存候補をCurrentへ昇格する時は、旧候補資料を直接読むのではなく、`character-book-v2.md` に保存された方向から再開する。
 
 ---
 
-# 7. AI / Agent運用ルール
+# 11. Legacy no-read policy
 
-キャラ質問が来た時:
+日常・口調・Bond・黒耀化などの旧資料から有効要素はCurrent masterへ移植済み。
+
+通常は以下の順だけで読む:
 
 ```txt
-1. docs/CHARACTERS.md を読む
-2. docs/character-book-v2.md を読む
-3. 詳細が必要な項目だけ表の正本へ降りる
-4. repo-wide searchは最後の手段
+docs/CANON.md
+↓
+docs/CHARACTERS.md
+↓
+必要なCurrent master 1つ
 ```
+
+移行済みlegacy一覧:
+
+- `docs/legacy-design-migration-2026-07-28.md`
 
 禁止:
 
 - 毎回repo全体から設定を再発掘する
-- 古い候補をcurrent canonとして回答する
+- migrated legacyをcurrent回答の根拠に戻す
 - Current 21とfuture candidateを混ぜる
-- `カゲール1`〜`4`を人名として復活させる
-- 誕生日由来の旧zodiacを星獣設定として復活させる
+- `カゲール1`〜`4`を人名として復活
+- 誕生日由来の旧zodiacを星獣へ戻す
 - 既存設計を確認せず同じ役割の新キャラを増やす
-
----
-
-# 8. 情報を追加した時の更新先
-
-新しいキャラ情報を決めたら、散らばったdocだけ更新して終わらせない。
-
-最低限:
-
-```txt
-A. 詳細正本
-B. character-book-v2.md の人物カード / 関係性
-C. 必要なら docs/CHARACTERS.md の概要
-```
-
-の順で同期する。
-
-これにより、次回は詳細ファイル名を覚えていなくてもCharacter Hubから到達できる。
-
----
-
-# 9. このHubが解決する問題
-
-Before:
-
-```txt
-質問
-→ repo検索
-→ 昔の候補を発見
-→ currentか判断
-→ 別資料を発見
-→ ようやく回答
-```
-
-After:
-
-```txt
-質問
-→ CHARACTERS.md
-→ character-book-v2.md
-→ 必要なら1つだけ詳細正本
-→ 回答
-```
-
-**過去に積み上げた設計を「覚えていないように見える状態」に戻さないための入口。**
