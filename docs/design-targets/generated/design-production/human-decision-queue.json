@@ -8,8 +8,45 @@
   "maximumOptionCount": 4,
   "recommendedOptionFirst": true,
   "fallbackInteraction": "A_B_C_SINGLE_CHARACTER_REPLY",
-  "pendingHumanDecisionCount": 0,
-  "activeDecision": null,
+  "pendingHumanDecisionCount": 1,
+  "activeDecision": {
+    "decisionId": "HD-ART-DIRECTION-001",
+    "category": "ART_DIRECTION",
+    "question": "ヨルノシルベ全体の感情の基調はどれにしますか？",
+    "recommendedOptionId": "A",
+    "options": [
+      {
+        "id": "A",
+        "label": "静かな夜と小さな温かさ",
+        "recommended": true,
+        "impact": "深い夜の中に安心と好奇心を残し、ランタンと朝を自然につなぐ。"
+      },
+      {
+        "id": "B",
+        "label": "寂しく幻想的な夜",
+        "recommended": false,
+        "impact": "青紫、霧、遠い光を強め、記憶と忘れ物の寂しさを前面に出す。"
+      },
+      {
+        "id": "C",
+        "label": "親しみやすい夜の絵本",
+        "recommended": false,
+        "impact": "紙の明るさと柔らかさを増やし、初見の入りやすさを優先する。"
+      }
+    ],
+    "dependsOn": [],
+    "blocks": [
+      "final color direction",
+      "paper warmth and brightness",
+      "lantern intensity",
+      "display typography impression",
+      "TOP generation brief"
+    ],
+    "status": "PENDING_HUMAN_SELECTION",
+    "createdAt": "2026-07-28",
+    "sourceDocument": "docs/design-language-foundation-proposal-v1.md",
+    "sourceState": "docs/design-targets/generated/design-production/design-language-foundation-proposal.json"
+  },
   "decisions": [],
   "boundaries": {
     "heavyDesignStatus": "HOLD",
@@ -18,5 +55,5 @@
     "u49EvidenceMutation": false,
     "wholeAppHumanVisualAccepted": false
   },
-  "nextAction": "CONTINUE_DOCUMENTATION_REFINEMENT_AUTONOMOUSLY"
+  "nextAction": "WAIT_FOR_ACTIVE_HUMAN_DECISION"
 }
