@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-07-28",
-  "status": "PREPARED_FOR_COMPLETENESS_REVIEW",
+  "status": "DOCUMENTATION_FOUNDATION_PREPARED",
   "controlCenter": "docs/design-documentation-readiness-control-center-v1.md",
   "sourceBranch": "integration/u49-pr75-integrity-20260727",
   "selectedArtDirection": {
@@ -40,8 +40,25 @@
     "generationQueue": "PLANNED_NOT_STARTED",
     "provenanceTemplate": "DEFINED",
     "implementationHandoffTemplate": "DEFINED",
+    "fontLicenseAudit": "PASS",
+    "glyphCoverageVerificationPlan": "DEFINED_NOT_EXECUTED",
+    "referenceRightsBoundary": "CONFIRMED",
+    "contradictionScan": {"status": "COMPLETE", "activeContradictions": 0},
     "storeSurfaceRoadmap": "RESERVED",
     "freshEyesReview": "PLANNED_NOT_STARTED"
+  },
+  "documentationGate": {
+    "requiredDocumentsPresent": true,
+    "screenCountCorrect": true,
+    "artDirectionDecisionRecorded": true,
+    "humanDecisionQueueConsistent": true,
+    "referenceClassificationComplete": true,
+    "runtimeComparisonManifestComplete": true,
+    "rightsBoundaryDefined": true,
+    "contradictionScanComplete": true,
+    "imageGenerationStillFalse": true,
+    "unityImplementationStillFalse": true,
+    "gatePassed": true
   },
   "preGenerationGate": {
     "artDirectionHumanDirectionLocked": true,
@@ -62,11 +79,16 @@
     "comparisonPackDefined": true,
     "reservedOutputPathsDefined": true,
     "currentRuntimeComparisonManifestComplete": true,
-    "fontLicenseAndGlyphAuditComplete": false,
-    "internalReferenceRightsBoundaryConfirmed": false,
+    "fontLicenseAuditComplete": true,
+    "glyphCoverageVerificationPlanDefined": true,
+    "fullProductGlyphCoverageComplete": false,
+    "internalReferenceRightsBoundaryConfirmed": true,
     "activeWave1BriefHumanApproved": false,
     "humanDecisionQueueConsistent": true,
-    "gatePassed": false
+    "gatePassed": false,
+    "blockingReasons": [
+      "active Wave1 brief has not been intentionally human-approved for generation"
+    ]
   },
   "implementationGate": {
     "directionSelected": false,
@@ -83,14 +105,15 @@
     "performanceRiskReviewed": true,
     "implementationBranchDefined": false,
     "rollbackPlanDefined": true,
+    "fullProductGlyphCoverageComplete": false,
     "humanImplementationStartApproval": false,
     "gatePassed": false
   },
-  "remainingDocumentationTasks": [
-    "font license and glyph coverage audit",
-    "internal reference rights boundary confirmation",
-    "documentation contradiction scan",
-    "active Wave1 brief human approval only when generation is intentionally started"
+  "remainingDocumentationTasks": [],
+  "deferredVerificationTasks": [
+    "execute full-product glyph coverage check before Typography lock or Unity implementation",
+    "perform fresh-eyes review after representative visuals exist",
+    "perform candidate-by-candidate commercial use review after image generation"
   ],
-  "nextAction": "COMPLETE_FONT_RIGHTS_AND_CONTRADICTION_AUDITS"
+  "nextAction": "HOLD_UNTIL_USER_INTENTIONALLY_APPROVES_FIRST_WAVE1_GENERATION_BRIEF_OR_REQUESTS_FURTHER_DOCUMENT_REVIEW"
 }
