@@ -9,7 +9,10 @@ For character, relationship, Bond, story, mystery, collection, achievement, perm
 ```txt
 docs/CANON.md
 docs/game-core-book-v1.md
+docs/GAME-DESIGN.md
 ```
+
+`docs/GAME-DESIGN.md` is the completeness/gap map. It prevents an existing implementation note or old proposal from being mistaken for a complete Current design master.
 
 Then route through the shared-memory books when relevant:
 
@@ -22,6 +25,7 @@ Idea Book      -> docs/idea-book-v1.md
 Use them as:
 
 - Game Core Book = remember what game this is and what must not be lost
+- GAME-DESIGN = remember which design domains are Current / Partial / Proposed / Open
 - Character Book = remember people
 - Story Book = remember the story and unresolved mysteries
 - Idea Book = remember user ideas without automatically canonizing them
@@ -43,6 +47,23 @@ It defines:
 - Happy End as part of the emotional core
 
 If a new idea conflicts with Game Core, do not silently bend the Core. Preserve the idea and surface the conflict for Human decision.
+
+## Completeness rule
+
+Do not call the game design complete/perfect merely because the Game Core Book exists.
+
+Read `docs/GAME-DESIGN.md` and distinguish:
+
+- CURRENT
+- PARTIAL
+- PROPOSED
+- IMPLEMENTED-NOT-DESIGN-MASTER
+- OPEN
+- LATER
+
+Current known high-value open/consolidation areas include combat/run pacing, stage encounter design, first-run onboarding, mobile controls, difficulty/player aids, meta economy shape, postgame/endgame, creative audio/haptic direction, and fun/balance playtest metrics.
+
+Do not prematurely lock exact numeric balance values just to turn an OPEN area green.
 
 ## Idea memory rule
 
@@ -91,6 +112,7 @@ move it into the appropriate Current master / Book
 ```txt
 docs/CANON.md
 ├ docs/game-core-book-v1.md
+├ docs/GAME-DESIGN.md
 ├ docs/character-book-v3.md
 ├ docs/story-book-v1.md
 ├ docs/idea-book-v1.md
