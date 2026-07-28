@@ -5,6 +5,28 @@ Status: **CURRENT PROFILE ENTRYPOINT / CURRENT21 AND FUTURE CANDIDATES KEPT SEPA
 
 > 「みんなのプロフィール」を見る時の入口。Current21とFuture候補を同じ形式で比較できるが、canon statusは混ぜない。
 
+## 0. Roster review / polish
+
+人数・役割重複・登場密度を判断する時は先に読む:
+
+1. `docs/CHARACTER-ROSTER-REVIEW.md` — Current21 + Future15 = 36候補の全体監査、Title1登場密度、重複risk、追加freeze
+2. `docs/character-roster-polish-pass-v1.md` — マドカ / レン / セン / ユウビ / レンジと主要overlap群の具体ブラッシュアップ
+
+Current recommendation:
+
+```txt
+DELETE NOW      = 0
+MERGE NOW       = 0
+DEEPEN FIRST    = マドカ / レン / レンジ / セン / ユウビ
+KEEP CURRENT21  = YES
+KEEP FUTURE15   = YES, candidate pool
+NEW CAST FREEZE = YES, temporarily
+TITLE1 STORY    = 13前後をfront-facing
+TITLE1 PLAYABLE = Current21まで許容
+```
+
+**Playable roster数とMain Storyで前面に出す人数を同一にしない。**
+
 ## 1. Current21
 
 Current roster:
@@ -20,6 +42,7 @@ Read:
 2. `docs/character-personal-profile-canon-v1.md` — birthday / food / hobby / habit / daily life
 3. `docs/character-deep-core-book-v1.md` — contradiction / mystery / growth / 黒耀化
 4. `docs/character-star-beast-constellation-canon-v1.md` — 星座 / 星獣
+5. `docs/character-roster-polish-pass-v1.md` — overlap改善のCurrent direction
 
 Current21 = **current canon / current shared memory**。
 
@@ -30,7 +53,8 @@ Read:
 1. `docs/FUTURE-CAST.md`
 2. `docs/future-cast-profile-book-v1.md`
 3. `docs/character-future-diversity-and-nonhuman-expansion-v2.md`
-4. 必要なら `docs/character-long-lived-witch-arc-v1.md`
+4. `docs/CHARACTER-ROSTER-REVIEW.md`
+5. 必要なら `docs/character-long-lived-witch-arc-v1.md`
 
 Future candidates:
 
@@ -39,7 +63,7 @@ Future candidates:
 | ヒヨリ | brown-skinned woman / gyaru-mind | 人を肯定できるが自分の弱音が遅い |
 | セリカ | ojousama / Lesbian Candidate | 頼ることも礼儀と知る |
 | クロエ | long-lived witch | 終わる関係の価値 |
-| レンジ | aging apprentice | 有限だから進む |
+| レンジ | aging apprentice | 有限だから進む。Playable promotionは独立性をさらに磨いてから |
 | トウマ | brown-skinned man / Gay / craftsman | 名前より仕事を残したがる |
 | クウ | real dog | 名前なしでも人を覚える |
 | ヨモ | real cat / multiple names | 違う名でも一匹 |
@@ -74,6 +98,20 @@ Gameplayで何が違うか
 ```
 
 を持つ。
+
+さらにRoster Reviewでは:
+
+```txt
+Icon
+Unique
+Relation
+Daily
+黒耀化
+Gameplay
+Theme
+```
+
+の7軸で交換不能性を確認する。
 
 ## 4. Identity questions across the cast
 
@@ -125,13 +163,28 @@ play
 読まないplayerは「強くなった、ラッキー」でよい。
 好きになったplayerは深く読める。
 
-## 6. Normal routing
+## 6. Roster-density rule
+
+人数を感じさせないため:
+
+- 1 sceneで重要台詞を持つ人物は3〜5人程度を基本
+- 1 Stage arcは1〜2 main + 1 mirror + 2〜3 support程度
+- 全員集合でも会話担当を絞る
+- Baseの日常はgroup rotationする
+- Story脇役でもGameplayで100run使えば推しになれる余地を残す
+
+Supporting characterを「弱い人物」の意味で使わない。
+
+## 7. Normal routing
 
 ```txt
 docs/CANON.md
 ↓
 docs/CAST-PROFILES.md
+↓
+docs/CHARACTER-ROSTER-REVIEW.md
 ├ Current21 -> docs/CHARACTERS.md -> character-book-v4.md
+├ Deepen    -> docs/character-roster-polish-pass-v1.md
 └ Future    -> docs/FUTURE-CAST.md -> future-cast-profile-book-v1.md
 ```
 
