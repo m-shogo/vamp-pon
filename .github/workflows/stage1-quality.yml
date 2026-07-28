@@ -42,5 +42,8 @@ jobs:
       - name: Verify Heavy Design documentation
         run: pnpm design:heavy-documentation:check
 
+      - name: Verify runtime font source coverage
+        run: node --experimental-strip-types scripts/quality/check-design-font-source-coverage.ts
+
       - name: Verify Stage1 quality
         run: pnpm stage1:fun-pass:verify
