@@ -31,12 +31,20 @@ docs/CHARACTERS.md
 → only the needed detail master
 ```
 
+For future-cast work outside Current21:
+
+```txt
+docs/FUTURE-CAST.md
+→ only the matching future-cast master
+```
+
 Use them as:
 
 - Game Core Book = remember what game this is and what must not be lost
 - GAME-DESIGN = remember which design domains are Current / Partial / Proposed / Open
 - Character Book v4 = remember people quickly
 - Character Deep Core = remember life contradictions, growth, Black Transformation, time hooks, and relationship depth
+- Future Cast Hub = remember non-Current21 cast directions without silently promoting them into the active roster
 - Story Book = remember the story and unresolved mysteries
 - Idea Book = remember user ideas without automatically canonizing them
 
@@ -52,6 +60,8 @@ Current character references:
 Character summary      -> docs/character-book-v4.md
 Character depth        -> docs/character-deep-core-book-v1.md
 Character hub          -> docs/CHARACTERS.md
+Future cast hub        -> docs/FUTURE-CAST.md
+Future diversity / AI  -> docs/character-future-diversity-and-nonhuman-expansion-v1.md
 Life / speech          -> docs/CHARACTER-LIFE-AND-SPEECH.md
 Bond / support         -> docs/BOND.md
 黒耀化                  -> docs/BLACK-YOUKA.md
@@ -62,6 +72,8 @@ Long-lived witch       -> docs/character-long-lived-witch-arc-v1.md
 ```
 
 Do not restore the superseded idea that the long-lived witch has no romantic history with apprentices. Current Candidate understanding allows different apprentices to have different relationships: pure mentorship, family-like bonds, friendship, adult romance, marriage, children, separation, and reunion.
+
+Future-cast directions currently preserved include two brown/dark-skinned human characters, two real-animal characters distinct from Star Beasts, two robot/artificial-person characters with different identity questions, and gay/lesbian representation. These are USER DIRECTION / HIGH-VALUE CANDIDATE layers until explicitly promoted; do not auto-insert them into Current21.
 
 ## Game Core priority
 
@@ -146,6 +158,9 @@ docs/CANON.md
 ├ docs/GAME-DESIGN.md
 ├ docs/character-book-v4.md
 │  └ docs/character-deep-core-book-v1.md
+├ docs/FUTURE-CAST.md
+│  ├ docs/character-future-diversity-and-nonhuman-expansion-v1.md
+│  └ docs/character-long-lived-witch-arc-v1.md
 ├ docs/story-book-v1.md
 ├ docs/idea-book-v1.md
 ├ docs/CHARACTERS.md
