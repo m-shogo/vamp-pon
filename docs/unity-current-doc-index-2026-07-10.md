@@ -38,6 +38,8 @@ Status: current
 
 ## 最初に読む
 
+### Repository / runtime
+
 1. `docs/unity-big-implementation-control-center-v1.md`
 2. `docs/181-current-production-canon.md`
 3. `docs/unity-runtime-ownership-contract-v1.md`
@@ -45,11 +47,27 @@ Status: current
 5. `docs/unity-ui-design-system-v1.md`
 6. `docs/asset-generation-consistency-system-v1.md`
 7. `docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md`
-8. `docs/design-heavy-production-future-roadmap-2026-07-27.md`
-9. `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
-10. `docs/design-production-completeness-gates-v1.md`
-11. `docs/design-human-decision-interaction-protocol-v1.md`
-12. `docs/design-language-foundation-proposal-v1.md`
+
+### Heavy Design current entry
+
+1. `docs/design-documentation-readiness-control-center-v1.md`
+2. `docs/design-art-direction-quiet-night-warmth-v1.md`
+3. `docs/design-screen-completion-specifications-v1.md`
+4. `docs/design-component-state-accessibility-matrix-v1.md`
+5. `docs/design-motion-transition-spec-v1.md`
+6. `docs/design-technical-art-asset-pipeline-spec-v1.md`
+7. `docs/design-generation-briefs-wave1-v1.md`
+8. `docs/design-production-completeness-gates-v1.md`
+9. `docs/design-human-decision-interaction-protocol-v1.md`
+10. `docs/design-documentation-contradiction-register-v1.md`
+
+Historical handoff/roadmap:
+
+- `docs/design-heavy-production-future-roadmap-2026-07-27.md`
+- `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
+- `docs/design-language-foundation-proposal-v1.md`
+
+`design-language-foundation-proposal-v1.md`の方向未選択表現は作成時点の履歴であり、現在の方向は`HD-ART-DIRECTION-001=A / QUIET_NIGHT_SMALL_WARMTH`である。
 
 ## 現在のPhase
 
@@ -61,6 +79,7 @@ Completed: U46.1 Result / Save Hardening
 Completed: U47 gameplay data/runtime
 Completed: U48 production asset expansion
 Current: U49 actual-device audio/haptic
+Parallel HOLD: Heavy Design documentation refinement
 Next: U50 performance/touch metrics
 Then: U51 RC
 ```
@@ -69,31 +88,65 @@ U49実機reviewで音質、touch、常時揺れ、TOP/StageSelect/LevelUp、黒�
 `docs/unity-u49-actual-device-quality-remediation-2026-07-27.md`
 を完了する。
 
-StageSelect／LevelUpはstructural remediation後も人間reviewで`FAIL`となった。キャラクター・敵以外のwhole-app visualは未承認であり、U49 Audio/Hapticとは分離したHeavy Design Phaseで扱う。phase IDを割り当て、実装を開始する前の監査正本は
+StageSelect／LevelUpはstructural remediation後も人間reviewで`FAIL`となった。キャラクター・敵以外のwhole-app visualは未承認であり、U49 Audio/Hapticとは分離したHeavy Design Phaseで扱う。監査正本は
 `docs/unity-whole-app-heavy-design-audit-2026-07-27.md`
 とする。既存の`runtimeVisualReady=true`はU48 asset connectionの履歴値であり、whole-app human visual approvalを意味しない。
 
-Heavy Designは現在`HOLD / documentation only`であり、画像生成・Unity実装は未開始とする。今後の制作順、既存targetの再評価、ChatGPT人間監督下での画像生成、Unity実装開始ゲートは
-`docs/design-heavy-production-future-roadmap-2026-07-27.md`
-を正本とする。次のチャットで方針を探し直さず継続するための再開入口、過去ミスの再発防止、プロ制作工程、画像生成brief、未確定事項は
-`docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
-を読む。さらに、technical art予算、export/import仕様、component state網羅、初回体験、accessibility、商用利用・provenance、store surface、第三者reviewを含む画像生成前の必須完成ゲートは
-`docs/design-production-completeness-gates-v1.md`
-を必ず読む。
+## Heavy Design現在地
 
-Heavy Designのdocument refinement中にユーザー固有の判断が必要になった場合は、
-`docs/design-human-decision-interaction-protocol-v1.md`
-を正本とする。作業側で調査・比較・推奨を完了し、ユーザーには原則1回1問、2〜4択のクリック式で確認する。技術的に自走できる事項をユーザーへ丸投げせず、未回答中は依存するdesign lock、画像生成、production昇格、Unity実装へ進まない。現在の判断待ちは
-`docs/design-targets/generated/design-production/human-decision-queue.json`
-を正本とし、現在は`HD-ART-DIRECTION-001`の1件がpendingである。
+Human decision:
 
-現行Theme、StyleTokens、Responsive、Visual State、Font assetを読み取った具体的なDesign Language提案は
-`docs/design-language-foundation-proposal-v1.md`
-を正本候補とし、machine-readable stateは
-`docs/design-targets/generated/design-production/design-language-foundation-proposal.json`
-に記録する。全体の感情基調が未選択のため、Color、Paper、Lantern、Display Typographyは提案状態を維持し、LOCKしない。
+```txt
+HD-ART-DIRECTION-001=A
+selectedArtDirection=QUIET_NIGHT_SMALL_WARMTH
+label=静かな夜と小さな温かさ
+pendingHumanDecisionCount=0
+```
 
-ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
+Current readiness:
+
+```txt
+documentationFoundation=PREPARED_FOR_COMPLETENESS_REVIEW
+artDirectionHumanDirectionLocked=true
+artDirectionVisuallyLocked=false
+screenSpecifications=13/13
+componentStateMatrix=DOCUMENTED_COMPLETE
+motionTransitionFamilies=7
+technicalArtPipeline=DOCUMENTED
+referenceRegistry=DOCUMENTED
+Wave1Briefs=3_PREPARED_NOT_APPROVED
+imageGenerationStarted=false
+unityDesignImplementationStarted=false
+wholeAppHumanVisualAccepted=false
+```
+
+Machine-readable source:
+
+```txt
+docs/design-targets/generated/design-production/documentation-readiness.json
+```
+
+画像生成はこのChatGPT会話で1 briefずつ、人間確認を挟んで行う。Repository agentは画像を生成しない。
+
+Unity実装は、approved reference、approved component、cleanup、commercial use review、lineage、handoff pack、人間の明示開始が揃うまで行わない。
+
+## 人間判断の運用
+
+`docs/design-human-decision-interaction-protocol-v1.md`を正本とする。
+
+- 作業側が調査・比較・推奨を先に完了する。
+- ユーザーには原則1回1問。
+- 2〜4択のクリック式を優先する。
+- 技術事項をユーザーへ丸投げしない。
+- 未回答中は依存するLOCK、生成、実装へ進まない。
+
+Current queue:
+
+```txt
+docs/design-targets/generated/design-production/human-decision-queue.json
+pending=0
+activeDecision=null
+```
 
 ## 現在の境界
 
@@ -129,7 +182,7 @@ rcReady=false
 productionApproved=false
 ```
 
-`runtimeVisualReady=true` はU48で承認されたvisual groupがproduction providerへ接続され、responsive Simulator verificationを通過した意味です。actual-device、音、振動、性能、RC、store release approvalは別ゲートです。
+`runtimeVisualReady=true`はU48で承認されたvisual groupがproduction providerへ接続され、responsive Simulator verificationを通過した意味である。actual-device、音、振動、性能、whole-app human visual、RC、store release approvalは別ゲート。
 
 ## 領域別正本
 
@@ -140,13 +193,21 @@ productionApproved=false
 | implementation control | `docs/unity-big-implementation-control-center-v1.md` |
 | runtime ownership | `docs/unity-runtime-ownership-contract-v1.md` |
 | runtime visual approval | `docs/unity-runtime-visual-readiness-gate-v1.md` |
-| UI | `docs/unity-ui-design-system-v1.md` |
+| UI foundation | `docs/unity-ui-design-system-v1.md` |
 | generated assets | `docs/asset-generation-consistency-system-v1.md` |
-| heavy design future roadmap | `docs/design-heavy-production-future-roadmap-2026-07-27.md` |
-| heavy design next-chat handoff | `docs/design-heavy-production-next-chat-handoff-2026-07-27.md` |
-| heavy design completeness gates | `docs/design-production-completeness-gates-v1.md` |
-| human design decision interaction | `docs/design-human-decision-interaction-protocol-v1.md` |
-| design language proposal | `docs/design-language-foundation-proposal-v1.md` |
+| Heavy Design control | `docs/design-documentation-readiness-control-center-v1.md` |
+| selected Art Direction | `docs/design-art-direction-quiet-night-warmth-v1.md` |
+| screen specs | `docs/design-screen-completion-specifications-v1.md` |
+| state / accessibility | `docs/design-component-state-accessibility-matrix-v1.md` |
+| motion / transitions | `docs/design-motion-transition-spec-v1.md` |
+| technical art / pipeline | `docs/design-technical-art-asset-pipeline-spec-v1.md` |
+| Wave1 generation briefs | `docs/design-generation-briefs-wave1-v1.md` |
+| completeness gates | `docs/design-production-completeness-gates-v1.md` |
+| human decision interaction | `docs/design-human-decision-interaction-protocol-v1.md` |
+| contradiction register | `docs/design-documentation-contradiction-register-v1.md` |
+| font audit | `docs/design-font-license-glyph-audit-v1.md` |
+| reference rights | `docs/design-reference-rights-boundary-v1.md` |
+| implementation handoff | `docs/design-implementation-handoff-template-v1.md` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
 | mobile QA | `docs/mobile-release-qa-gates.md` |
@@ -169,23 +230,15 @@ productionApproved=false
 - `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/human-visual-rejection.json`
 - `docs/design-targets/generated/design-production/human-decision-queue.json`
 - `docs/design-targets/generated/design-production/design-language-foundation-proposal.json`
+- `docs/design-targets/generated/design-production/documentation-readiness.json`
+- `docs/design-targets/generated/design-production/reference-registry.json`
+- `docs/design-targets/generated/design-production/current-runtime-comparison-manifest.json`
+- `docs/design-targets/generated/design-production/generation-request-queue.json`
+- `docs/design-targets/generated/design-production/asset-provenance-registry-template.json`
 - `docs/design-targets/generated/unity-u50/thresholds.json`
 - `docs/design-targets/generated/unity-current-state/state.json`
 
-U45.1 evidence remains historical prerequisite evidence and must not override the current U48 readiness:
-
-- `docs/design-targets/generated/unity-u45-1/runtime-dot-readiness.json`
-- `docs/design-targets/generated/unity-u45-1/animation-smoke-result.json`
-- `docs/design-targets/generated/unity-u45-1-hardening/readiness.json`
-- `docs/design-targets/generated/unity-u45/ai-simulator-smoke-readiness.json`
-- `docs/design-targets/generated/unity-u45/settings-repair-readiness.json`
-- `docs/design-targets/generated/asset-generation-consistency/readiness.json`
-- `docs/design-targets/generated/unity-u46/ui-design-system-readiness.json`
-- `docs/design-targets/generated/unity-big-implementation/readiness.json`
-- `docs/design-targets/generated/unity-u48/readiness.json`
-- `docs/design-targets/generated/unity-u48/approved-production-set.json`
-- `docs/design-targets/generated/unity-u48/production-visual-connection-verification.json`
-- `docs/design-targets/generated/unity-u48/production-verification/manifest.json`
+U45.1 evidence remains historical prerequisite evidence and must not override current U48 readiness or current Heavy Design human rejection.
 
 ## Current checks
 
@@ -208,19 +261,23 @@ pnpm unity:u49-actual-device-audio-haptic:check
 pnpm unity:u50-thresholds:check
 ```
 
+Heavy Design documentation専用checkerは未追加。追加する場合もruntimeを変更せず、正本存在、JSON整合、13 screens、pending decision、generation/implementation falseを検査する。
+
 ## Historical documents
 
-U0〜U45.1のPhase docsは履歴と証跡として残します。現在の実装順、Editor version、asset approval、READY判定を決める正本として単独使用しません。
+U0〜U45.1および旧Web final planは履歴と証跡として残す。現在の実装順、asset approval、visual completion、READY判定を決める正本として単独使用しない。
 
-特に以下はhistoricalです。
+特に以下はhistoricalまたは現在分類で上書きされる。
 
 - U1開始用prompt
-- U1 technical spike手順
 - placeholder/proof-only合格条件
 - Point Filterだけをvisual completionとみなす古い記述
+- Web画面をcurrent finalとする記述
+- `final` filenameをapprovalとする解釈
+- `黒曜化`表記
 - U45.1 candidate runtimeが現在値であるように見える記述
 - 6.5.1f1という旧version誤記
 
 ## Final rule
 
-新規エージェントはこのindexから入り、対象Phaseの個別docだけで判断しません。active source of truth同士でPhase、readiness、provider、approval stateが一致しない場合は作業を停止し、先に整合性を修復します。
+新規エージェントはこのindexから入り、対象Phaseの個別docだけで判断しない。active source of truth同士でPhase、readiness、provider、approval state、human decisionが一致しない場合は作業を停止し、先に整合性を修復する。
