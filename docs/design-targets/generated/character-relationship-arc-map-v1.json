@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_RELATIONSHIP_PRODUCTION_GUIDE_CANDIDATE_FACTS_SEPARATED",
+  "authority": {
+    "humanReadable": "docs/character-relationship-arc-book-v1.md",
+    "voiceGuide": "docs/character-dialogue-relationship-book-v1.md",
+    "gameplayBond": "docs/BOND.md",
+    "currentRoster": "docs/character-book-v4.md",
+    "futureRoster": "docs/future-cast-profile-book-v1.md"
+  },
+  "invariants": [
+    "relationship growth must not turn every pair into the same friendly voice",
+    "current-night shared experience is required; backstory alone cannot create all bonds",
+    "relationship growth should map to gameplay growth",
+    "agreement is not required for trust",
+    "romance is not automatically a higher relationship tier than friendship or family",
+    "future cast remains candidate and is not promoted to Current21 by this manifest",
+    "new history, blood relation, romance partner, exact era and Main Mystery facts remain candidate unless separately adopted"
+  ],
+  "arcStages": ["first_read", "useful_friction", "failure_exposure", "chosen_trust", "dawn_proof"],
+  "currentArcs": [
+    {
+      "id": "yui-asa",
+      "participants": ["yui", "asa"],
+      "relationshipType": "buddy_non_romance",
+      "status": "CURRENT_STRONG_RELATIONSHIP",
+      "coreQuestion": "Can speed and care leave the final choice to the person concerned?",
+      "growth": "rush_and_collect -> wait_and_confirm_together",
+      "dawnProof": "walking pace aligns without asking",
+      "enemyPressure": ["name_tag", "ownerless_name"]
+    },
+    {
+      "id": "yui-kuroori",
+      "participants": ["yui", "kuroori"],
+      "relationshipType": "ideological_rival",
+      "status": "CURRENT_RELATIONSHIP_WITH_MYSTERY_CANDIDATES",
+      "coreQuestion": "Should a memory be opened now or held until its owner chooses?",
+      "growth": "open_vs_close -> entrusted_timing",
+      "dawnProof": "Yui accepts a folded paper without opening it",
+      "enemyPressure": ["blank", "black_fold", "closed_box"]
+    },
+    {
+      "id": "nagi-kaname",
+      "participants": ["nagi", "kage1"],
+      "displayParticipants": ["ナギ", "カナメ"],
+      "relationshipType": "ideological_mirror",
+      "status": "CURRENT_DIRECTION",
+      "coreQuestion": "Is protection sealing danger or standing between danger and others?",
+      "growth": "double_guard -> alternating_guard",
+      "dawnProof": "they split a burden without negotiation",
+      "enemyPressure": ["moon_box", "ink_arm", "closed_morning_box"]
+    },
+    {
+      "id": "michiru-toki",
+      "participants": ["michiru", "kage3"],
+      "displayParticipants": ["ミチル", "トキ"],
+      "relationshipType": "ideological_mirror",
+      "status": "CURRENT_DIRECTION",
+      "coreQuestion": "Is the correct route measured, walked, or revised?",
+      "growth": "intuition_vs_measurement -> measured_and_adaptive_segments",
+      "dawnProof": "the final fork on the map is intentionally left to walking",
+      "enemyPressure": ["compass", "map_pin", "lost_needle", "route_less_night"]
+    },
+    {
+      "id": "tomori-tsumugi",
+      "participants": ["tomori", "kage4"],
+      "displayParticipants": ["トモリ", "ツムギ"],
+      "relationshipType": "craft_mirror",
+      "status": "CURRENT_DIRECTION",
+      "coreQuestion": "Should repair erase the scar or preserve the trace?",
+      "growth": "full_restore_vs_preserve -> chosen_repair_state",
+      "dawnProof": "one repair seam is intentionally left visible",
+      "enemyPressure": ["thread", "button", "repair_seam", "blank_frame"]
+    },
+    {
+      "id": "ritsu-koyori",
+      "participants": ["ritsu", "koyori"],
+      "relationshipType": "siblings_non_romance",
+      "status": "CURRENT_STRONG_RELATIONSHIP",
+      "coreQuestion": "Can the protected person also choose a role and rescue the protector?",
+      "growth": "older_sibling_decides -> role_choice",
+      "dawnProof": "Ritsu lets Koyori divide the shared food",
+      "enemyPressure": ["bell", "dog_ticket", "small_clue"]
+    },
+    {
+      "id": "sen-koyori",
+      "participants": ["sen", "koyori"],
+      "relationshipType": "night_born_friendship_teacher_inversion",
+      "status": "CURRENT_DIRECTION",
+      "coreQuestion": "Can a teacher leave the final discovery to the learner?",
+      "growth": "explain_answer -> offer_hint_and_learn_back",
+      "dawnProof": "Sen listens through Koyori's entire new rule set before responding",
+      "enemyPressure": ["chalk_line", "blackboard"]
+    },
+    {
+      "id": "yubi-tobari",
+      "participants": ["yubi", "tobari"],
+      "displayParticipants": ["ユウビ", "トバリ"],
+      "relationshipType": "functional_friendship",
+      "status": "CURRENT_DIRECTION",
+      "coreQuestion": "Is delivery complete when it arrives, or when the recipient can receive and return?",
+      "growth": "destination_only -> timing_and_return",
+      "dawnProof": "Yubi chooses to stay rather than immediately leave after delivery",
+      "enemyPressure": ["envelope", "postmark", "ticket_gate"]
+    },
+    {
+      "id": "madoka-ren",
+      "participants": ["madoka", "ren"],
+      "relationshipType": "analytical_pair",
+      "status": "CURRENT_PLUS_RESERVE_DIRECTION",
+      "coreQuestion": "When is uncertain information important enough to share?",
+      "growth": "wait_for_certainty -> share_observation_and_confidence_separately",
+      "dawnProof": "Madoka reacts immediately when Ren reports a difference",
+      "enemyPressure": ["lens", "old_photo", "variant"]
+    },
+    {
+      "id": "shiro-tsumugi",
+      "participants": ["shiro", "kage4"],
+      "displayParticipants": ["シロ", "ツムギ"],
+      "relationshipType": "quiet_conceptual_friendship",
+      "status": "CURRENT_DIRECTION",
+      "coreQuestion": "When should an unknown or unfinished thing remain open?",
+      "growth": "indefinite_hold -> revisit_condition",
+      "dawnProof": "Shiro leaves Tsumugi's final blank pages uncatalogued",
+      "enemyPressure": ["bookmark", "eraser", "blank", "blank_frame"]
+    },
+    {
+      "id": "nemu-toki",
+      "participants": ["nemu", "kage3"],
+      "displayParticipants": ["ネム", "トキ"],
+      "relationshipType": "unlikely_time_layer_pair",
+      "status": "CURRENT_DIRECTION_WITH_TIME_LAYER_CANDIDATE",
+      "coreQuestion": "Can an unmeasurable dream be kept as observation without becoming prophecy?",
+      "growth": "dismiss_vs_believe -> record_without_overclaim",
+      "dawnProof": "Toki adds only a date to Nemu's dream note instead of correcting it",
+      "enemyPressure": ["dream_wave", "angle", "lost_needle"]
+    },
+    {
+      "id": "gen-michiru",
+      "participants": ["gen", "michiru"],
+      "relationshipType": "intergenerational_friendship",
+      "status": "CURRENT_DIRECTION_WITH_TIME_LAYER_CANDIDATE",
+      "coreQuestion": "Can an old route matter without remaining the current correct route?",
+      "growth": "old_vs_current -> layered_map",
+      "dawnProof": "Gen chooses Michiru's route for the day",
+      "enemyPressure": ["old_owl", "compass", "route_less_night"]
+    }
+  ],
+  "ensembleGroups": [
+    {
+      "id": "choice-ownership-trio",
+      "participants": ["yui", "asa", "kuroori"],
+      "question": "Who decides what is returned, named or opened?",
+      "direction": "return choices to the person concerned"
+    },
+    {
+      "id": "protection-group",
+      "participants": ["nagi", "kage1", "ritsu", "koyori"],
+      "question": "Who gets to protect and who gets to choose a role?",
+      "direction": "do not freeze protector/protected roles"
+    },
+    {
+      "id": "time-layer-observation-group",
+      "participants": ["michiru", "kage3", "gen", "madoka", "ren"],
+      "question": "How can the group infer that the night is not one era?",
+      "direction": "combine route, measurement, old memory, witness and discrepancy instead of using one exposition character"
+    },
+    {
+      "id": "preservation-group",
+      "participants": ["tomori", "kage4", "hana", "shiro"],
+      "question": "What does it mean to preserve something?",
+      "direction": "repair, scar preservation, storage and uncertainty remain distinct valid approaches"
+    }
+  ],
+  "futureBridges": [
+    {"future":"hiyori","current":["kage2","nemu","hana"],"theme":"encouragement vs quiet presence vs being cared for"},
+    {"future":"serika","current":["kage1","ritsu"],"theme":"responsibility vs delegation"},
+    {"future":"chloe","current":["gen","nemu","kuroori"],"theme":"long time, aging and the temptation to keep people in the night"},
+    {"future":"renji","current":["gen"],"theme":"finite time can still be chosen positively"},
+    {"future":"touma","current":["shiro","tomori","kage4"],"theme":"anonymous maker, repair trace and authorship"},
+    {"future":"kuu","current":["asa","yui"],"theme":"recognition beyond names"},
+    {"future":"yomo","current":["asa","kage2"],"theme":"multiple names without divided identity"},
+    {"future":"noa","current":["ren","kage3","madoka"],"theme":"same snapshot, diverging present"},
+    {"future":"rum","current":["tomori","kage4"],"theme":"repair, synchronization and personal scars"},
+    {"future":"maki","current":["michiru","asa"],"theme":"fast decisions without taking choice away"},
+    {"future":"suzu","current":["kage2","kuroori"],"theme":"chosen presentation vs protective concealment"},
+    {"future":"io","current":["sen","shiro"],"theme":"temporary labels vs listening before classification"},
+    {"future":"kai","current":["ritsu","koyori","ren"],"theme":"shared identity can be comforting without erasing individuality"},
+    {"future":"nao","current":["ren"],"theme":"difference does not need to be manufactured to prove individuality"},
+    {"future":"amane","current":["michiru","tobari","kage1"],"theme":"route choice, return access and assistance by consent"}
+  ]
+}
