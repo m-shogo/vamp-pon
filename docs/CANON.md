@@ -1,6 +1,6 @@
 # ヨルノシルベ Canon Hub
 
-Date: 2026-07-28  
+Date: 2026-07-29  
 Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
 > ヨルノシルベについて考える時は、最初にこのファイルを見る。  
@@ -46,8 +46,9 @@ Game Coreを理解した上で使う。
 さらにCharacterを深く扱う時:
 
 - `docs/character-deep-core-book-v1.md` — 21人の人生の核 / 矛盾 / 黒耀化 /成長 /関係
+- `docs/character-dialogue-relationship-book-v1.md` — Current21の声 / 口癖 / 仲間との会話 + Future15のvoice seed
 
-`docs/character-book-v3.md` はv4によりsuperseded。通常参照しない。
+`character-book-v3.md` はv4によりsuperseded。通常参照しない。
 
 ```txt
 Game Core Book
@@ -58,6 +59,9 @@ Character Book v4
 
 Character Deep Core
 = なぜその人を好きになり、どう歪み、どう成長するか
+
+Character Dialogue / Relationship Book
+= その人がどう喋り、誰といる時に何が変わるか
 
 Story Book
 = 遊んだ時間にどんな意味が残るか
@@ -80,8 +84,10 @@ Idea Book
 | Character | `docs/CHARACTERS.md` | Current21 /人物 /年代差 /関係 routing |
 | Character summary | `docs/character-book-v4.md` | 21人をすぐ理解 |
 | Character depth | `docs/character-deep-core-book-v1.md` | 人生の核 /矛盾 /黒耀化 /成長 |
+| Character voice / relationship | `docs/character-dialogue-relationship-book-v1.md` | 口癖 /会話 /Bond差分 /関係lane /Future voice seed |
 | Bond / Support | `docs/BOND.md` | 同行 /関係成長 /連携強化 |
 | 黒耀化 | `docs/BLACK-YOUKA.md` | 共通system /もう一つの自分 /固有呼称 |
+| Enemy / Kagemono | `docs/ENEMIES.md` | Current48 /敵の意味 /legacy統合 /Boss方向 /production routing |
 | Gameplay / Meta | `docs/GAMEPLAY-META-PROGRESSION.md` | 永続強化 /achievement /fail-forward |
 | Achievement / Archive | `docs/PROGRESSION-ARCHIVE.md` | 灯録 /夜明け星図 /任意情報 |
 | Story / Mystery | `docs/STORY.md` | Main /Character Mystery /Happy End /続編 |
@@ -96,10 +102,11 @@ Character Hubから必要時だけ読む。
 
 - `docs/character-book-v4.md` — Current人物理解master
 - `docs/character-deep-core-book-v1.md` — Deep Core master
+- `docs/character-dialogue-relationship-book-v1.md` — 口癖 / base voice / Bond delta / Crisis delta / pair dialogue
 - `docs/character-personal-profile-canon-v1.md` — 誕生日 /好物 /趣味
 - `docs/character-star-beast-constellation-canon-v1.md` — 星座 /星獣 /由来
 - `docs/character-silhouette-diversity-current-canon-v1.md` — 体型 /年齢感 /眼鏡
-- `docs/CHARACTER-LIFE-AND-SPEECH.md` — 日常 /癖 /怒り /嘘 /呼び方
+- `docs/CHARACTER-LIFE-AND-SPEECH.md` — 日常 /癖 /怒り /嘘 /呼び方の共通原則
 - `docs/BOND.md` — Gameplay-first relationship progression
 - `docs/BLACK-YOUKA.md` — 黒耀化
 - `docs/story-temporal-layer-and-character-connections-v1.md` — 別時代 /夜の時間層
@@ -207,11 +214,16 @@ docs/CANON.md
 ├ idea-book-v1.md
 ├ CHARACTERS.md
 │  ├ CHARACTER-LIFE-AND-SPEECH.md
+│  ├ character-dialogue-relationship-book-v1.md
 │  ├ BOND.md
 │  ├ BLACK-YOUKA.md
 │  ├ story-temporal-layer-and-character-connections-v1.md
 │  ├ character-connection-web-high-value-candidates-v1.md
 │  └ character-long-lived-witch-arc-v1.md
+├ ENEMIES.md
+│  ├ src/game/data/enemyProductionDatabase.ts
+│  ├ docs/enemies/omb-ombro-selected-direction.md
+│  └ data/enemy-assets/enemy-design-*.json
 ├ GAMEPLAY-META-PROGRESSION.md
 │  └ PROGRESSION-ARCHIVE.md
 ├ STORY.md
@@ -238,7 +250,7 @@ Legacy移行状況:
 1. docs/CANON.md
 2. docs/game-core-book-v1.md
 3. docs/GAME-DESIGN.md
-4. Character / Story / Ideaの必要Book
+4. Character / Story / Enemy / Ideaの必要Book
 5. 必要ならdomain master
 ```
 
@@ -249,7 +261,20 @@ CANON
 → CHARACTERS
 → character-book-v4
 → deep workなら character-deep-core-book-v1
+→ voice / interactionなら character-dialogue-relationship-book-v1
 ```
+
+## Enemy / Kagemono
+
+```txt
+CANON
+→ ENEMIES
+→ current identityが必要なら src/game/data/enemyProductionDatabase.ts
+→ visual familyなら docs/enemies/omb-ombro-selected-direction.md
+→ mechanic detailだけ必要なら data/enemy-assets/enemy-design-*.json
+```
+
+旧Enemy Bible /旧50体 /旧Stage別nameをCurrent identityへ戻さない。
 
 ## Story
 
@@ -279,6 +304,7 @@ CANON
 - migrated legacyをCurrent根拠へ戻す
 - character-book-v3をCurrentとして読む
 - 古いキャラ名 /旧星獣 /旧用語を復活
+- 旧Enemy名 /旧人物対応をCurrent enemy identityへ無断復活
 - Current21とfuture candidateを混ぜる
 - Ideaを勝手にCanonへ昇格
 - 未確定を理由にIdeaを忘れる
