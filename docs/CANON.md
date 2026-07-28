@@ -8,9 +8,33 @@ Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
 ---
 
-# 1. まず3冊 — 同じレベルの共有記憶
+# 1. 最上位 — Game Core Book
 
-キャラだけでなく、**物語とアイディアもCharacter Bookと同じ重要度で残す。**
+まず読む:
+
+- **`docs/game-core-book-v1.md`** — ヨルノシルベは何を遊ぶゲームか / 何を絶対に見失わないか
+
+Game Core Bookは、Character / Story / Ideaより上位の**ゲーム identidade / core understanding master**。
+
+ここで覚えるもの:
+
+- ヴァンサバ系の1runの爽快感
+- buildを作る楽しさ
+- 周回で遊び方が増えるMeta Loop
+- Clear Getter / 夜明け星図
+- Support / BondがGameplayへ返ること
+- 黒耀化が危険だが強い選択であること
+- fail-forward
+- 情報はGameplayの副作用であること
+- Happy Endを含むEmotional Core
+
+具体数値・全設定・Main Mysteryの最終回答まで固定する本ではない。
+
+---
+
+# 2. 3冊の共有記憶
+
+Game Coreを理解した上で、次の3冊を同格の長期共有記憶として使う。
 
 | Book | File | 役割 |
 | --- | --- | --- |
@@ -18,17 +42,18 @@ Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 | **Story Book** | `docs/story-book-v1.md` | どんな物語か、何を救うか、謎、Happy End、続編をすぐ思い出す |
 | **Idea Book** | `docs/idea-book-v1.md` | 会話で出た面白い案を、早く固定せず忘れない |
 
-### 3冊の関係
-
 ```txt
+Game Core Book
+= 何を遊ぶゲームか
+
 Character Book
-= 人を覚える
+= 誰と遊ぶか
 
 Story Book
-= 物語を覚える
+= 遊んだ時間にどんな意味が残るか
 
 Idea Book
-= まだ決めていない大事な案を覚える
+= まだ決めていないが忘れたくない可能性
 ```
 
 **Idea BookにあるだけではCANONではない。**
@@ -37,14 +62,15 @@ Idea Book
 
 ---
 
-# 2. Current domain entrypoints
+# 3. Current domain entrypoints
 
 | Domain | First read | Purpose |
 | --- | --- | --- |
+| Game identity / Core | `docs/game-core-book-v1.md` | Run / Meta / Attachment loop、Core判断 |
 | Character | `docs/CHARACTERS.md` | 21人、人物像、日常、星獣、関係 |
 | Bond / Support | `docs/BOND.md` | 同行、関係成長、連携強化、安定/不安定ペア |
 | 黒耀化 | `docs/BLACK-YOUKA.md` | 共通システム名、固有呼称、歪み、星獣反応 |
-| Gameplay / Meta | `docs/GAMEPLAY-META-PROGRESSION.md` | ヴァンサバ系主循環、永続強化、fail-forward |
+| Gameplay / Meta detail | `docs/GAMEPLAY-META-PROGRESSION.md` | 永続強化、achievement、fail-forward |
 | Achievement / Archive | `docs/PROGRESSION-ARCHIVE.md` | 灯録、夜明け星図、記憶のしるし、任意情報 |
 | Story / Mystery | `docs/STORY.md` | Main Mystery、Character Mystery、Happy End、続編 |
 | Story/Game logic | `docs/STORY-ENGINE.md` | Gameplayと世界法則の接続、再解釈型伏線 |
@@ -52,7 +78,7 @@ Idea Book
 
 ---
 
-# 3. Character detail masters
+# 4. Character detail masters
 
 Character Hubから必要時だけ読むCurrent detail:
 
@@ -65,7 +91,7 @@ Character Hubから必要時だけ読むCurrent detail:
 
 ---
 
-# 4. Story detail masters
+# 5. Story detail masters
 
 Story Bookから必要時だけ読む:
 
@@ -77,11 +103,11 @@ Story Bookから必要時だけ読む:
 
 ---
 
-# 5. Idea memory
+# 6. Idea memory
 
 `docs/idea-book-v1.md` は正本仕様書ではなく**共有記憶**。
 
-ここには:
+代表的に保存するもの:
 
 - クリアゲッター
 - 読む人 / 読まない人
@@ -98,32 +124,31 @@ Story Bookから必要時だけ読む:
 - ギャル / お嬢様 / 魔女と弟子
 - ヨルノシルベ2への余白
 
-など、これまで出た強い案を保存する。
-
-## Idea → Canonの流れ
+## Idea → Canon
 
 ```txt
 会話でアイディアが出る
 ↓
-Idea Bookへ保存
+Idea Bookまたは該当Bookへ保存
 ↓
-しばらく育てる / 他設定と比較
+既存Core / Currentと比較しながら育てる
 ↓
 Human decisionまたは実装上の必要性
 ↓
-Current masterへ昇格
+確定した時だけCurrent masterへ昇格
 ```
 
-アイディアを話したそのターンで、必要以上にルール化しない。
+**「覚える」と「決める」は別。**
 
 ---
 
-# 6. Canon layers
+# 7. Canon layers
 
-## CURRENT CANON
+## CURRENT / SHARED MEMORY
 
 ```txt
 docs/CANON.md
+├ game-core-book-v1.md
 ├ character-book-v3.md
 ├ story-book-v1.md
 ├ idea-book-v1.md          ← shared memory; individual entries may be non-canon
@@ -144,8 +169,6 @@ docs/CANON.md
 
 ## LEGACY SOURCE
 
-過去に良い案があるが、そのままCurrent authorityとして読まない資料。
-
 移行状況:
 
 - `docs/legacy-design-migration-2026-07-28.md`
@@ -154,22 +177,22 @@ docs/CANON.md
 
 ---
 
-# 7. Mandatory read policy
+# 8. Mandatory read policy
 
 ## 企画 / 会話を続ける時
 
-まず:
-
 ```txt
 1. docs/CANON.md
-2. Character / Story / Idea Bookの必要なもの
-3. 必要ならdomain master
+2. docs/game-core-book-v1.md
+3. Character / Story / Idea Bookの必要なもの
+4. 必要ならdomain master
 ```
 
 ### Character質問
 
 ```txt
 CANON
+→ Game Core（必要範囲）
 → CHARACTERS
 → character-book-v3
 ```
@@ -178,6 +201,7 @@ CANON
 
 ```txt
 CANON
+→ Game Core
 → STORY
 → story-book-v1
 ```
@@ -186,6 +210,7 @@ CANON
 
 ```txt
 CANON
+→ Game Coreとの衝突確認
 → idea-book-v1
 ```
 
@@ -202,10 +227,11 @@ CANON
 - Current 21とfuture candidateを混ぜる
 - Ideaを勝手にCanonへ昇格
 - Ideaが未確定という理由で忘れる
+- IdeaのためにGame Coreを無自覚に曲げる
 
 ---
 
-# 8. Gameplay-first invariant
+# 9. Gameplay-first invariant
 
 ヨルノシルベは資料閲覧ゲームではない。
 
@@ -239,7 +265,7 @@ CANON
 
 ---
 
-# 9. Current terminology bridge
+# 10. Current terminology bridge
 
 | Current | Meaning |
 | --- | --- |
@@ -256,10 +282,11 @@ CANON
 
 ---
 
-# 10. Status labels
+# 11. Status labels
 
 重要設計は状態を明示する。
 
+- **CORE / CURRENT** — ゲーム identidade。変えるなら明示的Human decisionが必要
 - **CANON / CURRENT** — 今後の設計前提
 - **USER DIRECTION** — ユーザーが明示した強い方向
 - **USER IDEA** — 覚えて育てる
@@ -271,22 +298,20 @@ CANON
 
 ---
 
-# 11. Update rule
+# 12. Update rule
 
 ユーザーとの会話で新しい大事な案が出た時:
 
 ```txt
-まずIdea Bookまたは該当Bookへ記録
+Book / Current memoryへ記録
 ↓
-既存Currentとの関係を整理
+Game Coreとの関係を確認
 ↓
-まだ案ならそのままIdea / Candidate
+まだ案ならIdea / Candidateのまま育てる
 ↓
 確定した時だけdetail Current masterへ昇格
 ↓
 Hub / CANONを同期
 ```
 
-**「覚える」と「決める」は別。**
-
-これを今後の基本にする。
+Game Core自体を変更する場合は、普通のIdea昇格として扱わず、**「ゲームの中心を変える判断」**として明示する。
