@@ -1,283 +1,410 @@
 # ヨルノシルベ Gameplay / Meta Progression Hub
 
 Date: 2026-07-28  
-Status: **CURRENT DESIGN ENTRYPOINT / GAMEPLAY-FIRST**  
-Implementation note: this document restores and consolidates previously discussed progression directions. It does not claim every item below is already implemented.
+Status: **CURRENT GAMEPLAY-FIRST DESIGN ENTRYPOINT**
 
-## 0. 最重要の優先順位
+> Main Gameはヴァンサバ系の戦闘・build・周回。  
+> 人物情報・世界情報・レポートは遊んだ結果として増える副次報酬。
 
-ヨルノシルベは、物語・好感度・図鑑を読むことを主目的にしたゲームではない。
+---
 
-主役はあくまでヴァンサバ系のゲームプレイ。
+# 1. Main loop
 
 ```txt
 戦う
 ↓
-レベルアップしてビルドを作る
+Level Upしてbuildを作る
 ↓
-強敵・ステージ・条件へ挑む
+強敵 / Stage / 条件へ挑む
 ↓
-失敗しても少し恒久的に前進する
+失敗しても小さく前進する
 ↓
-達成条件を埋める
+夜明け星図 / 記憶のしるしが灯る
 ↓
-新しい強化 / 仲間 / 組み合わせ / 遊び方が増える
+永続強化 / 新装備 / 新Support / 新しい組み合わせが増える
 ↓
 また戦いたくなる
 ```
 
-キャラクター情報、関係性、世界の謎、レポート類はこの主循環を遊んだ結果として付いてくる **副次的な発見** とする。
-
-情報を読むために戦わせない。戦うこと自体が面白く、その結果として世界が分かっていく。
+**情報を読むために戦わせない。**
+戦闘自体が面白く、その副作用としてキャラや世界が分かっていく。
 
 ---
 
-# 1. メインゲームへ返る報酬
+# 2. Reward hierarchy
 
-メタ進行には必ずゲーム上のメリットを持たせる。
+## Primary reward — Gameplay
 
-候補となるリターン:
-
-- キャラクター固有特性の解放 / 強化
-- Support性能の拡張
-- Assistの追加挙動
-- Pair Trait解放
-- 灯合わせ解放 / 強化
-- 新しい灯具・持ち物・忘れ物候補
-- 初期選択肢やrerollなどビルド自由度の拡張
-- 新ステージ / 新探索条件 / 特殊ルール
 - 永続強化
-- 新キャラクター / Support枠
-- cosmetic / collection報酬
+- Personal Trait
+- Support Trait
+- Pair Trait
+- Assist拡張
+- 灯合わせ
+- 新しい灯具 / 持ち物 / 忘れ物
+- 灯継ぎ / 暁開きの選択肢
+- reroll / choice拡張
+- pickup / retry comfort
+- route / stage option
+- cosmetic / BGM
 
-「文章を1枚読める」だけを主要報酬にしない。
+## Secondary reward — Information
 
-文章・設定・謎は、ゲーム上の達成報酬に **追加で付く発見** として扱う。
+- 日常profile
+- 呼び方 / 敬語変化
+- Character Mystery fragment
+- 黒耀化記録
+- 星獣記録
+- 敵の生態 / 背景
+- 忘れ物の持ち主
+- 世界の観測記録
+- sequel seed
+
+**文章だけを主要報酬にしない。**
 
 ---
 
-# 2. 好感度 / Bondの位置づけ
+# 3. 読む / 読まないを両立する
 
-Bondは恋愛システムや会話収集システムが主目的ではない。
+## 読まないplayer
+
+リザルトで:
+
+- Parameter up
+- Trait unlocked
+- New option
+- New achievement
+
+が分かればよい。
+
+「なんか強くなった、ラッキー」で次のrunへ行ける。
+
+## 読むplayer
+
+灯録へ寄って:
+
+- キャラの生活
+- 人物関係
+- Main Mystery report
+- 黒耀化の理由
+- 敵や小物の裏
+- 過去の同一事件を別視点で読む
+
+ところまで掘れる。
+
+**未読 / 既読をGameplay強化条件にしない。**
+
+任意閲覧なので、情報量は豊富でよい。
+
+---
+
+# 4. Bond / Support
+
+詳細: `docs/BOND.md`
 
 ```txt
-好きな仲間をSupportで呼ぶ
-↓
-一緒に夜を越える
+Supportと一緒に戦う
 ↓
 Bondが育つ
 ↓
-そのキャラとの連携がゲーム上でも強くなる
+戦闘連携が強くなる
 ↓
-さらにその組み合わせを使いたくなる
+またその組み合わせを使いたくなる
 ```
 
-Bondによるゲーム上の変化候補:
+Gameplay payoff:
 
-- Support基礎特性の成長
-- Assist cooldown / trigger条件の改善
-- キャラ固有効果の追加
-- ペア固有シナジー
-- Pair Trait
+- Assist改善
+- Personal / Support / Pair Trait
+- stable / unstable pair gameplay
 - 灯合わせ
-- 特定ビルドとの相互作用
-- 高Bond時だけ成立する救援 / 復帰 / 防御挙動
+- rescue / guard / revival interaction
 
-同時に、ゲームプレイの副次報酬として以下が変化する。
+Secondary payoff:
 
-- 名前の呼び方
-- さん付け / 呼び捨て
+- 呼び方
 - 敬語
-- 戦闘中の短い掛け声
-- リザルト会話
+- 掛け声
 - 日常会
-- 弱音 / 冗談 / 本音
 - 人物情報
 
-重要:
-
-> **強くなることが一次報酬。仲良くなったことが自然に伝わる情報・会話は二次報酬。**
-
-ただし二次報酬は感情面では非常に重要で、プレイヤーが「強いから」だけでなく「この二人が好きだから」同じ組み合わせを使う理由になる。
+Bondは恋愛メーターではない。
 
 ---
 
-# 3. クリアゲッター系の達成盤
+# 5. 夜明け星図 — Clear Checker型の達成盤
 
-過去に検討した「クリアチェッカー / クリアゲッター」系の思想を保持する。
+詳細: `docs/PROGRESSION-ARCHIVE.md`
 
-役割は、プレイヤーへ自然に別の遊び方を試させること。
+旧クリアチェッカー / 夜明け盤のCurrent representation。
+
+```txt
+1つの記憶のしるしが灯る
+↓
+隣の星が見える
+↓
+次の試したい遊び方が分かる
+↓
+またrunへ行く
+```
+
+Prototype balance guide:
+
+- 自然達成 ~50%
+- 少し狙う ~30%
+- やり込み ~15%
+- 秘密 ~5%
+
+固定比率ではなく、普通に遊んでも複数灯る感覚を守るための目安。
+
+条件例:
+
+- 特定characterで夜明け
+- 特定Support
+- 特定灯具を育てる
+- 黒耀化なし
+- 特定灯合わせ
+- 被弾制限
+- 時間条件
+- hidden build
+
+報酬は強制感が出ない強さにする。
+
+---
+
+# 6. 灯録 — 情報の受け皿
+
+```txt
+灯録
+├ 夜明け星図
+├ カゲモノ図鑑
+├ 忘れ物絵札
+├ 灯し手の記録
+├ 言葉の記録
+└ 夜の観測記録
+```
+
+灯録を埋めるためにbattleを作業化しない。
+
+**遊んだ結果、気づけば増えている。**
+
+---
+
+# 7. Optional report structure
+
+`夜の観測記録` は、Main Mysteryを深く読む人向けのoptional report working label。
+
+```txt
+Main Story only
+→ 1作目の話は理解できる
+
++ 夜の観測記録
+→ 世界の「なぜ？」が増える
+
++ Character Bond / Mystery
+→ 個人視点が増える
+
++ 全部読む
+→ 別々の伏線が接続して見える
+```
+
+Kingdom HeartsのAnsem Reportのような「本筋外で世界解像度を上げる構造」を参考にするが、形式 / 内容は独自にする。
+
+100% report回収をHappy End条件にしない。
+
+---
+
+# 8. Fail-forward
+
+詳細: `docs/PROGRESSION-ARCHIVE.md`
+
+**1run失敗 = 無駄**にはしない。
+
+Game Overは死亡ではなく:
+
+> その夜の読み方では朝まで残れなかった。
+
+と扱う。
+
+失敗でも一部は残る候補:
+
+- small permanent currency
+- route hint
+- enemy observation
+- item trace
+- relation progress
+- retry comfort
+- optional record
+
+ただしfailure farmingを最適解にしない。
+
+Clearは大きい。
+Failureは小さく学ぶ。
+
+---
+
+# 9. Permanent growth philosophy
+
+旧fail-forward設計から有効なfamilyを保存する。
+
+## 灯りの手入れ
+
+starter / lantern系comfort。
+
+## 地図 / 夜路理解
+
+route hint / next goal / reading support。
+
+## 記憶の扱い
+
+pickup / fragment comfort。
+
+## 影の観察
+
+enemy knowledge / small studied-enemy advantage。
+
+## Retry comfort
+
+reroll / revive / early pickup grace。
+
+raw damageを際限なく積むより:
+
+- build幅
+- convenience
+- information advantage
+- route variation
+
+を厚くする。
+
+---
+
+# 10. 黒耀化との接続
+
+詳細: `docs/BLACK-YOUKA.md`
+
+黒耀化は:
+
+- 強い
+- キャラ固有
+- risk / 煤返りあり
+- 闇落ちではない
+
+夜明け星図でも:
+
+- 黒耀化を使う攻略
+- 黒耀化なし攻略
+- 特定character固有黒耀build
+
+の両方を作れる。
+
+「使わない方が正義」にはしない。
+
+---
+
+# 11. Result screen
+
+戦闘中の長文を避ける。
+
+本命はリザルト `旅の記録`。
 
 例:
 
-- 特定キャラでStageをクリア
-- 特定Supportと一緒にクリア
-- 特定灯具を進化
-- 黒耀化を使わずクリア
-- 特定の探索条件でクリア
-- 一度も倒れずにクリア
-- 特定敵を一定数倒す
-- 特殊な組み合わせを成立
-- 隠し条件を満たす
-
-達成時は、最低でも以下のどれかを付ける。
-
-- 永続強化
-- 新装備 / 新進化
-- 新Support / Pair Trait
-- 新しい開始条件
-- reroll / choice拡張
-- cosmetic
-- 星図の新しい接続
-
-そして副作用として、
-
-- キャラクターの追加記録
-- 世界の断片
-- 過去の出来事
-- 人物同士の関係
-- 謎のヒント
-
-が解放される。
-
----
-
-# 4. 夜明け図鑑 — 情報の受け皿
-
-以前の設計で「クリアチェッカー」から発展した達成・記録UIの方向を **夜明け図鑑** として保持する。
-
-候補タブ:
-
-- **夜明け星図** — 達成札 / 未達成札 / ヒント札 / 秘密札。達成同士が細い線でつながる
-- **影図鑑** — 敵や遭遇記録
-- **忘れ物絵札** — 灯具 / 持ち物 / 忘れ物と関連記録
-- **灯し手の記録** — キャラクター、Bond、成長、関係
-- **言葉の記録** — 戦闘や日常で自然に拾った言葉
-
-夜明け図鑑を埋めるためにゲームを作業化しない。
-
-達成した結果、気づけば埋まっているのが理想。
-
----
-
-# 5. アンセムレポート型の世界情報
-
-世界の大謎については、Kingdom Heartsの「アンセムレポート」のような **任意で深掘りできる断片資料** の考え方が相性良い。
-
-ただしコピーはしない。
-
-ヨルノシルベでは仮称 **夜の記録 / 夜明け報告 / 観測記録** などとして扱える。
-
-入手契機の候補:
-
-- ボス / Stage突破
-- クリアゲッター達成
-- 特殊条件
-- Shadowとの遭遇
-- 高難度探索
-- 特定人物のBondイベント
-
-重要な階層:
-
 ```txt
-メインストーリーだけでも1の物語は理解できる
-+
-レポートを読むと「なぜ？」の解像度が上がる
-+
-人物Bondを掘ると個人視点の真相が見える
-+
-全部合わせると伏線同士の繋がりが見える
+今回強くなった
+- 旅支度 +1
+- Pair Trait progress
+
+夜明け星図
+- 3つ灯った
+
+新しい記録
+- カゲモノ 1
+- 灯し手 1
+- 夜の観測記録 1
 ```
 
-レポート必読にしない。
+ここで本文を強制表示しない。
 
-読まないプレイヤー:
-- 戦闘と主要ストーリーを楽しめる
+playerは:
 
-読むプレイヤー:
-- 世界の仕組みを考察できる
-- 次回作への伏線に気づける
+- 次のrun
+- 灯録を読む
 
----
-
-# 6. Fail-forward — クリアできなくても前進
-
-過去方針を維持する。
-
-1ラン失敗 = 無駄、にはしない。
-
-失敗ランでも一部が残り、次の挑戦へ繋がる。
-
-過去に検討した残存物の例:
-
-- memory dust
-- page crease
-- lantern soot
-- object trace
-- ink sample
-- relation thread
-- bookmark
-- found note
-
-これらは名称・最終用途を今後整理してよいが、設計思想は維持する。
-
-> 失敗しても「次なら行けそう」が増える。
-
-ヴァンサバ系のリトライ欲を壊すほど重い育成にはしない。
+を自由に選べる。
 
 ---
 
-# 7. 情報はゲーム進行の副作用
+# 12. Story engineとの接続
 
-この作品での優先順位:
+詳細: `docs/STORY-ENGINE.md`
+
+最有力Candidateでは、普通のヴァンサバ系mechanicに裏の意味を持たせられる。
+
+例:
+
+- EXP = 記憶片
+- Level Up = その夜に扱える接続が増える
+- Game Over = 読み筋失敗
+- Retry = 別build / 別順で未確定夜を再読
+- permanent unlock = 次の夜にも残る確定progress
+
+**裏設定を知らなくてもGameplayは成立する。**
+
+後で知ると「ずっとやっていた操作に意味があった」となるのが理想。
+
+---
+
+# 13. Anti-grind / anti-obligation
+
+禁止:
+
+- loreを読むためだけの反復周回
+- Bond会話を見るため弱Stageを100回
+- 全達成しないと基本buildが弱すぎる
+- secretに必須機能
+- daily login obligation
+- 大量通貨
+- failure farming
+- unread notification guilt
+
+狙う:
+
+> **普通に遊ぶだけでも強くなる。好きになった人だけ、さらに奥まで読む。**
+
+---
+
+# 14. Current sources
+
+通常は:
 
 ```txt
-1. 戦闘が面白い
-2. ビルドが増える / 強くなる
-3. 違うキャラ・Support・構成を試したくなる
-4. 達成盤が埋まる
-5. その結果、人物や世界の情報が増えている
-6. 気になった人だけ深く読む
+docs/CANON.md
+↓
+docs/GAMEPLAY-META-PROGRESSION.md
+↓
+必要なら
+- docs/BOND.md
+- docs/PROGRESSION-ARCHIVE.md
+- docs/BLACK-YOUKA.md
+- docs/STORY-ENGINE.md
 ```
 
-逆にしない。
+旧clear checker / fail-forward / collection資料はmigration済み。
+通常読まない。
 
-```txt
-NG:
-情報を読むために作業周回させる
-好感度会話を見るためだけに同じ作業を繰り返させる
-世界観説明を理解しないと戦闘強化できない
-```
+一覧: `docs/legacy-design-migration-2026-07-28.md`
 
 ---
 
-# 8. 既存資料との接続
+# 15. Not locked yet
 
-キャラクター入口:
+- Support slot数
+- Bond exact values
+- achievement board exact size
+- reward quantities
+- permanent stat caps
+- report count
+- secret conditions
+- stable / unstable exact RNG / variance
 
-- `docs/CHARACTERS.md`
-- `docs/character-book-v2.md`
-- `docs/character-bond-support-system-v1.md`
-
-人物好感度のゲームプレイ側解釈は本書を優先する。
-
-物語 / 世界の謎は、ゲーム進行の主目的ではなく、プレイに伴って取得される副次情報として扱う。
-
----
-
-# 9. 今後の実装前に決めるもの
-
-まだ固定しない:
-
-- Support人数
-- Bond数値幅
-- Bond上昇量
-- 永続ステータスの具体値
-- クリアゲッター盤面サイズ
-- 報酬量
-- レポート総数
-- secret条件
-
-これらはゲームバランス / UI / プレイ時間を見ながら決定する。
-
-ただし、**Gameplay first / progression first / information as a side effect** の優先順位は今後の設計基準とする。
+Core prototype / playtestを見て決める。
