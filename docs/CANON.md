@@ -3,7 +3,7 @@
 Date: 2026-07-28  
 Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
-> ヨルノシルベの設計を確認・追加・変更する時は、最初にこのファイルを読む。  
+> ヨルノシルベの企画・キャラ・物語・メタ進行を扱う時は、まずこの1ファイルを読む。  
 > repo全体から過去資料を毎回掘り直さない。
 
 ---
@@ -12,80 +12,96 @@ Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
 | Domain | First read | Purpose |
 | --- | --- | --- |
-| Character | `docs/CHARACTERS.md` | 21人、関係、Bond、日常、星獣、黒耀化 |
-| Gameplay / Meta | `docs/GAMEPLAY-META-PROGRESSION.md` | ヴァンサバ系主循環、永続強化、達成盤、fail-forward |
-| Collection / Lore | `docs/PROGRESSION-ARCHIVE.md` | 灯録、夜明け星図、情報解放、任意レポート |
-| Story / Mystery | `docs/STORY.md` | Main Mystery、Character Mystery、Happy End、続編 |
+| Character | `docs/CHARACTERS.md` | 21人、人物像、日常、星獣、関係 |
+| Bond / Support | `docs/BOND.md` | 同行、関係成長、連携強化、安定/不安定ペア |
 | 黒耀化 | `docs/BLACK-YOUKA.md` | 共通システム名、21人固有呼称、歪み、星獣反応 |
-| Production / Runtime | `docs/181-current-production-canon.md` | 現在のUnity/production正本 |
+| Gameplay / Meta | `docs/GAMEPLAY-META-PROGRESSION.md` | ヴァンサバ系主循環、永続強化、fail-forward |
+| Achievement / Archive | `docs/PROGRESSION-ARCHIVE.md` | 灯録、夜明け星図、記憶のしるし、任意情報 |
+| Story / Mystery | `docs/STORY.md` | Main Mystery、Character Mystery、Happy End、続編 |
+| Story/Game logic | `docs/STORY-ENGINE.md` | ゲーム仕様と世界法則の接続、再読型伏線、series architecture |
+| Production / Runtime | `docs/181-current-production-canon.md` | 現在のUnity / production正本 |
 
-通常の企画・会話・キャラ質問はこの6入口だけから開始する。
+通常の企画・回答はこの8入口から始める。
 
 ---
 
-# 2. Canon layers
+# 2. Character detail masters
+
+Character Hubから必要時だけ読むCurrent detail:
+
+- `docs/character-book-v2.md` — 21人ひと目カード / 成長 / 強い関係
+- `docs/character-personal-profile-canon-v1.md` — 誕生日、好物、趣味、日常profile
+- `docs/character-star-beast-constellation-canon-v1.md` — 星座 / 星獣 / 由来
+- `docs/character-silhouette-diversity-current-canon-v1.md` — 体型 / 年齢感 / 眼鏡
+- `docs/CHARACTER-LIFE-AND-SPEECH.md` — 日常、癖、怒り、嘘、呼び方 / 敬語
+- current `src/game/data/*` — production/runtime data
+
+---
+
+# 3. Canon layers
 
 ## CURRENT CANON
 
 今後の新規設計が参照する正本。
 
-- `docs/CANON.md`
-- `docs/CHARACTERS.md`
-- `docs/character-book-v2.md`
-- `docs/character-bond-support-system-v1.md`
-- `docs/GAMEPLAY-META-PROGRESSION.md`
-- `docs/PROGRESSION-ARCHIVE.md`
-- `docs/STORY.md`
-- `docs/story-ending-sequel-architecture-v1.md`
-- `docs/story-foreshadowing-payoff-map-v1.md`
-- `docs/BLACK-YOUKA.md`
-- `docs/180-unified-character-canon.md`
-- `docs/181-current-production-canon.md`
-- current `src/game/data/*` production canon
+```txt
+docs/CANON.md
+├ docs/CHARACTERS.md
+│  ├ character-book-v2.md
+│  ├ CHARACTER-LIFE-AND-SPEECH.md
+│  ├ BOND.md
+│  └ BLACK-YOUKA.md
+├ docs/GAMEPLAY-META-PROGRESSION.md
+│  └ PROGRESSION-ARCHIVE.md
+├ docs/STORY.md
+│  ├ STORY-ENGINE.md
+│  ├ story-ending-sequel-architecture-v1.md
+│  └ story-foreshadowing-payoff-map-v1.md
+└ docs/181-current-production-canon.md
+```
+
+`docs/180-unified-character-canon.md` と current `src/game/data/*` はproduction-facing canonical dataとして保持する。
 
 ## LEGACY SOURCE
 
 過去に良い案があるが、そのままCurrent Canonとして読まない資料。
 
-Current Canonへの移植が済んだ資料は、通常作業では読まない。
-必要なのは「昔どう考えていたか」を監査する時だけ。
+Currentへの移植が済んだ資料は通常作業では読まない。
 
-移植状況は:
+移行状況:
 
 - `docs/legacy-design-migration-2026-07-28.md`
 
-で管理する。
-
 ---
 
-# 3. Mandatory read policy
+# 4. Mandatory read policy
 
 AI / Agent / Humanの通常設計手順:
 
 ```txt
 1. docs/CANON.md
 2. 対象domainのCurrent entrypoint
-3. Current detail canon
-4. 必要ならruntime data
-5. legacy sourceは原則読まない
+3. 必要なCurrent detailだけ読む
+4. 必要ならcurrent runtime dataを見る
+5. legacy sourceは読まない
 ```
 
 Legacyを読む例外:
 
-- Current Canonに「MIGRATION PENDING」と明記された情報を回収する時
-- 過去の命名・仕様変更の理由を監査する時
-- regression / history確認
+- migration ledgerに `MIGRATION PENDING` とある領域を一度だけ回収する時
+- 過去の変更理由 / regression / history監査
 
 禁止:
 
 - repo-wide searchで最初に古い資料へ入る
-- 古いキャラ名や古い星座をcurrentとして復活させる
-- legacy案とcurrent canonを混ぜて新しい正本を作る
-- 同じ情報を複数のCurrent masterへ別内容で二重管理する
+- migrated legacyをCurrent設計根拠として引用する
+- 古いキャラ名 / 旧星獣 / 旧用語を復活させる
+- Current 21とfuture candidateを混ぜる
+- 同じ情報を複数masterへ違う内容で二重管理する
 
 ---
 
-# 4. Gameplay-first invariant
+# 5. Gameplay-first invariant
 
 ヨルノシルベは資料閲覧ゲームではない。
 
@@ -94,60 +110,75 @@ Legacyを読む例外:
 → ビルドする
 → 強くなる
 → 違うキャラ / Support / 条件を試す
-→ 達成・永続成長
+→ 達成 / 永続成長
 → また戦う
 ```
 
-人物情報・世界情報・レポートはこの主循環から自然に増える。
+情報はプレイの副作用として増える。
 
-読まないプレイヤー:
+## 読まない人
 
-- パラメータや機能が上がって「ラッキー」でよい
-- メインゲームと主要ストーリーを問題なく遊べる
+- パラメータ / trait / 機能が上がった
+- 新しいbuildが開いた
+- 「ラッキー」でよい
+- Main Game / Main Storyは問題なく完走できる
 
-読むプレイヤー:
+## 読む人
 
-- キャラをもっと好きになれる
-- 伏線を拾える
-- 世界の解像度が上がる
-- 続編のヒントに気づける
+- キャラをもっと好きになる
+- 人物の過去や日常を読む
+- 世界の観測記録を読む
+- 伏線 / 矛盾を考察する
+- 続編で意味が変わるSeedに気づく
 
-情報量は、任意閲覧である限り豊富でよい。
-戦闘テンポを止めないことを優先する。
+**任意閲覧である限り、情報量は豊富でよい。**
+
+未読を消すこと、全文を読むこと、既読ボタンを押すことをGameplay強化条件にしない。
 
 ---
 
-# 5. Current terminology bridge
-
-過去名称とCurrent UI用語を混ぜない。
+# 6. Current terminology bridge
 
 | Current | Meaning |
 | --- | --- |
 | 灯録 | 収集・記録の総合Hub |
-| 夜明け星図 | クリアゲッター型の達成盤ビュー |
-| 記憶のしるし | 星図上の個別達成 / achievement node |
-| 灯し手の記録 | キャラ / Bond / 成長 / 黒耀化の記録 |
-| カゲモノ図鑑 | 敵の遭遇・攻略・背景記録 |
+| 夜明け星図 | Clear Checker型の達成盤view |
+| 記憶のしるし | 星図上の個別achievement |
+| 灯し手の記録 | キャラ / Bond / 成長 / 黒耀化 |
+| カゲモノ図鑑 | 敵の遭遇 / 攻略 / 背景記録 |
 | 忘れ物絵札 | 灯具 / 持ち物 / 忘れ物 / 所有者の気配 |
-| 言葉の記録 | 会話・短文・関係の変化 |
-| 夜の観測記録 | Main Mysteryを任意で深掘りするレポート群のworking label |
+| 言葉の記録 | 会話 / 短文 / 関係変化 |
+| 夜の観測記録 | Main Mysteryを任意で深掘るreport群のworking label |
 | 黒耀化 | 共通システム名 |
-| キャラ別黒耀呼称 | 各人物固有の黒耀化の呼び名 |
+| キャラ別黒耀呼称 | 各人物固有の黒耀化名 |
 
 ---
 
-# 6. Update rule
+# 7. Current / Candidateを混ぜない
+
+新しい資料では明示する。
+
+- **CURRENT / CANON** — 今後の設計前提
+- **USER DIRECTION** — ユーザーが明示した方向
+- **HIGH-VALUE CANDIDATE** — 旧設計から強く残すが真相等は未LOCK
+- **LEGACY** — 履歴専用
+
+特にMain Mysteryの具体的答えは、整合が高くてもHuman decision前にCANONへ昇格しない。
+
+---
+
+# 8. Update rule
 
 新しい重要設計を決めた時:
 
 ```txt
-詳細Current canonを更新
+詳細Current masterを更新
 ↓
 該当domain Hubを同期
 ↓
-必要なら docs/CANON.md の入口を同期
+必要なら docs/CANON.md を同期
 ↓
-吸収元legacyがある場合 migration ledgerへ記録
+legacyから移植した場合 migration ledgerを更新
 ```
 
-同じ設計を再発掘しないため、重要情報をlegacyだけに残さない。
+重要情報をlegacyだけに残さない。
