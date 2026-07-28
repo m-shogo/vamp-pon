@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "status": "ADOPTED_STORY_PROFILE_ONLY",
+  "rules": {
+    "sourceSet": "IAU_88_CONSTELLATIONS",
+    "biologicalConstellationsOnly": true,
+    "defaultUniqueAssignment": true,
+    "duplicateAllowedOnlyWithNarrativeReason": true,
+    "duplicateReasonTypes": ["siblings", "relatives", "shared_lineage", "shared_memory_origin", "succession", "hidden_relationship"],
+    "birthdayIndependent": true,
+    "astrologyPersonalityRule": false,
+    "runtimeCombatImplemented": false
+  },
+  "supersedes": {
+    "document": "docs/character-personal-profile-canon-v1.md",
+    "field": "zodiac",
+    "replacementFields": ["favoriteConstellation", "starBeast", "constellationOriginKernel", "constellationCharacterFit", "sharedConstellationReason"]
+  },
+  "characters": [
+    {"id":"yui","displayName":"ユイ","constellation":"Leo","ja":"獅子座","starBeast":"子獅子","sharedGroup":"leo-fire-line","sharedReason":"Tomoriとの火の系譜・血縁・継承に関する未回収伏線"},
+    {"id":"asa","displayName":"アサ","constellation":"Aries","ja":"おひつじ座","starBeast":"若い雄羊"},
+    {"id":"nagi","displayName":"ナギ","constellation":"Cancer","ja":"かに座","starBeast":"小さな蟹"},
+    {"id":"michiru","displayName":"ミチル","constellation":"Ursa Minor","ja":"こぐま座","starBeast":"小熊"},
+    {"id":"tomori","displayName":"トモリ","constellation":"Leo","ja":"獅子座","starBeast":"煤けた若獅子","sharedGroup":"leo-fire-line","sharedReason":"Yuiとの火の系譜・血縁・継承に関する未回収伏線"},
+    {"id":"sen","displayName":"セン","constellation":"Corvus","ja":"からす座","starBeast":"小烏"},
+    {"id":"ritsu","displayName":"リツ","constellation":"Canes Venatici","ja":"りょうけん座","starBeast":"大きい猟犬","sharedGroup":"sibling-hounds","sharedReason":"Koyoriとの兄妹関係。二頭で一つの星座という図像を使う"},
+    {"id":"koyori","displayName":"コヨリ","constellation":"Canes Venatici","ja":"りょうけん座","starBeast":"小さい猟犬","sharedGroup":"sibling-hounds","sharedReason":"Ritsuとの兄妹関係。二頭で一つの星座という図像を使う"},
+    {"id":"gen","displayName":"ゲン","constellation":"Ursa Major","ja":"おおぐま座","starBeast":"大熊"},
+    {"id":"hana","displayName":"ハナ","constellation":"Cygnus","ja":"はくちょう座","starBeast":"ふっくらした白鳥"},
+    {"id":"yubi","displayName":"ユウビ","constellation":"Columba","ja":"はと座","starBeast":"小鳩"},
+    {"id":"madoka","displayName":"マドカ","constellation":"Aquila","ja":"わし座","starBeast":"小鷲"},
+    {"id":"shiro","displayName":"シロ","constellation":"Lynx","ja":"やまねこ座","starBeast":"山猫"},
+    {"id":"tobari","displayName":"トバリ","constellation":"Canis Major","ja":"おおいぬ座","starBeast":"大きな番犬"},
+    {"id":"nemu","displayName":"ネム","constellation":"Delphinus","ja":"いるか座","starBeast":"小イルカ"},
+    {"id":"kuroori","displayName":"クロオリ","constellation":"Chamaeleon","ja":"カメレオン座","starBeast":"黒紙カメレオン"},
+    {"id":"kage1","displayName":"カナメ","constellation":"Lupus","ja":"おおかみ座","starBeast":"大きな灰狼"},
+    {"id":"kage2","displayName":"カスミ","constellation":"Vulpecula","ja":"こぎつね座","starBeast":"淡い小狐"},
+    {"id":"kage3","displayName":"トキ","constellation":"Grus","ja":"つる座","starBeast":"細身の鶴"},
+    {"id":"kage4","displayName":"ツムギ","constellation":"Lepus","ja":"うさぎ座","starBeast":"白灰の野兎"},
+    {"id":"ren","displayName":"レン","constellation":"Canis Minor","ja":"こいぬ座","starBeast":"小さな観察犬"}
+  ]
+}
