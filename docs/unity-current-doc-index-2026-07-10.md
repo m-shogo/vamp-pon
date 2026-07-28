@@ -49,6 +49,7 @@ Status: current
 9. `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
 10. `docs/design-production-completeness-gates-v1.md`
 11. `docs/design-human-decision-interaction-protocol-v1.md`
+12. `docs/design-language-foundation-proposal-v1.md`
 
 ## 現在のPhase
 
@@ -84,7 +85,13 @@ Heavy Designのdocument refinement中にユーザー固有の判断が必要に�
 `docs/design-human-decision-interaction-protocol-v1.md`
 を正本とする。作業側で調査・比較・推奨を完了し、ユーザーには原則1回1問、2〜4択のクリック式で確認する。技術的に自走できる事項をユーザーへ丸投げせず、未回答中は依存するdesign lock、画像生成、production昇格、Unity実装へ進まない。現在の判断待ちは
 `docs/design-targets/generated/design-production/human-decision-queue.json`
-を正本とし、現時点ではpending 0件である。
+を正本とし、現在は`HD-ART-DIRECTION-001`の1件がpendingである。
+
+現行Theme、StyleTokens、Responsive、Visual State、Font assetを読み取った具体的なDesign Language提案は
+`docs/design-language-foundation-proposal-v1.md`
+を正本候補とし、machine-readable stateは
+`docs/design-targets/generated/design-production/design-language-foundation-proposal.json`
+に記録する。全体の感情基調が未選択のため、Color、Paper、Lantern、Display Typographyは提案状態を維持し、LOCKしない。
 
 ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
 
@@ -139,6 +146,7 @@ productionApproved=false
 | heavy design next-chat handoff | `docs/design-heavy-production-next-chat-handoff-2026-07-27.md` |
 | heavy design completeness gates | `docs/design-production-completeness-gates-v1.md` |
 | human design decision interaction | `docs/design-human-decision-interaction-protocol-v1.md` |
+| design language proposal | `docs/design-language-foundation-proposal-v1.md` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
 | mobile QA | `docs/mobile-release-qa-gates.md` |
@@ -160,6 +168,7 @@ productionApproved=false
 - `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json`
 - `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/human-visual-rejection.json`
 - `docs/design-targets/generated/design-production/human-decision-queue.json`
+- `docs/design-targets/generated/design-production/design-language-foundation-proposal.json`
 - `docs/design-targets/generated/unity-u50/thresholds.json`
 - `docs/design-targets/generated/unity-current-state/state.json`
 
