@@ -25,7 +25,7 @@
 <!-- CURRENT_STATE_END -->
 
 Original adoption date: 2026-07-10
-Last synchronized: 2026-07-27
+Last synchronized: 2026-07-28
 Status: current
 
 ## Completion sources
@@ -48,6 +48,7 @@ Status: current
 8. `docs/design-heavy-production-future-roadmap-2026-07-27.md`
 9. `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
 10. `docs/design-production-completeness-gates-v1.md`
+11. `docs/design-human-decision-interaction-protocol-v1.md`
 
 ## 現在のPhase
 
@@ -77,7 +78,15 @@ Heavy Designは現在`HOLD / documentation only`であり、画像生成・Unity
 `docs/design-heavy-production-next-chat-handoff-2026-07-27.md`
 を読む。さらに、technical art予算、export/import仕様、component state網羅、初回体験、accessibility、商用利用・provenance、store surface、第三者reviewを含む画像生成前の必須完成ゲートは
 `docs/design-production-completeness-gates-v1.md`
-を必ず読む。ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
+を必ず読む。
+
+Heavy Designのdocument refinement中にユーザー固有の判断が必要になった場合は、
+`docs/design-human-decision-interaction-protocol-v1.md`
+を正本とする。作業側で調査・比較・推奨を完了し、ユーザーには原則1回1問、2〜4択のクリック式で確認する。技術的に自走できる事項をユーザーへ丸投げせず、未回答中は依存するdesign lock、画像生成、production昇格、Unity実装へ進まない。現在の判断待ちは
+`docs/design-targets/generated/design-production/human-decision-queue.json`
+を正本とし、現時点ではpending 0件である。
+
+ユーザーの明示指示があるまで画像生成・runtime変更へ進まない。
 
 ## 現在の境界
 
@@ -129,6 +138,7 @@ productionApproved=false
 | heavy design future roadmap | `docs/design-heavy-production-future-roadmap-2026-07-27.md` |
 | heavy design next-chat handoff | `docs/design-heavy-production-next-chat-handoff-2026-07-27.md` |
 | heavy design completeness gates | `docs/design-production-completeness-gates-v1.md` |
+| human design decision interaction | `docs/design-human-decision-interaction-protocol-v1.md` |
 | responsive | `docs/unity-responsive-screen-policy.md` |
 | performance | `docs/unity-mobile-performance-budget.md` |
 | mobile QA | `docs/mobile-release-qa-gates.md` |
@@ -149,6 +159,7 @@ productionApproved=false
 - `docs/design-targets/generated/unity-u49/device-install-launch-result.json`
 - `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json`
 - `docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/human-visual-rejection.json`
+- `docs/design-targets/generated/design-production/human-decision-queue.json`
 - `docs/design-targets/generated/unity-u50/thresholds.json`
 - `docs/design-targets/generated/unity-current-state/state.json`
 
