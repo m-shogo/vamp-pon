@@ -8,12 +8,20 @@ For any work under `docs/` involving characters, relationships, Bond, story, mys
 4. Use the shared-memory books when relevant:
 
 ```txt
-Character Book -> docs/character-book-v3.md
+Character Book -> docs/character-book-v4.md
 Story Book     -> docs/story-book-v1.md
 Idea Book      -> docs/idea-book-v1.md
 ```
 
-5. Read the matching Current detail master only when the Book is insufficient.
+5. For deep character work use:
+
+```txt
+docs/CHARACTERS.md
+→ docs/character-book-v4.md
+→ docs/character-deep-core-book-v1.md
+→ only the needed detail master
+```
+
 6. Do not search migrated legacy docs as normal authority.
 7. Check `docs/legacy-design-migration-2026-07-28.md` before opening an old design file.
 8. If a legacy file is marked `MIGRATED_NO_NORMAL_READ` or `HISTORY_ONLY`, do not use it for new design except explicit history/migration audit.
@@ -21,12 +29,15 @@ Idea Book      -> docs/idea-book-v1.md
 ## Memory semantics
 
 ```txt
-Game Core Book = remember what game this is
-GAME-DESIGN    = remember what design is complete, partial, proposed, or still open
-Character Book = remember people
-Story Book     = remember story, emotion, mysteries, sequel space
-Idea Book      = remember user ideas without premature canonization
+Game Core Book      = remember what game this is
+GAME-DESIGN         = remember what design is complete, partial, proposed, or still open
+Character Book v4   = remember people quickly
+Character Deep Core = remember why each person is compelling, how they distort, and how they grow
+Story Book          = remember story, emotion, mysteries, sequel space
+Idea Book           = remember user ideas without premature canonization
 ```
+
+`docs/character-book-v3.md` is superseded and must not be used as Current character authority.
 
 Game Core has higher design priority than an undecided Idea.
 
@@ -51,6 +62,70 @@ Preserve meaningful user ideas with accurate labels:
 
 Do not force a USER IDEA into a hard rule too early.
 Do not make the user restate a preserved idea later.
+
+## Character depth rules
+
+Do not deepen the cast by giving everyone the same tragedy.
+
+Avoid automatically adding to every character:
+
+- dead parents
+- secret bloodlines
+- betrayal
+- amnesia
+- hidden chosen-one status
+- an old connection to every other character
+
+Prefer:
+
+```txt
+one visible strength
+↓
+one weakness from the same root
+↓
+one ordinary-life behavior that reveals it
+↓
+one relationship that challenges it
+↓
+one 黒耀化 wrong arrival
+↓
+one growth that changes gameplay without erasing the original personality
+```
+
+Keep Current21 relationships varied:
+
+1. direct family / mentorship / romance / old acquaintance
+2. inherited objects / words / techniques
+3. ideological mirrors
+4. **relationships first created inside ヨルノシルベ**
+
+Do not let past-lore connections replace the player's observed relationship-building time.
+
+## Long-lived witch Candidate
+
+Current Candidate reference:
+
+`docs/character-long-lived-witch-arc-v1.md`
+
+Do not restore the old idea that the witch and apprentices have no romance history.
+
+The current Candidate is a long life containing multiple different relationships with different apprentices: pure mentorship, family-like bonds, friendship, adult romance, marriage, children, separation, and reunion. Not every apprentice is romantic.
+
+Her core is not "immortality is sad" alone. It is that she has lived ordinary human forms of love from beginning to end many times while she alone barely ages. ヨルノシルベ becomes tempting because people do not age there in the ordinary way.
+
+## 黒耀化 semantic
+
+`黒耀化` is not an external evil personality to discard.
+
+It is:
+
+> **an alternate self / wrong arrival produced when the person's existing strength, wish, fear, and power become too one-sided.**
+
+The character ultimately recognizes:
+
+> 「あれも自分だった。扱い方を知らなかった。」
+
+Growth may allow part of that overwhelming power to be used safely later.
 
 ## Completeness rule
 
@@ -79,6 +154,8 @@ Do not prematurely lock exact balance numbers merely to remove an OPEN status.
 Game Core       -> docs/game-core-book-v1.md
 Design coverage -> docs/GAME-DESIGN.md
 Character       -> docs/CHARACTERS.md
+Character book  -> docs/character-book-v4.md
+Character depth -> docs/character-deep-core-book-v1.md
 Bond / Support  -> docs/BOND.md
 黒耀化          -> docs/BLACK-YOUKA.md
 Gameplay / Meta -> docs/GAMEPLAY-META-PROGRESSION.md
@@ -102,4 +179,7 @@ Runtime         -> docs/181-current-production-canon.md
 - Main Mystery and Character Mystery remain separate lanes
 - HIGH-VALUE CANDIDATE is not CANON until explicitly promoted
 - Keep Current 21 separate from future candidates
+- Character Book v4 supersedes v3
+- Character depth must keep different causes, different relationship shapes, and different daily-life expression
+- 黒耀化 is integrated self, not disposable external evil
 - Design-doc work must not promote U49/U50/runtime readiness
