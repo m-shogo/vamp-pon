@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-28",
+  "queueStatus": "PLANNED_NOT_STARTED",
+  "generationAuthority": "CHATGPT_HUMAN_SUPERVISED",
+  "repositoryAgentMayGenerateImages": false,
+  "oneBriefAtATime": true,
+  "activeRequest": null,
+  "imageGenerationStarted": false,
+  "requests": [
+    {
+      "requestId": "W1-01-TOP",
+      "order": 1,
+      "screenId": "TOP",
+      "brief": "docs/design-generation-briefs-wave1-v1.md#W1-01-TOP",
+      "status": "PREPARED_NOT_APPROVED",
+      "candidateCount": 3,
+      "explorationDirections": ["A1 夜路の入口", "A2 記憶の窓", "A3 灯りの停留所"],
+      "requiresCurrentRuntimeCapture": true,
+      "requiresExistingReferenceComparison": true,
+      "blocksNextUntilDirectionSelected": true,
+      "reservedOutputRoot": "docs/design-targets/generated/design-production/candidates/W1-01-TOP/"
+    },
+    {
+      "requestId": "W1-02-STAGE-SELECT",
+      "order": 2,
+      "screenId": "STAGE_SELECT",
+      "brief": "docs/design-generation-briefs-wave1-v1.md#W1-02-StageSelect",
+      "status": "BLOCKED_BY_PREVIOUS_REQUEST",
+      "candidateCount": 3,
+      "explorationDirections": ["A1 細い夜道", "A2 紙の旅程", "A3 忘れられた街の標識"],
+      "requiresCurrentRuntimeCapture": true,
+      "requiresExistingReferenceComparison": true,
+      "dependsOn": ["W1-01-TOP:DIRECTION_SELECTED"],
+      "reservedOutputRoot": "docs/design-targets/generated/design-production/candidates/W1-02-STAGE-SELECT/"
+    },
+    {
+      "requestId": "W1-03-LEVEL-UP",
+      "order": 3,
+      "screenId": "LEVEL_UP",
+      "brief": "docs/design-generation-briefs-wave1-v1.md#W1-03-LevelUp",
+      "status": "BLOCKED_BY_PREVIOUS_REQUEST",
+      "candidateCount": 3,
+      "explorationDirections": ["A1 記憶札", "A2 灯りの標本", "A3 綴じられた頁"],
+      "requiresCurrentRuntimeCapture": true,
+      "requiresExistingReferenceComparison": true,
+      "dependsOn": ["W1-02-STAGE-SELECT:DIRECTION_SELECTED"],
+      "reservedOutputRoot": "docs/design-targets/generated/design-production/candidates/W1-03-LEVEL-UP/"
+    }
+  ],
+  "generationStartRequirements": {
+    "artDirectionHumanDirectionLocked": true,
+    "referenceRegistryReviewed": true,
+    "currentRuntimeCaptureAvailable": false,
+    "activeBriefHumanApproved": false,
+    "technicalBudgetReviewed": true,
+    "comparisonPackPrepared": true,
+    "reservedPathsDefined": true
+  },
+  "boundaries": {
+    "unityDesignImplementationStarted": false,
+    "runtimeMutation": false,
+    "u49EvidenceMutation": false,
+    "wholeAppHumanVisualAccepted": false
+  },
+  "nextAction": "COMPLETE_DOCUMENTATION_READINESS_REVIEW"
+}
