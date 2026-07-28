@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "DESIGN_INTEGRATION_COVERAGE_NOT_RUNTIME_READINESS",
+  "sources": [
+    "docs/CHARACTER-STORY-INTEGRATION.md",
+    "docs/character-story-integration-audit-2026-07-29.md",
+    "docs/GAME-DESIGN.md"
+  ],
+  "current21": {
+    "profileCore": "21/21",
+    "voiceDirection": "21/21",
+    "distinctiveRelationLanesAtLeast2": "21/21",
+    "blackYoukaWrongArrival": "21/21",
+    "blackYoukaRescueDirection": "21/21",
+    "dawnProof": "21/21",
+    "storyGameplayPayoff": "21/21"
+  },
+  "future15": {
+    "profile": "15/15",
+    "relationshipStoryReservoir": "15/15",
+    "current21Promotion": false,
+    "sequelCastLocked": false
+  },
+  "enemies": {
+    "currentProductionIdentity": "48/48",
+    "collectionWritingLayers": "48/48",
+    "legacyNameAuthority": false,
+    "legacyMechanicReservoirAllowed": true
+  },
+  "stageStory": {
+    "stage1To5CharacterPlacement": "5/5",
+    "stage1To5EncounterDirection": "5/5",
+    "exactWaveValuesLocked": false,
+    "exactBossAssignmentsLocked": false,
+    "stage6To20EncounterDesignComplete": false,
+    "fullProductionStageSystemStatus": "PARTIAL"
+  },
+  "mystery": {
+    "cGradeMustPayInGame1": true,
+    "bGradeCanDeepenLater": true,
+    "aGradeCanRemainSeriesMystery": true,
+    "mainMysteryFinalAnswerLocked": false
+  },
+  "runtime": {
+    "runtimeChangedByThisDesignPass": false,
+    "u49Promoted": false,
+    "u50Promoted": false,
+    "rcPromoted": false
+  },
+  "nextDesignRisk": "overexposing good settings in main story rather than lack of setting",
+  "newCharacterDefault": "FREEZE_AND_DEEPEN_EXISTING_36"
+}
