@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 7,
+  "schemaVersion": 8,
   "date": "2026-07-29",
   "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
@@ -123,8 +123,11 @@
     ],
     "migrationValidationConnected": true,
     "codemodStateValidationConnected": true,
-    "currentCoverage": "2/11 connected, 9 remaining",
-    "migratedCoverage": "11/11 connected, 0 remaining",
+    "allowedCoherentCoverageStates": [
+      "2/11 connected, 9 remaining",
+      "11/11 connected, 0 remaining"
+    ],
+    "coverageDerivedFromAuthorityFlag": true,
     "prematureApprovalBlocked": true,
     "partialSourceMigrationBlocked": true
   },
