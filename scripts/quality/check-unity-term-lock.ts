@@ -19,6 +19,7 @@ const explicitFiles = [
   'docs/unity-asset-intake-gate-2026-06-30.md',
   'docs/unity-sprite-import-policy-2026-06-30.md',
   'docs/unity-u5-1-quality-gate-review-2026-06-30.md',
+  'src/game/data/achievements.ts',
   'src/game/data/collectionProgress.ts',
   'src/game/data/collectionSections.ts',
   'src/game/data/keeperRecords.ts',
