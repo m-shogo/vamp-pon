@@ -22,6 +22,12 @@ const DISPLAY_ONLY_CELL_IDS = new Set([
   'fs_008_clear_depth_1_no_black_form',
 ]);
 
+const LEGACY_DISPLAY_OVERRIDES: Record<string, Partial<Pick<NightBoardCell, 'title' | 'condition'>>> = {
+  fs_008_clear_depth_1_no_black_form: {
+    condition: '忘れ物通り 深度1を黒曜化なしで夜明けする',
+  },
+};
+
 export type CompatibleNightBoardCell = NightBoardCell & {
   originalTitle: string;
   originalCondition: string;
@@ -41,14 +47,19 @@ function classifyCell(cell: NightBoardCell): NightBoardCellMigrationClass {
 }
 
 export const forgottenStreetCompatibleCells: CompatibleNightBoardCell[] =
-  forgottenStreetNightBoard.cells.map((cell) => ({
-    ...cell,
-    originalTitle: cell.title,
-    originalCondition: cell.condition,
-    migrationClass: classifyCell(cell),
-    currentDisplayTitle: normalizeLegacyDisplayTerm(cell.title),
-    currentDisplayCondition: normalizeLegacyDisplayTerm(cell.condition),
-  }));
+  forgottenStreetNightBoard.cells.map((cell) => {
+    const legacy = LEGACY_DISPLAY_OVERRIDES[cell.id];
+    const originalTitle = legacy?.title ?? cell.title;
+    const originalCondition = legacy?.condition ?? cell.condition;
+    return {
+      ...cell,
+      originalTitle,
+      originalCondition,
+      migrationClass: classifyCell(cell),
+      currentDisplayTitle: normalizeLegacyDisplayTerm(cell.title),
+      currentDisplayCondition: normalizeLegacyDisplayTerm(cell.condition),
+    };
+  });
 
 export const forgottenStreetNightBoardCompatibility = {
   id: forgottenStreetNightBoard.id,
