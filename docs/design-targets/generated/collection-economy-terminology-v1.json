@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "date": "2026-07-29",
-  "status": "CURRENT_CONCEPT_SEPARATION_DISPLAY_RENAME_NOT_APPROVED",
+  "status": "CURRENT_CONCEPT_SEPARATION_ACTUAL_RUN_COUNTER_CONNECTED_DISPLAY_RENAME_NOT_APPROVED",
   "resources": [
     {
       "id": "economy:meta_upgrade_currency",
@@ -37,13 +37,20 @@
     },
     {
       "id": "economy:prototype_light_coin_counter",
-      "concept": "prototype_stage1_completion_proxy",
+      "concept": "actual_per_run_meta_currency_earned_counter",
       "runtimeIds": [
         "NightBoardCell:fs_019_collect_100_light_coin",
-        "prototype-formula:kills*0.35+memoryFragmentsCollected*0.7"
+        "transient:RunStats.earnedMetaCurrencyThisRun"
       ],
+      "sourceRuntimeId": "RunSettlement.currencyEarned",
+      "excludedRuntimeIds": [
+        "profile.currency",
+        "RunSettlement.achievementReward",
+        "RuntimeStats.memoryFragmentsCollected"
+      ],
+      "threshold": 100,
       "currentDisplayLabels": ["灯貨"],
-      "namingStatus": "PROTOTYPE_COUNTER",
+      "namingStatus": "CURRENT_TRACKED_COUNTER_PENDING_NAME",
       "persistent": false,
       "spendable": false,
       "autoRenameAllowed": false
@@ -64,9 +71,19 @@
   ],
   "implementation": {
     "source": "src/game/data/collectionEconomyTerminology.ts",
-    "unitTest": "src/game/data/collectionEconomyTerminology.test.ts",
+    "settlementSource": "src/game/persistence/profile.ts",
+    "collectionConsumer": "src/game/systems/collectionProgress.ts",
+    "unitTests": [
+      "src/game/data/collectionEconomyTerminology.test.ts",
+      "src/game/persistence/__tests__/profileRunCurrencyTracking.test.ts"
+    ],
     "includedInNamedObjectChecker": true,
     "includedInImplementationPreflight": true,
+    "actualPerRunCounterConnected": true,
+    "proxyFormulaRemoved": true,
+    "achievementRewardsExcluded": true,
+    "walletBalanceExcluded": true,
+    "memoryFragmentDirectReadExcluded": true,
     "runtimeDisplayFormatterConnected": false,
     "saveMigrationPerformed": false
   },
@@ -74,28 +91,35 @@
     "status": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
     "persistentCurrencyDisplay": "灯貨",
     "legacyDisplayAlias": "黒曜片",
-    "requiredBeforePromotion": [
+    "completedPrerequisites": [
       "preserve PlayerProfile.currency",
       "preserve light_coin as internal alias",
       "add actual per-run earned-currency counter",
       "replace fs_019 proxy formula",
+      "add run-counter and achievement-exclusion tests"
+    ],
+    "remainingBeforePromotion": [
       "connect くすんだ灯貨 to the persistent currency lineage",
-      "add save purchase refund reward and achievement tests",
+      "add full save purchase refund reward round-trip evidence",
+      "patch every active display surface atomically",
       "human naming approval"
     ]
   },
   "activeRepair": {
     "achievementDescriptionsMigratedToBlackYouka": 4,
+    "upgradeDefinitionBlackYoukaLabelsMigrated": 2,
     "achievementIdsChanged": false,
+    "upgradeIdsChanged": false,
     "runtimeIdsChanged": false,
     "rewardValuesChanged": false,
-    "achievementTermLockEnabled": true
+    "achievementTermLockEnabled": true,
+    "profileTermLockEnabled": true
   },
   "knownDebt": [
-    "PlayerProfile UPGRADE_DEFS contains legacy 黒曜化 wording",
     "CollectionScene keeper header contains abbreviated 黒曜 wording",
     "StageSelect uses 黒曜片 and 黒曜研究所 pending economy/facility naming review",
-    "fs_019_collect_100_light_coin uses a proxy formula"
+    "persistent currency display name is not approved",
+    "くすんだ灯貨 is not yet connected to the persistent currency lineage"
   ],
   "readinessUnaffected": true
 }
