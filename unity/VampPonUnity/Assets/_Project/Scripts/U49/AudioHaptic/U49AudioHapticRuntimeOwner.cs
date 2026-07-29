@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
-using VampPon.UnitySpike.Runtime.Save;
+using VampPon.UnitySpike.Runtime;
 using VampPon.UnitySpike.U28.FeelIntegration;
 using VampPon.UnitySpike.U29.PerformanceMobile;
 
@@ -34,7 +34,8 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
         private U29AudioPerformanceBudget budget;
         private bool hapticEnabled = true;
         private bool muted;
-        private float masterVolume = 1f;
+        private float bgmVolume = 1f;
+        private float seVolume = 1f;
 
         public U49AudioHapticDiagnostics Diagnostics { get; } = new();
         public bool AudioRuntimeReady => profile != null && Diagnostics.mixerRoutingComplete &&
@@ -145,10 +146,11 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
             return executed;
         }
 
-        public void ApplySettings(GameSettingsSave settings)
+        public void ApplySettings(AppPreferenceSnapshot settings)
         {
-            masterVolume = Mathf.Clamp01(settings?.masterVolume ?? 1f);
-            hapticEnabled = settings?.hapticEnabled ?? true;
+            bgmVolume = Mathf.Clamp01(settings?.bgmVolume ?? 1f);
+            seVolume = Mathf.Clamp01(settings?.seVolume ?? 1f);
+            hapticEnabled = settings?.hapticsEnabled ?? true;
             ApplyMixerVolumes();
         }
 
@@ -254,10 +256,10 @@ namespace VampPon.UnitySpike.U49.AudioHaptic
         private void ApplyMixerVolumes()
         {
             if (profile?.Mixer == null) return;
-            SetMixerVolume(U49AudioMixerParameters.MasterVolumeDb, muted ? 0f : masterVolume);
-            SetMixerVolume(U49AudioMixerParameters.BgmVolumeDb, profile.DefaultBgmVolume);
-            SetMixerVolume(U49AudioMixerParameters.SeVolumeDb, profile.DefaultSeVolume);
-            SetMixerVolume(U49AudioMixerParameters.UiVolumeDb, profile.DefaultUiVolume);
+            SetMixerVolume(U49AudioMixerParameters.MasterVolumeDb, muted ? 0f : 1f);
+            SetMixerVolume(U49AudioMixerParameters.BgmVolumeDb, profile.DefaultBgmVolume * bgmVolume);
+            SetMixerVolume(U49AudioMixerParameters.SeVolumeDb, profile.DefaultSeVolume * seVolume);
+            SetMixerVolume(U49AudioMixerParameters.UiVolumeDb, profile.DefaultUiVolume * seVolume);
         }
 
         private void SetMixerVolume(string parameter, float linear)

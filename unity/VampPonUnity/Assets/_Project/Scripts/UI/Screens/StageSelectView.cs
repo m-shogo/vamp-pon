@@ -19,7 +19,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private TextMeshProUGUI detailTitle;
         private TextMeshProUGUI detailStatus;
 
-        public void Build(Transform parent, TMP_FontAsset fontAsset, AppFlowCoordinator flow)
+        public void Build(Transform parent, TMP_FontAsset fontAsset, AppFlowCoordinator flow, Action openSettings = null)
         {
             coordinator = flow ?? throw new ArgumentNullException(nameof(flow)); font = fontAsset;
             transform.SetParent(parent, false);
@@ -36,6 +36,7 @@ namespace VampPon.UnitySpike.UI.Screens
             startButton = U46ScreenFactory.Button(panel.transform, "StartStageButton", "出発する", AppQualityAssetProvider.PaperButtonFrame, new Vector2(.14f, .095f), new Vector2(.86f, .165f), font, StartSelected);
             startLabel = startButton.GetComponentInChildren<TextMeshProUGUI>(true);
             U46ScreenFactory.Button(panel.transform, "OpenCollectionButton", "灯録を開く", AppQualityAssetProvider.PaperButtonFrame, new Vector2(.23f, .018f), new Vector2(.77f, .082f), font, () => coordinator.Execute(AppFlowCommand.OpenCollection()));
+            U46ScreenFactory.Button(panel.transform, "OpenSettingsButton", "設定", AppQualityAssetProvider.PaperButtonFrame, new Vector2(.79f, .88f), new Vector2(.94f, .94f), font, openSettings);
             U46ScreenFactory.Decoration(panel.transform, "LanternAccent", AppQualityAssetProvider.SmallLanternAccent, new Vector2(.88f, .87f), new Vector2(44f, 44f), Vector2.zero);
             coordinator.StageSelection.Changed += Render;
             Render();

@@ -28,6 +28,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private StageSelectView stageSelect;
         private ResultView result;
         private CollectionView collection;
+        private SettingsView settings;
+        private AppPreferenceService preferences;
         private U4LevelUpDemoController levelUp;
         private GameObject appFlowCanvas;
         private Transform battleHudRoot;
@@ -42,6 +44,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         public AppFlowCoordinator Flow => flow;
         public RunPauseCoordinator Pause => pause;
         public SaveService Save => save;
+        public AppPreferenceService Preferences => preferences;
 
         public void Initialize(U2BattleController battleController, PlayerController playerController, YuiSpriteAnimator yuiAnimator, U4LevelUpDemoController levelUpController, Transform gameplayHudRoot)
         {
@@ -52,6 +55,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             initialPlayerPosition = player.transform.position;
             pause = new RunPauseCoordinator();
             save = new SaveService();
+            preferences = new AppPreferenceService();
+            preferences.Changed += ApplyPreferences;
             flow = new AppFlowCoordinator(pause, save, ResetRun);
             pause.PauseChanged += ApplyPause;
             flow.StateChanged += ApplyState;
@@ -61,6 +66,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
                 levelUp.OverlayClosed += HandleLevelUpClosed;
             }
             BuildViews();
+            ApplyPreferences(preferences.Current);
             flow.Initialize();
             ApplyState(flow.State);
         }
@@ -117,6 +123,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         {
             if (pause != null) pause.PauseChanged -= ApplyPause;
             if (flow != null) flow.StateChanged -= ApplyState;
+            if (preferences != null) preferences.Changed -= ApplyPreferences;
             if (levelUp != null)
             {
                 levelUp.OverlayOpened -= HandleLevelUpOpened;
@@ -136,9 +143,15 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             var safe = new GameObject("U46SafeArea", typeof(RectTransform), typeof(SafeAreaFitter)); safe.transform.SetParent(canvasObject.transform, false);
             var safeRect = safe.GetComponent<RectTransform>(); safeRect.anchorMin = Vector2.zero; safeRect.anchorMax = Vector2.one; safeRect.offsetMin = Vector2.zero; safeRect.offsetMax = Vector2.zero;
             var font = LoadFont(); var catalog = new U46UiAssetCatalog();
-            stageSelect = new GameObject("U46StageSelectView", typeof(StageSelectView)).GetComponent<StageSelectView>(); stageSelect.Build(safe.transform, font, flow);
+            stageSelect = new GameObject("U46StageSelectView", typeof(StageSelectView)).GetComponent<StageSelectView>(); stageSelect.Build(safe.transform, font, flow, () => settings?.Show());
             result = new GameObject("U46ResultView", typeof(ResultView)).GetComponent<ResultView>(); result.Build(safe.transform, font, catalog, new ResultPresenter(flow));
             collection = new GameObject("U46CollectionView", typeof(CollectionView)).GetComponent<CollectionView>(); collection.Build(safe.transform, font, catalog, new CollectionPresenter(flow, save));
+            settings = new GameObject("SettingsView", typeof(SettingsView)).GetComponent<SettingsView>(); settings.Build(safe.transform, font, preferences, () => settings.Hide());
+        }
+
+        private static void ApplyPreferences(AppPreferenceSnapshot value)
+        {
+            U43RuntimeFeedbackBridge.Instance?.ApplySettings(value);
         }
 
         private void ApplyState(AppFlowState state)

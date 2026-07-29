@@ -32,8 +32,8 @@ describe('settings baseline', () => {
     expect(ranges.every((setting) => setting.min === 0 && setting.max === 1)).toBe(true);
   });
 
-  it('Definitionだけでruntime settings実装済みとは扱わない', () => {
+  it('Web/Unity runtime接続状態をDefinitionと同期する', () => {
     expect(validateSettingsBaseline()).toEqual([]);
-    expect(SETTINGS_BASELINE_RUNTIME_CONNECTION).toBe('DEFINITION_NOT_CONNECTED');
+    expect(SETTINGS_BASELINE_RUNTIME_CONNECTION).toBe('WEB_RUNTIME_CONNECTED_UNITY_RUNTIME_CONNECTED');
   });
 });

@@ -1,5 +1,4 @@
 using UnityEngine;
-using VampPon.UnitySpike.Runtime.Save;
 using VampPon.UnitySpike.U28.FeelIntegration;
 using VampPon.UnitySpike.U39.AudioReadiness;
 using VampPon.UnitySpike.U49.AudioHaptic;
@@ -41,7 +40,7 @@ namespace VampPon.UnitySpike.Runtime
             Instance?.Play(U28AudioEventId.CardConfirm, true);
         }
 
-        public void ApplySettings(GameSettingsSave settings) => owner?.ApplySettings(settings);
+        public void ApplySettings(AppPreferenceSnapshot settings) => owner?.ApplySettings(settings);
         public void PlayBattleStart() => Play(U28AudioEventId.BattleStart, true);
         public void PlayWeaponFire() => Play(U28AudioEventId.WeaponFireSoft, false);
         public void PlayEnemyHit() => Play(U28AudioEventId.EnemyHitSoft, false);

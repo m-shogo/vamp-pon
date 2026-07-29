@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
+using VampPon.UnitySpike.Runtime;
 using VampPon.UnitySpike.Runtime.Save;
 using VampPon.UnitySpike.U28.FeelIntegration;
 using VampPon.UnitySpike.U49.AudioHaptic;
@@ -49,7 +50,7 @@ namespace VampPon.UnitySpike.Editor
                 Require(sources.Length == 8, "voice pool size");
                 Require(sources.All(source => source.outputAudioMixerGroup != null), "no source bypass");
                 Require(UnityEngine.Object.FindObjectsByType<AudioListener>(FindObjectsInactive.Include).Length == beforeListeners, "owner does not duplicate AudioListener");
-                owner.ApplySettings(new GameSettingsSave { masterVolume = 0.5f, hapticEnabled = false });
+                owner.ApplySettings(new AppPreferenceSnapshot { bgmVolume = 0.5f, seVolume = 0.5f, hapticsEnabled = false });
                 Require(!owner.HapticEnabled && !owner.PlayHaptic(U28HapticEventId.LightTap), "haptic setting off blocks route");
                 owner.SetHapticEnabled(true);
                 Require(!owner.HapticRuntimeSupported, "Editor is explicit no-op haptic route");

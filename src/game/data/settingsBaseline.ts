@@ -1,4 +1,4 @@
-import { WORLD_TERMS } from './worldTerms';
+import { WORLD_TERMS } from './worldTerms.ts';
 
 export type SettingsBaselineId =
   | 'bgmVolume'
@@ -74,7 +74,7 @@ export const SETTINGS_BASELINE: SettingsBaselineDefinition[] = [
   },
 ];
 
-export const SETTINGS_BASELINE_RUNTIME_CONNECTION = 'DEFINITION_NOT_CONNECTED' as const;
+export const SETTINGS_BASELINE_RUNTIME_CONNECTION = 'WEB_RUNTIME_CONNECTED_UNITY_RUNTIME_CONNECTED' as const;
 
 export function validateSettingsBaseline(): string[] {
   const errors: string[] = [];

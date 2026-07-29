@@ -3,6 +3,7 @@ import { BootScene } from './game/scenes/BootScene';
 import { CollectionScene } from './game/scenes/CollectionScene';
 import { MainScene } from './game/scenes/MainScene';
 import { StageSelectScene } from './game/scenes/StageSelectScene';
+import { SettingsScene } from './game/scenes/SettingsScene';
 import { TopScene } from './game/scenes/TopScene';
 import './styles.css';
 
@@ -15,6 +16,7 @@ const productionScenes: Phaser.Types.Scenes.SceneType[] = [
   BootScene,
   TopScene,
   StageSelectScene,
+  SettingsScene,
   CollectionScene,
   MainScene,
 ];
