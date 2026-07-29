@@ -1,9 +1,14 @@
+import { META_UPGRADE_CURRENCY_ID } from './collectionEconomyTerminology';
+
 export type LostItemAura = '帰り道' | '約束' | '灯り' | '傷' | '交換' | '閉じた部屋';
 
 export type LostItemConnectionStatus =
   | 'CURRENT'
   | 'CURRENT_WITH_LEGACY_BINDING'
   | 'REVIEW_REQUIRED';
+
+export type LostItemEconomyConnectionStatus =
+  | 'HIGH_VALUE_CANDIDATE_RELATED_NOT_CANONICAL';
 
 export type LostItemRecord = {
   id: string;
@@ -16,6 +21,8 @@ export type LostItemRecord = {
   legacyRelatedKeeperIds: string[];
   connectionStatus: LostItemConnectionStatus;
   relatedBoardCellId?: string;
+  relatedEconomyConceptId?: string;
+  economyConnectionStatus?: LostItemEconomyConnectionStatus;
   shortFlavor: string;
   memoryText: string;
   unlockHint: string;
@@ -102,11 +109,13 @@ export const lostItemRecords: LostItemRecord[] = [
     legacyRelatedKeeperIds: [],
     connectionStatus: 'REVIEW_REQUIRED',
     relatedBoardCellId: 'fs_019_collect_100_light_coin',
+    relatedEconomyConceptId: META_UPGRADE_CURRENCY_ID,
+    economyConnectionStatus: 'HIGH_VALUE_CANDIDATE_RELATED_NOT_CANONICAL',
     shortFlavor: '片面だけが、何度も誰かの指で磨かれている。',
     memoryText: '使わなかったものにも、使えなかった理由がある。',
-    unlockHint: '通貨名称と用途のCurrentレビュー後に、関連する灯し手と由来が確定します。',
+    unlockHint: '1ラン獲得額の記録には接続済み。通貨表示名と持ち主のCurrentレビュー後に由来が確定します。',
     accent: 0xcaa25a,
-    tags: ['coin', 'promise', 'trade', 'economy-review'],
+    tags: ['coin', 'promise', 'trade', 'economy-candidate', 'actual-run-counter'],
   },
   {
     id: 'lost-rusted-room-key',
