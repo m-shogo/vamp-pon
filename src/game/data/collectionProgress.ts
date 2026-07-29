@@ -147,7 +147,7 @@ export const forgottenStreetNightBoardCells: NightBoardCell[] = [
     y: 1,
     kind: 'targeted',
     title: '黒に頼らない灯り',
-    condition: '忘れ物通り 深度1を黒曜化なしで夜明けする',
+    condition: '忘れ物通り 深度1を黒耀化なしで夜明けする',
     reward: { type: 'light_coin', amount: 20 },
     revealBy: ['fs_006_clear_depth_1'],
   },
