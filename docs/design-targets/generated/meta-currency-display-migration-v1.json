@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "date": "2026-07-29",
   "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
@@ -40,7 +40,8 @@
     "connectedWalletSurfaces": 2,
     "totalWalletSurfaces": 11,
     "remainingWalletSurfaces": 9,
-    "readyForHumanApproval": false
+    "readyForHumanApproval": false,
+    "stateAuthority": "src/game/data/metaCurrencyDisplayMigration.ts#META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED"
   },
   "connectedSurfaces": [
     "collection.clear_getter_reward",
@@ -66,10 +67,11 @@
     "test": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
     "checkCommand": "pnpm currency-display:codemod:check",
     "writeCommand": "pnpm currency-display:codemod:write",
-    "targetFiles": 4,
-    "guardedReplacements": 13,
+    "targetFiles": 5,
+    "guardedReplacements": 14,
     "walletSurfaceReplacements": 9,
     "importReplacements": 4,
+    "authorityStateReplacements": 1,
     "states": [
       "PENDING",
       "MIGRATED",
@@ -87,6 +89,7 @@
     "temporaryFileWrite": true,
     "postWriteVerification": true,
     "rollbackOnFailure": true,
+    "definitionAndSourceSwitchTogether": true,
     "executedOnCurrentHead": false
   },
   "tests": {
@@ -107,12 +110,13 @@
     ],
     "migrationValidationConnected": true,
     "codemodStateValidationConnected": true,
-    "expectedCoverage": "2/11 connected, 9 remaining",
+    "currentCoverage": "2/11 connected, 9 remaining",
+    "migratedCoverage": "11/11 connected, 0 remaining",
     "prematureApprovalBlocked": true,
     "partialSourceMigrationBlocked": true
   },
   "promotionBlockedUntil": [
-    "the guarded codemod writes all remaining wallet surfaces",
+    "the guarded codemod writes all remaining wallet surfaces and the authority flag",
     "all 11 wallet surfaces use the shared formatter",
     "黒曜片 is preserved in a Legacy alias ledger",
     "current-head tests execute",
