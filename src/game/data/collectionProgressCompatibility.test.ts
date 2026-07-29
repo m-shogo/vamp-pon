@@ -70,6 +70,19 @@ describe('collection progress compatibility', () => {
     expect(forgottenStreetCompatibilitySummary.noCurrentSuccessorCells).toBe(2);
   });
 
+  it('Current後継のない3札は記録を残しつつ将来の全灯分母へ入れない', () => {
+    expect(forgottenStreetCompatibilitySummary.activeCompletionEligible).toBe(22);
+    expect(forgottenStreetCompatibilitySummary.legacyArchiveOnly).toBe(3);
+    const archiveOnlyIds = forgottenStreetNightBoardCompatibility.cells
+      .filter((cell) => cell.completionEligibility === 'LEGACY_ARCHIVE_ONLY')
+      .map((cell) => cell.id);
+    expect(archiveOnlyIds).toEqual([
+      'fs_002_release_paper_scrap_shadow',
+      'fs_003_release_night_haze',
+      'fs_025_view_nemori_record',
+    ]);
+  });
+
   it('compatibility layerだけではsave migration済みにしない', () => {
     expect(forgottenStreetNightBoardCompatibility.saveMigrationApplied).toBe(false);
     expect(forgottenStreetNightBoardCompatibility.definitionVersion).toBe('stage1-compat-v2');
