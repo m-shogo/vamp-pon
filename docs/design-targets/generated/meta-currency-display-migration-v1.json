@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "date": "2026-07-29",
   "status": "CURRENT_FORMATTER_PARTIAL_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
@@ -24,6 +24,19 @@
   "formatter": {
     "source": "src/game/data/metaCurrencyDisplay.ts",
     "currentLabelSource": "collectionEconomyResourceById[economy:meta_upgrade_currency].currentDisplayLabels[0]",
+    "functions": [
+      "currentMetaCurrencyDisplayName",
+      "formatMetaCurrencyAmount",
+      "formatMetaCurrencyGain",
+      "formatMetaCurrencyReturn",
+      "formatMetaCurrencyGrowthIntro",
+      "formatMetaCurrencyInsufficient",
+      "formatMetaCurrencyRefund",
+      "formatMetaCurrencyCarryHome",
+      "formatMetaCurrencyUseCta",
+      "formatMetaCurrencyUpgradeName",
+      "formatMetaCurrencyUpgradeDescription"
+    ],
     "currentOutput": "黒曜片",
     "connectedWalletSurfaces": 2,
     "totalWalletSurfaces": 11,
@@ -77,6 +90,22 @@
       "Collection reward idempotency"
     ],
     "currentHeadExecuted": false
+  },
+  "sourceContractEvidence": {
+    "test": "src/game/data/metaCurrencyDisplaySurfaceSourceContract.test.ts",
+    "contracts": [
+      "two connected surfaces import their formatter functions",
+      "nine direct Current-label surfaces remain inventoried",
+      "facility and black-youka labels stay outside wallet migration",
+      "candidate display is not introduced early"
+    ],
+    "currentHeadExecuted": false
+  },
+  "preflight": {
+    "command": "pnpm named-object:check",
+    "migrationValidationConnected": true,
+    "expectedCoverage": "2/11 connected, 9 remaining",
+    "prematureApprovalBlocked": true
   },
   "promotionBlockedUntil": [
     "all 11 wallet surfaces use the shared formatter",
