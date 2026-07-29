@@ -1,7 +1,7 @@
 # ヨルノシルベ 永続通貨表示 Migration Foundation
 
 Date: 2026-07-29  
-Status: **CURRENT FORMATTER FOUNDATION / GUARDED CODEMOD READY / 2 OF 11 WALLET SURFACES CONNECTED / DISPLAY RENAME BLOCKED / CURRENT-HEAD EXECUTION OPEN**
+Status: **CURRENT FORMATTER / GUARDED CODEMOD EXECUTED / 11 OF 11 WALLET SURFACES CONNECTED / DISPLAY RENAME BLOCKED**
 
 > `黒曜片 → 灯貨`は画面ごとの文字置換で行わない。
 >
@@ -78,8 +78,8 @@ Current state:
 
 ```txt
 wallet surfaces total    = 11
-formatter connected      = 2
-formatter remaining      = 9
+formatter connected      = 11
+formatter remaining      = 0
 Human naming approved    = false
 ready for approval       = false
 ```
@@ -88,18 +88,17 @@ Connected:
 
 1. Collection Clear Getter reward
 2. Collection achievement-section description
+3. TOP wallet tag
+4. StageSelect wallet balance
+5. StageSelect growth guidance
+6. StageSelect insufficient-funds text
+7. StageSelect reset/refund text
+8. Result currency reward title
+9. Result currency-use CTA
+10. first-run carry-home guidance
+11. currency-gain upgrade name/description
 
-Remaining:
-
-1. TOP wallet tag
-2. StageSelect wallet balance
-3. StageSelect growth guidance
-4. StageSelect insufficient-funds text
-5. StageSelect reset/refund text
-6. Result currency reward title
-7. Result currency-use CTA
-8. first-run carry-home guidance
-9. currency-gain upgrade name/description
+Remaining: none.
 
 Separate from wallet migration:
 
@@ -120,7 +119,7 @@ Source:
 - `src/game/data/metaCurrencyDisplayMigration.ts`
 
 ```ts
-META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = false
+META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = true
 ```
 
 Meaning:
@@ -202,6 +201,16 @@ The codemod changes the direct display construction, authority flag and machine-
 - reward formulas
 - `黒曜研究所`
 - Result `黒曜なし`
+
+Current-head execution record:
+
+```txt
+PENDING → MIGRATED = PASS
+wallet formatter   = 11/11
+remaining          = 0
+Current display    = 黒曜片
+Human approval     = false
+```
 
 ---
 

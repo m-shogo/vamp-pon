@@ -28,6 +28,50 @@
 
 ---
 
+# 0. Runtime / production入口
+
+```txt
+docs/unity-big-implementation-control-center-v1.md
+→ docs/unity-current-doc-index-2026-07-10.md
+→ docs/181-current-production-canon.md
+→ docs/unity-runtime-ownership-contract-v1.md
+→ docs/unity-runtime-visual-readiness-gate-v1.md
+→ docs/unity-ui-design-system-v1.md
+→ docs/asset-generation-consistency-system-v1.md
+→ docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
+```
+
+```txt
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
+```
+
+Current boundary:
+
+```txt
+runtimeVisualClassification=production-animated-sprite
+runtimeVisualReady=true
+runtimeVisualCandidateReady=false
+productionVisualAssetProviderConnected=true
+runtimeCandidateAssetProviderConnected=false
+devicePlayableReady=false
+productionApproved=false
+```
+
+`runtimeVisualReady=true`はU48 production visual runtime scopeだけを表す。実機、audio/haptic、performance、RC、製品承認は別gate。
+
+2026-07-29 first implementation milestone:
+
+```txt
+docs/CODEX-IMPLEMENTATION-HANDOFF-2026-07-29.md
+docs/PLAYER-FACING-TERMINOLOGY.md
+docs/SETTINGS-BASELINE.md
+docs/design-targets/generated/codex-first-implementation-milestone-2026-07-29/visual-review.json
+```
+
+---
+
 # 1. Design入口
 
 ```txt

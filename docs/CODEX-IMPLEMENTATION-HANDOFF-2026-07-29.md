@@ -1,7 +1,7 @@
 # ヨルノシルベ Codex Implementation Handoff
 
 Date: 2026-07-29  
-Status: **IMPLEMENTATION HANDOFF READY / RUNTIME WORK NOT YET COMPLETE**
+Status: **FIRST IMPLEMENTATION MILESTONE CONNECTED / U49 DEVICE EVIDENCE STILL BLOCKED**
 
 Repository scope:
 
@@ -498,3 +498,56 @@ This milestone is complete when:
 11. no readiness flag is promoted without its own evidence
 
 This is the **first implementation milestone after design freeze**, not final release approval.
+
+---
+
+# 16. 2026-07-29 implementation result
+
+The frozen handoff was connected to the active Web reference and Unity production runtime.
+
+```txt
+currency formatter      = 11/11
+active title             = ヨルノシルベ
+Collection               = 灯録
+Growth                   = 旅支度
+First Run                = Current copy + shared wallet formatter
+Result                   = Current Japanese copy
+Settings                 = four APP_PREFERENCE values / one owner per runtime
+Web tests                = 538 passed
+Web production build     = passed
+Unity batch compilation  = passed
+Web visual QA            = TOP / 夜の地図 / 旅支度 / 灯録 / First Run /
+                           Result clear / Result fail / Settings
+Settings responsive QA   = Compact / Standard / Large
+```
+
+Web Settings uses `AppPreferenceOwner`; Unity uses `AppPreferenceService`. Both own the same
+four semantic preferences and remain separate from gameplay progress reset. The old Unity
+`GameSettingsSave` DTO remains only for save compatibility; active Settings UI and U49
+feedback routing no longer use it as their preference owner.
+
+Machine-readable visual review:
+
+```txt
+docs/design-targets/generated/codex-first-implementation-milestone-2026-07-29/visual-review.json
+```
+
+The Web visual pass also found and repaired two reachability/copy gaps:
+
+- StageSelect no longer adds `play=1` to ordinary starts, so First Run guidance is reachable.
+- the active Collection heading and StageSelect footer now use `灯録`; Growth navigation uses `旅支度`.
+
+This result does not provide physical-device observations. The following remain unchanged:
+
+```txt
+U49 = BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE
+physicalDeviceReady = false
+devicePlayableReady = false
+audioReady = false
+audioLatencyMeasured = false
+hapticReady = false
+hapticMeasured = false
+mobileMetricsReady = false
+rcReady = false
+productionApproved = false
+```

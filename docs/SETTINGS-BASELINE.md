@@ -1,7 +1,7 @@
 # ヨルノシルベ Settings Baseline
 
 Date: 2026-07-29  
-Status: **CURRENT BASELINE / DEFINITION READY / RUNTIME CONNECTION OPEN**
+Status: **CURRENT BASELINE / WEB AND UNITY RUNTIME CONNECTED / DEVICE EVIDENCE OPEN**
 
 > 目的: 設定画面を後付けの寄せ集めにせず、release前に最低限必要なPlayer preferenceだけをCurrentとして固定する。
 >
@@ -261,3 +261,42 @@ U49 evidenceは別に必要。
 # 13. One sentence
 
 > **SettingsはBGM・SE・振動・演出を控えめにの4つから始め、進捗saveと分離し、音やmotionを切ってもゲームの意味が消えないようにする。**
+
+---
+
+# 14. Runtime implementation record
+
+2026-07-29 first implementation milestone:
+
+| Runtime | Preference owner | Persistence | Consumers |
+| --- | --- | --- | --- |
+| Web | `AppPreferenceOwner` | versioned local APP_PREFERENCE | SettingsScene / AudioManager / haptic / reduced-motion feedback |
+| Unity | `AppPreferenceService` | versioned PlayerPrefs APP_PREFERENCE | SettingsView / U49 audio-haptic owner / runtime feedback |
+
+Both owners expose exactly the four baseline preferences. Settings UI sends updates to the
+owner; it does not own gameplay save or battle behavior.
+
+The Unity gameplay snapshot still contains the older `GameSettingsSave` DTO for backward
+compatibility. It is not the active Settings UI or U49 preference source, and gameplay reset
+does not clear `AppPreferenceService`.
+
+Verified locally:
+
+```txt
+Web persistence tests       = passed
+Web unsupported haptic      = safe no-op test passed
+Web Compact/Standard/Large  = visually reviewed
+Web preference re-entry     = visually retained
+Unity batch compilation     = passed
+Unity U49 editor routing    = passed (Editor haptic no-op)
+```
+
+Not verified:
+
+```txt
+physical-device volume behavior
+physical-device haptic behavior
+audio latency
+haptic measurement
+foreground/background device recovery
+```

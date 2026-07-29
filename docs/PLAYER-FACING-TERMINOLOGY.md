@@ -1,7 +1,7 @@
 # ヨルノシルベ Player-Facing Terminology
 
 Date: 2026-07-29  
-Status: **CURRENT PLAYER-FACING COPY AUTHORITY / IMPLEMENTATION CONNECTION INCOMPLETE**
+Status: **CURRENT PLAYER-FACING COPY AUTHORITY / ACTIVE WEB AND UNITY CONNECTED**
 
 > 目的: Codex / Unity / Web実装が画面ごとに別の言葉を発明しないよう、Playerが実際に見る語と短文を実装前に固定する。
 >
@@ -257,6 +257,27 @@ Active production screen / current Web reference / Unity production UIを検索�
 - `light_coin` stable compatibility ID rename
 - `黒曜片 → 灯貨`自動実施
 - `旅支度`を新しいLore facilityとして設定追加
+
+---
+
+# 11. Runtime connection record
+
+2026-07-29 first implementation milestone:
+
+```txt
+Definition authority  = src/game/data/playerFacingCopy.ts / worldTerms.ts
+Web consumers         = TOP / 夜の地図 / 旅支度 / 灯録 / First Run / Result
+Unity consumers       = StageSelect / Collection / Result / runtime result model
+checker               = check-player-facing-implementation-foundation.ts
+connection state      = ACTIVE_WEB_AND_UNITY_CONNECTED
+```
+
+Active production surfaces use the Current title/navigation/First Run/Result vocabulary.
+Legacy/history documents, compatibility IDs, old evidence and the explicit migration-target
+list may still contain prior terms; they are not runtime display authority.
+
+The persistent wallet remains `黒曜片` through the shared formatter. `灯貨` remains an
+unapproved candidate.
 
 実装はdisplay layerを優先する。
 

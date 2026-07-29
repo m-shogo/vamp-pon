@@ -1,7 +1,7 @@
 {
   "schemaVersion": 8,
   "date": "2026-07-29",
-  "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",
+  "status": "CURRENT_FORMATTER_CONNECTED_11_OF_11_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
   "currentDisplay": "黒曜片",
   "candidateDisplay": "灯貨",
@@ -37,17 +37,15 @@
       "formatMetaCurrencyUpgradeName",
       "formatMetaCurrencyUpgradeDescription"
     ],
-    "connectedWalletSurfaces": 2,
+    "connectedWalletSurfaces": 11,
     "totalWalletSurfaces": 11,
-    "remainingWalletSurfaces": 9,
+    "remainingWalletSurfaces": 0,
     "readyForHumanApproval": false,
     "stateAuthority": "src/game/data/metaCurrencyDisplayMigration.ts#META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED"
   },
   "connectedSurfaces": [
     "collection.clear_getter_reward",
-    "collection.achievement_description"
-  ],
-  "remainingWalletSurfaces": [
+    "collection.achievement_description",
     "top.wallet_tag",
     "stage_select.wallet_balance",
     "stage_select.growth_intro",
@@ -58,6 +56,7 @@
     "ready.first_run_carry_home",
     "profile.currency_gain_upgrade"
   ],
+  "remainingWalletSurfaces": [],
   "separateNonWalletReview": [
     "facility.black_obsidian_lab",
     "result.black_youka_bonus"
@@ -91,7 +90,7 @@
     "postWriteVerification": true,
     "rollbackOnFailure": true,
     "definitionSourceAndCoverageSwitchTogether": true,
-    "executedOnCurrentHead": false
+    "executedOnCurrentHead": true
   },
   "tests": {
     "formatter": "src/game/data/metaCurrencyDisplay.test.ts",

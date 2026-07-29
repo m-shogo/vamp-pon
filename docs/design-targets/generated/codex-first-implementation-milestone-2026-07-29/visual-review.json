@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-29",
+  "reviewType": "LIVE_LOCAL_BROWSER_OBSERVATION",
+  "screenshotsCommitted": false,
+  "web": {
+    "referenceViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "responsiveViewports": [
+      {
+        "sizeKey": "compact",
+        "width": 360,
+        "height": 800
+      },
+      {
+        "sizeKey": "standard",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "sizeKey": "large",
+        "width": 430,
+        "height": 932
+      }
+    ],
+    "screensReviewed": [
+      "top",
+      "stage-select",
+      "travel-prep",
+      "collection",
+      "first-run-guidance",
+      "result-clear",
+      "result-fail",
+      "settings"
+    ],
+    "settingsReviewedAtAllResponsiveViewports": true,
+    "hapticsOffVisibleStateReviewed": true,
+    "reducedMotionOnVisibleStateReviewed": true,
+    "preferenceReentryPersistenceReviewed": true,
+    "consoleErrorsObserved": 0,
+    "result": "PASS"
+  },
+  "unity": {
+    "batchCompilationPassed": true,
+    "u49EditorRoutingVerificationPassed": true,
+    "currentHeadVisualCaptureExecuted": false,
+    "historicalU47EvidenceInvalidatedBySourceFingerprint": true,
+    "result": "CURRENT_HEAD_VISUAL_EVIDENCE_OPEN"
+  },
+  "device": {
+    "physicalDeviceEvidenceProvided": false,
+    "result": "BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE"
+  },
+  "readinessFlagsPromoted": false
+}
