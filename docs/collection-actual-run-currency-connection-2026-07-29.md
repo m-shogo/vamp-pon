@@ -20,7 +20,9 @@ memory fragments directly read           = no
 くすんだ灯貨 → fs_019                    = connected
 くすんだ灯貨 → meta currency concept     = candidate link connected
 persistent display 黒曜片 → 灯貨          = not approved / not changed
-Current persistent currency formatter    = created / 2 Collection surfaces connected
+Current persistent currency formatter    = created / 2 of 11 wallet surfaces connected
+wallet display migration preflight       = connected
+wallet lifecycle round-trip test         = added
 UPGRADE_DEFS 黒耀化 wording              = repaired
 Collection keeper header 黒耀化          = runtime normalization connected
 save field / reward IDs                  = unchanged
@@ -155,6 +157,13 @@ currentMetaCurrencyDisplayName
 formatMetaCurrencyAmount
 formatMetaCurrencyGain
 formatMetaCurrencyReturn
+formatMetaCurrencyGrowthIntro
+formatMetaCurrencyInsufficient
+formatMetaCurrencyRefund
+formatMetaCurrencyCarryHome
+formatMetaCurrencyUseCta
+formatMetaCurrencyUpgradeName
+formatMetaCurrencyUpgradeDescription
 ```
 
 Current output remains:
@@ -173,22 +182,74 @@ src/game/data/collectionSections.ts
   → achievement-section description
 ```
 
-The formatter was placed in the data layer so Collection data and UI depend on the same direction. A temporary UI-layer duplicate was removed.
-
 Still not formatter-backed:
 
-- StageSelect balance
-- StageSelect insufficient-funds text
-- StageSelect reset/refund text
-- Result presentation
-- first-run overlay guidance
-- remaining HUD/summary surfaces found during the final sweep
+- TOP wallet tag
+- StageSelect balance / onboarding / insufficient-funds / refund
+- Result reward title / use CTA
+- first-run carry-home guidance
+- currency-gain upgrade name/description
 
-This is **partial formatter coverage**, not a display migration.
+Current coverage:
+
+```txt
+2 / 11 connected
+9 remaining
+```
 
 ---
 
-# 7. 黒耀化 wording repair
+# 7. Display migration authority
+
+Sources:
+
+- `src/game/data/metaCurrencyDisplayMigration.ts`
+- `docs/design-targets/generated/meta-currency-display-migration-v1.json`
+- `docs/meta-currency-display-migration-foundation-2026-07-29.md`
+
+Boundary:
+
+```txt
+Current display   = 黒曜片
+candidate display = 灯貨
+Human approved    = false
+atomic migration  = required
+```
+
+`pnpm named-object:check` now validates the 2/11 coverage and blocks premature approval.
+
+`src/game/data/metaCurrencyDisplaySurfaceSourceContract.test.ts` reads the active source files so the migration ledger cannot silently drift away from the code.
+
+---
+
+# 8. Wallet lifecycle evidence
+
+Test:
+
+- `src/game/persistence/__tests__/metaCurrencyLifecycle.test.ts`
+
+Contracts:
+
+```txt
+save round trip
+purchase exact cost
+full upgrade refund
+run settlement addition
+achievement reward addition
+Collection reward addition
+Collection reward idempotency
+```
+
+Stable fields remain:
+
+```txt
+PlayerProfile.currency
+PlayerProfile.totalCurrencyEarned
+```
+
+---
+
+# 9. 黒耀化 wording repair
 
 Without changing IDs, costs, levels, rewards or multipliers:
 
@@ -201,9 +262,11 @@ noBerserkBonus text      → 黒耀化未使用
 
 `黒曜片` remains unchanged because it is a separate economy display decision.
 
+Resultの`黒曜なし` is recorded as a separate 黒耀化 terminology repair, not as part of wallet migration.
+
 ---
 
-# 8. Collection keeper header
+# 10. Collection keeper header
 
 Pure normalizer:
 
@@ -220,16 +283,17 @@ Current: 灯名・黒耀化・朝明・欠けた心を、絵札として残す�
 
 Only the exact known sentence changes. Enemy names, `黒曜片`, `黒曜研究所` and `くすんだ灯貨` remain untouched.
 
-The large `CollectionScene.ts` was not replaced.
-
 ---
 
-# 9. Verification files added
+# 11. Verification files
 
 ```txt
 src/game/data/collectionEconomyTerminology.test.ts
 src/game/data/metaCurrencyDisplay.test.ts
+src/game/data/metaCurrencyDisplayMigration.test.ts
+src/game/data/metaCurrencyDisplaySurfaceSourceContract.test.ts
 src/game/persistence/__tests__/profileRunCurrencyTracking.test.ts
+src/game/persistence/__tests__/metaCurrencyLifecycle.test.ts
 src/game/systems/collectionProgressRunCurrency.test.ts
 src/game/data/lostItemEconomyConnection.test.ts
 src/game/ui/collectionAtlasSceneHooks.test.ts
@@ -237,23 +301,11 @@ scripts/quality/check-named-object-registry.ts
 scripts/quality/check-unity-term-lock.ts
 ```
 
-Contracts:
-
-- 99 fails / 100 passes
-- settlement amount equals transient counter
-- achievement reward excluded
-- wallet balance excluded
-- actual Collection settlement completes `fs_019`
-- old proxy forbidden
-- formatter uses Current concept label
-- dull light coin remains candidate-not-canonical
-- keeper normalizer changes only the exact sentence
-
 These files exist on the branch, but current-head execution evidence is still required.
 
 ---
 
-# 10. Remaining display migration
+# 12. Remaining display migration
 
 High-value candidate:
 
@@ -265,9 +317,9 @@ Status                     = NOT CURRENT
 
 Remaining:
 
-1. move every active wallet surface through the formatter
+1. move the nine active wallet surfaces through the formatter
 2. preserve `黒曜片` in a Legacy alias ledger
-3. produce save / purchase / refund / reward round-trip evidence
+3. execute save / purchase / refund / reward round-trip tests on current HEAD
 4. complete visual review
 5. obtain Human naming approval
 6. decide canonical owner/origin of `くすんだ灯貨`
@@ -276,7 +328,7 @@ No global or partial screen-by-screen rename should occur.
 
 ---
 
-# 11. Readiness boundary
+# 13. Readiness boundary
 
 This pass does not promote:
 
@@ -293,6 +345,6 @@ U49 remains `BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE`.
 
 ---
 
-# 12. One sentence
+# 14. One sentence
 
-> **Stage1の灯貨札は今回の実精算額だけを読み、くすんだ灯貨も候補としてつながり、Currentの黒曜片表示は共通formatterへ寄せ始めたが、正式改名は全画面・save証跡・Human reviewまで行わない。**
+> **Stage1の灯貨札は今回の実精算額だけを読み、くすんだ灯貨も候補としてつながり、永続通貨は11表示面を台帳化して2面を共通formatterへ接続したが、正式改名は残り9面・実行証跡・Human reviewまで行わない。**
