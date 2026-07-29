@@ -2,6 +2,11 @@ import {
   allLightsCompletionDraftSpecification,
   evaluateAllLightsCompletion,
 } from '../../src/game/data/allLightsCompletion.ts';
+import { ACHIEVEMENT_DEFS } from '../../src/game/data/achievements.ts';
+import {
+  collectionEconomyResources,
+  validateCollectionEconomyTerminology,
+} from '../../src/game/data/collectionEconomyTerminology.ts';
 import { forgottenStreetNightBoard } from '../../src/game/data/collectionProgress.ts';
 import {
   forgottenStreetCompatibilitySummary,
@@ -36,16 +41,19 @@ const registryResult = validateNamedObjectRegistry();
 const migrationResult = validateNamedObjectMigrationLedger();
 const constellationResult = validateGlobalConstellationDefinition();
 const stage1LegacyRuntimeResult = validateStage1LegacyRuntimeCompatibility();
+const economyTerminologyResult = validateCollectionEconomyTerminology();
 const warnings = [
   ...registryResult.warnings,
   ...migrationResult.warnings,
   ...stage1LegacyRuntimeResult.warnings,
+  ...economyTerminologyResult.warnings,
 ];
 const errors = [
   ...registryResult.errors,
   ...migrationResult.errors,
   ...constellationResult.errors,
   ...stage1LegacyRuntimeResult.errors,
+  ...economyTerminologyResult.errors,
 ];
 
 const activeBlackFormCell = forgottenStreetNightBoard.cells.find(
@@ -56,6 +64,15 @@ if (!activeBlackFormCell?.condition.includes('黒耀化')) {
 }
 if (activeBlackFormCell?.condition.includes('黒曜化')) {
   errors.push('active Stage1 constellation still displays the legacy 黒曜化 term');
+}
+
+for (const achievement of ACHIEVEMENT_DEFS) {
+  if (achievement.description.includes('黒曜化')) {
+    errors.push(`${achievement.id} achievement description still displays legacy 黒曜化`);
+  }
+  if (achievement.id.startsWith('no-berserk:') && !achievement.description.includes('黒耀化')) {
+    errors.push(`${achievement.id} no-berserk achievement must describe 黒耀化`);
+  }
 }
 
 const expectedLegacyBoardCellIds = [
@@ -240,6 +257,7 @@ console.log(
     `${stage1LegacyRuntimeCompatibilityEntries.length} Stage1 legacy runtime entries, ` +
     `${stage1LegacyRuntimeCompatibilityByBoardCellId.size} Stage1 legacy board bindings, ` +
     `${globalConstellationDefinition.activeStage1CompletionNodes.length} active Stage1 completion nodes, ` +
+    `${collectionEconomyResources.length} separated economy/mechanic concepts, ` +
     `${namedObjectMigrationLedger.length} migration entries, ` +
     `${globalConstellationDefinition.migratedStage1Nodes.length} Stage1 constellation nodes, ` +
     `${globalConstellationDefinition.namedObjectLinks.length} constellation links, ` +
