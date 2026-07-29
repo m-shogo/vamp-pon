@@ -1,17 +1,17 @@
 # ヨルノシルベ Collection Economy Terminology Review
 
 Date: 2026-07-29  
-Status: **CURRENT CONCEPT SEPARATION / ACTUAL RUN COUNTER CONNECTED / CANDIDATE OBJECT LINKED / DISPLAY RENAMING NOT APPROVED**
+Status: **CURRENT CONCEPT SEPARATION / ACTUAL RUN COUNTER CONNECTED / CANDIDATE OBJECT LINKED / CURRENT FORMATTER PARTIAL / DISPLAY RENAMING NOT APPROVED**
 
-> `黒曜片`、`灯貨`、`記憶片`、`黒耀化`は、字面が近くても別概念として扱う。
+> `黒曜片`、`灯貨`、`記憶片`、`黒耀化`は別概念として扱う。
 >
-> save IDを変えず、Stage1札の実カウンター、くすんだ灯貨の候補接続、黒耀化の現役表記だけを安全に直した。
+> save IDを変えず、実カウンター・候補object接続・黒耀化表記・Current表示formatterの土台まで安全に接続した。
 
 ---
 
-# 1. Current runtime facts
+# 1. Current concepts
 
-## 1.1 永続強化資源
+## Persistent meta currency
 
 ```txt
 storage:
@@ -24,7 +24,7 @@ runtime:
   NightBoardReward.type = light_coin
   UpgradeId = currencyGain
 
-current display:
+Current display:
   黒曜片
 ```
 
@@ -32,60 +32,43 @@ Properties:
 
 - persistent
 - spendable
-- exploration settlement increases it
-- achievements and Clear Getter rewards may also increase it
+- exploration, achievement and Clear Getter rewards increase it
 - upgrades consume it
 - upgrade reset refunds it
+- display name still requires Human review
 
-The display name remains under Human review. Stable fields and internal IDs are unchanged.
-
-## 1.2 記憶片
+## Run memory fragment
 
 ```txt
 RuntimeStats.memoryFragmentsCollected
 pickup: memory_fragment
+Current display: 記憶片
 ```
 
 Properties:
 
 - run-only XP pickup
-- contributes to LevelUp
-- not a wallet
 - not persistent
 - not directly spendable
-- not an alias for `PlayerProfile.currency`
+- not a wallet alias
 
-## 1.3 Stage1「灯貨あつめ」counter
-
-Stable cell:
+## Stage1 one-run counter
 
 ```txt
-fs_019_collect_100_light_coin
+cell: fs_019_collect_100_light_coin
+source: RunSettlement.currencyEarned
+transient field: earnedMetaCurrencyThisRun
+threshold: 100
+visible word: 灯貨
 ```
 
-Current flow:
-
-```txt
-settleRunProgress
-→ RunSettlement.currencyEarnedを確定
-→ earnedMetaCurrencyThisRunへ一時記録
-→ settleCollectionProgress
-→ earnedMetaCurrencyThisRun >= 100を判定
-```
-
-Current counter source:
-
-```txt
-RunSettlement.currencyEarned
-```
-
-Explicitly excluded:
+Excluded:
 
 ```txt
 profile.currency
 PlayerProfile.totalCurrencyEarned
 RunSettlement.achievementReward
-RuntimeStats.memoryFragmentsCollectedの直接参照
+memoryFragmentsCollected direct read
 ```
 
 Removed proxy:
@@ -94,32 +77,24 @@ Removed proxy:
 kills * 0.35 + memoryFragmentsCollected * 0.7 >= 100
 ```
 
-The counter is now real-tracked but transient. It is not a second wallet and is not persisted.
+The counter is real-tracked but is not a second wallet.
 
-The visible word `灯貨` remains pending Human naming review.
-
-## 1.4 黒耀化
+## 黒耀化
 
 ```txt
 RuntimeStats.berserkUses
 UpgradeId = noBerserkBonus
 ```
 
-Properties:
-
-- battle/story mechanic
-- not currency
-- not an alias for `黒曜片`
+It is a battle/story mechanic, not currency.
 
 ---
 
-# 2. Machine-readable concept contract
+# 2. Stable concept contract
 
 Source:
 
 - `src/game/data/collectionEconomyTerminology.ts`
-
-Concept IDs:
 
 ```txt
 economy:meta_upgrade_currency
@@ -128,28 +103,73 @@ economy:prototype_light_coin_counter
 mechanic:black_youka
 ```
 
-The third stable ID remains for compatibility. Its implementation is no longer a proxy.
+The prototype-named ID remains for compatibility; its implementation no longer uses a proxy.
 
 Rules:
 
-1. A runtime ID belongs to only one concept.
-2. `profile.currency` and `NightBoardReward.type:light_coin` belong to the persistent resource.
-3. `記憶片` remains run-only and non-spendable.
-4. `fs_019` reads only the settled current-run amount.
-5. Current wallet balance and achievement rewards cannot complete `fs_019`.
+1. One runtime ID belongs to one concept.
+2. Similar display words do not merge concepts automatically.
+3. Stable save fields are not renamed for UI cleanup.
+4. Current wallet balance and achievement rewards cannot complete `fs_019`.
+5. `記憶片` remains run-only.
 6. `黒耀化` remains outside the economy model.
-7. Similar display words never cause automatic merging.
-8. Stable save fields are not renamed for cosmetic cleanup.
 
 ---
 
-# 3. くすんだ灯貨
+# 3. Current display formatter
 
-Active source:
+Source:
+
+- `src/game/data/metaCurrencyDisplay.ts`
+
+Current formatter reads the display label from:
+
+```txt
+economy:meta_upgrade_currency.currentDisplayLabels[0]
+```
+
+Available functions:
+
+```txt
+currentMetaCurrencyDisplayName
+formatMetaCurrencyAmount
+formatMetaCurrencyGain
+formatMetaCurrencyReturn
+```
+
+Currently connected surfaces:
+
+```txt
+Collection Clear Getter reward label
+Collection achievement-section description
+```
+
+Current output remains:
+
+```txt
+黒曜片
+```
+
+The formatter does not adopt `灯貨` before Human approval.
+
+Remaining raw display surfaces include:
+
+- StageSelect balance
+- StageSelect insufficient-funds message
+- StageSelect reset/refund message
+- Result presentation
+- first-run overlay guidance
+- other HUD or summary text discovered during the final sweep
+
+These should move atomically after formatter coverage and visual review, not by global replacement.
+
+---
+
+# 4. くすんだ灯貨
+
+Source:
 
 - `src/game/data/lostItemRecords.ts`
-
-Current links:
 
 ```txt
 lost-dull-light-coin
@@ -157,7 +177,7 @@ lost-dull-light-coin
 → economy:meta_upgrade_currency
 ```
 
-Current boundary:
+Boundary:
 
 ```txt
 connectionStatus        = REVIEW_REQUIRED
@@ -165,116 +185,69 @@ economyConnectionStatus = HIGH_VALUE_CANDIDATE_RELATED_NOT_CANONICAL
 relatedKeeperId         = undefined
 ```
 
-This means:
-
-- the named object is no longer orphaned
-- it is tied to the actual run-earned record
-- it is tied to the persistent-currency naming discussion
-- it does not make `灯貨` the Current wallet name
-- it does not invent a keeper/owner
-- it does not change save data
+The object is no longer orphaned, but it does not establish the wallet display name or an owner.
 
 ---
 
-# 4. High-value display candidate
-
-Status: **HIGH-VALUE CANDIDATE / NOT CURRENT DISPLAY AUTHORITY**
+# 5. High-value future candidate
 
 ```txt
-Persistent meta currency display = 灯貨
-Legacy display alias              = 黒曜片
+Persistent wallet display = 灯貨
+Legacy display alias       = 黒曜片
+Status                     = HIGH-VALUE CANDIDATE / NOT CURRENT
 ```
-
-Why it remains strong:
-
-- `くすんだ灯貨` is now semantically connected.
-- `灯貨あつめ` uses the actual current-run settlement amount.
-- `灯` is central to the world language.
-- it reduces confusion between `黒曜片` and `黒耀化`.
-- it reads naturally in purchase/refund UI.
 
 Completed prerequisites:
 
-- `PlayerProfile.currency` preserved
-- `totalCurrencyEarned` preserved
+- stable wallet fields preserved
 - internal `light_coin` preserved
 - actual per-run counter connected
 - old proxy removed
-- achievement rewards excluded
-- wallet balance excluded
+- achievement and wallet-balance exclusions tested
 - `くすんだ灯貨` candidate relation connected
-- counter/unit/integration tests added
+- one shared Current formatter created
+- two Collection surfaces connected
 
 Remaining before promotion:
 
-1. one formatter for every persistent-currency display
-2. atomic migration of StageSelect, Result, Collection reward and reset UI
-3. Legacy display alias ledger for `黒曜片`
-4. full save / purchase / refund / reward round-trip evidence
-5. visual review
-6. Human naming approval
-7. canonical owner/origin decision for `くすんだ灯貨`
+1. migrate every active wallet surface through the formatter
+2. preserve `黒曜片` in a Legacy display alias ledger
+3. produce save / purchase / refund / reward round-trip evidence
+4. complete visual review
+5. decide canonical owner/origin of `くすんだ灯貨`
+6. obtain Human naming approval
 
 Forbidden shortcuts:
 
 - global string replacement
 - renaming `PlayerProfile.currency`
-- changing only some screens
+- partial screen-only promotion
 - treating memory fragments as wallet currency
-- including achievement rewards in the one-run counter
-- promoting `くすんだ灯貨` from candidate relation to Canon automatically
+- including achievements in the one-run counter
+- promoting candidate relations to Canon automatically
 
 ---
 
-# 5. Active terminology repairs completed
+# 6. 黒耀化 repairs completed
 
-## Achievements
-
-```txt
-no-berserk:s1:shallow
-no-berserk:s1:middle
-no-berserk:s1:deep
-no-berserk:s2:shallow
-```
-
-Descriptions now use `黒耀化` without changing IDs, conditions or rewards.
-
-## Upgrade definitions
+Without changing IDs, rewards, costs or multipliers:
 
 ```txt
-UPGRADE_DEFS category: 黒曜化 → 黒耀化
-noBerserkBonus text:   黒曜化未使用 → 黒耀化未使用
+4 no-berserk achievement descriptions → 黒耀化
+UPGRADE_DEFS category                 → 黒耀化
+noBerserkBonus description            → 黒耀化
+Collection keeper header              → 黒耀化 at runtime
 ```
 
-Upgrade IDs, cost curves and multipliers are unchanged.
-
-## Collection keeper header
-
-Legacy source sentence:
-
-```txt
-灯名・黒曜・朝明・欠けた心を、絵札として残す頁。
-```
-
-Current runtime sentence:
-
-```txt
-灯名・黒耀化・朝明・欠けた心を、絵札として残す頁。
-```
-
-Implementation:
-
-- pure exact-string normalizer in `src/game/data/collectionDisplayTerms.ts`
-- runtime tree application in `src/game/ui/collectionAtlasSceneHooks.ts`
-- no replacement of `黒曜片`, `黒曜研究所`, Enemy names or `くすんだ灯貨`
-- no full-file replacement of `CollectionScene.ts`
+The keeper-header normalizer changes only the exact known Legacy sentence. It does not rewrite Enemy names, `黒曜片`, `黒曜研究所` or `くすんだ灯貨`.
 
 ---
 
-# 6. Verification contracts added
+# 7. Verification files
 
 ```txt
 src/game/data/collectionEconomyTerminology.test.ts
+src/game/data/metaCurrencyDisplay.test.ts
 src/game/persistence/__tests__/profileRunCurrencyTracking.test.ts
 src/game/systems/collectionProgressRunCurrency.test.ts
 src/game/data/lostItemEconomyConnection.test.ts
@@ -283,48 +256,48 @@ scripts/quality/check-named-object-registry.ts
 scripts/quality/check-unity-term-lock.ts
 ```
 
-Covered:
+Contracts include:
 
-- 99 is below target; 100 completes
-- transient counter equals `currencyEarned`
-- achievement reward is excluded
-- large wallet balance does not complete the one-run condition
-- actual Collection settlement completes `fs_019`
-- old proxy expression is forbidden
+- 99 fails / 100 passes
+- settlement amount equals the transient counter
+- achievement rewards are excluded
+- a large existing wallet cannot complete `fs_019`
+- actual Collection settlement can complete `fs_019`
+- formatter label comes from the Current concept
 - dull light coin remains candidate-not-canonical
-- only the exact keeper header is normalized
+- old proxy is forbidden
 
-Current-head execution evidence is still required because GitHub Actions has been stopping before step execution.
-
----
-
-# 7. Remaining terminology debt
-
-- StageSelect still uses established `黒曜片` display.
-- StageSelect still uses facility title `黒曜研究所`.
-- Persistent display migration has no Human approval.
-- `くすんだ灯貨` has no canonical owner/origin yet.
-- A single cross-screen currency formatter is not connected.
-
-These are separate from the completed 黒耀化 typo repair and actual run-counter connection.
+Current-head execution evidence is still required because GitHub Actions stops before repository steps begin.
 
 ---
 
-# 8. Readiness boundary
+# 8. Remaining terminology debt
 
-This work does not claim:
+- `黒曜片` display decision remains unapproved.
+- `黒曜研究所` facility title remains a separate naming review.
+- formatter coverage is partial, not global.
+- `くすんだ灯貨` has no canonical owner/origin.
+- visual and save round-trip evidence is incomplete.
+
+---
+
+# 9. Readiness boundary
+
+This work does not promote:
 
 - canonical `灯貨` wallet display
 - production Collection save v2
 - global constellation readiness
-- `全灯の朝` readiness
-- U49 completion
-- U50 or RC readiness
+- `全灯の朝`
+- U49
+- U50
+- RC
+- production approval
 
 U49 remains `BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE`.
 
 ---
 
-# 9. One sentence
+# 10. One sentence
 
-> **Stage1の灯貨札は精算済みの今回獲得額だけを読み、くすんだ灯貨も候補関係として接続されたが、永続通貨の表示名を灯貨へ変える判断は全画面移行・save証跡・Human reviewまで保留する。**
+> **Stage1の灯貨札は実精算額だけを読み、くすんだ灯貨も候補としてつながり、Currentの黒曜片表示は単一formatterへ寄せ始めたが、灯貨への正式改名は全画面・save証跡・Human reviewまで行わない。**
