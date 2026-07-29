@@ -122,8 +122,28 @@ const contentContracts: ContentContract[] = [
       '"named-object:check"',
       'pnpm named-object:check',
       'scripts/quality/check-named-object-registry.ts',
+      '"currency-display:codemod:check"',
+      '"currency-display:codemod:write"',
+      'pnpm currency-display:codemod:check',
+      'scripts/migrations/connect-meta-currency-display-surfaces.ts',
     ],
     forbidden: [],
+  },
+  {
+    file: 'scripts/migrations/connect-meta-currency-display-surfaces.ts',
+    required: [
+      "id: 'migration_authority.flag'",
+      "id: 'top.wallet_tag'",
+      "id: 'stage_select.reset_refund'",
+      "id: 'result.currency_reward'",
+      "id: 'profile.currency_gain_upgrade'",
+      'post-write verification failed',
+      'wallet display codemod is partially applied',
+    ],
+    forbidden: [
+      "candidateDisplay: '灯貨'",
+      "currentDisplay: '灯貨'",
+    ],
   },
   {
     file: 'src/game/persistence/profile.ts',
@@ -149,9 +169,9 @@ const contentContracts: ContentContract[] = [
   {
     file: 'src/game/data/collectionEconomyTerminology.ts',
     required: [
-      "CURRENT_TRACKED_COUNTER_PENDING_NAME",
-      "earnedMetaCurrencyThisRun",
-      "achievementReward、profile残高、記憶片数からのproxy計算は含めない。",
+      'CURRENT_TRACKED_COUNTER_PENDING_NAME',
+      'earnedMetaCurrencyThisRun',
+      'achievementReward、profile残高、記憶片数からのproxy計算は含めない。',
     ],
     forbidden: [
       'prototype-formula:kills*0.35+memoryFragmentsCollected*0.7',
