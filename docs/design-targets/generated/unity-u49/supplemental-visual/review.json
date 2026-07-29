@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 1,
+  "reviewedAtUtc": "2026-07-29T13:56:15Z",
+  "beforeSourceCommit": "85e1b9dd44093e6a80060b0b7e2c67b45e2d6ee5",
+  "implementationCommit": "b32ed5ce4a98ac470e624bd7bddeed9ee6f29804",
+  "unityVersion": "6000.5.1f1",
+  "platform": "iOS Simulator",
+  "simulatorProfile": {
+    "device": "iPhone 17 Pro",
+    "osVersion": "26.5",
+    "physicalDevice": false
+  },
+  "catalogRelationship": {
+    "u47CanonicalCaptureCountChanged": false,
+    "u47CanonicalCaptureCount": 23,
+    "classification": "U49_SUPPLEMENTAL_VISUAL_EVIDENCE"
+  },
+  "settings": {
+    "route": "normal StageSelect -> Settings entry",
+    "beforeResult": "REPLACE",
+    "result": "PASS",
+    "beforeCaptures": [
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/01-stage-select-settings-entry.png",
+        "capturedAt": "2026-07-29T22:02:54+0900",
+        "expectedScreen": "StageSelect with Settings entry",
+        "actualScreen": "StageSelect with visible Settings entry",
+        "sha256": "d94ed662f19f5e4830bfe964d5a1f2b7626ad0dd789d1cf9410c877f3f9e89ec",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/02-settings-default.png",
+        "capturedAt": "2026-07-29T22:03:06+0900",
+        "expectedScreen": "Settings default state",
+        "actualScreen": "BGM and SE sliders, haptics ON, reduced motion OFF",
+        "sha256": "b86718761c9ac19c3febdc1fa7d68c444065a0ebb7a85844fda22bbb5dae2c09",
+        "result": "PASS_FUNCTIONAL_VISIBILITY"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/03-settings-haptic-off-reduced-motion-on.png",
+        "capturedAt": "2026-07-29T22:03:30+0900",
+        "expectedScreen": "haptics OFF and reduced motion ON",
+        "actualScreen": "haptics OFF and reduced motion ON",
+        "sha256": "f680eeb7dd86125892319c68638f3de8231d187ee74a846e6c088d8fa5a6f318",
+        "result": "PASS_FUNCTIONAL_STATE"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/04-settings-reopened-persistence.png",
+        "capturedAt": "2026-07-29T22:04:48+0900",
+        "expectedScreen": "Settings reopened after app relaunch with prior values retained",
+        "actualScreen": "haptics OFF and reduced motion ON retained",
+        "sha256": "c3feeed00fc843493fdfa7442ac7fe3ebec4fcd58028d2d354e24dbcba6b3d60",
+        "result": "PASS_PERSISTENCE"
+      }
+    ],
+    "beforeChecks": {
+      "settingsEntryVisible": true,
+      "bgmControlVisible": true,
+      "seControlVisible": true,
+      "hapticControlVisible": true,
+      "reducedMotionControlVisible": true,
+      "toggleStateChanged": true,
+      "statePersistedAfterRelaunch": true,
+      "safeAreaContainsInteractiveControls": true,
+      "textClippingAbsent": true,
+      "missingGlyphAbsent": true,
+      "fontFallbackAbsent": true,
+      "singleUnityPreferenceOwnerConfirmedBySource": true,
+      "legacySettingsUiRemnantObserved": false,
+      "visualOverlapAbsent": false,
+      "visualHierarchyAccepted": false,
+      "touchTargetHumanVerified": false
+    },
+    "beforeIssues": [
+      "production panel decoration draws high-contrast linework across labels, sliders, and toggle rows",
+      "BGM and SE slider fills render as oversized solid orange blocks and obscure the intended track hierarchy",
+      "functional state and persistence passed, but the current Settings composition is not acceptable as final visual evidence",
+      "touch target size was not measured on a physical device"
+    ],
+    "beforeReviewerBasis": "AI visual inspection of fresh pre-replacement Unity iOS Simulator captures plus source inspection of SettingsView and AppPreferenceService ownership",
+    "afterCaptures": [
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/06-settings-default.png",
+        "capturedAtUtc": "2026-07-29T13:44:22.287Z",
+        "state": "default",
+        "sha256": "5490fc7daa641264032ceae18660b2c168e08ca88578fa38fc1b89032c60dc19",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/07-settings-haptic-off-reduced-motion-on.png",
+        "capturedAtUtc": "2026-07-29T13:47:07.357Z",
+        "state": "haptics OFF and reduced motion ON",
+        "sha256": "ba1ba701fe450a988629e09e5a68e3daa712ff1298c168d40604d97de293c615",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/08-settings-reopened-persistence.png",
+        "capturedAtUtc": "2026-07-29T13:48:52.234Z",
+        "state": "reopened after app relaunch",
+        "sha256": "2b3cb3ef717f237401c31fec52f6bebfe2111e3c466f5069b5fe083e20504a31",
+        "result": "PASS_PERSISTENCE"
+      }
+    ],
+    "afterChecks": {
+      "fourItemScopePreserved": true,
+      "singleUnityPreferenceOwnerConfirmedBySource": true,
+      "toggleStateChanged": true,
+      "statePersistedAfterRelaunch": true,
+      "safeAreaContainsInteractiveControls": true,
+      "textClippingAbsent": true,
+      "missingGlyphAbsent": true,
+      "fontFallbackAbsent": true,
+      "ornamentOverTextAbsent": true,
+      "sliderHierarchyReadable": true,
+      "toggleStateClear": true,
+      "visualOverlapAbsent": true,
+      "visualHierarchyAccepted": true,
+      "physicalTouchTargetMeasured": false
+    },
+    "afterIssueCount": 0,
+    "visualClassification": "production-runtime-ui",
+    "reviewer": "Codex AI visual inspection",
+    "reviewerBasis": "normal-route iOS Simulator captures at the iPhone 17 Pro profile, source inspection, state change, and app relaunch persistence; physical-device touch target measurement remains outside this visual PASS"
+  },
+  "firstRun": {
+    "route": "normal StageSelect start",
+    "beforeExpectedScreen": "Unity First Run guidance",
+    "beforeActualScreen": "no Unity First Run view, state, route, or required player-facing copy exists",
+    "beforeResult": "MISSING",
+    "beforeCapture": null,
+    "beforeChecks": {
+      "normalStageSelectRouteAvailable": false,
+      "firstRunOnlyRoutingImplemented": false,
+      "requiredCopyImplemented": false,
+      "sharedWalletFormatterConnected": false,
+      "continueOperationAvailable": false,
+      "secondRunRoutingImplemented": false
+    },
+    "beforeSourceEvidence": [
+      "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs transitions StageSelect directly to Running",
+      "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs builds StageSelect, Result, Collection, and Settings only",
+      "the required First Run copy is present in Web-facing source but not in Unity runtime source"
+    ],
+    "beforeIssues": [
+      "a current-head Unity First Run screenshot cannot be produced without implementing the missing runtime surface and route",
+      "no debug-only substitute or historical image was relabelled as current evidence"
+    ],
+    "beforeReviewerBasis": "pre-implementation Unity source search and normal-route inspection",
+    "result": "PASS",
+    "captures": [
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/01-stage-select-fresh.png",
+        "capturedAtUtc": "2026-07-29T13:29:51.694Z",
+        "state": "fresh StageSelect entry",
+        "sha256": "71d0c52b75a82e223321832dcce55670edd862a3c2ba7421dcc6d669298578ec",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/02-first-run.png",
+        "capturedAtUtc": "2026-07-29T13:31:23.639Z",
+        "state": "First Run guidance",
+        "sha256": "7edca4c9b20aa0fd3924c08c572ed57c9bd4f33b4808992e7c8e661daf334748",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/03-first-run-to-gameplay.png",
+        "capturedAtUtc": "2026-07-29T13:31:36.441Z",
+        "state": "continue to gameplay",
+        "sha256": "924fbbb992e50c18ecfab84b24a98a541045edeea11e5f694a549f9a23a62a90",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/04-first-run-relaunch-stage-select.png",
+        "capturedAtUtc": "2026-07-29T13:31:50.699Z",
+        "state": "StageSelect after app relaunch",
+        "sha256": "71d0c52b75a82e223321832dcce55670edd862a3c2ba7421dcc6d669298578ec",
+        "result": "PASS"
+      },
+      {
+        "path": "docs/design-targets/generated/unity-u49/supplemental-visual/after/05-first-run-completion-persisted-skip.png",
+        "capturedAtUtc": "2026-07-29T13:32:03.616Z",
+        "state": "second Stage start skips First Run",
+        "sha256": "ce35a50fd13e46a138aa7ade098ef9c6717484896b5da428e3d2e35e5d645126",
+        "result": "PASS_PERSISTENCE"
+      }
+    ],
+    "checks": {
+      "normalStageSelectRouteAvailable": true,
+      "firstRunOnlyRoutingImplemented": true,
+      "requiredCopyImplemented": true,
+      "sharedWalletFormatterConnected": true,
+      "continueOperationAvailable": true,
+      "transitionToGameplayPassed": true,
+      "secondRunRoutingImplemented": true,
+      "completionStoredOutsideAppPreferences": true,
+      "staticReducedMotionCompatiblePresentation": true,
+      "safeAreaContainsInteractiveControls": true,
+      "textClippingAbsent": true,
+      "missingGlyphAbsent": true
+    },
+    "issueCount": 0,
+    "visualClassification": "production-runtime-ui",
+    "reviewer": "Codex AI visual inspection",
+    "reviewerBasis": "fresh normal-route iOS Simulator run, transition to gameplay, app relaunch, persisted skip, exact-copy source assertion, and save round-trip verification"
+  },
+  "overallResult": "PASS_SUPPLEMENTAL_SIMULATOR_SCOPE",
+  "readinessImpact": {
+    "physicalDeviceReady": false,
+    "devicePlayableReady": false,
+    "audioReady": false,
+    "audioLatencyMeasured": false,
+    "hapticReady": false,
+    "hapticMeasured": false,
+    "mobileMetricsReady": false,
+    "rcReady": false,
+    "productionApproved": false
+  }
+}

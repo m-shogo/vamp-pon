@@ -73,12 +73,28 @@ docs/design-targets/generated/codex-first-implementation-milestone-2026-07-29/vi
 Current-head verification recorded in the handoff:
 
 ```txt
-capture HEAD = 904e2d5918e195acdca8e5a1904dc0b4cc0503da
+current implementation HEAD = b32ed5ce4a98ac470e624bd7bddeed9ee6f29804
 U47 Simulator = 23/23 / manifest PASS / visual PASS within canonical U47 scope
 implementation:preflight:full = PASS
 GitHub Actions at source HEAD = jobs not started due GitHub billing/spending-limit blocker
-U49 = BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE
+U49 = BLOCKED_BY_LOCKED_PHYSICAL_DEVICE
 ```
+
+Current U49 final-device batch evidence:
+
+```txt
+docs/design-targets/generated/unity-u49/current-head-final-device-batch.json
+docs/design-targets/generated/unity-u49/supplemental-visual/review.json
+```
+
+The current-head device build and signing passed and the fresh app installed on the
+paired physical iPhone. The latest launch attempt was rejected because the device was
+locked; developer-profile trust can only be re-evaluated after unlock. Unity Settings
+changed from `REPLACE` to `PASS` in supplemental Simulator visual review. Unity First
+Run changed from `MISSING` to a normal-route runtime `PASS`, including save round trip,
+transition to gameplay, app relaunch, and persisted second-run skip. The U47 canonical
+denominator remains 23 and its fresh manifest reports stale evidence 0. No readiness
+flag was promoted from Simulator or static evidence.
 
 ---
 

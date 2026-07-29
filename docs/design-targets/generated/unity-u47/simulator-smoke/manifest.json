@@ -1,13 +1,13 @@
 {
   "schemaVersion": 2,
-  "generatedAtUtc": "2026-07-29T09:13:11.282Z",
-  "sourceHead": "904e2d5918e195acdca8e5a1904dc0b4cc0503da",
-  "sourceFingerprint": "e968269acf0d6d301dc37d4d0e33a0237191f1229c93ed02ec7de35e2a738df3",
+  "generatedAtUtc": "2026-07-29T13:56:15.929Z",
+  "sourceHead": "b32ed5ce4a98ac470e624bd7bddeed9ee6f29804",
+  "sourceFingerprint": "732d3fb39a3186e01b7892fd0772a422a33cd588b83625df62ebc6db0b164432",
   "routeCatalogHash": "fc2152a0116358584c3820810bd6304d2cd168055d747324391feb973c265859",
   "expectedCaptureCount": 23,
   "semanticRouteCount": 11,
-  "runStartedAtUtc": "2026-07-29T09:13:01.507Z",
-  "runCompletedAtUtc": "2026-07-29T09:13:01.513Z",
+  "runStartedAtUtc": "2026-07-29T13:54:10.040Z",
+  "runCompletedAtUtc": "2026-07-29T13:54:10.561Z",
   "entries": [
     {
       "captureId": "01-stage-select",
@@ -20,7 +20,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/01-stage-select.json",
       "screenshotSha256": "ea6d29793751be26321af68f492e66d8bed8e23843f5e89dc27bd022dbb728a8",
       "runtimeResultSha256": "f8177dd91f2cc6761f1131fce62b175a31769ff0754a23af3bf0c686c9d3d01b",
-      "capturedAtUtc": "2026-07-29T09:13:01.507Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.040Z",
       "passed": true
     },
     {
@@ -32,9 +32,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/02-initial-night-pencil.json",
-      "screenshotSha256": "6987c35d43e3fe45bf514da7a19bd4d40e24ddae4f5167e14500fab0cb5a19a6",
+      "screenshotSha256": "16ae337f8bd46c1fe08b9ea9c42cf6b6792176596827d97f75bde7dabe1a5f9a",
       "runtimeResultSha256": "dd4bf97a17e8baf2db4b875f9b4ce388e4e5292d4c17cb3e638ed095ecfe1d1f",
-      "capturedAtUtc": "2026-07-29T09:13:01.507Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.064Z",
       "passed": true
     },
     {
@@ -46,9 +46,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/03-levelup-actual-choices.json",
-      "screenshotSha256": "763f6c4e643404b76f06693d89ae4a0ca25720174dd548d21fb939adbb3faeec",
+      "screenshotSha256": "adcd4c5086ddd027de4a1b4fbe67c1fb9e65c071197ae8514db31f32b71e61ff",
       "runtimeResultSha256": "1de0eb6e7c81acf0f66c0c895c4febf9d2c0786fadb0f6bdad38d2d649b7c833",
-      "capturedAtUtc": "2026-07-29T09:13:01.507Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.100Z",
       "passed": true
     },
     {
@@ -60,9 +60,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/04-inventory-weapon-passive.json",
-      "screenshotSha256": "13027117df75e43e57ec75000e52ae0365f7c025c8600d28e40569af11f68280",
+      "screenshotSha256": "66724289906d57338c4e4c9e220af02a28bba5a2ba4396c7fc6275d300aeca25",
       "runtimeResultSha256": "0a7a8f4430bde9688768121d5564ef79fb76dd7b08bf3b6518cccb2a0a4e9537",
-      "capturedAtUtc": "2026-07-29T09:13:01.508Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.125Z",
       "passed": true
     },
     {
@@ -74,9 +74,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/05-inventory-full.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/05-inventory-full.json",
-      "screenshotSha256": "ae5f399ad2e2d568f6d337c7d7a0d7db65eed73799b7ac066b67664de8c1b91c",
+      "screenshotSha256": "7e4859eec7bd1a6dac8ca636ed3cf64cbf26947b8a88d6629518d01e715e54ee",
       "runtimeResultSha256": "0784504b15ebb7585a9e68bbe03b7b4bab8cd9a6342b20ce19b50bc7dfce8c3a",
-      "capturedAtUtc": "2026-07-29T09:13:01.508Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.150Z",
       "passed": true
     },
     {
@@ -88,9 +88,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/06-levelup-decline.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/06-levelup-decline.json",
-      "screenshotSha256": "1b50f9fb3c26e765cd0d275347ed10263df73002149767b4982d884212e93891",
+      "screenshotSha256": "ac1df7474653d11179880781a30c174a1a689f23b0b64164b98d475bce9c84dc",
       "runtimeResultSha256": "ddb498aad65da4e2b6ff58e3717474a2a98db55697719c3e2e6431a888f42815",
-      "capturedAtUtc": "2026-07-29T09:13:01.509Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.172Z",
       "passed": true
     },
     {
@@ -102,9 +102,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/07-levelup-replacement.json",
-      "screenshotSha256": "1f520d8c41934de0b3bc739ece85447ddcfdaa5ec5b49db3db9621b25f8be13d",
+      "screenshotSha256": "0881eca27400b20992f29be0a24f2842ecff64cc84dd852e9466375c3198fc67",
       "runtimeResultSha256": "402679fc67c3ba406a17891d2a8d8fcc17430891bf02ea1828d8e77b740240aa",
-      "capturedAtUtc": "2026-07-29T09:13:01.509Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.192Z",
       "passed": true
     },
     {
@@ -116,9 +116,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/08-black-ink-area.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/08-black-ink-area.json",
-      "screenshotSha256": "a88ea292fd9bb57476eabbef07c18815d3cf3ccc3c1744ec82e3108c7e38f6b5",
+      "screenshotSha256": "08e8d7f9dd90e3fc7e449b29611f1ffdc7d51ca0549fd7b4b60b8bf3876338f4",
       "runtimeResultSha256": "fe9c2057f4b0c04cb16bfaef68d0672c5b12a5b4576324bc12194f823892d53d",
-      "capturedAtUtc": "2026-07-29T09:13:01.509Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.216Z",
       "passed": true
     },
     {
@@ -130,9 +130,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/09-streetlamp-area.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/09-streetlamp-area.json",
-      "screenshotSha256": "8bbf0be5a52a86963eb09a7296dc86b04e90c85b397be6b0084737d9c637a2c8",
+      "screenshotSha256": "ff940e1e17d72b2b22648a4554e75094b36c0b0989c29b1a40253c8a1612b75c",
       "runtimeResultSha256": "f529933322edd250161b48fa5c383a65da45d9681625120bebcf9e0c161c8adf",
-      "capturedAtUtc": "2026-07-29T09:13:01.509Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.239Z",
       "passed": true
     },
     {
@@ -144,9 +144,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/10-fusion-ready.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/10-fusion-ready.json",
-      "screenshotSha256": "63e76e97755d470460b7ef11b9e26b398ef72f2d033ce49809047a3fa54e2af2",
+      "screenshotSha256": "9f21cf9a0d8448d56d253009eab0bcae19fa5f97bb34012279feb9b3736f9507",
       "runtimeResultSha256": "9e98beaa67e9fa1caa30206994979ab44ff357f1090f0498d6a80a9eae52e133",
-      "capturedAtUtc": "2026-07-29T09:13:01.510Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.264Z",
       "passed": true
     },
     {
@@ -158,9 +158,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/11-dawn-ink-lamp.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/11-dawn-ink-lamp.json",
-      "screenshotSha256": "a0e1ae0394090fd7e51cee56f2dfb9e08234f2e8670e25dbbd805d4d53574c88",
+      "screenshotSha256": "11b4001db6c51b0c1cd34aa47281aa4ccb2f65f63b906d3f02ad67cd136da399",
       "runtimeResultSha256": "a7ec84df2aad74fd425259462642fb3a70d1a13cabeb000b43620f8b7c166e83",
-      "capturedAtUtc": "2026-07-29T09:13:01.510Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.288Z",
       "passed": true
     },
     {
@@ -172,9 +172,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/12-name-tag-owned.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/12-name-tag-owned.json",
-      "screenshotSha256": "12423847ce5b40274bead49071bdc8a411e758a823e655e7f4b1f0dfe4a899fd",
+      "screenshotSha256": "7bdb6e2fdcfd117603d5308636e915414a7e76a8a5317e8eb915649590c50554",
       "runtimeResultSha256": "2d333414700c20e97388dcc43d8ee9b0eda0503c80df6163dfad8a3e06b5f941",
-      "capturedAtUtc": "2026-07-29T09:13:01.510Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.313Z",
       "passed": true
     },
     {
@@ -186,9 +186,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/13-unforgotten-name.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/13-unforgotten-name.json",
-      "screenshotSha256": "da5ca5b3e6fa92597f6c7b55f5ae1c52cf2a4546a5c0c02a9f7ef66a3dbe66bf",
+      "screenshotSha256": "4e76c0807c2bd4bb3930b4b90d1fd06ccbc5af4ab4c7eaeb1168a480c613e609",
       "runtimeResultSha256": "5d64e3c0f81552be189c39032d766adb8f4f74d58a003d78dba0b66727b4c97e",
-      "capturedAtUtc": "2026-07-29T09:13:01.510Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.337Z",
       "passed": true
     },
     {
@@ -200,9 +200,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/14-dawn-ticket-owned.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/14-dawn-ticket-owned.json",
-      "screenshotSha256": "f4fccf5cbf8681d457038c4ea8b9287c896be5a2990640c017c2a998c2a06eaf",
+      "screenshotSha256": "947ee8eb5c4c5761967cc86feabf6a20a42574fd6958aefe45cbe86a07cbda43",
       "runtimeResultSha256": "dac3ba8acddd79b06d7ac52aba43cf2a3299c5de75f951fa5013f1d04d8f1647",
-      "capturedAtUtc": "2026-07-29T09:13:01.511Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.359Z",
       "passed": true
     },
     {
@@ -214,9 +214,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/15-revival-30-percent.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/15-revival-30-percent.json",
-      "screenshotSha256": "6f5b9f4516a26965d0902c31afc7c1c8f925297f6a21e3335c0c8ca2ddd59f16",
+      "screenshotSha256": "8b2e9ae24ca4892a6d92917288d9a5c88591a4edcf88a935fcfe38ffb071a61c",
       "runtimeResultSha256": "a9c496e99da3dd955f59f07c3245e7a12b27dad23246c9a7364bd43f9095429a",
-      "capturedAtUtc": "2026-07-29T09:13:01.511Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.382Z",
       "passed": true
     },
     {
@@ -228,9 +228,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/16-kokuyou-charging.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/16-kokuyou-charging.json",
-      "screenshotSha256": "c8c4e2e8557d7bddc927161ac5a90b1df9cea717ce0aa81884cb92295ea28f9a",
+      "screenshotSha256": "02bf9988b0488ae23fff66f26202299d3dd1968c70eb9340092fa7fccd25ac93",
       "runtimeResultSha256": "907c7685d0466fccd59311182273945fb99449f91f2a2f6207405d16d8dd2145",
-      "capturedAtUtc": "2026-07-29T09:13:01.511Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.403Z",
       "passed": true
     },
     {
@@ -242,9 +242,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/17-kokuyou-ready.json",
-      "screenshotSha256": "8e86a847e1cd18dba2510f2c5904eec0e24f1d735c21cdf7e9c4a0ad1f88e104",
+      "screenshotSha256": "e97c472a25421a4f83a2ef9a906eff601e09ae27688b9b3e75303ac1dae9630b",
       "runtimeResultSha256": "8044ce0081ffd410cea2db4ca840add7208d85e3d3f1aa663e437ffb0bfdb417",
-      "capturedAtUtc": "2026-07-29T09:13:01.512Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.425Z",
       "passed": true
     },
     {
@@ -256,9 +256,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/18-kokuyou-active.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/18-kokuyou-active.json",
-      "screenshotSha256": "06f394cc6b7d34ca59a34246860e920063e4c635c73fec9e5c9133cc7ab540bb",
+      "screenshotSha256": "8bcf92db5425a4d7ab83b950c2368d70f04848e0d271cfb1d21a279d587c9f64",
       "runtimeResultSha256": "1cc310bb962baa6fccc495a2e5e84753d3b89e4985887ef5573bf475e4c0bb7a",
-      "capturedAtUtc": "2026-07-29T09:13:01.512Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.446Z",
       "passed": true
     },
     {
@@ -270,9 +270,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/19-kokuyou-recovery.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/19-kokuyou-recovery.json",
-      "screenshotSha256": "c7524b4b7a27d8fb1f44007aa699811d30aafe8ea6452c4087a5dd42d10e8ee7",
+      "screenshotSha256": "8c7d0defe73d1fcaed1182192ea392e5daed2969cab4b904d484a6475c2a4562",
       "runtimeResultSha256": "83cc5466a953e8b777b1f4cc53e78f0beb059cb9a01fdb2729099e934292dd1d",
-      "capturedAtUtc": "2026-07-29T09:13:01.512Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.469Z",
       "passed": true
     },
     {
@@ -286,7 +286,7 @@
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/20-result-u47-summary.json",
       "screenshotSha256": "ef330233de5df46ffca4b405f091f48c359aa40ce20b3fcb433c4ced7254a3ed",
       "runtimeResultSha256": "53a54aa1a9ceb51c07663f713715383853fef8f794b6e6ccae32e3c60a01db73",
-      "capturedAtUtc": "2026-07-29T09:13:01.512Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.491Z",
       "passed": true
     },
     {
@@ -298,9 +298,9 @@
       "height": 844,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/21-retry-reset.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/21-retry-reset.json",
-      "screenshotSha256": "2bb5204bca4fcd531ab17493d0d9dda377554c17eabfd7dc0e3dd572214de197",
+      "screenshotSha256": "9dfd2489d3991ed5697c06d48d7f480412fd8be8dd31f8942870c7d6d66963f6",
       "runtimeResultSha256": "57b77e07c5cf9745bd68d8f0f8787a034fc4012c14a806d5dd6bf3c1ac4f51d1",
-      "capturedAtUtc": "2026-07-29T09:13:01.513Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.513Z",
       "passed": true
     },
     {
@@ -312,9 +312,9 @@
       "height": 800,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/22-compact-gameplay.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/22-compact-gameplay.json",
-      "screenshotSha256": "4b487af88f216e21da0ae776effa519c03bcab8be329fad362d70d800e4aa890",
+      "screenshotSha256": "8b02f38839b8e810aabae14defbf2908cf3d583b53fe3220fb460c2dcc947e63",
       "runtimeResultSha256": "8bd66ec983eef9f174f7a44a908a5a74e3b170c6060210108c05c67328373fba",
-      "capturedAtUtc": "2026-07-29T09:13:01.513Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.537Z",
       "passed": true
     },
     {
@@ -326,9 +326,9 @@
       "height": 932,
       "screenshotPath": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/23-large-gameplay.png",
       "runtimeResultPath": "docs/design-targets/generated/unity-u47/simulator-smoke/runtime-results/23-large-gameplay.json",
-      "screenshotSha256": "9765e3d9ce25503a834a1cf48947283461304cb398b9662d598f6c0b44d49bba",
+      "screenshotSha256": "f93650b1b3b568e04e8a1bb6f8b922805b4061b115bd39ebe52cff10ab873dd9",
       "runtimeResultSha256": "b6e3130ef0b4a0b8d6b9ff43ca5242363e0d4489551ccde349e9a8eca7445a5c",
-      "capturedAtUtc": "2026-07-29T09:13:01.513Z",
+      "capturedAtUtc": "2026-07-29T13:54:10.561Z",
       "passed": true
     }
   ]

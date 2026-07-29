@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-07-29T14:03:08Z",
+  "sourceCommit": "b32ed5ce4a98ac470e624bd7bddeed9ee6f29804",
+  "branch": "integration/u49-pr75-integrity-20260727",
+  "pullRequest": 76,
+  "pullRequestDraftRequired": true,
+  "unityVersion": "6000.5.1f1",
+  "status": "BLOCKED_BY_LOCKED_PHYSICAL_DEVICE",
+  "blockers": [
+    "the connected physical iPhone was locked when current-build launch was attempted",
+    "developer-profile trust cannot be re-evaluated until the device is unlocked",
+    "audio, haptic, lifecycle, touch, and gameplay observations still require a human on the physical device"
+  ],
+  "supplementalVisual": {
+    "evidence": "docs/design-targets/generated/unity-u49/supplemental-visual/review.json",
+    "settings": "PASS_SIMULATOR_SCOPE",
+    "firstRun": "PASS_SIMULATOR_SCOPE"
+  },
+  "physicalDevice": {
+    "deviceFamily": "iPhone",
+    "modelIdentifier": "iPhone17,3",
+    "osVersion": "18.7.8",
+    "physicalDevice": true,
+    "paired": true,
+    "developerModeEnabled": true,
+    "developerServicesAvailable": true,
+    "trustPairingAvailable": true,
+    "deviceIdentifierTracked": false
+  },
+  "build": {
+    "unityExport": "BUILD_PASS",
+    "unityExportGeneratedAtUtc": "2026-07-29T13:59:42Z",
+    "unityBuildMethod": "VampPon.UnitySpike.Editor.U49IosDeviceBuild.Build",
+    "unityBuildOutput": "/tmp/vamp-pon-u49-b32ed5ce.Z3oKXT/ios-device",
+    "xcodeTarget": "Unity-iPhone",
+    "xcodeConfiguration": "Release",
+    "xcodeBuild": "BUILD_PASS",
+    "signedAppGeneratedAtUtc": "2026-07-29T14:01:22Z",
+    "signedAppOutput": "/tmp/vamp-pon-u49-b32ed5ce-derived.WUWeHb/Build/Products/Release-iphoneos/VampPonUnitySpike.app",
+    "signing": "SIGN_PASS",
+    "localCodeSignatureVerified": true,
+    "embeddedProvisioningProfilePresent": true,
+    "profileIdentifierTracked": false,
+    "appBundleIdentifier": "com.m-shogo.Vamp-Pon-Unity-Spike",
+    "frameworkBundleIdentifier": "com.unity3d.framework",
+    "temporaryXcodeAdjustment": "the fresh generated Xcode project app target bundle identifier was changed to the available provisioning scope; repository files were not changed",
+    "warnings": [
+      "the configured Unity product bundle identifier differs from the available local provisioning profile scope",
+      "the Xcode build reports a missing 1024-point App Store icon",
+      "the generated Xcode project reports SDK deprecation warnings"
+    ]
+  },
+  "installLaunch": {
+    "install": "INSTALL_PASS",
+    "oldInstalledAppConfusionPrevented": true,
+    "launch": "LAUNCH_FAIL",
+    "launchFailureCode": "DEVICE_LOCKED",
+    "launchFailureDetail": "the physical iPhone rejected launch because it was locked or could not be unlocked",
+    "currentBuildRunningConfirmed": false
+  },
+  "physicalObservations": {
+    "gameplay": "NOT_RUN",
+    "seSequence": {
+      "expectedCount": 22,
+      "observedCount": 0,
+      "result": "NOT_RUN"
+    },
+    "audioLatency": "NOT_MEASURED",
+    "hapticSequence": {
+      "expectedCount": 10,
+      "observedCount": 0,
+      "result": "NOT_RUN"
+    },
+    "hapticMeasurement": "NOT_MEASURED",
+    "backgroundForeground": "NOT_RUN",
+    "reducedMotion": "NOT_RUN_ON_PHYSICAL_DEVICE",
+    "preferenceRoundTrip": "NOT_RUN_ON_PHYSICAL_DEVICE",
+    "mobileMetrics": "NOT_MEASURED",
+    "humanReview": "NOT_RUN"
+  },
+  "githubActions": {
+    "classification": "EXTERNAL_GITHUB_BILLING_BLOCKER",
+    "stage1QualityRun": 30439871396,
+    "ciRun": 30439871505,
+    "jobsStarted": false,
+    "workflowChanged": false,
+    "codeFailureInferred": false
+  },
+  "readiness": {
+    "physicalDeviceReady": false,
+    "devicePlayableReady": false,
+    "audioReady": false,
+    "audioLatencyMeasured": false,
+    "hapticReady": false,
+    "hapticMeasured": false,
+    "mobileMetricsReady": false,
+    "rcReady": false,
+    "productionApproved": false
+  },
+  "nextHumanAction": "Unlock the connected iPhone and keep it awake. If iOS then reports an untrusted developer profile, open Settings > General > VPN & Device Management and trust the installed developer app profile before retrying launch."
+}

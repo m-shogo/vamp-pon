@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "reviewedAtUtc": "2026-07-29T09:25:36Z",
-  "captureHead": "904e2d5918e195acdca8e5a1904dc0b4cc0503da",
+  "reviewedAtUtc": "2026-07-29T13:56:15Z",
+  "captureHead": "b32ed5ce4a98ac470e624bd7bddeed9ee6f29804",
   "unityVersion": "6000.5.1f1",
-  "sourceFingerprint": "e968269acf0d6d301dc37d4d0e33a0237191f1229c93ed02ec7de35e2a738df3",
+  "sourceFingerprint": "732d3fb39a3186e01b7892fd0772a422a33cd588b83625df62ebc6db0b164432",
   "reviewedCaptureCount": 23,
   "result": "PASS",
   "contactSheets": [
@@ -38,7 +38,7 @@
     "captures 01-21 are 390x844 Standard renders",
     "capture 22 is a live 360x800 Compact render of stage1-gameplay",
     "capture 23 is a live 430x932 Large render of stage1-gameplay",
-    "Settings content and First Run are not members of the canonical U47 23-capture catalog, so this review does not claim current-head Unity visual coverage for those screens",
+    "Settings content and First Run are not members of the canonical U47 23-capture catalog; their current-head Unity visual coverage is recorded separately under unity-u49/supplemental-visual",
     "U47 Simulator visual evidence does not provide physical-device audio, haptic, performance, RC, or production approval evidence"
   ]
 }

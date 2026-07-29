@@ -610,3 +610,97 @@ mobileMetricsReady = false
 rcReady = false
 productionApproved = false
 ```
+
+---
+
+# 18. 2026-07-29 U49 Settings / First Run production pass and final-device continuation
+
+The production implementation is fixed at commit
+`b32ed5ce4a98ac470e624bd7bddeed9ee6f29804` and Unity `6000.5.1f1`.
+The existing U47 canonical denominator remains 23; the additional Settings and
+First Run evidence is recorded separately:
+
+```txt
+docs/design-targets/generated/unity-u49/supplemental-visual/review.json
+docs/design-targets/generated/unity-u49/current-head-final-device-batch.json
+```
+
+Before / after supplemental Unity result:
+
+```txt
+Settings before             = REPLACE
+Settings after              = PASS_SIMULATOR_SCOPE
+Settings functional         = PASS
+Settings relaunch persistence = PASS
+First Run before            = MISSING
+First Run after             = PASS_SIMULATOR_SCOPE
+First Run normal route      = PASS
+First Run -> gameplay       = PASS
+First Run completion round trip = PASS
+Second Stage start skip     = PASS
+```
+
+The Settings replacement keeps the existing four-item `AppPreferenceService` boundary,
+uses quiet paper rows, black ink, a small lantern accent, thin audio fills, and explicit
+ON/OFF states. No ornament overlaps text. State change and relaunch persistence passed
+on the normal StageSelect route.
+
+First Run is a single static production screen. It uses the required four lines, with
+the final `黒曜片` line assembled through the Unity shared wallet display formatter.
+Completion is stored as a stable stage ID through `SaveService` and is not mixed into
+`AppPreferenceService`. U47/U48 diagnostic defines bypass the First Run intercept so
+the established diagnostic routes and denominator remain unchanged.
+
+Fresh current-source U47 evidence was regenerated through the existing iOS Simulator
+diagnostic route after the runtime fingerprint became stale:
+
+```txt
+canonical captures          = 23 / 23
+semantic routes             = 11
+Compact / Standard / Large  = 360x800 / 390x844 / 430x932
+unhandled exceptions        = 0
+assertion failures          = 0
+stale evidence              = 0
+visual review               = PASS_CANONICAL_U47_SCOPE
+```
+
+Fresh physical-device build boundary:
+
+```txt
+Unity iOS export            = BUILD_PASS
+Xcode Release build         = BUILD_PASS
+local signing verification  = SIGN_PASS
+physical install            = INSTALL_PASS
+physical launch             = LAUNCH_FAIL
+launch blocker              = physical iPhone locked
+```
+
+The fresh generated Xcode project required a temporary app-target bundle identifier
+adjustment to match the available local provisioning profile. That adjustment was made
+only in the temporary Xcode output; repository source was not changed. The signed app
+uses `com.m-shogo.Vamp-Pon-Unity-Spike`, while UnityFramework retains
+`com.unity3d.framework`.
+
+The earlier pre-implementation attempt was blocked by developer-profile trust. The
+current-build attempt reached a different fail-closed condition: iOS denied launch
+because the device was locked. Trust state must be re-evaluated after the device is
+unlocked; it is not inferred from install success.
+
+Because current-build launch has not passed, physical gameplay, 22 SE observations, latency,
+10 haptic observations, haptic measurement, lifecycle recovery, physical preference
+round trips, mobile metrics, and the current human review have not run. All readiness
+flags remain false. GitHub Actions remain separately classified as
+`EXTERNAL_GITHUB_BILLING_BLOCKER`; no workflow was changed.
+
+The full implementation preflight passed after the implementation and fresh U47
+recapture:
+
+```txt
+implementation:preflight:full = PASS
+Web tests                    = 88 files / 538 tests PASS
+Web production build         = PASS
+Unity compile                = PASS
+U46 save / flow verifier     = PASS
+U47 manifest                 = PASS / stale 0
+U49 static contract          = PASS / physical evidence still blocked
+```
