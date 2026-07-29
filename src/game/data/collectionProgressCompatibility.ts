@@ -3,20 +3,16 @@ import {
   type NightBoardCell,
 } from './collectionProgress';
 import { normalizeLegacyDisplayTerm } from './namedObjectReadModels';
+import {
+  stage1LegacyRuntimeCompatibilityByBoardCellId,
+  type Stage1LegacyRuntimeCompatibilityEntry,
+} from './stage1LegacyRuntimeCompatibility';
 
 export type NightBoardCellMigrationClass =
   | 'KEEP'
   | 'RENAME_DISPLAY_ONLY'
-  | 'REVIEW_ENEMY_REBIND';
-
-const LEGACY_ENEMY_CELL_IDS = new Set([
-  'fs_001_release_ink_shadow',
-  'fs_002_release_paper_scrap_shadow',
-  'fs_003_release_night_haze',
-  'fs_004_release_black_label_shadow',
-  'fs_005_calm_bag_yorishiro',
-  'fs_024_release_onbro_fast',
-]);
+  | 'REVIEW_ENEMY_REBIND'
+  | 'REVIEW_LEGACY_STORY_BINDING';
 
 const DISPLAY_ONLY_CELL_IDS = new Set([
   'fs_008_clear_depth_1_no_black_form',
@@ -34,10 +30,15 @@ export type CompatibleNightBoardCell = NightBoardCell & {
   migrationClass: NightBoardCellMigrationClass;
   currentDisplayTitle: string;
   currentDisplayCondition: string;
+  legacyRuntimeBinding?: Stage1LegacyRuntimeCompatibilityEntry;
 };
 
 function classifyCell(cell: NightBoardCell): NightBoardCellMigrationClass {
-  if (LEGACY_ENEMY_CELL_IDS.has(cell.id)) {
+  const legacyBinding = stage1LegacyRuntimeCompatibilityByBoardCellId.get(cell.id);
+  if (legacyBinding?.legacyKind === 'STORY_RECORD') {
+    return 'REVIEW_LEGACY_STORY_BINDING';
+  }
+  if (legacyBinding) {
     return 'REVIEW_ENEMY_REBIND';
   }
   if (DISPLAY_ONLY_CELL_IDS.has(cell.id)) {
@@ -51,6 +52,7 @@ export const forgottenStreetCompatibleCells: CompatibleNightBoardCell[] =
     const legacy = LEGACY_DISPLAY_OVERRIDES[cell.id];
     const originalTitle = legacy?.title ?? cell.title;
     const originalCondition = legacy?.condition ?? cell.condition;
+    const legacyRuntimeBinding = stage1LegacyRuntimeCompatibilityByBoardCellId.get(cell.id);
     return {
       ...cell,
       originalTitle,
@@ -58,6 +60,7 @@ export const forgottenStreetCompatibleCells: CompatibleNightBoardCell[] =
       migrationClass: classifyCell(cell),
       currentDisplayTitle: normalizeLegacyDisplayTerm(cell.title),
       currentDisplayCondition: normalizeLegacyDisplayTerm(cell.condition),
+      legacyRuntimeBinding,
     };
   });
 
@@ -66,7 +69,7 @@ export const forgottenStreetNightBoardCompatibility = {
   name: forgottenStreetNightBoard.name,
   width: forgottenStreetNightBoard.width,
   height: forgottenStreetNightBoard.height,
-  definitionVersion: 'stage1-compat-v1',
+  definitionVersion: 'stage1-compat-v2',
   saveMigrationApplied: false,
   cells: forgottenStreetCompatibleCells,
 } as const;
@@ -79,5 +82,20 @@ export const forgottenStreetCompatibilitySummary = {
   ).length,
   reviewEnemyRebind: forgottenStreetCompatibleCells.filter(
     (cell) => cell.migrationClass === 'REVIEW_ENEMY_REBIND',
+  ).length,
+  reviewLegacyStoryBinding: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.migrationClass === 'REVIEW_LEGACY_STORY_BINDING',
+  ).length,
+  exactStage1SuccessorCells: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.legacyRuntimeBinding?.successorRelation === 'EXACT_STAGE1_SUCCESSOR',
+  ).length,
+  roleStage1SuccessorCells: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.legacyRuntimeBinding?.successorRelation === 'ROLE_STAGE1_SUCCESSOR',
+  ).length,
+  movedToOtherStageCells: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.legacyRuntimeBinding?.successorRelation === 'MOVED_TO_OTHER_STAGE',
+  ).length,
+  noCurrentSuccessorCells: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.legacyRuntimeBinding?.successorRelation === 'NO_CURRENT_SUCCESSOR',
   ).length,
 } as const;
