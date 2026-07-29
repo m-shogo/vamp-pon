@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-29",
+  "status": "CURRENT_CONCEPT_SEPARATION_DISPLAY_RENAME_NOT_APPROVED",
+  "resources": [
+    {
+      "id": "economy:meta_upgrade_currency",
+      "concept": "persistent_spendable_meta_upgrade_resource",
+      "storagePaths": [
+        "PlayerProfile.currency",
+        "PlayerProfile.totalCurrencyEarned"
+      ],
+      "runtimeIds": [
+        "profile.currency",
+        "RunSettlement.currencyEarned",
+        "RunSettlement.achievementReward",
+        "NightBoardReward.type:light_coin",
+        "UpgradeId:currencyGain"
+      ],
+      "currentDisplayLabels": ["黒曜片"],
+      "namingStatus": "CURRENT_DISPLAY_PENDING_REVIEW",
+      "autoRenameAllowed": false
+    },
+    {
+      "id": "economy:run_memory_fragment",
+      "concept": "run_only_xp_pickup",
+      "runtimeIds": [
+        "RuntimeStats.memoryFragmentsCollected",
+        "pickup:memory_fragment"
+      ],
+      "currentDisplayLabels": ["記憶片"],
+      "persistent": false,
+      "spendable": false,
+      "autoRenameAllowed": false
+    },
+    {
+      "id": "economy:prototype_light_coin_counter",
+      "concept": "prototype_stage1_completion_proxy",
+      "runtimeIds": [
+        "NightBoardCell:fs_019_collect_100_light_coin",
+        "prototype-formula:kills*0.35+memoryFragmentsCollected*0.7"
+      ],
+      "currentDisplayLabels": ["灯貨"],
+      "namingStatus": "PROTOTYPE_COUNTER",
+      "persistent": false,
+      "spendable": false,
+      "autoRenameAllowed": false
+    },
+    {
+      "id": "mechanic:black_youka",
+      "concept": "battle_and_story_fixed-reading_mechanic",
+      "runtimeIds": [
+        "RuntimeStats.berserkUses",
+        "UpgradeId:noBerserkBonus"
+      ],
+      "currentDisplayLabels": ["黒耀化"],
+      "namingStatus": "NOT_CURRENCY",
+      "autoRenameAllowed": false
+    }
+  ],
+  "highValueCandidate": {
+    "status": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
+    "persistentCurrencyDisplay": "灯貨",
+    "legacyDisplayAlias": "黒曜片",
+    "requiredBeforePromotion": [
+      "preserve PlayerProfile.currency",
+      "preserve light_coin as internal alias",
+      "add actual per-run earned-currency counter",
+      "replace fs_019 proxy formula",
+      "connect くすんだ灯貨 to the persistent currency lineage",
+      "add save purchase refund reward and achievement tests",
+      "human naming approval"
+    ]
+  },
+  "activeRepair": {
+    "achievementDescriptionsMigratedToBlackYouka": 4,
+    "runtimeIdsChanged": false,
+    "rewardValuesChanged": false
+  },
+  "knownDebt": [
+    "PlayerProfile UPGRADE_DEFS contains legacy 黒曜化 wording",
+    "CollectionScene keeper header contains abbreviated 黒曜 wording",
+    "StageSelect uses 黒曜片 and 黒曜研究所 pending economy/facility naming review",
+    "fs_019_collect_100_light_coin uses a proxy formula"
+  ],
+  "readinessUnaffected": true
+}
