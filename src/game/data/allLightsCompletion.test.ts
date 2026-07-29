@@ -26,6 +26,37 @@ describe('all lights completion', () => {
     });
   });
 
+  it('runtimeFrozen=trueでも空required IDを正式分母として扱わない', () => {
+    const save = migrateCollectionProgressSaveToV2({});
+    const invalidSpecification: AllLightsCompletionSpecification = {
+      version: 'launch-v1',
+      runtimeFrozen: true,
+      groups: [{ id: 'night_roads', displayName: '夜路', requiredIds: [] }],
+    };
+
+    expect(evaluateAllLightsCompletion(invalidSpecification, save)).toEqual({
+      state: 'LOCKED',
+      reason: 'INVALID_FROZEN_SPECIFICATION',
+      missingByGroup: {},
+    });
+  });
+
+  it('重複group IDを持つfrozen specも拒否する', () => {
+    const save = migrateCollectionProgressSaveToV2({});
+    const invalidSpecification: AllLightsCompletionSpecification = {
+      version: 'launch-v1',
+      runtimeFrozen: true,
+      groups: [
+        { id: 'night_roads', displayName: '夜路', requiredIds: ['stage:1'] },
+        { id: 'night_roads', displayName: '夜路 duplicate', requiredIds: ['stage:2'] },
+      ],
+    };
+
+    expect(evaluateAllLightsCompletion(invalidSpecification, save).reason).toBe(
+      'INVALID_FROZEN_SPECIFICATION',
+    );
+  });
+
   it('frozen specで不足項目をgroup別に返す', () => {
     const save = migrateCollectionProgressSaveToV2({
       schemaVersion: 2,
