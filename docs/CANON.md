@@ -5,7 +5,7 @@ Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
 > ヨルノシルベを考える時は最初にここを見る。repo全体から過去資料を毎回掘り直さない。
 >
-> **Design Current、Runtime Implemented、Device Verified、Release Readyを混同しない。**
+> **Design Current、Definition Foundation、Runtime Implemented、Device Verified、Release Readyを混同しない。**
 
 ---
 
@@ -93,6 +93,11 @@ Core:
 - Dawn state
 - 100% reward
 
+Runtime-safe foundation:
+
+- `named-object-runtime-migration-plan-v1.md`
+- `named-object-runtime-foundation-2026-07-29.md`
+
 ---
 
 # 4. Current domain entrypoints
@@ -104,6 +109,7 @@ Core:
 | Play experience | `PLAY-EXPERIENCE.md` |
 | Character/Story integration | `CHARACTER-STORY-INTEGRATION.md` |
 | Named object / item lineage | `NAMED-OBJECT-CONNECTIONS.md` |
+| Named-object runtime foundation | `named-object-runtime-foundation-2026-07-29.md` |
 | Clear Getter / 100% | `CLEAR-GETTER-AND-100-PERCENT-REWARD.md` |
 | Current21 luminous possessions | `character-luminous-personal-item-book-v1.md` |
 | Character | `CHARACTERS.md` |
@@ -168,6 +174,18 @@ Rules:
 - Dawn proof = 21/21
 - luminous possession direction = 21/21
 
+Stable Shadow IDs:
+
+```txt
+kage1 = カナメ
+kage2 = カスミ
+kage3 = トキ
+kage4 = ツムギ
+```
+
+IDは維持する。
+Current visible nameを旧カゲール名へ戻さない。
+
 ## Future15
 
 ヒヨリ / セリカ / クロエ / レンジ / トウマ / クウ / ヨモ / ノア / ルム / マキ / スズ / イオ / カイ / ナオ / アマネ
@@ -186,29 +204,64 @@ Rules:
 
 最重要Current rule:
 
-> **名前のある物は、人物・Stage・Gameplay・Enemy・星図・記録・関係・黒耀化・夜明けのうち最低3方向以上へつなぐ。**
+> **名前のある物はdisplay nameだけで漂わせず、stable IDを持ち、最低でもCharacter・Stage・Gameplay・Archiveへ接続する。**
 
-固有名詞を飾りで終わらせない。
+lineageではさらに:
 
-Every named object needs:
+- Relationship
+- Enemy motif
+- 記憶のしるし
+- 黒耀化 distortion
+- Dawn state
+- evolution phase
 
-- stable ID
-- display name / status
-- type
-- owner / keeper
-- first appearance
-- gameplay verb
-- motif lane
-- enemy connection
-- Clear Getter connection
-- archive connection
-- relation connection
-- black-youka distortion
-- dawn state
-- evolution lineage
+へつなぐ。
 
 全部をPlayerへ同時表示する必要はない。
 制作memoryでは失わない。
+
+## Definition foundation
+
+Source:
+
+- `src/game/data/namedObjectRegistry.ts`
+
+Current counts:
+
+```txt
+Current21 lineages = 21
+phases per lineage = 6
+stable named objects = 126
+```
+
+Stable phase IDs:
+
+```txt
+named-object:{characterId}:luminous_possession
+named-object:{characterId}:starter_gear
+named-object:{characterId}:passive_item
+named-object:{characterId}:rare_item
+named-object:{characterId}:lamp_tsugi
+named-object:{characterId}:akatsuki_biraki
+```
+
+同名phaseは`sameObjectPhase`で同一objectの成長を明示する。
+偶然の重複を後から同一物に捏造しない。
+
+## Non-destructive migration
+
+Source:
+
+- `src/game/data/namedObjectMigrationLedger.ts`
+
+Rules:
+
+- old propを削除しない
+- old nameを削除しない
+- unknown save IDを削除しない
+- Nagi / Michiru旧bindingをsilent overwriteしない
+- Shadow stable IDを変えない
+- `黒曜化`はlegacy alias、visible Currentは`黒耀化`
 
 ---
 
@@ -226,19 +279,25 @@ Current20 passive      = 20/20
 Current20 rare item    = 20/20
 Current20 灯継ぎ       = 20/20
 Current20 暁開き       = 20/20
-Reserve Ren            = partial
+Reserve Ren            = Working
 ```
 
 Current21 luminous possessions:
 
 - `character-luminous-personal-item-book-v1.md`
 
-Same display nameが複数categoryへ出る場合:
+Generated compatibility source:
 
-1. same object / phase changeとしてlineageを明示
-2. accidental collisionならHuman Naming Reviewで改名
+- `src/game/data/namedObjectReadModels.ts`
 
-文字列一致だけで後から同一物設定を捏造しない。
+Current:
+
+```txt
+Character object read models = 21
+runtimeConnectionState = NOT_CONNECTED
+```
+
+既存Keeper UIが21人対応済みという意味ではない。
 
 ---
 
@@ -253,9 +312,44 @@ Same display nameが複数categoryへ出る場合:
 
 夜明け星図はachievement checklistではなく、人物・物・敵・Stage・関係の線を可視化するClear Getter。
 
-100% exact direction:
+## Global constellation foundation
 
-## **全灯の朝**
+Source:
+
+- `src/game/data/globalConstellationDefinition.ts`
+
+```txt
+Group roots              = 6
+Stage roots              = 20
+Character roots          = 21
+Item-lineage roots       = 21
+Stage1 achievement nodes = 25
+Named-object links       = 126
+runtimeConnected         = false
+runtimeDenominatorFrozen = false
+```
+
+これはUI完成ではない。
+
+## Collection save v2 draft
+
+Source:
+
+- `src/game/data/collectionProgressSaveV2.ts`
+
+Rules:
+
+- old IDsを保持
+- unknown cell/groupを保持
+- v1から100%を自動解放しない
+- v1からreward claimedを生成しない
+- current state = `DRAFT_NOT_CONNECTED`
+
+Production save serviceはまだ使用していない。
+
+## 100% exact direction
+
+# **全灯の朝**
 
 Reward pack:
 
@@ -281,13 +375,38 @@ Main Happy Endを最大級に祝う追加の朝。
 - daily / weekly
 - 期間限定
 
+## Fail-closed evaluator
+
+Source:
+
+- `src/game/data/allLightsCompletion.ts`
+
+Current:
+
+```txt
+version = design-v1
+runtimeFrozen = false
+```
+
+したがってunlockはLOCKED。
+
+`runtimeFrozen=true`でも空required IDs・重複group・空versionなら:
+
+```txt
+INVALID_FROZEN_SPECIFICATION
+```
+
+で拒否する。
+
+Reward claimはeligible時のみ、immutable、idempotent。
+
 ---
 
 # 9. 黒耀化
 
 Common name:
 
-**黒耀化**
+# **黒耀化**
 
 `黒曜化`は新規canonで使わない。
 
@@ -301,8 +420,7 @@ Common name:
 ```
 
 成長後は同じ力を捨てず、Timingと他者の選択を残せる。
-
-光る持ち物も黒耀化で別物へ交換せず、同じ長所が歪む。
+光る持ち物も別物へ交換せず、同じ長所が歪む。
 
 ---
 
@@ -325,7 +443,6 @@ A-grade = series OPEN
 ```
 
 A-gradeを残すためC-gradeまで曖昧にしない。
-
 Main Mystery final answerはHuman decision前にLOCKしない。
 
 ---
@@ -340,7 +457,7 @@ Current:
 
 - gameplay identity 20/20
 - exact wave / final Boss / difficulty / launch count OPEN
-- `kage1..4` mappingを証拠なく決めない
+- Stage16〜19のproduction seedとCurrent Shadowを推測で直接LOCKしない
 
 Enemy authority:
 
@@ -354,6 +471,8 @@ ENEMIES.md
 Current48。
 Defeat = **ほどく**。
 旧name / old character bindingをCurrentへ戻さない。
+
+Stage1の旧Enemy達成6札はCurrent48 mappingを推測せずreviewへ隔離する。
 
 ---
 
@@ -404,23 +523,37 @@ Postgame:
 
 ---
 
-# 13. Known stale/runtime gaps
+# 13. Runtime foundation status and remaining gaps
 
-2026-07-29 audit:
+Implemented foundation:
 
-- `collectionProgress.ts` = Stage1 25-cell prototype only
-- old enemy labels / `黒曜化` display textあり
-- `keeperRecords.ts` = 5/21、旧Character coreあり
-- `lostItemRecords.ts` = 6 entries、旧Nagi/Michiru bindingあり
-- same-name item lineage runtime schemaなし
-- global constellation saveなし
-- `全灯の朝`未実装
+- stable object registry 126
+- migration ledger
+- 21 object read models
+- 2 lost-item compatibility rows
+- Stage1 25-cell compatibility layer
+- Collection save v2 draft
+- 全灯fail-closed evaluator
+- global constellation graph
+- tests / checker
 
-Design Currentだけで修正済みとは扱わない。
+Still not connected:
+
+- `keeperRecords.ts` current UI remains 5 records
+- keeper assets remain Core5 scope
+- `lostItemRecords.ts` remains 6 cards
+- lost-item assets remain 6
+- production save service does not use v2
+- global constellation UI does not exist
+- launch-v1 required IDs are not frozen
+- `全灯の朝` Scene / art / music / cosmetic / remix mode are not implemented
+
+Design / Definitionだけで修正済み・READYとは扱わない。
 
 Audit:
 
 - `named-object-clear-getter-audit-2026-07-29.md`
+- `named-object-runtime-foundation-2026-07-29.md`
 
 ---
 
@@ -446,13 +579,23 @@ CANON
 → cross-domainなら CHARACTER-STORY-INTEGRATION
 ```
 
-## Named Object / Clear Getter
+## Named Object / Clear Getter design
 
 ```txt
 CANON
 → NAMED-OBJECT-CONNECTIONS
 → luminous item book / Clear Getter master
-→ production data only when implementing
+```
+
+## Named Object implementation
+
+```txt
+CANON
+→ named-object-runtime-foundation-2026-07-29
+→ namedObjectRegistry / migration ledger
+→ compatibility / save v2 / constellation Definition
+→ runtime ownership / production save / UI
+→ tests / evidence
 ```
 
 ## Runtime
@@ -475,6 +618,7 @@ Legacyはmigration/history監査以外で最初に読まない。
 - **CANON / CURRENT** — design前提
 - **CURRENT-DIRECTION** — direction Current / exact tuning OPEN
 - **CURRENT-BASELINE** — release最低契約 / evidence別
+- **DEFINITION FOUNDATION** — type/data/compatibility foundation、runtime未接続可
 - **USER DIRECTION** — user明示
 - **USER IDEA** —保存し育てる
 - **HIGH-VALUE CANDIDATE** —強いが未LOCK
@@ -485,7 +629,7 @@ Legacyはmigration/history監査以外で最初に読まない。
 
 # 16. Runtime readiness boundary
 
-Design docsだけで以下をtrueにしない:
+Design docs / Definition foundationだけで以下をtrueにしない:
 
 - physicalDeviceReady
 - devicePlayableReady
@@ -497,13 +641,19 @@ Design docsだけで以下をtrueにしない:
 - rcReady
 - productionApproved
 
+Named-object workだけで以下もtrueにしない:
+
+- collectionSaveV2Connected
+- globalConstellationReady
+- allLightsMorningReady
+
 U49/U50/U51 authorityはproduction/runtime docsとevidenceを使う。
 
 ---
 
 # 17. Current state in one sentence
 
-> **Character・Story・Enemy・20Stage・Play Experienceに加え、名前のある物・Current21の光る持ち物・Clear Getter・100%祝祭までCurrent骨格を一本化した。次は古いcollection/keeper/lost-item dataを安全にmigrationし、Stage1から実機とHuman playtestで証明する。**
+> **Character・Story・Enemy・20Stage・Play Experienceに加え、Current21の126個の名前ある物、非破壊migration、save v2 draft、Clear Getter graph、全灯の朝fail-closed判定まで土台を一本化した。次は新設定追加ではなく、tests/CIを通し、既存UI・production saveへ一段ずつ安全に接続する。**
 
 ---
 
@@ -516,15 +666,15 @@ matching Hubへ保存
 ↓
 Game Coreとの衝突確認
 ↓
-connection cardを作る
+connection card / stable ID
 ↓
 CandidateならCandidateのまま
 ↓
 Human decision / implementation need
 ↓
-Current masterへ昇格
+Current master / Definitionへ昇格
 ↓
-CANON / index同期
+CANON / index / machine-readable source同期
 ```
 
 Game Core変更は明示的Human decisionとして扱う。
