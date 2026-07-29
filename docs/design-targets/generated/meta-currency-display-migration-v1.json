@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "date": "2026-07-29",
   "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
@@ -104,12 +104,14 @@
   "isolatedFixtureEvidence": {
     "environment": "Node.js v22.16.0 isolated functional mirror",
     "pendingToMigrated": true,
-    "replacementCount": 14,
+    "replacementCount": 18,
+    "targetFileCount": 6,
     "walletSurfaceCount": 9,
     "idempotentSecondWrite": true,
     "partialStateBlocked": true,
     "invalidDuplicateBlocked": true,
-    "note": "Evidence predates the four machine-readable replacements and is not a current-head repository test. The repository test suite covers the final 18-replacement definition when executable."
+    "result": "PASS",
+    "limitation": "This proves the final replacement-state algorithm in an isolated fixture. It is not a current-head repository test, TypeScript build, browser run or visual review."
   },
   "preflight": {
     "command": "pnpm implementation:preflight:check",
