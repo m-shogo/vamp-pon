@@ -8,7 +8,7 @@ import { forgottenStreetNightBoard } from './collectionProgress';
 import { collectionSections } from './collectionSections';
 import { keeperRecords } from './keeperRecords';
 import { lostItemRecords } from './lostItemRecords';
-import { namedObjectRegistryById } from './namedObjectRegistry';
+import { namedObjectById } from './namedObjectRegistry';
 import { isStrictlyApprovedKnowledgeLine, launchCoreKnowledgeLines } from './knowledgeLines';
 import { collectionWordRecordLines } from './collectionWordRecords';
 import { launchCoreCharacterKnowledgeReplies } from './characterKnowledgeReplies';
@@ -71,7 +71,7 @@ describe('collection atlas data', () => {
 
   it('灯し手記録はCurrentの光る持ち物へstable接続し旧小物も保持する', () => {
     for (const record of keeperRecords) {
-      const object = namedObjectRegistryById.get(record.luminousPossessionId);
+      const object = namedObjectById.get(record.luminousPossessionId);
       expect(object, record.id).toBeDefined();
       expect(object?.phase, record.id).toBe('luminous_possession');
       expect(object?.characterId, record.id).toBe(record.characterId);
