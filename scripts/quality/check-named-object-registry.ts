@@ -92,6 +92,28 @@ if (
   errors.push('Stage1 compatibility successor-relation cell counts are inconsistent');
 }
 if (
+  forgottenStreetCompatibilitySummary.activeCompletionEligible !== 22 ||
+  forgottenStreetCompatibilitySummary.legacyArchiveOnly !== 3
+) {
+  errors.push('Stage1 compatibility must keep 22 active nodes and 3 legacy archive-only nodes');
+}
+const archiveOnlyIds = forgottenStreetNightBoardCompatibility.cells
+  .filter((cell) => cell.completionEligibility === 'LEGACY_ARCHIVE_ONLY')
+  .map((cell) => cell.id);
+if (
+  JSON.stringify(archiveOnlyIds) !==
+  JSON.stringify([
+    'fs_002_release_paper_scrap_shadow',
+    'fs_003_release_night_haze',
+    'fs_025_view_nemori_record',
+  ])
+) {
+  errors.push('Stage1 legacy archive-only node set is inconsistent');
+}
+if (globalConstellationDefinition.activeStage1CompletionNodes.length !== 22) {
+  errors.push('global constellation must exclude the three Stage1 legacy archive-only nodes');
+}
+if (
   JSON.stringify(getAcceptedStage1ProgressIds('ink_shadow')) !==
   JSON.stringify(['ink_shadow', 'ombu_small_ink'])
 ) {
@@ -217,6 +239,7 @@ console.log(
     `${lostItemRecords.length} lost-item records, ` +
     `${stage1LegacyRuntimeCompatibilityEntries.length} Stage1 legacy runtime entries, ` +
     `${stage1LegacyRuntimeCompatibilityByBoardCellId.size} Stage1 legacy board bindings, ` +
+    `${globalConstellationDefinition.activeStage1CompletionNodes.length} active Stage1 completion nodes, ` +
     `${namedObjectMigrationLedger.length} migration entries, ` +
     `${globalConstellationDefinition.migratedStage1Nodes.length} Stage1 constellation nodes, ` +
     `${globalConstellationDefinition.namedObjectLinks.length} constellation links, ` +
