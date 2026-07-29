@@ -4,6 +4,10 @@ import {
   forgottenStreetNightBoardCells,
   type NightBoardCell,
 } from '../data/collectionProgress';
+import {
+  hasCalmedStage1LegacyTarget,
+  hasReleasedStage1LegacyTarget,
+} from '../data/stage1LegacyRuntimeCompatibility';
 import { loadProfile, saveProfile } from '../persistence/profile';
 import { loadCollectionProgress, saveCollectionProgress } from '../persistence/collection';
 import { getEnemyDefeats, getHealsCollected, getSeenEnemyIds } from './runCollectionMetrics';
@@ -133,18 +137,21 @@ function isCellComplete(
   progress: ReturnType<typeof loadCollectionProgress>,
   runEnemyDefeats: Record<string, number>,
 ): boolean {
-  const defeatedTotal = (enemyId: string) => progress.defeatedEnemyCounts[enemyId] ?? 0;
-  const defeatedThisRun = (enemyId: string) => runEnemyDefeats[enemyId] ?? 0;
   const weaponLevel = (weaponId: string) => state.inventory.weapons.find((weapon) => weapon.id === weaponId)?.level ?? 0;
   const stage1Cleared = cleared && state.stageNumber === 1;
   const hpRatio = state.player.maxHp > 0 ? state.player.hp / state.player.maxHp : 0;
 
   switch (cellId) {
-    case 'fs_001_release_ink_shadow': return defeatedTotal('ink_shadow') > 0 || defeatedThisRun('ink_shadow') > 0;
-    case 'fs_002_release_paper_scrap_shadow': return defeatedTotal('paper_scrap_shadow') > 0 || defeatedThisRun('paper_scrap_shadow') > 0;
-    case 'fs_003_release_night_haze': return defeatedTotal('night_haze') > 0 || defeatedThisRun('night_haze') > 0;
-    case 'fs_004_release_black_label_shadow': return defeatedTotal('black_label_shadow') > 0 || defeatedThisRun('black_label_shadow') > 0;
-    case 'fs_005_calm_bag_yorishiro': return progress.calmedBossIds.includes('bag_yorishiro') || (cleared && state.stageNumber >= 5);
+    case 'fs_001_release_ink_shadow':
+      return hasReleasedStage1LegacyTarget('ink_shadow', progress.defeatedEnemyCounts, runEnemyDefeats);
+    case 'fs_002_release_paper_scrap_shadow':
+      return hasReleasedStage1LegacyTarget('paper_scrap_shadow', progress.defeatedEnemyCounts, runEnemyDefeats);
+    case 'fs_003_release_night_haze':
+      return hasReleasedStage1LegacyTarget('night_haze', progress.defeatedEnemyCounts, runEnemyDefeats);
+    case 'fs_004_release_black_label_shadow':
+      return hasReleasedStage1LegacyTarget('black_label_shadow', progress.defeatedEnemyCounts, runEnemyDefeats);
+    case 'fs_005_calm_bag_yorishiro':
+      return hasCalmedStage1LegacyTarget('bag_yorishiro', progress.calmedBossIds) || (cleared && state.stageNumber >= 5);
     case 'fs_006_clear_depth_1': return stage1Cleared;
     case 'fs_007_clear_depth_1_high_hp': return stage1Cleared && hpRatio >= 0.5;
     case 'fs_008_clear_depth_1_no_black_form': return stage1Cleared && state.stats.berserkUses === 0;
@@ -164,11 +171,16 @@ function isCellComplete(
     case 'fs_020_reach_light_level_10': return state.player.level >= 10;
     case 'fs_021_clear_single_weapon': return stage1Cleared && state.inventory.weapons.length <= 1;
     case 'fs_022_clear_with_1_hp': return cleared && state.player.hp <= 1;
-    case 'fs_023_calm_yorishiro_with_ultimate': return state.stats.ultimateUses > 0 && (progress.calmedBossIds.includes('bag_yorishiro') || (cleared && state.stageNumber >= 5));
+    case 'fs_023_calm_yorishiro_with_ultimate':
+      return state.stats.ultimateUses > 0 && (
+        hasCalmedStage1LegacyTarget('bag_yorishiro', progress.calmedBossIds) ||
+        (cleared && state.stageNumber >= 5)
+      );
     // TODO(collection): eliteKillSecs は「ラン経過秒」基準で、本来狙う「出現から20秒以内」とは異なる。
     // スポーン時刻を保持できるようにしたら差し替える。
     case 'fs_024_release_onbro_fast': return state.telemetry.eliteKillSecs.some((sec) => sec <= 20);
-    case 'fs_025_view_nemori_record': return progress.calmedBossIds.includes('yanushi_nemori') || (cleared && state.stageNumber >= 10);
+    case 'fs_025_view_nemori_record':
+      return hasCalmedStage1LegacyTarget('yanushi_nemori', progress.calmedBossIds) || (cleared && state.stageNumber >= 10);
     default: return false;
   }
 }
