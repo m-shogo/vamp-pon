@@ -18,10 +18,17 @@ namespace VampPon.UnitySpike.UI.Screens
         private TextMeshProUGUI startLabel;
         private TextMeshProUGUI detailTitle;
         private TextMeshProUGUI detailStatus;
+        private Func<string, AppFlowCommandResult> startStage;
 
-        public void Build(Transform parent, TMP_FontAsset fontAsset, AppFlowCoordinator flow, Action openSettings = null)
+        public void Build(
+            Transform parent,
+            TMP_FontAsset fontAsset,
+            AppFlowCoordinator flow,
+            Action openSettings = null,
+            Func<string, AppFlowCommandResult> startStageCommand = null)
         {
             coordinator = flow ?? throw new ArgumentNullException(nameof(flow)); font = fontAsset;
+            startStage = startStageCommand ?? (stageId => coordinator.Execute(AppFlowCommand.StartStage(stageId)));
             transform.SetParent(parent, false);
             var rect = gameObject.AddComponent<RectTransform>();
             rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = Vector2.zero; rect.offsetMax = Vector2.zero;
@@ -37,7 +44,8 @@ namespace VampPon.UnitySpike.UI.Screens
             startLabel = startButton.GetComponentInChildren<TextMeshProUGUI>(true);
             U46ScreenFactory.Button(panel.transform, "OpenCollectionButton", "灯録を開く", AppQualityAssetProvider.PaperButtonFrame, new Vector2(.23f, .018f), new Vector2(.77f, .082f), font, () => coordinator.Execute(AppFlowCommand.OpenCollection()));
             U46ScreenFactory.Button(panel.transform, "OpenSettingsButton", "設定", AppQualityAssetProvider.PaperButtonFrame, new Vector2(.79f, .88f), new Vector2(.94f, .94f), font, openSettings);
-            U46ScreenFactory.Decoration(panel.transform, "LanternAccent", AppQualityAssetProvider.SmallLanternAccent, new Vector2(.88f, .87f), new Vector2(44f, 44f), Vector2.zero);
+            var lanternAccent = U46ScreenFactory.Decoration(panel.transform, "LanternAccent", AppQualityAssetProvider.SmallLanternAccent, new Vector2(.88f, .87f), new Vector2(44f, 44f), Vector2.zero);
+            lanternAccent.raycastTarget = false;
             coordinator.StageSelection.Changed += Render;
             Render();
         }
@@ -123,14 +131,14 @@ namespace VampPon.UnitySpike.UI.Screens
         private void StartSelected()
         {
             var selected = coordinator.StageSelection.Selected;
-            if (selected != null) coordinator.Execute(AppFlowCommand.StartStage(selected.StageId));
+            if (selected != null) startStage?.Invoke(selected.StageId);
         }
 
         private void OnDestroy()
         {
             if (coordinator != null) coordinator.StageSelection.Changed -= Render;
             foreach (var card in cards.Values) card.Button.onClick.RemoveAllListeners();
-            startButton?.onClick.RemoveAllListeners(); cards.Clear(); coordinator = null;
+            startButton?.onClick.RemoveAllListeners(); cards.Clear(); coordinator = null; startStage = null;
         }
 
         private static Color Ink() => AppQualityStyleTokens.InkText;
