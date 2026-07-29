@@ -1,7 +1,7 @@
 # ヨルノシルベ 永続通貨表示 Migration Foundation
 
 Date: 2026-07-29  
-Status: **CURRENT FORMATTER FOUNDATION / 2 OF 11 WALLET SURFACES CONNECTED / DISPLAY RENAME BLOCKED / CURRENT-HEAD EXECUTION OPEN**
+Status: **CURRENT FORMATTER FOUNDATION / GUARDED CODEMOD READY / 2 OF 11 WALLET SURFACES CONNECTED / DISPLAY RENAME BLOCKED / CURRENT-HEAD EXECUTION OPEN**
 
 > `黒曜片 → 灯貨`は、画面ごとの文字置換では行わない。
 >
@@ -122,7 +122,77 @@ This prevents the machine-readable ledger from drifting away from active code.
 
 ---
 
-# 5. Separate non-wallet review
+# 5. Guarded codemod
+
+Source:
+
+- `scripts/migrations/connect-meta-currency-display-surfaces.ts`
+
+Tests:
+
+- `scripts/migrations/connect-meta-currency-display-surfaces.test.ts`
+
+Commands:
+
+```sh
+pnpm currency-display:codemod:check
+pnpm currency-display:codemod:write
+```
+
+`--check` classifies the repository as:
+
+```txt
+PENDING   = all 13 guarded replacements are still in the Current direct-string state
+MIGRATED  = all 13 guarded replacements are formatter-connected
+PARTIAL   = some replacements are pending and some migrated; fail closed
+INVALID   = a needle is missing, duplicated or structurally changed; fail closed
+```
+
+The 13 guarded replacements comprise:
+
+```txt
+4 import blocks
+9 wallet display surfaces
+```
+
+Write sequence:
+
+1. read all four active files
+2. require every `before` needle exactly once and every `after` needle zero times
+3. build all transformed files in memory
+4. write temporary files
+5. rename them into place
+6. inspect all files again
+7. rollback originals if any write or post-write verification fails
+
+A second `--write` after successful migration is an idempotent no-op.
+
+The codemod deliberately does **not** change:
+
+- Current display authority `黒曜片`
+- candidate authority `灯貨`
+- `黒曜研究所`
+- Result `黒曜なし`
+- save fields
+- reward IDs
+- economy formulas
+
+It only replaces direct wallet text construction with calls to the existing Current formatter.
+
+`implementation:preflight:check` now runs:
+
+```txt
+unity:term-lock:check
+→ named-object:check
+→ currency-display:codemod:check
+→ big implementation readiness
+```
+
+Both coherent states, `PENDING` and `MIGRATED`, are allowed. `PARTIAL` and `INVALID` stop the preflight.
+
+---
+
+# 6. Separate non-wallet review
 
 The following are intentionally excluded from wallet display migration:
 
@@ -138,7 +208,7 @@ Neither may be changed merely because the wallet candidate is `灯貨`.
 
 ---
 
-# 6. Lifecycle evidence added
+# 7. Lifecycle evidence added
 
 Test:
 
@@ -171,9 +241,9 @@ previous balance
 
 ---
 
-# 7. Preflight connection
+# 8. Preflight connection
 
-`pnpm named-object:check` now validates:
+`pnpm named-object:check` validates:
 
 ```txt
 Current display = 黒曜片
@@ -185,7 +255,7 @@ formatter remaining = 9
 readyForHumanApproval = false
 ```
 
-It also rejects:
+It rejects:
 
 - duplicate surface IDs
 - candidate `灯貨` appearing on an active Current surface
@@ -193,30 +263,34 @@ It also rejects:
 - facility／黒耀化 terms being mixed into wallet migration
 - premature Human approval state
 
+The separate codemod check rejects source-level partial or invalid migration.
+
 ---
 
-# 8. Why StageSelect / Result were not directly edited in this pass
+# 9. Why StageSelect / Result were not directly edited in this pass
 
 Both are large active rendering files.
 
 The available GitHub connector exposes full-file replacement rather than a safe line-level patch. A partial or truncated source replacement could delete unrelated runtime code.
 
-Therefore this pass chose:
+The local Mac path is not mounted into this execution environment, and outbound DNS prevents cloning the repository into the container. GitHub Actions also still stops before its first step.
+
+Therefore this pass completed the safe execution mechanism rather than pretending the large-file migration had run:
 
 1. full surface inventory
 2. shared phrase functions
 3. lifecycle round-trip proof
 4. active-source contract
-5. preflight blocking
-6. machine-readable migration state
+5. guarded codemod
+6. codemod fixture tests
+7. preflight integration
+8. machine-readable migration state
 
-before editing those Scenes.
-
-This is not abandonment of the Scene migration. It is a non-destructive prerequisite.
+The actual four-file write remains unclaimed until `pnpm currency-display:codemod:write` executes on the repository and subsequent tests/build pass.
 
 ---
 
-# 9. Promotion gate
+# 10. Promotion gate
 
 `灯貨` may become Current wallet display only after all are true:
 
@@ -237,7 +311,7 @@ rename          = blocked
 
 ---
 
-# 10. Readiness boundary
+# 11. Readiness boundary
 
 This work does not promote:
 
@@ -254,6 +328,6 @@ U49 remains `BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE`.
 
 ---
 
-# 11. One sentence
+# 12. One sentence
 
-> **永続通貨は11表示面を台帳化し、2面を共通formatterへ接続、残り9面の改名をpreflightとsource契約で止めたうえで、保存・購入・返還・ラン・実績・Collection報酬のwallet整合テストを追加した。**
+> **永続通貨は11表示面を台帳化し、2面を共通formatterへ接続したうえで、残り9面を全件一致・一時ファイル・rollback付きcodemodへ固定し、部分移行を通常preflightで拒否できる状態にした。**
