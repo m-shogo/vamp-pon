@@ -19,6 +19,9 @@ const explicitFiles = [
   'docs/unity-asset-intake-gate-2026-06-30.md',
   'docs/unity-sprite-import-policy-2026-06-30.md',
   'docs/unity-u5-1-quality-gate-review-2026-06-30.md',
+  'src/game/data/collectionProgress.ts',
+  'src/game/data/collectionSections.ts',
+  'src/game/data/keeperRecords.ts',
 ];
 
 const contentContracts: ContentContract[] = [
@@ -108,6 +111,15 @@ const contentContracts: ContentContract[] = [
       'Verify Core5 gameplay frames',
       'pnpm enemy48:design:check',
       'pnpm inventory-icons:check',
+    ],
+    forbidden: [],
+  },
+  {
+    file: 'package.json',
+    required: [
+      '"named-object:check"',
+      'pnpm named-object:check',
+      'scripts/quality/check-named-object-registry.ts',
     ],
     forbidden: [],
   },
