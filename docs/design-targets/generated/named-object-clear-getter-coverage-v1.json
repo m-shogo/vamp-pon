@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "date": "2026-07-29",
-  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_AND_STAGE1_DISPLAY",
+  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_DUAL_READ",
   "invariants": {
     "namedObjectsNeedConnections": true,
     "minimumConnectionDirections": 4,
@@ -9,6 +9,7 @@
     "mainHappyEndRequires100Percent": false,
     "unknownLegacyIdsArePreserved": true,
     "completionDenominatorFailsClosedUntilFrozen": true,
+    "legacyArchiveNodesDoNotEnterFutureCompletionAutomatically": true,
     "runtimeReadinessUnaffected": true
   },
   "coverage": {
@@ -43,16 +44,44 @@
     "current48EnemySemanticConnections": {
       "covered": 48,
       "total": 48,
+      "stage1LegacyRuntimeSubjectsClassified": 8,
       "fullRuntimeCrossLinks": false
     },
     "stage1ClearGetterCells": {
       "implementedPrototype": 25,
-      "compatibilityDefinition": true,
+      "compatibilityDefinition": "stage1-compat-v2",
       "idsAndCoordinatesPreserved": true,
       "currentBlackYoukaDisplayConnected": true,
       "legacyBlackYoukaTextPreservedInCompatibilityLedger": true,
-      "oldEnemyCellsAwaitingReview": 6,
+      "legacyRuntimeBindingCells": 8,
+      "enemyBossBindingCells": 7,
+      "legacyStoryBindingCells": 1,
+      "exactStage1SuccessorCells": 1,
+      "roleStage1SuccessorCells": 4,
+      "movedToOtherStageCells": 1,
+      "noCurrentSuccessorCells": 2,
+      "activeCompletionEligible": 22,
+      "legacyArchiveOnly": 3,
+      "dualReadRuntimeConnected": true,
       "saveMigrationApplied": false
+    },
+    "stage1LegacyRuntimeBridge": {
+      "entries": 8,
+      "legacyEnemyEntries": 6,
+      "legacyBossEntries": 1,
+      "legacyStoryEntries": 1,
+      "acceptedCurrentStage1Ids": [
+        "ombu_small_ink",
+        "omburo_ink_arm",
+        "boss_name_without_owner"
+      ],
+      "movedCurrentIdsNotAcceptedForStage1": [
+        "ombu_small_paper",
+        "ombu_small_compass",
+        "ombu_small_keyhole"
+      ],
+      "currentIdAutoRename": false,
+      "legacyIdsPreserved": true
     },
     "stage2To20ClearGetter": {
       "designArchitecture": true,
@@ -64,7 +93,9 @@
       "stageRoots": 20,
       "characterRoots": 21,
       "itemLineageRoots": 21,
-      "stage1AchievementNodes": 25,
+      "stage1AchievementNodesPreserved": 25,
+      "activeStage1CompletionNodes": 22,
+      "legacyArchiveStage1Nodes": 3,
       "namedObjectLinks": 126,
       "runtimeConnected": false,
       "runtimeDenominatorFrozen": false
@@ -107,6 +138,8 @@
       "namedObjectPackageScript": true,
       "implementationPreflightIncludesNamedObjectCheck": true,
       "currentCollectionTermLock": true,
+      "stage1LegacyRuntimeBridgeValidation": true,
+      "legacyArchiveCompletionExclusionValidation": true,
       "githubActionsRunnerStarted": false
     }
   },
@@ -148,8 +181,9 @@
     { "id": "ren", "objectId": "named-object:ren:luminous_possession", "object": "片焦点のレンズ灯", "stage": 18, "verb": "focus_difference_keep_whole", "launchRequired": false, "namingStatus": "WORKING", "keeperUiConnected": false }
   ],
   "knownRuntimeGaps": [
-    "CollectionScene remains Stage1-only with 25 active cells",
-    "six legacy enemy cells still need evidence-based Current48 rebinding",
+    "CollectionScene still renders all 25 historical Stage1 cells; future completion eligibility is 22 active plus 3 archive-only",
+    "seven legacy enemy/boss cells retain old visible labels until runtime/display migration evidence is available",
+    "one legacy story cell for 夜主 ネモリ has no Current successor and remains archive-only",
     "keeperRecords now connect Core5 5/5; remaining Current21 keeper UI/assets are 16",
     "lostItemRecords keep six assets; two Nagi/Michiru bindings are Current with legacy history preserved",
     "light_coin / 灯貨 / 黒曜片 economy naming remains review-required",
