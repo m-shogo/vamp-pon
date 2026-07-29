@@ -14,6 +14,10 @@ export type NightBoardCellMigrationClass =
   | 'REVIEW_ENEMY_REBIND'
   | 'REVIEW_LEGACY_STORY_BINDING';
 
+export type NightBoardCompletionEligibility =
+  | 'ACTIVE_CURRENT_OR_DUAL_READ'
+  | 'LEGACY_ARCHIVE_ONLY';
+
 const DISPLAY_ONLY_CELL_IDS = new Set([
   'fs_008_clear_depth_1_no_black_form',
 ]);
@@ -28,6 +32,7 @@ export type CompatibleNightBoardCell = NightBoardCell & {
   originalTitle: string;
   originalCondition: string;
   migrationClass: NightBoardCellMigrationClass;
+  completionEligibility: NightBoardCompletionEligibility;
   currentDisplayTitle: string;
   currentDisplayCondition: string;
   legacyRuntimeBinding?: Stage1LegacyRuntimeCompatibilityEntry;
@@ -47,6 +52,18 @@ function classifyCell(cell: NightBoardCell): NightBoardCellMigrationClass {
   return 'KEEP';
 }
 
+function completionEligibilityForCell(cell: NightBoardCell): NightBoardCompletionEligibility {
+  const legacyBinding = stage1LegacyRuntimeCompatibilityByBoardCellId.get(cell.id);
+  if (!legacyBinding) return 'ACTIVE_CURRENT_OR_DUAL_READ';
+  if (
+    legacyBinding.successorRelation === 'EXACT_STAGE1_SUCCESSOR' ||
+    legacyBinding.successorRelation === 'ROLE_STAGE1_SUCCESSOR'
+  ) {
+    return 'ACTIVE_CURRENT_OR_DUAL_READ';
+  }
+  return 'LEGACY_ARCHIVE_ONLY';
+}
+
 export const forgottenStreetCompatibleCells: CompatibleNightBoardCell[] =
   forgottenStreetNightBoard.cells.map((cell) => {
     const legacy = LEGACY_DISPLAY_OVERRIDES[cell.id];
@@ -58,6 +75,7 @@ export const forgottenStreetCompatibleCells: CompatibleNightBoardCell[] =
       originalTitle,
       originalCondition,
       migrationClass: classifyCell(cell),
+      completionEligibility: completionEligibilityForCell(cell),
       currentDisplayTitle: normalizeLegacyDisplayTerm(cell.title),
       currentDisplayCondition: normalizeLegacyDisplayTerm(cell.condition),
       legacyRuntimeBinding,
@@ -97,5 +115,11 @@ export const forgottenStreetCompatibilitySummary = {
   ).length,
   noCurrentSuccessorCells: forgottenStreetCompatibleCells.filter(
     (cell) => cell.legacyRuntimeBinding?.successorRelation === 'NO_CURRENT_SUCCESSOR',
+  ).length,
+  activeCompletionEligible: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.completionEligibility === 'ACTIVE_CURRENT_OR_DUAL_READ',
+  ).length,
+  legacyArchiveOnly: forgottenStreetCompatibleCells.filter(
+    (cell) => cell.completionEligibility === 'LEGACY_ARCHIVE_ONLY',
   ).length,
 } as const;
