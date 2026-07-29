@@ -65,11 +65,13 @@ formatMetaCurrencyUpgradeDescription
 
 Current output remains `黒曜片`.
 
+The formatter already owns the phrases required by TOP, StageSelect, Result, first-run guidance and the currency-gain upgrade. Those large active files have not yet been rewritten.
+
 ---
 
 # 3. Surface inventory
 
-Machine-readable source:
+Machine-readable sources:
 
 - `src/game/data/metaCurrencyDisplayMigration.ts`
 - `docs/design-targets/generated/meta-currency-display-migration-v1.json`
@@ -102,7 +104,25 @@ Remaining:
 
 ---
 
-# 4. Separate non-wallet review
+# 4. Source contract
+
+Test:
+
+- `src/game/data/metaCurrencyDisplaySurfaceSourceContract.test.ts`
+
+It reads the active source files and verifies:
+
+- both connected surfaces import and call their formatter functions
+- all nine direct Current-label surfaces still exist and remain inventoried
+- `黒曜研究所` stays outside wallet migration
+- Result `黒曜なし` stays classified as a separate 黒耀化 terminology repair
+- candidate `灯貨` is not introduced early
+
+This prevents the machine-readable ledger from drifting away from active code.
+
+---
+
+# 5. Separate non-wallet review
 
 The following are intentionally excluded from wallet display migration:
 
@@ -118,7 +138,7 @@ Neither may be changed merely because the wallet candidate is `灯貨`.
 
 ---
 
-# 5. Lifecycle evidence added
+# 6. Lifecycle evidence added
 
 Test:
 
@@ -151,7 +171,7 @@ previous balance
 
 ---
 
-# 6. Preflight connection
+# 7. Preflight connection
 
 `pnpm named-object:check` now validates:
 
@@ -175,7 +195,7 @@ It also rejects:
 
 ---
 
-# 7. Why StageSelect / Result were not directly edited in this pass
+# 8. Why StageSelect / Result were not directly edited in this pass
 
 Both are large active rendering files.
 
@@ -186,8 +206,9 @@ Therefore this pass chose:
 1. full surface inventory
 2. shared phrase functions
 3. lifecycle round-trip proof
-4. preflight blocking
-5. machine-readable migration state
+4. active-source contract
+5. preflight blocking
+6. machine-readable migration state
 
 before editing those Scenes.
 
@@ -195,7 +216,7 @@ This is not abandonment of the Scene migration. It is a non-destructive prerequi
 
 ---
 
-# 8. Promotion gate
+# 9. Promotion gate
 
 `灯貨` may become Current wallet display only after all are true:
 
@@ -216,7 +237,7 @@ rename          = blocked
 
 ---
 
-# 9. Readiness boundary
+# 10. Readiness boundary
 
 This work does not promote:
 
@@ -233,6 +254,6 @@ U49 remains `BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE`.
 
 ---
 
-# 10. One sentence
+# 11. One sentence
 
-> **永続通貨は11表示面を台帳化し、2面を共通formatterへ接続、残り9面の改名をpreflightで止めたうえで、保存・購入・返還・ラン・実績・Collection報酬のwallet整合テストを追加した。**
+> **永続通貨は11表示面を台帳化し、2面を共通formatterへ接続、残り9面の改名をpreflightとsource契約で止めたうえで、保存・購入・返還・ラン・実績・Collection報酬のwallet整合テストを追加した。**
