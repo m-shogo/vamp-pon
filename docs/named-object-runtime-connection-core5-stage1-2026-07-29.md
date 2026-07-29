@@ -1,11 +1,11 @@
 # ヨルノシルベ Named Object Runtime Connection — Core5 / Stage1
 
 Date: 2026-07-29  
-Status: **PARTIAL RUNTIME CONNECTION COMPLETE / STAGE1 DUAL-READ CONNECTED / FULL CURRENT21・SAVE・GLOBAL UI OPEN**
+Status: **PARTIAL RUNTIME CONNECTION COMPLETE / STAGE1 DUAL-READ CONNECTED / ECONOMY CONCEPTS SEPARATED / FULL CURRENT21・SAVE・GLOBAL UI OPEN**
 
 > 名前のある物をDefinitionに置いただけの段階から、既存Collection runtimeの壊さない範囲へ接続した。
 >
-> 接続対象はStage1のCurrent用語表示、Core5の光る持ち物、既存6枚の忘れ物絵札、旧Stage1 runtimeとCurrent48のdual-read bridgeである。
+> 接続対象はStage1のCurrent用語表示、Core5の光る持ち物、既存6枚の忘れ物絵札、旧Stage1 runtimeとCurrent48のdual-read bridge、Collection経済用語の非混同契約である。
 
 ---
 
@@ -21,9 +21,11 @@ Stage1 legacy archive-only cells      = 3
 Stage1 legacy runtime subjects        = 8
 Stage1 legacy binding cells           = 8
 Stage1 黒耀化 current display          = connected
+Achievement 黒耀化 descriptions       = 4 / 4 repaired
 Lost-item records schema migration     = 6 / 6
 Nagi / Michiru current rebinding       = 2 / 2
 Legacy binding preservation            = 2 / 2
+Economy/mechanic concepts separated    = 4
 Collection save v2                     = draft only
 Global constellation UI                = not connected
 全灯の朝                               = fail-closed / not implemented
@@ -265,12 +267,71 @@ The existing six record IDs and six card assets remain unchanged.
 Status = REVIEW_REQUIRED
 ```
 
-`light_coin / 灯貨 / 黒曜片 / 記憶片` is an economy naming and migration decision.
-It was not converted as a side effect of the 黒耀化 terminology repair.
+It is connected to the economy terminology review but is not yet declared to be the same tracked resource as `PlayerProfile.currency`.
 
 ---
 
-# 7. Collection save v2 hardening
+# 7. Economy terminology separation
+
+Active sources:
+
+- `src/game/data/collectionEconomyTerminology.ts`
+- `docs/collection-economy-terminology-review-2026-07-29.md`
+- `docs/design-targets/generated/collection-economy-terminology-v1.json`
+
+Separated concepts:
+
+| Concept ID | Current meaning | Current display/status |
+| --- | --- | --- |
+| `economy:meta_upgrade_currency` | persistent and spendable upgrade resource | `黒曜片` / naming review pending |
+| `economy:run_memory_fragment` | run-only XP pickup | `記憶片` |
+| `economy:prototype_light_coin_counter` | Stage1 proxy achievement counter | `灯貨` / not a wallet |
+| `mechanic:black_youka` | battle/story mechanic | `黒耀化` / not currency |
+
+High-value candidate only:
+
+```txt
+Persistent meta currency display = 灯貨
+Legacy display alias              = 黒曜片
+Status                            = NOT CURRENT
+```
+
+Promotion requires:
+
+- preserve `PlayerProfile.currency`
+- preserve `light_coin` as an internal alias
+- add an actual per-run earned-currency counter
+- replace the fs019 proxy formula
+- connect `くすんだ灯貨` to the persistent currency lineage
+- save / purchase / refund / reward tests
+- Human naming approval
+
+No automatic rename was performed.
+
+---
+
+# 8. Active 黒耀化 terminology repair
+
+The following active achievement descriptions were repaired without changing IDs or rewards:
+
+```txt
+no-berserk:s1:shallow
+no-berserk:s1:middle
+no-berserk:s1:deep
+no-berserk:s2:shallow
+```
+
+`src/game/data/achievements.ts` is now an active term-lock target.
+
+Remaining separate debt:
+
+- `PlayerProfile.UPGRADE_DEFS` Legacy `黒曜化` wording
+- `CollectionScene` abbreviated `黒曜` keeper header
+- StageSelect `黒曜片` / `黒曜研究所` naming review
+
+---
+
+# 9. Collection save v2 hardening
 
 An explicit unknown group ID is preserved even when it does not yet have a matching `groupStates` entry.
 
@@ -288,7 +349,7 @@ Production save service still does not use v2.
 
 ---
 
-# 8. Quality gate
+# 10. Quality gate
 
 Package command:
 
@@ -311,6 +372,7 @@ The checker now verifies:
 - exact luminous possession display names
 - preserved legacy personal items
 - Current 黒耀化 display
+- four achievement descriptions use 黒耀化
 - Nagi / Michiru current and legacy lost-item binding
 - 8 legacy runtime subjects
 - 8 legacy board bindings
@@ -318,13 +380,14 @@ The checker now verifies:
 - old and Current Stage1 dual-read IDs
 - 22 active Stage1 completion nodes
 - 3 archive-only Stage1 nodes
+- 4 separated economy/mechanic concepts
 - unknown save cell and group preservation
 - 全灯の朝 fail-closed state
 - global constellation reference integrity
 
 ---
 
-# 9. GitHub Actions state
+# 11. GitHub Actions state
 
 CI workflow action majors were restored to the known working v4 series.
 This did not resolve the current failure.
@@ -351,24 +414,26 @@ Therefore:
 
 ---
 
-# 10. Remaining work
+# 12. Remaining work
 
 ```txt
 1. Restore a GitHub Actions run that reaches checkout/install steps
 2. Run pnpm named-object:check / test / build
-3. Safely patch the remaining CollectionScene legacy abbreviated header
-4. Replace or archive visible labels for the seven legacy Enemy/boss cells only after runtime evidence
-5. Decide the economy display name and migration contract
-6. Connect Collection save v2 through the production save service
-7. Expand keeper UI/assets from Core5 5 to remaining 16
-8. Implement global constellation UI incrementally
-9. Freeze launch-v1 completion requirements only after Human review
-10. Produce 全灯の朝 scene / art / music / cosmetic / remix mode
+3. Repair PlayerProfile UPGRADE_DEFS 黒曜化 wording through a full-file-safe patch
+4. Safely patch the CollectionScene keeper header
+5. Decide the meta-currency display name after Human review
+6. Replace fs_019 proxy logic with an actual run-earned counter before any 灯貨 promotion
+7. Replace or archive visible labels for the seven legacy Enemy/boss cells only after runtime evidence
+8. Connect Collection save v2 through the production save service
+9. Expand keeper UI/assets from Core5 5 to remaining 16
+10. Implement global constellation UI incrementally
+11. Freeze launch-v1 completion requirements only after Human review
+12. Produce 全灯の朝 scene / art / music / cosmetic / remix mode
 ```
 
 ---
 
-# 11. Readiness boundary
+# 13. Readiness boundary
 
 This work does not promote:
 
@@ -383,6 +448,6 @@ This work does not promote:
 
 ---
 
-# 12. One sentence
+# 14. One sentence
 
-> **Core5の光る持ち物とStage1の黒耀化表示、ナギ／ミチルの忘れ物接続、旧Stage1 IDとCurrent48のdual-readは既存saveを壊さず接続した。25札は保存し、Current後継のない3札だけを将来の全灯分母から外した。**
+> **Core5の光る持ち物、Stage1黒耀化表示、ナギ／ミチルの忘れ物、旧Stage1とCurrent48のdual-read、25札中22札の将来分母候補、経済4概念の分離まで既存saveを壊さず接続した。通貨表示名はまだ自動変更していない。**
