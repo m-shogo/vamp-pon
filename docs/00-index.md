@@ -63,6 +63,8 @@ Named Objects / Clear Getter / 100%
 → CLEAR-GETTER-AND-100-PERCENT-REWARD.md
 → PROGRESSION-ARCHIVE.md
 → named-object-clear-getter-audit-2026-07-29.md
+→ named-object-runtime-migration-plan-v1.md
+→ named-object-runtime-foundation-2026-07-29.md
 ```
 
 ---
@@ -116,30 +118,61 @@ Stage
 
 # 4. Named-object invariant
 
-名前のある物は、最低3方向以上へ接続する。
+名前のある物は、display nameだけで漂わせない。
+
+Current Definitionでは最低4方向へ接続する。
 
 ```txt
-Person
+Character
 Stage
 Gameplay verb
-Enemy motif
-記憶のしるし
-灯録
+Archive
+```
+
+lineage側でさらに:
+
+```txt
 Relationship
 黒耀化
 Dawn proof
-Evolution lineage
+Evolution phase
+Clear Getter
 ```
 
-Current source:
+へ接続する。
+
+Current design sources:
 
 - `NAMED-OBJECT-CONNECTIONS.md`
 - `character-luminous-personal-item-book-v1.md`
 - `CLEAR-GETTER-AND-100-PERCENT-REWARD.md`
 
-100% reward Current direction:
+Current data foundation:
 
-## **全灯の朝**
+- `src/game/data/namedObjectRegistry.ts`
+- `src/game/data/namedObjectMigrationLedger.ts`
+- `src/game/data/namedObjectReadModels.ts`
+- `src/game/data/collectionProgressCompatibility.ts`
+- `src/game/data/collectionProgressSaveV2.ts`
+- `src/game/data/allLightsCompletion.ts`
+- `src/game/data/globalConstellationDefinition.ts`
+
+Coverage:
+
+```txt
+Current21 object lineages = 21
+phases per lineage        = 6
+stable named objects      = 126
+Stage roots               = 20
+Character roots           = 21
+Item-lineage roots        = 21
+Stage1 migrated nodes     = 25
+Named-object graph links  = 126
+```
+
+## 100% reward Current direction
+
+# **全灯の朝**
 
 - playable Dawn Square celebration
 - Current21 / 星獣 / 21の光る持ち物
@@ -153,9 +186,19 @@ Current source:
 True Endingではない。
 Main Happy Endを最大級に祝うcompletion festival。
 
+Current fail-closed boundary:
+
+```txt
+design version = design-v1
+runtime denominator frozen = false
+runtime connected = false
+```
+
+分母freeze前は全条件が揃って見えてもunlockしない。
+
 ---
 
-# 5. Machine-readable design memory
+# 5. Machine-readable design / Definition memory
 
 ```txt
 design-targets/generated/character-relationship-arc-map-v1.json
@@ -168,24 +211,28 @@ design-targets/generated/character-story-gameplay-payoff-map-v1.json
 design-targets/generated/future-cast-relationship-story-map-v1.json
 design-targets/generated/character-story-integration-coverage-v1.json
 design-targets/generated/play-experience-design-coverage-v1.json
+design-targets/generated/named-object-registry-v1.json
 design-targets/generated/named-object-clear-getter-coverage-v1.json
 ```
 
 ---
 
-# 6. Current design coverage
+# 6. Current design / foundation coverage
 
 ```txt
 Current21 character integration       = 21/21
-Current21 luminous possessions         = 21/21 design direction
+Current21 luminous possessions         = 21/21 Definition
 Future15 story reservoir               = 15/15 (Future only)
 Current enemy identity/writing         = 48/48
 Stage gameplay identity                = 20/20 direction defined
 Current20 item lineage                 = 20/20 planning data
-Reserve Ren item lineage               = PARTIAL
-Stage1 Clear Getter                    = 25-cell prototype
-Stage2–20 Clear Getter                 = architecture only
-100% reward 全灯の朝                    = design adopted / runtime not implemented
+Reserve Ren item lineage               = Working / launch denominator excluded
+Stable named objects                   = 126/126 Definition
+Stage1 Clear Getter                    = 25-cell compatibility Definition
+Stage2–20 Clear Getter                 = architecture / Stage roots only
+Collection Save v2                     = draft migration / production not connected
+Global constellation                   = graph Definition / UI not implemented
+100% reward 全灯の朝                    = design + fail-closed evaluator / content not implemented
 Runtime/device/Human evidence          = NOT COMPLETE
 ```
 
@@ -197,11 +244,15 @@ Runtime/device/Human evidence          = NOT COMPLETE
 - Future15は次回作cast確定ではない
 - Enemy identityは `enemyProductionDatabase.ts` を優先
 - Stage identityは `stageProductionDatabase.ts` を優先
-- `kage1..4` mappingを証拠なく決めない
+- `kage1..4` stable IDを変更しない
+- Current displayはカナメ / カスミ / トキ / ツムギ
 - exact wave / Boss / difficulty / economy priceは実測前にLOCKしない
 - Main Mystery最終回答はHuman decision前にLOCKしない
-- named-object design追加だけでruntime data migration済みにしない
-- `全灯の朝` design採用だけで100% scene実装済みにしない
+- old object / old connection / unknown save IDを削除しない
+- named-object Definition追加だけでruntime migration済みにしない
+- Collection save v2 draftだけでproduction save接続済みにしない
+- global graph Definitionだけで大星図UI完成にしない
+- `全灯の朝` evaluatorだけでScene / art / music / remix実装済みにしない
 - Design CurrentだけでU49 / U50 / RC readinessを昇格しない
 
 ---
@@ -266,7 +317,17 @@ pnpm assets:verify
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
 pnpm unity:meta:check
+node --experimental-strip-types scripts/quality/check-named-object-registry.ts
 ```
+
+Named-object checker covers:
+
+- 21 lineages / 126 object IDs
+- migration ledger
+- unknown legacy ID preservation
+- 100% fail-closed
+- Stage1 25-node compatibility
+- global constellation links
 
 ---
 
