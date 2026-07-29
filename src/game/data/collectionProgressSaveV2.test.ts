@@ -21,7 +21,7 @@ describe('collection progress save v2 migration', () => {
     expect(migrated.seenEnemyIds).toEqual(['enemy-a']);
     expect(migrated.defeatedEnemyCounts).toEqual({ 'enemy-a': 12 });
     expect(migrated.nightBoard.completedCellIds).toEqual(['fs_001_release_ink_shadow']);
-    expect(migrated.nightBoard.nodeDefinitionVersion).toBe('stage1-compat-v1');
+    expect(migrated.nightBoard.nodeDefinitionVersion).toBe('stage1-compat-v2');
     expect(migrated.migration).toEqual({
       sourceSchemaVersion: 1,
       runtimeConnectionState: 'DRAFT_NOT_CONNECTED',
