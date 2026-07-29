@@ -40,7 +40,7 @@ export function formatMetaCurrencyRefund(amount: number): string {
 }
 
 export function formatMetaCurrencyCarryHome(): string {
-  return `やられても${currentMetaCurrencyDisplayName()}は持ち帰れる。`;
+  return `${currentMetaCurrencyDisplayName()}は持ち帰れる。`;
 }
 
 export function formatMetaCurrencyUseCta(): string {
