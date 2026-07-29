@@ -45,9 +45,35 @@
   "unity": {
     "batchCompilationPassed": true,
     "u49EditorRoutingVerificationPassed": true,
-    "currentHeadVisualCaptureExecuted": false,
-    "historicalU47EvidenceInvalidatedBySourceFingerprint": true,
-    "result": "CURRENT_HEAD_VISUAL_EVIDENCE_OPEN"
+    "currentHeadVisualCaptureExecuted": true,
+    "captureHead": "904e2d5918e195acdca8e5a1904dc0b4cc0503da",
+    "unityVersion": "6000.5.1f1",
+    "captureCount": 23,
+    "expectedCaptureCount": 23,
+    "sourceFingerprint": "e968269acf0d6d301dc37d4d0e33a0237191f1229c93ed02ec7de35e2a738df3",
+    "manifestResult": "PASS",
+    "visualResult": "PASS_CANONICAL_U47_SCOPE",
+    "visualRegressionsFound": 0,
+    "visualRegressionsFixed": 0,
+    "currentHeadSettingsAndFirstRunVisualCoverage": false,
+    "result": "PASS_WITH_CATALOG_SCOPE_LIMIT"
+  },
+  "validation": {
+    "implementationPreflightFull": "PASS",
+    "webTestFilesPassed": 88,
+    "webTestsPassed": 538,
+    "webProductionBuild": "PASS",
+    "unityBatchCompilation": "PASS",
+    "u49EditorRoutingVerification": "PASS_WITH_EXPECTED_BATCH_EDITOR_MIXER_PARAMETER_WARNINGS"
+  },
+  "githubActions": {
+    "sourceHead": "904e2d5918e195acdca8e5a1904dc0b4cc0503da",
+    "stage1QualityRunId": 30434983311,
+    "ciRunId": 30434983314,
+    "conclusions": "FAILURE_BEFORE_JOB_START",
+    "stepsExecuted": false,
+    "rootCause": "GitHub reported failed recent account payments or an exceeded spending limit",
+    "repositoryWorkflowChangeApplied": false
   },
   "device": {
     "physicalDeviceEvidenceProvided": false,

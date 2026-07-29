@@ -70,6 +70,16 @@ docs/SETTINGS-BASELINE.md
 docs/design-targets/generated/codex-first-implementation-milestone-2026-07-29/visual-review.json
 ```
 
+Current-head verification recorded in the handoff:
+
+```txt
+capture HEAD = 904e2d5918e195acdca8e5a1904dc0b4cc0503da
+U47 Simulator = 23/23 / manifest PASS / visual PASS within canonical U47 scope
+implementation:preflight:full = PASS
+GitHub Actions at source HEAD = jobs not started due GitHub billing/spending-limit blocker
+U49 = BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE
+```
+
 ---
 
 # 1. Design入口

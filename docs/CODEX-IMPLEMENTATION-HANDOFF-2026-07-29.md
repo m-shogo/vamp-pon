@@ -551,3 +551,62 @@ mobileMetricsReady = false
 rcReady = false
 productionApproved = false
 ```
+
+---
+
+# 17. 2026-07-29 current-head Simulator / preflight verification
+
+The stale U47 source fingerprint was resolved by a fresh build and capture, not by
+relabelling historical evidence or weakening the checker.
+
+```txt
+source/capture HEAD       = 904e2d5918e195acdca8e5a1904dc0b4cc0503da
+Unity                     = 6000.5.1f1
+iOS Simulator profile     = iPhone 17 Pro / iOS 26.5
+canonical captures        = 23 / 23
+semantic routes           = 11
+source fingerprint        = e968269acf0d6d301dc37d4d0e33a0237191f1229c93ed02ec7de35e2a738df3
+missing/unexpected/stale  = 0 / 0 / 0
+duplicate evidence       = 0
+U47 manifest check        = PASS
+visual review             = PASS_CANONICAL_U47_SCOPE
+implementation preflight = PASS
+Web tests                 = 88 files / 538 tests PASS
+Web production build      = PASS
+Unity batch compilation   = PASS
+U49 Editor routing        = PASS
+```
+
+The current StageSelect Settings entry and failed-Result terminology are intentional
+differences from the previous U47 contact sheets. No clipping, overlap, missing glyph,
+broken background, missing asset, or Result composition regression was observed in the
+canonical 23 captures. Settings content and First Run are not members of that catalog;
+their current-head Unity visual coverage therefore remains open and is not inferred from
+the StageSelect or gameplay captures.
+
+GitHub Actions runs for source HEAD `904e2d5918e195acdca8e5a1904dc0b4cc0503da`
+did not start jobs:
+
+```txt
+Stage1 Quality run = 30434983311 / failure / steps executed false
+CI run             = 30434983314 / failure / steps executed false
+GitHub annotation  = recent account payments failed or spending limit must be increased
+```
+
+This is an external billing/spending-limit blocker reported by GitHub, not evidence of
+a code failure or a successful workflow run. No repository workflow change was made.
+
+Simulator and Editor results do not change the U49 boundary:
+
+```txt
+U49 = BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE
+physicalDeviceReady = false
+devicePlayableReady = false
+audioReady = false
+audioLatencyMeasured = false
+hapticReady = false
+hapticMeasured = false
+mobileMetricsReady = false
+rcReady = false
+productionApproved = false
+```
