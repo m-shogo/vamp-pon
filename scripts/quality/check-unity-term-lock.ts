@@ -23,6 +23,7 @@ const explicitFiles = [
   'src/game/data/collectionProgress.ts',
   'src/game/data/collectionSections.ts',
   'src/game/data/keeperRecords.ts',
+  'src/game/persistence/profile.ts',
 ];
 
 const contentContracts: ContentContract[] = [
@@ -123,6 +124,38 @@ const contentContracts: ContentContract[] = [
       'scripts/quality/check-named-object-registry.ts',
     ],
     forbidden: [],
+  },
+  {
+    file: 'src/game/persistence/profile.ts',
+    required: [
+      "group: '黒耀化'",
+      "description: '黒耀化未使用の報酬倍率が増える'",
+      'recordRunEarnedMetaCurrency(state.stats, currencyEarned);',
+    ],
+    forbidden: [
+      "group: '黒曜化'",
+      '黒曜化未使用の報酬倍率が増える',
+    ],
+  },
+  {
+    file: 'src/game/systems/collectionProgress.ts',
+    required: [
+      "case 'fs_019_collect_100_light_coin': return meetsStage1RunEarnedMetaCurrencyTarget(state.stats);",
+    ],
+    forbidden: [
+      'state.stats.kills * 0.35 + state.stats.memoryFragmentsCollected * 0.7 >= 100',
+    ],
+  },
+  {
+    file: 'src/game/data/collectionEconomyTerminology.ts',
+    required: [
+      "CURRENT_TRACKED_COUNTER_PENDING_NAME",
+      "earnedMetaCurrencyThisRun",
+      "achievementReward、profile残高、記憶片数からのproxy計算は含めない。",
+    ],
+    forbidden: [
+      'prototype-formula:kills*0.35+memoryFragmentsCollected*0.7',
+    ],
   },
 ];
 
