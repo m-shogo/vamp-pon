@@ -11,6 +11,9 @@ import {
   recordRunEarnedMetaCurrency,
   validateCollectionEconomyTerminology,
 } from '../../src/game/data/collectionEconomyTerminology.ts';
+import {
+  validateMetaCurrencyDisplayMigration,
+} from '../../src/game/data/metaCurrencyDisplayMigration.ts';
 import { forgottenStreetNightBoard } from '../../src/game/data/collectionProgress.ts';
 import {
   forgottenStreetCompatibilitySummary,
@@ -46,11 +49,13 @@ const migrationResult = validateNamedObjectMigrationLedger();
 const constellationResult = validateGlobalConstellationDefinition();
 const stage1LegacyRuntimeResult = validateStage1LegacyRuntimeCompatibility();
 const economyTerminologyResult = validateCollectionEconomyTerminology();
+const currencyDisplayMigrationResult = validateMetaCurrencyDisplayMigration();
 const warnings = [
   ...registryResult.warnings,
   ...migrationResult.warnings,
   ...stage1LegacyRuntimeResult.warnings,
   ...economyTerminologyResult.warnings,
+  ...currencyDisplayMigrationResult.warnings,
 ];
 const errors = [
   ...registryResult.errors,
@@ -58,6 +63,7 @@ const errors = [
   ...constellationResult.errors,
   ...stage1LegacyRuntimeResult.errors,
   ...economyTerminologyResult.errors,
+  ...currencyDisplayMigrationResult.errors,
 ];
 
 const activeBlackFormCell = forgottenStreetNightBoard.cells.find(
@@ -164,6 +170,17 @@ if (meetsStage1RunEarnedMetaCurrencyTarget(runCurrencyFixture)) {
 recordRunEarnedMetaCurrency(runCurrencyFixture, STAGE1_RUN_EARNED_META_CURRENCY_TARGET);
 if (!meetsStage1RunEarnedMetaCurrencyTarget(runCurrencyFixture)) {
   errors.push('Stage1 run-currency target must complete at 100');
+}
+
+if (
+  currencyDisplayMigrationResult.walletSurfaceTotal !== 11 ||
+  currencyDisplayMigrationResult.formatterConnected !== 2 ||
+  currencyDisplayMigrationResult.walletSurfaceRemaining !== 9
+) {
+  errors.push('meta currency display migration must report 2/11 formatter-connected and 9 remaining surfaces');
+}
+if (currencyDisplayMigrationResult.readyForHumanApproval) {
+  errors.push('meta currency display migration must remain blocked before all surfaces and Human approval');
 }
 
 if (keeperRecords.length !== 5) {
@@ -281,6 +298,8 @@ console.log(
     `${stage1LegacyRuntimeCompatibilityByBoardCellId.size} Stage1 legacy board bindings, ` +
     `${globalConstellationDefinition.activeStage1CompletionNodes.length} active Stage1 completion nodes, ` +
     `runCurrencyTarget=${STAGE1_RUN_EARNED_META_CURRENCY_TARGET}, ` +
+    `currencyFormatter=${currencyDisplayMigrationResult.formatterConnected}/${currencyDisplayMigrationResult.walletSurfaceTotal}, ` +
+    `currencyFormatterRemaining=${currencyDisplayMigrationResult.walletSurfaceRemaining}, ` +
     `${collectionEconomyResources.length} separated economy/mechanic concepts, ` +
     `${namedObjectMigrationLedger.length} migration entries, ` +
     `${globalConstellationDefinition.migratedStage1Nodes.length} Stage1 constellation nodes, ` +
