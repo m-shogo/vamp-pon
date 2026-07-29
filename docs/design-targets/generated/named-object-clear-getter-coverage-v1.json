@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-29",
+  "status": "CURRENT_DESIGN_MEMORY_NOT_RUNTIME_EVIDENCE",
+  "invariants": {
+    "namedObjectsNeedConnections": true,
+    "minimumConnectionDirections": 3,
+    "readingIsNotCompletionRequirement": true,
+    "mainHappyEndRequires100Percent": false,
+    "runtimeReadinessUnaffected": true
+  },
+  "coverage": {
+    "current21LuminousPossessions": { "covered": 21, "total": 21, "runtimeMigrated": false },
+    "current20ProductionItemLineages": { "covered": 20, "total": 20, "runtimePlanningDataExists": true },
+    "reserveRenLineage": { "status": "PARTIAL", "starterAndArts": true, "passiveAndRareExactNames": false },
+    "current48EnemySemanticConnections": { "covered": 48, "total": 48, "fullRuntimeCrossLinks": false },
+    "stage1ClearGetterCells": { "implementedPrototype": 25, "currentFullArchitecture": false },
+    "stage2To20ClearGetter": { "designArchitecture": true, "runtimeImplemented": false },
+    "lostItemRecords": { "existing": 6, "launchTotalLocked": false },
+    "keeperRecords": { "existing": 5, "current21MigrationRequired": true },
+    "hundredPercentReward": { "designAdopted": true, "runtimeImplemented": false }
+  },
+  "hundredPercentReward": {
+    "name": "全灯の朝",
+    "notTrueEnding": true,
+    "components": [
+      "playable_dawn_square_celebration",
+      "current21_star_beasts_luminous_possessions",
+      "full_ensemble_animated_page",
+      "twenty_one_lights_medley",
+      "all_character_cosmetic_star_map_light",
+      "remix_mode_星図継ぎの夜",
+      "title_seal_archive_frame",
+      "small_future_anomaly"
+    ]
+  },
+  "current21": [
+    { "id": "yui", "object": "持ち主待ちのランタン", "stage": 1, "verb": "pickup_hold_return" },
+    { "id": "asa", "object": "名結びの小鋏", "stage": 2, "verb": "name_mark_consent" },
+    { "id": "nagi", "object": "月箱の銀鍵", "stage": 3, "verb": "seal_reopen_permission" },
+    { "id": "michiru", "object": "帰り針のコンパス", "stage": 4, "verb": "route_reroute" },
+    { "id": "tomori", "object": "継火の修理ランプ", "stage": 5, "verb": "repair_keep_scar" },
+    { "id": "sen", "object": "白線のチョーク灯", "stage": 6, "verb": "teach_branch_path" },
+    { "id": "ritsu", "object": "半灯りの飴缶", "stage": 7, "verb": "split_distribute" },
+    { "id": "koyori", "object": "呼び名の紙縒り札", "stage": 8, "verb": "name_connect_helper" },
+    { "id": "gen", "object": "古針の駅灯", "stage": 9, "verb": "old_route_reconsider" },
+    { "id": "hana", "object": "花脈の保管箱", "stage": 10, "verb": "preserve_allow_change" },
+    { "id": "yubi", "object": "返事待ちの郵便灯", "stage": 11, "verb": "deliver_hold_timing" },
+    { "id": "madoka", "object": "見送り窓の観測レンズ", "stage": 12, "verb": "witness_report" },
+    { "id": "shiro", "object": "未分類の白栞灯", "stage": 13, "verb": "classify_preserve_unknown" },
+    { "id": "tobari", "object": "往復穴の改札鋏", "stage": 14, "verb": "gate_open_close_return" },
+    { "id": "nemu", "object": "夢頁の水面日記", "stage": 15, "verb": "forecast_not_command" },
+    { "id": "kuroori", "object": "折り目だけ光る黒紙", "stage": 16, "verb": "hold_open_with_consent" },
+    { "id": "kaname", "object": "受け灯の腕帯", "stage": 16, "verb": "intercept_share_burden" },
+    { "id": "kasumi", "object": "消し跡の白灯", "stage": 17, "verb": "conceal_reversible_trace" },
+    { "id": "toki", "object": "星目盛りの夜定規", "stage": 18, "verb": "measure_leave_uncertainty" },
+    { "id": "tsumugi", "object": "余白を縫う糸巻き", "stage": 19, "verb": "leave_blank_choose_finish" },
+    { "id": "ren", "object": "片焦点のレンズ灯", "stage": 18, "verb": "focus_difference_keep_whole" }
+  ],
+  "knownRuntimeGaps": [
+    "collectionProgress Stage1-only 25-cell prototype",
+    "legacy enemy labels and old 黒曜化 display text",
+    "keeperRecords only 5 and stale character cores",
+    "lostItemRecords only 6 and stale Nagi/Michiru bindings",
+    "same-name item lineage not represented in runtime schema",
+    "global constellation save and 100-percent celebration not implemented"
+  ]
+}
