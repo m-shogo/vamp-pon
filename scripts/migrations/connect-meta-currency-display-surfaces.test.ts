@@ -55,12 +55,12 @@ describe('guarded meta currency surface codemod', () => {
     const result = inspectMetaCurrencySurfaceMigration(root);
     expect(result.overall).toBe('PENDING');
     expect(result.errors).toEqual([]);
-    expect(result.replacements).toHaveLength(13);
+    expect(result.replacements).toHaveLength(14);
     expect(result.pendingSurfaceIds).toHaveLength(9);
     expect(result.migratedSurfaceIds).toEqual([]);
   });
 
-  it('全契約が一致する場合だけ4ファイルを一括移行する', () => {
+  it('全契約が一致する場合だけ5ファイルを一括移行する', () => {
     const root = makeRoot();
     writeFixture(root, 'before');
 
