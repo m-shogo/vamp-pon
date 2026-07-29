@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import registrySnapshot from '../../../docs/design-targets/generated/named-object-registry-v1.json';
 import {
   allLightsCompletionDesign,
   characterObjectLineageById,
@@ -65,6 +66,23 @@ describe('named object registry', () => {
     const ren = characterObjectLineageById.get('ren');
     expect(ren?.namingStatus).toBe('WORKING');
     expect(ren?.requiredForLaunchCompletion).toBe(false);
+  });
+
+  it('machine-readable snapshotはDefinition件数と主要名に追随する', () => {
+    expect(registrySnapshot.counts.characterLineages).toBe(characterObjectLineages.length);
+    expect(registrySnapshot.counts.namedObjects).toBe(namedObjectRegistry.length);
+    expect(registrySnapshot.allLightsCompletionDesign.rewardDisplayName).toBe(
+      allLightsCompletionDesign.rewardDisplayName,
+    );
+
+    const snapshotNames = new Map(
+      registrySnapshot.lineages.map((lineage) => [lineage.characterId, lineage.characterDisplayName]),
+    );
+    for (const lineage of characterObjectLineages) {
+      expect(snapshotNames.get(lineage.characterId), lineage.characterId).toBe(
+        lineage.characterDisplayName,
+      );
+    }
   });
 
   it('registry validationはerrorなしで、Working名だけwarningにする', () => {
