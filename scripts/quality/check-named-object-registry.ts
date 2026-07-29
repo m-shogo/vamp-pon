@@ -2,11 +2,14 @@ import {
   allLightsCompletionDraftSpecification,
   evaluateAllLightsCompletion,
 } from '../../src/game/data/allLightsCompletion.ts';
+import { forgottenStreetNightBoard } from '../../src/game/data/collectionProgress.ts';
 import { migrateCollectionProgressSaveToV2 } from '../../src/game/data/collectionProgressSaveV2.ts';
 import {
   globalConstellationDefinition,
   validateGlobalConstellationDefinition,
 } from '../../src/game/data/globalConstellationDefinition.ts';
+import { keeperRecords } from '../../src/game/data/keeperRecords.ts';
+import { lostItemRecords } from '../../src/game/data/lostItemRecords.ts';
 import {
   namedObjectMigrationLedger,
   validateNamedObjectMigrationLedger,
@@ -14,6 +17,7 @@ import {
 import {
   allLightsCompletionDesign,
   characterObjectLineages,
+  namedObjectById,
   namedObjectRegistry,
   validateNamedObjectRegistry,
 } from '../../src/game/data/namedObjectRegistry.ts';
@@ -27,6 +31,68 @@ const errors = [
   ...migrationResult.errors,
   ...constellationResult.errors,
 ];
+
+const activeBlackFormCell = forgottenStreetNightBoard.cells.find(
+  (cell) => cell.id === 'fs_008_clear_depth_1_no_black_form',
+);
+if (!activeBlackFormCell?.condition.includes('黒耀化')) {
+  errors.push('active Stage1 constellation must display 黒耀化');
+}
+if (activeBlackFormCell?.condition.includes('黒曜化')) {
+  errors.push('active Stage1 constellation still displays the legacy 黒曜化 term');
+}
+
+if (keeperRecords.length !== 5) {
+  errors.push(`Core5 keeper runtime scope must remain 5 until asset expansion, got ${keeperRecords.length}`);
+}
+for (const record of keeperRecords) {
+  const object = namedObjectById.get(record.luminousPossessionId);
+  if (!object) {
+    errors.push(`${record.id} references missing luminous object ${record.luminousPossessionId}`);
+    continue;
+  }
+  if (object.phase !== 'luminous_possession') {
+    errors.push(`${record.id} luminous object must use luminous_possession phase`);
+  }
+  if (object.characterId !== record.characterId || object.displayName !== record.luminousPossessionName) {
+    errors.push(`${record.id} luminous object connection does not match Current registry`);
+  }
+  if (record.lightMotif !== record.luminousPossessionName) {
+    errors.push(`${record.id} must display its luminous possession name in the current keeper UI`);
+  }
+  if (record.legacyPersonalItems.length === 0) {
+    errors.push(`${record.id} must preserve at least one legacy personal item during migration`);
+  }
+  if (!record.blackFormName.includes('黒耀化') || record.blackFormName.includes('黒曜化')) {
+    errors.push(`${record.id} black form display must use 黒耀化`);
+  }
+}
+
+const keeperIds = new Set(keeperRecords.map((record) => record.id));
+for (const item of lostItemRecords) {
+  if (item.relatedKeeperId && !keeperIds.has(item.relatedKeeperId)) {
+    errors.push(`${item.id} references missing current keeper ${item.relatedKeeperId}`);
+  }
+  for (const legacyKeeperId of item.legacyRelatedKeeperIds) {
+    if (!keeperIds.has(legacyKeeperId)) {
+      errors.push(`${item.id} references missing legacy keeper ${legacyKeeperId}`);
+    }
+  }
+}
+const mapCorner = lostItemRecords.find((item) => item.id === 'lost-folded-map-corner');
+if (
+  mapCorner?.relatedKeeperId !== 'keeper-michiru' ||
+  !mapCorner.legacyRelatedKeeperIds.includes('keeper-nagi')
+) {
+  errors.push('lost-folded-map-corner must use Michiru current binding and preserve Nagi legacy binding');
+}
+const rustedKey = lostItemRecords.find((item) => item.id === 'lost-rusted-room-key');
+if (
+  rustedKey?.relatedKeeperId !== 'keeper-nagi' ||
+  !rustedKey.legacyRelatedKeeperIds.includes('keeper-michiru')
+) {
+  errors.push('lost-rusted-room-key must use Nagi current binding and preserve Michiru legacy binding');
+}
 
 const migratedFixture = migrateCollectionProgressSaveToV2({
   schemaVersion: 2,
@@ -76,6 +142,8 @@ if (errors.length > 0) {
 console.log(
   `[named-object-registry] ok: ${characterObjectLineages.length} lineages, ` +
     `${namedObjectRegistry.length} named objects, ` +
+    `${keeperRecords.length} current keeper records, ` +
+    `${lostItemRecords.length} lost-item records, ` +
     `${namedObjectMigrationLedger.length} migration entries, ` +
     `${globalConstellationDefinition.migratedStage1Nodes.length} Stage1 constellation nodes, ` +
     `${globalConstellationDefinition.namedObjectLinks.length} constellation links, ` +
