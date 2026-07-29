@@ -33,7 +33,13 @@ describe('named object registry', () => {
   });
 
   it('同名phaseはlineage内の同一object成長として明示する', () => {
-    const grouped = Map.groupBy(namedObjectRegistry, (entry) => entry.lineageId);
+    const grouped = new Map<string, typeof namedObjectRegistry>();
+    for (const entry of namedObjectRegistry) {
+      const entries = grouped.get(entry.lineageId) ?? [];
+      entries.push(entry);
+      grouped.set(entry.lineageId, entries);
+    }
+
     for (const entries of grouped.values()) {
       const seen = new Set<string>();
       for (const entry of entries) {
