@@ -17,6 +17,7 @@ export type AllLightsEvaluation = {
   state: 'LOCKED' | 'INCOMPLETE' | 'ELIGIBLE' | 'CLAIMED';
   reason:
     | 'DENOMINATOR_NOT_FROZEN'
+    | 'INVALID_FROZEN_SPECIFICATION'
     | 'MISSING_GROUP_STATE'
     | 'REQUIREMENTS_INCOMPLETE'
     | 'ALL_REQUIREMENTS_COMPLETE'
@@ -35,7 +36,27 @@ export const allLightsCompletionDraftSpecification: AllLightsCompletionSpecifica
 };
 
 function uniqueRequiredIds(ids: string[]): string[] {
-  return [...new Set(ids.filter((id) => id.trim() !== ''))];
+  return [...new Set(ids.map((id) => id.trim()).filter((id) => id !== ''))];
+}
+
+function hasValidFrozenDenominator(specification: AllLightsCompletionSpecification): boolean {
+  if (specification.version.trim() === '' || specification.groups.length === 0) {
+    return false;
+  }
+
+  const groupIds = new Set<string>();
+  for (const group of specification.groups) {
+    if (
+      group.id.trim() === '' ||
+      group.displayName.trim() === '' ||
+      groupIds.has(group.id) ||
+      uniqueRequiredIds(group.requiredIds).length === 0
+    ) {
+      return false;
+    }
+    groupIds.add(group.id);
+  }
+  return true;
 }
 
 export function evaluateAllLightsCompletion(
@@ -46,6 +67,14 @@ export function evaluateAllLightsCompletion(
     return {
       state: 'LOCKED',
       reason: 'DENOMINATOR_NOT_FROZEN',
+      missingByGroup: {},
+    };
+  }
+
+  if (!hasValidFrozenDenominator(specification)) {
+    return {
+      state: 'LOCKED',
+      reason: 'INVALID_FROZEN_SPECIFICATION',
       missingByGroup: {},
     };
   }
