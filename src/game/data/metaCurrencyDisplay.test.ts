@@ -26,11 +26,11 @@ describe('meta currency display formatter', () => {
     expect(formatMetaCurrencyReturn(10)).toBe('黒曜片が少し戻った +10');
   });
 
-  it('StageSelect・Result・初回案内に必要な文を共通sourceから作る', () => {
+  it('StageSelect・Result・初回案内に必要な通貨文を共通sourceから作る', () => {
     expect(formatMetaCurrencyGrowthIntro()).toBe('黒曜片で強化して次の夜に備える');
     expect(formatMetaCurrencyInsufficient()).toBe('黒曜片が足りない — 探索で集めよう');
     expect(formatMetaCurrencyRefund(45)).toBe('黒曜片 45 を全額返還します。');
-    expect(formatMetaCurrencyCarryHome()).toBe('やられても黒曜片は持ち帰れる。');
+    expect(formatMetaCurrencyCarryHome()).toBe('黒曜片は持ち帰れる。');
     expect(formatMetaCurrencyUseCta()).toBe('黒曜片を使う');
     expect(formatMetaCurrencyUpgradeName()).toBe('黒曜片の目印');
     expect(formatMetaCurrencyUpgradeDescription()).toBe('黒曜片の獲得量が増える');
