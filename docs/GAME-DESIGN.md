@@ -1,389 +1,436 @@
 # ヨルノシルベ Game Design Coverage Hub
 
 Date: 2026-07-29  
-Status: **CURRENT DESIGN COVERAGE / GAP MAP**  
-Purpose: 「設計がある」と「設計が完成している」を混同しないための一覧。数値や内容を早く固定するためのルールブックではない。
+Status: **CURRENT DESIGN COVERAGE / DESIGN-MASTER PASS COMPLETE, EVIDENCE PASS OPEN**
 
-> `docs/game-core-book-v1.md` は「このゲームは何を面白くするか」の最上位設計書。  
-> このファイルは、そのCoreを実際のゲームへ落とすために必要な設計領域が揃っているかを確認するCoverage Map。
+> 目的: 「設計がある」「runtimeへ実装された」「実機で気持ちいい」「release可能」を混同しない。
+>
+> Game identityは `game-core-book-v1.md`。Play experienceは `PLAY-EXPERIENCE.md`。Character/Story統合は `CHARACTER-STORY-INTEGRATION.md`。
 
 ---
 
-# 1. 判定ラベル
+# 1. Status vocabulary
 
 | Status | 意味 |
 | --- | --- |
-| **CURRENT** | Current masterがあり、通常設計で参照できる |
-| **PARTIAL** | 有効な設計 / Current masterはあるが、対象scope全体には重要な穴が残る |
-| **PROPOSED** | 良い設計案はあるが、まだCurrent方針として扱わない |
-| **IMPLEMENTED-NOT-DESIGN-MASTER** | runtime実装/証跡はあるが、プレイヤー体験の設計正本としては不足 |
-| **OPEN** | まだ設計が必要。未決定であること自体を明示する |
-| **LATER** | 現在のCore完成には不要。後工程でよい |
+| **CURRENT** | Current masterがあり通常設計の前提にできる |
+| **CURRENT-DIRECTION** | 方針はCurrent。exact数値/内容はtest後に調整可能 |
+| **CURRENT-BASELINE** | releaseへ向けた最低契約。platform実装証跡は別 |
+| **CURRENT-PRODUCTION** | runtime / production data側のCurrent |
+| **PARTIAL** | masterはあるがscope全体の実装/検証に穴がある |
+| **OPEN** | 意図的に未決定 |
+| **LATER** | Core完成後でよい |
 
-「OPEN = 悪い」ではない。Playtest前に数値を固定しない方がよい領域もある。
+重要:
+
+```txt
+CURRENT DESIGN
+≠ runtime implemented
+≠ device verified
+≠ fun proven
+≠ release ready
+```
 
 ---
 
-# 2. 現在のCoverage
+# 2. Current design coverage
 
-| Domain | Status | Current / existing source | 監査結果 |
+| Domain | Status | Current master | 現在地 |
 | --- | --- | --- | --- |
-| Game identity / core promise | **CURRENT** | `game-core-book-v1.md` | Run / Meta / Attachmentの3 loop、Gameplay-firstが明確 |
-| Character | **CURRENT** | `CHARACTERS.md`, `character-book-v4.md`, `character-deep-core-book-v1.md`, `CHARACTER-STORY-INTEGRATION.md` | Current21は人物像・声・関係・黒耀化・Gameplay payoff・Dawn proofまで21/21 routing済み。Future15は別reservoirで15/15、Currentへ未昇格 |
-| Story / Mystery | **CURRENT** | `STORY.md`, `story-book-v1.md`, `story-main-beat-sheet-v1.md`, `STORY-ENGINE.md` | Main / Character Mystery分離、Happy End、C/B/A mystery debt、Stage1〜5 beat directionあり。Main Mystery最終回答は未LOCK |
-| Bond / Support | **CURRENT** | `BOND.md`, `RELATIONSHIPS.md`, `character-relationship-arc-book-v1.md` | Gameplay一次報酬、呼び方等二次報酬、stable/unstable関係あり。Current21はdistinctive relation lane >=2を21/21確保 |
-| 黒耀化 | **CURRENT** | `BLACK-YOUKA.md`, `character-black-youka-rescue-book-v1.md` | Core上のrisk/rewardと人物側の歪みを接続。21/21で「仲間が別の選択肢を作り本人が戻る」rescue directionあり |
-| Clear Getter / achievements | **CURRENT-DIRECTION** | `GAMEPLAY-META-PROGRESSION.md`, `PROGRESSION-ARCHIVE.md`, `character-story-gameplay-payoff-matrix-v1.md` | 次runを生むMeta Gameplayとして成立。Character growthを別play条件へ返せる。盤面数値は未LOCKでよい |
-| Lore / Collection | **CURRENT** | `PROGRESSION-ARCHIVE.md`, `kagemono-collection-entry-book-v1.md` | 読む/読まない両立、情報は副作用。Current48は攻略→手掛かり→re-readingのwriting layerあり |
-| Fail-forward | **CURRENT-DIRECTION** | `GAMEPLAY-META-PROGRESSION.md`, `PROGRESSION-ARCHIVE.md` | 失敗を無意味にしないがfailure farmingはさせない |
-| Save / AppFlow / ownership | **CURRENT-PRODUCTION** | `unity-runtime-ownership-contract-v1.md`, U46 evidence | 実装境界は強い。ユーザー向けreset/respec体験は別途検討余地 |
-| Current Stage1 gameplay implementation | **IMPLEMENTED-NOT-DESIGN-MASTER** | `unity-u47-gameplay-data-runtime-2026-07-13.md` | weapon/passive/rare枠、replacement、evolution、revival等はruntime実証済み |
-| Game feel / juice | **PARTIAL** | `unity-game-feel-cookbook.md` | hit stop、death、pickup、LevelUp、Resultまで強いがCoreから孤立していた |
-| Enemy / item / stage content database | **CURRENT-PRODUCTION-DATA** | `184-production-content-databases.md`, `src/game/data/*`, `ENEMIES.md` | Current48 identityとlegacy吸収ルールは一本化済み。ただし全production stageのencounter pacingとは別 |
-| Stage / Encounter design | **PARTIAL — Stage1〜5 CURRENT DIRECTION** | `STAGE-ENCOUNTER-DESIGN.md`, `story-stage-character-relationship-placement-v1.md`, Enemy masters | Stage1〜5はpressure arc / enemy grammar / alternate build / Clear Getter seedまでCurrent direction化。Stage6〜20、exact wave、boss assignment、difficulty tuningは未完 |
-| Visual / UI production | **CURRENT-SEPARATE-TRACK** | Heavy Design docs | 詳細は充実。Game DesignとVisual approvalは分離維持 |
-| Accessibility / component states | **PROPOSED** | `design-component-state-accessibility-matrix-v1.md` | tap、reduced motion、VoiceOver、first-time flow案あり。Current化は未完 |
-| Performance / release | **CURRENT-ENGINEERING** | U50/U51 roadmap / budgets | Game designではなくengineering trackとして別管理でよい |
-| Audio / haptic implementation | **CURRENT-ENGINEERING / U49** | U49 contracts/evidence | technical routing/evidenceは強いが、creative audio identity masterは不足 |
+| Game identity / core | **CURRENT** | `game-core-book-v1.md` | Run / Meta / Attachment loop、Gameplay-first固定 |
+| Play experience hub | **CURRENT** | `PLAY-EXPERIENCE.md` | Combat〜Postgameまで一本化 |
+| Character | **CURRENT** | `CHARACTERS.md`, `character-book-v4.md`, `character-deep-core-book-v1.md` | Current21を21/21、Future15を別reservoirで15/15 |
+| Character/Story/Gameplay integration | **CURRENT** | `CHARACTER-STORY-INTEGRATION.md` | voice / relation / 黒耀化 / enemy / dawn payoffを接続 |
+| Story / Mystery | **CURRENT** | `STORY.md`, `story-book-v1.md`, `story-main-beat-sheet-v1.md` | Happy End、C/B/A mystery debt。Main Mystery最終回答はOPEN |
+| Bond / Support | **CURRENT** | `BOND.md`, `RELATIONSHIPS.md` | gameplay一次報酬、Current21 relation coverage >=2 |
+| 黒耀化 | **CURRENT** | `BLACK-YOUKA.md`, `character-black-youka-rescue-book-v1.md` | 21/21 wrong arrival + rescue choice direction |
+| Enemy / Kagemono | **CURRENT** | `ENEMIES.md`, `kagemono-collection-entry-book-v1.md` | Current48 identity + encounter/re-reading 48/48 |
+| Combat / Run pacing | **CURRENT-DIRECTION** | `COMBAT-RUN-DESIGN.md` | Stage1 8min baseline継承、final balance未LOCK |
+| Stage / Encounter | **CURRENT-DIRECTION** | `STAGE-ENCOUNTER-DESIGN.md`, `stage-encounter-expansion-06-20-v1.md` | gameplay identity 20/20。exact wave / boss / tuning OPEN |
+| First Run | **CURRENT-DIRECTION** | `FIRST-RUN-EXPERIENCE.md` | TOP→2run目hookまで一本化。初見Human test未実施 |
+| Mobile Control | **CURRENT-DIRECTION** | `MOBILE-CONTROL-EXPERIENCE.md` | current floating-anchor dragと整合。physical tuning OPEN |
+| Difficulty / Player Aid | **CURRENT-DIRECTION** | `DIFFICULTY-AND-PLAYER-AIDS.md` | HP sponge-first禁止、StoryをHardで塞がない |
+| Meta Economy | **CURRENT-DIRECTION** | `META-ECONOMY-DESIGN.md` | currency family / source-sink / respec / anti-grind shape定義。価格OPEN |
+| Clear Getter / Archive | **CURRENT-DIRECTION** | `GAMEPLAY-META-PROGRESSION.md`, `PROGRESSION-ARCHIVE.md` | next-run gameplayとして成立。盤面数値OPEN |
+| Postgame / Endgame | **CURRENT-DIRECTION** | `POSTGAME-ENDGAME-DESIGN.md` | Happy End後のmastery/challenge方向。Endless/NG+はOPEN |
+| Audio / Haptic creative | **CURRENT-DIRECTION** | `AUDIO-HAPTIC-DIRECTION.md` | quiet-night hierarchy、U49 technical gateと分離 |
+| Accessibility | **CURRENT-BASELINE** | `ACCESSIBILITY-BASELINE.md` | touch / typography / multimodal / reduced motion / semantics。platform evidence OPEN |
+| Fun / Balance Playtest | **CURRENT** | `FUN-BALANCE-PLAYTEST.md` | 観測frameworkあり。合格thresholdはHuman data後 |
+| Save / AppFlow / ownership | **CURRENT-PRODUCTION** | `unity-runtime-ownership-contract-v1.md` | implementation boundary強い |
+| Stage1 runtime gameplay | **CURRENT-PRODUCTION / VERIFIED SCOPE** | U47 docs/evidence | current implementation exists; new design passは未接続 |
+| Visual / UI | **CURRENT-SEPARATE-TRACK** | Heavy Design docs | Play DesignとVisual approvalを分離 |
+| U49 audio/haptic engineering | **CURRENT-ENGINEERING / BLOCKED** | U49 docs/evidence | physical-device evidence待ち |
+| U50 performance/touch | **CURRENT-ENGINEERING / NEXT** | U50 roadmap | thresholds実測待ち |
 
 ---
 
-# 3. 本当に残っている設計ギャップ
+# 3. What changed in this design pass
 
-## P0-A. Combat / Run Pacing Master — **OPEN / 最重要**
-
-Coreには「1run中にどんどん強くなる」があるが、Currentな一冊として以下がまだ揃っていない。
-
-- 移動の気持ちよさ / one-thumb前提
-- 通常移動速度レンジ
-- 敵との接触 / 被弾 / invulnerabilityの考え方
-- 何秒ごとにLevel Upしたいかという体感目標
-- 序盤 / 中盤 / 終盤の敵密度カーブ
-- 進化が成立し始める時間帯
-- 黒耀化を使いたくなるpressure point
-- elite / bossの出すタイミング
-- 1runの「寂しい時間」を何秒以上作らないか
-- kill speed / pickup / build完成のテンポ
-- Clear時とGame Over時の満足差
-
-`mvp-data-tables.md`にはStage1 8分wave draftとbalance notesがあり、`unity-game-feel-cookbook.md`にはfeedback timingもあるが、旧MVP/implementation資料に分散している。
-
-**必要:** 数値を最終LOCKする本ではなく、Playtestで調整するための `COMBAT-RUN-DESIGN.md`。
-
----
-
-## P0-B. Stage / Encounter Design Master — **PARTIAL — Stage1〜5 CURRENT DIRECTION / 全20Stageは未完**
-
-2026-07-29時点で `STAGE-ENCOUNTER-DESIGN.md` を追加し、Narrative SpineのStage1〜5についてはCurrentなEncounter directionを作った。
-
-現在Stage1〜5で揃ったもの:
-
-- Character question → Gameplay verbへの接続
-- `Read → Mix → Tempt → Punish excess → Alternate answer → Climax → Release` のpressure arc
-- movement pressure / controller / modifierの基本recipe
-- 敵family / motifの投入方向
-- Characterの得意playを最初に気持ちよく使わせる方針
-- 同じ一択の過剰だけを崩すEncounter
-- 別build / 別Support / 別routeを回答にする方針
-- special Clear Getter seed
-- Boss46〜48とのaffinity候補
-- Story / Enemy / Relationとのcross-domain routing
-
-ただしproduction scope全体はまだPARTIAL。
-
-未完:
-
-- Stage6〜20の個別Encounter identity
-- exact wave / encounter timing
-- enemy familyの最終投入順
-- safe / pressure / climax区間の実時間
-- elite / bossの正式配置
-- Stageごとのstrong / weak buildのbalance実証
-- environmental hazard最終選定
-- Easy / Normal / Hard差分
-- clear / special conditionの全Stage設計
-- playtest / tuning / evidence
-
-20-stage production DBにname / lead characters / core question / story seed / enemy affinity / `stageMechanicSeed` があっても、それだけでは全Stage Encounter完成とは扱わない。
-
-**次に必要:** `STAGE-ENCOUNTER-DESIGN.md` をStage6〜20へ拡張し、Combat/Run Pacing masterと接続してplaytestする。
-
----
-
-## P0-C. First 10 Minutes / Onboarding — **PARTIAL → CURRENT化が必要**
-
-`design-component-state-accessibility-matrix-v1.md`には:
-
-- TOPのPrimary action
-- StageSelectのcurrent stage表示
-- Battleで初回だけ移動を簡潔に提示
-- HUDを一度に全部説明しない
-- LevelUp初回説明
-
-がある。
-
-ただしStatusはPROPOSEDで、**初回起動 → 初Stage → 初LevelUp → 初敗北/初Clear → 初永続強化 → 次run** の一本の体験設計がまだない。
-
-欲しい方針:
-
-- 説明を読むtutorialではなく、触れば分かる
-- 自動攻撃を最初の数秒で理解できる
-- 初LevelUpを早く見せる
-- 初回の達成盤は複数自然点灯
-- lore閲覧を強制しない
-- 初敗北でも「もう一回」が見える
-
-**必要:** `FIRST-RUN-EXPERIENCE.md`。
-
----
-
-## P0-D. Player Input / Mobile Control Contract — **OPEN**
-
-Runtime上の操作は存在しても、Game Designとして:
-
-- 片手縦持ちをどこまで優先するか
-- virtual stick / drag movementの正式方針
-- dead zone / follow behaviorの思想
-- 指でcharacterやenemyを隠さない設計
-- Pauseの到達性
-- accidental touch対策
-- left/right-handed accommodation
-- controller / keyboardをどの位置づけにするか
-
-がCurrent masterになっていない。
-
-**必要:** `MOBILE-CONTROL-EXPERIENCE.md`。
-
----
-
-## P1-A. Difficulty / Player Aid Philosophy — **PARTIAL**
-
-旧MVPにはEasy / Normal / Hardや「敵を硬くするより数・速度・出現方向で難しくする」がある。
-Accessibility案もある。
-`STAGE-ENCOUNTER-DESIGN.md` では、telegraph duration / pressure overlap / spawn direction / recovery window / controller enemy頻度などを候補とし、HP spongeへ寄せない方向まで整理した。
-
-しかしCurrentとして:
-
-- difficultyを何のために分けるか
-- Story accessを難易度で塞ぐか
-- Assist mode / reduced intensityの扱い
-- reward差をどこまで付けるか
-- Clear Getterの高難度条件と通常クリアをどう分離するか
-- exact difficulty変数の組合せ
-
-が未整理。
-
-**必要:** `DIFFICULTY-AND-PLAYER-AIDS.md`。
-
----
-
-## P1-B. Meta Economy / Unlock Economy — **PARTIAL**
-
-思想は強い:
-
-- 小さい永続成長
-- raw damageだけにしない
-- build幅 / comfort / route variationを増やす
-- daily obligationを作らない
-
-一方、まだ意図的に未LOCK:
-
-- reward quantities
-- permanent stat caps
-- unlock costs
-- currency source / sink
-- respec / refund
-- late-game overflow currency
-- unlock順
-
-これは数値まで今決める必要はない。
-
-ただし将来「通貨を追加し続ける事故」を防ぐため、**通貨family数 / source-sinkの原則 / respec方針だけはPlaytest前にmaster化**した方がよい。
-
-**必要:** `META-ECONOMY-DESIGN.md`。
-
----
-
-## P1-C. Postgame / 100% / Endgame — **OPEN**
-
-StoryのHappy Endとsequel余地はある。
-Clear Getterもある。
-
-しかし本編クリア後に:
-
-- 何を目標にrunするか
-- 高難度 / challenge stage
-- hidden evolution
-- Character / Support mastery
-- 星図complete時の扱い
-- 100%でGameplay powerを必須にしない方針
-- sequel stingerをどこまで出すか
-- New Game+が必要か
-
-は未設計。
-
-ヴァンサバ系の長期リプレイ性に関わるので、発売前には必要。
-
-**必要:** `POSTGAME-ENDGAME-DESIGN.md`。
-
----
-
-## P1-D. Creative Audio / Haptic Identity — **PARTIAL**
-
-U49はactual-device routing / latency / haptic executionなど技術品質を扱う。
-`unity-game-feel-cookbook.md`にもSEの方向はある。
-
-不足:
-
-- TOP / Battle / LevelUp / 黒耀化 / Boss / Dawnの音楽dramaturgy
-- Character motifを持つか
-- Star Beastの音
-- memory fragment collect音のpitch design
-- 黒耀化と煤返りの音の差
-- Dawnでどこまで音数を増やすか
-- BGMを静かにする場面
-- haptic hierarchyを感情とGameplayでどう使い分けるか
-
-**必要:** engineering U49とは別の `AUDIO-HAPTIC-DIRECTION.md`。
-
----
-
-## P1-E. Fun / Balance Playtest Metrics — **OPEN**
-
-U50はperformance/touch metricsであり、**fun balanceのmetricsではない**。
-
-今後必要な観測例:
-
-- 初LevelUpまでの時間
-- LevelUp間隔
-- 1分あたり撃破数
-- player death time分布
-- Stage clear rate
-- build完成率
-- weapon / passive pick率
-- reroll率
-- Support採用率
-- 黒耀化使用率 / 使用タイミング
-- 黒耀化なしclear率
-- Character別clear率
-- 「同じbuildしか使われない」兆候
-- first-session 2nd run率（ローカルtestでも観測可）
-
-数字の合格ラインはPlaytestして決める。
-
-**必要:** `FUN-BALANCE-PLAYTEST.md`。
-
----
-
-# 4. P2 / Laterでよい領域
-
-Core完成前に固定しなくてよい。
-
-- localization / 英語版
-- business model / price / ads / IAP policy
-- achievements platform連携
-- cloud save
-- controller正式対応
-- live ops / seasonal events
-- analytics backend
-- social / leaderboard
-- merchとの連動
-
-これらを今Coreへ混ぜない。
-
----
-
-# 5. 今「完璧」と言えるか
-
-**No.**
-
-ただし、問題は「ゲームのアイディアが足りない」ことではない。
-
-現在は:
+以前OPEN/PARTIALだった以下にCurrent masterを追加した。
 
 ```txt
-GAME IDENTITY          strong
-CHARACTER              strong / 21 Current + 15 Future separated
-STORY                   strong direction / Main Mystery answer open
-BOND                    strong
-CLEAR GETTER / META     strong direction
-BLACK-YOUKA             strong direction + 21 rescue paths
-CONTENT DATABASE        large
-ENEMY SEMANTICS         48/48 integrated
-RUNTIME FOUNDATION      strong
+Combat / Run
+→ COMBAT-RUN-DESIGN.md
 
-COMBAT PACING           needs current master
-STAGE ENCOUNTER         Stage1-5 current direction / full 20-stage PARTIAL
-FIRST RUN               needs current master
-MOBILE CONTROL          needs current master
-DIFFICULTY              needs consolidation
-META ECONOMY            needs shape before numbers
-POSTGAME                needs design
-CREATIVE AUDIO          needs master
-FUN METRICS             needs design
+Stage1–5
+→ STAGE-ENCOUNTER-DESIGN.md
+
+Stage6–20
+→ stage-encounter-expansion-06-20-v1.md
+
+First session
+→ FIRST-RUN-EXPERIENCE.md
+
+Mobile input
+→ MOBILE-CONTROL-EXPERIENCE.md
+
+Difficulty
+→ DIFFICULTY-AND-PLAYER-AIDS.md
+
+Meta economy
+→ META-ECONOMY-DESIGN.md
+
+Postgame
+→ POSTGAME-ENDGAME-DESIGN.md
+
+Creative audio/haptic
+→ AUDIO-HAPTIC-DIRECTION.md
+
+Accessibility
+→ ACCESSIBILITY-BASELINE.md
+
+Fun/balance measurement
+→ FUN-BALANCE-PLAYTEST.md
 ```
 
-という状態。
-
-**Character / Story / Enemyの魂はかなり一本化したが、ゲーム全体を「遊びとして仕上げる設計層」はまだ未完。**
+したがって今の問題は「設計書がない」ではなく、**designをruntime / device / Human playtestで証明していないこと**。
 
 ---
 
-# 6. 推奨作業順
+# 4. Combat / Run current direction
 
-設計だけを今詰める場合の順序:
+Stage1 8分は既存U33 baselineをreferenceにする。
 
 ```txt
-1. COMBAT-RUN-DESIGN
-2. STAGE-ENCOUNTER-DESIGN — Stage6〜20 expansion / playtest
-3. FIRST-RUN-EXPERIENCE
-4. MOBILE-CONTROL-EXPERIENCE
-5. DIFFICULTY-AND-PLAYER-AIDS
-6. META-ECONOMY-DESIGN
-7. FUN-BALANCE-PLAYTEST
-8. POSTGAME-ENDGAME-DESIGN
-9. AUDIO-HAPTIC-DIRECTION
+0:00–0:30   basic kill / movement
+0:30–2:00   first growth
+2:00–4:00   build identity
+4:00–6:00   pressure
+6:00–7:30   Evolution / Rare / 黒耀化
+7:30–8:00   completed-build clear push
 ```
 
-ただし、数値を早くLOCKしない。
+重要:
 
-- まずPrinciple / desired feeling / test questionsを定義
-- prototype / actual-device playtest
-- 数値調整
-- evidence
-- 必要なものだけCanon化
+> 最後30〜90秒を「まだbuildを作る時間」ではなく「作ったbuildを使う時間」にする。
 
-の順を守る。
-
-Character / Story領域については、新設定の追加より:
-
-- scene repetition / payoff精度
-- Main Storyへ何を出さないか
-- C級Mysteryを本当に1で払えるか
-- Character verbがGameplayとして楽しいか
-
-を優先する。
+Exact spawn / level / timingはplaytest targetでありfinal lockしない。
 
 ---
 
-# 7. Completeness gate
+# 5. 20-stage differentiation
 
-Game Designを「大枠完成」と呼べる最低条件:
+20Stageすべてにprimary gameplay identityを定義済み。
 
-- Game Core BookがCurrent
-- Character / Story / Bond / 黒耀化 / Clear GetterのCurrent masterがある
-- Combat / Run pacingのCurrent masterがある
-- **launch scopeのStage / EncounterがCurrentで、必要Stageの差別化とplaytestが済んでいる**
-- First-run flowがCurrent
-- Mobile controlsがCurrent
-- Difficulty philosophyがCurrent
-- Meta economyのshapeがCurrent
-- Postgameの方向がCurrent
-- Fun/balance playtest項目がCurrent
-- Accessibility baselineがCurrentまたは実装契約へ接続済み
-- Audio/Haptic creative directionがU49 engineeringと矛盾しない
-- 数値未LOCK項目は「未決定」と明示されている
+| Stage | Identity |
+| ---: | --- |
+| 1 | pickup / owner |
+| 2 | label / visibility |
+| 3 | seal / reopen |
+| 4 | route / reroute |
+| 5 | repair / scar |
+| 6 | lane / guide line |
+| 7 | split / distribute |
+| 8 | helper / summon placement |
+| 9 | slow pressure / safe zone |
+| 10 | persistent field / preserve |
+| 11 | delayed threat |
+| 12 | scout / reveal / act |
+| 13 | unknown / classify later |
+| 14 | gate open / close |
+| 15 | forecasted variance / rewrite |
+| 16 | fold / unfold / close-range risk |
+| 17 | fade / trace / debuff |
+| 18 | angle / direction |
+| 19 | blank slot / late commitment |
+| 20 | Core5 integrated recall |
 
-現時点ではStage1〜5 directionがCurrentになっただけで、このgate全体はまだ通っていない。
+まだ未LOCK:
+- exact waves
+- boss assignment
+- shadow `kage1..4` identity mapping
+- difficulty numbers
+- runtime mechanics
 
-このgateを通るまでは「設計完璧」と表現しない。
+---
+
+# 6. First Run contract
+
+First sessionは世界説明より先に:
+
+```txt
+move
+→ auto attack
+→ kill
+→ fragment
+→ LevelUp
+→ visible growth
+→ pressure
+→ power spike
+→ Result
+→ Meta / Clear Getter
+→ second run hook
+```
+
+を理解する。
+
+Tutorial modalを増やさない。
+
+---
+
+# 7. Mobile control contract
+
+Current runtimeのfloating-anchor dragを正式方向として採用。
+
+Baseline implementation:
+- movement start area = left-lower area
+- dead zoneあり
+- analog magnitude
+- UI pointer優先
+- keyboard fallback
+
+Exact current ratiosはruntime baseline。
+Final comfortはphysical-deviceで調整。
+
+---
+
+# 8. Difficulty contract
+
+Hardの優先順:
+
+```txt
+direction
+→ pattern overlap
+→ controller
+→ spatial pressure
+→ timing
+→ speed/contact
+→ HP modestly
+```
+
+禁止:
+- HP spongeを主難化
+- Main StoryをHard gate
+- Assist使用でStory/rewardを不当に剥奪
+
+---
+
+# 9. Meta economy contract
+
+Current shape:
+- core meta currency = 原則1family
+- raw powerよりplay variety / comfort
+- refund/respec可能方向
+- Bondをcurrency購入しない
+- fail-forwardはあるがDefeat farming最適化禁止
+- daily / stamina / FOMOなし
+
+未LOCK:
+- currency name
+- reward amount
+- price curve
+- cap
+- exact stat caps
+
+---
+
+# 10. Postgame contract
+
+```txt
+Story Complete
+= Happy End
+
+Postgame
+= mastery / alternate build / challenge / optional lore
+
+100%
+= completionist celebration
+```
+
+100%でTrue Endingを人質にしない。
+Endless / NG+はCandidate。
+
+---
+
+# 11. Audio / Haptic contract
+
+Creative hierarchy:
+
+```txt
+ambient
+< normal combat
+< LevelUp / elite
+< Evolution
+< 黒耀化
+< Boss defeat / Dawn
+```
+
+静けさをbudgetとして使う。
+
+Hapticは:
+- movement / normal attackへ常用しない
+- Evolution / 黒耀化 / major completionへ価値を残す
+
+U49のtechnical readinessとは別。
+
+---
+
+# 12. Accessibility baseline
+
+Minimum Current:
+- color only禁止
+- audio only禁止
+- haptic only禁止
+- motion only禁止
+- sufficient touch target direction
+- typography floor
+- reduced motion
+- flashing restraint
+- semantic order
+- icon-only accessible name direction
+
+Platform-specific implementation/evidenceは別。
+
+---
+
+# 13. Fun / Balance evidence gate
+
+Technical U50だけでは「面白い」を証明しない。
+
+観測:
+- first input
+- first kill
+- first pickup
+- first LevelUp
+- LevelUp intervals
+- kills/min
+- build completion
+- evolution time
+- 黒耀化 usage
+- death / clear
+- retry / second-run intent
+- build diversity
+- Character / Support usage
+
+Human markers:
+- delight
+- confusion
+- boredom
+- good panic
+- bad panic
+- power spike
+- retry desire
+
+ThresholdはHuman data後にlock。
+
+---
+
+# 14. Remaining actual gaps
+
+設計の大穴ではなく**evidence / implementation gap**が中心。
+
+## P0 — Human/device proof
+
+1. current Stage1 baselineを最新buildで触る
+2. first-run comprehension
+3. physical mobile control comfort
+4. combat telemetry
+5. Stage1 fun tuning
+6. build diversity observation
+
+## P0 — Runtime connection
+
+- design changesを必要な範囲だけDefinition/runtimeへ接続
+- Story / Bond / Stage mechanicsを一気に全部実装しない
+- Stage1でvertical proofしてから横展開
+
+## P1 — Stage implementation
+
+- Stage2〜5 mechanic prototype
+- Stage6〜20はlaunch scopeに応じて段階導入
+- exact Boss placement Human decision
+
+## P1 — Product systems
+
+- Meta price/reward numbers
+- difficulty modifiers
+- postgame content count
+- platform accessibility evidence
+- creative audio/haptic Human review
+
+## OPEN by design
+
+- Main Mystery final answer
+- exact romance facts
+- all black-youka names final
+- Shadow `kage1..4` mapping
+- Endless
+- NG+
+- sequel structure
+
+---
+
+# 15. Design completeness verdict
+
+## Design-master coverage
+
+**Large-scale design master pass: substantially complete.**
+
+主要domainにCurrent entrypointがある。
+
+## Product completeness
+
+**Not complete.**
+
+理由:
+- new design direction未実装箇所あり
+- physical-device U49 blocked
+- U50 metrics未完
+- Human fun/balance evidence未取得
+- Stage mechanics未prototype多数
+
+したがって:
+
+> **設計不足を埋める段階から、既存設計を実装・実機・playtestで削って証明する段階へ移行した。**
+
+---
+
+# 16. Next work order
+
+```txt
+1. U49 physical-device evidence
+2. latest Stage1 baseline playtest/capture
+3. First Run + Mobile Control Human review
+4. Fun telemetry / observation
+5. Stage1 tuning
+6. Stage2–5 mechanic prototype
+7. U50 performance/touch
+8. difficulty/economy numbers
+9. Stage6–20 rollout by launch scope
+10. U51 RC
+```
+
+ただしU49/U50/U51のengineering authorityをこのdesign docで上書きしない。
+
+---
+
+# 17. Machine-readable state
+
+- `docs/design-targets/generated/play-experience-design-coverage-v1.json`
+- `docs/design-targets/generated/character-story-integration-coverage-v1.json`
+
+---
+
+# 18. 一文
+
+> **ヨルノシルベは今、アイディアを足して完成へ近づく段階ではなく、すでに作ったRun・Character・Stage・Metaの設計を実機で触り、不要なものを削り、数字を調整して「本当にもう1runしたい」を証明する段階に入った。**
