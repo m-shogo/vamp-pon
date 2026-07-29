@@ -4,7 +4,11 @@ import {
 } from '../../src/game/data/allLightsCompletion.ts';
 import { ACHIEVEMENT_DEFS } from '../../src/game/data/achievements.ts';
 import {
+  META_UPGRADE_CURRENCY_ID,
+  STAGE1_RUN_EARNED_META_CURRENCY_TARGET,
   collectionEconomyResources,
+  meetsStage1RunEarnedMetaCurrencyTarget,
+  recordRunEarnedMetaCurrency,
   validateCollectionEconomyTerminology,
 } from '../../src/game/data/collectionEconomyTerminology.ts';
 import { forgottenStreetNightBoard } from '../../src/game/data/collectionProgress.ts';
@@ -152,6 +156,16 @@ if (getAcceptedStage1ProgressIds('paper_scrap_shadow').length !== 1) {
   errors.push('paper_scrap_shadow must not reuse its moved Current48 motif for Stage1 progress');
 }
 
+const runCurrencyFixture: Record<string, unknown> = {};
+recordRunEarnedMetaCurrency(runCurrencyFixture, STAGE1_RUN_EARNED_META_CURRENCY_TARGET - 1);
+if (meetsStage1RunEarnedMetaCurrencyTarget(runCurrencyFixture)) {
+  errors.push('Stage1 run-currency target must not complete below 100');
+}
+recordRunEarnedMetaCurrency(runCurrencyFixture, STAGE1_RUN_EARNED_META_CURRENCY_TARGET);
+if (!meetsStage1RunEarnedMetaCurrencyTarget(runCurrencyFixture)) {
+  errors.push('Stage1 run-currency target must complete at 100');
+}
+
 if (keeperRecords.length !== 5) {
   errors.push(`Core5 keeper runtime scope must remain 5 until asset expansion, got ${keeperRecords.length}`);
 }
@@ -202,6 +216,15 @@ if (
   !rustedKey.legacyRelatedKeeperIds.includes('keeper-michiru')
 ) {
   errors.push('lost-rusted-room-key must use Nagi current binding and preserve Michiru legacy binding');
+}
+const dullLightCoin = lostItemRecords.find((item) => item.id === 'lost-dull-light-coin');
+if (
+  dullLightCoin?.relatedBoardCellId !== 'fs_019_collect_100_light_coin' ||
+  dullLightCoin.relatedEconomyConceptId !== META_UPGRADE_CURRENCY_ID ||
+  dullLightCoin.economyConnectionStatus !== 'HIGH_VALUE_CANDIDATE_RELATED_NOT_CANONICAL' ||
+  dullLightCoin.connectionStatus !== 'REVIEW_REQUIRED'
+) {
+  errors.push('lost-dull-light-coin must link the actual run counter to the meta-currency candidate without claiming Canon');
 }
 
 const migratedFixture = migrateCollectionProgressSaveToV2({
@@ -257,6 +280,7 @@ console.log(
     `${stage1LegacyRuntimeCompatibilityEntries.length} Stage1 legacy runtime entries, ` +
     `${stage1LegacyRuntimeCompatibilityByBoardCellId.size} Stage1 legacy board bindings, ` +
     `${globalConstellationDefinition.activeStage1CompletionNodes.length} active Stage1 completion nodes, ` +
+    `runCurrencyTarget=${STAGE1_RUN_EARNED_META_CURRENCY_TARGET}, ` +
     `${collectionEconomyResources.length} separated economy/mechanic concepts, ` +
     `${namedObjectMigrationLedger.length} migration entries, ` +
     `${globalConstellationDefinition.migratedStage1Nodes.length} Stage1 constellation nodes, ` +
