@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 6,
+  "schemaVersion": 7,
   "date": "2026-07-29",
-  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_DUAL_READ_ACTUAL_RUN_COUNTER",
+  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_ACTUAL_RUN_COUNTER_OBJECT_LINK_HEADER_NORMALIZED",
   "invariants": {
     "namedObjectsNeedConnections": true,
     "minimumConnectionDirections": 4,
@@ -12,6 +12,7 @@
     "legacyArchiveNodesDoNotEnterFutureCompletionAutomatically": true,
     "economyConceptsDoNotAutoMergeByDisplayName": true,
     "stage1CurrencyChallengeUsesSettledRunAmount": true,
+    "candidateRelationsDoNotPromoteCanonAutomatically": true,
     "runtimeReadinessUnaffected": true
   },
   "coverage": {
@@ -121,7 +122,11 @@
       "compatibilityReadModels": 2,
       "legacyBindingsPreserved": true,
       "currentBindingsAppliedToUi": 2,
-      "economyRecordAwaitingReview": 1,
+      "dullLightCoinBoardLinkConnected": true,
+      "dullLightCoinEconomyCandidateLinkConnected": true,
+      "dullLightCoinConnectionStatus": "REVIEW_REQUIRED",
+      "dullLightCoinEconomyStatus": "HIGH_VALUE_CANDIDATE_RELATED_NOT_CANONICAL",
+      "economyRecordAwaitingCanonicalReview": 1,
       "launchTotalLocked": false
     },
     "keeperRecords": {
@@ -130,6 +135,7 @@
       "legacyPersonalItemsPreserved": 5,
       "generatedObjectReadModels": 21,
       "current21UiRemaining": 16,
+      "keeperHeaderBlackYoukaRuntimeNormalized": true,
       "fullCurrent21UiMigrationRequired": true
     },
     "economyTerminology": {
@@ -173,6 +179,9 @@
       "economyTerminologyValidation": true,
       "actualRunCurrencyUnitTest": true,
       "actualRunCurrencySettlementIntegrationTest": true,
+      "actualCollectionSettlementIntegrationTest": true,
+      "dullLightCoinCandidateBoundaryTest": true,
+      "keeperHeaderExactNormalizationTest": true,
       "proxyFormulaForbiddenContract": true,
       "githubActionsRunnerStarted": false
     }
@@ -218,10 +227,10 @@
     "CollectionScene still renders all 25 historical Stage1 cells; future completion eligibility is 22 active plus 3 archive-only",
     "seven legacy enemy/boss cells retain old visible labels until runtime/display migration evidence is available",
     "one legacy story cell for 夜主 ネモリ has no Current successor and remains archive-only",
-    "keeperRecords now connect Core5 5/5; remaining Current21 keeper UI/assets are 16",
-    "lostItemRecords keep six assets; two Nagi/Michiru bindings are Current with legacy history preserved",
+    "keeperRecords connect Core5 5/5; remaining Current21 keeper UI/assets are 16",
     "meta currency display 黒曜片 remains review-required; 灯貨 is a high-value candidate only",
-    "CollectionScene keeper page header still contains a legacy abbreviated label and needs a safe scene patch",
+    "StageSelect 黒曜片 and 黒曜研究所 remain separate display/facility naming decisions",
+    "くすんだ灯貨 has a candidate economy link but no canonical owner or origin",
     "Collection save v2 is a draft and not connected to the production save service",
     "global constellation graph is Definition-only and has no UI",
     "launch-v1 completion required IDs are not frozen",
