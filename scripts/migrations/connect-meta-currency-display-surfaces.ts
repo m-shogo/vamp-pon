@@ -50,8 +50,8 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
   {
     id: 'top.import',
     file: 'src/game/scenes/TopScene.ts',
-    before: "import { loadProfile } from '../persistence/profile';",
-    after: "import { loadProfile } from '../persistence/profile';\nimport { formatMetaCurrencyAmount } from '../data/metaCurrencyDisplay';",
+    before: "import { loadProfile } from '../persistence/profile';\nimport {",
+    after: "import { loadProfile } from '../persistence/profile';\nimport { formatMetaCurrencyAmount } from '../data/metaCurrencyDisplay';\nimport {",
   },
   {
     id: 'top.wallet_tag',
@@ -63,8 +63,8 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
   {
     id: 'stage_select.import',
     file: 'src/game/scenes/StageSelectScene.ts',
-    before: "import { characters } from '../data/characters';",
-    after: "import { characters } from '../data/characters';\nimport {\n  formatMetaCurrencyAmount,\n  formatMetaCurrencyGrowthIntro,\n  formatMetaCurrencyInsufficient,\n  formatMetaCurrencyRefund,\n} from '../data/metaCurrencyDisplay';",
+    before: "import { characters } from '../data/characters';\nimport { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';",
+    after: "import { characters } from '../data/characters';\nimport {\n  formatMetaCurrencyAmount,\n  formatMetaCurrencyGrowthIntro,\n  formatMetaCurrencyInsufficient,\n  formatMetaCurrencyRefund,\n} from '../data/metaCurrencyDisplay';\nimport { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';",
   },
   {
     id: 'stage_select.wallet_balance',
@@ -97,8 +97,8 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
   {
     id: 'result.import',
     file: 'src/game/ui/overlays.ts',
-    before: "import { recipeForStage } from '../data/waves';",
-    after: "import { recipeForStage } from '../data/waves';\nimport {\n  currentMetaCurrencyDisplayName,\n  formatMetaCurrencyCarryHome,\n  formatMetaCurrencyUseCta,\n} from '../data/metaCurrencyDisplay';",
+    before: "import { recipeForStage } from '../data/waves';\nimport {",
+    after: "import { recipeForStage } from '../data/waves';\nimport {\n  currentMetaCurrencyDisplayName,\n  formatMetaCurrencyCarryHome,\n  formatMetaCurrencyUseCta,\n} from '../data/metaCurrencyDisplay';\nimport {",
   },
   {
     id: 'result.currency_reward',
@@ -124,8 +124,8 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
   {
     id: 'profile.import',
     file: 'src/game/persistence/profile.ts',
-    before: "import { achievementRewardAmount } from '../data/achievements';",
-    after: "import { achievementRewardAmount } from '../data/achievements';\nimport {\n  formatMetaCurrencyUpgradeDescription,\n  formatMetaCurrencyUpgradeName,\n} from '../data/metaCurrencyDisplay';",
+    before: "import { achievementRewardAmount } from '../data/achievements';\nimport { recordRunEarnedMetaCurrency } from '../data/collectionEconomyTerminology';",
+    after: "import { achievementRewardAmount } from '../data/achievements';\nimport {\n  formatMetaCurrencyUpgradeDescription,\n  formatMetaCurrencyUpgradeName,\n} from '../data/metaCurrencyDisplay';\nimport { recordRunEarnedMetaCurrency } from '../data/collectionEconomyTerminology';",
   },
   {
     id: 'profile.currency_gain_upgrade',
