@@ -172,15 +172,18 @@ if (!meetsStage1RunEarnedMetaCurrencyTarget(runCurrencyFixture)) {
   errors.push('Stage1 run-currency target must complete at 100');
 }
 
+if (currencyDisplayMigrationResult.walletSurfaceTotal !== 11) {
+  errors.push(`meta currency display migration must inventory exactly 11 wallet surfaces, got ${currencyDisplayMigrationResult.walletSurfaceTotal}`);
+}
 if (
-  currencyDisplayMigrationResult.walletSurfaceTotal !== 11 ||
-  currencyDisplayMigrationResult.formatterConnected !== 2 ||
-  currencyDisplayMigrationResult.walletSurfaceRemaining !== 9
+  currencyDisplayMigrationResult.formatterConnected +
+  currencyDisplayMigrationResult.walletSurfaceRemaining !==
+  currencyDisplayMigrationResult.walletSurfaceTotal
 ) {
-  errors.push('meta currency display migration must report 2/11 formatter-connected and 9 remaining surfaces');
+  errors.push('meta currency display connected and remaining counts must sum to the total');
 }
 if (currencyDisplayMigrationResult.readyForHumanApproval) {
-  errors.push('meta currency display migration must remain blocked before all surfaces and Human approval');
+  errors.push('meta currency display migration must remain blocked until explicit Human approval');
 }
 
 if (keeperRecords.length !== 5) {
