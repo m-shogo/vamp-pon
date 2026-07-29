@@ -56,8 +56,8 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
   {
     id: 'top.import',
     file: 'src/game/scenes/TopScene.ts',
-    before: "import { loadProfile } from '../persistence/profile';\nimport {",
-    after: "import { loadProfile } from '../persistence/profile';\nimport { formatMetaCurrencyAmount } from '../data/metaCurrencyDisplay';\nimport {",
+    before: "import { loadProfile } from '../persistence/profile';\nimport {\n  findNewCompletedCellIds,",
+    after: "import { loadProfile } from '../persistence/profile';\nimport { formatMetaCurrencyAmount } from '../data/metaCurrencyDisplay';\nimport {\n  findNewCompletedCellIds,",
   },
   {
     id: 'top.wallet_tag',
@@ -103,8 +103,8 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
   {
     id: 'result.import',
     file: 'src/game/ui/overlays.ts',
-    before: "import { recipeForStage } from '../data/waves';\nimport {",
-    after: "import { recipeForStage } from '../data/waves';\nimport {\n  currentMetaCurrencyDisplayName,\n  formatMetaCurrencyCarryHome,\n  formatMetaCurrencyUseCta,\n} from '../data/metaCurrencyDisplay';\nimport {",
+    before: "import { recipeForStage } from '../data/waves';\nimport {\n  getInventoryIconRequirement,",
+    after: "import { recipeForStage } from '../data/waves';\nimport {\n  currentMetaCurrencyDisplayName,\n  formatMetaCurrencyCarryHome,\n  formatMetaCurrencyUseCta,\n} from '../data/metaCurrencyDisplay';\nimport {\n  getInventoryIconRequirement,",
   },
   {
     id: 'result.currency_reward',
