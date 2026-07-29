@@ -56,7 +56,7 @@ describe('guarded meta currency surface codemod', () => {
     expect(result.overall).toBe('PENDING');
     expect(result.errors).toEqual([]);
     expect(result.replacements).toHaveLength(18);
-    expect(new Set(result.replacements.map((entry) => entry.file))).toHaveLength(6);
+    expect(new Set(result.replacements.map((entry) => entry.file)).size).toBe(6);
     expect(result.pendingSurfaceIds).toHaveLength(9);
     expect(result.migratedSurfaceIds).toEqual([]);
   });
