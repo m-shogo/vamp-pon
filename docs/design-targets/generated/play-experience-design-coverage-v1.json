@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-29",
+  "status": "CURRENT_DESIGN_COVERAGE_RUNTIME_EVIDENCE_SEPARATE",
+  "scope": "play-experience-design",
+  "domains": {
+    "combatRun": {
+      "status": "CURRENT_DIRECTION",
+      "master": "docs/COMBAT-RUN-DESIGN.md",
+      "finalBalanceLocked": false,
+      "playtestEvidenceComplete": false
+    },
+    "stageEncounter": {
+      "status": "CURRENT_DIRECTION_20_OF_20",
+      "masters": [
+        "docs/STAGE-ENCOUNTER-DESIGN.md",
+        "docs/stage-encounter-expansion-06-20-v1.md"
+      ],
+      "stageIdentityCoverage": "20/20",
+      "exactWavesLocked": false,
+      "bossAssignmentsLocked": false,
+      "runtimeVerified": false
+    },
+    "firstRun": {
+      "status": "CURRENT_DIRECTION",
+      "master": "docs/FIRST-RUN-EXPERIENCE.md",
+      "firstTimeHumanVerified": false
+    },
+    "mobileControl": {
+      "status": "CURRENT_DIRECTION_RUNTIME_ALIGNED",
+      "master": "docs/MOBILE-CONTROL-EXPERIENCE.md",
+      "physicalDeviceTuningComplete": false,
+      "leftHandedModeImplemented": false
+    },
+    "difficulty": {
+      "status": "CURRENT_DIRECTION",
+      "master": "docs/DIFFICULTY-AND-PLAYER-AIDS.md",
+      "exactModifiersLocked": false
+    },
+    "metaEconomy": {
+      "status": "CURRENT_SHAPE",
+      "master": "docs/META-ECONOMY-DESIGN.md",
+      "pricesLocked": false,
+      "rewardQuantitiesLocked": false
+    },
+    "postgame": {
+      "status": "CURRENT_DIRECTION",
+      "master": "docs/POSTGAME-ENDGAME-DESIGN.md",
+      "contentCountsLocked": false,
+      "endlessModeLocked": false,
+      "newGamePlusLocked": false
+    },
+    "audioHapticCreative": {
+      "status": "CURRENT_DIRECTION",
+      "master": "docs/AUDIO-HAPTIC-DIRECTION.md",
+      "u49TechnicalReadinessAffected": false
+    },
+    "accessibility": {
+      "status": "CURRENT_BASELINE",
+      "master": "docs/ACCESSIBILITY-BASELINE.md",
+      "platformImplementationEvidenceComplete": false
+    },
+    "funBalance": {
+      "status": "CURRENT_OBSERVATION_FRAMEWORK",
+      "master": "docs/FUN-BALANCE-PLAYTEST.md",
+      "passThresholdsLocked": false,
+      "humanEvidenceComplete": false
+    }
+  },
+  "invariants": [
+    "design-current-does-not-imply-runtime-ready",
+    "do-not-lock-unmeasured-balance-thresholds",
+    "do-not-promote-u49-u50-u51-readiness-from-design-docs",
+    "story-main-ending-is-not-gated-by-hard-or-100-percent",
+    "difficulty-is-not-hp-sponge-first",
+    "core-meta-currency-defaults-to-one-family",
+    "critical-information-must-survive-audio-haptic-color-or-motion-loss",
+    "future-cast-remains-separated-from-current21"
+  ],
+  "nextEvidence": [
+    "current Stage1 baseline capture",
+    "physical mobile control review",
+    "first-time-player comprehension test",
+    "fun-balance telemetry and observation",
+    "Stage1 tuning evidence",
+    "Stage2-5 mechanic prototype evidence"
+  ]
+}
