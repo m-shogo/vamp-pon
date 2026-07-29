@@ -1,5 +1,10 @@
 export type LostItemAura = '帰り道' | '約束' | '灯り' | '傷' | '交換' | '閉じた部屋';
 
+export type LostItemConnectionStatus =
+  | 'CURRENT'
+  | 'CURRENT_WITH_LEGACY_BINDING'
+  | 'REVIEW_REQUIRED';
+
 export type LostItemRecord = {
   id: string;
   nameJa: string;
@@ -8,6 +13,8 @@ export type LostItemRecord = {
   itemType: 'bag' | 'paper' | 'lamp' | 'thread' | 'coin' | 'key';
   aura: LostItemAura;
   relatedKeeperId?: string;
+  legacyRelatedKeeperIds: string[];
+  connectionStatus: LostItemConnectionStatus;
   relatedBoardCellId?: string;
   shortFlavor: string;
   memoryText: string;
@@ -25,12 +32,14 @@ export const lostItemRecords: LostItemRecord[] = [
     itemType: 'bag',
     aura: '帰り道',
     relatedKeeperId: 'keeper-yui',
+    legacyRelatedKeeperIds: [],
+    connectionStatus: 'CURRENT',
     relatedBoardCellId: 'fs_016_first_lost_item',
     shortFlavor: '消えた名前の跡だけが、家の方角を向いている。',
     memoryText: '名前が消えても、帰りたかった気持ちはまだ残っている。',
     unlockHint: 'かばんヨリシロを鎮めると、輪郭が濃くなります。',
     accent: 0xd7a65b,
-    tags: ['bag', 'name', 'return'],
+    tags: ['bag', 'name', 'return', 'yui'],
   },
   {
     id: 'lost-folded-map-corner',
@@ -39,13 +48,15 @@ export const lostItemRecords: LostItemRecord[] = [
     ownerHint: '目的地ではなく、迷った場所ばかりに印がついた地図片。',
     itemType: 'paper',
     aura: '帰り道',
-    relatedKeeperId: 'keeper-nagi',
+    relatedKeeperId: 'keeper-michiru',
+    legacyRelatedKeeperIds: ['keeper-nagi'],
+    connectionStatus: 'CURRENT_WITH_LEGACY_BINDING',
     relatedBoardCellId: 'fs_006_clear_depth_1',
-    shortFlavor: '折れ目の先に、まだ描かれていない道がある。',
-    memoryText: '迷った場所にも、誰かにとっては大事な印がある。',
-    unlockHint: '夜明け星図の絵札を広げると、読める文字が増えます。',
+    shortFlavor: '折れ目の先に、まだ選ばれていない帰り道がある。',
+    memoryText: '迷った場所にも、歩き直す人にとって大事な印がある。',
+    unlockHint: 'ミチルで帰路を描き直すと、折れ目の先の線が増えます。',
     accent: 0x9fd4ff,
-    tags: ['map', 'lost', 'nagi'],
+    tags: ['map', 'route', 'michiru', 'legacy-nagi'],
   },
   {
     id: 'lost-cold-lantern-glass',
@@ -55,6 +66,8 @@ export const lostItemRecords: LostItemRecord[] = [
     itemType: 'lamp',
     aura: '灯り',
     relatedKeeperId: 'keeper-yui',
+    legacyRelatedKeeperIds: [],
+    connectionStatus: 'CURRENT',
     relatedBoardCellId: 'fs_013_lantern_weapon_100_releases',
     shortFlavor: '冷たい硝子の奥で、最後の灯が眠っている。',
     memoryText: '灯りは消えたあとも、持っていた人の形を覚えている。',
@@ -70,6 +83,8 @@ export const lostItemRecords: LostItemRecord[] = [
     itemType: 'thread',
     aura: '傷',
     relatedKeeperId: 'keeper-tomori',
+    legacyRelatedKeeperIds: [],
+    connectionStatus: 'CURRENT',
     relatedBoardCellId: 'fs_015_first_fusion',
     shortFlavor: '結び目は傷ではなく、残しておくための印だった。',
     memoryText: '直せない結び目が、直さなくていい記憶を守っている。',
@@ -84,12 +99,14 @@ export const lostItemRecords: LostItemRecord[] = [
     ownerHint: '価値よりも、渡せなかった約束の重さが残っている小さな貨幣。',
     itemType: 'coin',
     aura: '交換',
+    legacyRelatedKeeperIds: [],
+    connectionStatus: 'REVIEW_REQUIRED',
     relatedBoardCellId: 'fs_019_collect_100_light_coin',
     shortFlavor: '片面だけが、何度も誰かの指で磨かれている。',
     memoryText: '使わなかったものにも、使えなかった理由がある。',
-    unlockHint: '灯貨を集める記録を灯すと、刻印が読めます。',
+    unlockHint: '通貨名称と用途のCurrentレビュー後に、関連する灯し手と由来が確定します。',
     accent: 0xcaa25a,
-    tags: ['coin', 'promise', 'trade'],
+    tags: ['coin', 'promise', 'trade', 'economy-review'],
   },
   {
     id: 'lost-rusted-room-key',
@@ -98,12 +115,14 @@ export const lostItemRecords: LostItemRecord[] = [
     ownerHint: 'どの扉にも合わないのに、誰かがずっと握っていた鍵。',
     itemType: 'key',
     aura: '閉じた部屋',
-    relatedKeeperId: 'keeper-michiru',
+    relatedKeeperId: 'keeper-nagi',
+    legacyRelatedKeeperIds: ['keeper-michiru'],
+    connectionStatus: 'CURRENT_WITH_LEGACY_BINDING',
     relatedBoardCellId: 'fs_025_view_nemori_record',
-    shortFlavor: '錆の下に、帰れなかった部屋の匂いが残る。',
-    memoryText: '開かない鍵は、閉じたかった心の形をしている。',
-    unlockHint: '記憶文を読むと、この鍵の部屋に近づきます。',
+    shortFlavor: '錆の下に、閉じたまま守ろうとした部屋の匂いが残る。',
+    memoryText: '開かない鍵は、閉じたかった心と、いつか開け直す選択を覚えている。',
+    unlockHint: 'ナギで封じたものを開き直すと、鍵穴の記録が深まります。',
     accent: 0x79bea9,
-    tags: ['key', 'room', 'memory'],
+    tags: ['key', 'room', 'nagi', 'legacy-michiru'],
   },
 ];
