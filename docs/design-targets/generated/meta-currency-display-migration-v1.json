@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-29",
+  "status": "CURRENT_FORMATTER_PARTIAL_DISPLAY_RENAME_BLOCKED",
+  "conceptId": "economy:meta_upgrade_currency",
+  "currentDisplay": "黒曜片",
+  "candidateDisplay": "灯貨",
+  "candidateStatus": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
+  "humanNamingApproved": false,
+  "atomicMigrationRequired": true,
+  "stableCompatibility": {
+    "saveFieldsPreserved": [
+      "PlayerProfile.currency",
+      "PlayerProfile.totalCurrencyEarned"
+    ],
+    "internalIdsPreserved": [
+      "NightBoardReward.type:light_coin",
+      "UpgradeId:currencyGain"
+    ],
+    "futureLegacyAliasesAfterPromotion": [
+      "黒曜片"
+    ]
+  },
+  "formatter": {
+    "source": "src/game/data/metaCurrencyDisplay.ts",
+    "currentLabelSource": "collectionEconomyResourceById[economy:meta_upgrade_currency].currentDisplayLabels[0]",
+    "currentOutput": "黒曜片",
+    "connectedWalletSurfaces": 2,
+    "totalWalletSurfaces": 11,
+    "remainingWalletSurfaces": 9,
+    "readyForHumanApproval": false
+  },
+  "connectedSurfaces": [
+    {
+      "id": "collection.clear_getter_reward",
+      "source": "src/game/ui/collectionAtlasLabels.ts",
+      "formatter": "formatMetaCurrencyReturn"
+    },
+    {
+      "id": "collection.achievement_description",
+      "source": "src/game/data/collectionSections.ts",
+      "formatter": "currentMetaCurrencyDisplayName"
+    }
+  ],
+  "remainingWalletSurfaces": [
+    "top.wallet_tag",
+    "stage_select.wallet_balance",
+    "stage_select.growth_intro",
+    "stage_select.insufficient_funds",
+    "stage_select.reset_refund",
+    "result.currency_reward",
+    "result.growth_cta",
+    "ready.first_run_carry_home",
+    "profile.currency_gain_upgrade"
+  ],
+  "separateNonWalletReview": [
+    {
+      "id": "facility.black_obsidian_lab",
+      "currentText": "黒曜研究所",
+      "reason": "facility name, not wallet display"
+    },
+    {
+      "id": "result.black_youka_bonus",
+      "currentText": "黒曜なし",
+      "reason": "黒耀化 terminology repair, not wallet display migration"
+    }
+  ],
+  "lifecycleEvidence": {
+    "test": "src/game/persistence/__tests__/metaCurrencyLifecycle.test.ts",
+    "contracts": [
+      "save round trip",
+      "purchase exact cost",
+      "full upgrade refund",
+      "run settlement addition",
+      "achievement reward addition",
+      "Collection reward addition",
+      "Collection reward idempotency"
+    ],
+    "currentHeadExecuted": false
+  },
+  "promotionBlockedUntil": [
+    "all 11 wallet surfaces use the shared formatter",
+    "黒曜片 is preserved in a Legacy alias ledger",
+    "save purchase refund run achievement and Collection tests execute on current HEAD",
+    "visual review is complete",
+    "Human naming approval is explicit"
+  ],
+  "readinessUnaffected": true
+}
