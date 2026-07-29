@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { forgottenStreetNightBoardCompatibility } from './collectionProgressCompatibility';
 import {
+  activeForgottenStreetConstellationNodes,
   characterConstellationRoots,
   constellationGroupRoots,
   forgottenStreetConstellationNodes,
@@ -27,9 +28,27 @@ describe('global constellation definition', () => {
     expect(forgottenStreetConstellationNodes.map((node) => node.sourceId)).toEqual(
       forgottenStreetNightBoardCompatibility.cells.map((cell) => cell.id),
     );
-    expect(forgottenStreetConstellationNodes.every((node) => node.activeCompletionNode)).toBe(
-      true,
+  });
+
+  it('Current後継のない3札はarchive nodeとして残し全灯分母へ入れない', () => {
+    expect(activeForgottenStreetConstellationNodes).toHaveLength(22);
+    expect(activeForgottenStreetConstellationNodes.map((node) => node.sourceId)).not.toContain(
+      'fs_002_release_paper_scrap_shadow',
     );
+    expect(activeForgottenStreetConstellationNodes.map((node) => node.sourceId)).not.toContain(
+      'fs_003_release_night_haze',
+    );
+    expect(activeForgottenStreetConstellationNodes.map((node) => node.sourceId)).not.toContain(
+      'fs_025_view_nemori_record',
+    );
+    const archiveNodes = forgottenStreetConstellationNodes.filter(
+      (node) => !node.activeCompletionNode,
+    );
+    expect(archiveNodes.map((node) => node.sourceId)).toEqual([
+      'fs_002_release_paper_scrap_shadow',
+      'fs_003_release_night_haze',
+      'fs_025_view_nemori_record',
+    ]);
   });
 
   it('126 named object全てをCharacter・lineage・Stageへ接続する', () => {
