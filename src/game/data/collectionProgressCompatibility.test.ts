@@ -18,7 +18,15 @@ describe('collection progress compatibility', () => {
     ).toEqual(forgottenStreetNightBoard.cells.map((cell) => `${cell.x},${cell.y}`));
   });
 
-  it('黒耀化はdisplayだけCurrent表記へ移す', () => {
+  it('active Stage1星図はCurrentの黒耀化表記を使う', () => {
+    const cell = forgottenStreetNightBoard.cells.find(
+      (candidate) => candidate.id === 'fs_008_clear_depth_1_no_black_form',
+    );
+    expect(cell?.condition).toContain('黒耀化');
+    expect(cell?.condition).not.toContain('黒曜化');
+  });
+
+  it('旧表記をcompatibility履歴へ残しCurrent表示へ正規化する', () => {
     const cell = forgottenStreetNightBoardCompatibility.cells.find(
       (candidate) => candidate.id === 'fs_008_clear_depth_1_no_black_form',
     );
