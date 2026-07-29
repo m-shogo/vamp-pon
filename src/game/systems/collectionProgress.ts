@@ -8,6 +8,7 @@ import {
   hasCalmedStage1LegacyTarget,
   hasReleasedStage1LegacyTarget,
 } from '../data/stage1LegacyRuntimeCompatibility';
+import { meetsStage1RunEarnedMetaCurrencyTarget } from '../data/collectionEconomyTerminology';
 import { loadProfile, saveProfile } from '../persistence/profile';
 import { loadCollectionProgress, saveCollectionProgress } from '../persistence/collection';
 import { getEnemyDefeats, getHealsCollected, getSeenEnemyIds } from './runCollectionMetrics';
@@ -167,7 +168,7 @@ function isCellComplete(
     case 'fs_016_first_lost_item': return state.stats.capsulesOpened > 0 || progress.discoveredLostItemIds.includes('memory_capsule');
     case 'fs_017_no_heal_3_min': return state.stats.survivedSec >= 180 && getHealsCollected(state.stats) === 0;
     case 'fs_018_clear_low_hp': return cleared && hpRatio > 0 && hpRatio <= 0.3;
-    case 'fs_019_collect_100_light_coin': return state.stats.kills * 0.35 + state.stats.memoryFragmentsCollected * 0.7 >= 100;
+    case 'fs_019_collect_100_light_coin': return meetsStage1RunEarnedMetaCurrencyTarget(state.stats);
     case 'fs_020_reach_light_level_10': return state.player.level >= 10;
     case 'fs_021_clear_single_weapon': return stage1Cleared && state.inventory.weapons.length <= 1;
     case 'fs_022_clear_with_1_hp': return cleared && state.player.hp <= 1;
