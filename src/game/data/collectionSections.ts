@@ -1,4 +1,4 @@
-import { currentMetaCurrencyDisplayName } from '../ui/metaCurrencyDisplay';
+import { currentMetaCurrencyDisplayName } from './metaCurrencyDisplay';
 
 export type CollectionSectionId =
   | 'dawn_atlas'
