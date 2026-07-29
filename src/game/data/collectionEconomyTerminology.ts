@@ -1,7 +1,7 @@
 export type EconomyNamingStatus =
   | 'CURRENT_RUNTIME_ID'
   | 'CURRENT_DISPLAY_PENDING_REVIEW'
-  | 'PROTOTYPE_COUNTER'
+  | 'CURRENT_TRACKED_COUNTER_PENDING_NAME'
   | 'NOT_CURRENCY';
 
 export type EconomyResourceDefinition = {
@@ -19,8 +19,45 @@ export type EconomyResourceDefinition = {
 
 export const META_UPGRADE_CURRENCY_ID = 'economy:meta_upgrade_currency';
 export const RUN_MEMORY_FRAGMENT_ID = 'economy:run_memory_fragment';
+/** Stable compatibility ID. The counter is now real-tracked; only its display name remains under review. */
 export const PROTOTYPE_LIGHT_COIN_COUNTER_ID = 'economy:prototype_light_coin_counter';
+export const RUN_EARNED_META_CURRENCY_COUNTER_ID = PROTOTYPE_LIGHT_COIN_COUNTER_ID;
 export const BLACK_YOUKA_MECHANIC_ID = 'mechanic:black_youka';
+export const STAGE1_RUN_EARNED_META_CURRENCY_TARGET = 100;
+export const RUN_EARNED_META_CURRENCY_TRANSIENT_FIELD = 'earnedMetaCurrencyThisRun';
+
+export type RunEarnedMetaCurrencyStats = {
+  earnedMetaCurrencyThisRun?: number;
+};
+
+function normalizeEarnedMetaCurrency(value: unknown): number {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 0;
+  return Math.max(0, Math.floor(numeric));
+}
+
+/**
+ * Records the already-calculated run settlement amount on transient runtime stats.
+ * This is not a wallet, is not persisted, and deliberately excludes achievement rewards.
+ */
+export function recordRunEarnedMetaCurrency(
+  stats: object,
+  amount: number,
+): number {
+  const normalized = normalizeEarnedMetaCurrency(amount);
+  (stats as RunEarnedMetaCurrencyStats).earnedMetaCurrencyThisRun = normalized;
+  return normalized;
+}
+
+export function readRunEarnedMetaCurrency(stats: object): number {
+  return normalizeEarnedMetaCurrency(
+    (stats as RunEarnedMetaCurrencyStats).earnedMetaCurrencyThisRun,
+  );
+}
+
+export function meetsStage1RunEarnedMetaCurrencyTarget(stats: object): boolean {
+  return readRunEarnedMetaCurrency(stats) >= STAGE1_RUN_EARNED_META_CURRENCY_TARGET;
+}
 
 export const collectionEconomyResources: EconomyResourceDefinition[] = [
   {
@@ -68,21 +105,21 @@ export const collectionEconomyResources: EconomyResourceDefinition[] = [
   },
   {
     id: PROTOTYPE_LIGHT_COIN_COUNTER_ID,
-    concept: 'Stage1札「灯貨あつめ」の試作達成カウンター',
-    namingStatus: 'PROTOTYPE_COUNTER',
+    concept: 'Stage1札「灯貨あつめ」が読む、1ランの実獲得meta currency一時カウンター',
+    namingStatus: 'CURRENT_TRACKED_COUNTER_PENDING_NAME',
     storagePaths: [],
     runtimeIds: [
       'NightBoardCell:fs_019_collect_100_light_coin',
-      'prototype-formula:kills*0.35+memoryFragmentsCollected*0.7',
+      `transient:RunStats.${RUN_EARNED_META_CURRENCY_TRANSIENT_FIELD}`,
     ],
     currentDisplayLabels: ['灯貨'],
     spendable: false,
     persistent: false,
     autoRenameAllowed: false,
     notes: [
-      '実在するinventoryやwalletではない。',
-      '現在は撃破数と記憶片数から推定したproxy条件であり、永続通貨残高を参照していない。',
-      '正式採用時は実tracked counterを追加するか、札名と条件を別概念へ移行する。',
+      'walletではなく、RunSettlement.currencyEarnedの確定値をラン終了時だけ読むmetricである。',
+      'achievementReward、profile残高、記憶片数からのproxy計算は含めない。',
+      '表示名「灯貨」はHuman naming review前なので永続通貨名へ自動昇格しない。',
     ],
   },
   {
@@ -152,7 +189,7 @@ export function validateCollectionEconomyTerminology(): CollectionEconomyTermino
 
   const meta = collectionEconomyResourceById.get(META_UPGRADE_CURRENCY_ID);
   const fragments = collectionEconomyResourceById.get(RUN_MEMORY_FRAGMENT_ID);
-  const prototypeCounter = collectionEconomyResourceById.get(PROTOTYPE_LIGHT_COIN_COUNTER_ID);
+  const runCounter = collectionEconomyResourceById.get(RUN_EARNED_META_CURRENCY_COUNTER_ID);
   const blackYouka = collectionEconomyResourceById.get(BLACK_YOUKA_MECHANIC_ID);
 
   if (!meta?.persistent || !meta.spendable) {
@@ -161,8 +198,18 @@ export function validateCollectionEconomyTerminology(): CollectionEconomyTermino
   if (fragments?.persistent || fragments?.spendable) {
     errors.push('run memory fragments must not be persistent or spendable');
   }
-  if (prototypeCounter?.namingStatus !== 'PROTOTYPE_COUNTER') {
-    errors.push('灯貨 must remain a prototype counter until real tracking exists');
+  if (runCounter?.namingStatus !== 'CURRENT_TRACKED_COUNTER_PENDING_NAME') {
+    errors.push('Stage1 灯貨 counter must use the actual tracked run-currency metric');
+  }
+  if (
+    !runCounter?.runtimeIds.includes(
+      `transient:RunStats.${RUN_EARNED_META_CURRENCY_TRANSIENT_FIELD}`,
+    )
+  ) {
+    errors.push('Stage1 run-currency counter is missing its transient tracked field');
+  }
+  if (runCounter?.runtimeIds.some((id) => id.startsWith('prototype-formula:'))) {
+    errors.push('Stage1 run-currency counter must not retain the old proxy formula');
   }
   if (blackYouka?.namingStatus !== 'NOT_CURRENCY') {
     errors.push('黒耀化 must remain outside the economy resource model');
@@ -172,17 +219,20 @@ export function validateCollectionEconomyTerminology(): CollectionEconomyTermino
     errors.push('meta upgrade currency must not use 記憶片 as a display alias');
   }
   if (meta?.currentDisplayLabels.includes('灯貨')) {
-    errors.push('meta upgrade currency must not auto-adopt the prototype 灯貨 label');
+    errors.push('meta upgrade currency must not auto-adopt the pending 灯貨 label');
   }
-  if (prototypeCounter?.runtimeIds.includes('profile.currency')) {
-    errors.push('prototype 灯貨 counter must not read persistent profile.currency');
+  if (runCounter?.runtimeIds.includes('profile.currency')) {
+    errors.push('run-earned counter must not read the persistent wallet balance');
+  }
+  if (runCounter?.runtimeIds.includes('RunSettlement.achievementReward')) {
+    errors.push('run-earned counter must not count achievement rewards');
   }
 
   if (meta?.namingStatus === 'CURRENT_DISPLAY_PENDING_REVIEW') {
     warnings.push('meta upgrade currency display name is still pending Human review');
   }
-  if (prototypeCounter?.namingStatus === 'PROTOTYPE_COUNTER') {
-    warnings.push('灯貨 is not a real tracked currency yet');
+  if (runCounter?.namingStatus === 'CURRENT_TRACKED_COUNTER_PENDING_NAME') {
+    warnings.push('Stage1 counter is real-tracked, but its 灯貨 display name is still pending Human review');
   }
 
   return { errors, warnings };
