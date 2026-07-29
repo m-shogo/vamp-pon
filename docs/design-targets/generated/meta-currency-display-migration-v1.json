@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "date": "2026-07-29",
   "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
@@ -67,11 +67,12 @@
     "test": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
     "checkCommand": "pnpm currency-display:codemod:check",
     "writeCommand": "pnpm currency-display:codemod:write",
-    "targetFiles": 5,
-    "guardedReplacements": 14,
+    "targetFiles": 6,
+    "guardedReplacements": 18,
     "walletSurfaceReplacements": 9,
     "importReplacements": 4,
     "authorityStateReplacements": 1,
+    "machineReadableReplacements": 4,
     "states": [
       "PENDING",
       "MIGRATED",
@@ -89,7 +90,7 @@
     "temporaryFileWrite": true,
     "postWriteVerification": true,
     "rollbackOnFailure": true,
-    "definitionAndSourceSwitchTogether": true,
+    "definitionSourceAndCoverageSwitchTogether": true,
     "executedOnCurrentHead": false
   },
   "tests": {
@@ -99,6 +100,16 @@
     "lifecycle": "src/game/persistence/__tests__/metaCurrencyLifecycle.test.ts",
     "codemod": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
     "currentHeadExecuted": false
+  },
+  "isolatedFixtureEvidence": {
+    "environment": "Node.js v22.16.0 isolated functional mirror",
+    "pendingToMigrated": true,
+    "replacementCount": 14,
+    "walletSurfaceCount": 9,
+    "idempotentSecondWrite": true,
+    "partialStateBlocked": true,
+    "invalidDuplicateBlocked": true,
+    "note": "Evidence predates the four machine-readable replacements and is not a current-head repository test. The repository test suite covers the final 18-replacement definition when executable."
   },
   "preflight": {
     "command": "pnpm implementation:preflight:check",
@@ -116,7 +127,7 @@
     "partialSourceMigrationBlocked": true
   },
   "promotionBlockedUntil": [
-    "the guarded codemod writes all remaining wallet surfaces and the authority flag",
+    "the guarded codemod writes all remaining wallet surfaces, the authority flag and machine-readable coverage",
     "all 11 wallet surfaces use the shared formatter",
     "黒曜片 is preserved in a Legacy alias ledger",
     "current-head tests execute",
