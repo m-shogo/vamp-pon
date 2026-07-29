@@ -26,20 +26,33 @@
 
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
-## 企画 / Character / Enemy のCurrent入口
-
-Runtime Phase資料とは別に、人物・関係・敵を設計する時は次を入口にする。
+## 企画 / Game Design のCurrent入口
 
 ```txt
 全体Canon
 → CANON.md
+→ game-core-book-v1.md
+→ GAME-DESIGN.md
+
+Play Experience
+→ PLAY-EXPERIENCE.md
+→ COMBAT-RUN-DESIGN.md
+→ STAGE-ENCOUNTER-DESIGN.md
+→ stage-encounter-expansion-06-20-v1.md
+→ FIRST-RUN-EXPERIENCE.md
+→ MOBILE-CONTROL-EXPERIENCE.md
+→ DIFFICULTY-AND-PLAYER-AIDS.md
+→ META-ECONOMY-DESIGN.md
+→ POSTGAME-ENDGAME-DESIGN.md
+→ AUDIO-HAPTIC-DIRECTION.md
+→ ACCESSIBILITY-BASELINE.md
+→ FUN-BALANCE-PLAYTEST.md
 
 Character / Story / Gameplay 統合
 → CHARACTER-STORY-INTEGRATION.md
 → character-black-youka-rescue-book-v1.md
 → story-stage-character-relationship-placement-v1.md
 → story-main-beat-sheet-v1.md
-→ STAGE-ENCOUNTER-DESIGN.md
 → character-dawn-proof-book-v1.md
 → character-story-gameplay-payoff-matrix-v1.md
 → character-story-integration-audit-2026-07-29.md
@@ -82,6 +95,7 @@ design-targets/generated/character-dawn-proof-map-v1.json
 design-targets/generated/character-story-gameplay-payoff-map-v1.json
 design-targets/generated/future-cast-relationship-story-map-v1.json
 design-targets/generated/character-story-integration-coverage-v1.json
+design-targets/generated/play-experience-design-coverage-v1.json
 ```
 
 現在のdesign coverage要約:
@@ -90,23 +104,27 @@ design-targets/generated/character-story-integration-coverage-v1.json
 Current21 character integration  = 21/21
 Future15 story reservoir         = 15/15 (Future only)
 Current enemy identity/writing   = 48/48
-Stage1-5 story/encounter direction = 5/5
-Full Stage6-20 encounter system  = PARTIAL / NOT COMPLETE
+Stage gameplay identity          = 20/20 direction defined
+Combat / First Run / Mobile      = Current design direction
+Difficulty / Meta / Postgame     = Current design direction
+Audio/Haptic creative            = Current direction / U49 technical gate separate
+Accessibility baseline           = Current
+Fun/Balance framework            = Current / thresholds open
+Runtime/device/Human evidence    = NOT COMPLETE
 ```
 
 境界:
-
 - Current21とFuture15を混ぜない
-- Future15のbridgeはCandidateでありCurrent昇格ではない
 - Future15は次回作cast確定ではない
 - EnemyのCurrent identityは `src/game/data/enemyProductionDatabase.ts` を優先
-- Legacy enemyからはmechanic / telegraph / silhouetteを回収しても、旧name / 旧character対応をCurrentへ戻さない
-- Character rescue / Stage placement / Dawn proofの具体sceneはproduction directionであり、台詞・Boss配置・数値を自動Canon LOCKしない
-- Stage1〜5のEncounter directionがCurrentになっても、20-stage全体のwave/balance設計完了とは扱わない
+- Stage identityは `src/game/data/stageProductionDatabase.ts` をproduction authorityとして使う
+- `kage1..4` のCurrent Shadow mappingを証拠なく決めない
+- Legacy enemyからmechanic / telegraph / silhouetteは回収してよいが旧nameをCurrentへ戻さない
+- exact wave / Boss配置 / difficulty数値 / economy価格は未実測ならLOCKしない
 - Main Mysteryの最終回答はHuman decision前にLOCKしない
-- この企画資料追加だけでUnity runtime / U49 / U50 / RC readinessを昇格しない
+- Design CurrentだけでUnity runtime / U49 / U50 / RC readinessを昇格しない
 
-## 最初に読む
+## Runtime作業で最初に読む
 
 ```txt
 unity-big-implementation-control-center-v1.md
@@ -199,7 +217,6 @@ unity-runtime-ownership-contract-v1.md
 ```
 
 重要:
-
 - navigation/pauseは単一owner
 - Definition / Runtime State / Save DTOを分離
 - UIからbattle/saveを直接操作しない
@@ -254,6 +271,18 @@ pnpm unity:meta:check
 6. `src/game/data/*`
 7. 現行Unity runtime
 8. 最新evidence/checker
+
+Design concept側は:
+
+```txt
+CANON
+→ Game Core
+→ GAME-DESIGN
+→ PLAY-EXPERIENCE / CHARACTER-STORY-INTEGRATION
+→ domain master
+```
+
+を使う。
 
 ## Historical docs
 
