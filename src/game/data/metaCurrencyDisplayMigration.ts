@@ -17,6 +17,13 @@ export type MetaCurrencyDisplaySurface = {
   notes: string[];
 };
 
+export const META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = false;
+
+const pendingWalletStatus: MetaCurrencyDisplaySurfaceStatus =
+  META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED
+    ? 'FORMATTER_CONNECTED'
+    : 'DIRECT_CURRENT_LABEL';
+
 export const metaCurrencyDisplayMigrationAuthority = {
   conceptId: META_UPGRADE_CURRENCY_ID,
   currentDisplay: '黒曜片',
@@ -60,26 +67,29 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'top.wallet_tag',
     sourceFile: 'src/game/scenes/TopScene.ts',
     surface: 'TOP wallet balance tag',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyAmount',
     currentTextHint: '黒曜片 N',
-    notes: ['大きなSceneの安全な完全取得後に接続する。'],
+    notes: ['guarded codemodで限定接続する。'],
   },
   {
     id: 'stage_select.wallet_balance',
     sourceFile: 'src/game/scenes/StageSelectScene.ts',
     surface: 'StageSelect wallet balance',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyAmount',
     currentTextHint: '黒曜片 N',
-    notes: ['Scene全置換を避け、限定patchで接続する。'],
+    notes: ['guarded codemodでScene全置換を避ける。'],
   },
   {
     id: 'stage_select.growth_intro',
     sourceFile: 'src/game/scenes/StageSelectScene.ts',
     surface: 'Growth onboarding hint',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyGrowthIntro',
     currentTextHint: '黒曜片で強化して次の夜に備える',
     notes: ['display rename時も同じformatter authorityを使う。'],
   },
@@ -87,8 +97,9 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'stage_select.insufficient_funds',
     sourceFile: 'src/game/scenes/StageSelectScene.ts',
     surface: 'Insufficient-funds message',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyInsufficient',
     currentTextHint: '黒曜片が足りない',
     notes: ['購入判定そのものはPlayerProfile.currencyを維持する。'],
   },
@@ -96,8 +107,9 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'stage_select.reset_refund',
     sourceFile: 'src/game/scenes/StageSelectScene.ts',
     surface: 'Upgrade reset/refund confirmation',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyRefund',
     currentTextHint: '黒曜片 N を全額返還します。',
     notes: ['refund amountとsave fieldは変更しない。'],
   },
@@ -105,8 +117,9 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'result.currency_reward',
     sourceFile: 'src/game/ui/overlays.ts',
     surface: 'Result currency reward card title',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'currentMetaCurrencyDisplayName',
     currentTextHint: '黒曜片',
     notes: ['RunSettlement.currencyEarnedの数値契約は変更しない。'],
   },
@@ -114,8 +127,9 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'result.growth_cta',
     sourceFile: 'src/game/ui/overlays.ts',
     surface: 'Result growth CTA after achievement reward',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyUseCta',
     currentTextHint: '黒曜片を使う',
     notes: ['CTA文だけをformatter-backed phraseへ移す。'],
   },
@@ -123,8 +137,9 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'ready.first_run_carry_home',
     sourceFile: 'src/game/ui/overlays.ts',
     surface: 'First-run carry-home guidance',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyCarryHome',
     currentTextHint: 'やられても黒曜片は持ち帰れる。',
     notes: ['敗北時も獲得できるruntime仕様は維持する。'],
   },
@@ -132,8 +147,9 @@ export const metaCurrencyDisplaySurfaces: MetaCurrencyDisplaySurface[] = [
     id: 'profile.currency_gain_upgrade',
     sourceFile: 'src/game/persistence/profile.ts',
     surface: 'Currency-gain upgrade name and description',
-    status: 'DIRECT_CURRENT_LABEL',
+    status: pendingWalletStatus,
     walletSurface: true,
+    formatterFunction: 'formatMetaCurrencyUpgradeName + formatMetaCurrencyUpgradeDescription',
     currentTextHint: '黒曜片の目印 / 黒曜片の獲得量が増える',
     notes: ['UpgradeId、cost、multiplierを変えない。'],
   },
@@ -186,8 +202,8 @@ export function validateMetaCurrencyDisplayMigration(): MetaCurrencyDisplayMigra
   for (const surface of metaCurrencyDisplaySurfaces) {
     if (ids.has(surface.id)) errors.push(`duplicate meta currency display surface id: ${surface.id}`);
     ids.add(surface.id);
-    if (surface.walletSurface && surface.status === 'FORMATTER_CONNECTED' && !surface.formatterFunction) {
-      errors.push(`${surface.id} formatter connection is missing its function name`);
+    if (surface.walletSurface && !surface.formatterFunction) {
+      errors.push(`${surface.id} wallet surface is missing its formatter plan`);
     }
     if (!surface.walletSurface && surface.status !== 'SEPARATE_NON_WALLET_REVIEW') {
       errors.push(`${surface.id} non-wallet surface must stay outside wallet migration`);
@@ -198,6 +214,10 @@ export function validateMetaCurrencyDisplayMigration(): MetaCurrencyDisplayMigra
   }
 
   const remaining = walletSurfaces.length - connected.length;
+  const expectedConnected = META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED ? 11 : 2;
+  if (connected.length !== expectedConnected) {
+    errors.push(`wallet formatter flag expects ${expectedConnected} connected surfaces, got ${connected.length}`);
+  }
   if (remaining > 0) warnings.push(`${remaining} wallet display surface(s) are not formatter-connected`);
   warnings.push('灯貨 remains a candidate and must not be promoted automatically');
 
