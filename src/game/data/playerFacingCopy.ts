@@ -1,5 +1,5 @@
-import { formatMetaCurrencyCarryHome, formatMetaCurrencyUseCta } from './metaCurrencyDisplay';
-import { WORLD_TERMS } from './worldTerms';
+import { formatMetaCurrencyCarryHome, formatMetaCurrencyUseCta } from './metaCurrencyDisplay.ts';
+import { WORLD_TERMS } from './worldTerms.ts';
 
 /**
  * Short player-facing copy authority for active production UI.
@@ -53,4 +53,4 @@ export const PLAYER_FACING_LEGACY_COPY_TARGETS = [
   'Elite',
 ] as const;
 
-export const PLAYER_FACING_COPY_RUNTIME_CONNECTION = 'DEFINITION_NOT_FULLY_CONNECTED' as const;
+export const PLAYER_FACING_COPY_RUNTIME_CONNECTION = 'ACTIVE_WEB_AND_UNITY_CONNECTED' as const;

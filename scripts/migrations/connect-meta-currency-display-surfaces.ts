@@ -142,14 +142,14 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
     surfaceId: 'result.growth_cta',
     file: 'src/game/ui/overlays.ts',
     before: "const growthLabel = hasAchReward ? '黒曜片を使う' : '成長へ';",
-    after: "const growthLabel = hasAchReward ? formatMetaCurrencyUseCta() : '成長へ';",
+    after: 'const growthLabel = hasAchReward ? formatMetaCurrencyUseCta() : PLAYER_FACING_COPY.navigation.growth;',
   },
   {
     id: 'ready.first_run_carry_home',
     surfaceId: 'ready.first_run_carry_home',
     file: 'src/game/ui/overlays.ts',
     before: "this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 60, 'やられても黒曜片は持ち帰れる。', 11, STORYBOOK_UI.goldLight)",
-    after: 'this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 60, formatMetaCurrencyCarryHome(), 11, STORYBOOK_UI.goldLight)',
+    after: 'this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 62, formatPlayerCarryHomeCopy(), 11, STORYBOOK_UI.goldLight)',
   },
   {
     id: 'profile.import',

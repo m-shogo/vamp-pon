@@ -1,4 +1,4 @@
-import { META_UPGRADE_CURRENCY_ID } from './collectionEconomyTerminology';
+import { META_UPGRADE_CURRENCY_ID } from './collectionEconomyTerminology.ts';
 
 export type LostItemAura = '帰り道' | '約束' | '灯り' | '傷' | '交換' | '閉じた部屋';
 
@@ -115,7 +115,7 @@ export const lostItemRecords: LostItemRecord[] = [
     memoryText: '使わなかったものにも、使えなかった理由がある。',
     unlockHint: '1ラン獲得額の記録には接続済み。通貨表示名と持ち主のCurrentレビュー後に由来が確定します。',
     accent: 0xcaa25a,
-    tags: ['coin', 'promise', 'trade', 'economy-candidate', 'actual-run-counter'],
+    tags: ['coin', 'promise', 'trade', 'economy-review', 'economy-candidate', 'actual-run-counter'],
   },
   {
     id: 'lost-rusted-room-key',

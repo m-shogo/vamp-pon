@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { currentMetaCurrencyDisplayName } from '../../src/game/data/metaCurrencyDisplay.ts';
 import {
   PLAYER_FACING_COPY,
@@ -10,6 +11,22 @@ import {
 import { WORLD_TERMS } from '../../src/game/data/worldTerms.ts';
 
 const errors: string[] = [];
+
+function readSource(path: string): string {
+  return readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
+}
+
+function requireSourceText(path: string, expected: string, description: string): void {
+  if (!readSource(path).includes(expected)) {
+    errors.push(`${description}: ${path} must contain ${expected}`);
+  }
+}
+
+function rejectSourceText(path: string, rejected: string, description: string): void {
+  if (readSource(path).includes(rejected)) {
+    errors.push(`${description}: ${path} must not contain active legacy text ${rejected}`);
+  }
+}
 
 if (WORLD_TERMS.product.title !== 'ヨルノシルベ') {
   errors.push('player-visible product title must be ヨルノシルベ');
@@ -75,6 +92,71 @@ errors.push(...validateSettingsBaseline());
 if (SETTINGS_BASELINE.length !== 4) {
   errors.push(`settings release baseline must contain exactly 4 required preferences, got ${SETTINGS_BASELINE.length}`);
 }
+
+requireSourceText('index.html', '<title>ヨルノシルベ</title>', 'browser title connection');
+requireSourceText(
+  'src/game/scenes/TopScene.ts',
+  'PLAYER_FACING_COPY.navigation.collection',
+  'Web Collection navigation connection',
+);
+requireSourceText(
+  'src/game/scenes/CollectionScene.ts',
+  'PLAYER_FACING_COPY.navigation.collection',
+  'Web Collection heading connection',
+);
+requireSourceText(
+  'src/game/scenes/StageSelectScene.ts',
+  'PLAYER_FACING_COPY.navigation.growth',
+  'Web growth navigation connection',
+);
+requireSourceText(
+  'src/game/ui/overlays.ts',
+  'PLAYER_FACING_COPY.firstRun.fragmentLevelUp',
+  'Web first-run copy connection',
+);
+requireSourceText(
+  'src/game/scenes/StageSelectScene.ts',
+  "this.scene.start('MainScene')",
+  'Web first-run reachable stage-start connection',
+);
+rejectSourceText(
+  'src/game/scenes/StageSelectScene.ts',
+  "params.set('play', '1')",
+  'Web first-run stage-start bypass',
+);
+requireSourceText(
+  'src/game/ui/overlays.ts',
+  'PLAYER_FACING_COPY.result.noBlackYoukaLabel',
+  'Web Result copy connection',
+);
+rejectSourceText('src/game/scenes/StageSelectScene.ts', "'成長へ'", 'Web active growth navigation');
+rejectSourceText('src/game/scenes/StageSelectScene.ts', "'記録'", 'Web active Collection navigation');
+
+requireSourceText(
+  'src/game/scenes/SettingsScene.ts',
+  'APP_PREFERENCES.update',
+  'Web Settings single-owner connection',
+);
+requireSourceText(
+  'src/game/audio/AudioManager.ts',
+  'APP_PREFERENCES',
+  'Web Audio preference connection',
+);
+requireSourceText(
+  'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs',
+  'new AppPreferenceService()',
+  'Unity Settings single-owner connection',
+);
+requireSourceText(
+  'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/SettingsView.cs',
+  '演出を控えめに',
+  'Unity reduced-motion label connection',
+);
+requireSourceText(
+  'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/ResultView.cs',
+  'ほどいた影',
+  'Unity Result copy connection',
+);
 
 if (errors.length > 0) {
   for (const error of errors) console.error(`[player-facing-foundation] ${error}`);

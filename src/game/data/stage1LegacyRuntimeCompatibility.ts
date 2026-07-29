@@ -1,4 +1,4 @@
-import { enemyById as currentEnemyById } from './enemyProductionDatabase';
+import { enemyById as currentEnemyById } from './enemyProductionDatabase.ts';
 
 export type Stage1LegacyRuntimeKind = 'ENEMY' | 'BOSS' | 'STORY_RECORD';
 

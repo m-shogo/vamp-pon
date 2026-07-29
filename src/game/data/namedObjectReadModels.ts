@@ -1,9 +1,9 @@
-import { namedObjectMigrationLedger } from './namedObjectMigrationLedger';
+import { namedObjectMigrationLedger } from './namedObjectMigrationLedger.ts';
 import {
   allLightsCompletionDesign,
   characterObjectLineages,
   type NamedObjectNamingStatus,
-} from './namedObjectRegistry';
+} from './namedObjectRegistry.ts';
 
 export type NamedObjectRuntimeConnectionState = 'NOT_CONNECTED';
 

@@ -1,5 +1,5 @@
-import { forgottenStreetNightBoardCompatibility } from './collectionProgressCompatibility';
-import { allLightsCompletionGroupReadModels } from './namedObjectReadModels';
+import { forgottenStreetNightBoardCompatibility } from './collectionProgressCompatibility.ts';
+import { allLightsCompletionGroupReadModels } from './namedObjectReadModels.ts';
 
 export type HundredPercentState = 'LOCKED' | 'ELIGIBLE' | 'CLAIMED';
 

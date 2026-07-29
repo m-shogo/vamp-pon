@@ -123,6 +123,7 @@ export class MainScene extends Phaser.Scene {
       this.input.keyboard?.on('keydown-K', () => {
         if (this.state.status !== GAME_STATUS.PLAYING) return;
         applyPlayerDamage(this, this.state, this.state.player.maxHp);
+        if (this.state.status === GAME_STATUS.GAMEOVER) this.resolveTransitions();
       });
     }
     this.stick = new VirtualStick(this);

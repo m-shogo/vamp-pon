@@ -1,8 +1,8 @@
-import { forgottenStreetNightBoardCompatibility } from './collectionProgressCompatibility';
+import { forgottenStreetNightBoardCompatibility } from './collectionProgressCompatibility.ts';
 import {
   characterObjectLineages,
   namedObjectRegistry,
-} from './namedObjectRegistry';
+} from './namedObjectRegistry.ts';
 
 export type ConstellationGroupId =
   | 'night_roads'

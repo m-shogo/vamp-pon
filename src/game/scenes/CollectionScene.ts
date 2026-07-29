@@ -39,6 +39,7 @@ import {
 } from '../ui/premiumPaperUi';
 import { attachPressFeedback } from '../ui/pressFeedback';
 import { getAudioManager } from '../audio/AudioManager';
+import { PLAYER_FACING_COPY } from '../data/playerFacingCopy';
 
 const GRAPHICS_TEXT_DARK = 0x2e2730;
 const GRAPHICS_TEXT_LIGHT = 0xf4e8cf;
@@ -94,7 +95,7 @@ export class CollectionScene extends Phaser.Scene {
     const titleBg = this.add.graphics();
     drawLargeNotebookPage(titleBg, GAME_WIDTH / 2, 36, 260, 40, { accent: STORYBOOK_UI.paperDark, alpha: 0.95 });
     root.add(titleBg);
-    root.add(this.text(GAME_WIDTH / 2, 36, COLLECTION_LABELS.book, 18, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(GAME_WIDTH / 2, 36, PLAYER_FACING_COPY.navigation.collection, 18, STORYBOOK_UI.textDark, true, true));
     const titleDiv = this.add.graphics();
     drawInkDivider(titleDiv, GAME_WIDTH / 2, 62, 180, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
     root.add(titleDiv);

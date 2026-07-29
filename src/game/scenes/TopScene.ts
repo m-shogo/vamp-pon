@@ -3,6 +3,7 @@ import { COLORS, GAME_HEIGHT, GAME_WIDTH } from '../domain/constants';
 import { forgottenStreetNightBoard } from '../data/collectionProgress';
 import { loadCollectionProgress } from '../persistence/collection';
 import { loadProfile } from '../persistence/profile';
+import { formatMetaCurrencyAmount } from '../data/metaCurrencyDisplay';
 import {
   findNewCompletedCellIds,
   loadCollectionAtlasViewState,
@@ -24,6 +25,8 @@ import {
 import { getAudioManager } from '../audio/AudioManager';
 import { loadOnboarding, markSeen, resetOnboarding } from '../persistence/onboarding';
 import { findNewAchievementIds, loadAchievementViewState } from '../persistence/achievementViewState';
+import { PLAYER_FACING_COPY } from '../data/playerFacingCopy';
+import { reducedMotionEnabled } from '../persistence/appPreferences';
 
 const PARTICLE_DEPTH = 2;
 const UI_DEPTH = 10;
@@ -83,9 +86,11 @@ export class TopScene extends Phaser.Scene {
 
     this.addTitleDecoration();
 
-    const titleText = this.text(GAME_WIDTH / 2, 86, 'VAMP PON', 40, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
+    const titleText = this.text(GAME_WIDTH / 2, 86, PLAYER_FACING_COPY.title, 36, STORYBOOK_UI.textDark, true, true).setDepth(UI_DEPTH + 4);
     titleText.setShadow(0, 2, '#070815', 3, true, true);
-    this.tweens.add({ targets: titleText, y: titleText.y - 3, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    if (!reducedMotionEnabled()) {
+      this.tweens.add({ targets: titleText, y: titleText.y - 3, duration: 2400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
 
     const subtitleText = this.text(GAME_WIDTH / 2, 136, '忘れられたものたちの夜', 14, STORYBOOK_UI.textDark, true).setDepth(UI_DEPTH + 4);
     subtitleText.setStroke('#e6c78f', 2);
@@ -102,7 +107,7 @@ export class TopScene extends Phaser.Scene {
     }, false, true);
     mainBtn.setDepth(UI_DEPTH + 5);
 
-    const growthBtn = this.menuCard(77, 730, 106, 88, '成長', 'sprout', () => {
+    const growthBtn = this.menuCard(77, 730, 106, 88, PLAYER_FACING_COPY.navigation.growth, 'sprout', () => {
       this.scene.start('StageSelectScene', { mode: 'growth' });
     });
     growthBtn.setDepth(UI_DEPTH + 4);
@@ -112,7 +117,7 @@ export class TopScene extends Phaser.Scene {
     const achViewState = loadAchievementViewState();
     const newAchCount = findNewAchievementIds(Object.keys(profile.achievements), achViewState.seenAchievementIds).length;
     const totalNewCount = newCellCount + newAchCount;
-    const collBtn = this.menuCard(GAME_WIDTH / 2, 730, 114, 88, '忘れ物帳', 'book', () => {
+    const collBtn = this.menuCard(GAME_WIDTH / 2, 730, 114, 88, PLAYER_FACING_COPY.navigation.collection, 'book', () => {
       this.scene.start('CollectionScene');
     });
     collBtn.setDepth(UI_DEPTH + 4);
@@ -121,7 +126,9 @@ export class TopScene extends Phaser.Scene {
       this.addNewSealBadge(GAME_WIDTH / 2 + 48, 678, totalNewCount);
     }
 
-    const settingsBtn = this.menuCard(313, 730, 106, 88, '設定', 'gear', () => this.showNotice('設定は準備中です'));
+    const settingsBtn = this.menuCard(313, 730, 106, 88, PLAYER_FACING_COPY.navigation.settings, 'gear', () => {
+      this.scene.start('SettingsScene');
+    });
     settingsBtn.setDepth(UI_DEPTH + 3);
 
     this.notice = this.text(GAME_WIDTH / 2, 816, '', 13, STORYBOOK_UI.textMuted).setDepth(UI_DEPTH + 2);
@@ -283,7 +290,7 @@ export class TopScene extends Phaser.Scene {
     const tag = this.add.container(GAME_WIDTH / 2, 190).setDepth(UI_DEPTH + 3);
     const g = this.add.graphics();
     drawPremiumPaperCard(g, 0, 0, 132, 28, { accent: STORYBOOK_UI.gold, paper: 0x2a2540, muted: true });
-    const label = this.text(0, 0, `黒曜片 ${currency}`, 14, STORYBOOK_UI.goldLight, true);
+    const label = this.text(0, 0, formatMetaCurrencyAmount(currency), 14, STORYBOOK_UI.goldLight, true);
     tag.add([g, label]);
   }
 

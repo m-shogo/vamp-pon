@@ -1,5 +1,5 @@
-import { META_UPGRADE_CURRENCY_ID } from './collectionEconomyTerminology';
-import { currentMetaCurrencyDisplayName } from './metaCurrencyDisplay';
+import { META_UPGRADE_CURRENCY_ID } from './collectionEconomyTerminology.ts';
+import { currentMetaCurrencyDisplayName } from './metaCurrencyDisplay.ts';
 
 export type MetaCurrencyDisplaySurfaceStatus =
   | 'FORMATTER_CONNECTED'
@@ -17,7 +17,7 @@ export type MetaCurrencyDisplaySurface = {
   notes: string[];
 };
 
-export const META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = false;
+export const META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = true;
 
 const pendingWalletStatus: MetaCurrencyDisplaySurfaceStatus =
   META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED
@@ -192,7 +192,10 @@ export function validateMetaCurrencyDisplayMigration(): MetaCurrencyDisplayMigra
   if (currentMetaCurrencyDisplayName() !== metaCurrencyDisplayMigrationAuthority.currentDisplay) {
     errors.push('formatter current display does not match migration authority');
   }
-  if (metaCurrencyDisplayMigrationAuthority.currentDisplay === metaCurrencyDisplayMigrationAuthority.candidateDisplay) {
+  if (
+    String(metaCurrencyDisplayMigrationAuthority.currentDisplay) ===
+    String(metaCurrencyDisplayMigrationAuthority.candidateDisplay)
+  ) {
     errors.push('current and candidate display names must remain distinct before approval');
   }
   if (metaCurrencyDisplayMigrationAuthority.humanNamingApproved) {

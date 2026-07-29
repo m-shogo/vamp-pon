@@ -1,4 +1,4 @@
-import { currentMetaCurrencyDisplayName } from './metaCurrencyDisplay';
+import { currentMetaCurrencyDisplayName } from './metaCurrencyDisplay.ts';
 
 /**
  * Player-facing world vocabulary.

@@ -1,7 +1,7 @@
 import {
   META_UPGRADE_CURRENCY_ID,
   collectionEconomyResourceById,
-} from './collectionEconomyTerminology';
+} from './collectionEconomyTerminology.ts';
 
 function normalizeMetaCurrencyAmount(amount: number): number {
   return Number.isFinite(amount) ? Math.max(0, Math.floor(amount)) : 0;

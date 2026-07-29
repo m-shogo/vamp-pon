@@ -4,6 +4,10 @@ import { settleSavedBondRun } from './bonds';
 import { stageRecipes } from '../data/waves';
 import { stagePowerForStage } from '../data/stageScaling';
 import { achievementRewardAmount } from '../data/achievements';
+import {
+  formatMetaCurrencyUpgradeDescription,
+  formatMetaCurrencyUpgradeName,
+} from '../data/metaCurrencyDisplay';
 import { recordRunEarnedMetaCurrency } from '../data/collectionEconomyTerminology';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
@@ -120,7 +124,7 @@ export const UPGRADE_DEFS: Record<UpgradeId, {
   moveSpeed: { id: 'moveSpeed', name: '軽い靴音', group: '生存', maxLevel: 12, baseCost: 40, costStep: 1.24, description: '移動速度が上がる' },
   xpGain: { id: 'xpGain', name: '記憶の吸い込み', group: '回収', maxLevel: 16, baseCost: 50, costStep: 1.27, description: 'ラン中の経験値が増える' },
   magnet: { id: 'magnet', name: '迷子の呼び声', group: '回収', maxLevel: 14, baseCost: 38, costStep: 1.23, description: '欠片の吸引範囲が広がる' },
-  currencyGain: { id: 'currencyGain', name: '黒曜片の目印', group: '稼ぎ', maxLevel: 18, baseCost: 55, costStep: 1.28, description: '黒曜片の獲得量が増える' },
+  currencyGain: { id: 'currencyGain', name: formatMetaCurrencyUpgradeName(), group: '稼ぎ', maxLevel: 18, baseCost: 55, costStep: 1.28, description: formatMetaCurrencyUpgradeDescription() },
   damageReduction: { id: 'damageReduction', name: 'にじまない紙片', group: '生存', maxLevel: 14, baseCost: 58, costStep: 1.29, description: '受けるダメージを減らす' },
   ultimateCharge: { id: 'ultimateCharge', name: '灯りの呼吸', group: '攻撃', maxLevel: 12, baseCost: 60, costStep: 1.28, description: '必殺ゲージが早くたまる' },
   noBerserkBonus: { id: 'noBerserkBonus', name: '黒に頼らない道', group: '黒耀化', maxLevel: 10, baseCost: 70, costStep: 1.3, description: '黒耀化未使用の報酬倍率が増える' },

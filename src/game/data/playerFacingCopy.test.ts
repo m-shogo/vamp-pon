@@ -31,10 +31,10 @@ describe('player-facing copy authority', () => {
     expect(formatPlayerCarryHomeCopy()).toBe('朝まで残れなくても、黒曜片は持ち帰れる。');
   });
 
-  it('旧production copyを移行対象として列挙し、runtime接続済みとは扱わない', () => {
+  it('旧production copyを監査台帳へ残し、active Web/Unity接続を記録する', () => {
     expect(PLAYER_FACING_LEGACY_COPY_TARGETS).toContain('VAMP PON');
     expect(PLAYER_FACING_LEGACY_COPY_TARGETS).toContain('黒曜研究所');
     expect(PLAYER_FACING_LEGACY_COPY_TARGETS).toContain('黒曜なし');
-    expect(PLAYER_FACING_COPY_RUNTIME_CONNECTION).toBe('DEFINITION_NOT_FULLY_CONNECTED');
+    expect(PLAYER_FACING_COPY_RUNTIME_CONNECTION).toBe('ACTIVE_WEB_AND_UNITY_CONNECTED');
   });
 });

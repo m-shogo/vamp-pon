@@ -1,12 +1,12 @@
 import {
   forgottenStreetNightBoard,
   type NightBoardCell,
-} from './collectionProgress';
-import { normalizeLegacyDisplayTerm } from './namedObjectReadModels';
+} from './collectionProgress.ts';
+import { normalizeLegacyDisplayTerm } from './namedObjectReadModels.ts';
 import {
   stage1LegacyRuntimeCompatibilityByBoardCellId,
   type Stage1LegacyRuntimeCompatibilityEntry,
-} from './stage1LegacyRuntimeCompatibility';
+} from './stage1LegacyRuntimeCompatibility.ts';
 
 export type NightBoardCellMigrationClass =
   | 'KEEP'

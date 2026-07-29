@@ -1,5 +1,5 @@
-import type { CollectionProgressSaveV2 } from './collectionProgressSaveV2';
-import { allLightsCompletionDesign } from './namedObjectRegistry';
+import type { CollectionProgressSaveV2 } from './collectionProgressSaveV2.ts';
+import { allLightsCompletionDesign } from './namedObjectRegistry.ts';
 
 export type FrozenCompletionGroupDefinition = {
   id: string;

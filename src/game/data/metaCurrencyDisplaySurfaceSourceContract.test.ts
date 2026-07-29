@@ -46,12 +46,14 @@ describe('meta currency display surface source contract', () => {
     expect(result.readyForHumanApproval).toBe(false);
   });
 
-  it('facility名と黒耀化bonusの旧略称をwallet migrationへ混ぜない', () => {
+  it('wallet migration後にfacility名と黒耀化bonusをCurrent copyへ別migrationする', () => {
     const stageSelect = source('../scenes/StageSelectScene.ts');
     const overlays = source('../ui/overlays.ts');
 
-    expect(stageSelect).toContain("'黒曜研究所'");
-    expect(overlays).toContain('黒曜なし×');
+    expect(stageSelect).not.toContain("'黒曜研究所'");
+    expect(stageSelect).toContain('PLAYER_FACING_COPY.navigation.growth');
+    expect(overlays).not.toContain('黒曜なし×');
+    expect(overlays).toContain('PLAYER_FACING_COPY.result.noBlackYoukaLabel');
   });
 
   it('候補表示の灯貨をactive wallet surfaceへ先行導入しない', () => {
