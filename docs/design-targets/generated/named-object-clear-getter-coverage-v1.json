@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "date": "2026-07-29",
-  "status": "CURRENT_DEFINITION_FOUNDATION_RUNTIME_NOT_CONNECTED",
+  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_AND_STAGE1_DISPLAY",
   "invariants": {
     "namedObjectsNeedConnections": true,
     "minimumConnectionDirections": 4,
@@ -17,14 +17,16 @@
       "total": 21,
       "stableDefinition": true,
       "generatedReadModel": true,
-      "currentCollectionUiConnected": false
+      "currentCollectionUiConnected": 5,
+      "currentCollectionUiRemaining": 16,
+      "fullCurrent21UiConnected": false
     },
     "namedObjectRegistry": {
       "characterLineages": 21,
       "phasesPerLineage": 6,
       "namedObjects": 126,
       "stableIds": true,
-      "runtimeConnected": false
+      "runtimeConnectionState": "PARTIAL_CORE5_ONLY"
     },
     "current20ProductionItemLineages": {
       "covered": 20,
@@ -47,6 +49,8 @@
       "implementedPrototype": 25,
       "compatibilityDefinition": true,
       "idsAndCoordinatesPreserved": true,
+      "currentBlackYoukaDisplayConnected": true,
+      "legacyBlackYoukaTextPreservedInCompatibilityLedger": true,
       "oldEnemyCellsAwaitingReview": 6,
       "saveMigrationApplied": false
     },
@@ -69,28 +73,41 @@
       "draftSchema": true,
       "unknownCellIdsPreserved": true,
       "unknownGroupIdsPreserved": true,
+      "explicitUnknownGroupIdsWithoutStatePreserved": true,
       "duplicateValuesNormalized": true,
       "v1AutoCompletionBlocked": true,
       "runtimeSaveServiceConnected": false
     },
     "lostItemRecords": {
       "existing": 6,
+      "schemaMigrated": 6,
       "compatibilityReadModels": 2,
       "legacyBindingsPreserved": true,
-      "currentBindingsAppliedToUi": false,
+      "currentBindingsAppliedToUi": 2,
+      "economyRecordAwaitingReview": 1,
       "launchTotalLocked": false
     },
     "keeperRecords": {
       "existingUiRecords": 5,
+      "currentCore5LuminousObjectsConnected": 5,
+      "legacyPersonalItemsPreserved": 5,
       "generatedObjectReadModels": 21,
-      "current21UiMigrationRequired": true
+      "current21UiRemaining": 16,
+      "fullCurrent21UiMigrationRequired": true
     },
     "hundredPercentReward": {
       "designAdopted": true,
       "failClosedEvaluator": true,
+      "invalidFrozenSpecificationRejected": true,
       "idempotentClaimLogic": true,
       "runtimeSpecificationFrozen": false,
       "runtimeImplemented": false
+    },
+    "qualityGates": {
+      "namedObjectPackageScript": true,
+      "implementationPreflightIncludesNamedObjectCheck": true,
+      "currentCollectionTermLock": true,
+      "githubActionsRunnerStarted": false
     }
   },
   "hundredPercentReward": {
@@ -108,36 +125,39 @@
     ]
   },
   "current21": [
-    { "id": "yui", "objectId": "named-object:yui:luminous_possession", "object": "持ち主待ちのランタン", "stage": 1, "verb": "pickup_hold_return", "launchRequired": true },
-    { "id": "asa", "objectId": "named-object:asa:luminous_possession", "object": "名結びの小鋏", "stage": 2, "verb": "name_mark_consent", "launchRequired": true },
-    { "id": "nagi", "objectId": "named-object:nagi:luminous_possession", "object": "月箱の銀鍵", "stage": 3, "verb": "seal_reopen_permission", "launchRequired": true },
-    { "id": "michiru", "objectId": "named-object:michiru:luminous_possession", "object": "帰り針のコンパス", "stage": 4, "verb": "route_reroute", "launchRequired": true },
-    { "id": "tomori", "objectId": "named-object:tomori:luminous_possession", "object": "継火の修理ランプ", "stage": 5, "verb": "repair_keep_scar", "launchRequired": true },
-    { "id": "sen", "objectId": "named-object:sen:luminous_possession", "object": "白線のチョーク灯", "stage": 6, "verb": "teach_branch_path", "launchRequired": true },
-    { "id": "ritsu", "objectId": "named-object:ritsu:luminous_possession", "object": "半灯りの飴缶", "stage": 7, "verb": "split_distribute", "launchRequired": true },
-    { "id": "koyori", "objectId": "named-object:koyori:luminous_possession", "object": "呼び名の紙縒り札", "stage": 8, "verb": "name_connect_helper", "launchRequired": true },
-    { "id": "gen", "objectId": "named-object:gen:luminous_possession", "object": "古針の駅灯", "stage": 9, "verb": "old_route_reconsider", "launchRequired": true },
-    { "id": "hana", "objectId": "named-object:hana:luminous_possession", "object": "花脈の保管箱", "stage": 10, "verb": "preserve_allow_change", "launchRequired": true },
-    { "id": "yubi", "objectId": "named-object:yubi:luminous_possession", "object": "返事待ちの郵便灯", "stage": 11, "verb": "deliver_hold_timing", "launchRequired": true },
-    { "id": "madoka", "objectId": "named-object:madoka:luminous_possession", "object": "見送り窓の観測レンズ", "stage": 12, "verb": "witness_report", "launchRequired": true },
-    { "id": "shiro", "objectId": "named-object:shiro:luminous_possession", "object": "未分類の白栞灯", "stage": 13, "verb": "classify_preserve_unknown", "launchRequired": true },
-    { "id": "tobari", "objectId": "named-object:tobari:luminous_possession", "object": "往復穴の改札鋏", "stage": 14, "verb": "gate_open_close_return", "launchRequired": true },
-    { "id": "nemu", "objectId": "named-object:nemu:luminous_possession", "object": "夢頁の水面日記", "stage": 15, "verb": "forecast_not_command", "launchRequired": true },
-    { "id": "kuroori", "objectId": "named-object:kuroori:luminous_possession", "object": "折り目だけ光る黒紙", "stage": 16, "verb": "hold_open_with_consent", "launchRequired": true },
-    { "id": "kage1", "displayName": "カナメ", "objectId": "named-object:kage1:luminous_possession", "object": "受け灯の腕帯", "stage": 16, "verb": "intercept_share_burden", "launchRequired": true },
-    { "id": "kage2", "displayName": "カスミ", "objectId": "named-object:kage2:luminous_possession", "object": "消し跡の白灯", "stage": 17, "verb": "conceal_reversible_trace", "launchRequired": true },
-    { "id": "kage3", "displayName": "トキ", "objectId": "named-object:kage3:luminous_possession", "object": "星目盛りの夜定規", "stage": 18, "verb": "measure_leave_uncertainty", "launchRequired": true },
-    { "id": "kage4", "displayName": "ツムギ", "objectId": "named-object:kage4:luminous_possession", "object": "余白を縫う糸巻き", "stage": 19, "verb": "leave_blank_choose_finish", "launchRequired": true },
-    { "id": "ren", "objectId": "named-object:ren:luminous_possession", "object": "片焦点のレンズ灯", "stage": 18, "verb": "focus_difference_keep_whole", "launchRequired": false, "namingStatus": "WORKING" }
+    { "id": "yui", "objectId": "named-object:yui:luminous_possession", "object": "持ち主待ちのランタン", "stage": 1, "verb": "pickup_hold_return", "launchRequired": true, "keeperUiConnected": true },
+    { "id": "asa", "objectId": "named-object:asa:luminous_possession", "object": "名結びの小鋏", "stage": 2, "verb": "name_mark_consent", "launchRequired": true, "keeperUiConnected": true },
+    { "id": "nagi", "objectId": "named-object:nagi:luminous_possession", "object": "月箱の銀鍵", "stage": 3, "verb": "seal_reopen_permission", "launchRequired": true, "keeperUiConnected": true },
+    { "id": "michiru", "objectId": "named-object:michiru:luminous_possession", "object": "帰り針のコンパス", "stage": 4, "verb": "route_reroute", "launchRequired": true, "keeperUiConnected": true },
+    { "id": "tomori", "objectId": "named-object:tomori:luminous_possession", "object": "継火の修理ランプ", "stage": 5, "verb": "repair_keep_scar", "launchRequired": true, "keeperUiConnected": true },
+    { "id": "sen", "objectId": "named-object:sen:luminous_possession", "object": "白線のチョーク灯", "stage": 6, "verb": "teach_branch_path", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "ritsu", "objectId": "named-object:ritsu:luminous_possession", "object": "半灯りの飴缶", "stage": 7, "verb": "split_distribute", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "koyori", "objectId": "named-object:koyori:luminous_possession", "object": "呼び名の紙縒り札", "stage": 8, "verb": "name_connect_helper", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "gen", "objectId": "named-object:gen:luminous_possession", "object": "古針の駅灯", "stage": 9, "verb": "old_route_reconsider", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "hana", "objectId": "named-object:hana:luminous_possession", "object": "花脈の保管箱", "stage": 10, "verb": "preserve_allow_change", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "yubi", "objectId": "named-object:yubi:luminous_possession", "object": "返事待ちの郵便灯", "stage": 11, "verb": "deliver_hold_timing", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "madoka", "objectId": "named-object:madoka:luminous_possession", "object": "見送り窓の観測レンズ", "stage": 12, "verb": "witness_report", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "shiro", "objectId": "named-object:shiro:luminous_possession", "object": "未分類の白栞灯", "stage": 13, "verb": "classify_preserve_unknown", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "tobari", "objectId": "named-object:tobari:luminous_possession", "object": "往復穴の改札鋏", "stage": 14, "verb": "gate_open_close_return", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "nemu", "objectId": "named-object:nemu:luminous_possession", "object": "夢頁の水面日記", "stage": 15, "verb": "forecast_not_command", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "kuroori", "objectId": "named-object:kuroori:luminous_possession", "object": "折り目だけ光る黒紙", "stage": 16, "verb": "hold_open_with_consent", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "kage1", "displayName": "カナメ", "objectId": "named-object:kage1:luminous_possession", "object": "受け灯の腕帯", "stage": 16, "verb": "intercept_share_burden", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "kage2", "displayName": "カスミ", "objectId": "named-object:kage2:luminous_possession", "object": "消し跡の白灯", "stage": 17, "verb": "conceal_reversible_trace", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "kage3", "displayName": "トキ", "objectId": "named-object:kage3:luminous_possession", "object": "星目盛りの夜定規", "stage": 18, "verb": "measure_leave_uncertainty", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "kage4", "displayName": "ツムギ", "objectId": "named-object:kage4:luminous_possession", "object": "余白を縫う糸巻き", "stage": 19, "verb": "leave_blank_choose_finish", "launchRequired": true, "keeperUiConnected": false },
+    { "id": "ren", "objectId": "named-object:ren:luminous_possession", "object": "片焦点のレンズ灯", "stage": 18, "verb": "focus_difference_keep_whole", "launchRequired": false, "namingStatus": "WORKING", "keeperUiConnected": false }
   ],
   "knownRuntimeGaps": [
-    "existing CollectionScene still reads Stage1-only 25-cell prototype",
+    "CollectionScene remains Stage1-only with 25 active cells",
     "six legacy enemy cells still need evidence-based Current48 rebinding",
-    "keeperRecords UI/assets remain 5 while generated object read models cover 21",
-    "lostItemRecords UI/assets remain 6 while two compatibility rebindings are defined",
+    "keeperRecords now connect Core5 5/5; remaining Current21 keeper UI/assets are 16",
+    "lostItemRecords keep six assets; two Nagi/Michiru bindings are Current with legacy history preserved",
+    "light_coin / 灯貨 / 黒曜片 economy naming remains review-required",
+    "CollectionScene keeper page header still contains a legacy abbreviated label and needs a safe scene patch",
     "Collection save v2 is a draft and not connected to the production save service",
     "global constellation graph is Definition-only and has no UI",
     "launch-v1 completion required IDs are not frozen",
-    "全灯の朝 scene, art, music, cosmetic and remix mode are not implemented"
+    "全灯の朝 scene, art, music, cosmetic and remix mode are not implemented",
+    "GitHub Actions jobs currently stop before step execution, so full tests and build have no current run evidence"
   ]
 }
