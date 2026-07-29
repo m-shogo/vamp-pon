@@ -1,13 +1,23 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { validateMetaCurrencyDisplayMigration } from './metaCurrencyDisplayMigration';
+import {
+  META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED,
+  validateMetaCurrencyDisplayMigration,
+} from './metaCurrencyDisplayMigration';
+import {
+  META_CURRENCY_SURFACE_REPLACEMENTS,
+} from '../../../scripts/migrations/connect-meta-currency-display-surfaces';
 
 function source(relativeUrl: string): string {
   return readFileSync(new URL(relativeUrl, import.meta.url), 'utf8');
 }
 
+function repositorySource(file: string): string {
+  return readFileSync(file, 'utf8');
+}
+
 describe('meta currency display surface source contract', () => {
-  it('接続済み2面が実際に共通formatterを参照する', () => {
+  it('既存接続済み2面が実際に共通formatterを参照する', () => {
     const atlasLabels = source('../ui/collectionAtlasLabels.ts');
     const collectionSections = source('./collectionSections.ts');
 
@@ -17,28 +27,22 @@ describe('meta currency display surface source contract', () => {
     expect(collectionSections).toContain('達成すると${currentMetaCurrencyDisplayName()}が戻る。');
   });
 
-  it('未接続9面を漏れなく台帳化したまま保持する', () => {
-    const top = source('../scenes/TopScene.ts');
-    const stageSelect = source('../scenes/StageSelectScene.ts');
-    const overlays = source('../ui/overlays.ts');
-    const profile = source('../persistence/profile.ts');
-
-    expect(top).toContain('`黒曜片 ${currency}`');
-
-    expect(stageSelect).toContain('`黒曜片 ${profile.currency}`');
-    expect(stageSelect).toContain('黒曜片で強化して次の夜に備える');
-    expect(stageSelect).toContain('黒曜片が足りない — 探索で集めよう');
-    expect(stageSelect).toContain('`黒曜片 ${refund} を全額返還します。');
-
-    expect(overlays).toContain("'黒曜片',");
-    expect(overlays).toContain("'黒曜片を使う'");
-    expect(overlays).toContain('やられても黒曜片は持ち帰れる。');
-
-    expect(profile).toContain("name: '黒曜片の目印'");
-    expect(profile).toContain("description: '黒曜片の獲得量が増える'");
+  it('guarded codemodの全needleが単一migration flagと一致する', () => {
+    for (const replacement of META_CURRENCY_SURFACE_REPLACEMENTS) {
+      const activeSource = repositorySource(replacement.file);
+      if (META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED) {
+        expect(activeSource, replacement.id).toContain(replacement.after);
+        expect(activeSource, replacement.id).not.toContain(replacement.before);
+      } else {
+        expect(activeSource, replacement.id).toContain(replacement.before);
+        expect(activeSource, replacement.id).not.toContain(replacement.after);
+      }
+    }
 
     const result = validateMetaCurrencyDisplayMigration();
-    expect(result.walletSurfaceRemaining).toBe(9);
+    const expectedConnected = META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED ? 11 : 2;
+    expect(result.formatterConnected).toBe(expectedConnected);
+    expect(result.walletSurfaceRemaining).toBe(11 - expectedConnected);
     expect(result.readyForHumanApproval).toBe(false);
   });
 
@@ -61,7 +65,7 @@ describe('meta currency display surface source contract', () => {
     ];
 
     for (const activeSource of activeWalletSources) {
-      expect(activeSource).not.toContain('currentDisplayLabels: [\'灯貨\']');
+      expect(activeSource).not.toContain("currentDisplayLabels: ['灯貨']");
     }
   });
 });
