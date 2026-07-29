@@ -54,6 +54,30 @@ export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[
     after: 'export const META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = true;',
   },
   {
+    id: 'migration_json.status',
+    file: 'docs/design-targets/generated/meta-currency-display-migration-v1.json',
+    before: '  "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",',
+    after: '  "status": "CURRENT_FORMATTER_CONNECTED_11_OF_11_DISPLAY_RENAME_BLOCKED",',
+  },
+  {
+    id: 'migration_json.coverage',
+    file: 'docs/design-targets/generated/meta-currency-display-migration-v1.json',
+    before: '    "connectedWalletSurfaces": 2,\n    "totalWalletSurfaces": 11,\n    "remainingWalletSurfaces": 9,',
+    after: '    "connectedWalletSurfaces": 11,\n    "totalWalletSurfaces": 11,\n    "remainingWalletSurfaces": 0,',
+  },
+  {
+    id: 'migration_json.surface_arrays',
+    file: 'docs/design-targets/generated/meta-currency-display-migration-v1.json',
+    before: '  "connectedSurfaces": [\n    "collection.clear_getter_reward",\n    "collection.achievement_description"\n  ],\n  "remainingWalletSurfaces": [\n    "top.wallet_tag",\n    "stage_select.wallet_balance",\n    "stage_select.growth_intro",\n    "stage_select.insufficient_funds",\n    "stage_select.reset_refund",\n    "result.currency_reward",\n    "result.growth_cta",\n    "ready.first_run_carry_home",\n    "profile.currency_gain_upgrade"\n  ],',
+    after: '  "connectedSurfaces": [\n    "collection.clear_getter_reward",\n    "collection.achievement_description",\n    "top.wallet_tag",\n    "stage_select.wallet_balance",\n    "stage_select.growth_intro",\n    "stage_select.insufficient_funds",\n    "stage_select.reset_refund",\n    "result.currency_reward",\n    "result.growth_cta",\n    "ready.first_run_carry_home",\n    "profile.currency_gain_upgrade"\n  ],\n  "remainingWalletSurfaces": [],',
+  },
+  {
+    id: 'migration_json.executed',
+    file: 'docs/design-targets/generated/meta-currency-display-migration-v1.json',
+    before: '    "executedOnCurrentHead": false',
+    after: '    "executedOnCurrentHead": true',
+  },
+  {
     id: 'top.import',
     file: 'src/game/scenes/TopScene.ts',
     before: "import { loadProfile } from '../persistence/profile';\nimport {\n  findNewCompletedCellIds,",
