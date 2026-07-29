@@ -8,6 +8,7 @@ import { forgottenStreetNightBoard } from './collectionProgress';
 import { collectionSections } from './collectionSections';
 import { keeperRecords } from './keeperRecords';
 import { lostItemRecords } from './lostItemRecords';
+import { namedObjectRegistryById } from './namedObjectRegistry';
 import { isStrictlyApprovedKnowledgeLine, launchCoreKnowledgeLines } from './knowledgeLines';
 import { collectionWordRecordLines } from './collectionWordRecords';
 import { launchCoreCharacterKnowledgeReplies } from './characterKnowledgeReplies';
@@ -65,6 +66,20 @@ describe('collection atlas data', () => {
         expect(boardCellIds.has(record.relatedBoardCellId), `${record.id} references missing board cell`).toBe(true);
       }
       expect(record.shortFlavor.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('灯し手記録はCurrentの光る持ち物へstable接続し旧小物も保持する', () => {
+    for (const record of keeperRecords) {
+      const object = namedObjectRegistryById.get(record.luminousPossessionId);
+      expect(object, record.id).toBeDefined();
+      expect(object?.phase, record.id).toBe('luminous_possession');
+      expect(object?.characterId, record.id).toBe(record.characterId);
+      expect(object?.displayName, record.id).toBe(record.luminousPossessionName);
+      expect(record.personalItem, record.id).toBe(record.luminousPossessionName);
+      expect(record.legacyPersonalItems.length, record.id).toBeGreaterThan(0);
+      expect(record.blackFormName, record.id).toContain('黒耀化');
+      expect(record.blackFormName, record.id).not.toContain('黒曜化');
     }
   });
 
