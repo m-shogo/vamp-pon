@@ -1,5 +1,5 @@
 import type { NightBoardReward } from '../data/collectionProgress';
-import { formatMetaCurrencyReturn } from './metaCurrencyDisplay';
+import { formatMetaCurrencyReturn } from '../data/metaCurrencyDisplay';
 
 export function nightBoardRewardLabel(reward: NightBoardReward): string {
   switch (reward.type) {
