@@ -65,6 +65,10 @@ Named Objects / Clear Getter / 100%
 → named-object-clear-getter-audit-2026-07-29.md
 → named-object-runtime-migration-plan-v1.md
 → named-object-runtime-foundation-2026-07-29.md
+→ named-object-runtime-connection-core5-stage1-2026-07-29.md
+
+Economy terminology
+→ collection-economy-terminology-review-2026-07-29.md
 ```
 
 ---
@@ -112,6 +116,11 @@ Stage
 → STAGE-ENCOUNTER-DESIGN.md
 → stage-encounter-expansion-06-20-v1.md
 → src/game/data/stageProductionDatabase.ts
+
+Stage1 Legacy runtime bridge
+→ src/game/data/stage1LegacyRuntimeCompatibility.ts
+→ src/game/data/collectionProgressCompatibility.ts
+→ src/game/systems/collectionProgress.ts
 ```
 
 ---
@@ -153,21 +162,70 @@ Current data foundation:
 - `src/game/data/namedObjectMigrationLedger.ts`
 - `src/game/data/namedObjectReadModels.ts`
 - `src/game/data/collectionProgressCompatibility.ts`
+- `src/game/data/stage1LegacyRuntimeCompatibility.ts`
 - `src/game/data/collectionProgressSaveV2.ts`
 - `src/game/data/allLightsCompletion.ts`
 - `src/game/data/globalConstellationDefinition.ts`
+- `src/game/data/collectionEconomyTerminology.ts`
 
 Coverage:
 
 ```txt
-Current21 object lineages = 21
-phases per lineage        = 6
-stable named objects      = 126
-Stage roots               = 20
-Character roots           = 21
-Item-lineage roots        = 21
-Stage1 migrated nodes     = 25
-Named-object graph links  = 126
+Current21 object lineages      = 21
+phases per lineage             = 6
+stable named objects           = 126
+Stage roots                    = 20
+Character roots                = 21
+Item-lineage roots             = 21
+Stage1 historical nodes        = 25
+Stage1 active candidates       = 22
+Stage1 legacy archive-only     = 3
+Stage1 legacy runtime subjects = 8
+Named-object graph links       = 126
+Economy/mechanic concepts      = 4 separated
+```
+
+## Stage1 compatibility boundary
+
+```txt
+compatibility version          = stage1-compat-v2
+historical cells preserved     = 25/25
+active Current/dual-read cells = 22
+legacy archive-only cells      = 3
+runtime denominator frozen     = false
+```
+
+Dual-read Current Stage1 successors:
+
+```txt
+ink_shadow         ↔ ombu_small_ink
+black_label_shadow ↔ omburo_ink_arm
+bag_yorishiro      ↔ boss_name_without_owner
+```
+
+The following are retained but do not automatically enter a future completion denominator:
+
+```txt
+fs_002_release_paper_scrap_shadow
+fs_003_release_night_haze
+fs_025_view_nemori_record
+```
+
+## Economy terminology boundary
+
+```txt
+永続強化資源 = PlayerProfile.currency / current display 黒曜片 / naming review pending
+記憶片       = run-only XP pickup
+灯貨         = prototype Stage1 counter, not a real wallet yet
+黒耀化       = battle/story mechanic, not currency
+```
+
+High-value candidate only:
+
+```txt
+Persistent display candidate = 灯貨
+Legacy display alias         = 黒曜片
+Status                       = NOT CURRENT / Human review required
 ```
 
 ## 100% reward Current direction
@@ -213,6 +271,7 @@ design-targets/generated/character-story-integration-coverage-v1.json
 design-targets/generated/play-experience-design-coverage-v1.json
 design-targets/generated/named-object-registry-v1.json
 design-targets/generated/named-object-clear-getter-coverage-v1.json
+design-targets/generated/collection-economy-terminology-v1.json
 ```
 
 ---
@@ -222,136 +281,23 @@ design-targets/generated/named-object-clear-getter-coverage-v1.json
 ```txt
 Current21 character integration       = 21/21
 Current21 luminous possessions         = 21/21 Definition
+Core5 luminous possession UI           = 5/5 connected
+Remaining Current21 keeper UI/assets   = 16
 Future15 story reservoir               = 15/15 (Future only)
 Current enemy identity/writing         = 48/48
 Stage gameplay identity                = 20/20 direction defined
 Current20 item lineage                 = 20/20 planning data
 Reserve Ren item lineage               = Working / launch denominator excluded
 Stable named objects                   = 126/126 Definition
-Stage1 Clear Getter                    = 25-cell compatibility Definition
+Stage1 Clear Getter history            = 25/25 preserved
+Stage1 future completion candidates    = 22 active / 3 archive-only
+Stage1 old/current runtime bridge      = partial dual-read connected
 Stage2–20 Clear Getter                 = architecture / Stage roots only
 Collection Save v2                     = draft migration / production not connected
 Global constellation                   = graph Definition / UI not implemented
+Economy terminology                    = concepts separated / display migration not approved
 100% reward 全灯の朝                    = design + fail-closed evaluator / content not implemented
 Runtime/device/Human evidence          = NOT COMPLETE
 ```
 
 ---
-
-# 7. Important boundaries
-
-- Current21とFuture15を混ぜない
-- Future15は次回作cast確定ではない
-- Enemy identityは `enemyProductionDatabase.ts` を優先
-- Stage identityは `stageProductionDatabase.ts` を優先
-- `kage1..4` stable IDを変更しない
-- Current displayはカナメ / カスミ / トキ / ツムギ
-- exact wave / Boss / difficulty / economy priceは実測前にLOCKしない
-- Main Mystery最終回答はHuman decision前にLOCKしない
-- old object / old connection / unknown save IDを削除しない
-- named-object Definition追加だけでruntime migration済みにしない
-- Collection save v2 draftだけでproduction save接続済みにしない
-- global graph Definitionだけで大星図UI完成にしない
-- `全灯の朝` evaluatorだけでScene / art / music / remix実装済みにしない
-- Design CurrentだけでU49 / U50 / RC readinessを昇格しない
-
----
-
-# 8. Runtime作業で最初に読む
-
-```txt
-unity-big-implementation-control-center-v1.md
-unity-current-doc-index-2026-07-10.md
-181-current-production-canon.md
-unity-runtime-ownership-contract-v1.md
-unity-runtime-visual-readiness-gate-v1.md
-unity-ui-design-system-v1.md
-asset-generation-consistency-system-v1.md
-unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
-```
-
-Current phase:
-
-```txt
-Completed: U46 AppFlow / Save / Result / 灯録 candidate
-Completed: U46.1 Result / Save Hardening
-Completed: U47 gameplay data/runtime
-Completed: U48 production asset expansion
-Current: U49 actual-device audio/haptic
-Next: U50 performance/touch metrics
-Then: U51 RC
-```
-
-U48 visual runtime scopeの完了は、実機操作・音・振動・性能・RC・アプリ全体のproduction承認を含まない。
-
----
-
-# 9. Current readiness
-
-```txt
-implementationFoundationReady=true
-simulatorPlayableCandidateReady=true
-runtimeVisualReady=true
-physicalDeviceReady=false
-devicePlayableReady=false
-audioReady=false
-audioLatencyMeasured=false
-hapticReady=false
-hapticMeasured=false
-mobileMetricsReady=false
-rcReady=false
-productionApproved=false
-```
-
-READYは、実装・runtime接続・実寸確認・evidence・checkerが揃った時だけ上げる。
-
----
-
-# 10. Quality checks
-
-```sh
-pnpm implementation:preflight:check
-pnpm implementation:preflight:full
-pnpm asset-generation:check
-pnpm assets:verify
-pnpm unity:runtime-visual-readiness:check
-pnpm unity:ui-design-system:check
-pnpm unity:meta:check
-node --experimental-strip-types scripts/quality/check-named-object-registry.ts
-```
-
-Named-object checker covers:
-
-- 21 lineages / 126 object IDs
-- migration ledger
-- unknown legacy ID preservation
-- 100% fail-closed
-- Stage1 25-node compatibility
-- global constellation links
-
----
-
-# 11. Authority separation
-
-Runtime / release:
-
-```txt
-Big Implementation Control Center
-→ Current Doc Index
-→ Current Production Canon
-→ Runtime Ownership Contract
-→ src/game/data/* / Unity runtime
-→ evidence / checker
-```
-
-Design concept:
-
-```txt
-CANON
-→ Game Core
-→ GAME-DESIGN
-→ PLAY-EXPERIENCE / CHARACTER-STORY-INTEGRATION / NAMED-OBJECT-CONNECTIONS
-→ domain master
-```
-
-Historical U0〜U45.1資料やprototype資料は履歴として残すが、Current READY判定へ単独使用しない。
