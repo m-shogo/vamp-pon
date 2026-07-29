@@ -1,3 +1,5 @@
+import { currentMetaCurrencyDisplayName } from '../ui/metaCurrencyDisplay';
+
 export type CollectionSectionId =
   | 'dawn_atlas'
   | 'bestiary'
@@ -64,7 +66,7 @@ export const collectionSections: CollectionSection[] = [
     id: 'achievements',
     label: 'しるしの記録',
     shortLabel: '実績',
-    description: '夜を歩いた証。達成すると黒曜片が戻る。',
+    description: `夜を歩いた証。達成すると${currentMetaCurrencyDisplayName()}が戻る。`,
     motif: 'star-map',
     accent: 0xf5d58a,
   },
