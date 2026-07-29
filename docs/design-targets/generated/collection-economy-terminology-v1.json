@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "date": "2026-07-29",
-  "status": "ACTUAL_RUN_COUNTER_CONNECTED_DULL_COIN_CANDIDATE_LINKED_HEADER_NORMALIZED_DISPLAY_RENAME_NOT_APPROVED",
+  "status": "ACTUAL_RUN_COUNTER_CONNECTED_DULL_COIN_CANDIDATE_LINKED_CURRENT_FORMATTER_PARTIAL_DISPLAY_RENAME_NOT_APPROVED",
   "resources": [
     {
       "id": "economy:meta_upgrade_currency",
@@ -79,15 +79,34 @@
     "keeperAssigned": false,
     "canonicalCurrencyNamePromoted": false
   },
+  "currentDisplayFormatter": {
+    "source": "src/game/data/metaCurrencyDisplay.ts",
+    "currentLabelSource": "economy:meta_upgrade_currency.currentDisplayLabels[0]",
+    "currentOutput": "黒曜片",
+    "candidateOutputApplied": false,
+    "functions": [
+      "currentMetaCurrencyDisplayName",
+      "formatMetaCurrencyAmount",
+      "formatMetaCurrencyGain",
+      "formatMetaCurrencyReturn"
+    ],
+    "connectedSurfaces": [
+      "Collection Clear Getter reward label",
+      "Collection achievement section description"
+    ],
+    "connectionStatus": "PARTIAL"
+  },
   "implementation": {
     "source": "src/game/data/collectionEconomyTerminology.ts",
     "settlementSource": "src/game/persistence/profile.ts",
     "collectionConsumer": "src/game/systems/collectionProgress.ts",
     "lostItemSource": "src/game/data/lostItemRecords.ts",
+    "displayFormatter": "src/game/data/metaCurrencyDisplay.ts",
     "displayNormalizer": "src/game/data/collectionDisplayTerms.ts",
     "sceneHook": "src/game/ui/collectionAtlasSceneHooks.ts",
     "unitTests": [
       "src/game/data/collectionEconomyTerminology.test.ts",
+      "src/game/data/metaCurrencyDisplay.test.ts",
       "src/game/persistence/__tests__/profileRunCurrencyTracking.test.ts",
       "src/game/systems/collectionProgressRunCurrency.test.ts",
       "src/game/data/lostItemEconomyConnection.test.ts",
@@ -102,7 +121,7 @@
     "memoryFragmentDirectReadExcluded": true,
     "dullLightCoinCandidateLinkConnected": true,
     "keeperHeaderCurrentRuntimeNormalization": true,
-    "runtimeDisplayFormatterConnected": false,
+    "runtimeDisplayFormatterConnected": "PARTIAL",
     "saveMigrationPerformed": false
   },
   "highValueCandidate": {
@@ -115,11 +134,13 @@
       "add actual per-run earned-currency counter",
       "replace fs_019 proxy formula",
       "add run-counter and achievement-exclusion tests",
-      "connect くすんだ灯貨 as a candidate relation"
+      "connect くすんだ灯貨 as a candidate relation",
+      "create one Current display formatter",
+      "connect two Collection display surfaces"
     ],
     "remainingBeforePromotion": [
-      "add one cross-screen persistent currency formatter",
-      "patch every active wallet display surface atomically",
+      "migrate every remaining active wallet surface through the formatter",
+      "preserve 黒曜片 in a Legacy display alias ledger",
       "add full save purchase refund reward round-trip evidence",
       "complete visual review",
       "decide canonical owner and origin of くすんだ灯貨",
@@ -138,10 +159,10 @@
     "profileTermLockEnabled": true
   },
   "knownDebt": [
-    "StageSelect uses 黒曜片 pending economy display review",
+    "StageSelect uses raw 黒曜片 pending formatter migration and display review",
     "StageSelect uses 黒曜研究所 pending facility naming review",
+    "Result and first-run overlay currency surfaces are not yet formatter-backed",
     "persistent currency display name is not approved",
-    "one cross-screen currency display formatter is not connected",
     "くすんだ灯貨 has no canonical owner or origin"
   ],
   "readinessUnaffected": true
