@@ -93,6 +93,29 @@ describe('collection progress save v2 migration', () => {
     expect(migrated.completion.unknownLegacyGroupIds).toEqual(['legacy-group-x']);
   });
 
+  it('stateがまだ無い明示的unknownLegacyGroupIdsも消さない', () => {
+    const migrated = migrateCollectionProgressSaveToV2({
+      schemaVersion: 2,
+      completion: {
+        groupStates: {
+          night_roads: { completedIds: ['stage:1'], claimed: false },
+          'legacy-group-x': { completedIds: ['legacy-a'], claimed: true },
+        },
+        unknownLegacyGroupIds: [
+          'legacy-group-without-state',
+          ' legacy-group-x ',
+          'legacy-group-without-state',
+        ],
+      },
+    });
+
+    expect(migrated.completion.unknownLegacyGroupIds).toEqual([
+      'legacy-group-without-state',
+      'legacy-group-x',
+    ]);
+    expect(migrated.completion.groupStates['legacy-group-without-state']).toBeUndefined();
+  });
+
   it('v1から100%や報酬を自動解放しない', () => {
     const migrated = migrateCollectionProgressSaveToV2({
       completion: {
@@ -124,6 +147,7 @@ describe('collection progress save v2 migration', () => {
         groupStates: {
           night_roads: { completedIds: ['stage:1'], claimed: true },
         },
+        unknownLegacyGroupIds: ['legacy-group-without-state'],
         hundredPercentState: 'ELIGIBLE',
         completionRewardClaimed: false,
       },
@@ -133,6 +157,9 @@ describe('collection progress save v2 migration', () => {
     expect(migratedAgain).toEqual(initial);
     expect(migratedAgain.completion.hundredPercentState).toBe('ELIGIBLE');
     expect(migratedAgain.completion.completionRewardClaimed).toBe(false);
+    expect(migratedAgain.completion.unknownLegacyGroupIds).toEqual([
+      'legacy-group-without-state',
+    ]);
   });
 
   it('全known completion groupを空state付きで用意する', () => {
