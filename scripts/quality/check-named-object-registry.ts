@@ -29,8 +29,13 @@ const errors = [
 ];
 
 const migratedFixture = migrateCollectionProgressSaveToV2({
+  schemaVersion: 2,
   nightBoard: {
     completedCellIds: ['fs_006_clear_depth_1', 'legacy-checker-cell'],
+  },
+  completion: {
+    groupStates: {},
+    unknownLegacyGroupIds: ['legacy-checker-group'],
   },
 });
 if (!migratedFixture.nightBoard.completedCellIds.includes('legacy-checker-cell')) {
@@ -38,6 +43,9 @@ if (!migratedFixture.nightBoard.completedCellIds.includes('legacy-checker-cell')
 }
 if (!migratedFixture.nightBoard.unknownLegacyCellIds.includes('legacy-checker-cell')) {
   errors.push('save v2 migration did not quarantine an unknown legacy cell');
+}
+if (!migratedFixture.completion.unknownLegacyGroupIds.includes('legacy-checker-group')) {
+  errors.push('save v2 migration removed an explicit unknown legacy completion group');
 }
 if (migratedFixture.completion.completionRewardClaimed) {
   errors.push('save v2 migration must not auto-claim the completion reward');
