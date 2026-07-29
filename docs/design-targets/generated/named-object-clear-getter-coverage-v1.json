@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "date": "2026-07-29",
-  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_DUAL_READ",
+  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_DUAL_READ_ECONOMY_SEPARATED",
   "invariants": {
     "namedObjectsNeedConnections": true,
     "minimumConnectionDirections": 4,
@@ -10,6 +10,7 @@
     "unknownLegacyIdsArePreserved": true,
     "completionDenominatorFailsClosedUntilFrozen": true,
     "legacyArchiveNodesDoNotEnterFutureCompletionAutomatically": true,
+    "economyConceptsDoNotAutoMergeByDisplayName": true,
     "runtimeReadinessUnaffected": true
   },
   "coverage": {
@@ -126,6 +127,20 @@
       "current21UiRemaining": 16,
       "fullCurrent21UiMigrationRequired": true
     },
+    "economyTerminology": {
+      "separatedConcepts": 4,
+      "persistentMetaCurrency": "economy:meta_upgrade_currency",
+      "runMemoryFragment": "economy:run_memory_fragment",
+      "prototypeLightCoinCounter": "economy:prototype_light_coin_counter",
+      "blackYoukaMechanic": "mechanic:black_youka",
+      "currentMetaCurrencyDisplay": "黒曜片",
+      "currentMetaCurrencyNamingStatus": "CURRENT_DISPLAY_PENDING_REVIEW",
+      "highValueCandidateDisplay": "灯貨",
+      "highValueCandidateStatus": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
+      "automaticRenameAllowed": false,
+      "achievementBlackYoukaDescriptionsMigrated": 4,
+      "runtimeSaveFieldsChanged": false
+    },
     "hundredPercentReward": {
       "designAdopted": true,
       "failClosedEvaluator": true,
@@ -138,8 +153,10 @@
       "namedObjectPackageScript": true,
       "implementationPreflightIncludesNamedObjectCheck": true,
       "currentCollectionTermLock": true,
+      "achievementTermLock": true,
       "stage1LegacyRuntimeBridgeValidation": true,
       "legacyArchiveCompletionExclusionValidation": true,
+      "economyTerminologyValidation": true,
       "githubActionsRunnerStarted": false
     }
   },
@@ -186,8 +203,10 @@
     "one legacy story cell for 夜主 ネモリ has no Current successor and remains archive-only",
     "keeperRecords now connect Core5 5/5; remaining Current21 keeper UI/assets are 16",
     "lostItemRecords keep six assets; two Nagi/Michiru bindings are Current with legacy history preserved",
-    "light_coin / 灯貨 / 黒曜片 economy naming remains review-required",
+    "meta currency display 黒曜片 remains review-required; 灯貨 is a high-value candidate only",
+    "PlayerProfile UPGRADE_DEFS still contains legacy 黒曜化 wording",
     "CollectionScene keeper page header still contains a legacy abbreviated label and needs a safe scene patch",
+    "fs_019_collect_100_light_coin uses a proxy counter and is not an actual wallet balance",
     "Collection save v2 is a draft and not connected to the production save service",
     "global constellation graph is Definition-only and has no UI",
     "launch-v1 completion required IDs are not frozen",
