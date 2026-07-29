@@ -67,8 +67,10 @@ Named Objects / Clear Getter / 100%
 → named-object-runtime-foundation-2026-07-29.md
 → named-object-runtime-connection-core5-stage1-2026-07-29.md
 
-Economy terminology
+Economy terminology / display migration
 → collection-economy-terminology-review-2026-07-29.md
+→ collection-actual-run-currency-connection-2026-07-29.md
+→ meta-currency-display-migration-foundation-2026-07-29.md
 ```
 
 ---
@@ -167,6 +169,8 @@ Current data foundation:
 - `src/game/data/allLightsCompletion.ts`
 - `src/game/data/globalConstellationDefinition.ts`
 - `src/game/data/collectionEconomyTerminology.ts`
+- `src/game/data/metaCurrencyDisplay.ts`
+- `src/game/data/metaCurrencyDisplayMigration.ts`
 
 Coverage:
 
@@ -183,6 +187,9 @@ Stage1 legacy archive-only     = 3
 Stage1 legacy runtime subjects = 8
 Named-object graph links       = 126
 Economy/mechanic concepts      = 4 separated
+Wallet display surfaces        = 11
+Wallet formatter connected     = 2
+Wallet formatter remaining     = 9
 ```
 
 ## Stage1 compatibility boundary
@@ -214,18 +221,21 @@ fs_025_view_nemori_record
 ## Economy terminology boundary
 
 ```txt
-永続強化資源 = PlayerProfile.currency / current display 黒曜片 / naming review pending
+永続強化資源 = PlayerProfile.currency / Current display 黒曜片 / naming review pending
 記憶片       = run-only XP pickup
-灯貨         = prototype Stage1 counter, not a real wallet yet
+灯貨         = real-tracked Stage1 one-run counter display / wallet candidate only
 黒耀化       = battle/story mechanic, not currency
 ```
 
-High-value candidate only:
+Wallet display migration:
 
 ```txt
-Persistent display candidate = 灯貨
-Legacy display alias         = 黒曜片
-Status                       = NOT CURRENT / Human review required
+Current display          = 黒曜片
+candidate display        = 灯貨
+formatter coverage       = 2 / 11
+remaining surfaces       = 9
+Human naming approved    = false
+rename                    = blocked
 ```
 
 ## 100% reward Current direction
@@ -272,6 +282,7 @@ design-targets/generated/play-experience-design-coverage-v1.json
 design-targets/generated/named-object-registry-v1.json
 design-targets/generated/named-object-clear-getter-coverage-v1.json
 design-targets/generated/collection-economy-terminology-v1.json
+design-targets/generated/meta-currency-display-migration-v1.json
 ```
 
 ---
@@ -292,10 +303,13 @@ Stable named objects                   = 126/126 Definition
 Stage1 Clear Getter history            = 25/25 preserved
 Stage1 future completion candidates    = 22 active / 3 archive-only
 Stage1 old/current runtime bridge      = partial dual-read connected
+Stage1 fs019 actual run counter        = connected
 Stage2–20 Clear Getter                 = architecture / Stage roots only
 Collection Save v2                     = draft migration / production not connected
 Global constellation                   = graph Definition / UI not implemented
 Economy terminology                    = concepts separated / display migration not approved
+Wallet formatter                       = 2/11 connected / 9 remaining
+Wallet lifecycle tests                 = added / current HEAD execution open
 100% reward 全灯の朝                    = design + fail-closed evaluator / content not implemented
 Runtime/device/Human evidence          = NOT COMPLETE
 ```
