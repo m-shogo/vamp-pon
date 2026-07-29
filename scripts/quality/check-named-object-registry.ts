@@ -3,6 +3,10 @@ import {
   evaluateAllLightsCompletion,
 } from '../../src/game/data/allLightsCompletion.ts';
 import { forgottenStreetNightBoard } from '../../src/game/data/collectionProgress.ts';
+import {
+  forgottenStreetCompatibilitySummary,
+  forgottenStreetNightBoardCompatibility,
+} from '../../src/game/data/collectionProgressCompatibility.ts';
 import { migrateCollectionProgressSaveToV2 } from '../../src/game/data/collectionProgressSaveV2.ts';
 import {
   globalConstellationDefinition,
@@ -21,15 +25,27 @@ import {
   namedObjectRegistry,
   validateNamedObjectRegistry,
 } from '../../src/game/data/namedObjectRegistry.ts';
+import {
+  getAcceptedStage1ProgressIds,
+  stage1LegacyRuntimeCompatibilityByBoardCellId,
+  stage1LegacyRuntimeCompatibilityEntries,
+  validateStage1LegacyRuntimeCompatibility,
+} from '../../src/game/data/stage1LegacyRuntimeCompatibility.ts';
 
 const registryResult = validateNamedObjectRegistry();
 const migrationResult = validateNamedObjectMigrationLedger();
 const constellationResult = validateGlobalConstellationDefinition();
-const warnings = [...registryResult.warnings, ...migrationResult.warnings];
+const stage1LegacyRuntimeResult = validateStage1LegacyRuntimeCompatibility();
+const warnings = [
+  ...registryResult.warnings,
+  ...migrationResult.warnings,
+  ...stage1LegacyRuntimeResult.warnings,
+];
 const errors = [
   ...registryResult.errors,
   ...migrationResult.errors,
   ...constellationResult.errors,
+  ...stage1LegacyRuntimeResult.errors,
 ];
 
 const activeBlackFormCell = forgottenStreetNightBoard.cells.find(
@@ -40,6 +56,61 @@ if (!activeBlackFormCell?.condition.includes('黒耀化')) {
 }
 if (activeBlackFormCell?.condition.includes('黒曜化')) {
   errors.push('active Stage1 constellation still displays the legacy 黒曜化 term');
+}
+
+const expectedLegacyBoardCellIds = [
+  'fs_001_release_ink_shadow',
+  'fs_002_release_paper_scrap_shadow',
+  'fs_003_release_night_haze',
+  'fs_004_release_black_label_shadow',
+  'fs_005_calm_bag_yorishiro',
+  'fs_023_calm_yorishiro_with_ultimate',
+  'fs_024_release_onbro_fast',
+  'fs_025_view_nemori_record',
+];
+const actualLegacyBoardCellIds = [
+  ...stage1LegacyRuntimeCompatibilityByBoardCellId.keys(),
+].sort();
+if (JSON.stringify(actualLegacyBoardCellIds) !== JSON.stringify(expectedLegacyBoardCellIds)) {
+  errors.push(`Stage1 legacy board-cell bindings must be exactly ${expectedLegacyBoardCellIds.join(', ')}`);
+}
+if (forgottenStreetNightBoardCompatibility.definitionVersion !== 'stage1-compat-v2') {
+  errors.push('Stage1 compatibility definition must be stage1-compat-v2');
+}
+if (
+  forgottenStreetCompatibilitySummary.reviewEnemyRebind !== 7 ||
+  forgottenStreetCompatibilitySummary.reviewLegacyStoryBinding !== 1
+) {
+  errors.push('Stage1 compatibility must classify 7 enemy/boss cells and 1 legacy story cell');
+}
+if (
+  forgottenStreetCompatibilitySummary.exactStage1SuccessorCells !== 1 ||
+  forgottenStreetCompatibilitySummary.roleStage1SuccessorCells !== 4 ||
+  forgottenStreetCompatibilitySummary.movedToOtherStageCells !== 1 ||
+  forgottenStreetCompatibilitySummary.noCurrentSuccessorCells !== 2
+) {
+  errors.push('Stage1 compatibility successor-relation cell counts are inconsistent');
+}
+if (
+  JSON.stringify(getAcceptedStage1ProgressIds('ink_shadow')) !==
+  JSON.stringify(['ink_shadow', 'ombu_small_ink'])
+) {
+  errors.push('ink_shadow must dual-read the Current ombu_small_ink id');
+}
+if (
+  JSON.stringify(getAcceptedStage1ProgressIds('black_label_shadow')) !==
+  JSON.stringify(['black_label_shadow', 'omburo_ink_arm'])
+) {
+  errors.push('black_label_shadow must dual-read the Current omburo_ink_arm role successor');
+}
+if (
+  JSON.stringify(getAcceptedStage1ProgressIds('bag_yorishiro')) !==
+  JSON.stringify(['bag_yorishiro', 'boss_name_without_owner'])
+) {
+  errors.push('bag_yorishiro must dual-read the Current Stage1 boss id');
+}
+if (getAcceptedStage1ProgressIds('paper_scrap_shadow').length !== 1) {
+  errors.push('paper_scrap_shadow must not reuse its moved Current48 motif for Stage1 progress');
 }
 
 if (keeperRecords.length !== 5) {
@@ -144,6 +215,8 @@ console.log(
     `${namedObjectRegistry.length} named objects, ` +
     `${keeperRecords.length} current keeper records, ` +
     `${lostItemRecords.length} lost-item records, ` +
+    `${stage1LegacyRuntimeCompatibilityEntries.length} Stage1 legacy runtime entries, ` +
+    `${stage1LegacyRuntimeCompatibilityByBoardCellId.size} Stage1 legacy board bindings, ` +
     `${namedObjectMigrationLedger.length} migration entries, ` +
     `${globalConstellationDefinition.migratedStage1Nodes.length} Stage1 constellation nodes, ` +
     `${globalConstellationDefinition.namedObjectLinks.length} constellation links, ` +
