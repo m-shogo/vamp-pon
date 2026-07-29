@@ -102,7 +102,7 @@ function readCompletionGroupState(value: unknown): CompletionGroupSaveState {
 
 function readGroupStates(value: unknown): {
   groupStates: Record<string, CompletionGroupSaveState>;
-  unknownLegacyGroupIds: string[];
+  derivedUnknownLegacyGroupIds: string[];
 } {
   const source = asRecord(value);
   const groupStates: Record<string, CompletionGroupSaveState> = {};
@@ -111,16 +111,16 @@ function readGroupStates(value: unknown): {
     groupStates[group.id] = readCompletionGroupState(source[group.id]);
   }
 
-  const unknownLegacyGroupIds: string[] = [];
+  const derivedUnknownLegacyGroupIds: string[] = [];
   for (const [groupId, state] of Object.entries(source)) {
     if (KNOWN_COMPLETION_GROUP_IDS.has(groupId)) {
       continue;
     }
     groupStates[groupId] = readCompletionGroupState(state);
-    unknownLegacyGroupIds.push(groupId);
+    derivedUnknownLegacyGroupIds.push(groupId);
   }
 
-  return { groupStates, unknownLegacyGroupIds };
+  return { groupStates, derivedUnknownLegacyGroupIds };
 }
 
 function sourceSchemaVersion(root: UnknownRecord): 1 | 2 | 'unknown' {
@@ -153,7 +153,11 @@ export function migrateCollectionProgressSaveToV2(input: unknown): CollectionPro
     ...hintedCellIds.filter((id) => !KNOWN_STAGE1_CELL_IDS.has(id)),
   ]);
 
-  const { groupStates, unknownLegacyGroupIds } = readGroupStates(completion.groupStates);
+  const { groupStates, derivedUnknownLegacyGroupIds } = readGroupStates(completion.groupStates);
+  const unknownLegacyGroupIds = uniqueStrings([
+    ...uniqueStrings(completion.unknownLegacyGroupIds),
+    ...derivedUnknownLegacyGroupIds,
+  ]);
   const existingV2 = sourceVersion === 2;
   const hundredPercentState = existingV2
     ? readHundredPercentState(completion.hundredPercentState)
