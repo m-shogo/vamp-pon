@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "date": "2026-07-29",
   "status": "CURRENT_FORMATTER_PARTIAL_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
@@ -9,18 +9,58 @@
   "humanNamingApproved": false,
   "atomicMigrationRequired": true,
   "stableCompatibility": {
-    "saveFieldsPreserved": ["PlayerProfile.currency", "PlayerProfile.totalCurrencyEarned"],
-    "internalIdsPreserved": ["NightBoardReward.type:light_coin", "UpgradeId:currencyGain"],
-    "futureLegacyAliasesAfterPromotion": ["黒曜片"]
+    "saveFieldsPreserved": [
+      "PlayerProfile.currency",
+      "PlayerProfile.totalCurrencyEarned"
+    ],
+    "internalIdsPreserved": [
+      "NightBoardReward.type:light_coin",
+      "UpgradeId:currencyGain"
+    ],
+    "futureLegacyAliasesAfterPromotion": [
+      "黒曜片"
+    ]
   },
   "formatter": {
     "source": "src/game/data/metaCurrencyDisplay.ts",
     "currentOutput": "黒曜片",
+    "functions": [
+      "currentMetaCurrencyDisplayName",
+      "formatMetaCurrencyAmount",
+      "formatMetaCurrencyGain",
+      "formatMetaCurrencyReturn",
+      "formatMetaCurrencyGrowthIntro",
+      "formatMetaCurrencyInsufficient",
+      "formatMetaCurrencyRefund",
+      "formatMetaCurrencyCarryHome",
+      "formatMetaCurrencyUseCta",
+      "formatMetaCurrencyUpgradeName",
+      "formatMetaCurrencyUpgradeDescription"
+    ],
     "connectedWalletSurfaces": 2,
     "totalWalletSurfaces": 11,
     "remainingWalletSurfaces": 9,
     "readyForHumanApproval": false
   },
+  "connectedSurfaces": [
+    "collection.clear_getter_reward",
+    "collection.achievement_description"
+  ],
+  "remainingWalletSurfaces": [
+    "top.wallet_tag",
+    "stage_select.wallet_balance",
+    "stage_select.growth_intro",
+    "stage_select.insufficient_funds",
+    "stage_select.reset_refund",
+    "result.currency_reward",
+    "result.growth_cta",
+    "ready.first_run_carry_home",
+    "profile.currency_gain_upgrade"
+  ],
+  "separateNonWalletReview": [
+    "facility.black_obsidian_lab",
+    "result.black_youka_bonus"
+  ],
   "tests": {
     "formatter": "src/game/data/metaCurrencyDisplay.test.ts",
     "migration": "src/game/data/metaCurrencyDisplayMigration.test.ts",
@@ -34,5 +74,12 @@
     "expectedCoverage": "2/11 connected, 9 remaining",
     "prematureApprovalBlocked": true
   },
+  "promotionBlockedUntil": [
+    "all 11 wallet surfaces use the shared formatter",
+    "黒曜片 is preserved in a Legacy alias ledger",
+    "current-head tests execute",
+    "visual review completes",
+    "Human naming approval is explicit"
+  ],
   "readinessUnaffected": true
 }
