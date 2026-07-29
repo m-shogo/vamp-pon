@@ -26,7 +26,9 @@
 
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
-## 企画 / Game Design のCurrent入口
+---
+
+# 1. Design入口
 
 ```txt
 全体Canon
@@ -48,21 +50,32 @@ Play Experience
 → ACCESSIBILITY-BASELINE.md
 → FUN-BALANCE-PLAYTEST.md
 
-Character / Story / Gameplay 統合
+Character / Story / Gameplay
 → CHARACTER-STORY-INTEGRATION.md
-→ character-black-youka-rescue-book-v1.md
-→ story-stage-character-relationship-placement-v1.md
-→ story-main-beat-sheet-v1.md
-→ character-dawn-proof-book-v1.md
-→ character-story-gameplay-payoff-matrix-v1.md
-→ character-story-integration-audit-2026-07-29.md
+→ CHARACTERS.md
+→ RELATIONSHIPS.md
+→ STORY.md
+→ ENEMIES.md
 
-Character
+Named Objects / Clear Getter / 100%
+→ NAMED-OBJECT-CONNECTIONS.md
+→ character-luminous-personal-item-book-v1.md
+→ CLEAR-GETTER-AND-100-PERCENT-REWARD.md
+→ PROGRESSION-ARCHIVE.md
+→ named-object-clear-getter-audit-2026-07-29.md
+```
+
+---
+
+# 2. Character routing
+
+```txt
+Current21
 → CHARACTERS.md
 → character-book-v4.md
 → character-deep-core-book-v1.md
 
-Character voice / relationship
+Voice / relation
 → RELATIONSHIPS.md
 → character-relationship-arc-book-v1.md
 → character-dialogue-relationship-book-v1.md
@@ -70,20 +83,79 @@ Character voice / relationship
 → character-ensemble-daily-scene-bank-v1.md
 → BOND.md
 
+黒耀化 / rescue / Dawn
+→ BLACK-YOUKA.md
+→ character-black-youka-rescue-book-v1.md
+→ character-dawn-proof-book-v1.md
+
 Future15
 → FUTURE-CAST.md
 → future-cast-profile-book-v1.md
 → future-cast-relationship-story-reservoir-v1.md
+```
 
+---
+
+# 3. Enemy / Stage routing
+
+```txt
 Enemy / Kagemono
 → ENEMIES.md
 → enemy-encounter-relationship-pressure-v1.md
 → enemy-ecology-and-encounter-recipes-v1.md
 → kagemono-collection-entry-book-v1.md
 → src/game/data/enemyProductionDatabase.ts
+
+Stage
+→ STAGE-ENCOUNTER-DESIGN.md
+→ stage-encounter-expansion-06-20-v1.md
+→ src/game/data/stageProductionDatabase.ts
 ```
 
-機械可読のdesign memory:
+---
+
+# 4. Named-object invariant
+
+名前のある物は、最低3方向以上へ接続する。
+
+```txt
+Person
+Stage
+Gameplay verb
+Enemy motif
+記憶のしるし
+灯録
+Relationship
+黒耀化
+Dawn proof
+Evolution lineage
+```
+
+Current source:
+
+- `NAMED-OBJECT-CONNECTIONS.md`
+- `character-luminous-personal-item-book-v1.md`
+- `CLEAR-GETTER-AND-100-PERCENT-REWARD.md`
+
+100% reward Current direction:
+
+## **全灯の朝**
+
+- playable Dawn Square celebration
+- Current21 / 星獣 / 21の光る持ち物
+- full ensemble animated page
+- completion medley
+- all-character cosmetic `星図継ぎの灯`
+- remix mode `星図継ぎの夜`
+- title / seal / archive frame
+- small future anomaly
+
+True Endingではない。
+Main Happy Endを最大級に祝うcompletion festival。
+
+---
+
+# 5. Machine-readable design memory
 
 ```txt
 design-targets/generated/character-relationship-arc-map-v1.json
@@ -96,35 +168,45 @@ design-targets/generated/character-story-gameplay-payoff-map-v1.json
 design-targets/generated/future-cast-relationship-story-map-v1.json
 design-targets/generated/character-story-integration-coverage-v1.json
 design-targets/generated/play-experience-design-coverage-v1.json
+design-targets/generated/named-object-clear-getter-coverage-v1.json
 ```
 
-現在のdesign coverage要約:
+---
+
+# 6. Current design coverage
 
 ```txt
-Current21 character integration  = 21/21
-Future15 story reservoir         = 15/15 (Future only)
-Current enemy identity/writing   = 48/48
-Stage gameplay identity          = 20/20 direction defined
-Combat / First Run / Mobile      = Current design direction
-Difficulty / Meta / Postgame     = Current design direction
-Audio/Haptic creative            = Current direction / U49 technical gate separate
-Accessibility baseline           = Current
-Fun/Balance framework            = Current / thresholds open
-Runtime/device/Human evidence    = NOT COMPLETE
+Current21 character integration       = 21/21
+Current21 luminous possessions         = 21/21 design direction
+Future15 story reservoir               = 15/15 (Future only)
+Current enemy identity/writing         = 48/48
+Stage gameplay identity                = 20/20 direction defined
+Current20 item lineage                 = 20/20 planning data
+Reserve Ren item lineage               = PARTIAL
+Stage1 Clear Getter                    = 25-cell prototype
+Stage2–20 Clear Getter                 = architecture only
+100% reward 全灯の朝                    = design adopted / runtime not implemented
+Runtime/device/Human evidence          = NOT COMPLETE
 ```
 
-境界:
+---
+
+# 7. Important boundaries
+
 - Current21とFuture15を混ぜない
 - Future15は次回作cast確定ではない
-- EnemyのCurrent identityは `src/game/data/enemyProductionDatabase.ts` を優先
-- Stage identityは `src/game/data/stageProductionDatabase.ts` をproduction authorityとして使う
-- `kage1..4` のCurrent Shadow mappingを証拠なく決めない
-- Legacy enemyからmechanic / telegraph / silhouetteは回収してよいが旧nameをCurrentへ戻さない
-- exact wave / Boss配置 / difficulty数値 / economy価格は未実測ならLOCKしない
-- Main Mysteryの最終回答はHuman decision前にLOCKしない
-- Design CurrentだけでUnity runtime / U49 / U50 / RC readinessを昇格しない
+- Enemy identityは `enemyProductionDatabase.ts` を優先
+- Stage identityは `stageProductionDatabase.ts` を優先
+- `kage1..4` mappingを証拠なく決めない
+- exact wave / Boss / difficulty / economy priceは実測前にLOCKしない
+- Main Mystery最終回答はHuman decision前にLOCKしない
+- named-object design追加だけでruntime data migration済みにしない
+- `全灯の朝` design採用だけで100% scene実装済みにしない
+- Design CurrentだけでU49 / U50 / RC readinessを昇格しない
 
-## Runtime作業で最初に読む
+---
+
+# 8. Runtime作業で最初に読む
 
 ```txt
 unity-big-implementation-control-center-v1.md
@@ -137,7 +219,7 @@ asset-generation-consistency-system-v1.md
 unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-## 現在のPhase
+Current phase:
 
 ```txt
 Completed: U46 AppFlow / Save / Result / 灯録 candidate
@@ -149,109 +231,36 @@ Next: U50 performance/touch metrics
 Then: U51 RC
 ```
 
-U48では人間承認済み46 visual groupをproduction runtimeへ接続し、Preview defineなしのiOS Simulator buildでCompact / Standard / Large、合計138 captureを検証済みです。
+U48 visual runtime scopeの完了は、実機操作・音・振動・性能・RC・アプリ全体のproduction承認を含まない。
 
-この状態はU48 visual runtime scopeの完了です。実機操作、音、振動、性能、RC、アプリ全体のproduction承認は含みません。
+---
 
-## 現在のreadiness
+# 9. Current readiness
 
 ```txt
 implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
-runtimeVisualClassification=production-animated-sprite
-characterDotRuntimeReady=true
-characterAnimationReady=true
-enemyDotRuntimeReady=true
-enemyAnimationReady=true
-runtimeVisualCandidateReady=false
 runtimeVisualReady=true
-runtimeCandidateAssetProviderConnected=false
-productionVisualAssetProviderConnected=true
-productionCharacterAssetReady=true
-productionEnemyAssetReady=true
-candidateAssetsApprovedAsFinal=true
-versionedSaveServiceImplemented=true
-sceneFlowCoordinatorImplemented=true
-productionDataRegistryImplemented=true
-actualDeviceSmokeResult=NOT_PROVIDED
+physicalDeviceReady=false
 devicePlayableReady=false
-mobileMetricsReady=false
-audioMixerReady=false
+audioReady=false
 audioLatencyMeasured=false
+hapticReady=false
 hapticMeasured=false
+mobileMetricsReady=false
 rcReady=false
 productionApproved=false
 ```
 
-Point Filter、GameObject名、静止画表示、操作可能、Simulator route成功だけではvisual完成と扱いません。`runtimeVisualReady=true` はfinal/runtime承認済みU48 assetがproduction providerへ接続され、responsive Simulator verificationを通過したことを表します。actual-device/release承認は別ゲートです。
+READYは、実装・runtime接続・実寸確認・evidence・checkerが揃った時だけ上げる。
 
-## Current completion sources
+---
 
-```txt
-unity-u46-app-flow-save-result-collection-2026-07-11.md
-unity-u46-1-result-save-hardening-2026-07-11.md
-unity-u47-gameplay-data-runtime-2026-07-13.md
-unity-u48-human-asset-approval-2026-07-21.md
-unity-u48-production-asset-expansion-completion-2026-07-21.md
-```
-
-## Current evidence
-
-```txt
-design-targets/generated/unity-big-implementation/readiness.json
-design-targets/generated/unity-runtime-visual-readiness/readiness.json
-design-targets/generated/unity-u47/simulator-smoke/manifest.json
-design-targets/generated/unity-u48/approval-pack/approval-manifest.json
-design-targets/generated/unity-u48/human-selection-decision.json
-design-targets/generated/unity-u48/approved-production-set.json
-design-targets/generated/unity-u48/production-visual-connection.json
-design-targets/generated/unity-u48/production-verification/manifest.json
-```
-
-## 大規模実装の責務
-
-正本:
-
-```txt
-unity-runtime-ownership-contract-v1.md
-```
-
-重要:
-- navigation/pauseは単一owner
-- Definition / Runtime State / Save DTOを分離
-- UIからbattle/saveを直接操作しない
-- Result/灯録はread modelを表示
-- proof/candidate/production providerを分離
-- Bootstrap/BattleControllerへ新責務を集中させない
-
-## 主な品質チェック
-
-静的preflight:
+# 10. Quality checks
 
 ```sh
 pnpm implementation:preflight:check
-```
-
-checker、asset、test、buildをまとめたfull preflight:
-
-```sh
 pnpm implementation:preflight:full
-```
-
-U48 production chain:
-
-```sh
-pnpm unity:u48-production-asset-expansion:check
-pnpm unity:u48-production-asset-approval-pack:check
-pnpm unity:u48-human-selection:check
-pnpm unity:u48-approved-production-set:check
-pnpm unity:u48-production-visual-connection:check
-pnpm unity:u48-production-visual-verification:check
-```
-
-基盤:
-
-```sh
 pnpm asset-generation:check
 pnpm assets:verify
 pnpm unity:runtime-visual-readiness:check
@@ -259,37 +268,29 @@ pnpm unity:ui-design-system:check
 pnpm unity:meta:check
 ```
 
-## 正本の優先順位
+---
 
-古いprototype資料や個別Phase資料と矛盾した場合:
+# 11. Authority separation
 
-1. Big Implementation Control Center
-2. Current Doc Index
-3. Current Production Canon
-4. Runtime Ownership Contract
-5. UI / Asset / Runtime Visualのadopted docs
-6. `src/game/data/*`
-7. 現行Unity runtime
-8. 最新evidence/checker
+Runtime / release:
 
-Design concept側は:
+```txt
+Big Implementation Control Center
+→ Current Doc Index
+→ Current Production Canon
+→ Runtime Ownership Contract
+→ src/game/data/* / Unity runtime
+→ evidence / checker
+```
+
+Design concept:
 
 ```txt
 CANON
 → Game Core
 → GAME-DESIGN
-→ PLAY-EXPERIENCE / CHARACTER-STORY-INTEGRATION
+→ PLAY-EXPERIENCE / CHARACTER-STORY-INTEGRATION / NAMED-OBJECT-CONNECTIONS
 → domain master
 ```
 
-を使う。
-
-## Historical docs
-
-U0〜U45.1の個別資料、初期コンセプト、U1開始prompt、candidate時代のevidenceは履歴として残します。現在のEditor version、Phase順、asset承認、READY判定には単独使用しません。
-
-## 最優先の判断基準
-
-面白そうな追加より、**完成に近づく追加**を優先します。
-
-READYは、実装・runtime接続・実寸確認・evidence・checkerが揃った時だけ上げます。
+Historical U0〜U45.1資料やprototype資料は履歴として残すが、Current READY判定へ単独使用しない。
