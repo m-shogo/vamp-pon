@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED,
   metaCurrencyDisplayMigrationAuthority,
   metaCurrencyDisplaySurfaces,
   validateMetaCurrencyDisplayMigration,
@@ -24,13 +25,20 @@ describe('meta currency display migration authority', () => {
     expect(metaCurrencyDisplayMigrationAuthority.futureLegacyAliasesAfterPromotion).toEqual(['黒曜片']);
   });
 
-  it('wallet表示面を全件台帳化し、現時点のformatter接続を2面に限定する', () => {
+  it('wallet表示11面のcoverageを単一migration flagと同期する', () => {
     const result = validateMetaCurrencyDisplayMigration();
+    const expectedConnected = META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED ? 11 : 2;
     expect(result.errors).toEqual([]);
     expect(result.walletSurfaceTotal).toBe(11);
-    expect(result.formatterConnected).toBe(2);
-    expect(result.walletSurfaceRemaining).toBe(9);
+    expect(result.formatterConnected).toBe(expectedConnected);
+    expect(result.walletSurfaceRemaining).toBe(11 - expectedConnected);
     expect(result.readyForHumanApproval).toBe(false);
+  });
+
+  it('全wallet surfaceに将来のformatter functionを先に割り当てる', () => {
+    const walletSurfaces = metaCurrencyDisplaySurfaces.filter((surface) => surface.walletSurface);
+    expect(walletSurfaces).toHaveLength(11);
+    expect(walletSurfaces.every((surface) => Boolean(surface.formatterFunction))).toBe(true);
   });
 
   it('黒曜研究所と黒耀化bonusをwallet改名へ混ぜない', () => {
