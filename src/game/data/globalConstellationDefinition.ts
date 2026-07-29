@@ -93,9 +93,13 @@ export const forgottenStreetConstellationNodes: ConstellationNodeDefinition[] =
     kind: 'achievement' as const,
     displayName: cell.currentDisplayTitle,
     sourceId: cell.id,
-    activeCompletionNode: true,
+    activeCompletionNode:
+      cell.completionEligibility === 'ACTIVE_CURRENT_OR_DUAL_READ',
     runtimeConnected: false as const,
   }));
+
+export const activeForgottenStreetConstellationNodes =
+  forgottenStreetConstellationNodes.filter((node) => node.activeCompletionNode);
 
 const lineageByCharacterId = new Map(
   characterObjectLineages.map((lineage) => [lineage.characterId, lineage]),
@@ -127,6 +131,7 @@ export const globalConstellationDefinition = {
   characterRoots: characterConstellationRoots,
   itemLineageRoots: itemLineageConstellationRoots,
   migratedStage1Nodes: forgottenStreetConstellationNodes,
+  activeStage1CompletionNodes: activeForgottenStreetConstellationNodes,
   namedObjectLinks: namedObjectConstellationLinks,
 } as const;
 
@@ -172,6 +177,31 @@ export function validateGlobalConstellationDefinition(): GlobalConstellationVali
   ) {
     errors.push('Stage1 compatibility nodes must preserve every existing cell');
   }
+
+  const expectedActiveStage1SourceIds = forgottenStreetNightBoardCompatibility.cells
+    .filter((cell) => cell.completionEligibility === 'ACTIVE_CURRENT_OR_DUAL_READ')
+    .map((cell) => cell.id);
+  const actualActiveStage1SourceIds = activeForgottenStreetConstellationNodes
+    .map((node) => node.sourceId)
+    .filter((sourceId): sourceId is string => typeof sourceId === 'string');
+  if (
+    JSON.stringify(actualActiveStage1SourceIds) !==
+    JSON.stringify(expectedActiveStage1SourceIds)
+  ) {
+    errors.push('Stage1 active completion nodes must match compatibility eligibility');
+  }
+
+  const archiveOnlySourceIds = new Set(
+    forgottenStreetNightBoardCompatibility.cells
+      .filter((cell) => cell.completionEligibility === 'LEGACY_ARCHIVE_ONLY')
+      .map((cell) => cell.id),
+  );
+  for (const node of forgottenStreetConstellationNodes) {
+    if (node.sourceId && archiveOnlySourceIds.has(node.sourceId) && node.activeCompletionNode) {
+      errors.push(`${node.id} is legacy archive-only but remains an active completion node`);
+    }
+  }
+
   if (namedObjectConstellationLinks.length !== namedObjectRegistry.length) {
     errors.push('every named object must have a constellation link');
   }
