@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "date": "2026-07-29",
-  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_DUAL_READ_ECONOMY_SEPARATED",
+  "status": "PARTIAL_RUNTIME_CONNECTION_CORE5_STAGE1_DUAL_READ_ACTUAL_RUN_COUNTER",
   "invariants": {
     "namedObjectsNeedConnections": true,
     "minimumConnectionDirections": 4,
@@ -11,6 +11,7 @@
     "completionDenominatorFailsClosedUntilFrozen": true,
     "legacyArchiveNodesDoNotEnterFutureCompletionAutomatically": true,
     "economyConceptsDoNotAutoMergeByDisplayName": true,
+    "stage1CurrencyChallengeUsesSettledRunAmount": true,
     "runtimeReadinessUnaffected": true
   },
   "coverage": {
@@ -64,6 +65,10 @@
       "activeCompletionEligible": 22,
       "legacyArchiveOnly": 3,
       "dualReadRuntimeConnected": true,
+      "runCurrencyCounterConnected": true,
+      "runCurrencyCounterThreshold": 100,
+      "runCurrencyCounterSource": "RunSettlement.currencyEarned",
+      "runCurrencyProxyFormulaRemoved": true,
       "saveMigrationApplied": false
     },
     "stage1LegacyRuntimeBridge": {
@@ -131,14 +136,22 @@
       "separatedConcepts": 4,
       "persistentMetaCurrency": "economy:meta_upgrade_currency",
       "runMemoryFragment": "economy:run_memory_fragment",
-      "prototypeLightCoinCounter": "economy:prototype_light_coin_counter",
+      "runEarnedCurrencyCounter": "economy:prototype_light_coin_counter",
       "blackYoukaMechanic": "mechanic:black_youka",
       "currentMetaCurrencyDisplay": "黒曜片",
       "currentMetaCurrencyNamingStatus": "CURRENT_DISPLAY_PENDING_REVIEW",
+      "runCounterDisplay": "灯貨",
+      "runCounterNamingStatus": "CURRENT_TRACKED_COUNTER_PENDING_NAME",
+      "runCounterTransientField": "earnedMetaCurrencyThisRun",
+      "runCounterActualTrackingConnected": true,
+      "runCounterExcludesAchievementReward": true,
+      "runCounterExcludesWalletBalance": true,
+      "runCounterExcludesMemoryFragmentDirectRead": true,
       "highValueCandidateDisplay": "灯貨",
       "highValueCandidateStatus": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
       "automaticRenameAllowed": false,
       "achievementBlackYoukaDescriptionsMigrated": 4,
+      "upgradeBlackYoukaLabelsMigrated": 2,
       "runtimeSaveFieldsChanged": false
     },
     "hundredPercentReward": {
@@ -154,9 +167,13 @@
       "implementationPreflightIncludesNamedObjectCheck": true,
       "currentCollectionTermLock": true,
       "achievementTermLock": true,
+      "profileBlackYoukaTermLock": true,
       "stage1LegacyRuntimeBridgeValidation": true,
       "legacyArchiveCompletionExclusionValidation": true,
       "economyTerminologyValidation": true,
+      "actualRunCurrencyUnitTest": true,
+      "actualRunCurrencySettlementIntegrationTest": true,
+      "proxyFormulaForbiddenContract": true,
       "githubActionsRunnerStarted": false
     }
   },
@@ -204,9 +221,7 @@
     "keeperRecords now connect Core5 5/5; remaining Current21 keeper UI/assets are 16",
     "lostItemRecords keep six assets; two Nagi/Michiru bindings are Current with legacy history preserved",
     "meta currency display 黒曜片 remains review-required; 灯貨 is a high-value candidate only",
-    "PlayerProfile UPGRADE_DEFS still contains legacy 黒曜化 wording",
     "CollectionScene keeper page header still contains a legacy abbreviated label and needs a safe scene patch",
-    "fs_019_collect_100_light_coin uses a proxy counter and is not an actual wallet balance",
     "Collection save v2 is a draft and not connected to the production save service",
     "global constellation graph is Definition-only and has no UI",
     "launch-v1 completion required IDs are not frozen",
