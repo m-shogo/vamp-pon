@@ -3,7 +3,7 @@ import {
   CURRENT_KEEPER_HEADER,
   LEGACY_KEEPER_HEADER,
   normalizeCollectionDisplayTerm,
-} from './collectionAtlasSceneHooks';
+} from '../data/collectionDisplayTerms';
 
 describe('collection display term normalization', () => {
   it('灯し手headerのLegacy略称だけを黒耀化へ直す', () => {
