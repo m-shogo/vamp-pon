@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "date": "2026-07-29",
   "status": "CURRENT_CONCEPT_SEPARATION_DISPLAY_RENAME_NOT_APPROVED",
   "resources": [
@@ -19,6 +19,8 @@
       ],
       "currentDisplayLabels": ["黒曜片"],
       "namingStatus": "CURRENT_DISPLAY_PENDING_REVIEW",
+      "persistent": true,
+      "spendable": true,
       "autoRenameAllowed": false
     },
     {
@@ -55,9 +57,19 @@
       ],
       "currentDisplayLabels": ["黒耀化"],
       "namingStatus": "NOT_CURRENCY",
+      "persistent": false,
+      "spendable": false,
       "autoRenameAllowed": false
     }
   ],
+  "implementation": {
+    "source": "src/game/data/collectionEconomyTerminology.ts",
+    "unitTest": "src/game/data/collectionEconomyTerminology.test.ts",
+    "includedInNamedObjectChecker": true,
+    "includedInImplementationPreflight": true,
+    "runtimeDisplayFormatterConnected": false,
+    "saveMigrationPerformed": false
+  },
   "highValueCandidate": {
     "status": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
     "persistentCurrencyDisplay": "灯貨",
@@ -74,8 +86,10 @@
   },
   "activeRepair": {
     "achievementDescriptionsMigratedToBlackYouka": 4,
+    "achievementIdsChanged": false,
     "runtimeIdsChanged": false,
-    "rewardValuesChanged": false
+    "rewardValuesChanged": false,
+    "achievementTermLockEnabled": true
   },
   "knownDebt": [
     "PlayerProfile UPGRADE_DEFS contains legacy 黒曜化 wording",
