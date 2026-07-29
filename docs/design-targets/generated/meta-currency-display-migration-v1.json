@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "date": "2026-07-29",
-  "status": "CURRENT_FORMATTER_PARTIAL_DISPLAY_RENAME_BLOCKED",
+  "status": "CURRENT_FORMATTER_PARTIAL_GUARDED_CODEMOD_READY_DISPLAY_RENAME_BLOCKED",
   "conceptId": "economy:meta_upgrade_currency",
   "currentDisplay": "黒曜片",
   "candidateDisplay": "灯貨",
@@ -61,20 +61,58 @@
     "facility.black_obsidian_lab",
     "result.black_youka_bonus"
   ],
+  "guardedCodemod": {
+    "source": "scripts/migrations/connect-meta-currency-display-surfaces.ts",
+    "test": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
+    "checkCommand": "pnpm currency-display:codemod:check",
+    "writeCommand": "pnpm currency-display:codemod:write",
+    "targetFiles": 4,
+    "guardedReplacements": 13,
+    "walletSurfaceReplacements": 9,
+    "importReplacements": 4,
+    "states": [
+      "PENDING",
+      "MIGRATED",
+      "PARTIAL",
+      "INVALID"
+    ],
+    "writeAllowedStates": [
+      "PENDING",
+      "MIGRATED_NO_OP"
+    ],
+    "writeBlockedStates": [
+      "PARTIAL",
+      "INVALID"
+    ],
+    "temporaryFileWrite": true,
+    "postWriteVerification": true,
+    "rollbackOnFailure": true,
+    "executedOnCurrentHead": false
+  },
   "tests": {
     "formatter": "src/game/data/metaCurrencyDisplay.test.ts",
     "migration": "src/game/data/metaCurrencyDisplayMigration.test.ts",
     "sourceContract": "src/game/data/metaCurrencyDisplaySurfaceSourceContract.test.ts",
     "lifecycle": "src/game/persistence/__tests__/metaCurrencyLifecycle.test.ts",
+    "codemod": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
     "currentHeadExecuted": false
   },
   "preflight": {
-    "command": "pnpm named-object:check",
+    "command": "pnpm implementation:preflight:check",
+    "sequence": [
+      "pnpm unity:term-lock:check",
+      "pnpm named-object:check",
+      "pnpm currency-display:codemod:check",
+      "big implementation readiness"
+    ],
     "migrationValidationConnected": true,
+    "codemodStateValidationConnected": true,
     "expectedCoverage": "2/11 connected, 9 remaining",
-    "prematureApprovalBlocked": true
+    "prematureApprovalBlocked": true,
+    "partialSourceMigrationBlocked": true
   },
   "promotionBlockedUntil": [
+    "the guarded codemod writes all remaining wallet surfaces",
     "all 11 wallet surfaces use the shared formatter",
     "黒曜片 is preserved in a Legacy alias ledger",
     "current-head tests execute",
