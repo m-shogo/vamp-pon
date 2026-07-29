@@ -48,6 +48,12 @@ function countExact(source: string, needle: string): number {
 
 export const META_CURRENCY_SURFACE_REPLACEMENTS: MetaCurrencyCodemodReplacement[] = [
   {
+    id: 'migration_authority.flag',
+    file: 'src/game/data/metaCurrencyDisplayMigration.ts',
+    before: 'export const META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = false;',
+    after: 'export const META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED = true;',
+  },
+  {
     id: 'top.import',
     file: 'src/game/scenes/TopScene.ts',
     before: "import { loadProfile } from '../persistence/profile';\nimport {",
