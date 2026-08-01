@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "seasonal-loading-key-art.0.1",
+  "projectTitle": "ヨルノシルベ",
+  "createdAt": "2026-08-01",
+  "baseAuthority": {
+    "repository": "m-shogo/vamp-pon",
+    "branch": "main",
+    "commit": "9af0418418eece712a5ea6f170630c4ee8770086"
+  },
+  "usageDecision": "LOADING_KEY_ART",
+  "topPrimaryBackground": false,
+  "humanReview": {
+    "explicitlySelected": true,
+    "selectedAt": "2026-08-01",
+    "selectionSummary": "めっちゃいい。TOPかLoadingで採用。",
+    "normalizedDecision": "Loadingで採用方向。TOPは空と灯りのmotion languageのみ継承。"
+  },
+  "generationRecord": {
+    "authority": "CHATGPT_HUMAN_SUPERVISED",
+    "exactPromptAvailable": false,
+    "exactPromptSha256": null,
+    "generatorName": "OpenAI image generation in ChatGPT",
+    "generatorVersion": null,
+    "seed": null,
+    "reconstructionBrief": "reconstruction-brief.txt",
+    "finalApprovalBlockers": [
+      "exact_prompt_unavailable",
+      "generator_version_unavailable",
+      "seed_unavailable",
+      "layer_separation_not_created",
+      "responsive_crop_not_reviewed",
+      "simulator_not_reviewed",
+      "physical_device_not_reviewed",
+      "performance_not_measured"
+    ]
+  },
+  "approval": {
+    "status": "candidate",
+    "humanSelectedForDirection": true,
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "runtimeConnected": false,
+    "finalApprovalBlocked": true
+  },
+  "assets": [
+    {
+      "id": "seasonal_loading_spring_v2",
+      "season": "spring",
+      "file": "spring-loading-key-art.png",
+      "width": 853,
+      "height": 1844,
+      "bytes": 3220470,
+      "sha256": "1507daac222250bda76e7d38385b0b82e4b00197ec98d02f67f3663ae09fe496",
+      "usage": "loading_key_art",
+      "sourceStatus": "human_selected_candidate"
+    },
+    {
+      "id": "seasonal_loading_summer_v2",
+      "season": "summer",
+      "file": "summer-loading-key-art.png",
+      "width": 852,
+      "height": 1846,
+      "bytes": 3078866,
+      "sha256": "78be422ee01caa0a81f50fd10a385ec596bc2053079d7b4909d39e2f1d96e2a4",
+      "usage": "loading_key_art",
+      "sourceStatus": "human_selected_candidate"
+    },
+    {
+      "id": "seasonal_loading_autumn_v2",
+      "season": "autumn",
+      "file": "autumn-loading-key-art.png",
+      "width": 853,
+      "height": 1844,
+      "bytes": 3072509,
+      "sha256": "c788861e8609cc1322fc14e913d01fec62d09201af348a577800e6309d5ace40",
+      "usage": "loading_key_art",
+      "sourceStatus": "human_selected_candidate"
+    },
+    {
+      "id": "seasonal_loading_winter_v2",
+      "season": "winter",
+      "file": "winter-loading-key-art.png",
+      "width": 853,
+      "height": 1844,
+      "bytes": 3119059,
+      "sha256": "015f725af547609e680ca19f1c12af8eb43b3413f7dffe32594a9ed19b3be0b1",
+      "usage": "loading_key_art",
+      "sourceStatus": "human_selected_candidate"
+    }
+  ]
+}
+

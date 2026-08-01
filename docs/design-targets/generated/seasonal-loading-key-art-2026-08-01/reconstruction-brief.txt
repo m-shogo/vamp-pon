@@ -1,0 +1,16 @@
+NOTE: This is a reconstruction brief, not the exact original generation prompt.
+The exact prompt, generator version and seed were not retained by the generation record.
+
+Create four distinct portrait mobile ensemble key arts for ヨルノシルベ at approximately 390:844.
+Keep a shared group of human characters with varied ages, body types and skin tones, two animals and two visibly different robots.
+Use the common world language of night, memory, black ink, paper, lantern light, a small hope and the road toward morning.
+Do not use a repeated group-photo layout.
+
+Spring: an S-shaped procession climbing a cherry-blossom slope beneath a large moon and bridge.
+Summer: a low water-level radial composition with a star festival, fireworks and floating lanterns.
+Autumn: a layered Z-shaped forest-station composition using platform, stairs and footbridge.
+Winter: a high-angle cascade from roofs to a snow-lit street, with a glowing paper airplane.
+
+For every season, use foreground 2–3 large figures, midground interactions and distant companions.
+Avoid a horizontal lineup, repeated face scale, duplicate people, broken edge figures, baked text, logos, UI and progress bars.
+

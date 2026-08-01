@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "seasonal-loading-motion-layers.0.1",
+  "shared": {
+    "layersBackToFront": [
+      "sky",
+      "distantTown",
+      "middleCharacterGroup",
+      "foregroundCharacters",
+      "lanternFlame",
+      "lanternGlow",
+      "seasonSignatureParticles",
+      "runtimeReadabilityGradient",
+      "runtimeLoadingUi"
+    ],
+    "keyLightCountTarget": 3,
+    "maxConcurrentParticles": 48,
+    "maxSignatureParticles": 12,
+    "characterFaceAnimationAllowed": false,
+    "fullScreenVideoAllowed": false,
+    "allSeasonsResidentAllowed": false,
+    "reducedMotion": "static key art plus 250ms crossfade and real progress"
+  },
+  "seasons": {
+    "spring": {
+      "signature": "single petal path crossing the moon",
+      "secondary": ["bridge lantern flicker", "slow moon halo", "low-density petals"]
+    },
+    "summer": {
+      "signature": "one distant firework during loading",
+      "secondary": ["water reflection ripple", "floating lantern bob", "staggered star twinkle"]
+    },
+    "autumn": {
+      "signature": "one leaf falling in a Z path",
+      "secondary": ["station smoke", "very small clock second-hand movement", "lantern flicker"]
+    },
+    "winter": {
+      "signature": "one glowing paper airplane movement",
+      "secondary": ["slow snow", "chimney smoke", "foreground lantern flicker"]
+    }
+  }
+}
+
