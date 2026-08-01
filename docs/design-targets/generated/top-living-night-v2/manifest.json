@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "top-living-night-layer-kit.0.2",
+  "generatedAt": "2026-08-01",
+  "assetId": "top:living-night:layer-kit:v2",
+  "sourceComposition": "candidate-a",
+  "sourceReference": {
+    "path": "../top-living-night-v1/candidates/top-living-night-candidate-a.png",
+    "sha256": "71c5de7034ab50d58aefdfbb059714a220b02e48c4f5a0a0876e78df3dc4cc20"
+  },
+  "generator": {
+    "name": "OpenAI built-in image_gen",
+    "mode": "still-image generation and editing",
+    "promptPath": "layer-prompts.md",
+    "promptSha256": "d4bb667ca4f68dd3d762ebea4e300df9f9e501ded51bae1518539c0117fe62d1",
+    "seedAvailable": false
+  },
+  "approval": {
+    "status": "production-layer-candidate",
+    "humanSelectedCompositionDirection": true,
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "runtimeConnected": false,
+    "finalApprovalBlocked": true,
+    "blockingReview": [
+      "formal character identity master comparison",
+      "human alpha-edge and occluded-background review",
+      "Unity import and responsive crop",
+      "Simulator and physical-device performance"
+    ]
+  },
+  "motionPolicy": {
+    "implementation": "layered-still-art-plus-runtime-procedural-motion",
+    "videoGenerationUsed": false,
+    "runtimeUsesVideo": false,
+    "previewMethod": "deterministic layer compositing",
+    "previewFrames": 48,
+    "previewFps": 8,
+    "previewDurationSeconds": 6
+  },
+  "assets": [
+    {"id":"00-environment-starless","file":"layers/00-environment-starless.png","width":852,"height":1846,"bytes":2478099,"sha256":"7584a378548582654c8ede59dbba41870554d54ea434823a12da7bb3c2b9ddc4","alphaRequired":false},
+    {"id":"01-stars","file":"layers/01-stars.png","width":852,"height":1846,"bytes":15004,"sha256":"339dbb65d39a25438377daa21e1e08f3166dfb777a322242de6938cd97fccbb8","alphaRequired":true},
+    {"id":"01-moon","file":"layers/01-moon.png","width":852,"height":1846,"bytes":12263,"sha256":"39a76140969238086127738d376653b301f0f4ac502ca75a4c73285d4ffa9258","alphaRequired":true},
+    {"id":"02-clouds-far","file":"layers/02-clouds-far.png","width":852,"height":1846,"bytes":111306,"sha256":"bfd29c3e4a3102bd240a15633365a62d57267bd2bba180931cc551501d84a53c","alphaRequired":true},
+    {"id":"03-clouds-near","file":"layers/03-clouds-near.png","width":852,"height":1846,"bytes":522213,"sha256":"fa1d2221a22e75842b13459973001516b46ace1d9d2a096e270d8cd9cf96c0ad","alphaRequired":true},
+    {"id":"04-distant-lights-mask","file":"layers/04-distant-lights-mask.png","width":852,"height":1846,"bytes":43091,"sha256":"92bd16475e04c6ae8c4b8cc17a6b81835186b9cb460b1ffc6275c61f898f1d72","alphaRequired":true},
+    {"id":"05-distant-companion","file":"layers/05-distant-companion.png","width":852,"height":1846,"bytes":57265,"sha256":"833f9ea41fe3bd6f7ad8805daa97014838fafdfbcbe79afed51ce9da9c22ad03","alphaRequired":true},
+    {"id":"06-characters","file":"layers/06-characters.png","width":852,"height":1846,"bytes":809418,"sha256":"e9878ebc75fb31421e473efeb45ca62d1205ac9eefc127b0ebc5207e9454327c","alphaRequired":true},
+    {"id":"08-animal-robot","file":"layers/08-animal-robot.png","width":852,"height":1846,"bytes":209400,"sha256":"2bd5b459892e254b76a196d9f4c6e06099218862fe0c39fa936c6c048b5fba6a","alphaRequired":true},
+    {"id":"08-robot-eye-mask","file":"layers/08-robot-eye-mask.png","width":852,"height":1846,"bytes":17769,"sha256":"2433aba047cbf297259c3b45fcce5e595947215f3296775d042ecd1e39c97285","alphaRequired":true},
+    {"id":"09-fire-base","file":"layers/09-fire-base.png","width":852,"height":1846,"bytes":307248,"sha256":"b86a73a401bdce850faa112288528283104ee2503238e0d612a266a4f66cd868","alphaRequired":true},
+    {"id":"10-fire-flipbook-atlas","file":"layers/10-fire-flipbook-atlas.png","width":1448,"height":1086,"bytes":720223,"sha256":"dddf940d99250aa147f3c43dd88491ddfaa6d70bd886f642482221fb03e9773f","alphaRequired":true},
+    {"id":"11-fire-glow-mask","file":"layers/11-fire-glow-mask.png","width":852,"height":1846,"bytes":427090,"sha256":"f54f60220a8e508d0a7b71dce3c77102a4494b59fd6fa795bd3f78d271fc2bc8","alphaRequired":true},
+    {"id":"12-smoke-atlas","file":"layers/12-smoke-atlas.png","width":1536,"height":1024,"bytes":397335,"sha256":"bb769a53a6deb989781cdbc13f31a172a15ffcb6359089df9a22d0dbd94fee98","alphaRequired":true},
+    {"id":"13-embers-atlas","file":"layers/13-embers-atlas.png","width":256,"height":128,"bytes":4195,"sha256":"d9cb5b26bc1fd7773d2d79b59f26c9a29bf996150c8264927570e6d436cf8624","alphaRequired":true},
+    {"id":"14-foreground-accents","file":"layers/14-foreground-accents.png","width":852,"height":1846,"bytes":199913,"sha256":"c99568ffda14077fafb9876d15b2efd2054882f1af81a6b82297b6241cbbc1fc","alphaRequired":true},
+    {"id":"14-lantern-glow-mask","file":"layers/14-lantern-glow-mask.png","width":852,"height":1846,"bytes":158928,"sha256":"4674fb1ae52277ef7e2e933067cee753be1f0ee0c05f0418f967dd72629c8926","alphaRequired":true}
+  ],
+  "previews": {
+    "standard": {"file":"previews/top-living-night-layered-candidate-390x844.png","sha256":"feec497cd3d1f28d6aea797ef5b0dc29190b9296d0e52a26917b6f15e134a917"},
+    "contactSheet": {"file":"previews/layer-contact-sheet.png","sha256":"f879661b0819e3a82a61e84472fa28d124ebca4e0d86ff69abacdc471812efbc"},
+    "motionCheckpoints": {"file":"previews/motion-checkpoints.png","sha256":"4c463cece2bfb0dee3be4080dbcff7c099cacb8c58fc0967c46a86cb04800da2"},
+    "motionMp4": {"file":"previews/top-living-night-layer-motion-preview.mp4","sha256":"a62c99c174672924e87bfbc893f46d6a55478d70993f334ec245d3840bb2070d"},
+    "motionWebp": {"file":"previews/top-living-night-layer-motion-preview.webp","sha256":"6b52fe269c67a8266e307693068adad7fa729154d386985af5b6a6c2df9a028d"}
+  },
+  "automaticQa": {
+    "layerAssetCount": 17,
+    "validPngCount": 17,
+    "responsivePreviewCount": 3,
+    "result": "PASS_LAYER_KIT_STATIC_AND_PREVIEW_SCOPE"
+  }
+}
