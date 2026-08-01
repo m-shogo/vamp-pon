@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-01",
+  "assetId": "top:living-night:v1",
+  "assetKind": "top-key-art-motion-source",
+  "sourceCommit": "9af0418418eece712a5ea6f170630c4ee8770086",
+  "generator": {
+    "name": "OpenAI built-in image_gen",
+    "version": "work-mode-2026-08-01",
+    "seedAvailable": false
+  },
+  "prompt": {
+    "path": "prompt.txt",
+    "sha256": "2ba5599e4dde8ab1a854634b218d8257731153f53ecd552f179112030b1698e2"
+  },
+  "references": [
+    {
+      "role": "visual-world-and-ensemble-tone",
+      "pathAtGeneration": "output/yss-seasons-v2/yss-spring-portrait-v2.png",
+      "sha256": "1507daac222250bda76e7d38385b0b82e4b00197ec98d02f67f3663ae09fe496"
+    },
+    {
+      "role": "mobile-portrait-framing-only",
+      "pathAtGeneration": "project_sources/01-IMG_7874.jpeg",
+      "sha256": "1db7f656a92ceb264a840fe3fc3726691068476254dd7cd4865efa19ef05c22e"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-a",
+      "path": "candidates/top-living-night-candidate-a.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "71c5de7034ab50d58aefdfbb059714a220b02e48c4f5a0a0876e78df3dc4cc20",
+      "aiRecommended": true
+    },
+    {
+      "id": "candidate-b",
+      "path": "candidates/top-living-night-candidate-b.png",
+      "width": 863,
+      "height": 1823,
+      "sha256": "e44f4478a26b82e9ba60c036b87331cdd4220274c7d15ce80ab15fa2674e0fbd",
+      "aiRecommended": false
+    },
+    {
+      "id": "candidate-c",
+      "path": "candidates/top-living-night-candidate-c.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "600469d092fbbdca259209d64f39ce003b6ae31b1a0a60ed76a7a0a5f7712576",
+      "aiRecommended": false
+    },
+    {
+      "id": "candidate-d",
+      "path": "candidates/top-living-night-candidate-d.png",
+      "width": 853,
+      "height": 1844,
+      "sha256": "f67d197981d619198c5dee8a01764777ded71c9b92bdb3df90611d231f6eafcf",
+      "aiRecommended": false
+    }
+  ],
+  "comparison": {
+    "sourceSheet": "top-living-night-comparison.png",
+    "mobileSheet": "top-living-night-comparison-390x844.png",
+    "mobileSheetSha256": "9aa5c616ef46c200446bd120347e02004ddba8dce16b5678116a9dd4e2d73677"
+  },
+  "automaticQa": {
+    "fileCount": 4,
+    "pngCount": 4,
+    "portraitCount": 4,
+    "mobilePreviewCount": 4,
+    "recommendedResponsivePreviewCount": 3,
+    "result": "PASS_CANDIDATE_STATIC_SCOPE"
+  },
+  "review": {
+    "status": "candidate",
+    "aiRecommendedCandidate": "candidate-a",
+    "humanReviewStatus": "pending",
+    "issues": [
+      "formal character identity master comparison not run",
+      "motion layers not produced",
+      "Unity import and runtime not connected",
+      "Simulator and physical-device performance not measured"
+    ],
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "runtimeConnected": false,
+    "finalApprovalBlocked": true
+  },
+  "motionPolicy": {
+    "videoGenerationUsed": false,
+    "videoGenerationAllowedForV1": false,
+    "implementation": "layered-still-art-plus-runtime-procedural-motion"
+  }
+}
+
