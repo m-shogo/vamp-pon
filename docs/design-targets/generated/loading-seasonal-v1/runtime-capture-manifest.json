@@ -1,10 +1,146 @@
 {
-  "schemaVersion": 1,
-  "executed": false,
-  "result": "NOT_RUN",
-  "expectedCaptureCount": 15,
-  "captureCount": 0,
-  "generatedAtUtc": "",
-  "error": "",
-  "captures": []
+    "schemaVersion": 1,
+    "executed": true,
+    "result": "PASSED",
+    "expectedCaptureCount": 15,
+    "captureCount": 15,
+    "generatedAtUtc": "2026-08-06T05:32:00.6229310Z",
+    "error": "",
+    "captures": [
+        {
+            "id": "loading-spring-360x800",
+            "kind": "loading",
+            "season": "spring",
+            "file": "loading-spring-360x800.png",
+            "width": 360,
+            "height": 800,
+            "sha256": "417786223e4ee1dcb51e9be29255c9ecdf06787d6dbd9e715b98dcfb967c6650"
+        },
+        {
+            "id": "loading-spring-390x844",
+            "kind": "loading",
+            "season": "spring",
+            "file": "loading-spring-390x844.png",
+            "width": 390,
+            "height": 844,
+            "sha256": "3f240ddd8caa18f194e37eacc1d4b7cf82f4b012939ff8987415686144ea5cfa"
+        },
+        {
+            "id": "loading-spring-430x932",
+            "kind": "loading",
+            "season": "spring",
+            "file": "loading-spring-430x932.png",
+            "width": 430,
+            "height": 932,
+            "sha256": "33484e19da2277d63e54938d735705cbac0fe49b13dc801d1cda8ef23b91c59d"
+        },
+        {
+            "id": "loading-summer-360x800",
+            "kind": "loading",
+            "season": "summer",
+            "file": "loading-summer-360x800.png",
+            "width": 360,
+            "height": 800,
+            "sha256": "05d3bf236a5a1b885664b863af9638a569191be532a7877638e73a27a47edd4e"
+        },
+        {
+            "id": "loading-summer-390x844",
+            "kind": "loading",
+            "season": "summer",
+            "file": "loading-summer-390x844.png",
+            "width": 390,
+            "height": 844,
+            "sha256": "cf0bdc4dc2e1f0387f838513a9ec973528210cfc3f889fd87f3325ece2608725"
+        },
+        {
+            "id": "loading-summer-430x932",
+            "kind": "loading",
+            "season": "summer",
+            "file": "loading-summer-430x932.png",
+            "width": 430,
+            "height": 932,
+            "sha256": "8d15fb4f7c7e405e87ffaeb86c64227de51a786189734c3ed6e71c72f14e02b3"
+        },
+        {
+            "id": "loading-autumn-360x800",
+            "kind": "loading",
+            "season": "autumn",
+            "file": "loading-autumn-360x800.png",
+            "width": 360,
+            "height": 800,
+            "sha256": "9609e78226676183e80f7b167f183bf7e7927df62a44110938f2f4533d83d148"
+        },
+        {
+            "id": "loading-autumn-390x844",
+            "kind": "loading",
+            "season": "autumn",
+            "file": "loading-autumn-390x844.png",
+            "width": 390,
+            "height": 844,
+            "sha256": "f3aee34aca939a86fe61c0d97541b17ee1ea585c0b3a9f60d81379c41c0d53c6"
+        },
+        {
+            "id": "loading-autumn-430x932",
+            "kind": "loading",
+            "season": "autumn",
+            "file": "loading-autumn-430x932.png",
+            "width": 430,
+            "height": 932,
+            "sha256": "4bcd8a8744fc8e039ad9ff461af1a2207d819cb6d63a9616db53fe1bd9252d9c"
+        },
+        {
+            "id": "loading-winter-360x800",
+            "kind": "loading",
+            "season": "winter",
+            "file": "loading-winter-360x800.png",
+            "width": 360,
+            "height": 800,
+            "sha256": "642a2b5666915522caeef024942eb77a66b191ea977c6cdde1a744e7493346e1"
+        },
+        {
+            "id": "loading-winter-390x844",
+            "kind": "loading",
+            "season": "winter",
+            "file": "loading-winter-390x844.png",
+            "width": 390,
+            "height": 844,
+            "sha256": "afcacb538d1b74d4d3bf10bc98834fd67aa317f2ef8545e2953917560d2e0866"
+        },
+        {
+            "id": "loading-winter-430x932",
+            "kind": "loading",
+            "season": "winter",
+            "file": "loading-winter-430x932.png",
+            "width": 430,
+            "height": 932,
+            "sha256": "4e600ea4244e05701ad084c10aef374995e1b4f0d9e3aa0d7cfa316e17c8a75e"
+        },
+        {
+            "id": "top-360x800",
+            "kind": "top",
+            "season": "",
+            "file": "top-360x800.png",
+            "width": 360,
+            "height": 800,
+            "sha256": "ecb5a48311e319a9e8d87a34fe247822b386df5aae73e8d268a00c18f7c016e5"
+        },
+        {
+            "id": "top-390x844",
+            "kind": "top",
+            "season": "",
+            "file": "top-390x844.png",
+            "width": 390,
+            "height": 844,
+            "sha256": "688fcdba8a0680a86a7f0453ddaa639230dad5ce3ad0a063834d97cd2fa46eb9"
+        },
+        {
+            "id": "top-430x932",
+            "kind": "top",
+            "season": "",
+            "file": "top-430x932.png",
+            "width": 430,
+            "height": 932,
+            "sha256": "ebfadc6d848371c1ad531fa776aeabb0664b31ba3b5ceda32fdb2e907d0275e2"
+        }
+    ]
 }
