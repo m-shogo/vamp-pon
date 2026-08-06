@@ -12,6 +12,25 @@ Capture each row at 360x800, 390x844, and 430x932.
 | loading-winter | 3 | yes |
 | top | n/a | yes |
 
+## Editor capture procedure
+
+For each seasonal slot:
+
+1. Use `Vamp Pon > Loading Seasonal > Capture > Force <Season> + Hold`.
+2. Enter Play Mode.
+3. Set the Game view to the target resolution.
+4. Use `Capture Current Game View`.
+5. Use `Release Loading To TOP`.
+6. Capture TOP at the same resolution.
+7. Exit Play Mode, choose the next season, and repeat.
+8. Clear the override after the pack is complete.
+
+Captures are written under:
+
+```txt
+docs/design-targets/generated/loading-seasonal-v1/runtime-captures/
+```
+
 ## Flow
 
 - [ ] Normal startup shows Loading before TOP.
