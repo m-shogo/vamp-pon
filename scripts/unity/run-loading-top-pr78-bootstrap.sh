@@ -5,7 +5,7 @@ REPO_ROOT="${REPO_ROOT:-/Users/m-shogo/Developer/personal/vamp-pon}"
 WORKTREE="${TOP_WORKTREE:-/Users/m-shogo/Developer/personal/vamp-pon-pr78-top}"
 SOURCE_BRANCH="agent/top-living-night-key-art-v1"
 RUNNER="scripts/unity/run-loading-top-unity-verification.sh"
-CHECKER="scripts/quality/check-loading-top-runtime.ts"
+CHECKER="scripts/quality/check-loading-top-runtime-v2.ts"
 EVIDENCE="docs/design-targets/generated/loading-seasonal-v1/runtime-unity-verification.json"
 
 fail() {
