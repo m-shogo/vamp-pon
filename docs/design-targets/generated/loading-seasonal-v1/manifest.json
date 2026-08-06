@@ -2,11 +2,11 @@
   "schemaVersion": "loading-seasonal.0.1",
   "assetId": "loading:seasonal:v1",
   "flow": "Loading -> TOP -> StageSelect/Collection",
-  "assetStatus": "runtime-connected-fallback-awaiting-seasonal-binaries",
+  "assetStatus": "runtime-connected-seasonal-binaries",
   "runtimeConnected": true,
   "randomRotation": true,
   "consecutiveRepeatPrevented": true,
-  "usesFallbackSources": true,
+  "usesFallbackSources": false,
   "desiredSeasonalSources": [
     {
       "id": "spring",
@@ -29,42 +29,42 @@
     {
       "id": "spring",
       "desiredSourceTitle": "桜灯る夜、記憶を辿る仲間たち.png",
-      "sourceStatus": "temporary-fallback",
-      "sourcePath": "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-a.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-01-spring.png",
       "resourceFile": "loading-01-spring.png",
-      "width": 852,
-      "height": 1846,
-      "sha256": "96d5dc1b2485dd340e7101e4925d43e24d6e1b47c0a4852424f9a5a7db1422b8"
+      "width": 853,
+      "height": 1844,
+      "sha256": "1507daac222250bda76e7d38385b0b82e4b00197ec98d02f67f3663ae09fe496"
     },
     {
       "id": "summer",
       "desiredSourceTitle": "湖畔に灯る夏の星祭り.png",
-      "sourceStatus": "temporary-fallback",
-      "sourcePath": "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-b.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-02-summer.png",
       "resourceFile": "loading-02-summer.png",
-      "width": 863,
-      "height": 1823,
-      "sha256": "688cc1af3e0ddd5c1c9ad095c4efd0965ca3ca44af6737df6183f70d64aba0fe"
+      "width": 852,
+      "height": 1846,
+      "sha256": "78be422ee01caa0a81f50fd10a385ec596bc2053079d7b4909d39e2f1d96e2a4"
     },
     {
       "id": "autumn",
       "desiredSourceTitle": "紅葉舞う黄昏の森駅.png",
-      "sourceStatus": "temporary-fallback",
-      "sourcePath": "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-c.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-03-autumn.png",
       "resourceFile": "loading-03-autumn.png",
-      "width": 852,
-      "height": 1846,
-      "sha256": "b7f9008e1a390fac07ae612033c439170a9f7c7a1c77e60f5010aa2c08c6ad2b"
+      "width": 853,
+      "height": 1844,
+      "sha256": "c788861e8609cc1322fc14e913d01fec62d09201af348a577800e6309d5ace40"
     },
     {
       "id": "winter",
       "desiredSourceTitle": "雪灯りの町を舞う記憶の紙飛行機.png",
-      "sourceStatus": "temporary-fallback",
-      "sourcePath": "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-d.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-04-winter.png",
       "resourceFile": "loading-04-winter.png",
       "width": 853,
       "height": 1844,
-      "sha256": "360c82b5e2118d7ecd376379f9873486aff2066938892ae14864d52978bc66dd"
+      "sha256": "015f725af547609e680ca19f1c12af8eb43b3413f7dffe32594a9ed19b3be0b1"
     }
   ],
   "capture": {
@@ -85,7 +85,7 @@
   },
   "approval": {
     "runtimeFlowImplemented": true,
-    "seasonalBinariesCommitted": false,
+    "seasonalBinariesCommitted": true,
     "runtimeCaptureComplete": false,
     "humanVisualReviewComplete": false,
     "approvedAsFinal": false,
