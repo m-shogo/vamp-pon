@@ -86,7 +86,7 @@
   "approval": {
     "runtimeFlowImplemented": true,
     "seasonalBinariesCommitted": true,
-    "runtimeCaptureComplete": true,
+    "runtimeCaptureComplete": false,
     "humanVisualReviewComplete": false,
     "approvedAsFinal": false,
     "runtimeApproved": false,
