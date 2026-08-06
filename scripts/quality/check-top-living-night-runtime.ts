@@ -1,10 +1,14 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const repoRoot = process.cwd();
 const manifestPath = join(
   repoRoot,
   'docs/design-targets/generated/top-living-night-v2/manifest.json',
+);
+const evidencePath = join(
+  repoRoot,
+  'docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json',
 );
 const viewPath = join(
   repoRoot,
@@ -18,8 +22,37 @@ const syncPath = join(
   repoRoot,
   'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightStreamingAssetsSync.cs',
 );
+const verifierPath = join(
+  repoRoot,
+  'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightUnityVerification.cs',
+);
+const runnerPath = join(
+  repoRoot,
+  'scripts/unity/run-top-living-night-unity-verification.sh',
+);
+const evidenceCheckerPath = join(
+  repoRoot,
+  'scripts/quality/check-top-living-night-unity-evidence.ts',
+);
 const viewMetaPath = `${viewPath}.meta`;
 const syncMetaPath = `${syncPath}.meta`;
+const verifierMetaPath = `${verifierPath}.meta`;
+
+for (const requiredPath of [
+  manifestPath,
+  evidencePath,
+  viewPath,
+  shellPath,
+  syncPath,
+  verifierPath,
+  runnerPath,
+  evidenceCheckerPath,
+  viewMetaPath,
+  syncMetaPath,
+  verifierMetaPath,
+]) {
+  if (!existsSync(requiredPath)) throw new Error(`required TOP runtime file is missing: ${requiredPath}`);
+}
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
   schemaVersion: string;
@@ -46,8 +79,12 @@ const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
 const view = readFileSync(viewPath, 'utf8');
 const shell = readFileSync(shellPath, 'utf8');
 const sync = readFileSync(syncPath, 'utf8');
+const verifier = readFileSync(verifierPath, 'utf8');
+const runner = readFileSync(runnerPath, 'utf8');
+const evidenceChecker = readFileSync(evidenceCheckerPath, 'utf8');
 const viewMeta = readFileSync(viewMetaPath, 'utf8');
 const syncMeta = readFileSync(syncMetaPath, 'utf8');
+const verifierMeta = readFileSync(verifierMetaPath, 'utf8');
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
@@ -122,16 +159,52 @@ invariant(sync.includes('fileInfo.Length != asset.bytes'), 'build-time byte-size
 invariant(sync.includes('RequiredFiles.Length'), 'build sync count log is missing');
 invariant(sync.includes('CleanupGeneratedBuildAssets'), 'generated Resources cleanup is missing');
 
+invariant(
+  verifier.includes('TopLivingNightUnityVerification'),
+  'Unity verifier type is missing',
+);
+invariant(
+  verifier.includes('Resources.LoadAll<Texture2D>("TopLivingNight")'),
+  'Unity verifier does not execute Resources import',
+);
+invariant(
+  verifier.includes('TextureImporterFormat.ASTC_6x6'),
+  'Unity verifier does not inspect iOS ASTC import',
+);
+invariant(
+  verifier.includes('buildImportPolicyPassed'),
+  'Unity verifier import evidence field is missing',
+);
+invariant(
+  runner.includes('TopLivingNightUnityVerification.RunBatchmode'),
+  'Unity batchmode runner executeMethod is missing',
+);
+invariant(
+  runner.includes('6000.5.1f1'),
+  'Unity batchmode runner version pin is missing',
+);
+invariant(
+  evidenceChecker.includes('buildImportPolicyPassed'),
+  'Unity evidence checker import field is missing',
+);
+invariant(
+  evidenceChecker.includes('resourceTextureCount === 17'),
+  'Unity evidence checker texture count is missing',
+);
+
 const viewGuid = viewMeta.match(/^guid: ([0-9a-f]{32})$/m)?.[1];
 const syncGuid = syncMeta.match(/^guid: ([0-9a-f]{32})$/m)?.[1];
+const verifierGuid = verifierMeta.match(/^guid: ([0-9a-f]{32})$/m)?.[1];
 invariant(viewGuid, 'TOP view meta GUID is missing');
 invariant(syncGuid, 'TOP sync meta GUID is missing');
-invariant(viewGuid !== syncGuid, 'TOP Unity meta GUIDs must be unique');
+invariant(verifierGuid, 'TOP verifier meta GUID is missing');
+invariant(new Set([viewGuid, syncGuid, verifierGuid]).size === 3, 'TOP Unity meta GUIDs must be unique');
 
 console.log('top living night runtime: PASS');
 console.log('layers: 17/17 editor source + verified build-time compressed Resources import');
 console.log('iOS import: ASTC 6x6 / Read-Write OFF / mipmap OFF / Clamp / Bilinear');
 console.log('motion: fire / glow / stars / clouds / smoke / embers / robot eye');
 console.log('memory: raw StreamingAssets decode disabled / TOP textures released on dismissal');
+console.log('Unity evidence: verifier + runner + honest NOT_RUN/PASSED contract present');
 console.log('flow: normal startup overlay / canonical simulator smoke isolated');
 console.log('approval: runtime connected / Unity execution and physical-device approval pending');
