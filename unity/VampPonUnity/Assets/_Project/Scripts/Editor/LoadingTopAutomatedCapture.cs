@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +9,7 @@ using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VampPon.UnitySpike.UI.Screens;
 
@@ -57,6 +59,7 @@ namespace VampPon.UnitySpike.Editor
             Directory.CreateDirectory(output);
             foreach (var file in Directory.GetFiles(output, "*.png"))
                 File.Delete(file);
+
             var records = Path.Combine(output, RecordsFileName);
             if (File.Exists(records))
                 File.Delete(records);
@@ -108,7 +111,8 @@ namespace VampPon.UnitySpike.Editor
                 }
 
                 var capture = Captures[index];
-                switch (SessionState.GetString(PhaseKey, "prepare"))
+                var phase = SessionState.GetString(PhaseKey, "prepare");
+                switch (phase)
                 {
                     case "prepare":
                         PrepareCapture(capture);
@@ -127,8 +131,7 @@ namespace VampPon.UnitySpike.Editor
                         break;
                     default:
                         throw new InvalidOperationException(
-                            "Unknown automated capture phase: " +
-                            SessionState.GetString(PhaseKey, string.Empty));
+                            "Unknown automated capture phase: " + phase);
                 }
             }
             catch (Exception exception)
@@ -139,11 +142,8 @@ namespace VampPon.UnitySpike.Editor
 
         private static void PrepareCapture(CaptureDefinition capture)
         {
-            if (EditorApplication.isPlaying)
-            {
-                EditorApplication.ExitPlaymode();
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
                 return;
-            }
 
             OpenStartupScene();
             SetGameViewSize(capture.width, capture.height);
@@ -152,7 +152,7 @@ namespace VampPon.UnitySpike.Editor
                 capture.kind == "loading");
 
             SessionState.SetString(PhaseKey, "enter");
-            SessionState.SetString(StartedAtKey, EditorApplication.timeSinceStartup.ToString("R"));
+            WriteTime(StartedAtKey, EditorApplication.timeSinceStartup);
             EditorApplication.EnterPlaymode();
         }
 
@@ -162,7 +162,7 @@ namespace VampPon.UnitySpike.Editor
                 return;
 
             SessionState.SetString(PhaseKey, "wait");
-            SessionState.SetString(StartedAtKey, EditorApplication.timeSinceStartup.ToString("R"));
+            WriteTime(StartedAtKey, EditorApplication.timeSinceStartup);
         }
 
         private static void WaitForFrame(CaptureDefinition capture)
@@ -170,9 +170,10 @@ namespace VampPon.UnitySpike.Editor
             if (!EditorApplication.isPlaying)
                 return;
 
-            var elapsed = EditorApplication.timeSinceStartup - ReadDouble(StartedAtKey);
-            if (elapsed > 20d)
-                throw new TimeoutException("Timed out waiting for runtime frame: " + capture.id);
+            var elapsed = EditorApplication.timeSinceStartup - ReadTime(StartedAtKey);
+            if (elapsed > 25d)
+                throw new TimeoutException(
+                    "Timed out waiting for runtime frame: " + capture.id);
 
             if (capture.kind == "loading")
             {
@@ -182,7 +183,8 @@ namespace VampPon.UnitySpike.Editor
                 if (loading.SelectedArtIndex != capture.artIndex)
                     throw new InvalidOperationException(
                         $"Loading art mismatch for {capture.id}: expected {capture.artIndex}, actual {loading.SelectedArtIndex}.");
-                if (!loading.GetComponentsInChildren<RawImage>(true).Any(value => value.texture != null))
+                if (!loading.GetComponentsInChildren<RawImage>(true)
+                    .Any(value => value.texture != null))
                     return;
                 if (elapsed < 2.2d)
                     return;
@@ -199,12 +201,15 @@ namespace VampPon.UnitySpike.Editor
                     return;
             }
 
-            var outputPath = Path.Combine(ResolveOutputDirectory(), capture.fileName);
+            var outputPath = Path.Combine(
+                ResolveOutputDirectory(),
+                capture.fileName);
             if (File.Exists(outputPath))
                 File.Delete(outputPath);
+
             ScreenCapture.CaptureScreenshot(outputPath, 1);
             SessionState.SetString(RequestedPathKey, outputPath);
-            SessionState.SetString(RequestedAtKey, EditorApplication.timeSinceStartup.ToString("R"));
+            WriteTime(RequestedAtKey, EditorApplication.timeSinceStartup);
             SessionState.SetString(PhaseKey, "capturing");
             Debug.Log($"Loading/TOP capture requested: {capture.id} -> {outputPath}");
         }
@@ -212,9 +217,10 @@ namespace VampPon.UnitySpike.Editor
         private static void WaitForScreenshot(CaptureDefinition capture)
         {
             var path = SessionState.GetString(RequestedPathKey, string.Empty);
-            var elapsed = EditorApplication.timeSinceStartup - ReadDouble(RequestedAtKey);
+            var elapsed = EditorApplication.timeSinceStartup - ReadTime(RequestedAtKey);
             if (elapsed > 15d)
-                throw new TimeoutException("Timed out writing screenshot: " + capture.id);
+                throw new TimeoutException(
+                    "Timed out writing screenshot: " + capture.id);
             if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
                 return;
 
@@ -247,7 +253,9 @@ namespace VampPon.UnitySpike.Editor
             if (EditorApplication.isPlayingOrWillChangePlaymode)
                 return;
 
-            SessionState.SetInt(IndexKey, SessionState.GetInt(IndexKey, 0) + 1);
+            SessionState.SetInt(
+                IndexKey,
+                SessionState.GetInt(IndexKey, 0) + 1);
             SessionState.SetString(PhaseKey, "prepare");
         }
 
@@ -266,7 +274,7 @@ namespace VampPon.UnitySpike.Editor
                 result = "PASSED",
                 expectedCaptureCount = Captures.Length,
                 captureCount = records.Length,
-                generatedAtUtc = DateTime.UtcNow.ToString("O"),
+                generatedAtUtc = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture),
                 error = string.Empty,
                 captures = records,
             });
@@ -281,16 +289,17 @@ namespace VampPon.UnitySpike.Editor
             try
             {
                 LoadingSeasonalView.ClearCaptureOverride();
+                var records = ReadRecords();
                 WriteManifest(new CaptureManifest
                 {
                     schemaVersion = 1,
                     executed = true,
                     result = "FAILED",
                     expectedCaptureCount = Captures.Length,
-                    captureCount = ReadRecords().Length,
-                    generatedAtUtc = DateTime.UtcNow.ToString("O"),
+                    captureCount = records.Length,
+                    generatedAtUtc = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture),
                     error = exception.ToString(),
-                    captures = ReadRecords(),
+                    captures = records,
                 });
             }
             finally
@@ -316,8 +325,10 @@ namespace VampPon.UnitySpike.Editor
         {
             var scene = EditorBuildSettings.scenes.FirstOrDefault(value => value.enabled);
             if (scene == null || string.IsNullOrWhiteSpace(scene.path))
-                throw new InvalidOperationException("No enabled startup scene exists in EditorBuildSettings.");
-            if (EditorSceneManager.GetActiveScene().path != scene.path)
+                throw new InvalidOperationException(
+                    "No enabled startup scene exists in EditorBuildSettings.");
+
+            if (SceneManager.GetActiveScene().path != scene.path)
                 EditorSceneManager.OpenScene(scene.path, OpenSceneMode.Single);
         }
 
@@ -325,41 +336,62 @@ namespace VampPon.UnitySpike.Editor
         {
             var assembly = typeof(EditorWindow).Assembly;
             var gameViewType = assembly.GetType("UnityEditor.GameView")
-                ?? throw new InvalidOperationException("UnityEditor.GameView type was not found.");
+                ?? throw new InvalidOperationException(
+                    "UnityEditor.GameView type was not found.");
             var sizesType = assembly.GetType("UnityEditor.GameViewSizes")
-                ?? throw new InvalidOperationException("UnityEditor.GameViewSizes type was not found.");
+                ?? throw new InvalidOperationException(
+                    "UnityEditor.GameViewSizes type was not found.");
             var groupType = assembly.GetType("UnityEditor.GameViewSizeGroupType")
-                ?? throw new InvalidOperationException("GameViewSizeGroupType was not found.");
+                ?? throw new InvalidOperationException(
+                    "GameViewSizeGroupType was not found.");
             var sizeType = assembly.GetType("UnityEditor.GameViewSize")
-                ?? throw new InvalidOperationException("GameViewSize type was not found.");
+                ?? throw new InvalidOperationException(
+                    "GameViewSize type was not found.");
             var sizeKindType = assembly.GetType("UnityEditor.GameViewSizeType")
-                ?? throw new InvalidOperationException("GameViewSizeType was not found.");
+                ?? throw new InvalidOperationException(
+                    "GameViewSizeType was not found.");
 
-            var singleton = typeof(ScriptableSingleton<>).MakeGenericType(sizesType);
-            var instance = singleton.GetProperty("instance", BindingFlags.Static | BindingFlags.Public)
+            var singletonType = typeof(ScriptableSingleton<>).MakeGenericType(sizesType);
+            var sizes = singletonType
+                .GetProperty("instance", BindingFlags.Static | BindingFlags.Public)
                 ?.GetValue(null)
-                ?? throw new InvalidOperationException("GameViewSizes singleton was not available.");
-            var groupName = EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS
-                ? "iOS"
-                : "Standalone";
-            var groupValue = Enum.Parse(groupType, groupName);
-            var group = sizesType.GetMethod("GetGroup", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?.Invoke(instance, new[] { groupValue })
-                ?? throw new InvalidOperationException("GameView size group was not available.");
+                ?? throw new InvalidOperationException(
+                    "GameViewSizes singleton was not available.");
 
-            var groupRuntimeType = group.GetType();
-            var getTotal = groupRuntimeType.GetMethod("GetTotalCount", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?? throw new InvalidOperationException("GetTotalCount was not available.");
-            var getSize = groupRuntimeType.GetMethod("GetGameViewSize", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?? throw new InvalidOperationException("GetGameViewSize was not available.");
+            var names = Enum.GetNames(groupType);
+            var preferredGroup =
+                EditorUserBuildSettings.activeBuildTarget == BuildTarget.iOS &&
+                names.Contains("iOS")
+                    ? "iOS"
+                    : "Standalone";
+            var groupValue = Enum.Parse(groupType, preferredGroup);
+            var group = sizesType
+                .GetMethod(
+                    "GetGroup",
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                ?.Invoke(sizes, new[] { groupValue })
+                ?? throw new InvalidOperationException(
+                    "GameView size group was not available.");
+
+            var runtimeType = group.GetType();
+            var getTotal = runtimeType.GetMethod(
+                "GetTotalCount",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                ?? throw new InvalidOperationException(
+                    "GetTotalCount was not available.");
+            var getSize = runtimeType.GetMethod(
+                "GetGameViewSize",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                ?? throw new InvalidOperationException(
+                    "GetGameViewSize was not available.");
+
             var total = (int)getTotal.Invoke(group, null);
             var selectedIndex = -1;
             for (var index = 0; index < total; index++)
             {
                 var size = getSize.Invoke(group, new object[] { index });
-                var currentWidth = (int)(sizeType.GetProperty("width")?.GetValue(size) ?? -1);
-                var currentHeight = (int)(sizeType.GetProperty("height")?.GetValue(size) ?? -1);
-                if (currentWidth == width && currentHeight == height)
+                if (ReadIntMember(size, "width") == width &&
+                    ReadIntMember(size, "height") == height)
                 {
                     selectedIndex = index;
                     break;
@@ -373,12 +405,23 @@ namespace VampPon.UnitySpike.Editor
                     null,
                     new[] { sizeKindType, typeof(int), typeof(int), typeof(string) },
                     null)
-                    ?? throw new InvalidOperationException("GameViewSize constructor was not available.");
+                    ?? throw new InvalidOperationException(
+                        "GameViewSize constructor was not available.");
                 var fixedResolution = Enum.Parse(sizeKindType, "FixedResolution");
                 var customSize = constructor.Invoke(
-                    new object[] { fixedResolution, width, height, $"VampPon {width}x{height}" });
-                groupRuntimeType.GetMethod("AddCustomSize", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    ?.Invoke(group, new[] { customSize });
+                    new object[]
+                    {
+                        fixedResolution,
+                        width,
+                        height,
+                        $"VampPon {width}x{height}",
+                    });
+                var addCustom = runtimeType.GetMethod(
+                    "AddCustomSize",
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                    ?? throw new InvalidOperationException(
+                        "AddCustomSize was not available.");
+                addCustom.Invoke(group, new[] { customSize });
                 selectedIndex = (int)getTotal.Invoke(group, null) - 1;
             }
 
@@ -386,11 +429,30 @@ namespace VampPon.UnitySpike.Editor
             var selectedProperty = gameViewType.GetProperty(
                 "selectedSizeIndex",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                ?? throw new InvalidOperationException("GameView selectedSizeIndex was not available.");
+                ?? throw new InvalidOperationException(
+                    "GameView selectedSizeIndex was not available.");
             selectedProperty.SetValue(gameView, selectedIndex);
             gameView.Show();
             gameView.Focus();
             gameView.Repaint();
+        }
+
+        private static int ReadIntMember(object value, string name)
+        {
+            if (value == null)
+                return -1;
+
+            var type = value.GetType();
+            var property = type.GetProperty(
+                name,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (property?.GetValue(value) is int propertyValue)
+                return propertyValue;
+
+            var field = type.GetField(
+                name,
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return field?.GetValue(value) is int fieldValue ? fieldValue : -1;
         }
 
         private static CaptureDefinition[] BuildCaptures()
@@ -403,19 +465,26 @@ namespace VampPon.UnitySpike.Editor
                 new Vector2Int(430, 932),
             };
             var seasons = new[] { "spring", "summer", "autumn", "winter" };
+
             for (var artIndex = 0; artIndex < seasons.Length; artIndex++)
-            foreach (var resolution in resolutions)
-                values.Add(new CaptureDefinition
+            {
+                foreach (var resolution in resolutions)
                 {
-                    id = $"loading-{seasons[artIndex]}-{resolution.x}x{resolution.y}",
-                    kind = "loading",
-                    season = seasons[artIndex],
-                    artIndex = artIndex,
-                    width = resolution.x,
-                    height = resolution.y,
-                    fileName = $"loading-{seasons[artIndex]}-{resolution.x}x{resolution.y}.png",
-                });
+                    values.Add(new CaptureDefinition
+                    {
+                        id = $"loading-{seasons[artIndex]}-{resolution.x}x{resolution.y}",
+                        kind = "loading",
+                        season = seasons[artIndex],
+                        artIndex = artIndex,
+                        width = resolution.x,
+                        height = resolution.y,
+                        fileName = $"loading-{seasons[artIndex]}-{resolution.x}x{resolution.y}.png",
+                    });
+                }
+            }
+
             foreach (var resolution in resolutions)
+            {
                 values.Add(new CaptureDefinition
                 {
                     id = $"top-{resolution.x}x{resolution.y}",
@@ -426,20 +495,27 @@ namespace VampPon.UnitySpike.Editor
                     height = resolution.y,
                     fileName = $"top-{resolution.x}x{resolution.y}.png",
                 });
+            }
+
             return values.ToArray();
         }
 
         private static void AppendRecord(CaptureRecord record)
         {
-            var path = Path.Combine(ResolveOutputDirectory(), RecordsFileName);
+            var path = Path.Combine(
+                ResolveOutputDirectory(),
+                RecordsFileName);
             File.AppendAllText(path, JsonUtility.ToJson(record) + "\n");
         }
 
         private static CaptureRecord[] ReadRecords()
         {
-            var path = Path.Combine(ResolveOutputDirectory(), RecordsFileName);
+            var path = Path.Combine(
+                ResolveOutputDirectory(),
+                RecordsFileName);
             if (!File.Exists(path))
                 return Array.Empty<CaptureRecord>();
+
             return File.ReadAllLines(path)
                 .Where(value => !string.IsNullOrWhiteSpace(value))
                 .Select(JsonUtility.FromJson<CaptureRecord>)
@@ -449,7 +525,9 @@ namespace VampPon.UnitySpike.Editor
         private static void WriteManifest(CaptureManifest manifest)
         {
             var path = ResolveManifestPath();
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            var directory = Path.GetDirectoryName(path);
+            if (!string.IsNullOrWhiteSpace(directory))
+                Directory.CreateDirectory(directory);
             File.WriteAllText(path, JsonUtility.ToJson(manifest, true) + "\n");
         }
 
@@ -473,12 +551,19 @@ namespace VampPon.UnitySpike.Editor
                 Path.Combine(Application.dataPath, "..", "..", ".."));
         }
 
-        private static double ReadDouble(string key)
+        private static void WriteTime(string key, double value)
+        {
+            SessionState.SetString(
+                key,
+                value.ToString("R", CultureInfo.InvariantCulture));
+        }
+
+        private static double ReadTime(string key)
         {
             return double.TryParse(
                 SessionState.GetString(key, "0"),
-                System.Globalization.NumberStyles.Float,
-                System.Globalization.CultureInfo.InvariantCulture,
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
                 out var value)
                 ? value
                 : 0d;
@@ -489,12 +574,18 @@ namespace VampPon.UnitySpike.Editor
             using var stream = File.OpenRead(path);
             var header = new byte[24];
             if (stream.Read(header, 0, header.Length) != header.Length)
-                throw new InvalidDataException("PNG header is incomplete: " + path);
+                throw new InvalidDataException(
+                    "PNG header is incomplete: " + path);
+
             var signature = new byte[]
                 { 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
             for (var index = 0; index < signature.Length; index++)
+            {
                 if (header[index] != signature[index])
-                    throw new InvalidDataException("PNG signature is invalid: " + path);
+                    throw new InvalidDataException(
+                        "PNG signature is invalid: " + path);
+            }
+
             return new Vector2Int(
                 ReadBigEndianInt32(header, 16),
                 ReadBigEndianInt32(header, 20));
