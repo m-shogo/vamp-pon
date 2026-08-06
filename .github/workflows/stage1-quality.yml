@@ -56,3 +56,15 @@ jobs:
 
       - name: Verify Loading and TOP visual polish
         run: node --experimental-strip-types scripts/quality/check-loading-top-visual-polish.ts
+
+      - name: Upload Loading and TOP visual review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: loading-top-runtime-captures-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            docs/design-targets/generated/loading-seasonal-v1/runtime-captures/*.png
+            docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
