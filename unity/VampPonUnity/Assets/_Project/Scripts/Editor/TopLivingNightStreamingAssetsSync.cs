@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -6,14 +10,17 @@ using UnityEngine;
 
 namespace VampPon.UnitySpike.Editor
 {
-    public sealed class TopLivingNightStreamingAssetsSync :
+    // The legacy filename is retained to preserve the existing Unity .meta GUID.
+    public sealed class TopLivingNightBuildAssetSync :
         IPreprocessBuildWithReport,
         IPostprocessBuildWithReport
     {
         private const string SourceRelativePath =
             "docs/design-targets/generated/top-living-night-v2/layers";
+        private const string ManifestRelativePath =
+            "docs/design-targets/generated/top-living-night-v2/manifest.json";
         private const string DestinationRelativePath =
-            "Assets/StreamingAssets/TopLivingNight";
+            "Assets/Resources/TopLivingNight";
 
         private static readonly string[] RequiredFiles =
         {
@@ -40,86 +47,173 @@ namespace VampPon.UnitySpike.Editor
 
         public void OnPreprocessBuild(BuildReport report)
         {
+            StageAndImport();
+            Debug.Log(
+                $"TopLivingNightBuildAssetSync: staged and imported {RequiredFiles.Length} verified textures for {report.summary.platform}.");
+        }
+
+        public void OnPostprocessBuild(BuildReport report)
+        {
+            CleanupGeneratedBuildAssets();
+        }
+
+        [MenuItem("Vamp Pon/TOP Living Night/Stage Compressed Build Assets")]
+        private static void StageFromMenu()
+        {
+            StageAndImport();
+            Debug.Log(
+                $"TopLivingNightBuildAssetSync: staged and imported {RequiredFiles.Length} verified textures.");
+        }
+
+        [MenuItem("Vamp Pon/TOP Living Night/Cleanup Generated Build Assets")]
+        private static void CleanupFromMenu()
+        {
+            CleanupGeneratedBuildAssets();
+        }
+
+        private static void StageAndImport()
+        {
             var source = ResolveSourceDirectory();
+            var manifestPath = ResolveManifestPath();
             var destination = ResolveDestinationDirectory();
 
             if (!Directory.Exists(source))
                 throw new BuildFailedException(
                     $"TOP Living Night source directory is missing: {source}");
+            if (!File.Exists(manifestPath))
+                throw new BuildFailedException(
+                    $"TOP Living Night manifest is missing: {manifestPath}");
 
+            var manifest = JsonUtility.FromJson<ManifestRoot>(File.ReadAllText(manifestPath));
+            ValidateManifest(manifest, source);
+
+            CleanupGeneratedBuildAssets(refresh: false);
             Directory.CreateDirectory(destination);
+
             foreach (var fileName in RequiredFiles)
             {
                 var sourcePath = Path.Combine(source, fileName);
                 var destinationPath = Path.Combine(destination, fileName);
-                if (!File.Exists(sourcePath))
-                    throw new BuildFailedException(
-                        $"TOP Living Night source asset is missing: {sourcePath}");
-
                 File.Copy(sourcePath, destinationPath, true);
             }
 
             File.WriteAllText(
                 Path.Combine(destination, "README.generated.txt"),
                 "Generated for Unity build from docs/design-targets/generated/top-living-night-v2/layers.\n" +
-                "Do not edit or commit this StreamingAssets copy.\n");
+                "Source bytes and SHA-256 were validated against manifest.json.\n" +
+                "Do not edit or commit this Resources copy.\n");
 
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            Debug.Log(
-                $"TopLivingNightStreamingAssetsSync: staged {RequiredFiles.Length} files for {report.summary.platform}.");
-        }
-
-        public void OnPostprocessBuild(BuildReport report)
-        {
-            CleanupGeneratedStreamingAssets();
-        }
-
-        [MenuItem("Vamp Pon/TOP Living Night/Stage StreamingAssets")]
-        private static void StageFromMenu()
-        {
-            var source = ResolveSourceDirectory();
-            var destination = ResolveDestinationDirectory();
-            if (!Directory.Exists(source))
-                throw new DirectoryNotFoundException(source);
-
-            Directory.CreateDirectory(destination);
             foreach (var fileName in RequiredFiles)
-                File.Copy(Path.Combine(source, fileName), Path.Combine(destination, fileName), true);
-
+                ConfigureTextureImporter(fileName);
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            Debug.Log($"TopLivingNightStreamingAssetsSync: staged {RequiredFiles.Length} files.");
         }
 
-        [MenuItem("Vamp Pon/TOP Living Night/Cleanup StreamingAssets")]
-        private static void CleanupFromMenu()
+        private static void ValidateManifest(ManifestRoot manifest, string source)
         {
-            CleanupGeneratedStreamingAssets();
+            if (manifest == null || manifest.assets == null)
+                throw new BuildFailedException("TOP Living Night manifest could not be parsed.");
+            if (manifest.assets.Length != RequiredFiles.Length)
+                throw new BuildFailedException(
+                    $"TOP Living Night manifest asset count mismatch: {manifest.assets.Length}.");
+
+            var byFileName = new Dictionary<string, ManifestAsset>(StringComparer.Ordinal);
+            foreach (var asset in manifest.assets)
+            {
+                if (asset == null || string.IsNullOrWhiteSpace(asset.file))
+                    throw new BuildFailedException("TOP Living Night manifest contains an invalid asset entry.");
+                var fileName = Path.GetFileName(asset.file);
+                if (!byFileName.TryAdd(fileName, asset))
+                    throw new BuildFailedException(
+                        $"TOP Living Night manifest contains a duplicate asset: {fileName}");
+            }
+
+            foreach (var fileName in RequiredFiles)
+            {
+                if (!byFileName.TryGetValue(fileName, out var asset))
+                    throw new BuildFailedException(
+                        $"TOP Living Night manifest is missing: {fileName}");
+
+                var sourcePath = Path.Combine(source, fileName);
+                if (!File.Exists(sourcePath))
+                    throw new BuildFailedException(
+                        $"TOP Living Night source asset is missing: {sourcePath}");
+
+                var fileInfo = new FileInfo(sourcePath);
+                if (fileInfo.Length != asset.bytes)
+                    throw new BuildFailedException(
+                        $"TOP Living Night byte-size mismatch for {fileName}: expected {asset.bytes}, actual {fileInfo.Length}.");
+
+                var actualSha = ComputeSha256(sourcePath);
+                if (!string.Equals(actualSha, asset.sha256, StringComparison.OrdinalIgnoreCase))
+                    throw new BuildFailedException(
+                        $"TOP Living Night SHA-256 mismatch for {fileName}: expected {asset.sha256}, actual {actualSha}.");
+            }
         }
 
-        private static void CleanupGeneratedStreamingAssets()
+        private static void ConfigureTextureImporter(string fileName)
+        {
+            var assetPath = $"{DestinationRelativePath}/{fileName}";
+            AssetDatabase.ImportAsset(
+                assetPath,
+                ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+
+            if (AssetImporter.GetAtPath(assetPath) is not TextureImporter importer)
+                throw new BuildFailedException(
+                    $"TOP Living Night texture importer is unavailable: {assetPath}");
+
+            importer.textureType = TextureImporterType.Default;
+            importer.sRGBTexture = true;
+            importer.alphaSource = TextureImporterAlphaSource.FromInput;
+            importer.alphaIsTransparency = true;
+            importer.mipmapEnabled = false;
+            importer.wrapMode = TextureWrapMode.Clamp;
+            importer.filterMode = FilterMode.Bilinear;
+            importer.isReadable = false;
+            importer.maxTextureSize = 2048;
+            importer.textureCompression = TextureImporterCompression.Compressed;
+            importer.crunchedCompression = false;
+
+            var ios = importer.GetPlatformTextureSettings("iPhone");
+            ios.name = "iPhone";
+            ios.overridden = true;
+            ios.maxTextureSize = 2048;
+            ios.format = TextureImporterFormat.ASTC_6x6;
+            ios.compressionQuality = 50;
+            importer.SetPlatformTextureSettings(ios);
+            importer.SaveAndReimport();
+        }
+
+        private static void CleanupGeneratedBuildAssets(bool refresh = true)
         {
             var destination = DestinationRelativePath.Replace('/', Path.DirectorySeparatorChar);
             FileUtil.DeleteFileOrDirectory(destination);
             FileUtil.DeleteFileOrDirectory(destination + ".meta");
 
-            const string streamingAssets = "Assets/StreamingAssets";
-            if (Directory.Exists(streamingAssets) &&
-                Directory.GetFileSystemEntries(streamingAssets).Length == 0)
+            const string resources = "Assets/Resources";
+            if (Directory.Exists(resources) &&
+                Directory.GetFileSystemEntries(resources).Length == 0)
             {
-                FileUtil.DeleteFileOrDirectory(streamingAssets);
-                FileUtil.DeleteFileOrDirectory(streamingAssets + ".meta");
+                FileUtil.DeleteFileOrDirectory(resources);
+                FileUtil.DeleteFileOrDirectory(resources + ".meta");
             }
 
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            if (refresh)
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
         }
 
         private static string ResolveSourceDirectory()
         {
-            var repoRoot = Path.GetFullPath(
-                Path.Combine(Application.dataPath, "..", "..", ".."));
             return Path.Combine(
-                repoRoot,
+                ResolveRepositoryRoot(),
                 SourceRelativePath.Replace('/', Path.DirectorySeparatorChar));
+        }
+
+        private static string ResolveManifestPath()
+        {
+            return Path.Combine(
+                ResolveRepositoryRoot(),
+                ManifestRelativePath.Replace('/', Path.DirectorySeparatorChar));
         }
 
         private static string ResolveDestinationDirectory()
@@ -129,6 +223,37 @@ namespace VampPon.UnitySpike.Editor
             return Path.Combine(
                 projectRoot,
                 DestinationRelativePath.Replace('/', Path.DirectorySeparatorChar));
+        }
+
+        private static string ResolveRepositoryRoot()
+        {
+            return Path.GetFullPath(
+                Path.Combine(Application.dataPath, "..", "..", ".."));
+        }
+
+        private static string ComputeSha256(string path)
+        {
+            using var stream = File.OpenRead(path);
+            using var sha = SHA256.Create();
+            var hash = sha.ComputeHash(stream);
+            var builder = new StringBuilder(hash.Length * 2);
+            foreach (var value in hash)
+                builder.Append(value.ToString("x2"));
+            return builder.ToString();
+        }
+
+        [Serializable]
+        private sealed class ManifestRoot
+        {
+            public ManifestAsset[] assets;
+        }
+
+        [Serializable]
+        private sealed class ManifestAsset
+        {
+            public string file;
+            public long bytes;
+            public string sha256;
         }
     }
 }
