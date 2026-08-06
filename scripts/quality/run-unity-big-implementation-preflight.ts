@@ -1,5 +1,29 @@
 import { spawnSync } from 'node:child_process';
 
+const directChecks = [
+  'scripts/quality/check-top-living-night-layer-kit.ts',
+  'scripts/quality/check-top-living-night-runtime.ts',
+] as const;
+
+for (const check of directChecks) {
+  console.log(`\n=== node --experimental-strip-types ${check} ===`);
+  const result = spawnSync(process.execPath, ['--experimental-strip-types', check], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  if (result.error) {
+    console.error(`Failed to start ${check}: ${result.error.message}`);
+    process.exit(1);
+  }
+
+  if (result.status !== 0) {
+    console.error(`Preflight stopped: ${check} exited with ${result.status ?? 'unknown status'}`);
+    process.exit(result.status ?? 1);
+  }
+}
+
 const scripts = [
   'implementation:preflight:check',
   'assets:verify',
