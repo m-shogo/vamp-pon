@@ -9,9 +9,11 @@ TARGET = Path(
     "unity/VampPonUnity/Assets/_Project/Scripts/Editor/LoadingTopAutomatedCapture.cs"
 )
 
-OLD_TOP_WAIT = """                if (top == null || !top.gameObject.activeInHierarchy)\n                    return;\n                if (elapsed < 2.8d)\n                    return;\n"""
+LEGACY_TOP_WAIT = """                if (top == null || !top.gameObject.activeInHierarchy)\n                    return;\n                if (elapsed < 2.8d)\n                    return;\n"""
 
-NEW_TOP_WAIT = """                if (top == null || !top.gameObject.activeInHierarchy)\n                    return;\n                if (!LoadingTopVisualPolishCoordinator.IsCurrentTopReady)\n                    return;\n                if (elapsed < 3.2d)\n                    return;\n"""
+V2_TOP_WAIT = """                if (top == null || !top.gameObject.activeInHierarchy)\n                    return;\n                if (!LoadingTopVisualPolishCoordinator.IsCurrentTopReady)\n                    return;\n                if (elapsed < 3.2d)\n                    return;\n"""
+
+V3_TOP_WAIT = """                if (top == null || !top.gameObject.activeInHierarchy)\n                    return;\n                if (!LoadingTopVisualPolishCoordinator.IsCurrentTopReady)\n                    return;\n                if (!TopLivingNightCompositeV3Controller.IsCompositeReady)\n                    return;\n                if (elapsed < 3.2d)\n                    return;\n"""
 
 
 def main() -> int:
@@ -28,8 +30,10 @@ def main() -> int:
     original = target.read_text(encoding="utf-8")
     updated = original
 
-    if OLD_TOP_WAIT in updated:
-        updated = updated.replace(OLD_TOP_WAIT, NEW_TOP_WAIT, 1)
+    if LEGACY_TOP_WAIT in updated:
+        updated = updated.replace(LEGACY_TOP_WAIT, V3_TOP_WAIT, 1)
+    elif V2_TOP_WAIT in updated:
+        updated = updated.replace(V2_TOP_WAIT, V3_TOP_WAIT, 1)
 
     updated = updated.replace(
         "if (elapsed > 25d)",
@@ -39,6 +43,7 @@ def main() -> int:
 
     required = [
         "LoadingTopVisualPolishCoordinator.IsCurrentTopReady",
+        "TopLivingNightCompositeV3Controller.IsCompositeReady",
         "if (elapsed > 45d)",
         "if (elapsed < 3.2d)",
     ]
@@ -52,12 +57,12 @@ def main() -> int:
     if args.check:
         if updated != original:
             print(
-                "automated capture still needs the TOP readiness patch; "
+                "automated capture still needs the TOP Runtime V3 readiness patch; "
                 "run this script without --check.",
                 file=sys.stderr,
             )
             return 1
-        print("Loading/TOP automated capture readiness: PASS")
+        print("Loading/TOP automated capture readiness: PASS (layered TOP + composite V3)")
         return 0
 
     if updated == original:
@@ -65,7 +70,7 @@ def main() -> int:
         return 0
 
     target.write_text(updated, encoding="utf-8")
-    print("updated automated capture: TOP Ready wait + 45s timeout")
+    print("updated automated capture: layered TOP + composite V3 Ready wait + 45s timeout")
     return 0
 
 
