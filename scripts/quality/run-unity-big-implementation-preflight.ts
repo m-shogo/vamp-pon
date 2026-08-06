@@ -4,6 +4,7 @@ const directChecks = [
   'scripts/quality/check-top-living-night-layer-kit.ts',
   'scripts/quality/check-top-living-night-runtime.ts',
   'scripts/quality/check-top-living-night-unity-evidence.ts',
+  'scripts/quality/check-loading-top-runtime.ts',
 ] as const;
 
 for (const check of directChecks) {
