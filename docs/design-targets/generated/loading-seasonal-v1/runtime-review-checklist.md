@@ -1,5 +1,14 @@
 # Loading -> TOP runtime review checklist
 
+## Current recapture boundary
+
+The first automated 15-frame pack completed technically, but visual review found two defects:
+
+- the Loading progress bar was visually too heavy,
+- TOP was captured before its layered artwork was ready, leaving a white field.
+
+That pack is invalidated as visual evidence. `runtime-capture-manifest.json` remains `NOT_RUN` until the corrected pack is generated.
+
 ## Capture matrix
 
 The automated pack captures all required frames at 360x800, 390x844, and 430x932.
@@ -49,6 +58,7 @@ docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
 
 - [ ] Normal startup shows Loading before TOP.
 - [ ] Loading completion creates and reveals TOP exactly once.
+- [ ] TOP layered art and UI appear only after the required base textures are ready.
 - [ ] TOP still opens StageSelect through `夜へ出る`.
 - [ ] TOP still opens Collection through `灯録`.
 - [ ] Reinitialization does not leave duplicate Loading or TOP views.
@@ -63,13 +73,30 @@ docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
 - [ ] The same slot does not appear on two consecutive rendered launches.
 - [ ] Capture override does not modify production selection logic.
 
-## Visual review
+## Loading visual acceptance
+
+- [ ] Progress is shown as a quiet 1–2 px equivalent line, not a thick bar.
+- [ ] The line uses a pale light tone rather than saturated gold.
+- [ ] The line still communicates progress through left-to-right fill and a subtle pulse.
+- [ ] The canonical copy remains `夜の記憶をひらいています…` during capture hold.
+- [ ] Progress UI remains above the home indicator at all three resolutions.
+- [ ] The seasonal illustration remains the visual focus.
+
+## TOP blank-screen acceptance
+
+- [ ] No white rectangle or white first-frame flash is visible.
+- [ ] Null-texture RawImages remain transparent.
+- [ ] A dark night-color fallback remains visible while textures prepare.
+- [ ] Final layered artwork is present in all three TOP captures.
+- [ ] Title, subtitle, ambient copy, and both buttons appear after readiness fade.
+- [ ] Missing-layer timeout still reveals a dark, non-white fallback with an honest warning.
+
+## General visual review
 
 - [ ] No unsafe crop at 360x800.
 - [ ] No unsafe crop at 390x844.
 - [ ] No unsafe crop at 430x932.
 - [ ] Important faces and silhouettes stay outside the Dynamic Island / notch risk zone.
-- [ ] Bottom status and progress UI stay above the home indicator.
 - [ ] Text remains readable on all four images.
 - [ ] No stretched artwork.
 - [ ] No black fringe, transparent edge, or unintended bar.
@@ -87,8 +114,8 @@ docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
 
 ## Approval
 
-- [ ] `runtime-capture-manifest.json` reports `PASSED` with 15/15 captures.
-- [ ] Runtime capture pack is committed.
+- [ ] `runtime-capture-manifest.json` reports `PASSED` with 15/15 corrected captures.
+- [ ] Corrected runtime capture pack is committed.
 - [ ] Human review result is recorded.
 - [x] `seasonalBinariesCommitted=true` after the four approved seasonal PNGs entered Git.
 - [ ] `runtimeApproved=true` only after Simulator and physical-device gates pass.
