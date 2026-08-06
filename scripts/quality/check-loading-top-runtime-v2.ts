@@ -59,12 +59,23 @@ type Evidence = {
   error: string;
 };
 
+type CaptureManifest = {
+  executed: boolean;
+  result: string;
+  expectedCaptureCount: number;
+  captureCount: number;
+  captures: unknown[];
+};
+
 const root = process.cwd();
 const generatedRoot = join(root, 'docs/design-targets/generated/loading-seasonal-v1');
 const manifest = JSON.parse(readFileSync(join(generatedRoot, 'manifest.json'), 'utf8')) as Manifest;
 const evidence = JSON.parse(
   readFileSync(join(generatedRoot, 'runtime-unity-verification.json'), 'utf8'),
 ) as Evidence;
+const captureManifest = JSON.parse(
+  readFileSync(join(generatedRoot, 'runtime-capture-manifest.json'), 'utf8'),
+) as CaptureManifest;
 
 const view = readFileSync(
   join(root, 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/LoadingSeasonalView.cs'),
@@ -118,7 +129,12 @@ invariant(manifest.usesFallbackSources === false, 'fallback sources must be disa
 invariant(manifest.assets.length === 4, 'exactly four loading assets are required');
 invariant(manifest.approval.runtimeFlowImplemented, 'runtime flow implementation flag missing');
 invariant(manifest.approval.seasonalBinariesCommitted, 'seasonal binaries committed flag missing');
-invariant(!manifest.approval.runtimeCaptureComplete, 'runtime capture must remain incomplete');
+invariant(manifest.approval.runtimeCaptureComplete, 'corrected runtime capture pack must be complete');
+invariant(captureManifest.executed, 'capture manifest must be executed');
+invariant(captureManifest.result === 'PASSED', 'capture manifest must be PASSED');
+invariant(captureManifest.expectedCaptureCount === 15, 'capture manifest expected count mismatch');
+invariant(captureManifest.captureCount === 15, 'capture manifest count mismatch');
+invariant(captureManifest.captures.length === 15, 'capture manifest records mismatch');
 invariant(!manifest.approval.humanVisualReviewComplete, 'human review must remain incomplete');
 invariant(!manifest.approval.approvedAsFinal, 'final approval must remain false');
 invariant(!manifest.approval.runtimeApproved, 'runtime approval must remain false');
@@ -254,5 +270,6 @@ if (evidence.executed) {
 console.log('loading -> TOP runtime V2: PASS');
 console.log('flow: final four seasonal Loading images -> TOP -> StageSelect/Collection');
 console.log('rotation: random / consecutive repeat prevented');
+console.log('capture: corrected 15-frame pack PASSED; human review still pending');
 console.log('import verifier: direct AssetDatabase paths + direct Resources paths');
 console.log(`Unity evidence: ${evidence.executed ? 'PASSED' : 'honest NOT_RUN boundary'}`);
