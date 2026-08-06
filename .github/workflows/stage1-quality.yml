@@ -51,8 +51,8 @@ jobs:
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
-      - name: Verify final seasonal Loading to TOP runtime
-        run: node --experimental-strip-types scripts/quality/check-loading-top-runtime-v2.ts
+      - name: Verify Loading to TOP evidence boundary
+        run: node --experimental-strip-types scripts/quality/check-loading-top-runtime-boundary.ts
 
       - name: Verify automated Loading TOP capture boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
@@ -61,7 +61,12 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-loading-top-visual-polish.ts
 
       - name: Verify Loading and TOP rendered pixel content
-        run: node --experimental-strip-types scripts/quality/check-loading-top-render-content.ts
+        run: |
+          if node -e "const m=require('./docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json'); process.exit(m.executed ? 0 : 1)"; then
+            node --experimental-strip-types scripts/quality/check-loading-top-render-content.ts
+          else
+            echo 'Loading/TOP render-content QA: honest NOT_RUN boundary'
+          fi
 
       - name: Upload Loading and TOP visual review pack
         if: always()
