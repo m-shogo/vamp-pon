@@ -171,7 +171,7 @@ namespace VampPon.UnitySpike.Editor
                 return;
 
             var elapsed = EditorApplication.timeSinceStartup - ReadTime(StartedAtKey);
-            if (elapsed > 25d)
+            if (elapsed > 45d)
                 throw new TimeoutException(
                     "Timed out waiting for runtime frame: " + capture.id);
 
@@ -197,7 +197,9 @@ namespace VampPon.UnitySpike.Editor
                     return;
                 if (top == null || !top.gameObject.activeInHierarchy)
                     return;
-                if (elapsed < 2.8d)
+                if (!LoadingTopVisualPolishCoordinator.IsCurrentTopReady)
+                    return;
+                if (elapsed < 3.2d)
                     return;
             }
 
