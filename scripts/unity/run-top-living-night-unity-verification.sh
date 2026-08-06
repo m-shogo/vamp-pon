@@ -14,12 +14,23 @@ fi
 
 mkdir -p "$(dirname "$LOG_PATH")"
 
+set +e
 "$UNITY_BIN" \
   -batchmode \
   -quit \
   -projectPath "$PROJECT_PATH" \
   -executeMethod VampPon.UnitySpike.Editor.TopLivingNightUnityVerification.RunBatchmode \
   -logFile "$LOG_PATH"
+unity_status=$?
+set -e
+
+if [[ $unity_status -ne 0 ]]; then
+  echo >&2
+  echo "TOP Living Night Unity verification failed with exit code $unity_status." >&2
+  echo "Last 120 Unity log lines:" >&2
+  tail -n 120 "$LOG_PATH" >&2 || true
+  exit "$unity_status"
+fi
 
 cd "$REPO_ROOT"
 node --experimental-strip-types scripts/quality/check-top-living-night-layer-kit.ts
