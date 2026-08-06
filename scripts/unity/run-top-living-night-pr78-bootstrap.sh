@@ -33,7 +33,7 @@ fi
 if [[ "$registered" == true ]]; then
   echo "Refreshing existing verification worktree: $WORKTREE"
   git -C "$WORKTREE" reset --hard "origin/$SOURCE_BRANCH"
-  git -C "$WORKTREE" clean -fd \
+  git -C "$WORKTREE" clean -fdx -- \
     unity/VampPonUnity/Assets/Resources/TopLivingNight \
     unity/VampPonUnity/Assets/Resources/TopLivingNight.meta
 else
