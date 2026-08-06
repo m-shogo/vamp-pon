@@ -13,6 +13,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private const string LastArtIndexKey = "vamp_pon_loading_last_art_index";
         private const string CaptureArtIndexKey = "vamp_pon_loading_capture_art_index";
         private const string CaptureHoldKey = "vamp_pon_loading_capture_hold";
+        private const string LoadingStatusCopy = "夜の記憶をひらいています…";
         private const float MinimumVisibleSeconds = 1.35f;
         private const float FadeSeconds = .28f;
 
@@ -110,16 +111,25 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Vector2(0f, .72f),
                 Vector2.one,
                 null,
-                new Color(.006f, .008f, .027f, .18f));
+                new Color(.006f, .008f, .027f, .14f));
             topVeil.GetComponent<Image>().raycastTarget = false;
+
+            var bottomFade = U46ScreenFactory.Panel(
+                transform,
+                "LoadingSeasonalBottomFade",
+                new Vector2(0f, .15f),
+                new Vector2(1f, .23f),
+                null,
+                new Color(.006f, .008f, .027f, .16f));
+            bottomFade.GetComponent<Image>().raycastTarget = false;
 
             var bottomVeil = U46ScreenFactory.Panel(
                 transform,
                 "LoadingSeasonalBottomVeil",
                 Vector2.zero,
-                new Vector2(1f, .18f),
+                new Vector2(1f, .16f),
                 null,
-                new Color(.006f, .008f, .027f, .72f));
+                new Color(.006f, .008f, .027f, .60f));
             bottomVeil.GetComponent<Image>().raycastTarget = false;
 
             var safe = new GameObject(
@@ -135,8 +145,8 @@ namespace VampPon.UnitySpike.UI.Screens
                 "ヨルノシルベ",
                 18f,
                 new Color(.97f, .91f, .77f, .96f),
-                new Vector2(.08f, .075f),
-                new Vector2(.92f, .122f),
+                new Vector2(.08f, .077f),
+                new Vector2(.92f, .119f),
                 TextAlignmentOptions.Center,
                 font);
             title.fontStyle = FontStyles.Bold;
@@ -145,11 +155,11 @@ namespace VampPon.UnitySpike.UI.Screens
             status = U46ScreenFactory.Label(
                 safe.transform,
                 "LoadingSeasonalStatus",
-                "夜の記憶をひらいています…",
-                11f,
-                new Color(.88f, .89f, .96f, .86f),
-                new Vector2(.08f, .041f),
-                new Vector2(.92f, .074f),
+                LoadingStatusCopy,
+                10.5f,
+                new Color(.90f, .91f, .90f, .82f),
+                new Vector2(.08f, .045f),
+                new Vector2(.92f, .071f),
                 TextAlignmentOptions.Center,
                 font);
             status.raycastTarget = false;
@@ -157,10 +167,10 @@ namespace VampPon.UnitySpike.UI.Screens
             var track = U46ScreenFactory.Panel(
                 safe.transform,
                 "LoadingSeasonalProgressTrack",
-                new Vector2(.12f, .024f),
-                new Vector2(.88f, .035f),
+                new Vector2(.15f, .0272f),
+                new Vector2(.85f, .0294f),
                 null,
-                new Color(.15f, .17f, .27f, .88f));
+                new Color(.40f, .45f, .52f, .20f));
             track.GetComponent<Image>().raycastTarget = false;
 
             var fillObject = U46ScreenFactory.Panel(
@@ -169,7 +179,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 Vector2.zero,
                 Vector2.one,
                 null,
-                new Color(.83f, .70f, .42f, .96f));
+                new Color(.80f, .84f, .84f, .76f));
             progressFill = fillObject.GetComponent<Image>();
             progressFill.raycastTarget = false;
             progressFill.type = Image.Type.Filled;
@@ -244,8 +254,8 @@ namespace VampPon.UnitySpike.UI.Screens
             {
                 if (progressFill != null)
                     progressFill.fillAmount = 1f;
-                if (status != null)
-                    status.text = $"capture hold · {SelectedArtId}";
+                if (status != null && status.text != LoadingStatusCopy)
+                    status.text = LoadingStatusCopy;
                 yield return null;
             }
 #endif
