@@ -1,70 +1,125 @@
 # ヨルノシルベ TOP「生きている夜」Production Layer Kit v2
 
 Date: 2026-08-01  
-Status: human-selected composition direction / production-layer candidate / runtime not connected  
+Runtime connection: 2026-08-06  
+Status: human-selected composition / runtime-connected candidate / final approval blocked  
 Target: Unity `6000.5.1f1`, URP `17.5.0`, portrait iPhone
 
 ## 結論
 
-Candidate Aをflattened画像のまま切り刻まず、同じ構図を基準に隠れた背景と各motion sourceを再制作した。
+Candidate Aを基準に再制作した17レイヤーを、全画面動画やAI動画へ変換せず、Unity上で独立周期の小さな動きとして接続した。
 
-動画生成、全画面動画、顔の補間は使用していない。`top-living-night-layer-motion-preview.mp4`は、下記の静止レイヤーを決定的な規則で合成した実装前プレビューである。
+TOPは通常起動時にStageSelectの前面へ表示される。`夜へ出る`で既存StageSelectへ入り、`灯録`は既存Collectionフローへ接続する。AppFlowの状態・保存・戦闘契約は変更していない。
+
+既存のU46〜U48 Simulator証跡を汚さないため、`VAMPPON_AI_SIMULATOR_SMOKE`ではTOPを生成しない。これは証跡回避ではなく、既存canonical capture denominatorを維持したまま通常起動の新画面を独立検証するための境界である。
+
+## Runtime architecture
+
+```txt
+docs/design-targets/generated/top-living-night-v2/layers
+  ├─ Editor: 原本を直接UnityWebRequestTextureで読む
+  └─ Build: pre-buildでAssets/StreamingAssets/TopLivingNightへ一時同期
+             ↓
+          built player
+             ↓
+       post-buildで生成copyを削除
+```
+
+画像の正本はdocs側の1か所だけ。StreamingAssetsの複製をGitへ恒久追加せず、build時に17ファイルを検査・同期する。
+
+主要実装:
+
+- `unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs`
+- `unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightStreamingAssetsSync.cs`
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs`
+- `scripts/quality/check-top-living-night-runtime.ts`
 
 ## Layer stack
 
 | Order | File | Role | Runtime motion |
 | --- | --- | --- | --- |
-| 00 | `00-environment-starless.png` | 人物・火・月・星・雲を除いた完全背景 | 0.4–1.2px camera parallax only |
-| 01 | `01-stars.png` | 星 | UV hashで3群、非同期twinkle |
+| 00 | `00-environment-starless.png` | 人物・火・月・星・雲を除いた完全背景 | fixed clean plate |
+| 01 | `01-stars.png` | 星 | low-frequency non-synchronous twinkle |
 | 01 | `01-moon.png` | 三日月 | fixed reference point |
-| 02 | `02-clouds-far.png` | 遠雲 | 38–62s、2–4px drift |
-| 03 | `03-clouds-near.png` | 近雲 | 19–31s、3–7px drift |
-| 04 | `04-distant-lights-mask.png` | 駅灯mask | RSUV seed、7–23s noise |
+| 02 | `02-clouds-far.png` | 遠雲 | slow 2.8px drift |
+| 03 | `03-clouds-near.png` | 近雲 | independent 5.2px drift |
+| 04 | `04-distant-lights-mask.png` | 駅灯mask | Perlin ±3% brightness |
 | 05 | `05-distant-companion.png` | 遠景人物 | static |
-| 06 | `06-characters.png` | 主要人物群 | v2ではstatic。顔補間禁止 |
-| 08 | `08-animal-robot.png` | 動物＋ロボット | 将来、耳または眼光のみ |
-| 08 | `08-robot-eye-mask.png` | ロボット眼光mask | 35–75s rare scan |
+| 06 | `06-characters.png` | 主要人物群 | static; face interpolation prohibited |
+| 08 | `08-animal-robot.png` | 動物＋ロボット | static body |
+| 08 | `08-robot-eye-mask.png` | ロボット眼光mask | rare 47s scan |
 | 09 | `09-fire-base.png` | 薪・炭・石輪 | static |
-| 10 | `10-fire-flipbook-atlas.png` | 4x3 / 12-frame炎atlas | 8–10fps、隣接frame jitter |
-| 11 | `11-fire-glow-mask.png` | 火の照り返しmask | 2 noise、sine単独禁止 |
-| 12 | `12-smoke-atlas.png` | 3x2 / 6 smoke sprites | low-alpha Particle Noise |
-| 13 | `13-embers-atlas.png` | ember sprites | steady 2–4、rare max 24 |
-| 14 | `14-foreground-accents.png` | 前景草・ランタン・紙片 | edge-only微風 |
-| 14 | `14-lantern-glow-mask.png` | 前景ランタンmask | independent low-frequency noise |
+| 10 | `10-fire-flipbook-atlas.png` | 4x3 / 12-frame炎atlas | 8–10fps, adjacent-frame ping-pong + hold |
+| 11 | `11-fire-glow-mask.png` | 火の照り返しmask | two-frequency Perlin modulation |
+| 12 | `12-smoke-atlas.png` | 3x2 / 6 smoke sprites | low-alpha independent rise/drift |
+| 13 | `13-embers-atlas.png` | ember sprites | bounded 10-particle rise/drift |
+| 14 | `14-foreground-accents.png` | 前景草・ランタン・紙片 | static source |
+| 14 | `14-lantern-glow-mask.png` | 前景ランタンmask | independent low-frequency modulation |
 
-`06-characters.png`は品質維持のため、生成段階で前後人物へ無理に再分割していない。キャラmicro-motionは、正式identity照合後に主要2人だけ手動maskを作る。全員を動かすことは完成条件ではない。
+`06-characters.png`は品質とidentityを守るため、全員を無理に動かしていない。焚き火・煙・火の粉・雲・星・遠近の灯りが別周期で動くことで、短い動画ループではない「生きている夜」を作る。
 
-## Preview
+## Reduced Motion
 
-- `previews/top-living-night-layered-candidate-390x844.png`: standard device static composite
-- `previews/top-living-night-layered-candidate-360x800.png`: compact crop
-- `previews/top-living-night-layered-candidate-430x932.png`: large crop
-- `previews/layer-contact-sheet.png`: layer separation review
-- `previews/motion-checkpoints.png`: 4 fire/cloud states
-- `previews/top-living-night-layer-motion-preview.mp4`: 48 frames / 8fps / 6s deterministic composite
-- `previews/top-living-night-layer-motion-preview.webp`: loopable review derivative
+`vamp_pon_reduced_motion=1`または`reduce_motion=1`のとき:
+
+- cloud drift off
+- smoke / embers off
+- robot eye rare scan off
+- fire 4fps
+- glow amplitude <= 2%
+- titleの小さな浮遊のみ維持
+
+## Preview evidence
+
+- `previews/top-living-night-layered-candidate-360x800.png`
+- `previews/top-living-night-layered-candidate-390x844.png`
+- `previews/top-living-night-layered-candidate-430x932.png`
+- `previews/layer-contact-sheet.png`
+- `previews/motion-checkpoints.png`
+- `previews/top-living-night-layer-motion-preview.mp4`
+- `previews/top-living-night-layer-motion-preview.webp`
+
+MP4/WebPはレビュー証跡のみで、runtimeから参照しない。
 
 ## Approval boundary
 
 ```txt
 sourceComposition=candidate-a
 humanSelectedCompositionDirection=true
-assetStatus=production-layer-candidate
-alphaQa=automatic-pass-human-pending
+assetStatus=runtime-connected-candidate
+layerAssetCount=17
+runtimeConnected=true
+runtimeUsesVideo=false
+videoGenerationUsed=false
 approvedAsFinal=false
 runtimeApproved=false
-runtimeConnected=false
 finalApprovalBlocked=true
-videoGenerationUsed=false
 ```
 
-これは「Aの方向でレイヤー制作へ進める」という選択を記録する。正式キャラクターidentity比較、alpha edge人間確認、Unity import、responsive crop、Simulator、物理iPhone、性能計測が終わるまでfinalやproduction readyへ昇格しない。
+## Completed in this batch
 
-## Explicit non-scope
+- 17/17 PNG integrity / dimensions / SHA-256 check
+- compact / standard / large static crop preview
+- deterministic layered-motion preview
+- Unity normal-start TOP connection
+- existing StageSelect / Collection navigation reuse
+- fire / smoke / ember / cloud / star / light / rare robot-eye motion
+- reduced-motion fallback
+- Editor source loading
+- build-time StreamingAssets sync and cleanup
+- canonical Simulator smoke isolation
+- runtime static-contract checker
 
-- PR #76 / U49 readiness・証跡・flagsの変更
-- Unity `Assets` / `Packages` / `ProjectSettings`へのruntime接続
-- CANON人物としての早期固定
-- AI動画、MP4をruntime sourceとして使用
-- 顔、目、口の生成補間
+## Remaining gates
 
+次は実行環境が必要な確認であり、Git接続だけからPASSへ昇格しない。
+
+- Unity C# compilation
+- 360x800 / 390x844 / 430x932 runtime capture
+- title / CTA / Safe Area / transparent-edge human review
+- 5分の非同期性確認
+- Simulator FPS / memory
+- physical iPhone FPS / memory / thermal / background-foreground recovery
+- formal character identity comparison
+
+PR #76、U49 device evidence、readiness flags、gameplay、balance、save schemaは変更していない。
