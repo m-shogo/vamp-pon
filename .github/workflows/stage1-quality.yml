@@ -57,6 +57,9 @@ jobs:
       - name: Verify Loading and TOP visual polish
         run: node --experimental-strip-types scripts/quality/check-loading-top-visual-polish.ts
 
+      - name: Verify Loading and TOP rendered pixel content
+        run: node --experimental-strip-types scripts/quality/check-loading-top-render-content.ts
+
       - name: Upload Loading and TOP visual review pack
         if: always()
         uses: actions/upload-artifact@v4
