@@ -48,8 +48,8 @@ jobs:
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
-      - name: Verify final seasonal Loading editor paths
-        run: python3 scripts/quality/fix-loading-seasonal-editor-source-paths.py --check
-
       - name: Verify final seasonal Loading to TOP runtime
         run: node --experimental-strip-types scripts/quality/check-loading-top-runtime-v2.ts
+
+      - name: Verify automated Loading TOP capture boundary
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
