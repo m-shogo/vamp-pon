@@ -9,6 +9,13 @@ const coordinator = readFileSync(
   ),
   'utf8',
 );
+const preRenderGuard = readFileSync(
+  join(
+    root,
+    'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/LoadingTopPreRenderBlankGuard.cs',
+  ),
+  'utf8',
+);
 const loading = readFileSync(
   join(
     root,
@@ -83,6 +90,17 @@ for (const token of [
   invariant(coordinator.includes(token), `TOP editor preload contract missing: ${token}`);
 }
 
+for (const token of [
+  'Canvas.willRenderCanvases',
+  'GuardBeforeCanvasRender',
+  'EnsureInitiallyHidden(top.transform, "TopLivingNightArt")',
+  'EnsureInitiallyHidden(top.transform, "TopLivingNightSafeArea")',
+  'image.texture != null',
+  'color.a = 0f',
+]) {
+  invariant(preRenderGuard.includes(token), `pre-render white-flash guard missing: ${token}`);
+}
+
 invariant(
   loading.includes('"夜の記憶をひらいています…"'),
   'production loading copy must remain canonical',
@@ -108,4 +126,5 @@ if (manifest.executed) {
 console.log('Loading/TOP visual polish: PASS');
 console.log('loading: thin pale progress line + canonical copy + subtle pulse');
 console.log('TOP: dark fallback + null-texture suppression + readiness fade');
+console.log('render: first-frame null RawImages blocked before Canvas paint');
 console.log('Editor: synchronous final-layer preload before visual capture');
