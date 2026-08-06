@@ -53,3 +53,6 @@ jobs:
 
       - name: Verify automated Loading TOP capture boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
+
+      - name: Verify Loading and TOP visual polish
+        run: node --experimental-strip-types scripts/quality/check-loading-top-visual-polish.ts
