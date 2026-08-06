@@ -47,3 +47,6 @@ jobs:
 
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
+
+      - name: Verify Loading to TOP runtime connection
+        run: node --experimental-strip-types scripts/quality/check-loading-top-runtime.ts
