@@ -48,12 +48,67 @@ function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
 
+const crcTable = new Uint32Array(256);
+for (let n = 0; n < 256; n += 1) {
+  let c = n;
+  for (let k = 0; k < 8; k += 1) {
+    c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+  }
+  crcTable[n] = c >>> 0;
+}
+
+function crc32(buffer: Buffer) {
+  let crc = 0xffffffff;
+  for (const byte of buffer) {
+    crc = crcTable[(crc ^ byte) & 0xff] ^ (crc >>> 8);
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
 function inspectPng(path: string) {
   const data = readFileSync(path);
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
   invariant(data.subarray(0, 8).equals(signature), `${path}: invalid PNG signature`);
   invariant(data.subarray(12, 16).toString('ascii') === 'IHDR', `${path}: missing IHDR`);
-  return { data, width: data.readUInt32BE(16), height: data.readUInt32BE(20), colorType: data.readUInt8(25) };
+
+  let offset = 8;
+  let chunkCount = 0;
+  let sawIend = false;
+  while (offset < data.length) {
+    invariant(offset + 12 <= data.length, `${path}: truncated PNG chunk header`);
+    const length = data.readUInt32BE(offset);
+    const typeStart = offset + 4;
+    const payloadStart = offset + 8;
+    const payloadEnd = payloadStart + length;
+    const crcOffset = payloadEnd;
+    const nextOffset = crcOffset + 4;
+    invariant(nextOffset <= data.length, `${path}: truncated PNG chunk`);
+
+    const type = data.subarray(typeStart, typeStart + 4).toString('ascii');
+    const expected = crc32(data.subarray(typeStart, payloadEnd));
+    const actual = data.readUInt32BE(crcOffset);
+    invariant(
+      actual === expected,
+      `${path}: ${type} CRC mismatch ${actual.toString(16).padStart(8, '0')} != ${expected.toString(16).padStart(8, '0')}`,
+    );
+
+    chunkCount += 1;
+    offset = nextOffset;
+    if (type === 'IEND') {
+      sawIend = true;
+      break;
+    }
+  }
+
+  invariant(sawIend, `${path}: missing IEND`);
+  invariant(offset === data.length, `${path}: unexpected bytes after IEND`);
+  return {
+    data,
+    width: data.readUInt32BE(16),
+    height: data.readUInt32BE(20),
+    colorType: data.readUInt8(25),
+    chunkCount,
+  };
 }
 
 invariant(manifest.schemaVersion === 'top-living-night-layer-kit.0.3', 'unexpected schemaVersion');
@@ -77,11 +132,13 @@ invariant(manifest.runtimeConnection.result === 'PASS_SOURCE_CONTRACT', 'runtime
 const ids = new Set<string>();
 const committedAssets: Array<Pick<Asset, 'id' | 'file' | 'width' | 'height' | 'bytes' | 'sha256' | 'alphaRequired'>> = [];
 const provenanceMismatches: string[] = [];
+let pngChunkCount = 0;
 for (const asset of manifest.assets) {
   invariant(!ids.has(asset.id), `duplicate asset id: ${asset.id}`);
   ids.add(asset.id);
   const path = join(ASSET_DIR, asset.file);
   const png = inspectPng(path);
+  pngChunkCount += png.chunkCount;
   const actualSha = createHash('sha256').update(png.data).digest('hex');
   const committed = {
     id: asset.id,
@@ -114,5 +171,6 @@ invariant(mp4.subarray(4, 8).toString('ascii') === 'ftyp', 'motion preview: inva
 
 console.log('top living night layer kit: PASS');
 console.log(`assets: ${manifest.assets.length}/17`);
+console.log(`PNG chunks: ${pngChunkCount} CRC-valid`);
 console.log('preview: 48 frames / 8fps / 6s / deterministic layered stills');
 console.log('approval: selected direction / runtime connected candidate / final blocked');
