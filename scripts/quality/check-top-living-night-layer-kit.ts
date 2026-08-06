@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -53,7 +53,7 @@ function inspectPng(path: string) {
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
   invariant(data.subarray(0, 8).equals(signature), `${path}: invalid PNG signature`);
   invariant(data.subarray(12, 16).toString('ascii') === 'IHDR', `${path}: missing IHDR`);
-  return { width: data.readUInt32BE(16), height: data.readUInt32BE(20), colorType: data.readUInt8(25) };
+  return { data, width: data.readUInt32BE(16), height: data.readUInt32BE(20), colorType: data.readUInt8(25) };
 }
 
 invariant(manifest.schemaVersion === 'top-living-night-layer-kit.0.3', 'unexpected schemaVersion');
@@ -75,17 +75,38 @@ invariant(manifest.runtimeConnection.diagnosticIsolation === 'VAMPPON_AI_SIMULAT
 invariant(manifest.runtimeConnection.result === 'PASS_SOURCE_CONTRACT', 'runtime source contract must pass');
 
 const ids = new Set<string>();
+const committedAssets: Array<Pick<Asset, 'id' | 'file' | 'width' | 'height' | 'bytes' | 'sha256' | 'alphaRequired'>> = [];
+const provenanceMismatches: string[] = [];
 for (const asset of manifest.assets) {
   invariant(!ids.has(asset.id), `duplicate asset id: ${asset.id}`);
   ids.add(asset.id);
   const path = join(ASSET_DIR, asset.file);
-  const data = readFileSync(path);
   const png = inspectPng(path);
+  const actualSha = createHash('sha256').update(png.data).digest('hex');
+  const committed = {
+    id: asset.id,
+    file: asset.file,
+    width: png.width,
+    height: png.height,
+    bytes: png.data.length,
+    sha256: actualSha,
+    alphaRequired: asset.alphaRequired,
+  };
+  committedAssets.push(committed);
   invariant(png.width === asset.width, `${asset.id}: width mismatch`);
   invariant(png.height === asset.height, `${asset.id}: height mismatch`);
-  invariant(statSync(path).size === asset.bytes, `${asset.id}: byte size mismatch`);
-  invariant(createHash('sha256').update(data).digest('hex') === asset.sha256, `${asset.id}: sha mismatch`);
+  if (png.data.length !== asset.bytes || actualSha !== asset.sha256) {
+    provenanceMismatches.push(asset.id);
+  }
   if (asset.alphaRequired) invariant([4, 6].includes(png.colorType), `${asset.id}: alpha channel required`);
+}
+
+if (provenanceMismatches.length > 0) {
+  console.error(`TOP committed provenance differs for: ${provenanceMismatches.join(', ')}`);
+  console.error('BEGIN_TOP_COMMITTED_ASSETS_JSON');
+  console.error(JSON.stringify(committedAssets));
+  console.error('END_TOP_COMMITTED_ASSETS_JSON');
+  process.exit(1);
 }
 
 const mp4 = readFileSync(join(ASSET_DIR, 'previews', 'top-living-night-layer-motion-preview.mp4'));
