@@ -25,12 +25,14 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private U2BattleController battle;
         private PlayerController player;
         private YuiSpriteAnimator animator;
+        private TopLivingNightView top;
         private StageSelectView stageSelect;
         private ResultView result;
         private CollectionView collection;
         private U4LevelUpDemoController levelUp;
         private GameObject appFlowCanvas;
         private Vector3 initialPlayerPosition;
+        private bool topDismissed;
 #if VAMPPON_AI_SIMULATOR_SMOKE
         internal int VerificationLevelUpOpenedCount { get; private set; }
         internal int VerificationLevelUpClosedCount { get; private set; }
@@ -46,6 +48,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         {
             DisposeSubscriptions();
             if (appFlowCanvas != null) Destroy(appFlowCanvas);
+            top = null;
+            topDismissed = false;
             battle = battleController; player = playerController; animator = yuiAnimator; levelUp = levelUpController;
             initialPlayerPosition = player.transform.position;
             pause = new RunPauseCoordinator();
@@ -137,6 +141,10 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             stageSelect = new GameObject("U46StageSelectView", typeof(StageSelectView)).GetComponent<StageSelectView>(); stageSelect.Build(safe.transform, font, flow);
             result = new GameObject("U46ResultView", typeof(ResultView)).GetComponent<ResultView>(); result.Build(safe.transform, font, catalog, new ResultPresenter(flow));
             collection = new GameObject("U46CollectionView", typeof(CollectionView)).GetComponent<CollectionView>(); collection.Build(safe.transform, font, catalog, new CollectionPresenter(flow, save));
+#if !VAMPPON_AI_SIMULATOR_SMOKE
+            top = new GameObject("TopLivingNightView", typeof(TopLivingNightView)).GetComponent<TopLivingNightView>();
+            top.Build(canvasObject.transform, font, DismissTop, OpenCollectionFromTop);
+#endif
         }
 
         private void ApplyState(AppFlowState state)
@@ -145,8 +153,21 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             VerificationStateChangedCount++;
 #endif
             if (stageSelect != null) stageSelect.gameObject.SetActive(state == AppFlowState.StageSelect);
+            if (top != null) top.gameObject.SetActive(state == AppFlowState.StageSelect && !topDismissed);
             if (collection != null && state == AppFlowState.Collection) collection.Show(); else if (collection != null) collection.gameObject.SetActive(false);
             if (result != null && state == AppFlowState.Result) result.Show(flow.LastResult); else if (result != null) result.gameObject.SetActive(false);
+        }
+
+        private void DismissTop()
+        {
+            topDismissed = true;
+            if (top != null) top.gameObject.SetActive(false);
+        }
+
+        private void OpenCollectionFromTop()
+        {
+            DismissTop();
+            flow?.Execute(AppFlowCommand.OpenCollection());
         }
 
         private void ApplyPause(bool pausedState)
