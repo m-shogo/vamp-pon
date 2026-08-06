@@ -7,9 +7,11 @@
   "assertionCount": 0,
   "failureCount": 0,
   "sourceAssetCount": 17,
+  "resourceTextureCount": 0,
   "viewTypeResolved": false,
   "buildHookResolved": false,
   "manifestProvenancePassed": false,
+  "buildImportPolicyPassed": false,
   "generatedAtUtc": "",
   "error": ""
 }
