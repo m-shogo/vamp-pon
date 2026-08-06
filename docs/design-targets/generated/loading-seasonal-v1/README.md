@@ -27,6 +27,7 @@ Replacing the fallback requires only:
 
 - committing the approved seasonal PNGs,
 - changing each manifest `sourcePath`, `width`, `height`, and `sha256`,
+- optionally running `node --experimental-strip-types scripts/quality/report-loading-source-provenance.ts` to print the current binary metadata,
 - running the loading/TOP Unity verification.
 
 No runtime C# change should be required.
@@ -44,6 +45,28 @@ No runtime C# change should be required.
 - built player loads compressed textures from `Resources/LoadingSeasonal`,
 - editor reads the source art directly from the repository,
 - textures are released when Loading is dismissed.
+
+## Verification
+
+Git-side verification:
+
+```bash
+node --experimental-strip-types scripts/quality/check-loading-top-runtime.ts
+```
+
+Local Unity 6000.5.1f1 verification on the PR worktree:
+
+```bash
+cd /Users/m-shogo/Developer/personal/vamp-pon
+
+git fetch origin agent/top-living-night-key-art-v1
+
+git show \
+  origin/agent/top-living-night-key-art-v1:scripts/unity/run-loading-top-pr78-bootstrap.sh \
+  | bash
+```
+
+The bootstrap runs real Unity compilation, stages all four compressed loading textures, checks the Loading -> TOP flow contract and non-repeating selector, writes evidence, commits it, and pushes it back to PR #78.
 
 ## Approval boundary
 
