@@ -69,9 +69,18 @@
     "shell": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs",
     "buildSync": "unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightStreamingAssetsSync.cs",
     "assetSourceOfTruth": "docs/design-targets/generated/top-living-night-v2/layers",
-    "builtPlayerSource": "Assets/StreamingAssets/TopLivingNight generated at build time",
+    "builtPlayerSource": "Assets/Resources/TopLivingNight generated and imported at build time",
     "connectedAssetCount": 17,
     "diagnosticIsolation": "VAMPPON_AI_SIMULATOR_SMOKE",
+    "importPolicy": {
+      "sourceValidation": "manifest bytes and SHA-256",
+      "iOSFormat": "ASTC_6x6",
+      "readWriteEnabled": false,
+      "mipmaps": false,
+      "wrapMode": "Clamp",
+      "filterMode": "Bilinear"
+    },
+    "runtimeRelease": "OnDisable clears RawImage references, unloads Resource textures and requests unused-asset release",
     "result": "PASS_SOURCE_CONTRACT"
   },
   "automaticQa": {
@@ -79,6 +88,7 @@
     "validPngCount": 17,
     "responsivePreviewCount": 3,
     "layerKitResult": "PASS_LAYER_KIT_STATIC_AND_PREVIEW_SCOPE",
-    "runtimeStaticContract": "PASS_SOURCE_CONTRACT"
+    "runtimeStaticContract": "PASS_SOURCE_CONTRACT",
+    "unityExecutionEvidence": "NOT_RUN"
   }
 }
