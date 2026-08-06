@@ -38,3 +38,9 @@ jobs:
 
       - name: Verify Stage1 quality
         run: pnpm stage1:fun-pass:verify
+
+      - name: Verify TOP Living Night layer kit
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-layer-kit.ts
+
+      - name: Verify TOP Living Night runtime connection
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-runtime.ts
