@@ -140,8 +140,22 @@ invariant(view.includes('Resources.UnloadUnusedAssets'), 'TOP unused-asset relea
 invariant(!view.includes('.mp4'), 'runtime view must not reference MP4');
 invariant(!view.includes('.webp'), 'runtime view must not reference WebP preview');
 
-invariant(shell.includes('TopLivingNightView'), 'runtime shell does not build TOP');
-invariant(shell.includes('top.Build(canvasObject.transform'), 'TOP is not connected to the full canvas');
+invariant(shell.includes('TopLivingNightView'), 'runtime shell does not own TOP');
+invariant(shell.includes('private void BuildTopIfNeeded()'), 'deferred TOP construction method is missing');
+invariant(shell.includes('BuildTopIfNeeded();'), 'Loading completion does not request TOP construction');
+invariant(
+  shell.includes('top.Build(appFlowCanvas.transform, appFont, DismissTop, OpenCollectionFromTop)'),
+  'TOP is not connected to the full app-flow canvas after Loading',
+);
+invariant(
+  shell.indexOf('private void CompleteLoading()') < shell.indexOf('private void BuildTopIfNeeded()'),
+  'Loading completion must precede deferred TOP construction',
+);
+invariant(
+  shell.indexOf('BuildTopIfNeeded();') <
+    shell.indexOf('top.Build(appFlowCanvas.transform, appFont, DismissTop, OpenCollectionFromTop)'),
+  'TOP construction must remain downstream of Loading completion',
+);
 invariant(shell.includes('#if !VAMPPON_AI_SIMULATOR_SMOKE'), 'diagnostic isolation guard is missing');
 invariant(shell.includes('OpenCollectionFromTop'), 'TOP collection route is missing');
 invariant(shell.includes('topDismissed'), 'TOP one-session dismissal state is missing');
@@ -206,5 +220,5 @@ console.log('iOS import: ASTC 6x6 / Read-Write OFF / mipmap OFF / Clamp / Biline
 console.log('motion: fire / glow / stars / clouds / smoke / embers / robot eye');
 console.log('memory: raw StreamingAssets decode disabled / TOP textures released on dismissal');
 console.log('Unity evidence: verifier + runner + honest NOT_RUN/PASSED contract present');
-console.log('flow: normal startup overlay / canonical simulator smoke isolated');
+console.log('flow: Loading completion -> deferred TOP -> StageSelect/Collection; canonical simulator smoke isolated');
 console.log('approval: runtime connected / Unity execution and physical-device approval pending');
