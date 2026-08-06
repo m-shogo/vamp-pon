@@ -20,15 +20,20 @@ namespace VampPon.UnitySpike.Editor
         private const string EvidenceRelativePath =
             "docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json";
         private static int assertions;
+        private static int resourceTextureCount;
+        private static bool buildImportPolicyPassed;
 
         [MenuItem("Vamp Pon/TOP Living Night/Verify Unity Compile Contract")]
         public static void RunBatchmode()
         {
             assertions = 0;
+            resourceTextureCount = 0;
+            buildImportPolicyPassed = false;
             try
             {
                 VerifyCompileSurface();
                 VerifyCommittedSources();
+                VerifyBuildImportPolicy();
                 WriteEvidence("PASSED", null);
                 UnityEngine.Debug.Log(
                     $"TOP Living Night Unity verification passed: {assertions} assertions.");
@@ -110,6 +115,65 @@ namespace VampPon.UnitySpike.Editor
             }
         }
 
+        private static void VerifyBuildImportPolicy()
+        {
+            var syncType = typeof(TopLivingNightBuildAssetSync);
+            var stage = syncType.GetMethod(
+                "StageAndImport",
+                BindingFlags.Static | BindingFlags.NonPublic);
+            var cleanup = syncType.GetMethod(
+                "CleanupGeneratedBuildAssets",
+                BindingFlags.Static | BindingFlags.NonPublic);
+            Require(stage != null, "build staging method resolves");
+            Require(cleanup != null, "build cleanup method resolves");
+
+            try
+            {
+                stage.Invoke(null, null);
+
+                var guids = AssetDatabase.FindAssets(
+                    "t:Texture2D",
+                    new[] { "Assets/Resources/TopLivingNight" });
+                Require(guids.Length == 17, "17 imported Resources textures resolve");
+
+                foreach (var guid in guids)
+                {
+                    var assetPath = AssetDatabase.GUIDToAssetPath(guid);
+                    Require(
+                        AssetImporter.GetAtPath(assetPath) is TextureImporter,
+                        $"TextureImporter resolves: {assetPath}");
+                    var importer = (TextureImporter)AssetImporter.GetAtPath(assetPath);
+                    Require(!importer.isReadable, $"Read/Write OFF: {assetPath}");
+                    Require(!importer.mipmapEnabled, $"mipmap OFF: {assetPath}");
+                    Require(importer.wrapMode == TextureWrapMode.Clamp, $"Clamp: {assetPath}");
+                    Require(importer.filterMode == FilterMode.Bilinear, $"Bilinear: {assetPath}");
+
+                    var ios = importer.GetPlatformTextureSettings("iPhone");
+                    Require(ios.overridden, $"iOS override enabled: {assetPath}");
+                    Require(
+                        ios.format == TextureImporterFormat.ASTC_6x6,
+                        $"iOS ASTC 6x6: {assetPath}");
+                    Require(ios.maxTextureSize == 2048, $"iOS max size 2048: {assetPath}");
+                }
+
+                var loaded = Resources.LoadAll<Texture2D>("TopLivingNight");
+                resourceTextureCount = loaded.Length;
+                Require(resourceTextureCount == 17, "Resources.LoadAll resolves 17 textures");
+                foreach (var texture in loaded)
+                    Resources.UnloadAsset(texture);
+
+                buildImportPolicyPassed = true;
+            }
+            finally
+            {
+                cleanup.Invoke(null, new object[] { true });
+            }
+
+            Require(
+                !AssetDatabase.IsValidFolder("Assets/Resources/TopLivingNight"),
+                "temporary Resources folder is cleaned");
+        }
+
         private static Vector2Int ReadPngDimensions(string path)
         {
             using var stream = File.OpenRead(path);
@@ -159,9 +223,11 @@ namespace VampPon.UnitySpike.Editor
                 assertionCount = assertions,
                 failureCount = result == "PASSED" ? 0 : 1,
                 sourceAssetCount = 17,
+                resourceTextureCount = resourceTextureCount,
                 viewTypeResolved = result == "PASSED",
                 buildHookResolved = result == "PASSED",
                 manifestProvenancePassed = result == "PASSED",
+                buildImportPolicyPassed = result == "PASSED" && buildImportPolicyPassed,
                 generatedAtUtc = DateTime.UtcNow.ToString("O"),
                 error = error ?? string.Empty,
             };
@@ -243,9 +309,11 @@ namespace VampPon.UnitySpike.Editor
             public int assertionCount;
             public int failureCount;
             public int sourceAssetCount;
+            public int resourceTextureCount;
             public bool viewTypeResolved;
             public bool buildHookResolved;
             public bool manifestProvenancePassed;
+            public bool buildImportPolicyPassed;
             public string generatedAtUtc;
             public string error;
         }
