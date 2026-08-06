@@ -9,7 +9,8 @@ const kitRoot = join(
   'docs/design-targets/generated/top-living-night-v2',
 );
 const manifestPath = join(kitRoot, 'manifest.json');
-const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+const originalManifestText = readFileSync(manifestPath, 'utf8');
+const manifest = JSON.parse(originalManifestText);
 
 const crcTable = new Uint32Array(256);
 for (let n = 0; n < 256; n += 1) {
@@ -88,14 +89,40 @@ function repairPng(path) {
   return { data, repairedChunks };
 }
 
+function replaceManifestProvenance(text, asset, bytes, sha256) {
+  const lines = text.split('\n');
+  const idToken = `\"id\":\"${asset.id}\"`;
+  const index = lines.findIndex((line) => line.includes(idToken));
+  if (index < 0) {
+    throw new Error(`manifest asset line not found: ${asset.id}`);
+  }
+
+  lines[index] = lines[index]
+    .replace(/\"bytes\":\d+/, `\"bytes\":${bytes}`)
+    .replace(/\"sha256\":\"[0-9a-f]{64}\"/, `\"sha256\":\"${sha256}\"`);
+  return lines.join('\n');
+}
+
 let totalRepairs = 0;
+let nextManifestText = originalManifestText;
 for (const asset of manifest.assets) {
   const path = join(kitRoot, asset.file);
   const { data, repairedChunks } = repairPng(path);
   totalRepairs += repairedChunks;
-  asset.bytes = data.length;
-  asset.sha256 = createHash('sha256').update(data).digest('hex');
+
+  if (repairedChunks > 0) {
+    const sha256 = createHash('sha256').update(data).digest('hex');
+    nextManifestText = replaceManifestProvenance(
+      nextManifestText,
+      asset,
+      data.length,
+      sha256,
+    );
+  }
 }
 
-writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+if (nextManifestText !== originalManifestText) {
+  writeFileSync(manifestPath, nextManifestText);
+}
+
 console.log(`TOP PNG CRC repair complete: ${totalRepairs} repaired chunk(s).`);
