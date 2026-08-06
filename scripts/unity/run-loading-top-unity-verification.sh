@@ -19,7 +19,7 @@ set +e
   -batchmode \
   -quit \
   -projectPath "$PROJECT_PATH" \
-  -executeMethod VampPon.UnitySpike.Editor.LoadingTopUnityVerification.RunBatchmode \
+  -executeMethod VampPon.UnitySpike.Editor.LoadingTopUnityVerificationV2.RunBatchmode \
   -logFile "$LOG_PATH"
 unity_status=$?
 set -e
@@ -32,7 +32,7 @@ if [[ $unity_status -ne 0 ]]; then
 fi
 
 cd "$REPO_ROOT"
-node --experimental-strip-types scripts/quality/check-loading-top-runtime.ts
+node --experimental-strip-types scripts/quality/check-loading-top-runtime-v2.ts
 
 echo "Loading -> TOP Unity verification completed."
 echo "Evidence: docs/design-targets/generated/loading-seasonal-v1/runtime-unity-verification.json"
