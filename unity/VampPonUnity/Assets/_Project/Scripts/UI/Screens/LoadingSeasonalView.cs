@@ -20,19 +20,19 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             new(
                 "spring",
-                "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-a.png",
+                "docs/design-targets/generated/loading-seasonal-v1/sources/loading-01-spring.png",
                 "LoadingSeasonal/loading-01-spring"),
             new(
                 "summer",
-                "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-b.png",
+                "docs/design-targets/generated/loading-seasonal-v1/sources/loading-02-summer.png",
                 "LoadingSeasonal/loading-02-summer"),
             new(
                 "autumn",
-                "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-c.png",
+                "docs/design-targets/generated/loading-seasonal-v1/sources/loading-03-autumn.png",
                 "LoadingSeasonal/loading-03-autumn"),
             new(
                 "winter",
-                "docs/design-targets/generated/top-living-night-v1/candidates/top-living-night-candidate-d.png",
+                "docs/design-targets/generated/loading-seasonal-v1/sources/loading-04-winter.png",
                 "LoadingSeasonal/loading-04-winter"),
         };
 
