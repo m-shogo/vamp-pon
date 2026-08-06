@@ -6,6 +6,8 @@ WORKTREE="${TOP_WORKTREE:-/Users/m-shogo/Developer/personal/vamp-pon-pr78-top}"
 SOURCE_BRANCH="agent/top-living-night-key-art-v1"
 RUNNER="scripts/unity/run-loading-top-unity-verification.sh"
 CHECKER="scripts/quality/check-loading-top-runtime-v2.ts"
+EDITOR_PATH_NORMALIZER="scripts/quality/fix-loading-seasonal-editor-source-paths.py"
+EDITOR_VIEW="unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/LoadingSeasonalView.cs"
 EVIDENCE="docs/design-targets/generated/loading-seasonal-v1/runtime-unity-verification.json"
 
 fail() {
@@ -42,7 +44,19 @@ fi
 cd "$WORKTREE"
 [[ -f "$RUNNER" ]] || fail "Runner is missing after checkout: $RUNNER"
 [[ -f "$CHECKER" ]] || fail "Checker is missing after checkout: $CHECKER"
-chmod +x "$RUNNER"
+[[ -f "$EDITOR_PATH_NORMALIZER" ]] || fail "Editor source path normalizer is missing: $EDITOR_PATH_NORMALIZER"
+chmod +x "$RUNNER" "$EDITOR_PATH_NORMALIZER"
+
+echo "Normalizing Unity Editor loading paths to the final seasonal PNGs ..."
+python3 "$EDITOR_PATH_NORMALIZER"
+python3 "$EDITOR_PATH_NORMALIZER" --check
+
+if ! git diff --quiet -- "$EDITOR_VIEW"; then
+  git add "$EDITOR_VIEW"
+  git commit -m "fix: use final seasonal art in editor loading"
+  echo "Pushing final seasonal editor path fix to $SOURCE_BRANCH ..."
+  git push origin "HEAD:$SOURCE_BRANCH"
+fi
 
 node --experimental-strip-types "$CHECKER"
 bash "$RUNNER"
