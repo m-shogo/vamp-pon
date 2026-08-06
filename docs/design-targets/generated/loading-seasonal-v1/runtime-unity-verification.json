@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "executed": false,
+  "result": "NOT_RUN",
+  "verifiedCommit": "",
+  "unityVersion": "",
+  "assertionCount": 0,
+  "failureCount": 0,
+  "sourceAssetCount": 4,
+  "resourceTextureCount": 0,
+  "loadingViewResolved": false,
+  "flowContractResolved": false,
+  "randomRotationPassed": false,
+  "buildHookResolved": false,
+  "manifestProvenancePassed": false,
+  "buildImportPolicyPassed": false,
+  "generatedAtUtc": "",
+  "error": ""
+}
