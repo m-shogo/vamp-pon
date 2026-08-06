@@ -34,7 +34,7 @@
       "resourceFile": "loading-01-spring.png",
       "width": 852,
       "height": 1846,
-      "sha256": "71c5de7034ab50d58aefdfbb059714a220b02e48c4f5a0a0876e78df3dc4cc20"
+      "sha256": "96d5dc1b2485dd340e7101e4925d43e24d6e1b47c0a4852424f9a5a7db1422b8"
     },
     {
       "id": "summer",
@@ -44,7 +44,7 @@
       "resourceFile": "loading-02-summer.png",
       "width": 863,
       "height": 1823,
-      "sha256": "e44f4478a26b82e9ba60c036b87331cdd4220274c7d15ce80ab15fa2674e0fbd"
+      "sha256": "688cc1af3e0ddd5c1c9ad095c4efd0965ca3ca44af6737df6183f70d64aba0fe"
     },
     {
       "id": "autumn",
@@ -54,7 +54,7 @@
       "resourceFile": "loading-03-autumn.png",
       "width": 852,
       "height": 1846,
-      "sha256": "600469d092fbbdca259209d64f39ce003b6ae31b1a0a60ed76a7a0a5f7712576"
+      "sha256": "b7f9008e1a390fac07ae612033c439170a9f7c7a1c77e60f5010aa2c08c6ad2b"
     },
     {
       "id": "winter",
@@ -64,7 +64,7 @@
       "resourceFile": "loading-04-winter.png",
       "width": 853,
       "height": 1844,
-      "sha256": "f67d197981d619198c5dee8a01764777ded71c9b92bdb3df90611d231f6eafcf"
+      "sha256": "360c82b5e2118d7ecd376379f9873486aff2066938892ae14864d52978bc66dd"
     }
   ],
   "capture": {
