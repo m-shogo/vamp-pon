@@ -41,7 +41,7 @@ const runner = readFileSync(
   'utf8',
 );
 const normalizer = readFileSync(
-  join(root, 'scripts/quality/normalize-loading-seasonal-editor-paths.mjs'),
+  join(root, 'scripts/quality/fix-loading-seasonal-editor-source-paths.py'),
   'utf8',
 );
 
@@ -108,7 +108,7 @@ for (const token of [
 }
 
 for (const token of [
-  'normalize-loading-seasonal-editor-paths.mjs',
+  'fix-loading-seasonal-editor-source-paths.py',
   'LoadingTopAutomatedCapture.RunFromCommandLine',
   'check-loading-top-capture-pack.ts',
   'runtime-captures',
