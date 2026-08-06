@@ -93,14 +93,20 @@ for (const token of [
 for (const token of [
   'Canvas.willRenderCanvases',
   'GuardBeforeCanvasRender',
-  'EnsureInitiallyHidden(top.transform, "TopLivingNightArt")',
-  'EnsureInitiallyHidden(top.transform, "TopLivingNightSafeArea")',
+  'Application.quitting',
+  'Uninstall',
+  'LoadingTopVisualPolishCoordinator.IsCurrentTopReady',
   'image.texture != null',
   'color.a = 0f',
+  'Never add/remove components or mutate the hierarchy',
 ]) {
   invariant(preRenderGuard.includes(token), `pre-render white-flash guard missing: ${token}`);
 }
 
+invariant(
+  !preRenderGuard.includes('AddComponent<CanvasGroup>()'),
+  'pre-render guard must not mutate the UI hierarchy during Canvas rendering',
+);
 invariant(
   loading.includes('"夜の記憶をひらいています…"'),
   'production loading copy must remain canonical',
@@ -126,5 +132,5 @@ if (manifest.executed) {
 console.log('Loading/TOP visual polish: PASS');
 console.log('loading: thin pale progress line + canonical copy + subtle pulse');
 console.log('TOP: dark fallback + null-texture suppression + readiness fade');
-console.log('render: first-frame null RawImages blocked before Canvas paint');
+console.log('render: null RawImages blocked without hierarchy mutation; quit handler uninstalls callback');
 console.log('Editor: synchronous final-layer preload before visual capture');
