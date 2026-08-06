@@ -44,6 +44,11 @@ unity/**/sysinfo.txt
 unity/VampPonUnity/Assets/Resources/TopLivingNight/
 unity/VampPonUnity/Assets/Resources/TopLivingNight.meta
 
+# Loading Seasonal build-time generated compressed Resources copy
+# Source of truth remains docs/design-targets/generated/loading-seasonal-v1/manifest.json.
+unity/VampPonUnity/Assets/Resources/LoadingSeasonal/
+unity/VampPonUnity/Assets/Resources/LoadingSeasonal.meta
+
 # Claude Code ローカル設定（マシン固有・コミットしない）
 .claude/settings.local.json
 .claude/*.lock
