@@ -17,22 +17,34 @@ TOPは通常起動時にStageSelectの前面へ表示される。`夜へ出る`�
 
 ```txt
 docs/design-targets/generated/top-living-night-v2/layers
-  ├─ Editor: 原本を直接UnityWebRequestTextureで読む
-  └─ Build: pre-buildでAssets/StreamingAssets/TopLivingNightへ一時同期
+  ├─ Editor: 原本をUnityWebRequestTextureで直接読む
+  └─ Build: manifestのbytes / SHA-256を検証
              ↓
-          built player
+           Assets/Resources/TopLivingNightへ一時copy
              ↓
-       post-buildで生成copyを削除
+           Unity TextureImporterでimport
+           - iOS ASTC 6x6
+           - Read/Write OFF
+           - mipmap OFF
+           - Clamp / Bilinear
+             ↓
+           built playerはResources.Load<Texture2D>で読む
+             ↓
+           post-buildで生成copyを削除
 ```
 
-画像の正本はdocs側の1か所だけ。StreamingAssetsの複製をGitへ恒久追加せず、build時に17ファイルを検査・同期する。
+画像の正本はdocs側の1か所だけ。生成ResourcesをGitへ恒久追加しない。TOPを閉じるとRawImage参照を外し、読み込んだResource textureとunused assetsの解放を要求する。
 
 主要実装:
 
 - `unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs`
 - `unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightStreamingAssetsSync.cs`
+  - legacy filenameを維持しつつ、classは`TopLivingNightBuildAssetSync`
+- `unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightUnityVerification.cs`
 - `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs`
 - `scripts/quality/check-top-living-night-runtime.ts`
+- `scripts/quality/check-top-living-night-unity-evidence.ts`
+- `scripts/unity/run-top-living-night-unity-verification.sh`
 
 ## Layer stack
 
@@ -81,6 +93,27 @@ docs/design-targets/generated/top-living-night-v2/layers
 
 MP4/WebPはレビュー証跡のみで、runtimeから参照しない。
 
+## Unity execution evidence
+
+`runtime-unity-verification.json`は、Unity Editorが実際にC#をcompileし、`TopLivingNightUnityVerification.RunBatchmode`を実行できた場合だけ`executed=true / result=PASSED`へ更新される。
+
+未実行時は次を維持する。
+
+```txt
+executed=false
+result=NOT_RUN
+verifiedCommit=""
+unityVersion=""
+```
+
+実行コマンド:
+
+```bash
+bash scripts/unity/run-top-living-night-unity-verification.sh
+```
+
+この検証は17素材のbytes / SHA-256 / PNG dimensions、`TopLivingNightView`のcompile surface、pre/post build hookの解決を確認する。画面目視・FPS・実機性能を代替しない。
+
 ## Approval boundary
 
 ```txt
@@ -106,15 +139,18 @@ finalApprovalBlocked=true
 - fire / smoke / ember / cloud / star / light / rare robot-eye motion
 - reduced-motion fallback
 - Editor source loading
-- build-time StreamingAssets sync and cleanup
+- build-time verified Resources import and cleanup
+- iOS ASTC 6x6 / Read-Write OFF / mipmap OFF
+- TOP dismissal texture release
 - canonical Simulator smoke isolation
 - runtime static-contract checker
+- Unity execution evidence contract and batchmode runner
 
 ## Remaining gates
 
 次は実行環境が必要な確認であり、Git接続だけからPASSへ昇格しない。
 
-- Unity C# compilation
+- Unity C# compilation evidence (`runtime-unity-verification.json` is currently `NOT_RUN`)
 - 360x800 / 390x844 / 430x932 runtime capture
 - title / CTA / Safe Area / transparent-edge human review
 - 5分の非同期性確認
