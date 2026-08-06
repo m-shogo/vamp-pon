@@ -11,36 +11,11 @@ namespace VampPon.UnitySpike.UI.Screens
 {
     public sealed class TopLivingNightView : MonoBehaviour
     {
-        private const string LayerRelativeRoot = "docs/design-targets/generated/top-living-night-v2/layers";
-        private const string StreamingRoot = "TopLivingNight";
+        private const string LayerRelativeRoot =
+            "docs/design-targets/generated/top-living-night-v2/layers";
+        private const string ResourceRoot = "TopLivingNight";
 
-        private readonly List<Texture2D> ownedTextures = new();
-        private readonly List<AtlasParticle> smokeParticles = new();
-        private readonly List<AtlasParticle> emberParticles = new();
-
-        private Action openStageSelect;
-        private Action openCollection;
-        private RectTransform artRoot;
-        private RectTransform titleRoot;
-        private RectTransform farCloudsRect;
-        private RectTransform nearCloudsRect;
-        private RawImage stars;
-        private RawImage distantLights;
-        private RawImage robotEye;
-        private RawImage fireAtlas;
-        private RawImage fireGlow;
-        private RawImage lanternGlow;
-        private Transform foregroundTransform;
-        private TextMeshProUGUI statusLabel;
-        private Coroutine loadingRoutine;
-        private bool reducedMotion;
-        private int failedLayerCount;
-        private int fireFrame;
-        private int fireDirection = 1;
-        private int fireStep;
-        private float fireTimer;
-
-        private static readonly LayerSpec[] FullCanvasLayers =
+        private static readonly LayerDefinition[] BackLayers =
         {
             new("Environment", "00-environment-starless.png", 1f),
             new("Stars", "01-stars.png", .72f),
@@ -52,11 +27,37 @@ namespace VampPon.UnitySpike.UI.Screens
             new("Characters", "06-characters.png", 1f),
             new("FireBase", "09-fire-base.png", 1f),
             new("AnimalRobot", "08-animal-robot.png", 1f),
-            new("RobotEye", "08-robot-eye-mask.png", .78f),
-            new("FireGlow", "11-fire-glow-mask.png", .62f),
-            new("Foreground", "14-foreground-accents.png", 1f),
-            new("LanternGlow", "14-lantern-glow-mask.png", .48f),
+            new("RobotEye", "08-robot-eye-mask.png", .20f),
         };
+
+        private static readonly LayerDefinition[] FrontLayers =
+        {
+            new("FireGlow", "11-fire-glow-mask.png", .56f),
+            new("Foreground", "14-foreground-accents.png", 1f),
+            new("LanternGlow", "14-lantern-glow-mask.png", .46f),
+        };
+
+        private readonly Dictionary<string, RawImage> layers =
+            new(StringComparer.Ordinal);
+        private readonly List<Texture2D> editorTextures = new();
+        private readonly List<Texture2D> resourceTextures = new();
+        private readonly List<ParticleView> smoke = new();
+        private readonly List<ParticleView> embers = new();
+
+        private Action openStageSelect;
+        private Action openCollection;
+        private RectTransform artRoot;
+        private RectTransform titleRoot;
+        private RawImage fire;
+        private Transform foreground;
+        private TextMeshProUGUI status;
+        private Coroutine loadRoutine;
+        private bool reducedMotion;
+        private int loadFailures;
+        private int fireFrame;
+        private int fireDirection = 1;
+        private int fireStep;
+        private float fireTimer;
 
         public void Build(
             Transform parent,
@@ -64,15 +65,14 @@ namespace VampPon.UnitySpike.UI.Screens
             Action onOpenStageSelect,
             Action onOpenCollection)
         {
-            openStageSelect = onOpenStageSelect ?? throw new ArgumentNullException(nameof(onOpenStageSelect));
-            openCollection = onOpenCollection ?? throw new ArgumentNullException(nameof(onOpenCollection));
-            transform.SetParent(parent, false);
+            openStageSelect = onOpenStageSelect ??
+                throw new ArgumentNullException(nameof(onOpenStageSelect));
+            openCollection = onOpenCollection ??
+                throw new ArgumentNullException(nameof(onOpenCollection));
 
-            var rect = gameObject.AddComponent<RectTransform>();
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
+            transform.SetParent(parent, false);
+            var rootRect = gameObject.AddComponent<RectTransform>();
+            Stretch(rootRect, Vector2.zero, Vector2.one);
 
             var blocker = U46ScreenFactory.Panel(
                 transform,
@@ -83,61 +83,80 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Color(.014f, .018f, .055f, 1f));
             blocker.GetComponent<Image>().raycastTarget = true;
 
-            artRoot = CreateRect(transform, "TopLivingNightArt", new Vector2(-.012f, -.006f), new Vector2(1.012f, 1.006f));
-            foreach (var spec in FullCanvasLayers)
-            {
-                var image = CreateRawLayer(artRoot, spec.Name, spec.Alpha);
-                CaptureMotionReference(spec.Name, image);
-            }
+            artRoot = CreateRect(
+                transform,
+                "TopLivingNightArt",
+                new Vector2(-.012f, -.006f),
+                new Vector2(1.012f, 1.006f));
 
-            fireAtlas = CreateRawLayer(artRoot, "FireFlipbook", 1f, fullCanvas: false);
-            ConfigureBox(fireAtlas.rectTransform, new Vector2(.5f, .245f), new Vector2(150f, 126f));
-            fireAtlas.uvRect = AtlasCell(0, 4, 3);
-            if (robotEye != null)
-                fireAtlas.transform.SetSiblingIndex(robotEye.transform.GetSiblingIndex() + 1);
+            foreach (var layer in BackLayers)
+                CreateFullLayer(layer);
 
-            var safe = new GameObject("TopLivingNightSafeArea", typeof(RectTransform), typeof(VampPon.UnitySpike.UI.SafeAreaFitter));
+            fire = CreateRawImage(artRoot, "FireFlipbook", 1f, false);
+            ConfigureAnchoredBox(
+                fire.rectTransform,
+                new Vector2(.5f, .245f),
+                new Vector2(150f, 126f));
+            fire.uvRect = AtlasCell(0, 4, 3);
+
+            foreach (var layer in FrontLayers)
+                CreateFullLayer(layer);
+            foreground = layers["Foreground"].transform;
+
+            var safe = new GameObject(
+                "TopLivingNightSafeArea",
+                typeof(RectTransform),
+                typeof(VampPon.UnitySpike.UI.SafeAreaFitter));
             safe.transform.SetParent(transform, false);
-            var safeRect = safe.GetComponent<RectTransform>();
-            safeRect.anchorMin = Vector2.zero;
-            safeRect.anchorMax = Vector2.one;
-            safeRect.offsetMin = Vector2.zero;
-            safeRect.offsetMax = Vector2.zero;
+            Stretch(safe.GetComponent<RectTransform>(), Vector2.zero, Vector2.one);
 
-            BuildReadabilityVeils(safe.transform);
+            BuildVeils(safe.transform);
             BuildUi(safe.transform, font);
 
             reducedMotion =
                 PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
                 PlayerPrefs.GetInt("reduce_motion", 0) == 1;
-
-            loadingRoutine = StartCoroutine(LoadAllLayers());
+            loadRoutine = StartCoroutine(LoadAllTextures());
         }
 
-        private void BuildReadabilityVeils(Transform parent)
+        private void CreateFullLayer(LayerDefinition definition)
         {
-            var topVeil = U46ScreenFactory.Panel(
+            var image = CreateRawImage(
+                artRoot,
+                definition.Name,
+                definition.Alpha,
+                true);
+            layers.Add(definition.Name, image);
+        }
+
+        private void BuildVeils(Transform parent)
+        {
+            var top = U46ScreenFactory.Panel(
                 parent,
                 "TopReadabilityVeil",
                 new Vector2(0f, .72f),
                 Vector2.one,
                 null,
                 new Color(.01f, .015f, .055f, .30f));
-            topVeil.GetComponent<Image>().raycastTarget = false;
+            top.GetComponent<Image>().raycastTarget = false;
 
-            var bottomVeil = U46ScreenFactory.Panel(
+            var bottom = U46ScreenFactory.Panel(
                 parent,
                 "BottomReadabilityVeil",
                 Vector2.zero,
                 new Vector2(1f, .27f),
                 null,
                 new Color(.012f, .012f, .032f, .48f));
-            bottomVeil.GetComponent<Image>().raycastTarget = false;
+            bottom.GetComponent<Image>().raycastTarget = false;
         }
 
         private void BuildUi(Transform parent, TMP_FontAsset font)
         {
-            titleRoot = CreateRect(parent, "TitleGroup", new Vector2(.06f, .78f), new Vector2(.94f, .965f));
+            titleRoot = CreateRect(
+                parent,
+                "TitleGroup",
+                new Vector2(.06f, .78f),
+                new Vector2(.94f, .965f));
 
             var title = U46ScreenFactory.Label(
                 titleRoot,
@@ -190,7 +209,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Vector2(.12f, .095f),
                 new Vector2(.88f, .18f),
                 font,
-                OpenStageSelect);
+                () => openStageSelect?.Invoke());
 
             U46ScreenFactory.Button(
                 parent,
@@ -200,9 +219,9 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Vector2(.31f, .025f),
                 new Vector2(.69f, .082f),
                 font,
-                OpenCollection);
+                () => openCollection?.Invoke());
 
-            statusLabel = U46ScreenFactory.Label(
+            status = U46ScreenFactory.Label(
                 parent,
                 "TopLoadStatus",
                 "夜景を整えています…",
@@ -212,59 +231,77 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Vector2(.92f, .026f),
                 TextAlignmentOptions.Center,
                 font);
-            statusLabel.raycastTarget = false;
+            status.raycastTarget = false;
         }
 
-        private IEnumerator LoadAllLayers()
+        private IEnumerator LoadAllTextures()
         {
-            foreach (var spec in FullCanvasLayers)
-            {
-                var target = FindRawImage(spec.Name);
-                yield return LoadTexture(spec.File, texture => target.texture = texture);
-            }
+            foreach (var layer in BackLayers)
+                yield return LoadTexture(
+                    layer.File,
+                    texture => layers[layer.Name].texture = texture);
 
-            yield return LoadTexture("10-fire-flipbook-atlas.png", texture =>
-            {
-                fireAtlas.texture = texture;
-                fireAtlas.uvRect = AtlasCell(0, 4, 3);
-            });
+            yield return LoadTexture(
+                "10-fire-flipbook-atlas.png",
+                texture => fire.texture = texture);
 
-            yield return LoadTexture("12-smoke-atlas.png", BuildSmokeParticles);
-            yield return LoadTexture("13-embers-atlas.png", BuildEmberParticles);
+            foreach (var layer in FrontLayers)
+                yield return LoadTexture(
+                    layer.File,
+                    texture => layers[layer.Name].texture = texture);
 
-            loadingRoutine = null;
-            if (statusLabel != null)
-            {
-                statusLabel.text = failedLayerCount == 0
+            yield return LoadTexture("12-smoke-atlas.png", BuildSmoke);
+            yield return LoadTexture("13-embers-atlas.png", BuildEmbers);
+
+            loadRoutine = null;
+            if (status != null)
+                status.text = loadFailures == 0
                     ? string.Empty
-                    : $"夜景素材 {failedLayerCount} 点を読み込めませんでした";
-            }
+                    : $"夜景素材 {loadFailures} 点を読み込めませんでした";
         }
 
-        private IEnumerator LoadTexture(string fileName, Action<Texture2D> onLoaded)
+        private IEnumerator LoadTexture(
+            string fileName,
+            Action<Texture2D> onLoaded)
         {
-            var uri = ResolveLayerUri(fileName);
-            using (var request = UnityWebRequestTexture.GetTexture(uri, true))
+#if UNITY_EDITOR
+            var uri = ResolveEditorUri(fileName);
+            using var request = UnityWebRequestTexture.GetTexture(uri, true);
+            yield return request.SendWebRequest();
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                yield return request.SendWebRequest();
-
-                if (request.result != UnityWebRequest.Result.Success)
-                {
-                    failedLayerCount++;
-                    Debug.LogWarning($"TopLivingNight: failed to load {fileName}: {request.error}");
-                    yield break;
-                }
-
-                var texture = DownloadHandlerTexture.GetContent(request);
-                texture.name = $"TopLivingNight_{Path.GetFileNameWithoutExtension(fileName)}";
-                texture.wrapMode = TextureWrapMode.Clamp;
-                texture.filterMode = FilterMode.Bilinear;
-                ownedTextures.Add(texture);
-                onLoaded?.Invoke(texture);
+                loadFailures++;
+                Debug.LogWarning(
+                    $"TopLivingNight: failed to load {fileName}: {request.error}");
+                yield break;
             }
+
+            var editorTexture = DownloadHandlerTexture.GetContent(request);
+            editorTexture.name =
+                $"TopLivingNight_{Path.GetFileNameWithoutExtension(fileName)}";
+            editorTexture.wrapMode = TextureWrapMode.Clamp;
+            editorTexture.filterMode = FilterMode.Bilinear;
+            editorTextures.Add(editorTexture);
+            onLoaded?.Invoke(editorTexture);
+#else
+            var resourcePath =
+                ResourceRoot + "/" + Path.GetFileNameWithoutExtension(fileName);
+            var resourceTexture = Resources.Load<Texture2D>(resourcePath);
+            if (resourceTexture == null)
+            {
+                loadFailures++;
+                Debug.LogWarning(
+                    $"TopLivingNight: failed to load Resources/{resourcePath}");
+                yield break;
+            }
+
+            resourceTextures.Add(resourceTexture);
+            onLoaded?.Invoke(resourceTexture);
+            yield return null;
+#endif
         }
 
-        private void BuildSmokeParticles(Texture2D texture)
+        private void BuildSmoke(Texture2D atlas)
         {
             var origins = new[]
             {
@@ -274,129 +311,157 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Vector2(-8f, -224f),
             };
 
-            for (var i = 0; i < origins.Length; i++)
+            for (var index = 0; index < origins.Length; index++)
             {
-                var image = CreateRawLayer(artRoot, $"Smoke_{i + 1:00}", .22f, fullCanvas: false);
-                image.texture = texture;
-                image.uvRect = AtlasCell(i % 6, 3, 2);
+                var image = CreateRawImage(
+                    artRoot,
+                    $"Smoke_{index + 1:00}",
+                    .20f,
+                    false);
+                image.texture = atlas;
+                image.uvRect = AtlasCell(index % 6, 3, 2);
                 image.color = new Color(.70f, .72f, .80f, .20f);
-                ConfigureCenteredBox(image.rectTransform, origins[i], new Vector2(86f + i * 8f, 124f + i * 10f));
-                if (foregroundTransform != null)
-                    image.transform.SetSiblingIndex(foregroundTransform.GetSiblingIndex());
-                smokeParticles.Add(new AtlasParticle(
+                ConfigureCenteredBox(
+                    image.rectTransform,
+                    origins[index],
+                    new Vector2(86f + index * 8f, 124f + index * 10f));
+                image.transform.SetSiblingIndex(foreground.GetSiblingIndex());
+                smoke.Add(new ParticleView(
                     image,
-                    origins[i],
-                    4.8f + i * 1.05f,
-                    .17f + i * .23f,
-                    38f + i * 7f));
+                    origins[index],
+                    4.8f + index * 1.05f,
+                    .17f + index * .23f,
+                    38f + index * 7f));
             }
         }
 
-        private void BuildEmberParticles(Texture2D texture)
+        private void BuildEmbers(Texture2D atlas)
         {
-            for (var i = 0; i < 10; i++)
+            for (var index = 0; index < 10; index++)
             {
-                var image = CreateRawLayer(artRoot, $"Ember_{i + 1:00}", .7f, fullCanvas: false);
-                image.texture = texture;
-                image.uvRect = AtlasCell(i % 8, 4, 2);
+                var image = CreateRawImage(
+                    artRoot,
+                    $"Ember_{index + 1:00}",
+                    .72f,
+                    false);
+                image.texture = atlas;
+                image.uvRect = AtlasCell(index % 8, 4, 2);
                 image.color = new Color(1f, .67f, .28f, .72f);
-                var origin = new Vector2(-28f + (i % 5) * 14f, -246f + (i % 3) * 8f);
-                ConfigureCenteredBox(image.rectTransform, origin, new Vector2(9f, 9f));
-                if (foregroundTransform != null)
-                    image.transform.SetSiblingIndex(foregroundTransform.GetSiblingIndex());
-                emberParticles.Add(new AtlasParticle(
+                var origin = new Vector2(
+                    -28f + index % 5 * 14f,
+                    -246f + index % 3 * 8f);
+                ConfigureCenteredBox(
+                    image.rectTransform,
+                    origin,
+                    new Vector2(9f, 9f));
+                image.transform.SetSiblingIndex(foreground.GetSiblingIndex());
+                embers.Add(new ParticleView(
                     image,
                     origin,
-                    2.6f + (i % 4) * .44f,
-                    .09f * i,
-                    76f + (i % 5) * 12f));
+                    2.6f + index % 4 * .44f,
+                    .09f * index,
+                    76f + index % 5 * 12f));
             }
         }
 
         private void Update()
         {
-            if (openStageSelect == null || !isActiveAndEnabled) return;
+            if (!isActiveAndEnabled || openStageSelect == null)
+                return;
 
             var time = Time.unscaledTime;
-            var delta = Time.unscaledDeltaTime;
-
             AnimateTitle(time);
             AnimateSky(time);
-            AnimateLightMasks(time);
-            AnimateFire(time, delta);
-            AnimateAtlasParticles(time);
+            AnimateLights(time);
+            AnimateFire(time, Time.unscaledDeltaTime);
+            AnimateParticles(time);
         }
 
         private void AnimateTitle(float time)
         {
-            if (titleRoot == null) return;
-            titleRoot.anchoredPosition = new Vector2(0f, Mathf.Sin(time * .52f) * 1.2f);
+            if (titleRoot != null)
+                titleRoot.anchoredPosition =
+                    new Vector2(0f, Mathf.Sin(time * .52f) * 1.2f);
         }
 
         private void AnimateSky(float time)
         {
-            if (farCloudsRect != null)
-                farCloudsRect.anchoredPosition = reducedMotion
+            if (layers.TryGetValue("CloudsFar", out var far))
+                far.rectTransform.anchoredPosition = reducedMotion
                     ? Vector2.zero
                     : new Vector2(Mathf.Sin(time * .113f) * 2.8f, 0f);
 
-            if (nearCloudsRect != null)
-                nearCloudsRect.anchoredPosition = reducedMotion
+            if (layers.TryGetValue("CloudsNear", out var near))
+                near.rectTransform.anchoredPosition = reducedMotion
                     ? Vector2.zero
                     : new Vector2(Mathf.Sin(time * .197f + 1.7f) * 5.2f, 0f);
 
-            if (stars != null)
+            if (layers.TryGetValue("Stars", out var stars))
             {
-                var starNoise = Mathf.PerlinNoise(.17f, time * .082f);
-                stars.color = WithAlpha(stars.color, reducedMotion ? .62f : .57f + starNoise * .16f);
+                var noise = Mathf.PerlinNoise(.17f, time * .082f);
+                stars.color = WithAlpha(
+                    stars.color,
+                    reducedMotion ? .62f : .57f + noise * .16f);
             }
         }
 
-        private void AnimateLightMasks(float time)
+        private void AnimateLights(float time)
         {
-            if (distantLights != null)
+            if (layers.TryGetValue("DistantLights", out var distant))
             {
-                var stationNoise = Mathf.PerlinNoise(2.31f, time * .071f);
-                distantLights.color = WithAlpha(distantLights.color, .64f + (stationNoise - .5f) * .06f);
+                var noise = Mathf.PerlinNoise(2.31f, time * .071f);
+                distant.color = WithAlpha(
+                    distant.color,
+                    .64f + (noise - .5f) * .06f);
             }
 
-            if (fireGlow != null)
+            if (layers.TryGetValue("FireGlow", out var glow))
             {
-                var glowA = Mathf.PerlinNoise(5.13f, time * .83f);
-                var glowB = Mathf.PerlinNoise(9.71f, time * 1.67f);
+                var first = Mathf.PerlinNoise(5.13f, time * .83f);
+                var second = Mathf.PerlinNoise(9.71f, time * 1.67f);
                 var amplitude = reducedMotion ? .02f : .10f;
-                fireGlow.color = WithAlpha(fireGlow.color, .56f + ((glowA * .62f + glowB * .38f) - .5f) * amplitude);
+                glow.color = WithAlpha(
+                    glow.color,
+                    .56f + ((first * .62f + second * .38f) - .5f) * amplitude);
             }
 
-            if (lanternGlow != null)
+            if (layers.TryGetValue("LanternGlow", out var lantern))
             {
-                var lanternNoise = Mathf.PerlinNoise(12.7f, time * .19f);
-                lanternGlow.color = WithAlpha(lanternGlow.color, .46f + (lanternNoise - .5f) * .045f);
+                var noise = Mathf.PerlinNoise(12.7f, time * .19f);
+                lantern.color = WithAlpha(
+                    lantern.color,
+                    .46f + (noise - .5f) * .045f);
             }
 
-            if (robotEye != null)
+            if (layers.TryGetValue("RobotEye", out var eye))
             {
                 var phase = Mathf.Repeat(time + 11.7f, 47f);
-                var rareScan = reducedMotion || phase > 1.35f
+                var rare = reducedMotion || phase > 1.35f
                     ? 0f
-                    : Mathf.Sin((phase / 1.35f) * Mathf.PI);
-                robotEye.color = WithAlpha(robotEye.color, .20f + rareScan * .62f);
+                    : Mathf.Sin(phase / 1.35f * Mathf.PI);
+                eye.color = WithAlpha(eye.color, .20f + rare * .62f);
             }
         }
 
         private void AnimateFire(float time, float delta)
         {
-            if (fireAtlas == null || fireAtlas.texture == null) return;
+            if (fire == null || fire.texture == null)
+                return;
 
             fireTimer += delta;
-            var interval = reducedMotion ? .25f : .105f + Mathf.PerlinNoise(4.2f, time * .23f) * .018f;
-            if (fireTimer < interval) return;
+            var interval = reducedMotion
+                ? .25f
+                : .105f + Mathf.PerlinNoise(4.2f, time * .23f) * .018f;
+            if (fireTimer < interval)
+                return;
 
             fireTimer -= interval;
-            var shouldHold = !reducedMotion && Mathf.PerlinNoise(7.9f, fireStep * .173f) > .77f;
+            var hold =
+                !reducedMotion &&
+                Mathf.PerlinNoise(7.9f, fireStep * .173f) > .77f;
             fireStep++;
 
-            if (!shouldHold)
+            if (!hold)
             {
                 fireFrame += fireDirection;
                 if (fireFrame >= 11)
@@ -411,131 +476,151 @@ namespace VampPon.UnitySpike.UI.Screens
                 }
             }
 
-            fireAtlas.uvRect = AtlasCell(fireFrame, 4, 3);
+            fire.uvRect = AtlasCell(fireFrame, 4, 3);
         }
 
-        private void AnimateAtlasParticles(float time)
+        private void AnimateParticles(float time)
         {
-            foreach (var particle in smokeParticles)
+            foreach (var particle in smoke)
             {
                 var cycle = Mathf.Repeat(time * .16f + particle.Phase, 1f);
-                var drift = Mathf.Sin((time + particle.Phase * 9f) * .73f) * 13f;
-                particle.Rect.anchoredPosition = particle.Origin + new Vector2(drift, cycle * particle.Rise);
-                particle.Rect.localScale = Vector3.one * Mathf.Lerp(.78f, 1.28f, cycle);
+                var drift =
+                    Mathf.Sin((time + particle.Phase * 9f) * .73f) * 13f;
+                particle.Rect.anchoredPosition =
+                    particle.Origin + new Vector2(drift, cycle * particle.Rise);
+                particle.Rect.localScale =
+                    Vector3.one * Mathf.Lerp(.78f, 1.28f, cycle);
                 particle.Image.color = WithAlpha(
                     particle.Image.color,
                     reducedMotion ? 0f : Mathf.Sin(cycle * Mathf.PI) * .19f);
             }
 
-            foreach (var particle in emberParticles)
+            foreach (var particle in embers)
             {
-                var cycle = Mathf.Repeat(time / particle.Duration + particle.Phase, 1f);
-                var drift = Mathf.Sin((time + particle.Phase * 17f) * 1.91f) * 11f;
-                particle.Rect.anchoredPosition = particle.Origin + new Vector2(drift, cycle * particle.Rise);
-                var alpha = reducedMotion ? 0f : Mathf.Sin(cycle * Mathf.PI) * .78f;
-                particle.Image.color = WithAlpha(particle.Image.color, alpha);
-                var size = Mathf.Lerp(.65f, 1.15f, 1f - cycle);
-                particle.Rect.localScale = Vector3.one * size;
+                var cycle = Mathf.Repeat(
+                    time / particle.Duration + particle.Phase,
+                    1f);
+                var drift =
+                    Mathf.Sin((time + particle.Phase * 17f) * 1.91f) * 11f;
+                particle.Rect.anchoredPosition =
+                    particle.Origin + new Vector2(drift, cycle * particle.Rise);
+                particle.Image.color = WithAlpha(
+                    particle.Image.color,
+                    reducedMotion ? 0f : Mathf.Sin(cycle * Mathf.PI) * .78f);
+                particle.Rect.localScale =
+                    Vector3.one * Mathf.Lerp(.65f, 1.15f, 1f - cycle);
             }
         }
 
-        private void OpenStageSelect()
+        private void OnDisable()
         {
-            openStageSelect?.Invoke();
+            fireTimer = 0f;
+            ReleaseTextures();
         }
 
-        private void OpenCollection()
+        private void OnDestroy()
         {
-            openCollection?.Invoke();
+            ReleaseTextures();
+            openStageSelect = null;
+            openCollection = null;
         }
 
-        private RawImage FindRawImage(string name)
+        private void ReleaseTextures()
         {
-            var target = artRoot.Find(name);
-            return target != null ? target.GetComponent<RawImage>() : null;
-        }
-
-        private void CaptureMotionReference(string name, RawImage image)
-        {
-            switch (name)
+            if (loadRoutine != null)
             {
-                case "Stars":
-                    stars = image;
-                    break;
-                case "CloudsFar":
-                    farCloudsRect = image.rectTransform;
-                    break;
-                case "CloudsNear":
-                    nearCloudsRect = image.rectTransform;
-                    break;
-                case "DistantLights":
-                    distantLights = image;
-                    break;
-                case "RobotEye":
-                    robotEye = image;
-                    break;
-                case "FireGlow":
-                    fireGlow = image;
-                    break;
-                case "Foreground":
-                    foregroundTransform = image.transform;
-                    break;
-                case "LanternGlow":
-                    lanternGlow = image;
-                    break;
+                StopCoroutine(loadRoutine);
+                loadRoutine = null;
             }
+
+            foreach (var image in GetComponentsInChildren<RawImage>(true))
+                image.texture = null;
+
+            foreach (var texture in editorTextures)
+                if (texture != null) Destroy(texture);
+            editorTextures.Clear();
+
+            foreach (var texture in resourceTextures)
+                if (texture != null) Resources.UnloadAsset(texture);
+            resourceTextures.Clear();
+
+            smoke.Clear();
+            embers.Clear();
+            Resources.UnloadUnusedAssets();
         }
 
-        private static RectTransform CreateRect(Transform parent, string name, Vector2 min, Vector2 max)
+        private static string ResolveEditorUri(string fileName)
         {
-            var obj = new GameObject(name, typeof(RectTransform));
-            obj.transform.SetParent(parent, false);
-            var rect = obj.GetComponent<RectTransform>();
-            rect.anchorMin = min;
-            rect.anchorMax = max;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
+            var repositoryRoot = Path.GetFullPath(
+                Path.Combine(Application.dataPath, "..", "..", ".."));
+            return new Uri(
+                Path.Combine(repositoryRoot, LayerRelativeRoot, fileName))
+                .AbsoluteUri;
+        }
+
+        private static RectTransform CreateRect(
+            Transform parent,
+            string name,
+            Vector2 min,
+            Vector2 max)
+        {
+            var gameObject = new GameObject(name, typeof(RectTransform));
+            gameObject.transform.SetParent(parent, false);
+            var rect = gameObject.GetComponent<RectTransform>();
+            Stretch(rect, min, max);
             return rect;
         }
 
-        private static RawImage CreateRawLayer(
+        private static RawImage CreateRawImage(
             Transform parent,
             string name,
             float alpha,
-            bool fullCanvas = true)
+            bool fullCanvas)
         {
-            var obj = new GameObject(name, typeof(RectTransform), typeof(RawImage));
-            obj.transform.SetParent(parent, false);
-            var rect = obj.GetComponent<RectTransform>();
+            var gameObject = new GameObject(
+                name,
+                typeof(RectTransform),
+                typeof(RawImage));
+            gameObject.transform.SetParent(parent, false);
+            var rect = gameObject.GetComponent<RectTransform>();
             if (fullCanvas)
-            {
-                rect.anchorMin = Vector2.zero;
-                rect.anchorMax = Vector2.one;
-                rect.offsetMin = Vector2.zero;
-                rect.offsetMax = Vector2.zero;
-            }
+                Stretch(rect, Vector2.zero, Vector2.one);
 
-            var image = obj.GetComponent<RawImage>();
+            var image = gameObject.GetComponent<RawImage>();
             image.raycastTarget = false;
             image.color = new Color(1f, 1f, 1f, alpha);
             return image;
         }
 
-        private static void ConfigureBox(RectTransform rect, Vector2 normalizedAnchor, Vector2 size)
+        private static void Stretch(
+            RectTransform rect,
+            Vector2 min,
+            Vector2 max)
         {
-            rect.anchorMin = normalizedAnchor;
-            rect.anchorMax = normalizedAnchor;
+            rect.anchorMin = min;
+            rect.anchorMax = max;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+        }
+
+        private static void ConfigureAnchoredBox(
+            RectTransform rect,
+            Vector2 anchor,
+            Vector2 size)
+        {
+            rect.anchorMin = anchor;
+            rect.anchorMax = anchor;
             rect.pivot = new Vector2(.5f, .5f);
             rect.sizeDelta = size;
             rect.anchoredPosition = Vector2.zero;
         }
 
-        private static void ConfigureCenteredBox(RectTransform rect, Vector2 position, Vector2 size)
+        private static void ConfigureCenteredBox(
+            RectTransform rect,
+            Vector2 position,
+            Vector2 size)
         {
-            rect.anchorMin = new Vector2(.5f, .5f);
-            rect.anchorMax = new Vector2(.5f, .5f);
-            rect.pivot = new Vector2(.5f, .5f);
-            rect.sizeDelta = size;
+            ConfigureAnchoredBox(rect, new Vector2(.5f, .5f), size);
             rect.anchoredPosition = position;
         }
 
@@ -555,38 +640,9 @@ namespace VampPon.UnitySpike.UI.Screens
             return color;
         }
 
-        private static string ResolveLayerUri(string fileName)
+        private readonly struct LayerDefinition
         {
-#if UNITY_EDITOR
-            var repoRoot = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", ".."));
-            var source = Path.Combine(repoRoot, LayerRelativeRoot, fileName);
-#else
-            var source = Path.Combine(Application.streamingAssetsPath, StreamingRoot, fileName);
-#endif
-            if (source.Contains("://", StringComparison.Ordinal)) return source;
-            return new Uri(source).AbsoluteUri;
-        }
-
-        private void OnDisable()
-        {
-            fireTimer = 0f;
-        }
-
-        private void OnDestroy()
-        {
-            if (loadingRoutine != null) StopCoroutine(loadingRoutine);
-            foreach (var texture in ownedTextures)
-                if (texture != null) Destroy(texture);
-            ownedTextures.Clear();
-            smokeParticles.Clear();
-            emberParticles.Clear();
-            openStageSelect = null;
-            openCollection = null;
-        }
-
-        private readonly struct LayerSpec
-        {
-            public LayerSpec(string name, string file, float alpha)
+            public LayerDefinition(string name, string file, float alpha)
             {
                 Name = name;
                 File = file;
@@ -598,9 +654,14 @@ namespace VampPon.UnitySpike.UI.Screens
             public float Alpha { get; }
         }
 
-        private sealed class AtlasParticle
+        private sealed class ParticleView
         {
-            public AtlasParticle(RawImage image, Vector2 origin, float duration, float phase, float rise)
+            public ParticleView(
+                RawImage image,
+                Vector2 origin,
+                float duration,
+                float phase,
+                float rise)
             {
                 Image = image;
                 Rect = image.rectTransform;
