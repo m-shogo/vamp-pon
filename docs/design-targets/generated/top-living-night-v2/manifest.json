@@ -39,14 +39,14 @@
     "previewDurationSeconds": 6
   },
   "assets": [
-    {"id":"00-environment-starless","file":"layers/00-environment-starless.png","width":852,"height":1846,"bytes":2478099,"sha256":"7584a378548582654c8ede59dbba41870554d54ea434823a12da7bb3c2b9ddc4","alphaRequired":false},
+    {"id":"00-environment-starless","file":"layers/00-environment-starless.png","width":852,"height":1846,"bytes":786446,"sha256":"0baf82b0ae391821dae979a8e9b242aa6084a51d3ddc4319bb8dec584d059808","alphaRequired":false},
     {"id":"01-stars","file":"layers/01-stars.png","width":852,"height":1846,"bytes":15004,"sha256":"339dbb65d39a25438377daa21e1e08f3166dfb777a322242de6938cd97fccbb8","alphaRequired":true},
     {"id":"01-moon","file":"layers/01-moon.png","width":852,"height":1846,"bytes":12263,"sha256":"39a76140969238086127738d376653b301f0f4ac502ca75a4c73285d4ffa9258","alphaRequired":true},
     {"id":"02-clouds-far","file":"layers/02-clouds-far.png","width":852,"height":1846,"bytes":111306,"sha256":"bfd29c3e4a3102bd240a15633365a62d57267bd2bba180931cc551501d84a53c","alphaRequired":true},
     {"id":"03-clouds-near","file":"layers/03-clouds-near.png","width":852,"height":1846,"bytes":522213,"sha256":"fa1d2221a22e75842b13459973001516b46ace1d9d2a096e270d8cd9cf96c0ad","alphaRequired":true},
     {"id":"04-distant-lights-mask","file":"layers/04-distant-lights-mask.png","width":852,"height":1846,"bytes":43091,"sha256":"92bd16475e04c6ae8c4b8cc17a6b81835186b9cb460b1ffc6275c61f898f1d72","alphaRequired":true},
     {"id":"05-distant-companion","file":"layers/05-distant-companion.png","width":852,"height":1846,"bytes":57265,"sha256":"833f9ea41fe3bd6f7ad8805daa97014838fafdfbcbe79afed51ce9da9c22ad03","alphaRequired":true},
-    {"id":"06-characters","file":"layers/06-characters.png","width":852,"height":1846,"bytes":809418,"sha256":"e9878ebc75fb31421e473efeb45ca62d1205ac9eefc127b0ebc5207e9454327c","alphaRequired":true},
+    {"id":"06-characters","file":"layers/06-characters.png","width":852,"height":1846,"bytes":786444,"sha256":"b3edafa612d80dbd629e759fd2d2ddaaae72d76cc5c4a832709db77ffc112844","alphaRequired":true},
     {"id":"08-animal-robot","file":"layers/08-animal-robot.png","width":852,"height":1846,"bytes":209400,"sha256":"2bd5b459892e254b76a196d9f4c6e06099218862fe0c39fa936c6c048b5fba6a","alphaRequired":true},
     {"id":"08-robot-eye-mask","file":"layers/08-robot-eye-mask.png","width":852,"height":1846,"bytes":17769,"sha256":"2433aba047cbf297259c3b45fcce5e595947215f3296775d042ecd1e39c97285","alphaRequired":true},
     {"id":"09-fire-base","file":"layers/09-fire-base.png","width":852,"height":1846,"bytes":307248,"sha256":"b86a73a401bdce850faa112288528283104ee2503238e0d612a266a4f66cd868","alphaRequired":true},
