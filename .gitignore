@@ -39,6 +39,11 @@ unity/**/.vs/
 unity/**/.gradle/
 unity/**/sysinfo.txt
 
+# TOP Living Night build-time generated StreamingAssets copy
+# Source of truth remains docs/design-targets/generated/top-living-night-v2/layers.
+unity/VampPonUnity/Assets/StreamingAssets/TopLivingNight/
+unity/VampPonUnity/Assets/StreamingAssets/TopLivingNight.meta
+
 # Claude Code ローカル設定（マシン固有・コミットしない）
 .claude/settings.local.json
 .claude/*.lock
