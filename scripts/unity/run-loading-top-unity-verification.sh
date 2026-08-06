@@ -32,7 +32,8 @@ if [[ $unity_status -ne 0 ]]; then
 fi
 
 cd "$REPO_ROOT"
-node --experimental-strip-types scripts/quality/check-loading-top-runtime-v2.ts
+node --experimental-strip-types scripts/quality/check-loading-top-runtime-boundary.ts
+node --experimental-strip-types scripts/quality/check-top-living-night-runtime-v3.ts
 
 echo "Loading -> TOP Unity verification completed."
 echo "Evidence: docs/design-targets/generated/loading-seasonal-v1/runtime-unity-verification.json"
