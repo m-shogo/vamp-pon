@@ -89,13 +89,17 @@ for (const asset of manifest.assets) {
   invariant(sync.includes(fileName), `build sync missing: ${fileName}`);
 }
 
-invariant(view.includes('UnityWebRequestTexture.GetTexture'), 'runtime texture loading is missing');
-invariant(view.includes('Application.streamingAssetsPath'), 'built-player asset path is missing');
+invariant(view.includes('UnityWebRequestTexture.GetTexture'), 'Editor texture loading is missing');
 invariant(view.includes('Application.dataPath'), 'Editor source path is missing');
+invariant(view.includes('Resources.Load<Texture2D>'), 'built-player compressed Resources loading is missing');
+invariant(view.includes('ResourceRoot = "TopLivingNight"'), 'built-player Resources root is missing');
+invariant(!view.includes('Application.streamingAssetsPath'), 'runtime must not decode raw StreamingAssets PNGs');
 invariant(view.includes('AtlasCell(fireFrame, 4, 3)'), '12-frame fire playback is missing');
 invariant(view.includes('Mathf.PerlinNoise'), 'bounded asynchronous light motion is missing');
 invariant(view.includes('vamp_pon_reduced_motion'), 'reduced-motion behavior is missing');
 invariant(view.includes('47f'), 'rare robot-eye beat is missing');
+invariant(view.includes('Resources.UnloadAsset'), 'TOP texture release is missing');
+invariant(view.includes('Resources.UnloadUnusedAssets'), 'TOP unused-asset release is missing');
 invariant(!view.includes('.mp4'), 'runtime view must not reference MP4');
 invariant(!view.includes('.webp'), 'runtime view must not reference WebP preview');
 
@@ -107,8 +111,16 @@ invariant(shell.includes('topDismissed'), 'TOP one-session dismissal state is mi
 
 invariant(sync.includes('IPreprocessBuildWithReport'), 'pre-build sync hook is missing');
 invariant(sync.includes('IPostprocessBuildWithReport'), 'post-build cleanup hook is missing');
+invariant(sync.includes('Assets/Resources/TopLivingNight'), 'temporary Resources destination is missing');
+invariant(sync.includes('TextureImporterFormat.ASTC_6x6'), 'iOS ASTC 6x6 import is missing');
+invariant(sync.includes('importer.isReadable = false'), 'Read/Write OFF import is missing');
+invariant(sync.includes('importer.mipmapEnabled = false'), 'mipmap OFF import is missing');
+invariant(sync.includes('TextureWrapMode.Clamp'), 'Clamp import is missing');
+invariant(sync.includes('FilterMode.Bilinear'), 'Bilinear import is missing');
+invariant(sync.includes('SHA256.Create'), 'build-time SHA-256 validation is missing');
+invariant(sync.includes('fileInfo.Length != asset.bytes'), 'build-time byte-size validation is missing');
 invariant(sync.includes('RequiredFiles.Length'), 'build sync count log is missing');
-invariant(sync.includes('CleanupGeneratedStreamingAssets'), 'generated asset cleanup is missing');
+invariant(sync.includes('CleanupGeneratedBuildAssets'), 'generated Resources cleanup is missing');
 
 const viewGuid = viewMeta.match(/^guid: ([0-9a-f]{32})$/m)?.[1];
 const syncGuid = syncMeta.match(/^guid: ([0-9a-f]{32})$/m)?.[1];
@@ -117,7 +129,9 @@ invariant(syncGuid, 'TOP sync meta GUID is missing');
 invariant(viewGuid !== syncGuid, 'TOP Unity meta GUIDs must be unique');
 
 console.log('top living night runtime: PASS');
-console.log('layers: 17/17 editor-source + build-time StreamingAssets sync');
+console.log('layers: 17/17 editor source + verified build-time compressed Resources import');
+console.log('iOS import: ASTC 6x6 / Read-Write OFF / mipmap OFF / Clamp / Bilinear');
 console.log('motion: fire / glow / stars / clouds / smoke / embers / robot eye');
+console.log('memory: raw StreamingAssets decode disabled / TOP textures released on dismissal');
 console.log('flow: normal startup overlay / canonical simulator smoke isolated');
-console.log('approval: runtime connected / simulator and physical-device approval pending');
+console.log('approval: runtime connected / Unity execution and physical-device approval pending');
