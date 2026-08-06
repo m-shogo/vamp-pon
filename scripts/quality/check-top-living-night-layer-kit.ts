@@ -32,6 +32,11 @@ type Manifest = {
     previewDurationSeconds: number;
   };
   assets: Asset[];
+  runtimeConnection: {
+    connectedAssetCount: number;
+    diagnosticIsolation: string;
+    result: string;
+  };
 };
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
@@ -51,13 +56,13 @@ function inspectPng(path: string) {
   return { width: data.readUInt32BE(16), height: data.readUInt32BE(20), colorType: data.readUInt8(25) };
 }
 
-invariant(manifest.schemaVersion === 'top-living-night-layer-kit.0.2', 'unexpected schemaVersion');
+invariant(manifest.schemaVersion === 'top-living-night-layer-kit.0.3', 'unexpected schemaVersion');
 invariant(manifest.sourceComposition === 'candidate-a', 'source must remain candidate-a');
-invariant(manifest.approval.status === 'production-layer-candidate', 'status must remain candidate');
+invariant(manifest.approval.status === 'runtime-connected-candidate', 'status must remain runtime-connected candidate');
 invariant(manifest.approval.humanSelectedCompositionDirection === true, 'direction selection missing');
 invariant(manifest.approval.approvedAsFinal === false, 'approvedAsFinal must remain false');
 invariant(manifest.approval.runtimeApproved === false, 'runtimeApproved must remain false');
-invariant(manifest.approval.runtimeConnected === false, 'runtimeConnected must remain false');
+invariant(manifest.approval.runtimeConnected === true, 'runtimeConnected must be true');
 invariant(manifest.approval.finalApprovalBlocked === true, 'finalApprovalBlocked must remain true');
 invariant(manifest.motionPolicy.videoGenerationUsed === false, 'AI video must remain unused');
 invariant(manifest.motionPolicy.runtimeUsesVideo === false, 'runtime video must remain disabled');
@@ -65,6 +70,9 @@ invariant(manifest.motionPolicy.previewFrames === 48, 'preview frame count misma
 invariant(manifest.motionPolicy.previewFps === 8, 'preview fps mismatch');
 invariant(manifest.motionPolicy.previewDurationSeconds === 6, 'preview duration mismatch');
 invariant(manifest.assets.length === 17, `expected 17 assets, got ${manifest.assets.length}`);
+invariant(manifest.runtimeConnection.connectedAssetCount === 17, 'all 17 assets must be runtime-connected');
+invariant(manifest.runtimeConnection.diagnosticIsolation === 'VAMPPON_AI_SIMULATOR_SMOKE', 'diagnostic isolation mismatch');
+invariant(manifest.runtimeConnection.result === 'PASS_SOURCE_CONTRACT', 'runtime source contract must pass');
 
 const ids = new Set<string>();
 for (const asset of manifest.assets) {
@@ -86,4 +94,4 @@ invariant(mp4.subarray(4, 8).toString('ascii') === 'ftyp', 'motion preview: inva
 console.log('top living night layer kit: PASS');
 console.log(`assets: ${manifest.assets.length}/17`);
 console.log('preview: 48 frames / 8fps / 6s / deterministic layered stills');
-console.log('approval: selected direction / candidate / runtime not connected');
+console.log('approval: selected direction / runtime connected candidate / final blocked');
