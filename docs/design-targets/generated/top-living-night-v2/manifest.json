@@ -1,6 +1,7 @@
 {
-  "schemaVersion": "top-living-night-layer-kit.0.2",
+  "schemaVersion": "top-living-night-layer-kit.0.3",
   "generatedAt": "2026-08-01",
+  "runtimeConnectedAt": "2026-08-06",
   "assetId": "top:living-night:layer-kit:v2",
   "sourceComposition": "candidate-a",
   "sourceReference": {
@@ -15,16 +16,16 @@
     "seedAvailable": false
   },
   "approval": {
-    "status": "production-layer-candidate",
+    "status": "runtime-connected-candidate",
     "humanSelectedCompositionDirection": true,
     "approvedAsFinal": false,
     "runtimeApproved": false,
-    "runtimeConnected": false,
+    "runtimeConnected": true,
     "finalApprovalBlocked": true,
     "blockingReview": [
       "formal character identity master comparison",
       "human alpha-edge and occluded-background review",
-      "Unity import and responsive crop",
+      "Unity compilation and responsive runtime capture",
       "Simulator and physical-device performance"
     ]
   },
@@ -63,10 +64,21 @@
     "motionMp4": {"file":"previews/top-living-night-layer-motion-preview.mp4","sha256":"a62c99c174672924e87bfbc893f46d6a55478d70993f334ec245d3840bb2070d"},
     "motionWebp": {"file":"previews/top-living-night-layer-motion-preview.webp","sha256":"6b52fe269c67a8266e307693068adad7fa729154d386985af5b6a6c2df9a028d"}
   },
+  "runtimeConnection": {
+    "view": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs",
+    "shell": "unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs",
+    "buildSync": "unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightStreamingAssetsSync.cs",
+    "assetSourceOfTruth": "docs/design-targets/generated/top-living-night-v2/layers",
+    "builtPlayerSource": "Assets/StreamingAssets/TopLivingNight generated at build time",
+    "connectedAssetCount": 17,
+    "diagnosticIsolation": "VAMPPON_AI_SIMULATOR_SMOKE",
+    "result": "PASS_SOURCE_CONTRACT"
+  },
   "automaticQa": {
     "layerAssetCount": 17,
     "validPngCount": 17,
     "responsivePreviewCount": 3,
-    "result": "PASS_LAYER_KIT_STATIC_AND_PREVIEW_SCOPE"
+    "layerKitResult": "PASS_LAYER_KIT_STATIC_AND_PREVIEW_SCOPE",
+    "runtimeStaticContract": "PASS_SOURCE_CONTRACT"
   }
 }
