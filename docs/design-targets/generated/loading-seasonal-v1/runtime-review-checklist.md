@@ -17,11 +17,15 @@ Those screenshots remain useful as regression history only.
 
 Current source fixes include:
 
-- development capture text is no longer rendered
-- TOP Runtime V3 base composite bridge
-- luminance-additive mask shader
-- dark-safe mask detach behavior
-- capture waits for both layered TOP readiness and V3 composite readiness
+- development capture text is no longer rendered,
+- TOP Runtime V3 base composite bridge,
+- luminance-additive mask shader,
+- dark-safe mask detach behavior,
+- transparent Stars / CloudsFar / CloudsNear remain live above the V3 base composite,
+- sky-overlay alpha sparsity is checked in CI,
+- timeout may reveal UI but does not promote capture readiness,
+- capture readiness requires `Smoke_01` and `Ember_01`,
+- capture waits for both complete TOP readiness and V3 composite readiness.
 
 Therefore all current V3 capture/human-review approval items below remain pending until the new run is executed.
 
@@ -112,21 +116,28 @@ Current rendered verification still required:
 Current bridge/runtime architecture:
 
 - [x] V3 base composite source is fixed at 430x932 with SHA guard.
-- [x] Static duplicate environment/character layers are suppressed while V3 composite is active.
+- [x] Static duplicate environment/character/body layers are suppressed while V3 composite is active.
+- [x] Transparent `Stars`, `CloudsFar`, `CloudsNear` remain active above the base composite.
+- [x] Stars / far clouds / near clouds are alpha-sparsity checked so they cannot regress to opaque overlays.
 - [x] Fire flipbook / smoke / embers remain dynamic overlays.
 - [x] Distant lights / robot eye / fire glow / lantern glow use luminance-additive treatment.
 - [x] Opaque-black mask sources are hidden when additive material is detached.
 - [x] `BaseComposite` is reused rather than blindly duplicated on re-attach.
 - [x] Capture source waits for `LoadingTopVisualPolishCoordinator.IsCurrentTopReady`.
+- [x] `IsCurrentTopReady` is not promoted merely because the visual timeout elapsed.
+- [x] Capture readiness requires `Smoke_01` and `Ember_01` to exist with textures.
 - [x] Capture source also waits for `TopLivingNightCompositeV3Controller.IsCompositeReady`.
 
 Current rendered review still required:
 
 - [ ] TOP is neither white/blank nor black/glow-only.
 - [ ] Base composite is visible before capture readiness is reported.
+- [ ] Stars remain subtle and do not look doubled against the baked base.
+- [ ] Far/near clouds visibly drift without obvious duplicate-edge artifacts.
+- [ ] Sky overlays remain translucent and never darken/cover the character scene.
 - [ ] Fire overlay aligns with the painted fire base without obvious doubling.
-- [ ] Smoke remains restrained.
-- [ ] Embers remain sparse.
+- [ ] Smoke is already present when capture readiness is reached and remains restrained.
+- [ ] Embers are already present when capture readiness is reached and remain sparse.
 - [ ] Additive masks brighten only intended light areas.
 - [ ] No black opaque mask layer covers characters/environment.
 - [ ] Title remains readable without covering faces.
@@ -177,9 +188,11 @@ Static motion contract is connected, but runtime review is **NOT_RUN**.
 
 - [x] Fire atlas uses irregular bounded timing rather than a fixed hard-reset loop.
 - [x] Far/near cloud timing anchors differ.
+- [x] Stars / far clouds / near clouds are actually left active by V3 composition rather than merely animated while hidden.
 - [x] Stars, distant lights, fire glow and lantern use independent timing anchors.
 - [x] Robot-eye event is rare rather than continuous.
 - [x] Smoke/ember duration and phases vary by particle.
+- [x] Capture readiness cannot pass before at least the first smoke and ember nodes exist.
 - [x] Reduced Motion source policy stops/reduces high-motion elements.
 - [ ] Normal TOP is watched in runtime for at least five minutes.
 - [ ] No obvious short master loop is observed.
