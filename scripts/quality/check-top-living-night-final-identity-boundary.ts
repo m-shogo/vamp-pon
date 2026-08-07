@@ -14,6 +14,10 @@ const generationPromptPath = join(
   root,
   'docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md',
 );
+const referenceManifestPath = join(
+  root,
+  'docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json',
+);
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
@@ -80,6 +84,35 @@ for (const token of [
   invariant(generationPrompt.includes(token), `final Core5 generation prompt boundary missing: ${token}`);
 }
 
+invariant(existsSync(referenceManifestPath), 'locked Core5 reference manifest is missing');
+const referenceManifest = JSON.parse(readFileSync(referenceManifestPath, 'utf8')) as {
+  schemaVersion: number;
+  status: string;
+  referenceCount: number;
+  references: Array<{ id: string; path: string; gitBlobSha1: string }>;
+  rules: {
+    exactlyFiveReferences: boolean;
+    silentMasterReplacementAllowed: boolean;
+    manifestUpdateRequiredForIntentionalMasterChange: boolean;
+    finalCandidateMustUseTheseReferences: boolean;
+  };
+};
+
+invariant(referenceManifest.schemaVersion === 1, 'Core5 reference authority schema mismatch');
+invariant(
+  referenceManifest.status === 'LOCKED_FOR_FINAL_TOP_GENERATION',
+  'Core5 reference authority must be locked for final TOP generation',
+);
+invariant(referenceManifest.referenceCount === 5, 'Core5 reference authority must declare five masters');
+invariant(referenceManifest.references.length === 5, 'Core5 reference authority must contain five masters');
+invariant(referenceManifest.rules.exactlyFiveReferences, 'Core5 exact-five reference rule must remain enabled');
+invariant(!referenceManifest.rules.silentMasterReplacementAllowed, 'silent Core5 master replacement must remain prohibited');
+invariant(
+  referenceManifest.rules.manifestUpdateRequiredForIntentionalMasterChange,
+  'intentional Core5 master changes must update reference authority',
+);
+invariant(referenceManifest.rules.finalCandidateMustUseTheseReferences, 'final TOP must use the locked Core5 master set');
+
 const masterPaths = [
   'assets/reference/character-master/core5/yui-character-master-v1.png',
   'assets/reference/character-master/core5/asa-character-master-v1.png',
@@ -87,13 +120,20 @@ const masterPaths = [
   'assets/reference/character-master/core5/michiru-character-master-v1.png',
   'assets/reference/character-master/core5/tomori-character-master-v1.png',
 ];
+const expectedIds = ['yui', 'asa', 'nagi', 'michiru', 'tomori'];
 
-for (const path of masterPaths) {
+for (const [index, path] of masterPaths.entries()) {
   invariant(existsSync(join(root, path)), `Core5 identity master is missing: ${path}`);
+  const locked = referenceManifest.references[index];
+  invariant(locked.id === expectedIds[index], `Core5 reference id/order mismatch at ${index}`);
+  invariant(locked.path === path, `Core5 reference manifest path mismatch: ${path}`);
+  invariant(/^[0-9a-f]{40}$/.test(locked.gitBlobSha1), `Core5 locked Git blob SHA-1 is invalid: ${path}`);
+  invariant(generationPrompt.includes(path), `final generation prompt does not name locked Core5 reference: ${path}`);
 }
 
 console.log('TOP Living Night final Core5 identity boundary: PASS');
 console.log('current Runtime V3 composite remains a visual-recovery bridge');
 console.log('Stage1 artifact gap review confirms generic identities/rendering require replacement');
-console.log('final generation prompt is locked to the five repository Core5 masters');
+console.log('final generation prompt is bound to the five locked repository Core5 masters');
+console.log('silent Core5 master replacement is rejected by separate binary-integrity CI');
 console.log('final art approval remains blocked pending Core5 identity and human visual review');
