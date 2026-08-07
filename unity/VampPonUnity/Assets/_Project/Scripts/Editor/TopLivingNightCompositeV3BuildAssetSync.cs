@@ -126,6 +126,15 @@ namespace VampPon.UnitySpike.Editor
             if (status == null)
                 throw new BuildFailedException(
                     "TOP Runtime V3 final-art status parsed as null.");
+            if (status.schemaVersion != 1)
+                throw new BuildFailedException(
+                    $"TOP Runtime V3 final-art status schema mismatch: expected 1, actual {status.schemaVersion}.");
+            if (!string.Equals(
+                    status.candidatePath,
+                    FinalSourceRelativePath,
+                    StringComparison.Ordinal))
+                throw new BuildFailedException(
+                    $"TOP Runtime V3 final candidate path is not canonical: {status.candidatePath}");
 
             var finalSourcePath = Path.Combine(
                 repositoryRoot,
@@ -148,12 +157,6 @@ namespace VampPon.UnitySpike.Editor
                     false);
             }
 
-            if (!string.Equals(
-                    status.candidatePath,
-                    FinalSourceRelativePath,
-                    StringComparison.Ordinal))
-                throw new BuildFailedException(
-                    $"TOP Runtime V3 final candidate path is not canonical: {status.candidatePath}");
             if (!IsLowerHexSha256(status.candidateSha256))
                 throw new BuildFailedException(
                     "TOP Runtime V3 generated final candidate requires a lowercase 64-character SHA-256.");
@@ -319,6 +322,7 @@ namespace VampPon.UnitySpike.Editor
         [Serializable]
         private sealed class FinalArtStatus
         {
+            public int schemaVersion;
             public bool candidateGenerated;
             public string candidatePath;
             public string candidateSha256;
