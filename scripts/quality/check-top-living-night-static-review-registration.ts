@@ -1,6 +1,7 @@
 import './check-top-living-night-human-review-registration.ts';
 import './check-top-living-night-motion-review-registration.ts';
 import './check-top-living-night-review-template-safety.ts';
+import './check-top-living-night-review-registration-mutation.ts';
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
