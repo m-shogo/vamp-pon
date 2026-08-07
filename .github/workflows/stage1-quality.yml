@@ -78,6 +78,9 @@ jobs:
       - name: Verify TOP final generation bundle
         run: node --experimental-strip-types scripts/quality/check-top-living-night-generation-bundle.ts
 
+      - name: Verify TOP post-generation gate chain
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-post-generation-gate-chain.ts
+
       - name: Verify TOP Core5 candidate reference provenance
         run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-candidate-provenance.ts
 
@@ -143,8 +146,14 @@ jobs:
       - name: Verify automated Loading TOP capture boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
 
+      - name: Verify Loading TOP capture matrix source
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-matrix-source.ts
+
       - name: Verify Loading TOP capture temporal coherence
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-temporal-coherence.ts
+
+      - name: Verify Loading TOP Unity to capture temporal chain
+        run: node --experimental-strip-types scripts/quality/check-loading-top-unity-capture-temporal-chain.ts
 
       - name: Verify Loading TOP capture distinctness
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-distinctness.ts
