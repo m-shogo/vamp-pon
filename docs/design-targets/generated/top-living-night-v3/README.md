@@ -35,7 +35,7 @@ Verified 17-asset production layer kit, provenance and motion-source authority. 
 
 ### V3 bridge
 
-The current V3 runtime uses the V2 layered 430x932 preview as a **visual-recovery bridge** for the base composite.
+Until a canonical Core5 final candidate is explicitly registered, V3 uses the V2 layered 430x932 preview as a **visual-recovery bridge** for the base composite.
 
 The bridge keeps the stable scene composition while selected V2 layers remain live above it:
 
@@ -52,6 +52,49 @@ Opaque/static duplicates such as environment, moon, generic characters, fire bas
 The sky overlays are intentionally sparse/transparent and are checked in CI so an opaque replacement cannot silently cover the base composite.
 
 The bridge composition direction may be kept, but its human identities/rendering are not final Core5 approval.
+
+## Composite source promotion
+
+V3 no longer requires a C# SHA edit when the final Core5 artwork becomes ready. Editor runtime, build staging and Unity verification all follow the same `final-art-status.json` authority boundary.
+
+### Bridge selection
+
+The bridge is selected only while:
+
+```txt
+candidateGenerated=false
+candidateSha256=""
+canonical final PNG does not exist
+```
+
+If a final PNG exists while `candidateGenerated=false`, Editor runtime refuses to silently use the bridge and the build source selector fails. This makes an unregistered candidate visible as an error instead of hiding it behind a successful bridge build.
+
+### Final Core5 selection
+
+The final source is selected only when all of the following are true:
+
+```txt
+candidateGenerated=true
+candidatePath=docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png
+candidateSha256=<lowercase 64-char SHA-256>
+final PNG exists
+actual final PNG SHA-256 == candidateSha256
+final PNG dimensions == 430x932
+```
+
+The selected final PNG is staged into the same runtime Resources path as the bridge, so the controller/motion architecture does not need a second presentation path.
+
+`runtime-unity-verification.json` records the executed source as:
+
+```txt
+sourceCompositeKind=bridge | final-core5
+sourceCompositePath=<verified source path>
+sourceCompositeSha256=<verified source bytes>
+```
+
+A previous V3 Unity PASS against `bridge` is **not** valid final-art Unity evidence after `candidateGenerated=true`. Any final PNG byte change changes its SHA-256 and invalidates old Core5/crop/motion/Unity evidence for final approval until those gates are rerun against the current candidate.
+
+This source promotion changes only which approved base composite is presented. It does not auto-promote Core5 identity, crop, motion, capture, runtime or final approval flags.
 
 ## Current evidence snapshot
 
@@ -140,7 +183,7 @@ The capture automation retains a 45-second hard timeout; a timeout produces fail
 
 ### `runtimeCaptureComplete=true`
 
-Allowed only after current V3 Unity evidence and the current 15-frame capture pack are executed and PASSED.
+Allowed only after current V3 Unity evidence and the current 15-frame capture pack are executed and PASSED. Once final Core5 art exists, the V3 Unity evidence must explicitly identify `sourceCompositeKind=final-core5` and the same candidate SHA-256.
 
 ### `core5IdentityReviewed=true`
 
