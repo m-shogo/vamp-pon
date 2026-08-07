@@ -1,6 +1,8 @@
 {
   "schemaVersion": 1,
   "staticContractReady": true,
+  "candidatePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+  "candidateSha256": "",
   "normalMotion": {
     "executed": false,
     "result": "NOT_RUN",
@@ -26,5 +28,5 @@
   "motionApproved": false,
   "runtimeApproved": false,
   "finalApprovalBlocked": true,
-  "notes": "Static motion contract exists, but five-minute normal-motion and Reduced Motion runtime reviews have not been executed on the current V3 runtime."
+  "notes": "Static motion contract exists, but five-minute normal-motion and Reduced Motion runtime reviews have not been executed on the current V3 runtime. candidateSha256 must be populated from the exact Core5 final TOP PNG before any motion review can be approved."
 }
