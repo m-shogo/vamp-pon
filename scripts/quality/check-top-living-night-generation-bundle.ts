@@ -7,6 +7,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 type Reference = { id: string; path: string; gitBlobSha1: string };
+type ExecutionPhase = { phase: string; requires: string[]; parallel: string[] };
 type Bundle = {
   schemaVersion: number;
   status: string;
@@ -34,6 +35,7 @@ type Bundle = {
     requiredCropTargets: string[];
   };
   registration: { script: string; registrationDoesNotApprove: boolean; resetsCandidateSensitiveEvidence: boolean };
+  postGenerationExecutionPlan: ExecutionPhase[];
   requiredPostGenerationChecks: string[];
 };
 
@@ -116,16 +118,60 @@ invariant(bundle.safeAreas.buttonBottomFraction[0] === .20 && bundle.safeAreas.b
 invariant(bundle.registration.registrationDoesNotApprove, 'TOP image registration must never imply approval');
 invariant(bundle.registration.resetsCandidateSensitiveEvidence, 'TOP image registration must reset stale downstream evidence');
 
+const expectedExecutionPlan: ExecutionPhase[] = [
+  {
+    phase: 'candidate-static-and-unity',
+    requires: ['final-candidate-registered'],
+    parallel: ['core5-identity-review', 'three-crop-review', 'unity-v3-verification'],
+  },
+  {
+    phase: 'runtime-observation',
+    requires: ['unity-v3-verification'],
+    parallel: ['normal-and-reduced-motion-review', '15-frame-capture'],
+  },
+  {
+    phase: 'capture-human-review',
+    requires: ['15-frame-capture'],
+    parallel: ['human-visual-review'],
+  },
+  {
+    phase: 'device-performance',
+    requires: ['unity-v3-verification', '15-frame-capture'],
+    parallel: ['simulator-performance', 'physical-iphone-performance'],
+  },
+  {
+    phase: 'final-promotion',
+    requires: [
+      'core5-identity-review',
+      'three-crop-review',
+      'normal-and-reduced-motion-review',
+      'human-visual-review',
+      'simulator-performance',
+      'physical-iphone-performance',
+    ],
+    parallel: ['approval-consistency', 'readiness-summary', 'guarded-final-promotion'],
+  },
+];
+invariant(
+  JSON.stringify(bundle.postGenerationExecutionPlan) === JSON.stringify(expectedExecutionPlan),
+  'TOP generation execution plan diverged from dependency-correct parallel schedule',
+);
+
 const expectedPostGenerationChecks = [
   'scripts/quality/check-top-living-night-final-art-candidate.ts',
   'scripts/quality/check-top-living-night-core5-candidate-provenance.ts',
   'scripts/quality/check-top-living-night-core5-review.ts',
   'scripts/quality/check-top-living-night-crop-review.ts',
-  'scripts/quality/check-top-living-night-motion-contract.ts',
-  'scripts/quality/check-top-living-night-human-review.ts',
   'scripts/quality/check-top-living-night-unity-evidence.ts',
   'scripts/quality/check-loading-top-capture-pack.ts',
+  'scripts/quality/check-top-living-night-human-review.ts',
+  'scripts/quality/check-top-living-night-motion-contract.ts',
+  'scripts/quality/check-top-living-night-device-performance-artifact.ts',
+  'scripts/quality/check-top-living-night-device-performance-policy.ts',
+  'scripts/quality/check-top-living-night-device-evidence.ts',
   'scripts/quality/check-top-living-night-approval-consistency.ts',
+  'scripts/quality/check-top-living-night-readiness-summary.ts',
+  'scripts/quality/check-top-living-night-final-promotion-safety.ts',
 ];
 invariant(
   JSON.stringify(bundle.requiredPostGenerationChecks) === JSON.stringify(expectedPostGenerationChecks),
@@ -139,5 +185,6 @@ console.log('TOP Living Night final generation bundle: PASS');
 console.log(`core5ReferenceSet=${bundle.core5.referenceSetSha256}`);
 console.log(`target=${bundle.target.path} ${bundle.target.width}x${bundle.target.height}`);
 console.log(`postGenerationGates=${expectedPostGenerationChecks.length}`);
+console.log('parallel plan: Core5/crops/Unity -> after Unity motion + capture -> after capture human + device -> guarded final promotion');
 console.log('bridge human inheritance: forbidden; final foreground humans are Core5 only');
 console.log('bundle remains generation-ready only; no final/runtime approval is implied');
