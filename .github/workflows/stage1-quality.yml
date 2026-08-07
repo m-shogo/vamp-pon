@@ -39,6 +39,9 @@ jobs:
       - name: Verify Stage1 quality
         run: pnpm stage1:fun-pass:verify
 
+      - name: Verify seasonal Loading docs match manifest
+        run: node --experimental-strip-types scripts/quality/check-loading-seasonal-doc-consistency.ts
+
       - name: Verify TOP Living Night layer kit
         run: node --experimental-strip-types scripts/quality/check-top-living-night-layer-kit.ts
 
@@ -98,6 +101,8 @@ jobs:
         with:
           name: loading-top-visual-review-${{ github.event.pull_request.head.sha || github.sha }}
           path: |
+            docs/design-targets/generated/loading-seasonal-v1/README.md
+            docs/design-targets/generated/loading-seasonal-v1/manifest.json
             docs/design-targets/generated/loading-seasonal-v1/runtime-captures/*.png
             docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
             docs/design-targets/generated/loading-seasonal-v1/runtime-review-checklist.md
