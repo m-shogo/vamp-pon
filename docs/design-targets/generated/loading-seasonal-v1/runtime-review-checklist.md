@@ -1,8 +1,33 @@
 # Loading -> TOP runtime review checklist
 
+Status: `V3_RECAPTURE_REQUIRED / CURRENT_RUNTIME_NOT_RUN`
+
+This checklist applies to the current TOP Runtime V3 implementation.
+
+The repository also retains an older 15-frame capture pack for historical diagnosis. That pack is **not current V3 approval evidence** and must not be used to promote runtime or final approval.
+
+## Why the historical capture is invalid for V3 approval
+
+The older pack did complete 15/15 screenshots, but visual inspection later exposed two material issues:
+
+- Loading screenshots contained development-only `capture hold · season` text.
+- TOP screenshots were effectively dark/black with blurred glow regions because opaque-black light-mask PNGs were being alpha-blended as ordinary `RawImage` layers.
+
+Those screenshots remain useful as regression history only.
+
+Current source fixes include:
+
+- development capture text is no longer rendered
+- TOP Runtime V3 base composite bridge
+- luminance-additive mask shader
+- dark-safe mask detach behavior
+- capture waits for both layered TOP readiness and V3 composite readiness
+
+Therefore all current V3 capture/human-review approval items below remain pending until the new run is executed.
+
 ## Capture matrix
 
-The automated pack captures all required frames at 360x800, 390x844, and 430x932.
+The automated pack is configured for all required frames at 360x800, 390x844, and 430x932.
 
 | Frame | Forced index | Required captures |
 | --- | ---: | ---: |
@@ -12,82 +37,211 @@ The automated pack captures all required frames at 360x800, 390x844, and 430x932
 | loading-winter | 3 | 3 |
 | top | n/a | 3 |
 
-Total required runtime captures: **15**.
+Total required current runtime captures: **15**.
 
-## Automated capture result
+## Current automated capture result
 
-- [x] Unity 6000.5.1f1 executed the full capture matrix.
-- [x] `runtime-capture-manifest.json` reports `PASSED`.
-- [x] Capture count is 15/15.
-- [x] PNG dimensions match 360x800 / 390x844 / 430x932.
-- [x] SHA-256 is recorded for every PNG.
-- [x] Corrected capture pack is committed at `380e966e30637d48684e3f353ba6c723c0b33aa3`.
-
-Captures are stored under:
+Current authority:
 
 ```txt
-docs/design-targets/generated/loading-seasonal-v1/runtime-captures/
+runtime-capture-manifest.json
+executed=false
+result=NOT_RUN
+expectedCaptureCount=15
+captureCount=0
 ```
+
+- [ ] Unity 6000.5.1f1 executes the current V3 full capture matrix.
+- [ ] V3 Unity verification reports `PASSED` for the same current implementation.
+- [ ] `runtime-capture-manifest.json` reports `PASSED`.
+- [ ] Capture count is 15/15.
+- [ ] PNG dimensions match 360x800 / 390x844 / 430x932.
+- [ ] SHA-256 is recorded for every current PNG.
+- [ ] New current V3 capture evidence is committed.
+
+Historical capture files under `runtime-captures/` do not satisfy these boxes while the current manifest remains `NOT_RUN`.
 
 ## Flow
 
-- [x] Normal startup shows Loading before TOP in automated runtime capture.
-- [x] Loading completion creates and reveals TOP exactly once in the capture flow.
-- [ ] TOP still opens StageSelect through `夜へ出る` in human interaction review.
-- [ ] TOP still opens Collection through `灯録` in human interaction review.
-- [ ] Reinitialization does not leave duplicate Loading or TOP views in a rendered player run.
-- [x] Existing `VAMPPON_AI_SIMULATOR_SMOKE` evidence remains unchanged.
+Source/static contract:
 
-## Four-art rotation
+- [x] Loading is connected before TOP in normal startup flow.
+- [x] Loading completion defers TOP construction until Loading is dismissed.
+- [x] TOP source retains `夜へ出る` -> StageSelect navigation.
+- [x] TOP source retains `灯録` -> Collection navigation.
+- [x] Existing `VAMPPON_AI_SIMULATOR_SMOKE` isolation remains in source.
 
-- [x] All four slots resolve in the built player.
-- [x] All four slots can be forced for capture.
-- [x] Final seasonal binaries replace temporary fallback sources in the manifest.
-- [ ] Normal startup chooses a random slot in repeated rendered launches.
-- [ ] The same slot does not appear on two consecutive rendered launches.
-- [x] Capture override remains Editor-only and does not replace production selection logic.
+Current runtime evidence still required:
 
-## Visual review
+- [ ] Current V3 runtime visibly shows Loading -> TOP without StageSelect flash-through.
+- [ ] `夜へ出る` is confirmed interactively in rendered runtime.
+- [ ] `灯録` is confirmed interactively in rendered runtime.
+- [ ] Reinitialization does not leave duplicate Loading, TOP or `BaseComposite` objects.
 
+## Four-art Loading rotation
+
+Static/import evidence already retained:
+
+- [x] Four final seasonal source PNGs are committed.
+- [x] Final seasonal paths replace temporary TOP candidate paths.
+- [x] Random-selection and previous-index exclusion logic remain in source.
+- [x] Capture override remains isolated from production selection logic.
+
+Current rendered verification still required:
+
+- [ ] All four current Loading slots render at all three target resolutions.
+- [ ] Repeated normal launches visibly rotate the seasonal slot.
+- [ ] The same slot is not shown on two consecutive rendered launches.
+
+## Loading visual review — current V3 pack
+
+- [ ] No `capture hold · ...` or other development text appears.
 - [ ] No unsafe crop at 360x800.
 - [ ] No unsafe crop at 390x844.
 - [ ] No unsafe crop at 430x932.
-- [ ] Important faces and silhouettes stay outside the Dynamic Island / notch risk zone.
+- [ ] Important faces and silhouettes stay outside notch / Dynamic Island risk areas.
 - [ ] Bottom status and progress UI stay above the home indicator.
-- [ ] The Loading progress line reads as a subtle 1-2px light, not a heavy bar.
+- [ ] Progress reads as a subtle 1–2px light rather than a heavy loading bar.
 - [ ] `夜の記憶をひらいています…` remains readable on all four images.
+- [ ] Bottom veil does not unnecessarily hide the illustration.
 - [ ] No stretched artwork.
-- [ ] No black fringe, transparent edge, unintended bar, or white panel.
-- [ ] TOP shows the complete layered night artwork rather than the dark fallback alone.
-- [ ] Loading and TOP feel like one visual world.
-- [ ] The fade does not flash StageSelect between Loading and TOP.
+- [ ] No black fringe, transparent edge, unintended bar, white panel or blank frame.
 
-## TOP art direction
+## TOP Runtime V3 visual review
 
-Current TOP is a 17-asset layered composition, not a missing single image.
+Current bridge/runtime architecture:
 
-- [x] Environment, stars, moon, clouds, lights, characters, fire, animal/robot, smoke and embers are connected.
-- [x] Null-texture white panels are suppressed until readiness.
-- [x] The dark night fallback remains behind the artwork.
-- [x] TOP capture waits for `LoadingTopVisualPolishCoordinator.IsCurrentTopReady`.
-- [ ] Formal character identity master comparison is complete.
-- [ ] Human review confirms the current candidate is strong enough, or identifies only the layers that need regeneration.
+- [x] V3 base composite source is fixed at 430x932 with SHA guard.
+- [x] Static duplicate environment/character layers are suppressed while V3 composite is active.
+- [x] Fire flipbook / smoke / embers remain dynamic overlays.
+- [x] Distant lights / robot eye / fire glow / lantern glow use luminance-additive treatment.
+- [x] Opaque-black mask sources are hidden when additive material is detached.
+- [x] `BaseComposite` is reused rather than blindly duplicated on re-attach.
+- [x] Capture source waits for `LoadingTopVisualPolishCoordinator.IsCurrentTopReady`.
+- [x] Capture source also waits for `TopLivingNightCompositeV3Controller.IsCompositeReady`.
 
-## Motion and performance
+Current rendered review still required:
 
-- [x] Loading remains stable during automated capture hold.
-- [ ] TOP runs for five minutes without desynchronised visual failure.
+- [ ] TOP is neither white/blank nor black/glow-only.
+- [ ] Base composite is visible before capture readiness is reported.
+- [ ] Fire overlay aligns with the painted fire base without obvious doubling.
+- [ ] Smoke remains restrained.
+- [ ] Embers remain sparse.
+- [ ] Additive masks brighten only intended light areas.
+- [ ] No black opaque mask layer covers characters/environment.
+- [ ] Title remains readable without covering faces.
+- [ ] `夜へ出る` / `灯録` remain readable and tappable without covering important props.
+
+## Final Core5 key-art boundary
+
+The current V3 base composite is a **visual-recovery bridge**, not approved final TOP key art.
+
+Artifact comparison already established that the composition direction can be kept while human identity/scale/rendering require replacement.
+
+Current final-art state:
+
+```txt
+candidateGenerated=false
+core5IdentityReviewed=false
+cropReviewComplete=false
+approvedAsFinal=false
+finalApprovalBlocked=true
+```
+
+Required before final-art approval:
+
+- [ ] Core5-locked 430x932 candidate is generated and committed at the canonical final path.
+- [ ] Exactly five foreground humans are Yui / Asa / Nagi / Michiru / Tomori.
+- [ ] No generic substitute or sixth foreground human competes with Core5.
+- [ ] Yui per-character identity review passes.
+- [ ] Asa per-character identity review passes.
+- [ ] Nagi per-character identity review passes.
+- [ ] Michiru per-character identity review passes.
+- [ ] Tomori per-character identity review passes.
+- [ ] Yui / Asa / Nagi remain mutually distinguishable at 360px width.
+- [ ] Michiru teal identity remains distinct without neon saturation.
+- [ ] Tomori rust identity remains distinct without stealing the fire focal point.
+- [ ] 360x800 crop review passes.
+- [ ] 390x844 crop review passes.
+- [ ] 430x932 crop review passes.
+
+Authoritative structured evidence:
+
+- `docs/design-targets/generated/top-living-night-v3/final-art-status.json`
+- `docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json`
+- `docs/design-targets/generated/top-living-night-v3/crop-review-status.json`
+
+## Motion review
+
+Static motion contract is connected, but runtime review is **NOT_RUN**.
+
+- [x] Fire atlas uses irregular bounded timing rather than a fixed hard-reset loop.
+- [x] Far/near cloud timing anchors differ.
+- [x] Stars, distant lights, fire glow and lantern use independent timing anchors.
+- [x] Robot-eye event is rare rather than continuous.
+- [x] Smoke/ember duration and phases vary by particle.
+- [x] Reduced Motion source policy stops/reduces high-motion elements.
+- [ ] Normal TOP is watched in runtime for at least five minutes.
+- [ ] No obvious short master loop is observed.
+- [ ] No accumulating particles are observed.
+- [ ] No progressive brightness drift is observed.
+- [ ] No texture/resource lifecycle issue is observed.
+- [ ] Reduced Motion runtime pass is watched for at least one minute.
+- [ ] Reduced Motion stops cloud displacement.
+- [ ] Reduced Motion suppresses smoke/embers and rare robot-eye event.
+- [ ] Reduced Motion retains only restrained fire/glow motion.
+- [ ] UI remains fully functional under Reduced Motion.
+
+Authoritative motion evidence:
+
+- `docs/design-targets/generated/top-living-night-v3/motion-review-plan.md`
+- `docs/design-targets/generated/top-living-night-v3/motion-review-status.json`
+
+## Build / memory / lifecycle
+
+Static contract:
+
+- [x] 17-layer build staging validates source bytes/SHA and uses compressed Resources.
+- [x] V3 composite staging validates fixed source SHA/dimensions.
+- [x] iOS texture policy is ASTC 6x6 / Read-Write OFF / mipmap OFF / Clamp / Bilinear.
+- [x] Both layer-kit and V3 staging clean stale generated Resources before staging.
+- [x] Both staging paths clean generated Resources if staging/import throws.
+- [x] Both staging paths retain post-build cleanup.
+- [x] V3 runtime releases the loaded source Material after cloning.
+- [x] V3 detach clears texture/material references before unloading/destroying assets.
+
+Runtime evidence still required:
+
+- [ ] Current V3 Unity verifier executes and reports `PASSED`.
+- [ ] TOP dismissal/recovery does not leak or duplicate visual resources.
 - [ ] Simulator FPS and memory are recorded.
-- [ ] Physical iPhone FPS, memory, and thermal state are recorded.
+- [ ] Physical iPhone FPS, memory and thermal state are recorded.
 - [ ] Background -> foreground recovery returns to the correct screen.
-- [ ] Loading and TOP textures are released after dismissal in a rendered player run.
 
-## Approval
+## Current approval boundary
 
-- [x] Runtime capture pack is committed.
-- [ ] Human visual review result is recorded.
-- [x] `seasonalBinariesCommitted=true`.
-- [x] `runtimeCaptureComplete=true`.
-- [ ] `humanVisualReviewComplete=true` only after reviewing the corrected captures.
-- [ ] `runtimeApproved=true` only after Simulator and physical-device gates pass.
-- [ ] PR remains Draft until every required gate is complete.
+```txt
+seasonalBinariesCommitted=true
+topRuntimeV3Implemented=true
+stage1StaticQuality=required-green
+runtimeCaptureComplete=false
+humanVisualReviewComplete=false
+finalCandidateGenerated=false
+core5IdentityReviewed=false
+cropReviewComplete=false
+fiveMinuteRuntimeReviewComplete=false
+reducedMotionRuntimeReviewComplete=false
+approvedAsFinal=false
+runtimeApproved=false
+finalApprovalBlocked=true
+```
+
+- [ ] `runtimeCaptureComplete=true` only after current V3 Unity evidence + 15/15 current screenshots pass.
+- [ ] `humanVisualReviewComplete=true` only after reviewing the current captures, not historical screenshots.
+- [ ] `approvedAsFinal=true` only after Core5 + 3-crop + motion + runtime gates all pass.
+- [ ] `runtimeApproved=true` only after runtime, Simulator and physical-device gates pass.
+- [x] PR #78 remains Draft while these gates are incomplete.
+
+## Historical evidence rule
+
+Historical screenshots and old PASS logs may remain in Git for provenance, but they cannot satisfy a current checkbox after a visual/runtime implementation change resets the authoritative manifest to `NOT_RUN`.
