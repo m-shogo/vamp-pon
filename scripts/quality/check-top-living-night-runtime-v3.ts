@@ -110,7 +110,9 @@ for (const token of [
   'importer.mipmapEnabled = false',
   'TextureWrapMode.Clamp',
   'FilterMode.Bilinear',
-  'CleanupGeneratedBuildAssets',
+  'CleanupGeneratedBuildAssets(refresh: false)',
+  'catch',
+  'CleanupGeneratedBuildAssets();',
 ]) {
   invariant(buildSync.includes(token), `TOP Runtime V3 build contract missing: ${token}`);
 }
@@ -130,5 +132,5 @@ console.log('TOP Living Night Runtime V3: PASS');
 console.log('base: validated 430x932 composite preview with fixed SHA-256');
 console.log('motion: fire/smoke/embers retained; light masks use luminance-additive UI shader');
 console.log('lifecycle: composite reuse + fallback restore + source/material cleanup guarded');
-console.log('build: generated Resources texture/material, ASTC 6x6, cleanup guarded');
+console.log('build: generated Resources texture/material + failure cleanup + ASTC 6x6 guarded');
 console.log('approval: runtime implementation only; recapture and human/device review remain required');
