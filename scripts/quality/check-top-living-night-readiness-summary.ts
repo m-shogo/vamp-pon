@@ -100,12 +100,48 @@ const gates = [
   ['runtime-approval', runtimeReady],
   ['final-approval', finalReady],
 ] as const;
+type GateName = (typeof gates)[number][0];
+const readyByName = new Map<GateName, boolean>(gates);
+
+const promotionSourceGates: GateName[] = [
+  'final-candidate',
+  'core5-identity',
+  'crop-review',
+  'unity-v3',
+  'capture-15',
+  'human-visual',
+  'motion-normal-reduced',
+  'simulator-performance',
+  'physical-iphone-performance',
+];
+const prerequisites: Record<GateName, GateName[]> = {
+  'final-candidate': [],
+  'core5-identity': ['final-candidate'],
+  'crop-review': ['final-candidate'],
+  'unity-v3': ['final-candidate'],
+  'capture-15': ['unity-v3'],
+  'human-visual': ['capture-15'],
+  'motion-normal-reduced': ['unity-v3'],
+  'simulator-performance': ['unity-v3', 'capture-15'],
+  'physical-iphone-performance': ['unity-v3', 'capture-15'],
+  'runtime-approval': promotionSourceGates,
+  'final-approval': promotionSourceGates,
+};
 
 const blockers = gates.filter(([, passed]) => !passed).map(([name]) => name);
 const next = blockers[0] ?? 'complete';
+const nextParallel = blockers.filter(name =>
+  prerequisites[name].every(prerequisite => readyByName.get(prerequisite) === true),
+);
+
+invariant(
+  blockers.length === 0 || nextParallel.length > 0,
+  `TOP readiness dependency graph deadlocked with blockers: ${blockers.join(',')}`,
+);
 
 console.log('TOP Living Night final readiness summary: PASS');
 for (const [name, passed] of gates) console.log(`${passed ? 'READY' : 'PENDING'} ${name}`);
 console.log(`NEXT=${next}`);
+console.log(`NEXT_PARALLEL=${blockers.length === 0 ? 'complete' : nextParallel.join(',')}`);
 console.log(`BLOCKERS=${blockers.length === 0 ? 'none' : blockers.join(',')}`);
 console.log('Static GitHub green never upgrades runtime/final approval by itself.');
