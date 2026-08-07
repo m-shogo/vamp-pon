@@ -14,8 +14,14 @@ function invariant(value: unknown, message: string): asserts value {
 invariant(existsSync(runnerPath), 'TOP Simulator performance runner is missing');
 const runner = readFileSync(runnerPath, 'utf8');
 
-for (const forbidden of ['readarray ', 'mapfile ']) {
-  invariant(!runner.includes(forbidden), `TOP Simulator runner is not stock macOS Bash compatible: ${forbidden.trim()}`);
+// Comments/documentation may legitimately mention readarray/mapfile. Reject only
+// actual command lines so the compatibility checker cannot fail on its own prose.
+for (const forbiddenCommand of ['readarray', 'mapfile']) {
+  const commandPattern = new RegExp(`^\\s*${forbiddenCommand}(?:\\s|$)`, 'm');
+  invariant(
+    !commandPattern.test(runner),
+    `TOP Simulator runner is not stock macOS Bash compatible: ${forbiddenCommand}`,
+  );
 }
 
 for (const token of [
