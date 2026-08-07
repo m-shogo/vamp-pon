@@ -46,6 +46,7 @@ const motion = readJson<{
 const capture = readJson<{
   executed: boolean;
   result: string;
+  sourceCommit: string;
   expectedCaptureCount: number;
   captureCount: number;
   captures: unknown[];
@@ -54,6 +55,7 @@ const capture = readJson<{
 const v3Evidence = readJson<{
   executed: boolean;
   result: string;
+  verifiedCommit: string;
   failureCount: number;
   sourceCompositeCount: number;
   resourceTextureCount: number;
@@ -104,6 +106,7 @@ if (motion.motionApproved) {
 const capturePassed =
   capture.executed &&
   capture.result === 'PASSED' &&
+  /^[0-9a-f]{40}$/.test(capture.sourceCommit) &&
   capture.expectedCaptureCount === 15 &&
   capture.captureCount === 15 &&
   capture.captures.length === 15;
@@ -111,6 +114,7 @@ const capturePassed =
 const v3UnityPassed =
   v3Evidence.executed &&
   v3Evidence.result === 'PASSED' &&
+  /^[0-9a-f]{40}$/.test(v3Evidence.verifiedCommit) &&
   v3Evidence.failureCount === 0 &&
   v3Evidence.sourceCompositeCount === 1 &&
   v3Evidence.resourceTextureCount === 1 &&
@@ -120,14 +124,30 @@ const v3UnityPassed =
   v3Evidence.buildHookResolved &&
   v3Evidence.buildImportPolicyPassed;
 
+if (capturePassed && v3UnityPassed) {
+  invariant(
+    capture.sourceCommit === v3Evidence.verifiedCommit,
+    'capture evidence and V3 Unity evidence must come from the same source commit',
+  );
+}
+
 if (finalArt.runtimeCaptureComplete) {
   invariant(finalArt.candidateGenerated, 'final runtime capture approval requires final candidate');
   invariant(capturePassed, 'final runtime capture approval requires PASSED 15-frame capture evidence');
   invariant(v3UnityPassed, 'final runtime capture approval requires PASSED V3 Unity evidence');
+  invariant(
+    capture.sourceCommit === v3Evidence.verifiedCommit,
+    'final runtime capture approval requires capture/V3 evidence from one source commit',
+  );
 }
 
 if (loadingManifest.approval.runtimeCaptureComplete) {
   invariant(capturePassed, 'Loading runtime-capture promotion requires PASSED 15-frame capture evidence');
+  invariant(v3UnityPassed, 'Loading runtime-capture promotion requires PASSED V3 Unity evidence');
+  invariant(
+    capture.sourceCommit === v3Evidence.verifiedCommit,
+    'Loading runtime-capture promotion requires capture/V3 evidence from one source commit',
+  );
 }
 
 if (finalArt.runtimeApproved) {
@@ -137,6 +157,7 @@ if (finalArt.runtimeApproved) {
   invariant(crop.allCropsApproved, 'runtime approval requires three-crop approval');
   invariant(motion.motionApproved, 'runtime approval requires motion approval');
   invariant(v3UnityPassed, 'runtime approval requires V3 Unity evidence');
+  invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'runtime approval requires coherent source-bound evidence');
 }
 
 if (finalArt.approvedAsFinal) {
