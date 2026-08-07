@@ -79,6 +79,13 @@ function canonicalRepoPath(input: string): string {
   return repoRelative;
 }
 
+function memoryMetricForMethod(method: string): string {
+  if (method === 'xcode-instruments') return 'physical-footprint';
+  if (method === 'unity-profiler-recorder' || method === 'unity-runtime-sampler')
+    return 'unity-total-allocated-memory';
+  throw new Error(`unsupported performance measurement method: ${method}`);
+}
+
 function summarize(target: TargetName, artifact: PerformanceArtifact) {
   invariant(artifact.schemaVersion === 1, 'performance artifact schema mismatch');
   invariant(artifact.target === target, 'performance artifact target mismatch');
@@ -155,6 +162,7 @@ function main(): void {
     console.log('TOP device-performance registration: DRY_RUN_READY');
     console.log(`artifact root: ${artifactRoot}`);
     console.log('targets: simulator | physical-iphone');
+    console.log('memory metrics: Unity=unity-total-allocated-memory / Instruments=physical-footprint');
     console.log('registration never promotes final/runtime approval by itself');
     return;
   }
@@ -178,6 +186,7 @@ function main(): void {
   const artifactSha256 = createHash('sha256').update(artifactBytes).digest('hex');
   const artifact = JSON.parse(artifactBytes.toString('utf8')) as PerformanceArtifact;
   const summary = summarize(target, artifact);
+  const memoryMetric = memoryMetricForMethod(artifact.measurementMethod);
 
   invariant(v3.executed && v3.result === 'PASSED', 'device-performance registration requires PASSED current V3 Unity evidence');
   invariant(capture.executed && capture.result === 'PASSED', 'device-performance registration requires PASSED current capture evidence');
@@ -221,6 +230,7 @@ function main(): void {
     topCompositePath: artifact.topCompositePath,
     topCompositeSha256: artifact.topCompositeSha256,
     measurementMethod: artifact.measurementMethod,
+    memoryMetric,
     metricsArtifactPath: artifactPath,
     metricsArtifactSha256: artifactSha256,
     durationSeconds: artifact.durationSeconds,
@@ -232,8 +242,8 @@ function main(): void {
     backgroundForegroundRecoveryPassed: artifact.backgroundForegroundRecoveryPassed,
     recordedAtUtc: new Date().toISOString(),
     notes: passed
-      ? 'Summary registered from hashed raw performance artifact; this target passed the current performance policy.'
-      : 'Summary registered from hashed raw performance artifact; this target did not satisfy every current performance gate.',
+      ? 'Summary registered from hashed raw performance artifact with an explicit memory metric; this target passed the current performance policy.'
+      : 'Summary registered from hashed raw performance artifact with an explicit memory metric; this target did not satisfy every current performance gate.',
   });
   if (key === 'physicalIphone') record.thermalState = summary.thermalState;
 
@@ -252,6 +262,7 @@ function main(): void {
   console.log(`target=${target} result=${record.result}`);
   console.log(`artifact=${artifactPath}`);
   console.log(`artifactSha256=${artifactSha256}`);
+  console.log(`memoryMetric=${memoryMetric}`);
   console.log(`averageFps=${record.averageFps} minimumFps=${record.minimumFps} peakMemoryMb=${record.peakMemoryMb}`);
   if (target === 'physical-iphone') console.log(`worstThermal=${record.thermalState}`);
   console.log('runtimeApproved=false (recording evidence alone never promotes approval)');
