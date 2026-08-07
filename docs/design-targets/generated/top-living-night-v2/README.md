@@ -2,84 +2,150 @@
 
 Date: 2026-08-01  
 Runtime connection: 2026-08-06  
-Status: human-selected composition / runtime-connected candidate / final approval blocked  
+Status: `V2_LAYER_KIT_VERIFIED / V3_RUNTIME_RECAPTURE_REQUIRED / FINAL_ART_BLOCKED`  
 Target: Unity `6000.5.1f1`, URP `17.5.0`, portrait iPhone
 
-## 結論
+## Current role
 
-Candidate Aを基準に再制作した17レイヤーを、全画面動画やAI動画へ変換せず、Unity上で独立周期の小さな動きとして接続した。
+This directory is the **verified 17-asset production layer kit and motion-source authority** for TOP. It is no longer the whole-screen static composition authority by itself.
 
-TOPは通常起動時にStageSelectの前面へ表示される。`夜へ出る`で既存StageSelectへ入り、`灯録`は既存Collectionフローへ接続する。AppFlowの状態・保存・戦闘契約は変更していない。
+Current Runtime V3 uses:
 
-既存のU46〜U48 Simulator証跡を汚さないため、`VAMPPON_AI_SIMULATOR_SMOKE`ではTOPを生成しない。これは証跡回避ではなく、既存canonical capture denominatorを維持したまま通常起動の新画面を独立検証するための境界である。
+- `top-living-night-layered-candidate-430x932.png` as a temporary visual-recovery base composite,
+- the V2 fire flipbook / smoke / embers as live motion overlays,
+- V2 distant-light / robot-eye / fire-glow / lantern-glow masks through the V3 luminance-additive shader,
+- V2 source assets and manifest as provenance / build-input authority.
 
-## Runtime architecture
+The current V3 base composite is **not final Core5 art**. Final human identity remains blocked until the Core5-locked replacement passes its dedicated identity, crop, motion and runtime gates.
+
+## Runtime flow
+
+TOP appears after seasonal Loading in normal startup. `夜へ出る` enters the existing StageSelect flow and `灯録` enters the existing Collection flow. AppFlow state, save and battle contracts are unchanged.
+
+`VAMPPON_AI_SIMULATOR_SMOKE` remains isolated so existing canonical simulator evidence is not silently redefined by the new normal-start screen.
+
+## V2 build architecture
 
 ```txt
 docs/design-targets/generated/top-living-night-v2/layers
-  ├─ Editor: 原本をUnityWebRequestTextureで直接読む
-  └─ Build: manifestのbytes / SHA-256を検証
+  ├─ Editor: source PNGs are read from the repository
+  └─ Build: manifest bytes / SHA-256 are validated
              ↓
-           Assets/Resources/TopLivingNightへ一時copy
+           Assets/Resources/TopLivingNight temporary staging
              ↓
-           Unity TextureImporterでimport
+           Unity TextureImporter
            - iOS ASTC 6x6
            - Read/Write OFF
            - mipmap OFF
            - Clamp / Bilinear
              ↓
-           built playerはResources.Load<Texture2D>で読む
+           built player uses Resources.Load<Texture2D>
              ↓
-           post-buildで生成copyを削除
+           generated Resources are cleaned after build
 ```
 
-画像の正本はdocs側の1か所だけ。生成ResourcesをGitへ恒久追加しない。TOPを閉じるとRawImage参照を外し、読み込んだResource textureとunused assetsの解放を要求する。
+The committed source of truth remains under `docs/`; generated Resources copies are temporary and must not be committed.
 
-主要実装:
+Both the V2 layer-kit staging path and the V3 composite staging path now clean temporary Resources on normal completion **and on staging/import failure**.
 
-- `unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs`
-- `unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightStreamingAssetsSync.cs`
-  - legacy filenameを維持しつつ、classは`TopLivingNightBuildAssetSync`
-- `unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightUnityVerification.cs`
-- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs`
-- `scripts/quality/check-top-living-night-runtime.ts`
-- `scripts/quality/check-top-living-night-unity-evidence.ts`
-- `scripts/unity/run-top-living-night-unity-verification.sh`
+## Layer stack and current V3 use
 
-## Layer stack
-
-| Order | File | Role | Runtime motion |
+| Order | File | Role | Current V3 use |
 | --- | --- | --- | --- |
-| 00 | `00-environment-starless.png` | 人物・火・月・星・雲を除いた完全背景 | fixed clean plate |
-| 01 | `01-stars.png` | 星 | low-frequency non-synchronous twinkle |
-| 01 | `01-moon.png` | 三日月 | fixed reference point |
-| 02 | `02-clouds-far.png` | 遠雲 | slow 2.8px drift |
-| 03 | `03-clouds-near.png` | 近雲 | independent 5.2px drift |
-| 04 | `04-distant-lights-mask.png` | 駅灯mask | Perlin ±3% brightness |
-| 05 | `05-distant-companion.png` | 遠景人物 | static |
-| 06 | `06-characters.png` | 主要人物群 | static; face interpolation prohibited |
-| 08 | `08-animal-robot.png` | 動物＋ロボット | static body |
-| 08 | `08-robot-eye-mask.png` | ロボット眼光mask | rare 47s scan |
-| 09 | `09-fire-base.png` | 薪・炭・石輪 | static |
-| 10 | `10-fire-flipbook-atlas.png` | 4x3 / 12-frame炎atlas | 8–10fps, adjacent-frame ping-pong + hold |
-| 11 | `11-fire-glow-mask.png` | 火の照り返しmask | two-frequency Perlin modulation |
-| 12 | `12-smoke-atlas.png` | 3x2 / 6 smoke sprites | low-alpha independent rise/drift |
-| 13 | `13-embers-atlas.png` | ember sprites | bounded 10-particle rise/drift |
-| 14 | `14-foreground-accents.png` | 前景草・ランタン・紙片 | static source |
-| 14 | `14-lantern-glow-mask.png` | 前景ランタンmask | independent low-frequency modulation |
+| 00 | `00-environment-starless.png` | environment source | provenance / fallback only while V3 composite is active |
+| 01 | `01-stars.png` | stars | provenance / fallback; star timing contract retained |
+| 01 | `01-moon.png` | crescent moon | provenance / fallback |
+| 02 | `02-clouds-far.png` | far clouds | provenance / fallback; motion contract retained |
+| 03 | `03-clouds-near.png` | near clouds | provenance / fallback; motion contract retained |
+| 04 | `04-distant-lights-mask.png` | station-light mask | live V3 additive mask |
+| 05 | `05-distant-companion.png` | distant companion | provenance / fallback only |
+| 06 | `06-characters.png` | current bridge character source | provenance / fallback only; **not final Core5 identity** |
+| 08 | `08-animal-robot.png` | animal + robot | provenance / fallback only |
+| 08 | `08-robot-eye-mask.png` | robot eye mask | live V3 additive mask / rare event |
+| 09 | `09-fire-base.png` | fire base | provenance / fallback only |
+| 10 | `10-fire-flipbook-atlas.png` | 4x3 / 12-frame fire atlas | live V3 motion overlay |
+| 11 | `11-fire-glow-mask.png` | fire glow mask | live V3 additive mask |
+| 12 | `12-smoke-atlas.png` | 3x2 / 6 smoke sprites | live V3 motion overlay |
+| 13 | `13-embers-atlas.png` | ember sprites | live V3 motion overlay |
+| 14 | `14-foreground-accents.png` | foreground accents | provenance / fallback only |
+| 14 | `14-lantern-glow-mask.png` | lantern glow mask | live V3 additive mask |
 
-`06-characters.png`は品質とidentityを守るため、全員を無理に動かしていない。焚き火・煙・火の粉・雲・星・遠近の灯りが別周期で動くことで、短い動画ループではない「生きている夜」を作る。
+## Motion policy
+
+The TOP remains deliberately non-video-based. MP4/WebP files under `previews/` are review-only and are never referenced by runtime code.
+
+Independent timing anchors are retained for:
+
+- fire frame progression,
+- fire glow,
+- far/near clouds,
+- stars,
+- distant station lights,
+- lantern light,
+- rare robot-eye event,
+- smoke,
+- embers.
+
+This is intended to create a quiet, asynchronous “breathing night” rather than a short obvious master loop.
 
 ## Reduced Motion
 
-`vamp_pon_reduced_motion=1`または`reduce_motion=1`のとき:
+When `vamp_pon_reduced_motion=1` or `reduce_motion=1`:
 
-- cloud drift off
-- smoke / embers off
-- robot eye rare scan off
-- fire 4fps
-- glow amplitude <= 2%
-- titleの小さな浮遊のみ維持
+- cloud displacement stops,
+- smoke / embers are visually suppressed,
+- rare robot-eye event is disabled,
+- fire playback slows,
+- fire-glow variation is restrained,
+- UI remains interactive.
+
+The static source contract is checked in CI; actual Reduced Motion runtime behavior remains a separate review gate.
+
+## Evidence split — do not conflate V2 and V3
+
+### V2 layer-kit Unity evidence — PASSED
+
+`docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json` records real Unity 6000.5.1f1 execution:
+
+```txt
+executed=true
+result=PASSED
+verifiedCommit=f4b9480926371d5710824f913e6719b2afa11418
+assertionCount=270
+failureCount=0
+sourceAssetCount=17
+resourceTextureCount=17
+buildImportPolicyPassed=true
+```
+
+This proves the V2 17-asset import/build contract at that verified commit. It does **not** prove the current V3 composite/shader/capture.
+
+### Current V3 Unity evidence — NOT_RUN
+
+`docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json` is the authority for the current V3 composite/shader/build path:
+
+```txt
+executed=false
+result=NOT_RUN
+assertionCount=0
+resourceTextureCount=0
+resourceMaterialCount=0
+```
+
+Therefore the current V3 implementation must not be described as Unity-runtime verified yet.
+
+### Current V3 capture evidence — NOT_RUN
+
+`docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json` currently records:
+
+```txt
+executed=false
+result=NOT_RUN
+expectedCaptureCount=15
+captureCount=0
+```
+
+Historical captures remain regression history only.
 
 ## Preview evidence
 
@@ -91,71 +157,60 @@ docs/design-targets/generated/top-living-night-v2/layers
 - `previews/top-living-night-layer-motion-preview.mp4`
 - `previews/top-living-night-layer-motion-preview.webp`
 
-MP4/WebPはレビュー証跡のみで、runtimeから参照しない。
+The 430x932 layered preview currently serves as the V3 **visual-recovery bridge** only. It is not final Core5 key art.
 
-## Unity execution evidence
+## Final-art boundary
 
-`runtime-unity-verification.json`は、Unity Editorが実際にC#をcompileし、`TopLivingNightUnityVerification.RunBatchmode`を実行できた場合だけ`executed=true / result=PASSED`へ更新される。
-
-未実行時は次を維持する。
+Final TOP approval is controlled by V3 structured evidence:
 
 ```txt
-executed=false
-result=NOT_RUN
-verifiedCommit=""
-unityVersion=""
+docs/design-targets/generated/top-living-night-v3/final-art-status.json
+docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json
+docs/design-targets/generated/top-living-night-v3/crop-review-status.json
+docs/design-targets/generated/top-living-night-v3/motion-review-status.json
 ```
 
-実行コマンド:
-
-```bash
-bash scripts/unity/run-top-living-night-unity-verification.sh
-```
-
-この検証は17素材のbytes / SHA-256 / PNG dimensions、`TopLivingNightView`のcompile surface、pre/post build hookの解決を確認する。画面目視・FPS・実機性能を代替しない。
-
-## Approval boundary
+Current boundary:
 
 ```txt
-sourceComposition=candidate-a
-humanSelectedCompositionDirection=true
-assetStatus=runtime-connected-candidate
-layerAssetCount=17
-runtimeConnected=true
-runtimeUsesVideo=false
-videoGenerationUsed=false
+finalCandidateGenerated=false
+core5IdentityReviewed=false
+cropReviewComplete=false
+fiveMinuteRuntimeReviewComplete=false
+reducedMotionRuntimeReviewComplete=false
 approvedAsFinal=false
 runtimeApproved=false
 finalApprovalBlocked=true
 ```
 
-## Completed in this batch
+## Completed source/static work
 
-- 17/17 PNG integrity / dimensions / SHA-256 check
-- compact / standard / large static crop preview
-- deterministic layered-motion preview
+- 17/17 V2 PNG integrity / dimensions / SHA-256 contract
+- real V2 Unity 6000.5.1f1 verification: 270 assertions / 17 textures / PASS
 - Unity normal-start TOP connection
-- existing StageSelect / Collection navigation reuse
-- fire / smoke / ember / cloud / star / light / rare robot-eye motion
-- reduced-motion fallback
-- Editor source loading
-- build-time verified Resources import and cleanup
-- iOS ASTC 6x6 / Read-Write OFF / mipmap OFF
-- TOP dismissal texture release
-- canonical Simulator smoke isolation
-- runtime static-contract checker
-- Unity execution evidence contract and batchmode runner
+- StageSelect / Collection route reuse
+- fire / smoke / ember / cloud / star / light / rare robot-eye motion source contract
+- Reduced Motion source policy
+- verified compressed Resources staging policy
+- failure-safe build cleanup for V2 and V3 staging
+- V3 base-composite lifecycle reuse / fallback restore / mask cleanup
+- current capture waits for both layered TOP readiness and V3 composite readiness
+- final Core5 / crop / motion / approval consistency gates wired into Stage1 Quality
 
 ## Remaining gates
 
-次は実行環境が必要な確認であり、Git接続だけからPASSへ昇格しない。
+These require current runtime/art evidence and must not be promoted from static GitHub checks alone:
 
-- Unity C# compilation evidence (`runtime-unity-verification.json` is currently `NOT_RUN`)
-- 360x800 / 390x844 / 430x932 runtime capture
-- title / CTA / Safe Area / transparent-edge human review
-- 5分の非同期性確認
-- Simulator FPS / memory
-- physical iPhone FPS / memory / thermal / background-foreground recovery
-- formal character identity comparison
+- current V3 Unity compile / shader / Resources verification,
+- current Loading 12 + TOP 3 runtime captures,
+- human visual review of the current capture artifact,
+- Core5-locked final 430x932 key art,
+- per-character Core5 identity review,
+- 360x800 / 390x844 / 430x932 crop review,
+- five-minute normal-motion runtime review,
+- one-minute Reduced Motion runtime review,
+- Simulator FPS / memory,
+- physical iPhone FPS / memory / thermal,
+- background / foreground recovery.
 
-PR #76、U49 device evidence、readiness flags、gameplay、balance、save schemaは変更していない。
+PR #76, U49 device evidence, readiness flags, gameplay, balance, save schema and canonical lore are unchanged.
