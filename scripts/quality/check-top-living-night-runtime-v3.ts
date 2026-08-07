@@ -80,6 +80,23 @@ for (const lifecycleToken of [
   );
 }
 
+const resetStart = controller.indexOf('private void ResetAdditiveMasks()');
+const detachStart = controller.indexOf('private void Detach()', resetStart);
+invariant(resetStart >= 0 && detachStart > resetStart, 'TOP V3 additive reset method boundary is missing');
+const resetBlock = controller.slice(resetStart, detachStart);
+invariant(
+  resetBlock.includes('image.material = null;'),
+  'TOP V3 detach must remove additive material references before destroying the material',
+);
+invariant(
+  resetBlock.includes('image.gameObject.SetActive(false);'),
+  'TOP V3 detach must hide opaque-black additive source masks',
+);
+invariant(
+  !resetBlock.includes('image.gameObject.SetActive(true);'),
+  'TOP V3 detach must not reactivate masks without the additive material',
+);
+
 for (const hiddenLayer of [
   'Environment',
   'Stars',
@@ -131,6 +148,6 @@ for (const token of [
 console.log('TOP Living Night Runtime V3: PASS');
 console.log('base: validated 430x932 composite preview with fixed SHA-256');
 console.log('motion: fire/smoke/embers retained; light masks use luminance-additive UI shader');
-console.log('lifecycle: composite reuse + fallback restore + source/material cleanup guarded');
+console.log('lifecycle: composite reuse + dark-safe mask detach + fallback/resource cleanup guarded');
 console.log('build: generated Resources texture/material + failure cleanup + ASTC 6x6 guarded');
 console.log('approval: runtime implementation only; recapture and human/device review remain required');
