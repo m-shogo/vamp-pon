@@ -3,6 +3,7 @@ import './check-top-living-night-generation-authority-lock.ts';
 import './check-top-living-night-final-approval-temporal-chain.ts';
 import './check-top-living-night-readiness-summary.ts';
 import './check-top-living-night-final-promotion-safety.ts';
+import './check-top-living-night-static-review-registration.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
