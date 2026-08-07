@@ -124,24 +124,23 @@ invariant(
 );
 
 invariant(
-  view.includes('reducedMotion\n                    ? Vector2.zero') ||
-    view.includes('reducedMotion\r\n                    ? Vector2.zero'),
+  /reducedMotion\s*\?\s*Vector2\.zero/.test(view),
   'TOP Reduced Motion must stop cloud displacement',
 );
 invariant(
-  view.includes('reducedMotion ? .25f'),
+  /reducedMotion\s*\?\s*\.25f\s*:\s*\.105f\s*\+\s*Mathf\.PerlinNoise/.test(view),
   'TOP Reduced Motion must slow fire playback',
 );
 invariant(
-  view.includes('reducedMotion ? .02f : .10f'),
+  /reducedMotion\s*\?\s*\.02f\s*:\s*\.10f/.test(view),
   'TOP Reduced Motion must retain only restrained fire-glow variation',
 );
 invariant(
-  view.includes('reducedMotion || phase > 1.35f'),
+  /reducedMotion\s*\|\|\s*phase\s*>\s*1\.35f/.test(view),
   'TOP Reduced Motion must disable the rare robot-eye event',
 );
 
-const reducedParticleSuppressions = view.match(/reducedMotion \? 0f : Mathf\.Sin/g) ?? [];
+const reducedParticleSuppressions = view.match(/reducedMotion\s*\?\s*0f\s*:\s*Mathf\.Sin/g) ?? [];
 invariant(
   reducedParticleSuppressions.length >= 2,
   'TOP Reduced Motion must visually suppress both smoke and ember families',
