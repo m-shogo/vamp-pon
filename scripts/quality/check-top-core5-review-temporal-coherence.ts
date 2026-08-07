@@ -1,3 +1,4 @@
+import './check-top-core5-review-reference-set.ts';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
