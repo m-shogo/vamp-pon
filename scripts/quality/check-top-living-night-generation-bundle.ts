@@ -103,19 +103,27 @@ invariant(bundle.safeAreas.buttonBottomFraction[0] === .20 && bundle.safeAreas.b
 invariant(bundle.registration.registrationDoesNotApprove, 'TOP image registration must never imply approval');
 invariant(bundle.registration.resetsCandidateSensitiveEvidence, 'TOP image registration must reset stale downstream evidence');
 
-const requiredChecks = new Set(bundle.requiredPostGenerationChecks);
-for (const check of [
+const expectedPostGenerationChecks = [
   'scripts/quality/check-top-living-night-final-art-candidate.ts',
   'scripts/quality/check-top-living-night-core5-candidate-provenance.ts',
   'scripts/quality/check-top-living-night-core5-review.ts',
   'scripts/quality/check-top-living-night-crop-review.ts',
+  'scripts/quality/check-top-living-night-motion-contract.ts',
+  'scripts/quality/check-top-living-night-human-review.ts',
+  'scripts/quality/check-top-living-night-unity-evidence.ts',
+  'scripts/quality/check-loading-top-capture-pack.ts',
   'scripts/quality/check-top-living-night-approval-consistency.ts',
-]) {
-  invariant(requiredChecks.has(check), `TOP generation bundle post-generation gate missing: ${check}`);
+];
+invariant(
+  JSON.stringify(bundle.requiredPostGenerationChecks) === JSON.stringify(expectedPostGenerationChecks),
+  'TOP generation bundle post-generation gate chain/order diverged',
+);
+for (const check of expectedPostGenerationChecks) {
   invariant(existsSync(join(root, check)), `TOP generation post-generation checker is missing: ${check}`);
 }
 
 console.log('TOP Living Night final generation bundle: PASS');
 console.log(`core5ReferenceSet=${bundle.core5.referenceSetSha256}`);
 console.log(`target=${bundle.target.path} ${bundle.target.width}x${bundle.target.height}`);
+console.log(`postGenerationGates=${expectedPostGenerationChecks.length}`);
 console.log('bundle remains generation-ready only; no final/runtime approval is implied');
