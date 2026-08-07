@@ -112,6 +112,13 @@ if (!identity.candidateGenerated) {
 invariant(/^[0-9a-f]{64}$/.test(identity.sourceSha256), 'Core5 identity source SHA-256 is invalid');
 invariant(identity.sourceSha256 === finalArt.candidateSha256, 'Core5 review must target the exact final-art candidate SHA');
 
+const anyIdentityReviewExecuted = identity.reviews.some(review => review.executed);
+if (anyIdentityReviewExecuted) {
+  invariant(identity.reviewedAtUtc.length > 0, 'executed Core5 review requires a review timestamp even when incomplete/failed');
+} else {
+  invariant(identity.reviewedAtUtc === '', 'unexecuted Core5 review must not retain a stale review timestamp');
+}
+
 for (const review of identity.reviews) {
   if (!review.executed) {
     invariant(review.result === 'NOT_RUN', `${review.id}: unexecuted identity review must be NOT_RUN`);
