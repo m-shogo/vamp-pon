@@ -10,6 +10,20 @@ The TOP should feel alive in the same way a quiet campfire can be watched for se
 
 The intended impression is **breathing night**, not an animated event banner.
 
+## Candidate provenance rule
+
+Motion review is evidence about one exact final TOP image, not about an interchangeable composition concept.
+
+Before starting either runtime review, record:
+
+- canonical candidate path: `docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png`
+- candidate SHA-256 from `final-art-status.json`
+- Unity/source commit SHA
+
+`motion-review-status.json.candidateSha256` must exactly match `final-art-status.json.candidateSha256` before motion can be approved.
+
+**Any final-art PNG byte change invalidates the previous motion review.** Clear the motion candidate SHA and runtime review approval fields back to `NOT_RUN` until the changed candidate is reviewed again. A visually similar replacement is still a different evidence subject.
+
 ## Motion hierarchy
 
 ### Tier 1 — continuous focal motion
@@ -185,6 +199,8 @@ Repeat a shorter review with Reduced Motion enabled and verify the gate above.
 
 Record separately:
 
+- final candidate path
+- final candidate SHA-256
 - Unity version
 - commit SHA
 - normal-motion review duration
@@ -194,7 +210,7 @@ Record separately:
 - any texture/lifecycle issue
 - reviewer decision
 
-Do not infer this evidence from static CI.
+Do not infer this evidence from static CI. Do not reuse a motion review after the final candidate SHA-256 changes.
 
 ## Current boundary
 
