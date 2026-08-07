@@ -42,6 +42,9 @@ jobs:
       - name: Verify seasonal Loading docs match manifest
         run: node --experimental-strip-types scripts/quality/check-loading-seasonal-doc-consistency.ts
 
+      - name: Verify seasonal Loading build staging cleanup
+        run: node --experimental-strip-types scripts/quality/check-loading-seasonal-build-cleanup.ts
+
       - name: Verify TOP V2 V3 docs match evidence
         run: node --experimental-strip-types scripts/quality/check-top-living-night-doc-consistency.ts
 
