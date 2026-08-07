@@ -55,6 +55,9 @@ const capture = readJson<{
   executed: boolean;
   result: string;
   sourceCommit: string;
+  topCompositeKind: string;
+  topCompositePath: string;
+  topCompositeSha256: string;
   expectedCaptureCount: number;
   captureCount: number;
   captures: unknown[];
@@ -151,6 +154,9 @@ const capturePassed =
   capture.executed &&
   capture.result === 'PASSED' &&
   /^[0-9a-f]{40}$/.test(capture.sourceCommit) &&
+  ['bridge', 'final-core5'].includes(capture.topCompositeKind) &&
+  capture.topCompositePath.length > 0 &&
+  sha256.test(capture.topCompositeSha256) &&
   capture.expectedCaptureCount === 15 &&
   capture.captureCount === 15 &&
   capture.captures.length === 15;
@@ -182,10 +188,10 @@ if (v3Evidence.executed) {
 }
 
 if (capturePassed && v3UnityPassed) {
-  invariant(
-    capture.sourceCommit === v3Evidence.verifiedCommit,
-    'capture evidence and V3 Unity evidence must come from the same source commit',
-  );
+  invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'capture evidence and V3 Unity evidence must come from the same source commit');
+  invariant(capture.topCompositeKind === v3Evidence.sourceCompositeKind, 'capture and V3 Unity evidence must identify the same TOP composite kind');
+  invariant(capture.topCompositePath === v3Evidence.sourceCompositePath, 'capture and V3 Unity evidence must identify the same TOP composite path');
+  invariant(capture.topCompositeSha256 === v3Evidence.sourceCompositeSha256, 'capture and V3 Unity evidence must identify the same TOP composite bytes');
 }
 
 if (finalArt.runtimeCaptureComplete) {
@@ -194,19 +200,17 @@ if (finalArt.runtimeCaptureComplete) {
   invariant(v3UnityPassed, 'final runtime capture approval requires PASSED V3 Unity evidence');
   invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'final runtime capture requires V3 verification of final-core5 source');
   invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'final runtime capture requires V3 verification of current final candidate');
-  invariant(
-    capture.sourceCommit === v3Evidence.verifiedCommit,
-    'final runtime capture approval requires capture/V3 evidence from one source commit',
-  );
+  invariant(capture.topCompositeKind === 'final-core5', 'final runtime capture cannot reuse bridge capture evidence');
+  invariant(capture.topCompositePath === canonicalCandidatePath, 'final runtime capture must show canonical final candidate');
+  invariant(capture.topCompositeSha256 === finalArt.candidateSha256, 'final runtime capture must show exact current final candidate bytes');
+  invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'final runtime capture approval requires capture/V3 evidence from one source commit');
 }
 
 if (loadingManifest.approval.runtimeCaptureComplete) {
   invariant(capturePassed, 'Loading runtime-capture promotion requires PASSED 15-frame capture evidence');
   invariant(v3UnityPassed, 'Loading runtime-capture promotion requires PASSED V3 Unity evidence');
-  invariant(
-    capture.sourceCommit === v3Evidence.verifiedCommit,
-    'Loading runtime-capture promotion requires capture/V3 evidence from one source commit',
-  );
+  invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'Loading runtime-capture promotion requires capture/V3 evidence from one source commit');
+  invariant(capture.topCompositeSha256 === v3Evidence.sourceCompositeSha256, 'Loading runtime-capture promotion requires capture/V3 composite provenance coherence');
 }
 
 if (finalArt.runtimeApproved) {
@@ -218,6 +222,8 @@ if (finalArt.runtimeApproved) {
   invariant(v3UnityPassed, 'runtime approval requires V3 Unity evidence');
   invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'runtime approval requires final-core5 Unity evidence');
   invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'runtime approval requires Unity evidence for current final-art candidate');
+  invariant(capture.topCompositeKind === 'final-core5', 'runtime approval requires final-core5 capture evidence');
+  invariant(capture.topCompositeSha256 === finalArt.candidateSha256, 'runtime approval requires capture evidence for current final-art candidate');
   invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'runtime approval requires coherent source-bound evidence');
   invariant(identity.sourceSha256 === finalArt.candidateSha256, 'runtime approval requires Core5 review of the current final-art candidate');
   invariant(crop.sourceSha256 === finalArt.candidateSha256, 'runtime approval requires crop review of the current final-art candidate');
@@ -232,6 +238,8 @@ if (finalArt.approvedAsFinal) {
   invariant(!motion.finalApprovalBlocked, 'final approval cannot retain motion block');
   invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'final approval requires final-core5 Unity provenance');
   invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'final approval requires current final-art Unity provenance');
+  invariant(capture.topCompositeKind === 'final-core5', 'final approval requires final-core5 capture provenance');
+  invariant(capture.topCompositeSha256 === finalArt.candidateSha256, 'final approval requires current final-art capture provenance');
   invariant(identity.sourceSha256 === finalArt.candidateSha256, 'final approval cannot use stale Core5 evidence');
   invariant(crop.sourceSha256 === finalArt.candidateSha256, 'final approval cannot use stale crop evidence');
   invariant(motion.candidateSha256 === finalArt.candidateSha256, 'final approval cannot use stale motion evidence');
@@ -249,4 +257,4 @@ invariant(loadingManifest.approval.finalApprovalBlocked, 'Loading final approval
 
 console.log('TOP Living Night approval consistency: PASS');
 console.log(`candidate=${finalArt.candidateGenerated} core5=${identity.allIdentitiesApproved} crops=${crop.allCropsApproved} motion=${motion.motionApproved}`);
-console.log(`v3Unity=${v3Evidence.result} source=${v3Evidence.sourceCompositeKind || 'NOT_RUN'} capture=${capture.result} runtimeApproved=${finalArt.runtimeApproved} finalApproved=${finalArt.approvedAsFinal}`);
+console.log(`v3Unity=${v3Evidence.result} source=${v3Evidence.sourceCompositeKind || 'NOT_RUN'} capture=${capture.result}/${capture.topCompositeKind || 'NOT_RUN'} runtimeApproved=${finalArt.runtimeApproved} finalApproved=${finalArt.approvedAsFinal}`);
