@@ -17,11 +17,23 @@ type CaptureManifest = {
   executed: boolean;
   result: string;
   sourceCommit: string;
+  topCompositeKind: string;
+  topCompositePath: string;
+  topCompositeSha256: string;
   expectedCaptureCount: number;
   captureCount: number;
   generatedAtUtc: string;
   error: string;
   captures: CaptureRecord[];
+};
+
+type V3Evidence = {
+  executed: boolean;
+  result: string;
+  verifiedCommit: string;
+  sourceCompositeKind: string;
+  sourceCompositePath: string;
+  sourceCompositeSha256: string;
 };
 
 const root = process.cwd();
@@ -30,6 +42,12 @@ const captureRoot = join(generatedRoot, 'runtime-captures');
 const manifest = JSON.parse(
   readFileSync(join(generatedRoot, 'runtime-capture-manifest.json'), 'utf8'),
 ) as CaptureManifest;
+const v3 = JSON.parse(
+  readFileSync(
+    join(root, 'docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json'),
+    'utf8',
+  ),
+) as V3Evidence;
 const automation = readFileSync(
   join(
     root,
@@ -121,6 +139,9 @@ for (const token of [
   'runtime-capture-manifest.json',
   'CAPTURE_SOURCE_COMMIT="$(git rev-parse HEAD)"',
   'data["sourceCommit"] = source_commit',
+  'data["topCompositeKind"] = v3["sourceCompositeKind"]',
+  'data["topCompositePath"] = v3["sourceCompositePath"]',
+  'data["topCompositeSha256"] = v3["sourceCompositeSha256"]',
   'git push origin "HEAD:$SOURCE_BRANCH"',
 ]) {
   invariant(runner.includes(token), `capture runner missing contract: ${token}`);
@@ -139,6 +160,9 @@ for (const token of [
 if (!manifest.executed) {
   invariant(manifest.result === 'NOT_RUN', 'unexecuted capture manifest must be NOT_RUN');
   invariant(manifest.sourceCommit === '', 'unexecuted capture source commit must be empty');
+  invariant(manifest.topCompositeKind === '', 'unexecuted capture must not retain TOP composite kind');
+  invariant(manifest.topCompositePath === '', 'unexecuted capture must not retain TOP composite path');
+  invariant(manifest.topCompositeSha256 === '', 'unexecuted capture must not retain TOP composite SHA-256');
   invariant(manifest.captureCount === 0, 'unexecuted capture count must be zero');
   invariant(manifest.captures.length === 0, 'unexecuted capture records must be empty');
   invariant(manifest.generatedAtUtc === '', 'unexecuted timestamp must be empty');
@@ -150,6 +174,14 @@ if (!manifest.executed) {
 
 invariant(manifest.result === 'PASSED', 'executed capture manifest must be PASSED');
 invariant(/^[0-9a-f]{40}$/.test(manifest.sourceCommit), 'executed capture source commit is missing/invalid');
+invariant(['bridge', 'final-core5'].includes(manifest.topCompositeKind), 'capture TOP composite kind is invalid');
+invariant(manifest.topCompositePath.length > 0, 'capture TOP composite path is missing');
+invariant(/^[0-9a-f]{64}$/.test(manifest.topCompositeSha256), 'capture TOP composite SHA-256 is invalid');
+invariant(v3.executed && v3.result === 'PASSED', 'executed capture requires PASSED V3 Unity evidence');
+invariant(manifest.sourceCommit === v3.verifiedCommit, 'capture source commit must match V3 Unity evidence');
+invariant(manifest.topCompositeKind === v3.sourceCompositeKind, 'capture TOP composite kind must match V3 evidence');
+invariant(manifest.topCompositePath === v3.sourceCompositePath, 'capture TOP composite path must match V3 evidence');
+invariant(manifest.topCompositeSha256 === v3.sourceCompositeSha256, 'capture TOP composite SHA-256 must match V3 evidence');
 invariant(manifest.captureCount === 15, 'executed capture count must be 15');
 invariant(manifest.captures.length === 15, 'executed capture records must contain 15 entries');
 invariant(manifest.generatedAtUtc.length > 0, 'executed capture timestamp missing');
@@ -182,6 +214,7 @@ for (const [index, definition] of expected.entries()) {
 
 console.log('Loading/TOP capture pack: PASS');
 console.log(`source commit: ${manifest.sourceCommit}`);
+console.log(`TOP composite: ${manifest.topCompositeKind} ${manifest.topCompositePath} ${manifest.topCompositeSha256}`);
 console.log('captures: 15/15');
 console.log('readiness: layered TOP + Runtime V3 composite both required before TOP screenshots');
 console.log('matrix: spring/summer/autumn/winter + TOP at 360x800 / 390x844 / 430x932');
