@@ -299,7 +299,7 @@ namespace VampPon.UnitySpike.UI.Screens
                     continue;
 
                 image.material = null;
-                image.gameObject.SetActive(true);
+                image.gameObject.SetActive(false);
             }
         }
 
