@@ -12,6 +12,7 @@ const paths = {
   identity: 'docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json',
   crop: 'docs/design-targets/generated/top-living-night-v3/crop-review-status.json',
   motion: 'docs/design-targets/generated/top-living-night-v3/motion-review-status.json',
+  humanReview: 'docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json',
   unity: 'docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json',
   device: 'docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json',
   capture: 'docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json',
@@ -117,6 +118,37 @@ function resetMotion(motion: any): void {
     'Final Core5 candidate registered. Runtime motion review was reset and must be executed on the current final candidate.';
 }
 
+function resetHumanReview(review: any, sha256: string): void {
+  Object.assign(review, {
+    executed: false,
+    result: 'NOT_RUN',
+    candidateGenerated: true,
+    candidatePath: canonicalCandidatePath,
+    candidateSha256: '',
+    captureSourceCommit: '',
+    topCompositeKind: '',
+    topCompositePath: '',
+    topCompositeSha256: '',
+    expectedFrameCount: 15,
+    reviewedFrameCount: 0,
+    loadingFramesReviewed: 0,
+    topFramesReviewed: 0,
+    noBlackOrBlankFrames: false,
+    noDevelopmentText: false,
+    topCore5Readable: false,
+    cropSafeAcrossAllTargets: false,
+    loadingToTopContinuityPassed: false,
+    reviewerRole: '',
+    reviewedAtUtc: '',
+    notes: '',
+    humanVisualReviewComplete: false,
+    finalApprovalBlocked: true,
+  });
+  // An unexecuted human review intentionally carries no candidate SHA. The exact
+  // candidate is rebound from final-art-status.json when review begins.
+  invariant(sha256.length === 64, 'registered final candidate SHA-256 is invalid');
+}
+
 function resetUnity(unity: any): void {
   Object.assign(unity, {
     executed: false,
@@ -219,6 +251,7 @@ function main(): void {
   const identity = readJson(paths.identity);
   const crop = readJson(paths.crop);
   const motion = readJson(paths.motion);
+  const humanReview = readJson(paths.humanReview);
   const unity = readJson(paths.unity);
   const device = readJson(paths.device);
   const capture = readJson(paths.capture);
@@ -242,6 +275,7 @@ function main(): void {
   resetIdentity(identity, sha256);
   resetCrop(crop, sha256);
   resetMotion(motion);
+  resetHumanReview(humanReview, sha256);
   resetUnity(unity);
   resetCapture(capture);
   resetDeviceTarget(device.simulator);
@@ -259,6 +293,7 @@ function main(): void {
   writeJson(paths.identity, identity);
   writeJson(paths.crop, crop);
   writeJson(paths.motion, motion);
+  writeJson(paths.humanReview, humanReview);
   writeJson(paths.unity, unity);
   writeJson(paths.device, device);
   writeJson(paths.capture, capture);
@@ -267,7 +302,7 @@ function main(): void {
   console.log('TOP final-art registration: REGISTERED');
   console.log(`candidate=${canonicalCandidatePath}`);
   console.log(`sha256=${sha256}`);
-  console.log('downstream Core5/crop/motion/Unity/capture/device approval evidence reset to NOT_RUN/blocked');
+  console.log('downstream Core5/crop/motion/human/Unity/capture/device approval evidence reset to NOT_RUN/blocked');
 }
 
 main();
