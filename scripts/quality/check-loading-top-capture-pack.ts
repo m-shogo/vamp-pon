@@ -99,6 +99,9 @@ for (const token of [
   'ScreenCapture.CaptureScreenshot',
   'loading.SelectedArtIndex != capture.artIndex',
   'TopLivingNightView',
+  'LoadingTopVisualPolishCoordinator.IsCurrentTopReady',
+  'TopLivingNightCompositeV3Controller.IsCompositeReady',
+  'if (elapsed > 45d)',
   'ReadPngDimensions',
   'ComputeSha256',
   'EditorApplication.Exit(0)',
@@ -109,6 +112,8 @@ for (const token of [
 
 for (const token of [
   'fix-loading-seasonal-editor-source-paths.py',
+  'fix-loading-top-capture-readiness.py',
+  'TopLivingNightCompositeV3UnityVerification.RunBatchmode',
   'LoadingTopAutomatedCapture.RunFromCommandLine',
   'check-loading-top-capture-pack.ts',
   'runtime-captures',
@@ -172,4 +177,5 @@ for (const [index, definition] of expected.entries()) {
 
 console.log('Loading/TOP capture pack: PASS');
 console.log('captures: 15/15');
+console.log('readiness: layered TOP + Runtime V3 composite both required before TOP screenshots');
 console.log('matrix: spring/summer/autumn/winter + TOP at 360x800 / 390x844 / 430x932');
