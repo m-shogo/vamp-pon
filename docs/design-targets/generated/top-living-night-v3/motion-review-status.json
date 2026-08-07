@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "staticContractReady": true,
+  "normalMotion": {
+    "executed": false,
+    "result": "NOT_RUN",
+    "reviewDurationSeconds": 0,
+    "obviousShortLoopObserved": false,
+    "accumulatingParticlesObserved": false,
+    "brightnessDriftObserved": false,
+    "textureLifecycleIssueObserved": false
+  },
+  "reducedMotion": {
+    "executed": false,
+    "result": "NOT_RUN",
+    "reviewDurationSeconds": 0,
+    "cloudMovementStopped": false,
+    "particlesSuppressed": false,
+    "rareRobotEyeSuppressed": false,
+    "fireRemainsRestrained": false,
+    "uiFunctional": false
+  },
+  "unityVersion": "",
+  "verifiedCommit": "",
+  "reviewedAtUtc": "",
+  "motionApproved": false,
+  "runtimeApproved": false,
+  "finalApprovalBlocked": true,
+  "notes": "Static motion contract exists, but five-minute normal-motion and Reduced Motion runtime reviews have not been executed on the current V3 runtime."
+}
