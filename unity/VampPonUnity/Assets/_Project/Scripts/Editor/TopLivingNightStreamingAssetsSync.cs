@@ -73,40 +73,49 @@ namespace VampPon.UnitySpike.Editor
 
         private static void StageAndImport()
         {
-            var source = ResolveSourceDirectory();
-            var manifestPath = ResolveManifestPath();
-            var destination = ResolveDestinationDirectory();
-
-            if (!Directory.Exists(source))
-                throw new BuildFailedException(
-                    $"TOP Living Night source directory is missing: {source}");
-            if (!File.Exists(manifestPath))
-                throw new BuildFailedException(
-                    $"TOP Living Night manifest is missing: {manifestPath}");
-
-            var manifest = JsonUtility.FromJson<ManifestRoot>(File.ReadAllText(manifestPath));
-            ValidateManifest(manifest, source);
-
             CleanupGeneratedBuildAssets(refresh: false);
-            Directory.CreateDirectory(destination);
 
-            foreach (var fileName in RequiredFiles)
+            try
             {
-                var sourcePath = Path.Combine(source, fileName);
-                var destinationPath = Path.Combine(destination, fileName);
-                File.Copy(sourcePath, destinationPath, true);
+                var source = ResolveSourceDirectory();
+                var manifestPath = ResolveManifestPath();
+                var destination = ResolveDestinationDirectory();
+
+                if (!Directory.Exists(source))
+                    throw new BuildFailedException(
+                        $"TOP Living Night source directory is missing: {source}");
+                if (!File.Exists(manifestPath))
+                    throw new BuildFailedException(
+                        $"TOP Living Night manifest is missing: {manifestPath}");
+
+                var manifest = JsonUtility.FromJson<ManifestRoot>(File.ReadAllText(manifestPath));
+                ValidateManifest(manifest, source);
+
+                Directory.CreateDirectory(destination);
+
+                foreach (var fileName in RequiredFiles)
+                {
+                    var sourcePath = Path.Combine(source, fileName);
+                    var destinationPath = Path.Combine(destination, fileName);
+                    File.Copy(sourcePath, destinationPath, true);
+                }
+
+                File.WriteAllText(
+                    Path.Combine(destination, "README.generated.txt"),
+                    "Generated for Unity build from docs/design-targets/generated/top-living-night-v2/layers.\n" +
+                    "Source bytes and SHA-256 were validated against manifest.json.\n" +
+                    "Do not edit or commit this Resources copy.\n");
+
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                foreach (var fileName in RequiredFiles)
+                    ConfigureTextureImporter(fileName);
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             }
-
-            File.WriteAllText(
-                Path.Combine(destination, "README.generated.txt"),
-                "Generated for Unity build from docs/design-targets/generated/top-living-night-v2/layers.\n" +
-                "Source bytes and SHA-256 were validated against manifest.json.\n" +
-                "Do not edit or commit this Resources copy.\n");
-
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            foreach (var fileName in RequiredFiles)
-                ConfigureTextureImporter(fileName);
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            catch
+            {
+                CleanupGeneratedBuildAssets();
+                throw;
+            }
         }
 
         private static void ValidateManifest(ManifestRoot manifest, string source)
