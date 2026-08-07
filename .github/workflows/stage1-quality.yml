@@ -108,6 +108,9 @@ jobs:
       - name: Verify TOP device performance registration path is safe
         run: node --experimental-strip-types scripts/unity/register-top-living-night-device-performance.ts --dry-run
 
+      - name: Verify TOP device performance registration mutation fixtures
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-device-performance-registration.ts
+
       - name: Verify TOP opt-in Simulator performance sampler contract
         run: node --experimental-strip-types scripts/quality/check-top-living-night-performance-sampler.ts
 
