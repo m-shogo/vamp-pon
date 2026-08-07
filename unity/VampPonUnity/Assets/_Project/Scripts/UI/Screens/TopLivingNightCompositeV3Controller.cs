@@ -265,6 +265,7 @@ namespace VampPon.UnitySpike.UI.Screens
             {
                 name = "TopLivingNight_LuminanceAdditive_Runtime",
             };
+            Resources.UnloadAsset(resource);
             return material;
 #endif
         }
