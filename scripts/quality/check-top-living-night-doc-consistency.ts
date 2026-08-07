@@ -66,7 +66,6 @@ function invariant(value: unknown, message: string): asserts value {
 const canonicalFinalPath =
   'docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png';
 
-// V2 is historical supporting evidence and must remain immutable/valid.
 invariant(v2.executed, 'V2 layer-kit Unity evidence must remain executed');
 invariant(v2.result === 'PASSED', 'V2 layer-kit Unity evidence must remain PASSED');
 invariant(v2.failureCount === 0, 'V2 layer-kit Unity evidence must have zero failures');
@@ -76,8 +75,6 @@ invariant(v2.resourceTextureCount === 17, 'V2 layer-kit Unity evidence must cove
 invariant(v2.buildImportPolicyPassed, 'V2 layer-kit Unity import policy must remain PASSED');
 invariant(v2.verifiedCommit.length === 40, 'V2 layer-kit verified commit must remain recorded');
 
-// V3 may legitimately move from NOT_RUN -> PASSED. This checker follows the
-// evidence state instead of hard-coding a permanent NOT_RUN assumption.
 if (!v3.executed) {
   invariant(v3.result === 'NOT_RUN', 'unexecuted V3 Unity evidence must be NOT_RUN');
   invariant(v3.verifiedCommit === '', 'unexecuted V3 Unity evidence commit must be empty');
@@ -139,7 +136,15 @@ for (const stale of [
 
 for (const token of [
   'CURRENT_AUTHORITY / FINAL_ART_AND_RUNTIME_APPROVAL_BLOCKED',
+  '`core5-reference-manifest.json`',
+  '`human-visual-review-status.json`',
+  '`runtime-device-evidence.json`',
+  'Locked Core5 reference authority',
   'Composite source promotion',
+  'Safe candidate registration',
+  'scripts/unity/register-top-living-night-final-art.ts',
+  'Human visual review provenance',
+  'Device provenance',
   'candidateGenerated=false',
   'candidateGenerated=true',
   'sourceCompositeKind=bridge | final-core5',
@@ -152,8 +157,6 @@ for (const token of [
   invariant(v3Readme.includes(token), `TOP V3 current-authority README boundary missing: ${token}`);
 }
 
-// The human-readable snapshot must track the JSON authority without embedding
-// HEAD-specific CI numbers.
 for (const token of [
   `v3UnityExecuted=${v3.executed}`,
   `v3UnityResult=${v3.result}`,
