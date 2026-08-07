@@ -64,27 +64,35 @@ namespace VampPon.UnitySpike.Editor
             ValidateManifest(manifest, repositoryRoot);
 
             CleanupGeneratedBuildAssets(refresh: false);
-            Directory.CreateDirectory(destination);
-
-            foreach (var asset in manifest.assets)
+            try
             {
-                var sourcePath = Path.Combine(
-                    repositoryRoot,
-                    asset.sourcePath.Replace('/', Path.DirectorySeparatorChar));
-                var destinationPath = Path.Combine(destination, asset.resourceFile);
-                File.Copy(sourcePath, destinationPath, true);
+                Directory.CreateDirectory(destination);
+
+                foreach (var asset in manifest.assets)
+                {
+                    var sourcePath = Path.Combine(
+                        repositoryRoot,
+                        asset.sourcePath.Replace('/', Path.DirectorySeparatorChar));
+                    var destinationPath = Path.Combine(destination, asset.resourceFile);
+                    File.Copy(sourcePath, destinationPath, true);
+                }
+
+                File.WriteAllText(
+                    Path.Combine(destination, "README.generated.txt"),
+                    "Generated for Unity build from the loading-seasonal-v1 manifest.\n" +
+                    "The four committed seasonal binaries were validated by dimensions and SHA-256 before staging.\n" +
+                    "Do not edit or commit this Resources copy.\n");
+
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                foreach (var asset in manifest.assets)
+                    ConfigureTextureImporter(asset.resourceFile);
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
             }
-
-            File.WriteAllText(
-                Path.Combine(destination, "README.generated.txt"),
-                "Generated for Unity build from the loading-seasonal-v1 manifest.\n" +
-                "The current four files are an explicit temporary fallback until the approved seasonal binaries are committed.\n" +
-                "Do not edit or commit this Resources copy.\n");
-
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            foreach (var asset in manifest.assets)
-                ConfigureTextureImporter(asset.resourceFile);
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            catch
+            {
+                CleanupGeneratedBuildAssets();
+                throw;
+            }
         }
 
         private static void ValidateManifest(
