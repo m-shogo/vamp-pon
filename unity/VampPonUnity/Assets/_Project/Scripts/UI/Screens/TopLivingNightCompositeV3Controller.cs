@@ -242,6 +242,21 @@ namespace VampPon.UnitySpike.UI.Screens
                 Debug.LogError("TOP Runtime V3 editor final-art status parsed as null.");
                 return null;
             }
+            if (status.schemaVersion != 1)
+            {
+                Debug.LogError(
+                    $"TOP Runtime V3 editor final-art status schema mismatch: expected 1, actual {status.schemaVersion}.");
+                return null;
+            }
+            if (!string.Equals(
+                    status.candidatePath,
+                    EditorFinalCompositeRelativePath,
+                    StringComparison.Ordinal))
+            {
+                Debug.LogError(
+                    $"TOP Runtime V3 editor final candidate path is not canonical: {status.candidatePath}");
+                return null;
+            }
 
             var finalPath = Path.Combine(
                 repositoryRoot,
@@ -271,15 +286,6 @@ namespace VampPon.UnitySpike.UI.Screens
             }
             else
             {
-                if (!string.Equals(
-                        status.candidatePath,
-                        EditorFinalCompositeRelativePath,
-                        StringComparison.Ordinal))
-                {
-                    Debug.LogError(
-                        $"TOP Runtime V3 editor final candidate path is not canonical: {status.candidatePath}");
-                    return null;
-                }
                 if (!IsLowerHexSha256(status.candidateSha256))
                 {
                     Debug.LogError(
@@ -345,6 +351,7 @@ namespace VampPon.UnitySpike.UI.Screens
         [Serializable]
         private sealed class EditorFinalArtStatus
         {
+            public int schemaVersion;
             public bool candidateGenerated;
             public string candidatePath;
             public string candidateSha256;
