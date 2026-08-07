@@ -84,6 +84,9 @@ jobs:
       - name: Verify TOP approval evidence consistency
         run: node --experimental-strip-types scripts/quality/check-top-living-night-approval-consistency.ts
 
+      - name: Verify TOP runtime evidence commit coherence
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-evidence-commit-coherence.ts
+
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
