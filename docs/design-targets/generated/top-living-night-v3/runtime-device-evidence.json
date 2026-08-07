@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "simulator": {
+    "executed": false,
+    "result": "NOT_RUN",
+    "deviceModel": "",
+    "osVersion": "",
+    "unityVersion": "",
+    "sourceCommit": "",
+    "durationSeconds": 0,
+    "averageFps": 0,
+    "minimumFps": 0,
+    "peakMemoryMb": 0,
+    "backgroundForegroundRecoveryPassed": false,
+    "recordedAtUtc": "",
+    "notes": ""
+  },
+  "physicalIphone": {
+    "executed": false,
+    "result": "NOT_RUN",
+    "deviceModel": "",
+    "osVersion": "",
+    "unityVersion": "",
+    "sourceCommit": "",
+    "durationSeconds": 0,
+    "averageFps": 0,
+    "minimumFps": 0,
+    "peakMemoryMb": 0,
+    "thermalState": "",
+    "backgroundForegroundRecoveryPassed": false,
+    "recordedAtUtc": "",
+    "notes": ""
+  },
+  "runtimeApproved": false,
+  "finalApprovalBlocked": true
+}
