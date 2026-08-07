@@ -72,6 +72,7 @@ for (const lifecycleToken of [
   'ResetAdditiveMasks()',
   'baseComposite.gameObject.SetActive(false)',
   'image.material = null',
+  'Resources.UnloadAsset(resource)',
 ]) {
   invariant(
     controller.includes(lifecycleToken),
@@ -128,6 +129,6 @@ for (const token of [
 console.log('TOP Living Night Runtime V3: PASS');
 console.log('base: validated 430x932 composite preview with fixed SHA-256');
 console.log('motion: fire/smoke/embers retained; light masks use luminance-additive UI shader');
-console.log('lifecycle: composite reuse + fallback restore + additive material cleanup guarded');
+console.log('lifecycle: composite reuse + fallback restore + source/material cleanup guarded');
 console.log('build: generated Resources texture/material, ASTC 6x6, cleanup guarded');
 console.log('approval: runtime implementation only; recapture and human/device review remain required');
