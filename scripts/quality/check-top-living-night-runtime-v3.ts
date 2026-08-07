@@ -37,6 +37,7 @@ const finalArtStatus = JSON.parse(
     'utf8',
   ),
 ) as {
+  schemaVersion: number;
   candidateGenerated: boolean;
   candidatePath: string;
   candidateSha256: string;
@@ -70,6 +71,7 @@ function validate430x932Png(path: string, expectedSha256: string, label: string)
   );
 }
 
+invariant(finalArtStatus.schemaVersion === 1, 'TOP V3 final-art authority schema mismatch');
 invariant(finalArtStatus.candidatePath === finalRelativePath, 'TOP V3 final candidate path is not canonical');
 
 const bridgePath = join(root, bridgeRelativePath);
@@ -95,6 +97,8 @@ for (const token of [
   finalStatusRelativePath,
   finalRelativePath,
   'ResolveEditorCompositePath',
+  'status.schemaVersion != 1',
+  'status.candidatePath',
   'candidateGenerated',
   'candidateSha256',
   'final Core5 PNG exists while candidateGenerated=false',
@@ -184,6 +188,8 @@ for (const token of [
   finalStatusRelativePath,
   finalRelativePath,
   'ResolveCompositeSource()',
+  'status.schemaVersion != 1',
+  'status.candidatePath',
   'candidateGenerated',
   'candidateSha256',
   'final Core5 PNG exists while candidateGenerated=false',
@@ -212,6 +218,8 @@ const selectorStart = buildSync.indexOf('internal static CompositeSourceSelectio
 const importerStart = buildSync.indexOf('private static void ConfigureTextureImporter()', selectorStart);
 invariant(selectorStart >= 0 && importerStart > selectorStart, 'TOP Runtime V3 source selector boundary is missing');
 const selectorBlock = buildSync.slice(selectorStart, importerStart);
+invariant(selectorBlock.includes('status.schemaVersion != 1'), 'TOP V3 selector must reject unknown final-art schema');
+invariant(selectorBlock.includes('status.candidatePath'), 'TOP V3 selector must require canonical candidate path before bridge/final choice');
 invariant(selectorBlock.includes('if (!status.candidateGenerated)'), 'TOP V3 selector must gate final source on candidateGenerated');
 invariant(selectorBlock.includes('File.Exists(finalSourcePath)'), 'TOP V3 selector must explicitly inspect final source existence');
 invariant(selectorBlock.includes('ComputeSha256(finalSourcePath)'), 'TOP V3 selector must verify final candidate bytes');
@@ -246,7 +254,7 @@ console.log('TOP Living Night Runtime V3: PASS');
 console.log(
   `base authority: ${finalArtStatus.candidateGenerated ? 'final-core5 candidate selected by manifest SHA' : 'verified bridge selected while final candidate is NOT_RUN'}`,
 );
-console.log('editor/build/verifier: all three source paths are bound to the same final-art authority boundary');
+console.log('editor/build/verifier: all three source paths are bound to the same schema-checked final-art authority boundary');
 console.log('sky: transparent Stars / CloudsFar / CloudsNear stay live over the V3 base composite');
 console.log('motion: sky + fire/smoke/embers retained; light masks use luminance-additive UI shader');
 console.log('lifecycle: composite reuse + dark-safe mask detach + fallback/resource cleanup guarded');
