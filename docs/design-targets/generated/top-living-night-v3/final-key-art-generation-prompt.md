@@ -4,13 +4,35 @@ Status: `GENERATION_READY / NOT_FINAL_ART`
 
 Use this only to generate a replacement for the current visual-recovery bridge. The five Core5 repository masters are mandatory visual references.
 
+## Locked reference authority
+
+Use all five Core5 master images as hard identity references:
+
+- `assets/reference/character-master/core5/yui-character-master-v1.png`
+- `assets/reference/character-master/core5/asa-character-master-v1.png`
+- `assets/reference/character-master/core5/nagi-character-master-v1.png`
+- `assets/reference/character-master/core5/michiru-character-master-v1.png`
+- `assets/reference/character-master/core5/tomori-character-master-v1.png`
+
+Their current binary authority is locked by:
+
+- `docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json`
+
+Before final generation/review, the five files must pass `check-top-living-night-core5-reference-integrity.ts`. Do not silently substitute another revision of a character master. An intentional master change requires an explicit reference-manifest update and downstream identity/generation review reset.
+
+Composition-only reference:
+
+- `docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png`
+
+Do not copy the generic bridge humans. Keep only its useful quiet-night / camp / rail / town / animal / robot composition logic.
+
 ## Primary prompt
 
 Create a production-quality portrait key visual for the mobile game **ヨルノシルベ**, master size **430x932**, intended for a persistent animated Unity TOP screen rather than a loading/event illustration.
 
 The scene is a serious, quiet night immediately before the party departs again: an abandoned railway/station camp, deep indigo night, restrained crescent moon and stars, receding rail line, compact campfire, distant fantasy-town lights. The emotional tone is calm, slightly melancholic, trusted companions after a long journey, warm but not cheerful-party energy.
 
-The **five foreground humans must be exactly the approved Core5 identities** from the repository masters. Do not substitute, redesign or merge them.
+The **five foreground humans must be exactly the approved Core5 identities** from the locked repository masters. Do not substitute, redesign or merge them.
 
 ### Yui — identity lock
 
@@ -130,7 +152,7 @@ The image must survive EnvelopeParent-style crop at:
 
 ## Rendering language
 
-Match the Core5 master boards rather than the current painterly bridge:
+Match the locked Core5 master boards rather than the current painterly bridge:
 
 - anime/storybook character construction
 - subtle black-ink linework
@@ -216,6 +238,27 @@ Do **not** generate:
 - character face in title safe zone
 - important object in button safe zone
 
+## Required output
+
+```txt
+format=PNG
+width=430
+height=932
+foregroundHumans=5
+core5IdentityLock=Yui,Asa,Nagi,Michiru,Tomori
+core5ReferenceAuthority=core5-reference-manifest.json
+textInImage=none
+uiInImage=none
+```
+
+Final candidate path:
+
+```txt
+docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png
+```
+
+After the PNG is placed there, use `scripts/unity/register-top-living-night-final-art.ts` to validate 430x932, compute/register its SHA-256 and invalidate candidate-sensitive stale evidence. Registration itself does not approve the image.
+
 ## Required review after generation
 
 Do not accept the first aesthetically pleasing result automatically.
@@ -223,7 +266,7 @@ Do not accept the first aesthetically pleasing result automatically.
 Review in this order:
 
 1. Count exactly five Core5 humans.
-2. Match each face/hair/cape/prop to the relevant repository master.
+2. Match each face/hair/cape/prop to the relevant locked repository master.
 3. Confirm Yui/Asa/Nagi are distinguishable.
 4. Confirm Michiru teal and Tomori rust identities read immediately.
 5. Confirm animal and robot readability.
@@ -232,6 +275,7 @@ Review in this order:
 8. Confirm main flame can be replaced/supplemented by runtime flipbook.
 9. Confirm smoke/embers are not excessively baked in.
 10. Confirm the artwork is serious TOP key art, not Loading/event art.
+11. Confirm Core5/crop/motion/human/Unity/capture/device evidence is bound to the exact registered final-art SHA.
 
 Only after those checks may the candidate enter runtime replacement work.
 
@@ -240,6 +284,7 @@ Only after those checks may the candidate enter runtime replacement work.
 ```txt
 generationPromptReady=true
 core5ReferencesMandatory=true
+core5ReferenceManifestLocked=true
 currentBridgeStillActive=true
 finalCandidateGenerated=false
 finalCore5ArtApproved=false
