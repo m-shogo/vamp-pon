@@ -1,5 +1,10 @@
 {
   "schemaVersion": 1,
+  "performancePolicy": {
+    "targetFps": 60,
+    "passObservationSeconds": 300,
+    "memoryBudgetMode": "regression-observation"
+  },
   "simulator": {
     "executed": false,
     "result": "NOT_RUN",
@@ -14,6 +19,8 @@
     "averageFps": 0,
     "minimumFps": 0,
     "peakMemoryMb": 0,
+    "framePacingIssueObserved": false,
+    "memoryRegressionObserved": false,
     "backgroundForegroundRecoveryPassed": false,
     "recordedAtUtc": "",
     "notes": ""
@@ -32,6 +39,8 @@
     "averageFps": 0,
     "minimumFps": 0,
     "peakMemoryMb": 0,
+    "framePacingIssueObserved": false,
+    "memoryRegressionObserved": false,
     "thermalState": "",
     "backgroundForegroundRecoveryPassed": false,
     "recordedAtUtc": "",
