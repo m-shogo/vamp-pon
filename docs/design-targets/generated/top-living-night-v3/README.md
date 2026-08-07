@@ -57,7 +57,8 @@ The bridge composition direction may be kept, but its human identities/rendering
 
 ```txt
 seasonalBinariesCommitted=true
-v2LayerKitUnityVerified=true
+loadingUnityImportEvidence=PASSED_154_assertions_4_textures
+v2LayerKitUnityEvidence=PASSED_270_assertions_17_textures
 v3UnityExecuted=false
 v3UnityResult=NOT_RUN
 currentCaptureExecuted=false
@@ -72,6 +73,17 @@ approvedAsFinal=false
 runtimeApproved=false
 finalApprovalBlocked=true
 ```
+
+Latest GitHub/static verification completed at:
+
+```txt
+HEAD=e3caf979b62e515e47efdc31371567b4153b36f0
+CI_1690=PASS
+Stage1_Quality_1521=PASS
+Stage1_verify_steps=57/57
+```
+
+This green state proves source/static/document/evidence consistency only. It does **not** promote current V3 Unity execution, current 15-frame capture, final Core5 art or device approval.
 
 ## Final Core5 target
 
@@ -109,7 +121,7 @@ Current V3 architecture keeps:
 - independent/asynchronous motion timing,
 - Reduced Motion policy,
 - ASTC 6x6 / Read-Write OFF / mipmap OFF / Clamp / Bilinear iOS import policy,
-- failure-safe generated-Resources cleanup,
+- failure-safe generated-Resources cleanup for Loading, V2 layer kit and V3 composite staging,
 - base-composite reuse and detach cleanup,
 - dark-safe additive-mask detach behavior.
 
