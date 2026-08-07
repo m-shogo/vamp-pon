@@ -53,34 +53,43 @@ namespace VampPon.UnitySpike.Editor
 
         private static void StageAndImport()
         {
-            var sourcePath = ResolveSourcePath();
-            if (!File.Exists(sourcePath))
-                throw new BuildFailedException(
-                    $"TOP Runtime V3 composite source is missing: {sourcePath}");
-
-            var dimensions = ReadPngDimensions(sourcePath);
-            if (dimensions.x != 430 || dimensions.y != 932)
-                throw new BuildFailedException(
-                    $"TOP Runtime V3 composite dimensions mismatch: expected 430x932, actual {dimensions.x}x{dimensions.y}.");
-
-            var actualSha = ComputeSha256(sourcePath);
-            if (!string.Equals(actualSha, ExpectedSha256, StringComparison.OrdinalIgnoreCase))
-                throw new BuildFailedException(
-                    $"TOP Runtime V3 composite SHA-256 mismatch: expected {ExpectedSha256}, actual {actualSha}.");
-
             CleanupGeneratedBuildAssets(refresh: false);
-            var destination = ResolveDestinationDirectory();
-            Directory.CreateDirectory(destination);
-            File.Copy(
-                sourcePath,
-                Path.Combine(destination, DestinationFileName),
-                true);
 
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
-            ConfigureTextureImporter();
-            CreateAdditiveMaterial();
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            try
+            {
+                var sourcePath = ResolveSourcePath();
+                if (!File.Exists(sourcePath))
+                    throw new BuildFailedException(
+                        $"TOP Runtime V3 composite source is missing: {sourcePath}");
+
+                var dimensions = ReadPngDimensions(sourcePath);
+                if (dimensions.x != 430 || dimensions.y != 932)
+                    throw new BuildFailedException(
+                        $"TOP Runtime V3 composite dimensions mismatch: expected 430x932, actual {dimensions.x}x{dimensions.y}.");
+
+                var actualSha = ComputeSha256(sourcePath);
+                if (!string.Equals(actualSha, ExpectedSha256, StringComparison.OrdinalIgnoreCase))
+                    throw new BuildFailedException(
+                        $"TOP Runtime V3 composite SHA-256 mismatch: expected {ExpectedSha256}, actual {actualSha}.");
+
+                var destination = ResolveDestinationDirectory();
+                Directory.CreateDirectory(destination);
+                File.Copy(
+                    sourcePath,
+                    Path.Combine(destination, DestinationFileName),
+                    true);
+
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                ConfigureTextureImporter();
+                CreateAdditiveMaterial();
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            }
+            catch
+            {
+                CleanupGeneratedBuildAssets();
+                throw;
+            }
         }
 
         private static void ConfigureTextureImporter()
