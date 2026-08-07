@@ -15,6 +15,10 @@ dist/
 data/asset-factory/generation-contracts.json
 docs/design-targets/generated/unity-u48/batch-c/quarantine/*/
 
+# TOP Living Night review input templates are generated from current candidate/runtime provenance.
+# They are convenience inputs, not approval authority. Stage1 generates and uploads them as artifacts.
+docs/design-targets/generated/top-living-night-v3/review-inputs/*.json
+
 # OS
 .DS_Store
 
