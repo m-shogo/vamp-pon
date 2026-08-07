@@ -114,45 +114,59 @@ namespace VampPon.UnitySpike.UI.Screens
             {
                 Debug.LogError(
                     "TOP Runtime V3: base composite could not be loaded; preserving layered fallback.");
+                SetStaticLayerVisibility(true);
                 ConfigureAdditiveMasks();
                 return;
             }
 
-            var compositeObject = new GameObject(
-                "BaseComposite",
-                typeof(RectTransform),
-                typeof(RawImage),
-                typeof(AspectRatioFitter));
-            compositeObject.transform.SetParent(art, false);
+            baseComposite = GetOrCreateBaseComposite(art);
+            baseComposite.texture = texture;
+            baseComposite.color = Color.white;
+            baseComposite.raycastTarget = false;
+            baseComposite.gameObject.SetActive(true);
+
+            SetStaticLayerVisibility(false);
+            ConfigureAdditiveMasks();
+            IsCompositeReady = true;
+            Debug.Log(
+                "TOP Runtime V3: base composite connected; dynamic fire, smoke, embers and additive light masks remain live.");
+        }
+
+        private RawImage GetOrCreateBaseComposite(Transform art)
+        {
+            var existing = FindChild(art, "BaseComposite");
+            GameObject compositeObject;
+            if (existing != null)
+            {
+                compositeObject = existing.gameObject;
+            }
+            else
+            {
+                compositeObject = new GameObject(
+                    "BaseComposite",
+                    typeof(RectTransform),
+                    typeof(RawImage),
+                    typeof(AspectRatioFitter));
+                compositeObject.transform.SetParent(art, false);
+            }
+
             compositeObject.transform.SetSiblingIndex(0);
 
-            var rect = compositeObject.GetComponent<RectTransform>();
+            var rect = compositeObject.GetComponent<RectTransform>() ??
+                compositeObject.AddComponent<RectTransform>();
             rect.anchorMin = new Vector2(.5f, .5f);
             rect.anchorMax = new Vector2(.5f, .5f);
             rect.pivot = new Vector2(.5f, .5f);
             rect.anchoredPosition = Vector2.zero;
             rect.sizeDelta = Vector2.one;
 
-            baseComposite = compositeObject.GetComponent<RawImage>();
-            baseComposite.texture = texture;
-            baseComposite.color = Color.white;
-            baseComposite.raycastTarget = false;
-
-            var fitter = compositeObject.GetComponent<AspectRatioFitter>();
+            var image = compositeObject.GetComponent<RawImage>() ??
+                compositeObject.AddComponent<RawImage>();
+            var fitter = compositeObject.GetComponent<AspectRatioFitter>() ??
+                compositeObject.AddComponent<AspectRatioFitter>();
             fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
             fitter.aspectRatio = SourceAspect;
-
-            foreach (var layerName in StaticLayersReplacedByComposite)
-            {
-                var child = FindChild(art, layerName);
-                if (child != null)
-                    child.gameObject.SetActive(false);
-            }
-
-            ConfigureAdditiveMasks();
-            IsCompositeReady = true;
-            Debug.Log(
-                "TOP Runtime V3: base composite connected; dynamic fire, smoke, embers and additive light masks remain live.");
+            return image;
         }
 
         private Texture2D LoadCompositeTexture()
@@ -255,12 +269,51 @@ namespace VampPon.UnitySpike.UI.Screens
 #endif
         }
 
+        private void SetStaticLayerVisibility(bool active)
+        {
+            if (top == null)
+                return;
+
+            var art = FindChild(top.transform, "TopLivingNightArt");
+            if (art == null)
+                return;
+
+            foreach (var layerName in StaticLayersReplacedByComposite)
+            {
+                var child = FindChild(art, layerName);
+                if (child != null)
+                    child.gameObject.SetActive(active);
+            }
+        }
+
+        private void ResetAdditiveMasks()
+        {
+            if (top == null)
+                return;
+
+            foreach (var style in AdditiveMasks)
+            {
+                var image = FindChildComponent<RawImage>(top.transform, style.Name);
+                if (image == null)
+                    continue;
+
+                image.material = null;
+                image.gameObject.SetActive(true);
+            }
+        }
+
         private void Detach()
         {
             IsCompositeReady = false;
 
             if (baseComposite != null)
+            {
                 baseComposite.texture = null;
+                baseComposite.gameObject.SetActive(false);
+            }
+
+            SetStaticLayerVisibility(true);
+            ResetAdditiveMasks();
 
             if (ownsCompositeTexture && compositeTexture != null)
                 Destroy(compositeTexture);
