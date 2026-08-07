@@ -124,6 +124,7 @@ fi
 if ! python3 - "$V3_EVIDENCE" "$CAPTURE_SOURCE_COMMIT" <<'PY'
 import json
 from pathlib import Path
+import re
 import sys
 
 path = Path(sys.argv[1])
@@ -155,6 +156,15 @@ if data.get("verifiedCommit") != source_commit:
         file=sys.stderr,
     )
     raise SystemExit(1)
+if data.get("sourceCompositeKind") not in {"bridge", "final-core5"}:
+    print(f"TOP Runtime V3 sourceCompositeKind is invalid: {data.get('sourceCompositeKind')!r}", file=sys.stderr)
+    raise SystemExit(1)
+if not isinstance(data.get("sourceCompositePath"), str) or not data["sourceCompositePath"]:
+    print("TOP Runtime V3 sourceCompositePath is missing", file=sys.stderr)
+    raise SystemExit(1)
+if not re.fullmatch(r"[0-9a-f]{64}", data.get("sourceCompositeSha256", "")):
+    print("TOP Runtime V3 sourceCompositeSha256 is missing/invalid", file=sys.stderr)
+    raise SystemExit(1)
 PY
 then
   print_log_failure_context "TOP Runtime V3 verification" "$V3_LOG_PATH"
@@ -180,17 +190,19 @@ if [[ $unity_status -ne 0 ]]; then
   exit "$unity_status"
 fi
 
-if ! python3 - "$CAPTURE_MANIFEST" "$CAPTURE_SOURCE_COMMIT" <<'PY'
+if ! python3 - "$CAPTURE_MANIFEST" "$CAPTURE_SOURCE_COMMIT" "$V3_EVIDENCE" <<'PY'
 import json
 from pathlib import Path
 import sys
 
 path = Path(sys.argv[1])
 source_commit = sys.argv[2]
+v3_path = Path(sys.argv[3])
 try:
     data = json.loads(path.read_text(encoding="utf-8"))
+    v3 = json.loads(v3_path.read_text(encoding="utf-8"))
 except Exception as exc:
-    print(f"capture manifest could not be read: {exc}", file=sys.stderr)
+    print(f"capture provenance could not be read: {exc}", file=sys.stderr)
     raise SystemExit(1)
 
 if data.get("executed") is not True or data.get("result") != "PASSED":
@@ -202,7 +214,14 @@ if data.get("executed") is not True or data.get("result") != "PASSED":
     )
     raise SystemExit(1)
 
+if v3.get("executed") is not True or v3.get("result") != "PASSED" or v3.get("verifiedCommit") != source_commit:
+    print("capture manifest cannot bind to non-matching V3 Unity evidence", file=sys.stderr)
+    raise SystemExit(1)
+
 data["sourceCommit"] = source_commit
+data["topCompositeKind"] = v3["sourceCompositeKind"]
+data["topCompositePath"] = v3["sourceCompositePath"]
+data["topCompositeSha256"] = v3["sourceCompositeSha256"]
 path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 PY
 then
