@@ -1,4 +1,5 @@
 import './check-top-living-night-final-promotion-mutation.ts';
+import './check-top-living-night-approval-writer-boundary.ts';
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
