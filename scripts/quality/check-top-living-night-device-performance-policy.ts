@@ -12,6 +12,7 @@ type TargetEvidence = {
   executed: boolean;
   result: string;
   measurementMethod: string;
+  memoryMetric: string;
   metricsArtifactPath: string;
   metricsArtifactSha256: string;
   durationSeconds: number;
@@ -45,6 +46,13 @@ function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
 
+function expectedMemoryMetric(method: string): string {
+  if (method === 'xcode-instruments') return 'physical-footprint';
+  if (method === 'unity-profiler-recorder' || method === 'unity-runtime-sampler')
+    return 'unity-total-allocated-memory';
+  return '';
+}
+
 invariant(evidence.schemaVersion === 1, 'TOP device performance schema mismatch');
 invariant(evidence.performancePolicy.targetFps === 60, 'TOP device target FPS must remain 60');
 invariant(
@@ -58,6 +66,9 @@ invariant(
 
 function verifyMetricsArtifact(name: string, target: TargetEvidence): void {
   invariant(target.measurementMethod.length > 0, `${name}: executed evidence requires a measurement method`);
+  const metric = expectedMemoryMetric(target.measurementMethod);
+  invariant(metric.length > 0, `${name}: unsupported measurement method`);
+  invariant(target.memoryMetric === metric, `${name}: memory metric does not match measurement method`);
   invariant(
     target.metricsArtifactPath.startsWith(artifactRoot) && target.metricsArtifactPath.endsWith('.json'),
     `${name}: metrics artifact must be a JSON file under ${artifactRoot}`,
@@ -73,6 +84,7 @@ function verifyTarget(name: string, target: TargetEvidence): void {
   if (!target.executed) {
     invariant(target.result === 'NOT_RUN', `${name}: unexecuted device evidence must be NOT_RUN`);
     invariant(target.measurementMethod === '', `${name}: NOT_RUN must not retain a measurement method`);
+    invariant(target.memoryMetric === '', `${name}: NOT_RUN must not retain a memory metric`);
     invariant(target.metricsArtifactPath === '', `${name}: NOT_RUN must not retain a metrics artifact path`);
     invariant(target.metricsArtifactSha256 === '', `${name}: NOT_RUN must not retain a metrics artifact SHA-256`);
     invariant(target.durationSeconds === 0, `${name}: NOT_RUN duration must be zero`);
