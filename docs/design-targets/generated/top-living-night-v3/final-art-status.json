@@ -5,6 +5,7 @@
   "expectedWidth": 430,
   "expectedHeight": 932,
   "core5ReferenceCount": 5,
+  "candidateCore5ReferenceSetSha256": "",
   "core5IdentityReviewed": false,
   "cropReviewComplete": false,
   "motionSeparationReviewed": false,
