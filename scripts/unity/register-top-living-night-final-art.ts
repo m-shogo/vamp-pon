@@ -203,6 +203,8 @@ function resetDeviceTarget(target: any): void {
     averageFps: 0,
     minimumFps: 0,
     peakMemoryMb: 0,
+    framePacingIssueObserved: false,
+    memoryRegressionObserved: false,
     backgroundForegroundRecoveryPassed: false,
     recordedAtUtc: '',
     notes: '',
