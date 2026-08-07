@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 type PerformancePolicy = {
@@ -10,6 +11,9 @@ type PerformancePolicy = {
 type TargetEvidence = {
   executed: boolean;
   result: string;
+  measurementMethod: string;
+  metricsArtifactPath: string;
+  metricsArtifactSha256: string;
   durationSeconds: number;
   averageFps: number;
   minimumFps: number;
@@ -50,9 +54,25 @@ invariant(
   'TOP device memory policy must use regression observation until a device-class budget is established',
 );
 
+function verifyMetricsArtifact(name: string, target: TargetEvidence): void {
+  invariant(target.measurementMethod.length > 0, `${name}: executed evidence requires a measurement method`);
+  invariant(
+    target.metricsArtifactPath.startsWith('docs/design-targets/generated/top-living-night-v3/runtime-metrics/'),
+    `${name}: metrics artifact must live under the canonical TOP V3 runtime-metrics directory`,
+  );
+  invariant(/^[0-9a-f]{64}$/.test(target.metricsArtifactSha256), `${name}: metrics artifact SHA-256 is invalid`);
+  const absolutePath = join(root, target.metricsArtifactPath);
+  invariant(existsSync(absolutePath), `${name}: metrics artifact is missing`);
+  const actualSha = createHash('sha256').update(readFileSync(absolutePath)).digest('hex');
+  invariant(actualSha === target.metricsArtifactSha256, `${name}: metrics artifact SHA-256 mismatch`);
+}
+
 function verifyTarget(name: string, target: TargetEvidence): void {
   if (!target.executed) {
     invariant(target.result === 'NOT_RUN', `${name}: unexecuted device evidence must be NOT_RUN`);
+    invariant(target.measurementMethod === '', `${name}: NOT_RUN must not retain a measurement method`);
+    invariant(target.metricsArtifactPath === '', `${name}: NOT_RUN must not retain a metrics artifact path`);
+    invariant(target.metricsArtifactSha256 === '', `${name}: NOT_RUN must not retain a metrics artifact SHA-256`);
     invariant(target.durationSeconds === 0, `${name}: NOT_RUN duration must be zero`);
     invariant(target.averageFps === 0, `${name}: NOT_RUN average FPS must be zero`);
     invariant(target.minimumFps === 0, `${name}: NOT_RUN minimum FPS must be zero`);
@@ -63,6 +83,7 @@ function verifyTarget(name: string, target: TargetEvidence): void {
   }
 
   invariant(['PASSED', 'FAILED'].includes(target.result), `${name}: executed evidence requires PASSED or FAILED`);
+  verifyMetricsArtifact(name, target);
   invariant(target.durationSeconds >= 60, `${name}: executed device observation must cover at least 60 seconds`);
   invariant(target.averageFps > 0, `${name}: executed evidence requires average FPS`);
   invariant(target.minimumFps > 0, `${name}: executed evidence requires minimum FPS`);
