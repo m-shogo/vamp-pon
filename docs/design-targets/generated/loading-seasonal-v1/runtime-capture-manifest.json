@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "executed": false,
   "result": "NOT_RUN",
+  "sourceCommit": "",
   "expectedCaptureCount": 15,
   "captureCount": 0,
   "generatedAtUtc": "",
