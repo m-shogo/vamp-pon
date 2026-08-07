@@ -100,6 +100,9 @@ node --experimental-strip-types "$CHECKER"
 mkdir -p "$(dirname "$LOG_PATH")"
 rm -f "$LOG_PATH" "$V3_LOG_PATH"
 
+CAPTURE_SOURCE_COMMIT="$(git rev-parse HEAD)"
+echo "Capture source commit: $CAPTURE_SOURCE_COMMIT"
+
 echo
 echo "Verifying TOP Runtime V3 build assets, shader, Material and Resources import ..."
 set +e
@@ -118,12 +121,13 @@ if [[ $v3_status -ne 0 ]]; then
   exit "$v3_status"
 fi
 
-if ! python3 - "$V3_EVIDENCE" <<'PY'
+if ! python3 - "$V3_EVIDENCE" "$CAPTURE_SOURCE_COMMIT" <<'PY'
 import json
 from pathlib import Path
 import sys
 
 path = Path(sys.argv[1])
+source_commit = sys.argv[2]
 data = json.loads(path.read_text(encoding="utf-8"))
 required = {
     "executed": True,
@@ -144,6 +148,13 @@ for key, expected in required.items():
             file=sys.stderr,
         )
         raise SystemExit(1)
+if data.get("verifiedCommit") != source_commit:
+    print(
+        "TOP Runtime V3 evidence was produced for a different source commit: "
+        f"expected={source_commit} actual={data.get('verifiedCommit')!r}",
+        file=sys.stderr,
+    )
+    raise SystemExit(1)
 PY
 then
   print_log_failure_context "TOP Runtime V3 verification" "$V3_LOG_PATH"
@@ -169,12 +180,13 @@ if [[ $unity_status -ne 0 ]]; then
   exit "$unity_status"
 fi
 
-if ! python3 - "$CAPTURE_MANIFEST" <<'PY'
+if ! python3 - "$CAPTURE_MANIFEST" "$CAPTURE_SOURCE_COMMIT" <<'PY'
 import json
 from pathlib import Path
 import sys
 
 path = Path(sys.argv[1])
+source_commit = sys.argv[2]
 try:
     data = json.loads(path.read_text(encoding="utf-8"))
 except Exception as exc:
@@ -189,6 +201,9 @@ if data.get("executed") is not True or data.get("result") != "PASSED":
         file=sys.stderr,
     )
     raise SystemExit(1)
+
+data["sourceCommit"] = source_commit
+path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 PY
 then
   print_log_failure_context "Unity capture" "$LOG_PATH"
