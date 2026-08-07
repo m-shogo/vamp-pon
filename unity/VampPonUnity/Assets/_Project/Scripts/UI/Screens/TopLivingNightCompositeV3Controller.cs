@@ -21,13 +21,13 @@ namespace VampPon.UnitySpike.UI.Screens
         private const string AdditiveShaderName =
             "VampPon/UI/LuminanceAdditiveMask";
 
+        // Stars / CloudsFar / CloudsNear are intentionally NOT replaced here.
+        // They are transparent V2 overlays and remain live above the V3 base
+        // composite so the sky still breathes instead of becoming a baked still.
         private static readonly string[] StaticLayersReplacedByComposite =
         {
             "Environment",
-            "Stars",
             "Moon",
-            "CloudsFar",
-            "CloudsNear",
             "DistantCompanion",
             "Characters",
             "FireBase",
@@ -129,7 +129,7 @@ namespace VampPon.UnitySpike.UI.Screens
             ConfigureAdditiveMasks();
             IsCompositeReady = true;
             Debug.Log(
-                "TOP Runtime V3: base composite connected; dynamic fire, smoke, embers and additive light masks remain live.");
+                "TOP Runtime V3: base composite connected; transparent stars/clouds, fire, smoke, embers and additive light masks remain live.");
         }
 
         private RawImage GetOrCreateBaseComposite(Transform art)
