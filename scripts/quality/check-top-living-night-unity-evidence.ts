@@ -1,12 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const evidencePath = join(
-  process.cwd(),
-  'docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json',
-);
-
-const evidence = JSON.parse(readFileSync(evidencePath, 'utf8')) as {
+type V2Evidence = {
   schemaVersion: number;
   executed: boolean;
   result: string;
@@ -24,49 +19,98 @@ const evidence = JSON.parse(readFileSync(evidencePath, 'utf8')) as {
   error: string;
 };
 
+type V3Evidence = {
+  schemaVersion: number;
+  executed: boolean;
+  result: string;
+  verifiedCommit: string;
+  unityVersion: string;
+  assertionCount: number;
+  failureCount: number;
+  sourceCompositeCount: number;
+  resourceTextureCount: number;
+  resourceMaterialCount: number;
+  controllerResolved: boolean;
+  shaderResolved: boolean;
+  buildHookResolved: boolean;
+  buildImportPolicyPassed: boolean;
+  generatedAtUtc: string;
+  error: string;
+};
+
+const root = process.cwd();
+const v2 = JSON.parse(
+  readFileSync(
+    join(root, 'docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json'),
+    'utf8',
+  ),
+) as V2Evidence;
+const v3 = JSON.parse(
+  readFileSync(
+    join(root, 'docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json'),
+    'utf8',
+  ),
+) as V3Evidence;
+
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
 
-invariant(evidence.schemaVersion === 1, 'unexpected TOP Unity evidence schema');
-invariant(evidence.sourceAssetCount === 17, 'TOP Unity evidence asset count mismatch');
+// V2 is historical-but-valid execution evidence for the verified 17-layer kit.
+invariant(v2.schemaVersion === 1, 'unexpected V2 TOP Unity evidence schema');
+invariant(v2.executed, 'V2 layer-kit Unity evidence must remain executed');
+invariant(v2.result === 'PASSED', 'V2 layer-kit Unity evidence must remain PASSED');
+invariant(/^[0-9a-f]{40}$/.test(v2.verifiedCommit), 'V2 executed evidence commit is missing');
+invariant(/^6000\.5\./.test(v2.unityVersion), 'V2 executed evidence Unity version mismatch');
+invariant(v2.assertionCount === 270, 'V2 executed evidence assertion count must remain 270');
+invariant(v2.failureCount === 0, 'V2 executed evidence must have no failures');
+invariant(v2.sourceAssetCount === 17, 'V2 Unity evidence asset count mismatch');
+invariant(v2.resourceTextureCount === 17, 'V2 Resources import must resolve 17 textures');
+invariant(v2.viewTypeResolved, 'V2 TOP view type was not resolved');
+invariant(v2.buildHookResolved, 'V2 TOP build hook was not resolved');
+invariant(v2.manifestProvenancePassed, 'V2 TOP manifest provenance did not pass');
+invariant(v2.buildImportPolicyPassed, 'V2 TOP build import policy did not pass');
+invariant(Boolean(v2.generatedAtUtc), 'V2 executed evidence timestamp is missing');
+invariant(v2.error === '', 'V2 passing evidence must not contain an error');
 
-if (evidence.executed) {
-  invariant(evidence.result === 'PASSED', 'executed TOP Unity verification must pass');
-  invariant(/^[0-9a-f]{40}$/.test(evidence.verifiedCommit), 'executed evidence commit is missing');
-  invariant(/^6000\.5\./.test(evidence.unityVersion), 'executed evidence Unity version mismatch');
-  invariant(evidence.assertionCount >= 260, 'executed evidence assertion count is too low');
-  invariant(evidence.failureCount === 0, 'executed evidence must have no failures');
-  invariant(evidence.resourceTextureCount === 17, 'Unity Resources import did not resolve 17 textures');
-  invariant(evidence.viewTypeResolved === true, 'TOP view type was not resolved');
-  invariant(evidence.buildHookResolved === true, 'TOP build hook was not resolved');
-  invariant(evidence.manifestProvenancePassed === true, 'TOP manifest provenance did not pass');
-  invariant(evidence.buildImportPolicyPassed === true, 'TOP build import policy did not pass');
-  invariant(Boolean(evidence.generatedAtUtc), 'executed evidence timestamp is missing');
-  invariant(evidence.error === '', 'executed passing evidence must not contain an error');
-  console.log(
-    `top living night Unity evidence: PASSED at ${evidence.verifiedCommit.slice(0, 12)} (${evidence.assertionCount} assertions / ${evidence.resourceTextureCount} Resources textures)`,
-  );
+// V3 is the current runtime composition authority. Do not let the V2 PASS imply
+// that the current composite/shader/Resources path has been executed.
+invariant(v3.schemaVersion === 1, 'unexpected V3 TOP Unity evidence schema');
+invariant(v3.sourceCompositeCount === 1, 'V3 must retain one base-composite source');
+
+if (!v3.executed) {
+  invariant(v3.result === 'NOT_RUN', 'unexecuted V3 evidence result must be NOT_RUN');
+  invariant(v3.verifiedCommit === '', 'unexecuted V3 evidence commit must be empty');
+  invariant(v3.unityVersion === '', 'unexecuted V3 Unity version must be empty');
+  invariant(v3.assertionCount === 0, 'unexecuted V3 assertion count must be zero');
+  invariant(v3.failureCount === 0, 'unexecuted V3 failure count must be zero');
+  invariant(v3.resourceTextureCount === 0, 'unexecuted V3 Resources texture count must be zero');
+  invariant(v3.resourceMaterialCount === 0, 'unexecuted V3 Resources material count must be zero');
+  invariant(!v3.controllerResolved, 'unexecuted V3 controller flag must remain false');
+  invariant(!v3.shaderResolved, 'unexecuted V3 shader flag must remain false');
+  invariant(!v3.buildHookResolved, 'unexecuted V3 build-hook flag must remain false');
+  invariant(!v3.buildImportPolicyPassed, 'unexecuted V3 import-policy flag must remain false');
+  invariant(v3.generatedAtUtc === '', 'unexecuted V3 timestamp must be empty');
+  invariant(v3.error === '', 'unexecuted V3 error must be empty');
 } else {
-  invariant(evidence.result === 'NOT_RUN', 'unexecuted evidence result must be NOT_RUN');
-  invariant(evidence.verifiedCommit === '', 'unexecuted evidence commit must be empty');
-  invariant(evidence.unityVersion === '', 'unexecuted evidence Unity version must be empty');
-  invariant(evidence.assertionCount === 0, 'unexecuted evidence assertion count must be zero');
-  invariant(evidence.failureCount === 0, 'unexecuted evidence failure count must be zero');
-  invariant(evidence.resourceTextureCount === 0, 'unexecuted Resources texture count must be zero');
-  invariant(evidence.viewTypeResolved === false, 'unexecuted view type flag must remain false');
-  invariant(evidence.buildHookResolved === false, 'unexecuted build hook flag must remain false');
-  invariant(
-    evidence.manifestProvenancePassed === false,
-    'unexecuted provenance flag must remain false',
-  );
-  invariant(
-    evidence.buildImportPolicyPassed === false,
-    'unexecuted build import policy flag must remain false',
-  );
-  invariant(evidence.generatedAtUtc === '', 'unexecuted evidence timestamp must be empty');
-  invariant(evidence.error === '', 'unexecuted evidence error must be empty');
-  console.log(
-    'top living night Unity evidence: NOT_RUN (compile/import execution boundary preserved)',
-  );
+  invariant(v3.result === 'PASSED', 'executed V3 Unity verification must pass');
+  invariant(/^[0-9a-f]{40}$/.test(v3.verifiedCommit), 'executed V3 evidence commit is missing');
+  invariant(/^6000\.5\./.test(v3.unityVersion), 'executed V3 Unity version mismatch');
+  invariant(v3.assertionCount > 0, 'executed V3 assertion count must be positive');
+  invariant(v3.failureCount === 0, 'executed V3 evidence must have no failures');
+  invariant(v3.resourceTextureCount === 1, 'executed V3 must resolve one base-composite Resources texture');
+  invariant(v3.resourceMaterialCount === 1, 'executed V3 must resolve one additive Resources material');
+  invariant(v3.controllerResolved, 'executed V3 controller must resolve');
+  invariant(v3.shaderResolved, 'executed V3 shader must resolve');
+  invariant(v3.buildHookResolved, 'executed V3 build hook must resolve');
+  invariant(v3.buildImportPolicyPassed, 'executed V3 import policy must pass');
+  invariant(Boolean(v3.generatedAtUtc), 'executed V3 timestamp is missing');
+  invariant(v3.error === '', 'executed passing V3 evidence must not contain an error');
 }
+
+console.log('TOP Living Night Unity evidence boundary: PASS');
+console.log(`V2 layer kit: PASSED at ${v2.verifiedCommit.slice(0, 12)} / 270 assertions / 17 textures`);
+console.log(
+  `current V3 composite/shader: ${v3.executed ? `PASSED at ${v3.verifiedCommit.slice(0, 12)}` : 'honest NOT_RUN'}`,
+);
+console.log('V2 execution evidence cannot promote current V3 runtime/final approval.');
