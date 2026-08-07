@@ -73,6 +73,8 @@ const thermalRank = new Map([
   ['serious', 2],
   ['critical', 3],
 ]);
+const memoryRegressionAbsoluteMb = 32;
+const memoryRegressionFraction = .20;
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
@@ -80,6 +82,21 @@ function invariant(value: unknown, message: string): asserts value {
 
 function nearlyEqual(actual: number, expected: number, tolerance: number): boolean {
   return Math.abs(actual - expected) <= tolerance;
+}
+
+function computeMemoryRegression(samples: PerformanceSample[]): boolean {
+  invariant(samples.length >= 12, 'memory-regression recomputation requires at least 12 samples');
+  const window = Math.max(3, Math.floor(samples.length / 10));
+  let earlySum = 0;
+  let lateSum = 0;
+  for (let index = 0; index < window; index += 1) {
+    earlySum += samples[index].memoryMb;
+    lateSum += samples[samples.length - 1 - index].memoryMb;
+  }
+  const earlyAverage = earlySum / window;
+  const lateAverage = lateSum / window;
+  const threshold = Math.max(memoryRegressionAbsoluteMb, earlyAverage * memoryRegressionFraction);
+  return lateAverage - earlyAverage > threshold;
 }
 
 function verifyTarget(
@@ -138,10 +155,6 @@ function verifyTarget(
     `${label}: frame-pacing observation diverged from metrics artifact`,
   );
   invariant(
-    artifact.memoryRegressionObserved === target.memoryRegressionObserved,
-    `${label}: memory-regression observation diverged from metrics artifact`,
-  );
-  invariant(
     artifact.backgroundForegroundRecoveryPassed === target.backgroundForegroundRecoveryPassed,
     `${label}: background/foreground observation diverged from metrics artifact`,
   );
@@ -192,6 +205,15 @@ function verifyTarget(
   );
 
   const averageFps = fpsSum / artifact.samples.length;
+  const memoryRegressionObserved = computeMemoryRegression(artifact.samples);
+  invariant(
+    artifact.memoryRegressionObserved === memoryRegressionObserved,
+    `${label}: raw memory trend disagrees with artifact memory-regression flag`,
+  );
+  invariant(
+    target.memoryRegressionObserved === memoryRegressionObserved,
+    `${label}: summary memory-regression observation must be recomputed from raw samples`,
+  );
   invariant(
     nearlyEqual(target.averageFps, averageFps, 0.05),
     `${label}: summary average FPS must be recomputed from raw samples`,
