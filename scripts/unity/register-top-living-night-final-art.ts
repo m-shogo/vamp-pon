@@ -214,6 +214,7 @@ function resetDeviceTarget(target: any): void {
     topCompositePath: '',
     topCompositeSha256: '',
     measurementMethod: '',
+    memoryMetric: '',
     metricsArtifactPath: '',
     metricsArtifactSha256: '',
     durationSeconds: 0,
