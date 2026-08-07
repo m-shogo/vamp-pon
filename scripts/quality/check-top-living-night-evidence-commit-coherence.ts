@@ -12,6 +12,8 @@ function invariant(value: unknown, message: string): asserts value {
 }
 
 const motion = readJson<{
+  candidatePath: string;
+  candidateSha256: string;
   normalMotion: { executed: boolean; result: string };
   reducedMotion: { executed: boolean; result: string };
   verifiedCommit: string;
@@ -34,12 +36,18 @@ const capture = readJson<{
 }>('docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json');
 
 const finalArt = readJson<{
+  candidateGenerated: boolean;
+  candidatePath: string;
+  candidateSha256: string;
   runtimeCaptureComplete: boolean;
   runtimeApproved: boolean;
   approvedAsFinal: boolean;
 }>('docs/design-targets/generated/top-living-night-v3/final-art-status.json');
 
 const sha40 = /^[0-9a-f]{40}$/;
+const sha256 = /^[0-9a-f]{64}$/;
+const canonicalCandidatePath =
+  'docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png';
 const motionExecuted = motion.normalMotion.executed || motion.reducedMotion.executed;
 const unityPassed = unity.executed && unity.result === 'PASSED' && sha40.test(unity.verifiedCommit);
 const capturePassed =
@@ -50,10 +58,18 @@ const capturePassed =
   capture.captureCount === 15 &&
   capture.captures.length === 15;
 
+invariant(finalArt.candidatePath === canonicalCandidatePath, 'final-art candidate path must remain canonical');
+invariant(motion.candidatePath === canonicalCandidatePath, 'motion review candidate path must remain canonical');
+invariant(motion.candidatePath === finalArt.candidatePath, 'motion review and final-art candidate paths diverged');
+
 if (!motionExecuted) {
   invariant(motion.verifiedCommit === '', 'NOT_RUN motion review must not retain a stale verifiedCommit');
+  invariant(motion.candidateSha256 === '', 'NOT_RUN motion review must not retain a stale candidate SHA-256');
 } else {
   invariant(sha40.test(motion.verifiedCommit), 'executed motion review requires a 40-char source commit');
+  invariant(finalArt.candidateGenerated, 'executed motion review requires a generated final candidate');
+  invariant(sha256.test(finalArt.candidateSha256), 'executed motion review requires a valid final-art SHA-256');
+  invariant(motion.candidateSha256 === finalArt.candidateSha256, 'motion review must target the exact current final-art candidate');
 }
 
 if (motion.motionApproved) {
@@ -65,6 +81,8 @@ if (motion.motionApproved) {
     motion.reducedMotion.executed && motion.reducedMotion.result === 'PASSED',
     'motion approval requires passed Reduced Motion review',
   );
+  invariant(finalArt.candidateGenerated, 'motion approval requires a generated final TOP candidate');
+  invariant(motion.candidateSha256 === finalArt.candidateSha256, 'motion approval cannot use stale final-art evidence');
   invariant(unityPassed, 'motion approval requires PASSED current V3 Unity evidence');
   invariant(
     motion.verifiedCommit === unity.verifiedCommit,
@@ -90,6 +108,8 @@ if (finalArt.runtimeCaptureComplete) {
 if (finalArt.runtimeApproved || finalArt.approvedAsFinal) {
   invariant(motion.motionApproved, 'runtime/final approval requires approved motion review');
   invariant(capturePassed && unityPassed, 'runtime/final approval requires capture and V3 evidence');
+  invariant(finalArt.candidateGenerated, 'runtime/final approval requires a generated final TOP candidate');
+  invariant(motion.candidateSha256 === finalArt.candidateSha256, 'runtime/final approval requires motion review of the current final-art candidate');
   invariant(
     motion.verifiedCommit === unity.verifiedCommit && unity.verifiedCommit === capture.sourceCommit,
     'runtime/final approval requires motion, V3 Unity, and capture evidence from one source commit',
