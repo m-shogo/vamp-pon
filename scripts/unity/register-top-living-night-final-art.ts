@@ -8,6 +8,7 @@ const canonicalCandidatePath =
   'docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png';
 
 const paths = {
+  core5Reference: 'docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json',
   finalArt: 'docs/design-targets/generated/top-living-night-v3/final-art-status.json',
   identity: 'docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json',
   crop: 'docs/design-targets/generated/top-living-night-v3/crop-review-status.json',
@@ -31,6 +32,18 @@ function writeJson(relativePath: string, value: unknown): void {
   writeFileSync(join(root, relativePath), `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
+function referenceSetDigest(manifest: any): string {
+  invariant(manifest?.schemaVersion === 1, 'Core5 reference manifest schema mismatch');
+  invariant(Array.isArray(manifest.references) && manifest.references.length === 5, 'Core5 registration requires exactly five locked references');
+  const payload = manifest.references
+    .map((reference: any) => `${reference.id}\0${reference.path}\0${reference.gitBlobSha1}\n`)
+    .join('');
+  const digest = createHash('sha256').update(payload, 'utf8').digest('hex');
+  invariant(/^[0-9a-f]{64}$/.test(manifest.referenceSetSha256), 'Core5 reference-set SHA-256 is invalid');
+  invariant(manifest.referenceSetSha256 === digest, 'Core5 reference-set fingerprint is stale');
+  return digest;
+}
+
 function validatePng430x932(bytes: Buffer): void {
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
   invariant(bytes.length >= 24, 'final Core5 TOP PNG is truncated');
@@ -40,10 +53,11 @@ function validatePng430x932(bytes: Buffer): void {
   invariant(bytes.readUInt32BE(20) === 932, 'final Core5 TOP PNG height must be 932');
 }
 
-function resetIdentity(identity: any, sha256: string): void {
+function resetIdentity(identity: any, sha256: string, referenceSetSha256: string): void {
   identity.candidateGenerated = true;
   identity.sourcePath = canonicalCandidatePath;
   identity.sourceSha256 = sha256;
+  identity.referenceSetSha256 = referenceSetSha256;
   identity.exactlyFiveForegroundHumans = false;
   identity.noGenericSubstituteHumans = false;
   for (const review of identity.reviews ?? []) {
@@ -62,7 +76,7 @@ function resetIdentity(identity: any, sha256: string): void {
   identity.reviewedAtUtc = '';
   identity.finalApprovalBlocked = true;
   identity.notes =
-    'Final Core5 candidate registered. Per-character review was reset and must be executed against this exact SHA-256.';
+    'Final Core5 candidate registered. Per-character review was reset and must be executed against this exact candidate SHA-256 and locked Core5 reference-set fingerprint.';
 }
 
 function resetCrop(crop: any, sha256: string): void {
@@ -217,6 +231,8 @@ function main(): void {
     invariant(existsSync(join(root, path)), `required authority/evidence file is missing: ${path}`);
   }
 
+  const core5Reference = readJson(paths.core5Reference);
+  const currentReferenceSetSha256 = referenceSetDigest(core5Reference);
   const finalArt = readJson(paths.finalArt);
   invariant(finalArt.schemaVersion === 1, 'final-art status schema mismatch');
   invariant(finalArt.candidatePath === canonicalCandidatePath, 'final-art candidate path is not canonical');
@@ -225,9 +241,14 @@ function main(): void {
   if (!existsSync(absoluteCandidatePath)) {
     invariant(!finalArt.candidateGenerated, 'candidateGenerated=true but final Core5 TOP PNG is missing');
     invariant(finalArt.candidateSha256 === '', 'missing final Core5 TOP PNG must not retain candidate SHA-256');
+    invariant(
+      finalArt.candidateCore5ReferenceSetSha256 === '',
+      'missing final Core5 TOP PNG must not retain a candidate reference-set fingerprint',
+    );
     if (dryRun) {
       console.log('TOP final-art registration: honest NOT_RUN boundary');
       console.log(`expected candidate: ${canonicalCandidatePath}`);
+      console.log(`locked Core5 reference set: ${currentReferenceSetSha256}`);
       return;
     }
     throw new Error(`final Core5 TOP PNG is missing: ${canonicalCandidatePath}`);
@@ -237,15 +258,21 @@ function main(): void {
   validatePng430x932(bytes);
   const sha256 = createHash('sha256').update(bytes).digest('hex');
 
-  if (finalArt.candidateGenerated && finalArt.candidateSha256 === sha256) {
+  if (
+    finalArt.candidateGenerated &&
+    finalArt.candidateSha256 === sha256 &&
+    finalArt.candidateCore5ReferenceSetSha256 === currentReferenceSetSha256
+  ) {
     console.log('TOP final-art registration: already registered; no evidence reset performed');
     console.log(`sha256=${sha256}`);
+    console.log(`core5ReferenceSet=${currentReferenceSetSha256}`);
     return;
   }
 
   if (dryRun) {
     console.log('TOP final-art registration: candidate is ready to register');
     console.log(`sha256=${sha256}`);
+    console.log(`core5ReferenceSet=${currentReferenceSetSha256}`);
     console.log('dry-run: no authority/evidence files changed');
     return;
   }
@@ -262,6 +289,7 @@ function main(): void {
   finalArt.candidateGenerated = true;
   finalArt.candidatePath = canonicalCandidatePath;
   finalArt.candidateSha256 = sha256;
+  finalArt.candidateCore5ReferenceSetSha256 = currentReferenceSetSha256;
   finalArt.core5IdentityReviewed = false;
   finalArt.cropReviewComplete = false;
   finalArt.motionSeparationReviewed = false;
@@ -272,9 +300,9 @@ function main(): void {
   finalArt.finalApprovalBlocked = true;
   finalArt.reviewedAtUtc = '';
   finalArt.notes =
-    'Final Core5 candidate registered. All candidate-sensitive review/runtime evidence was reset; no approval is implied by registration.';
+    'Final Core5 candidate registered against the current locked Core5 reference-set fingerprint. All candidate-sensitive review/runtime evidence was reset; no approval is implied by registration.';
 
-  resetIdentity(identity, sha256);
+  resetIdentity(identity, sha256, currentReferenceSetSha256);
   resetCrop(crop, sha256);
   resetMotion(motion);
   resetHumanReview(humanReview, sha256);
@@ -304,6 +332,7 @@ function main(): void {
   console.log('TOP final-art registration: REGISTERED');
   console.log(`candidate=${canonicalCandidatePath}`);
   console.log(`sha256=${sha256}`);
+  console.log(`core5ReferenceSet=${currentReferenceSetSha256}`);
   console.log('downstream Core5/crop/motion/human/Unity/capture/device approval evidence reset to NOT_RUN/blocked');
 }
 
