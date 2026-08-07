@@ -192,6 +192,11 @@ jobs:
           node --experimental-strip-types scripts/unity/create-top-living-night-static-review-template.ts
           node --experimental-strip-types scripts/unity/create-top-living-night-runtime-review-templates.ts
 
+      - name: Publish TOP readiness summary
+        run: |
+          node --experimental-strip-types scripts/quality/check-top-living-night-readiness-summary.ts | tee docs/design-targets/generated/top-living-night-v3/readiness-summary.txt
+          cat docs/design-targets/generated/top-living-night-v3/readiness-summary.txt >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload Loading and TOP visual review pack
         if: always()
         uses: actions/upload-artifact@v4
@@ -225,6 +230,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json
             docs/design-targets/generated/top-living-night-v3/device-performance-evidence/*.json
             docs/design-targets/generated/top-living-night-v3/review-inputs/*.json
+            docs/design-targets/generated/top-living-night-v3/readiness-summary.txt
             docs/design-targets/generated/top-living-night-v3/final/*.png
             assets/reference/character-master/core5/*.png
           if-no-files-found: error
