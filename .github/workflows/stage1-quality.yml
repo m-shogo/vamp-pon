@@ -102,6 +102,9 @@ jobs:
       - name: Verify TOP device performance approval policy
         run: node --experimental-strip-types scripts/quality/check-top-living-night-device-performance-policy.ts
 
+      - name: Verify TOP raw device performance artifacts
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-device-performance-artifact.ts
+
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
@@ -161,6 +164,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/motion-review-status.json
             docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json
             docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json
+            docs/design-targets/generated/top-living-night-v3/device-performance-evidence/*.json
             docs/design-targets/generated/top-living-night-v3/final/*.png
             assets/reference/character-master/core5/*.png
           if-no-files-found: error
