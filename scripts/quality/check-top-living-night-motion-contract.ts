@@ -165,6 +165,8 @@ invariant(!view.includes('.webp'), 'TOP runtime motion must not use WebP animati
 for (const token of [
   'STATIC_CONTRACT_READY / RUNTIME_REVIEW_NOT_RUN',
   'breathing night',
+  'Candidate provenance rule',
+  'Any final-art PNG byte change invalidates the previous motion review.',
   'Fire flipbook',
   'Fire glow',
   'Far clouds',
@@ -194,10 +196,16 @@ invariant(status.candidatePath === finalArt.candidatePath, 'TOP motion review an
 const motionExecuted = status.normalMotion.executed || status.reducedMotion.executed;
 if (!motionExecuted) {
   invariant(status.candidateSha256 === '', 'NOT_RUN motion review must not retain a stale candidate SHA-256');
+  invariant(status.unityVersion === '', 'NOT_RUN motion review must not retain a stale Unity version');
+  invariant(status.verifiedCommit === '', 'NOT_RUN motion review must not retain a stale verified commit');
+  invariant(status.reviewedAtUtc === '', 'NOT_RUN motion review must not retain a stale review timestamp');
 } else {
   invariant(finalArt.candidateGenerated, 'motion review cannot execute before the final TOP candidate exists');
   invariant(/^[0-9a-f]{64}$/.test(status.candidateSha256), 'executed motion review requires a final-art SHA-256');
   invariant(status.candidateSha256 === finalArt.candidateSha256, 'motion review must target the exact current final-art candidate');
+  invariant(status.unityVersion.length > 0, 'executed motion review requires Unity version provenance');
+  invariant(/^[0-9a-f]{40}$/.test(status.verifiedCommit), 'executed motion review requires a 40-char source commit');
+  invariant(status.reviewedAtUtc.length > 0, 'executed motion review requires a review timestamp even when failed');
 }
 
 if (!status.normalMotion.executed) {
