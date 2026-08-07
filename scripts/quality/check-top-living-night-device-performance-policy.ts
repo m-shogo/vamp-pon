@@ -32,6 +32,8 @@ type DeviceEvidence = {
 };
 
 const root = process.cwd();
+const artifactRoot =
+  'docs/design-targets/generated/top-living-night-v3/device-performance-evidence/';
 const evidence = JSON.parse(
   readFileSync(
     join(root, 'docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json'),
@@ -57,8 +59,8 @@ invariant(
 function verifyMetricsArtifact(name: string, target: TargetEvidence): void {
   invariant(target.measurementMethod.length > 0, `${name}: executed evidence requires a measurement method`);
   invariant(
-    target.metricsArtifactPath.startsWith('docs/design-targets/generated/top-living-night-v3/runtime-metrics/'),
-    `${name}: metrics artifact must live under the canonical TOP V3 runtime-metrics directory`,
+    target.metricsArtifactPath.startsWith(artifactRoot) && target.metricsArtifactPath.endsWith('.json'),
+    `${name}: metrics artifact must be a JSON file under ${artifactRoot}`,
   );
   invariant(/^[0-9a-f]{64}$/.test(target.metricsArtifactSha256), `${name}: metrics artifact SHA-256 is invalid`);
   const absolutePath = join(root, target.metricsArtifactPath);
