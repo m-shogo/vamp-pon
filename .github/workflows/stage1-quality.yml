@@ -81,6 +81,9 @@ jobs:
       - name: Verify TOP per-character Core5 review
         run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-review.ts
 
+      - name: Verify TOP Core5 review temporal coherence
+        run: node --experimental-strip-types scripts/quality/check-top-core5-review-temporal-coherence.ts
+
       - name: Verify TOP final-art registration path is safe
         run: node --experimental-strip-types scripts/unity/register-top-living-night-final-art.ts --dry-run
 
@@ -125,11 +128,17 @@ jobs:
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
+      - name: Verify TOP runtime temporal coherence
+        run: node --experimental-strip-types scripts/quality/check-top-runtime-temporal-coherence.ts
+
       - name: Verify Loading to TOP evidence boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-runtime-boundary.ts
 
       - name: Verify automated Loading TOP capture boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
+
+      - name: Verify Loading TOP capture temporal coherence
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-temporal-coherence.ts
 
       - name: Verify Loading TOP capture distinctness
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-distinctness.ts
