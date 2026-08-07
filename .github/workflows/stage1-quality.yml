@@ -111,6 +111,11 @@ jobs:
       - name: Verify TOP opt-in Simulator performance sampler contract
         run: node --experimental-strip-types scripts/quality/check-top-living-night-performance-sampler.ts
 
+      - name: Verify TOP Simulator performance runner contract
+        run: |
+          bash -n scripts/unity/run-top-living-night-simulator-performance-evidence.sh
+          node --experimental-strip-types scripts/quality/check-top-living-night-simulator-performance-runner.ts
+
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
