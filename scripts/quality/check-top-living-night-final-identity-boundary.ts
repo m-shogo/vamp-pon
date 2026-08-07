@@ -10,6 +10,10 @@ const gapReviewPath = join(
   root,
   'docs/design-targets/generated/top-living-night-v3/core5-bridge-gap-review.md',
 );
+const generationPromptPath = join(
+  root,
+  'docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md',
+);
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
@@ -54,6 +58,28 @@ for (const token of [
   invariant(gapReview.includes(token), `Core5 bridge review boundary missing: ${token}`);
 }
 
+invariant(existsSync(generationPromptPath), 'final Core5 key-art generation prompt is missing');
+const generationPrompt = readFileSync(generationPromptPath, 'utf8');
+for (const token of [
+  'GENERATION_READY / NOT_FINAL_ART',
+  'five foreground humans must be exactly the approved Core5 identities',
+  'Yui — identity lock',
+  'Asa — identity lock',
+  'Nagi — identity lock',
+  'Michiru — identity lock',
+  'Tomori — identity lock',
+  'Do not line the five characters up at equal scale',
+  'Do not add a sixth foreground human',
+  'Hard negative prompt',
+  'generationPromptReady=true',
+  'core5ReferencesMandatory=true',
+  'finalCandidateGenerated=false',
+  'finalCore5ArtApproved=false',
+  'finalApprovalBlocked=true',
+]) {
+  invariant(generationPrompt.includes(token), `final Core5 generation prompt boundary missing: ${token}`);
+}
+
 const masterPaths = [
   'assets/reference/character-master/core5/yui-character-master-v1.png',
   'assets/reference/character-master/core5/asa-character-master-v1.png',
@@ -69,4 +95,5 @@ for (const path of masterPaths) {
 console.log('TOP Living Night final Core5 identity boundary: PASS');
 console.log('current Runtime V3 composite remains a visual-recovery bridge');
 console.log('Stage1 artifact gap review confirms generic identities/rendering require replacement');
+console.log('final generation prompt is locked to the five repository Core5 masters');
 console.log('final art approval remains blocked pending Core5 identity and human visual review');
