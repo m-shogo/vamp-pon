@@ -22,10 +22,22 @@ type FinalArtStatus = {
   notes: string;
 };
 
+type MotionStatus = {
+  normalMotion: { executed: boolean; result: string; reviewDurationSeconds: number };
+  reducedMotion: { executed: boolean; result: string; reviewDurationSeconds: number };
+  motionApproved: boolean;
+  runtimeApproved: boolean;
+  finalApprovalBlocked: boolean;
+};
+
 const root = process.cwd();
 const statusPath = join(
   root,
   'docs/design-targets/generated/top-living-night-v3/final-art-status.json',
+);
+const motionStatusPath = join(
+  root,
+  'docs/design-targets/generated/top-living-night-v3/motion-review-status.json',
 );
 
 function invariant(value: unknown, message: string): asserts value {
@@ -33,7 +45,9 @@ function invariant(value: unknown, message: string): asserts value {
 }
 
 invariant(existsSync(statusPath), 'TOP final-art status manifest is missing');
+invariant(existsSync(motionStatusPath), 'TOP motion review status is missing');
 const status = JSON.parse(readFileSync(statusPath, 'utf8')) as FinalArtStatus;
+const motion = JSON.parse(readFileSync(motionStatusPath, 'utf8')) as MotionStatus;
 
 invariant(status.schemaVersion === 1, 'TOP final-art status schema mismatch');
 invariant(
@@ -58,6 +72,9 @@ if (!status.candidateGenerated) {
   invariant(!status.runtimeApproved, 'uncreated TOP candidate cannot be runtime-approved');
   invariant(status.finalApprovalBlocked, 'uncreated TOP candidate must keep final approval blocked');
   invariant(status.reviewedAtUtc === '', 'uncreated TOP candidate must not have a review timestamp');
+  invariant(!motion.motionApproved, 'motion cannot be final-approved before the final TOP candidate exists');
+  invariant(!motion.runtimeApproved, 'motion runtime approval cannot precede the final TOP candidate');
+  invariant(motion.finalApprovalBlocked, 'motion boundary must remain blocked before final candidate generation');
   console.log('TOP Living Night final-art candidate: honest NOT_RUN boundary');
   console.log('expected: Core5-locked 430x932 final candidate at canonical path');
   process.exit(0);
@@ -84,6 +101,13 @@ if (status.approvedAsFinal) {
   invariant(status.runtimeApproved, 'final-approved TOP requires runtime approval');
   invariant(!status.finalApprovalBlocked, 'final-approved TOP cannot remain blocked');
   invariant(status.reviewedAtUtc.length > 0, 'final-approved TOP requires review timestamp');
+  invariant(motion.motionApproved, 'final-approved TOP requires approved runtime motion');
+  invariant(motion.normalMotion.executed && motion.normalMotion.result === 'PASSED', 'final-approved TOP requires passed five-minute motion review');
+  invariant(motion.normalMotion.reviewDurationSeconds >= 300, 'final-approved TOP requires at least five minutes of normal-motion review');
+  invariant(motion.reducedMotion.executed && motion.reducedMotion.result === 'PASSED', 'final-approved TOP requires passed Reduced Motion review');
+  invariant(motion.reducedMotion.reviewDurationSeconds >= 60, 'final-approved TOP requires at least one minute of Reduced Motion review');
+  invariant(motion.runtimeApproved, 'final-approved TOP requires motion runtime approval');
+  invariant(!motion.finalApprovalBlocked, 'final-approved TOP cannot retain the motion approval block');
 } else {
   invariant(status.finalApprovalBlocked, 'non-final TOP candidate must keep final approval blocked');
   invariant(!status.runtimeApproved, 'non-final TOP candidate cannot be runtime-approved');
@@ -93,3 +117,4 @@ console.log('TOP Living Night final-art candidate contract: PASS');
 console.log(`candidate: ${status.candidatePath}`);
 console.log(`sha256: ${sha}`);
 console.log(`approvedAsFinal: ${status.approvedAsFinal}`);
+console.log(`motionApproved: ${motion.motionApproved}`);
