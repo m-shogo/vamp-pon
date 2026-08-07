@@ -62,8 +62,8 @@ function main(): void {
 
   if (dryRun) {
     console.log('TOP motion review registration: DRY_RUN_READY');
-    console.log('input: reviewedAtUtc + normal >=300s observations + Reduced Motion >=60s observations + optional notes');
-    console.log('candidate SHA / Unity version / verified commit are bound automatically from current PASSED Unity V3 evidence.');
+    console.log('input: current candidate/Unity provenance + reviewedAtUtc + normal >=300s observations + Reduced Motion >=60s observations + optional notes');
+    console.log('candidate SHA / Unity version / verified commit are bound automatically from current PASSED Unity V3 evidence and stale templates are rejected.');
     console.log('registration never promotes runtimeApproved or approvedAsFinal.');
     return;
   }
@@ -86,6 +86,9 @@ function main(): void {
   invariant(existsSync(join(root, inputPath)), `motion review input is missing: ${inputPath}`);
   const input = readJson(inputPath);
   invariant(input.schemaVersion === 1, 'motion review input schema mismatch');
+  invariant(input.candidateSha256 === finalArt.candidateSha256, 'motion review input is stale: candidate SHA-256 mismatch');
+  invariant(input.verifiedCommit === unity.verifiedCommit, 'motion review input is stale: Unity verified commit mismatch');
+  invariant(input.unityVersion === unity.unityVersion, 'motion review input is stale: Unity version mismatch');
   invariant(validUtc(input.reviewedAtUtc), 'motion review input requires canonical UTC reviewedAtUtc');
   invariant(Date.parse(input.reviewedAtUtc) >= Date.parse(unity.generatedAtUtc), 'motion review cannot predate Unity V3 verification');
   invariant(Number.isFinite(input.normalMotion?.reviewDurationSeconds) && input.normalMotion.reviewDurationSeconds >= 0, 'motion review input requires normal duration');
