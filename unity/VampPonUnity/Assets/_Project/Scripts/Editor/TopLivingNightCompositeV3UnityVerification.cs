@@ -12,8 +12,6 @@ namespace VampPon.UnitySpike.Editor
 {
     public static class TopLivingNightCompositeV3UnityVerification
     {
-        private const string SourceRelativePath =
-            "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png";
         private const string EvidenceRelativePath =
             "docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json";
         private const string TextureAssetPath =
@@ -25,8 +23,6 @@ namespace VampPon.UnitySpike.Editor
         private const string MaterialResourcePath =
             "TopLivingNightV3Generated/LuminanceAdditive";
         private const string ShaderName = "VampPon/UI/LuminanceAdditiveMask";
-        private const string ExpectedSha256 =
-            "aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d";
 
         private static int assertions;
         private static int resourceTextureCount;
@@ -35,6 +31,9 @@ namespace VampPon.UnitySpike.Editor
         private static bool shaderResolved;
         private static bool buildHookResolved;
         private static bool buildImportPolicyPassed;
+        private static string sourceCompositeKind;
+        private static string sourceCompositePath;
+        private static string sourceCompositeSha256;
 
         [MenuItem("Vamp Pon/TOP Living Night/Verify Runtime V3 Unity Contract")]
         public static void RunBatchmode()
@@ -47,7 +46,7 @@ namespace VampPon.UnitySpike.Editor
                 VerifyBuildImportPolicy();
                 WriteEvidence("PASSED", null);
                 UnityEngine.Debug.Log(
-                    $"TOP Runtime V3 Unity verification passed: {assertions} assertions.");
+                    $"TOP Runtime V3 Unity verification passed: {assertions} assertions, source={sourceCompositeKind}.");
             }
             catch (Exception exception)
             {
@@ -65,6 +64,9 @@ namespace VampPon.UnitySpike.Editor
             shaderResolved = false;
             buildHookResolved = false;
             buildImportPolicyPassed = false;
+            sourceCompositeKind = string.Empty;
+            sourceCompositePath = string.Empty;
+            sourceCompositeSha256 = string.Empty;
         }
 
         private static void VerifyCompileSurface()
@@ -84,6 +86,11 @@ namespace VampPon.UnitySpike.Editor
                 "Runtime V3 StageAndImport resolves");
             Require(
                 syncType.GetMethod(
+                    "ResolveCompositeSource",
+                    BindingFlags.Static | BindingFlags.NonPublic) != null,
+                "Runtime V3 source selector resolves");
+            Require(
+                syncType.GetMethod(
                     "CleanupGeneratedBuildAssets",
                     BindingFlags.Static | BindingFlags.NonPublic) != null,
                 "Runtime V3 cleanup resolves");
@@ -97,20 +104,35 @@ namespace VampPon.UnitySpike.Editor
 
         private static void VerifyCommittedComposite()
         {
+            var selection = TopLivingNightCompositeV3BuildAssetSync.ResolveCompositeSource();
+            Require(selection != null, "Runtime V3 composite source selection resolves");
+            Require(
+                selection.Kind == "bridge" || selection.Kind == "final-core5",
+                "Runtime V3 composite source kind is recognized");
+            Require(
+                selection.IsFinal == (selection.Kind == "final-core5"),
+                "Runtime V3 final-source marker matches source kind");
+
             var path = Path.Combine(
                 ResolveRepositoryRoot(),
-                SourceRelativePath.Replace('/', Path.DirectorySeparatorChar));
-            Require(File.Exists(path), "Runtime V3 composite source exists");
+                selection.RelativePath.Replace('/', Path.DirectorySeparatorChar));
+            Require(File.Exists(path), "Runtime V3 selected composite source exists");
+
+            var actualSha = ComputeSha256(path);
             Require(
                 string.Equals(
-                    ComputeSha256(path),
-                    ExpectedSha256,
+                    actualSha,
+                    selection.ExpectedSha256,
                     StringComparison.OrdinalIgnoreCase),
-                "Runtime V3 composite SHA-256 matches");
+                "Runtime V3 selected composite SHA-256 matches source authority");
 
             var dimensions = ReadPngDimensions(path);
             Require(dimensions.x == 430, "Runtime V3 composite width is 430");
             Require(dimensions.y == 932, "Runtime V3 composite height is 932");
+
+            sourceCompositeKind = selection.Kind;
+            sourceCompositePath = selection.RelativePath;
+            sourceCompositeSha256 = actualSha;
         }
 
         private static void VerifyBuildImportPolicy()
@@ -127,7 +149,21 @@ namespace VampPon.UnitySpike.Editor
 
             try
             {
-                stage.Invoke(null, null);
+                var stagedSelection = stage.Invoke(null, null) as
+                    TopLivingNightCompositeV3BuildAssetSync.CompositeSourceSelection;
+                Require(stagedSelection != null, "Runtime V3 stage returns source provenance");
+                Require(
+                    stagedSelection.Kind == sourceCompositeKind,
+                    "Runtime V3 staged source kind matches verified source");
+                Require(
+                    stagedSelection.RelativePath == sourceCompositePath,
+                    "Runtime V3 staged source path matches verified source");
+                Require(
+                    string.Equals(
+                        stagedSelection.ExpectedSha256,
+                        sourceCompositeSha256,
+                        StringComparison.OrdinalIgnoreCase),
+                    "Runtime V3 staged source SHA matches verified source");
 
                 var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(TextureAssetPath);
                 Require(texture != null, "Runtime V3 imported texture resolves");
@@ -196,6 +232,9 @@ namespace VampPon.UnitySpike.Editor
                 assertionCount = assertions,
                 failureCount = result == "PASSED" ? 0 : 1,
                 sourceCompositeCount = 1,
+                sourceCompositeKind = sourceCompositeKind,
+                sourceCompositePath = sourceCompositePath,
+                sourceCompositeSha256 = sourceCompositeSha256,
                 resourceTextureCount = resourceTextureCount,
                 resourceMaterialCount = resourceMaterialCount,
                 controllerResolved = result == "PASSED" && controllerResolved,
@@ -305,6 +344,9 @@ namespace VampPon.UnitySpike.Editor
             public int assertionCount;
             public int failureCount;
             public int sourceCompositeCount;
+            public string sourceCompositeKind;
+            public string sourceCompositePath;
+            public string sourceCompositeSha256;
             public int resourceTextureCount;
             public int resourceMaterialCount;
             public bool controllerResolved;
