@@ -26,6 +26,8 @@ const thermalRank = new Map([
   ['serious', 2],
   ['critical', 3],
 ]);
+const memoryRegressionAbsoluteMb = 32;
+const memoryRegressionFraction = .20;
 
 type TargetName = 'simulator' | 'physical-iphone';
 type Sample = {
@@ -86,6 +88,21 @@ function memoryMetricForMethod(method: string): string {
   throw new Error(`unsupported performance measurement method: ${method}`);
 }
 
+function computeMemoryRegression(samples: Sample[]): boolean {
+  invariant(samples.length >= 12, 'memory-regression recomputation requires at least 12 samples');
+  const window = Math.max(3, Math.floor(samples.length / 10));
+  let earlySum = 0;
+  let lateSum = 0;
+  for (let index = 0; index < window; index += 1) {
+    earlySum += samples[index].memoryMb;
+    lateSum += samples[samples.length - 1 - index].memoryMb;
+  }
+  const earlyAverage = earlySum / window;
+  const lateAverage = lateSum / window;
+  const threshold = Math.max(memoryRegressionAbsoluteMb, earlyAverage * memoryRegressionFraction);
+  return lateAverage - earlyAverage > threshold;
+}
+
 function summarize(target: TargetName, artifact: PerformanceArtifact) {
   invariant(artifact.schemaVersion === 1, 'performance artifact schema mismatch');
   invariant(artifact.target === target, 'performance artifact target mismatch');
@@ -136,11 +153,18 @@ function summarize(target: TargetName, artifact: PerformanceArtifact) {
     'performance artifact last sample does not cover declared duration',
   );
 
+  const memoryRegressionObserved = computeMemoryRegression(artifact.samples);
+  invariant(
+    artifact.memoryRegressionObserved === memoryRegressionObserved,
+    'performance artifact memory-regression flag disagrees with its raw memory samples',
+  );
+
   return {
     averageFps: fpsSum / artifact.samples.length,
     minimumFps,
     peakMemoryMb,
     thermalState: worstThermal,
+    memoryRegressionObserved,
   };
 }
 
@@ -163,6 +187,7 @@ function main(): void {
     console.log(`artifact root: ${artifactRoot}`);
     console.log('targets: simulator | physical-iphone');
     console.log('memory metrics: Unity=unity-total-allocated-memory / Instruments=physical-footprint');
+    console.log('memory regression: recomputed from raw early/late sample windows');
     console.log('registration never promotes final/runtime approval by itself');
     return;
   }
@@ -213,7 +238,7 @@ function main(): void {
     summary.averageFps >= targetFps * 0.9 &&
     summary.minimumFps >= targetFps * 0.5 &&
     !artifact.framePacingIssueObserved &&
-    !artifact.memoryRegressionObserved &&
+    !summary.memoryRegressionObserved &&
     artifact.backgroundForegroundRecoveryPassed &&
     thermalPassed;
 
@@ -238,12 +263,12 @@ function main(): void {
     minimumFps: Number(summary.minimumFps.toFixed(4)),
     peakMemoryMb: Number(summary.peakMemoryMb.toFixed(4)),
     framePacingIssueObserved: artifact.framePacingIssueObserved,
-    memoryRegressionObserved: artifact.memoryRegressionObserved,
+    memoryRegressionObserved: summary.memoryRegressionObserved,
     backgroundForegroundRecoveryPassed: artifact.backgroundForegroundRecoveryPassed,
     recordedAtUtc: new Date().toISOString(),
     notes: passed
-      ? 'Summary registered from hashed raw performance artifact with an explicit memory metric; this target passed the current performance policy.'
-      : 'Summary registered from hashed raw performance artifact with an explicit memory metric; this target did not satisfy every current performance gate.',
+      ? 'Summary registered from hashed raw performance artifact with an explicit memory metric and recomputed memory trend; this target passed the current performance policy.'
+      : 'Summary registered from hashed raw performance artifact with an explicit memory metric and recomputed memory trend; this target did not satisfy every current performance gate.',
   });
   if (key === 'physicalIphone') record.thermalState = summary.thermalState;
 
@@ -264,6 +289,7 @@ function main(): void {
   console.log(`artifactSha256=${artifactSha256}`);
   console.log(`memoryMetric=${memoryMetric}`);
   console.log(`averageFps=${record.averageFps} minimumFps=${record.minimumFps} peakMemoryMb=${record.peakMemoryMb}`);
+  console.log(`memoryRegressionObserved=${record.memoryRegressionObserved}`);
   if (target === 'physical-iphone') console.log(`worstThermal=${record.thermalState}`);
   console.log('runtimeApproved=false (recording evidence alone never promotes approval)');
 }
