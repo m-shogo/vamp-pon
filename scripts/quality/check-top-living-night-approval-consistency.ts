@@ -42,6 +42,8 @@ const crop = readJson<{
 }>('docs/design-targets/generated/top-living-night-v3/crop-review-status.json');
 
 const motion = readJson<{
+  candidatePath: string;
+  candidateSha256: string;
   normalMotion: { executed: boolean; result: string; reviewDurationSeconds: number };
   reducedMotion: { executed: boolean; result: string; reviewDurationSeconds: number };
   motionApproved: boolean;
@@ -89,8 +91,10 @@ const sha256 = /^[0-9a-f]{64}$/;
 invariant(finalArt.candidatePath === canonicalCandidatePath, 'final-art candidate path must remain canonical');
 invariant(identity.sourcePath === canonicalCandidatePath, 'Core5 review must target the canonical final-art candidate');
 invariant(crop.sourcePath === canonicalCandidatePath, 'crop review must target the canonical final-art candidate');
+invariant(motion.candidatePath === canonicalCandidatePath, 'motion review must target the canonical final-art candidate');
 invariant(finalArt.candidatePath === identity.sourcePath, 'final-art and Core5 review candidate paths diverged');
 invariant(finalArt.candidatePath === crop.sourcePath, 'final-art and crop review candidate paths diverged');
+invariant(finalArt.candidatePath === motion.candidatePath, 'final-art and motion review candidate paths diverged');
 invariant(finalArt.candidateGenerated === identity.candidateGenerated, 'final-art and Core5 candidate flags diverged');
 invariant(finalArt.candidateGenerated === crop.candidateGenerated, 'final-art and crop candidate flags diverged');
 invariant(finalArt.core5IdentityReviewed === identity.allIdentitiesApproved, 'final-art Core5 flag diverged from per-character review');
@@ -100,6 +104,7 @@ if (!finalArt.candidateGenerated) {
   invariant(finalArt.candidateSha256 === '', 'missing final candidate must not retain a candidate SHA-256');
   invariant(identity.sourceSha256 === '', 'NOT_RUN Core5 review must not retain a stale candidate SHA-256');
   invariant(crop.sourceSha256 === '', 'NOT_RUN crop review must not retain a stale candidate SHA-256');
+  invariant(motion.candidateSha256 === '', 'NOT_RUN motion review must not retain a stale candidate SHA-256');
   invariant(!finalArt.core5IdentityReviewed, 'missing final candidate cannot have Core5 approval');
   invariant(!finalArt.cropReviewComplete, 'missing final candidate cannot have crop approval');
   invariant(!finalArt.motionSeparationReviewed, 'missing final candidate cannot have motion-separation approval');
@@ -125,6 +130,9 @@ if (identity.allIdentitiesApproved || crop.allCropsApproved) {
 }
 
 if (motion.motionApproved) {
+  invariant(finalArt.candidateGenerated, 'motion approval requires a generated final candidate');
+  invariant(sha256.test(finalArt.candidateSha256), 'motion approval requires a valid final-art candidate SHA-256');
+  invariant(motion.candidateSha256 === finalArt.candidateSha256, 'motion approval cannot use stale final-art evidence');
   invariant(motion.normalMotion.executed && motion.normalMotion.result === 'PASSED', 'motion approval requires passed normal-motion review');
   invariant(motion.normalMotion.reviewDurationSeconds >= 300, 'motion approval requires five-minute normal review');
   invariant(motion.reducedMotion.executed && motion.reducedMotion.result === 'PASSED', 'motion approval requires passed Reduced Motion review');
@@ -189,6 +197,7 @@ if (finalArt.runtimeApproved) {
   invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'runtime approval requires coherent source-bound evidence');
   invariant(identity.sourceSha256 === finalArt.candidateSha256, 'runtime approval requires Core5 review of the current final-art candidate');
   invariant(crop.sourceSha256 === finalArt.candidateSha256, 'runtime approval requires crop review of the current final-art candidate');
+  invariant(motion.candidateSha256 === finalArt.candidateSha256, 'runtime approval requires motion review of the current final-art candidate');
 }
 
 if (finalArt.approvedAsFinal) {
@@ -199,6 +208,7 @@ if (finalArt.approvedAsFinal) {
   invariant(!motion.finalApprovalBlocked, 'final approval cannot retain motion block');
   invariant(identity.sourceSha256 === finalArt.candidateSha256, 'final approval cannot use stale Core5 evidence');
   invariant(crop.sourceSha256 === finalArt.candidateSha256, 'final approval cannot use stale crop evidence');
+  invariant(motion.candidateSha256 === finalArt.candidateSha256, 'final approval cannot use stale motion evidence');
 }
 
 if (!capture.executed || !v3Evidence.executed) {
