@@ -72,6 +72,9 @@ jobs:
       - name: Verify TOP locked Core5 master reference integrity
         run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-reference-integrity.ts
 
+      - name: Verify TOP Core5 candidate reference provenance
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-candidate-provenance.ts
+
       - name: Verify TOP final Core5 identity boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-final-identity-boundary.ts
 
