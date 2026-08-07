@@ -4,6 +4,8 @@ import { join } from 'node:path';
 type MotionReviewStatus = {
   schemaVersion: number;
   staticContractReady: boolean;
+  candidatePath: string;
+  candidateSha256: string;
   normalMotion: {
     executed: boolean;
     result: string;
@@ -32,6 +34,12 @@ type MotionReviewStatus = {
   notes: string;
 };
 
+type FinalArtStatus = {
+  candidateGenerated: boolean;
+  candidatePath: string;
+  candidateSha256: string;
+};
+
 const root = process.cwd();
 const viewPath = join(
   root,
@@ -53,12 +61,16 @@ const statusPath = join(
   root,
   'docs/design-targets/generated/top-living-night-v3/motion-review-status.json',
 );
+const finalArtStatusPath = join(
+  root,
+  'docs/design-targets/generated/top-living-night-v3/final-art-status.json',
+);
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
 
-for (const path of [viewPath, controllerPath, coordinatorPath, planPath, statusPath]) {
+for (const path of [viewPath, controllerPath, coordinatorPath, planPath, statusPath, finalArtStatusPath]) {
   invariant(existsSync(path), `TOP motion contract input is missing: ${path}`);
 }
 
@@ -67,6 +79,7 @@ const controller = readFileSync(controllerPath, 'utf8');
 const coordinator = readFileSync(coordinatorPath, 'utf8');
 const plan = readFileSync(planPath, 'utf8');
 const status = JSON.parse(readFileSync(statusPath, 'utf8')) as MotionReviewStatus;
+const finalArt = JSON.parse(readFileSync(finalArtStatusPath, 'utf8')) as FinalArtStatus;
 
 for (const token of [
   'AnimateSky(time)',
@@ -172,6 +185,20 @@ for (const token of [
 
 invariant(status.schemaVersion === 1, 'TOP motion review status schema mismatch');
 invariant(status.staticContractReady, 'TOP motion static contract must remain ready');
+const canonicalCandidatePath =
+  'docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png';
+invariant(status.candidatePath === canonicalCandidatePath, 'TOP motion review candidate path must remain canonical');
+invariant(finalArt.candidatePath === canonicalCandidatePath, 'TOP final-art candidate path must remain canonical');
+invariant(status.candidatePath === finalArt.candidatePath, 'TOP motion review and final-art candidate paths diverged');
+
+const motionExecuted = status.normalMotion.executed || status.reducedMotion.executed;
+if (!motionExecuted) {
+  invariant(status.candidateSha256 === '', 'NOT_RUN motion review must not retain a stale candidate SHA-256');
+} else {
+  invariant(finalArt.candidateGenerated, 'motion review cannot execute before the final TOP candidate exists');
+  invariant(/^[0-9a-f]{64}$/.test(status.candidateSha256), 'executed motion review requires a final-art SHA-256');
+  invariant(status.candidateSha256 === finalArt.candidateSha256, 'motion review must target the exact current final-art candidate');
+}
 
 if (!status.normalMotion.executed) {
   invariant(status.normalMotion.result === 'NOT_RUN', 'unexecuted normal-motion review must be NOT_RUN');
@@ -212,6 +239,8 @@ if (!status.reducedMotion.executed) {
 }
 
 if (status.motionApproved) {
+  invariant(finalArt.candidateGenerated, 'motion approval requires a generated final TOP candidate');
+  invariant(status.candidateSha256 === finalArt.candidateSha256, 'motion approval requires review of the current final-art candidate');
   invariant(status.normalMotion.executed && status.normalMotion.result === 'PASSED', 'motion approval requires passed five-minute review');
   invariant(status.reducedMotion.executed && status.reducedMotion.result === 'PASSED', 'motion approval requires passed Reduced Motion review');
   invariant(status.unityVersion.length > 0, 'motion approval requires Unity version');
