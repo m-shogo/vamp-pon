@@ -16,6 +16,7 @@ type CaptureManifest = {
   schemaVersion: number;
   executed: boolean;
   result: string;
+  sourceCommit: string;
   expectedCaptureCount: number;
   captureCount: number;
   generatedAtUtc: string;
@@ -118,6 +119,8 @@ for (const token of [
   'check-loading-top-capture-pack.ts',
   'runtime-captures',
   'runtime-capture-manifest.json',
+  'CAPTURE_SOURCE_COMMIT="$(git rev-parse HEAD)"',
+  'data["sourceCommit"] = source_commit',
   'git push origin "HEAD:$SOURCE_BRANCH"',
 ]) {
   invariant(runner.includes(token), `capture runner missing contract: ${token}`);
@@ -135,6 +138,7 @@ for (const token of [
 
 if (!manifest.executed) {
   invariant(manifest.result === 'NOT_RUN', 'unexecuted capture manifest must be NOT_RUN');
+  invariant(manifest.sourceCommit === '', 'unexecuted capture source commit must be empty');
   invariant(manifest.captureCount === 0, 'unexecuted capture count must be zero');
   invariant(manifest.captures.length === 0, 'unexecuted capture records must be empty');
   invariant(manifest.generatedAtUtc === '', 'unexecuted timestamp must be empty');
@@ -145,6 +149,7 @@ if (!manifest.executed) {
 }
 
 invariant(manifest.result === 'PASSED', 'executed capture manifest must be PASSED');
+invariant(/^[0-9a-f]{40}$/.test(manifest.sourceCommit), 'executed capture source commit is missing/invalid');
 invariant(manifest.captureCount === 15, 'executed capture count must be 15');
 invariant(manifest.captures.length === 15, 'executed capture records must contain 15 entries');
 invariant(manifest.generatedAtUtc.length > 0, 'executed capture timestamp missing');
@@ -176,6 +181,7 @@ for (const [index, definition] of expected.entries()) {
 }
 
 console.log('Loading/TOP capture pack: PASS');
+console.log(`source commit: ${manifest.sourceCommit}`);
 console.log('captures: 15/15');
 console.log('readiness: layered TOP + Runtime V3 composite both required before TOP screenshots');
 console.log('matrix: spring/summer/autumn/winter + TOP at 360x800 / 390x844 / 430x932');
