@@ -84,6 +84,9 @@ jobs:
       - name: Verify TOP final-art registration path is safe
         run: node --experimental-strip-types scripts/unity/register-top-living-night-final-art.ts --dry-run
 
+      - name: Verify TOP final-art registration mutation fixtures
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-final-art-registration.ts
+
       - name: Verify TOP final-art candidate boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-final-art-candidate.ts
 
