@@ -5,10 +5,14 @@ const root = process.cwd();
 const read = (path: string) => JSON.parse(readFileSync(join(root, path), 'utf8')) as any;
 const bundle = read('docs/design-targets/generated/top-living-night-v3/final-generation-bundle.json') as {
   status: string;
+  postGenerationExecutionPlan: Array<{ phase: string; requires: string[]; parallel: string[] }>;
   requiredPostGenerationChecks: string[];
 };
+const unity = read('docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json');
 const capture = read('docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json');
+const motion = read('docs/design-targets/generated/top-living-night-v3/motion-review-status.json');
 const human = read('docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json');
+const device = read('docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json');
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
@@ -23,11 +27,16 @@ const required = [
   'scripts/quality/check-top-living-night-core5-candidate-provenance.ts',
   'scripts/quality/check-top-living-night-core5-review.ts',
   'scripts/quality/check-top-living-night-crop-review.ts',
-  'scripts/quality/check-top-living-night-motion-contract.ts',
-  'scripts/quality/check-top-living-night-human-review.ts',
   'scripts/quality/check-top-living-night-unity-evidence.ts',
   'scripts/quality/check-loading-top-capture-pack.ts',
+  'scripts/quality/check-top-living-night-human-review.ts',
+  'scripts/quality/check-top-living-night-motion-contract.ts',
+  'scripts/quality/check-top-living-night-device-performance-artifact.ts',
+  'scripts/quality/check-top-living-night-device-performance-policy.ts',
+  'scripts/quality/check-top-living-night-device-evidence.ts',
   'scripts/quality/check-top-living-night-approval-consistency.ts',
+  'scripts/quality/check-top-living-night-readiness-summary.ts',
+  'scripts/quality/check-top-living-night-final-promotion-safety.ts',
 ];
 
 invariant(bundle.status === 'GENERATION_READY_NOT_FINAL', 'generation bundle must remain non-final');
@@ -37,6 +46,28 @@ invariant(
 );
 for (const path of required) {
   invariant(existsSync(join(root, path)), `post-generation gate is missing: ${path}`);
+}
+
+invariant(
+  JSON.stringify(bundle.postGenerationExecutionPlan.map(phase => phase.phase)) ===
+    JSON.stringify([
+      'candidate-static-and-unity',
+      'runtime-observation',
+      'capture-human-review',
+      'device-performance',
+      'final-promotion',
+    ]),
+  'final TOP dependency phases are incomplete or reordered',
+);
+
+const motionExecuted = motion.normalMotion?.executed || motion.reducedMotion?.executed;
+if (motionExecuted) {
+  invariant(unity.executed && unity.result === 'PASSED', 'executed motion review requires PASSED Unity V3 evidence first');
+  invariant(validUtc(unity.generatedAtUtc), 'executed motion review requires canonical Unity timestamp');
+  invariant(validUtc(motion.reviewedAtUtc), 'executed motion review requires canonical motion timestamp');
+  invariant(motion.verifiedCommit === unity.verifiedCommit, 'motion review must target the exact Unity-verified source commit');
+  invariant(motion.candidateSha256 === unity.sourceCompositeSha256, 'motion review must target the exact Unity-verified TOP bytes');
+  invariant(Date.parse(motion.reviewedAtUtc) >= Date.parse(unity.generatedAtUtc), 'motion review cannot predate Unity V3 verification');
 }
 
 if (!human.executed) {
@@ -51,7 +82,26 @@ if (!human.executed) {
   invariant(Date.parse(human.reviewedAtUtc) >= Date.parse(capture.generatedAtUtc), 'human visual review cannot predate the 15-frame capture pack it reviews');
 }
 
+for (const [name, target] of [
+  ['simulator', device.simulator],
+  ['physical-iphone', device.physicalIphone],
+] as const) {
+  if (!target.executed) continue;
+  invariant(unity.executed && unity.result === 'PASSED', `${name} performance requires PASSED Unity V3 evidence first`);
+  invariant(capture.executed && capture.result === 'PASSED', `${name} performance requires PASSED 15-frame capture evidence first`);
+  invariant(target.sourceCommit === unity.verifiedCommit, `${name} performance must target Unity-verified source commit`);
+  invariant(target.sourceCommit === capture.sourceCommit, `${name} performance must target captured source commit`);
+  invariant(target.topCompositeSha256 === unity.sourceCompositeSha256, `${name} performance must target Unity-verified TOP bytes`);
+  invariant(target.topCompositeSha256 === capture.topCompositeSha256, `${name} performance must target captured TOP bytes`);
+  invariant(validUtc(target.recordedAtUtc), `${name} performance requires canonical timestamp`);
+  invariant(validUtc(unity.generatedAtUtc) && validUtc(capture.generatedAtUtc), `${name} performance requires Unity/capture timestamps`);
+  invariant(
+    Date.parse(target.recordedAtUtc) >= Math.max(Date.parse(unity.generatedAtUtc), Date.parse(capture.generatedAtUtc)),
+    `${name} performance cannot predate its Unity/capture prerequisites`,
+  );
+}
+
 console.log('TOP Living Night post-generation gate chain: PASS');
-console.log('order: candidate -> provenance -> Core5 -> crops -> motion -> human -> Unity -> 15-frame capture -> approval');
-console.log('human review chronology is bound to the exact current capture pack when executed');
+console.log('parallel plan: candidate -> [Core5, crops, Unity] -> after Unity [motion, capture] -> after capture [human, device] -> promotion');
+console.log('motion is bound after Unity; human is bound after capture; device evidence is bound after Unity + capture');
 console.log('generation remains non-final; runtime/review execution may still be NOT_RUN');
