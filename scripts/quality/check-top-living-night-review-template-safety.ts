@@ -44,13 +44,18 @@ for (const token of [
   invariant(runtimeTemplate.includes(token), `runtime review template safety contract missing: ${token}`);
 }
 
-invariant(
-  gitignore.includes('docs/design-targets/generated/top-living-night-v3/review-inputs/*.json'),
-  'TOP review input templates must remain generated-only and ignored by Git',
-);
+for (const generatedPath of [
+  'docs/design-targets/generated/top-living-night-v3/review-inputs/*.json',
+  'docs/design-targets/generated/top-living-night-v3/readiness-summary.txt',
+]) {
+  invariant(
+    gitignore.includes(generatedPath),
+    `TOP generated review/readiness artifact must remain ignored by Git: ${generatedPath}`,
+  );
+}
 invariant(!staticTemplate.includes('approvedAsFinal = true'), 'static review template generator must not promote final approval');
 invariant(!runtimeTemplate.includes('approvedAsFinal = true'), 'runtime review template generator must not promote final approval');
 invariant(!runtimeTemplate.includes('runtimeApproved = true'), 'runtime review template generator must not promote runtime approval');
 
 console.log('TOP Living Night review template safety: PASS');
-console.log('templates are candidate/provenance-bound, default-unapproved, ignored by Git, and never promote runtime/final state');
+console.log('templates/readiness text are candidate/provenance-derived, generated-only, ignored by Git, and never promote runtime/final state');
