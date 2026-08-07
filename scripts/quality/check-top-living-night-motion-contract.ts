@@ -37,6 +37,14 @@ const viewPath = join(
   root,
   'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs',
 );
+const controllerPath = join(
+  root,
+  'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightCompositeV3Controller.cs',
+);
+const coordinatorPath = join(
+  root,
+  'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/LoadingTopVisualPolishCoordinator.cs',
+);
 const planPath = join(
   root,
   'docs/design-targets/generated/top-living-night-v3/motion-review-plan.md',
@@ -50,11 +58,13 @@ function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
 
-invariant(existsSync(viewPath), 'TOP motion runtime view is missing');
-invariant(existsSync(planPath), 'TOP five-minute motion review plan is missing');
-invariant(existsSync(statusPath), 'TOP motion review status is missing');
+for (const path of [viewPath, controllerPath, coordinatorPath, planPath, statusPath]) {
+  invariant(existsSync(path), `TOP motion contract input is missing: ${path}`);
+}
 
 const view = readFileSync(viewPath, 'utf8');
+const controller = readFileSync(controllerPath, 'utf8');
+const coordinator = readFileSync(coordinatorPath, 'utf8');
 const plan = readFileSync(planPath, 'utf8');
 const status = JSON.parse(readFileSync(statusPath, 'utf8')) as MotionReviewStatus;
 
@@ -83,6 +93,35 @@ for (const token of [
 ]) {
   invariant(view.includes(token), `TOP asynchronous motion contract missing: ${token}`);
 }
+
+const staticStart = controller.indexOf('private static readonly string[] StaticLayersReplacedByComposite');
+const masksStart = controller.indexOf('private static readonly MaskStyle[] AdditiveMasks', staticStart);
+invariant(staticStart >= 0 && masksStart > staticStart, 'TOP V3 static replacement block is missing');
+const staticBlock = controller.slice(staticStart, masksStart);
+for (const liveSkyLayer of ['Stars', 'CloudsFar', 'CloudsNear']) {
+  invariant(
+    !staticBlock.includes(`"${liveSkyLayer}"`),
+    `TOP asynchronous sky motion is coded but hidden by V3 composition: ${liveSkyLayer}`,
+  );
+}
+invariant(
+  controller.includes('transparent stars/clouds, fire, smoke, embers and additive light masks remain live'),
+  'TOP V3 runtime log must document visible sky + motion overlays',
+);
+
+for (const token of [
+  'Smoke_01',
+  'Ember_01',
+  'var contentReady = AreBaseLayersReady();',
+  'IsCurrentTopReady = contentReady',
+  'capture readiness remains blocked until all required content is ready',
+]) {
+  invariant(coordinator.includes(token), `TOP capture motion-readiness guard missing: ${token}`);
+}
+invariant(
+  !coordinator.includes('IsCurrentTopReady = true;'),
+  'TOP visual timeout must not unconditionally promote capture readiness',
+);
 
 invariant(
   view.includes('reducedMotion\n                    ? Vector2.zero') ||
@@ -185,6 +224,7 @@ if (status.motionApproved) {
 }
 
 console.log('TOP Living Night motion contract: PASS');
-console.log('async: clouds / stars / lights / fire / smoke / embers / rare robot-eye use independent timing anchors');
+console.log('visible async: transparent sky + lights + fire + smoke + embers + rare robot-eye');
+console.log('capture: timeout reveal cannot bypass smoke/ember readiness');
 console.log('reduced motion: cloud displacement + particles + rare eye reduced; fire/glow retained in restrained form');
 console.log(`review: normal=${status.normalMotion.result} reduced=${status.reducedMotion.result} approved=${status.motionApproved}`);
