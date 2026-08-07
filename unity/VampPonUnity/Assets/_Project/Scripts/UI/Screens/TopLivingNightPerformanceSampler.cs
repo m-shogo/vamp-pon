@@ -37,9 +37,13 @@ namespace VampPon.UnitySpike.UI.Screens
         private string topCompositePath;
         private string topCompositeSha256;
         private bool sampling;
+        private bool applicationPaused;
+        private bool ignoreNextFrameDelta;
         private bool pauseObserved;
         private bool recoveryPending;
         private bool recoveryPassed;
+        private double pauseStartedAt;
+        private double pausedDurationToApply;
         private double recoveryDeadline;
         private bool framePacingIssueObserved;
         private float worstFrameDelta;
@@ -95,12 +99,21 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void Update()
         {
-            if (!sampling)
+            if (!sampling || applicationPaused)
                 return;
 
-            worstFrameDelta = Mathf.Max(worstFrameDelta, Time.unscaledDeltaTime);
-            if (Time.unscaledDeltaTime >= FramePacingHitchSeconds)
-                framePacingIssueObserved = true;
+            if (ignoreNextFrameDelta)
+            {
+                // iOS/Simulator may report a large delta on the first frame after
+                // foregrounding. That is suspension time, not render-frame pacing.
+                ignoreNextFrameDelta = false;
+            }
+            else
+            {
+                worstFrameDelta = Mathf.Max(worstFrameDelta, Time.unscaledDeltaTime);
+                if (Time.unscaledDeltaTime >= FramePacingHitchSeconds)
+                    framePacingIssueObserved = true;
+            }
 
             if (!recoveryPending)
                 return;
@@ -151,6 +164,12 @@ namespace VampPon.UnitySpike.UI.Screens
 
             sampling = true;
             samples.Clear();
+            applicationPaused = false;
+            ignoreNextFrameDelta = false;
+            pauseObserved = false;
+            recoveryPending = false;
+            recoveryPassed = false;
+            pausedDurationToApply = 0d;
             framePacingIssueObserved = false;
             worstFrameDelta = 0f;
             AddSample(0f, (float)(warmupFrames / warmupElapsed));
@@ -160,17 +179,38 @@ namespace VampPon.UnitySpike.UI.Screens
             var intervalStartFrame = Time.frameCount;
             var nextSampleAt = observationStartedAt + SampleIntervalSeconds;
 
-            while (Time.realtimeSinceStartupAsDouble - observationStartedAt < ObservationSeconds)
+            while (true)
             {
-                if (Time.realtimeSinceStartupAsDouble >= nextSampleAt)
+                if (applicationPaused)
                 {
-                    var now = Time.realtimeSinceStartupAsDouble;
+                    yield return null;
+                    continue;
+                }
+
+                if (pausedDurationToApply > 0d)
+                {
+                    // App suspension is not active render time. Shift all sampling
+                    // clocks forward so background duration cannot create fake FPS
+                    // drops or shorten the required 300 active seconds.
+                    observationStartedAt += pausedDurationToApply;
+                    intervalStartedAt += pausedDurationToApply;
+                    nextSampleAt += pausedDurationToApply;
+                    intervalStartFrame = Time.frameCount;
+                    pausedDurationToApply = 0d;
+                }
+
+                var now = Time.realtimeSinceStartupAsDouble;
+                var activeObservationElapsed = now - observationStartedAt;
+                if (activeObservationElapsed >= ObservationSeconds)
+                    break;
+
+                if (now >= nextSampleAt)
+                {
                     var elapsed = Math.Max(.001d, now - intervalStartedAt);
                     var frameCount = Math.Max(1, Time.frameCount - intervalStartFrame);
-                    var observationElapsed = Mathf.Min(
-                        ObservationSeconds,
-                        (float)(now - observationStartedAt));
-                    AddSample(observationElapsed, (float)(frameCount / elapsed));
+                    AddSample(
+                        Mathf.Min(ObservationSeconds, (float)activeObservationElapsed),
+                        (float)(frameCount / elapsed));
                     intervalStartedAt = now;
                     intervalStartFrame = Time.frameCount;
                     nextSampleAt += SampleIntervalSeconds;
@@ -179,15 +219,18 @@ namespace VampPon.UnitySpike.UI.Screens
                 yield return null;
             }
 
-            // Ensure the declared 300-second observation has a terminal sample even
+            // Ensure the declared 300 active seconds has a terminal sample even
             // when a frame lands just beyond the nominal cadence boundary.
-            var terminalElapsed = Time.realtimeSinceStartupAsDouble - intervalStartedAt;
-            if (samples.Count == 0 || samples[samples.Count - 1].elapsedSeconds < ObservationSeconds - .01f)
+            var terminalElapsed = Math.Max(
+                .001d,
+                Time.realtimeSinceStartupAsDouble - intervalStartedAt);
+            if (samples.Count == 0 ||
+                samples[samples.Count - 1].elapsedSeconds < ObservationSeconds - .01f)
             {
                 var terminalFrames = Math.Max(1, Time.frameCount - intervalStartFrame);
                 AddSample(
                     ObservationSeconds,
-                    (float)(terminalFrames / Math.Max(.001d, terminalElapsed)));
+                    (float)(terminalFrames / terminalElapsed));
             }
 
             sampling = false;
@@ -199,18 +242,28 @@ namespace VampPon.UnitySpike.UI.Screens
             if (!sampling)
                 return;
 
+            var now = Time.realtimeSinceStartupAsDouble;
             if (paused)
             {
                 pauseObserved = true;
                 recoveryPending = false;
+                applicationPaused = true;
+                pauseStartedAt = now;
                 return;
+            }
+
+            if (applicationPaused)
+            {
+                pausedDurationToApply += Math.Max(0d, now - pauseStartedAt);
+                applicationPaused = false;
+                ignoreNextFrameDelta = true;
             }
 
             if (!pauseObserved)
                 return;
 
             recoveryPending = true;
-            recoveryDeadline = Time.realtimeSinceStartupAsDouble + RecoveryTimeoutSeconds;
+            recoveryDeadline = now + RecoveryTimeoutSeconds;
         }
 
         private void AddSample(float elapsedSeconds, float fps)
