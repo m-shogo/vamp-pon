@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +14,14 @@ namespace VampPon.UnitySpike.UI.Screens
     {
         private const float SearchInterval = .05f;
         private const float SourceAspect = 430f / 932f;
-        private const string EditorCompositeRelativePath =
+        private const string EditorBridgeCompositeRelativePath =
             "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png";
+        private const string EditorBridgeExpectedSha256 =
+            "aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d";
+        private const string EditorFinalStatusRelativePath =
+            "docs/design-targets/generated/top-living-night-v3/final-art-status.json";
+        private const string EditorFinalCompositeRelativePath =
+            "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png";
         private const string PlayerCompositeResourcePath =
             "TopLivingNightV3Generated/base-composite-v3";
         private const string PlayerMaterialResourcePath =
@@ -174,14 +182,9 @@ namespace VampPon.UnitySpike.UI.Screens
 #if UNITY_EDITOR
             var repositoryRoot = Path.GetFullPath(
                 Path.Combine(Application.dataPath, "..", "..", ".."));
-            var path = Path.Combine(
-                repositoryRoot,
-                EditorCompositeRelativePath.Replace('/', Path.DirectorySeparatorChar));
-            if (!File.Exists(path))
-            {
-                Debug.LogError($"TOP Runtime V3 editor source is missing: {path}");
+            var path = ResolveEditorCompositePath(repositoryRoot, out var sourceKind);
+            if (string.IsNullOrEmpty(path))
                 return null;
-            }
 
             var texture = new Texture2D(2, 2, TextureFormat.RGB24, false);
             if (!texture.LoadImage(File.ReadAllBytes(path), true))
@@ -191,11 +194,12 @@ namespace VampPon.UnitySpike.UI.Screens
                 return null;
             }
 
-            texture.name = "TopLivingNight_BaseCompositeV3_Editor";
+            texture.name = $"TopLivingNight_BaseCompositeV3_Editor_{sourceKind}";
             texture.wrapMode = TextureWrapMode.Clamp;
             texture.filterMode = FilterMode.Bilinear;
             compositeTexture = texture;
             ownsCompositeTexture = true;
+            Debug.Log($"TOP Runtime V3 editor source selected: {sourceKind}.");
 #else
             compositeTexture = Resources.Load<Texture2D>(PlayerCompositeResourcePath);
             ownsCompositeTexture = false;
@@ -205,6 +209,147 @@ namespace VampPon.UnitySpike.UI.Screens
 #endif
             return compositeTexture;
         }
+
+#if UNITY_EDITOR
+        private static string ResolveEditorCompositePath(
+            string repositoryRoot,
+            out string sourceKind)
+        {
+            sourceKind = string.Empty;
+            var statusPath = Path.Combine(
+                repositoryRoot,
+                EditorFinalStatusRelativePath.Replace('/', Path.DirectorySeparatorChar));
+            if (!File.Exists(statusPath))
+            {
+                Debug.LogError($"TOP Runtime V3 editor final-art status is missing: {statusPath}");
+                return null;
+            }
+
+            EditorFinalArtStatus status;
+            try
+            {
+                status = JsonUtility.FromJson<EditorFinalArtStatus>(File.ReadAllText(statusPath));
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError(
+                    $"TOP Runtime V3 editor final-art status could not be parsed: {exception.Message}");
+                return null;
+            }
+
+            if (status == null)
+            {
+                Debug.LogError("TOP Runtime V3 editor final-art status parsed as null.");
+                return null;
+            }
+
+            var finalPath = Path.Combine(
+                repositoryRoot,
+                EditorFinalCompositeRelativePath.Replace('/', Path.DirectorySeparatorChar));
+            string relativePath;
+            string expectedSha;
+
+            if (!status.candidateGenerated)
+            {
+                if (File.Exists(finalPath))
+                {
+                    Debug.LogError(
+                        "TOP Runtime V3 final Core5 PNG exists while candidateGenerated=false; " +
+                        "editor will not silently fall back to the bridge.");
+                    return null;
+                }
+                if (!string.IsNullOrEmpty(status.candidateSha256))
+                {
+                    Debug.LogError(
+                        "TOP Runtime V3 ungenerated final candidate retains candidateSha256.");
+                    return null;
+                }
+
+                sourceKind = "bridge";
+                relativePath = EditorBridgeCompositeRelativePath;
+                expectedSha = EditorBridgeExpectedSha256;
+            }
+            else
+            {
+                if (!string.Equals(
+                        status.candidatePath,
+                        EditorFinalCompositeRelativePath,
+                        StringComparison.Ordinal))
+                {
+                    Debug.LogError(
+                        $"TOP Runtime V3 editor final candidate path is not canonical: {status.candidatePath}");
+                    return null;
+                }
+                if (!IsLowerHexSha256(status.candidateSha256))
+                {
+                    Debug.LogError(
+                        "TOP Runtime V3 generated final candidate requires a lowercase 64-character SHA-256.");
+                    return null;
+                }
+                if (!File.Exists(finalPath))
+                {
+                    Debug.LogError(
+                        $"TOP Runtime V3 candidateGenerated=true but final Core5 PNG is missing: {finalPath}");
+                    return null;
+                }
+
+                sourceKind = "final-core5";
+                relativePath = EditorFinalCompositeRelativePath;
+                expectedSha = status.candidateSha256;
+            }
+
+            var path = Path.Combine(
+                repositoryRoot,
+                relativePath.Replace('/', Path.DirectorySeparatorChar));
+            if (!File.Exists(path))
+            {
+                Debug.LogError($"TOP Runtime V3 editor source is missing: {path}");
+                return null;
+            }
+
+            var actualSha = ComputeSha256(path);
+            if (!string.Equals(actualSha, expectedSha, StringComparison.Ordinal))
+            {
+                Debug.LogError(
+                    $"TOP Runtime V3 editor {sourceKind} SHA-256 mismatch: expected {expectedSha}, actual {actualSha}.");
+                return null;
+            }
+
+            return path;
+        }
+
+        private static string ComputeSha256(string path)
+        {
+            using var stream = File.OpenRead(path);
+            using var sha = SHA256.Create();
+            var hash = sha.ComputeHash(stream);
+            var builder = new StringBuilder(hash.Length * 2);
+            foreach (var value in hash)
+                builder.Append(value.ToString("x2"));
+            return builder.ToString();
+        }
+
+        private static bool IsLowerHexSha256(string value)
+        {
+            if (string.IsNullOrEmpty(value) || value.Length != 64)
+                return false;
+
+            foreach (var character in value)
+                if (!((character >= '0' && character <= '9') ||
+                      (character >= 'a' && character <= 'f')))
+                    return false;
+
+            return true;
+        }
+
+        [Serializable]
+        private sealed class EditorFinalArtStatus
+        {
+            public bool candidateGenerated;
+            public string candidatePath;
+            public string candidateSha256;
+        }
+#endif
 
         private void ConfigureAdditiveMasks()
         {
