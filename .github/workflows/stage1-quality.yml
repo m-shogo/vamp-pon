@@ -60,6 +60,9 @@ jobs:
       - name: Verify TOP final-art candidate boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-final-art-candidate.ts
 
+      - name: Verify TOP three-resolution crop review
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-crop-review.ts
+
       - name: Verify TOP Living Night Unity evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
 
@@ -95,6 +98,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/core5-bridge-gap-review.md
             docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md
             docs/design-targets/generated/top-living-night-v3/final-art-status.json
+            docs/design-targets/generated/top-living-night-v3/crop-review-status.json
             docs/design-targets/generated/top-living-night-v3/motion-review-plan.md
             docs/design-targets/generated/top-living-night-v3/motion-review-status.json
             docs/design-targets/generated/top-living-night-v3/final/*.png
