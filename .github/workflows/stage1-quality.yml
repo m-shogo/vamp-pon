@@ -48,6 +48,9 @@ jobs:
       - name: Verify TOP Living Night Runtime V3 composition
         run: node --experimental-strip-types scripts/quality/check-top-living-night-runtime-v3.ts
 
+      - name: Verify TOP build staging cleanup
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-build-cleanup.ts
+
       - name: Verify TOP Living Night asynchronous motion contract
         run: node --experimental-strip-types scripts/quality/check-top-living-night-motion-contract.ts
 
