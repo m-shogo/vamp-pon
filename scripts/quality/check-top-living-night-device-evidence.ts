@@ -11,6 +11,10 @@ type TargetEvidence = {
   topCompositeKind: string;
   topCompositePath: string;
   topCompositeSha256: string;
+  measurementMethod: string;
+  memoryMetric: string;
+  metricsArtifactPath: string;
+  metricsArtifactSha256: string;
   durationSeconds: number;
   averageFps: number;
   minimumFps: number;
@@ -76,10 +80,19 @@ const canonicalBridgePath =
   'docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png';
 const canonicalBridgeSha256 =
   'aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d';
+const artifactRoot =
+  'docs/design-targets/generated/top-living-night-v3/device-performance-evidence/';
 const sha256 = /^[0-9a-f]{64}$/;
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
+}
+
+function expectedMemoryMetric(method: string): string {
+  if (method === 'xcode-instruments') return 'physical-footprint';
+  if (method === 'unity-profiler-recorder' || method === 'unity-runtime-sampler')
+    return 'unity-total-allocated-memory';
+  return '';
 }
 
 function verifyTarget(name: string, target: TargetEvidence): void {
@@ -92,6 +105,10 @@ function verifyTarget(name: string, target: TargetEvidence): void {
     invariant(target.topCompositeKind === '', `${name}: NOT_RUN evidence must not retain TOP composite kind`);
     invariant(target.topCompositePath === '', `${name}: NOT_RUN evidence must not retain TOP composite path`);
     invariant(target.topCompositeSha256 === '', `${name}: NOT_RUN evidence must not retain TOP composite SHA-256`);
+    invariant(target.measurementMethod === '', `${name}: NOT_RUN evidence must not retain a measurement method`);
+    invariant(target.memoryMetric === '', `${name}: NOT_RUN evidence must not retain a memory metric`);
+    invariant(target.metricsArtifactPath === '', `${name}: NOT_RUN evidence must not retain a metrics artifact path`);
+    invariant(target.metricsArtifactSha256 === '', `${name}: NOT_RUN evidence must not retain a metrics artifact SHA-256`);
     invariant(target.durationSeconds === 0, `${name}: NOT_RUN duration must be zero`);
     invariant(target.averageFps === 0, `${name}: NOT_RUN average FPS must be zero`);
     invariant(target.minimumFps === 0, `${name}: NOT_RUN minimum FPS must be zero`);
@@ -110,6 +127,14 @@ function verifyTarget(name: string, target: TargetEvidence): void {
   invariant(['bridge', 'final-core5'].includes(target.topCompositeKind), `${name}: executed evidence requires known TOP composite kind`);
   invariant(target.topCompositePath.length > 0, `${name}: executed evidence requires TOP composite path`);
   invariant(sha256.test(target.topCompositeSha256), `${name}: executed evidence requires TOP composite SHA-256`);
+  const memoryMetric = expectedMemoryMetric(target.measurementMethod);
+  invariant(memoryMetric.length > 0, `${name}: executed evidence requires a supported measurement method`);
+  invariant(target.memoryMetric === memoryMetric, `${name}: memory metric does not match measurement method`);
+  invariant(
+    target.metricsArtifactPath.startsWith(artifactRoot) && target.metricsArtifactPath.endsWith('.json'),
+    `${name}: executed evidence requires canonical raw metrics artifact path`,
+  );
+  invariant(sha256.test(target.metricsArtifactSha256), `${name}: executed evidence requires raw metrics artifact SHA-256`);
   invariant(target.durationSeconds >= 60, `${name}: runtime observation must cover at least 60 seconds`);
   invariant(target.averageFps > 0, `${name}: executed evidence requires average FPS`);
   invariant(target.minimumFps > 0, `${name}: executed evidence requires minimum FPS`);
