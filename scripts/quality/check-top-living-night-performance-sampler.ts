@@ -37,6 +37,13 @@ for (const token of [
   'MemoryRegressionAbsoluteMb = 32f',
   'MemoryRegressionFraction = .20f',
   'FramePacingHitchSeconds = .10f',
+  'private bool applicationPaused;',
+  'private bool ignoreNextFrameDelta;',
+  'private double pausedDurationToApply;',
+  'observationStartedAt += pausedDurationToApply;',
+  'intervalStartedAt += pausedDurationToApply;',
+  'nextSampleAt += pausedDurationToApply;',
+  'ignoreNextFrameDelta = true;',
 ]) {
   invariant(sampler.includes(token), `TOP performance sampler contract missing: ${token}`);
 }
@@ -53,6 +60,14 @@ invariant(
 invariant(
   sampler.includes('Use xcode-instruments for physical-iPhone thermal evidence.'),
   'TOP runtime sampler must preserve the physical-iPhone Instruments boundary',
+);
+invariant(
+  sampler.includes('App suspension is not active render time.'),
+  'TOP performance sampler must explicitly exclude app suspension from active render timing',
+);
+invariant(
+  sampler.includes('That is suspension time, not render-frame pacing.'),
+  'TOP performance sampler must ignore the first post-resume delta for frame-pacing evidence',
 );
 invariant(
   sampler.includes('final-core5') && sampler.includes('bridge'),
@@ -75,5 +90,6 @@ for (const token of [
 }
 
 console.log('TOP Living Night opt-in performance sampler contract: PASS');
-console.log('sampler: Simulator only / 300 s / 5 s raw samples / FPS + allocated memory / recovery evidence');
+console.log('sampler: Simulator only / 300 active s / 5 s raw samples / FPS + allocated memory / recovery evidence');
+console.log('pause handling: suspension excluded from FPS denominator; first resume delta excluded from hitch evidence');
 console.log('physical iPhone: thermal evidence remains xcode-instruments/native responsibility');
