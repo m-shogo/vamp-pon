@@ -54,7 +54,7 @@ for (const token of [
   'BaseComposite',
   'AspectRatioFitter.AspectMode.EnvelopeParent',
   'StaticLayersReplacedByComposite',
-  'child.gameObject.SetActive(false)',
+  'SetStaticLayerVisibility(false)',
   'DistantLights',
   'RobotEye',
   'FireGlow',
@@ -64,6 +64,19 @@ for (const token of [
   'dynamic fire, smoke, embers and additive light masks remain live',
 ]) {
   invariant(controller.includes(token), `TOP Runtime V3 controller contract missing: ${token}`);
+}
+
+for (const lifecycleToken of [
+  'GetOrCreateBaseComposite',
+  'SetStaticLayerVisibility(true)',
+  'ResetAdditiveMasks()',
+  'baseComposite.gameObject.SetActive(false)',
+  'image.material = null',
+]) {
+  invariant(
+    controller.includes(lifecycleToken),
+    `TOP Runtime V3 lifecycle guard missing: ${lifecycleToken}`,
+  );
 }
 
 for (const hiddenLayer of [
@@ -115,5 +128,6 @@ for (const token of [
 console.log('TOP Living Night Runtime V3: PASS');
 console.log('base: validated 430x932 composite preview with fixed SHA-256');
 console.log('motion: fire/smoke/embers retained; light masks use luminance-additive UI shader');
+console.log('lifecycle: composite reuse + fallback restore + additive material cleanup guarded');
 console.log('build: generated Resources texture/material, ASTC 6x6, cleanup guarded');
 console.log('approval: runtime implementation only; recapture and human/device review remain required');
