@@ -93,6 +93,9 @@ jobs:
       - name: Verify TOP per-character Core5 review
         run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-review.ts
 
+      - name: Verify TOP Core5 review reference-set binding
+        run: node --experimental-strip-types scripts/quality/check-top-core5-review-reference-set.ts
+
       - name: Verify TOP Core5 review temporal coherence
         run: node --experimental-strip-types scripts/quality/check-top-core5-review-temporal-coherence.ts
 
@@ -113,6 +116,9 @@ jobs:
 
       - name: Verify TOP runtime evidence commit coherence
         run: node --experimental-strip-types scripts/quality/check-top-living-night-evidence-commit-coherence.ts
+
+      - name: Verify TOP runtime execution dependencies
+        run: node --experimental-strip-types scripts/quality/check-top-runtime-execution-dependencies.ts
 
       - name: Verify TOP Simulator and physical iPhone evidence boundary
         run: node --experimental-strip-types scripts/quality/check-top-living-night-device-evidence.ts
@@ -160,6 +166,9 @@ jobs:
 
       - name: Verify Loading TOP capture distinctness
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-distinctness.ts
+
+      - name: Verify Loading TOP rendered manifest provenance
+        run: node --experimental-strip-types scripts/quality/check-loading-top-render-manifest-provenance.ts
 
       - name: Verify structured TOP human visual review evidence
         run: node --experimental-strip-types scripts/quality/check-top-living-night-human-review.ts
