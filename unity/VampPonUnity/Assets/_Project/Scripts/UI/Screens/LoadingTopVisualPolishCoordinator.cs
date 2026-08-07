@@ -33,6 +33,8 @@ namespace VampPon.UnitySpike.UI.Screens
             "FireGlow",
             "Foreground",
             "LanternGlow",
+            "Smoke_01",
+            "Ember_01",
         };
 
 #if UNITY_EDITOR
@@ -237,10 +239,11 @@ namespace VampPon.UnitySpike.UI.Screens
                 return;
 
             RefreshLayerVisibility();
+            var contentReady = AreBaseLayersReady();
 
             if (!revealStarted)
             {
-                if (AreBaseLayersReady())
+                if (contentReady)
                     StartTopReveal(false);
                 else if (Time.unscaledTime - topStartedAt >= TopReadyTimeout)
                     StartTopReveal(true);
@@ -265,7 +268,11 @@ namespace VampPon.UnitySpike.UI.Screens
                 topUiGroup.blocksRaycasts = true;
                 topUiGroup.interactable = true;
             }
-            IsCurrentTopReady = true;
+
+            // A timeout may reveal the UI so the player is never trapped on a
+            // blank screen, but automated capture must stay blocked until the
+            // complete visual/motion content (including smoke + embers) exists.
+            IsCurrentTopReady = contentReady;
         }
 
         private void StartTopReveal(bool timedOut)
@@ -283,7 +290,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 status.text = "夜景の一部を整えています…";
 
             Debug.LogWarning(
-                "TopLivingNight visual readiness timed out; revealing available layers over the dark fallback.");
+                "TopLivingNight visual readiness timed out; revealing available layers while capture readiness remains blocked until all required content is ready.");
         }
 
         private void RefreshLayerVisibility()
