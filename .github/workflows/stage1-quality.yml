@@ -69,6 +69,9 @@ jobs:
       - name: Verify TOP final-core5 build provenance
         run: node --experimental-strip-types scripts/quality/check-top-living-night-build-core5-provenance.ts
 
+      - name: Verify TOP Editor source authority guard
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-editor-source-guard.ts
+
       - name: Verify TOP Living Night asynchronous motion contract
         run: node --experimental-strip-types scripts/quality/check-top-living-night-motion-contract.ts
 
