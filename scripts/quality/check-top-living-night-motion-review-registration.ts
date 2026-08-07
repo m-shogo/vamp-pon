@@ -19,6 +19,9 @@ for (const token of [
   "unity.executed === true && unity.result === 'PASSED'",
   "unity.sourceCompositeKind === 'final-core5'",
   'unity.sourceCompositeSha256 === finalArt.candidateSha256',
+  'input.candidateSha256 === finalArt.candidateSha256',
+  'input.verifiedCommit === unity.verifiedCommit',
+  'input.unityVersion === unity.unityVersion',
   'input.normalMotion.reviewDurationSeconds >= 300',
   'input.reducedMotion.reviewDurationSeconds >= 60',
   'motion.candidateSha256 = finalArt.candidateSha256',
@@ -56,4 +59,4 @@ for (const [path, content] of before) {
 }
 
 console.log('TOP Living Night motion review registration safety: PASS');
-console.log('dry-run mutation-free; Unity provenance auto-bound; duration/observations derive PASS/FAILED; final promotion remains separate');
+console.log('dry-run mutation-free; exact candidate/Unity provenance rejects stale templates; duration/observations derive PASS/FAILED; final promotion remains separate');
