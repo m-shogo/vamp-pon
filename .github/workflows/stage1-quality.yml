@@ -105,6 +105,9 @@ jobs:
       - name: Verify automated Loading TOP capture boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
 
+      - name: Verify structured TOP human visual review evidence
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-human-review.ts
+
       - name: Verify Loading TOP review evidence honesty
         run: node --experimental-strip-types scripts/quality/check-loading-top-review-honesty.ts
 
@@ -147,6 +150,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/crop-review-status.json
             docs/design-targets/generated/top-living-night-v3/motion-review-plan.md
             docs/design-targets/generated/top-living-night-v3/motion-review-status.json
+            docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json
             docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json
             docs/design-targets/generated/top-living-night-v3/final/*.png
             assets/reference/character-master/core5/*.png
