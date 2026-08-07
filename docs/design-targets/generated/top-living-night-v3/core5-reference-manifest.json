@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCKED_FOR_FINAL_TOP_GENERATION",
+  "referenceCount": 5,
+  "references": [
+    {
+      "id": "yui",
+      "path": "assets/reference/character-master/core5/yui-character-master-v1.png",
+      "gitBlobSha1": "670697fdc7d91607dc6d5c5adaa58724d891546e"
+    },
+    {
+      "id": "asa",
+      "path": "assets/reference/character-master/core5/asa-character-master-v1.png",
+      "gitBlobSha1": "2dbdfbc723be908f4881ff69d4c78167d78af179"
+    },
+    {
+      "id": "nagi",
+      "path": "assets/reference/character-master/core5/nagi-character-master-v1.png",
+      "gitBlobSha1": "0b777a8131ec457fc3ca1e83c74ca4d1dd8dbc01"
+    },
+    {
+      "id": "michiru",
+      "path": "assets/reference/character-master/core5/michiru-character-master-v1.png",
+      "gitBlobSha1": "1f75d1b3b8f4b1811120750eb98be70914a457e7"
+    },
+    {
+      "id": "tomori",
+      "path": "assets/reference/character-master/core5/tomori-character-master-v1.png",
+      "gitBlobSha1": "7c221b07a2341682433838382d6381289a7e8693"
+    }
+  ],
+  "rules": {
+    "exactlyFiveReferences": true,
+    "silentMasterReplacementAllowed": false,
+    "manifestUpdateRequiredForIntentionalMasterChange": true,
+    "finalCandidateMustUseTheseReferences": true
+  },
+  "notes": "These five binary masters are the identity authority for the current Core5 final TOP generation pass. An intentional character-master revision is allowed only when this manifest and the affected identity/generation review are updated together."
+}
