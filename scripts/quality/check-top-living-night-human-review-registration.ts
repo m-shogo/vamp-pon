@@ -21,6 +21,9 @@ for (const token of [
   "capture.expectedCaptureCount === 15 && capture.captureCount === 15",
   "capture.topCompositeKind === 'final-core5'",
   'capture.topCompositeSha256 === finalArt.candidateSha256',
+  'input.candidateSha256 === finalArt.candidateSha256',
+  'input.captureSourceCommit === capture.sourceCommit',
+  'input.captureGeneratedAtUtc === capture.generatedAtUtc',
   "const passed = reviewKeys.every(key => input[key] === true)",
   'finalArt.humanVisualReviewComplete = passed',
   'loading.approval.humanVisualReviewComplete = passed',
@@ -52,4 +55,4 @@ for (const [path, content] of before) {
 }
 
 console.log('TOP Living Night human review registration safety: PASS');
-console.log('dry-run mutation-free; capture provenance auto-bound; five explicit human visual observations decide PASS/FAILED');
+console.log('dry-run mutation-free; exact candidate/capture provenance rejects stale templates; five explicit human visual observations decide PASS/FAILED');
