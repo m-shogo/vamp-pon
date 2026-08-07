@@ -91,6 +91,10 @@
     "scripts/quality/check-top-living-night-core5-candidate-provenance.ts",
     "scripts/quality/check-top-living-night-core5-review.ts",
     "scripts/quality/check-top-living-night-crop-review.ts",
+    "scripts/quality/check-top-living-night-motion-contract.ts",
+    "scripts/quality/check-top-living-night-human-review.ts",
+    "scripts/quality/check-top-living-night-unity-evidence.ts",
+    "scripts/quality/check-loading-top-capture-pack.ts",
     "scripts/quality/check-top-living-night-approval-consistency.ts"
   ]
 }
