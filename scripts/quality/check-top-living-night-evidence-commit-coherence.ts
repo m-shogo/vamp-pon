@@ -24,6 +24,9 @@ const unity = readJson<{
   executed: boolean;
   result: string;
   verifiedCommit: string;
+  sourceCompositeKind: string;
+  sourceCompositePath: string;
+  sourceCompositeSha256: string;
 }>('docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json');
 
 const capture = readJson<{
@@ -48,6 +51,10 @@ const sha40 = /^[0-9a-f]{40}$/;
 const sha256 = /^[0-9a-f]{64}$/;
 const canonicalCandidatePath =
   'docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png';
+const canonicalBridgePath =
+  'docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png';
+const canonicalBridgeSha256 =
+  'aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d';
 const motionExecuted = motion.normalMotion.executed || motion.reducedMotion.executed;
 const unityPassed = unity.executed && unity.result === 'PASSED' && sha40.test(unity.verifiedCommit);
 const capturePassed =
@@ -61,6 +68,21 @@ const capturePassed =
 invariant(finalArt.candidatePath === canonicalCandidatePath, 'final-art candidate path must remain canonical');
 invariant(motion.candidatePath === canonicalCandidatePath, 'motion review candidate path must remain canonical');
 invariant(motion.candidatePath === finalArt.candidatePath, 'motion review and final-art candidate paths diverged');
+
+if (!unity.executed) {
+  invariant(unity.sourceCompositeKind === '', 'NOT_RUN Unity evidence must not retain stale source kind');
+  invariant(unity.sourceCompositePath === '', 'NOT_RUN Unity evidence must not retain stale source path');
+  invariant(unity.sourceCompositeSha256 === '', 'NOT_RUN Unity evidence must not retain stale source SHA-256');
+} else if (finalArt.candidateGenerated) {
+  invariant(sha256.test(finalArt.candidateSha256), 'generated final candidate requires a valid SHA-256');
+  invariant(unity.sourceCompositeKind === 'final-core5', 'generated final candidate invalidates bridge-only Unity evidence');
+  invariant(unity.sourceCompositePath === canonicalCandidatePath, 'Unity evidence must target canonical final TOP path');
+  invariant(unity.sourceCompositeSha256 === finalArt.candidateSha256, 'Unity evidence must target exact current final TOP bytes');
+} else {
+  invariant(unity.sourceCompositeKind === 'bridge', 'pre-final Unity evidence must identify bridge source');
+  invariant(unity.sourceCompositePath === canonicalBridgePath, 'pre-final Unity evidence must target canonical bridge path');
+  invariant(unity.sourceCompositeSha256 === canonicalBridgeSha256, 'pre-final Unity bridge SHA-256 mismatch');
+}
 
 if (!motionExecuted) {
   invariant(motion.verifiedCommit === '', 'NOT_RUN motion review must not retain a stale verifiedCommit');
@@ -84,6 +106,8 @@ if (motion.motionApproved) {
   invariant(finalArt.candidateGenerated, 'motion approval requires a generated final TOP candidate');
   invariant(motion.candidateSha256 === finalArt.candidateSha256, 'motion approval cannot use stale final-art evidence');
   invariant(unityPassed, 'motion approval requires PASSED current V3 Unity evidence');
+  invariant(unity.sourceCompositeKind === 'final-core5', 'motion approval requires Unity verification of final-core5 source');
+  invariant(unity.sourceCompositeSha256 === finalArt.candidateSha256, 'motion approval requires Unity verification of current final-art bytes');
   invariant(
     motion.verifiedCommit === unity.verifiedCommit,
     'motion review and V3 Unity evidence must target the same source commit',
@@ -99,6 +123,9 @@ if (capturePassed && unityPassed) {
 
 if (finalArt.runtimeCaptureComplete) {
   invariant(capturePassed && unityPassed, 'runtime capture completion requires passed capture and V3 evidence');
+  invariant(finalArt.candidateGenerated, 'runtime capture completion requires generated final TOP candidate');
+  invariant(unity.sourceCompositeKind === 'final-core5', 'runtime capture completion requires final-core5 Unity evidence');
+  invariant(unity.sourceCompositeSha256 === finalArt.candidateSha256, 'runtime capture completion requires Unity evidence for current final TOP bytes');
   invariant(
     capture.sourceCommit === unity.verifiedCommit,
     'runtime capture completion requires coherent capture/V3 provenance',
@@ -109,6 +136,8 @@ if (finalArt.runtimeApproved || finalArt.approvedAsFinal) {
   invariant(motion.motionApproved, 'runtime/final approval requires approved motion review');
   invariant(capturePassed && unityPassed, 'runtime/final approval requires capture and V3 evidence');
   invariant(finalArt.candidateGenerated, 'runtime/final approval requires a generated final TOP candidate');
+  invariant(unity.sourceCompositeKind === 'final-core5', 'runtime/final approval requires final-core5 Unity provenance');
+  invariant(unity.sourceCompositeSha256 === finalArt.candidateSha256, 'runtime/final approval requires current final TOP byte provenance');
   invariant(motion.candidateSha256 === finalArt.candidateSha256, 'runtime/final approval requires motion review of the current final-art candidate');
   invariant(
     motion.verifiedCommit === unity.verifiedCommit && unity.verifiedCommit === capture.sourceCommit,
@@ -117,4 +146,4 @@ if (finalArt.runtimeApproved || finalArt.approvedAsFinal) {
 }
 
 console.log('TOP Living Night evidence commit coherence: PASS');
-console.log(`motion=${motion.motionApproved} unity=${unity.result} capture=${capture.result}`);
+console.log(`motion=${motion.motionApproved} unity=${unity.result}/${unity.sourceCompositeKind || 'NOT_RUN'} capture=${capture.result}`);
