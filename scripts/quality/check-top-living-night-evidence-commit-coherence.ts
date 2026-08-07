@@ -33,6 +33,9 @@ const capture = readJson<{
   executed: boolean;
   result: string;
   sourceCommit: string;
+  topCompositeKind: string;
+  topCompositePath: string;
+  topCompositeSha256: string;
   expectedCaptureCount: number;
   captureCount: number;
   captures: unknown[];
@@ -84,6 +87,23 @@ if (!unity.executed) {
   invariant(unity.sourceCompositeSha256 === canonicalBridgeSha256, 'pre-final Unity bridge SHA-256 mismatch');
 }
 
+if (!capture.executed) {
+  invariant(capture.sourceCommit === '', 'NOT_RUN capture evidence must not retain a stale sourceCommit');
+  invariant(capture.topCompositeKind === '', 'NOT_RUN capture evidence must not retain stale TOP source kind');
+  invariant(capture.topCompositePath === '', 'NOT_RUN capture evidence must not retain stale TOP source path');
+  invariant(capture.topCompositeSha256 === '', 'NOT_RUN capture evidence must not retain stale TOP source SHA-256');
+  invariant(capture.captureCount === 0, 'NOT_RUN capture evidence must report zero current captures');
+  invariant(capture.captures.length === 0, 'NOT_RUN capture evidence must not retain current capture entries');
+} else if (capturePassed && finalArt.candidateGenerated) {
+  invariant(capture.topCompositeKind === 'final-core5', 'final candidate invalidates bridge-only capture evidence');
+  invariant(capture.topCompositePath === canonicalCandidatePath, 'capture evidence must target canonical final TOP path');
+  invariant(capture.topCompositeSha256 === finalArt.candidateSha256, 'capture evidence must target exact current final TOP bytes');
+} else if (capturePassed) {
+  invariant(capture.topCompositeKind === 'bridge', 'pre-final capture evidence must identify bridge source');
+  invariant(capture.topCompositePath === canonicalBridgePath, 'pre-final capture evidence must target canonical bridge path');
+  invariant(capture.topCompositeSha256 === canonicalBridgeSha256, 'pre-final capture bridge SHA-256 mismatch');
+}
+
 if (!motionExecuted) {
   invariant(motion.verifiedCommit === '', 'NOT_RUN motion review must not retain a stale verifiedCommit');
   invariant(motion.candidateSha256 === '', 'NOT_RUN motion review must not retain a stale candidate SHA-256');
@@ -119,6 +139,9 @@ if (capturePassed && unityPassed) {
     capture.sourceCommit === unity.verifiedCommit,
     'capture and V3 Unity evidence must target the same source commit',
   );
+  invariant(capture.topCompositeKind === unity.sourceCompositeKind, 'capture and V3 Unity TOP source kinds diverged');
+  invariant(capture.topCompositePath === unity.sourceCompositePath, 'capture and V3 Unity TOP source paths diverged');
+  invariant(capture.topCompositeSha256 === unity.sourceCompositeSha256, 'capture and V3 Unity TOP source bytes diverged');
 }
 
 if (finalArt.runtimeCaptureComplete) {
@@ -126,6 +149,8 @@ if (finalArt.runtimeCaptureComplete) {
   invariant(finalArt.candidateGenerated, 'runtime capture completion requires generated final TOP candidate');
   invariant(unity.sourceCompositeKind === 'final-core5', 'runtime capture completion requires final-core5 Unity evidence');
   invariant(unity.sourceCompositeSha256 === finalArt.candidateSha256, 'runtime capture completion requires Unity evidence for current final TOP bytes');
+  invariant(capture.topCompositeKind === 'final-core5', 'runtime capture completion requires final-core5 capture provenance');
+  invariant(capture.topCompositeSha256 === finalArt.candidateSha256, 'runtime capture completion requires capture evidence for current final TOP bytes');
   invariant(
     capture.sourceCommit === unity.verifiedCommit,
     'runtime capture completion requires coherent capture/V3 provenance',
@@ -138,6 +163,8 @@ if (finalArt.runtimeApproved || finalArt.approvedAsFinal) {
   invariant(finalArt.candidateGenerated, 'runtime/final approval requires a generated final TOP candidate');
   invariant(unity.sourceCompositeKind === 'final-core5', 'runtime/final approval requires final-core5 Unity provenance');
   invariant(unity.sourceCompositeSha256 === finalArt.candidateSha256, 'runtime/final approval requires current final TOP byte provenance');
+  invariant(capture.topCompositeKind === 'final-core5', 'runtime/final approval requires final-core5 capture provenance');
+  invariant(capture.topCompositeSha256 === finalArt.candidateSha256, 'runtime/final approval requires capture of current final TOP bytes');
   invariant(motion.candidateSha256 === finalArt.candidateSha256, 'runtime/final approval requires motion review of the current final-art candidate');
   invariant(
     motion.verifiedCommit === unity.verifiedCommit && unity.verifiedCommit === capture.sourceCommit,
