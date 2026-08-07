@@ -66,13 +66,20 @@ invariant(
   runner.includes("if (v3.verifiedCommit !== capture.sourceCommit)"),
   'TOP Simulator runner must reject V3/capture commit mismatch',
 );
+
+const staleArtifactRemovalIndex = runner.indexOf('rm -f "$RAW_ARTIFACT"');
+const measuredLaunchIndex = runner.indexOf('xcrun simctl launch "$UDID" "$BUNDLE_ID"');
 invariant(
-  runner.indexOf('rm -f "$RAW_ARTIFACT"') < runner.indexOf('xcrun simctl launch "$UDID" "$BUNDLE_ID"'),
+  staleArtifactRemovalIndex >= 0 && measuredLaunchIndex > staleArtifactRemovalIndex,
   'TOP Simulator runner must remove stale sandbox artifact before launching measurement',
 );
+
+const artifactCopyIndex = runner.indexOf('cp "$RAW_ARTIFACT" "$DEST_ARTIFACT"');
+const registrationInvocation =
+  'node --experimental-strip-types scripts/unity/register-top-living-night-device-performance.ts';
+const registrationInvocationIndex = runner.indexOf(registrationInvocation);
 invariant(
-  runner.indexOf('cp "$RAW_ARTIFACT" "$DEST_ARTIFACT"') <
-    runner.indexOf('register-top-living-night-device-performance.ts'),
+  artifactCopyIndex >= 0 && registrationInvocationIndex > artifactCopyIndex,
   'TOP Simulator runner must copy raw artifact into canonical evidence directory before registration',
 );
 
