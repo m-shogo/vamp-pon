@@ -92,6 +92,13 @@ if (!crop.candidateGenerated) {
 invariant(/^[0-9a-f]{64}$/.test(crop.sourceSha256), 'TOP crop source SHA-256 is invalid');
 invariant(crop.sourceSha256 === finalArt.candidateSha256, 'TOP crop review must target the exact final-art candidate SHA');
 
+const anyCropReviewExecuted = crop.reviews.some(review => review.executed);
+if (anyCropReviewExecuted) {
+  invariant(crop.reviewedAtUtc.length > 0, 'executed crop review requires a review timestamp even when incomplete/failed');
+} else {
+  invariant(crop.reviewedAtUtc === '', 'unexecuted crop review must not retain a stale review timestamp');
+}
+
 for (const review of crop.reviews) {
   if (!review.executed) {
     invariant(review.result === 'NOT_RUN', `${review.resolution}: unexecuted crop review must be NOT_RUN`);
