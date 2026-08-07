@@ -199,6 +199,8 @@ namespace VampPon.UnitySpike.Editor
                     return;
                 if (!LoadingTopVisualPolishCoordinator.IsCurrentTopReady)
                     return;
+                if (!TopLivingNightCompositeV3Controller.IsCompositeReady)
+                    return;
                 if (elapsed < 3.2d)
                     return;
             }
