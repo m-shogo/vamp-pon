@@ -51,6 +51,9 @@ jobs:
       - name: Verify TOP Living Night layer kit
         run: node --experimental-strip-types scripts/quality/check-top-living-night-layer-kit.ts
 
+      - name: Verify TOP Living Night transparent sky overlays
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-sky-overlay.ts
+
       - name: Verify TOP Living Night runtime connection
         run: node --experimental-strip-types scripts/quality/check-top-living-night-runtime.ts
 
