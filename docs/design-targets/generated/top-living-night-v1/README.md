@@ -1,5 +1,9 @@
 # ヨルノシルベ TOP「生きている夜」候補 v1
 
+Status: `HISTORICAL_CANDIDATE_BATCH / SUPERSEDED_BY_V2_V3`  
+Current authority: `docs/design-targets/generated/top-living-night-v3/`  
+Do not promote any v1 candidate directly to final/runtime approval.
+
 Date: 2026-08-01  
 Base: `main@9af0418418eece712a5ea6f170630c4ee8770086`  
 Unity: `6000.5.1f1` / URP `17.5.0`
@@ -21,6 +25,8 @@ AI動画を使わず、静止キービジュアルを複数の2Dレイヤーへ�
 
 推奨は`candidate-a`。これはAI推奨であり、人間承認ではない。
 
+> Historical note: Candidate A later informed the V2 layer-kit composition and the V3 visual-recovery bridge. Its generic human identities are **not** approved Core5 final identities.
+
 ## Files
 
 ```txt
@@ -39,7 +45,7 @@ manifest.json
 motion-layer-plan.md
 ```
 
-## Approval boundary
+## Historical approval boundary
 
 ```txt
 assetStatus=candidate
@@ -53,6 +59,8 @@ finalApprovalBlocked=true
 videoGenerationUsed=false
 ```
 
+These flags describe the original v1 candidate batch only. Current approval is governed by V3 structured evidence and cannot be inherited from this directory.
+
 このbatchは既存`top-final.png`を上書きしない。PR #76、U49 readiness、audio/haptic evidence、gameplay定数、runtime providerには触れない。
 
 ## Static QA
@@ -64,7 +72,6 @@ videoGenerationUsed=false
 - 推奨Aを360x800 / 390x844 / 430x932へsafe cropし、上部ロゴ域、下部操作域、主要人物、動物、ロボット、火が残ることを確認。
 - Generator seedはbuilt-in toolから公開されないため記録なし。final承認はidentity master比較、layer再制作、Unity import、Simulator、実機、性能確認までblockする。
 
-## Next production unit
+## Historical next production unit
 
-推奨Aをそのまま動画化しない。`motion-layer-plan.md`に従い、背景clean plate、人物群、火、煙、灯りmask、前景をstill-image editとdeterministic image processingで作る。動画生成はv1で使用しない。
-
+当時の方針として、推奨Aをそのまま動画化せず`motion-layer-plan.md`に従って背景clean plate、人物群、火、煙、灯りmask、前景をstill-image editとdeterministic image processingで作ることを定義した。この工程はV2で実施済み。
