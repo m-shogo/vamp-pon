@@ -71,12 +71,21 @@ for (const token of [
   'image.texture == null',
   'hidden.a = 0f',
   'AreBaseLayersReady()',
+  'Smoke_01',
+  'Ember_01',
+  'var contentReady = AreBaseLayersReady();',
   'StartTopReveal(false)',
   'TopReadyTimeout',
-  'IsCurrentTopReady = true',
+  'IsCurrentTopReady = contentReady',
+  'capture readiness remains blocked until all required content is ready',
 ]) {
-  invariant(coordinator.includes(token), `TOP blank-screen guard missing: ${token}`);
+  invariant(coordinator.includes(token), `TOP blank/capture readiness guard missing: ${token}`);
 }
+
+invariant(
+  !coordinator.includes('IsCurrentTopReady = true;'),
+  'TOP capture readiness must not become unconditionally true after a visual timeout',
+);
 
 for (const token of [
   'PreloadEditorBaseLayers',
@@ -132,5 +141,6 @@ if (manifest.executed) {
 console.log('Loading/TOP visual polish: PASS');
 console.log('loading: thin pale progress line + canonical copy + subtle pulse');
 console.log('TOP: dark fallback + null-texture suppression + readiness fade');
+console.log('capture: visual timeout may reveal UI, but Smoke_01 + Ember_01 + full content still gate readiness');
 console.log('render: null RawImages blocked without hierarchy mutation; quit handler uninstalls callback');
-console.log('Editor: synchronous final-layer preload before visual capture');
+console.log('Editor: synchronous base-layer preload before visual capture');
