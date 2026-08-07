@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "candidateGenerated": false,
+  "sourcePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+  "sourceSha256": "",
+  "exactlyFiveForegroundHumans": false,
+  "noGenericSubstituteHumans": false,
+  "reviews": [
+    {
+      "id": "yui",
+      "referencePath": "assets/reference/character-master/core5/yui-character-master-v1.png",
+      "executed": false,
+      "result": "NOT_RUN",
+      "hairFaceMatch": false,
+      "silhouetteMatch": false,
+      "outfitColorMatch": false,
+      "signaturePropMatch": false,
+      "recognizableAt360": false
+    },
+    {
+      "id": "asa",
+      "referencePath": "assets/reference/character-master/core5/asa-character-master-v1.png",
+      "executed": false,
+      "result": "NOT_RUN",
+      "hairFaceMatch": false,
+      "silhouetteMatch": false,
+      "outfitColorMatch": false,
+      "signaturePropMatch": false,
+      "recognizableAt360": false
+    },
+    {
+      "id": "nagi",
+      "referencePath": "assets/reference/character-master/core5/nagi-character-master-v1.png",
+      "executed": false,
+      "result": "NOT_RUN",
+      "hairFaceMatch": false,
+      "silhouetteMatch": false,
+      "outfitColorMatch": false,
+      "signaturePropMatch": false,
+      "recognizableAt360": false
+    },
+    {
+      "id": "michiru",
+      "referencePath": "assets/reference/character-master/core5/michiru-character-master-v1.png",
+      "executed": false,
+      "result": "NOT_RUN",
+      "hairFaceMatch": false,
+      "silhouetteMatch": false,
+      "outfitColorMatch": false,
+      "signaturePropMatch": false,
+      "recognizableAt360": false
+    },
+    {
+      "id": "tomori",
+      "referencePath": "assets/reference/character-master/core5/tomori-character-master-v1.png",
+      "executed": false,
+      "result": "NOT_RUN",
+      "hairFaceMatch": false,
+      "silhouetteMatch": false,
+      "outfitColorMatch": false,
+      "signaturePropMatch": false,
+      "recognizableAt360": false
+    }
+  ],
+  "yuiAsaNagiMutuallyDistinct": false,
+  "michiruTealIdentityDistinct": false,
+  "tomoriRustIdentityDistinct": false,
+  "allIdentitiesApproved": false,
+  "reviewedAtUtc": "",
+  "finalApprovalBlocked": true,
+  "notes": "Per-character Core5 review is pending because the final 430x932 candidate has not been generated. The current Runtime V3 visual-recovery bridge is not eligible for this approval."
+}
