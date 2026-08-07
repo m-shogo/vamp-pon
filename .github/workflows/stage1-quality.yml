@@ -45,6 +45,9 @@ jobs:
       - name: Verify TOP V2 V3 docs match evidence
         run: node --experimental-strip-types scripts/quality/check-top-living-night-doc-consistency.ts
 
+      - name: Verify TOP v1 v2 v3 authority order
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-authority-order.ts
+
       - name: Verify TOP Living Night layer kit
         run: node --experimental-strip-types scripts/quality/check-top-living-night-layer-kit.ts
 
@@ -109,11 +112,13 @@ jobs:
             docs/design-targets/generated/loading-seasonal-v1/runtime-captures/*.png
             docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
             docs/design-targets/generated/loading-seasonal-v1/runtime-review-checklist.md
+            docs/design-targets/generated/top-living-night-v1/README.md
             docs/design-targets/generated/top-living-night-v1/candidates/*.png
             docs/design-targets/generated/top-living-night-v2/README.md
             docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json
             docs/design-targets/generated/top-living-night-v2/layers/*.png
             docs/design-targets/generated/top-living-night-v2/previews/*.png
+            docs/design-targets/generated/top-living-night-v3/README.md
             docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json
             docs/design-targets/generated/top-living-night-v3/final-identity-brief.md
             docs/design-targets/generated/top-living-night-v3/core5-bridge-gap-review.md
