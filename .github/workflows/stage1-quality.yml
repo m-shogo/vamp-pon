@@ -96,6 +96,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md
             docs/design-targets/generated/top-living-night-v3/final-art-status.json
             docs/design-targets/generated/top-living-night-v3/motion-review-plan.md
+            docs/design-targets/generated/top-living-night-v3/motion-review-status.json
             docs/design-targets/generated/top-living-night-v3/final/*.png
             assets/reference/character-master/core5/*.png
           if-no-files-found: error
