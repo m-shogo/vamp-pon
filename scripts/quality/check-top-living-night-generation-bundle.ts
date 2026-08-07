@@ -73,6 +73,14 @@ invariant(bundle.compositionReference.path === canonicalBridge, 'TOP generation 
 invariant(bundle.compositionReference.sha256 === bridgeSha, 'TOP generation composition reference SHA mismatch');
 invariant(bundle.compositionReference.keep.length >= 6, 'TOP generation bundle must preserve key bridge composition strengths');
 invariant(bundle.compositionReference.replace.includes('generic human identities'), 'TOP generation bundle must replace generic bridge identities');
+invariant(
+  bundle.compositionReference.replace.includes('all bridge human identities rather than preserving any bridge person'),
+  'TOP generation bundle must forbid inheriting any bridge human identity',
+);
+invariant(
+  bundle.compositionReference.replace.includes('the elderly bridge man and every other non-Core5 foreground human'),
+  'TOP generation bundle must explicitly remove the elderly bridge man and other non-Core5 humans',
+);
 
 for (const authority of [bundle.promptAuthority, bundle.identityAuthority, bundle.registration.script]) {
   invariant(existsSync(join(root, authority)), `TOP generation authority is missing: ${authority}`);
@@ -126,4 +134,5 @@ console.log('TOP Living Night final generation bundle: PASS');
 console.log(`core5ReferenceSet=${bundle.core5.referenceSetSha256}`);
 console.log(`target=${bundle.target.path} ${bundle.target.width}x${bundle.target.height}`);
 console.log(`postGenerationGates=${expectedPostGenerationChecks.length}`);
+console.log('bridge human inheritance: forbidden; final foreground humans are Core5 only');
 console.log('bundle remains generation-ready only; no final/runtime approval is implied');
