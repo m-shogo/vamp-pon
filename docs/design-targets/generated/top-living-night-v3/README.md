@@ -35,7 +35,21 @@ Verified 17-asset production layer kit, provenance and motion-source authority. 
 
 ### V3 bridge
 
-The current V3 runtime uses the V2 layered 430x932 preview as a **visual-recovery bridge** for the base composite while retaining live fire/smoke/embers and luminance-additive masks.
+The current V3 runtime uses the V2 layered 430x932 preview as a **visual-recovery bridge** for the base composite.
+
+The bridge keeps the stable scene composition while selected V2 layers remain live above it:
+
+- transparent `Stars`,
+- transparent `CloudsFar`,
+- transparent `CloudsNear`,
+- fire flipbook,
+- smoke,
+- embers,
+- distant-light / robot-eye / fire-glow / lantern-glow luminance-additive masks.
+
+Opaque/static duplicates such as environment, moon, generic characters, fire base, animal/robot body and foreground are suppressed while the V3 base composite is active.
+
+The sky overlays are intentionally sparse/transparent and are checked in CI so an opaque replacement cannot silently cover the base composite.
 
 The bridge composition direction may be kept, but its human identities/rendering are not final Core5 approval.
 
@@ -84,6 +98,7 @@ Until that PNG exists and all structured review gates pass, the current bridge r
 Current V3 architecture keeps:
 
 - base composite for stable whole-screen rendering,
+- transparent stars and far/near cloud overlays for visible sky motion,
 - fire flipbook,
 - smoke,
 - embers,
@@ -95,14 +110,26 @@ Current V3 architecture keeps:
 - Reduced Motion policy,
 - ASTC 6x6 / Read-Write OFF / mipmap OFF / Clamp / Bilinear iOS import policy,
 - failure-safe generated-Resources cleanup,
-- base-composite reuse and detach cleanup.
+- base-composite reuse and detach cleanup,
+- dark-safe additive-mask detach behavior.
 
-Current automated TOP capture must wait for both:
+### Visual reveal vs capture readiness
+
+The runtime keeps a timeout fallback so a slow or failed layer load cannot trap the user behind a blank screen. That timeout is **not an approval/capture bypass**.
+
+After reveal completes, `LoadingTopVisualPolishCoordinator.IsCurrentTopReady` is true only while the complete required visual set is actually ready. The required set includes `Smoke_01` and `Ember_01`, so a screenshot cannot be promoted before both particle atlases have produced visible runtime nodes.
+
+Current automated TOP capture must therefore satisfy all of the following:
 
 ```txt
-LoadingTopVisualPolishCoordinator.IsCurrentTopReady
-TopLivingNightCompositeV3Controller.IsCompositeReady
+Loading has been dismissed
+LoadingTopVisualPolishCoordinator.IsCurrentTopReady=true
+TopLivingNightCompositeV3Controller.IsCompositeReady=true
+Smoke_01 exists with a texture
+Ember_01 exists with a texture
 ```
+
+The capture automation retains a 45-second hard timeout; a timeout produces failure evidence rather than a partial screenshot approval.
 
 ## Promotion rules
 
