@@ -72,8 +72,8 @@ function main(): void {
 
   if (dryRun) {
     console.log('TOP human review registration: DRY_RUN_READY');
-    console.log('input: reviewerRole + reviewedAtUtc + five explicit visual booleans + optional notes');
-    console.log('candidate/capture commit/path/SHA/count are bound automatically from current PASSED capture evidence.');
+    console.log('input: current candidate/capture provenance + reviewerRole + reviewedAtUtc + five explicit visual booleans + optional notes');
+    console.log('candidate/capture commit/path/SHA/count are bound automatically from current PASSED capture evidence and stale templates are rejected.');
     console.log('registration never promotes runtimeApproved or approvedAsFinal.');
     return;
   }
@@ -97,6 +97,9 @@ function main(): void {
   invariant(existsSync(join(root, inputPath)), `human review input is missing: ${inputPath}`);
   const input = readJson(inputPath);
   invariant(input.schemaVersion === 1, 'human review input schema mismatch');
+  invariant(input.candidateSha256 === finalArt.candidateSha256, 'human review input is stale: candidate SHA-256 mismatch');
+  invariant(input.captureSourceCommit === capture.sourceCommit, 'human review input is stale: capture source commit mismatch');
+  invariant(input.captureGeneratedAtUtc === capture.generatedAtUtc, 'human review input is stale: capture timestamp mismatch');
   invariant(typeof input.reviewerRole === 'string' && input.reviewerRole.trim().length > 0, 'human review input requires reviewerRole');
   invariant(validUtc(input.reviewedAtUtc), 'human review input requires canonical UTC reviewedAtUtc');
   invariant(Date.parse(input.reviewedAtUtc) >= Date.parse(capture.generatedAtUtc), 'human review cannot predate the capture pack');
