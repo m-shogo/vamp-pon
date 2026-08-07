@@ -25,17 +25,15 @@ for required in "$V3_JSON" "$CAPTURE_JSON" "$DEVICE_JSON" \
   fi
 done
 
-if ! command -v xcrun >/dev/null 2>&1; then
-  echo "xcrun is required for Simulator performance evidence" >&2
-  exit 1
-fi
-if ! command -v node >/dev/null 2>&1; then
-  echo "node is required for Simulator performance evidence registration" >&2
-  exit 1
-fi
+for command_name in xcrun node python3; do
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    echo "$command_name is required for Simulator performance evidence" >&2
+    exit 1
+  fi
+done
 
-# Resolve current runtime provenance only from executed V3 + capture evidence.
-readarray -t PROVENANCE < <(node --input-type=module <<'NODE'
+# Bash 3.2 compatible: avoid readarray/mapfile so this runs on stock macOS.
+PROVENANCE_LINE="$(node --input-type=module <<'NODE'
 import fs from 'node:fs';
 const v3 = JSON.parse(fs.readFileSync('docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json', 'utf8'));
 const capture = JSON.parse(fs.readFileSync('docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json', 'utf8'));
@@ -44,17 +42,15 @@ if (!v3.executed || v3.result !== 'PASSED') fail('Simulator performance evidence
 if (!capture.executed || capture.result !== 'PASSED' || capture.captureCount !== 15) fail('Simulator performance evidence requires PASSED current 15-frame capture evidence');
 if (v3.verifiedCommit !== capture.sourceCommit) fail('V3/capture source commit mismatch');
 if (v3.sourceCompositeKind !== capture.topCompositeKind || v3.sourceCompositePath !== capture.topCompositePath || v3.sourceCompositeSha256 !== capture.topCompositeSha256) fail('V3/capture composite provenance mismatch');
-console.log(v3.verifiedCommit);
-console.log(v3.sourceCompositeKind);
-console.log(v3.sourceCompositePath);
-console.log(v3.sourceCompositeSha256);
+console.log([
+  v3.verifiedCommit,
+  v3.sourceCompositeKind,
+  v3.sourceCompositePath,
+  v3.sourceCompositeSha256,
+].join('\t'));
 NODE
-)
-
-SOURCE_COMMIT="${PROVENANCE[0]}"
-COMPOSITE_KIND="${PROVENANCE[1]}"
-COMPOSITE_PATH="${PROVENANCE[2]}"
-COMPOSITE_SHA256="${PROVENANCE[3]}"
+)"
+IFS=$'\t' read -r SOURCE_COMMIT COMPOSITE_KIND COMPOSITE_PATH COMPOSITE_SHA256 <<< "$PROVENANCE_LINE"
 
 if [[ ! "$SOURCE_COMMIT" =~ ^[0-9a-f]{40}$ ]]; then
   echo "invalid V3 source commit: $SOURCE_COMMIT" >&2
@@ -79,22 +75,21 @@ raise SystemExit("no booted Simulator found")
 ')"
 fi
 
-readarray -t DEVICE_META < <(xcrun simctl list devices -j | python3 - "$UDID" <<'PY'
+DEVICE_META_LINE="$(xcrun simctl list devices -j | python3 -c '
 import json,sys
 udid=sys.argv[1]
 payload=json.load(sys.stdin)
-for runtime, devices in payload.get('devices', {}).items():
+for runtime, devices in payload.get("devices", {}).items():
     for device in devices:
-        if device.get('udid') == udid:
-            version=runtime.rsplit('.',1)[-1].replace('-', '.')
-            print(device.get('name','iOS Simulator'))
-            print(version)
+        if device.get("udid") == udid:
+            suffix=runtime.split("SimRuntime.")[-1]
+            version=suffix[4:].replace("-", ".") if suffix.startswith("iOS-") else suffix.replace("-", ".")
+            print(f"{device.get(chr(110)+chr(97)+chr(109)+chr(101), chr(105)+chr(79)+chr(83)+chr(32)+chr(83)+chr(105)+chr(109)+chr(117)+chr(108)+chr(97)+chr(116)+chr(111)+chr(114))}\t{version}")
             raise SystemExit(0)
-raise SystemExit(f'simulator not found: {udid}')
-PY
-)
-DEVICE_MODEL="${DEVICE_META[0]}"
-OS_VERSION="${DEVICE_META[1]}"
+raise SystemExit(f"simulator not found: {udid}")
+' "$UDID")"
+IFS=$'\t' read -r DEVICE_MODEL OS_VERSION <<< "$DEVICE_META_LINE"
+
 UNITY_VERSION="$(awk -F': ' '/^m_EditorVersion:/ {print $2; exit}' unity/VampPonUnity/ProjectSettings/ProjectVersion.txt)"
 if [[ -z "$UNITY_VERSION" ]]; then
   echo "could not resolve Unity version" >&2
@@ -114,8 +109,9 @@ mkdir -p "$ARTIFACT_DIR"
 DEST_ARTIFACT="$ARTIFACT_DIR/simulator-${SOURCE_COMMIT}.json"
 rm -f "$DEST_ARTIFACT"
 
-# Launch only with explicit opt-in flags. The sampler does not exist in normal runs.
-xcrun simctl launch "$UDID" "$BUNDLE_ID" --args \
+# Arguments following the bundle identifier are passed to the application.
+# The sampler is therefore strictly opt-in and absent from normal runtime work.
+xcrun simctl launch "$UDID" "$BUNDLE_ID" \
   --vamp-pon-top-perf \
   --vamp-pon-top-perf-target=simulator \
   "--vamp-pon-top-perf-source-commit=$SOURCE_COMMIT" \
@@ -124,6 +120,9 @@ xcrun simctl launch "$UDID" "$BUNDLE_ID" --args \
   "--vamp-pon-top-perf-composite-sha256=$COMPOSITE_SHA256" >/dev/null
 
 # Exercise background/foreground without terminating the measured process.
+# Launching Settings sends the game to background; launching the game again
+# foregrounds the existing process. If iOS kills it, no artifact appears and the
+# timeout makes that failure explicit instead of fabricating recovery success.
 (
   sleep "$BACKGROUND_AFTER_SECONDS"
   xcrun simctl launch "$UDID" com.apple.Preferences >/dev/null 2>&1 || true
