@@ -61,7 +61,7 @@ for (const token of [
   'LanternGlow',
   'image.material = additiveMaterial',
   'IsCompositeReady = true',
-  'dynamic fire, smoke, embers and additive light masks remain live',
+  'transparent stars/clouds, fire, smoke, embers and additive light masks remain live',
 ]) {
   invariant(controller.includes(token), `TOP Runtime V3 controller contract missing: ${token}`);
 }
@@ -97,19 +97,28 @@ invariant(
   'TOP V3 detach must not reactivate masks without the additive material',
 );
 
+const staticStart = controller.indexOf('private static readonly string[] StaticLayersReplacedByComposite');
+const masksStart = controller.indexOf('private static readonly MaskStyle[] AdditiveMasks', staticStart);
+invariant(staticStart >= 0 && masksStart > staticStart, 'TOP V3 static replacement array boundary is missing');
+const staticBlock = controller.slice(staticStart, masksStart);
+
 for (const hiddenLayer of [
   'Environment',
-  'Stars',
   'Moon',
-  'CloudsFar',
-  'CloudsNear',
   'DistantCompanion',
   'Characters',
   'FireBase',
   'AnimalRobot',
   'Foreground',
 ]) {
-  invariant(controller.includes(`"${hiddenLayer}"`), `TOP V3 static replacement missing: ${hiddenLayer}`);
+  invariant(staticBlock.includes(`"${hiddenLayer}"`), `TOP V3 static replacement missing: ${hiddenLayer}`);
+}
+
+for (const liveSkyLayer of ['Stars', 'CloudsFar', 'CloudsNear']) {
+  invariant(
+    !staticBlock.includes(`"${liveSkyLayer}"`),
+    `TOP V3 must keep transparent sky overlay live: ${liveSkyLayer}`,
+  );
 }
 
 for (const token of [
@@ -147,7 +156,8 @@ for (const token of [
 
 console.log('TOP Living Night Runtime V3: PASS');
 console.log('base: validated 430x932 composite preview with fixed SHA-256');
-console.log('motion: fire/smoke/embers retained; light masks use luminance-additive UI shader');
+console.log('sky: transparent Stars / CloudsFar / CloudsNear stay live over the V3 base composite');
+console.log('motion: sky + fire/smoke/embers retained; light masks use luminance-additive UI shader');
 console.log('lifecycle: composite reuse + dark-safe mask detach + fallback/resource cleanup guarded');
 console.log('build: generated Resources texture/material + failure cleanup + ASTC 6x6 guarded');
 console.log('approval: runtime implementation only; recapture and human/device review remain required');
