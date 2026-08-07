@@ -55,6 +55,22 @@ const evidence = JSON.parse(
   sourceAssetCount: number;
   resourceTextureCount: number;
 };
+const finalArt = JSON.parse(
+  readFileSync(
+    join(root, 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'),
+    'utf8',
+  ),
+) as {
+  candidateGenerated: boolean;
+  core5IdentityReviewed: boolean;
+  cropReviewComplete: boolean;
+  motionSeparationReviewed: boolean;
+  humanVisualReviewComplete: boolean;
+  approvedAsFinal: boolean;
+  runtimeCaptureComplete: boolean;
+  runtimeApproved: boolean;
+  finalApprovalBlocked: boolean;
+};
 const loadingView = readFileSync(
   join(root, 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/LoadingSeasonalView.cs'),
   'utf8',
@@ -95,6 +111,17 @@ invariant(
   'capture resolution matrix mismatch',
 );
 invariant(manifest.capture.requiredFrames.length === 5, 'capture frame family count mismatch');
+
+invariant(!finalArt.approvedAsFinal, 'TOP final art must remain unapproved while startup approval is blocked');
+invariant(!finalArt.runtimeApproved, 'TOP final art runtime approval must remain false');
+invariant(finalArt.finalApprovalBlocked, 'TOP final art approval block must remain true');
+if (!finalArt.candidateGenerated) {
+  invariant(!finalArt.core5IdentityReviewed, 'missing final TOP candidate cannot have identity approval');
+  invariant(!finalArt.cropReviewComplete, 'missing final TOP candidate cannot have crop approval');
+  invariant(!finalArt.motionSeparationReviewed, 'missing final TOP candidate cannot have motion approval');
+  invariant(!finalArt.humanVisualReviewComplete, 'missing final TOP candidate cannot have human approval');
+  invariant(!finalArt.runtimeCaptureComplete, 'missing final TOP candidate cannot have final runtime capture approval');
+}
 
 const expected = [
   ['spring', 'loading-01-spring.png'],
@@ -174,4 +201,5 @@ invariant(evidence.resourceTextureCount === 4, 'Loading Unity Resources count mi
 
 console.log('Loading -> TOP runtime boundary: PASS');
 console.log(`capture: ${capture.executed ? '15/15 PASSED; promotion may remain pending' : 'honest NOT_RUN after visual implementation changed'}`);
+console.log(`final art: ${finalArt.candidateGenerated ? 'candidate exists; final approval remains blocked' : 'honest NOT_RUN Core5 final candidate boundary'}`);
 console.log('approval: human/device review and final approval remain blocked');
