@@ -74,16 +74,9 @@ runtimeApproved=false
 finalApprovalBlocked=true
 ```
 
-Latest GitHub/static verification completed at:
+GitHub/static quality must be read from the current PR checks rather than copied here as a HEAD-specific run number. Storing a “latest HEAD / latest CI” snapshot in this file would become stale as soon as that documentation commit creates a new HEAD.
 
-```txt
-HEAD=be382c50a720e938bc31a136bbe47fc4bf5ccad7
-CI_1691=PASS
-Stage1_Quality_1522=PASS
-Stage1_verify_steps=57/57
-```
-
-This green state proves source/static/document/evidence consistency only. It does **not** promote current V3 Unity execution, current 15-frame capture, final Core5 art or device approval.
+A green GitHub/static state proves source/static/document/evidence consistency only. It does **not** promote current V3 Unity execution, current 15-frame capture, final Core5 art or device approval.
 
 ## Final Core5 target
 
