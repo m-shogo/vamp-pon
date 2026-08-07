@@ -19,6 +19,8 @@ namespace VampPon.UnitySpike.Editor
             "aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d";
         private const string FinalStatusRelativePath =
             "docs/design-targets/generated/top-living-night-v3/final-art-status.json";
+        private const string Core5ReferenceManifestRelativePath =
+            "docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json";
         private const string FinalSourceRelativePath =
             "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png";
         private const string DestinationRelativePath =
@@ -149,6 +151,9 @@ namespace VampPon.UnitySpike.Editor
                 if (!string.IsNullOrEmpty(status.candidateSha256))
                     throw new BuildFailedException(
                         "TOP Runtime V3 ungenerated final candidate must not retain candidateSha256.");
+                if (!string.IsNullOrEmpty(status.candidateCore5ReferenceSetSha256))
+                    throw new BuildFailedException(
+                        "TOP Runtime V3 ungenerated final candidate must not retain a Core5 reference-set fingerprint.");
 
                 return new CompositeSourceSelection(
                     "bridge",
@@ -160,9 +165,51 @@ namespace VampPon.UnitySpike.Editor
             if (!IsLowerHexSha256(status.candidateSha256))
                 throw new BuildFailedException(
                     "TOP Runtime V3 generated final candidate requires a lowercase 64-character SHA-256.");
+            if (!IsLowerHexSha256(status.candidateCore5ReferenceSetSha256))
+                throw new BuildFailedException(
+                    "TOP Runtime V3 generated final candidate requires a lowercase 64-character Core5 reference-set fingerprint.");
             if (!File.Exists(finalSourcePath))
                 throw new BuildFailedException(
                     $"TOP Runtime V3 candidateGenerated=true but final Core5 PNG is missing: {finalSourcePath}");
+
+            var referenceManifestPath = Path.Combine(
+                repositoryRoot,
+                Core5ReferenceManifestRelativePath.Replace('/', Path.DirectorySeparatorChar));
+            if (!File.Exists(referenceManifestPath))
+                throw new BuildFailedException(
+                    $"TOP Runtime V3 Core5 reference manifest is missing: {referenceManifestPath}");
+
+            Core5ReferenceManifest referenceManifest;
+            try
+            {
+                referenceManifest = JsonUtility.FromJson<Core5ReferenceManifest>(
+                    File.ReadAllText(referenceManifestPath));
+            }
+            catch (Exception exception)
+            {
+                throw new BuildFailedException(
+                    $"TOP Runtime V3 Core5 reference manifest could not be parsed: {exception.Message}");
+            }
+
+            if (referenceManifest == null)
+                throw new BuildFailedException(
+                    "TOP Runtime V3 Core5 reference manifest parsed as null.");
+            if (referenceManifest.schemaVersion != 1)
+                throw new BuildFailedException(
+                    $"TOP Runtime V3 Core5 reference manifest schema mismatch: expected 1, actual {referenceManifest.schemaVersion}.");
+            if (referenceManifest.referenceCount != 5)
+                throw new BuildFailedException(
+                    $"TOP Runtime V3 Core5 reference manifest must contain exactly five locked references; actual {referenceManifest.referenceCount}.");
+            if (!IsLowerHexSha256(referenceManifest.referenceSetSha256))
+                throw new BuildFailedException(
+                    "TOP Runtime V3 Core5 reference manifest requires a lowercase 64-character reference-set fingerprint.");
+            if (!string.Equals(
+                    status.candidateCore5ReferenceSetSha256,
+                    referenceManifest.referenceSetSha256,
+                    StringComparison.Ordinal))
+                throw new BuildFailedException(
+                    "TOP Runtime V3 final candidate was registered against a stale Core5 reference set. " +
+                    "Re-register the final candidate before building final-core5 runtime assets.");
 
             var actualFinalSha = ComputeSha256(finalSourcePath);
             if (!string.Equals(
@@ -326,6 +373,15 @@ namespace VampPon.UnitySpike.Editor
             public bool candidateGenerated;
             public string candidatePath;
             public string candidateSha256;
+            public string candidateCore5ReferenceSetSha256;
+        }
+
+        [Serializable]
+        private sealed class Core5ReferenceManifest
+        {
+            public int schemaVersion;
+            public int referenceCount;
+            public string referenceSetSha256;
         }
 
         internal sealed class CompositeSourceSelection
