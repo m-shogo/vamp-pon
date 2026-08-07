@@ -1,3 +1,4 @@
+import './check-top-living-night-final-promotion-mutation.ts';
 import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
