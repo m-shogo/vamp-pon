@@ -66,6 +66,9 @@ const v3Evidence = readJson<{
   verifiedCommit: string;
   failureCount: number;
   sourceCompositeCount: number;
+  sourceCompositeKind: string;
+  sourceCompositePath: string;
+  sourceCompositeSha256: string;
   resourceTextureCount: number;
   resourceMaterialCount: number;
   controllerResolved: boolean;
@@ -86,6 +89,10 @@ const loadingManifest = readJson<{
 
 const canonicalCandidatePath =
   'docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png';
+const canonicalBridgePath =
+  'docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png';
+const canonicalBridgeSha256 =
+  'aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d';
 const sha256 = /^[0-9a-f]{64}$/;
 
 invariant(finalArt.candidatePath === canonicalCandidatePath, 'final-art candidate path must remain canonical');
@@ -161,6 +168,19 @@ const v3UnityPassed =
   v3Evidence.buildHookResolved &&
   v3Evidence.buildImportPolicyPassed;
 
+if (v3Evidence.executed) {
+  invariant(sha256.test(v3Evidence.sourceCompositeSha256), 'executed V3 evidence requires source composite SHA-256 provenance');
+  if (finalArt.candidateGenerated) {
+    invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'generated final candidate invalidates bridge-only V3 evidence');
+    invariant(v3Evidence.sourceCompositePath === canonicalCandidatePath, 'final candidate requires V3 evidence from canonical final source');
+    invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'V3 evidence must target the exact current final candidate SHA-256');
+  } else {
+    invariant(v3Evidence.sourceCompositeKind === 'bridge', 'pre-final V3 evidence must identify bridge source');
+    invariant(v3Evidence.sourceCompositePath === canonicalBridgePath, 'pre-final V3 evidence must target canonical bridge source');
+    invariant(v3Evidence.sourceCompositeSha256 === canonicalBridgeSha256, 'pre-final V3 bridge evidence SHA-256 mismatch');
+  }
+}
+
 if (capturePassed && v3UnityPassed) {
   invariant(
     capture.sourceCommit === v3Evidence.verifiedCommit,
@@ -172,6 +192,8 @@ if (finalArt.runtimeCaptureComplete) {
   invariant(finalArt.candidateGenerated, 'final runtime capture approval requires final candidate');
   invariant(capturePassed, 'final runtime capture approval requires PASSED 15-frame capture evidence');
   invariant(v3UnityPassed, 'final runtime capture approval requires PASSED V3 Unity evidence');
+  invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'final runtime capture requires V3 verification of final-core5 source');
+  invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'final runtime capture requires V3 verification of current final candidate');
   invariant(
     capture.sourceCommit === v3Evidence.verifiedCommit,
     'final runtime capture approval requires capture/V3 evidence from one source commit',
@@ -194,6 +216,8 @@ if (finalArt.runtimeApproved) {
   invariant(crop.allCropsApproved, 'runtime approval requires three-crop approval');
   invariant(motion.motionApproved, 'runtime approval requires motion approval');
   invariant(v3UnityPassed, 'runtime approval requires V3 Unity evidence');
+  invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'runtime approval requires final-core5 Unity evidence');
+  invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'runtime approval requires Unity evidence for current final-art candidate');
   invariant(capture.sourceCommit === v3Evidence.verifiedCommit, 'runtime approval requires coherent source-bound evidence');
   invariant(identity.sourceSha256 === finalArt.candidateSha256, 'runtime approval requires Core5 review of the current final-art candidate');
   invariant(crop.sourceSha256 === finalArt.candidateSha256, 'runtime approval requires crop review of the current final-art candidate');
@@ -206,6 +230,8 @@ if (finalArt.approvedAsFinal) {
   invariant(!identity.finalApprovalBlocked, 'final approval cannot retain Core5 block');
   invariant(!crop.finalApprovalBlocked, 'final approval cannot retain crop block');
   invariant(!motion.finalApprovalBlocked, 'final approval cannot retain motion block');
+  invariant(v3Evidence.sourceCompositeKind === 'final-core5', 'final approval requires final-core5 Unity provenance');
+  invariant(v3Evidence.sourceCompositeSha256 === finalArt.candidateSha256, 'final approval requires current final-art Unity provenance');
   invariant(identity.sourceSha256 === finalArt.candidateSha256, 'final approval cannot use stale Core5 evidence');
   invariant(crop.sourceSha256 === finalArt.candidateSha256, 'final approval cannot use stale crop evidence');
   invariant(motion.candidateSha256 === finalArt.candidateSha256, 'final approval cannot use stale motion evidence');
@@ -223,4 +249,4 @@ invariant(loadingManifest.approval.finalApprovalBlocked, 'Loading final approval
 
 console.log('TOP Living Night approval consistency: PASS');
 console.log(`candidate=${finalArt.candidateGenerated} core5=${identity.allIdentitiesApproved} crops=${crop.allCropsApproved} motion=${motion.motionApproved}`);
-console.log(`v3Unity=${v3Evidence.result} capture=${capture.result} runtimeApproved=${finalArt.runtimeApproved} finalApproved=${finalArt.approvedAsFinal}`);
+console.log(`v3Unity=${v3Evidence.result} source=${v3Evidence.sourceCompositeKind || 'NOT_RUN'} capture=${capture.result} runtimeApproved=${finalArt.runtimeApproved} finalApproved=${finalArt.approvedAsFinal}`);
