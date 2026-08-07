@@ -111,6 +111,9 @@ jobs:
       - name: Verify automated Loading TOP capture boundary
         run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
 
+      - name: Verify Loading TOP capture distinctness
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-distinctness.ts
+
       - name: Verify structured TOP human visual review evidence
         run: node --experimental-strip-types scripts/quality/check-top-living-night-human-review.ts
 
