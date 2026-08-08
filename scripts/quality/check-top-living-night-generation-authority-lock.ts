@@ -9,6 +9,10 @@ const authorities = [
     expectedGitBlobSha1: '4758ab4e22acc33482ccf6364dff1e52b0b6cd20',
   },
   {
+    path: 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt',
+    expectedGitBlobSha1: 'c7456bf22125e14aebed8503ff6903f2a9f492c2',
+  },
+  {
     path: 'docs/design-targets/generated/top-living-night-v3/final-identity-brief.md',
     expectedGitBlobSha1: '37b4dfa12ec23accee704c506cd5f87e83f2e948',
   },
@@ -33,13 +37,38 @@ for (const authority of authorities) {
 }
 
 const prompt = readFileSync(join(root, authorities[0].path), 'utf8');
-const brief = readFileSync(join(root, authorities[1].path), 'utf8');
+const isolatedPrompt = readFileSync(join(root, authorities[1].path), 'utf8');
+const brief = readFileSync(join(root, authorities[2].path), 'utf8');
+const bundle = JSON.parse(
+  readFileSync(join(root, 'docs/design-targets/generated/top-living-night-v3/final-generation-bundle.json'), 'utf8'),
+) as any;
+
 for (const token of ['Yui', 'Asa', 'Nagi', 'Michiru', 'Tomori']) {
   invariant(prompt.includes(token), `generation prompt lost Core5 identity: ${token}`);
+  invariant(isolatedPrompt.includes(token), `isolated generation prompt lost Core5 identity: ${token}`);
   invariant(brief.includes(token), `identity brief lost Core5 identity: ${token}`);
 }
 invariant(prompt.includes('Do not add a sixth foreground human.'), 'generation prompt lost sixth-human exclusion');
+invariant(isolatedPrompt.includes('No sixth human.'), 'isolated prompt lost sixth-human exclusion');
 invariant(brief.includes('Do not invent substitute characters or merge identities.'), 'identity brief lost substitute/merge exclusion');
+invariant(
+  bundle.isolatedPromptAuthority === authorities[1].path,
+  'generation bundle must bind the isolated generation prompt authority',
+);
+for (const forbidden of ['GitHub', 'pull request', 'CI status', 'roadmap panel', 'progress dashboard']) {
+  invariant(!isolatedPrompt.includes(forbidden), `isolated prompt reintroduced development context: ${forbidden}`);
+}
+for (const required of [
+  'One continuous illustration only.',
+  'No typography, no logo, no interface',
+  'Exactly five foreground humans',
+  'any dashboard',
+  'any infographic',
+  'any development/status information',
+]) {
+  invariant(isolatedPrompt.includes(required), `isolated generation prompt lost visual-only guard: ${required}`);
+}
 
 console.log('TOP Living Night generation authority lock: PASS');
-console.log('prompt + identity brief revisions are explicitly locked; intentional edits require lock review');
+console.log('full prompt + isolated visual-only prompt + identity brief are explicitly locked');
+console.log('isolated prompt is bundle-bound and excludes development/status/dashboard context');
