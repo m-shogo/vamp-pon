@@ -20,7 +20,10 @@
     "particlesSuppressed": false,
     "rareRobotEyeSuppressed": false,
     "fireRemainsRestrained": false,
-    "uiFunctional": false
+    "uiFunctional": false,
+    "liveToggleToReducedSettled": false,
+    "liveToggleBackToNormalSettled": false,
+    "noToggleVisualPopOrDuplication": false
   },
   "unityVersion": "",
   "verifiedCommit": "",
@@ -28,5 +31,5 @@
   "motionApproved": false,
   "runtimeApproved": false,
   "finalApprovalBlocked": true,
-  "notes": "Static motion contract exists, but five-minute normal-motion and Reduced Motion runtime reviews have not been executed on the current V3 runtime. candidateSha256 must be populated from the exact Core5 final TOP PNG before any motion review can be approved."
+  "notes": "Static motion contract exists, but five-minute normal-motion and Reduced Motion runtime reviews have not been executed on the current V3 runtime. candidateSha256 must be populated from the exact Core5 final TOP PNG before any motion review can be approved. Reduced Motion approval also requires live ON->OFF->ON preference toggles on the displayed TOP to settle without a visual pop, duplication, or view rebuild."
 }
