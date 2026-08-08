@@ -89,6 +89,16 @@
     "registrationDoesNotApprove": true,
     "resetsCandidateSensitiveEvidence": true
   },
+  "intake": {
+    "incomingPath": "docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png",
+    "canonicalPath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+    "workflow": ".github/workflows/top-final-art-intake.yml",
+    "stagingScript": "scripts/unity/stage-top-living-night-final-art-intake.py",
+    "atomicCanonicalRegistration": true,
+    "incomingIsOneShot": true,
+    "intakeDoesNotApprove": true,
+    "forcePushAllowed": false
+  },
   "automation": {
     "prepareReviewPack": "scripts/unity/prepare-top-living-night-final-review-pack.sh",
     "unityV3Verification": "scripts/unity/run-top-living-night-v3-unity-verification.sh",
