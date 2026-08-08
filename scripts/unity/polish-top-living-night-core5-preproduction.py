@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+from collections import deque
+import importlib.util
+from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageFilter
+
+ROOT = Path(__file__).resolve().parents[2]
+LAYOUT_GENERATOR = ROOT / "scripts/unity/generate-top-living-night-core5-layout-proof.py"
+OUTPUT_DIR = ROOT / "docs/design-targets/generated/top-living-night-v3/preproduction"
+CHARACTERS = ("yui", "asa", "nagi", "michiru", "tomori")
+
+
+def load_layout_module():
+    spec = importlib.util.spec_from_file_location("top_core5_layout_proof_polish", LAYOUT_GENERATOR)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("could not load Core5 layout generator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def largest_alpha_component(image: Image.Image) -> Image.Image:
+    rgba = image.convert("RGBA")
+    width, height = rgba.size
+    alpha = list(rgba.getchannel("A").getdata())
+    foreground = bytearray(1 if value > 64 else 0 for value in alpha)
+    seen = bytearray(width * height)
+    largest: list[int] = []
+
+    for start in range(width * height):
+        if not foreground[start] or seen[start]:
+            continue
+        pending = [start]
+        seen[start] = 1
+        component: list[int] = []
+        while pending:
+            index = pending.pop()
+            component.append(index)
+            y, x = divmod(index, width)
+            for neighbor in (
+                index - width if y > 0 else -1,
+                index + width if y + 1 < height else -1,
+                index - 1 if x > 0 else -1,
+                index + 1 if x + 1 < width else -1,
+            ):
+                if neighbor >= 0 and foreground[neighbor] and not seen[neighbor]:
+                    seen[neighbor] = 1
+                    pending.append(neighbor)
+        if len(component) > len(largest):
+            largest = component
+
+    if not largest:
+        raise RuntimeError("Core5 cutout has no visible alpha component")
+
+    cleaned_alpha = bytearray(width * height)
+    for index in largest:
+        cleaned_alpha[index] = alpha[index]
+    alpha_image = Image.frombytes("L", (width, height), bytes(cleaned_alpha)).filter(ImageFilter.GaussianBlur(0.5))
+    rgba.putalpha(alpha_image)
+    return rgba
+
+
+def rebuild_layout(module, sprites: dict[str, Image.Image]) -> None:
+    with Image.open(module.BRIDGE) as bridge_source:
+        bridge_source.load()
+        if bridge_source.size != (430, 932):
+            raise RuntimeError(f"bridge must remain 430x932, got {bridge_source.size}")
+        output = module.blur_bridge_human_cluster(bridge_source)
+
+    for character, x, y, target_height in module.PLACEMENTS:
+        sprite = sprites[character]
+        scale = target_height / sprite.height
+        target_width = max(1, round(sprite.width * scale))
+        resized = sprite.resize((target_width, target_height), Image.Resampling.LANCZOS)
+        alpha = resized.getchannel("A")
+        shadow = Image.new("RGBA", resized.size, (0, 0, 0, 0))
+        shadow.putalpha(alpha.filter(ImageFilter.GaussianBlur(4)).point(lambda value: round(value * 0.55)))
+        output.alpha_composite(shadow, (x + 4, y + 6))
+        output.alpha_composite(resized, (x, y))
+
+    warm_mask = Image.new("L", output.size, 0)
+    draw = ImageDraw.Draw(warm_mask)
+    draw.ellipse((60, 365, 380, 690), fill=55)
+    warm_mask = warm_mask.filter(ImageFilter.GaussianBlur(60))
+    warm = Image.new("RGBA", output.size, (255, 125, 45, 0))
+    warm.putalpha(warm_mask)
+    output = Image.alpha_composite(output, warm)
+    output.convert("RGB").save(module.LAYOUT_PROOF, format="PNG", optimize=True)
+
+
+def main() -> None:
+    module = load_layout_module()
+    sprites: dict[str, Image.Image] = {}
+    for character in CHARACTERS:
+        path = OUTPUT_DIR / f"core5-{character}-fullbody-cutout-v1.png"
+        if not path.is_file():
+            raise RuntimeError(f"missing generated Core5 cutout: {path.relative_to(ROOT)}")
+        with Image.open(path) as source:
+            source.load()
+            cleaned = largest_alpha_component(source)
+        cleaned.save(path, format="PNG", optimize=True)
+        sprites[character] = cleaned
+        print(f"cleaned={path.relative_to(ROOT)}")
+
+    rebuild_layout(module, sprites)
+    print(f"rebuilt={module.LAYOUT_PROOF.relative_to(ROOT)}")
+    print("TOP Core5 preproduction polish: PASS")
+    print("NOTE: only generated preproduction cutout/layout pixels changed; no candidate/review/runtime authority is written.")
+
+
+if __name__ == "__main__":
+    main()
