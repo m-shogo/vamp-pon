@@ -5,26 +5,26 @@ Use only the following six images as visual inputs.
 1. preproduction/core5-clean-composition-plate-v1.png
    Role: composition/environment only. Preserve the quiet night, crescent moon, campfire, rail/station/town depth, white animal, small round robot, title-safe sky and dark button-safe bottom region. Do not invent any human from this image.
 
-2. preproduction/core5-yui-fullbody-cutout-v1.png
-   Role: Yui identity only.
+2. preproduction/core5-yui-identity-reference-v1.png
+   Role: Yui identity only. This is a single-human full-body crop from the locked master; use the person, clothing and lantern identity, not its paper/ground background.
 
-3. preproduction/core5-asa-fullbody-cutout-v1.png
-   Role: Asa identity only.
+3. preproduction/core5-asa-identity-reference-v1.png
+   Role: Asa identity only. This is a single-human full-body crop from the locked master; preserve side braid, navy cape and name-tag motifs without copying the reference background.
 
-4. preproduction/core5-nagi-fullbody-cutout-v1.png
-   Role: Nagi identity only.
+4. preproduction/core5-nagi-identity-reference-v1.png
+   Role: Nagi identity only. This is a single-human full-body crop from the locked master; preserve blunt dark hair, moon hood, crescent clasp and moon-box identity without copying the reference background.
 
-5. preproduction/core5-michiru-fullbody-cutout-v1.png
-   Role: Michiru identity only.
+5. preproduction/core5-michiru-identity-reference-v1.png
+   Role: Michiru identity only. This is a single-human full-body crop from the locked master; preserve teal ribbon, route-pattern cape and compass identity without copying the reference background.
 
-6. preproduction/core5-tomori-fullbody-cutout-v1.png
-   Role: Tomori identity only.
+6. preproduction/core5-tomori-identity-reference-v1.png
+   Role: Tomori identity only. This is a single-human full-body crop from the locked master; preserve warm tied hair, rust repair cape, tool belt and repair-lamp identity without copying the reference background.
 
 Exactly five foreground humans must appear: Yui, Asa, Nagi, Michiru and Tomori. No sixth human, no generic substitute, no duplicate identity.
 
 Mobile portrait depth is mandatory: do not make all five humans small and do not place them in one equal-scale row. One or two Core5 characters must read clearly nearer and larger, two at middle depth, and one slightly farther back or beside the campfire. Every face and signature prop must remain readable while keeping the top title-safe sky and bottom button-safe region clear.
 
-Do not use any other image as a visual reference. In particular, do not use a raw bridge image, old human layers, layout proof, diagnostic contact sheet, removal mask, status screen, dashboard or interface screenshot.
+Do not use any other image as a visual reference. In particular, do not use engineering fullbody-cutout PNGs, a raw bridge image, old human layers, layout proof, combined convenience reference, diagnostic contact sheet, removal mask, status screen, dashboard or interface screenshot.
 
 Use final-key-art-isolated-prompt.txt as the text instruction.
 
