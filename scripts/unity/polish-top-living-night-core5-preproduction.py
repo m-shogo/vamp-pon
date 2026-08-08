@@ -81,11 +81,11 @@ def largest_alpha_component(image: Image.Image) -> Image.Image:
 
 
 def rebuild_layout(module, sprites: dict[str, Image.Image]) -> None:
-    with Image.open(module.BRIDGE) as bridge_source:
-        bridge_source.load()
-        if bridge_source.size != (430, 932):
-            raise RuntimeError(f"bridge must remain 430x932, got {bridge_source.size}")
-        output = module.blur_bridge_human_cluster(bridge_source)
+    with Image.open(module.CLEAN_PLATE) as clean_source:
+        clean_source.load()
+        if clean_source.size != (430, 932):
+            raise RuntimeError(f"clean composition plate must remain 430x932, got {clean_source.size}")
+        output = clean_source.convert("RGBA")
 
     for character, x, y, target_height in module.PLACEMENTS:
         sprite = sprites[character]
@@ -123,9 +123,11 @@ def main() -> None:
         print(f"cleaned={path.relative_to(ROOT)}")
 
     rebuild_layout(module, sprites)
+    module.make_clean_reference_pack(sprites)
     print(f"rebuilt={module.LAYOUT_PROOF.relative_to(ROOT)}")
+    print(f"rebuiltReferencePack={module.REFERENCE_PACK.relative_to(ROOT)}")
     print("TOP Core5 preproduction polish: PASS")
-    print("NOTE: only generated preproduction cutout/layout pixels changed; no candidate/review/runtime authority is written.")
+    print("NOTE: generated model-facing visuals contain the clean composition plate + Core5 only; no raw bridge humans or approval authority are written.")
 
 
 if __name__ == "__main__":
