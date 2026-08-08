@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.UI.Screens
 {
     // Runs after TopLivingNightView.Update so the long-period Perlin drift replaces
-    // the short, visibly periodic presentation motion without changing the
-    // underlying fire/smoke/ember simulation or asset lifecycle.
+    // the short, visibly periodic presentation motion without changing texture or
+    // particle lifecycle ownership. It also owns the post-view Reduced Motion
+    // presentation override so live preference changes settle without rebuilding TOP.
     [DefaultExecutionOrder(900)]
     public sealed class TopLivingNightAmbientMotionDirector : MonoBehaviour
     {
@@ -15,11 +18,14 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private static TopLivingNightAmbientMotionDirector instance;
 
+        private readonly List<RawImage> reducedHidden = new();
         private TopLivingNightView top;
         private RectTransform artRoot;
         private RectTransform titleRoot;
         private RectTransform cloudsFar;
         private RectTransform cloudsNear;
+        private RawImage stars;
+        private RawImage fireGlow;
         private Vector2 artBasePosition;
         private Vector3 artBaseScale = Vector3.one;
         private readonly Vector2 titleBasePosition = Vector2.zero;
@@ -72,6 +78,8 @@ namespace VampPon.UnitySpike.UI.Screens
                 var current = FindFirstObjectByType<TopLivingNightView>();
                 if (current != top)
                     Bind(current);
+                else if (current != null)
+                    RefreshVisualBindings();
             }
 
             if (time >= nextPreferencePollAt)
@@ -86,6 +94,7 @@ namespace VampPon.UnitySpike.UI.Screens
             if (reducedMotion)
             {
                 RestorePose();
+                ApplyReducedMotionVisuals();
                 return;
             }
 
@@ -100,6 +109,9 @@ namespace VampPon.UnitySpike.UI.Screens
             titleRoot = null;
             cloudsFar = null;
             cloudsNear = null;
+            stars = null;
+            fireGlow = null;
+            reducedHidden.Clear();
             poseCaptured = false;
 
             if (top == null)
@@ -109,6 +121,7 @@ namespace VampPon.UnitySpike.UI.Screens
             titleRoot = FindRect(top.transform, "TitleGroup");
             cloudsFar = FindRect(top.transform, "CloudsFar");
             cloudsNear = FindRect(top.transform, "CloudsNear");
+            RefreshVisualBindings();
 
             if (artRoot == null || titleRoot == null || cloudsFar == null || cloudsNear == null)
             {
@@ -124,6 +137,39 @@ namespace VampPon.UnitySpike.UI.Screens
             // before this director runs, so capturing their current values here
             // would accidentally freeze an arbitrary animation offset in Reduced Motion.
             poseCaptured = true;
+        }
+
+        private void RefreshVisualBindings()
+        {
+            stars = null;
+            fireGlow = null;
+            reducedHidden.Clear();
+            if (top == null)
+                return;
+
+            foreach (var image in top.GetComponentsInChildren<RawImage>(true))
+            {
+                if (image == null)
+                    continue;
+
+                if (string.Equals(image.name, "Stars", StringComparison.Ordinal))
+                {
+                    stars = image;
+                    continue;
+                }
+
+                if (string.Equals(image.name, "FireGlow", StringComparison.Ordinal))
+                {
+                    fireGlow = image;
+                    continue;
+                }
+
+                if (
+                    string.Equals(image.name, "RobotEye", StringComparison.Ordinal) ||
+                    image.name.StartsWith("Smoke_", StringComparison.Ordinal) ||
+                    image.name.StartsWith("Ember_", StringComparison.Ordinal))
+                    reducedHidden.Add(image);
+            }
         }
 
         private void ApplyBreathingNight(float time)
@@ -147,6 +193,21 @@ namespace VampPon.UnitySpike.UI.Screens
             var nearX = (Mathf.PerlinNoise(17.29f, time * .037f) - .5f) * 9.2f;
             var nearY = (Mathf.PerlinNoise(19.87f, time * .029f) - .5f) * 1.5f;
             cloudsNear.anchoredPosition = nearBasePosition + new Vector2(nearX, nearY);
+        }
+
+        private void ApplyReducedMotionVisuals()
+        {
+            // TopLivingNightView may still hold the preference value it read when
+            // it was built. Because this director executes later, the live
+            // preference can still immediately suppress sparse motion without
+            // taking ownership of textures or particle objects.
+            if (stars != null)
+                stars.color = WithAlpha(stars.color, .62f);
+            if (fireGlow != null)
+                fireGlow.color = WithAlpha(fireGlow.color, .56f);
+            foreach (var image in reducedHidden)
+                if (image != null)
+                    image.color = WithAlpha(image.color, 0f);
         }
 
         private void RefreshReducedMotion()
@@ -192,9 +253,16 @@ namespace VampPon.UnitySpike.UI.Screens
             return null;
         }
 
+        private static Color WithAlpha(Color color, float alpha)
+        {
+            color.a = Mathf.Clamp01(alpha);
+            return color;
+        }
+
         private void OnDestroy()
         {
             RestorePose();
+            reducedHidden.Clear();
             if (instance == this)
                 instance = null;
         }
