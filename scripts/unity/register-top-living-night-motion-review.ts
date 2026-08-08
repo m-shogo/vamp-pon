@@ -14,29 +14,16 @@ const paths = {
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
-
 function arg(name: string): string {
   const prefix = `--${name}=`;
   const found = process.argv.find(value => value.startsWith(prefix));
   return found ? found.slice(prefix.length) : '';
 }
-
-function readJson(path: string): any {
-  return JSON.parse(readFileSync(join(root, path), 'utf8'));
-}
-
-function writeJson(path: string, value: unknown): void {
-  writeFileSync(join(root, path), `${JSON.stringify(value, null, 2)}\n`, 'utf8');
-}
-
+function readJson(path: string): any { return JSON.parse(readFileSync(join(root, path), 'utf8')); }
+function writeJson(path: string, value: unknown): void { writeFileSync(join(root, path), `${JSON.stringify(value, null, 2)}\n`, 'utf8'); }
 function validUtc(value: unknown): value is string {
-  return (
-    typeof value === 'string' &&
-    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value) &&
-    Number.isFinite(Date.parse(value))
-  );
+  return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value) && Number.isFinite(Date.parse(value));
 }
-
 function canonicalInputPath(input: string): string {
   const absolute = isAbsolute(input) ? normalize(input) : join(root, normalize(input));
   const repoRelative = relative(root, absolute).replaceAll('\\', '/');
@@ -46,14 +33,10 @@ function canonicalInputPath(input: string): string {
 }
 
 function main(): void {
-  for (const path of Object.values(paths)) {
-    invariant(existsSync(join(root, path)), `motion review authority/evidence is missing: ${path}`);
-  }
-
+  for (const path of Object.values(paths)) invariant(existsSync(join(root, path)), `motion review authority/evidence is missing: ${path}`);
   const finalArt = readJson(paths.finalArt);
   const motion = readJson(paths.motion);
   const unity = readJson(paths.unity);
-
   invariant(finalArt.schemaVersion === 1, 'final-art schema mismatch');
   invariant(motion.schemaVersion === 1, 'motion review schema mismatch');
   invariant(unity.schemaVersion === 1, 'Unity V3 evidence schema mismatch');
@@ -62,7 +45,7 @@ function main(): void {
 
   if (dryRun) {
     console.log('TOP motion review registration: DRY_RUN_READY');
-    console.log('input: current candidate/Unity provenance + reviewedAtUtc + normal >=300s observations + Reduced Motion >=60s observations + optional notes');
+    console.log('input: current candidate/Unity provenance + reviewedAtUtc + normal >=300s + Reduced Motion >=60s + live OFF->ON->OFF toggle observations + optional notes');
     console.log('candidate SHA / Unity version / verified commit are bound automatically from current PASSED Unity V3 evidence and stale templates are rejected.');
     console.log('registration never promotes runtimeApproved or approvedAsFinal.');
     return;
@@ -71,7 +54,6 @@ function main(): void {
   invariant(finalArt.candidateGenerated === true, 'motion review requires registered final candidate');
   invariant(/^[0-9a-f]{64}$/.test(finalArt.candidateSha256), 'motion review requires valid final candidate SHA-256');
   invariant(!finalArt.runtimeApproved && !finalArt.approvedAsFinal, 'approved/runtime-approved final art must be re-registered before motion review can change');
-
   invariant(unity.executed === true && unity.result === 'PASSED', 'motion review requires PASSED Unity V3 evidence');
   invariant(/^[0-9a-f]{40}$/.test(unity.verifiedCommit), 'motion review requires Unity verified commit');
   invariant(typeof unity.unityVersion === 'string' && unity.unityVersion.length > 0, 'motion review requires Unity version');
@@ -94,20 +76,12 @@ function main(): void {
   invariant(Number.isFinite(input.normalMotion?.reviewDurationSeconds) && input.normalMotion.reviewDurationSeconds >= 0, 'motion review input requires normal duration');
   invariant(Number.isFinite(input.reducedMotion?.reviewDurationSeconds) && input.reducedMotion.reviewDurationSeconds >= 0, 'motion review input requires Reduced Motion duration');
 
-  for (const key of [
-    'obviousShortLoopObserved',
-    'accumulatingParticlesObserved',
-    'brightnessDriftObserved',
-    'textureLifecycleIssueObserved',
-  ]) {
+  for (const key of ['obviousShortLoopObserved','accumulatingParticlesObserved','brightnessDriftObserved','textureLifecycleIssueObserved']) {
     invariant(typeof input.normalMotion?.[key] === 'boolean', `motion review input requires normal boolean ${key}`);
   }
   for (const key of [
-    'cloudMovementStopped',
-    'particlesSuppressed',
-    'rareRobotEyeSuppressed',
-    'fireRemainsRestrained',
-    'uiFunctional',
+    'cloudMovementStopped','particlesSuppressed','rareRobotEyeSuppressed','fireRemainsRestrained','uiFunctional',
+    'liveToggleToReducedSettled','liveToggleBackToNormalSettled','noToggleVisualPopOrDuplication',
   ]) {
     invariant(typeof input.reducedMotion?.[key] === 'boolean', `motion review input requires Reduced Motion boolean ${key}`);
   }
@@ -124,7 +98,10 @@ function main(): void {
     input.reducedMotion.particlesSuppressed &&
     input.reducedMotion.rareRobotEyeSuppressed &&
     input.reducedMotion.fireRemainsRestrained &&
-    input.reducedMotion.uiFunctional;
+    input.reducedMotion.uiFunctional &&
+    input.reducedMotion.liveToggleToReducedSettled &&
+    input.reducedMotion.liveToggleBackToNormalSettled &&
+    input.reducedMotion.noToggleVisualPopOrDuplication;
   const approved = normalPassed && reducedPassed;
 
   Object.assign(motion.normalMotion, {
@@ -145,6 +122,9 @@ function main(): void {
     rareRobotEyeSuppressed: input.reducedMotion.rareRobotEyeSuppressed,
     fireRemainsRestrained: input.reducedMotion.fireRemainsRestrained,
     uiFunctional: input.reducedMotion.uiFunctional,
+    liveToggleToReducedSettled: input.reducedMotion.liveToggleToReducedSettled,
+    liveToggleBackToNormalSettled: input.reducedMotion.liveToggleBackToNormalSettled,
+    noToggleVisualPopOrDuplication: input.reducedMotion.noToggleVisualPopOrDuplication,
   });
   motion.candidatePath = canonicalFinalPath;
   motion.candidateSha256 = finalArt.candidateSha256;
@@ -161,13 +141,12 @@ function main(): void {
   finalArt.approvedAsFinal = false;
   finalArt.finalApprovalBlocked = true;
   finalArt.reviewedAtUtc = '';
-
   writeJson(paths.motion, motion);
   writeJson(paths.finalArt, finalArt);
 
   console.log('TOP motion review registration: RECORDED');
   console.log(`normal=${motion.normalMotion.result}/${motion.normalMotion.reviewDurationSeconds}s`);
-  console.log(`reduced=${motion.reducedMotion.result}/${motion.reducedMotion.reviewDurationSeconds}s`);
+  console.log(`reduced=${motion.reducedMotion.result}/${motion.reducedMotion.reviewDurationSeconds}s liveToggle=${motion.reducedMotion.liveToggleToReducedSettled && motion.reducedMotion.liveToggleBackToNormalSettled && motion.reducedMotion.noToggleVisualPopOrDuplication}`);
   console.log(`approved=${motion.motionApproved}`);
   console.log(`verifiedCommit=${unity.verifiedCommit}`);
   console.log('runtimeApproved=false approvedAsFinal=false (motion review never promotes runtime/final approval)');
