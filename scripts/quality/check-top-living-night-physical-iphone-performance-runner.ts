@@ -1,3 +1,4 @@
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -9,7 +10,8 @@ const samplerPath = join(
 const samplerMetaPath = `${samplerPath}.meta`;
 const nativePath = join(root, 'unity/VampPonUnity/Assets/Plugins/iOS/TopLivingNightThermalState.mm');
 const nativeMetaPath = `${nativePath}.meta`;
-const runnerPath = join(root, 'scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh');
+const runnerRelativePath = 'scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh';
+const runnerPath = join(root, runnerRelativePath);
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
@@ -113,6 +115,15 @@ invariant(
 invariant(
   runner.includes('v3.sourceCompositeSha256 !== capture.topCompositeSha256'),
   'physical-iPhone runner must bind V3 and capture to one composite SHA',
+);
+
+const bashSyntax = spawnSync('bash', ['-n', runnerRelativePath], {
+  cwd: root,
+  encoding: 'utf8',
+});
+invariant(
+  bashSyntax.status === 0,
+  `physical-iPhone performance runner bash syntax failed:\n${bashSyntax.stdout}\n${bashSyntax.stderr}`,
 );
 
 console.log('TOP Living Night physical-iPhone performance runner contract: PASS');
