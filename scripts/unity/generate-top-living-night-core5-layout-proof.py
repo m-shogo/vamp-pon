@@ -5,9 +5,9 @@ from collections import deque
 import json
 import math
 from pathlib import Path
-from typing import Dict, Iterable, Tuple
+from statistics import median
+from typing import Dict, Tuple
 
-import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -56,83 +56,110 @@ def normalized_crop(image: Image.Image, box: Tuple[float, float, float, float]) 
     )
 
 
+def color_distance(left: Tuple[int, int, int], right: Tuple[float, float, float]) -> float:
+    return math.sqrt(sum((left[index] - right[index]) ** 2 for index in range(3)))
+
+
 def remove_connected_cream_background(crop: Image.Image) -> Image.Image:
-    rgb = np.asarray(crop.convert("RGB"), dtype=np.uint8)
-    height, width, _ = rgb.shape
+    rgb = crop.convert("RGB")
+    width, height = rgb.size
+    pixels = list(rgb.getdata())
     corner = max(4, min(width, height) // 15)
-    samples = np.concatenate(
-        [
-            rgb[:corner, :corner].reshape(-1, 3),
-            rgb[:corner, -corner:].reshape(-1, 3),
-            rgb[-corner:, :corner].reshape(-1, 3),
-            rgb[-corner:, -corner:].reshape(-1, 3),
-        ]
-    )
-    background = np.median(samples.astype(np.float32), axis=0)
-    difference = np.linalg.norm(rgb.astype(np.float32) - background, axis=2)
-    maximum = rgb.max(axis=2)
-    minimum = rgb.min(axis=2)
-    saturation = maximum - minimum
-    lightness = rgb.mean(axis=2)
-    candidate = (difference < 50.0) & (lightness > 150.0) & (saturation < 65)
 
-    background_connected = np.zeros((height, width), dtype=np.bool_)
-    queue: deque[Tuple[int, int]] = deque()
+    sample_pixels = []
+    for y in range(corner):
+        for x in range(corner):
+            sample_pixels.append(pixels[y * width + x])
+            sample_pixels.append(pixels[y * width + (width - 1 - x)])
+            sample_pixels.append(pixels[(height - 1 - y) * width + x])
+            sample_pixels.append(pixels[(height - 1 - y) * width + (width - 1 - x)])
+    background = tuple(float(median(channel)) for channel in zip(*sample_pixels))
 
-    def seed(y: int, x: int) -> None:
-        if candidate[y, x] and not background_connected[y, x]:
-            background_connected[y, x] = True
-            queue.append((y, x))
+    candidate = [False] * (width * height)
+    for index, pixel in enumerate(pixels):
+        lightness = sum(pixel) / 3.0
+        saturation = max(pixel) - min(pixel)
+        candidate[index] = (
+            color_distance(pixel, background) < 50.0
+            and lightness > 150.0
+            and saturation < 65
+        )
+
+    background_connected = bytearray(width * height)
+    queue: deque[int] = deque()
+
+    def seed(index: int) -> None:
+        if candidate[index] and not background_connected[index]:
+            background_connected[index] = 1
+            queue.append(index)
 
     for x in range(width):
-        seed(0, x)
-        seed(height - 1, x)
+        seed(x)
+        seed((height - 1) * width + x)
     for y in range(height):
-        seed(y, 0)
-        seed(y, width - 1)
+        seed(y * width)
+        seed(y * width + width - 1)
 
     while queue:
-        y, x = queue.popleft()
-        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            ny, nx = y + dy, x + dx
-            if 0 <= ny < height and 0 <= nx < width and candidate[ny, nx] and not background_connected[ny, nx]:
-                background_connected[ny, nx] = True
-                queue.append((ny, nx))
+        index = queue.popleft()
+        y, x = divmod(index, width)
+        if y > 0:
+            neighbor = index - width
+            if candidate[neighbor] and not background_connected[neighbor]:
+                background_connected[neighbor] = 1
+                queue.append(neighbor)
+        if y + 1 < height:
+            neighbor = index + width
+            if candidate[neighbor] and not background_connected[neighbor]:
+                background_connected[neighbor] = 1
+                queue.append(neighbor)
+        if x > 0:
+            neighbor = index - 1
+            if candidate[neighbor] and not background_connected[neighbor]:
+                background_connected[neighbor] = 1
+                queue.append(neighbor)
+        if x + 1 < width:
+            neighbor = index + 1
+            if candidate[neighbor] and not background_connected[neighbor]:
+                background_connected[neighbor] = 1
+                queue.append(neighbor)
 
-    foreground = ~background_connected
-    # Remove small disconnected text/palette fragments. The body/ground cluster
-    # dominates the crop and the next few components contain prop/lantern edges.
-    seen = np.zeros((height, width), dtype=np.bool_)
+    foreground = bytearray(0 if background_connected[index] else 1 for index in range(width * height))
+    seen = bytearray(width * height)
     components = []
-    for y in range(height):
-        for x in range(width):
-            if not foreground[y, x] or seen[y, x]:
-                continue
-            points = []
-            pending = [(y, x)]
-            seen[y, x] = True
-            while pending:
-                py, px = pending.pop()
-                points.append((py, px))
-                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    ny, nx = py + dy, px + dx
-                    if 0 <= ny < height and 0 <= nx < width and foreground[ny, nx] and not seen[ny, nx]:
-                        seen[ny, nx] = True
-                        pending.append((ny, nx))
-            components.append(points)
+    for start in range(width * height):
+        if not foreground[start] or seen[start]:
+            continue
+        points = []
+        pending = [start]
+        seen[start] = 1
+        while pending:
+            index = pending.pop()
+            points.append(index)
+            y, x = divmod(index, width)
+            for neighbor in (
+                index - width if y > 0 else -1,
+                index + width if y + 1 < height else -1,
+                index - 1 if x > 0 else -1,
+                index + 1 if x + 1 < width else -1,
+            ):
+                if neighbor >= 0 and foreground[neighbor] and not seen[neighbor]:
+                    seen[neighbor] = 1
+                    pending.append(neighbor)
+        components.append(points)
 
     components.sort(key=len, reverse=True)
-    keep = np.zeros((height, width), dtype=np.uint8)
+    alpha = bytearray(width * height)
     minimum_area = max(40, (height * width) // 2500)
     for points in components[:5]:
         if len(points) < minimum_area:
             continue
-        for y, x in points:
-            keep[y, x] = 255
+        for index in points:
+            alpha[index] = 255
 
-    alpha = Image.fromarray(keep, mode="L").filter(ImageFilter.GaussianBlur(0.7))
-    result = crop.convert("RGBA")
-    result.putalpha(alpha)
+    alpha_image = Image.frombytes("L", (width, height), bytes(alpha)).filter(ImageFilter.GaussianBlur(0.7))
+    result = rgb.convert("RGBA")
+    result.putalpha(alpha_image)
     return result
 
 
@@ -192,7 +219,7 @@ def make_layout_proof(sprites: Dict[str, Image.Image]) -> None:
     output.convert("RGB").save(LAYOUT_PROOF, format="PNG", optimize=True)
 
 
-def make_clean_reference_pack(sprites: Dict[str, Image.Image]) -> None:
+def make_clean_reference_pack() -> None:
     canvas = Image.new("RGB", (1400, 1800), (10, 18, 32))
     with Image.open(BRIDGE) as bridge:
         bridge = ImageOps.contain(bridge.convert("RGB"), (720, 1720), Image.Resampling.LANCZOS)
@@ -217,7 +244,7 @@ def main() -> None:
 
     sprites = extract_core5()
     make_layout_proof(sprites)
-    make_clean_reference_pack(sprites)
+    make_clean_reference_pack()
 
     final_status = json.loads(FINAL_STATUS.read_text(encoding="utf-8"))
     print("TOP Core5 layout proof: GENERATED")
