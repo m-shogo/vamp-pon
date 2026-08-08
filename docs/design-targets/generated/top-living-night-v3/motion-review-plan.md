@@ -30,10 +30,13 @@ Before starting either runtime review, record:
 
 1. **Fire flipbook**
    - 12-frame atlas
-   - ping-pong direction rather than hard restart
-   - small Perlin-driven interval variation
-   - occasional held frame to break mechanical cadence
-   - Reduced Motion: slower cadence
+   - final visible cadence is owned by `TopLivingNightFireCadenceDirector`
+   - adjacent-frame random walk only; no arbitrary frame jumps
+   - independent Perlin cadence variation
+   - occasional held frame
+   - rare interior direction reversal to break the obvious `0 → 11 → 0` loop
+   - atlas texture/resource lifecycle remains owned by `TopLivingNightView`
+   - Reduced Motion: much slower cadence, fire remains visible rather than freezing or disappearing
 
 2. **Fire glow**
    - two independent Perlin frequencies mixed together
@@ -44,14 +47,16 @@ Before starting either runtime review, record:
 ### Tier 2 — slow environmental motion
 
 3. **Far clouds**
-   - very slow horizontal drift
-   - different frequency from near clouds
-   - Reduced Motion: stop movement
+   - final visible displacement is owned by `TopLivingNightAmbientMotionDirector`
+   - slow low-amplitude Perlin x/y drift rather than short sine pendulum motion
+   - unrelated frequency from near clouds
+   - Reduced Motion: exact authored zero displacement
 
 4. **Near clouds**
-   - slightly faster and wider drift than far clouds
-   - phase offset from far clouds
-   - Reduced Motion: stop movement
+   - final visible displacement is owned by `TopLivingNightAmbientMotionDirector`
+   - slightly wider/faster Perlin drift than far clouds
+   - no shared phase/reset with far clouds
+   - Reduced Motion: exact authored zero displacement
 
 5. **Stars**
    - low-amplitude Perlin luminance movement
@@ -66,21 +71,28 @@ Before starting either runtime review, record:
    - independent low-frequency pulse
    - must not lock to fire glow
 
+8. **Whole-art breathing / title micro-motion**
+   - post-view motion owned by `TopLivingNightAmbientMotionDirector`
+   - art root: sub-pixel x/y Perlin drift plus extremely small scale breathing
+   - title: sub-pixel Perlin vertical movement only
+   - no camera shake, no large parallax, no synchronized sine reset
+   - Reduced Motion: art returns to captured authored base pose; title returns to exact zero anchored position
+
 ### Tier 3 — sparse stochastic accents
 
-8. **Robot eye**
+9. **Robot eye**
    - rare event on a long cycle
    - brief soft pulse only
    - no rapid blinking
    - Reduced Motion: rare pulse disabled
 
-9. **Smoke wisps**
-   - several particles with different duration / phase / rise
-   - slight lateral drift
-   - fade in/out rather than popping
-   - Reduced Motion: visually disabled
+10. **Smoke wisps**
+    - several particles with different duration / phase / rise
+    - slight lateral drift
+    - fade in/out rather than popping
+    - Reduced Motion: visually disabled
 
-10. **Embers**
+11. **Embers**
     - several independent particles with varied duration / phase / rise
     - sparse, small and local to the fire
     - Reduced Motion: visually disabled
@@ -89,7 +101,9 @@ Before starting either runtime review, record:
 
 These values are implementation anchors to prevent accidental synchronization. Small deliberate tuning is allowed only with corresponding contract/review updates.
 
-| System | Static anchor |
+The first table records `TopLivingNightView` base motion. For title/cloud/fire atlas UV motion, the V3 post-view directors below are the final visible owner after the base view has updated.
+
+| System | Base-view static anchor |
 | --- | --- |
 | title drift | `0.52` frequency, ~1.2 px amplitude |
 | far cloud | `0.113`, ~2.8 px |
@@ -100,12 +114,37 @@ These values are implementation anchors to prevent accidental synchronization. S
 | fire glow B | Perlin `1.67` |
 | lantern | Perlin `0.19` |
 | robot eye | `47 s` cycle, ~`1.35 s` event window |
-| normal fire interval | ~`0.105 s` + bounded Perlin variance |
-| Reduced Motion fire interval | `0.25 s` |
+| base fire interval | ~`0.105 s` + bounded Perlin variance |
+| base Reduced Motion fire interval | `0.25 s` |
 | smoke duration family | `4.8 + index * 1.05 s` |
 | smoke phase family | `0.17 + index * 0.23` |
 | ember duration family | `2.6 + index % 4 * 0.44 s` |
 | ember phase family | `0.09 * index` |
+
+### V3 post-view anti-loop directors
+
+`TopLivingNightAmbientMotionDirector` executes after the base view and replaces short periodic presentation displacement with unrelated slow Perlin fields:
+
+| Visible system | V3 director anchor |
+| --- | --- |
+| art x | Perlin seed `0.31`, frequency `0.031`, ~1.4 px span |
+| art y | Perlin seed `1.73`, frequency `0.027`, ~0.9 px span |
+| art scale | Perlin seed `4.91`, frequency `0.019`, ±~0.09% |
+| title y | Perlin seed `7.33`, frequency `0.047`, ~0.7 px span |
+| far cloud x/y | seeds `11.17` / `13.61`, frequencies `0.023` / `0.017` |
+| near cloud x/y | seeds `17.29` / `19.87`, frequencies `0.037` / `0.029` |
+
+`TopLivingNightFireCadenceDirector` executes after both the base view and ambient director and writes only `FireFlipbook.uvRect`:
+
+| Fire cadence property | V3 director anchor |
+| --- | --- |
+| normal interval | Perlin-driven `0.076–0.142 s` |
+| Reduced Motion interval | Perlin-driven `0.30–0.46 s` |
+| hold decision | independent Perlin seed `29.47` |
+| rare interior reversal | independent Perlin seed `37.19`, only frames `2–9` |
+| frame movement | adjacent `±1` only; boundaries clamp/reverse |
+
+The two directors do **not** load textures, replace the V3 composite, own capture readiness, or write approval evidence. They are presentation-only runtime cadence layers.
 
 ## Anti-loop requirements
 
@@ -113,6 +152,9 @@ During a five-minute watch:
 
 - no obvious global reset should be visible
 - cloud layers must not reverse together
+- art breathing/title/cloud drift must not expose a common periodic reset
+- fire must not read as a repeated `0 → 11 → 0` metronome
+- rare interior fire reversals/holds must still look like coherent flame motion rather than frame scrambling
 - fire atlas and fire glow must not peak together repeatedly
 - distant lights and lantern must not pulse together repeatedly
 - smoke wisps must not share the same rise/fade phase
@@ -134,6 +176,7 @@ Motion must remain restrained because the TOP is a menu, not gameplay.
 - no large-opacity pulsing UI
 - no video playback
 - no animation that obscures title or buttons
+- post-view art breathing must remain effectively sub-pixel / imperceptibly slow, not a zoom effect
 
 The visual subject remains the Core5 party.
 
@@ -141,13 +184,15 @@ The visual subject remains the Core5 party.
 
 With either supported Reduced Motion preference active:
 
-- far cloud movement: stopped
-- near cloud movement: stopped
+- far cloud movement: stopped at exact authored zero position
+- near cloud movement: stopped at exact authored zero position
+- whole-art breathing: stopped at captured authored base pose
+- title micro-motion: stopped at exact authored zero position
 - smoke: visually disabled
 - embers: visually disabled
 - robot rare blink/pulse: disabled
 - stars: stable restrained alpha
-- fire flipbook: slowed, not removed
+- fire flipbook: slowed by the post-view cadence director, not removed
 - fire glow: very small variation retained for scene readability
 - UI must remain fully functional
 
@@ -166,6 +211,7 @@ Check:
 - fire position matches painted base
 - no doubled flame/glow
 - no obvious texture pop-in after UI becomes interactive
+- post-view motion directors bind without a one-frame jump in title/cloud/art position
 
 ### Minute 1–3 — loop perception
 
@@ -174,7 +220,10 @@ Watch without interacting.
 Check:
 
 - fire feels irregular but calm
+- no repeated `0 → 11 → 0` cadence becomes obvious
+- fire never jumps between non-adjacent atlas cells
 - clouds do not reveal a short synchronized loop
+- whole-art breathing is barely perceptible and never looks like camera zoom/shake
 - lights remain subtle
 - smoke/embers stay sparse
 - robot-eye event remains surprising and unobtrusive
@@ -190,10 +239,11 @@ Check:
 - no missing/released textures
 - no UI input regression
 - no visible memory/lifecycle symptom after TOP remains open
+- no persistent transform drift after long idle time
 
 ### Reduced Motion pass
 
-Repeat a shorter review with Reduced Motion enabled and verify the gate above.
+Repeat a shorter review with Reduced Motion enabled and verify the gate above, including exact stillness of cloud/title/art displacement while the fire remains restrained and readable.
 
 ## Evidence required for promotion
 
