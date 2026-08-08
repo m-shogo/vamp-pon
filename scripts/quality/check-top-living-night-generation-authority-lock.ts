@@ -23,7 +23,7 @@ const authorities = [
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt',
-    expectedGitBlobSha1: 'c7456bf22125e14aebed8503ff6903f2a9f492c2',
+    expectedGitBlobSha1: 'b3059e53bddb8c99717abe0a92fd9e307a5aceee',
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-identity-brief.md',
@@ -65,6 +65,14 @@ invariant(prompt.includes('Do not add a sixth foreground human.'), 'generation p
 invariant(isolatedPrompt.includes('No sixth human.'), 'isolated prompt lost sixth-human exclusion');
 invariant(brief.includes('Do not invent substitute characters or merge identities.'), 'identity brief lost substitute/merge exclusion');
 invariant(
+  isolatedPrompt.includes('do not make all five humans small'),
+  'isolated prompt lost the mobile portrait scale hierarchy',
+);
+invariant(
+  isolatedPrompt.includes('one or two Core5 characters are clearly nearer and noticeably larger'),
+  'isolated prompt lost the near/mid/far portrait depth rule',
+);
+invariant(
   bundle.isolatedPromptAuthority === authorities[1].path,
   'generation bundle must bind the isolated generation prompt authority',
 );
@@ -84,4 +92,4 @@ for (const required of [
 
 console.log('TOP Living Night generation authority lock: PASS');
 console.log('full prompt + isolated visual-only prompt + identity brief are explicitly locked');
-console.log('isolated prompt is bundle-bound and excludes development/status/dashboard context');
+console.log('isolated prompt is bundle-bound, mobile-depth aware, and excludes development/status/dashboard context');
