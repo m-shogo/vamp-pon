@@ -3,10 +3,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 PREPRODUCTION_DIR = ROOT / "docs/design-targets/generated/top-living-night-v3/preproduction"
+PREPRODUCTION_MANIFEST = PREPRODUCTION_DIR / "manifest.json"
 MODEL_MANIFEST = PREPRODUCTION_DIR / "model-input-manifest.json"
 REFERENCE_MANIFEST = ROOT / "docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json"
 ISOLATED_PROMPT = ROOT / "docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt"
@@ -30,6 +32,20 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def resolve_source_commit() -> str:
+    process = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    commit = process.stdout.strip()
+    if process.returncode != 0 or len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
+        raise RuntimeError("TOP minimal model-input validator could not resolve current source commit")
+    return commit
+
+
 def invariant(condition: bool, message: str) -> None:
     if not condition:
         raise RuntimeError(message)
@@ -37,12 +53,18 @@ def invariant(condition: bool, message: str) -> None:
 
 def main() -> None:
     invariant(MODEL_MANIFEST.is_file(), "TOP minimal model-input manifest is missing")
+    invariant(PREPRODUCTION_MANIFEST.is_file(), "TOP preproduction manifest is missing")
     invariant(REFERENCE_MANIFEST.is_file(), "TOP Core5 reference manifest is missing")
     manifest = json.loads(MODEL_MANIFEST.read_text(encoding="utf-8"))
     reference = json.loads(REFERENCE_MANIFEST.read_text(encoding="utf-8"))
 
     invariant(manifest.get("schemaVersion") == 1, "TOP minimal model-input manifest schema mismatch")
     invariant(manifest.get("authority") == "MODEL_INPUTS_ONLY_NOT_FINAL_ART", "TOP minimal model-input manifest authority mismatch")
+    invariant(manifest.get("sourceCommit") == resolve_source_commit(), "TOP minimal model-input manifest was generated from a different source commit")
+    invariant(
+        manifest.get("sourcePreproductionManifestSha256") == sha256(PREPRODUCTION_MANIFEST),
+        "TOP minimal model-input manifest is not bound to the exact current preproduction-manifest bytes",
+    )
     invariant(manifest.get("visualInputCount") == 6, "TOP minimal model-input manifest must contain exactly six visual inputs")
     invariant(manifest.get("core5ReferenceSetSha256") == reference.get("referenceSetSha256"), "TOP minimal model-input manifest Core5 reference set is stale")
 
@@ -101,7 +123,9 @@ def main() -> None:
         invariant(forbidden not in serialized, f"TOP minimal model-input manifest leaked forbidden context/reference: {forbidden}")
 
     print("TOP minimal model-input manifest validation: PASS")
-    print("exactly 6 visual inputs + 2 hashed text instructions; no raw bridge/layout/diagnostics/development context; non-final/non-approving")
+    print(f"sourceCommit={manifest['sourceCommit']}")
+    print(f"sourcePreproductionManifestSha256={manifest['sourcePreproductionManifestSha256']}")
+    print("exactly 6 visual inputs + 2 hashed text instructions; exact source commit + preproduction-manifest hash; no raw bridge/layout/diagnostics/development context; non-final/non-approving")
 
 
 if __name__ == "__main__":
