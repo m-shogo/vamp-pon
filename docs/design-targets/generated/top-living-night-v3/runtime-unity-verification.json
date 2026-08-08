@@ -13,6 +13,8 @@
   "resourceTextureCount": 0,
   "resourceMaterialCount": 0,
   "controllerResolved": false,
+  "ambientMotionDirectorResolved": false,
+  "fireCadenceDirectorResolved": false,
   "shaderResolved": false,
   "buildHookResolved": false,
   "buildImportPolicyPassed": false,
