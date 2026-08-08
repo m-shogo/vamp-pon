@@ -103,14 +103,25 @@ for (const token of [
   'HUMAN_MASK_LAYERS =',
   '"05-distant-companion.png"',
   '"06-characters.png"',
+  'MANUAL_HUMAN_REGIONS =',
+  '(-55, 300, 145, 610)',
+  '(45, 260, 230, 535)',
+  '(120, 335, 240, 610)',
+  '(195, 340, 320, 615)',
+  '(275, 340, 465, 640)',
+  '(275, 295, 360, 435)',
+  'draw.ellipse(region, fill=255)',
+  'MaxFilter(9)',
+  'MaxFilter(11)',
+  'GaussianBlur(7.0)',
+  'GaussianBlur(62.0)',
+  'Image.blend(blurred, base_human_free, 0.40)',
+  'Image.composite(neutral_fill, bridge, mask)',
   'RESTORE_ALLOWED_LAYERS =',
   '"09-fire-base.png"',
   '"08-animal-robot.png"',
   '"14-foreground-accents.png"',
-  'MaxFilter(31)',
-  'GaussianBlur(52.0)',
-  'Image.composite(neutral_fill, bridge, mask)',
-  'Human mask source pixels are used as alpha only, never composited as people.',
+  '05/06 source pixels are used as alpha alignment aids only, never composited as people.',
 ]) {
   invariant(sanitizerScript.includes(token), `TOP bridge-human sanitizer contract missing: ${token}`);
 }
@@ -118,8 +129,9 @@ for (const forbidden of [
   'approvedAsFinal',
   'runtimeApproved',
   'candidateGenerated = True',
+  'Image.alpha_composite(sanitized_rgba, resized_rgba(LAYER_ROOT / "06-characters.png"))',
 ]) {
-  invariant(!sanitizerScript.includes(forbidden), `TOP bridge-human sanitizer crossed approval authority: ${forbidden}`);
+  invariant(!sanitizerScript.includes(forbidden), `TOP bridge-human sanitizer crossed forbidden authority/content boundary: ${forbidden}`);
 }
 
 invariant(
@@ -131,7 +143,7 @@ const baseStep = workflow.indexOf('Generate base human-free layer composition');
 const sanitizeStep = workflow.indexOf('Sanitize raw bridge humans while preserving town and rail context');
 const cutoutStep = workflow.indexOf('Generate clean Core5 full-body cutouts');
 const polishStep = workflow.indexOf('Remove sprite-sheet debris and rebuild Core5-only references');
-invariant(baseStep >= 0 && baseStep < sanitizeStep, 'TOP preproduction must create the generated output directory before bridge sanitization');
+invariant(baseStep >= 0 && baseStep < sanitizeStep, 'TOP preproduction must create the human-free fallback plate before bridge sanitization');
 invariant(sanitizeStep < cutoutStep, 'TOP bridge humans must be sanitized before Core5 cutout/layout rebuild');
 invariant(sanitizeStep < polishStep, 'TOP Core5-only layout proof must consume the sanitized bridge derivative');
 invariant(
@@ -152,4 +164,4 @@ invariant(
 );
 
 console.log('TOP Art Preproduction workflow contract: PASS');
-console.log('read-only: raw bridge -> exact 05/06 alpha-mask sanitization -> Core5-only generator artifact; old-human diagnostics remain isolated; no commit/push/promotion');
+console.log('read-only: raw bridge -> full-body geometric + 05/06 alpha-aid sanitization -> Core5-only generator artifact; old-human diagnostics isolated; no commit/push/promotion');
