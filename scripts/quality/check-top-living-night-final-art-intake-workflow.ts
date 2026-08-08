@@ -22,6 +22,7 @@ for (const token of [
   'incoming/top-living-night-core5-candidate-430x932.png',
   'permissions:\n  contents: write',
   'cancel-in-progress: false',
+  "if: ${{ github.actor != 'github-actions[bot]' }}",
   'stage-top-living-night-final-art-intake.py',
   'register-top-living-night-final-art.ts',
   'check-top-living-night-final-art-candidate.ts',
@@ -73,6 +74,10 @@ invariant(
   workflow.indexOf('incoming/top-living-night-core5-candidate-430x932.png') < workflow.indexOf(canonical),
   'TOP final-art intake must be triggered by the incoming path rather than canonical path',
 );
+invariant(
+  workflow.indexOf("github.actor != 'github-actions[bot]'") < workflow.indexOf('Stage incoming candidate at canonical path'),
+  'TOP final-art intake bot recursion guard must execute before candidate staging',
+);
 
 console.log('TOP final-art intake workflow: PASS');
-console.log('incoming PNG -> validated canonical copy -> exact-SHA registration -> stale evidence reset; no approval; no force push');
+console.log('incoming PNG -> validated canonical copy -> exact-SHA registration -> stale evidence reset; bot recursion blocked; no approval; no force push');
