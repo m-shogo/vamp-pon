@@ -44,10 +44,6 @@ def resolve_checkout_commit() -> str:
 
 
 def resolve_source_commit(checkout_commit: str) -> str:
-    # pull_request Actions check out a synthetic merge commit. The workflow passes
-    # the real PR head explicitly so the artifact name and sourceCommit remain
-    # branch-head provenance, while checkoutCommit records the exact merged tree
-    # that actually generated the pixels. Local/manual runs safely fall back to HEAD.
     supplied = os.environ.get("TOP_SOURCE_HEAD_SHA", "").strip()
     return require_sha(supplied, "sourceCommit") if supplied else checkout_commit
 
@@ -63,22 +59,22 @@ def main() -> None:
     invariant(INPUT_ORDER.is_file(), "TOP model-input order authority is missing")
 
     source = json.loads(PREPRODUCTION_MANIFEST.read_text(encoding="utf-8"))
-    invariant(source.get("schemaVersion") == 3, "TOP preproduction manifest schema mismatch")
+    invariant(source.get("schemaVersion") == 4, "TOP preproduction manifest schema mismatch")
     invariant(source.get("authority") == "PREPRODUCTION_ONLY_NOT_FINAL_ART", "TOP preproduction manifest authority mismatch")
 
     roles = source.get("modelInputRoles", {})
     primary = roles.get("primaryComposition")
-    identities = roles.get("primaryIdentityCutouts")
+    identities = roles.get("primaryIdentityReferences")
     invariant(primary == "core5-clean-composition-plate-v1.png", "TOP model primary composition mismatch")
-    invariant(isinstance(identities, list) and len(identities) == 5, "TOP model manifest requires five identity cutouts")
+    invariant(isinstance(identities, list) and len(identities) == 5, "TOP model manifest requires five clean identity references")
     expected_identities = [
-        "core5-yui-fullbody-cutout-v1.png",
-        "core5-asa-fullbody-cutout-v1.png",
-        "core5-nagi-fullbody-cutout-v1.png",
-        "core5-michiru-fullbody-cutout-v1.png",
-        "core5-tomori-fullbody-cutout-v1.png",
+        "core5-yui-identity-reference-v1.png",
+        "core5-asa-identity-reference-v1.png",
+        "core5-nagi-identity-reference-v1.png",
+        "core5-michiru-identity-reference-v1.png",
+        "core5-tomori-identity-reference-v1.png",
     ]
-    invariant(identities == expected_identities, "TOP model identity cutout order mismatch")
+    invariant(identities == expected_identities, "TOP model clean identity-reference order mismatch")
     invariant(roles.get("rawBridgeAllowed") is False, "TOP model manifest cannot allow raw bridge")
     invariant(roles.get("diagnosticsAllowed") is False, "TOP model manifest cannot allow diagnostics")
 
@@ -107,7 +103,7 @@ def main() -> None:
     checkout_commit = resolve_checkout_commit()
     source_commit = resolve_source_commit(checkout_commit)
     payload = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "authority": "MODEL_INPUTS_ONLY_NOT_FINAL_ART",
         "sourceCommit": source_commit,
         "checkoutCommit": checkout_commit,
@@ -136,6 +132,8 @@ def main() -> None:
         "rules": {
             "useOnlyListedVisualInputs": True,
             "exactlyFiveCore5Humans": True,
+            "identityInputsAreSingleHumanCrops": True,
+            "engineeringCutoutsAllowed": False,
             "rawBridgeAllowed": False,
             "oldHumanLayersAllowed": False,
             "layoutProofAllowed": False,
@@ -153,7 +151,7 @@ def main() -> None:
     print(f"sourcePreproductionManifestSha256={payload['sourcePreproductionManifestSha256']}")
     print(f"visualInputs={len(inputs)}")
     print(f"output={MODEL_MANIFEST.relative_to(ROOT)}")
-    print("NOTE: sourceCommit is the real PR/branch head; checkoutCommit is the exact tree used to generate pixels. The artifact remains six visuals only and contains no layout proof, diagnostic or raw bridge entry.")
+    print("NOTE: sourceCommit is the real PR/branch head; checkoutCommit is the exact tree used to generate pixels. The artifact remains six visuals only and contains no engineering cutout, layout proof, diagnostic or raw bridge entry.")
     print("NOTE: this manifest describes only the six visual inputs physically shipped in the minimal model-input artifact; provenance fields do not add extra visual references.")
 
 
