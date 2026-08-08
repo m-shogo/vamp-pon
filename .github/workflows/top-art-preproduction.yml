@@ -12,6 +12,7 @@ on:
       - 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'
       - 'docs/design-targets/generated/top-living-night-v3/final/**'
       - 'scripts/unity/generate-top-living-night-core5-layout-proof.py'
+      - 'scripts/unity/generate-top-living-night-core5-sprite-pack.py'
       - 'scripts/unity/generate-top-living-night-crop-review-pack.py'
       - 'scripts/quality/check-top-living-night-core5-layout-proof-generator.ts'
       - 'scripts/quality/check-top-living-night-crop-review-pack-generator.ts'
@@ -46,9 +47,13 @@ jobs:
         run: |
           node --experimental-strip-types scripts/quality/check-top-living-night-core5-layout-proof-generator.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-crop-review-pack-generator.ts
+          python -m py_compile scripts/unity/generate-top-living-night-core5-sprite-pack.py
 
       - name: Generate Core5 layout/reference pack
         run: python scripts/unity/generate-top-living-night-core5-layout-proof.py
+
+      - name: Generate clean Core5 full-body cutouts
+        run: python scripts/unity/generate-top-living-night-core5-sprite-pack.py
 
       - name: Generate final-candidate crop pack when available
         run: python scripts/unity/generate-top-living-night-crop-review-pack.py
