@@ -17,11 +17,11 @@ INPUT_ORDER = ROOT / "docs/design-targets/generated/top-living-night-v3/model-in
 
 EXPECTED_VISUALS = [
     (1, "core5-clean-composition-plate-v1.png", "composition"),
-    (2, "core5-yui-fullbody-cutout-v1.png", "identity-yui"),
-    (3, "core5-asa-fullbody-cutout-v1.png", "identity-asa"),
-    (4, "core5-nagi-fullbody-cutout-v1.png", "identity-nagi"),
-    (5, "core5-michiru-fullbody-cutout-v1.png", "identity-michiru"),
-    (6, "core5-tomori-fullbody-cutout-v1.png", "identity-tomori"),
+    (2, "core5-yui-identity-reference-v1.png", "identity-yui"),
+    (3, "core5-asa-identity-reference-v1.png", "identity-asa"),
+    (4, "core5-nagi-identity-reference-v1.png", "identity-nagi"),
+    (5, "core5-michiru-identity-reference-v1.png", "identity-michiru"),
+    (6, "core5-tomori-identity-reference-v1.png", "identity-tomori"),
 ]
 
 
@@ -73,7 +73,7 @@ def main() -> None:
     checkout_commit = resolve_checkout_commit()
     source_commit = resolve_source_commit(checkout_commit)
 
-    invariant(manifest.get("schemaVersion") == 1, "TOP minimal model-input manifest schema mismatch")
+    invariant(manifest.get("schemaVersion") == 2, "TOP minimal model-input manifest schema mismatch")
     invariant(manifest.get("authority") == "MODEL_INPUTS_ONLY_NOT_FINAL_ART", "TOP minimal model-input manifest authority mismatch")
     invariant(manifest.get("sourceCommit") == source_commit, "TOP minimal model-input sourceCommit does not match the real PR/branch head")
     invariant(manifest.get("checkoutCommit") == checkout_commit, "TOP minimal model-input checkoutCommit does not match the exact tree that generated the artifact")
@@ -98,6 +98,9 @@ def main() -> None:
         invariant(actual.get("sha256") == sha256(path), f"TOP minimal model-input PNG SHA mismatch: {name}")
         invariant(isinstance(actual.get("width"), int) and actual["width"] > 0, f"TOP minimal model-input width invalid: {name}")
         invariant(isinstance(actual.get("height"), int) and actual["height"] > 0, f"TOP minimal model-input height invalid: {name}")
+        if order > 1:
+            invariant(actual["height"] > actual["width"], f"TOP model identity reference must remain portrait: {name}")
+            invariant(actual["width"] >= 250 and actual["height"] >= 500, f"TOP model identity reference is too small: {name}")
 
     instructions = manifest.get("textInstructions")
     expected_text = [
@@ -111,9 +114,10 @@ def main() -> None:
         invariant(actual.get("sha256") == sha256(path), f"TOP minimal model-input text SHA mismatch: {name}")
 
     rules = manifest.get("rules", {})
-    for key in ("useOnlyListedVisualInputs", "exactlyFiveCore5Humans"):
+    for key in ("useOnlyListedVisualInputs", "exactlyFiveCore5Humans", "identityInputsAreSingleHumanCrops"):
         invariant(rules.get(key) is True, f"TOP minimal model-input rule must remain true: {key}")
     for key in (
+        "engineeringCutoutsAllowed",
         "rawBridgeAllowed",
         "oldHumanLayersAllowed",
         "layoutProofAllowed",
@@ -126,6 +130,7 @@ def main() -> None:
 
     serialized = json.dumps(manifest, ensure_ascii=False)
     for forbidden in (
+        "fullbody-cutout-v1.png",
         "top-living-night-layered-candidate-430x932.png",
         "05-distant-companion.png",
         "06-characters.png",
@@ -142,7 +147,7 @@ def main() -> None:
     print(f"sourceCommit={manifest['sourceCommit']}")
     print(f"checkoutCommit={manifest['checkoutCommit']}")
     print(f"sourcePreproductionManifestSha256={manifest['sourcePreproductionManifestSha256']}")
-    print("exactly 6 visual inputs + 2 hashed text instructions; real branch-head + exact checkout-tree + preproduction-manifest provenance; no raw bridge/layout/diagnostics/development context; non-final/non-approving")
+    print("exactly 6 visual inputs = clean composition + five single-human Core5 identity references; engineering cutouts/raw bridge/layout/diagnostics/development context excluded; non-final/non-approving")
 
 
 if __name__ == "__main__":
