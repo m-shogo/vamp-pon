@@ -55,13 +55,16 @@ FULL_BODY_BOXES: Dict[str, Tuple[float, float, float, float]] = {
     "tomori": (0.11, 0.20, 0.42, 0.81),
 }
 
-# Layered blocking, never an equal-scale idol lineup. Back row first.
+# Mobile portrait blocking, never an equal-scale idol lineup. Back row first.
+# The scale hierarchy is intentionally strong: Yui is the near-center anchor,
+# Asa is the second near figure, Tomori is mid-depth, and Michiru/Nagi sit back.
+# This is blocking/scale evidence only; it is not a final-style image input.
 PLACEMENTS = [
-    ("michiru", 38, 370, 140),
-    ("nagi", 266, 356, 144),
-    ("asa", 90, 386, 170),
-    ("tomori", 318, 400, 168),
-    ("yui", 171, 346, 186),
+    ("michiru", 18, 366, 155),
+    ("nagi", 292, 362, 158),
+    ("tomori", 288, 385, 196),
+    ("asa", 34, 364, 236),
+    ("yui", 126, 300, 268),
 ]
 
 
