@@ -1,0 +1,71 @@
+name: TOP Art Preproduction
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/top-art-preproduction.yml'
+      - 'requirements.txt'
+      - 'assets/reference/character-master/core5/**'
+      - 'docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png'
+      - 'docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json'
+      - 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'
+      - 'docs/design-targets/generated/top-living-night-v3/final/**'
+      - 'scripts/unity/generate-top-living-night-core5-layout-proof.py'
+      - 'scripts/unity/generate-top-living-night-crop-review-pack.py'
+      - 'scripts/quality/check-top-living-night-core5-layout-proof-generator.ts'
+      - 'scripts/quality/check-top-living-night-crop-review-pack-generator.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: top-art-preproduction-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Verify preproduction generators
+        run: |
+          node --experimental-strip-types scripts/quality/check-top-living-night-core5-layout-proof-generator.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-crop-review-pack-generator.ts
+
+      - name: Generate Core5 layout/reference pack
+        run: python scripts/unity/generate-top-living-night-core5-layout-proof.py
+
+      - name: Generate final-candidate crop pack when available
+        run: python scripts/unity/generate-top-living-night-crop-review-pack.py
+
+      - name: Verify generated-only boundary
+        run: |
+          git diff --exit-code -- . ':!docs/design-targets/generated/top-living-night-v3/preproduction' ':!docs/design-targets/generated/top-living-night-v3/crop-review-previews'
+          git status --short
+
+      - name: Upload TOP preproduction visual pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: top-art-preproduction-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            docs/design-targets/generated/top-living-night-v3/preproduction/*.png
+            docs/design-targets/generated/top-living-night-v3/crop-review-previews/*.png
+            docs/design-targets/generated/top-living-night-v3/crop-review-previews/manifest.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
