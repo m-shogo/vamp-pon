@@ -40,6 +40,7 @@ jobs:
       - name: Verify candidate and Core5 provenance
         run: |
           node --experimental-strip-types scripts/quality/check-top-living-night-final-art-candidate.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-final-art-not-known-bridge.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-core5-candidate-provenance.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-final-identity-boundary.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-approval-consistency.ts
