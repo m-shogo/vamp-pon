@@ -11,6 +11,7 @@ on:
       - 'docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png'
       - 'docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json'
       - 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt'
+      - 'docs/design-targets/generated/top-living-night-v3/model-input-order.txt'
       - 'docs/design-targets/generated/top-living-night-v3/final-identity-brief.md'
       - 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'
       - 'docs/design-targets/generated/top-living-night-v3/final/**'
@@ -105,6 +106,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/preproduction/core5-tomori-fullbody-cutout-v1.png
             docs/design-targets/generated/top-living-night-v3/preproduction/manifest.json
             docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt
+            docs/design-targets/generated/top-living-night-v3/model-input-order.txt
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
@@ -117,6 +119,7 @@ jobs:
             docs/design-targets/generated/top-living-night-v3/preproduction/*.png
             docs/design-targets/generated/top-living-night-v3/preproduction/manifest.json
             docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt
+            docs/design-targets/generated/top-living-night-v3/model-input-order.txt
             docs/design-targets/generated/top-living-night-v3/final-identity-brief.md
             docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json
             docs/design-targets/generated/top-living-night-v3/crop-review-previews/*.png
