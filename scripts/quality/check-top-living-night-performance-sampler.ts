@@ -1,3 +1,4 @@
+import './check-top-living-night-physical-iphone-performance-runner.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -55,11 +56,11 @@ invariant(
 );
 invariant(
   sampler.includes('unity-runtime-sampler currently supports simulator only'),
-  'TOP runtime sampler must not pretend to provide physical-iPhone thermal evidence',
+  'TOP Simulator runtime sampler must preserve its simulator-only enable flag boundary',
 );
 invariant(
   sampler.includes('Use xcode-instruments for physical-iPhone thermal evidence.'),
-  'TOP runtime sampler must preserve the physical-iPhone Instruments boundary',
+  'legacy Simulator sampler must not silently masquerade as physical-iPhone evidence',
 );
 invariant(
   sampler.includes('App suspension is not active render time.'),
@@ -90,6 +91,6 @@ for (const token of [
 }
 
 console.log('TOP Living Night opt-in performance sampler contract: PASS');
-console.log('sampler: Simulator only / 300 active s / 5 s raw samples / FPS + allocated memory / recovery evidence');
+console.log('Simulator: 300 active s / 5 s raw samples / FPS + allocated memory / recovery evidence');
 console.log('pause handling: suspension excluded from FPS denominator; first resume delta excluded from hitch evidence');
-console.log('physical iPhone: thermal evidence remains xcode-instruments/native responsibility');
+console.log('physical iPhone: separate opt-in sampler + native thermal bridge + devicectl runner is guarded by imported checker');
