@@ -35,6 +35,9 @@ for (const token of [
   'Do not invent any human from this image.',
   'Exactly five foreground humans must appear: Yui, Asa, Nagi, Michiru and Tomori.',
   'No sixth human, no generic substitute, no duplicate identity.',
+  'Mobile portrait depth is mandatory: do not make all five humans small',
+  'One or two Core5 characters must read clearly nearer and larger',
+  'two at middle depth, and one slightly farther back or beside the campfire.',
   'Do not use any other image as a visual reference.',
   'do not use a raw bridge image, old human layers, layout proof, diagnostic contact sheet, removal mask, status screen, dashboard or interface screenshot.',
   'Use final-key-art-isolated-prompt.txt as the text instruction.',
@@ -70,4 +73,4 @@ for (const image of requiredImages) {
 }
 
 console.log('TOP Living Night model visual input order: PASS');
-console.log('exact visual set: sanitized composition + Yui/Asa/Nagi/Michiru/Tomori cutouts only; isolated prompt + self-contained model manifest; no development context or extra reference images');
+console.log('exact visual set: sanitized composition + Yui/Asa/Nagi/Michiru/Tomori cutouts only; mobile portrait depth locked; isolated prompt + self-contained model manifest; no development context or extra reference images');
