@@ -22,7 +22,7 @@ Before starting either runtime review, record:
 
 `motion-review-status.json.candidateSha256` must exactly match `final-art-status.json.candidateSha256` before motion can be approved.
 
-**Any final-art PNG byte change invalidates the previous motion review.** Clear the motion candidate SHA and runtime review approval fields back to `NOT_RUN` until the changed candidate is reviewed again. A visually similar replacement is still a different evidence subject.
+**Any final-art PNG byte change invalidates the previous motion review.** Clear the motion candidate SHA and runtime review approval fields back to `NOT_RUN` until the changed candidate is reviewed again.
 
 ## Motion hierarchy
 
@@ -101,8 +101,6 @@ Before starting either runtime review, record:
 
 These values are implementation anchors to prevent accidental synchronization. Small deliberate tuning is allowed only with corresponding contract/review updates.
 
-The first table records `TopLivingNightView` base motion. For title/cloud/fire atlas UV motion, the V3 post-view directors below are the final visible owner after the base view has updated.
-
 | System | Base-view static anchor |
 | --- | --- |
 | title drift | `0.52` frequency, ~1.2 px amplitude |
@@ -123,7 +121,7 @@ The first table records `TopLivingNightView` base motion. For title/cloud/fire a
 
 ### V3 post-view anti-loop directors
 
-`TopLivingNightAmbientMotionDirector` executes after the base view and replaces short periodic presentation displacement with unrelated slow Perlin fields:
+`TopLivingNightAmbientMotionDirector` executes after the base view and replaces short periodic presentation displacement with unrelated slow Perlin fields. It also normalizes normal/Reduced Motion alpha **after** `TopLivingNightView`, allowing a live accessibility preference change to settle without rebuilding the TOP.
 
 | Visible system | V3 director anchor |
 | --- | --- |
@@ -144,7 +142,7 @@ The first table records `TopLivingNightView` base motion. For title/cloud/fire a
 | rare interior reversal | independent Perlin seed `37.19`, only frames `2–9` |
 | frame movement | adjacent `±1` only; boundaries clamp/reverse |
 
-The two directors do **not** load textures, replace the V3 composite, own capture readiness, or write approval evidence. They are presentation-only runtime cadence layers.
+The two directors do **not** load textures, replace the V3 composite, own capture readiness, or write approval evidence.
 
 ## Anti-loop requirements
 
@@ -154,15 +152,13 @@ During a five-minute watch:
 - cloud layers must not reverse together
 - art breathing/title/cloud drift must not expose a common periodic reset
 - fire must not read as a repeated `0 → 11 → 0` metronome
-- rare interior fire reversals/holds must still look like coherent flame motion rather than frame scrambling
+- fire never jumps between non-adjacent atlas cells
 - fire atlas and fire glow must not peak together repeatedly
 - distant lights and lantern must not pulse together repeatedly
 - smoke wisps must not share the same rise/fade phase
 - embers must not launch as one synchronized burst
 - robot eye must remain a rare accent rather than a metronome
 - UI text/buttons must remain visually stable enough to read and tap
-
-The goal is not mathematical non-repetition. The goal is that a viewer cannot easily perceive a short, mechanical master loop.
 
 ## Motion budget
 
@@ -177,8 +173,6 @@ Motion must remain restrained because the TOP is a menu, not gameplay.
 - no video playback
 - no animation that obscures title or buttons
 - post-view art breathing must remain effectively sub-pixel / imperceptibly slow, not a zoom effect
-
-The visual subject remains the Core5 party.
 
 ## Reduced Motion gate
 
@@ -196,15 +190,33 @@ With either supported Reduced Motion preference active:
 - fire glow: very small variation retained for scene readability
 - UI must remain fully functional
 
-A future runtime review should also confirm that any newly added motion follows the same reduction policy.
+### Live preference toggle gate
+
+The final review must not verify Reduced Motion only via a fresh TOP build. Keep the **same TOP instance visible** and perform the preference transition in both directions:
+
+1. Start in normal motion and switch Reduced Motion **ON**.
+2. Without rebuilding/reopening TOP, confirm cloud/title/art displacement settles, robot eye/smoke/embers disappear, stars become stable, and fire/fire-glow remain restrained.
+3. Switch Reduced Motion **OFF** while the same TOP remains visible.
+4. Confirm stars, robot-eye schedule, smoke, embers, fire-glow amplitude, cloud drift and art/title micro-motion recover naturally.
+5. Switch Reduced Motion **ON once more** and confirm suppression is repeatable.
+
+The transition must have **no white/black flash, duplicated BaseComposite, duplicated particles, one-frame giant transform jump, stuck-zero normal alpha, or TOP view reconstruction**.
+
+The structured review records this as:
+
+```txt
+liveToggleToReducedSettled=true
+liveToggleBackToNormalSettled=true
+noToggleVisualPopOrDuplication=true
+```
+
+All three are mandatory for `motionApproved=true`.
 
 ## Five-minute runtime review protocol
 
 This gate can only be completed after Unity runtime execution.
 
 ### Minute 0–1 — entry quality
-
-Check:
 
 - Loading → TOP reveal has no white/black flash
 - base composite appears before capture readiness is reported
@@ -214,10 +226,6 @@ Check:
 - post-view motion directors bind without a one-frame jump in title/cloud/art position
 
 ### Minute 1–3 — loop perception
-
-Watch without interacting.
-
-Check:
 
 - fire feels irregular but calm
 - no repeated `0 → 11 → 0` cadence becomes obvious
@@ -231,8 +239,6 @@ Check:
 
 ### Minute 3–5 — stability
 
-Check:
-
 - no accumulating particles
 - no duplicated `BaseComposite`
 - no progressive brightness drift
@@ -243,7 +249,7 @@ Check:
 
 ### Reduced Motion pass
 
-Repeat a shorter review with Reduced Motion enabled and verify the gate above, including exact stillness of cloud/title/art displacement while the fire remains restrained and readable.
+Run at least 60 seconds of Reduced Motion and perform the **same-view ON → OFF → ON** sequence above. The Reduced Motion result is not PASSED unless all five existing reduced observations and all three live-toggle observations are positive.
 
 ## Evidence required for promotion
 
@@ -255,6 +261,9 @@ Record separately:
 - commit SHA
 - normal-motion review duration
 - Reduced Motion review duration
+- live-toggle-to-Reduced result
+- live-toggle-back-to-normal result
+- no toggle pop/duplication result
 - visual result
 - any observed loop/repetition issue
 - any texture/lifecycle issue
@@ -268,6 +277,7 @@ Do not infer this evidence from static CI. Do not reuse a motion review after th
 motionStaticContractReady=true
 fiveMinuteRuntimeReviewComplete=false
 reducedMotionRuntimeReviewComplete=false
+liveReducedMotionToggleReviewed=false
 motionApproved=false
 runtimeCaptureComplete=false
 runtimeApproved=false
