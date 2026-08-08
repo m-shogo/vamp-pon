@@ -14,7 +14,33 @@ type Bundle = {
   status: string;
   target: { path: string; width: number; height: number; format: string; foregroundHumanCount: number };
   core5: { referenceSetSha256: string; references: Reference[] };
-  compositionReference: { path: string; sha256: string; keep: string[]; replace: string[] };
+  compositionReference: {
+    path: string;
+    sha256: string;
+    role: string;
+    generatorFacing: boolean;
+    keep: string[];
+    replace: string[];
+  };
+  preproductionModelInputs: {
+    workflow: string;
+    manifest: string;
+    artifactPurpose: string;
+    primaryComposition: string;
+    primaryIdentityCutouts: string[];
+    combinedConvenienceReference: string;
+    layoutProof: { path: string; role: string; finalStyleAuthority: boolean };
+    sanitizer: string;
+    sanitizationPolicy: {
+      rawBridgeUsedInsidePreproductionOnly: boolean;
+      rawBridgeUploadedToModelArtifact: boolean;
+      bridgeHumanLayersUsedAsAlphaAidOnly: boolean;
+      bridgeHumanPixelsComposited: boolean;
+      allowedNonHumanRestoreLayers: string[];
+    };
+    forbiddenModelInputs: string[];
+    preproductionDoesNotApprove: boolean;
+  };
   promptAuthority: string;
   identityAuthority: string;
   hardRules: {
@@ -79,6 +105,8 @@ invariant(JSON.stringify(bundle.core5.references.map(reference => reference.id))
 
 invariant(bundle.compositionReference.path === canonicalBridge, 'TOP generation composition reference path mismatch');
 invariant(bundle.compositionReference.sha256 === bridgeSha, 'TOP generation composition reference SHA mismatch');
+invariant(bundle.compositionReference.role === 'engineering-composition-history-only', 'TOP raw bridge must remain engineering-history only');
+invariant(bundle.compositionReference.generatorFacing === false, 'TOP raw bridge must not be a generator-facing input');
 invariant(bundle.compositionReference.keep.length >= 6, 'TOP generation bundle must preserve key bridge composition strengths');
 invariant(bundle.compositionReference.replace.includes('generic human identities'), 'TOP generation bundle must replace generic bridge identities');
 invariant(
@@ -89,6 +117,44 @@ invariant(
   bundle.compositionReference.replace.includes('the elderly bridge man and every other non-Core5 foreground human'),
   'TOP generation bundle must explicitly remove the elderly bridge man and other non-Core5 humans',
 );
+
+const preproduction = bundle.preproductionModelInputs;
+invariant(preproduction.workflow === '.github/workflows/top-art-preproduction.yml', 'TOP model-input workflow authority mismatch');
+invariant(existsSync(join(root, preproduction.workflow)), 'TOP model-input workflow is missing');
+invariant(preproduction.manifest === 'preproduction/manifest.json', 'TOP model-input artifact manifest path mismatch');
+invariant(preproduction.primaryComposition === 'preproduction/core5-clean-composition-plate-v1.png', 'TOP primary model-facing composition must be the sanitized clean plate');
+invariant(
+  JSON.stringify(preproduction.primaryIdentityCutouts) === JSON.stringify(ids.map(id => `preproduction/core5-${id}-fullbody-cutout-v1.png`)),
+  'TOP model-facing identity cutout set/order mismatch',
+);
+invariant(
+  preproduction.combinedConvenienceReference === 'preproduction/core5-clean-generation-reference-pack-v1.png',
+  'TOP combined clean model reference mismatch',
+);
+invariant(preproduction.layoutProof.path === 'preproduction/core5-layout-proof-v1.png', 'TOP layout proof artifact path mismatch');
+invariant(preproduction.layoutProof.role === 'blocking-scale-depth-guide-only', 'TOP layout proof must remain blocking-only');
+invariant(preproduction.layoutProof.finalStyleAuthority === false, 'TOP layout proof cannot become final-style authority');
+invariant(preproduction.sanitizer === 'scripts/unity/sanitize-top-living-night-composition-plate.py', 'TOP sanitizer authority mismatch');
+invariant(existsSync(join(root, preproduction.sanitizer)), 'TOP sanitizer authority is missing');
+invariant(preproduction.sanitizationPolicy.rawBridgeUsedInsidePreproductionOnly === true, 'TOP raw bridge may only be used inside preproduction sanitization');
+invariant(preproduction.sanitizationPolicy.rawBridgeUploadedToModelArtifact === false, 'TOP raw bridge must not be uploaded to model-facing artifact');
+invariant(preproduction.sanitizationPolicy.bridgeHumanLayersUsedAsAlphaAidOnly === true, 'TOP bridge human layers must be alpha aids only');
+invariant(preproduction.sanitizationPolicy.bridgeHumanPixelsComposited === false, 'TOP bridge human pixels must never be composited into model-facing references');
+invariant(
+  JSON.stringify(preproduction.sanitizationPolicy.allowedNonHumanRestoreLayers) ===
+    JSON.stringify(['09-fire-base.png', '08-animal-robot.png', '14-foreground-accents.png']),
+  'TOP sanitizer non-human restore allowlist mismatch',
+);
+for (const forbidden of [
+  canonicalBridge,
+  'docs/design-targets/generated/top-living-night-v2/layers/05-distant-companion.png',
+  'docs/design-targets/generated/top-living-night-v2/layers/06-characters.png',
+  'docs/design-targets/generated/top-living-night-v3/diagnostics/*',
+  'development dashboards and status screenshots',
+]) {
+  invariant(preproduction.forbiddenModelInputs.includes(forbidden), `TOP generator-facing forbidden-input list lost: ${forbidden}`);
+}
+invariant(preproduction.preproductionDoesNotApprove === true, 'TOP preproduction inputs must never imply approval');
 
 for (const authority of [bundle.promptAuthority, bundle.identityAuthority, bundle.registration.script]) {
   invariant(existsSync(join(root, authority)), `TOP generation authority is missing: ${authority}`);
@@ -186,6 +252,7 @@ console.log('TOP Living Night final generation bundle: PASS');
 console.log(`core5ReferenceSet=${bundle.core5.referenceSetSha256}`);
 console.log(`target=${bundle.target.path} ${bundle.target.width}x${bundle.target.height}`);
 console.log(`postGenerationGates=${expectedPostGenerationChecks.length}`);
+console.log('model-facing inputs: sanitized clean plate + five Core5 cutouts; raw bridge/05/06/diagnostics forbidden');
 console.log('parallel plan: Core5/crops/Unity -> after Unity motion + capture -> after capture human + device -> guarded final promotion');
 console.log('bridge human inheritance: forbidden; final foreground humans are Core5 only');
 console.log('bundle remains generation-ready only; no final/runtime approval is implied');
