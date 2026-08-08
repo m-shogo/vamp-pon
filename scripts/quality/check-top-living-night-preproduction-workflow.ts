@@ -4,9 +4,11 @@ import { join } from 'node:path';
 const root = process.cwd();
 const workflowPath = '.github/workflows/top-art-preproduction.yml';
 const diagnosticScriptPath = 'scripts/unity/generate-top-living-night-layer-diagnostics.py';
+const sanitizerScriptPath = 'scripts/unity/sanitize-top-living-night-composition-plate.py';
 const gitignorePath = '.gitignore';
 const workflow = readFileSync(join(root, workflowPath), 'utf8');
 const diagnosticScript = readFileSync(join(root, diagnosticScriptPath), 'utf8');
+const sanitizerScript = readFileSync(join(root, sanitizerScriptPath), 'utf8');
 const gitignore = readFileSync(join(root, gitignorePath), 'utf8');
 
 function invariant(value: unknown, message: string): asserts value {
@@ -14,19 +16,22 @@ function invariant(value: unknown, message: string): asserts value {
 }
 
 invariant(existsSync(join(root, diagnosticScriptPath)), 'TOP layer diagnostic generator is missing');
+invariant(existsSync(join(root, sanitizerScriptPath)), 'TOP bridge-human sanitizer is missing');
 
 for (const token of [
   'name: TOP Art Preproduction',
   'contents: read',
   'docs/design-targets/generated/top-living-night-v2/layers/**',
   'generate-top-living-night-core5-layout-proof.py',
+  'sanitize-top-living-night-composition-plate.py',
   'generate-top-living-night-core5-sprite-pack.py',
   'polish-top-living-night-core5-preproduction.py',
   'generate-top-living-night-preproduction-manifest.py',
   'validate-top-living-night-preproduction-pack.py',
   'generate-top-living-night-crop-review-pack.py',
   'generate-top-living-night-layer-diagnostics.py',
-  'Generate human-free composition and Core5 layout/reference pack',
+  'Generate base human-free layer composition',
+  'Sanitize raw bridge humans while preserving town and rail context',
   'Remove sprite-sheet debris and rebuild Core5-only references',
   'Generate V2 layer diagnostics separately',
   'Upload regenerated V2 layer diagnostics separately',
@@ -35,7 +40,7 @@ for (const token of [
   'core5-reference-manifest.json',
   'preproduction/*.png',
   'preproduction/manifest.json',
-  'diagnostics/layer-audit-contact-sheet-v1.png',
+  'diagnostics/*.png',
   'if-no-files-found: warn',
   'retention-days: 7',
 ]) {
@@ -63,7 +68,7 @@ const diagnosticUploadBlock = workflow.slice(diagnosticUploadStart);
 
 for (const forbidden of [
   'top-living-night-layered-candidate-430x932.png',
-  'layer-audit-contact-sheet-v1.png',
+  'diagnostics/',
   'top-art-layer-diagnostics-',
 ]) {
   invariant(
@@ -73,16 +78,16 @@ for (const forbidden of [
 }
 invariant(
   preproductionUploadBlock.includes('preproduction/*.png'),
-  'human-free clean plate and Core5-only layout/reference PNGs must be included via preproduction output set',
+  'human-sanitized clean plate and Core5-only layout/reference PNGs must be included via preproduction output set',
 );
 invariant(
   diagnosticUploadBlock.includes('top-art-layer-diagnostics-') &&
-    diagnosticUploadBlock.includes('diagnostics/layer-audit-contact-sheet-v1.png'),
-  'TOP layer diagnostics must use a separate explicitly named artifact',
+    diagnosticUploadBlock.includes('diagnostics/*.png'),
+  'TOP layer/mask diagnostics must use a separate explicitly named artifact',
 );
 invariant(
   diagnosticUploadBlock.includes('if-no-files-found: error'),
-  'TOP diagnostic artifact must fail if the regenerated sheet is missing',
+  'TOP diagnostic artifact must fail if regenerated diagnostics are missing',
 );
 
 for (const token of [
@@ -93,24 +98,52 @@ for (const token of [
 ]) {
   invariant(diagnosticScript.includes(token), `TOP layer diagnostic safety contract missing: ${token}`);
 }
+
+for (const token of [
+  'HUMAN_MASK_LAYERS =',
+  '"05-distant-companion.png"',
+  '"06-characters.png"',
+  'RESTORE_ALLOWED_LAYERS =',
+  '"09-fire-base.png"',
+  '"08-animal-robot.png"',
+  '"14-foreground-accents.png"',
+  'MaxFilter(31)',
+  'GaussianBlur(52.0)',
+  'Image.composite(neutral_fill, bridge, mask)',
+  'Human mask source pixels are used as alpha only, never composited as people.',
+]) {
+  invariant(sanitizerScript.includes(token), `TOP bridge-human sanitizer contract missing: ${token}`);
+}
+for (const forbidden of [
+  'approvedAsFinal',
+  'runtimeApproved',
+  'candidateGenerated = True',
+]) {
+  invariant(!sanitizerScript.includes(forbidden), `TOP bridge-human sanitizer crossed approval authority: ${forbidden}`);
+}
+
 invariant(
   gitignore.includes('docs/design-targets/generated/top-living-night-v3/diagnostics/'),
   'TOP diagnostic outputs must remain generated-only',
 );
 
+const baseStep = workflow.indexOf('Generate base human-free layer composition');
+const sanitizeStep = workflow.indexOf('Sanitize raw bridge humans while preserving town and rail context');
+const cutoutStep = workflow.indexOf('Generate clean Core5 full-body cutouts');
+const polishStep = workflow.indexOf('Remove sprite-sheet debris and rebuild Core5-only references');
+invariant(baseStep >= 0 && baseStep < sanitizeStep, 'TOP preproduction must create the generated output directory before bridge sanitization');
+invariant(sanitizeStep < cutoutStep, 'TOP bridge humans must be sanitized before Core5 cutout/layout rebuild');
+invariant(sanitizeStep < polishStep, 'TOP Core5-only layout proof must consume the sanitized bridge derivative');
 invariant(
-  workflow.indexOf('Remove sprite-sheet debris and rebuild Core5-only references') <
-    workflow.indexOf('Hash preproduction visual pack'),
+  polishStep < workflow.indexOf('Hash preproduction visual pack'),
   'TOP preproduction workflow must polish pixels before hashing the manifest',
 );
 invariant(
-  workflow.indexOf('Hash preproduction visual pack') <
-    workflow.indexOf('Validate preproduction visual pack'),
+  workflow.indexOf('Hash preproduction visual pack') < workflow.indexOf('Validate preproduction visual pack'),
   'TOP preproduction workflow must hash before validation',
 );
 invariant(
-  workflow.indexOf('Validate preproduction visual pack') <
-    workflow.indexOf('Upload TOP preproduction visual pack'),
+  workflow.indexOf('Validate preproduction visual pack') < preproductionUploadStart,
   'TOP preproduction workflow must validate before generator-facing upload',
 );
 invariant(
@@ -119,4 +152,4 @@ invariant(
 );
 
 console.log('TOP Art Preproduction workflow contract: PASS');
-console.log('read-only: human-free/Core5-only generator artifact is isolated from regenerated 17-layer diagnostics; raw bridge/old humans cannot enter generator pack; no commit/push/promotion');
+console.log('read-only: raw bridge -> exact 05/06 alpha-mask sanitization -> Core5-only generator artifact; old-human diagnostics remain isolated; no commit/push/promotion');
