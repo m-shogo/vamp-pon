@@ -4,7 +4,9 @@ import { join } from 'node:path';
 
 const root = process.cwd();
 const generatorRelative = 'scripts/unity/generate-top-living-night-core5-layout-proof.py';
+const spriteRelative = 'scripts/unity/generate-top-living-night-core5-sprite-pack.py';
 const generatorPath = join(root, generatorRelative);
+const spritePath = join(root, spriteRelative);
 const requirementsPath = join(root, 'requirements.txt');
 const gitignorePath = join(root, '.gitignore');
 
@@ -13,7 +15,9 @@ function invariant(value: unknown, message: string): asserts value {
 }
 
 invariant(existsSync(generatorPath), 'TOP Core5 layout-proof generator is missing');
+invariant(existsSync(spritePath), 'TOP Core5 sprite-pack generator is missing');
 const generator = readFileSync(generatorPath, 'utf8');
+const sprite = readFileSync(spritePath, 'utf8');
 const requirements = readFileSync(requirementsPath, 'utf8');
 const gitignore = readFileSync(gitignorePath, 'utf8');
 
@@ -38,21 +42,37 @@ for (const token of [
   invariant(generator.includes(token), `TOP Core5 layout-proof generator contract missing: ${token}`);
 }
 
+for (const token of [
+  'generate-top-living-night-core5-layout-proof.py',
+  'sprites = module.extract_core5()',
+  '{"yui", "asa", "nagi", "michiru", "tomori"}',
+  'core5-{character}-fullbody-cutout-v1.png',
+  'preproduction generator inputs only',
+]) {
+  invariant(sprite.includes(token), `TOP Core5 sprite-pack generator contract missing: ${token}`);
+}
+
 invariant(!generator.includes('import numpy'), 'TOP Core5 layout-proof generator must remain Pillow-only');
-invariant(requirements.includes('Pillow'), 'TOP Core5 layout proof requires pinned Pillow dependency');
+invariant(!sprite.includes('import numpy'), 'TOP Core5 sprite-pack generator must remain Pillow-only');
+invariant(requirements.includes('Pillow'), 'TOP Core5 preproduction generators require pinned Pillow dependency');
 invariant(
   gitignore.includes('docs/design-targets/generated/top-living-night-v3/preproduction/'),
-  'TOP preproduction layout/reference outputs must remain generated-only',
+  'TOP preproduction layout/reference/sprite outputs must remain generated-only',
 );
 invariant(!generator.includes('candidateGenerated = True'), 'layout proof generator must not register a final candidate');
 invariant(!generator.includes('approvedAsFinal = True'), 'layout proof generator must not approve final art');
 invariant(!generator.includes('runtimeApproved = True'), 'layout proof generator must not approve runtime');
+invariant(!sprite.includes('candidateGenerated = True'), 'sprite-pack generator must not register a final candidate');
+invariant(!sprite.includes('approvedAsFinal = True'), 'sprite-pack generator must not approve final art');
+invariant(!sprite.includes('runtimeApproved = True'), 'sprite-pack generator must not approve runtime');
 
-const compile = spawnSync('python3', ['-m', 'py_compile', generatorRelative], { cwd: root, encoding: 'utf8' });
-invariant(
-  compile.status === 0,
-  `TOP Core5 layout-proof generator Python syntax failed:\n${compile.stdout}\n${compile.stderr}`,
-);
+for (const relative of [generatorRelative, spriteRelative]) {
+  const compile = spawnSync('python3', ['-m', 'py_compile', relative], { cwd: root, encoding: 'utf8' });
+  invariant(
+    compile.status === 0,
+    `TOP preproduction generator Python syntax failed (${relative}):\n${compile.stdout}\n${compile.stderr}`,
+  );
+}
 
-console.log('TOP Core5 preproduction layout-proof generator contract: PASS');
-console.log('locked Core5 + bridge -> generated-only layered layout proof/reference pack; Pillow-only; no candidate/review/runtime promotion');
+console.log('TOP Core5 preproduction layout/reference/sprite generator contract: PASS');
+console.log('locked Core5 + bridge -> generated-only layered proof + clean reference pack + five transparent cutouts; Pillow-only; no promotion');
