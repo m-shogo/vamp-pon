@@ -29,7 +29,7 @@ const authorities = [
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt',
-    expectedGitBlobSha1: '0e253cd26a5b02e3dd2cf8559de9616dd1cee25d',
+    expectedGitBlobSha1: '49319a6df51ffa7cc6f569e056668a2c1243fa12',
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-identity-brief.md',
@@ -90,6 +90,9 @@ for (const required of [
   'Ignore surrounding conversation',
   'Do not visualize the instructions themselves.',
   'never a board, document, production sheet, status screen, process graphic, comparison sheet, contact sheet, character-card sheet',
+  'COMPOSITION-PLATE INTERPRETATION',
+  'reconstruct believable continuous railway/station/town depth',
+  'Do not preserve the dark removal shape as a flat void or visible mask boundary.',
   'One continuous full-bleed illustration only.',
   'No typography, no logo, no interface',
   'Exactly five foreground humans',
@@ -104,4 +107,4 @@ for (const required of [
 
 console.log('TOP Living Night generation authority lock: PASS');
 console.log('full prompt + isolated visual-only prompt + identity brief are explicitly locked');
-console.log('isolated prompt now treats surrounding development context as non-input and forbids process/status visualization');
+console.log('isolated prompt treats surrounding development context as non-input and reconstructs the sanitized midground as railway/station/town depth');
