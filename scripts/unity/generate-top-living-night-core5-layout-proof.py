@@ -11,12 +11,36 @@ from typing import Dict, Tuple
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
-BRIDGE = ROOT / "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png"
+LAYER_ROOT = ROOT / "docs/design-targets/generated/top-living-night-v2/layers"
+ENGINEERING_BRIDGE = ROOT / "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png"
 REFERENCE_MANIFEST = ROOT / "docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json"
 FINAL_STATUS = ROOT / "docs/design-targets/generated/top-living-night-v3/final-art-status.json"
 OUTPUT_DIR = ROOT / "docs/design-targets/generated/top-living-night-v3/preproduction"
+CLEAN_PLATE = OUTPUT_DIR / "core5-clean-composition-plate-v1.png"
 LAYOUT_PROOF = OUTPUT_DIR / "core5-layout-proof-v1.png"
 REFERENCE_PACK = OUTPUT_DIR / "core5-clean-generation-reference-pack-v1.png"
+
+# Generator-facing composition deliberately excludes every human-bearing bridge
+# layer. Dynamic additive masks are also excluded because they are black-backed
+# luminance masks whose ownership remains in Unity Runtime V3.
+CLEAN_PLATE_LAYERS = (
+    ("00-environment-starless.png", 1.00),
+    ("01-stars.png", 0.72),
+    ("01-moon.png", 1.00),
+    ("02-clouds-far.png", 0.78),
+    ("03-clouds-near.png", 0.82),
+    ("09-fire-base.png", 1.00),
+    ("08-animal-robot.png", 1.00),
+    ("14-foreground-accents.png", 1.00),
+)
+FORBIDDEN_GENERATOR_LAYERS = {
+    "05-distant-companion.png",
+    "06-characters.png",
+    "04-distant-lights-mask.png",
+    "08-robot-eye-mask.png",
+    "11-fire-glow-mask.png",
+    "14-lantern-glow-mask.png",
+}
 
 # The full-body panel occupies the same left-hand region on all locked Core5
 # master boards. Coordinates are normalized so locked master resolution can
@@ -181,22 +205,46 @@ def extract_core5() -> Dict[str, Image.Image]:
     return extracted
 
 
-def blur_bridge_human_cluster(bridge: Image.Image) -> Image.Image:
-    rgba = bridge.convert("RGBA")
-    blurred = rgba.filter(ImageFilter.GaussianBlur(18))
-    darkened = Image.alpha_composite(blurred, Image.new("RGBA", rgba.size, (3, 10, 24, 185)))
-    mask = Image.new("L", rgba.size, 0)
-    draw = ImageDraw.Draw(mask)
-    draw.rounded_rectangle((-20, 250, 450, 560), radius=90, fill=245)
-    mask = mask.filter(ImageFilter.GaussianBlur(32))
-    return Image.composite(darkened, rgba, mask)
+def apply_layer_opacity(image: Image.Image, opacity: float) -> Image.Image:
+    rgba = image.convert("RGBA")
+    if opacity >= 0.999:
+        return rgba
+    alpha = rgba.getchannel("A").point(lambda value: round(value * opacity))
+    rgba.putalpha(alpha)
+    return rgba
+
+
+def build_clean_composition_plate() -> None:
+    layer_names = {name for name, _ in CLEAN_PLATE_LAYERS}
+    invariant(not (layer_names & FORBIDDEN_GENERATOR_LAYERS), "clean TOP plate accidentally includes a forbidden human/mask layer")
+
+    output: Image.Image | None = None
+    for index, (file_name, opacity) in enumerate(CLEAN_PLATE_LAYERS):
+        path = LAYER_ROOT / file_name
+        invariant(path.is_file(), f"clean TOP plate source missing: {path.relative_to(ROOT)}")
+        with Image.open(path) as source:
+            source.load()
+            invariant(source.size == (430, 932), f"clean TOP plate layer must be 430x932: {file_name}={source.size}")
+            layer = source.convert("RGBA")
+
+        if index == 0:
+            output = layer
+            continue
+
+        alpha_min, alpha_max = layer.getchannel("A").getextrema()
+        invariant(alpha_min < 255, f"clean TOP overlay must contain transparency: {file_name}")
+        invariant(alpha_max > 0, f"clean TOP overlay is fully transparent: {file_name}")
+        output = Image.alpha_composite(output, apply_layer_opacity(layer, opacity))
+
+    invariant(output is not None, "clean TOP composition plate did not render")
+    output.convert("RGB").save(CLEAN_PLATE, format="PNG", optimize=True)
 
 
 def make_layout_proof(sprites: Dict[str, Image.Image]) -> None:
-    with Image.open(BRIDGE) as bridge_source:
-        bridge_source.load()
-        invariant(bridge_source.size == (430, 932), f"bridge must be 430x932, got {bridge_source.size}")
-        output = blur_bridge_human_cluster(bridge_source)
+    with Image.open(CLEAN_PLATE) as clean_source:
+        clean_source.load()
+        invariant(clean_source.size == (430, 932), f"clean composition plate must be 430x932, got {clean_source.size}")
+        output = clean_source.convert("RGBA")
 
     for character, x, y, target_height in PLACEMENTS:
         sprite = sprites[character]
@@ -219,39 +267,44 @@ def make_layout_proof(sprites: Dict[str, Image.Image]) -> None:
     output.convert("RGB").save(LAYOUT_PROOF, format="PNG", optimize=True)
 
 
-def make_clean_reference_pack() -> None:
+def make_clean_reference_pack(sprites: Dict[str, Image.Image]) -> None:
+    # Model-facing combined reference intentionally contains no raw bridge and
+    # no master-board labels/text. The left side is the five-Core5 layout proof;
+    # the right side is five transparent identity silhouettes on a neutral field.
     canvas = Image.new("RGB", (1400, 1800), (10, 18, 32))
-    with Image.open(BRIDGE) as bridge:
-        bridge = ImageOps.contain(bridge.convert("RGB"), (720, 1720), Image.Resampling.LANCZOS)
-        canvas.paste(bridge, (40 + (720 - bridge.width) // 2, 40 + (1720 - bridge.height) // 2))
+    with Image.open(LAYOUT_PROOF) as layout:
+        layout = ImageOps.contain(layout.convert("RGB"), (720, 1720), Image.Resampling.LANCZOS)
+        canvas.paste(layout, (40 + (720 - layout.width) // 2, 40 + (1720 - layout.height) // 2))
 
     y = 40
-    manifest = json.loads(REFERENCE_MANIFEST.read_text(encoding="utf-8"))
-    refs = {entry["id"]: entry for entry in manifest["references"]}
     for character in ("yui", "asa", "nagi", "michiru", "tomori"):
-        with Image.open(ROOT / refs[character]["path"]) as board:
-            board = ImageOps.contain(board.convert("RGB"), (560, 310), Image.Resampling.LANCZOS)
-            canvas.paste(board, (820 + (560 - board.width) // 2, y + (310 - board.height) // 2))
+        sprite = ImageOps.contain(sprites[character].convert("RGBA"), (500, 300), Image.Resampling.LANCZOS)
+        x = 820 + (560 - sprite.width) // 2
+        slot_y = y + (310 - sprite.height) // 2
+        canvas.paste(sprite.convert("RGB"), (x, slot_y), sprite.getchannel("A"))
         y += 340
     canvas.save(REFERENCE_PACK, format="PNG", optimize=True)
 
 
 def main() -> None:
-    invariant(BRIDGE.is_file(), f"bridge source missing: {BRIDGE.relative_to(ROOT)}")
+    invariant(LAYER_ROOT.is_dir(), f"TOP V2 layer root missing: {LAYER_ROOT.relative_to(ROOT)}")
+    invariant(ENGINEERING_BRIDGE.is_file(), f"engineering bridge source missing: {ENGINEERING_BRIDGE.relative_to(ROOT)}")
     invariant(REFERENCE_MANIFEST.is_file(), "Core5 reference manifest is missing")
     invariant(FINAL_STATUS.is_file(), "final-art status is missing")
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    build_clean_composition_plate()
     sprites = extract_core5()
     make_layout_proof(sprites)
-    make_clean_reference_pack()
+    make_clean_reference_pack(sprites)
 
     final_status = json.loads(FINAL_STATUS.read_text(encoding="utf-8"))
     print("TOP Core5 layout proof: GENERATED")
+    print(f"cleanPlate={CLEAN_PLATE.relative_to(ROOT)}")
     print(f"layout={LAYOUT_PROOF.relative_to(ROOT)}")
     print(f"referencePack={REFERENCE_PACK.relative_to(ROOT)}")
     print(f"finalCandidateGenerated={str(bool(final_status.get('candidateGenerated'))).lower()}")
-    print("NOTE: these are PREPRODUCTION references only; they never set candidateGenerated or any approval flag.")
+    print("NOTE: generator-facing visuals exclude all bridge humans; outputs are PREPRODUCTION references only and never set candidateGenerated or any approval flag.")
 
 
 if __name__ == "__main__":
