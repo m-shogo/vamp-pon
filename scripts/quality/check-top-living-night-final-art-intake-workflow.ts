@@ -26,6 +26,7 @@ for (const token of [
   'stage-top-living-night-final-art-intake.py',
   'register-top-living-night-final-art.ts',
   'check-top-living-night-final-art-candidate.ts',
+  'check-top-living-night-final-art-not-known-bridge.ts',
   'check-top-living-night-core5-candidate-provenance.ts',
   'check-top-living-night-final-identity-boundary.ts',
   'check-top-living-night-approval-consistency.ts',
@@ -78,6 +79,10 @@ invariant(
   workflow.indexOf("github.actor != 'github-actions[bot]'") < workflow.indexOf('Stage incoming candidate at canonical path'),
   'TOP final-art intake bot recursion guard must execute before candidate staging',
 );
+invariant(
+  workflow.indexOf('check-top-living-night-final-art-not-known-bridge.ts') < workflow.indexOf('Remove one-shot incoming file'),
+  'known V2 bridge rejection must run before intake cleanup/commit',
+);
 
 console.log('TOP final-art intake workflow: PASS');
-console.log('incoming PNG -> validated canonical copy -> exact-SHA registration -> stale evidence reset; bot recursion blocked; no approval; no force push');
+console.log('incoming PNG -> validated canonical copy -> exact-SHA registration -> known-bridge rejection -> stale evidence reset; bot recursion blocked; no approval; no force push');
