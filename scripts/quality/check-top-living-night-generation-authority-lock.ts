@@ -27,7 +27,7 @@ const authorities = [
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt',
-    expectedGitBlobSha1: 'b3059e53bddb8c99717abe0a92fd9e307a5aceee',
+    expectedGitBlobSha1: '0e253cd26a5b02e3dd2cf8559de9616dd1cee25d',
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-identity-brief.md',
@@ -73,8 +73,8 @@ invariant(
   'isolated prompt lost the mobile portrait scale hierarchy',
 );
 invariant(
-  isolatedPrompt.includes('one or two Core5 characters are clearly nearer and noticeably larger'),
-  'isolated prompt lost the near/mid/far portrait depth rule',
+  isolatedPrompt.includes('Yui and Asa are the clearest near/mid anchors'),
+  'isolated prompt lost explicit Yui/Asa phone-scale anchors',
 );
 invariant(
   bundle.isolatedPromptAuthority === authorities[1].path,
@@ -84,16 +84,22 @@ for (const forbidden of ['GitHub', 'pull request', 'CI status', 'roadmap panel',
   invariant(!isolatedPrompt.includes(forbidden), `isolated prompt reintroduced development context: ${forbidden}`);
 }
 for (const required of [
-  'One continuous illustration only.',
+  'INPUT ISOLATION — HIGHEST PRIORITY',
+  'Ignore surrounding conversation',
+  'Do not visualize the instructions themselves.',
+  'never a board, document, production sheet, status screen, process graphic, comparison sheet, contact sheet, character-card sheet',
+  'One continuous full-bleed illustration only.',
   'No typography, no logo, no interface',
   'Exactly five foreground humans',
+  'No elderly man, no generic traveler, no background human silhouette.',
   'any dashboard',
   'any infographic',
   'any development/status information',
+  'any board/document/process visualization',
 ]) {
-  invariant(isolatedPrompt.includes(required), `isolated generation prompt lost visual-only guard: ${required}`);
+  invariant(isolatedPrompt.includes(required), `isolated generation prompt lost visual-only/isolation guard: ${required}`);
 }
 
 console.log('TOP Living Night generation authority lock: PASS');
 console.log('full prompt + isolated visual-only prompt + identity brief are explicitly locked');
-console.log('isolated prompt is bundle-bound, mobile-depth aware, and excludes development/status/dashboard context');
+console.log('isolated prompt now treats surrounding development context as non-input and forbids process/status visualization');
