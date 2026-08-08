@@ -15,6 +15,7 @@ on:
       - 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'
       - 'docs/design-targets/generated/top-living-night-v3/final/**'
       - 'scripts/unity/generate-top-living-night-core5-layout-proof.py'
+      - 'scripts/unity/sanitize-top-living-night-composition-plate.py'
       - 'scripts/unity/generate-top-living-night-core5-sprite-pack.py'
       - 'scripts/unity/polish-top-living-night-core5-preproduction.py'
       - 'scripts/unity/generate-top-living-night-preproduction-manifest.py'
@@ -55,14 +56,18 @@ jobs:
         run: |
           node --experimental-strip-types scripts/quality/check-top-living-night-core5-layout-proof-generator.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-crop-review-pack-generator.ts
+          python -m py_compile scripts/unity/sanitize-top-living-night-composition-plate.py
           python -m py_compile scripts/unity/generate-top-living-night-core5-sprite-pack.py
           python -m py_compile scripts/unity/polish-top-living-night-core5-preproduction.py
           python -m py_compile scripts/unity/generate-top-living-night-preproduction-manifest.py
           python -m py_compile scripts/unity/validate-top-living-night-preproduction-pack.py
           python -m py_compile scripts/unity/generate-top-living-night-layer-diagnostics.py
 
-      - name: Generate human-free composition and Core5 layout/reference pack
+      - name: Generate base human-free layer composition
         run: python scripts/unity/generate-top-living-night-core5-layout-proof.py
+
+      - name: Sanitize raw bridge humans while preserving town and rail context
+        run: python scripts/unity/sanitize-top-living-night-composition-plate.py
 
       - name: Generate clean Core5 full-body cutouts
         run: python scripts/unity/generate-top-living-night-core5-sprite-pack.py
@@ -107,7 +112,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: top-art-layer-diagnostics-${{ github.event.pull_request.head.sha || github.sha }}
-          path: docs/design-targets/generated/top-living-night-v3/diagnostics/layer-audit-contact-sheet-v1.png
+          path: docs/design-targets/generated/top-living-night-v3/diagnostics/*.png
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
