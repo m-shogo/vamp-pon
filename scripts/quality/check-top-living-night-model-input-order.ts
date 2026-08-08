@@ -63,9 +63,11 @@ const engineeringUploadStart = workflow.indexOf('- name: Upload TOP preproductio
 invariant(modelUploadStart >= 0 && engineeringUploadStart > modelUploadStart, 'TOP minimal model-input upload block is missing');
 const modelUpload = workflow.slice(modelUploadStart, engineeringUploadStart);
 invariant(modelUpload.includes('model-input-order.txt'), 'TOP minimal model-input bundle must include visual input-order authority');
+invariant(modelUpload.includes('preproduction/model-input-manifest.json'), 'TOP minimal model-input bundle must include self-contained model manifest');
+invariant(!modelUpload.includes('preproduction/manifest.json'), 'TOP minimal model-input bundle must not include the broader engineering manifest');
 for (const image of requiredImages) {
   invariant(modelUpload.includes(image.replace('preproduction/', 'docs/design-targets/generated/top-living-night-v3/preproduction/')), `TOP minimal model-input upload lost required image: ${image}`);
 }
 
 console.log('TOP Living Night model visual input order: PASS');
-console.log('exact visual set: sanitized composition + Yui/Asa/Nagi/Michiru/Tomori cutouts only; isolated prompt; no development context or extra reference images');
+console.log('exact visual set: sanitized composition + Yui/Asa/Nagi/Michiru/Tomori cutouts only; isolated prompt + self-contained model manifest; no development context or extra reference images');
