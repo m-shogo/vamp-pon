@@ -20,17 +20,14 @@ const ids = ['yui', 'asa', 'nagi', 'michiru', 'tomori'];
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
-
 function write(path: string, value: unknown): void {
   const absolute = join(fixture, path);
   mkdirSync(dirname(absolute), { recursive: true });
   writeFileSync(absolute, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
-
 function read(path: string): any {
   return JSON.parse(readFileSync(join(fixture, path), 'utf8'));
 }
-
 function run(script: string, input: string): string {
   const result = spawnSync(
     process.execPath,
@@ -92,11 +89,7 @@ try {
     candidateGenerated: false,
     sourcePath: canonicalFinal,
     sourceSha256: '',
-    reviews: ['360x800', '390x844', '430x932'].map(resolution => ({
-      resolution,
-      executed: false,
-      result: 'NOT_RUN',
-    })),
+    reviews: ['360x800', '390x844', '430x932'].map(resolution => ({ resolution, executed: false, result: 'NOT_RUN' })),
     allCropsApproved: false,
     reviewedAtUtc: '',
     finalApprovalBlocked: true,
@@ -160,8 +153,28 @@ try {
     schemaVersion: 1,
     candidatePath: canonicalFinal,
     candidateSha256: '',
-    normalMotion: { executed: false, result: 'NOT_RUN', reviewDurationSeconds: 0 },
-    reducedMotion: { executed: false, result: 'NOT_RUN', reviewDurationSeconds: 0 },
+    normalMotion: {
+      executed: false,
+      result: 'NOT_RUN',
+      reviewDurationSeconds: 0,
+      obviousShortLoopObserved: false,
+      accumulatingParticlesObserved: false,
+      brightnessDriftObserved: false,
+      textureLifecycleIssueObserved: false,
+    },
+    reducedMotion: {
+      executed: false,
+      result: 'NOT_RUN',
+      reviewDurationSeconds: 0,
+      cloudMovementStopped: false,
+      particlesSuppressed: false,
+      rareRobotEyeSuppressed: false,
+      fireRemainsRestrained: false,
+      uiFunctional: false,
+      liveToggleToReducedSettled: false,
+      liveToggleBackToNormalSettled: false,
+      noToggleVisualPopOrDuplication: false,
+    },
     unityVersion: '',
     verifiedCommit: '',
     reviewedAtUtc: '',
@@ -191,13 +204,20 @@ try {
       rareRobotEyeSuppressed: true,
       fireRemainsRestrained: true,
       uiFunctional: true,
+      liveToggleToReducedSettled: true,
+      liveToggleBackToNormalSettled: true,
+      noToggleVisualPopOrDuplication: true,
     },
   });
   const motionOut = run('scripts/unity/register-top-living-night-motion-review.ts', motionInputPath);
   invariant(motionOut.includes('normal=PASSED/300s') && motionOut.includes('reduced=PASSED/60s'), 'motion review fixture did not pass');
+  invariant(motionOut.includes('liveToggle=true'), 'motion review fixture did not prove bidirectional live toggle evidence');
   finalArt = read('docs/design-targets/generated/top-living-night-v3/final-art-status.json');
   const motion = read('docs/design-targets/generated/top-living-night-v3/motion-review-status.json');
   invariant(finalArt.motionSeparationReviewed && motion.motionApproved, 'motion review did not synchronize approval evidence');
+  invariant(motion.reducedMotion.liveToggleToReducedSettled, 'motion review did not record toggle-to-reduced evidence');
+  invariant(motion.reducedMotion.liveToggleBackToNormalSettled, 'motion review did not record toggle-back-to-normal evidence');
+  invariant(motion.reducedMotion.noToggleVisualPopOrDuplication, 'motion review did not record clean-toggle evidence');
   invariant(!motion.runtimeApproved && !finalArt.runtimeApproved && !finalArt.approvedAsFinal, 'motion review improperly promoted runtime/final approval');
 
   write('docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json', {
@@ -268,7 +288,7 @@ try {
   invariant(!loading.approval.runtimeApproved && !loading.approval.approvedAsFinal && loading.approval.finalApprovalBlocked, 'human review improperly promoted Loading runtime/final approval');
 
   console.log('TOP Living Night review registration mutation fixture: PASS');
-  console.log('Core5/crop -> motion -> human registration succeeds with exact provenance while runtime/final approval remains blocked');
+  console.log('Core5/crop -> motion with live Reduced Motion toggles -> human registration succeeds with exact provenance while runtime/final approval remains blocked');
 } finally {
   rmSync(fixture, { recursive: true, force: true });
 }
