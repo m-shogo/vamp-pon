@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -32,7 +33,14 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def resolve_source_commit() -> str:
+def require_sha(value: str, label: str) -> str:
+    normalized = value.strip().lower()
+    if len(normalized) != 40 or any(char not in "0123456789abcdef" for char in normalized):
+        raise RuntimeError(f"TOP minimal model-input validator {label} must be a lowercase 40-char git SHA")
+    return normalized
+
+
+def resolve_checkout_commit() -> str:
     process = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         cwd=ROOT,
@@ -40,10 +48,14 @@ def resolve_source_commit() -> str:
         capture_output=True,
         text=True,
     )
-    commit = process.stdout.strip()
-    if process.returncode != 0 or len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
-        raise RuntimeError("TOP minimal model-input validator could not resolve current source commit")
-    return commit
+    if process.returncode != 0:
+        raise RuntimeError("TOP minimal model-input validator could not resolve checkout commit")
+    return require_sha(process.stdout, "checkoutCommit")
+
+
+def resolve_source_commit(checkout_commit: str) -> str:
+    supplied = os.environ.get("TOP_SOURCE_HEAD_SHA", "").strip()
+    return require_sha(supplied, "sourceCommit") if supplied else checkout_commit
 
 
 def invariant(condition: bool, message: str) -> None:
@@ -58,9 +70,13 @@ def main() -> None:
     manifest = json.loads(MODEL_MANIFEST.read_text(encoding="utf-8"))
     reference = json.loads(REFERENCE_MANIFEST.read_text(encoding="utf-8"))
 
+    checkout_commit = resolve_checkout_commit()
+    source_commit = resolve_source_commit(checkout_commit)
+
     invariant(manifest.get("schemaVersion") == 1, "TOP minimal model-input manifest schema mismatch")
     invariant(manifest.get("authority") == "MODEL_INPUTS_ONLY_NOT_FINAL_ART", "TOP minimal model-input manifest authority mismatch")
-    invariant(manifest.get("sourceCommit") == resolve_source_commit(), "TOP minimal model-input manifest was generated from a different source commit")
+    invariant(manifest.get("sourceCommit") == source_commit, "TOP minimal model-input sourceCommit does not match the real PR/branch head")
+    invariant(manifest.get("checkoutCommit") == checkout_commit, "TOP minimal model-input checkoutCommit does not match the exact tree that generated the artifact")
     invariant(
         manifest.get("sourcePreproductionManifestSha256") == sha256(PREPRODUCTION_MANIFEST),
         "TOP minimal model-input manifest is not bound to the exact current preproduction-manifest bytes",
@@ -124,8 +140,9 @@ def main() -> None:
 
     print("TOP minimal model-input manifest validation: PASS")
     print(f"sourceCommit={manifest['sourceCommit']}")
+    print(f"checkoutCommit={manifest['checkoutCommit']}")
     print(f"sourcePreproductionManifestSha256={manifest['sourcePreproductionManifestSha256']}")
-    print("exactly 6 visual inputs + 2 hashed text instructions; exact source commit + preproduction-manifest hash; no raw bridge/layout/diagnostics/development context; non-final/non-approving")
+    print("exactly 6 visual inputs + 2 hashed text instructions; real branch-head + exact checkout-tree + preproduction-manifest provenance; no raw bridge/layout/diagnostics/development context; non-final/non-approving")
 
 
 if __name__ == "__main__":
