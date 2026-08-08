@@ -4,6 +4,9 @@ INPUT ISOLATION — HIGHEST PRIORITY
 Use only this scene brief plus the six supplied visual references: one human-free composition plate followed by Yui, Asa, Nagi, Michiru, and Tomori identity references in that order. Ignore surrounding conversation, project-management context, development notes, prior generated status images, filenames, commands, review notes, and process descriptions. Do not visualize the instructions themselves.
 The output must be the fantasy game key art itself — never a board, document, production sheet, status screen, process graphic, comparison sheet, contact sheet, character-card sheet, poster layout, or explanatory graphic.
 
+COMPOSITION-PLATE INTERPRETATION
+The human-free composition plate is a sanitized layout reference, not literal final background pixels inside the broad central human-removal zone. Keep its crescent sky, night palette, station-side silhouette, compact fire position, white animal, round robot, title-safe top, and dark button-safe bottom. In the central dark removal zone, reconstruct believable continuous railway/station/town depth — rails, platform/ground perspective, distant warm windows, and atmospheric foliage — before placing the five Core5 characters. Do not preserve the dark removal shape as a flat void or visible mask boundary.
+
 OUTPUT
 430 x 932 PNG portrait. One continuous full-bleed illustration only. No typography, no logo, no interface, no panels, no borders, no labels, no captions, no charts, no tables, no progress indicators, no watermark. Do not reproduce text or labels that may appear inside any reference image.
 
