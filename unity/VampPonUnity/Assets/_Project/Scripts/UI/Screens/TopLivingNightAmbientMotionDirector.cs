@@ -9,7 +9,8 @@ namespace VampPon.UnitySpike.UI.Screens
     [DefaultExecutionOrder(900)]
     public sealed class TopLivingNightAmbientMotionDirector : MonoBehaviour
     {
-        private const float SearchInterval = .15f;
+        private const float UnboundSearchInterval = .15f;
+        private const float BoundSearchInterval = 1f;
         private const float PreferencePollInterval = .5f;
 
         private static TopLivingNightAmbientMotionDirector instance;
@@ -21,9 +22,9 @@ namespace VampPon.UnitySpike.UI.Screens
         private RectTransform cloudsNear;
         private Vector2 artBasePosition;
         private Vector3 artBaseScale = Vector3.one;
-        private Vector2 titleBasePosition;
-        private Vector2 farBasePosition;
-        private Vector2 nearBasePosition;
+        private readonly Vector2 titleBasePosition = Vector2.zero;
+        private readonly Vector2 farBasePosition = Vector2.zero;
+        private readonly Vector2 nearBasePosition = Vector2.zero;
         private float nextSearchAt;
         private float nextPreferencePollAt;
         private bool reducedMotion;
@@ -64,7 +65,10 @@ namespace VampPon.UnitySpike.UI.Screens
             var time = Time.unscaledTime;
             if (time >= nextSearchAt)
             {
-                nextSearchAt = time + SearchInterval;
+                var searchInterval = top == null
+                    ? UnboundSearchInterval
+                    : BoundSearchInterval;
+                nextSearchAt = time + searchInterval;
                 var current = FindFirstObjectByType<TopLivingNightView>();
                 if (current != top)
                     Bind(current);
@@ -115,9 +119,10 @@ namespace VampPon.UnitySpike.UI.Screens
 
             artBasePosition = artRoot.anchoredPosition;
             artBaseScale = artRoot.localScale;
-            titleBasePosition = titleRoot.anchoredPosition;
-            farBasePosition = cloudsFar.anchoredPosition;
-            nearBasePosition = cloudsNear.anchoredPosition;
+            // TopLivingNightView authors TitleGroup and both cloud layers at the
+            // zero anchored pose. The view applies its own short-period motion
+            // before this director runs, so capturing their current values here
+            // would accidentally freeze an arbitrary animation offset in Reduced Motion.
             poseCaptured = true;
         }
 
