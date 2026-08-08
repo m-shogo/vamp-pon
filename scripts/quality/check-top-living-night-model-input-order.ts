@@ -27,7 +27,7 @@ for (const token of [
   'No sixth human, no generic substitute, no duplicate identity.',
   'Mobile portrait depth is mandatory: do not make all five humans small',
   'One or two Core5 characters must read clearly nearer and larger',
-  'Do not use engineering fullbody-cutout PNGs',
+  'do not use engineering fullbody-cutout PNGs',
   'Do not use any other image as a visual reference.',
   'Use final-key-art-isolated-prompt.txt as the text instruction.',
   'Output one continuous portrait illustration only: PNG, 430x932',
