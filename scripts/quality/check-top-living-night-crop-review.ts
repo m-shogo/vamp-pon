@@ -1,3 +1,4 @@
+import './check-top-living-night-crop-review-pack-generator.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
