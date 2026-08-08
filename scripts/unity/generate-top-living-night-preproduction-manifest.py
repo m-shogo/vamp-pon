@@ -23,7 +23,20 @@ IDENTITY_CUTOUTS = [
     "core5-michiru-fullbody-cutout-v1.png",
     "core5-tomori-fullbody-cutout-v1.png",
 ]
-REQUIRED_PNGS = [PRIMARY_COMPOSITION, LAYOUT_PROOF, COMBINED_REFERENCE, *IDENTITY_CUTOUTS]
+IDENTITY_REFERENCES = [
+    "core5-yui-identity-reference-v1.png",
+    "core5-asa-identity-reference-v1.png",
+    "core5-nagi-identity-reference-v1.png",
+    "core5-michiru-identity-reference-v1.png",
+    "core5-tomori-identity-reference-v1.png",
+]
+REQUIRED_PNGS = [
+    PRIMARY_COMPOSITION,
+    LAYOUT_PROOF,
+    COMBINED_REFERENCE,
+    *IDENTITY_CUTOUTS,
+    *IDENTITY_REFERENCES,
+]
 
 
 def digest(path: Path) -> str:
@@ -60,7 +73,7 @@ def main() -> None:
         )
 
     payload = {
-        "schemaVersion": 3,
+        "schemaVersion": 4,
         "authority": "PREPRODUCTION_ONLY_NOT_FINAL_ART",
         "core5ReferenceSetSha256": reference["referenceSetSha256"],
         "engineeringBridge": {
@@ -75,7 +88,8 @@ def main() -> None:
         },
         "modelInputRoles": {
             "primaryComposition": PRIMARY_COMPOSITION,
-            "primaryIdentityCutouts": IDENTITY_CUTOUTS,
+            "primaryIdentityReferences": IDENTITY_REFERENCES,
+            "engineeringIdentityCutouts": IDENTITY_CUTOUTS,
             "optionalConvenienceReference": COMBINED_REFERENCE,
             "blockingOnly": [LAYOUT_PROOF],
             "blockingOnlyIsFinalStyleAuthority": False,
@@ -88,6 +102,7 @@ def main() -> None:
             "mayRegisterAsFinalCandidate": False,
             "mayPromoteApproval": False,
             "rawBridgeAllowedAsGeneratorFacingInput": False,
+            "engineeringCutoutsAllowedInMinimalModelBundle": False,
             "mustRegenerateWhenCore5OrBridgeLayersChange": True,
         },
     }
@@ -97,8 +112,8 @@ def main() -> None:
     print(f"engineeringBridgeSha256={payload['engineeringBridge']['sha256']}")
     print(f"outputs={len(outputs)}")
     print(f"primaryComposition={payload['modelInputRoles']['primaryComposition']}")
-    print(f"identityCutouts={len(payload['modelInputRoles']['primaryIdentityCutouts'])}")
-    print("NOTE: use the sanitized primary composition + five identity cutouts as primary model inputs; layout proof is blocking-only; raw bridge/diagnostics are never model inputs or approval evidence.")
+    print(f"identityReferences={len(payload['modelInputRoles']['primaryIdentityReferences'])}")
+    print("NOTE: minimal model inputs use the sanitized composition + five single-human identity references. Fullbody cutouts/layout proof remain engineering/blocking-only; raw bridge/diagnostics are never model inputs or approval evidence.")
 
 
 if __name__ == "__main__":
