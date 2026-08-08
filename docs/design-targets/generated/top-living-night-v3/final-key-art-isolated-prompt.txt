@@ -1,0 +1,37 @@
+Create one production-quality portrait key visual for a mobile fantasy game.
+
+OUTPUT
+430 x 932 PNG portrait. One continuous illustration only. No typography, no logo, no interface, no panels, no borders, no labels, no captions, no charts, no tables, no progress indicators, no watermark.
+
+SCENE
+A quiet abandoned railway station camp at night. Deep indigo sky, restrained crescent moon and stars, old rails receding toward a distant fantasy town with a few warm lights. A compact campfire is the secondary focal point. The mood is serious, calm, slightly bittersweet: trusted companions resting just before continuing a long journey.
+
+CHARACTERS
+Exactly five foreground humans, no more and no fewer. Use the five supplied character reference images as hard identity references. Do not redesign, merge, duplicate, age-swap, gender-swap, or replace them.
+
+Yui: warm brown bob, oversized deep-navy hooded cape, cream dress, warm lantern, gentle open expression. Place near center and near the fire.
+Asa: dark-brown side braid, navy cape, visible paper-label/name-tag motif and name-tag lantern, calm observant expression.
+Nagi: straight dark hair with blunt bangs, deep-navy moon-pattern hood, readable crescent clasp, moon box/key motif, quiet reserved expression.
+Michiru: tied brown hair with teal ribbon, dark-teal route-pattern cape, readable glowing compass, active guide posture.
+Tomori: tied warm-brown hair, rust-red repair cape, repair lamp and a few readable tool details, warm practical expression.
+
+GROUP BLOCKING
+Do not arrange them as an equal-scale lineup. Use layered depth: two slightly nearer, two mid-depth, one slightly behind or beside the fire. Keep every face readable on a phone. Separate Yui, Asa, and Nagi with hair, gesture, props, and depth so they do not merge into one navy mass. Michiru is the clearest cool-color separator; Tomori is the clearest warm-cloth separator.
+
+COMPANIONS
+Include one small white animal resting naturally and one small round robot with a clean dark eye region. No sixth human.
+
+SAFE AREAS
+Top 18-22 percent: low-detail dark sky only; no face, signature prop, bright lantern, or important silhouette.
+Middle 55-60 percent: five characters, compact fire, rails/station/town depth.
+Bottom 20-22 percent: dark low-detail ground/rail area; no face, animal eye, robot eye, compass, lantern, repair lamp, or bright centered object.
+The composition must survive portrait crops at 360x800, 390x844, and 430x932.
+
+STYLE
+Coherent anime/storybook illustration with subtle black-ink linework, fibrous paper texture, hand-painted background, controlled shadows, deep indigo/black ink/muted teal, restrained amber from fire and lamps. Clean but not glossy. Characters and environment share the same paper/ink lighting language.
+
+MOTION-AWARE STILL
+Paint only low coals, a low flame foundation, restrained local fire bounce, distant lights, and lantern local bounce. Leave main fire animation, smoke wisps, sparse embers, distant-light pulse, lantern pulse, robot-eye blink, and subtle star/cloud drift for runtime overlays. Do not bake a huge flame, smoke plume, dense sparks, or giant glow halo into the still.
+
+ABSOLUTELY EXCLUDE
+seasonal festival art, beach, sea, fireworks, swimsuits, party celebration, idol lineup, generic substitute cast, sixth human, duplicated identity, sexualized posing, excessive skin exposure, photorealistic faces, glossy 3D, neon cyberpunk, saturated gacha lighting, giant magic effects, large smoke plume, excessive embers, any text, any logo, any interface, any dashboard, any infographic, any development/status information.
