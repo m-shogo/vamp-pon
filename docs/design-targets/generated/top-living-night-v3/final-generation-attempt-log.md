@@ -33,6 +33,25 @@ Do not supply PR status, CI output, evidence tables, implementation roadmaps, re
 
 The full prompt remains useful for engineering/review context, but the isolated prompt is the preferred generator-facing text because it contains no project-status narrative.
 
+### Clean generator-input artifact
+
+The `TOP Art Preproduction` workflow now builds a generated-only artifact that is safe to hand to a clean image-generation context without carrying PR/CI/dashboard screenshots.
+
+It contains:
+
+- the isolated visual-only prompt
+- `final-identity-brief.md`
+- the locked Core5 reference manifest
+- the composition-only 430x932 bridge
+- five generated transparent full-body Core5 cutouts
+- a clean bridge + five-master reference pack
+- a 430x932 Core5 placement/layout proof
+- a hash-bound `preproduction/manifest.json`
+
+The cutouts/layout/reference pack are **preproduction generator inputs only**. They are not canonical runtime art, cannot set `candidateGenerated`, and cannot satisfy identity/crop/runtime approval by themselves.
+
+The workflow also validates the generated pack and removes disconnected design-board/sprite-sheet debris before upload. This reduces the risk that a generator sees surrounding character-sheet panels or project-status material as part of the desired final composition.
+
 ## Acceptance remains unchanged
 
 A later result is not accepted merely because it looks good. It must still be:
