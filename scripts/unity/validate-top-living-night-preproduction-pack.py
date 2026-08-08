@@ -16,6 +16,7 @@ CLEAN_PLATE = "core5-clean-composition-plate-v1.png"
 LAYOUT_PROOF = "core5-layout-proof-v1.png"
 COMBINED_REFERENCE = "core5-clean-generation-reference-pack-v1.png"
 IDENTITY_CUTOUTS = [f"core5-{character}-fullbody-cutout-v1.png" for character in CHARACTERS]
+IDENTITY_REFERENCES = [f"core5-{character}-identity-reference-v1.png" for character in CHARACTERS]
 
 
 def digest(path: Path) -> str:
@@ -68,7 +69,7 @@ def main() -> None:
     if not MANIFEST.is_file():
         raise RuntimeError("preproduction manifest is missing")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    if manifest.get("schemaVersion") != 3 or manifest.get("authority") != "PREPRODUCTION_ONLY_NOT_FINAL_ART":
+    if manifest.get("schemaVersion") != 4 or manifest.get("authority") != "PREPRODUCTION_ONLY_NOT_FINAL_ART":
         raise RuntimeError("preproduction manifest authority/schema mismatch")
     rules = manifest.get("rules", {})
     if rules.get("mayRegisterAsFinalCandidate") is not False:
@@ -77,6 +78,8 @@ def main() -> None:
         raise RuntimeError("preproduction pack must explicitly forbid approval promotion")
     if rules.get("rawBridgeAllowedAsGeneratorFacingInput") is not False:
         raise RuntimeError("preproduction pack must forbid raw bridge as generator-facing input")
+    if rules.get("engineeringCutoutsAllowedInMinimalModelBundle") is not False:
+        raise RuntimeError("engineering cutouts must stay out of the minimal model-input bundle")
 
     engineering_bridge = manifest.get("engineeringBridge", {})
     if engineering_bridge.get("generatorFacing") is not False:
@@ -92,8 +95,10 @@ def main() -> None:
     roles = manifest.get("modelInputRoles", {})
     if roles.get("primaryComposition") != CLEAN_PLATE:
         raise RuntimeError("preproduction model-input roles must select the sanitized clean plate as primary composition")
-    if roles.get("primaryIdentityCutouts") != IDENTITY_CUTOUTS:
-        raise RuntimeError("preproduction model-input roles must select exactly five ordered Core5 identity cutouts")
+    if roles.get("primaryIdentityReferences") != IDENTITY_REFERENCES:
+        raise RuntimeError("preproduction model-input roles must select exactly five ordered clean Core5 identity references")
+    if roles.get("engineeringIdentityCutouts") != IDENTITY_CUTOUTS:
+        raise RuntimeError("preproduction engineering cutout role mismatch")
     if roles.get("optionalConvenienceReference") != COMBINED_REFERENCE:
         raise RuntimeError("preproduction convenience-reference role mismatch")
     if roles.get("blockingOnly") != [LAYOUT_PROOF]:
@@ -106,18 +111,25 @@ def main() -> None:
         raise RuntimeError("preproduction raw bridge must never be a model input")
 
     by_name = {entry["file"]: entry for entry in manifest.get("outputs", [])}
-    expected_names = {CLEAN_PLATE, LAYOUT_PROOF, COMBINED_REFERENCE, *IDENTITY_CUTOUTS}
+    expected_names = {
+        CLEAN_PLATE,
+        LAYOUT_PROOF,
+        COMBINED_REFERENCE,
+        *IDENTITY_CUTOUTS,
+        *IDENTITY_REFERENCES,
+    }
     if set(by_name) != expected_names:
         raise RuntimeError(f"preproduction output set mismatch: {sorted(by_name)}")
 
     role_files = {
         roles["primaryComposition"],
-        *roles["primaryIdentityCutouts"],
+        *roles["primaryIdentityReferences"],
+        *roles["engineeringIdentityCutouts"],
         roles["optionalConvenienceReference"],
         *roles["blockingOnly"],
     }
     if role_files != expected_names:
-        raise RuntimeError("preproduction model-input roles must classify every generated PNG exactly once by intent")
+        raise RuntimeError("preproduction roles must classify every generated PNG exactly once by intent")
 
     for name, entry in by_name.items():
         path = OUTPUT_DIR / name
@@ -149,26 +161,35 @@ def main() -> None:
         with Image.open(path) as sprite:
             sprite.load()
             if sprite.mode != "RGBA":
-                raise RuntimeError(f"{character} cutout must be RGBA")
+                raise RuntimeError(f"{character} engineering cutout must be RGBA")
             total, largest, right_border = alpha_component_metrics(sprite)
             if total <= 0:
-                raise RuntimeError(f"{character} cutout is empty")
+                raise RuntimeError(f"{character} engineering cutout is empty")
             largest_ratio = largest / total
             border_ratio = right_border / total
             if largest_ratio < 0.82:
                 raise RuntimeError(
-                    f"{character} cutout has too much disconnected debris: largestRatio={largest_ratio:.4f}"
+                    f"{character} engineering cutout has too much disconnected debris: largestRatio={largest_ratio:.4f}"
                 )
             if border_ratio > 0.02:
                 raise RuntimeError(
-                    f"{character} cutout leaks into the neighboring master panel: rightBorderRatio={border_ratio:.4f}"
+                    f"{character} engineering cutout leaks into the neighboring master panel: rightBorderRatio={border_ratio:.4f}"
                 )
             print(
-                f"{character}: alphaPixels={total} largestRatio={largest_ratio:.4f} rightBorderRatio={border_ratio:.4f}"
+                f"{character}-cutout: alphaPixels={total} largestRatio={largest_ratio:.4f} rightBorderRatio={border_ratio:.4f}"
             )
 
+        identity_path = OUTPUT_DIR / f"core5-{character}-identity-reference-v1.png"
+        with Image.open(identity_path) as identity:
+            identity.load()
+            if identity.mode != "RGB":
+                raise RuntimeError(f"{character} model identity reference must be RGB")
+            if identity.width < 250 or identity.height < 500 or identity.height <= identity.width:
+                raise RuntimeError(f"{character} model identity reference geometry is invalid: {identity.size}")
+            print(f"{character}-identity: size={identity.width}x{identity.height}")
+
     print("TOP preproduction visual pack validation: PASS")
-    print("roles: primary=sanitized 430x932 plate + five Core5 cutouts; combined reference optional; layout proof blocking-only; diagnostics/raw bridge forbidden")
+    print("roles: model-facing primary=sanitized 430x932 plate + five clean single-human identity references; engineering cutouts + convenience reference retained outside minimal model bundle; layout proof blocking-only")
     print("all preproduction PNGs are hash-bound and remain non-final/non-approving")
 
 
