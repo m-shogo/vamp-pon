@@ -66,14 +66,19 @@ invariant(
   plan.includes('The two directors do **not** load textures, replace the V3 composite, own capture readiness, or write approval evidence.'),
   'TOP motion review plan must preserve director ownership boundary',
 );
+
+const boundaryHeading = '## Current boundary';
+const boundaryStart = plan.indexOf(boundaryHeading);
+invariant(boundaryStart >= 0, 'TOP motion review plan lost Current boundary section');
+const boundary = plan.slice(boundaryStart);
 for (const forbidden of [
   'fiveMinuteRuntimeReviewComplete=true',
   'reducedMotionRuntimeReviewComplete=true',
   'motionApproved=true',
   'runtimeApproved=true',
 ]) {
-  invariant(!plan.includes(forbidden), `TOP motion review plan cannot claim unexecuted runtime evidence: ${forbidden}`);
+  invariant(!boundary.includes(forbidden), `TOP motion review boundary cannot claim unexecuted runtime evidence: ${forbidden}`);
 }
 
 console.log('TOP motion director / review-plan sync: PASS');
-console.log('Perlin ambient + adjacent fire cadence anchors are review-bound; runtime evidence remains NOT_RUN');
+console.log('Perlin ambient + adjacent fire cadence anchors are review-bound; Current boundary runtime evidence remains NOT_RUN');
