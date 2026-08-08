@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { inflateSync } from 'node:zlib';
 
 const root = process.cwd();
 const dryRun = process.argv.includes('--dry-run');
@@ -40,13 +41,95 @@ function referenceSetDigest(manifest: any): string {
   invariant(manifest.referenceSetSha256 === digest, 'Core5 reference-set fingerprint is stale');
   return digest;
 }
+
+function crc32(bytes: Buffer): number {
+  let crc = 0xffffffff;
+  for (const byte of bytes) {
+    crc ^= byte;
+    for (let bit = 0; bit < 8; bit++) {
+      crc = (crc >>> 1) ^ (crc & 1 ? 0xedb88320 : 0);
+    }
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
 function validatePng430x932(bytes: Buffer): void {
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
-  invariant(bytes.length >= 24, 'final Core5 TOP PNG is truncated');
+  invariant(bytes.length >= 33, 'final Core5 TOP PNG is truncated');
   invariant(bytes.subarray(0, 8).equals(signature), 'final Core5 TOP PNG signature mismatch');
-  invariant(bytes.subarray(12, 16).toString('ascii') === 'IHDR', 'final Core5 TOP PNG IHDR is missing');
-  invariant(bytes.readUInt32BE(16) === 430, 'final Core5 TOP PNG width must be 430');
-  invariant(bytes.readUInt32BE(20) === 932, 'final Core5 TOP PNG height must be 932');
+
+  let offset = 8;
+  let sawIhdr = false;
+  let sawIdat = false;
+  let sawIend = false;
+  let width = 0;
+  let height = 0;
+  let channels = 0;
+  const idatChunks: Buffer[] = [];
+
+  while (offset < bytes.length) {
+    invariant(offset + 12 <= bytes.length, 'final Core5 TOP PNG has a truncated chunk header');
+    const length = bytes.readUInt32BE(offset);
+    const type = bytes.subarray(offset + 4, offset + 8);
+    const dataStart = offset + 8;
+    const dataEnd = dataStart + length;
+    const chunkEnd = dataEnd + 4;
+    const typeName = type.toString('ascii');
+    invariant(chunkEnd <= bytes.length, `final Core5 TOP PNG chunk ${typeName} is truncated`);
+
+    const storedCrc = bytes.readUInt32BE(dataEnd);
+    const calculatedCrc = crc32(Buffer.concat([type, bytes.subarray(dataStart, dataEnd)]));
+    invariant(storedCrc === calculatedCrc, `final Core5 TOP PNG chunk ${typeName} CRC mismatch`);
+
+    if (typeName === 'IHDR') {
+      invariant(!sawIhdr, 'final Core5 TOP PNG contains duplicate IHDR');
+      invariant(offset === 8, 'final Core5 TOP PNG IHDR must be first');
+      invariant(length === 13, 'final Core5 TOP PNG IHDR length must be 13');
+      const ihdr = bytes.subarray(dataStart, dataEnd);
+      width = ihdr.readUInt32BE(0);
+      height = ihdr.readUInt32BE(4);
+      invariant(width === 430, 'final Core5 TOP PNG width must be 430');
+      invariant(height === 932, 'final Core5 TOP PNG height must be 932');
+      invariant(ihdr[8] === 8, 'final Core5 TOP PNG must be 8-bit');
+      invariant(ihdr[9] === 2 || ihdr[9] === 6, 'final Core5 TOP PNG must be RGB or RGBA');
+      channels = ihdr[9] === 2 ? 3 : 4;
+      invariant(ihdr[10] === 0, 'final Core5 TOP PNG compression method must be standard');
+      invariant(ihdr[11] === 0, 'final Core5 TOP PNG filter method must be standard');
+      invariant(ihdr[12] === 0, 'final Core5 TOP PNG must be non-interlaced');
+      sawIhdr = true;
+    } else if (typeName === 'IDAT') {
+      invariant(sawIhdr, 'final Core5 TOP PNG IDAT appears before IHDR');
+      sawIdat = true;
+      idatChunks.push(bytes.subarray(dataStart, dataEnd));
+    } else if (typeName === 'IEND') {
+      invariant(length === 0, 'final Core5 TOP PNG IEND length must be zero');
+      sawIend = true;
+      invariant(chunkEnd === bytes.length, 'final Core5 TOP PNG contains trailing bytes after IEND');
+      offset = chunkEnd;
+      break;
+    }
+
+    offset = chunkEnd;
+  }
+
+  invariant(sawIhdr, 'final Core5 TOP PNG is missing IHDR');
+  invariant(sawIdat, 'final Core5 TOP PNG is missing IDAT');
+  invariant(sawIend, 'final Core5 TOP PNG is missing IEND');
+  invariant(offset === bytes.length, 'final Core5 TOP PNG parser did not consume the full file');
+
+  let scanlines: Buffer;
+  try {
+    scanlines = inflateSync(Buffer.concat(idatChunks));
+  } catch (error) {
+    throw new Error(`final Core5 TOP PNG IDAT stream is not decodable: ${error instanceof Error ? error.message : String(error)}`);
+  }
+  const rowBytes = width * channels;
+  const expectedLength = height * (rowBytes + 1);
+  invariant(scanlines.length === expectedLength, `final Core5 TOP PNG decoded scanline length mismatch: expected ${expectedLength}, got ${scanlines.length}`);
+  for (let row = 0; row < height; row++) {
+    const filter = scanlines[row * (rowBytes + 1)];
+    invariant(filter <= 4, `final Core5 TOP PNG row ${row} has invalid filter type ${filter}`);
+  }
 }
 
 function resetIdentity(identity: any, sha256: string, referenceSetSha256: string): void {
@@ -336,6 +419,7 @@ function main(): void {
   console.log(`candidate=${canonicalCandidatePath}`);
   console.log(`sha256=${sha256}`);
   console.log(`core5ReferenceSet=${currentReferenceSetSha256}`);
+  console.log('PNG integrity=CRC-valid chunks + decodable IDAT + exact scanline/filter contract');
   console.log('downstream Core5/crop/motion/live-toggle/human/Unity/capture/device approval evidence reset to NOT_RUN/blocked');
 }
 
