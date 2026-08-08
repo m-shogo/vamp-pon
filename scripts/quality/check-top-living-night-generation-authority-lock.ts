@@ -6,6 +6,7 @@ import './check-top-living-night-final-art-intake-workflow.ts';
 import './check-top-living-night-final-art-intake-bundle.ts';
 import './check-top-living-night-final-art-intake-behavior.ts';
 import './check-top-living-night-ambient-motion-director.ts';
+import './check-top-living-night-fire-cadence-director.ts';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
