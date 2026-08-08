@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PIL import Image, ImageChops, ImageFilter, ImageStat
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageStat
 
 ROOT = Path(__file__).resolve().parents[2]
 BRIDGE = ROOT / "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png"
@@ -16,6 +16,19 @@ TARGET_SIZE = (430, 932)
 HUMAN_MASK_LAYERS = (
     "05-distant-companion.png",
     "06-characters.png",
+)
+# The V2 character layer was generated as a partial identity/upper-body layer,
+# not a perfect segmentation of the final bridge composite. These broad organic
+# regions therefore cover the full bridge bodies/limbs as a fail-closed safety
+# envelope. They are intentionally oversized because the Core5 layout will be
+# rebuilt on top of this sanitized plate.
+MANUAL_HUMAN_REGIONS = (
+    (-55, 300, 145, 610),   # left seated traveler
+    (45, 260, 230, 535),    # older central-left traveler + raised arm
+    (120, 335, 240, 610),   # center-left seated traveler
+    (195, 340, 320, 615),   # center-right seated traveler
+    (275, 340, 465, 640),   # right seated traveler
+    (275, 295, 360, 435),   # distant standing companion
 )
 RESTORE_ALLOWED_LAYERS = (
     "09-fire-base.png",
@@ -39,41 +52,56 @@ def resized_rgba(path: Path) -> Image.Image:
 
 
 def build_human_mask() -> Image.Image:
-    combined = Image.new("L", TARGET_SIZE, 0)
+    # Layer alpha is retained only as a fine alignment aid around heads/hair.
+    # Never depend on it as full-body segmentation: 06-characters is partial.
+    layer_alpha = Image.new("L", TARGET_SIZE, 0)
     for file_name in HUMAN_MASK_LAYERS:
         path = LAYER_ROOT / file_name
         invariant(path.is_file(), f"TOP human-removal mask source missing: {path.relative_to(ROOT)}")
         alpha = resized_rgba(path).getchannel("A")
-        combined = ImageChops.lighter(combined, alpha)
+        layer_alpha = ImageChops.lighter(layer_alpha, alpha)
+    layer_hard = layer_alpha.point(lambda value: 255 if value >= 8 else 0)
+    layer_aid = layer_hard.filter(ImageFilter.MaxFilter(9))
 
-    # Threshold faint antialiasing, then deliberately grow past hair/cape edge
-    # pixels so the sanitized derivative cannot retain a readable old silhouette.
-    hard = combined.point(lambda value: 255 if value >= 8 else 0)
-    grown = hard.filter(ImageFilter.MaxFilter(31))
-    feathered = grown.filter(ImageFilter.GaussianBlur(5.0))
+    manual = Image.new("L", TARGET_SIZE, 0)
+    draw = ImageDraw.Draw(manual)
+    for region in MANUAL_HUMAN_REGIONS:
+        draw.ellipse(region, fill=255)
 
-    stats = ImageStat.Stat(hard)
-    coverage = stats.sum[0] / (255.0 * TARGET_SIZE[0] * TARGET_SIZE[1])
-    invariant(0.02 < coverage < 0.30, f"TOP human-removal mask coverage is suspicious: {coverage:.4f}")
+    combined = ImageChops.lighter(manual, layer_aid)
+    # Small final growth/feather removes hair/cloth antialiasing without creating
+    # the previous screen-wide horizontal band.
+    grown = combined.filter(ImageFilter.MaxFilter(11))
+    feathered = grown.filter(ImageFilter.GaussianBlur(7.0))
+
+    stats = ImageStat.Stat(manual)
+    manual_coverage = stats.sum[0] / (255.0 * TARGET_SIZE[0] * TARGET_SIZE[1])
+    invariant(0.12 < manual_coverage < 0.52, f"TOP manual human-removal coverage is suspicious: {manual_coverage:.4f}")
     invariant(grown.getbbox() is not None, "TOP human-removal mask is empty")
-    print(f"humanMaskCoverage={coverage:.4f}")
+    print(f"manualHumanMaskCoverage={manual_coverage:.4f}")
     return feathered
 
 
 def sanitize_bridge(mask: Image.Image) -> Image.Image:
     invariant(BRIDGE.is_file(), f"TOP bridge missing: {BRIDGE.relative_to(ROOT)}")
+    invariant(CLEAN_PLATE.is_file(), "base human-free layer composition must exist before bridge sanitization")
     with Image.open(BRIDGE) as source:
         source.load()
         invariant(source.size == TARGET_SIZE, f"TOP bridge must be 430x932, got {source.size}")
         bridge = source.convert("RGB")
+    with Image.open(CLEAN_PLATE) as source:
+        source.load()
+        invariant(source.size == TARGET_SIZE, f"base human-free composition must be 430x932, got {source.size}")
+        base_human_free = source.convert("RGB")
 
-    # A very broad blur destroys identity/silhouette detail inside the exact
-    # human masks. A restrained navy blend prevents warm face/cape remnants
-    # from surviving as a recognizable sixth/generic person. Only masked pixels
-    # are replaced; town/rail/camp context outside the old humans stays intact.
-    blurred = bridge.filter(ImageFilter.GaussianBlur(52.0))
+    # Preserve bridge town/rail detail outside the full-body masks. Inside the
+    # masks, erase identity and body structure by mixing a very broad bridge blur
+    # with the independently human-free layer plate, then slightly neutralize it.
+    # This keeps scene palette/depth without retaining readable generic people.
+    blurred = bridge.filter(ImageFilter.GaussianBlur(62.0))
+    neutral_fill = Image.blend(blurred, base_human_free, 0.40)
     navy = Image.new("RGB", TARGET_SIZE, (6, 14, 29))
-    neutral_fill = Image.blend(blurred, navy, 0.24)
+    neutral_fill = Image.blend(neutral_fill, navy, 0.12)
     sanitized = Image.composite(neutral_fill, bridge, mask)
 
     # Restore only explicitly allowed non-human foreground assets after removal
@@ -106,7 +134,7 @@ def main() -> None:
     print("TOP bridge human sanitization: PASS")
     print(f"cleanPlate={CLEAN_PLATE.relative_to(ROOT)}")
     print(f"maskDiagnostic={MASK_PREVIEW.relative_to(ROOT)}")
-    print("NOTE: raw bridge is never copied to the generator artifact; only the human-sanitized derivative is model-facing. Human mask source pixels are used as alpha only, never composited as people.")
+    print("NOTE: raw bridge is never copied to the generator artifact; only the full-body human-sanitized derivative is model-facing. 05/06 source pixels are used as alpha alignment aids only, never composited as people.")
 
 
 if __name__ == "__main__":
