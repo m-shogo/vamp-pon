@@ -22,6 +22,8 @@ Use only the following six images as visual inputs.
 
 Exactly five foreground humans must appear: Yui, Asa, Nagi, Michiru and Tomori. No sixth human, no generic substitute, no duplicate identity.
 
+Mobile portrait depth is mandatory: do not make all five humans small and do not place them in one equal-scale row. One or two Core5 characters must read clearly nearer and larger, two at middle depth, and one slightly farther back or beside the campfire. Every face and signature prop must remain readable while keeping the top title-safe sky and bottom button-safe region clear.
+
 Do not use any other image as a visual reference. In particular, do not use a raw bridge image, old human layers, layout proof, diagnostic contact sheet, removal mask, status screen, dashboard or interface screenshot.
 
 Use final-key-art-isolated-prompt.txt as the text instruction.
