@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -19,6 +20,20 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def resolve_source_commit() -> str:
+    process = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    commit = process.stdout.strip()
+    if process.returncode != 0 or len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
+        raise RuntimeError("TOP model-input manifest could not resolve an exact lowercase 40-char source commit")
+    return commit
 
 
 def invariant(condition: bool, message: str) -> None:
@@ -76,6 +91,8 @@ def main() -> None:
     payload = {
         "schemaVersion": 1,
         "authority": "MODEL_INPUTS_ONLY_NOT_FINAL_ART",
+        "sourceCommit": resolve_source_commit(),
+        "sourcePreproductionManifestSha256": sha256(PREPRODUCTION_MANIFEST),
         "visualInputCount": 6,
         "target": {
             "width": 430,
@@ -112,9 +129,11 @@ def main() -> None:
     MODEL_MANIFEST.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print("TOP minimal model-input manifest: GENERATED")
+    print(f"sourceCommit={payload['sourceCommit']}")
+    print(f"sourcePreproductionManifestSha256={payload['sourcePreproductionManifestSha256']}")
     print(f"visualInputs={len(inputs)}")
     print(f"output={MODEL_MANIFEST.relative_to(ROOT)}")
-    print("NOTE: this manifest describes only the six visual inputs physically shipped in the minimal model-input artifact; it contains no layout proof, diagnostic or raw bridge entry.")
+    print("NOTE: this manifest describes only the six visual inputs physically shipped in the minimal model-input artifact; it is bound to the exact source commit and preproduction-manifest bytes, and contains no layout proof, diagnostic or raw bridge entry.")
 
 
 if __name__ == "__main__":
