@@ -60,6 +60,7 @@ try {
   const staged = run('python3', [stagingScript], validFixture);
   invariant(staged.status === 0, `valid TOP intake staging failed:\n${staged.stdout}\n${staged.stderr}`);
   invariant(staged.stdout.includes('TOP final-art intake staging: PASS'), 'valid TOP intake staging did not report PASS');
+  invariant(staged.stdout.includes('PNG integrity=full chunk bounds + CRC + IHDR/IDAT/IEND + no trailing bytes'), 'valid TOP intake did not execute full PNG integrity validation');
 
   const incomingBytes = readFileSync(join(validFixture, incomingPath));
   const canonicalBytes = readFileSync(join(validFixture, canonicalPath));
@@ -88,8 +89,18 @@ try {
   invariant(identity.sourceSha256 === expectedSha && identity.allIdentitiesApproved === false, 'valid TOP intake did not reset Core5 identity evidence');
   invariant(crop.sourceSha256 === expectedSha && crop.allCropsApproved === false, 'valid TOP intake did not reset crop evidence');
   invariant(motion.motionApproved === false && motion.runtimeApproved === false, 'valid TOP intake did not reset motion evidence');
+  invariant(
+    motion.reducedMotion.liveToggleToReducedSettled === false &&
+      motion.reducedMotion.liveToggleBackToNormalSettled === false &&
+      motion.reducedMotion.noToggleVisualPopOrDuplication === false,
+    'valid TOP intake retained stale live Reduced Motion toggle evidence',
+  );
   invariant(human.executed === false && human.humanVisualReviewComplete === false, 'valid TOP intake did not reset human review evidence');
   invariant(unity.executed === false && unity.result === 'NOT_RUN', 'valid TOP intake did not reset Unity V3 evidence');
+  invariant(
+    unity.ambientMotionDirectorResolved === false && unity.fireCadenceDirectorResolved === false,
+    'valid TOP intake retained stale Unity motion-director evidence',
+  );
   invariant(device.simulator.executed === false && device.physicalIphone.executed === false && device.runtimeApproved === false, 'valid TOP intake did not reset device evidence');
   invariant(capture.executed === false && capture.captureCount === 0, 'valid TOP intake did not reset capture evidence');
   invariant(loading.approval.runtimeCaptureComplete === false && loading.approval.approvedAsFinal === false, 'valid TOP intake did not reset Loading approval mirror');
@@ -115,5 +126,26 @@ try {
   rmSync(invalidFixture, { recursive: true, force: true });
 }
 
+const corruptFixture = prepareFixture(validFixturePng);
+try {
+  const incoming = join(corruptFixture, incomingPath);
+  const bytes = readFileSync(incoming);
+  invariant(bytes.length > 12, 'valid fixture unexpectedly too small for corruption test');
+  writeFileSync(incoming, bytes.subarray(0, bytes.length - 12));
+
+  const beforeStatus = readFileSync(join(corruptFixture, 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'));
+  const staged = run('python3', [stagingScript], corruptFixture);
+  invariant(staged.status !== 0, 'truncated 430x932 TOP PNG must fail staging');
+  invariant(
+    `${staged.stdout}\n${staged.stderr}`.includes('missing IEND'),
+    'truncated 430x932 TOP PNG must fail specifically on full PNG integrity',
+  );
+  invariant(!existsSync(join(corruptFixture, canonicalPath)), 'corrupt TOP intake must not create canonical candidate');
+  const afterStatus = readFileSync(join(corruptFixture, 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'));
+  invariant(beforeStatus.equals(afterStatus), 'corrupt TOP intake mutated final-art authority');
+} finally {
+  rmSync(corruptFixture, { recursive: true, force: true });
+}
+
 console.log('TOP final-art intake behavior: PASS');
-console.log('430x932 fixture stages/registers/resets evidence idempotently; 390x844 fixture fails closed without authority mutation');
+console.log('430x932 valid PNG stages/registers/resets evidence idempotently; wrong-size and truncated same-size PNGs fail closed without authority mutation');
