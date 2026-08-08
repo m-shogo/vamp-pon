@@ -16,7 +16,7 @@ Michiru: tied brown hair with teal ribbon, dark-teal route-pattern cape, readabl
 Tomori: tied warm-brown hair, rust-red repair cape, repair lamp and a few readable tool details, warm practical expression.
 
 GROUP BLOCKING
-Do not arrange them as an equal-scale lineup. Use layered depth: two slightly nearer, two mid-depth, one slightly behind or beside the fire. Keep every face readable on a phone. Separate Yui, Asa, and Nagi with hair, gesture, props, and depth so they do not merge into one navy mass. Michiru is the clearest cool-color separator; Tomori is the clearest warm-cloth separator.
+Do not arrange them as an equal-scale lineup and do not make all five humans small. Build a strong mobile-portrait depth hierarchy: one or two Core5 characters are clearly nearer and noticeably larger, two sit at middle depth, and one sits slightly farther back or beside the fire. The nearest characters should read immediately on a phone without turning into oversized bust portraits. Keep every face and each character's main signature prop readable. Separate Yui, Asa, and Nagi with hair, gesture, props, depth, and silhouette so they do not merge into one navy mass. Michiru is the clearest cool-color separator; Tomori is the clearest warm-cloth separator. The group should feel naturally gathered around the campfire, not posed in one flat row.
 
 COMPANIONS
 Include one small white animal resting naturally and one small round robot with a clean dark eye region. No sixth human.
@@ -34,4 +34,4 @@ MOTION-AWARE STILL
 Paint only low coals, a low flame foundation, restrained local fire bounce, distant lights, and lantern local bounce. Leave main fire animation, smoke wisps, sparse embers, distant-light pulse, lantern pulse, robot-eye blink, and subtle star/cloud drift for runtime overlays. Do not bake a huge flame, smoke plume, dense sparks, or giant glow halo into the still.
 
 ABSOLUTELY EXCLUDE
-seasonal festival art, beach, sea, fireworks, swimsuits, party celebration, idol lineup, generic substitute cast, sixth human, duplicated identity, sexualized posing, excessive skin exposure, photorealistic faces, glossy 3D, neon cyberpunk, saturated gacha lighting, giant magic effects, large smoke plume, excessive embers, any text, any logo, any interface, any dashboard, any infographic, any development/status information.
+seasonal festival art, beach, sea, fireworks, swimsuits, party celebration, idol lineup, flat equal-scale five-person lineup, five tiny full-body humans in one row, generic substitute cast, sixth human, duplicated identity, sexualized posing, excessive skin exposure, photorealistic faces, glossy 3D, neon cyberpunk, saturated gacha lighting, giant magic effects, large smoke plume, excessive embers, any text, any logo, any interface, any dashboard, any infographic, any development/status information.
