@@ -28,6 +28,7 @@ on:
       - 'scripts/quality/check-top-living-night-core5-layout-proof-generator.ts'
       - 'scripts/quality/check-top-living-night-crop-review-pack-generator.ts'
       - 'scripts/quality/check-top-living-night-preproduction-workflow.ts'
+      - 'scripts/quality/check-top-living-night-model-input-lineage.ts'
   workflow_dispatch:
 
 permissions:
@@ -41,6 +42,8 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      TOP_SOURCE_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
     steps:
       - name: Checkout
@@ -59,6 +62,7 @@ jobs:
         run: |
           node --experimental-strip-types scripts/quality/check-top-living-night-core5-layout-proof-generator.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-crop-review-pack-generator.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-model-input-lineage.ts
           python -m py_compile scripts/unity/sanitize-top-living-night-composition-plate.py
           python -m py_compile scripts/unity/generate-top-living-night-core5-sprite-pack.py
           python -m py_compile scripts/unity/polish-top-living-night-core5-preproduction.py
