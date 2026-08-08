@@ -1,3 +1,4 @@
+import './check-top-living-night-v3-unity-runner.ts';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
