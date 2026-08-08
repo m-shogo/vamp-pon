@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-from collections import deque
 import importlib.util
 from pathlib import Path
 
@@ -27,6 +26,24 @@ def largest_alpha_component(image: Image.Image) -> Image.Image:
     width, height = rgba.size
     alpha = list(rgba.getchannel("A").getdata())
     foreground = bytearray(1 if value > 64 else 0 for value in alpha)
+
+    # The normalized master crop intentionally includes a tiny safety margin.
+    # Remove only the outermost strips before connected-component selection so
+    # design-board frame/text fragments cannot stay attached to the figure via
+    # paper/ground texture. Core5 silhouettes remain well inside these bounds.
+    trim_x = max(3, round(width * 0.025))
+    trim_y = max(3, round(height * 0.012))
+    for y in range(height):
+        row = y * width
+        for x in range(trim_x):
+            foreground[row + x] = 0
+        for x in range(width - trim_x, width):
+            foreground[row + x] = 0
+    for y in list(range(trim_y)) + list(range(height - trim_y, height)):
+        row = y * width
+        for x in range(width):
+            foreground[row + x] = 0
+
     seen = bytearray(width * height)
     largest: list[int] = []
 
@@ -53,7 +70,7 @@ def largest_alpha_component(image: Image.Image) -> Image.Image:
             largest = component
 
     if not largest:
-        raise RuntimeError("Core5 cutout has no visible alpha component")
+        raise RuntimeError("Core5 cutout has no visible alpha component after border cleanup")
 
     cleaned_alpha = bytearray(width * height)
     for index in largest:
