@@ -60,7 +60,10 @@ try {
   const staged = run('python3', [stagingScript], validFixture);
   invariant(staged.status === 0, `valid TOP intake staging failed:\n${staged.stdout}\n${staged.stderr}`);
   invariant(staged.stdout.includes('TOP final-art intake staging: PASS'), 'valid TOP intake staging did not report PASS');
-  invariant(staged.stdout.includes('PNG integrity=full chunk bounds + CRC + IHDR/IDAT/IEND + no trailing bytes'), 'valid TOP intake did not execute full PNG integrity validation');
+  invariant(
+    staged.stdout.includes('PNG integrity=full chunk bounds + CRC + IHDR/IDAT/IEND + decodable exact scanlines + valid filters + no trailing bytes'),
+    'valid TOP intake did not execute decoded PNG integrity validation',
+  );
 
   const incomingBytes = readFileSync(join(validFixture, incomingPath));
   const canonicalBytes = readFileSync(join(validFixture, canonicalPath));
