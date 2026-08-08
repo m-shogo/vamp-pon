@@ -74,13 +74,17 @@ function main(): void {
         particlesSuppressed: false,
         rareRobotEyeSuppressed: false,
         fireRemainsRestrained: false,
-        uiFunctional: false
+        uiFunctional: false,
+        liveToggleToReducedSettled: false,
+        liveToggleBackToNormalSettled: false,
+        noToggleVisualPopOrDuplication: false
       },
       notes: '',
       instructions: {
         defaultsAreNotApproval: true,
         negativeProblemFlagsDefaultFalse: true,
         positiveReducedMotionObservationsDefaultFalse: true,
+        liveToggleObservationsRequired: true,
         submitWith: `node --experimental-strip-types scripts/unity/register-top-living-night-motion-review.ts --input=${outputs.motion}`
       }
     });
