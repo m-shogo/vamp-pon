@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = ROOT / "docs/design-targets/generated/top-living-night-v3/preproduction"
 MANIFEST = OUTPUT_DIR / "manifest.json"
 CHARACTERS = ("yui", "asa", "nagi", "michiru", "tomori")
+CLEAN_PLATE = "core5-clean-composition-plate-v1.png"
 
 
 def digest(path: Path) -> str:
@@ -64,15 +65,30 @@ def main() -> None:
     if not MANIFEST.is_file():
         raise RuntimeError("preproduction manifest is missing")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    if manifest.get("schemaVersion") != 1 or manifest.get("authority") != "PREPRODUCTION_ONLY_NOT_FINAL_ART":
-        raise RuntimeError("preproduction manifest authority mismatch")
-    if manifest.get("rules", {}).get("mayRegisterAsFinalCandidate") is not False:
+    if manifest.get("schemaVersion") != 2 or manifest.get("authority") != "PREPRODUCTION_ONLY_NOT_FINAL_ART":
+        raise RuntimeError("preproduction manifest authority/schema mismatch")
+    rules = manifest.get("rules", {})
+    if rules.get("mayRegisterAsFinalCandidate") is not False:
         raise RuntimeError("preproduction pack must explicitly forbid final-candidate registration")
-    if manifest.get("rules", {}).get("mayPromoteApproval") is not False:
+    if rules.get("mayPromoteApproval") is not False:
         raise RuntimeError("preproduction pack must explicitly forbid approval promotion")
+    if rules.get("rawBridgeAllowedAsGeneratorFacingInput") is not False:
+        raise RuntimeError("preproduction pack must forbid raw bridge as generator-facing input")
+
+    engineering_bridge = manifest.get("engineeringBridge", {})
+    if engineering_bridge.get("generatorFacing") is not False:
+        raise RuntimeError("engineering bridge must remain provenance-only")
+    generation_composition = manifest.get("generationComposition", {})
+    if generation_composition.get("file") != CLEAN_PLATE:
+        raise RuntimeError("preproduction generation composition must bind the clean plate")
+    if generation_composition.get("containsBridgeHumans") is not False:
+        raise RuntimeError("clean composition plate must explicitly exclude bridge humans")
+    if generation_composition.get("containsOnlyCore5WhenHumansArePresent") is not True:
+        raise RuntimeError("preproduction model-facing pack must allow only Core5 humans")
 
     by_name = {entry["file"]: entry for entry in manifest.get("outputs", [])}
     expected_names = {
+        CLEAN_PLATE,
         "core5-layout-proof-v1.png",
         "core5-clean-generation-reference-pack-v1.png",
         *(f"core5-{character}-fullbody-cutout-v1.png" for character in CHARACTERS),
@@ -90,6 +106,13 @@ def main() -> None:
             image.load()
             if list(image.size) != [entry.get("width"), entry.get("height")]:
                 raise RuntimeError(f"preproduction dimension mismatch: {name}")
+
+    with Image.open(OUTPUT_DIR / CLEAN_PLATE) as clean_plate:
+        clean_plate.load()
+        if clean_plate.size != (430, 932):
+            raise RuntimeError(f"clean composition plate must be 430x932, got {clean_plate.size}")
+        if clean_plate.mode not in {"RGB", "RGBA"}:
+            raise RuntimeError(f"clean composition plate must be RGB/RGBA, got {clean_plate.mode}")
 
     with Image.open(OUTPUT_DIR / "core5-layout-proof-v1.png") as layout:
         if layout.size != (430, 932):
@@ -122,7 +145,7 @@ def main() -> None:
             )
 
     print("TOP preproduction visual pack validation: PASS")
-    print("five Core5 cutouts + 430x932 layout proof + clean reference pack are hash-bound and free of large disconnected/right-edge panel debris")
+    print("human-free 430x932 composition plate + five Core5 cutouts + Core5-only layout/reference pack are hash-bound; raw bridge is provenance-only")
 
 
 if __name__ == "__main__":
