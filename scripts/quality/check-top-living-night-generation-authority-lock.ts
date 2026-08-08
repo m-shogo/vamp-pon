@@ -10,6 +10,7 @@ import './check-top-living-night-final-art-intake-behavior.ts';
 import './check-top-living-night-ambient-motion-director.ts';
 import './check-top-living-night-fire-cadence-director.ts';
 import './check-top-living-night-motion-director-review-sync.ts';
+import './check-top-living-night-unity-motion-director-evidence.ts';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
