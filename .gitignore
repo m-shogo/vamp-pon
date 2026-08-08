@@ -15,11 +15,12 @@ dist/
 data/asset-factory/generation-contracts.json
 docs/design-targets/generated/unity-u48/batch-c/quarantine/*/
 
-# TOP Living Night review input templates/readiness/crop previews are derived from current structured evidence.
-# They are convenience artifacts, not approval authority. Stage1 generates and uploads them.
+# TOP Living Night review/preproduction artifacts are derived from locked inputs.
+# They are convenience artifacts, not approval authority. Generate/upload them as review artifacts only.
 docs/design-targets/generated/top-living-night-v3/review-inputs/*.json
 docs/design-targets/generated/top-living-night-v3/readiness-summary.txt
 docs/design-targets/generated/top-living-night-v3/crop-review-previews/
+docs/design-targets/generated/top-living-night-v3/preproduction/
 
 # OS
 .DS_Store
