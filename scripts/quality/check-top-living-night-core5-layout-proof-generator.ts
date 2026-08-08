@@ -49,11 +49,16 @@ for (const token of [
   '"nagi": (0.11, 0.18, 0.40, 0.80)',
   '"michiru": (0.11, 0.18, 0.42, 0.81)',
   '"tomori": (0.11, 0.20, 0.42, 0.81)',
-  '("michiru", 38, 370, 140)',
-  '("nagi", 266, 356, 144)',
-  '("asa", 90, 386, 170)',
-  '("tomori", 318, 400, 168)',
-  '("yui", 171, 346, 186)',
+  '("michiru", 18, 366, 155)',
+  '("nagi", 292, 362, 158)',
+  '("tomori", 288, 385, 196)',
+  '("asa", 34, 364, 236)',
+  '("yui", 126, 300, 268)',
+  'Mobile portrait blocking, never an equal-scale idol lineup.',
+  'Yui is the near-center anchor',
+  'Asa is the second near figure',
+  'Tomori is mid-depth',
+  'Michiru/Nagi sit back',
   'layout proof requires exactly five locked Core5 masters',
   'never set candidateGenerated or any approval flag',
 ]) {
@@ -74,6 +79,13 @@ invariant(
   generator.includes('canvas.paste(sprite.convert("RGB"), (x, slot_y), sprite.getchannel("A"))'),
   'TOP combined generation reference must render cutouts rather than labeled master boards',
 );
+
+const placementHeights = [...generator.matchAll(/\("(?:yui|asa|nagi|michiru|tomori)",\s*\d+,\s*\d+,\s*(\d+)\)/g)]
+  .map(match => Number(match[1]));
+invariant(placementHeights.length === 5, 'TOP blocking must define exactly five Core5 placement heights');
+invariant(Math.max(...placementHeights) - Math.min(...placementHeights) >= 100, 'TOP mobile blocking must preserve a strong near/far scale hierarchy');
+invariant(placementHeights.includes(268) && placementHeights.includes(236), 'TOP mobile blocking must keep two clearly near characters');
+invariant(placementHeights.includes(155) && placementHeights.includes(158), 'TOP mobile blocking must keep two clearly back characters');
 
 for (const token of [
   'generate-top-living-night-core5-layout-proof.py',
@@ -118,4 +130,4 @@ for (const relative of [generatorRelative, spriteRelative, polishRelative]) {
 }
 
 console.log('TOP Core5 preproduction layout/reference/sprite generator contract: PASS');
-console.log('human-free V2 layer composition -> Core5-only layout/reference pack + five transparent cutouts; raw bridge stays engineering-only; Pillow-only; no promotion');
+console.log('human-free V2 composition -> strong mobile near/mid/far Core5 blocking + five transparent cutouts; raw bridge stays engineering-only; Pillow-only; no promotion');
