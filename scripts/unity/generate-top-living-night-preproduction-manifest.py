@@ -14,6 +14,7 @@ FINAL_STATUS = ROOT / "docs/design-targets/generated/top-living-night-v3/final-a
 BRIDGE = ROOT / "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png"
 MANIFEST = OUTPUT_DIR / "manifest.json"
 REQUIRED_PNGS = [
+    "core5-clean-composition-plate-v1.png",
     "core5-layout-proof-v1.png",
     "core5-clean-generation-reference-pack-v1.png",
     "core5-yui-fullbody-cutout-v1.png",
@@ -38,7 +39,7 @@ def main() -> None:
     if reference.get("schemaVersion") != 1 or reference.get("referenceCount") != 5:
         raise RuntimeError("preproduction manifest requires the locked five-reference Core5 manifest")
     if not BRIDGE.is_file():
-        raise RuntimeError("preproduction manifest bridge source is missing")
+        raise RuntimeError("preproduction engineering bridge source is missing")
 
     outputs = []
     for name in REQUIRED_PNGS:
@@ -58,27 +59,34 @@ def main() -> None:
         )
 
     payload = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "authority": "PREPRODUCTION_ONLY_NOT_FINAL_ART",
         "core5ReferenceSetSha256": reference["referenceSetSha256"],
-        "bridge": {
+        "engineeringBridge": {
             "path": str(BRIDGE.relative_to(ROOT)),
             "sha256": digest(BRIDGE),
+            "generatorFacing": False,
+        },
+        "generationComposition": {
+            "file": "core5-clean-composition-plate-v1.png",
+            "containsBridgeHumans": False,
+            "containsOnlyCore5WhenHumansArePresent": True,
         },
         "finalCandidateGenerated": bool(final_status.get("candidateGenerated")),
         "outputs": outputs,
         "rules": {
             "mayRegisterAsFinalCandidate": False,
             "mayPromoteApproval": False,
-            "mustRegenerateWhenCore5OrBridgeChanges": True,
+            "rawBridgeAllowedAsGeneratorFacingInput": False,
+            "mustRegenerateWhenCore5OrBridgeLayersChange": True,
         },
     }
     MANIFEST.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("TOP preproduction manifest: GENERATED")
     print(f"referenceSet={payload['core5ReferenceSetSha256']}")
-    print(f"bridgeSha256={payload['bridge']['sha256']}")
+    print(f"engineeringBridgeSha256={payload['engineeringBridge']['sha256']}")
     print(f"outputs={len(outputs)}")
-    print("NOTE: manifest describes generated preproduction inputs only and can never promote final/runtime approval.")
+    print("NOTE: generator-facing composition is human-free before Core5 placement; raw bridge is provenance-only and can never promote final/runtime approval.")
 
 
 if __name__ == "__main__":
