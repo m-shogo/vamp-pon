@@ -42,6 +42,8 @@
   "compositionReference": {
     "path": "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png",
     "sha256": "aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d",
+    "role": "engineering-composition-history-only",
+    "generatorFacing": false,
     "keep": [
       "quiet deep-indigo night",
       "campfire gathering",
@@ -58,6 +60,45 @@
       "generic human scale/blocking",
       "painterly bridge character rendering"
     ]
+  },
+  "preproductionModelInputs": {
+    "workflow": ".github/workflows/top-art-preproduction.yml",
+    "manifest": "preproduction/manifest.json",
+    "artifactPurpose": "model-facing visual inputs only; generated and validated from current locked sources",
+    "primaryComposition": "preproduction/core5-clean-composition-plate-v1.png",
+    "primaryIdentityCutouts": [
+      "preproduction/core5-yui-fullbody-cutout-v1.png",
+      "preproduction/core5-asa-fullbody-cutout-v1.png",
+      "preproduction/core5-nagi-fullbody-cutout-v1.png",
+      "preproduction/core5-michiru-fullbody-cutout-v1.png",
+      "preproduction/core5-tomori-fullbody-cutout-v1.png"
+    ],
+    "combinedConvenienceReference": "preproduction/core5-clean-generation-reference-pack-v1.png",
+    "layoutProof": {
+      "path": "preproduction/core5-layout-proof-v1.png",
+      "role": "blocking-scale-depth-guide-only",
+      "finalStyleAuthority": false
+    },
+    "sanitizer": "scripts/unity/sanitize-top-living-night-composition-plate.py",
+    "sanitizationPolicy": {
+      "rawBridgeUsedInsidePreproductionOnly": true,
+      "rawBridgeUploadedToModelArtifact": false,
+      "bridgeHumanLayersUsedAsAlphaAidOnly": true,
+      "bridgeHumanPixelsComposited": false,
+      "allowedNonHumanRestoreLayers": [
+        "09-fire-base.png",
+        "08-animal-robot.png",
+        "14-foreground-accents.png"
+      ]
+    },
+    "forbiddenModelInputs": [
+      "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png",
+      "docs/design-targets/generated/top-living-night-v2/layers/05-distant-companion.png",
+      "docs/design-targets/generated/top-living-night-v2/layers/06-characters.png",
+      "docs/design-targets/generated/top-living-night-v3/diagnostics/*",
+      "development dashboards and status screenshots"
+    ],
+    "preproductionDoesNotApprove": true
   },
   "promptAuthority": "docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md",
   "isolatedPromptAuthority": "docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt",
