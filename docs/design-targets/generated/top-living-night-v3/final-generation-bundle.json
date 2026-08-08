@@ -89,6 +89,17 @@
     "registrationDoesNotApprove": true,
     "resetsCandidateSensitiveEvidence": true
   },
+  "automation": {
+    "prepareReviewPack": "scripts/unity/prepare-top-living-night-final-review-pack.sh",
+    "unityV3Verification": "scripts/unity/run-top-living-night-v3-unity-verification.sh",
+    "capturePack": "scripts/unity/run-loading-top-capture-pack.sh",
+    "simulatorPerformance": "scripts/unity/run-top-living-night-simulator-performance-evidence.sh",
+    "physicalIphonePerformance": "scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh",
+    "staticReviewRegistrar": "scripts/unity/register-top-living-night-static-review.ts",
+    "motionReviewRegistrar": "scripts/unity/register-top-living-night-motion-review.ts",
+    "humanReviewRegistrar": "scripts/unity/register-top-living-night-human-review.ts",
+    "finalPromotion": "scripts/unity/promote-top-living-night-final-approval.ts"
+  },
   "postGenerationExecutionPlan": [
     {
       "phase": "candidate-static-and-unity",
