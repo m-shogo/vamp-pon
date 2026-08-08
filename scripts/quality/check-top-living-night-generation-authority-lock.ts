@@ -2,6 +2,7 @@ import './check-top-living-night-v3-unity-runner.ts';
 import './check-top-living-night-automation-entrypoints.ts';
 import './check-top-living-night-core5-layout-proof-generator.ts';
 import './check-top-living-night-preproduction-workflow.ts';
+import './check-top-living-night-final-art-intake-workflow.ts';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
