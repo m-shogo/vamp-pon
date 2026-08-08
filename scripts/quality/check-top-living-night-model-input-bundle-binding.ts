@@ -29,7 +29,7 @@ const order = readFileSync(join(root, orderPath), 'utf8');
 invariant(order.includes(`1. ${modelInputs.primaryComposition}`), 'TOP order must start with bundle primary composition');
 for (let index=0; index<expectedRefs.length; index++) invariant(order.includes(`${index+2}. ${expectedRefs[index]}`), `TOP input order diverged at clean identity index ${index}`);
 invariant(order.includes('Use only the following six images as visual inputs.'), 'TOP input order lost six-image boundary');
-invariant(order.includes('Do not use engineering fullbody-cutout PNGs'), 'TOP input order must forbid engineering cutouts');
+invariant(order.includes('do not use engineering fullbody-cutout PNGs'), 'TOP input order must forbid engineering cutouts');
 
 const workflow = readFileSync(join(root, workflowPath), 'utf8');
 const start = workflow.indexOf('- name: Upload minimal clean TOP model-input bundle');
