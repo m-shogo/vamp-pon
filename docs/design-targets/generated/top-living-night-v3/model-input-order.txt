@@ -1,0 +1,29 @@
+TOP FINAL KEY ART — VISUAL INPUT ORDER
+
+Use only the following six images as visual inputs.
+
+1. preproduction/core5-clean-composition-plate-v1.png
+   Role: composition/environment only. Preserve the quiet night, crescent moon, campfire, rail/station/town depth, white animal, small round robot, title-safe sky and dark button-safe bottom region. Do not invent any human from this image.
+
+2. preproduction/core5-yui-fullbody-cutout-v1.png
+   Role: Yui identity only.
+
+3. preproduction/core5-asa-fullbody-cutout-v1.png
+   Role: Asa identity only.
+
+4. preproduction/core5-nagi-fullbody-cutout-v1.png
+   Role: Nagi identity only.
+
+5. preproduction/core5-michiru-fullbody-cutout-v1.png
+   Role: Michiru identity only.
+
+6. preproduction/core5-tomori-fullbody-cutout-v1.png
+   Role: Tomori identity only.
+
+Exactly five foreground humans must appear: Yui, Asa, Nagi, Michiru and Tomori. No sixth human, no generic substitute, no duplicate identity.
+
+Do not use any other image as a visual reference. In particular, do not use a raw bridge image, old human layers, layout proof, diagnostic contact sheet, removal mask, status screen, dashboard or interface screenshot.
+
+Use final-key-art-isolated-prompt.txt as the text instruction.
+
+Output one continuous portrait illustration only: PNG, 430x932, no typography, no logo, no interface, no panels, no infographic, no watermark.
