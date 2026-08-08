@@ -28,6 +28,8 @@ namespace VampPon.UnitySpike.Editor
         private static int resourceTextureCount;
         private static int resourceMaterialCount;
         private static bool controllerResolved;
+        private static bool ambientMotionDirectorResolved;
+        private static bool fireCadenceDirectorResolved;
         private static bool shaderResolved;
         private static bool buildHookResolved;
         private static bool buildImportPolicyPassed;
@@ -61,6 +63,8 @@ namespace VampPon.UnitySpike.Editor
             resourceTextureCount = 0;
             resourceMaterialCount = 0;
             controllerResolved = false;
+            ambientMotionDirectorResolved = false;
+            fireCadenceDirectorResolved = false;
             shaderResolved = false;
             buildHookResolved = false;
             buildImportPolicyPassed = false;
@@ -76,6 +80,18 @@ namespace VampPon.UnitySpike.Editor
                     typeof(TopLivingNightCompositeV3Controller)),
                 "Runtime V3 controller resolves as MonoBehaviour");
             controllerResolved = true;
+
+            Require(
+                typeof(MonoBehaviour).IsAssignableFrom(
+                    typeof(TopLivingNightAmbientMotionDirector)),
+                "Runtime V3 ambient-motion director resolves as MonoBehaviour");
+            ambientMotionDirectorResolved = true;
+
+            Require(
+                typeof(MonoBehaviour).IsAssignableFrom(
+                    typeof(TopLivingNightFireCadenceDirector)),
+                "Runtime V3 fire-cadence director resolves as MonoBehaviour");
+            fireCadenceDirectorResolved = true;
 
             var syncType = typeof(TopLivingNightCompositeV3BuildAssetSync);
             Require(syncType != null, "Runtime V3 build sync type resolves");
@@ -238,6 +254,8 @@ namespace VampPon.UnitySpike.Editor
                 resourceTextureCount = resourceTextureCount,
                 resourceMaterialCount = resourceMaterialCount,
                 controllerResolved = result == "PASSED" && controllerResolved,
+                ambientMotionDirectorResolved = result == "PASSED" && ambientMotionDirectorResolved,
+                fireCadenceDirectorResolved = result == "PASSED" && fireCadenceDirectorResolved,
                 shaderResolved = result == "PASSED" && shaderResolved,
                 buildHookResolved = result == "PASSED" && buildHookResolved,
                 buildImportPolicyPassed = result == "PASSED" && buildImportPolicyPassed,
@@ -350,6 +368,8 @@ namespace VampPon.UnitySpike.Editor
             public int resourceTextureCount;
             public int resourceMaterialCount;
             public bool controllerResolved;
+            public bool ambientMotionDirectorResolved;
+            public bool fireCadenceDirectorResolved;
             public bool shaderResolved;
             public bool buildHookResolved;
             public bool buildImportPolicyPassed;
