@@ -12,16 +12,19 @@ function invariant(value: unknown, message: string): asserts value {
 for (const token of [
   'name: TOP Art Preproduction',
   'contents: read',
+  'docs/design-targets/generated/top-living-night-v2/layers/**',
   'generate-top-living-night-core5-layout-proof.py',
   'generate-top-living-night-core5-sprite-pack.py',
   'polish-top-living-night-core5-preproduction.py',
   'generate-top-living-night-preproduction-manifest.py',
   'validate-top-living-night-preproduction-pack.py',
   'generate-top-living-night-crop-review-pack.py',
+  'Generate human-free composition and Core5 layout/reference pack',
+  'Remove sprite-sheet debris and rebuild Core5-only references',
   'final-key-art-isolated-prompt.txt',
   'final-identity-brief.md',
   'core5-reference-manifest.json',
-  'top-living-night-layered-candidate-430x932.png',
+  'preproduction/*.png',
   'preproduction/manifest.json',
   'if-no-files-found: warn',
   'retention-days: 7',
@@ -41,8 +44,20 @@ for (const forbidden of [
   invariant(!workflow.includes(forbidden), `TOP Art Preproduction workflow must remain read-only/generated-only: ${forbidden}`);
 }
 
+const uploadStart = workflow.indexOf('- name: Upload TOP preproduction visual pack');
+invariant(uploadStart >= 0, 'TOP preproduction upload step is missing');
+const uploadBlock = workflow.slice(uploadStart);
 invariant(
-  workflow.indexOf('Remove sprite-sheet debris and rebuild layout proof') <
+  !uploadBlock.includes('top-living-night-layered-candidate-430x932.png'),
+  'raw bridge with generic humans must not be uploaded in the generator-facing preproduction artifact',
+);
+invariant(
+  uploadBlock.includes('preproduction/*.png'),
+  'human-free clean plate and Core5-only layout/reference PNGs must be included via preproduction output set',
+);
+
+invariant(
+  workflow.indexOf('Remove sprite-sheet debris and rebuild Core5-only references') <
     workflow.indexOf('Hash preproduction visual pack'),
   'TOP preproduction workflow must polish pixels before hashing the manifest',
 );
@@ -58,4 +73,4 @@ invariant(
 );
 
 console.log('TOP Art Preproduction workflow contract: PASS');
-console.log('read-only workflow: locked Core5/bridge -> cleaned/hash-bound visual generator pack; no commit/push/promotion capability');
+console.log('read-only workflow: human-free V2 layer plate + locked Core5 -> cleaned/hash-bound generator pack; raw bridge excluded from artifact; no commit/push/promotion capability');
