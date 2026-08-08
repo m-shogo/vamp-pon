@@ -11,6 +11,7 @@ import './check-top-living-night-final-art-intake-behavior.ts';
 import './check-top-living-night-final-art-reset-completeness.ts';
 import './check-top-living-night-final-art-registrar-png-integrity.ts';
 import './check-top-living-night-final-art-not-known-bridge.ts';
+import './check-top-living-night-final-art-known-bridge-rejection-fixture.ts';
 import './check-top-living-night-ambient-motion-director.ts';
 import './check-top-living-night-fire-cadence-director.ts';
 import './check-top-living-night-motion-director-review-sync.ts';
