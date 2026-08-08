@@ -23,15 +23,12 @@ const paths = {
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message);
 }
-
 function readJson(relativePath: string): any {
   return JSON.parse(readFileSync(join(root, relativePath), 'utf8'));
 }
-
 function writeJson(relativePath: string, value: unknown): void {
   writeFileSync(join(root, relativePath), `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
-
 function referenceSetDigest(manifest: any): string {
   invariant(manifest?.schemaVersion === 1, 'Core5 reference manifest schema mismatch');
   invariant(Array.isArray(manifest.references) && manifest.references.length === 5, 'Core5 registration requires exactly five locked references');
@@ -43,7 +40,6 @@ function referenceSetDigest(manifest: any): string {
   invariant(manifest.referenceSetSha256 === digest, 'Core5 reference-set fingerprint is stale');
   return digest;
 }
-
 function validatePng430x932(bytes: Buffer): void {
   const signature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
   invariant(bytes.length >= 24, 'final Core5 TOP PNG is truncated');
@@ -121,6 +117,9 @@ function resetMotion(motion: any): void {
     rareRobotEyeSuppressed: false,
     fireRemainsRestrained: false,
     uiFunctional: false,
+    liveToggleToReducedSettled: false,
+    liveToggleBackToNormalSettled: false,
+    noToggleVisualPopOrDuplication: false,
   });
   motion.unityVersion = '';
   motion.verifiedCommit = '';
@@ -129,7 +128,7 @@ function resetMotion(motion: any): void {
   motion.runtimeApproved = false;
   motion.finalApprovalBlocked = true;
   motion.notes =
-    'Final Core5 candidate registered. Runtime motion review was reset and must be executed on the current final candidate.';
+    'Final Core5 candidate registered. Runtime motion review, including same-view Reduced Motion ON/OFF/ON evidence, was reset and must be executed on the current final candidate.';
 }
 
 function resetHumanReview(review: any, sha256: string): void {
@@ -158,8 +157,6 @@ function resetHumanReview(review: any, sha256: string): void {
     humanVisualReviewComplete: false,
     finalApprovalBlocked: true,
   });
-  // An unexecuted human review intentionally carries no candidate SHA. The exact
-  // candidate is rebound from final-art-status.json when review begins.
   invariant(sha256.length === 64, 'registered final candidate SHA-256 is invalid');
 }
 
@@ -181,6 +178,8 @@ function resetUnity(unity: any): void {
     shaderResolved: false,
     buildHookResolved: false,
     buildImportPolicyPassed: false,
+    ambientMotionDirectorResolved: false,
+    fireCadenceDirectorResolved: false,
     generatedAtUtc: '',
     error: '',
   });
@@ -337,7 +336,7 @@ function main(): void {
   console.log(`candidate=${canonicalCandidatePath}`);
   console.log(`sha256=${sha256}`);
   console.log(`core5ReferenceSet=${currentReferenceSetSha256}`);
-  console.log('downstream Core5/crop/motion/human/Unity/capture/device approval evidence reset to NOT_RUN/blocked');
+  console.log('downstream Core5/crop/motion/live-toggle/human/Unity/capture/device approval evidence reset to NOT_RUN/blocked');
 }
 
 main();
