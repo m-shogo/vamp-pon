@@ -21,6 +21,7 @@ docs/design-targets/generated/top-living-night-v3/review-inputs/*.json
 docs/design-targets/generated/top-living-night-v3/readiness-summary.txt
 docs/design-targets/generated/top-living-night-v3/crop-review-previews/
 docs/design-targets/generated/top-living-night-v3/preproduction/
+docs/design-targets/generated/top-living-night-v3/diagnostics/
 
 # OS
 .DS_Store
