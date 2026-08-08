@@ -24,6 +24,8 @@ for (const token of [
   'FindFirstObjectByType<TopLivingNightView>()',
   'DontDestroyOnLoad(directorObject)',
   'ApplyBreathingNight(time)',
+  'ApplyNormalMotionVisuals(time)',
+  'ApplyReducedMotionVisuals(time)',
   'Mathf.PerlinNoise(.31f, time * .031f)',
   'Mathf.PerlinNoise(1.73f, time * .027f)',
   'Mathf.PerlinNoise(4.91f, time * .019f)',
@@ -37,7 +39,6 @@ for (const token of [
   'PlayerPrefs.GetInt("reduce_motion", 0) == 1',
   'if (reducedMotion)',
   'RestorePose();',
-  'ApplyReducedMotionVisuals();',
   'RefreshVisualBindings();',
   'top.GetComponentsInChildren<RawImage>(true)',
   'string.Equals(image.name, "Stars", StringComparison.Ordinal)',
@@ -45,21 +46,27 @@ for (const token of [
   'string.Equals(image.name, "RobotEye", StringComparison.Ordinal)',
   'image.name.StartsWith("Smoke_", StringComparison.Ordinal)',
   'image.name.StartsWith("Ember_", StringComparison.Ordinal)',
+  'smoke.Sort(CompareByName)',
+  'embers.Sort(CompareByName)',
+  'stars.color = WithAlpha(stars.color, .57f + noise * .16f)',
   'stars.color = WithAlpha(stars.color, .62f)',
-  'fireGlow.color = WithAlpha(fireGlow.color, .56f)',
-  'image.color = WithAlpha(image.color, 0f)',
+  '.56f + ((first * .62f + second * .38f) - .5f) * .10f',
+  '.56f + ((first * .62f + second * .38f) - .5f) * .02f',
+  'robotEye.color = WithAlpha(robotEye.color, .20f + rare * .62f)',
+  'robotEye.color = WithAlpha(robotEye.color, 0f)',
+  'Mathf.Sin(cycle * Mathf.PI) * .19f',
+  'Mathf.Sin(cycle * Mathf.PI) * .78f',
   'cloudsFar.anchoredPosition = farBasePosition',
   'cloudsNear.anchoredPosition = nearBasePosition',
   'titleRoot.anchoredPosition = titleBasePosition',
   'artRoot.localScale = artBaseScale',
-  'live preference changes settle without rebuilding TOP',
+  'live preference toggles work both ways',
   'five-minute review window',
 ]) {
   invariant(director.includes(token), `TOP ambient motion director contract missing: ${token}`);
 }
 
 for (const forbidden of [
-  'Mathf.Sin(',
   'Resources.Load',
   'Resources.UnloadAsset',
   'UnityWebRequest',
@@ -68,6 +75,7 @@ for (const forbidden of [
   'Destroy(image',
   'Destroy(stars',
   'Destroy(fireGlow',
+  'Destroy(robotEye',
   '.mp4',
   '.webp',
   'approvedAsFinal',
@@ -87,13 +95,23 @@ invariant(
   'TOP ambient director must resolve Reduced Motion before applying normal ambient drift',
 );
 invariant(
-  director.indexOf('RestorePose();') < director.indexOf('ApplyReducedMotionVisuals();'),
+  director.indexOf('RestorePose();') < director.indexOf('ApplyReducedMotionVisuals(time)'),
   'TOP Reduced Motion must restore geometric pose before applying visual suppression',
 );
+invariant(
+  director.indexOf('ApplyBreathingNight(time)') < director.indexOf('ApplyNormalMotionVisuals(time)'),
+  'TOP normal mode must establish post-view geometry before alpha normalization',
+);
+for (const periodicGeometry of [
+  /anchoredPosition\s*=\s*[^;]*Mathf\.Sin/,
+  /localScale\s*=\s*[^;]*Mathf\.Sin/,
+]) {
+  invariant(!periodicGeometry.test(director), 'TOP ambient geometry must not regress to short sine-wave motion');
+}
 invariant(
   /guid: [0-9a-f]{32}\n/.test(meta),
   'TOP ambient motion director Unity meta GUID is invalid',
 );
 
 console.log('TOP Living Night ambient motion director: PASS');
-console.log('post-view Perlin breathing + cloud drift + title micro-motion; live Reduced Motion restores pose and suppresses stars/fire-glow/robot-eye/smoke/embers without texture/readiness/approval ownership');
+console.log('post-view Perlin geometry + bidirectional live Reduced Motion alpha normalization; robot-eye/smoke/embers are suppressible and recoverable without texture/readiness/approval ownership');
