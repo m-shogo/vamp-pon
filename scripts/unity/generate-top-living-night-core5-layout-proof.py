@@ -19,6 +19,8 @@ OUTPUT_DIR = ROOT / "docs/design-targets/generated/top-living-night-v3/preproduc
 CLEAN_PLATE = OUTPUT_DIR / "core5-clean-composition-plate-v1.png"
 LAYOUT_PROOF = OUTPUT_DIR / "core5-layout-proof-v1.png"
 REFERENCE_PACK = OUTPUT_DIR / "core5-clean-generation-reference-pack-v1.png"
+TARGET_SIZE = (430, 932)
+TARGET_ASPECT = TARGET_SIZE[0] / TARGET_SIZE[1]
 
 # Generator-facing composition deliberately excludes every human-bearing bridge
 # layer. Dynamic additive masks are also excluded because they are black-backed
@@ -219,12 +221,25 @@ def build_clean_composition_plate() -> None:
     invariant(not (layer_names & FORBIDDEN_GENERATOR_LAYERS), "clean TOP plate accidentally includes a forbidden human/mask layer")
 
     output: Image.Image | None = None
+    native_size: Tuple[int, int] | None = None
     for index, (file_name, opacity) in enumerate(CLEAN_PLATE_LAYERS):
         path = LAYER_ROOT / file_name
         invariant(path.is_file(), f"clean TOP plate source missing: {path.relative_to(ROOT)}")
         with Image.open(path) as source:
             source.load()
-            invariant(source.size == (430, 932), f"clean TOP plate layer must be 430x932: {file_name}={source.size}")
+            source_size = source.size
+            source_aspect = source.width / source.height
+            invariant(
+                abs(source_aspect - TARGET_ASPECT) < 0.002,
+                f"clean TOP plate layer aspect mismatch: {file_name}={source.size}",
+            )
+            if native_size is None:
+                native_size = source_size
+            else:
+                invariant(
+                    source_size == native_size,
+                    f"clean TOP plate layers must share native dimensions: expected {native_size}, {file_name}={source_size}",
+                )
             layer = source.convert("RGBA")
 
         if index == 0:
@@ -236,14 +251,17 @@ def build_clean_composition_plate() -> None:
         invariant(alpha_max > 0, f"clean TOP overlay is fully transparent: {file_name}")
         output = Image.alpha_composite(output, apply_layer_opacity(layer, opacity))
 
-    invariant(output is not None, "clean TOP composition plate did not render")
+    invariant(output is not None and native_size is not None, "clean TOP composition plate did not render")
+    if output.size != TARGET_SIZE:
+        output = output.resize(TARGET_SIZE, Image.Resampling.LANCZOS)
+    invariant(output.size == TARGET_SIZE, f"clean TOP composition plate target resize failed: {output.size}")
     output.convert("RGB").save(CLEAN_PLATE, format="PNG", optimize=True)
 
 
 def make_layout_proof(sprites: Dict[str, Image.Image]) -> None:
     with Image.open(CLEAN_PLATE) as clean_source:
         clean_source.load()
-        invariant(clean_source.size == (430, 932), f"clean composition plate must be 430x932, got {clean_source.size}")
+        invariant(clean_source.size == TARGET_SIZE, f"clean composition plate must be 430x932, got {clean_source.size}")
         output = clean_source.convert("RGBA")
 
     for character, x, y, target_height in PLACEMENTS:
@@ -304,7 +322,7 @@ def main() -> None:
     print(f"layout={LAYOUT_PROOF.relative_to(ROOT)}")
     print(f"referencePack={REFERENCE_PACK.relative_to(ROOT)}")
     print(f"finalCandidateGenerated={str(bool(final_status.get('candidateGenerated'))).lower()}")
-    print("NOTE: generator-facing visuals exclude all bridge humans; outputs are PREPRODUCTION references only and never set candidateGenerated or any approval flag.")
+    print("NOTE: generator-facing visuals exclude all bridge humans; native V2 layers are composited before one high-quality 430x932 downsample; outputs are PREPRODUCTION references only and never set candidateGenerated or any approval flag.")
 
 
 if __name__ == "__main__":
