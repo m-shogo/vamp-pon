@@ -64,6 +64,7 @@
   "preproductionModelInputs": {
     "workflow": ".github/workflows/top-art-preproduction.yml",
     "manifest": "preproduction/manifest.json",
+    "inputOrderAuthority": "docs/design-targets/generated/top-living-night-v3/model-input-order.txt",
     "artifactPurpose": "model-facing visual inputs only; generated and validated from current locked sources",
     "primaryComposition": "preproduction/core5-clean-composition-plate-v1.png",
     "primaryIdentityCutouts": [
