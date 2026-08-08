@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -22,7 +23,14 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def resolve_source_commit() -> str:
+def require_sha(value: str, label: str) -> str:
+    normalized = value.strip().lower()
+    if len(normalized) != 40 or any(char not in "0123456789abcdef" for char in normalized):
+        raise RuntimeError(f"TOP model-input manifest {label} must be a lowercase 40-char git SHA")
+    return normalized
+
+
+def resolve_checkout_commit() -> str:
     process = subprocess.run(
         ["git", "rev-parse", "HEAD"],
         cwd=ROOT,
@@ -30,10 +38,18 @@ def resolve_source_commit() -> str:
         capture_output=True,
         text=True,
     )
-    commit = process.stdout.strip()
-    if process.returncode != 0 or len(commit) != 40 or any(char not in "0123456789abcdef" for char in commit):
-        raise RuntimeError("TOP model-input manifest could not resolve an exact lowercase 40-char source commit")
-    return commit
+    if process.returncode != 0:
+        raise RuntimeError("TOP model-input manifest could not resolve checkout commit")
+    return require_sha(process.stdout, "checkoutCommit")
+
+
+def resolve_source_commit(checkout_commit: str) -> str:
+    # pull_request Actions check out a synthetic merge commit. The workflow passes
+    # the real PR head explicitly so the artifact name and sourceCommit remain
+    # branch-head provenance, while checkoutCommit records the exact merged tree
+    # that actually generated the pixels. Local/manual runs safely fall back to HEAD.
+    supplied = os.environ.get("TOP_SOURCE_HEAD_SHA", "").strip()
+    return require_sha(supplied, "sourceCommit") if supplied else checkout_commit
 
 
 def invariant(condition: bool, message: str) -> None:
@@ -88,10 +104,13 @@ def main() -> None:
             }
         )
 
+    checkout_commit = resolve_checkout_commit()
+    source_commit = resolve_source_commit(checkout_commit)
     payload = {
         "schemaVersion": 1,
         "authority": "MODEL_INPUTS_ONLY_NOT_FINAL_ART",
-        "sourceCommit": resolve_source_commit(),
+        "sourceCommit": source_commit,
+        "checkoutCommit": checkout_commit,
         "sourcePreproductionManifestSha256": sha256(PREPRODUCTION_MANIFEST),
         "visualInputCount": 6,
         "target": {
@@ -130,10 +149,11 @@ def main() -> None:
 
     print("TOP minimal model-input manifest: GENERATED")
     print(f"sourceCommit={payload['sourceCommit']}")
+    print(f"checkoutCommit={payload['checkoutCommit']}")
     print(f"sourcePreproductionManifestSha256={payload['sourcePreproductionManifestSha256']}")
     print(f"visualInputs={len(inputs)}")
     print(f"output={MODEL_MANIFEST.relative_to(ROOT)}")
-    print("NOTE: this manifest describes only the six visual inputs physically shipped in the minimal model-input artifact; it is bound to the exact source commit and preproduction-manifest bytes, and contains no layout proof, diagnostic or raw bridge entry.")
+    print("NOTE: sourceCommit is the real PR/branch head; checkoutCommit is the exact tree used to generate pixels. The artifact remains six visuals only and contains no layout proof, diagnostic or raw bridge entry.")
 
 
 if __name__ == "__main__":
