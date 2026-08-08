@@ -5,6 +5,7 @@ import hashlib
 from pathlib import Path
 import shutil
 import struct
+import zlib
 
 ROOT = Path(__file__).resolve().parents[2]
 INCOMING = ROOT / "docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png"
@@ -21,11 +22,59 @@ def invariant(condition: bool, message: str) -> None:
 def png_dimensions(data: bytes) -> tuple[int, int]:
     invariant(len(data) >= 33, "incoming TOP PNG is truncated")
     invariant(data[:8] == PNG_SIGNATURE, "incoming TOP candidate is not a PNG")
-    invariant(data[12:16] == b"IHDR", "incoming TOP PNG is missing IHDR")
-    width, height = struct.unpack(">II", data[16:24])
-    invariant(data[24] == 8, f"incoming TOP PNG must be 8-bit, got {data[24]}")
-    invariant(data[25] in (2, 6), f"incoming TOP PNG must be RGB/RGBA, got color type {data[25]}")
-    invariant(data[28] == 0, "incoming TOP PNG must be non-interlaced for deterministic QA/import")
+
+    offset = len(PNG_SIGNATURE)
+    saw_ihdr = False
+    saw_idat = False
+    saw_iend = False
+    width = 0
+    height = 0
+
+    while offset < len(data):
+        invariant(offset + 12 <= len(data), "incoming TOP PNG has a truncated chunk header")
+        length = struct.unpack(">I", data[offset : offset + 4])[0]
+        chunk_type = data[offset + 4 : offset + 8]
+        chunk_data_start = offset + 8
+        chunk_data_end = chunk_data_start + length
+        chunk_end = chunk_data_end + 4
+        invariant(chunk_end <= len(data), f"incoming TOP PNG chunk {chunk_type!r} is truncated")
+
+        expected_crc = struct.unpack(">I", data[chunk_data_end:chunk_end])[0]
+        actual_crc = zlib.crc32(chunk_type)
+        actual_crc = zlib.crc32(data[chunk_data_start:chunk_data_end], actual_crc) & 0xFFFFFFFF
+        invariant(
+            expected_crc == actual_crc,
+            f"incoming TOP PNG chunk {chunk_type.decode('ascii', errors='replace')} CRC mismatch",
+        )
+
+        if chunk_type == b"IHDR":
+            invariant(not saw_ihdr, "incoming TOP PNG contains duplicate IHDR")
+            invariant(offset == 8, "incoming TOP PNG IHDR must be the first chunk")
+            invariant(length == 13, "incoming TOP PNG IHDR length must be 13")
+            ihdr = data[chunk_data_start:chunk_data_end]
+            width, height = struct.unpack(">II", ihdr[:8])
+            invariant(ihdr[8] == 8, f"incoming TOP PNG must be 8-bit, got {ihdr[8]}")
+            invariant(ihdr[9] in (2, 6), f"incoming TOP PNG must be RGB/RGBA, got color type {ihdr[9]}")
+            invariant(ihdr[10] == 0, "incoming TOP PNG must use standard compression method")
+            invariant(ihdr[11] == 0, "incoming TOP PNG must use standard filter method")
+            invariant(ihdr[12] == 0, "incoming TOP PNG must be non-interlaced for deterministic QA/import")
+            saw_ihdr = True
+        elif chunk_type == b"IDAT":
+            invariant(saw_ihdr, "incoming TOP PNG IDAT appears before IHDR")
+            saw_idat = True
+        elif chunk_type == b"IEND":
+            invariant(length == 0, "incoming TOP PNG IEND length must be zero")
+            saw_iend = True
+            invariant(chunk_end == len(data), "incoming TOP PNG contains trailing bytes after IEND")
+            offset = chunk_end
+            break
+
+        offset = chunk_end
+
+    invariant(saw_ihdr, "incoming TOP PNG is missing IHDR")
+    invariant(saw_idat, "incoming TOP PNG is missing IDAT")
+    invariant(saw_iend, "incoming TOP PNG is missing IEND")
+    invariant(offset == len(data), "incoming TOP PNG parsing did not consume the full file")
     return width, height
 
 
@@ -44,6 +93,7 @@ def main() -> None:
     print(f"incoming={INCOMING.relative_to(ROOT)}")
     print(f"canonical={CANONICAL.relative_to(ROOT)}")
     print(f"sha256={digest}")
+    print("PNG integrity=full chunk bounds + CRC + IHDR/IDAT/IEND + no trailing bytes")
     print("NOTE: staging copies bytes only; registration/review/runtime approval are separate guarded steps.")
 
 
