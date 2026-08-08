@@ -12,31 +12,11 @@
   "core5": {
     "referenceSetSha256": "ae61797da3a85cab48615dd9a10b3c71e7ec35a2c7b0b66a53a37f3fe1865c0d",
     "references": [
-      {
-        "id": "yui",
-        "path": "assets/reference/character-master/core5/yui-character-master-v1.png",
-        "gitBlobSha1": "670697fdc7d91607dc6d5c5adaa58724d891546e"
-      },
-      {
-        "id": "asa",
-        "path": "assets/reference/character-master/core5/asa-character-master-v1.png",
-        "gitBlobSha1": "2dbdfbc723be908f4881ff69d4c78167d78af179"
-      },
-      {
-        "id": "nagi",
-        "path": "assets/reference/character-master/core5/nagi-character-master-v1.png",
-        "gitBlobSha1": "0b777a8131ec457fc3ca1e83c74ca4d1dd8dbc01"
-      },
-      {
-        "id": "michiru",
-        "path": "assets/reference/character-master/core5/michiru-character-master-v1.png",
-        "gitBlobSha1": "1f75d1b3b8f4b1811120750eb98be70914a457e7"
-      },
-      {
-        "id": "tomori",
-        "path": "assets/reference/character-master/core5/tomori-character-master-v1.png",
-        "gitBlobSha1": "7c221b07a2341682433838382d6381289a7e8693"
-      }
+      {"id":"yui","path":"assets/reference/character-master/core5/yui-character-master-v1.png","gitBlobSha1":"670697fdc7d91607dc6d5c5adaa58724d891546e"},
+      {"id":"asa","path":"assets/reference/character-master/core5/asa-character-master-v1.png","gitBlobSha1":"2dbdfbc723be908f4881ff69d4c78167d78af179"},
+      {"id":"nagi","path":"assets/reference/character-master/core5/nagi-character-master-v1.png","gitBlobSha1":"0b777a8131ec457fc3ca1e83c74ca4d1dd8dbc01"},
+      {"id":"michiru","path":"assets/reference/character-master/core5/michiru-character-master-v1.png","gitBlobSha1":"1f75d1b3b8f4b1811120750eb98be70914a457e7"},
+      {"id":"tomori","path":"assets/reference/character-master/core5/tomori-character-master-v1.png","gitBlobSha1":"7c221b07a2341682433838382d6381289a7e8693"}
     ]
   },
   "compositionReference": {
@@ -44,22 +24,8 @@
     "sha256": "aac090f3f2ec7c5d7438459d5cb22bc917e43ffe36546eaf94c1389c67538b6d",
     "role": "engineering-composition-history-only",
     "generatorFacing": false,
-    "keep": [
-      "quiet deep-indigo night",
-      "campfire gathering",
-      "rail/station/town depth",
-      "white animal",
-      "small round robot",
-      "title-safe sky",
-      "button-safe dark lower region"
-    ],
-    "replace": [
-      "all bridge human identities rather than preserving any bridge person",
-      "the elderly bridge man and every other non-Core5 foreground human",
-      "generic human identities",
-      "generic human scale/blocking",
-      "painterly bridge character rendering"
-    ]
+    "keep": ["quiet deep-indigo night","campfire gathering","rail/station/town depth","white animal","small round robot","title-safe sky","button-safe dark lower region"],
+    "replace": ["all bridge human identities rather than preserving any bridge person","the elderly bridge man and every other non-Core5 foreground human","generic human identities","generic human scale/blocking","painterly bridge character rendering"]
   },
   "preproductionModelInputs": {
     "workflow": ".github/workflows/top-art-preproduction.yml",
@@ -69,31 +35,30 @@
     "artifactPurpose": "model-facing visual inputs only; generated and validated from current locked sources",
     "primaryComposition": "preproduction/core5-clean-composition-plate-v1.png",
     "primaryIdentityCutouts": [
-      "preproduction/core5-yui-fullbody-cutout-v1.png",
-      "preproduction/core5-asa-fullbody-cutout-v1.png",
-      "preproduction/core5-nagi-fullbody-cutout-v1.png",
-      "preproduction/core5-michiru-fullbody-cutout-v1.png",
-      "preproduction/core5-tomori-fullbody-cutout-v1.png"
+      "preproduction/core5-yui-identity-reference-v1.png",
+      "preproduction/core5-asa-identity-reference-v1.png",
+      "preproduction/core5-nagi-identity-reference-v1.png",
+      "preproduction/core5-michiru-identity-reference-v1.png",
+      "preproduction/core5-tomori-identity-reference-v1.png"
     ],
+    "identityInputKind": "single-human-full-body-master-crop",
+    "engineeringCutoutsGeneratorFacing": false,
     "combinedConvenienceReference": "preproduction/core5-clean-generation-reference-pack-v1.png",
-    "layoutProof": {
-      "path": "preproduction/core5-layout-proof-v1.png",
-      "role": "blocking-scale-depth-guide-only",
-      "finalStyleAuthority": false
-    },
+    "layoutProof": {"path":"preproduction/core5-layout-proof-v1.png","role":"blocking-scale-depth-guide-only","finalStyleAuthority":false},
     "sanitizer": "scripts/unity/sanitize-top-living-night-composition-plate.py",
     "sanitizationPolicy": {
       "rawBridgeUsedInsidePreproductionOnly": true,
       "rawBridgeUploadedToModelArtifact": false,
       "bridgeHumanLayersUsedAsAlphaAidOnly": true,
       "bridgeHumanPixelsComposited": false,
-      "allowedNonHumanRestoreLayers": [
-        "09-fire-base.png",
-        "08-animal-robot.png",
-        "14-foreground-accents.png"
-      ]
+      "allowedNonHumanRestoreLayers": ["09-fire-base.png","08-animal-robot.png","14-foreground-accents.png"]
     },
     "forbiddenModelInputs": [
+      "preproduction/core5-yui-fullbody-cutout-v1.png",
+      "preproduction/core5-asa-fullbody-cutout-v1.png",
+      "preproduction/core5-nagi-fullbody-cutout-v1.png",
+      "preproduction/core5-michiru-fullbody-cutout-v1.png",
+      "preproduction/core5-tomori-fullbody-cutout-v1.png",
       "docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png",
       "docs/design-targets/generated/top-living-night-v2/layers/05-distant-companion.png",
       "docs/design-targets/generated/top-living-night-v2/layers/06-characters.png",
@@ -107,7 +72,7 @@
   "identityAuthority": "docs/design-targets/generated/top-living-night-v3/final-identity-brief.md",
   "hardRules": {
     "exactlyFiveForegroundHumans": true,
-    "requiredCharacterOrder": ["yui", "asa", "nagi", "michiru", "tomori"],
+    "requiredCharacterOrder": ["yui","asa","nagi","michiru","tomori"],
     "sixthForegroundHumanAllowed": false,
     "genericSubstituteAllowed": false,
     "duplicateIdentityAllowed": false,
@@ -117,68 +82,17 @@
     "seasonalEventArtAllowed": false,
     "motionVideoRequired": false
   },
-  "safeAreas": {
-    "titleTopFraction": [0.18, 0.22],
-    "primaryContentMiddleFraction": [0.55, 0.60],
-    "buttonBottomFraction": [0.20, 0.22],
-    "requiredCropTargets": ["360x800", "390x844", "430x932"]
-  },
-  "motionOwnership": {
-    "baseStill": ["low coals", "low flame foundation", "restrained local light", "distant town lights"],
-    "unity": ["main fire flipbook", "fire glow pulse", "smoke", "embers", "distant-light pulse", "lantern pulse", "robot-eye rare blink", "star/cloud drift"]
-  },
-  "registration": {
-    "script": "scripts/unity/register-top-living-night-final-art.ts",
-    "registrationDoesNotApprove": true,
-    "resetsCandidateSensitiveEvidence": true
-  },
-  "intake": {
-    "incomingPath": "docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png",
-    "canonicalPath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
-    "workflow": ".github/workflows/top-final-art-intake.yml",
-    "stagingScript": "scripts/unity/stage-top-living-night-final-art-intake.py",
-    "atomicCanonicalRegistration": true,
-    "incomingIsOneShot": true,
-    "intakeDoesNotApprove": true,
-    "forcePushAllowed": false
-  },
-  "automation": {
-    "prepareReviewPack": "scripts/unity/prepare-top-living-night-final-review-pack.sh",
-    "unityV3Verification": "scripts/unity/run-top-living-night-v3-unity-verification.sh",
-    "capturePack": "scripts/unity/run-loading-top-capture-pack.sh",
-    "simulatorPerformance": "scripts/unity/run-top-living-night-simulator-performance-evidence.sh",
-    "physicalIphonePerformance": "scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh",
-    "staticReviewRegistrar": "scripts/unity/register-top-living-night-static-review.ts",
-    "motionReviewRegistrar": "scripts/unity/register-top-living-night-motion-review.ts",
-    "humanReviewRegistrar": "scripts/unity/register-top-living-night-human-review.ts",
-    "finalPromotion": "scripts/unity/promote-top-living-night-final-approval.ts"
-  },
+  "safeAreas": {"titleTopFraction":[0.18,0.22],"primaryContentMiddleFraction":[0.55,0.60],"buttonBottomFraction":[0.20,0.22],"requiredCropTargets":["360x800","390x844","430x932"]},
+  "motionOwnership": {"baseStill":["low coals","low flame foundation","restrained local light","distant town lights"],"unity":["main fire flipbook","fire glow pulse","smoke","embers","distant-light pulse","lantern pulse","robot-eye rare blink","star/cloud drift"]},
+  "registration": {"script":"scripts/unity/register-top-living-night-final-art.ts","registrationDoesNotApprove":true,"resetsCandidateSensitiveEvidence":true},
+  "intake": {"incomingPath":"docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png","canonicalPath":"docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png","workflow":".github/workflows/top-final-art-intake.yml","stagingScript":"scripts/unity/stage-top-living-night-final-art-intake.py","atomicCanonicalRegistration":true,"incomingIsOneShot":true,"intakeDoesNotApprove":true,"forcePushAllowed":false},
+  "automation": {"prepareReviewPack":"scripts/unity/prepare-top-living-night-final-review-pack.sh","unityV3Verification":"scripts/unity/run-top-living-night-v3-unity-verification.sh","capturePack":"scripts/unity/run-loading-top-capture-pack.sh","simulatorPerformance":"scripts/unity/run-top-living-night-simulator-performance-evidence.sh","physicalIphonePerformance":"scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh","staticReviewRegistrar":"scripts/unity/register-top-living-night-static-review.ts","motionReviewRegistrar":"scripts/unity/register-top-living-night-motion-review.ts","humanReviewRegistrar":"scripts/unity/register-top-living-night-human-review.ts","finalPromotion":"scripts/unity/promote-top-living-night-final-approval.ts"},
   "postGenerationExecutionPlan": [
-    {
-      "phase": "candidate-static-and-unity",
-      "requires": ["final-candidate-registered"],
-      "parallel": ["core5-identity-review", "three-crop-review", "unity-v3-verification"]
-    },
-    {
-      "phase": "runtime-observation",
-      "requires": ["unity-v3-verification"],
-      "parallel": ["normal-and-reduced-motion-review", "15-frame-capture"]
-    },
-    {
-      "phase": "capture-human-review",
-      "requires": ["15-frame-capture"],
-      "parallel": ["human-visual-review"]
-    },
-    {
-      "phase": "device-performance",
-      "requires": ["unity-v3-verification", "15-frame-capture"],
-      "parallel": ["simulator-performance", "physical-iphone-performance"]
-    },
-    {
-      "phase": "final-promotion",
-      "requires": ["core5-identity-review", "three-crop-review", "normal-and-reduced-motion-review", "human-visual-review", "simulator-performance", "physical-iphone-performance"],
-      "parallel": ["approval-consistency", "readiness-summary", "guarded-final-promotion"]
-    }
+    {"phase":"candidate-static-and-unity","requires":["final-candidate-registered"],"parallel":["core5-identity-review","three-crop-review","unity-v3-verification"]},
+    {"phase":"runtime-observation","requires":["unity-v3-verification"],"parallel":["normal-and-reduced-motion-review","15-frame-capture"]},
+    {"phase":"capture-human-review","requires":["15-frame-capture"],"parallel":["human-visual-review"]},
+    {"phase":"device-performance","requires":["unity-v3-verification","15-frame-capture"],"parallel":["simulator-performance","physical-iphone-performance"]},
+    {"phase":"final-promotion","requires":["core5-identity-review","three-crop-review","normal-and-reduced-motion-review","human-visual-review","simulator-performance","physical-iphone-performance"],"parallel":["approval-consistency","readiness-summary","guarded-final-promotion"]}
   ],
   "requiredPostGenerationChecks": [
     "scripts/quality/check-top-living-night-final-art-candidate.ts",
