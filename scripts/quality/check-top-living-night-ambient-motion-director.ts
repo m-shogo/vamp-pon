@@ -37,10 +37,22 @@ for (const token of [
   'PlayerPrefs.GetInt("reduce_motion", 0) == 1',
   'if (reducedMotion)',
   'RestorePose();',
+  'ApplyReducedMotionVisuals();',
+  'RefreshVisualBindings();',
+  'top.GetComponentsInChildren<RawImage>(true)',
+  'string.Equals(image.name, "Stars", StringComparison.Ordinal)',
+  'string.Equals(image.name, "FireGlow", StringComparison.Ordinal)',
+  'string.Equals(image.name, "RobotEye", StringComparison.Ordinal)',
+  'image.name.StartsWith("Smoke_", StringComparison.Ordinal)',
+  'image.name.StartsWith("Ember_", StringComparison.Ordinal)',
+  'stars.color = WithAlpha(stars.color, .62f)',
+  'fireGlow.color = WithAlpha(fireGlow.color, .56f)',
+  'image.color = WithAlpha(image.color, 0f)',
   'cloudsFar.anchoredPosition = farBasePosition',
   'cloudsNear.anchoredPosition = nearBasePosition',
   'titleRoot.anchoredPosition = titleBasePosition',
   'artRoot.localScale = artBaseScale',
+  'live preference changes settle without rebuilding TOP',
   'five-minute review window',
 ]) {
   invariant(director.includes(token), `TOP ambient motion director contract missing: ${token}`);
@@ -49,9 +61,13 @@ for (const token of [
 for (const forbidden of [
   'Mathf.Sin(',
   'Resources.Load',
+  'Resources.UnloadAsset',
   'UnityWebRequest',
   'Texture2D',
-  'RawImage',
+  '.texture =',
+  'Destroy(image',
+  'Destroy(stars',
+  'Destroy(fireGlow',
   '.mp4',
   '.webp',
   'approvedAsFinal',
@@ -71,9 +87,13 @@ invariant(
   'TOP ambient director must resolve Reduced Motion before applying normal ambient drift',
 );
 invariant(
+  director.indexOf('RestorePose();') < director.indexOf('ApplyReducedMotionVisuals();'),
+  'TOP Reduced Motion must restore geometric pose before applying visual suppression',
+);
+invariant(
   /guid: [0-9a-f]{32}\n/.test(meta),
   'TOP ambient motion director Unity meta GUID is invalid',
 );
 
 console.log('TOP Living Night ambient motion director: PASS');
-console.log('post-view Perlin breathing + cloud drift + title micro-motion; Reduced Motion restores exact base pose; no texture/readiness/approval ownership');
+console.log('post-view Perlin breathing + cloud drift + title micro-motion; live Reduced Motion restores pose and suppresses stars/fire-glow/robot-eye/smoke/embers without texture/readiness/approval ownership');
