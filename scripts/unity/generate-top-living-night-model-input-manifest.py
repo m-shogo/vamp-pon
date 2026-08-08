@@ -154,6 +154,7 @@ def main() -> None:
     print(f"visualInputs={len(inputs)}")
     print(f"output={MODEL_MANIFEST.relative_to(ROOT)}")
     print("NOTE: sourceCommit is the real PR/branch head; checkoutCommit is the exact tree used to generate pixels. The artifact remains six visuals only and contains no layout proof, diagnostic or raw bridge entry.")
+    print("NOTE: this manifest describes only the six visual inputs physically shipped in the minimal model-input artifact; provenance fields do not add extra visual references.")
 
 
 if __name__ == "__main__":
