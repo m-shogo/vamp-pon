@@ -13,6 +13,9 @@ OUTPUT_DIR = ROOT / "docs/design-targets/generated/top-living-night-v3/preproduc
 MANIFEST = OUTPUT_DIR / "manifest.json"
 CHARACTERS = ("yui", "asa", "nagi", "michiru", "tomori")
 CLEAN_PLATE = "core5-clean-composition-plate-v1.png"
+LAYOUT_PROOF = "core5-layout-proof-v1.png"
+COMBINED_REFERENCE = "core5-clean-generation-reference-pack-v1.png"
+IDENTITY_CUTOUTS = [f"core5-{character}-fullbody-cutout-v1.png" for character in CHARACTERS]
 
 
 def digest(path: Path) -> str:
@@ -65,7 +68,7 @@ def main() -> None:
     if not MANIFEST.is_file():
         raise RuntimeError("preproduction manifest is missing")
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    if manifest.get("schemaVersion") != 2 or manifest.get("authority") != "PREPRODUCTION_ONLY_NOT_FINAL_ART":
+    if manifest.get("schemaVersion") != 3 or manifest.get("authority") != "PREPRODUCTION_ONLY_NOT_FINAL_ART":
         raise RuntimeError("preproduction manifest authority/schema mismatch")
     rules = manifest.get("rules", {})
     if rules.get("mayRegisterAsFinalCandidate") is not False:
@@ -86,15 +89,35 @@ def main() -> None:
     if generation_composition.get("containsOnlyCore5WhenHumansArePresent") is not True:
         raise RuntimeError("preproduction model-facing pack must allow only Core5 humans")
 
+    roles = manifest.get("modelInputRoles", {})
+    if roles.get("primaryComposition") != CLEAN_PLATE:
+        raise RuntimeError("preproduction model-input roles must select the sanitized clean plate as primary composition")
+    if roles.get("primaryIdentityCutouts") != IDENTITY_CUTOUTS:
+        raise RuntimeError("preproduction model-input roles must select exactly five ordered Core5 identity cutouts")
+    if roles.get("optionalConvenienceReference") != COMBINED_REFERENCE:
+        raise RuntimeError("preproduction convenience-reference role mismatch")
+    if roles.get("blockingOnly") != [LAYOUT_PROOF]:
+        raise RuntimeError("preproduction blocking-only role must contain only the layout proof")
+    if roles.get("blockingOnlyIsFinalStyleAuthority") is not False:
+        raise RuntimeError("preproduction layout proof must never become final-style authority")
+    if roles.get("diagnosticsAllowed") is not False:
+        raise RuntimeError("preproduction diagnostics must never be model inputs")
+    if roles.get("rawBridgeAllowed") is not False:
+        raise RuntimeError("preproduction raw bridge must never be a model input")
+
     by_name = {entry["file"]: entry for entry in manifest.get("outputs", [])}
-    expected_names = {
-        CLEAN_PLATE,
-        "core5-layout-proof-v1.png",
-        "core5-clean-generation-reference-pack-v1.png",
-        *(f"core5-{character}-fullbody-cutout-v1.png" for character in CHARACTERS),
-    }
+    expected_names = {CLEAN_PLATE, LAYOUT_PROOF, COMBINED_REFERENCE, *IDENTITY_CUTOUTS}
     if set(by_name) != expected_names:
         raise RuntimeError(f"preproduction output set mismatch: {sorted(by_name)}")
+
+    role_files = {
+        roles["primaryComposition"],
+        *roles["primaryIdentityCutouts"],
+        roles["optionalConvenienceReference"],
+        *roles["blockingOnly"],
+    }
+    if role_files != expected_names:
+        raise RuntimeError("preproduction model-input roles must classify every generated PNG exactly once by intent")
 
     for name, entry in by_name.items():
         path = OUTPUT_DIR / name
@@ -114,10 +137,10 @@ def main() -> None:
         if clean_plate.mode not in {"RGB", "RGBA"}:
             raise RuntimeError(f"clean composition plate must be RGB/RGBA, got {clean_plate.mode}")
 
-    with Image.open(OUTPUT_DIR / "core5-layout-proof-v1.png") as layout:
+    with Image.open(OUTPUT_DIR / LAYOUT_PROOF) as layout:
         if layout.size != (430, 932):
             raise RuntimeError(f"layout proof must be 430x932, got {layout.size}")
-    with Image.open(OUTPUT_DIR / "core5-clean-generation-reference-pack-v1.png") as reference_pack:
+    with Image.open(OUTPUT_DIR / COMBINED_REFERENCE) as reference_pack:
         if reference_pack.size != (1400, 1800):
             raise RuntimeError(f"clean reference pack must be 1400x1800, got {reference_pack.size}")
 
@@ -145,7 +168,8 @@ def main() -> None:
             )
 
     print("TOP preproduction visual pack validation: PASS")
-    print("human-free 430x932 composition plate + five Core5 cutouts + Core5-only layout/reference pack are hash-bound; raw bridge is provenance-only")
+    print("roles: primary=sanitized 430x932 plate + five Core5 cutouts; combined reference optional; layout proof blocking-only; diagnostics/raw bridge forbidden")
+    print("all preproduction PNGs are hash-bound and remain non-final/non-approving")
 
 
 if __name__ == "__main__":
