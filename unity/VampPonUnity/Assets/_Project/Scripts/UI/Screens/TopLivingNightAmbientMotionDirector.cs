@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.UI.Screens
 {
-    // Runs after TopLivingNightView.Update so the long-period Perlin drift replaces
-    // the short, visibly periodic presentation motion without changing texture or
-    // particle lifecycle ownership. It also owns the post-view Reduced Motion
-    // presentation override so live preference changes settle without rebuilding TOP.
+    // Runs after TopLivingNightView.Update so long-period Perlin drift replaces
+    // short, visibly periodic presentation motion without changing texture or
+    // particle lifecycle ownership. It also normalizes post-view alpha for both
+    // Reduced Motion and normal mode so live preference toggles work both ways
+    // without rebuilding the TOP view.
     [DefaultExecutionOrder(900)]
     public sealed class TopLivingNightAmbientMotionDirector : MonoBehaviour
     {
@@ -18,7 +19,8 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private static TopLivingNightAmbientMotionDirector instance;
 
-        private readonly List<RawImage> reducedHidden = new();
+        private readonly List<RawImage> smoke = new();
+        private readonly List<RawImage> embers = new();
         private TopLivingNightView top;
         private RectTransform artRoot;
         private RectTransform titleRoot;
@@ -26,6 +28,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private RectTransform cloudsNear;
         private RawImage stars;
         private RawImage fireGlow;
+        private RawImage robotEye;
         private Vector2 artBasePosition;
         private Vector3 artBaseScale = Vector3.one;
         private readonly Vector2 titleBasePosition = Vector2.zero;
@@ -94,11 +97,12 @@ namespace VampPon.UnitySpike.UI.Screens
             if (reducedMotion)
             {
                 RestorePose();
-                ApplyReducedMotionVisuals();
+                ApplyReducedMotionVisuals(time);
                 return;
             }
 
             ApplyBreathingNight(time);
+            ApplyNormalMotionVisuals(time);
         }
 
         private void Bind(TopLivingNightView current)
@@ -111,7 +115,9 @@ namespace VampPon.UnitySpike.UI.Screens
             cloudsNear = null;
             stars = null;
             fireGlow = null;
-            reducedHidden.Clear();
+            robotEye = null;
+            smoke.Clear();
+            embers.Clear();
             poseCaptured = false;
 
             if (top == null)
@@ -143,7 +149,9 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             stars = null;
             fireGlow = null;
-            reducedHidden.Clear();
+            robotEye = null;
+            smoke.Clear();
+            embers.Clear();
             if (top == null)
                 return;
 
@@ -164,12 +172,24 @@ namespace VampPon.UnitySpike.UI.Screens
                     continue;
                 }
 
-                if (
-                    string.Equals(image.name, "RobotEye", StringComparison.Ordinal) ||
-                    image.name.StartsWith("Smoke_", StringComparison.Ordinal) ||
-                    image.name.StartsWith("Ember_", StringComparison.Ordinal))
-                    reducedHidden.Add(image);
+                if (string.Equals(image.name, "RobotEye", StringComparison.Ordinal))
+                {
+                    robotEye = image;
+                    continue;
+                }
+
+                if (image.name.StartsWith("Smoke_", StringComparison.Ordinal))
+                {
+                    smoke.Add(image);
+                    continue;
+                }
+
+                if (image.name.StartsWith("Ember_", StringComparison.Ordinal))
+                    embers.Add(image);
             }
+
+            smoke.Sort(CompareByName);
+            embers.Sort(CompareByName);
         }
 
         private void ApplyBreathingNight(float time)
@@ -195,17 +215,77 @@ namespace VampPon.UnitySpike.UI.Screens
             cloudsNear.anchoredPosition = nearBasePosition + new Vector2(nearX, nearY);
         }
 
-        private void ApplyReducedMotionVisuals()
+        private void ApplyNormalMotionVisuals(float time)
+        {
+            // Re-apply the normal-mode alpha equations after TopLivingNightView so
+            // a view originally built while Reduced Motion was ON can return to
+            // full normal motion after a live preference toggle without rebuild.
+            if (stars != null)
+            {
+                var noise = Mathf.PerlinNoise(.17f, time * .082f);
+                stars.color = WithAlpha(stars.color, .57f + noise * .16f);
+            }
+
+            if (fireGlow != null)
+            {
+                var first = Mathf.PerlinNoise(5.13f, time * .83f);
+                var second = Mathf.PerlinNoise(9.71f, time * 1.67f);
+                fireGlow.color = WithAlpha(
+                    fireGlow.color,
+                    .56f + ((first * .62f + second * .38f) - .5f) * .10f);
+            }
+
+            if (robotEye != null)
+            {
+                var phase = Mathf.Repeat(time + 11.7f, 47f);
+                var rare = phase > 1.35f
+                    ? 0f
+                    : Mathf.Sin(phase / 1.35f * Mathf.PI);
+                robotEye.color = WithAlpha(robotEye.color, .20f + rare * .62f);
+            }
+
+            for (var index = 0; index < smoke.Count; index++)
+            {
+                var phase = .17f + index * .23f;
+                var cycle = Mathf.Repeat(time * .16f + phase, 1f);
+                smoke[index].color = WithAlpha(
+                    smoke[index].color,
+                    Mathf.Sin(cycle * Mathf.PI) * .19f);
+            }
+
+            for (var index = 0; index < embers.Count; index++)
+            {
+                var duration = 2.6f + index % 4 * .44f;
+                var phase = .09f * index;
+                var cycle = Mathf.Repeat(time / duration + phase, 1f);
+                embers[index].color = WithAlpha(
+                    embers[index].color,
+                    Mathf.Sin(cycle * Mathf.PI) * .78f);
+            }
+        }
+
+        private void ApplyReducedMotionVisuals(float time)
         {
             // TopLivingNightView may still hold the preference value it read when
             // it was built. Because this director executes later, the live
-            // preference can still immediately suppress sparse motion without
-            // taking ownership of textures or particle objects.
+            // preference can immediately suppress sparse motion. Fire glow keeps
+            // only the same tiny readability variation as the base reduced path.
             if (stars != null)
                 stars.color = WithAlpha(stars.color, .62f);
             if (fireGlow != null)
-                fireGlow.color = WithAlpha(fireGlow.color, .56f);
-            foreach (var image in reducedHidden)
+            {
+                var first = Mathf.PerlinNoise(5.13f, time * .83f);
+                var second = Mathf.PerlinNoise(9.71f, time * 1.67f);
+                fireGlow.color = WithAlpha(
+                    fireGlow.color,
+                    .56f + ((first * .62f + second * .38f) - .5f) * .02f);
+            }
+            if (robotEye != null)
+                robotEye.color = WithAlpha(robotEye.color, 0f);
+            foreach (var image in smoke)
+                if (image != null)
+                    image.color = WithAlpha(image.color, 0f);
+            foreach (var image in embers)
                 if (image != null)
                     image.color = WithAlpha(image.color, 0f);
         }
@@ -253,6 +333,11 @@ namespace VampPon.UnitySpike.UI.Screens
             return null;
         }
 
+        private static int CompareByName(RawImage left, RawImage right)
+        {
+            return string.CompareOrdinal(left != null ? left.name : string.Empty, right != null ? right.name : string.Empty);
+        }
+
         private static Color WithAlpha(Color color, float alpha)
         {
             color.a = Mathf.Clamp01(alpha);
@@ -262,7 +347,8 @@ namespace VampPon.UnitySpike.UI.Screens
         private void OnDestroy()
         {
             RestorePose();
-            reducedHidden.Clear();
+            smoke.Clear();
+            embers.Clear();
             if (instance == this)
                 instance = null;
         }
