@@ -118,7 +118,7 @@ namespace VampPon.UnitySpike.UI.Screens
             label.overflowMode = TextOverflowModes.Ellipsis;
         }
 
-        private void BuildRecordRows(ResultViewModel vm)
+        private void BuildRecordRows(RunResultViewModel vm)
         {
             if (vm.NewRecordRows.Count == 0)
             {
