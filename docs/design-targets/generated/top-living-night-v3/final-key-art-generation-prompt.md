@@ -2,7 +2,7 @@
 
 Status: `GENERATION_READY / NOT_FINAL_ART`
 
-Use this only to generate a replacement for the current visual-recovery bridge. The five Core5 repository masters are mandatory visual references.
+Use this only to generate a replacement candidate for the current visual-recovery bridge. The five Core5 repository masters are mandatory visual references.
 
 ## Locked reference authority
 
@@ -238,7 +238,7 @@ Do **not** generate:
 - character face in title safe zone
 - important object in button safe zone
 
-## Required output
+## Phase A required output — incoming candidate only
 
 ```txt
 format=PNG
@@ -251,13 +251,42 @@ textInImage=none
 uiInImage=none
 ```
 
-Final candidate path:
+The image-generation worker must write the newly generated candidate to the **incoming** path first:
+
+```txt
+docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png
+```
+
+Do **not** write or copy a freshly generated image directly to:
 
 ```txt
 docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png
 ```
 
-After the PNG is placed there, use `scripts/unity/register-top-living-night-final-art.ts` to validate 430x932, compute/register its SHA-256 and invalidate candidate-sensitive stale evidence. Registration itself does not approve the image.
+The canonical `final/` path is owned by the existing intake/registration flow defined in `final-generation-bundle.json`:
+
+- workflow: `.github/workflows/top-final-art-intake.yml`
+- staging: `scripts/unity/stage-top-living-night-final-art-intake.py`
+- registration: `scripts/unity/register-top-living-night-final-art.ts`
+
+That flow validates dimensions/SHA/provenance and invalidates candidate-sensitive stale evidence. Registration itself does not approve the image. Never bypass the intake boundary with a direct overwrite or manual approval-flag edit.
+
+## P0 family continues after the canonical candidate
+
+This prompt produces **Phase A: one canonical candidate**. It does not by itself complete `ART-P0-TOP-CORE5-V3`.
+
+Once a candidate direction is selected for continued production, derive the remaining assets from the **same locked composition and Core5 identity set**:
+
+- six structural semantic layers from `layered-final-production-contract.md`
+- ten effect companion assets from `final-effect-companion-brief.md`
+
+P0 image-generation completion therefore means **17 generated master-family artifacts total**:
+
+- 1 canonical candidate
+- 6 structural layers
+- 10 effect companion assets
+
+Do not independently reinterpret those 16 derived assets from scratch. They must remain spatially/materially registered to the candidate family. The six `semanticLayerRuntime.requiredLayers` in `final-generation-bundle.json` are the structural runtime-registration subset, not the full image-generation completion list.
 
 ## Required review after generation
 
