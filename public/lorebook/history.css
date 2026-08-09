@@ -1,0 +1,39 @@
+.history-atlas { margin-top:62px; padding-top:34px; border-top:1px solid rgba(233,224,200,.18); }
+.history-atlas-heading { max-width:830px; }
+.history-atlas-heading > span, .era-method header > span { color:#d6b56f; font-size:9px; letter-spacing:.14em; }
+.history-atlas-heading h3, .era-method h3 { margin:8px 0 8px; font:500 29px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.history-atlas-heading p, .era-method header p { margin:0; color:#9e9688; font-size:11px; line-height:1.8; }
+.time-layer-strip { display:grid; grid-template-columns:repeat(3,1fr); margin-top:24px; border-top:1px solid rgba(233,224,200,.14); border-bottom:1px solid rgba(233,224,200,.14); }
+.time-layer-strip article { min-height:180px; padding:22px; border-right:1px solid rgba(233,224,200,.12); }
+.time-layer-strip article:last-child { border-right:0; }
+.time-layer-strip span { color:#d6b56f; font-size:9px; }
+.time-layer-strip h4 { margin:25px 0 8px; font:500 18px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.time-layer-strip p { margin:0; color:#948c7f; font-size:10px; }
+.history-thread-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin-top:24px; }
+.history-thread { display:flex; flex-direction:column; min-height:390px; border:1px solid rgba(233,224,200,.14); background:linear-gradient(145deg,rgba(214,181,111,.035),transparent 52%),rgba(31,29,37,.66); }
+.history-thread > header { padding:20px 20px 16px; border-bottom:1px solid rgba(233,224,200,.10); }
+.history-thread > header > span { color:#b39a66; font-size:7px; letter-spacing:.1em; }
+.history-thread h4 { margin:6px 0 4px; font:500 20px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.history-thread header small { color:#878073; font-size:9px; }
+.history-thread-body { flex:1; padding:17px 20px; display:grid; gap:15px; }
+.history-thread-body b { color:#c8bda9; font:500 10px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.history-thread-body ul { margin:7px 0 0; padding-left:16px; color:#928a7e; font-size:9px; line-height:1.75; }
+.history-thread-body p { margin:7px 0 0; color:#958d80; font-size:9px; line-height:1.75; }
+.history-gap { padding-left:12px; border-left:2px dashed rgba(145,128,170,.35); }
+.history-gap b { color:#b2a1c3; }
+.history-payoff { padding-left:12px; border-left:2px solid rgba(135,151,127,.32); }
+.history-thread > footer { padding:10px 20px; border-top:1px solid rgba(233,224,200,.09); display:flex; justify-content:space-between; gap:12px; color:#706a61; font-size:7px; letter-spacing:.07em; }
+.era-method { margin-top:32px; padding:28px; border:1px solid rgba(145,128,170,.26); background:radial-gradient(circle at 10% 0%,rgba(145,128,170,.08),transparent 28rem),rgba(25,24,33,.7); }
+.era-layer-row { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:20px; }
+.era-layer-row article { min-height:125px; padding:14px; border:1px solid rgba(233,224,200,.10); }
+.era-layer-row b { color:#d3c5df; font:500 11px serif; }
+.era-layer-row p { color:#8e8695; font-size:8px; line-height:1.7; }
+.era-evidence { margin-top:14px; padding:14px 0; border-top:1px dashed rgba(233,224,200,.12); border-bottom:1px dashed rgba(233,224,200,.12); }
+.era-evidence b { color:#aaa0b4; font-size:9px; }
+.era-evidence p { margin:5px 0 0; color:#817a88; font-size:8px; }
+.era-anchors { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:14px; }
+.era-anchors article { padding:14px; background:rgba(255,255,255,.018); }
+.era-anchors span { color:#d6b56f; font:500 11px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.era-anchors p { margin:5px 0 0; color:#928a97; font-size:8px; line-height:1.7; }
+@media (max-width:850px) { .history-thread-grid { grid-template-columns:1fr; } .era-layer-row { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px) { .time-layer-strip { grid-template-columns:1fr; } .time-layer-strip article { border-right:0; border-bottom:1px solid rgba(233,224,200,.12); min-height:150px; } .time-layer-strip article:last-child { border-bottom:0; } .era-layer-row, .era-anchors { grid-template-columns:1fr; } .era-method { padding:20px; } }
