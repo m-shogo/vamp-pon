@@ -14,6 +14,7 @@ namespace VampPon.UnitySpike.U4
         private Image bgImage;
         private Image innerBorderImage;
         private Image glowImage;
+        private Sprite baseSprite;
         private TextMeshProUGUI nameLabel;
         private TextMeshProUGUI descLabel;
         private TextMeshProUGUI typeLabel;
@@ -21,7 +22,6 @@ namespace VampPon.UnitySpike.U4
         private U4LevelUpChoice choiceData;
         private Vector3 baseScale;
         private float selectPulseTimer;
-        private float shimmerTimer;
         private bool isSelected;
         private bool isHovered;
         private int cardIndex;
@@ -59,8 +59,9 @@ namespace VampPon.UnitySpike.U4
             card.baseScale = Vector3.one;
 
             card.bgImage = root.GetComponent<Image>();
-            card.bgImage.sprite = AppQualityAssetProvider.LevelUpCardFor(choice.Rarity == U4ItemRarity.Rare, choice.IsAwakeningGate)
-                                  ?? U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            card.baseSprite = AppQualityAssetProvider.LevelUpCardFor(choice.Rarity == U4ItemRarity.Rare, choice.IsAwakeningGate)
+                              ?? U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            card.bgImage.sprite = card.baseSprite;
             card.bgImage.type = card.bgImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             card.bgImage.color = card.bgImage.sprite != null ? Color.white : NormalCardBg;
 
@@ -156,13 +157,25 @@ namespace VampPon.UnitySpike.U4
         public void SetSelected(bool selected)
         {
             isSelected = selected;
-            if (selected)
-            {
+            var reducedMotion = IsReducedMotion();
+            if (selected && !reducedMotion)
                 selectPulseTimer = 0.15f;
-                shimmerTimer = 0.25f;
+            else
+                selectPulseTimer = 0f;
+
+            if (choiceData.Rarity != U4ItemRarity.Rare && !choiceData.IsAwakeningGate)
+            {
+                var selectedSprite = VisualBatchAssetProvider.LevelUpCardSelected;
+                bgImage.sprite = selected && selectedSprite != null ? selectedSprite : baseSprite;
+                bgImage.type = bgImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             }
 
-            bgImage.color = bgImage.sprite != null ? (selected ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg));
+            bgImage.color = bgImage.sprite != null
+                ? (selected ? new Color(1f, 0.97f, 0.9f, 1f) : Color.white)
+                : (selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg));
+
+            if (reducedMotion)
+                rect.localScale = Vector3.one;
         }
 
         public void SetHovered(bool hovered)
@@ -170,8 +183,10 @@ namespace VampPon.UnitySpike.U4
             isHovered = hovered;
             if (!isSelected)
             {
-                bgImage.color = bgImage.sprite != null ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (hovered ? HoveredCardBg : NormalCardBg);
-                rect.localScale = hovered ? baseScale * 1.02f : baseScale;
+                bgImage.color = bgImage.sprite != null
+                    ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white)
+                    : (hovered ? HoveredCardBg : NormalCardBg);
+                rect.localScale = hovered && !IsReducedMotion() ? baseScale * 1.02f : baseScale;
             }
         }
 
@@ -179,16 +194,14 @@ namespace VampPon.UnitySpike.U4
         {
             var group = gameObject.GetComponent<CanvasGroup>();
             if (group == null)
-            {
                 group = gameObject.AddComponent<CanvasGroup>();
-            }
-
             group.alpha = dimmed ? 0.45f : 1f;
         }
 
         private void Update()
         {
-            if (selectPulseTimer > 0f)
+            var reducedMotion = IsReducedMotion();
+            if (selectPulseTimer > 0f && !reducedMotion)
             {
                 selectPulseTimer -= Time.unscaledDeltaTime;
                 var t = Mathf.Clamp01(selectPulseTimer / 0.15f);
@@ -197,19 +210,16 @@ namespace VampPon.UnitySpike.U4
             }
             else if (isSelected)
             {
-                rect.localScale = baseScale * 1.03f;
+                rect.localScale = reducedMotion ? baseScale : baseScale * 1.025f;
             }
 
             if (glowImage != null && (choiceData.Rarity == U4ItemRarity.Rare || choiceData.IsAwakeningGate))
             {
-                var pulse = 0.12f + Mathf.Sin(Time.unscaledTime * 2.2f) * 0.08f;
                 var baseColor = choiceData.IsAwakeningGate ? AwakeningGlow : RareGlow;
-                glowImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, pulse);
-            }
-
-            if (shimmerTimer > 0f)
-            {
-                shimmerTimer -= Time.unscaledDeltaTime;
+                var alpha = reducedMotion
+                    ? baseColor.a * 0.72f
+                    : Mathf.Lerp(baseColor.a * 0.62f, baseColor.a, Mathf.PerlinNoise(cardIndex * 2.17f + 1.3f, Time.unscaledTime * 0.24f));
+                glowImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
             }
         }
 
@@ -228,6 +238,10 @@ namespace VampPon.UnitySpike.U4
         {
             if (!isSelected) SetHovered(false);
         }
+
+        private static bool IsReducedMotion() =>
+            PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
+            PlayerPrefs.GetInt("reduce_motion", 0) == 1;
 
         private static TextMeshProUGUI CreateLabel(Transform parent, string text, float fontSize, Color color,
             Vector2 anchorMin, Vector2 anchorMax, Vector2 anchoredPos, Vector2 size, TMP_FontAsset font)
@@ -249,10 +263,7 @@ namespace VampPon.UnitySpike.U4
             tmp.overflowMode = TextOverflowModes.Ellipsis;
             AppQualityUiFactory.FitText(tmp, Mathf.Max(8f, fontSize - 4f));
             if (font != null)
-            {
                 tmp.font = font;
-            }
-
             return tmp;
         }
     }
