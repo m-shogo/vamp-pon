@@ -15,7 +15,7 @@ function profileMarkup(profile) {
     <section class="personal-profile-section" data-profile-for="${profile.lorebookId}">
       <div class="profile-section-heading">
         <div><span>PERSONAL FILE</span><h3>普段の ${profile.name}</h3></div>
-        <small>${profile.birthday} / ${profile.zodiac} / ${profile.ageImpression}</small>
+        <small>${profile.birthday} / ${profile.ageImpression}</small>
       </div>
       <div class="profile-snapshot-grid">
         <article><span>好きな食べ物</span><strong>${profile.favoriteFood}</strong><p>${profile.favoriteFoodReason}</p></article>
@@ -72,7 +72,3 @@ async function bootProfiles() {
 }
 
 bootProfiles();
-import('./relationship-enhancement.js').catch((error) => console.error('[lorebook] failed to boot relationship enhancement', error));
-import('./combat-enhancement.js').catch((error) => console.error('[lorebook] failed to boot combat guide', error));
-import('./history-enhancement.js').catch((error) => console.error('[lorebook] failed to boot history atlas', error));
-import('./decision-lab.js').catch((error) => console.error('[lorebook] failed to boot setting decision lab', error));
