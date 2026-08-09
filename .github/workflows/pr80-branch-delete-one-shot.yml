@@ -1,4 +1,4 @@
-name: Merged Lorebook Branch Delete One Shot
+name: Final Audited Remote Branch Cleanup
 
 on:
   workflow_run:
@@ -14,76 +14,19 @@ permissions:
   pull-requests: read
 
 jobs:
-  delete-audited-merged-branches:
+  delete-audited-branches:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Verify rescued content and merged heads, then delete refs
+      - name: Verify branch provenance and delete only audited refs
         shell: bash
         run: |
           set -euo pipefail
 
           current_branch_sha() {
             gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/$1" --jq '.object.sha' 2>/dev/null || true
-          }
-
-          merged_pr_head() {
-            gh api "repos/${GITHUB_REPOSITORY}/pulls/$1" --jq 'if .merged_at != null then .head.sha else "" end'
-          }
-
-          verify_pr80_semantic_rescue() {
-            local branch='feat/lorebook-world-bible-web-v1'
-            local merged_head='ec29dd8b915f7ebb43dd1da27419d5e60befb45a'
-            local expected_js='7650b5906b8e338317ef679e621c83e3f62d926f'
-            local expected_css='673d533e896db1e6e4e1857cd73c2bd41c81c634'
-            local actual
-            local ahead
-            local behind
-            local files
-            local branch_js
-            local branch_css
-            local main_js
-            local main_css
-
-            if [ "$(merged_pr_head 80)" != "$merged_head" ]; then
-              echo '::error::PR #80 merged-head proof changed'
-              exit 1
-            fi
-
-            actual="$(current_branch_sha "$branch")"
-            if [ -z "$actual" ]; then
-              echo "Already absent: ${branch}"
-              return
-            fi
-
-            ahead="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${merged_head}...${actual}" --jq '.ahead_by')"
-            behind="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${merged_head}...${actual}" --jq '.behind_by')"
-            files="$(gh api "repos/${GITHUB_REPOSITORY}/compare/${merged_head}...${actual}" --jq '.files[].filename' | sort | paste -sd ',' -)"
-
-            if [ "$ahead" != '2' ] || [ "$behind" != '0' ]; then
-              echo "::error::Unexpected PR80 post-merge topology: ahead=${ahead}, behind=${behind}"
-              exit 1
-            fi
-            if [ "$files" != 'public/lorebook/motion-enhancement.js,public/lorebook/motion.css' ]; then
-              echo "::error::Unexpected PR80 post-merge files: ${files}"
-              exit 1
-            fi
-
-            branch_js="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/contents/public/lorebook/motion-enhancement.js" -f ref="$actual" --jq '.sha')"
-            branch_css="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/contents/public/lorebook/motion.css" -f ref="$actual" --jq '.sha')"
-            main_js="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/contents/public/lorebook/motion-enhancement.js" -f ref=main --jq '.sha')"
-            main_css="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/contents/public/lorebook/motion.css" -f ref=main --jq '.sha')"
-
-            if [ "$branch_js" != "$expected_js" ] || [ "$main_js" != "$expected_js" ]; then
-              echo '::error::motion-enhancement.js rescue proof failed'
-              exit 1
-            fi
-            if [ "$branch_css" != "$expected_css" ] || [ "$main_css" != "$expected_css" ]; then
-              echo '::error::motion.css rescue proof failed'
-              exit 1
-            fi
           }
 
           verify_exact_merged_branch() {
@@ -101,7 +44,78 @@ jobs:
             pulls="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/pulls" -f state=closed -f "head=${GITHUB_REPOSITORY_OWNER}:${branch}" -f per_page=100)"
             matched="$(printf '%s' "$pulls" | jq -r --arg sha "$actual" '[.[] | select(.merged_at != null and .head.sha == $sha)] | length')"
             if [ "$matched" -lt 1 ]; then
-              echo "::error::No merged PR records the current exact head for ${branch}: ${actual}"
+              echo "::error::No merged PR records current exact head for ${branch}: ${actual}"
+              exit 1
+            fi
+          }
+
+          verify_closed_unmerged_proposal() {
+            local pr="$1"
+            local branch="$2"
+            local expected="$3"
+            local actual
+            local state
+            local merged_at
+            local head
+
+            actual="$(current_branch_sha "$branch")"
+            if [ -z "$actual" ]; then
+              echo "Already absent: ${branch}"
+              return
+            fi
+            if [ "$actual" != "$expected" ]; then
+              echo "::error::Proposal branch moved after preservation audit: ${branch}; expected ${expected}, got ${actual}"
+              exit 1
+            fi
+
+            state="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.state')"
+            merged_at="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.merged_at // ""')"
+            head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.head.sha')"
+            if [ "$state" != 'closed' ] || [ -n "$merged_at" ] || [ "$head" != "$expected" ]; then
+              echo "::error::Proposal PR #${pr} no longer matches closed/unmerged exact-head state"
+              exit 1
+            fi
+          }
+
+          verify_superseded_pr85() {
+            local branch='agent/lorebook-dawn-canon-v2'
+            local expected='84a009ad4f0c08f7484016c07ab07a4493c91270'
+            local actual
+            local state
+            local merged_at
+            local head
+            local rescue_merged
+            local rescue_head
+            local forbidden
+
+            actual="$(current_branch_sha "$branch")"
+            if [ -z "$actual" ]; then
+              echo "Already absent: ${branch}"
+              return
+            fi
+            if [ "$actual" != "$expected" ]; then
+              echo "::error::Superseded PR85 branch moved after audit: expected ${expected}, got ${actual}"
+              exit 1
+            fi
+
+            state="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/85" --jq '.state')"
+            merged_at="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/85" --jq '.merged_at // ""')"
+            head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/85" --jq '.head.sha')"
+            if [ "$state" != 'closed' ] || [ -n "$merged_at" ] || [ "$head" != "$expected" ]; then
+              echo "::error::PR85 no longer matches closed/unmerged audited state"
+              exit 1
+            fi
+
+            rescue_merged="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/86" --jq '.merged_at // ""')"
+            rescue_head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/86" --jq '.head.sha')"
+            if [ -z "$rescue_merged" ] || [ "$rescue_head" != '52d2197be5da2079c6c5bf0808c3e18c9d84113b' ]; then
+              echo "::error::Authority-safe rescue PR86 proof failed"
+              exit 1
+            fi
+
+            forbidden="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/pulls/86/files" --jq '.[].filename' | grep -E '^(docs/CANON.md|docs/STORY.md|docs/RELATIONSHIPS.md|public/lorebook/data/world-bible.v1.json|public/lorebook/data/setting-decision-lab.v1.json|public/lorebook/data/history-atlas.v1.json|docs/character-star-beast-constellation-canon-v1.md|src/game/data/characterThemeColors.ts|public/lorebook/data/character-themes.v1.json)$' || true)"
+            if [ -n "$forbidden" ]; then
+              echo "::error::PR86 unexpectedly changed Current authority: ${forbidden}"
               exit 1
             fi
           }
@@ -116,16 +130,14 @@ jobs:
             fi
           }
 
-          verify_pr80_semantic_rescue
-          verify_exact_merged_branch fix/lorebook-motion-postmerge
-          verify_exact_merged_branch chore/exact-merged-branch-cleanup-trigger
-          verify_exact_merged_branch chore/exact-merged-branch-cleanup-trigger-v2
           verify_exact_merged_branch chore/main-ci-cleanup-trigger
+          verify_exact_merged_branch integration/lorebook-dawn-series-safe
+          verify_superseded_pr85
+          verify_closed_unmerged_proposal 88 agent/title1-canon-series-foundation-v3 f5eb6768b6b5a28e64ebeeb9a492231239657ce4
+          verify_exact_merged_branch chore/final-remote-branch-cleanup
 
-          delete_branch_if_present feat/lorebook-world-bible-web-v1
-          delete_branch_if_present fix/lorebook-motion-postmerge
-          delete_branch_if_present chore/exact-merged-branch-cleanup-trigger
-          delete_branch_if_present chore/exact-merged-branch-cleanup-trigger-v2
           delete_branch_if_present chore/main-ci-cleanup-trigger
-
-# Main-CI trigger: this branch changes only this comment.
+          delete_branch_if_present integration/lorebook-dawn-series-safe
+          delete_branch_if_present agent/lorebook-dawn-canon-v2
+          delete_branch_if_present agent/title1-canon-series-foundation-v3
+          delete_branch_if_present chore/final-remote-branch-cleanup
