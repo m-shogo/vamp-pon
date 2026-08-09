@@ -1,4 +1,4 @@
-name: PR80 Branch Delete One Shot
+name: Merged Lorebook Branch Delete One Shot
 
 on:
   issue_comment:
@@ -10,30 +10,48 @@ permissions:
   pull-requests: read
 
 jobs:
-  delete-merged-pr80-branch:
-    if: github.event.issue.pull_request && github.event.issue.number == 80 && github.event.comment.body == '/cleanup-pr80-branch'
+  delete-exact-merged-branches:
+    if: github.event.issue.pull_request && github.event.issue.number == 81 && github.event.comment.body == '/cleanup-merged-lorebook-branches'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      TARGET_BRANCH: feat/lorebook-world-bible-web-v1
-      EXPECTED_HEAD: ec29dd8b915f7ebb43dd1da27419d5e60befb45a
     steps:
-      - name: Delete only exact merged PR80 head
+      - name: Verify exact merged heads, then delete
         shell: bash
         run: |
           set -euo pipefail
-          actual="$(git ls-remote --heads "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "refs/heads/${TARGET_BRANCH}" | awk '{print $1}')"
-          if [ -z "$actual" ]; then
-            echo "Branch already absent."
-            exit 0
-          fi
-          if [ "$actual" != "$EXPECTED_HEAD" ]; then
-            echo "::error::Branch moved after merge: expected $EXPECTED_HEAD, got $actual"
-            exit 1
-          fi
-          merged_head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/80" --jq 'if .merged_at != null then .head.sha else "" end')"
-          if [ "$merged_head" != "$EXPECTED_HEAD" ]; then
-            echo "::error::PR80 merged-head proof mismatch: $merged_head"
-            exit 1
-          fi
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --delete "$TARGET_BRANCH"
+
+          verify_branch() {
+            local pr="$1"
+            local branch="$2"
+            local expected="$3"
+            local actual
+            local merged_head
+
+            actual="$(git ls-remote --heads "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "refs/heads/${branch}" | awk '{print $1}')"
+            if [ -n "$actual" ] && [ "$actual" != "$expected" ]; then
+              echo "::error::${branch} moved after audit: expected ${expected}, got ${actual}"
+              exit 1
+            fi
+
+            merged_head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq 'if .merged_at != null then .head.sha else "" end')"
+            if [ "$merged_head" != "$expected" ]; then
+              echo "::error::PR #${pr} merged-head proof mismatch: expected ${expected}, got ${merged_head}"
+              exit 1
+            fi
+          }
+
+          delete_branch_if_present() {
+            local branch="$1"
+            if git ls-remote --exit-code --heads "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "refs/heads/${branch}" >/dev/null 2>&1; then
+              git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --delete "$branch"
+            else
+              echo "Already absent: ${branch}"
+            fi
+          }
+
+          verify_branch 80 feat/lorebook-world-bible-web-v1 ec29dd8b915f7ebb43dd1da27419d5e60befb45a
+          verify_branch 81 fix/lorebook-motion-postmerge 7bf047d6d84cddb03be5217303f9bea1a78ea431
+
+          delete_branch_if_present feat/lorebook-world-bible-web-v1
+          delete_branch_if_present fix/lorebook-motion-postmerge
