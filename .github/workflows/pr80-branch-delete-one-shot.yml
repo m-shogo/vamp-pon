@@ -1,11 +1,9 @@
 name: PR80 Branch Delete One Shot
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/pr80-branch-delete-one-shot.yml'
+  issue_comment:
+    types:
+      - created
 
 permissions:
   contents: write
@@ -13,6 +11,7 @@ permissions:
 
 jobs:
   delete-merged-pr80-branch:
+    if: github.event.issue.pull_request && github.event.issue.number == 80 && github.event.comment.body == '/cleanup-pr80-branch'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
@@ -38,5 +37,3 @@ jobs:
             exit 1
           fi
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --delete "$TARGET_BRANCH"
-
-# one-shot trigger: 2026-08-09T23:10+09:00
