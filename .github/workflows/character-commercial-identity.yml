@@ -1,0 +1,70 @@
+name: Character Commercial Identity
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-commercial-identity-v1.md'
+      - 'public/lorebook/data/character-commercial-hooks.v1.json'
+      - 'public/lorebook/data/character-themes.v1.json'
+      - 'public/lorebook/data/world-bible.v1.json'
+      - '.github/workflows/character-commercial-identity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-commercial-identity-v1.md'
+      - 'public/lorebook/data/character-commercial-hooks.v1.json'
+      - 'public/lorebook/data/character-themes.v1.json'
+      - 'public/lorebook/data/world-bible.v1.json'
+      - '.github/workflows/character-commercial-identity.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Current21 commercial coverage
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('public/lorebook/data/character-commercial-hooks.v1.json','utf8'));
+          const themes = JSON.parse(fs.readFileSync('public/lorebook/data/character-themes.v1.json','utf8'));
+          const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json','utf8'));
+          const fail = (m) => { console.error(m); process.exitCode = 1; };
+          if (data.schemaVersion !== 1) fail('schemaVersion must be 1');
+          if (data.status !== 'CURRENT_COMMERCIAL_DIRECTION') fail('commercial hook status drift');
+          if (data.characters.length !== 21) fail(`expected 21 characters, got ${data.characters.length}`);
+          const ids = data.characters.map((x) => x.id);
+          if (new Set(ids).size !== 21) fail('duplicate commercial character id');
+          const themeById = new Map(themes.characters.map((x) => [x.lorebookId,x]));
+          const worldIds = new Set(world.characters.map((x) => x.id));
+          for (const c of data.characters) {
+            if (!worldIds.has(c.id)) fail(`commercial character missing world entry: ${c.id}`);
+            const theme = themeById.get(c.id);
+            if (!theme) fail(`commercial character missing theme entry: ${c.id}`);
+            if (theme && theme.primary.hex !== c.primaryHex) fail(`primary HEX drift: ${c.id}`);
+            if (!/^#[0-9A-F]{6}$/.test(c.primaryHex)) fail(`invalid HEX: ${c.id}/${c.primaryHex}`);
+            if (!c.starBeast || !c.identityHook) fail(`identity incomplete: ${c.id}`);
+            if ((c.everydayMotifs?.length ?? 0) < 2) fail(`need 2+ everyday motifs: ${c.id}`);
+            if ((c.relationshipHooks?.length ?? 0) < 2) fail(`need 2+ relationship hooks: ${c.id}`);
+            if ((c.entryGoods?.length ?? 0) < 3) fail(`need 3+ entry goods directions: ${c.id}`);
+            if ((c.coreGoods?.length ?? 0) < 3) fail(`need 3+ core goods directions: ${c.id}`);
+            if (!c.premiumCandidate) fail(`premium candidate missing: ${c.id}`);
+            if (!['spoiler-free','game-clear','deep-lore'].includes(c.spoilerTier)) fail(`invalid spoiler tier: ${c.id}/${c.spoilerTier}`);
+          }
+          const primaryHexes = data.characters.map((c) => c.primaryHex);
+          if (new Set(primaryHexes).size !== 21) fail('Current21 commercial primary HEX must be unique');
+          const byId = new Map(data.characters.map((c) => [c.id,c]));
+          if (!byId.get('yui')?.relationshipHooks.some((x) => x.includes('buddy / non-romance'))) fail('Yui/Asa buddy guardrail missing');
+          if (!byId.get('ritsu')?.relationshipHooks.some((x) => x.includes('siblings / non-romance'))) fail('Ritsu/Koyori sibling guardrail missing');
+          if (!byId.get('yui')?.relationshipHooks.some((x) => x.includes('同一ランタン'))) fail('Yui/Tomori lineage hook missing');
+          if (!data.rule.includes('do not change Canon') && !data.rule.includes('do not change')) {
+            // Japanese/English wording may evolve; require core protected dimensions instead.
+            for (const token of ['relationship type','Main Mystery']) if (!data.rule.includes(token)) fail(`commercial rule missing ${token}`);
+          }
+          if (process.exitCode) process.exit(process.exitCode);
+          console.log('Commercial identity OK: Current21 21/21 with unique HEX, Star Beast, relation, entry/core/premium hooks');
+          NODE
