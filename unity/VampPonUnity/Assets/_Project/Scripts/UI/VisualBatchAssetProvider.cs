@@ -7,6 +7,10 @@ namespace VampPon.UnitySpike.UI
     /// intentionally return null so current production/candidate assets remain
     /// the fallback until a generated family is actually staged into Resources.
     /// Native text and interaction never depend on these sprites existing.
+    ///
+    /// This provider intentionally exposes one Sprite per runtime surface. Sprite-sheet
+    /// atlases require an explicit sliced-import/lookup contract and must not be smuggled
+    /// through Resources.Load&lt;Sprite&gt; as if the whole sheet were one UI frame.
     /// </summary>
     public static class VisualBatchAssetProvider
     {
@@ -14,16 +18,18 @@ namespace VampPon.UnitySpike.UI
 
         public static Sprite StageMapPaperBase => Load("stage-map-paper-base");
         public static Sprite SelectedDestinationFrame => Load("selected-destination-frame");
-        public static Sprite StationRouteIconAtlas => Load("station-route-icon-atlas");
+        public static Sprite StationRouteIcon => Load("station-route-icon");
 
         public static Sprite ResultMemoryPage => Load("memory-page-base");
-        public static Sprite ResultRankSeal => Load("rank-seal-atlas");
-        public static Sprite ResultRewardCard => Load("reward-card-frame-atlas");
-        public static Sprite ResultStatChip => Load("stat-chip-atlas");
+        public static Sprite ResultRankSeal => Load("result-rank-seal");
+        public static Sprite ResultRewardCard => Load("result-reward-card");
+        public static Sprite ResultStatChip => Load("result-stat-chip");
 
         public static Sprite CollectionPage => Load("collection-page-base");
         public static Sprite CollectionEntryUnlocked => Load("entry-card-unlocked");
         public static Sprite CollectionEntryLocked => Load("entry-card-locked");
+        public static Sprite CollectionTabActive => Load("collection-tab-active");
+        public static Sprite CollectionTabInactive => Load("collection-tab-inactive");
         public static Sprite CollectionNewSeal => Load("new-seal");
         public static Sprite CollectionDetailPage => Load("detail-memory-page");
 
