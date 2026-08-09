@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "decisionId": "HD-ART-DIRECTION-001",
+  "category": "ART_DIRECTION",
+  "question": "ヨルノシルベ全体の感情の基調はどれにしますか？",
+  "selectedOption": {
+    "id": "A",
+    "label": "静かな夜と小さな温かさ",
+    "impact": "深い夜の中に安心と好奇心を残し、ランタン、小さな光、朝という作品テーマへ自然につなぐ。"
+  },
+  "status": "HUMAN_SELECTED",
+  "decidedAt": "2026-07-28",
+  "decisionSource": "USER_CHAT_EXPLICIT_SELECTION",
+  "selectionMethod": "TEXT_FALLBACK_AFTER_CLICK_UI_UNAVAILABLE",
+  "interactionPreference": {
+    "clickSelectPreferred": true,
+    "oneDecisionPerTurn": true,
+    "fallback": "A_B_C_SINGLE_CHARACTER_REPLY"
+  },
+  "supersedes": null,
+  "sourceDocument": "docs/design-language-foundation-proposal-v1.md",
+  "sourceState": "docs/design-targets/generated/design-production/design-language-foundation-proposal.json",
+  "effects": [
+    "Use quiet night plus small warmth as the overall emotional baseline.",
+    "Refine color, paper, lantern, and typography proposals in direction A.",
+    "Do not lock the final palette or typography yet.",
+    "Do not start image generation or Unity implementation."
+  ],
+  "boundaries": {
+    "imageGenerationStarted": false,
+    "unityDesignImplementationStarted": false,
+    "u49EvidenceMutation": false,
+    "wholeAppHumanVisualAccepted": false
+  }
+}

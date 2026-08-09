@@ -1,5 +1,29 @@
 # ヨルノシルベ
 
+<!-- CURRENT_STATE_BEGIN -->
+```json
+{
+  "schemaVersion": 1,
+  "currentPhase": "U49 actual-device audio/haptic",
+  "nextPhase": "U50 performance/touch metrics",
+  "thenPhase": "U51 RC",
+  "runtimeVisualReady": true,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioReady": false,
+  "audioLatencyMeasured": false,
+  "hapticReady": false,
+  "hapticMeasured": false,
+  "u50ThresholdsDefined": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false
+}
+```
+<!-- CURRENT_STATE_END -->
+
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。正式販売タイトルは **ヨルノシルベ** です。
 
 スマホ縦持ち向けのサバイバルローグライト。
@@ -18,18 +42,16 @@ docs/unity-runtime-ownership-contract-v1.md
 docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
-docs/unity-u45-1-hardening-2026-07-10.md
 docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-古いprototype資料と矛盾した場合、上記、`src/game/data/*`、現行Unity runtime、最新evidence/checkerを優先します。
+古いprototype資料や個別Phase資料と矛盾した場合は、上記、`src/game/data/*`、現行Unity runtime、最新evidence/checkerを優先します。
 
 ## 現在の開発状態
 
 ### Web
 
-Web版はゲーム仕様、データ、画面比較、素材確認の正本/検証環境です。
-製品runtimeはUnityへ段階移行しています。
+Web版はゲーム仕様、データ、画面比較、素材確認の正本/検証環境です。製品runtimeはUnityへ段階移行しています。
 
 ### Unity
 
@@ -47,24 +69,25 @@ Bundle Identifier: com.mshogo.vamppon.u1
 U43: 実機前P0 runtime repair
 U44: Web -> Unity parity audit
 U45: StageSelect / Battle HUD / LevelUp candidate
-U45: Unity設定安全化 / iOS build generation
-U45: AI-only iOS Simulator smoke
-U45.1 gate: Runtime Visual Readiness誤判定防止
-U45.1: Character / Enemy Multiple animation runtime
-U45.1: candidate/production readiness and Asset Factory hardening
-U46 foundation: UI Design System
-
-U46.1 Result / Save Hardening completed: verification UI removal, read-model-only empty states, copy-on-write persistence, failure status, and subscription cleanup.
-Big Implementation control-plane: source / ownership / preflight整理
+U45.1: Character / Enemy Multiple animation runtime + readiness hardening
+U46: AppFlow / Save / Result / Retry / StageSelect / 灯録 candidate
+U46.1: Result / Save hardening
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
+Next: U50 performance/touch metrics
+Then: U51 RC
 ```
 
 ## 現在の最優先
 
 ```txt
-U47 gameplay data/runtime
+Current: U49 actual-device audio/haptic
 ```
 
-U45.1でユイとオンブを48-frame Multiple sprite、実animation、candidate provider経路へ接続した。Hardeningでcandidate readinessとproduction readinessを分離済み。最終美術と実機承認は未完了。
+U48では、人間承認済み46 visual groupをproduction catalogへ昇格し、production providerからruntime接続しました。Preview defineなしのiOS Simulator buildでCompact / Standard / Large、合計138 captureを検証済みです。
+
+この完了は **U48 visual runtime scope** に限定されます。実機操作、音、振動、性能、RC、ストア公開承認は未完了です。
 
 ## 現在のreadiness
 
@@ -73,38 +96,37 @@ implementationFoundationReady=true
 simulatorPlayableCandidateReady=true
 simulatorRouteEvidenceStillValid=true
 simulatorCandidateAnimationVisualReviewPassed=true
-simulatorFinalArtApprovalProvided=false
+simulatorFinalArtApprovalProvided=true
+runtimeVisualClassification=production-animated-sprite
 characterDotRuntimeReady=true
 characterAnimationReady=true
 enemyDotRuntimeReady=true
 enemyAnimationReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
+runtimeVisualCandidateReady=false
+runtimeVisualReady=true
+runtimeCandidateAssetProviderConnected=false
+productionVisualAssetProviderConnected=true
+productionCharacterAssetReady=true
+productionEnemyAssetReady=true
+candidateAssetsApprovedAsFinal=true
 versionedSaveServiceImplemented=true
 sceneFlowCoordinatorImplemented=true
+productionDataRegistryImplemented=true
 actualDeviceSmokeResult=NOT_PROVIDED
 devicePlayableReady=false
 mobileMetricsReady=false
 audioMixerReady=false
+audioLatencyMeasured=false
 hapticMeasured=false
-candidateAssetsApprovedAsFinal=false
 rcReady=false
 productionApproved=false
 ```
 
-`implementationFoundationReady=true` は、正本と責務とpreflightが整理された意味です。製品runtime完成やリリース承認ではありません。
+`implementationFoundationReady=true` は、正本・責務・preflightが整理された意味です。`runtimeVisualReady=true` はU48のproduction visual runtimeが接続・検証済みという意味であり、実機品質やリリース承認を意味しません。
 
 ## 次の順序
 
 ```txt
-U47 weapon/passive/rare/evolution/黒耀化 runtime
-↓
-U48 remaining production assets/background/VFX
-↓
 U49 actual-device audio/haptic
 ↓
 U50 device performance/touch metrics
@@ -125,7 +147,7 @@ docs/unity-runtime-ownership-contract-v1.md
 - UIはcommandを送るがbattle/saveを直接実装しない
 - pause/navigationは単一ownerを通す
 - Definition / Runtime State / Save DTOを分離する
-- Saveはversioned JSONでIDだけ保存する
+- Saveはversioned JSONで安定IDだけを保存する
 - Result/灯録はread modelを描画する
 - `U1Stage1SceneBootstrap`と`U2BattleController`へ新機能を集中させない
 - proof / candidate / production provider approval levelを分離する
@@ -151,7 +173,7 @@ Sprite Atlas
 docs/unity-ui-design-system-v1.md
 ```
 
-新規画面はCompact / Standard / Largeを確認し、生成された完成画面画像をそのままruntimeへ貼りません。
+新規・変更画面はCompact / Standard / Largeを確認し、生成された完成画面画像をそのままruntimeへ貼りません。
 
 ## Asset Generation Consistency
 
@@ -167,14 +189,16 @@ Automatic QA + Human Review
 candidate/final/runtime approval分離
 ```
 
-初期値:
+通常の新規asset初期値:
 
 ```txt
 approvedAsFinal=false
 runtimeApproved=false
 ```
 
-Contract source of truthは`src/game/data/assetGenerationPolicy.ts`。`pnpm asset-factory:contracts:export`はローカルfull JSONとGit管理する軽量summaryを生成する。
+U48で承認されたproduction setは、個別の承認記録とruntime verificationに基づきtrueへ昇格済みです。新しい生成物を自動的にU48承認済みとして扱ってはいけません。
+
+Contract source of truthは`src/game/data/assetGenerationPolicy.ts`です。
 
 ```txt
 local / ignored: data/asset-factory/generation-contracts.json
@@ -204,11 +228,16 @@ pnpm implementation:preflight:full
 個別確認:
 
 ```sh
-pnpm asset-generation:check
 pnpm assets:verify
+pnpm asset-generation:check
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
-pnpm unity:u45-ai-simulator-smoke:check
+pnpm unity:u47-gameplay-data-runtime:check
+pnpm unity:u48-production-asset-expansion:check
+pnpm unity:u48-human-selection:check
+pnpm unity:u48-approved-production-set:check
+pnpm unity:u48-production-visual-connection:check
+pnpm unity:u48-production-visual-verification:check
 pnpm unity:meta:check
 pnpm test
 pnpm build

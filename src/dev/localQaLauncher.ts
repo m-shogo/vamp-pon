@@ -51,7 +51,7 @@ export function installLocalQaLauncher(): void {
   details.style.overflow = 'hidden';
 
   const summary = document.createElement('summary');
-  summary.textContent = 'Vamp Pon QA';
+  summary.textContent = 'ヨルノシルベ QA';
   summary.style.cursor = 'pointer';
   summary.style.padding = '9px 11px';
   summary.style.fontWeight = '800';

@@ -15,6 +15,7 @@ import {
   selectPreloadableAudioAssets,
   type AudioManifest,
 } from './AudioManager';
+import { APP_PREFERENCES } from '../persistence/appPreferences';
 
 function readManifest(): AudioManifest {
   return JSON.parse(fs.readFileSync('public/assets/audio/audio-manifest.json', 'utf-8')) as AudioManifest;
@@ -114,14 +115,8 @@ describe('AudioManager playback policy', () => {
     expect(bgmKeyForStage(2)).toBe('bgm_stage2');
   });
 
-  it('persists mute and volume settings and restores mute after a scene rebind', () => {
-    const values = new Map<string, string>();
-    vi.stubGlobal('window', {
-      localStorage: {
-        getItem: (key: string) => values.get(key) ?? null,
-        setItem: (key: string, value: string) => values.set(key, value),
-      },
-    });
+  it('routes BGM/SE multipliers through the single app-preference owner', () => {
+    APP_PREFERENCES.update({ bgmVolume: 1, seVolume: 1 });
     const firstSetMute = vi.fn();
     const firstOff = vi.fn();
     const first = {
@@ -137,17 +132,12 @@ describe('AudioManager playback policy', () => {
     const manager = new AudioManager();
     manager.init(first);
     manager.unlockOnFirstInput();
-    manager.setMasterVolume(0.5);
     manager.setBgmVolume(0.25);
     manager.setSeVolume(0.4);
-    manager.mute();
     manager.init(second);
 
-    expect(JSON.parse(values.get('vampPon.audio.v1') ?? '{}')).toEqual({
-      master: 0.5, bgm: 0.25, se: 0.4, muted: true,
-    });
+    expect(APP_PREFERENCES.get()).toMatchObject({ bgmVolume: 0.25, seVolume: 0.4 });
     expect(firstOff).toHaveBeenCalledTimes(1);
-    expect(secondSetMute).toHaveBeenCalledWith(true);
-    vi.unstubAllGlobals();
+    expect(secondSetMute).toHaveBeenCalledWith(false);
   });
 });

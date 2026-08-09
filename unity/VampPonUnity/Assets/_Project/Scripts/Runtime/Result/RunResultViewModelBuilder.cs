@@ -15,8 +15,8 @@ namespace VampPon.UnitySpike.Runtime.Result
             var clear = snapshot.outcome == RunOutcome.Clear;
             return new RunResultViewModel
             {
-                Title = clear ? "夜明けへ持ち帰った頁" : "今夜、持ち帰った頁",
-                OutcomeLabel = clear ? "踏破" : "帰還",
+                Title = clear ? "夜明けへ持ち帰った頁" : "この読み方では、朝まで残れなかった。",
+                OutcomeLabel = clear ? "夜明け" : "夜に飲まれた",
                 StageTitle = snapshot.stageId == "stage_01" ? "墨夜の通り道" : snapshot.stageId,
                 ElapsedTimeLabel = $"{(int)duration.TotalMinutes:00}:{duration.Seconds:00}",
                 DefeatedEnemyLabel = snapshot.defeatedEnemyCount.ToString(),
@@ -52,7 +52,7 @@ namespace VampPon.UnitySpike.Runtime.Result
 
         private static string DisplayName(string id) => id switch
         {
-            "memory_fragment" => "記憶の欠片",
+            "memory_fragment" => "記憶片",
             "night_trace" => "夜の足跡",
             "memory_first_return" => "最初の帰還",
             "enemy_onbu" => "オンブの記録",

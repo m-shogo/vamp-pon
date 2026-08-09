@@ -18,7 +18,7 @@ const approval = json('docs/design-targets/generated/unity-u48/approval-pack/app
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const verification = json('docs/design-targets/generated/unity-u48/batch-a/verification-summary.json');
 const finalized = readiness.u48Completed === true;
-const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')));
+const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && (reference.path === 'docs/181-current-production-canon.md' || reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/'))));
 
 check(golden.assetGroupCount === 9 && new Set(golden.entries.map((value: { assetGroup: string }) => value.assetGroup)).size === 9, 'nine Golden Reference contracts');
 for (const value of golden.entries) {

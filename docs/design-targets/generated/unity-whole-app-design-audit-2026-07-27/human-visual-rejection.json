@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "runtimeSourceCommit": "6a18de469426f923aa107c7e5f1d5ebd9bc814c9",
+  "decidedAt": "2026-07-27",
+  "reviewer": "device human reviewer",
+  "stageSelect": "FAIL",
+  "levelUp": "FAIL",
+  "wholeAppVisualAccepted": false,
+  "acceptedAreas": [
+    "character image",
+    "enemy character image",
+    "enemy disappearance presentation"
+  ],
+  "rejectedFinding": "キャラクターと敵キャラクター以外の画面要素は、単色の四角・線・文字・丸・簡易アイコンをC#／uGUIで組み立てた仮UIに見え、ヨルノシルベ固有の完成デザインとして未承認",
+  "structuralImprovementsAcceptedAsPreserved": [
+    "battle HUD hidden on non-battle screens",
+    "StageSelect edge clipping resolved",
+    "LevelUp information order improved",
+    "tap targets",
+    "safe area",
+    "runtime hooks",
+    "Simulator smoke and assertions"
+  ],
+  "visualApprovalUseForbidden": true,
+  "temporaryStructuralUi": true,
+  "u49AudioHapticEvidenceIndependent": true,
+  "u49ReadinessMutation": "NONE"
+}

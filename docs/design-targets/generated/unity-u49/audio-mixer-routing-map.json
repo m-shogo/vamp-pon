@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "mixerPath": "unity/VampPonUnity/Assets/_Project/Audio/Production/U49/YorunoShirubeProduction.mixer",
+  "requiredGroups": [
+    "Master",
+    "BGM",
+    "SE",
+    "UI",
+    "Battle",
+    "Pickup",
+    "Climax",
+    "Result",
+    "StageSelect"
+  ],
+  "missingGroupCount": 0,
+  "hierarchy": {
+    "Master": [
+      "BGM",
+      "SE"
+    ],
+    "SE": [
+      "UI",
+      "Battle",
+      "Pickup",
+      "Climax",
+      "Result",
+      "StageSelect"
+    ]
+  },
+  "exposedParameters": [
+    "MasterVolumeDb",
+    "BgmVolumeDb",
+    "SeVolumeDb",
+    "UiVolumeDb"
+  ],
+  "missingExposedParameterCount": 0,
+  "routedProductionEventCount": 22,
+  "missingRouteCount": 0,
+  "nullGroupFallbackAllowed": false,
+  "masterDirectEventCount": 0,
+  "bgmPolicy": "INTENTIONAL_SILENCE_NO_PRODUCTION_BGM_CANDIDATE",
+  "pausePolicy": "AppFlow pause does not cut UI/Result SE; application background stops voices; foreground reinitializes haptics",
+  "routing": [
+    {
+      "eventId": "battle_start",
+      "category": "Battle",
+      "group": "Battle"
+    },
+    {
+      "eventId": "pickup_xp",
+      "category": "Pickup",
+      "group": "Pickup"
+    },
+    {
+      "eventId": "pickup_heal",
+      "category": "Pickup",
+      "group": "Pickup"
+    },
+    {
+      "eventId": "pickup_rare",
+      "category": "Pickup",
+      "group": "Pickup"
+    },
+    {
+      "eventId": "levelup_open",
+      "category": "UI",
+      "group": "UI"
+    },
+    {
+      "eventId": "card_select",
+      "category": "UI",
+      "group": "UI"
+    },
+    {
+      "eventId": "card_confirm",
+      "category": "UI",
+      "group": "UI"
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "category": "Battle",
+      "group": "Battle"
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "category": "Battle",
+      "group": "Battle"
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "category": "Battle",
+      "group": "Battle"
+    },
+    {
+      "eventId": "player_damage",
+      "category": "Battle",
+      "group": "Battle"
+    },
+    {
+      "eventId": "evolution_convergence",
+      "category": "Climax",
+      "group": "Climax"
+    },
+    {
+      "eventId": "evolution_complete",
+      "category": "Climax",
+      "group": "Climax"
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "category": "Climax",
+      "group": "Climax"
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "category": "Climax",
+      "group": "Climax"
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "category": "Climax",
+      "group": "Climax"
+    },
+    {
+      "eventId": "result_stamp",
+      "category": "Result",
+      "group": "Result"
+    },
+    {
+      "eventId": "reward_card",
+      "category": "Result",
+      "group": "Result"
+    },
+    {
+      "eventId": "unlock_reveal",
+      "category": "Result",
+      "group": "Result"
+    },
+    {
+      "eventId": "stage_lantern",
+      "category": "StageSelect",
+      "group": "StageSelect"
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "category": "StageSelect",
+      "group": "StageSelect"
+    },
+    {
+      "eventId": "retry_confirm",
+      "category": "UI",
+      "group": "UI"
+    }
+  ]
+}

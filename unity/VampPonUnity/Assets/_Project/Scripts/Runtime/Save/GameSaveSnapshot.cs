@@ -41,6 +41,7 @@ namespace VampPon.UnitySpike.Runtime.Save
         public List<string> collectionUnlockedIds = new();
         public List<string> collectionSeenIds = new();
         public List<string> achievementIds = new();
+        public List<string> completedFirstRunStageIds = new();
         public GameSettingsSave settings = new();
 
         public GameSaveSnapshot DeepCopy()
@@ -56,6 +57,7 @@ namespace VampPon.UnitySpike.Runtime.Save
                 collectionUnlockedIds = new List<string>(collectionUnlockedIds ?? new List<string>()),
                 collectionSeenIds = new List<string>(collectionSeenIds ?? new List<string>()),
                 achievementIds = new List<string>(achievementIds ?? new List<string>()),
+                completedFirstRunStageIds = new List<string>(completedFirstRunStageIds ?? new List<string>()),
                 settings = settings?.DeepCopy() ?? new GameSettingsSave(),
             };
         }

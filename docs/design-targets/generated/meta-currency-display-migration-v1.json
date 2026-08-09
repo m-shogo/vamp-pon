@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 8,
+  "date": "2026-07-29",
+  "status": "CURRENT_FORMATTER_CONNECTED_11_OF_11_DISPLAY_RENAME_BLOCKED",
+  "conceptId": "economy:meta_upgrade_currency",
+  "currentDisplay": "黒曜片",
+  "candidateDisplay": "灯貨",
+  "candidateStatus": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
+  "humanNamingApproved": false,
+  "atomicMigrationRequired": true,
+  "stableCompatibility": {
+    "saveFieldsPreserved": [
+      "PlayerProfile.currency",
+      "PlayerProfile.totalCurrencyEarned"
+    ],
+    "internalIdsPreserved": [
+      "NightBoardReward.type:light_coin",
+      "UpgradeId:currencyGain"
+    ],
+    "futureLegacyAliasesAfterPromotion": [
+      "黒曜片"
+    ]
+  },
+  "formatter": {
+    "source": "src/game/data/metaCurrencyDisplay.ts",
+    "currentOutput": "黒曜片",
+    "functions": [
+      "currentMetaCurrencyDisplayName",
+      "formatMetaCurrencyAmount",
+      "formatMetaCurrencyGain",
+      "formatMetaCurrencyReturn",
+      "formatMetaCurrencyGrowthIntro",
+      "formatMetaCurrencyInsufficient",
+      "formatMetaCurrencyRefund",
+      "formatMetaCurrencyCarryHome",
+      "formatMetaCurrencyUseCta",
+      "formatMetaCurrencyUpgradeName",
+      "formatMetaCurrencyUpgradeDescription"
+    ],
+    "connectedWalletSurfaces": 11,
+    "totalWalletSurfaces": 11,
+    "remainingWalletSurfaces": 0,
+    "readyForHumanApproval": false,
+    "stateAuthority": "src/game/data/metaCurrencyDisplayMigration.ts#META_CURRENCY_WALLET_SURFACES_FORMATTER_CONNECTED"
+  },
+  "connectedSurfaces": [
+    "collection.clear_getter_reward",
+    "collection.achievement_description",
+    "top.wallet_tag",
+    "stage_select.wallet_balance",
+    "stage_select.growth_intro",
+    "stage_select.insufficient_funds",
+    "stage_select.reset_refund",
+    "result.currency_reward",
+    "result.growth_cta",
+    "ready.first_run_carry_home",
+    "profile.currency_gain_upgrade"
+  ],
+  "remainingWalletSurfaces": [],
+  "separateNonWalletReview": [
+    "facility.black_obsidian_lab",
+    "result.black_youka_bonus"
+  ],
+  "guardedCodemod": {
+    "source": "scripts/migrations/connect-meta-currency-display-surfaces.ts",
+    "test": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
+    "checkCommand": "pnpm currency-display:codemod:check",
+    "writeCommand": "pnpm currency-display:codemod:write",
+    "targetFiles": 6,
+    "guardedReplacements": 18,
+    "walletSurfaceReplacements": 9,
+    "importReplacements": 4,
+    "authorityStateReplacements": 1,
+    "machineReadableReplacements": 4,
+    "states": [
+      "PENDING",
+      "MIGRATED",
+      "PARTIAL",
+      "INVALID"
+    ],
+    "writeAllowedStates": [
+      "PENDING",
+      "MIGRATED_NO_OP"
+    ],
+    "writeBlockedStates": [
+      "PARTIAL",
+      "INVALID"
+    ],
+    "temporaryFileWrite": true,
+    "postWriteVerification": true,
+    "rollbackOnFailure": true,
+    "definitionSourceAndCoverageSwitchTogether": true,
+    "executedOnCurrentHead": true
+  },
+  "tests": {
+    "formatter": "src/game/data/metaCurrencyDisplay.test.ts",
+    "migration": "src/game/data/metaCurrencyDisplayMigration.test.ts",
+    "sourceContract": "src/game/data/metaCurrencyDisplaySurfaceSourceContract.test.ts",
+    "lifecycle": "src/game/persistence/__tests__/metaCurrencyLifecycle.test.ts",
+    "codemod": "scripts/migrations/connect-meta-currency-display-surfaces.test.ts",
+    "currentHeadExecuted": false
+  },
+  "isolatedFixtureEvidence": {
+    "environment": "Node.js v22.16.0 isolated functional mirror",
+    "pendingToMigrated": true,
+    "replacementCount": 18,
+    "targetFileCount": 6,
+    "walletSurfaceCount": 9,
+    "idempotentSecondWrite": true,
+    "partialStateBlocked": true,
+    "invalidDuplicateBlocked": true,
+    "result": "PASS",
+    "limitation": "This proves the final replacement-state algorithm in an isolated fixture. It is not a current-head repository test, TypeScript build, browser run or visual review."
+  },
+  "preflight": {
+    "command": "pnpm implementation:preflight:check",
+    "sequence": [
+      "pnpm unity:term-lock:check",
+      "pnpm named-object:check",
+      "pnpm currency-display:codemod:check",
+      "big implementation readiness"
+    ],
+    "migrationValidationConnected": true,
+    "codemodStateValidationConnected": true,
+    "allowedCoherentCoverageStates": [
+      "2/11 connected, 9 remaining",
+      "11/11 connected, 0 remaining"
+    ],
+    "coverageDerivedFromAuthorityFlag": true,
+    "prematureApprovalBlocked": true,
+    "partialSourceMigrationBlocked": true
+  },
+  "promotionBlockedUntil": [
+    "the guarded codemod writes all remaining wallet surfaces, the authority flag and machine-readable coverage",
+    "all 11 wallet surfaces use the shared formatter",
+    "黒曜片 is preserved in a Legacy alias ledger",
+    "current-head tests execute",
+    "visual review completes",
+    "Human naming approval is explicit"
+  ],
+  "readinessUnaffected": true
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
+  "platform": "iOS",
+  "deviceFamily": "iPhone",
+  "modelIdentifier": "iPhone17,3",
+  "osVersion": "18.7.8",
+  "physicalDevice": true,
+  "paired": true,
+  "developerServicesAvailable": true,
+  "installPassed": true,
+  "launchPassed": true,
+  "localCodeSignatureVerified": true,
+  "embeddedProvisioningProfilePresent": true,
+  "failureCode": null,
+  "failureDetail": null,
+  "deviceIdentifierTracked": false,
+  "profileIdentifierTracked": false
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
+  "platform": "iOS",
+  "sdk": "DeviceSDK",
+  "buildConfiguration": "Release",
+  "unityDevelopmentBuild": true,
+  "verificationDefine": "VAMPPON_U49_DEVICE_VERIFICATION",
+  "previewDefineEnabled": false,
+  "candidateDefineEnabled": false,
+  "unityDeviceExportPassed": true,
+  "xcodeReleaseBuildPassed": true,
+  "signingPassed": true,
+  "coreHapticsNativeCompilePassed": true,
+  "coreHapticsFrameworkLinked": true,
+  "buildProductsTracked": false,
+  "warnings": [
+    "Unity-generated iOS code contains SDK deprecation warnings.",
+    "The generated asset catalog does not yet contain the App Store 1024x1024 icon; this is outside U49 audio/haptic readiness."
+  ]
+}

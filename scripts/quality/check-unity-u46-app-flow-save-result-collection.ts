@@ -61,7 +61,7 @@ for (const key of ['runId', 'outcome', 'stageId', 'characterId', 'elapsedTime', 
 check('clear/fail models', resultBuilder.includes('RunOutcome.Clear') && resultBuilder.includes('RunOutcome.Fail'));
 check('Result presenter command forwarding', read(files.resultPresenter).includes('AppFlowCommand.RetryRun') && read(files.resultPresenter).includes('ReturnToStageSelect'));
 check('Result View does not invent reward fallbacks', !resultView.includes('new[] { "記憶の欠片", "夜の足跡" }') && !resultView.includes('"最初の帰還" : "今夜の記録を保存"'));
-check('Result empty reward state', resultView.includes('持ち帰った記憶はありません'));
+check('Result empty reward state', resultView.includes('持ち帰りはありません'));
 check('Result empty record state', resultView.includes('新しい記録はありません'));
 check('Result persistence status visible', resultView.includes('SaveStatusLabel') && resultBuilder.includes('記録を保存できませんでした'));
 check('Collection spoiler boundary', collection.includes('"???"') && collection.includes('まだ記憶は灯っていない'));

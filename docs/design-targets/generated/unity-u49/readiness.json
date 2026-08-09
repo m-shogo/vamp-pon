@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
+  "phase": "U49 actual-device audio/haptic",
+  "status": "U49_BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE",
+  "productionAudioArchitectureImplemented": true,
+  "productionHapticArchitectureImplemented": true,
+  "actualAudioMixerAssetExists": true,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioMixerReady": false,
+  "audioLatencyMeasured": false,
+  "hapticMeasured": false,
+  "audioReady": false,
+  "hapticReady": false,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "humanAudioApprovalProvided": false,
+  "humanHapticApprovalProvided": false,
+  "performanceReady": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false,
+  "u50Blocked": true,
+  "blockers": [
+    "Human audio quality review explicitly rejected the current production clips and mix.",
+    "The exact 18-answer device review contract is incomplete.",
+    "Foreground and same-process audio/haptic recovery are not yet proven.",
+    "Actual-device feedback found touch-control, persistent character-motion, UI presentation, and undiscoverable Kokuyou activation problems."
+  ]
+}

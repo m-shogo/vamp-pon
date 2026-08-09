@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "requiredAnswerCount": 18,
+  "answers": [
+    { "id": "audio_battle_start", "domain": "audio" },
+    { "id": "audio_pickups", "domain": "audio" },
+    { "id": "audio_combat_spam", "domain": "audio" },
+    { "id": "audio_player_damage", "domain": "audio" },
+    { "id": "audio_levelup_cards", "domain": "audio" },
+    { "id": "audio_evolution", "domain": "audio" },
+    { "id": "audio_kokuyou", "domain": "audio" },
+    { "id": "audio_result_reward_unlock", "domain": "audio" },
+    { "id": "audio_stage_select_retry", "domain": "audio" },
+    { "id": "audio_speaker_low", "domain": "audio" },
+    { "id": "audio_speaker_mid", "domain": "audio" },
+    { "id": "audio_speaker_high", "domain": "audio" },
+    { "id": "audio_clipping_harshness_masking", "domain": "audio" },
+    { "id": "audio_perceived_latency", "domain": "audio" },
+    { "id": "haptic_event_set", "domain": "haptic" },
+    { "id": "haptic_settings_off_on", "domain": "haptic" },
+    { "id": "haptic_cooldown_spam", "domain": "haptic" },
+    { "id": "lifecycle_background_foreground", "domain": "lifecycle" }
+  ]
+}

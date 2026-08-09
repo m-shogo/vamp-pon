@@ -17,6 +17,12 @@ import {
 } from '../persistence/profile';
 import { loadBondProgress } from '../persistence/bonds';
 import { characters } from '../data/characters';
+import {
+  formatMetaCurrencyAmount,
+  formatMetaCurrencyGrowthIntro,
+  formatMetaCurrencyInsufficient,
+  formatMetaCurrencyRefund,
+} from '../data/metaCurrencyDisplay';
 import { nextUnreadBondTalkId } from '../systems/bondTalkUnlocks';
 import { buildStageSelectSubCharacterViewModel } from './stageSelectViewModel';
 import { STORYBOOK_FONT, STORYBOOK_TITLE_FONT, STORYBOOK_UI } from '../ui/storybookUi';
@@ -39,6 +45,7 @@ import { loadOnboarding, markSeen } from '../persistence/onboarding';
 import { findNewAchievementIds, loadAchievementViewState } from '../persistence/achievementViewState';
 import { findNewCompletedCellIds, loadCollectionAtlasViewState } from '../persistence/collectionAtlasViewState';
 import { loadCollectionProgress } from '../persistence/collection';
+import { PLAYER_FACING_COPY } from '../data/playerFacingCopy';
 export { isRunStartUrl } from '../utils/runStartUrl';
 
 type StageSelectMode = 'stage' | 'growth';
@@ -150,11 +157,19 @@ export class StageSelectScene extends Phaser.Scene {
       drawLargeNotebookPage(titleBg, GAME_WIDTH / 2, titleY, 280, 44, { accent: STORYBOOK_UI.warmAmber, alpha: 0.95 });
       root.add(titleBg);
     }
-    root.add(this.text(GAME_WIDTH / 2, titleY, this.mode === 'growth' ? '黒曜研究所' : '夜の地図', 20, STORYBOOK_UI.textDark, true, true));
+    root.add(this.text(
+      GAME_WIDTH / 2,
+      titleY,
+      this.mode === 'growth' ? PLAYER_FACING_COPY.navigation.growth : PLAYER_FACING_COPY.navigation.stageSelect,
+      20,
+      STORYBOOK_UI.textDark,
+      true,
+      true,
+    ));
     const titleDiv = this.add.graphics();
     drawInkDivider(titleDiv, GAME_WIDTH / 2, 64, 200, { color: STORYBOOK_UI.paperDark, alpha: 0.25 });
     root.add(titleDiv);
-    root.add(this.text(GAME_WIDTH / 2, 76, `黒曜片 ${profile.currency}`, 13, STORYBOOK_UI.lanternCore, true));
+    root.add(this.text(GAME_WIDTH / 2, 76, formatMetaCurrencyAmount(profile.currency), 13, STORYBOOK_UI.lanternCore, true));
 
     const recordLabel = this.recordButtonLabel();
 
@@ -168,7 +183,7 @@ export class StageSelectScene extends Phaser.Scene {
         getAudioManager(this).playSe('ui_open', { volume: 0.34 });
         this.scene.start('CollectionScene');
       }));
-      root.add(this.secondaryNav(GAME_WIDTH / 2, GAME_HEIGHT - 46, 88, 40, '成長へ', () => {
+      root.add(this.secondaryNav(GAME_WIDTH / 2, GAME_HEIGHT - 46, 88, 40, PLAYER_FACING_COPY.navigation.growth, () => {
         this.mode = 'growth';
         getAudioManager(this).playBgm('bgm_growth', { volume: 0.3, fadeMs: 220 });
         this.render();
@@ -197,7 +212,7 @@ export class StageSelectScene extends Phaser.Scene {
       this.showOnboardingHint(root, 'ステージと深さを選んで探索へ\n深さは Easy がおすすめ', 88);
       markSeen('stageSelectIntroSeen');
     } else if (this.mode === 'growth' && !onboarding.growthIntroSeen) {
-      this.showOnboardingHint(root, '黒曜片で強化して次の夜に備える\nいつでもリセット可能', 88);
+      this.showOnboardingHint(root, `${formatMetaCurrencyGrowthIntro()}\nいつでもリセット可能`, 88);
       markSeen('growthIntroSeen');
     }
   }
@@ -594,7 +609,7 @@ export class StageSelectScene extends Phaser.Scene {
       return level < UPGRADE_DEFS[id].maxLevel && profile.currency >= upgradeCost(id, level);
     });
     if (!anyAffordable) {
-      root.add(this.text(GAME_WIDTH / 2, 196, '黒曜片が足りない — 探索で集めよう', 11, 0xc7a87a));
+      root.add(this.text(GAME_WIDTH / 2, 196, formatMetaCurrencyInsufficient(), 11, 0xc7a87a));
     }
 
     UPGRADE_ORDER.forEach((id, index) => {
@@ -634,7 +649,7 @@ export class StageSelectScene extends Phaser.Scene {
     drawLargeNotebookPage(panel, GAME_WIDTH / 2, GAME_HEIGHT / 2, 300, 220, { accent: STORYBOOK_UI.warmAmber });
     root.add(panel);
     root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 66, '強化をリセット', 18, STORYBOOK_UI.textDark, true, true));
-    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `黒曜片 ${refund} を全額返還します。\nいつでも振り直せます。`, 12, STORYBOOK_UI.paperDark));
+    root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 22, `${formatMetaCurrencyRefund(refund)}\nいつでも振り直せます。`, 12, STORYBOOK_UI.paperDark));
     root.add(this.secondaryNav(GAME_WIDTH / 2 - 76, GAME_HEIGHT / 2 + 52, 120, 38, 'やめる', () => {
       this.confirmingReset = false;
       this.render();
@@ -654,7 +669,9 @@ export class StageSelectScene extends Phaser.Scene {
     const profile = loadProfile();
     const newAch = findNewAchievementIds(Object.keys(profile.achievements), achView.seenAchievementIds).length;
     const total = newCells + newAch;
-    return total > 0 ? `記録 ★${total}` : '記録';
+    return total > 0
+      ? `${PLAYER_FACING_COPY.navigation.collection} ★${total}`
+      : PLAYER_FACING_COPY.navigation.collection;
   }
 
   private showOnboardingHint(root: Phaser.GameObjects.Container, message: string, y: number): void {
@@ -668,10 +685,11 @@ export class StageSelectScene extends Phaser.Scene {
   private startRun(profile: PlayerProfile): void {
     const saved = selectRun(profile.selectedStage, profile.selectedDepth);
     const params = new URLSearchParams(window.location.search);
-    params.set('play', '1');
+    params.delete('play');
     params.set('stage', String(saved.selectedStage));
     params.delete('scene');
-    window.location.search = params.toString();
+    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    this.scene.start('MainScene');
   }
 
   private text(x: number, y: number, value: string, size: number, color: string | number, bold = false, title = false): Phaser.GameObjects.Text {

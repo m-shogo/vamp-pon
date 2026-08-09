@@ -27,6 +27,7 @@ namespace VampPon.UnitySpike.Runtime.Save
             source.collectionSeenIds = NormalizeIds(source.collectionSeenIds)
                 .Where(source.collectionUnlockedIds.Contains).ToList();
             source.achievementIds = NormalizeIds(source.achievementIds);
+            source.completedFirstRunStageIds = NormalizeIds(source.completedFirstRunStageIds);
             source.permanentUpgrades ??= new List<PermanentUpgradeSave>();
             source.permanentUpgrades = source.permanentUpgrades
                 .Where(x => x != null && !string.IsNullOrWhiteSpace(x.id))

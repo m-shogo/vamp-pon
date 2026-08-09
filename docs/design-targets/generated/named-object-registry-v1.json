@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 1,
+  "status": "CURRENT_DEFINITION_FOUNDATION_RUNTIME_NOT_CONNECTED",
+  "generatedFrom": "src/game/data/namedObjectRegistry.ts",
+  "counts": {
+    "characterLineages": 21,
+    "namedObjects": 126,
+    "completionGroups": 6
+  },
+  "allLightsCompletionDesign": {
+    "version": "design-v1",
+    "runtimeFrozen": false,
+    "rewardId": "all-lights-morning",
+    "rewardDisplayName": "全灯の朝",
+    "groups": [
+      { "id": "night_roads", "designTargetCount": 20 },
+      { "id": "keepers", "designTargetCount": 21 },
+      { "id": "item_lineages", "designTargetCount": 21 },
+      { "id": "kagemono", "designTargetCount": 48 },
+      { "id": "bonds", "designTargetCount": 21 },
+      { "id": "night_margin", "designTargetCount": 1 }
+    ]
+  },
+  "lineages": [
+    {
+      "characterId": "yui",
+      "characterDisplayName": "ユイ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [1],
+      "gameplayVerbs": ["pickup", "hold", "owner-check"],
+      "relationshipCharacterIds": ["kuroori", "asa"],
+      "legacyReferences": ["左腰の小さな拾い物バッグ"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:yui:luminous_possession", "displayName": "持ち主待ちのランタン" },
+        "starterGear": { "id": "named-object:yui:starter_gear", "displayName": "夜の鉛筆" },
+        "passiveItem": { "id": "named-object:yui:passive_item", "displayName": "金のコンパス" },
+        "rareItem": { "id": "named-object:yui:rare_item", "displayName": "誰かの名前札" },
+        "lampTsugi": { "id": "named-object:yui:lamp_tsugi", "displayName": "未完成の一行" },
+        "akatsukiBiraki": { "id": "named-object:yui:akatsuki_biraki", "displayName": "消えない名前" }
+      }
+    },
+    {
+      "characterId": "asa",
+      "characterDisplayName": "アサ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [2],
+      "gameplayVerbs": ["mark", "rename", "consent"],
+      "relationshipCharacterIds": ["yui", "kage2"],
+      "legacyReferences": ["止まったままの小さな懐中時計"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:asa:luminous_possession", "displayName": "名結びの小鋏" },
+        "starterGear": { "id": "named-object:asa:starter_gear", "displayName": "絵はがきカッター" },
+        "passiveItem": { "id": "named-object:asa:passive_item", "displayName": "旅のバッジ" },
+        "rareItem": { "id": "named-object:asa:rare_item", "displayName": "封のされた手紙" },
+        "lampTsugi": { "id": "named-object:asa:lamp_tsugi", "displayName": "暁綴りの紙片" },
+        "akatsukiBiraki": { "id": "named-object:asa:akatsuki_biraki", "displayName": "暁に結ぶ名" }
+      }
+    },
+    {
+      "characterId": "nagi",
+      "characterDisplayName": "ナギ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [3],
+      "gameplayVerbs": ["seal", "guard", "reopen"],
+      "relationshipCharacterIds": ["kage1", "tobari"],
+      "legacyReferences": ["書き足しだらけの折り畳み星図"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:nagi:luminous_possession", "displayName": "月箱の銀鍵" },
+        "starterGear": { "id": "named-object:nagi:starter_gear", "displayName": "月のしおり" },
+        "passiveItem": { "id": "named-object:nagi:passive_item", "displayName": "月明かりのしおり" },
+        "rareItem": { "id": "named-object:nagi:rare_item", "displayName": "小さな銀の鍵" },
+        "lampTsugi": { "id": "named-object:nagi:lamp_tsugi", "displayName": "封月のしおり" },
+        "akatsukiBiraki": { "id": "named-object:nagi:akatsuki_biraki", "displayName": "夜をしまう箱" }
+      }
+    },
+    {
+      "characterId": "michiru",
+      "characterDisplayName": "ミチル",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [4],
+      "gameplayVerbs": ["route", "reroute", "compare"],
+      "relationshipCharacterIds": ["kage3", "gen"],
+      "legacyReferences": ["水音を閉じ込めた青い小瓶"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:michiru:luminous_possession", "displayName": "帰り針のコンパス" },
+        "starterGear": { "id": "named-object:michiru:starter_gear", "displayName": "街灯の輪" },
+        "passiveItem": { "id": "named-object:michiru:passive_item", "displayName": "外れた地図ピン" },
+        "rareItem": { "id": "named-object:michiru:rare_item", "displayName": "折れたコンパス針" },
+        "lampTsugi": { "id": "named-object:michiru:lamp_tsugi", "displayName": "星図の道糸" },
+        "akatsukiBiraki": { "id": "named-object:michiru:akatsuki_biraki", "displayName": "帰り道の星" }
+      }
+    },
+    {
+      "characterId": "tomori",
+      "characterDisplayName": "トモリ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [5],
+      "gameplayVerbs": ["repair", "leave-scar", "finish"],
+      "relationshipCharacterIds": ["kage4", "hana"],
+      "legacyReferences": ["色の違う糸を巻いた古い針差し"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:tomori:luminous_possession", "displayName": "継火の修理ランプ" },
+        "starterGear": { "id": "named-object:tomori:starter_gear", "displayName": "黒インクの小瓶" },
+        "passiveItem": { "id": "named-object:tomori:passive_item", "displayName": "白い余白" },
+        "rareItem": { "id": "named-object:tomori:rare_item", "displayName": "切れた灯芯" },
+        "lampTsugi": { "id": "named-object:tomori:lamp_tsugi", "displayName": "ほころび灯し" },
+        "akatsukiBiraki": { "id": "named-object:tomori:akatsuki_biraki", "displayName": "夜を直す灯" }
+      }
+    },
+    {
+      "characterId": "sen",
+      "characterDisplayName": "セン",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [6],
+      "gameplayVerbs": ["draw-line", "teach", "branch"],
+      "relationshipCharacterIds": ["shiro", "koyori"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:sen:luminous_possession", "displayName": "白線のチョーク灯" },
+        "starterGear": { "id": "named-object:sen:starter_gear", "displayName": "チョークの線" },
+        "passiveItem": { "id": "named-object:sen:passive_item", "displayName": "小さな黒板消し" },
+        "rareItem": { "id": "named-object:sen:rare_item", "displayName": "消された一文" },
+        "lampTsugi": { "id": "named-object:sen:lamp_tsugi", "displayName": "教室の道筋" },
+        "akatsukiBiraki": { "id": "named-object:sen:akatsuki_biraki", "displayName": "消えない一文" }
+      }
+    },
+    {
+      "characterId": "ritsu",
+      "characterDisplayName": "リツ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [7],
+      "gameplayVerbs": ["split", "distribute", "share"],
+      "relationshipCharacterIds": ["koyori", "kage1"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:ritsu:luminous_possession", "displayName": "半灯りの飴缶" },
+        "starterGear": { "id": "named-object:ritsu:starter_gear", "displayName": "半分の飴" },
+        "passiveItem": { "id": "named-object:ritsu:passive_item", "displayName": "半分の包み紙" },
+        "rareItem": { "id": "named-object:ritsu:rare_item", "displayName": "残った片割れ" },
+        "lampTsugi": { "id": "named-object:ritsu:lamp_tsugi", "displayName": "包み紙の火" },
+        "akatsukiBiraki": { "id": "named-object:ritsu:akatsuki_biraki", "displayName": "残した半分" }
+      }
+    },
+    {
+      "characterId": "koyori",
+      "characterDisplayName": "コヨリ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [8],
+      "gameplayVerbs": ["name", "summon-helper", "connect"],
+      "relationshipCharacterIds": ["ritsu", "sen"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:koyori:luminous_possession", "displayName": "呼び名の紙縒り札" },
+        "starterGear": { "id": "named-object:koyori:starter_gear", "displayName": "小さな名札" },
+        "passiveItem": { "id": "named-object:koyori:passive_item", "displayName": "呼び名の紙縒り" },
+        "rareItem": { "id": "named-object:koyori:rare_item", "displayName": "書きかけの名前" },
+        "lampTsugi": { "id": "named-object:koyori:lamp_tsugi", "displayName": "呼び名の紙縒り" },
+        "akatsukiBiraki": { "id": "named-object:koyori:akatsuki_biraki", "displayName": "一番消えない名" }
+      }
+    },
+    {
+      "characterId": "gen",
+      "characterDisplayName": "ゲン",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [9],
+      "gameplayVerbs": ["compare-old-route", "hold-safe-zone", "recalculate"],
+      "relationshipCharacterIds": ["michiru", "kage3"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:gen:luminous_possession", "displayName": "古針の駅灯" },
+        "starterGear": { "id": "named-object:gen:starter_gear", "displayName": "古いコンパス" },
+        "passiveItem": { "id": "named-object:gen:passive_item", "displayName": "駅前の道火" },
+        "rareItem": { "id": "named-object:gen:rare_item", "displayName": "錆びた針箱" },
+        "lampTsugi": { "id": "named-object:gen:lamp_tsugi", "displayName": "駅前の道火" },
+        "akatsukiBiraki": { "id": "named-object:gen:akatsuki_biraki", "displayName": "古い道の朝" }
+      }
+    },
+    {
+      "characterId": "hana",
+      "characterDisplayName": "ハナ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [10],
+      "gameplayVerbs": ["preserve", "slow", "allow-change"],
+      "relationshipCharacterIds": ["kage4", "shiro"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:hana:luminous_possession", "displayName": "花脈の保管箱" },
+        "starterGear": { "id": "named-object:hana:starter_gear", "displayName": "押し花のしおり" },
+        "passiveItem": { "id": "named-object:hana:passive_item", "displayName": "箱底の花" },
+        "rareItem": { "id": "named-object:hana:rare_item", "displayName": "乾いた花びら" },
+        "lampTsugi": { "id": "named-object:hana:lamp_tsugi", "displayName": "箱底の花" },
+        "akatsukiBiraki": { "id": "named-object:hana:akatsuki_biraki", "displayName": "枯れない頁" }
+      }
+    },
+    {
+      "characterId": "yubi",
+      "characterDisplayName": "ユウビ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [11],
+      "gameplayVerbs": ["delay", "deliver", "wait-for-recipient"],
+      "relationshipCharacterIds": ["tobari", "kage2"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:yubi:luminous_possession", "displayName": "返事待ちの郵便灯" },
+        "starterGear": { "id": "named-object:yubi:starter_gear", "displayName": "未配達の封筒" },
+        "passiveItem": { "id": "named-object:yubi:passive_item", "displayName": "古い消印" },
+        "rareItem": { "id": "named-object:yubi:rare_item", "displayName": "開かない返信" },
+        "lampTsugi": { "id": "named-object:yubi:lamp_tsugi", "displayName": "遅れて届く火" },
+        "akatsukiBiraki": { "id": "named-object:yubi:akatsuki_biraki", "displayName": "届かなかった返事" }
+      }
+    },
+    {
+      "characterId": "madoka",
+      "characterDisplayName": "マドカ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [12],
+      "gameplayVerbs": ["observe", "reveal", "act-on-difference"],
+      "relationshipCharacterIds": ["ren", "nemu"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:madoka:luminous_possession", "displayName": "見送り窓の観測レンズ" },
+        "starterGear": { "id": "named-object:madoka:starter_gear", "displayName": "窓際の紙飛行機" },
+        "passiveItem": { "id": "named-object:madoka:passive_item", "displayName": "曇った窓紙" },
+        "rareItem": { "id": "named-object:madoka:rare_item", "displayName": "見ていた切れ端" },
+        "lampTsugi": { "id": "named-object:madoka:lamp_tsugi", "displayName": "見ていた紙翼" },
+        "akatsukiBiraki": { "id": "named-object:madoka:akatsuki_biraki", "displayName": "気づいていた朝" }
+      }
+    },
+    {
+      "characterId": "shiro",
+      "characterDisplayName": "シロ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [13],
+      "gameplayVerbs": ["classify", "defer", "preserve-unknown"],
+      "relationshipCharacterIds": ["sen", "kage4"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:shiro:luminous_possession", "displayName": "未分類の白栞灯" },
+        "starterGear": { "id": "named-object:shiro:starter_gear", "displayName": "白いしおり" },
+        "passiveItem": { "id": "named-object:shiro:passive_item", "displayName": "未分類の頁" },
+        "rareItem": { "id": "named-object:shiro:rare_item", "displayName": "読めない一頁" },
+        "lampTsugi": { "id": "named-object:shiro:lamp_tsugi", "displayName": "未分類の頁" },
+        "akatsukiBiraki": { "id": "named-object:shiro:akatsuki_biraki", "displayName": "読めない頁の灯" }
+      }
+    },
+    {
+      "characterId": "tobari",
+      "characterDisplayName": "トバリ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [14],
+      "gameplayVerbs": ["close-gate", "open-return", "route-flow"],
+      "relationshipCharacterIds": ["yubi", "nagi"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:tobari:luminous_possession", "displayName": "往復穴の改札鋏" },
+        "starterGear": { "id": "named-object:tobari:starter_gear", "displayName": "改札ばさみ" },
+        "passiveItem": { "id": "named-object:tobari:passive_item", "displayName": "古い切符" },
+        "rareItem": { "id": "named-object:tobari:rare_item", "displayName": "片道ではない切符" },
+        "lampTsugi": { "id": "named-object:tobari:lamp_tsugi", "displayName": "改札のひかり" },
+        "akatsukiBiraki": { "id": "named-object:tobari:akatsuki_biraki", "displayName": "片道ではない切符" }
+      }
+    },
+    {
+      "characterId": "nemu",
+      "characterDisplayName": "ネム",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [15],
+      "gameplayVerbs": ["forecast", "rewrite", "keep-possibility"],
+      "relationshipCharacterIds": ["madoka", "kage3"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:nemu:luminous_possession", "displayName": "夢頁の水面日記" },
+        "starterGear": { "id": "named-object:nemu:starter_gear", "displayName": "夢日記" },
+        "passiveItem": { "id": "named-object:nemu:passive_item", "displayName": "眠り頁" },
+        "rareItem": { "id": "named-object:nemu:rare_item", "displayName": "夢で見た地図" },
+        "lampTsugi": { "id": "named-object:nemu:lamp_tsugi", "displayName": "眠り頁" },
+        "akatsukiBiraki": { "id": "named-object:nemu:akatsuki_biraki", "displayName": "夢で見た朝" }
+      }
+    },
+    {
+      "characterId": "kuroori",
+      "characterDisplayName": "クロオリ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [16],
+      "gameplayVerbs": ["fold", "hold", "open-by-consent"],
+      "relationshipCharacterIds": ["yui", "yubi"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:kuroori:luminous_possession", "displayName": "折り目だけ光る黒紙" },
+        "starterGear": { "id": "named-object:kuroori:starter_gear", "displayName": "黒い折り紙" },
+        "passiveItem": { "id": "named-object:kuroori:passive_item", "displayName": "四つ折りの影" },
+        "rareItem": { "id": "named-object:kuroori:rare_item", "displayName": "開かない折り目" },
+        "lampTsugi": { "id": "named-object:kuroori:lamp_tsugi", "displayName": "四つ折りの影" },
+        "akatsukiBiraki": { "id": "named-object:kuroori:akatsuki_biraki", "displayName": "開かれる黒紙" }
+      }
+    },
+    {
+      "characterId": "kage1",
+      "characterDisplayName": "カナメ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [3, 16],
+      "gameplayVerbs": ["intercept", "guard", "share-burden"],
+      "relationshipCharacterIds": ["nagi", "ritsu"],
+      "legacyReferences": ["カゲール1"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:kage1:luminous_possession", "displayName": "受け灯の腕帯" },
+        "starterGear": { "id": "named-object:kage1:starter_gear", "displayName": "影の折り目" },
+        "passiveItem": { "id": "named-object:kage1:passive_item", "displayName": "隠し火" },
+        "rareItem": { "id": "named-object:kage1:rare_item", "displayName": "守りすぎた影" },
+        "lampTsugi": { "id": "named-object:kage1:lamp_tsugi", "displayName": "隠し火" },
+        "akatsukiBiraki": { "id": "named-object:kage1:akatsuki_biraki", "displayName": "朝まで残った影" }
+      }
+    },
+    {
+      "characterId": "kage2",
+      "characterDisplayName": "カスミ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [2, 17],
+      "gameplayVerbs": ["conceal", "leave-trace", "restore-by-choice"],
+      "relationshipCharacterIds": ["asa", "yubi"],
+      "legacyReferences": ["カゲール2"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:kage2:luminous_possession", "displayName": "消し跡の白灯" },
+        "starterGear": { "id": "named-object:kage2:starter_gear", "displayName": "消しゴムのかけら" },
+        "passiveItem": { "id": "named-object:kage2:passive_item", "displayName": "薄れ名" },
+        "rareItem": { "id": "named-object:kage2:rare_item", "displayName": "消せない一文字" },
+        "lampTsugi": { "id": "named-object:kage2:lamp_tsugi", "displayName": "薄れ名" },
+        "akatsukiBiraki": { "id": "named-object:kage2:akatsuki_biraki", "displayName": "残された一文字" }
+      }
+    },
+    {
+      "characterId": "kage3",
+      "characterDisplayName": "トキ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [4, 18],
+      "gameplayVerbs": ["measure", "mark-provisional", "allow-unmeasured"],
+      "relationshipCharacterIds": ["michiru", "ren"],
+      "legacyReferences": ["カゲール3"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:kage3:luminous_possession", "displayName": "星目盛りの夜定規" },
+        "starterGear": { "id": "named-object:kage3:starter_gear", "displayName": "夜読みの定規" },
+        "passiveItem": { "id": "named-object:kage3:passive_item", "displayName": "角度の火" },
+        "rareItem": { "id": "named-object:kage3:rare_item", "displayName": "割れた角度線" },
+        "lampTsugi": { "id": "named-object:kage3:lamp_tsugi", "displayName": "角度の火" },
+        "akatsukiBiraki": { "id": "named-object:kage3:akatsuki_biraki", "displayName": "測れない夜明け" }
+      }
+    },
+    {
+      "characterId": "kage4",
+      "characterDisplayName": "ツムギ",
+      "namingStatus": "CURRENT_DIRECTION",
+      "requiredForLaunchCompletion": true,
+      "stageIds": [5, 19],
+      "gameplayVerbs": ["stitch", "leave-blank", "choose-finish"],
+      "relationshipCharacterIds": ["tomori", "hana", "shiro"],
+      "legacyReferences": ["カゲール4"],
+      "objects": {
+        "luminousPossession": { "id": "named-object:kage4:luminous_possession", "displayName": "余白を縫う糸巻き" },
+        "starterGear": { "id": "named-object:kage4:starter_gear", "displayName": "空白のカード" },
+        "passiveItem": { "id": "named-object:kage4:passive_item", "displayName": "余白の継ぎ目" },
+        "rareItem": { "id": "named-object:kage4:rare_item", "displayName": "黒い余白" },
+        "lampTsugi": { "id": "named-object:kage4:lamp_tsugi", "displayName": "余白の継ぎ目" },
+        "akatsukiBiraki": { "id": "named-object:kage4:akatsuki_biraki", "displayName": "続きを描く朝" }
+      }
+    },
+    {
+      "characterId": "ren",
+      "characterDisplayName": "レン",
+      "namingStatus": "WORKING",
+      "requiredForLaunchCompletion": false,
+      "stageIds": [12, 18],
+      "gameplayVerbs": ["focus", "detect-delta", "keep-context"],
+      "relationshipCharacterIds": ["madoka", "kage3"],
+      "legacyReferences": [],
+      "objects": {
+        "luminousPossession": { "id": "named-object:ren:luminous_possession", "displayName": "片焦点のレンズ灯" },
+        "starterGear": { "id": "named-object:ren:starter_gear", "displayName": "レンズのしるし" },
+        "passiveItem": { "id": "named-object:ren:passive_item", "displayName": "片曇りのレンズ布" },
+        "rareItem": { "id": "named-object:ren:rare_item", "displayName": "見落とされた余白片" },
+        "lampTsugi": { "id": "named-object:ren:lamp_tsugi", "displayName": "硝子の道筋" },
+        "akatsukiBiraki": { "id": "named-object:ren:akatsuki_biraki", "displayName": "見落とさない朝" }
+      }
+    }
+  ],
+  "boundaries": {
+    "keeperRecordsMigrated": false,
+    "lostItemRecordsMigrated": false,
+    "collectionSaveMigrated": false,
+    "globalConstellationImplemented": false,
+    "allLightsMorningImplemented": false,
+    "u49ReadinessPromoted": false
+  }
+}

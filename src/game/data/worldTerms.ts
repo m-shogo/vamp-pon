@@ -1,4 +1,18 @@
+import { currentMetaCurrencyDisplayName } from './metaCurrencyDisplay.ts';
+
+/**
+ * Player-facing world vocabulary.
+ *
+ * Keep this file small and semantic. Runtime IDs, save fields and balance logic
+ * must not depend on display names. Persistent meta-currency display is sourced
+ * from metaCurrencyDisplay so a future Human-approved rename does not require a
+ * second independent terminology edit.
+ */
 export const WORLD_TERMS = {
+  product: {
+    title: 'ヨルノシルベ',
+    legacyCodeNames: ['Vamp Pon', 'VAMP PON', 'ヴァンサバ改'],
+  },
   techniqueRanks: {
     lampTechnique: '灯技',
     inheritedLight: '継灯',
@@ -25,6 +39,10 @@ export const WORLD_TERMS = {
     stageClear: '夜明け',
     fragment: '記憶片',
   },
+  economy: {
+    runFragment: '記憶片',
+    persistentCurrency: currentMetaCurrencyDisplayName(),
+  },
   inventory: {
     weapon: '灯具',
     passive: '持ち物',
@@ -32,7 +50,9 @@ export const WORLD_TERMS = {
     fieldDrop: '落とし物',
     recovery: '朝露',
     capsule: '記憶包み',
-    currency: '記憶片',
+    // Compatibility alias for old consumers. This is the persistent wallet,
+    // not the run-only 記憶片 pickup.
+    currency: currentMetaCurrencyDisplayName(),
   },
   statLabels: {
     magnet: '回収',
@@ -46,14 +66,22 @@ export const WORLD_TERMS = {
     start: '夜へ出る',
     continue: '灯を継ぐ',
     retry: 'もう一度、夜へ',
+    stageSelect: '夜の地図',
     characterSelect: '旅人を選ぶ',
     characterDetail: '旅人の記録',
+    collection: '灯録',
     upgrade: '旅支度',
     permanentUpgrade: '支度',
     shop: '忘れ物市',
     settings: '設定',
-    initialWeapon: '最初の忘れ物',
+    initialWeapon: '最初の灯具',
     pairArtList: '灯合わせ録',
+  },
+  settings: {
+    bgm: 'BGM',
+    se: 'SE',
+    haptics: '振動',
+    reducedMotion: '演出を控えめに',
   },
 } as const;
 

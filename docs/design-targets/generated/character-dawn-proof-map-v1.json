@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_PAYOFF_DIRECTION_SAMPLE_LINES_NOT_SCRIPT_CANON",
+  "source": "docs/character-dawn-proof-book-v1.md",
+  "characters": [
+    {"id":"yui","before":"落とし物を即拾う","after":"触る前にownerを確認"},
+    {"id":"asa","before":"名前を即復唱して書く","after":"本人へ呼び方を聞く"},
+    {"id":"nagi","before":"箱をきっちり閉じる","after":"閉める前にreopen条件を確認"},
+    {"id":"michiru","before":"地図へ一本の道","after":"複数の候補routeを残す"},
+    {"id":"tomori","before":"修理跡を消したがる","after":"意味ある古い継ぎ目を残す"},
+    {"id":"sen","before":"先に答えを説明する","after":"相手へ次のruleを聞く"},
+    {"id":"ritsu","before":"荷物/riskを自分側へ寄せる","after":"一つを普通に任せる"},
+    {"id":"koyori","before":"人を繋ぎ止めたがる","after":"別行動へ『あとでね』"},
+    {"id":"gen","before":"昔の道を先に教える","after":"今の道を他人に先導させる"},
+    {"id":"hana","before":"すぐ保存方法を考える","after":"一輪を保存せず花瓶へ置く"},
+    {"id":"yubi","before":"届ければ完了","after":"相手を見て一度持ち帰る"},
+    {"id":"madoka","before":"確信がないと黙る","after":"確度を付けて先に共有"},
+    {"id":"shiro","before":"未分類が増えると落ち着かない","after":"『分からない。でも大切そう』箱を作る"},
+    {"id":"tobari","before":"帰宅時刻を管理する","after":"未定を許し帰ったら知らせてもらう"},
+    {"id":"nemu","before":"夢から起こされるのを嫌う","after":"自分から起きて夢を紙へ持ち帰る"},
+    {"id":"kuroori","before":"危険なら閉じたまま持つ","after":"開封判断を本人へ返す"},
+    {"id":"kage1","before":"全部自分で持つ/守る","after":"一つを任せて取り返さない"},
+    {"id":"kage2","before":"目立たないよう先に消す","after":"消す前に本人へ聞く"},
+    {"id":"kage3","before":"正確な値を確定したがる","after":"測定値へ暫定と書く"},
+    {"id":"kage4","before":"最後を空白にして終わらせない","after":"最後の一針を完成させ次の白紙を置く"},
+    {"id":"ren","before":"理由を説明できるまで差分を黙る","after":"理由不明でも差を先に共有"}
+  ],
+  "coverage":"21/21",
+  "mainEndingPriority":["ユイ","アサ","ナギ","ミチル","トモリ","クロオリ"],
+  "runtimeChanged": false
+}

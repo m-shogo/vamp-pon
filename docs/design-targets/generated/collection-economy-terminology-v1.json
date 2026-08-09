@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 5,
+  "date": "2026-07-29",
+  "status": "ACTUAL_RUN_COUNTER_CONNECTED_DULL_COIN_CANDIDATE_LINKED_CURRENT_FORMATTER_PARTIAL_DISPLAY_RENAME_NOT_APPROVED",
+  "resources": [
+    {
+      "id": "economy:meta_upgrade_currency",
+      "concept": "persistent_spendable_meta_upgrade_resource",
+      "storagePaths": [
+        "PlayerProfile.currency",
+        "PlayerProfile.totalCurrencyEarned"
+      ],
+      "runtimeIds": [
+        "profile.currency",
+        "RunSettlement.currencyEarned",
+        "RunSettlement.achievementReward",
+        "NightBoardReward.type:light_coin",
+        "UpgradeId:currencyGain"
+      ],
+      "currentDisplayLabels": ["黒曜片"],
+      "namingStatus": "CURRENT_DISPLAY_PENDING_REVIEW",
+      "persistent": true,
+      "spendable": true,
+      "autoRenameAllowed": false
+    },
+    {
+      "id": "economy:run_memory_fragment",
+      "concept": "run_only_xp_pickup",
+      "runtimeIds": [
+        "RuntimeStats.memoryFragmentsCollected",
+        "pickup:memory_fragment"
+      ],
+      "currentDisplayLabels": ["記憶片"],
+      "persistent": false,
+      "spendable": false,
+      "autoRenameAllowed": false
+    },
+    {
+      "id": "economy:prototype_light_coin_counter",
+      "concept": "actual_per_run_meta_currency_earned_counter",
+      "runtimeIds": [
+        "NightBoardCell:fs_019_collect_100_light_coin",
+        "transient:RunStats.earnedMetaCurrencyThisRun"
+      ],
+      "sourceRuntimeId": "RunSettlement.currencyEarned",
+      "excludedRuntimeIds": [
+        "profile.currency",
+        "RunSettlement.achievementReward",
+        "RuntimeStats.memoryFragmentsCollected"
+      ],
+      "threshold": 100,
+      "currentDisplayLabels": ["灯貨"],
+      "namingStatus": "CURRENT_TRACKED_COUNTER_PENDING_NAME",
+      "persistent": false,
+      "spendable": false,
+      "autoRenameAllowed": false
+    },
+    {
+      "id": "mechanic:black_youka",
+      "concept": "battle_and_story_fixed-reading_mechanic",
+      "runtimeIds": [
+        "RuntimeStats.berserkUses",
+        "UpgradeId:noBerserkBonus"
+      ],
+      "currentDisplayLabels": ["黒耀化"],
+      "namingStatus": "NOT_CURRENCY",
+      "persistent": false,
+      "spendable": false,
+      "autoRenameAllowed": false
+    }
+  ],
+  "namedObjectConnection": {
+    "lostItemId": "lost-dull-light-coin",
+    "displayName": "くすんだ灯貨",
+    "boardCellId": "fs_019_collect_100_light_coin",
+    "economyConceptId": "economy:meta_upgrade_currency",
+    "connectionStatus": "REVIEW_REQUIRED",
+    "economyConnectionStatus": "HIGH_VALUE_CANDIDATE_RELATED_NOT_CANONICAL",
+    "keeperAssigned": false,
+    "canonicalCurrencyNamePromoted": false
+  },
+  "currentDisplayFormatter": {
+    "source": "src/game/data/metaCurrencyDisplay.ts",
+    "currentLabelSource": "economy:meta_upgrade_currency.currentDisplayLabels[0]",
+    "currentOutput": "黒曜片",
+    "candidateOutputApplied": false,
+    "functions": [
+      "currentMetaCurrencyDisplayName",
+      "formatMetaCurrencyAmount",
+      "formatMetaCurrencyGain",
+      "formatMetaCurrencyReturn"
+    ],
+    "connectedSurfaces": [
+      "Collection Clear Getter reward label",
+      "Collection achievement section description"
+    ],
+    "connectionStatus": "PARTIAL"
+  },
+  "implementation": {
+    "source": "src/game/data/collectionEconomyTerminology.ts",
+    "settlementSource": "src/game/persistence/profile.ts",
+    "collectionConsumer": "src/game/systems/collectionProgress.ts",
+    "lostItemSource": "src/game/data/lostItemRecords.ts",
+    "displayFormatter": "src/game/data/metaCurrencyDisplay.ts",
+    "displayNormalizer": "src/game/data/collectionDisplayTerms.ts",
+    "sceneHook": "src/game/ui/collectionAtlasSceneHooks.ts",
+    "unitTests": [
+      "src/game/data/collectionEconomyTerminology.test.ts",
+      "src/game/data/metaCurrencyDisplay.test.ts",
+      "src/game/persistence/__tests__/profileRunCurrencyTracking.test.ts",
+      "src/game/systems/collectionProgressRunCurrency.test.ts",
+      "src/game/data/lostItemEconomyConnection.test.ts",
+      "src/game/ui/collectionAtlasSceneHooks.test.ts"
+    ],
+    "includedInNamedObjectChecker": true,
+    "includedInImplementationPreflight": true,
+    "actualPerRunCounterConnected": true,
+    "proxyFormulaRemoved": true,
+    "achievementRewardsExcluded": true,
+    "walletBalanceExcluded": true,
+    "memoryFragmentDirectReadExcluded": true,
+    "dullLightCoinCandidateLinkConnected": true,
+    "keeperHeaderCurrentRuntimeNormalization": true,
+    "runtimeDisplayFormatterConnected": "PARTIAL",
+    "saveMigrationPerformed": false
+  },
+  "highValueCandidate": {
+    "status": "HIGH_VALUE_CANDIDATE_NOT_CURRENT",
+    "persistentCurrencyDisplay": "灯貨",
+    "legacyDisplayAlias": "黒曜片",
+    "completedPrerequisites": [
+      "preserve PlayerProfile.currency",
+      "preserve light_coin as internal alias",
+      "add actual per-run earned-currency counter",
+      "replace fs_019 proxy formula",
+      "add run-counter and achievement-exclusion tests",
+      "connect くすんだ灯貨 as a candidate relation",
+      "create one Current display formatter",
+      "connect two Collection display surfaces"
+    ],
+    "remainingBeforePromotion": [
+      "migrate every remaining active wallet surface through the formatter",
+      "preserve 黒曜片 in a Legacy display alias ledger",
+      "add full save purchase refund reward round-trip evidence",
+      "complete visual review",
+      "decide canonical owner and origin of くすんだ灯貨",
+      "human naming approval"
+    ]
+  },
+  "activeRepair": {
+    "achievementDescriptionsMigratedToBlackYouka": 4,
+    "upgradeDefinitionBlackYoukaLabelsMigrated": 2,
+    "keeperHeaderNormalizedToBlackYouka": true,
+    "achievementIdsChanged": false,
+    "upgradeIdsChanged": false,
+    "runtimeIdsChanged": false,
+    "rewardValuesChanged": false,
+    "achievementTermLockEnabled": true,
+    "profileTermLockEnabled": true
+  },
+  "knownDebt": [
+    "StageSelect uses raw 黒曜片 pending formatter migration and display review",
+    "StageSelect uses 黒曜研究所 pending facility naming review",
+    "Result and first-run overlay currency surfaces are not yet formatter-backed",
+    "persistent currency display name is not approved",
+    "くすんだ灯貨 has no canonical owner or origin"
+  ],
+  "readinessUnaffected": true
+}

@@ -4,6 +4,11 @@ import { settleSavedBondRun } from './bonds';
 import { stageRecipes } from '../data/waves';
 import { stagePowerForStage } from '../data/stageScaling';
 import { achievementRewardAmount } from '../data/achievements';
+import {
+  formatMetaCurrencyUpgradeDescription,
+  formatMetaCurrencyUpgradeName,
+} from '../data/metaCurrencyDisplay';
+import { recordRunEarnedMetaCurrency } from '../data/collectionEconomyTerminology';
 
 export type ExplorationDepthId = 'shallow' | 'middle' | 'deep';
 export type UpgradeId =
@@ -108,7 +113,7 @@ export const EXPLORATION_DEPTHS: Record<ExplorationDepthId, {
 export const UPGRADE_DEFS: Record<UpgradeId, {
   id: UpgradeId;
   name: string;
-  group: '攻撃' | '生存' | '回収' | '稼ぎ' | '黒曜化';
+  group: '攻撃' | '生存' | '回収' | '稼ぎ' | '黒耀化';
   maxLevel: number;
   baseCost: number;
   costStep: number;
@@ -119,10 +124,10 @@ export const UPGRADE_DEFS: Record<UpgradeId, {
   moveSpeed: { id: 'moveSpeed', name: '軽い靴音', group: '生存', maxLevel: 12, baseCost: 40, costStep: 1.24, description: '移動速度が上がる' },
   xpGain: { id: 'xpGain', name: '記憶の吸い込み', group: '回収', maxLevel: 16, baseCost: 50, costStep: 1.27, description: 'ラン中の経験値が増える' },
   magnet: { id: 'magnet', name: '迷子の呼び声', group: '回収', maxLevel: 14, baseCost: 38, costStep: 1.23, description: '欠片の吸引範囲が広がる' },
-  currencyGain: { id: 'currencyGain', name: '黒曜片の目印', group: '稼ぎ', maxLevel: 18, baseCost: 55, costStep: 1.28, description: '黒曜片の獲得量が増える' },
+  currencyGain: { id: 'currencyGain', name: formatMetaCurrencyUpgradeName(), group: '稼ぎ', maxLevel: 18, baseCost: 55, costStep: 1.28, description: formatMetaCurrencyUpgradeDescription() },
   damageReduction: { id: 'damageReduction', name: 'にじまない紙片', group: '生存', maxLevel: 14, baseCost: 58, costStep: 1.29, description: '受けるダメージを減らす' },
   ultimateCharge: { id: 'ultimateCharge', name: '灯りの呼吸', group: '攻撃', maxLevel: 12, baseCost: 60, costStep: 1.28, description: '必殺ゲージが早くたまる' },
-  noBerserkBonus: { id: 'noBerserkBonus', name: '黒に頼らない道', group: '黒曜化', maxLevel: 10, baseCost: 70, costStep: 1.3, description: '黒曜化未使用の報酬倍率が増える' },
+  noBerserkBonus: { id: 'noBerserkBonus', name: '黒に頼らない道', group: '黒耀化', maxLevel: 10, baseCost: 70, costStep: 1.3, description: '黒耀化未使用の報酬倍率が増える' },
 };
 
 const STORAGE_KEY = 'vampPon.playerProfile.v1';
@@ -314,6 +319,7 @@ export function settleRunProgress(state: RuntimeState, cleared: boolean): RunSet
   const noBerserkBonus = noBerserk ? bonuses.noBerserkMultiplier : 1;
   const firstClearBonus = firstClear ? 1.75 : 1;
   const currencyEarned = Math.max(1, Math.floor(baseCurrency * stageReward * depth.reward * bonuses.currencyMultiplier * noBerserkBonus * firstClearBonus));
+  recordRunEarnedMetaCurrency(state.stats, currencyEarned);
   const characterXpEarned = Math.max(1, Math.floor((state.stats.survivedSec * 0.6 + state.stats.kills * 0.8 + (cleared ? 120 : 0)) * stageReward * depth.reward));
 
   const progress = profile.characterProgress[state.characterId] ?? { level: 1, xp: 0, totalXp: 0 };

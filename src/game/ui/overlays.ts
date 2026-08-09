@@ -12,6 +12,11 @@ import { rareItemById } from '../data/rareItems';
 import { evolutions } from '../data/evolutions';
 import { recipeForStage } from '../data/waves';
 import {
+  currentMetaCurrencyDisplayName,
+  formatMetaCurrencyCarryHome,
+  formatMetaCurrencyUseCta,
+} from '../data/metaCurrencyDisplay';
+import {
   getInventoryIconRequirement,
   resolveInventoryIconTexture,
   type InventoryIconCategory,
@@ -50,6 +55,7 @@ import {
   drawSecondaryPaperButton,
 } from './premiumPaperUi';
 import { getAudioManager } from '../audio/AudioManager';
+import { PLAYER_FACING_COPY, formatPlayerCarryHomeCopy } from '../data/playerFacingCopy';
 
 const D = VIEW_DEPTH.overlay;
 const LIST_ICON_SIZE = 46;
@@ -136,13 +142,13 @@ export class Overlays {
         onStart();
       }));
     } else {
-      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, 'VAMP PON', 31, STORYBOOK_UI.textLight, true));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 110, PLAYER_FACING_COPY.title, 28, STORYBOOK_UI.textLight, true));
       root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 70, '忘れた名前を、夜から拾う', 12, STORYBOOK_UI.textMuted));
-      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, '影を払い、記憶のかけらを集める。', 13, STORYBOOK_UI.textLight));
-      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, '移動はドラッグ。必殺は右下。', 12, STORYBOOK_UI.textMuted));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 - 12, PLAYER_FACING_COPY.firstRun.move, 13, STORYBOOK_UI.textLight));
+      root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 16, PLAYER_FACING_COPY.firstRun.autoAttack, 12, STORYBOOK_UI.textMuted));
       if (firstRun) {
-        root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 42, '武器は自動で発射。EXPを拾ってレベルアップ。', 11, STORYBOOK_UI.goldLight));
-        root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 60, 'やられても黒曜片は持ち帰れる。', 11, STORYBOOK_UI.goldLight));
+        root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 42, PLAYER_FACING_COPY.firstRun.fragmentLevelUp, 11, STORYBOOK_UI.goldLight));
+        root.add(this.text(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 62, formatPlayerCarryHomeCopy(), 11, STORYBOOK_UI.goldLight));
       }
       root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + (firstRun ? 114 : 94), 180, 46, '夜へ進む', () => {
         this.clear();
@@ -535,7 +541,7 @@ export class Overlays {
     root.add(pageG);
     this.scene.tweens.add({ targets: pageG, alpha: 1, duration: 300, ease: 'Quad.easeOut' });
 
-    const titleText = cleared ? '夜明け' : '夜に飲まれた';
+    const titleText = cleared ? PLAYER_FACING_COPY.result.clearTitle : PLAYER_FACING_COPY.result.defeatTitle;
     const titleSize = cleared ? 30 : 24;
     const titleColor = cleared ? STORYBOOK_UI.textDark : STORYBOOK_UI.textDark;
     if (this.scene.textures.exists(UI_TITLE_BANNER)) {
@@ -546,7 +552,10 @@ export class Overlays {
     root.add(resultTitle);
     this.scene.tweens.add({ targets: resultTitle, scale: 1, alpha: 1, duration: 400, delay: 100, ease: 'Back.easeOut' });
 
-    root.add(this.text(pageX, 122, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.textSoft, true));
+    if (!cleared) {
+      root.add(this.text(pageX, 112, PLAYER_FACING_COPY.result.defeatExplanation, 9, STORYBOOK_UI.textSoft));
+    }
+    root.add(this.text(pageX, cleared ? 122 : 130, `生存 ${mm}:${ss}　Lv.${state.player.level}`, 13, STORYBOOK_UI.textSoft, true));
 
     const sealContainer = drawRankSeal(this.scene, pageX + pageW / 2 - 54, 108, rank, { radius: 40, depth: D + 2 });
     sealContainer.setScale(0).setAlpha(0);
@@ -571,14 +580,14 @@ export class Overlays {
     const rewardDiv = this.scene.add.graphics();
     drawInkDivider(rewardDiv, pageX, 292, pageW - 96, { color: STORYBOOK_UI.paperDark, alpha: 0.22 });
     root.add(rewardDiv);
-    root.add(this.text(pageX, 312, 'Rewards', 14, STORYBOOK_UI.textDark, true));
+    root.add(this.text(pageX, 312, PLAYER_FACING_COPY.result.rewardsHeading, 14, STORYBOOK_UI.textDark, true));
     root.add(this.resultRewardCard(
       pageX - 112,
       360,
       96,
       72,
       STORYBOOK_UI.warmAmber,
-      '黒曜片',
+      currentMetaCurrencyDisplayName(),
       `+${settlement.currencyEarned}`,
       settlement.currencyEarned,
       (value) => `+${value}`,
@@ -616,7 +625,7 @@ export class Overlays {
     const recordDiv = this.scene.add.graphics();
     drawInkDivider(recordDiv, pageX, infoY - 20, pageW - 92, { color: STORYBOOK_UI.paperDark, alpha: 0.2 });
     root.add(recordDiv);
-    root.add(this.text(pageX, infoY - 2, 'New Records', 13, STORYBOOK_UI.textDark, true));
+    root.add(this.text(pageX, infoY - 2, PLAYER_FACING_COPY.result.newRecordsHeading, 13, STORYBOOK_UI.textDark, true));
     infoY += 26;
 
     root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.mutedTeal, '初撃破', formatSeconds(log.firstKillSec), log.firstKillSec != null));
@@ -630,7 +639,7 @@ export class Overlays {
       const eliteLabel = state.stageNumber === 2
         ? `雨影をほどいた ×${stats.elitesKilled}`
         : `大きな影を越えた ×${stats.elitesKilled}`;
-      root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.dustyRose, 'Elite', eliteLabel, true));
+      root.add(this.resultRecordRow(pageX, infoY, 292, STORYBOOK_UI.dustyRose, PLAYER_FACING_COPY.result.eliteLabel, eliteLabel, true));
       infoY += 34;
     }
 
@@ -640,7 +649,7 @@ export class Overlays {
     const bonusParts: string[] = [];
     if (settlement.stageBonus > 1) bonusParts.push(`夜道×${settlement.stageBonus.toFixed(1)}`);
     if (settlement.depthBonus > 1) bonusParts.push(`深度×${settlement.depthBonus.toFixed(1)}`);
-    if (settlement.noBerserkBonus > 1) bonusParts.push(`黒曜なし×${settlement.noBerserkBonus.toFixed(2)}`);
+    if (settlement.noBerserkBonus > 1) bonusParts.push(`${PLAYER_FACING_COPY.result.noBlackYoukaLabel}×${settlement.noBerserkBonus.toFixed(2)}`);
     if (settlement.firstClearBonus > 1) bonusParts.push(`初回×${settlement.firstClearBonus.toFixed(2)}`);
 
     const summaryLines: string[] = [motivationMessage];
@@ -690,7 +699,7 @@ export class Overlays {
       ));
     });
 
-    const growthLabel = hasAchReward ? '黒曜片を使う' : '成長へ';
+    const growthLabel = hasAchReward ? formatMetaCurrencyUseCta() : PLAYER_FACING_COPY.navigation.growth;
     const btnY1 = GAME_HEIGHT - 160;
     const btnY2 = GAME_HEIGHT - 108;
     const btnY3 = GAME_HEIGHT - 62;
@@ -761,7 +770,7 @@ export class Overlays {
       }, true));
     }
     if (onGrowth) {
-      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 76, 240, 42, '成長へ', () => {
+      root.add(this.button(GAME_WIDTH / 2, GAME_HEIGHT / 2 + 76, 240, 42, PLAYER_FACING_COPY.navigation.growth, () => {
         this.clear();
         onGrowth();
       }, true));

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "protocol": "docs/design-human-decision-interaction-protocol-v1.md",
+  "interactionMode": "SINGLE_DECISION_CLICK_SELECT",
+  "oneDecisionPerTurn": true,
+  "preferredOptionCount": 3,
+  "minimumOptionCount": 2,
+  "maximumOptionCount": 4,
+  "recommendedOptionFirst": true,
+  "clickSelectPreferred": true,
+  "fallbackInteraction": "A_B_C_SINGLE_CHARACTER_REPLY",
+  "pendingHumanDecisionCount": 0,
+  "activeDecision": null,
+  "decisions": [
+    {
+      "decisionId": "HD-ART-DIRECTION-001",
+      "category": "ART_DIRECTION",
+      "selectedOptionId": "A",
+      "selectedLabel": "静かな夜と小さな温かさ",
+      "status": "HUMAN_SELECTED",
+      "decidedAt": "2026-07-28",
+      "decisionSource": "USER_CHAT_EXPLICIT_SELECTION",
+      "recordPath": "docs/design-targets/generated/design-production/human-decisions/HD-ART-DIRECTION-001.json"
+    }
+  ],
+  "boundaries": {
+    "heavyDesignStatus": "DOCUMENTATION_FOUNDATION_PREPARED",
+    "imageGenerationStarted": false,
+    "unityDesignImplementationStarted": false,
+    "u49EvidenceMutation": false,
+    "wholeAppHumanVisualAccepted": false
+  },
+  "nextDecisionTrigger": "USER_INTENTIONALLY_STARTS_WAVE1_IMAGE_GENERATION_OR_NEW_SUBJECTIVE_DECISION_IS_REQUIRED",
+  "nextAction": "HOLD_WITH_NO_PENDING_DECISION"
+}

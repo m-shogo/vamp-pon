@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "requiredEventCount": 10,
+  "coveredEventCount": 10,
+  "missingCriticalEventCount": 0,
+  "productRouter": "U49AudioHapticRuntimeOwner through IU28HapticPlatformAdapter",
+  "iosAdapter": "U49IosHapticAdapter",
+  "editorAndNonIosAdapter": "U49NoopHapticAdapter",
+  "simulatorGuard": "TARGET_OS_SIMULATOR",
+  "physicalDeviceHumanObservationProvided": false,
+  "events": [
+    {
+      "id": "LightTap",
+      "intensity": 0.18,
+      "durationSeconds": 0.025,
+      "cooldownSeconds": 0.08,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "SoftPickup",
+      "intensity": 0.22,
+      "durationSeconds": 0.035,
+      "cooldownSeconds": 0.1,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "CardSelect",
+      "intensity": 0.24,
+      "durationSeconds": 0.03,
+      "cooldownSeconds": 0.12,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "Damage",
+      "intensity": 0.5,
+      "durationSeconds": 0.07,
+      "cooldownSeconds": 0.25,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "RarePulse",
+      "intensity": 0.34,
+      "durationSeconds": 0.06,
+      "cooldownSeconds": 0.35,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "EvolutionComplete",
+      "intensity": 0.56,
+      "durationSeconds": 0.09,
+      "cooldownSeconds": 0.6,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "KokuyouReady",
+      "intensity": 0.3,
+      "durationSeconds": 0.05,
+      "cooldownSeconds": 0.45,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "KokuyouActivation",
+      "intensity": 0.68,
+      "durationSeconds": 0.12,
+      "cooldownSeconds": 1,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "ResultStamp",
+      "intensity": 0.42,
+      "durationSeconds": 0.06,
+      "cooldownSeconds": 0.35,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    },
+    {
+      "id": "UnlockReveal",
+      "intensity": 0.3,
+      "durationSeconds": 0.05,
+      "cooldownSeconds": 0.3,
+      "nativeRouteImplemented": true,
+      "humanObserved": false
+    }
+  ]
+}

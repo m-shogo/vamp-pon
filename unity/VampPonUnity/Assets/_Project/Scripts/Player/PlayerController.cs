@@ -50,10 +50,11 @@ namespace VampPon.UnitySpike.Player
 
     public sealed class DevicePointerMoveInputSource : IMoveInputSource
     {
-        private const float StickRadiusPixels = 92f;
-        private const float DeadZonePixels = 16f;
+        private const float StickRadiusScreenRatio = 0.22f;
+        private const float DeadZoneScreenRatio = 0.04f;
         private Vector2 anchor;
         private bool dragging;
+        private int activeTouchId = -1;
 
         public Vector2 ReadMove()
         {
@@ -71,13 +72,35 @@ namespace VampPon.UnitySpike.Player
             var touchscreen = Touchscreen.current;
             if (touchscreen == null)
             {
-                dragging = false;
+                ResetTouch();
                 return false;
+            }
+
+            if (activeTouchId >= 0)
+            {
+                foreach (var touch in touchscreen.touches)
+                {
+                    if (touch.touchId.ReadValue() != activeTouchId)
+                    {
+                        continue;
+                    }
+
+                    if (!touch.press.isPressed || IsPointerOverUi(activeTouchId))
+                    {
+                        ResetTouch();
+                        return false;
+                    }
+
+                    move = DeltaToMove(touch.position.ReadValue() - anchor);
+                    return true;
+                }
+
+                ResetTouch();
             }
 
             foreach (var touch in touchscreen.touches)
             {
-                if (!touch.press.isPressed)
+                if (!touch.press.wasPressedThisFrame)
                 {
                     continue;
                 }
@@ -86,26 +109,20 @@ namespace VampPon.UnitySpike.Player
                 var pointerId = touch.touchId.ReadValue();
                 if (IsPointerOverUi(pointerId))
                 {
-                    dragging = false;
                     continue;
                 }
 
-                if (!dragging)
+                if (!IsMovementArea(position))
                 {
-                    if (!IsMovementArea(position))
-                    {
-                        continue;
-                    }
-
-                    anchor = position;
-                    dragging = true;
+                    continue;
                 }
 
-                move = DeltaToMove(position - anchor);
+                anchor = position;
+                activeTouchId = pointerId;
+                dragging = true;
                 return true;
             }
 
-            dragging = false;
             return false;
         }
 
@@ -146,7 +163,7 @@ namespace VampPon.UnitySpike.Player
 
         private static bool IsMovementArea(Vector2 position)
         {
-            return position.x <= Screen.width * 0.42f && position.y <= Screen.height * 0.34f;
+            return position.x <= Screen.width * 0.52f && position.y <= Screen.height * 0.46f;
         }
 
         private static bool IsPointerOverUi(int pointerId = -1)
@@ -163,12 +180,21 @@ namespace VampPon.UnitySpike.Player
 
         private static Vector2 DeltaToMove(Vector2 delta)
         {
-            if (delta.magnitude < DeadZonePixels)
+            var shortestScreenSide = Mathf.Max(1f, Mathf.Min(Screen.width, Screen.height));
+            var deadZone = shortestScreenSide * DeadZoneScreenRatio;
+            if (delta.magnitude < deadZone)
             {
                 return Vector2.zero;
             }
 
-            return Vector2.ClampMagnitude(delta / StickRadiusPixels, 1f);
+            var stickRadius = shortestScreenSide * StickRadiusScreenRatio;
+            return Vector2.ClampMagnitude(delta / stickRadius, 1f);
+        }
+
+        private void ResetTouch()
+        {
+            dragging = false;
+            activeTouchId = -1;
         }
     }
 
@@ -255,9 +281,8 @@ namespace VampPon.UnitySpike.Player
             next.y = Mathf.Clamp(next.y, worldBounds.yMin, worldBounds.yMax);
             transform.position = new Vector3(next.x, next.y, transform.position.z);
 
-            var bob = Mathf.Sin(Time.time * 8.5f) * 0.018f;
             var speedPulse = Mathf.Clamp01(velocity.magnitude / Mathf.Max(0.01f, moveSpeed)) * 0.035f;
-            transform.localScale = baseScale * (1f + bob + speedPulse);
+            transform.localScale = baseScale * (1f + speedPulse);
         }
     }
 }

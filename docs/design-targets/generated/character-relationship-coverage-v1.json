@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_DESIGN_COVERAGE_FLOOR",
+  "source": "docs/RELATIONSHIPS.md",
+  "target": {
+    "currentCharacterCount": 21,
+    "minimumDistinctiveStrongLanesPerCharacter": 2,
+    "minimumCurrentNightGrowthLanePerCharacter": 1
+  },
+  "summary": {
+    "charactersMeetingDistinctiveLaneFloor": 21,
+    "totalCharacters": 21,
+    "coverage": "21/21",
+    "runtimeImplementationClaim": false
+  },
+  "characters": {
+    "yui": ["asa", "kuroori", "tomori"],
+    "asa": ["yui", "kage2"],
+    "nagi": ["kage1", "tobari"],
+    "michiru": ["kage3", "gen"],
+    "tomori": ["kage4", "yui"],
+    "sen": ["koyori", "shiro"],
+    "ritsu": ["koyori", "kage1"],
+    "koyori": ["ritsu", "sen"],
+    "gen": ["michiru", "kage3"],
+    "hana": ["kage4", "shiro"],
+    "yubi": ["tobari", "kage2", "kuroori"],
+    "madoka": ["ren", "nemu"],
+    "shiro": ["kage4", "sen", "hana"],
+    "tobari": ["yubi", "nagi"],
+    "nemu": ["kage3", "madoka"],
+    "kuroori": ["yui", "yubi"],
+    "kage1": ["nagi", "ritsu"],
+    "kage2": ["asa", "yubi"],
+    "kage3": ["michiru", "nemu", "gen", "ren"],
+    "kage4": ["tomori", "shiro", "hana"],
+    "ren": ["madoka", "kage3"]
+  },
+  "boundaries": [
+    "coverage is design coverage, not implemented event count",
+    "a relationship lane does not imply romance",
+    "future cast does not count toward Current21 minimum coverage",
+    "new history and exact event facts remain candidate unless separately adopted"
+  ]
+}

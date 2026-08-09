@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "historicalSourceHead": "eba336591d6414465a87cbe72db69715d7517d61",
+  "historicalPolicyPath": "docs/design-targets/generated/unity-u48/batch-c/policy-snapshots/unity-responsive-screen-policy.2f352b145930.md",
+  "historicalPolicySha256": "2f352b145930a7e15c8f24a910eac96fc1395a53741126874e9d423156da4d0f",
+  "currentPolicyPath": "docs/unity-responsive-screen-policy.md",
+  "currentPolicySha256": "78e052495a9de9e9008933bbb915c5717a4f2e326b2a6236b071217730d739d0",
+  "compatibilityResult": "COMPATIBLE_WITH_U48_OUTPUT",
+  "reason": "The current policy narrows the active product scope to iOS, strengthens current QA wording, and embeds the canonical current-state block without invalidating the historical responsive layout assumptions used to generate U48 Batch C.",
+  "runtimeAssetsRegenerated": false,
+  "historicalScreenshotsRegenerated": false,
+  "humanApprovalReusedForNewAssets": false
+}

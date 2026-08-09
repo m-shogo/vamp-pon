@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "25ea836dbee8e9c579f69844080c726e0bfc3887",
+  "provided": false,
+  "reviewer": null,
+  "decidedAt": null,
+  "humanAudioApprovalProvided": false,
+  "humanHapticApprovalProvided": false,
+  "overallAccepted": false,
+  "answers": {},
+  "observations": [
+    "Audio was audible but judged cheap and lacking exhilaration.",
+    "Current TOP, StageSelect, and item-selection presentation were rejected.",
+    "Character movement was judged difficult.",
+    "Persistent character swaying was rejected.",
+    "Enemy disappearance presentation was positively received.",
+    "A special-move action was not discoverable in normal play."
+  ],
+  "status": "PARTIAL_REVIEW_WITH_EXPLICIT_REJECTION"
+}

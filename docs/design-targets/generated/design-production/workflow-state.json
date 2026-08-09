@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-28",
+  "stateMachine": "docs/design-production-state-machine-v1.md",
+  "foundationReview": "docs/design-targets/generated/design-production/documentation-foundation-review.json",
+  "foundationReviewDocument": "docs/design-documentation-foundation-review-2026-07-28.md",
+  "currentState": "DOCUMENTATION_FOUNDATION",
+  "currentStateCode": "HD0",
+  "previousState": null,
+  "enteredAtCommit": "3b3f3172ff45165e2b48309513a79df7f0923227",
+  "allowedStates": [
+    "DOCUMENTATION_FOUNDATION",
+    "WAVE1_GENERATION_APPROVED",
+    "WAVE1_GENERATION_IN_PROGRESS",
+    "WAVE1_DIRECTION_SELECTED",
+    "WAVE1_COMPONENTS_APPROVED",
+    "IMPLEMENTATION_READY",
+    "IMPLEMENTATION_IN_PROGRESS",
+    "REPRESENTATIVE_VISUAL_REVIEW",
+    "WHOLE_APP_EXPANSION",
+    "WHOLE_APP_VISUAL_FREEZE"
+  ],
+  "allowedNextStates": [
+    "WAVE1_GENERATION_APPROVED"
+  ],
+  "nextTransitionRequiresHumanApproval": true,
+  "transitionAuthority": "LATEST_EXPLICIT_HUMAN_DECISION",
+  "currentInvariants": {
+    "documentationFoundationGatePassed": true,
+    "documentationFoundationReviewPassed": true,
+    "artDirectionDecisionRecorded": true,
+    "activeWave1BriefHumanApproved": false,
+    "imageGenerationStarted": false,
+    "repositoryAgentMayGenerateImages": false,
+    "unityDesignImplementationStarted": false,
+    "runtimeMutation": false,
+    "u49EvidenceMutation": false,
+    "u50MayStart": false,
+    "wholeAppHumanVisualAccepted": false,
+    "pr76MustRemainDraft": true
+  },
+  "stateHistory": [
+    {
+      "state": "DOCUMENTATION_FOUNDATION",
+      "stateCode": "HD0",
+      "enteredAt": "2026-07-28",
+      "reason": "Art Direction A, 13 screen specifications, state/accessibility matrix, motion, technical art, Wave 1 briefs, rights boundary, contradiction audit, implementation plan, phase-aware checker, and foundation review are prepared while image generation and Unity implementation remain stopped.",
+      "humanDecisionIds": [
+        "HD-ART-DIRECTION-001"
+      ]
+    }
+  ],
+  "nextAction": "HOLD_AT_HD0_UNTIL_USER_INTENTIONALLY_APPROVES_W1_01_TOP_GENERATION_OR_REQUESTS_FURTHER_DOCUMENT_REVIEW"
+}

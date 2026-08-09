@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-07-29",
+  "status": "FIRST_IMPLEMENTATION_MILESTONE_CONNECTED_U49_DEVICE_EVIDENCE_BLOCKED",
+  "repository": "m-shogo/vamp-pon",
+  "branch": "integration/u49-pr75-integrity-20260727",
+  "authority": {
+    "canon": "docs/CANON.md",
+    "production": "docs/181-current-production-canon.md",
+    "playerFacing": "docs/PLAYER-FACING-TERMINOLOGY.md",
+    "settings": "docs/SETTINGS-BASELINE.md",
+    "worldTerms": "src/game/data/worldTerms.ts",
+    "playerCopy": "src/game/data/playerFacingCopy.ts",
+    "persistentCurrency": "src/game/data/metaCurrencyDisplay.ts",
+    "economySplit": "src/game/data/collectionEconomyTerminology.ts",
+    "namedObjects": "docs/named-object-runtime-foundation-2026-07-29.md"
+  },
+  "implementationFrozen": {
+    "productTitle": "ヨルノシルベ",
+    "runFragment": "記憶片",
+    "persistentCurrencyCurrent": "黒曜片",
+    "persistentCurrencyCandidate": "灯貨",
+    "persistentCurrencyHumanApproved": false,
+    "collection": "灯録",
+    "growthScreen": "旅支度",
+    "stageSelect": "夜の地図",
+    "initialWeapon": "最初の灯具",
+    "blackYouka": "黒耀化",
+    "noBlackYoukaBonus": "黒耀化なし",
+    "enemyDefeatVerb": "ほどく",
+    "resultClear": "夜明け",
+    "resultDefeat": "夜に飲まれた",
+    "resultRewards": "持ち帰り",
+    "resultNewRecords": "新しい記録",
+    "resultElite": "強敵"
+  },
+  "knownActiveCopyMigrationTargets": [
+    "VAMP PON",
+    "忘れ物帳",
+    "黒曜研究所",
+    "黒曜なし",
+    "EXPを拾ってレベルアップ",
+    "Rewards",
+    "New Records",
+    "Elite"
+  ],
+  "settingsBaseline": [
+    {
+      "id": "bgmVolume",
+      "label": "BGM",
+      "kind": "range",
+      "range": [0, 1],
+      "default": 1,
+      "persistence": "APP_PREFERENCE"
+    },
+    {
+      "id": "seVolume",
+      "label": "SE",
+      "kind": "range",
+      "range": [0, 1],
+      "default": 1,
+      "persistence": "APP_PREFERENCE"
+    },
+    {
+      "id": "hapticsEnabled",
+      "label": "振動",
+      "kind": "toggle",
+      "default": true,
+      "persistence": "APP_PREFERENCE"
+    },
+    {
+      "id": "reducedMotion",
+      "label": "演出を控えめに",
+      "kind": "toggle",
+      "default": false,
+      "persistence": "APP_PREFERENCE"
+    }
+  ],
+  "currencyMigration": {
+    "currentFormatterCoverage": "11/11",
+    "targetFormatterCoverage": "11/11",
+    "guardedCodemodCheck": "pnpm currency-display:codemod:check",
+    "guardedCodemodWrite": "pnpm currency-display:codemod:write",
+    "displayRenameAllowed": false
+  },
+  "implementationOrder": [
+    "record git and PR state",
+    "run static preflight and current-head tests/build",
+    "apply guarded currency formatter codemod",
+    "migrate active player-facing copy without mass replacement",
+    "implement four-setting preference owner and UI",
+    "connect Web reference and production Unity semantics without duplicating ownership",
+    "run tests/build/checkers",
+    "capture visual/runtime evidence",
+    "update docs and PR without promoting readiness gates"
+  ],
+  "mustNotChange": [
+    "PlayerProfile.currency",
+    "PlayerProfile.totalCurrencyEarned",
+    "NightBoardReward.type:light_coin",
+    "UpgradeId:currencyGain",
+    "Shadow stable IDs kage1..kage4",
+    "Current48 IDs",
+    "Stage1 historical Clear Getter cell IDs",
+    "黒曜片 to 灯貨 without explicit Human approval",
+    "Main Mystery final answer",
+    "launch-v1 100 percent denominator",
+    "U49 readiness flags without physical-device evidence"
+  ],
+  "openWithoutBlockingImplementation": [
+    "persistent wallet final display name",
+    "Stage number presentation",
+    "final Home flavor title adoption",
+    "Shop launch scope",
+    "exact economy prices and reward quantities",
+    "exact Stage waves and tuning",
+    "Main Mystery final answer",
+    "100 percent launch denominator"
+  ],
+  "readiness": {
+    "codexHandoffReady": true,
+    "currentHeadFullTestsExecuted": true,
+    "currentHeadBuildExecuted": true,
+    "currencyFormatterFullyConnected": true,
+    "playerFacingCopyFullyConnected": true,
+    "settingsRuntimeConnected": true,
+    "webVisualQaExecuted": true,
+    "unityBatchCompileExecuted": true,
+    "physicalDeviceEvidenceProvided": false,
+    "u49": "BLOCKED_BY_PHYSICAL_DEVICE_EVIDENCE",
+    "productionApproved": false
+  }
+}

@@ -1,32 +1,16 @@
 import { spawnSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import {
+  assertFullPreflightManifest,
+  requiredFullPreflightChecks,
+} from './unity-full-preflight-manifest.ts';
 
-const scripts = [
-  'implementation:preflight:check',
-  'assets:verify',
-  'unity:ui-design-system:check',
-  'unity:u43-device-p0-playable-runtime-repair:check',
-  'unity:u43-predevice-automated-smoke:check',
-  'unity:u44-web-to-unity-parity-audit:check',
-  'unity:u45-stage-battle-levelup-app-quality:check',
-  'unity:u45-settings-repair:check',
-  'unity:u45-ai-simulator-smoke:check',
-  'unity:u45-1-runtime-dot-animation:check',
-  'unity:u46-app-flow-save-result-collection:check',
-  'unity:u47-capture-catalog:check',
-  'unity:u47-simulator-manifest:check',
-  'unity:u47-gameplay-data-runtime:check',
-  'unity:u48-production-asset-expansion:check',
-  'unity:u48-production-asset-approval-pack:check',
-  'unity:u48-candidate-live-preview:check',
-  'unity:u48-batch-a-contracts:check',
-  'unity:u48-batch-a-review-ready:check',
-  'unity:runtime-visual-readiness:check',
-  'unity:meta:check',
-  'test',
-  'build',
-] as const;
+const packageJson = JSON.parse(readFileSync('package.json', 'utf8')) as {
+  scripts?: Record<string, unknown>;
+};
+assertFullPreflightManifest(packageJson.scripts ?? {});
 
-for (const script of scripts) {
+for (const script of requiredFullPreflightChecks) {
   console.log(`\n=== pnpm ${script} ===`);
   const result = spawnSync('pnpm', [script], {
     cwd: process.cwd(),
@@ -45,4 +29,4 @@ for (const script of scripts) {
   }
 }
 
-console.log('\nUnity big implementation full preflight passed. This does not promote device, visual, audio, haptic, RC or production readiness by itself.');
+console.log('\nUnity big implementation full preflight passed. U48 provenance/approval/promotion/connection/verification and U49 static/evidence checks are covered; actual-device, performance, RC and production readiness are not promoted by this command.');

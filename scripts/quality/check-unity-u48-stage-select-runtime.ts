@@ -10,6 +10,7 @@ const catalog = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSe
 const model = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/StageSelect/StageSelectModel.cs');
 const flow = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/AppFlowCoordinator.cs');
 const view = read('unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/StageSelectView.cs');
+const shell = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/AppFlow/U46RuntimeShell.cs');
 const verification = JSON.parse(read('docs/design-targets/generated/unity-u48/batch-c/stage-select-runtime-verification.json'));
 
 check(audit.knownStageIds.length === 20 && new Set(audit.knownStageIds).size === 20, '20 unique canonical stages');
@@ -24,6 +25,8 @@ check(model.includes('save.unlockedStageIds.Contains(entry.StageId)') && model.i
 check(flow.includes('StageStartResultCode.UnknownStage') && flow.includes('StageStartResultCode.Locked') && flow.includes('StageStartResultCode.NotImplemented') && flow.includes('StageStartResultCode.Duplicate'), 'domain start guards');
 check(view.includes('button.onClick.AddListener(() => coordinator.StageSelection.Select(captured))') && view.includes('startButton.interactable = coordinator.StageSelection.CanStartSelected'), 'actual card interaction and disabled button');
 check(view.includes('RectMask2D') && view.includes('ScrollRect') && view.includes('StageCatalogContent'), 'responsive scroll catalog');
+check(view.includes('CreateRouteLine(content.transform') && view.includes('UiResponsiveRuntime.ResolveCurrentScreen()') && !view.includes('GridLayoutGroup'), 'responsive night-route map replaces the generic card grid');
+check(shell.includes('battleHudRoot.gameObject.SetActive(state is AppFlowState.Running or AppFlowState.LevelUpModal)'), 'battle HUD is hidden outside gameplay states');
 check(verification.passed === true && verification.assertionCount >= 30 && verification.failureCount === 0, 'Editor runtime verification evidence');
 check(verification.unknownStageRejected && verification.lockedStageRejected && verification.unimplementedStageRejected && verification.duplicateStartRejected, 'command rejection evidence');
 check(verification.unlockedCardTap && verification.lockedCardTap && verification.disabledButton && verification.enabledButtonTap, 'actual UI interaction evidence');

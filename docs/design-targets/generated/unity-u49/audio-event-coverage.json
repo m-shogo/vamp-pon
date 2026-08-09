@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "8f6928663e00b549c82791ccff14a6482091b66d",
+  "requiredEventCount": 22,
+  "coveredEventCount": 22,
+  "missingCriticalEventCount": 0,
+  "duplicateEventCount": 0,
+  "productRouter": "U49AudioHapticRuntimeOwner",
+  "compatibilityFacade": "U43RuntimeFeedbackBridge",
+  "verificationRoute": "U49DeviceVerificationHarness uses the same owner and profile",
+  "events": [
+    {
+      "eventId": "battle_start",
+      "u28EventId": "BattleStart",
+      "clipBound": true,
+      "group": "Battle",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "pickup_xp",
+      "u28EventId": "PickupXp",
+      "clipBound": true,
+      "group": "Pickup",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "pickup_heal",
+      "u28EventId": "PickupHeal",
+      "clipBound": true,
+      "group": "Pickup",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "pickup_rare",
+      "u28EventId": "PickupRare",
+      "clipBound": true,
+      "group": "Pickup",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "levelup_open",
+      "u28EventId": "LevelupOpen",
+      "clipBound": true,
+      "group": "UI",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "card_select",
+      "u28EventId": "CardSelect",
+      "clipBound": true,
+      "group": "UI",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "card_confirm",
+      "u28EventId": "CardConfirm",
+      "clipBound": true,
+      "group": "UI",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "weapon_fire_soft",
+      "u28EventId": "WeaponFireSoft",
+      "clipBound": true,
+      "group": "Battle",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "enemy_hit_soft",
+      "u28EventId": "EnemyHitSoft",
+      "clipBound": true,
+      "group": "Battle",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "enemy_defeat_ink",
+      "u28EventId": "EnemyDefeatInk",
+      "clipBound": true,
+      "group": "Battle",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "player_damage",
+      "u28EventId": "PlayerDamage",
+      "clipBound": true,
+      "group": "Battle",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "evolution_convergence",
+      "u28EventId": "EvolutionConvergence",
+      "clipBound": true,
+      "group": "Climax",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "evolution_complete",
+      "u28EventId": "EvolutionComplete",
+      "clipBound": true,
+      "group": "Climax",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "kokuyou_ready",
+      "u28EventId": "KokuyouGaugeReady",
+      "clipBound": true,
+      "group": "Climax",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "kokuyou_activation",
+      "u28EventId": "KokuyouActivation",
+      "clipBound": true,
+      "group": "Climax",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "kokuyou_ending",
+      "u28EventId": "KokuyouEnding",
+      "clipBound": true,
+      "group": "Climax",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "result_stamp",
+      "u28EventId": "ResultStamp",
+      "clipBound": true,
+      "group": "Result",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "reward_card",
+      "u28EventId": "RewardCard",
+      "clipBound": true,
+      "group": "Result",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "unlock_reveal",
+      "u28EventId": "UnlockReveal",
+      "clipBound": true,
+      "group": "Result",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "stage_lantern",
+      "u28EventId": "StageSelectLantern",
+      "clipBound": true,
+      "group": "StageSelect",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "stage_route_unlock",
+      "u28EventId": "StageRouteUnlock",
+      "clipBound": true,
+      "group": "StageSelect",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    },
+    {
+      "eventId": "retry_confirm",
+      "u28EventId": "RetryConfirm",
+      "clipBound": true,
+      "group": "UI",
+      "productionOwner": "U49AudioHapticRuntimeOwner"
+    }
+  ]
+}

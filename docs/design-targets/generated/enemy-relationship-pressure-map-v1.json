@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "CURRENT_ENCOUNTER_DESIGN_GUIDE_VALUES_OPEN",
+  "authority": {
+    "humanReadable": "docs/enemy-encounter-relationship-pressure-v1.md",
+    "enemyMaster": "docs/ENEMIES.md",
+    "productionIdentity": "src/game/data/enemyProductionDatabase.ts",
+    "relationshipArcs": "docs/character-relationship-arc-book-v1.md"
+  },
+  "invariants": [
+    "combat readability outranks lore ambiguity",
+    "regular enemies should usually have one primary pressure verb and at most one secondary verb",
+    "enemy counters must not require one specific character",
+    "characters and pairs may gain alternate or stronger solutions without becoming mandatory",
+    "existing Current48 identities must not be replaced by legacy enemy names",
+    "legacy mechanics may be reused without reviving legacy identity or lore",
+    "enemy defeat should read as fixed meaning dissolving rather than biological gore",
+    "collection lore must remain optional for power progression",
+    "exact spawn damage cooldown and balance values remain open"
+  ],
+  "pressureVerbs": {
+    "chase": ["ombu_small_ink", "ombu_small_dog", "ombu_small_wolf"],
+    "block": ["omburo_ticket_gate", "omburo_chalkboard", "omburo_moon_box"],
+    "fix": ["ombu_small_name", "ombu_small_stamp", "ombu_small_pin"],
+    "delay": ["ombu_small_envelope", "ombu_small_thread", "omburo_dream_wave"],
+    "hide": ["ombu_small_lens", "ombu_small_photo", "ombu_small_crow"],
+    "gather": ["ombu_small_bell", "omburo_ink_arm"],
+    "close": ["ombu_small_keyhole", "omburo_moon_box", "omburo_blank_card"],
+    "misroute": ["ombu_small_compass", "omburo_compass", "boss_night_without_route"],
+    "replace_identity": ["ombu_small_name", "boss_name_without_owner"],
+    "leave_trace": ["omburo_repair_seam", "ombu_small_photo", "ombu_small_flower"]
+  },
+  "pairModules": [
+    {
+      "id": "false-owner",
+      "pair": ["yui", "asa"],
+      "enemyIds": ["ombu_small_name", "ombu_small_stamp", "omburo_nameplate", "boss_name_without_owner"],
+      "lowBondFailure": "mark and collect false labels too quickly",
+      "highBondSolution": "delay target confirmation and temporarily hold ownerless targets",
+      "playerLesson": "use movement silhouette and context in addition to labels"
+    },
+    {
+      "id": "double-guard-trap",
+      "pair": ["nagi", "kage1"],
+      "enemyIds": ["omburo_moon_box", "omburo_ink_arm", "boss_closed_morning_box"],
+      "lowBondFailure": "both defensive tools are spent on the same attack",
+      "highBondSolution": "intercept then seal then retreat",
+      "playerLesson": "sequence protection instead of stacking it"
+    },
+    {
+      "id": "broken-compass",
+      "pair": ["michiru", "kage3"],
+      "enemyIds": ["ombu_small_compass", "ombu_small_pin", "omburo_compass", "boss_night_without_route"],
+      "lowBondFailure": "measured route is held too long or improvised route changes too often",
+      "highBondSolution": "alternate measured and adaptive route segments",
+      "playerLesson": "learn the conditions that change the safe line"
+    },
+    {
+      "id": "repair-scar",
+      "pair": ["tomori", "kage4"],
+      "enemyIds": ["ombu_small_thread", "ombu_small_button", "omburo_repair_seam", "omburo_blank_card"],
+      "choices": ["full_repair", "temporary_stitch", "leave_scar_as_blocker"],
+      "playerLesson": "maximum repair is not always the best repair"
+    },
+    {
+      "id": "protect-wrong-target",
+      "pair": ["ritsu", "koyori"],
+      "enemyIds": ["ombu_small_bell", "ombu_small_dog"],
+      "lowBondFailure": "Koyori is locked into safety while the small important signal is lost",
+      "highBondSolution": "Koyori chooses the role",
+      "playerLesson": "protection should not erase agency"
+    },
+    {
+      "id": "uncertain-difference",
+      "pair": ["madoka", "ren"],
+      "enemyIds": ["ombu_small_lens", "ombu_small_photo"],
+      "lowBondFailure": "warning is withheld until certainty",
+      "highBondSolution": "separate observed difference from threat relevance",
+      "playerLesson": "not every difference is important, but uncertain warnings can still be useful"
+    }
+  ],
+  "bossCandidates": {
+    "boss_name_without_owner": {
+      "theme": "name is not sufficient to establish ownership or personhood",
+      "phases": ["label", "duplicate_label", "wrong_ownership", "ownerless_core"],
+      "counter": "read silhouette movement behavior and context instead of UI label alone",
+      "resonantCharacters": ["asa", "yui", "kage2"],
+      "futureResonance": ["yomo"]
+    },
+    "boss_closed_morning_box": {
+      "theme": "safety can become imprisonment when choice and exit disappear",
+      "phases": ["shelter", "narrow", "lock", "open_core"],
+      "counter": "choose when to leave safety and attack during opening windows",
+      "resonantCharacters": ["nagi", "kage1", "tobari", "kuroori"],
+      "futureResonance": ["chloe"]
+    },
+    "boss_night_without_route": {
+      "theme": "a correct route can stop being correct",
+      "phases": ["one_safe_line", "reverse_path", "recalculate", "multiple_dawn_routes"],
+      "counter": "remember route history, read telegraphs and switch routes",
+      "resonantCharacters": ["michiru", "kage3", "gen", "madoka", "ren"],
+      "futureResonance": ["amane", "renji"]
+    }
+  },
+  "collectionProgression": ["first_encounter_combat_tip", "repeated_encounter_released_clue", "optional_character_observation", "boss_clear_rereading"]
+}

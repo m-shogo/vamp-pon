@@ -3,13 +3,13 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { u47SimulatorCaptures, u47SimulatorCaptureCatalogHash } from './u47-simulator-capture-catalog.ts';
-import { u47SimulatorEvidenceSourceFiles } from './u47-simulator-evidence-sources.ts';
+import { normalizeU47SimulatorEvidenceSource, u47SimulatorEvidenceSourceFiles } from './u47-simulator-evidence-sources.ts';
 
 const root = resolve(import.meta.dirname, '../..');
 const evidenceRoot = resolve(root, 'docs/design-targets/generated/unity-u47/simulator-smoke');
 const sha = (path: string) => createHash('sha256').update(readFileSync(path)).digest('hex');
 const sourceFingerprint = createHash('sha256');
-for (const file of u47SimulatorEvidenceSourceFiles) sourceFingerprint.update(file).update('\0').update(readFileSync(resolve(root, file))).update('\0');
+for (const file of u47SimulatorEvidenceSourceFiles) sourceFingerprint.update(file).update('\0').update(normalizeU47SimulatorEvidenceSource(file, readFileSync(resolve(root, file)))).update('\0');
 
 const entries = u47SimulatorCaptures.map(capture => {
   const screenshot = resolve(evidenceRoot, 'screenshots', `${capture.captureId}.png`);

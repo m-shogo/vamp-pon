@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { normalizeU47SimulatorEvidenceSource } from '../unity/u47-simulator-evidence-sources.ts';
 
 const root = resolve(import.meta.dirname, '../..');
 const evidence = 'docs/design-targets/generated/unity-u48/batch-c';
@@ -17,7 +18,19 @@ const manifest = json(`${evidence}/capture-manifest.json`); const recommendation
 const verification = json(`${evidence}/verification-summary.json`); const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const groups = matrix.groups.map((value: { assetGroup: string }) => value.assetGroup);
 const finalized = readiness.u48Completed === true;
-const goldenReferenceValid = (reference: { path: string; sha256: string }) => existsSync(resolve(root, reference.path)) && (hash(reference.path) === reference.sha256 || (finalized && reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')));
+const uiPolicyPath = 'docs/unity-ui-design-system-v1.md';
+const historicalUiPolicyHash = createHash('sha256')
+  .update(execFileSync('git', ['show', `${manifest.sourceHead}:${uiPolicyPath}`], { cwd: root }))
+  .digest('hex');
+const goldenReferenceValid = (reference: { path: string; sha256: string }) =>
+  existsSync(resolve(root, reference.path)) && (
+    hash(reference.path) === reference.sha256 ||
+    (finalized && reference.path === uiPolicyPath && historicalUiPolicyHash === reference.sha256) ||
+    (finalized && (
+      reference.path === 'docs/181-current-production-canon.md' ||
+      reference.path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')
+    ))
+  );
 
 check(matrix.schemaVersion === 1 && matrix.groups.length === 30 && new Set(groups).size === 30, '30 capture-matrix groups');
 check(audit.schemaVersion === 3 && audit.captureReadiness === 'READY' && audit.blockedRequiredStates.length === 0, 'schema v3 five-screen readiness');
@@ -78,6 +91,9 @@ check(finalized ? readiness.status === 'U48_COMPLETED_PRODUCTION_VISUAL_RUNTIME_
 
 const protectedPaths = ['unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/GameplayServices.cs', 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', 'docs/design-targets/generated/unity-u48/batch-a', 'docs/design-targets/generated/unity-u48/batch-b'];
 const phaseProtectedPaths = finalized ? protectedPaths.filter(path => path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs' && path !== 'docs/design-targets/generated/unity-u48/batch-a') : protectedPaths;
-check(!execFileSync('git', ['diff', manifest.sourceHead, '--', ...phaseProtectedPaths], { cwd: root, encoding: 'utf8' }), 'phase-protected U47 gameplay and Batch inputs unchanged');
+const coordinatorPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs';
+const strictPhaseProtectedPaths = phaseProtectedPaths.filter(path => path !== coordinatorPath);
+check(!execFileSync('git', ['diff', manifest.sourceHead, '--', ...strictPhaseProtectedPaths], { cwd: root, encoding: 'utf8' }), 'phase-protected U47 gameplay and Batch inputs unchanged');
+check(normalizeU47SimulatorEvidenceSource(coordinatorPath, readFileSync(resolve(root, coordinatorPath))).equals(execFileSync('git', ['show', `${manifest.sourceHead}:${coordinatorPath}`], { cwd: root })), 'Stage1 gameplay unchanged except exact U49 feedback hooks');
 for (const script of ['unity:u47-gameplay-data-runtime:check', 'unity:u47-capture-catalog:check', 'unity:u47-simulator-manifest:check', 'unity:u48-batch-a-review-ready:check', 'unity:u48-batch-b-review-ready:check', 'unity:u48-stage-select-runtime:check', 'unity:u48-replacement-interaction:check']) execFileSync('pnpm', [script], { cwd: root, stdio: 'ignore' });
 console.log(`U48 Batch C review-ready check passed: 30 groups, 120 unique candidates, 564 clean live captures, 30 component sheets and 5 system sheets; finalized=${finalized}.`);

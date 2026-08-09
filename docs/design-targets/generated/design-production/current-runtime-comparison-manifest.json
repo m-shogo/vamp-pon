@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-28",
+  "status": "CURRENT_RUNTIME_BASELINE_MANIFEST",
+  "sourceAudit": "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json",
+  "runtimeSourceCommit": "6a18de469426f923aa107c7e5f1d5ebd9bc814c9",
+  "viewport": {"width": 390, "height": 844},
+  "rules": {
+    "captureDoesNotImplyVisualApproval": true,
+    "missingRuntimeScreenMayUseAbsenceEvidence": true,
+    "newGenerationComparisonMustIncludeThisManifest": true,
+    "humanVisualRejectionSupersedesAutomatedPass": true
+  },
+  "screens": [
+    {
+      "screenId": "TOP",
+      "runtimeState": "MISSING",
+      "capture": null,
+      "comparisonEvidence": [
+        "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json",
+        "docs/design-targets/generated/design-production/reference-registry.json",
+        "docs/design-generation-briefs-wave1-v1.md"
+      ],
+      "generationComparisonReady": true,
+      "note": "独立TOPが存在しないため、absence evidenceと旧referenceをbaselineにする。"
+    },
+    {
+      "screenId": "STAGE_SELECT",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/01-stage-select.png",
+      "sha256": "94975f011b127849fcad031a96b29bf1c8b198c5fd6b0783638db6dada5b9ea7",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "BATTLE_BACKGROUND",
+      "runtimeState": "POLISH",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "sha256": "3d5e2d46bc972b74c5f264f4ba6982d084de4356d43629023cfcf93f842a7245",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "BATTLE_HUD",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/02-initial-night-pencil.png",
+      "sha256": "3d5e2d46bc972b74c5f264f4ba6982d084de4356d43629023cfcf93f842a7245",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "PAUSE",
+      "runtimeState": "MISSING",
+      "capture": null,
+      "comparisonEvidence": [
+        "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screen-audit.json",
+        "docs/design-screen-completion-specifications-v1.md"
+      ],
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "LEVEL_UP",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/03-levelup-actual-choices.png",
+      "sha256": "8767232a96572db7f9d2d4021de7daeec7e88c40620ea3ccbece721f7995a207",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "INVENTORY",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/04-inventory-weapon-passive.png",
+      "sha256": "2d149032eb86d625a544e6341a46fc2d2b3cd0177be96f3b97177d488ae0b56b",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "REPLACEMENT",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/07-levelup-replacement.png",
+      "sha256": "7e6e933987298d5b2a1aa6c9e8d7cc92208b375811cd4f3a087593c16a8cc5fe",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "EVOLUTION",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/10-fusion-ready.png",
+      "sha256": "2e41a5555314d200b007e70c3c7f00e3dd806cfef8dbbe4eaba3eb0b46690685",
+      "supportingCapture": "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screenshots/07-evolution-runtime.png",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "AWAKENING",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/13-unforgotten-name.png",
+      "sha256": "12532f805343efbbad4a4938b18a2a8a2eba4c6ab6a3a256ad972b07b736c03d",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "KOKUYOU",
+      "runtimeState": "POLISH",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/17-kokuyou-ready.png",
+      "sha256": "7594e67d6a8fabb652e0c9cb3d11fa32b3b3c6f790fb59b0a20197eec9b19238",
+      "supportingCapture": "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screenshots/10-kokuyou-active.png",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "RESULT",
+      "runtimeState": "REPLACE",
+      "capture": "docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/20-result-u47-summary.png",
+      "sha256": "c797b187b366a4713bb0e732c7262e3cc20843b6ec4cadb044e794c70b723ce1",
+      "generationComparisonReady": true
+    },
+    {
+      "screenId": "COLLECTION",
+      "runtimeState": "POLISH",
+      "capture": "docs/design-targets/generated/unity-whole-app-design-audit-2026-07-27/screenshots/12-collection.png",
+      "sha256": "1464464fc41028bee191cdff478ea6d05d5ad6f7c849c67647638502b1aef1c3",
+      "generationComparisonReady": true
+    }
+  ],
+  "summary": {
+    "screenCount": 13,
+    "capturedScreenCount": 11,
+    "missingRuntimeScreenCount": 2,
+    "comparisonReadyCount": 13,
+    "wholeAppHumanVisualAccepted": false
+  },
+  "nextAction": "USE_AS_BASELINE_FOR_WAVE1_COMPARISON_PACKS"
+}

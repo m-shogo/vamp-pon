@@ -84,7 +84,7 @@ namespace VampPon.UnitySpike.Diagnostics
 
             shell.CompleteVerificationRun(true, true); yield return WaitFor(() => shell.Flow.State == AppFlowState.Result, 4f, "clear rewards");
             yield return new WaitForSecondsRealtime(0.4f);
-            Set("clearRewards", FindText("踏破") && FindText("記憶の欠片") && !FindText("持ち帰った記憶はありません"));
+            Set("clearRewards", FindText("夜明け") && FindText("記憶片") && !FindText("持ち帰りはありません"));
             yield return Capture("02-result-clear-rewards.png");
             Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "retry");
             Set("retryReset", !shell.Pause.IsPaused && FindAnyObjectByType<U2BattleController>().ElapsedSeconds < 1f);
@@ -95,12 +95,12 @@ namespace VampPon.UnitySpike.Diagnostics
             Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "clear empty retry");
 
             shell.CompleteVerificationRun(false, true); yield return new WaitForSecondsRealtime(0.5f);
-            Set("failRewards", FindText("帰還") && FindText("記憶の欠片"));
+            Set("failRewards", FindText("夜に飲まれた") && FindText("記憶片"));
             yield return Capture("04-result-fail-rewards.png");
             Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "fail rewards retry");
 
             shell.CompleteVerificationRun(false, false); yield return new WaitForSecondsRealtime(0.5f);
-            Set("failEmpty", FindText("帰還") && FindText("持ち帰った記憶はありません") && FindText("新しい記録はありません"));
+            Set("failEmpty", FindText("夜に飲まれた") && FindText("持ち帰りはありません") && FindText("新しい記録はありません"));
             yield return Capture("05-result-fail-empty.png");
             Invoke("RetryButton"); yield return WaitFor(() => shell.Flow.State == AppFlowState.Running, 4f, "fail empty retry");
 

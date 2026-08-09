@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { VIEW_DEPTH } from './factory';
+import { reducedMotionEnabled, requestAppHaptic } from '../persistence/appPreferences';
 
 export type PressFeedbackOptions = {
   x?: number;
@@ -22,12 +23,12 @@ type PressVisual = Phaser.GameObjects.GameObject & {
   setAlpha?: (alpha: number) => PressVisual;
 };
 
-function vibrate(ms: number): void {
-  if (typeof navigator === 'undefined') return;
-  navigator.vibrate?.(ms);
-}
-
 function pressBurst(scene: Phaser.Scene, x: number, y: number, width: number, height: number, accent: number, depth: number, strong: boolean): void {
+  if (reducedMotionEnabled()) {
+    const halo = scene.add.circle(x, y, Math.max(width, height) * 0.34, accent, strong ? 0.12 : 0.08).setDepth(depth);
+    scene.time.delayedCall(80, () => halo.destroy());
+    return;
+  }
   const ringRadius = Math.max(width, height) * (strong ? 0.5 : 0.43);
   const ring = scene.add.circle(x, y, ringRadius, accent, strong ? 0.1 : 0.06).setDepth(depth).setBlendMode('ADD');
   ring.setStrokeStyle(strong ? 3 : 2, accent, strong ? 0.74 : 0.48);
@@ -120,7 +121,9 @@ export function attachPressFeedback(
       ease: 'Quad.easeOut',
     });
     pressBurst(scene, x, y, width, height, accent, depth, strong);
-    vibrate(strong ? 12 : 6);
-    if (options.shake) scene.cameras.main.shake(strong ? 50 : 32, strong ? 0.0013 : 0.0008);
+    requestAppHaptic(strong ? 12 : 6);
+    if (options.shake && !reducedMotionEnabled()) {
+      scene.cameras.main.shake(strong ? 50 : 32, strong ? 0.0013 : 0.0008);
+    }
   });
 }

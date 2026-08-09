@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { GAME_FEEL_CONFIG } from '../config/GameFeelConfig';
+import { APP_PREFERENCES } from '../persistence/appPreferences';
 
 export type SeKey =
   | 'ui_select' | 'ui_confirm' | 'ui_cancel' | 'ui_open' | 'ui_close'
@@ -81,7 +82,6 @@ export type PlaySeOptions = {
 
 const AUDIO_MANIFEST_URL = '/assets/audio/audio-manifest.json';
 const KNOWN_AUDIO_KEYS = new Set<string>(AUDIO_ASSET_SPECS.map((spec) => spec.key));
-const STORAGE_KEY = 'vampPon.audio.v1';
 const MIN_INTERVAL_MS: Partial<Record<SeKey, number>> = {
   hit: 55,
   enemy_death: 80,
@@ -369,21 +369,20 @@ export class AudioManager {
   private resolveBgmVolume(volume = 1): number { return clampVolume(volume) * this.volumes.bgm * this.volumes.master; }
 
   private loadVolumes(): AudioVolumes {
-    if (typeof window === 'undefined') return { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false };
-    try {
-      const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '{}') as Partial<AudioVolumes>;
-      return {
-        master: typeof parsed.master === 'number' ? clampVolume(parsed.master) : GAME_FEEL_CONFIG.audioVolumeDefaults.master,
-        bgm: typeof parsed.bgm === 'number' ? clampVolume(parsed.bgm) : GAME_FEEL_CONFIG.audioVolumeDefaults.bgm,
-        se: typeof parsed.se === 'number' ? clampVolume(parsed.se) : GAME_FEEL_CONFIG.audioVolumeDefaults.se,
-        muted: parsed.muted === true,
-      };
-    } catch { return { ...GAME_FEEL_CONFIG.audioVolumeDefaults, muted: false }; }
+    const preferences = APP_PREFERENCES.get();
+    return {
+      master: GAME_FEEL_CONFIG.audioVolumeDefaults.master,
+      bgm: preferences.bgmVolume,
+      se: preferences.seVolume,
+      muted: false,
+    };
   }
 
   private saveVolumes(): void {
-    if (typeof window === 'undefined') return;
-    try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.volumes)); } catch { /* optional setting */ }
+    APP_PREFERENCES.update({
+      bgmVolume: this.volumes.bgm,
+      seVolume: this.volumes.se,
+    });
   }
 
   private warnMissingOnce(key: string): void {

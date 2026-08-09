@@ -1,122 +1,387 @@
 # ヨルノシルベ ドキュメント入口
 
-U46 completion: `unity-u46-app-flow-save-result-collection-2026-07-11.md`, `unity-u46-ui-asset-generation-2026-07-11.md`, `unity-u46-ios-simulator-smoke-2026-07-11.md`, `unity-u46-visual-review-2026-07-11.md`。U46.1 hardening: `unity-u46-1-result-save-hardening-2026-07-11.md`, `unity-u46-1-ios-simulator-regression-2026-07-11.md`。
+<!-- CURRENT_STATE_BEGIN -->
+```json
+{
+  "schemaVersion": 1,
+  "currentPhase": "U49 actual-device audio/haptic",
+  "nextPhase": "U50 performance/touch metrics",
+  "thenPhase": "U51 RC",
+  "runtimeVisualReady": true,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioReady": false,
+  "audioLatencyMeasured": false,
+  "hapticReady": false,
+  "hapticMeasured": false,
+  "u50ThresholdsDefined": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false
+}
+```
+<!-- CURRENT_STATE_END -->
 
 旧名 `Vamp Pon` / `ヴァンサバ改` は開発コード名です。
 
-## 最初に読む
+---
+
+# 0. Runtime / production入口
 
 ```txt
-unity-big-implementation-control-center-v1.md
-unity-current-doc-index-2026-07-10.md
-181-current-production-canon.md
-unity-runtime-ownership-contract-v1.md
-unity-runtime-visual-readiness-gate-v1.md
-unity-ui-design-system-v1.md
-asset-generation-consistency-system-v1.md
-unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
+docs/unity-big-implementation-control-center-v1.md
+→ docs/unity-current-doc-index-2026-07-10.md
+→ docs/181-current-production-canon.md
+→ docs/unity-runtime-ownership-contract-v1.md
+→ docs/unity-runtime-visual-readiness-gate-v1.md
+→ docs/unity-ui-design-system-v1.md
+→ docs/asset-generation-consistency-system-v1.md
+→ docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
 ```
 
-## 現在の最優先
-
 ```txt
-Completed: U46 AppFlow / Save / Result / 灯録 candidate
-Completed: U46.1 Result / Save Hardening
-Current: U47 gameplay data/runtime
+Completed: U47 gameplay data/runtime
+Completed: U48 production asset expansion
+Current: U49 actual-device audio/haptic
 ```
 
-U45.1でユイとオンブのMultiple sprite、実animation、candidate provider、Simulator回帰証跡を接続済み。Hardeningも完了し、候補runtimeとproduction visual/実機承認を分離した。
+Current boundary:
 
 ```txt
-implementationFoundationReady=true
-simulatorPlayableCandidateReady=true
-characterDotRuntimeReady=true
-enemyDotRuntimeReady=true
-runtimeVisualCandidateReady=true
-runtimeVisualReady=false
-runtimeCandidateAssetProviderConnected=true
-productionVisualAssetProviderConnected=false
-productionCharacterAssetReady=false
-productionEnemyAssetReady=false
-versionedSaveServiceImplemented=false
-sceneFlowCoordinatorImplemented=false
-actualDeviceSmokeResult=NOT_PROVIDED
+runtimeVisualClassification=production-animated-sprite
+runtimeVisualReady=true
+runtimeVisualCandidateReady=false
+productionVisualAssetProviderConnected=true
+runtimeCandidateAssetProviderConnected=false
+devicePlayableReady=false
 productionApproved=false
 ```
 
-Point Filter、GameObject名、操作可能、Simulator route成功だけではvisual完成と扱いません。
+`runtimeVisualReady=true`はU48 production visual runtime scopeだけを表す。実機、audio/haptic、performance、RC、製品承認は別gate。
 
-U45.1 evidence:
-
-```txt
-unity-u45-1-character-enemy-dot-runtime-pass-2026-07-10.md
-unity-u45-1-ios-simulator-animation-smoke-2026-07-10.md
-design-targets/generated/unity-u45-1/
-unity-u45-1-hardening-2026-07-10.md
-design-targets/generated/unity-u45-1-hardening/readiness.json
-```
-
-## 大規模実装の責務
-
-正本:
+2026-07-29 first implementation milestone:
 
 ```txt
-unity-runtime-ownership-contract-v1.md
+docs/CODEX-IMPLEMENTATION-HANDOFF-2026-07-29.md
+docs/PLAYER-FACING-TERMINOLOGY.md
+docs/SETTINGS-BASELINE.md
+docs/design-targets/generated/codex-first-implementation-milestone-2026-07-29/visual-review.json
 ```
 
-重要:
+Current-head verification recorded in the handoff:
 
-- navigation/pauseは単一owner
-- Definition / Runtime State / Save DTOを分離
-- UIからbattle/saveを直接操作しない
-- Result/灯録はread modelを表示
-- proof providerとproduction providerを分離
-- Bootstrap/BattleControllerへ新責務を集中させない
-
-## 主な品質チェック
-
-静的preflight:
-
-```sh
-pnpm implementation:preflight:check
+```txt
+current implementation HEAD = b32ed5ce4a98ac470e624bd7bddeed9ee6f29804
+U47 Simulator = 23/23 / manifest PASS / visual PASS within canonical U47 scope
+implementation:preflight:full = PASS
+GitHub Actions at source HEAD = jobs not started due GitHub billing/spending-limit blocker
+U49 = BLOCKED_BY_LOCKED_PHYSICAL_DEVICE
 ```
 
-checker、asset、test、buildをまとめたfull preflight:
+Current U49 final-device batch evidence:
 
-```sh
-pnpm implementation:preflight:full
+```txt
+docs/design-targets/generated/unity-u49/current-head-final-device-batch.json
+docs/design-targets/generated/unity-u49/supplemental-visual/review.json
 ```
 
-個別:
+The current-head device build and signing passed and the fresh app installed on the
+paired physical iPhone. The latest launch attempt was rejected because the device was
+locked; developer-profile trust can only be re-evaluated after unlock. Unity Settings
+changed from `REPLACE` to `PASS` in supplemental Simulator visual review. Unity First
+Run changed from `MISSING` to a normal-route runtime `PASS`, including save round trip,
+transition to gameplay, app relaunch, and persisted second-run skip. The U47 canonical
+denominator remains 23 and its fresh manifest reports stale evidence 0. No readiness
+flag was promoted from Simulator or static evidence.
 
-```sh
-pnpm asset-generation:check
-pnpm assets:verify
-pnpm unity:runtime-visual-readiness:check
-pnpm unity:ui-design-system:check
-pnpm unity:u45-ai-simulator-smoke:check
-pnpm unity:meta:check
+---
+
+# 1. Design入口
+
+```txt
+全体Canon
+→ CANON.md
+→ game-core-book-v1.md
+→ GAME-DESIGN.md
+
+Play Experience
+→ PLAY-EXPERIENCE.md
+→ COMBAT-RUN-DESIGN.md
+→ STAGE-ENCOUNTER-DESIGN.md
+→ stage-encounter-expansion-06-20-v1.md
+→ FIRST-RUN-EXPERIENCE.md
+→ MOBILE-CONTROL-EXPERIENCE.md
+→ DIFFICULTY-AND-PLAYER-AIDS.md
+→ META-ECONOMY-DESIGN.md
+→ POSTGAME-ENDGAME-DESIGN.md
+→ AUDIO-HAPTIC-DIRECTION.md
+→ ACCESSIBILITY-BASELINE.md
+→ FUN-BALANCE-PLAYTEST.md
+
+Character / Story / Gameplay
+→ CHARACTER-STORY-INTEGRATION.md
+→ CHARACTERS.md
+→ RELATIONSHIPS.md
+→ STORY.md
+→ ENEMIES.md
+
+Named Objects / Clear Getter / 100%
+→ NAMED-OBJECT-CONNECTIONS.md
+→ character-luminous-personal-item-book-v1.md
+→ CLEAR-GETTER-AND-100-PERCENT-REWARD.md
+→ PROGRESSION-ARCHIVE.md
+→ named-object-clear-getter-audit-2026-07-29.md
+→ named-object-runtime-migration-plan-v1.md
+→ named-object-runtime-foundation-2026-07-29.md
+→ named-object-runtime-connection-core5-stage1-2026-07-29.md
+
+Economy terminology / display migration
+→ collection-economy-terminology-review-2026-07-29.md
+→ collection-actual-run-currency-connection-2026-07-29.md
+→ meta-currency-display-migration-foundation-2026-07-29.md
 ```
 
-## 正本の優先順位
+---
 
-古いprototype資料や個別Phase資料と矛盾した場合:
+# 2. Character routing
 
-1. Big Implementation Control Center
-2. Current Production Canon
-3. Runtime Ownership Contract
-4. UI / Asset / Runtime Visualのadopted docs
-5. `src/game/data/*`
-6. 現行Unity runtime
-7. 最新evidence/checker
+```txt
+Current21
+→ CHARACTERS.md
+→ character-book-v4.md
+→ character-deep-core-book-v1.md
 
-## Historical docs
+Voice / relation
+→ RELATIONSHIPS.md
+→ character-relationship-arc-book-v1.md
+→ character-dialogue-relationship-book-v1.md
+→ character-voice-differentiation-guardrails-v1.md
+→ character-ensemble-daily-scene-bank-v1.md
+→ BOND.md
 
-U0〜U43の資料、初期コンセプト、U1開始promptは履歴として残します。
-現在のEditor version、Phase順、asset承認、READY判定には単独使用しません。
+黒耀化 / rescue / Dawn
+→ BLACK-YOUKA.md
+→ character-black-youka-rescue-book-v1.md
+→ character-dawn-proof-book-v1.md
 
-## 最優先の判断基準
+Future15
+→ FUTURE-CAST.md
+→ future-cast-profile-book-v1.md
+→ future-cast-relationship-story-reservoir-v1.md
+```
 
-面白そうな追加より、**完成に近づく追加**を優先します。
+---
 
-READYは、実装・runtime接続・実寸確認・evidence・checkerが揃った時だけ上げます。
+# 3. Enemy / Stage routing
+
+```txt
+Enemy / Kagemono
+→ ENEMIES.md
+→ enemy-encounter-relationship-pressure-v1.md
+→ enemy-ecology-and-encounter-recipes-v1.md
+→ kagemono-collection-entry-book-v1.md
+→ src/game/data/enemyProductionDatabase.ts
+
+Stage
+→ STAGE-ENCOUNTER-DESIGN.md
+→ stage-encounter-expansion-06-20-v1.md
+→ src/game/data/stageProductionDatabase.ts
+
+Stage1 Legacy runtime bridge
+→ src/game/data/stage1LegacyRuntimeCompatibility.ts
+→ src/game/data/collectionProgressCompatibility.ts
+→ src/game/systems/collectionProgress.ts
+```
+
+---
+
+# 4. Named-object invariant
+
+名前のある物は、display nameだけで漂わせない。
+
+Current Definitionでは最低4方向へ接続する。
+
+```txt
+Character
+Stage
+Gameplay verb
+Archive
+```
+
+lineage側でさらに:
+
+```txt
+Relationship
+黒耀化
+Dawn proof
+Evolution phase
+Clear Getter
+```
+
+へ接続する。
+
+Current design sources:
+
+- `NAMED-OBJECT-CONNECTIONS.md`
+- `character-luminous-personal-item-book-v1.md`
+- `CLEAR-GETTER-AND-100-PERCENT-REWARD.md`
+
+Current data foundation:
+
+- `src/game/data/namedObjectRegistry.ts`
+- `src/game/data/namedObjectMigrationLedger.ts`
+- `src/game/data/namedObjectReadModels.ts`
+- `src/game/data/collectionProgressCompatibility.ts`
+- `src/game/data/stage1LegacyRuntimeCompatibility.ts`
+- `src/game/data/collectionProgressSaveV2.ts`
+- `src/game/data/allLightsCompletion.ts`
+- `src/game/data/globalConstellationDefinition.ts`
+- `src/game/data/collectionEconomyTerminology.ts`
+- `src/game/data/metaCurrencyDisplay.ts`
+- `src/game/data/metaCurrencyDisplayMigration.ts`
+
+Coverage:
+
+```txt
+Current21 object lineages      = 21
+phases per lineage             = 6
+stable named objects           = 126
+Stage roots                    = 20
+Character roots                = 21
+Item-lineage roots             = 21
+Stage1 historical nodes        = 25
+Stage1 active candidates       = 22
+Stage1 legacy archive-only     = 3
+Stage1 legacy runtime subjects = 8
+Named-object graph links       = 126
+Economy/mechanic concepts      = 4 separated
+Wallet display surfaces        = 11
+Wallet formatter connected     = 2
+Wallet formatter remaining     = 9
+```
+
+## Stage1 compatibility boundary
+
+```txt
+compatibility version          = stage1-compat-v2
+historical cells preserved     = 25/25
+active Current/dual-read cells = 22
+legacy archive-only cells      = 3
+runtime denominator frozen     = false
+```
+
+Dual-read Current Stage1 successors:
+
+```txt
+ink_shadow         ↔ ombu_small_ink
+black_label_shadow ↔ omburo_ink_arm
+bag_yorishiro      ↔ boss_name_without_owner
+```
+
+The following are retained but do not automatically enter a future completion denominator:
+
+```txt
+fs_002_release_paper_scrap_shadow
+fs_003_release_night_haze
+fs_025_view_nemori_record
+```
+
+## Economy terminology boundary
+
+```txt
+永続強化資源 = PlayerProfile.currency / Current display 黒曜片 / naming review pending
+記憶片       = run-only XP pickup
+灯貨         = real-tracked Stage1 one-run counter display / wallet candidate only
+黒耀化       = battle/story mechanic, not currency
+```
+
+Wallet display migration:
+
+```txt
+Current display          = 黒曜片
+candidate display        = 灯貨
+formatter coverage       = 2 / 11
+remaining surfaces       = 9
+Human naming approved    = false
+rename                    = blocked
+```
+
+## 100% reward Current direction
+
+# **全灯の朝**
+
+- playable Dawn Square celebration
+- Current21 / 星獣 / 21の光る持ち物
+- full ensemble animated page
+- completion medley
+- all-character cosmetic `星図継ぎの灯`
+- remix mode `星図継ぎの夜`
+- title / seal / archive frame
+- small future anomaly
+
+True Endingではない。
+Main Happy Endを最大級に祝うcompletion festival。
+
+Current fail-closed boundary:
+
+```txt
+design version = design-v1
+runtime denominator frozen = false
+runtime connected = false
+```
+
+分母freeze前は全条件が揃って見えてもunlockしない。
+
+---
+
+# 5. Machine-readable design / Definition memory
+
+```txt
+design-targets/generated/character-relationship-arc-map-v1.json
+design-targets/generated/character-relationship-coverage-v1.json
+design-targets/generated/enemy-relationship-pressure-map-v1.json
+design-targets/generated/character-black-youka-rescue-map-v1.json
+design-targets/generated/story-stage-character-placement-v1.json
+design-targets/generated/character-dawn-proof-map-v1.json
+design-targets/generated/character-story-gameplay-payoff-map-v1.json
+design-targets/generated/future-cast-relationship-story-map-v1.json
+design-targets/generated/character-story-integration-coverage-v1.json
+design-targets/generated/play-experience-design-coverage-v1.json
+design-targets/generated/named-object-registry-v1.json
+design-targets/generated/named-object-clear-getter-coverage-v1.json
+design-targets/generated/collection-economy-terminology-v1.json
+design-targets/generated/meta-currency-display-migration-v1.json
+```
+
+---
+
+# 6. Current design / foundation coverage
+
+```txt
+Current21 character integration       = 21/21
+Current21 luminous possessions         = 21/21 Definition
+Core5 luminous possession UI           = 5/5 connected
+Remaining Current21 keeper UI/assets   = 16
+Future15 story reservoir               = 15/15 (Future only)
+Current enemy identity/writing         = 48/48
+Stage gameplay identity                = 20/20 direction defined
+Current20 item lineage                 = 20/20 planning data
+Reserve Ren item lineage               = Working / launch denominator excluded
+Stable named objects                   = 126/126 Definition
+Stage1 Clear Getter history            = 25/25 preserved
+Stage1 future completion candidates    = 22 active / 3 archive-only
+Stage1 old/current runtime bridge      = partial dual-read connected
+Stage1 fs019 actual run counter        = connected
+Stage2–20 Clear Getter                 = architecture / Stage roots only
+Collection Save v2                     = draft migration / production not connected
+Global constellation                   = graph Definition / UI not implemented
+Economy terminology                    = concepts separated / display migration not approved
+Wallet formatter                       = 2/11 connected / 9 remaining
+Wallet lifecycle tests                 = added / current HEAD execution open
+100% reward 全灯の朝                    = design + fail-closed evaluator / content not implemented
+Runtime/device/Human evidence          = NOT COMPLETE
+```
+
+---

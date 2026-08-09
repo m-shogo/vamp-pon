@@ -1,5 +1,29 @@
 # 181. Current Production Canon
 
+<!-- CURRENT_STATE_BEGIN -->
+```json
+{
+  "schemaVersion": 1,
+  "currentPhase": "U49 actual-device audio/haptic",
+  "nextPhase": "U50 performance/touch metrics",
+  "thenPhase": "U51 RC",
+  "runtimeVisualReady": true,
+  "physicalDeviceReady": false,
+  "devicePlayableReady": false,
+  "audioMixerImplemented": true,
+  "audioMixerDeviceVerified": false,
+  "audioReady": false,
+  "audioLatencyMeasured": false,
+  "hapticReady": false,
+  "hapticMeasured": false,
+  "u50ThresholdsDefined": false,
+  "mobileMetricsReady": false,
+  "rcReady": false,
+  "productionApproved": false
+}
+```
+<!-- CURRENT_STATE_END -->
+
 Date: 2026-07-10
 Status: current production canon
 
@@ -257,13 +281,15 @@ runtime UIはuGUIを維持し、UI ToolkitはEditor専用。
 | world terms and content DB | source dataあり |
 | Asset Generation Contract | foundationあり |
 | Golden Reference | global/UIあり、identityは段階登録 |
-| Runtime Visual Readiness | gateあり、character/enemy未ready |
+| Runtime Visual Readiness | U48 production visual scope ready / device・whole-app approvalは別 |
 | UI Design System | foundationあり、全画面移行は未完了 |
-| AppFlow/Pause production owner | 未実装 |
-| versioned SaveService | 未実装 |
-| production DataRegistry | 未実装 |
-| Result/Collection read model | 未実装 |
-| actual device/audio/haptic/performance | 未確認 |
+| AppFlow/Pause production owner | U46実装済み |
+| versioned SaveService | U46実装、U46.1 hardening済み |
+| production DataRegistry | U47実装済み |
+| Result/Collection read model | U46実装済み |
+| U48 production asset expansion | 46 asset / 138 Simulator captureで完了 |
+| actual device/audio/haptic | U49 build・install・launch、22 SE、10 haptic、Core Haptics Supportedまで実機確認済み。音質は人間FAIL、touch/UI/黒耀化操作の是正と18項目reviewは未完了 |
+| performance/touch metrics | U50 threshold calibration前、未確認 |
 | RC/production | false |
 
 ## Next implementation order
@@ -286,6 +312,8 @@ pnpm asset-generation:check
 pnpm unity:runtime-visual-readiness:check
 pnpm unity:ui-design-system:check
 pnpm unity:u45-ai-simulator-smoke:check
+pnpm unity:u49-actual-device-audio-haptic:check
+pnpm unity:u50-thresholds:check
 ```
 
 READYは実装、evidence、checkerが揃った時だけ上げる。

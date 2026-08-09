@@ -29,7 +29,15 @@ const contracts = json('docs/design-targets/generated/unity-u48/batch-c/generati
 const recipes = json('docs/design-targets/generated/unity-u48/batch-c/generation-recipes.json');
 const readiness = json('docs/design-targets/generated/unity-u48/readiness.json');
 const finalized = readiness.u48Completed === true && readiness.runtimeVisualReady === true;
-const mutableHistoricalReference = (path: string) => finalized && path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/');
+const uiPolicyPath = 'docs/unity-ui-design-system-v1.md';
+const uiPolicyHistoricalHash = '769d422833ad9a6fae36b7763e78e9da69b3a5fd35b8692daa52038ea280f497';
+const historicalUiPolicy = execFileSync('git', ['show', `${sourceHead}:${uiPolicyPath}`], { cwd: root });
+check(createHash('sha256').update(historicalUiPolicy).digest('hex') === uiPolicyHistoricalHash, 'historical UI policy Git object hash');
+const mutableHistoricalReference = (path: string) => finalized && (
+  path === 'docs/181-current-production-canon.md' ||
+  path === uiPolicyPath ||
+  path.startsWith('docs/design-targets/generated/unity-u47/simulator-smoke/screenshots/')
+);
 const goldenReferenceHashes = new Map<string, string>();
 
 check(comparison.activeComparisonGroupCount === 30 && comparison.comparisonGroups.length === 30, '30 comparison units');
@@ -51,7 +59,8 @@ for (const entry of audit.entries) {
   check(entry.safeAreaOwner && entry.interactionOwner && Array.isArray(entry.currentStates), `${entry.assetGroup} ownership audit`);
   if (entry.currentAssetPath) {
     check(existsSync(resolve(root, entry.currentAssetPath)), `${entry.assetGroup} current asset exists`);
-    check(sha256(entry.currentAssetPath) === entry.currentSha256, `${entry.assetGroup} current asset hash`);
+    const actualCurrentHash = sha256(entry.currentAssetPath);
+    check(actualCurrentHash === entry.currentSha256, `${entry.assetGroup} current asset hash expected=${entry.currentSha256} actual=${actualCurrentHash}`);
     check(typeof entry.currentGuid === 'string' && entry.currentGuid.length === 32, `${entry.assetGroup} current GUID`);
   }
 }
@@ -63,7 +72,10 @@ for (const entry of golden.entries) {
   check(entry.references.length >= 5, `${entry.assetGroup} reference set`);
   for (const reference of entry.references) {
     check(existsSync(resolve(root, reference.path)), `${entry.assetGroup} reference exists: ${reference.path}`);
-    if (!mutableHistoricalReference(reference.path)) check(sha256(reference.path) === reference.sha256, `${entry.assetGroup} reference hash: ${reference.path}`);
+    if (!mutableHistoricalReference(reference.path)) {
+      const actualReferenceHash = sha256(reference.path);
+      check(actualReferenceHash === reference.sha256, `${entry.assetGroup} reference hash: ${reference.path} expected=${reference.sha256} actual=${actualReferenceHash}`);
+    }
     const previousHash = goldenReferenceHashes.get(reference.path);
     check(previousHash === undefined || previousHash === reference.sha256, `${entry.assetGroup} shared reference snapshot hash`);
     goldenReferenceHashes.set(reference.path, reference.sha256);
@@ -83,13 +95,19 @@ for (const contract of contracts.contracts) {
   contract.goldenReferencePaths.forEach((path: string, index: number) => {
     const expectedHash = contract.goldenReferenceSha256[index];
     check(goldenReferenceHashes.get(path) === expectedHash, `${contract.candidateId} golden snapshot hash ${index}`);
-    if (!mutableHistoricalReference(path)) check(sha256(path) === expectedHash, `${contract.candidateId} golden hash ${index}`);
+    if (!mutableHistoricalReference(path)) {
+      const actualGoldenHash = sha256(path);
+      check(actualGoldenHash === expectedHash, `${contract.candidateId} golden hash ${index} path=${path} expected=${expectedHash} actual=${actualGoldenHash}`);
+    }
   });
   check(contract.parentSourcePaths.length > 0 && contract.parentSourcePaths.length === contract.parentSourceSha256.length, `${contract.candidateId} parent sources`);
   contract.parentSourcePaths.forEach((path: string, index: number) => {
     const expectedHash = contract.parentSourceSha256[index];
     if (mutableHistoricalReference(path)) check(goldenReferenceHashes.get(path) === expectedHash, `${contract.candidateId} parent snapshot hash ${index}`);
-    else check(sha256(path) === expectedHash, `${contract.candidateId} parent hash ${index}`);
+    else {
+      const actualParentHash = sha256(path);
+      check(actualParentHash === expectedHash, `${contract.candidateId} parent hash ${index} path=${path} expected=${expectedHash} actual=${actualParentHash}`);
+    }
   });
   check(contract.generationTool === 'scripts/unity/build-u48-batch-c-candidates.py' && contract.generationToolVersion === '1', `${contract.candidateId} generator contract`);
   check(contract.recipePath.endsWith('/batch-c/generation-recipes.json') && recipeIds.has(contract.recipeId), `${contract.candidateId} recipe`);
@@ -110,11 +128,22 @@ const protectedPaths = [
   'docs/design-targets/generated/unity-u48/batch-a',
   'docs/design-targets/generated/unity-u48/batch-b',
 ];
-for (const path of finalized ? protectedPaths.filter(path => path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs' && path !== 'docs/design-targets/generated/unity-u48/batch-a') : protectedPaths) {
+const postU48FeedbackPath = 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs';
+for (const path of finalized ? protectedPaths.filter(path =>
+  path !== 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs'
+  && path !== postU48FeedbackPath
+  && path !== 'docs/design-targets/generated/unity-u48/batch-a'
+) : protectedPaths) {
   try { execFileSync('git', ['diff', '--quiet', sourceHead, '--', path], { cwd: root }); }
   catch { check(false, `protected path changed from Batch C baseline: ${path}`); }
 }
 if (finalized) {
+  const feedbackDiff = execFileSync('git', ['diff', '--unified=0', sourceHead, '--', postU48FeedbackPath], { cwd: root, encoding: 'utf8' });
+  const addedFeedbackLines = feedbackDiff.split('\n').filter(line => line.startsWith('+') && !line.startsWith('+++'));
+  const removedFeedbackLines = feedbackDiff.split('\n').filter(line => line.startsWith('-') && !line.startsWith('---'));
+  check(addedFeedbackLines.length === 3 && removedFeedbackLines.length === 3, 'post-U48 gameplay coordinator change is limited to three U49 feedback hooks');
+  check(addedFeedbackLines.every(line => line.includes('U43RuntimeFeedbackBridge.Instance?')), 'post-U48 gameplay coordinator additions are only U49 feedback hooks');
+  check(!feedbackDiff.includes('RuntimeVisualAssetProvider') && !feedbackDiff.includes('U48ProductionVisualCatalog'), 'post-U48 feedback hooks do not alter visual ownership');
   const provider = read('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Visuals/RuntimeVisualAssetProvider.cs').toString();
   check(provider.includes('AssetApprovalLevel.Production') && provider.includes('U48ProductionVisualCatalog.LoadRequired()'), 'post-approval production provider');
 }

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-29",
+  "status": "FUTURE15_HIGH_VALUE_RESERVOIR_NOT_CURRENT21",
+  "source": "docs/future-cast-relationship-story-reservoir-v1.md",
+  "records": [
+    {"id":"F01","name":"ヒヨリ","relations":["ネム","カスミ","ハナ"],"core":"肯定とreciprocity","wrongArrival":"悲しむ時間を消す","gameplay":"momentum/morale","payoff":"自分から助けを頼む"},
+    {"id":"F02","name":"セリカ","relations":["ハナ","カナメ"],"core":"責任とdelegation","wrongArrival":"全costを自己負担","gameplay":"resource redistribution","payoff":"一席を頼む"},
+    {"id":"F03","name":"クロエ","relations":["レンジ","トモリ"],"core":"長い愛と喪失","wrongArrival":"誰も朝へ帰さない","gameplay":"state hold/release","payoff":"別れ際にまたねと言う"},
+    {"id":"F04","name":"レンジ","relations":["セン","トウマ","クロエ"],"core":"有限時間で何を残すか","wrongArrival":"全部今決めて残す焦り","gameplay":"legacy/teaching candidate","payoff":"師匠の方法と自分の方法を分ける"},
+    {"id":"F05","name":"トウマ","relations":["トモリ","アサ","レンジ"],"core":"craft/authorship","wrongArrival":"自分の痕跡を全消去","gameplay":"craft/reforge","payoff":"小さなmaker markを残す"},
+    {"id":"F06","name":"クウ","relations":["アサ","ユイ"],"core":"非言語の記憶","wrongArrival":"OPEN_NOT_FORCED","gameplay":"tracking/rescue alert","payoff":"経験した相手へ自分から近づく"},
+    {"id":"F07","name":"ヨモ","relations":["アサ","カスミ"],"core":"複数名でも一匹","wrongArrival":"OPEN_NOT_FORCED","gameplay":"evasion/pickup redirect","payoff":"新しい呼び名にも反応"},
+    {"id":"F08","name":"ノア","relations":["ノアA/B","レン","カイ/ナオ"],"core":"同じ過去から別の現在","wrongArrival":"差分を全部merge","gameplay":"A/B divergent builds","payoff":"同じ台詞でも片方が続けられる"},
+    {"id":"F09","name":"ルム","relations":["collective","トモリ","ノア"],"core":"ぼくらからぼく","wrongArrival":"完全同期","gameplay":"selective sync","payoff":"個別思い出だけ単数で語る"},
+    {"id":"F10","name":"マキ","relations":["ミチル","セリカ"],"core":"決断と迷い","wrongArrival":"全員の選択を代行","gameplay":"choice compression/reroll","payoff":"保留を即決できる"},
+    {"id":"F11","name":"スズ","relations":["カスミ","ヒヨリ"],"core":"presentation/vulnerability","wrongArrival":"全員へ完璧な役を割当","gameplay":"decoy/aggro redirect","payoff":"今日は演出しないを選ぶ"},
+    {"id":"F12","name":"イオ","relations":["セン","トキ"],"core":"分類前に聞く","wrongArrival":"何にも結論を置けない","gameplay":"sound ping/uncertainty reveal","payoff":"仮ならこう思うと言う"},
+    {"id":"F13","name":"カイ","relations":["ナオ","ノア"],"core":"離れても双子","wrongArrival":"state強制link","gameplay":"proximity/shared bonus","payoff":"自分一人の予定を答える"},
+    {"id":"F14","name":"ナオ","relations":["カイ","レン"],"core":"同じでも別人","wrongArrival":"共通点を強制切断","gameplay":"distance/individual bonus","payoff":"同じ物を自分で選ぶ"},
+    {"id":"F15","name":"アマネ","relations":["ミチル","ユウビ"],"core":"mobility autonomy","wrongArrival":"止まれず加速","gameplay":"momentum/drift","payoff":"介助内容を自分で頼む"}
+  ],
+  "coverage":"15/15",
+  "current21Promotion": false,
+  "sequelCastLocked": false
+}

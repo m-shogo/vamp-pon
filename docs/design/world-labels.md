@@ -5,6 +5,8 @@ Latest production-facing index: `docs/181-current-production-canon.md`.
 Canonical data sources:
 
 - Core labels: `src/game/data/worldTerms.ts`
+- Persistent meta-currency display: `src/game/data/metaCurrencyDisplay.ts`
+- Economy split: `src/game/data/collectionEconomyTerminology.ts`
 - Core character art names: `src/game/data/characterArts.ts`
 - Kokuyou character forms: `src/game/data/kokuyouForms.ts`
 - Core5 pair arts: `src/game/data/pairLightArts.ts`
@@ -12,6 +14,15 @@ Canonical data sources:
 - Item production canon: `src/game/data/itemProductionCanon.ts` and `docs/design/item-and-character-production-canon.md`
 - Character production plans: `src/game/data/characterProductionPlans.ts` and `docs/design/character-production-plans.md`
 - A-Z emblems: `src/game/data/emblemCanon.ts`, `docs/design/emblem-canon.md`, and `docs/design/az-emblem-canon.md`
+
+## Product title
+
+| Target | Label |
+| --- | --- |
+| Player-visible work title | ヨルノシルベ |
+| Legacy development code names | Vamp Pon / VAMP PON / ヴァンサバ改 |
+
+Legacy code names may remain in repository history, identifiers and migration notes, but must not be introduced as new production-facing title copy.
 
 ## Adopted labels
 
@@ -28,9 +39,14 @@ Canonical data sources:
 | Rare slot | 忘れ物 |
 | Collection | 灯録 |
 | Achievement | 記憶のしるし |
-| Result | 旅の記録 |
+| Result archive concept | 旅の記録 |
 | Stage clear | 夜明け |
-| Fragment currency | 記憶片 |
+| Run-only level-up pickup | 記憶片 |
+| Persistent meta currency | `metaCurrencyDisplay.ts` Current label (`黒曜片` at 2026-07-29) |
+
+`記憶片` and the persistent wallet are separate concepts. Do not use one display name for both.
+
+`灯貨` remains a high-value candidate for the persistent wallet and is not Current until explicit Human naming approval.
 
 ## Inventory labels
 
@@ -42,7 +58,8 @@ Canonical data sources:
 | Field drop | 落とし物 |
 | Recovery | 朝露 |
 | Capsule | 記憶包み |
-| Currency | 記憶片 |
+| Run fragment | 記憶片 |
+| Persistent currency | `metaCurrencyDisplay.ts` Current label |
 
 ## Stat labels
 
@@ -50,26 +67,58 @@ Canonical data sources:
 | --- | --- |
 | Magnet | 回収 |
 | Might | 灯力 |
-| XP | 成長 |
+| XP stat concept | 成長 |
 | Move speed | 足取り |
 | Cooldown | 手数 |
+
+The player-facing pickup itself is `記憶片`. Avoid first-run copy such as `EXPを拾う` when the actual visible pickup is a memory fragment.
 
 ## Screen labels
 
 | Target | Label |
 | --- | --- |
-| Home | 灯りの家 |
+| Home flavor location | 灯りの家 |
 | Start | 夜へ出る |
 | Continue | 灯を継ぐ |
 | Retry | もう一度、夜へ |
+| Stage select | 夜の地図 |
 | Character select | 旅人を選ぶ |
 | Character detail | 旅人の記録 |
-| Upgrade screen | 旅支度 |
-| Permanent upgrade | 支度 |
+| Collection | 灯録 |
+| Upgrade / meta growth | 旅支度 |
+| Permanent upgrade section | 支度 |
 | Shop | 忘れ物市 |
 | Settings | 設定 |
-| Initial weapon | 最初の忘れ物 |
+| Initial weapon | 最初の灯具 |
 | Pair art list | 灯合わせ録 |
+
+`黒曜研究所` is not a Current screen label. Do not invent a facility/lore entity merely to name the growth screen; use `旅支度` and explain the function with short supporting copy.
+
+## Settings baseline labels
+
+| Setting | Player label |
+| --- | --- |
+| BGM volume | BGM |
+| SE volume | SE |
+| Haptic toggle | 振動 |
+| Reduced-motion mode | 演出を控えめに |
+
+Exact implementation and persistence are defined in `docs/SETTINGS-BASELINE.md`.
+
+## Result copy lock
+
+| Meaning | Current player copy |
+| --- | --- |
+| Clear title | 夜明け |
+| Failed-run title | 夜に飲まれた |
+| Failed-run explanation | この読み方では、朝まで残れなかった。 |
+| Rewards section | 持ち帰り |
+| New records section | 新しい記録 |
+| Elite row | 強敵 |
+| No-black-youka bonus | 黒耀化なし |
+| Defeated-enemy count | ほどいた影 |
+
+Player-visible kill/death wording should not imply literal canonical death. Internal telemetry fields such as `kills` may remain unchanged.
 
 ## Emblem labels
 
@@ -122,9 +171,15 @@ Canonical data sources:
 
 ## Naming rule
 
-This game should avoid battle-only words such as 必殺, 殲滅, 暴走, and 覚醒 in player-facing UI unless the scene specifically needs danger.
-Prefer 灯す, 継ぐ, 結ぶ, しまう, 導く, 直す, 返す, and 夜明け.
+One concept should have one primary player-facing label. Flavor text may paraphrase it, but buttons, counters, settings and tutorial instructions must not introduce a competing noun.
+
+The game should avoid battle-only words such as 必殺, 殲滅, 暴走, and 覚醒 in player-facing UI unless the scene specifically needs danger.
+Prefer 灯す, 継ぐ, 結ぶ, しまう, 導く, 直す, 返す, ほどく, and 夜明け.
 Kokuyou is the exception: it may use darker words, but the common visible label stays 黒耀化.
+
+For critical interaction labels, clarity beats poetic density. A poetic subtitle can sit below a clear system label; do not require the player to decode lore in order to operate the UI.
+
+Core functional UI is Japanese-first. Decorative English may exist as visual texture, but primary section names and actions must not depend on English-only labels such as `Rewards`, `New Records`, or `Elite`.
 
 ## Cutin and emblem rule
 

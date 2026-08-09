@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "sourceHead": "8676d355a49d404ace4235a471f63c36657c411b",
+  "eventCount": 10,
+  "interface": "IU28HapticPlatformAdapter",
+  "editorAdapter": "U28EditorNoopHapticAdapter",
+  "mobilePlaceholderAdapter": "U28MobileHapticPlaceholderAdapter",
+  "phaseStartProductRoute": "Handheld.Vibrate direct bridge hook",
+  "settingsSource": "SaveService GameSettingsSave.hapticEnabled",
+  "events": [
+    {
+      "id": "LightTap",
+      "intensityDraft": 0.18,
+      "durationSecondsDraft": 0.025,
+      "cooldownSeconds": 0.08,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "user setting can disable",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "SoftPickup",
+      "intensityDraft": 0.22,
+      "durationSecondsDraft": 0.035,
+      "cooldownSeconds": 0.1,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "pickup feedback not constant",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "CardSelect",
+      "intensityDraft": 0.24,
+      "durationSecondsDraft": 0.03,
+      "cooldownSeconds": 0.12,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "short card tap",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "Damage",
+      "intensityDraft": 0.5,
+      "durationSecondsDraft": 0.07,
+      "cooldownSeconds": 0.25,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "avoid repeated damage spam",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "RarePulse",
+      "intensityDraft": 0.34,
+      "durationSecondsDraft": 0.06,
+      "cooldownSeconds": 0.35,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "special but light",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "EvolutionComplete",
+      "intensityDraft": 0.56,
+      "durationSecondsDraft": 0.09,
+      "cooldownSeconds": 0.6,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "medium completion",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "KokuyouReady",
+      "intensityDraft": 0.3,
+      "durationSecondsDraft": 0.05,
+      "cooldownSeconds": 0.45,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "light warning",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "KokuyouActivation",
+      "intensityDraft": 0.68,
+      "durationSecondsDraft": 0.12,
+      "cooldownSeconds": 1,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "stronger dark activation",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "ResultStamp",
+      "intensityDraft": 0.42,
+      "durationSecondsDraft": 0.06,
+      "cooldownSeconds": 0.35,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "paper stamp",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    },
+    {
+      "id": "UnlockReveal",
+      "intensityDraft": 0.3,
+      "durationSecondsDraft": 0.05,
+      "cooldownSeconds": 0.3,
+      "platformSupportNote": "Editor no-op; iOS / Android future adapter",
+      "futureNote": "warm reveal",
+      "phaseStartProductionAdapter": "U43RuntimeFeedbackBridge.Handheld.Vibrate",
+      "registryAdapter": "U28MobileHapticPlaceholderAdapter",
+      "physicalDeviceObserved": false,
+      "humanApprovalProvided": false
+    }
+  ]
+}

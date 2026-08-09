@@ -273,7 +273,11 @@ namespace VampPon.UnitySpike.Runtime
             var shellObject = new GameObject("U46RuntimeShell", typeof(U46RuntimeShell));
             shellObject.transform.SetParent(overlayRoot, false);
             u46Shell = shellObject.GetComponent<U46RuntimeShell>();
-            u46Shell.Initialize(battleController, playerController, yuiAnimator, levelUpController);
+            u46Shell.Initialize(battleController, playerController, yuiAnimator, levelUpController, safeHudRoot);
+            feedbackBridge?.ApplySettings(u46Shell.Preferences.Current);
+#if VAMPPON_U49_DEVICE_VERIFICATION && DEVELOPMENT_BUILD
+            gameObject.AddComponent<VampPon.UnitySpike.U49.AudioHaptic.U49DeviceVerificationHarness>();
+#endif
         }
 
         private void CreateStageSelectOverlay()
@@ -335,7 +339,7 @@ namespace VampPon.UnitySpike.Runtime
             var title = resultOverlay.transform.Find("ResultPanel/Title")?.GetComponent<TextMeshProUGUI>();
             if (title != null)
             {
-                title.text = clear ? "踏破" : "帰還";
+                title.text = clear ? "夜明け" : "夜に飲まれた";
             }
 
             SetOverlayBattlePaused(true);
