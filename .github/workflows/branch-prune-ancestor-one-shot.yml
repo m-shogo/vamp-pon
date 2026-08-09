@@ -1,0 +1,75 @@
+name: Branch Prune Ancestor One Shot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/branch-prune-ancestor-one-shot.yml
+
+permissions:
+  contents: write
+
+jobs:
+  prune-fully-merged-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Delete only branches fully contained in main
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          git fetch origin '+refs/heads/*:refs/remotes/origin/*' --prune
+
+          deleted=0
+          kept=0
+          failed=0
+
+          mapfile -t branches < <(
+            git for-each-ref refs/remotes/origin \
+              --format='%(refname:strip=3)' \
+              | grep -v '^HEAD$' \
+              | sort -u
+          )
+
+          for branch in "${branches[@]}"; do
+            case "$branch" in
+              main|feat/lorebook-world-bible-web-v1)
+                echo "KEEP protected/active: $branch"
+                kept=$((kept + 1))
+                continue
+                ;;
+            esac
+
+            if git merge-base --is-ancestor "refs/remotes/origin/$branch" refs/remotes/origin/main; then
+              echo "DELETE fully contained in main: $branch"
+              if git push origin --delete "$branch"; then
+                deleted=$((deleted + 1))
+              else
+                echo "::warning::Failed to delete $branch"
+                failed=$((failed + 1))
+              fi
+            else
+              echo "KEEP non-ancestor: $branch"
+              kept=$((kept + 1))
+            fi
+          done
+
+          {
+            echo '## Branch prune result'
+            echo
+            echo "- deleted fully-contained branches: $deleted"
+            echo "- kept main/active/non-ancestor branches: $kept"
+            echo "- delete failures: $failed"
+            echo
+            echo 'This workflow never deletes `main`, the active Lorebook branch, or any branch whose tip is not an ancestor of `origin/main`.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$failed" -ne 0 ]; then
+            exit 1
+          fi
