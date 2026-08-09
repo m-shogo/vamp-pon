@@ -120,8 +120,10 @@ jobs:
           verify_exact_merged_branch fix/lorebook-motion-postmerge
           verify_exact_merged_branch chore/exact-merged-branch-cleanup-trigger
           verify_exact_merged_branch chore/exact-merged-branch-cleanup-trigger-v2
+          verify_exact_merged_branch chore/main-ci-cleanup-trigger
 
           delete_branch_if_present feat/lorebook-world-bible-web-v1
           delete_branch_if_present fix/lorebook-motion-postmerge
           delete_branch_if_present chore/exact-merged-branch-cleanup-trigger
           delete_branch_if_present chore/exact-merged-branch-cleanup-trigger-v2
+          delete_branch_if_present chore/main-ci-cleanup-trigger
