@@ -9,9 +9,46 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <div id="readingProgress" class="reading-progress" aria-hidden="true"></div>
   <div class="night-sky" aria-hidden="true"></div>
+
+  <section class="prologue" id="prologue" aria-label="ヨルノシルベ 世界設定への導入">
+    <div class="prologue-sticky">
+      <div class="prologue-stars" aria-hidden="true"></div>
+      <div class="prologue-thread" aria-hidden="true"></div>
+      <button id="skipPrologue" class="prologue-skip" type="button">SKIP INTRO →</button>
+      <div class="prologue-copy">
+        <article class="prologue-panel is-active" data-prologue-step="0">
+          <p class="kicker">YORUNO SHIRUBE · WORLD BIBLE</p>
+          <h1>同じ夜に、<br /><em class="prologue-emphasis">違う時代の人</em>がいる。</h1>
+          <p>朝へ帰れば、それぞれの人生へ戻る。それでも夜で過ごした時間は消えない。</p>
+        </article>
+        <article class="prologue-panel" data-prologue-step="1">
+          <p class="kicker">OBJECTS CROSS TIME</p>
+          <h2>人だけじゃない。<br />物と記憶が、<em class="prologue-emphasis">時代を渡る。</em></h2>
+          <p>修理痕、手紙、名札、古い道。離れた時代の人物を、現実時間を渡った物が結ぶ。</p>
+        </article>
+        <article class="prologue-panel" data-prologue-step="2">
+          <p class="kicker">21 PEOPLE · MANY ANSWERS</p>
+          <h2>21人の答えが、<br /><em class="prologue-emphasis">関係という線</em>になる。</h2>
+          <p>同意するから仲間になるのではない。違う答えを知った上で、任せられるようになる。</p>
+        </article>
+        <article class="prologue-panel" data-prologue-step="3">
+          <p class="kicker">TOWARD DAWN</p>
+          <h2>朝は、忘れることではない。<br /><em class="prologue-emphasis">選び直せること。</em></h2>
+          <p>人物、星獣、黒耀化、歴史、まだ答えのない謎。全部を一冊の中で辿る。</p>
+          <button id="enterLorebook" class="prologue-enter" type="button">世界設定をひらく ↓</button>
+        </article>
+      </div>
+      <div class="prologue-progress" aria-hidden="true">
+        <div class="prologue-progress__track"><div class="prologue-progress__bar"></div></div>
+        <small>SCROLL TO OPEN THE NIGHT</small>
+      </div>
+    </div>
+  </section>
+
   <header class="masthead">
-    <a class="brand" href="#top" aria-label="ヨルノシルベ 世界設定・人物図鑑 TOP">
+    <a class="brand" href="#overview" aria-label="ヨルノシルベ 世界設定・人物図鑑 TOP">
       <span class="brand-mark">✦</span>
       <span><b>ヨルノシルベ</b><small>WORLD BIBLE / FIELD GUIDE</small></span>
     </a>
@@ -163,6 +200,6 @@
   </footer>
 
   <script type="module" src="./app.js"></script>
-  <script type="module" src="./profile-enhancement.js"></script>
+  <script type="module" src="./enhancements.js"></script>
 </body>
 </html>
