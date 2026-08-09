@@ -1,9 +1,9 @@
 name: Merged Lorebook Branch Delete One Shot
 
 on:
-  issue_comment:
+  pull_request:
     types:
-      - created
+      - closed
 
 permissions:
   contents: write
@@ -11,24 +11,31 @@ permissions:
 
 jobs:
   delete-exact-merged-branches:
-    if: github.event.issue.pull_request && github.event.issue.number == 81 && github.event.comment.body == '/cleanup-merged-lorebook-branches-v2'
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && github.event.pull_request.title == 'chore: trigger exact merged branch cleanup'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
+      TRIGGER_PR: ${{ github.event.pull_request.number }}
+      TRIGGER_BRANCH: ${{ github.event.pull_request.head.ref }}
+      TRIGGER_HEAD: ${{ github.event.pull_request.head.sha }}
     steps:
       - name: Verify exact merged heads, then delete refs
         shell: bash
         run: |
           set -euo pipefail
 
-          verify_branch() {
+          current_branch_sha() {
+            gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/$1" --jq '.object.sha' 2>/dev/null || true
+          }
+
+          verify_merged_pr_branch() {
             local pr="$1"
             local branch="$2"
             local expected="$3"
             local actual
             local merged_head
 
-            actual="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${branch}" --jq '.object.sha' 2>/dev/null || true)"
+            actual="$(current_branch_sha "$branch")"
             if [ -n "$actual" ] && [ "$actual" != "$expected" ]; then
               echo "::error::${branch} moved after audit: expected ${expected}, got ${actual}"
               exit 1
@@ -43,9 +50,7 @@ jobs:
 
           delete_branch_if_present() {
             local branch="$1"
-            local actual
-            actual="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${branch}" --jq '.object.sha' 2>/dev/null || true)"
-            if [ -n "$actual" ]; then
+            if [ -n "$(current_branch_sha "$branch")" ]; then
               gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
               echo "Deleted: ${branch}"
             else
@@ -53,8 +58,10 @@ jobs:
             fi
           }
 
-          verify_branch 80 feat/lorebook-world-bible-web-v1 ec29dd8b915f7ebb43dd1da27419d5e60befb45a
-          verify_branch 81 fix/lorebook-motion-postmerge 7bf047d6d84cddb03be5217303f9bea1a78ea431
+          verify_merged_pr_branch 80 feat/lorebook-world-bible-web-v1 ec29dd8b915f7ebb43dd1da27419d5e60befb45a
+          verify_merged_pr_branch 81 fix/lorebook-motion-postmerge 7bf047d6d84cddb03be5217303f9bea1a78ea431
+          verify_merged_pr_branch "$TRIGGER_PR" "$TRIGGER_BRANCH" "$TRIGGER_HEAD"
 
           delete_branch_if_present feat/lorebook-world-bible-web-v1
           delete_branch_if_present fix/lorebook-motion-postmerge
+          delete_branch_if_present "$TRIGGER_BRANCH"
