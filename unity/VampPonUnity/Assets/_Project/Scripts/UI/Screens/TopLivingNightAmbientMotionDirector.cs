@@ -27,7 +27,9 @@ namespace VampPon.UnitySpike.UI.Screens
         private RectTransform cloudsFar;
         private RectTransform cloudsNear;
         private RawImage stars;
+        private RawImage distantLights;
         private RawImage fireGlow;
+        private RawImage lanternGlow;
         private RawImage robotEye;
         private Vector2 artBasePosition;
         private Vector3 artBaseScale = Vector3.one;
@@ -114,7 +116,9 @@ namespace VampPon.UnitySpike.UI.Screens
             cloudsFar = null;
             cloudsNear = null;
             stars = null;
+            distantLights = null;
             fireGlow = null;
+            lanternGlow = null;
             robotEye = null;
             smoke.Clear();
             embers.Clear();
@@ -148,7 +152,9 @@ namespace VampPon.UnitySpike.UI.Screens
         private void RefreshVisualBindings()
         {
             stars = null;
+            distantLights = null;
             fireGlow = null;
+            lanternGlow = null;
             robotEye = null;
             smoke.Clear();
             embers.Clear();
@@ -166,9 +172,21 @@ namespace VampPon.UnitySpike.UI.Screens
                     continue;
                 }
 
+                if (string.Equals(image.name, "DistantLights", StringComparison.Ordinal))
+                {
+                    distantLights = image;
+                    continue;
+                }
+
                 if (string.Equals(image.name, "FireGlow", StringComparison.Ordinal))
                 {
                     fireGlow = image;
+                    continue;
+                }
+
+                if (string.Equals(image.name, "LanternGlow", StringComparison.Ordinal))
+                {
+                    lanternGlow = image;
                     continue;
                 }
 
@@ -217,13 +235,22 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void ApplyNormalMotionVisuals(float time)
         {
-            // Re-apply the normal-mode alpha equations after TopLivingNightView so
-            // a view originally built while Reduced Motion was ON can return to
-            // full normal motion after a live preference toggle without rebuild.
+            // Re-apply normal-mode values after TopLivingNightView so a view built
+            // while Reduced Motion was ON can return to full ambience without rebuild.
             if (stars != null)
             {
-                var noise = Mathf.PerlinNoise(.17f, time * .082f);
-                stars.color = WithAlpha(stars.color, .57f + noise * .16f);
+                var slow = Mathf.PerlinNoise(.17f, time * .082f);
+                var tiny = Mathf.PerlinNoise(2.77f, time * .137f);
+                stars.color = WithAlpha(stars.color, .56f + slow * .14f + tiny * .025f);
+            }
+
+            if (distantLights != null)
+            {
+                var districtA = Mathf.PerlinNoise(2.31f, time * .071f);
+                var districtB = Mathf.PerlinNoise(6.83f, time * .041f);
+                distantLights.color = WithAlpha(
+                    distantLights.color,
+                    .625f + (districtA - .5f) * .045f + (districtB - .5f) * .025f);
             }
 
             if (fireGlow != null)
@@ -235,32 +262,53 @@ namespace VampPon.UnitySpike.UI.Screens
                     .56f + ((first * .62f + second * .38f) - .5f) * .10f);
             }
 
+            if (lanternGlow != null)
+            {
+                var slow = Mathf.PerlinNoise(12.7f, time * .19f);
+                var micro = Mathf.PerlinNoise(15.23f, time * .53f);
+                lanternGlow.color = WithAlpha(
+                    lanternGlow.color,
+                    .45f + (slow - .5f) * .04f + (micro - .5f) * .012f);
+            }
+
             if (robotEye != null)
             {
-                var phase = Mathf.Repeat(time + 11.7f, 47f);
-                var rare = phase > 1.35f
-                    ? 0f
-                    : Mathf.Sin(phase / 1.35f * Mathf.PI);
-                robotEye.color = WithAlpha(robotEye.color, .20f + rare * .62f);
+                // Two independent sparse windows avoid a mechanically repeating
+                // blink interval. Most of the time the robot stays still.
+                var readiness = Mathf.PerlinNoise(31.13f, time * .021f);
+                var trigger = Mathf.PerlinNoise(43.71f, time * .093f);
+                var rare = readiness > .63f && trigger > .82f
+                    ? Mathf.InverseLerp(.82f, 1f, trigger)
+                    : 0f;
+                robotEye.color = WithAlpha(robotEye.color, .16f + rare * .54f);
             }
 
             for (var index = 0; index < smoke.Count; index++)
             {
-                var phase = .17f + index * .23f;
-                var cycle = Mathf.Repeat(time * .16f + phase, 1f);
-                smoke[index].color = WithAlpha(
-                    smoke[index].color,
-                    Mathf.Sin(cycle * Mathf.PI) * .19f);
+                var image = smoke[index];
+                if (image == null)
+                    continue;
+
+                var gate = Mathf.PerlinNoise(51.7f + index * 3.1f, time * (.031f + index * .004f));
+                var body = Mathf.PerlinNoise(61.9f + index * 2.3f, time * (.071f + index * .006f));
+                var alpha = gate > .48f
+                    ? Mathf.SmoothStep(0f, .19f, Mathf.InverseLerp(.48f, .92f, gate)) * (.72f + body * .28f)
+                    : 0f;
+                image.color = WithAlpha(image.color, alpha);
             }
 
             for (var index = 0; index < embers.Count; index++)
             {
-                var duration = 2.6f + index % 4 * .44f;
-                var phase = .09f * index;
-                var cycle = Mathf.Repeat(time / duration + phase, 1f);
-                embers[index].color = WithAlpha(
-                    embers[index].color,
-                    Mathf.Sin(cycle * Mathf.PI) * .78f);
+                var image = embers[index];
+                if (image == null)
+                    continue;
+
+                var density = Mathf.PerlinNoise(73.1f + index * 1.7f, time * (.057f + (index % 3) * .011f));
+                var pulse = Mathf.PerlinNoise(83.3f + index * 2.1f, time * (.19f + (index % 4) * .027f));
+                var alpha = density > .69f
+                    ? Mathf.InverseLerp(.69f, .96f, density) * (.35f + pulse * .48f)
+                    : 0f;
+                image.color = WithAlpha(image.color, alpha);
             }
         }
 
@@ -272,6 +320,8 @@ namespace VampPon.UnitySpike.UI.Screens
             // only the same tiny readability variation as the base reduced path.
             if (stars != null)
                 stars.color = WithAlpha(stars.color, .62f);
+            if (distantLights != null)
+                distantLights.color = WithAlpha(distantLights.color, .63f);
             if (fireGlow != null)
             {
                 var first = Mathf.PerlinNoise(5.13f, time * .83f);
@@ -280,6 +330,8 @@ namespace VampPon.UnitySpike.UI.Screens
                     fireGlow.color,
                     .56f + ((first * .62f + second * .38f) - .5f) * .02f);
             }
+            if (lanternGlow != null)
+                lanternGlow.color = WithAlpha(lanternGlow.color, .45f);
             if (robotEye != null)
                 robotEye.color = WithAlpha(robotEye.color, 0f);
             foreach (var image in smoke)
