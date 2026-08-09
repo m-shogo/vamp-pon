@@ -19,21 +19,17 @@
       "priority": 0,
       "screen": "TOP",
       "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["bridge humans are non-final", "identity mismatch risk", "flattened-composite feel must be avoided", "current strongest emotional screen still lacks canonical Core5 final"],
+      "outputRoot": "docs/design-targets/generated/top-living-night-v3/incoming/",
       "why": "Highest visual impact and current bridge humans are explicitly non-final.",
+      "chatReferenceDescription": "Vertical night-station mood reference supplied by user: very deep navy star field, crescent moon, railway depth toward a warm distant town, five travelers grouped around a small campfire, localized lantern warmth, white small animal and round robot, large calm dark foreground. Use its atmosphere/depth/lighting as inspiration only; do not copy character identities or exact composition.",
       "artDirection": ["quiet night station", "long journey", "companions", "campfire", "memory", "restrained amber", "deep indigo/navy", "slightly melancholic", "place worth returning to"],
       "mustContain": ["Yui", "Asa", "Nagi", "Michiru", "Tomori", "white small animal", "small round robot", "station", "rail", "distant town", "campfire"],
       "foregroundHumanCount": 5,
       "forbidden": ["sixth human", "generic person", "duplicate character", "identity merge", "festival", "swimsuit", "fireworks", "bright group-photo energy", "flattened UI text"],
-      "deliverables": [
-        "canonical composite 430x932",
-        "00-environment-base.png",
-        "04-distant-town.png",
-        "06-core5.png",
-        "07-animal-robot.png",
-        "09-fire-base.png",
-        "15-foreground-accents.png"
-      ],
+      "deliverables": ["top-living-night-core5-candidate-430x932.png", "00-environment-base.png", "04-distant-town.png", "06-core5.png", "07-animal-robot.png", "09-fire-base.png", "15-foreground-accents.png"],
       "runtimeOwned": ["stars", "clouds far", "clouds near", "distant lights", "fire animation", "fire glow", "smoke", "embers", "lantern glow", "robot eye"],
+      "acceptance": ["exactly five foreground humans", "Core5 identities match locked references", "top 18-22% remains logo-safe sky", "bottom 20-22% remains dark UI-safe ground", "semantic layers reconstruct the canonical composite without obvious seams", "no important face/light/prop enters bottom UI-safe zone"],
       "repoContract": "docs/design-targets/generated/top-living-night-v3/layered-final-production-contract.md"
     },
     {
@@ -41,10 +37,13 @@
       "priority": 1,
       "screen": "StageSelect",
       "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["functional paper grid reads as utility UI", "weak destination fantasy", "generic candidate frame feel"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/stage-select/incoming/",
       "why": "Current functional paper grid reads as utility UI rather than destination anticipation.",
       "artDirection": ["night railway route map", "paper map", "station signage", "travel notebook", "black ink", "muted teal/amber"],
-      "deliverables": ["map-paper base", "route/rail decorative band", "selected-destination frame", "small station/route icon atlas"],
+      "deliverables": ["stage-map-paper-base.png", "route-rail-decoration.png", "selected-destination-frame.png", "station-route-icon-atlas.png"],
       "runtimeOwned": ["selected route light", "lantern accent", "selected destination focus"],
+      "acceptance": ["native stage names remain outside art", "selected destination reads first at phone scale", "paper texture remains quiet enough for labels", "asset family shares one material language"],
       "forbidden": ["text baked into art", "one illustration per card with inconsistent style", "busy full-screen particles"]
     },
     {
@@ -52,10 +51,13 @@
       "priority": 1,
       "screen": "Result",
       "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["payoff currently depends on flat candidate paper parts", "rank/reward hierarchy lacks authored premium identity"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/result/incoming/",
       "why": "Reward/payoff hierarchy needs stronger authored material assets; runtime reveal is code-owned.",
       "artDirection": ["memory page", "travel record", "ink stamp", "old ticket", "restrained premium paper"],
-      "deliverables": ["memory page base", "rank seal family", "reward card frame family", "stat chip family", "rare reward accent masks"],
+      "deliverables": ["memory-page-base.png", "rank-seal-atlas.png", "reward-card-frame-atlas.png", "stat-chip-atlas.png", "rare-reward-accent-mask-atlas.png"],
       "runtimeOwned": ["staged reveal", "rare short glow/burst"],
+      "acceptance": ["numbers/text remain native and high contrast", "rank and rewards read before decoration", "rare accents can be driven independently by mask/material", "normal result settles fully after reveal"],
       "forbidden": ["full-screen celebratory illustration", "looping confetti", "baked numbers/text"]
     },
     {
@@ -63,10 +65,13 @@
       "priority": 1,
       "screen": "Collection",
       "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["archive identity is too generic", "current cards/pages need stronger tactile consistency"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/collection/incoming/",
       "why": "Needs tactile archive identity more than more motion.",
       "artDirection": ["field notebook", "archive", "paper fibers", "black ink", "memory labels"],
-      "deliverables": ["page base", "entry card unlocked", "entry card locked", "tab family", "NEW seal", "detail memory page"],
+      "deliverables": ["collection-page-base.png", "entry-card-unlocked.png", "entry-card-locked.png", "collection-tab-atlas.png", "new-seal.png", "detail-memory-page.png"],
       "runtimeOwned": ["subtle page breathing", "selection response", "NEW low-frequency response"],
+      "acceptance": ["scannability beats decoration", "locked/unlocked state is obvious without relying on text", "detail page feels related but visually deeper than index", "paper family remains consistent with Result without becoming identical"],
       "forbidden": ["animated wallpaper", "baked entry names"]
     },
     {
@@ -74,10 +79,13 @@
       "priority": 2,
       "screen": "LevelUp",
       "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["candidate cards are serviceable but generic", "rarity/evolution hierarchy needs stronger authored identity"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/levelup/incoming/",
       "why": "Choice quality depends on strong card hierarchy and rarity/evolution surfaces.",
       "artDirection": ["paper talisman", "night archive", "ink border", "localized rarity"],
-      "deliverables": ["normal card frame", "selected card frame", "rare card frame", "evolution frame/mask", "small rarity accents"],
+      "deliverables": ["levelup-card-normal.png", "levelup-card-selected.png", "levelup-card-rare.png", "levelup-card-evolution.png", "levelup-rarity-accent-mask-atlas.png"],
       "runtimeOwned": ["entrance", "selection focus", "rare/evolution short effect"],
+      "acceptance": ["three choices remain readable instantly", "selected state has stronger silhouette not just brighter color", "rare/evolution is special without full-screen noise", "description text remains native"],
       "forbidden": ["moving environmental background", "baked option text", "large decorative illustration behind choices"]
     },
     {
@@ -85,9 +93,12 @@
       "priority": 2,
       "screen": "Battle",
       "status": "REVIEW_BEFORE_GENERATION",
+      "visualDebt": ["existing stage art may lack authored depth", "must not trade enemy readability for decoration"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/battle/incoming/",
       "why": "Existing stage backgrounds exist; only regenerate where readability and authored depth clearly improve.",
-      "deliverables": ["per-stage optional far band", "playfield ground band", "sparse foreground silhouette band", "shared atmosphere masks"],
+      "deliverables": ["optional far band per approved stage", "playfield ground band", "sparse foreground silhouette band", "shared atmosphere-mask atlas"],
       "runtimeOwned": ["weather", "fog/dust", "hit/kill/pickup VFX"],
+      "acceptance": ["enemy/player silhouettes remain dominant", "no high-contrast clutter in playfield", "foreground never hides pickups/hazards", "only stages that fail current readability/art review are regenerated"],
       "forbidden": ["TOP-like parallax that obscures enemies", "dense foreground", "high-frequency ambient motion"]
     },
     {
@@ -95,9 +106,12 @@
       "priority": 2,
       "screen": "Blackening/Cutin/Rare States",
       "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["rare states need bespoke identity rather than generic particles", "current impact ceiling is limited by shared candidate assets"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/rare-state/incoming/",
       "why": "Rare states can carry stronger bespoke visual identity without polluting normal gameplay.",
-      "deliverables": ["ink fracture mask", "blackening edge mask", "character cutin frame family", "distortion/noise mask atlas", "rare light accent masks"],
+      "deliverables": ["ink-fracture-mask.png", "blackening-edge-mask.png", "character-cutin-frame-atlas.png", "distortion-noise-mask-atlas.png", "rare-light-accent-mask-atlas.png"],
       "runtimeOwned": ["distortion", "camera impulse", "particle burst", "timed cleanup"],
+      "acceptance": ["effect identity reads in under one second", "character face/silhouette remains recognizable", "masks are reusable and shader-friendly", "all expensive effects are short-lived"],
       "forbidden": ["generic AI magic particles", "identity-obscuring full-screen noise"]
     }
   ],
