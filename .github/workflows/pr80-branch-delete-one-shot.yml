@@ -137,18 +137,12 @@ jobs:
             echo "Deleted superseded PR85 branch: ${branch}"
           }
 
-          # If the recurring Title1 proposal branch exists, its latest head must already be preserved by closed PR #89.
           delete_closed_unmerged_pr_branch_now 89 agent/title1-canon-series-foundation-v3
-
-          # Previous trigger is preserved by closed PR #90.
           delete_closed_unmerged_pr_branch_now 90 chore/final-cleanup-fire
-
           delete_exact_merged_branch_now chore/main-ci-cleanup-trigger
           delete_exact_merged_branch_now integration/lorebook-dawn-series-safe
           delete_superseded_pr85_now
           delete_exact_merged_branch_now chore/final-remote-branch-cleanup
-
-          # Catch a proposal branch recreated while the fixed branches were being cleaned.
           delete_closed_unmerged_pr_branch_now 89 agent/title1-canon-series-foundation-v3
 
           trigger='chore/final-cleanup-fire-v2'
@@ -159,3 +153,5 @@ jobs:
           fi
           gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${trigger}"
           echo "Deleted cleanup trigger v2: ${trigger}"
+
+# Trigger-only v2 branch: closing its PR fires the race-safe cleanup above.
