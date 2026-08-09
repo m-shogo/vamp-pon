@@ -73,3 +73,4 @@ async function bootProfiles() {
 
 bootProfiles();
 import('./relationship-enhancement.js').catch((error) => console.error('[lorebook] failed to boot relationship enhancement', error));
+import('./decision-lab.js').catch((error) => console.error('[lorebook] failed to boot setting decision lab', error));
