@@ -79,6 +79,7 @@ namespace VampPon.UnitySpike.UI.Screens
             if (entry == null) return;
             if (detailOverlay != null) Destroy(detailOverlay);
             detailOverlay = U46ScreenFactory.Panel(transform, "CollectionDetailOverlay", new Vector2(0.08f, 0.18f), new Vector2(0.92f, 0.82f), assets.Result.MemoryPage, new Color(0.89f, 0.8f, 0.64f));
+            detailOverlay.AddComponent<CollectionDetailReveal>();
             U46ScreenFactory.Label(detailOverlay.transform, "DetailTitle", entry.Title, 24f, Ink(), new Vector2(0.1f, 0.75f), new Vector2(0.9f, 0.9f), TextAlignmentOptions.Center, font);
             U46ScreenFactory.Label(detailOverlay.transform, "DetailDescription", entry.Description, 16f, Ink(), new Vector2(0.12f, 0.35f), new Vector2(0.88f, 0.72f), TextAlignmentOptions.TopLeft, font);
             U46ScreenFactory.Label(detailOverlay.transform, "DetailProgress", entry.Unlocked ? $"発見 {entry.ProgressCurrent} / {entry.ProgressMax}\n{entry.RelatedLabel}" : "手がかりを探している", 14f, Ink(), new Vector2(0.34f, 0.22f), new Vector2(0.88f, 0.35f), TextAlignmentOptions.Left, font);
