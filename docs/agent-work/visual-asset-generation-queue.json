@@ -89,6 +89,20 @@
       "forbidden": ["moving environmental background", "baked option text", "large decorative illustration behind choices"]
     },
     {
+      "id": "ART-P2-BATTLE-HUD-MATERIAL",
+      "priority": 2,
+      "screen": "BattleHUD",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "visualDebt": ["native hierarchy and thumb-zone layout are now fixed but current U45 candidate chrome is still generic", "virtual stick and compact inventory panel need one authored material language"],
+      "outputRoot": "docs/design-targets/generated/visual-batch-v1/battle-hud/incoming/",
+      "why": "After the native HUD/readability pass, authored material surfaces can now improve quality without hiding gameplay data or changing layout.",
+      "artDirection": ["quiet black-ink frame", "dark paper", "restrained amber edge light", "travel instrument", "minimal battle chrome"],
+      "deliverables": ["battle-hud-top-frame.png", "battle-hud-inventory-panel.png", "battle-hud-slot-frame.png", "battle-virtual-stick-ring.png", "battle-virtual-stick-knob.png"],
+      "runtimeOwned": ["HP fill", "Kokuyou fill/state", "all numbers/text", "inventory labels", "stick displacement/engagement feedback"],
+      "acceptance": ["no gameplay values or labels baked into art", "left-lower movement zone remains visually quiet", "bottom-right inventory remains readable on 360px width", "top HUD does not compete with enemies", "all five assets feel like one family and slice/stretch cleanly"],
+      "forbidden": ["full-screen HUD screenshot", "baked HP/EXP values", "oversized ornamental borders", "high-contrast decoration inside playfield"]
+    },
+    {
       "id": "ART-P2-BATTLE-ENVIRONMENT-BANDS",
       "priority": 2,
       "screen": "Battle",
@@ -117,7 +131,6 @@
   ],
   "doNotGenerateYet": [
     {"screen": "Loading", "reason": "Four seasonal final images already exist; improve only through runtime polish unless art review explicitly rejects them."},
-    {"screen": "Settings/FirstRun", "reason": "Clarity and functional interaction are the priority; solve with layout/components before decorative art."},
-    {"screen": "HUD", "reason": "Readability and feedback should be fixed with native UI/shared assets first."}
+    {"screen": "Settings/FirstRun", "reason": "Clarity and functional interaction are the priority; solve with layout/components before decorative art."}
   ]
 }
