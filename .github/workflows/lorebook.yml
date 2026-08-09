@@ -28,17 +28,20 @@ jobs:
         run: |
           node --check public/lorebook/app.js
           node --check public/lorebook/profile-enhancement.js
+          node --check public/lorebook/relationship-enhancement.js
 
-      - name: Validate world-bible schema and references
+      - name: Validate lorebook schemas and references
         run: |
           node <<'NODE'
           const fs = require('fs');
           const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json', 'utf8'));
           const personal = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
+          const arcs = JSON.parse(fs.readFileSync('public/lorebook/data/relationship-arcs.v1.json', 'utf8'));
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
           const worldIds = new Set(world.characters.map((c) => c.id));
           const worldNames = new Set(world.characters.map((c) => c.name));
+          const relationIds = new Set(world.relationships.map((r) => r.id));
           const runtimeIds = new Set([
             'yui', 'asa', 'nagi', 'michiru', 'tomori',
             'sen', 'ritsu', 'koyori', 'gen', 'hana', 'yubi', 'madoka', 'shiro', 'tobari', 'nemu',
@@ -47,13 +50,17 @@ jobs:
 
           if (world.schemaVersion !== 1) fail('world schemaVersion must be 1');
           if (personal.schemaVersion !== 1) fail('personal schemaVersion must be 1');
+          if (arcs.schemaVersion !== 1) fail('relationship arc schemaVersion must be 1');
           if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
           if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
+          if (arcs.arcs.length !== 12) fail(`expected 12 production relationship arcs, got ${arcs.arcs.length}`);
+          if (arcs.ensembles.length !== 4) fail(`expected 4 ensemble relationship groups, got ${arcs.ensembles.length}`);
           if (new Set(world.characters.map((c) => c.id)).size !== world.characters.length) fail('duplicate character id');
           if (new Set(world.characters.map((c) => c.name)).size !== world.characters.length) fail('duplicate character name');
           if (new Set(world.relationships.map((r) => r.id)).size !== world.relationships.length) fail('duplicate relationship id');
           if (new Set(personal.profiles.map((p) => p.lorebookId)).size !== personal.profiles.length) fail('duplicate profile lorebookId');
           if (new Set(personal.profiles.map((p) => p.runtimeId)).size !== personal.profiles.length) fail('duplicate profile runtimeId');
+          if (new Set(arcs.arcs.map((arc) => arc.relationshipId)).size !== arcs.arcs.length) fail('duplicate relationship arc id');
 
           for (const character of world.characters) {
             if (!character.name || !character.core || !character.growth) fail(`incomplete character: ${character.id}`);
@@ -78,11 +85,24 @@ jobs:
           for (const runtimeId of runtimeIds) {
             if (!personal.profiles.some((profile) => profile.runtimeId === runtimeId)) fail(`missing stable runtimeId mapping: ${runtimeId}`);
           }
+          for (const arc of arcs.arcs) {
+            if (!relationIds.has(arc.relationshipId)) fail(`orphan relationship arc: ${arc.relationshipId}`);
+            for (const key of ['firstRead','usefulFriction','failureExposure','chosenTrust','dawnProof']) {
+              if (!arc[key]) fail(`incomplete relationship arc ${arc.relationshipId}: ${key}`);
+            }
+          }
+          for (const ensemble of arcs.ensembles) {
+            if (!ensemble.members?.length || ensemble.members.length < 3) fail(`ensemble must have 3+ members: ${ensemble.id}`);
+            for (const member of ensemble.members ?? []) {
+              if (!worldIds.has(member)) fail(`orphan ensemble member: ${ensemble.id}/${member}`);
+            }
+          }
           if (!world.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
           if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
           if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
+          if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('relationship arc source drift');
           if (process.exitCode) process.exit(process.exitCode);
-          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${world.relationships.length} relationships / ${world.openQuestions.length} open questions`);
+          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${arcs.ensembles.length} ensembles / ${world.openQuestions.length} open questions`);
           NODE
 
       - name: Verify static entrypoint references
@@ -90,12 +110,16 @@ jobs:
           grep -q './styles.css' public/lorebook/index.html
           grep -q './app.js' public/lorebook/index.html
           grep -q './profile-enhancement.js' public/lorebook/index.html
+          grep -q './relationship-enhancement.js' public/lorebook/profile-enhancement.js
           test -f public/lorebook/styles.css
           test -f public/lorebook/profile.css
+          test -f public/lorebook/relationship.css
           test -f public/lorebook/app.js
           test -f public/lorebook/profile-enhancement.js
+          test -f public/lorebook/relationship-enhancement.js
           test -f public/lorebook/data/world-bible.v1.json
           test -f public/lorebook/data/personal-profiles.v1.json
+          test -f public/lorebook/data/relationship-arcs.v1.json
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -117,7 +141,10 @@ jobs:
           test -f dist/lorebook/index.html
           test -f dist/lorebook/styles.css
           test -f dist/lorebook/profile.css
+          test -f dist/lorebook/relationship.css
           test -f dist/lorebook/app.js
           test -f dist/lorebook/profile-enhancement.js
+          test -f dist/lorebook/relationship-enhancement.js
           test -f dist/lorebook/data/world-bible.v1.json
           test -f dist/lorebook/data/personal-profiles.v1.json
+          test -f dist/lorebook/data/relationship-arcs.v1.json
