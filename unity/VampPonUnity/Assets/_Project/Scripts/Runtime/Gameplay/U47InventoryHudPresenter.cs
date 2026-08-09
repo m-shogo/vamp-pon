@@ -50,7 +50,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             rect.sizeDelta = new Vector2(210f, 96f);
 
             var rootImage = root.GetComponent<Image>();
-            rootImage.sprite = AppQualityAssetProvider.BattleHudTopFrame;
+            rootImage.sprite = VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.BattleHudInventoryPanel, AppQualityAssetProvider.BattleHudTopFrame);
             rootImage.type = rootImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             rootImage.color = rootImage.sprite != null
                 ? new Color(1f, 1f, 1f, .9f)
@@ -119,7 +119,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             var image = top.GetComponent<Image>();
             if (image != null)
             {
-                image.sprite = AppQualityAssetProvider.BattleHudTopFrame;
+                image.sprite = VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.BattleHudTopFrame, AppQualityAssetProvider.BattleHudTopFrame);
                 image.type = image.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
                 image.color = image.sprite != null
                     ? new Color(1f, 1f, 1f, .88f)
@@ -148,6 +148,19 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             var player = FindAnyObjectByType<PlayerController>();
             if (ring == null || knob == null || player == null)
                 return;
+
+            var ringImage = ring.GetComponent<Image>();
+            var knobImage = knob.GetComponent<Image>();
+            if (ringImage != null && VisualBatchAssetProvider.BattleVirtualStickRing != null)
+            {
+                ringImage.sprite = VisualBatchAssetProvider.BattleVirtualStickRing;
+                ringImage.color = Color.white;
+            }
+            if (knobImage != null && VisualBatchAssetProvider.BattleVirtualStickKnob != null)
+            {
+                knobImage.sprite = VisualBatchAssetProvider.BattleVirtualStickKnob;
+                knobImage.color = Color.white;
+            }
 
             var feedback = parent.GetComponent<BattleVirtualStickFeedback>();
             if (feedback == null)
@@ -181,7 +194,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             rect.offsetMin = Vector2.zero;
             rect.offsetMax = Vector2.zero;
             var image = panel.GetComponent<Image>();
-            image.sprite = AppQualityAssetProvider.BattleInventorySlotFrame;
+            image.sprite = VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.BattleHudSlotFrame, AppQualityAssetProvider.BattleInventorySlotFrame);
             image.type = image.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             image.color = image.sprite != null ? new Color(1f, 1f, 1f, .88f) : new Color(.09f, .07f, .075f, .8f);
             image.raycastTarget = false;
