@@ -29,6 +29,7 @@ jobs:
           node --check public/lorebook/app.js
           node --check public/lorebook/profile-enhancement.js
           node --check public/lorebook/relationship-enhancement.js
+          node --check public/lorebook/decision-lab.js
 
       - name: Validate lorebook schemas and references
         run: |
@@ -37,11 +38,13 @@ jobs:
           const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json', 'utf8'));
           const personal = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
           const arcs = JSON.parse(fs.readFileSync('public/lorebook/data/relationship-arcs.v1.json', 'utf8'));
+          const lab = JSON.parse(fs.readFileSync('public/lorebook/data/setting-decision-lab.v1.json', 'utf8'));
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
           const worldIds = new Set(world.characters.map((c) => c.id));
           const worldNames = new Set(world.characters.map((c) => c.name));
           const relationIds = new Set(world.relationships.map((r) => r.id));
+          const openQuestionIds = new Set(world.openQuestions.map((item) => item.id));
           const runtimeIds = new Set([
             'yui', 'asa', 'nagi', 'michiru', 'tomori',
             'sen', 'ritsu', 'koyori', 'gen', 'hana', 'yubi', 'madoka', 'shiro', 'tobari', 'nemu',
@@ -51,16 +54,19 @@ jobs:
           if (world.schemaVersion !== 1) fail('world schemaVersion must be 1');
           if (personal.schemaVersion !== 1) fail('personal schemaVersion must be 1');
           if (arcs.schemaVersion !== 1) fail('relationship arc schemaVersion must be 1');
+          if (lab.schemaVersion !== 1) fail('decision lab schemaVersion must be 1');
           if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
           if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
           if (arcs.arcs.length !== 12) fail(`expected 12 production relationship arcs, got ${arcs.arcs.length}`);
           if (arcs.ensembles.length !== 4) fail(`expected 4 ensemble relationship groups, got ${arcs.ensembles.length}`);
+          if (lab.decisions.length !== world.openQuestions.length) fail(`decision lab/open question mismatch: ${lab.decisions.length}/${world.openQuestions.length}`);
           if (new Set(world.characters.map((c) => c.id)).size !== world.characters.length) fail('duplicate character id');
           if (new Set(world.characters.map((c) => c.name)).size !== world.characters.length) fail('duplicate character name');
           if (new Set(world.relationships.map((r) => r.id)).size !== world.relationships.length) fail('duplicate relationship id');
           if (new Set(personal.profiles.map((p) => p.lorebookId)).size !== personal.profiles.length) fail('duplicate profile lorebookId');
           if (new Set(personal.profiles.map((p) => p.runtimeId)).size !== personal.profiles.length) fail('duplicate profile runtimeId');
           if (new Set(arcs.arcs.map((arc) => arc.relationshipId)).size !== arcs.arcs.length) fail('duplicate relationship arc id');
+          if (new Set(lab.decisions.map((decision) => decision.id)).size !== lab.decisions.length) fail('duplicate setting decision id');
 
           for (const character of world.characters) {
             if (!character.name || !character.core || !character.growth) fail(`incomplete character: ${character.id}`);
@@ -97,12 +103,28 @@ jobs:
               if (!worldIds.has(member)) fail(`orphan ensemble member: ${ensemble.id}/${member}`);
             }
           }
+          for (const decision of lab.decisions) {
+            if (!openQuestionIds.has(decision.openQuestionId)) fail(`decision without open question: ${decision.id}/${decision.openQuestionId}`);
+            if (!decision.options?.length || decision.options.length < 2) fail(`decision requires multiple options: ${decision.id}`);
+            if (!decision.options.some((option) => option.id === decision.recommendedOptionId)) fail(`missing recommended option: ${decision.id}/${decision.recommendedOptionId}`);
+            if (!decision.recommendation || !decision.doNotLockYet?.length) fail(`decision missing recommendation guardrails: ${decision.id}`);
+            for (const option of decision.options) {
+              for (const key of ['coherence','emotion','futureFreedom','risk']) {
+                if (!Number.isInteger(option[key]) || option[key] < 1 || option[key] > 5) fail(`invalid decision score: ${decision.id}/${option.id}/${key}`);
+              }
+            }
+          }
+          if (new Set(lab.recommendedDecisionOrder).size !== lab.decisions.length) fail('decision order must cover each decision exactly once');
+          for (const decisionId of lab.recommendedDecisionOrder) {
+            if (!lab.decisions.some((decision) => decision.id === decisionId)) fail(`unknown decision in order: ${decisionId}`);
+          }
+          if (!lab.statusRule?.includes('CANDIDATE')) fail('decision lab must explicitly remain CANDIDATE');
           if (!world.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
           if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
           if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
           if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('relationship arc source drift');
           if (process.exitCode) process.exit(process.exitCode);
-          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${arcs.ensembles.length} ensembles / ${world.openQuestions.length} open questions`);
+          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${arcs.ensembles.length} ensembles / ${lab.decisions.length} decision comparisons`);
           NODE
 
       - name: Verify static entrypoint references
@@ -111,15 +133,19 @@ jobs:
           grep -q './app.js' public/lorebook/index.html
           grep -q './profile-enhancement.js' public/lorebook/index.html
           grep -q './relationship-enhancement.js' public/lorebook/profile-enhancement.js
+          grep -q './decision-lab.js' public/lorebook/profile-enhancement.js
           test -f public/lorebook/styles.css
           test -f public/lorebook/profile.css
           test -f public/lorebook/relationship.css
+          test -f public/lorebook/decision-lab.css
           test -f public/lorebook/app.js
           test -f public/lorebook/profile-enhancement.js
           test -f public/lorebook/relationship-enhancement.js
+          test -f public/lorebook/decision-lab.js
           test -f public/lorebook/data/world-bible.v1.json
           test -f public/lorebook/data/personal-profiles.v1.json
           test -f public/lorebook/data/relationship-arcs.v1.json
+          test -f public/lorebook/data/setting-decision-lab.v1.json
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -142,9 +168,12 @@ jobs:
           test -f dist/lorebook/styles.css
           test -f dist/lorebook/profile.css
           test -f dist/lorebook/relationship.css
+          test -f dist/lorebook/decision-lab.css
           test -f dist/lorebook/app.js
           test -f dist/lorebook/profile-enhancement.js
           test -f dist/lorebook/relationship-enhancement.js
+          test -f dist/lorebook/decision-lab.js
           test -f dist/lorebook/data/world-bible.v1.json
           test -f dist/lorebook/data/personal-profiles.v1.json
           test -f dist/lorebook/data/relationship-arcs.v1.json
+          test -f dist/lorebook/data/setting-decision-lab.v1.json
