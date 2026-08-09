@@ -32,6 +32,14 @@ namespace VampPon.UnitySpike.UI
         public static Sprite LevelUpCardRare => Load("levelup-card-rare");
         public static Sprite LevelUpCardEvolution => Load("levelup-card-evolution");
 
+        // Battle remains native HUD/data first. These are material/chrome replacements only,
+        // never full-screen HUD screenshots or baked gameplay text.
+        public static Sprite BattleHudTopFrame => Load("battle-hud-top-frame");
+        public static Sprite BattleHudInventoryPanel => Load("battle-hud-inventory-panel");
+        public static Sprite BattleHudSlotFrame => Load("battle-hud-slot-frame");
+        public static Sprite BattleVirtualStickRing => Load("battle-virtual-stick-ring");
+        public static Sprite BattleVirtualStickKnob => Load("battle-virtual-stick-knob");
+
         public static Sprite Prefer(Sprite preferred, Sprite fallback) => preferred != null ? preferred : fallback;
 
         private static Sprite Load(string assetId) => Resources.Load<Sprite>(Root + assetId);
