@@ -10,7 +10,7 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             new[] { "Outcome", "Title", "Stage", "RankSeal", "Rank" },
             new[] { "StatChip", "U47GameplaySummary" },
-            new[] { "RewardsTitle", "RewardsEmpty", "RewardCard", "Records", "SaveStatus" },
+            new[] { "RewardsTitle", "RewardsEmpty", "RewardCard", "Records", "NewRecordRow", "RecordsMore", "SaveStatus" },
             new[] { "RetryButton", "StageSelectButton" },
         };
 
