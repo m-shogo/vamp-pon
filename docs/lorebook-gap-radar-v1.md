@@ -1,18 +1,21 @@
-# ヨルノシルベ Lorebook Gap Radar v1
+# ヨルノシルベ Lorebook Gap Radar v2
 
 Date: 2026-08-09  
-Status: **CURRENT GAP INVENTORY / DO NOT AUTO-CANONIZE**
+Status: **CURRENT GAP INVENTORY / RESOLVED TITLE-1 LAWS REMOVED**
 
 ## 1. Purpose
 
-「まだ決まっていない」と「まだ実装していない」と「意図的に決めない」を分ける。
+「まだ決まっていない」と「作品1では決まった」と「実装していない」を分ける。
 
 ```txt
+CANON / CURRENT
+  作品1で必要な法則・人物関係として決定済み
+
 OPEN QUESTION
-  物語・世界設定として答えがまだない
+  Series / Character / productionとして答えがまだない
 
 CANDIDATE
-  強い案はあるがHuman decision前
+  強い案はあるが未昇格
 
 DESIGN DEBT
   方針はあるが情報密度が不足
@@ -21,83 +24,150 @@ IMPLEMENTATION GAP
   正本はあるがWeb/runtimeへ未接続
 ```
 
+重要:
+
+> **一度Current Canonへ昇格したTitle 1の法則を、Decision Labの都合でOPENへ戻さない。**
+
 ---
 
-# 2. Story / World — 最優先でまだ詰まっていない
+# 2. 2026-08-09に作品1でLOCKしたもの
 
-## A1. 夜の最終的な正体
+## RESOLVED A — Night
 
-Current:
-- 別時代の人物が会える
-- 朝へ戻る
-- 物 / 言葉 / 記録が現実時間を渡れる
+Current Canon:
+
+- 夜 = 人 / 物 / 言葉 / 記録に残る未完の意味が、現実の時代を越えて重なる境界層
+- 別時代の人物が夜で会える
+- 現実時間では物・記録・言葉が順序を持って継承される
+- 夜の発生と、後世の帰路 / 観測 / 保管system整備は分離する
+- 一人の万能Creatorが最初から全部設計したsystemにはしない
+
+Seriesへ残すのは最初の発生条件とmaintenance史。
+
+## RESOLVED B — Black Ink / 黒耀化
+
+Current Canon:
+
+> 黒インクは悲しい感情そのものではなく、出来事や自分自身へ付いた「一つの意味だけが正しい」という固定が夜で形を持ったもの。
+
+- defeat / rescue = 消去ではなく **ほどく**
+- 黒耀化 = 長所 + 守りたいもの + 恐怖 / 焦り + 「この方法しかない」
+- Game Over = 死亡ではない
+- Retry = literal time-loopへ自動固定しない
+
+## RESOLVED C — Star Beast role
+
+Current Canon:
+
+- 人物の価値観 + 生物星座の共鳴から夜で形を得る観測伴走者
+- 夜では基本的に他の参加者も見える
+- route / repetition / object resonance / Character変化を察知できる
+- 人間の本心 / 未来 / Main Mystery最終答えは知らない
+- 万能説明NPCにしない
+
+## RESOLVED D — ユイ × トモリ
+
+Current Canon:
+
+- トモリはユイより前の現実時代で、**後にユイへ届く同じ物理ランタン**を修理した
+- 複数の手を経て後世のユイへ渡った
+- Leo共有は同じ灯り / object lineageへの共鳴
+- **血縁Canonにはしない**
+
+OPENなのは中間所有者 / exact years / original maker。
+
+## RESOLVED E — クロオリ
+
+Current Canon:
+
+- 本人が「今は返さないで」と選んだ記憶を、開く時まで預かる
+- 記憶泥棒ではない
+- ユイとクロオリの1作目の答えは、どちらも「本人が選ぶ」へ戻る
+
+OPENなのは「過去のユイ本人が一つ預けたか」「クロオリ自身の最初のsealed memory」。
+
+## RESOLVED F — Relative Era method
+
+Current Canon:
+
+```txt
+eraLayer
+confidence
+technologyMarker
+languageMarker
+dailyLifeMarker
+objectLineageLinks[]
+evidenceSources[]
+```
+
+Layers:
+
+- OLD
+- TRANSIT
+- RECENT
+- UNKNOWN
+
+Exact yearを先に付けない。
+
+---
+
+# 3. Story / World — 現在の本当のOPEN 8件
+
+## A1. Night origin
+
+Question:
+
+> 夜が最初に発生した条件と最古年代は何か。
+
+Current candidate:
+- 複数世代の「未完の意味」が蓄積し閾値を越えて自然発生
+
+まだLOCKしない:
+- 西暦
+- 国 / 地域
+- 最初の観測者
+
+## A2. Night maintainers
+
+Question:
+
+> 自然発生した夜を「帰れる場所」へ変えた人々は誰か。
+
+Strong candidate:
+- 一人のFounderではなく、別時代の複数maintainerが門 / 記録 / 修理 / 観測を継ぎ足した
+
+## A3. Star Beast origin history
+
+Question:
+
+> なぜ人間が見出した生物星座patternと人物の価値観が夜で星獣になるのか。
+
+Strong candidate:
+- 長い歴史の中で人が星へ与えた「生物の意味」そのものがNightのmeaning layerと共鳴
 
 未LOCK:
-- 夢なのか
-- shared memoryなのか
-- 境界領域なのか
-- 誰が作ったのか
-- なぜ必要だったのか
+- 最古記録
+- IAU以前の呼称処理
+- 文化圏差
 
-Recommendation:
-- 1作目では「別時代の記憶・物・言葉が重なる境界領域」まで
-- 完全な宇宙論はSeries Mysteryへ残す
+## A4. Strong Named Object crossing condition
 
-## A2. 黒インク Story Engineの最終採用
+Question:
+
+> なぜ一部の物は強く時代を越えて夜へ痕跡を残すのか。
 
 Strong candidate:
 
-> 悲しい出来事そのものではなく、その出来事についた「一つの意味」が固定された状態。
+> 感情量ではなく、複数人が修理・保管・受け渡しなど「どう残すか」を選んだ物ほど強い。
 
-未LOCK:
-- Main Mysteryの最終法則にするか
-- 黒耀化との厳密な因果
-- 敵の生成との関係
+ヨルノシルベ2の継承テーマへ直結するため優先度 HIGH。
 
-## A3. 夜を作った主体 / 必要性
+## A5. Current21 Relative Era evidence table
 
-誰か一人の悪意へ単純化しない方が現設計とは相性が良い。
-ただし creator / emergent phenomenon / accumulated human system のどこへ寄せるか未確定。
+MethodはCanonだが21人の配置は未完成。
 
-## A4. 星獣の完全な仕組み
+必要:
 
-Current Canon:
-- IAU生物星座
-- favorite constellation
-- 星獣
-- 重複は意味のある関係のみ
-- 誕生日占いではない
-
-未LOCK:
-- なぜ星獣が生まれるか
-- 誰に見えるか
-- 夜の外でも存在するか
-- 記憶をどこまで持つか
-- 黒耀化時に何が変わるか
-- assistをGameplayへ入れるか
-
-## A5. ユイ × トモリの獅子 / ランタン真相
-
-Current Canon:
-- Leo shared
-- トモリはユイのランタンを知る
-- 修理 / 継火との強い接続
-
-未LOCK:
-- 血縁
-- 遠い親族
-- 技術継承
-- 同じランタンの歴史
-- shared memory / fire lineage
-
-Current recommendation:
-**同一Named Objectの継承を先に強くし、血縁は後から必要なら足す。**
-
-## A6. Current21 Relative Era
-
-Exact yearは意図的に未LOCK。
-
-不足:
 - language marker
 - technology marker
 - food / clothing marker
@@ -105,62 +175,148 @@ Exact yearは意図的に未LOCK。
 - object age evidence
 - confidence
 
-History Atlasは入ったが人物21人のEra evidence tableはまだ未完成。
+まずゲン / トモリ / ユウビ / トバリ等からevidence-firstで置く。
 
-## A7. クロオリが具体的に預かっているもの
+## A6. Yui voluntary sealed memory
 
-Strong candidate:
-- 本人が「今は返さないで」と預けたconsent-sealed memory
+Question:
 
-未LOCK:
-- 誰の記憶か
-- ユイ本人と関係するか
-- Main Mysteryへ直結させるか
-
-## A8. sequelへ残す最小の違和感
-
-1作のHappy Endを壊さないことが絶対条件。
+> 過去のユイ自身がクロオリへ「今は返さないで」と一つの記憶を預けていたか。
 
 Strong candidate:
-- 誰の手癖でもない小さな修理痕
+- YES。ただし「危険だから封印」ではなく、当時のユイ自身が受け取る時を選んだ記憶
+
+これを入れるとユイ×クロオリがself-consentまで反転する。
+
+## A7. Night geography
+
+Question:
+
+> 夜は世界で一枚か、地域 / object clusterごとの局所layerが重なるのか。
+
+Strong candidate:
+- overlapping local layers
+
+理由:
+- 2/3で新しい舞台を増やせる
+- 「なぜ1に全世界の人物が来なかったか」を説明できる
+- Named Object / routeでlayer同士を接続できる
+
+## A8. Series 2 / 3 exact production
+
+Series構造Current direction:
+
+- 1 = 戻す / 開く / 選び直す
+- 2 = 継ぐ / 渡す / 受け取る
+- 3 = 残す / 手放す / 夜を選ぶ
 
 未LOCK:
-- object
-- location
-- sequel protagonistとの関係
+
+- 2の中心主人公
+- 2の舞台
+- 3の中心主人公 / returning cast
+- exact release scope
+- final Series anomaly
+
+推奨:
+- 新しい中心人物 + 必要な旧castだけreturn
+- 旧castはgrowthを保持
+- 全員集合を毎作義務化しない
 
 ---
 
-# 3. Character — まだ密度差がある
+# 4. Relationship / Commercial — 次の深掘り
 
-## B1. 黒耀化の固有呼称
+## B1. 残り12 relationの5-stage arc
+
+Current:
+- priority relationship = 24
+- full 5-stage production arc = 12
+
+不足:
+- First read
+- Useful friction
+- Failure / exposure
+- Chosen trust
+- Dawn proof
+
+商業面でも重要。
+Relation人気を育てるには「二人並べた見た目」だけでなく、**二人だから起きる一場面**が必要。
+
+## B2. Commercial identity 21/21
+
+Theme HEX / Star Beast / Named Objectはかなり揃った。
+次にCharacter DBへ加える候補:
+
+```txt
+silhouetteHook
+signatureAction
+signatureObjectIds[]
+strongestRelationshipHooks[]
+everydayMerchMotifs[]
+premiumReplicaCandidate
+spoilerTier
+seriesCarryForwardHooks[]
+```
+
+目的:
+- 売れたCharacterだけ後付けで作り込まない
+- 誰の人気が伸びても商品 / storyへ接続できる
+
+## B3. Relationship commercial metadata
+
+Relationship DBへ候補:
+
+```txt
+commercialLane
+pairVisualContrast
+sharedMotifs[]
+sharedObjectIds[]
+spoilerTier
+safeForPublicMerch
+```
+
+重要:
+- favoriteRelationship != romance poll
+- friendship / siblings / ideological mirror / night-born trustを同格にする
+
+## B4. Popularity analytics layer
+
+Canon DBと分離して将来持つ。
+
+最低6軸:
+
+- favoriteCharacter
+- favoriteStarBeast
+- favoriteRelationship
+- wantToCollect
+- wantMoreStory
+- favoriteScene
+
+PopularityからCanon relationやMain Mysteryを書き換えない。
+
+---
+
+# 5. Character — まだ密度差がある
+
+## C1. 黒耀化の固有呼称
 
 - ユイ `黒灯化` は強く継承
 - 他20人はWorking / Human Naming Review前
 
 全員を同じ命名patternへ揃えない。
 
-## B2. 24 relationのarc密度
-
-Current:
-- priority relations = 24
-- full 5-stage production arc = 12
-
-不足:
-- 残り12 relationの First read / friction / failure / chosen trust / Dawn proof
-
-全210 pairを埋める必要はない。
-重要なのはCurrent21全員が別相手で違う面を見せること。
-
-## B3. Romance / family / friendshipの長期配置
+## C2. Romance / family / friendshipの長期配置
 
 Currentで明確:
 - ユイ×アサ non-romance
 - リツ×コヨリ siblings / non-romance
+- ユイ×トモリ blood relationではない
 
-Future15や長命の魔女を含む恋愛史はCandidate reservoirが大きいが、Current本編で誰をどこまで恋愛へ寄せるかは未LOCK。
+Future castを含む恋愛はCharacter Core / Series主題を食わない範囲で設計する。
+人気pairを後からforced romanceへ変更しない。
 
-## B4. Shadow visible name runtime migration
+## C3. Shadow visible-name runtime migration
 
 Story/profile:
 - カナメ / カスミ / トキ / ツムギ
@@ -168,129 +324,123 @@ Story/profile:
 Runtime IDs:
 - kage1..4 keep
 
-`characterThemeColors.ts` はcompatibility name + current displayNameを両方持つようにした。
-ただしruntime display-name migration自体は別gate。
+compatibilityは維持済み。runtime display-name migrationは別gate。
 
 ---
 
-# 4. Gameplay / Lore bridge — 正本はあるが未接続
+# 6. Gameplay / Lore bridge
 
-## C1. Star Beast combat assist
+## D1. Star Beast combat assist
 
-Canon adoption != runtime implementation。
-今はプロフィール / 日常 / Collection / visual clueとして扱う。
+Star Beast Canon != runtime assist implemented。
+現在はプロフィール / 日常 / Collection / visual clue。
 
-## C2. Bond / Support
+## D2. Bond / Support
 
-強いdesign方向はあるが、Support slot / save / modifier / progression runtimeは別実装gate。
+Design方向はあるが、Support slot / save / modifier / progression runtimeは別gate。
 
-## C3. Named Object read model
+## D3. Named Object read model
 
-Current foundationは存在するが、Lorebook / game runtime / archiveの完全な双方向cross-linkは未完成。
+Definition foundationは存在。
+Lorebook / game runtime / archiveの完全cross-linkは未完成。
 
-## C4. Global constellation / Clear Getter runtime
+## D4. Global constellation / Clear Getter runtime
 
 Definition foundationはあるがruntimeFrozenではない。
 100% rewardを誤解放しない。
 
 ---
 
-# 5. Lorebook Product — まだ実装していない
+# 7. Lorebook Product
 
-## D1. Portrait / silhouette image connection
-
-今の人物カードは文字・色・星獣で識別する。
-Production portrait / silhouette image authorityとの接続は未実施。
+## E1. Portrait / silhouette image connection
 
 優先度: HIGH
-
-理由:
-- 3秒で人物を思い出す性能が大きく上がる
-- 攻略本らしさが増す
-
-ただしcandidate assetをfinal portraitとして混ぜないapproval boundaryが必要。
-
-## D2. Constellation mini visual
-
-今は星座名 / 星獣名 / colorまで。
-将来:
-- biological constellation mini-line
-- star beast silhouette
-- shared constellation clue
-
-を1カードへまとめられる。
-
-優先度: HIGH
-
-## D3. Author DB / Editor
 
 Current:
-- Git-reviewed JSON read model
+- text / color / Star Beastで識別
+- Yui identity referenceは存在するがruntime/final approvalではない
+
+必要:
+- Current21 portrait/silhouette authority
+- candidate / approved reference / finalを混ぜない
+
+## E2. Star Beast mini visual
+
+優先度: HIGH
+
+- constellation mini-line
+- Star Beast silhouette
+- shared constellation clue
+
+## E3. Author DB / Editor
+
+Current:
+- Git-reviewed JSON read models
 
 未実装:
-- authentication
+- auth
 - draft edit
 - preview diff
 - source mandatory
-- CANON promotion action
+- CANON promotion
 - audit history
 
-優先度: MEDIUM-HIGH
+## E4. Hosting
 
-## D4. Hosting
+`dist/lorebook/` artifactは生成可能。
+公開providerは未選択。
 
-`dist/lorebook/` deploy artifactまでは作れる。
-既存repoにhosting providerの正本がないため、公開先は未選択。
+## E5. Spoiler taxonomy
 
-## D5. Spoiler taxonomy
-
-Current:
+現在:
 - normal
 - author mode
 
-将来は:
+将来:
 - spoiler-free
 - game-clear
 - deep lore
 - author-only
 
-等へ細分化余地あり。
+## E6. Cross-domain search
 
-## D6. Cross-domain search
-
-Current:
-- character search
-- glossary search
+現在:
+- character
+- glossary
 
 未実装:
 - relation
-- object
+- Named Object
 - stage
 - enemy
 - mystery
 - source
 
-を横断するcommand/search palette。
+## E7. Visual regression
 
-## D7. Visual regression
-
-CIはsyntax / schema / build artifactを検証。
-まだbrowser screenshot baseline / visual diffはない。
+CI = syntax / schema / build artifact。
+Browser screenshot baseline / pixel diffは未実装。
 
 ---
 
-# 6. Priority order
+# 8. Priority
 
 ```txt
-P0  scroll / theme DB / deprecated zodiac cleanup      DONE in current PR
-P1  Current21 portrait / star-beast visual connection
-P1  remaining 12 strong relation arc depth
-P1  Relative Era evidence for Current21
-P2  spoiler taxonomy / cross-domain search
-P2  Author DB / Editor
-P2  hosting
-P3  Star Beast gameplay assist prototype
+P0  Title 1 Night / Black Ink / Star Beast laws             DONE
+P0  Yui×Tomori same-lantern / no-blood Canon                DONE
+P0  Series 1/2/3 continuity + commercial guardrails         DONE
+P0  Lorebook night→dawn→morning visual system               DONE in branch
+P1  Named Object crossing condition                         NEXT SETTING
+P1  Current21 Relative Era evidence                         NEXT SETTING
+P1  Yui voluntary sealed memory decision                    NEXT SETTING
+P1  remaining 12 relationship arcs                          NEXT CONTENT
+P1  Current21 commercial identity fields                    NEXT DATA
+P1  portrait / Star Beast visual authority                  NEXT VISUAL
+P2  Night geography / maintainers / Star Beast origin       SERIES DEPTH
+P2  spoiler taxonomy / cross-domain search                  PRODUCT
+P2  Author DB / Editor / hosting                            PRODUCT
+P3  Star Beast gameplay assist                              RUNTIME
 ```
 
-StoryのA1〜A8は、実装都合で答えを固定しない。
-Webが「空欄を埋める圧力」にならないことを守る。
+> **商業・続編の余白は、作品1を曖昧にすることで作らない。作品1で答えたものを土台に、別時代・別人物・同じ物の再読価値を増やして作る。**
