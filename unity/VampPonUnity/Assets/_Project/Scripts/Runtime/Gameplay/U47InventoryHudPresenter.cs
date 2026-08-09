@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VampPon.UnitySpike.Player;
 using VampPon.UnitySpike.Runtime.Gameplay.Definitions;
 using VampPon.UnitySpike.Runtime.Gameplay.State;
 using VampPon.UnitySpike.UI;
@@ -37,6 +38,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             gameplay = runtime;
             RetireLegacyInventoryChrome(parent);
             PolishTopHud(parent, font);
+            ConnectVirtualStickFeedback(parent);
 
             var root = new GameObject("U47ActualInventoryHud", typeof(RectTransform), typeof(Image));
             root.transform.SetParent(parent, false);
@@ -137,6 +139,20 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
                 label.overflowMode = TextOverflowModes.Ellipsis;
                 label.raycastTarget = false;
             }
+        }
+
+        private static void ConnectVirtualStickFeedback(Transform parent)
+        {
+            var ring = parent.Find("U45VirtualStickLowerLeftRing")?.GetComponent<RectTransform>();
+            var knob = parent.Find("U45VirtualStickLowerLeftKnob")?.GetComponent<RectTransform>();
+            var player = FindAnyObjectByType<PlayerController>();
+            if (ring == null || knob == null || player == null)
+                return;
+
+            var feedback = parent.GetComponent<BattleVirtualStickFeedback>();
+            if (feedback == null)
+                feedback = parent.gameObject.AddComponent<BattleVirtualStickFeedback>();
+            feedback.Bind(player, ring, knob);
         }
 
         private void CreateMetricRow(Transform parent, TMP_FontAsset font)
