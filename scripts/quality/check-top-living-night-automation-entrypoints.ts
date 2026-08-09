@@ -12,7 +12,7 @@ function invariant(value: unknown, message: string): asserts value {
 
 const expected = {
   prepareReviewPack: 'scripts/unity/prepare-top-living-night-final-review-pack.sh',
-  semanticPackRegistrar: 'scripts/unity/register-top-living-night-semantic-layer-pack.ts',
+  semanticLayerRegistrar: 'scripts/unity/register-top-living-night-semantic-layer-pack.ts',
   unityV3Verification: 'scripts/unity/run-top-living-night-v3-unity-verification.sh',
   capturePack: 'scripts/unity/run-loading-top-capture-pack.sh',
   simulatorPerformance: 'scripts/unity/run-top-living-night-simulator-performance-evidence.sh',
@@ -36,7 +36,7 @@ for (const [name, path] of Object.entries(expected)) {
 
 const promotion = readFileSync(join(root, expected.finalPromotion), 'utf8');
 for (const registrarPath of [
-  expected.semanticPackRegistrar,
+  expected.semanticLayerRegistrar,
   expected.staticReviewRegistrar,
   expected.motionReviewRegistrar,
   expected.humanReviewRegistrar,
@@ -49,4 +49,4 @@ invariant(promotion.includes('finalArt.approvedAsFinal = true'), 'canonical fina
 invariant(promotion.includes('finalArt.runtimeApproved = true'), 'canonical final promoter lost runtime approval write');
 
 console.log('TOP Living Night automation entrypoints: PASS');
-console.log('review prep / semantic pack registration / V3 Unity / capture / Simulator / physical iPhone / review registrars / final promoter are bundle-bound');
+console.log('review prep / semantic layer registration / V3 Unity / capture / Simulator / physical iPhone / review registrars / final promoter are bundle-bound');
