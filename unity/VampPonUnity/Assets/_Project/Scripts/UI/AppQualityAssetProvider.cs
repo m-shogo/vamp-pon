@@ -11,10 +11,10 @@ namespace VampPon.UnitySpike.UI
                 VisualBatchAssetProvider.StageMapPaperBase,
                 Load("u45-stage-select-map-panel"));
 
-        public static Sprite StageCardFrame =>
-            VisualBatchAssetProvider.Prefer(
-                VisualBatchAssetProvider.SelectedDestinationFrame,
-                Load("u45-stage-card-frame"));
+        // Selection is runtime state and is applied explicitly by StageSelectView.
+        // Never make the selected frame the provider-wide default or every card will
+        // look selected as soon as the authored batch is present.
+        public static Sprite StageCardFrame => Load("u45-stage-card-frame");
 
         public static Sprite BattleHudTopFrame => Load("u45-battle-hud-top-frame");
         public static Sprite BattleInventorySlotFrame => Load("u45-battle-inventory-slot-frame");
