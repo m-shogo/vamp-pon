@@ -18,9 +18,9 @@ namespace VampPon.UnitySpike.Editor
     {
         private const string SourceRootRelativePath =
             "docs/design-targets/generated/top-living-night-v3/final/layers";
-        private const string DestinationRoot =
+        internal const string DestinationRoot =
             "Assets/Resources/TopLivingNightV3SemanticGenerated";
-        private const string ReadyMarkerPath = DestinationRoot + "/pack-ready.txt";
+        internal const string ReadyMarkerPath = DestinationRoot + "/pack-ready.txt";
 
         private static readonly LayerSpec[] Layers =
         {
@@ -58,6 +58,41 @@ namespace VampPon.UnitySpike.Editor
         public void OnPostprocessBuild(BuildReport report)
         {
             Cleanup();
+        }
+
+        internal static bool FinalSemanticPackRequired()
+        {
+            return TopLivingNightCompositeV3BuildAssetSync.ResolveCompositeSource().IsFinal;
+        }
+
+        internal static void StageForVerification()
+        {
+            Cleanup(refresh: false);
+            if (!FinalSemanticPackRequired())
+                return;
+
+            try
+            {
+                StageFinalSemanticPack();
+            }
+            catch
+            {
+                Cleanup();
+                throw;
+            }
+        }
+
+        internal static void CleanupForVerification()
+        {
+            Cleanup();
+        }
+
+        internal static string[] DestinationAssetPaths()
+        {
+            var result = new string[Layers.Length];
+            for (var index = 0; index < Layers.Length; index++)
+                result[index] = $"{DestinationRoot}/{Layers[index].DestinationFileName}";
+            return result;
         }
 
         private static void StageFinalSemanticPack()
