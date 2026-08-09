@@ -44,6 +44,14 @@ jobs:
               tmp-noop) echo '2f64ee5db425c9bf70124522b345018b0473d516' ;;
               feat/storybook-ui-overhaul) echo 'd162cec0a468181507accdd809187d232d04c73e' ;;
               feat/enemy-runtime-sheet-clean) echo '8f8be726435da7cccc5c743a0acbe76d83bdf3b9' ;;
+              chore-cleanup-empty-doc) echo '7c84b469caf2233310d0a6ff3a986500d1f35a59' ;;
+              enemy-stage-scaling-patterns-work) echo '0738513fb6b72619d2176312fa44dbefe1e5c762' ;;
+              feat/inventory-icons-detail-64) echo '584a7aeaf43d87fd5011a8ee9d3eed1864dd03bd' ;;
+              feat/result-reward-presentation) echo '8ec953b80fc73cbc9a1ce7a8c9b23c069ff11c16' ;;
+              feature/pr62-small-text) echo 'e06331601a924f1eb030118d0b93d7056cf5e224' ;;
+              feature-enemy-runtime-complete) echo '4f670cda95a88f7821c8f24945a91bc4c5ba363e' ;;
+              fix/result-progression-polish) echo '54e313295fcb7e4b5f38b536469051374b442a59' ;;
+              fix-item-acquisition-ui) echo '82b8e9e31d0763e770f4e1bd3a65a75081eccc8d' ;;
               *) echo '' ;;
             esac
           }
@@ -87,7 +95,7 @@ jobs:
               else
                 expected="$(expected_semantic_sha "$branch")"
                 if [ -n "$expected" ] && [ "$actual" = "$expected" ]; then
-                  delete_reason='audited semantic successor already merged; exact head unchanged'
+                  delete_reason='audited semantic successor already preserved; exact head unchanged'
                 fi
               fi
             fi
@@ -117,7 +125,7 @@ jobs:
             echo '- never delete `main` or the active Lorebook branch'
             echo '- delete ordinary branches only when the tip is an ancestor of `origin/main`'
             echo '- accept squash/rebase merge cleanup only when GitHub reports a merged PR whose recorded head SHA exactly equals the current branch SHA'
-            echo '- a small closed-unmerged semantic-superseded allowlist is SHA-pinned; any post-audit commit becomes KEEP automatically'
+            echo '- semantic-superseded branches are SHA-pinned after content audit; any post-audit commit becomes KEEP automatically'
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [ "$failed" -ne 0 ]; then
