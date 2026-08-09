@@ -20,50 +20,104 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
       - name: Validate JavaScript syntax
-        run: node --check public/lorebook/app.js
+        run: |
+          node --check public/lorebook/app.js
+          node --check public/lorebook/profile-enhancement.js
 
       - name: Validate world-bible schema and references
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const path = 'public/lorebook/data/world-bible.v1.json';
-          const data = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json', 'utf8'));
+          const personal = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
-          const ids = new Set(data.characters.map((c) => c.id));
+          const worldIds = new Set(world.characters.map((c) => c.id));
+          const worldNames = new Set(world.characters.map((c) => c.name));
+          const runtimeIds = new Set([
+            'yui', 'asa', 'nagi', 'michiru', 'tomori',
+            'sen', 'ritsu', 'koyori', 'gen', 'hana', 'yubi', 'madoka', 'shiro', 'tobari', 'nemu',
+            'kuroori', 'kage1', 'kage2', 'kage3', 'kage4', 'ren',
+          ]);
 
-          if (data.schemaVersion !== 1) fail('schemaVersion must be 1');
-          if (data.characters.length !== 21) fail(`expected Current21, got ${data.characters.length}`);
-          if (new Set(data.characters.map((c) => c.id)).size !== data.characters.length) fail('duplicate character id');
-          if (new Set(data.relationships.map((r) => r.id)).size !== data.relationships.length) fail('duplicate relationship id');
+          if (world.schemaVersion !== 1) fail('world schemaVersion must be 1');
+          if (personal.schemaVersion !== 1) fail('personal schemaVersion must be 1');
+          if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
+          if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
+          if (new Set(world.characters.map((c) => c.id)).size !== world.characters.length) fail('duplicate character id');
+          if (new Set(world.characters.map((c) => c.name)).size !== world.characters.length) fail('duplicate character name');
+          if (new Set(world.relationships.map((r) => r.id)).size !== world.relationships.length) fail('duplicate relationship id');
+          if (new Set(personal.profiles.map((p) => p.lorebookId)).size !== personal.profiles.length) fail('duplicate profile lorebookId');
+          if (new Set(personal.profiles.map((p) => p.runtimeId)).size !== personal.profiles.length) fail('duplicate profile runtimeId');
 
-          for (const character of data.characters) {
+          for (const character of world.characters) {
             if (!character.name || !character.core || !character.growth) fail(`incomplete character: ${character.id}`);
             if (!allowed.has(character.status)) fail(`unknown character status: ${character.id}/${character.status}`);
           }
-          for (const relation of data.relationships) {
-            if (!ids.has(relation.from) || !ids.has(relation.to)) fail(`orphan relation: ${relation.id}`);
+          for (const relation of world.relationships) {
+            if (!worldIds.has(relation.from) || !worldIds.has(relation.to)) fail(`orphan relation: ${relation.id}`);
             if (relation.from === relation.to) fail(`self relation: ${relation.id}`);
             if (!allowed.has(relation.status)) fail(`unknown relation status: ${relation.id}/${relation.status}`);
           }
-          for (const item of [...data.timeline, ...data.openQuestions]) {
+          for (const item of [...world.timeline, ...world.openQuestions]) {
             if (!allowed.has(item.status)) fail(`unknown content status: ${item.id}/${item.status}`);
           }
-          if (!data.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
-          if (!data.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
+          for (const profile of personal.profiles) {
+            if (!worldIds.has(profile.lorebookId)) fail(`profile missing world character: ${profile.lorebookId}`);
+            if (!worldNames.has(profile.name)) fail(`profile display name missing from world bible: ${profile.name}`);
+            if (!runtimeIds.has(profile.runtimeId)) fail(`unexpected runtimeId: ${profile.name}/${profile.runtimeId}`);
+            for (const key of ['birthday','ageImpression','favoriteFood','hobby','smallHabit','likes','dislikes','dailyLifeScene']) {
+              if (!profile[key]) fail(`incomplete personal profile ${profile.lorebookId}: ${key}`);
+            }
+          }
+          for (const runtimeId of runtimeIds) {
+            if (!personal.profiles.some((profile) => profile.runtimeId === runtimeId)) fail(`missing stable runtimeId mapping: ${runtimeId}`);
+          }
+          if (!world.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
+          if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
+          if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
           if (process.exitCode) process.exit(process.exitCode);
-          console.log(`Lorebook OK: ${data.characters.length} characters / ${data.relationships.length} relationships / ${data.openQuestions.length} open questions`);
+          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${world.relationships.length} relationships / ${world.openQuestions.length} open questions`);
           NODE
 
       - name: Verify static entrypoint references
         run: |
           grep -q './styles.css' public/lorebook/index.html
           grep -q './app.js' public/lorebook/index.html
+          grep -q './profile-enhancement.js' public/lorebook/index.html
           test -f public/lorebook/styles.css
+          test -f public/lorebook/profile.css
           test -f public/lorebook/app.js
+          test -f public/lorebook/profile-enhancement.js
           test -f public/lorebook/data/world-bible.v1.json
+          test -f public/lorebook/data/personal-profiles.v1.json
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify deployable Vite output
+        run: |
+          pnpm build
+          test -f dist/lorebook/index.html
+          test -f dist/lorebook/styles.css
+          test -f dist/lorebook/profile.css
+          test -f dist/lorebook/app.js
+          test -f dist/lorebook/profile-enhancement.js
+          test -f dist/lorebook/data/world-bible.v1.json
+          test -f dist/lorebook/data/personal-profiles.v1.json
