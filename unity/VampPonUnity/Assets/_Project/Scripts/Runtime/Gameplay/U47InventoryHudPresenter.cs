@@ -41,11 +41,11 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             var root = new GameObject("U47ActualInventoryHud", typeof(RectTransform), typeof(Image));
             root.transform.SetParent(parent, false);
             var rect = root.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(.5f, 0f);
-            rect.anchorMax = new Vector2(.5f, 0f);
-            rect.pivot = new Vector2(.5f, 0f);
-            rect.anchoredPosition = new Vector2(0f, 70f);
-            rect.sizeDelta = new Vector2(354f, 92f);
+            rect.anchorMin = new Vector2(1f, 0f);
+            rect.anchorMax = new Vector2(1f, 0f);
+            rect.pivot = new Vector2(1f, 0f);
+            rect.anchoredPosition = new Vector2(-12f, 14f);
+            rect.sizeDelta = new Vector2(210f, 96f);
 
             var rootImage = root.GetComponent<Image>();
             rootImage.sprite = AppQualityAssetProvider.BattleHudTopFrame;
@@ -69,19 +69,19 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             {
                 var definition = gameplay.Registry.GetWeapon(item.Id);
                 var evolution = definition.IsEvolved ? "進" : string.Empty;
-                vm.Weapons.Add($"{Shorten(definition.DisplayName, 6)} {evolution}L{item.Level}");
+                vm.Weapons.Add($"{Shorten(definition.DisplayName, 5)} {evolution}L{item.Level}");
             }
             while (vm.Weapons.Count < gameplay.Registry.WeaponSlots) vm.Weapons.Add("—");
 
             foreach (var item in gameplay.Run.Inventory.Passives)
             {
                 var definition = gameplay.Registry.GetPassive(item.Id);
-                vm.Passives.Add($"{Shorten(definition.DisplayName, 6)} L{item.Level}");
+                vm.Passives.Add($"{Shorten(definition.DisplayName, 5)} L{item.Level}");
             }
             while (vm.Passives.Count < gameplay.Registry.PassiveSlots) vm.Passives.Add("—");
 
             foreach (var item in gameplay.Run.Inventory.RareItems)
-                vm.Rares.Add(Shorten(gameplay.Registry.GetRareItem(item.Id).DisplayName, 7));
+                vm.Rares.Add(Shorten(gameplay.Registry.GetRareItem(item.Id).DisplayName, 6));
             while (vm.Rares.Count < gameplay.Registry.RareItemSlots) vm.Rares.Add("—");
 
             return vm;
@@ -141,18 +141,18 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
 
         private void CreateMetricRow(Transform parent, TMP_FontAsset font)
         {
-            hpLabel = CreateLabel(parent, "HpLabel", "HP", font, 11f, new Vector2(.035f, .64f), new Vector2(.49f, .94f), TextAlignmentOptions.Left);
-            kokuyouLabel = CreateLabel(parent, "KokuyouLabel", "黒耀", font, 11f, new Vector2(.51f, .64f), new Vector2(.965f, .94f), TextAlignmentOptions.Right);
+            hpLabel = CreateLabel(parent, "HpLabel", "HP", font, 10f, new Vector2(.045f, .65f), new Vector2(.49f, .94f), TextAlignmentOptions.Left);
+            kokuyouLabel = CreateLabel(parent, "KokuyouLabel", "黒耀", font, 9.5f, new Vector2(.51f, .65f), new Vector2(.955f, .94f), TextAlignmentOptions.Right);
 
-            hpFill = CreateBar(parent, "HpBar", new Vector2(.035f, .55f), new Vector2(.49f, .63f), new Color(.72f, .25f, .22f, .92f));
-            kokuyouFill = CreateBar(parent, "KokuyouBar", new Vector2(.51f, .55f), new Vector2(.965f, .63f), new Color(.32f, .48f, .7f, .9f));
+            hpFill = CreateBar(parent, "HpBar", new Vector2(.045f, .56f), new Vector2(.49f, .64f), new Color(.72f, .25f, .22f, .92f));
+            kokuyouFill = CreateBar(parent, "KokuyouBar", new Vector2(.51f, .56f), new Vector2(.955f, .64f), new Color(.32f, .48f, .7f, .9f));
         }
 
         private void CreateInventoryRow(Transform parent, TMP_FontAsset font)
         {
-            weaponLabel = CreateCategory(parent, "WeaponSummary", "武", font, new Vector2(.03f, .08f), new Vector2(.38f, .48f));
-            passiveLabel = CreateCategory(parent, "PassiveSummary", "補", font, new Vector2(.39f, .08f), new Vector2(.72f, .48f));
-            rareLabel = CreateCategory(parent, "RareSummary", "稀", font, new Vector2(.73f, .08f), new Vector2(.97f, .48f));
+            weaponLabel = CreateCategory(parent, "WeaponSummary", "武", font, new Vector2(.035f, .08f), new Vector2(.405f, .49f));
+            passiveLabel = CreateCategory(parent, "PassiveSummary", "補", font, new Vector2(.415f, .08f), new Vector2(.735f, .49f));
+            rareLabel = CreateCategory(parent, "RareSummary", "稀", font, new Vector2(.745f, .08f), new Vector2(.965f, .49f));
         }
 
         private TextMeshProUGUI CreateCategory(Transform parent, string name, string prefix, TMP_FontAsset font, Vector2 min, Vector2 max)
@@ -170,7 +170,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             image.color = image.sprite != null ? new Color(1f, 1f, 1f, .88f) : new Color(.09f, .07f, .075f, .8f);
             image.raycastTarget = false;
 
-            return CreateLabel(panel.transform, name, prefix, font, 9.5f, new Vector2(.04f, .05f), new Vector2(.96f, .95f), TextAlignmentOptions.Center);
+            return CreateLabel(panel.transform, name, prefix, font, 8.5f, new Vector2(.04f, .05f), new Vector2(.96f, .95f), TextAlignmentOptions.Center);
         }
 
         private static Image CreateBar(Transform parent, string name, Vector2 min, Vector2 max, Color fillColor)
@@ -233,8 +233,6 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
 
         private void Update()
         {
-            // HP and gauge can change more frequently than inventory events. Ten Hz is
-            // visually immediate while avoiding rebuilding inventory strings every frame.
             if (Time.unscaledTime >= nextRefreshAt)
             {
                 nextRefreshAt = Time.unscaledTime + .1f;
@@ -254,7 +252,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
                 KokuyouPhase.Charging => "蓄積",
                 KokuyouPhase.Ready => "発動可",
                 KokuyouPhase.Activating => "発動",
-                KokuyouPhase.Active => "黒耀化中",
+                KokuyouPhase.Active => "黒耀中",
                 KokuyouPhase.Ending => "終了",
                 _ => "回復",
             };
@@ -263,8 +261,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             var kokuyouRatio = Mathf.Clamp01(run.Kokuyou.Gauge / 100f);
             hpFill.fillAmount = hpRatio;
             kokuyouFill.fillAmount = kokuyouRatio;
-            hpLabel.text = $"HP  {run.Player.CurrentHp:0}/{run.Player.MaxHp:0}";
-            kokuyouLabel.text = $"黒耀  {phase}  {run.Kokuyou.Gauge:0}%";
+            hpLabel.text = $"HP {run.Player.CurrentHp:0}/{run.Player.MaxHp:0}";
+            kokuyouLabel.text = $"黒耀 {phase} {run.Kokuyou.Gauge:0}%";
 
             var vm = BuildViewModel();
             var signature = string.Join("|", vm.Weapons) + "#" + string.Join("|", vm.Passives) + "#" + string.Join("|", vm.Rares);
@@ -272,9 +270,9 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
                 return;
 
             lastSignature = signature;
-            weaponLabel.text = "武  " + Compact(vm.Weapons, 2);
-            passiveLabel.text = "補  " + Compact(vm.Passives, 2);
-            rareLabel.text = "稀  " + Compact(vm.Rares, 1);
+            weaponLabel.text = "武 " + Compact(vm.Weapons, 1);
+            passiveLabel.text = "補 " + Compact(vm.Passives, 1);
+            rareLabel.text = "稀 " + Compact(vm.Rares, 1);
         }
 
         private static string Compact(List<string> items, int maxVisible)
