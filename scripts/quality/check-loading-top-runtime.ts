@@ -125,7 +125,7 @@ invariant(manifest.flow === 'Loading -> TOP -> StageSelect/Collection', 'startup
 invariant(manifest.runtimeConnected === true, 'loading runtime must be connected');
 invariant(manifest.randomRotation === true, 'random rotation must be enabled');
 invariant(manifest.consecutiveRepeatPrevented === true, 'consecutive repeat guard missing');
-invariant(manifest.usesFallbackSources === true, 'current fallback boundary must remain explicit');
+invariant(manifest.usesFallbackSources === false, 'seasonal binaries are committed; fallback boundary must be closed');
 invariant(manifest.assets.length === 4, `expected four loading assets, got ${manifest.assets.length}`);
 invariant(manifest.capture.forcedArtArgument === '-vampPonLoadingArt=0..3', 'capture CLI contract mismatch');
 invariant(manifest.capture.editorCaptureHold === true, 'capture hold must be enabled');
@@ -135,7 +135,7 @@ invariant(
 );
 invariant(manifest.capture.requiredFrames.length === 5, 'capture review pack must contain four loading frames plus TOP');
 invariant(manifest.approval.runtimeFlowImplemented === true, 'runtime flow implementation flag missing');
-invariant(manifest.approval.seasonalBinariesCommitted === false, 'seasonal binaries must not be claimed committed');
+invariant(manifest.approval.seasonalBinariesCommitted === true, 'seasonal binaries must be committed once artwork lands');
 invariant(manifest.approval.runtimeCaptureComplete === false, 'runtime capture must remain incomplete');
 invariant(manifest.approval.humanVisualReviewComplete === false, 'human visual review must remain incomplete');
 invariant(manifest.approval.approvedAsFinal === false, 'final approval must remain false');
@@ -151,7 +151,7 @@ for (const [index, asset] of manifest.assets.entries()) {
   ids.add(asset.id);
   invariant(!resourceFiles.has(asset.resourceFile), `duplicate loading resource: ${asset.resourceFile}`);
   resourceFiles.add(asset.resourceFile);
-  invariant(asset.sourceStatus === 'temporary-fallback', `${asset.id}: fallback boundary missing`);
+  invariant(asset.sourceStatus === 'seasonal-source', `${asset.id}: seasonal source status missing`);
   invariant(asset.desiredSourceTitle.endsWith('.png'), `${asset.id}: desired source title missing`);
 
   const sourcePath = join(root, asset.sourcePath);
@@ -239,10 +239,10 @@ for (const phrase of [
   '360x800',
   '390x844',
   '430x932',
-  'same slot does not appear',
+  'same slot is not shown',
   'five minutes',
   'Physical iPhone',
-  'PR remains Draft',
+  'PR #78 remains Draft',
 ]) {
   invariant(checklist.includes(phrase), `review checklist missing: ${phrase}`);
 }

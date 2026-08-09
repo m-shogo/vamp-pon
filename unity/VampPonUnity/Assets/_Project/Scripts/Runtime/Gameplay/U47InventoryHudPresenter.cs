@@ -38,6 +38,9 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
         private TextMeshProUGUI rareLabel;
         private Image hpFill;
         private Image kokuyouFill;
+        private Button kokuyouButton;
+        private Image kokuyouButtonImage;
+        private TextMeshProUGUI kokuyouButtonLabel;
         private float nextRefreshAt;
         private string lastSignature;
         public void Build(Transform parent, TMP_FontAsset font, Stage1GameplayRuntimeCoordinator runtime)
@@ -66,9 +69,50 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
 
             CreateMetricRow(root.transform, font);
             CreateInventoryRow(root.transform, font);
+            CreateKokuyouActivationButton(parent, font);
 
             gameplay.RuntimeChanged += Refresh;
             Refresh();
+        }
+
+        private void CreateKokuyouActivationButton(Transform parent, TMP_FontAsset font)
+        {
+            var buttonObject = new GameObject("KokuyouActivationButton", typeof(RectTransform), typeof(Image), typeof(Button));
+            buttonObject.transform.SetParent(parent, false);
+            var buttonRect = buttonObject.GetComponent<RectTransform>();
+            buttonRect.anchorMin = new Vector2(1f, 0f);
+            buttonRect.anchorMax = new Vector2(1f, 0f);
+            buttonRect.pivot = new Vector2(1f, 0f);
+            buttonRect.anchoredPosition = new Vector2(-232f, 20f);
+            buttonRect.sizeDelta = new Vector2(68f, 78f);
+            kokuyouButtonImage = buttonObject.GetComponent<Image>();
+            kokuyouButtonImage.sprite = AppQualityAssetProvider.PaperButtonFrame;
+            kokuyouButtonImage.type = kokuyouButtonImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
+            kokuyouButton = buttonObject.GetComponent<Button>();
+            kokuyouButton.targetGraphic = kokuyouButtonImage;
+            kokuyouButton.onClick.AddListener(ActivateKokuyou);
+
+            var buttonText = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+            buttonText.transform.SetParent(buttonObject.transform, false);
+            var buttonTextRect = buttonText.GetComponent<RectTransform>();
+            buttonTextRect.anchorMin = Vector2.zero;
+            buttonTextRect.anchorMax = Vector2.one;
+            buttonTextRect.offsetMin = new Vector2(3f, 2f);
+            buttonTextRect.offsetMax = new Vector2(-3f, -2f);
+            kokuyouButtonLabel = buttonText.GetComponent<TextMeshProUGUI>();
+            kokuyouButtonLabel.font = font;
+            kokuyouButtonLabel.fontSize = 10.5f;
+            kokuyouButtonLabel.alignment = TextAlignmentOptions.Center;
+            kokuyouButtonLabel.color = TextWarm;
+            kokuyouButtonLabel.textWrappingMode = TextWrappingModes.Normal;
+            kokuyouButtonLabel.raycastTarget = false;
+            kokuyouButtonLabel.text = "黒耀\n蓄積";
+        }
+
+        private void ActivateKokuyou()
+        {
+            if (gameplay?.ActivateKokuyou() == true)
+                Refresh();
         }
 
         public InventoryHudViewModel BuildViewModel()
@@ -315,6 +359,23 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
                 ? new Color(.98f, .83f, .5f, 1f)
                 : TextWarm;
 
+            if (kokuyouButton != null && kokuyouButtonLabel != null && kokuyouButtonImage != null)
+            {
+                var ready = run.Kokuyou.Phase == KokuyouPhase.Ready;
+                kokuyouButton.interactable = ready;
+                kokuyouButtonLabel.text = ready
+                    ? "黒耀化\n発動"
+                    : run.Kokuyou.Phase == KokuyouPhase.Active ? "黒耀化中" : "黒耀\n蓄積";
+                kokuyouButtonImage.color = ready
+                    ? new Color(1f, .84f, .48f, 1f)
+                    : run.Kokuyou.Phase == KokuyouPhase.Active
+                        ? new Color(.55f, .82f, .82f, .9f)
+                        : new Color(.62f, .60f, .58f, .78f);
+                kokuyouButtonLabel.color = ready
+                    ? new Color(.15f, .12f, .08f, 1f)
+                    : TextWarm;
+            }
+
             hpLabel.text = $"HP {run.Player.CurrentHp:0}/{run.Player.MaxHp:0}";
             kokuyouLabel.text = $"黒耀 {phase} {run.Kokuyou.Gauge:0}%";
 
@@ -352,6 +413,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
         {
             if (gameplay != null)
                 gameplay.RuntimeChanged -= Refresh;
+            kokuyouButton?.onClick.RemoveListener(ActivateKokuyou);
         }
     }
 }
