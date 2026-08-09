@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Delete only branches fully contained in main
+      - name: Delete only audited-safe branches
         shell: bash
         run: |
           set -uo pipefail
@@ -29,6 +29,21 @@ jobs:
           deleted=0
           kept=0
           failed=0
+
+          expected_semantic_sha() {
+            case "$1" in
+              agent/seasonal-loading-key-art) echo '02bc3a24b4fbc79728cf21c2a61266468e2b3c31' ;;
+              agent/top-living-night-key-art-v1) echo '2a3cd6dc2d6aa0cdc0e501296a671e4c3f100dd0' ;;
+              maintenance/u49-integrity-audit-20260724) echo '74aceef453266b1710991e352ac915d287e7e8e3' ;;
+              codex/polish-game-feel-foundation) echo '26bf0e3a3840bfa6ab4bfec0b05eb5c0d2878490' ;;
+              feature/pro-quality-pass) echo 'd1b5ba877f268380f40c0caf2ce70a8abb790f04' ;;
+              feature/progression-local-save-6) echo '485da96c1f357e2a1ad8adb9c411e42b019b4aca' ;;
+              tmp-noop) echo '2f64ee5db425c9bf70124522b345018b0473d516' ;;
+              feat/storybook-ui-overhaul) echo 'd162cec0a468181507accdd809187d232d04c73e' ;;
+              feat/enemy-runtime-sheet-clean) echo '8f8be726435da7cccc5c743a0acbe76d83bdf3b9' ;;
+              *) echo '' ;;
+            esac
+          }
 
           mapfile -t branches < <(
             git for-each-ref refs/remotes/origin \
@@ -46,8 +61,19 @@ jobs:
                 ;;
             esac
 
+            delete_reason=''
             if git merge-base --is-ancestor "refs/remotes/origin/$branch" refs/remotes/origin/main; then
-              echo "DELETE fully contained in main: $branch"
+              delete_reason='fully contained in main'
+            else
+              expected="$(expected_semantic_sha "$branch")"
+              actual="$(git rev-parse "refs/remotes/origin/$branch")"
+              if [ -n "$expected" ] && [ "$actual" = "$expected" ]; then
+                delete_reason='audited semantic successor already merged; exact head unchanged'
+              fi
+            fi
+
+            if [ -n "$delete_reason" ]; then
+              echo "DELETE $delete_reason: $branch"
               if git push origin --delete "$branch"; then
                 deleted=$((deleted + 1))
               else
@@ -55,7 +81,7 @@ jobs:
                 failed=$((failed + 1))
               fi
             else
-              echo "KEEP non-ancestor: $branch"
+              echo "KEEP non-ancestor or changed-since-audit: $branch"
               kept=$((kept + 1))
             fi
           done
@@ -63,11 +89,11 @@ jobs:
           {
             echo '## Branch prune result'
             echo
-            echo "- deleted fully-contained branches: $deleted"
-            echo "- kept main/active/non-ancestor branches: $kept"
+            echo "- deleted audited-safe branches: $deleted"
+            echo "- kept main/active/non-ancestor/changed branches: $kept"
             echo "- delete failures: $failed"
             echo
-            echo 'This workflow never deletes `main`, the active Lorebook branch, or any branch whose tip is not an ancestor of `origin/main`.'
+            echo 'Safety: `main` and the active Lorebook branch are never deleted. Normal branches are deleted only when their tip is an ancestor of `origin/main`. A small semantic-superseded allowlist is additionally SHA-pinned, so any post-audit commit makes that branch KEEP automatically.'
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [ "$failed" -ne 0 ]; then
