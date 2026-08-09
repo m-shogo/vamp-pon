@@ -1,0 +1,51 @@
+name: TOP Final Effect Companion
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/design-targets/generated/top-living-night-v3/**'
+      - 'scripts/unity/register-top-living-night-effect-companion-pack.ts'
+      - 'scripts/quality/check-top-living-night-effect-companion-pack.ts'
+      - 'scripts/quality/check-top-living-night-generation-bundle.ts'
+      - 'scripts/quality/check-top-living-night-post-generation-gate-chain.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightEffectCompanionPackController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightEffectCompanionPackBuildSync.cs'
+      - '.github/workflows/top-final-effect-companion.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/design-targets/generated/top-living-night-v3/**'
+      - 'scripts/unity/register-top-living-night-effect-companion-pack.ts'
+      - 'scripts/quality/check-top-living-night-effect-companion-pack.ts'
+      - 'scripts/quality/check-top-living-night-generation-bundle.ts'
+      - 'scripts/quality/check-top-living-night-post-generation-gate-chain.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightEffectCompanionPackController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightEffectCompanionPackBuildSync.cs'
+      - '.github/workflows/top-final-effect-companion.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify candidate-bound final effect pack contract
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-effect-companion-pack.ts
+
+      - name: Verify effect pack registration path is fail-closed
+        run: node --experimental-strip-types scripts/unity/register-top-living-night-effect-companion-pack.ts --dry-run
+
+      - name: Verify final generation bundle dependency chain
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-generation-bundle.ts
+
+      - name: Verify post-generation effect/semantic/Unity ordering
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-post-generation-gate-chain.ts
