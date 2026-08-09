@@ -65,3 +65,5 @@ jobs:
           delete_branch_if_present feat/lorebook-world-bible-web-v1
           delete_branch_if_present fix/lorebook-motion-postmerge
           delete_branch_if_present "$TRIGGER_BRANCH"
+
+# This branch changes only this comment so merging it emits the guarded close event.
