@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "GENERATION_READY_NOT_FINAL",
-  "purpose": "Generate the final Core5-locked TOP key art without promoting any review/runtime evidence.",
+  "purpose": "Generate the final Core5-locked TOP key art and its candidate-bound semantic runtime layer pack without promoting review/runtime evidence.",
   "target": {
     "path": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
     "width": 430,
@@ -80,19 +80,48 @@
     "bakedUiAllowed": false,
     "bakedTextAllowed": false,
     "seasonalEventArtAllowed": false,
-    "motionVideoRequired": false
+    "motionVideoRequired": false,
+    "flattenedFinalRuntimeAllowed": false
   },
   "safeAreas": {"titleTopFraction":[0.18,0.22],"primaryContentMiddleFraction":[0.55,0.60],"buttonBottomFraction":[0.20,0.22],"requiredCropTargets":["360x800","390x844","430x932"]},
-  "motionOwnership": {"baseStill":["low coals","low flame foundation","restrained local light","distant town lights"],"unity":["main fire flipbook","fire glow pulse","smoke","embers","distant-light pulse","lantern pulse","robot-eye rare blink","star/cloud drift"]},
+  "motionOwnership": {
+    "semanticStillLayers":["environment-base","distant-town","core5","animal-robot","fire-base","foreground-accents"],
+    "unity":["depth parallax","main fire flipbook","fire glow pulse","smoke","embers","distant-light pulse","lantern pulse","robot-eye rare event","star/cloud drift"]
+  },
+  "semanticLayerRuntime": {
+    "productionContract":"docs/design-targets/generated/top-living-night-v3/layered-final-production-contract.md",
+    "incomingRoot":"docs/design-targets/generated/top-living-night-v3/incoming/layers",
+    "finalRoot":"docs/design-targets/generated/top-living-night-v3/final/layers",
+    "manifest":"docs/design-targets/generated/top-living-night-v3/final/semantic-layer-pack.json",
+    "registrar":"scripts/unity/register-top-living-night-semantic-layer-pack.ts",
+    "requiredLayers":["00-environment-base.png","04-distant-town.png","06-core5.png","07-animal-robot.png","09-fire-base.png","15-foreground-accents.png"],
+    "candidateShaBound":true,
+    "core5ReferenceSetBound":true,
+    "perLayerShaBound":true,
+    "flattenedFinalFallbackAllowed":false,
+    "bridgeMayUseExistingV2SemanticLayers":true
+  },
   "registration": {"script":"scripts/unity/register-top-living-night-final-art.ts","registrationDoesNotApprove":true,"resetsCandidateSensitiveEvidence":true},
   "intake": {"incomingPath":"docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png","canonicalPath":"docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png","workflow":".github/workflows/top-final-art-intake.yml","stagingScript":"scripts/unity/stage-top-living-night-final-art-intake.py","atomicCanonicalRegistration":true,"incomingIsOneShot":true,"intakeDoesNotApprove":true,"forcePushAllowed":false},
-  "automation": {"prepareReviewPack":"scripts/unity/prepare-top-living-night-final-review-pack.sh","unityV3Verification":"scripts/unity/run-top-living-night-v3-unity-verification.sh","capturePack":"scripts/unity/run-loading-top-capture-pack.sh","simulatorPerformance":"scripts/unity/run-top-living-night-simulator-performance-evidence.sh","physicalIphonePerformance":"scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh","staticReviewRegistrar":"scripts/unity/register-top-living-night-static-review.ts","motionReviewRegistrar":"scripts/unity/register-top-living-night-motion-review.ts","humanReviewRegistrar":"scripts/unity/register-top-living-night-human-review.ts","finalPromotion":"scripts/unity/promote-top-living-night-final-approval.ts"},
+  "automation": {
+    "prepareReviewPack":"scripts/unity/prepare-top-living-night-final-review-pack.sh",
+    "semanticLayerRegistrar":"scripts/unity/register-top-living-night-semantic-layer-pack.ts",
+    "unityV3Verification":"scripts/unity/run-top-living-night-v3-unity-verification.sh",
+    "capturePack":"scripts/unity/run-loading-top-capture-pack.sh",
+    "simulatorPerformance":"scripts/unity/run-top-living-night-simulator-performance-evidence.sh",
+    "physicalIphonePerformance":"scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh",
+    "staticReviewRegistrar":"scripts/unity/register-top-living-night-static-review.ts",
+    "motionReviewRegistrar":"scripts/unity/register-top-living-night-motion-review.ts",
+    "humanReviewRegistrar":"scripts/unity/register-top-living-night-human-review.ts",
+    "finalPromotion":"scripts/unity/promote-top-living-night-final-approval.ts"
+  },
   "postGenerationExecutionPlan": [
-    {"phase":"candidate-static-and-unity","requires":["final-candidate-registered"],"parallel":["core5-identity-review","three-crop-review","unity-v3-verification"]},
+    {"phase":"candidate-and-semantic-pack","requires":["final-candidate-registered"],"parallel":["core5-identity-review","three-crop-review","semantic-layer-pack-registration"]},
+    {"phase":"unity-v3","requires":["final-candidate-registered","semantic-layer-pack-registration"],"parallel":["unity-v3-verification"]},
     {"phase":"runtime-observation","requires":["unity-v3-verification"],"parallel":["normal-and-reduced-motion-review","15-frame-capture"]},
     {"phase":"capture-human-review","requires":["15-frame-capture"],"parallel":["human-visual-review"]},
     {"phase":"device-performance","requires":["unity-v3-verification","15-frame-capture"],"parallel":["simulator-performance","physical-iphone-performance"]},
-    {"phase":"final-promotion","requires":["core5-identity-review","three-crop-review","normal-and-reduced-motion-review","human-visual-review","simulator-performance","physical-iphone-performance"],"parallel":["approval-consistency","readiness-summary","guarded-final-promotion"]}
+    {"phase":"final-promotion","requires":["core5-identity-review","three-crop-review","unity-v3-verification","normal-and-reduced-motion-review","human-visual-review","simulator-performance","physical-iphone-performance"],"parallel":["approval-consistency","readiness-summary","guarded-final-promotion"]}
   ],
   "requiredPostGenerationChecks": [
     "scripts/quality/check-top-living-night-final-art-candidate.ts",
