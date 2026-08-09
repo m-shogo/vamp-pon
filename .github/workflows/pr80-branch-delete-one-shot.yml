@@ -1,0 +1,40 @@
+name: PR80 Branch Delete One Shot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pr80-branch-delete-one-shot.yml'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  delete-merged-pr80-branch:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TARGET_BRANCH: feat/lorebook-world-bible-web-v1
+      EXPECTED_HEAD: ec29dd8b915f7ebb43dd1da27419d5e60befb45a
+    steps:
+      - name: Delete only exact merged PR80 head
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="$(git ls-remote --heads "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "refs/heads/${TARGET_BRANCH}" | awk '{print $1}')"
+          if [ -z "$actual" ]; then
+            echo "Branch already absent."
+            exit 0
+          fi
+          if [ "$actual" != "$EXPECTED_HEAD" ]; then
+            echo "::error::Branch moved after merge: expected $EXPECTED_HEAD, got $actual"
+            exit 1
+          fi
+          merged_head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/80" --jq 'if .merged_at != null then .head.sha else "" end')"
+          if [ "$merged_head" != "$EXPECTED_HEAD" ]; then
+            echo "::error::PR80 merged-head proof mismatch: $merged_head"
+            exit 1
+          fi
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --delete "$TARGET_BRANCH"
