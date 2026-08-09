@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "title": "ヨルノシルベ 世界設定・人物図鑑",
+  "subtitle": "夜を歩く人、物、記憶、その関係を一冊に。",
+  "updatedAt": "2026-08-09",
+  "authority": {
+    "rule": "CANON / USER_DIRECTION / CANDIDATE / OPEN_QUESTION を混同しない。Web表示は既存Current masterを要約し、未確定事項を自動的に正史へ昇格しない。",
+    "sources": [
+      "docs/CANON.md",
+      "docs/CHARACTERS.md",
+      "docs/character-book-v4.md",
+      "docs/RELATIONSHIPS.md",
+      "docs/STORY.md",
+      "docs/181-current-production-canon.md"
+    ]
+  },
+  "groups": [
+    {"id":"core","label":"Core 5","description":"物語とGameplayの中心。五つの大きな問いに対する一方の答え。"},
+    {"id":"circle","label":"Circle 10","description":"大きなテーマを日常や小さな人生の出来事に落とす人々。"},
+    {"id":"shadow","label":"Shadow / Rival 5","description":"善悪コピーではなく、Core5と同じ問いへ別の答えを持つ思想的ライバル。"},
+    {"id":"reserve","label":"Official Reserve","description":"正式な予備人物。Current理解には含めるが、現行playableへ自動昇格しない。"}
+  ],
+  "characters": [
+    {"id":"yui","name":"ユイ","group":"core","core":"忘れ物を拾い、記憶を結び直す。","question":"記憶は開くべきか","answer":"戻す","growth":"全部自分で戻す → 本人と残すものを選ぶ","starBeast":"獅子 / 子獅子","motif":"鉛筆・ランタン・名前","status":"CANON","tags":["主人公軸","記憶","ランタン"],"sources":["docs/character-book-v4.md","docs/CHARACTERS.md"]},
+    {"id":"asa","name":"アサ","group":"core","core":"名前を返す、行動の速い火花。","question":"名前は明かすべきか","answer":"名前を返す","growth":"名前を付ければ救える → 本人が名乗れる場所を作る","starBeast":"おひつじ","motif":"名札・絵はがき・手紙","status":"CANON","tags":["バディ","名前","行動派"],"sources":["docs/character-book-v4.md"]},
+    {"id":"nagi","name":"ナギ","group":"core","core":"閉じることで守る。","question":"守るとは何か","answer":"封じる","growth":"全部閉じる → 開ける時を一緒に決める","starBeast":"かに","motif":"月・箱・鍵","status":"CANON","tags":["境界","守護","封印"],"sources":["docs/character-book-v4.md"]},
+    {"id":"michiru","name":"ミチル","group":"core","core":"帰る道を読む。","question":"正しい道は一つか","answer":"歩いて選ぶ","growth":"正解の道 → 一緒に迷って帰れる","starBeast":"こぐま","motif":"地図・針・星図","status":"CANON","tags":["道","帰還","地図"],"sources":["docs/character-book-v4.md"]},
+    {"id":"tomori","name":"トモリ","group":"core","core":"壊れた灯りを直す。","question":"壊れたものをどう残すか","answer":"直して継ぐ","growth":"元通りにする → 傷を残して新しく継ぐ","starBeast":"獅子 / 煤けた若獅子","motif":"黒インク・灯芯・修理","status":"CANON","tags":["修理","灯り","継承"],"sources":["docs/character-book-v4.md"]},
+    {"id":"sen","name":"セン","group":"circle","core":"言葉と道筋を教える。","question":"分からないものをどう扱うか","answer":"説明する","growth":"教え切る → 教わる / 問いを残す","starBeast":"からす","motif":"案内・言葉・仮説","status":"CANON","tags":["先生役","説明","問い"],"sources":["docs/character-book-v4.md"]},
+    {"id":"ritsu","name":"リツ","group":"circle","core":"半分にして守る兄。","question":"守りを誰に預けるか","answer":"自分が引き受ける","growth":"全部自分が守る → 妹へ任せる","starBeast":"りょうけん / 大犬","motif":"兄・分担・防御","status":"CANON","tags":["兄妹","守護","分担"],"sources":["docs/character-book-v4.md"]},
+    {"id":"koyori","name":"コヨリ","group":"circle","core":"小さな名前を繋ぐ妹。","question":"守られる側は何を返せるか","answer":"小さく繋ぐ","growth":"守られる → 兄や大人を救う","starBeast":"りょうけん / 小犬","motif":"紙縒り・名前・小さな規則","status":"CANON","tags":["兄妹","子ども","名前"],"sources":["docs/character-book-v4.md"]},
+    {"id":"gen","name":"ゲン","group":"circle","core":"古い道を知る渋い年長者。","question":"古い経験をどう残すか","answer":"経験から読む","growth":"昔の道が正しい → 新しい道を面白がる","starBeast":"おおぐま","motif":"古地図・経験・道","status":"CANON","tags":["年長者","古い時代","道"],"sources":["docs/character-book-v4.md"]},
+    {"id":"hana","name":"ハナ","group":"circle","core":"保存して残す、ふっくらした年長女性。","question":"残すとは何を守ることか","answer":"保存する","growth":"保存すれば失わない → 手渡すために残す","starBeast":"はくちょう","motif":"押し花・保存・生活","status":"CANON","tags":["保存","生活","継承"],"sources":["docs/character-book-v4.md"]},
+    {"id":"yuubi","name":"ユウビ","group":"circle","core":"届くか分からない手紙も運ぶ。","question":"伝える責任はどこまでか","answer":"届ける","growth":"届ければ正しい → 受け取れる時を選ぶ","starBeast":"はと","motif":"手紙・宛名・配達","status":"CANON","tags":["手紙","配達","タイミング"],"sources":["docs/character-book-v4.md"]},
+    {"id":"madoka","name":"マドカ","group":"circle","core":"遠くの出来事を見る。","question":"不完全な観測を伝えるか","answer":"見る","growth":"見る → 不完全でも声を上げる","starBeast":"わし","motif":"窓・観測・遠景","status":"CANON","tags":["観測","証言","遠景"],"sources":["docs/character-book-v4.md"]},
+    {"id":"shiro","name":"シロ","group":"circle","core":"分からない頁を捨てない丸メガネ。","question":"分からないものを分類すべきか","answer":"保留して残す","growth":"全部分類する → 分からないまま守る","starBeast":"やまねこ","motif":"頁・分類・保留箱","status":"CANON","tags":["眼鏡","記録","未分類"],"sources":["docs/character-book-v4.md"]},
+    {"id":"tobari","name":"トバリ","group":"circle","core":"帰れる門を守る。","question":"境界は閉じるためか開くためか","answer":"帰るため管理する","growth":"出さなければ失わない → 帰れるよう開ける","starBeast":"おおいぬ","motif":"門・境界・帰路","status":"CANON","tags":["門番","帰還","境界"],"sources":["docs/character-book-v4.md"]},
+    {"id":"nemu","name":"ネム","group":"circle","core":"夢から道を持ち帰る。","question":"夢は現実へ何を渡せるか","answer":"夢で見る","growth":"夢へ逃げる → 夢を現実へ渡す","starBeast":"いるか","motif":"夢・眠り・別経路","status":"CANON","tags":["夢","観測","道"],"sources":["docs/character-book-v4.md"]},
+    {"id":"kuroori","name":"クロオリ","group":"shadow","core":"開かず預かる思想的ライバル。","question":"記憶は開くべきか","answer":"閉じて守る","growth":"永遠に閉じる → 本人が開く時まで預かる","starBeast":"カメレオン","motif":"閉じる・預かる・保護","status":"CANON","tags":["ライバル","記憶","保護"],"sources":["docs/character-book-v4.md"]},
+    {"id":"kaname","name":"カナメ","group":"shadow","core":"大きな影で仲間を守る。","question":"守るとは何か","answer":"盾になる","growth":"自分が全部受ける → 守りを分担する","starBeast":"おおかみ","motif":"盾・大きな影・分担","status":"CANON","tags":["守護","ライバル","体格"],"sources":["docs/character-book-v4.md"]},
+    {"id":"kasumi","name":"カスミ","group":"shadow","core":"名前や痕跡をぼかして守る。","question":"名前は明かすべきか","answer":"ぼかす","growth":"全部隠す → 本人と公開範囲を選ぶ","starBeast":"こぎつね","motif":"霧・匿名・痕跡","status":"CANON","tags":["名前","匿名","保護"],"sources":["docs/character-book-v4.md"]},
+    {"id":"toki","name":"トキ","group":"shadow","core":"夜を測る几帳面な人。","question":"正しい道は一つか","answer":"測る","growth":"測れないものを切る → 測れなくても信じる","starBeast":"つる","motif":"時計・測定・記録","status":"CANON","tags":["計測","時間","ライバル"],"sources":["docs/character-book-v4.md"]},
+    {"id":"tsumugi","name":"ツムギ","group":"shadow","core":"空白と続きを残す。","question":"壊れたものをどう残すか","answer":"余白を残す","growth":"終わらせない → 終わらせて次を書ける","starBeast":"うさぎ","motif":"糸・余白・傷跡","status":"CANON","tags":["未完","余白","記録"],"sources":["docs/character-book-v4.md"]},
+    {"id":"ren","name":"レン","group":"reserve","core":"小さな差を見分ける。","question":"確信のない違和感を共有するか","answer":"差分を見る","growth":"確信まで黙る → 仮説でも共有する","starBeast":"こいぬ","motif":"差分・眼鏡・仮説","status":"CANON","tags":["予備人物","観測","差分"],"sources":["docs/character-book-v4.md","src/game/data/reserveCharacterCanon.ts"]}
+  ],
+  "relationships": [
+    {"id":"rel-yui-asa","from":"yui","to":"asa","label":"速さと確認","type":"buddy","status":"CANON","summary":"主人公級バディ。違うまま互いが必要。恋愛なし。"},
+    {"id":"rel-yui-kuroori","from":"yui","to":"kuroori","label":"開く / 預かる","type":"ideological_mirror","status":"CANON","summary":"取り戻すユイと、閉じて守るクロオリ。どちらか一方だけを正解にしない。"},
+    {"id":"rel-nagi-kaname","from":"nagi","to":"kaname","label":"二つの守り","type":"ideological_mirror","status":"CANON","summary":"封じる守りと、盾になる守り。"},
+    {"id":"rel-michiru-toki","from":"michiru","to":"toki","label":"道を選ぶ / 測る","type":"ideological_mirror","status":"CANON","summary":"一緒に迷って選ぶことと、正解を測ることの緊張。"},
+    {"id":"rel-tomori-tsumugi","from":"tomori","to":"tsumugi","label":"直す / 跡を残す","type":"ideological_mirror","status":"CANON","summary":"修復することと、傷跡を残すことの両立を探す。"},
+    {"id":"rel-ritsu-koyori","from":"ritsu","to":"koyori","label":"守る兄 / 救う妹","type":"family","status":"CANON","summary":"兄妹。兄だけが守らず、妹も兄を救う。恋愛なし。"},
+    {"id":"rel-sen-koyori","from":"sen","to":"koyori","label":"教える人 / ruleを作る子ども","type":"night_bond","status":"CANON","summary":"教える側と教わる側が固定されない関係。"},
+    {"id":"rel-yuubi-tobari","from":"yuubi","to":"tobari","label":"届ける時 / 門を開ける時","type":"night_bond","status":"CANON","summary":"届けたい時と、通してよい時を互いに考える。"},
+    {"id":"rel-madoka-ren","from":"madoka","to":"ren","label":"気づく / 伝える","type":"observation","status":"CANON","summary":"観測した人と、小さな差を見分ける人。確度の違う情報を共有する。"},
+    {"id":"rel-shiro-tsumugi","from":"shiro","to":"tsumugi","label":"未分類 / 未完","type":"night_bond","status":"CANON","summary":"分からないもの、終わらないものを急いで閉じない。"},
+    {"id":"rel-nemu-toki","from":"nemu","to":"toki","label":"夢 / 計測","type":"contrast","status":"CANON","summary":"夢由来の観測を事実でも無価値でもない別sourceとして扱う。"},
+    {"id":"rel-gen-michiru","from":"gen","to":"michiru","label":"昔の道 / 今の道","type":"temporal","status":"CANON","summary":"古い経験と今の判断を上下ではなく並べて読む。"},
+    {"id":"rel-asa-kasumi","from":"asa","to":"kasumi","label":"名乗らせる / 隠して待つ","type":"ideological_mirror","status":"CANDIDATE","summary":"名前を返すことと公開範囲を守ること。具体事件は未確定。"},
+    {"id":"rel-yui-tomori","from":"yui","to":"tomori","label":"継がれた灯り","type":"mystery","status":"CANDIDATE","summary":"同じ獅子、ランタン、修理痕。血縁・継承・shared memoryなど exact history は未LOCK。"},
+    {"id":"rel-hana-tsumugi","from":"hana","to":"tsumugi","label":"保存 / 傷跡","type":"night_bond","status":"CANDIDATE","summary":"完全保存と、傷も含めて残すことの間を探る。"},
+    {"id":"rel-sen-shiro","from":"sen","to":"shiro","label":"説明 / 未分類","type":"knowledge","status":"CANDIDATE","summary":"仮説ラベル・confidence・未分類状態を分けて扱う。"},
+    {"id":"rel-nagi-tobari","from":"nagi","to":"tobari","label":"閉じる / 帰るため開ける","type":"boundary","status":"CANDIDATE","summary":"危険を閉じる境界と、帰るための境界を同じにしない。"},
+    {"id":"rel-kaname-ritsu","from":"kaname","to":"ritsu","label":"Protector × Protector","type":"night_bond","status":"CANDIDATE","summary":"守る人同士が、誰へ何を任せるかを学ぶ。"},
+    {"id":"rel-yuubi-kasumi","from":"yuubi","to":"kasumi","label":"宛名を見せない配達","type":"privacy","status":"CANDIDATE","summary":"正しく届けるための情報と、守るため隠す情報の衝突。"},
+    {"id":"rel-madoka-nemu","from":"madoka","to":"nemu","label":"見た / 夢で見た","type":"observation","status":"CANDIDATE","summary":"夢を予言ではなくsourceの違うobservationとして扱う。"},
+    {"id":"rel-gen-toki","from":"gen","to":"toki","label":"経験 / 測定","type":"temporal","status":"CANDIDATE","summary":"old observationを捨てず、current measurementと並べる。"},
+    {"id":"rel-hana-shiro","from":"hana","to":"shiro","label":"分かる物 / 分からない物を残す","type":"archive","status":"CANDIDATE","summary":"意味が分かる物だけでなく、意味不明な物を未来へ残す価値。"},
+    {"id":"rel-kuroori-yuubi","from":"kuroori","to":"yuubi","label":"今は渡さない責任","type":"timing","status":"CANDIDATE","summary":"預かる責任と届ける責任が、いつ交代するか。"},
+    {"id":"rel-ren-toki","from":"ren","to":"toki","label":"差分 / 測定値","type":"observation","status":"CANDIDATE","summary":"小さな違和感と定量値をつなぐ。"}
+  ],
+  "timeline": [
+    {"id":"timeline-real-eras","label":"現実の複数時代","status":"USER_DIRECTION","summary":"人物は必ずしも同時代ではない。Exact yearはまだLOCKしない。"},
+    {"id":"timeline-object-lineage","label":"物・言葉・記録の継承","status":"USER_DIRECTION","summary":"人が直接会えない時代差を、物・言葉・記録が現実時間の順番で渡る。"},
+    {"id":"timeline-night","label":"夜での邂逅","status":"USER_DIRECTION","summary":"別時代の人物も夜では出会い、一緒に戦い、食べ、喧嘩し、仲間になれる。"},
+    {"id":"timeline-dawn","label":"それぞれの朝","status":"USER_DIRECTION","summary":"朝へ帰れば、それぞれの時代・人生へ戻る。夜の滞在時間と現実時間は一致しなくてよい。"},
+    {"id":"timeline-sequel","label":"小さな違和感が残る","status":"CANDIDATE","summary":"1作はHappy Endで閉じる。シリーズの一段上の謎は小物や痕跡として残せる。"}
+  ],
+  "story": {
+    "identity":"暗い夜の中で、人間の性格は一色にしない群像劇。Main Gameはヴァンサバ系の戦闘・build・replayで、物語情報はplayの副作用として増える。正史はHappy End。",
+    "mysteryLanes":[
+      {"id":"character","label":"Character Mystery","description":"人物の内側。例: ユイとトモリの獅子座共有、クロオリが守っているもの。"},
+      {"id":"main","label":"Main Mystery","description":"世界の構造。夜とは何か、黒インクとは何か、星獣は何を知るか、誰が仕組みを作ったか。"},
+      {"id":"series","label":"Series Mystery","description":"1で答えなくてもよい一段上の問い。1の感情決着を無効化しない。"}
+    ],
+    "engineCandidate":"悲しい出来事は消えない。ただ、その出来事についた『間違った意味』が黒インクで固定される。主人公たちは出来事ではなく、その固定をほどく。",
+    "ending":"1作の中心人物・中心感情は1作で救う。Permanent deathを泣き装置の中心にせず、普通だった時間の蓄積を終盤で返す。"
+  },
+  "openQuestions": [
+    {"id":"q-night-nature","area":"Main Mystery","question":"夜の正体は何か。夢 / virtual / shared memory などのどれを採るか。","status":"OPEN_QUESTION","impact":"世界構造・Retry・時間差・続編"},
+    {"id":"q-black-ink-engine","area":"Main Mystery","question":"『間違った意味が黒インクで固定される』Engineを最終真相にするか。","status":"OPEN_QUESTION","impact":"敵・記憶片・Level Up・朝の二重意味"},
+    {"id":"q-night-maker","area":"Main Mystery","question":"誰が夜を作ったのか。なぜ夜が必要だったのか。","status":"OPEN_QUESTION","impact":"終盤・Series Mystery"},
+    {"id":"q-star-beast","area":"World","question":"星獣の完全な仕組みは何か。何を知り、何を知らないのか。","status":"OPEN_QUESTION","impact":"人物・伏線・世界の案内役"},
+    {"id":"q-yui-tomori","area":"Character Mystery","question":"ユイとトモリの獅子座共有とランタンの真相は何か。","status":"OPEN_QUESTION","impact":"時間差・継承・血縁候補"},
+    {"id":"q-era-map","area":"History","question":"Current21それぞれの相対時代をどこまで決めるか。Exact yearを使わず何段階のEraにするか。","status":"OPEN_QUESTION","impact":"言葉・小物・技術・関係性"},
+    {"id":"q-kuroori","area":"Character Mystery","question":"クロオリが具体的に何を、誰のために預かっているのか。","status":"OPEN_QUESTION","impact":"ユイとの思想対立・終盤"},
+    {"id":"q-sequel","area":"Series Mystery","question":"続編主人公・舞台・最後に残す小さな違和感を何にするか。","status":"OPEN_QUESTION","impact":"1作の余韻・series architecture"}
+  ],
+  "glossary": [
+    {"term":"灯技","meaning":"Base character art / 基本のキャラクター技。"},
+    {"term":"継灯","meaning":"Evolved character art。"},
+    {"term":"暁灯","meaning":"Decisive character art。"},
+    {"term":"黒耀化","meaning":"本人の長所・願い・恐怖が極端化した『もう一つの自分』。外部悪人格ではない。"},
+    {"term":"煤返り","meaning":"黒耀化のbacklash。"},
+    {"term":"黒耀瓶","meaning":"黒耀化gauge。"},
+    {"term":"灯具","meaning":"Weapon / active item。"},
+    {"term":"持ち物","meaning":"Passive item。"},
+    {"term":"忘れ物","meaning":"Rare item。"},
+    {"term":"落とし物","meaning":"Field drop。"},
+    {"term":"記憶片","meaning":"Fragment currency / run中の記憶の欠片。"},
+    {"term":"灯継ぎ","meaning":"Upgrade / evolution。"},
+    {"term":"暁開き","meaning":"Second evolution / awakening。"},
+    {"term":"灯合わせ","meaning":"Fusion / pair art。"},
+    {"term":"灯録","meaning":"Collection / archive。"},
+    {"term":"記憶のしるし","meaning":"Achievement。"},
+    {"term":"旅の記録","meaning":"Result。"},
+    {"term":"夜明け","meaning":"Stage clear。"},
+    {"term":"灯紋具","meaning":"Emblem device。"},
+    {"term":"灯紋","meaning":"Character emblem。"},
+    {"term":"星獣","meaning":"誕生日占いではない、人物が好き・共鳴する生物星座の小さなマスコット。"}
+  ]
+}
