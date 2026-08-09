@@ -10,18 +10,18 @@ permissions:
   pull-requests: read
 
 jobs:
-  fire-final-cleanup:
+  fire-final-cleanup-v2:
     if: >-
       github.event.pull_request.merged == false &&
       github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.head.ref == 'chore/final-cleanup-fire' &&
-      github.event.pull_request.title == 'chore: fire final remote cleanup now'
+      github.event.pull_request.head.ref == 'chore/final-cleanup-fire-v2' &&
+      github.event.pull_request.title == 'chore: fire final remote cleanup v2'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
       TRIGGER_HEAD: ${{ github.event.pull_request.head.sha }}
     steps:
-      - name: Verify all remaining refs, then delete them
+      - name: Validate and delete each audited ref immediately
         shell: bash
         run: |
           set -euo pipefail
@@ -30,7 +30,7 @@ jobs:
             gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/$1" --jq '.object.sha' 2>/dev/null || true
           }
 
-          verify_exact_merged_branch() {
+          delete_exact_merged_branch_now() {
             local branch="$1"
             local actual
             local pulls
@@ -48,9 +48,46 @@ jobs:
               echo "::error::No merged PR records current exact head for ${branch}: ${actual}"
               exit 1
             fi
+
+            if [ "$(current_branch_sha "$branch")" != "$actual" ]; then
+              echo "::error::${branch} moved during merged-head verification"
+              exit 1
+            fi
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
+            echo "Deleted exact merged branch: ${branch}"
           }
 
-          verify_superseded_pr85() {
+          delete_closed_unmerged_pr_branch_now() {
+            local pr="$1"
+            local branch="$2"
+            local actual
+            local state
+            local merged_at
+            local head
+
+            actual="$(current_branch_sha "$branch")"
+            if [ -z "$actual" ]; then
+              echo "Already absent: ${branch}"
+              return
+            fi
+
+            state="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.state')"
+            merged_at="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.merged_at // ""')"
+            head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.head.sha')"
+            if [ "$state" != 'closed' ] || [ -n "$merged_at" ] || [ "$head" != "$actual" ]; then
+              echo "::error::Closed proposal/trigger PR #${pr} does not preserve current head of ${branch}: pr=${head}, branch=${actual}"
+              exit 1
+            fi
+
+            if [ "$(current_branch_sha "$branch")" != "$actual" ]; then
+              echo "::error::${branch} moved during closed-PR verification"
+              exit 1
+            fi
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
+            echo "Deleted closed/unmerged preserved branch: ${branch}"
+          }
+
+          delete_superseded_pr85_now() {
             local branch='agent/lorebook-dawn-canon-v2'
             local expected='84a009ad4f0c08f7484016c07ab07a4493c91270'
             local actual
@@ -91,37 +128,34 @@ jobs:
               echo "::error::PR86 unexpectedly changed Current authority: ${forbidden}"
               exit 1
             fi
-          }
 
-          delete_branch_if_present() {
-            local branch="$1"
-            if [ -n "$(current_branch_sha "$branch")" ]; then
-              gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
-              echo "Deleted: ${branch}"
-            else
-              echo "Already absent: ${branch}"
+            if [ "$(current_branch_sha "$branch")" != "$actual" ]; then
+              echo "::error::${branch} moved during rescue verification"
+              exit 1
             fi
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
+            echo "Deleted superseded PR85 branch: ${branch}"
           }
 
-          trigger='chore/final-cleanup-fire'
+          # If the recurring Title1 proposal branch exists, its latest head must already be preserved by closed PR #89.
+          delete_closed_unmerged_pr_branch_now 89 agent/title1-canon-series-foundation-v3
+
+          # Previous trigger is preserved by closed PR #90.
+          delete_closed_unmerged_pr_branch_now 90 chore/final-cleanup-fire
+
+          delete_exact_merged_branch_now chore/main-ci-cleanup-trigger
+          delete_exact_merged_branch_now integration/lorebook-dawn-series-safe
+          delete_superseded_pr85_now
+          delete_exact_merged_branch_now chore/final-remote-branch-cleanup
+
+          # Catch a proposal branch recreated while the fixed branches were being cleaned.
+          delete_closed_unmerged_pr_branch_now 89 agent/title1-canon-series-foundation-v3
+
+          trigger='chore/final-cleanup-fire-v2'
           trigger_actual="$(current_branch_sha "$trigger")"
           if [ -z "$trigger_actual" ] || [ "$trigger_actual" != "$TRIGGER_HEAD" ]; then
-            echo "::error::Cleanup trigger branch changed or disappeared: expected ${TRIGGER_HEAD}, got ${trigger_actual}"
+            echo "::error::Cleanup trigger v2 moved or disappeared: expected ${TRIGGER_HEAD}, got ${trigger_actual}"
             exit 1
           fi
-
-          if [ -n "$(current_branch_sha agent/title1-canon-series-foundation-v3)" ]; then
-            echo "::error::Preserved proposal branch unexpectedly reappeared after PR89 close cleanup"
-            exit 1
-          fi
-
-          verify_exact_merged_branch chore/main-ci-cleanup-trigger
-          verify_exact_merged_branch integration/lorebook-dawn-series-safe
-          verify_superseded_pr85
-          verify_exact_merged_branch chore/final-remote-branch-cleanup
-
-          delete_branch_if_present chore/main-ci-cleanup-trigger
-          delete_branch_if_present integration/lorebook-dawn-series-safe
-          delete_branch_if_present agent/lorebook-dawn-canon-v2
-          delete_branch_if_present chore/final-remote-branch-cleanup
-          delete_branch_if_present "$trigger"
+          gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${trigger}"
+          echo "Deleted cleanup trigger v2: ${trigger}"
