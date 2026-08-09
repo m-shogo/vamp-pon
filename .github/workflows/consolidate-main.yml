@@ -32,3 +32,5 @@ jobs:
           git merge --no-ff -X ours "origin/$VISUAL_BRANCH" \
             -m "merge: consolidate PR78 visual work onto current main"
           git push --force-with-lease origin "$TARGET_BRANCH"
+
+# one-shot consolidation; remove after main is clean
