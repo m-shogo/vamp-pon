@@ -8,9 +8,18 @@ namespace VampPon.UnitySpike.UI
     /// </summary>
     public sealed class BattleAmbientLanternGlow : MonoBehaviour
     {
+        private const string TargetName = "WarmLanternGlowPlaceholder";
         private SpriteRenderer spriteRenderer;
         private Vector3 baseScale;
         private Color baseColor;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void AttachToExistingGlow()
+        {
+            var glow = GameObject.Find(TargetName);
+            if (glow != null && glow.GetComponent<BattleAmbientLanternGlow>() == null)
+                glow.AddComponent<BattleAmbientLanternGlow>();
+        }
 
         private void Awake()
         {
