@@ -35,7 +35,7 @@ function decisionMarkup(decision, orderIndex) {
       </summary>
       <div class="decision-body">
         <div class="decision-options">${decision.options.map((option) => optionMarkup(option, option.id === decision.recommendedOptionId)).join('')}</div>
-        <aside class="decision-recommendation"><span>AI DESIGN RECOMMENDATION — CANDIDATE ONLY</span><p>${decision.recommendation}</p></aside>
+        <aside class="decision-recommendation"><span>EDITORIAL RECOMMENDATION — CANDIDATE ONLY</span><p>${decision.recommendation}</p></aside>
         <div class="do-not-lock"><span>まだLOCKしない</span><ul>${decision.doNotLockYet.map((item) => `<li>${item}</li>`).join('')}</ul></div>
       </div>
     </details>

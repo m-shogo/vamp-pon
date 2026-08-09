@@ -5,6 +5,7 @@ const modules = [
   './history-enhancement.js',
   './decision-lab.js',
   './theme-enhancement.js',
+  './franchise-enhancement.js',
   './motion-enhancement.js',
 ];
 

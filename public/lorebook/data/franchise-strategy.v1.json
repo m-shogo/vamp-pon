@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-09",
+  "status": "CURRENT_DIRECTION",
+  "source": "docs/series-commercial-franchise-architecture-v1.md",
+  "rule": "Commercial strategy may change exposure, goods mix and optional content priority, but never overrides Current Canon, Candidate/Open status, personality, relationship type, Main Mystery truth, family relation, era, death, Named Object ownership or Star Beast duplicate meaning.",
+  "entryPillars": [
+    {"id":"character","label":"CHARACTER","summary":"顔・silhouette・Theme HEX・口調・持ち物・成長。単体推しの入口。","examples":["acrylic stand","badge","profile card"]},
+    {"id":"star-beast","label":"STAR BEAST","summary":"生物星座mascot。Characterへ戻れる入口とし、重複理由はCurrent authorityを上書きしない。","examples":["plush","charm","embroidery"]},
+    {"id":"named-object","label":"NAMED OBJECT","summary":"ランタン・手紙・鍵・地図など。Current/Candidateの所有・継承状態を維持するcollector軸。","examples":["bookmark","miniature","replica"]},
+    {"id":"relationship","label":"RELATIONSHIP","summary":"buddy / siblings / ideological mirror / night-born trustを恋愛だけに潰さず扱う。","examples":["pair card","two-piece charm","scene diorama"]},
+    {"id":"scene","label":"SCENE / PLACE / TIME","summary":"夜の駅・湖畔・四季・夜→朝など、人物単体に依存しない世界観入口。","examples":["art print","calendar","soundtrack jacket"]}
+  ],
+  "popularityDimensions": [
+    {"id":"favoriteCharacter","label":"一番好きな人物","use":"単体Character露出 / restock"},
+    {"id":"favoriteStarBeast","label":"一番好きな星獣","use":"mascot展開 / plush priority"},
+    {"id":"favoriteRelationship","label":"続きが見たい関係","use":"side story / pair goods。Canon romance voteにはしない"},
+    {"id":"wantToCollect","label":"集めたい人物・物","use":"goods category / price ladder"},
+    {"id":"wantMoreStory","label":"もっと話を読みたい","use":"optional story / Lorebook feature"},
+    {"id":"favoriteScene","label":"忘れられない場面・朝","use":"art / music / event presentation"}
+  ],
+  "relationshipLanes": [
+    {"id":"broad-entry","label":"Broad entry","pairs":["ユイ × アサ","ユイ × クロオリ"],"strength":"Current relation typeを変えず、初見でも差が読みやすい入口。"},
+    {"id":"family","label":"Family / everyday","pairs":["リツ × コヨリ"],"strength":"兄妹の日常・2体mascot・半分モチーフ。romance化しない。"},
+    {"id":"core-shadow","label":"Core / Shadow mirrors","pairs":["ナギ × カナメ","ミチル × トキ","トモリ × ツムギ","アサ × カスミ"],"strength":"善悪ではなく異なる答え。対比visualに使える。"},
+    {"id":"quiet-night","label":"Quiet night-born","pairs":["ユウビ × トバリ","マドカ × レン","シロ × ツムギ","ネム × トキ","ゲン × ミチル"],"strength":"long-tail人気を育てる。stationery / booklet / audio scene向け。"},
+    {"id":"object-lineage","label":"Candidate object lineage","pairs":["ユイ × トモリ"],"strength":"同一ランタン等はDecision LabのCANDIDATE。Human authorityで採用された場合のみSeries bridgeへ使い、採用前は事実化しない。"}
+  ],
+  "series": [
+    {"id":"yoruno-1","label":"ヨルノシルベ 1","theme":"戻す / 開く / 選び直す","question":"記憶や意味は、誰のために開くのか？","mustPay":["Current21中心growth","Happy End","その時点でhuman-approvedなCurrent authorityに基づく作品内理解"],"mustNotDo":["続編のため中心感情を未回収にする","Candidateを自動Canon化する"]},
+    {"id":"yoruno-2","label":"ヨルノシルベ 2","theme":"継ぐ / 渡す / 受け取る","question":"自分が始めていないものを、どう受け継ぐか？","mustPay":["human-approvedなNamed Object / record / route lineageがある場合の再読価値","新しい中心人物の感情決着"],"mustNotDo":["1の朝を偽物にする","旧Character growthをresetする","全員集合を義務化する"]},
+    {"id":"yoruno-3","label":"ヨルノシルベ 3","theme":"残す / 手放す / 夜を選ぶ","question":"残すための仕組みは、いつ手放してよいのか？","mustPay":["それまでにhuman-approvedされたSeries Mysteryの十分な回収","Series中心感情の決着"],"mustNotDo":["Nightを完全破壊して過去作の価値を消す","宇宙設定の説明だけで終わる"]}
+  ],
+  "commercialGuardrails": {
+    "allowedFromPopularity": ["goods SKU比率","restock","side story優先度","seasonal art","event出演","optional Bond量","Lorebook特集順"],
+    "forbiddenFromPopularity": ["personality rewrite","forced romance","family relation捏造","surprise death / resurrection","Main Mystery truth","birth era rewrite","Named Object owner変更","Star Beast重複理由の後付け","Candidateの自動Canon化"]
+  }
+}
