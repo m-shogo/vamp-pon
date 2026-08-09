@@ -4,15 +4,13 @@
   "subtitle": "夜を歩く人、物、記憶、その関係を一冊に。",
   "updatedAt": "2026-08-09",
   "authority": {
-    "rule": "CANON / USER_DIRECTION / CANDIDATE / OPEN_QUESTION を混同しない。Web表示はCurrent masterを要約し、Seriesに残す謎だけをOPENとして扱う。",
+    "rule": "CANON / USER_DIRECTION / CANDIDATE / OPEN_QUESTION を混同しない。Web表示は既存Current masterを要約し、未確定事項を自動的に正史へ昇格しない。",
     "sources": [
       "docs/CANON.md",
       "docs/CHARACTERS.md",
       "docs/character-book-v4.md",
       "docs/RELATIONSHIPS.md",
       "docs/STORY.md",
-      "docs/night-black-ink-star-beast-canon-v1.md",
-      "docs/series-commercial-franchise-architecture-v1.md",
       "docs/181-current-production-canon.md"
     ]
   },
@@ -38,7 +36,7 @@
     {"id":"shiro","name":"シロ","group":"circle","core":"分からない頁を捨てない丸メガネ。","question":"分からないものを分類すべきか","answer":"保留して残す","growth":"全部分類する → 分からないまま守る","starBeast":"やまねこ","motif":"頁・分類・保留箱","status":"CANON","tags":["眼鏡","記録","未分類"],"sources":["docs/character-book-v4.md"]},
     {"id":"tobari","name":"トバリ","group":"circle","core":"帰れる門を守る。","question":"境界は閉じるためか開くためか","answer":"帰るため管理する","growth":"出さなければ失わない → 帰れるよう開ける","starBeast":"おおいぬ","motif":"門・境界・帰路","status":"CANON","tags":["門番","帰還","境界"],"sources":["docs/character-book-v4.md"]},
     {"id":"nemu","name":"ネム","group":"circle","core":"夢から道を持ち帰る。","question":"夢は現実へ何を渡せるか","answer":"夢で見る","growth":"夢へ逃げる → 夢を現実へ渡す","starBeast":"いるか","motif":"夢・眠り・別経路","status":"CANON","tags":["夢","観測","道"],"sources":["docs/character-book-v4.md"]},
-    {"id":"kuroori","name":"クロオリ","group":"shadow","core":"本人が『今は返さないで』と選んだ記憶を、開く時まで預かる思想的ライバル。","question":"記憶は開くべきか","answer":"預かって選択時を守る","growth":"永遠に閉じる → 本人が開く時まで預かる","starBeast":"カメレオン","motif":"黒折りの封・預かる・保護","status":"CANON","tags":["ライバル","記憶","consent"],"sources":["docs/character-book-v4.md","docs/night-black-ink-star-beast-canon-v1.md"]},
+    {"id":"kuroori","name":"クロオリ","group":"shadow","core":"開かず預かる思想的ライバル。","question":"記憶は開くべきか","answer":"閉じて守る","growth":"永遠に閉じる → 本人が開く時まで預かる","starBeast":"カメレオン","motif":"閉じる・預かる・保護","status":"CANON","tags":["ライバル","記憶","保護"],"sources":["docs/character-book-v4.md"]},
     {"id":"kaname","name":"カナメ","group":"shadow","core":"大きな影で仲間を守る。","question":"守るとは何か","answer":"盾になる","growth":"自分が全部受ける → 守りを分担する","starBeast":"おおかみ","motif":"盾・大きな影・分担","status":"CANON","tags":["守護","ライバル","体格"],"sources":["docs/character-book-v4.md"]},
     {"id":"kasumi","name":"カスミ","group":"shadow","core":"名前や痕跡をぼかして守る。","question":"名前は明かすべきか","answer":"ぼかす","growth":"全部隠す → 本人と公開範囲を選ぶ","starBeast":"こぎつね","motif":"霧・匿名・痕跡","status":"CANON","tags":["名前","匿名","保護"],"sources":["docs/character-book-v4.md"]},
     {"id":"toki","name":"トキ","group":"shadow","core":"夜を測る几帳面な人。","question":"正しい道は一つか","answer":"測る","growth":"測れないものを切る → 測れなくても信じる","starBeast":"つる","motif":"時計・測定・記録","status":"CANON","tags":["計測","時間","ライバル"],"sources":["docs/character-book-v4.md"]},
@@ -47,7 +45,7 @@
   ],
   "relationships": [
     {"id":"rel-yui-asa","from":"yui","to":"asa","label":"速さと確認","type":"buddy","status":"CANON","summary":"主人公級バディ。違うまま互いが必要。恋愛なし。"},
-    {"id":"rel-yui-kuroori","from":"yui","to":"kuroori","label":"開く / 預かる","type":"ideological_mirror","status":"CANON","summary":"取り戻すユイと、本人の選択時まで預かるクロオリ。二人とも『本人が選ぶ』へ戻る。"},
+    {"id":"rel-yui-kuroori","from":"yui","to":"kuroori","label":"開く / 預かる","type":"ideological_mirror","status":"CANON","summary":"取り戻すユイと、閉じて守るクロオリ。どちらか一方だけを正解にしない。"},
     {"id":"rel-nagi-kaname","from":"nagi","to":"kaname","label":"二つの守り","type":"ideological_mirror","status":"CANON","summary":"封じる守りと、盾になる守り。"},
     {"id":"rel-michiru-toki","from":"michiru","to":"toki","label":"道を選ぶ / 測る","type":"ideological_mirror","status":"CANON","summary":"一緒に迷って選ぶことと、正解を測ることの緊張。"},
     {"id":"rel-tomori-tsumugi","from":"tomori","to":"tsumugi","label":"直す / 跡を残す","type":"ideological_mirror","status":"CANON","summary":"修復することと、傷跡を残すことの両立を探す。"},
@@ -59,7 +57,7 @@
     {"id":"rel-nemu-toki","from":"nemu","to":"toki","label":"夢 / 計測","type":"contrast","status":"CANON","summary":"夢由来の観測を事実でも無価値でもない別sourceとして扱う。"},
     {"id":"rel-gen-michiru","from":"gen","to":"michiru","label":"昔の道 / 今の道","type":"temporal","status":"CANON","summary":"古い経験と今の判断を上下ではなく並べて読む。"},
     {"id":"rel-asa-kasumi","from":"asa","to":"kasumi","label":"名乗らせる / 隠して待つ","type":"ideological_mirror","status":"CANDIDATE","summary":"名前を返すことと公開範囲を守ること。具体事件は未確定。"},
-    {"id":"rel-yui-tomori","from":"yui","to":"tomori","label":"継がれた灯り","type":"object_lineage","status":"CANON","summary":"トモリが前の時代で修理した同じ物理ランタンが複数の手を経てユイへ届いた。Leo共有は同じ灯りへの共鳴で、血縁Canonではない。"},
+    {"id":"rel-yui-tomori","from":"yui","to":"tomori","label":"継がれた灯り","type":"mystery","status":"CANDIDATE","summary":"同じ獅子、ランタン、修理痕。血縁・継承・shared memoryなど exact history は未LOCK。"},
     {"id":"rel-hana-tsumugi","from":"hana","to":"tsumugi","label":"保存 / 傷跡","type":"night_bond","status":"CANDIDATE","summary":"完全保存と、傷も含めて残すことの間を探る。"},
     {"id":"rel-sen-shiro","from":"sen","to":"shiro","label":"説明 / 未分類","type":"knowledge","status":"CANDIDATE","summary":"仮説ラベル・confidence・未分類状態を分けて扱う。"},
     {"id":"rel-nagi-tobari","from":"nagi","to":"tobari","label":"閉じる / 帰るため開ける","type":"boundary","status":"CANDIDATE","summary":"危険を閉じる境界と、帰るための境界を同じにしない。"},
@@ -72,55 +70,53 @@
     {"id":"rel-ren-toki","from":"ren","to":"toki","label":"差分 / 測定値","type":"observation","status":"CANDIDATE","summary":"小さな違和感と定量値をつなぐ。"}
   ],
   "timeline": [
-    {"id":"timeline-real-eras","label":"現実の複数時代","status":"CANON","summary":"人物は必ずしも同時代ではない。Exact yearではなくRelative Era + evidenceで扱う。"},
-    {"id":"timeline-object-lineage","label":"物・言葉・記録の継承","status":"CANON","summary":"人が直接会えない時代差を、物・言葉・記録が現実時間の順番で渡る。"},
-    {"id":"timeline-night","label":"夜での邂逅","status":"CANON","summary":"夜は未完の意味が別時代を越えて重なる境界層。人物は一緒に戦い、食べ、喧嘩し、関係を作れる。"},
-    {"id":"timeline-dawn","label":"それぞれの朝","status":"CANON","summary":"朝へ帰ればそれぞれの時代・人生へ戻る。夜で選び直したことは日常の行動や物の扱いとして痕跡を残す。"},
-    {"id":"timeline-sequel","label":"小さな違和感が残る","status":"CANDIDATE","summary":"1作はHappy Endで閉じる。Series Mysteryは修理痕・綴じ糸・足跡など小さな痕跡として残す。"}
+    {"id":"timeline-real-eras","label":"現実の複数時代","status":"USER_DIRECTION","summary":"人物は必ずしも同時代ではない。Exact yearはまだLOCKしない。"},
+    {"id":"timeline-object-lineage","label":"物・言葉・記録の継承","status":"USER_DIRECTION","summary":"人が直接会えない時代差を、物・言葉・記録が現実時間の順番で渡る。"},
+    {"id":"timeline-night","label":"夜での邂逅","status":"USER_DIRECTION","summary":"別時代の人物も夜では出会い、一緒に戦い、食べ、喧嘩し、仲間になれる。"},
+    {"id":"timeline-dawn","label":"それぞれの朝","status":"USER_DIRECTION","summary":"朝へ帰れば、それぞれの時代・人生へ戻る。夜の滞在時間と現実時間は一致しなくてよい。"},
+    {"id":"timeline-sequel","label":"小さな違和感が残る","status":"CANDIDATE","summary":"1作はHappy Endで閉じる。シリーズの一段上の謎は小物や痕跡として残せる。"}
   ],
   "story": {
-    "identity":"暗い夜の中で、人間の性格は一色にしない群像劇。Main Gameはヴァンサバ系の戦闘・build・replay。物語情報はplayの副作用として増え、正史はHappy End。",
+    "identity":"暗い夜の中で、人間の性格は一色にしない群像劇。Main Gameはヴァンサバ系の戦闘・build・replayで、物語情報はplayの副作用として増える。正史はHappy End。",
     "mysteryLanes":[
-      {"id":"character","label":"Character Mystery","description":"人物の内側。例: ランタン中間所有者、クロオリ自身のsealed memory、アサの原体験。"},
-      {"id":"main","label":"Main Mystery","description":"作品1で必要なNight / Black Ink / 黒耀化 / Star Beast法則はCurrent Canonとして払う。"},
-      {"id":"series","label":"Series Mystery","description":"Night最初の発生、maintainer史、Star Beast最古記録など。1のHappy Endを無効化しない。"}
+      {"id":"character","label":"Character Mystery","description":"人物の内側。例: ユイとトモリの獅子座共有、クロオリが守っているもの。"},
+      {"id":"main","label":"Main Mystery","description":"世界の構造。夜とは何か、黒インクとは何か、星獣は何を知るか、誰が仕組みを作ったか。"},
+      {"id":"series","label":"Series Mystery","description":"1で答えなくてもよい一段上の問い。1の感情決着を無効化しない。"}
     ],
-    "engineStatus":"CANON",
-    "engineCandidate":"悲しい出来事そのものではなく、出来事や自分自身へ付いた『一つの意味だけが正しい』という固定が黒インクとして形を持つ。主人公たちは出来事を消さず、その固定をほどく。",
-    "ending":"1作の中心人物・中心感情は1作で救う。夜で選び直したことが、名前を書く前に聞く・傷跡を残して直す等の小さな日常へ戻ることがHappy Endの証明。"
+    "engineCandidate":"悲しい出来事は消えない。ただ、その出来事についた『間違った意味』が黒インクで固定される。主人公たちは出来事ではなく、その固定をほどく。",
+    "ending":"1作の中心人物・中心感情は1作で救う。Permanent deathを泣き装置の中心にせず、普通だった時間の蓄積を終盤で返す。"
   },
   "openQuestions": [
-    {"id":"q-night-origin","area":"Series Mystery","question":"夜が最初に発生した条件と最古年代は何か。","status":"OPEN_QUESTION","impact":"Series 2/3・最古資料・世界の深さ"},
-    {"id":"q-night-maintainer","area":"Series Mystery","question":"自然発生した夜へ最初に帰路・観測・保管の仕組みを整えた人々は誰か。","status":"OPEN_QUESTION","impact":"Series history・複数時代の継承"},
-    {"id":"q-star-beast-origin","area":"Series Mystery","question":"星獣の最古記録はいつで、なぜ生物星座との共鳴として現れるのか。","status":"OPEN_QUESTION","impact":"星獣史・古い資料・Series payoff"},
-    {"id":"q-object-crossing","area":"World","question":"なぜ一部のNamed Objectは特に強く時代を越えて夜へ痕跡を残すのか。","status":"OPEN_QUESTION","impact":"126 Named Objects・2の継承テーマ"},
-    {"id":"q-era-map","area":"History","question":"Current21それぞれのRelative Eraを、どのevidenceとconfidenceで配置するか。","status":"OPEN_QUESTION","impact":"言葉・小物・技術・日常・物のlineage"},
-    {"id":"q-kuroori-yui-seal","area":"Character Mystery","question":"過去のユイ自身がクロオリへ『今は返さないで』と一つの記憶を預けていたか。","status":"OPEN_QUESTION","impact":"ユイ×クロオリ・終盤の再解釈"},
-    {"id":"q-night-geography","area":"Series Mystery","question":"別地域・別時代で観測される夜は同じ一層なのか、重なり合う複数layerなのか。","status":"OPEN_QUESTION","impact":"2/3の舞台拡張・世界規模"},
-    {"id":"q-sequel","area":"Series / Production","question":"2・3の具体的な主人公、舞台、returning cast、最後の小さな違和感を何にするか。","status":"OPEN_QUESTION","impact":"Series architecture・商業継続・旧作再読"}
+    {"id":"q-night-nature","area":"Main Mystery","question":"夜の正体は何か。夢 / virtual / shared memory などのどれを採るか。","status":"OPEN_QUESTION","impact":"世界構造・Retry・時間差・続編"},
+    {"id":"q-black-ink-engine","area":"Main Mystery","question":"『間違った意味が黒インクで固定される』Engineを最終真相にするか。","status":"OPEN_QUESTION","impact":"敵・記憶片・Level Up・朝の二重意味"},
+    {"id":"q-night-maker","area":"Main Mystery","question":"誰が夜を作ったのか。なぜ夜が必要だったのか。","status":"OPEN_QUESTION","impact":"終盤・Series Mystery"},
+    {"id":"q-star-beast","area":"World","question":"星獣の完全な仕組みは何か。何を知り、何を知らないのか。","status":"OPEN_QUESTION","impact":"人物・伏線・世界の案内役"},
+    {"id":"q-yui-tomori","area":"Character Mystery","question":"ユイとトモリの獅子座共有とランタンの真相は何か。","status":"OPEN_QUESTION","impact":"時間差・継承・血縁候補"},
+    {"id":"q-era-map","area":"History","question":"Current21それぞれの相対時代をどこまで決めるか。Exact yearを使わず何段階のEraにするか。","status":"OPEN_QUESTION","impact":"言葉・小物・技術・関係性"},
+    {"id":"q-kuroori","area":"Character Mystery","question":"クロオリが具体的に何を、誰のために預かっているのか。","status":"OPEN_QUESTION","impact":"ユイとの思想対立・終盤"},
+    {"id":"q-sequel","area":"Series Mystery","question":"続編主人公・舞台・最後に残す小さな違和感を何にするか。","status":"OPEN_QUESTION","impact":"1作の余韻・series architecture"}
   ],
   "glossary": [
     {"term":"灯技","meaning":"Base character art / 基本のキャラクター技。"},
     {"term":"継灯","meaning":"Evolved character art。"},
     {"term":"暁灯","meaning":"Decisive character art。"},
-    {"term":"黒インク","meaning":"悲しい感情そのものではなく、一つの意味だけが正しい状態が夜で固定化したもの。"},
-    {"term":"黒耀化","meaning":"本人の長所・守りたいもの・恐怖が『この方法しかない』へ極端化した状態。外部悪人格ではない。"},
+    {"term":"黒耀化","meaning":"本人の長所・願い・恐怖が極端化した『もう一つの自分』。外部悪人格ではない。"},
     {"term":"煤返り","meaning":"黒耀化のbacklash。"},
     {"term":"黒耀瓶","meaning":"黒耀化gauge。"},
     {"term":"灯具","meaning":"Weapon / active item。"},
     {"term":"持ち物","meaning":"Passive item。"},
     {"term":"忘れ物","meaning":"Rare item。"},
     {"term":"落とし物","meaning":"Field drop。"},
-    {"term":"記憶片","meaning":"Fragment currency。固定された意味から剥がれ、別の読み方を持てる小片でもある。"},
+    {"term":"記憶片","meaning":"Fragment currency / run中の記憶の欠片。"},
     {"term":"灯継ぎ","meaning":"Upgrade / evolution。"},
     {"term":"暁開き","meaning":"Second evolution / awakening。"},
     {"term":"灯合わせ","meaning":"Fusion / pair art。"},
     {"term":"灯録","meaning":"Collection / archive。"},
     {"term":"記憶のしるし","meaning":"Achievement。"},
     {"term":"旅の記録","meaning":"Result。"},
-    {"term":"夜明け","meaning":"Stage clear。夜で選び直した意味を現実の小さな選択へ持ち帰る地点。"},
+    {"term":"夜明け","meaning":"Stage clear。"},
     {"term":"灯紋具","meaning":"Emblem device。"},
     {"term":"灯紋","meaning":"Character emblem。"},
-    {"term":"星獣","meaning":"人物の価値観と生物星座が夜で共鳴し形を得る観測伴走者。未来や人間の最終答えは知らない。"}
+    {"term":"星獣","meaning":"誕生日占いではない、人物が好き・共鳴する生物星座の小さなマスコット。"}
   ]
 }

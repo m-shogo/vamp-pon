@@ -1,129 +1,129 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-08-09",
-  "statusRule": "All recommendations in this file remain CANDIDATE until explicit human promotion. Resolved Title 1 laws belong in CANON/STORY and must not be reopened here without a deliberate canon revision.",
+  "statusRule": "All recommendations in this file remain CANDIDATE until explicit human promotion. This file must never override CANON.md or domain Current masters.",
   "decisions": [
     {
-      "id":"decision-night-origin",
-      "openQuestionId":"q-night-origin",
-      "title":"夜が最初に発生した条件をどう残すか",
-      "decisionNow":"Title 1の機能は確定済み。Seriesでは最初の発生条件だけを扱う。",
-      "recommendedOptionId":"accumulated-unfinished-meaning",
-      "options":[
-        {"id":"accumulated-unfinished-meaning","label":"未完の意味の蓄積が閾値を越えた","summary":"人・物・言葉に残る未完が長い時間をかけて重なり、最初の夜が自然発生した。","coherence":5,"emotion":5,"futureFreedom":5,"risk":2,"notes":"一人の創造主へ全てを集めず、物と人の歴史をSeriesの主役にできる。"},
-        {"id":"single-catastrophic-origin","label":"一度の大事件が夜を生んだ","summary":"特定の事故・災害・儀式など、一つの事件が境界層を開いた。","coherence":4,"emotion":5,"futureFreedom":3,"risk":4,"notes":"強いが、Series全体が一事件の答え合わせに縮みやすい。"},
-        {"id":"always-existed","label":"夜は世界に元からあった","summary":"人間が気づく以前から境界層は存在していた。","coherence":4,"emotion":3,"futureFreedom":5,"risk":3,"notes":"神秘は強いが、人と物の蓄積が夜を作るテーマが弱くなる。"}
+      "id": "decision-night-nature",
+      "openQuestionId": "q-night-nature",
+      "title": "夜の正体をどこまで定義するか",
+      "decisionNow": "物語1で必要な『働き』だけ定義し、宇宙論としての完全な正体は残す。",
+      "recommendedOptionId": "liminal-memory",
+      "options": [
+        {"id":"liminal-memory","label":"時代をまたぐ記憶の境界領域","summary":"人・物・言葉に残る未完の意味が重なる場所。現実の別時代同士が夜だけ接続できる。","coherence":5,"emotion":5,"futureFreedom":5,"risk":2,"notes":"現在の別時代構造、Named Object、黒インク、Happy Endと最も自然につながる。死後世界とは断定しない。"},
+        {"id":"shared-dream","label":"集合夢","summary":"複数人物の眠りや無意識が接続された共有夢。","coherence":4,"emotion":4,"futureFreedom":3,"risk":3,"notes":"ネムとの親和性は高いが、夢オチと受け取られる危険がある。現実の物の継承説明が弱くなる。"},
+        {"id":"simulation","label":"virtual / simulation","summary":"誰かが作った記憶simulation、あるいは保存system。","coherence":2,"emotion":3,"futureFreedom":2,"risk":5,"notes":"仕組みは説明しやすいが、紙・灯り・生活の手触りをtech twistが上書きしやすい。"}
       ],
-      "recommendation":"『未完の意味が蓄積して最初の夜が自然発生した』をSeriesの第一候補にする。最初の年代・場所はまだ決めない。",
-      "doNotLockYet":["最初の西暦","最初の国・地域","最初に気づいた人物"]
+      "recommendation":"『夜は記憶と意味が時代を越えて重なる境界領域』までを作品1のworking truthにし、なぜ存在できるかはSeries Mysteryへ残す。",
+      "doNotLockYet":["物理空間か精神空間か","誰が最初に作ったか","宇宙全体で唯一の現象か"]
     },
     {
-      "id":"decision-night-maintainer",
-      "openQuestionId":"q-night-maintainer",
-      "title":"最初のmaintainerを一人にするか複数にするか",
-      "decisionNow":"夜そのものの発生と、帰路・観測・保管の整備は分離済み。誰が整えたかを決める。",
-      "recommendedOptionId":"distributed-maintainers",
+      "id":"decision-black-ink-engine",
+      "openQuestionId":"q-black-ink-engine",
+      "title":"黒インク Story Engineをどこまで正史へ近づけるか",
+      "decisionNow":"黒インクの『挙動法則』と『起源』を分離する。",
+      "recommendedOptionId":"meaning-fixation-law",
       "options":[
-        {"id":"distributed-maintainers","label":"時代をまたぐ複数の整備者","summary":"一人が完成させず、別時代の人々が門・記録・修理・観測の仕組みを継ぎ足した。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"Series 2/3で別人物・別地域へ自然に拡張できる。Named Object lineageとも強く噛み合う。"},
-        {"id":"founder-and-successors","label":"最初の一人 + 後継者","summary":"象徴的Founderが最初の帰路を作り、後世が改良した。","coherence":5,"emotion":5,"futureFreedom":4,"risk":2,"notes":"覚えやすいが、Founderが世界の全部を説明する人物にならない制御が必要。"},
-        {"id":"anonymous-tradition","label":"名前の残らない共同知","summary":"誰が作ったか分からず、手順や道具だけが残った。","coherence":4,"emotion":4,"futureFreedom":5,"risk":3,"notes":"雰囲気は強いが、Series終盤の人物的payoffが弱くなる可能性。"}
+        {"id":"meaning-fixation-law","label":"意味の固定化という法則","summary":"悲しい出来事自体ではなく、その出来事へ付いた一つの解釈が固着すると黒インクになる。","coherence":5,"emotion":5,"futureFreedom":5,"risk":2,"notes":"Retry / 記憶片 / 黒耀化 / Happy Endを一本で説明できる。起源は別Mysteryにできる。"},
+        {"id":"negative-emotion","label":"負の感情そのもの","summary":"悲しみ・恐怖・怒りが黒インク化する。","coherence":3,"emotion":3,"futureFreedom":3,"risk":4,"notes":"理解しやすいが『悲しい感情=悪』に見えやすく、現在の人物設計と衝突しやすい。"},
+        {"id":"external-parasite","label":"外部存在 / 汚染","summary":"黒インクは人間外の敵や寄生的な物質。","coherence":2,"emotion":2,"futureFreedom":3,"risk":5,"notes":"敵は明快になるが、本人の選択・意味の読み替えという作品の強みを弱める。"}
       ],
-      "recommendation":"複数maintainer方式が最もヨルノシルベらしい。Founderを置く場合も『全部を作った人』にはしない。",
-      "doNotLockYet":["最初のmaintainer名","何人いたか","善意だけで整備されたか"]
+      "recommendation":"『固定された意味をほどく』を強い世界法則候補として採用方向。ただし黒インクを誰が生み、なぜその法則があるのかは未LOCKにする。",
+      "doNotLockYet":["黒インクの最初の発生者","意志があるか","世界外から来たものか"]
     },
     {
-      "id":"decision-star-beast-origin",
-      "openQuestionId":"q-star-beast-origin",
-      "title":"星獣の最古史をどう作るか",
-      "decisionNow":"現在の星獣roleは確定済み。最古記録と生物星座共鳴の理由だけ残っている。",
-      "recommendedOptionId":"human-pattern-resonance",
+      "id":"decision-night-maker",
+      "openQuestionId":"q-night-maker",
+      "title":"誰が夜を作ったのか / なぜ必要だったのか",
+      "decisionNow":"『単独の黒幕が全部作った』を避けるかどうかを先に決める。",
+      "recommendedOptionId":"maintained-not-created",
       "options":[
-        {"id":"human-pattern-resonance","label":"人が星へ動物の形を見た歴史と共鳴した","summary":"星そのものが動物なのではなく、人が長く意味を与えた生物星座のpatternが夜で人格的な形を得る。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"『意味が形を持つ夜』の法則と一貫し、IAU生物星座ルールにもつながる。"},
-        {"id":"ancient-creatures","label":"星獣は古代から独立存在だった","summary":"人間以前から存在し、人が後から星座名を付けた。","coherence":3,"emotion":4,"futureFreedom":3,"risk":4,"notes":"マスコットは強いが、人の意味と夜の法則から離れやすい。"},
-        {"id":"maintainer-created","label":"maintainerが案内用に作った","summary":"夜を整備した人々が星座patternを使って案内役を作った。","coherence":4,"emotion":3,"futureFreedom":2,"risk":4,"notes":"説明しやすいが、星獣が人工system componentに見えやすい。"}
+        {"id":"maintained-not-created","label":"生まれた現象を誰かが維持可能な仕組みにした","summary":"夜そのものは人々の記憶から自然発生し、後世の誰か/複数人が朝へ帰れるよう道具・規則・観測法を整えた。","coherence":5,"emotion":5,"futureFreedom":5,"risk":2,"notes":"古い人物・道具・Named Objectへ役割を分散でき、全知の創造主を置かずにSeries Mysteryを伸ばせる。"},
+        {"id":"single-creator","label":"一人の創造者","summary":"特定人物が目的を持って夜を作った。","coherence":3,"emotion":4,"futureFreedom":2,"risk":4,"notes":"強いドラマになるが、全謎が一人へ収束し群像劇が小さくなる危険。"},
+        {"id":"natural-phenomenon","label":"完全な自然現象","summary":"夜は誰にも作られておらず、世界に元からある。","coherence":4,"emotion":3,"futureFreedom":5,"risk":3,"notes":"余白は大きいが『誰が仕組みを作ったか』という現在の謎の魅力が薄くなる。"}
       ],
-      "recommendation":"人間が長く星へ見出した『動物の意味』と人物の価値観が共鳴する案を第一候補にする。",
-      "doNotLockYet":["最古の星獣記録","IAU成立前の呼称処理","全文化圏で同じ形に見えるか"]
+      "recommendation":"『夜を作った人』より『夜を帰れる場所へ整えた人々』を探す構造が有力。創造と運用を分ける。",
+      "doNotLockYet":["最初の整備者の名前","整備が善意だったか","現行の仕組みが原型と同じか"]
     },
     {
-      "id":"decision-object-crossing",
-      "openQuestionId":"q-object-crossing",
-      "title":"時代を越えて強く残るNamed Objectの条件",
-      "decisionNow":"全ての物が同じ強さで夜へ残ると世界が散漫になるため、強いlineage条件を決める。",
-      "recommendedOptionId":"multi-person-chosen-meaning",
+      "id":"decision-star-beast",
+      "openQuestionId":"q-star-beast",
+      "title":"星獣は何を知っているのか",
+      "decisionNow":"便利な説明役や万能ナビにしない上限を決める。",
+      "recommendedOptionId":"resonance-companion",
       "options":[
-        {"id":"multi-person-chosen-meaning","label":"複数人が意味を選び直した物ほど強く残る","summary":"所有回数ではなく、修理・受け渡し・保管など『どう残すか』を複数人が選んだ物が強い痕跡を持つ。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"ユイのランタンを特別にしつつ、他のNamed Objectにも同じ法則を展開できる。"},
-        {"id":"emotional-intensity","label":"感情が強いほど残る","summary":"強い愛情・悲しみ・恐怖が物を夜へ固定する。","coherence":3,"emotion":4,"futureFreedom":3,"risk":4,"notes":"分かりやすいが『感情の強さ競争』になり、静かな日常物が弱くなる。"},
-        {"id":"special-material","label":"特殊素材 / 特殊製法","summary":"特定素材や技術の物だけが時代を越える。","coherence":2,"emotion":2,"futureFreedom":2,"risk":5,"notes":"物語より設定説明が前面に出やすい。"}
+        {"id":"resonance-companion","label":"共鳴する観測伴走者","summary":"人物と生物星座の共鳴から夜で形を得る。route・反復・違和感には敏感だが、人間の本心や未来の答えは知らない。","coherence":5,"emotion":5,"futureFreedom":5,"risk":2,"notes":"マスコット性とMysteryを両立し、人物が自分で選ぶ余地を守る。"},
+        {"id":"ancient-guide","label":"古代の案内役","summary":"夜の仕組みを昔から知る存在。","coherence":4,"emotion":4,"futureFreedom":3,"risk":4,"notes":"説明が簡単だが、星獣に聞けば済む問題が増える。"},
+        {"id":"memory-fragment","label":"人物の記憶片そのもの","summary":"各星獣は本人の切り離された記憶や人格の一部。","coherence":3,"emotion":4,"futureFreedom":2,"risk":4,"notes":"黒耀化との役割が重なり、星獣の独立した可愛さ・不思議さが失われやすい。"}
       ],
-      "recommendation":"『複数人がどう残すかを選んだ物』を強いlineageの条件にする方向が最も作品テーマと一致する。",
-      "doNotLockYet":["必要な人数","強さの定量閾値","126 objects全てが強lineageか"]
+      "recommendation":"星獣は『道や反復の異常には気づくが、人間の答えは知らない』程度の知性・知識上限が強い。",
+      "doNotLockYet":["現実世界で実体化できるか","星獣同士の共有知識","誰が最初に星獣と出会ったか"]
+    },
+    {
+      "id":"decision-yui-tomori",
+      "openQuestionId":"q-yui-tomori",
+      "title":"ユイ × トモリの獅子 / ランタン真相",
+      "decisionNow":"血縁より先に『物の継承』だけで感情が成立するかを見る。",
+      "recommendedOptionId":"object-lineage",
+      "options":[
+        {"id":"object-lineage","label":"同じランタンを別時代で継いだ","summary":"トモリが昔修理した同一ランタンが現実時間を渡り、後世のユイの手へ来る。獅子座共有も『同じ灯りに共鳴した』兆候。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"別時代 / Named Object invariantを最もきれいに活かし、血縁へ頼らず強い縁を作れる。"},
+        {"id":"bloodline","label":"血縁 / 祖先子孫","summary":"二人は時代を隔てた血縁で、ランタンも家系で継承。","coherence":4,"emotion":4,"futureFreedom":2,"risk":4,"notes":"分かりやすいが『実はみんな繋がっていた』方向へ寄りやすい。"},
+        {"id":"shared-memory","label":"shared memory / 同じ役目","summary":"同じ記憶や役目を時代違いで担ったため星獣とランタンが重なる。","coherence":4,"emotion":4,"futureFreedom":4,"risk":3,"notes":"Mysteryは強いが、物理的ランタンの履歴を別途説明する必要がある。"}
+      ],
+      "recommendation":"第一候補は血縁なしのNamed Object lineage。『トモリが触れた修理痕をユイがずっと握っていた』だけで十分強い。血縁は後から必要になった時だけ検討する。",
+      "doNotLockYet":["誰がトモリから次へ渡したか","何世代離れているか","獅子座共有がランタンだけの理由か"]
     },
     {
       "id":"decision-relative-era",
       "openQuestionId":"q-era-map",
-      "title":"Current21のRelative Eraをどう埋めるか",
-      "decisionNow":"4層methodはCurrent。次は21人をevidence付きで置く。",
-      "recommendedOptionId":"evidence-first-partial-map",
+      "title":"Current21の時代差をどう決めるか",
+      "decisionNow":"西暦ではなく4つのRelative Era markerを先に作る。",
+      "recommendedOptionId":"relative-four-layer",
       "options":[
-        {"id":"evidence-first-partial-map","label":"確度の高い人物から段階配置","summary":"道具・言葉・交通・生活習慣の証拠が強い人物だけ先にold / transition / recentへ置き、残りはunknownを許す。","coherence":5,"emotion":4,"futureFreedom":5,"risk":1,"notes":"矛盾を作らず、History Atlasを少しずつ濃くできる。"},
-        {"id":"complete-map-now","label":"21人を一度に4層へ配置","summary":"現在の印象から全員のEraを一気に決める。","coherence":3,"emotion":4,"futureFreedom":2,"risk":4,"notes":"見栄えは早いが後から道具や台詞が衝突しやすい。"},
-        {"id":"exact-year-research","label":"西暦まで調査して固定","summary":"実在文化史に厳密対応して全員へ年代を与える。","coherence":4,"emotion":4,"futureFreedom":1,"risk":5,"notes":"制作コストとretcon riskが高い。"}
+        {"id":"relative-four-layer","label":"4層Relative Era","summary":"OLD / TRANSIT / RECENT / UNKNOWNのような相対層を用意し、言葉・道具・交通・生活習慣のevidenceで置く。","coherence":5,"emotion":4,"futureFreedom":5,"risk":1,"notes":"exact yearを固定せず、時代差を会話・物・UIへ出せる。confidenceも持てる。"},
+        {"id":"exact-years","label":"全員へ西暦を付与","summary":"出生年や年代を明示する。","coherence":3,"emotion":3,"futureFreedom":1,"risk":5,"notes":"管理は明快だが、既存プロフィールの年齢非固定方針と衝突し、矛盾修正コストが高い。"},
+        {"id":"no-era-data","label":"永遠にぼかす","summary":"雰囲気だけで時代差を扱い、制作dataには持たない。","coherence":2,"emotion":3,"futureFreedom":4,"risk":4,"notes":"初期は楽だが、台詞・道具・歴史・物の継承が増えるほど制作側が混乱する。"}
       ],
-      "recommendation":"ゲン、トモリ、ユウビ、トバリ等のevidenceが出やすい人物からpartial mapを作る。unknownを品質不良扱いしない。",
-      "doNotLockYet":["全員の出生年","実在事件との完全対応","国籍の推測"]
+      "recommendation":"Relative Era + confidence + evidence方式へ進める。最初は『ゲンは古い』『トモリはユイより前の可能性が高い』『郵便/駅組は交通文化のmarkerになる』程度から始める。",
+      "doNotLockYet":["全員の出生年","現実世界の国名","実在歴史イベントとの完全対応"]
     },
     {
-      "id":"decision-kuroori-yui-seal",
-      "openQuestionId":"q-kuroori-yui-seal",
-      "title":"過去のユイ自身が記憶を預けていたか",
-      "decisionNow":"クロオリの役割はCurrent Canon。ユイ本人との過去契約を入れるかだけを決める。",
-      "recommendedOptionId":"one-voluntary-seal",
+      "id":"decision-kuroori-keeps",
+      "openQuestionId":"q-kuroori",
+      "title":"クロオリは具体的に何を預かっているのか",
+      "decisionNow":"『秘密の重要物』より、彼の思想が正しく見える預かり物を作る。",
+      "recommendedOptionId":"consent-sealed-memories",
       "options":[
-        {"id":"one-voluntary-seal","label":"ユイ自身が一つだけ預けていた","summary":"今のユイが『返して』と言う相手に、過去の自分が『今は返さないで』と頼んでいた。","coherence":5,"emotion":5,"futureFreedom":4,"risk":2,"notes":"ユイ×クロオリの対立を善悪でなくself-consentへ反転できる強いCharacter Mystery。"},
-        {"id":"no-yui-seal","label":"ユイの記憶は預かっていない","summary":"クロオリの思想は他人の例だけで成立し、ユイとの対立は現在の選択だけに集中する。","coherence":5,"emotion":4,"futureFreedom":5,"risk":1,"notes":"きれいだが終盤の個人的な刺さりは弱くなる。"},
-        {"id":"someone-close-to-yui","label":"ユイに近い別人の記憶を預かる","summary":"ユイ本人ではなく、彼女に関係する別人物が依頼者。","coherence":4,"emotion":5,"futureFreedom":4,"risk":3,"notes":"人間関係は広がるが、追加血縁・秘密人物へ頼りすぎない注意が必要。"}
+        {"id":"consent-sealed-memories","label":"本人が『今は返さないで』と預けた記憶群","summary":"危険だから奪ったのではなく、受け取る時を本人が選べるよう保管している。過去のユイ自身が一つ預けた可能性も候補。","coherence":5,"emotion":5,"futureFreedom":5,"risk":2,"notes":"ユイとの対立が善悪ではなくconsent/timingの議論になる。"},
+        {"id":"single-secret-object","label":"一つの重大な物 / 文書","summary":"世界の真相を示す鍵を物理的に保管している。","coherence":4,"emotion":4,"futureFreedom":3,"risk":4,"notes":"plot deviceとして強いが、クロオリ個人の思想が『鍵を持っている人』へ縮みやすい。"},
+        {"id":"dangerous-memory","label":"見ると壊れる危険な記憶","summary":"客観的に危険なので封印している。","coherence":3,"emotion":3,"futureFreedom":3,"risk":4,"notes":"クロオリが正しすぎてユイとの選択の緊張が弱くなる。"}
       ],
-      "recommendation":"一つだけユイ本人のvoluntary sealを入れる案が最も強い。ただし『重要だから封印した』ではなく、当時のユイが受け取る時を自分で選んだ記憶にする。",
-      "doNotLockYet":["記憶の具体内容","預けた時のユイの年齢感","いつ開くか"]
+      "recommendation":"複数のconsent-sealed memoryを管理する『預かり人』が有力。終盤の一つだけ、過去のユイ自身の選択と接続する余地を残す。",
+      "doNotLockYet":["ユイが実際に預けたか","クロオリがいつから役目を持つか","預かりを誰から引き継いだか"]
     },
     {
-      "id":"decision-night-geography",
-      "openQuestionId":"q-night-geography",
-      "title":"夜は一つの巨大空間か、複数layerか",
-      "decisionNow":"2/3で地域を広げても1の夜と矛盾しない地理構造を決める。",
-      "recommendedOptionId":"overlapping-local-layers",
-      "options":[
-        {"id":"overlapping-local-layers","label":"局所layerが重なり合う","summary":"地域・物・記憶clusterごとに濃い夜があり、routeやNamed Objectを介して互いに接続する。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"続編で新舞台を増やしても『なぜ1に出なかった』を自然に処理できる。"},
-        {"id":"single-global-night","label":"世界で一つの巨大Night","summary":"全ての時代・地域が同じ一枚の夜へ接続する。","coherence":4,"emotion":4,"futureFreedom":3,"risk":4,"notes":"壮大だが、全Characterが出会えるはず問題と規模管理が難しい。"},
-        {"id":"completely-separate-nights","label":"地域ごとに完全別空間","summary":"各地域の夜は独立し、原則接続しない。","coherence":3,"emotion":4,"futureFreedom":3,"risk":3,"notes":"管理は楽だがSeriesとしての一本感が弱い。"}
-      ],
-      "recommendation":"『局所layerが重なり合う』方式が続編・舞台拡張・Named Object bridgeの全てに強い。",
-      "doNotLockYet":["layer数","接続距離の条件","同時に複数layerへ入れるか"]
-    },
-    {
-      "id":"decision-sequel-structure",
+      "id":"decision-sequel-anomaly",
       "openQuestionId":"q-sequel",
-      "title":"2・3で誰を主役にし、どこまで旧castを戻すか",
-      "decisionNow":"Seriesの中心質問は決めた。具体castと舞台を人気だけで決めないための選択。",
-      "recommendedOptionId":"new-center-selective-returners",
+      "title":"Happy Endの後に何を一つだけ残すか",
+      "decisionNow":"不安を煽るcliffhangerではなく、見返すと意味が変わる物理的な小さな違和感に限定する。",
+      "recommendedOptionId":"unknown-repair-mark",
       "options":[
-        {"id":"new-center-selective-returners","label":"新しい中心人物 + 選択的returners","summary":"2/3は新しい中心感情を持つ人物を置き、旧castはgrowthを保持したsupport / witness / keeperとして必要な分だけ戻す。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"Seriesが世代交代と継承を実際の構造で表現できる。人気旧castも無理なく継続露出可能。"},
-        {"id":"same-protagonist-trilogy","label":"ユイ中心の三部作","summary":"1〜3を一貫してユイ中心で進める。","coherence":4,"emotion":5,"futureFreedom":2,"risk":4,"notes":"ファンは追いやすいが、継承テーマとFuture castの価値が弱くなる。"},
-        {"id":"ensemble-every-title","label":"毎作Current21全員集合","summary":"全titleで主要21人を大きく扱う。","coherence":3,"emotion":4,"futureFreedom":1,"risk":5,"notes":"commercialには分かりやすいが、story密度と新Characterの居場所を圧迫する。"}
+        {"id":"unknown-repair-mark","label":"誰も直していない修理痕 / 綴じ糸","summary":"朝へ戻ったNamed Objectに、Current21の誰の手癖とも一致しない小さな修理・綴じ跡がある。","coherence":5,"emotion":5,"futureFreedom":5,"risk":1,"notes":"Happy Endを壊さず、別時代・未来人物・物の継承すべてへ接続可能。"},
+        {"id":"unknown-star-footprint","label":"知らない星獣の足跡","summary":"誰も知らない生物星座の小さな痕跡。","coherence":5,"emotion":4,"futureFreedom":4,"risk":2,"notes":"可愛く終われるが、続編が星獣中心だと早く予告しすぎる可能性。"},
+        {"id":"ominous-message","label":"意味深な警告文","summary":"知らない人物から危機を示す文書や台詞。","coherence":3,"emotion":2,"futureFreedom":2,"risk":5,"notes":"分かりやすいが、せっかく閉じたHappy Endを『まだ危険』で上書きしやすい。"}
       ],
-      "recommendation":"新しい中心人物 + 必要な旧castだけ再登場が最も破綻しにくい。旧cast不在も死亡や消失とは扱わない。",
-      "doNotLockYet":["2の主人公名","2の舞台","3の最終returning cast"]
+      "recommendation":"誰の手癖でもない小さな修理痕を最優先。プレイヤーが気づかなくてもEndingは成立し、続編後に見返すと意味が変わる。",
+      "doNotLockYet":["誰が残した痕か","未来か過去か","続編主人公へ直接つなぐか"]
     }
   ],
   "recommendedDecisionOrder": [
-    "decision-object-crossing",
+    "decision-black-ink-engine",
+    "decision-night-nature",
     "decision-relative-era",
-    "decision-kuroori-yui-seal",
-    "decision-night-geography",
-    "decision-night-maintainer",
-    "decision-star-beast-origin",
-    "decision-night-origin",
-    "decision-sequel-structure"
+    "decision-yui-tomori",
+    "decision-kuroori-keeps",
+    "decision-star-beast",
+    "decision-night-maker",
+    "decision-sequel-anomaly"
   ]
 }

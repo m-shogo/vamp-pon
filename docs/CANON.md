@@ -1,13 +1,11 @@
 # ヨルノシルベ Canon Hub
 
-Date: 2026-08-09  
+Date: 2026-07-29  
 Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
 
 > ヨルノシルベを考える時は最初にここを見る。repo全体から過去資料を毎回掘り直さない。
 >
 > **Design Current、Definition Foundation、Runtime Implemented、Device Verified、Release Readyを混同しない。**
->
-> **Title 1の中心法則はTitle 1で成立させる。Series 2 / 3や商業展開のために1を未完成へ戻さない。**
 
 ---
 
@@ -26,8 +24,6 @@ GAME-DESIGN.md
 ├ NAMED-OBJECT-CONNECTIONS.md
 ├ CHARACTERS.md / RELATIONSHIPS.md / FUTURE-CAST.md
 ├ STORY.md
-│  └ night-black-ink-star-beast-canon-v1.md
-├ series-commercial-franchise-architecture-v1.md
 ├ ENEMIES.md
 └ 181-current-production-canon.md
 ```
@@ -126,8 +122,6 @@ Runtime-safe foundation:
 | 黒耀化 | `BLACK-YOUKA.md` |
 | 黒耀化 rescue | `character-black-youka-rescue-book-v1.md` |
 | Story | `STORY.md` |
-| Title 1 Night / Black Ink / Star Beast laws | `night-black-ink-star-beast-canon-v1.md` |
-| Series / commercial continuity | `series-commercial-franchise-architecture-v1.md` |
 | Main beats | `story-main-beat-sheet-v1.md` |
 | Enemy | `ENEMIES.md` |
 | Stage1–5 | `STAGE-ENCOUNTER-DESIGN.md` |
@@ -179,9 +173,6 @@ Rules:
 - black-youka rescue = 21/21
 - Dawn proof = 21/21
 - luminous possession direction = 21/21
-- character primary theme HEX = Current21で重複禁止
-- Star Beast / constellation重複 = family / lineage / succession等の物語理由がある場合のみ
-- 人気dataだけでrelation type / blood relation / romance / deathを変更しない
 
 Stable Shadow IDs:
 
@@ -421,9 +412,7 @@ Common name:
 
 ```txt
 本人の長所
-+ 守りたいもの
 + 恐怖 / 焦り
-+ 「この方法しかない」という意味の固定
 → 一方向へ極端化
 → wrong arrival
 → power spike
@@ -432,16 +421,6 @@ Common name:
 
 成長後は同じ力を捨てず、Timingと他者の選択を残せる。
 光る持ち物も別物へ交換せず、同じ長所が歪む。
-
-黒インクの作品1Current law:
-
-> **悲しい感情そのものではなく、出来事や自分自身へ付いた一つの意味だけが正しい状態が夜で固定化したもの。**
-
-したがってrescue / defeatは感情を消すのではなく、別の意味も選べる状態へ **ほどく**。
-
-Authority:
-
-- `docs/night-black-ink-star-beast-canon-v1.md`
 
 ---
 
@@ -455,16 +434,6 @@ Main Story:
 - Game Over = 死亡ではない
 - 日常蓄積から感動
 
-Title 1でCurrent Canonとして払う:
-
-- 夜 = 人 / 物 / 言葉 / 記録の未完の意味が別時代を越えて重なる境界層
-- 黒インク = 一つの意味への固定化という挙動法則
-- 黒耀化 = 本人の長所 + 恐怖 + 一方向への固定
-- 星獣 = 価値観と生物星座が共鳴して形を得る観測伴走者
-- 星獣はroute / repetition / object resonanceを察知できるが、人間の本心 / 未来 / Main Mysteryの答えは知らない
-- ユイ × トモリ = 同じ物理ランタンが現実時間を渡ったlineage。血縁Canonにはしない
-- クロオリ = 本人が「今は返さないで」と選んだ記憶を開く時まで預かる
-
 Mystery:
 
 ```txt
@@ -473,20 +442,8 @@ B-grade = 1で意味が分かり後作で再読可能
 A-grade = series OPEN
 ```
 
-Series OPEN:
-
-- Night最初の発生条件
-- 最初のmaintainer
-- Star Beast最古記録
-- 強いNamed Objectが時代を渡りやすい理由
-- Night layerの地理的広がり
-
 A-gradeを残すためC-gradeまで曖昧にしない。
-
-Authority:
-
-- `docs/STORY.md`
-- `docs/night-black-ink-star-beast-canon-v1.md`
+Main Mystery final answerはHuman decision前にLOCKしない。
 
 ---
 
@@ -622,24 +579,6 @@ CANON
 → cross-domainなら CHARACTER-STORY-INTEGRATION
 ```
 
-## Story / World law
-
-```txt
-CANON
-→ STORY
-→ night-black-ink-star-beast-canon-v1
-→ story-book / beat / foreshadowing as needed
-```
-
-## Relationship / commercial use
-
-```txt
-CANON
-→ RELATIONSHIPS
-→ character-relationship-arc-book-v1
-→ series-commercial-franchise-architecture-v1
-```
-
 ## Named Object / Clear Getter design
 
 ```txt
@@ -708,33 +647,26 @@ Named-object workだけで以下もtrueにしない:
 - globalConstellationReady
 - allLightsMorningReady
 
-Lorebook / commercial planningだけで以下もtrueにしない:
-
-- storyRuntimeIntegrated
-- starBeastCombatConnected
-- merchProductionApproved
-- sequelGreenlit
-
 U49/U50/U51 authorityはproduction/runtime docsとevidenceを使う。
 
 ---
 
 # 17. Current state in one sentence
 
-> **Character・Story・Enemy・20Stage・Play Experience・Current21の126 Named Objectsに加え、Title 1のNight / Black Ink / Star Beast法則、ユイ×トモリの同一ランタンlineage、クロオリのconsent-sealed memory、Character color / Star Beast palette、Lorebook、Series 2/3とcommercial continuityまでCurrent authorityへ一本化した。Runtime readinessとは分離し、次は設定を増やすだけでなくevidence・UI・DBへ安全に接続する。**
+> **Character・Story・Enemy・20Stage・Play Experienceに加え、Current21の126個の名前ある物、非破壊migration、save v2 draft、Clear Getter graph、全灯の朝fail-closed判定まで土台を一本化した。次は新設定追加ではなく、tests/CIを通し、既存UI・production saveへ一段ずつ安全に接続する。**
 
 ---
 
 # 18. Update rule
 
 ```txt
-new idea / new named object / commercial hook
+new idea / new named object
 ↓
 matching Hubへ保存
 ↓
-Game Core / Title 1 Canonとの衝突確認
+Game Coreとの衝突確認
 ↓
-connection card / stable ID / relationship type
+connection card / stable ID
 ↓
 CandidateならCandidateのまま
 ↓
@@ -743,85 +675,6 @@ Human decision / implementation need
 Current master / Definitionへ昇格
 ↓
 CANON / index / machine-readable source同期
-↓
-commercial analyticsはCanon dataと分離
 ```
 
 Game Core変更は明示的Human decisionとして扱う。
-
----
-
-# 19. Series continuity contract
-
-作品2・3が存在しても破綻させないCurrent rule:
-
-## Immutable
-
-- Title 1 Happy Endは本物
-- Current21のTitle 1 growthは本物
-- 黒耀化は外部悪人格ではない
-- Nightでは別時代が交差できる
-- 物 / 言葉 / 記録は現実時間を渡れる
-- Star Beastを万能説明役にしない
-- relation typeを人気 / sequel都合だけでromance / bloodへ変えない
-
-## Title local
-
-各作品で閉じる:
-
-- そのtitleの中心感情
-- local事件 / pressure
-- local Named Object lineage
-- title-specific Dawn
-
-## Series open
-
-段階的に払う:
-
-- Night origin
-- maintainer history
-- Star Beast最古記録
-- Named Objectが強く時代を渡る条件
-
-Series詳細:
-
-- `docs/series-commercial-franchise-architecture-v1.md`
-
----
-
-# 20. Commercial / popularity guardrail
-
-Commercial strategyはCanonの上位authorityではない。
-
-人気dataで変えてよい:
-
-- goods SKU比率
-- restock
-- side story優先度
-- seasonal art
-- event露出
-- optional Bond量
-- Lorebook特集順
-
-人気dataで変更禁止:
-
-- personality
-- Main Mystery truth
-- family / blood relation
-- friendship / siblingsのforced romance化
-- surprise death / resurrection
-- birth era
-- Named Object owner
-- Star Beast duplicate reason
-
-Commercial入口は最低5軸を維持する:
-
-```txt
-Character
-Star Beast
-Named Object
-Relationship
-Scene / Place / Time
-```
-
-単体人気だけに依存しない。
