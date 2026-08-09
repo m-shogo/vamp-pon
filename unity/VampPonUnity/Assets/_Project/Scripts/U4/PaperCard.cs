@@ -15,6 +15,7 @@ namespace VampPon.UnitySpike.U4
         private Image innerBorderImage;
         private Image glowImage;
         private Sprite baseSprite;
+        private Color baseBorderColor;
         private TextMeshProUGUI nameLabel;
         private TextMeshProUGUI descLabel;
         private TextMeshProUGUI typeLabel;
@@ -71,6 +72,7 @@ namespace VampPon.UnitySpike.U4
                 U4ItemRarity.Rare => choice.IsAwakeningGate ? AwakeningBorder : RareBorder,
                 _ => NormalBorder,
             };
+            card.baseBorderColor = borderColor;
 
             var innerBorder = new GameObject("InnerBorder", typeof(RectTransform), typeof(Image));
             innerBorder.transform.SetParent(root.transform, false);
@@ -174,6 +176,17 @@ namespace VampPon.UnitySpike.U4
                 ? (selected ? new Color(1f, 0.97f, 0.9f, 1f) : Color.white)
                 : (selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg));
 
+            if (innerBorderImage != null)
+            {
+                innerBorderImage.color = selected
+                    ? new Color(
+                        Mathf.Min(1f, baseBorderColor.r * 1.2f + .08f),
+                        Mathf.Min(1f, baseBorderColor.g * 1.2f + .06f),
+                        Mathf.Min(1f, baseBorderColor.b * 1.12f + .03f),
+                        Mathf.Max(.78f, baseBorderColor.a))
+                    : baseBorderColor;
+            }
+
             if (reducedMotion)
                 rect.localScale = Vector3.one;
         }
@@ -186,7 +199,7 @@ namespace VampPon.UnitySpike.U4
                 bgImage.color = bgImage.sprite != null
                     ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white)
                     : (hovered ? HoveredCardBg : NormalCardBg);
-                rect.localScale = hovered && !IsReducedMotion() ? baseScale * 1.02f : baseScale;
+                rect.localScale = hovered && !IsReducedMotion() ? baseScale * 1.015f : baseScale;
             }
         }
 
@@ -195,7 +208,9 @@ namespace VampPon.UnitySpike.U4
             var group = gameObject.GetComponent<CanvasGroup>();
             if (group == null)
                 group = gameObject.AddComponent<CanvasGroup>();
-            group.alpha = dimmed ? 0.45f : 1f;
+            // Keep alternatives readable after one choice is focused so players can still
+            // compare before confirming. Selection is communicated by frame/border, not blur.
+            group.alpha = dimmed ? 0.64f : 1f;
         }
 
         private void Update()
@@ -205,12 +220,12 @@ namespace VampPon.UnitySpike.U4
             {
                 selectPulseTimer -= Time.unscaledDeltaTime;
                 var t = Mathf.Clamp01(selectPulseTimer / 0.15f);
-                var scale = 1f + Mathf.Sin(t * Mathf.PI) * 0.035f;
+                var scale = 1f + Mathf.Sin(t * Mathf.PI) * 0.026f;
                 rect.localScale = baseScale * scale;
             }
             else if (isSelected)
             {
-                rect.localScale = reducedMotion ? baseScale : baseScale * 1.025f;
+                rect.localScale = reducedMotion ? baseScale : baseScale * 1.018f;
             }
 
             if (glowImage != null && (choiceData.Rarity == U4ItemRarity.Rare || choiceData.IsAwakeningGate))
