@@ -199,6 +199,8 @@ body::after {
 .question-card {
   --mx: 50%;
   --my: 50%;
+  position: relative;
+  overflow: hidden;
 }
 .character-card::before,
 .relationship-item::before,
@@ -214,9 +216,9 @@ body::after {
 .character-card:hover::before,
 .relationship-item:hover::before,
 .question-card:hover::before { opacity: 1; }
-.relation-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: relation-draw 1.2s ease forwards; }
-.relation-line.candidate { animation-duration: 1.55s; }
-@keyframes relation-draw { to { stroke-dashoffset: 0; } }
+.relation-line { animation: relation-reveal .9s ease both; }
+.relation-line.candidate { animation-duration: 1.15s; }
+@keyframes relation-reveal { from { stroke-opacity: 0; } to { stroke-opacity: 1; } }
 @media (max-width: 760px) {
   .prologue { height: 390vh; }
   .prologue-copy { min-height: 58vh; }
@@ -230,6 +232,6 @@ body::after {
   .prologue-panel:first-child { display: grid; opacity: 1; }
   .prologue-stars,.prologue-thread,.prologue-sticky::before,.prologue-sticky::after { transform: none !important; }
   .motion-reveal { opacity: 1; transform: none; transition: none; }
-  .relation-line { animation: none; stroke-dasharray: none; }
+  .relation-line { animation: none; }
   .prologue-progress { display: none; }
 }
