@@ -17,7 +17,7 @@ const buildSyncPath =
   'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightEffectCompanionPackBuildSync.cs';
 const registrarPath =
   'scripts/unity/register-top-living-night-effect-companion-pack.ts';
-const stage1WorkflowPath = '.github/workflows/stage1-quality.yml';
+const effectWorkflowPath = '.github/workflows/top-final-effect-companion.yml';
 
 const specs = [
   ['01-stars.png', 430, 932],
@@ -77,13 +77,13 @@ invariant(effect.candidateShaBound && effect.core5ReferenceSetBound && effect.pe
 invariant(effect.legacyV2FallbackAllowedForFinal === false, 'final effect runtime must forbid V2 fallback');
 invariant(effect.bridgeMayUseExistingV2Effects === true, 'V2 effect fallback may remain only for bridge/non-final TOP');
 
-for (const path of [effect.productionBrief, registrarPath, controllerPath, buildSyncPath, stage1WorkflowPath])
+for (const path of [effect.productionBrief, registrarPath, controllerPath, buildSyncPath, effectWorkflowPath])
   invariant(existsSync(join(root, path)), `effect production authority/source is missing: ${path}`);
 
 const registrarSource = readFileSync(join(root, registrarPath), 'utf8');
 const controllerSource = readFileSync(join(root, controllerPath), 'utf8');
 const buildSyncSource = readFileSync(join(root, buildSyncPath), 'utf8');
-const stage1Source = readFileSync(join(root, stage1WorkflowPath), 'utf8');
+const workflowSource = readFileSync(join(root, effectWorkflowPath), 'utf8');
 
 for (const [file] of specs) {
   invariant(registrarSource.includes(`'${file}'`), `effect registrar lost ${file}`);
@@ -97,8 +97,8 @@ invariant(controllerSource.includes('!manifest.runtimePolicy.legacyV2FallbackAll
 invariant(buildSyncSource.includes('Final runtime may not silently reuse the V2 effect family.'), 'effect build sync must fail closed for final candidates');
 invariant(buildSyncSource.includes('ASTC_6x6'), 'effect build sync lost iOS ASTC 6x6 policy');
 invariant(buildSyncSource.includes('pack-ready.txt'), 'effect build ready marker contract missing');
-invariant(stage1Source.includes('check-top-living-night-effect-companion-pack.ts'), 'Stage1 must execute effect pack checker');
-invariant(stage1Source.includes('register-top-living-night-effect-companion-pack.ts --dry-run'), 'Stage1 must execute effect registrar dry-run');
+invariant(workflowSource.includes('check-top-living-night-effect-companion-pack.ts'), 'effect workflow must execute effect pack checker');
+invariant(workflowSource.includes('register-top-living-night-effect-companion-pack.ts --dry-run'), 'effect workflow must execute registrar dry-run');
 
 if (!status.candidateGenerated) {
   invariant(status.candidateSha256 === '', 'unregistered final candidate must not retain candidate SHA');
