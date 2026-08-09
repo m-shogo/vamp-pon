@@ -58,11 +58,8 @@ jobs:
           const franchise = JSON.parse(fs.readFileSync('public/lorebook/data/franchise-strategy.v1.json', 'utf8'));
           const themeSource = fs.readFileSync('src/game/data/characterThemeColors.ts', 'utf8');
           const profileSource = fs.readFileSync('public/lorebook/profile-enhancement.js', 'utf8');
-          const appSource = fs.readFileSync('public/lorebook/app.js', 'utf8');
           const motionSource = fs.readFileSync('public/lorebook/motion-enhancement.js', 'utf8');
           const decisionSource = fs.readFileSync('public/lorebook/decision-lab.js', 'utf8');
-          const canonSource = fs.readFileSync('docs/CANON.md', 'utf8');
-          const storySource = fs.readFileSync('docs/STORY.md', 'utf8');
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
           const allowedImplementation = new Set(['playable_data','season_seed','future_seed','official_reserve']);
@@ -87,7 +84,7 @@ jobs:
           if (arcs.arcs.length !== 12) fail(`expected 12 production relationship arcs, got ${arcs.arcs.length}`);
           if (arcs.ensembles.length !== 4) fail(`expected 4 ensemble relationship groups, got ${arcs.ensembles.length}`);
           if (history.timeLayers.length !== 3) fail(`expected 3 history time layers, got ${history.timeLayers.length}`);
-          if (history.objectThreads.length !== 5) fail(`expected 5 history threads, got ${history.objectThreads.length}`);
+          if (history.objectThreads.length !== 5) fail(`expected 5 object history threads, got ${history.objectThreads.length}`);
           if (lab.decisions.length !== world.openQuestions.length) fail(`decision lab/open question mismatch: ${lab.decisions.length}/${world.openQuestions.length}`);
           if (franchise.entryPillars.length !== 5) fail(`expected five commercial entry pillars, got ${franchise.entryPillars.length}`);
           if (franchise.popularityDimensions.length < 6) fail('popularity model must keep multiple preference dimensions');
@@ -121,18 +118,18 @@ jobs:
           }
 
           const expectedOpenQuestions = [
-            'q-night-origin', 'q-night-maintainer', 'q-star-beast-origin', 'q-object-crossing',
-            'q-era-map', 'q-kuroori-yui-seal', 'q-night-geography', 'q-sequel',
+            'q-night-nature', 'q-black-ink-engine', 'q-night-maker', 'q-star-beast',
+            'q-yui-tomori', 'q-era-map', 'q-kuroori', 'q-sequel',
           ].sort();
           const actualOpenQuestions = [...openQuestionIds].sort();
-          if (JSON.stringify(actualOpenQuestions) !== JSON.stringify(expectedOpenQuestions)) fail(`open question drift: ${actualOpenQuestions.join(',')}`);
-          if (world.story?.engineStatus !== 'CANON') fail('Black Ink behavior law must be displayed as Title 1 CANON');
+          if (JSON.stringify(actualOpenQuestions) !== JSON.stringify(expectedOpenQuestions)) fail(`human-promotion open-question drift: ${actualOpenQuestions.join(',')}`);
+          if (!world.authority?.rule?.includes('自動的に正史へ昇格しない')) fail('world authority must preserve no-auto-canon rule');
+          if (world.story?.engineStatus === 'CANON') fail('Black Ink engine must remain CANDIDATE until explicit human promotion');
+          if (!world.story?.engineCandidate) fail('Black Ink engine candidate must remain explicit');
           const yuiTomori = world.relationships.find((item) => item.id === 'rel-yui-tomori');
-          if (!yuiTomori || yuiTomori.status !== 'CANON' || yuiTomori.type !== 'object_lineage') fail('Yui/Tomori same-lantern relation must remain CANON object_lineage');
-          if (!/血縁Canonではない/.test(yuiTomori.summary)) fail('Yui/Tomori relation must preserve no-blood guardrail');
-          if (!canonSource.includes('一つの意味だけが正しい')) fail('CANON.md lost Black Ink fixation law');
-          if (!storySource.includes('同じ物理ランタン')) fail('STORY.md lost Yui/Tomori same physical lantern canon');
-          if (!appSource.includes("engineStatus === 'CANON'")) fail('Lorebook app must render Black Ink law as CANON');
+          if (!yuiTomori || yuiTomori.status !== 'CANDIDATE') fail('Yui/Tomori relation must remain CANDIDATE until explicit human promotion');
+          if (yuiTomori.type !== 'mystery') fail('Yui/Tomori relation must remain a mystery before promotion');
+          if (world.timeline.some((item) => ['timeline-real-eras','timeline-object-lineage','timeline-night','timeline-dawn'].includes(item.id) && item.status === 'CANON')) fail('time model must not auto-promote to CANON');
 
           for (const profile of personal.profiles) {
             if (!worldIds.has(profile.lorebookId)) fail(`profile missing world character: ${profile.lorebookId}`);
@@ -216,7 +213,7 @@ jobs:
           }
 
           for (const thread of history.objectThreads) {
-            if (!allowed.has(thread.status)) fail(`history thread has invalid status: ${thread.id}/${thread.status}`);
+            if (thread.status !== 'CANDIDATE') fail(`history thread must remain CANDIDATE: ${thread.id}/${thread.status}`);
             if (!thread.members?.length || thread.members.length < 2) fail(`history thread requires 2+ members: ${thread.id}`);
             for (const member of thread.members) {
               if (!worldIds.has(member)) fail(`orphan history thread member: ${thread.id}/${member}`);
@@ -225,11 +222,8 @@ jobs:
               if (!thread[key] || (key === 'known' && thread.known.length === 0)) fail(`incomplete history thread ${thread.id}: ${key}`);
             }
           }
-          const lanternThread = history.objectThreads.find((thread) => thread.id === 'thread-lantern');
-          if (!lanternThread || lanternThread.status !== 'CANON') fail('confirmed Yui/Tomori lantern thread must be CANON');
-          if (!lanternThread.known.some((item) => item.includes('同じ物理ランタン'))) fail('history atlas lost same physical lantern fact');
-          if (history.eraMethod?.status !== 'CANON') fail('Relative Era method must be CANON');
-          if (history.eraMethod?.layers?.length !== 4) fail('Relative Era method must keep four explicit layers');
+          if (history.eraMethod?.status !== 'CANDIDATE') fail('relative era method must remain CANDIDATE');
+          if (history.eraMethod?.layers?.length !== 4) fail('relative era method must keep 4 explicit layers');
           for (const anchor of history.eraMethod?.firstAnchors ?? []) {
             if (!worldIds.has(anchor.characterId)) fail(`orphan era anchor: ${anchor.characterId}`);
           }
@@ -250,8 +244,7 @@ jobs:
           for (const decisionId of lab.recommendedDecisionOrder) {
             if (!lab.decisions.some((decision) => decision.id === decisionId)) fail(`unknown decision in order: ${decisionId}`);
           }
-          if (!lab.statusRule?.includes('CANDIDATE')) fail('decision lab must explicitly preserve candidate status');
-          if (!lab.statusRule?.includes('Resolved Title 1 laws')) fail('decision lab must not silently reopen resolved Title 1 laws');
+          if (!lab.statusRule?.includes('CANDIDATE')) fail('decision lab must explicitly remain CANDIDATE');
           if (decisionSource.includes('AI DESIGN RECOMMENDATION')) fail('author UI must not use AI-like recommendation label');
 
           const expectedSeries = ['yoruno-1','yoruno-2','yoruno-3'];
@@ -266,13 +259,11 @@ jobs:
 
           if (!world.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
           if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
-          if (!world.authority?.sources?.includes('docs/night-black-ink-star-beast-canon-v1.md')) fail('Title 1 world law source missing');
-          if (!world.authority?.sources?.includes('docs/series-commercial-franchise-architecture-v1.md')) fail('series/commercial source missing');
           if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
           if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('relationship arc source drift');
           if (!combat.sources?.includes('src/game/data/characterCanon.ts')) fail('combat guide main source drift');
           if (!combat.sources?.includes('src/game/data/reserveCharacterCanon.ts')) fail('combat guide reserve source drift');
-          if (!history.sources?.includes('docs/night-black-ink-star-beast-canon-v1.md')) fail('history atlas current canon source missing');
+          if (!history.sources?.includes('docs/CHARACTERS.md')) fail('history atlas source drift');
           if (!themes.sources?.includes('src/game/data/characterThemeColors.ts')) fail('theme read model source drift');
           if (!themes.sources?.includes('docs/character-star-beast-constellation-canon-v1.md')) fail('star-beast theme source drift');
 
@@ -306,7 +297,6 @@ jobs:
           grep -q './motion.css' public/lorebook/motion-enhancement.js
           for file in styles.css profile.css relationship.css combat.css history.css decision-lab.css theme.css franchise.css motion.css app.js enhancements.js profile-enhancement.js relationship-enhancement.js combat-enhancement.js history-enhancement.js decision-lab.js theme-enhancement.js franchise-enhancement.js motion-enhancement.js; do test -f "public/lorebook/$file"; done
           for file in world-bible.v1.json personal-profiles.v1.json relationship-arcs.v1.json combat-guide.v1.json history-atlas.v1.json setting-decision-lab.v1.json character-themes.v1.json franchise-strategy.v1.json; do test -f "public/lorebook/data/$file"; done
-          test -f docs/night-black-ink-star-beast-canon-v1.md
           test -f docs/series-commercial-franchise-architecture-v1.md
 
       - name: Setup pnpm
