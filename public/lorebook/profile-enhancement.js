@@ -74,4 +74,5 @@ async function bootProfiles() {
 bootProfiles();
 import('./relationship-enhancement.js').catch((error) => console.error('[lorebook] failed to boot relationship enhancement', error));
 import('./combat-enhancement.js').catch((error) => console.error('[lorebook] failed to boot combat guide', error));
+import('./history-enhancement.js').catch((error) => console.error('[lorebook] failed to boot history atlas', error));
 import('./decision-lab.js').catch((error) => console.error('[lorebook] failed to boot setting decision lab', error));
