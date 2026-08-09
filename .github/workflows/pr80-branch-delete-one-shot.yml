@@ -126,3 +126,5 @@ jobs:
           delete_branch_if_present fix/lorebook-motion-postmerge
           delete_branch_if_present chore/exact-merged-branch-cleanup-trigger
           delete_branch_if_present "$TRIGGER_BRANCH"
+
+# Retrigger v2: the only change in this branch is this comment.
