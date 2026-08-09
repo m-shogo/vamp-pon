@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-09",
+  "status": "CANON_READ_MODEL",
+  "source": "docs/title1-world-law-canon-v1.md",
+  "laws": [
+    {"id":"night","label":"夜","status":"CANON","summary":"人・物・言葉・記録に残る、まだ一つに決め切れない意味が現実の時代を越えて重なる境界層。別時代の人物がNightで会える。"},
+    {"id":"black-ink","label":"黒インク","status":"CANON","summary":"悲しい感情ではなく、出来事や自分自身へ付けた『一つの意味だけが正しい』という固定化がNightで形を持ったもの。"},
+    {"id":"black-youka","label":"黒耀化","status":"CANON","summary":"本人の長所・守りたいもの・恐怖や焦りが『この方法しかない』へ極端化した状態。外部悪人格ではない。"},
+    {"id":"star-beast","label":"星獣","status":"CANON","summary":"人物の価値観と、人類が星へ見出してきた生物星座の意味がNightで共鳴して姿を得る観測伴走者。未来や人間の最終答えは知らない。"},
+    {"id":"named-object","label":"強いNamed Object","status":"CANON","summary":"感情の激しさではなく、複数人が現実時間の中で修理・保管・受け渡しなど『どう残すか』を選んだ物ほどNightに強い履歴を残す。"},
+    {"id":"night-geography","label":"Night layer","status":"CANON","summary":"現実の場所・物・記憶clusterに対応する局所Night layerが重なり合う。Named Objectやrouteがlayer間のbridgeになり得る。"},
+    {"id":"maintainers","label":"Night maintainer","status":"CANON","summary":"一人の万能Creatorではなく、複数の時代・複数人物が帰路・観測・記録・保管方法を継ぎ足してきた。"},
+    {"id":"yui-tomori","label":"ユイ × トモリ","status":"CANON","summary":"トモリが前の現実時代で修理した同じ物理ランタンが、複数の手を経て後世のユイへ届いた。Leo共有はobject lineageへの共鳴で、血縁Canonではない。"},
+    {"id":"kuroori","label":"クロオリ","status":"CANON","summary":"本人が『今は返さないで』と選んだ記憶を、開く時まで預かる。memory thiefではない。"},
+    {"id":"yui-seal","label":"ユイの預けた記憶","status":"CANON","summary":"過去のユイ自身が一つだけ『今は返さないで』とクロオリへ預けている。危険な秘密封印ではなく、返すことが常に優しさとは限らないと初めて直面した記憶。"}
+  ],
+  "seriesOpen": [
+    {"id":"night-first-place","label":"Nightの最初","question":"最初にNightが発生した場所・exact era・最初の観測者は誰か。"},
+    {"id":"oldest-maintainer","label":"最古maintainer","question":"最初に帰路 / 観測 / 保管を整えた人物・集団は誰か。"},
+    {"id":"oldest-star-beast","label":"星獣最古史","question":"最古のStar Beast記録と、時代・文化ごとの旧称は何か。"},
+    {"id":"yui-seal-detail","label":"ユイのsealed memory詳細","question":"具体的な忘れ物、持ち主、いつ現在のユイが開くか。"},
+    {"id":"lantern-handoffs","label":"ランタン中間所有者","question":"トモリからユイまで、誰がどう修理・保管・受け渡したか。"},
+    {"id":"relative-era-table","label":"Current21 Relative Era","question":"21人をどのevidence / confidenceでOLD・TRANSIT・RECENT・UNKNOWNへ配置するか。"},
+    {"id":"night-map","label":"Night layer完全map","question":"局所layerの総数・重なり・接続条件をどこまでSeriesで明かすか。"},
+    {"id":"sequel-production","label":"2 / 3具体制作","question":"新中心人物、舞台、returning cast、各title固有のDawnをどう置くか。"}
+  ],
+  "series": [
+    {"id":"1","label":"ヨルノシルベ 1","theme":"戻す / 開く / 選び直す","question":"記憶や意味は、誰のために開くのか？"},
+    {"id":"2","label":"ヨルノシルベ 2","theme":"継ぐ / 渡す / 受け取る","question":"自分が始めていないものを、どう受け継ぐか？"},
+    {"id":"3","label":"ヨルノシルベ 3","theme":"残す / 手放す / 夜を選ぶ","question":"残すための仕組みは、いつ手放してよいのか？"}
+  ],
+  "immutable": [
+    "Title 1 Happy Endは本物",
+    "Title 1 Character growthを続編でresetしない",
+    "ユイ×アサはbuddy / non-romance",
+    "リツ×コヨリはsiblings / non-romance",
+    "ユイ×トモリは同一ランタンlineage / not blood Canon",
+    "黒耀化は外部悪人格ではない",
+    "Star Beastは万能説明役ではない",
+    "Popularityだけでrelationship type / Main Mystery / deathを変更しない"
+  ]
+}
