@@ -125,3 +125,5 @@ jobs:
           delete_branch_if_present agent/lorebook-dawn-canon-v2
           delete_branch_if_present chore/final-remote-branch-cleanup
           delete_branch_if_present "$trigger"
+
+# Trigger-only branch: closing its PR fires the guarded cleanup above.
