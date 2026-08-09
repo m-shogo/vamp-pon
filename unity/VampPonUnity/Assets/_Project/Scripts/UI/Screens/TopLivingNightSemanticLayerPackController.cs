@@ -60,6 +60,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private float nextPreferencePollAt;
         private bool reducedMotion;
         private bool activationAttempted;
+        private bool wasTopActive;
 
         public static bool IsSemanticPackReady { get; private set; }
 
@@ -110,8 +111,28 @@ namespace VampPon.UnitySpike.UI.Screens
                 RefreshReducedMotion();
             }
 
-            if (top == null || !top.isActiveAndEnabled)
+            if (top == null)
                 return;
+
+            var isTopActive = top.isActiveAndEnabled && top.gameObject.activeInHierarchy;
+            if (!isTopActive)
+            {
+                if (wasTopActive || IsSemanticPackReady)
+                {
+                    ReleasePackVisuals(restoreFlattenedFallback: true);
+                    activationAttempted = false;
+                }
+                wasTopActive = false;
+                return;
+            }
+
+            if (!wasTopActive)
+            {
+                wasTopActive = true;
+                activationAttempted = false;
+                if (artRoot == null)
+                    artRoot = FindChild(top.transform, "TopLivingNightArt") as RectTransform;
+            }
 
             if (!activationAttempted)
             {
@@ -127,9 +148,10 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void Bind(TopLivingNightView current)
         {
-            DetachPack();
+            ReleasePackVisuals(restoreFlattenedFallback: true);
             top = current;
             activationAttempted = false;
+            wasTopActive = false;
             artRoot = top == null ? null : FindChild(top.transform, "TopLivingNightArt") as RectTransform;
         }
 
@@ -143,7 +165,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 var texture = LoadLayerTexture(spec);
                 if (texture == null)
                 {
-                    DetachPack();
+                    ReleasePackVisuals(restoreFlattenedFallback: true);
                     Debug.LogWarning(
                         $"TOP semantic layer pack: required layer unavailable: {spec.EditorFileName}");
                     return;
@@ -323,6 +345,16 @@ namespace VampPon.UnitySpike.UI.Screens
             }
         }
 
+        private void RestoreFlattenedFallback()
+        {
+            if (artRoot == null)
+                return;
+
+            var baseComposite = FindChild(artRoot, "BaseComposite");
+            if (baseComposite != null)
+                baseComposite.gameObject.SetActive(true);
+        }
+
         private void ApplyDepthMotion(float time)
         {
             ApplyMotion("SemanticDistantTown", time, .8f, .35f, .021f, .017f, 11.3f);
@@ -382,7 +414,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 PlayerPrefs.GetInt("reduce_motion", 0) == 1;
         }
 
-        private void DetachPack()
+        private void ReleasePackVisuals(bool restoreFlattenedFallback)
         {
             IsSemanticPackReady = false;
 
@@ -390,6 +422,7 @@ namespace VampPon.UnitySpike.UI.Screens
             {
                 if (pair.Value == null)
                     continue;
+                pair.Value.rectTransform.anchoredPosition = Vector2.zero;
                 pair.Value.texture = null;
                 pair.Value.gameObject.SetActive(false);
             }
@@ -406,13 +439,15 @@ namespace VampPon.UnitySpike.UI.Screens
                     Resources.UnloadAsset(texture);
             loadedResourceTextures.Clear();
 
-            artRoot = null;
+            if (restoreFlattenedFallback)
+                RestoreFlattenedFallback();
         }
 
         private void OnDestroy()
         {
-            DetachPack();
+            ReleasePackVisuals(restoreFlattenedFallback: true);
             top = null;
+            artRoot = null;
             if (instance == this)
                 instance = null;
         }
