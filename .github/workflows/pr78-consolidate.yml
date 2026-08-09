@@ -1,0 +1,35 @@
+name: PR78 Consolidate
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    if: github.event.pull_request.number == 78
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout PR head with full history
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Build current-main consolidation branch
+        env:
+          TARGET_BRANCH: integration/main-consolidation-20260809
+          VISUAL_BRANCH: agent/top-living-night-key-art-v1
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main "$VISUAL_BRANCH"
+          git checkout -B "$TARGET_BRANCH" origin/main
+          git merge --no-ff -X ours "origin/$VISUAL_BRANCH" \
+            -m "merge: consolidate PR78 visual work onto current main"
+          git push --force-with-lease origin "$TARGET_BRANCH"
