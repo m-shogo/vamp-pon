@@ -30,6 +30,7 @@ jobs:
           node --check public/lorebook/profile-enhancement.js
           node --check public/lorebook/relationship-enhancement.js
           node --check public/lorebook/combat-enhancement.js
+          node --check public/lorebook/history-enhancement.js
           node --check public/lorebook/decision-lab.js
 
       - name: Validate lorebook schemas and references
@@ -40,6 +41,7 @@ jobs:
           const personal = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
           const arcs = JSON.parse(fs.readFileSync('public/lorebook/data/relationship-arcs.v1.json', 'utf8'));
           const combat = JSON.parse(fs.readFileSync('public/lorebook/data/combat-guide.v1.json', 'utf8'));
+          const history = JSON.parse(fs.readFileSync('public/lorebook/data/history-atlas.v1.json', 'utf8'));
           const lab = JSON.parse(fs.readFileSync('public/lorebook/data/setting-decision-lab.v1.json', 'utf8'));
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
@@ -54,16 +56,17 @@ jobs:
             'kuroori', 'kage1', 'kage2', 'kage3', 'kage4', 'ren',
           ]);
 
-          if (world.schemaVersion !== 1) fail('world schemaVersion must be 1');
-          if (personal.schemaVersion !== 1) fail('personal schemaVersion must be 1');
-          if (arcs.schemaVersion !== 1) fail('relationship arc schemaVersion must be 1');
-          if (combat.schemaVersion !== 1) fail('combat guide schemaVersion must be 1');
-          if (lab.schemaVersion !== 1) fail('decision lab schemaVersion must be 1');
+          for (const [name, data] of Object.entries({world, personal, arcs, combat, history, lab})) {
+            if (data.schemaVersion !== 1) fail(`${name} schemaVersion must be 1`);
+          }
           if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
           if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
           if (combat.entries.length !== 21) fail(`expected 21 combat guide entries, got ${combat.entries.length}`);
+          if (world.relationships.length !== 24) fail(`expected 24 priority relationships, got ${world.relationships.length}`);
           if (arcs.arcs.length !== 12) fail(`expected 12 production relationship arcs, got ${arcs.arcs.length}`);
           if (arcs.ensembles.length !== 4) fail(`expected 4 ensemble relationship groups, got ${arcs.ensembles.length}`);
+          if (history.timeLayers.length !== 3) fail(`expected 3 history time layers, got ${history.timeLayers.length}`);
+          if (history.objectThreads.length !== 5) fail(`expected 5 object history threads, got ${history.objectThreads.length}`);
           if (lab.decisions.length !== world.openQuestions.length) fail(`decision lab/open question mismatch: ${lab.decisions.length}/${world.openQuestions.length}`);
           if (new Set(world.characters.map((c) => c.id)).size !== world.characters.length) fail('duplicate character id');
           if (new Set(world.characters.map((c) => c.name)).size !== world.characters.length) fail('duplicate character name');
@@ -73,6 +76,7 @@ jobs:
           if (new Set(combat.entries.map((entry) => entry.lorebookId)).size !== combat.entries.length) fail('duplicate combat lorebookId');
           if (new Set(combat.entries.map((entry) => entry.runtimeId)).size !== combat.entries.length) fail('duplicate combat runtimeId');
           if (new Set(arcs.arcs.map((arc) => arc.relationshipId)).size !== arcs.arcs.length) fail('duplicate relationship arc id');
+          if (new Set(history.objectThreads.map((thread) => thread.id)).size !== history.objectThreads.length) fail('duplicate history thread id');
           if (new Set(lab.decisions.map((decision) => decision.id)).size !== lab.decisions.length) fail('duplicate setting decision id');
 
           for (const character of world.characters) {
@@ -84,7 +88,7 @@ jobs:
             if (relation.from === relation.to) fail(`self relation: ${relation.id}`);
             if (!allowed.has(relation.status)) fail(`unknown relation status: ${relation.id}/${relation.status}`);
           }
-          for (const item of [...world.timeline, ...world.openQuestions]) {
+          for (const item of [...world.timeline, ...world.openQuestions, ...history.timeLayers]) {
             if (!allowed.has(item.status)) fail(`unknown content status: ${item.id}/${item.status}`);
           }
           for (const profile of personal.profiles) {
@@ -123,6 +127,21 @@ jobs:
               if (!worldIds.has(member)) fail(`orphan ensemble member: ${ensemble.id}/${member}`);
             }
           }
+          for (const thread of history.objectThreads) {
+            if (thread.status !== 'CANDIDATE') fail(`history thread must remain CANDIDATE: ${thread.id}/${thread.status}`);
+            if (!thread.members?.length || thread.members.length < 2) fail(`history thread requires 2+ members: ${thread.id}`);
+            for (const member of thread.members) {
+              if (!worldIds.has(member)) fail(`orphan history thread member: ${thread.id}/${member}`);
+            }
+            for (const key of ['known','gap','payoff','confidence']) {
+              if (!thread[key] || (key === 'known' && thread.known.length === 0)) fail(`incomplete history thread ${thread.id}: ${key}`);
+            }
+          }
+          if (history.eraMethod?.status !== 'CANDIDATE') fail('relative era method must remain CANDIDATE');
+          if (history.eraMethod?.layers?.length !== 4) fail('relative era method must keep 4 explicit layers');
+          for (const anchor of history.eraMethod?.firstAnchors ?? []) {
+            if (!worldIds.has(anchor.characterId)) fail(`orphan era anchor: ${anchor.characterId}`);
+          }
           for (const decision of lab.decisions) {
             if (!openQuestionIds.has(decision.openQuestionId)) fail(`decision without open question: ${decision.id}/${decision.openQuestionId}`);
             if (!decision.options?.length || decision.options.length < 2) fail(`decision requires multiple options: ${decision.id}`);
@@ -139,14 +158,16 @@ jobs:
             if (!lab.decisions.some((decision) => decision.id === decisionId)) fail(`unknown decision in order: ${decisionId}`);
           }
           if (!lab.statusRule?.includes('CANDIDATE')) fail('decision lab must explicitly remain CANDIDATE');
+          if (!history.statusRule?.includes('never inferred as CANON')) fail('history atlas must preserve gap guardrail');
           if (!world.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
           if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
           if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
           if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('relationship arc source drift');
           if (!combat.sources?.includes('src/game/data/characterCanon.ts')) fail('combat guide main source drift');
           if (!combat.sources?.includes('src/game/data/reserveCharacterCanon.ts')) fail('combat guide reserve source drift');
+          if (!history.sources?.includes('docs/CHARACTERS.md')) fail('history atlas source drift');
           if (process.exitCode) process.exit(process.exitCode);
-          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${combat.entries.length} combat guides / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${arcs.ensembles.length} ensembles / ${lab.decisions.length} decision comparisons`);
+          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${combat.entries.length} combat guides / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${history.objectThreads.length} history threads / ${lab.decisions.length} decision comparisons`);
           NODE
 
       - name: Verify static entrypoint references
@@ -156,22 +177,10 @@ jobs:
           grep -q './profile-enhancement.js' public/lorebook/index.html
           grep -q './relationship-enhancement.js' public/lorebook/profile-enhancement.js
           grep -q './combat-enhancement.js' public/lorebook/profile-enhancement.js
+          grep -q './history-enhancement.js' public/lorebook/profile-enhancement.js
           grep -q './decision-lab.js' public/lorebook/profile-enhancement.js
-          test -f public/lorebook/styles.css
-          test -f public/lorebook/profile.css
-          test -f public/lorebook/relationship.css
-          test -f public/lorebook/combat.css
-          test -f public/lorebook/decision-lab.css
-          test -f public/lorebook/app.js
-          test -f public/lorebook/profile-enhancement.js
-          test -f public/lorebook/relationship-enhancement.js
-          test -f public/lorebook/combat-enhancement.js
-          test -f public/lorebook/decision-lab.js
-          test -f public/lorebook/data/world-bible.v1.json
-          test -f public/lorebook/data/personal-profiles.v1.json
-          test -f public/lorebook/data/relationship-arcs.v1.json
-          test -f public/lorebook/data/combat-guide.v1.json
-          test -f public/lorebook/data/setting-decision-lab.v1.json
+          for file in styles.css profile.css relationship.css combat.css history.css decision-lab.css app.js profile-enhancement.js relationship-enhancement.js combat-enhancement.js history-enhancement.js decision-lab.js; do test -f "public/lorebook/$file"; done
+          for file in world-bible.v1.json personal-profiles.v1.json relationship-arcs.v1.json combat-guide.v1.json history-atlas.v1.json setting-decision-lab.v1.json; do test -f "public/lorebook/data/$file"; done
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -191,18 +200,5 @@ jobs:
         run: |
           pnpm build
           test -f dist/lorebook/index.html
-          test -f dist/lorebook/styles.css
-          test -f dist/lorebook/profile.css
-          test -f dist/lorebook/relationship.css
-          test -f dist/lorebook/combat.css
-          test -f dist/lorebook/decision-lab.css
-          test -f dist/lorebook/app.js
-          test -f dist/lorebook/profile-enhancement.js
-          test -f dist/lorebook/relationship-enhancement.js
-          test -f dist/lorebook/combat-enhancement.js
-          test -f dist/lorebook/decision-lab.js
-          test -f dist/lorebook/data/world-bible.v1.json
-          test -f dist/lorebook/data/personal-profiles.v1.json
-          test -f dist/lorebook/data/relationship-arcs.v1.json
-          test -f dist/lorebook/data/combat-guide.v1.json
-          test -f dist/lorebook/data/setting-decision-lab.v1.json
+          for file in styles.css profile.css relationship.css combat.css history.css decision-lab.css app.js profile-enhancement.js relationship-enhancement.js combat-enhancement.js history-enhancement.js decision-lab.js; do test -f "dist/lorebook/$file"; done
+          for file in world-bible.v1.json personal-profiles.v1.json relationship-arcs.v1.json combat-guide.v1.json history-atlas.v1.json setting-decision-lab.v1.json; do test -f "dist/lorebook/data/$file"; done
