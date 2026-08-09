@@ -59,6 +59,8 @@ Preserve the completed U45.1 provider, animation, pause, and candidate/final bou
 - Run relevant checks, commit, and push completed work.
 - Never call an image or implementation final without comparison to current in-repo baseline.
 - Never promote readiness by editing evidence alone.
+- Point Filter only disables texture interpolation; it is not proof that character/enemy dot art or production visual readiness is complete.
+- Run `pnpm unity:runtime-visual-readiness:check` when changing runtime visual-provider, sprite-import, animation-readiness, or related gate documentation.
 
 ## Professional visual production rule
 
