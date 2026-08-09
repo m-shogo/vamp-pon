@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.UI.Screens
 {
     // Final Core5 runtime path. The approved composite remains the art-direction
-    // authority, while production rendering can reconstruct the scene from a small
-    // semantic layer pack so depth bands remain independently movable.
+    // authority, while production rendering reconstructs the scene from a small
+    // semantic layer pack whose bytes are bound to the exact final candidate.
     [DefaultExecutionOrder(-880)]
     public sealed class TopLivingNightSemanticLayerPackController : MonoBehaviour
     {
@@ -21,15 +23,17 @@ namespace VampPon.UnitySpike.UI.Screens
             "docs/design-targets/generated/top-living-night-v3/final/layers";
         private const string EditorFinalStatusRelativePath =
             "docs/design-targets/generated/top-living-night-v3/final-art-status.json";
+        private const string EditorManifestRelativePath =
+            "docs/design-targets/generated/top-living-night-v3/final/semantic-layer-pack.json";
 
         private static readonly LayerSpec[] LayerSpecs =
         {
-            new("SemanticEnvironment", "00-environment-base.png", "environment-base", false, 0),
-            new("SemanticDistantTown", "04-distant-town.png", "distant-town", true, 1),
-            new("SemanticCore5", "06-core5.png", "core5", true, 2),
-            new("SemanticAnimalRobot", "07-animal-robot.png", "animal-robot", true, 3),
-            new("SemanticFireBase", "09-fire-base.png", "fire-base", true, 4),
-            new("SemanticForeground", "15-foreground-accents.png", "foreground-accents", true, 5),
+            new("SemanticEnvironment", "00-environment-base.png", "environment-base"),
+            new("SemanticDistantTown", "04-distant-town.png", "distant-town"),
+            new("SemanticCore5", "06-core5.png", "core5"),
+            new("SemanticAnimalRobot", "07-animal-robot.png", "animal-robot"),
+            new("SemanticFireBase", "09-fire-base.png", "fire-base"),
+            new("SemanticForeground", "15-foreground-accents.png", "foreground-accents"),
         };
 
         private static readonly string[] LegacyStaticLayers =
@@ -156,7 +160,7 @@ namespace VampPon.UnitySpike.UI.Screens
             HideFlattenedAndLegacyStaticLayers();
             IsSemanticPackReady = true;
             Debug.Log(
-                "TOP semantic layer pack: final Core5 scene reconstructed from independently movable environment/town/Core5/animal-robot/fire/foreground layers.");
+                "TOP semantic layer pack: final Core5 scene reconstructed from candidate-bound environment/town/Core5/animal-robot/fire/foreground layers.");
         }
 
         private bool ShouldUseFinalSemanticPack()
@@ -168,22 +172,57 @@ namespace VampPon.UnitySpike.UI.Screens
                 var statusPath = Path.Combine(
                     root,
                     EditorFinalStatusRelativePath.Replace('/', Path.DirectorySeparatorChar));
-                if (!File.Exists(statusPath))
+                var manifestPath = Path.Combine(
+                    root,
+                    EditorManifestRelativePath.Replace('/', Path.DirectorySeparatorChar));
+                if (!File.Exists(statusPath) || !File.Exists(manifestPath))
                     return false;
 
                 var status = JsonUtility.FromJson<FinalArtStatus>(File.ReadAllText(statusPath));
-                if (status == null || status.schemaVersion != 1 || !status.candidateGenerated)
+                var manifest = JsonUtility.FromJson<SemanticPackManifest>(File.ReadAllText(manifestPath));
+                if (status == null || manifest == null ||
+                    status.schemaVersion != 1 || manifest.schemaVersion != 1 ||
+                    !status.candidateGenerated ||
+                    !IsLowerHexSha256(status.candidateSha256) ||
+                    !string.Equals(status.candidateSha256, manifest.candidateSha256, StringComparison.Ordinal) ||
+                    !string.Equals(
+                        status.candidateCore5ReferenceSetSha256,
+                        manifest.core5ReferenceSetSha256,
+                        StringComparison.Ordinal) ||
+                    manifest.layerCount != LayerSpecs.Length ||
+                    manifest.layers == null || manifest.layers.Length != LayerSpecs.Length)
                     return false;
 
                 var layerRoot = Path.Combine(
                     root,
                     EditorLayerRootRelativePath.Replace('/', Path.DirectorySeparatorChar));
-                return LayerSpecs.All(spec => File.Exists(Path.Combine(layerRoot, spec.EditorFileName)));
+                var fingerprint = new StringBuilder();
+                fingerprint.Append("candidate=").Append(manifest.candidateSha256).Append('\n');
+                fingerprint.Append("core5=").Append(manifest.core5ReferenceSetSha256);
+
+                foreach (var spec in LayerSpecs)
+                {
+                    var record = FindManifestLayer(manifest, spec.EditorFileName);
+                    var path = Path.Combine(layerRoot, spec.EditorFileName);
+                    if (record == null || !File.Exists(path) || !IsLowerHexSha256(record.sha256))
+                        return false;
+                    var actualSha = ComputeSha256(path);
+                    if (!string.Equals(actualSha, record.sha256, StringComparison.Ordinal))
+                        return false;
+                    fingerprint.Append('\n').Append(spec.EditorFileName).Append(':').Append(record.sha256);
+                }
+
+                var packSha = ComputeSha256(Encoding.UTF8.GetBytes(fingerprint.ToString()));
+                return IsLowerHexSha256(manifest.packSha256) &&
+                    string.Equals(packSha, manifest.packSha256, StringComparison.Ordinal) &&
+                    manifest.runtimePolicy != null &&
+                    manifest.runtimePolicy.representation == "semantic-2.5d-layer-pack" &&
+                    !manifest.runtimePolicy.flattenedFinalFallbackAllowed;
             }
             catch (Exception exception)
             {
                 Debug.LogWarning(
-                    $"TOP semantic layer pack: editor readiness check failed: {exception.Message}");
+                    $"TOP semantic layer pack: editor authority check failed: {exception.Message}");
                 return false;
             }
 #else
@@ -383,6 +422,50 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             return Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", ".."));
         }
+
+        private static string ComputeSha256(string path)
+        {
+            using var stream = File.OpenRead(path);
+            using var sha = SHA256.Create();
+            return BytesToHex(sha.ComputeHash(stream));
+        }
+
+        private static string ComputeSha256(byte[] bytes)
+        {
+            using var sha = SHA256.Create();
+            return BytesToHex(sha.ComputeHash(bytes));
+        }
+
+        private static string BytesToHex(byte[] hash)
+        {
+            var builder = new StringBuilder(hash.Length * 2);
+            foreach (var value in hash)
+                builder.Append(value.ToString("x2"));
+            return builder.ToString();
+        }
+
+        private static bool IsLowerHexSha256(string value)
+        {
+            if (string.IsNullOrEmpty(value) || value.Length != 64)
+                return false;
+            foreach (var character in value)
+                if (!((character >= '0' && character <= '9') ||
+                      (character >= 'a' && character <= 'f')))
+                    return false;
+            return true;
+        }
+
+        private static SemanticPackLayer FindManifestLayer(
+            SemanticPackManifest manifest,
+            string fileName)
+        {
+            if (manifest?.layers == null)
+                return null;
+            foreach (var layer in manifest.layers)
+                if (layer != null && string.Equals(layer.file, fileName, StringComparison.Ordinal))
+                    return layer;
+            return null;
+        }
 #endif
 
         private static Transform FindChild(Transform root, string name)
@@ -399,6 +482,34 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             public int schemaVersion;
             public bool candidateGenerated;
+            public string candidateSha256;
+            public string candidateCore5ReferenceSetSha256;
+        }
+
+        [Serializable]
+        private sealed class SemanticPackManifest
+        {
+            public int schemaVersion;
+            public string candidateSha256;
+            public string core5ReferenceSetSha256;
+            public int layerCount;
+            public string packSha256;
+            public SemanticPackLayer[] layers;
+            public RuntimePolicy runtimePolicy;
+        }
+
+        [Serializable]
+        private sealed class SemanticPackLayer
+        {
+            public string file;
+            public string sha256;
+        }
+
+        [Serializable]
+        private sealed class RuntimePolicy
+        {
+            public string representation;
+            public bool flattenedFinalFallbackAllowed;
         }
 
         private readonly struct LayerSpec
@@ -406,22 +517,16 @@ namespace VampPon.UnitySpike.UI.Screens
             public LayerSpec(
                 string runtimeName,
                 string editorFileName,
-                string resourceName,
-                bool alphaRequired,
-                int order)
+                string resourceName)
             {
                 RuntimeName = runtimeName;
                 EditorFileName = editorFileName;
                 ResourceName = resourceName;
-                AlphaRequired = alphaRequired;
-                Order = order;
             }
 
             public string RuntimeName { get; }
             public string EditorFileName { get; }
             public string ResourceName { get; }
-            public bool AlphaRequired { get; }
-            public int Order { get; }
         }
     }
 }
