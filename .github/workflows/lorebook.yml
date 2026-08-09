@@ -29,6 +29,7 @@ jobs:
           node --check public/lorebook/app.js
           node --check public/lorebook/profile-enhancement.js
           node --check public/lorebook/relationship-enhancement.js
+          node --check public/lorebook/combat-enhancement.js
           node --check public/lorebook/decision-lab.js
 
       - name: Validate lorebook schemas and references
@@ -38,9 +39,11 @@ jobs:
           const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json', 'utf8'));
           const personal = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
           const arcs = JSON.parse(fs.readFileSync('public/lorebook/data/relationship-arcs.v1.json', 'utf8'));
+          const combat = JSON.parse(fs.readFileSync('public/lorebook/data/combat-guide.v1.json', 'utf8'));
           const lab = JSON.parse(fs.readFileSync('public/lorebook/data/setting-decision-lab.v1.json', 'utf8'));
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
+          const allowedImplementation = new Set(['playable_data','season_seed','future_seed','official_reserve']);
           const worldIds = new Set(world.characters.map((c) => c.id));
           const worldNames = new Set(world.characters.map((c) => c.name));
           const relationIds = new Set(world.relationships.map((r) => r.id));
@@ -54,9 +57,11 @@ jobs:
           if (world.schemaVersion !== 1) fail('world schemaVersion must be 1');
           if (personal.schemaVersion !== 1) fail('personal schemaVersion must be 1');
           if (arcs.schemaVersion !== 1) fail('relationship arc schemaVersion must be 1');
+          if (combat.schemaVersion !== 1) fail('combat guide schemaVersion must be 1');
           if (lab.schemaVersion !== 1) fail('decision lab schemaVersion must be 1');
           if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
           if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
+          if (combat.entries.length !== 21) fail(`expected 21 combat guide entries, got ${combat.entries.length}`);
           if (arcs.arcs.length !== 12) fail(`expected 12 production relationship arcs, got ${arcs.arcs.length}`);
           if (arcs.ensembles.length !== 4) fail(`expected 4 ensemble relationship groups, got ${arcs.ensembles.length}`);
           if (lab.decisions.length !== world.openQuestions.length) fail(`decision lab/open question mismatch: ${lab.decisions.length}/${world.openQuestions.length}`);
@@ -65,6 +70,8 @@ jobs:
           if (new Set(world.relationships.map((r) => r.id)).size !== world.relationships.length) fail('duplicate relationship id');
           if (new Set(personal.profiles.map((p) => p.lorebookId)).size !== personal.profiles.length) fail('duplicate profile lorebookId');
           if (new Set(personal.profiles.map((p) => p.runtimeId)).size !== personal.profiles.length) fail('duplicate profile runtimeId');
+          if (new Set(combat.entries.map((entry) => entry.lorebookId)).size !== combat.entries.length) fail('duplicate combat lorebookId');
+          if (new Set(combat.entries.map((entry) => entry.runtimeId)).size !== combat.entries.length) fail('duplicate combat runtimeId');
           if (new Set(arcs.arcs.map((arc) => arc.relationshipId)).size !== arcs.arcs.length) fail('duplicate relationship arc id');
           if (new Set(lab.decisions.map((decision) => decision.id)).size !== lab.decisions.length) fail('duplicate setting decision id');
 
@@ -90,6 +97,19 @@ jobs:
           }
           for (const runtimeId of runtimeIds) {
             if (!personal.profiles.some((profile) => profile.runtimeId === runtimeId)) fail(`missing stable runtimeId mapping: ${runtimeId}`);
+          }
+          for (const entry of combat.entries) {
+            if (!worldIds.has(entry.lorebookId)) fail(`combat entry missing world character: ${entry.lorebookId}`);
+            if (!runtimeIds.has(entry.runtimeId)) fail(`unexpected combat runtimeId: ${entry.lorebookId}/${entry.runtimeId}`);
+            const personalEntry = personal.profiles.find((profile) => profile.lorebookId === entry.lorebookId);
+            if (!personalEntry || personalEntry.runtimeId !== entry.runtimeId) fail(`combat/profile runtime mapping drift: ${entry.lorebookId}`);
+            if (!allowedImplementation.has(entry.implementationStatus)) fail(`invalid implementation status: ${entry.lorebookId}/${entry.implementationStatus}`);
+            for (const key of ['vessel','lineage','firstAction','blank','role','starter','playFeel','strength','weakness']) {
+              if (!entry[key]) fail(`incomplete combat guide ${entry.lorebookId}: ${key}`);
+            }
+            for (const key of ['lampArt','inheritedLight','dawnLight']) {
+              if (!entry.arts?.[key]) fail(`incomplete arts guide ${entry.lorebookId}: ${key}`);
+            }
           }
           for (const arc of arcs.arcs) {
             if (!relationIds.has(arc.relationshipId)) fail(`orphan relationship arc: ${arc.relationshipId}`);
@@ -123,8 +143,10 @@ jobs:
           if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
           if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
           if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('relationship arc source drift');
+          if (!combat.sources?.includes('src/game/data/characterCanon.ts')) fail('combat guide main source drift');
+          if (!combat.sources?.includes('src/game/data/reserveCharacterCanon.ts')) fail('combat guide reserve source drift');
           if (process.exitCode) process.exit(process.exitCode);
-          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${arcs.ensembles.length} ensembles / ${lab.decisions.length} decision comparisons`);
+          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${combat.entries.length} combat guides / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${arcs.ensembles.length} ensembles / ${lab.decisions.length} decision comparisons`);
           NODE
 
       - name: Verify static entrypoint references
@@ -133,18 +155,22 @@ jobs:
           grep -q './app.js' public/lorebook/index.html
           grep -q './profile-enhancement.js' public/lorebook/index.html
           grep -q './relationship-enhancement.js' public/lorebook/profile-enhancement.js
+          grep -q './combat-enhancement.js' public/lorebook/profile-enhancement.js
           grep -q './decision-lab.js' public/lorebook/profile-enhancement.js
           test -f public/lorebook/styles.css
           test -f public/lorebook/profile.css
           test -f public/lorebook/relationship.css
+          test -f public/lorebook/combat.css
           test -f public/lorebook/decision-lab.css
           test -f public/lorebook/app.js
           test -f public/lorebook/profile-enhancement.js
           test -f public/lorebook/relationship-enhancement.js
+          test -f public/lorebook/combat-enhancement.js
           test -f public/lorebook/decision-lab.js
           test -f public/lorebook/data/world-bible.v1.json
           test -f public/lorebook/data/personal-profiles.v1.json
           test -f public/lorebook/data/relationship-arcs.v1.json
+          test -f public/lorebook/data/combat-guide.v1.json
           test -f public/lorebook/data/setting-decision-lab.v1.json
 
       - name: Setup pnpm
@@ -168,12 +194,15 @@ jobs:
           test -f dist/lorebook/styles.css
           test -f dist/lorebook/profile.css
           test -f dist/lorebook/relationship.css
+          test -f dist/lorebook/combat.css
           test -f dist/lorebook/decision-lab.css
           test -f dist/lorebook/app.js
           test -f dist/lorebook/profile-enhancement.js
           test -f dist/lorebook/relationship-enhancement.js
+          test -f dist/lorebook/combat-enhancement.js
           test -f dist/lorebook/decision-lab.js
           test -f dist/lorebook/data/world-bible.v1.json
           test -f dist/lorebook/data/personal-profiles.v1.json
           test -f dist/lorebook/data/relationship-arcs.v1.json
+          test -f dist/lorebook/data/combat-guide.v1.json
           test -f dist/lorebook/data/setting-decision-lab.v1.json
