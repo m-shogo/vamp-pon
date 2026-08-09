@@ -36,7 +36,7 @@ namespace VampPon.UnitySpike.UI.Screens
             var title = U46ScreenFactory.Label(content, "Title", vm.Title, 18f, Ink(), new Vector2(0.08f, 0.8f), new Vector2(0.74f, 0.9f), TextAlignmentOptions.Left, font);
             title.textWrappingMode = TextWrappingModes.NoWrap;
             U46ScreenFactory.Label(content, "Stage", vm.StageTitle, 15f, Ink(), new Vector2(0.08f, 0.75f), new Vector2(0.78f, 0.81f), TextAlignmentOptions.Left, font);
-            U46ScreenFactory.Decoration(content, "RankSeal", assets.Result.RankSeal, new Vector2(0.83f, 0.83f), new Vector2(78f, 78f), Vector2.zero);
+            U46ScreenFactory.Decoration(content, "RankSeal", VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.ResultRankSeal, assets.Result.RankSeal), new Vector2(0.83f, 0.83f), new Vector2(78f, 78f), Vector2.zero);
             U46ScreenFactory.Label(content, "Rank", vm.Rank, 27f, Ink(), new Vector2(0.75f, 0.77f), new Vector2(0.91f, 0.89f), TextAlignmentOptions.Center, font);
             Stat(0.08f, "時間", vm.ElapsedTimeLabel); Stat(0.51f, "影払い", vm.DefeatedEnemyLabel);
             Stat(0.08f, "記憶の欠片", vm.FragmentLabel, 0.61f); Stat(0.51f, "到達", vm.ReachedLevelLabel, 0.61f);
@@ -56,19 +56,19 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void CreateContentRoot()
         {
-            content = U46ScreenFactory.Panel(transform, "ResultMemoryPage", new Vector2(0.045f, 0.055f), new Vector2(0.955f, 0.95f), assets.Result.MemoryPage, new Color(0.88f, 0.79f, 0.62f)).transform;
+            content = U46ScreenFactory.Panel(transform, "ResultMemoryPage", new Vector2(0.045f, 0.055f), new Vector2(0.955f, 0.95f), VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.ResultMemoryPage, assets.Result.MemoryPage), new Color(0.88f, 0.79f, 0.62f)).transform;
         }
 
         private void Stat(float x, string title, string value, float y = 0.68f)
         {
-            var chip = U46ScreenFactory.Panel(content, "StatChip", new Vector2(x, y), new Vector2(x + 0.4f, y + 0.065f), assets.Result.StatChip, new Color(0.84f, 0.75f, 0.58f));
+            var chip = U46ScreenFactory.Panel(content, "StatChip", new Vector2(x, y), new Vector2(x + 0.4f, y + 0.065f), VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.ResultStatChip, assets.Result.StatChip), new Color(0.84f, 0.75f, 0.58f));
             U46ScreenFactory.Label(chip.transform, "Text", $"{title}  {value}", 14f, Ink(), Vector2.zero, Vector2.one, TextAlignmentOptions.Center, font);
         }
 
         private void Reward(int index, string value)
         {
             var x = 0.08f + index * 0.29f;
-            var card = U46ScreenFactory.Panel(content, "RewardCard", new Vector2(x, 0.32f), new Vector2(x + 0.25f, 0.47f), assets.Result.RewardCard, new Color(0.88f, 0.78f, 0.58f));
+            var card = U46ScreenFactory.Panel(content, "RewardCard", new Vector2(x, 0.32f), new Vector2(x + 0.25f, 0.47f), VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.ResultRewardCard, assets.Result.RewardCard), new Color(0.88f, 0.78f, 0.58f));
             U46ScreenFactory.Label(card.transform, "Text", value, 13f, Ink(), new Vector2(0.08f, 0.08f), new Vector2(0.92f, 0.42f), TextAlignmentOptions.Center, font);
         }
 
