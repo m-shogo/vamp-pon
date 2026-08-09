@@ -1,36 +1,28 @@
 # ヨルノシルベ Relationship Hub
 
-Date: 2026-08-09  
+Date: 2026-07-29  
 Status: **CURRENT RELATIONSHIP ENTRYPOINT / CURRENT FACTS + CANDIDATES SEPARATED**
 
 > Character同士の関係、会話、Bond、Pair Gameplay、年代差、Future bridgeを扱う時は最初にこのファイルを見る。
 >
 > 目的は「相関図の線を増やす」ことではない。**全Current21に、その人物だから成立する複数の関係を持たせ、夜で一緒に過ごした時間によって関係が変わる構造を作ること。**
->
-> **Relationship popularityは露出・side story・goods優先度へ使えるが、friendship / siblings / ideological mirrorを人気だけでromanceへ変更しない。**
 
 ---
 
 # 0. Authority order
 
 ```txt
-1. docs/CANON.md
-2. docs/RELATIONSHIPS.md
-3. docs/night-black-ink-star-beast-canon-v1.md  # Night / Yui-Tomori / Kuroori current law
-4. docs/character-relationship-arc-book-v1.md
-5. docs/character-dialogue-relationship-book-v1.md
-6. docs/BOND.md
-7. docs/series-commercial-franchise-architecture-v1.md
-8. docs/character-connection-web-high-value-candidates-v1.md
-9. docs/CHARACTER-LIFE-AND-SPEECH.md
-10. docs/future-cast-profile-book-v1.md  # Future candidate only
+1. docs/RELATIONSHIPS.md
+2. docs/character-relationship-arc-book-v1.md
+3. docs/character-dialogue-relationship-book-v1.md
+4. docs/BOND.md
+5. docs/character-connection-web-high-value-candidates-v1.md
+6. docs/CHARACTER-LIFE-AND-SPEECH.md
+7. docs/future-cast-profile-book-v1.md  # Future candidate only
 ```
 
 機械可読:
 
-- `public/lorebook/data/world-bible.v1.json`
-- `public/lorebook/data/relationship-arcs.v1.json`
-- `public/lorebook/data/franchise-strategy.v1.json`
 - `docs/design-targets/generated/character-relationship-arc-map-v1.json`
 - `docs/design-targets/generated/enemy-relationship-pressure-map-v1.json`
 
@@ -47,7 +39,6 @@ Enemy pressure:
 - Future bridgeは将来候補でありCurrent21への昇格ではない
 - ユイ×アサは主人公級バディ、恋愛なし
 - リツ×コヨリは兄妹、恋愛なし
-- ユイ×トモリは同一ランタンのobject lineage、**血縁Canonではない**
 - 全員を血縁 / 昔からの知人にしない
 - 別時代の関係は「物 / 記録 / 言葉が時間を渡る」を優先する
 - 夜で初めて会い、一緒に過ごして生まれる関係を最重要にする
@@ -55,9 +46,6 @@ Enemy pressure:
 - 思想差が残っても信頼は成立する
 - 恋愛を友情 / 家族より上位tierにしない
 - Main Mysteryをrelationship sceneだけで勝手に確定しない
-- favoriteRelationshipをromance pollとして扱わない
-- popularityでfamily / friendship / ideological relationのtypeを書き換えない
-- sequelで旧Characterのgrowthをresetして同じ関係arcを再演しない
 
 ---
 
@@ -76,9 +64,6 @@ Current21の最低目標:
 
 「2本」は実装イベント数ではない。
 制作側がその人物を別の相手と置いた時、**違う面が出る最低密度**。
-
-Commercialでも同じ。
-「人気Characterと組ませれば売れる」ではなく、二人でしか見えない差・小物・行動があるrelationを優先する。
 
 ---
 
@@ -123,7 +108,7 @@ Characterを深める際の**優先relation reservoir**。
 
 ## 13. アサ × カスミ — 名乗らせる / 隠して待つ
 
-Status: **CURRENT ideological mirror direction; 具体事件はCandidate**
+Status: **CURRENT ideological mirror direction;具体事件はCandidate**
 
 ### First read
 
@@ -159,38 +144,27 @@ Status: **CURRENT ideological mirror direction; 具体事件はCandidate**
 
 ## 14. ユイ × トモリ — 継がれた灯り
 
-Status: **CURRENT CANON object lineage / intermediate handoffs OPEN**
+Status: **CURRENT strong connection direction / exact history remains HIGH-VALUE CANDIDATE**
 
-Current Canon:
+Current:
 
-- ユイは後世でランタンを持つ
-- トモリはユイより前の現実時代で、**後にユイへ届く同じ物理ランタン**を修理した
-- ランタンは複数の手を経て現実時間を渡り、ユイへ届いた
-- ユイが大切にしていた修理痕にはトモリの仕事が含まれる
-- 二人は獅子座 / Leoを共有する
-- Leo共有は同じ灯り / Named Object lineageへの共鳴
-- **二人を血縁Canonにはしない**
+- ユイはランタンを持つ
+- トモリは灯具repair
+- 二人は獅子系星獣重複
+- 真相未LOCK
 
-OPEN:
-
-- トモリからユイまでの中間所有者
-- exact years / 世代間隔
-- 最初のランタン製作者
-
-### First read
+### First read Candidate
 
 トモリがユイではなくランタンへ反応する。
 
 > 「それ、見せて。」
 
 人より物を見るのでユイは少しむっとする。
-この時点ではプレイヤーへ「昔触った同一物」と明かさなくてよい。
 
 ### Middle
 
 ユイは「自分の大切な物」。
-トモリは「昔、自分が直した物の修理痕」を見る。
-
+トモリは「以前誰かが直した物」と見る。
 所有 / 制作者 / 修理者 / 継承者が一つの物へ重なる。
 
 ### Failure
@@ -208,16 +182,10 @@ OPEN:
 
 > 「元通りじゃなくていい。」
 
-トモリは昔と同じ直し方を再現せず、**今の持ち主であるユイが残したい傷を聞く**。
+### HIGH-VALUE history Candidate
 
-### Dawn proof
-
-朝のユイが修理痕を「傷」ではなく、知らない誰かから続いた手仕事として指でなぞる。
-トモリの名前を現実で完全に思い出さなくても、直し方を乱暴に消さない。
-
-### Series value
-
-2/3では中間所有者・別地域・別時代から同じランタンを見ることで、1の真実を嘘にせず意味を増やせる。
+トモリが別時代で同じランタンを修理した痕跡。
+血縁 / 継承 / shared memoryのどれかはまだ確定しない。
 
 ---
 
@@ -483,7 +451,7 @@ unknown
 二人とも「待つ」ことができる。
 しかし:
 
-- クロオリ = 本人が開ける時まで記憶を預かる
+- クロオリ = 開ける時を待つ
 - ユウビ = 受け取れる時を待つ
 
 ### Risk
@@ -584,8 +552,6 @@ Pairを増やしすぎると世界がカップリング表になる。
 Groupでは全員に同じ量を喋らせない。
 黙る人 / 作業する人 / 後から一言だけ言う人を残す。
 
-Commercialでも「21人集合」だけに頼らず、意味のあるensembleを商品 / art / short story単位に使える。
-
 ---
 
 # 7. Scene production order
@@ -606,8 +572,6 @@ Commercialでも「21人集合」だけに頼らず、意味のあるensembleを
 いきなり「泣ける過去回」から作らない。
 先に日常の反復を置くから、後で小さい変化が効く。
 
-Relation goodsも同じで、単に二人を並べるより「二人だから思い出す小さな行動 / 物」を使う。
-
 ---
 
 # 8. Future15 boundary
@@ -620,7 +584,6 @@ Future15のCurrent bridgeは `character-relationship-arc-book-v1.md` と生成JS
 - Current21の不足を埋めるためだけに追加しない
 - Current21はこの時点で関係coverage floorを満たす
 - Futureは新Theme / 新Gameplay / 新時代を持ち込む時に選ぶ
-- sequelで人気Current Characterだけを残して新castの中心感情を奪わせない
 
 特に強い将来bridge:
 
@@ -633,103 +596,6 @@ Future15のCurrent bridgeは `character-relationship-arc-book-v1.md` と生成JS
 
 ---
 
-# 9. Commercial relationship lanes
+# 9. 一文
 
-Authority:
-
-- `docs/series-commercial-franchise-architecture-v1.md`
-- `public/lorebook/data/franchise-strategy.v1.json`
-
-## Broad entry
-
-- ユイ × アサ — buddy / non-romance
-- ユイ × クロオリ — ideological mirror
-
-初見でも差が読みやすい。
-
-## Family / everyday
-
-- リツ × コヨリ — siblings / non-romance / shared Canes Venatici
-
-兄妹そのものが二頭の星獣・半分モチーフ・日常sceneへ繋がる。
-
-## Core / Shadow mirror
-
-- ナギ × カナメ
-- ミチル × トキ
-- トモリ × ツムギ
-- アサ × カスミ
-
-善悪の両面ではなく、同じ問いへの異なる答え。
-黒耀化 / Dawnの対照visualに強い。
-
-## Quiet night-born
-
-- ユウビ × トバリ
-- マドカ × レン
-- シロ × ツムギ
-- ネム × トキ
-- ゲン × ミチル
-
-派手な主役pairだけに依存しないlong-tail人気を育てる。
-stationery / booklet / audio scene / mini dioramaと相性がよい。
-
-## Object lineage
-
-- ユイ × トモリ
-
-同一ランタンを別時代から見る。
-血縁ではなく物の履歴がSeries 1 / 2 / 3を橋渡しする。
-
----
-
-# 10. Popularity guardrail
-
-将来favoriteRelationship等を取る場合:
-
-```txt
-favoriteRelationship != canon romance vote
-```
-
-人気から変えてよい:
-
-- pair goods比率
-- restock
-- optional short story優先度
-- seasonal visual
-- event出演
-- Lorebook特集順
-
-人気でも変更しない:
-
-- relationship type
-- family / blood relation
-- forced romance
-- Character personality
-- Main Mystery truth
-- old growth
-- death / resurrection
-
-Popularityは「もっと見たい」を知るdata。
-「本当はこういう関係だった」に歴史を書き換えるdataではない。
-
----
-
-# 11. Series return rule
-
-2 / 3で旧pairを再登場させる時:
-
-1. 1で得たgrowthを保持する
-2. 同じfailureを初期状態から再演しない
-3. 新主人公の答えを旧pairが奪わない
-4. Named Object / record / route / Star Beast traceを橋に使う
-5. 出ないCharacterを死亡 / 消失扱いしない
-
-ユイ×トモリなら2で中間所有者を知ることで1のrelationが深まってよいが、
-「実は血縁でした」で1のobject-lineageの価値を置換しない。
-
----
-
-# 12. 一文
-
-> **誰かを好きになる理由を「壮絶な過去を知ったから」だけにしない。何でもない夜に何度も同じ癖を見て、一度その癖のせいで失敗し、それでも次はその人へ任せられた、という積み重ねをヨルノシルベの関係の中心にする。人気が出ても、その積み重ねを別のrelation typeへ書き換えず、見たい場面を増やす方向で育てる。**
+> **誰かを好きになる理由を「壮絶な過去を知ったから」だけにしない。何でもない夜に何度も同じ癖を見て、一度その癖のせいで失敗し、それでも次はその人へ任せられた、という積み重ねをヨルノシルベの関係の中心にする。**

@@ -14,7 +14,8 @@ on:
       - 'src/game/data/characterThemeColors.ts'
       - '.github/workflows/lorebook.yml'
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'public/lorebook/**'
       - 'docs/lorebook-**'
@@ -43,225 +44,237 @@ jobs:
             node --check "public/lorebook/$file"
           done
 
-      - name: Validate lorebook schemas, canon and franchise contracts
+      - name: Validate lorebook schemas and references
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const readJson = (name) => JSON.parse(fs.readFileSync(`public/lorebook/data/${name}`, 'utf8'));
-          const world = readJson('world-bible.v1.json');
-          const personal = readJson('personal-profiles.v1.json');
-          const arcs = readJson('relationship-arcs.v1.json');
-          const combat = readJson('combat-guide.v1.json');
-          const history = readJson('history-atlas.v1.json');
-          const lab = readJson('setting-decision-lab.v1.json');
-          const themes = readJson('character-themes.v1.json');
-          const franchise = readJson('franchise-strategy.v1.json');
+          const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json', 'utf8'));
+          const personal = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
+          const arcs = JSON.parse(fs.readFileSync('public/lorebook/data/relationship-arcs.v1.json', 'utf8'));
+          const combat = JSON.parse(fs.readFileSync('public/lorebook/data/combat-guide.v1.json', 'utf8'));
+          const history = JSON.parse(fs.readFileSync('public/lorebook/data/history-atlas.v1.json', 'utf8'));
+          const lab = JSON.parse(fs.readFileSync('public/lorebook/data/setting-decision-lab.v1.json', 'utf8'));
+          const themes = JSON.parse(fs.readFileSync('public/lorebook/data/character-themes.v1.json', 'utf8'));
+          const franchise = JSON.parse(fs.readFileSync('public/lorebook/data/franchise-strategy.v1.json', 'utf8'));
           const themeSource = fs.readFileSync('src/game/data/characterThemeColors.ts', 'utf8');
           const profileSource = fs.readFileSync('public/lorebook/profile-enhancement.js', 'utf8');
-          const appSource = fs.readFileSync('public/lorebook/app.js', 'utf8');
           const motionSource = fs.readFileSync('public/lorebook/motion-enhancement.js', 'utf8');
           const decisionSource = fs.readFileSync('public/lorebook/decision-lab.js', 'utf8');
-          const canonSource = fs.readFileSync('docs/CANON.md', 'utf8');
-          const storySource = fs.readFileSync('docs/STORY.md', 'utf8');
-          const starBeastCanon = fs.readFileSync('docs/character-star-beast-constellation-canon-v1.md', 'utf8');
           const fail = (message) => { console.error(message); process.exitCode = 1; };
           const allowed = new Set(['CANON', 'USER_DIRECTION', 'CANDIDATE', 'OPEN_QUESTION']);
           const allowedImplementation = new Set(['playable_data','season_seed','future_seed','official_reserve']);
+          const worldIds = new Set(world.characters.map((c) => c.id));
+          const worldNames = new Set(world.characters.map((c) => c.name));
+          const relationIds = new Set(world.relationships.map((r) => r.id));
+          const openQuestionIds = new Set(world.openQuestions.map((item) => item.id));
           const runtimeIds = new Set([
-            'yui','asa','nagi','michiru','tomori','sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu',
-            'kuroori','kage1','kage2','kage3','kage4','ren',
+            'yui', 'asa', 'nagi', 'michiru', 'tomori',
+            'sen', 'ritsu', 'koyori', 'gen', 'hana', 'yubi', 'madoka', 'shiro', 'tobari', 'nemu',
+            'kuroori', 'kage1', 'kage2', 'kage3', 'kage4', 'ren',
           ]);
-          const worldIds = new Set(world.characters.map((item) => item.id));
-          const worldNames = new Set(world.characters.map((item) => item.name));
-          const relationIds = new Set(world.relationships.map((item) => item.id));
-          const openIds = new Set(world.openQuestions.map((item) => item.id));
 
           for (const [name, data] of Object.entries({world, personal, arcs, combat, history, lab, themes, franchise})) {
-            if (data.schemaVersion !== 1) fail(`${name}: schemaVersion must be 1`);
+            if (data.schemaVersion !== 1) fail(`${name} schemaVersion must be 1`);
           }
+          if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
+          if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
+          if (combat.entries.length !== 21) fail(`expected 21 combat guide entries, got ${combat.entries.length}`);
+          if (themes.characters.length !== 21) fail(`expected 21 theme entries, got ${themes.characters.length}`);
+          if (world.relationships.length !== 24) fail(`expected 24 priority relationships, got ${world.relationships.length}`);
+          if (arcs.arcs.length !== 12) fail(`expected 12 production relationship arcs, got ${arcs.arcs.length}`);
+          if (arcs.ensembles.length !== 4) fail(`expected 4 ensemble relationship groups, got ${arcs.ensembles.length}`);
+          if (history.timeLayers.length !== 3) fail(`expected 3 history time layers, got ${history.timeLayers.length}`);
+          if (history.objectThreads.length !== 5) fail(`expected 5 object history threads, got ${history.objectThreads.length}`);
+          if (lab.decisions.length !== world.openQuestions.length) fail(`decision lab/open question mismatch: ${lab.decisions.length}/${world.openQuestions.length}`);
+          if (franchise.entryPillars.length !== 5) fail(`expected five commercial entry pillars, got ${franchise.entryPillars.length}`);
+          if (franchise.popularityDimensions.length < 6) fail('popularity model must keep multiple preference dimensions');
+          if (franchise.relationshipLanes.length < 5) fail('commercial relationship lanes are incomplete');
+          if (franchise.series.length !== 3) fail(`expected 1/2/3 series architecture, got ${franchise.series.length}`);
 
-          const expectedCounts = [
-            ['characters', world.characters.length, 21],
-            ['profiles', personal.profiles.length, 21],
-            ['combat', combat.entries.length, 21],
-            ['themes', themes.characters.length, 21],
-            ['relationships', world.relationships.length, 24],
-            ['arcs', arcs.arcs.length, 12],
-            ['ensembles', arcs.ensembles.length, 4],
-            ['history threads', history.objectThreads.length, 5],
-            ['decisions', lab.decisions.length, 8],
-            ['IP pillars', franchise.entryPillars.length, 5],
-            ['series titles', franchise.series.length, 3],
-          ];
-          for (const [label, actual, expected] of expectedCounts) {
-            if (actual !== expected) fail(`${label}: expected ${expected}, got ${actual}`);
-          }
-          if (history.timeLayers.length !== 3) fail('history must keep reality/night/dawn layers');
-          if (franchise.popularityDimensions.length < 6) fail('popularity must remain multi-dimensional');
-          if (franchise.relationshipLanes.length < 5) fail('commercial relationship lanes incomplete');
-
-          const unique = (list, label) => {
-            if (new Set(list).size !== list.length) fail(`duplicate ${label}`);
-          };
-          unique(world.characters.map((item) => item.id), 'character id');
-          unique(world.characters.map((item) => item.name), 'character name');
-          unique(world.relationships.map((item) => item.id), 'relationship id');
-          unique(personal.profiles.map((item) => item.lorebookId), 'profile lorebookId');
-          unique(personal.profiles.map((item) => item.runtimeId), 'profile runtimeId');
-          unique(combat.entries.map((item) => item.lorebookId), 'combat lorebookId');
-          unique(themes.characters.map((item) => item.lorebookId), 'theme lorebookId');
-          unique(arcs.arcs.map((item) => item.relationshipId), 'arc relationship id');
-          unique(history.objectThreads.map((item) => item.id), 'history thread id');
-          unique(lab.decisions.map((item) => item.id), 'decision id');
+          if (new Set(world.characters.map((c) => c.id)).size !== world.characters.length) fail('duplicate character id');
+          if (new Set(world.characters.map((c) => c.name)).size !== world.characters.length) fail('duplicate character name');
+          if (new Set(world.relationships.map((r) => r.id)).size !== world.relationships.length) fail('duplicate relationship id');
+          if (new Set(personal.profiles.map((p) => p.lorebookId)).size !== personal.profiles.length) fail('duplicate profile lorebookId');
+          if (new Set(personal.profiles.map((p) => p.runtimeId)).size !== personal.profiles.length) fail('duplicate profile runtimeId');
+          if (new Set(combat.entries.map((entry) => entry.lorebookId)).size !== combat.entries.length) fail('duplicate combat lorebookId');
+          if (new Set(combat.entries.map((entry) => entry.runtimeId)).size !== combat.entries.length) fail('duplicate combat runtimeId');
+          if (new Set(themes.characters.map((entry) => entry.lorebookId)).size !== themes.characters.length) fail('duplicate theme lorebookId');
+          if (new Set(themes.characters.map((entry) => entry.runtimeId)).size !== themes.characters.length) fail('duplicate theme runtimeId');
+          if (new Set(arcs.arcs.map((arc) => arc.relationshipId)).size !== arcs.arcs.length) fail('duplicate relationship arc id');
+          if (new Set(history.objectThreads.map((thread) => thread.id)).size !== history.objectThreads.length) fail('duplicate history thread id');
+          if (new Set(lab.decisions.map((decision) => decision.id)).size !== lab.decisions.length) fail('duplicate setting decision id');
 
           for (const character of world.characters) {
             if (!character.name || !character.core || !character.growth) fail(`incomplete character: ${character.id}`);
-            if (!allowed.has(character.status)) fail(`invalid character status: ${character.id}/${character.status}`);
+            if (!allowed.has(character.status)) fail(`unknown character status: ${character.id}/${character.status}`);
           }
           for (const relation of world.relationships) {
             if (!worldIds.has(relation.from) || !worldIds.has(relation.to)) fail(`orphan relation: ${relation.id}`);
             if (relation.from === relation.to) fail(`self relation: ${relation.id}`);
-            if (!allowed.has(relation.status)) fail(`invalid relation status: ${relation.id}/${relation.status}`);
+            if (!allowed.has(relation.status)) fail(`unknown relation status: ${relation.id}/${relation.status}`);
           }
           for (const item of [...world.timeline, ...world.openQuestions, ...history.timeLayers]) {
-            if (!allowed.has(item.status)) fail(`invalid content status: ${item.id}/${item.status}`);
+            if (!allowed.has(item.status)) fail(`unknown content status: ${item.id}/${item.status}`);
           }
 
-          // Explicit user-promoted Title 1 canon. These guards replace the obsolete all-candidate gate.
-          const expectedOpen = [
-            'q-night-origin','q-night-maintainer','q-star-beast-origin','q-object-crossing',
-            'q-era-map','q-kuroori-yui-seal','q-night-geography','q-sequel',
+          const expectedOpenQuestions = [
+            'q-night-nature', 'q-black-ink-engine', 'q-night-maker', 'q-star-beast',
+            'q-yui-tomori', 'q-era-map', 'q-kuroori', 'q-sequel',
           ].sort();
-          const actualOpen = [...openIds].sort();
-          if (JSON.stringify(actualOpen) !== JSON.stringify(expectedOpen)) fail(`open-question drift: ${actualOpen.join(',')}`);
-          if (world.story?.engineStatus !== 'CANON') fail('Black Ink behavior law must remain Title 1 CANON');
-          if (!world.story?.engineCandidate?.includes('一つの意味だけが正しい')) fail('Black Ink fixation law missing from read model');
+          const actualOpenQuestions = [...openQuestionIds].sort();
+          if (JSON.stringify(actualOpenQuestions) !== JSON.stringify(expectedOpenQuestions)) fail(`human-promotion open-question drift: ${actualOpenQuestions.join(',')}`);
+          if (!world.authority?.rule?.includes('自動的に正史へ昇格しない')) fail('world authority must preserve no-auto-canon rule');
+          if (world.story?.engineStatus === 'CANON') fail('Black Ink engine must remain CANDIDATE until explicit human promotion');
+          if (!world.story?.engineCandidate) fail('Black Ink engine candidate must remain explicit');
           const yuiTomori = world.relationships.find((item) => item.id === 'rel-yui-tomori');
-          if (!yuiTomori || yuiTomori.status !== 'CANON' || yuiTomori.type !== 'object_lineage') fail('Yui/Tomori must remain CANON object_lineage');
-          if (!yuiTomori.summary.includes('血縁Canonではない')) fail('Yui/Tomori no-blood guardrail missing');
-          for (const id of ['timeline-real-eras','timeline-object-lineage','timeline-night','timeline-dawn']) {
-            if (world.timeline.find((item) => item.id === id)?.status !== 'CANON') fail(`${id} must remain CANON`);
-          }
-          if (!canonSource.includes('一つの意味だけが正しい')) fail('CANON.md lost Black Ink fixation law');
-          if (!storySource.includes('同じ物理ランタン')) fail('STORY.md lost same physical lantern canon');
-          if (!starBeastCanon.includes('血縁Canonではない')) fail('Star Beast canon lost Yui/Tomori no-blood rule');
-          if (!appSource.includes("engineStatus === 'CANON'")) fail('Lorebook must render Black Ink law as CANON');
+          if (!yuiTomori || yuiTomori.status !== 'CANDIDATE') fail('Yui/Tomori relation must remain CANDIDATE until explicit human promotion');
+          if (yuiTomori.type !== 'mystery') fail('Yui/Tomori relation must remain a mystery before promotion');
+          if (world.timeline.some((item) => ['timeline-real-eras','timeline-object-lineage','timeline-night','timeline-dawn'].includes(item.id) && item.status === 'CANON')) fail('time model must not auto-promote to CANON');
 
           for (const profile of personal.profiles) {
-            if (!worldIds.has(profile.lorebookId) || !worldNames.has(profile.name)) fail(`profile/world drift: ${profile.lorebookId}`);
-            if (!runtimeIds.has(profile.runtimeId)) fail(`unexpected runtimeId: ${profile.runtimeId}`);
+            if (!worldIds.has(profile.lorebookId)) fail(`profile missing world character: ${profile.lorebookId}`);
+            if (!worldNames.has(profile.name)) fail(`profile display name missing from world bible: ${profile.name}`);
+            if (!runtimeIds.has(profile.runtimeId)) fail(`unexpected runtimeId: ${profile.name}/${profile.runtimeId}`);
             for (const key of ['birthday','ageImpression','favoriteFood','hobby','smallHabit','likes','dislikes','dailyLifeScene']) {
-              if (!profile[key]) fail(`profile ${profile.lorebookId} missing ${key}`);
+              if (!profile[key]) fail(`incomplete personal profile ${profile.lorebookId}: ${key}`);
             }
           }
-          if (profileSource.includes('profile.zodiac')) fail('deprecated birthday zodiac must not be rendered');
-          for (const id of runtimeIds) {
-            if (!personal.profiles.some((item) => item.runtimeId === id)) fail(`missing runtime mapping: ${id}`);
+          if (profileSource.includes('profile.zodiac')) fail('birthday-derived zodiac must not be rendered; favoriteConstellation supersedes it');
+          for (const runtimeId of runtimeIds) {
+            if (!personal.profiles.some((profile) => profile.runtimeId === runtimeId)) fail(`missing stable runtimeId mapping: ${runtimeId}`);
           }
 
           for (const entry of combat.entries) {
-            if (!worldIds.has(entry.lorebookId) || !runtimeIds.has(entry.runtimeId)) fail(`combat mapping drift: ${entry.lorebookId}`);
-            if (!allowedImplementation.has(entry.implementationStatus)) fail(`invalid implementation status: ${entry.lorebookId}`);
-            const profile = personal.profiles.find((item) => item.lorebookId === entry.lorebookId);
-            if (!profile || profile.runtimeId !== entry.runtimeId) fail(`combat/profile runtime drift: ${entry.lorebookId}`);
+            if (!worldIds.has(entry.lorebookId)) fail(`combat entry missing world character: ${entry.lorebookId}`);
+            if (!runtimeIds.has(entry.runtimeId)) fail(`unexpected combat runtimeId: ${entry.lorebookId}/${entry.runtimeId}`);
+            const personalEntry = personal.profiles.find((profile) => profile.lorebookId === entry.lorebookId);
+            if (!personalEntry || personalEntry.runtimeId !== entry.runtimeId) fail(`combat/profile runtime mapping drift: ${entry.lorebookId}`);
+            if (!allowedImplementation.has(entry.implementationStatus)) fail(`invalid implementation status: ${entry.lorebookId}/${entry.implementationStatus}`);
             for (const key of ['vessel','lineage','firstAction','blank','role','starter','playFeel','strength','weakness']) {
-              if (!entry[key]) fail(`combat ${entry.lorebookId} missing ${key}`);
+              if (!entry[key]) fail(`incomplete combat guide ${entry.lorebookId}: ${key}`);
             }
             for (const key of ['lampArt','inheritedLight','dawnLight']) {
-              if (!entry.arts?.[key]) fail(`combat ${entry.lorebookId} missing art ${key}`);
+              if (!entry.arts?.[key]) fail(`incomplete arts guide ${entry.lorebookId}: ${key}`);
             }
           }
 
-          const primary = new Map();
-          const starColors = new Map();
-          const constellations = new Map();
+          const primaryColors = new Map();
+          const constellationColors = new Map();
+          const constellationKeys = new Map();
           for (const entry of themes.characters) {
-            if (!worldIds.has(entry.lorebookId) || !runtimeIds.has(entry.runtimeId)) fail(`theme mapping drift: ${entry.lorebookId}`);
+            if (!worldIds.has(entry.lorebookId)) fail(`theme missing world character: ${entry.lorebookId}`);
+            if (!runtimeIds.has(entry.runtimeId)) fail(`unexpected theme runtimeId: ${entry.lorebookId}/${entry.runtimeId}`);
             const profile = personal.profiles.find((item) => item.lorebookId === entry.lorebookId);
-            if (!profile || profile.runtimeId !== entry.runtimeId) fail(`theme/profile runtime drift: ${entry.lorebookId}`);
+            if (!profile || profile.runtimeId !== entry.runtimeId) fail(`theme/profile runtime mapping drift: ${entry.lorebookId}`);
             for (const value of [entry.primary?.hex, entry.accent?.hex, entry.constellation?.colorHex]) {
               if (!/^#[0-9A-F]{6}$/.test(value ?? '')) fail(`invalid uppercase HEX: ${entry.lorebookId}/${value}`);
             }
-            if (!themeSource.includes(`displayName: '${entry.name}'`) || !themeSource.includes(entry.primary.hex) || !themeSource.includes(entry.constellation.colorHex)) fail(`theme source drift: ${entry.lorebookId}`);
-            for (const [map, key] of [[primary, entry.primary.hex],[starColors, entry.constellation.colorHex],[constellations, entry.constellation.key]]) {
-              map.set(key, [...(map.get(key) ?? []), entry]);
-            }
+            if (!entry.constellation?.key || !entry.constellation?.name || !entry.constellation?.starBeast) fail(`incomplete star-beast theme: ${entry.lorebookId}`);
+            if (!themeSource.includes(`displayName: '${entry.name}'`)) fail(`theme source displayName drift: ${entry.lorebookId}/${entry.name}`);
+            if (!themeSource.includes(entry.primary.hex) || !themeSource.includes(entry.constellation.colorHex)) fail(`theme source HEX drift: ${entry.lorebookId}`);
+            const primaryUsers = primaryColors.get(entry.primary.hex) ?? [];
+            primaryUsers.push(entry);
+            primaryColors.set(entry.primary.hex, primaryUsers);
+            const starUsers = constellationColors.get(entry.constellation.colorHex) ?? [];
+            starUsers.push(entry);
+            constellationColors.set(entry.constellation.colorHex, starUsers);
+            const constellationUsers = constellationKeys.get(entry.constellation.key) ?? [];
+            constellationUsers.push(entry);
+            constellationKeys.set(entry.constellation.key, constellationUsers);
           }
-          for (const [hex, users] of primary) {
-            if (users.length !== 1) fail(`primary HEX must be unique: ${hex}/${users.map((item) => item.name).join(',')}`);
+          for (const [hex, users] of primaryColors) {
+            if (users.length !== 1) fail(`primary theme color must be unique: ${hex}/${users.map((item) => item.name).join(',')}`);
           }
-          const validateShared = (kind, key, users) => {
+          const validateMeaningfulDuplicate = (kind, key, users) => {
             if (users.length < 2) return;
-            const families = new Set(users.map((item) => item.paletteFamilyKey));
-            if (families.size !== 1 || families.has(null) || families.has(undefined)) fail(`${kind} duplicate lacks one family: ${key}`);
-            if (users.some((item) => !item.sharedReason)) fail(`${kind} duplicate lacks reason: ${key}`);
+            const familyKeys = new Set(users.map((item) => item.paletteFamilyKey));
+            if (familyKeys.size !== 1 || familyKeys.has(null) || familyKeys.has(undefined)) fail(`${kind} duplicate missing shared palette family: ${key}`);
+            for (const user of users) {
+              if (!user.sharedReason) fail(`${kind} duplicate missing reason: ${key}/${user.name}`);
+            }
           };
-          for (const [key, users] of starColors) validateShared('star color', key, users);
-          for (const [key, users] of constellations) validateShared('constellation', key, users);
-          const duplicates = [...constellations.entries()].filter(([, users]) => users.length > 1).map(([key]) => key).sort();
-          if (JSON.stringify(duplicates) !== JSON.stringify(['canes-venatici','leo'])) fail(`unexpected constellation duplicates: ${duplicates.join(',')}`);
-          if (!themes.rules?.birthdayZodiac?.includes('deprecated')) fail('theme DB must deprecate birthday zodiac');
-          for (const id of ['yui','tomori']) {
-            const entry = themes.characters.find((item) => item.lorebookId === id);
-            if (!entry?.sharedReason?.includes('同じ物理ランタン') || !entry.sharedReason.includes('血縁Canonではない')) fail(`${id} shared Leo reason drift`);
-          }
+          for (const [hex, users] of constellationColors) validateMeaningfulDuplicate('constellation color', hex, users);
+          for (const [key, users] of constellationKeys) validateMeaningfulDuplicate('constellation', key, users);
+          const duplicatedConstellations = [...constellationKeys.entries()].filter(([, users]) => users.length > 1).map(([key]) => key).sort();
+          if (JSON.stringify(duplicatedConstellations) !== JSON.stringify(['canes-venatici','leo'])) fail(`unexpected constellation duplicates: ${duplicatedConstellations.join(',')}`);
+          if (!themes.rules?.birthdayZodiac?.includes('deprecated')) fail('theme DB must explicitly deprecate birthday zodiac');
 
           for (const arc of arcs.arcs) {
-            if (!relationIds.has(arc.relationshipId)) fail(`orphan arc: ${arc.relationshipId}`);
-            for (const key of ['firstRead','usefulFriction','failureExposure','chosenTrust','dawnProof']) if (!arc[key]) fail(`arc ${arc.relationshipId} missing ${key}`);
+            if (!relationIds.has(arc.relationshipId)) fail(`orphan relationship arc: ${arc.relationshipId}`);
+            for (const key of ['firstRead','usefulFriction','failureExposure','chosenTrust','dawnProof']) {
+              if (!arc[key]) fail(`incomplete relationship arc ${arc.relationshipId}: ${key}`);
+            }
           }
           for (const ensemble of arcs.ensembles) {
-            if ((ensemble.members?.length ?? 0) < 3) fail(`ensemble too small: ${ensemble.id}`);
-            for (const member of ensemble.members ?? []) if (!worldIds.has(member)) fail(`orphan ensemble member: ${ensemble.id}/${member}`);
+            if (!ensemble.members?.length || ensemble.members.length < 3) fail(`ensemble must have 3+ members: ${ensemble.id}`);
+            for (const member of ensemble.members ?? []) {
+              if (!worldIds.has(member)) fail(`orphan ensemble member: ${ensemble.id}/${member}`);
+            }
           }
 
           for (const thread of history.objectThreads) {
-            if (!allowed.has(thread.status)) fail(`invalid history status: ${thread.id}/${thread.status}`);
-            if ((thread.members?.length ?? 0) < 2) fail(`history thread too small: ${thread.id}`);
-            for (const member of thread.members) if (!worldIds.has(member)) fail(`orphan history member: ${thread.id}/${member}`);
-            for (const key of ['known','gap','payoff','confidence']) if (!thread[key] || (key === 'known' && !thread.known.length)) fail(`history ${thread.id} missing ${key}`);
-          }
-          const lantern = history.objectThreads.find((item) => item.id === 'thread-lantern');
-          if (!lantern || lantern.status !== 'CANON' || !lantern.known.some((item) => item.includes('同じ物理ランタン'))) fail('confirmed lantern thread drift');
-          if (history.eraMethod?.status !== 'CANON' || history.eraMethod?.layers?.length !== 4) fail('Relative Era method must remain CANON with four layers');
-          if (!history.statusRule?.includes('never inferred as CANON')) fail('history gap guardrail missing');
-
-          for (const decision of lab.decisions) {
-            if (!openIds.has(decision.openQuestionId)) fail(`decision has no current OPEN question: ${decision.id}`);
-            if ((decision.options?.length ?? 0) < 2) fail(`decision needs multiple options: ${decision.id}`);
-            if (!decision.options.some((option) => option.id === decision.recommendedOptionId)) fail(`decision recommended option missing: ${decision.id}`);
-            if (!decision.recommendation || !(decision.doNotLockYet?.length)) fail(`decision guardrail incomplete: ${decision.id}`);
-            for (const option of decision.options) for (const key of ['coherence','emotion','futureFreedom','risk']) {
-              if (!Number.isInteger(option[key]) || option[key] < 1 || option[key] > 5) fail(`invalid decision score: ${decision.id}/${option.id}/${key}`);
+            if (thread.status !== 'CANDIDATE') fail(`history thread must remain CANDIDATE: ${thread.id}/${thread.status}`);
+            if (!thread.members?.length || thread.members.length < 2) fail(`history thread requires 2+ members: ${thread.id}`);
+            for (const member of thread.members) {
+              if (!worldIds.has(member)) fail(`orphan history thread member: ${thread.id}/${member}`);
+            }
+            for (const key of ['known','gap','payoff','confidence']) {
+              if (!thread[key] || (key === 'known' && thread.known.length === 0)) fail(`incomplete history thread ${thread.id}: ${key}`);
             }
           }
-          unique(lab.recommendedDecisionOrder, 'decision order entry');
-          if (lab.recommendedDecisionOrder.length !== lab.decisions.length) fail('decision order must cover all decisions');
-          if (!lab.statusRule?.includes('Resolved Title 1 laws')) fail('Decision Lab must not reopen resolved Title 1 canon');
-          if (decisionSource.includes('AI DESIGN RECOMMENDATION')) fail('AI-like recommendation label must remain removed');
-
-          if (franchise.source !== 'docs/series-commercial-franchise-architecture-v1.md') fail('franchise source drift');
-          if (JSON.stringify(franchise.series.map((item) => item.id)) !== JSON.stringify(['yoruno-1','yoruno-2','yoruno-3'])) fail('series order drift');
-          for (const title of franchise.series) if (!title.question || !title.mustPay?.length || !title.mustNotDo?.length) fail(`series contract incomplete: ${title.id}`);
-          if (!franchise.commercialGuardrails?.allowedFromPopularity?.length || !franchise.commercialGuardrails?.forbiddenFromPopularity?.length) fail('commercial popularity guardrails missing');
-          if (!franchise.commercialGuardrails.forbiddenFromPopularity.some((item) => item.includes('forced romance'))) fail('commercial rules must forbid forced romance');
-          if (!franchise.commercialGuardrails.forbiddenFromPopularity.some((item) => item.includes('Main Mystery'))) fail('commercial rules must protect Main Mystery truth');
-
-          for (const source of ['docs/CANON.md','docs/CHARACTERS.md','docs/night-black-ink-star-beast-canon-v1.md','docs/series-commercial-franchise-architecture-v1.md']) {
-            if (!world.authority?.sources?.includes(source)) fail(`world authority source missing: ${source}`);
+          if (history.eraMethod?.status !== 'CANDIDATE') fail('relative era method must remain CANDIDATE');
+          if (history.eraMethod?.layers?.length !== 4) fail('relative era method must keep 4 explicit layers');
+          for (const anchor of history.eraMethod?.firstAnchors ?? []) {
+            if (!worldIds.has(anchor.characterId)) fail(`orphan era anchor: ${anchor.characterId}`);
           }
-          if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('profile source drift');
-          if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('arc source drift');
-          if (!combat.sources?.includes('src/game/data/characterCanon.ts') || !combat.sources?.includes('src/game/data/reserveCharacterCanon.ts')) fail('combat source drift');
-          if (!history.sources?.includes('docs/night-black-ink-star-beast-canon-v1.md')) fail('history current canon source missing');
-          if (!themes.sources?.includes('src/game/data/characterThemeColors.ts') || !themes.sources?.includes('docs/character-star-beast-constellation-canon-v1.md')) fail('theme source drift');
+          if (!history.statusRule?.includes('never inferred as CANON')) fail('history atlas must preserve gap guardrail');
 
-          for (const token of ['--dawn-progress','--sky-top','--sky-horizon','--star-opacity']) if (!motionSource.includes(token)) fail(`dawn motion missing ${token}`);
-          if (!motionSource.includes("['夜半', 'MIDNIGHT']") || !motionSource.includes("['朝', 'MORNING']")) fail('night-to-morning labels missing');
-          if (motionSource.includes('installPointerLight') || motionSource.includes('installCardLight')) fail('pointer glow must remain removed');
+          for (const decision of lab.decisions) {
+            if (!openQuestionIds.has(decision.openQuestionId)) fail(`decision without open question: ${decision.id}/${decision.openQuestionId}`);
+            if (!decision.options?.length || decision.options.length < 2) fail(`decision requires multiple options: ${decision.id}`);
+            if (!decision.options.some((option) => option.id === decision.recommendedOptionId)) fail(`missing recommended option: ${decision.id}/${decision.recommendedOptionId}`);
+            if (!decision.recommendation || !decision.doNotLockYet?.length) fail(`decision missing recommendation guardrails: ${decision.id}`);
+            for (const option of decision.options) {
+              for (const key of ['coherence','emotion','futureFreedom','risk']) {
+                if (!Number.isInteger(option[key]) || option[key] < 1 || option[key] > 5) fail(`invalid decision score: ${decision.id}/${option.id}/${key}`);
+              }
+            }
+          }
+          if (new Set(lab.recommendedDecisionOrder).size !== lab.decisions.length) fail('decision order must cover each decision exactly once');
+          for (const decisionId of lab.recommendedDecisionOrder) {
+            if (!lab.decisions.some((decision) => decision.id === decisionId)) fail(`unknown decision in order: ${decisionId}`);
+          }
+          if (!lab.statusRule?.includes('CANDIDATE')) fail('decision lab must explicitly remain CANDIDATE');
+          if (decisionSource.includes('AI DESIGN RECOMMENDATION')) fail('author UI must not use AI-like recommendation label');
+
+          const expectedSeries = ['yoruno-1','yoruno-2','yoruno-3'];
+          if (JSON.stringify(franchise.series.map((item) => item.id)) !== JSON.stringify(expectedSeries)) fail('series architecture must preserve 1/2/3 order');
+          for (const title of franchise.series) {
+            if (!title.question || !title.mustPay?.length || !title.mustNotDo?.length) fail(`incomplete series contract: ${title.id}`);
+          }
+          if (franchise.source !== 'docs/series-commercial-franchise-architecture-v1.md') fail('franchise source drift');
+          if (!franchise.commercialGuardrails?.allowedFromPopularity?.length || !franchise.commercialGuardrails?.forbiddenFromPopularity?.length) fail('commercial popularity guardrails missing');
+          if (!franchise.commercialGuardrails.forbiddenFromPopularity.some((item) => item.includes('forced romance'))) fail('commercial guardrail must forbid forced romance');
+          if (!franchise.commercialGuardrails.forbiddenFromPopularity.some((item) => item.includes('Main Mystery'))) fail('commercial guardrail must protect Main Mystery truth');
+
+          if (!world.authority?.sources?.includes('docs/CANON.md')) fail('CANON.md must remain an authority source');
+          if (!world.authority?.sources?.includes('docs/CHARACTERS.md')) fail('CHARACTERS.md must remain an authority source');
+          if (personal.source !== 'docs/character-personal-profile-canon-v1.md') fail('personal profile source drift');
+          if (arcs.source !== 'docs/character-relationship-arc-book-v1.md') fail('relationship arc source drift');
+          if (!combat.sources?.includes('src/game/data/characterCanon.ts')) fail('combat guide main source drift');
+          if (!combat.sources?.includes('src/game/data/reserveCharacterCanon.ts')) fail('combat guide reserve source drift');
+          if (!history.sources?.includes('docs/CHARACTERS.md')) fail('history atlas source drift');
+          if (!themes.sources?.includes('src/game/data/characterThemeColors.ts')) fail('theme read model source drift');
+          if (!themes.sources?.includes('docs/character-star-beast-constellation-canon-v1.md')) fail('star-beast theme source drift');
+
+          for (const token of ['--dawn-progress','--sky-top','--sky-horizon','--star-opacity']) {
+            if (!motionSource.includes(token)) fail(`dawn motion controller missing ${token}`);
+          }
+          if (!motionSource.includes("['夜半', 'MIDNIGHT']") || !motionSource.includes("['朝', 'MORNING']")) fail('dawn phase labels missing');
+          if (motionSource.includes('installPointerLight') || motionSource.includes('installCardLight')) fail('AI-like pointer glow motion must stay removed');
 
           if (process.exitCode) process.exit(process.exitCode);
-          console.log(`Lorebook OK: 21 characters / 24 relationships / 12 arcs / 5 history threads / 8 open decisions / 21 palettes / 5 IP pillars / series 1-3`);
+          console.log(`Lorebook OK: ${world.characters.length} characters / ${personal.profiles.length} profiles / ${combat.entries.length} combat guides / ${themes.characters.length} palettes / ${world.relationships.length} relationships / ${arcs.arcs.length} arcs / ${history.objectThreads.length} history threads / ${lab.decisions.length} decisions / ${franchise.entryPillars.length} IP pillars / ${franchise.series.length} series titles`);
           NODE
 
       - name: Verify enhancement bootstrap and static entrypoint
@@ -274,12 +287,16 @@ jobs:
           grep -q 'id="readingProgress"' public/lorebook/index.html
           for module in profile-enhancement relationship-enhancement combat-enhancement history-enhancement decision-lab theme-enhancement franchise-enhancement motion-enhancement; do grep -q "./${module}.js" public/lorebook/enhancements.js; done
           ! grep -q 'relationship-enhancement.js' public/lorebook/profile-enhancement.js
-          for pair in 'profile-enhancement.js:profile.css' 'relationship-enhancement.js:relationship.css' 'combat-enhancement.js:combat.css' 'history-enhancement.js:history.css' 'decision-lab.js:decision-lab.css' 'theme-enhancement.js:theme.css' 'franchise-enhancement.js:franchise.css' 'motion-enhancement.js:motion.css'; do
-            js="${pair%%:*}"; css="${pair##*:}"; grep -q "./${css}" "public/lorebook/${js}";
-          done
+          grep -q './profile.css' public/lorebook/profile-enhancement.js
+          grep -q './relationship.css' public/lorebook/relationship-enhancement.js
+          grep -q './combat.css' public/lorebook/combat-enhancement.js
+          grep -q './history.css' public/lorebook/history-enhancement.js
+          grep -q './decision-lab.css' public/lorebook/decision-lab.js
+          grep -q './theme.css' public/lorebook/theme-enhancement.js
+          grep -q './franchise.css' public/lorebook/franchise-enhancement.js
+          grep -q './motion.css' public/lorebook/motion-enhancement.js
           for file in styles.css profile.css relationship.css combat.css history.css decision-lab.css theme.css franchise.css motion.css app.js enhancements.js profile-enhancement.js relationship-enhancement.js combat-enhancement.js history-enhancement.js decision-lab.js theme-enhancement.js franchise-enhancement.js motion-enhancement.js; do test -f "public/lorebook/$file"; done
           for file in world-bible.v1.json personal-profiles.v1.json relationship-arcs.v1.json combat-guide.v1.json history-atlas.v1.json setting-decision-lab.v1.json character-themes.v1.json franchise-strategy.v1.json; do test -f "public/lorebook/data/$file"; done
-          test -f docs/night-black-ink-star-beast-canon-v1.md
           test -f docs/series-commercial-franchise-architecture-v1.md
 
       - name: Setup pnpm

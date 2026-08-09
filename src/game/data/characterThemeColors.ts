@@ -32,7 +32,7 @@ export const characterThemeColors: CharacterThemeColor[] = [
     characterId: 'yui', name: 'ユイ', displayName: 'ユイ',
     themeColor: { hex: '#264A86', japaneseName: '瑠璃色', romaji: 'ruri-iro', note: '夜道と主人公の青。ランタンの暖色を受けても沈まない。' },
     accentColor: { hex: '#F6B44B', japaneseName: '山吹色', romaji: 'yamabuki-iro', note: 'ランタンの芯と記憶片の光。' },
-    starBeastTheme: { favoriteConstellation: '獅子座 / Leo', constellationKey: 'leo', starBeast: '子獅子「ルク」仮称', hex: '#D6A541', paletteFamilyKey: 'leo-lantern-lineage', sharedColorReason: 'トモリとの獅子座重複。トモリが前の時代で修理し、後世のユイへ届いた同じ物理ランタンへの共鳴。血縁Canonではない。', note: '獅子の金はトモリと意図的に共有し、人物主色は共有しない。' },
+    starBeastTheme: { favoriteConstellation: '獅子座 / Leo', constellationKey: 'leo', starBeast: '子獅子「ルク」仮称', hex: '#D6A541', paletteFamilyKey: 'leo-lantern-lineage', sharedColorReason: 'トモリとの獅子座重複。ランタン・火の系譜・親族・継承等の真相は未LOCK。', note: '獅子の金はトモリと意図的に共有し、人物主色は共有しない。' },
   },
   {
     characterId: 'asa', name: 'アサ', displayName: 'アサ',
@@ -56,7 +56,7 @@ export const characterThemeColors: CharacterThemeColor[] = [
     characterId: 'tomori', name: 'トモリ', displayName: 'トモリ',
     themeColor: { hex: '#8F2E14', japaneseName: '弁柄色', romaji: 'bengara-iro', note: '修理ランプ、煤、継火の赤茶。' },
     accentColor: { hex: '#FAD689', japaneseName: '淡香', romaji: 'usukou', note: '直した灯りの柔らかい火。' },
-    starBeastTheme: { favoriteConstellation: '獅子座 / Leo', constellationKey: 'leo', starBeast: '少し煤けた若獅子', hex: '#D6A541', paletteFamilyKey: 'leo-lantern-lineage', sharedColorReason: 'ユイとの獅子座重複。トモリが修理した同じ物理ランタンが複数の手を経てユイへ届いたNamed Object lineage。血縁Canonではない。', note: '主色はユイと完全に分け、獅子座の金だけをlineageの伏線として共有する。' },
+    starBeastTheme: { favoriteConstellation: '獅子座 / Leo', constellationKey: 'leo', starBeast: '少し煤けた若獅子', hex: '#D6A541', paletteFamilyKey: 'leo-lantern-lineage', sharedColorReason: 'ユイとの獅子座重複。火・ランタンの継承を示す高価値伏線。関係種別は未LOCK。', note: '主色はユイと完全に分け、獅子座の金だけを伏線として共有する。' },
   },
   {
     characterId: 'sen', name: 'セン', displayName: 'セン',

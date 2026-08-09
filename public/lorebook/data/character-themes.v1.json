@@ -1,25 +1,24 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-08-09",
-  "status": "CANON_READ_MODEL",
+  "status": "CANON_READ_MODEL_WITH_CANDIDATE_DUPLICATE_REASON",
   "sources": [
     "src/game/data/characterThemeColors.ts",
     "docs/character-star-beast-constellation-canon-v1.md",
-    "docs/night-black-ink-star-beast-canon-v1.md",
     "docs/character-book-v4.md"
   ],
   "rules": {
     "primaryHex": "Primary theme colors are unique across Current21.",
-    "constellationColor": "Constellation colors are unique unless the same constellation is intentionally shared for a documented family, sibling, Named Object lineage, memory, or succession reason.",
-    "duplicateMeaning": "A duplicated constellation color is a story clue, never an accidental palette collision or a popularity-driven addition.",
+    "constellationColor": "Constellation colors are unique unless the same constellation is intentionally shared for a documented family, sibling, lineage, memory, succession, or hidden-relationship reason.",
+    "duplicateMeaning": "A duplicated constellation color is a clue, never an accidental palette collision.",
     "birthdayZodiac": "Birthday-derived zodiac is deprecated for character theme design. Use favoriteConstellation and starBeast instead."
   },
   "characters": [
-    {"lorebookId":"yui","runtimeId":"yui","name":"ユイ","primary":{"hex":"#264A86","name":"瑠璃色"},"accent":{"hex":"#F6B44B","name":"山吹色"},"constellation":{"key":"leo","name":"獅子座 / Leo","starBeast":"子獅子「ルク」仮称","colorHex":"#D6A541"},"paletteFamilyKey":"leo-lantern-lineage","sharedReason":"トモリとの獅子座重複。トモリが前の時代で修理し、後世のユイへ届いた同じ物理ランタンへの共鳴。血縁Canonではない。","rationale":"主人公の夜青を主色に、ランタンの火と獅子の金を別レイヤーで持つ。"},
+    {"lorebookId":"yui","runtimeId":"yui","name":"ユイ","primary":{"hex":"#264A86","name":"瑠璃色"},"accent":{"hex":"#F6B44B","name":"山吹色"},"constellation":{"key":"leo","name":"獅子座 / Leo","starBeast":"子獅子「ルク」仮称","colorHex":"#D6A541"},"paletteFamilyKey":"leo-lantern-lineage","sharedReason":"トモリとの獅子座重複。ランタン・火の系譜・親族・継承等の真相は未LOCK。","rationale":"主人公の夜青を主色に、ランタンの火と獅子の金を別レイヤーで持つ。"},
     {"lorebookId":"asa","runtimeId":"asa","name":"アサ","primary":{"hex":"#F4A7B9","name":"薄紅"},"accent":{"hex":"#F7D94C","name":"菜の花色"},"constellation":{"key":"aries","name":"おひつじ座 / Aries","starBeast":"若い雄羊","colorHex":"#E0B75D"},"paletteFamilyKey":null,"sharedReason":null,"rationale":"朝の薄紅と、先に走る雄羊の乾いた金。速さは強い赤ではなく軽い火花で表す。"},
     {"lorebookId":"nagi","runtimeId":"nagi","name":"ナギ","primary":{"hex":"#7B90D2","name":"藤紫"},"accent":{"hex":"#C7B78B","name":"白橡"},"constellation":{"key":"cancer","name":"かに座 / Cancer","starBeast":"小さな蟹","colorHex":"#D98B77"},"paletteFamilyKey":null,"sharedReason":null,"rationale":"月箱の静かな藤紫に、鍵の古色と小蟹の殻色を重ねる。"},
     {"lorebookId":"michiru","runtimeId":"michiru","name":"ミチル","primary":{"hex":"#2E5C6E","name":"御召御納戸"},"accent":{"hex":"#D7C447","name":"刈安色"},"constellation":{"key":"ursa-minor","name":"こぐま座 / Ursa Minor","starBeast":"小熊","colorHex":"#9CC8E8"},"paletteFamilyKey":null,"sharedReason":null,"rationale":"地図の青緑とコンパス針、北極星を含むこぐま座の冷たい空色を分離する。"},
-    {"lorebookId":"tomori","runtimeId":"tomori","name":"トモリ","primary":{"hex":"#8F2E14","name":"弁柄色"},"accent":{"hex":"#FAD689","name":"淡香"},"constellation":{"key":"leo","name":"獅子座 / Leo","starBeast":"少し煤けた若獅子","colorHex":"#D6A541"},"paletteFamilyKey":"leo-lantern-lineage","sharedReason":"ユイとの獅子座重複。トモリが修理した同じ物理ランタンが複数の手を経てユイへ届いたNamed Object lineage。血縁Canonではない。","rationale":"煤と修理火の弁柄を主役にしつつ、獅子座の金だけはユイと意図的に共有する。"},
+    {"lorebookId":"tomori","runtimeId":"tomori","name":"トモリ","primary":{"hex":"#8F2E14","name":"弁柄色"},"accent":{"hex":"#FAD689","name":"淡香"},"constellation":{"key":"leo","name":"獅子座 / Leo","starBeast":"少し煤けた若獅子","colorHex":"#D6A541"},"paletteFamilyKey":"leo-lantern-lineage","sharedReason":"ユイとの獅子座重複。火・ランタンの継承を示す高価値伏線。関係種別は未LOCK。","rationale":"煤と修理火の弁柄を主役にしつつ、獅子座の金だけはユイと意図的に共有する。"},
     {"lorebookId":"sen","runtimeId":"sen","name":"セン","primary":{"hex":"#6E7955","name":"利休鼠"},"accent":{"hex":"#E9E4D4","name":"鳥の子色"},"constellation":{"key":"corvus","name":"からす座 / Corvus","starBeast":"小烏","colorHex":"#596A80"},"paletteFamilyKey":null,"sharedReason":null,"rationale":"黒板・チョークの落ち着きに、烏を真黒ではなく夜青の羽色として足す。"},
     {"lorebookId":"ritsu","runtimeId":"ritsu","name":"リツ","primary":{"hex":"#D75455","name":"甚三紅"},"accent":{"hex":"#F8C3CD","name":"退紅"},"constellation":{"key":"canes-venatici","name":"りょうけん座 / Canes Venatici","starBeast":"二頭のうち大きい猟犬","colorHex":"#B78552"},"paletteFamilyKey":"canes-venatici-siblings","sharedReason":"コヨリとの兄妹関係。二頭で描かれる猟犬座そのものを兄妹モチーフとして共有。","rationale":"兄の温かい赤は独自に保ち、星獣色だけを妹と共有して血縁を視覚的に示す。"},
     {"lorebookId":"koyori","runtimeId":"koyori","name":"コヨリ","primary":{"hex":"#F7C8D0","name":"桜色"},"accent":{"hex":"#FFF1CF","name":"練色"},"constellation":{"key":"canes-venatici","name":"りょうけん座 / Canes Venatici","starBeast":"二頭のうち小さい猟犬","colorHex":"#B78552"},"paletteFamilyKey":"canes-venatici-siblings","sharedReason":"リツとの兄妹関係。二頭で描かれる猟犬座そのものを兄妹モチーフとして共有。","rationale":"本人の軽い桜色は独立させ、星獣色のみ兄と同一にして『同じ家族・別の人』を表す。"},
