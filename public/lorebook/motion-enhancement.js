@@ -51,6 +51,7 @@ function bootPrologue() {
 }
 
 function installRevealObserver() {
+  const selector = '.chapter, .character-card, .relationship-item, .timeline-item, .mystery-card, .question-card, .history-thread-card';
   const seen = new WeakSet();
   const observer = new IntersectionObserver((entries) => {
     for (const entry of entries) {
@@ -60,14 +61,17 @@ function installRevealObserver() {
     }
   }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
 
+  const registerElement = (element) => {
+    if (seen.has(element)) return;
+    seen.add(element);
+    element.classList.add('motion-reveal');
+    if (reducedMotion.matches) element.classList.add('is-revealed');
+    else observer.observe(element);
+  };
+
   const register = (root = document) => {
-    root.querySelectorAll?.('.chapter, .character-card, .relationship-item, .timeline-item, .mystery-card, .question-card, .history-thread-card').forEach((element) => {
-      if (seen.has(element)) return;
-      seen.add(element);
-      element.classList.add('motion-reveal');
-      if (reducedMotion.matches) element.classList.add('is-revealed');
-      else observer.observe(element);
-    });
+    if (root.matches?.(selector)) registerElement(root);
+    root.querySelectorAll?.(selector).forEach(registerElement);
   };
 
   register();
