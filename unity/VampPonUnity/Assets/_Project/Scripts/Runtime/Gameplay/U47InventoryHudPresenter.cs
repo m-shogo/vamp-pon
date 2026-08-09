@@ -36,6 +36,13 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
         {
             gameplay = runtime;
 
+            // U45 kept a visual-only placeholder while the real inventory state was not
+            // connected. Once this presenter exists, keeping it underneath creates a
+            // double-frame/prototype look and wastes fill-rate.
+            var obsoletePlaceholder = parent.Find("BottomInventoryPlaceholder");
+            if (obsoletePlaceholder != null)
+                obsoletePlaceholder.gameObject.SetActive(false);
+
             var root = new GameObject("U47ActualInventoryHud", typeof(RectTransform), typeof(Image));
             root.transform.SetParent(parent, false);
             var rect = root.GetComponent<RectTransform>();
