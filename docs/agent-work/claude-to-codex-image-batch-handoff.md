@@ -24,6 +24,10 @@ Read only what is needed for the active asset task:
 4. task-specific contract referenced by the queue item
 5. existing canonical character references / existing runtime assets named by that contract
 
+For `ART-P0-TOP-CORE5-V3`, also read:
+
+`docs/design-targets/generated/top-living-night-v3/final-effect-companion-brief.md`
+
 Do not ingest the entire documentation tree unless a concrete conflict requires it.
 
 ## Claude role
@@ -74,8 +78,9 @@ After each completed item, update the queue item status and paths rather than ex
 3. `ART-P1-RESULT-MEMORY-REWARD`
 4. `ART-P1-COLLECTION-MATERIAL`
 5. `ART-P2-LEVELUP-CARDS`
-6. `ART-P2-RARE-STATE-VFX`
-7. `ART-P2-BATTLE-ENVIRONMENT-BANDS` only after reviewing current stage readability
+6. `ART-P2-BATTLE-HUD-MATERIAL`
+7. `ART-P2-RARE-STATE-VFX`
+8. `ART-P2-BATTLE-ENVIRONMENT-BANDS` only after reviewing current stage readability
 
 Loading is not part of the initial regeneration batch because its four seasonal images already exist.
 
@@ -83,14 +88,14 @@ Loading is not part of the initial regeneration batch because its four seasonal 
 
 TOP final generation must obey the existing Core5 and semantic-layer contracts. Do not use the current V2 bridge humans as identity references. The composition/mood can be used as a bridge, but final foreground humans must be exactly Yui / Asa / Nagi / Michiru / Tomori, plus the white small animal and small round robot.
 
-The canonical final composite is not sufficient by itself. The semantic production layer pack must be generated and registered before final runtime approval can progress.
+The canonical final composite is not sufficient by itself. Generate the six structural semantic layers **and** the effect companion assets from the same locked final composition/material language. Existing V2 clouds/fire/smoke/light masks are temporary fallbacks unless the final comparison explicitly proves they still match. The semantic production layer pack must be registered before final runtime approval can progress.
 
 ## Completion reporting
 
 Report only:
 
 - generated candidate paths
-- semantic layer paths
+- structural/effect layer paths
 - checks actually executed and results
 - commit SHA
 - remaining visual-review blockers
