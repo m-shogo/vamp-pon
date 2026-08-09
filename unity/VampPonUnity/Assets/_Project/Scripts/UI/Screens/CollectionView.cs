@@ -13,6 +13,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private CollectionPresenter presenter;
         private Transform page;
         private Transform indexRoot;
+        private TextMeshProUGUI progressLabel;
         private GameObject detailOverlay;
         private CollectionCategory activeCategory = CollectionCategory.Characters;
 
@@ -25,6 +26,7 @@ namespace VampPon.UnitySpike.UI.Screens
             page = U46ScreenFactory.Panel(transform, "CollectionIndexPage", new Vector2(0.035f, 0.045f), new Vector2(0.965f, 0.955f), assets.Collection.Page, new Color(0.88f, 0.79f, 0.63f)).transform;
             U46ScreenFactory.Label(page, "Title", "灯録", 29f, Ink(), new Vector2(0.08f, 0.88f), new Vector2(0.45f, 0.96f), TextAlignmentOptions.Left, font);
             U46ScreenFactory.Button(page, "CloseCollectionButton", "戻る", assets.Result.SecondaryButton, new Vector2(0.73f, 0.89f), new Vector2(0.92f, 0.95f), font, () => presenter.Close());
+            progressLabel = U46ScreenFactory.Label(page, "Progress", string.Empty, 14f, Ink(), new Vector2(0.08f, 0.83f), new Vector2(0.72f, 0.88f), TextAlignmentOptions.Left, font);
             BuildTabs();
             indexRoot = new GameObject("CollectionEntryIndex", typeof(RectTransform)).transform;
             indexRoot.SetParent(page, false);
@@ -53,7 +55,8 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             for (var i = indexRoot.childCount - 1; i >= 0; i--) Destroy(indexRoot.GetChild(i).gameObject);
             var progress = presenter.Progress();
-            U46ScreenFactory.Label(page, "Progress", $"灯った記憶  {progress.Current} / {progress.Max}", 14f, Ink(), new Vector2(0.08f, 0.83f), new Vector2(0.72f, 0.88f), TextAlignmentOptions.Left, font);
+            if (progressLabel != null)
+                progressLabel.text = $"灯った記憶  {progress.Current} / {progress.Max}";
             var entries = presenter.Present(activeCategory);
             if (entries.Count == 0)
             {
