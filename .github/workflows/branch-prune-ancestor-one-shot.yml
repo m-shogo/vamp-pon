@@ -9,10 +9,13 @@ on:
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
-  prune-fully-merged-branches:
+  prune-audited-safe-branches:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout full history
         uses: actions/checkout@v4
@@ -45,6 +48,17 @@ jobs:
             esac
           }
 
+          merged_pr_for_exact_head() {
+            local branch="$1"
+            local sha="$2"
+            gh api --method GET "repos/$GITHUB_REPOSITORY/pulls" \
+              -f state=closed \
+              -f "head=$GITHUB_REPOSITORY_OWNER:$branch" \
+              -f per_page=100 \
+              --jq ".[] | select(.merged_at != null and .head.sha == \"$sha\") | .number" \
+              | head -n 1
+          }
+
           mapfile -t branches < <(
             git for-each-ref refs/remotes/origin \
               --format='%(refname:strip=3)' \
@@ -61,14 +75,20 @@ jobs:
                 ;;
             esac
 
+            actual="$(git rev-parse "refs/remotes/origin/$branch")"
             delete_reason=''
+
             if git merge-base --is-ancestor "refs/remotes/origin/$branch" refs/remotes/origin/main; then
               delete_reason='fully contained in main'
             else
-              expected="$(expected_semantic_sha "$branch")"
-              actual="$(git rev-parse "refs/remotes/origin/$branch")"
-              if [ -n "$expected" ] && [ "$actual" = "$expected" ]; then
-                delete_reason='audited semantic successor already merged; exact head unchanged'
+              merged_pr="$(merged_pr_for_exact_head "$branch" "$actual" || true)"
+              if [ -n "$merged_pr" ]; then
+                delete_reason="exact current head already merged by PR #$merged_pr"
+              else
+                expected="$(expected_semantic_sha "$branch")"
+                if [ -n "$expected" ] && [ "$actual" = "$expected" ]; then
+                  delete_reason='audited semantic successor already merged; exact head unchanged'
+                fi
               fi
             fi
 
@@ -81,7 +101,7 @@ jobs:
                 failed=$((failed + 1))
               fi
             else
-              echo "KEEP non-ancestor or changed-since-audit: $branch"
+              echo "KEEP non-ancestor, unmerged, or changed-since-audit: $branch"
               kept=$((kept + 1))
             fi
           done
@@ -90,10 +110,14 @@ jobs:
             echo '## Branch prune result'
             echo
             echo "- deleted audited-safe branches: $deleted"
-            echo "- kept main/active/non-ancestor/changed branches: $kept"
+            echo "- kept main/active/non-ancestor/unmerged/changed branches: $kept"
             echo "- delete failures: $failed"
             echo
-            echo 'Safety: `main` and the active Lorebook branch are never deleted. Normal branches are deleted only when their tip is an ancestor of `origin/main`. A small semantic-superseded allowlist is additionally SHA-pinned, so any post-audit commit makes that branch KEEP automatically.'
+            echo 'Safety rules:'
+            echo '- never delete `main` or the active Lorebook branch'
+            echo '- delete ordinary branches only when the tip is an ancestor of `origin/main`'
+            echo '- accept squash/rebase merge cleanup only when GitHub reports a merged PR whose recorded head SHA exactly equals the current branch SHA'
+            echo '- a small closed-unmerged semantic-superseded allowlist is SHA-pinned; any post-audit commit becomes KEEP automatically'
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [ "$failed" -ne 0 ]; then
