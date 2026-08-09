@@ -1,0 +1,158 @@
+name: TOP Art Preproduction
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/top-art-preproduction.yml'
+      - 'requirements.txt'
+      - 'assets/reference/character-master/core5/**'
+      - 'docs/design-targets/generated/top-living-night-v2/layers/**'
+      - 'docs/design-targets/generated/top-living-night-v2/previews/top-living-night-layered-candidate-430x932.png'
+      - 'docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json'
+      - 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt'
+      - 'docs/design-targets/generated/top-living-night-v3/model-input-order.txt'
+      - 'docs/design-targets/generated/top-living-night-v3/final-identity-brief.md'
+      - 'docs/design-targets/generated/top-living-night-v3/final-art-status.json'
+      - 'docs/design-targets/generated/top-living-night-v3/final/**'
+      - 'scripts/unity/generate-top-living-night-core5-layout-proof.py'
+      - 'scripts/unity/sanitize-top-living-night-composition-plate.py'
+      - 'scripts/unity/generate-top-living-night-core5-sprite-pack.py'
+      - 'scripts/unity/generate-top-living-night-core5-identity-references.py'
+      - 'scripts/unity/polish-top-living-night-core5-preproduction.py'
+      - 'scripts/unity/generate-top-living-night-preproduction-manifest.py'
+      - 'scripts/unity/validate-top-living-night-preproduction-pack.py'
+      - 'scripts/unity/generate-top-living-night-model-input-manifest.py'
+      - 'scripts/unity/validate-top-living-night-model-input-manifest.py'
+      - 'scripts/unity/generate-top-living-night-crop-review-pack.py'
+      - 'scripts/unity/generate-top-living-night-layer-diagnostics.py'
+      - 'scripts/quality/check-top-living-night-core5-layout-proof-generator.ts'
+      - 'scripts/quality/check-top-living-night-crop-review-pack-generator.ts'
+      - 'scripts/quality/check-top-living-night-preproduction-workflow.ts'
+      - 'scripts/quality/check-top-living-night-model-input-lineage.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: top-art-preproduction-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TOP_SOURCE_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Verify preproduction generators
+        run: |
+          node --experimental-strip-types scripts/quality/check-top-living-night-core5-layout-proof-generator.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-crop-review-pack-generator.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-model-input-lineage.ts
+          python -m py_compile scripts/unity/sanitize-top-living-night-composition-plate.py
+          python -m py_compile scripts/unity/generate-top-living-night-core5-sprite-pack.py
+          python -m py_compile scripts/unity/generate-top-living-night-core5-identity-references.py
+          python -m py_compile scripts/unity/polish-top-living-night-core5-preproduction.py
+          python -m py_compile scripts/unity/generate-top-living-night-preproduction-manifest.py
+          python -m py_compile scripts/unity/validate-top-living-night-preproduction-pack.py
+          python -m py_compile scripts/unity/generate-top-living-night-model-input-manifest.py
+          python -m py_compile scripts/unity/validate-top-living-night-model-input-manifest.py
+          python -m py_compile scripts/unity/generate-top-living-night-layer-diagnostics.py
+
+      - name: Generate base human-free layer composition
+        run: python scripts/unity/generate-top-living-night-core5-layout-proof.py
+
+      - name: Sanitize raw bridge humans while preserving town and rail context
+        run: python scripts/unity/sanitize-top-living-night-composition-plate.py
+
+      - name: Generate clean Core5 full-body cutouts
+        run: python scripts/unity/generate-top-living-night-core5-sprite-pack.py
+
+      - name: Remove sprite-sheet debris and rebuild Core5-only references
+        run: python scripts/unity/polish-top-living-night-core5-preproduction.py
+
+      - name: Generate clean single-human Core5 identity references
+        run: python scripts/unity/generate-top-living-night-core5-identity-references.py
+
+      - name: Hash preproduction visual pack
+        run: python scripts/unity/generate-top-living-night-preproduction-manifest.py
+
+      - name: Validate preproduction visual pack
+        run: python scripts/unity/validate-top-living-night-preproduction-pack.py
+
+      - name: Generate minimal model-input manifest
+        run: python scripts/unity/generate-top-living-night-model-input-manifest.py
+
+      - name: Validate minimal model-input manifest
+        run: python scripts/unity/validate-top-living-night-model-input-manifest.py
+
+      - name: Generate final-candidate crop pack when available
+        run: python scripts/unity/generate-top-living-night-crop-review-pack.py
+
+      - name: Generate V2 layer diagnostics separately
+        run: python scripts/unity/generate-top-living-night-layer-diagnostics.py
+
+      - name: Verify generated-only boundary
+        run: |
+          git diff --exit-code -- . ':!docs/design-targets/generated/top-living-night-v3/preproduction' ':!docs/design-targets/generated/top-living-night-v3/crop-review-previews' ':!docs/design-targets/generated/top-living-night-v3/diagnostics'
+          git status --short
+
+      - name: Upload minimal clean TOP model-input bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: top-art-model-inputs-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            docs/design-targets/generated/top-living-night-v3/preproduction/core5-clean-composition-plate-v1.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/core5-yui-identity-reference-v1.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/core5-asa-identity-reference-v1.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/core5-nagi-identity-reference-v1.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/core5-michiru-identity-reference-v1.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/core5-tomori-identity-reference-v1.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/model-input-manifest.json
+            docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt
+            docs/design-targets/generated/top-living-night-v3/model-input-order.txt
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload TOP preproduction engineering pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: top-art-preproduction-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            docs/design-targets/generated/top-living-night-v3/preproduction/*.png
+            docs/design-targets/generated/top-living-night-v3/preproduction/manifest.json
+            docs/design-targets/generated/top-living-night-v3/preproduction/model-input-manifest.json
+            docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt
+            docs/design-targets/generated/top-living-night-v3/model-input-order.txt
+            docs/design-targets/generated/top-living-night-v3/final-identity-brief.md
+            docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json
+            docs/design-targets/generated/top-living-night-v3/crop-review-previews/*.png
+            docs/design-targets/generated/top-living-night-v3/crop-review-previews/manifest.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
+
+      - name: Upload regenerated V2 layer diagnostics separately
+        uses: actions/upload-artifact@v4
+        with:
+          name: top-art-layer-diagnostics-${{ github.event.pull_request.head.sha || github.sha }}
+          path: docs/design-targets/generated/top-living-night-v3/diagnostics/*.png
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0

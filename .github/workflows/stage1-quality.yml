@@ -50,3 +50,201 @@ jobs:
 
       - name: Verify Stage1 quality
         run: pnpm stage1:fun-pass:verify
+
+      - name: Verify seasonal Loading docs match manifest
+        run: node --experimental-strip-types scripts/quality/check-loading-seasonal-doc-consistency.ts
+
+      - name: Verify seasonal Loading build staging cleanup
+        run: node --experimental-strip-types scripts/quality/check-loading-seasonal-build-cleanup.ts
+
+      - name: Verify TOP V2 V3 docs match evidence
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-doc-consistency.ts
+
+      - name: Verify TOP v1 v2 v3 authority order
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-authority-order.ts
+
+      - name: Verify TOP Living Night layer kit
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-layer-kit.ts
+
+      - name: Verify TOP Living Night transparent sky overlays
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-sky-overlay.ts
+
+      - name: Verify TOP Living Night runtime connection
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-runtime.ts
+
+      - name: Verify TOP Living Night Runtime V3 composition
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-runtime-v3.ts
+
+      - name: Verify TOP build staging cleanup
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-build-cleanup.ts
+
+      - name: Verify TOP final-core5 build provenance
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-build-core5-provenance.ts
+
+      - name: Verify TOP Editor source authority guard
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-editor-source-guard.ts
+
+      - name: Verify TOP Living Night asynchronous motion contract
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-motion-contract.ts
+
+      - name: Verify TOP locked Core5 master reference integrity
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-reference-integrity.ts
+
+      - name: Verify TOP final generation bundle
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-generation-bundle.ts
+
+      - name: Verify TOP post-generation gate chain
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-post-generation-gate-chain.ts
+
+      - name: Verify TOP Core5 candidate reference provenance
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-candidate-provenance.ts
+
+      - name: Verify TOP final Core5 identity boundary
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-final-identity-boundary.ts
+
+      - name: Verify TOP per-character Core5 review
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-core5-review.ts
+
+      - name: Verify TOP Core5 review reference-set binding
+        run: node --experimental-strip-types scripts/quality/check-top-core5-review-reference-set.ts
+
+      - name: Verify TOP Core5 review temporal coherence
+        run: node --experimental-strip-types scripts/quality/check-top-core5-review-temporal-coherence.ts
+
+      - name: Verify TOP final-art registration path is safe
+        run: node --experimental-strip-types scripts/unity/register-top-living-night-final-art.ts --dry-run
+
+      - name: Verify TOP final-art registration mutation fixtures
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-final-art-registration.ts
+
+      - name: Verify TOP final-art candidate boundary
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-final-art-candidate.ts
+
+      - name: Verify TOP three-resolution crop review
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-crop-review.ts
+
+      - name: Verify TOP approval evidence consistency
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-approval-consistency.ts
+
+      - name: Verify TOP runtime evidence commit coherence
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-evidence-commit-coherence.ts
+
+      - name: Verify TOP runtime execution dependencies
+        run: node --experimental-strip-types scripts/quality/check-top-runtime-execution-dependencies.ts
+
+      - name: Verify TOP Simulator and physical iPhone evidence boundary
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-device-evidence.ts
+
+      - name: Verify TOP device performance approval policy
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-device-performance-policy.ts
+
+      - name: Verify TOP raw device performance artifacts
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-device-performance-artifact.ts
+
+      - name: Verify TOP device performance registration path is safe
+        run: node --experimental-strip-types scripts/unity/register-top-living-night-device-performance.ts --dry-run
+
+      - name: Verify TOP device performance registration mutation fixtures
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-device-performance-registration.ts
+
+      - name: Verify TOP opt-in Simulator performance sampler contract
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-performance-sampler.ts
+
+      - name: Verify TOP Simulator performance runner contract
+        run: |
+          bash -n scripts/unity/run-top-living-night-simulator-performance-evidence.sh
+          node --experimental-strip-types scripts/quality/check-top-living-night-simulator-performance-runner.ts
+
+      - name: Verify TOP Living Night Unity evidence boundary
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-unity-evidence.ts
+
+      - name: Verify TOP runtime temporal coherence
+        run: node --experimental-strip-types scripts/quality/check-top-runtime-temporal-coherence.ts
+
+      - name: Verify Loading to TOP evidence boundary
+        run: node --experimental-strip-types scripts/quality/check-loading-top-runtime-boundary.ts
+
+      - name: Verify automated Loading TOP capture boundary
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-pack.ts
+
+      - name: Verify Loading TOP capture matrix source
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-matrix-source.ts
+
+      - name: Verify Loading TOP capture temporal coherence
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-temporal-coherence.ts
+
+      - name: Verify Loading TOP Unity to capture temporal chain
+        run: node --experimental-strip-types scripts/quality/check-loading-top-unity-capture-temporal-chain.ts
+
+      - name: Verify Loading TOP capture distinctness
+        run: node --experimental-strip-types scripts/quality/check-loading-top-capture-distinctness.ts
+
+      - name: Verify Loading TOP rendered manifest provenance
+        run: node --experimental-strip-types scripts/quality/check-loading-top-render-manifest-provenance.ts
+
+      - name: Verify structured TOP human visual review evidence
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-human-review.ts
+
+      - name: Verify Loading TOP review evidence honesty
+        run: node --experimental-strip-types scripts/quality/check-loading-top-review-honesty.ts
+
+      - name: Verify Loading and TOP visual polish
+        run: node --experimental-strip-types scripts/quality/check-loading-top-visual-polish.ts
+
+      - name: Verify Loading and TOP rendered pixel content
+        run: |
+          if node -e "const m=require('./docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json'); process.exit(m.executed ? 0 : 1)"; then
+            node --experimental-strip-types scripts/quality/check-loading-top-render-content.ts
+          else
+            echo 'Loading/TOP render-content QA: honest NOT_RUN boundary'
+          fi
+
+      - name: Prepare TOP review input templates
+        run: |
+          node --experimental-strip-types scripts/unity/create-top-living-night-static-review-template.ts
+          node --experimental-strip-types scripts/unity/create-top-living-night-runtime-review-templates.ts
+
+      - name: Publish TOP readiness summary
+        run: |
+          node --experimental-strip-types scripts/quality/check-top-living-night-readiness-summary.ts | tee docs/design-targets/generated/top-living-night-v3/readiness-summary.txt
+          cat docs/design-targets/generated/top-living-night-v3/readiness-summary.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload Loading and TOP visual review pack
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: loading-top-visual-review-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            docs/design-targets/generated/loading-seasonal-v1/README.md
+            docs/design-targets/generated/loading-seasonal-v1/manifest.json
+            docs/design-targets/generated/loading-seasonal-v1/runtime-captures/*.png
+            docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
+            docs/design-targets/generated/loading-seasonal-v1/runtime-review-checklist.md
+            docs/design-targets/generated/top-living-night-v1/README.md
+            docs/design-targets/generated/top-living-night-v1/candidates/*.png
+            docs/design-targets/generated/top-living-night-v2/README.md
+            docs/design-targets/generated/top-living-night-v2/runtime-unity-verification.json
+            docs/design-targets/generated/top-living-night-v2/layers/*.png
+            docs/design-targets/generated/top-living-night-v2/previews/*.png
+            docs/design-targets/generated/top-living-night-v3/README.md
+            docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json
+            docs/design-targets/generated/top-living-night-v3/final-identity-brief.md
+            docs/design-targets/generated/top-living-night-v3/core5-reference-manifest.json
+            docs/design-targets/generated/top-living-night-v3/final-generation-bundle.json
+            docs/design-targets/generated/top-living-night-v3/core5-bridge-gap-review.md
+            docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md
+            docs/design-targets/generated/top-living-night-v3/final-art-status.json
+            docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json
+            docs/design-targets/generated/top-living-night-v3/crop-review-status.json
+            docs/design-targets/generated/top-living-night-v3/motion-review-plan.md
+            docs/design-targets/generated/top-living-night-v3/motion-review-status.json
+            docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json
+            docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json
+            docs/design-targets/generated/top-living-night-v3/device-performance-evidence/*.json
+            docs/design-targets/generated/top-living-night-v3/review-inputs/*.json
+            docs/design-targets/generated/top-living-night-v3/readiness-summary.txt
+            docs/design-targets/generated/top-living-night-v3/final/*.png
+            assets/reference/character-master/core5/*.png
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0

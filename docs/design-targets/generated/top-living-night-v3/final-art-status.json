@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "candidateGenerated": false,
+  "candidatePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+  "expectedWidth": 430,
+  "expectedHeight": 932,
+  "core5ReferenceCount": 5,
+  "candidateCore5ReferenceSetSha256": "",
+  "core5IdentityReviewed": false,
+  "cropReviewComplete": false,
+  "motionSeparationReviewed": false,
+  "humanVisualReviewComplete": false,
+  "approvedAsFinal": false,
+  "runtimeCaptureComplete": false,
+  "runtimeApproved": false,
+  "finalApprovalBlocked": true,
+  "candidateSha256": "",
+  "reviewedAtUtc": "",
+  "notes": "Current Runtime V3 composite remains the visual-recovery bridge. This manifest must not be promoted until a Core5-locked final candidate is committed and reviewed."
+}

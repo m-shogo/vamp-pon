@@ -14,6 +14,8 @@ namespace VampPon.UnitySpike.U4
         private Image bgImage;
         private Image innerBorderImage;
         private Image glowImage;
+        private Sprite baseSprite;
+        private Color baseBorderColor;
         private TextMeshProUGUI nameLabel;
         private TextMeshProUGUI descLabel;
         private TextMeshProUGUI typeLabel;
@@ -22,10 +24,12 @@ namespace VampPon.UnitySpike.U4
         private U4LevelUpChoice choiceData;
         private Vector3 baseScale;
         private float selectPulseTimer;
-        private float shimmerTimer;
         private bool isSelected;
         private bool isHovered;
         private int cardIndex;
+        private bool entranceActive;
+        private float entranceStartTime;
+        private Vector2 entranceBasePosition;
 
         private static readonly Color NormalCardBg = new(0.96f, 0.92f, 0.86f, 0.94f);
         private static readonly Color SelectedCardBg = new(1f, 0.96f, 0.88f, 0.98f);
@@ -60,8 +64,9 @@ namespace VampPon.UnitySpike.U4
             card.baseScale = Vector3.one;
 
             card.bgImage = root.GetComponent<Image>();
-            card.bgImage.sprite = AppQualityAssetProvider.LevelUpCardFor(choice.Rarity == U4ItemRarity.Rare, choice.IsAwakeningGate)
-                                  ?? U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            card.baseSprite = AppQualityAssetProvider.LevelUpCardFor(choice.Rarity == U4ItemRarity.Rare, choice.IsAwakeningGate)
+                              ?? U5VisualAssetLibrary.LoadUiSprite("u5-paper-panel");
+            card.bgImage.sprite = card.baseSprite;
             card.bgImage.type = card.bgImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             card.bgImage.color = card.bgImage.sprite != null ? Color.white : NormalCardBg;
 
@@ -71,6 +76,7 @@ namespace VampPon.UnitySpike.U4
                 U4ItemRarity.Rare => choice.IsAwakeningGate ? AwakeningBorder : RareBorder,
                 _ => NormalBorder,
             };
+            card.baseBorderColor = borderColor;
 
             var innerBorder = new GameObject("InnerBorder", typeof(RectTransform), typeof(Image));
             innerBorder.transform.SetParent(root.transform, false);
@@ -162,17 +168,57 @@ namespace VampPon.UnitySpike.U4
             return card;
         }
 
+        public void BeginEntrance(float delaySeconds)
+        {
+            entranceBasePosition = rect.anchoredPosition;
+            if (IsReducedMotion())
+            {
+                entranceActive = false;
+                var immediateGroup = EnsureCanvasGroup();
+                immediateGroup.alpha = 1f;
+                return;
+            }
+
+            entranceActive = true;
+            entranceStartTime = Time.unscaledTime + Mathf.Max(0f, delaySeconds);
+            rect.anchoredPosition = entranceBasePosition + new Vector2(0f, -10f);
+            EnsureCanvasGroup().alpha = 0f;
+        }
+
         public void SetSelected(bool selected)
         {
             isSelected = selected;
             if (selectionLabel != null) selectionLabel.gameObject.SetActive(selected);
-            if (selected)
-            {
+            var reducedMotion = IsReducedMotion();
+            if (selected && !reducedMotion)
                 selectPulseTimer = 0.15f;
-                shimmerTimer = 0.25f;
+            else
+                selectPulseTimer = 0f;
+
+            if (choiceData.Rarity != U4ItemRarity.Rare && !choiceData.IsAwakeningGate)
+            {
+                var selectedSprite = VisualBatchAssetProvider.LevelUpCardSelected;
+                bgImage.sprite = selected && selectedSprite != null ? selectedSprite : baseSprite;
+                bgImage.type = bgImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             }
 
-            bgImage.color = bgImage.sprite != null ? (selected ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg));
+            bgImage.color = bgImage.sprite != null
+                ? (selected ? new Color(1f, 0.97f, 0.9f, 1f) : Color.white)
+                : (selected ? SelectedCardBg : (isHovered ? HoveredCardBg : NormalCardBg));
+
+            if (innerBorderImage != null)
+            {
+                innerBorderImage.color = selected
+                    ? new Color(
+                        Mathf.Min(1f, baseBorderColor.r * 1.2f + .08f),
+                        Mathf.Min(1f, baseBorderColor.g * 1.2f + .06f),
+                        Mathf.Min(1f, baseBorderColor.b * 1.12f + .03f),
+                        Mathf.Max(.78f, baseBorderColor.a))
+                    : baseBorderColor;
+            }
+
+            if (reducedMotion)
+                rect.localScale = Vector3.one;
         }
 
         public void SetHovered(bool hovered)
@@ -180,47 +226,75 @@ namespace VampPon.UnitySpike.U4
             isHovered = hovered;
             if (!isSelected)
             {
-                bgImage.color = bgImage.sprite != null ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white) : (hovered ? HoveredCardBg : NormalCardBg);
-                rect.localScale = hovered ? baseScale * 1.02f : baseScale;
+                bgImage.color = bgImage.sprite != null
+                    ? (hovered ? new Color(1f, 0.96f, 0.88f, 1f) : Color.white)
+                    : (hovered ? HoveredCardBg : NormalCardBg);
+                rect.localScale = hovered && !IsReducedMotion() ? baseScale * 1.015f : baseScale;
             }
         }
 
         public void SetDimmed(bool dimmed)
         {
-            var group = gameObject.GetComponent<CanvasGroup>();
-            if (group == null)
-            {
-                group = gameObject.AddComponent<CanvasGroup>();
-            }
-
-            group.alpha = dimmed ? 0.7f : 1f;
+            if (entranceActive)
+                entranceActive = false;
+            var group = EnsureCanvasGroup();
+            group.alpha = dimmed ? 0.64f : 1f;
+            rect.anchoredPosition = entranceBasePosition == default ? rect.anchoredPosition : entranceBasePosition;
         }
 
         private void Update()
         {
-            if (selectPulseTimer > 0f)
+            TickEntrance();
+
+            var reducedMotion = IsReducedMotion();
+            if (selectPulseTimer > 0f && !reducedMotion)
             {
                 selectPulseTimer -= Time.unscaledDeltaTime;
                 var t = Mathf.Clamp01(selectPulseTimer / 0.15f);
-                var scale = 1f + Mathf.Sin(t * Mathf.PI) * 0.035f;
+                var scale = 1f + Mathf.Sin(t * Mathf.PI) * 0.026f;
                 rect.localScale = baseScale * scale;
             }
             else if (isSelected)
             {
-                rect.localScale = baseScale * 1.03f;
+                rect.localScale = reducedMotion ? baseScale : baseScale * 1.018f;
             }
 
             if (glowImage != null && (choiceData.Rarity == U4ItemRarity.Rare || choiceData.IsAwakeningGate))
             {
-                var pulse = 0.12f + Mathf.Sin(Time.unscaledTime * 2.2f) * 0.08f;
                 var baseColor = choiceData.IsAwakeningGate ? AwakeningGlow : RareGlow;
-                glowImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, pulse);
+                var alpha = reducedMotion
+                    ? baseColor.a * 0.72f
+                    : Mathf.Lerp(baseColor.a * 0.62f, baseColor.a, Mathf.PerlinNoise(cardIndex * 2.17f + 1.3f, Time.unscaledTime * 0.24f));
+                glowImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
             }
+        }
 
-            if (shimmerTimer > 0f)
+        private void TickEntrance()
+        {
+            if (!entranceActive)
+                return;
+            if (Time.unscaledTime < entranceStartTime)
+                return;
+
+            const float duration = .14f;
+            var t = Mathf.Clamp01((Time.unscaledTime - entranceStartTime) / duration);
+            var eased = 1f - Mathf.Pow(1f - t, 3f);
+            rect.anchoredPosition = Vector2.Lerp(entranceBasePosition + new Vector2(0f, -10f), entranceBasePosition, eased);
+            EnsureCanvasGroup().alpha = eased;
+            if (t >= 1f)
             {
-                shimmerTimer -= Time.unscaledDeltaTime;
+                entranceActive = false;
+                rect.anchoredPosition = entranceBasePosition;
+                EnsureCanvasGroup().alpha = 1f;
             }
+        }
+
+        private CanvasGroup EnsureCanvasGroup()
+        {
+            var group = gameObject.GetComponent<CanvasGroup>();
+            if (group == null)
+                group = gameObject.AddComponent<CanvasGroup>();
+            return group;
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -238,6 +312,10 @@ namespace VampPon.UnitySpike.U4
         {
             if (!isSelected) SetHovered(false);
         }
+
+        private static bool IsReducedMotion() =>
+            PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
+            PlayerPrefs.GetInt("reduce_motion", 0) == 1;
 
         private static TextMeshProUGUI CreateLabel(Transform parent, string text, float fontSize, Color color,
             Vector2 anchorMin, Vector2 anchorMax, Vector2 anchoredPos, Vector2 size, TMP_FontAsset font)
@@ -259,10 +337,7 @@ namespace VampPon.UnitySpike.U4
             tmp.overflowMode = TextOverflowModes.Ellipsis;
             AppQualityUiFactory.FitText(tmp, Mathf.Max(8f, fontSize - 4f));
             if (font != null)
-            {
                 tmp.font = font;
-            }
-
             return tmp;
         }
     }

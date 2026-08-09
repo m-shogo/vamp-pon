@@ -25,6 +25,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private U2BattleController battle;
         private PlayerController player;
         private YuiSpriteAnimator animator;
+        private LoadingSeasonalView loading;
+        private TopLivingNightView top;
         private StageSelectView stageSelect;
         private ResultView result;
         private CollectionView collection;
@@ -35,7 +37,10 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private U4LevelUpDemoController levelUp;
         private GameObject appFlowCanvas;
         private Transform battleHudRoot;
+        private TMP_FontAsset appFont;
         private Vector3 initialPlayerPosition;
+        private bool loadingCompleted;
+        private bool topDismissed;
 #if VAMPPON_AI_SIMULATOR_SMOKE
         internal int VerificationLevelUpOpenedCount { get; private set; }
         internal int VerificationLevelUpClosedCount { get; private set; }
@@ -52,6 +57,11 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         {
             DisposeSubscriptions();
             if (appFlowCanvas != null) Destroy(appFlowCanvas);
+            loading = null;
+            top = null;
+            appFont = null;
+            loadingCompleted = false;
+            topDismissed = false;
             battle = battleController; player = playerController; animator = yuiAnimator; levelUp = levelUpController;
             battleHudRoot = gameplayHudRoot;
             initialPlayerPosition = player.transform.position;
@@ -145,12 +155,16 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             var scaler = canvasObject.GetComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize; scaler.referenceResolution = new Vector2(390f, 844f); scaler.matchWidthOrHeight = 0.5f;
             var safe = new GameObject("U46SafeArea", typeof(RectTransform), typeof(SafeAreaFitter)); safe.transform.SetParent(canvasObject.transform, false);
             var safeRect = safe.GetComponent<RectTransform>(); safeRect.anchorMin = Vector2.zero; safeRect.anchorMax = Vector2.one; safeRect.offsetMin = Vector2.zero; safeRect.offsetMax = Vector2.zero;
-            var font = LoadFont(); var catalog = new U46UiAssetCatalog();
-            stageSelect = new GameObject("U46StageSelectView", typeof(StageSelectView)).GetComponent<StageSelectView>(); stageSelect.Build(safe.transform, font, flow, () => settings?.Show(), RequestStageStart);
-            result = new GameObject("U46ResultView", typeof(ResultView)).GetComponent<ResultView>(); result.Build(safe.transform, font, catalog, new ResultPresenter(flow));
-            collection = new GameObject("U46CollectionView", typeof(CollectionView)).GetComponent<CollectionView>(); collection.Build(safe.transform, font, catalog, new CollectionPresenter(flow, save));
-            settings = new GameObject("SettingsView", typeof(SettingsView)).GetComponent<SettingsView>(); settings.Build(safe.transform, font, preferences, () => settings.Hide());
-            firstRun = new GameObject("FirstRunView", typeof(FirstRunView)).GetComponent<FirstRunView>(); firstRun.Build(safe.transform, font);
+            appFont = LoadFont(); var catalog = new U46UiAssetCatalog();
+            stageSelect = new GameObject("U46StageSelectView", typeof(StageSelectView)).GetComponent<StageSelectView>(); stageSelect.Build(safe.transform, appFont, flow, () => settings?.Show(), RequestStageStart);
+            result = new GameObject("U46ResultView", typeof(ResultView)).GetComponent<ResultView>(); result.Build(safe.transform, appFont, catalog, new ResultPresenter(flow));
+            collection = new GameObject("U46CollectionView", typeof(CollectionView)).GetComponent<CollectionView>(); collection.Build(safe.transform, appFont, catalog, new CollectionPresenter(flow, save));
+            settings = new GameObject("SettingsView", typeof(SettingsView)).GetComponent<SettingsView>(); settings.Build(safe.transform, appFont, preferences, () => settings.Hide());
+            firstRun = new GameObject("FirstRunView", typeof(FirstRunView)).GetComponent<FirstRunView>(); firstRun.Build(safe.transform, appFont);
+#if !VAMPPON_AI_SIMULATOR_SMOKE
+            loading = new GameObject("LoadingSeasonalView", typeof(LoadingSeasonalView)).GetComponent<LoadingSeasonalView>();
+            loading.Build(canvasObject.transform, appFont, CompleteLoading);
+#endif
         }
 
         private AppFlowCommandResult RequestStageStart(string stageId)
@@ -185,7 +199,6 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private static void ApplyPreferences(AppPreferenceSnapshot value)
         {
             U43RuntimeFeedbackBridge.Instance?.ApplySettings(value);
-        }
 
         private void ApplyState(AppFlowState state)
         {
@@ -195,6 +208,8 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
             if (stageSelect != null) stageSelect.gameObject.SetActive(state == AppFlowState.StageSelect);
             if (state != AppFlowState.StageSelect) firstRun?.Hide();
             if (battleHudRoot != null) battleHudRoot.gameObject.SetActive(state is AppFlowState.Running or AppFlowState.LevelUpModal);
+            if (loading != null) loading.gameObject.SetActive(state == AppFlowState.StageSelect && !loadingCompleted);
+            if (top != null) top.gameObject.SetActive(state == AppFlowState.StageSelect && loadingCompleted && !topDismissed);
             if (collection != null && state == AppFlowState.Collection) collection.Show(); else if (collection != null) collection.gameObject.SetActive(false);
             if (result != null && state == AppFlowState.Result)
             {
@@ -204,6 +219,43 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
                 if (flow.LastResult?.newlyUnlockedIds?.Count > 0) U43RuntimeFeedbackBridge.Instance?.PlayUnlockReveal();
             }
             else if (result != null) result.gameObject.SetActive(false);
+        }
+
+        private void CompleteLoading()
+        {
+            if (loadingCompleted) return;
+            loadingCompleted = true;
+
+            if (loading != null)
+            {
+                loading.gameObject.SetActive(false);
+                Destroy(loading.gameObject);
+                loading = null;
+            }
+
+            BuildTopIfNeeded();
+            if (flow != null) ApplyState(flow.State);
+        }
+
+        private void BuildTopIfNeeded()
+        {
+#if !VAMPPON_AI_SIMULATOR_SMOKE
+            if (top != null || appFlowCanvas == null) return;
+            top = new GameObject("TopLivingNightView", typeof(TopLivingNightView)).GetComponent<TopLivingNightView>();
+            top.Build(appFlowCanvas.transform, appFont, DismissTop, OpenCollectionFromTop);
+#endif
+        }
+
+        private void DismissTop()
+        {
+            topDismissed = true;
+            if (top != null) top.gameObject.SetActive(false);
+        }
+
+        private void OpenCollectionFromTop()
+        {
+            DismissTop();
+            flow?.Execute(AppFlowCommand.OpenCollection());
         }
 
         private void ApplyPause(bool pausedState)

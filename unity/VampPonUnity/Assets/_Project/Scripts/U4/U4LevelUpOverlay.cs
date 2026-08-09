@@ -149,13 +149,12 @@ namespace VampPon.UnitySpike.U4
                 r.anchorMax = new Vector2(0.5f, 0.5f);
                 r.pivot = new Vector2(0.5f, 0.5f);
                 r.anchoredPosition = new Vector2(0f, startY - i * (cardHeight + spacing) - cardHeight * 0.5f);
+                card.BeginEntrance(i * .035f);
                 cards[i] = card;
             }
 
             for (var i = 0; i < cards.Length; i++)
-            {
                 cards[i].SetClickCallback(OnCardClicked);
-            }
 
             confirmButton = PaperButton.Create(cardContainer, "決定", 148f, AppQualityTapTargets.Comfortable, OnConfirmPressed);
             confirmButton.SetFont(japaneseFont);
@@ -167,12 +166,18 @@ namespace VampPon.UnitySpike.U4
             confirmButton.gameObject.SetActive(false);
 
             UpdateHoverVisuals();
+            overlayGroup.alpha = IsReducedMotion() ? 1f : 0f;
             gameObject.SetActive(true);
         }
 
         public void Hide()
         {
             if (isClosing) return;
+            if (IsReducedMotion())
+            {
+                ClearAndDeactivate();
+                return;
+            }
             isClosing = true;
             fadeOutTimer = 0.15f;
         }
@@ -201,16 +206,19 @@ namespace VampPon.UnitySpike.U4
                 fadeOutTimer -= Time.unscaledDeltaTime;
                 overlayGroup.alpha = Mathf.Clamp01(fadeOutTimer / 0.15f);
                 if (fadeOutTimer <= 0f)
-                {
-                    ClearCards();
-                    onReplacementSlotSelected = null; onReplacementConfirmed = null; onReplacementCancelled = null;
-                    gameObject.SetActive(false);
-                }
+                    ClearAndDeactivate();
                 return;
             }
 
-            fadeTimer += Time.unscaledDeltaTime;
-            overlayGroup.alpha = Mathf.Clamp01(fadeTimer / 0.22f);
+            if (!IsReducedMotion())
+            {
+                fadeTimer += Time.unscaledDeltaTime;
+                overlayGroup.alpha = Mathf.Clamp01(fadeTimer / 0.18f);
+            }
+            else
+            {
+                overlayGroup.alpha = 1f;
+            }
 
             HandleInput();
         }
@@ -235,20 +243,14 @@ namespace VampPon.UnitySpike.U4
             }
 
             if (moved)
-            {
                 UpdateHoverVisuals();
-            }
 
             if (keyboard.enterKey.wasPressedThisFrame || keyboard.spaceKey.wasPressedThisFrame)
             {
                 if (selectedIndex >= 0)
-                {
                     OnConfirmPressed();
-                }
                 else
-                {
                     SelectCard(hoveredIndex);
-                }
             }
 
             if (keyboard.digit1Key.wasPressedThisFrame && cards.Length > 0) SelectCard(0);
@@ -256,9 +258,7 @@ namespace VampPon.UnitySpike.U4
             if (keyboard.digit3Key.wasPressedThisFrame && cards.Length > 2) SelectCard(2);
 
             if (selectedIndex >= 0 && keyboard.escapeKey.wasPressedThisFrame)
-            {
                 DeselectAll();
-            }
         }
 
         private void SelectCard(int index)
@@ -296,9 +296,7 @@ namespace VampPon.UnitySpike.U4
         {
             if (cards == null) return;
             for (var i = 0; i < cards.Length; i++)
-            {
                 cards[i].SetHovered(i == hoveredIndex && selectedIndex < 0);
-            }
         }
 
         private void OnCardClicked(int index)
@@ -320,31 +318,40 @@ namespace VampPon.UnitySpike.U4
             onChoiceConfirmed?.Invoke(choice);
         }
 
+        private void ClearAndDeactivate()
+        {
+            ClearCards();
+            onReplacementSlotSelected = null;
+            onReplacementConfirmed = null;
+            onReplacementCancelled = null;
+            isClosing = false;
+            overlayGroup.alpha = 0f;
+            gameObject.SetActive(false);
+        }
+
         private void ClearCards()
         {
             if (cardContainer == null) return;
             for (var i = cardContainer.childCount - 1; i >= 0; i--)
-            {
                 Destroy(cardContainer.GetChild(i).gameObject);
-            }
             cards = null;
             confirmButton = null;
         }
 
+        private static bool IsReducedMotion() =>
+            PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
+            PlayerPrefs.GetInt("reduce_motion", 0) == 1;
+
         private void OnDisable()
         {
             if (U4TimeScaleGuard.IsOverlayPaused)
-            {
                 U4TimeScaleGuard.ForceRestore();
-            }
         }
 
         private void OnDestroy()
         {
             if (U4TimeScaleGuard.IsOverlayPaused)
-            {
                 U4TimeScaleGuard.ForceRestore();
-            }
         }
     }
 }

@@ -44,6 +44,7 @@ docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
 docs/unity-u44-to-u51-app-quality-roadmap-2026-07-06.md
+docs/visual-production-system.md
 ```
 
 Historical U0-U45.1 documents are evidence/history, not standalone current instructions. A historical readiness JSON must never override the current readiness JSON.
@@ -112,16 +113,18 @@ productionApproved=false
 - Never promote readiness by editing evidence alone.
 - Never use an older Phase result as proof for the current Phase.
 - If active source-of-truth documents disagree, stop feature work and repair the contradiction first.
+- Point Filter only disables texture interpolation; it is not proof that character/enemy dot art or production visual readiness is complete.
+- Run `pnpm unity:runtime-visual-readiness:check` when changing runtime visual-provider, sprite-import, animation-readiness, or related gate documentation.
 
-## Runtime ownership
+## Professional visual production rule
 
 Source of truth:
 
 ```txt
-docs/unity-runtime-ownership-contract-v1.md
+docs/visual-production-system.md
 ```
 
-Rules:
+This applies to TOP and every other player-facing screen. Do not wait for the user to repeat it.
 
 - navigation and pause have one owner
 - UI sends commands; it does not implement battle or file I/O
@@ -131,18 +134,25 @@ Rules:
 - proof, candidate, and production asset approval levels remain separate
 - do not keep adding features directly to `U1Stage1SceneBootstrap`
 - do not add Result, Collection, save, permanent progression, AudioMixer policy, or release logic into `U2BattleController`
+- choose the rendering/animation technique from the screen's purpose, not from whatever older implementation already exists
+- before a substantial visual pass, verify current Unity/mobile production guidance when the technique or performance tradeoff may have changed
+- prefer semantic scene layers, registered alpha assets, local shaders/VFX, and event-driven motion over a flattened full-screen image when independent depth/light/motion matters
+- do not force the TOP solution onto every screen: Battle prioritizes readability, Result prioritizes staged reward reveal, Collection prioritizes material/paper tactility, Loading prioritizes fast lightweight transition
+- preserve an approved composite as art-direction authority while runtime uses a small meaningful layer pack when depth or local motion is required
+- do not explode scenes into dozens of textures; atlas/share materials where practical and measure mobile cost
+- Reduced Motion is a live runtime behavior, not a separate rebuilt screen
+- a final visual may not silently fall back to a weaker flattened representation when its production contract requires semantic layers
 
-## Title and term lock
+### Visual continuation with low context
 
 Use the formal title **ヨルノシルベ**. `Vamp Pon` / `ヴァンサバ改` are development code names.
 
 Use **黒耀化**, never `黒曜化`.
 
-Read:
+For the current visual implementation direction, read this compact entrypoint before pulling in more historical documents:
 
 ```txt
-docs/title-and-term-lock-2026-06-30.md
-docs/181-current-production-canon.md
+docs/agent-work/CURRENT_VISUAL_GOAL.md
 ```
 
 ## Runtime visual readiness
@@ -304,3 +314,13 @@ Unless explicitly overridden:
 - keep scale consistent across related frames
 
 `public/assets/sprites/` is retired and must not be recreated.
+### Deferred image-generation batch
+
+When image generation is intentionally deferred while runtime implementation continues, record required assets here instead of relying on conversation memory:
+
+```txt
+docs/agent-work/visual-asset-generation-queue.json
+docs/agent-work/claude-to-codex-image-batch-handoff.md
+```
+
+The queue is the priority/source-of-truth for which visually weak screens should receive generated assets. Do not regenerate screens listed under `doNotGenerateYet` without a new visual review. Claude may direct the batch, while Codex is the production worker that generates/saves assets and connects already-defined runtime paths. Keep requests small by reading only the active queue item, its referenced production contract, and required visual/character references.
