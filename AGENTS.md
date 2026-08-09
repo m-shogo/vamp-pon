@@ -19,6 +19,7 @@ docs/unity-runtime-ownership-contract-v1.md
 docs/unity-runtime-visual-readiness-gate-v1.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
+docs/visual-production-system.md
 ```
 
 Historical U0-U43 documents are evidence/history, not standalone current instructions.
@@ -58,6 +59,26 @@ Preserve the completed U45.1 provider, animation, pause, and candidate/final bou
 - Run relevant checks, commit, and push completed work.
 - Never call an image or implementation final without comparison to current in-repo baseline.
 - Never promote readiness by editing evidence alone.
+
+## Professional visual production rule
+
+Source of truth:
+
+```txt
+docs/visual-production-system.md
+```
+
+This applies to TOP and every other player-facing screen. Do not wait for the user to repeat it.
+
+- choose the rendering/animation technique from the screen's purpose, not from whatever older implementation already exists
+- before a substantial visual pass, verify current Unity/mobile production guidance when the technique or performance tradeoff may have changed
+- prefer semantic scene layers, registered alpha assets, local shaders/VFX, and event-driven motion over a flattened full-screen image when independent depth/light/motion matters
+- do not force the TOP solution onto every screen: Battle prioritizes readability, Result prioritizes staged reward reveal, Collection prioritizes material/paper tactility, Loading prioritizes fast lightweight transition
+- preserve an approved composite as art-direction authority while runtime uses a small meaningful layer pack when depth or local motion is required
+- do not explode scenes into dozens of textures; atlas/share materials where practical and measure mobile cost
+- Reduced Motion is a live runtime behavior, not a separate rebuilt screen
+- a final visual may not silently fall back to a weaker flattened representation when its production contract requires semantic layers
+- AI-generated artwork is source material, not the runtime architecture
 
 ## Runtime ownership
 
@@ -101,6 +122,7 @@ docs/design-source-of-truth-2026-06-30.md
 docs/unity-ui-design-system-v1.md
 docs/asset-generation-consistency-system-v1.md
 docs/unity-runtime-visual-readiness-gate-v1.md
+docs/visual-production-system.md
 ```
 
 Reference order:
