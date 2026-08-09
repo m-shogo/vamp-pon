@@ -1,14 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace VampPon.UnitySpike.UI.Screens
 {
-    /// <summary>
-    /// Result is a payoff screen, not an ambient scene. Reveal hierarchy once,
-    /// then settle completely so reward text stays readable.
-    /// </summary>
     public sealed class ResultRevealMotion : MonoBehaviour
     {
         private static readonly string[][] RevealGroups =
@@ -23,37 +18,37 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void OnEnable()
         {
-            if (routine != null)
-                StopCoroutine(routine);
+            if (routine != null) StopCoroutine(routine);
             routine = StartCoroutine(Reveal());
         }
 
         private void OnDisable()
         {
-            if (routine != null)
-                StopCoroutine(routine);
+            if (routine != null) StopCoroutine(routine);
             routine = null;
         }
 
         private IEnumerator Reveal()
         {
-            // Show() rebuilds ResultMemoryPage immediately before enabling this object.
             yield return null;
-
             var reducedMotion =
                 PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
                 PlayerPrefs.GetInt("reduce_motion", 0) == 1;
-
             var groups = ResolveGroups();
+            var baselines = new Dictionary<RectTransform, Vector2>();
+
             foreach (var group in groups)
                 foreach (var item in group)
-                    SetPose(item, 0f, reducedMotion ? 0f : -10f);
+                    if (!baselines.ContainsKey(item)) baselines.Add(item, item.anchoredPosition);
+
+            foreach (var group in groups)
+                foreach (var item in group)
+                    SetPose(item, baselines[item], 0f, reducedMotion ? 0f : -10f);
 
             if (reducedMotion)
             {
                 foreach (var group in groups)
-                    foreach (var item in group)
-                        SetPose(item, 1f, 0f);
+                    foreach (var item in group) SetPose(item, baselines[item], 1f, 0f);
                 routine = null;
                 yield break;
             }
@@ -67,31 +62,27 @@ namespace VampPon.UnitySpike.UI.Screens
                     var t = Mathf.Clamp01((Time.unscaledTime - start) / duration);
                     var eased = 1f - Mathf.Pow(1f - t, 3f);
                     foreach (var item in groups[groupIndex])
-                        SetPose(item, eased, Mathf.Lerp(-10f, 0f, eased));
+                        SetPose(item, baselines[item], eased, Mathf.Lerp(-10f, 0f, eased));
                     yield return null;
                 }
-
-                foreach (var item in groups[groupIndex])
-                    SetPose(item, 1f, 0f);
-
+                foreach (var item in groups[groupIndex]) SetPose(item, baselines[item], 1f, 0f);
                 if (groupIndex < groups.Count - 1)
                 {
                     var gapStart = Time.unscaledTime;
-                    while (Time.unscaledTime - gapStart < .055f)
-                        yield return null;
+                    while (Time.unscaledTime - gapStart < .055f) yield return null;
                 }
             }
-
             routine = null;
         }
 
         private List<List<RectTransform>> ResolveGroups()
         {
             var result = new List<List<RectTransform>>();
+            var rects = GetComponentsInChildren<RectTransform>(true);
             foreach (var names in RevealGroups)
             {
                 var group = new List<RectTransform>();
-                foreach (var rect in GetComponentsInChildren<RectTransform>(true))
+                foreach (var rect in rects)
                     foreach (var name in names)
                         if (rect.name == name)
                         {
@@ -103,19 +94,13 @@ namespace VampPon.UnitySpike.UI.Screens
             return result;
         }
 
-        private static void SetPose(RectTransform rect, float alpha, float y)
+        private static void SetPose(RectTransform rect, Vector2 baseline, float alpha, float yOffset)
         {
-            if (rect == null)
-                return;
-
+            if (rect == null) return;
             var canvasGroup = rect.GetComponent<CanvasGroup>();
-            if (canvasGroup == null)
-                canvasGroup = rect.gameObject.AddComponent<CanvasGroup>();
+            if (canvasGroup == null) canvasGroup = rect.gameObject.AddComponent<CanvasGroup>();
             canvasGroup.alpha = alpha;
-
-            var position = rect.anchoredPosition;
-            position.y = y;
-            rect.anchoredPosition = position;
+            rect.anchoredPosition = baseline + new Vector2(0f, yOffset);
         }
     }
 }
