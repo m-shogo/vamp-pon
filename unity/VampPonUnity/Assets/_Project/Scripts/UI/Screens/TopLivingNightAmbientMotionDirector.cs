@@ -26,6 +26,10 @@ namespace VampPon.UnitySpike.UI.Screens
         private RectTransform titleRoot;
         private RectTransform cloudsFar;
         private RectTransform cloudsNear;
+        private RectTransform distantCompanion;
+        private RectTransform characters;
+        private RectTransform animalRobot;
+        private RectTransform foreground;
         private RawImage stars;
         private RawImage distantLights;
         private RawImage fireGlow;
@@ -36,6 +40,10 @@ namespace VampPon.UnitySpike.UI.Screens
         private readonly Vector2 titleBasePosition = Vector2.zero;
         private readonly Vector2 farBasePosition = Vector2.zero;
         private readonly Vector2 nearBasePosition = Vector2.zero;
+        private readonly Vector2 distantBasePosition = Vector2.zero;
+        private readonly Vector2 charactersBasePosition = Vector2.zero;
+        private readonly Vector2 animalRobotBasePosition = Vector2.zero;
+        private readonly Vector2 foregroundBasePosition = Vector2.zero;
         private float nextSearchAt;
         private float nextPreferencePollAt;
         private bool reducedMotion;
@@ -104,7 +112,9 @@ namespace VampPon.UnitySpike.UI.Screens
             }
 
             ApplyBreathingNight(time);
+            ApplyDepthParallax(time);
             ApplyNormalMotionVisuals(time);
+            ApplyParticleAirflow(time);
         }
 
         private void Bind(TopLivingNightView current)
@@ -115,6 +125,10 @@ namespace VampPon.UnitySpike.UI.Screens
             titleRoot = null;
             cloudsFar = null;
             cloudsNear = null;
+            distantCompanion = null;
+            characters = null;
+            animalRobot = null;
+            foreground = null;
             stars = null;
             distantLights = null;
             fireGlow = null;
@@ -131,6 +145,10 @@ namespace VampPon.UnitySpike.UI.Screens
             titleRoot = FindRect(top.transform, "TitleGroup");
             cloudsFar = FindRect(top.transform, "CloudsFar");
             cloudsNear = FindRect(top.transform, "CloudsNear");
+            distantCompanion = FindRect(top.transform, "DistantCompanion");
+            characters = FindRect(top.transform, "Characters");
+            animalRobot = FindRect(top.transform, "AnimalRobot");
+            foreground = FindRect(top.transform, "Foreground");
             RefreshVisualBindings();
 
             if (artRoot == null || titleRoot == null || cloudsFar == null || cloudsNear == null)
@@ -142,10 +160,9 @@ namespace VampPon.UnitySpike.UI.Screens
 
             artBasePosition = artRoot.anchoredPosition;
             artBaseScale = artRoot.localScale;
-            // TopLivingNightView authors TitleGroup and both cloud layers at the
-            // zero anchored pose. The view applies its own short-period motion
-            // before this director runs, so capturing their current values here
-            // would accidentally freeze an arbitrary animation offset in Reduced Motion.
+            // Full-canvas authored layers use zero anchored position. Capturing
+            // that canonical pose rather than the view's current animated offset
+            // lets live Reduced Motion settle without a visual jump or stale drift.
             poseCaptured = true;
         }
 
@@ -224,13 +241,44 @@ namespace VampPon.UnitySpike.UI.Screens
             var titleY = (Mathf.PerlinNoise(7.33f, time * .047f) - .5f) * .7f;
             titleRoot.anchoredPosition = titleBasePosition + new Vector2(0f, titleY);
 
-            var farX = (Mathf.PerlinNoise(11.17f, time * .023f) - .5f) * 5.8f;
-            var farY = (Mathf.PerlinNoise(13.61f, time * .017f) - .5f) * 1.0f;
+            // Sky owns the broadest visible movement. Far and near clouds use
+            // unrelated frequencies and amplitudes so the scene gains depth
+            // without a camera-pan loop.
+            var farX = (Mathf.PerlinNoise(11.17f, time * .023f) - .5f) * 8.2f;
+            var farY = (Mathf.PerlinNoise(13.61f, time * .017f) - .5f) * 1.2f;
             cloudsFar.anchoredPosition = farBasePosition + new Vector2(farX, farY);
 
-            var nearX = (Mathf.PerlinNoise(17.29f, time * .037f) - .5f) * 9.2f;
-            var nearY = (Mathf.PerlinNoise(19.87f, time * .029f) - .5f) * 1.5f;
+            var nearX = (Mathf.PerlinNoise(17.29f, time * .037f) - .5f) * 14.4f;
+            var nearY = (Mathf.PerlinNoise(19.87f, time * .029f) - .5f) * 2.0f;
             cloudsNear.anchoredPosition = nearBasePosition + new Vector2(nearX, nearY);
+        }
+
+        private void ApplyDepthParallax(float time)
+        {
+            // Semantic depth bands are deliberately tiny. The movement should be
+            // read subconsciously as a living illustration, not as a moving UI.
+            var horizontal = Mathf.PerlinNoise(23.41f, time * .026f) - .5f;
+            var vertical = Mathf.PerlinNoise(27.13f, time * .021f) - .5f;
+            var gust = Mathf.SmoothStep(
+                0f,
+                1f,
+                Mathf.InverseLerp(.72f, .94f, Mathf.PerlinNoise(33.71f, time * .012f)));
+
+            if (distantCompanion != null)
+                distantCompanion.anchoredPosition = distantBasePosition +
+                    new Vector2(horizontal * 1.8f + gust * .8f, vertical * .5f);
+
+            if (characters != null)
+                characters.anchoredPosition = charactersBasePosition +
+                    new Vector2(horizontal * .55f, vertical * .32f);
+
+            if (animalRobot != null)
+                animalRobot.anchoredPosition = animalRobotBasePosition +
+                    new Vector2(horizontal * .9f, vertical * .42f);
+
+            if (foreground != null)
+                foreground.anchoredPosition = foregroundBasePosition +
+                    new Vector2(horizontal * 2.8f + gust * 1.2f, vertical * .75f);
         }
 
         private void ApplyNormalMotionVisuals(float time)
@@ -312,6 +360,40 @@ namespace VampPon.UnitySpike.UI.Screens
             }
         }
 
+        private void ApplyParticleAirflow(float time)
+        {
+            // TopLivingNightView owns each particle's rise/reset lifecycle. This
+            // pass adds a second, non-periodic airflow vector afterwards, keeping
+            // smoke/embers coherent with sky gusts without reallocating particles.
+            var sharedWind = Mathf.PerlinNoise(91.7f, time * .043f) - .5f;
+
+            for (var index = 0; index < smoke.Count; index++)
+            {
+                var image = smoke[index];
+                if (image == null || image.color.a <= .001f)
+                    continue;
+
+                var localWind = Mathf.PerlinNoise(101.3f + index * 4.7f, time * (.061f + index * .003f)) - .5f;
+                var liftNoise = Mathf.PerlinNoise(111.9f + index * 2.9f, time * .052f) - .5f;
+                image.rectTransform.anchoredPosition +=
+                    new Vector2(sharedWind * 7f + localWind * 5f, liftNoise * 2.4f);
+                image.rectTransform.localRotation =
+                    Quaternion.Euler(0f, 0f, (sharedWind + localWind) * 2.2f);
+            }
+
+            for (var index = 0; index < embers.Count; index++)
+            {
+                var image = embers[index];
+                if (image == null || image.color.a <= .001f)
+                    continue;
+
+                var localWind = Mathf.PerlinNoise(123.1f + index * 1.9f, time * (.13f + (index % 3) * .017f)) - .5f;
+                var flutter = Mathf.PerlinNoise(137.7f + index * 3.3f, time * .31f) - .5f;
+                image.rectTransform.anchoredPosition +=
+                    new Vector2(sharedWind * 5.5f + localWind * 7.5f, flutter * 3.4f);
+            }
+        }
+
         private void ApplyReducedMotionVisuals(float time)
         {
             // TopLivingNightView may still hold the preference value it read when
@@ -336,7 +418,10 @@ namespace VampPon.UnitySpike.UI.Screens
                 robotEye.color = WithAlpha(robotEye.color, 0f);
             foreach (var image in smoke)
                 if (image != null)
+                {
                     image.color = WithAlpha(image.color, 0f);
+                    image.rectTransform.localRotation = Quaternion.identity;
+                }
             foreach (var image in embers)
                 if (image != null)
                     image.color = WithAlpha(image.color, 0f);
@@ -365,6 +450,14 @@ namespace VampPon.UnitySpike.UI.Screens
                 cloudsFar.anchoredPosition = farBasePosition;
             if (cloudsNear != null)
                 cloudsNear.anchoredPosition = nearBasePosition;
+            if (distantCompanion != null)
+                distantCompanion.anchoredPosition = distantBasePosition;
+            if (characters != null)
+                characters.anchoredPosition = charactersBasePosition;
+            if (animalRobot != null)
+                animalRobot.anchoredPosition = animalRobotBasePosition;
+            if (foreground != null)
+                foreground.anchoredPosition = foregroundBasePosition;
         }
 
         private static RectTransform FindRect(Transform root, string name)
