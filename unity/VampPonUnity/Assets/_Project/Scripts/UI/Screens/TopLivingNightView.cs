@@ -116,7 +116,7 @@ namespace VampPon.UnitySpike.UI.Screens
             reducedMotion =
                 PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
                 PlayerPrefs.GetInt("reduce_motion", 0) == 1;
-            loadRoutine = StartCoroutine(LoadAllTextures());
+            BeginTextureLoadIfNeeded();
         }
 
         private void CreateFullLayer(LayerDefinition definition)
@@ -232,6 +232,24 @@ namespace VampPon.UnitySpike.UI.Screens
                 TextAlignmentOptions.Center,
                 font);
             status.raycastTarget = false;
+        }
+
+        private void BeginTextureLoadIfNeeded()
+        {
+            if (!isActiveAndEnabled || artRoot == null || loadRoutine != null)
+                return;
+
+            var alreadyLoaded =
+                resourceTextures.Count > 0 ||
+                editorTextures.Count > 0 ||
+                (fire != null && fire.texture != null);
+            if (alreadyLoaded)
+                return;
+
+            loadFailures = 0;
+            if (status != null)
+                status.text = "夜景を整えています…";
+            loadRoutine = StartCoroutine(LoadAllTextures());
         }
 
         private IEnumerator LoadAllTextures()
@@ -512,6 +530,14 @@ namespace VampPon.UnitySpike.UI.Screens
             }
         }
 
+        private void OnEnable()
+        {
+            // Build may activate the GameObject before artRoot exists. In that case
+            // Build() starts the initial load; this path is for TOP re-entry after
+            // StageSelect / Collection released its previous texture residency.
+            BeginTextureLoadIfNeeded();
+        }
+
         private void OnDisable()
         {
             fireTimer = 0f;
@@ -536,6 +562,16 @@ namespace VampPon.UnitySpike.UI.Screens
             foreach (var image in GetComponentsInChildren<RawImage>(true))
                 image.texture = null;
 
+            foreach (var particle in smoke)
+                if (particle?.Image != null)
+                    Destroy(particle.Image.gameObject);
+            smoke.Clear();
+
+            foreach (var particle in embers)
+                if (particle?.Image != null)
+                    Destroy(particle.Image.gameObject);
+            embers.Clear();
+
             foreach (var texture in editorTextures)
                 if (texture != null) Destroy(texture);
             editorTextures.Clear();
@@ -544,9 +580,9 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (texture != null) Resources.UnloadAsset(texture);
             resourceTextures.Clear();
 
-            smoke.Clear();
-            embers.Clear();
-            Resources.UnloadUnusedAssets();
+            // Do not call Resources.UnloadUnusedAssets() on every TOP transition.
+            // The targeted assets above are explicitly released; global unloading
+            // here can introduce a visible StageSelect/Collection navigation hitch.
         }
 
         private static string ResolveEditorUri(string fileName)
