@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-08-09",
-  "statusRule": "Current laws and confirmed object facts may be CANON. Missing handoffs, exact years, and unproven shared-object links remain explicit gaps and are never inferred as CANON.",
+  "statusRule": "Title 1 laws may become CANON only through explicit authority promotion. Object lineages and Relative Era placement remain CANDIDATE until that promotion; missing handoffs, exact years, and unproven shared-object links stay explicit gaps and are never inferred as CANON.",
   "sources": ["docs/CANON.md", "docs/CHARACTERS.md", "docs/character-book-v4.md", "docs/RELATIONSHIPS.md", "docs/night-black-ink-star-beast-canon-v1.md", "src/game/data/characterCanon.ts", "src/game/data/reserveCharacterCanon.ts"],
   "timeLayers": [
-    {"id":"reality","label":"現実の時間","status":"CANON","summary":"人物は必ずしも同時代ではない。物・言葉・記録は現実時間の順序を持って継承される。"},
-    {"id":"night","label":"夜の時間","status":"CANON","summary":"未完の意味が別時代を越えて重なる境界層。人物は出会い、戦い、食べ、失敗し、夜で新しい関係を作れる。"},
-    {"id":"dawn","label":"それぞれの朝","status":"CANON","summary":"朝へ帰れば自分の時代・人生へ戻る。夜で選び直したことは、物の扱い・言葉・小さな行動として現実へ残る。"}
+    {"id":"reality","label":"現実の時間","status":"USER_DIRECTION","summary":"人物は必ずしも同時代ではない。物・言葉・記録は現実時間の順序を持って継承される。"},
+    {"id":"night","label":"夜の時間","status":"USER_DIRECTION","summary":"未完の意味が別時代を越えて重なる境界層として扱う方向。人物は出会い、戦い、食べ、失敗し、夜で新しい関係を作れる。"},
+    {"id":"dawn","label":"それぞれの朝","status":"USER_DIRECTION","summary":"朝へ帰れば自分の時代・人生へ戻る。夜で選び直したことは、物の扱い・言葉・小さな行動として現実へ残る方向。"}
   ],
   "objectThreads": [
     {
-      "id":"thread-lantern","label":"修理痕のあるランタン","kind":"confirmed object lineage / handoff gap","status":"CANON","confidence":"CONFIRMED CORE / handoff unknown",
+      "id":"thread-lantern","label":"修理痕のあるランタン","kind":"named-object candidate lineage / handoff gap","status":"CANDIDATE","confidence":"HIGH-VALUE / proposed core / handoff unknown",
       "members":["tomori","yui"],
-      "known":["トモリはユイより前の現実時代で、後にユイへ届く同じ物理ランタンを修理した。","ランタンは複数の手を経て現実時間を渡り、後世のユイへ届いた。","ユイが握っていた修理痕にはトモリの仕事が含まれる。","ユイとトモリのLeo共有は同じ灯り / object lineageへの共鳴で、血縁Canonではない。"],
-      "gap":"トモリの後に誰が所有し、どの順序・期間でユイへ渡ったか。最初の製作者も未確定。",
-      "payoff":"『昔の誰かの手仕事を、後世の主人公がずっと握っていた』ことを、血縁ではなく物の履歴で成立させる。"
+      "known":["強い候補: トモリはユイより前の現実時代で、後にユイへ届く同じ物理ランタンを修理した。","強い候補: ランタンは複数の手を経て現実時間を渡り、後世のユイへ届いた。","強い候補: ユイが握っていた修理痕にはトモリの仕事が含まれる。","Leo共有を同じ灯り / object lineageへの共鳴とする案は、血縁Canonを増やさず関係へ意味を持たせられる。"],
+      "gap":"同一ランタンlineageをHuman promotionするか。採用する場合も、トモリの後に誰が所有し、どの順序・期間でユイへ渡ったか、最初の製作者は未確定。",
+      "payoff":"『昔の誰かの手仕事を、後世の主人公がずっと握っていた』ことを、血縁ではなく物の履歴で成立させられる。"
     },
     {
       "id":"thread-route","label":"古い道 / 帰る道 / 門","kind":"route-memory lineage","status":"CANDIDATE","confidence":"MEDIUM-HIGH",
@@ -46,7 +46,7 @@
     }
   ],
   "eraMethod": {
-    "status":"CANON",
+    "status":"CANDIDATE",
     "principle":"西暦を付ける前に、evidence-based Relative Eraを持つ。人物の年齢と人物の時代は別dataとして扱い、根拠不足はUNKNOWNとして残す。",
     "layers":[
       {"id":"OLD","label":"OLD","meaning":"他人物との比較で古い生活・道具・routeの痕跡が強い。"},
@@ -57,7 +57,7 @@
     "requiredEvidence":["languageMarker","technologyMarker","dailyLifeMarker","objectLineageLink","source","confidence"],
     "firstAnchors":[
       {"characterId":"gen","note":"古い道 / 古いコンパスはOLD側の強いevidence候補。ただし高齢者であること自体はera根拠にしない。"},
-      {"characterId":"tomori","note":"同一ランタンlineageによりユイより前のrelative placementはCANON。exact layer / yearは追加evidenceで決める。"},
+      {"characterId":"tomori","note":"同一ランタンlineageを採用する場合はユイより前のrelative placement候補になる。Human promotion前にexact layer / yearへ固定しない。"},
       {"characterId":"yuubi","note":"郵便・消印・配達routeはTRANSIT marker候補。ただし郵便文化は長期間続くため単独で年代を決めない。"},
       {"characterId":"tobari","note":"駅 / 改札 / 切符はTRANSIT marker候補。具体様式・材質・運用が決まるまで年代幅を広く取る。"}
     ]
