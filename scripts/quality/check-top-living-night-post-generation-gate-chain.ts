@@ -5,6 +5,14 @@ const root = process.cwd();
 const read = (path: string) => JSON.parse(readFileSync(join(root, path), 'utf8')) as any;
 const bundle = read('docs/design-targets/generated/top-living-night-v3/final-generation-bundle.json') as {
   status: string;
+  semanticLayerRuntime: {
+    registrar: string;
+    requiredLayers: string[];
+    candidateShaBound: boolean;
+    core5ReferenceSetBound: boolean;
+    perLayerShaBound: boolean;
+    flattenedFinalFallbackAllowed: boolean;
+  };
   postGenerationExecutionPlan: Array<{ phase: string; requires: string[]; parallel: string[] }>;
   requiredPostGenerationChecks: string[];
 };
@@ -48,16 +56,42 @@ for (const path of required) {
   invariant(existsSync(join(root, path)), `post-generation gate is missing: ${path}`);
 }
 
+const semantic = bundle.semanticLayerRuntime;
+invariant(existsSync(join(root, semantic.registrar)), 'semantic layer registrar is missing');
+invariant(semantic.requiredLayers.length === 6, 'semantic runtime requires exactly six coarse production layers');
+invariant(semantic.candidateShaBound, 'semantic runtime must bind final candidate SHA');
+invariant(semantic.core5ReferenceSetBound, 'semantic runtime must bind Core5 reference-set SHA');
+invariant(semantic.perLayerShaBound, 'semantic runtime must bind each layer SHA');
+invariant(semantic.flattenedFinalFallbackAllowed === false, 'final runtime must not silently fall back to flattened final');
+
 invariant(
   JSON.stringify(bundle.postGenerationExecutionPlan.map(phase => phase.phase)) ===
     JSON.stringify([
-      'candidate-static-and-unity',
+      'candidate-and-semantic-pack',
+      'unity-v3',
       'runtime-observation',
       'capture-human-review',
       'device-performance',
       'final-promotion',
     ]),
   'final TOP dependency phases are incomplete or reordered',
+);
+
+const candidatePhase = bundle.postGenerationExecutionPlan[0];
+invariant(
+  candidatePhase.parallel.includes('semantic-layer-pack-registration'),
+  'final candidate phase must register the semantic layer pack before Unity V3',
+);
+const unityPhase = bundle.postGenerationExecutionPlan[1];
+invariant(
+  unityPhase.requires.includes('semantic-layer-pack-registration') &&
+    unityPhase.parallel.includes('unity-v3-verification'),
+  'Unity V3 verification must depend on registered semantic final layers',
+);
+const finalPhase = bundle.postGenerationExecutionPlan[bundle.postGenerationExecutionPlan.length - 1];
+invariant(
+  finalPhase.requires.includes('unity-v3-verification'),
+  'final promotion must explicitly require Unity V3 verification of the semantic runtime path',
 );
 
 const motionExecuted = motion.normalMotion?.executed || motion.reducedMotion?.executed;
@@ -102,6 +136,7 @@ for (const [name, target] of [
 }
 
 console.log('TOP Living Night post-generation gate chain: PASS');
-console.log('parallel plan: candidate -> [Core5, crops, Unity] -> after Unity [motion, capture] -> after capture [human, device] -> promotion');
+console.log('parallel plan: candidate -> [Core5, crops, semantic pack] -> Unity -> [motion, capture] -> human/device -> promotion');
+console.log('final Unity cannot pass through a flattened-only path; semantic pack registration is an explicit prerequisite');
 console.log('motion is bound after Unity; human is bound after capture; device evidence is bound after Unity + capture');
 console.log('generation remains non-final; runtime/review execution may still be NOT_RUN');
