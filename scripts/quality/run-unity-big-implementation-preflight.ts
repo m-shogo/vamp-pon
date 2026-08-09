@@ -10,6 +10,32 @@ const packageJson = JSON.parse(readFileSync('package.json', 'utf8')) as {
 };
 assertFullPreflightManifest(packageJson.scripts ?? {});
 
+const directChecks = [
+  'scripts/quality/check-top-living-night-layer-kit.ts',
+  'scripts/quality/check-top-living-night-runtime.ts',
+  'scripts/quality/check-top-living-night-unity-evidence.ts',
+  'scripts/quality/check-loading-top-runtime.ts',
+] as const;
+
+for (const check of directChecks) {
+  console.log(`\n=== node --experimental-strip-types ${check} ===`);
+  const result = spawnSync(process.execPath, ['--experimental-strip-types', check], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+    env: process.env,
+  });
+
+  if (result.error) {
+    console.error(`Failed to start ${check}: ${result.error.message}`);
+    process.exit(1);
+  }
+
+  if (result.status !== 0) {
+    console.error(`Preflight stopped: ${check} exited with ${result.status ?? 'unknown status'}`);
+    process.exit(result.status ?? 1);
+  }
+}
+
 for (const script of requiredFullPreflightChecks) {
   console.log(`\n=== pnpm ${script} ===`);
   const result = spawnSync('pnpm', [script], {

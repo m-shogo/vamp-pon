@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "loading-seasonal.0.1",
+  "assetId": "loading:seasonal:v1",
+  "flow": "Loading -> TOP -> StageSelect/Collection",
+  "assetStatus": "runtime-connected-seasonal-binaries",
+  "runtimeConnected": true,
+  "randomRotation": true,
+  "consecutiveRepeatPrevented": true,
+  "usesFallbackSources": false,
+  "desiredSeasonalSources": [
+    {
+      "id": "spring",
+      "title": "桜灯る夜、記憶を辿る仲間たち.png"
+    },
+    {
+      "id": "summer",
+      "title": "湖畔に灯る夏の星祭り.png"
+    },
+    {
+      "id": "autumn",
+      "title": "紅葉舞う黄昏の森駅.png"
+    },
+    {
+      "id": "winter",
+      "title": "雪灯りの町を舞う記憶の紙飛行機.png"
+    }
+  ],
+  "assets": [
+    {
+      "id": "spring",
+      "desiredSourceTitle": "桜灯る夜、記憶を辿る仲間たち.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-01-spring.png",
+      "resourceFile": "loading-01-spring.png",
+      "width": 853,
+      "height": 1844,
+      "sha256": "1507daac222250bda76e7d38385b0b82e4b00197ec98d02f67f3663ae09fe496"
+    },
+    {
+      "id": "summer",
+      "desiredSourceTitle": "湖畔に灯る夏の星祭り.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-02-summer.png",
+      "resourceFile": "loading-02-summer.png",
+      "width": 852,
+      "height": 1846,
+      "sha256": "78be422ee01caa0a81f50fd10a385ec596bc2053079d7b4909d39e2f1d96e2a4"
+    },
+    {
+      "id": "autumn",
+      "desiredSourceTitle": "紅葉舞う黄昏の森駅.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-03-autumn.png",
+      "resourceFile": "loading-03-autumn.png",
+      "width": 853,
+      "height": 1844,
+      "sha256": "c788861e8609cc1322fc14e913d01fec62d09201af348a577800e6309d5ace40"
+    },
+    {
+      "id": "winter",
+      "desiredSourceTitle": "雪灯りの町を舞う記憶の紙飛行機.png",
+      "sourceStatus": "seasonal-source",
+      "sourcePath": "docs/design-targets/generated/loading-seasonal-v1/sources/loading-04-winter.png",
+      "resourceFile": "loading-04-winter.png",
+      "width": 853,
+      "height": 1844,
+      "sha256": "015f725af547609e680ca19f1c12af8eb43b3413f7dffe32594a9ed19b3be0b1"
+    }
+  ],
+  "capture": {
+    "forcedArtArgument": "-vampPonLoadingArt=0..3",
+    "editorCaptureHold": true,
+    "targetResolutions": [
+      "360x800",
+      "390x844",
+      "430x932"
+    ],
+    "requiredFrames": [
+      "loading-spring",
+      "loading-summer",
+      "loading-autumn",
+      "loading-winter",
+      "top"
+    ]
+  },
+  "approval": {
+    "runtimeFlowImplemented": true,
+    "seasonalBinariesCommitted": true,
+    "runtimeCaptureComplete": false,
+    "humanVisualReviewComplete": false,
+    "approvedAsFinal": false,
+    "runtimeApproved": false,
+    "finalApprovalBlocked": true
+  }
+}

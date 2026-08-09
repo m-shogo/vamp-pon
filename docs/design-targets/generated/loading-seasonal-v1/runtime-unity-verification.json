@@ -1,0 +1,19 @@
+{
+    "schemaVersion": 2,
+    "executed": true,
+    "result": "PASSED",
+    "verifiedCommit": "c392c8c32bb41561a579afed8082c2b90f91e22e",
+    "unityVersion": "6000.5.1f1",
+    "assertionCount": 154,
+    "failureCount": 0,
+    "sourceAssetCount": 4,
+    "resourceTextureCount": 4,
+    "loadingViewResolved": true,
+    "flowContractResolved": true,
+    "randomRotationPassed": true,
+    "buildHookResolved": true,
+    "manifestProvenancePassed": true,
+    "buildImportPolicyPassed": true,
+    "generatedAtUtc": "2026-08-06T05:09:56.4096330Z",
+    "error": ""
+}
