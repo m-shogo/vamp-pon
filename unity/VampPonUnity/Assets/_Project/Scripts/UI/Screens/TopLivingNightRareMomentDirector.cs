@@ -20,7 +20,7 @@ namespace VampPon.UnitySpike.UI.Screens
         }
 
         private static TopLivingNightRareMomentDirector instance;
-        private readonly System.Random random = new(0x5A17C3);
+        private System.Random random;
 
         private TopLivingNightView top;
         private RectTransform cloudsFar;
@@ -28,6 +28,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private RectTransform foreground;
         private RawImage stars;
         private RawImage distantLights;
+        private Quaternion foregroundBaseRotation = Quaternion.identity;
         private float nextSearchAt;
         private float nextPreferencePollAt;
         private float nextMomentAt;
@@ -63,6 +64,9 @@ namespace VampPon.UnitySpike.UI.Screens
 
             instance = this;
             DontDestroyOnLoad(gameObject);
+            // Local RNG varies rare moments per launch without touching UnityEngine.Random,
+            // so gameplay random state remains completely unaffected.
+            random = new System.Random(unchecked(Environment.TickCount * 397 ^ DateTime.UtcNow.Millisecond));
             reducedMotion = ReadReducedMotion();
             ScheduleNext(Time.unscaledTime, first: true);
         }
@@ -88,17 +92,22 @@ namespace VampPon.UnitySpike.UI.Screens
                 {
                     reducedMotion = nextReduced;
                     if (reducedMotion)
-                        EndMoment(time);
+                        EndMoment(time, scheduleNext: false);
                     else
                         ScheduleNext(time, first: true);
                 }
             }
 
             if (top == null || !top.isActiveAndEnabled)
+            {
+                RestoreRarePose();
+                active = false;
                 return;
+            }
 
             if (reducedMotion)
             {
+                RestoreRarePose();
                 active = false;
                 return;
             }
@@ -116,11 +125,12 @@ namespace VampPon.UnitySpike.UI.Screens
             ApplyMoment(envelope);
 
             if (normalized >= 1f)
-                EndMoment(time);
+                EndMoment(time, scheduleNext: true);
         }
 
         private void Bind(TopLivingNightView current)
         {
+            RestoreRarePose();
             top = current;
             cloudsFar = null;
             cloudsNear = null;
@@ -129,6 +139,8 @@ namespace VampPon.UnitySpike.UI.Screens
             distantLights = null;
             active = false;
             RefreshBindings();
+            if (foreground != null)
+                foregroundBaseRotation = foreground.localRotation;
             ScheduleNext(Time.unscaledTime, first: true);
         }
 
@@ -163,10 +175,12 @@ namespace VampPon.UnitySpike.UI.Screens
             active = true;
         }
 
-        private void EndMoment(float time)
+        private void EndMoment(float time, bool scheduleNext)
         {
+            RestoreRarePose();
             active = false;
-            ScheduleNext(time, first: false);
+            if (scheduleNext)
+                ScheduleNext(time, first: false);
         }
 
         private void ApplyMoment(float envelope)
@@ -192,7 +206,7 @@ namespace VampPon.UnitySpike.UI.Screens
                     if (foreground != null)
                     {
                         foreground.anchoredPosition += new Vector2(direction * 3.2f * envelope, .7f * envelope);
-                        foreground.localRotation = Quaternion.Euler(0f, 0f, direction * .42f * envelope);
+                        foreground.localRotation = foregroundBaseRotation * Quaternion.Euler(0f, 0f, direction * .42f * envelope);
                     }
                     break;
 
@@ -207,6 +221,12 @@ namespace VampPon.UnitySpike.UI.Screens
                         cloudsFar.anchoredPosition += new Vector2(direction * 2.5f * envelope, 0f);
                     break;
             }
+        }
+
+        private void RestoreRarePose()
+        {
+            if (foreground != null)
+                foreground.localRotation = foregroundBaseRotation;
         }
 
         private void ScheduleNext(float time, bool first)
@@ -240,8 +260,7 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void OnDestroy()
         {
-            if (foreground != null)
-                foreground.localRotation = Quaternion.identity;
+            RestoreRarePose();
             if (instance == this)
                 instance = null;
         }
