@@ -8,14 +8,53 @@ on:
       - completed
     branches:
       - main
+  pull_request:
+    types:
+      - closed
 
 permissions:
   contents: write
   pull-requests: read
 
 jobs:
+  delete-closed-title1-proposal:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.number == 89 &&
+      github.event.pull_request.merged == false &&
+      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.head.ref == 'agent/title1-canon-series-foundation-v3'
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Delete only the exact branch head preserved by closed PR 89
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch='agent/title1-canon-series-foundation-v3'
+          actual="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${branch}" --jq '.object.sha' 2>/dev/null || true)"
+          if [ -z "$actual" ]; then
+            echo "Already absent: ${branch}"
+            exit 0
+          fi
+          if [ "$actual" != "$EXPECTED_HEAD" ]; then
+            echo "::error::Proposal branch moved after PR close: expected ${EXPECTED_HEAD}, got ${actual}"
+            exit 1
+          fi
+          state="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/89" --jq '.state')"
+          merged_at="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/89" --jq '.merged_at // ""')"
+          head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/89" --jq '.head.sha')"
+          if [ "$state" != 'closed' ] || [ -n "$merged_at" ] || [ "$head" != "$EXPECTED_HEAD" ]; then
+            echo "::error::PR89 preservation proof changed"
+            exit 1
+          fi
+          gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
+          echo "Deleted preserved proposal branch: ${branch}"
+
   delete-audited-branches:
-    if: github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
@@ -133,7 +172,7 @@ jobs:
           verify_exact_merged_branch chore/main-ci-cleanup-trigger
           verify_exact_merged_branch integration/lorebook-dawn-series-safe
           verify_superseded_pr85
-          verify_closed_unmerged_proposal 88 agent/title1-canon-series-foundation-v3 f5eb6768b6b5a28e64ebeeb9a492231239657ce4
+          verify_closed_unmerged_proposal 89 agent/title1-canon-series-foundation-v3 b441968b9e13d93cc910cfe52f061cc2ee7aa5f9
           verify_exact_merged_branch chore/final-remote-branch-cleanup
 
           delete_branch_if_present chore/main-ci-cleanup-trigger
