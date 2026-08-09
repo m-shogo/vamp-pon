@@ -1,6 +1,6 @@
 # TOP Living Night V3 — Layered Final Production Contract
 
-Status: production contract for PR #78 Draft. This does **not** approve any final Core5 art or runtime evidence.
+Status: current main production contract. Historical PR #78 is integration context only. This does **not** approve any final Core5 art or runtime evidence.
 
 ## Why this exists
 
