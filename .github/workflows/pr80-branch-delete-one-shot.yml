@@ -10,12 +10,12 @@ permissions:
   pull-requests: read
 
 jobs:
-  fire-final-cleanup-v2:
+  fire-final-cleanup-v3:
     if: >-
       github.event.pull_request.merged == false &&
       github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.head.ref == 'chore/final-cleanup-fire-v2' &&
-      github.event.pull_request.title == 'chore: fire final remote cleanup v2'
+      github.event.pull_request.head.ref == 'chore/final-cleanup-fire-v3' &&
+      github.event.pull_request.title == 'chore: fire final remote cleanup v3'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
@@ -27,7 +27,10 @@ jobs:
           set -euo pipefail
 
           current_branch_sha() {
-            gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/$1" --jq '.object.sha' 2>/dev/null || true
+            local branch="$1"
+            local response
+            response="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/${branch}" 2>/dev/null || true)"
+            printf '%s' "$response" | jq -r '.object.sha // empty' 2>/dev/null || true
           }
 
           delete_exact_merged_branch_now() {
@@ -137,25 +140,20 @@ jobs:
             echo "Deleted superseded PR85 branch: ${branch}"
           }
 
-          # If the recurring Title1 proposal branch exists, its latest head must already be preserved by closed PR #89.
           delete_closed_unmerged_pr_branch_now 89 agent/title1-canon-series-foundation-v3
-
-          # Previous trigger is preserved by closed PR #90.
           delete_closed_unmerged_pr_branch_now 90 chore/final-cleanup-fire
-
+          delete_closed_unmerged_pr_branch_now 91 chore/final-cleanup-fire-v2
           delete_exact_merged_branch_now chore/main-ci-cleanup-trigger
           delete_exact_merged_branch_now integration/lorebook-dawn-series-safe
           delete_superseded_pr85_now
           delete_exact_merged_branch_now chore/final-remote-branch-cleanup
-
-          # Catch a proposal branch recreated while the fixed branches were being cleaned.
           delete_closed_unmerged_pr_branch_now 89 agent/title1-canon-series-foundation-v3
 
-          trigger='chore/final-cleanup-fire-v2'
+          trigger='chore/final-cleanup-fire-v3'
           trigger_actual="$(current_branch_sha "$trigger")"
           if [ -z "$trigger_actual" ] || [ "$trigger_actual" != "$TRIGGER_HEAD" ]; then
-            echo "::error::Cleanup trigger v2 moved or disappeared: expected ${TRIGGER_HEAD}, got ${trigger_actual}"
+            echo "::error::Cleanup trigger v3 moved or disappeared: expected ${TRIGGER_HEAD}, got ${trigger_actual}"
             exit 1
           fi
           gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${trigger}"
-          echo "Deleted cleanup trigger v2: ${trigger}"
+          echo "Deleted cleanup trigger v3: ${trigger}"
