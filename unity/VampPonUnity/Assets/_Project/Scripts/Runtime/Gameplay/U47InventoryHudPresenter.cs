@@ -22,6 +22,14 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
     /// </summary>
     public sealed class U47InventoryHudPresenter : MonoBehaviour
     {
+        private static readonly Color TextWarm = new(.92f, .84f, .7f, 1f);
+        private static readonly Color HpHealthy = new(.64f, .28f, .22f, .94f);
+        private static readonly Color HpWarning = new(.78f, .38f, .18f, .96f);
+        private static readonly Color HpDanger = new(.86f, .2f, .16f, 1f);
+        private static readonly Color KokuyouIdle = new(.30f, .46f, .67f, .9f);
+        private static readonly Color KokuyouReady = new(.78f, .54f, .18f, .98f);
+        private static readonly Color KokuyouActive = new(.24f, .62f, .62f, 1f);
+
         private Stage1GameplayRuntimeCoordinator gameplay;
         private TextMeshProUGUI hpLabel;
         private TextMeshProUGUI kokuyouLabel;
@@ -133,7 +141,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
                 if (font != null)
                     label.font = font;
                 label.fontSize = 13f;
-                label.color = new Color(.94f, .86f, .7f, 1f);
+                label.color = TextWarm;
                 label.characterSpacing = 1.2f;
                 label.textWrappingMode = TextWrappingModes.NoWrap;
                 label.overflowMode = TextOverflowModes.Ellipsis;
@@ -173,8 +181,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             hpLabel = CreateLabel(parent, "HpLabel", "HP", font, 10f, new Vector2(.045f, .65f), new Vector2(.49f, .94f), TextAlignmentOptions.Left);
             kokuyouLabel = CreateLabel(parent, "KokuyouLabel", "黒耀", font, 9.5f, new Vector2(.51f, .65f), new Vector2(.955f, .94f), TextAlignmentOptions.Right);
 
-            hpFill = CreateBar(parent, "HpBar", new Vector2(.045f, .56f), new Vector2(.49f, .64f), new Color(.72f, .25f, .22f, .92f));
-            kokuyouFill = CreateBar(parent, "KokuyouBar", new Vector2(.51f, .56f), new Vector2(.955f, .64f), new Color(.32f, .48f, .7f, .9f));
+            hpFill = CreateBar(parent, "HpBar", new Vector2(.045f, .56f), new Vector2(.49f, .64f), HpHealthy);
+            kokuyouFill = CreateBar(parent, "KokuyouBar", new Vector2(.51f, .56f), new Vector2(.955f, .64f), KokuyouIdle);
         }
 
         private void CreateInventoryRow(Transform parent, TMP_FontAsset font)
@@ -252,7 +260,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             label.font = font;
             label.fontSize = fontSize;
             label.alignment = alignment;
-            label.color = new Color(.92f, .84f, .7f, 1f);
+            label.color = TextWarm;
             label.textWrappingMode = TextWrappingModes.NoWrap;
             label.overflowMode = TextOverflowModes.Ellipsis;
             label.raycastTarget = false;
@@ -290,6 +298,24 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             var kokuyouRatio = Mathf.Clamp01(run.Kokuyou.Gauge / 100f);
             hpFill.fillAmount = hpRatio;
             kokuyouFill.fillAmount = kokuyouRatio;
+
+            // State is communicated through stable color/silhouette, not constant flashing.
+            var hpColor = hpRatio <= .25f ? HpDanger : hpRatio <= .5f ? HpWarning : HpHealthy;
+            hpFill.color = hpColor;
+            hpLabel.color = hpRatio <= .25f ? new Color(1f, .66f, .48f, 1f) : TextWarm;
+
+            var kokuyouColor = run.Kokuyou.Phase switch
+            {
+                KokuyouPhase.Ready => KokuyouReady,
+                KokuyouPhase.Activating => KokuyouReady,
+                KokuyouPhase.Active => KokuyouActive,
+                _ => KokuyouIdle,
+            };
+            kokuyouFill.color = kokuyouColor;
+            kokuyouLabel.color = run.Kokuyou.Phase is KokuyouPhase.Ready or KokuyouPhase.Activating or KokuyouPhase.Active
+                ? new Color(.98f, .83f, .5f, 1f)
+                : TextWarm;
+
             hpLabel.text = $"HP {run.Player.CurrentHp:0}/{run.Player.MaxHp:0}";
             kokuyouLabel.text = $"黒耀 {phase} {run.Kokuyou.Gauge:0}%";
 
