@@ -93,6 +93,15 @@ namespace VampPon.UnitySpike.Editor
                 "Runtime V3 fire-cadence director resolves as MonoBehaviour");
             fireCadenceDirectorResolved = true;
 
+            Require(
+                typeof(MonoBehaviour).IsAssignableFrom(
+                    typeof(TopLivingNightLayeredBridgeOverrideController)),
+                "Runtime V3 layered-bridge override resolves as MonoBehaviour");
+            Require(
+                typeof(MonoBehaviour).IsAssignableFrom(
+                    typeof(TopLivingNightSemanticLayerPackController)),
+                "Runtime V3 semantic final-pack controller resolves as MonoBehaviour");
+
             var syncType = typeof(TopLivingNightCompositeV3BuildAssetSync);
             Require(syncType != null, "Runtime V3 build sync type resolves");
             Require(
@@ -110,6 +119,19 @@ namespace VampPon.UnitySpike.Editor
                     "CleanupGeneratedBuildAssets",
                     BindingFlags.Static | BindingFlags.NonPublic) != null,
                 "Runtime V3 cleanup resolves");
+
+            var semanticSyncType = typeof(TopLivingNightSemanticLayerPackBuildSync);
+            Require(semanticSyncType != null, "Runtime V3 semantic build sync type resolves");
+            Require(
+                semanticSyncType.GetMethod(
+                    "StageForVerification",
+                    BindingFlags.Static | BindingFlags.NonPublic) != null,
+                "Runtime V3 semantic verification staging resolves");
+            Require(
+                semanticSyncType.GetMethod(
+                    "CleanupForVerification",
+                    BindingFlags.Static | BindingFlags.NonPublic) != null,
+                "Runtime V3 semantic verification cleanup resolves");
             buildHookResolved = true;
 
             var shader = Shader.Find(ShaderName);
@@ -224,16 +246,64 @@ namespace VampPon.UnitySpike.Editor
                 if (resourceMaterial != null)
                     Resources.UnloadAsset(resourceMaterial);
 
+                if (stagedSelection.IsFinal)
+                    VerifyFinalSemanticLayerPack();
+                else
+                    Require(
+                        !TopLivingNightSemanticLayerPackBuildSync.FinalSemanticPackRequired(),
+                        "bridge verification must not require final semantic pack");
+
                 buildImportPolicyPassed = true;
             }
             finally
             {
+                TopLivingNightSemanticLayerPackBuildSync.CleanupForVerification();
                 cleanup.Invoke(null, new object[] { true });
             }
 
             Require(
                 !AssetDatabase.IsValidFolder("Assets/Resources/TopLivingNightV3Generated"),
                 "Runtime V3 generated Resources folder is cleaned");
+            Require(
+                !AssetDatabase.IsValidFolder(TopLivingNightSemanticLayerPackBuildSync.DestinationRoot),
+                "Runtime V3 semantic generated Resources folder is cleaned");
+        }
+
+        private static void VerifyFinalSemanticLayerPack()
+        {
+            Require(
+                TopLivingNightSemanticLayerPackBuildSync.FinalSemanticPackRequired(),
+                "final Core5 source requires semantic layer pack");
+
+            TopLivingNightSemanticLayerPackBuildSync.StageForVerification();
+            var paths = TopLivingNightSemanticLayerPackBuildSync.DestinationAssetPaths();
+            Require(paths.Length == 6, "final semantic pack contains six production depth layers");
+
+            foreach (var path in paths)
+            {
+                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+                Require(texture != null, $"semantic layer imports: {path}");
+                Require(texture.width == 430, $"semantic layer width is 430: {path}");
+                Require(texture.height == 932, $"semantic layer height is 932: {path}");
+
+                Require(
+                    AssetImporter.GetAtPath(path) is TextureImporter,
+                    $"semantic TextureImporter resolves: {path}");
+                var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+                Require(!importer.isReadable, $"semantic Read/Write is OFF: {path}");
+                Require(!importer.mipmapEnabled, $"semantic mipmap is OFF: {path}");
+                Require(importer.wrapMode == TextureWrapMode.Clamp, $"semantic wrap is Clamp: {path}");
+                Require(importer.filterMode == FilterMode.Bilinear, $"semantic filter is Bilinear: {path}");
+
+                var ios = importer.GetPlatformTextureSettings("iPhone");
+                Require(ios.overridden, $"semantic iOS override enabled: {path}");
+                Require(ios.format == TextureImporterFormat.ASTC_6x6, $"semantic iOS ASTC 6x6: {path}");
+            }
+
+            var marker = AssetDatabase.LoadAssetAtPath<TextAsset>(
+                TopLivingNightSemanticLayerPackBuildSync.ReadyMarkerPath);
+            Require(marker != null, "final semantic pack-ready marker resolves");
+            Require(marker.text.Trim() == "final-core5-layered", "final semantic pack-ready marker is canonical");
         }
 
         private static void WriteEvidence(string result, string error)
