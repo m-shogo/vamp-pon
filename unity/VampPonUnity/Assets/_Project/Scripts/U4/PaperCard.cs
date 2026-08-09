@@ -26,6 +26,9 @@ namespace VampPon.UnitySpike.U4
         private bool isSelected;
         private bool isHovered;
         private int cardIndex;
+        private bool entranceActive;
+        private float entranceStartTime;
+        private Vector2 entranceBasePosition;
 
         private static readonly Color NormalCardBg = new(0.96f, 0.92f, 0.86f, 0.94f);
         private static readonly Color SelectedCardBg = new(1f, 0.96f, 0.88f, 0.98f);
@@ -156,6 +159,23 @@ namespace VampPon.UnitySpike.U4
             return card;
         }
 
+        public void BeginEntrance(float delaySeconds)
+        {
+            entranceBasePosition = rect.anchoredPosition;
+            if (IsReducedMotion())
+            {
+                entranceActive = false;
+                var immediateGroup = EnsureCanvasGroup();
+                immediateGroup.alpha = 1f;
+                return;
+            }
+
+            entranceActive = true;
+            entranceStartTime = Time.unscaledTime + Mathf.Max(0f, delaySeconds);
+            rect.anchoredPosition = entranceBasePosition + new Vector2(0f, -10f);
+            EnsureCanvasGroup().alpha = 0f;
+        }
+
         public void SetSelected(bool selected)
         {
             isSelected = selected;
@@ -205,16 +225,17 @@ namespace VampPon.UnitySpike.U4
 
         public void SetDimmed(bool dimmed)
         {
-            var group = gameObject.GetComponent<CanvasGroup>();
-            if (group == null)
-                group = gameObject.AddComponent<CanvasGroup>();
-            // Keep alternatives readable after one choice is focused so players can still
-            // compare before confirming. Selection is communicated by frame/border, not blur.
+            if (entranceActive)
+                entranceActive = false;
+            var group = EnsureCanvasGroup();
             group.alpha = dimmed ? 0.64f : 1f;
+            rect.anchoredPosition = entranceBasePosition == default ? rect.anchoredPosition : entranceBasePosition;
         }
 
         private void Update()
         {
+            TickEntrance();
+
             var reducedMotion = IsReducedMotion();
             if (selectPulseTimer > 0f && !reducedMotion)
             {
@@ -236,6 +257,34 @@ namespace VampPon.UnitySpike.U4
                     : Mathf.Lerp(baseColor.a * 0.62f, baseColor.a, Mathf.PerlinNoise(cardIndex * 2.17f + 1.3f, Time.unscaledTime * 0.24f));
                 glowImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, alpha);
             }
+        }
+
+        private void TickEntrance()
+        {
+            if (!entranceActive)
+                return;
+            if (Time.unscaledTime < entranceStartTime)
+                return;
+
+            const float duration = .14f;
+            var t = Mathf.Clamp01((Time.unscaledTime - entranceStartTime) / duration);
+            var eased = 1f - Mathf.Pow(1f - t, 3f);
+            rect.anchoredPosition = Vector2.Lerp(entranceBasePosition + new Vector2(0f, -10f), entranceBasePosition, eased);
+            EnsureCanvasGroup().alpha = eased;
+            if (t >= 1f)
+            {
+                entranceActive = false;
+                rect.anchoredPosition = entranceBasePosition;
+                EnsureCanvasGroup().alpha = 1f;
+            }
+        }
+
+        private CanvasGroup EnsureCanvasGroup()
+        {
+            var group = gameObject.GetComponent<CanvasGroup>();
+            if (group == null)
+                group = gameObject.AddComponent<CanvasGroup>();
+            return group;
         }
 
         public void OnPointerClick(PointerEventData eventData)
