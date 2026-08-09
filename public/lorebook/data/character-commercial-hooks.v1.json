@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-09",
+  "status": "CURRENT_COMMERCIAL_DIRECTION",
+  "authority": [
+    "docs/title1-world-law-canon-v1.md",
+    "docs/RELATIONSHIPS.md",
+    "docs/character-star-beast-constellation-canon-v1.md",
+    "src/game/data/characterThemeColors.ts",
+    "docs/series-commercial-franchise-architecture-v1.md"
+  ],
+  "rule": "Commercial hooks describe safe exposure and merchandise directions. They do not change Canon personality, relationship type, era, Named Object ownership, death, romance, or Main Mystery truth.",
+  "characters": [
+    {
+      "id":"yui","name":"ユイ","primaryHex":"#264A86","starBeast":"子獅子","identityHook":"夜青 + ランタン + 鉛筆。『拾って結び直す』主人公。","everydayMotifs":["鉛筆","小さなメモ","ランタンの修理痕"],"relationshipHooks":["アサ — buddy / non-romance","クロオリ — 開く / 預かる","トモリ — 同一ランタンlineage"],"entryGoods":["ランタン型チャーム","鉛筆・メモ文具","子獅子ステッカー"],"coreGoods":["profile card","夜青アクリルスタンド","ランタン+子獅子pair mini diorama"],"premiumCandidate":"修理痕を再現したランタン型collector object","spoilerTier":"game-clear"
+    },
+    {
+      "id":"asa","name":"アサ","primaryHex":"#F4A7B9","starBeast":"若い雄羊","identityHook":"薄紅 + 名札 + 先に走る羊。『名前を返す』速い火花。","everydayMotifs":["名札","絵はがき","ペン"],"relationshipHooks":["ユイ — buddy / non-romance","カスミ — 名乗らせる / 隠して待つ"],"entryGoods":["名札風ネームタグ","絵はがきセット","雄羊ピン"],"coreGoods":["profile card","薄紅アクリルスタンド","名前を書く小型memo pad"],"premiumCandidate":"作中名札を模した刻印可能なmetal tag","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"nagi","name":"ナギ","primaryHex":"#7B90D2","starBeast":"小さな蟹","identityHook":"藤紫 + 月箱 + 鍵。閉じることで守る。","everydayMotifs":["鍵","箱","月の印"],"relationshipHooks":["カナメ — 二つの守り","トバリ — 閉じる / 帰るため開ける"],"entryGoods":["鍵チャーム","月箱ステッカー","小蟹pin"],"coreGoods":["profile card","藤紫アクリルスタンド","小箱風accessory case"],"premiumCandidate":"月箱を模したsmall keepsake box","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"michiru","name":"ミチル","primaryHex":"#2E5C6E","starBeast":"小熊","identityHook":"青緑 + 地図 + 帰針。正解より一緒に帰れる道。","everydayMotifs":["折り地図","コンパス","道糸"],"relationshipHooks":["トキ — 道を選ぶ / 測る","ゲン — 昔の道 / 今の道"],"entryGoods":["map bookmark","compass charm","小熊sticker"],"coreGoods":["profile card","青緑アクリルスタンド","route map cloth"],"premiumCandidate":"帰針を意匠化したworking compass-style collector","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"tomori","name":"トモリ","primaryHex":"#8F2E14","starBeast":"煤けた若獅子","identityHook":"弁柄 + 修理 + 煤。壊れた灯りを、傷を残して継ぐ。","everydayMotifs":["修理布","工具","灯芯"],"relationshipHooks":["ツムギ — 直す / 跡を残す","ユイ — 同一ランタンlineage"],"entryGoods":["工具タグ風charms","修理布pattern towel","若獅子badge"],"coreGoods":["profile card","弁柄アクリルスタンド","repair-mark lantern pair art"],"premiumCandidate":"ユイのランタンと同じ修理痕を示すrepair kit replica","spoilerTier":"game-clear"
+    },
+    {
+      "id":"sen","name":"セン","primaryHex":"#6E7955","starBeast":"小烏","identityHook":"利休鼠 + 言葉 + 仮説。教え切らず問いを残す先生役。","everydayMotifs":["chalk-like marks","案内札","仮説memo"],"relationshipHooks":["コヨリ — 教える / 教わる","シロ — 説明 / 未分類"],"entryGoods":["memo card","小烏clip","guide-sign sticker"],"coreGoods":["profile card","利休鼠アクリルスタンド","仮説/未分類two-sided memo"],"premiumCandidate":"Night guide notebook set","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"ritsu","name":"リツ","primaryHex":"#D75455","starBeast":"大きい猟犬","identityHook":"温かい赤 + 半分 + 兄。守りを自分だけで抱えない成長。","everydayMotifs":["半分の飴","分けた包み紙","大きい猟犬"],"relationshipHooks":["コヨリ — siblings / non-romance","カナメ — Protector × Protector"],"entryGoods":["半分飴pattern charm","猟犬badge","兄妹pair sticker"],"coreGoods":["profile card","赤アクリルスタンド","リツ/コヨリ二分割acrylic"],"premiumCandidate":"兄妹で一つになるCanes Venatici desk ornament","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"koyori","name":"コヨリ","primaryHex":"#F7C8D0","starBeast":"小さい猟犬","identityHook":"桜色 + 紙縒り + 小さな名札。守られる側から大人を助ける側へ。","everydayMotifs":["紙縒り","小さな名札","半分の飴"],"relationshipHooks":["リツ — siblings / non-romance","セン — 子どものrule"],"entryGoods":["紙縒り風strap","小猟犬sticker","name-card mini memo"],"coreGoods":["profile card","桜色アクリルスタンド","兄妹pair acrylic"],"premiumCandidate":"Canes Venatici two-dog small plush pair","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"gen","name":"ゲン","primaryHex":"#867835","starBeast":"大熊","identityHook":"鶯茶 + 古い道 + 真鍮。昔の道を知るが新しい道も面白がる。","everydayMotifs":["古地図","真鍮compass","足跡"],"relationshipHooks":["ミチル — 昔の道 / 今の道","トキ — 経験 / 測定"],"entryGoods":["old-map postcard","brass-color charm","大熊badge"],"coreGoods":["profile card","鶯茶アクリルスタンド","old/current map overlay clear file"],"premiumCandidate":"aged-map + compass collector folio","spoilerTier":"deep-lore"
+    },
+    {
+      "id":"hana","name":"ハナ","primaryHex":"#B5495B","starBeast":"ふっくらした白鳥","identityHook":"蘇芳 + 押し花 + 保存。残すのは手渡すため。","everydayMotifs":["押し花","しおり","保存箱"],"relationshipHooks":["ツムギ — 保存 / 傷跡","シロ — 分かる物 / 分からない物"],"entryGoods":["押し花風bookmark","白鳥sticker","蘇芳paper tape"],"coreGoods":["profile card","蘇芳アクリルスタンド","pressed-flower style stationery"],"premiumCandidate":"押し花とarchive cardを収めるcollector box","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"yuubi","name":"ユウビ","primaryHex":"#C1693C","starBeast":"小鳩","identityHook":"代赭 + 封筒 + 消印。届ける責任と待つ責任。","everydayMotifs":["封筒","切手","消印"],"relationshipHooks":["トバリ — 届ける時 / 門を開ける時","カスミ — 宛名を見せない配達","クロオリ — 今は渡さない責任"],"entryGoods":["stamp sticker","封筒memo","小鳩charm"],"coreGoods":["profile card","代赭アクリルスタンド","Night mail stationery set"],"premiumCandidate":"未配達封筒を模したletter archive box","spoilerTier":"game-clear"
+    },
+    {
+      "id":"madoka","name":"マドカ","primaryHex":"#89C3EB","starBeast":"小鷲","identityHook":"勿忘草色 + 窓 + 遠景。見ただけで終わらず声を上げる。","everydayMotifs":["窓枠","paper plane","観測memo"],"relationshipHooks":["レン — 気づく / 伝える","ネム — 見た / 夢で見た"],"entryGoods":["window-frame card","paper-plane clip","小鷲sticker"],"coreGoods":["profile card","空色アクリルスタンド","transparent window art card"],"premiumCandidate":"layered window-view acrylic art","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"shiro","name":"シロ","primaryHex":"#E3E5E8","starBeast":"山猫","identityHook":"白練 + しおり + 未分類。分からない頁を捨てない。","everydayMotifs":["白いしおり","未分類label","丸眼鏡motif"],"relationshipHooks":["ツムギ — 未分類 / 未完","セン — 説明 / 未分類","ハナ — archive"],"entryGoods":["bookmark","classification label sticker","山猫clip"],"coreGoods":["profile card","白練アクリルスタンド","unknown-box memo set"],"premiumCandidate":"未分類頁を差し替えられるarchive binder","spoilerTier":"deep-lore"
+    },
+    {
+      "id":"tobari","name":"トバリ","primaryHex":"#56564B","starBeast":"大きな番犬","identityHook":"墨色 + 改札 + 切符。境界は閉じるためでなく帰れるよう管理する。","everydayMotifs":["切符","改札線","門"],"relationshipHooks":["ユウビ — delivery / gate timing","ナギ — 閉じる / 帰るため開ける"],"entryGoods":["ticket-style card","gate-line tape","番犬badge"],"coreGoods":["profile card","墨色アクリルスタンド","return-route ticket set"],"premiumCandidate":"帰路印を重ねるticket punch-style collector","spoilerTier":"game-clear"
+    },
+    {
+      "id":"nemu","name":"ネム","primaryHex":"#B4A5D4","starBeast":"小イルカ","identityHook":"薄藤 + 夢日記 + 水面。夢を現実へ渡す。","everydayMotifs":["夢日記","枕元の星線","水面"],"relationshipHooks":["トキ — 夢 / 計測","マドカ — 夢で見た / 実際に見た"],"entryGoods":["dream memo","イルカsticker","waterline charm"],"coreGoods":["profile card","薄藤アクリルスタンド","dream-map translucent card"],"premiumCandidate":"夢日記風clothbound notebook","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"kuroori","name":"クロオリ","primaryHex":"#1C1C1C","starBeast":"黒紙カメレオン","identityHook":"黒紙 + 折り目 + 封。開かず預かるが、選択時を本人へ戻す。","everydayMotifs":["黒折りの封","折り目","sealed label"],"relationshipHooks":["ユイ — 開く / 預かる","ユウビ — 今は渡さない責任"],"entryGoods":["black-fold sticker","seal charm","カメレオンbadge"],"coreGoods":["profile card","黒アクリルスタンド","reversible Yui/Kuroori card"],"premiumCandidate":"開封痕が残るblack-fold memory case","spoilerTier":"game-clear"
+    },
+    {
+      "id":"kaname","name":"カナメ","primaryHex":"#2B2B2B","starBeast":"大きな灰狼","identityHook":"蝋色 + 大きな影 + 盾。受けるだけでなく守りを分担する。","everydayMotifs":["盾形","大きな足跡","灰狼"],"relationshipHooks":["ナギ — 二つの守り","リツ — Protector × Protector"],"entryGoods":["shield-tag charm","灰狼sticker","footprint pin"],"coreGoods":["profile card","蝋色アクリルスタンド","protector pair art"],"premiumCandidate":"heavy desk weight / shield motif object","spoilerTier":"spoiler-free"
+    },
+    {
+      "id":"kasumi","name":"カスミ","primaryHex":"#787D7B","starBeast":"淡い小狐","identityHook":"鈍色 + 霧 + 消し跡。消すのでなく公開範囲を本人と選ぶ。","everydayMotifs":["半透明label","霧","消し跡"],"relationshipHooks":["アサ — 名乗らせる / 隠して待つ","ユウビ — 宛名を見せない配達"],"entryGoods":["translucent sticker","fox charm","privacy-label memo"],"coreGoods":["profile card","鈍色アクリルスタンド","透過layer card"],"premiumCandidate":"reveal/hide layered message card set","spoilerTier":"game-clear"
+    },
+    {
+      "id":"toki","name":"トキ","primaryHex":"#2D2D48","starBeast":"細身の鶴","identityHook":"濃藍 + 時計 + 測定線。測れないものも切り捨てない。","everydayMotifs":["時計目盛","定規線","観測値"],"relationshipHooks":["ミチル — 道を選ぶ / 測る","ネム — 夢 / 計測","ゲン — 経験 / 測定","レン — 差分 / 測定値"],"entryGoods":["measurement ruler bookmark","鶴pin","time-grid memo"],"coreGoods":["profile card","濃藍アクリルスタンド","observation chart clear file"],"premiumCandidate":"Night measurement instrument-style desk object","spoilerTier":"deep-lore"
+    },
+    {
+      "id":"tsumugi","name":"ツムギ","primaryHex":"#F2F2ED","starBeast":"白灰の野兎","identityHook":"胡粉 + 糸 + 余白。終わらせないのでなく、終えて次を書けるようになる。","everydayMotifs":["綴じ糸","空白頁","破れ跡"],"relationshipHooks":["トモリ — 直す / 跡を残す","シロ — 未分類 / 未完","ハナ — 保存 / 傷跡"],"entryGoods":["thread bookmark","rabbit sticker","blank-page memo"],"coreGoods":["profile card","胡粉アクリルスタンド","stitched-page stationery"],"premiumCandidate":"visible-stitch handbound notebook","spoilerTier":"game-clear"
+    },
+    {
+      "id":"ren","name":"レン","primaryHex":"#A2D7DD","starBeast":"小さな観察犬","identityHook":"瓶覗 + レンズ + 差分。確信まで黙らず仮説として共有する。","everydayMotifs":["丸レンズ","差分mark","焦点memo"],"relationshipHooks":["マドカ — 気づく / 伝える","トキ — 差分 / 測定値"],"entryGoods":["lens sticker","小犬charm","difference memo"],"coreGoods":["profile card","瓶覗アクリルスタンド","before/after transparent card"],"premiumCandidate":"focus lens-style small magnifier collector","spoilerTier":"deep-lore"
+    }
+  ]
+}
