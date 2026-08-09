@@ -236,11 +236,12 @@ function renderStory() {
   $('#mysteryLanes').innerHTML = state.data.story.mysteryLanes.map((lane, index) => `
     <article class="mystery-card"><span>0${index + 1}</span><h3>${lane.label}</h3><p>${lane.description}</p></article>
   `).join('');
+  const engineIsCanon = state.data.story.engineStatus === 'CANON';
   $('#engineCandidate').innerHTML = `
-    <p class="eyebrow">HIGH-VALUE CANDIDATE</p>
+    <p class="eyebrow">${engineIsCanon ? 'CURRENT CANON' : 'HIGH-VALUE CANDIDATE'}</p>
     <h3>黒インク Story Engine</h3>
     <blockquote>${state.data.story.engineCandidate}</blockquote>
-    <p>※ Main Mysteryの最終正史ではありません。</p>
+    <p>${engineIsCanon ? '※ 作品1で使う挙動法則。起源・最初の発生者はSeries Mysteryとして分離しています。' : '※ Main Mysteryの最終正史ではありません。'}</p>
   `;
 }
 
