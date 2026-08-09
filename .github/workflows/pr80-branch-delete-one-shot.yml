@@ -49,6 +49,34 @@ jobs:
             fi
           }
 
+          verify_closed_unmerged_proposal() {
+            local pr="$1"
+            local branch="$2"
+            local expected="$3"
+            local actual
+            local state
+            local merged_at
+            local head
+
+            actual="$(current_branch_sha "$branch")"
+            if [ -z "$actual" ]; then
+              echo "Already absent: ${branch}"
+              return
+            fi
+            if [ "$actual" != "$expected" ]; then
+              echo "::error::Proposal branch moved after preservation audit: ${branch}; expected ${expected}, got ${actual}"
+              exit 1
+            fi
+
+            state="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.state')"
+            merged_at="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.merged_at // ""')"
+            head="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr}" --jq '.head.sha')"
+            if [ "$state" != 'closed' ] || [ -n "$merged_at" ] || [ "$head" != "$expected" ]; then
+              echo "::error::Proposal PR #${pr} no longer matches closed/unmerged exact-head state"
+              exit 1
+            fi
+          }
+
           verify_superseded_pr85() {
             local branch='agent/lorebook-dawn-canon-v2'
             local expected='84a009ad4f0c08f7484016c07ab07a4493c91270'
@@ -105,9 +133,11 @@ jobs:
           verify_exact_merged_branch chore/main-ci-cleanup-trigger
           verify_exact_merged_branch integration/lorebook-dawn-series-safe
           verify_superseded_pr85
+          verify_closed_unmerged_proposal 88 agent/title1-canon-series-foundation-v3 f5eb6768b6b5a28e64ebeeb9a492231239657ce4
           verify_exact_merged_branch chore/final-remote-branch-cleanup
 
           delete_branch_if_present chore/main-ci-cleanup-trigger
           delete_branch_if_present integration/lorebook-dawn-series-safe
           delete_branch_if_present agent/lorebook-dawn-canon-v2
+          delete_branch_if_present agent/title1-canon-series-foundation-v3
           delete_branch_if_present chore/final-remote-branch-cleanup
