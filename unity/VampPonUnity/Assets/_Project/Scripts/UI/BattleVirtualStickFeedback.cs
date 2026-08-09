@@ -38,12 +38,17 @@ namespace VampPon.UnitySpike.UI
                 ? Vector2.ClampMagnitude(velocity / 3.35f, 1f)
                 : Vector2.zero;
 
-            // Keep the visual travel deliberately inside the decorative ring. The player
-            // position/input authority stays entirely inside PlayerController.
+            // Stick displacement is functional feedback and remains available with Reduced
+            // Motion. Only the decorative engagement-scale response is removed.
             knob.anchoredPosition = knobBase + normalized * 27f;
 
+            var reducedMotion =
+                PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
+                PlayerPrefs.GetInt("reduce_motion", 0) == 1;
             var engaged = Mathf.Clamp01(normalized.magnitude);
-            knob.localScale = knobBaseScale * Mathf.Lerp(.96f, 1.04f, engaged);
+            knob.localScale = reducedMotion
+                ? knobBaseScale
+                : knobBaseScale * Mathf.Lerp(.96f, 1.04f, engaged);
         }
 
         private void OnDisable()
