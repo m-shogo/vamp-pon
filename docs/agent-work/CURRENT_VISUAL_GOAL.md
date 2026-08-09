@@ -2,7 +2,11 @@
 
 Scope: `m-shogo/vamp-pon` only.
 
-Current PR: `#78` / `agent/top-living-night-key-art-v1` / keep Draft.
+Current integration: `main`.
+
+- PR #79 merged the PR #78 Loading / TOP V3 / visual-production work into current `main` while preserving U49 boundaries.
+- PR #78 is historical/superseded integration context, not an active Draft gate.
+- Do not recreate an old visual branch as the current authority.
 
 ## Goal
 
@@ -33,7 +37,7 @@ Do not spend cycles adding static checkers unless they protect an actual product
 
 ## Deferred image generation
 
-Generate in one local batch later. Authority/order:
+Generate in one local batch after Git cleanup is complete and `origin/main` is the only remote branch. Authority/order:
 
 `docs/agent-work/visual-asset-generation-queue.json`
 
@@ -53,4 +57,4 @@ via `VisualBatchAssetProvider`; missing sprites must preserve current fallback v
 
 Do not promote current final TOP, V3 Unity, 15-frame capture, motion review, Simulator, or physical iPhone evidence unless actually executed. GitHub/static green is not runtime proof.
 
-Do not touch PR #76, U49 readiness, gameplay balance, save schema, or unrelated canon.
+Preserve the merged U49 readiness boundary, gameplay balance, save schema, and unrelated canon. Do not regress current `runtimeVisualReady=true` into a claim of device/audio/haptic/RC/production readiness.
