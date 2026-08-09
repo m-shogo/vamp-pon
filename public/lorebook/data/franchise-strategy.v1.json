@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-09",
+  "status": "CURRENT_DIRECTION",
+  "source": "docs/series-commercial-franchise-architecture-v1.md",
+  "rule": "Commercial strategy may change exposure, goods mix and optional content priority, but never overrides Canon personality, relationship type, Main Mystery truth, family relation, era, death or Named Object ownership.",
+  "entryPillars": [
+    {"id":"character","label":"CHARACTER","summary":"顔・silhouette・Theme HEX・口調・黒耀化対比。単体推しの入口。","examples":["acrylic stand","badge","profile card"]},
+    {"id":"star-beast","label":"STAR BEAST","summary":"21の生物星座mascot。Characterを知らない層にも届き、必ず人物へ戻る。","examples":["plush","charm","embroidery"]},
+    {"id":"named-object","label":"NAMED OBJECT","summary":"ランタン・手紙・鍵・地図など、物語を現実へ持ち帰るcollector軸。","examples":["bookmark","miniature","replica"]},
+    {"id":"relationship","label":"RELATIONSHIP","summary":"buddy / siblings / ideological mirror / night-born trustを恋愛だけに潰さず商品化。","examples":["pair card","two-piece charm","scene diorama"]},
+    {"id":"scene","label":"SCENE / PLACE / TIME","summary":"夜の駅・湖畔・夜明け星図・四季・夜→朝など人物なしでも残る世界観。","examples":["art print","calendar","soundtrack jacket"]}
+  ],
+  "popularityDimensions": [
+    {"id":"favoriteCharacter","label":"一番好きな人物","use":"単体Character露出 / restock"},
+    {"id":"favoriteStarBeast","label":"一番好きな星獣","use":"mascot展開 / plush priority"},
+    {"id":"favoriteRelationship","label":"続きが見たい関係","use":"side story / pair goods。Canon romance voteにはしない"},
+    {"id":"wantToCollect","label":"集めたい人物・物","use":"goods category / price ladder"},
+    {"id":"wantMoreStory","label":"もっと話を読みたい","use":"optional story / Lorebook feature"},
+    {"id":"favoriteScene","label":"忘れられない場面・朝","use":"art / music / event presentation"}
+  ],
+  "relationshipLanes": [
+    {"id":"broad-entry","label":"Broad entry","pairs":["ユイ × アサ","ユイ × クロオリ"],"strength":"初見でも関係の違いが読める。主役級visual / reversible contrast。"},
+    {"id":"family","label":"Family / everyday","pairs":["リツ × コヨリ"],"strength":"兄妹 + 二頭の猟犬。日常・2体mascot・半分モチーフ。"},
+    {"id":"core-shadow","label":"Core / Shadow mirrors","pairs":["ナギ × カナメ","ミチル × トキ","トモリ × ツムギ","アサ × カスミ"],"strength":"善悪ではなく異なる答え。両面商品・黒耀化対比に強い。"},
+    {"id":"quiet-night","label":"Quiet night-born","pairs":["ユウビ × トバリ","マドカ × レン","シロ × ツムギ","ネム × トキ","ゲン × ミチル"],"strength":"long-tail人気を育てる。stationery / booklet / audio scene向け。"},
+    {"id":"object-lineage","label":"Object lineage","pairs":["ユイ × トモリ"],"strength":"同一ランタンを別時代で継ぐ。血縁ではなく物の履歴でSeriesへ橋をかける。"}
+  ],
+  "series": [
+    {"id":"yoruno-1","label":"ヨルノシルベ 1","theme":"戻す / 開く / 選び直す","question":"記憶や意味は、誰のために開くのか？","mustPay":["Nightの作品内機能","Black Inkの挙動法則","Current21中心growth","ユイ / クロオリの1作目決着","Happy End"],"mustNotDo":["続編のためC-gradeを未回収にする"]},
+    {"id":"yoruno-2","label":"ヨルノシルベ 2","theme":"継ぐ / 渡す / 受け取る","question":"自分が始めていないものを、どう受け継ぐか？","mustPay":["別時代 / 別地域のNamed Object lineage","新しい中心人物の感情決着"],"mustNotDo":["1の朝を偽物にする","旧Character growthをresetする","全員集合を義務化する"]},
+    {"id":"yoruno-3","label":"ヨルノシルベ 3","theme":"残す / 手放す / 夜を選ぶ","question":"残すための仕組みは、いつ手放してよいのか？","mustPay":["Night origin / maintenance historyの十分な回収","1/2のNamed Object lineageの再読価値","Series中心感情の決着"],"mustNotDo":["夜を完全破壊して過去作の価値を消す","宇宙設定の説明だけで終わる"]}
+  ],
+  "commercialGuardrails": {
+    "allowedFromPopularity": ["goods SKU比率","restock","side story優先度","seasonal art","event出演","optional Bond量","Lorebook特集順"],
+    "forbiddenFromPopularity": ["personality rewrite","forced romance","family relation捏造","surprise death / resurrection","Main Mystery truth","birth era rewrite","Named Object owner変更","Star Beast重複理由の後付け"]
+  }
+}
