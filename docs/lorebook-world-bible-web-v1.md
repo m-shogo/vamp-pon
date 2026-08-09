@@ -1,7 +1,7 @@
 # ヨルノシルベ World Bible Web v1
 
 Date: 2026-08-09  
-Status: **IMPLEMENTED V1 / READ MODEL / GAME RUNTIME SEPARATE**
+Status: **IMPLEMENTED V1.1 / READ MODEL CONNECTED / GAME RUNTIME SEPARATE / DEPLOYABLE BUILD GATED**
 
 ## 1. Purpose
 
@@ -9,6 +9,7 @@ Status: **IMPLEMENTED V1 / READ MODEL / GAME RUNTIME SEPARATE**
 
 - 誰が誰か
 - その人物の核 / 成長 / モチーフ / 星獣
+- 誕生日 / 年齢感 / 好物 / 趣味 / 癖 / 好き嫌い / 日常
 - 誰とどういう関係か
 - その関係は CANON か CANDIDATE か
 - 現実時間 / 夜 / 朝の時間構造
@@ -89,6 +90,9 @@ Current21をカード化。
 - character core
 - star beast
 - growth
+- birthday
+- favorite food
+- hobby hint
 - tags
 - canon status
 
@@ -99,6 +103,13 @@ Current21をカード化。
 - growth
 - motif
 - priority relationships
+- 誕生日 / zodiac flavor / age impression
+- favorite food + reason
+- hobby / small habit
+- likes / dislikes
+- daily-life scene
+- name design rationale
+- stable runtime ID
 - source
 
 ### 人間関係
@@ -169,10 +180,11 @@ Current naming lockを検索できる。
 
 ## 4. Data model
 
-Current read model:
+Current read models:
 
 ```txt
 public/lorebook/data/world-bible.v1.json
+public/lorebook/data/personal-profiles.v1.json
 ```
 
 V1 entities:
@@ -180,6 +192,7 @@ V1 entities:
 ```txt
 groups
 characters
+personalProfiles
 relationships
 timeline
 story
@@ -187,6 +200,22 @@ openQuestions
 glossary
 authority
 ```
+
+### Stable ID mapping
+
+表示名とruntime IDを同一視しない。
+
+例:
+
+```txt
+ユウビ: lorebookId=yuubi / runtimeId=yubi
+カナメ: lorebookId=kaname / runtimeId=kage1
+カスミ: lorebookId=kasumi / runtimeId=kage2
+トキ:   lorebookId=toki   / runtimeId=kage3
+ツムギ: lorebookId=tsumugi / runtimeId=kage4
+```
+
+CIで21人すべてのmapping completenessとruntime ID重複を検査する。
 
 ### Status invariant
 
@@ -211,15 +240,17 @@ OPEN_QUESTION
 
 ## 5. Source authority
 
-V1は次のCurrent masterを要約する。
+V1.1は次のCurrent masterを要約する。
 
 ```txt
 docs/CANON.md
 docs/CHARACTERS.md
 docs/character-book-v4.md
+docs/character-personal-profile-canon-v1.md
 docs/RELATIONSHIPS.md
 docs/STORY.md
 docs/181-current-production-canon.md
+src/game/data/characterCanon.ts  # stable runtime ID cross-check
 ```
 
 Character workは引き続き`docs/CHARACTERS.md`を入口にする。
@@ -227,14 +258,16 @@ Web read modelはauthorityそのものを勝手に置換しない。
 
 ---
 
-## 6. Current V1 content coverage
+## 6. Current V1.1 content coverage
 
 ```txt
 Current characters: 21
+Personal profiles: 21/21
 Priority relationships: 24
 Open questions surfaced: 8
 Timeline conceptual layers: 5
 Glossary entries: 21
+Stable runtime ID mapping: 21/21
 ```
 
 Current21:
@@ -253,9 +286,9 @@ Reserve: 1
 ### 7.1 3秒 / 30秒 / 5分
 
 ```txt
-3秒  = 名前・顔代わりの核・groupが分かる
-30秒 = growth / star beast / relationが戻る
-5分  = Mystery / source / open questionまで深掘れる
+3秒  = 名前・人物の核・groupが分かる
+30秒 = growth / star beast / daily-life hint / relationが戻る
+5分  = personal profile / Mystery / source / open questionまで深掘れる
 ```
 
 ### 7.2 Mobile first but not mobile-only
@@ -293,7 +326,7 @@ Reserve: 1
 
 ## 8. Database direction
 
-V1はGit管理のnormalized JSON read modelをUIへ接続している。
+V1.1はGit管理のnormalized JSON read modelをUIへ実接続している。
 
 理由:
 
@@ -301,8 +334,10 @@ V1はGit管理のnormalized JSON read modelをUIへ接続している。
 - auth / secret / external serviceなしで確実にdeployできる
 - Game runtimeから独立できる
 - CANON/CANDIDATEの変更履歴をGitで残せる
+- display IDとruntime stable IDのmappingを明示できる
 
-ただし、作者編集や大量追加を見据え、UIはデータ取得箇所を1箇所へ閉じる。
+これはremote DBそのものではない。
+作者編集・大量追加・複数人運用が必要になった時にremote DBへ移す。
 
 V2でremote DBを入れる場合の推奨:
 
@@ -321,6 +356,7 @@ World Bible read model
 ```txt
 characters
 character_aliases
+character_profiles
 relationships
 relationship_beats
 story_mysteries
@@ -398,7 +434,7 @@ V1では答えを勝手に決めない。
 
 ---
 
-## 11. CI
+## 11. CI / deployability gate
 
 Workflow:
 
@@ -408,17 +444,20 @@ Workflow:
 
 Checks:
 
-- JavaScript syntax
-- JSON parse
+- `app.js` / `profile-enhancement.js` JavaScript syntax
+- world / personal JSON parse
 - schemaVersion
 - Current21 count
-- character ID duplicate
-- relationship ID duplicate
-- orphan relationship
-- self relationship
+- personal profile 21/21
+- character / relationship / profile ID duplicate
+- orphan / self relationship
 - allowed status
+- stable runtime ID mapping 21/21
 - Current authority source presence
 - static entrypoint assets
+- `pnpm install --frozen-lockfile`
+- `pnpm build`
+- `dist/lorebook/` deploy artifact existence
 
 ---
 
@@ -426,7 +465,7 @@ Checks:
 
 既存Vite buildへ含まれるため、通常build成果物に`lorebook/`が含まれる。
 
-最低確認:
+CIで次を実行する。
 
 ```sh
 pnpm build
@@ -437,11 +476,14 @@ output側で:
 ```txt
 dist/lorebook/index.html
 dist/lorebook/styles.css
+dist/lorebook/profile.css
 dist/lorebook/app.js
+dist/lorebook/profile-enhancement.js
 dist/lorebook/data/world-bible.v1.json
+dist/lorebook/data/personal-profiles.v1.json
 ```
 
-が存在すること。
+を要求する。
 
 GitHub connectorだけで編集した時は、ローカルbuildを実行済みと記録しない。
 CIで既存buildとLorebook workflowがgreenになってからmergeする。
@@ -450,27 +492,27 @@ CIで既存buildとLorebook workflowがgreenになってからmergeする。
 
 ## 13. Next implementation order
 
-### V1.1 — character depth
-
-- Current21のpersonal profileをread modelへ統合
-- 好物 / 趣味 / 癖 / 怒り / 嘘 / 口調 / 呼び方
-- 黒耀化固有情報
-- 灯具 / 持ち物 / 忘れ物 / 灯紋
-- Named Object lineage
-
 ### V1.2 — relationship readability
 
 - relation filter: family / ideological / night-born / temporal / mystery
 - relation arc: First read → Conflict → Chosen trust → Dawn proof
 - Pair Gameplay / Bond view
 
-### V1.3 — history
+### V1.3 — character攻略 layer
+
+- 黒耀化固有情報
+- combat role / starter / strength / weakness
+- 灯技 / 継灯 / 暁灯
+- 灯具 / 持ち物 / 忘れ物 / 灯紋
+- Named Object lineage
+
+### V1.4 — history
 
 - Relative Era board
 - Named Object lineage timeline
 - 「誰が同時代か」を断定せずconfidence表示
 
-### V1.4 — story atlas
+### V1.5 — story atlas
 
 - stage / enemy / item / character cross-links
 - foreshadowing → payoff map
@@ -487,11 +529,13 @@ CIで既存buildとLorebook workflowがgreenになってからmergeする。
 
 ---
 
-## 14. Definition of done for V1
+## 14. Definition of done for V1.1
 
 - `/lorebook/`がゲーム本体から独立して開ける
 - 21人を検索・group filterできる
 - 人物detailが開く
+- personal profile 21/21を表示できる
+- stable runtime ID mappingを保持できる
 - 24 relationを相関図と一覧で読める
 - focusでrelation clutterを減らせる
 - CANON / CANDIDATEが視覚的に混ざらない
@@ -501,5 +545,6 @@ CIで既存buildとLorebook workflowがgreenになってからmergeする。
 - author modeでopen questionsを見られる
 - mobileで破綻しない
 - Reduced Motion対応
-- CI validationがある
+- dedicated CI validationがある
+- deploy artifactをCIで検証する
 - existing game runtimeを変更しない
