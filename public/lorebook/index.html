@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#11111a" />
+  <meta name="description" content="ヨルノシルベの人物、関係、歴史、物語、用語、未確定設定を一冊で辿る世界設定・攻略資料Web。" />
+  <title>ヨルノシルベ 世界設定・人物図鑑</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="night-sky" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="brand" href="#top" aria-label="ヨルノシルベ 世界設定・人物図鑑 TOP">
+      <span class="brand-mark">✦</span>
+      <span><b>ヨルノシルベ</b><small>WORLD BIBLE / FIELD GUIDE</small></span>
+    </a>
+    <div class="masthead-actions">
+      <button id="spoilerToggle" class="chip-button" type="button" aria-pressed="false">作者ノート OFF</button>
+      <button id="menuToggle" class="menu-button" type="button" aria-expanded="false" aria-controls="sectionNav">目次</button>
+    </div>
+  </header>
+
+  <div class="layout" id="top">
+    <aside class="rail" id="sectionNav">
+      <div class="rail-label">夜の目次</div>
+      <nav>
+        <a href="#overview" class="is-active">一冊でわかる</a>
+        <a href="#characters">人物図鑑</a>
+        <a href="#relationships">人間関係</a>
+        <a href="#history">時間と歴史</a>
+        <a href="#story">物語と謎</a>
+        <a href="#glossary">用語帳</a>
+        <a href="#authors-desk" class="author-only">作者の机</a>
+      </nav>
+      <div class="rail-foot">
+        <span class="status-dot canon"></span>CANON
+        <span class="status-dot candidate"></span>CANDIDATE
+        <span class="status-dot open"></span>OPEN
+      </div>
+    </aside>
+
+    <main>
+      <section class="hero" id="overview">
+        <div class="hero-copy">
+          <p class="eyebrow">夜の記憶を、迷わず辿るための一冊。</p>
+          <h1>人物も、関係も、<br /><em>世界の謎も。</em></h1>
+          <p class="hero-lead">攻略本の読みやすさと、作者用設定資料の深さを同じ画面に。Current設定はひと目で、未確定は未確定のまま、追加するほど整理される世界設定Webです。</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#characters">人物から読む</a>
+            <a class="secondary-action" href="#relationships">相関図を見る</a>
+          </div>
+        </div>
+        <div class="hero-object" aria-label="現在の世界設定サマリー">
+          <div class="lantern-orbit"><span></span></div>
+          <div class="hero-card">
+            <span class="stamp">CURRENT</span>
+            <strong id="heroCharacterCount">21</strong>
+            <small>人物</small>
+            <hr />
+            <strong id="heroRelationCount">24</strong>
+            <small>優先関係</small>
+            <p>別時代の人々が、同じ夜で出会う。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter summary-chapter" aria-labelledby="summaryTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 00</span>
+          <div><h2 id="summaryTitle">この世界を30秒で思い出す</h2><p>ゲームを開発する人も、物語を読む人も、まずここ。</p></div>
+        </header>
+        <div class="summary-grid">
+          <article><span>01</span><h3>夜</h3><p>現実では別時代の人も出会える。朝へ帰ればそれぞれの人生へ戻る。</p></article>
+          <article><span>02</span><h3>記憶</h3><p>人だけでなく、物・言葉・記録が時間を渡り、人物同士をつなぐ。</p></article>
+          <article><span>03</span><h3>黒耀化</h3><p>闇落ちではない。本人の長所と恐怖が強すぎる形へ偏った「もう一つの自分」。</p></article>
+          <article><span>04</span><h3>朝</h3><p>正史はHappy End。悲劇を消すのではなく、選び直せるところまで連れていく。</p></article>
+        </div>
+      </section>
+
+      <section class="chapter" id="characters" aria-labelledby="charactersTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 01</span>
+          <div><h2 id="charactersTitle">人物図鑑</h2><p>名前を忘れても、核・成長・星獣・関係からすぐ戻れる。</p></div>
+        </header>
+        <div class="toolbar" role="search">
+          <label class="search-box"><span>⌕</span><input id="characterSearch" type="search" placeholder="名前 / モチーフ / キーワード" /></label>
+          <div id="groupFilters" class="filter-row" aria-label="人物グループ"></div>
+        </div>
+        <div id="characterGrid" class="character-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="chapter relation-chapter" id="relationships" aria-labelledby="relationshipsTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 02</span>
+          <div><h2 id="relationshipsTitle">人間関係は、線ではなく「変化」で読む</h2><p>誰と誰が知り合いかより、その二人だから何が揺れるかを先に見せる。</p></div>
+        </header>
+        <div class="relation-layout">
+          <div class="relation-map-shell">
+            <div class="map-toolbar"><span>人物を押すと、その人の線だけに絞れます。</span><button id="resetRelationFocus" type="button">全体へ戻す</button></div>
+            <div id="relationshipMap" class="relationship-map" aria-label="人物相関図"></div>
+          </div>
+          <aside class="relation-detail" id="relationshipDetail">
+            <p class="eyebrow">RELATION FILE</p>
+            <h3>関係を選んでください</h3>
+            <p>CANONとCANDIDATEを混ぜず、思想・家族・夜で初めて生まれた関係を見分けられます。</p>
+          </aside>
+        </div>
+        <div id="relationshipList" class="relationship-list"></div>
+      </section>
+
+      <section class="chapter" id="history" aria-labelledby="historyTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 03</span>
+          <div><h2 id="historyTitle">時間と歴史</h2><p>年表を無理に確定せず、「現実の時間」と「夜の時間」を二重に読む。</p></div>
+        </header>
+        <div id="timeline" class="timeline"></div>
+        <div class="callout author-only"><b>作者向け:</b> Exact yearを先に埋めるのではなく、言葉・道具・技術・生活習慣から相対Eraを決めると、矛盾を増やさず歴史を厚くできます。</div>
+      </section>
+
+      <section class="chapter story-chapter" id="story" aria-labelledby="storyTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 04</span>
+          <div><h2 id="storyTitle">物語と謎</h2><p>Character Mystery / Main Mystery / Series Mysteryを別レーンで管理する。</p></div>
+        </header>
+        <div id="storyIdentity" class="story-intro"></div>
+        <div id="mysteryLanes" class="mystery-grid"></div>
+        <article class="ink-engine author-only" id="engineCandidate"></article>
+      </section>
+
+      <section class="chapter" id="glossary" aria-labelledby="glossaryTitle">
+        <header class="chapter-heading">
+          <span>CHAPTER 05</span>
+          <div><h2 id="glossaryTitle">用語帳</h2><p>言葉を思い出せない時のための、最短の索引。</p></div>
+        </header>
+        <label class="search-box glossary-search"><span>⌕</span><input id="glossarySearch" type="search" placeholder="黒耀化 / 灯具 / 星獣…" /></label>
+        <div id="glossaryList" class="glossary-list"></div>
+      </section>
+
+      <section class="chapter author-only" id="authors-desk" aria-labelledby="authorTitle">
+        <header class="chapter-heading">
+          <span>AUTHOR'S DESK</span>
+          <div><h2 id="authorTitle">作者の机 — 詰まっていない設定だけを見る</h2><p>「未確定」は欠陥ではなく、次に考えるべき問いとして保管する。</p></div>
+        </header>
+        <div id="openQuestions" class="question-board"></div>
+        <div class="source-note">
+          <h3>正本ルール</h3>
+          <p>このWebはCurrent masterの閲覧レイヤーです。CANON / USER_DIRECTION / CANDIDATE / OPEN_QUESTIONを表示上も分け、Web上のメモだけで正史を書き換えません。</p>
+          <ul id="sourceList"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="characterDialog" class="character-dialog">
+    <button class="dialog-close" type="button" aria-label="閉じる">×</button>
+    <div id="characterDialogBody"></div>
+  </dialog>
+
+  <footer>
+    <span>ヨルノシルベ WORLD BIBLE</span>
+    <span id="dataUpdatedAt">Data —</span>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
