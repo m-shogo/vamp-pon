@@ -17,6 +17,7 @@ namespace VampPon.UnitySpike.UI.Screens
             transform.SetParent(parent, false);
             var rect = gameObject.AddComponent<RectTransform>(); rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = Vector2.zero; rect.offsetMax = Vector2.zero;
             U46ScreenFactory.Panel(transform, "ResultBlocker", Vector2.zero, Vector2.one, null, new Color(0.025f, 0.02f, 0.025f, 1f));
+            if (GetComponent<ResultRevealMotion>() == null) gameObject.AddComponent<ResultRevealMotion>();
             CreateContentRoot();
             gameObject.SetActive(false);
         }
