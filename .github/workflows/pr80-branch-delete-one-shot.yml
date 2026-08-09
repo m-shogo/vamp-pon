@@ -127,3 +127,5 @@ jobs:
           delete_branch_if_present chore/exact-merged-branch-cleanup-trigger
           delete_branch_if_present chore/exact-merged-branch-cleanup-trigger-v2
           delete_branch_if_present chore/main-ci-cleanup-trigger
+
+# Main-CI trigger: this branch changes only this comment.
