@@ -1,9 +1,13 @@
 name: Merged Lorebook Branch Delete One Shot
 
 on:
-  pull_request:
+  workflow_run:
+    workflows:
+      - CI
     types:
-      - closed
+      - completed
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -11,15 +15,12 @@ permissions:
 
 jobs:
   delete-audited-merged-branches:
-    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && github.event.pull_request.title == 'chore: retrigger exact merged branch cleanup'
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
-      TRIGGER_PR: ${{ github.event.pull_request.number }}
-      TRIGGER_BRANCH: ${{ github.event.pull_request.head.ref }}
-      TRIGGER_HEAD: ${{ github.event.pull_request.head.sha }}
     steps:
-      - name: Verify merged or semantically rescued heads, then delete refs
+      - name: Verify rescued content and merged heads, then delete refs
         shell: bash
         run: |
           set -euo pipefail
@@ -32,33 +33,12 @@ jobs:
             gh api "repos/${GITHUB_REPOSITORY}/pulls/$1" --jq 'if .merged_at != null then .head.sha else "" end'
           }
 
-          verify_exact_merged_pr_branch() {
-            local pr="$1"
-            local branch="$2"
-            local expected="$3"
-            local actual
-            local merged_head
-
-            actual="$(current_branch_sha "$branch")"
-            if [ -n "$actual" ] && [ "$actual" != "$expected" ]; then
-              echo "::error::${branch} moved after audit: expected ${expected}, got ${actual}"
-              exit 1
-            fi
-
-            merged_head="$(merged_pr_head "$pr")"
-            if [ "$merged_head" != "$expected" ]; then
-              echo "::error::PR #${pr} merged-head proof mismatch: expected ${expected}, got ${merged_head}"
-              exit 1
-            fi
-          }
-
           verify_pr80_semantic_rescue() {
             local branch='feat/lorebook-world-bible-web-v1'
             local merged_head='ec29dd8b915f7ebb43dd1da27419d5e60befb45a'
             local expected_js='7650b5906b8e338317ef679e621c83e3f62d926f'
             local expected_css='673d533e896db1e6e4e1857cd73c2bd41c81c634'
             local actual
-            local pr_head
             local ahead
             local behind
             local files
@@ -67,9 +47,8 @@ jobs:
             local main_js
             local main_css
 
-            pr_head="$(merged_pr_head 80)"
-            if [ "$pr_head" != "$merged_head" ]; then
-              echo "::error::PR #80 merged-head proof mismatch: expected ${merged_head}, got ${pr_head}"
+            if [ "$(merged_pr_head 80)" != "$merged_head" ]; then
+              echo '::error::PR #80 merged-head proof changed'
               exit 1
             fi
 
@@ -98,11 +77,31 @@ jobs:
             main_css="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/contents/public/lorebook/motion.css" -f ref=main --jq '.sha')"
 
             if [ "$branch_js" != "$expected_js" ] || [ "$main_js" != "$expected_js" ]; then
-              echo "::error::motion-enhancement.js is not byte-identical between rescued branch and main"
+              echo '::error::motion-enhancement.js rescue proof failed'
               exit 1
             fi
             if [ "$branch_css" != "$expected_css" ] || [ "$main_css" != "$expected_css" ]; then
-              echo "::error::motion.css is not byte-identical between rescued branch and main"
+              echo '::error::motion.css rescue proof failed'
+              exit 1
+            fi
+          }
+
+          verify_exact_merged_branch() {
+            local branch="$1"
+            local actual
+            local pulls
+            local matched
+
+            actual="$(current_branch_sha "$branch")"
+            if [ -z "$actual" ]; then
+              echo "Already absent: ${branch}"
+              return
+            fi
+
+            pulls="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/pulls" -f state=closed -f "head=${GITHUB_REPOSITORY_OWNER}:${branch}" -f per_page=100)"
+            matched="$(printf '%s' "$pulls" | jq -r --arg sha "$actual" '[.[] | select(.merged_at != null and .head.sha == $sha)] | length')"
+            if [ "$matched" -lt 1 ]; then
+              echo "::error::No merged PR records the current exact head for ${branch}: ${actual}"
               exit 1
             fi
           }
@@ -118,13 +117,11 @@ jobs:
           }
 
           verify_pr80_semantic_rescue
-          verify_exact_merged_pr_branch 81 fix/lorebook-motion-postmerge 7bf047d6d84cddb03be5217303f9bea1a78ea431
-          verify_exact_merged_pr_branch 82 chore/exact-merged-branch-cleanup-trigger 22ffcddab2564424d2f6190e4be94795c0eb4807
-          verify_exact_merged_pr_branch "$TRIGGER_PR" "$TRIGGER_BRANCH" "$TRIGGER_HEAD"
+          verify_exact_merged_branch fix/lorebook-motion-postmerge
+          verify_exact_merged_branch chore/exact-merged-branch-cleanup-trigger
+          verify_exact_merged_branch chore/exact-merged-branch-cleanup-trigger-v2
 
           delete_branch_if_present feat/lorebook-world-bible-web-v1
           delete_branch_if_present fix/lorebook-motion-postmerge
           delete_branch_if_present chore/exact-merged-branch-cleanup-trigger
-          delete_branch_if_present "$TRIGGER_BRANCH"
-
-# Retrigger v2: the only change in this branch is this comment.
+          delete_branch_if_present chore/exact-merged-branch-cleanup-trigger-v2
