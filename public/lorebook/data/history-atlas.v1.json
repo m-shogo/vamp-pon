@@ -1,26 +1,26 @@
 {
   "schemaVersion": 1,
   "updatedAt": "2026-08-09",
-  "statusRule": "Object threads describe Current connections and explicit candidates. Missing handoffs and relative eras remain gaps, never inferred as CANON.",
-  "sources": ["docs/CHARACTERS.md", "docs/character-book-v4.md", "docs/RELATIONSHIPS.md", "src/game/data/characterCanon.ts", "src/game/data/reserveCharacterCanon.ts"],
+  "statusRule": "Current laws and confirmed object facts may be CANON. Missing handoffs, exact years, and unproven shared-object links remain explicit gaps and are never inferred as CANON.",
+  "sources": ["docs/CANON.md", "docs/CHARACTERS.md", "docs/character-book-v4.md", "docs/RELATIONSHIPS.md", "docs/night-black-ink-star-beast-canon-v1.md", "src/game/data/characterCanon.ts", "src/game/data/reserveCharacterCanon.ts"],
   "timeLayers": [
-    {"id":"reality","label":"現実の時間","status":"USER_DIRECTION","summary":"人物は必ずしも同時代ではない。物・言葉・記録は現実時間の順序を持って継承される。"},
-    {"id":"night","label":"夜の時間","status":"USER_DIRECTION","summary":"別時代の人物も出会い、戦い、食べ、失敗し、関係を作れる。夜で一緒にいた時間と現実時間は一致しなくてよい。"},
-    {"id":"dawn","label":"それぞれの朝","status":"USER_DIRECTION","summary":"朝へ帰れば自分の時代・人生へ戻る。夜で得た選択や関係は、帰った後の小さな行動へ残る。"}
+    {"id":"reality","label":"現実の時間","status":"CANON","summary":"人物は必ずしも同時代ではない。物・言葉・記録は現実時間の順序を持って継承される。"},
+    {"id":"night","label":"夜の時間","status":"CANON","summary":"未完の意味が別時代を越えて重なる境界層。人物は出会い、戦い、食べ、失敗し、夜で新しい関係を作れる。"},
+    {"id":"dawn","label":"それぞれの朝","status":"CANON","summary":"朝へ帰れば自分の時代・人生へ戻る。夜で選び直したことは、物の扱い・言葉・小さな行動として現実へ残る。"}
   ],
   "objectThreads": [
     {
-      "id":"thread-lantern","label":"修理痕のあるランタン","kind":"named-object candidate lineage","status":"CANDIDATE","confidence":"HIGH-VALUE / handoff unknown",
+      "id":"thread-lantern","label":"修理痕のあるランタン","kind":"confirmed object lineage / handoff gap","status":"CANON","confidence":"CONFIRMED CORE / handoff unknown",
       "members":["tomori","yui"],
-      "known":["トモリはユイのランタンを直した痕跡を持つ。","ユイの中心モチーフ / vesselはランタン。","ユイとトモリは獅子系星獣を共有するが、理由は未LOCK。"],
-      "gap":"トモリが触れたランタンが、誰の手を経て、どの程度の時間を渡ってユイへ来たか。",
-      "payoff":"血縁を使わず『昔の誰かの手仕事を、後世の主人公が毎晩握っていた』という感情線を作れる。"
+      "known":["トモリはユイより前の現実時代で、後にユイへ届く同じ物理ランタンを修理した。","ランタンは複数の手を経て現実時間を渡り、後世のユイへ届いた。","ユイが握っていた修理痕にはトモリの仕事が含まれる。","ユイとトモリのLeo共有は同じ灯り / object lineageへの共鳴で、血縁Canonではない。"],
+      "gap":"トモリの後に誰が所有し、どの順序・期間でユイへ渡ったか。最初の製作者も未確定。",
+      "payoff":"『昔の誰かの手仕事を、後世の主人公がずっと握っていた』ことを、血縁ではなく物の履歴で成立させる。"
     },
     {
       "id":"thread-route","label":"古い道 / 帰る道 / 門","kind":"route-memory lineage","status":"CANDIDATE","confidence":"MEDIUM-HIGH",
       "members":["gen","michiru","tobari"],
       "known":["ゲンは古い道と古いコンパスを知る。","ミチルは帰る方角と地図線を扱う。","トバリは改札 / 境目 / 帰れる状態を管理する。"],
-      "gap":"三者が同じ現実のroute systemを別時代で見ているのか、夜でのみ重なる似た道なのか。",
+      "gap":"三者が同じ現実のroute systemを別時代で見ているのか、局所Night layerでのみ重なる似た道なのか。",
       "payoff":"『昔あった道 / 今歩ける道 / 夜でだけ繋がる道』を別線で残す歴史表現に使える。"
     },
     {
@@ -46,18 +46,18 @@
     }
   ],
   "eraMethod": {
-    "status":"CANDIDATE",
-    "principle":"西暦を付ける前に、evidence-based Relative Eraを持つ。人物の年齢と人物の時代は別dataとして扱う。",
+    "status":"CANON",
+    "principle":"西暦を付ける前に、evidence-based Relative Eraを持つ。人物の年齢と人物の時代は別dataとして扱い、根拠不足はUNKNOWNとして残す。",
     "layers":[
-      {"id":"OLD","label":"OLD","meaning":"現在の他人物から見て古い生活・道具・routeの痕跡が強い。"},
+      {"id":"OLD","label":"OLD","meaning":"他人物との比較で古い生活・道具・routeの痕跡が強い。"},
       {"id":"TRANSIT","label":"TRANSIT","meaning":"交通・郵便・駅・記録systemの変化が歴史のmarkerになりやすい。"},
       {"id":"RECENT","label":"RECENT","meaning":"比較的新しい生活語彙や物が見える。ただし現実の西暦とはまだ結ばない。"},
-      {"id":"UNKNOWN","label":"UNKNOWN","meaning":"制作都合で曖昧にするのではなく、判断根拠不足として明示的に保留する。"}
+      {"id":"UNKNOWN","label":"UNKNOWN","meaning":"制作都合で曖昧にするのでなく、判断根拠不足として明示的に保留する。"}
     ],
     "requiredEvidence":["languageMarker","technologyMarker","dailyLifeMarker","objectLineageLink","source","confidence"],
     "firstAnchors":[
       {"characterId":"gen","note":"古い道 / 古いコンパスはOLD側の強いevidence候補。ただし高齢者であること自体はera根拠にしない。"},
-      {"characterId":"tomori","note":"ユイのランタン修理痕が同一物lineageなら、ユイより前のrelative placement候補。lineage確定までは依存関係付き。"},
+      {"characterId":"tomori","note":"同一ランタンlineageによりユイより前のrelative placementはCANON。exact layer / yearは追加evidenceで決める。"},
       {"characterId":"yuubi","note":"郵便・消印・配達routeはTRANSIT marker候補。ただし郵便文化は長期間続くため単独で年代を決めない。"},
       {"characterId":"tobari","note":"駅 / 改札 / 切符はTRANSIT marker候補。具体様式・材質・運用が決まるまで年代幅を広く取る。"}
     ]
