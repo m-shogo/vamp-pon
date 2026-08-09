@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "repository": "m-shogo/vamp-pon",
+  "authority": "docs/visual-production-system.md",
+  "purpose": "Batch image-generation queue for Claude-directed Codex production. Generate assets only where imagery materially improves the player-facing result; keep native text/UI/runtime motion separate.",
+  "rules": {
+    "doNotTouchOtherRepos": true,
+    "generateInBatch": true,
+    "noIndependentResponsiveRegeneration": true,
+    "preserveNativeTextAndControls": true,
+    "semanticLayersWhenDepthOrIndependentLightingMatters": true,
+    "doNotPromoteWithoutRuntimeEvidence": true,
+    "mobileMaster": "430x932",
+    "requiredCrops": ["360x800", "390x844", "430x932"]
+  },
+  "queue": [
+    {
+      "id": "ART-P0-TOP-CORE5-V3",
+      "priority": 0,
+      "screen": "TOP",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "why": "Highest visual impact and current bridge humans are explicitly non-final.",
+      "artDirection": ["quiet night station", "long journey", "companions", "campfire", "memory", "restrained amber", "deep indigo/navy", "slightly melancholic", "place worth returning to"],
+      "mustContain": ["Yui", "Asa", "Nagi", "Michiru", "Tomori", "white small animal", "small round robot", "station", "rail", "distant town", "campfire"],
+      "foregroundHumanCount": 5,
+      "forbidden": ["sixth human", "generic person", "duplicate character", "identity merge", "festival", "swimsuit", "fireworks", "bright group-photo energy", "flattened UI text"],
+      "deliverables": [
+        "canonical composite 430x932",
+        "00-environment-base.png",
+        "04-distant-town.png",
+        "06-core5.png",
+        "07-animal-robot.png",
+        "09-fire-base.png",
+        "15-foreground-accents.png"
+      ],
+      "runtimeOwned": ["stars", "clouds far", "clouds near", "distant lights", "fire animation", "fire glow", "smoke", "embers", "lantern glow", "robot eye"],
+      "repoContract": "docs/design-targets/generated/top-living-night-v3/layered-final-production-contract.md"
+    },
+    {
+      "id": "ART-P1-STAGESELECT-MAP",
+      "priority": 1,
+      "screen": "StageSelect",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "why": "Current functional paper grid reads as utility UI rather than destination anticipation.",
+      "artDirection": ["night railway route map", "paper map", "station signage", "travel notebook", "black ink", "muted teal/amber"],
+      "deliverables": ["map-paper base", "route/rail decorative band", "selected-destination frame", "small station/route icon atlas"],
+      "runtimeOwned": ["selected route light", "lantern accent", "selected destination focus"],
+      "forbidden": ["text baked into art", "one illustration per card with inconsistent style", "busy full-screen particles"]
+    },
+    {
+      "id": "ART-P1-RESULT-MEMORY-REWARD",
+      "priority": 1,
+      "screen": "Result",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "why": "Reward/payoff hierarchy needs stronger authored material assets; runtime reveal is code-owned.",
+      "artDirection": ["memory page", "travel record", "ink stamp", "old ticket", "restrained premium paper"],
+      "deliverables": ["memory page base", "rank seal family", "reward card frame family", "stat chip family", "rare reward accent masks"],
+      "runtimeOwned": ["staged reveal", "rare short glow/burst"],
+      "forbidden": ["full-screen celebratory illustration", "looping confetti", "baked numbers/text"]
+    },
+    {
+      "id": "ART-P1-COLLECTION-MATERIAL",
+      "priority": 1,
+      "screen": "Collection",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "why": "Needs tactile archive identity more than more motion.",
+      "artDirection": ["field notebook", "archive", "paper fibers", "black ink", "memory labels"],
+      "deliverables": ["page base", "entry card unlocked", "entry card locked", "tab family", "NEW seal", "detail memory page"],
+      "runtimeOwned": ["subtle page breathing", "selection response", "NEW low-frequency response"],
+      "forbidden": ["animated wallpaper", "baked entry names"]
+    },
+    {
+      "id": "ART-P2-LEVELUP-CARDS",
+      "priority": 2,
+      "screen": "LevelUp",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "why": "Choice quality depends on strong card hierarchy and rarity/evolution surfaces.",
+      "artDirection": ["paper talisman", "night archive", "ink border", "localized rarity"],
+      "deliverables": ["normal card frame", "selected card frame", "rare card frame", "evolution frame/mask", "small rarity accents"],
+      "runtimeOwned": ["entrance", "selection focus", "rare/evolution short effect"],
+      "forbidden": ["moving environmental background", "baked option text", "large decorative illustration behind choices"]
+    },
+    {
+      "id": "ART-P2-BATTLE-ENVIRONMENT-BANDS",
+      "priority": 2,
+      "screen": "Battle",
+      "status": "REVIEW_BEFORE_GENERATION",
+      "why": "Existing stage backgrounds exist; only regenerate where readability and authored depth clearly improve.",
+      "deliverables": ["per-stage optional far band", "playfield ground band", "sparse foreground silhouette band", "shared atmosphere masks"],
+      "runtimeOwned": ["weather", "fog/dust", "hit/kill/pickup VFX"],
+      "forbidden": ["TOP-like parallax that obscures enemies", "dense foreground", "high-frequency ambient motion"]
+    },
+    {
+      "id": "ART-P2-RARE-STATE-VFX",
+      "priority": 2,
+      "screen": "Blackening/Cutin/Rare States",
+      "status": "READY_FOR_BATCH_GENERATION",
+      "why": "Rare states can carry stronger bespoke visual identity without polluting normal gameplay.",
+      "deliverables": ["ink fracture mask", "blackening edge mask", "character cutin frame family", "distortion/noise mask atlas", "rare light accent masks"],
+      "runtimeOwned": ["distortion", "camera impulse", "particle burst", "timed cleanup"],
+      "forbidden": ["generic AI magic particles", "identity-obscuring full-screen noise"]
+    }
+  ],
+  "doNotGenerateYet": [
+    {"screen": "Loading", "reason": "Four seasonal final images already exist; improve only through runtime polish unless art review explicitly rejects them."},
+    {"screen": "Settings/FirstRun", "reason": "Clarity and functional interaction are the priority; solve with layout/components before decorative art."},
+    {"screen": "HUD", "reason": "Readability and feedback should be fixed with native UI/shared assets first."}
+  ]
+}
