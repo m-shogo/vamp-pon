@@ -230,6 +230,7 @@ namespace VampPon.UnitySpike.Player
             if (blocked)
             {
                 velocity = Vector2.zero;
+                transform.localScale = baseScale;
             }
         }
 
@@ -255,9 +256,18 @@ namespace VampPon.UnitySpike.Player
             next.y = Mathf.Clamp(next.y, worldBounds.yMin, worldBounds.yMax);
             transform.position = new Vector3(next.x, next.y, transform.position.z);
 
-            var bob = Mathf.Sin(Time.time * 8.5f) * 0.018f;
-            var speedPulse = Mathf.Clamp01(velocity.magnitude / Mathf.Max(0.01f, moveSpeed)) * 0.035f;
-            transform.localScale = baseScale * (1f + bob + speedPulse);
+            var moveAmount = Mathf.Clamp01(velocity.magnitude / Mathf.Max(0.01f, moveSpeed));
+            var reducedMotion =
+                PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
+                PlayerPrefs.GetInt("reduce_motion", 0) == 1;
+
+            // Sprite animation owns the readable walk cadence. Secondary scale motion is
+            // intentionally tiny, non-periodic and mostly idle so it never fights the frames.
+            var idleBreath = reducedMotion
+                ? 0f
+                : Mathf.Lerp(-.005f, .007f, Mathf.PerlinNoise(.83f, Time.unscaledTime * .31f)) * (1f - moveAmount);
+            var movementPresence = reducedMotion ? 0f : moveAmount * .014f;
+            transform.localScale = baseScale * (1f + idleBreath + movementPresence);
         }
     }
 }
