@@ -38,3 +38,5 @@ jobs:
             exit 1
           fi
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --delete "$TARGET_BRANCH"
+
+# one-shot trigger: 2026-08-09T23:10+09:00
