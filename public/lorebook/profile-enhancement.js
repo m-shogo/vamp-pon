@@ -1,6 +1,11 @@
 const PROFILE_URL = './data/personal-profiles.v1.json';
 let profiles = [];
 
+const profileStyles = document.createElement('link');
+profileStyles.rel = 'stylesheet';
+profileStyles.href = './profile.css';
+document.head.append(profileStyles);
+
 function profileByName(name) {
   return profiles.find((profile) => profile.name === name);
 }
