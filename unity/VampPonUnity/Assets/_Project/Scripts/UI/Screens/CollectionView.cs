@@ -53,7 +53,11 @@ namespace VampPon.UnitySpike.UI.Screens
 
         public void Show()
         {
+            // Detail is a transient inspection state, not navigation state. Returning to the
+            // Collection always restores the index instead of resurrecting an old overlay.
+            CloseTransientDetail();
             gameObject.SetActive(true);
+            UpdateTabVisuals();
             Refresh(resetScroll: true);
         }
 
@@ -70,7 +74,7 @@ namespace VampPon.UnitySpike.UI.Screens
                     page,
                     $"Category{category}",
                     names[i],
-                    assets.Collection.TabInactive,
+                    VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.CollectionTabInactive, assets.Collection.TabInactive),
                     new Vector2(x, 0.75f),
                     new Vector2(x + 0.145f, 0.83f),
                     font,
@@ -147,7 +151,10 @@ namespace VampPon.UnitySpike.UI.Screens
                 var image = button.GetComponent<Image>();
                 if (image != null)
                 {
-                    image.sprite = selected ? assets.Collection.TabActive : assets.Collection.TabInactive;
+                    image.sprite = selected
+                        ? VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.CollectionTabActive, assets.Collection.TabActive)
+                        : VisualBatchAssetProvider.Prefer(VisualBatchAssetProvider.CollectionTabInactive, assets.Collection.TabInactive);
+                    image.type = image.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
                     image.color = selected ? Color.white : new Color(1f, 1f, 1f, .78f);
                 }
                 var label = button.GetComponentInChildren<TextMeshProUGUI>(true);
@@ -224,7 +231,7 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             var entry = presenter.Detail(id);
             if (entry == null) return;
-            if (detailOverlay != null) Destroy(detailOverlay);
+            CloseTransientDetail();
 
             detailOverlay = U46ScreenFactory.Panel(
                 transform,
@@ -240,13 +247,25 @@ namespace VampPon.UnitySpike.UI.Screens
             U46ScreenFactory.Label(detailOverlay.transform, "DetailProgress", entry.Unlocked ? $"発見 {entry.ProgressCurrent} / {entry.ProgressMax}\n{entry.RelatedLabel}" : "手がかりを探している", 14f, Ink(), new Vector2(0.34f, 0.22f), new Vector2(0.88f, 0.35f), TextAlignmentOptions.Left, font);
             U46ScreenFactory.Button(detailOverlay.transform, "CloseDetailButton", "閉じる", assets.Result.SecondaryButton, new Vector2(0.25f, 0.08f), new Vector2(0.75f, 0.18f), font, () =>
             {
-                Destroy(detailOverlay);
-                detailOverlay = null;
+                CloseTransientDetail();
                 Refresh(resetScroll: false);
             });
 
             if (entry.Unlocked && entry.NewIndicator)
                 presenter.MarkSeen(entry.Id);
+        }
+
+        private void CloseTransientDetail()
+        {
+            if (detailOverlay == null)
+                return;
+            Destroy(detailOverlay);
+            detailOverlay = null;
+        }
+
+        private void OnDisable()
+        {
+            CloseTransientDetail();
         }
 
         private static Color Ink() => new(0.11f, 0.075f, 0.06f, 1f);
