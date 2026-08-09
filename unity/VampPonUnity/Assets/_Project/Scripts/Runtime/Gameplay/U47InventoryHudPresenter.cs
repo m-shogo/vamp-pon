@@ -35,13 +35,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
         public void Build(Transform parent, TMP_FontAsset font, Stage1GameplayRuntimeCoordinator runtime)
         {
             gameplay = runtime;
-
-            // U45 kept a visual-only placeholder while the real inventory state was not
-            // connected. Once this presenter exists, keeping it underneath creates a
-            // double-frame/prototype look and wastes fill-rate.
-            var obsoletePlaceholder = parent.Find("BottomInventoryPlaceholder");
-            if (obsoletePlaceholder != null)
-                obsoletePlaceholder.gameObject.SetActive(false);
+            RetireLegacyInventoryChrome(parent);
+            PolishTopHud(parent, font);
 
             var root = new GameObject("U47ActualInventoryHud", typeof(RectTransform), typeof(Image));
             root.transform.SetParent(parent, false);
@@ -56,7 +51,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             rootImage.sprite = AppQualityAssetProvider.BattleHudTopFrame;
             rootImage.type = rootImage.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
             rootImage.color = rootImage.sprite != null
-                ? new Color(1f, 1f, 1f, .92f)
+                ? new Color(1f, 1f, 1f, .9f)
                 : new Color(.025f, .022f, .03f, .84f);
             rootImage.raycastTarget = false;
 
@@ -92,6 +87,58 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             return vm;
         }
 
+        private static void RetireLegacyInventoryChrome(Transform parent)
+        {
+            var obsoletePlaceholder = parent.Find("BottomInventoryPlaceholder");
+            if (obsoletePlaceholder != null)
+                obsoletePlaceholder.gameObject.SetActive(false);
+
+            for (var i = 1; i <= 5; i++)
+            {
+                var oldSlot = parent.Find($"U45BattleInventorySlot_{i:00}");
+                if (oldSlot != null)
+                    oldSlot.gameObject.SetActive(false);
+            }
+        }
+
+        private static void PolishTopHud(Transform parent, TMP_FontAsset font)
+        {
+            var top = parent.Find("TopHudPlaceholder");
+            if (top == null)
+                return;
+
+            var rect = top.GetComponent<RectTransform>();
+            if (rect != null)
+            {
+                rect.sizeDelta = new Vector2(326f, 40f);
+                rect.anchoredPosition = new Vector2(0f, -28f);
+            }
+
+            var image = top.GetComponent<Image>();
+            if (image != null)
+            {
+                image.sprite = AppQualityAssetProvider.BattleHudTopFrame;
+                image.type = image.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
+                image.color = image.sprite != null
+                    ? new Color(1f, 1f, 1f, .88f)
+                    : new Color(.035f, .027f, .03f, .82f);
+                image.raycastTarget = false;
+            }
+
+            var label = top.Find("Label")?.GetComponent<TextMeshProUGUI>();
+            if (label != null)
+            {
+                if (font != null)
+                    label.font = font;
+                label.fontSize = 13f;
+                label.color = new Color(.94f, .86f, .7f, 1f);
+                label.characterSpacing = 1.2f;
+                label.textWrappingMode = TextWrappingModes.NoWrap;
+                label.overflowMode = TextOverflowModes.Ellipsis;
+                label.raycastTarget = false;
+            }
+        }
+
         private void CreateMetricRow(Transform parent, TMP_FontAsset font)
         {
             hpLabel = CreateLabel(parent, "HpLabel", "HP", font, 11f, new Vector2(.035f, .64f), new Vector2(.49f, .94f), TextAlignmentOptions.Left);
@@ -120,7 +167,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay
             var image = panel.GetComponent<Image>();
             image.sprite = AppQualityAssetProvider.BattleInventorySlotFrame;
             image.type = image.sprite != null ? Image.Type.Sliced : Image.Type.Simple;
-            image.color = image.sprite != null ? new Color(1f, 1f, 1f, .9f) : new Color(.09f, .07f, .075f, .8f);
+            image.color = image.sprite != null ? new Color(1f, 1f, 1f, .88f) : new Color(.09f, .07f, .075f, .8f);
             image.raycastTarget = false;
 
             return CreateLabel(panel.transform, name, prefix, font, 9.5f, new Vector2(.04f, .05f), new Vector2(.96f, .95f), TextAlignmentOptions.Center);
