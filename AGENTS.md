@@ -79,6 +79,14 @@ This applies to TOP and every other player-facing screen. Do not wait for the us
 - Reduced Motion is a live runtime behavior, not a separate rebuilt screen
 - a final visual may not silently fall back to a weaker flattened representation when its production contract requires semantic layers
 
+### Visual continuation with low context
+
+For the current visual implementation direction, read this compact entrypoint before pulling in more historical documents:
+
+```txt
+docs/agent-work/CURRENT_VISUAL_GOAL.md
+```
+
 ### Deferred image-generation batch
 
 When image generation is intentionally deferred while runtime implementation continues, record required assets here instead of relying on conversation memory:
