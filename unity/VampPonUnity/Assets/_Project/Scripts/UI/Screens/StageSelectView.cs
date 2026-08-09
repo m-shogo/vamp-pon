@@ -66,6 +66,9 @@ namespace VampPon.UnitySpike.UI.Screens
         private void Render()
         {
             if (coordinator == null || startButton == null) return;
+            var reducedMotion =
+                PlayerPrefs.GetInt("vamp_pon_reduced_motion", 0) == 1 ||
+                PlayerPrefs.GetInt("reduce_motion", 0) == 1;
             foreach (var item in coordinator.StageSelection.Items)
             {
                 if (!cards.TryGetValue(item.StageId, out var card)) continue;
@@ -78,6 +81,9 @@ namespace VampPon.UnitySpike.UI.Screens
                     _ => UiVisualState.Normal,
                 };
                 var style = UiThemeRuntime.Resolve(state); card.Background.color = style.Background; card.Title.color = style.Text;
+                card.Background.rectTransform.localScale = item.IsSelected && !reducedMotion
+                    ? new Vector3(1.018f, 1.018f, 1f)
+                    : Vector3.one;
                 card.Button.interactable = true;
                 card.Status.text = item.IsSelected
                     ? item.IsStartable ? "選択中・出発可能" : item.IsUnlocked ? "選択中・準備中" : "選択中・未解放"
