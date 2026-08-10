@@ -1,5 +1,6 @@
 import type { CharacterDatabaseEntry } from './characterDatabase.ts';
 import { characterDefinitions, characterDefinitionById } from './characterDatabase.ts';
+import { characterVisualGenerationBriefById } from './characterVisualGenerationBriefs.ts';
 import { EMBLEM_PHASE_RULES } from './emblemCanon.ts';
 
 export type CharacterAssetPromptKind =
@@ -75,6 +76,14 @@ const REFERENCE_SPEC = '1024x1024 PNG RGBA, full body, front 3/4 view, transpare
 const CUTIN_SPEC = '1440x360 PNG RGBA, horizontal wide cutin, transparent background, no baked text, no logo, no frame, no checkerboard.';
 const EMBLEM_SPEC = '512x512 PNG source, one emblem only, centered, pure #00FF00 chroma key background for UI processing, no text, no letters, no numbers.';
 
+function visualGenerationBrief(definition: CharacterDatabaseEntry) {
+  const brief = characterVisualGenerationBriefById.get(definition.id);
+  if (!brief) {
+    throw new Error(`Missing Current character visual-generation brief: ${definition.id}`);
+  }
+  return brief;
+}
+
 function keywordLine(definition: CharacterDatabaseEntry): string {
   return [
     definition.identity.vessel,
@@ -95,6 +104,7 @@ function keywordLine(definition: CharacterDatabaseEntry): string {
 }
 
 function baseCharacterBrief(definition: CharacterDatabaseEntry): string {
+  const visual = visualGenerationBrief(definition);
   return [
     `${COMMON_CHARACTER_STYLE}.`,
     `Character: ${definition.name} (${definition.id}).`,
@@ -107,6 +117,16 @@ function baseCharacterBrief(definition: CharacterDatabaseEntry): string {
     `Rare item: ${definition.combat.rareItem}.`,
     `Art names: ${definition.arts.lampArt} / ${definition.arts.inheritedLight} / ${definition.arts.dawnLight}.`,
     `Visual keywords: ${keywordLine(definition)}.`,
+    `Theme colors: primary ${visual.themeHex}; accent ${visual.accentHex}.`,
+    `Star Beast: ${visual.starBeast}; favorite constellation: ${visual.constellation}.`,
+    `Silhouette canon: ${visual.silhouette}.`,
+    `Posture canon: ${visual.posture}.`,
+    `Clothing-shape canon: ${visual.clothingShape}.`,
+    `Named-object anchor: ${visual.objectAnchor}.`,
+    `Motion signature: ${visual.motionSignature}.`,
+    `Ensemble placement: ${visual.ensemblePosition}.`,
+    ...(visual.hardVisualDirection ? [`HARD visual direction: ${visual.hardVisualDirection}.`] : []),
+    `Generation guards: ${visual.prohibitedShortcuts.join('; ')}.`,
   ].join('\n');
 }
 
@@ -115,8 +135,15 @@ function outputBase(definition: CharacterDatabaseEntry): string {
 }
 
 function checklistBase(definition: CharacterDatabaseEntry): string[] {
+  const visual = visualGenerationBrief(definition);
   return [
     `${definition.name}の持ち物・光・シルエットが他キャラと被っていない`,
+    `silhouette canonを維持: ${visual.silhouette}`,
+    `姿勢 / motionが一致: ${visual.posture} / ${visual.motionSignature}`,
+    ...(visual.hardVisualDirection ? [`HARD visual directionを維持: ${visual.hardVisualDirection}`] : []),
+    ...(definition.id === 'hana' || definition.id === 'kage1'
+      ? ['PLUS-SIZE HARD LOCK: 細身化・bodybuilder化・体型ギャグ化していない']
+      : []),
     '390x844のスマホ画面で読める',
     '文字・ロゴ・AZコードを画像へ焼き込んでいない',
     '白フリンジ、市松模様、余計な背景がない',
@@ -133,6 +160,7 @@ function makePrompt(
   focus: string,
   reviewChecklist: string[],
 ): CharacterAssetPrompt {
+  const visual = visualGenerationBrief(definition);
   return {
     characterId: definition.id,
     characterName: definition.name,
@@ -141,7 +169,7 @@ function makePrompt(
     outputPathHint,
     sizeSpec,
     prompt: [baseCharacterBrief(definition), `Asset focus: ${focus}`, `Output spec: ${sizeSpec}`].join('\n'),
-    negativePrompt: COMMON_NEGATIVE_PROMPT,
+    negativePrompt: [COMMON_NEGATIVE_PROMPT, ...visual.prohibitedShortcuts.map((guard) => `avoid ${guard}`)].join(', '),
     reviewChecklist: [...checklistBase(definition), ...reviewChecklist],
   };
 }
@@ -159,11 +187,13 @@ function buildSpriteSheetPrompt(definition: CharacterDatabaseEntry): CharacterAs
       `Keep the starter gear readable: ${definition.combat.starterGear}.`,
       `Keep the vessel readable: ${definition.identity.vessel}.`,
       'Use simple readable poses; do not over-detail the face.',
+      'Keep the same body proportions and silhouette canon in all 48 cells; do not slim or normalize the character between frames.',
     ].join(' '),
     [
       '48セルすべてが180x180内に収まっている',
       '歩き・被弾・技・黒耀化差分の見分けがつく',
       '初期灯具が小さくても読める',
+      '全48セルでbody proportions / clothing massが一貫している',
     ],
   );
 }
@@ -180,12 +210,14 @@ function buildReferencePrompt(definition: CharacterDatabaseEntry): CharacterAsse
       `Emphasize vessel: ${definition.identity.vessel}.`,
       `Show starter gear clearly: ${definition.combat.starterGear}.`,
       `Mood should match: ${definition.identity.firstAction}.`,
-      `Include no text; this is not a character card, only the character artwork.`,
+      'The full-body reference establishes body, posture, clothing mass and object placement for all later assets.',
+      'Include no text; this is not a character card, only the character artwork.',
     ].join(' '),
     [
       '全身のシルエットが1枚で分かる',
       '髪型・頭装備・持ち物・光の形が次の素材制作に使える',
       'スプライト化したときに情報量が多すぎない',
+      '後続素材がこのbody / posture authorityを再利用できる',
     ],
   );
 }
@@ -203,11 +235,13 @@ function buildNormalCutinPrompt(definition: CharacterDatabaseEntry): CharacterAs
       `The art name is ${definition.arts.dawnLight}, but do not draw any text in the image.`,
       `Show the emotional answer of the character: ${definition.identity.blank}.`,
       'Wide composition, strong diagonal light, game-feel readable burst, not a portrait card.',
+      'Preserve reference body proportions, posture language and Named Object identity in the dynamic crop.',
     ].join(' '),
     [
       '横長カットインとして画面を横切る勢いがある',
       '暁灯名を画像へ焼いていない',
       'キャラ固有の持ち物と光が1秒で伝わる',
+      'dynamic poseでもreferenceのsilhouette identityが崩れていない',
     ],
   );
 }
@@ -224,12 +258,14 @@ function buildDawnCutinPrompt(definition: CharacterDatabaseEntry): CharacterAsse
       `Akatsuki biraki: ${definition.combat.akatsukiBiraki}.`,
       `Emblem dawn change: ${definition.emblem.dawnChange}.`,
       'The night is not erased by violence; it is repaired, named, guided, stored, or returned.',
+      'Character growth changes choices and expression, not established body shape or age.',
       'No text, no title, no UI, only artwork.',
     ].join(' '),
     [
       '通常カットインより朝へ近い印象になっている',
       '黒い欠けが少し修復されて見える',
       '強すぎる白飛びでキャラが読めなくなっていない',
+      'Happy Endを痩身 / 若返り / body normalizationで表現していない',
     ],
   );
 }
@@ -248,12 +284,14 @@ function buildKokuyouCutinPrompt(definition: CharacterDatabaseEntry): CharacterA
       `Cutin direction: ${definition.assetFactory.kokuyouCutinBrief}.`,
       `Kokuyou emblem scar: ${definition.emblem.kokuyouScar}.`,
       'The character is strained and dangerous, but not evil and not horror.',
+      'Distort light, object behavior, pose and shadow; do not make body shape itself the corruption.',
       'No text, no title, no UI, only artwork.',
     ].join(' '),
     [
       '黒耀化副題の歪みが絵だけで伝わる',
       '怖すぎず、Vamp Ponの絵本紙片感を保っている',
       '通常カットインとの差分が明確',
+      '体型 / 年齢そのものをmonster化の理由にしていない',
     ],
   );
 }
