@@ -1,4 +1,5 @@
 name: Post Rescue Branch Cleanup One Shot
+# Trigger after the workflow exists on the default branch.
 
 on:
   push:
