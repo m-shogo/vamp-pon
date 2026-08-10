@@ -1,0 +1,46 @@
+name: Shared Source Production Adapters
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/weaponVisualSharedSource.ts'
+      - 'src/game/data/itemVisualSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/data/evolutions.ts'
+      - 'src/game/data/itemAssetProductionDatabase.ts'
+      - 'src/game/data/itemProductionCanon.ts'
+      - 'src/game/data/characterProductionPlans.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'scripts/quality/check-shared-source-production-adapters.ts'
+      - '.github/workflows/shared-source-production-adapters.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/weaponVisualSharedSource.ts'
+      - 'src/game/data/itemVisualSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/data/evolutions.ts'
+      - 'src/game/data/itemAssetProductionDatabase.ts'
+      - 'src/game/data/itemProductionCanon.ts'
+      - 'src/game/data/characterProductionPlans.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'scripts/quality/check-shared-source-production-adapters.ts'
+      - '.github/workflows/shared-source-production-adapters.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Weapon Item Stage Shared Source adapters
+        run: node --experimental-strip-types scripts/quality/check-shared-source-production-adapters.ts
