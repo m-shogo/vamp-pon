@@ -14,6 +14,7 @@ on:
       - 'src/game/data/combatItemEffectSource.ts'
       - 'src/game/data/combatVfxLanguageSource.ts'
       - 'docs/yoruno-shirube-content-master-source-v1.md'
+      - 'docs/combat-multi-attribute-star-beast-source-v1.md'
       - 'scripts/quality/check-combat-content-master.ts'
       - '.github/workflows/combat-content-master.yml'
   push:
@@ -30,6 +31,7 @@ on:
       - 'src/game/data/combatItemEffectSource.ts'
       - 'src/game/data/combatVfxLanguageSource.ts'
       - 'docs/yoruno-shirube-content-master-source-v1.md'
+      - 'docs/combat-multi-attribute-star-beast-source-v1.md'
       - 'scripts/quality/check-combat-content-master.ts'
       - '.github/workflows/combat-content-master.yml'
 
