@@ -39,8 +39,8 @@ if (!appearanceSource.includes('笑顔で**左右のエクボ**が読める')) {
 if (!appearanceSource.includes('笑顔でエクボが完全消失した候補はREJECT')) {
   fail('Yui source must reject smiling candidates without dimples');
 }
-if (!appearanceSource.includes('生成より上流の人物原本')) {
-  fail('appearance source must remain upstream of generation contracts');
+if (!appearanceSource.includes('Generation Contractが本書を上書きしない')) {
+  fail('appearance source authority must remain above generation contracts');
 }
 
 if (characterAppearanceGenerationSummary.total !== 36) {
