@@ -29,9 +29,11 @@ function sameOrder(left: readonly string[], right: readonly string[]): boolean {
 
 const stageIds = series1StageCampaignContentEntries.map((entry) => entry.stageId);
 const progressionStageIds = title1UnlockLearningProgressionEntries.map((entry) => entry.stageId);
-const selectedWeaponIds = new Set(selectedTitle1BaseWeaponCandidates.map((entry) => entry.weaponId));
-const heldWeaponIds = new Set(heldBaseWeaponCandidates.map((entry) => entry.weaponId));
-const reactionById = new Map(attributeReactions.map((entry) => [entry.id, entry]));
+const selectedWeaponIds = new Set<string>(selectedTitle1BaseWeaponCandidates.map((entry) => entry.weaponId));
+const heldWeaponIds = new Set<string>(heldBaseWeaponCandidates.map((entry) => entry.weaponId));
+const reactionById = new Map<string, (typeof attributeReactions)[number]>(
+  attributeReactions.map((entry) => [entry.id, entry]),
+);
 
 assert(series1StageCampaignContentEntries.length === 20, 'Series1 Stage20 must remain exact');
 assert(title1UnlockLearningProgressionEntries.length === 20, `unlock learning progression must cover Stage20, got ${title1UnlockLearningProgressionEntries.length}`);
@@ -98,7 +100,7 @@ for (const entry of title1UnlockLearningProgressionEntries) {
 }
 
 assert(title1UnlockLearningProgressionSummary.revealedCandidateWeaponCount === selectedTitle1BaseWeaponCandidates.length, `all Selected16 Candidates should be staged as learning reveals by Stage19; got ${title1UnlockLearningProgressionSummary.revealedCandidateWeaponCount}`);
-const revealedIds = new Set(title1UnlockLearningProgressionEntries.flatMap((entry) => entry.candidateWeaponRevealIds));
+const revealedIds = new Set<string>(title1UnlockLearningProgressionEntries.flatMap((entry) => entry.candidateWeaponRevealIds));
 for (const selected of selectedTitle1BaseWeaponCandidates) {
   assert(revealedIds.has(selected.weaponId), `Selected Candidate lacks learning reveal: ${selected.weaponId}`);
 }
