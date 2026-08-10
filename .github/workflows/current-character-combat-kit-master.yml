@@ -1,0 +1,46 @@
+name: current-character-combat-kit-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/currentCharacterCombatKitSeedsA.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsB.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsC.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'src/game/data/characterStarBeastCombatSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'docs/current21-character-combat-kit-source-v1.md'
+      - 'scripts/quality/check-current-character-combat-kit-master.ts'
+      - '.github/workflows/current-character-combat-kit-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/currentCharacterCombatKitSeedsA.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsB.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsC.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'src/game/data/characterStarBeastCombatSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'docs/current21-character-combat-kit-source-v1.md'
+      - 'scripts/quality/check-current-character-combat-kit-master.ts'
+      - '.github/workflows/current-character-combat-kit-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Current21 character combat kit master
+        run: node --experimental-strip-types scripts/quality/check-current-character-combat-kit-master.ts
