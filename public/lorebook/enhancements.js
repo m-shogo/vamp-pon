@@ -6,6 +6,7 @@ const modules = [
   './decision-lab.js',
   './theme-enhancement.js',
   './franchise-enhancement.js',
+  './silhouette-enhancement.js',
   './motion-enhancement.js',
 ];
 

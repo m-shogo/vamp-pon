@@ -1,0 +1,102 @@
+.silhouette-hint {
+  display: grid;
+  gap: .18rem;
+  margin: .5rem 0 .7rem;
+  padding-left: .65rem;
+  border-left: 2px solid color-mix(in srgb, var(--anchor-theme, currentColor) 72%, transparent);
+}
+
+.silhouette-hint span,
+.silhouette-section-heading span {
+  font-size: .66rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .66;
+}
+
+.silhouette-hint strong {
+  font-size: .82rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.silhouette-hint.is-body-diversity-anchor strong {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--anchor-theme, currentColor) 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22em;
+}
+
+.silhouette-canon-section {
+  margin-top: 1.2rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.silhouette-section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.silhouette-section-heading h3 {
+  margin: .18rem 0 0;
+  font-size: 1.02rem;
+}
+
+.silhouette-section-heading i {
+  width: .7rem;
+  height: .7rem;
+  margin-top: .25rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--anchor-theme, currentColor);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--anchor-theme, currentColor) 16%, transparent);
+}
+
+.silhouette-body-direction {
+  margin: .85rem 0;
+  line-height: 1.72;
+}
+
+.silhouette-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem 1rem;
+  margin: 0;
+}
+
+.silhouette-facts div {
+  min-width: 0;
+  padding-top: .55rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.silhouette-facts dt {
+  margin-bottom: .2rem;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  opacity: .62;
+}
+
+.silhouette-facts dd {
+  margin: 0;
+  font-size: .82rem;
+  line-height: 1.55;
+}
+
+.silhouette-guardrail {
+  margin: .85rem 0 0;
+  padding: .65rem .72rem;
+  border-left: 2px solid currentColor;
+  font-size: .78rem;
+  line-height: 1.55;
+  opacity: .8;
+}
+
+@media (max-width: 560px) {
+  .silhouette-facts {
+    grid-template-columns: 1fr;
+  }
+}
