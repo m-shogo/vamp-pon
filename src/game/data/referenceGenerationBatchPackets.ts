@@ -116,17 +116,19 @@ for (const entry of referenceFirstBulkGenerationQueue) {
     pending.compositeKey === compositeKey &&
     pending.entries.length < MAX_REFERENCES_PER_PACKET;
 
-  if (!canAppend) {
-    flushPending();
-    pending = {
-      compositeKey,
-      grouping: descriptor.grouping,
-      groupKey: descriptor.groupKey,
-      sourceCategory: entry.sourceCategory,
-      entries: [],
-    };
+  if (canAppend && pending) {
+    pending.entries.push(entry);
+    continue;
   }
-  pending.entries.push(entry);
+
+  flushPending();
+  pending = {
+    compositeKey,
+    grouping: descriptor.grouping,
+    groupKey: descriptor.groupKey,
+    sourceCategory: entry.sourceCategory,
+    entries: [entry],
+  };
 }
 flushPending();
 
