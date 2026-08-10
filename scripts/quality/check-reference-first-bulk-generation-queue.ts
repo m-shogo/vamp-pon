@@ -41,6 +41,7 @@ for (const [index, entry] of referenceFirstBulkGenerationQueue.entries()) {
   const phaseIndex = phaseOrder.indexOf(entry.phase);
   assert(phaseIndex >= previousPhaseIndex, `${entry.queueId}: phase ordering drift`);
   previousPhaseIndex = phaseIndex;
+
   assert(entry.candidateCount === 4, `${entry.queueId}: candidate count drift`);
   assert(entry.executionState === 'QUEUED_NOT_GENERATED', `${entry.queueId}: generation state inferred`);
   assert(entry.sourceReadiness === 'READY_FOR_CANDIDATE', `${entry.queueId}: blocked source leaked into queue`);
@@ -52,12 +53,13 @@ for (const [index, entry] of referenceFirstBulkGenerationQueue.entries()) {
   assert(entry.gate.referenceApprovalRequiredBeforeRuntimeDerivatives === true, `${entry.queueId}: reference-first runtime gate missing`);
   assert(entry.gate.runtimeDerivativeQueueAllowedNow === false, `${entry.queueId}: runtime derivative queued before reference approval`);
   assert(entry.gate.oneShotFinalForbidden === true, `${entry.queueId}: one-shot final gate missing`);
-  assert(!entry.handoffId.includes('character'), `${entry.queueId}: Character handoff leaked into queue`);
-  assert(!entry.handoffId.includes('star-beast'), `${entry.queueId}: Star Beast handoff leaked into queue`);
+  assert(!entry.handoffId.includes('character'), `${entry.queueId}: Character handoff leaked into bulk-ready queue`);
+  assert(!entry.handoffId.includes('star-beast'), `${entry.queueId}: Star Beast handoff leaked into bulk-ready queue`);
   assert(!entry.handoffId.includes('named-object'), `${entry.queueId}: Named Object handoff leaked into queue`);
   assert(!entry.handoffId.includes('toumon'), `${entry.queueId}: Toumon handoff leaked into queue`);
   assert(!entry.handoffId.includes('stage:'), `${entry.queueId}: Stage handoff leaked into queue`);
   assert(!entry.handoffId.includes('reward:'), `${entry.queueId}: Reward handoff leaked into queue`);
+
   if (entry.phase === 'ENEMY_REFERENCE') {
     assert(entry.sourceCategory === 'enemies', `${entry.queueId}: Enemy category drift`);
     assert(!bossIds.has(entry.sourceId), `${entry.queueId}: Boss leaked into regular Enemy phase`);
@@ -78,8 +80,19 @@ for (const [index, entry] of referenceFirstBulkGenerationQueue.entries()) {
   }
 }
 
+const queuedKinds = new Set(referenceFirstBulkGenerationQueue.map((entry) => {
+  if (entry.phase === 'WEAPON_REFERENCE') return 'weapon-reference-handoff';
+  if (entry.phase === 'ITEM_REFERENCE') return 'item-reference-handoff';
+  return 'enemy-reference-handoff';
+}));
+assert(JSON.stringify([...queuedKinds]) === JSON.stringify(['enemy-reference-handoff', 'weapon-reference-handoff', 'item-reference-handoff']), 'unexpected handoff kind in reference queue');
+
 const runtimeHandoffs = assetFactorySharedSourceHandoffs.filter((handoff) => handoff.kind === 'unity-runtime-asset-handoff');
 const queuedHandoffIds = new Set(referenceFirstBulkGenerationQueue.map((entry) => entry.handoffId));
 assert(runtimeHandoffs.every((handoff) => !queuedHandoffIds.has(handoff.handoffId)), 'runtime Asset Factory handoff leaked into reference-first queue');
 
-console.log(`Reference First Bulk Generation Queue: PASS (total=${expectedTotal}, enemy=${expectedEnemyReferences}, boss=${expectedBossReferences}, weapon=${weaponGenerationHandoffs.length}, item=${itemReferenceHandoffs.length}, runtimeQueued=0)`);
+console.log(
+  `Reference First Bulk Generation Queue: PASS (` +
+    `total=${expectedTotal}, enemy=${expectedEnemyReferences}, boss=${expectedBossReferences}, ` +
+    `weapon=${weaponGenerationHandoffs.length}, item=${itemReferenceHandoffs.length}, runtimeQueued=0)`,
+);
