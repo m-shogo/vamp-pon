@@ -84,7 +84,8 @@ invariant(buildSyncSource.includes('ASTC_6x6'), 'semantic build sync lost iOS AS
 invariant(buildSyncSource.includes('pack-ready.txt'), 'semantic build ready marker contract missing');
 invariant(unityVerificationSource.includes('VerifyFinalSemanticLayerPack'), 'Unity V3 verification must validate final semantic layer pack');
 invariant(unityVerificationSource.includes('TopLivingNightSemanticLayerPackBuildSync.StageForVerification()'), 'Unity V3 verification must stage semantic layers');
-invariant(unityVerificationSource.includes('bridge verification must not require final semantic layer pack'), 'Unity V3 verification must preserve honest bridge behavior');
+invariant(unityVerificationSource.includes('!TopLivingNightSemanticLayerPackBuildSync.FinalSemanticPackRequired()'), 'Unity V3 bridge branch must explicitly reject final semantic-pack requirement');
+invariant(unityVerificationSource.includes('bridge verification must not require final semantic pack'), 'Unity V3 bridge assertion message is missing');
 
 if (!status.candidateGenerated) {
   invariant(status.candidateSha256 === '', 'unregistered final candidate must not retain candidate SHA');
