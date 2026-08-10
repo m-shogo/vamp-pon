@@ -1,0 +1,30 @@
+name: Shared Source World Route Symbols
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-shared-source-world-route-symbols.ts'
+      - '.github/workflows/shared-source-world-route-symbols.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-shared-source-world-route-symbols.ts'
+      - '.github/workflows/shared-source-world-route-symbols.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate world route station ticket Shared Source
+        run: node --experimental-strip-types scripts/quality/check-shared-source-world-route-symbols.ts
