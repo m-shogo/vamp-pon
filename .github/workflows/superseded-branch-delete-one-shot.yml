@@ -1,0 +1,37 @@
+name: Superseded Branch Delete One Shot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/superseded-branch-delete-one-shot.yml'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Delete PR118 branch only after supersession proof
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const branch = 'agent/night-record-relation-coverage-v2';
+            const oldPr = (await github.rest.pulls.get({ owner, repo, pull_number: 118 })).data;
+            const supersedingPr = (await github.rest.pulls.get({ owner, repo, pull_number: 119 })).data;
+            if (oldPr.state !== 'closed' || oldPr.merged_at) throw new Error('PR118 is not closed-unmerged');
+            if (oldPr.head.ref !== branch) throw new Error(`PR118 head drift: ${oldPr.head.ref}`);
+            if (!oldPr.body?.includes('Superseded by #119')) throw new Error('PR118 supersession note missing');
+            if (!supersedingPr.merged_at) throw new Error('PR119 is not merged');
+            const openPulls = await github.paginate(github.rest.pulls.list, { owner, repo, state: 'open', per_page: 100 });
+            if (openPulls.some(pr => pr.head.repo?.full_name === `${owner}/${repo}` && pr.head.ref === branch)) {
+              throw new Error('superseded branch became an open PR head');
+            }
+            const ref = await github.rest.git.getRef({ owner, repo, ref: `heads/${branch}` });
+            if (ref.data.object.sha !== oldPr.head.sha) throw new Error(`branch moved: ${ref.data.object.sha} != ${oldPr.head.sha}`);
+            await github.rest.git.deleteRef({ owner, repo, ref: `heads/${branch}` });
+            console.log(`deleted ${branch} after PR118 -> PR119 supersession proof`);
