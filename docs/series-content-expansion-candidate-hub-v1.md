@@ -9,23 +9,38 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 
 ---
 
-# 1. 今回追加した二つの核
+# 1. 今回追加した三つの核
 
-## A. Series / Story
+## A. Series / Story Content Master
 
-`docs/series-1-2-3-ensemble-story-master-v1.md`
+`docs/series-1-2-3-content-master-v1.md`
 
 扱うもの:
 
 - Series 1: Current21中心の友情 /兄妹 /擬似家族 /青春 /仲間 /ライバル /離反 /再会 /卒業
-- Series 2: Future cast候補を使った老い /不老 /師弟 /恋愛 /片想い /嫉妬 /双子 /Robot /動物 /卒業
-- Series 3: 夜の存在理由 /関係と記憶 /別れを保留する場所、というMain Mystery候補
-- Core relationship candidate
-- Great Shadow 46–48との感情接続
-- Named Objectを世代横断媒体にする方針
+- Series 2: Future cast候補を使った老い /不老 /師弟 /恋愛 /片想い /嫉妬 /双子 /三つ子Candidate /Robot /動物 /卒業
+- Series 3: 夜の存在理由 /関係と記憶 /Main Mystery候補
+- 作品1の具体Main Beats
+- Core / Circle / Shadow / Reserveの感情役割
+- Great Shadow 46–48との接続
+- Named Object / Item /世代継承の物語利用
 - Happy Endを壊さないsequel architecture
 
-## B. Niche appeal
+## B. Ensemble / Relationship Grammar
+
+`docs/ensemble-relationship-grammar-v1.md`
+
+扱うもの:
+
+- 箱推しされる集団を作る原則
+- 主人公不在の人間関係
+- Social Glue / outsider / caretaker / witness等の感情role
+- 食卓 /雨 /修理 /寝坊 /写真 /星獣などGroup Heartbeat
+- 友情 /兄弟 /擬似家族 /師弟 /恋愛 /嫉妬 /裏切り /離反 /再会 /卒業の使い分け
+- 別れた後に「元通り」ではなく変わったまま関係を選び直す設計
+- 年長者 /長寿者 /Robot /双子 /三つ子の関係設計境界
+
+## C. Niche Appeal / Fetish Matrix
 
 `docs/character-niche-appeal-fetish-matrix-v1.md`
 
