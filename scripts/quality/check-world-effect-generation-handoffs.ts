@@ -1,9 +1,11 @@
+import { readFileSync } from 'node:fs';
+
 import {
+  WORLD_EFFECT_GENERATION_IDS,
   worldEffectGenerationHandoffById,
   worldEffectGenerationHandoffs,
   worldEffectGenerationHandoffSummary,
 } from '../../src/game/data/worldEffectGenerationHandoff.ts';
-import { worldEffectSharedSourceEntries } from '../../src/game/data/worldEffectSharedSource.ts';
 
 function fail(message: string): never {
   throw new Error(`[World Effect Generation Handoff] ${message}`);
@@ -13,13 +15,25 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) fail(message);
 }
 
-const expectedIds = worldEffectSharedSourceEntries.map((entry) => entry.id);
-assert(worldEffectGenerationHandoffs.length === worldEffectSharedSourceEntries.length, 'source coverage drift');
+const semanticSource = readFileSync('src/game/data/worldEffectSharedSource.ts', 'utf8');
+const expectedIds = [...WORLD_EFFECT_GENERATION_IDS];
+
+for (const id of expectedIds) {
+  const matches = semanticSource.match(new RegExp(`id: '${id}'`, 'g')) ?? [];
+  assert(matches.length === 1, `${id}: semantic source coverage drift (${matches.length})`);
+}
+assert(worldEffectGenerationHandoffs.length === expectedIds.length, 'handoff coverage drift');
 assert(
   JSON.stringify(worldEffectGenerationHandoffs.map((entry) => entry.id)) === JSON.stringify(expectedIds),
   'event ID/order drift',
 );
 assert(new Set(worldEffectGenerationHandoffs.map((entry) => entry.handoffId)).size === worldEffectGenerationHandoffs.length, 'duplicate handoff ID');
+assert(semanticSource.includes("import { GLOW_ALPHA_MAX } from '../ui/visualDesign.ts'"), 'semantic source must continue to bind the existing glow cap');
+assert(semanticSource.includes('const PHOTOSENSITIVE_BASE'), 'photosensitive semantic source missing');
+assert(semanticSource.includes('REDUCED_MOTION_BASE') && semanticSource.includes('REDUCED_FLASH_BASE'), 'reduced-motion/flash semantic source missing');
+assert(/TOUMON[\s\S]*AI-generated final Toumon geometry/.test(semanticSource), 'semantic Toumon final-geometry guard missing');
+assert(/DAWN[\s\S]*NO WHITEOUT/.test(semanticSource), 'semantic Dawn no-whiteout guard missing');
+assert(/BOSS_DEATH[\s\S]*not explosion/.test(semanticSource), 'semantic Boss Death not-explosion direction missing');
 
 const expectedGenerated = ['WEAPON_EVOLUTION', 'KOKUYOU', 'BOSS_DEATH'];
 assert(
@@ -30,44 +44,46 @@ assert(
   JSON.stringify(worldEffectGenerationHandoffSummary.blockedEvents) === JSON.stringify(['TOUMON']),
   'Toumon must be the only fully blocked World Effect event',
 );
+assert(worldEffectGenerationHandoffSummary.semanticAuthorityLoadedAtGeneration === true, 'semantic source must be required at generation time');
 
-for (const source of worldEffectSharedSourceEntries) {
-  const handoff = worldEffectGenerationHandoffById.get(source.id);
-  assert(handoff, `${source.id}: handoff missing`);
-  assert(handoff.sourceAuthority === 'src/game/data/worldEffectSharedSource.ts', `${source.id}: authority path drift`);
-  assert(handoff.approval.sourceReady === true, `${source.id}: source readiness drift`);
-  assert(handoff.approval.generatedCandidateDefault === false, `${source.id}: candidate must not be inferred`);
-  assert(handoff.approval.approvedReferenceDefault === false, `${source.id}: reference approval inferred`);
-  assert(handoff.approval.approvedWebDefault === false, `${source.id}: Web approval inferred`);
-  assert(handoff.approval.approvedUnityDefault === false, `${source.id}: Unity approval inferred`);
-  assert(handoff.approval.runtimeApprovedDefault === false, `${source.id}: runtime approval inferred`);
-  assert(handoff.approval.oneShotFinalForbidden === true, `${source.id}: one-shot final boundary missing`);
-  assert(handoff.referenceTarget.runtimeDirectUseForbidden === true, `${source.id}: reference master must not ship directly`);
-  assert(handoff.qa.gameplaySizeReviewRequired === true, `${source.id}: gameplay-size review missing`);
-  assert(handoff.qa.deviceCreativeApprovalRequired === true, `${source.id}: device creative review missing`);
-  assert(handoff.qa.photosensitiveQaRequired === true, `${source.id}: photosensitive QA missing`);
-  assert(handoff.qa.reducedMotionQaRequired === true, `${source.id}: reduced-motion QA missing`);
-  assert(handoff.qa.reducedFlashQaRequired === true, `${source.id}: reduced-flash QA missing`);
-  assert(handoff.qa.performanceReviewRequired === true, `${source.id}: performance review missing`);
-  assert(handoff.negativePromptSeed.includes('no full-screen composition'), `${source.id}: full-screen generation guard missing`);
-  assert(handoff.negativePromptSeed.includes('no final Toumon geometry'), `${source.id}: Toumon guard missing`);
-  assert(handoff.negativePromptSeed.includes('no whiteout or strobe sequence'), `${source.id}: flash/strobe guard missing`);
+for (const handoff of worldEffectGenerationHandoffs) {
+  assert(handoff.sourceAuthority === 'src/game/data/worldEffectSharedSource.ts', `${handoff.id}: authority path drift`);
+  assert(handoff.sourceEntryRequired === true, `${handoff.id}: source entry requirement missing`);
+  assert(handoff.generationDirection.length > 0, `${handoff.id}: generation direction missing`);
+  assert(handoff.approval.sourceReady === true, `${handoff.id}: source readiness drift`);
+  assert(handoff.approval.generatedCandidateDefault === false, `${handoff.id}: candidate must not be inferred`);
+  assert(handoff.approval.approvedReferenceDefault === false, `${handoff.id}: reference approval inferred`);
+  assert(handoff.approval.approvedWebDefault === false, `${handoff.id}: Web approval inferred`);
+  assert(handoff.approval.approvedUnityDefault === false, `${handoff.id}: Unity approval inferred`);
+  assert(handoff.approval.runtimeApprovedDefault === false, `${handoff.id}: runtime approval inferred`);
+  assert(handoff.approval.oneShotFinalForbidden === true, `${handoff.id}: one-shot final boundary missing`);
+  assert(handoff.referenceTarget.runtimeDirectUseForbidden === true, `${handoff.id}: reference master must not ship directly`);
+  assert(handoff.qa.gameplaySizeReviewRequired === true, `${handoff.id}: gameplay-size review missing`);
+  assert(handoff.qa.deviceCreativeApprovalRequired === true, `${handoff.id}: device creative review missing`);
+  assert(handoff.qa.photosensitiveQaRequired === true, `${handoff.id}: photosensitive QA missing`);
+  assert(handoff.qa.reducedMotionQaRequired === true, `${handoff.id}: reduced-motion QA missing`);
+  assert(handoff.qa.reducedFlashQaRequired === true, `${handoff.id}: reduced-flash QA missing`);
+  assert(handoff.qa.performanceReviewRequired === true, `${handoff.id}: performance review missing`);
+  assert(handoff.negativePromptSeed.includes('no full-screen composition'), `${handoff.id}: full-screen generation guard missing`);
+  assert(handoff.negativePromptSeed.includes('no final Toumon geometry'), `${handoff.id}: Toumon guard missing`);
+  assert(handoff.negativePromptSeed.includes('no whiteout or strobe sequence'), `${handoff.id}: flash/strobe guard missing`);
 
   if (handoff.imageCandidateGenerationAllowed) {
-    assert(handoff.assetStrategy === 'HYBRID_TEXTURE_REFERENCE', `${source.id}: image generation requires hybrid texture strategy`);
-    assert(handoff.imageCandidateCount === 4, `${source.id}: candidate count must remain 4`);
-    assert(handoff.generatedTextureLanes.length > 0, `${source.id}: generated lane missing`);
-    assert(handoff.promptSeed !== null, `${source.id}: prompt seed missing`);
-    assert(handoff.referenceTarget.sizeSpec === '1024x1024 TRANSPARENT RGBA REFERENCE_MASTER', `${source.id}: reference target drift`);
-    assert(handoff.referenceTarget.alphaPolicy === 'required', `${source.id}: alpha policy drift`);
-    assert(handoff.qa.humanComparisonRequired === true, `${source.id}: candidate comparison missing`);
+    assert(handoff.assetStrategy === 'HYBRID_TEXTURE_REFERENCE', `${handoff.id}: image generation requires hybrid texture strategy`);
+    assert(handoff.imageCandidateCount === 4, `${handoff.id}: candidate count must remain 4`);
+    assert(handoff.generatedTextureLanes.length > 0, `${handoff.id}: generated lane missing`);
+    assert(handoff.promptSeed !== null, `${handoff.id}: prompt seed missing`);
+    assert(handoff.promptSeed.includes('load and obey the matching entry'), `${handoff.id}: semantic-source prompt binding missing`);
+    assert(handoff.referenceTarget.sizeSpec === '1024x1024 TRANSPARENT RGBA REFERENCE_MASTER', `${handoff.id}: reference target drift`);
+    assert(handoff.referenceTarget.alphaPolicy === 'required', `${handoff.id}: alpha policy drift`);
+    assert(handoff.qa.humanComparisonRequired === true, `${handoff.id}: candidate comparison missing`);
   } else {
-    assert(handoff.imageCandidateCount === 0, `${source.id}: non-image lane cannot request candidates`);
-    assert(handoff.generatedTextureLanes.length === 0, `${source.id}: non-image lane has texture targets`);
-    assert(handoff.promptSeed === null, `${source.id}: non-image lane must not expose a generator prompt`);
-    assert(handoff.referenceTarget.sizeSpec === 'NO_GENERATED_IMAGE_TARGET', `${source.id}: non-image target drift`);
-    assert(handoff.referenceTarget.alphaPolicy === 'not-applicable', `${source.id}: non-image alpha policy drift`);
-    assert(handoff.qa.humanComparisonRequired === false, `${source.id}: non-image lane should not require generated-candidate comparison`);
+    assert(handoff.imageCandidateCount === 0, `${handoff.id}: non-image lane cannot request candidates`);
+    assert(handoff.generatedTextureLanes.length === 0, `${handoff.id}: non-image lane has texture targets`);
+    assert(handoff.promptSeed === null, `${handoff.id}: non-image lane must not expose a generator prompt`);
+    assert(handoff.referenceTarget.sizeSpec === 'NO_GENERATED_IMAGE_TARGET', `${handoff.id}: non-image target drift`);
+    assert(handoff.referenceTarget.alphaPolicy === 'not-applicable', `${handoff.id}: non-image alpha policy drift`);
+    assert(handoff.qa.humanComparisonRequired === false, `${handoff.id}: non-image lane should not require generated-candidate comparison`);
   }
 }
 
@@ -90,14 +106,14 @@ assert(kokuyou.generatedTextureLanes.includes('layer-peel-fragment'), 'Kokuyou r
 
 const dawn = worldEffectGenerationHandoffById.get('DAWN');
 assert(dawn?.assetStrategy === 'PROCEDURAL_ONLY', 'Dawn should remain procedural value/material transition');
-assert(dawn.unityImplementation.some((rule) => /No generated sunrise background|No generated sunrise/.test(rule)), 'Dawn generated-sunrise guard missing');
+assert(dawn.unityImplementation.some((rule) => /No generated sunrise background/.test(rule)), 'Dawn generated-sunrise guard missing');
 
 const bossDeath = worldEffectGenerationHandoffById.get('BOSS_DEATH');
 assert(bossDeath?.generatedTextureLanes.includes('paper-fiber-tear'), 'Boss Death paper-fiber lane missing');
 
 const clear = worldEffectGenerationHandoffById.get('CLEAR');
 assert(clear?.assetStrategy === 'NATIVE_UI_FIRST', 'Clear should remain native-UI-first');
-assert(clear.unityImplementation.some((rule) => /Dawn is a separate semantic event/.test(rule)), 'Clear/Dawn separation missing');
+assert(clear.generationDirection.some((rule) => /Dawn is a separate semantic event/.test(rule)), 'Clear/Dawn separation missing');
 
 const reward = worldEffectGenerationHandoffById.get('REWARD_UNLOCK');
 assert(reward?.assetStrategy === 'NATIVE_UI_FIRST', 'Reward Unlock must remain native-UI-first');
