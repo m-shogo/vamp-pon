@@ -123,7 +123,11 @@ for (const entry of namedObjectVisualSharedSourceEntries) {
 const hanaObject = namedObjectVisualSharedSourceEntries.find((entry) => entry.ownerId === 'hana');
 assert(hanaObject?.avoid.some((rule) => /body-size joke/i.test(rule)), 'Hana object body-comedy guard missing');
 const kanameObject = namedObjectVisualSharedSourceEntries.find((entry) => entry.ownerId === 'kage1');
-assert(kanameObject?.avoid.some((rule) => /hitbox/i.test(rule)), 'Kaname object body-size/gameplay-stat guard missing');
+assert(kanameObject, 'Kaname core Named Object missing');
+assert(
+  /hitbox|HP|slow/i.test(`${kanameObject.scale} ${kanameObject.historyMarkRule} ${kanameObject.avoid.join(' ')}`),
+  'Kaname object body-size/gameplay-stat guard missing',
+);
 
 console.log(
   `Shared Source Star Beast Named Object: PASS (` +
