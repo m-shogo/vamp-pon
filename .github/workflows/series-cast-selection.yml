@@ -1,0 +1,33 @@
+name: Series Cast Selection
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/seriesCastSelection.ts'
+      - 'scripts/quality/check-series-cast-selection.ts'
+      - 'docs/series-cast-selection-contract-v1.md'
+      - 'docs/FUTURE-CAST.md'
+      - 'docs/series-commercial-franchise-architecture-v1.md'
+      - '.github/workflows/series-cast-selection.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/seriesCastSelection.ts'
+      - 'scripts/quality/check-series-cast-selection.ts'
+      - 'docs/series-cast-selection-contract-v1.md'
+      - 'docs/FUTURE-CAST.md'
+      - 'docs/series-commercial-franchise-architecture-v1.md'
+      - '.github/workflows/series-cast-selection.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Future15 sequel cast evaluation
+        run: node --experimental-strip-types scripts/quality/check-series-cast-selection.ts
