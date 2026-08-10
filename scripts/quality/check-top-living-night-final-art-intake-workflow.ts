@@ -18,6 +18,13 @@ const workflow = readFileSync(workflowAbsolute, 'utf8');
 const staging = readFileSync(stagingAbsolute, 'utf8');
 
 for (const token of [
+  'pull_request:',
+  'types: [opened, synchronize, reopened]',
+  'branches: [main]',
+  'github.event.pull_request.head.repo.full_name == \'m-shogo/vamp-pon\'',
+  "github.event.pull_request.head.ref == 'art/top-core5-v3-final-intake'",
+  'INTAKE_BRANCH: ${{ github.event.pull_request.head.ref }}',
+  'ref: ${{ github.event.pull_request.head.ref }}',
   'art/top-core5-v3-final-intake',
   'docs/design-targets/generated/top-living-night-v3/intake-request.json',
   "action: 'REGISTER_CANDIDATE_AND_PACKS'",
@@ -26,7 +33,7 @@ for (const token of [
   'approvalPromotionAllowed: false',
   'permissions:\n  contents: write',
   'cancel-in-progress: false',
-  "if: ${{ github.actor != 'github-actions[bot]' }}",
+  "github.actor != 'github-actions[bot]'",
   'stage-top-living-night-final-art-intake.py',
   'register-top-living-night-final-art.ts',
   'register-top-living-night-semantic-layer-pack.ts',
@@ -47,8 +54,8 @@ for (const token of [
   'docs/design-targets/generated/top-living-night-v3/final/effects',
   'docs/design-targets/generated/top-living-night-v3/final/effect-companion-pack.json',
   "git commit -m 'art: register TOP Core5 candidate and production packs'",
-  'git pull --rebase origin "$GITHUB_REF_NAME"',
-  'git push origin "HEAD:$GITHUB_REF_NAME"',
+  'git pull --rebase origin "$INTAKE_BRANCH"',
+  'git push origin "HEAD:$INTAKE_BRANCH"',
 ]) {
   invariant(workflow.includes(token), `TOP final-art intake workflow contract missing: ${token}`);
 }
@@ -59,6 +66,7 @@ for (const forbidden of [
   'markpullrequestreadyforreview',
   'git push --force',
   'git push -f',
+  'git push origin "HEAD:$GITHUB_REF_NAME"',
 ]) {
   invariant(!workflow.includes(forbidden), `TOP final-art intake workflow contains obsolete/forbidden behavior: ${forbidden}`);
 }
@@ -111,4 +119,4 @@ invariant(
 );
 
 console.log('TOP final-art intake workflow: PASS');
-console.log('one-shot request -> validated 430x932 candidate -> exact-SHA registration -> semantic 6 + effect 10 registration -> provenance/gate checks -> request/candidate consumption; no final/runtime approval; no force push');
+console.log('same-repo dedicated PR -> one-shot request -> validated 430x932 candidate -> exact-SHA registration -> semantic 6 + effect 10 registration -> provenance/gate checks -> request/candidate consumption; bot recursion blocked; no final/runtime approval; no force push');
