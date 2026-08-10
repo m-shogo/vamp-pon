@@ -28,25 +28,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Validate World Effect generation strategy
-        run: pnpm exec vite-node scripts/quality/check-world-effect-generation-handoffs.ts
+        run: node --experimental-strip-types scripts/quality/check-world-effect-generation-handoffs.ts
 
       - name: Export deterministic World Effect handoff manifest
-        run: pnpm exec vite-node scripts/export-world-effect-generation-handoffs.ts /tmp/world-effect-generation-handoff-v1.json
+        run: node --experimental-strip-types scripts/export-world-effect-generation-handoffs.ts /tmp/world-effect-generation-handoff-v1.json
 
       - name: Parse exported manifest
         run: node -e "const fs=require('fs'); const p='/tmp/world-effect-generation-handoff-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.handoffs)||d.handoffs.length!==d.summary.total) process.exit(1); console.log('events='+d.handoffs.length+', generated='+d.summary.generatedTextureCandidateEvents.join('/')+', blocked='+d.summary.blockedEvents.join('/'));"
