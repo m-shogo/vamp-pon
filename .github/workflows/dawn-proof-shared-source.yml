@@ -1,0 +1,30 @@
+name: Dawn Proof Shared Source
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/dawnProofSharedSource.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'scripts/quality/check-dawn-proof-shared-source.ts'
+      - '.github/workflows/dawn-proof-shared-source.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/dawnProofSharedSource.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'scripts/quality/check-dawn-proof-shared-source.ts'
+      - '.github/workflows/dawn-proof-shared-source.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate direct Dawn proof normalization
+        run: node --experimental-strip-types scripts/quality/check-dawn-proof-shared-source.ts
