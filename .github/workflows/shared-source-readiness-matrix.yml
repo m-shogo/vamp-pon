@@ -1,0 +1,54 @@
+name: Shared Source Readiness Matrix
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/sharedSourceReadinessMatrix.ts'
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/sharedSourceContracts.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/enemyVisualSharedSource.ts'
+      - 'src/game/data/weaponVisualSharedSource.ts'
+      - 'src/game/data/itemVisualSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'src/game/data/progressionRewardSharedSource.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/uiSymbolSharedSource.ts'
+      - 'src/game/data/worldEffectSharedSource.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'scripts/quality/check-shared-source-readiness-matrix.ts'
+      - '.github/workflows/shared-source-readiness-matrix.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/sharedSourceReadinessMatrix.ts'
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/sharedSourceContracts.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/enemyVisualSharedSource.ts'
+      - 'src/game/data/weaponVisualSharedSource.ts'
+      - 'src/game/data/itemVisualSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'src/game/data/progressionRewardSharedSource.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/uiSymbolSharedSource.ts'
+      - 'src/game/data/worldEffectSharedSource.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'scripts/quality/check-shared-source-readiness-matrix.ts'
+      - '.github/workflows/shared-source-readiness-matrix.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Shared Source readiness matrix
+        run: node --experimental-strip-types scripts/quality/check-shared-source-readiness-matrix.ts
