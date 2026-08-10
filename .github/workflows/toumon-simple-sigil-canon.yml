@@ -1,0 +1,45 @@
+name: Toumon Simple Sigil Canon
+
+on:
+  pull_request:
+    paths:
+      - 'docs/design/emblem-canon.md'
+      - 'docs/design/toumon-simple-sigil-canon-v2.md'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'src/game/data/emblemCanon.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'scripts/quality/check-toumon-simple-sigil-canon.ts'
+      - '.github/workflows/toumon-simple-sigil-canon.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/design/emblem-canon.md'
+      - 'docs/design/toumon-simple-sigil-canon-v2.md'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'src/game/data/emblemCanon.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'scripts/quality/check-toumon-simple-sigil-canon.ts'
+      - '.github/workflows/toumon-simple-sigil-canon.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Current21 simple Toumon sigils
+        run: node --experimental-strip-types scripts/quality/check-toumon-simple-sigil-canon.ts
+      - name: Reject old ornate emblem authority
+        run: |
+          ! grep -q '小鹿' docs/design/emblem-canon.md
+          ! grep -q 'ランタン外枠' docs/design/emblem-canon.md
+          grep -q 'simple abstract sigil' docs/design/emblem-canon.md
+          grep -q '16px' docs/design/toumon-simple-sigil-canon-v2.md
+          grep -q '夜の記録帳' docs/design/ip-symbol-merch-system-v1.md
