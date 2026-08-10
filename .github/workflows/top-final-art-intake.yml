@@ -91,9 +91,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # The two consumed files above are already staged as deletions by git rm.
+          # Only stage paths that still exist or were created/updated by registration.
           git add -A -- \
-            docs/design-targets/generated/top-living-night-v3/intake-request.json \
-            docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png \
             docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png \
             docs/design-targets/generated/top-living-night-v3/final/layers \
             docs/design-targets/generated/top-living-night-v3/final/semantic-layer-pack.json \
