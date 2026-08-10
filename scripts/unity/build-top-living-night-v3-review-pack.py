@@ -7,6 +7,8 @@ Never touches final/, status, or approval.
 """
 from __future__ import annotations
 
+import json
+import re
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFont
@@ -16,6 +18,20 @@ V3 = ROOT / "docs/design-targets/generated/top-living-night-v3"
 I = V3 / "incoming"
 REV = I / "review"
 W, H = 430, 932
+
+# Single source of truth: the runtime FireFlipbook anchor. The review overlay and the
+# emitted fire-anchor.json READ this value; the drift checker asserts they stay in sync.
+VIEW_CS = ROOT / "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs"
+
+
+def runtime_final_fire_anchor():
+    """Parse FinalV3FireAnchor (bottom-referenced) from the runtime; return top-ref (x,y)."""
+    src = VIEW_CS.read_text()
+    m = re.search(r"FinalV3FireAnchor\s*=\s*new Vector2\(\s*([0-9.]+)f\s*,\s*([0-9.]+)f\s*\)", src)
+    if not m:
+        raise SystemExit("ERROR: could not parse FinalV3FireAnchor from TopLivingNightView.cs")
+    x, y_bottom = float(m.group(1)), float(m.group(2))
+    return x, 1.0 - y_bottom, y_bottom  # top-ref x, top-ref y, bottom-ref y
 
 
 def font(sz):
@@ -95,14 +111,15 @@ def safe_area_overlay():
     d.rectangle([0, int(H * 0.78), W, H], fill=(255, 90, 90, 70))
     d.line([0, int(H * 0.20), W, int(H * 0.20)], fill=(60, 160, 255, 230), width=2)
     d.line([0, int(H * 0.78), W, int(H * 0.78)], fill=(255, 90, 90, 230), width=2)
-    # fire anchor marker (runtime target ~0.50,0.66)
-    fx, fy = int(W * 0.50), int(H * 0.66)
+    # fire anchor marker read from the runtime canonical FinalV3FireAnchor (no re-definition)
+    ax, ay, _ = runtime_final_fire_anchor()
+    fx, fy = int(W * ax), int(H * ay)
     d.ellipse([fx - 8, fy - 8, fx + 8, fy + 8], outline=(255, 210, 120, 255), width=2)
     out = Image.alpha_composite(cand, ov)
     d2 = ImageDraw.Draw(out)
     label(d2, (6, int(H * 0.20) + 4), "title-safe <=20%", fnt, (200, 225, 255))
     label(d2, (6, int(H * 0.78) - 22), "button-safe >=78%", fnt, (255, 210, 210))
-    label(d2, (fx + 12, fy - 10), "fire anchor 0.50/0.66", fnt, (255, 225, 170))
+    label(d2, (fx + 12, fy - 10), f"fire anchor {ax:.3f}/{ay:.3f} (runtime)", fnt, (255, 225, 170))
     REV.mkdir(parents=True, exist_ok=True)
     out.convert("RGB").save(REV / "03-safe-area-overlay.png")
     print("  review/03-safe-area-overlay.png")
@@ -168,8 +185,23 @@ def parallax_diagnostic():
     print("  review/06-semantic-parallax-diagnostic.png")
 
 
+def emit_fire_anchor_json():
+    ax, ay, ay_bottom = runtime_final_fire_anchor()
+    REV.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schemaVersion": 1,
+        "note": "Derived from runtime TopLivingNightView.FinalV3FireAnchor; do not hand-edit.",
+        "source": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs",
+        "runtimeFinalFireAnchorBottomRef": {"x": round(ax, 4), "y": round(ay_bottom, 4)},
+        "reviewFireAnchorTopRef": {"x": round(ax, 4), "y": round(ay, 4)},
+    }
+    (REV / "fire-anchor.json").write_text(json.dumps(payload, indent=2) + "\n")
+    print(f"  review/fire-anchor.json top-ref=({ax:.3f},{ay:.3f}) bottom-ref=({ax:.3f},{ay_bottom:.3f})")
+
+
 def main():
     print("building TOP Living Night V3 review pack -> incoming/review/")
+    emit_fire_anchor_json()
     variants_contact()
     layers_contact()
     effects_contact()

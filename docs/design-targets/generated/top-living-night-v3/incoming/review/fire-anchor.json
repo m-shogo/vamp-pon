@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "note": "Derived from runtime TopLivingNightView.FinalV3FireAnchor; do not hand-edit.",
+  "source": "unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs",
+  "runtimeFinalFireAnchorBottomRef": {
+    "x": 0.5,
+    "y": 0.3675
+  },
+  "reviewFireAnchorTopRef": {
+    "x": 0.5,
+    "y": 0.6325
+  }
+}
