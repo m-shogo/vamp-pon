@@ -1,0 +1,66 @@
+name: Shared Source Foundation
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/sharedSourceContracts.ts'
+      - 'src/game/data/enemyVisualSharedSource.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/itemAssetProductionDatabase.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/persistence/profile.ts'
+      - 'src/game/ui/visualDesign.ts'
+      - 'docs/design-targets/generated/character-star-beast-constellation-canon-v1.json'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'docs/design/toumon-simple-sigil-canon-v2.md'
+      - 'docs/CLEAR-GETTER-AND-100-PERCENT-REWARD.md'
+      - 'docs/visual-direction.md'
+      - 'docs/shared-source-audit-v1.md'
+      - 'scripts/quality/check-shared-source-foundation.ts'
+      - '.github/workflows/shared-source-foundation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/sharedSourceContracts.ts'
+      - 'src/game/data/enemyVisualSharedSource.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/itemAssetProductionDatabase.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/persistence/profile.ts'
+      - 'src/game/ui/visualDesign.ts'
+      - 'docs/design-targets/generated/character-star-beast-constellation-canon-v1.json'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'docs/design/toumon-simple-sigil-canon-v2.md'
+      - 'docs/CLEAR-GETTER-AND-100-PERCENT-REWARD.md'
+      - 'docs/visual-direction.md'
+      - 'docs/shared-source-audit-v1.md'
+      - 'scripts/quality/check-shared-source-foundation.ts'
+      - '.github/workflows/shared-source-foundation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Shared Source authority and Enemy/Boss grammar
+        run: node --experimental-strip-types scripts/quality/check-shared-source-foundation.ts
