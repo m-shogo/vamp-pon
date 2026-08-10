@@ -17,6 +17,7 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const expectedSections = ['PEOPLE', 'STAR_BEAST', 'OBJECT', 'ROUTE', 'RELATION', 'DAWN'];
+const authorityLabels = ['PEOPLE', 'STAR BEAST', 'OBJECT', 'ROUTE', 'RELATION', 'DAWN'];
 assert(JSON.stringify(NIGHT_RECORD_BOOK_SECTION_IDS) === JSON.stringify(expectedSections), 'six-section authority drift');
 assert(JSON.stringify(nightRecordBookSections.map((section) => section.id)) === JSON.stringify(expectedSections), 'section order drift');
 assert(new Set(nightRecordBookSections.map((section) => section.id)).size === 6, 'duplicate section ID');
@@ -88,7 +89,7 @@ const nightStart = ipSource.indexOf('# 9. 「夜の記録帳」— Collection Hu
 const next = ipSource.indexOf('# 10. Display / Carry Goods');
 assert(nightStart >= 0 && next > nightStart, 'Night Record authority section missing');
 const authority = ipSource.slice(nightStart, next);
-for (const label of expectedSections) assert(authority.includes(label), `IP authority missing ${label}`);
+for (const label of authorityLabels) assert(authority.includes(label), `IP authority missing ${label}`);
 assert(authority.includes('全部集める=真End'), 'collection-not-True-End authority missing');
 
 assert(nightRecordBookSharedSourceSummary.sectionCount === 6, 'summary section count drift');
