@@ -1,0 +1,48 @@
+name: series1-stage-campaign-content-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/series1StageCampaignSeedsA.ts'
+      - 'src/game/data/series1StageCampaignSeedsB.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/characterStarBeastCombatSource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'docs/series1-stage-campaign-content-source-v1.md'
+      - 'scripts/quality/check-stage-campaign-content-master.ts'
+      - '.github/workflows/series1-stage-campaign-content-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/series1StageCampaignSeedsA.ts'
+      - 'src/game/data/series1StageCampaignSeedsB.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/characterStarBeastCombatSource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'docs/series1-stage-campaign-content-source-v1.md'
+      - 'scripts/quality/check-stage-campaign-content-master.ts'
+      - '.github/workflows/series1-stage-campaign-content-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Series1 Stage campaign content master
+        run: node --experimental-strip-types scripts/quality/check-stage-campaign-content-master.ts
