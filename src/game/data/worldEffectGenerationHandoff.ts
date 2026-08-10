@@ -1,9 +1,33 @@
-import {
-  worldEffectSharedSourceById,
-  worldEffectSharedSourceEntries,
-  type WorldEffectId,
-  type WorldEffectSharedSourceEntry,
-} from './worldEffectSharedSource.ts';
+export type WorldEffectId =
+  | 'NORMAL_ATTACK'
+  | 'CRITICAL'
+  | 'LEVEL_UP'
+  | 'WEAPON_EVOLUTION'
+  | 'TOUMON'
+  | 'KOKUYOU'
+  | 'DAWN'
+  | 'HEAL'
+  | 'PICKUP'
+  | 'BOSS_ENTRY'
+  | 'BOSS_DEATH'
+  | 'CLEAR'
+  | 'REWARD_UNLOCK';
+
+export const WORLD_EFFECT_GENERATION_IDS: readonly WorldEffectId[] = [
+  'NORMAL_ATTACK',
+  'CRITICAL',
+  'LEVEL_UP',
+  'WEAPON_EVOLUTION',
+  'TOUMON',
+  'KOKUYOU',
+  'DAWN',
+  'HEAL',
+  'PICKUP',
+  'BOSS_ENTRY',
+  'BOSS_DEATH',
+  'CLEAR',
+  'REWARD_UNLOCK',
+] as const;
 
 export type WorldEffectAssetStrategy =
   | 'PROCEDURAL_ONLY'
@@ -16,15 +40,17 @@ export type WorldEffectGenerationHandoff = {
   handoffId: string;
   handoffVersion: 1;
   sourceAuthority: 'src/game/data/worldEffectSharedSource.ts';
+  sourceEntryRequired: true;
   assetStrategy: WorldEffectAssetStrategy;
   imageCandidateGenerationAllowed: boolean;
   imageCandidateCount: 0 | 4;
   generatedTextureLanes: readonly string[];
+  generationDirection: readonly string[];
   promptSeed: string | null;
   negativePromptSeed: string;
   referenceTarget: {
     sizeSpec: string;
-    alphaPolicy: 'required' | 'forbidden' | 'not-applicable';
+    alphaPolicy: 'required' | 'not-applicable';
     runtimeDirectUseForbidden: true;
     runtimeOutputRule: string;
   };
@@ -54,6 +80,7 @@ export type WorldEffectGenerationHandoff = {
 type StrategyRule = {
   strategy: WorldEffectAssetStrategy;
   lanes?: readonly string[];
+  direction: readonly string[];
   blockedReason?: string;
   unity: readonly string[];
   web: readonly string[];
@@ -62,161 +89,134 @@ type StrategyRule = {
 const STRATEGY_BY_ID: Record<WorldEffectId, StrategyRule> = {
   NORMAL_ATTACK: {
     strategy: 'PROCEDURAL_ONLY',
-    unity: [
-      'Build direction/impact from the owning Weapon Shared Source and Unity particles/trails/shader parameters.',
-      'Do not create one universal attack atlas that erases weapon identity.',
-    ],
-    web: ['Derive a lighter Web-demo effect from the same semantic event; do not reuse a Unity capture as a baked Web asset.'],
+    direction: ['Weapon identity wins over a universal effect atlas.', 'Use the owning Weapon Shared Source plus the NORMAL_ATTACK semantic source entry.'],
+    unity: ['Build direction/impact with particles, trails, material parameters and weapon-native source assets.', 'Do not create one universal attack atlas.'],
+    web: ['Derive a lighter surface-specific effect from the same semantic authority.'],
   },
   CRITICAL: {
     strategy: 'PROCEDURAL_ONLY',
-    unity: [
-      'Add one crisp offset cut/cross-hatch accent to the normal impact using procedural geometry/material parameters.',
-      'Keep rapid critical chains fatigue-safe; no universal starburst texture.',
-    ],
-    web: ['Use the same shape/value distinction with reduced density; flash is optional and never required for meaning.'],
+    direction: ['Critical is an accent on the normal impact language, not a replacement effect family.'],
+    unity: ['Use one crisp procedural offset/cut accent; keep rapid critical chains fatigue-safe.'],
+    web: ['Preserve shape/value distinction with reduced density; flash is never required for meaning.'],
   },
   LEVEL_UP: {
     strategy: 'NATIVE_UI_FIRST',
-    unity: [
-      'Native card/page UI and text remain the primary presentation.',
-      'Use only minimal procedural paper flecks/light around the reveal; generated pixels must not contain labels or rarity text.',
-    ],
-    web: ['Keep card content as native HTML/text; any decorative paper/light treatment is separate and optional.'],
+    direction: ['Native card/page hierarchy and readable text are primary.'],
+    unity: ['Use native UI plus minimal procedural paper/light accents; never bake labels or rarity text into generated pixels.'],
+    web: ['Keep card content native HTML/text; decoration remains separate.'],
   },
   WEAPON_EVOLUTION: {
     strategy: 'HYBRID_TEXTURE_REFERENCE',
     lanes: ['convergence-paper-fragment', 'completion-release-smear'],
-    unity: [
-      'Generated texture candidates may supply small paper/ink fragment motifs only after comparison review.',
-      'The before→after weapon silhouette/evolution lineage comes from Weapon Shared Source, not from generated VFX.',
-      'Runtime atlas/particles are rebuilt from approved reference textures and profiled on device.',
-    ],
-    web: ['Use separately composed Web transition after reference approval; never export the Unity runtime atlas as the Web final.'],
+    direction: ['Generate isolated paper/ink material references only.', 'Before→after weapon silhouette comes from Weapon Shared Source, never from the VFX texture candidate.'],
+    unity: ['Rebuild approved references into runtime particle/atlas assets; preserve Weapon evolution lineage procedurally.'],
+    web: ['Compose a separate Web transition after reference approval; do not ship the Unity runtime atlas as Web final art.'],
   },
   TOUMON: {
     strategy: 'BLOCKED',
     blockedReason: 'FINAL_TOUMON_VECTOR_NOT_DRAWN',
-    unity: [
-      'No generated Toumon geometry or substitute glyph.',
-      'After final vector approval, only a small procedural recognition light/settle may be layered around the approved vector.',
-    ],
-    web: ['Use approved native/vector Toumon only after final vector authority exists; no AI-generated stand-in.'],
+    direction: ['Do not generate Toumon geometry or a substitute zodiac/animal glyph.'],
+    unity: ['After final vector approval only, add a small procedural recognition light/settle around the approved vector.'],
+    web: ['Use approved native/vector Toumon only after final vector authority exists.'],
   },
   KOKUYOU: {
     strategy: 'HYBRID_TEXTURE_REFERENCE',
     lanes: ['ink-pressure-edge', 'ink-slash-edge', 'layer-peel-fragment'],
-    unity: [
-      'Generated candidates are texture/material references for ink pressure/slash/peel only.',
-      'Three-phase Ready→Activate→Recovery timing stays procedural/runtime-authored.',
-      'Do not generate Character/Toumon silhouettes into the effect texture.',
-    ],
-    web: ['Compose a reduced-density Web derivative from approved ink textures; no universal evil-purple transformation overlay.'],
+    direction: ['Generate isolated black-ink material edges/fragments only.', 'Ready→Activate→Recovery timing remains runtime-authored.', 'Never generate Character or Toumon silhouettes into the texture.'],
+    unity: ['Use approved texture references as small material inputs; author three-phase timing, density and recovery in runtime.'],
+    web: ['Compose a reduced-density derivative; never use a universal evil-purple transformation overlay.'],
   },
   DAWN: {
     strategy: 'PROCEDURAL_ONLY',
-    unity: [
-      'Implement night-layer opening through palette/value/material transitions and particle reduction.',
-      'No generated sunrise background, whiteout card, or victory-ray overlay is required.',
-    ],
-    web: ['Use CSS/native compositing or surface-specific layers; preserve the no-whiteout semantic.'],
+    direction: ['Dawn means night layers opening/thinning, not a generated sunrise illustration or whiteout.'],
+    unity: ['Implement palette/value/material transitions and particle reduction; No generated sunrise background is required.'],
+    web: ['Use native/CSS/surface-specific compositing while preserving the no-whiteout semantic.'],
   },
   HEAL: {
     strategy: 'PROCEDURAL_ONLY',
-    unity: ['Use a small repaired-line/paper-seam trace and native health-state change; do not create a generic green healing atlas.'],
+    direction: ['Small repaired-line/paper-seam confirmation only; health state remains native.'],
+    unity: ['Use a compact procedural repaired-line cue; do not create a generic green healing atlas.'],
     web: ['Use native state update plus a minimal line/seam cue if needed.'],
   },
   PICKUP: {
     strategy: 'PROCEDURAL_ONLY',
-    unity: ['Use item-native silhouette plus a compact procedural pull trail/ripple; high-density pickup paths simplify automatically.'],
+    direction: ['Pickup object identity remains visible; trail/ripple is secondary.'],
+    unity: ['Use item-native silhouette plus a compact procedural pull trail; simplify automatically at high density.'],
     web: ['Use a compact surface-specific pull/fade treatment; no loot beam texture.'],
   },
   BOSS_ENTRY: {
     strategy: 'PROCEDURAL_ONLY',
-    unity: [
-      'Build entry from Stage/Boss source motifs and runtime material/particle gathering.',
-      'Do not create one universal boss-entry smoke/red-flash atlas.',
-    ],
-    web: ['If represented in Web demo, derive from the specific boss/stage source rather than a universal trailer overlay.'],
+    direction: ['Entry language comes from the specific Stage/Boss relation, not a universal boss overlay.'],
+    unity: ['Build motif gathering and silhouette establishment with runtime materials/particles; no universal red-flash/smoke atlas.'],
+    web: ['If shown, derive from the specific boss/stage source rather than a trailer template.'],
   },
   BOSS_DEATH: {
     strategy: 'HYBRID_TEXTURE_REFERENCE',
     lanes: ['ink-unbind-edge', 'paper-fiber-tear', 'released-clue-soft-trace'],
-    unity: [
-      'Generated candidates may supply unbinding/tear material references only.',
-      'Ordered unbinding timing and released-clue persistence remain runtime-authored.',
-      'Runtime output is rebuilt/packed after reference approval and performance review.',
-    ],
-    web: ['Use a separately composed derivative if needed; do not reuse the Unity atlas as a final promotional/Web image.'],
+    direction: ['Generate isolated unbinding/tear material references only.', 'Ordered unbinding and released-clue persistence remain runtime-authored.', 'Never turn the event into an explosion/confetti texture pack.'],
+    unity: ['Rebuild approved material references into runtime assets after device/performance review.'],
+    web: ['Compose a separate surface derivative when needed; Unity atlas is not final Web/promotional art.'],
   },
   CLEAR: {
     strategy: 'NATIVE_UI_FIRST',
-    unity: [
-      'Combat density clears first; result/page/seal state is native UI.',
-      'Dawn is a separate semantic event and must not be duplicated as victory fireworks.',
-    ],
-    web: ['Use native result layout; generated decoration is not needed for clear-state legibility.'],
+    direction: ['Combat density clears first; result/page/seal state stays native.', 'Dawn is a separate semantic event.'],
+    unity: ['Use native result presentation; do not duplicate Dawn as victory fireworks.'],
+    web: ['Use native result layout; generated decoration is not required for clear-state legibility.'],
   },
   REWARD_UNLOCK: {
     strategy: 'NATIVE_UI_FIRST',
-    unity: [
-      'Reward title/value/icon remain native/runtime data.',
-      'Reward icon artwork authority is separate and currently blocked; do not generate it through this VFX lane.',
-      'Optional paper/seal release is procedural and secondary.',
-    ],
+    direction: ['Reward data and reward icon authority remain separate from VFX.', 'Optional paper/seal release is secondary.'],
+    unity: ['Reward title/value remain native. Reward icon artwork authority is separate and must not be generated through this VFX lane.'],
     web: ['Keep reward data native; no loot-box opening or baked reward card.'],
   },
 };
 
-function promptSeed(source: WorldEffectSharedSourceEntry, lanes: readonly string[]): string {
+const COMMON_NEGATIVE = [
+  'no readable text, letters, numbers, logo or watermark',
+  'no full-screen composition',
+  'no final Toumon geometry',
+  'no generic RPG magic circle or runes',
+  'no cyan-purple neon AI glow',
+  'no glossy 3D particle pack look',
+  'no whiteout or strobe sequence',
+  'no continuous camera shake shorthand',
+] as const;
+
+function buildPrompt(id: WorldEffectId, rule: StrategyRule): string {
   return [
-    `ヨルノシルベ / ${source.id} VFX texture reference candidate.`,
-    `Generate only isolated texture/material motifs for: ${lanes.join(', ')}.`,
-    `Shape authority: ${source.shape}`,
-    `Color authority: ${source.color}`,
-    `Particle/material behavior: ${source.particleBehavior}`,
-    `Mobile readability: ${source.mobileReadability}`,
-    `Safety: ${source.photosensitiveSafety}`,
+    `ヨルノシルベ / ${id} VFX texture reference candidate.`,
+    'Before generation, load and obey the matching entry from src/game/data/worldEffectSharedSource.ts.',
+    `Generate only isolated texture/material motifs for: ${(rule.lanes ?? []).join(', ')}.`,
+    ...rule.direction,
     'Transparent background, textless, logo-free, no UI frame, no complete screen composition.',
     'This is a reference texture candidate, not a final Unity atlas and not a one-shot final.',
   ].join('\n');
 }
 
-function negativePromptSeed(source: WorldEffectSharedSourceEntry): string {
-  return [
-    ...source.avoid,
-    'no readable text, letters, numbers, logo or watermark',
-    'no full-screen composition',
-    'no final Toumon geometry',
-    'no generic RPG magic circle',
-    'no cyan-purple neon AI glow',
-    'no glossy 3D particle pack look',
-    'no whiteout or strobe sequence',
-  ].join(', ');
-}
-
-function buildHandoff(source: WorldEffectSharedSourceEntry): WorldEffectGenerationHandoff {
-  const rule = STRATEGY_BY_ID[source.id];
+function buildHandoff(id: WorldEffectId): WorldEffectGenerationHandoff {
+  const rule = STRATEGY_BY_ID[id];
   const lanes = rule.lanes ?? [];
   const imageAllowed = rule.strategy === 'HYBRID_TEXTURE_REFERENCE';
   return {
-    id: source.id,
-    handoffId: `world-effect-handoff:${source.id.toLowerCase()}:v1`,
+    id,
+    handoffId: `world-effect-handoff:${id.toLowerCase()}:v1`,
     handoffVersion: 1,
     sourceAuthority: 'src/game/data/worldEffectSharedSource.ts',
+    sourceEntryRequired: true,
     assetStrategy: rule.strategy,
     imageCandidateGenerationAllowed: imageAllowed,
     imageCandidateCount: imageAllowed ? 4 : 0,
     generatedTextureLanes: lanes,
-    promptSeed: imageAllowed ? promptSeed(source, lanes) : null,
-    negativePromptSeed: negativePromptSeed(source),
+    generationDirection: rule.direction,
+    promptSeed: imageAllowed ? buildPrompt(id, rule) : null,
+    negativePromptSeed: COMMON_NEGATIVE.join(', '),
     referenceTarget: {
       sizeSpec: imageAllowed ? '1024x1024 TRANSPARENT RGBA REFERENCE_MASTER' : 'NO_GENERATED_IMAGE_TARGET',
       alphaPolicy: imageAllowed ? 'required' : 'not-applicable',
       runtimeDirectUseForbidden: true,
       runtimeOutputRule: imageAllowed
-        ? 'Approved reference textures must be rebuilt/cropped/packed for the concrete Unity renderer; never ship the 1024 reference master directly.'
-        : 'Implement from semantic/runtime source using native UI, particles, trails, shader/material parameters, or source-specific assets.',
+        ? 'Approved references must be rebuilt/cropped/packed for the concrete Unity renderer; never ship the 1024 reference master directly.'
+        : 'Implement from the semantic authority using native UI, particles, trails, shader/material parameters, or source-specific approved assets.',
     },
     unityImplementation: rule.unity,
     webImplementation: rule.web,
@@ -242,7 +242,7 @@ function buildHandoff(source: WorldEffectSharedSourceEntry): WorldEffectGenerati
   };
 }
 
-export const worldEffectGenerationHandoffs: readonly WorldEffectGenerationHandoff[] = worldEffectSharedSourceEntries.map(buildHandoff);
+export const worldEffectGenerationHandoffs: readonly WorldEffectGenerationHandoff[] = WORLD_EFFECT_GENERATION_IDS.map(buildHandoff);
 export const worldEffectGenerationHandoffById = new Map(worldEffectGenerationHandoffs.map((entry) => [entry.id, entry]));
 
 export const worldEffectGenerationHandoffSummary = {
@@ -251,10 +251,7 @@ export const worldEffectGenerationHandoffSummary = {
   proceduralOnlyEvents: worldEffectGenerationHandoffs.filter((entry) => entry.assetStrategy === 'PROCEDURAL_ONLY').map((entry) => entry.id),
   nativeUiFirstEvents: worldEffectGenerationHandoffs.filter((entry) => entry.assetStrategy === 'NATIVE_UI_FIRST').map((entry) => entry.id),
   blockedEvents: worldEffectGenerationHandoffs.filter((entry) => entry.assetStrategy === 'BLOCKED').map((entry) => entry.id),
+  semanticAuthorityLoadedAtGeneration: true,
   deviceCreativeApprovalReady: false,
   runtimeApprovedDefault: false,
 } as const;
-
-for (const source of worldEffectSharedSourceEntries) {
-  if (!worldEffectSharedSourceById.has(source.id)) throw new Error(`World Effect authority map missing ${source.id}`);
-}
