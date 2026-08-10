@@ -7,9 +7,15 @@ on:
       - 'public/assets/prototypes/characters/**'
       - 'src/game/data/goldenReferenceRegistry.ts'
       - 'src/game/data/characterReferenceProductionQueue.ts'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'src/game/data/characterVisualGenerationBriefs.ts'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/characterDatabase.ts'
       - 'scripts/quality/check-character-reference-readiness.ts'
+      - 'scripts/quality/check-character-reference-handoff.ts'
+      - 'tools/asset-factory/scripts/export-character-reference-handoff.ts'
       - 'docs/character-reference-readiness-audit-v1.md'
+      - 'tools/asset-factory/P0_CHARACTER_REFERENCE_HANDOFF.md'
       - '.github/workflows/character-reference-readiness.yml'
   push:
     branches: [main]
@@ -18,9 +24,15 @@ on:
       - 'public/assets/prototypes/characters/**'
       - 'src/game/data/goldenReferenceRegistry.ts'
       - 'src/game/data/characterReferenceProductionQueue.ts'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'src/game/data/characterVisualGenerationBriefs.ts'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/characterDatabase.ts'
       - 'scripts/quality/check-character-reference-readiness.ts'
+      - 'scripts/quality/check-character-reference-handoff.ts'
+      - 'tools/asset-factory/scripts/export-character-reference-handoff.ts'
       - 'docs/character-reference-readiness-audit-v1.md'
+      - 'tools/asset-factory/P0_CHARACTER_REFERENCE_HANDOFF.md'
       - '.github/workflows/character-reference-readiness.yml'
 
 permissions:
@@ -35,3 +47,17 @@ jobs:
 
       - name: Audit Current20 reference readiness
         run: node --experimental-strip-types scripts/quality/check-character-reference-readiness.ts
+
+      - name: Validate P0 reference-generation handoff
+        run: node --experimental-strip-types scripts/quality/check-character-reference-handoff.ts
+
+      - name: Smoke-test handoff export
+        run: |
+          node --experimental-strip-types tools/asset-factory/scripts/export-character-reference-handoff.ts \
+            --priority P0 --format markdown --output /tmp/p0-reference-handoff.md
+          node --experimental-strip-types tools/asset-factory/scripts/export-character-reference-handoff.ts \
+            --priority P0 --format json --output /tmp/p0-reference-handoff.json
+          grep -q '## P0 — ハナ (hana)' /tmp/p0-reference-handoff.md
+          grep -q '## P0 — カナメ (kage1)' /tmp/p0-reference-handoff.md
+          grep -q 'PLUS-SIZE HARD LOCK' /tmp/p0-reference-handoff.md
+          node -e "const x=require('/tmp/p0-reference-handoff.json'); if(x.itemCount!==2) process.exit(1); if(x.items.some(i=>i.approvalStateAfterGeneration!=='CANDIDATE_REVIEW_REQUIRED')) process.exit(1)"
