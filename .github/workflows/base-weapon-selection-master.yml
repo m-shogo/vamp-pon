@@ -1,0 +1,46 @@
+name: base-weapon-selection-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsA.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsB.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsC.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'docs/base-weapon-selection-source-v1.md'
+      - 'scripts/quality/check-base-weapon-selection-master.ts'
+      - '.github/workflows/base-weapon-selection-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsA.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsB.ts'
+      - 'src/game/data/currentCharacterCombatKitSeedsC.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'docs/base-weapon-selection-source-v1.md'
+      - 'scripts/quality/check-base-weapon-selection-master.ts'
+      - '.github/workflows/base-weapon-selection-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Title1 Base Weapon selection
+        run: node --experimental-strip-types scripts/quality/check-base-weapon-selection-master.ts
