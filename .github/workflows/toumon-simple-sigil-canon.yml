@@ -53,8 +53,10 @@ jobs:
           grep -q '16px' docs/design/toumon-simple-sigil-canon-v2.md
           grep -q '夜の記録帳' docs/design/ip-symbol-merch-system-v1.md
           grep -q 'RASTER / IMAGE GENERATION HOLD' docs/prompts/az-emblem-asset-prompts.md
-          ! grep -q 'round lantern crest' docs/prompts/az-emblem-asset-prompts.md
-          ! grep -q 'animal constellation hint' docs/prompts/az-emblem-asset-prompts.md
+          grep -q 'AI image generation must not decide the canonical Toumon shape' docs/prompts/az-emblem-asset-prompts.md
+          ! grep -q '^## Core5 prompts$' docs/prompts/az-emblem-asset-prompts.md
+          ! grep -q '^## Circle10 prompts$' docs/prompts/az-emblem-asset-prompts.md
+          ! grep -q '^## Shadow5 prompts$' docs/prompts/az-emblem-asset-prompts.md
       - name: Guard in-world semantic and privacy boundaries
         run: |
           grep -q 'Power Sourceではない' docs/design/toumon-inworld-behavior-contract-v1.md
