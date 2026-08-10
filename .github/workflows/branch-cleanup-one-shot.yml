@@ -1,0 +1,108 @@
+name: Audited Merged Branch Cleanup One Shot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/branch-cleanup-one-shot.yml'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Delete only proven-integrated remote branches
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const defaultBranch = 'main';
+            const explicitPreserve = new Set([
+              defaultBranch,
+              // This branch has been repeatedly recreated by an active parallel agent.
+              'agent/current21-silhouette-coverage-v2b',
+            ]);
+
+            const branches = await github.paginate(github.rest.repos.listBranches, {
+              owner, repo, per_page: 100,
+            });
+            const openPulls = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'open', per_page: 100,
+            });
+            for (const pr of openPulls) {
+              if (pr.head.repo?.full_name === `${owner}/${repo}`) explicitPreserve.add(pr.head.ref);
+            }
+
+            const closedPulls = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'closed', sort: 'updated', direction: 'desc', per_page: 100,
+            });
+            const mergedExactHeads = new Set(
+              closedPulls
+                .filter(pr => pr.merged_at && pr.head.repo?.full_name === `${owner}/${repo}`)
+                .map(pr => `${pr.head.ref}:${pr.head.sha}`),
+            );
+
+            const deleted = [];
+            const preserved = [];
+            for (const branch of branches) {
+              const name = branch.name;
+              if (explicitPreserve.has(name)) {
+                preserved.push(`${name}:protected/open/active`);
+                continue;
+              }
+
+              const observedSha = branch.commit.sha;
+              let reason = null;
+              if (mergedExactHeads.has(`${name}:${observedSha}`)) {
+                reason = 'exact merged PR head';
+              } else {
+                const comparison = await github.rest.repos.compareCommitsWithBasehead({
+                  owner,
+                  repo,
+                  basehead: `${defaultBranch}...${observedSha}`,
+                });
+                if (comparison.data.ahead_by === 0) reason = 'zero unique commits vs main';
+              }
+
+              if (!reason) {
+                preserved.push(`${name}:unique work`);
+                continue;
+              }
+
+              // Execution-time race guard: never delete if the branch moved since inspection.
+              const ref = await github.rest.git.getRef({
+                owner,
+                repo,
+                ref: `heads/${name}`,
+              });
+              if (ref.data.object.sha !== observedSha) {
+                preserved.push(`${name}:moved during cleanup`);
+                continue;
+              }
+
+              // Re-check open PR heads immediately before deletion.
+              const currentOpenPulls = await github.paginate(github.rest.pulls.list, {
+                owner, repo, state: 'open', per_page: 100,
+              });
+              if (currentOpenPulls.some(pr =>
+                pr.head.repo?.full_name === `${owner}/${repo}` && pr.head.ref === name)) {
+                preserved.push(`${name}:became open PR head`);
+                continue;
+              }
+
+              await github.rest.git.deleteRef({ owner, repo, ref: `heads/${name}` });
+              deleted.push(`${name}:${reason}`);
+            }
+
+            core.summary
+              .addHeading('Audited remote branch cleanup')
+              .addRaw(`Deleted ${deleted.length} branch(es).\n\n`)
+              .addCodeBlock(deleted.join('\n') || '(none)')
+              .addRaw(`\nPreserved ${preserved.length} branch(es).\n\n`)
+              .addCodeBlock(preserved.join('\n') || '(none)')
+              .write();
+            console.log(JSON.stringify({ deleted, preserved }, null, 2));
