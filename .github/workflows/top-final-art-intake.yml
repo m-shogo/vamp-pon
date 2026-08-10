@@ -3,9 +3,9 @@ name: TOP Final Art Intake
 on:
   push:
     branches:
-      - agent/top-living-night-key-art-v1
+      - art/top-core5-v3-final-intake
     paths:
-      - 'docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png'
+      - 'docs/design-targets/generated/top-living-night-v3/intake-request.json'
 
 permissions:
   contents: write
@@ -18,10 +18,10 @@ jobs:
   register:
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout exact candidate commit
+      - name: Checkout exact intake request commit
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -31,61 +31,123 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Validate one-shot intake request
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const requestPath = 'docs/design-targets/generated/top-living-night-v3/intake-request.json';
+          const request = JSON.parse(fs.readFileSync(requestPath, 'utf8'));
+          const expected = {
+            schemaVersion: 1,
+            action: 'REGISTER_CANDIDATE_AND_PACKS',
+            candidatePath: 'docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png',
+            semanticLayerCount: 6,
+            effectCompanionCount: 10,
+            approvalPromotionAllowed: false,
+          };
+          for (const [key, value] of Object.entries(expected)) {
+            if (request[key] !== value) throw new Error(`intake request mismatch for ${key}: ${request[key]} != ${value}`);
+          }
+          NODE
+
       - name: Stage incoming candidate at canonical path
         run: python3 scripts/unity/stage-top-living-night-final-art-intake.py
 
       - name: Register exact candidate SHA and reset stale evidence
         run: node --experimental-strip-types scripts/unity/register-top-living-night-final-art.ts
 
-      - name: Verify candidate and Core5 provenance
+      - name: Register candidate-bound semantic and effect packs
+        run: |
+          node --experimental-strip-types scripts/unity/register-top-living-night-semantic-layer-pack.ts
+          node --experimental-strip-types scripts/unity/register-top-living-night-effect-companion-pack.ts
+
+      - name: Verify candidate, Core5 provenance, and production packs
         run: |
           node --experimental-strip-types scripts/quality/check-top-living-night-final-art-candidate.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-final-art-not-known-bridge.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-core5-candidate-provenance.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-final-identity-boundary.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-semantic-layer-pack.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-effect-companion-pack.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-generation-bundle.ts
+          node --experimental-strip-types scripts/quality/check-top-living-night-post-generation-gate-chain.ts
           node --experimental-strip-types scripts/quality/check-top-living-night-approval-consistency.ts
 
-      - name: Remove one-shot incoming file
-        run: git rm -- docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png
+      - name: Consume one-shot request and incoming candidate
+        run: |
+          git rm -- docs/design-targets/generated/top-living-night-v3/intake-request.json
+          git rm -- docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png
 
-      - name: Stage only final-art intake authority changes
+      - name: Stage only guarded final-art intake changes
         shell: bash
         run: |
           set -euo pipefail
-          allowed=(
-            docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png
-            docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png
-            docs/design-targets/generated/top-living-night-v3/final-art-status.json
-            docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json
-            docs/design-targets/generated/top-living-night-v3/crop-review-status.json
-            docs/design-targets/generated/top-living-night-v3/motion-review-status.json
-            docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json
-            docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json
-            docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json
-            docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json
+          git add -A -- \
+            docs/design-targets/generated/top-living-night-v3/intake-request.json \
+            docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png \
+            docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png \
+            docs/design-targets/generated/top-living-night-v3/final/layers \
+            docs/design-targets/generated/top-living-night-v3/final/semantic-layer-pack.json \
+            docs/design-targets/generated/top-living-night-v3/final/effects \
+            docs/design-targets/generated/top-living-night-v3/final/effect-companion-pack.json \
+            docs/design-targets/generated/top-living-night-v3/final-art-status.json \
+            docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json \
+            docs/design-targets/generated/top-living-night-v3/crop-review-status.json \
+            docs/design-targets/generated/top-living-night-v3/motion-review-status.json \
+            docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json \
+            docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json \
+            docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json \
+            docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json \
             docs/design-targets/generated/loading-seasonal-v1/manifest.json
-          )
-          git add -A -- "${allowed[@]}"
+
           mapfile -t changed < <(git diff --cached --name-only)
           test "${#changed[@]}" -gt 0
           for path in "${changed[@]}"; do
-            found=false
-            for expected in "${allowed[@]}"; do
-              if [[ "$path" == "$expected" ]]; then found=true; break; fi
-            done
-            if [[ "$found" != true ]]; then
-              echo "Unexpected staged path: $path" >&2
-              exit 1
-            fi
+            case "$path" in
+              docs/design-targets/generated/top-living-night-v3/intake-request.json|\
+              docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png|\
+              docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png|\
+              docs/design-targets/generated/top-living-night-v3/final/layers/*|\
+              docs/design-targets/generated/top-living-night-v3/final/semantic-layer-pack.json|\
+              docs/design-targets/generated/top-living-night-v3/final/effects/*|\
+              docs/design-targets/generated/top-living-night-v3/final/effect-companion-pack.json|\
+              docs/design-targets/generated/top-living-night-v3/final-art-status.json|\
+              docs/design-targets/generated/top-living-night-v3/core5-identity-review-status.json|\
+              docs/design-targets/generated/top-living-night-v3/crop-review-status.json|\
+              docs/design-targets/generated/top-living-night-v3/motion-review-status.json|\
+              docs/design-targets/generated/top-living-night-v3/human-visual-review-status.json|\
+              docs/design-targets/generated/top-living-night-v3/runtime-unity-verification.json|\
+              docs/design-targets/generated/top-living-night-v3/runtime-device-evidence.json|\
+              docs/design-targets/generated/loading-seasonal-v1/runtime-capture-manifest.json|\
+              docs/design-targets/generated/loading-seasonal-v1/manifest.json)
+                ;;
+              *)
+                echo "Unexpected staged path: $path" >&2
+                exit 1
+                ;;
+            esac
           done
           git diff --cached --check
 
-      - name: Commit guarded registration
+      - name: Reassert non-approval boundary before commit
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const status = JSON.parse(fs.readFileSync('docs/design-targets/generated/top-living-night-v3/final-art-status.json','utf8'));
+          if (!status.candidateGenerated) throw new Error('candidate registration did not complete');
+          if (status.approvedAsFinal || status.runtimeApproved || !status.finalApprovalBlocked) {
+            throw new Error('intake must not promote final/runtime approval');
+          }
+          NODE
+
+      - name: Commit guarded candidate and pack registration
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'art: register TOP Core5 final candidate'
+          git commit -m 'art: register TOP Core5 candidate and production packs'
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin "HEAD:$GITHUB_REF_NAME"
