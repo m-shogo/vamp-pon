@@ -1,0 +1,28 @@
+name: World Route Candidate Approval
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/worldRouteCandidateApproval.ts'
+      - 'scripts/quality/check-world-route-candidate-approval.ts'
+      - '.github/workflows/world-route-candidate-approval.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/worldRouteCandidateApproval.ts'
+      - 'scripts/quality/check-world-route-candidate-approval.ts'
+      - '.github/workflows/world-route-candidate-approval.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate candidate review and promotion gate
+        run: node --experimental-strip-types scripts/quality/check-world-route-candidate-approval.ts
