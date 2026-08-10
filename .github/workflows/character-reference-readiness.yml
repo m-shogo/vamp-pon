@@ -1,0 +1,37 @@
+name: Character Reference Readiness
+
+on:
+  pull_request:
+    paths:
+      - 'assets/reference/character-master/**'
+      - 'public/assets/prototypes/characters/**'
+      - 'src/game/data/goldenReferenceRegistry.ts'
+      - 'src/game/data/characterReferenceProductionQueue.ts'
+      - 'src/game/data/characterDatabase.ts'
+      - 'scripts/quality/check-character-reference-readiness.ts'
+      - 'docs/character-reference-readiness-audit-v1.md'
+      - '.github/workflows/character-reference-readiness.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/reference/character-master/**'
+      - 'public/assets/prototypes/characters/**'
+      - 'src/game/data/goldenReferenceRegistry.ts'
+      - 'src/game/data/characterReferenceProductionQueue.ts'
+      - 'src/game/data/characterDatabase.ts'
+      - 'scripts/quality/check-character-reference-readiness.ts'
+      - 'docs/character-reference-readiness-audit-v1.md'
+      - '.github/workflows/character-reference-readiness.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit Current20 reference readiness
+        run: node --experimental-strip-types scripts/quality/check-character-reference-readiness.ts
