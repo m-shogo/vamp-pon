@@ -3,12 +3,14 @@ import { existsSync, readFileSync } from 'node:fs';
 import {
   NIGHT_RECORD_BOOK_SECTION_IDS,
   NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT,
+  NIGHT_RECORD_RELATION_COVERAGE_COUNT,
+  NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT,
   NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT,
-  NIGHT_RECORD_RELATION_MACHINE_COUNT,
   nightRecordBookSectionById,
   nightRecordBookSections,
   nightRecordBookSharedSourceSummary,
 } from '../../src/game/data/nightRecordBookSharedSource.ts';
+import { currentRelationshipInventorySummary } from '../../src/game/data/currentRelationshipInventory.ts';
 
 function fail(message: string): never {
   throw new Error(`[Night Record Book Shared Source] ${message}`);
@@ -70,7 +72,11 @@ const relationMap = JSON.parse(readFileSync('docs/design-targets/generated/chara
   currentArcs?: unknown[];
 };
 assert(Array.isArray(relationMap.currentArcs), 'relationship currentArcs missing');
-assert(relationMap.currentArcs.length === NIGHT_RECORD_RELATION_MACHINE_COUNT, `machine relation count drift: ${relationMap.currentArcs.length}/${NIGHT_RECORD_RELATION_MACHINE_COUNT}`);
+assert(relationMap.currentArcs.length === NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT, `detailed machine relation count drift: ${relationMap.currentArcs.length}/${NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT}`);
+assert(currentRelationshipInventorySummary.total === NIGHT_RECORD_RELATION_COVERAGE_COUNT, 'Current relationship inventory coverage drift');
+assert(currentRelationshipInventorySummary.detailedMachineArcs === NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT, 'Current relationship detailed count drift');
+assert(NIGHT_RECORD_RELATION_COVERAGE_COUNT === NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT, 'RELATION inventory must cover all 24 Current arcs');
+assert(NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT === 12, 'RELATION detailed machine arc count should remain 12 until explicitly expanded');
 
 const relationshipDoc = readFileSync('docs/RELATIONSHIPS.md', 'utf8');
 const inventoryStart = relationshipDoc.indexOf('# 3. Current strong arc inventory');
@@ -79,11 +85,15 @@ assert(inventoryStart >= 0 && inventoryEnd > inventoryStart, 'Current relationsh
 const inventorySection = relationshipDoc.slice(inventoryStart, inventoryEnd);
 const humanArcCount = (inventorySection.match(/^\d+\.\s/gm) ?? []).length;
 assert(humanArcCount === NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT, `human Current relation inventory drift: ${humanArcCount}/${NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT}`);
+
 const relation = nightRecordBookSectionById.get('RELATION');
-assert(relation?.coverage === 'PARTIAL_MACHINE', 'RELATION must stay partial while machine map lags human Current inventory');
-assert(relation.machineEntryCount === relationMap.currentArcs.length, 'RELATION adapter machine count drift');
-assert(/24-arc human inventory/.test(relation.publicPresentationRule), 'RELATION partial-coverage disclosure missing');
+assert(relation?.coverage === 'CURRENT_MACHINE', 'RELATION inventory coverage should be machine-complete');
+assert(relation.machineEntryCount === NIGHT_RECORD_RELATION_COVERAGE_COUNT, 'RELATION coverage count drift');
+assert(nightRecordBookSharedSourceSummary.relation.machineCoverageComplete === true, 'RELATION coverage completion flag drift');
+assert(nightRecordBookSharedSourceSummary.relation.detailedCoverageComplete === false, 'RELATION detailed completion must remain false');
+assert(/Only 12 have detailed machine arc payloads/.test(relation.publicPresentationRule), 'RELATION detail-coverage disclosure missing');
 assert(/popularity/i.test(relation.spoilerRule), 'RELATION popularity-retcon guard missing');
+assert(/COVERAGE-ONLY SOURCE/.test(relation.emptyStateRule), 'RELATION coverage-only empty-state disclosure missing');
 
 const dawn = nightRecordBookSectionById.get('DAWN');
 assert(dawn?.coverage === 'LOCKED_DRAFT', 'DAWN must remain locked draft');
@@ -112,8 +122,7 @@ assert(nightRecordBookSharedSourceSummary.physicalPurchaseRequired === false, 'p
 assert(nightRecordBookSharedSourceSummary.trueEndRequired === false, 'True End requirement inferred');
 assert(nightRecordBookSharedSourceSummary.sectionExpansionApproved === false, 'six-section expansion inferred');
 
-const forbiddenExtraSections = ['ENEMY', 'WEAPON', 'STAGE', 'ACHIEVEMENT', 'REWARD'];
-for (const extra of forbiddenExtraSections) {
+for (const extra of ['ENEMY', 'WEAPON', 'STAGE', 'ACHIEVEMENT', 'REWARD']) {
   assert(!nightRecordBookSectionById.has(extra as never), `unapproved seventh+ section added: ${extra}`);
 }
 
@@ -122,6 +131,7 @@ console.log(
     `sections=${nightRecordBookSections.length}, people=${nightRecordBookSharedSourceSummary.people.total}, ` +
     `starBeasts=${nightRecordBookSharedSourceSummary.starBeasts.total}, objects=${nightRecordBookSharedSourceSummary.objects.total}, ` +
     `route=${nightRecordBookSharedSourceSummary.route.routeInstances}, ` +
-    `relation=${nightRecordBookSharedSourceSummary.relation.machineCurrentArcs}/${nightRecordBookSharedSourceSummary.relation.humanCurrentStrongInventory}, ` +
+    `relationCoverage=${nightRecordBookSharedSourceSummary.relation.machineCoverageArcs}/${nightRecordBookSharedSourceSummary.relation.humanCurrentStrongInventory}, ` +
+    `relationDetailed=${nightRecordBookSharedSourceSummary.relation.detailedMachineArcs}/${nightRecordBookSharedSourceSummary.relation.humanCurrentStrongInventory}, ` +
     `dawn=${nightRecordBookSharedSourceSummary.dawn.normalizedEntries}, bulkPages=false)`,
 );
