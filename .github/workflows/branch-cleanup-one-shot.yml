@@ -46,6 +46,28 @@ jobs:
                 .map(pr => `${pr.head.ref}:${pr.head.sha}`),
             );
 
+            async function fileSha(path, ref) {
+              try {
+                const response = await github.rest.repos.getContent({ owner, repo, path, ref });
+                if (Array.isArray(response.data) || response.data.type !== 'file') return null;
+                return response.data.sha;
+              } catch (error) {
+                if (error.status === 404) return null;
+                throw error;
+              }
+            }
+
+            async function branchChangedContentAlreadyOnMain(observedSha, comparison) {
+              const files = comparison.data.files ?? [];
+              if (files.length === 0 || files.length >= 300) return false;
+              for (const file of files) {
+                const branchSha = await fileSha(file.filename, observedSha);
+                const mainSha = await fileSha(file.filename, defaultBranch);
+                if (branchSha !== mainSha) return false;
+              }
+              return true;
+            }
+
             const deleted = [];
             const preserved = [];
             for (const branch of branches) {
@@ -57,15 +79,20 @@ jobs:
 
               const observedSha = branch.commit.sha;
               let reason = null;
+              let comparison = null;
               if (mergedExactHeads.has(`${name}:${observedSha}`)) {
                 reason = 'exact merged PR head';
               } else {
-                const comparison = await github.rest.repos.compareCommitsWithBasehead({
+                comparison = await github.rest.repos.compareCommitsWithBasehead({
                   owner,
                   repo,
                   basehead: `${defaultBranch}...${observedSha}`,
                 });
-                if (comparison.data.ahead_by === 0) reason = 'zero unique commits vs main';
+                if (comparison.data.ahead_by === 0) {
+                  reason = 'zero unique commits vs main';
+                } else if (await branchChangedContentAlreadyOnMain(observedSha, comparison)) {
+                  reason = 'all branch-changed blobs already identical on main';
+                }
               }
 
               if (!reason) {
