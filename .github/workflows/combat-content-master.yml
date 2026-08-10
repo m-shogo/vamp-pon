@@ -1,0 +1,50 @@
+name: combat-content-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/combatAttributeEffectivenessSource.ts'
+      - 'src/game/data/characterStarBeastCombatSource.ts'
+      - 'src/game/data/futureCharacterCombatIdentitySource.ts'
+      - 'src/game/data/enemyAttributeIdentitySource.ts'
+      - 'src/game/data/enemyStatusTraitSource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'src/game/data/combatVfxLanguageSource.ts'
+      - 'docs/yoruno-shirube-content-master-source-v1.md'
+      - 'docs/combat-multi-attribute-star-beast-source-v1.md'
+      - 'scripts/quality/check-combat-content-master.ts'
+      - '.github/workflows/combat-content-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/combatAttributeEffectivenessSource.ts'
+      - 'src/game/data/characterStarBeastCombatSource.ts'
+      - 'src/game/data/futureCharacterCombatIdentitySource.ts'
+      - 'src/game/data/enemyAttributeIdentitySource.ts'
+      - 'src/game/data/enemyStatusTraitSource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'src/game/data/combatVfxLanguageSource.ts'
+      - 'docs/yoruno-shirube-content-master-source-v1.md'
+      - 'docs/combat-multi-attribute-star-beast-source-v1.md'
+      - 'scripts/quality/check-combat-content-master.ts'
+      - '.github/workflows/combat-content-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check combat content master
+        run: node --experimental-strip-types scripts/quality/check-combat-content-master.ts
