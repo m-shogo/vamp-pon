@@ -53,15 +53,20 @@ for (const required of [bundlePath, statusPath, core5Path, registrarPath, contro
 const bundle = JSON.parse(readFileSync(join(root, bundlePath), 'utf8')) as any;
 const status = JSON.parse(readFileSync(join(root, statusPath), 'utf8')) as any;
 const core5 = JSON.parse(readFileSync(join(root, core5Path), 'utf8')) as any;
-const structural = bundle.structuralLayers;
+const semantic = bundle.semanticLayerRuntime;
 
-invariant(structural, 'TOP generation bundle is missing structuralLayers');
-invariant(structural.incomingRoot === 'docs/design-targets/generated/top-living-night-v3/incoming/layers', 'semantic incoming root mismatch');
-invariant(structural.finalRoot === 'docs/design-targets/generated/top-living-night-v3/final/layers', 'semantic final root mismatch');
-invariant(JSON.stringify(structural.required.map((entry: any) => entry.file)) === JSON.stringify(specs.map(([file]) => file)), 'semantic required file order/set mismatch');
-invariant(structural.runtimeRepresentation === 'semantic-2.5d-layer-pack', 'semantic runtime representation mismatch');
-invariant(structural.referenceCanvas === '430x932', 'semantic reference canvas mismatch');
-invariant(structural.flattenedFallbackAllowedAfterFinal === false, 'final semantic runtime must forbid flattened fallback');
+invariant(semantic, 'TOP generation bundle is missing semanticLayerRuntime');
+invariant(semantic.productionContract === 'docs/design-targets/generated/top-living-night-v3/layered-final-production-contract.md', 'semantic production contract mismatch');
+invariant(semantic.incomingRoot === 'docs/design-targets/generated/top-living-night-v3/incoming/layers', 'semantic incoming root mismatch');
+invariant(semantic.finalRoot === 'docs/design-targets/generated/top-living-night-v3/final/layers', 'semantic final root mismatch');
+invariant(semantic.manifest === manifestPath, 'semantic manifest path mismatch');
+invariant(semantic.registrar === registrarPath, 'semantic registrar path mismatch');
+invariant(JSON.stringify(semantic.requiredLayers) === JSON.stringify(specs.map(([file]) => file)), 'semantic required file order/set mismatch');
+invariant(semantic.candidateShaBound === true, 'semantic pack must bind candidate SHA');
+invariant(semantic.core5ReferenceSetBound === true, 'semantic pack must bind Core5 reference-set SHA');
+invariant(semantic.perLayerShaBound === true, 'semantic pack must bind each layer SHA');
+invariant(semantic.flattenedFinalFallbackAllowed === false, 'final semantic runtime must forbid flattened fallback');
+invariant(semantic.bridgeMayUseExistingV2SemanticLayers === true, 'legacy semantic fallback may remain only for bridge/non-final TOP');
 
 const registrarSource = readFileSync(join(root, registrarPath), 'utf8');
 const controllerSource = readFileSync(join(root, controllerPath), 'utf8');
@@ -105,7 +110,7 @@ invariant(manifest.runtimePolicy?.referenceCanvas === '430x932', 'semantic manif
 
 const records: Array<{ file: string; sha256: string }> = [];
 for (const [file, alphaRequired] of specs) {
-  const path = join(root, structural.finalRoot, file);
+  const path = join(root, semantic.finalRoot, file);
   invariant(existsSync(path), `registered final candidate is missing semantic layer: ${file}`);
   const inspected = inspectPng(path, alphaRequired);
   const record = manifest.layers.find((entry: any) => entry.file === file);
