@@ -5,34 +5,46 @@ on:
     paths:
       - 'assets/reference/character-master/**'
       - 'public/assets/prototypes/characters/**'
+      - 'data/asset-factory/character-reference-candidates/**'
       - 'src/game/data/goldenReferenceRegistry.ts'
       - 'src/game/data/characterReferenceProductionQueue.ts'
       - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'src/game/data/characterReferenceCandidateIntake.ts'
       - 'src/game/data/characterVisualGenerationBriefs.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/characterDatabase.ts'
       - 'scripts/quality/check-character-reference-readiness.ts'
       - 'scripts/quality/check-character-reference-handoff.ts'
+      - 'scripts/quality/check-character-reference-candidates.ts'
       - 'tools/asset-factory/scripts/export-character-reference-handoff.ts'
+      - 'tools/asset-factory/scripts/register-character-reference-candidate.ts'
+      - 'tools/asset-factory/scripts/review-character-reference-candidate.ts'
       - 'docs/character-reference-readiness-audit-v1.md'
       - 'tools/asset-factory/P0_CHARACTER_REFERENCE_HANDOFF.md'
+      - 'tools/asset-factory/CHARACTER_REFERENCE_CANDIDATE_INTAKE.md'
       - '.github/workflows/character-reference-readiness.yml'
   push:
     branches: [main]
     paths:
       - 'assets/reference/character-master/**'
       - 'public/assets/prototypes/characters/**'
+      - 'data/asset-factory/character-reference-candidates/**'
       - 'src/game/data/goldenReferenceRegistry.ts'
       - 'src/game/data/characterReferenceProductionQueue.ts'
       - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'src/game/data/characterReferenceCandidateIntake.ts'
       - 'src/game/data/characterVisualGenerationBriefs.ts'
       - 'src/game/data/assetFactoryCharacterPrompts.ts'
       - 'src/game/data/characterDatabase.ts'
       - 'scripts/quality/check-character-reference-readiness.ts'
       - 'scripts/quality/check-character-reference-handoff.ts'
+      - 'scripts/quality/check-character-reference-candidates.ts'
       - 'tools/asset-factory/scripts/export-character-reference-handoff.ts'
+      - 'tools/asset-factory/scripts/register-character-reference-candidate.ts'
+      - 'tools/asset-factory/scripts/review-character-reference-candidate.ts'
       - 'docs/character-reference-readiness-audit-v1.md'
       - 'tools/asset-factory/P0_CHARACTER_REFERENCE_HANDOFF.md'
+      - 'tools/asset-factory/CHARACTER_REFERENCE_CANDIDATE_INTAKE.md'
       - '.github/workflows/character-reference-readiness.yml'
 
 permissions:
@@ -51,6 +63,9 @@ jobs:
       - name: Validate P0 reference-generation handoff
         run: node --experimental-strip-types scripts/quality/check-character-reference-handoff.ts
 
+      - name: Verify committed candidate provenance
+        run: node --experimental-strip-types scripts/quality/check-character-reference-candidates.ts
+
       - name: Smoke-test handoff export
         run: |
           node --experimental-strip-types tools/asset-factory/scripts/export-character-reference-handoff.ts \
@@ -61,3 +76,87 @@ jobs:
           grep -q '## P0 — カナメ (kage1)' /tmp/p0-reference-handoff.md
           grep -q 'PLUS-SIZE HARD LOCK' /tmp/p0-reference-handoff.md
           node -e "const x=require('/tmp/p0-reference-handoff.json'); if(x.itemCount!==2) process.exit(1); if(x.items.some(i=>i.approvalStateAfterGeneration!=='CANDIDATE_REVIEW_REQUIRED')) process.exit(1)"
+
+      - name: Smoke-test candidate registration guards
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          for (const id of ['hana', 'kage1']) {
+            const path = `public/assets/prototypes/characters/${id}/references/${id}-reference-v1.png`;
+            fs.mkdirSync(require('path').dirname(path), { recursive: true });
+            const png = Buffer.alloc(33);
+            Buffer.from([137,80,78,71,13,10,26,10]).copy(png, 0);
+            png.writeUInt32BE(13, 8);
+            png.write('IHDR', 12, 4, 'ascii');
+            png.writeUInt32BE(1024, 16);
+            png.writeUInt32BE(1024, 20);
+            png.writeUInt8(8, 24);
+            png.writeUInt8(6, 25);
+            png.writeUInt8(0, 26);
+            png.writeUInt8(0, 27);
+            png.writeUInt8(0, 28);
+            fs.writeFileSync(path, png);
+          }
+          NODE
+          node --experimental-strip-types tools/asset-factory/scripts/register-character-reference-candidate.ts \
+            --character hana \
+            --source-file public/assets/prototypes/characters/hana/references/hana-reference-v1.png \
+            --output /tmp/hana.candidate.json
+          node --experimental-strip-types tools/asset-factory/scripts/register-character-reference-candidate.ts \
+            --character kage1 \
+            --source-file public/assets/prototypes/characters/kage1/references/kage1-reference-v1.png \
+            --output /tmp/kage1.candidate.json
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const path of ['/tmp/hana.candidate.json','/tmp/kage1.candidate.json']) {
+            const x = JSON.parse(fs.readFileSync(path, 'utf8'));
+            if (x.decision !== 'pending') process.exit(1);
+            if (x.approvedForReference !== false || x.approvedForRuntime !== false || x.approvedAsFinal !== false) process.exit(1);
+            if (x.sourceWidth !== 1024 || x.sourceHeight !== 1024 || x.sourcePngColorType !== 6) process.exit(1);
+          }
+          NODE
+          node <<'NODE'
+          const fs = require('fs');
+          const path = 'public/assets/prototypes/characters/hana/references/hana-reference-v1.png';
+          const png = fs.readFileSync(path);
+          png.writeUInt32BE(512, 16);
+          fs.writeFileSync(path, png);
+          NODE
+          if node --experimental-strip-types tools/asset-factory/scripts/register-character-reference-candidate.ts \
+            --character hana \
+            --source-file public/assets/prototypes/characters/hana/references/hana-reference-v1.png \
+            --output /tmp/hana-wrong-size.candidate.json; then
+            echo 'wrong-size candidate unexpectedly registered' >&2
+            exit 1
+          fi
+
+      - name: Smoke-test manual review approval gate
+        run: |
+          if node --experimental-strip-types tools/asset-factory/scripts/review-character-reference-candidate.ts \
+            --character kage1 \
+            --candidate-file /tmp/kage1.candidate.json \
+            --decision approved_reference; then
+            echo 'candidate unexpectedly approved without manual checks' >&2
+            exit 1
+          fi
+          node --experimental-strip-types tools/asset-factory/scripts/review-character-reference-candidate.ts \
+            --character kage1 \
+            --candidate-file /tmp/kage1.candidate.json \
+            --set identityMatchesCurrentCanon=true \
+            --set silhouetteMatchesCurrentCanon=true \
+            --set postureMatchesCurrentCanon=true \
+            --set clothingMassMatchesCurrentCanon=true \
+            --set namedObjectReadable=true \
+            --set mobileReadability390x844=true \
+            --set noBakedTextOrUi=true \
+            --set noBackgroundOrFringeIssue=true \
+            --set bodyRepresentationGuardPassed=true \
+            --notes 'CI synthetic full manual review' \
+            --decision approved_reference
+          node - <<'NODE'
+          const fs = require('fs');
+          const x = JSON.parse(fs.readFileSync('/tmp/kage1.candidate.json', 'utf8'));
+          if (x.decision !== 'approved_reference' || x.approvedForReference !== true) process.exit(1);
+          if (x.approvedForRuntime !== false || x.approvedAsFinal !== false) process.exit(1);
+          if (Object.entries(x.manualReview).some(([key,value]) => key !== 'notes' && value !== true)) process.exit(1);
+          NODE
