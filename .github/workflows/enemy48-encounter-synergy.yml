@@ -1,0 +1,42 @@
+name: enemy48-encounter-synergy
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/enemyEncounterSynergySource.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/enemyStatusTraitSource.ts'
+      - 'src/game/data/enemyAttributeIdentitySource.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/series1StageCampaignSeedsA.ts'
+      - 'src/game/data/series1StageCampaignSeedsB.ts'
+      - 'docs/enemy48-encounter-synergy-source-v1.md'
+      - 'scripts/quality/check-enemy48-encounter-synergy.ts'
+      - '.github/workflows/enemy48-encounter-synergy.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/enemyEncounterSynergySource.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/enemyStatusTraitSource.ts'
+      - 'src/game/data/enemyAttributeIdentitySource.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/series1StageCampaignSeedsA.ts'
+      - 'src/game/data/series1StageCampaignSeedsB.ts'
+      - 'docs/enemy48-encounter-synergy-source-v1.md'
+      - 'scripts/quality/check-enemy48-encounter-synergy.ts'
+      - '.github/workflows/enemy48-encounter-synergy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Enemy48 encounter synergy
+        run: node --experimental-strip-types scripts/quality/check-enemy48-encounter-synergy.ts
