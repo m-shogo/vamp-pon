@@ -22,6 +22,7 @@ assert(worldRouteCandidateApprovalSummary.currentStationInstanceCount === 0, 'Cu
 assert(worldRouteCandidateApprovalSummary.currentTicketInstanceCount === 0, 'Current ticket instance must remain zero');
 assert(worldRouteCandidateApprovalSummary.currentFinalVectorApproved === false, 'final world vector approval inferred');
 assert(worldRouteCandidateApprovalSummary.candidateFrameworkReady === true, 'candidate framework readiness drift');
+assert(worldRouteCandidateApprovalSummary.eligibilityIsDerivedOnly === true, 'candidate cannot self-declare authority eligibility');
 assert(worldRouteCandidateApprovalSummary.currentAuthorityMutationFromCandidateFileAllowed === false, 'candidate file must not mutate Current authority');
 assert(worldRouteSymbolSharedSourceSummary.routeInstanceCount === 0, 'route Shared Source instance drift');
 assert(worldRouteSymbolSharedSourceSummary.stationInstanceCount === 0, 'station Shared Source instance drift');
@@ -75,7 +76,6 @@ const baseFixture: WorldRouteCandidateProposal = {
     spoilerReviewRecorded: true,
   },
   promotion: {
-    eligibleForAuthorityProposal: true,
     promotedToCurrentAuthority: false,
     separatePromotionCommitRequired: true,
     currentInstanceCountMayChangeInThisProposalFile: false,
@@ -89,30 +89,15 @@ assert(valid.derivationClean === true, 'clean fixture should pass derivation che
 assert(valid.eligibleForAuthorityProposal === true, 'full review fixture should become authority-proposal eligible');
 assert(valid.mayMutateCurrentAuthority === false, 'even approved proposal must not mutate Current authority directly');
 
-const missingHuman = evaluateWorldRouteCandidateProposal({
-  ...baseFixture,
-  review: { ...baseFixture.review, humanReviewerRecorded: false },
-});
+const missingHuman = evaluateWorldRouteCandidateProposal({ ...baseFixture, review: { ...baseFixture.review, humanReviewerRecorded: false } });
 assert(missingHuman.eligibleForAuthorityProposal === false, 'human approval cannot be optional');
-
-const copiedRailway = evaluateWorldRouteCandidateProposal({
-  ...baseFixture,
-  derivationGuard: { ...baseFixture.derivationGuard, copiedFromRealRailwayIdentity: true },
-});
+const copiedRailway = evaluateWorldRouteCandidateProposal({ ...baseFixture, derivationGuard: { ...baseFixture.derivationGuard, copiedFromRealRailwayIdentity: true } });
 assert(copiedRailway.eligibleForAuthorityProposal === false, 'real railway identity copy must block proposal eligibility');
-
-const stageNumberDerived = evaluateWorldRouteCandidateProposal({
-  ...baseFixture,
-  derivationGuard: { ...baseFixture.derivationGuard, derivedFromProductionStageNumber: true },
-});
+const stageNumberDerived = evaluateWorldRouteCandidateProposal({ ...baseFixture, derivationGuard: { ...baseFixture.derivationGuard, derivedFromProductionStageNumber: true } });
 assert(stageNumberDerived.eligibleForAuthorityProposal === false, 'production Stage number derivation must block proposal eligibility');
-
 const missingGate = evaluateWorldRouteCandidateProposal({
   ...baseFixture,
-  review: {
-    ...baseFixture.review,
-    passedGates: WORLD_ROUTE_CANDIDATE_REQUIRED_GATES.filter((gate) => gate !== 'SPOILER_BOUNDARY'),
-  },
+  review: { ...baseFixture.review, passedGates: WORLD_ROUTE_CANDIDATE_REQUIRED_GATES.filter((gate) => gate !== 'SPOILER_BOUNDARY') },
 });
 assert(missingGate.eligibleForAuthorityProposal === false, 'missing one required gate must block proposal eligibility');
 
@@ -123,4 +108,4 @@ assert(source.includes("authorityStatus: 'SCHEMA_ONLY_NO_ROUTE_INSTANCES'"), 'ro
 assert(source.includes('do not derive codes from current Stage numbers'), 'Stage-number station-code guard missing');
 assert(source.includes('real railway company logo or station mark imitation'), 'real railway identity guard missing');
 
-console.log('World Route Candidate Approval: PASS (Current instances=0, proposals=0, gates=10, directCurrentMutation=false)');
+console.log('World Route Candidate Approval: PASS (Current instances=0, proposals=0, gates=10, derivedEligibility=true, directCurrentMutation=false)');
