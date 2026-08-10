@@ -9,7 +9,7 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 
 ---
 
-# 1. 今回追加した三つの核
+# 1. 今回追加した四つの核
 
 ## A. Series / Story Content Master
 
@@ -50,8 +50,20 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 - 体型 /年齢 /眼鏡 /手 /服 /声 /仕事 /生活癖
 - 友情 /兄弟 /師弟 /恋愛 /片想い /嫉妬 /裏切り /離反 /再会 /卒業
 - 双子 /三つ子 /長寿者 /動物 /Robot
-- Current /Futureへの仮配布
 - 年少者を性的フェチ化しない境界
+
+## D. Cast-wide Niche Appeal Assignment
+
+`docs/character-niche-appeal-assignment-v1.md`
+
+扱うもの:
+
+- Current21 + Future15 = 36人へ実際の刺さりを配布
+- Primary / Secondary / Relationship payoffを人物ごとに分離
+- 同じ眼鏡 /クール /体型でも出方を変える
+- ハナ /カナメ /ゲン /シロ /レン等の既存visual factsを維持
+- ヒヨリ /トウマ /クロエ /ノア /ルム /カイ /ナオ等のFuture方向を維持
+- 三つ子 /若く見える長寿成人はgap reservoirのまま保持
 
 ---
 
