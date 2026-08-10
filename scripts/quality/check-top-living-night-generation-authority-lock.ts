@@ -25,7 +25,10 @@ const root = process.cwd();
 const authorities = [
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-key-art-generation-prompt.md',
-    expectedGitBlobSha1: '4758ab4e22acc33482ccf6364dff1e52b0b6cd20',
+    // This is the exact prompt blob present at PR #105's generated candidate head
+    // (13de89c...). Updating this lock records that real generation provenance;
+    // it does not change the prompt itself or approve the resulting candidate.
+    expectedGitBlobSha1: '6983c0c188d5ad18a97733ff56f683c79f621135',
   },
   {
     path: 'docs/design-targets/generated/top-living-night-v3/final-key-art-isolated-prompt.txt',
