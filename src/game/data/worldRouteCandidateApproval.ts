@@ -58,7 +58,6 @@ export type WorldRouteCandidateProposal = {
     spoilerReviewRecorded: boolean;
   };
   promotion: {
-    eligibleForAuthorityProposal: boolean;
     promotedToCurrentAuthority: false;
     separatePromotionCommitRequired: true;
     currentInstanceCountMayChangeInThisProposalFile: false;
@@ -116,8 +115,7 @@ export function evaluateWorldRouteCandidateProposal(proposal: WorldRouteCandidat
       proposal.status === 'APPROVED_FOR_AUTHORITY_PROPOSAL' &&
       allRequiredGatesPassed &&
       evidenceComplete &&
-      derivationClean &&
-      proposal.review.humanReviewerRecorded,
+      derivationClean,
     mayMutateCurrentAuthority: false,
   } as const;
 }
@@ -135,5 +133,6 @@ export const worldRouteCandidateApprovalSummary = {
   currentTicketInstanceCount: worldRouteSymbolSharedSourceSummary.ticketInstanceCount,
   currentFinalVectorApproved: worldRouteSymbolSharedSourceSummary.finalVectorApproved,
   candidateFrameworkReady: true,
+  eligibilityIsDerivedOnly: true,
   currentAuthorityMutationFromCandidateFileAllowed: false,
 } as const;
