@@ -1,0 +1,48 @@
+name: Cloudflare Three Surface
+
+on:
+  pull_request:
+    paths:
+      - 'cloudflare/**'
+      - 'public/guide/**'
+      - 'public/app-entry/**'
+      - 'docs/deployment/cloudflare-three-surface-v1.md'
+      - 'scripts/quality/check-cloudflare-three-surface.ts'
+      - '.github/workflows/cloudflare-three-surface.yml'
+      - 'vite.config.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+  push:
+    branches: [main]
+    paths:
+      - 'cloudflare/**'
+      - 'public/guide/**'
+      - 'public/app-entry/**'
+      - 'docs/deployment/cloudflare-three-surface-v1.md'
+      - 'scripts/quality/check-cloudflare-three-surface.ts'
+      - '.github/workflows/cloudflare-three-surface.yml'
+      - 'vite.config.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Validate public URL and privacy boundaries
+        run: node --experimental-strip-types scripts/quality/check-cloudflare-three-surface.ts
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build browser demo for Cloudflare assets
+        run: pnpm exec vite build
+      - name: Verify deploy asset roots
+        run: |
+          test -f public/guide/index.html
+          test -f public/app-entry/index.html
+          test -f dist/index.html
