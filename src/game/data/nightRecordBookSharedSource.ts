@@ -3,6 +3,10 @@ import {
   commercialProductionProfiles,
 } from './commercialProductionProfile.ts';
 import { forgottenStreetNightBoardCells } from './collectionProgress.ts';
+import {
+  currentRelationshipInventory,
+  currentRelationshipInventorySummary,
+} from './currentRelationshipInventory.ts';
 import { namedObjectVisualSharedSourceEntries } from './namedObjectVisualSharedSource.ts';
 import { starBeastVisualSharedSourceEntries } from './starBeastVisualSharedSource.ts';
 import { worldRouteSymbolSharedSourceSummary } from './worldRouteSymbolSharedSource.ts';
@@ -53,11 +57,12 @@ const launchStarBeasts = starBeastVisualSharedSourceEntries.filter((entry) => en
 const reserveStarBeasts = starBeastVisualSharedSourceEntries.filter((entry) => !entry.launchEligible);
 
 /**
- * `RELATION` has a deliberately partial machine snapshot at the moment.
- * The human-readable CURRENT hub lists 24 strong arcs, while the machine map
- * currently serializes 12 currentArcs. The quality checker verifies both counts.
+ * `RELATION` has full machine-readable Current coverage for all 24 inventory arcs,
+ * while only the original 12 arcs have detailed machine payloads. Coverage and
+ * detailed story data must remain separate so missing detail is never fabricated.
  */
-export const NIGHT_RECORD_RELATION_MACHINE_COUNT = 12 as const;
+export const NIGHT_RECORD_RELATION_COVERAGE_COUNT = currentRelationshipInventory.length;
+export const NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT = currentRelationshipInventorySummary.detailedMachineArcs;
 export const NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT = 24 as const;
 
 /**
@@ -149,21 +154,22 @@ export const nightRecordBookSections: readonly NightRecordBookSectionSource[] = 
     order: 5,
     displayName: 'RELATION',
     meaning: 'Pair / handoff / relationship-growth entry point. Trust, family, friendship and romance remain different valid relation types.',
-    coverage: 'PARTIAL_MACHINE',
-    machineEntryCount: NIGHT_RECORD_RELATION_MACHINE_COUNT,
+    coverage: 'CURRENT_MACHINE',
+    machineEntryCount: NIGHT_RECORD_RELATION_COVERAGE_COUNT,
     sourcePaths: [
+      'src/game/data/currentRelationshipInventory.ts',
       'docs/RELATIONSHIPS.md',
       'docs/design-targets/generated/character-relationship-arc-map-v1.json',
       'docs/character-relationship-arc-book-v1.md',
       'docs/BOND.md',
     ],
-    publicPresentationRule: 'Only machine-supported Current arcs may be rendered automatically today; the 24-arc human inventory is broader and must not be silently fabricated into machine entries.',
+    publicPresentationRule: 'All 24 Current coverage arcs are machine-readable for inventory/presentation. Only 12 have detailed machine arc payloads; coverage-only arcs must stay visibly lower-detail and must not inherit invented incidents/history.',
     spoilerRule: 'Current fact vs Candidate event/history remains explicit. Popularity cannot retcon relation type, romance, blood relation, exact era or Main Mystery facts.',
-    emptyStateRule: 'Missing machine coverage means PARTIAL SOURCE, not “no relationship”. Do not auto-generate pair cards from commercial partner lists.',
+    emptyStateRule: 'Missing detailed payload means COVERAGE-ONLY SOURCE, not “no relationship”. Do not fabricate scene facts or auto-generate pair cards from commercial partner lists.',
     candidateGenerationAllowed: false,
     physicalPurchaseRequired: false,
     trueEndRequired: false,
-    nextGate: 'Refresh the machine relationship map from the Current hub while preserving each arc status and Candidate boundaries.',
+    nextGate: 'Expand detailed machine payloads for coverage-only arcs only when their status/candidate boundaries are explicitly encoded; inventory coverage is already complete.',
   },
   {
     id: 'DAWN',
@@ -215,9 +221,11 @@ export const nightRecordBookSharedSourceSummary = {
     finalVectorApproved: worldRouteSymbolSharedSourceSummary.finalVectorApproved,
   },
   relation: {
-    machineCurrentArcs: NIGHT_RECORD_RELATION_MACHINE_COUNT,
+    machineCoverageArcs: NIGHT_RECORD_RELATION_COVERAGE_COUNT,
+    detailedMachineArcs: NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT,
     humanCurrentStrongInventory: NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT,
-    machineCoverageComplete: false,
+    machineCoverageComplete: NIGHT_RECORD_RELATION_COVERAGE_COUNT === NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT,
+    detailedCoverageComplete: NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT === NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT,
   },
   dawn: {
     normalizedEntries: NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT,
