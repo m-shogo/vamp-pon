@@ -1,4 +1,5 @@
 name: title1-unlock-learning-progression
+# Re-evaluate the merge ref after the strict TypeScript Set<string> fix.
 
 on:
   pull_request:
