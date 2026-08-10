@@ -6,6 +6,7 @@ import type { KokuyouForm } from './kokuyouForms.ts';
 import { kokuyouFormByCharacterId } from './kokuyouForms.ts';
 import type { CharacterEmblemCanon } from './emblemCanon.ts';
 import { characterEmblemById } from './emblemCanon.ts';
+import { characterVisualGenerationBriefById } from './characterVisualGenerationBriefs.ts';
 import { core5PairLightArts } from './pairLightArts.ts';
 
 export type CharacterDatabaseSceneEligibility =
@@ -106,6 +107,7 @@ function buildPromptSeed(
   kokuyou: KokuyouForm,
   emblem: CharacterEmblemCanon,
 ): string {
+  const visual = requireById(characterVisualGenerationBriefById, entry.id, 'characterVisualGenerationBriefById');
   return [
     `${entry.name} / ${entry.id}`,
     `vessel: ${entry.vessel}`,
@@ -115,6 +117,15 @@ function buildPromptSeed(
     `kokuyou: ${kokuyou.subtitle} - ${kokuyou.distortedTrait}`,
     `emblem: ${emblem.azCode} ${emblem.emblemName}`,
     `keywords: ${[...plan.assetKeywords, ...emblem.visualKeywords].join(', ')}`,
+    `theme: ${visual.themeHex} / ${visual.accentHex}`,
+    `star beast: ${visual.starBeast} / ${visual.constellation}`,
+    `silhouette: ${visual.silhouette}`,
+    `posture: ${visual.posture}`,
+    `clothing shape: ${visual.clothingShape}`,
+    `named object: ${visual.objectAnchor}`,
+    `motion: ${visual.motionSignature}`,
+    ...(visual.hardVisualDirection ? [`HARD visual direction: ${visual.hardVisualDirection}`] : []),
+    `avoid: ${visual.prohibitedShortcuts.join('; ')}`,
   ].join('\n');
 }
 
