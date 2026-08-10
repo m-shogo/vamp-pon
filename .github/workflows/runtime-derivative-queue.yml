@@ -1,0 +1,38 @@
+name: Runtime Derivative Queue
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/referenceCandidateReviewLedger.ts'
+      - 'src/game/data/runtimeDerivativeQueue.ts'
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
+      - 'scripts/quality/check-runtime-derivative-queue.ts'
+      - 'scripts/export-runtime-derivative-queue.ts'
+      - '.github/workflows/runtime-derivative-queue.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/referenceCandidateReviewLedger.ts'
+      - 'src/game/data/runtimeDerivativeQueue.ts'
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
+      - 'scripts/quality/check-runtime-derivative-queue.ts'
+      - 'scripts/export-runtime-derivative-queue.ts'
+      - '.github/workflows/runtime-derivative-queue.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate runtime derivative gate
+        run: node --experimental-strip-types scripts/quality/check-runtime-derivative-queue.ts
+      - name: Export deterministic runtime derivative queue
+        run: node --experimental-strip-types scripts/export-runtime-derivative-queue.ts /tmp/runtime-derivative-queue-v1.json
+      - name: Parse exported runtime queue
+        run: node -e "const fs=require('fs'); const p='/tmp/runtime-derivative-queue-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.queue)||!Array.isArray(d.missingContracts)||d.queue.length!==d.summary.queuedDerivativeCount||d.missingContracts.length!==d.summary.missingRuntimeContractCount) process.exit(1); console.log('approvedRefs='+d.summary.approvedReferenceCount+', queued='+d.queue.length+', missing='+d.missingContracts.length);"
