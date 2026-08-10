@@ -1,0 +1,32 @@
+name: Shared Source VFX UI Language
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/worldEffectSharedSource.ts'
+      - 'src/game/data/uiSymbolSharedSource.ts'
+      - 'src/game/ui/visualDesign.ts'
+      - 'docs/AUDIO-HAPTIC-DIRECTION.md'
+      - 'scripts/quality/check-shared-source-vfx-ui-language.ts'
+      - '.github/workflows/shared-source-vfx-ui-language.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/worldEffectSharedSource.ts'
+      - 'src/game/data/uiSymbolSharedSource.ts'
+      - 'src/game/ui/visualDesign.ts'
+      - 'docs/AUDIO-HAPTIC-DIRECTION.md'
+      - 'scripts/quality/check-shared-source-vfx-ui-language.ts'
+      - '.github/workflows/shared-source-vfx-ui-language.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate VFX audio haptic and UI Shared Source
+        run: node --experimental-strip-types scripts/quality/check-shared-source-vfx-ui-language.ts
