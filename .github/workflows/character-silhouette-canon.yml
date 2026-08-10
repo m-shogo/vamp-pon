@@ -7,6 +7,8 @@ on:
       - 'src/game/data/characterThemeColors.ts'
       - 'docs/character-silhouette-diversity-current-canon-v1.md'
       - 'docs/chubby-character-production-pass-v1.md'
+      - 'docs/chubby-character-relationship-commercial-pass-v1.md'
+      - 'docs/series-commercial-franchise-architecture-v1.md'
       - 'public/lorebook/data/character-silhouette-anchors.v1.json'
       - 'public/lorebook/silhouette-enhancement.js'
       - 'public/lorebook/silhouette.css'
@@ -19,6 +21,8 @@ on:
       - 'src/game/data/characterThemeColors.ts'
       - 'docs/character-silhouette-diversity-current-canon-v1.md'
       - 'docs/chubby-character-production-pass-v1.md'
+      - 'docs/chubby-character-relationship-commercial-pass-v1.md'
+      - 'docs/series-commercial-franchise-architecture-v1.md'
       - 'public/lorebook/data/character-silhouette-anchors.v1.json'
       - 'public/lorebook/silhouette-enhancement.js'
       - 'public/lorebook/silhouette.css'
@@ -47,6 +51,8 @@ jobs:
           const themes = fs.readFileSync('src/game/data/characterThemeColors.ts', 'utf8');
           const canon = fs.readFileSync('docs/character-silhouette-diversity-current-canon-v1.md', 'utf8');
           const pass = fs.readFileSync('docs/chubby-character-production-pass-v1.md', 'utf8');
+          const relations = fs.readFileSync('docs/chubby-character-relationship-commercial-pass-v1.md', 'utf8');
+          const commercial = fs.readFileSync('docs/series-commercial-franchise-architecture-v1.md', 'utf8');
           const enhancements = fs.readFileSync('public/lorebook/enhancements.js', 'utf8');
 
           const fail = (message) => {
@@ -90,8 +96,15 @@ jobs:
           if (!pass.includes('Happy Endで痩せる') || !pass.includes('体格monster化')) fail('production stereotype guardrails incomplete');
           if (!enhancements.includes("'./silhouette-enhancement.js'")) fail('Lorebook silhouette enhancement not bootstrapped');
 
+          for (const lane of ['ハナ × ツムギ', 'ハナ × シロ', 'カナメ × ナギ', 'カナメ × リツ']) {
+            if (!relations.includes(lane)) fail(`missing relationship commercial lane: ${lane}`);
+          }
+          if (!relations.includes('favoriteRelationship != romance vote')) fail('relationship popularity firewall missing');
+          if (!commercial.includes('体型・年齢・障害・gender presentation等のCurrent visual facts')) fail('commercial visual-retcon guard missing');
+          if (!commercial.includes('inclusive size range')) fail('inclusive apparel policy missing');
+
           if (process.exitCode) process.exit(process.exitCode);
-          console.log('Silhouette canon OK: 6 anchors / Hana + Kaname body diversity locked / runtime balance separated');
+          console.log('Silhouette canon OK: 6 anchors / Hana + Kaname body diversity locked / 4 relationship lanes / runtime balance separated');
           NODE
 
       - name: Verify generated static assets are buildable
