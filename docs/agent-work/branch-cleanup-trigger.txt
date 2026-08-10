@@ -1,2 +1,3 @@
 Audited cleanup trigger for obsolete refs already preserved on main.
 Synchronization trigger: same-repo PR workflow.
+Retry after shell-safe equivalence check.
