@@ -1,0 +1,28 @@
+name: Named Object Geometry Review
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/namedObjectGeometryReview.ts'
+      - 'scripts/quality/check-named-object-geometry-review.ts'
+      - '.github/workflows/named-object-geometry-review.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/namedObjectGeometryReview.ts'
+      - 'scripts/quality/check-named-object-geometry-review.ts'
+      - '.github/workflows/named-object-geometry-review.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Named Object geometry review ledger
+        run: node --experimental-strip-types scripts/quality/check-named-object-geometry-review.ts
