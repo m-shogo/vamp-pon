@@ -1,0 +1,40 @@
+name: Shared Source Progression Rewards
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/progressionRewardSharedSource.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/waves.ts'
+      - 'src/game/persistence/profile.ts'
+      - 'docs/design-targets/generated/named-object-clear-getter-coverage-v1.json'
+      - 'scripts/quality/check-shared-source-progression-rewards.ts'
+      - '.github/workflows/shared-source-progression-rewards.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/progressionRewardSharedSource.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/waves.ts'
+      - 'src/game/persistence/profile.ts'
+      - 'docs/design-targets/generated/named-object-clear-getter-coverage-v1.json'
+      - 'scripts/quality/check-shared-source-progression-rewards.ts'
+      - '.github/workflows/shared-source-progression-rewards.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate progression and reward Shared Source
+        run: node --experimental-strip-types scripts/quality/check-shared-source-progression-rewards.ts
