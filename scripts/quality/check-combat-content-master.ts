@@ -21,6 +21,10 @@ import {
   characterStarBeastCombatSummary,
   yuiProtagonistCombatRules,
 } from '../../src/game/data/characterStarBeastCombatSource.ts';
+import {
+  futureCharacterCombatIdentities,
+  futureCharacterCombatIdentitySummary,
+} from '../../src/game/data/futureCharacterCombatIdentitySource.ts';
 import { enemyAttributeIdentities, enemyAttributeIdentitySummary } from '../../src/game/data/enemyAttributeIdentitySource.ts';
 import { enemyStatusTraitProfiles, enemyStatusTraitSummary } from '../../src/game/data/enemyStatusTraitSource.ts';
 import { baseWeaponCandidates, weaponExpansionSummary } from '../../src/game/data/weaponExpansionSource.ts';
@@ -53,6 +57,7 @@ assert(EFFECTIVENESS_MULTIPLIERS.STRONGLY_RESISTED > 0, 'hard damage immunity is
 assert(multiAttributeRules.allowedAttributeCounts.join(',') === '1,2,3', 'only 1/2/3 attribute identities are allowed');
 assert(multiAttributeRules.fourOrMoreAttributesForbidden, 'four-plus attribute identity must stay forbidden');
 assert(!multiAttributeRules.hardImmunityAllowed, 'hard immunity must remain disabled');
+assert(multiAttributeRules.attackMultiTypeUsesDamageSplit, 'multi-attribute attacks must use split damage, not stacked free advantage');
 
 assert(Object.keys(statusDefinitions).length >= 16, 'status/debuff vocabulary regressed');
 assert(Object.keys(buffDefinitions).length >= 10, 'buff vocabulary regressed');
@@ -61,13 +66,20 @@ assert(attributeReactions.length >= 12, 'attribute reaction vocabulary regressed
 assert(characterCombatProfiles.length === 36, `expected 36 Current+Future combat profiles, got ${characterCombatProfiles.length}`);
 assert(currentCharacterStarBeastCombatEntries.length === 21, `expected Current21 star-beast combat entries, got ${currentCharacterStarBeastCombatEntries.length}`);
 assert(currentCharacterStarBeastCombatEntries.every((entry) => entry.starBeast.length > 0 && entry.starBeastReason.length > 0 && entry.characterReason.length > 0), 'every Current21 entry needs star-beast and character rationale');
-assert(characterStarBeastCombatSummary.singleAttributeCharacters.length >= 3, 'single-attribute characters must remain present');
-assert(characterStarBeastCombatSummary.dualAttributeCharacters.length >= 10, 'dual-attribute characters should remain the standard form');
+assert(characterStarBeastCombatSummary.singleAttributeCharacters.length >= 3, 'single-attribute Current characters must remain present');
+assert(characterStarBeastCombatSummary.dualAttributeCharacters.length >= 10, 'dual-attribute Current characters should remain the standard form');
 assert(characterStarBeastCombatSummary.tripleAttributeBaseCharacters.length === 0, 'base Current21 should not casually become triple-attribute characters');
 assert(characterStarBeastCombatSummary.yuiIsExplicitHeroAnchor, 'Yui hero anchor flag missing');
 assert(yuiProtagonistCombatRules.primaryMasteryMultiplier > 1.12, 'Yui must remain explicitly stronger than the standard primary mastery baseline');
 assert(yuiProtagonistCombatRules.secondaryMasteryMultiplier > 1.06, 'Yui secondary mastery must remain stronger than the standard secondary baseline');
 assert(yuiProtagonistCombatRules.pickupMasteryMultiplier > 1, 'Yui must retain cross-build protagonist flexibility');
+
+assert(futureCharacterCombatIdentities.length === 15, `expected Future15 combat identities, got ${futureCharacterCombatIdentities.length}`);
+assert(futureCharacterCombatIdentitySummary.singleAttributeCount > 0, 'Future15 should include single-attribute specialists');
+assert(futureCharacterCombatIdentitySummary.dualAttributeCount > 0, 'Future15 should include dual-attribute characters');
+assert(futureCharacterCombatIdentitySummary.tripleAttributeCount >= 2, 'Future15 should include a small number of story-justified triple-attribute characters');
+assert(futureCharacterCombatIdentities.filter((entry) => entry.intrinsicAttributes.length === 3).every((entry) => Boolean(entry.threeAttributeReason)), 'every triple-attribute Future character needs an explicit story reason');
+assert(!futureCharacterCombatIdentitySummary.currentPromotionAllowed, 'Future15 combat identities must not auto-promote to Current');
 
 assert(enemyCombatProfiles.length === 48, `expected 48 enemy combat profiles, got ${enemyCombatProfiles.length}`);
 assert(enemyAttributeIdentities.length === 48, `expected 48 enemy attribute identities, got ${enemyAttributeIdentities.length}`);
@@ -95,6 +107,7 @@ assert(weaponSynthesisCandidates.length === 12, `expected 12 synthesis candidate
 assert(weaponAwakeningCandidates.length === 8, `expected 8 awakening candidates, got ${weaponAwakeningCandidates.length}`);
 assert(weaponTransformationSummary.totalCandidateTransformations === 38, 'expected 38 transformation candidates');
 assert(!weaponTransformationSummary.autoPromoteToRuntime, 'transformations must require later runtime promotion');
+assert(weaponFusionCandidates.some((entry) => entry.outputAttributes.length === 3), 'fusion layer should include some justified triple-attribute outputs');
 
 assert(combatItemEffectCandidates.length === 18, `expected 18 combat item effect candidates, got ${combatItemEffectCandidates.length}`);
 assert(!combatItemEffectSummary.autoPromoteToRuntime, 'combat item effects must require later runtime promotion');
@@ -123,6 +136,11 @@ console.log(JSON.stringify({
   reactions: attributeReactions.length,
   characters: characterCombatProfiles.length,
   currentStarBeastCharacters: currentCharacterStarBeastCombatEntries.length,
+  futureCharacterTypes: {
+    single: futureCharacterCombatIdentitySummary.singleAttributeCount,
+    dual: futureCharacterCombatIdentitySummary.dualAttributeCount,
+    triple: futureCharacterCombatIdentitySummary.tripleAttributeCount,
+  },
   enemies: enemyAttributeIdentities.length,
   enemyTypes: {
     single: enemyAttributeIdentitySummary.singleTypeCount,
