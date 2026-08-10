@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10131c" />
+  <meta name="description" content="ヨルノシルベ公式ガイド。人物、星獣、ステージ、武器、Named Object、攻略情報を公開範囲で辿るための入口。" />
+  <title>ヨルノシルベ｜公式ガイド・攻略DB</title>
+  <style>
+    :root{color-scheme:dark;--bg:#10131c;--paper:#171b25;--ink:#f1eadb;--muted:#aaa89f;--line:#3a3d45;--lamp:#d8b873;--blue:#264a86;--max:1120px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 5%,#1b2232 0,#10131c 42%),var(--bg);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho",serif;line-height:1.7}
+    a{color:inherit}.wrap{width:min(calc(100% - 32px),var(--max));margin:auto}.mast{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);font-family:system-ui,sans-serif}.brand{letter-spacing:.08em;text-decoration:none}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.18em}.nav{display:flex;gap:16px;font-size:13px}.nav a{color:var(--muted);text-decoration:none}.hero{padding:88px 0 64px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:48px;align-items:end}.kicker{font:600 12px/1.4 system-ui,sans-serif;letter-spacing:.22em;color:var(--lamp)}h1{font-size:clamp(40px,8vw,88px);line-height:.98;margin:16px 0 24px;font-weight:500;letter-spacing:-.04em}.hero p{max-width:720px;color:#d3cfc3;font-size:17px}.ticket{border:1px solid var(--line);padding:22px;background:linear-gradient(160deg,rgba(255,255,255,.03),rgba(255,255,255,0));position:relative}.ticket:before{content:"PUBLIC GUIDE";position:absolute;right:12px;top:10px;font:10px system-ui,sans-serif;letter-spacing:.2em;color:var(--muted)}.ticket b{display:block;font-size:28px;margin-top:26px}.ticket span{display:block;color:var(--muted);font:12px/1.7 system-ui,sans-serif}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.btn{display:inline-block;padding:11px 16px;border:1px solid var(--line);text-decoration:none;font:600 13px system-ui,sans-serif}.btn.primary{background:var(--ink);color:#111}.grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin:24px 0 80px}.card{min-height:220px;padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.018)}.card small{font:11px system-ui,sans-serif;letter-spacing:.15em;color:var(--lamp)}.card h2{font-size:24px;margin:12px 0 10px}.card p{color:var(--muted);font-size:14px;margin:0}.status{margin:80px 0 28px;border-top:1px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;gap:24px;color:var(--muted);font:12px/1.7 system-ui,sans-serif}.status strong{color:var(--ink)}footer{padding:24px 0 48px;border-top:1px solid var(--line);color:var(--muted);font:11px system-ui,sans-serif;letter-spacing:.08em}
+    @media(max-width:760px){.nav{display:none}.hero{grid-template-columns:1fr;padding-top:56px}.grid{grid-template-columns:1fr}.status{flex-direction:column}h1{font-size:54px}}
+  </style>
+</head>
+<body>
+  <header class="wrap mast">
+    <a class="brand" href="/"><b>ヨルノシルベ</b><small>OFFICIAL GUIDE / DATABASE</small></a>
+    <nav class="nav" aria-label="主要導線"><a href="#database">DB</a><a href="https://play.yorunoshirube.jp/">WEB DEMO</a><a href="https://app.yorunoshirube.jp/">UNITY</a></nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="kicker">THE NIGHT CAN BE READ, PLAYED, AND REMEMBERED.</div>
+        <h1>夜を、<br>ひらく。</h1>
+        <p>人物、星獣、道具、ステージ、戦い方。ここはヨルノシルベの公開情報だけを辿る公式ガイドです。作者用Lorebookとは分離し、未公開設定や制作メモは公開しません。</p>
+        <div class="actions"><a class="btn primary" href="https://play.yorunoshirube.jp/">Webデモを遊ぶ</a><a class="btn" href="https://app.yorunoshirube.jp/">Unity本編を見る</a></div>
+      </div>
+      <aside class="ticket" aria-label="公開面ステータス"><b>GUIDE 01</b><span>PUBLIC SAFE SURFACE</span><span>CHARACTER / STAR BEAST / OBJECT / STAGE / BUILD</span><span>更新元: m-shogo/vamp-pon / main</span></aside>
+    </section>
+
+    <section id="database" class="grid" aria-label="攻略データベース入口">
+      <article class="card"><small>01 / PEOPLE</small><h2>人物図鑑</h2><p>Current公開範囲の人物、灯紋、Theme、関係導線。将来は個別URLへ展開。</p></article>
+      <article class="card"><small>02 / STAR BEAST</small><h2>星獣図鑑</h2><p>人物とは別の入口として、星獣の公開プロフィールと個体差を整理。</p></article>
+      <article class="card"><small>03 / OBJECT</small><h2>Named Object</h2><p>物語に登場する固有道具を、所有・履歴・ネタバレ境界を守って掲載。</p></article>
+      <article class="card"><small>04 / STAGE</small><h2>ステージ</h2><p>地形、敵、取得物、推奨ビルド。Unity本編とWebデモの差も明示する。</p></article>
+      <article class="card"><small>05 / BUILD</small><h2>攻略・ビルド</h2><p>武器、成長、相性、初心者向け導線。検証値とStory Canonを混同しない。</p></article>
+      <article class="card"><small>06 / COLLECTION</small><h2>夜の記録帳</h2><p>人物・星獣・Object・Route・Relation・Dawnを同じ「記録」の文法で収集。</p></article>
+    </section>
+
+    <section class="status"><div><strong>公開URLの最終形</strong><br>yorunoshirube.jp = 公式 / 攻略 / DB<br>play.yorunoshirube.jp = Webデモ<br>app.yorunoshirube.jp = Unity本編入口</div><div><strong>公開ポリシー</strong><br>内部Lorebook / Candidate / Open Mystery / 作者メモは、この公開面へ自動流出させない。</div></section>
+  </main>
+  <footer><div class="wrap">YORUNO SHIRUBE — OFFICIAL PUBLIC GUIDE SURFACE</div></footer>
+</body>
+</html>
