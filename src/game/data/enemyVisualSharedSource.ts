@@ -3,8 +3,8 @@ import {
   type EnemyFamily,
   type EnemyProductionEntry,
   type EnemyRank,
-} from './enemyProductionDatabase';
-import type { ArtworkApprovalState } from './sharedSourceContracts';
+} from './enemyProductionDatabase.ts';
+import type { ArtworkApprovalState } from './sharedSourceContracts.ts';
 
 export type EnemyVariantKind = 'NORMAL' | 'ELITE' | 'BOSS' | 'BLACK_INK_VARIANT' | 'DAWN_CLEANSED';
 export type EnemySpoilerTier = 'PUBLIC_SAFE' | 'GUIDE_SPOILER';
