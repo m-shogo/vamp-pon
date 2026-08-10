@@ -41,18 +41,9 @@ export type SharedSourceReadinessEntry = {
   guard: string;
 };
 
-function entry(value: SharedSourceReadinessEntry): SharedSourceReadinessEntry {
-  return value;
-}
+function entry(value: SharedSourceReadinessEntry): SharedSourceReadinessEntry { return value; }
 
-/**
- * Current implementation-state overlay.
- *
- * This does not replace audit/history. It answers the operational question:
- * "what may be sent to candidate generation now?"
- * READY/PARTIAL never means APPROVED_REFERENCE, APPROVED_WEB,
- * APPROVED_UNITY, PRODUCTION_READY, or runtime-approved.
- */
+/** Current operational overlay. READY/PARTIAL never implies final/reference/Web/Unity/runtime approval. */
 export const sharedSourceReadinessMatrix: readonly SharedSourceReadinessEntry[] = [
   entry({
     category: 'Characters', referenceCandidateReadiness: 'PARTIAL', runtimeAlignment: 'RUNTIME_BACKED', artworkReadiness: 'MIXED',
@@ -230,33 +221,31 @@ export const sharedSourceReadinessMatrix: readonly SharedSourceReadinessEntry[] 
     generationScope: 'All 13 semantic events now have an effect-specific P14 handoff: three isolated texture-reference lanes, six procedural-first events, three native-UI-first events, and Toumon blocked.',
     blockedScope: ['Device creative approval for timing, haptic, shake, and final runtime composition remains separate.', 'Generated texture references still need human comparison and runtime rebuild/packing.', 'Photosensitive, reduced-motion, reduced-flash, and performance QA remain mandatory.'],
     currentMachineSources: ['src/game/data/worldEffectSharedSource.ts', 'src/game/data/worldEffectGenerationHandoff.ts', 'src/game/ui/visualDesign.ts', 'docs/AUDIO-HAPTIC-DIRECTION.md'],
-    nextGate: 'Generate/compare only the three approved texture-reference event lanes, then rebuild runtime derivatives and complete device creative QA.',
+    nextGate: 'Generate and compare only the three approved texture-reference event lanes, then rebuild runtime derivatives and complete device creative QA.',
     canBulkGenerateNow: false,
     guard: 'No whiteout, strobe, continuous shake, generic cyan-purple AI glow, or audio/haptic-only critical information; Toumon geometry remains blocked.',
   }),
   entry({
     category: 'Collection', referenceCandidateReadiness: 'PARTIAL', runtimeAlignment: 'PARTIAL', artworkReadiness: 'CANDIDATE_HOLD',
-    generationScope: 'Cross-category read-only organization now exists through the fixed six-section Night Record adapter, but final collection-page visual composition is not approved.',
-    blockedScope: ['Named Object geometry, route/station instances, and normalized Dawn proof records remain incomplete.', 'A final page/export visual contract has not been approved.'],
-    currentMachineSources: ['src/game/data/nightRecordBookSharedSource.ts', 'src/game/data/collectionProgress.ts', 'src/game/data/progressionRewardSharedSource.ts', 'src/game/data/currentRelationshipInventory.ts'],
-    nextGate: 'Define page-level native data/layout rules only after section sources are stable; keep incomplete sections visibly fail-closed.',
+    generationScope: 'Cross-category read-only organization exists through the fixed six-section Night Record adapter; Stage1 now also has seven direct Dawn gameplay-proof records.',
+    blockedScope: ['Named Object geometry and route/station instances remain incomplete.', 'Dawn proof coverage currently exists only for direct Stage1 clear conditions, not all boards or narrative morning scenes.', 'A final page/export visual contract has not been approved.'],
+    currentMachineSources: ['src/game/data/nightRecordBookSharedSource.ts', 'src/game/data/dawnProofSharedSource.ts', 'src/game/data/collectionProgress.ts', 'src/game/data/progressionRewardSharedSource.ts', 'src/game/data/currentRelationshipInventory.ts'],
+    nextGate: 'Extend read-only proof/route sources from explicit Current authority before approving any collection-page visual composition.',
     canBulkGenerateNow: false,
     guard: 'Collection completion remains optional to True End, cannot require physical goods, and cannot create extra sections merely for generated assets.',
   }),
   entry({
     category: 'Night Record Book', referenceCandidateReadiness: 'PARTIAL', runtimeAlignment: 'PARTIAL', artworkReadiness: 'CANDIDATE_HOLD',
-    generationScope: 'The six-section read-only adapter is implemented: PEOPLE, STAR BEAST, OBJECT, ROUTE, RELATION, DAWN; RELATION coverage is machine-readable 24/24 with detailed payload 12/24.',
-    blockedScope: ['ROUTE instances remain zero.', 'DAWN normalized proof records remain zero.', 'Named Object visual geometry remains unapproved.', 'Final book/page visual output contract is not approved.'],
-    currentMachineSources: ['src/game/data/nightRecordBookSharedSource.ts', 'src/game/data/currentRelationshipInventory.ts', 'src/game/data/worldRouteSymbolSharedSource.ts', 'src/game/data/allLightsCompletion.ts'],
-    nextGate: 'Keep the six-section structure fixed while safely detailing remaining relation payloads and defining Dawn/Route records before page-level art production.',
+    generationScope: 'The six-section read-only adapter is implemented; RELATION coverage is 24/24 with detailed payload 12/24, and DAWN has seven direct Stage1 gameplay-proof records selected only from explicit 夜明けする conditions.',
+    blockedScope: ['ROUTE instances remain zero.', 'DAWN proof coverage remains Stage1-direct-clear only and does not imply narrative scenes or all-Stage coverage.', 'Named Object visual geometry remains unapproved.', 'Final book/page visual output contract is not approved.'],
+    currentMachineSources: ['src/game/data/nightRecordBookSharedSource.ts', 'src/game/data/dawnProofSharedSource.ts', 'src/game/data/currentRelationshipInventory.ts', 'src/game/data/worldRouteSymbolSharedSource.ts', 'src/game/data/allLightsCompletion.ts'],
+    nextGate: 'Keep the six-section structure fixed while extending proof/route sources only from explicit Current data before page-level art production.',
     canBulkGenerateNow: false,
-    guard: 'Do not change the existing six-section world structure, invent missing route/Dawn facts, or make collection or physical goods a True End requirement.',
+    guard: 'Do not change the existing six-section world structure, invent missing route/Dawn narrative facts, or make collection or physical goods a True End requirement.',
   }),
 ] as const;
 
-export const sharedSourceReadinessByCategory = new Map(
-  sharedSourceReadinessMatrix.map((item) => [item.category, item]),
-);
+export const sharedSourceReadinessByCategory = new Map(sharedSourceReadinessMatrix.map((item) => [item.category, item]));
 
 export const sharedSourceReadinessSummary = {
   categoryCount: sharedSourceReadinessMatrix.length,

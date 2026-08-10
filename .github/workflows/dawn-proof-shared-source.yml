@@ -1,0 +1,42 @@
+name: Dawn Proof Shared Source
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/dawnProofSharedSource.ts'
+      - 'src/game/data/nightRecordBookSharedSource.ts'
+      - 'src/game/data/sharedSourceReadinessMatrix.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'scripts/quality/check-dawn-proof-shared-source.ts'
+      - 'scripts/quality/check-night-record-book-shared-source.ts'
+      - 'scripts/quality/check-shared-source-readiness-matrix.ts'
+      - '.github/workflows/dawn-proof-shared-source.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/dawnProofSharedSource.ts'
+      - 'src/game/data/nightRecordBookSharedSource.ts'
+      - 'src/game/data/sharedSourceReadinessMatrix.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'scripts/quality/check-dawn-proof-shared-source.ts'
+      - 'scripts/quality/check-night-record-book-shared-source.ts'
+      - 'scripts/quality/check-shared-source-readiness-matrix.ts'
+      - '.github/workflows/dawn-proof-shared-source.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate direct Dawn proof normalization
+        run: node --experimental-strip-types scripts/quality/check-dawn-proof-shared-source.ts
+      - name: Validate Night Record DAWN integration
+        run: node --experimental-strip-types scripts/quality/check-night-record-book-shared-source.ts
+      - name: Validate readiness synchronization
+        run: node --experimental-strip-types scripts/quality/check-shared-source-readiness-matrix.ts

@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 
 import { currentRelationshipInventorySummary } from '../../src/game/data/currentRelationshipInventory.ts';
+import { dawnProofSharedSourceSummary } from '../../src/game/data/dawnProofSharedSource.ts';
 import { nightRecordBookSharedSourceSummary } from '../../src/game/data/nightRecordBookSharedSource.ts';
 import {
   sharedSourceReadinessByCategory,
@@ -58,23 +59,18 @@ for (const category of hardBlocked) {
 const characters = sharedSourceReadinessByCategory.get('Characters');
 assert(characters?.referenceCandidateReadiness === 'PARTIAL', 'Characters must remain PARTIAL because Reserve is separated');
 assert(characters.blockedScope.some((rule) => /Ren|OFFICIAL_RESERVE/.test(rule)), 'Character Reserve blocker missing');
-
 const starBeasts = sharedSourceReadinessByCategory.get('Star Beasts');
 assert(starBeasts?.referenceCandidateReadiness === 'PARTIAL', 'Star Beasts must remain PARTIAL because Reserve is separated');
 assert(starBeasts.blockedScope.some((rule) => /Ren|OFFICIAL_RESERVE/.test(rule)), 'Star Beast Reserve blocker missing');
-
 const namedObjects = sharedSourceReadinessByCategory.get('Named Objects');
 assert(namedObjects?.artworkReadiness === 'CANDIDATE_HOLD', 'Named Object candidate-geometry hold missing');
 assert(namedObjects.blockedScope.some((rule) => /CANDIDATE_OBJECT_GEOMETRY/.test(rule)), 'Named Object candidate geometry reason missing');
-
 const toumon = sharedSourceReadinessByCategory.get('Toumon');
 assert(toumon?.artworkReadiness === 'VECTOR_HOLD', 'Toumon vector hold missing');
 assert(/Do not generate final Toumon geometry/.test(toumon.generationScope), 'Toumon generation stop missing');
-
 const stages = sharedSourceReadinessByCategory.get('Stages');
 assert(stages?.referenceCandidateReadiness === 'PARTIAL', 'Stages must remain PARTIAL while route/station instances are unresolved');
 assert(stages.blockedScope.some((rule) => /Route\/station\/stamp/.test(rule)), 'Stage route/station/stamp blocker missing');
-
 const rewards = sharedSourceReadinessByCategory.get('Rewards');
 assert(rewards?.blockedScope.some((rule) => /runtimeFrozen=false/.test(rule)), 'All Lights runtimeFrozen=false boundary missing');
 assert(/not True End/.test(rewards?.guard ?? ''), 'All Lights not-True-End guard missing');
@@ -93,15 +89,17 @@ const collection = sharedSourceReadinessByCategory.get('Collection');
 assert(collection?.referenceCandidateReadiness === 'PARTIAL', 'Collection should remain PARTIAL');
 assert(collection.canBulkGenerateNow === false, 'Collection visual bulk generation must remain held');
 assert(collection.currentMachineSources.includes('src/game/data/nightRecordBookSharedSource.ts'), 'Collection readiness must use the six-section adapter');
-assert(/six-section Night Record adapter/.test(collection.generationScope), 'Collection readiness still says cross-category adapter is missing');
+assert(collection.currentMachineSources.includes('src/game/data/dawnProofSharedSource.ts'), 'Collection readiness must include the DAWN proof source');
+assert(/seven direct Dawn gameplay-proof records/.test(collection.generationScope), 'Collection readiness did not advance to DAWN proof source');
 
 const nightRecord = sharedSourceReadinessByCategory.get('Night Record Book');
-assert(nightRecord?.referenceCandidateReadiness === 'PARTIAL', 'Night Record must remain PARTIAL while Route/Dawn/page art are incomplete');
+assert(nightRecord?.referenceCandidateReadiness === 'PARTIAL', 'Night Record must remain PARTIAL while Route/page art/all-stage coverage are incomplete');
 assert(nightRecord.canBulkGenerateNow === false, 'Night Record page bulk generation must remain held');
 assert(nightRecord.currentMachineSources.includes('src/game/data/nightRecordBookSharedSource.ts'), 'Night Record adapter source missing from readiness');
+assert(nightRecord.currentMachineSources.includes('src/game/data/dawnProofSharedSource.ts'), 'Night Record DAWN proof source missing from readiness');
 assert(nightRecord.currentMachineSources.includes('src/game/data/currentRelationshipInventory.ts'), 'Night Record Current24 relation source missing');
-assert(/six-section read-only adapter is implemented/.test(nightRecord.generationScope), 'Night Record readiness still describes the adapter as missing');
 assert(/24\/24/.test(nightRecord.generationScope) && /12\/24/.test(nightRecord.generationScope), 'Night Record relation coverage/detail split missing');
+assert(/seven direct Stage1 gameplay-proof records/.test(nightRecord.generationScope), 'Night Record DAWN seven-proof progress missing');
 assert(/six-section/.test(nightRecord.guard), 'Night Record six-section preservation guard missing');
 assert(nightRecordBookSharedSourceSummary.sectionCount === 6, 'Night Record six-section source drift');
 assert(nightRecordBookSharedSourceSummary.relation.machineCoverageArcs === 24, 'Night Record relation machine coverage drift');
@@ -110,7 +108,11 @@ assert(nightRecordBookSharedSourceSummary.relation.machineCoverageComplete === t
 assert(nightRecordBookSharedSourceSummary.relation.detailedCoverageComplete === false, 'Night Record detailed relation coverage must remain incomplete');
 assert(currentRelationshipInventorySummary.total === 24 && currentRelationshipInventorySummary.detailedMachineArcs === 12, 'Current relationship summary drift');
 assert(nightRecordBookSharedSourceSummary.route.routeInstances === 0, 'Night Record route instances must remain zero');
-assert(nightRecordBookSharedSourceSummary.dawn.normalizedEntries === 0, 'Night Record Dawn normalized entries must remain zero');
+assert(nightRecordBookSharedSourceSummary.dawn.normalizedEntries === 7, 'Night Record DAWN direct proof count drift');
+assert(dawnProofSharedSourceSummary.directDawnProofCount === 7, 'DAWN proof source count drift');
+assert(dawnProofSharedSourceSummary.sourceBoardCellCount === 25, 'DAWN source board count drift');
+assert(dawnProofSharedSourceSummary.allRecordsNarrativeSceneInferred === false, 'DAWN proof source inferred narrative scenes');
+assert(dawnProofSharedSourceSummary.canGeneratePageArtNow === false, 'DAWN proof source inferred page-art readiness');
 assert(nightRecordBookSharedSourceSummary.trueEndRequired === false && nightRecordBookSharedSourceSummary.physicalPurchaseRequired === false, 'Night Record completion boundary drift');
 
 assert(sharedSourceReadinessSummary.categoryCount === expectedCategories.length, 'readiness summary category count drift');
@@ -123,5 +125,6 @@ console.log(
   `Shared Source Readiness Matrix: PASS (` +
     `categories=${sharedSourceReadinessMatrix.length}, bulk=${sharedSourceReadinessSummary.bulkGenerationCategories.join('/')}, ` +
     `worldEffectGenerated=${worldEffectGenerationHandoffSummary.generatedTextureCandidateEvents.join('/')}, ` +
-    `nightRecordRelation=${nightRecordBookSharedSourceSummary.relation.machineCoverageArcs}/${nightRecordBookSharedSourceSummary.relation.detailedMachineArcs})`,
+    `nightRecordRelation=${nightRecordBookSharedSourceSummary.relation.machineCoverageArcs}/${nightRecordBookSharedSourceSummary.relation.detailedMachineArcs}, ` +
+    `dawnProof=${dawnProofSharedSourceSummary.directDawnProofCount}/${dawnProofSharedSourceSummary.sourceBoardCellCount})`,
 );
