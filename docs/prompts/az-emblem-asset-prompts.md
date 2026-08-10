@@ -1,157 +1,163 @@
-# A-Z Emblem Asset Prompts
+# A-Z灯紋 Asset Handoff — Simple Sigil v2
 
-A-Z灯紋の画像生成・手仕上げ用プロンプト集。
-最新の入口は `docs/181-current-production-canon.md`。
-灯紋の正本は `src/game/data/emblemCanon.ts` と `docs/design/emblem-canon.md`。
-画像は文字なし。AZコード、キャラ名、技名はUI textで出す。
+Date: 2026-08-10  
+Status: **RASTER / IMAGE GENERATION HOLD — FINAL VECTOR MASTERS NOT YET APPROVED**
 
-## Common prompt block
+> 旧prompt集の `round lantern crest` / `name tag crest` / `animal constellation hint` / `badge frame` 等は**superseded**。
+>
+> Current灯紋は画像生成で形を探さない。
+> 先に `toumon-simple-sigil-canon-v2.md` の意味・stroke grammarから**human-reviewed vector master**を作る。
 
-```txt
-Vamp Pon A-Z emblem icon for mobile game UI.
-Single emblem only, centered front view, readable silhouette, small charming object-symbol crest, paper storybook pixel-art flavor, tasteful handmade toy feeling, warm night memory mood.
-No text, no letters, no logo, no numbers, no watermark, no frame label, no checkerboard.
-One asset per image. Pure #00FF00 chroma key background. No white fringe.
-Designed as an in-game emblem/crest badge and merch pin.
-```
+## Current sources
 
-## Phase variants
+- `docs/design/toumon-simple-sigil-canon-v2.md`
+- `src/game/data/toumonSimpleSigilCanon.ts`
+- `docs/design/emblem-canon.md`
+- compatibility adapter: `src/game/data/emblemCanon.ts`
 
-```txt
-blank phase: unopened emblem, faint outline only, object silhouette barely readable, quiet grey paper line.
-normal phase: character's core object and verb are readable, small warm or cool glow.
-dawn phase: dawn line repairs the outer rim, missing black chip becomes soft morning light.
-kokuyou phase: one black soot scar only, the character's strength is distorted, dark but not horror.
-```
+---
 
-## Output naming rule
+# Production order
 
 ```txt
-emblem-<character-id>-<az-code>-blank-v1.png
-emblem-<character-id>-<az-code>-normal-v1.png
-emblem-<character-id>-<az-code>-dawn-v1.png
-emblem-<character-id>-<az-code>-kokuyou-v1.png
+1. semantic / stroke grammar — CURRENT
+2. rough vector exploration — NOT YET
+3. 16px collision review — NOT YET
+4. Human master approval — NOT YET
+5. master SVG — NOT YET
+6. micro / reverse / engraving / embroidery variants — NOT YET
+7. raster export / generated presentation — AFTER MASTER ONLY
 ```
 
-Example:
+**AI image generation must not decide the canonical Toumon shape.**
+
+---
+
+# Future vector brief
+
+When the project explicitly opens the vector-design phase, every Character brief should be derived from:
 
 ```txt
-emblem-yui-y01-normal-v1.png
+Character ID
+Sigil name
+Core verbs
+Dominant family
+Stroke formula
+Node count
+Primary gap
+Signature asymmetry
+Dawn one-operation change
+Kokuyou one-line scar
+Forbidden literalization
 ```
 
-## Core5 prompts
+Do not derive from old A-Z image prompts.
 
-### Y-01 ユイ / 消えない名の灯紋
+---
+
+# Universal vector constraints
+
 ```txt
-round lantern crest, small name line, paper fragment, fawn constellation hint, warm small flame, deep navy and paper cream, cozy amber glow, simple readable circular emblem.
+simple original abstract sigil
+single color
+2–4 visually meaningful stroke groups
+0–2 detached nodes
+minimum one intentional open gap
+no literal animal
+no literal Named Object illustration
+no shield
+no crown
+no wreath
+no decorative wings
+no zodiac glyph
+no alphabet
+no kanji
+no number
+no filler stars
+no ornamental frame
+no badge silhouette required
+readable at 16px
+works as pin / foil / embroidery / engraving / UI
 ```
 
-### A-02 アサ / 名札結びの灯紋
+## Stroke consistency
+
+- Character body type does not change line width.
+- Premium tier does not change geometry.
+- Dawn does not add decorative motifs.
+- Kokuyou does not redraw the emblem into a villain crest.
+
+---
+
+# Current21 routing
+
+Canonical semantic names:
+
+1. Yui — 帰火の灯紋
+2. Asa — 結名の灯紋
+3. Nagi — 守間の灯紋
+4. Michiru — 帰針の灯紋
+5. Tomori — 継火の灯紋
+6. Sen — 問枝の灯紋
+7. Ritsu — 半灯の灯紋
+8. Koyori — 細縒の灯紋
+9. Gen — 古針の灯紋
+10. Hana — 留花の灯紋
+11. Yuubi — 待封の灯紋
+12. Madoka — 遠点の灯紋
+13. Shiro — 余頁の灯紋
+14. Tobari — 往還の灯紋
+15. Nemu — 夢波の灯紋
+16. Kuroori — 留折の灯紋
+17. Kaname — 受線の灯紋
+18. Kasumi — 残霞の灯紋
+19. Toki — 星尺の灯紋
+20. Tsumugi — 継間の灯紋
+21. Ren — 片焦の灯紋 — **official reserve; no Current20 production auto-open**
+
+Exact formulas live in machine-readable source; do not duplicate them here and let them drift.
+
+---
+
+# Required Human review before master approval
+
+- [ ] 1色で成立
+- [ ] 16pxで全21人を識別可能
+- [ ] literal iconに見えない
+- [ ] other IPの具体紋章shapeに似すぎない
+- [ ] Character Core verbを説明できる
+- [ ] gapが意味を持つ
+- [ ] node数が0〜2
+- [ ] Dawn changeが1操作
+- [ ] Kokuyou scarが1箇所
+- [ ] pin / embroidery / foil / engravingで同形使用可能
+- [ ] Hana/Kanameの身体性を太線・丸線等へ記号化していない
+- [ ] Ritsu/Koyoriは兄妹の共通性があっても別geometry
+- [ ] Yui/TomoriはLeo family echoがあっても別geometry
+
+---
+
+# Raster/export naming — future only
+
+After approved SVG exists:
+
 ```txt
-rounded name tag crest, paper knot, paper fragment, swallow constellation hint, thin dawn pink line along paper edge, soft tag plate silhouette.
+toumon-<character-id>-normal-v1.svg
+toumon-<character-id>-dawn-v1.svg
+toumon-<character-id>-kokuyou-v1.svg
 ```
 
-### N-03 ナギ / 月箱守りの灯紋
+Raster exports are derivatives:
+
 ```txt
-moon box crest, small box and crescent moon double frame, keyhole, turtle constellation hint, pale moonlight leaking from box gap, protective calm silhouette.
+toumon-<character-id>-normal-64.png
+toumon-<character-id>-normal-128.png
 ```
 
-### M-04 ミチル / 帰星の灯紋
-```txt
-compass crest, star map line, road thread, fox constellation hint, thin gold path returning to center, ring-shaped compass emblem, clear UI silhouette.
-```
+The SVG master remains authority.
 
-### T-05 トモリ / ほころび継火の灯紋
-```txt
-repair lamp crest, wick and stitched seam, tool brass rim, firefly constellation hint, small sparks from seam, handmade stitched emblem.
-```
+---
 
-## Circle10 prompts
+# One-line rule
 
-### S-06 セン / 白線教えの灯紋
-```txt
-chalk line crest, blackboard frame, chalk dust, small arrow path, crane constellation hint, powdery white guide line, school object charm.
-```
-
-### R-07 リツ / 半灯分けの灯紋
-```txt
-half candy crest, split wrapper circle, two small flames divided left and right, squirrel constellation hint, paired charm feeling, warm candy orange.
-```
-
-### K-08 コヨリ / 小名紙縒りの灯紋
-```txt
-small name tag crest, thin paper cord spiral, tiny helper light, rabbit constellation hint, soft charm, small silhouette, gentle lilac and amber.
-```
-
-### G-09 ゲン / 古針駅灯の灯紋
-```txt
-old compass crest, station lamp, rusted needle, owl constellation hint, antique brass rim, low steady amber light, vintage tool badge.
-```
-
-### H-10 ハナ / 押花箱底の灯紋
-```txt
-pressed flower crest, bookmark and box-bottom square frame, flower veins glowing faintly, hedgehog constellation hint, pale aqua and pressed flower pink, transparent acrylic feeling.
-```
-
-### U-11 ユウビ / 未配達封灯の灯紋
-```txt
-sealed envelope crest, postmark circle, delivery route line, dove constellation hint, unopened letter flap, delayed amber glow, postcard merch feeling.
-```
-
-### D-12 マドカ / 窓紙翼の灯紋
-```txt
-window crest, paper airplane crossing window frame, watched light, cat constellation hint, soft blue window glow, clean horizontal silhouette.
-```
-
-### I-13 シロ / 白栞頁灯の灯紋
-```txt
-white bookmark crest, blank page margin, book index tab, white moth constellation hint, pale page glow, quiet library mood, vertical bookmark silhouette.
-```
-
-### B-14 トバリ / 改札境目の灯紋
-```txt
-ticket gate crest, ticket punch holes, border line, dog constellation hint, station amber line, small gate shape, readable ticket badge.
-```
-
-### E-15 ネム / 夢頁水面の灯紋
-```txt
-dream diary crest, water reflection ripple, sleepy page, sheep constellation hint, soft violet blue glow, diary and water surface merged.
-```
-
-## Shadow5 prompts
-
-### O-16 クロオリ / 黒折り紙の灯紋
-```txt
-black origami crest, fold lines, hidden page, crow constellation hint, deep purple black glow leaking from fold valley, sharp paper diamond.
-```
-
-### V-17 カゲール1 / 影守り火の灯紋
-```txt
-shadow fold crest, hidden flame, close combat black fire, wolf constellation hint, triangular shadow guard, dark ember inside, sharp but not horror.
-```
-
-### C-18 カゲール2 / 消せない一文字の灯紋
-```txt
-eraser mark crest, single letter blank space but no actual letter, white dust, gecko constellation hint, monochrome black white dust, erased-name feeling.
-```
-
-### J-19 カゲール3 / 夜測り角度の灯紋
-```txt
-ruler crest, angle lines, diagonal cold light, bat constellation hint, geometric technical badge, measured night angle, clear angular silhouette.
-```
-
-### Q-20 カゲール4 / 余白継ぎ目の灯紋
-```txt
-blank card crest, negative space center, black margin, stitched blank edge, black rabbit constellation hint, empty center glowing around rim, secret card feeling.
-```
-
-## Batch generation note
-
-For each character, generate 4 images with the same base silhouette:
-
-1. blank
-2. normal
-3. dawn
-4. kokuyou
-
-Keep the silhouette consistent across phases. Only change glow, rim repair, and black scar.
+> **画像に「それっぽい紋章」を発明させない。意味を決め、線を設計し、vector masterを承認してから展開する。**
