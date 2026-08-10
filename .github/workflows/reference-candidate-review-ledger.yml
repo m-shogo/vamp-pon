@@ -1,0 +1,34 @@
+name: Reference Candidate Review Ledger
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/referenceFirstBulkGenerationQueue.ts'
+      - 'src/game/data/referenceCandidateReviewLedger.ts'
+      - 'scripts/quality/check-reference-candidate-review-ledger.ts'
+      - 'scripts/export-reference-candidate-review-ledger.ts'
+      - '.github/workflows/reference-candidate-review-ledger.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/referenceFirstBulkGenerationQueue.ts'
+      - 'src/game/data/referenceCandidateReviewLedger.ts'
+      - 'scripts/quality/check-reference-candidate-review-ledger.ts'
+      - 'scripts/export-reference-candidate-review-ledger.ts'
+      - '.github/workflows/reference-candidate-review-ledger.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate review state machine
+        run: node --experimental-strip-types scripts/quality/check-reference-candidate-review-ledger.ts
+      - name: Export deterministic review ledger
+        run: node --experimental-strip-types scripts/export-reference-candidate-review-ledger.ts /tmp/reference-candidate-review-ledger-v1.json
+      - name: Parse exported review ledger
+        run: node -e "const fs=require('fs'); const p='/tmp/reference-candidate-review-ledger-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.records)||d.records.length!==d.summary.totalRecords) process.exit(1); console.log('records='+d.records.length+', approved='+d.summary.approvedReferenceCount+', runtimeQueued='+d.summary.runtimeDerivativeQueueAllowedCount);"
