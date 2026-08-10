@@ -7,6 +7,7 @@ on:
       - 'docs/design/az-emblem-canon.md'
       - 'docs/design/world-labels.md'
       - 'docs/design/toumon-simple-sigil-canon-v2.md'
+      - 'docs/design/toumon-inworld-behavior-contract-v1.md'
       - 'docs/design/ip-symbol-merch-system-v1.md'
       - 'docs/prompts/az-emblem-asset-prompts.md'
       - 'src/game/data/emblemCanon.ts'
@@ -22,6 +23,7 @@ on:
       - 'docs/design/az-emblem-canon.md'
       - 'docs/design/world-labels.md'
       - 'docs/design/toumon-simple-sigil-canon-v2.md'
+      - 'docs/design/toumon-inworld-behavior-contract-v1.md'
       - 'docs/design/ip-symbol-merch-system-v1.md'
       - 'docs/prompts/az-emblem-asset-prompts.md'
       - 'src/game/data/emblemCanon.ts'
@@ -53,3 +55,10 @@ jobs:
           grep -q 'RASTER / IMAGE GENERATION HOLD' docs/prompts/az-emblem-asset-prompts.md
           ! grep -q 'round lantern crest' docs/prompts/az-emblem-asset-prompts.md
           ! grep -q 'animal constellation hint' docs/prompts/az-emblem-asset-prompts.md
+      - name: Guard in-world semantic and privacy boundaries
+        run: |
+          grep -q 'Power Sourceではない' docs/design/toumon-inworld-behavior-contract-v1.md
+          grep -q 'privacy bypass deviceにしない' docs/design/toumon-inworld-behavior-contract-v1.md
+          grep -q '相性診断ではない' docs/design/toumon-inworld-behavior-contract-v1.md
+          grep -q 'Series Mystery reservoir' docs/design/toumon-inworld-behavior-contract-v1.md
+          grep -q 'semantic fixation' docs/design/toumon-inworld-behavior-contract-v1.md
