@@ -1,4 +1,5 @@
 name: Lorebook Series Cast Board
+# Re-evaluate against latest main after Series Cast Selection source landed.
 
 on:
   pull_request:
