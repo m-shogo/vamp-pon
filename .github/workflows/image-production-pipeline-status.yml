@@ -1,0 +1,48 @@
+name: Image Production Pipeline Status
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/imageProductionPipelineStatus.ts'
+      - 'src/game/data/referenceFirstBulkGenerationQueue.ts'
+      - 'src/game/data/referenceCandidateReviewLedger.ts'
+      - 'src/game/data/runtimeDerivativeQueue.ts'
+      - 'src/game/data/worldEffectGenerationHandoff.ts'
+      - 'src/game/data/namedObjectGeometryReview.ts'
+      - 'src/game/data/worldRouteCandidateApproval.ts'
+      - 'src/game/data/dawnProofSharedSource.ts'
+      - 'src/game/data/sharedSourceReadinessMatrix.ts'
+      - 'scripts/quality/check-image-production-pipeline-status.ts'
+      - 'scripts/export-image-production-pipeline-status.ts'
+      - '.github/workflows/image-production-pipeline-status.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/imageProductionPipelineStatus.ts'
+      - 'src/game/data/referenceFirstBulkGenerationQueue.ts'
+      - 'src/game/data/referenceCandidateReviewLedger.ts'
+      - 'src/game/data/runtimeDerivativeQueue.ts'
+      - 'src/game/data/worldEffectGenerationHandoff.ts'
+      - 'src/game/data/namedObjectGeometryReview.ts'
+      - 'src/game/data/worldRouteCandidateApproval.ts'
+      - 'src/game/data/dawnProofSharedSource.ts'
+      - 'src/game/data/sharedSourceReadinessMatrix.ts'
+      - 'scripts/quality/check-image-production-pipeline-status.ts'
+      - 'scripts/export-image-production-pipeline-status.ts'
+      - '.github/workflows/image-production-pipeline-status.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate image production pipeline status
+        run: node --experimental-strip-types scripts/quality/check-image-production-pipeline-status.ts
+      - name: Export deterministic pipeline status
+        run: node --experimental-strip-types scripts/export-image-production-pipeline-status.ts /tmp/image-production-pipeline-status-v1.json
+      - name: Parse exported pipeline status
+        run: node -e "const fs=require('fs'); const p='/tmp/image-production-pipeline-status-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.stages)||d.stages.length!==d.summary.stageCount) process.exit(1); console.log('stages='+d.stages.length+', references='+d.summary.referenceQueueTotal+', approved='+d.summary.referenceApprovedCount+', runtime='+d.summary.runtimeDerivativeQueuedCount);"
