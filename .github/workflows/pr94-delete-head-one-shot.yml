@@ -1,4 +1,4 @@
-name: PR94 Head Cleanup One Shot
+name: Audited Stale Branch Cleanup One Shot
 
 on:
   push:
@@ -6,45 +6,46 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
 
 jobs:
-  delete-merged-head:
+  delete-audited-ancestor:
     runs-on: ubuntu-latest
     steps:
-      - name: Delete PR94 head only when exact merged provenance matches
+      - name: Delete stale silhouette branch only if it has no unique commits
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
           repo="${GITHUB_REPOSITORY}"
-          branch='agent/chubby-silhouette-production-v1'
-
-          state="$(gh api "repos/${repo}/pulls/94" --jq '.state')"
-          merged_at="$(gh api "repos/${repo}/pulls/94" --jq '.merged_at // ""')"
-          head_ref="$(gh api "repos/${repo}/pulls/94" --jq '.head.ref')"
-          head_sha="$(gh api "repos/${repo}/pulls/94" --jq '.head.sha')"
-
-          if [ "$state" != 'closed' ] || [ -z "$merged_at" ]; then
-            echo 'PR #94 is not merged; refusing cleanup.'
-            exit 1
-          fi
-          if [ "$head_ref" != "$branch" ]; then
-            echo "PR #94 head ref changed: ${head_ref}"
-            exit 1
-          fi
+          branch='agent/current21-silhouette-coverage-v2'
 
           response="$(gh api "repos/${repo}/git/ref/heads/${branch}" 2>/dev/null || true)"
           if [ -z "$response" ]; then
             echo "Already absent: ${branch}"
             exit 0
           fi
+
           branch_sha="$(printf '%s' "$response" | jq -r '.object.sha // empty')"
-          if [ -z "$branch_sha" ] || [ "$branch_sha" != "$head_sha" ]; then
-            echo "Branch moved or ref lookup failed: branch=${branch_sha} pr=${head_sha}"
+          if [ -z "$branch_sha" ]; then
+            echo "Could not resolve ${branch} SHA"
+            exit 1
+          fi
+
+          comparison="$(gh api "repos/${repo}/compare/main...${branch}")"
+          ahead_by="$(printf '%s' "$comparison" | jq -r '.ahead_by')"
+          status="$(printf '%s' "$comparison" | jq -r '.status')"
+
+          if [ "$ahead_by" != '0' ]; then
+            echo "Branch gained unique commits; refusing cleanup: ahead_by=${ahead_by} status=${status}"
+            exit 1
+          fi
+
+          latest_sha="$(gh api "repos/${repo}/git/ref/heads/${branch}" --jq '.object.sha')"
+          if [ "$latest_sha" != "$branch_sha" ]; then
+            echo "Branch moved during verification; refusing cleanup."
             exit 1
           fi
 
           gh api --method DELETE "repos/${repo}/git/refs/heads/${branch}"
-          echo "Deleted exact merged PR #94 head: ${branch}@${head_sha}"
+          echo "Deleted audited ancestor branch: ${branch}@${branch_sha}"
