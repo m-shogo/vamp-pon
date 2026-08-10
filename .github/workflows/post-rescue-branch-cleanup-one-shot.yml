@@ -1,0 +1,82 @@
+name: Post Rescue Branch Cleanup One Shot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/post-rescue-branch-cleanup-one-shot.yml'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verify superseded branch content is now preserved on main
+        shell: bash
+        run: |
+          set -euo pipefail
+          for branch in agent/title1-unlock-learning-progression-clean agent/reference-first-bulk-generation-queue-v1; do
+            git fetch --no-tags origin "+refs/heads/${branch}:refs/remotes/origin/${branch}" || true
+          done
+
+          title_paths=(
+            .github/workflows/title1-unlock-learning-progression.yml
+            docs/title1-unlock-learning-progression-source-v1.md
+            scripts/quality/check-title1-unlock-learning-progression.ts
+            src/game/data/title1UnlockLearningProgressionSource.ts
+            src/game/data/title1UnlockResolutionSource.ts
+          )
+          if git show-ref --verify --quiet refs/remotes/origin/agent/title1-unlock-learning-progression-clean; then
+            git diff --exit-code origin/main origin/agent/title1-unlock-learning-progression-clean -- "${title_paths[@]}"
+          fi
+
+          ref_branch=agent/reference-first-bulk-generation-queue-v1
+          if git show-ref --verify --quiet "refs/remotes/origin/${ref_branch}"; then
+            rm -rf /tmp/ref-old /tmp/ref-main
+            git worktree add --detach /tmp/ref-old "origin/${ref_branch}"
+            git worktree add --detach /tmp/ref-main origin/main
+            (cd /tmp/ref-old && node --experimental-strip-types scripts/quality/check-reference-first-bulk-generation-queue.ts && node --experimental-strip-types scripts/export-reference-first-bulk-generation-queue.ts /tmp/ref-old.json)
+            (cd /tmp/ref-main && node --experimental-strip-types scripts/quality/check-reference-first-bulk-generation-queue.ts && node --experimental-strip-types scripts/export-reference-first-bulk-generation-queue.ts /tmp/ref-main.json)
+            node <<'NODE'
+            const fs = require('fs');
+            const canon = v => Array.isArray(v) ? v.map(canon) : (v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canon(v[k])])) : v);
+            const oldDoc = canon(JSON.parse(fs.readFileSync('/tmp/ref-old.json','utf8')));
+            const mainDoc = canon(JSON.parse(fs.readFileSync('/tmp/ref-main.json','utf8')));
+            if (JSON.stringify(oldDoc) !== JSON.stringify(mainDoc)) throw new Error('reference queue deterministic export differs from main');
+            console.log('reference queue deterministic export equivalence: PASS');
+            NODE
+          fi
+
+      - name: Delete only audited obsolete branches
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const targets = [
+              'agent/title1-unlock-learning-progression-clean',
+              'agent/reference-first-bulk-generation-queue-v1',
+              'chore/checker-hardening-rescue',
+            ];
+            const openPulls = await github.paginate(github.rest.pulls.list, { owner, repo, state: 'open', per_page: 100 });
+            const pr136 = (await github.rest.pulls.get({ owner, repo, pull_number: 136 })).data;
+            if (!pr136.merged_at) throw new Error('PR136 is not merged');
+            for (const branch of targets) {
+              if (openPulls.some(pr => pr.head.repo?.full_name === `${owner}/${repo}` && pr.head.ref === branch)) throw new Error(`${branch} is an open PR head`);
+              let ref;
+              try { ref = await github.rest.git.getRef({ owner, repo, ref: `heads/${branch}` }); }
+              catch (error) { if (error.status === 404) { console.log(`${branch}: already absent`); continue; } throw error; }
+              if (branch === 'chore/checker-hardening-rescue' && ref.data.object.sha !== pr136.head.sha) throw new Error(`PR136 branch moved after merge`);
+              await github.rest.git.deleteRef({ owner, repo, ref: `heads/${branch}` });
+              console.log(`deleted audited obsolete branch ${branch}`);
+            }
