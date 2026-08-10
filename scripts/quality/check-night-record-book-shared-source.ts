@@ -110,7 +110,9 @@ const nightRecordStart = ipSource.indexOf('# 9. 「夜の記録帳」— Collect
 const nextSection = ipSource.indexOf('# 10. Display / Carry Goods');
 assert(nightRecordStart >= 0 && nextSection > nightRecordStart, 'Night Record Book authority section missing');
 const nightRecordAuthority = ipSource.slice(nightRecordStart, nextSection);
-for (const label of expectedSections) assert(nightRecordAuthority.includes(label), `IP authority missing section ${label}`);
+for (const label of ['PEOPLE', 'STAR BEAST', 'OBJECT', 'ROUTE', 'RELATION', 'DAWN']) {
+  assert(nightRecordAuthority.includes(label), `IP authority missing section ${label}`);
+}
 assert(/全部集める=真End/.test(nightRecordAuthority), 'collection-not-True-End authority missing');
 
 assert(nightRecordBookSharedSourceSummary.sectionCount === 6, 'summary section count drift');
