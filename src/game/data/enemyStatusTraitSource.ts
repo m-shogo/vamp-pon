@@ -67,7 +67,10 @@ export const enemyStatusTraitProfiles: readonly EnemyStatusTraitProfile[] = enem
     enemy.rank === 'elite' || enemy.rank === 'boss' ? 'elite' : 'pressure',
   ].filter(Boolean);
 
-  const finalInflicted = uniq([...inflictedStatuses, ...deriveInflicted(enemy.id, roleHints, enemy.family)]).slice(0, enemy.rank === 'boss' ? 3 : 2);
+  const derived = uniq([...inflictedStatuses, ...deriveInflicted(enemy.id, roleHints, enemy.family)]).slice(0, enemy.rank === 'boss' ? 3 : 2);
+  const finalInflicted: StatusKind[] = derived.length > 0
+    ? derived
+    : [enemy.rank === 'boss' || enemy.rank === 'elite' ? 'MARKED' : 'EXPOSED'];
   const selfBuffs = deriveBuffs(roleHints, enemy.rank);
 
   return {
