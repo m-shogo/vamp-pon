@@ -130,3 +130,4 @@ console.log(summaryOnly ? 'asset generation full contract export skipped' : `ass
 console.log(`asset generation contract summary exported: ${SUMMARY_OUTPUT}`);
 console.log(`golden reference registry exported: ${REFERENCE_OUTPUT}`);
 console.log(`contract count: ${exportedContracts.length}`);
+console.log(`contract set hash: ${contractSetHash}`);

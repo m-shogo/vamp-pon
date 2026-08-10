@@ -86,13 +86,23 @@
   line-height: 1.55;
 }
 
+.silhouette-authority-note,
 .silhouette-guardrail {
   margin: .85rem 0 0;
   padding: .65rem .72rem;
-  border-left: 2px solid currentColor;
-  font-size: .78rem;
+  font-size: .75rem;
   line-height: 1.55;
-  opacity: .8;
+}
+
+.silhouette-authority-note {
+  border-top: 1px dashed color-mix(in srgb, currentColor 22%, transparent);
+  letter-spacing: .045em;
+  opacity: .62;
+}
+
+.silhouette-guardrail {
+  border-left: 2px solid currentColor;
+  opacity: .82;
 }
 
 @media (max-width: 560px) {

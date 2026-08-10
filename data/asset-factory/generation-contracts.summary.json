@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "generatedBy": "scripts/asset-factory/export-generation-contracts.ts",
-  "generatedAt": "2026-07-11T03:04:00.889Z",
-  "sourceCommit": "b5c7cb2d87aeeb9e7df9ee7bb6eb7b0ded66de6f",
+  "generatedAt": "2026-08-10T03:31:12.459Z",
+  "sourceCommit": "42285cfd6020928e1fc8a360fd6fca0b25a84912",
   "contractCount": 977,
   "contractCountsByContentType": {
     "character": 180,
@@ -13,5 +13,5 @@
   "policyVersions": [
     "2026-07-10-v1"
   ],
-  "contractSetHash": "0612a363903193dc7f30045170aef473fa8d098dca0d50f00c85396eddbd88ff"
+  "contractSetHash": "00371fe4031cc49812ccc86801948402ef0b802d8755d13c9fa504d5900871c3"
 }

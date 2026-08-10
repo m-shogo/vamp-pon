@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-10",
+  "source": "src/game/data/current21SilhouetteMatrix.ts",
+  "targetCount": 21,
+  "rules": {
+    "plusSizeHardLockIds": ["hana", "kage1"],
+    "reserveIds": ["ren"],
+    "principle": "Use existing body/age canon where locked; otherwise differentiate by posture, clothing mass, object placement and motion rather than inventing measurements."
+  },
+  "entries": [
+    {"runtimeId":"yui","lorebookId":"yui","name":"ユイ","visualLane":"主人公 / 拾い手","silhouetteRead":"青いフード + 身体より少し前へ出るランタン + 拾った紙片","posture":"半歩前。落とし物へ先に手が伸びる。","motionSignature":"拾う → 確認する → 相手へ向ける","ensemblePosition":"中央寄りだがhero pose固定にしない。","themeHex":"#264A86","starBeast":"子獅子「ルク」仮称","hardAnchor":false},
+    {"runtimeId":"asa","lorebookId":"asa","name":"アサ","visualLane":"行動派 / 名づけ","silhouetteRead":"短い前髪 + 名札 + 紙片 + 先に差し出す片腕","posture":"止まるより半歩先へ出る。","motionSignature":"書く / 切る / 渡すを短く速く","ensemblePosition":"輪の中を動きながら名前を書く。","themeHex":"#F4A7B9","starBeast":"若い雄羊","hardAnchor":false},
+    {"runtimeId":"nagi","lorebookId":"nagi","name":"ナギ","visualLane":"静かな守り / 封じ手","silhouetteRead":"月箱 + 銀鍵 + 身体に近い肘 + 外へ開く月輪","posture":"物を身体の内側へ寄せる。","motionSignature":"確認 → 閉じる → 戻れるか見る","ensemblePosition":"小物を預かれる内側。出口を塞ぎ切らない。","themeHex":"#7B90D2","starBeast":"小さな蟹","hardAnchor":false},
+    {"runtimeId":"michiru","lorebookId":"michiru","name":"ミチル","visualLane":"道読み / 帰路","silhouetteRead":"斜め掛け地図 + コンパス + 道糸 + 歩き出した片脚","posture":"次の曲がり角を見つつ後ろも確認する。","motionSignature":"長めの歩幅 + 小さな方向修正","ensemblePosition":"輪と外側を行き来する。","themeHex":"#2E5C6E","starBeast":"小熊","hardAnchor":false},
+    {"runtimeId":"tomori","lorebookId":"tomori","name":"トモリ","visualLane":"作業者 / repair","silhouetteRead":"修理ゴーグル + 道具袋 + 修理ランプ + 煤と継ぎ目","posture":"しゃがむ / 覗く / 直す姿勢。","motionSignature":"工具 → 火花 → 継ぎ目確認","ensemblePosition":"会話の横で何かを直す。","themeHex":"#8F2E14","starBeast":"少し煤けた若獅子","hardAnchor":true},
+    {"runtimeId":"sen","lorebookId":"sen","name":"セン","visualLane":"成人 / 教える人","silhouetteRead":"チョーク灯 + 空中の白線 + 少し長い上衣 + 小烏","posture":"空中へ線を引き、相手の場所を空ける。","motionSignature":"説明する → 待つ → 教わる側へ回る","ensemblePosition":"石や紙片を使う小集団の端。","themeHex":"#6E7955","starBeast":"小烏","hardAnchor":false},
+    {"runtimeId":"ritsu","lorebookId":"ritsu","name":"リツ","visualLane":"兄 / 分ける守り","silhouetteRead":"半灯りの飴缶 + 分ける両手 + 大きい猟犬","posture":"誰かの分を先に確保するよう片側を空ける。","motionSignature":"分ける → 渡す → 一歩退いて任せる","ensemblePosition":"コヨリと近いが常に背後へ置かない。","themeHex":"#D75455","starBeast":"二頭のうち大きい猟犬","hardAnchor":false},
+    {"runtimeId":"koyori","lorebookId":"koyori","name":"コヨリ","visualLane":"子ども / 小型silhouette","silhouetteRead":"低い目線 + 小さな名札 + 紙縒り札 + 小さい猟犬","posture":"見上げるだけでなく自分で物を並べる。","motionSignature":"短い歩幅 + 多い手数 + 補助灯を結ぶ","ensemblePosition":"人の間を移動する。","themeHex":"#F7C8D0","starBeast":"二頭のうち小さい猟犬","hardAnchor":false},
+    {"runtimeId":"gen","lorebookId":"gen","name":"ゲン","visualLane":"渋い年長男性","silhouetteRead":"古い帽子 + コンパス + 年季のある外套 + 低い重心","posture":"立ち急がず帰り道を先に見る。","motionSignature":"歩く → 道具を見る → 若い相手へ渡す","ensemblePosition":"少し離れて古い道や空を見る。","themeHex":"#867835","starBeast":"大熊","hardAnchor":true},
+    {"runtimeId":"hana","lorebookId":"hana","name":"ハナ","visualLane":"ぽっちゃり女性 / 年長女性","silhouetteRead":"丸い胴・腕・頬 + 丸いショール + 押し花の保管箱 + 白鳥","posture":"場所を譲りすぎず自然に座る / 立つ。","motionSignature":"紙を整える → 花を移す → 誰かへ返す","ensemblePosition":"灯りの内側で生活の安心感を作る。","themeHex":"#B5495B","starBeast":"ふっくらした白鳥","hardAnchor":true},
+    {"runtimeId":"yubi","lorebookId":"yuubi","name":"ユウビ","visualLane":"配達人 / 時間差","silhouetteRead":"斜め掛け配達鞄 + 封筒 + 消印 + 遅れて残る軌跡","posture":"受け取れる距離を測る。","motionSignature":"運ぶ → 待つ → 受取可能時に渡す","ensemblePosition":"輪の外から手紙を持ち込む。","themeHex":"#C1693C","starBeast":"小鳩","hardAnchor":false},
+    {"runtimeId":"madoka","lorebookId":"madoka","name":"マドカ","visualLane":"観測者 / 遠景","silhouetteRead":"観測レンズ + 紙飛行機 + 窓の縦線 + 遠くへ向く視線","posture":"身体はその場、視線だけ遠くへ先行する。","motionSignature":"静止 → 見つける → 差だけ共有","ensemblePosition":"窓 / 空が見える外縁。","themeHex":"#89C3EB","starBeast":"小鷲","hardAnchor":false},
+    {"runtimeId":"shiro","lorebookId":"shiro","name":"シロ","visualLane":"若い男性 / 中性寄り丸メガネ","silhouetteRead":"丸メガネ + 白いしおり + 未分類頁 + 山猫","posture":"頁を近くで読む前傾。","motionSignature":"読む → 保留する → 頁を戻す","ensemblePosition":"本 / 紙がある位置。","themeHex":"#E3E5E8","starBeast":"山猫","hardAnchor":true},
+    {"runtimeId":"tobari","lorebookId":"tobari","name":"トバリ","visualLane":"門番 / 帰路管理","silhouetteRead":"直線的な外衣 + 改札鋏 + 切符穴 + 足元の境界 + 番犬","posture":"通す側と止める側を身体の向きで分ける。","motionSignature":"一歩ずらす → 鋏を入れる → 門を開閉","ensemblePosition":"輪の入口側。","themeHex":"#56564B","starBeast":"大きな番犬","hardAnchor":false},
+    {"runtimeId":"nemu","lorebookId":"nemu","name":"ネム","visualLane":"夢見 / ゆらぐ道","silhouetteRead":"夢日記 + 水面頁 + やや長い袖 + 揺れる裾 + 小イルカ","posture":"座る姿勢も使うが必要時は自分で立つ。","motionSignature":"緩い予備動作 → 一瞬だけ方向を示す","ensemblePosition":"輪の端で日記を開く。","themeHex":"#B4A5D4","starBeast":"小イルカ","hardAnchor":false},
+    {"runtimeId":"kuroori","lorebookId":"kuroori","name":"クロオリ","visualLane":"思想的ライバル / 預かり手","silhouetteRead":"黒い折り紙 + 折り目の紫光 + 内側へ預かる腕 + カメレオン","posture":"物を内側へ預かるが背を向け切らない。","motionSignature":"折る → 留める → 必要な時だけ開く","ensemblePosition":"輪の少し外。","themeHex":"#1C1C1C","starBeast":"黒紙カメレオン","hardAnchor":false},
+    {"runtimeId":"kage1","lorebookId":"kaname","name":"カナメ","visualLane":"ぽっちゃり男性 / 若い成人","silhouetteRead":"広い肩 + 厚い柔らかな胴 + 太い腕脚 + 受け灯の腕帯 + 灰狼","posture":"広い安定stance。守る瞬間だけ速く詰める。","motionSignature":"静止 → fast intercept → 一歩下がって任せる","ensemblePosition":"輪の外周 / 風上。","themeHex":"#2B2B2B","starBeast":"大きな灰狼","hardAnchor":true},
+    {"runtimeId":"kage2","lorebookId":"kasumi","name":"カスミ","visualLane":"輪郭をぼかす守り / Shadow","silhouetteRead":"半身の姿勢 + 消し跡の白灯 + 濃淡布 + 小狐","posture":"少し横を向いて出口を残す。","motionSignature":"隠す → 痕跡を残す → 選択を返す","ensemblePosition":"共同メモ等の横。","themeHex":"#787D7B","starBeast":"淡い小狐","hardAnchor":false},
+    {"runtimeId":"kage3","lorebookId":"toki","name":"トキ","visualLane":"計測者 / 細い縦線","silhouetteRead":"細身寄りの縦長線 + 夜定規 + 角度光 + 鶴","posture":"軸は真っ直ぐ。測る時だけ傾く。","motionSignature":"測る → 記録 → 測定外へ目を向ける","ensemblePosition":"空や灯りの影が読める場所。","themeHex":"#2D2D48","starBeast":"細身の鶴","hardAnchor":false},
+    {"runtimeId":"kage4","lorebookId":"tsumugi","name":"ツムギ","visualLane":"余白 / 継ぎ目","silhouetteRead":"糸巻き + 未完成の裾 + 広めの白い余白面 + 野兎","posture":"座って縫い、立つ時も片側へ空白を残す。","motionSignature":"縫う → 止める → 糸を切り続きを残す","ensemblePosition":"紙 / 布のある場所。","themeHex":"#F2F2ED","starBeast":"白灰の野兎","hardAnchor":false},
+    {"runtimeId":"ren","lorebookId":"ren","name":"レン","visualLane":"reserve / 観察者","silhouetteRead":"丸メガネ + 片焦点レンズ光 + 透明な小物 + 観察犬","posture":"差を見る時だけ顔を少し傾ける。","motionSignature":"止まる → 焦点 → 仮説として共有","ensemblePosition":"Current20集合へ自動追加しない。","themeHex":"#A2D7DD","starBeast":"小さな観察犬","hardAnchor":true}
+  ]
+}

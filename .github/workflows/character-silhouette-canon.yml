@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - 'src/game/data/characterSilhouetteCanon.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
       - 'src/game/data/characterThemeColors.ts'
       - 'docs/character-silhouette-diversity-current-canon-v1.md'
       - 'docs/chubby-character-production-pass-v1.md'
       - 'docs/chubby-character-relationship-commercial-pass-v1.md'
       - 'docs/series-commercial-franchise-architecture-v1.md'
       - 'public/lorebook/data/character-silhouette-anchors.v1.json'
+      - 'public/lorebook/data/current21-silhouette-matrix.v1.json'
       - 'public/lorebook/silhouette-enhancement.js'
       - 'public/lorebook/silhouette.css'
       - 'public/lorebook/enhancements.js'
@@ -18,12 +20,14 @@ on:
     branches: [main]
     paths:
       - 'src/game/data/characterSilhouetteCanon.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
       - 'src/game/data/characterThemeColors.ts'
       - 'docs/character-silhouette-diversity-current-canon-v1.md'
       - 'docs/chubby-character-production-pass-v1.md'
       - 'docs/chubby-character-relationship-commercial-pass-v1.md'
       - 'docs/series-commercial-franchise-architecture-v1.md'
       - 'public/lorebook/data/character-silhouette-anchors.v1.json'
+      - 'public/lorebook/data/current21-silhouette-matrix.v1.json'
       - 'public/lorebook/silhouette-enhancement.js'
       - 'public/lorebook/silhouette.css'
       - 'public/lorebook/enhancements.js'
@@ -42,17 +46,20 @@ jobs:
       - name: Validate silhouette JavaScript
         run: node --check public/lorebook/silhouette-enhancement.js
 
-      - name: Validate silhouette canon and read model
+      - name: Validate silhouette canon and Current21 coverage
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const data = JSON.parse(fs.readFileSync('public/lorebook/data/character-silhouette-anchors.v1.json', 'utf8'));
-          const source = fs.readFileSync('src/game/data/characterSilhouetteCanon.ts', 'utf8');
+          const hard = JSON.parse(fs.readFileSync('public/lorebook/data/character-silhouette-anchors.v1.json', 'utf8'));
+          const matrix = JSON.parse(fs.readFileSync('public/lorebook/data/current21-silhouette-matrix.v1.json', 'utf8'));
+          const hardSource = fs.readFileSync('src/game/data/characterSilhouetteCanon.ts', 'utf8');
+          const matrixSource = fs.readFileSync('src/game/data/current21SilhouetteMatrix.ts', 'utf8');
           const themes = fs.readFileSync('src/game/data/characterThemeColors.ts', 'utf8');
           const canon = fs.readFileSync('docs/character-silhouette-diversity-current-canon-v1.md', 'utf8');
           const pass = fs.readFileSync('docs/chubby-character-production-pass-v1.md', 'utf8');
           const relations = fs.readFileSync('docs/chubby-character-relationship-commercial-pass-v1.md', 'utf8');
           const commercial = fs.readFileSync('docs/series-commercial-franchise-architecture-v1.md', 'utf8');
+          const enhancement = fs.readFileSync('public/lorebook/silhouette-enhancement.js', 'utf8');
           const enhancements = fs.readFileSync('public/lorebook/enhancements.js', 'utf8');
 
           const fail = (message) => {
@@ -60,43 +67,65 @@ jobs:
             process.exitCode = 1;
           };
 
-          if (data.schemaVersion !== 1) fail('silhouette read model schemaVersion must be 1');
-          if (data.runtimeMigrationState !== 'DESIGN_CANON_ONLY') fail('runtime boundary drift');
-          if (data.anchors.length !== 6) fail(`expected 6 silhouette anchors, got ${data.anchors.length}`);
+          const expectedCurrent21 = [
+            'yui','asa','nagi','michiru','tomori','sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu',
+            'kuroori','kage1','kage2','kage3','kage4','ren',
+          ].sort();
 
-          const ids = data.anchors.map((entry) => entry.runtimeId);
-          if (new Set(ids).size !== ids.length) fail('duplicate silhouette runtimeId');
-          for (const id of ['hana', 'kage1', 'gen', 'shiro', 'ren', 'tomori']) {
-            if (!ids.includes(id)) fail(`missing silhouette anchor: ${id}`);
+          if (hard.schemaVersion !== 1) fail('hard-anchor read model schemaVersion must be 1');
+          if (hard.runtimeMigrationState !== 'DESIGN_CANON_ONLY') fail('hard-anchor runtime boundary drift');
+          if (hard.anchors.length !== 6) fail(`expected 6 hard silhouette anchors, got ${hard.anchors.length}`);
+
+          const hardIds = hard.anchors.map((entry) => entry.runtimeId);
+          for (const id of ['hana','kage1','gen','shiro','ren','tomori']) {
+            if (!hardIds.includes(id)) fail(`missing hard silhouette anchor: ${id}`);
           }
 
-          const chubby = [...(data.rules?.chubbyCharacterIds ?? [])].sort();
-          if (JSON.stringify(chubby) !== JSON.stringify(['hana', 'kage1'])) fail(`chubby anchors drift: ${chubby.join(',')}`);
+          if (matrix.schemaVersion !== 1 || matrix.targetCount !== 21) fail('Current21 silhouette matrix contract drift');
+          if (matrix.entries.length !== 21) fail(`expected 21 matrix entries, got ${matrix.entries.length}`);
+          const matrixIds = matrix.entries.map((entry) => entry.runtimeId).sort();
+          if (new Set(matrixIds).size !== 21) fail('duplicate Current21 silhouette runtimeId');
+          if (JSON.stringify(matrixIds) !== JSON.stringify(expectedCurrent21)) fail(`Current21 silhouette coverage drift: ${matrixIds.join(',')}`);
 
-          const hana = data.anchors.find((entry) => entry.runtimeId === 'hana');
-          const kaname = data.anchors.find((entry) => entry.runtimeId === 'kage1');
+          const matrixNames = matrix.entries.map((entry) => entry.name);
+          if (new Set(matrixNames).size !== 21) fail('duplicate Current21 silhouette display name');
+
+          for (const entry of matrix.entries) {
+            for (const key of ['visualLane','silhouetteRead','posture','motionSignature','ensemblePosition','starBeast']) {
+              if (!entry[key]) fail(`matrix ${entry.runtimeId} missing ${key}`);
+            }
+            if (!/^#[0-9A-F]{6}$/.test(entry.themeHex)) fail(`invalid theme HEX: ${entry.runtimeId}/${entry.themeHex}`);
+            if (!themes.includes(entry.themeHex)) fail(`theme HEX source drift: ${entry.runtimeId}/${entry.themeHex}`);
+            if (!matrixSource.includes(`characterId: '${entry.runtimeId}'`)) fail(`matrix TS source drift: ${entry.runtimeId}`);
+          }
+
+          const chubby = [...(hard.rules?.chubbyCharacterIds ?? [])].sort();
+          if (JSON.stringify(chubby) !== JSON.stringify(['hana','kage1'])) fail(`chubby hard anchors drift: ${chubby.join(',')}`);
+          const matrixPlusSize = [...(matrix.rules?.plusSizeHardLockIds ?? [])].sort();
+          if (JSON.stringify(matrixPlusSize) !== JSON.stringify(['hana','kage1'])) fail(`matrix plus-size lock drift: ${matrixPlusSize.join(',')}`);
+
+          const hana = hard.anchors.find((entry) => entry.runtimeId === 'hana');
+          const kaname = hard.anchors.find((entry) => entry.runtimeId === 'kage1');
           if (!hana?.role.includes('ぽっちゃり女性')) fail('Hana plus-size female role missing');
           if (!kaname?.role.includes('ぽっちゃり男性')) fail('Kaname plus-size male role missing');
-          if (!hana.bodyDirection.includes('細腰') || !kaname.bodyDirection.includes('細身')) fail('anti-slim visual guard missing');
+          if (!hana.bodyDirection.includes('細腰') || !kaname.bodyDirection.includes('細身')) fail('anti-slim hard guard missing');
+          if (!matrix.entries.find((entry) => entry.runtimeId === 'hana')?.silhouetteRead.includes('丸い胴')) fail('Hana ensemble silhouette lost plus-size read');
+          if (!matrix.entries.find((entry) => entry.runtimeId === 'kage1')?.silhouetteRead.includes('厚い柔らかな胴')) fail('Kaname ensemble silhouette lost plus-size read');
 
-          const bannedRuntimeShortcuts = data.rules?.bodyShapeMustNotAffectByDefault ?? [];
-          for (const token of ['hitbox', 'movement speed', 'stamina', 'intelligence']) {
+          const bannedRuntimeShortcuts = hard.rules?.bodyShapeMustNotAffectByDefault ?? [];
+          for (const token of ['hitbox','movement speed','stamina','intelligence']) {
             if (!bannedRuntimeShortcuts.includes(token)) fail(`body/runtime separation missing: ${token}`);
           }
 
-          for (const entry of data.anchors) {
-            if (!/^#[0-9A-F]{6}$/.test(entry.themeHex)) fail(`invalid theme HEX: ${entry.name}/${entry.themeHex}`);
-            if (!themes.includes(entry.themeHex)) fail(`theme source drift: ${entry.name}/${entry.themeHex}`);
-            if (!source.includes(`characterId: '${entry.runtimeId}'`)) fail(`silhouette source drift: ${entry.runtimeId}`);
-          }
-
-          if (!source.includes("export const chubbyCharacterIds = ['hana', 'kage1'] as const")) fail('production chubby IDs drift');
-          if (!source.includes("runtimeMigrationState: 'DESIGN_CANON_ONLY'")) fail('design/runtime boundary missing in source');
+          if (!hardSource.includes("export const chubbyCharacterIds = ['hana', 'kage1'] as const")) fail('production chubby IDs drift');
+          if (!matrixSource.includes('targetCount: 21')) fail('matrix TS target count missing');
+          if (!matrixSource.includes("plusSizeHardLockIds: ['hana', 'kage1']")) fail('matrix TS plus-size hard lock missing');
           if (!canon.includes('ぽっちゃり女性 | **ハナ**') || !canon.includes('ぽっちゃり男性 | **カナメ**')) fail('silhouette canon lost chubby assignments');
           if (!pass.includes('Happy Endで痩せる') || !pass.includes('体格monster化')) fail('production stereotype guardrails incomplete');
           if (!enhancements.includes("'./silhouette-enhancement.js'")) fail('Lorebook silhouette enhancement not bootstrapped');
+          if (!enhancement.includes('SILHOUETTE_MATRIX_URL')) fail('Lorebook is not loading Current21 silhouette matrix');
 
-          for (const lane of ['ハナ × ツムギ', 'ハナ × シロ', 'カナメ × ナギ', 'カナメ × リツ']) {
+          for (const lane of ['ハナ × ツムギ','ハナ × シロ','カナメ × ナギ','カナメ × リツ']) {
             if (!relations.includes(lane)) fail(`missing relationship commercial lane: ${lane}`);
           }
           if (!relations.includes('favoriteRelationship != romance vote')) fail('relationship popularity firewall missing');
@@ -104,14 +133,17 @@ jobs:
           if (!commercial.includes('inclusive size range')) fail('inclusive apparel policy missing');
 
           if (process.exitCode) process.exit(process.exitCode);
-          console.log('Silhouette canon OK: 6 anchors / Hana + Kaname body diversity locked / 4 relationship lanes / runtime balance separated');
+          console.log('Silhouette canon OK: Current21 21/21 matrix / 6 hard anchors / Hana + Kaname plus-size hard lock');
           NODE
 
-      - name: Verify generated static assets are buildable
+      - name: Verify generated contracts and static assets
         run: |
           corepack enable
           pnpm install --frozen-lockfile
+          pnpm asset-factory:contracts:export --summary-only
+          cat data/asset-factory/generation-contracts.summary.json
           pnpm build
           test -f dist/lorebook/silhouette-enhancement.js
           test -f dist/lorebook/silhouette.css
           test -f dist/lorebook/data/character-silhouette-anchors.v1.json
+          test -f dist/lorebook/data/current21-silhouette-matrix.v1.json
