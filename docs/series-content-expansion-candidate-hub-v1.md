@@ -9,7 +9,7 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 
 ---
 
-# 1. 今回追加した六つの核
+# 1. 今回追加した七つの核
 
 ## A. Series / Story Content Master
 
@@ -128,6 +128,37 @@ prompt / candidate
 ```
 
 の順にする。
+
+## G. Creative Taste / Relationship / Story Source — ユーザー嗜好原本
+
+`docs/creative-taste-relationship-story-source-v1.md`
+
+ユーザーが挙げた好きな作品・関係・感情を**忘れないための上流資料**。
+
+保存した方向:
+
+- 人生最大級のnon-romance bond
+- 兄弟 / 双子 / 三つ子の相互救済
+- 敵対者とのshared wound / different answer
+- 主人公不在でも生きる仲間集団
+- chosen familyだが個々の人生目標は融合しない
+- 人間 / Robot / 動物 / 異質な存在との信頼
+- 長寿者と有限な人間の時間差
+- 歳を取る怖さと、老いることの肯定
+- 非線形 / network型の群像関係
+- 独特な話し方を人物ごとに作るが、特定作家の文体を模倣しない
+- 年長者×年少者の擬似家族は非恋愛・非性的に扱う
+- 異なる世界の二人が互いを役割でなく人として見る信頼
+- cross-species competenceから生まれる友情
+- 敵側にも有能さ / 思想 /人間関係を持たせる
+- memory discontinuityがあっても「今の相手」と関係を選び直せるか
+- decades / aging / memoryを含む長い愛
+- 恋愛を友情 /兄弟 /師弟より上位tierにしない
+- 嫉妬 /本当の裏切り /離反 /死別 /再会 /卒業を別々の感情として持つ
+
+重要:
+
+> **元ネタを思い出すキャラを作る資料ではなく、なぜその関係が刺さるかをヨルノシルベ固有の関係へ変換する資料。**
 
 ---
 
