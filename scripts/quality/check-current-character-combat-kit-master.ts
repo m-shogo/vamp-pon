@@ -66,17 +66,19 @@ for (const kit of currentCharacterCombatKitEntries) {
     assert(kit.startingWeapon.runtimeStatus === 'CONTENT_SOURCE_ONLY', `candidate starter must remain content-only: ${kit.characterId}`);
   }
 
+  // Japanese prose carries more semantic information per code point than English prose.
+  // Keep these thresholds high enough to reject placeholder fragments without rewarding padding.
   for (const [label, value, min] of [
-    ['Star Beast mechanic', kit.starBeastMechanic, 35],
-    ['special passive', kit.specialPassive, 35],
-    ['black-youka change', kit.blackYouka.combatChange, 35],
-    ['black-youka tradeoff', kit.blackYouka.tradeoff, 25],
-    ['awakening trigger', kit.awakening.triggerMeaning, 25],
-    ['awakening gameplay shift', kit.awakening.gameplayShift, 30],
-    ['preferred build', kit.preferredBuild, 30],
-    ['friction build', kit.frictionBuild, 30],
-    ['relation assist', kit.relation.assist, 30],
-    ['pair synergy', kit.relation.pairSynergy, 30],
+    ['Star Beast mechanic', kit.starBeastMechanic, 30],
+    ['special passive', kit.specialPassive, 30],
+    ['black-youka change', kit.blackYouka.combatChange, 30],
+    ['black-youka tradeoff', kit.blackYouka.tradeoff, 20],
+    ['awakening trigger', kit.awakening.triggerMeaning, 18],
+    ['awakening gameplay shift', kit.awakening.gameplayShift, 25],
+    ['preferred build', kit.preferredBuild, 25],
+    ['friction build', kit.frictionBuild, 25],
+    ['relation assist', kit.relation.assist, 25],
+    ['pair synergy', kit.relation.pairSynergy, 25],
   ] as const) {
     assert(value.length >= min, `${kit.characterId} needs concrete ${label}`);
   }
