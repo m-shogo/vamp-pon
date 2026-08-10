@@ -1,29 +1,37 @@
 name: TOP Final Art Intake
 
 on:
-  push:
-    branches:
-      - art/top-core5-v3-final-intake
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
     paths:
       - 'docs/design-targets/generated/top-living-night-v3/intake-request.json'
 
 permissions:
   contents: write
+  pull-requests: read
 
 concurrency:
-  group: top-final-art-intake-${{ github.ref }}
+  group: top-final-art-intake-${{ github.event.pull_request.head.ref }}
   cancel-in-progress: false
 
 jobs:
   register:
-    if: ${{ github.actor != 'github-actions[bot]' }}
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      github.repository == 'm-shogo/vamp-pon' &&
+      github.event.pull_request.head.repo.full_name == 'm-shogo/vamp-pon' &&
+      github.event.pull_request.head.ref == 'art/top-core5-v3-final-intake'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      INTAKE_BRANCH: ${{ github.event.pull_request.head.ref }}
 
     steps:
-      - name: Checkout exact intake request commit
+      - name: Checkout exact intake branch head
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -149,5 +157,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'art: register TOP Core5 candidate and production packs'
-          git pull --rebase origin "$GITHUB_REF_NAME"
-          git push origin "HEAD:$GITHUB_REF_NAME"
+          git pull --rebase origin "$INTAKE_BRANCH"
+          git push origin "HEAD:$INTAKE_BRANCH"
