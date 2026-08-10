@@ -9,7 +9,7 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 
 ---
 
-# 1. 今回追加した四つの核
+# 1. 今回追加した五つの核
 
 ## A. Series / Story Content Master
 
@@ -65,6 +65,33 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 - ヒヨリ /トウマ /クロエ /ノア /ルム /カイ /ナオ等のFuture方向を維持
 - 三つ子 /若く見える長寿成人はgap reservoirのまま保持
 
+## E. All-character Appearance Distinction / Generation Contract
+
+Human-readable:
+
+- `docs/character-appearance-distinction-generation-contract-v1.md`
+
+Machine-readable:
+
+- `src/game/data/characterAppearanceGenerationContracts.ts`
+- `scripts/quality/check-character-appearance-generation-contracts.ts`
+- `.github/workflows/character-appearance-generation-contracts.yml`
+
+扱うもの:
+
+- **Current21 + Future15 = 36人全員**の顔貌signature
+- 顔型 / 顎 / 頬 / 目の形 / 目尻角度 / 二重 / 眉 / まつ毛 / 鼻 / 口 / ほくろ / そばかす / 傷
+- ピアス / 舌ピ / tattoo / 和彫り等のbody modification候補を人物史と接続
+- 髪型だけで差別化しないanti same-face invariant
+- clothing construction / accessory densityまで人物ごとに分ける
+- ユイの**エクボ必須**
+- カイ /ナオの双子、ノアのreplica bodyのように「似ることに意味がある」例外を明示
+- コヨリ等の年少人物へ成人向けbody modificationを配らない境界
+- 犬クウ /猫ヨモ /Robotルムへ人間anime顔を貼らない境界
+- 今後37人目以降の新規characterに `nearestExistingFace` / `howItDiffers` を必須化する設計
+
+生成時はcharacter名だけでなく、このAppearance ContractをPrompt Builderへ添付する。
+
 ---
 
 # 2. User direction captured
@@ -107,6 +134,15 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 クール
 動物
 機械 /Robot
+細目
+吊り目
+猫目
+ゲジ眉
+一重 /奥二重 /末広二重 /平行二重
+上まつ毛 /下まつ毛の差
+ほくろ /そばかす /傷 /笑い皺
+ピアス /舌ピ /tattoo /和彫り
+服装construction /アクセサリー密度の差
 ```
 
 既存Future15で既に保持されている:
@@ -129,6 +165,7 @@ Current側で既に保持されている:
 - メガネのシロ /レン
 - 兄妹リツ /コヨリ
 - 主人公級非恋愛バディ ユイ /アサ
+- ユイ = 主人公のエクボをvisual identityへ追加
 
 三つ子は不足枠としてCandidate reservoirへ追加するが、Future15へ自動追加しない。
 
@@ -142,10 +179,10 @@ Human Review後、採用する場合は一気にCanon化しない。
 
 ```txt
 P1: Series1感情arcだけ採用
-P2: Current21へのniche appeal配布を人物ごとreview
+P2: Current21へのniche appeal / face appearance配布を人物ごとreview
 P3: Series1 Story beat / Enemy48 / Named Object接続
 P4: Series2 sequel candidate roster選定
-P5: Series2 relation arcs
+P5: Series2 relation arcs + Future appearance review
 P6: Series3伏線だけ採用し、Main Mystery final answerはOPEN維持
 ```
 
@@ -162,6 +199,8 @@ P6: Series3伏線だけ採用し、Main Mystery final answerはOPEN維持
 - 死亡だけを泣き装置にしない
 - 1のHappy Endを2や3で「実は全部無意味だった」にしない
 - 幼く見える人物を性的に扱わない
+- 顔差分を髪色 /瞳色 /アクセサリーだけで済ませない
+- 生成AI defaultのV字顎 /大目 /小鼻 /同一まつ毛へ全員を収束させない
 
 ---
 
@@ -169,6 +208,6 @@ P6: Series3伏線だけ採用し、Main Mystery final answerはOPEN維持
 
 このCandidate群の狙いは「キャラ数を増やす」ことではない。
 
-> **既にいる人物を、見た目・生活・関係・失敗・別れ方まで交換不能なキャラへする。**
+> **既にいる人物を、顔・体型・見た目・生活・関係・失敗・別れ方まで交換不能なキャラへする。**
 
 新規追加より先にCurrent21 / Future15の密度を上げる。
