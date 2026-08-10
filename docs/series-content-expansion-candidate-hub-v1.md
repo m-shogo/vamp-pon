@@ -9,7 +9,7 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 
 ---
 
-# 1. 今回追加した五つの核
+# 1. 今回追加した六つの核
 
 ## A. Series / Story Content Master
 
@@ -65,7 +65,35 @@ Status: **CANDIDATE ENTRYPOINT / CURRENT CANON UNCHANGED**
 - ヒヨリ /トウマ /クロエ /ノア /ルム /カイ /ナオ等のFuture方向を維持
 - 三つ子 /若く見える長寿成人はgap reservoirのまま保持
 
-## E. All-character Appearance Distinction / Generation Contract
+## E. Character Appearance Source Book — 原本
+
+`docs/character-appearance-source-book-v1.md`
+
+**生成より上流の人物原本。**
+
+扱うもの:
+
+- Current21 + Future15 + 今後追加する全人物の容姿設計原則
+- 顔型 / 頬 / 目の開き / 目尻 / 目間隔 / 一重・奥二重・二重 / 眉 / 上下まつ毛 / 鼻 / 唇 / 歯 / 耳 / 生え際
+- エクボ / ゲジ眉 / 細目 / 吊り目 / 猫目 / 狐目 / 垂れ目 / 三白眼 / 八重歯 / 歯gap / ほくろ / そばかす / 年齢線 / 傷などの顔貌variation
+- ピアス / 舌ピ / septum / helix / industrial / tattoo / 和彫りCandidate / faded tattoo / piercing hole等のbody history
+- 手の大きさ / 節 / callus / 爪 / 指輪跡 / 作業痕
+- 体格 / 年齢 / 肌 / 姿勢 / clothing construction / accessory hierarchy
+- 友情 /兄弟 /擬似家族 /師弟 /恋愛 /離反 /再会 /卒業が外見へ残す変化
+- 歳を取る顔・手・刺青・服の変化と、不老者だけ変化しない怖さ
+- 双子 / 三つ子 / Replica Robotの「似ていることに意味がある」設計
+- 新規37人目以降も既存36人とのnearest face比較を必須化
+
+### HARD landmark例
+
+- ユイ = **笑顔の左右エクボ**。欠けた候補は不合格。
+- ミチル = ゲジ眉 + そばかす方向。
+- ハナ = 年長 + plus-size顔/bodyを維持。
+- カナメ = plus-size broad bodyを維持、slim化禁止。
+- シロ / レン = 丸メガネだが顔・視線・lens roleを分離。
+- ゲン = smooth young faceへ戻さず年齢を顔と手へ出す。
+
+## F. Appearance Distinction / Generation Contract — 派生
 
 Human-readable:
 
@@ -77,20 +105,29 @@ Machine-readable:
 - `scripts/quality/check-character-appearance-generation-contracts.ts`
 - `.github/workflows/character-appearance-generation-contracts.yml`
 
+Generation Contractは**EのAppearance Source Bookから派生**する。
+
 扱うもの:
 
-- **Current21 + Future15 = 36人全員**の顔貌signature
-- 顔型 / 顎 / 頬 / 目の形 / 目尻角度 / 二重 / 眉 / まつ毛 / 鼻 / 口 / ほくろ / そばかす / 傷
-- ピアス / 舌ピ / tattoo / 和彫り等のbody modification候補を人物史と接続
-- 髪型だけで差別化しないanti same-face invariant
-- clothing construction / accessory densityまで人物ごとに分ける
-- ユイの**エクボ必須**
-- カイ /ナオの双子、ノアのreplica bodyのように「似ることに意味がある」例外を明示
+- Current21 + Future15 = 36人全員のface signature
+- anti same-face invariant
+- candidate review / grayscale / crop / nearest-face QA
+- ユイの`YUI-SOFT-DIMPLE`等のmachine-readable hard landmark
+- カイ /ナオ、ノア等のintentional resemblance exception
 - コヨリ等の年少人物へ成人向けbody modificationを配らない境界
 - 犬クウ /猫ヨモ /Robotルムへ人間anime顔を貼らない境界
-- 今後37人目以降の新規characterに `nearestExistingFace` / `howItDiffers` を必須化する設計
 
-生成時はcharacter名だけでなく、このAppearance ContractをPrompt Builderへ添付する。
+生成時はcharacter名だけを渡さず:
+
+```txt
+Appearance Source Book
+↓
+Generation Contract
+↓
+prompt / candidate
+```
+
+の順にする。
 
 ---
 
@@ -137,11 +174,18 @@ Machine-readable:
 細目
 吊り目
 猫目
+狐目
+垂れ目
+三白眼
 ゲジ眉
-一重 /奥二重 /末広二重 /平行二重
+太眉 /細眉 /左右非対称眉
+一重 /奥二重 /末広二重 /平行二重 /heavy hood
 上まつ毛 /下まつ毛の差
-ほくろ /そばかす /傷 /笑い皺
-ピアス /舌ピ /tattoo /和彫り
+エクボ /ほくろ /そばかす /傷 /笑い皺 /年齢線
+八重歯 /前歯 /歯gap /唇差
+ピアス /舌ピ /septum /helix /industrial
+tattoo /和彫りCandidate /faded tattoo
+手 /爪 /指輪 /callus /作業痕
 服装construction /アクセサリー密度の差
 ```
 
@@ -165,7 +209,7 @@ Current側で既に保持されている:
 - メガネのシロ /レン
 - 兄妹リツ /コヨリ
 - 主人公級非恋愛バディ ユイ /アサ
-- ユイ = 主人公のエクボをvisual identityへ追加
+- ユイ = **エクボをHARD facial landmarkとして追加**
 
 三つ子は不足枠としてCandidate reservoirへ追加するが、Future15へ自動追加しない。
 
@@ -179,7 +223,7 @@ Human Review後、採用する場合は一気にCanon化しない。
 
 ```txt
 P1: Series1感情arcだけ採用
-P2: Current21へのniche appeal / face appearance配布を人物ごとreview
+P2: Current21へのniche appeal / Appearance Source配布を人物ごとreview
 P3: Series1 Story beat / Enemy48 / Named Object接続
 P4: Series2 sequel candidate roster選定
 P5: Series2 relation arcs + Future appearance review
@@ -201,6 +245,7 @@ P6: Series3伏線だけ採用し、Main Mystery final answerはOPEN維持
 - 幼く見える人物を性的に扱わない
 - 顔差分を髪色 /瞳色 /アクセサリーだけで済ませない
 - 生成AI defaultのV字顎 /大目 /小鼻 /同一まつ毛へ全員を収束させない
+- 生成の都合で原本のHard landmarkを落とさない
 
 ---
 
@@ -208,6 +253,6 @@ P6: Series3伏線だけ採用し、Main Mystery final answerはOPEN維持
 
 このCandidate群の狙いは「キャラ数を増やす」ことではない。
 
-> **既にいる人物を、顔・体型・見た目・生活・関係・失敗・別れ方まで交換不能なキャラへする。**
+> **既にいる人物を、顔・体型・手・傷・服・生活・関係・失敗・老い・別れ方まで交換不能なキャラへする。**
 
 新規追加より先にCurrent21 / Future15の密度を上げる。
