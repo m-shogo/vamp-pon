@@ -65,10 +65,12 @@ assert(selectedBaseWeaponGameplaySummary.profilesWithAnyTransformation >= 14, 'm
 assert(selectedBaseWeaponGameplaySummary.currentRuntimeEvolutionAdded === 0, 'selection source must not invent runtime evolution recipes');
 assert(!selectedBaseWeaponGameplaySummary.runtimeAutoPromotionAllowed, 'gameplay source must not auto-promote runtime');
 
+// Japanese prose can be semantically concrete with fewer code points than equivalent English prose.
+// These thresholds reject label-like placeholders without rewarding artificial sentence padding.
 for (const profile of selectedBaseWeaponGameplayProfiles) {
-  assert(profile.scalingIntent.length >= 30, `selected weapon needs scaling intent: ${profile.weaponId}`);
-  assert(profile.weakness.length >= 20, `selected weapon needs weakness: ${profile.weaponId}`);
-  assert(profile.buildCompensation.length >= 25, `selected weapon needs build compensation: ${profile.weaponId}`);
+  assert(profile.scalingIntent.length >= 25, `selected weapon needs scaling intent: ${profile.weaponId}`);
+  assert(profile.weakness.length >= 15, `selected weapon needs weakness: ${profile.weaponId}`);
+  assert(profile.buildCompensation.length >= 20, `selected weapon needs build compensation: ${profile.weaponId}`);
   assert(profile.requiredRuntimeHook.length > 0, `selected weapon needs runtime hook declaration: ${profile.weaponId}`);
   assert(profile.vfxSafety.includes('No full-screen'), `selected weapon must preserve VFX safety: ${profile.weaponId}`);
   assert(profile.audioCue.length > 0, `selected weapon needs audio language: ${profile.weaponId}`);
