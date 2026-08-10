@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-10",
+  "source": "src/game/data/characterSilhouetteCanon.ts",
+  "runtimeMigrationState": "DESIGN_CANON_ONLY",
+  "rules": {
+    "bodyShapeAffects": ["silhouette", "clothing drape", "pose", "animation language", "ensemble composition", "merchandise shape language"],
+    "bodyShapeMustNotAffectByDefault": ["hitbox", "movement speed", "stamina", "intelligence", "comic relief status", "moral alignment"],
+    "chubbyCharacterIds": ["hana", "kage1"]
+  },
+  "anchors": [
+    {
+      "runtimeId": "hana",
+      "lorebookId": "hana",
+      "name": "ハナ",
+      "role": "ぽっちゃり女性 / 年長女性",
+      "bodyDirection": "ふっくらした年長女性。丸い胴・腕・頬を保ち、細腰や若いモデル体型へ補正しない。",
+      "silhouetteRead": "丸いショール + 押し花 + 保管箱。",
+      "motionLanguage": "手元は素早く正確。歩行や回避を体型ギャグにしない。",
+      "topUse": "灯りの内側で生活の安心感を作る丸い輪郭。",
+      "themeHex": "#B5495B",
+      "starBeast": "ふっくらした白鳥"
+    },
+    {
+      "runtimeId": "kage1",
+      "lorebookId": "kaname",
+      "name": "カナメ",
+      "role": "ぽっちゃり男性 / 若い成人",
+      "bodyDirection": "横幅のあるがっしり＋柔らかい若い成人男性。筋肉だけの大型体型や細身へ置換しない。",
+      "silhouetteRead": "広い肩 + 厚い胴 + 受け灯の腕帯 + 大きな灰狼。",
+      "motionLanguage": "普段は静か。守る瞬間だけ一〜二歩を素早く詰める。",
+      "topUse": "輪の外周 / 風上で構図を支える大きな輪郭。",
+      "themeHex": "#2B2B2B",
+      "starBeast": "大きな灰狼"
+    },
+    {
+      "runtimeId": "gen",
+      "lorebookId": "gen",
+      "name": "ゲン",
+      "role": "渋い年長男性",
+      "bodyDirection": "初老〜シニア寄り。皺と年季を消して若返らせない。",
+      "silhouetteRead": "古い帽子 + コンパス + 低い重心。",
+      "motionLanguage": "無駄が少ない。老人ギャグのよろめきは禁止。",
+      "topUse": "少し離れて古い道や空を見る。",
+      "themeHex": "#867835",
+      "starBeast": "大熊"
+    },
+    {
+      "runtimeId": "shiro",
+      "lorebookId": "shiro",
+      "name": "シロ",
+      "role": "若い男性 / 中性寄り丸メガネ",
+      "bodyDirection": "レンと同じ輪郭へ寄せず、頁を読む姿勢で識別する。",
+      "silhouetteRead": "丸メガネ + 白いしおり + 頁の余白。",
+      "motionLanguage": "目線と頁の扱いで差を作る。",
+      "topUse": "メガネ越しに頁を読む。",
+      "themeHex": "#E3E5E8",
+      "starBeast": "山猫"
+    },
+    {
+      "runtimeId": "ren",
+      "lorebookId": "ren",
+      "name": "レン",
+      "role": "観察者 / 丸メガネ",
+      "bodyDirection": "reserve。シロと同じ体格・髪型・姿勢へ揃えない。",
+      "silhouetteRead": "丸メガネ + 片焦点のレンズ光。",
+      "motionLanguage": "止まる → 焦点を合わせる → 共有する。",
+      "topUse": "現行TOPへreserveとして自動追加しない。",
+      "themeHex": "#A2D7DD",
+      "starBeast": "小さな観察犬"
+    },
+    {
+      "runtimeId": "tomori",
+      "lorebookId": "tomori",
+      "name": "トモリ",
+      "role": "作業者 / ゴーグル",
+      "bodyDirection": "作業姿勢と道具で識別し、普通の眼鏡キャラへ寄せない。",
+      "silhouetteRead": "修理ゴーグル + 道具袋 + 継火の修理ランプ。",
+      "motionLanguage": "工具と火花の短い正確な動き。",
+      "topUse": "会話の横で何かを直している。",
+      "themeHex": "#8F2E14",
+      "starBeast": "少し煤けた若獅子"
+    }
+  ]
+}
