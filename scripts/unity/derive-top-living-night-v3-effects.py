@@ -169,32 +169,49 @@ def eff_lantern_glow(cand):
 
 # ---------- procedural sprite atlases ----------
 
+def _flame_lobe(draw, cx, base, w, h, col, alpha, rnd, wobble):
+    """A soft organic flame lobe built from stacked tapering ellipses."""
+    steps = 16
+    for s in range(steps):
+        t = s / (steps - 1)
+        y = base - h * t
+        lw = w * (1.0 - t) ** 0.85 * (1 + wobble * math.sin(t * 6 + rnd.random() * 3) * 0.12)
+        sway = wobble * math.sin(t * 3.1 + rnd.random()) * w * 0.10 * t
+        a = int(alpha * (0.55 + 0.45 * (1 - t)))
+        draw.ellipse([cx - lw / 2 + sway, y - lw * 0.55, cx + lw / 2 + sway, y + lw * 0.55],
+                     fill=col + (a,))
+
+
 def _flame_frame(size, seed_i):
     rnd = random.Random(1000 + seed_i)
     cell = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     d = ImageDraw.Draw(cell)
     cx = size / 2
-    base = size * 0.82
-    for layer, (col, wscale, hscale) in enumerate([
-        ((255, 120, 40), 0.42, 0.60),
-        ((255, 170, 70), 0.30, 0.48),
-        ((255, 225, 150), 0.17, 0.34),
-    ]):
-        tipx = cx + rnd.uniform(-size * 0.04, size * 0.04) * (layer + 1)
-        w = size * wscale
-        h = size * hscale * (1 + rnd.uniform(-0.06, 0.06))
-        pts = [
-            (cx - w / 2, base),
-            (cx - w * 0.25, base - h * 0.55),
-            (tipx, base - h),
-            (cx + w * 0.25, base - h * 0.55),
-            (cx + w / 2, base),
-        ]
-        d.polygon(pts, fill=col + (235,))
-    # coals
-    d.ellipse([cx - size * 0.22, base - 6, cx + size * 0.22, base + size * 0.05],
-              fill=(200, 70, 30, 200))
-    return cell.filter(ImageFilter.GaussianBlur(size * 0.012))
+    base = size * 0.80
+    wob = 1.0 + 0.5 * math.sin(seed_i)
+    # outer amber -> mid orange -> inner gold, each taller/thinner, painterly stacked.
+    _flame_lobe(d, cx, base, size * 0.46, size * 0.58 * (1 + rnd.uniform(-0.05, 0.08)),
+                (214, 96, 34), 150, rnd, wob)
+    _flame_lobe(d, cx, base, size * 0.32, size * 0.50 * (1 + rnd.uniform(-0.05, 0.08)),
+                (240, 150, 58), 190, rnd, wob)
+    _flame_lobe(d, cx, base, size * 0.19, size * 0.40 * (1 + rnd.uniform(-0.05, 0.08)),
+                (255, 214, 130), 220, rnd, wob)
+    cell = cell.filter(ImageFilter.GaussianBlur(size * 0.03))
+    # warm coal bed
+    coal = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    dc = ImageDraw.Draw(coal)
+    for _ in range(10):
+        r = rnd.uniform(size * 0.02, size * 0.05)
+        x = cx + rnd.uniform(-size * 0.2, size * 0.2)
+        y = base + rnd.uniform(-size * 0.02, size * 0.06)
+        dc.ellipse([x - r, y - r, x + r, y + r], fill=(200, 70, 28, rnd.randint(120, 200)))
+    coal = coal.filter(ImageFilter.GaussianBlur(size * 0.02))
+    cell = Image.alpha_composite(cell, coal)
+    # subtle paper grain in the lit area
+    grain = Image.effect_noise((size, size), 18).convert("L").point(lambda v: max(0, v - 128))
+    tex = Image.new("RGBA", (size, size), (255, 200, 140, 0))
+    tex.putalpha(ImageChops.multiply(grain, cell.getchannel("A")).point(lambda v: v // 3))
+    return Image.alpha_composite(cell, tex)
 
 
 def atlas_fire():
