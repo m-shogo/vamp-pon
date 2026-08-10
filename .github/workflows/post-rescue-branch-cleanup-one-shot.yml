@@ -53,14 +53,7 @@ jobs:
             git worktree add --detach /tmp/ref-main origin/main
             (cd /tmp/ref-old && node --experimental-strip-types scripts/quality/check-reference-first-bulk-generation-queue.ts && node --experimental-strip-types scripts/export-reference-first-bulk-generation-queue.ts /tmp/ref-old.json)
             (cd /tmp/ref-main && node --experimental-strip-types scripts/quality/check-reference-first-bulk-generation-queue.ts && node --experimental-strip-types scripts/export-reference-first-bulk-generation-queue.ts /tmp/ref-main.json)
-            node <<'NODE'
-            const fs = require('fs');
-            const canon = v => Array.isArray(v) ? v.map(canon) : (v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canon(v[k])])) : v);
-            const oldDoc = canon(JSON.parse(fs.readFileSync('/tmp/ref-old.json','utf8')));
-            const mainDoc = canon(JSON.parse(fs.readFileSync('/tmp/ref-main.json','utf8')));
-            if (JSON.stringify(oldDoc) !== JSON.stringify(mainDoc)) throw new Error('reference queue deterministic export differs from main');
-            console.log('reference queue deterministic export equivalence: PASS');
-            NODE
+            node -e 'const fs=require("fs"); const canon=v=>Array.isArray(v)?v.map(canon):(v&&typeof v==="object"?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v); const a=JSON.stringify(canon(JSON.parse(fs.readFileSync("/tmp/ref-old.json","utf8")))); const b=JSON.stringify(canon(JSON.parse(fs.readFileSync("/tmp/ref-main.json","utf8")))); if(a!==b) throw new Error("reference queue deterministic export differs from main"); console.log("reference queue deterministic export equivalence: PASS");'
           fi
 
       - name: Delete only audited obsolete refs
