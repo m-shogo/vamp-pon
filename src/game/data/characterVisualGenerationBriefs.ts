@@ -1,6 +1,6 @@
-import { characterSilhouetteAnchorById } from './characterSilhouetteCanon';
-import { current21SilhouetteMatrix } from './current21SilhouetteMatrix';
-import { characterThemeColorById } from './characterThemeColors';
+import { characterSilhouetteAnchorById } from './characterSilhouetteCanon.ts';
+import { current21SilhouetteMatrix } from './current21SilhouetteMatrix.ts';
+import { characterThemeColorById } from './characterThemeColors.ts';
 
 export type CharacterVisualGenerationBrief = {
   characterId: string;
