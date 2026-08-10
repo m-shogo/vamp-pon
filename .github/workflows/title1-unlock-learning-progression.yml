@@ -1,0 +1,38 @@
+name: title1-unlock-learning-progression
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
+      - 'src/game/data/title1UnlockResolutionSource.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'docs/title1-unlock-learning-progression-source-v1.md'
+      - 'scripts/quality/check-title1-unlock-learning-progression.ts'
+      - '.github/workflows/title1-unlock-learning-progression.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
+      - 'src/game/data/title1UnlockResolutionSource.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'docs/title1-unlock-learning-progression-source-v1.md'
+      - 'scripts/quality/check-title1-unlock-learning-progression.ts'
+      - '.github/workflows/title1-unlock-learning-progression.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Title1 unlock learning progression
+        run: node --experimental-strip-types scripts/quality/check-title1-unlock-learning-progression.ts
