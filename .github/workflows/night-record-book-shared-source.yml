@@ -1,0 +1,44 @@
+name: Night Record Book Shared Source
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/nightRecordBookSharedSource.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'docs/RELATIONSHIPS.md'
+      - 'docs/design-targets/generated/character-relationship-arc-map-v1.json'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-night-record-book-shared-source.ts'
+      - '.github/workflows/night-record-book-shared-source.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/nightRecordBookSharedSource.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/worldRouteSymbolSharedSource.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'docs/RELATIONSHIPS.md'
+      - 'docs/design-targets/generated/character-relationship-arc-map-v1.json'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-night-record-book-shared-source.ts'
+      - '.github/workflows/night-record-book-shared-source.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate six-section Night Record Book adapter
+        run: node --experimental-strip-types scripts/quality/check-night-record-book-shared-source.ts
