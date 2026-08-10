@@ -15,6 +15,21 @@ namespace VampPon.UnitySpike.UI.Screens
             "docs/design-targets/generated/top-living-night-v2/layers";
         private const string ResourceRoot = "TopLivingNight";
 
+        // Canonical FireFlipbook anchor (bottom-referenced normalized parent fraction).
+        // SINGLE SOURCE OF TRUTH for the final Core5 V3 fire center: the review pack and
+        // the drift checker READ these literals; do not redefine the value elsewhere.
+        // Bridge/V2 keeps its historical anchor; the final anchor matches the locked
+        // candidate (top-living-night-core5-candidate-430x932.png) fire center at
+        // top-referenced (0.500, 0.6325) == bottom-referenced (0.500, 0.3675).
+        internal static readonly Vector2 BridgeFireAnchor = new Vector2(.5f, .245f);
+        internal static readonly Vector2 FinalV3FireAnchor = new Vector2(.5f, .3675f);
+
+        // Runtime source-kind marker (mirrors TopLivingNightLayeredBridgeOverrideController).
+        private const string RuntimeSourceKindResource =
+            "TopLivingNightV3Generated/source-kind";
+        private const string EditorFinalStatusRelativePath =
+            "docs/design-targets/generated/top-living-night-v3/final-art-status.json";
+
         private static readonly LayerDefinition[] BackLayers =
         {
             new("Environment", "00-environment-starless.png", 1f),
@@ -53,6 +68,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private TextMeshProUGUI status;
         private Coroutine loadRoutine;
         private bool reducedMotion;
+        private bool useFinalEffectPack;
         private int loadFailures;
         private int fireFrame;
         private int fireDirection = 1;
@@ -92,10 +108,13 @@ namespace VampPon.UnitySpike.UI.Screens
             foreach (var layer in BackLayers)
                 CreateFullLayer(layer);
 
+            // Final Core5 V3 effect pack repositions fire to the candidate fire center;
+            // the verified bridge/V2 keeps its historical anchor. Resolved before layout.
+            useFinalEffectPack = ResolveFinalEffectPackActive();
             fire = CreateRawImage(artRoot, "FireFlipbook", 1f, false);
             ConfigureAnchoredBox(
                 fire.rectTransform,
-                new Vector2(.5f, .245f),
+                useFinalEffectPack ? FinalV3FireAnchor : BridgeFireAnchor,
                 new Vector2(150f, 126f));
             fire.uvRect = AtlasCell(0, 4, 3);
 
@@ -329,8 +348,13 @@ namespace VampPon.UnitySpike.UI.Screens
                 new Vector2(-8f, -224f),
             };
 
+            // Same fire-center delta as the FireFlipbook when the final pack is active,
+            // so smoke stays anchored above the repositioned fire (zero for bridge/V2).
+            var delta = FinalEffectPackAnchorDeltaPixels();
+
             for (var index = 0; index < origins.Length; index++)
             {
+                var origin = origins[index] + delta;
                 var image = CreateRawImage(
                     artRoot,
                     $"Smoke_{index + 1:00}",
@@ -341,12 +365,12 @@ namespace VampPon.UnitySpike.UI.Screens
                 image.color = new Color(.70f, .72f, .80f, .20f);
                 ConfigureCenteredBox(
                     image.rectTransform,
-                    origins[index],
+                    origin,
                     new Vector2(86f + index * 8f, 124f + index * 10f));
                 image.transform.SetSiblingIndex(foreground.GetSiblingIndex());
                 smoke.Add(new ParticleView(
                     image,
-                    origins[index],
+                    origin,
                     4.8f + index * 1.05f,
                     .17f + index * .23f,
                     38f + index * 7f));
@@ -355,6 +379,10 @@ namespace VampPon.UnitySpike.UI.Screens
 
         private void BuildEmbers(Texture2D atlas)
         {
+            // Same fire-center delta as the FireFlipbook when the final pack is active
+            // (zero for bridge/V2), keeping embers rising from the repositioned fire.
+            var delta = FinalEffectPackAnchorDeltaPixels();
+
             for (var index = 0; index < 10; index++)
             {
                 var image = CreateRawImage(
@@ -367,7 +395,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 image.color = new Color(1f, .67f, .28f, .72f);
                 var origin = new Vector2(
                     -28f + index % 5 * 14f,
-                    -246f + index % 3 * 8f);
+                    -246f + index % 3 * 8f) + delta;
                 ConfigureCenteredBox(
                     image.rectTransform,
                     origin,
@@ -660,6 +688,55 @@ namespace VampPon.UnitySpike.UI.Screens
             rect.anchoredPosition = position;
         }
 
+        // Pixel delta between the final and bridge fire anchors, resolved against the
+        // actual parent size so it is CanvasScaler-independent. Zero unless the final
+        // effect pack is active, so bridge/V2 smoke/ember placement is unchanged.
+        private Vector2 FinalEffectPackAnchorDeltaPixels()
+        {
+            if (!useFinalEffectPack || artRoot == null)
+                return Vector2.zero;
+
+            var size = artRoot.rect.size;
+            var delta = FinalV3FireAnchor - BridgeFireAnchor;
+            return new Vector2(delta.x * size.x, delta.y * size.y);
+        }
+
+        // Final Core5 V3 effect pack is active only when the runtime source is NOT the
+        // verified bridge. Mirrors TopLivingNightLayeredBridgeOverrideController's gate so
+        // final-only layout never affects bridge/V2, and stays fail-closed to bridge.
+        private static bool ResolveFinalEffectPackActive()
+        {
+#if UNITY_EDITOR
+            try
+            {
+                var repositoryRoot = Path.GetFullPath(
+                    Path.Combine(Application.dataPath, "..", "..", ".."));
+                var statusPath = Path.Combine(
+                    repositoryRoot,
+                    EditorFinalStatusRelativePath.Replace('/', Path.DirectorySeparatorChar));
+                if (!File.Exists(statusPath))
+                    return false;
+
+                var status = JsonUtility.FromJson<FireAnchorFinalStatus>(
+                    File.ReadAllText(statusPath));
+                return status != null && status.schemaVersion == 1 && status.candidateGenerated;
+            }
+            catch
+            {
+                return false;
+            }
+#else
+            var marker = Resources.Load<TextAsset>(RuntimeSourceKindResource);
+            if (marker == null)
+                return false;
+
+            var isBridge = string.Equals(
+                marker.text.Trim(), "bridge", StringComparison.Ordinal);
+            Resources.UnloadAsset(marker);
+            return !isBridge;
+#endif
+        }
+
         private static Rect AtlasCell(int index, int columns, int rows)
         {
             var column = index % columns;
@@ -674,6 +751,13 @@ namespace VampPon.UnitySpike.UI.Screens
         {
             color.a = Mathf.Clamp01(alpha);
             return color;
+        }
+
+        [Serializable]
+        private sealed class FireAnchorFinalStatus
+        {
+            public int schemaVersion;
+            public bool candidateGenerated;
         }
 
         private readonly struct LayerDefinition

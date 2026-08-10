@@ -9,6 +9,8 @@ on:
       - 'scripts/quality/check-top-living-night-effect-companion-pack.ts'
       - 'scripts/quality/check-top-living-night-generation-bundle.ts'
       - 'scripts/quality/check-top-living-night-post-generation-gate-chain.ts'
+      - 'scripts/quality/check-top-living-night-fire-anchor-drift.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightEffectCompanionPackController.cs'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightEffectCompanionPackBuildSync.cs'
       - '.github/workflows/top-final-effect-companion.yml'
@@ -20,6 +22,8 @@ on:
       - 'scripts/quality/check-top-living-night-effect-companion-pack.ts'
       - 'scripts/quality/check-top-living-night-generation-bundle.ts'
       - 'scripts/quality/check-top-living-night-post-generation-gate-chain.ts'
+      - 'scripts/quality/check-top-living-night-fire-anchor-drift.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightView.cs'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/UI/Screens/TopLivingNightEffectCompanionPackController.cs'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/TopLivingNightEffectCompanionPackBuildSync.cs'
       - '.github/workflows/top-final-effect-companion.yml'
@@ -49,3 +53,6 @@ jobs:
 
       - name: Verify post-generation effect/semantic/Unity ordering
         run: node --experimental-strip-types scripts/quality/check-top-living-night-post-generation-gate-chain.ts
+
+      - name: Verify review fire-anchor matches runtime final layout (drift)
+        run: node --experimental-strip-types scripts/quality/check-top-living-night-fire-anchor-drift.ts
