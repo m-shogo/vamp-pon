@@ -192,7 +192,7 @@ const stageById = new Map(series1StageCampaignContentEntries.map((stage) => [sta
 const reactionById = new Map<string, (typeof attributeReactions)[number]>(
   attributeReactions.map((reaction) => [reaction.id, reaction]),
 );
-const selectedWeaponIds = new Set(selectedTitle1BaseWeaponCandidates.map((weapon) => weapon.weaponId));
+const selectedWeaponIds = new Set<string>(selectedTitle1BaseWeaponCandidates.map((weapon) => weapon.weaponId));
 
 export const title1UnlockLearningProgressionEntries = seeds.map((seed, index) => {
   const stage = stageById.get(seed.stageId);
