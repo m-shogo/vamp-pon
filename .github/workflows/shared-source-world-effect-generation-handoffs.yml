@@ -1,0 +1,38 @@
+name: Shared Source World Effect Generation Handoffs
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/worldEffectSharedSource.ts'
+      - 'src/game/data/worldEffectGenerationHandoff.ts'
+      - 'scripts/export-world-effect-generation-handoffs.ts'
+      - 'scripts/quality/check-world-effect-generation-handoffs.ts'
+      - '.github/workflows/shared-source-world-effect-generation-handoffs.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/worldEffectSharedSource.ts'
+      - 'src/game/data/worldEffectGenerationHandoff.ts'
+      - 'scripts/export-world-effect-generation-handoffs.ts'
+      - 'scripts/quality/check-world-effect-generation-handoffs.ts'
+      - '.github/workflows/shared-source-world-effect-generation-handoffs.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate World Effect generation strategy
+        run: node --experimental-strip-types scripts/quality/check-world-effect-generation-handoffs.ts
+
+      - name: Export deterministic World Effect handoff manifest
+        run: node --experimental-strip-types scripts/export-world-effect-generation-handoffs.ts /tmp/world-effect-generation-handoff-v1.json
+
+      - name: Parse exported manifest
+        run: node -e "const fs=require('fs'); const p='/tmp/world-effect-generation-handoff-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.handoffs)||d.handoffs.length!==d.summary.total) process.exit(1); console.log('events='+d.handoffs.length+', generated='+d.summary.generatedTextureCandidateEvents.join('/')+', blocked='+d.summary.blockedEvents.join('/'));"
