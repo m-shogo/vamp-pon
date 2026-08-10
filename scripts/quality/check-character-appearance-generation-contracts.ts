@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+
 import {
   characterAppearanceGenerationContracts,
   characterAppearanceGenerationSummary,
@@ -6,6 +8,40 @@ import {
 const fail = (message: string): never => {
   throw new Error(`[character-appearance-generation-contracts] ${message}`);
 };
+
+const appearanceSource = readFileSync('docs/character-appearance-source-book-v1.md', 'utf8');
+const sourceRequiredTokens = [
+  'Character Appearance Source Book',
+  'Current21 + Future15 + 今後追加する全人物',
+  '18軸',
+  '左右のエクボ',
+  'ゲジ眉',
+  '細目',
+  '吊り目',
+  '猫目',
+  '三白眼',
+  '奥二重',
+  '下まつ毛',
+  '八重歯',
+  'tongue piercing',
+  '和彫り',
+  '歳をとる怖さ',
+  '三つ子',
+  '新規キャラ作成時のAppearance Gate',
+];
+for (const token of sourceRequiredTokens) {
+  if (!appearanceSource.includes(token)) fail(`appearance source book lost required token: ${token}`);
+}
+
+if (!appearanceSource.includes('笑顔で**左右のエクボ**が読める')) {
+  fail('Yui source hard-landmark must require bilateral smile dimples');
+}
+if (!appearanceSource.includes('笑顔でエクボが完全消失した候補はREJECT')) {
+  fail('Yui source must reject smiling candidates without dimples');
+}
+if (!appearanceSource.includes('生成より上流の人物原本')) {
+  fail('appearance source must remain upstream of generation contracts');
+}
 
 if (characterAppearanceGenerationSummary.total !== 36) {
   fail(`expected 36 contracts, got ${characterAppearanceGenerationSummary.total}`);
@@ -70,6 +106,9 @@ if (!yui) fail('missing yui');
 if (!/dimple/i.test(`${yui.faceSignatureId} ${yui.cheekOrSurfaceMark} ${yui.forbiddenDrift.join(' ')}`)) {
   fail('Yui must explicitly preserve dimples');
 }
+if (!yui.forbiddenDrift.some((value) => /missing dimples/i.test(value))) {
+  fail('Yui must reject missing dimples in generated candidates');
+}
 
 const koyori = characterAppearanceGenerationContracts.find((entry) => entry.id === 'koyori');
 if (!koyori) fail('missing koyori');
@@ -101,5 +140,5 @@ for (const id of nonHumanIds) {
 }
 
 console.log(
-  `Character Appearance Generation Contracts: PASS (total=${characterAppearanceGenerationSummary.total}, current=${characterAppearanceGenerationSummary.current21}, future=${characterAppearanceGenerationSummary.future15}, signatures=${signatures.size}, intentionalGroups=${characterAppearanceGenerationSummary.intentionalResemblanceGroups.length})`,
+  `Character Appearance Generation Contracts: PASS (total=${characterAppearanceGenerationSummary.total}, current=${characterAppearanceGenerationSummary.current21}, future=${characterAppearanceGenerationSummary.future15}, signatures=${signatures.size}, intentionalGroups=${characterAppearanceGenerationSummary.intentionalResemblanceGroups.length}, sourceBook=protected)`,
 );
