@@ -1,0 +1,1 @@
+Audited cleanup trigger for obsolete refs already preserved on main.
