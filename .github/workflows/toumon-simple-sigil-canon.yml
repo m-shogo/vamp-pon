@@ -64,3 +64,5 @@ jobs:
           grep -q '相性診断ではない' docs/design/toumon-inworld-behavior-contract-v1.md
           grep -q 'Series Mystery reservoir' docs/design/toumon-inworld-behavior-contract-v1.md
           grep -q 'semantic fixation' docs/design/toumon-inworld-behavior-contract-v1.md
+      - name: Derive current asset-generation contract hash
+        run: node --experimental-strip-types scripts/asset-factory/export-generation-contracts.ts --summary-only
