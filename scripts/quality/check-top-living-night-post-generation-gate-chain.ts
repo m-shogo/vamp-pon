@@ -13,6 +13,14 @@ const bundle = read('docs/design-targets/generated/top-living-night-v3/final-gen
     perLayerShaBound: boolean;
     flattenedFinalFallbackAllowed: boolean;
   };
+  effectCompanionRuntime: {
+    registrar: string;
+    requiredEffects: string[];
+    candidateShaBound: boolean;
+    core5ReferenceSetBound: boolean;
+    perEffectShaBound: boolean;
+    legacyV2FallbackAllowedForFinal: boolean;
+  };
   postGenerationExecutionPlan: Array<{ phase: string; requires: string[]; parallel: string[] }>;
   requiredPostGenerationChecks: string[];
 };
@@ -33,6 +41,7 @@ function validUtc(value: string): boolean {
 const required = [
   'scripts/quality/check-top-living-night-final-art-candidate.ts',
   'scripts/quality/check-top-living-night-core5-candidate-provenance.ts',
+  'scripts/quality/check-top-living-night-effect-companion-pack.ts',
   'scripts/quality/check-top-living-night-core5-review.ts',
   'scripts/quality/check-top-living-night-crop-review.ts',
   'scripts/quality/check-top-living-night-unity-evidence.ts',
@@ -64,10 +73,18 @@ invariant(semantic.core5ReferenceSetBound, 'semantic runtime must bind Core5 ref
 invariant(semantic.perLayerShaBound, 'semantic runtime must bind each layer SHA');
 invariant(semantic.flattenedFinalFallbackAllowed === false, 'final runtime must not silently fall back to flattened final');
 
+const effects = bundle.effectCompanionRuntime;
+invariant(existsSync(join(root, effects.registrar)), 'effect companion registrar is missing');
+invariant(effects.requiredEffects.length === 10, 'effect runtime requires exactly ten candidate-bound companion assets');
+invariant(effects.candidateShaBound, 'effect runtime must bind final candidate SHA');
+invariant(effects.core5ReferenceSetBound, 'effect runtime must bind Core5 reference-set SHA');
+invariant(effects.perEffectShaBound, 'effect runtime must bind each effect SHA');
+invariant(effects.legacyV2FallbackAllowedForFinal === false, 'final runtime must not silently reuse V2 effect assets');
+
 invariant(
   JSON.stringify(bundle.postGenerationExecutionPlan.map(phase => phase.phase)) ===
     JSON.stringify([
-      'candidate-and-semantic-pack',
+      'candidate-and-production-packs',
       'unity-v3',
       'runtime-observation',
       'capture-human-review',
@@ -79,19 +96,21 @@ invariant(
 
 const candidatePhase = bundle.postGenerationExecutionPlan[0];
 invariant(
-  candidatePhase.parallel.includes('semantic-layer-pack-registration'),
-  'final candidate phase must register the semantic layer pack before Unity V3',
+  candidatePhase.parallel.includes('semantic-layer-pack-registration') &&
+    candidatePhase.parallel.includes('effect-companion-pack-registration'),
+  'final candidate phase must register semantic and effect packs before Unity V3',
 );
 const unityPhase = bundle.postGenerationExecutionPlan[1];
 invariant(
   unityPhase.requires.includes('semantic-layer-pack-registration') &&
+    unityPhase.requires.includes('effect-companion-pack-registration') &&
     unityPhase.parallel.includes('unity-v3-verification'),
-  'Unity V3 verification must depend on registered semantic final layers',
+  'Unity V3 verification must depend on registered semantic and effect final packs',
 );
 const finalPhase = bundle.postGenerationExecutionPlan[bundle.postGenerationExecutionPlan.length - 1];
 invariant(
   finalPhase.requires.includes('unity-v3-verification'),
-  'final promotion must explicitly require Unity V3 verification of the semantic runtime path',
+  'final promotion must explicitly require Unity V3 verification of the production-pack runtime path',
 );
 
 const motionExecuted = motion.normalMotion?.executed || motion.reducedMotion?.executed;
@@ -136,7 +155,7 @@ for (const [name, target] of [
 }
 
 console.log('TOP Living Night post-generation gate chain: PASS');
-console.log('parallel plan: candidate -> [Core5, crops, semantic pack] -> Unity -> [motion, capture] -> human/device -> promotion');
-console.log('final Unity cannot pass through a flattened-only path; semantic pack registration is an explicit prerequisite');
+console.log('parallel plan: candidate -> [Core5, crops, semantic pack, effect pack] -> Unity -> [motion, capture] -> human/device -> promotion');
+console.log('final Unity cannot pass through flattened-only or stale-V2-effect paths; semantic and effect pack registration are explicit prerequisites');
 console.log('motion is bound after Unity; human is bound after capture; device evidence is bound after Unity + capture');
 console.log('generation remains non-final; runtime/review execution may still be NOT_RUN');

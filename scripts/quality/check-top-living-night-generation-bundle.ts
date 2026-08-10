@@ -4,6 +4,7 @@ import './check-top-living-night-final-approval-temporal-chain.ts';
 import './check-top-living-night-readiness-summary.ts';
 import './check-top-living-night-final-promotion-safety.ts';
 import './check-top-living-night-static-review-registration.ts';
+import './check-top-living-night-effect-companion-pack.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -34,6 +35,18 @@ const semanticLayers = [
   '07-animal-robot.png',
   '09-fire-base.png',
   '15-foreground-accents.png',
+];
+const effectCompanions = [
+  '01-stars.png',
+  '02-clouds-far.png',
+  '03-clouds-near.png',
+  '05-distant-lights-mask.png',
+  '08-robot-eye-mask.png',
+  '10-fire-flipbook-atlas.png',
+  '11-fire-glow-mask.png',
+  '12-smoke-atlas.png',
+  '13-embers-atlas.png',
+  '14-lantern-glow-mask.png',
 ];
 
 invariant(bundle.schemaVersion === 1, 'TOP generation bundle schema mismatch');
@@ -77,6 +90,8 @@ for (const authority of [
   bundle.registration.script,
   bundle.semanticLayerRuntime.productionContract,
   bundle.semanticLayerRuntime.registrar,
+  bundle.effectCompanionRuntime.productionBrief,
+  bundle.effectCompanionRuntime.registrar,
 ]) {
   invariant(existsSync(join(root, authority)), `TOP generation authority is missing: ${authority}`);
 }
@@ -107,18 +122,32 @@ invariant(semantic.flattenedFinalFallbackAllowed === false, 'TOP final runtime m
 invariant(semantic.bridgeMayUseExistingV2SemanticLayers === true, 'TOP bridge semantic migration boundary mismatch');
 invariant(bundle.automation.semanticLayerRegistrar === semantic.registrar, 'TOP semantic layer registrar automation mismatch');
 
+const effects = bundle.effectCompanionRuntime;
+invariant(effects.incomingRoot === 'docs/design-targets/generated/top-living-night-v3/incoming/effects', 'TOP effect incoming root mismatch');
+invariant(effects.finalRoot === 'docs/design-targets/generated/top-living-night-v3/final/effects', 'TOP effect final root mismatch');
+invariant(effects.manifest === 'docs/design-targets/generated/top-living-night-v3/final/effect-companion-pack.json', 'TOP effect manifest path mismatch');
+invariant(JSON.stringify(effects.requiredEffects) === JSON.stringify(effectCompanions), 'TOP effect companion order/set mismatch');
+invariant(effects.dimensionContracts.fullCanvas === '430x932', 'TOP full-canvas effect size contract mismatch');
+invariant(effects.dimensionContracts['10-fire-flipbook-atlas.png'] === '1448x1086 / 4x3', 'TOP fire atlas contract mismatch');
+invariant(effects.dimensionContracts['12-smoke-atlas.png'] === '1536x1024 / 3x2', 'TOP smoke atlas contract mismatch');
+invariant(effects.dimensionContracts['13-embers-atlas.png'] === '256x128 / 4x2', 'TOP embers atlas contract mismatch');
+invariant(effects.candidateShaBound === true && effects.core5ReferenceSetBound === true && effects.perEffectShaBound === true, 'TOP effect pack must bind candidate/Core5/per-effect SHA');
+invariant(effects.legacyV2FallbackAllowedForFinal === false, 'TOP final effect runtime must not silently reuse V2 effects');
+invariant(effects.bridgeMayUseExistingV2Effects === true, 'TOP bridge effect migration boundary mismatch');
+invariant(bundle.automation.effectCompanionRegistrar === effects.registrar, 'TOP effect companion registrar automation mismatch');
+
 const expectedExecutionPlan: ExecutionPhase[] = [
-  { phase: 'candidate-and-semantic-pack', requires: ['final-candidate-registered'], parallel: ['core5-identity-review', 'three-crop-review', 'semantic-layer-pack-registration'] },
-  { phase: 'unity-v3', requires: ['final-candidate-registered', 'semantic-layer-pack-registration'], parallel: ['unity-v3-verification'] },
+  { phase: 'candidate-and-production-packs', requires: ['final-candidate-registered'], parallel: ['core5-identity-review', 'three-crop-review', 'semantic-layer-pack-registration', 'effect-companion-pack-registration'] },
+  { phase: 'unity-v3', requires: ['final-candidate-registered', 'semantic-layer-pack-registration', 'effect-companion-pack-registration'], parallel: ['unity-v3-verification'] },
   { phase: 'runtime-observation', requires: ['unity-v3-verification'], parallel: ['normal-and-reduced-motion-review', '15-frame-capture'] },
   { phase: 'capture-human-review', requires: ['15-frame-capture'], parallel: ['human-visual-review'] },
   { phase: 'device-performance', requires: ['unity-v3-verification', '15-frame-capture'], parallel: ['simulator-performance', 'physical-iphone-performance'] },
   { phase: 'final-promotion', requires: ['core5-identity-review','three-crop-review','unity-v3-verification','normal-and-reduced-motion-review','human-visual-review','simulator-performance','physical-iphone-performance'], parallel: ['approval-consistency','readiness-summary','guarded-final-promotion'] },
 ];
-invariant(JSON.stringify(bundle.postGenerationExecutionPlan) === JSON.stringify(expectedExecutionPlan), 'TOP generation execution plan diverged from dependency-correct semantic schedule');
+invariant(JSON.stringify(bundle.postGenerationExecutionPlan) === JSON.stringify(expectedExecutionPlan), 'TOP generation execution plan diverged from dependency-correct semantic/effect schedule');
 
 const expectedChecks = [
-  'scripts/quality/check-top-living-night-final-art-candidate.ts','scripts/quality/check-top-living-night-core5-candidate-provenance.ts','scripts/quality/check-top-living-night-core5-review.ts','scripts/quality/check-top-living-night-crop-review.ts','scripts/quality/check-top-living-night-unity-evidence.ts','scripts/quality/check-loading-top-capture-pack.ts','scripts/quality/check-top-living-night-human-review.ts','scripts/quality/check-top-living-night-motion-contract.ts','scripts/quality/check-top-living-night-device-performance-artifact.ts','scripts/quality/check-top-living-night-device-performance-policy.ts','scripts/quality/check-top-living-night-device-evidence.ts','scripts/quality/check-top-living-night-approval-consistency.ts','scripts/quality/check-top-living-night-readiness-summary.ts','scripts/quality/check-top-living-night-final-promotion-safety.ts',
+  'scripts/quality/check-top-living-night-final-art-candidate.ts','scripts/quality/check-top-living-night-core5-candidate-provenance.ts','scripts/quality/check-top-living-night-effect-companion-pack.ts','scripts/quality/check-top-living-night-core5-review.ts','scripts/quality/check-top-living-night-crop-review.ts','scripts/quality/check-top-living-night-unity-evidence.ts','scripts/quality/check-loading-top-capture-pack.ts','scripts/quality/check-top-living-night-human-review.ts','scripts/quality/check-top-living-night-motion-contract.ts','scripts/quality/check-top-living-night-device-performance-artifact.ts','scripts/quality/check-top-living-night-device-performance-policy.ts','scripts/quality/check-top-living-night-device-evidence.ts','scripts/quality/check-top-living-night-approval-consistency.ts','scripts/quality/check-top-living-night-readiness-summary.ts','scripts/quality/check-top-living-night-final-promotion-safety.ts',
 ];
 invariant(JSON.stringify(bundle.requiredPostGenerationChecks) === JSON.stringify(expectedChecks), 'TOP post-generation gate chain/order diverged');
 for (const check of expectedChecks) invariant(existsSync(join(root, check)), `TOP post-generation checker missing: ${check}`);
@@ -126,5 +155,6 @@ for (const check of expectedChecks) invariant(existsSync(join(root, check)), `TO
 console.log('TOP Living Night final generation bundle: PASS');
 console.log(`core5ReferenceSet=${bundle.core5.referenceSetSha256}`);
 console.log('model-facing inputs: sanitized 430x932 plate + five single-human Core5 identity references; engineering cutouts/raw bridge/diagnostics/dashboard context forbidden');
-console.log('runtime handoff: final candidate -> candidate-bound six-layer semantic pack -> Unity V3; flattened final fallback forbidden');
+console.log('P0 master family: one canonical candidate + six structural layers + ten candidate-bound effect companions');
+console.log('runtime handoff: final candidate -> [semantic pack + effect companion pack] -> Unity V3; flattened/V2 final fallback forbidden');
 console.log('bundle remains generation-ready only; no final/runtime approval is implied');
