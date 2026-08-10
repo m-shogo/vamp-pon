@@ -60,65 +60,75 @@ function groupDescriptor(entry: ReferenceFirstQueueEntry): {
   return { grouping: 'ITEM_KIND', groupKey: item.kind };
 }
 
-const groupOrder: string[] = [];
-const grouped = new Map<string, {
+type PendingPacket = {
+  compositeKey: string;
   grouping: ReferenceGenerationBatchGrouping;
   groupKey: string;
   sourceCategory: ReferenceFirstQueueEntry['sourceCategory'];
   entries: ReferenceFirstQueueEntry[];
-}>();
+};
 
+const packets: ReferenceGenerationBatchPacket[] = [];
+const groupPacketIndices = new Map<string, number>();
+let packetSequence = 1;
+let pending: PendingPacket | null = null;
+
+function flushPending(): void {
+  if (!pending || pending.entries.length === 0) return;
+  const groupPacketIndex = (groupPacketIndices.get(pending.compositeKey) ?? 0) + 1;
+  groupPacketIndices.set(pending.compositeKey, groupPacketIndex);
+  const referenceCount = pending.entries.length;
+  packets.push({
+    packetId: `reference-batch:${packetSequence.toString().padStart(3, '0')}:${pending.sourceCategory}:${pending.grouping.toLowerCase()}:${pending.groupKey}:${groupPacketIndex}`,
+    sequence: packetSequence,
+    grouping: pending.grouping,
+    groupKey: pending.groupKey,
+    sourceCategory: pending.sourceCategory,
+    queueIds: pending.entries.map((entry) => entry.queueId),
+    referenceCount,
+    candidateCountPerReference: 4,
+    candidateCapacity: referenceCount * 4,
+    executionState: 'PLANNED_NOT_STARTED',
+    automaticExecutionAllowed: false,
+    gate: {
+      maxReferencesPerPacket: 12,
+      maxCandidateArtifactsPerPacket: 48,
+      groupContextMustRemainHomogeneous: true,
+      exactFourCandidatesPerReference: true,
+      comparisonRequiredBeforeApproval: true,
+      oneShotFinalForbidden: true,
+      runtimeDerivativesExcluded: true,
+    },
+  });
+  packetSequence += 1;
+  pending = null;
+}
+
+// Preserve the canonical queue order. A packet may only extend while the next entry
+// has the same homogeneous context and the packet remains within the 12-reference cap.
+// If the same family/form/kind appears again later, it starts a new packet at that
+// later position instead of pulling entries forward and reordering the source queue.
 for (const entry of referenceFirstBulkGenerationQueue) {
   const descriptor = groupDescriptor(entry);
   const compositeKey = `${entry.sourceCategory}:${descriptor.grouping}:${descriptor.groupKey}`;
-  let bucket = grouped.get(compositeKey);
-  if (!bucket) {
-    bucket = {
+  const canAppend =
+    pending !== null &&
+    pending.compositeKey === compositeKey &&
+    pending.entries.length < MAX_REFERENCES_PER_PACKET;
+
+  if (!canAppend) {
+    flushPending();
+    pending = {
+      compositeKey,
       grouping: descriptor.grouping,
       groupKey: descriptor.groupKey,
       sourceCategory: entry.sourceCategory,
       entries: [],
     };
-    grouped.set(compositeKey, bucket);
-    groupOrder.push(compositeKey);
   }
-  bucket.entries.push(entry);
+  pending.entries.push(entry);
 }
-
-const packets: ReferenceGenerationBatchPacket[] = [];
-let packetSequence = 1;
-for (const compositeKey of groupOrder) {
-  const bucket = grouped.get(compositeKey);
-  if (!bucket) continue;
-  for (let offset = 0; offset < bucket.entries.length; offset += MAX_REFERENCES_PER_PACKET) {
-    const chunk = bucket.entries.slice(offset, offset + MAX_REFERENCES_PER_PACKET);
-    const chunkIndex = Math.floor(offset / MAX_REFERENCES_PER_PACKET) + 1;
-    const referenceCount = chunk.length;
-    packets.push({
-      packetId: `reference-batch:${packetSequence.toString().padStart(3, '0')}:${bucket.sourceCategory}:${bucket.grouping.toLowerCase()}:${bucket.groupKey}:${chunkIndex}`,
-      sequence: packetSequence,
-      grouping: bucket.grouping,
-      groupKey: bucket.groupKey,
-      sourceCategory: bucket.sourceCategory,
-      queueIds: chunk.map((entry) => entry.queueId),
-      referenceCount,
-      candidateCountPerReference: 4,
-      candidateCapacity: referenceCount * 4,
-      executionState: 'PLANNED_NOT_STARTED',
-      automaticExecutionAllowed: false,
-      gate: {
-        maxReferencesPerPacket: 12,
-        maxCandidateArtifactsPerPacket: 48,
-        groupContextMustRemainHomogeneous: true,
-        exactFourCandidatesPerReference: true,
-        comparisonRequiredBeforeApproval: true,
-        oneShotFinalForbidden: true,
-        runtimeDerivativesExcluded: true,
-      },
-    });
-    packetSequence += 1;
-  }
-}
+flushPending();
 
 export const referenceGenerationBatchPackets: readonly ReferenceGenerationBatchPacket[] = packets;
 export const referenceGenerationBatchPacketById = new Map(
