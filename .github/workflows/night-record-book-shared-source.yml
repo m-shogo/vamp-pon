@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'src/game/data/nightRecordBookSharedSource.ts'
+      - 'src/game/data/dawnProofSharedSource.ts'
       - 'src/game/data/currentRelationshipInventory.ts'
       - 'src/game/data/commercialProductionProfile.ts'
       - 'src/game/data/starBeastVisualSharedSource.ts'
@@ -14,12 +15,14 @@ on:
       - 'docs/RELATIONSHIPS.md'
       - 'docs/design-targets/generated/character-relationship-arc-map-v1.json'
       - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-dawn-proof-shared-source.ts'
       - 'scripts/quality/check-night-record-book-shared-source.ts'
       - '.github/workflows/night-record-book-shared-source.yml'
   push:
     branches: [main]
     paths:
       - 'src/game/data/nightRecordBookSharedSource.ts'
+      - 'src/game/data/dawnProofSharedSource.ts'
       - 'src/game/data/currentRelationshipInventory.ts'
       - 'src/game/data/commercialProductionProfile.ts'
       - 'src/game/data/starBeastVisualSharedSource.ts'
@@ -30,6 +33,7 @@ on:
       - 'docs/RELATIONSHIPS.md'
       - 'docs/design-targets/generated/character-relationship-arc-map-v1.json'
       - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-dawn-proof-shared-source.ts'
       - 'scripts/quality/check-night-record-book-shared-source.ts'
       - '.github/workflows/night-record-book-shared-source.yml'
 
@@ -42,5 +46,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Validate DAWN proof source
+        run: node --experimental-strip-types scripts/quality/check-dawn-proof-shared-source.ts
       - name: Validate six-section Night Record Book adapter
         run: node --experimental-strip-types scripts/quality/check-night-record-book-shared-source.ts
