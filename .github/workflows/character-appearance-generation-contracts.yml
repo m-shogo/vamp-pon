@@ -1,0 +1,34 @@
+name: Character Appearance Generation Contracts
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-appearance-source-book-v1.md'
+      - 'docs/character-appearance-distinction-generation-contract-v1.md'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'scripts/quality/check-character-appearance-generation-contracts.ts'
+      - '.github/workflows/character-appearance-generation-contracts.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/character-appearance-source-book-v1.md'
+      - 'docs/character-appearance-distinction-generation-contract-v1.md'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'scripts/quality/check-character-appearance-generation-contracts.ts'
+      - '.github/workflows/character-appearance-generation-contracts.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node --experimental-strip-types scripts/quality/check-character-appearance-generation-contracts.ts
