@@ -1,0 +1,11 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "yorunoshirube-site",
+  "compatibility_date": "2026-08-10",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "../../public/guide",
+    "not_found_handling": "404-page"
+  }
+}
