@@ -1,5 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
+import { currentRelationshipInventorySummary } from '../../src/game/data/currentRelationshipInventory.ts';
+import { dawnProofSharedSourceSummary } from '../../src/game/data/dawnProofSharedSource.ts';
 import {
   NIGHT_RECORD_BOOK_SECTION_IDS,
   NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT,
@@ -10,7 +12,6 @@ import {
   nightRecordBookSections,
   nightRecordBookSharedSourceSummary,
 } from '../../src/game/data/nightRecordBookSharedSource.ts';
-import { currentRelationshipInventorySummary } from '../../src/game/data/currentRelationshipInventory.ts';
 
 function fail(message: string): never {
   throw new Error(`[Night Record Book Shared Source] ${message}`);
@@ -48,7 +49,6 @@ assert(nightRecordBookSharedSourceSummary.people.total === 21, `PEOPLE total dri
 assert(nightRecordBookSharedSourceSummary.people.launchEligible === 20, 'PEOPLE launch count drift');
 assert(nightRecordBookSharedSourceSummary.people.reserve === 1, 'PEOPLE Reserve count drift');
 assert(JSON.stringify(nightRecordBookSharedSourceSummary.people.reserveIds) === JSON.stringify(['ren']), 'PEOPLE Reserve ID drift');
-
 assert(nightRecordBookSharedSourceSummary.starBeasts.total === 21, 'STAR BEAST total drift');
 assert(nightRecordBookSharedSourceSummary.starBeasts.launchEligible === 20, 'STAR BEAST launch count drift');
 assert(nightRecordBookSharedSourceSummary.starBeasts.reserve === 1, 'STAR BEAST Reserve count drift');
@@ -68,9 +68,7 @@ assert(nightRecordBookSharedSourceSummary.route.ticketInstances === 0, 'ticket i
 assert(nightRecordBookSharedSourceSummary.route.finalVectorApproved === false, 'route vector approval inferred');
 assert(/fake station codes|real railway/.test(route.emptyStateRule), 'ROUTE fake-station/railway guard missing');
 
-const relationMap = JSON.parse(readFileSync('docs/design-targets/generated/character-relationship-arc-map-v1.json', 'utf8')) as {
-  currentArcs?: unknown[];
-};
+const relationMap = JSON.parse(readFileSync('docs/design-targets/generated/character-relationship-arc-map-v1.json', 'utf8')) as { currentArcs?: unknown[] };
 assert(Array.isArray(relationMap.currentArcs), 'relationship currentArcs missing');
 assert(relationMap.currentArcs.length === NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT, `detailed machine relation count drift: ${relationMap.currentArcs.length}/${NIGHT_RECORD_RELATION_DETAILED_MACHINE_COUNT}`);
 assert(currentRelationshipInventorySummary.total === NIGHT_RECORD_RELATION_COVERAGE_COUNT, 'Current relationship inventory coverage drift');
@@ -82,8 +80,7 @@ const relationshipDoc = readFileSync('docs/RELATIONSHIPS.md', 'utf8');
 const inventoryStart = relationshipDoc.indexOf('# 3. Current strong arc inventory');
 const inventoryEnd = relationshipDoc.indexOf('# 4. Coverage pass detailed arcs');
 assert(inventoryStart >= 0 && inventoryEnd > inventoryStart, 'Current relationship inventory section missing');
-const inventorySection = relationshipDoc.slice(inventoryStart, inventoryEnd);
-const humanArcCount = (inventorySection.match(/^\d+\.\s/gm) ?? []).length;
+const humanArcCount = (relationshipDoc.slice(inventoryStart, inventoryEnd).match(/^\d+\.\s/gm) ?? []).length;
 assert(humanArcCount === NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT, `human Current relation inventory drift: ${humanArcCount}/${NIGHT_RECORD_RELATION_HUMAN_CURRENT_COUNT}`);
 
 const relation = nightRecordBookSectionById.get('RELATION');
@@ -91,28 +88,35 @@ assert(relation?.coverage === 'CURRENT_MACHINE', 'RELATION inventory coverage sh
 assert(relation.machineEntryCount === NIGHT_RECORD_RELATION_COVERAGE_COUNT, 'RELATION coverage count drift');
 assert(nightRecordBookSharedSourceSummary.relation.machineCoverageComplete === true, 'RELATION coverage completion flag drift');
 assert(nightRecordBookSharedSourceSummary.relation.detailedCoverageComplete === false, 'RELATION detailed completion must remain false');
-assert(/Only 12 have detailed machine arc payloads/.test(relation.publicPresentationRule), 'RELATION detail-coverage disclosure missing');
+assert(/Only 12 have detailed machine payloads/.test(relation.publicPresentationRule), 'RELATION detail-coverage disclosure missing');
 assert(/popularity/i.test(relation.spoilerRule), 'RELATION popularity-retcon guard missing');
 assert(/COVERAGE-ONLY SOURCE/.test(relation.emptyStateRule), 'RELATION coverage-only empty-state disclosure missing');
 
 const dawn = nightRecordBookSectionById.get('DAWN');
-assert(dawn?.coverage === 'LOCKED_DRAFT', 'DAWN must remain locked draft');
+assert(dawn?.coverage === 'PARTIAL_MACHINE', 'DAWN should be partial machine coverage after direct Stage1 proof normalization');
 assert(dawn.machineEntryCount === NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT, 'DAWN normalized count drift');
-assert(NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT === 0, 'DAWN entries must not be inferred from Stage1 board cells');
+assert(NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT === dawnProofSharedSourceSummary.directDawnProofCount, 'DAWN proof source sync drift');
+assert(NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT === 7, `DAWN direct proof count drift: ${NIGHT_RECORD_DAWN_NORMALIZED_ENTRY_COUNT}`);
+assert(dawn.sourcePaths.includes('src/game/data/dawnProofSharedSource.ts'), 'DAWN proof Shared Source path missing');
+assert(/explicitly says 夜明けする/.test(dawn.publicPresentationRule), 'DAWN direct-source filter disclosure missing');
+assert(/not True End/.test(dawn.spoilerRule), 'DAWN not-True-End boundary missing');
+assert(/never synthesize a Dawn scene/.test(dawn.emptyStateRule), 'DAWN no-synthetic-scene guard missing');
 assert(nightRecordBookSharedSourceSummary.dawn.stage1BoardSourceCellCount === 25, 'Stage1 board source cell count drift');
+assert(nightRecordBookSharedSourceSummary.dawn.standardClearProofs === 1, 'DAWN standard proof count drift');
+assert(nightRecordBookSharedSourceSummary.dawn.constraintClearProofs === 3, 'DAWN constraint proof count drift');
+assert(nightRecordBookSharedSourceSummary.dawn.masteryClearProofs === 1, 'DAWN mastery proof count drift');
+assert(nightRecordBookSharedSourceSummary.dawn.secretClearProofs === 2, 'DAWN secret proof count drift');
+assert(nightRecordBookSharedSourceSummary.dawn.narrativeScenesInferred === false, 'DAWN narrative scene inferred');
 const allLightsSource = readFileSync('src/game/data/allLightsCompletion.ts', 'utf8');
 assert(/runtimeFrozen: false/.test(allLightsSource), 'All Lights runtimeFrozen=false boundary drift');
 assert(nightRecordBookSharedSourceSummary.dawn.allLightsRuntimeFrozen === false, 'DAWN summary inferred All Lights runtime freeze');
-assert(/not True End/.test(dawn.spoilerRule), 'DAWN not-True-End boundary missing');
 
 const ipSource = readFileSync('docs/design/ip-symbol-merch-system-v1.md', 'utf8');
 const nightRecordStart = ipSource.indexOf('# 9. 「夜の記録帳」— Collection Hub');
 const nextSection = ipSource.indexOf('# 10. Display / Carry Goods');
 assert(nightRecordStart >= 0 && nextSection > nightRecordStart, 'Night Record Book authority section missing');
 const nightRecordAuthority = ipSource.slice(nightRecordStart, nextSection);
-for (const label of ['PEOPLE', 'STAR BEAST', 'OBJECT', 'ROUTE', 'RELATION', 'DAWN']) {
-  assert(nightRecordAuthority.includes(label), `IP authority missing section ${label}`);
-}
+for (const label of ['PEOPLE', 'STAR BEAST', 'OBJECT', 'ROUTE', 'RELATION', 'DAWN']) assert(nightRecordAuthority.includes(label), `IP authority missing section ${label}`);
 assert(/全部集める=真End/.test(nightRecordAuthority), 'collection-not-True-End authority missing');
 
 assert(nightRecordBookSharedSourceSummary.sectionCount === 6, 'summary section count drift');
@@ -121,17 +125,11 @@ assert(nightRecordBookSharedSourceSummary.canBulkGeneratePagesNow === false, 'Ni
 assert(nightRecordBookSharedSourceSummary.physicalPurchaseRequired === false, 'physical purchase requirement inferred');
 assert(nightRecordBookSharedSourceSummary.trueEndRequired === false, 'True End requirement inferred');
 assert(nightRecordBookSharedSourceSummary.sectionExpansionApproved === false, 'six-section expansion inferred');
-
-for (const extra of ['ENEMY', 'WEAPON', 'STAGE', 'ACHIEVEMENT', 'REWARD']) {
-  assert(!nightRecordBookSectionById.has(extra as never), `unapproved seventh+ section added: ${extra}`);
-}
+for (const extra of ['ENEMY', 'WEAPON', 'STAGE', 'ACHIEVEMENT', 'REWARD']) assert(!nightRecordBookSectionById.has(extra as never), `unapproved seventh+ section added: ${extra}`);
 
 console.log(
   `Night Record Book Shared Source: PASS (` +
-    `sections=${nightRecordBookSections.length}, people=${nightRecordBookSharedSourceSummary.people.total}, ` +
-    `starBeasts=${nightRecordBookSharedSourceSummary.starBeasts.total}, objects=${nightRecordBookSharedSourceSummary.objects.total}, ` +
-    `route=${nightRecordBookSharedSourceSummary.route.routeInstances}, ` +
-    `relationCoverage=${nightRecordBookSharedSourceSummary.relation.machineCoverageArcs}/${nightRecordBookSharedSourceSummary.relation.humanCurrentStrongInventory}, ` +
-    `relationDetailed=${nightRecordBookSharedSourceSummary.relation.detailedMachineArcs}/${nightRecordBookSharedSourceSummary.relation.humanCurrentStrongInventory}, ` +
-    `dawn=${nightRecordBookSharedSourceSummary.dawn.normalizedEntries}, bulkPages=false)`,
+    `sections=${nightRecordBookSections.length}, relationCoverage=${nightRecordBookSharedSourceSummary.relation.machineCoverageArcs}/24, ` +
+    `relationDetailed=${nightRecordBookSharedSourceSummary.relation.detailedMachineArcs}/24, ` +
+    `dawn=${nightRecordBookSharedSourceSummary.dawn.normalizedEntries}/25, bulkPages=false)`,
 );
