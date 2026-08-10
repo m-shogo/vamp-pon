@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-10",
+  "source": "src/game/data/seriesCastSelection.ts",
+  "status": "CANDIDATE_EVALUATION_ONLY",
+  "titleQuestions": {
+    "yoruno-2": "自分が始めていないものを、どう受け継ぐか？",
+    "yoruno-3": "残すための仕組みは、いつ手放してよいのか？"
+  },
+  "axes": [
+    {"id":"titleThemeFit","label":"THEME","kind":"opportunity"},
+    {"id":"gameplayNovelty","label":"PLAY","kind":"opportunity"},
+    {"id":"eraExpansion","label":"ERA","kind":"opportunity"},
+    {"id":"namedObjectBridge","label":"OBJECT","kind":"opportunity"},
+    {"id":"relationshipExpansion","label":"RELATION","kind":"opportunity"},
+    {"id":"commercialDistinctiveness","label":"IP","kind":"opportunity"},
+    {"id":"oldCastDependencyRisk","label":"DEPENDENCY","kind":"risk"},
+    {"id":"expositionBurdenRisk","label":"EXPOSITION","kind":"risk"}
+  ],
+  "policy": {
+    "newViewpointMajority": true,
+    "noAutomaticSelectionByScore": true,
+    "noPopularityForecastInScore": true,
+    "returningCastRule": "旧castは人気ではなく、Named Object / relationship / era / resolved-growth next-step / gameplay handoffが新作の問いへ直接必要な時だけ戻す。全員集合をdefaultにしない。",
+    "immutableFromTitle1": [
+      "Title1 Happy End is real",
+      "resolved character growth is not reset",
+      "relationship type is not rewritten by popularity",
+      "body / age / disability / presentation is not marketability-retconned"
+    ]
+  },
+  "candidates": [
+    {"id":"F01","name":"ヒヨリ","maturity":"high_priority","core":"人を肯定するのが速いが、自分の弱音だけ遅らせる。","title2":{"scores":[4,4,3,3,5,5,1,2],"lane":"social relay / receiving help","concern":"明るさで継承テーマを軽くできる一方、Mystery説明役にはしない。"},"title3":{"scores":[3,4,3,2,5,5,1,2],"lane":"community / letting others carry","concern":"終盤の宇宙論より、他者へ任せる日常側の答えに強い。"}},
+    {"id":"F02","name":"セリカ","maturity":"high_priority","core":"責任を引き受けることを礼儀だと思い、頼ることが下手。","title2":{"scores":[5,4,4,3,5,4,1,3],"lane":"receive / delegate / inherited responsibility","concern":"家や制度の説明が人物より前へ出ないようにする。"},"title3":{"scores":[3,4,4,3,4,4,1,3],"lane":"release responsibility","concern":"恋愛や家柄だけを終盤テーマの装置にしない。"}},
+    {"id":"F03","name":"クロエ","maturity":"anchor_potential","core":"不老の成人女性。愛した人が必ず自分より先へ行くことを知りすぎた。","title2":{"scores":[5,5,5,5,5,5,2,5],"lane":"generation handoff / long memory","concern":"強い設定でSeries2を魔女の過去説明にしない。"},"title3":{"scores":[5,5,5,5,5,5,2,4],"lane":"keep / release / long-lived witness","concern":"最終作anchor適性は高いが、Nightの全てを知る全知人物にはしない。"}},
+    {"id":"F04","name":"レンジ","maturity":"deepen_before_promotion","core":"有限だから時間を止めずに生きたい年を取る弟子。","title2":{"scores":[5,4,5,4,5,3,5,3],"lane":"mentor succession / finite time","concern":"現状クロエ依存が強い。独立Gameplay・生活・関係を深めるまでanchor化しない。"},"title3":{"scores":[4,4,5,4,5,3,5,3],"lane":"finite life answering permanence","concern":"クロエとの関係だけで人物価値を決めない。"}},
+    {"id":"F05","name":"トウマ","maturity":"high_priority","core":"自分の名前より、作ったものが残ればいいと思う職人。","title2":{"scores":[5,5,4,5,5,5,1,2],"lane":"craft lineage / maker-to-user handoff","concern":"名を残さない職人という美談だけで自己消去を肯定しない。"},"title3":{"scores":[5,5,4,5,5,5,1,2],"lane":"what deserves a maker name","concern":"sexualityを悲劇装置にしない。"}},
+    {"id":"F06","name":"クウ","maturity":"high_priority","core":"名前ではなく匂い・声・歩き方で人を覚える現実由来の犬。","title2":{"scores":[4,5,3,3,5,5,1,2],"lane":"memory beyond labels / rescue route","concern":"人間より真実を知るoracle animalへしない。"},"title3":{"scores":[4,5,3,3,5,5,1,2],"lane":"what remains without language","concern":"星獣と役割を混同しない。"}},
+    {"id":"F07","name":"ヨモ","maturity":"high_priority","core":"違う名で呼ばれても一匹の人生は分裂しない現実由来の猫。","title2":{"scores":[3,4,4,2,5,5,1,2],"lane":"multiple keepers / multiple names","concern":"名前テーマの再演だけにせず、現実動物の生活を主語にする。"},"title3":{"scores":[5,4,4,3,5,5,1,2],"lane":"identity after labels are released","concern":"マスコット人気だけで中心Mysteryを解かせない。"}},
+    {"id":"F08","name":"ノア","maturity":"anchor_potential","core":"同一snapshotから二bodyが起動し、両方が同じ根拠で本人と言える人工人格。","title2":{"scores":[5,5,5,4,5,5,1,4],"lane":"continuity / copy / inherited memory","concern":"tech twistが紙・灯り・生活の手触りを上書きしない。"},"title3":{"scores":[5,5,5,4,5,5,1,4],"lane":"what must remain identical","concern":"Series2で払った中心回答を3でresetしない。"}},
+    {"id":"F09","name":"ルム","maturity":"anchor_potential","core":"共有memoryから「ぼく」が生まれる小型灯守機。","title2":{"scores":[5,5,5,5,5,5,1,4],"lane":"maintenance handoff / selective sync","concern":"かわいいRobotだけで終わらせず灯守maintenance gameplayを持たせる。"},"title3":{"scores":[5,5,5,5,5,5,1,4],"lane":"maintainer system / choose what not to sync","concern":"Night maintainer真相を全部知るsystem adminにはしない。"}},
+    {"id":"F10","name":"マキ","maturity":"high_priority","core":"決断が速く、頼られる側でいることに慣れすぎる成人女性。","title2":{"scores":[4,5,3,2,5,4,1,2],"lane":"delegate decisions / receive uncertainty","concern":"Bisexualityを選択テーマの比喩にしない。"},"title3":{"scores":[3,5,3,2,5,4,1,2],"lane":"leave choices to others","concern":"decision gameplayが他Characterのagencyを奪わない。"}},
+    {"id":"F11","name":"スズ","maturity":"high_priority","core":"装うことは嘘ではなく、自分で選んだ表現だと知る成人男性。","title2":{"scores":[3,5,3,3,5,5,1,2],"lane":"roles we inherit vs roles we choose","concern":"feminine presentationを正体 / 性別twistにしない。"},"title3":{"scores":[4,5,3,3,5,5,1,2],"lane":"when a role can be put down","concern":"素の自分=装わない姿、という結論へしない。"}},
+    {"id":"F12","name":"イオ","maturity":"high_priority","core":"分類される前に、目の前の音や人を聞く。","title2":{"scores":[4,4,3,3,5,5,1,3],"lane":"provisional naming / received categories","concern":"性別当てをMystery化せず、分類テーマを本人のgenderへ回収しない。"},"title3":{"scores":[5,4,3,3,5,5,1,3],"lane":"what can remain unclassified","concern":"何も決めないことが正解にならないよう暫定判断も扱う。"}},
+    {"id":"F13","name":"カイ","maturity":"anchor_potential","core":"二人で一つ扱いされる安心を手放すのが怖い双子A。","title2":{"scores":[5,5,3,3,5,5,2,3],"lane":"shared inheritance / separation","concern":"ナオとのsetだけで機能せず個人sceneも持つ。"},"title3":{"scores":[4,5,3,3,5,5,2,3],"lane":"what remains shared after separation","concern":"Robot identity問題の人間版コピーにならない。"}},
+    {"id":"F14","name":"ナオ","maturity":"anchor_potential","core":"「双子だから同じ」を嫌い、違いを作りすぎる双子B。","title2":{"scores":[5,5,3,3,5,5,2,3],"lane":"shared inheritance / over-differentiation","concern":"カイの反対意見だけの人物にしない。"},"title3":{"scores":[4,5,3,3,5,5,2,3],"lane":"choose what can stay shared","concern":"Robot identity問題の人間版コピーにならない。"}},
+    {"id":"F15","name":"アマネ","maturity":"high_priority","core":"速く移動するのが好きで、助けより選択肢を求めるwheelchair user。","title2":{"scores":[5,5,4,4,5,5,1,2],"lane":"inherited routes / accessible handoff","concern":"治ることをHappy Endにせず、routeを本人だけの問題にしない。"},"title3":{"scores":[4,5,4,4,5,5,1,2],"lane":"which systems should remain / change","concern":"accessibilityを世界観の善人判定装置にしない。"}}
+  ],
+  "bundles": [
+    {"id":"2-A","title":"受け継いだ物は誰のものか","titleId":"yoruno-2","members":["F05","F08","F13","F14","F15"],"returningBridgeCandidates":["トモリ","ゲン","トバリ"],"status":"EXPLORATION_ONLY"},
+    {"id":"2-B","title":"記憶は同じまま渡るのか","titleId":"yoruno-2","members":["F08","F09","F06","F07"],"returningBridgeCandidates":["クロオリ","アサ","カスミ"],"status":"EXPLORATION_ONLY"},
+    {"id":"3-A","title":"残し続ける人 / 残さない仕組み","titleId":"yoruno-3","members":["F03","F09","F12","F07"],"returningBridgeCandidates":["クロオリ","ハナ","シロ"],"status":"EXPLORATION_ONLY"},
+    {"id":"3-B","title":"守る仕組みを誰へ渡すか","titleId":"yoruno-3","members":["F09","F15","F02","F01"],"returningBridgeCandidates":[],"status":"EXPLORATION_ONLY"}
+  ]
+}
