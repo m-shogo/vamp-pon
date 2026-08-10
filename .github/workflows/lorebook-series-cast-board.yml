@@ -1,0 +1,96 @@
+name: Lorebook Series Cast Board
+# Re-evaluate against latest main after Series Cast Selection source landed.
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/data/series-cast-selection.v1.json'
+      - 'public/lorebook/series-cast-enhancement.js'
+      - 'public/lorebook/series-cast.css'
+      - 'public/lorebook/enhancements.js'
+      - 'src/game/data/seriesCastSelection.ts'
+      - 'docs/series-cast-selection-contract-v1.md'
+      - '.github/workflows/lorebook-series-cast-board.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/data/series-cast-selection.v1.json'
+      - 'public/lorebook/series-cast-enhancement.js'
+      - 'public/lorebook/series-cast.css'
+      - 'public/lorebook/enhancements.js'
+      - 'src/game/data/seriesCastSelection.ts'
+      - 'docs/series-cast-selection-contract-v1.md'
+      - '.github/workflows/lorebook-series-cast-board.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Future15 board JavaScript
+        run: node --check public/lorebook/series-cast-enhancement.js
+
+      - name: Validate Future15 board read model
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync('public/lorebook/data/series-cast-selection.v1.json', 'utf8'));
+          const source = fs.readFileSync('src/game/data/seriesCastSelection.ts', 'utf8');
+          const enhancement = fs.readFileSync('public/lorebook/series-cast-enhancement.js', 'utf8');
+          const bootstrap = fs.readFileSync('public/lorebook/enhancements.js', 'utf8');
+          const fail = (message) => { console.error(message); process.exitCode = 1; };
+
+          if (data.schemaVersion !== 1) fail('series cast read model schemaVersion must be 1');
+          if (data.status !== 'CANDIDATE_EVALUATION_ONLY') fail('series cast board must remain candidate-only');
+          if (data.candidates.length !== 15) fail(`expected Future15, got ${data.candidates.length}`);
+          const ids = data.candidates.map((entry) => entry.id);
+          const expected = Array.from({length: 15}, (_, index) => `F${String(index + 1).padStart(2, '0')}`);
+          if (JSON.stringify(ids) !== JSON.stringify(expected)) fail(`Future15 coverage/order drift: ${ids.join(',')}`);
+          if (new Set(data.candidates.map((entry) => entry.name)).size !== 15) fail('duplicate Future15 display name');
+          if (data.axes.length !== 8) fail(`expected 8 selection axes, got ${data.axes.length}`);
+          if (data.axes.filter((axis) => axis.kind === 'opportunity').length !== 6) fail('expected 6 opportunity axes');
+          if (data.axes.filter((axis) => axis.kind === 'risk').length !== 2) fail('expected 2 risk axes');
+
+          for (const candidate of data.candidates) {
+            for (const titleKey of ['title2','title3']) {
+              const title = candidate[titleKey];
+              if (!title || title.scores.length !== 8) fail(`${candidate.id}/${titleKey}: score count drift`);
+              for (const score of title?.scores ?? []) if (!Number.isInteger(score) || score < 1 || score > 5) fail(`${candidate.id}/${titleKey}: invalid score ${score}`);
+              if (!title?.lane || !title?.concern) fail(`${candidate.id}/${titleKey}: editorial context missing`);
+            }
+          }
+
+          const anchorNames = data.candidates.filter((entry) => entry.maturity === 'anchor_potential').map((entry) => entry.name).sort();
+          if (JSON.stringify(anchorNames) !== JSON.stringify(['カイ','クロエ','ナオ','ノア','ルム'].sort())) fail(`anchor-potential drift: ${anchorNames.join(',')}`);
+          const renji = data.candidates.find((entry) => entry.id === 'F04');
+          if (renji?.maturity !== 'deepen_before_promotion') fail('Renji must remain deepen-before-promotion');
+
+          if (data.bundles.length !== 4) fail(`expected 4 exploration bundles, got ${data.bundles.length}`);
+          if (data.bundles.some((bundle) => bundle.status !== 'EXPLORATION_ONLY')) fail('series bundles must remain exploration-only');
+          for (const bundle of data.bundles) for (const member of bundle.members) if (!ids.includes(member)) fail(`orphan bundle member: ${bundle.id}/${member}`);
+
+          if (!data.policy.noAutomaticSelectionByScore || !data.policy.noPopularityForecastInScore || !data.policy.newViewpointMajority) fail('series selection policy guard drift');
+          if (!data.policy.returningCastRule.includes('全員集合をdefaultにしない')) fail('returning-cast guard missing');
+          if (!data.policy.immutableFromTitle1.some((item) => item.includes('body / age / disability / presentation'))) fail('Title1 body identity immutable guard missing');
+
+          for (const token of ['CANDIDATE ONLY','NO GREENLIGHT','NO AUTO CANON','DO NOT COLLAPSE INTO']) if (!enhancement.includes(token)) fail(`editorial board token missing: ${token}`);
+          if (!bootstrap.includes("'./series-cast-enhancement.js'")) fail('series cast board not bootstrapped');
+          if (!source.includes("status: 'CANDIDATE_EVALUATION_ONLY'")) fail('production source candidate-only guard drift');
+
+          if (process.exitCode) process.exit(process.exitCode);
+          console.log('Lorebook Series Cast Board OK: Future15 / 8 axes / 4 bundles / candidate-only');
+          NODE
+
+      - name: Verify deployable Lorebook output
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+          pnpm build
+          test -f dist/lorebook/series-cast-enhancement.js
+          test -f dist/lorebook/series-cast.css
+          test -f dist/lorebook/data/series-cast-selection.v1.json

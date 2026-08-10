@@ -8,6 +8,7 @@ const modules = [
   './franchise-enhancement.js',
   './silhouette-enhancement.js',
   './motion-enhancement.js',
+  './series-cast-enhancement.js',
 ];
 
 const results = await Promise.allSettled(modules.map((path) => import(path)));
