@@ -1,0 +1,36 @@
+name: Shared Source Star Beast Named Object
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'docs/design-targets/generated/character-star-beast-constellation-canon-v1.json'
+      - 'scripts/quality/check-shared-source-star-beast-named-object.ts'
+      - '.github/workflows/shared-source-star-beast-named-object.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'docs/design-targets/generated/character-star-beast-constellation-canon-v1.json'
+      - 'scripts/quality/check-shared-source-star-beast-named-object.ts'
+      - '.github/workflows/shared-source-star-beast-named-object.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Star Beast and Named Object Shared Source
+        run: node --experimental-strip-types scripts/quality/check-shared-source-star-beast-named-object.ts
