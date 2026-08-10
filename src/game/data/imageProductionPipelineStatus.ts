@@ -172,6 +172,8 @@ export const imageProductionPipelineSummary = {
     weapon: referenceFirstBulkGenerationQueueSummary.weaponReferences,
     item: referenceFirstBulkGenerationQueueSummary.itemReferences,
   },
+  referenceGeneratedRecordCount:
+    referenceCandidateReviewLedgerSummary.totalRecords - referenceCandidateReviewLedgerSummary.notGeneratedCount,
   referenceReviewRecords: referenceCandidateReviewLedgerSummary.totalRecords,
   referenceApprovedCount: referenceCandidateReviewLedgerSummary.approvedReferenceCount,
   runtimeDerivativeQueuedCount: runtimeDerivativeQueueSummary.queuedDerivativeCount,
