@@ -136,10 +136,12 @@ jobs:
           console.log('Silhouette canon OK: Current21 21/21 matrix / 6 hard anchors / Hana + Kaname plus-size hard lock');
           NODE
 
-      - name: Verify generated static assets are buildable
+      - name: Verify generated contracts and static assets
         run: |
           corepack enable
           pnpm install --frozen-lockfile
+          pnpm asset-factory:contracts:export --summary-only
+          cat data/asset-factory/generation-contracts.summary.json
           pnpm build
           test -f dist/lorebook/silhouette-enhancement.js
           test -f dist/lorebook/silhouette.css
