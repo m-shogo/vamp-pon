@@ -1,4 +1,4 @@
-import { enemyById } from './enemyProductionDatabase.ts';
+import { enemyById, type EnemyFamily } from './enemyProductionDatabase.ts';
 import { namedObjectRegistry } from './namedObjectRegistry.ts';
 import {
   stageProductionEntries,
@@ -170,8 +170,14 @@ function namedObjectTraces(stage: StageProductionEntry) {
   return namedObjectRegistry.filter((object) => seedSet.has(object.displayName));
 }
 
-function enemyFamiliesFor(stage: StageProductionEntry): string[] {
-  return [...new Set(stage.enemyAffinity.map((id) => enemyById.get(id)?.family).filter((value): value is string => Boolean(value)))];
+function enemyFamiliesFor(stage: StageProductionEntry): EnemyFamily[] {
+  return [
+    ...new Set(
+      stage.enemyAffinity
+        .map((id) => enemyById.get(id)?.family)
+        .filter((value): value is EnemyFamily => value !== undefined),
+    ),
+  ];
 }
 
 function bossRelations(stage: StageProductionEntry): string[] {
