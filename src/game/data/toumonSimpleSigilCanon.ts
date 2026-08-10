@@ -132,7 +132,7 @@ export const toumonSigils: ToumonSigilCanon[] = [
   },
   {
     characterId: 'ritsu', displayName: 'リツ', scope: 'current20', sigilName: '半灯の灯紋',
-    coreVerb: ['分ける', '任せる'], namedObject: '半灯りの飴缶', starBeast: 'Canes Venatici / 大きい猟犬',
+    coreVerb: ['分ける', '任せる'], namedObject: '半灯りの飴缶', starBeast: 'Canes Venatici / 二頭のうち大きい猟犬',
     dominantFamily: 'mirror arcs',
     strokeFormula: '中央を空けた左右2つのmirror arc + 各内側に1点ずつ。',
     strokeGroupsTarget: 2, nodeCount: 2, primaryGap: 'center', signatureAsymmetry: 'equal halves stay separate',
@@ -144,7 +144,7 @@ export const toumonSigils: ToumonSigilCanon[] = [
   },
   {
     characterId: 'koyori', displayName: 'コヨリ', scope: 'current20', sigilName: '細縒の灯紋',
-    coreVerb: ['小さなものを繋ぐ', '助ける'], namedObject: '呼び名の紙縒り札', starBeast: 'Canes Venatici / 小さい猟犬',
+    coreVerb: ['小さなものを繋ぐ', '助ける'], namedObject: '呼び名の紙縒り札', starBeast: 'Canes Venatici / 二頭のうち小さい猟犬',
     dominantFamily: 'narrow S curve',
     strokeFormula: '細いS-curve + 中央付近の短いparallel tick + 下端近くの1点。',
     strokeGroupsTarget: 2, nodeCount: 1, primaryGap: 'S tail', signatureAsymmetry: 'tiny parallel tick',
