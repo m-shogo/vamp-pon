@@ -189,7 +189,9 @@ const seeds: readonly Title1UnlockLearningSeed[] = [
 ] as const;
 
 const stageById = new Map(series1StageCampaignContentEntries.map((stage) => [stage.stageId, stage]));
-const reactionById = new Map(attributeReactions.map((reaction) => [reaction.id, reaction]));
+const reactionById = new Map<string, (typeof attributeReactions)[number]>(
+  attributeReactions.map((reaction) => [reaction.id, reaction]),
+);
 const selectedWeaponIds = new Set(selectedTitle1BaseWeaponCandidates.map((weapon) => weapon.weaponId));
 
 export const title1UnlockLearningProgressionEntries = seeds.map((seed, index) => {
