@@ -1,0 +1,35 @@
+name: Character Commercial Identity
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
+      - 'scripts/quality/check-character-commercial-identity.ts'
+      - 'docs/current21-commercial-identity-v1.md'
+      - 'docs/series-commercial-franchise-architecture-v1.md'
+      - '.github/workflows/character-commercial-identity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'src/game/data/characterThemeColors.ts'
+      - 'src/game/data/current21SilhouetteMatrix.ts'
+      - 'scripts/quality/check-character-commercial-identity.ts'
+      - 'docs/current21-commercial-identity-v1.md'
+      - 'docs/series-commercial-franchise-architecture-v1.md'
+      - '.github/workflows/character-commercial-identity.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Current21 commercial identity
+        run: node --experimental-strip-types scripts/quality/check-character-commercial-identity.ts
