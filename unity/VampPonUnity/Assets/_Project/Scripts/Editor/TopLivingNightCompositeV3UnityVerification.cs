@@ -101,6 +101,10 @@ namespace VampPon.UnitySpike.Editor
                 typeof(MonoBehaviour).IsAssignableFrom(
                     typeof(TopLivingNightSemanticLayerPackController)),
                 "Runtime V3 semantic final-pack controller resolves as MonoBehaviour");
+            Require(
+                typeof(MonoBehaviour).IsAssignableFrom(
+                    typeof(TopLivingNightEffectCompanionPackController)),
+                "Runtime V3 effect companion controller resolves as MonoBehaviour");
 
             var syncType = typeof(TopLivingNightCompositeV3BuildAssetSync);
             Require(syncType != null, "Runtime V3 build sync type resolves");
@@ -132,6 +136,19 @@ namespace VampPon.UnitySpike.Editor
                     "CleanupForVerification",
                     BindingFlags.Static | BindingFlags.NonPublic) != null,
                 "Runtime V3 semantic verification cleanup resolves");
+
+            var effectSyncType = typeof(TopLivingNightEffectCompanionPackBuildSync);
+            Require(effectSyncType != null, "Runtime V3 effect companion build sync type resolves");
+            Require(
+                effectSyncType.GetMethod(
+                    "StageForVerification",
+                    BindingFlags.Static | BindingFlags.NonPublic) != null,
+                "Runtime V3 effect companion verification staging resolves");
+            Require(
+                effectSyncType.GetMethod(
+                    "CleanupForVerification",
+                    BindingFlags.Static | BindingFlags.NonPublic) != null,
+                "Runtime V3 effect companion verification cleanup resolves");
             buildHookResolved = true;
 
             var shader = Shader.Find(ShaderName);
@@ -247,16 +264,25 @@ namespace VampPon.UnitySpike.Editor
                     Resources.UnloadAsset(resourceMaterial);
 
                 if (stagedSelection.IsFinal)
+                {
                     VerifyFinalSemanticLayerPack();
+                    VerifyFinalEffectCompanionPack();
+                }
                 else
+                {
                     Require(
                         !TopLivingNightSemanticLayerPackBuildSync.FinalSemanticPackRequired(),
                         "bridge verification must not require final semantic pack");
+                    Require(
+                        !TopLivingNightEffectCompanionPackBuildSync.FinalEffectPackRequired(),
+                        "bridge verification must not require final effect companion pack");
+                }
 
                 buildImportPolicyPassed = true;
             }
             finally
             {
+                TopLivingNightEffectCompanionPackBuildSync.CleanupForVerification();
                 TopLivingNightSemanticLayerPackBuildSync.CleanupForVerification();
                 cleanup.Invoke(null, new object[] { true });
             }
@@ -267,6 +293,9 @@ namespace VampPon.UnitySpike.Editor
             Require(
                 !AssetDatabase.IsValidFolder(TopLivingNightSemanticLayerPackBuildSync.DestinationRoot),
                 "Runtime V3 semantic generated Resources folder is cleaned");
+            Require(
+                !AssetDatabase.IsValidFolder(TopLivingNightEffectCompanionPackBuildSync.DestinationRoot),
+                "Runtime V3 effect companion generated Resources folder is cleaned");
         }
 
         private static void VerifyFinalSemanticLayerPack()
@@ -304,6 +333,55 @@ namespace VampPon.UnitySpike.Editor
                 TopLivingNightSemanticLayerPackBuildSync.ReadyMarkerPath);
             Require(marker != null, "final semantic pack-ready marker resolves");
             Require(marker.text.Trim() == "final-core5-layered", "final semantic pack-ready marker is canonical");
+        }
+
+        private static void VerifyFinalEffectCompanionPack()
+        {
+            Require(
+                TopLivingNightEffectCompanionPackBuildSync.FinalEffectPackRequired(),
+                "final Core5 source requires effect companion pack");
+
+            TopLivingNightEffectCompanionPackBuildSync.StageForVerification();
+            var paths = TopLivingNightEffectCompanionPackBuildSync.DestinationAssetPaths();
+            Require(paths.Length == 10, "final effect companion pack contains ten production effect textures");
+
+            foreach (var path in paths)
+            {
+                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+                Require(texture != null, $"effect companion imports: {path}");
+                var expected = ExpectedEffectDimensions(path);
+                Require(texture.width == expected.x, $"effect companion width matches: {path}");
+                Require(texture.height == expected.y, $"effect companion height matches: {path}");
+
+                Require(
+                    AssetImporter.GetAtPath(path) is TextureImporter,
+                    $"effect companion TextureImporter resolves: {path}");
+                var importer = (TextureImporter)AssetImporter.GetAtPath(path);
+                Require(!importer.isReadable, $"effect companion Read/Write is OFF: {path}");
+                Require(!importer.mipmapEnabled, $"effect companion mipmap is OFF: {path}");
+                Require(importer.wrapMode == TextureWrapMode.Clamp, $"effect companion wrap is Clamp: {path}");
+                Require(importer.filterMode == FilterMode.Bilinear, $"effect companion filter is Bilinear: {path}");
+
+                var ios = importer.GetPlatformTextureSettings("iPhone");
+                Require(ios.overridden, $"effect companion iOS override enabled: {path}");
+                Require(ios.format == TextureImporterFormat.ASTC_6x6, $"effect companion iOS ASTC 6x6: {path}");
+            }
+
+            var marker = AssetDatabase.LoadAssetAtPath<TextAsset>(
+                TopLivingNightEffectCompanionPackBuildSync.ReadyMarkerPath);
+            Require(marker != null, "final effect companion pack-ready marker resolves");
+            Require(marker.text.Trim() == "final-core5-effects", "final effect companion pack-ready marker is canonical");
+        }
+
+        private static Vector2Int ExpectedEffectDimensions(string path)
+        {
+            if (path.EndsWith("10-fire-flipbook-atlas.png", StringComparison.Ordinal))
+                return new Vector2Int(1448, 1086);
+            if (path.EndsWith("12-smoke-atlas.png", StringComparison.Ordinal))
+                return new Vector2Int(1536, 1024);
+            if (path.EndsWith("13-embers-atlas.png", StringComparison.Ordinal))
+                return new Vector2Int(256, 128);
+            return new Vector2Int(430, 932);
         }
 
         private static void WriteEvidence(string result, string error)
