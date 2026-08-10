@@ -1,0 +1,36 @@
+name: Reference First Bulk Generation Queue
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/referenceFirstBulkGenerationQueue.ts'
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'scripts/quality/check-reference-first-bulk-generation-queue.ts'
+      - 'scripts/export-reference-first-bulk-generation-queue.ts'
+      - '.github/workflows/reference-first-bulk-generation-queue.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/referenceFirstBulkGenerationQueue.ts'
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'scripts/quality/check-reference-first-bulk-generation-queue.ts'
+      - 'scripts/export-reference-first-bulk-generation-queue.ts'
+      - '.github/workflows/reference-first-bulk-generation-queue.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate reference-first queue
+        run: node --experimental-strip-types scripts/quality/check-reference-first-bulk-generation-queue.ts
+      - name: Export deterministic queue manifest
+        run: node --experimental-strip-types scripts/export-reference-first-bulk-generation-queue.ts /tmp/reference-first-bulk-generation-queue-v1.json
+      - name: Parse exported queue
+        run: node -e "const fs=require('fs'); const p='/tmp/reference-first-bulk-generation-queue-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.queue)||d.queue.length!==d.summary.totalQueuedReferences) process.exit(1); console.log('queue='+d.queue.length+', runtimeQueued='+d.summary.runtimeDerivativeQueuedCountDefault);"
