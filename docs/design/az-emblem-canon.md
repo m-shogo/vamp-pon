@@ -1,87 +1,99 @@
-# A-Z Emblem Canon
+# A-Z灯紋 — Legacy Compatibility Index
 
-A-Zエンブは、ゲーム内では `A-Z灯紋` と呼ぶ。
-最新の入口は `docs/181-current-production-canon.md`。
-詳細版は `docs/design/emblem-canon.md`。
-実装参照データは `src/game/data/emblemCanon.ts`。
-画像生成・手仕上げプロンプトは `docs/prompts/az-emblem-asset-prompts.md`。
+Date: 2026-08-10  
+Status: **SUPERSEDED VISUAL DESIGN — A-Z CODES RETAINED FOR IMPLEMENTATION COMPATIBILITY ONLY**
 
-## 採用名
+> この文書に以前記載されていた「ランタン型 / 名札型 / 箱型 / 封筒型 / 星座動物を描くcrest」設計は廃止済み。
+> **Current灯紋のvisual authorityとして使用しない。**
 
-| 用途 | 採用名 |
+## Current authority
+
+- `docs/design/toumon-simple-sigil-canon-v2.md`
+- `src/game/data/toumonSimpleSigilCanon.ts`
+- compatibility adapter: `src/game/data/emblemCanon.ts`
+
+## A-Z codeだけ維持する理由
+
+既存の:
+
+- asset filenames
+- data IDs
+- generated contract history
+- migration / compatibility references
+
+を壊さないため、Current20のshort codeは内部識別子として残す。
+
+```txt
+Y-01 A-02 N-03 M-04 T-05
+S-06 R-07 K-08 G-09 H-10
+U-11 D-12 I-13 B-14 E-15
+O-16 V-17 C-18 J-19 Q-20
+```
+
+### Player-facing rule
+
+- A-Z codeをCharacter identityの主役にしない。
+- 灯紋の中へalphabet / numberを描かない。
+- goods表面へcodeを必須表示しない。
+- 必要ならcertificate / archive metadata / package裏面へUI textとして置く。
+
+## Current灯紋の造形
+
+```txt
+1 dominant stroke
++ 0..2 secondary strokes
++ 0..2 nodes
++ minimum 1 intentional gap
+```
+
+Characterの:
+
+- 何を大切にするか
+- 迷った時にどう動くか
+- 何を開け / 残し / 渡すか
+
+を抽象geometryへ圧縮する。
+
+## Do not restore
+
+旧v1の以下をCurrentへ戻さない。
+
+- literal lantern / tag / box / envelope / book / ruler icon
+- shield / ornate frame
+- Characterとは別の古い星座動物割当
+- 小鹿 / 燕 / 亀 / 狐 / 蛍 / リス / 白蛾 / 蝙蝠 / 黒兎等の旧emblem animal set
+- crest外周にanimal silhouetteを置く設計
+- dawnで羽・王冠・星を盛る設計
+- pairで中央へ共通小物を描く設計
+
+Current Star Beastは `characterThemeColors.ts` のauthorityに従う。
+
+## Current phase rule
+
+| Phase | Current behavior |
 | --- | --- |
-| 共通デバイス | 灯紋具 |
-| キャラ紋章 | 灯紋 |
-| 未解放 | 無紋 |
-| 暁灯/暁開き後 | 暁紋 |
-| 黒耀化中 | 黒紋 |
-| 灯合わせ | 双灯紋 |
-| シリーズ名 | A-Z灯紋 |
+| 無紋 | 主線の一部だけ |
+| 灯紋 | simple base geometry |
+| 暁紋 | 1 geometric operationだけ |
+| 黒紋 | 既存strength-line 1本だけが過剰化 |
+| 双灯紋 | shared node / shared gapを1つだけ共有 |
 
-## 共通ルール
+## Merchandise rule
 
-- 全キャラ共通の `灯紋具` に、キャラごとの `灯紋` が浮かぶ。
-- デフォルトは `無紋`。キャラ解放で通常灯紋になる。
-- 暁灯/暁開き後は `暁紋` になり、朝の線や欠けの修復が入る。
-- 黒耀化中は `黒紋` になり、長所が歪んだ黒い傷を1つだけ入れる。
-- 灯合わせは `双灯紋`。2人の灯紋が半分ずつ重なる。
-- 紋章画像に文字は焼かない。名前やAZコードはUI textで出す。
-- 1画像1エンブレム。中央配置、正面、読みやすいシルエット。
-- UI素材として生成する場合は、純緑 `#00FF00` 背景で切り抜きやすくする。
+A-Z short codeは商品シリーズ名を整理する内部情報として使えても、商品価値の本体は**Current Toumon master geometry**。
 
-## Emblem phases
+同じgeometryを:
 
-| Phase | Meaning |
-| --- | --- |
-| blank | 未解放。薄い線だけで、キャラの持ち物シルエットはまだ読めない。 |
-| normal | 通常解放。キャラの持ち物、動詞、光の形が1つの紋になる。 |
-| dawn | 暁灯/暁開き後。外周に朝の線が入り、黒い欠けが埋まる。 |
-| kokuyou | 黒耀化中。長所が歪んだ黒い傷を1つだけ入れる。 |
-| pair | 灯合わせ。2人の灯紋が半分ずつ重なり、中央に共通の小物が浮く。 |
+- pin
+- embroidery
+- foil
+- engraving
+- woven tag
+- jewelry
+- UI
 
-## Core5
+へ展開する。
 
-| キャラ | AZ | 灯紋 | 形 | 中心シンボル | 星座動物 | グッズ展開 |
-| --- | --- | --- | --- | --- | --- | --- |
-| ユイ | Y-01 | 消えない名の灯紋 | 丸いランタン外枠 | ランタン / 小さな名前線 / 紙片 | 小鹿 | 丸いランタン型チャーム。名前線だけ金印刷にすると強い。 |
-| アサ | A-02 | 名札結びの灯紋 | 名札型の角丸プレート | 名札 / 結び目 / 紙片 | 燕 | 実物タグ化しやすい。アクリルキーホルダー向き。 |
-| ナギ | N-03 | 月箱守りの灯紋 | 小箱と三日月の二重枠 | 月箱 / 鍵穴 / 三日月 | 亀 | 箱型ピンズや小物ケース展開に向く。 |
-| ミチル | M-04 | 帰星の灯紋 | コンパス円と道糸の星形 | コンパス / 地図線 / 星 | 狐 | リング状ロゴにしやすく、UIボタンにも強い。 |
-| トモリ | T-05 | ほころび継火の灯紋 | 継ぎ目のある灯芯型 | 修理ランプ / 灯芯 / 縫い目 | 蛍 | 縫い目モチーフでワッペン化しやすい。 |
+## One line
 
-## Circle10
-
-| キャラ | AZ | 灯紋 | 形 | 中心シンボル | 星座動物 | グッズ展開 |
-| --- | --- | --- | --- | --- | --- | --- |
-| セン | S-06 | 白線教えの灯紋 | 黒板枠と白線の交差 | チョーク線 / 黒板粉 / 小さな矢印 | 鶴 | 白線だけ蓄光印刷にすると良い。 |
-| リツ | R-07 | 半灯分けの灯紋 | 半分に割れた包み紙円 | 半分の飴 / 包み紙 / 分かれた火 | リス | ペアグッズや片割れチャームに向く。 |
-| コヨリ | K-08 | 小名紙縒りの灯紋 | 細い紙縒りの渦 | 小さな名札 / 紙縒り / 補助灯 | うさぎ | 小型マスコット化に強い。 |
-| ゲン | G-09 | 古針駅灯の灯紋 | 古いコンパス針と駅灯枠 | 古いコンパス / 駅灯 / 錆びた針 | ふくろう | 真鍮風バッジや古道具感のあるグッズ向き。 |
-| ハナ | H-10 | 押花箱底の灯紋 | 押し花と箱底の四角枠 | 押し花 / しおり / 花脈 | はりねずみ | 透明アクリルと押し花風印刷に向く。 |
-| ユウビ | U-11 | 未配達封灯の灯紋 | 封筒と消印の斜め枠 | 未配達の封筒 / 消印 / 配達路 | 鳩 | 封筒型カード、メッセージグッズ向き。 |
-| マドカ | D-12 | 窓紙翼の灯紋 | 窓枠と紙飛行機の横長枠 | 窓枠 / 紙飛行機 / 見ていた光 | 猫 | 紙飛行機と窓枠でステッカー展開しやすい。 |
-| シロ | I-13 | 白栞頁灯の灯紋 | 白いしおりと余白の縦枠 | 白いしおり / 未分類の頁 / 余白 | 白蛾 | しおりグッズとしてそのまま展開できる。 |
-| トバリ | B-14 | 改札境目の灯紋 | 切符穴とゲートの縦枠 | 改札ばさみ / 切符穴 / 境目線 | 犬 | 切符風カードや駅モチーフグッズ向き。 |
-| ネム | E-15 | 夢頁水面の灯紋 | 夢日記と水面のゆらぎ枠 | 夢日記 / 水面 / 眠り頁 | 羊 | ゆらぎ模様やホログラム印刷に向く。 |
-
-## Shadow5
-
-| キャラ | AZ | 灯紋 | 形 | 中心シンボル | 星座動物 | グッズ展開 |
-| --- | --- | --- | --- | --- | --- | --- |
-| クロオリ | O-16 | 黒折り紙の灯紋 | 折り紙の折り目でできた菱形 | 黒い折り紙 / 折り目 / 隠された頁 | 烏 | 黒い折り紙型ピンズや影側ロゴの中心に向く。 |
-| カゲール1 | V-17 | 影守り火の灯紋 | 影の折り目と近接刃の三角枠 | 影の折り目 / 隠し火 / 近い黒火 | 狼 | 影側アクキーの鋭いシルエット担当。 |
-| カゲール2 | C-18 | 消せない一文字の灯紋 | 消し跡と一文字の白黒枠 | 消しゴム / 消し跡 / 一文字 | ヤモリ | 白黒コントラストのステッカー向き。 |
-| カゲール3 | J-19 | 夜測り角度の灯紋 | 定規と角度線の斜め枠 | 夜読みの定規 / 角度線 / 斜めの光 | 蝙蝠 | 斜め構図のロゴとして強い。 |
-| カゲール4 | Q-20 | 余白継ぎ目の灯紋 | 空白カードと黒い余白枠 | 空白カード / 余白 / 継ぎ目 | 黒兎 | 空白を活かした限定カードやシークレット枠向き。 |
-
-## Visual production rule
-
-A-Z灯紋はキャラ量産のたびに必ず作る。
-1キャラに対して最低4相を用意する。
-
-1. `blank`: 未解放の無紋
-2. `normal`: 通常灯紋
-3. `dawn`: 暁紋
-4. `kokuyou`: 黒紋
-
-灯合わせ実装時は、2キャラの灯紋から `pair` を作る。
+> **A-Zは互換コード。Characterの顔になるのは、Current simple灯紋そのもの。**

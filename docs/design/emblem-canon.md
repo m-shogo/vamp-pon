@@ -1,135 +1,174 @@
-# A-Z Emblem Canon
+# 灯紋 Canon — Current Entry Point
 
-キャラ量産・グッズ展開・UIアイコン共通化のための灯紋設計。
-最新の入口は `docs/181-current-production-canon.md`。
-実装参照データは `src/game/data/emblemCanon.ts`。
-画像生成・手仕上げプロンプトは `docs/prompts/az-emblem-asset-prompts.md`。
+Date: 2026-08-10  
+Status: **CURRENT ENTRYPOINT — SIMPLE SIGIL v2 IS AUTHORITATIVE**
 
-## 採用名
+> 旧A-Z Emblem v1の「ランタン型 / 名札型 / 箱型 / 動物を外周へ入れる豪華crest」方向は**superseded**。
+>
+> Character灯紋は今後、数本の線・点・gapだけで成立する**simple abstract sigil**として扱う。
+
+## Current authority
+
+### Visual / meaning
+
+- `docs/design/toumon-simple-sigil-canon-v2.md`
+
+### Machine-readable Current21
+
+- `src/game/data/toumonSimpleSigilCanon.ts`
+
+### Existing runtime / Asset Factory compatibility
+
+- `src/game/data/emblemCanon.ts`
+
+`emblemCanon.ts` は既存interface互換のため `crestShape` / `constellationAnimal` 等の旧property名を残すが、値はsimple灯紋v2 / Current Star Beast authorityからderiveする。
+
+---
+
+# 採用名
 
 | 用途 | 採用名 |
 | --- | --- |
 | 共通デバイス | 灯紋具 |
-| キャラ紋章 | 灯紋 |
-| 未解放状態 | 無紋 |
-| 暁灯/暁開き状態 | 暁紋 |
+| Character抽象記号 | 灯紋 |
+| 未解放 | 無紋 |
+| 暁状態 | 暁紋 |
 | 黒耀化状態 | 黒紋 |
-| 灯合わせ状態 | 双灯紋 |
-| 量産シリーズ名 | A-Z灯紋 |
+| 2人の灯合わせ | 双灯紋 |
+| Object履歴の小刻印 | 履歴刻 |
+| Station / Route共通記号 | 夜路印 |
+| A-Z short code | implementation / asset compatibility only |
 
-## 目的
+---
 
-キャラを増やしても、以下を毎回同じ型で作れるようにする。
+# v2で変わったこと
 
-- キャラ選択アイコン
-- 灯録のキャラ印
-- 旅人の記録のシンボル
-- 暁灯カットインの小紋
-- 黒耀化カットインの黒紋
-- 灯合わせUI
-- アクリルキーホルダー、ピンズ、ステッカーなどのグッズ
-
-## 灯紋具の共通ルール
-
-灯紋具は全キャラ共通の小さなデバイス。
-キャラごとに中央の灯紋、外周パーツ、光り方だけが変化する。
-
-- 形は小さな手持ちデバイス。デジタルすぎず、古い道具と絵本の間。
-- 基本は丸角の小型プレート。
-- 中央に灯紋が入る。
-- キャラの持ち物に応じて外周が少しだけ変わる。
-- 黒耀化中は黒く変形しすぎず、煤・にじみ・欠けで表現する。
-- 文字は焼き込まない。UI text で出す。
-
-## 灯紋フェーズ
-
-| フェーズ | 表示名 | ルール |
-| --- | --- | --- |
-| blank | 無紋 | 未解放。薄い線だけで、持ち物シルエットは読めない。 |
-| normal | 灯紋 | 通常解放。持ち物、動詞、光の形が1つの紋になる。 |
-| dawn | 暁紋 | 暁灯/暁開き後。外周に朝の線が入り、黒い欠けが埋まる。 |
-| kokuyou | 黒紋 | 黒耀化中。長所が歪んだ黒い傷を1つだけ入れる。 |
-| pair | 双灯紋 | 灯合わせ。2人の灯紋が半分ずつ重なり、中央に共通小物が浮く。 |
-
-## 20キャラ灯紋
-
-| キャラ | Code | 灯紋名 | 形 | 星座動物 | 黒紋の傷 |
-| --- | --- | --- | --- | --- | --- |
-| ユイ | Y-01 | 消えない名の灯紋 | 丸いランタン外枠 | 小鹿 | 灯芯の片側に黒い煤がにじむ |
-| アサ | A-02 | 名札結びの灯紋 | 名札型の角丸プレート | 燕 | 名札の文字欄が黒く貼りつく |
-| ナギ | N-03 | 月箱守りの灯紋 | 小箱と三日月の二重枠 | 亀 | 箱のすきまから黒い夜が一筋こぼれる |
-| ミチル | M-04 | 帰星の灯紋 | コンパス円と道糸の星形 | 狐 | コンパス針が黒く割れて道線が絡む |
-| トモリ | T-05 | ほころび継火の灯紋 | 継ぎ目のある灯芯型 | 蛍 | 縫い目の一部が黒い傷のように残る |
-| セン | S-06 | 白線教えの灯紋 | 黒板枠と白線の交差 | 鶴 | 白線の一部が煤で消える |
-| リツ | R-07 | 半灯分けの灯紋 | 半分に割れた包み紙円 | リス | 片方だけ焦げた黒に沈む |
-| コヨリ | K-08 | 小名紙縒りの灯紋 | 細い紙縒りの渦 | うさぎ | 呼び名の端が黒くほどける |
-| ゲン | G-09 | 古針駅灯の灯紋 | 古いコンパス針と駅灯枠 | ふくろう | 針先が黒く沈む |
-| ハナ | H-10 | 押花箱底の灯紋 | 押し花と箱底の四角枠 | はりねずみ | 花脈が黒く染みる |
-| ユウビ | U-11 | 未配達封灯の灯紋 | 封筒と消印の斜め枠 | 鳩 | 消印が黒くつぶれる |
-| マドカ | D-12 | 窓紙翼の灯紋 | 窓枠と紙飛行機の横長枠 | 猫 | 窓の外だけ黒くなる |
-| シロ | I-13 | 白栞頁灯の灯紋 | 白いしおりと余白の縦枠 | 白蛾 | 頁の中央だけ黒く抜ける |
-| トバリ | B-14 | 改札境目の灯紋 | 切符穴とゲートの縦枠 | 犬 | 改札線が黒く閉じる |
-| ネム | E-15 | 夢頁水面の灯紋 | 夢日記と水面のゆらぎ枠 | 羊 | 夢の文字が黒い波になる |
-| クロオリ | O-16 | 黒折り紙の灯紋 | 折り紙の折り目でできた菱形 | 烏 | 折り目の奥から黒耀が漏れる |
-| カゲール1 | V-17 | 影守り火の灯紋 | 影の折り目と近接刃の三角枠 | 狼 | 影が黒い刃になる |
-| カゲール2 | C-18 | 消せない一文字の灯紋 | 消し跡と一文字の白黒枠 | ヤモリ | 文字が黒く削れる |
-| カゲール3 | J-19 | 夜測り角度の灯紋 | 定規と角度線の斜め枠 | 蝙蝠 | 角度線が黒く割れる |
-| カゲール4 | Q-20 | 余白継ぎ目の灯紋 | 空白カードと黒い余白枠 | 黒兎 | 余白だけが黒く残る |
-
-## A-Zコードのルール
-
-A-Zコードは実装・素材管理用の短い識別子。
-ユーザー向けには基本表示しない。必要な場面では UI text で出す。
-
-- 既存キャラは20枠まで採用済み。
-- 残り6枠は新規キャラ・イベントキャラ・続編キャラに残す。
-- コードはキャラ名と完全一致しなくてもよい。
-- グッズや素材ファイル名では `emblem-yui-y01` のように使う。
-
-## 星座動物ルール
-
-星座動物は、キャラのグッズ化とシルエット差別化のために使う。
-動物そのものに変身するわけではない。
-
-- 灯紋の外周や背景に小さく入れる。
-- カットインでは星座線として薄く出す。
-- キャラ本体より目立たせない。
-- 同じ動物を基本重複させない。
-
-## 画像生成ルール
-
-灯紋画像を作る場合:
+## 旧
 
 ```txt
-single small emblem icon, no text, no logo letters, no watermark,
-centered, readable at 64px,
-storybook pixel-art flavored vector emblem,
-warm dark fantasy, paper texture, simple silhouette,
-no realistic metal, no complex ornament, no checkerboard
+ランタン型
+名札型
+箱型
+封筒型
+本型
++ 星座動物
++ 外枠
++ 装飾
 ```
 
-UI素材生成や切り抜き前提の場合:
+## Current
 
 ```txt
-one asset per image, pure #00FF00 chroma key background,
-no text, no letters, no numbers, no logo, no watermark,
-no checkerboard, no white fringe
+1 dominant stroke
++ 0〜2 secondary strokes
++ 0〜2 nodes
++ minimum 1 intentional gap
 ```
 
-灯紋具画像を作る場合:
+灯紋は**物の絵ではない**。
 
-```txt
-small handheld emblem device, rounded compact charm,
-storybook gadget, paper-and-lantern material, simple toy-like shape,
-center emblem window, no screen text, no alphabet letters,
-transparent background, readable mobile game UI asset
-```
+人物の:
 
-## 実装順
+- 戻す
+- 結ぶ
+- 守る
+- 測る
+- 預かる
+- 継ぐ
 
-1. 灯録のキャラ一覧に `characterEmblemById` を参照する。
-2. キャラ選択カードに normal 灯紋を出す。
-3. 暁灯カットインに小さな 暁紋 を出す。
-4. 黒耀化カットインに 黒紋 を出す。
-5. 灯合わせ実装時に 双灯紋 を生成する。
-6. グッズ・SNS素材はこの灯紋を共通マークとして使う。
+等の「選び方」を抽象geometryへ圧縮する。
+
+---
+
+# 絶対禁止
+
+Current灯紋本体へ以下を戻さない。
+
+- shield
+- crown
+- wreath
+- decorative wings
+- literal animal
+- literal Named Object
+- zodiac glyph
+- alphabet initial
+- Japanese letter
+- number
+- tiny stars used as filler decoration
+- Premium版だけの豪華geometry
+
+---
+
+# Current Star Beast boundary
+
+旧v1にあった:
+
+- 小鹿
+- 燕
+- 亀
+- 狐
+- 蛍
+- 鶴
+- リス
+- うさぎ
+- ふくろう
+- はりねずみ
+- 白蛾
+- 蝙蝠
+- 黒兎
+
+等をCurrentへ戻さない。
+
+Star Beastは `characterThemeColors.ts` とCurrent star-beast authorityを参照する。
+
+灯紋にはStar Beastを**描かない**。
+
+---
+
+# Phase
+
+| phase | Current rule |
+| --- | --- |
+| 無紋 | 主線の一部だけ |
+| 灯紋 | simple base geometry |
+| 暁紋 | 1 geometric operationだけ |
+| 黒紋 | 既存線1本だけが過剰になる |
+| 双灯紋 | shared node / gapを1つだけ共有 |
+
+暁紋へ羽・星・王冠を追加しない。
+黒紋へ角・棘・悪魔decorを追加しない。
+
+---
+
+# Goods
+
+灯紋は同じMaster geometryを:
+
+- UI
+- pin
+- foil
+- embroidery
+- engraving
+- woven tag
+- jewelry
+- Character card
+- Star Beast tag
+- Named Object履歴刻
+
+へ使う。
+
+高級感はmaterial / finish / packagingで出し、形を盛らない。
+
+---
+
+# IP全体
+
+Character灯紋だけでなくStation / Ticket / Star Beast / Named Object / Collectionまで含む商業記号設計:
+
+- `docs/design/ip-symbol-merch-system-v1.md`
+
+---
+
+# One-line rule
+
+> **灯紋は「キャラクターの絵を描かなくても、その人を思い出せる最小の線」。**

@@ -13,7 +13,9 @@ Canonical data sources:
 - Screen labels: `src/game/data/screenLabels.ts`
 - Item production canon: `src/game/data/itemProductionCanon.ts` and `docs/design/item-and-character-production-canon.md`
 - Character production plans: `src/game/data/characterProductionPlans.ts` and `docs/design/character-production-plans.md`
-- A-Z emblems: `src/game/data/emblemCanon.ts`, `docs/design/emblem-canon.md`, and `docs/design/az-emblem-canon.md`
+- **Current Toumon simple-sigil authority:** `src/game/data/toumonSimpleSigilCanon.ts` and `docs/design/toumon-simple-sigil-canon-v2.md`
+- Emblem compatibility adapter: `src/game/data/emblemCanon.ts`; legacy A-Z notes: `docs/design/az-emblem-canon.md`
+- IP symbol / merchandise system: `docs/design/ip-symbol-merch-system-v1.md`
 
 ## Product title
 
@@ -120,17 +122,32 @@ Exact implementation and persistence are defined in `docs/SETTINGS-BASELINE.md`.
 
 Player-visible kill/death wording should not imply literal canonical death. Internal telemetry fields such as `kills` may remain unchanged.
 
-## Emblem labels
+## Emblem / symbol labels
 
 | Target | Label |
 | --- | --- |
 | Common device | 灯紋具 |
-| Character emblem | 灯紋 |
+| Character simple sigil | 灯紋 |
 | Unlocked blank phase | 無紋 |
 | Dawn phase | 暁紋 |
 | Kokuyou phase | 黒紋 |
 | Pair phase | 双灯紋 |
-| Emblem series | A-Z灯紋 |
+| Named Object history mark | 履歴刻 |
+| Night route / station common mark | 夜路印 |
+| Legacy implementation code family | A-Z灯紋 |
+
+### Toumon visual naming rule
+
+`A-Z灯紋` is a compatibility/asset-management family label, not a reason to put letters or numbers inside the Character mark.
+
+Player-facing Toumon art is:
+
+- textless
+- one-color capable
+- simple abstract geometry
+- object/animal illustration-free
+
+as defined in `toumon-simple-sigil-canon-v2.md`.
 
 ## Core5 art names
 
@@ -181,7 +198,9 @@ For critical interaction labels, clarity beats poetic density. A poetic subtitle
 
 Core functional UI is Japanese-first. Decorative English may exist as visual texture, but primary section names and actions must not depend on English-only labels such as `Rewards`, `New Records`, or `Elite`.
 
-## Cutin and emblem rule
+## Cutin and Toumon rule
 
-Cutin art and emblem art should stay textless.
-Draw character names, labels, subtitles, AZ codes, phase labels, and art names with UI text.
+Cutin art and Toumon art stay textless.
+Draw character names, labels, subtitles, legacy A-Z codes, phase labels, and art names with UI text.
+
+Toumon master geometry is never changed merely because the product tier is premium or the cutin is more dramatic.
