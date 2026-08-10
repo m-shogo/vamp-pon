@@ -1,5 +1,5 @@
 name: title1-unlock-learning-progression
-# Re-evaluate the merge ref after the strict TypeScript Set<string> fix.
+# Content-authority contract only: validate staged learning without promoting runtime ownership.
 
 on:
   pull_request:
