@@ -1,8 +1,8 @@
 name: PR105 Incoming Visual Review One Shot
 
 on:
-  push:
-    branches: [art/top-core5-v3-incoming-batch]
+  pull_request:
+    branches: [main]
     paths:
       - 'docs/design-targets/generated/top-living-night-v3/incoming/**'
       - '.github/workflows/pr105-incoming-review-one-shot.yml'
@@ -60,7 +60,6 @@ jobs:
           sheet(layers, out/'structural-layers-contact-sheet.jpg', cols=3, thumb=(215,466))
           sheet(effects, out/'effects-contact-sheet.jpg', cols=5, thumb=(170,370))
 
-          # Copy originals for full-resolution review.
           import shutil
           for src in [*candidate, *variants, *layers, *effects]:
               rel = src.relative_to(root)
