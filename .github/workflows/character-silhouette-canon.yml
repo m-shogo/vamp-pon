@@ -87,7 +87,7 @@ jobs:
           if (!source.includes("export const chubbyCharacterIds = ['hana', 'kage1'] as const")) fail('production chubby IDs drift');
           if (!source.includes("runtimeMigrationState: 'DESIGN_CANON_ONLY'")) fail('design/runtime boundary missing in source');
           if (!canon.includes('ぽっちゃり女性 | **ハナ**') || !canon.includes('ぽっちゃり男性 | **カナメ**')) fail('silhouette canon lost chubby assignments');
-          if (!pass.includes('Happy Endで痩せる') || !pass.includes('体型monster化')) fail('production stereotype guardrails incomplete');
+          if (!pass.includes('Happy Endで痩せる') || !pass.includes('体格monster化')) fail('production stereotype guardrails incomplete');
           if (!enhancements.includes("'./silhouette-enhancement.js'")) fail('Lorebook silhouette enhancement not bootstrapped');
 
           if (process.exitCode) process.exit(process.exitCode);
