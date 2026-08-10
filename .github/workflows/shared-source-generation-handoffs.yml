@@ -1,0 +1,52 @@
+name: Shared Source Generation Handoffs
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/assetFactoryCatalog.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/enemyVisualSharedSource.ts'
+      - 'src/game/data/itemVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/progressionRewardSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/weaponVisualSharedSource.ts'
+      - 'scripts/export-shared-source-generation-handoffs.ts'
+      - 'scripts/quality/check-shared-source-generation-handoffs.ts'
+      - '.github/workflows/shared-source-generation-handoffs.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/sharedSourceGenerationHandoff.ts'
+      - 'src/game/data/assetFactoryCatalog.ts'
+      - 'src/game/data/assetGenerationPolicy.ts'
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/enemyVisualSharedSource.ts'
+      - 'src/game/data/itemVisualSharedSource.ts'
+      - 'src/game/data/namedObjectVisualSharedSource.ts'
+      - 'src/game/data/progressionRewardSharedSource.ts'
+      - 'src/game/data/stageVisualSharedSource.ts'
+      - 'src/game/data/starBeastVisualSharedSource.ts'
+      - 'src/game/data/weaponVisualSharedSource.ts'
+      - 'scripts/export-shared-source-generation-handoffs.ts'
+      - 'scripts/quality/check-shared-source-generation-handoffs.ts'
+      - '.github/workflows/shared-source-generation-handoffs.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Shared Source generation handoffs
+        run: node --experimental-strip-types scripts/quality/check-shared-source-generation-handoffs.ts
+      - name: Export deterministic handoff manifest
+        run: node --experimental-strip-types scripts/export-shared-source-generation-handoffs.ts /tmp/shared-source-generation-handoff-v1.json
+      - name: Parse exported manifest
+        run: node -e "const fs=require('fs'); const p='/tmp/shared-source-generation-handoff-v1.json'; const d=JSON.parse(fs.readFileSync(p,'utf8')); if(!Array.isArray(d.handoffs)||d.handoffs.length!==d.summary.total) process.exit(1); console.log('manifest handoffs='+d.handoffs.length+', ready='+d.summary.readyForCandidate+', blocked='+d.summary.blocked);"
