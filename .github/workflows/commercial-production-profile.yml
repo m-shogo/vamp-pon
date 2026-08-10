@@ -1,0 +1,42 @@
+name: Commercial Production Profile
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'docs/commercial-production-profile-v2.md'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-commercial-production-profile.ts'
+      - '.github/workflows/commercial-production-profile.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/commercialProductionProfile.ts'
+      - 'src/game/data/characterCommercialIdentity.ts'
+      - 'src/game/data/toumonSimpleSigilCanon.ts'
+      - 'docs/commercial-production-profile-v2.md'
+      - 'docs/design/ip-symbol-merch-system-v1.md'
+      - 'scripts/quality/check-commercial-production-profile.ts'
+      - '.github/workflows/commercial-production-profile.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Current21 commercial production profiles
+        run: node --experimental-strip-types scripts/quality/check-commercial-production-profile.ts
+      - name: Guard merchandise boundaries
+        run: |
+          grep -q 'CURRENT COMMERCIAL PRODUCTION DIRECTION' docs/commercial-production-profile-v2.md
+          grep -q 'realSkuApproved = false' docs/commercial-production-profile-v2.md
+          grep -q '夜の記録帳' docs/commercial-production-profile-v2.md
+          grep -q 'Reserve candidate only' docs/commercial-production-profile-v2.md
+          ! grep -q 'productionArtworkReady: true' src/game/data/commercialProductionProfile.ts
+          ! grep -q 'realSkuApproved: true' src/game/data/commercialProductionProfile.ts
