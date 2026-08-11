@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { worldSettingExpansionEntries, worldSettingExpansionSummary } from '../../src/game/data/worldSettingExpansionIndex.ts';
 import { worldSettingConflictEntries, worldSettingConflictSummary } from '../../src/game/data/worldSettingConflictRegister.ts';
+import { SAKUMEI_CANDIDATE_IDENTITY, sakumeiCandidateMembers, sakumeiCandidateSummary } from '../../src/game/data/sakumeiCandidateSource.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -29,6 +30,24 @@ assert(worldSettingConflictSummary.candidateDependent === 1, `expected 1 candida
 assert(worldSettingConflictSummary.unresolvedBlocker === 0, `world setting has unresolved blockers: ${worldSettingConflictSummary.unresolvedBlocker}`);
 assert(new Set(worldSettingConflictEntries.map((entry) => entry.id)).size === worldSettingConflictEntries.length, 'world setting conflict IDs must be unique');
 assert(worldSettingConflictEntries.filter((entry) => entry.status === 'OPEN_HUMAN').every((entry) => entry.humanDecisionRequired), 'every OPEN_HUMAN conflict must require human decision');
+
+assert(SAKUMEI_CANDIDATE_IDENTITY.formalName === '朔盟', 'Sakumei formal name must stay 朔盟');
+assert(SAKUMEI_CANDIDATE_IDENTITY.earlyObserverShortLabel === '八影', '八影 must remain the early observer label during candidate migration');
+assert(!SAKUMEI_CANDIDATE_IDENTITY.sharedUniformRequired, 'Sakumei must not collapse into a shared-uniform visual identity');
+assert(!SAKUMEI_CANDIDATE_IDENTITY.absoluteLeaderFrozen, 'Sakumei absolute leader must remain unfrozen');
+assert(!SAKUMEI_CANDIDATE_IDENTITY.runtimeAutoPromotionAllowed, 'Sakumei candidate may not auto-promote runtime');
+assert(sakumeiCandidateSummary.memberCount === 8, `Sakumei must keep eight spotlight members, got ${sakumeiCandidateSummary.memberCount}`);
+assert(sakumeiCandidateSummary.uniqueEnemyIdCount === 8, 'Sakumei candidate enemy IDs must be unique');
+assert(sakumeiCandidateSummary.uniqueCallNameCount === 8, 'Sakumei call names must be unique');
+assert(sakumeiCandidateSummary.uniqueAttachmentLaneCount === 8, 'all Sakumei members must have distinct primary fan attachment lanes');
+assert(sakumeiCandidateSummary.allFinalMastersUnapproved, 'Sakumei final character masters must remain unapproved before human visual review');
+for (const member of sakumeiCandidateMembers) {
+  assert(member.ordinaryHabit.length >= 15, `Sakumei ordinary habit too thin: ${member.callName}`);
+  assert(member.frighteningPromise.length >= 15, `Sakumei frightening promise too thin: ${member.callName}`);
+  assert(member.silhouettePromise.length >= 15, `Sakumei silhouette promise too thin: ${member.callName}`);
+  assert(!member.finalMasterApproved, `Sakumei master may not be pre-approved: ${member.callName}`);
+  assert(!member.runtimeAutoPromotionAllowed, `Sakumei member may not auto-promote runtime: ${member.callName}`);
+}
 
 const worldHub = fs.readFileSync('docs/WORLD.md', 'utf8');
 const foundation = fs.readFileSync('docs/world-foundation-authority-v1.md', 'utf8');
@@ -61,4 +80,4 @@ assert(conflicts.includes('UNRESOLVED_BLOCKER   = 0'), 'conflict register doc mu
 assert(conflicts.includes('GUARDED              = 12'), 'conflict register doc guarded count must match machine source');
 assert(conflicts.includes('OPEN_HUMAN           = 5'), 'conflict register doc human-open count must match machine source');
 
-console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingExpansionSummary.uniqueSourceCount} primary sources / ${worldSettingConflictSummary.total} conflict lanes / 0 blockers`);
+console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingExpansionSummary.uniqueSourceCount} primary sources / ${worldSettingConflictSummary.total} conflict lanes / 8 Sakumei attachment lanes / 0 blockers`);
