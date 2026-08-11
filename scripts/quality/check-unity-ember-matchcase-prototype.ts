@@ -52,7 +52,8 @@ for (const token of [
   'EnemyStatusApplicationPolicy burnPolicy',
   'battle.FireGameplayProjectilesAtNearestTargets(',
   'EmberMatchcasePrototypeTelemetry',
-  'telemetry?.RecordStatusResult',
+  'Action<EnemyStatusApplyResult> resultObserver = null;',
+  'resultObserver = telemetry.RecordStatusResult;',
   'telemetry?.RecordInvocation(maxTargets, fired)',
 ]) {
   assert(emberSource.includes(token), `Ember prototype source missing token: ${token}`);
