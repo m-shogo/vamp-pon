@@ -6,9 +6,14 @@ import {
 import { baseWeaponSelectionSummary } from './baseWeaponSelectionSource.ts';
 import { title1CombatItemSelectionSummary } from './combatItemSelectionSource.ts';
 import { currentCharacterCombatKitEntries } from './currentCharacterCombatKitSource.ts';
+import { currentGroupInteractionSummary } from './currentGroupInteractionSource.ts';
 import { currentRelationshipInventory } from './currentRelationshipInventory.ts';
 import { enemyAttributeIdentities } from './enemyAttributeIdentitySource.ts';
+import { relationshipStageIntermissionSummary } from './relationshipStageIntermissionSource.ts';
+import { currentRelationshipSpeechProgressionSummary } from './relationshipSpeechProgressionSource.ts';
 import { series1StageCampaignContentEntries } from './series1StageCampaignContentSource.ts';
+import { spotlightEnemyCharacterSummary } from './spotlightEnemyCharacterSource.ts';
+import { spotlightEnemyStoryFragmentSummary } from './spotlightEnemyStoryFragmentSource.ts';
 import {
   title1AchievementBoundary,
   title1AllLightsBoundary,
@@ -28,6 +33,11 @@ export const title1ContentMasterAuthorities = {
   enemy48: 'src/game/data/enemyAttributeIdentitySource.ts',
   enemyEncounter: 'src/game/data/enemyEncounterSynergySource.ts',
   relationship: 'src/game/data/currentRelationshipInventory.ts',
+  relationshipSpeech: 'src/game/data/relationshipSpeechProgressionSource.ts',
+  groupInteraction: 'src/game/data/currentGroupInteractionSource.ts',
+  relationshipIntermission: 'src/game/data/relationshipStageIntermissionSource.ts',
+  spotlightEnemyCharacter: 'src/game/data/spotlightEnemyCharacterSource.ts',
+  spotlightEnemyStoryFragment: 'src/game/data/spotlightEnemyStoryFragmentSource.ts',
   baseWeapon: 'src/game/data/baseWeaponSelectionSource.ts',
   combatItem: 'src/game/data/combatItemSelectionSource.ts',
   transformation: 'src/game/data/weaponTransformationSelectionSource.ts',
@@ -47,9 +57,15 @@ export const title1ContentMasterIntegritySnapshot = {
   characters: {
     currentCount: currentCharacterCombatKitEntries.length,
     relationshipArcCount: currentRelationshipInventory.length,
+    relationshipSpeechDirectedTrackCount: currentRelationshipSpeechProgressionSummary.directedTrackCount,
+    groupInteractionSceneCount: currentGroupInteractionSummary.sceneCount,
+    groupIntermissionPlacementCount: relationshipStageIntermissionSummary.placementCount,
   },
   enemies: {
     currentCount: enemyAttributeIdentities.length,
+    spotlightCount: spotlightEnemyCharacterSummary.spotlightCount,
+    spotlightStoryFragmentCount: spotlightEnemyStoryFragmentSummary.fragmentCount,
+    spotlightFragmentsOptional: spotlightEnemyStoryFragmentSummary.optionalReading,
   },
   combatVocabulary: {
     attributeCountIncludingNeutral: COMBAT_ATTRIBUTES.length,
@@ -121,6 +137,10 @@ export const title1ContentMasterIntegritySnapshot = {
     combatItemRuntimeAutoPromotionAllowed: title1CombatItemSelectionSummary.runtimeAutoPromotionAllowed,
     transformationRuntimeAutoPromotionAllowed: weaponTransformationSelectionSummary.runtimeAutoPromotionAllowed,
     rewardCollectionRuntimeAutoPromotionAllowed: title1AchievementRewardCollectionSummary.runtimeAutoPromotionAllowed,
+    relationshipSpeechRuntimeAutoPromotionAllowed: currentRelationshipSpeechProgressionSummary.runtimeAutoPromotionAllowed,
+    groupIntermissionRuntimeAutoPromotionAllowed: relationshipStageIntermissionSummary.runtimeAutoPromotionAllowed,
+    spotlightEnemyRuntimeAutoPromotionAllowed: spotlightEnemyCharacterSummary.runtimeAutoPromotionAllowed,
+    spotlightStoryRuntimeAutoPromotionAllowed: spotlightEnemyStoryFragmentSummary.runtimeAutoPromotionAllowed,
     contentMasterMayFreezeRuntimeCompletionByItself: false,
   },
 } as const;
@@ -133,5 +153,7 @@ export const title1ContentMasterOpenImplementationGates = [
   'exact Story Complete runtime trigger',
   'finite All Lights runtime denominator + save migration',
   'Stage20-scale Achievement editorial expansion/migration',
+  'relationship speech semantic-to-runtime Bond gates + support/result voice selection',
+  'spotlight enemy bestiary fragment unlock/presentation + visual recognition validation',
   'mobile visual QA / performance / playtest',
 ] as const;
