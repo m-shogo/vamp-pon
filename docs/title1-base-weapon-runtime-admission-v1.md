@@ -88,9 +88,12 @@ Selected16 TETHER consumer。
 required:
 
 1. `TWO_TARGET_TETHER`
-2. `STATUS_APPLICATION`
+2. `KNOCKBACK_VECTOR`
+3. `STATUS_APPLICATION`
 
-両方IMPLEMENTED。
+3つともIMPLEMENTED。
+
+`KNOCKBACK_VECTOR` はRain Threadのmechanical identityにあるposition-controlを、generic selectorへ押し込まずcaller側で2体を互いに引き寄せるためのshared displacement primitiveとして要求する。
 
 ただしSelected16固有callerはまだ無いので:
 
@@ -102,7 +105,7 @@ required:
 - `mayEnterUnityRuntimeRegistry = false`
 - `runtimeStatus = NOT_IMPLEMENTED`
 
-SOAK共有、tether lifetime、position-control、damage semantics、line renderingはgeneric selectorへ埋め込まずcaller側の次gateで実装する。
+SOAK共有、tether lifetime、pull threshold / distance、break-distance、line renderingはgeneric selectorへ埋め込まずcaller側の次gateで実装する。
 
 ## Hold boundary: `name_reel`
 
@@ -210,6 +213,8 @@ Generic primitiveが持たないもの:
 - LineRenderer / VFX
 - Canon priority/range values
 
+Rain Threadのposition-controlは既存 `KNOCKBACK_VECTOR` をcaller側で再利用する。
+
 Executable proof:
 
 - `scripts/quality/unity-two-target-tether/UnityTwoTargetTether.Contract.csproj`
@@ -270,9 +275,10 @@ Runtime進捗を理由にSelected16/Holdを変更しない。
 ## Next gates
 
 1. `rain_thread` Selected16 caller proof
-2. two-target SOAK / position-control semantics
-3. `return_compass_needle` Selected16 returning caller proof
-4. `RETURNING_PROJECTILE` capability admission
-5. runtime evidence / mobile readability / human live-admission review
+2. two-target SOAK + caller-owned `KNOCKBACK_VECTOR` position-control semantics
+3. tether lifetime / break-distance proof
+4. `return_compass_needle` Selected16 returning caller proof
+5. `RETURNING_PROJECTILE` capability admission
+6. runtime evidence / mobile readability / human live-admission review
 
 数値balanceは最後まで `PROTOTYPE_TUNING_NOT_CANON` として原本/Canonから分離する。
