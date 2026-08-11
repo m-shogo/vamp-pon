@@ -34,7 +34,7 @@ Web supportをUnity implementation evidenceとして扱わない。
 
 U47 live importer/executorは引き続き **Projectile / GroundArea** の2系統。
 
-shared primitiveが増えても、live `WeaponEffectType` を名前だけ増やさない。
+shared primitiveやprototype callerが増えても、live `WeaponEffectType` を名前だけ増やさない。
 
 ## Shared Unity primitive state
 
@@ -64,47 +64,42 @@ required shared runtime capabilityが1つ以上MISSING。
 
 shared primitiveはすべて揃っているが、Selected16固有caller proofが無い。
 
-primitive完成だけで武器を自動昇格させないanti-auto-promotion gate。
+primitive完成だけで武器を自動昇格させないanti-auto-promotion gateとして残す。
 
 ### `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-required primitiveがすべてIMPLEMENTEDで、Selected16固有callerも実コードで証明済み。
+required primitiveがすべてIMPLEMENTEDで、Selected16固有callerも実コード + executable contractで証明済み。
 
 ここでいうadmittedはproduction/liveを意味しない。全entryの `runtimeStatus` はまだ `NOT_IMPLEMENTED`。
 
 ## Current result
 
-**admitted=2**
+**admitted=3**
 
-**blocked=14**
+**blocked=13**
 
 implementation-review admitted:
 
 - `ember_matchcase`
 - `bellows_fan`
+- `pavement_hammer`
 
-caller proof registryもこの2本だけ。
+caller proof registryもこの3本。
 
 primitive-complete but caller-proof missing:
 
-- `pavement_hammer`
+- none
 
 ## `ember_matchcase`
 
-Content:
+Existing caller:
 
-- FIRE
-- BURN
-- `SCATTER_PROJECTILE`
+`EmberMatchcasePrototypeRuntime`
 
-required:
-
-- `MULTI_TARGET_PROJECTILE_SELECTION`
-- `STATUS_APPLICATION`
-
-`EmberMatchcasePrototypeRuntime` がtyped BURN requestとdeterministic multi-target projectile pathを接続済み。
-
-caller-owned telemetryとprojectile-local prototype visual cueも実装済み。
+- deterministic multi-target projectile path
+- typed BURN request
+- caller-owned telemetry
+- prototype visual cue
 
 Boundary:
 
@@ -114,27 +109,14 @@ Boundary:
 
 ## `bellows_fan`
 
-Content:
+Existing caller:
 
-- WIND
-- DISORIENTED
-- `CONE_PUSH`
-
-required:
-
-- `CONE_QUERY`
-- `KNOCKBACK_VECTOR`
-- `STATUS_APPLICATION`
-
-`BellowsFanPrototypeRuntime` が:
+`BellowsFanPrototypeRuntime`
 
 1. deterministic cone query
 2. typed DISORIENTED
 3. outward knockback
-
-を接続済み。
-
-caller-owned telemetryは invocation / selection / Status outcome / knockback outcomeを記録する。
+4. caller-owned telemetry
 
 Boundary:
 
@@ -142,17 +124,9 @@ Boundary:
 
 `PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
 
-## `pavement_hammer` — primitive complete / caller pending
+## `pavement_hammer` — caller implemented / not live
 
-Content Authority:
-
-- Name: 石畳の小槌
-- EARTH
-- EXPOSED
-- `SLAM_WAVE`
-- slow close slam
-- directional short pavement cracks
-- **high break/stagger**
+既存Content Authorityはこのruntime作業では変更しない。
 
 required capabilities:
 
@@ -161,34 +135,59 @@ required capabilities:
 3. `BREAK_STAGGER_APPLICATION`
 4. `STATUS_APPLICATION`
 
-shared runtime evidence:
+shared runtime evidenceは4つともIMPLEMENTED。
 
-- `SLAM_WAVE_QUERY`: IMPLEMENTED
-- `KNOCKBACK_VECTOR`: IMPLEMENTED
-- `BREAK_STAGGER_APPLICATION`: IMPLEMENTED
-- `STATUS_APPLICATION`: IMPLEMENTED
+Selected16 caller proof:
+
+`PavementHammerPrototypeRuntime`
+
+Callerが明示的に接続する順序:
+
+`QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER`
+
+1. deterministic sector-band query
+2. caller supplied damage
+3. damage後も生存したtargetだけtyped EXPOSED application
+4. outward knockback
+5. break accumulation / threshold / stagger
+6. caller-owned telemetry
+
+倒れたtargetにはdamage後のStatus / knockback / break-staggerを適用しない。
+
+EXPOSEDのinternal cooldownでStatusがblockされても、独立mechanicであるdamage / knockback / break-staggerは継続できる。
+
+全数値はcaller supplied:
+
+- inner / outer radius
+- half-angle
+- max target count
+- damage
+- damage flash duration
+- knockback distance
+- break amount
+- break threshold
+- stagger duration
+- EXPOSED application policy
+
+Boundary:
+
+`CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
+
+`PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
 
 現在のdecision:
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-missing shared primitive:
+ただし:
 
-- none
+- `runtimeStatus = NOT_IMPLEMENTED`
+- Web live catalog未接続
+- LevelUp未接続
+- Stage1GameplayRuntimeCoordinator未接続
+- U47 live executor未拡張
 
-caller proof:
-
-- **MISSING**
-
-つまりshared mechanicsは揃ったが、まだ `PavementHammerPrototypeRuntime` は存在せず、implementation-review Admissionへは上げない。
-
-### Why this boundary matters
-
-#194で `SLAM_WAVE_QUERY` を実装した時点ではbreak/staggerが実体化しておらず、mechanical identityの **high break/stagger** をruntimeが表現できなかった。
-
-今回 `BREAK_STAGGER_APPLICATION` を本物の共有mechanicとして追加したことでprimitive blockerは解消した。ただしquery + knockback + break/stagger + Statusが揃っただけでは武器固有の適用順序・caller tuning・telemetryを証明できない。
-
-そのため次のblockerをcaller proofへ正しく移す。
+なのでproduction/liveを意味しない。
 
 ## Shared primitive boundaries
 
@@ -198,8 +197,6 @@ caller proof:
 - duration / stack / magnitude / cooldown policy
 - pooled enemy ownership/reset/Tick
 - typed request transport
-
-をshared foundationとして持つ。
 
 Weapon固有のStatus tuningはcaller supplied。
 
@@ -226,7 +223,7 @@ velocity / stun / duration / default distanceを持たない。
 - nearest-first
 - stable input-order tie
 
-WIND / DISORIENTED / knockback / damageを持たない。
+Weapon identity / Status / knockback / damageを持たない。
 
 ### `SLAM_WAVE_QUERY`
 
@@ -241,7 +238,7 @@ WIND / DISORIENTED / knockback / damageを持たない。
 
 `innerRadius=0` ならone-shot slam、callerがbandを進めればpropagating waveにも使える。
 
-EARTH / EXPOSED / damage / break / stagger / knockback / timing / VFXを持たない。
+Weapon identity / Status / damage / break / stagger / knockback / timing / VFXを持たない。
 
 ### `BREAK_STAGGER_APPLICATION`
 
@@ -262,16 +259,40 @@ Semantics:
 
 Shared primitiveが持たないもの:
 
-- Pavement Hammer名 / EARTH / EXPOSED
+- Weapon固有Content identity
 - damage
 - Canon break amount / threshold / duration
 - passive recovery / decay
 - boss / elite resistance
 - VFX / SFX / camera shake
-- telemetry policy
+- caller telemetry policy
 - live registry admission
 
 Boss/elite resistanceや自然回復が必要になった場合は、武器値をここへ埋めず別policy layerとして追加する。
+
+## Pavement Hammer executable proof
+
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PavementHammerPrototypeRuntime.cs`
+- `scripts/quality/unity-pavement-hammer/UnityPavementHammer.Contract.csproj`
+- `scripts/quality/unity-pavement-hammer/Program.cs`
+
+Executable contractはTEST_ONLY値で:
+
+- sector-band selection
+- nearest-first order
+- damage-death short circuit
+- surviving EXPOSED application
+- independent Status internal cooldown
+- outward knockback
+- two-hit break threshold crossing
+- residual break gauge
+- stagger duration
+- caller telemetry
+- invalid tuning fail closed
+
+を検証する。
+
+TEST_ONLY数値は **NOT_CANON**。
 
 ## Live boundary
 
@@ -284,7 +305,7 @@ Boss/elite resistanceや自然回復が必要になった場合は、武器値�
 - U47 executor enumの名前だけ追加
 - save migrationの先行作成
 - unsupported weaponをProjectile/GroundAreaへ偽装
-- primitive実装だけでruntime auto-promotion
+- prototype caller実装だけでruntime auto-promotion
 
 `runtimeAutoPromotionAllowed = false`
 
@@ -298,7 +319,7 @@ Runtime進捗を理由にSelected16を勝手に変更しない。
 - Character affinityを変えない
 - Transformation graphを変えない
 
-Runtime不足はRuntime不足として記録する。
+原本/Canonは別作業のAuthorityとし、このruntime作業から書き換えない。
 
 ## Next gates
 
@@ -317,11 +338,10 @@ Runtime不足はRuntime不足として記録する。
 
 ### Pavement Hammer
 
-1. `PavementHammerPrototypeRuntime` caller proof
-2. EXPOSED / knockback / damage / break-stagger / wave timing authority分離
-3. caller-owned telemetry
-4. runtime capture
-5. mobile pavement-crack visual
-6. implementation-review Admission再判定
+1. runtime evidence capture
+2. caller telemetryとrendered evidenceを同一runへ束ねる
+3. mobile pavement-crack visual cue
+4. break/stagger readability
+5. human live-admission review
 
-数値balanceは最後まで **PROTOTYPE_TUNING_NOT_CANON** として分離する。
+数値balanceは最後まで **PROTOTYPE_TUNING_NOT_CANON** として原本/Canonから分離する。
