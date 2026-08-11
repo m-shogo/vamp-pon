@@ -1,7 +1,7 @@
-# ヨルノシルベ — Season Architecture / Cast Matrix v1
+# ヨルノシルベ — Season Architecture / Cast Matrix v2
 
 Date: 2026-08-11  
-Status: **CURRENT SERIES STRUCTURE / S1-S2 WORKING PROBLEM LANES / TITLES AND EXACT INCIDENTS OPEN**
+Status: **CURRENT SERIES STRUCTURE / S1-S2 WORKING PROBLEM LANES / SEASON ANTAGONIST ROTATION USER-DECIDED**
 
 Upstream:
 
@@ -14,7 +14,8 @@ Upstream:
 > EraはCharacterがRealityで生きる時代背景。
 > Seasonはシリーズ全体の中で、その時期に何の大問題を掘るかというStory編成単位。
 >
-> Core5は一つのEra事件を解決したら退場する使い切りCharacterではない。Yui / Asa / Nagi / Michiru / TomoriはSeasonを跨いで続投でき、各Seasonの大事件に異なる形で関与する。
+> Core5はSeasonを跨いで続投する。
+> **敵team名 + primary enemy castはSeasonごとに変える。**
 
 ---
 
@@ -34,12 +35,34 @@ Persistent spine:
 - star / constellation Era discrepancy
 - Moon phase = incident depth
 - Black Youka
-- Sakuyaza
 - Gunjo Zankyoroku
 - Main Mystery remains partially Open
 - canonical Happy End direction
 
 Season2開始時にSeason1を無かったことにしない。
+
+## Antagonist team rotates
+
+User-decided:
+
+```txt
+S1 = 朔夜座 / 8人
+S2 = 別team名 + 別cast
+S3 if used = さらに別team名 + 別cast
+```
+
+Hard:
+
+- S1朔夜座8人をS1/S2で4人ずつ分けない。
+- S2で朔夜座をseries-wide main enemyとして続投しない。
+- team名だけ変えて同じprimary enemy rosterを使わない。
+- previous Season enemyの**個人再登場**は可能。
+- previous Season full teamを次Seasonのprimary antagonistへ戻さない。
+- new teamはそのSeason macro problemから新しいCharacter思想を作る。
+
+This means:
+
+> Main Story continues; primary antagonist team rotates.
 
 ## Problem changes by Season
 
@@ -82,6 +105,35 @@ Working thematic question:
 
 This is not final Season title.
 
+## Primary antagonist team
+
+# **朔夜座**
+
+Season1 fixed roster:
+
+- ナシロ
+- アサトジ
+- ミチグレ
+- オリネ
+- ハクマ
+- ツグリ
+- ユラネ
+- ペタ
+
+All 8 are S1 roster。
+
+S1内で:
+
+- pair
+- solo
+- personal action
+- temporary alignment
+- counter / mitigation
+
+を変える。
+
+全8人が全事件へ出る必要はない。
+
 ## Problem family
 
 - name / label
@@ -97,27 +149,25 @@ This is not final Season title.
 
 ## Era-specific incident candidates
 
-These are separate fictional incidents, not one renamed real incident.
-
-### Tomori Era
-
-Official distribution ledger excludes people not properly registered.
-
-### Nagi Era
+### Nagi Era — primary
 
 Shared identity-warning network excludes misregistered people.
 
-### Yui Era
+### Yui Era — primary / climax candidate
 
 Verified-only emergency information hides genuine but unverified SOS.
 
-### Asa Era
+### Asa Era — identity / belonging side
 
 Continuity authentication denies valid branch persons / body-transferred identities.
 
-### Michiru Era
+### Tomori Era — evidence seed
 
-Season1 uses Michiru more as the person who notices that **different maps / registries describe different cities**, without spending Michiru's primary development/environment incident yet.
+Distribution ledger evidence / repair traceをS2へseedする。
+
+### Michiru Era — evidence seed
+
+Different maps / registries describe different cities。Primary development incidentはS2へ残す。
 
 ## Season1 payoff
 
@@ -132,6 +182,10 @@ But do NOT answer:
 - final Star Beast truth
 - final constellation change cause
 
+Season1 ending:
+
+> **勝利は本物。安心だけがまだ早い。**
+
 ---
 
 # 3. Season 2 Working Problem Lane
@@ -144,7 +198,19 @@ Working thematic question:
 
 > **守る / 直す / 発展させる時、誰の道・時間・身体・生活を「仕方ない」と切り捨てるのか。**
 
-This is not final Season title.
+## Primary antagonist team
+
+**OPEN。**
+
+Hard requirements:
+
+- team名は朔夜座ではない。
+- primary rosterはS1朔夜座8人とは別Character群。
+- exact team name / roster count / member namesはまだOpen。
+- S2 macro problemに合わせて新設計する。
+
+S1朔夜座memberが一人だけ再登場することは可能。
+ただしS2 main teamにはしない。
 
 ## Problem family
 
@@ -165,29 +231,27 @@ This is not final Season title.
 
 ### Tomori Era
 
-Reconstruction / housing / material allocation creates a new conflict different from Season1's record-exclusion problem.
+Primary focus。
 
-Question:
-
-> scarce resourcesを公平に配るだけでなく、誰の生活を再建の「標準」にするか。
+Reconstruction / housing / material allocation。
 
 ### Michiru Era
 
-Primary focus.
+Primary focus。
 
-Single fastest development route cuts health / local route / community escape paths.
-
-### Nagi Era
-
-Employment / efficiency / outsourced screening / early-network workplace systems can create a different pressure from Season1 privacy identity.
-
-### Yui Era
-
-Recommendation / optimization / public-service allocation can prioritize statistically efficient users while isolating hard-to-score people.
+Single fastest development route cuts health / local route / community escape paths。
 
 ### Asa Era
 
-Android / Robot labor, ownership, body maintenance, resource allocation, avatar access等を扱い、Season1のidentity certificationとは別問題へ進む。
+rights / care / resource / body maintenance sideへ進む。
+
+### Nagi Era
+
+S1 warning-copy問題の後遺症 / work / access / efficiencyへ展開可能。
+
+### Yui Era
+
+S1 verification問題の後、optimization / public-service allocation / care accessへ展開可能。
 
 ## Season2 payoff
 
@@ -195,11 +259,34 @@ Player should learn:
 
 > protection / development / repair can also become one-answer fixation.
 
-Season1の「認める」問題から、Season2は**「どう扱う / 何を犠牲にする」問題**へ進む。
+S1の「認める」からS2の**「どう扱う / 何を犠牲にする」**へ進む。
+
+Final SeasonならHappy Endへ到達可能。
+FinalでなければS3へ deeper partial resolution。
 
 ---
 
-# 4. Core5 across Seasons
+# 4. Optional Season 3
+
+Status: `CANDIDATE / NOT MANDATORY`
+
+Working theme:
+
+> inheritance / memory / history / what to pass on / what to end
+
+Primary antagonist team:
+
+- name Open
+- roster Open
+- S2 primary teamからさらに変更
+- 「もっと強い敵team」だけを理由に作らない
+
+S1/S2 individual antagonist returnsはpossible。
+Full previous team replayは禁止。
+
+---
+
+# 5. Core5 across Seasons
 
 | Character | Season1 | Season2 | Continuity rule |
 |---|---|---|---|
@@ -209,20 +296,21 @@ Season1の「認める」問題から、Season2は**「どう扱う / 何を犠�
 | **Michiru** | **STRONG CONTINUATION** — map discrepancy / route clues | **PRIMARY FOCUS** — development / pollution / route sacrifice | S1の観察役からS2のEra leadへ |
 | **Tomori** | **STRONG CONTINUATION** — ledger / repair evidence | **PRIMARY FOCUS** — reconstruction / allocation / repair | S1のrepair skillがS2では制度問題へ拡張 |
 
-**Core5 all Seasons principle:**
+Core5 rules:
 
-- S1解決後も続投可。
-- 一人のReality incidentを解決したらCharacter退場、にしない。
-- SeasonごとにMain Incident / Sakuyaza / constellation Mysteryへ別角度で関われる。
+- Seasonを跨いで続投。
+- 一人のReality incidentを解決したら退場、にしない。
+- 敵teamが変わってもCore5関係をresetしない。
+- previous antagonistとの関係もHistoryとして残る。
 
 ---
 
-# 5. Current21 Season Matrix
+# 6. Current21 Season Matrix
 
 Legend:
 
-- `PRIMARY` — Seasonの主要arcを担う
-- `STRONG` — 複数episode / major confrontationへ強く関与
+- `PRIMARY` — Seasonの主要arc
+- `STRONG` — major recurring involvement
 - `SUPPORT` — recurring support / relationship / ordinary-life engine
 - `CAMEO` — presence / clue / party / bridge
 
@@ -233,163 +321,134 @@ Legend:
 | ナギ | PRIMARY | STRONG | privacy → access / labor boundary |
 | ミチル | STRONG | PRIMARY | map discrepancy → development route |
 | トモリ | STRONG | PRIMARY | repair evidence → reconstruction / allocation |
-| セン | STRONG | SUPPORT | education / words / institutional explanation without lecture |
+| セン | STRONG | SUPPORT | education / words / institutional explanation |
 | リツ | SUPPORT | STRONG | family duty / distribution / care / sharing |
 | コヨリ | SUPPORT | STRONG | child lens / naming / adult contradiction |
-| ゲン | CAMEO | PRIMARY | previous-city memory / old route / pipe social scenes |
+| ゲン | CAMEO | PRIMARY | old route / material / social life |
 | ハナ | SUPPORT | STRONG | preservation / household / older-adult lens |
-| ユウビ | PRIMARY | SUPPORT | letters / delivery / missing record / route evidence |
-| マドカ | STRONG | SUPPORT | witness / rumor / seeing without acting |
+| ユウビ | PRIMARY | SUPPORT | delivery / missing record / route evidence |
+| マドカ | STRONG | SUPPORT | witness / rumor / observation |
 | シロ | PRIMARY | STRONG | archive / classification / unknown handling |
 | トバリ | STRONG | STRONG | access gate / public boundary / infrastructure |
 | ネム | SUPPORT | PRIMARY | rest / care / escape vs recovery |
 | クロオリ | PRIMARY | SUPPORT | privacy / concealment / preserved meaning |
 | カナメ | SUPPORT | PRIMARY | protection / care / carrying too much |
 | カスミ | PRIMARY | SUPPORT | name / obscurity / reputation |
-| トキ | STRONG | PRIMARY | measurement / timing / optimization / schedules |
+| トキ | STRONG | PRIMARY | measurement / timing / optimization |
 | ツムギ | SUPPORT | PRIMARY | unfinished / repair / leave room vs finish |
-| レン | STRONG | STRONG | difference detection / cross-Season investigation bridge |
+| レン | STRONG | STRONG | difference detection / cross-Season investigation |
 
 ---
 
-# 6. Future15 Season Assignment
+# 7. Future15 Season Assignment
 
 Important:
 
 > Season assignment **does not automatically promote Future15 into Current21 / playable roster**.
 
-A Future character can be:
-
-- teaser
-- side story
-- Reality scene
-- Dream guest
-- future-season setup
-
-without production-roster promotion.
-
 | Future | S1 | S2 | Working Season use |
 |---|---|---|---|
-| **ヒヨリ** | SUPPORT | STRONG | ordinary-life / household perspective; exact subplot remains Candidate |
-| **セリカ** | STRONG | SUPPORT | institution / reputation / social classification lane Candidate |
-| **クロエ** | STRONG | STRONG | long-lived perspective; Era evidence that does not equal Core5 Dream mechanism |
-| **レンジ** | SUPPORT | STRONG | mentor/student / age reversal / accumulated skill across time |
-| **トウマ** | CAMEO | PRIMARY | craft / repair / labor / replacement culture |
-| **クウ** | STRONG | STRONG | dog remembers people without time tags; emotional continuity |
-| **ヨモ** | PRIMARY | SUPPORT | multiple names / multiple homes / identity without one label |
-| **ノア** | PRIMARY | STRONG | same-memory / copy / personhood question |
-| **ルム** | STRONG | STRONG | collective memory → individual experience; comic / philosophical bridge |
-| **マキ** | SUPPORT | STRONG | adult work / household / care lane Candidate |
-| **スズ** | STRONG | SUPPORT | presentation / category / how others label a person |
-| **イオ** | STRONG | SUPPORT | gender non-disclosure / classification pressure |
-| **カイ** | PRIMARY | STRONG | twins / similarity / one-unit treatment |
-| **ナオ** | PRIMARY | STRONG | twins / similarity / individual divergence |
-| **アマネ** | SUPPORT | PRIMARY | accessibility / city design / care without burden narrative |
+| ヒヨリ | SUPPORT | STRONG | ordinary-life / household perspective |
+| セリカ | STRONG | SUPPORT | institution / reputation / classification |
+| クロエ | STRONG | STRONG | long-lived perspective |
+| レンジ | SUPPORT | STRONG | mentor/student / accumulated skill |
+| トウマ | CAMEO | PRIMARY | craft / repair / labor / replacement |
+| クウ | STRONG | STRONG | dog recognition without time tags |
+| ヨモ | PRIMARY | SUPPORT | multiple names / multiple homes |
+| ノア | PRIMARY | STRONG | same-memory / copy / personhood |
+| ルム | STRONG | STRONG | collective memory → individual experience |
+| マキ | SUPPORT | STRONG | adult work / household / care |
+| スズ | STRONG | SUPPORT | presentation / category / label |
+| イオ | STRONG | SUPPORT | classification pressure |
+| カイ | PRIMARY | STRONG | twin similarity / one-unit treatment |
+| ナオ | PRIMARY | STRONG | twin divergence |
+| アマネ | SUPPORT | PRIMARY | accessibility / city design / care |
 
 Final scene / playable status remains separate Human / production decision.
 
 ---
 
-# 7. Sakuyaza Season Focus
+# 8. Enemy continuity without team continuity
 
-All 8 remain the same organization / pact assets and may recur across Seasons.
-Do not divide into permanent Season1 team / Season2 team.
+Season teamが交代しても、前Seasonの敵Characterを「存在しなかったこと」にしない。
 
-## Season1 heavier focus
+Good:
 
-- **ナシロ** — one correct identity / name
-- **ハクマ** — erase meaning / blank classification
-- **ペタ** — correct label overrides person
-- **オリネ** — conceal dangerous meaning
+```txt
+S1: Petta labels people as verified / safe / dangerous.
+S2: Petta appears once and hates how the new team measures resource priority.
+```
 
-## Season2 heavier focus
+Petta can have changed or still be wrong。
+But Petta is **not S2 primary team member by default**。
 
-- **アサトジ** — protect by enclosing
-- **ミチグレ** — erase wrong routes
-- **ツグリ** — repair without consent
-- **ユラネ** — comfort / escape becoming captivity
+Another good form:
 
-## Cross-season recurrence
+- former rival gives one clue
+- former enemy refuses to help
+- one previous member becomes temporary ally
+- one disappears and later returns
 
-Every member may appear in both Seasons.
-Pair Mission Rule remains dynamic.
+Bad:
 
-Example:
-
-- Peta can return in S2 when an `efficient` public label becomes resource priority.
-- Tsuguri can appear in S1 when a damaged record is repaired into the wrong official answer.
-
-This prevents thematic boxes from becoming mechanical silos.
+> S2新teamと言いつつ朔夜座8人が全員いつもの立場で主要Bossとして並ぶ。
 
 ---
 
-# 8. Gunjo Zankyoroku across Seasons
+# 9. Gunjo Zankyoroku across Seasons
 
-Gunjo Zankyoroku is not `Season Boss roster`.
+Gunjo Zankyoroku is not `Season Boss roster`。
 
 Rules:
 
 - one historical central person may matter in multiple Seasons through different consequences
-- one Season may reveal only a fragment of their role
-- S1 can reveal a record / name / decision
-- S2 can reveal the material / social consequence of the same decision
-- new members may be discovered later
+- one Season may reveal only a fragment
+- new people may be discovered later
 - no fixed number per Season
 - no mandatory combat battle
 
-**Same person, new evidence** is allowed.
-**Same moral lesson repeated** is not.
+Season enemy team rotationとは別軸。
 
 ---
 
-# 9. Character overlap rule
+# 10. Character overlap rule
 
-Characters should overlap intentionally.
+Characters should overlap intentionally。
 
-Good overlap:
+Good:
 
 ```txt
 S1: Shiro classifies an unknown record.
 S2: Shiro now knows classification can hurt people, but must still classify scarce resources.
 ```
 
-Growth continues.
-
-Bad overlap:
+Bad:
 
 ```txt
 S1: Shiro learns unknown ≠ discard.
-S2: Shiro forgets everything and learns unknown ≠ discard again.
+S2: Shiro forgets and learns the same lesson again.
 ```
 
-No reset.
+No reset。
 
 ---
 
-# 10. Season boundary ≠ automatic Waking boundary
+# 11. Season boundary ≠ automatic Waking boundary
 
-Season is a production / story arc boundary.
+Season is a production / story arc boundary。
 
 It does **not automatically mean**:
 
 - everyone wakes
 - memory resets
 - Dream closes
-- cast is replaced
+- protagonist cast is replaced
 
-Season1→Season2 can occur:
-
-- in one continuous Dream campaign
-- across multiple Dream entries
-- after partial Waking for some characters
-
-Exact macro mechanism remains Open until Story architecture needs it.
-
-This preserves the existing Waking / memory rules while allowing continuing cast.
+Enemy team rotates independently of Waking mechanics。
 
 ---
 
-# 11. Party continuity across Seasons
+# 12. Party continuity across Seasons
 
 Boss / major confrontation後PartyはSeason continuityにも使う。
 
@@ -398,23 +457,23 @@ S1:
 - first big group meals
 - food culture discovery
 - drinking / soda habits
-- names on cups / labels / privacy joke
+- labels / privacy joke
 
 S2:
 
+- same protagonists, different enemy shadow
 - same table but different seating
-- someone now knows another's preferred food
-- characters cook for others instead of just discovering food
+- characters remember preferred food
 - old joke becomes care
-- one previous party routine fails during a heavy chapter
+- one previous antagonist can unexpectedly appear only if story earns it
 
 **Party relationship state must carry between Seasons.**
 
 ---
 
-# 12. Family / generation lenses across Seasons
+# 13. Family / generation lenses across Seasons
 
-Same Era household can be revisited with another generation.
+Same Era household can be revisited with another generation。
 
 Example:
 
@@ -426,29 +485,7 @@ S2 Present:
 same household faces public-service optimization / care access.
 ```
 
-This makes a society feel continuous rather than creating a new disposable NPC set every Season.
-
-Father / mother / aunt / uncle / grandparent / child can recur across Seasons if their specific relation is later Canonized.
-
----
-
-# 13. Season3+ extension rule
-
-Season2 is not the end of the architecture.
-
-Future Season macro problems can change again, e.g.:
-
-- relationship / family / inheritance
-- collective memory / history rewriting
-- education / who teaches whom
-- body / aging / medical choice
-- freedom / safety / prediction
-- art / imitation / authorship
-
-But Main Spine continues.
-
-Do not add a Season merely to create a new enemy set.
-Do not reset Sakuyaza / Core5 each Season.
+Society continues even when enemy team changes。
 
 ---
 
@@ -456,16 +493,18 @@ Do not reset Sakuyaza / Core5 each Season.
 
 Before adding a Season:
 
-1. Macro problem differs clearly from previous Season.
-2. At least 3 returning characters face a **new** dimension of their established Core.
-3. At least 1 earlier minor character gains major focus.
-4. At least 1 previous major character can step back without disappearing.
-5. Sakuyaza recurrence uses new pair / rationale.
-6. Gunjo evidence advances without turning them into fixed Bosses.
-7. Main Mystery advances one layer but does not dump final answer.
-8. Party / household / ordinary-life continuity shows relationships carried forward.
-9. Era problems remain historically / socially distinct.
-10. Growth is never reset for convenience.
+1. Macro problem differs clearly from previous Season。
+2. Core5 growth is carried forward。
+3. At least 3 returning characters face a new dimension。
+4. At least 1 earlier minor character gains major focus。
+5. **new primary antagonist team has a new team name and new primary roster.**
+6. team change is not cosmetic rename / reskin。
+7. previous enemy individual return has a specific reason。
+8. Gunjo evidence advances without fixed Boss roster。
+9. Main Mystery advances but does not dump final answer early。
+10. Party / household continuity proves relationships carried forward。
+11. Era problems remain historically / socially distinct。
+12. Growth is never reset for convenience。
 
 ---
 
@@ -478,7 +517,12 @@ SEASON = which macro problem the series is exploring now.
 Core5 = recurring series leads across Seasons.
 Supporting cast = intentionally overlapping focus tiers.
 Future15 season use != automatic roster promotion.
-Sakuyaza = recurring, not replaced each Season.
+
+S1 primary antagonist team = 朔夜座 / 8人.
+S2 primary antagonist team = 別team名 + 別cast / OPEN.
+S3 if used = another team + another cast / OPEN.
+Previous antagonist individuals may return, but previous full team does not remain primary.
+
 Gunjo Zankyoroku = record taxonomy, not Season Boss slots.
 Main spine = continuous.
 ```
