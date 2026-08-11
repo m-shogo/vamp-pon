@@ -1,12 +1,32 @@
 # Unity Repair Spanner Prototype v1
 
-Status: `PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE / RETURNING_CAPABILITY_NOT_YET_PROMOTED`
+Status: `NON_SELECTED_RETURN_FAMILY_PROOF / PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
 
 ## Purpose
 
-Selected16 `repair_spanner` / 修理スパナの `RETURNING_THROW` を、通常Projectileへの偽装ではなく返投motion + 往路/復路別hit semanticsとして実装する。
+`repair_spanner` / 修理スパナは現在 **Selected16ではない**。
+
+Authoring selection authorityでは:
+
+`HOLD_RETURN_FAMILY_OVERLAP`
+
+としてCandidate reservoirに保持されている。
+
+このruntime作業はその選定を変更せず、返投familyのmotion + 往路/復路別hit semanticsを実コードで検証する **non-selected prototype proof** として使う。
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
+
+## Selection boundary
+
+保持する事実:
+
+- `selectedForTitle1 = false`
+- `decision = HOLD_RETURN_FAMILY_OVERLAP`
+- Selected return familyは現Authoring Authority上 `return_compass_needle` を優先
+- `repair_spanner` をruntime進捗だけでSelected16へ昇格しない
+- `runtimeAutoPromotionAllowed = false`
+
+このproofは将来のreturn family実装へ再利用できるが、Content selection proofではない。
 
 ## Runtime composition
 
@@ -119,22 +139,18 @@ TEST_ONLY contract verifies:
 - invalid input fail closed
 - telemetry exactness
 
-## Admission boundary
+## Capability boundary
 
 このPRでは `RETURNING_PROJECTILE` capabilityをまだ `IMPLEMENTED` へ上げない。
 
 理由:
 
 - shared motion foundationはmain済み
-- Repair Spanner caller/hit policyはこのPRで実装
-- まずcaller executable contractをgreenに固定する
-- その後Title1 Admission overlayでcapability + caller proofを同時に昇格する
+- non-selected Repair Spannerでhit table / turnaround semanticsを実証する
+- Selected16本命 `return_compass_needle` のcaller proofは別に必要
+- Content selectionとruntime capabilityを混同しない
 
-現時点のTitle1 decisionは引き続き:
-
-`BLOCKED_MISSING_UNITY_PRIMITIVES`
-
-これは「callerが無い」という意味ではなく、Admission overlayを意図的に後段gateへ分離しているため。
+Repair SpannerはTitle1 Admission matrixの対象ではないので、Selected16 decisionを作成しない。
 
 ## Live boundary
 
@@ -154,4 +170,6 @@ TEST_ONLY contract verifies:
 
 このruntime実装から原本を変更しない。
 
-Weapon name / attribute / EXPOSED identity / affinity / transformation graph / Canon valuesを変更しない。
+Weapon name / attribute / EXPOSED identity / affinity / transformation graph / Canon values / Hold decisionを変更しない。
+
+次のSelected16側のreturn proofは `return_compass_needle` で行う。
