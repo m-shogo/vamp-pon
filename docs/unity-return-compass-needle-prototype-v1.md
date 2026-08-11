@@ -8,7 +8,7 @@ Selected16 `return_compass_needle` / 帰針の `RETURN_HOMING` を、往路line 
 
 Authoring Authority:
 
-`SELECTED_RETURN_FAMILY_SPECIALIST`
+`TITLE1_SELECTED`
 
 `repair_spanner` は引き続き `HOLD_RETURN_FAMILY_OVERLAP`。
 
@@ -54,8 +54,9 @@ Rules:
 - generic homing selector receives only candidates + effective scores
 - selector does not learn what MARKED means
 - if no alternate eligible target exists, return route goes directly to owner
+- invalid min/max return range or invalid tie-break fails closed before selection; invalid input is never reinterpreted as "no eligible waypoint"
 
-Thus the mechanical identity **帰路はMARKED対象を優先** is implemented without hard-coding a Canon score.
+Thus the mechanical identity **帰路はMARKED対象を優先** is implemented without hard-coding a Canon score。
 
 ## Dynamic return homing
 
@@ -140,6 +141,7 @@ TEST_ONLY contract covers:
 - return MARKED cooldown independent from damage
 - lost waypoint falls back to owner anchor
 - dynamic final owner anchor
+- invalid return range / tie-break fail closed rather than becoming direct-return fallback
 - reset / telemetry reset
 
 All fixture values are NOT_CANON.
@@ -181,7 +183,7 @@ No automatic connection to:
 
 No Story / Character / Original / Content selection is modified.
 
-- `return_compass_needle` stays Selected
+- `return_compass_needle` stays Selected via `TITLE1_SELECTED`
 - `repair_spanner` stays Hold
 - MARKED identity stays authored
 - numeric tuning remains prototype-only
