@@ -59,19 +59,8 @@ for (const token of [
 }
 
 for (const forbidden of [
-  'pavement_hammer',
-  '石畳の小槌',
-  'EXPOSED',
-  'EARTH',
-  'ParticleSystem',
-  'Camera.',
-  'AudioSource',
-  'defaultBreak',
-  'defaultThreshold',
-  'defaultStagger',
-  'BossStatusDisposition',
-  'LevelUp',
-  'WeaponEffectType',
+  'pavement_hammer', '石畳の小槌', 'EXPOSED', 'EARTH', 'ParticleSystem', 'Camera.',
+  'AudioSource', 'defaultBreak', 'defaultThreshold', 'defaultStagger', 'BossStatusDisposition', 'LevelUp', 'WeaponEffectType',
 ]) {
   assert(!source.includes(forbidden), `generic break/stagger primitive must not own ${forbidden}`);
 }
@@ -81,10 +70,10 @@ assert(knockback.includes('EnemyDisplaced?.Invoke(enemy);'), 'knockback must emi
 assert(!knockback.includes('U2EnemyBreakStaggerRuntime'), 'knockback must not depend directly on break/stagger implementation');
 
 assert(currentUnityWeaponRuntimeCapabilities.BREAK_STAGGER_APPLICATION === 'IMPLEMENTED', 'BREAK_STAGGER_APPLICATION must remain backed by reusable runtime source');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 10, `expected 10 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 12, `expected 12 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 11, `expected 11 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 11, `expected 11 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'BREAK_STAGGER_APPLICATION'), 'implemented break/stagger must disappear from missing frequency');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'all primitive-complete Selected16 callers should have explicit caller proof after Star Map Pin lands');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Rain Thread should be the one primitive-complete caller-proof blocker after tether capability promotion');
 
 const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
 assert(hammer, 'pavement_hammer admission row missing');
@@ -96,41 +85,21 @@ assert(hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer implementation-revi
 assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'caller proof must not claim live runtime');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('pavement_hammer'), 'Pavement Hammer should remain in implementation-review admissions');
 
-for (const forbiddenLiveToken of [
-  'U2EnemyBreakStaggerRuntime',
-  'U2EnemyBreakStaggerDriver',
-  'PavementHammerPrototypeRuntime',
-  'pavement_hammer',
-]) {
+for (const forbiddenLiveToken of ['U2EnemyBreakStaggerRuntime','U2EnemyBreakStaggerDriver','PavementHammerPrototypeRuntime','pavement_hammer']) {
   assert(!coordinator.includes(forbiddenLiveToken), `shared/prototype break-stagger leaked into live Stage1 coordinator: ${forbiddenLiveToken}`);
 }
 
 for (const token of [
-  'state.TryApply(40f, 100f, .5f',
-  'state.TryApply(70f, 100f, .5f',
-  'Near(second.AccumulatedBreak, 10f)',
-  'state.Tick(.2f)',
-  'state.TryApply(250f, 100f, .8f',
-  'U2EnemyKnockbackRuntime.TryApply(enemy',
-  'InvokeNonPublic(driver, "LateUpdate")',
-  'untargetable enemy must reject new break/stagger',
+  'state.TryApply(40f, 100f, .5f','state.TryApply(70f, 100f, .5f','Near(second.AccumulatedBreak, 10f)',
+  'state.Tick(.2f)','state.TryApply(250f, 100f, .8f','U2EnemyKnockbackRuntime.TryApply(enemy',
+  'InvokeNonPublic(driver, "LateUpdate")','untargetable enemy must reject new break/stagger',
 ]) {
   assert(contract.includes(token), `break/stagger executable contract missing scenario: ${token}`);
 }
 assert(project.includes('U2EnemyBreakStaggerRuntime.cs'), 'contract project must compile the real break/stagger runtime source');
 assert(project.includes('U2EnemyKnockbackRuntime.cs'), 'contract project must compile the real knockback integration source');
 
-for (const token of [
-  'BREAK_STAGGER_APPLICATION',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'HPとは独立',
-  'residual',
-  'knockback',
-  'pool',
-  'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW',
-  'Live Stage1',
-  'NOT_CANON',
-]) {
+for (const token of ['BREAK_STAGGER_APPLICATION','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','HPとは独立','residual','knockback','pool','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','Live Stage1','NOT_CANON']) {
   assert(doc.includes(token), `break/stagger primitive doc missing token: ${token}`);
 }
 
@@ -140,11 +109,6 @@ console.log(JSON.stringify({
   tuningAuthority: 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
   implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
   missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
-  pavementHammer: {
-    decision: hammer.unityDecision,
-    callerProof: hammer.prototypeCallerImplemented,
-    mayEnterUnityRuntimeRegistry: hammer.mayEnterUnityRuntimeRegistry,
-    runtimeStatus: hammer.runtimeStatus,
-  },
+  pavementHammer: { decision: hammer.unityDecision, callerProof: hammer.prototypeCallerImplemented, mayEnterUnityRuntimeRegistry: hammer.mayEnterUnityRuntimeRegistry, runtimeStatus: hammer.runtimeStatus },
   liveStage1Changed: false,
 }, null, 2));
