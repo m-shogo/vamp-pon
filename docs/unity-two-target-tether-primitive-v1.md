@@ -108,9 +108,14 @@ Selected16のTETHER consumer。
 required:
 
 - `TWO_TARGET_TETHER`
+- `KNOCKBACK_VECTOR`
 - `STATUS_APPLICATION`
 
-両方IMPLEMENTEDになったが、Selected16固有callerはまだ無い。
+3つともIMPLEMENTED。
+
+`KNOCKBACK_VECTOR` はRain Threadのmechanical identityにある **position control** をgeneric tether selectorへ埋め込まず、caller側で2体を互いに引き寄せるために再利用するshared displacement primitiveとして要求する。
+
+ただしSelected16固有callerはまだ無い。
 
 したがって:
 
@@ -149,6 +154,7 @@ Tether runtime進捗を理由にAdmission rowを作成したり、Title1へ昇�
 
 1. `rain_thread` Selected16 caller proof
 2. typed SOAK application + two-target semantics
-3. tether lifetime / position-control policyはcaller別gate
-4. rendered line/readability evidence
-5. human live-admission review
+3. `KNOCKBACK_VECTOR` を使ったcaller-owned position control
+4. tether lifetime / break-distance policy
+5. rendered line/readability evidence
+6. human live-admission review
