@@ -1,0 +1,38 @@
+name: unity-multitarget-admission-proof
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/check-unity-multitarget-admission-proof.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-multitarget-admission-proof.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/check-unity-multitarget-admission-proof.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-multitarget-admission-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Re-check full Selected16 Unity admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Prove deterministic multi-target primitive promotion
+        run: node --experimental-strip-types scripts/quality/check-unity-multitarget-admission-proof.ts
