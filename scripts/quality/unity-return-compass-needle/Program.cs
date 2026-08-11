@@ -12,6 +12,8 @@ namespace UnityEngine
         public float y;
         public float z;
         public Vector3(float x, float y, float z) { this.x = x; this.y = y; this.z = z; }
+        public static Vector3 operator -(Vector3 left, Vector3 right)
+            => new(left.x - right.x, left.y - right.y, left.z - right.z);
     }
 
     public sealed class Transform
