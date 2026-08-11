@@ -42,6 +42,10 @@ Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED + RESEARCH-REFI
 - 食事を考えた瞬間に手元 / 空中へ直接materializeさせる
 - Android最終名をシオン / イヴ・ノインにする
 - 群青残響録側へ「○○座」を付ける
+- **全員を細身・若者・同じ美形faceへ均す**
+- **ぽっちゃり / 高齢 / 褐色 / 刺青 / 傷 / ほくろ / ピアス等を画像生成の都合で消す**
+- **Dream上の外見とRealityの身体 / species / gender presentationが必ず一致する、と固定する**
+- IF reward artへAIがその場で作ったgeneric mobを主要castとして混ぜる
 
 ---
 
@@ -905,6 +909,7 @@ AI単独でCanon化しない:
 - Yoru-no-Shirube final mechanism / origin
 - whether each incident needs combat Boss
 - final smoker identities / adult legality
+- each cross-form CharacterのDream bodyがなぜその形になるか。理由不要のDream logicも許可する。
 
 Core5の**5つの社会Era bandはCurrent**。ユイは`1990年代生まれ / 現代日本`までDECIDED、他のexact decade / yearはOpen。
 
@@ -932,3 +937,391 @@ Runtime / UI（必要な場合のみ）
 
 stable ID / Character / Enemy / Relation資産は壊さない。
 Historical research factとFictional incidentとCanon decisionを混同しない。
+
+---
+
+# 23. Character Physical Identity / Dream Form / IF Reward Visuals
+
+Status: `USER-DECIDED MASTER / VISUAL-PRODUCTION HARD RULE`
+
+## 23.1 Characterは髪色だけで差別化しない
+
+全Named Characterは、画像生成 / 原本 / TOP / Event Art / Clear Getter / merchandiseで同一人物として再現できる**Physical Identity Sheet**を持つ。
+
+最低必須field:
+
+```txt
+referenceHeightCm
+referenceWeightKg / referenceMass
+ageImpression
+bodyFrame
+shoulderWidth / torso / hip / limb balance
+skinTone / sun exposure
+faceShape / cheekVolume
+eye aperture / angle / spacing / eyelid
+eyebrow / eyelashes
+nose
+mouth / lips / teeth
+moles / freckles / birthmarks / vitiligo if present
+scars / work marks if present
+tattoo / body art if present
+piercing / ear details
+hands / nails / work traces
+hairline / hair texture / hair mass
+posture / habitual gesture / gait
+clothing silhouette / material / fastening / drape
+footwear
+named accessories / objects
+Reality form
+Dream form
+hardLandmarks
+softLandmarks
+forbiddenDrift
+```
+
+**ほくろ / 傷 / 刺青 / pierceは「ある」だけでは不十分。**
+
+存在する場合は:
+
+- Character本人から見たleft / right
+- anatomical location
+- exact-ish size
+- shape
+- color / fade
+- orientation
+- coverage boundary
+- clothingで隠れる範囲
+- age / old-faded or fresh
+
+まで固定する。
+
+刺青は `tattooed man` のようなgeneric promptで済ませず、**模様・位置・向き・面積をreference map化**する。
+文化固有のpatternを使う場合は、その文化・時代・地域・本人の人生を調査してから採用する。generic `tribal` 化禁止。
+
+## 23.2 Existing hard landmarks — Masterへ昇格
+
+既存Appearance / Silhouette資料のhard landmarkはMaster subordinate authorityとして維持し、画像生成都合で消さない。
+
+特に:
+
+- **ユイ** — 笑顔の左右エクボ。
+- **アサ** — compact / quick silhouette、横長寄りの鋭い目。Human。
+- **ナギ** — 細い水平眼、閉じた縦長姿勢。
+- **ミチル** — 太い眉 / そばかす / outdoor skin texture。
+- **トモリ** — hooded half-lidded eye / repair marks / 作業ゴーグル。
+- **ハナ** — 年長女性 + ぽっちゃり。丸い胴・腕・頬を細身へ戻さない。
+- **カナメ** — plus-size broad young adult man。広い肩、厚いsoft torso、太い腕脚。bodybuilderへ置換しない。
+- **ゲン** — 年齢線 / 深い眼窩 / 渋い年長男性。若返らせない。
+- **シロ** — 丸眼鏡 + page-holding identity。
+- **レン** — 丸眼鏡でも焦点 / 観察のvisual languageでシロと区別。
+- **クウ** — Reality由来の犬。
+- **ヨモ** — Reality由来の猫。
+- **ノア** — humanoid artificial-person body identity。
+- **ルム** — small maintenance Robot。human chibiへしない。
+
+Reference:
+- `docs/character-appearance-source-book-v1.md`
+- `docs/character-silhouette-diversity-current-canon-v1.md`
+- `docs/character-height-age-era-lineup-v1.md`
+- `docs/character-future-diversity-and-nonhuman-expansion-v2.md`
+
+## 23.3 Reference height / weight anchors
+
+以下は**画像生成・立ち絵・集合絵のscale再現用Production Anchor**。
+medical evaluation / attractiveness / strength / speed / hitboxへ直結させない。
+明示Master更新なしに細身defaultへ寄せない。
+
+### Current21
+
+| Character | Reference height | Reference weight / mass | Body anchor |
+|---|---:|---:|---|
+| ユイ | 161 cm | 52 kg | standard-soft / dimples |
+| アサ | 157 cm | 49 kg | compact / quick |
+| ナギ | 169 cm | 55 kg | lean vertical |
+| ミチル | 164 cm | 57 kg | active / grounded |
+| トモリ | 169 cm | 63 kg | practical work-built |
+| セン | 176 cm | 69 kg | long rectangular adult |
+| リツ | 180 cm | 77 kg | broad protector |
+| コヨリ | 133 cm | 29 kg | child proportion;縮小成人禁止 |
+| ゲン | 170 cm | 69 kg | older / slightly lowered center |
+| ハナ | 154 cm | 76 kg | plus-size older woman |
+| ユウビ | 164 cm | 54 kg | route-forward |
+| マドカ | 161 cm | 51 kg | quiet observer |
+| シロ | 168 cm | 57 kg | slim-average / page posture |
+| トバリ | 182 cm | 79 kg | tall gatekeeper |
+| ネム | 158 cm | 52 kg | soft relaxed |
+| レン | 171 cm | 60 kg | observer / balanced |
+| クロオリ | 172 cm | 61 kg | folded / closed geometry |
+| カナメ | 188 cm | 112 kg | plus-size broad shield mass |
+| カスミ | 161 cm | 50 kg | low-contrast compact |
+| トキ | 178 cm | 68 kg | straight measured frame |
+| ツムギ | 165 cm | 57 kg | asymmetrical / thread-gap |
+
+### Future15 / series pool
+
+Future poolは全員をS1へ投入する意味ではない。scale referenceとして保持する。
+
+| Character | Reference height | Reference weight / mass | Body / identity anchor |
+|---|---:|---:|---|
+| ヒヨリ | 166 cm | 59 kg | brown skin / lively gyaru-mind |
+| セリカ | 170 cm | 57 kg | refined adult |
+| クロエ | 162 cm | 53 kg | long-lived adult appearance |
+| レンジ | 175 cm | 72 kg | adult base; age variants preserve aging |
+| トウマ | 180 cm | 82 kg | brown skin / craftsman build |
+| クウ | shoulder 55 cm | 24 kg | Reality dog |
+| ヨモ | shoulder 30 cm | 4.8 kg | Reality cat |
+| ノア | 173 cm | 84 kg body mass | humanoid artificial person |
+| ルム | 70 cm | 23 kg body mass | small maintenance Robot |
+| マキ | 173 cm | 64 kg | decisive adult woman |
+| スズ | 168 cm | 56 kg | adult man / feminine presentation |
+| イオ | 172 cm | 61 kg | adult human / gender undisclosed |
+| カイ | 177 cm | 69 kg | twin A |
+| ナオ | 175 cm | 66 kg | twin B |
+| アマネ | 164 cm standing-equivalent | 56 kg body only | wheelchair user; chair geometry separate |
+
+### Nonhuman / variable form
+
+朔夜座等、human kgが意味を持ちにくいCharacterは無理に人体weightへ変換しない。
+代わりに:
+
+```txt
+referenceOverallHeight
+referenceWidth
+referenceDepth
+massClass
+centerOfMass
+silhouetteScaleVsYui
+variableRange if applicable
+```
+
+を固定する。
+既存 `character-height-age-era-lineup-v1.md` の朔夜座relative scaleを維持し、variable formを一枚のhuman体型へ潰さない。
+
+## 23.4 体型・年齢・肌・身体装飾をCastの普通の差として扱う
+
+Cast全体で:
+
+- slim
+- standard
+- soft / curvy
+- plus-size
+- broad
+- muscular
+- short / tall
+- child
+- middle-aged
+- older adult
+- wrinkles / age spots
+- freckles
+- moles
+- scars
+- brown / dark skin
+- sun-tanned skin
+- heterochromia
+- glasses
+- piercings
+- tattoo / body art
+- prosthetic / mobility device Candidate
+
+等が普通に共存してよい。
+
+**「主要Character = 若い細身の美男美女」「多様な体型 / 年齢 = mob」にはしない。**
+ぽっちゃりCharacter、イケおじ、イケおば、刺青Character、褐色Characterも主人公級 / 人気Character / rival / Boss /恋愛対象になり得る。
+
+体格・年齢・肌・sexuality・gender presentationを能力値や善悪へ直結しない。
+
+## 23.5 日本の服装 / 身装文化を広く使う
+
+日本 = 一種類の外見 / 和服だけ、にしない。
+
+人物のEra / region / work / class / family / hobby / subcultureに応じて、史実・実在文化を研究した上で:
+
+- historical Japanese dress / kimono-derived construction
+- Westernization / mixed Japanese-Western dress
+- postwar repair / practical clothing
+- uniforms / school / workwear
+- utility jackets / denim / sneakers / leather
+- avant-garde construction
+- Harajuku / street style
+- Lolita / Gothic Lolita
+- Decora
+- gyaru / gyaru-mind
+- punk / neo-goth / cyber-punk lineage
+- casual regional / festival / outdoor wear
+- age-specific ordinary clothing
+
+等をCharacter design reservoirとして使える。
+
+ただし:
+
+- `日本人 = 和服`
+- `昔 = 全員もんぺ`
+- `現代若者 = 全員Harajuku`
+- `不良 = 刺青 / pierce`
+- `外国人 = 金髪青眼`
+
+の一対一short-handは禁止。
+
+Research foundation:
+
+- 国立国会図書館 / 昭和館等の服飾・身装史
+- 京都服飾文化研究財団（KCI）
+- Japan Foundation等のstreet-fashion archive
+- museum / local cultural institution
+
+アイヌ文様、沖縄 / 琉球のハジチ等の**文化固有の服飾・身体装飾**は、generic aestheticとして借りず、該当人物の出自・地域・時代と一次 / 博物館資料を確認してから使う。
+
+## 23.6 Dream form ≠ Reality body — USER-DECIDED DIRECTION
+
+ヨルノシルベはDreamなので、**Dreamで見えている身体がRealityの身体と同じとは限らない。**
+
+物語上、少数Characterで以下を取り入れてよい:
+
+- Reality Human → Dream Robot / artificial-looking form
+- Reality Human → Dream animal / animal-like form
+- Reality animal → Dreamで別の表現形を取るCandidate
+- Reality male → Dreamではfemale-coded / feminine body
+- Reality female → Dreamではmale-coded / masculine body
+- RealityとDreamで年齢感 / body size / voice / presentationが違う
+- 見た目から推測されたgenderと本人のidentityが一致しない
+
+ただし、以下は別field:
+
+```txt
+realitySpecies
+dreamSpecies
+sex / assigned sex if story-relevant
+genderIdentity
+genderPresentation
+preferredName / self-identification
+dreamBody
+voicePresentation
+```
+
+**「女に見えたけど本当は男だった」等を単純な騙し / humiliation / trap jokeにしない。**
+Revealを使うなら:
+
+- 信頼が深まる
+- 相手の思い込みが見える
+- bodyとidentityは同じ問題ではないと分かる
+- Realityの過去 /生活が見えて関係が一段深くなる
+
+等のCharacter sceneへ使う。
+
+理由は全員へ説明しなくてよい。
+
+- 本人が望んだ姿
+- subconscious body image
+- Realityで失った / 得た身体感覚
+- Dreamの曖昧なtranslation
+- 本人にも理由不明
+
+のどれもCandidateになり得る。最終mechanismはOpen。
+
+Main thematic value:
+
+> **身体が違う。名前が違う。呼ばれ方が違う。それでも、その人との関係まで別物になるとは限らない。**
+
+## 23.7 Existing diversity poolを消さない
+
+Future / series poolで既に保存されている:
+
+- brown skin Human 2人（ヒヨリ / トウマ）
+- Reality dog（クウ）
+- Reality cat（ヨモ）
+- Replica Robot（ノア）
+- Collective / maintenance Robot（ルム）
+- Gay Character Candidate（トウマ）
+- Lesbian Character Candidate（セリカ）
+- Bisexual Character（マキ）
+- adult man / feminine presentation（スズ）
+- gender undisclosed（イオ）
+- twins（カイ / ナオ）
+- wheelchair user（アマネ）
+
+は、単なるquotaではなく**人物Coreを持ったseries inventory**として維持する。
+
+S1でも外国籍 / 海外出身 / 海外育ち、体型差、年齢差、刺青等は必要に応じて既存Characterへ自然に入れてよい。
+
+## 23.8 Sunny IF Reward Art — non-canon bonus
+
+Status: `USER-DECIDED REWARD DIRECTION`
+
+本編の夜とは別に、Ending / Clear Getter / gallery rewardで、**太陽の下で全員が和気藹々としているnon-canon IF illustration**を使える。
+
+High-value theme:
+
+1. **お花見**
+2. **海 / プール**
+3. **BBQ**
+4. 運動会 / outdoor event Candidate
+
+Rule:
+
+- 本編で実際にそのeventが起きたCanon証明にはしない。
+- 「もしみんなが同じ昼を過ごせたら」というreward image。
+- 太陽 / 青空 / 水 / 桜 / 緑 / 強いdaylightを、本編の夜とのcontrastとして大切に扱う。
+- 太陽をenemy /封印対象 /奪われた物という意味へ自動接続しない。
+- actual castのCharacter referenceを使用する。
+- **AIがその場で作ったgeneric mobを主要cast代わりに増やさない。**
+- 主人公 / Core / important castが一目で分かるvisual hierarchyを作る。
+- 同時に、ぽっちゃり / 年長 / 褐色 / 刺青 / Robot / 動物等の既存Character差を画面から消さない。
+- 「多様性を出した結果、主人公が埋もれて全員mobに見える」構図もReject。
+
+### Clear Getter Candidate
+
+一枚の大きなIF ensemble artを**約24piece**へ分割し、achievementで徐々に開く方式はCurrent high-value direction。
+
+- exact 24 / grid shapeはUI reviewで調整可能。
+- 顔の中央を悪く切るだけの機械分割にしない。
+- 各piece単体にも小さな見所を持たせる。
+- 全解放時に一枚絵として完成する。
+- high-resolution full art閲覧を最終rewardにできる。
+
+---
+
+# 24. Character Visual Generation Acceptance
+
+Status: `DECIDED PRODUCTION GUARD`
+
+画像生成時は、名前だけのpromptを禁止する。
+
+最低でも:
+
+```txt
+Character ID
+reference height / weight or mass
+body frame
+age impression
+skin tone
+face shape
+eye / brow / nose / mouth / teeth
+exact hard landmarks
+mole / scar / tattoo map if present
+hairline / texture / mass
+posture
+clothing construction
+Reality / Dream form distinction
+forbidden drift
+```
+
+を渡す。
+
+Group artでは、さらに:
+
+- relative height chart
+- foreground / midground / background assignment
+- protagonist visual hierarchy
+- body-type distribution
+- age distribution
+- skin-tone distribution
+- nonhuman placement
+- no duplicate face
+- no duplicate pose
+- no default slimming
+
+を渡す。
+
+Reference imageがあっても、**reference imageのミスよりCharacter Masterを優先**する。
+
+> **画像生成で同じ人を何度描いても、体格・顔・ほくろ・傷・刺青・年齢・Dream/Reality差が「たまたま変わらない」のではなく、原本があるから変わらない状態を作る。**
