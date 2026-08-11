@@ -4,17 +4,25 @@ on:
   pull_request:
     paths:
       - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/trioBattleInteractionPolicySource.ts'
       - 'src/game/data/currentRelationshipInventory.ts'
       - 'docs/pairwise-bond-trio-battle-v1.md'
+      - 'docs/party-relationship-credit-rules-v1.md'
+      - 'docs/pairwise-bond-trio-battle-open-gates-v1.md'
       - 'scripts/quality/check-pairwise-bond-trio-battle.ts'
+      - 'scripts/quality/check-trio-battle-interaction-policy.ts'
       - '.github/workflows/pairwise-bond-trio-battle.yml'
   push:
     branches: [main]
     paths:
       - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/trioBattleInteractionPolicySource.ts'
       - 'src/game/data/currentRelationshipInventory.ts'
       - 'docs/pairwise-bond-trio-battle-v1.md'
+      - 'docs/party-relationship-credit-rules-v1.md'
+      - 'docs/pairwise-bond-trio-battle-open-gates-v1.md'
       - 'scripts/quality/check-pairwise-bond-trio-battle.ts'
+      - 'scripts/quality/check-trio-battle-interaction-policy.ts'
       - '.github/workflows/pairwise-bond-trio-battle.yml'
 
 permissions:
@@ -31,3 +39,5 @@ jobs:
           node-version: '22'
       - name: Check Current21 all-pair Bond / 3-person battle relationship architecture
         run: node --experimental-strip-types scripts/quality/check-pairwise-bond-trio-battle.ts
+      - name: Check 3-person battle banter / Assist arbitration policy
+        run: node --experimental-strip-types scripts/quality/check-trio-battle-interaction-policy.ts
