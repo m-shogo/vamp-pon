@@ -114,13 +114,13 @@ const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.wea
 assert(hammer, 'Pavement Hammer admission row missing');
 assert(hammer.prototypeCallerImplemented, 'Pavement Hammer caller proof must be registered');
 assert(hammer.missingUnityCapabilities.length === 0, 'Pavement Hammer shared primitive set must be complete');
-assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Pavement Hammer must enter implementation review after executable caller proof');
-assert(hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer implementation-review eligibility should be true');
+assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Pavement Hammer must remain implementation-review admitted');
+assert(hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer implementation-review eligibility should remain true');
 assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'implementation review must remain distinct from live runtime');
 assert(unityPrototypeCallerImplementedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', 'prototype caller proof registry drift');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 3, 'expected three implementation-review admissions');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 13, 'expected thirteen blocked Selected16 entries');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete caller blocker should remain');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Star Map Pin should be the one primitive-complete caller blocker after homing priority lands');
 
 assert(!weapons.some((weapon) => weapon.id === 'pavement_hammer'), 'prototype caller must not add Pavement Hammer to Web live catalog');
 for (const token of [
