@@ -4,9 +4,9 @@
 
 Selected16 `pavement_hammer`（石畳の小槌）の `SLAM_WAVE` を既存Projectileへ偽装せず実装するため、方向性のあるground-wave target queryだけをshared primitiveとして切り出す。
 
-このsliceでIMPLEMENTEDになったのは `SLAM_WAVE_QUERY` のみ。
+このprimitiveが所有するのは `SLAM_WAVE_QUERY` のみ。
 
-`pavement_hammer` 固有caller、EXPOSED、damage、break/stagger、knockback、wave timing、VFXはこのprimitiveへ入れない。
+`pavement_hammer` 固有caller、EXPOSED、damage、break/stagger application、knockback、wave timing、VFXはこのquery primitiveへ入れない。
 
 ## Shape: directional sector-band
 
@@ -75,57 +75,56 @@ Authority:
 - default range / angle / cap
 - VFX / ParticleSystem
 
-`U2EnemyKnockbackRuntime` や `EnemyStatusRuntimeState` にも依存しない。
+`U2EnemyKnockbackRuntime`、`U2EnemyBreakStaggerRuntime`、`EnemyStatusRuntimeState` に依存しない。
 
 queryは「sector-band内のtargetは誰か」だけを返す。
 
 ## Pavement Hammer consumer context
 
-Content Authority:
+Content Authorityはこのruntime資料では変更しない。
 
-- ID: `pavement_hammer`
-- Name: 石畳の小槌
-- Attribute: EARTH
-- Status: EXPOSED
-- Archetype: `SLAM_WAVE`
-- fantasy: 足元を叩き、短い亀裂を扇状に走らせる
-- identity: slow close slam + **high break/stagger**; directional rather than full-circle
+既存consumer requirements:
 
-このContent identityはconsumer contextであり、generic helperには埋め込まない。
+- `SLAM_WAVE_QUERY`
+- `KNOCKBACK_VECTOR`
+- `BREAK_STAGGER_APPLICATION`
+- `STATUS_APPLICATION`
 
-## Deeper audit: break/stagger is a real missing primitive
+現在は4つともshared runtime evidenceが **IMPLEMENTED**。
 
-`SLAM_WAVE_QUERY` 実装直後は、既存Admission要件だけを見ると `pavement_hammer` がprimitive-completeに見えた。
+`BREAK_STAGGER_APPLICATION` の実体は:
 
-その後 `U2EnemyActor` とruntime全体を再監査したところ:
+- `U2EnemyBreakStaggerState`
+- `U2EnemyBreakStaggerDriver`
+- `U2EnemyBreakStaggerRuntime`
 
-- HP damage APIはある
-- Status stateはある
-- knockback primitiveはある
-- **break gauge / stagger gauge / poise / break-stagger application APIは存在しない**
+に分離され、HPとは独立した蓄積、caller threshold、residual gauge、caller stagger duration、pursuit suppression、pool reset、knockback displacement preservationを持つ。
 
-ことを確認した。
+詳細:
 
-石畳の小槌のmechanical identityには `high break/stagger` が明記されているため、この欠落を無視してcallerだけ作ると「見た目だけSLAM_WAVE」の偽物になり得る。
+`docs/unity-break-stagger-primitive-v1.md`
 
-そこでAdmission capabilityを追加した:
+## Admission after break/stagger foundation
 
-`BREAK_STAGGER_APPLICATION = MISSING`
+`pavement_hammer` はshared primitiveとしてはcompleteになった。
 
-現在の `pavement_hammer` required capabilities:
+ただし `PavementHammerPrototypeRuntime` caller proofはまだ無い。
 
-- `SLAM_WAVE_QUERY`: IMPLEMENTED
-- `KNOCKBACK_VECTOR`: IMPLEMENTED
-- `BREAK_STAGGER_APPLICATION`: **MISSING**
-- `STATUS_APPLICATION`: IMPLEMENTED
+現在のdecision:
 
-したがって現在のdecisionは:
+`BLOCKED_MISSING_UNITY_CALLER_PROOF`
 
-`BLOCKED_MISSING_UNITY_PRIMITIVES`
+つまり:
 
-であり、caller-proof gateへ進む前にbreak/staggerのshared runtime semanticsが必要。
+- query実装済み
+- knockback実装済み
+- break/stagger実装済み
+- Status実装済み
+- Weapon固有callerは未実装
+- implementation-review Admissionは未昇格
+- Live Stage1は未接続
 
-この訂正は #194 のsector-band query自体を否定しない。**queryは正しいが、Weapon Admission要件が1つ不足していた**という監査修正。
+primitive completenessだけでWeaponをruntimeへ押し込まない。
 
 ## Executable contract
 
@@ -148,33 +147,37 @@ TEST_ONLY fixtureで確認するもの:
 
 fixture数値は **TEST_ONLY / NOT_CANON**。
 
+Break/Staggerは別contractで直接検証する:
+
+`scripts/quality/unity-break-stagger/UnityBreakStagger.Contract.csproj`
+
 ## Live Stage1 boundary
 
-このsliceでは:
+このshared primitive群は:
 
-- `Stage1GameplayRuntimeCoordinator` から呼ばない
+- `Stage1GameplayRuntimeCoordinator` から自動で呼ばない
 - `pavement_hammer` をWeb `weapons.ts` へ追加しない
 - U47 `WeaponEffectType` を増やさない
 - LevelUp poolへ追加しない
 - save migrationを作らない
-- EXPOSEDを適用しない
-- knockbackを適用しない
-- break/staggerを捏造しない
+- EXPOSED / knockback / break-staggerのWeapon tuningをgeneric queryへ埋め込まない
 
-つまりshared query evidenceだけを増やす。
+`Live Stage1` はcaller proofと別review gateの後。
 
 ## Next gate
 
-次は `PavementHammerPrototypeRuntime` を先に作るのではなく、まず **BREAK_STAGGER_APPLICATIONのruntime semantics** を設計・実装する。
+次は `PavementHammerPrototypeRuntime` caller proof。
 
-最低限決める必要があるのは:
+そこでWeapon固有に:
 
-1. break/staggerがHPとは別meterなのか
-2. threshold到達時の結果
-3. boss / elite resistance
-4. repeated-hit蓄積と回復
-5. hard-control Statusとの境界
-6. damage / EXPOSED / knockbackとの適用順序
-7. pool reset / telemetry
+1. sector-band target selection
+2. damage
+3. EXPOSED application
+4. knockback
+5. break/stagger
+6. explicit application order
+7. caller-owned telemetry
 
-これらをCanon balance値と分離したshared primitiveとして証明してから、`pavement_hammer` caller proofへ進む。
+を接続する。
+
+数値は **PROTOTYPE_TUNING_NOT_CANON** として原本/Canonから分離し、caller proof完成後もlive registryへは自動昇格しない。
