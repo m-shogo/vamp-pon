@@ -2,6 +2,7 @@ import { sakumeiCandidateMembers } from './sakumeiCandidateSource.ts';
 
 export const SAKUYAZA_ERA_INCIDENT_RULES = {
   authority: 'docs/sakuyaza-era-incident-stance-matrix-v1.md',
+  seasonScope: 'S1',
   stanceImpliesRealityPresence: false,
   stanceImpliesCombatBoss: false,
   stanceImpliesOfficialMission: false,
@@ -15,56 +16,31 @@ export const SAKUYAZA_ERA_INCIDENT_RULES = {
   officialMissionCountFrozen: false,
   permanentPairCountFrozen: true,
   permanentPairCount: 0,
+  season2UsesSamePrimaryTeam: false,
+  season2UsesSamePrimaryRoster: false,
+  season2TeamNameFrozen: false,
+  season2RosterFrozen: false,
+  previousSeasonIndividualsMayReturn: true,
   runtimeAutoPromotionAllowed: false,
 } as const;
 
 export const SAKUYAZA_MEMBER_IDS = sakumeiCandidateMembers.map((entry) => entry.callName) as readonly string[];
 
-export const SAKUYAZA_ERA_INCIDENT_STANCES = [
-  {
-    incidentId: 'ERA-INC-TOMORI-01',
-    memberStances: [
-      { member: 'ナシロ', resonance: 'AMBIVALENT', direction: 'NORMALIZE_NAMES_BUT_OPPOSE_RECORD_OVERRIDING_LIVED_RELATION', presenceRequired: false },
-      { member: 'アサトジ', resonance: 'PRIMARY_RESONANCE', direction: 'TEMPORARY_HOLD_CAN_BECOME_PERMANENT_EXCLUSION', presenceRequired: false },
-      { member: 'ミチグレ', resonance: 'LOW_PRIORITY', direction: 'DISTRIBUTION_ROUTE_OPTIMIZATION_CANDIDATE', presenceRequired: false },
-      { member: 'オリネ', resonance: 'SECONDARY_RESONANCE', direction: 'HIDE_HOUSEHOLD_DETAIL_TO_PROTECT_PRIVACY', presenceRequired: false },
-      { member: 'ハクマ', resonance: 'SECONDARY_RESONANCE', direction: 'BLANK_UNCLEAR_HOUSEHOLD_ENTRY', presenceRequired: false },
-      { member: 'ツグリ', resonance: 'PRIMARY_RESONANCE', direction: 'REPAIR_LEDGER_AND_HOUSEHOLD_SYSTEM_BEYOND_PERSON_CHOICE', presenceRequired: false },
-      { member: 'ユラネ', resonance: 'COUNTER_RESONANCE', direction: 'REST_SHELTER_AND_RELIEF_CAN_WEAKEN_APPEAL', presenceRequired: false },
-      { member: 'ペタ', resonance: 'SECONDARY_RESONANCE', direction: 'STACK_ELIGIBLE_UNVERIFIED_INELIGIBLE_LABELS', presenceRequired: false },
-    ] as const,
-    primaryPairCandidate: { members: ['アサトジ', 'ツグリ'] as const, id: 'PAIR-TOMORI-FIX-AND-LOCK', officialMissionFrozen: false, permanentPair: false },
-    counterOrMitigationMembers: ['ユラネ', 'ナシロ'] as const,
-  },
-  {
-    incidentId: 'ERA-INC-MICHIRU-01',
-    memberStances: [
-      { member: 'ナシロ', resonance: 'LOW_PRIORITY', direction: 'NORMALIZE_DISTRICT_NAMES_AND_BOUNDARIES', presenceRequired: false },
-      { member: 'アサトジ', resonance: 'SECONDARY_RESONANCE', direction: 'TEMPORARY_ROUTE_CLOSURE_CAN_BECOME_PERMANENT', presenceRequired: false },
-      { member: 'ミチグレ', resonance: 'PRIMARY_RESONANCE', direction: 'REMOVE_WRONG_OR_LOW_PRIORITY_ROUTES', presenceRequired: false },
-      { member: 'オリネ', resonance: 'SECONDARY_RESONANCE', direction: 'HIDE_HEALTH_OR_POLLUTION_CONTEXT_TO_AVOID_PANIC', presenceRequired: false },
-      { member: 'ハクマ', resonance: 'LOW_PRIORITY', direction: 'BLANK_CONFLICTING_RESIDENT_EXPLANATIONS', presenceRequired: false },
-      { member: 'ツグリ', resonance: 'PRIMARY_RESONANCE', direction: 'REPAIR_CITY_BY_REMOVING_MESSY_LOCAL_ADAPTATION', presenceRequired: false },
-      { member: 'ユラネ', resonance: 'COUNTER_RESONANCE', direction: 'SLOW_GROWTH_TO_PROTECT_HEALTH_BUT_RISK_PERMANENT_STAGNATION', presenceRequired: false },
-      { member: 'ペタ', resonance: 'SECONDARY_RESONANCE', direction: 'LABEL_PRIORITY_SAFE_AND_CLOSURE_ROUTES', presenceRequired: false },
-    ] as const,
-    primaryPairCandidate: { members: ['ミチグレ', 'ツグリ'] as const, id: 'PAIR-MICHIRU-ONE-CORRECT-CITY', officialMissionFrozen: false, permanentPair: false },
-    counterOrMitigationMembers: ['ユラネ'] as const,
-  },
+export const SAKUYAZA_S1_INCIDENT_STANCES = [
   {
     incidentId: 'ERA-INC-NAGI-01',
     memberStances: [
       { member: 'ナシロ', resonance: 'PRIMARY_RESONANCE', direction: 'STRICT_IDENTITY_CAN_PROTECT_THEN_OPPOSE_STALE_WRONG_NAME', presenceRequired: false },
       { member: 'アサトジ', resonance: 'SECONDARY_RESONANCE', direction: 'CLOSE_ACCESS_FOR_SAFETY_WITHOUT_REOPENING_CONDITION', presenceRequired: false },
-      { member: 'ミチグレ', resonance: 'LOW_PRIORITY', direction: 'REMOVE_UNSAFE_ACCESS_ROUTE', presenceRequired: false },
+      { member: 'ミチグレ', resonance: 'LOW_PRIORITY', direction: 'REMOVE_UNSAFE_ACCESS_ROUTE_WITHOUT_STEALING_ROUTE_THEME', presenceRequired: false },
       { member: 'オリネ', resonance: 'PRIMARY_RESONANCE', direction: 'HIDE_DANGEROUS_CONTEXT_AND_ACCIDENTALLY_HIDE_CORRECTION', presenceRequired: false },
       { member: 'ハクマ', resonance: 'PRIMARY_RESONANCE', direction: 'BLANK_AMBIGUOUS_WARNING_AND_REBUTTAL_TOGETHER', presenceRequired: false },
       { member: 'ツグリ', resonance: 'SECONDARY_RESONANCE', direction: 'REPAIR_CORRUPTED_LIST_INTO_ONE_CLEAN_VERSION', presenceRequired: false },
-      { member: 'ユラネ', resonance: 'LOW_PRIORITY', direction: 'ESCAPE_REPUTATION_PRESSURE_BY_STOPPING_ENGAGEMENT', presenceRequired: false },
+      { member: 'ユラネ', resonance: 'COUNTER_RESONANCE', direction: 'RELIEVE_REPUTATION_PRESSURE_BUT_RISK_WEAKENING_APPEAL', presenceRequired: false },
       { member: 'ペタ', resonance: 'PRIMARY_RESONANCE', direction: 'STACK_WARNING_CORRECTED_SAFE_AND_EXCLUDED_LABELS', presenceRequired: false },
     ] as const,
     primaryPairCandidate: { members: ['オリネ', 'ペタ'] as const, id: 'PAIR-NAGI-HIDE-AND-RELABEL', officialMissionFrozen: false, permanentPair: false },
-    counterOrMitigationMembers: ['ナシロ'] as const,
+    counterOrMitigationMembers: ['ナシロ', 'ユラネ'] as const,
   },
   {
     incidentId: 'ERA-INC-YUI-01',
@@ -83,10 +59,11 @@ export const SAKUYAZA_ERA_INCIDENT_STANCES = [
   },
   {
     incidentId: 'ERA-INC-ASA-01',
+    seasonFacet: 'S1_IDENTITY_AND_BELONGING_ONLY',
     memberStances: [
       { member: 'ナシロ', resonance: 'PRIMARY_RESONANCE', direction: 'ONE_CORRECT_IDENTITY_COLLIDES_WITH_TWO_LEGITIMATE_PERSONS', presenceRequired: false },
       { member: 'アサトジ', resonance: 'PRIMARY_RESONANCE', direction: 'FREEZE_DISPUTED_CREDENTIAL_TO_PROTECT_BUT_REMOVE_DAILY_RIGHTS', presenceRequired: false },
-      { member: 'ミチグレ', resonance: 'SECONDARY_RESONANCE', direction: 'REMOVE_ALL_BUT_ONE_CONTINUITY_ROUTE', presenceRequired: false },
+      { member: 'ミチグレ', resonance: 'SECONDARY_RESONANCE', direction: 'REMOVE_ALL_BUT_ONE_CONTINUITY_ROUTE_WITHOUT_TIME_TRAVEL_EXPLANATION', presenceRequired: false },
       { member: 'オリネ', resonance: 'SECONDARY_RESONANCE', direction: 'HIDE_SENSITIVE_PROVENANCE_AND_RISK_HIDING_RIGHTS_EVIDENCE', presenceRequired: false },
       { member: 'ハクマ', resonance: 'SECONDARY_RESONANCE', direction: 'BLANK_CONTRADICTORY_HISTORIES', presenceRequired: false },
       { member: 'ツグリ', resonance: 'PRIMARY_RESONANCE', direction: 'REPAIR_BRANCHING_IDENTITY_BY_MERGE_RESTORE_OR_NORMALIZE', presenceRequired: false },
@@ -99,22 +76,28 @@ export const SAKUYAZA_ERA_INCIDENT_STANCES = [
   },
 ] as const;
 
-export const SAKUYAZA_INCIDENT_PAIR_CANDIDATES = SAKUYAZA_ERA_INCIDENT_STANCES.map((entry) => entry.primaryPairCandidate);
+/** Backward-compatible alias: current Sakuyaza incident stances are S1-only. */
+export const SAKUYAZA_ERA_INCIDENT_STANCES = SAKUYAZA_S1_INCIDENT_STANCES;
 
-const stanceMembers = SAKUYAZA_ERA_INCIDENT_STANCES.flatMap((entry) => entry.memberStances.map((stance) => stance.member));
+export const SAKUYAZA_INCIDENT_PAIR_CANDIDATES = SAKUYAZA_S1_INCIDENT_STANCES.map((entry) => entry.primaryPairCandidate);
+
+const stanceMembers = SAKUYAZA_S1_INCIDENT_STANCES.flatMap((entry) => entry.memberStances.map((stance) => stance.member));
 
 export const sakuyazaEraIncidentStanceSummary = {
-  incidentCount: SAKUYAZA_ERA_INCIDENT_STANCES.length,
+  seasonScope: 'S1',
+  incidentCount: SAKUYAZA_S1_INCIDENT_STANCES.length,
   memberCount: SAKUYAZA_MEMBER_IDS.length,
   uniqueMemberCount: new Set(SAKUYAZA_MEMBER_IDS).size,
   totalStanceCount: stanceMembers.length,
   uniqueStanceMemberCount: new Set(stanceMembers).size,
-  incidentsWithAllEightStances: SAKUYAZA_ERA_INCIDENT_STANCES.filter((entry) => entry.memberStances.length === 8).length,
+  incidentsWithAllEightStances: SAKUYAZA_S1_INCIDENT_STANCES.filter((entry) => entry.memberStances.length === 8).length,
   primaryIncidentPairCandidateCount: SAKUYAZA_INCIDENT_PAIR_CANDIDATES.length,
   permanentPairCount: SAKUYAZA_ERA_INCIDENT_RULES.permanentPairCount,
   exactOfficialMissionCountFrozen: SAKUYAZA_ERA_INCIDENT_RULES.officialMissionCountFrozen,
   exactRealityPresenceFrozen: SAKUYAZA_ERA_INCIDENT_RULES.exactRealityPresenceFrozen,
-  allPresenceUnrequired: SAKUYAZA_ERA_INCIDENT_STANCES.every((entry) => entry.memberStances.every((stance) => stance.presenceRequired === false)),
-  allIncidentsHaveCounterOrMitigation: SAKUYAZA_ERA_INCIDENT_STANCES.every((entry) => entry.counterOrMitigationMembers.length > 0),
+  allPresenceUnrequired: SAKUYAZA_S1_INCIDENT_STANCES.every((entry) => entry.memberStances.every((stance) => stance.presenceRequired === false)),
+  allS1IncidentsHaveCounterOrMitigation: SAKUYAZA_S1_INCIDENT_STANCES.every((entry) => entry.counterOrMitigationMembers.length > 0),
+  season2UsesSamePrimaryTeam: false,
+  season2UsesSamePrimaryRoster: false,
   runtimeAutoPromotionAllowed: false,
 } as const;
