@@ -147,7 +147,7 @@ const seeds: readonly ArcSeed[] = [
   {
     relationId: 'nagi-kaname',
     friction: { from: 'kage1', to: 'nagi', direction: 'DOWN', reasonKey: 'kaname_rejects_closed_protection', storyMeaning: 'カナメはナギの安全策が仲間を閉じ込める瞬間を見て、自分と同じ抱え込みだと苛立つ。', gameplayEcho: '二人とも前へ出て守り、役割が重複して後衛が空く。' },
-    recognition: { from: 'nagi', to: 'kage1', direction: 'UP', reasonKey: 'nagi_sees_kaname_delegate', storyMeaning: 'カナメが一度だけ防御を他人へ任せたことで、ナギが「守る人も任せられる」と認識する。', gameplayEcho: 'Guard交代が成立する。' },
+    recognition: { from: 'nagi', to: 'kage1', direction: 'UP', reasonKey: 'nagi_sees_kaname_delegate', storyMeaning: 'カナメが一度だけ防御を他人へ任せたことで、ナギが「守る人も任せられる」と認識する。', gameplayEcho: 'Guard交代後に空いた側が後衛を支える役へ回れる。' },
     chosenTrust: { aToB: 'UP', bToA: 'UP', aReasonKey: 'nagi_accepts_shared_guard', bReasonKey: 'kaname_accepts_nagi_exit', storyMeaning: '二人は「全部守る」で競わず、閉じる人と受ける人を状況で交換する。', gameplayEcho: '二重防御ではなく防御relayへ変わる。' },
   },
   {
