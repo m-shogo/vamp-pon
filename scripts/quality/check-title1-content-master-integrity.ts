@@ -19,7 +19,13 @@ assert(snapshot.stages.finalStageId === 'dawn_return_square', `unexpected final 
 
 assert(snapshot.characters.currentCount === 21, `Current Character count must remain 21, got ${snapshot.characters.currentCount}`);
 assert(snapshot.characters.relationshipArcCount === 24, `Current relationship arc count must remain 24, got ${snapshot.characters.relationshipArcCount}`);
+assert(snapshot.characters.relationshipSpeechDirectedTrackCount === 48, 'Current24 relationship speech must remain authored in both directions');
+assert(snapshot.characters.groupInteractionSceneCount === 12, 'Current21 group interaction lane count must remain 12');
+assert(snapshot.characters.groupIntermissionPlacementCount === 24, 'group scenes must have first + repeat placement');
 assert(snapshot.enemies.currentCount === 48, `Current Enemy count must remain 48, got ${snapshot.enemies.currentCount}`);
+assert(snapshot.enemies.spotlightCount === 8, 'Spotlight Enemy count must remain 8');
+assert(snapshot.enemies.spotlightStoryFragmentCount === 24, 'Spotlight8 must have three story fragments each');
+assert(snapshot.enemies.spotlightFragmentsOptional, 'Spotlight enemy story fragments must remain optional reading');
 
 assert(snapshot.combatVocabulary.attributeCountIncludingNeutral === 15, `Combat Attribute vocabulary should be 14 + NEUTRAL, got ${snapshot.combatVocabulary.attributeCountIncludingNeutral}`);
 assert(snapshot.combatVocabulary.baseAttributeCount === 14, `base Attribute count must remain 14, got ${snapshot.combatVocabulary.baseAttributeCount}`);
@@ -82,14 +88,18 @@ assert(!snapshot.promotionBoundary.baseWeaponRuntimeAutoPromotionAllowed, 'Base 
 assert(!snapshot.promotionBoundary.combatItemRuntimeAutoPromotionAllowed, 'Combat Item Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.transformationRuntimeAutoPromotionAllowed, 'Transformation Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.rewardCollectionRuntimeAutoPromotionAllowed, 'Reward/Collection Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.relationshipSpeechRuntimeAutoPromotionAllowed, 'Relationship Speech Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.groupIntermissionRuntimeAutoPromotionAllowed, 'Group intermission Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.spotlightEnemyRuntimeAutoPromotionAllowed, 'Spotlight Enemy Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.spotlightStoryRuntimeAutoPromotionAllowed, 'Spotlight story fragments must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 12, `Title1 Content Master should expose 12 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 17, `Title1 Content Master should expose 17 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
-assert(title1ContentMasterOpenImplementationGates.length === 8, `expected eight explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
+assert(title1ContentMasterOpenImplementationGates.length === 10, `expected ten explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
 for (const gate of title1ContentMasterOpenImplementationGates) {
   assert(gate.length >= 25, `open implementation gate needs explicit wording: ${gate}`);
 }
@@ -99,6 +109,9 @@ for (const token of [
   'Stage20',
   'Current21',
   'Enemy48',
+  'Spotlight8',
+  '48 directional',
+  '24 fragment',
   'Base24',
   'Combat Item18',
   'Transformation38',
@@ -119,8 +132,8 @@ console.log(JSON.stringify({
   status: 'PASS',
   title: snapshot.title,
   stages: snapshot.stages.count,
-  characters: snapshot.characters.currentCount,
-  enemies: snapshot.enemies.currentCount,
+  characters: snapshot.characters,
+  enemies: snapshot.enemies,
   combatVocabulary: snapshot.combatVocabulary,
   baseWeapons: snapshot.baseWeapons,
   combatItems: snapshot.combatItems,
