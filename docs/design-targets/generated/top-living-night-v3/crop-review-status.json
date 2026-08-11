@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "candidateGenerated": false,
+  "candidateGenerated": true,
   "sourcePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
-  "sourceSha256": "",
+  "sourceSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
   "reviews": [
     {
       "resolution": "360x800",
@@ -41,5 +41,5 @@
   "allCropsApproved": false,
   "reviewedAtUtc": "",
   "finalApprovalBlocked": true,
-  "notes": "Three-resolution crop review is pending because the Core5 final TOP candidate has not been generated."
+  "notes": "Final Core5 candidate registered. Three-resolution crop review was reset and must be executed against this exact SHA-256."
 }

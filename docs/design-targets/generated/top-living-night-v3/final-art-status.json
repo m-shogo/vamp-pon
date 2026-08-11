@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "candidateGenerated": false,
+  "candidateGenerated": true,
   "candidatePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
   "expectedWidth": 430,
   "expectedHeight": 932,
   "core5ReferenceCount": 5,
-  "candidateCore5ReferenceSetSha256": "",
+  "candidateCore5ReferenceSetSha256": "ae61797da3a85cab48615dd9a10b3c71e7ec35a2c7b0b66a53a37f3fe1865c0d",
   "core5IdentityReviewed": false,
   "cropReviewComplete": false,
   "motionSeparationReviewed": false,
@@ -14,7 +14,7 @@
   "runtimeCaptureComplete": false,
   "runtimeApproved": false,
   "finalApprovalBlocked": true,
-  "candidateSha256": "",
+  "candidateSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
   "reviewedAtUtc": "",
-  "notes": "Current Runtime V3 composite remains the visual-recovery bridge. This manifest must not be promoted until a Core5-locked final candidate is committed and reviewed."
+  "notes": "Final Core5 candidate registered against the current locked Core5 reference-set fingerprint. All candidate-sensitive review/runtime evidence was reset; no approval is implied by registration."
 }

@@ -1,9 +1,0 @@
-{
-  "schemaVersion": 1,
-  "action": "REGISTER_CANDIDATE_AND_PACKS",
-  "candidatePath": "docs/design-targets/generated/top-living-night-v3/incoming/top-living-night-core5-candidate-430x932.png",
-  "semanticLayerCount": 6,
-  "effectCompanionCount": 10,
-  "approvalPromotionAllowed": false,
-  "triggerRevision": 6
-}
