@@ -1,0 +1,35 @@
+name: Yatsukage Pair Dynamics
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/yatsukagePairDynamicsSource.ts'
+      - 'src/game/data/spotlightEnemyCharacterSource.ts'
+      - 'src/game/data/yatsukageIdentitySource.ts'
+      - 'docs/yatsukage-pair-dynamics-v1.md'
+      - 'scripts/quality/check-yatsukage-pair-dynamics.ts'
+      - '.github/workflows/yatsukage-pair-dynamics.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/yatsukagePairDynamicsSource.ts'
+      - 'src/game/data/spotlightEnemyCharacterSource.ts'
+      - 'src/game/data/yatsukageIdentitySource.ts'
+      - 'docs/yatsukage-pair-dynamics-v1.md'
+      - 'scripts/quality/check-yatsukage-pair-dynamics.ts'
+      - '.github/workflows/yatsukage-pair-dynamics.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check all 28 八影 pair dynamics
+        run: node --experimental-strip-types scripts/quality/check-yatsukage-pair-dynamics.ts

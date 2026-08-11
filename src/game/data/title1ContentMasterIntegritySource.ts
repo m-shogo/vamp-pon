@@ -31,6 +31,7 @@ import { weaponTransformationSelectionSummary } from './weaponTransformationSele
 import { yatsukageCollectionPresentationSummary } from './yatsukageCollectionPresentationSource.ts';
 import { yatsukageEncounterMemorySummary } from './yatsukageEncounterMemorySource.ts';
 import { yatsukageIdentitySummary } from './yatsukageIdentitySource.ts';
+import { yatsukagePairDynamicsSummary } from './yatsukagePairDynamicsSource.ts';
 
 export const title1ContentMasterAuthorities = {
   combatAffinity: 'src/game/data/combatAffinitySource.ts',
@@ -50,6 +51,7 @@ export const title1ContentMasterAuthorities = {
   yatsukageCollectionPresentation: 'src/game/data/yatsukageCollectionPresentationSource.ts',
   current21YatsukageRelationship: 'src/game/data/current21YatsukageRelationshipSource.ts',
   yatsukageEncounterMemory: 'src/game/data/yatsukageEncounterMemorySource.ts',
+  yatsukagePairDynamics: 'src/game/data/yatsukagePairDynamicsSource.ts',
   baseWeapon: 'src/game/data/baseWeaponSelectionSource.ts',
   combatItem: 'src/game/data/combatItemSelectionSource.ts',
   transformation: 'src/game/data/weaponTransformationSelectionSource.ts',
@@ -94,6 +96,9 @@ export const title1ContentMasterIntegritySnapshot = {
     encounterMemoryPhaseCount: yatsukageEncounterMemorySummary.phaseCount,
     encounterMemoryCombatClearProgressValue: yatsukageEncounterMemorySummary.combatClearProgressValue,
     encounterMemoryRuntimeImplemented: yatsukageEncounterMemorySummary.runtimeImplemented,
+    yatsukagePairCount: yatsukagePairDynamicsSummary.authoredPairCount,
+    yatsukageFeaturedPairCount: yatsukagePairDynamicsSummary.featuredPairCount,
+    yatsukagePairCollisionKindCount: yatsukagePairDynamicsSummary.collisionKindCount,
   },
   combatVocabulary: {
     attributeCountIncludingNeutral: COMBAT_ATTRIBUTES.length,
@@ -175,6 +180,7 @@ export const title1ContentMasterIntegritySnapshot = {
     yatsukageCollectionRuntimeAutoPromotionAllowed: yatsukageCollectionPresentationSummary.runtimeAutoPromotionAllowed,
     yatsukageCurrent21RelationRuntimeAutoPromotionAllowed: current21YatsukageRelationshipSummary.runtimeAutoPromotionAllowed,
     yatsukageEncounterMemoryRuntimeAutoPromotionAllowed: yatsukageEncounterMemorySummary.runtimeAutoPromotionAllowed,
+    yatsukagePairDynamicsRuntimeAutoPromotionAllowed: yatsukagePairDynamicsSummary.runtimeAutoPromotionAllowed,
     contentMasterMayFreezeRuntimeCompletionByItself: false,
   },
 } as const;
@@ -192,6 +198,7 @@ export const title1ContentMasterOpenImplementationGates = [
   'three-Character selection UI + pair Assist arbitration + trio banter spotlight runtime',
   '八影 x Current21 encounter-history ledger + speaker arbitration + bestiary relation snippets',
   '八影 relation memory append-only ledger + phase cache + seen-line speaker history runtime',
+  '八影 pair co-appearance admission + simultaneous telegraph readability + mobile performance evidence',
   'spotlight enemy bestiary fragment unlock/presentation + visual recognition validation',
   'mobile visual QA / performance / playtest',
 ] as const;
