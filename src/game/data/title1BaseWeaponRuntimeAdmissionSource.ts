@@ -1,5 +1,8 @@
 import { CURRENT_RUNTIME_WEAPON_EFFECT_TYPES } from '../domain/weaponRuntimeCapabilities.ts';
-import { selectedTitle1BaseWeaponCandidates } from './baseWeaponSelectionSource.ts';
+import {
+  selectedBaseWeaponRuntimeAdmissionEntries,
+  selectedBaseWeaponRuntimeAdmissionSummary,
+} from './selectedBaseWeaponRuntimeAdmissionSource.ts';
 import type { WeaponAttackArchetype } from './weaponExpansionSource.ts';
 
 export type UnityWeaponRuntimeCapability =
@@ -27,14 +30,16 @@ export type UnityWeaponRuntimeCapability =
 
 export type RuntimeCapabilityState = 'IMPLEMENTED' | 'MISSING';
 
-export type BaseWeaponRuntimeAdmissionDecision =
-  | 'BLOCKED_MISSING_RUNTIME_PRIMITIVES'
-  | 'ADMITTED_FOR_RUNTIME_IMPLEMENTATION';
+export type UnityBaseWeaponAdmissionDecision =
+  | 'BLOCKED_MISSING_UNITY_PRIMITIVES'
+  | 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW';
 
 /**
- * Unity U47 runtime evidence is intentionally separate from the Web runtime effect contract.
- * Web currently supports five effect types; Unity's imported/executed weapon surface is still
- * Projectile/GroundArea only. Neither surface is allowed to stand in for a Selected16 archetype.
+ * Unity U47 evidence overlay.
+ *
+ * `selectedBaseWeaponRuntimeAdmissionSource.ts` remains the Selected16 live/Web admission authority.
+ * This source adds only Unity executor evidence so Web runtime support can never be mistaken for
+ * Unity implementation readiness.
  */
 export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponRuntimeCapability, RuntimeCapabilityState>> = {
   NEAREST_TARGET_PROJECTILE: 'IMPLEMENTED',
@@ -83,45 +88,49 @@ const archetypeCapabilities: Readonly<Record<WeaponAttackArchetype, readonly Uni
   LANE_BOUNDARY: ['LANE_BOUNDARY_TRIGGER'],
 } as const;
 
-export type BaseWeaponRuntimeAdmissionEntry = {
+export type UnityBaseWeaponRuntimeAdmissionEntry = {
   weaponId: string;
   weaponName: string;
   archetype: WeaponAttackArchetype;
-  requiredCapabilities: readonly UnityWeaponRuntimeCapability[];
-  implementedCapabilities: readonly UnityWeaponRuntimeCapability[];
-  missingCapabilities: readonly UnityWeaponRuntimeCapability[];
-  decision: BaseWeaponRuntimeAdmissionDecision;
-  mayEnterRuntimeRegistry: boolean;
+  webAdmissionState: (typeof selectedBaseWeaponRuntimeAdmissionEntries)[number]['admissionState'];
+  webBlockers: readonly string[];
+  requiredUnityCapabilities: readonly UnityWeaponRuntimeCapability[];
+  implementedUnityCapabilities: readonly UnityWeaponRuntimeCapability[];
+  missingUnityCapabilities: readonly UnityWeaponRuntimeCapability[];
+  unityDecision: UnityBaseWeaponAdmissionDecision;
+  mayEnterUnityRuntimeRegistry: boolean;
   contentSelectionPreserved: true;
   runtimeStatus: 'NOT_IMPLEMENTED';
 };
 
-export const title1BaseWeaponRuntimeAdmissionEntries: readonly BaseWeaponRuntimeAdmissionEntry[] =
-  selectedTitle1BaseWeaponCandidates.map((weapon) => {
-    const archetypeRequirements = archetypeCapabilities[weapon.archetype];
-    const requiredCapabilities = [
+export const title1BaseWeaponRuntimeAdmissionEntries: readonly UnityBaseWeaponRuntimeAdmissionEntry[] =
+  selectedBaseWeaponRuntimeAdmissionEntries.map((entry) => {
+    const archetypeRequirements = archetypeCapabilities[entry.archetype];
+    const requiredUnityCapabilities = [
       ...archetypeRequirements,
-      ...(weapon.appliesStatuses.length > 0 ? ['STATUS_APPLICATION' as const] : []),
+      ...(entry.statusRuntimeRequired ? ['STATUS_APPLICATION' as const] : []),
     ];
-    const implementedCapabilities = requiredCapabilities.filter(
+    const implementedUnityCapabilities = requiredUnityCapabilities.filter(
       (capability) => currentUnityWeaponRuntimeCapabilities[capability] === 'IMPLEMENTED',
     );
-    const missingCapabilities = requiredCapabilities.filter(
+    const missingUnityCapabilities = requiredUnityCapabilities.filter(
       (capability) => currentUnityWeaponRuntimeCapabilities[capability] === 'MISSING',
     );
-    const mayEnterRuntimeRegistry = missingCapabilities.length === 0;
+    const mayEnterUnityRuntimeRegistry = missingUnityCapabilities.length === 0;
 
     return {
-      weaponId: weapon.weaponId,
-      weaponName: weapon.weaponName,
-      archetype: weapon.archetype,
-      requiredCapabilities,
-      implementedCapabilities,
-      missingCapabilities,
-      decision: mayEnterRuntimeRegistry
-        ? 'ADMITTED_FOR_RUNTIME_IMPLEMENTATION'
-        : 'BLOCKED_MISSING_RUNTIME_PRIMITIVES',
-      mayEnterRuntimeRegistry,
+      weaponId: entry.weaponId,
+      weaponName: entry.weaponName,
+      archetype: entry.archetype,
+      webAdmissionState: entry.admissionState,
+      webBlockers: entry.blockers,
+      requiredUnityCapabilities,
+      implementedUnityCapabilities,
+      missingUnityCapabilities,
+      unityDecision: mayEnterUnityRuntimeRegistry
+        ? 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW'
+        : 'BLOCKED_MISSING_UNITY_PRIMITIVES',
+      mayEnterUnityRuntimeRegistry,
       contentSelectionPreserved: true,
       runtimeStatus: 'NOT_IMPLEMENTED',
     };
@@ -129,15 +138,18 @@ export const title1BaseWeaponRuntimeAdmissionEntries: readonly BaseWeaponRuntime
 
 const missingCapabilityFrequency = new Map<UnityWeaponRuntimeCapability, number>();
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
-  for (const capability of entry.missingCapabilities) {
+  for (const capability of entry.missingUnityCapabilities) {
     missingCapabilityFrequency.set(capability, (missingCapabilityFrequency.get(capability) ?? 0) + 1);
   }
 }
 
 export const title1BaseWeaponRuntimeAdmissionSummary = {
-  selectedContentWeaponCount: selectedTitle1BaseWeaponCandidates.length,
-  admittedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.mayEnterRuntimeRegistry).length,
-  blockedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => !entry.mayEnterRuntimeRegistry).length,
+  selectedContentWeaponCount: selectedBaseWeaponRuntimeAdmissionSummary.candidateCount,
+  webLiveCatalogCount: selectedBaseWeaponRuntimeAdmissionSummary.liveCatalogCount,
+  webRuntimeHookImplementedCount: selectedBaseWeaponRuntimeAdmissionSummary.runtimeHookImplementedCount,
+  webReadyForAdmissionReviewCount: selectedBaseWeaponRuntimeAdmissionSummary.readyForAdmissionReviewCount,
+  unityAdmittedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.mayEnterUnityRuntimeRegistry).length,
+  unityBlockedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => !entry.mayEnterUnityRuntimeRegistry).length,
   currentWebRuntimeEffectTypes: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES,
   currentWebRuntimeEffectTypeCount: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length,
   currentUnityWeaponExecutorTypes: ['Projectile', 'GroundArea'] as const,
@@ -147,7 +159,8 @@ export const title1BaseWeaponRuntimeAdmissionSummary = {
   missingCapabilityFrequency: [...missingCapabilityFrequency.entries()]
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .map(([capability, blockedWeaponCount]) => ({ capability, blockedWeaponCount })),
-  statusApplicationBlockedWeaponCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.missingCapabilities.includes('STATUS_APPLICATION')).length,
+  statusApplicationBlockedWeaponCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.missingUnityCapabilities.includes('STATUS_APPLICATION')).length,
+  selected16WebAdmissionAuthorityDuplicated: false,
   webRuntimeSupportEqualsUnityRuntimeSupport: false,
   fakeProjectileFallbackAllowed: false,
   contentSelectionMayBeDowngradedToFitRuntime: false,
