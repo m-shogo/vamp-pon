@@ -79,6 +79,43 @@ U2EnemyActorは:
 
 `ActiveStatusCount` はverification / telemetry用の低コストread surface。
 
+## U47 evidence boundary
+
+通常CIのU47 simulator manifestは `U2BattleController.cs` をsource fingerprintへ含むため、ownership-onlyの12行追加でもstale判定になった。
+
+ここでmanifestのfingerprintだけを書き換えたり、古いcaptureを新runtimeの証拠として再登録することはしない。
+
+今回の変更は:
+
+- Status Applyなし
+- movement modifierなし
+- damage modifierなし
+- projectile hit変更なし
+- GroundArea hit変更なし
+
+であり、既存U47 captureが検証しているbattle behaviorを変えない。
+
+そのため `u47-simulator-evidence-sources.ts` の既存normalization方式を使い、**このownership-only差分だけ**をexact anchorで正規化してhistorical **U47 evidence** のfingerprintを維持する。
+
+normalizerが除外してよいのは:
+
+- Status namespace import
+- state field / read surface
+- Activate時Clear
+- Tick時lifecycle Tick
+- Deactivate時Clear
+
+だけ。
+
+将来の:
+
+- `Statuses.Apply(...)`
+- projectile hit変更
+- damage path変更
+- movement/Status semantics
+
+はnormalizerで隠してはいけない。そこへ進んだ時点では**再capture**または新しいevidence更新が必要になる。
+
 ## What this does not do
 
 まだ実装しない:
