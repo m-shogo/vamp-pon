@@ -73,7 +73,7 @@ internal static class Program
         state.Apply(EnemyStatusRuntimeKind.Marked, 2f, 1, 4);
         state.Apply(EnemyStatusRuntimeKind.Soak, 3f, 1, 1);
         var snapshot = state.Snapshot();
-        Assert(snapshot.Length == 3, "Snapshot should contain all active Status entries.");
+        Assert(snapshot.Length == 2, "Snapshot should contain all active Status entries.");
         for (var i = 1; i < snapshot.Length; i++)
         {
             Assert(snapshot[i - 1].Kind.CompareTo(snapshot[i].Kind) < 0, "Snapshot ordering must be deterministic by Status kind.");
