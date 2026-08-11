@@ -45,14 +45,22 @@ invariant(
 
 const simulatorWrapper = readFileSync(join(root, expected.simulatorPerformance), 'utf8');
 const physicalWrapper = readFileSync(join(root, expected.physicalIphonePerformance), 'utf8');
-invariant(
-  simulatorWrapper.includes('verify-top-living-night-installed-build-provenance.sh simulator'),
-  'canonical Simulator evidence must verify installed-build provenance before sampling',
-);
-invariant(
-  physicalWrapper.includes('verify-top-living-night-installed-build-provenance.sh physical-iphone'),
-  'canonical physical-iPhone evidence must verify installed-build provenance before sampling',
-);
+for (const [name, wrapper, target] of [
+  ['Simulator', simulatorWrapper, 'simulator'],
+  ['physical-iPhone', physicalWrapper, 'physical-iphone'],
+] as const) {
+  invariant(
+    wrapper.includes('verify-top-v3-same-launch-build-provenance.sh') &&
+      wrapper.includes(`prepare ${target}`) &&
+      wrapper.includes(`wait ${target}`) &&
+      wrapper.includes('wait "$PERF_PID"'),
+    `canonical ${name} evidence must validate build provenance from the same measured process`,
+  );
+  invariant(
+    !wrapper.includes('verify-top-living-night-installed-build-provenance.sh'),
+    `canonical ${name} evidence must not use a separate pre-measurement app launch for provenance`,
+  );
+}
 
 const promotion = readFileSync(join(root, expected.finalPromotion), 'utf8');
 for (const registrarPath of [
@@ -70,4 +78,4 @@ invariant(promotion.includes('finalArt.approvedAsFinal = true'), 'canonical fina
 invariant(promotion.includes('finalArt.runtimeApproved = true'), 'canonical final promoter lost runtime approval write');
 
 console.log('TOP Living Night automation entrypoints: PASS');
-console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / exact-source iOS export / build-provenance-gated Simulator + physical iPhone / review registrars / final promoter are bundle-bound');
+console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / exact-source iOS export / same-launch build-provenance-gated Simulator + physical iPhone / review registrars / final promoter are bundle-bound');
