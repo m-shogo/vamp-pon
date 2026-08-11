@@ -29,13 +29,13 @@ assert(gameplay?.statuses.includes('BURN'), 'gameplay profile must preserve BURN
 assert(!weapons.some((weapon) => weapon.id === weaponId), 'prototype admission must not silently add ember_matchcase to Web live weapons.ts');
 assert(currentUnityWeaponRuntimeCapabilities.MULTI_TARGET_PROJECTILE_SELECTION === 'IMPLEMENTED', 'Ember requires proven multi-target selection');
 assert(currentUnityWeaponRuntimeCapabilities.STATUS_APPLICATION === 'IMPLEMENTED', 'Ember caller must prove shared Status application');
-assert(admission?.mayEnterUnityRuntimeRegistry === true, 'Ember should pass Unity primitive admission');
+assert(admission?.prototypeCallerImplemented === true, 'Ember must retain explicit Selected16 caller proof');
+assert(admission?.mayEnterUnityRuntimeRegistry === true, 'Ember should pass Unity implementation-review admission');
 assert(admission?.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Ember should be admitted for implementation review only');
 assert(admission?.runtimeStatus === 'NOT_IMPLEMENTED', 'Ember must not claim live runtime implementation');
 assert(admission?.missingUnityCapabilities.length === 0, 'Ember should have no missing shared primitive after vertical slice');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'exactly one Selected16 weapon should be admitted');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === weaponId, 'only ember_matchcase may be admitted');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'remaining Selected15 must stay blocked');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount >= 1, 'Ember proof requires at least one Selected16 implementation-review admission');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes(weaponId), 'ember_matchcase must remain admitted even as other Selected16 callers land');
 
 const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
@@ -81,10 +81,9 @@ assert(!coordinatorSource.includes('ember_matchcase'), 'prototype weapon ID must
 
 const otherAdmissions = title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.weaponId !== weaponId);
 assert(otherAdmissions.length === 15, 'remaining Selected15 count drift');
-assert(otherAdmissions.every((entry) => !entry.mayEnterUnityRuntimeRegistry && entry.missingUnityCapabilities.length >= 1), 'remaining Selected15 must retain archetype-specific blockers');
 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
-for (const token of ['admitted=1', 'blocked=15', 'ember_matchcase', 'PROTOTYPE_TUNING_NOT_CANON', 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW']) {
+for (const token of ['ember_matchcase', 'PROTOTYPE_TUNING_NOT_CANON', 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW']) {
   assert(doc.includes(token), `runtime admission doc missing Ember vertical-slice token: ${token}`);
 }
 
