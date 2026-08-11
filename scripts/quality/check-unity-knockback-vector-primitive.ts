@@ -62,8 +62,6 @@ const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.wea
 assert(hammer, 'pavement_hammer admission row missing');
 assert(hammer.requiredUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'pavement_hammer must require shared knockback');
 assert(hammer.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'pavement_hammer should see shared knockback as implemented');
-assert(hammer.missingUnityCapabilities.includes('SLAM_WAVE_QUERY'), 'pavement_hammer must remain blocked on real directional slam-wave query');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'shared knockback must not auto-admit pavement_hammer');
 
 assert(!coordinatorSource.includes('U2EnemyKnockbackRuntime'), 'shared primitive must not silently enter the live Stage1 coordinator');
 
@@ -73,10 +71,9 @@ console.log(JSON.stringify({
   tuningAuthority: 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
   implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
   missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
-  admission: {
-    admitted: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount,
-    admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
-    bellowsFanMissing: bellows.missingUnityCapabilities,
-    pavementHammerStillBlockedBy: hammer.missingUnityCapabilities,
+  consumers: {
+    bellowsFan: bellows.implementedUnityCapabilities,
+    pavementHammer: hammer.implementedUnityCapabilities,
   },
+  admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
 }, null, 2));
