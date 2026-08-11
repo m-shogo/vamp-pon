@@ -1,0 +1,45 @@
+name: Current21 Social Chemistry Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/RELATIONSHIPS.md'
+      - 'docs/title1-character-relationship-villain-deepening-v1.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/current21-social-chemistry-reservoir-v1.md'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/allPairDirectedSpeechPresentationSource.ts'
+      - 'src/game/data/currentGroupInteractionSource.ts'
+      - 'src/game/data/current21SocialChemistryReservoir.ts'
+      - 'scripts/quality/check-current21-social-chemistry-reservoir.ts'
+      - '.github/workflows/current21-social-chemistry-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/RELATIONSHIPS.md'
+      - 'docs/title1-character-relationship-villain-deepening-v1.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/current21-social-chemistry-reservoir-v1.md'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/allPairDirectedSpeechPresentationSource.ts'
+      - 'src/game/data/currentGroupInteractionSource.ts'
+      - 'src/game/data/current21SocialChemistryReservoir.ts'
+      - 'scripts/quality/check-current21-social-chemistry-reservoir.ts'
+      - '.github/workflows/current21-social-chemistry-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Current21 social chemistry without overriding speech authority
+        run: node --experimental-strip-types scripts/quality/check-current21-social-chemistry-reservoir.ts
