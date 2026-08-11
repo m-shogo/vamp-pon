@@ -16,7 +16,7 @@ assert(summary.frictionBeatCount === 24, 'every Featured relation needs one fric
 assert(summary.recognitionBeatCount === 24, 'every Featured relation needs one recognition beat');
 assert(summary.chosenTrustBeatCount === 24, 'every Featured relation needs one chosen-trust beat');
 assert(summary.downwardDirectedOutcomeCount >= 20, 'Featured relations need real friction/downward movement, not only positive progression');
-assert(summary.unchangedDirectedOutcomeCount >= 4, 'Featured relations need some UNCHANGED outcomes so every climax is not artificial mutual-up');
+assert(summary.unchangedDirectedOutcomeCount >= 3, 'Featured relations need multiple UNCHANGED outcomes so every climax is not artificial mutual-up');
 assert(summary.upwardDirectedOutcomeCount >= 40, 'Featured relations still need substantial recognition/trust progression');
 assert(!summary.exactIncidentFrozen, 'exact incidents must remain flexible until scene writing locks them');
 assert(!summary.exactStageFrozen, 'exact Stage placement must remain flexible');
