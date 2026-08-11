@@ -9,6 +9,10 @@ on:
       - 'docs/STORY.md'
       - 'docs/world-*.md'
       - 'docs/story-*.md'
+      - 'docs/core5-era-*.md'
+      - 'docs/era-*.md'
+      - 'docs/season-*.md'
+      - 'docs/research/era-*.md'
       - 'docs/dream-feast-party-social-bible-v1.md'
       - 'docs/stage-world-lore-integration-v1.md'
       - 'docs/character-family-household-atlas-v1.md'
@@ -17,6 +21,9 @@ on:
       - 'docs/sakumei-*.md'
       - 'docs/sakuyaza-*.md'
       - 'docs/gunjo-*.md'
+      - 'public/lorebook/data/core5-era-canon.v1.json'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/seasonArchitecture.ts'
       - 'src/game/data/storyWorldMasterSource.ts'
       - 'src/game/data/dreamSocialWorldSource.ts'
       - 'src/game/data/worldSettingExpansionIndex.ts'
@@ -34,6 +41,10 @@ on:
       - 'docs/STORY.md'
       - 'docs/world-*.md'
       - 'docs/story-*.md'
+      - 'docs/core5-era-*.md'
+      - 'docs/era-*.md'
+      - 'docs/season-*.md'
+      - 'docs/research/era-*.md'
       - 'docs/dream-feast-party-social-bible-v1.md'
       - 'docs/stage-world-lore-integration-v1.md'
       - 'docs/character-family-household-atlas-v1.md'
@@ -42,6 +53,9 @@ on:
       - 'docs/sakumei-*.md'
       - 'docs/sakuyaza-*.md'
       - 'docs/gunjo-*.md'
+      - 'public/lorebook/data/core5-era-canon.v1.json'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/seasonArchitecture.ts'
       - 'src/game/data/storyWorldMasterSource.ts'
       - 'src/game/data/dreamSocialWorldSource.ts'
       - 'src/game/data/worldSettingExpansionIndex.ts'
@@ -63,5 +77,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate Story / World master, P0-P2 coverage and authority boundaries
+      - name: Validate Story / World, Era x Generation x Season, P0-P2 and authority boundaries
         run: node --experimental-strip-types scripts/quality/check-world-setting-expansion.ts

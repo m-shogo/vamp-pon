@@ -1,10 +1,17 @@
-# ヨルノシルベ — Family / Household Atlas v1
+# ヨルノシルベ — Family / Household Atlas v2
 
 Date: 2026-08-11  
-Status: **P1 CHARACTER LIFE FOUNDATION / KNOWN RELATIONS PRESERVED / FAMILY RETCONS BLOCKED**
+Status: **P1 CHARACTER LIFE FOUNDATION / MULTI-GENERATION WORLD REQUIRED / FAMILY RETCONS BLOCKED**
 
-> 目的: 「家族設定がない = 一人暮らし」にせず、人物が現実側でどこへ帰り、誰と食べ、何を家と感じるかを持つ。
-> 親・配偶者・子ども・死別など重大設定は、既存sourceがない限り勝手にCanon化しない。
+> 目的: 「家族設定がない = 一人暮らし」にせず、人物がReality側でどこへ帰り、誰と食べ、何を家と感じるかを持つ。
+> 同時に、各EraをCore5一人だけで代表させず、父 / 母 / 伯父叔母 / 祖父母 / 子ども / 単身者 / 夫婦 / 三世代等の複数視点で社会を見せる。
+> **具体的な親・配偶者・子ども・死別等の重大設定は、既存sourceがない限り勝手にCanon化しない。**
+
+Related:
+
+- `docs/era-family-generation-lens-v1.md`
+- `docs/core5-era-character-master-v1.md`
+- `docs/era-satire-cross-generation-dialogue-bible-v1.md`
 
 ---
 
@@ -38,11 +45,42 @@ Status: **P1 CHARACTER LIFE FOUNDATION / KNOWN RELATIONS PRESERVED / FAMILY RETC
 
 親が未設定なら`OPEN_QUESTION`。
 
-「両親死亡」を便利な主人公背景defaultにしない。
+禁止:
+
+- 「両親死亡」を主人公背景defaultにする
+- Eraが古いから大家族と自動決定
+- Eraが現代だから核家族 / 一人暮らしと自動決定
+- 母=家事、父=仕事、祖母=知恵袋、伯父=酒飲み等の固定役
 
 ---
 
-# 3. Current21 household anchors
+# 3. Era population must include multiple generations
+
+**World rule:**
+
+各主要Eraには、Core5本人以外にも最低限:
+
+- child perspective
+- teen / young-adult perspective
+- parent-age adult perspective
+- older-adult perspective
+- non-parent adult / aunt-uncle-like perspective
+- parents+children以外のhousehold example
+
+を持てる社会人口を設計する。
+
+これはCore5に全員親族を生やすruleではない。
+
+> **Eraを一人で代表させない。**
+
+同じ年でも、子ども・親・祖父母・伯父叔母では「何が問題か」が違って見える。
+
+Detailed source:
+`docs/era-family-generation-lens-v1.md`
+
+---
+
+# 4. Current21 household anchors
 
 ## ユイ
 Known family: `OPEN_QUESTION`
@@ -196,31 +234,85 @@ Home feeling: 仮説を間違えても責められない。
 
 ---
 
-# 4. Family scene rules
+# 5. Family scene rules
 
 家族を出す場合:
 
 - Characterの性格説明専用NPCにしない。
-- 親 = 原因、だけにしない。
+- 親 = trauma原因、だけにしない。
 - 家庭が良い / 悪いの二択にしない。
-- sibling以外の関係も、連絡頻度 / 距離 / 家事分担を持つ。
+- sibling以外の関係も連絡頻度 / 距離 / 家事 / money / care /趣味を持つ。
+- 家族NPCにも主人公不在sceneを持たせられる。
+
+Recurring family NPCは最低:
+
+```txt
+own work / study / role
+own pleasure
+own irritation
+one relation outside protagonist
+one opinion protagonist disagrees with
+one scene protagonist is absent from
+```
+
+を持つ。
 
 ---
 
-# 5. Ritsu / Koyori sibling hard guard
+# 6. Family generation roles are not stereotypes
+
+## Father
+
+仕事だけの存在にしない。
+家庭 / 趣味 /親のcare /友人 /地域役割を持てる。
+
+## Mother
+
+家事専任defaultにしない。
+work / career / childcare / own social lifeを持てる。
+
+## Aunt / Uncle
+
+重要な中間adult。
+
+- 親とは違う価値観
+- childへ別のadult model
+- new culture / technology / foodを家へ持ち込む
+- unmarried / divorced / remarried / city worker等、多様な生活形
+
+を担える。
+
+## Grandparent
+
+wisdom machine / conservative obstacleにしない。
+新技術が好きな祖母、若者より柔軟な祖父も普通に成立する。
+
+## Child
+
+pure truth machineにしない。
+間違う / selfish /怖がる /大人を真似る /流行に弱い等も持つ。
+
+Detailed generation scene rules:
+`docs/era-family-generation-lens-v1.md`
+
+---
+
+# 7. Ritsu / Koyori sibling hard guard
 
 Current known:
-- 兄妹 / sibling relation
+
+- sibling relation
 - romanceなし
 - 兄だけが守る関係にしない
 
 家庭を追加しても:
+
 - コヨリをprotecteeだけにしない
 - リツの人格を兄役だけにしない
 
 ---
 
-# 6. Chosen family
+# 8. Chosen family
 
 Nightで生まれる友情を重視するため:
 
@@ -232,40 +324,52 @@ Nightで生まれる友情を重視するため:
 
 ---
 
-# 7. Future15 household notes
+# 9. Future family vocabulary
 
-詳細な親族はFuture promotionまでLOCKしない。
+Future15 / future societyでは、人間家庭型だけをfamily正解にしない。
 
-強い既存軸:
+Strong axes:
 
 - クロエ / レンジ: 師弟が世代を越える。恋愛自動化禁止。
-- カイ / ナオ: human twins。二人で一つ扱いと個人性。
-- クウ / ヨモ: 「飼い主」だけで人格を定義しない。複数の人との生活memoryを持てる。
+- カイ / ナオ: twins。一組扱いと個人性。
+- クウ / ヨモ: 飼い主だけで人格を定義しない。
 - ノア: same snapshot two-bodyを親族語彙だけで説明しない。
-- ルム: collective memoryからindividuality。familyを人間家庭へ無理に当てはめない。
-- アマネ: wheelchairを家族の負担物語へしない。
+- ルム: collective memoryからindividuality。
+- アマネ: wheelchairを家族負担storyへしない。
+
+Far Future Candidate vocabulary:
+
+- biological parent
+- legal parent
+- adoptive / chosen family
+- Human + Android household
+- creator / manufacturer ≠ automatic parent
+- copied-memory branches who may or may not call each other siblings
+- grandparent with replaced body
+- Robot caregiver
+
+family制度のfinal answerはOpen。
 
 ---
 
-# 8. Family major-decision queue
+# 10. Family major-decision queue
 
-Human consultation対象:
+Human consultation / high-impact review対象:
 
-- Core5の実親 / 養親 / sibling
-- 配偶者 / 元配偶者
-- 子ども
-- Current主要人物の家族死亡
-- 失踪家族
-- 虐待 / 家庭内暴力
-- 家族がMain MysteryのCreator等である設定
+- Core5の実親 / 養親 / siblings
+- Core5の伯父叔母 /祖父母をRecurring主要人物にする決定
+- spouse / ex-spouse
+- children
+- Current主要人物のfamily death
+- missing family
+- abuse / domestic violence
+- family member = Main Mystery creator等
 
-これらは人気作っぽい「重い過去」を作るためだけに追加しない。
+これらは人気作っぽい重い過去を作るためだけに追加しない。
 
 ---
 
-# 9. Ordinary household scene reservoir
-
-人物を好きになるために使う:
+# 11. Ordinary household scene reservoir
 
 - 余ったご飯を誰が包む
 - 洗濯物の畳み方
@@ -274,31 +378,43 @@ Human consultation対象:
 - 靴をどこへ置く
 - 鍵を失くす
 - 誰が先に寝る
-- 誰が電気 / 灯りを消す
-- 旅行から戻った荷物をいつ片付ける
-- 誰かのマグカップを勝手に使わない
+- 誰が灯りを消す
+- 旅行後の荷物をいつ片付ける
+- 誰かのmugを勝手に使わない
+- 伯父が新しい食べ物を持ってくる
+- 祖母が新しいphoneを一番使いこなしている
+- 子どもが大人の建前を素朴に突く
+- 親と伯父叔母で「その子のため」の意味が違う
 
-大事件なしでもCharacterが見えるsceneを一級素材にする。
+大事件なしでもCharacter / Eraが見えるsceneを一級素材にする。
 
 ---
 
-# 10. Household ↔ Dawn payoff
+# 12. Household ↔ Waking payoff
 
-夜の成長はReality homeの小さな行動へ返す。
+**旧Dawn payoffはSUPERSEDED。**
+ヨルノシルベにphysical morningは来ない。
+
+Night / Dreamでの成長は、Waking後のReality homeで小さな行動として返す。
 
 例:
+
 - 「全部自分で戻す」人物が、忘れ物を本人へ聞く。
 - 「全部閉じる」人物が、箱へ開封期限を書く。
 - 「全部守る」人物が、重い荷物を半分持ってもらう。
+- 「親のため」を繰り返していた人物が、本人に何を望むか聞く。
+- 「子どもだから」で話から外していた家庭が、子ども本人へ説明する。
 
-Dawn proofを家庭で見せられると、戦闘成長が生活へ戻る。
+Waking payoffを家庭で見せると、戦闘成長が生活へ戻る。
 
 ---
 
-# 11. Completion definition
+# 13. Completion definition
 
 - Current21全員にhomeAnchorがある。
-- 家族未設定を死亡 / 孤児で雑に埋めない。
+- 家族未設定をdeath / orphanで埋めない。
 - known relationとopen relationを区別する。
-- Dawn payoffを普通の生活へ戻せる。
-- Future15の非人間 / twin / long-lived関係を人間家族型へ無理に均さない。
+- 各主要Eraに複数generation lensがある。
+- father / mother / aunt-uncle / grandparent / childをstereotype roleへ固定しない。
+- Waking payoffを普通のReality生活へ戻せる。
+- Future familyをHuman nuclear-family型へ無理に均さない。

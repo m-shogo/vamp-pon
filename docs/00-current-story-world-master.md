@@ -1,99 +1,62 @@
 # ヨルノシルベ — Current Story / World Master
 
 Date: 2026-08-11  
-Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED**
+Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED + RESEARCH-REFINED ERA BANDS**
 
-> 物語・年代・夢世界・星空・月相・敵勢力・大事件・Android / Robot・動物・日常生活について、現時点の最上位Authority。
-> 下位資料、旧Candidate、過去のAI提案と衝突した場合は**このファイルを優先**する。
+> 物語・年代・夢世界・星空・月相・敵勢力・大事件・Android / Robot・動物・日常生活についての最上位Authority。
+> 下位資料、旧Candidate、過去AI提案と衝突した場合は**このファイルを優先**する。
 > Runtime実装済みを意味しない。stable ID / Character / Enemy / Relation / Visual資産は壊さず追従させる。
 
 ---
 
 # 0. Authority運用
 
-- `DECIDED` — ユーザーが明確に決定。下位資料より優先。
+- `DECIDED` — ユーザーが明確に決定。
+- `CURRENT` — ユーザー方針を満たすため研究・整合確認後に現在採用している設計。後続の明示決定で更新可能。
 - `CANDIDATE` — 高価値だが未確定。
 - `OPEN` — 意図的に未決定。
-- `SUPERSEDED` — 過去案。既存asset / ID migrationには残せるがCurrentへ戻さない。
+- `SUPERSEDED` — 過去案。asset / ID migration上は残せるがCurrentへ戻さない。
 
-## 旧設定へ戻してはいけないもの
+## 戻してはいけない旧設定
 
-- ヨルノシルベに朝が来る
-- 朝まで生き残れば帰れる
-- Dawn / 夜明けがReality帰還条件
-- 主要敵8人の正式Current名を朔盟に戻す
+- ヨルノシルベに物理的な朝が来る
+- 朝まで生き残ればRealityへ帰れる
+- Dawn / 夜明けをReality帰還条件にする
+- 主要敵8人の正式Current名を朔盟へ戻す
 - 各時代に固定の「世代ラスボス」が1人いる設計
-- 各時代の中心人物を必ず戦闘Bossにする
-- 群青残響録を固定人数の敵軍団にする
-- **Core5を同じReality era / 同じ現代の5人組に戻す**
-- 全年代でDreamの星座が同じ
-- Dream内部をRealityの物理・天文学・経済・生活インフラへ無理に合わせる
-- **食べ物を考えた瞬間に手元 / 空中へ直接materializeさせる**
+- 群青残響録を固定人数の敵軍団へする
+- Core5を同じReality era / 同じ現代の5人組へ戻す
+- Core5の年代差を衣装だけへ縮小する
+- 1940 / 1980 / 2000等の**初期例をExact Canonとして固定する**
+- 全年代でDream星座を同一にする
+- Dream内部をRealityの物理・経済・物流へ無理に合わせる
+- 食事を考えた瞬間に手元 / 空中へ直接materializeさせる
 - Android最終名をシオン / イヴ・ノインにする
 - 群青残響録側へ「○○座」を付ける
 
 ---
 
-# 1. 現世
+# 1. Reality — 現実の日本
 
 Status: `DECIDED`
 
-現世は**現実の日本**。
+Realityは**現実の日本**。
 
-東京 / 新宿 / 渋谷など実在地名は普通に使う。
-理由なく「真宿」のような偽名化をしない。
+- 東京 / 新宿 / 渋谷など実在地名を普通に使える。
+- 理由なく「真宿」のような偽名化をしない。
+- 現代編は言葉・生活・交通・決済・通信・SNS・制度・服・UI・商品・食文化・学校 /仕事・街並みから「間違いなく今の日本」と感じられるようにする。
+- Historical Eraも実際の日本社会史・生活史・食文化・制度・言葉を研究してから描く。
+- **実在の大事件は背景研究に使うが、ヨルノシルベのEra大事件は架空にする。**
+- 実在被害者 / 実在事件を名前だけ変えて再演しない。
 
-現代編は:
-
-- 言葉
-- 生活
-- 交通
-- 決済
-- 通信
-- SNS
-- 制度
-- 服
-- UI
-- 商品
-- 食文化
-- 学校 / 仕事
-- 街並み
-
-など複数の要素から、**間違いなく今の日本**と感じられるようにする。
-
-これはReality側のrule。
-Dream内部までReality基準へ揃えない。
+Research source:
+`docs/research/era-society-food-future-sourcebook-v1.md`
 
 ---
 
-# 2. 異なる時代 / Era lane
+# 2. Core5 — 5人とも別Reality Era
 
-Status: `DECIDED DIRECTION`
-
-ヨルノシルベへ来る人物は同時代ではない。
-
-現在の主要lane候補:
-
-- 1940年代系
-- 1980年代系
-- 2000年代系
-- 現代
-- 20XX年代以降へ大きく飛んだAndroid / Robot時代
-
-**Era lane数は固定しない。**
-
-新しいEraが必要になれば:
-
-- そのEraのCharacter
-- そのEraの社会状況
-- そのEraの大事件
-- その大事件の中心人物 / 中心人物群
-
-も合わせて増やせる。
-
-## Core5は5人とも別時代
-
-Status: `DECIDED HARD RULE`
+Status: `DECIDED HARD RULE / CURRENT ERA BANDS`
 
 Core5:
 
@@ -103,517 +66,523 @@ Core5:
 - ミチル
 - トモリ
 
-は、**Realityでは5人とも異なるera / generationから来る。**
+は**Realityでは5人とも別の時代 / 世代背景を持つ**。
 
 ```txt
 Core5 distinct era count = 5 / 5
 ```
 
-禁止:
+## Current research-backed Era bands
 
-- 5人を同じ現代の仲間へ戻す
-- 同じ学校 / 同級生5人にする
-- 見た目年齢が近いことを同年代の証拠にする
-- TOP /集合絵の都合で5人を同じmodern fashionへ均す
+| Character | Current Reality Era band | 主要な時代pressure |
+|---|---|---|
+| **トモリ** | **戦後復興・物資不足期** | scarcity / distribution / reconstruction / repair |
+| **ミチル** | **高度成長末期〜公害・石油危機の転換期** | development / pollution / urban planning / energy |
+| **ナギ** | **バブル崩壊後〜携帯Internet初期** | unstable employment / early network / privacy / identity exposure |
+| **ユイ** | **現代日本** | information excess / misinformation / algorithm / loneliness |
+| **アサ** | **遠未来 Human / Android / Robot / Avatar共存社会** | personhood / body / copy / digital identity / ownership |
 
-ただし:
+### Important
 
-> **5人が別時代 = 5人全員を同じ主役比重にする**
+以前の:
 
-とは限らない。
+- 1940年代系
+- 1980年代系
+- 2000年代系
+- 現代
+- 未来
 
-Era placementとNarrative roleは別に管理する。
-「Core5だから全員同じ時代」「5 Eraだから全員まったく同じ主人公比重」のどちらにも自動変換しない。
+は**Era explorationの例**だった。
 
-### exact person-to-era mapping
+現在はExact decadeを先に固定せず、**その人物のCoreと最も噛み合う社会の転換期**をCurrent Era bandとして使う。
 
-以下は`OPEN`:
-
-- 誰が1940年代系か
-- 誰が1980年代系か
-- 誰が2000年代系か
-- 誰が現代か
-- 5つ目を未来Android / Robot laneへ置くか、別の追加Eraへするか
-- exact year
-- exact chronological age
-
-**5人が全部違うことだけは決定。誰をどのEraへ置くかは既存Character人生・服・道具・口調・関係を照合してからLOCKする。**
+Exact yearはOpen。
 
 ---
 
-# 3. 固定Boss禁止
+# 3. Core5 Narrative Role
 
-Status: `DECIDED`
+Status: `CURRENT`
 
-**「1 Era = 1 fixed last boss」ではない。**
+- **ユイ** — Title1全体の中心viewpoint / protagonist。
+- **アサ** — protagonist-grade buddy / counter-axis。ユイ×アサはnon-romance。
+- **ナギ / ミチル / トモリ** — Core5 main cast。それぞれのReality解決partではera lead / protagonist-grade focusを取れる。
 
-各時代の大事件には:
+`5 Era = 全chapter完全同尺`ではない。
 
-- 一人の中心人物がいる場合
-- 複数人が中心になる場合
-- 組織 / 制度 / 群衆心理が中心になる場合
-- 朔夜座が強く関与する場合
-- 明確な最終戦闘Bossが存在しない場合
-
-があってよい。
-
-「世代ラスボス」は制作上の固定slotとして使用しない。
+`ユイが中心 = 他4人が脇役`でもない。
 
 ---
 
-# 4. ヨルノシルベ — 朝のない夢世界
+# 4. Era固有性 — 同じ悩みを年代だけ変えて反復しない
+
+Status: `DECIDED QUALITY RULE`
+
+各Era大事件は:
+
+```txt
+Era固有のordinary problem
++
+Era固有のtechnology / institution
++
+守りたい / 発展させたい合理的な願い
++
+fear / scarcity / pressure
+↓
+一つの答えだけが絶対化
+↓
+架空の大事件
+```
+
+必須QA:
+
+> **その事件を別Eraへそのまま移して成立するならEra固有性が弱い。**
+
+Current ownership:
+
+- Tomori = scarcity / reconstruction / distribution / repair
+- Michiru = development / pollution / energy / city route
+- Nagi = early network / privacy / identity exposure / employment insecurity
+- Yui = information excess / misinformation / algorithm / isolation
+- Asa = personhood / embodiment / copy / digital identity / Android coexistence
+
+各Eraの主problemを重ねすぎない。
+
+---
+
+# 5. Core5 Era × Character Core
+
+## トモリ — 戦後復興・物資不足期
+
+既存Core:
+
+> 壊れていても捨てない / 直して継ぐ。
+
+時代背景は「戦争キャラ」にするためではない。
+
+- 配給
+- 遅配 / 欠配
+- 買い出し
+- 物々交換
+- 修繕
+- 住宅不足
+- informal mutual aid
+
+等を研究し、**足りない時に何を直し、どう分けるか**へ接続する。
+
+Current fictional-incident lane Candidate:
+
+> 公平な配給を目指した統合台帳が、記録に載らない住民を存在しないものとして扱い始める。
+
+実在の飢饉 / 空襲 /戦災をコピーしない。
+
+## ミチル — 高度成長末期〜公害・石油危機
+
+既存Core:
+
+> 正しい道を教える → 一緒に迷って帰れる。
+
+時代背景:
+
+- urbanization
+- factories
+- new towns
+- expanding rail / roads
+- pollution
+- energy dependence
+- oil shock
+- growth ideology
+
+Current fictional-incident lane Candidate:
+
+> 新交通網・工業誘致・住宅供給を「最短成長route」へ統合した都市計画が、健康risk・古い生活道・地域の逃げ道を切り捨てる。
+
+解決を「development全部中止」にはしない。
+
+## ナギ — バブル崩壊後〜携帯Internet初期
+
+既存Core:
+
+> 閉じることで守る → 開ける時を本人と決める。
+
+時代背景:
+
+- feature phone / PHS
+- mobile mail
+- PC mail
+- bulletin board / personal site
+- handle name
+- household Internet transition
+- unstable employment /就職氷河期的pressure
+- privacy norm形成途中
+
+Current fictional-incident lane Candidate:
+
+> 詐欺・なりすまし等を防ぐため学校 /企業 /地域が作った本人確認・注意人物共有網が、誤登録者を進学 /就職 /居場所から静かに締め出す。
+
+Presentのalgorithm / deepfakeをこのEraの主題へ奪わない。
+
+## ユイ — 現代日本
+
+既存Core:
+
+> 誰も忘れたくない → 本人が残すもの /手放すものを一緒に選ぶ。
+
+時代背景:
+
+- smartphone
+- SNS
+- group chat
+- cloud photo
+- recommendation / ranking
+- generative AI
+- fake image / deepfake
+- misinformation
+- always-connected loneliness
+- aging / access issues
+
+Current fictional-incident lane Candidate:
+
+> 都市規模の緊急事態でfake救援情報が急増。混乱を止めるため認証済み情報だけを表示する仕組みが導入されるが、認証できない小さな本物のSOSまで消える。
+
+実在災害の名前 /犠牲者構造をコピーしない。
+
+## アサ — 遠未来 Human / Android / Robot / Avatar共存社会
+
+**アサ本人はHuman。**
+Androidへ変更しない。
+
+既存Core:
+
+> 名前を返す → 本人が名乗れる場所を作る。
+
+未来Theme:
+
+- human name
+- chosen name
+- model designation
+- digital identity
+- avatar / remote body
+- body replacement / augmentation
+- memory / skill copy
+- branching identity
+- Android / Robot personhood
+- ownership / labor / contract
+
+Current fictional-incident lane Candidate:
+
+> body exchange / avatar / Android copyが一般化した社会で、行政 /企業が「本人」を一つのContinuity認証へ固定。分岐copyやbody移行したHuman / Androidが法的に本人ではないとされる。
+
+Final answerはまだOpen。
+
+---
+
+# 6. Future research — 攻殻機動隊等から学ぶ範囲
+
+Status: `RESEARCH RULE`
+
+未来は現在の政策 /研究だけでなく、長く評価されるSF作品の**問いの構造**を研究してよい。
+
+『攻殻機動隊』等から学べる軸:
+
+- bodyが変わっても同じ人か
+- memoryがcopyされたら同じ人か
+- network接続が自由と侵入riskを同時に増やす
+- institutionが本人性を固定したがる
+- Human / machine境界が曖昧になる
+
+Copyしない:
+
+- franchise固有語を本作system名にする
+- organization構造をそのまま移植
+- antagonist / incident plotをコピー
+- 星獣を魂証明装置にする
+
+ヨルノシルベ独自の答えを作る。
+
+---
+
+# 7. 日本の風刺 / 世相をDialogueへ使う
+
+Status: `CURRENT DIALOGUE DIRECTION`
+
+年代差は歴史授業だけでなく、**別時代の人が別時代の「普通」を見ることで生まれる風刺**へ使う。
+
+Research reservoir:
+
+- 川柳
+- 風刺画
+- 戦後サラリーマン漫画
+- サラリーマン川柳
+- 新語 / 流行語
+- 若者言葉
+
+Hard:
+
+- 昔の人を無知役へ固定しない。
+- 現代人を正解役へ固定しない。
+- Futureを上位互換にしない。
+- 実在悲劇そのものを笑わない。
+- personを笑うよりsystem / custom / contradictionを笑う。
+
+Example direction:
+
+```txt
+Yui: 「読んだって表示されてるのに返事ないと気になる。」
+Tomori: 「便利になったのに、待つ材料が一つ増えたな。」
+```
+
+```txt
+Yui: 「これ、いちばん早い道出してくれるよ。」
+Michiru: 「いちばん面白い道は？」
+```
+
+笑いながらEraが分かる状態を狙う。
+
+Detail:
+`docs/era-satire-cross-generation-dialogue-bible-v1.md`
+
+---
+
+# 8. ヨルノシルベ — 朝のないDream
 
 Status: `DECIDED CORE / FINAL MECHANISM OPEN`
 
 ヨルノシルベは**夢世界**。
 
-共有夢のような場所だが:
-
-- 誰が / 何が共有させているか
-- Realityとどう接続しているか
-- 最終的なmechanism / 起源
-
-はまだLOCKしない。
-
-Hard rules:
-
-- **ヨルノシルベには朝が来ない。**
+- shared dream-likeだが最終mechanism / originはOpen。
+- **物理的な朝は来ない。**
 - 太陽が昇って夜が明けることはない。
-- 月 / 星 / 雲 / 空の状態 / 光量は変化してよい。
-- 人は「朝になったから帰る」のではない。
-- **Dreamから目覚めて、自分の時代へ戻る。**
-- Game Over = Reality deathではない。
-- Retry = resurrectionではない。
+- 月 /星 /雲 /光量は変化してよい。
+- 人は朝になって帰るのではなく、**Dreamから目覚め自分のReality Eraへ戻る**。
+- Game Over ≠ Reality death。
+- Retry ≠ resurrection。
 - 正史はHappy End。
 
-旧`Dawn / 夜明け`語がstable ID / UI / asset名へ残っていても、Dreamにphysical morningが来る意味へ戻さない。
+旧`Dawn / 夜明け`がstable ID / UI名へ残っていてもphysical morningを意味しない。
 
 ---
 
-# 5. 目覚めと記憶
+# 9. Waking / Memory
 
 Status: `DECIDED DIRECTION`
 
-## 通常の目覚め
-
-明示記憶をほとんど失う。
+通常Wakingでは明示記憶をほとんど失う。
 
 失われやすい:
 
-- 人の名前
+- 名前
 - 顔
 - 年代
 - 会話
-- 正確な場所
-- Dreamで起きた細かな出来事
+- Dreamの細かな出来事
 
 残り得る:
 
-- 身についた技能
-- 身体感覚
-- 感情の変化
+- skill
+- body sense
+- emotional change
 - 誰かに教わった考え方
-- 誰かを信じるようになった経験
-- 以前なら選べなかった行動
+- trust experience
+- 新しく選べるようになった行動
 
 > 誰に教えてもらったか思い出せない。でも手が覚えている。
 
-が成立する。
-
-## 大事件の解決パート
-
-大きな試練を越えた人物は、**ヨルノシルベでの記憶を取り戻した状態で目覚める方向**で進める。
-
-Dreamで築いた:
-
-- 違う時代の人との友情
-- 動物との関係
-- Android / Robotとの関係
-- 朔夜座との関わり
-- 大事件の相手側との経験
-
-を理解した上で、自分の時代の問題へ向き合える。
+大事件の解決partでは、重要人物がDream memoryを取り戻した状態でWakingする方向。
 
 ---
 
-# 6. Dreamの衣食住
+# 10. Dream Provisioning — 食糧庫方式
 
 Status: `DECIDED`
 
 ヨルノシルベは生存サバイバル物ではない。
 
-## 食 — storage-mediated provisioning
+**「思った瞬間に料理が目の前へ出る」はSUPERSEDED。**
 
-**「思った瞬間に目の前へ出る」は間違い。**
+Current:
 
-Current rule:
-
-> **食べ物 / 飲み物を欲しいと思ったり会話した後、食糧庫・冷蔵庫・棚・箱・厨房・酒棚などを開けると、それが「最初からそこに入っていた」ように見つかる。**
-
-Example:
-
-```txt
-「焼肉食べたい」
-「肉なんかある？」
-「食糧庫見てみよう」
-↓
-扉を開ける
-↓
-肉 / 野菜 / たれ / 鉄板 / 飲み物が普通に入っている
-↓
-「あるじゃん！」
-「やったー、みんな飲もう！」
-```
+> 食べたい /飲みたいと考えたり話した後、食糧庫・冷蔵庫・棚・厨房・酒棚等を開けると、それが最初から入っていたように見つかる。
 
 Hard:
 
-- **目の前 / 手元へ突然生成しない。**
-- open airへ料理をspawnしない。
-- 見ていない収納 / 厨房の中身がDreamらしく補完される。
-- 食糧庫 / 冷蔵庫 / 茶箪笥 / 酒棚 / 厨房 / 保冷庫など**場所を介す**。
-- 焼肉 / 鍋 / ラーメン / 菓子 / 炭酸 / 酒等、幅広い食事を楽しめる。
-- 「誰が仕入れた？」を毎回Main Mysteryにしない。
+- open air / handへ直接spawnしない。
+- place / storageを介す。
+- 焼肉 /鍋 /ラーメン /菓子 /炭酸 /酒など幅広く楽しめる。
+- 誰が仕入れたかを毎回Main Mysteryにしない。
 
-古い時代の人物が知らない飲食物を見ても:
+補完しやすい:
 
-> 「未来人だ！」
-
-と即断しない。
-
-> 「それ何？」
-> 「甘くてシュワシュワするやつ」
-> 「へえ、飲んでみたい」
-
-程度で自然に流せる。
-
-これは年代差の伏線になる。
-
-## 衣
-
-- 服が破れて替えがなく生活不能
-- 洗濯設備がないから詰む
-
-のようなReality物流問題を主筋にしない。
-
-Dreamとして自然に補完される。
-ただしCharacter固有衣装 / 修理痕 / 汚れ / Named Objectの意味は残す。
-
-## 住 / 休息
-
-- 拠点
-- 焚き火
-- 駅舎
-- 部屋
-- ベンチ
-- 宿のような空間
-
-がDreamらしく自然に存在してよい。
-
-## 「願えば全部解決」は禁止
-
-Dream provisioningが補完できる主対象:
-
-- 食事
-- 飲み物
-- 日用品
-- 休息
-- 基本生活物
+- food
+- drink
+- daily goods
+- rest
+- basic living items
 
 補完できない:
 
-- 人の心
-- 相手の同意
-- 記憶の真実
-- トラウマ
-- 人間関係
-- 黒耀化
-- 生死
-- Reality大事件
-- 本当の選択
-- Unique Object
-- 本物の事件証拠
+- mind
+- consent
+- memory truth
+- trauma
+- relationship
+- Black Youka
+- life / death
+- Reality incident
+- authentic choice
+- unique object
+- real evidence
 - dead person
-- Main Mysteryの答え
+- Main Mystery answer
 
-> **腹は満たせる。人の意思 / 真相は食糧庫から出ない。**
+> **腹は満たせる。人の意思 /真相は食糧庫から出ない。**
 
 ---
 
-# 7. Boss後Party / 食事 / 酒 / 炭酸 / 喫煙
+# 11. Boss後Party / Alcohol / Tobacco
 
 Status: `DECIDED DIRECTION`
 
-ヨルノシルベを戦闘と設定説明だけの作品にしない。
-
-## Boss後Party
-
-**Named Boss / major confrontationを越えるたび、原則として拠点でcelebration / decompression sceneを置く。**
-
-同じ宴会を反復するのではなく:
+Named Boss / major confrontation後は原則celebration / decompression sceneを置く。
 
 - 焼肉
 - 鍋
 - 夜食
 - ラーメン
-- 大量の炭酸で乾杯
+- 炭酸乾杯
 - 酒盛り
-- 大人だけの二次会
+- adult-only二次会
 - 焚き火
 - 喫茶店風
 - 静かな食事
-- 重い勝利で誰も騒げない食卓
+- 誰も騒げない重い食卓
 - 二人だけ残る後片付け
 
-など感情温度を変える。
-
-Partyの目的:
-
-- 勝利をPlayerとCharacterがちゃんと祝う
-- Character同士を好きになる時間を作る
-- 年代差を説明台詞なしで見せる
-- Recurring gag / Callbackを貯める
-- 重い章の間に呼吸を作る
-- 後半で同じ食卓を反転させ、感情を返す
+PartyはCharacter人気 /年代差 /callback /breather /emotional payoffのStory engine。
 
 ## Alcohol
 
-**酒は存在し、飲めば酔う。**
-
-Dreamだから酔いを無効化しない。
-
-Characterごとに:
-
-- 顔が赤くなる
-- 笑い上戸
-- 眠くなる
-- 普段より喋る
-- 逆に静かになる
-- 同じ話を二回する
-- 食べ続ける
-- 星をぼんやり眺める
-- 少し距離感が近くなる
-
-など差を作る。
-
-禁止:
-
-- 酔わせれば秘密を強制的に聞ける
-- 酔えば同意が不要になる
-- 酔った発言 = 必ず本心 / 真実
-
-Final Canonの飲酒sceneは成人確認済みCharacterへ限定する。
+- alcohol exists。
+- intoxication exists。
+- Characterごとに酔い方を変える。
+- drunk = truth serumではない。
+- intoxication ≠ consent。
+- Final drinking sceneはadult確認済みCharacterのみ。
 
 ## Tobacco
 
-**喫煙する主要Characterを最低3人以上置く。**
+- major smoker **3人以上**。
+- pipe smoker **1人以上**。
+- Current candidate: Gen=pipe / Tobari=cigarette / Sen=cigarette。
+- Final person assignmentはage / Era review後。
+- 未成年へ割り当てない。
 
-**パイプ喫煙者を最低1人置く。**
+## Generic commercial naming
 
-個人Final assignmentはage / era / Character性を確認してLOCKする。
-
-現時点の有力`CANDIDATE`:
-
-- ゲン — pipe
-- トバリ — cigarette
-- セン — cigarette
-
-人数 / pipe導入はUser Direction。
-個人Final assignmentはまだOpen。
-
-禁止:
-
-- 未成年へ割り当てる
-- 全喫煙者を同じ渋い性格にする
-- 喫煙を善悪の記号だけにする
-
-煙草 / pipeは:
-
-- Partyから少し外れる5分
-- 無言で星を見る時間
-- match / lighterの年代差
-- 誰かと並んで黙るscene
-- 普段の役割を外す時間
-
-にも使う。
-
-## Generic product naming
-
-実在企業 / 実在商品ブランドをCharacter identityやRecurring jokeへ不必要に固定しない。
-
-Dream側では自然なgeneric呼称を優先する。
-
-Examples:
+実在brandへ不要に固定しない。
 
 - 黒い炭酸
 - 柑橘のシュワシュワ
 - ぶどうソーダ
-- クリーム入り炭酸
 - 麦の泡酒
 - 米の酒
 - 果実酒
 - 炭酸割り
 
-コーラ系の味は存在してよい。
-ただし特定商標を常用する必要はない。
-
-Detail:
-- `docs/dream-feast-party-social-bible-v1.md`
+等を自然に使える。
 
 ---
 
-# 8. 年代差 — 時間タグが弱い
+# 12. 年代差 — 時間タグではなく生活差
 
 Status: `DECIDED`
 
 Dreamでは:
 
 - 西暦
-- 正確な日付
-- 年代
-- 歴史上の順序
+- exact date
+- chronology
 
-の**時間タグの記憶が弱い**。
+のtime tagが弱い。
 
-人格 / 好き嫌い / 技能 / 生活感覚は残るため、違う時代の人間が会ってもすぐ年代差へ気づかない。
+一方:
 
-年代差は少しずつ:
-
-- 切符
-- 郵便
-- 駅
-- 地図
-- 時計
-- 本の版
-- 教育用語
-- 食文化
-- 商品
-- 機械
-- UI
-- 服
-- 縫製
-- 道具
 - 言葉
-- 制度
-- 都市知識
-- 炭酸の呼び方
-- 氷への感覚
-- 酒器
+- skill
+- food knowledge
+- tool use
+- UI familiarity
+- institution sense
+
+は残る。
+
+年代差は:
+
+- ticket
+- post
+- map
+- phone
+- package
+- food
+- cooking appliance
+- clothing construction
+- repair method
+- slang
+- school / work vocabulary
+- privacy sense
+- map / recommendation usage
+- drink container
 - match / lighter
-- cigarette / pipeへの反応
+- constellation
 
-などから見せる。
+から出す。
 
-「私は1987年から来た」のような明示説明を最初からさせない。
+新しいEra = 上位互換ではない。
 
 ---
 
-# 9. 星空 / 星座
+# 13. Stars / Constellations
 
 Status: `DECIDED CORE / FINAL CAUSE OPEN`
 
-## 星空
-
-- **ヨルノシルベでは星は見える。**
+- Dreamでは星が見える。
 - 星空は重要なvisual identity。
-- 真っ黒で何もない空を基本にしない。
-
-## 星座は年代によって違う
-
-同じ星を見ていても:
-
-- 星の結び方
-- 星座名
-- 星座の物語
-- 星獣との関係
-
-が違う場合がある。
-
-**昔はあったが現代では存在しない星座**を入れてよい。
-
-**昔にはなく、後の年代で生まれた星座**も入れてよい。
-
-Example:
-
-> 古いEraのCharacter「あれ、○○座だろ？」
-> 現代Character「……そんな星座ないよ？」
-
-見ている星自体は同じ。
-
-これは年代差 / Main Mysteryの伏線。
-
-## Main Mystery
+- 同じ星でもEraにより結び方 /星座名 /物語 /星獣との関係認識が違い得る。
+- 昔だけの星座 /後世で生まれる星座を入れてよい。
+- Core5だけでも**同じ星を5人が違う形に結ぶscene**を作れる。
 
 Open:
 
-- なぜ星座が増減するのか
-- なぜ星の結び方が年代で違うのか
-- 星獣と星座の最終関係
+- 星座が増減する最終原因
+- Star Beastとの最終関係
 
-星座差は設定ミスではない。
-
-## Reality astronomyへの非拘束
-
-Realityの天文学とDreamの星空ruleを分ける。
-
-現実のIAU体系等をDreamの絶対基準にしない。
+Reality astronomyをDreamの絶対constraintにしない。
 
 ---
 
-# 10. 月相 / 朔夜
+# 14. Moon / 朔夜
 
 Status: `DECIDED`
 
-各時代の大事件核心へ近づくほど、Dreamの月が欠ける。
+Moon phase = Reality clockではなく**incident depth**。
 
-基本:
+基本image:
 
 `満月 → 欠ける → 半月 → さらに欠ける → 朔`
 
-ただし全Eraを同じ5Stageへ固定しない。
+全Eraを同じstepへ固定しない。
 
-- 半月から始まる
-- 欠け方が異常
-- 一度戻る
-- 未来編だけ不自然
-
-も可能で、それ自体を伏線にできる。
-
-## 月相 ≠ 時間経過
-
-月相は「5日経った」等のclockではなく、**事件の核心へ近づいた深度**。
-
-## 朔夜
-
-事件の最深部 / Boss Stage級の局面では月が完全になくなる。
-
-ただし:
-
-> 朔 = 各Eraの固定ラスボスが必ず立つ
-
-ではない。
-
-星は残る。
-
-- ランタン
-- 焚き火
-- 街灯
-- Character自身の灯り
-- 星
-- 星獣
-
-が強く見える。
-
-Theme:
+朔では月が消えるが星は残る。
 
 > 月が照らしてくれないなら、自分たちの灯りで進む。
 
+朔 = fixed era bossではない。
+
 ---
 
-# 11. 朔夜座（さくやざ）
+# 15. 朔夜座
 
 Status: `DECIDED FORMAL NAME`
-
-旧八影 / 旧朔盟laneのCurrent正式名称は**朔夜座**。
 
 Current 8member:
 
@@ -628,515 +597,145 @@ Current 8member:
 
 Rules:
 
-- 旧「八影」は序盤の観測名として残してよい。
-- 旧「朔盟」は`SUPERSEDED CANDIDATE`。
-- 旧朔盟資料のmember思想 / pair / relation / stable ID / 敵推し設計 / visual資産は捨てない。
-- Current formal nameだけは朔夜座から戻さない。
-- 「座」は朔夜座のbrandとして扱い、群青残響録側へ乱用しない。
+- 八影 = early observer label。
+- 朔盟 = `SUPERSEDED CANDIDATE / legacy authored asset namespace`。
+- existing思想 /pair /relation /stable ID /visual assetは維持。
+- Current正式名は朔夜座。
+- 「座」は朔夜座brand。群青残響録へ乱用しない。
+- absolute leader / founder / exact originはOpen。
 
-朔夜座8人は各時代の大事件へ原因側として関わり得る。
-
-ただし群青残響録との関係を:
-
-- 上司 / 部下
-- 同一組織
-- 同一Creator
-
-へ固定しない。
-
-時代ごとに:
-
-- 協力
-- 利用
-- 対立
-- 妨害
-- 止めようとした
-- 利害だけ一致
-
-などを変えられる。
+朔夜座はEraごとに協力 /利用 /対立 /妨害 /止めようとする等、立場を変えられる。
 
 ---
 
-# 12. 群青残響録（ぐんじょうざんきょうろく）
+# 16. 群青残響録
 
 Status: `DECIDED NAME / MEMBERS OPEN`
 
-**各時代の大事件で中心となった人物 / 人物群を、後から一つの記録名で括る総称。**
+> 各時代の大事件で中心となった人物 /人物群を、後から一つの記録名で括る総称。
 
-Important:
+- fixed enemy organizationではない。
+- fixed countではない。
+- 1 Era 1人ではない。
+- all combat Bossではない。
+- all villainではない。
+- **世代ラスボス固定slotへ入れない。**
 
-- 固定の敵組織ではない。
-- 同じ時代に集まった軍団ではない。
-- 互いを知らない可能性がある。
-- 思想 / 種族 / 立場は違い得る。
-- **人数固定ではない。**
-- **1世代1人ではない。**
-- **全員が戦闘Bossになるわけではない。**
-- **全員が悪人ではない。**
-- **「世代ラスボス」という固定slotへ入れない。**
-
-Era laneが増えれば対象も増え得るが、1 Eraにつき必ず1人追加する意味ではない。
-
-## 大事件の中心人物 / 人物群
-
-大事件は「事件を起こしたかったから起こした」だけにしない。
-
-動機候補:
-
-- 誰かを守りたかった
-- 混乱を防ぎたかった
-- 社会を発展させたかった
-- 孤独を減らしたかった
-- 自由を守りたかった
-- 仲間を失いたくなかった
-- 会社 / 組織を守ろうとした
-- 恐怖に負けた
-- 利益を優先した
-- 黙った
-- 正しいと思い込んだ
-
-**理解と免罪は別。**
-
-## 名前Reveal
-
-Dream内では他Character同様、まず自然なカタカナ呼称で出す。
-
-後から:
-
-- 新聞
-- 名簿
-- 記録
-- 写真
-- 文書
-- 企業資料
-- 古い本
-- 事件資料
-
-で漢字名 / 姓 / full name / 年代が少しずつ分かる。
-
-フルネームReveal自体を年代トリックに使う。
-
-トウイチ / レイジ / マコト / チカゲ、以前提案した漢字full nameはまだ`CANDIDATE`。
+Core5が5Eraでも群青残響録5人固定にはならない。
 
 ---
 
-# 13. 大事件と黒耀化
+# 17. 黒耀化と社会の大事件
 
 Status: `DECIDED THEME`
 
-個人:
+Individual:
 
-`長所 / 願い + 恐怖 / 焦り → 一つの答えへ極端化 → 黒耀化`
+`strength / wish + fear /焦り → one answer fixation → 黒耀化`
 
-社会:
+Society:
 
-`理想 / 保護 / 発展 + 恐れ / 利害 / 制度 → 一つの解決策へ固執 → 大事件`
+`ideal / protection / development + fear / interest / institution → one solution fixation → 大事件`
 
-Storyの答えは「悪を倒す」だけにしない。
+Black Youkaはexternal evil personality / possessionではない。
+
+Story answer:
 
 > **二択しかないと思っていた状況へ第三の選択肢を作る。**
 
-異なるEraの仲間から得た:
-
-- 技能
-- 知識
-- 価値観
-- 失敗例
-- 関係
-
-が、自分のEraのReality incidentを変える力になる。
+別Eraから得たknowledge / skill / value / failure exampleがRealityの選択肢を増やす。
 
 ---
 
-# 14. Eraごとの社会テーマ
+# 18. Future Android / Robot / Avatar
 
-Status: `DIRECTION / DETAILS CANDIDATE`
+Status: `DECIDED DIRECTION / DETAILS OPEN`
 
-Eraを衣装違いだけにしない。
-
-## 1940年代系
-
-- 集団と個人
-- 生存
-- 情報
-- 命令
-- 犠牲
-- 守ること
-
-## 1980年代系
-
-- 発展
-- 成功
-- 企業
-- 経済
-- 見ないふり
-- 豊かさ
-
-## 2000年代系
-
-- Internet
-- 携帯
-- 繋がり
-- 孤独
-- 個人情報
-- 新しい情報社会
-
-## 現代
-
-- SNS
-- 情報過多
-- 正しさ
-- 炎上
-- 同調
-- algorithm
-- 孤立
-- 多様な価値観
-
-## 未来Android / Robot
-
-- 作る者 / 作られた者
-- 人格
-- 労働
-- 所有
-- 自由
-- 同一性
-- copy
-- 人間とは何か
-- 心とは何か
-
-ただしEraをstereotypeだけで描かない。
-普通の日常 / 良い面 / 矛盾も描く。
-
----
-
-# 15. 未来Android / Robot Era
-
-Status: `DECIDED DIRECTION / NAME OPEN`
-
-未来ではAndroid / Robotが社会に存在する。
-
-人間側の問題候補:
-
-- 酷使
-- 道具扱い
-- 所有物扱い
-- 廃棄
-- 命令
-
-Android側も:
-
-- 人間を一括りにする
-- 排除を最適解とする
-- 自由のためなら被害を許容する
-
-など極端化し得る。
-
-**人間全員悪 / Android全員善にはしない。**
-
-## 双方にDream参加者
-
-人間側にもAndroid側にもヨルノシルベ参加者がいる。
-
-Dreamでは現実所属を知らず友達になる場合がある。
-後でRealityでは敵対陣営だったと分かることもある。
-
-Androidは「人間」というcategoryではなく一人ずつを見るようになり、人間側も「Android」というcategoryではなく一人ずつを見るようになる。
-
-## Androidは「人間になる」がgoalではない
+- Human側 / Android側双方にDream参加者がいる。
+- Human全員悪 / Android全員善にしない。
+- AndroidのgoalはHuman化ではない。
 
 > **人間ではない。それでも友達にはなれる。**
 
-を重視する。
+Android Characterは好感度 /親密度が上がりにくい方向。
+好意を義務 /相互扶助 /契約 /効率と処理し、後から優しさを再評価できる。
 
-## 好感度 / 親密度
+Naming:
 
-Android Characterは他Characterより好感度 / 親密度が上がりにくい方向。
+- final Android name Open。
+- シオン /イヴ・ノイン rejected。
+- Japanese name-like katakana + later acronym / system designation reveal方向。
+- Greek lettersはpersonal nameでなくversion / generationへ使える。
 
-初期は好意を:
-
-- 相互扶助
-- 義務
-- 社会的交換
-- 行動効率
-- 契約
-
-として処理しやすい。
-
-信頼後、過去の優しさを後から再評価できる。
-
-> 「あの時も、義務ではなかったのですか？」
-
-のように、昔のeventの意味が後から変わる設計は有力。
-
-## Naming
-
-- 最終名は`OPEN`。
-- シオン = 不採用。
-- イヴ・ノイン = 不採用。
-- 最初は普通の日本人名のように聞こえる自然なカタカナ名。
-- 後からalphabet / acronym / system designationとしても成立するRevealを狙う。
-
-## Version
-
-Lambda等のギリシャ文字は個人名にしない。
-
-`Lambda → 後継version → さらに後継version`
-
-等の設計世代として使う方向。
-完全な順序はまだOpen。
-
-同じseries / 同じ基礎data / 同じ初期memoryでも、経験が分岐すれば別人格になっていく。
-
-## 哲学theme
-
-- 同じmemory dataなら同じ人か
-- copyされた二体は同一人物か
-- 同じ状態から分岐した瞬間に別人になるのか
-- memoryが違えば別人か
-- bodyが違えば別人か
-- 「私」はどこにあるのか
-- 人間の魂の証明がないのにAndroidだけ魂を要求するのは正しいか
-
-星獣を「魂がある証明装置」にしない。
+星獣を魂証明装置にしない。
 
 ---
 
-# 16. Reality動物
+# 19. Reality Animals
 
 Status: `DECIDED DIRECTION`
 
-Reality由来の犬 / 猫もヨルノシルベへ入れる。
+Reality由来dog / catもDreamへ入れる。
+Star Beastとは別category。
 
-**星獣とは別category。**
+- dog: smell / voice / walk / touch / return timing等で覚える。
+- cat: multiple homes / multiple names /「違う名で呼ばれても自分は自分」。
 
-## 犬
-
-名前 / 年代を理解しなくても:
-
-- 匂い
-- 声
-- 歩き方
-- 手触り
-- 帰る時間
-
-などから人を覚えられる。
-
-## 猫
-
-- 複数の家
-- 複数の呼び名
-- 違う人から違う名前で呼ばれても自分は自分
-
-というthemeを持てる。
-
-動物を万能賢者にしない。
-
-- 怖がる
-- 間違う
-- 好き嫌い
-- 気まぐれ
-
-も残す。
+omniscient sageにしない。
 
 ---
 
-# 17. 感情構造 / Inspiration Guard
-
-「日常の積み重ねが最後の力になる」という感情構造は参考にしてよい。
-
-ただし以下をそのままコピーしない。
-
-- 一つの事故
-- 全員同じ事故の被害者
-- 主人公を鍛えるために作られた世界
-- 死後世界
-- 全員同じ悲劇
-- 全員を救う訓練箱
-- 世界崩壊から目覚めるだけの構造
-
-ヨルノシルベの独自性:
-
-- 異なるEra
-- **Core5 5人が全員別Reality era**
-- 人間 / 動物 / 機械
-- 朝が存在しないDreamの夜
-- storage-mediated food provisioning
-- Boss後Party / 日常の反復
-- 星座の年代差
-- 月相 = 事件深度
-- 朔夜座
-- 群青残響録
-- 通常Wakingの明示memory loss
-- 解決時のmemory recovery
-
----
-
-# 18. Happy End
+# 20. Happy End
 
 Status: `DECIDED`
 
 正史はHappy End。
+Permanent deathを主要tear deviceにしない。
 
-Permanent deathを主要な泣かせ装置にしない。
+悲劇を全部なかったことにするだけでなく、Characterが成長し以前は選べなかったthird optionを選び最悪の結末を変える。
 
-事件が重くても「全部無かったことにする」だけにはしない。
-
-人物が成長し、以前は選べなかった第三の選択を選ぶことで最悪の結末を変える。
-
-Party / 食事 / 酒席 / 一服等の何気ない反復をHappy Endの感情資産として使う。
-
-Example:
-
-```txt
-最初のBoss後
-「肉あるじゃん！ 焼こう！」
-
-重い章
-食糧庫はいつも通り満杯。でも誰も開けない。
-
-回復
-「……腹減った」
-「肉、見る？」
-```
-
-普通の行動に関係の蓄積を載せる。
+Party / food / alcohol / smoke break / joke等の日常反復を終盤の感情資産にする。
 
 ---
 
-# 19. 名前作り / 商業名Guard
+# 21. Still Open
 
-Status: `DECIDED QUALITY BAR`
+AI単独でCanon化しない:
 
-意味を説明するだけの二字熟語を量産しない。
+- Core5 exact year / exact chronological age
+- exact city / school / work / household
+- each Era fictional incident final detail / casualty / exact place
+- major family death / orphan / abuse / crime victimhood
+- 群青残響録formal members / full names / final endings
+- Android final name / acronym / complete version order
+- Future Asa exact year / political side / incident role
+- constellation-change final cause
+- Star Beast final nature
+- Yoru-no-Shirube final mechanism / origin
+- whether each incident needs combat Boss
+- final smoker identities / adult legality
 
-Current決定名:
-
-- **朔夜座**
-- **群青残響録**
-
-良い固有名詞は音 / 字面 / 呼びやすさ / 固有名詞としての強さを先に成立させ、意味を物語で後から深くする。
-
-食品 / 飲料 / 酒 / tobacco等の一般商品は、Story上必要がなければ実在brandへ固定しない。
-
-Dream日常では:
-
-- 黒い炭酸
-- シュワシュワ
-- 柑橘の炭酸
-- 麦の泡酒
-- 米の酒
-
-等のgenericな呼び方を自然に使える。
+Core5の**5つの社会Era bandはCurrent**だが、exact decade / yearはOpen。
 
 ---
 
-# 20. 制作姿勢
-
-ヨルノシルベを設定説明のための作品にしない。
-
-人物が普通に:
-
-- 食べる
-- 焼肉する
-- 鍋を囲む
-- 炭酸で乾杯する
-- 成人同士で酒を飲む
-- 酔う
-- 喫煙者が一服する
-- pipeの煙を眺める
-- 遊ぶ
-- 喧嘩する
-- 仲直りする
-- 冗談を言う
-- 恋をする
-- 友達になる
-- 知らない文化を面白がる
-
-という時間を十分に積む。
-
-年代差は「私は未来人です」ではなく:
-
-- 食事
-- 商品
-- 道具
-- UI
-- 言葉
-- 星座
-- 炭酸
-- 氷
-- 酒器
-- match / lighter
-
-等の小さな違和感から出す。
-
-世界の謎も資料で説明しきらず:
-
-- 景色
-- 月
-- 星座
-- 食糧庫
-- 食卓
-- 酒席
-- 煙
-- 道具
-- 古い記録
-- 人間関係
-
-からPlayerが気づけるようにする。
-
----
-
-# 21. Still Open — AI単独でCanon化しない
-
-- Core5 5人それぞれのexact person-to-era mapping
-- 各Eraのexact year
-- 群青残響録の正式member構成
-- 群青残響録各人物の正式名
-- Android最終名
-- Android acronym
-- Android version体系の完全順序
-- 各Era大事件の具体内容
-- 犠牲者数
-- exact場所
-- 星座増減の最終原因
-- 星獣と星座の最終関係
-- ヨルノシルベの最終mechanism / 起源
-- 群青残響録各人物の最終救済 / 結末
-- 各大事件にcombat Bossが必要か
-- 喫煙3人以上のFinal person assignment
-- 飲酒 / 喫煙Characterのexact adult age / era整合
-
----
-
-# 22. Migration rule
-
-既存資料に:
-
-- 朝 / Dawn帰還
-- 朔盟Current正式名
-- 全年代同一星座
-- 固定人数の大事件Boss
-- Reality生活インフラ必須のDream
-- Core5同世代
-- 食事が手元 / 空中へ直接materialize
-
-が残っていても、いきなり全assetを削除しない。
+# 22. Production / Migration order
 
 ```txt
 00-current-story-world-master.md
 ↓
-WORLD.md / CANON.md / World Foundation
+core5-era-character-master-v1.md
 ↓
-Conflict Register / Human Decision Queue
+research/era-society-food-future-sourcebook-v1.md
 ↓
-Story / Stage / Character / Enemy / Daily-life docs
+era-satire-cross-generation-dialogue-bible-v1.md
+↓
+WORLD.md / CANON.md / Character / Temporal / Appearance sources
 ↓
 Machine-readable source
 ↓
-Runtime / UI migration（必要な場合のみ）
+Runtime / UI（必要な場合のみ）
 ```
 
 stable ID / Character / Enemy / Relation資産は壊さない。
-
-ユーザーが明確に決定したものだけ最上位へ昇格する。
-それ以外は`CANDIDATE / OPEN`を維持する。
+Historical research factとFictional incidentとCanon decisionを混同しない。

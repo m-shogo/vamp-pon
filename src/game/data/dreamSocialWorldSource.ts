@@ -1,3 +1,5 @@
+import { CORE5_ERA_ASSIGNMENTS } from './core5EraCanon.ts';
+
 export const CORE5_DISTINCT_ERA_CHARACTER_IDS = [
   'yui',
   'asa',
@@ -14,7 +16,9 @@ export const DREAM_SOCIAL_WORLD_RULES = {
   authority: 'DERIVED_FROM_CURRENT_STORY_WORLD_MASTER',
   core5DistinctRealityEraRequired: true,
   core5DistinctEraCount: 5,
-  exactCore5EraAssignmentLocked: false,
+  core5EraAssignments: CORE5_ERA_ASSIGNMENTS,
+  core5EraAssignmentLockedAtLaneLevel: true,
+  core5ExactYearsLocked: false,
   fiveErasDoNotImplyFiveEqualProtagonists: true,
 
   dreamHasPhysicalMorning: false,
@@ -71,6 +75,8 @@ export const DREAM_SOCIAL_WORLD_RULES = {
 export const DREAM_SOCIAL_WORLD_SUMMARY = {
   core5CharacterCount: CORE5_DISTINCT_ERA_CHARACTER_IDS.length,
   uniqueCore5CharacterCount: new Set(CORE5_DISTINCT_ERA_CHARACTER_IDS).size,
+  assignedCore5EraCount: DREAM_SOCIAL_WORLD_RULES.core5EraAssignments.length,
+  uniqueAssignedCore5EraCount: new Set(DREAM_SOCIAL_WORLD_RULES.core5EraAssignments.map((entry) => entry.realityEra)).size,
   candidateSmokerCount: DREAM_SOCIAL_WORLD_RULES.initialSmokerAssignmentCandidates.length,
   candidatePipeSmokerCount: DREAM_SOCIAL_WORLD_RULES.initialSmokerAssignmentCandidates.filter(
     (entry) => entry.form === 'pipe',
