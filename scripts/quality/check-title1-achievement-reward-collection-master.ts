@@ -2,11 +2,11 @@ import { readFileSync } from 'node:fs';
 
 import { ACHIEVEMENT_DEFS } from '../../src/game/data/achievements.ts';
 import { forgottenStreetNightBoard } from '../../src/game/data/collectionProgress.ts';
-import { collectionSections } from '../../src/game/data/collectionSections.ts';
 import { series1StageCampaignContentEntries } from '../../src/game/data/series1StageCampaignContentSource.ts';
 import { title1CombatItemPlacements } from '../../src/game/data/combatItemSelectionSource.ts';
 import { selectedTitle1WeaponTransformations } from '../../src/game/data/weaponTransformationSelectionSource.ts';
 import {
+  TITLE1_COLLECTION_SECTION_IDS,
   title1AchievementRewardCollectionEntries,
   title1AchievementRewardCollectionSummary,
 } from '../../src/game/data/title1AchievementRewardCollectionSource.ts';
@@ -21,8 +21,9 @@ function sameOrder(left: readonly string[], right: readonly string[]): boolean {
 
 const stageIds = series1StageCampaignContentEntries.map((entry) => entry.stageId);
 const rewardStageIds = title1AchievementRewardCollectionEntries.map((entry) => entry.stageId);
-const allCollectionSectionIds = new Set(collectionSections.map((entry) => entry.id));
+const allCollectionSectionIds = new Set<string>(TITLE1_COLLECTION_SECTION_IDS);
 const revealedCollectionSections = new Set(title1AchievementRewardCollectionEntries.flatMap((entry) => entry.collectionReveal));
+const collectionSectionsSource = readFileSync(new URL('../../src/game/data/collectionSections.ts', import.meta.url), 'utf8');
 
 assert(series1StageCampaignContentEntries.length === 20, 'Series1 Stage authority must remain 20');
 assert(title1AchievementRewardCollectionEntries.length === 20, 'reward collection master must cover all 20 stages');
@@ -34,7 +35,10 @@ assert(new Set(ACHIEVEMENT_DEFS.map((entry) => entry.id)).size === ACHIEVEMENT_D
 assert(ACHIEVEMENT_DEFS.every((entry) => entry.reward > 0), 'legacy runtime Achievements should keep positive one-shot reward values');
 assert(forgottenStreetNightBoard.cells.length === 25, `Forgotten Street board must remain 25 cells, got ${forgottenStreetNightBoard.cells.length}`);
 assert(new Set(forgottenStreetNightBoard.cells.map((entry) => entry.id)).size === 25, 'Forgotten Street board cell IDs must remain unique');
-assert(collectionSections.length === 6, `Collection section authority must remain 6, got ${collectionSections.length}`);
+assert(TITLE1_COLLECTION_SECTION_IDS.length === 6, `Collection section authority must remain 6, got ${TITLE1_COLLECTION_SECTION_IDS.length}`);
+for (const sectionId of TITLE1_COLLECTION_SECTION_IDS) {
+  assert(collectionSectionsSource.includes(`id: '${sectionId}'`), `existing collectionSections.ts missing section ${sectionId}`);
+}
 
 assert(title1CombatItemPlacements.length === 18, `Combat Item placement upstream must remain 18, got ${title1CombatItemPlacements.length}`);
 assert(selectedTitle1WeaponTransformations.length === 29, `Title1 selected Transformation upstream must remain 29, got ${selectedTitle1WeaponTransformations.length}`);
