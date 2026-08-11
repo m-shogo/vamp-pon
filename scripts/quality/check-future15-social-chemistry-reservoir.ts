@@ -1,5 +1,6 @@
 import fs from 'node:fs';
-import { CURRENT21_SEASON_ASSIGNMENTS, FUTURE15_SEASON_ASSIGNMENTS } from '../../src/game/data/seasonArchitecture.ts';
+import { FUTURE15_SEASON_ASSIGNMENTS } from '../../src/game/data/seasonArchitecture.ts';
+import { CURRENT_RELATIONSHIP_CHARACTER_IDS } from '../../src/game/data/currentRelationshipInventory.ts';
 import {
   FUTURE15_SOCIAL_CHEMISTRY_RESERVOIR_RULES,
   FUTURE15_SOCIAL_CHEMISTRY_RESERVOIR,
@@ -16,6 +17,7 @@ for (const path of [
   'docs/character-ordinary-life-reservoir-v1.md',
   'docs/future15-social-chemistry-reservoir-v1.md',
   'src/game/data/seasonArchitecture.ts',
+  'src/game/data/currentRelationshipInventory.ts',
   'src/game/data/future15SocialChemistryReservoir.ts',
 ]) assert(fs.existsSync(path), `missing Future15 social source: ${path}`);
 
@@ -45,7 +47,7 @@ assert(!future15SocialChemistryReservoirSummary.runtimeAutoPromotionAllowed, 'Fu
 
 const futureIds = new Set(FUTURE15_SEASON_ASSIGNMENTS.map((entry) => entry.id));
 const futureNames = new Set(FUTURE15_SEASON_ASSIGNMENTS.map((entry) => entry.name));
-const currentIds = new Set(CURRENT21_SEASON_ASSIGNMENTS.map((entry) => entry.id));
+const currentStableIds = new Set(CURRENT_RELATIONSHIP_CHARACTER_IDS);
 const reservoirIds = new Set(FUTURE15_SOCIAL_CHEMISTRY_RESERVOIR.map((entry) => entry.id));
 const reservoirNames = new Set(FUTURE15_SOCIAL_CHEMISTRY_RESERVOIR.map((entry) => entry.name));
 assert(reservoirIds.size === futureIds.size && [...futureIds].every((id) => reservoirIds.has(id as never)), 'Future15 ID coverage drift');
@@ -56,7 +58,7 @@ for (const entry of FUTURE15_SOCIAL_CHEMISTRY_RESERVOIR) {
   assert(new Set(entry.futurePeers).size === 2, `duplicate Future peer seed: ${entry.id}`);
   assert(new Set(entry.friction).size === 2, `duplicate Future friction seed: ${entry.id}`);
   assert(new Set(entry.laugh).size === 2, `duplicate Future laugh seed: ${entry.id}`);
-  for (const ref of entry.currentBridges) assert(currentIds.has(ref as never), `unknown Current bridge: ${entry.id}->${ref}`);
+  for (const ref of entry.currentBridges) assert(currentStableIds.has(ref as never), `unknown stable Current bridge: ${entry.id}->${ref}`);
   for (const ref of [...entry.futurePeers, ...entry.friction, ...entry.laugh]) {
     assert(futureIds.has(ref as never), `unknown Future15 peer: ${entry.id}->${ref}`);
     assert(ref !== entry.id, `self Future15 social ref: ${entry.id}`);
@@ -77,6 +79,7 @@ assert(doc.includes('Future15にも、本筋へ出る前から「誰と一緒に
 
 console.log(JSON.stringify({
   future15: future15SocialChemistryReservoirSummary.count,
+  stableCurrentRelationIds: currentStableIds.size,
   currentBridgeCharacters: future15SocialChemistryReservoirSummary.currentBridgeCharacterCount,
   futurePeerCoverage: future15SocialChemistryReservoirSummary.futurePeerReferenceCount,
   uniquePartyInstincts: future15SocialChemistryReservoirSummary.uniquePartyInstincts,
