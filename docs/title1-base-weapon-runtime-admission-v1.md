@@ -169,6 +169,8 @@ Runtime boundary:
 
 つまりcone + knockback + DISORIENTEDの実経路は証明したが、Stage1 live loopにはまだ接続していない。
 
+`BellowsFanPrototypeTelemetry` もcaller-ownedで実装済み。invocation / requested capacity / selected target / DISORIENTED apply result / knockback resultを観測し、balance defaultやglobal lifetimeは持たない。
+
 ## STATUS_APPLICATION boundary
 
 Status共通基盤:
@@ -280,6 +282,7 @@ Waveは優先順であり時間見積もりではない。
 - Selected16 caller `ember_matchcase`: **prototype caller implemented**
 - Selected16 caller `bellows_fan`: **prototype caller implemented**
 - Ember invocation/BURN telemetry: **implemented**
+- Bellows invocation/selection/DISORIENTED/knockback telemetry: **implemented**
 - Ember mobile-safe projectile visual cue: **implemented, prototype visual only**
 - delayed trigger/timer primitive: missing
 - persistent placement primitive: missing
@@ -293,7 +296,7 @@ Waveは優先順であり時間見積もりではない。
 - `CONE_QUERY`: **implemented**
 - `SLAM_WAVE_QUERY`: missing
 
-`bellows_fan` の次はruntime telemetry / visual cue / rendered evidenceを追加して、mobileで「扇状に押す」読みやすさを確認する。
+`bellows_fan` はtelemetryまで実装済み。次はcone edge / maxTargets / dense-waveのruntime captureと、mobileで「扇状に押す」と読めるairflow / push visual cueを追加する。
 
 shared primitive laneでは、既にKnockbackを共有できる `SLAM_WAVE_QUERY` が次の小さな候補。これを実装しても `pavement_hammer` 固有caller proofが無ければAdmissionしない。
 
@@ -340,7 +343,8 @@ Current source evidence:
 - `EmberMatchcasePrototypeRuntime` selected-specific caller
 - `BellowsFanPrototypeRuntime` selected-specific caller
 - BURN / DISORIENTED policyはcaller supplied
-- Ember telemetry + projectile-local prototype visual cue
+- Ember caller-owned telemetry + projectile-local prototype visual cue
+- Bellows caller-owned invocation/selection/Status/knockback telemetry
 - `ember_matchcase` live registry entry = 0
 - `bellows_fan` live registry entry = 0
 
@@ -369,10 +373,11 @@ Runtime不足をContent不足として処理しない。
 
 `bellows_fan`:
 
-1. invocation / selected-target / DISORIENTED / knockback telemetry
+1. caller-owned invocation / selected-target / DISORIENTED / knockback telemetry: **implemented**
 2. cone edge / maxTargets / dense-wave runtime capture
 3. mobile-safe airflow / push visual cue
-4. live registry / LevelUp poolへ入れるか人間承認する
+4. telemetry + rendered evidenceを同一runへ束ねる
+5. live registry / LevelUp poolへ入れるか人間承認する
 
 shared primitive lane:
 
