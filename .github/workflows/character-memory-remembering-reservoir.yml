@@ -1,0 +1,31 @@
+name: Character Memory Remembering Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-memory-remembering-reservoir-v1.md'
+      - 'src/game/data/characterMemoryRememberingReservoir.ts'
+      - 'scripts/quality/check-character-memory-remembering-reservoir.ts'
+      - '.github/workflows/character-memory-remembering-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-memory-remembering-reservoir-v1.md'
+      - 'src/game/data/characterMemoryRememberingReservoir.ts'
+      - 'scripts/quality/check-character-memory-remembering-reservoir.ts'
+      - '.github/workflows/character-memory-remembering-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character memory/remembering reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-memory-remembering-reservoir.ts
