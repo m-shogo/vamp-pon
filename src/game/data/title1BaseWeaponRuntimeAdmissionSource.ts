@@ -46,6 +46,7 @@ export type UnityBaseWeaponAdmissionDecision =
 export const unityPrototypeCallerImplementedWeaponIds = [
   'ember_matchcase',
   'bellows_fan',
+  'pavement_hammer',
 ] as const;
 
 const prototypeCallerImplementedWeaponIdSet = new Set<string>(unityPrototypeCallerImplementedWeaponIds);

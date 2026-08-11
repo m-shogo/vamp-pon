@@ -79,7 +79,7 @@ Authority:
 
 queryは「sector-band内のtargetは誰か」だけを返す。
 
-## Pavement Hammer consumer context
+## Pavement Hammer consumer
 
 Content Authorityはこのruntime資料では変更しない。
 
@@ -90,43 +90,51 @@ Content Authorityはこのruntime資料では変更しない。
 - `BREAK_STAGGER_APPLICATION`
 - `STATUS_APPLICATION`
 
-現在は4つともshared runtime evidenceが **IMPLEMENTED**。
+4つともshared runtime evidenceはIMPLEMENTED。
 
-`BREAK_STAGGER_APPLICATION` の実体は:
+さらにSelected16固有caller:
 
-- `U2EnemyBreakStaggerState`
-- `U2EnemyBreakStaggerDriver`
-- `U2EnemyBreakStaggerRuntime`
+`PavementHammerPrototypeRuntime`
 
-に分離され、HPとは独立した蓄積、caller threshold、residual gauge、caller stagger duration、pursuit suppression、pool reset、knockback displacement preservationを持つ。
+が実装され、queryをgenericのままconsumer側で合成する。
 
-詳細:
+Caller application order:
 
-`docs/unity-break-stagger-primitive-v1.md`
+`QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER`
 
-## Admission after break/stagger foundation
+1. `U2EnemySlamWaveQueryRuntime.SelectTargets`
+2. caller supplied damage
+3. surviving target only: typed EXPOSED
+4. `U2EnemyKnockbackRuntime.TryApplyFromPoint`
+5. `U2EnemyBreakStaggerRuntime.TryApply`
+6. caller-owned telemetry
 
-`pavement_hammer` はshared primitiveとしてはcompleteになった。
+Generic queryへWeapon identityや数値を逆流させない。
 
-ただし `PavementHammerPrototypeRuntime` caller proofはまだ無い。
+## Admission after caller proof
 
-現在のdecision:
+`pavement_hammer` は:
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+- all required shared primitives complete
+- executable Selected16 caller proof complete
 
-つまり:
+になったため現在のdecisionは:
 
-- query実装済み
-- knockback実装済み
-- break/stagger実装済み
-- Status実装済み
-- Weapon固有callerは未実装
-- implementation-review Admissionは未昇格
-- Live Stage1は未接続
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-primitive completenessだけでWeaponをruntimeへ押し込まない。
+ただしこれはlive admissionではない。
 
-## Executable contract
+- `runtimeStatus = NOT_IMPLEMENTED`
+- Web live catalog未接続
+- Stage1GameplayRuntimeCoordinator未接続
+- LevelUp未接続
+- U47 executor未拡張
+
+caller proof完成後もlive registryへは自動昇格しない。
+
+## Executable contracts
+
+Shared query:
 
 `scripts/quality/unity-slam-wave-query/UnitySlamWaveQuery.Contract.csproj`
 
@@ -145,15 +153,28 @@ TEST_ONLY fixtureで確認するもの:
 9. inner > outer fail closed + scratch clear
 10. candidate/result alias reject
 
+Pavement caller integration:
+
+`scripts/quality/unity-pavement-hammer/UnityPavementHammer.Contract.csproj`
+
+- query order
+- damage-death short circuit
+- EXPOSED
+- independent internal cooldown
+- knockback
+- break accumulation
+- stagger threshold
+- residual gauge
+- telemetry
+- invalid caller tuning
+
+をreal caller/shared sourceで検証する。
+
 fixture数値は **TEST_ONLY / NOT_CANON**。
-
-Break/Staggerは別contractで直接検証する:
-
-`scripts/quality/unity-break-stagger/UnityBreakStagger.Contract.csproj`
 
 ## Live Stage1 boundary
 
-このshared primitive群は:
+このshared primitive / prototype callerは:
 
 - `Stage1GameplayRuntimeCoordinator` から自動で呼ばない
 - `pavement_hammer` をWeb `weapons.ts` へ追加しない
@@ -162,22 +183,16 @@ Break/Staggerは別contractで直接検証する:
 - save migrationを作らない
 - EXPOSED / knockback / break-staggerのWeapon tuningをgeneric queryへ埋め込まない
 
-`Live Stage1` はcaller proofと別review gateの後。
+`Live Stage1` はruntime evidenceとhuman live-admission reviewの後。
 
 ## Next gate
 
-次は `PavementHammerPrototypeRuntime` caller proof。
+Caller proof後の次はruntime evidence。
 
-そこでWeapon固有に:
+1. rendered slam-wave capture
+2. break/stagger readability
+3. EXPOSED / knockback / stagger telemetryとrendered evidenceの同一run binding
+4. mobile pavement-crack visual cue
+5. human live-admission review
 
-1. sector-band target selection
-2. damage
-3. EXPOSED application
-4. knockback
-5. break/stagger
-6. explicit application order
-7. caller-owned telemetry
-
-を接続する。
-
-数値は **PROTOTYPE_TUNING_NOT_CANON** として原本/Canonから分離し、caller proof完成後もlive registryへは自動昇格しない。
+数値は **PROTOTYPE_TUNING_NOT_CANON** として原本/Canonから分離する。

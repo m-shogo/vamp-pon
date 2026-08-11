@@ -84,20 +84,22 @@ assert(currentUnityWeaponRuntimeCapabilities.BREAK_STAGGER_APPLICATION === 'IMPL
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 9, `expected 9 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 13, `expected 13 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'BREAK_STAGGER_APPLICATION'), 'implemented break/stagger must disappear from missing frequency');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'exactly one Selected16 weapon should be primitive-complete but caller-proof blocked');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'Pavement Hammer caller proof should clear primitive-complete caller blocker count');
 
 const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
 assert(hammer, 'pavement_hammer admission row missing');
 assert(hammer.missingUnityCapabilities.length === 0, `pavement_hammer shared primitive gap remains: ${hammer.missingUnityCapabilities.join(',')}`);
 assert(hammer.implementedUnityCapabilities.includes('BREAK_STAGGER_APPLICATION'), 'pavement_hammer must inherit shared break/stagger evidence');
-assert(!hammer.prototypeCallerImplemented, 'shared primitive must not fabricate Pavement Hammer caller proof');
-assert(hammer.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Pavement Hammer should now stop at caller-proof gate');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer must remain outside implementation-review admission until caller exists');
-assert(!title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('pavement_hammer'), 'shared break/stagger must not auto-admit Pavement Hammer');
+assert(hammer.prototypeCallerImplemented, 'Pavement Hammer caller proof should now be registered independently of the generic primitive');
+assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Pavement Hammer should become implementation-review eligible after separate caller proof');
+assert(hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer implementation-review admission should now be true');
+assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'caller proof must not claim live runtime');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('pavement_hammer'), 'Pavement Hammer should appear in implementation-review admissions');
 
 for (const forbiddenLiveToken of [
   'U2EnemyBreakStaggerRuntime',
   'U2EnemyBreakStaggerDriver',
+  'PavementHammerPrototypeRuntime',
   'pavement_hammer',
 ]) {
   assert(!coordinator.includes(forbiddenLiveToken), `shared/prototype break-stagger leaked into live Stage1 coordinator: ${forbiddenLiveToken}`);
@@ -142,6 +144,7 @@ console.log(JSON.stringify({
     decision: hammer.unityDecision,
     callerProof: hammer.prototypeCallerImplemented,
     mayEnterUnityRuntimeRegistry: hammer.mayEnterUnityRuntimeRegistry,
+    runtimeStatus: hammer.runtimeStatus,
   },
   liveStage1Changed: false,
 }, null, 2));
