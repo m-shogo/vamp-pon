@@ -9,12 +9,16 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
     ///
     /// This helper owns no weapon identity, duration, stun, velocity, or default distance.
     /// Callers supply the direction and displacement distance explicitly.
-    /// The enemy resumes its normal movement on the next Tick unless another shared
-    /// mechanic (for example break/stagger) is currently suppressing pursuit.
     /// </summary>
     public static class U2EnemyKnockbackRuntime
     {
         public const string TuningAuthority = "CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON";
+
+        /// <summary>
+        /// Generic post-displacement signal for other shared movement mechanics.
+        /// It carries no weapon identity or tuning and does not change knockback behavior.
+        /// </summary>
+        public static event Action<U2EnemyActor> EnemyDisplaced;
 
         public static bool TryApply(U2EnemyActor enemy, Vector2 direction, float distance)
         {
@@ -35,7 +39,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
                 direction.y * inverseLength * distance,
                 0f);
             enemy.transform.position += displacement;
-            U2EnemyBreakStaggerRuntime.NotifyExternalDisplacement(enemy);
+            EnemyDisplaced?.Invoke(enemy);
             return true;
         }
 
