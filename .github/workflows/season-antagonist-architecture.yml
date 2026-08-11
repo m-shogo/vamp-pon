@@ -1,0 +1,45 @@
+name: Season Antagonist Architecture
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/season-architecture-cast-matrix-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/s2-antagonist-team-candidate-v1.md'
+      - 'docs/season-antagonist-return-policy-v1.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/s2AntagonistTeamCandidate.ts'
+      - 'src/game/data/seasonAntagonistReturnPolicy.ts'
+      - 'scripts/quality/check-season-antagonist-architecture.ts'
+      - '.github/workflows/season-antagonist-architecture.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/season-architecture-cast-matrix-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/s2-antagonist-team-candidate-v1.md'
+      - 'docs/season-antagonist-return-policy-v1.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/s2AntagonistTeamCandidate.ts'
+      - 'src/game/data/seasonAntagonistReturnPolicy.ts'
+      - 'scripts/quality/check-season-antagonist-architecture.ts'
+      - '.github/workflows/season-antagonist-architecture.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate seasonal antagonist rotation, S2 candidates, and return lanes
+        run: node --experimental-strip-types scripts/quality/check-season-antagonist-architecture.ts
