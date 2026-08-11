@@ -11,6 +11,7 @@ import { current21YatsukageRelationshipSummary } from './current21YatsukageRelat
 import { currentGroupInteractionSummary } from './currentGroupInteractionSource.ts';
 import { currentRelationshipInventory } from './currentRelationshipInventory.ts';
 import { enemyAttributeIdentities } from './enemyAttributeIdentitySource.ts';
+import { featuredRelationshipAffinityBeatSummary } from './featuredRelationshipAffinityBeatSource.ts';
 import { pairwiseBondTrioBattleSummary } from './pairwiseBondTrioBattleSource.ts';
 import { pairwiseRelationshipEventLedgerSummary } from './pairwiseRelationshipEventLedgerSource.ts';
 import { relationshipStageIntermissionSummary } from './relationshipStageIntermissionSource.ts';
@@ -44,6 +45,7 @@ export const title1ContentMasterAuthorities = {
   relationship: 'src/game/data/currentRelationshipInventory.ts',
   relationshipSpeech: 'src/game/data/relationshipSpeechProgressionSource.ts',
   allPairDirectedSpeech: 'src/game/data/allPairDirectedSpeechPresentationSource.ts',
+  featuredRelationshipAffinityBeats: 'src/game/data/featuredRelationshipAffinityBeatSource.ts',
   groupInteraction: 'src/game/data/currentGroupInteractionSource.ts',
   relationshipIntermission: 'src/game/data/relationshipStageIntermissionSource.ts',
   pairwiseBondTrioBattle: 'src/game/data/pairwiseBondTrioBattleSource.ts',
@@ -80,6 +82,10 @@ export const title1ContentMasterIntegritySnapshot = {
     allPairFeaturedSpeechLaneCount: allPairDirectedSpeechPresentationSummary.featuredDirectedLaneCount,
     allPairBaselineSpeechLaneCount: allPairDirectedSpeechPresentationSummary.baselineDirectedLaneCount,
     allPairBaselineAddressPrototypeCount: allPairDirectedSpeechPresentationSummary.addressPrototypeNotCanonCount,
+    featuredAffinityArcCount: featuredRelationshipAffinityBeatSummary.relationCount,
+    featuredAffinityBeatCount: featuredRelationshipAffinityBeatSummary.beatCount,
+    featuredAffinityDownOutcomeCount: featuredRelationshipAffinityBeatSummary.downwardDirectedOutcomeCount,
+    featuredAffinityUnchangedOutcomeCount: featuredRelationshipAffinityBeatSummary.unchangedDirectedOutcomeCount,
     groupInteractionSceneCount: currentGroupInteractionSummary.sceneCount,
     groupIntermissionPlacementCount: relationshipStageIntermissionSummary.placementCount,
     allPairBondLaneCount: pairwiseBondTrioBattleSummary.allPairCount,
@@ -184,6 +190,7 @@ export const title1ContentMasterIntegritySnapshot = {
     rewardCollectionRuntimeAutoPromotionAllowed: title1AchievementRewardCollectionSummary.runtimeAutoPromotionAllowed,
     relationshipSpeechRuntimeAutoPromotionAllowed: currentRelationshipSpeechProgressionSummary.runtimeAutoPromotionAllowed,
     allPairDirectedSpeechRuntimeAutoPromotionAllowed: allPairDirectedSpeechPresentationSummary.runtimeAutoPromotionAllowed,
+    featuredRelationshipAffinityRuntimeAutoPromotionAllowed: featuredRelationshipAffinityBeatSummary.runtimeAutoPromotionAllowed,
     groupIntermissionRuntimeAutoPromotionAllowed: relationshipStageIntermissionSummary.runtimeAutoPromotionAllowed,
     pairwiseBondRuntimeAutoPromotionAllowed: pairwiseBondTrioBattleSummary.runtimeAutoPromotionAllowed,
     pairwiseRelationshipEventLedgerRuntimeAutoPromotionAllowed: pairwiseRelationshipEventLedgerSummary.runtimeAutoPromotionAllowed,
