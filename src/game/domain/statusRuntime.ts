@@ -16,8 +16,12 @@ export type StatusStackMode = 'REPLACE' | 'REFRESH' | 'ADD_CAPPED';
 export type StatusMagnitudeMode = 'REPLACE' | 'MAX' | 'ADD_CAPPED';
 
 /**
+ * Cross-runtime semantic policy authority for Status application mechanics.
+ *
  * Runtime mechanics only. All balance values are supplied by the caller.
  * This kernel intentionally owns no BURN duration, CHILL ratio, Boss modifier, etc.
+ * Unity may keep its own C# lifecycle container, but application semantics must not
+ * silently diverge from these explicit stack/magnitude/cooldown policies.
  */
 export type RuntimeStatusApplicationPolicy = {
   durationSec: number;
