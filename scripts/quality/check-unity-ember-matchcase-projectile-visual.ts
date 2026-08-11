@@ -68,7 +68,6 @@ for (const token of [
 assert(!resetSource.includes('ParticleSystem'), 'visual resetter must not create or own ParticleSystem');
 assert(!resetSource.includes('Camera'), 'visual resetter must not touch camera/screen effects');
 
-// The prototype cue must remain local to the Selected16 helper; historical U2 runtime stays untouched.
 assert(!battleSource.includes('EmberMatchcaseProjectileVisualRuntime'), 'U2BattleController must not gain Ember-specific visual branching');
 assert(!battleSource.includes('PrototypeTint'), 'U2BattleController must not own Ember prototype visual tuning');
 assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'historical U47 evidence contract must remain present');
@@ -80,9 +79,8 @@ assert(!coordinatorSource.includes('FireWithPrototypeVisual'), 'prototype visual
 assert(!coordinatorSource.includes('EmberMatchcaseProjectileVisual'), 'live Stage1 coordinator must not know Ember visual helper yet');
 
 assert(!weapons.some((weapon) => weapon.id === 'ember_matchcase'), 'visual cue must not promote Ember into Web live catalog');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'visual cue must not expand Unity Admission beyond Ember');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'visual cue must keep Ember-only Admission');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'visual cue must leave remaining Selected15 blocked');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount >= 1, 'visual cue proof requires Ember implementation-review admission to remain');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'visual cue must preserve Ember admission even when other Selected16 callers land');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'visual cue must not auto-promote runtime');
 
 const doc = readFileSync(new URL('../../docs/unity-ember-matchcase-projectile-visual-v1.md', import.meta.url), 'utf8');
@@ -109,6 +107,10 @@ console.log(JSON.stringify({
   poolReset: 'OnDisable -> Color.white + baseScale',
   screenFlash: false,
   particleSystem: false,
-  admission: { admitted: 1, admittedIds: ['ember_matchcase'], blocked: 15 },
+  admission: {
+    admitted: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount,
+    admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
+    blocked: title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount,
+  },
   liveStage1Changed: false,
 }, null, 2));
