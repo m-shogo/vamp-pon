@@ -238,6 +238,7 @@ namespace VampPon.UnitySpike.Editor
                     $"TOP Runtime V3 texture importer is unavailable: {assetPath}");
 
             importer.textureType = TextureImporterType.Default;
+            importer.npotScale = TextureImporterNPOTScale.None;
             importer.sRGBTexture = true;
             importer.alphaSource = TextureImporterAlphaSource.None;
             importer.alphaIsTransparency = false;
