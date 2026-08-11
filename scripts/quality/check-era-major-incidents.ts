@@ -42,6 +42,7 @@ const atlas = read('docs/era-major-incident-family-lens-atlas-v1.md');
 const generationLens = read('docs/era-family-generation-lens-v1.md');
 const rootRegistry = read('docs/character-reality-root-registry-v1.md');
 const revealMap = read('docs/cross-era-lineage-reveal-map-v1.md');
+const historicalLedger = read('docs/world-historical-incident-ledger-v1.md');
 
 assert(ERA_MAJOR_INCIDENT_RULES.fictionalMajorIncidentsRequired, 'Era major incidents must remain fictional');
 assert(!ERA_MAJOR_INCIDENT_RULES.exactRealIncidentRenameCopyAllowed, 'real incidents may not be renamed/copied');
@@ -130,6 +131,43 @@ assert(yuiRoot?.root === '東京都荒川区', 'Yui must remain Arakawa-ku roote
 assert(REALITY_ROOT_RULES.yuiArakawaCurrent, 'Yui Arakawa user decision must remain Current');
 assert(yui?.ordinaryLifeAnchors.includes('ARAKAWA_ORDINARY_LIFE'), 'Yui incident must use Arakawa as ordinary life, not tourist set');
 
+// Historical Incident Ledger v3 migration guard.
+assert(historicalLedger.includes('Historical Incident Ledger v3'), 'historical incident ledger must remain v3+');
+assert(historicalLedger.includes('docs/era-major-incident-family-lens-atlas-v1.md'), 'historical ledger must route Core5 major incidents to current Atlas');
+assert(historicalLedger.includes('docs/research/era-major-incident-social-sourcebook-v1.md'), 'historical ledger must route historical plausibility to current Research Source');
+for (const currentEraId of [
+  'POSTWAR_RECOVERY_SCARCITY_JAPAN',
+  'LATE_HIGH_GROWTH_POLLUTION_ENERGY_TRANSITION_JAPAN',
+  'POST_BUBBLE_EARLY_MOBILE_INTERNET_JAPAN',
+  'PRESENT_DAY_JAPAN',
+  'FAR_FUTURE_HUMAN_ANDROID_ROBOT_AVATAR_SOCIETY',
+]) {
+  assert(historicalLedger.includes(currentEraId), `historical ledger missing Current Era ID: ${currentEraId}`);
+}
+for (const incidentName of ['空欄世帯事件', '一本線計画事件', '安心共有名簿事件', '消えたSOS事件', '一人分しか通らない']) {
+  assert(historicalLedger.includes(incidentName), `historical ledger missing Current incident overlay: ${incidentName}`);
+}
+for (const supportingIncidentId of [
+  'INC-ROUTE-001',
+  'INC-POST-001',
+  'INC-ROUTE-002',
+  'INC-ARCHIVE-001',
+  'INC-LAMP-001',
+  'INC-CIVIC-001',
+  'INC-NAME-001',
+  'INC-GATE-001',
+]) {
+  assert(historicalLedger.includes(supportingIncidentId), `supporting incident lost during ledger migration: ${supportingIncidentId}`);
+}
+assert(historicalLedger.includes('# 22. SUPERSEDED labels'), 'historical ledger must retain explicit SUPERSEDED migration section');
+assert(historicalLedger.includes('`1940S_LIKE`') && historicalLedger.includes('`1980S_LIKE`') && historicalLedger.includes('`2000S_LIKE`'), 'historical ledger must record legacy decade labels as migration evidence');
+assert(historicalLedger.includes('Do not use as Current authority'), 'legacy Era labels must be explicitly barred from Current authority');
+assert(historicalLedger.includes('“Modern exact incident is fully Open”') && historicalLedger.includes('“Future exact incident is fully Open”'), 'old fully-open incident architecture must remain explicitly superseded');
+assert(historicalLedger.includes('`夜明け前の閉鎖区画`') && historicalLedger.includes('SUPERSEDED'), 'Dawn-like closed-area working name must stay superseded');
+assert(historicalLedger.includes('Physical morningは存在しない'), 'historical ledger must preserve no-physical-morning rule');
+assert(historicalLedger.includes('Tomori ↔ Yui lantern chainはnon-blood object inheritance'), 'historical ledger must preserve Tomori/Yui non-blood lantern boundary');
+assert(historicalLedger.includes('Current Yui `消えたSOS事件`のexact emergencyへ自動統合しない'), 'supporting civic incident must not auto-merge into Yui major incident');
+
 assert(master.includes('実在の大事件は背景研究に使う') && master.includes('Era大事件は架空'), 'highest master must separate real research from fictional incidents');
 assert(master.includes('Core5 distinct era count = 5 / 5'), 'highest master must retain Core5 five distinct Eras');
 assert(research.includes('実在事件の名前・被害者・犠牲者構造・企業・地域をコピーしてゲーム事件へ置換しない'), 'research source must retain real-history guard');
@@ -147,6 +185,7 @@ console.log(JSON.stringify({
   uniqueEras: eraMajorIncidentSummary.uniqueEraCount,
   allFivePlusLenses: eraMajorIncidentSummary.allHaveFivePlusLenses,
   allEraSpecific: eraMajorIncidentSummary.allEraSpecific,
+  historicalLedgerVersion: 3,
   s1Primary: ERA_MAJOR_INCIDENT_SEASON_WEAVE.season1.primaryIncidentIds.length,
   s2Primary: ERA_MAJOR_INCIDENT_SEASON_WEAVE.season2.primaryIncidentIds.length,
   runtimeAutoPromotionAllowed: false,
