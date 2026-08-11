@@ -22,6 +22,13 @@ Status: **CURRENT WORLD-SETTING ENTRYPOINT / CANON-CANDIDATE BOUNDARIES PRESERVE
 - `docs/world-setting-conflict-register-v1.md`
 - `src/game/data/worldSettingConflictRegister.ts`
 
+Human consultation router:
+- `docs/world-human-decision-queue-v1.md`
+
+Stage20への実配置:
+- `docs/stage-world-lore-integration-v1.md`
+- `src/game/data/stageWorldLoreIntegration.ts`
+
 原則:
 > `UNRESOLVED_BLOCKER > 0`の状態でFinal Canon / character master productionへ進めない。
 
@@ -42,6 +49,7 @@ Status: **CURRENT WORLD-SETTING ENTRYPOINT / CANON-CANDIDATE BOUNDARIES PRESERVE
 | Life / Death / Injury | `world-life-death-injury-rulebook-v1.md` |
 | Mystery / Payoff | `world-mystery-foreshadow-payoff-ledger-v1.md` |
 | Height / Age / Era visual lineup | `character-height-age-era-lineup-v1.md` |
+| Stage world/lore placement | `stage-world-lore-integration-v1.md` |
 
 ---
 
@@ -137,9 +145,11 @@ World FoundationのLayer / status確認
 ↓
 Conflict Register確認
 ↓
+Human Decision Queueで相談gate確認
+↓
 既存P0/P1/P2 sourceへ追加
 ↓
-Character / Stage / Object / Relationとの接続確認
+Stage / Character / Object / Relationとの接続確認
 ↓
 必要ならCANDIDATE / OPEN_HUMAN
 ↓
