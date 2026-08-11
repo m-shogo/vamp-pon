@@ -4,9 +4,8 @@ on:
   pull_request:
     paths:
       - 'src/game/data/combatItemSelectionSource.ts'
-      - 'src/game/data/passives.ts'
-      - 'src/game/data/characterProductionPlans.ts'
-      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
       - 'docs/combat-item-selection-source-v1.md'
       - 'scripts/quality/check-combat-item-selection-master.ts'
       - '.github/workflows/combat-item-selection-master.yml'
@@ -14,9 +13,8 @@ on:
     branches: [main]
     paths:
       - 'src/game/data/combatItemSelectionSource.ts'
-      - 'src/game/data/passives.ts'
-      - 'src/game/data/characterProductionPlans.ts'
-      - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
       - 'docs/combat-item-selection-source-v1.md'
       - 'scripts/quality/check-combat-item-selection-master.ts'
       - '.github/workflows/combat-item-selection-master.yml'
@@ -32,5 +30,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check Title1 Combat Item selection
+      - name: Check Title1 Combat Item placement
         run: node --experimental-strip-types scripts/quality/check-combat-item-selection-master.ts
