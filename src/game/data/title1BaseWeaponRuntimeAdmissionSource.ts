@@ -72,7 +72,7 @@ export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponR
 
 const archetypeCapabilities: Readonly<Record<WeaponAttackArchetype, readonly UnityWeaponRuntimeCapability[]>> = {
   SCATTER_PROJECTILE: ['MULTI_TARGET_PROJECTILE_SELECTION'],
-  TETHER: ['TWO_TARGET_TETHER'],
+  TETHER: ['TWO_TARGET_TETHER', 'KNOCKBACK_VECTOR'],
   CONE_PUSH: ['CONE_QUERY', 'KNOCKBACK_VECTOR'],
   PULSE_CHAIN: ['TARGET_CHAIN_SELECTION'],
   LANE_WALL: ['LANE_BOUNDARY_TRIGGER'],
