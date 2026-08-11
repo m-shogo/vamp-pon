@@ -37,6 +37,7 @@ U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2
 5. `STATUS_APPLICATION`
 6. `KNOCKBACK_VECTOR`
 7. `CONE_QUERY`
+8. `SLAM_WAVE_QUERY`
 
 `MULTI_TARGET_PROJECTILE_SELECTION` は reusable scratch / targetable-only / deterministic nearest prefix / caller target cap / canonical target spawnまで実コードとCIで確認済み。
 
@@ -45,6 +46,8 @@ U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2
 `KNOCKBACK_VECTOR` は `U2EnemyKnockbackRuntime` がtargetable enemyへcaller supplied方向・距離の2D displacementを適用するshared primitive。velocity / stun / duration / default distance / weapon identityは持たず、次のenemy Tickから通常追跡へ戻る。
 
 `CONE_QUERY` は `U2EnemyConeQueryRuntime` がcaller supplied origin / facing / range / half-angle / target capでtargetable enemyを抽出し、nearest-firstかつ入力順tie-breakでcaller-owned scratchへ返す。weapon identity、damage、Status、knockback tuningは持たない。
+
+`SLAM_WAVE_QUERY` は `U2EnemySlamWaveQueryRuntime` がcaller supplied `innerRadius / outerRadius` と方向sectorで対象を抽出するshared primitive。`innerRadius=0` の一撃slamにも、caller側でbandを前進させるpropagating ground waveにも使えるが、timing / damage / break / stagger / Status / knockbackは持たない。
 
 ## Caller-proof gate
 
@@ -67,6 +70,8 @@ primitiveが揃ってもcaller proofが無い場合は:
 
 - `ember_matchcase`
 - `bellows_fan`
+
+現在、このgateを実際に証明する最初の例が `pavement_hammer`。`SLAM_WAVE_QUERY / KNOCKBACK_VECTOR / STATUS_APPLICATION` はすべて揃ったが、Selected16固有callerが無いため **primitive-completeのまま `BLOCKED_MISSING_UNITY_CALLER_PROOF`** で停止する。
 
 ## Current admission result
 
@@ -219,7 +224,7 @@ Shared helper:
 
 `bellows_fan` はSelected16 callerでこのshared primitiveを実際に利用する。
 
-`pavement_hammer` は `KNOCKBACK_VECTOR` が揃っているが `SLAM_WAVE_QUERY` がmissingなので引き続きblocked。
+`pavement_hammer` も `KNOCKBACK_VECTOR` を利用可能で、さらに `SLAM_WAVE_QUERY` と `STATUS_APPLICATION` も揃った。ただし固有caller proofが無いため、まだimplementation-review Admissionへは進まない。
 
 ## CONE_QUERY boundary
 
@@ -251,11 +256,52 @@ Shared helper:
 
 shared cone実装だけでは他Weaponを自動Admissionしない。
 
+## SLAM_WAVE_QUERY boundary
+
+Shared helper:
+
+`U2EnemySlamWaveQueryRuntime`
+
+役割:
+
+- caller-owned candidate source / result scratch
+- targetable-only
+- caller supplied origin / forward
+- caller supplied `innerRadius / outerRadius`
+- caller supplied half-angle / cap
+- directional 2D sector-band query
+- inner/outer boundary inclusive
+- nearest-first
+- equal-distanceはcandidate input orderを維持するstable tie-break
+- candidate/result aliasはreject
+- invalid radius / angle / forward / capはfail closed
+
+`innerRadius=0` ならone-shot directional slamとして使える。callerが時間ごとにinner/outerを前進させればpropagating waveのqueryにも使える。
+
+固定しない:
+
+- `pavement_hammer` identity
+- EARTH
+- EXPOSED
+- damage
+- break / stagger
+- knockback distance
+- Status policy
+- cast timing / wave speed / lifetime
+- VFX
+
+`pavement_hammer` はこのprimitive追加でrequired primitiveがすべてIMPLEMENTEDになったが、caller proofを持たないため:
+
+`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+
+のまま。これがshared primitiveとSelected16固有実装を分離するAdmission gateの実証になる。
+
 ## Never use fake projectile fallback
 
 禁止:
 
 - `bellows_fan` をただのProjectileにする
+- `pavement_hammer` を色違いGroundArea/Projectileとして済ませる
 - `rain_thread` を色違い弾にする
 - `pocket_mirror` をdamage弾にする
 - `repair_thread_spool` をWebの`orbit`があるという理由だけでUnity実装済みにする
@@ -279,8 +325,10 @@ Waveは優先順であり時間見積もりではない。
 - multi-target query: **implemented**
 - `KNOCKBACK_VECTOR`: **implemented**
 - `CONE_QUERY`: **implemented**
+- `SLAM_WAVE_QUERY`: **implemented**
 - Selected16 caller `ember_matchcase`: **prototype caller implemented**
 - Selected16 caller `bellows_fan`: **prototype caller implemented**
+- `pavement_hammer`: **primitive complete / caller proof missing**
 - Ember invocation/BURN telemetry: **implemented**
 - Bellows invocation/selection/DISORIENTED/knockback telemetry: **implemented**
 - Ember mobile-safe projectile visual cue: **implemented, prototype visual only**
@@ -294,11 +342,11 @@ Waveは優先順であり時間見積もりではない。
 - `LINE_PIERCE_RESIDUE`: missing
 - `RETURNING_PROJECTILE`: missing
 - `CONE_QUERY`: **implemented**
-- `SLAM_WAVE_QUERY`: missing
+- `SLAM_WAVE_QUERY`: **implemented**
 
 `bellows_fan` はtelemetryまで実装済み。次はcone edge / maxTargets / dense-waveのruntime captureと、mobileで「扇状に押す」と読めるairflow / push visual cueを追加する。
 
-shared primitive laneでは、既にKnockbackを共有できる `SLAM_WAVE_QUERY` が次の小さな候補。これを実装しても `pavement_hammer` 固有caller proofが無ければAdmissionしない。
+`pavement_hammer` はshared primitiveが揃ったため、次は `PavementHammerPrototypeRuntime` の固有caller proof。EXPOSED / knockback / damage / break-stagger / wave timingをcaller-ownedに分離したまま実経路を証明する。
 
 ### Wave C — advanced interaction executors
 
@@ -314,7 +362,7 @@ shared primitive laneでは、既にKnockbackを共有できる `SLAM_WAVE_QUERY
 
 `WeaponEffectType` enumへ名前だけ増やしてもexecutorが動かなければ意味がない。
 
-今回のSelected16 prototypeはlive U47 importerへ追加せず、shared primitive + selected-specific callerとして実証する。
+今回のSelected16 prototype/shared primitiveはlive U47 importerへ追加せず、shared primitive + selected-specific callerとして実証する。
 
 Admissionは:
 
@@ -340,13 +388,16 @@ Current source evidence:
 - Unity Enemy Status16 state / lifecycle ownership
 - Unity caller-supplied `KNOCKBACK_VECTOR`
 - Unity caller-supplied deterministic `CONE_QUERY`
+- Unity caller-supplied deterministic sector-band `SLAM_WAVE_QUERY`
 - `EmberMatchcasePrototypeRuntime` selected-specific caller
 - `BellowsFanPrototypeRuntime` selected-specific caller
+- `pavement_hammer` caller proof = 0
 - BURN / DISORIENTED policyはcaller supplied
 - Ember caller-owned telemetry + projectile-local prototype visual cue
 - Bellows caller-owned invocation/selection/Status/knockback telemetry
 - `ember_matchcase` live registry entry = 0
 - `bellows_fan` live registry entry = 0
+- `pavement_hammer` live registry entry = 0
 
 これらが変わったらAdmission checkerを更新しない限りCIを落とす。
 
@@ -379,11 +430,15 @@ Runtime不足をContent不足として処理しない。
 4. telemetry + rendered evidenceを同一runへ束ねる
 5. live registry / LevelUp poolへ入れるか人間承認する
 
-shared primitive lane:
+`pavement_hammer`:
 
-1. `SLAM_WAVE_QUERY`
-2. `pavement_hammer` 固有caller proof
-3. telemetry / runtime capture
-4. implementation-review Admission判定
+1. `SLAM_WAVE_QUERY`: **implemented**
+2. `KNOCKBACK_VECTOR`: **implemented**
+3. `STATUS_APPLICATION`: **implemented**
+4. Selected16固有 `PavementHammerPrototypeRuntime` caller proof
+5. EXPOSED / knockback / damage / break-stagger / wave timingのauthority分離
+6. executable contract + telemetry
+7. runtime capture / mobile crack-wave visual
+8. implementation-review Admission再判定
 
 数値balanceは最後までprototype tuningとして分離する。
