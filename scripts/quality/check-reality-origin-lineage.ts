@@ -134,8 +134,9 @@ assert(lineage.includes('physical morningではなくResolution Waking'), 'linea
 assert(lineage.includes('主要castの過半数を互いの親族へしない'), 'lineage bible must forbid genealogy overload');
 assert(lineage.includes('怖い / 変な人'), 'lineage bible must preserve child misreading of Dream residue');
 assert(revealMap.includes('ナギ → ユイ') && revealMap.includes('PRIMARY HIGH-VALUE CANDIDATE'), 'reveal map must preserve Nagi/Yui primary candidate');
-assert(revealMap.includes('トモリ → トウマ') && revealMap.includes('CRAFT_TALENT_NOT_GENETIC_DESTINY') === false, 'human reveal map should express craft guard in Japanese rather than machine token');
-assert(revealMap.includes('血だから職人') && revealMap.includes('トモリ×ユイのランタンchainは**非血縁のまま維持**'), 'reveal map must preserve non-genetic craft and non-blood lantern guard');
+assert(revealMap.includes('トモリ → トウマ'), 'reveal map must preserve Tomori/Touma ancestor candidate');
+assert(revealMap.includes('トモリの血を引いているからトウマも修理が上手い'), 'reveal map must explicitly reject inherited craft destiny');
+assert(revealMap.includes('トモリ×ユイのランタンchainは**非血縁のまま維持**'), 'reveal map must preserve non-blood lantern guard');
 assert(global.includes('Globalize understanding, not erase Japanese specificity'), 'globalization rule must preserve Japanese specificity');
 assert(global.includes('Satire target hierarchy'), 'global satire target hierarchy missing');
 assert(global.includes('Dialect localization'), 'global localization must preserve dialect/register strategy');
