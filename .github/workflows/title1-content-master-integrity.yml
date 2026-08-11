@@ -8,6 +8,8 @@ on:
       - 'docs/title1-achievement-reward-collection-source-v1.md'
       - 'scripts/quality/check-title1-content-master-integrity.ts'
       - 'scripts/quality/check-title1-achievement-reward-collection-master.ts'
+      - 'scripts/quality/check-title1-relationship-villain-deepening.ts'
+      - 'scripts/quality/check-spotlight-enemy-story-progression.ts'
       - '.github/workflows/title1-content-master-integrity.yml'
   push:
     branches: [main]
@@ -17,6 +19,8 @@ on:
       - 'docs/title1-achievement-reward-collection-source-v1.md'
       - 'scripts/quality/check-title1-content-master-integrity.ts'
       - 'scripts/quality/check-title1-achievement-reward-collection-master.ts'
+      - 'scripts/quality/check-title1-relationship-villain-deepening.ts'
+      - 'scripts/quality/check-spotlight-enemy-story-progression.ts'
       - '.github/workflows/title1-content-master-integrity.yml'
 
 permissions:
@@ -38,8 +42,12 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-current-character-combat-kit-master.ts
       - name: Check Current Relationship Inventory
         run: node --experimental-strip-types scripts/quality/check-current-relationship-inventory.ts
+      - name: Check Relationship Speech / Group / Spotlight Character Depth
+        run: node --experimental-strip-types scripts/quality/check-title1-relationship-villain-deepening.ts
       - name: Check Enemy48 Encounter Synergy
         run: node --experimental-strip-types scripts/quality/check-enemy48-encounter-synergy.ts
+      - name: Check Spotlight8 Story Fragment / Intermission Progression
+        run: node --experimental-strip-types scripts/quality/check-spotlight-enemy-story-progression.ts
       - name: Check Base Weapon Selection
         run: node --experimental-strip-types scripts/quality/check-base-weapon-selection-master.ts
       - name: Check Unlock Learning Progression
