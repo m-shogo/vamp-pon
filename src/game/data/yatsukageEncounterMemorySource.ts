@@ -4,6 +4,7 @@ import {
   current21YatsukageRelationshipEntries,
   type Current21YatsukageRelationEntry,
 } from './current21YatsukageRelationshipSource.ts';
+import { yatsukageCallNames } from './yatsukageIdentitySource.ts';
 
 export const YATSUKAGE_ENCOUNTER_MEMORY_STATUS = 'CONTENT_LEDGER_CONTRACT_RUNTIME_NOT_IMPLEMENTED' as const;
 
@@ -64,6 +65,7 @@ const phaseOrder = new Map<YatsukageRelationMemoryPhase, number>(
 const relationByKey = new Map(
   current21YatsukageRelationshipEntries.map((entry) => [`${entry.enemyId}:${entry.characterId}`, entry]),
 );
+const callNameByEnemyId = new Map(yatsukageCallNames.map((entry) => [entry.enemyId, entry]));
 
 function relationFor(enemyId: string, characterId: CurrentRelationCharacterId): Current21YatsukageRelationEntry {
   const relation = relationByKey.get(`${enemyId}:${characterId}`);
@@ -162,9 +164,14 @@ export function buildYatsukageRelationPresentation(
   state: YatsukageRelationMemoryState,
 ): YatsukageRelationPresentation {
   const relation = relationFor(state.enemyId, state.characterId);
+  const identity = callNameByEnemyId.get(state.enemyId);
+  if (!identity) throw new Error(`missing 八影 display identity: ${state.enemyId}`);
+
   const enemyDisplayName = state.phase === 'FIRST_ENCOUNTER'
-    ? relation.enemyCallName
-    : `八影・${relation.enemyCallName}`;
+    ? identity.currentEnemyName
+    : state.phase === 'CALL_NAME_RECOGNIZED'
+      ? `${identity.callName} / ${identity.currentEnemyName}`
+      : `八影・${identity.callName}`;
 
   const presentationByPhase: Record<YatsukageRelationMemoryPhase, { text: string; question: string }> = {
     FIRST_ENCOUNTER: {
