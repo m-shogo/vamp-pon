@@ -1,0 +1,77 @@
+name: One-shot Affinity Placement Integrity
+
+on:
+  push:
+    branches:
+      - agent/featured24-affinity-placement-integrity-v1
+    paths:
+      - '.github/workflows/zz-one-shot-affinity-placement-integrity.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/featured24-affinity-placement-integrity-v1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Patch Title1 integrity
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          src = Path('src/game/data/title1ContentMasterIntegritySource.ts')
+          text = src.read_text()
+          text = text.replace(
+              "import { featuredRelationshipAffinityBeatSummary } from './featuredRelationshipAffinityBeatSource.ts';\n",
+              "import { featuredRelationshipAffinityBeatSummary } from './featuredRelationshipAffinityBeatSource.ts';\nimport { featuredRelationshipAffinityPlacementSummary } from './featuredRelationshipAffinityPlacementSource.ts';\n",
+          )
+          text = text.replace(
+              "  featuredRelationshipAffinityBeats: 'src/game/data/featuredRelationshipAffinityBeatSource.ts',\n",
+              "  featuredRelationshipAffinityBeats: 'src/game/data/featuredRelationshipAffinityBeatSource.ts',\n  featuredRelationshipAffinityPlacement: 'src/game/data/featuredRelationshipAffinityPlacementSource.ts',\n",
+          )
+          text = text.replace(
+              "    featuredAffinityUnchangedOutcomeCount: featuredRelationshipAffinityBeatSummary.unchangedDirectedOutcomeCount,\n",
+              "    featuredAffinityUnchangedOutcomeCount: featuredRelationshipAffinityBeatSummary.unchangedDirectedOutcomeCount,\n    featuredAffinityPlacementCount: featuredRelationshipAffinityPlacementSummary.beatPlacementCount,\n    featuredAffinityAllHaveHubFallback: featuredRelationshipAffinityPlacementSummary.allBeatsHaveHubFallback,\n    featuredAffinityResultCap: featuredRelationshipAffinityPlacementSummary.resultPresentationCapPerRun,\n    featuredAffinityRequiredForMainStory: featuredRelationshipAffinityPlacementSummary.anyBeatRequiredForMainStory,\n    featuredAffinityBlocksStage20: featuredRelationshipAffinityPlacementSummary.anyBeatBlocksStage20Clear,\n",
+          )
+          text = text.replace(
+              "    featuredRelationshipAffinityRuntimeAutoPromotionAllowed: featuredRelationshipAffinityBeatSummary.runtimeAutoPromotionAllowed,\n",
+              "    featuredRelationshipAffinityRuntimeAutoPromotionAllowed: featuredRelationshipAffinityBeatSummary.runtimeAutoPromotionAllowed,\n    featuredRelationshipAffinityPlacementRuntimeAutoPromotionAllowed: featuredRelationshipAffinityPlacementSummary.runtimeAutoPromotionAllowed,\n",
+          )
+          text = text.replace(
+              "  'relationship speech semantic-to-runtime Bond gates + support/result voice selection',\n",
+              "  'relationship speech semantic-to-runtime Bond gates + support/result voice selection',\n  'Featured24 Result/Hub relationship placement milestone ledger + seen-beat arbitration + replay UI runtime',\n",
+          )
+          src.write_text(text)
+
+          chk = Path('scripts/quality/check-title1-content-master-integrity.ts')
+          text = chk.read_text()
+          text = text.replace(
+              "assert(snapshot.characters.featuredAffinityUnchangedOutcomeCount >= 3, 'Featured Affinity must preserve multiple UNCHANGED climax outcomes');\n",
+              "assert(snapshot.characters.featuredAffinityUnchangedOutcomeCount >= 3, 'Featured Affinity must preserve multiple UNCHANGED climax outcomes');\nassert(snapshot.characters.featuredAffinityPlacementCount === 72, 'all 72 Featured Affinity beats need presentation placement');\nassert(snapshot.characters.featuredAffinityAllHaveHubFallback, 'all Featured Affinity beats need Hub fallback');\nassert(snapshot.characters.featuredAffinityResultCap === 1, 'relationship Result presentation must remain capped at one beat per run');\nassert(!snapshot.characters.featuredAffinityRequiredForMainStory, 'Featured Affinity placement may not gate Main Story');\nassert(!snapshot.characters.featuredAffinityBlocksStage20, 'unseen Featured Affinity beats may not block Stage20 clear');\n",
+          )
+          text = text.replace(
+              "assert(!snapshot.promotionBoundary.featuredRelationshipAffinityRuntimeAutoPromotionAllowed, 'Featured24 Affinity beat Content must not auto-promote runtime');\n",
+              "assert(!snapshot.promotionBoundary.featuredRelationshipAffinityRuntimeAutoPromotionAllowed, 'Featured24 Affinity beat Content must not auto-promote runtime');\nassert(!snapshot.promotionBoundary.featuredRelationshipAffinityPlacementRuntimeAutoPromotionAllowed, 'Featured24 Affinity placement must not auto-promote runtime');\n",
+          )
+          text = text.replace(
+              "assert(authorityPaths.length === 27, `Title1 Content Master should expose 27 authority lanes, got ${authorityPaths.length}`);",
+              "assert(authorityPaths.length === 28, `Title1 Content Master should expose 28 authority lanes, got ${authorityPaths.length}`);",
+          )
+          text = text.replace(
+              "assert(title1ContentMasterOpenImplementationGates.length === 15, `expected fifteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);",
+              "assert(title1ContentMasterOpenImplementationGates.length === 16, `expected sixteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);",
+          )
+          chk.write_text(text)
+          PY
+          rm .github/workflows/zz-one-shot-affinity-placement-integrity.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "feat: register Featured24 placement in Title1 master"
+          git push origin HEAD:agent/featured24-affinity-placement-integrity-v1
