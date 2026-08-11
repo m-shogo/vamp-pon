@@ -20,13 +20,14 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import textwrap
 
           payload = Path('.github/workflows/runtime-projectile-recovery-one-shot.yml').read_text()
           marker = "          python - <<'PY'\n"
           start = payload.index(marker) + len(marker)
           end = payload.index("\n          PY\n", start)
-          Path('/tmp/runtime-projectile-recovery.py').write_text(textwrap.dedent(payload[start:end]))
+          lines = payload[start:end].splitlines()
+          script = '\n'.join(line[10:] if line.startswith('          ') else line for line in lines)
+          Path('/tmp/runtime-projectile-recovery.py').write_text(script + '\n')
           PY
           python /tmp/runtime-projectile-recovery.py
           git config user.name 'github-actions[bot]'
