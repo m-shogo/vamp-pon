@@ -1,0 +1,51 @@
+name: Character Author DB Coverage
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-author-db-schema-and-coverage-v1.md'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
+      - 'src/game/data/current21SocialChemistryReservoir.ts'
+      - 'src/game/data/future15SocialChemistryReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'src/game/data/characterThemeColorReservoir.ts'
+      - 'src/game/data/realityRootLivingPlaceReservoir.ts'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'scripts/quality/check-character-author-db-coverage.ts'
+      - '.github/workflows/character-author-db-coverage.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-author-db-schema-and-coverage-v1.md'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
+      - 'src/game/data/current21SocialChemistryReservoir.ts'
+      - 'src/game/data/future15SocialChemistryReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'src/game/data/characterThemeColorReservoir.ts'
+      - 'src/game/data/realityRootLivingPlaceReservoir.ts'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'scripts/quality/check-character-author-db-coverage.ts'
+      - '.github/workflows/character-author-db-coverage.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Character Author DB source coverage and status boundaries
+        run: node --experimental-strip-types scripts/quality/check-character-author-db-coverage.ts
