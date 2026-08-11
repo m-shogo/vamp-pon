@@ -1,0 +1,33 @@
+name: Character Communication Habit Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-communication-habit-reservoir-v1.md'
+      - 'src/game/data/characterCommunicationHabitReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'scripts/quality/check-character-communication-habit-reservoir.ts'
+      - '.github/workflows/character-communication-habit-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-communication-habit-reservoir-v1.md'
+      - 'src/game/data/characterCommunicationHabitReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'scripts/quality/check-character-communication-habit-reservoir.ts'
+      - '.github/workflows/character-communication-habit-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character communication habit reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-communication-habit-reservoir.ts
