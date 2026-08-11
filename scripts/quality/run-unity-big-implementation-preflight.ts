@@ -18,6 +18,7 @@ const directChecks = [
   'scripts/quality/check-top-v3-final-approval-capture-runner.ts',
   'scripts/quality/check-top-v3-device-build-provenance.ts',
   'scripts/quality/check-top-v3-final-ios-export.ts',
+  'scripts/quality/check-top-v3-final-simulator-evidence-runner.ts',
 ] as const;
 
 for (const check of directChecks) {
