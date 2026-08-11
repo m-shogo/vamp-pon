@@ -242,14 +242,20 @@ namespace VampPon.UnitySpike.UI.Screens
             titleRoot.anchoredPosition = titleBasePosition + new Vector2(0f, titleY);
 
             // Sky owns the broadest visible movement. Far and near clouds use
-            // unrelated frequencies and amplitudes so the scene gains depth
-            // without a camera-pan loop.
-            var farX = (Mathf.PerlinNoise(11.17f, time * .023f) - .5f) * 8.2f;
-            var farY = (Mathf.PerlinNoise(13.61f, time * .017f) - .5f) * 1.2f;
+            // unrelated, deliberately very low Perlin frequencies so they read as
+            // a slow bounded glide (long period, low amplitude) rather than a
+            // camera-pan or sine pendulum. Two summed frequencies per axis keep
+            // the drift from settling into any perceivable repeat within a long
+            // review window. Far is the calmest; near carries a touch more
+            // presence without pulling the eye off the fire.
+            var farX = ((Mathf.PerlinNoise(11.17f, time * .0125f) - .5f) * 5.6f)
+                + ((Mathf.PerlinNoise(29.53f, time * .0047f) - .5f) * 3.0f);
+            var farY = (Mathf.PerlinNoise(13.61f, time * .0091f) - .5f) * .9f;
             cloudsFar.anchoredPosition = farBasePosition + new Vector2(farX, farY);
 
-            var nearX = (Mathf.PerlinNoise(17.29f, time * .037f) - .5f) * 14.4f;
-            var nearY = (Mathf.PerlinNoise(19.87f, time * .029f) - .5f) * 2.0f;
+            var nearX = ((Mathf.PerlinNoise(17.29f, time * .0215f) - .5f) * 8.8f)
+                + ((Mathf.PerlinNoise(37.11f, time * .0083f) - .5f) * 4.2f);
+            var nearY = (Mathf.PerlinNoise(19.87f, time * .0163f) - .5f) * 1.5f;
             cloudsNear.anchoredPosition = nearBasePosition + new Vector2(nearX, nearY);
         }
 
@@ -287,18 +293,31 @@ namespace VampPon.UnitySpike.UI.Screens
             // while Reduced Motion was ON can return to full ambience without rebuild.
             if (stars != null)
             {
-                var slow = Mathf.PerlinNoise(.17f, time * .082f);
-                var tiny = Mathf.PerlinNoise(2.77f, time * .137f);
-                stars.color = WithAlpha(stars.color, .56f + slow * .14f + tiny * .025f);
+                // A single star mask cannot twinkle per-star without a shader, so
+                // avoid one uniform pulse: sum three low-amplitude rates so the
+                // field shimmers around a steady base instead of breathing as one.
+                var baseGlow = Mathf.PerlinNoise(.17f, time * .043f) - .5f;
+                var shimmer = Mathf.PerlinNoise(2.77f, time * .19f) - .5f;
+                var sparkle = Mathf.PerlinNoise(3.91f, time * .41f) - .5f;
+                stars.color = WithAlpha(
+                    stars.color,
+                    .58f + baseGlow * .075f + shimmer * .045f + sparkle * .028f);
             }
 
             if (distantLights != null)
             {
-                var districtA = Mathf.PerlinNoise(2.31f, time * .071f);
-                var districtB = Mathf.PerlinNoise(6.83f, time * .041f);
+                // Two slow districts plus a rare, brief brightening read as human
+                // activity (a window lighting up somewhere) rather than a smooth
+                // global fade.
+                var districtA = Mathf.PerlinNoise(2.31f, time * .053f);
+                var districtB = Mathf.PerlinNoise(6.83f, time * .031f);
+                var activity = Mathf.PerlinNoise(21.4f, time * .11f);
+                var window = activity > .80f
+                    ? Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(.80f, 1f, activity)) * .055f
+                    : 0f;
                 distantLights.color = WithAlpha(
                     distantLights.color,
-                    .625f + (districtA - .5f) * .045f + (districtB - .5f) * .025f);
+                    .61f + (districtA - .5f) * .05f + (districtB - .5f) * .03f + window);
             }
 
             if (fireGlow != null)
@@ -312,11 +331,15 @@ namespace VampPon.UnitySpike.UI.Screens
 
             if (lanternGlow != null)
             {
-                var slow = Mathf.PerlinNoise(12.7f, time * .19f);
-                var micro = Mathf.PerlinNoise(15.23f, time * .53f);
+                // Warm candle-like flutter: a slow swell with a gentle faster
+                // flicker so the lantern feels lit, dissolving into the wider
+                // night rather than reading as a flat overlay.
+                var slow = Mathf.PerlinNoise(12.7f, time * .16f);
+                var flicker = Mathf.PerlinNoise(15.23f, time * .61f);
+                var micro = Mathf.PerlinNoise(18.9f, time * 1.27f);
                 lanternGlow.color = WithAlpha(
                     lanternGlow.color,
-                    .45f + (slow - .5f) * .04f + (micro - .5f) * .012f);
+                    .47f + (slow - .5f) * .05f + (flicker - .5f) * .03f + (micro - .5f) * .014f);
             }
 
             if (robotEye != null)

@@ -220,25 +220,29 @@ namespace VampPon.UnitySpike.UI.Screens
                 font);
             ambient.raycastTarget = false;
 
-            U46ScreenFactory.Button(
-                parent,
-                "OpenStageSelectButton",
-                "夜へ出る",
-                AppQualityAssetProvider.PaperButtonFrame,
-                new Vector2(.12f, .095f),
-                new Vector2(.88f, .18f),
-                font,
-                () => openStageSelect?.Invoke());
+            StyleTopButton(
+                U46ScreenFactory.Button(
+                    parent,
+                    "OpenStageSelectButton",
+                    "夜へ出る",
+                    AppQualityAssetProvider.PaperButtonFrame,
+                    new Vector2(.12f, .095f),
+                    new Vector2(.88f, .18f),
+                    font,
+                    () => openStageSelect?.Invoke()),
+                primary: true);
 
-            U46ScreenFactory.Button(
-                parent,
-                "OpenCollectionFromTopButton",
-                "灯録",
-                AppQualityAssetProvider.PaperButtonFrame,
-                new Vector2(.31f, .025f),
-                new Vector2(.69f, .082f),
-                font,
-                () => openCollection?.Invoke());
+            StyleTopButton(
+                U46ScreenFactory.Button(
+                    parent,
+                    "OpenCollectionFromTopButton",
+                    "灯録",
+                    AppQualityAssetProvider.PaperButtonFrame,
+                    new Vector2(.31f, .025f),
+                    new Vector2(.69f, .082f),
+                    font,
+                    () => openCollection?.Invoke()),
+                primary: false);
 
             status = U46ScreenFactory.Label(
                 parent,
@@ -251,6 +255,52 @@ namespace VampPon.UnitySpike.UI.Screens
                 TextAlignmentOptions.Center,
                 font);
             status.raycastTarget = false;
+        }
+
+        // TOP-local button restyle. Keeps the shared U46ScreenFactory/PaperButton
+        // frame untouched (other screens rely on it) while tuning this screen's
+        // buttons into the night's warm paper/ink palette: the primary "夜へ出る"
+        // reads as a lit invitation, the secondary "灯録" stays quiet, both keep
+        // safe area, tap size and readability. No new sprite required.
+        private static void StyleTopButton(Button button, bool primary)
+        {
+            if (button == null)
+                return;
+
+            var frame = button.targetGraphic as Image ?? button.GetComponent<Image>();
+            if (frame != null)
+            {
+                // Warm the white paper frame into the palette and let the
+                // secondary button sit a little further back via lower alpha.
+                frame.color = primary
+                    ? new Color(.93f, .84f, .66f, .96f)
+                    : new Color(.88f, .82f, .70f, .80f);
+
+                var colors = button.colors;
+                colors.normalColor = Color.white;
+                colors.highlightedColor = new Color(1f, .98f, .92f, 1f);
+                colors.pressedColor = new Color(.82f, .74f, .60f, 1f);
+                colors.selectedColor = colors.highlightedColor;
+                colors.disabledColor = new Color(.70f, .68f, .62f, .5f);
+                colors.fadeDuration = .12f;
+                button.colors = colors;
+            }
+
+            var labelTransform = button.transform.Find("Label");
+            var label = labelTransform == null
+                ? null
+                : labelTransform.GetComponent<TextMeshProUGUI>();
+            if (label != null)
+            {
+                // Warm ink instead of harsh near-black; airy tracking gives the
+                // display label a quieter, more deliberate feel.
+                label.color = new Color(.17f, .12f, .09f, 1f);
+                label.fontStyle = FontStyles.Bold;
+                label.enableAutoSizing = false;
+                label.fontSize = primary ? 20f : 15f;
+                label.characterSpacing = primary ? 10f : 6f;
+                label.enableWordWrapping = false;
+            }
         }
 
         private void BeginTextureLoadIfNeeded()
