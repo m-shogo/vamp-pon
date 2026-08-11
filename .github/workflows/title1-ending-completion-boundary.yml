@@ -1,0 +1,50 @@
+name: title1-ending-completion-boundary
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/title1EndingCompletionBoundarySource.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/combatItemSelectionSource.ts'
+      - 'src/game/data/weaponTransformationSelectionSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/enemyAttributeIdentitySource.ts'
+      - 'docs/title1-ending-completion-boundary-v1.md'
+      - 'scripts/quality/check-title1-ending-completion-boundary.ts'
+      - '.github/workflows/title1-ending-completion-boundary.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/title1EndingCompletionBoundarySource.ts'
+      - 'src/game/data/series1StageCampaignContentSource.ts'
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
+      - 'src/game/data/namedObjectRegistry.ts'
+      - 'src/game/data/allLightsCompletion.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/combatItemSelectionSource.ts'
+      - 'src/game/data/weaponTransformationSelectionSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/enemyAttributeIdentitySource.ts'
+      - 'docs/title1-ending-completion-boundary-v1.md'
+      - 'scripts/quality/check-title1-ending-completion-boundary.ts'
+      - '.github/workflows/title1-ending-completion-boundary.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Title1 ending/completion boundary
+        run: node --experimental-strip-types scripts/quality/check-title1-ending-completion-boundary.ts
