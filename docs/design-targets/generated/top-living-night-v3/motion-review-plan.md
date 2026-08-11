@@ -129,8 +129,10 @@ These values are implementation anchors to prevent accidental synchronization. S
 | art y | Perlin seed `1.73`, frequency `0.027`, ~0.9 px span |
 | art scale | Perlin seed `4.91`, frequency `0.019`, ±~0.09% |
 | title y | Perlin seed `7.33`, frequency `0.047`, ~0.7 px span |
-| far cloud x/y | seeds `11.17` / `13.61`, frequencies `0.023` / `0.017` |
-| near cloud x/y | seeds `17.29` / `19.87`, frequencies `0.037` / `0.029` |
+| far cloud x | seeds `11.17` + `29.53`, frequencies `0.0125` + `0.0047`, low-amplitude long-period two-term drift |
+| far cloud y | seed `13.61`, frequency `0.0091` |
+| near cloud x | seeds `17.29` + `37.11`, frequencies `0.0215` + `0.0083`, slightly more presence than far |
+| near cloud y | seed `19.87`, frequency `0.0163` |
 
 `TopLivingNightFireCadenceDirector` executes after both the base view and ambient director and writes only `FireFlipbook.uvRect`:
 
