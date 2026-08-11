@@ -6,6 +6,7 @@ import {
 import { baseWeaponSelectionSummary } from './baseWeaponSelectionSource.ts';
 import { title1CombatItemSelectionSummary } from './combatItemSelectionSource.ts';
 import { currentCharacterCombatKitEntries } from './currentCharacterCombatKitSource.ts';
+import { current21YatsukageRelationshipSummary } from './current21YatsukageRelationshipSource.ts';
 import { currentGroupInteractionSummary } from './currentGroupInteractionSource.ts';
 import { currentRelationshipInventory } from './currentRelationshipInventory.ts';
 import { enemyAttributeIdentities } from './enemyAttributeIdentitySource.ts';
@@ -46,6 +47,7 @@ export const title1ContentMasterAuthorities = {
   spotlightEnemyStoryFragment: 'src/game/data/spotlightEnemyStoryFragmentSource.ts',
   yatsukageIdentity: 'src/game/data/yatsukageIdentitySource.ts',
   yatsukageCollectionPresentation: 'src/game/data/yatsukageCollectionPresentationSource.ts',
+  current21YatsukageRelationship: 'src/game/data/current21YatsukageRelationshipSource.ts',
   baseWeapon: 'src/game/data/baseWeaponSelectionSource.ts',
   combatItem: 'src/game/data/combatItemSelectionSource.ts',
   transformation: 'src/game/data/weaponTransformationSelectionSource.ts',
@@ -84,6 +86,9 @@ export const title1ContentMasterIntegritySnapshot = {
     yatsukageCallNameCount: yatsukageIdentitySummary.uniqueCallNameCount,
     yatsukagePresentationPhaseCount: yatsukageCollectionPresentationSummary.presentationPhaseCount,
     yatsukageTrueNameClaimedCount: yatsukageCollectionPresentationSummary.trueNameClaimedCount,
+    current21RelationCount: current21YatsukageRelationshipSummary.relationCount,
+    current21FeaturedRelationCount: current21YatsukageRelationshipSummary.featuredArcCount,
+    current21BaselineRelationCount: current21YatsukageRelationshipSummary.baselineReactionCount,
   },
   combatVocabulary: {
     attributeCountIncludingNeutral: COMBAT_ATTRIBUTES.length,
@@ -163,6 +168,7 @@ export const title1ContentMasterIntegritySnapshot = {
     spotlightStoryRuntimeAutoPromotionAllowed: spotlightEnemyStoryFragmentSummary.runtimeAutoPromotionAllowed,
     yatsukageIdentityRuntimeAutoPromotionAllowed: yatsukageIdentitySummary.runtimeAutoPromotionAllowed,
     yatsukageCollectionRuntimeAutoPromotionAllowed: yatsukageCollectionPresentationSummary.runtimeAutoPromotionAllowed,
+    yatsukageCurrent21RelationRuntimeAutoPromotionAllowed: current21YatsukageRelationshipSummary.runtimeAutoPromotionAllowed,
     contentMasterMayFreezeRuntimeCompletionByItself: false,
   },
 } as const;
@@ -178,6 +184,7 @@ export const title1ContentMasterOpenImplementationGates = [
   'relationship speech semantic-to-runtime Bond gates + support/result voice selection',
   'Current21 all210 pair Bond + 420 directed Affinity save schema/event ledger/migration',
   'three-Character selection UI + pair Assist arbitration + trio banter spotlight runtime',
+  '八影 x Current21 encounter-history ledger + speaker arbitration + bestiary relation snippets',
   'spotlight enemy bestiary fragment unlock/presentation + visual recognition validation',
   'mobile visual QA / performance / playtest',
 ] as const;

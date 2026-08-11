@@ -37,6 +37,9 @@ assert(snapshot.enemies.yatsukageShortName === '八影', 'Yatsukage short name d
 assert(snapshot.enemies.yatsukageCallNameCount === 8, 'Yatsukage must expose eight unique call names');
 assert(snapshot.enemies.yatsukagePresentationPhaseCount === 4, 'Yatsukage collection presentation should have four reveal phases');
 assert(snapshot.enemies.yatsukageTrueNameClaimedCount === 0, 'Yatsukage call names may not claim true names');
+assert(snapshot.enemies.current21RelationCount === 168, `八影 x Current21 relations must be 168, got ${snapshot.enemies.current21RelationCount}`);
+assert(snapshot.enemies.current21FeaturedRelationCount === 32, `八影 Featured relations must be 32, got ${snapshot.enemies.current21FeaturedRelationCount}`);
+assert(snapshot.enemies.current21BaselineRelationCount === 136, `八影 baseline relations must be 136, got ${snapshot.enemies.current21BaselineRelationCount}`);
 
 assert(snapshot.combatVocabulary.attributeCountIncludingNeutral === 15, `Combat Attribute vocabulary should be 14 + NEUTRAL, got ${snapshot.combatVocabulary.attributeCountIncludingNeutral}`);
 assert(snapshot.combatVocabulary.baseAttributeCount === 14, `base Attribute count must remain 14, got ${snapshot.combatVocabulary.baseAttributeCount}`);
@@ -107,14 +110,15 @@ assert(!snapshot.promotionBoundary.spotlightEnemyRuntimeAutoPromotionAllowed, 'S
 assert(!snapshot.promotionBoundary.spotlightStoryRuntimeAutoPromotionAllowed, 'Spotlight story fragments must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.yatsukageIdentityRuntimeAutoPromotionAllowed, 'Yatsukage identity must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.yatsukageCollectionRuntimeAutoPromotionAllowed, 'Yatsukage collection presentation must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.yatsukageCurrent21RelationRuntimeAutoPromotionAllowed, 'Yatsukage Current21 relation matrix must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 21, `Title1 Content Master should expose 21 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 22, `Title1 Content Master should expose 22 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
-assert(title1ContentMasterOpenImplementationGates.length === 12, `expected twelve explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
+assert(title1ContentMasterOpenImplementationGates.length === 13, `expected thirteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
 for (const gate of title1ContentMasterOpenImplementationGates) {
   assert(gate.length >= 25, `open implementation gate needs explicit wording: ${gate}`);
 }
