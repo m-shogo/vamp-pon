@@ -1325,3 +1325,365 @@ Group artでは、さらに:
 Reference imageがあっても、**reference imageのミスよりCharacter Masterを優先**する。
 
 > **画像生成で同じ人を何度描いても、体格・顔・ほくろ・傷・刺青・年齢・Dream/Reality差が「たまたま変わらない」のではなく、原本があるから変わらない状態を作る。**
+
+---
+
+# 25. Temporal / Dream Body / Combat / Language / Aftercare Core Rules
+
+Status: `USER-DECIDED MASTER / CURRENT OPERATIONAL RULES / FINAL COSMOLOGY DETAILS OPEN`
+
+> 2026-08-12 USER DECISION: 以下8項目はCandidateではなくCurrent Masterへ採用する。
+> ただし、物語上必要な**運用ルール**を固定するもので、ヨルノシルベの最終originや宇宙論的説明を早期に閉じない。
+
+## 25.1 Reality historyは一本を基本にし、選択で変わる
+
+Status: `DECIDED DIRECTION`
+
+Characterが自分のReality Eraへ戻り、Dreamで得たknowledge / relationship / skill / third optionを使って大事件の最悪の結末を変えた場合、**Reality historyそのものが変化してよい。**
+
+基本:
+
+```txt
+old Reality history
+→ Dreamで異時代の他者と出会う
+→ CharacterがRealityへ戻る
+→ 以前は選べなかったthird optionを選ぶ
+→ Reality historyが更新される
+```
+
+Hard:
+
+- 基本構造を「変更ごとに別universeが無限分岐するmultiverse」へしない。
+- 過去を直すために特定の人間を存在ごと消すことをHappy Endの標準解法にしない。
+- **誰かを消して歴史を直すより、その人が違う選択をできることで歴史が変わる**方向を優先する。
+- 変更後の未来を「全部同じまま」にも、「蝶の羽ばたきで全員消滅」にも固定しない。変更規模は事件ごとに設計する。
+
+### Dream側の記憶保護
+
+ヨルノシルベで既に成立した出会い・関係・経験は、Reality historyが更新されても**即座に無かったことにならない。**
+
+- Dreamで会っていたFuture Characterが、過去改変の瞬間に会話途中で消えるような処理を標準にしない。
+- Dreamは少なくとも物語運用上、**変更前のReality historyの残響を保持できる場所**として扱う。
+- 更新後Realityへ戻ったCharacterが「昔からこうだった」という現在の記憶と、「何か違った気がする」という薄い感覚を両方持つ場合がある。
+- 変更前historyのexact preservation mechanism / 誰がどこまで覚えるか / Dreamが時間軸の外側かどうかの最終説明はMain MysteryとしてOpen。
+
+Theme:
+
+> **記録された歴史が変わっても、そこで誰かから受け取ったものまで必ず消えるとは限らない。**
+
+## 25.2 Dream bodyはRealityの「真の姿」を暴く装置ではない
+
+Status: `DECIDED CORE RULE`
+
+#23.6をさらに具体化する。
+
+Dream bodyは完全Randomでも、Reality bodyの単純copyでも、魂の真実を表示する装置でもない。
+
+Current operational model:
+
+```txt
+long-term self-image
++
+body memory / lived bodily experience
++
+relationships / how one exists among others
++
+current role / pressure / need
+↓
+Dream form
+```
+
+- 4要素の比率はCharacterごとに違ってよい。
+- 本人がDream formの理由を理解していない場合がある。
+- 「こうなりたい」と思った姿がそのまま出るwishlist systemではない。
+- 外見と性自認が違う場合、**Dream bodyを性自認判定器にしない。性自認は本人が決め、本人が語る。**
+- Realityのsex / gender identity / presentation / Dream body / voice / speciesは別field。
+
+Allowed:
+
+- Human ↔ Robot-like body
+- Human ↔ animal / animal-like body
+- Reality male ↔ Dream female-coded body
+- Reality female ↔ Dream male-coded body
+- age / stature / voice / mobility presentation difference
+
+High-value reveal:
+
+> Realityでは姿が全く違っていても、歩き方、手癖、間の取り方、言葉、守り方などから「お前だ」と気付ける。
+
+これを単純な性別どんでん返しではなく、**姿が変わっても関係を認識できるか**というCharacter payoffへ使う。
+
+Individual Characterごとの「なぜこのDream formなのか」はOpenにできるが、上記4軸を無視した後付けRandom revealにはしない。
+
+## 25.3 大量に倒す雑魚Enemyは人間の魂ではない
+
+Status: `DECIDED COMBAT ONTOLOGY`
+
+Vampire Survivors系の大量戦闘で倒すgeneric / swarm Enemyを、Realityで生きる人間の魂や無辜の死者そのものにはしない。
+
+Core:
+
+> **人間や社会が「一つの答えしかない」と固まっていく時に生まれるpressure / fear / rule / rumor / shortage / surveillance / exclusion等が、Dreamで戦闘可能な形を取ったもの。**
+
+Named Characterとswarm Enemyを原則分ける:
+
+```txt
+Named Character
+= person / choice / responsibility / relationship
+
+Swarm Enemy
+= pressure / phenomenon / fixation made combat-visible
+```
+
+Era-specific visual vocabularyを持てる:
+
+- トモリEra: 配給票、空箱、列、空の器、欠品、修繕不能の反復等から抽象化。
+- ミチルEra: route、煙、騒音、標識、工業 / 都市の過密pattern等から抽象化。
+- ナギEra: 閉じた端末、匿名札、警告、誤登録、chain message、遮断等から抽象化。
+- ユイEra: notification、認証、ranking、複製、fake signal、information flood等から抽象化。
+- アサEra: identity token、ownership lock、copy mismatch、continuity error等から抽象化。
+
+Hard:
+
+- 実在文化記号や被災者の姿を雑魚Enemy skinとして消費しない。
+- Named villainを倒すことと、pressureを大量撃破することを同じ倫理にしない。
+- 最終的な「なぜpressureが物理的Enemyになるのか」の宇宙論はOpenでよい。
+
+## 25.4 朔夜座と群青残響録は上下関係ではなく、別軸で交差する
+
+Status: `DECIDED RELATION RULE`
+
+- **朔夜座** = S1でヨルノシルベ内を能動的に動くprimary antagonist team 8人。
+- **群青残響録** = 各Reality Eraの大事件で中心となった人物 / 人物群を後から括る記録分類。
+
+したがって:
+
+```txt
+朔夜座 ⊄ 群青残響録
+群青残響録 ⊄ 朔夜座
+```
+
+単純なBoss / subordinate関係にしない。
+
+朔夜座は全Era事件の黒幕ではない。
+
+Allowed:
+
+- 朔夜座が既に生じている事件へ介入する。
+- 思想上の理由で事件を悪化させる。
+- 同じ思想から、結果的に被害を減らす場合もある。
+- 群青残響録側の人物と敵対する。
+- 一時的に利害一致する。
+- 直接会わない。
+- Reality側の人物が朔夜座の介入自体を知らない。
+
+さらに、ある人物が別々の条件を満たせば、**朔夜座memberであり、別のReality事件では後世に群青残響録へ分類される**ことも論理上は可能。
+
+ただし誰が該当するかは個別に決め、全員を二重所属させない。
+
+## 25.5 Star Beast — 魂判定ではなく「世界をどう結んで見るか」の表現
+
+Status: `USER-DECIDED CORE NATURE / DETAILS OPEN`
+
+Star BeastのCore Natureは以下へ寄せる:
+
+> **その存在が世界・他者・記憶をどう結んで見ているかが、星空を媒介にDream内で姿を持ったもの。**
+
+Hard:
+
+- soul detector / humanity detectorではない。
+- Star Beastが出た = 魂がある、とは証明しない。
+- Star Beastが出ない = 人格がない / 価値が低い、にもならない。
+- Human限定にしない。Android / Robot / Reality animalにも可能性を残す。
+- 同じconstellationを複数Characterが持ってよい。
+- 一人一星座を機械的なhoroscope assignmentにしない。
+- IAU88をCollection / UI / permanent merchのstable ID基準として維持する。
+
+Star Beast自身は:
+
+- emotion / preference / reactionを持てる。
+- Characterとの関係差を出せる。
+- ただし何でも説明するomniscient mascot / guardian spiritにはしない。
+
+Historical constellation / cultural name / Serpens / Argo / Pleiades等は、identityやrelationを豊かにする**interpretive layer**として使う。
+
+Open:
+
+- 誰にいつStar Beastが現れるか
+- 一人に複数形があり得るか
+- Star Beast同士の独立personhoodの程度
+- exact manifestation mechanism
+
+つまり#21の`Star Beast final nature`は、**core thematic natureはCurrent化済み、exact metaphysical mechanismのみOpen**へ狭める。
+
+## 25.6 Dream language — 意味は通るが文化差まで消さない
+
+Status: `DECIDED DIALOGUE RULE`
+
+ヨルノシルベでは、異なるEra / country / languageのCharacter同士でも、**ordinary meaning-level communicationは原則成立する。**
+
+これにより毎回通訳探しをMain Gameの必須工程にしない。
+
+ただし完全automatic translationではない。
+
+残りやすいもの:
+
+- person name
+- place name
+- food name
+- constellation / star name
+- honorific / kinship term
+- proverb
+- joke / pun
+- slang
+- prayer / ritual term
+- technical term
+- historical institution name
+- culture-specific word
+
+Example:
+
+> 「すばる」と「Pleiades」が同じ天体groupを指すことは会話上通じても、**なぜその名前で呼ぶか**までは自動共有されない。
+
+これにより:
+
+- 海外出身
+- 地域差
+- 世代差
+- 家庭文化
+- 職業知識
+
+を消さずに会話できる。
+
+古い日本語 / 方言 / Future vocabularyも、意味はある程度通る一方で「その言い方なに？」というCharacter会話を残せる。
+
+翻訳現象に固有名を急いで付けない。final mechanismはOpen。
+
+## 25.7 Dream daily life — 身体感覚はある、生存管理は主題にしない
+
+Status: `DECIDED DAILY-LIFE RULE`
+
+ヨルノシルベでは身体感覚を消さない。
+
+存在してよい:
+
+- 空腹
+- 満腹
+- 味 / 匂い
+- 喉の渇き
+- 暑い / 寒い
+- 濡れる
+- 疲れる
+- 眠い
+- 痛み
+- 風呂 / 洗う
+- 着替え
+- 休息
+
+ただし本作をsurvival managementへ変えない。
+
+- 食べないから餓死、風呂に入らないから衛生崩壊、家賃を払えず追放、等を通常plotにしない。
+- 食事 / 風呂 / 着替え / 睡眠はCharacter scene・関係・時代差を育てるために使う。
+- 衣服やbasic daily goodsもDream Provisioningの範囲で、収納・棚・closet等を介して自然に見つけられる。
+- **Dream内で眠っても、それだけでRealityへWakingしない。** 普通の休息として眠れる。
+- Dreamの中でさらにDreamを見る展開は、常設ruleにせず特殊Episodeでのみ扱える。
+- 髪や爪の日々の成長をsimulationする必要はない。
+
+### Injury
+
+- 戦闘の痛み / injuryは存在し、Characterは無傷の人形ではない。
+- Realityの致命傷と単純一対一にしない。
+- 休息 / treatment / time / episode transition等で回復できる。
+- 傷を受けてもGame Over = Reality deathではない。
+- permanent scarを残すかはCharacter / eventごとに決める。
+
+> **生活する身体はある。ただし、生存手続きが物語を占領しない。**
+
+## 25.8 黒耀化から戻った後 — 消去ではなく統合
+
+Status: `DECIDED AFTERCARE / RESPONSIBILITY RULE`
+
+黒耀化はexternal possessionではないため、解除後に:
+
+> 「操られていただけなので本人に関係ありません」
+
+とはしない。
+
+同時に:
+
+> 「黒耀化中の全行為を通常状態と全く同じ意図で行った」
+
+とも単純化しない。
+
+Current:
+
+- 黒耀化中の記憶は、完全 / 断片 / 感覚のみ等Character差があってよい。
+- 本人のstrength / wish / fearから生じたものなので、本人は自分との関係を避けられない。
+- 被害があれば、周囲が即座に許す必要はない。
+- apology / repair / distance / trust rebuildingをCharacterごとに描ける。
+- 理解可能なantagonistであることと、無罪であることを同一視しない。
+
+### Power integration
+
+黒耀化で現れた能力 / 強さを、解除と同時に全部捨てる必要はない。
+
+```txt
+strength / wish
+→ fearで一つの答えへ固定
+→ 黒耀化で極端なpower
+→ recovery
+→ 同じstrengthを複数の選択肢の中で扱える
+```
+
+例:
+
+> 「全員を守るため全部自分で受ける」が黒耀化した人物が、回復後は同じ防御力を持ちながら、任せる / 守られる / 退くも選べる。
+
+これを成長の主要payoffにできる。
+
+### Relapse
+
+- 再黒耀化は可能。
+- ただし同じ悩み・同じBoss・同じ学びをresetして反復しない。
+- 一度得た成長は残し、再発するなら別pressure / 別relationship / 別のone-answer fixationとして描く。
+
+### Trace
+
+黒耀化後の身体的trace（黒い硝子状の薄い跡、変色、傷等）を残すCharacterがいてよい。
+全員共通markへ固定せず、残る / 消える / 本人が隠す / 見せるを個別設計する。
+
+Theme:
+
+> **間違った自分を切り捨てて元に戻るのではなく、そこにあった強さと恐怖を知った上で、もう一度選べるようになる。**
+
+---
+
+## 25.9 Eight-rule integration summary
+
+```txt
+Reality history
+= one primary history, choices can update it
+
+Dream memory
+= can preserve echoes of pre-update history
+
+Dream body
+= self-image + body memory + relationship + role; not soul truth
+
+Swarm enemies
+= social / psychological pressure made combat-visible; not human souls
+
+Sakuyaza vs Gunjou Zankyouroku
+= separate axes that may intersect; not a hierarchy
+
+Star Beast
+= how a being connects world / others / memory, embodied through stars; not soul proof
+
+Language
+= meaning-level communication works, culture-specific words remain meaningful differences
+
+Black Youka recovery
+= responsibility + trust repair + power integration; not reset
+```
+
+この8項目は以後、下位資料 / implementation / episode designで矛盾させない。
