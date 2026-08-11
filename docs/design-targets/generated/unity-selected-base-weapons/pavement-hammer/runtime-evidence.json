@@ -37,7 +37,8 @@
     "knockback": "",
     "breakStagger": "",
     "statusState": "",
-    "statusRequest": ""
+    "statusRequest": "",
+    "evidenceHarness": ""
   },
   "error": ""
 }
