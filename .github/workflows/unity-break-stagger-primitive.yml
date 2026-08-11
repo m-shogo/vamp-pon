@@ -1,0 +1,59 @@
+name: unity-break-stagger-primitive
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-break-stagger-primitive.ts'
+      - 'scripts/quality/check-unity-slam-wave-query-primitive.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/unity-break-stagger/**'
+      - 'docs/unity-break-stagger-primitive-v1.md'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-break-stagger-primitive.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-break-stagger-primitive.ts'
+      - 'scripts/quality/check-unity-slam-wave-query-primitive.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/unity-break-stagger/**'
+      - 'docs/unity-break-stagger-primitive-v1.md'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-break-stagger-primitive.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check reusable break stagger primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-break-stagger-primitive.ts
+      - name: Compile and execute break stagger contract
+        run: |
+          dotnet build scripts/quality/unity-break-stagger/UnityBreakStagger.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-break-stagger/UnityBreakStagger.Contract.csproj --configuration Release --no-build
+      - name: Re-check knockback primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-knockback-vector-primitive.ts
+      - name: Re-check slam wave primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-slam-wave-query-primitive.ts
+      - name: Re-check Title1 Base Weapon runtime admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
