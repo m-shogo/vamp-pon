@@ -20,6 +20,9 @@ Status: **CURRENT WORLD ENTRYPOINT / MASTER-ALIGNED**
 32領域coverage:
 - `docs/world-setting-expansion-index-v1.md`
 
+Dream日常 / Party:
+- `docs/dream-feast-party-social-bible-v1.md`
+
 Stage20 lore placement:
 - `docs/stage-world-lore-integration-v1.md`
 - `src/game/data/stageWorldLoreIntegration.ts`
@@ -30,11 +33,20 @@ Stage20 lore placement:
 
 - 現世は現実の日本。
 - Characterは同時代とは限らない。
+- **Core5の5人はRealityでは全員が別era / generation。**
+- Core5のexact個人era割当はまだOpen。
+- 5 distinct era = 5 equal protagonists、ではない。
 - **ヨルノシルベは夢世界。** 共有mechanism / 起源の最終回答だけOpen。
 - **ヨルノシルベには朝が来ない。** 帰還はWaking。
 - 通常Wakingでは明示記憶を失いやすいが、技能 / 感情 / 行動変化は残り得る。
 - 大事件解決パートでは記憶を取り戻して目覚める方向。
-- Dreamでは食事 / 飲料 / 日用品 / 休息は自然に補完できる。
+- Dreamでは衣食住に困窮させない。
+- **食べ物は手元へ直接materializeしない。食糧庫 / 冷蔵庫 / 棚 / 厨房等を開けると欲しかった物が最初から入っていたように見つかる。**
+- 焼肉 / 鍋 / 夜食 / 炭酸 / 酒などを普通の日常へ使う。
+- Named Boss / major confrontation後は原則Party / decompression sceneを置く。
+- 酒は存在し、成人Characterは酔う。
+- 喫煙主要Characterを最低3人以上、pipe smokerを最低1人置く。個人Final assignmentはage / era review後。
+- 実在商品ブランドへCharacter identityを依存させず、黒い炭酸 / シュワシュワ等のgeneric呼称を優先。
 - ただし心 / 同意 / 記憶真実 / 黒耀化 / 現世事件は願いだけで変えられない。
 - Dream内では西暦等の時間タグが弱い。
 - 星は見える。
@@ -70,7 +82,30 @@ Stage20 lore placement:
 
 ---
 
-# 4. 朔夜座 routing
+# 4. Core5 era routing
+
+Hard:
+
+```txt
+ユイ / アサ / ナギ / ミチル / トモリ
+→ Reality era 5 / 5 distinct
+```
+
+Read:
+- `docs/character-height-age-era-lineup-v1.md`
+
+Do not:
+- 同じ現代groupへ戻す
+- 同じ学校 / 同級生化
+- 見た目年齢から同年代と推測
+
+Open:
+- exact person-to-era mapping
+- exact year / age
+
+---
+
+# 5. 朔夜座 routing
 
 Current formal identity:
 - **朔夜座（さくやざ）**
@@ -86,9 +121,8 @@ Legacy assets:
 Legacy docsに「朔盟」が残っていてもCurrent formal nameへ戻さない。
 
 保持する資産:
-
 - ナシロ / アサトジ / ミチグレ / オリネ / ハクマ / ツグリ / ユラネ / ペタ
--思想
+- 思想
 - pair
 - relation
 - stable ID
@@ -97,7 +131,7 @@ Legacy docsに「朔盟」が残っていてもCurrent formal nameへ戻さな�
 
 ---
 
-# 5. 群青残響録 routing
+# 6. 群青残響録 routing
 
 Current name:
 - **群青残響録（ぐんじょうざんきょうろく）**
@@ -107,7 +141,6 @@ Definition:
 > 各時代の大事件で中心となった人物 / 人物群を、後から一つの記録名で括ったもの。
 
 禁止:
-
 - 5人組固定
 - 1世代1人固定
 - 敵組織固定
@@ -120,12 +153,13 @@ Formal member / full name / exact incidentはOpen。
 
 ---
 
-# 6. P1 — 人が好きになる生活
+# 7. P1 — 人が好きになる生活
 
 | Area | Source |
 |---|---|
 | Reality family / household | `character-family-household-atlas-v1.md` |
 | Reality civilian / economy / food / calendar / media / medicine | `world-civilian-society-bible-v1.md` |
+| Dream food / Party / alcohol / tobacco / trademark guard | `dream-feast-party-social-bible-v1.md` |
 | Character interior / gag / callback / mentor | `character-interior-social-dynamics-bible-v1.md` |
 | Episode / quiet / cliffhanger / emotional pacing | `story-episode-emotional-engine-v1.md` |
 
@@ -134,18 +168,33 @@ Important:
 `world-civilian-society-bible-v1.md` の現実制度は**Reality Layerの厚み**として使う。
 Dream Layerへ家賃 / 通貨 / 食料供給 / 洗濯などを必須移植しない。
 
+Dream側の日常は:
+
+```txt
+「食べたい」
+↓
+収納 / 厨房を開ける
+↓
+最初から入っていたように見つかる
+↓
+みんなで作る / 食べる / 飲む
+```
+
+を基本grammarとする。
+
 ---
 
-# 7. P2 — 見た目 / 音 / 商品
+# 8. P2 — 見た目 / 音 / 商品
 
 - `world-production-expression-bible-v1.md`
 
 Masterから:
-
 - era
 - constellation
 - moon phase
-- Dream materialization
+- Dream provisioning
+- Party social props
+- generic product naming
 - Sakuyaza / Gunjo distinction
 
 を確認してから制作へ落とす。
@@ -154,7 +203,7 @@ Generated visual accidentを上流Canonへ逆輸入しない。
 
 ---
 
-# 8. Existing stable authorities
+# 9. Existing stable authorities
 
 以下は保持する。ただしStory / World前提がMasterと衝突する部分は順次追従する。
 
@@ -170,16 +219,20 @@ Generated visual accidentを上流Canonへ逆輸入しない。
 
 ---
 
-# 9. Conflict / Human decision rule
+# 10. Conflict / Human decision rule
 
 `UNRESOLVED_BLOCKER > 0`の状態でFinal Canon / Final Character Masterへ進めない。
 
 ただしMasterで`DECIDED`になったものをConflict Registerの旧Openへ戻さない。
 
 特に:
-
 - Dreamであること
 - 朝が来ないこと
+- Core5 5人が全員別eraであること
+- 食事がstorage-mediated provisioningであること
+- Boss後Party方向
+- 酒があり成人は酔うこと
+- 喫煙者3人以上 + pipe1人以上という人数方向
 - 朔夜座というCurrent名
 - 群青残響録が固定Boss枠ではないこと
 
@@ -187,7 +240,7 @@ Generated visual accidentを上流Canonへ逆輸入しない。
 
 ---
 
-# 10. Future workflow
+# 11. Future workflow
 
 ```txt
 new idea
