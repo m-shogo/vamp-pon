@@ -18,7 +18,13 @@ export const SERIES_SEASON_RULES = {
   season2EndingDirection: 'HAPPY_END_IF_FINAL_OTHERWISE_DEEPER_PARTIAL_RESOLUTION',
   optionalSeason3Purpose: 'FINAL_CONVERGENCE_WITHOUT_JUST_A_BIGGER_ENEMY',
   future15SeasonAssignmentPromotesToCurrentRoster: false,
-  sakuyazaReplacedEachSeason: false,
+  seasonAntagonistTeamChangesEachSeason: true,
+  seasonAntagonistPrimaryRosterChangesEachSeason: true,
+  seasonalTeamNameCosmeticRenameOnlyForbidden: true,
+  previousSeasonEnemyIndividualsMayReturn: true,
+  previousSeasonFullTeamMayRemainPrimaryAntagonist: false,
+  sakuyazaSeasonScope: 'S1',
+  sakuyazaReplacedEachSeason: true,
   gunjoZankyorokuEqualsSeasonBossRoster: false,
   runtimeAutoPromotionAllowed: false,
 } as const;
@@ -151,12 +157,67 @@ export const FUTURE15_SEASON_ASSIGNMENTS: ReadonlyArray<{
   { id: 'amane', name: 'アマネ', s1: 'SUPPORT', s2: 'PRIMARY', workingUse: 'ACCESSIBILITY_CITY_DESIGN_CARE_WITHOUT_BURDEN', rosterPromotion: false },
 ] as const;
 
+export const SEASON_ANTAGONIST_TEAM_ARCHITECTURE = {
+  season1: {
+    seasonId: 'S1',
+    teamName: '朔夜座',
+    teamNameFrozen: true,
+    rosterFrozen: true,
+    rosterCount: 8,
+    memberNames: ['ナシロ', 'アサトジ', 'ミチグレ', 'オリネ', 'ハクマ', 'ツグリ', 'ユラネ', 'ペタ'] as const,
+    primaryAntagonistTeam: true,
+  },
+  season2: {
+    seasonId: 'S2',
+    teamName: null,
+    teamNameFrozen: false,
+    rosterFrozen: false,
+    rosterCountFrozen: false,
+    rosterMustDifferFromPreviousSeason: true,
+    primaryAntagonistTeam: true,
+    macroProblemAnchor: 'PROGRESS_CARE_RESOURCE_AND_SACRIFICE',
+  },
+  optionalSeason3: {
+    seasonId: 'S3',
+    enabledAsCandidate: true,
+    teamName: null,
+    teamNameFrozen: false,
+    rosterFrozen: false,
+    rosterCountFrozen: false,
+    rosterMustDifferFromPreviousSeason: true,
+    primaryAntagonistTeam: true,
+    macroProblemAnchor: 'FINAL_CONVERGENCE_INHERITANCE_MEMORY_AND_CHOICE',
+  },
+  shared: {
+    mainSpineContinuesAcrossTeams: true,
+    core5ContinueAcrossTeams: true,
+    teamNameMustReflectSeasonProblem: true,
+    cosmeticRenameOnlyForbidden: true,
+    primaryRosterMustChangeEachSeason: true,
+    previousSeasonIndividualsMayReturn: true,
+    previousSeasonIndividualsReturnAsCameoRivalAllyAllowed: true,
+    previousSeasonFullTeamMayRemainPrimary: false,
+    previousSeasonTeamNameMayBeReusedAsNewPrimary: false,
+    exactS2TeamNameFrozen: false,
+    exactS3TeamNameFrozen: false,
+  },
+} as const;
+
+/**
+ * Backward-compatible export for older imports.
+ * 朔夜座 is now explicitly the Season 1 antagonist team, not a series-wide recurring primary faction.
+ */
 export const SAKUYAZA_SEASON_FOCUS = {
-  recurringAllSeasons: true,
-  s1Heavier: ['ナシロ', 'ハクマ', 'ペタ', 'オリネ'] as const,
-  s2Heavier: ['アサトジ', 'ミチグレ', 'ツグリ', 'ユラネ'] as const,
-  permanentSeasonTeams: false,
-  pairMissionRemainsDynamic: true,
+  seasonScope: 'S1',
+  recurringAllSeasons: false,
+  s1Roster: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season1.memberNames,
+  s1Heavier: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season1.memberNames,
+  s2Heavier: [] as const,
+  seriesWidePrimaryTeam: false,
+  previousSeasonIndividualReturnAllowed: true,
+  permanentSeasonTeams: true,
+  pairMissionRemainsDynamicInsideS1: true,
+  supersededInterpretation: 'SAKUYAZA_8_SPLIT_ACROSS_S1_AND_S2',
 } as const;
 
 export const seasonArchitectureSummary = {
@@ -172,6 +233,10 @@ export const seasonArchitectureSummary = {
     (entry) => ['yui', 'asa', 'nagi', 'michiru', 'tomori'].includes(entry.id) && entry.s1 !== 'CAMEO' && entry.s2 !== 'CAMEO',
   ).length,
   future15AutoPromotionCount: FUTURE15_SEASON_ASSIGNMENTS.filter((entry) => entry.rosterPromotion).length,
+  season1AntagonistTeamName: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season1.teamName,
+  season1AntagonistRosterCount: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season1.rosterCount,
+  season2AntagonistTeamNameFrozen: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season2.teamNameFrozen,
+  season2PrimaryRosterMustChange: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season2.rosterMustDifferFromPreviousSeason,
   seriesCanonicalHappyEnd: SERIES_SEASON_RULES.seriesCanonicalEnding === 'HAPPY_END',
   runtimeAutoPromotionAllowed: false,
 } as const;
