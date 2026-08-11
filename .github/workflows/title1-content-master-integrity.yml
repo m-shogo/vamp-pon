@@ -1,0 +1,50 @@
+name: title1-content-master-integrity
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/**'
+      - 'docs/title1-content-master-integrity-v1.md'
+      - 'scripts/quality/check-title1-content-master-integrity.ts'
+      - '.github/workflows/title1-content-master-integrity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/**'
+      - 'docs/title1-content-master-integrity-v1.md'
+      - 'scripts/quality/check-title1-content-master-integrity.ts'
+      - '.github/workflows/title1-content-master-integrity.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Combat Content Master
+        run: node --experimental-strip-types scripts/quality/check-combat-content-master.ts
+      - name: Check Stage20 Campaign Master
+        run: node --experimental-strip-types scripts/quality/check-stage-campaign-content-master.ts
+      - name: Check Current21 Character Kit
+        run: node --experimental-strip-types scripts/quality/check-current-character-combat-kit-master.ts
+      - name: Check Current Relationship Inventory
+        run: node --experimental-strip-types scripts/quality/check-current-relationship-inventory.ts
+      - name: Check Enemy48 Encounter Synergy
+        run: node --experimental-strip-types scripts/quality/check-enemy48-encounter-synergy.ts
+      - name: Check Base Weapon Selection
+        run: node --experimental-strip-types scripts/quality/check-base-weapon-selection-master.ts
+      - name: Check Unlock Learning Progression
+        run: node --experimental-strip-types scripts/quality/check-title1-unlock-learning-progression.ts
+      - name: Check Combat Item Placement
+        run: node --experimental-strip-types scripts/quality/check-combat-item-selection-master.ts
+      - name: Check Transformation Selection
+        run: node --experimental-strip-types scripts/quality/check-weapon-transformation-selection-master.ts
+      - name: Check Ending Completion Boundary
+        run: node --experimental-strip-types scripts/quality/check-title1-ending-completion-boundary.ts
+      - name: Check Final Title1 Cross-master Integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
