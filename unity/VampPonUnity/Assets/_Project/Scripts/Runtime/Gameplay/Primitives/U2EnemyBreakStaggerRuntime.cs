@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VampPon.UnitySpike.Runtime;
 
 namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
@@ -20,10 +21,24 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
         public float StaggerSecondsRemaining { get; }
     }
 
+    public readonly struct U2EnemyBreakStaggerSnapshot
+    {
+        public U2EnemyBreakStaggerSnapshot(
+            float accumulatedBreak,
+            float staggerSecondsRemaining)
+        {
+            AccumulatedBreak = accumulatedBreak;
+            StaggerSecondsRemaining = staggerSecondsRemaining;
+        }
+
+        public float AccumulatedBreak { get; }
+        public float StaggerSecondsRemaining { get; }
+        public bool IsStaggered => StaggerSecondsRemaining > 0f;
+    }
+
     /// <summary>
-    /// Enemy-owned, balance-neutral break/stagger state.
-    /// Every application supplies break amount, threshold and stagger duration explicitly.
-    /// No weapon-specific defaults, decay rate, damage, VFX or status rules live here.
+    /// Balance-neutral enemy break/stagger state. Every application supplies its own
+    /// break amount, threshold and stagger duration; there are no weapon defaults here.
     /// </summary>
     public sealed class U2EnemyBreakStaggerState
     {
@@ -54,8 +69,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
             var staggerTriggered = nextBreak >= breakThreshold;
             if (staggerTriggered)
             {
-                // One hit produces one stagger event. Preserve only the residual gauge so
-                // oversized caller values cannot silently create stacked/default stun semantics.
+                // A single application emits one stagger event. Oversized caller values keep
+                // only residual gauge instead of inventing stacked/default stun semantics.
                 var completedThresholds = Math.Floor(nextBreak / breakThreshold);
                 nextBreak -= (float)(completedThresholds * breakThreshold);
                 if (nextBreak < 0f || nextBreak >= breakThreshold)
@@ -88,6 +103,9 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
             return true;
         }
 
+        public U2EnemyBreakStaggerSnapshot Snapshot()
+            => new(AccumulatedBreak, StaggerSecondsRemaining);
+
         public void Clear()
         {
             AccumulatedBreak = 0f;
@@ -98,9 +116,80 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
             => float.IsFinite(value) && value > 0f;
     }
 
+    [DefaultExecutionOrder(1000)]
+    internal sealed class U2EnemyBreakStaggerDriver : MonoBehaviour
+    {
+        private readonly U2EnemyBreakStaggerState state = new();
+        private U2EnemyActor enemy;
+        private Vector3 frozenPosition;
+
+        internal U2EnemyBreakStaggerState State => state;
+
+        internal void Bind(U2EnemyActor target)
+        {
+            enemy = target;
+        }
+
+        internal bool TryApply(
+            float breakAmount,
+            float breakThreshold,
+            float staggerDurationSeconds,
+            out U2EnemyBreakStaggerApplyResult result)
+        {
+            if (enemy == null || !enemy.IsTargetable)
+            {
+                result = default;
+                return false;
+            }
+
+            var applied = state.TryApply(
+                breakAmount,
+                breakThreshold,
+                staggerDurationSeconds,
+                out result);
+            if (applied && result.StaggerTriggered)
+            {
+                frozenPosition = transform.position;
+            }
+            return applied;
+        }
+
+        internal void NotifyExternalDisplacement()
+        {
+            if (state.IsStaggered)
+            {
+                frozenPosition = transform.position;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (enemy == null || !enemy.IsTargetable)
+            {
+                state.Clear();
+                return;
+            }
+            if (!state.IsStaggered)
+            {
+                return;
+            }
+
+            // U2BattleController performs ordinary pursuit in Update. Restoring the captured
+            // position in LateUpdate suppresses that voluntary movement while staggered.
+            // Shared knockback calls NotifyExternalDisplacement so external pushes survive.
+            transform.position = frozenPosition;
+            state.Tick(Time.deltaTime);
+        }
+
+        private void OnDisable()
+        {
+            state.Clear();
+        }
+    }
+
     /// <summary>
-    /// Shared application boundary for break/stagger. The caller owns all tuning.
-    /// This helper refuses null/dying targets and does not connect itself to live Stage1.
+    /// Reusable break/stagger application boundary. It owns no weapon identity, damage,
+    /// threshold, duration, VFX, Status, cooldown or live-registry admission.
     /// </summary>
     public static class U2EnemyBreakStaggerRuntime
     {
@@ -119,11 +208,48 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
                 return false;
             }
 
-            return enemy.BreakStagger.TryApply(
+            var driver = enemy.GetComponent<U2EnemyBreakStaggerDriver>();
+            if (driver == null)
+            {
+                driver = enemy.gameObject.AddComponent<U2EnemyBreakStaggerDriver>();
+                driver.Bind(enemy);
+            }
+
+            return driver.TryApply(
                 breakAmount,
                 breakThreshold,
                 staggerDurationSeconds,
                 out result);
+        }
+
+        public static bool TryGetSnapshot(
+            U2EnemyActor enemy,
+            out U2EnemyBreakStaggerSnapshot snapshot)
+        {
+            snapshot = default;
+            if (enemy == null)
+            {
+                return false;
+            }
+
+            var driver = enemy.GetComponent<U2EnemyBreakStaggerDriver>();
+            if (driver == null)
+            {
+                return false;
+            }
+
+            snapshot = driver.State.Snapshot();
+            return true;
+        }
+
+        public static void NotifyExternalDisplacement(U2EnemyActor enemy)
+        {
+            if (enemy == null)
+            {
+                return;
+            }
+
+            enemy.GetComponent<U2EnemyBreakStaggerDriver>()?.NotifyExternalDisplacement();
         }
     }
 }
