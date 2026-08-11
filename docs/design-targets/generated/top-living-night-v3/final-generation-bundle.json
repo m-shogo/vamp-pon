@@ -128,6 +128,7 @@
     "effectCompanionRegistrar":"scripts/unity/register-top-living-night-effect-companion-pack.ts",
     "unityV3Verification":"scripts/unity/run-top-living-night-v3-unity-verification.sh",
     "capturePack":"scripts/unity/run-top-v3-final-approval-capture.sh",
+    "iosFinalEvidenceExport":"scripts/unity/run-top-v3-final-approval-ios-export.sh",
     "simulatorPerformance":"scripts/unity/run-top-v3-simulator-performance-evidence.sh",
     "physicalIphonePerformance":"scripts/unity/run-top-v3-physical-iphone-performance-evidence.sh",
     "staticReviewRegistrar":"scripts/unity/register-top-living-night-static-review.ts",
@@ -140,7 +141,8 @@
     {"phase":"unity-v3","requires":["final-candidate-registered","semantic-layer-pack-registration","effect-companion-pack-registration"],"parallel":["unity-v3-verification"]},
     {"phase":"runtime-observation","requires":["unity-v3-verification"],"parallel":["normal-and-reduced-motion-review","15-frame-capture"]},
     {"phase":"capture-human-review","requires":["15-frame-capture"],"parallel":["human-visual-review"]},
-    {"phase":"device-performance","requires":["unity-v3-verification","15-frame-capture"],"parallel":["simulator-performance","physical-iphone-performance"]},
+    {"phase":"ios-final-evidence-export","requires":["unity-v3-verification","15-frame-capture"],"parallel":["ios-final-evidence-export"]},
+    {"phase":"device-performance","requires":["ios-final-evidence-export"],"parallel":["simulator-performance","physical-iphone-performance"]},
     {"phase":"final-promotion","requires":["core5-identity-review","three-crop-review","unity-v3-verification","normal-and-reduced-motion-review","human-visual-review","simulator-performance","physical-iphone-performance"],"parallel":["approval-consistency","readiness-summary","guarded-final-promotion"]}
   ],
   "requiredPostGenerationChecks": [

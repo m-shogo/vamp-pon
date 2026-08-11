@@ -16,6 +16,7 @@ const expected = {
   effectCompanionRegistrar: 'scripts/unity/register-top-living-night-effect-companion-pack.ts',
   unityV3Verification: 'scripts/unity/run-top-living-night-v3-unity-verification.sh',
   capturePack: 'scripts/unity/run-top-v3-final-approval-capture.sh',
+  iosFinalEvidenceExport: 'scripts/unity/run-top-v3-final-approval-ios-export.sh',
   simulatorPerformance: 'scripts/unity/run-top-v3-simulator-performance-evidence.sh',
   physicalIphonePerformance: 'scripts/unity/run-top-v3-physical-iphone-performance-evidence.sh',
   staticReviewRegistrar: 'scripts/unity/register-top-living-night-static-review.ts',
@@ -34,6 +35,13 @@ invariant(
 for (const [name, path] of Object.entries(expected)) {
   invariant(existsSync(join(root, path)), `TOP automation entrypoint is missing: ${name} -> ${path}`);
 }
+
+const iosExport = readFileSync(join(root, expected.iosFinalEvidenceExport), 'utf8');
+invariant(
+  iosExport.includes('git worktree add --detach "$WORKTREE" "$SOURCE_COMMIT"') &&
+    iosExport.includes('VAMPPON_BUILD_SOURCE_COMMIT="$SOURCE_COMMIT"'),
+  'canonical final iOS export must build from the exact V3/capture source commit in an isolated worktree',
+);
 
 const simulatorWrapper = readFileSync(join(root, expected.simulatorPerformance), 'utf8');
 const physicalWrapper = readFileSync(join(root, expected.physicalIphonePerformance), 'utf8');
@@ -62,4 +70,4 @@ invariant(promotion.includes('finalArt.approvedAsFinal = true'), 'canonical fina
 invariant(promotion.includes('finalArt.runtimeApproved = true'), 'canonical final promoter lost runtime approval write');
 
 console.log('TOP Living Night automation entrypoints: PASS');
-console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / build-provenance-gated Simulator + physical iPhone / review registrars / final promoter are bundle-bound');
+console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / exact-source iOS export / build-provenance-gated Simulator + physical iPhone / review registrars / final promoter are bundle-bound');
