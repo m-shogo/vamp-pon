@@ -1,10 +1,10 @@
 # Unity Two-Target Tether Pair Selection Primitive v1
 
-Status: `IMPLEMENTED_SHARED_SELECTION_PRIMITIVE / NOT_LIVE / NOT_CANON_TUNING`
+Status: `IMPLEMENTED_SHARED_SELECTION_PRIMITIVE / CAPABILITY_IMPLEMENTED / NOT_LIVE / NOT_CANON_TUNING`
 
 ## Purpose
 
-Selected16のTETHER / LINK_CHAIN系をgeneric Projectileへ偽装せず、2体をdeterministicに選ぶshared primitiveを提供する。
+Selected16のTETHER系をgeneric Projectileへ偽装せず、2体をdeterministicに選ぶshared primitiveを提供する。
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
 
@@ -40,25 +40,13 @@ Result:
 5. combined score同値なら短いpairを優先
 6. exact tieはnested input orderの最初を保持
 
-Negative finite priorityは有効。
-
-Origin distance / pair distanceはXYのみ。
+Negative finite priorityは有効。Origin distance / pair distanceはXYのみ。
 
 ## Why caller-owned score
 
 Generic selectorは「誰をtetherすべきか」のContent意味を知らない。
 
-Callerは将来:
-
-- marked / exposed等のruntime state
-- threat
-- target role
-- player proximity
-- combo context
-
-を別Authorityからscoreへ変換できる。
-
-Shared layerへ武器名やStatus意味を埋め込まない。
+Callerは将来、Status / threat / target role / player proximity / combo contextを別Authorityからscoreへ変換できる。Shared layerへ武器名やStatus意味を埋め込まない。
 
 ## Complexity
 
@@ -67,8 +55,6 @@ Shared layerへ武器名やStatus意味を埋め込まない。
 - sortなし
 - internal List allocationなし
 - caller collection reuse前提
-
-2-target pairという性質上、候補全pairを見ることでscore/pair-distanceのdeterministic contractを保つ。
 
 ## Non-ownership
 
@@ -103,13 +89,46 @@ TEST_ONLY:
 - invalid/mismatched input fail closed
 - fewer than 2 / no eligible pair fail closed
 
-All fixture values are `NOT_CANON`.
+All fixture values are `NOT_CANON`。
 
 ## Admission boundary
 
-このfoundation PRではTitle1 `TWO_TARGET_TETHER` capabilityを先に昇格しない。
+shared selector foundationは専用contract / Stage1 / full CIを通過してmainへ入ったため、Title1 overlayでは:
 
-shared selectorがCIで実行証明された後、Admission overlay更新と具体的Selected16 callerを別gateで行う。
+`TWO_TARGET_TETHER = IMPLEMENTED`
+
+へ昇格する。
+
+ただしshared capability完成だけでconsumerを自動昇格しない。
+
+### `rain_thread`
+
+Selected16のTETHER consumer。
+
+required:
+
+- `TWO_TARGET_TETHER`
+- `STATUS_APPLICATION`
+
+両方IMPLEMENTEDになったが、Selected16固有callerはまだ無い。
+
+したがって:
+
+`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+
+`runtimeStatus = NOT_IMPLEMENTED`
+
+を維持する。
+
+### `name_reel`
+
+Authoring Authorityでは:
+
+`HOLD_TARGET_LINK_READABILITY`
+
+でありSelected16ではない。
+
+Tether runtime進捗を理由にAdmission rowを作成したり、Title1へ昇格したりしない。
 
 ## Live boundary
 
@@ -122,13 +141,14 @@ shared selectorがCIで実行証明された後、Admission overlay更新と具�
 - save migration
 - generic selectorへのWeapon/Status identity追加
 - Canon tuning作成
+- capability完成だけでconsumer callerを捏造
 
 `runtimeAutoPromotionAllowed = false`
 
 ## Next
 
-1. shared selector contractをmainへ固定
-2. `TWO_TARGET_TETHER=IMPLEMENTED` overlay
-3. TETHER/LINK_CHAIN consumer caller proof
-4. tether lifetime/damage/Statusはcaller別gate
-5. rendered line/readability evidence
+1. `rain_thread` Selected16 caller proof
+2. typed SOAK application + two-target semantics
+3. tether lifetime / position-control policyはcaller別gate
+4. rendered line/readability evidence
+5. human live-admission review
