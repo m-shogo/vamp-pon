@@ -136,7 +136,7 @@ assert(authorityPaths.length === 26, `Title1 Content Master should expose 26 aut
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
-assert(title1ContentMasterOpenImplementationGates.length === 15, `expected fifteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
+assert(title1ContentMasterOpenImplementationGates.length === 16, `expected sixteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
 for (const gate of title1ContentMasterOpenImplementationGates) {
   assert(gate.length >= 25, `open implementation gate needs explicit wording: ${gate}`);
 }
