@@ -5,6 +5,7 @@ on:
     paths:
       - 'docs/WORLD.md'
       - 'docs/world-*.md'
+      - 'docs/stage-world-lore-integration-v1.md'
       - 'docs/character-family-household-atlas-v1.md'
       - 'docs/character-height-age-era-lineup-v1.md'
       - 'docs/character-interior-social-dynamics-bible-v1.md'
@@ -12,6 +13,7 @@ on:
       - 'docs/sakumei-*.md'
       - 'src/game/data/worldSettingExpansionIndex.ts'
       - 'src/game/data/worldSettingConflictRegister.ts'
+      - 'src/game/data/stageWorldLoreIntegration.ts'
       - 'src/game/data/sakumeiCandidateSource.ts'
       - 'scripts/quality/check-world-setting-expansion.ts'
       - '.github/workflows/world-setting-expansion.yml'
@@ -20,6 +22,7 @@ on:
     paths:
       - 'docs/WORLD.md'
       - 'docs/world-*.md'
+      - 'docs/stage-world-lore-integration-v1.md'
       - 'docs/character-family-household-atlas-v1.md'
       - 'docs/character-height-age-era-lineup-v1.md'
       - 'docs/character-interior-social-dynamics-bible-v1.md'
@@ -27,6 +30,7 @@ on:
       - 'docs/sakumei-*.md'
       - 'src/game/data/worldSettingExpansionIndex.ts'
       - 'src/game/data/worldSettingConflictRegister.ts'
+      - 'src/game/data/stageWorldLoreIntegration.ts'
       - 'src/game/data/sakumeiCandidateSource.ts'
       - 'scripts/quality/check-world-setting-expansion.ts'
       - '.github/workflows/world-setting-expansion.yml'
