@@ -74,7 +74,7 @@ for (const token of [
   'IMPLEMENTED_SHARED_SELECTION_PRIMITIVE',
   'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
   'combined priority score',
-  'shortいpair',
+  '短いpair',
   'O(n^2)',
   'TWO_TARGET_TETHER',
   'NOT_CANON',
