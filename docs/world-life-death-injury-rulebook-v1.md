@@ -1,248 +1,283 @@
-# ヨルノシルベ — Life / Death / Injury Rulebook v1
+# ヨルノシルベ — Life / Death / Injury / Waking Rulebook v2
 
 Date: 2026-08-11  
-Status: **P0 SAFETY / STORY COHERENCE AUTHORITY / MAIN MYSTERY PRESERVED**
+Status: **P0 SAFETY / MASTER-ALIGNED / MAIN MYSTERY PRESERVED**
 
-> 目的: 戦闘・黒耀化・Game Over・朝・医療・過去事件を書くたびに「死んだの？蘇生したの？傷は残るの？」が変わる事故を防ぐ。
+> 上流: `00-current-story-world-master.md`。
+> 朝 / Dawn帰還をCurrentへ戻さない。
 
 ---
 
-# 1. Hard Current Rules
+# 1. Hard rules
 
-以下は既存Currentから動かさない。
+## R01 ヨルノシルベには朝が来ない
 
-## R01 Game Over ≠ 現実肉体の死亡
-Status: `CANON_DIRECTION`
+Status: `DECIDED`
 
-Game Overの意味は:
+太陽が昇ってNightが終了する世界ではない。
 
-> **この読み方 / このbuild / この順序では、朝まで残れなかった。**
+## R02 帰還 = 目覚め
+
+Status: `DECIDED`
+
+人物は**夢から目覚め、自分の時代の現実へ戻る**。
+
+「朝まで残れた」「Dawnで帰還した」は旧表現。Player-facing metaphorとして残す場合も物理朝を意味しない。
+
+## R03 Game Over ≠ 現実肉体の死亡
+
+Status: `DECIDED`
+
+Game Overは:
+
+> このrun / この読み方 / このbuildでは、夢の局面を越えられなかった。
+
+というGameplay state。
 
 Retryは蘇生ではない。
 
-## R02 Permanent deathを主要な泣かせ装置にしない
-Status: `USER_DIRECTION`
+## R04 Permanent deathを主要な泣かせ装置にしない
 
-「人気キャラを殺せば泣ける」を禁止する。
+Status: `DECIDED`
 
-## R03 正史はHappy End
-Status: `USER_DIRECTION`
+## R05 正史はHappy End
 
-Title1中心人物 / 中心事件はTitle1で感情決着する。
+Status: `DECIDED`
 
-## R04 黒耀化 ≠ 悪人格への人格交代
-Status: `CANON_DIRECTION`
+## R06 黒耀化 ≠ 外部悪人格
 
-その人の願い / 優しさ / 守り方が行き過ぎた状態。
+本人の長所 / 願い / 守り方が恐怖や焦りで一方向へ極端化した状態。
 
 ---
 
-# 2. 4種類の「ダメージ」を分ける
+# 2. 4種類のダメージ
 
 ## D1 Reality Physical
-現実肉体の怪我 / 病気。
 
-例:
-- 切り傷
-- 骨折
-- 持病
-- 疲労
-- 加齢
+現実肉体の怪我 / 病気 / 加齢 / 障害。
 
-夜の都合で自動治癒しない。
+夢世界の都合で自動的に無かったことにしない。
 
-## D2 Night Combat State
+## D2 Dream Combat State
+
 Gameplay上のHP / status / knockback / defeat。
 
-これはReality Physicalと1:1ではない。
+Reality Physicalと1:1ではない。
 
-HP 0を「心停止」と読まない。
+HP 0を心停止 / 死亡と読まない。
 
 ## D3 Memory / Meaning Strain
-夜で強い記憶 / Wrong Readingへ触れた負荷。
 
-候補:
-- 一時的に言葉が出にくい
-- 特定の呼び名だけ思い出しにくい
-- 夢に反復する
-- 過剰に確認してしまう
+夢で強い記憶 / Wrong Readingへ触れた負荷。
 
-Status: `CANDIDATE`
+Candidate:
 
-精神疾患を怪異の罰として描かない。
+- 言葉が一時的に出にくい
+- 特定の呼び名だけ曖昧
+- 同じ夢を反復する
+- 理由を忘れているのに行動だけ変わる
+
+精神疾患を怪異の罰として扱わない。
 
 ## D4 Black-Youka Strain
-黒耀化を選んだことによる「長所の過剰運転」。
 
-Gameplay costとCharacter costを接続するが、具体的な医学症状へ直結させない。
+長所の過剰運転によるCharacter / Gameplay cost。
+
+具体的医学症状へ自動変換しない。
 
 ---
 
-# 3. Night defeat presentation
+# 3. Dream defeat presentation
 
-Status: `HIGH_VALUE_CANDIDATE`
-
-敵 / PlayerがNight Combatで戦闘不能になった時、血まみれの死亡演出を標準にしない。
+敵 / Playerが戦闘不能になっても、血まみれの死亡を標準演出にしない。
 
 使えるpresentation:
-- 灯りが消える
+
+- 灯りが弱まる
 - 影がほどける
 - 紙片 / 黒インクが散る
-- 道から外れる
-- 音が遠くなる
+- routeから外れる
+- 音が遠のく
 - 名前表示が読めなくなる
+- 夢の景色が一部だけ崩れる
 
-Player Characterは「死体」にならない。
-
-理由:
-- Retry ruleと整合。
-- Mobile画面で読みやすい。
-- ヨルノシルベ独自の敗北表現になる。
+Player Characterは死亡死体として残らない。
 
 ---
 
-# 4. 朝へ持ち帰るもの
+# 4. 目覚めた後に残るもの
 
-## Current確定
+## 通常の目覚め
 
-- Gameplay上の一部Permanent unlock
-- Relation / Bondの一部progress
-- Character / World information
-- その夜で得た選択や関係の意味
+Status: `DECIDED DIRECTION`
+
+失われやすい明示記憶:
+
+- 名前
+- 顔
+- 年代
+- 正確な会話
+- 夢の細部
+
+残り得る:
+
+- 技能
+- 身体感覚
+- 感情変化
+- 価値観
+- 誰かから学んだ方法
+- 以前なら選べなかった行動
+- 理由を説明できない信頼 / 警戒
+
+> 誰に教わったか思い出せない。でも手が覚えている。
+
+をCurrent ruleとして成立させる。
+
+## 大事件の解決パート
+
+Status: `DECIDED DIRECTION`
+
+大きな試練を越えた人物は、**ヨルノシルベの記憶を取り戻した状態で目覚める方向**。
+
+異なる年代 / 動物 / Android / Robot / 朔夜座 / 相手陣営との経験を理解したうえで、自分の時代の問題へ向き合える。
 
 ## Physical carry-over
-Status: `OPEN_QUESTION / FAIL-CLOSED`
 
-現時点で:
-- Night Combatの傷がそのままReality肉体へ転写される
-- Nightで切断した腕が現実でも失われる
+Status: `OPEN / FAIL-CLOSED`
 
-などをCanon化しない。
+Dream Combatの傷がそのままReality肉体へ転写される、とはCanon化しない。
 
-推奨Candidate:
+安全側default:
 
-> Night Combat Stateそのものは朝へ直接転写しない。だが、疲労・睡眠・記憶・習慣・恐怖・安心などの**aftereffect**は人物ごとに小さく残りうる。
-
-Human decision前は個別sceneで恒久障害を追加しない。
+- 恒久的身体損失を自動発生させない
+- Realityの既存conditionは夢で都合よく治さない
+- 疲労 / 睡眠感 / 手癖 / 感情などsoft aftereffectはあり得る
 
 ---
 
-# 5. Existing Reality injury rule
+# 5. Dream materializationと怪我
 
-人物が夜へ入る前から持つReality Physical conditionは、夜で都合よく消さない。
+食事 / 飲み物 / 日用品 / 休息場所が夢らしく補完されても、怪我 / 心 / 同意を「治れ」と思うだけで解決しない。
 
-例:
+### Easy materialization
+
+- 食事
+- 飲み物
+- 毛布
+- 日用品
+- 休息場所
+
+### Not wish-solvable
+
+- Reality injury
+- 人の意思
+- 記憶の真実
+- トラウマ
+- 黒耀化
+- 大事件
+- 生死
+- 相手の同意
+
+「万能願望世界」へしないためのhard separation。
+
+---
+
+# 6. Existing Reality condition
+
+人物が夢へ入る前から持つ:
+
 - 加齢
 - 古傷
 - 身体的特徴
 - 障害
+- 持病
 
-これらを「夜なら健常化する」救済装置にしない。
+を「夢なら健常化する」救済装置にしない。
 
-Gameplay accessibilityは別レイヤーで成立させる。
-
----
-
-# 6. Black-Youka recovery
-
-Current principle:
-
-> 仲間が「治す」のではなく、本人が一つしかないと思い込んだ選択肢を増やす。
-
-Recoveryの段階Candidate:
-
-1. `OVERDRIVE` — 長所が一方向へ固定。
-2. `CONTACT` — 仲間 / Object / Stage cueが別の選択肢を提示。
-3. `SELF-CHOICE` — 本人が行動を選び直す。
-4. `AFTERCARE` — 戻ったから即元気、にしない。
-5. `INTEGRATION` — 黒耀化中の願い自体を否定せず扱い直す。
-
-「正気に戻る」「洗脳が解ける」だけの表現は禁止。
+夢内で必要な補助具 / 休息 / accessは自然に補完できても、本人のidentityを消さない。
 
 ---
 
-# 7. Death in Reality
+# 7. 黒耀化 recovery
 
-現実世界には死が存在してよい。
+Principle:
 
-ただし扱いを分ける。
+> 仲間が治すのではなく、本人が一つしかないと思い込んだ選択肢を増やす。
+
+Candidate stages:
+
+1. `OVERDRIVE`
+2. `CONTACT`
+3. `SELF_CHOICE`
+4. `AFTERCARE`
+5. `INTEGRATION`
+
+「正気に戻る」「洗脳が解ける」だけにしない。
+
+---
+
+# 8. Reality death
+
+現実には死が存在してよい。
 
 ## Historical death
-過去の人物 / 家族 / 一般人の死。
 
-- 世界史に重みを持たせられる。
-- 葬送 / 記録 / 名前 / 遺品という作品テーマと相性が良い。
+過去の人物 / 一般人 / 家族の死は扱える。
 
-## Current major-cast death
-Status: `HUMAN_CONSULTATION_REQUIRED`
+ただし事件の重みを増やすためだけに大量死を足さない。
 
-Current21 / Future主要人物を死亡させる場合は必ずHuman decision。
+## Major cast death
 
-AIがドラマ強化目的で勝手に追加しない。
+Status: `HUMAN_DECISION_REQUIRED`
 
----
+主要Characterを死亡させる場合はユーザー判断必須。
 
-# 8. Can the dead appear in Night?
+## 死者がヨルノシルベに現れるか
 
-Status: `OPEN_QUESTION — IMPORTANT`
+Status: `OPEN`
 
-未確定。
+候補:
 
-選択肢:
+- 生者だけ
+- 過去時点の本人が時代越しに参加
+- 本人ではなくRecord / 残響
 
-### A. 生者だけ
-夜は現在生きている人物だけが入る。
+ヨルノシルベが夢世界であることは決定済みだが、**死後世界かどうかは決定していない**。
 
-### B. 時代を超え、生者 / 既に死んだ人物の「その時点」が出会う
-感情的に強いが、死後世界化Riskが高い。
-
-### C. 本人ではなく記録 / 残響のみ
-Main Mysteryと相性が良い。
-
-### Guard
-この答えをFamily Atlas / Historical Incidentの都合で勝手に決めない。
+死後世界へ自動変換しない。
 
 ---
 
-# 9. Resurrection rule
+# 9. Resurrection
 
-Status: `CURRENT NEGATIVE RULE`
+通常の蘇生魔法 / resurrection itemをCurrentへ入れない。
 
-通常の意味での蘇生魔法 / resurrection itemをTitle1へ導入しない。
+Game Over非死亡とReality deathを分離する。
 
-理由:
-- Game Over ≠ deathが既にある。
-- 現実の死の重みが壊れる。
-- Happy Endを蘇生で簡単に作らない。
-
-「夜でまた会えた」を「生き返った」と同一視しない。
+「夢でもう一度会った」=「現実で生き返った」ではない。
 
 ---
 
-# 10. Injury severity language
+# 10. Standard vocabulary
 
-Script / docsでは用語を統一する。
-
-- `HIT` — gameplay hit
+- `HIT` — Gameplay hit
 - `DOWNED` — 戦闘不能
-- `LOST_FROM_ROUTE` — 夜の進行から外れた
+- `LOST_FROM_ROUTE` — 夢の進行から外れた
 - `REALITY_INJURY` — 現実肉体の怪我
-- `AFTEREFFECT` — 夜の後に残る疲労 / 感情 / 記憶影響
-- `DEAD` — 現実の死亡が確定している場合のみ
-
-「倒された＝死んだ」を文章上も禁止。
+- `AFTEREFFECT` — 目覚め後に残るsoft influence
+- `WAKING` — ヨルノシルベから目覚める
+- `MEMORY_RECOVERY` — 夢の明示記憶を取り戻す
+- `DEAD` — Reality deathが確定している時だけ
 
 ---
 
-# 11. Medical / Care consequences
+# 11. Care / Recovery
 
-P1 Medicine Bibleで扱うが、上流rule:
-
-- 怪我を根性で無視し続けることを美徳にしない。
-- Careする人物だけを女性 / 年長者へ固定しない。
-- 心理的Aftercareを戦闘報酬扱いしない。
-- 仲間が支える ≠ 専門医療が不要。
-- 黒耀化を医療だけで解決する設定にしない。
+- 怪我を根性で無視することを美徳に固定しない。
+- Care役を女性 / 年長者へ固定しない。
+- 黒耀化後は即笑顔で完全回復にしない。
+- 仲間の支えと専門医療は別。
+- Realityへ目覚めた後、その時代の医療 / 支援へ戻ることができる。
 
 ---
 
@@ -250,60 +285,57 @@ P1 Medicine Bibleで扱うが、上流rule:
 
 死なせなくても危機を作る。
 
-使えるstakes:
-- 朝へ一緒に帰れないかもしれない
+- 目覚めた時に相手を忘れてしまうかもしれない
 - 名前を本人が選べなくなる
 - 大事な物を開ける時を奪われる
-- 帰路が一つへ固定される
-- 本人が守ろうとした関係を自分で遠ざける
-- 同じ夜を覚えている人が減る
-- 「今は話さない」という選択ができなくなる
-
-これらは作品themeと直接接続する。
+- routeを一つへ固定される
+- 自分の長所で大切な人を遠ざける
+- 夢で得た第三の選択を現実で実行できない
+- 相手の意思を「保護」の名目で奪う
 
 ---
 
-# 13. Boss defeat rule
+# 13. Enemy / Boss defeat rule
 
-Bossを倒すことと:
-- 殺す
-- 改心させる
-- 真相を全部聞く
-- 仲間にする
+戦闘勝利と:
+
+- 殺害
+- 改心
+- 真相全開示
+- 仲間加入
 
 を分離する。
 
-Spotlight8 / 朔盟は特に:
+朔夜座8人は特に:
 
-> encounterに勝った = その夜の行動を止めた
+> encounterに勝った = その局面の行動 / 解釈を止めた
 
-までを基本とする。
+までを基本にできる。
 
-再登場が前の勝利を無効化しないよう、毎回「何を止められたか」を残す。
+各時代の大事件中心人物は**必ず戦闘Bossになるわけではない**。
+
+制度 / 組織 / 複数人物 / 社会選択が事件中心なら、戦闘だけで解決しない。
 
 ---
 
 # 14. Incident writing checklist
 
-事故 / 失踪 / 火災 / 災害を書く場合:
-
 1. Reality deathの有無を明示。
-2. Night defeatと混ぜない。
-3. 被害者をMain Mysteryの部品だけにしない。
-4. 遺族 / 同僚 / institutionへの生活影響を書く。
-5. 正式記録と噂を分ける。
-6. 原因不明を「朔盟が全部やった」にしない。
-7. 現在Characterへ関係させる場合は人生Coreを上書きしない。
+2. Dream defeatとReality deathを混ぜない。
+3. 被害者をMysteryの部品だけにしない。
+4. 記録 / 証言 / Rumorを分ける。
+5. 原因を朔夜座一人へ自動集約しない。
+6. 群青残響録対象 = 固定Boss、としない。
+7. 事件解決は第三の選択肢へ接続できるか確認する。
 
 ---
 
-# 15. Open consultation points
+# 15. Open consultation
 
-Human decisionが必要:
+Human decision required:
 
-- 死者がNightへ本人として現れるか。
-- Night AftereffectがReality肉体へどこまで残るか。
-- 黒耀化に恒久的な身体変化があり得るか。
-- Current21の誰かに既存の重大Reality injury / chronic illnessを追加するか。
-
-それまでは**永久的身体損失なし / Game Over非死亡 / aftereffectは小さく個別**を安全側defaultとする。
+- 死者が本人としてDream Layerへ現れるか
+- Dream aftereffectがReality肉体へどこまで残るか
+- 黒耀化に恒久的身体変化があるか
+- Major Character death
+- 各時代大事件に戦闘Bossを置くかどうか
