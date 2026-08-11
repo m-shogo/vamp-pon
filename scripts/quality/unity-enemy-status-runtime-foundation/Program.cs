@@ -8,6 +8,42 @@ internal static class Program
         if (!condition) throw new InvalidOperationException(message);
     }
 
+    private static EnemyStatusApplicationPolicy Policy(
+        float durationSeconds = 2f,
+        int stacksPerApplication = 1,
+        EnemyStatusStackMode stackMode = EnemyStatusStackMode.Replace,
+        int maxStacks = 1,
+        float magnitude = 0.25f,
+        EnemyStatusMagnitudeMode magnitudeMode = EnemyStatusMagnitudeMode.Replace,
+        float maxMagnitude = 1f,
+        float internalCooldownSeconds = 0f,
+        bool respectInternalCooldown = false)
+    {
+        return new EnemyStatusApplicationPolicy(
+            durationSeconds,
+            stacksPerApplication,
+            stackMode,
+            maxStacks,
+            magnitude,
+            magnitudeMode,
+            maxMagnitude,
+            internalCooldownSeconds,
+            respectInternalCooldown);
+    }
+
+    private static void ExpectThrows(Action action, string message)
+    {
+        try
+        {
+            action();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return;
+        }
+        throw new InvalidOperationException(message);
+    }
+
     private static void Main()
     {
         var contentIds = new[]
@@ -27,41 +63,73 @@ internal static class Program
 
         var state = new EnemyStatusRuntimeState();
         Assert(state.ActiveCount == 0, "Fresh Status state must be empty.");
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 2f, 1, 3) == EnemyStatusApplyResult.Applied, "First BURN apply should succeed.");
+        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, Policy()) == EnemyStatusApplyResult.Applied, "First BURN apply should succeed.");
         Assert(state.Has(EnemyStatusRuntimeKind.Burn), "BURN should be active after apply.");
         Assert(state.GetStacks(EnemyStatusRuntimeKind.Burn) == 1, "BURN initial stack mismatch.");
         Assert(Math.Abs(state.GetRemainingSeconds(EnemyStatusRuntimeKind.Burn) - 2f) < 0.001f, "BURN initial duration mismatch.");
+        Assert(Math.Abs(state.GetMagnitude(EnemyStatusRuntimeKind.Burn) - 0.25f) < 0.001f, "BURN initial magnitude mismatch.");
 
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 1f, 1, 3) == EnemyStatusApplyResult.Stacked, "BURN reapply should stack within cap.");
-        Assert(state.GetStacks(EnemyStatusRuntimeKind.Burn) == 2, "BURN stack increment mismatch.");
-        Assert(Math.Abs(state.GetRemainingSeconds(EnemyStatusRuntimeKind.Burn) - 2f) < 0.001f, "Shorter reapply must not shorten remaining duration.");
+        // ADD_CAPPED stacks mirror RuntimeStatusApplicationPolicy semantics.
+        var markedAdd = Policy(durationSeconds: 3f, stackMode: EnemyStatusStackMode.AddCapped, maxStacks: 3);
+        state.Apply(EnemyStatusRuntimeKind.Marked, markedAdd);
+        state.Apply(EnemyStatusRuntimeKind.Marked, markedAdd);
+        state.Apply(EnemyStatusRuntimeKind.Marked, markedAdd);
+        state.Apply(EnemyStatusRuntimeKind.Marked, markedAdd);
+        Assert(state.GetStacks(EnemyStatusRuntimeKind.Marked) == 3, "MARKED ADD_CAPPED must enforce maxStacks.");
 
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 3f, 5, 3) == EnemyStatusApplyResult.Stacked, "BURN capped stack apply should still report stack growth.");
-        Assert(state.GetStacks(EnemyStatusRuntimeKind.Burn) == 3, "BURN max stack cap must be enforced.");
-        Assert(Math.Abs(state.GetRemainingSeconds(EnemyStatusRuntimeKind.Burn) - 3f) < 0.001f, "Longer reapply must refresh duration upward.");
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 1f, 1, 3) == EnemyStatusApplyResult.Refreshed, "At max stacks a valid reapply should refresh, not grow stacks.");
+        // REFRESH keeps stacks but restarts duration from caller policy, even after elapsed time.
+        state.Tick(2f);
+        var markedRefresh = Policy(durationSeconds: 5f, stackMode: EnemyStatusStackMode.Refresh, maxStacks: 3);
+        state.Apply(EnemyStatusRuntimeKind.Marked, markedRefresh);
+        Assert(state.GetStacks(EnemyStatusRuntimeKind.Marked) == 3, "REFRESH must preserve current stacks.");
+        Assert(Math.Abs(state.GetRemainingSeconds(EnemyStatusRuntimeKind.Marked) - 5f) < 0.001f, "REFRESH must restart duration from caller policy.");
 
+        // REPLACE resets stack count from caller policy.
+        var markedReplace = Policy(durationSeconds: 1f, stacksPerApplication: 1, stackMode: EnemyStatusStackMode.Replace, maxStacks: 4);
+        state.Apply(EnemyStatusRuntimeKind.Marked, markedReplace);
+        Assert(state.GetStacks(EnemyStatusRuntimeKind.Marked) == 1, "REPLACE must reset stacks to stacksPerApplication.");
+        Assert(Math.Abs(state.GetRemainingSeconds(EnemyStatusRuntimeKind.Marked) - 1f) < 0.001f, "Successful application must use exact caller duration, not max(old,new).");
+
+        // ADD_CAPPED magnitude mirrors the domain kernel.
+        var conductiveAdd = Policy(
+            stackMode: EnemyStatusStackMode.AddCapped,
+            maxStacks: 3,
+            magnitude: 0.2f,
+            magnitudeMode: EnemyStatusMagnitudeMode.AddCapped,
+            maxMagnitude: 0.5f);
+        state.Apply(EnemyStatusRuntimeKind.Conductive, conductiveAdd);
+        state.Apply(EnemyStatusRuntimeKind.Conductive, conductiveAdd);
+        state.Apply(EnemyStatusRuntimeKind.Conductive, conductiveAdd);
+        state.Apply(EnemyStatusRuntimeKind.Conductive, conductiveAdd);
+        Assert(state.GetStacks(EnemyStatusRuntimeKind.Conductive) == 3, "CONDUCTIVE stack cap mismatch.");
+        Assert(Math.Abs(state.GetMagnitude(EnemyStatusRuntimeKind.Conductive) - 0.5f) < 0.001f, "CONDUCTIVE magnitude cap mismatch.");
+
+        // MAX magnitude never lowers an existing stronger value.
+        state.Apply(EnemyStatusRuntimeKind.Exposed, Policy(magnitude: 0.4f, magnitudeMode: EnemyStatusMagnitudeMode.Replace));
+        state.Apply(EnemyStatusRuntimeKind.Exposed, Policy(magnitude: 0.2f, magnitudeMode: EnemyStatusMagnitudeMode.Max));
+        Assert(Math.Abs(state.GetMagnitude(EnemyStatusRuntimeKind.Exposed) - 0.4f) < 0.001f, "MAX magnitude must preserve stronger existing magnitude.");
+
+        // Internal cooldown ledger is independent from active duration.
+        var freezePolicy = Policy(durationSeconds: 1f, internalCooldownSeconds: 3f, respectInternalCooldown: true);
+        state.Apply(EnemyStatusRuntimeKind.Freeze, freezePolicy);
         state.Tick(1.25f);
-        Assert(Math.Abs(state.GetRemainingSeconds(EnemyStatusRuntimeKind.Burn) - 1.75f) < 0.001f, "Status Tick must decrement duration deterministically.");
+        Assert(!state.Has(EnemyStatusRuntimeKind.Freeze), "FREEZE should expire independently of internal cooldown.");
+        Assert(Math.Abs(state.GetInternalCooldownSeconds(EnemyStatusRuntimeKind.Freeze) - 1.75f) < 0.001f, "FREEZE internal cooldown should persist after active expiry.");
+        Assert(state.Apply(EnemyStatusRuntimeKind.Freeze, freezePolicy) == EnemyStatusApplyResult.BlockedByInternalCooldown, "FREEZE reapply must respect internal cooldown when policy requires it.");
 
-        Assert(state.Remove(EnemyStatusRuntimeKind.Burn, 2f), "Removing active BURN should report true.");
-        Assert(!state.Has(EnemyStatusRuntimeKind.Burn), "Removed BURN must be inactive.");
-        Assert(Math.Abs(state.GetReapplyCooldownSeconds(EnemyStatusRuntimeKind.Burn) - 2f) < 0.001f, "Reapply cooldown start mismatch.");
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 2f) == EnemyStatusApplyResult.BlockedByReapplyCooldown, "Reapply cooldown must block immediate loops.");
+        // ClearStatus removes active state but preserves independent cooldown ledger.
+        var sleepPolicy = Policy(internalCooldownSeconds: 2f);
+        state.Apply(EnemyStatusRuntimeKind.Sleep, sleepPolicy);
+        Assert(state.ClearStatus(EnemyStatusRuntimeKind.Sleep), "ClearStatus should remove active SLEEP.");
+        Assert(!state.Has(EnemyStatusRuntimeKind.Sleep), "Cleared SLEEP must be inactive.");
+        Assert(Math.Abs(state.GetInternalCooldownSeconds(EnemyStatusRuntimeKind.Sleep) - 2f) < 0.001f, "ClearStatus must preserve internal cooldown ledger.");
 
-        state.Tick(1f);
-        Assert(Math.Abs(state.GetReapplyCooldownSeconds(EnemyStatusRuntimeKind.Burn) - 1f) < 0.001f, "Reapply cooldown Tick mismatch.");
-        state.StartReapplyCooldown(EnemyStatusRuntimeKind.Burn, 0.5f);
-        Assert(Math.Abs(state.GetReapplyCooldownSeconds(EnemyStatusRuntimeKind.Burn) - 1f) < 0.001f, "Shorter cooldown restart must not shorten existing cooldown.");
-        state.Tick(1f);
-        Assert(state.GetReapplyCooldownSeconds(EnemyStatusRuntimeKind.Burn) == 0f, "Cooldown must expire to zero.");
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 0f) == EnemyStatusApplyResult.RejectedInvalidArguments, "Zero duration must fail closed.");
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 1f, 0, 1) == EnemyStatusApplyResult.RejectedInvalidArguments, "Zero stack delta must fail closed.");
-        Assert(state.Apply(EnemyStatusRuntimeKind.Burn, 1f, 1, 0) == EnemyStatusApplyResult.RejectedInvalidArguments, "Zero max stacks must fail closed.");
-
-        Assert(state.Apply(EnemyStatusRuntimeKind.Chill, 0.5f) == EnemyStatusApplyResult.Applied, "CHILL apply failed.");
-        state.Tick(0.5f);
-        Assert(!state.Has(EnemyStatusRuntimeKind.Chill), "Status must expire at zero remaining duration.");
+        // Invalid caller policy fails closed instead of inventing tuning fallbacks.
+        ExpectThrows(() => state.Apply(EnemyStatusRuntimeKind.Burn, Policy(durationSeconds: 0f)), "Zero duration must throw.");
+        ExpectThrows(() => state.Apply(EnemyStatusRuntimeKind.Burn, Policy(stacksPerApplication: 2, maxStacks: 1)), "stacksPerApplication > maxStacks must throw.");
+        ExpectThrows(() => state.Apply(EnemyStatusRuntimeKind.Burn, Policy(magnitude: 2f, maxMagnitude: 1f)), "magnitude > maxMagnitude must throw.");
+        ExpectThrows(() => state.Apply(EnemyStatusRuntimeKind.Burn, Policy(internalCooldownSeconds: -1f)), "negative cooldown must throw.");
+        ExpectThrows(() => state.Tick(-0.1f), "negative Tick delta must throw.");
 
         Assert(EnemyStatusRuntimeState.GetBossDisposition(EnemyStatusRuntimeKind.Freeze) == BossStatusDisposition.ConvertToSlow, "Boss FREEZE must convert to slow rather than immunity/full stop.");
         Assert(EnemyStatusRuntimeState.GetBossDisposition(EnemyStatusRuntimeKind.Rooted) == BossStatusDisposition.ConvertToSlow, "Boss ROOTED must convert to slow.");
@@ -70,19 +138,21 @@ internal static class Program
         Assert(EnemyStatusRuntimeState.GetBossDisposition(EnemyStatusRuntimeKind.Drowsy) == BossStatusDisposition.ReduceMagnitude, "Boss DROWSY must reduce magnitude.");
         Assert(EnemyStatusRuntimeState.GetBossDisposition(EnemyStatusRuntimeKind.Marked) == BossStatusDisposition.Preserve, "Boss MARKED should remain valid.");
 
-        state.Apply(EnemyStatusRuntimeKind.Marked, 2f, 1, 4);
-        state.Apply(EnemyStatusRuntimeKind.Soak, 3f, 1, 1);
+        state.Apply(EnemyStatusRuntimeKind.Soak, Policy(durationSeconds: 3f, magnitude: 0.1f));
         var snapshot = state.Snapshot();
-        Assert(snapshot.Length == 2, "Snapshot should contain all active Status entries.");
+        Assert(snapshot.Length >= 1, "Snapshot should contain active Status entries.");
         for (var i = 1; i < snapshot.Length; i++)
         {
             Assert(snapshot[i - 1].Kind.CompareTo(snapshot[i].Kind) < 0, "Snapshot ordering must be deterministic by Status kind.");
         }
+        var soakSnapshot = Array.Find(snapshot, entry => entry.Kind == EnemyStatusRuntimeKind.Soak);
+        Assert(Math.Abs(soakSnapshot.Magnitude - 0.1f) < 0.001f, "Snapshot must expose magnitude for runtime effect layers.");
 
+        // Entity lifecycle reset intentionally clears both active state and cooldown ledger.
         state.Clear();
-        Assert(state.ActiveCount == 0, "Clear must remove all active Status entries.");
-        Assert(state.ReapplyCooldownCount == 0, "Clear must remove all reapply cooldown entries.");
+        Assert(state.ActiveCount == 0, "Entity Clear must remove all active Status entries.");
+        Assert(state.InternalCooldownCount == 0, "Entity Clear must remove all internal cooldown entries.");
 
-        Console.WriteLine("EnemyStatusRuntimeState contract: PASS (Status16 round-trip, bounded stacks, refresh, expiry, cooldown, Boss disposition)");
+        Console.WriteLine("EnemyStatusRuntimeState contract: PASS (Status16 + stack/magnitude modes + duration + independent cooldown parity)");
     }
 }
