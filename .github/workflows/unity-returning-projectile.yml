@@ -1,0 +1,43 @@
+name: unity-returning-projectile
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2ReturningProjectileMotionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2ReturningProjectileMotionRuntime.cs.meta'
+      - 'scripts/quality/check-unity-returning-projectile-primitive.ts'
+      - 'scripts/quality/unity-returning-projectile/**'
+      - 'docs/unity-returning-projectile-primitive-v1.md'
+      - '.github/workflows/unity-returning-projectile.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2ReturningProjectileMotionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2ReturningProjectileMotionRuntime.cs.meta'
+      - 'scripts/quality/check-unity-returning-projectile-primitive.ts'
+      - 'scripts/quality/unity-returning-projectile/**'
+      - 'docs/unity-returning-projectile-primitive-v1.md'
+      - '.github/workflows/unity-returning-projectile.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check returning projectile motion primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-returning-projectile-primitive.ts
+      - name: Compile and execute returning projectile contract
+        run: |
+          dotnet build scripts/quality/unity-returning-projectile/UnityReturningProjectile.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-returning-projectile/UnityReturningProjectile.Contract.csproj --configuration Release --no-build
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
