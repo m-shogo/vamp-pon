@@ -52,6 +52,17 @@ assert(snapshot.learning.firstStageAttributeCount === 2, 'Stage1 learning must r
 assert(snapshot.learning.allBaseAttributesByStage === 16, 'all 14 base Attributes must be introduced by Stage16');
 assert(snapshot.learning.allInitialReactionsByStage === 18, 'all 12 initial Reactions must be introduced by Stage18');
 
+assert(snapshot.rewardCollection.stageMilestoneCount === 20, 'Reward/Collection milestones must remain Stage20-aligned');
+assert(snapshot.rewardCollection.legacyRuntimeAchievementCount === 14, 'Reward/Collection master must preserve legacy Achievement14');
+assert(snapshot.rewardCollection.legacyStage1BoardCellCount === 25, 'Reward/Collection master must preserve Stage1 board25');
+assert(snapshot.rewardCollection.collectionSectionCount === 6, 'Reward/Collection master must expose all six Collection sections');
+assert(snapshot.rewardCollection.placedCombatItemCount === 18, 'Reward/Collection master must bind Combat Item18');
+assert(snapshot.rewardCollection.selectedTransformationCount === 29, 'Reward/Collection master must bind Transformation Selected29');
+assert(snapshot.rewardCollection.repeatableCurrencyRewards === 0, 'Stage milestones may not become repeatable currency farm');
+assert(!snapshot.rewardCollection.clearRequiresFullCollection, 'full Collection may not gate Title1 clear');
+assert(!snapshot.rewardCollection.readingRequiredForPower, 'reading may not gate gameplay power');
+assert(!snapshot.rewardCollection.runtimeAutoPromotionAllowed, 'Reward/Collection content authority must not auto-promote runtime');
+
 assert(snapshot.ending.contentEndAnchorStageId === 'dawn_return_square', 'Story Complete content anchor drift');
 assert(!snapshot.ending.runtimeGateFrozen, 'Content Master must not pretend exact runtime ending trigger is frozen');
 assert(!snapshot.ending.allLightsRequiredForStoryComplete, 'All Lights may not gate Story Complete');
@@ -70,14 +81,15 @@ assert(!snapshot.completion.legacyAchievementCatalogClaimsStage20Coverage, 'Achi
 assert(!snapshot.promotionBoundary.baseWeaponRuntimeAutoPromotionAllowed, 'Base candidate Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.combatItemRuntimeAutoPromotionAllowed, 'Combat Item Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.transformationRuntimeAutoPromotionAllowed, 'Transformation Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.rewardCollectionRuntimeAutoPromotionAllowed, 'Reward/Collection Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 11, `Title1 Content Master should expose 11 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 12, `Title1 Content Master should expose 12 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
-assert(title1ContentMasterOpenImplementationGates.length === 7, `expected seven explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
+assert(title1ContentMasterOpenImplementationGates.length === 8, `expected eight explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
 for (const gate of title1ContentMasterOpenImplementationGates) {
   assert(gate.length >= 25, `open implementation gate needs explicit wording: ${gate}`);
 }
@@ -114,6 +126,7 @@ console.log(JSON.stringify({
   combatItems: snapshot.combatItems,
   transformations: snapshot.transformations,
   learning: snapshot.learning,
+  rewardCollection: snapshot.rewardCollection,
   completion: snapshot.completion,
   openImplementationGates: title1ContentMasterOpenImplementationGates.length,
 }, null, 2));
