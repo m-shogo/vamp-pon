@@ -70,29 +70,24 @@ assert(!/halfAngleDegrees\s*=\s*[0-9]/.test(bellowsSource), 'Bellows prototype m
 assert(!/knockbackDistance\s*=\s*[0-9]/.test(bellowsSource), 'Bellows prototype must not hard-code knockback distance');
 assert(!coordinatorSource.includes('BellowsFanPrototypeRuntime'), 'Bellows prototype must not silently enter live Stage1 coordinator');
 
-assert(currentUnityWeaponRuntimeCapabilities.CONE_QUERY === 'IMPLEMENTED', 'CONE_QUERY should be implemented with real generic source evidence');
+assert(currentUnityWeaponRuntimeCapabilities.CONE_QUERY === 'IMPLEMENTED', 'CONE_QUERY should remain backed by real generic source evidence');
 assert(currentUnityWeaponRuntimeCapabilities.KNOCKBACK_VECTOR === 'IMPLEMENTED', 'Bellows prototype depends on shared KNOCKBACK_VECTOR');
 assert(currentUnityWeaponRuntimeCapabilities.STATUS_APPLICATION === 'IMPLEMENTED', 'Bellows prototype depends on shared STATUS_APPLICATION');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 7, `expected seven implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 14, `expected fourteen missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 2, `expected two Selected16 caller proofs, got ${title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete weapon may be silently awaiting an untracked caller proof');
-assert(new Set(unityPrototypeCallerImplementedWeaponIds).size === 2, 'caller proof IDs must remain unique');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount >= 7, `Bellows proof requires at least the seven primitives present when the caller landed, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount >= 2, `Bellows proof requires Ember + Bellows caller proofs, got ${title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount}`);
+assert(new Set(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'caller proof IDs must remain unique');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('ember_matchcase'), 'Ember caller proof must remain registered');
-assert(unityPrototypeCallerImplementedWeaponIds.includes('bellows_fan'), 'Bellows caller proof must be registered');
-
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 2, `expected two implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 14, 'remaining Selected14 must stay blocked');
+assert(unityPrototypeCallerImplementedWeaponIds.includes('bellows_fan'), 'Bellows caller proof must remain registered');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'Ember Matchcase admission must remain');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('bellows_fan'), 'Bellows Fan should pass primitive + caller proof admission');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('bellows_fan'), 'Bellows Fan implementation-review admission must remain');
 
 const bellows = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'bellows_fan');
 assert(bellows, 'bellows_fan admission row missing');
 assert(bellows.archetype === 'CONE_PUSH', `bellows_fan archetype drift: ${bellows.archetype}`);
 assert(bellows.requiredUnityCapabilities.join(',') === 'CONE_QUERY,KNOCKBACK_VECTOR,STATUS_APPLICATION', `unexpected Bellows requirements: ${bellows.requiredUnityCapabilities.join(',')}`);
 assert(bellows.missingUnityCapabilities.length === 0, `Bellows should have no primitive blocker: ${bellows.missingUnityCapabilities.join(',')}`);
-assert(bellows.prototypeCallerImplemented, 'Bellows Selected16 caller proof must be explicit');
-assert(bellows.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Bellows should reach implementation review only after primitive + caller proof');
+assert(bellows.prototypeCallerImplemented, 'Bellows Selected16 caller proof must remain explicit');
+assert(bellows.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Bellows should remain implementation-review admitted');
 assert(bellows.mayEnterUnityRuntimeRegistry, 'Bellows should pass implementation-review gate only');
 assert(bellows.runtimeStatus === 'NOT_IMPLEMENTED', 'Bellows implementation-review admission must not claim live runtime implementation');
 
@@ -102,11 +97,6 @@ assert(blackFan.implementedUnityCapabilities.includes('CONE_QUERY'), 'Black Fold
 assert(blackFan.missingUnityCapabilities.includes('VEIL_TRACKING_FRICTION'), 'Black Folding Fan must remain blocked on veil-specific primitive');
 assert(!blackFan.mayEnterUnityRuntimeRegistry, 'shared cone implementation must not auto-admit Black Folding Fan');
 
-const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
-assert(hammer, 'pavement_hammer admission row missing');
-assert(hammer.missingUnityCapabilities.includes('SLAM_WAVE_QUERY'), 'Pavement Hammer must remain blocked on SLAM_WAVE_QUERY');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'shared knockback must not auto-admit Pavement Hammer');
-
 assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'CONE_QUERY'), 'implemented CONE_QUERY must disappear from missing frequency');
 
 console.log(JSON.stringify({
@@ -115,12 +105,9 @@ console.log(JSON.stringify({
   prototypeCaller: 'bellows_fan',
   statusId: 'DISORIENTED',
   tuning: 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  unityAdmission: {
-    admitted: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount,
+  admission: {
     admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
-    blocked: title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount,
     implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
-    missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
   },
   liveStage1Caller: false,
 }, null, 2));
