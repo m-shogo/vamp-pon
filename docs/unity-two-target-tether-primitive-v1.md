@@ -1,6 +1,6 @@
 # Unity Two-Target Tether Pair Selection Primitive v1
 
-Status: `IMPLEMENTED_SHARED_SELECTION_PRIMITIVE / CAPABILITY_IMPLEMENTED / NOT_LIVE / NOT_CANON_TUNING`
+Status: `IMPLEMENTED_SHARED_SELECTION_PRIMITIVE / CAPABILITY_IMPLEMENTED / RAIN_THREAD_CALLER_IMPLEMENTED / NOT_LIVE / NOT_CANON_TUNING`
 
 ## Purpose
 
@@ -46,7 +46,7 @@ Negative finite priorityは有効。Origin distance / pair distanceはXYのみ�
 
 Generic selectorは「誰をtetherすべきか」のContent意味を知らない。
 
-Callerは将来、Status / threat / target role / player proximity / combo contextを別Authorityからscoreへ変換できる。Shared layerへ武器名やStatus意味を埋め込まない。
+CallerはStatus / threat / target role / player proximity / combo contextを別Authorityからscoreへ変換できる。Shared layerへ武器名やStatus意味を埋め込まない。
 
 ## Complexity
 
@@ -93,13 +93,7 @@ All fixture values are `NOT_CANON`。
 
 ## Admission boundary
 
-shared selector foundationは専用contract / Stage1 / full CIを通過してmainへ入ったため、Title1 overlayでは:
-
 `TWO_TARGET_TETHER = IMPLEMENTED`
-
-へ昇格する。
-
-ただしshared capability完成だけでconsumerを自動昇格しない。
 
 ### `rain_thread`
 
@@ -113,17 +107,35 @@ required:
 
 3つともIMPLEMENTED。
 
-`KNOCKBACK_VECTOR` はRain Threadのmechanical identityにある **position control** をgeneric tether selectorへ埋め込まず、caller側で2体を互いに引き寄せるために再利用するshared displacement primitiveとして要求する。
+Selected16 caller:
 
-ただしSelected16固有callerはまだ無い。
+`RainThreadPrototypeState`
 
-したがって:
+Application order:
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+`SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS`
+
+Caller proof now covers:
+
+1. deterministic pair selection
+2. typed SOAK to both endpoints
+3. caller-owned link lifetime
+4. caller-owned tension threshold / max-link-distance policy
+5. existing `KNOCKBACK_VECTOR` reused as symmetric pull toward the pre-move center
+6. endpoint loss / distance break / expiry
+7. caller-owned telemetry
+
+したがってRain Threadは:
+
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+
+へ進む。
+
+ただし:
 
 `runtimeStatus = NOT_IMPLEMENTED`
 
-を維持する。
+でありlive接続ではない。
 
 ### `name_reel`
 
@@ -146,15 +158,13 @@ Tether runtime進捗を理由にAdmission rowを作成したり、Title1へ昇�
 - save migration
 - generic selectorへのWeapon/Status identity追加
 - Canon tuning作成
-- capability完成だけでconsumer callerを捏造
+- prototype proofだけでlive promotion
 
 `runtimeAutoPromotionAllowed = false`
 
 ## Next
 
-1. `rain_thread` Selected16 caller proof
-2. typed SOAK application + two-target semantics
-3. `KNOCKBACK_VECTOR` を使ったcaller-owned position control
-4. tether lifetime / break-distance policy
-5. rendered line/readability evidence
-6. human live-admission review
+1. Rain Thread Unity runtime evidence harness
+2. rendered tether line / mobile readability proof
+3. dense-wave pull/readability QA
+4. human live-admission review
