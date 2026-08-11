@@ -9,6 +9,14 @@ export const SERIES_SEASON_RULES = {
   seasonBoundaryAutomaticallyResetsMemory: false,
   characterGrowthResetsBetweenSeasons: false,
   mainSpineContinuesAcrossSeasons: true,
+  everySeasonMustFullySolveMacroProblem: false,
+  everySeasonMustEndHappy: false,
+  seriesCanonicalEnding: 'HAPPY_END',
+  finalSeasonCountFrozen: false,
+  allowedFinalSeasonCounts: [2, 3] as const,
+  season1EndingDirection: 'UNEASY_PARTIAL_VICTORY',
+  season2EndingDirection: 'HAPPY_END_IF_FINAL_OTHERWISE_DEEPER_PARTIAL_RESOLUTION',
+  optionalSeason3Purpose: 'FINAL_CONVERGENCE_WITHOUT_JUST_A_BIGGER_ENEMY',
   future15SeasonAssignmentPromotesToCurrentRoster: false,
   sakuyazaReplacedEachSeason: false,
   gunjoZankyorokuEqualsSeasonBossRoster: false,
@@ -21,6 +29,13 @@ export const SEASON_PROBLEM_LANES = [
     workingCode: 'S1_RECOGNITION_RECORD_AND_BELONGING',
     titleFrozen: false,
     macroProblem: 'WHO_IS_RECOGNIZED_BY_WHICH_NAME_RECORD_OR_INFORMATION',
+    endingResolution: {
+      tactical: 'RESOLVED_ENOUGH_FOR_PLAYER_ACHIEVEMENT',
+      character: 'REAL_STEP_FORWARD',
+      social: 'PARTIAL_LOCAL_CHANGE_ONLY',
+      seriesMystery: 'INTENTIONALLY_UNRESOLVED',
+      aftertaste: 'UNEASY_BUT_NOT_HOPELESS',
+    },
     problemFamilies: [
       'NAME_LABEL',
       'OFFICIAL_RECORD',
@@ -39,6 +54,13 @@ export const SEASON_PROBLEM_LANES = [
     workingCode: 'S2_PROGRESS_CARE_RESOURCE_AND_SACRIFICE',
     titleFrozen: false,
     macroProblem: 'WHO_OR_WHAT_GETS_SACRIFICED_WHEN_PROTECTING_REPAIRING_OR_DEVELOPING',
+    endingResolution: {
+      tactical: 'RESOLVED_ENOUGH_FOR_PLAYER_ACHIEVEMENT',
+      character: 'SEASON1_GROWTH_IS_TESTED_NOT_RESET',
+      social: 'PARTIAL_OR_SERIES_LEVEL_DEPENDING_ON_FINAL_SEASON_DECISION',
+      seriesMystery: 'MAY_RESOLVE_IF_TWO_SEASONS_OTHERWISE_ADVANCE_TO_FINAL_CONTRADICTION',
+      aftertaste: 'HAPPY_IF_FINAL_OTHERWISE_DEEPER_UNEASY_RESOLUTION',
+    },
     problemFamilies: [
       'RECONSTRUCTION',
       'DEVELOPMENT',
@@ -55,6 +77,24 @@ export const SEASON_PROBLEM_LANES = [
     ] as const,
   },
 ] as const;
+
+export const OPTIONAL_SEASON3 = {
+  enabledAsCandidateArchitecture: true,
+  mandatory: false,
+  titleFrozen: false,
+  workingCode: 'S3_FINAL_CONVERGENCE_INHERITANCE_MEMORY_AND_CHOICE',
+  purpose: 'RECONCILE_RECOGNITION_PROTECTION_PROGRESS_AND_REALITY_RETURN_WITHOUT_RESETTING_PRIOR_GROWTH',
+  mustNotBeJustBiggerEnemy: true,
+  candidateProblemFamilies: [
+    'INHERITANCE',
+    'COLLECTIVE_MEMORY',
+    'FAMILY_SUCCESSION',
+    'WHO_GETS_TO_TELL_HISTORY',
+    'PREDICTION_VS_FREEDOM',
+    'COPIED_OR_INHERITED_IDENTITY',
+    'HAPPY_END_WITH_IRREVERSIBLE_PAST',
+  ] as const,
+} as const;
 
 export const CURRENT21_SEASON_ASSIGNMENTS: ReadonlyArray<{
   id: string;
@@ -121,6 +161,8 @@ export const SAKUYAZA_SEASON_FOCUS = {
 
 export const seasonArchitectureSummary = {
   seasonCountDefined: SEASON_PROBLEM_LANES.length,
+  finalSeasonCountFrozen: SERIES_SEASON_RULES.finalSeasonCountFrozen,
+  optionalSeason3Candidate: OPTIONAL_SEASON3.enabledAsCandidateArchitecture,
   current21AssignmentCount: CURRENT21_SEASON_ASSIGNMENTS.length,
   future15AssignmentCount: FUTURE15_SEASON_ASSIGNMENTS.length,
   totalCharacterAssignmentCount: CURRENT21_SEASON_ASSIGNMENTS.length + FUTURE15_SEASON_ASSIGNMENTS.length,
@@ -130,5 +172,6 @@ export const seasonArchitectureSummary = {
     (entry) => ['yui', 'asa', 'nagi', 'michiru', 'tomori'].includes(entry.id) && entry.s1 !== 'CAMEO' && entry.s2 !== 'CAMEO',
   ).length,
   future15AutoPromotionCount: FUTURE15_SEASON_ASSIGNMENTS.filter((entry) => entry.rosterPromotion).length,
+  seriesCanonicalHappyEnd: SERIES_SEASON_RULES.seriesCanonicalEnding === 'HAPPY_END',
   runtimeAutoPromotionAllowed: false,
 } as const;
