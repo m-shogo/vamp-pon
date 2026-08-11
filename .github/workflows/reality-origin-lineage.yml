@@ -1,0 +1,39 @@
+name: Reality Origin Lineage
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-reality-origin-dialect-culture-bible-v1.md'
+      - 'docs/character-reality-root-registry-v1.md'
+      - 'docs/cross-era-lineage-memory-bible-v1.md'
+      - 'docs/global-cultural-satire-localization-bible-v1.md'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/crossEraLineageMemory.ts'
+      - 'scripts/quality/check-reality-origin-lineage.ts'
+      - '.github/workflows/reality-origin-lineage.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-reality-origin-dialect-culture-bible-v1.md'
+      - 'docs/character-reality-root-registry-v1.md'
+      - 'docs/cross-era-lineage-memory-bible-v1.md'
+      - 'docs/global-cultural-satire-localization-bible-v1.md'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/crossEraLineageMemory.ts'
+      - 'scripts/quality/check-reality-origin-lineage.ts'
+      - '.github/workflows/reality-origin-lineage.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Reality origin, mobility, dialect and cross-era lineage
+        run: node --experimental-strip-types scripts/quality/check-reality-origin-lineage.ts
