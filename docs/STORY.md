@@ -1,10 +1,10 @@
 # ヨルノシルベ Story Hub
 
 Date: 2026-08-11  
-Status: **CURRENT STORY ENTRYPOINT / MASTER-ALIGNED**
+Status: **CURRENT STORY ENTRYPOINT / MASTER-ALIGNED / SEASON-CONTINUITY AWARE**
 
 > 最上位: `docs/00-current-story-world-master.md`。
-> Storyを考える時は、古い朝 / 朔盟 / 同一星座 / 固定Boss / Core5同世代 / 食事直接materialize前提へ戻さない。
+> Storyを考える時は、古い朝 / 朔盟 / 同一星座 / 固定Boss / Core5同世代 / 食事直接materialize / every-Season-complete-closure前提へ戻さない。
 
 ---
 
@@ -13,158 +13,207 @@ Status: **CURRENT STORY ENTRYPOINT / MASTER-ALIGNED**
 ```txt
 00-current-story-world-master.md
 ↓
-CANON.md
+core5-era-character-master-v1.md
 ↓
-STORY.md
+research/era-society-food-future-sourcebook-v1.md
 ↓
-story-book-v1.md
+season-architecture-cast-matrix-v1.md
 ↓
-必要なdetail master
+season-ending-escalation-v1.md
+↓
+CANON.md / STORY.md / detail masters
 ```
 
-Dream日常:
+Dialogue / family / ordinary life:
+
+- `docs/era-satire-cross-generation-dialogue-bible-v1.md`
+- `docs/era-family-generation-lens-v1.md`
 - `docs/dream-feast-party-social-bible-v1.md`
 
 ---
 
 # 2. Current story direction
 
-- ヨルノシルベは**朝の来ない夢世界**。
-- 人物は朝を待って帰るのではなく**目覚めて自分の時代へ戻る**。
+- ヨルノシルベは**朝の来ないDream world**。
+- 人物は朝を待って帰るのではなく**Wakingで自分のReality Eraへ戻る**。
 - CharacterはRealityでは同時代とは限らない。
-- **Core5の5人はRealityで全員が別era / generation。**
-- Core5のexact era割当はOpen。EraとNarrative roleを混ぜない。
-- Dream内では西暦等の時間タグが弱い。
-- 年代差は食事 / 道具 / UI / 言葉 / 駅 / 郵便 / 制度等の小さな違和感で出す。
+- **Core5はRealityで5人とも別Era band。**
+- Exact year / exact ageはOpen。
+- Eraは衣装だけではなく、生活 / food / technology / institution / social pressureから設計する。
+- Dreamでは西暦等のtime tagが弱い。
+- 年代差は食事 / 道具 / UI / 言葉 / 駅 / 郵便 / 制度 / 星座 / jokeから少しずつ出す。
 - 通常Wakingでは名前 / 顔 / 会話等の明示記憶を失いやすい。
-- 技能 / 身体感覚 / 感情変化 / 選択は残り得る。
-- 大事件解決パートではDream記憶を取り戻して目覚める方向。
+- skill / body sense / emotional change / choiceは残り得る。
+- 大事件解決partではDream記憶を取り戻してWakingする方向。
 - Dreamでは衣食住に困窮させない。
 - **食べ物は手元へ直接出さず、食糧庫 / 冷蔵庫 / 棚 / 厨房等から「最初から入っていた」ように見つかる。**
-- Boss / major confrontation後は原則Party / decompression sceneを置く。
-- 酒があり、成人Characterは酔う。
-- 喫煙Character 3人以上 + pipe smoker 1人以上という方向を持つ。個人Final assignmentはage / era review後。
-- 実在ブランドより黒い炭酸 / シュワシュワ等generic呼称を優先。
-- 人の心 / 同意 / 記憶真実 / 黒耀化 / Reality大事件は願いで解決しない。
+- Named Boss / major confrontation後は原則Party / decompression scene。
+- 酒があり、adult Characterは酔う。
+- 喫煙Character 3人以上 + pipe smoker 1人以上。Final個人割当はage / era review後。
+- 実在brandよりgeneric food / drink名を優先。
+- 人の心 / 同意 / 記憶真実 / Black Youka / Reality大事件は願いで解決しない。
 - 星は見える。
-- 星座は年代によって同じとは限らない。
-- 月相は日数ではなく事件深度。
-- 朔では月がなくなり、星 / 灯りが残る。
+- 星座はEraで同じとは限らない。
+- Moon phaseは日数ではなくincident depth。
+- 朔では月が消え、星 / 灯りが残る。
 - 主要敵8人のCurrent名は**朔夜座**。
-- 各時代の大事件中心人物 / 人物群の後世的総称は**群青残響録**。
-- 群青残響録は1時代1人 / 固定人数 / 必須戦闘Boss / 固定悪役組織ではない。
-- 人間 / 動物 / Android / Robotが同じDreamで個人として関係を作れる。
-- 正史Happy End。
+- 各Eraの大事件中心人物 / 人物群のrecord taxonomyは**群青残響録**。
+- 群青残響録は1 Era 1人 / fixed count / mandatory combat Bossではない。
+- Human / animal / Android / RobotがDreamで個人として関係を作れる。
+- **Series canonical ending = Happy End。各Season finaleがHappy Endである必要はない。**
 - Permanent deathを泣き装置の中心にしない。
-- **日常の蓄積から感動を作る。**
+- 日常の蓄積から感動を作る。
 
 ---
 
-# 3. Core5 — 5 eras, not 5 equal protagonists
+# 3. Core5 — five researched Era bands
 
-Core5:
+Current:
 
-- ユイ
-- アサ
-- ナギ
-- ミチル
-- トモリ
+| Core5 | Reality Era band | Main social pressure |
+|---|---|---|
+| **トモリ** | **戦後復興・物資不足期** | scarcity / distribution / reconstruction / repair |
+| **ミチル** | **高度成長末期〜公害・石油危機の転換期** | development / pollution / urban planning / energy |
+| **ナギ** | **バブル崩壊後〜携帯Internet初期** | early network / privacy / identity exposure / employment insecurity |
+| **ユイ** | **現代日本** | information excess / misinformation / algorithm / loneliness |
+| **アサ** | **遠未来 Human / Android / Robot / Avatar共存社会** | personhood / body / copy / digital identity / ownership |
 
-は5人とも別時代。
-
-重要:
+Important:
 
 ```txt
-5 different eras
+5 different Era bands
 ≠
 5 equal protagonists
 ```
 
-ユイの中心主人公性、アサの主人公級buddy / counter-axis等はCharacter Authorityを維持する。
+- ユイ = overall viewpoint / protagonist。
+- アサ = protagonist-grade buddy / counter-axis。Yui×Asa non-romance。
+- Nagi / Michiru / Tomori = main cast。各Reality解決partではera leadになれる。
 
-5人が同じParty tableを囲めること自体がヨルノシルベの魅力。
-
-同じ焼肉を食べても:
-- 氷への感覚
-- 炭酸の呼び方
-- 酒器
-- 焼き方
-- match / lighter
-- 調味料
-
-が少し違う。
-
-説明台詞より先に「この5人、本当に同じ時代なのか？」をPlayerへ感じさせる。
+Initial 1940 / 1980 / 2000 numbers were exploration examples, not exact Canon.
 
 ---
 
-# 4. Gameplay ↔ Story
+# 4. Era problems must differ
+
+各Era大事件は:
 
 ```txt
-戦闘 / build / 達成
+Era-specific ordinary problem
++
+Era-specific technology / institution
++
+reasonable protective / progressive intention
++
+fear / scarcity / pressure
+↓
+one answer becomes absolute
+↓
+fictional major incident
+```
+
+必須QA:
+
+> **別Eraへそのまま移して成立するならEra固有性が弱い。**
+
+Research sources use real history, but **major incidents in the game are fictional**。
+実在被害者 / 実在事件を名前だけ変えてコピーしない。
+
+---
+
+# 5. Era × Generation × Household
+
+一つのEraをCore5一人で代表させない。
+
+World society contains multiple lenses:
+
+- child
+- teen / young adult
+- parent-age adult
+- father / mother without stereotype lock
+- aunt / uncle-like adult
+- grandparent / older adult
+- single adult
+- non-nuclear household
+
+Same Era, different people can disagree about what their Era means.
+
+父=仕事だけ、母=家事だけ、祖母=知恵袋、伯父=酒飲み、子ども=真実だけ、にはしない。
+
+---
+
+# 6. Cross-era satire / learning
+
+年代差をhistory lectureだけで説明しない。
+
+Target:
+
+> **笑っていたら、そのCharacterの時代が少し分かっていた。**
+
+双方向:
+
+- old → Present satire
+- Present → old satire
+- Future → Present satire
+- Present → Future satire
+
+personではなくsystem / custom / contradictionを笑う。
+
+Examples Candidate:
+
+> Yui: 「読んだって表示されてるのに返事ないと気になる。」  
+> Tomori: 「便利になったのに、待つ材料が一つ増えたな。」
+
+> Yui: 「これ、いちばん早い道出してくれるよ。」  
+> Michiru: 「いちばん面白い道は？」
+
+> Yui: 「友達だけに見える設定。」  
+> Nagi: 「友達って何人？」  
+> Yui: 「百人ちょっと。」  
+> Nagi: 「それ、もう小さい町じゃない？」
+
+Exact dialogue remains rewriteable.
+
+---
+
+# 7. Gameplay ↔ Story
+
+```txt
+combat / build / achievement
 ↓
 Gameplay reward
 +
-Story / Character informationが自然に解放
+Story / Character information unlock
 ↓
-拠点へ戻る
+base / quiet return
 ↓
-Party / quiet sceneでRelationshipが進む
+Party / household / relationship scene
 ```
 
-Story informationを読むPlayerは:
+Deep-reading routes:
 
-- Dream観測記録
+- Dream observation records
 - Character Mystery
-- 日常会話
-- 黒耀化記録
-- 敵 / 忘れ物の背景
-- 年代差の記録
-- 星座の違和感
-- 大事件資料
+- daily dialogue
+- Black Youka records
+- enemy / forgotten-object history
+- Era discrepancies
+- constellation clues
+- fictional incident documents
+- Season-to-Season evidence
 
-まで深く読める。
-
-読まないPlayerもMain Story / Happy Endへ到達できる。
-
----
-
-# 5. Boss clear → Party is a Story engine
-
-Named Boss / major confrontation後は原則として**勝利を受け止める生活scene**を置く。
-
-大事なのは毎回同じ宴会ではないこと。
-
-Examples:
-
-- 初勝利: 食糧庫を開けたら焼肉セットがある
-- 「やったー、みんな飲もう！」
-- 炭酸だけで大乾杯
-- 大人だけ酒の二次会
-- 鍋
-- 喫茶店風
-- 夜食ラーメン
-- pipeを吸いながら星を見る
-- 重いBoss後、食べ物はあるのに誰も食糧庫を開けない
-- 最後に一人が「腹減った」と言い、日常が戻る
-
-PartyをReward UIだけで終わらせない。
-
-**戦闘で勝った記憶より、一緒に肉を焦がした記憶をPlayerが好きになるくらい日常を積む。**
-
-Detail:
-- `dream-feast-party-social-bible-v1.md` — 28 scenario reservoir
+Loreを全部読まなくてもMain Story / final Happy Endへ到達できる。
 
 ---
 
-# 6. Food provisioning scene grammar
+# 8. Food provisioning / Party
 
 Bad:
 
 ```txt
 「ラーメン食べたい」
 ↓
-手の上にラーメン出現
+open airにラーメンspawn
 ```
 
 Current:
@@ -173,202 +222,264 @@ Current:
 「ラーメン食べたい」
 「棚になんかない？」
 ↓
-厨房 / 食糧庫を見る
+食糧庫 / 厨房を見る
 ↓
 麺 / soup /具材が最初から置いてある
 ↓
-作って一緒に食べる
+作る / 食べる
 ```
 
-この**扉を開ける一拍**を大切にする。
+この「扉を開ける一拍」で:
 
-それによって:
 - Dreamの不思議
-- みんなで準備する時間
 - Character性
-- 年代差
+-年代差
+- relationship
 
-を同時に出せる。
+を同時に出す。
 
----
+Boss / major confrontation後Party examples:
 
-# 7. Alcohol / tobacco Story use
+- 焼肉
+- 鍋
+- 炭酸大乾杯
+- adult-only酒の二次会
+- 喫茶店風
+- 夜食ラーメン
+- pipeを吸いながら星を見る
+- 重い勝利で誰も食糧庫を開けない
+- 後片付けで二人だけ残る
 
-## 酒
-
-成人Characterは酒を飲めるし、**酔う**。
-
-酔い方はCharacter差になる。
-
-- 喋る
-- 笑う
-- 静か
-- 眠い
-- 食べる
-- 星を見る
-- 同じ話をする
-
-ただし酒を:
-- 秘密Reveal強制
-- romance consent override
-- 本心100% detector
-
-には使わない。
-
-## 煙
-
-喫煙者は最低3人以上、pipe smoker最低1人。
-
-煙草は「悪い / 格好いい」の説明だけにしない。
-
-使える意味:
-- 一人になるための5分
-- 誰かと黙って立つ時間
-- 時代差
-- match / lighterの違い
-- 呼吸の間
-- Partyから少し外へ出る理由
-
-Initial assignment Candidate:
-- ゲン = pipe
-- トバリ = cigarette
-- セン = cigarette
-
-Finalはadult / era review後。
+Party state carries across Seasons.
 
 ---
 
-# 8. High-value Black Ink engine Candidate
+# 9. Alcohol / tobacco
 
-強いCandidate:
+Alcohol:
 
-> 悲しい出来事そのものを消すのではない。  
-> その出来事についた「間違った意味」が固定され、人物や社会を一つの答えへ追い込む。  
-> Characterは出来事を無かったことにするのではなく、その固定をほどく。
+- exists
+- intoxicates
+- adult-confirmed characters only in Final scenes
+- drunkenness is not truth serum
+- intoxication does not override consent
 
-これを採用すると:
+Tobacco:
 
-- 黒インク = fixation / protection / stagnationの圧力
-- 記憶片 = 固定から剥がれたmeaning fragment
-- Level Up = run内で扱える読み方が増える
-- Result = そのrunで得た解釈 / buildの到達
-- Waking = DreamからRealityへ戻る
-- Retry = 別build / 別解釈で再挑戦
+- major smokers 3+
+- pipe smoker 1+
+- current Candidate: Gen=pipe / Tobari=cigarette / Sen=cigarette
+- Final assignments wait for age / Era review
 
-へ接続できる。
+Smoking should create:
 
-**黒インクの最終起源そのものはまだOpen。**
+- pause
+- solitude
+- silent relation scene
+- Era contrast
+
+not merely coolness.
 
 ---
 
-# 9. 黒耀化 ↔ 社会の大事件
+# 10. Black Youka ↔ social incidents
 
-個人:
+Individual:
 
 ```txt
-長所 / 願い
-+ 恐怖 / 焦り
-→ 一つの答えへ極端化
-→ 黒耀化
+strength / wish
++
+fear /焦り
+→ one-answer fixation
+→ Black Youka
 ```
 
-社会:
+Society:
 
 ```txt
-理想 / 保護 / 発展
-+ 恐れ / 利害 / 制度
-→ 一つの解決策へ固執
-→ 大事件
+ideal / protection / progress
++
+fear / interest / institution
+→ one-solution fixation
+→ major fictional incident
 ```
 
-Storyの答えは:
+Story answer:
 
-> 悪を倒す
+> **二択しかない状況へ第三の選択肢を作る。**
 
-だけではなく:
-
-> 二択しかないと思われていた状況へ第三の選択肢を作る。
-
-異なる時代で得た知恵 / 技能 / 価値観が、自分の時代のReality incidentを変える。
+別Eraのknowledge / skill / value can increase options in Reality.
 
 ---
 
-# 10. Mystery lanes
+# 11. Season architecture — Season ≠ Era
+
+Era = where / when a Character comes from.
+
+Season = which macro problem the series is exploring now.
+
+Core5 can remain across Seasons.
+Supporting characters overlap with different focus weights.
+Future15 Season use does not automatically promote them to Current21 / playable roster.
+
+## Season1 working lane
+
+`RECOGNITION / RECORD / BELONGING`
+
+Question:
+
+> **誰を、どの名前 / 記録 / 情報で「ここにいる」と認めるのか。**
+
+## Season2 working lane
+
+`PROGRESS / CARE / RESOURCE / SACRIFICE`
+
+Question:
+
+> **守る / 直す / 発展させる時、誰の道・時間・身体・生活を「仕方ない」と切り捨てるのか。**
+
+S1 and S2 must not repeat the same moral lesson.
+
+---
+
+# 12. Season finale — partial victory allowed
+
+Series canonical ending is Happy End.
+
+But:
+
+> **Season finale ≠ automatic complete Happy End.**
+
+Working architecture:
+
+### S1
+
+`UNEASY_PARTIAL_VICTORY`
+
+- immediate crisis resolved
+- people genuinely saved
+- character relationship genuinely changes
+- larger structure remains
+- one unsettling contradiction appears after warmth
+
+Target feeling:
+
+> **勝利は本物。安心だけがまだ早い。**
+
+### S2
+
+Two routes remain Open:
+
+- if 2-Season series → final Happy End can land here
+- if 3-Season series → deeper partial resolution and one final contradiction
+
+### Optional S3
+
+Not `bigger enemy`.
+
+Candidate final function:
+
+- recognition
+- protection
+- progress
+- inheritance
+- collective memory
+- Reality return
+
+を統合してfinal Happy Endへ着地する。
+
+Final Season count = **2 or 3, Open**。
+
+---
+
+# 13. Growth carries forward
+
+Bad:
+
+```txt
+S1で学ぶ
+↓
+S2で忘れて同じことを学ぶ
+```
+
+Current:
+
+```txt
+S1で本当に成長
+↓
+S2ではその答えだけでは足りない新問題
+```
+
+Examples:
+
+- Yui: unverified voiceを消さない → attention/resource allocationはどうする？
+- Nagi: access/correction rightを返す → safety/resource systemでprivacyをどう守る？
+- Tomori: damaged recordを直す → 直せるもの全部を元通りにすべきか？
+- Asa: branch identityをpersonとして認める → rights / labor / body maintenance costはどう扱う？
+
+---
+
+# 14. Mystery lanes
 
 ## Character Mystery
 人物の内側。
 
 ## Era / Incident Mystery
-- この人物はどの年代なのか
-- この新聞 / 商品 / UIはいつのものか
-- Core5の5eraがどう対応するか
-- 群青残響録として後から括られる中心人物は誰か
-- 事件の責任は一人に集約できるのか
 
-## Main Mystery
-- Dream最終mechanism / 起源
-- 黒インクの最終起源
-- 星獣の完全Mechanism
-- 星座が年代によって増減 / 変化する最終原因
-- 月相異常の最終意味
+- exact year / exact sub-era
+- fictional incident structure
+- who was central
+- who benefited / was excluded
+- what ordinary people saw differently
+- Gunjo Zankyoroku records
 
-Important:
+## Series Main Mystery
 
-**ヨルノシルベが夢世界であること自体はOpenへ戻さない。**
+- Dream final mechanism / origin
+- Black Ink final origin
+- Star Beast complete mechanism
+- constellation increase/decrease final cause
+- Moon anomaly final meaning
 
-Openなのは「なぜ / どう共有されるか」。
-
----
-
-# 11. 星空 / 星座伏線
-
-説明台詞より先に:
-
-- 同じ星を違う名前で呼ぶ
-- 古い人物だけ知る星座
-- 現代人物には存在しない星座名
-- 後世人物だけ知る新しい結び方
-- 星獣の反応差
-
-を出す。
-
-例:
-
-> 「あれ、○○座だろ？」
-> 「……そんな星座ないよ？」
-
-この時点で「お前1940年代だろ」と答えまで言わない。
-
-Party後、少し酔った成人が星座で言い争うような**普通の夜**を、後からMain Mysteryへ反転させてもよい。
+Dream world itself is not Open.
+Openなのは**why / how it is shared and connected**。
 
 ---
 
-# 12. 月相 / 朔夜 Story use
+# 15. Stars / Constellations
 
-月相 = 事件深度。
+Before explanation:
 
-全時代を同じ5段階へ固定しない。
+- same stars, different constellation names
+- an old Era knows a constellation Present does not
+- a later Era knows a newer connection
+- Star Beast reacts differently
 
-- 欠け方が違う
-- 一度戻る
-- 半月から始まる
-- 未来だけ異常
+Core5 can literally draw five different figures from the same stars.
 
-も伏線にできる。
-
-事件最深部では月が消える。
-
-ただし:
-
-> 月が消えた = その時代の固定ラスボスが必ず出る
-
-ではない。
-
-制度 / 複数人物 / 朔夜座 / 社会選択が最深部を構成してもよい。
+Party後の星座言い争いがlater Main Mysteryに反転してよい。
 
 ---
 
-# 13. 朔夜座
+# 16. Moon / 朔
+
+Moon phase = incident depth。
+
+- not elapsed days
+- not fixed five stages
+- can reverse / stall / differ by Era
+
+At 朔:
+
+- moon disappears
+- stars remain
+- lantern / campfire / streetlight / Character light becomes stronger visually
+
+`朔 = fixed Era Boss` is forbidden.
+
+---
+
+# 17. 朔夜座
 
 Current formal name:
 **朔夜座（さくやざ）**
@@ -378,251 +489,161 @@ Current 8:
 
 - 八影 = early observer label
 - 朔盟 = Superseded Candidate / legacy asset namespace
-- member思想 / pair / relation / stable ID / fan designは保持
+-思想 / pair / relation / stable IDs remain
 
-朔夜座は各時代大事件へ:
-- 協力
-- 利用
-- 対立
-- 妨害
-- 止めようとする
-- 利害だけ一致
-
-など異なる形で関われる。
-
-群青残響録の上司 / 部下には固定しない。
+They can recur across Seasons.
+Do not replace them with a new enemy set every Season.
 
 ---
 
-# 14. 群青残響録
+# 18. 群青残響録
 
-Current definition:
+Definition:
 
-> **各時代の大事件で中心になった人物 / 人物群を、後から記録上まとめて呼ぶ総称。**
+> **各時代の大事件で中心になった人物 / 人物群を、後から記録上まとめる総称。**
 
 Not:
-- 固定5人組
-- 1時代1人
-- 全員敵
-- 全員戦闘Boss
-- 同一組織
-- 同一時代
 
-正式member / full name / exact incident / 最終結末はOpen。
+- fixed five
+- one per Era
+- all enemies
+- all combat Bosses
+- one organization
+- Season Boss roster
 
-人物名はDream内でまず自然なカタカナ呼称。
-
-後から:
-- 新聞
-- 名簿
-- 写真
-- 企業資料
-- 事件資料
-- 古い本
-
-で漢字名 / 姓 / 年代がRevealされる。
+Same person can matter across multiple Seasons via new evidence / consequences.
+Same moral lesson repeated is not allowed.
 
 ---
 
-# 15. Android / Robot Story lane
+# 19. Future Android / Robot / Avatar
 
-未来では人間側 / Android側双方にDream参加者がいる。
+Future study can learn question structures from long-lived SF such as Ghost in the Shell:
 
-夜では現実の陣営を知らず友達になれる。
+- body and identity
+- memory copy
+- network freedom / intrusion
+- institution and personhood
+- human-machine boundary
 
-後からRealityでは対立側だったと分かる。
+But do not copy franchise-specific terms / organizations / plot structures.
 
-成長goal:
+Asa remains Human.
 
-> 人間になる
+Android growth goal is not becoming Human.
 
-ではない。
+> **Humanではない。それでもfriendになれる。**
 
-> Androidのまま、categoryではなく個人を見る / 見られる。
-
-を重視する。
-
-好感度は上がりにくい方向。
-
-初期は好意を義務 / 契約 / 効率として処理し、後から:
-
-> 「あの時も、義務ではなかったのですか？」
-
-と過去の意味を再評価できる。
-
-最終名 / acronym / version orderはOpen。
-
-シオン / イヴ・ノインは不採用。
+Food remains socially important in Future; Future is not pills-only.
+A Robot that does not need nutrition can still sit at a table.
 
 ---
 
-# 16. Reality animals
+# 20. Reality animals
 
-犬 / 猫はDreamへ参加できる。
+Dog / cat can enter Dream.
+They are not Star Beasts.
 
-星獣とは別category。
+Dog:
+- smell
+- voice
+- walk
+- touch
 
-犬:
-- 匂い
-- 声
-- 歩き方
-- 手触り
+Cat:
+- multiple homes
+- multiple names
+- identity not reduced to one label
 
-などで人物を覚えられる。
-
-猫:
-- 複数の家
-- 複数の呼び名
-- 呼び名が違っても自分は自分
-
-というIdentity themeへ使える。
-
-万能賢者にせず、怖がる / 間違う / 好き嫌い / 気まぐれも残す。
+Do not make them omniscient sages.
 
 ---
 
-# 17. Foreshadowing style
+# 21. Tears / ordinary life
 
-説明台詞より:
+Emotional payoff comes from repeated ordinary life:
 
-```txt
-小物 / 食事 / UI / 言葉 / 星座 / Partyの癖
-↓
-妙なEnemy / 星獣 / Character反応
-↓
-Gameplayで触れる
-↓
-Bond / Result / Party / Recordで意味が変わる
-↓
-Reality資料で年代 / 事件の意味が反転
-```
+- food
+- barbecue
+- hotpot
+- soda
+- adult drinking
+- smoke break
+- family dinner
+- aunt / uncle visits
+- grandparent habits
+- child questions
+- repair
+- letters
+- rain
+- jokes
+- fights
+- reconciliation
+- small promises
 
-良い伏線:
+Season1 uneasy ending should come **after real warmth**, not instead of it.
 
-1. 初見で自然
-2. Title内で意味が一段分かる
-3. 後から再解釈できる
-
-Recurring gagが止まったこと自体を伏線へ使ってよい。
-
----
-
-# 18. Tears / Daily life
-
-泣きは死亡人数ではなく普通だった時間の蓄積から作る。
-
-- 食事
-- 焼肉
-- 鍋
-- 炭酸
-- 成人同士の酒席
-- 一服
-- 呼び方
-- 喧嘩
-- 仲直り
-- 冗談
-- 恋
-- 友情
-- 星獣
-- 動物
-- 修理した椅子
-- 手紙
-- 寝坊
-- 雨
-- 知らない食べ物
-- 年代差の小さな勘違い
-- 何気ない約束
-
-Dreamは衣食住サバイバルではないため、こうした日常に十分な尺を使える。
-
-Example emotional callback:
-
-```txt
-序盤Boss後
-「肉あるじゃん！ 焼こう！」
-
-重い章
-食糧庫はいつも通り満杯。でも誰も開けない。
-
-回復
-「……腹減った」
-「肉、見る？」
-```
-
-この程度の台詞で泣けるように、先に日常を好きにさせる。
+The final Happy End should callback to the same ordinary actions with changed choices.
 
 ---
 
-# 19. Happy End / Sequel
+# 22. Happy End quality bar
 
-```txt
-1作 = local emotional completion
-series = meta mystery continues
-```
+Final Happy End does NOT mean:
 
-- その作品の中心感情はその作品で救う
-- permanent death中心にしない
-- 悲劇を全部無かったことにはしない
-- 人物が以前選べなかった第三の選択を選ぶ
-- sequelが1のHappy Endを無効化しない
+- all pain erased
+- all social problems vanish
+- every antagonist redeemed
+- all Sakuyaza become friends
+- all Human / Android conflict solved forever
 
-謎:
-- C = Title内で回収
-- B = 後作で意味が変わるseed
-- A = Series全体の問い
+It means:
 
-Aを残すためにCを投げない。
+- worst ending is avoided
+- people gain options they previously lacked
+- institutions / relationships gain correction routes
+- key characters return to Reality able to act differently
+- Dream relationships mattered
+- ordinary life becomes possible again
 
----
-
-# 20. Sequel hook
-
-露骨な「2へ続く」より:
-
-- 今の年代にはない星座
-- 見覚えのない折り目
-- 知らないversion mark
-- 誰も知らない星獣の足跡
-- Reality側にあるはずのない紙片
-- 後世だけ存在する名称
-
-などの小さな違和感を使う。
+> **世界が完璧になった、ではなく、もう一つ選べるようになった。**
 
 ---
 
-# 21. Open questions
+# 23. Open questions
 
-まだ勝手に決めない:
+Do not lock without later decision:
 
-- Core5 5人のexact era mapping
-- Dream最終mechanism / 起源
-- 黒インク最終起源
-- 星獣完全Mechanism
-- 星座増減の最終原因
-- exact years
-- 群青残響録formal members / names
-- 各時代大事件exact内容
+- Core5 exact year / exact age / exact Reality place
+- Core5 exact parents / grandparents / aunt-uncles / siblings / spouses / children
+- final Season count = 2 or 3
+- exact S1/S2/S3 finale images
+- Dream final mechanism / origin
+- Black Ink final origin
+- Star Beast complete mechanism
+- constellation-change final cause
+- Gunjo Zankyoroku formal members / names
+- exact fictional incident details / casualties
 - Android final name / acronym / version order
-- 死者のDream参加rule
-- 各大事件にcombat Bossが必要か
-- 喫煙者Final person assignment / exact age legality
-- sequel protagonist / setting
+- dead-person Dream rule
+- whether each major incident needs combat Boss
+- smoker final identities / age legality
 
 ---
 
-# 22. Legacy handling
+# 24. Legacy handling
 
-旧Story資料の:
+Do not return to:
 
-- 朝へ届く
-- 朝まで生き残る
-- DawnでRealityへ帰る
-- 朔盟Current
-- 全年代同一星座
-- 1時代1固定Boss
-- Core5同世代
-- 食事が空中 / 手元へ直接出現
+- physical morning / Dawn return
+- 朔盟 as Current name
+- identical constellations across Eras
+- one fixed Boss per Era
+- Core5 same era
+- Core5 Era mapping entirely unknown
+- initial 1940 / 1980 / 2000 examples as exact Canon
+- direct food materialization
+- every Season fully resolves the whole problem
+- every Season must end Happy
 
-はStory authorityとして使用しない。
-
-stable runtime token / ID / UI名はmigration対象として別管理する。
+Stable runtime tokens / IDs can remain as migration assets only.
