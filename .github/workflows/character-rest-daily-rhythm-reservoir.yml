@@ -1,0 +1,31 @@
+name: Character Rest Daily Rhythm Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-rest-daily-rhythm-reservoir-v1.md'
+      - 'src/game/data/characterRestDailyRhythmReservoir.ts'
+      - 'scripts/quality/check-character-rest-daily-rhythm-reservoir.ts'
+      - '.github/workflows/character-rest-daily-rhythm-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-rest-daily-rhythm-reservoir-v1.md'
+      - 'src/game/data/characterRestDailyRhythmReservoir.ts'
+      - 'scripts/quality/check-character-rest-daily-rhythm-reservoir.ts'
+      - '.github/workflows/character-rest-daily-rhythm-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character rest/daily-rhythm reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-rest-daily-rhythm-reservoir.ts
