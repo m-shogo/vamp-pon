@@ -38,11 +38,12 @@ for (const forbidden of [
 }
 
 const exportIndex = runner.indexOf('run-top-v3-final-approval-ios-export.sh simulator');
-const xcodeIndex = runner.indexOf('xcodebuild');
+const xcodeIndex = runner.indexOf('xcodebuild \\\n  -project');
 const installIndex = runner.indexOf('xcrun simctl install');
 const performanceIndex = runner.indexOf('run-top-v3-simulator-performance-evidence.sh');
 invariant(
-  exportIndex >= 0 && exportIndex < xcodeIndex && xcodeIndex < installIndex && installIndex < performanceIndex,
+  exportIndex >= 0 && xcodeIndex >= 0 && installIndex >= 0 && performanceIndex >= 0 &&
+    exportIndex < xcodeIndex && xcodeIndex < installIndex && installIndex < performanceIndex,
   'TOP final Simulator evidence order must remain exact-source export -> Release Xcode build -> install -> measured evidence',
 );
 
