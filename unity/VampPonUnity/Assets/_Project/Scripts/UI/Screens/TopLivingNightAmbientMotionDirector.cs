@@ -16,6 +16,8 @@ namespace VampPon.UnitySpike.UI.Screens
         private const float UnboundSearchInterval = .15f;
         private const float BoundSearchInterval = 1f;
         private const float PreferencePollInterval = .5f;
+        private const float CloudsFarBaseAlpha = .78f;
+        private const float CloudsNearBaseAlpha = .82f;
 
         private static TopLivingNightAmbientMotionDirector instance;
 
@@ -31,6 +33,8 @@ namespace VampPon.UnitySpike.UI.Screens
         private RectTransform animalRobot;
         private RectTransform foreground;
         private RawImage stars;
+        private RawImage cloudsFarImage;
+        private RawImage cloudsNearImage;
         private RawImage distantLights;
         private RawImage fireGlow;
         private RawImage lanternGlow;
@@ -130,6 +134,8 @@ namespace VampPon.UnitySpike.UI.Screens
             animalRobot = null;
             foreground = null;
             stars = null;
+            cloudsFarImage = null;
+            cloudsNearImage = null;
             distantLights = null;
             fireGlow = null;
             lanternGlow = null;
@@ -169,6 +175,8 @@ namespace VampPon.UnitySpike.UI.Screens
         private void RefreshVisualBindings()
         {
             stars = null;
+            cloudsFarImage = null;
+            cloudsNearImage = null;
             distantLights = null;
             fireGlow = null;
             lanternGlow = null;
@@ -186,6 +194,18 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (string.Equals(image.name, "Stars", StringComparison.Ordinal))
                 {
                     stars = image;
+                    continue;
+                }
+
+                if (string.Equals(image.name, "CloudsFar", StringComparison.Ordinal))
+                {
+                    cloudsFarImage = image;
+                    continue;
+                }
+
+                if (string.Equals(image.name, "CloudsNear", StringComparison.Ordinal))
+                {
+                    cloudsNearImage = image;
                     continue;
                 }
 
@@ -241,28 +261,53 @@ namespace VampPon.UnitySpike.UI.Screens
             var titleY = (Mathf.PerlinNoise(7.33f, time * .047f) - .5f) * .7f;
             titleRoot.anchoredPosition = titleBasePosition + new Vector2(0f, titleY);
 
-            // Sky owns the broadest visible movement. Far and near clouds use
-            // unrelated frequencies and amplitudes so the scene gains depth
-            // without a camera-pan loop.
-            var farX = (Mathf.PerlinNoise(11.17f, time * .023f) - .5f) * 8.2f;
-            var farY = (Mathf.PerlinNoise(13.61f, time * .017f) - .5f) * 1.2f;
+            // The cloud bands share a very slow air mass but keep independent
+            // detail noise. A sparse signed gust changes the drift envelope without
+            // creating a pendulum loop or turning the TOP into a camera pan.
+            var airMass = Mathf.PerlinNoise(11.17f, time * .018f) - .5f;
+            var farDetail = Mathf.PerlinNoise(13.61f, time * .031f) - .5f;
+            var nearDetail = Mathf.PerlinNoise(17.29f, time * .047f) - .5f;
+            var gustStrength = Mathf.SmoothStep(
+                0f,
+                1f,
+                Mathf.InverseLerp(.70f, .94f, Mathf.PerlinNoise(19.87f, time * .010f)));
+            var gustDirection = Mathf.PerlinNoise(21.43f, time * .014f) - .5f;
+
+            var farX = airMass * 9.4f + farDetail * 3.2f + gustDirection * gustStrength * 4.2f;
+            var farY = (Mathf.PerlinNoise(24.71f, time * .016f) - .5f) * 1.6f;
             cloudsFar.anchoredPosition = farBasePosition + new Vector2(farX, farY);
 
-            var nearX = (Mathf.PerlinNoise(17.29f, time * .037f) - .5f) * 14.4f;
-            var nearY = (Mathf.PerlinNoise(19.87f, time * .029f) - .5f) * 2.0f;
+            var nearX = airMass * 12.2f + nearDetail * 7.4f + gustDirection * gustStrength * 7.2f;
+            var nearY = (Mathf.PerlinNoise(28.91f, time * .027f) - .5f) * 2.4f;
             cloudsNear.anchoredPosition = nearBasePosition + new Vector2(nearX, nearY);
+
+            if (cloudsFarImage != null)
+            {
+                var density = Mathf.PerlinNoise(32.17f, time * .021f) - .5f;
+                cloudsFarImage.color = WithAlpha(
+                    cloudsFarImage.color,
+                    CloudsFarBaseAlpha + density * .045f);
+            }
+
+            if (cloudsNearImage != null)
+            {
+                var density = Mathf.PerlinNoise(35.53f, time * .028f) - .5f;
+                cloudsNearImage.color = WithAlpha(
+                    cloudsNearImage.color,
+                    CloudsNearBaseAlpha + density * .055f);
+            }
         }
 
         private void ApplyDepthParallax(float time)
         {
             // Semantic depth bands are deliberately tiny. The movement should be
             // read subconsciously as a living illustration, not as a moving UI.
-            var horizontal = Mathf.PerlinNoise(23.41f, time * .026f) - .5f;
-            var vertical = Mathf.PerlinNoise(27.13f, time * .021f) - .5f;
+            var horizontal = Mathf.PerlinNoise(41.41f, time * .026f) - .5f;
+            var vertical = Mathf.PerlinNoise(47.13f, time * .021f) - .5f;
             var gust = Mathf.SmoothStep(
                 0f,
                 1f,
-                Mathf.InverseLerp(.72f, .94f, Mathf.PerlinNoise(33.71f, time * .012f)));
+                Mathf.InverseLerp(.72f, .94f, Mathf.PerlinNoise(53.71f, time * .012f)));
 
             if (distantCompanion != null)
                 distantCompanion.anchoredPosition = distantBasePosition +
@@ -287,44 +332,63 @@ namespace VampPon.UnitySpike.UI.Screens
             // while Reduced Motion was ON can return to full ambience without rebuild.
             if (stars != null)
             {
-                var slow = Mathf.PerlinNoise(.17f, time * .082f);
-                var tiny = Mathf.PerlinNoise(2.77f, time * .137f);
-                stars.color = WithAlpha(stars.color, .56f + slow * .14f + tiny * .025f);
+                var slow = Mathf.PerlinNoise(.17f, time * .061f);
+                var tiny = Mathf.PerlinNoise(2.77f, time * .149f);
+                var readiness = Mathf.PerlinNoise(4.37f, time * .013f);
+                var spark = Mathf.PerlinNoise(8.11f, time * .101f);
+                var rareGlimmer = readiness > .66f && spark > .86f
+                    ? Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(.86f, .98f, spark))
+                    : 0f;
+                stars.color = WithAlpha(
+                    stars.color,
+                    .545f + slow * .125f + tiny * .022f + rareGlimmer * .055f);
             }
 
             if (distantLights != null)
             {
-                var districtA = Mathf.PerlinNoise(2.31f, time * .071f);
-                var districtB = Mathf.PerlinNoise(6.83f, time * .041f);
+                var districtA = Mathf.PerlinNoise(12.31f, time * .071f);
+                var districtB = Mathf.PerlinNoise(16.83f, time * .041f);
+                var lateWindow = Mathf.PerlinNoise(18.97f, time * .015f);
+                var rareWake = lateWindow > .86f
+                    ? Mathf.InverseLerp(.86f, .98f, lateWindow) * .022f
+                    : 0f;
                 distantLights.color = WithAlpha(
                     distantLights.color,
-                    .625f + (districtA - .5f) * .045f + (districtB - .5f) * .025f);
+                    .622f + (districtA - .5f) * .045f + (districtB - .5f) * .025f + rareWake);
             }
 
             if (fireGlow != null)
             {
-                var first = Mathf.PerlinNoise(5.13f, time * .83f);
-                var second = Mathf.PerlinNoise(9.71f, time * 1.67f);
+                var body = Mathf.PerlinNoise(25.13f, time * .79f);
+                var lick = Mathf.PerlinNoise(29.71f, time * 1.73f);
+                var coal = Mathf.PerlinNoise(31.17f, time * .27f);
+                var flareGate = Mathf.PerlinNoise(37.91f, time * .11f);
+                var flare = flareGate > .89f
+                    ? Mathf.InverseLerp(.89f, .99f, flareGate)
+                    : 0f;
+                var energy = body * .50f + lick * .31f + coal * .19f;
                 fireGlow.color = WithAlpha(
                     fireGlow.color,
-                    .56f + ((first * .62f + second * .38f) - .5f) * .10f);
+                    .545f + (energy - .5f) * .125f + flare * .035f);
             }
 
             if (lanternGlow != null)
             {
-                var slow = Mathf.PerlinNoise(12.7f, time * .19f);
-                var micro = Mathf.PerlinNoise(15.23f, time * .53f);
+                var slow = Mathf.PerlinNoise(42.7f, time * .17f);
+                var micro = Mathf.PerlinNoise(45.23f, time * .49f);
+                var settling = Mathf.PerlinNoise(49.31f, time * .037f);
                 lanternGlow.color = WithAlpha(
                     lanternGlow.color,
-                    .45f + (slow - .5f) * .04f + (micro - .5f) * .012f);
+                    .447f + (slow - .5f) * .044f + (micro - .5f) * .012f +
+                    (settling - .5f) * .014f);
             }
 
             if (robotEye != null)
             {
                 // Two independent sparse windows avoid a mechanically repeating
                 // blink interval. Most of the time the robot stays still.
-                var readiness = Mathf.PerlinNoise(31.13f, time * .021f);
-                var trigger = Mathf.PerlinNoise(43.71f, time * .093f);
+                var readiness = Mathf.PerlinNoise(61.13f, time * .021f);
+                var trigger = Mathf.PerlinNoise(67.71f, time * .093f);
                 var rare = readiness > .63f && trigger > .82f
                     ? Mathf.InverseLerp(.82f, 1f, trigger)
                     : 0f;
@@ -337,8 +401,8 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (image == null)
                     continue;
 
-                var gate = Mathf.PerlinNoise(51.7f + index * 3.1f, time * (.031f + index * .004f));
-                var body = Mathf.PerlinNoise(61.9f + index * 2.3f, time * (.071f + index * .006f));
+                var gate = Mathf.PerlinNoise(71.7f + index * 3.1f, time * (.031f + index * .004f));
+                var body = Mathf.PerlinNoise(81.9f + index * 2.3f, time * (.071f + index * .006f));
                 var alpha = gate > .48f
                     ? Mathf.SmoothStep(0f, .19f, Mathf.InverseLerp(.48f, .92f, gate)) * (.72f + body * .28f)
                     : 0f;
@@ -351,8 +415,8 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (image == null)
                     continue;
 
-                var density = Mathf.PerlinNoise(73.1f + index * 1.7f, time * (.057f + (index % 3) * .011f));
-                var pulse = Mathf.PerlinNoise(83.3f + index * 2.1f, time * (.19f + (index % 4) * .027f));
+                var density = Mathf.PerlinNoise(93.1f + index * 1.7f, time * (.057f + (index % 3) * .011f));
+                var pulse = Mathf.PerlinNoise(103.3f + index * 2.1f, time * (.19f + (index % 4) * .027f));
                 var alpha = density > .69f
                     ? Mathf.InverseLerp(.69f, .96f, density) * (.35f + pulse * .48f)
                     : 0f;
@@ -365,7 +429,7 @@ namespace VampPon.UnitySpike.UI.Screens
             // TopLivingNightView owns each particle's rise/reset lifecycle. This
             // pass adds a second, non-periodic airflow vector afterwards, keeping
             // smoke/embers coherent with sky gusts without reallocating particles.
-            var sharedWind = Mathf.PerlinNoise(91.7f, time * .043f) - .5f;
+            var sharedWind = Mathf.PerlinNoise(111.7f, time * .043f) - .5f;
 
             for (var index = 0; index < smoke.Count; index++)
             {
@@ -373,12 +437,21 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (image == null || image.color.a <= .001f)
                     continue;
 
-                var localWind = Mathf.PerlinNoise(101.3f + index * 4.7f, time * (.061f + index * .003f)) - .5f;
-                var liftNoise = Mathf.PerlinNoise(111.9f + index * 2.9f, time * .052f) - .5f;
+                var localWind = Mathf.PerlinNoise(121.3f + index * 4.7f, time * (.061f + index * .003f)) - .5f;
+                var liftNoise = Mathf.PerlinNoise(131.9f + index * 2.9f, time * .052f) - .5f;
+                var shapeNoise = Mathf.PerlinNoise(139.7f + index * 3.7f, time * .079f) - .5f;
                 image.rectTransform.anchoredPosition +=
                     new Vector2(sharedWind * 7f + localWind * 5f, liftNoise * 2.4f);
                 image.rectTransform.localRotation =
-                    Quaternion.Euler(0f, 0f, (sharedWind + localWind) * 2.2f);
+                    Quaternion.Euler(0f, 0f, (sharedWind + localWind) * 3.0f);
+
+                var baseScale = image.rectTransform.localScale.x;
+                var horizontalSpread = 1f + Mathf.Abs(sharedWind + localWind) * .12f + shapeNoise * .06f;
+                var verticalStretch = 1.03f - shapeNoise * .04f;
+                image.rectTransform.localScale = new Vector3(
+                    baseScale * horizontalSpread,
+                    baseScale * verticalStretch,
+                    1f);
             }
 
             for (var index = 0; index < embers.Count; index++)
@@ -387,10 +460,17 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (image == null || image.color.a <= .001f)
                     continue;
 
-                var localWind = Mathf.PerlinNoise(123.1f + index * 1.9f, time * (.13f + (index % 3) * .017f)) - .5f;
-                var flutter = Mathf.PerlinNoise(137.7f + index * 3.3f, time * .31f) - .5f;
+                var localWind = Mathf.PerlinNoise(151.1f + index * 1.9f, time * (.13f + (index % 3) * .017f)) - .5f;
+                var flutter = Mathf.PerlinNoise(167.7f + index * 3.3f, time * .31f) - .5f;
                 image.rectTransform.anchoredPosition +=
                     new Vector2(sharedWind * 5.5f + localWind * 7.5f, flutter * 3.4f);
+
+                var baseScale = image.rectTransform.localScale.x;
+                var sizeBias = .74f + (index % 5) * .07f;
+                var shimmer = .94f + Mathf.PerlinNoise(181.3f + index * 2.7f, time * .37f) * .12f;
+                image.rectTransform.localScale = Vector3.one * (baseScale * sizeBias * shimmer);
+                image.rectTransform.localRotation =
+                    Quaternion.Euler(0f, 0f, (sharedWind * 7f + localWind * 11f + flutter * 5f));
             }
         }
 
@@ -402,15 +482,19 @@ namespace VampPon.UnitySpike.UI.Screens
             // only the same tiny readability variation as the base reduced path.
             if (stars != null)
                 stars.color = WithAlpha(stars.color, .62f);
+            if (cloudsFarImage != null)
+                cloudsFarImage.color = WithAlpha(cloudsFarImage.color, CloudsFarBaseAlpha);
+            if (cloudsNearImage != null)
+                cloudsNearImage.color = WithAlpha(cloudsNearImage.color, CloudsNearBaseAlpha);
             if (distantLights != null)
                 distantLights.color = WithAlpha(distantLights.color, .63f);
             if (fireGlow != null)
             {
-                var first = Mathf.PerlinNoise(5.13f, time * .83f);
-                var second = Mathf.PerlinNoise(9.71f, time * 1.67f);
+                var first = Mathf.PerlinNoise(25.13f, time * .79f);
+                var second = Mathf.PerlinNoise(29.71f, time * 1.73f);
                 fireGlow.color = WithAlpha(
                     fireGlow.color,
-                    .56f + ((first * .62f + second * .38f) - .5f) * .02f);
+                    .55f + ((first * .62f + second * .38f) - .5f) * .02f);
             }
             if (lanternGlow != null)
                 lanternGlow.color = WithAlpha(lanternGlow.color, .45f);
@@ -424,7 +508,10 @@ namespace VampPon.UnitySpike.UI.Screens
                 }
             foreach (var image in embers)
                 if (image != null)
+                {
                     image.color = WithAlpha(image.color, 0f);
+                    image.rectTransform.localRotation = Quaternion.identity;
+                }
         }
 
         private void RefreshReducedMotion()
@@ -492,6 +579,10 @@ namespace VampPon.UnitySpike.UI.Screens
         private void OnDestroy()
         {
             RestorePose();
+            if (cloudsFarImage != null)
+                cloudsFarImage.color = WithAlpha(cloudsFarImage.color, CloudsFarBaseAlpha);
+            if (cloudsNearImage != null)
+                cloudsNearImage.color = WithAlpha(cloudsNearImage.color, CloudsNearBaseAlpha);
             smoke.Clear();
             embers.Clear();
             if (instance == this)
