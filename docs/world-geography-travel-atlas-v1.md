@@ -1,293 +1,345 @@
-# ヨルノシルベ — Geography / Travel Atlas v1
+# ヨルノシルベ — Geography / Travel Atlas v2
 
 Date: 2026-08-11  
-Status: **P0 WORLD FOUNDATION / NIGHT GEOGRAPHY CANDIDATE / STAGE IDS PRESERVED**
+Status: **P0 WORLD FOUNDATION / DREAM GEOGRAPHY / REAL JAPAN REALITY / STAGE IDS PRESERVED**
 
-> 目的: Stageを「雰囲気の違う20画面」で終わらせず、そこに人が暮らし、移動し、物が運ばれ、別時代の痕跡が重なる地理として扱う。
-
----
-
-# 1. 地理を2枚持つ
-
-ヨルノシルベでは地図を一枚へ統一しない。
-
-## A. Reality Atlas
-
-各人物の現実側。
-
-- 同時代とは限らない。
-- 同じ地域とも限らない。
-- 正確な日本地図 / 市町村名はHuman decision前にLOCKしない。
-- 時代の違う同じ場所である可能性も、別地域である可能性も残す。
-
-## B. Night Atlas
-
-Gameplay Stageが接続する夜側。
-
-- 現実距離をそのまま再現しない。
-- 「帰路」「記録」「忘れ物」「未完了」の強い場所が近接する候補。
-- Stage ID / gameplay orderは地理的直線距離を意味しない。
+> Realityは現実日本として扱い、Dream geographyはReality距離・時代をそのまま再現しない。
 
 ---
 
-# 2. Night geography core candidate
+# 1. Geographyを2枚以上持つ
 
-Status: `HIGH_VALUE_CANDIDATE`
+## Reality Atlas
 
-> **夜では、現実に残った場所そのものではなく、その場所に残った“帰れなかったもの / 名前 / 記録 / 道 / 未完了”が接続点になる。**
+各Characterが本来生きる現実日本。
+
+Rules:
+
+- 東京 / 新宿 / 渋谷等の実在地名を必要なら普通に使う。
+- 理由なく「真宿」のようなfake-nameへ変えない。
+- 同じEra / 地域とは限らない。
+- exact hometown / exact yearはHuman decision前にLOCKしない。
+- 同じ現実地点の別時代である可能性も、全く別地域もある。
+
+## Dream Atlas
+
+ヨルノシルベ。
+
+Rules:
+
+- Reality kmをそのまま再現しない。
+- 別時代 / 別地域の場所が近接できる。
+- Stage order ≠ Reality travel order。
+- 「見覚えがあるのに違う」を強みにする。
+- Dreamなのに現実住所 / railway networkを完全simulationしない。
+
+## Record Atlas
+
+地図 / 切符 / 時刻表 / 写真 / newspaper等からPlayerがReality位置と時代を再構成するためのEvidence layer。
+
+---
+
+# 2. Dream geography core direction
+
+Status: `HIGH_VALUE DERIVED DIRECTION`
+
+DreamではReality placeそのものだけでなく:
+
+- 帰れなかった物
+- 名前
+- Record
+- route
+- unfinished action
+- strong memory / meaning
+
+等が接続anchorになり得る。
 
 そのため:
 
-- 古い駅と新しい路地が徒歩数分に見える。
-- 同じ建物の異なる時代断面が別Stageになる。
-- 入口と出口の方角がReality Atlasと一致しない。
-- 人によって「見覚えがあるのに違う」場所が存在する。
+- 古いstationとmodern alleyが隣に見える
+- 同じbuildingの別時代断面が重なる
+- entrance / exit方向がRealityと一致しない
+- 一人には懐かしく、別人には全く知らない場所
 
-ただし夜の地理を作った主体は未確定。
+が成立できる。
 
----
-
-# 3. Travel grammar
-
-## 徒歩
-Nightの基本移動。
-
-理由:
-- ランタン / 道 / 帰路という作品identityに合う。
-- 人物同士の会話 / 休憩 / 寄り道を作れる。
-- Stage間を巨大な乗り物設定で埋めなくてよい。
-
-## 駅 / 改札
-Thresholdとして強い。
-
-- 現実の鉄道会社を直接再現しない。
-- 駅は「夜の秘密基地」ではなく、生活の移動場所が境界として残ったもの。
-
-## 手紙 / 配達route
-物が人物より先に時代を渡る表現に使う。
-
-## 地図
-夜の地図は完全なGPSではない。
-
-- 歩いた履歴
-- 人の記憶
-- 手描き補足
-- 消えた道
-
-が重要。
-
-ミチルの役割を「正解座標を知るNavigation AI」にしない。
+最終mechanism / 誰が接続しているかはOpen。
 
 ---
 
-# 4. Stage20を地理的Clusterとして読む
+# 3. Dream travel grammar
 
-既存Stage ID / gameplay roleを変えず、世界観上の読み方を付ける。
+## Walking
 
-## Cluster A — 名前と街路
+基本移動に向く。
 
-代表:
-- `forgotten_street` — 忘れられた夜道
-- `name_tag_alley` — 名札の路地
+- conversation
+- quiet beat
+- era clue
+- animal behavior
+- relation change
 
-生活圏Candidate:
-- 住宅 / 小商店 / 通学路 / 路地
-- 遺失物 / 名札 / 郵便との接点
+を置ける。
 
-世界観:
-- 夜の入口として最も「普通の街」に近い。
-- 初見で異世界へ飛ばされた感より、**知っている街が少しだけ間違っている**感覚を狙う。
+## Station / Gate
 
-## Cluster B — 保存と記録
+Threshold visualとして強い。
 
-代表:
+Dream stationは実在companyの完全copyでなくてもよい。
+
+ただしReality回想 / Reality sceneで実在line / stationを使う場合は現実整合を取る。
+
+## Letter / Delivery route
+
+物 / Recordが人より先にEra差をRevealする。
+
+## Map
+
+Dream mapはGPS正解表ではない。
+
+- walked trace
+- old route
+- erased path
+- handwritten correction
+- another era's street
+
+を重ねる。
+
+---
+
+# 4. 時間タグが弱い地理
+
+Dream participantは場所の感覚を持っていても:
+
+- exact year
+- current official station name
+- historical order
+
+をすぐ言語化できない場合がある。
+
+だから:
+
+> 「この駅、昔こうだった」
+
+ではなく:
+
+> 「改札、こんなんだっけ？」
+
+のような小さな違和感を使う。
+
+---
+
+# 5. Stars / Constellations as navigation evidence
+
+星は見える。
+
+ただし星座はEraで同一とは限らない。
+
+したがって:
+
+- 星そのものは共通landmark
+- constellation nameはconflicting clue
+
+になれる。
+
+ミチル等が「星座名 = 絶対正解route」としない。
+
+同じ星を別の結び方で読むこと自体がStoryになる。
+
+---
+
+# 6. Moon phase and geography
+
+月相はelapsed daysではなくincident depth。
+
+深部へ近づくほどlandscapeの:
+
+- shadow
+- visibility
+- reflected light
+- sign legibility
+- route stability
+
+が変わるCandidate。
+
+朔では月が消えるが星は残る。
+
+**朔地点 = 固定時代Boss roomではない。**
+
+---
+
+# 7. Stage20 world clusters
+
+既存Stage IDs / gameplay rolesを壊さずWorld readingを持たせる。
+
+### A — Name / Street
+- `forgotten_street`
+- `name_tag_alley`
+
+普通の住宅 / 商店 / 通学路に近いDream entrance。
+
+### B — Storage / Record
 - `moon_box_library`
 - `pressed_flower_archive`
 - `white_bookmark_library`
 
-生活圏Candidate:
-- 図書 / 保管 / 地域資料 / 個人archive
+別時代の「残す場所」が重なり得る。
 
-注意:
-- 3Stageを同一巨大図書館と自動確定しない。
-- 別時代の似た「残す場所」が夜で重なる可能性を残す。
-
-## Cluster C — 道と交通
-
-代表:
+### C — Route / Transport
 - `return_map_crossing`
 - `old_compass_station`
 - `ticket_gate_station`
 
-世界観:
-- 帰るためのInfrastructure。
-- 古い道 / 駅 / 改札が時代差の最重要visual evidenceになる。
+ticket / map / gateはEra evidence。
 
-## Cluster D — 手仕事と生活
-
-代表:
+### D — Craft / Daily Life
 - `repair_lamp_workshop`
 - `half_candy_arcade`
 
-世界観:
-- 工房、駄菓子屋、古い看板など。
-- Main Mysteryの解答より「昔ここで人が暮らしていた」を見せる。
+Main Mystery解答より生活の手触りを優先。
 
-## Cluster E — 学び / 遊び / 子どもの痕跡
-
-代表:
+### E — School / Play
 - `chalk_classroom`
 - `paper_cord_playground`
 
-世界観:
-- 子どもを怪異演出の道具だけにしない。
-- 普通の授業、遊び、忘れ物、名前書きが先にある。
+子どもの日常を先に置く。
 
-## Cluster F — 配達 / 観測
-
-代表:
+### F — Delivery / Observation
 - `unposted_post_office`
 - `paper_plane_window`
 
-世界観:
-- 「送った」「届いた」「見た」「見なかった」の情報差を地理で表現。
+送った / 届いた / 見た / 見なかったを扱う。
 
-## Cluster G — 夢 / 水 /境界
-
-代表:
+### G — Dream-fluid
 - `dream_waterway`
 
-Status:
-- Night Layer固有性が強いCluster。
-- 現実の具体水路と同一かは未LOCK。
+Reality exact placeとの同一性はOpen。
 
-Stage16–20は既存Production DBを上流とし、本Atlas側から名称 / gameplayを改変しない。今後、同様のCluster tagだけ付与する。
+### H — Shadow / Deep Dream
 
----
-
-# 5. Reality-to-Night link type
-
-各Stageは将来、以下から1つ以上を持つ。
-
-- `DIRECT_PLACE_ECHO` — 現実の場所がかなりそのまま残る
-- `MULTI_ERA_OVERLAY` — 同じ場所の複数時代が重なる
-- `MOTIF_CONVERGENCE` — 別場所だが同じ用途 / 意味で接続
-- `OBJECT_ANCHORED` — 特定Named Objectを軸に場所が形成
-- `ROUTE_ANCHORED` — 道 / 移動履歴を軸に形成
-- `UNKNOWN` — evidence不足
-
-初期は`UNKNOWN`を恐れない。
+Stage16–20等は既存Production DBを上流にし、月相 / 朔 / relationとの接続を追加しても名称 / mechanicsを勝手に変えない。
 
 ---
 
-# 6. Distance rules
+# 8. Reality-to-Dream link type
 
-Night内の距離はkmではなく3種類で管理する。
+- `DIRECT_PLACE_ECHO`
+- `MULTI_ERA_OVERLAY`
+- `MOTIF_CONVERGENCE`
+- `OBJECT_ANCHORED`
+- `ROUTE_ANCHORED`
+- `RECORD_ANCHORED`
+- `UNKNOWN`
 
-- `NEAR` — intermissionなしでも繋がる
-- `TRAVEL` — 会話 / 休憩 / transit sceneを置ける
-- `DISCONTINUOUS` — Gate / dawn /特殊接続が必要
-
-これにより実在距離のretconを避ける。
-
----
-
-# 7. Regional culture without premature prefecture lock
-
-地域差を先に都道府県名で作らない。
-
-使えるevidence:
-- 駅舎material
-- 屋根
-- 雨 / 雪
-- 海 / 山 / 水路
-- 食文化
-- 方言の強弱
-- 祭り
-- 郵便 / 交通方式
-- 植物
-- 家屋
-
-まず`culture zone`として設計し、必要になった時だけ現実地理へ寄せる。
-
-Working zones:
-
-### COLD-ROUTE
-雪 / 金属 / 厚い戸 / 灯りの反射。
-
-### WATER-ROUTE
-水路 / 橋 / 湿気 / 船や渡しの記憶。
-
-### OLD-STATION
-木 / 真鍮 / 紙切符 / 古看板。
-
-### DENSE-ALLEY
-路地 / 商店 / 名札 / 郵便 / 生活音。
-
-### ARCHIVE-DISTRICT
-図書 / 保管 / 学校 / 記録。
-
-これらは国 / 県を意味しない。
+`UNKNOWN`を無理に埋めない。
 
 ---
 
-# 8. Landmark rule
+# 9. Dream distance
 
-人気の出る世界には覚えられる場所が必要。
+kmだけで管理しない。
 
-Title1で最低5つの「戦闘なしでも行きたい場所」を育てるCandidate:
+- `NEAR`
+- `TRAVEL`
+- `DISCONTINUOUS`
 
-1. **帰り灯のベンチ** — 誰かが必ず一度座る駅前ベンチ。
-2. **保留棚** — 持ち主不明品を捨てずに置く棚。
-3. **半分屋** — リツ周辺の半分にして分ける菓子文化の店Candidate。
-4. **継火台** — トモリ系の修理跡が残る共同作業台Candidate。
-5. **白栞机** — 読めない資料を「未分類」として残せる机。
+`DISCONTINUOUS`接続は:
 
-固有名はHuman reviewで変更可。
+- gate
+- route shift
+- dream transition
+- relation / object trigger Candidate
 
----
+等で行う。
 
-# 9. Travel scene reservoir
-
-Stage間に長いCutsceneを必須化しない。
-
-短い生活scene:
-- 地図を逆さに持つ
-- 靴紐を結ぶ
-- 自販機 / 茶屋 / 水筒
-- 雨宿り
-- ベンチで寝る
-- 星獣が先へ走る
-- 改札で切符が見つからない
-- 誰かの荷物を自然に持つ
-
-Relationship / Quiet episodeへ流用する。
+旧`dawn`接続は使用しない。
 
 ---
 
-# 10. Geography contradictions to avoid
+# 10. Reality culture zones → final real places
 
-- Stage順 = 現実上の隣接順、と決めつける。
-- 全Stageを一つの巨大都市にする。
-- 全人物が同じ駅を現実で使っていたことにする。
-- 古い駅と現代施設の差を単なるTheme skinにする。
-- 夜の地図を正確すぎる科学図にする。
-- 地域差をキャラのステレオタイプに直結させる。
+exact place未決時はevidence bundleで作る。
+
+- climate
+- roof / building
+- water / mountain / sea
+- food
+- transport
+- dialect strength
+- vegetation
+- housing
+- signage
+
+最終Reality locationを決める時、現実日本として破綻しない場所へ落とす。
+
+「架空県を作らないといけない」ルールはない。
 
 ---
 
-# 11. Production use
+# 11. Dream memorable places
 
-Character master / background master制作では各assetに:
+戦闘なしでも好きになれる場所を育てる。
 
-- layer: Reality / Threshold / Night / Record
-- era confidence
-- culture zone
+Candidate:
+
+- 帰り灯のベンチ
+- 保留棚
+- 半分屋
+- 継火台
+- 白栞机
+
+名称はCandidate。
+
+Dream生活は物不足で困らないため、これらは**survival facilityではなくrelation / routine landmark**として使う。
+
+---
+
+# 12. Travel scene reservoir
+
+- mapを逆さに持つ
+- shoesを直す
+- unfamiliar vending machineを眺める
+- foodを出して休む
+- rain shelter
+- bench nap
+- dogが先にrouteを覚える
+- catだけ別routeへ行く
+- Androidが古いmechanical gateを理解できない
+- 古いCharacterがmodern UIを面白がる
+- same stars / different constellation names
+
+Era differenceを説明会にしない。
+
+---
+
+# 13. Geography contradictions to prevent
+
+- Stage順 = Reality隣接
+- 全Stage = 一つの巨大都市
+- 全Characterが同じstation利用者
+- old / modern difference = skinだけ
+- Dream map = precise scientific truth
+- real Japan Realityを理由なくfake-name化
+- DreamへReality survival infrastructureを必須化
+- moonless depth = fixed boss room
+
+---
+
+# 14. Production metadata
+
+Background / Character contextに必要に応じ:
+
+- layer: Reality / Threshold / Dream / Record
+- Era confidence
+- real-place status
+- culture evidence
 - material vocabulary
 - weather
 - travel evidence
-- allowed signage style
+- signage period
+- moon depth
+- constellation perception
 
 を付ける。
 
-これにより、生成画像が全部「同じ現代日本風ファンタジー夜景」になることを防ぐ。
+これで全assetが「同じ現代日本Fantasy夜景」になるのを防ぐ。
