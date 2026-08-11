@@ -95,7 +95,7 @@ for (const token of [
   'EXPOSED',
   'TEST_ONLY',
   'NOT_CANON',
-  'live Stage1',
+  'Live Stage1',
 ]) {
   assert(doc.includes(token), `slam-wave primitive doc missing token: ${token}`);
 }
