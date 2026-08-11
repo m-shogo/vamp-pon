@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "candidateGenerated": false,
+  "candidateGenerated": true,
   "sourcePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
-  "sourceSha256": "",
-  "referenceSetSha256": "",
+  "sourceSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
+  "referenceSetSha256": "ae61797da3a85cab48615dd9a10b3c71e7ec35a2c7b0b66a53a37f3fe1865c0d",
   "exactlyFiveForegroundHumans": false,
   "noGenericSubstituteHumans": false,
   "reviews": [
@@ -69,5 +69,5 @@
   "allIdentitiesApproved": false,
   "reviewedAtUtc": "",
   "finalApprovalBlocked": true,
-  "notes": "Per-character Core5 review is pending because the final 430x932 candidate has not been generated. The current Runtime V3 visual-recovery bridge is not eligible for this approval."
+  "notes": "Final Core5 candidate registered. Per-character review was reset and must be executed against this exact candidate SHA-256 and locked Core5 reference-set fingerprint."
 }

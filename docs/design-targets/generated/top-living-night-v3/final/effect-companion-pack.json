@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "candidatePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+  "candidateSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
+  "core5ReferenceSetSha256": "ae61797da3a85cab48615dd9a10b3c71e7ec35a2c7b0b66a53a37f3fe1865c0d",
+  "effectCount": 10,
+  "packSha256": "4a0f69cbb326a50c80ab068ad7e57c371d51e63f7747480efabc18c31e6c057f",
+  "effects": [
+    {
+      "file": "01-stars.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 2582,
+      "sha256": "cd28fa91b0debae81972d4505a9ecbe53bbe80fc8413b3ba95b50afe3b99cee1"
+    },
+    {
+      "file": "02-clouds-far.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 13405,
+      "sha256": "6927bc0a3b1f205209bb29a617790d7bba0f70f033226a245ebd75eba573e8dc"
+    },
+    {
+      "file": "03-clouds-near.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 20346,
+      "sha256": "fdab7760f87b79c4faeb8b446ba0f9f1945375d3d5ff4f4af5900f514faf36e1"
+    },
+    {
+      "file": "05-distant-lights-mask.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 7107,
+      "sha256": "faabb04118c229aa697d550245f8e2d0be08a00da40aecbb882c61929c7061c8"
+    },
+    {
+      "file": "08-robot-eye-mask.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 4934,
+      "sha256": "145530588802776ad4e9f9df4108b9d644720ed1c42c3db1ca211895f38c513f"
+    },
+    {
+      "file": "10-fire-flipbook-atlas.png",
+      "alphaRequired": true,
+      "runtimeRole": "atlas",
+      "atlasGrid": "4x3",
+      "width": 1448,
+      "height": 1086,
+      "colorType": 6,
+      "bytes": 848527,
+      "sha256": "262847debf0d176ec45551bbb0a27e0083a02ebb2d25dd60d498c5672f646c32"
+    },
+    {
+      "file": "11-fire-glow-mask.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 21625,
+      "sha256": "3bf40dd635559fca882b38c3e464c05f19d73d067464c12dc67b8d86369025f7"
+    },
+    {
+      "file": "12-smoke-atlas.png",
+      "alphaRequired": true,
+      "runtimeRole": "atlas",
+      "atlasGrid": "3x2",
+      "width": 1536,
+      "height": 1024,
+      "colorType": 6,
+      "bytes": 108509,
+      "sha256": "794a2b44ab98c960b949a6ff5a619adf970b0345fef08faac39b1e65a267b852"
+    },
+    {
+      "file": "13-embers-atlas.png",
+      "alphaRequired": true,
+      "runtimeRole": "atlas",
+      "atlasGrid": "4x2",
+      "width": 256,
+      "height": 128,
+      "colorType": 6,
+      "bytes": 746,
+      "sha256": "27744eb085346cc20f881b41b33522a248b4d580aefd39215d258370318a420a"
+    },
+    {
+      "file": "14-lantern-glow-mask.png",
+      "alphaRequired": true,
+      "runtimeRole": "full-canvas",
+      "atlasGrid": "",
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 42886,
+      "sha256": "7bcb064ffa70c254da874eae76a5d459dd8a8d724c3024d15fe77d030670d6cd"
+    }
+  ],
+  "registeredAtUtc": "2026-08-11T00:37:55.619Z",
+  "runtimePolicy": {
+    "representation": "candidate-bound-effect-companion-pack",
+    "legacyV2FallbackAllowedForFinal": false,
+    "fullCanvasReference": "430x932",
+    "atlasContracts": {
+      "fire": "4x3@362px",
+      "smoke": "3x2@512px",
+      "embers": "4x2@64px"
+    }
+  }
+}

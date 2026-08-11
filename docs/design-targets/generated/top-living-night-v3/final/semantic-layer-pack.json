@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "candidatePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
+  "candidateSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
+  "core5ReferenceSetSha256": "ae61797da3a85cab48615dd9a10b3c71e7ec35a2c7b0b66a53a37f3fe1865c0d",
+  "layerCount": 6,
+  "packSha256": "6a322185e1df1df9cc3f370f6be5fc21ea0f81c9164d8e2f14b9c1acaa8c341b",
+  "layers": [
+    {
+      "file": "00-environment-base.png",
+      "alphaRequired": false,
+      "width": 430,
+      "height": 932,
+      "colorType": 2,
+      "bytes": 585612,
+      "sha256": "36b2082208b3529045cc4119085552053e1eaed36378bc9c35cee0c44ad09e85"
+    },
+    {
+      "file": "04-distant-town.png",
+      "alphaRequired": true,
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 691542,
+      "sha256": "084ad90caa8d1e99797d7222122b8a8b6309cad819928de7a0f143e78d9ca6be"
+    },
+    {
+      "file": "06-core5.png",
+      "alphaRequired": true,
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 740459,
+      "sha256": "b67a691ee464117790bcedc924bb413598ff491ea53e82fde4de5514845c545e"
+    },
+    {
+      "file": "07-animal-robot.png",
+      "alphaRequired": true,
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 711431,
+      "sha256": "785add51427ee15dfea1e6838d4c379dc07ebef6a5e1607f87110a6c42c7cac3"
+    },
+    {
+      "file": "09-fire-base.png",
+      "alphaRequired": true,
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 698535,
+      "sha256": "5dce2996119eac8461d98f84a94836086f436c3a62850e30a1a24db702c7854d"
+    },
+    {
+      "file": "15-foreground-accents.png",
+      "alphaRequired": true,
+      "width": 430,
+      "height": 932,
+      "colorType": 6,
+      "bytes": 705546,
+      "sha256": "a89a8782b5029cd1edc8c7ea0641658c6c76dd3282c6f85839561373cf025d61"
+    }
+  ],
+  "registeredAtUtc": "2026-08-11T00:37:55.535Z",
+  "runtimePolicy": {
+    "representation": "semantic-2.5d-layer-pack",
+    "flattenedFinalFallbackAllowed": false,
+    "referenceCanvas": "430x932"
+  }
+}

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "executed": false,
   "result": "NOT_RUN",
-  "candidateGenerated": false,
+  "candidateGenerated": true,
   "candidatePath": "docs/design-targets/generated/top-living-night-v3/final/top-living-night-core5-final-430x932.png",
   "candidateSha256": "",
   "captureSourceCommit": "",
