@@ -28,8 +28,9 @@ for (const token of [
   'VAMPPON_BUILD_SOURCE_COMMIT',
   'RunGit(repositoryRoot, "rev-parse HEAD")',
   'status --porcelain --untracked-files=no',
-  'require a clean tracked working tree',
-  'does not match clean Git HEAD',
+  'private const string DirtyPrefix = "DIRTY:"',
+  'valid for development but final Simulator/iPhone evidence will reject it',
+  'does not match Git HEAD',
   'IsLowerHexCommit',
   'CleanupGeneratedProvenance',
 ]) {
@@ -89,4 +90,4 @@ for (const shell of [paths.verifier, paths.simulatorWrapper, paths.physicalWrapp
 }
 
 console.log('TOP V3 installed-build provenance: PASS');
-console.log('Unity player embeds exact clean Git HEAD; Simulator/iPhone evidence probes the installed build and rejects source-commit drift before measurement.');
+console.log('Unity player embeds clean HEAD or a DIRTY marker; Simulator/iPhone evidence probes the installed build and accepts only the exact clean V3/capture commit.');
