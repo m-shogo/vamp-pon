@@ -10,10 +10,11 @@ using UnityEngine;
 namespace VampPon.UnitySpike.Editor
 {
     /// <summary>
-    /// Embeds the exact source Git commit into every Unity player build so device
-    /// evidence can prove the installed binary came from the same source commit as
-    /// the V3/capture authority. The generated Resources file is build-only and is
-    /// removed after Unity finishes building.
+    /// Embeds source provenance into every Unity player build so device evidence
+    /// can prove the installed binary came from the same clean Git commit as the
+    /// V3/capture authority. Dirty development builds remain buildable, but carry
+    /// a DIRTY:&lt;sha&gt; marker and are therefore ineligible for final evidence.
+    /// The generated Resources file is removed after Unity finishes building.
     /// </summary>
     public sealed class VampPonBuildProvenanceSync :
         IPreprocessBuildWithReport,
@@ -25,6 +26,7 @@ namespace VampPon.UnitySpike.Editor
             DestinationRelativeDirectory + "/source-commit.txt";
         private const string SourceCommitEnvironmentVariable =
             "VAMPPON_BUILD_SOURCE_COMMIT";
+        private const string DirtyPrefix = "DIRTY:";
 
         public int callbackOrder => -200;
 
@@ -32,21 +34,30 @@ namespace VampPon.UnitySpike.Editor
         {
             CleanupGeneratedProvenance(refresh: false);
 
-            var sourceCommit = ResolveSourceCommit();
+            var provenance = ResolveBuildProvenance();
             Directory.CreateDirectory(DestinationRelativeDirectory);
-            File.WriteAllText(DestinationRelativePath, sourceCommit + "\n");
+            File.WriteAllText(DestinationRelativePath, provenance + "\n");
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
             var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(DestinationRelativePath);
-            if (asset == null || !string.Equals(asset.text.Trim(), sourceCommit, StringComparison.Ordinal))
+            if (asset == null || !string.Equals(asset.text.Trim(), provenance, StringComparison.Ordinal))
             {
                 CleanupGeneratedProvenance();
                 throw new BuildFailedException(
                     "Vamp Pon build provenance could not be imported into Resources.");
             }
 
-            Debug.Log(
-                $"VampPonBuildProvenanceSync: embedded clean source commit {sourceCommit} for {report.summary.platform}.");
+            if (provenance.StartsWith(DirtyPrefix, StringComparison.Ordinal))
+            {
+                Debug.LogWarning(
+                    $"VampPonBuildProvenanceSync: building from tracked dirty HEAD {provenance.Substring(DirtyPrefix.Length)}. " +
+                    "This player is valid for development but final Simulator/iPhone evidence will reject it.");
+            }
+            else
+            {
+                Debug.Log(
+                    $"VampPonBuildProvenanceSync: embedded clean source commit {provenance} for {report.summary.platform}.");
+            }
         }
 
         public void OnPostprocessBuild(BuildReport report)
@@ -54,23 +65,13 @@ namespace VampPon.UnitySpike.Editor
             CleanupGeneratedProvenance();
         }
 
-        private static string ResolveSourceCommit()
+        private static string ResolveBuildProvenance()
         {
             var repositoryRoot = ResolveRepositoryRoot();
             var actualHead = RunGit(repositoryRoot, "rev-parse HEAD");
             if (!IsLowerHexCommit(actualHead))
                 throw new BuildFailedException(
                     "Git HEAD is not a lowercase 40-character commit SHA; refusing ambiguous build provenance.");
-
-            var trackedStatus = RunGit(
-                repositoryRoot,
-                "status --porcelain --untracked-files=no");
-            if (!string.IsNullOrWhiteSpace(trackedStatus))
-            {
-                throw new BuildFailedException(
-                    "Unity final-evidence builds require a clean tracked working tree. " +
-                    $"Commit/stash tracked changes before building. git status: {trackedStatus}");
-            }
 
             var fromEnvironment = Environment.GetEnvironmentVariable(
                 SourceCommitEnvironmentVariable)?.Trim();
@@ -81,10 +82,15 @@ namespace VampPon.UnitySpike.Editor
                         $"{SourceCommitEnvironmentVariable} must be a lowercase 40-character Git commit SHA.");
                 if (!string.Equals(fromEnvironment, actualHead, StringComparison.Ordinal))
                     throw new BuildFailedException(
-                        $"{SourceCommitEnvironmentVariable} does not match clean Git HEAD; refusing mismatched build provenance.");
+                        $"{SourceCommitEnvironmentVariable} does not match Git HEAD; refusing mismatched build provenance.");
             }
 
-            return actualHead;
+            var trackedStatus = RunGit(
+                repositoryRoot,
+                "status --porcelain --untracked-files=no");
+            return string.IsNullOrWhiteSpace(trackedStatus)
+                ? actualHead
+                : DirtyPrefix + actualHead;
         }
 
         private static string RunGit(string repositoryRoot, string arguments)
