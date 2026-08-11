@@ -1,10 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 
+import { baseWeaponSelectionEntries, selectedTitle1BaseWeaponCandidates } from '../../src/game/data/baseWeaponSelectionSource.ts';
 import { weapons } from '../../src/game/data/weapons.ts';
-import {
-  currentUnityWeaponRuntimeCapabilities,
-  title1BaseWeaponRuntimeAdmissionEntries,
-} from '../../src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts';
+import { currentUnityWeaponRuntimeCapabilities } from '../../src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -76,14 +74,13 @@ assert(motion.includes('U2ReturningProjectilePhase.Outbound') && motion.includes
 assert(!motion.includes('repair_spanner') && !motion.includes('EXPOSED'), 'generic returning motion must remain content-neutral');
 assert(statusRequest.includes('public readonly struct EnemyStatusApplicationRequest'), 'Repair Spanner requires typed Status request transport');
 
-const repairSpanner = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'repair_spanner');
-assert(repairSpanner, 'repair_spanner admission row missing');
-assert(currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE === 'MISSING', 'caller proof PR must not pre-promote RETURNING_PROJECTILE capability');
-assert(repairSpanner.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'repair_spanner must remain capability-blocked until overlay promotion PR');
-assert(!repairSpanner.prototypeCallerImplemented, 'caller registry promotion must remain a separate admission gate in this PR');
-assert(repairSpanner.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', 'repair_spanner decision must remain primitive-blocked before overlay promotion');
-assert(!repairSpanner.mayEnterUnityRuntimeRegistry, 'Repair Spanner must remain outside implementation review before overlay promotion');
-assert(repairSpanner.runtimeStatus === 'NOT_IMPLEMENTED', 'prototype caller must never claim live Repair Spanner runtime');
+const repairSpanner = baseWeaponSelectionEntries.find((entry) => entry.weaponId === 'repair_spanner');
+assert(repairSpanner, 'repair_spanner candidate row missing');
+assert(repairSpanner.decision === 'HOLD_RETURN_FAMILY_OVERLAP', `Repair Spanner Hold decision drift: ${repairSpanner.decision}`);
+assert(!repairSpanner.selectedForTitle1, 'Repair Spanner prototype work must not mutate the authored Hold decision');
+assert(repairSpanner.runtimeAutoPromotionAllowed === false, 'Repair Spanner candidate must remain non-auto-promotable');
+assert(!selectedTitle1BaseWeaponCandidates.some((entry) => entry.weaponId === 'repair_spanner'), 'Repair Spanner must remain outside Selected16');
+assert(currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE === 'MISSING', 'non-selected prototype proof must not pre-promote RETURNING_PROJECTILE capability');
 
 assert(!weapons.some((weapon) => weapon.id === 'repair_spanner'), 'prototype caller must not add Repair Spanner to Web live catalog');
 for (const token of ['RepairSpannerPrototypeState', 'repair_spanner', 'U2ReturningProjectileMotionState']) {
@@ -115,10 +112,10 @@ for (const linkedSource of [
 
 for (const token of [
   'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
-  'RETURNING_CAPABILITY_NOT_YET_PROMOTED',
+  'HOLD_RETURN_FAMILY_OVERLAP',
+  'NON_SELECTED_RETURN_FAMILY_PROOF',
   'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
   'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE',
-  'BLOCKED_MISSING_UNITY_PRIMITIVES',
   'runtimeAutoPromotionAllowed = false',
   'Original / Canon boundary',
 ]) {
@@ -129,10 +126,9 @@ console.log(JSON.stringify({
   status: 'PASS',
   caller: 'RepairSpannerPrototypeState',
   weaponId: 'repair_spanner',
+  selectionDecision: repairSpanner.decision,
+  selectedForTitle1: repairSpanner.selectedForTitle1,
   returningCapability: currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE,
-  admission: repairSpanner.unityDecision,
-  callerRegistryPromoted: repairSpanner.prototypeCallerImplemented,
-  liveRuntimeStatus: repairSpanner.runtimeStatus,
   liveStage1Changed: false,
   canonTuningChanged: false,
 }, null, 2));
