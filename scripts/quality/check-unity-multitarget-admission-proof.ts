@@ -12,7 +12,7 @@ function assert(condition: unknown, message: string): asserts condition {
 
 assert(currentUnityWeaponRuntimeCapabilities.MULTI_TARGET_PROJECTILE_SELECTION === 'IMPLEMENTED', 'verified multi-target primitive must remain implemented');
 assert(currentUnityWeaponRuntimeCapabilities.STATUS_APPLICATION === 'IMPLEMENTED', 'Selected16-specific Status caller must promote shared STATUS_APPLICATION primitive');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 5, `expected five implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount >= 5, `multi-target proof requires at least the five historical implemented primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'exactly first Selected16 weapon should pass primitive admission');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'remaining Selected15 must stay blocked');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', `unexpected admitted IDs: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
