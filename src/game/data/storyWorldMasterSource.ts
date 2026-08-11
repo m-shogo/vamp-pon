@@ -13,6 +13,11 @@ export const STORY_WORLD_MASTER_SOURCE = {
     laneCountFrozen: false,
     exactYearsFrozen: false,
     explicitTimeTagsWeakInDream: true,
+    core5DistinctRealityEraRequired: true,
+    core5DistinctEraCount: 5,
+    core5CharacterIds: ['yui', 'asa', 'nagi', 'michiru', 'tomori'] as const,
+    exactCore5EraAssignmentFrozen: false,
+    fiveDistinctErasDoNotImplyFiveEqualProtagonists: true,
   },
   yoruNoShirube: {
     layerType: 'DREAM_WORLD',
@@ -28,7 +33,18 @@ export const STORY_WORLD_MASTER_SOURCE = {
   dreamLiving: {
     survivalSim: false,
     normalEconomyRequired: false,
-    easyMaterialization: ['FOOD', 'DRINK', 'DAILY_GOODS', 'REST', 'BASIC_LIVING_ITEMS'] as const,
+    provisioningMode: 'STORAGE_MEDIATED_DISCOVERY',
+    directHandOrAirFoodMaterializationAllowed: false,
+    provisioningSurfaces: [
+      'PANTRY',
+      'REFRIGERATOR',
+      'CUPBOARD',
+      'KITCHEN',
+      'COOL_STORAGE',
+      'DRINK_SHELF',
+      'LIQUOR_SHELF',
+    ] as const,
+    easyProvisioning: ['FOOD', 'DRINK', 'DAILY_GOODS', 'REST', 'BASIC_LIVING_ITEMS'] as const,
     wishCannotOverride: [
       'OTHER_PERSON_MIND',
       'CONSENT',
@@ -39,7 +55,28 @@ export const STORY_WORLD_MASTER_SOURCE = {
       'REALITY_INCIDENT',
       'LIFE_DEATH',
       'AUTHENTIC_CHOICE',
+      'UNIQUE_OBJECT',
+      'INCIDENT_EVIDENCE',
     ] as const,
+  },
+  socialLife: {
+    partyAfterNamedBossOrMajorConfrontation: true,
+    partyToneMustVary: true,
+    partyScenarioReservoirCount: 28,
+    alcoholExists: true,
+    alcoholIntoxicates: true,
+    alcoholFinalSceneAdultConfirmationRequired: true,
+    intoxicationOverridesConsent: false,
+    minimumMajorSmokerCount: 3,
+    minimumPipeSmokerCount: 1,
+    smokerFinalAssignmentFrozen: false,
+    initialSmokerCandidates: [
+      { character: 'ゲン', form: 'pipe' },
+      { character: 'トバリ', form: 'cigarette' },
+      { character: 'セン', form: 'cigarette' },
+    ] as const,
+    preferGenericCommercialProductNames: true,
+    genericDrinkExamples: ['黒い炭酸', '柑橘のシュワシュワ', 'ぶどうソーダ', '麦の泡酒', '米の酒', '果実酒', '炭酸割り'] as const,
   },
   sky: {
     starsVisible: true,
@@ -112,6 +149,7 @@ export const STORY_WORLD_MASTER_SOURCE = {
 } as const;
 
 export const STORY_WORLD_MASTER_OPEN_FIELDS = [
+  'exact Core5 era assignment',
   'exact era years',
   '群青残響録 formal members',
   '群青残響録 formal names',
@@ -126,6 +164,7 @@ export const STORY_WORLD_MASTER_OPEN_FIELDS = [
   'final Yoru-no-Shirube dream mechanism / origin',
   '群青残響録 individual endings / salvation',
   'whether each major incident needs a combat boss',
+  'final smoker person assignment and exact adult-era legality',
 ] as const;
 
 export const STORY_WORLD_MASTER_SUPERSEDED = [
@@ -135,6 +174,8 @@ export const STORY_WORLD_MASTER_SUPERSEDED = [
   '朔盟 is the Current formal enemy-group name',
   'one fixed era boss per era',
   '群青残響録 is a fixed-count boss organization',
+  'Core5 all come from the same Reality era',
+  'food directly materializes in hand or open air',
   'all eras share identical Dream constellations',
   'Dream requires normal Reality survival infrastructure',
   'シオン as final Android name',
@@ -143,7 +184,11 @@ export const STORY_WORLD_MASTER_SUPERSEDED = [
 
 export const storyWorldMasterSummary = {
   eraLaneSeedCount: STORY_WORLD_MASTER_SOURCE.era.currentLaneSeeds.length,
+  core5DistinctEraCharacterCount: STORY_WORLD_MASTER_SOURCE.era.core5CharacterIds.length,
   sakuyazaCurrentMemberCount: STORY_WORLD_MASTER_SOURCE.sakuyaza.memberCallNames.length,
+  dreamPartyScenarioReservoirCount: STORY_WORLD_MASTER_SOURCE.socialLife.partyScenarioReservoirCount,
+  minimumMajorSmokerCount: STORY_WORLD_MASTER_SOURCE.socialLife.minimumMajorSmokerCount,
+  minimumPipeSmokerCount: STORY_WORLD_MASTER_SOURCE.socialLife.minimumPipeSmokerCount,
   openFieldCount: STORY_WORLD_MASTER_OPEN_FIELDS.length,
   supersededRuleCount: STORY_WORLD_MASTER_SUPERSEDED.length,
   unresolvedHardContradictionCount: 0,
