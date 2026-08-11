@@ -1,413 +1,456 @@
-# ヨルノシルベ — Core5 Era Character Master v1
+# ヨルノシルベ — Core5 Era Character Master v2
 
 Date: 2026-08-11  
-Status: **CURRENT CORE5 ERA AUTHORITY / USER-DIRECTED ASSIGNMENT / EXACT YEAR OPEN**
+Status: **CURRENT CORE5 ERA AUTHORITY / RESEARCH-BACKED ERA BANDS / EXACT YEAR OPEN**
 
 > 上流Authority: `docs/00-current-story-world-master.md`。
-> 目的: Core5 5人を「見た目だけ違う同時代チーム」に戻さず、Realityで生きた時代そのものを人物性・日常・価値観・道具・事件へ接続する。
-> **5人は全員別Reality era。個別era laneも本書でCurrent assignmentとする。exact year / exact incident /重大Family factはOpen。**
+> Research source: `docs/research/era-society-food-future-sourcebook-v1.md`。
+> 目的: Core5 5人を別Eraに置くだけでなく、そのEra固有の生活・食・技術・制度・社会pressureがCharacter Coreと噛み合う状態へする。
+> **1940 / 1980 / 2000等の以前の数字は例として扱い、現在は「時代の転換点」でEra bandを切る。exact yearはOpen。**
 
 ---
 
-# 1. Current assignment
+# 1. Current research-backed assignment
 
-| Character | Reality era | Core era role | 現在の強い理由 |
+| Character | Current Reality Era band | 主要な時代pressure | Character Coreとの接続 |
 |---|---|---|---|
-| **トモリ** | **1940年代系 日本** | old-light / repair era lead | 「直して継ぐ」「物が先に後世へ届く」を最も強く支え、ユイのランタン修理Candidateと自然に接続する |
-| **ミチル** | **1980年代系 日本** | changing-city / route era lead | 紙地図・駅・道路・再開発・古い道/新しい道の食い違いと「正しい道は一つか」が噛み合う |
-| **ナギ** | **2000年代系 日本** | early-network / privacy era lead | 携帯・メール・掲示板・個人情報・公開/非公開の境界が「閉じて守る」テーマを社会側へ広げられる |
-| **ユイ** | **現代日本** | overall viewpoint / present era lead | 現在の日本を基準にPlayerが世界へ入れる。記録過多の時代に「全部覚える=大切にするか」を問える |
-| **アサ** | **未来 Android / Robot共存社会の人間** | future identity / naming era lead | 名前・呼称・型番・designation・本人が選ぶ名を扱う未来社会が「名前を返す」テーマと最も強く噛み合う |
+| **トモリ** | **戦後復興・物資不足期**（1945後〜1950年代前半相当） | scarcity / distribution / reconstruction / repair | 壊れた物を直す。足りない時に「元通り」だけでは救えない |
+| **ミチル** | **高度成長末期〜公害・石油危機の転換期**（1960年代後半〜1970年代相当） | development / pollution / urban planning / energy shock | 「正しい成長route」を一つに決める危険と、道を選ぶThemeが直結 |
+| **ナギ** | **バブル崩壊後〜携帯Internet初期**（1990年代後半〜2000年代前半相当） | unstable employment / early Internet / privacy / identity exposure | 開けられる情報と、開けてよい情報は違う |
+| **ユイ** | **現代日本**（2020年代〜Current） | misinformation / record abundance / algorithm / loneliness | 全部残すことと大切にすることは同じか |
+| **アサ** | **遠未来のHuman / Android / Robot / Avatar共存社会** | personhood / digital identity / body / copy / ownership | 正しい名前を付けるより、本人が名乗れる場所を作る |
 
-## Narrative role
+## Why these five
 
-- **ユイ**: Title1全体の中心viewpoint / 主人公。
-- **アサ**: 主人公級buddy / counter-axis。恋愛なし。
-- **ナギ / ミチル / トモリ**: Core5 main cast。各自のReality era解決partでは**era lead / protagonist-grade focus**を取れる。
-- `5 different eras = 5人を毎chapter完全同尺`ではない。
+この5つは主要problemが重なりにくい。
+
+```txt
+Tomori  = scarcity / reconstruction
+Michiru = development / environment / energy
+Nagi    = early network / privacy / employment insecurity
+Yui     = information excess / misinformation / isolation
+Asa     = personhood / embodiment / copy / digital identity
+```
+
+年代は衣装違いではなく、**何を怖がり、何を正解と思い込みやすい社会か**を変える。
+
+---
+
+# 2. Narrative role
+
+- **ユイ**: Title1全体の中心viewpoint / protagonist。
+- **アサ**: protagonist-grade buddy / counter-axis。ユイ×アサはnon-romance。
+- **ナギ / ミチル / トモリ**: Core5 main cast。各自のReality解決partではera lead / protagonist-grade focusを取れる。
+- `5 Eras = screen time完全均等`ではない。
 - `ユイが中心 = 他4人が脇役`でもない。
 
 ---
 
-# 2. Hard boundary
+# 3. Hard boundary
 
-## DECIDED
+## CURRENT
 
-- 5人はRealityで全員別時代。
-- 上記5つのera lane assignmentをCurrentとする。
-- アサは**未来社会出身の人間**。Android化しない。
-- Dreamではexact year / 西暦tagが弱いため、最初から互いの年代を知っているわけではない。
-- 年代差は生活・言葉・道具・食文化・UI・制度・星座から少しずつ出す。
-- Core5の見た目年齢が近くてもReality同世代ではない。
+- Core5はRealityで全員別Era。
+- 上記5 Era bandをCurrent assignmentとする。
+- **Era bandはCurrentだがexact yearはOpen。**
+- アサはFuture society出身の**Human**。Androidへ変更しない。
+- Dreamでは西暦 / exact date等のtime tagが弱く、出会ってすぐ年代を特定しない。
+- 年代差は生活 / 言葉 / 食 / 道具 / UI / 制度 / 星座から出す。
 
 ## OPEN
 
 - exact year
 - exact chronological age
-- 1940年代トモリが戦中 / 戦後のどこにいるか
-- 1980年代ミチルのexact city / prefecture
-- 2000年代ナギのexact school / occupation / household
-- ユイのReality exact year表記を作品内で出すか
-- 未来アサのexact年代 / 社会制度 / Android incidentとの具体的立場
-- 各era大事件の具体内容 / 被害規模 / 群青残響録member
-- 重大な死別 / 戦争被害 / 犯罪被害 / orphan設定
+- exact Reality city / school / work / household
+- トモリの戦後何年目か
+- ミチルの高度成長 / oil shockのどの位置か
+- ナギの1990s後半 / 2000s前半のどの位置か
+- ユイの作品内exact calendar year
+- アサのfar-future exact year
+- 各Era大事件のfinal name / casualty / exact place / 群青残響録member
+- major family death / orphan / abuse / crime victimhood
 
-> **年代を決めたことを理由に悲劇まで自動生成しない。**
-
----
-
-# 3. トモリ — 1940年代系
-
-## Core
-
-トモリの時代性は「戦争キャラ」にするためではない。
-
-1940年代という、物が簡単に交換・更新できるとは限らず、修理・再利用・手仕事の価値が生活に近い時代を背景に:
-
-> **壊れても直して使う**
-
-という既存Character Coreへ社会の厚みを足す。
-
-## Reality texture
-
-使える:
-
-- 金属工具、ねじ、蝶番、ガラス、ランプ、布補修
-- 手で直せる生活道具
-- 紙の説明書 / 手書き修理メモ
-- 修理痕を見れば「誰の仕事か」が分かる職人的記憶
-- 物を捨てる前に部品取りを考える癖
-
-まだ固定しない:
-
-- 軍歴
-- 空襲体験
-- 戦災孤児
-- 家族死亡
-- 配給だけでCharacterを説明すること
-
-## Dream clue examples
-
-- 密閉されたmodern applianceを見て「開けたら直せるのか？」と先に構造を見る。
-- 使い捨て包装をきれいに畳み、何かに使えないか考える。
-- ユイのランタンのrepair seamだけは初見で妙に気になる。
-- 炭酸の容器より、栓・缶・蓋の構造を観察する。
-
-## Party
-
-- 焼肉では火加減担当へ自然に回る。
-- 焚き火 / 炭火があると落ち着く。
-- 酒を飲むかどうかはadult exact age確定までOpen。
+> **Eraを決めたからといって、そのEraの有名な悲劇をCharacterへ自動付与しない。**
 
 ---
 
-# 4. ミチル — 1980年代系
+# 4. Tomori — 戦後復興・物資不足期
 
-## Core
+## Historical texture to use
 
-高度に整備され変化していく街・交通・紙地図の時代感を:
+Research sourceでは:
 
-> **正しい道は一つではない**
+- rationing
+- delayed / missing distribution
+- buying trips
+- black markets
+- barter
+- clothing repair
+- housing shortage
+- public health
+- civilian reuse of available materials
 
-へ接続する。
+等が確認できる。
 
-1980年代を「バブルだけ」にしない。
+Tomoriを「戦争そのもののCharacter」にしない。
+重要なのは:
 
-## Reality texture
+> **足りない / 壊れている / 正規routeだけでは生活が回らない状況で、どう直し、どう分けるか。**
 
-使える:
+## Food memory
 
-- 紙の道路地図 / 路線図
-- 駅前案内板
-- 公衆電話 / 電話番号を覚える感覚
-- 待ち合わせ場所を言葉で細かく決める
-- 再開発で地図と現地がずれる経験
-- 新しい道と消える道への敏感さ
+使える時代texture:
 
-## Dream clue examples
+- substitute staple food
+- bread
+- powdered / skim milk memory
+- sweet potato / potato
+- simple soup
+- preserved food
 
-- 現代Yuiが地図アプリ感覚で説明すると、ミチルは「それ、自分で道を覚えなくならない？」と面白がる。
-- ゲンの古い道を最初は否定するが、Reality年代差を知る前から「地図の版が違うのかも」と考え始める。
-- 未来アサのroute UIを便利だと思う一方、推奨routeを正解扱いする危険には一番早く気づける。
+Dreamでは豊かな肉や炭酸を普通に楽しめる。
+毎回「昔は食べられなかった」と泣かせない。
 
-## Party
+## Fictional major-incident lane
 
-- 食糧庫探索で「寄り道棚」を勝手に発見する。
-- 飲み物を持ってきたのに戻り道で菓子まで拾ってくる。
-- 流行語を言っても他4人には普通の癖として流される。
+Candidate:
 
----
+> **公平な配給を目指した統合台帳が、記録から漏れた住民を「存在しない」と処理し始める。**
 
-# 5. ナギ — 2000年代系
+Background pressure:
 
-## Core
+`scarcity + fairness + disorder fear → one official ledger becomes absolute`
 
-携帯電話とInternetが日常へ入り、名前・住所・写真・個人情報の「出す / 隠す」の境界が大きく変わった時代を:
+Tomori's third-option contribution:
 
-> **閉じることで守る。ただし本人の選択まで閉じない。**
+- broken recordを修復する
+- local unofficial knowledgeを捨てない
+- official / informal routeをつなぐ
+- 「元の台帳に戻す」だけではなく、新しい運用へ直す
 
-へ接続する。
-
-## Reality texture
-
-使える:
-
-- 携帯電話 / メール
-- 掲示板 / 個人サイト / handle name
-- password / lock / folder
-- 学校や家庭での「ネットに何を出していいか」の揺れ
-- 写真・連絡先・個人情報の保存感覚
-
-固定しない:
-
-- 特定SNS / service brand
-- cybercrime被害者
-- stalking / abuse等の重い過去
-
-## Dream clue examples
-
-- 他人の箱・端末・手紙を「見られるから見る」にしない。
-- アサの未来designation文化を見ても、まずaccess権限と本人意思を気にする。
-- ユイの現代的な共有感覚と軽く衝突し、「便利だから共有」と「共有してよい」は別だと言う。
-
-## Party
-
-- 食糧庫の棚を勝手に全部開けない。
-- 「これ誰の？」を確認してから飲む。
-- 酔った人の秘密を面白半分で暴く側にしない。
+Exact event detailはCandidate。
 
 ---
 
-# 6. ユイ — 現代日本
+# 5. Michiru — 高度成長末期〜公害・石油危機
 
-## Core
+## Historical texture to use
 
-Playerが最もReality基準を共有しやすい現在側。
+- rapid urbanization
+- expanding rail / roads / new towns
+- factories / industrial zones
+- economic growth
+- pollution / health complaints
+- energy dependence
+- price rises / shortage anxiety
+- energy saving
+- panic buying
+- diet diversification
 
-現代は記録が大量に残る:
+1980s bubbleをCore laneにしない。
+Michiruには、**都市が変わりすぎて古い道が消える時代**の方が既存Themeと強く噛み合う。
 
-- smartphone写真
-- message履歴
-- SNS
-- cloud
-- 検索
-- cashless / QR-like UI
-- 即時連絡
+## Food memory
 
-しかし記録が多いことと、大切にできることは同じではない。
+- rice remains common
+- meat / dairy / oil increase
+- Japanese / Western / Chinese foods coexist
+- processed / instant food expands
 
-> **全部残せる時代だからこそ、全部残すことが愛なのか。**
+「昔の人=和食だけ」にはしない。
 
-をユイの「忘れない」Themeへ接続する。
+## Fictional major-incident lane
 
-## Dream clue examples
+Candidate:
 
-- 紙切符 / 古い地図 / 手書き電話番号へ自然に興味を持つ。
-- トモリがユイのランタンの古いrepair seamを知っていることが年代Mysteryの強い入口になる。
-- アサの未来UIを「新しい端末」程度に受け止め、すぐ未来人断定しない。
+> **新交通網・工業誘致・住宅供給を一つの“最短成長route”へまとめた都市計画が、健康risk・古い生活道・local escape routesを切り捨てる。**
 
-## Party
+Energy crisis pressure can intensify it:
 
-- Core5で最も「みんなで写真を残したい」に近い感覚を持てる。
-- ただしDreamの写真 / 明示記憶がWaking後どう残るかはMain Mysteryへ直結するため勝手に証拠化しない。
-- 宴会で全員の飲み物を揃えてから自分の分を忘れる等、既存忘れ物癖を使う。
+- factory vs household energy priority
+- efficient transport vs local access
+- development deadline vs safety monitoring
 
----
+Pattern:
 
-# 7. アサ — 未来 Android / Robot共存社会の人間
+`development wish + fear of falling behind → one route becomes absolute`
 
-## Species / identity
-
-**人間。**
-
-未来社会にAndroid / Robotが普通に存在しているからといって、アサ本人をAndroidへ変更しない。
-
-## Core
-
-未来では:
-
-- human name
-- chosen name
-- call sign
-- model designation
-- system identifier
-- ownership record
-
-のように「名前」が社会制度・人格・権利とぶつかる可能性が高い。
-
-そのためアサの:
-
-> 名前を呼べば、その人を「ここにいる」と扱える。
-
-という既存Coreが、未来Android問題へ自然に届く。
-
-最終成長は:
-
-> **正しい名前を与えることではなく、本人が名乗れる場所を作る。**
-
-## Reality texture
-
-使える:
-
-- Android / Robotを街で見ること自体には驚かない
-- human / artificial personの呼称差へ敏感
-- model numberだけで呼ぶことを嫌う可能性
-- biometric / ambient UI等への操作慣れはCandidate
-
-固定しない:
-
-- アサがAndroid側 / human側どちらの政治陣営にいたか
-- Android事件で誰を失ったか
-- 未来政府 / corporate systemの具体名
-- Androidへ法的人格があるか
-
-## Dream clue examples
-
-- 初めて会ったRobotへも「それ、名前？」と普通に聞く。
-- 古い時代の人がRobotへ驚いた時、アサだけ反応が少し薄い。
-- 逆に紙名札や手書きラベルへ妙に愛着があるため、未来人らしさが一方向にならない。
-- 「型番で呼ばれるの嫌じゃない？」という一言が、後から未来出身の伏線になる。
-
-## Yui buddy
-
-ユイ×アサの主人公級buddyを**年代差で強くする**。
-
-- ユイ: 残す / 記録する
-- アサ: 呼ぶ / 名乗らせる
-- 現代: 情報が残りすぎる
-- 未来: identityがsystemへ登録されすぎる可能性
-
-二人とも「記録されれば存在できる」と思いかけるが、最後は:
-
-> **記録や登録より先に、本人の選択がある。**
-
-へ進める。
-
-恋愛にはしない。
+Michiru should not solve it by `development全部中止`。
+Reroute / staged development / monitoring / local path preservation等の第三案へ進める。
 
 ---
 
-# 8. Cross-era daily-life engine
+# 6. Nagi — バブル崩壊後〜携帯Internet初期
 
-年代説明会を開かない。
+## Historical texture to use
+
+- severe employment environment / job-hunting anxiety
+- contract / unstable work
+- feature phones / PHS
+- mobile mail
+- PC email
+- bulletin boards / personal sites / handle names
+- household Internet still uneven
+- dial-up / ISDN / broadband transition
+- privacy normが社会全体で学習中
+
+Presentとの差:
+
+> **algorithmic social media時代ではなく、「普通の人の情報が初めて検索・copy・forwardされるようになる時代」。**
+
+## Food memory
+
+- convenience-store food
+- family restaurants
+- takeout / prepared food
+- food abundance
+- nutrition balance / waste concern
+
+## Fictional major-incident lane
+
+Candidate:
+
+> **詐欺・なりすまし・匿名中傷を防ぐため学校 /企業 /地域が作った本人確認・注意人物共有網が、誤登録者を就職 /進学 /居場所から静かに締め出す。**
+
+Technology texture:
+
+- email
+- bulletin-board logs
+- paper printouts
+- FAX
+- feature-phone messages
+- manually maintained shared database
+
+Pattern:
+
+`protection wish + anonymous-network fear → shared warning list becomes absolute`
+
+Nagi contribution:
+
+- access limit
+- correction right
+- expiry
+-本人controlled disclosure
+- appeal route
+
+---
+
+# 7. Yui — 現代日本
+
+## Current texture
+
+- smartphone
+- SNS / short video
+- group chat
+- cloud photo / auto backup
+- recommendation / ranking
+- generative AI
+- fake image / deepfake
+- misinformation
+- cashless payment
+- delivery / takeout / prepared food
+- always-connected but loneliness remains
+- aging / service access problems
+
+Yui's theme:
+
+> **記録が残りすぎる時代だからこそ、全部残すことが愛なのか。**
+
+## Fictional major-incident lane
+
+Candidate:
+
+> **都市規模の緊急事態でfake救援情報が急増。混乱を止めるため“認証済み情報だけを表示する”仕組みが導入されるが、認証できない小さなSOSや孤立者の本物の声も消える。**
+
+This event is fictional. Real disasterを再現しない。
+
+Pattern:
+
+`correct information wish + misinformation fear → verified-only becomes truth`
+
+Yui contribution:
+
+- provenance
+- uncertainty label
+- multiple-source handling
+- human verification
+- unverified but visible emergency lane
+
+「全部保存」でも「未確認は全部削除」でもない第三案へ進める。
+
+---
+
+# 8. Asa — 遠未来 Human / Android / Robot / Avatar共存社会
+
+## Current trajectory research
+
+Futureは空想だけでなく、現在の延長も学ぶ。
+
+Research sourceでは:
+
+- 2050 cybernetic avatar /能力拡張research
+- Human / Robot coexistence research
+- digital identity / trust infrastructure
+- AI governance
+
+等を確認。
+
+## Ghost in the Shell study boundary
+
+『攻殻機動隊』から学ぶのは**問いの立て方**。
+
+Study axes:
+
+- bodyが変わっても同じ人か
+- memoryがcopyされたら同じ人か
+- network connectionが自由と侵入riskを同時に増やす
+- institutionは本人性を証明したがる
+- human / machine boundaryが曖昧になる
+
+Copyしない:
+
+- ゴーストを本作の魂system名にする
+- 電脳 / 義体を本作固有の中心ブランドとして流用
+- 公安9課型organization
+- 人形使い型antagonist
+- 同じ事件plot
+
+## Future ordinary life
+
+Candidate:
+
+- Humanが複数avatar / remote bodyを使う
+- body augmentationは珍しくないが全員必須ではない
+- Android / Robotにwork / preference / relationshipがある
+- Human / Robot / Device / Avatarでidentity credentialが異なる
+- memory / skill exportはpersonhood証明にならない
+- same initial snapshotでも経験分岐で別人になる
+
+## Food
+
+Future = pills onlyは禁止。
+
+- cooked food survives as culture
+- tailored nutrition / automated cooking
+- synthetic / cultured ingredient
+- Robotは食事不要でもtableに参加できる
+- taste sensorを持つ個体 / 持たない個体がいる
+
+Important scene question:
+
+> **食べる必要がない相手が、一緒に食卓へ座ることに意味はあるか。**
+
+## Fictional major-incident lane
+
+Candidate:
+
+> **body exchange / avatar / Android copyが一般化した社会で、行政・企業が“一人の本人”をContinuity認証へ固定。分岐copyやbody移行したHuman / Androidの一部が法的に本人ではないとされ、契約 /所有 /家族 /労働の権利を失う。**
+
+Pattern:
+
+`anti-impersonation wish + identity-confusion fear → one continuity answer becomes absolute`
+
+Asa contribution:
+
+> **正しい名前を与えるのではなく、本人が名乗れる / 分岐できる制度を作る。**
+
+Possible third-option candidates:
+
+- lineage identity
+- branch identity
+- consent-based continuity
+- multiple valid descendants from one snapshot
+- personhood not conditional on human-ness
+
+Final solutionはまだOpen。
+
+---
+
+# 9. Non-overlap guard
+
+| Character | This Era owns | Do not steal from another Era |
+|---|---|---|
+| Tomori | scarcity / reconstruction / distribution / repair | privacy / AI misinformationを主題にしない |
+| Michiru | growth / pollution / energy / urban route | Bubble consumerismだけにしない |
+| Nagi | early network / privacy / employment insecurity | deepfake / algorithm feedを主軸にしない |
+| Yui | information excess / misinformation / loneliness | early Internet noveltyだけにしない |
+| Asa | body / copy / digital identity / Android personhood | Android becoming humanをgoalにしない |
+
+New incident QA:
+
+> **この事件を別Eraへそのまま移して成立するなら、Era固有性が弱い。**
+
+---
+
+# 10. Cross-era daily-life seeds
+
+説明会ではなく日常から出す。
 
 ## 食糧庫
 
-同じ棚に:
+- Tomori: 包装 /容器を捨てる前に再利用を考える
+- Michiru: 新しい味をすぐ試すが「どこで流行った？」とroute感覚で聞く
+- Nagi: 誰の棚か /開けてよいか確認する
+- Yui: 写真を撮りたがる /共有方法を考える
+- Asa: food自体より「誰が選んだ名前の料理か」に妙なこだわりが出ることもある
 
-- 焼き芋
-- sandwich
-- 白玉ぜんざい
-- 焼きおにぎり
-- だし巻き卵
-- 黒い炭酸
-- 柑橘のシュワシュワ
+## 炭酸
 
-が並んでもDreamでは普通。
+同じ黒い炭酸でも:
 
-Characterは年代推理より先に:
+- 容器
+- 栓
+- 冷やし方
+- 自販機文化
+- 甘さの感覚
+- 呼び方
 
-> 「それ好きなの？」
-> 「食べたことない」
-> 「一口いる？」
+への反応が違う。
 
-をする。
+## Alcohol
 
-## 道具
+adult確認後のみ。
+年代差は酒の銘柄ではなく:
 
-年代差を出す時は、一人を無知役に固定しない。
+- 酒器
+- 注ぎ方
+- 飲む場所
+- 飲み会礼儀
+- 酔いをどこまで表に出すか
 
-- トモリはmodern UIに弱いがmechanical repairでは他4人より強い。
-- ミチルはdigital routeに驚いても紙地図 / 現地観察で強い。
-- ナギはprivacy / access感覚で強い。
-- ユイはpresent-day social / device conventionで強い。
-- アサはfuture system interfaceに慣れるがold analog itemの個体差に弱い。
+等へ出す。
 
-**新しい時代 = 上位互換ではない。**
+## Tobacco
 
-## 言葉
-
-年代ネタは毎回ギャグにしない。
-
-1. 初見では普通の言い回し差
-2. 二度目で小さな違和感
-3. 物証と重なる
-4. 後で年代Reveal
-
-の順を基本にする。
+喫煙3+ / pipe1+ ruleはCore5とは別管理。
+時代を理由にCore5へ無理に喫煙を割り当てない。
 
 ---
 
-# 9. Constellation / Moon integration
+# 11. Production guard
 
-5人のReality eraが別でも、Dreamの星は見える。
+EraをAppearanceへ反映する時:
 
-ただし各人が知る:
+1. face / body hard landmark
+2. Character role object
+3. Era construction detail
+4. Dream shared motif
 
-- constellation line
-- constellation name
-- story
-- Star Beast connection
+の順。
 
-は一致しなくてよい。
-
-Core5だけでも:
-
-> 同じ星を5人が違う形に結ぶ
-
-sceneを作れる。
-
-これを「誰が正しい？」にせず、時代とDreamのMain Mysteryへ接続する。
-
-月相は各人の滞在日数ではなくincident depthなので、5人の時代差と矛盾しない。
-
----
-
-# 10. Appearance / production guard
-
-Era assignmentは容姿原本へ反映するが、**顔を時代衣装へ従属させない。**
-
-- Yuiのdimplesを消さない。
-- Asaの横長吊り目を維持。
-- Nagiの細い水平眼を維持。
-- Michiruのゲジ眉 / そばかすを維持。
-- Tomoriのhooded half-lidded eye / repair marksを維持。
-
-変えるのは主に:
-
-- clothing construction
-- materials
-- fasteners
-- bags / tools
-- Reality prop knowledge
-- hairstyle soft variation
-
-Dream costumeは各時代の完全historical costume reproductionでなくてもよいが、全員を同じmodern fantasy fashionへ均さない。
-
----
-
-# 11. Future expansion rule
-
-新しいEraが増えても:
-
-- Core5の5 assignmentsを無理に動かして席を空けない。
-- Future15 / new characterを追加Eraへ配置できる。
-- Era数 = 群青残響録人数ではない。
-- Era数 = combat Boss数ではない。
-- Era追加時はその時代のordinary life / institution / major incident pressureも追加する。
+Era costumeをCharacter identityより上へ置かない。
 
 ---
 
 # 12. Canon summary
 
 ```txt
-Tomori  = 1940s-like Japan
-Michiru = 1980s-like Japan
-Nagi    = 2000s-like Japan
+Tomori  = Postwar recovery / scarcity Japan
+Michiru = Late high-growth to pollution / oil-shock transition Japan
+Nagi    = Post-bubble to early mobile-Internet Japan
 Yui     = Present-day Japan
-Asa     = Future human in Android/Robot society
+Asa     = Far-future Human in Android / Robot / Avatar society
 ```
 
-これをCurrent Core5 Era Assignmentとして使う。
-
-Exact year / exact age / exact major incidentはOpenのまま。
+These are Current **Era bands**.
+Exact years / exact incidents / exact locations remain Open.
