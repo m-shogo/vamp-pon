@@ -1,0 +1,59 @@
+name: unity-rain-thread-prototype
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RainThreadPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RainThreadPrototypeRuntime.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTetherPairSelectionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-rain-thread-prototype.ts'
+      - 'scripts/quality/check-unity-two-target-tether-primitive.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/unity-rain-thread/**'
+      - 'docs/unity-rain-thread-prototype-v1.md'
+      - 'docs/unity-two-target-tether-primitive-v1.md'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-rain-thread-prototype.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RainThreadPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RainThreadPrototypeRuntime.cs.meta'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-rain-thread-prototype.ts'
+      - 'scripts/quality/unity-rain-thread/**'
+      - 'docs/unity-rain-thread-prototype-v1.md'
+      - '.github/workflows/unity-rain-thread-prototype.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check Rain Thread prototype caller
+        run: node --experimental-strip-types scripts/quality/check-unity-rain-thread-prototype.ts
+      - name: Compile and execute Rain Thread contract
+        run: |
+          dotnet build scripts/quality/unity-rain-thread/UnityRainThread.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-rain-thread/UnityRainThread.Contract.csproj --configuration Release --no-build
+      - name: Re-check shared tether primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-two-target-tether-primitive.ts
+      - name: Re-check shared knockback primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-knockback-vector-primitive.ts
+      - name: Re-check Title1 Base Weapon admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
