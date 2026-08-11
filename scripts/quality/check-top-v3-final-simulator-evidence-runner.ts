@@ -23,7 +23,7 @@ for (const token of [
   'xcrun simctl terminate',
   'xcrun simctl install',
   'xcrun simctl get_app_container',
-  'run-top-v3-simulator-performance-evidence.sh',
+  'bash scripts/unity/run-top-v3-simulator-performance-evidence.sh',
 ]) {
   invariant(runner.includes(token), `TOP final Simulator evidence runner missing contract: ${token}`);
 }
@@ -40,7 +40,7 @@ for (const forbidden of [
 const exportIndex = runner.indexOf('run-top-v3-final-approval-ios-export.sh simulator');
 const xcodeIndex = runner.indexOf('xcodebuild \\');
 const installIndex = runner.indexOf('xcrun simctl install');
-const performanceIndex = runner.indexOf('run-top-v3-simulator-performance-evidence.sh');
+const performanceIndex = runner.indexOf('bash scripts/unity/run-top-v3-simulator-performance-evidence.sh');
 invariant(
   exportIndex >= 0 && xcodeIndex >= 0 && installIndex >= 0 && performanceIndex >= 0 &&
     exportIndex < xcodeIndex && xcodeIndex < installIndex && installIndex < performanceIndex,
