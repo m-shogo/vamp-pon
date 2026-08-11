@@ -12,6 +12,11 @@ export const CROSS_ERA_LINEAGE_MEMORY_RULES = {
   dementiaExplainsDreamMemoryLoss: false,
   cognitiveImpairmentUsedAsDreamJoke: false,
   closedTimeLoopDefault: false,
+  bloodRelationCandidateDoesNotEqualCanon: true,
+  exactBloodRelationRequiresHumanApproval: true,
+  parentTypeMayRemainOpenUntilFamilyReview: true,
+  bloodDoesNotDetermineTalentOccupationOrStarBeast: true,
+  futureChildNameMayNotBeCausedByDreamMemoryByDefault: true,
   runtimeAutoPromotionAllowed: false,
 } as const;
 
@@ -48,6 +53,69 @@ export const CROSS_ERA_REQUIRED_SERIES_SLOTS = {
   finalRevealCountFrozen: false,
 } as const;
 
+export const CROSS_ERA_REVEAL_BUDGET = {
+  season1ExactBloodRevealMaximum: 0,
+  season1Purpose: 'CLUES_WITHOUT_GENEALOGY_ANSWER',
+  season2ExactBloodRevealTarget: 1,
+  optionalSeason3AdditionalBloodRevealMaximum: 1,
+  twoSeasonArchitectureMayMoveOptionalSeason3RevealToLateSeason2: true,
+  unrelatedFriendshipsMustOutnumberBloodReveals: true,
+  multipleCore5SecretlyOneFamilyForbidden: true,
+} as const;
+
+export const CROSS_ERA_BLOODLINE_CANDIDATES = [
+  {
+    id: 'candidate_parent_nagi_yui',
+    relationClass: 'PARENT_CHILD_ACROSS_ERAS',
+    earlierCharacterId: 'nagi',
+    laterCharacterId: 'yui',
+    status: 'PRIMARY_HIGH_VALUE_CANDIDATE_NOT_CANON',
+    chronology: 'NAGI_POST_BUBBLE_EARLY_MOBILE_ERA_TO_YUI_PRESENT_DAY',
+    locationCoherence: 'NAGI_SENDAI_ROOT_TO_CAPITAL_STUDY_WORK_THEN_YUI_ARAKAWA_HOME',
+    parentRoleFrozen: false,
+    biologicalLegalAdoptiveDetailFrozen: false,
+    exactAgeGapFrozen: false,
+    earliestFullRevealSeason: 'S2',
+    season1Evidence: [
+      'FAMILY_PHRASE_WITHOUT_NAME',
+      'ODDLY_FAMILIAR_BOUNDARY_HABIT',
+      'REALITY_FAMILY_OBJECT_OR_PHOTO_WITHOUT_CLEAR_FACE',
+      'NAGI_NORMAL_WAKING_RESIDUE_MISREAD_BY_LATER_CHILD',
+    ] as const,
+    thematicBridge: 'EARLY_NETWORK_PRIVACY_PARENT_TO_PRESENT_RECORD_ABUNDANCE_CHILD',
+    safeguards: [
+      'YUI_NAME_NOT_CAUSED_BY_DREAM_LOOP',
+      'PARENT_REVEAL_DOES_NOT_EXPLAIN_MAIN_MYSTERY',
+      'YUI_AND_NAGI_BOND_MUST_WORK_BEFORE_REVEAL',
+      'REVEAL_DOES_NOT_ERASE_PARENT_CHILD_CONFLICT',
+    ] as const,
+  },
+  {
+    id: 'candidate_ancestor_tomori_touma',
+    relationClass: 'ANCESTOR_DESCENDANT',
+    earlierCharacterId: 'tomori',
+    laterCharacterId: 'touma',
+    status: 'HIGH_VALUE_CANDIDATE_NOT_CANON',
+    chronology: 'TOMORI_POSTWAR_RECOVERY_TO_LATER_TOURMA_CRAFT_LIFE',
+    locationCoherence: 'TOMORI_NAGANO_ROOT_AND_TOKYO_REPAIR_MIGRATION_CAN_BRANCH_TO_LATER_KAWAGUCHI_LINE',
+    exactGenerationDistanceFrozen: false,
+    exactBranchFrozen: false,
+    preferredFullReveal: 'S3_IF_USED_ELSE_LATE_S2',
+    evidence: [
+      'REPAIR_SEAM_GRAMMAR',
+      'OLD_TOOL_WITHOUT_FAMILY_NAME',
+      'HOUSEHOLD_STORY_THAT_LOST_THE_ORIGINAL_AUTHOR',
+    ] as const,
+    thematicBridge: 'WHAT_IS_INHERITED_WHEN_NAME_AND_MEMORY_DISAPPEAR',
+    safeguards: [
+      'CRAFT_TALENT_NOT_GENETIC_DESTINY',
+      'TOUMA_CHOOSES_CRAFT_FOR_OWN_REASON',
+      'TOMORI_YUI_LANTERN_CHAIN_REMAINS_NON_BLOOD',
+      'NO_CHOSEN_BLOODLINE_POWER',
+    ] as const,
+  },
+] as const;
+
 export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
   {
     id: 'legacy_lantern_tomori_yui',
@@ -55,6 +123,7 @@ export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
     characters: ['tomori', 'yui'],
     status: 'HIGH_VALUE_CANDIDATE',
     bloodRelationRequired: false,
+    revealPlan: 'S1_REPAIR_CLUE_TO_S2_OBJECT_HISTORY_PAYOFF',
   },
   {
     id: 'legacy_route_michiru_gen',
@@ -62,6 +131,7 @@ export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
     characters: ['michiru', 'gen'],
     status: 'HIGH_VALUE_CANDIDATE',
     bloodRelationRequired: false,
+    revealPlan: 'S1_ROUTE_DISCREPANCY_TO_S2_DEVELOPMENT_HISTORY_PAYOFF',
   },
   {
     id: 'legacy_note_sen_shiro',
@@ -69,6 +139,7 @@ export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
     characters: ['sen', 'shiro'],
     status: 'HIGH_VALUE_CANDIDATE',
     bloodRelationRequired: false,
+    revealPlan: 'S1_ANONYMOUS_NOTE_TO_LATER_STUDENT_LINE_CONTEXT',
   },
   {
     id: 'legacy_mail_gate_yuubi_tobari',
@@ -76,6 +147,7 @@ export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
     characters: ['yuubi', 'tobari'],
     status: 'CANDIDATE',
     bloodRelationRequired: false,
+    revealPlan: 'S1_UNDELIVERED_RECORD_TO_S2_GATE_INFRASTRUCTURE_CALLBACK',
   },
   {
     id: 'future_long_lived_chloe_renji',
@@ -83,6 +155,7 @@ export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
     characters: ['chloe', 'renji'],
     status: 'EXISTING_FUTURE_CANDIDATE',
     bloodRelationRequired: false,
+    revealPlan: 'VISIBLE_AGE_REVERSAL_WITHOUT_SECRET_BLOOD_REVEAL',
   },
   {
     id: 'animal_multigeneration_kuu_yomo',
@@ -90,6 +163,7 @@ export const CROSS_ERA_HIGH_VALUE_RESERVOIR = [
     characters: ['kuu', 'yomo'],
     status: 'CANDIDATE',
     bloodRelationRequired: false,
+    revealPlan: 'SENSORY_RECOGNITION_SUPPORT_ONLY_NOT_TRUTH_DETECTOR',
   },
 ] as const;
 
@@ -97,6 +171,9 @@ export const crossEraLineageMemorySummary = {
   relationClassCount: CROSS_ERA_RELATION_CLASSES.length,
   recognitionStageCount: CROSS_ERA_RECOGNITION_STAGES.length,
   highValueReservoirCount: CROSS_ERA_HIGH_VALUE_RESERVOIR.length,
+  bloodlineCandidateCount: CROSS_ERA_BLOODLINE_CANDIDATES.length,
+  primaryParentChildCandidateCount: CROSS_ERA_BLOODLINE_CANDIDATES.filter((entry) => entry.id === 'candidate_parent_nagi_yui').length,
+  ancestorDescendantCandidateCount: CROSS_ERA_BLOODLINE_CANDIDATES.filter((entry) => entry.relationClass === 'ANCESTOR_DESCENDANT').length,
   parentChildMinimum: CROSS_ERA_REQUIRED_SERIES_SLOTS.trueParentChildRevealMinimum,
   ancestorDescendantMinimum: CROSS_ERA_REQUIRED_SERIES_SLOTS.trueAncestorDescendantRevealMinimum,
   exactBloodPairsFrozen: false,
