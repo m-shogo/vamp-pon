@@ -1,852 +1,429 @@
-# ヨルノシルベ — 朔夜座 × Era Incident Stance Matrix v1
+# ヨルノシルベ — Season 1 朔夜座 × Incident Stance Matrix v2
 
 Date: 2026-08-11  
-Status: **CURRENT HIGH-VALUE STANCE DESIGN / EXACT PRESENCE & OFFICIAL MISSION OPEN**
+Status: **S1 CURRENT STANCE DESIGN / EXACT PRESENCE & OFFICIAL MISSION OPEN**
 
 Upstream:
 
 1. `docs/00-current-story-world-master.md`
-2. `docs/sakuyaza-current-identity-v1.md`
-3. `src/game/data/sakumeiCandidateSource.ts`
-4. `docs/era-major-incident-family-lens-atlas-v1.md`
-5. `docs/era-incident-evidence-supporting-cast-matrix-v1.md`
+2. `docs/season-architecture-cast-matrix-v1.md`
+3. `docs/sakuyaza-current-identity-v1.md`
+4. `src/game/data/sakumeiCandidateSource.ts`
+5. `docs/era-major-incident-family-lens-atlas-v1.md`
 6. `src/game/data/seasonArchitecture.ts`
 
-> 目的: 朔夜座8人を「Eraごとに出てくる同じ敵軍団」にせず、
-> 各大事件の**善意 / fear / system pressure**へ、それぞれ違う立場で反応させる。
+> **朔夜座はSeason1の主要敵チーム。**
+> S2は別team名 + 別primary antagonist cast、optional S3も別team / 別castを基本とする。
 >
-> このMatrixは思想・Story functionの設計。
-> **各memberがそのReality事件に直接いたこと、公式朔夜座任務だったこと、pairが固定teamであることは確定しない。**
+> このMatrixはS1で朔夜座8人をどう差別化するかを扱う。
+> S2事件へ朔夜座8人を割り振る資料ではない。
 
 ---
 
-# 0. Hard rules
+# 0. Season rotation hard rule
 
-## Presence != stance
+```txt
+S1 primary antagonist team = 朔夜座 / 8人
+S2 primary antagonist team = OPEN / 別team名 / 別cast
+S3 if used = OPEN / 別team名 / 別cast
+```
 
-`STANCE`は:
+Allowed:
 
-> もしその事件へ関わるなら、そのmemberの既存fixationがどちらへ傾くか
+- S1朔夜座memberがS2で一人だけ再登場
+- rival / ally / unresolved personal arc / cameo
+- S1で残した証拠がS2へ影響
 
-を示す。
+Forbidden:
 
-したがって:
+- S2で朔夜座8人をそのまま主敵teamとして続投
+- S2でteam名だけ変えて同じ8人を使う
+- S1の4人、S2の4人という固定分割
+- new Season = old enemy reskin
+
+Main Spine / Core5 / Reality history / Main Mysteryは続く。
+
+---
+
+# 1. Presence != stance
+
+S1内でも:
 
 - `stance exists` != `Reality witness`
 - `stance exists` != `combat Boss`
 - `stance exists` != `official Sakuyaza mission`
 - `pair candidate` != `permanent pair`
+- `pair candidate` != romance
 
-## Member remains individual
+8人全員が各事件へ物理登場する必要はない。
 
-朔夜座全員が同じ結論になる必要はない。
-
-同じincidentでも:
-
-- strict systemへ協力
-- systemの行き過ぎを止める
-- victimを守る
-- evidenceを隠す
-- classificationを強める
-- temporary closureだけ支持
-- 一切関与しない
-
-が同時に成立する。
-
-## Existing attachment lanes stay intact
-
-- ナシロ = 倫理の揺らぎ / identity mystery
-- アサトジ = 優しい行動が暴力になる悲哀
-- ミチグレ = 静かな圧倒感
-- オリネ = recurring rival / hidden meaning / transformation
-- ハクマ = uncanny minimalism / silence
-- ツグリ = 善意100%の職人気質の怖さ
-- ユラネ = 理解できる誘惑 / quiet comfort
-- ペタ = 愛着 → sudden horror
-
-事件の都合で全員を同じ「悪役口調」にしない。
+一人のpersonal actionも成立する。
 
 ---
 
-# 1. Stance vocabulary
+# 2. S1 attachment lanes
 
-- `PRIMARY_RESONANCE` — memberのCoreと事件のsingle-answer failureが強く共鳴
-- `SECONDARY_RESONANCE` — 事件の一部に強く反応
-- `COUNTER_RESONANCE` — 同じmemberの善意が、事件systemの暴走を止める側へ出る
-- `AMBIVALENT` — support / opposition両方が自然
-- `LOW_PRIORITY` — この事件では他memberの方が自然
+| member | attachment lane |
+|---|---|
+| ナシロ | 倫理の揺らぎ / identity mystery |
+| アサトジ | 優しい行動が暴力になる悲哀 |
+| ミチグレ | 静かな圧倒感 |
+| オリネ | recurring rival / transformation |
+| ハクマ | uncanny minimalism / silence |
+| ツグリ | 善意100%の職人気質の怖さ |
+| ユラネ | 理解できる誘惑 / quiet comfort |
+| ペタ | 愛着 → sudden horror |
 
-Action direction Candidate:
+S1の主macro problem:
 
-- `ALIGN_TEMPORARILY`
-- `TIGHTEN_RULE`
-- `PROTECT_EXCEPTION`
-- `HIDE_RISK`
-- `BLANK_AMBIGUITY`
-- `REPAIR_SYSTEM`
-- `CLOSE_TEMPORARILY`
-- `KEEP_ASLEEP_OR_AT_REST`
-- `RELABEL`
-- `REMOVE_ROUTE`
-- `OBSERVE`
-- `OPPOSE_PERMANENCE`
+> **Recognition / Record / Belonging**
 
-Exact action remains Open。
+Primary incident lanes:
+
+1. Nagi — `安心共有名簿事件`
+2. Yui — `消えたSOS事件`
+3. Asa — `一人分しか通らない事件`のidentity / belonging側
+
+Tomori / Michiru primary incidentsはS2側。
+朔夜座のS2 primary stanceを今ここで固定しない。
 
 ---
 
-# 2. ERA-INC-TOMORI-01 — 空欄世帯事件
+# 3. Nagi — 安心共有名簿事件
 
-Core problem:
+Core failure:
 
-> fair distribution ledgerが、recordに追いつかない生活者をeligibility外へ落とす。
+> warning copyがcorrectionより速く残る。
 
-## ツグリ — PRIMARY_RESONANCE
+## オリネ — PRIMARY
 
-Existing fixation:
+- harmful contextを隠して人を守ろうとする。
+- correction reasonまでfoldすると、表面だけ「問題なし」になる。
+- 同じ折り目が複数copyへ残るvisual clueが使える。
 
-> 壊れているなら直せばいい。
+## ペタ — PRIMARY
 
-Likely initial position:
+- `注意 / 訂正済み / 安全 / 対象外`を貼り重ねる。
+- 日常のlabel gagから人間へのlabelへ反転できる。
 
-- damaged house / tool / distribution workflowを直す。
-- ledger mismatchも「壊れたrecord」と見なす。
+## ハクマ — PRIMARY
 
-Danger:
+- ambiguityをblankへする。
+- false warningだけでなく本人の反論も消える。
 
-> personの複雑なhousehold historyまで「正しい形へ修理」し始める。
+Pettaとの差:
 
-Strong scene:
+- Petta = labelで上書き
+- Hakuma = meaningごと消す
 
-- torn household pageを完璧に直す。
-- しかし元のmistakeまで綺麗に保存してしまう。
+## ナシロ — PRIMARY / AMBIVALENT
 
-Attachment payoff:
+- impersonation防止にはstrong identityを支持できる。
+- wrong nameが本人より長く残ると強く反対できる。
 
-> 善意100%。だから怖い。
+## アサトジ — SECONDARY
 
-## アサトジ — PRIMARY_RESONANCE
+- safetyのためtemporary closure。
+- exit conditionがなければpermanent exclusionになる。
 
-Fixation:
+## ツグリ — SECONDARY
 
-> 失うくらいなら閉じればいい。
+- corrupted listを一つのclean versionへrepair。
+- 「どれが壊れているか」を本人抜きで決める危険。
 
-Initial support:
+## ミチグレ — LOW / SUPPORT
 
-- scarce goodsを「確認できるまで保留」する。
-- theft / double allocationを防ぐためtemporary holdを支持。
+- unsafe access routeを消す方向。
+- Nagi incidentではroute問題を主役にしすぎない。
 
-Danger:
+## ユラネ — LOW / COUNTER POSSIBILITY
 
-> “一時保留”に解除条件を置かず、必要な人まで永久に待たせる。
+- reputation pressureから一度離れる休息を与える。
+- 「もう見なくていい」がappeal放棄へ変わる危険。
 
-Conflict with Tomori:
+### Pair Candidate
 
-> 守っている間に壊れる物 / 人もある。
-
-## ペタ — SECONDARY_RESONANCE
-
-Fixation:
-
-> 間違いなら正しい札を貼ればいい。
-
-Possible action:
-
-- household / parcel / supplyへ`確認済み` `未確認` `対象外`等の札を貼る。
-
-Danger:
-
-- 状況が変わっても古い札を剥がさず、新しい札を上に貼る。
-- label stackが本人より強くなる。
-
-## ナシロ — AMBIVALENT
-
-Possible support:
-
-- same person / same householdをduplicateしないためname normalizationを支持。
-
-Possible opposition:
-
-- ledger上の名前が本人の生活関係を上書きし始めると反発できる。
-
-ナシロは単純なstrict bureaucracy担当にはしない。
-
-## ユラネ — COUNTER_RESONANCE
-
-- queue / scarcityで疲弊した人を休ませたい。
-- temporary shelter / careへ寄る。
-
-Danger:
-
-- 「今日はもう考えなくていい」が長期化すると、appeal / actionを弱くする。
-
-## ミチグレ / オリネ / ハクマ — LOW〜SECONDARY
-
-- ミチグレ: distribution route最適化へ寄る余地。
-- オリネ: household事情をprotectするためhidden fieldを作る余地。
-- ハクマ: unclear entryをblankへ戻す誘惑。
-
-このIncidentで全員出す必要はない。
-
-## Incident pair candidate
-
-### アサトジ × ツグリ — `FIX_AND_LOCK`
-
-Why strong:
+**オリネ × ペタ — `HIDE_AND_RELABEL`**
 
 ```txt
-壊れたrecordを直す
+contextを折り畳む
 +
-直した状態を守るため閉じる
+外側へ新しいcorrect label
+↓
+表面だけ訂正済み
 ```
 
-→ **正しく直した後、誰も変更できなくなる。**
-
 Status:
-
-`INCIDENT_PAIR_CANDIDATE / OFFICIAL_MISSION_NOT_FROZEN`
-
-ペタはpair外からlabelを重ねるpersonal actionでも強い。
+`S1 INCIDENT PAIR CANDIDATE / OFFICIAL MISSION OPEN`
 
 ---
 
-# 3. ERA-INC-MICHIRU-01 — 一本線計画事件
+# 4. Yui — 消えたSOS事件
 
-Core:
+Core failure:
 
-> city improvementのpriority routeが、route外生活をinvisible costへする。
+> fake / duplicate対策でtrusted feedは役立つが、unverified true SOSが見えなくなる。
 
-## ミチグレ — PRIMARY_RESONANCE
+## ハクマ — PRIMARY
 
-Fixation:
+- uncertain reportをblankにしてnoiseを減らす。
+- uncertaintyとSOSを一緒に消してしまう。
 
-> 間違う道なら消せばいい。
+## ペタ — PRIMARY
 
-This incident is a natural high point。
+- `verified / official / resolved / duplicate` badge。
+- badgeが内容を読む代わりになる。
 
-Initial support:
-
-- duplicate / dangerous / inefficient routeを整理。
-
-Danger:
-
-- low-volume side routeを“間違い”として消す。
-- 最後にはemergency detour / local return routeまで消す。
-
-Strong visual:
-
-> mapから一本ずつ線が消え、最も太い一本だけ残る。
-
-## ツグリ — PRIMARY_RESONANCE
-
-Position:
-
-- cityを“壊れた機械”のようにrepairする。
-- infrastructure defectを綺麗に直す。
-
-Danger:
-
-- messy local adaptation / old route / informal accessをdefect扱い。
-
-## ユラネ — COUNTER_RESONANCE
-
-Position:
-
-- noise / health / exhaustionを見て、成長速度を落としたい。
-
-This can put Yurane **against** a harmful part of the plan。
-
-Danger:
-
-- 「休ませるため止める」が、街そのものを停滞固定へ向ける。
-
-“朔夜座だから開発推進側”の単純化を崩せる。
-
-## アサトジ — SECONDARY_RESONANCE
-
-- dangerous side routeをclosureする合理性へ共感。
-- temporary closureをpermanent化する危険。
-
-## ペタ — SECONDARY_RESONANCE
-
-- `優先路線` `廃止予定` `安全`等のlabelを貼る。
-- labelが実際の変化より先に人の行動を固定。
-
-## ナシロ / オリネ / ハクマ — LOW〜AMBIVALENT
-
-- ナシロ: district naming / boundary normalization。
-- オリネ: pollution / health infoを“混乱防止”で隠す誘惑。
-- ハクマ: conflicting resident explanationをblankにする誘惑。
-
-## Incident pair candidate
-
-### ミチグレ × ツグリ — `ONE_CORRECT_CITY`
-
-```txt
-間違う道を消す
-+
-残った道 / cityを綺麗に直す
-```
-
-Result:
-
-> perfect-looking city with no detour。
-
-Status:
-
-`INCIDENT_PAIR_CANDIDATE / NOT_PERMANENT_TEAM`
-
----
-
-# 4. ERA-INC-NAGI-01 — 安心共有名簿事件
-
-Core:
-
-> warning copies spread faster than correction。
-
-S1 stronger focus: **オリネ / ハクマ / ペタ / ナシロ**側のSeason toneと相性が良い。
-
-## オリネ — PRIMARY_RESONANCE
-
-Fixation:
-
-> 危険な意味は隠せばいい。
-
-Initial benefit:
-
-- exposed personal detail / harmful rumorをfold / hideする。
-
-Danger:
-
-- 本人のcorrection reason / contextまで隠し、外からは`problem resolved`に見える。
-
-Strong recurrence:
-
-- same crease position appears across forwarded documents。
-
-## ペタ — PRIMARY_RESONANCE
-
-This is one of Petta's strongest incidents。
-
-- `注意`
-- `訂正済み`
-- `安全`
-- `対象外`
-
-の札を上書きする。
-
-Danger:
-
-> old label stays under new label; both circulate。
-
-Comedic entry:
-
-- everyone laughs at Petta labeling cups / boxes。
-
-Horror payoff:
-
-- later same gesture labels a person。
-
-## ハクマ — PRIMARY_RESONANCE
-
-Fixation:
-
-> 誤解されるくらいなら意味を消せばいい。
-
-Possible stance:
-
-- conflicting warning recordを削除 / blank化。
-
-Danger:
-
-- false warningだけでなく、本人のobjection / explanationも消える。
-
-This is not Petta repetition:
-
-- Petta = wrong infoへnew label
-- Hakuma = ambiguityごとblank
-
-## アサトジ — SECONDARY_RESONANCE
-
-- safetyのためaccount / accessをtemporarily close。
-- deadlineなしならpermanent exclusionへ。
-
-## ナシロ — AMBIVALENT / HIGH
-
-- impersonation対策にはcorrect nameが必要。
-- wrong identity warningが本人より長く残ることを最も嫌う。
-
-Thus Nashiro can:
-
-> strict identification sideを支持した後、stale copied nameへ強く反対する。
-
-倫理の揺らぎを出せる。
-
-## ミチグレ / ツグリ / ユラネ — SECONDARY〜LOW
-
-- ミチグレ: unsafe access route removal。
-- ツグリ: corrupted list repair。
-- ユラネ: reputationから逃げるため“もう見なくていい”誘惑。
-
-## Incident pair candidate
-
-### オリネ × ペタ — `HIDE_AND_RELABEL`
-
-```txt
-危険なcontextを折り畳む
-+
-外側へ新しい正解label
-```
-
-Result:
-
-> problemが見えなくなり、表面だけ“訂正済み”。
-
-Status:
-
-`INCIDENT_PAIR_CANDIDATE`
-
-Hakumaは別個にblankingする方がCharacter差が強い。
-
----
-
-# 5. ERA-INC-YUI-01 — 消えたSOS事件
-
-Core:
-
-> fake / duplicate対策でverified feedが有効になるが、unverified true SOSがtrusted attentionから落ちる。
-
-## ペタ — PRIMARY_RESONANCE
-
-Modern equivalent of label power。
-
-- `verified`
-- `official`
-- `resolved`
-- `duplicate`
-
-Petta visually loves badges / stamps / labels。
-
-Danger:
-
-> badgeが内容を読む代わりになる。
-
-Strong line direction:
+Candidate line direction:
 
 > 「ほら、“安全”って書いてあるよ？」
 
-Playerが以前の日常label gagを思い出す。
+## ナシロ — PRIMARY / AMBIVALENT
 
-## ハクマ — PRIMARY_RESONANCE
+- fake official account / impersonationにはstrict verificationを支持。
+- official identityが本人の声を上書きすると反発する。
 
-- uncertain / contradictory reportをsurfaceからblankにする。
+## オリネ — SECONDARY
 
-Good purpose:
+- harmful image / private identity dataをhideする。
+- hide理由まで不可視になるとaccountabilityを失う。
 
-- misinformation overloadを減らす。
+## アサトジ — SECONDARY
 
-Danger:
+- dangerous route / channelを閉じる。
+- reopening条件が必要。
 
-> uncertaintyを消すためSOSそのものを消す。
+## ミチグレ — SECONDARY
 
-Pettaとの違い:
+- false routeを消す。
+- alternative rescue routeまで消す危険。
 
-- Petta = positive / negative label
-- Hakuma = silence / absence
+## ツグリ — SECONDARY
 
-## ナシロ — HIGH AMBIVALENCE
+- broken feedをrepairする。
+- “正常化”がunknown requestを消す可能性。
 
-- impersonation / fake official accountにはstrict verificationを支持。
-- しかしaccount name / official identityがpersonのReality voiceを上書きするなら反対。
+## ユラネ — COUNTER
 
-Yuiとの倫理battleに向く。
+- panic / exhaustionから人を休ませる。
+- 一時的allyにもなれる。
+- unresolved SOSから目を逸らさせる誘惑にもなる。
 
-## ユラネ — COUNTER_RESONANCE
+### Pair Candidate
 
-- crisis後、panic / exhaustionから人を休ませる。
-- care sceneでは一時的allyにすらなれる。
-
-Danger:
-
-> 「もう見なくていい / 休んでいい」が、unresolved requestから目を逸らす誘惑になる。
-
-## オリネ — SECONDARY_RESONANCE
-
-- harmful image / identity dataをhideする正当性。
-- hide reasonが本人にも見えないとaccountabilityを失う。
-
-## アサトジ — SECONDARY_RESONANCE
-
-- unsafe route / channel closure。
-- reopening条件が重要。
-
-## ミチグレ / ツグリ — SECONDARY
-
-- ミチグレ: false route removal vs alternative rescue route loss。
-- ツグリ: broken feed repair vs “全部正常化”の危険。
-
-## Incident pair candidate
-
-### ハクマ × ペタ — `BLANK_AND_BADGE`
+**ハクマ × ペタ — `BLANK_AND_BADGE`**
 
 ```txt
-uncertain reportをblankにする
+uncertain reportをblank
 +
-残ったreportへverified label
+残ったreportへverified badge
+↓
+画面が綺麗になるほど見えない人が増える
 ```
 
-Result:
-
-> trust surfaceが綺麗になるほど、見えない人が増える。
-
 Status:
-
-`INCIDENT_PAIR_CANDIDATE / S1 HIGH-VALUE`
+`S1 HIGH-VALUE PAIR CANDIDATE`
 
 ---
 
-# 6. ERA-INC-ASA-01 — 「一人分しか通らない」事件
+# 5. Asa — 「一人分しか通らない」事件 / S1 identity side
 
-Core:
+S1で扱う部分:
 
-> fraud preventionのone-valid-continuity systemが、legitimate person branchesを一人だけvalidへ固定する。
+> 誰がvalid name / identity / belongingを持てるか。
 
-## ナシロ — PRIMARY_RESONANCE
+S2ではrights / care / resource側へ問題が進むが、**S2 primary antagonist teamは朔夜座ではない。**
 
-This is Nashiro's strongest identity incident。
+## ナシロ — PRIMARY
 
-Fixation:
+- one identity / one nameでfraudを止めたい。
+- two legitimate personsが同じpast name/historyを持つと破綻する。
 
-> 名前は一つでなければならない。
-
-Initial support:
-
-- one credential / one identityでfraudを止める。
-
-Danger:
-
-- two legitimate persons share prior name/history when system demands one。
-
-Nashiro's best question:
+Question:
 
 > 「同じ名前を二人に返したら、それは返したことになるのか？」
 
-Do not answer immediately。
+## ツグリ — PRIMARY
 
-## ツグリ — PRIMARY_RESONANCE
-
-- branching identity / copied stateを“split defect”としてrepairしたい。
-
-Danger:
-
-- merge / restore / normalizeがperson historiesを消す。
+- split / branchを「壊れた状態」と見てrepairしたくなる。
+- merge / normalizeで別々の現在を消す危険。
 
 ## アサトジ — PRIMARY / SECONDARY
 
-- dispute中のcredential / body useをfreezeしてprotect。
+- identity dispute中をfreezeしてprotect。
+- review中にdaily rightsまで失わせる危険。
 
-Danger:
+## オリネ — SECONDARY
 
-> review中の人が生活権まで失う。
-
-## オリネ — HIGH SECONDARY
-
-- sensitive body / memory provenanceをprotectするためhide。
-
-Danger:
-
-- rights claimに必要なevidenceまでfoldする。
+- body / memory provenanceをprotectするためhide。
+- rights claim evidenceまで隠す危険。
 
 ## ハクマ — SECONDARY
 
 - contradictory historiesをblankへ戻す。
-- `unknown`を保存するShiroと強いcounterpoint。
+- unknownを残すShiroとのcounterpointが作れる。
 
 ## ペタ — SECONDARY
 
-- `original` `copy` `valid` `revoked` label。
-- small joke → existential horrorへの最大payoff候補。
+- `original / copy / valid / revoked` label。
+- S1のlabel horrorをFutureへ伸ばせる。
 
 ## ミチグレ — SECONDARY
 
-- branch routeを一つだけ残す。
-- timeline / continuityをrouteとして扱えるが、time-travel説明にはしない。
+- continuity routeを一つだけ残す方向。
+- time-travel説明にはしない。
 
-## ユラネ — AMBIVALENT
+## ユラネ — AMBIVALENT / COUNTER
 
-- identity disputeで苦しむpersonへquiet escapeを与える。
+- identity disputeから一時的に逃がす。
+- forced mergeを避ける助けにもなり得る。
+- fight for rightsまで諦めさせる危険もある。
 
-Potential ally:
+### Primary Pair Candidate
 
-- forced mergeを拒む人を一時的にprotect。
-
-Danger:
-
-- rights fight自体から離れさせる。
-
-## Incident pair candidate
-
-### ナシロ × ツグリ — `ONE_NAME_ONE_REPAIRED_PERSON`
+**ナシロ × ツグリ — `ONE_NAME_ONE_REPAIRED_PERSON`**
 
 ```txt
-正しいidentityを一つ決める
+correct identityを一つ決める
 +
-branch差分をrepairする
+branch differenceをrepair
+↓
+fraudは減るが、二人でいる余地も消える
 ```
 
-Result:
-
-> 誰もfraudできない。誰も二人でいられない。
-
-Status:
-
-`INCIDENT_PAIR_CANDIDATE / S1_TO_S2 BRIDGE`
-
-Alternative candidate:
+Alternate:
 
 - ナシロ × アサトジ = `NAME_AND_FREEZE`
 
-but only one pair should receive primary focus in a single arc; exact pair remains Open until episode structure review。
+同一arcでprimary pairを二重化しない。
 
 ---
 
-# 7. Member cross-incident identity
+# 6. S1 8人の横断arc
 
 ## ナシロ
 
-Not simply “strict identification villain”。
-
-Arc across incidents:
-
-```txt
-correct naming protects people
-↓
-wrong name persists
-↓
-one name cannot contain branching personhood
-```
-
-Can oppose bad records even while supporting strong identification。
+> correct naming protects → wrong name persists → one name cannot contain every person
 
 ## アサトジ
 
-Across:
-
-- ration hold
-- route closure
-- account access closure
-- identity dispute freeze
-
-Theme:
-
-> temporary protection needs an exit condition。
+> temporary protection needs an exit condition
 
 ## ミチグレ
 
-Across:
-
-- city route
-- access route
-- identity branch route
-
-Theme:
-
-> removing wrong routes can remove return routes。
+> removing wrong paths can remove return paths
 
 ## オリネ
 
-Across:
-
-- privacy
-- harmful context
-- sensitive provenance
-
-Theme:
-
-> hiding can protect; hidden reason can remove agency。
+> hiding can protect; hidden reason can remove agency
 
 ## ハクマ
 
-Across:
-
-- ambiguous record
-- uncertain report
-- conflicting identity history
-
-Theme:
-
-> blank protects from misinterpretation but erases rebuttal too。
+> blank prevents misreading but erases rebuttal too
 
 ## ツグリ
 
-Across:
-
-- repair object / record
-- repair city
-- repair feed
-- repair person branch
-
-Theme:
-
-> what counts as “broken” and who gets to decide repair。
+> what counts as broken, and who chooses repair
 
 ## ユラネ
 
-Across:
-
-- scarcity exhaustion
-- pollution / health
-- disaster recovery
-- identity dispute fatigue
-
-Theme:
-
-> rest is necessary; permanent escape steals tomorrow's choice。
+> rest is necessary; permanent escape steals tomorrow's choice
 
 ## ペタ
 
-Across:
+> labels help until people read the label instead of the person
 
-- eligibility label
-- route label
-- warning label
-- verified badge
-- identity status
-
-Theme:
-
-> labels make the world easy to use — until everyone reads the label instead of the person。
+S1内で8人全員に最低1つは強いattachment payoffを作る。
 
 ---
 
-# 8. Season fit
+# 7. S1 pair candidates
 
-Existing Season direction:
+Current primary candidates:
 
-## S1 heavier
+- Nagi incident: `オリネ × ペタ`
+- Yui incident: `ハクマ × ペタ`
+- Asa identity incident: `ナシロ × ツグリ`
 
-- ナシロ
-- ハクマ
-- ペタ
-- オリネ
+Rules:
 
-Good incident fit:
+- permanent pair count = 0
+- pair != romance
+- pair != official mission automatically
+- repeated member usage allowed
+- solo encounter allowed
+- exact pair episode count Open
 
-- Nagi `安心共有名簿`
-- Yui `消えたSOS`
-- Asa identity / belonging side
-
-## S2 heavier
-
-- アサトジ
-- ミチグレ
-- ツグリ
-- ユラネ
-
-Good fit:
-
-- Tomori `空欄世帯`
-- Michiru `一本線計画`
-- Asa rights / care / resource side
-
-This is **focus weighting**, not “S1 members disappear in S2”。
-
-All 8 can recur across Seasons。
+アサトジ / ミチグレ / ユラネもS1 rosterであり、S2まで温存する「S2班」ではない。
 
 ---
 
-# 9. Pair Mission guard
+# 8. S2 handoff
 
-Existing 28 pair assets remain valuable。
+S1終了後:
 
-This Matrix adds **incident-specific pair candidates** only:
+- 朔夜座team arcは一区切りつけられる。
+- unresolved individual memberは後Seasonへ戻せる。
+- S1 memberがReality / Dream evidenceとして影響を残せる。
 
-- Tomori: `アサトジ × ツグリ`
-- Michiru: `ミチグレ × ツグリ`
-- Nagi: `オリネ × ペタ`
-- Yui: `ハクマ × ペタ`
-- Asa: `ナシロ × ツグリ` primary Candidate
+しかしS2 primary antagonistは:
 
-Hard:
+> **別team名 + 別Character群**
 
-- no permanent pair team lock
-- no pair means romance
-- no pair automatically official mission
-- one member alone can act personally
-- official Sakuyaza mission exact rule remains separate / Open
-- repeated member in multiple pair candidates is allowed because role is dynamic
+必須。
 
-ツグリ / ペタが複数Incident pairに出るのは、固定buddyではなく**fixationが複数systemへ刺さるため**。
+S2 new teamは:
 
----
+- Progress
+- Care
+- Resource
+- Sacrifice
+- Development
+- Reconstruction
+- Efficiency vs dignity
 
-# 10. Gunjo relation
+から新しいCharacter design / philosophyを作る。
 
-朔夜座stanceと群青残響録centralityは別。
-
-Examples:
-
-- Sakuyaza member supports a system but is not Gunjo central person。
-- Gunjo central person uses Sakuyaza idea without meeting them。
-- Sakuyaza member tries to stop a Gunjo-central institution。
-- same incident has multiple Gunjo candidates and multiple Sakuyaza stances。
-
-Do not turn:
-
-> incident antagonist = Sakuyaza member = combat Boss = Gunjo member
-
-into a default equivalence。
+S1朔夜座fixationの名前だけを付け替えない。
 
 ---
 
-# 11. Evidence use
+# 9. Gunjo / Boss separation
 
-Member stance should appear through action / object, not speech manifesto every time。
+朔夜座member:
 
-Examples:
+- incidentへ関わる
+- Gunjo central personと協力 /対立する
+- combat Bossになる
 
-- ペタ's layered stickers
-- オリネ's crease
-- ハクマ's blank card
-- ツグリ's repair seam
-- ミチグレ's erased route line
-- アサトジ's clasp / closure
-- ナシロ's aligned name tags
-- ユラネ's quiet rest space
+はすべて別field。
 
-These can become Evidence but:
+Forbidden default:
 
-> symbol/object alone does not prove official Sakuyaza mission。
+```txt
+S1 incident antagonist
+= Sakuyaza member
+= Gunjo member
+= combat Boss
+```
 
----
-
-# 12. Human lock boundary
-
-This Matrix can be Current Story Design while exact event appearance remains Open。
-
-Before locking one member into one Reality incident, review:
-
-1. Character exact Reality identity / Era if needed
-2. direct vs Dream-only appearance
-3. official mission vs personal action
-4. pair mission status
-5. Gunjo relation
-6. combat Boss role
-7. Season pacing
-8. not repeating another member's attachment lane
+群青残響録はSeason teamではない。
 
 ---
 
-# 13. Completion definition
+# 10. Completion definition
 
-- 8/8 members retain distinct attachment lane
-- 5/5 Era incidents have differentiated Sakuyaza stance set
-- all five incidents have at least one member who can **oppose or mitigate** part of the harmful system
-- Sakuyaza is not one ideological block
-- S1/S2 focus matches existing Season Architecture without hard separation
-- 5 incident pair candidates exist but permanent pair count stays 0
-- exact official mission count stays 0
-- exact Reality presence stays Open
-- Gunjo membership stays Open
-- combat Boss stays separate
-- runtime auto-promotion remains forbidden
+- S1 formal antagonist team = 朔夜座
+- S1 roster = 8/8 current members
+- S1 primary incident stance lanes = 3
+- all 8 retain distinct attachment lane
+- all 3 S1 incidents allow internal disagreement / counter stance
+- 3 primary pair candidates
+- permanent pair count = 0
+- exact official mission count Open
+- exact Reality presence Open
+- S2 team name Open
+- S2 primary roster Open and **must differ from S1**
+- optional S3 team / roster Open and must rotate again if used
+- previous Season individuals may return but previous full team does not remain primary
+- runtime auto-promotion forbidden
