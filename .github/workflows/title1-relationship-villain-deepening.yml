@@ -1,0 +1,38 @@
+name: Title1 Relationship Villain Deepening
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/relationshipSpeechProgressionSource.ts'
+      - 'src/game/data/currentGroupInteractionSource.ts'
+      - 'src/game/data/spotlightEnemyCharacterSource.ts'
+      - 'docs/title1-character-relationship-villain-deepening-v1.md'
+      - 'scripts/quality/check-title1-relationship-villain-deepening.ts'
+      - '.github/workflows/title1-relationship-villain-deepening.yml'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/relationshipSpeechProgressionSource.ts'
+      - 'src/game/data/currentGroupInteractionSource.ts'
+      - 'src/game/data/spotlightEnemyCharacterSource.ts'
+      - 'docs/title1-character-relationship-villain-deepening-v1.md'
+      - 'scripts/quality/check-title1-relationship-villain-deepening.ts'
+      - '.github/workflows/title1-relationship-villain-deepening.yml'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'src/game/data/stageProductionDatabase.ts'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Title1 relationship speech / ensemble / spotlight villain deepening
+        run: node --experimental-strip-types scripts/quality/check-title1-relationship-villain-deepening.ts
