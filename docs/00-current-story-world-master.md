@@ -1,6 +1,6 @@
 # ヨルノシルベ — Current Story / World Master
 
-Date: 2026-08-11  
+Date: 2026-08-12  
 Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED + RESEARCH-REFINED ERA BANDS**
 
 > 物語・年代・夢世界・星空・月相・敵勢力・大事件・Android / Robot・動物・日常生活についての最上位Authority。
@@ -31,7 +31,12 @@ Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED + RESEARCH-REFI
 - Core5を同じReality era / 同じ現代の5人組へ戻す
 - Core5の年代差を衣装だけへ縮小する
 - 1940 / 1980 / 2000等の**初期例をExact Canonとして固定する**
-- 全年代でDream星座を同一にする
+- **ユイを「年齢不明のgeneric現代若者」へ戻す**
+- **ユイのReality rootを荒川区以外へ勝手に移す**
+- **ユイの代表Foodを焼きおにぎりへ戻す**
+- S1キャストを「事件が日本だから全員日本生まれ / 日本国籍」に限定する
+- 外見（髪色 / 目色 / 肌色）から国籍・民族・出生地を自動決定する
+- 年代伏線のために架空のHistorical constellationを「史実」として作る
 - Dream内部をRealityの物理・経済・物流へ無理に合わせる
 - 食事を考えた瞬間に手元 / 空中へ直接materializeさせる
 - Android最終名をシオン / イヴ・ノインにする
@@ -49,6 +54,13 @@ Realityは**現実の日本**。
 - 理由なく「真宿」のような偽名化をしない。
 - 現代編は言葉・生活・交通・決済・通信・SNS・制度・服・UI・商品・食文化・学校 /仕事・街並みから「間違いなく今の日本」と感じられるようにする。
 - Historical Eraも実際の日本社会史・生活史・食文化・制度・言葉を研究してから描く。
+- **S1のReality大事件・主要事件舞台は日本に限定する。**
+- ただしS1に外国籍 / 海外出生 / 海外育ち / 複数国で生活したCharacterがいることは普通に成立する。
+- `事件地 = 日本` と `全員の出身 = 日本` を同一視しない。
+- 国籍 / 出生地 / 育った場所 / 主な生活圏 / 家庭文化 / 使用言語 / ancestry / ethnicity / appearanceは**別フィールド**として扱う。
+- 金髪・青い目・オッドアイ・褐色肌などのappearanceから、欧州系 / アジア系 / 外国籍等を自動推論しない。
+- 逆に、日本的に見えるappearanceでも海外出生・海外育ち・外国籍は成立する。
+- 海外文化は「外国人記号」として付けず、その人物が実際に生きた場所・家庭・教育・仕事・友人関係から持つ知識として扱う。
 - **実在の大事件は背景研究に使うが、ヨルノシルベのEra大事件は架空にする。**
 - 実在被害者 / 実在事件を名前だけ変えて再演しない。
 
@@ -82,7 +94,7 @@ Core5 distinct era count = 5 / 5
 | **トモリ** | **戦後復興・物資不足期** | scarcity / distribution / reconstruction / repair |
 | **ミチル** | **高度成長末期〜公害・石油危機の転換期** | development / pollution / urban planning / energy |
 | **ナギ** | **バブル崩壊後〜携帯Internet初期** | unstable employment / early network / privacy / identity exposure |
-| **ユイ** | **現代日本** | information excess / misinformation / algorithm / loneliness |
+| **ユイ** | **1990年代生まれ / 2026現代日本** | information excess / misinformation / algorithm / loneliness / analog→digital transition memory |
 | **アサ** | **遠未来 Human / Android / Robot / Avatar共存社会** | personhood / body / copy / digital identity / ownership |
 
 ### Important
@@ -99,7 +111,7 @@ Core5 distinct era count = 5 / 5
 
 現在はExact decadeを先に固定せず、**その人物のCoreと最も噛み合う社会の転換期**をCurrent Era bandとして使う。
 
-Exact yearはOpen。
+例外として、**ユイは1990年代生まれがUSER-DECIDED**。Exact birth yearはOpenだが、birth decadeを再びOpenへ戻さない。
 
 ---
 
@@ -225,13 +237,62 @@ Current fictional-incident lane Candidate:
 
 Presentのalgorithm / deepfakeをこのEraの主題へ奪わない。
 
-## ユイ — 現代日本
+## ユイ — 1990年代生まれ / 東京都荒川区の下町育ち / 2026現代日本
+
+Status: `USER-DECIDED / MASTER`
 
 既存Core:
 
 > 誰も忘れたくない → 本人が残すもの /手放すものを一緒に選ぶ。
 
-時代背景:
+### Reality root
+
+- **東京都荒川区**。
+- **下町育ち**。
+- Exact neighborhood / nearest station / exact home addressはOpen。
+- 誕生日は既存の **11/07** を維持。
+- **1990年代生まれ**。Exact birth yearはOpen。
+- 2026年現在を生きる成人として扱う。
+- 「昭和レトロ好きだから下町」ではなく、古い生活の痕跡が残る場所で完全に現代を生きている人物。
+
+### 世代として経験している変化
+
+ユイは一つの通信環境だけで育った世代ではない。
+
+- 紙の連絡 / 固定電話がまだ普通に残る幼少期
+- 家庭PC / Internet普及
+- ガラケー / 携帯メール
+- 写メ / デジカメ
+- SNS普及
+- smartphone常時接続
+- cloud photo / group chat
+- recommendation / ranking
+- fake image / deepfake
+- generative AI
+
+を人生の中で連続して経験した世代として描ける。
+
+> **「記録が少なかった時代」も「記録が多すぎる時代」も生活感として知っている現代主人公。**
+
+### Representative food — USER-DECIDED
+
+ユイの代表的な好きな食べ物は:
+
+1. **もんじゃ焼き**
+2. **たい焼き**
+3. **大判焼き**
+
+旧`favoriteFood: 焼きおにぎり`は**代表FoodとしてSUPERSEDED**。
+焼きおにぎり自体を嫌いにする必要はないが、ユイを象徴するfavoriteとして復活させない。
+
+Foodの使い方:
+
+- もんじゃは「観光名物説明」ではなく、誰かと鉄板を囲みながら少しずつ作る普通の食事sceneへ使う。
+- たい焼き / 大判焼きは帰り道・買い食い・差し入れ・半分こ等の日常へ使う。
+- 大判焼きの地域による呼び名差は、**同じ物でも呼び方が違う**という軽い世代 / 地域会話へ使える。ただし一つの呼称を全国唯一の正解扱いしない。
+- Foodを「荒川区民なら必ず好き」という地域stereotypeへしない。これは**ユイ本人の好み**。
+
+### 現代時代背景
 
 - smartphone
 - SNS
@@ -546,20 +607,85 @@ Dreamでは:
 
 # 13. Stars / Constellations
 
-Status: `DECIDED CORE / FINAL CAUSE OPEN`
+Status: `DECIDED / HISTORICAL-AUTHORITY`
+
+## Core sky rule
 
 - Dreamでは星が見える。
-- 星空は重要なvisual identity。
-- 同じ星でもEraにより結び方 /星座名 /物語 /星獣との関係認識が違い得る。
-- 昔だけの星座 /後世で生まれる星座を入れてよい。
-- Core5だけでも**同じ星を5人が違う形に結ぶscene**を作れる。
+- 星空はヨルノシルベの重要なvisual identity。
+- **年代差の証拠に使う星座史・旧星座・旧名称・星図は史実準拠にする。**
+- 年代伏線のために「昔は実在したことにする架空星座」を作らない。
+- Dream固有の超常現象を将来追加する場合は、Historical factとは別のFiction/Candidateとして明示する。
 
-Open:
+## Modern stable authority
 
-- 星座が増減する最終原因
-- Star Beastとの最終関係
+現代の恒常基準は **IAU 88 constellations**。
 
-Reality astronomyをDreamの絶対constraintにしない。
+- 1922年: IAUが88星座と3文字略号を採択。
+- 1928年: 境界を承認。
+- 1930年: Delporteの境界体系が出版。
+- 日本語では1944年『天文術語集』が88星座和名の重要な標準化点。
+
+Star Beast / Collection UI / permanent merchandiseのstable constellation identityはIAU88へ固定する。
+
+## Historical layer
+
+Era / culture差は:
+
+- obsolete constellation
+- historical constellation / atlas
+- asterism
+- old Japanese terminology
+- Chinese / Japanese traditional sky division
+- cultural star name
+- proper name / Bayer designation / catalog designation
+- same stars with different historical grouping
+
+として出せる。
+
+同じ星を見ていても、その人物が**どの時代・地域・家庭・教育・職業・星図を通して空を覚えたか**で呼び方や結び方が違ってよい。
+
+ただし:
+
+> 出身国だけを理由に、その地域の神話・星文化へ全員が詳しいことにしない。
+
+## Line-art / merch stability
+
+IAUの現代星座はsky regionが科学的definitionであり、星を結ぶ唯一の公式line-artがあるわけではない。
+
+Therefore:
+
+- Project Modern canonical line-artを一つ固定する。
+- Historical atlasのline / figureはoverlayとして扱う。
+- Historical layerで通常Star Beast rosterを増減させない。
+- 旧星座はarchive / historical skin / special card / transparent overlay / limited goods等に使える。
+
+## High-value historical motifs
+
+優先して研究・story integrationしてよい:
+
+- **Quadrans Muralis / 壁面四分儀座** — 星座として消えたが、しぶんぎ座流星群に名が残り、2025年には`Quadrans`が恒星名として採用。`消える / 残る / 戻る`。
+- **Argo Navis / アルゴ座** — 一つの巨大な星座がCarina / Puppis / Velaへ分かれる。`一つのorigin → 複数identity`。
+- **Serpens / へび座** — Caput / Caudaという離れた二領域でも一つの星座。`離れていても一つ`。
+- **Libra / Scorpius claw trace** — 現在の所属が変わっても昔の所属が星名に残る。`旧所属の痕跡`。
+- **Antinous** — historical figureとして消えた名が2024年に正式恒星名へ戻る。`姿が消えても名前が戻る`。
+- **二十八宿 / 日本・東アジアのhistorical sky** — 同じ空でも文化・時代で区切り方が違う。
+- **すばる / Pleiades / M45等のmultiple identifiers** — 同じobjectに複数の正しい呼称が共存する。
+
+## Story guard
+
+- 星座史を天文学quizにしない。
+- Playerが事前知識ゼロでも、後のarchive / dialogueで意味が返る構造にする。
+- 最初は小さな呼称 / 線の違和感。
+- 中盤で古い星図・記録と一致。
+- 後半でidentity / relation / memory / Android themeへ意味が拡張する。
+
+Research / usable sources:
+
+- `docs/00-current-story-world-master-constellation-amendment.md`
+- `docs/constellation-usable-knowledge-book-v1.md`
+- `docs/research/constellation-history-story-integration-v1.md`
+- `docs/research/world-sky-knowledge-index.md`
 
 ---
 
@@ -735,8 +861,10 @@ Party / food / alcohol / smoke break / joke等の日常反復を終盤の感情�
 
 AI単独でCanon化しない:
 
-- Core5 exact year / exact chronological age
-- exact city / school / work / household
+- Core5 exact year / exact chronological age。ただし**ユイのbirth decade = 1990sはDECIDED**。
+- ユイのexact neighborhood / nearest station / school / work / household。
+- ユイ以外のCore5 exact city / school / work / household。
+- S1で登場する外国籍 / 海外出生 / 海外育ちCharacterのexact country / city / nationality / family history。既存Characterの人生に接続して決める。
 - each Era fictional incident final detail / casualty / exact place
 - major family death / orphan / abuse / crime victimhood
 - **Season2 enemy team name / roster / count / visual identity**
@@ -744,13 +872,13 @@ AI単独でCanon化しない:
 - 群青残響録formal members / full names / final endings
 - Android final name / acronym / complete version order
 - Future Asa exact year / political side / incident role
-- constellation-change final cause
+- Dream-specific supernatural constellation phenomenonを追加するかどうか
 - Star Beast final nature
 - Yoru-no-Shirube final mechanism / origin
 - whether each incident needs combat Boss
 - final smoker identities / adult legality
 
-Core5の**5つの社会Era bandはCurrent**だが、exact decade / yearはOpen。
+Core5の**5つの社会Era bandはCurrent**。ユイは`1990年代生まれ / 現代日本`までDECIDED、他のexact decade / yearはOpen。
 
 ---
 
