@@ -142,7 +142,8 @@ assert(matrix.includes('exact Nagi→Yui blood reveal = 0'), 'human matrix must 
 assert(matrix.includes('does not promote any Future15 to Current21'), 'human matrix must preserve Future15 non-promotion');
 assert(incidentAtlas.includes('combat Bossは別role') || incidentAtlas.includes('Combat Bossは別role'), 'incident Atlas must preserve Boss separation');
 assert(ledger.includes('official record') && ledger.includes('witness memory') && ledger.includes('physical evidence') && ledger.includes('later interpretation'), 'historical ledger must preserve evidence separation');
-assert(lineageReveal.includes('One object / one photo / one surname is insufficient'), 'lineage reveal map must preserve multi-evidence requirement');
+assert(lineageReveal.includes('Relation Revealには最低2種類以上のEvidenceを使う'), 'lineage reveal map must require multiple evidence classes');
+assert(lineageReveal.includes('顔が似ているだけで確定しない'), 'lineage reveal map must reject face-only confirmation');
 
 console.log(JSON.stringify({
   incidents: eraIncidentEvidenceSupportingCastSummary.incidentCount,
