@@ -1,0 +1,40 @@
+name: title1-achievement-reward-collection-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/title1AchievementRewardCollectionSource.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/collectionSections.ts'
+      - 'src/game/data/combatItemSelectionSource.ts'
+      - 'src/game/data/weaponTransformationSelectionSource.ts'
+      - 'docs/title1-achievement-reward-collection-source-v1.md'
+      - 'scripts/quality/check-title1-achievement-reward-collection-master.ts'
+      - '.github/workflows/title1-achievement-reward-collection-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/title1AchievementRewardCollectionSource.ts'
+      - 'src/game/data/achievements.ts'
+      - 'src/game/data/collectionProgress.ts'
+      - 'src/game/data/collectionSections.ts'
+      - 'src/game/data/combatItemSelectionSource.ts'
+      - 'src/game/data/weaponTransformationSelectionSource.ts'
+      - 'docs/title1-achievement-reward-collection-source-v1.md'
+      - 'scripts/quality/check-title1-achievement-reward-collection-master.ts'
+      - '.github/workflows/title1-achievement-reward-collection-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Title1 achievement reward collection master
+        run: node --experimental-strip-types scripts/quality/check-title1-achievement-reward-collection-master.ts
