@@ -1,0 +1,43 @@
+name: S2 Antagonist Ensemble Depth
+
+on:
+  pull_request:
+    paths:
+      - 'docs/s2-antagonist-team-candidate-v1.md'
+      - 'docs/s2-antagonist-ensemble-depth-candidate-v1.md'
+      - 'docs/season-antagonist-return-policy-v1.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/s2AntagonistTeamCandidate.ts'
+      - 'src/game/data/s2AntagonistEnsembleDepthCandidate.ts'
+      - 'src/game/data/seasonAntagonistReturnPolicy.ts'
+      - 'scripts/quality/check-s2-antagonist-ensemble-depth.ts'
+      - '.github/workflows/s2-antagonist-ensemble-depth.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/s2-antagonist-team-candidate-v1.md'
+      - 'docs/s2-antagonist-ensemble-depth-candidate-v1.md'
+      - 'docs/season-antagonist-return-policy-v1.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/s2AntagonistTeamCandidate.ts'
+      - 'src/game/data/s2AntagonistEnsembleDepthCandidate.ts'
+      - 'src/game/data/seasonAntagonistReturnPolicy.ts'
+      - 'scripts/quality/check-s2-antagonist-ensemble-depth.ts'
+      - '.github/workflows/s2-antagonist-ensemble-depth.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate S2 ensemble depth, collision audit, and open Canon boundaries
+        run: node --experimental-strip-types scripts/quality/check-s2-antagonist-ensemble-depth.ts
