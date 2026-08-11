@@ -1,3 +1,4 @@
+import { CURRENT_RUNTIME_WEAPON_EFFECT_TYPES } from '../domain/weaponRuntimeCapabilities.ts';
 import { selectedTitle1BaseWeaponCandidates } from './baseWeaponSelectionSource.ts';
 import type { WeaponAttackArchetype } from './weaponExpansionSource.ts';
 
@@ -30,6 +31,11 @@ export type BaseWeaponRuntimeAdmissionDecision =
   | 'BLOCKED_MISSING_RUNTIME_PRIMITIVES'
   | 'ADMITTED_FOR_RUNTIME_IMPLEMENTATION';
 
+/**
+ * Unity U47 runtime evidence is intentionally separate from the Web runtime effect contract.
+ * Web currently supports five effect types; Unity's imported/executed weapon surface is still
+ * Projectile/GroundArea only. Neither surface is allowed to stand in for a Selected16 archetype.
+ */
 export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponRuntimeCapability, RuntimeCapabilityState>> = {
   NEAREST_TARGET_PROJECTILE: 'IMPLEMENTED',
   MULTI_PROJECTILE_LOOP: 'IMPLEMENTED',
@@ -132,12 +138,17 @@ export const title1BaseWeaponRuntimeAdmissionSummary = {
   selectedContentWeaponCount: selectedTitle1BaseWeaponCandidates.length,
   admittedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.mayEnterRuntimeRegistry).length,
   blockedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => !entry.mayEnterRuntimeRegistry).length,
-  currentImplementedPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'IMPLEMENTED').length,
-  currentMissingPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'MISSING').length,
+  currentWebRuntimeEffectTypes: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES,
+  currentWebRuntimeEffectTypeCount: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length,
+  currentUnityWeaponExecutorTypes: ['Projectile', 'GroundArea'] as const,
+  currentUnityWeaponExecutorTypeCount: 2,
+  currentImplementedUnityPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'IMPLEMENTED').length,
+  currentMissingUnityPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'MISSING').length,
   missingCapabilityFrequency: [...missingCapabilityFrequency.entries()]
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .map(([capability, blockedWeaponCount]) => ({ capability, blockedWeaponCount })),
   statusApplicationBlockedWeaponCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.missingCapabilities.includes('STATUS_APPLICATION')).length,
+  webRuntimeSupportEqualsUnityRuntimeSupport: false,
   fakeProjectileFallbackAllowed: false,
   contentSelectionMayBeDowngradedToFitRuntime: false,
   runtimeAutoPromotionAllowed: false,
