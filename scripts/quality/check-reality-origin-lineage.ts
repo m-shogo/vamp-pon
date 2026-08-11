@@ -15,7 +15,7 @@ const read = (path: string) => fs.readFileSync(path, 'utf8');
 const required = [
   'docs/character-reality-origin-dialect-culture-bible-v1.md',
   'docs/character-reality-origin-mobility-atlas-v1.md',
-  'docs/cross-era-lineage-memory-relationship-bible-v1.md',
+  'docs/cross-era-lineage-memory-bible-v1.md',
   'docs/global-cultural-satire-localization-bible-v1.md',
   'src/game/data/realityOriginLineageSource.ts',
 ] as const;
@@ -23,7 +23,7 @@ for (const path of required) assert(fs.existsSync(path), `missing reality/lineag
 
 const originBible = read('docs/character-reality-origin-dialect-culture-bible-v1.md');
 const atlas = read('docs/character-reality-origin-mobility-atlas-v1.md');
-const lineage = read('docs/cross-era-lineage-memory-relationship-bible-v1.md');
+const lineage = read('docs/cross-era-lineage-memory-bible-v1.md');
 const global = read('docs/global-cultural-satire-localization-bible-v1.md');
 
 assert(realityOriginLineageSummary.current21Count === 21, 'Current21 backstage origin coverage must be 21/21');
@@ -74,12 +74,13 @@ assert(originBible.includes('ユイ = 東京都荒川区の下町育ち'), 'orig
 assert(originBible.includes('新宿には現代Characterを置く。Yuiにはしない'), 'origin bible must preserve non-Yui Shinjuku slot');
 assert(atlas.includes('東京都荒川区') && atlas.includes('出身地 = 事件発生地'), 'atlas must preserve Arakawa and birthplace/incident separation');
 assert(atlas.includes('進学') && atlas.includes('就職') && atlas.includes('転勤'), 'atlas must include plausible mobility reasons');
-assert(lineage.includes('関係の名前は忘れても、関係で変わった自分は残る'), 'lineage bible must preserve memory principle');
-assert(lineage.includes('怖い / 変な人 / ぼけたのでは'), 'lineage bible must preserve child misread pattern');
-assert(lineage.includes('Realityでのresolution Waking'), 'lineage bible must resolve morning wording through Waking');
+assert(lineage.includes('Normal Waking') && lineage.includes('Resolution Waking'), 'lineage bible must preserve both normal and resolution Waking');
+assert(lineage.includes('怖い / 変な人') || lineage.includes('怖い / 変な人だと思ってた'), 'lineage bible must preserve child misread pattern');
+assert(lineage.includes('physical morningではなくResolution Waking'), 'lineage bible must resolve morning wording through Waking');
+assert(lineage.includes('主要castの過半数を互いの親族へしない'), 'lineage bible must forbid genealogy overload');
 assert(global.includes('Globalize understanding, not erase Japanese specificity'), 'globalization rule must preserve Japanese specificity');
 assert(global.includes('Satire target hierarchy'), 'global satire target hierarchy missing');
-assert(global.includes('dialect') || global.includes('Dialect'), 'global localization must cover dialect handling');
+assert(global.includes('Dialect localization') || global.includes('dialect'), 'global localization must cover dialect handling');
 
 assert(!REALITY_ORIGIN_MOBILITY_RULES.runtimeAutoPromotionAllowed, 'origin rules may not auto-promote runtime');
 assert(!CROSS_ERA_LINEAGE_MEMORY_RULES.runtimeAutoPromotionAllowed, 'lineage rules may not auto-promote runtime');
