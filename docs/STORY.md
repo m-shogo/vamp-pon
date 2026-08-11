@@ -1,119 +1,137 @@
 # ヨルノシルベ Story Hub
 
-Date: 2026-07-28  
-Status: **CURRENT STORY ENTRYPOINT**
+Date: 2026-08-11  
+Status: **CURRENT STORY ENTRYPOINT / MASTER-ALIGNED**
 
-> 物語、世界の謎、人物の謎、伏線、Happy End、続編について考える時は最初にここへ入る。  
-> repo全体から古いscenario資料を探し直さない。
-
----
-
-# 1. まずStory Book
-
-**`docs/story-book-v1.md`**
-
-Character Bookと同じレベルの人物理解用master。
-
-ここを読むと:
-
-- ヨルノシルベがどんな物語か
-- 何をHappy Endとするか
-- どう泣かせたいか
-- Main Mystery / Character Mystery
-- 夜 / Game Over / Retry
-- 黒インクの強いCandidate
-- Shadowの思想
-- 日常伏線
-- optional report
-- 1で閉じるもの / 2へ残すもの
-- open questions
-
-まで一度に戻れる。
+> 最上位: `docs/00-current-story-world-master.md`。
+> Storyを考える時は、古い朝 / 朔盟 / 同一星座 / 固定Boss前提へ戻さない。
 
 ---
 
-# 2. Story detail masters
-
-Story Bookで足りない時だけ読む。
-
-| Area | Current master |
-| --- | --- |
-| Gameplay ↔ Lore engine | `docs/STORY-ENGINE.md` |
-| Happy End / tears / sequel | `docs/story-ending-sequel-architecture-v1.md` |
-| Main Mystery vs Character Mystery | `docs/story-foreshadowing-payoff-map-v1.md` |
-| Character | `docs/CHARACTERS.md` |
-| Optional reports / archive | `docs/PROGRESSION-ARCHIVE.md` |
-| Gameplay / meta | `docs/GAMEPLAY-META-PROGRESSION.md` |
-| Ideas not yet fixed | `docs/idea-book-v1.md` |
-
----
-
-# 3. Current story direction
-
-- 世界は暗いが、人間の性格は明暗を揃えない
-- 全員がその人らしいまま成長する群像劇
-- Main Gameはヴァンサバ系の戦闘 / build / replay
-- loreはプレイの副作用として増える
-- Main MysteryとCharacter Mysteryは別レーン
-- Character Mysteryを100%解かなくても本編は理解・clearできる
-- 深掘るほど世界と人物がつながって見える
-- 正史はHappy End
-- Permanent deathを泣き装置の中心にしない
-- Game Overは死亡ではない
-- 日常の蓄積から感動を作る
-- 1作の中心人物 / 中心感情は1作で救う
-- series mysteryは違和感 / props / reportとして残せる
-- sequelで1の意味が変わっても、1のHappy Endは無効化しない
-
----
-
-# 4. Story information is optional
+# 1. Read first
 
 ```txt
-戦闘 / 達成
+00-current-story-world-master.md
+↓
+CANON.md
+↓
+STORY.md
+↓
+story-book-v1.md
+↓
+必要なdetail master
+```
+
+Story Book:
+- `docs/story-book-v1.md`
+
+---
+
+# 2. Current story direction
+
+- ヨルノシルベは**朝の来ない夢世界**。
+- 人物は朝を待って帰るのではなく**目覚めて自分の時代へ戻る**。
+- Characterは現実では同時代とは限らない。
+- Dream内では西暦等の時間タグが弱い。
+- 年代差は食事 / 道具 / UI / 言葉 / 駅 / 郵便 / 制度等の小さな違和感で出す。
+- 通常Wakingでは名前 / 顔 / 会話等の明示記憶を失いやすい。
+- 技能 / 身体感覚 / 感情変化 / 選択は残り得る。
+- 大事件解決パートではDream記憶を取り戻して目覚める方向。
+- Dreamでは衣食住に困窮させない。食 / 飲 / 日用品 / 休息は自然に補完可能。
+- ただし人の心 / 同意 / 記憶真実 / 黒耀化 / 現世大事件は願いで解決しない。
+- 星は見える。
+- 星座は年代によって同じとは限らない。
+- 月相は日数ではなく事件深度。
+- 朔では月がなくなり、星 / 灯りが残る。
+- 主要敵8人のCurrent名は**朔夜座**。
+- 各時代の大事件中心人物 / 人物群の後世的総称は**群青残響録**。
+- 群青残響録は1時代1人 / 固定人数 / 必須戦闘Boss / 固定悪役組織ではない。
+- 人間 / 動物 / Android / Robotが同じDreamで個人として関係を作れる。
+- 正史Happy End。
+- Permanent deathを泣き装置の中心にしない。
+- 日常の蓄積から感動を作る。
+
+---
+
+# 3. Gameplay ↔ Story
+
+```txt
+戦闘 / build / 達成
 ↓
 Gameplay reward
 +
 Story / Character informationが自然に解放
 ```
 
-読む人:
+Story informationを読むPlayerは:
 
-- 夜の観測記録
+- Dream観測記録
 - Character Mystery
-- 日常会
+- 日常会話
 - 黒耀化記録
 - 敵 / 忘れ物の背景
+- 年代差の記録
+- 星座の違和感
+- 大事件資料
 
 まで深く読める。
 
-読まない人:
-
-- 新しい強化 / build / character / Supportが開いたことだけ分かればよい
-- Main Story / Happy Endへ到達できる
+読まないPlayerもMain Story / Happy Endへ到達できる。
 
 ---
 
-# 5. High-value Story Engine Candidate
+# 4. High-value Black Ink engine Candidate
 
-旧設計から非常に整合の高い候補:
+強いCandidate:
 
-> 悲しい出来事は消えない。  
-> ただ、その出来事についた「間違った意味」が黒インクで固定される。  
-> ユイたちは出来事を消すのではなく、その固定をほどく。
+> 悲しい出来事そのものを消すのではない。  
+> その出来事についた「間違った意味」が固定され、人物や社会を一つの答えへ追い込む。  
+> Characterは出来事を無かったことにするのではなく、その固定をほどく。
 
 これを採用すると:
 
-- 黒インク = enemy / protection / stagnationの三面性
-- 記憶片 = EXPであり、固定から剥がれた意味片
+- 黒インク = fixation / protection / stagnationの圧力
+- 記憶片 = 固定から剥がれたmeaning fragment
 - Level Up = run内で扱える読み方が増える
-- 朝 = runで得たものの一部を確定
-- Game Over = その読み方では朝に届かなかった
-- Retry = 未確定の夜を別buildで読む
+- Result = そのrunで得た解釈 / buildの到達
+- Waking = DreamからRealityへ戻る
+- Retry = 別build / 別解釈で再挑戦
 
-という二重意味が作れる。
+へ接続できる。
 
-**まだMain Mysteryの最終正史ではない。**
+**黒インクの最終起源そのものはまだOpen。**
+
+---
+
+# 5. 黒耀化 ↔ 社会の大事件
+
+個人:
+
+```txt
+長所 / 願い
++ 恐怖 / 焦り
+→ 一つの答えへ極端化
+→ 黒耀化
+```
+
+社会:
+
+```txt
+理想 / 保護 / 発展
++ 恐れ / 利害 / 制度
+→ 一つの解決策へ固執
+→ 大事件
+```
+
+Storyの答えは:
+
+> 悪を倒す
+
+だけではなく:
+
+> 二択しかないと思われていた状況へ第三の選択肢を作る。
+
+異なる時代で得た知恵 / 技能 / 価値観が、自分の時代のReality incidentを変える。
 
 ---
 
@@ -123,168 +141,307 @@ Story / Character informationが自然に解放
 
 人物の内側。
 
-例:
+## Era / Incident Mystery
 
-- ユイとトモリの獅子座共有
-- クロオリが守っているもの
-- アサと名前の関係
+- この人物はどの年代なのか
+- この新聞 / 商品 / UIはいつのものか
+- 群青残響録として後から括られる中心人物は誰か
+- 事件の責任は一人に集約できるのか
 
 ## Main Mystery
 
-世界の構造。
+- Dream最終mechanism / 起源
+- 黒インクの最終起源
+- 星獣の完全Mechanism
+- 星座が年代によって増減 / 変化する最終原因
+- 月相異常の最終意味
+
+### Important
+
+**ヨルノシルベが夢世界であること自体はOpenへ戻さない。**
+
+Openなのは「なぜ / どう共有されるか」。
+
+---
+
+# 7. 星空 / 星座伏線
+
+説明台詞より先に:
+
+- 同じ星を違う名前で呼ぶ
+- 古い人物だけ知る星座
+- 現代人物には存在しない星座名
+- 後世人物だけ知る新しい結び方
+- 星獣の反応差
+
+を出す。
 
 例:
 
-- 夜とは何か
-- 黒インクとは何か
-- 星獣は何を知っているか
-- 誰が仕組みを作ったか
+> 「あれ、○○座だろ？」
+> 「……そんな星座ないよ？」
 
-## Series Mystery
-
-1で答えなくてもよい一段上の問い。
-
-1の感情決着を邪魔しない。
+この時点で「お前1940年代だろ」と答えまで言わない。
 
 ---
 
-# 7. Sequel structure
+# 8. 月相 / 朔夜 Story use
 
-強い構造:
+月相 = 事件深度。
 
-```txt
-1作 = local completion
-シリーズ = meta mystery continues
-```
+全時代を同じ5段階へ固定しない。
 
-謎を:
+- 欠け方が違う
+- 一度戻る
+- 半月から始まる
+- 未来だけ異常
 
-- **C級** — その作品で必ず回収
-- **B級** — 後作で意味が変わるSeed
-- **A級** — series全体の問い
+も伏線にできる。
 
-に分けられる。
+事件最深部では月が消える。
 
-A級を残すためにC級を投げない。
+ただし:
+
+> 月が消えた = その時代の固定ラスボスが必ず出る
+
+ではない。
+
+制度 / 複数人物 / 朔夜座 / 社会選択が最深部を構成してもよい。
 
 ---
 
-# 8. Foreshadowing style
+# 9. 朔夜座
+
+Current formal name:
+**朔夜座（さくやざ）**
+
+Current 8:
+ナシロ / アサトジ / ミチグレ / オリネ / ハクマ / ツグリ / ユラネ / ペタ。
+
+- 八影 = early observer label
+- 朔盟 = Superseded Candidate / legacy asset namespace
+- member思想 / pair / relation / stable ID / fan designは保持
+
+朔夜座は各時代大事件へ:
+
+- 協力
+- 利用
+- 対立
+- 妨害
+- 止めようとする
+- 利害だけ一致
+
+など異なる形で関われる。
+
+群青残響録の上司 / 部下には固定しない。
+
+---
+
+# 10. 群青残響録
+
+Current definition:
+
+> **各時代の大事件で中心になった人物 / 人物群を、後から記録上まとめて呼ぶ総称。**
+
+Not:
+
+- 固定5人組
+- 1時代1人
+- 全員敵
+- 全員戦闘Boss
+- 同一組織
+- 同一時代
+
+正式member / full name / exact incident / 最終結末はOpen。
+
+人物名はDream内でまず自然なカタカナ呼称。
+
+後から:
+
+- 新聞
+- 名簿
+- 写真
+- 企業資料
+- 事件資料
+- 古い本
+
+で漢字名 / 姓 / 年代がRevealされる。
+
+---
+
+# 11. Android / Robot Story lane
+
+未来では人間側 / Android側双方にDream参加者がいる。
+
+夜では現実の陣営を知らず友達になれる。
+
+後からRealityでは対立側だったと分かる。
+
+成長goal:
+
+> 人間になる
+
+ではない。
+
+> Androidのまま、categoryではなく個人を見る / 見られる。
+
+を重視する。
+
+好感度は上がりにくい方向。
+
+初期は好意を義務 / 契約 / 効率として処理し、後から:
+
+> 「あの時も、義務ではなかったのですか？」
+
+と過去の意味を再評価できる。
+
+最終名 / acronym / version orderはOpen。
+
+シオン / イヴ・ノインは不採用。
+
+---
+
+# 12. Reality animals
+
+犬 / 猫はDreamへ参加できる。
+
+星獣とは別category。
+
+犬:
+- 匂い
+- 声
+- 歩き方
+- 手触り
+
+などで人物を覚えられる。
+
+猫:
+- 複数の家
+- 複数の呼び名
+- 呼び名が違っても自分は自分
+
+というIdentity themeへ使える。
+
+万能賢者にせず、怖がる / 間違う / 好き嫌い / 気まぐれも残す。
+
+---
+
+# 13. Foreshadowing style
 
 説明台詞より:
 
 ```txt
-小物
+小物 / 食事 / UI / 言葉 / 星座
 ↓
-妙な敵 / 星獣の挙動
+妙なEnemy / 星獣 / Character反応
 ↓
-Gameplayで実際に使う
+Gameplayで触れる
 ↓
-Bond / Result / 灯録で意味が少し変わる
+Bond / Result / Recordで意味が変わる
 ↓
-後から最初の場面を再解釈できる
+Reality資料で年代 / 事件の意味が反転
 ```
 
-良い小物は:
+良い伏線:
 
-1. 初見の意味
-2. 1作内で分かる意味
-3. series後に再解釈される意味
-
-を持てる。
-
-ヤバタニエン的な「後から配置や行動の意味が変わる」気持ちよさは参考にするが、正史の救いは維持する。
+1. 初見で自然
+2. Title内で意味が一段分かる
+3. 後から再解釈できる
 
 ---
 
-# 9. Tears / daily life
+# 14. Tears / Daily life
 
-泣きは死亡人数ではなく**普通だった時間の蓄積**から作る。
+泣きは死亡人数ではなく普通だった時間の蓄積から作る。
 
 - 食事
 - 呼び方
 - 喧嘩
+- 仲直り
+- 冗談
+- 恋
+- 友情
 - 星獣
+- 動物
 - 修理した椅子
 - 手紙
 - 寝坊
 - 雨
+- 知らない食べ物
+- 年代差の小さな勘違い
 - 何気ない約束
 
-終盤でそれらを返す。
+Dreamは衣食住サバイバルではないため、こうした日常に十分な尺を使える。
 
 ---
 
-# 10. Sequel hook
-
-1は必ず一度Happy Endで閉じる。
-
-続編hookは露骨な「2へ続く」ではなく:
-
-- 知らない折り目
-- 見覚えのない綴じ糸
-- 誰も知らない星獣の足跡
-- 現実側にあるはずのない紙片
-
-などの小さな違和感が向く。
-
-2を遊んだ後、1の最後や小物を見ると意味が変わるのが理想。
-
----
-
-# 11. Open questions
-
-まだ決めない:
-
-- 夜の正体が夢 / virtual / shared memoryのどれなのか
-- 「間違った意味」Engineを最終真相にするか
-- 誰が夜を作ったか
-- なぜ夜が必要だったか
-- 星獣の完全な仕組み
-- ユイとトモリの獅子座共有の真相
-- sequel protagonist
-- sequel setting
-- final cliffhanger
-
-**面白い問いを持っていること自体を資産として残す。**
-
----
-
-# 12. Idea memory
-
-まだ物語正史にしていない案も忘れない。
-
-- `docs/idea-book-v1.md`
-
-例:
-
-- 年を取らない魔女 × 年を取る弟子
-- optional report
-- クリアゲッターとのstory連携
-- 集合TOP
-- future characters
-- sequel seeds
-
-Story Bookへ書かれたUSER IDEA / OPEN QUESTIONも、Human decision前に勝手にCANONへ昇格しない。
-
----
-
-# 13. Legacy no-read
-
-移行済み旧Story docsは通常読まない。
-
-一覧:
-
-- `docs/legacy-design-migration-2026-07-28.md`
-
-通常順:
+# 15. Happy End / Sequel
 
 ```txt
-docs/CANON.md
-↓
-docs/STORY.md
-↓
-docs/story-book-v1.md
-↓
-必要なCurrent detail 1つ
+1作 = local emotional completion
+series = meta mystery continues
 ```
+
+- その作品の中心感情はその作品で救う
+- permanent death中心にしない
+- 悲劇を全部無かったことにはしない
+- 人物が以前選べなかった第三の選択を選ぶ
+- sequelが1のHappy Endを無効化しない
+
+謎:
+
+- C = Title内で回収
+- B = 後作で意味が変わるseed
+- A = Series全体の問い
+
+Aを残すためにCを投げない。
+
+---
+
+# 16. Sequel hook
+
+露骨な「2へ続く」より:
+
+- 今の年代にはない星座
+- 見覚えのない折り目
+- 知らないversion mark
+- 誰も知らない星獣の足跡
+- Reality側にあるはずのない紙片
+- 後世だけ存在する名称
+
+などの小さな違和感を使う。
+
+---
+
+# 17. Open questions
+
+まだ勝手に決めない:
+
+- Dream最終mechanism / 起源
+- 黒インク最終起源
+- 星獣完全Mechanism
+- 星座増減の最終原因
+- exact years
+- 群青残響録formal members / names
+- 各時代大事件exact内容
+- Android final name / acronym / version order
+- 死者のDream参加rule
+- 各大事件にcombat Bossが必要か
+- sequel protagonist / setting
+
+---
+
+# 18. Legacy handling
+
+旧Story資料の:
+
+- 朝へ届く
+- 朝まで生き残る
+- DawnでRealityへ帰る
+- 朔盟Current
+- 全年代同一星座
+- 1時代1固定Boss
+
+はStory authorityとして使用しない。
+
+stable runtime token / ID / UI名はmigration対象として別管理する。
