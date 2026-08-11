@@ -1,109 +1,185 @@
-# ヨルノシルベ1 Combat Item Selection Source v1
+# ヨルノシルベ1 Combat Item Placement Source v1
 
 ## Status / Authority
 
-- Scope: Title1 Combat Item **18 family**
-- Source: `src/game/data/combatItemSelectionSource.ts`
-- Authority: **CONTENT_SOURCE_ONLY** for the new ten candidates
-- Existing `passives.ts` Current8 is preserved as runtime truth.
-- Selected10 does not mean implemented, owned, balanced, or production-ready.
-- Candidate selection must not auto-promote Unity/Web runtime inventory.
+- Scope: `combatItemEffectSource.ts` の **既存18** Candidate
+- PASSIVE 14 / FIELD_ITEM 2 / RARE_SUPPORT 2
+- Placement source: `src/game/data/combatItemSelectionSource.ts`
+- Authority: **CONTENT_SOURCE_ONLY**
+- 新しいCombat Itemを増やさない。
+- Current runtime `passives.ts` を置換しない。
+- Placementされたからといってimplemented / owned / balanced / production-readyにはしない。
 
-## Why 18
+## 今回やること
 
-The current runtime has only **Current8** passive items. Character production data already has 21 character-linked passive-item names, but promoting all 21 at once would create duplicate stat roles, tutorial overload, and a large runtime/save migration surface.
+既にCombat Content Masterには18個のItem候補がある。
 
-Title1 therefore uses:
+必要なのは別の18個を作ることではなく、既存18を:
 
-- **Current8** — existing runtime passives kept intact
-- **Selected10** — content-only candidates chosen for gameplay roles the Current8 does not express well
+1. どのStageで初めて見せるか
+2. LevelUp pool / Field Drop / Rare Supportのどこから入るか
+3. その時点でPlayerが理解済みのAttribute / Status / Reactionだけで説明できるか
+4. 一度に見せ過ぎないか
+5. mobileで何が起きたか読めるか
 
-Total: **18 family**.
+へ接続すること。
 
-The target is not “more items = better.” The extra ten are selected because they add route, Status recovery, observation, support, Build Comfort, dream tempo, and DARK tradeoff decisions instead of just another Might/XP/Cooldown percentage.
+18/18をTitle1に配置するが、runtimeへ自動promotionしない。
 
-## Current8 boundary
+## Access lane
 
-Current8 stays exactly as it is today:
+### PASSIVE 14
 
-- 金のコンパス — pickup
-- 旅のバッジ — power
-- 月明かりのしおり — growth
-- あったか靴 — mobility
-- 白い余白 — tempo
-- 押し花 — power
-- 外れた地図ピン — growth
-- 小さな目覚まし時計 — tempo
+`LEVEL_UP_POOL`
 
-The selection source classifies their broad effect axis only. It does not retune their runtime values.
+通常のBuild候補。ただし既存runtime Passiveへ即追加する意味ではない。
 
-## Selected10
+### FIELD_ITEM 2
 
-### セン — 小さな黒板消し
+`FIELD_DROP`
 
-Axis: Status Guard.
+- 継ぎ目テープ
+- ぬるいお茶
 
-ERASED / SEALEDでBuildが崩れた時に、一段だけ戻れる余地を作る。万能cleanseにはしない。直接damageは増えない。
+LevelUp候補ではなく、戦場で拾う一回性の判断として分離する。
 
-### リツ — 半分の包み紙
+### RARE_SUPPORT 2
 
-Axis: Support.
+`RARE_SUPPORT`
 
-pickup由来の小回復や短buffを低倍率で分ける。「分ける」を火力コピーにしない。BURN / SOAKでtempoを失ったrunの立て直し候補。
+- 迷子の鈴守り
+- 朝側の半券
 
-### コヨリ — 呼び名の紙縒り
+通常poolへ常駐させず、低頻度の保険・特殊支援として扱う。
 
-Axis: Support.
+## Placement
 
-MARKED / ILLUMINATEDを補助灯やrelation assistのtarget情報として使う。主火力のコピーではなく、情報を利用する補助役にする。
+### Stage2
 
-### ゲン — 駅前の道火
+- 追い風結び
 
-Axis: Route.
+WIND / DISORIENTEDを覚えた直後に、移動そのものを条件にするBuildを見せる。
 
-ROOTED / CHILL / FREEZE pressureへ、速度盛りだけではなく「戻れる場所を先に作る」回答を与える。完全拘束無効は禁止。
+### Stage4
 
-### ハナ — 箱底の花
+- 飴色のランタンガラス
+- 星留めの針
 
-Axis: Status Guard / trap sustain.
+LIGHT / STAR / ILLUMINATED / beaconまで理解した後に、照明防御と遠距離照準へ分岐する。
 
-自分が移動低下を受けた時、次のtrap/supportの持続を少し伸ばす。遅い状況をただの失敗にせず、保存・設置の強さへ変える。
+### Stage6
 
-### ユウビ — 古い消印
+- 工具箱の磁石
 
-Axis: Tempo.
+METALをdamageだけでなくREPAIR・設置維持へ広げる。
 
-DROWSY / SLEEP後に、止められていた次の自動発動一回を「遅れて届ける」。Statusそのものを無効化しない。
+### Stage7
 
-### マドカ — 曇った窓紙
+- 継ぎ目テープ — FIELD_ITEM
 
-Axis: Observation.
+Stage6で学んだEXPOSEDへの一回性counterplay。
 
-ECLIPSED / DISORIENTED中に、危険敵一体と安全方向一つだけを短く示す。自動回避や大量outlineにはしない。
+### Stage8
 
-### シロ — 未分類の頁
+- 石畳の靴底
 
-Axis: **Build Comfort**.
+ROOTED導入時に「速度を盛る」以外の踏ん張り回答を置く。
 
-LevelUp候補一枠を次回へ保留する。ERASED / SEALED後に同じstackを積み直す以外の方向転換を助ける。即powerを得ないtradeoffを残す。
+### Stage10
 
-### ネム — 眠り頁
+- 焦げた長灯芯
+- 押花の種袋
 
-Axis: Dream Control.
+FREEZE / ROOTED / regrowthまで既知になってから、WARMTHと撃破時回復へ広げる。
 
-DROWSY / SLEEPを消すのではなく、解除後の短いtempo回復へ変える。「眠らないこと」だけを正解にしない。
+### Stage11
 
-### クロオリ — 四つ折りの影
+- 朝露のハンカチ
+- 迷子の鈴守り — RARE_SUPPORT
 
-Axis: DARK Risk.
+arc_chain / DROWSYまで学んだ後にWater Reaction補助と方向・眠り系救済を置く。
 
-ECLIPSED中の安全性と、pickup/route情報量をtradeoffにする。解除後にはEXPOSED回答windowを作る。DARKを悪属性や単純な高火力枠へしない。
+### Stage12
 
-## Status fail-forward coverage
+- 頁織りの襟巻き
+- ぬるいお茶 — FIELD_ITEM
 
-ItemだけですべてのStatusを無効化する設計にはしない。
+FREEZEを一度経験した後に、条件付き耐性と即時CHILL解除の違いを比較させる。
 
-ただしPlayerが操作感を失いやすい以下には、Selected10のどこかから明確な回答を持たせる:
+### Stage13
+
+- 白い当て布
+
+ERASED導入後。BLANKを万能cleanseではなく広いduration軽減として使う。
+
+### Stage14
+
+- 銅の留め具
+
+metal_overloadと同時。THUNDER/METALの準備型Buildへ接続する。
+
+### Stage15
+
+- 夢頁の折れ角
+- 擦れた名前札
+
+DREAM / SLEEP / lucid_recallを学んでからDream defenseとMEMORY sustainへ分ける。
+
+### Stage16
+
+- 黒折りの包み布
+
+DARKを覚えた後。連打ではなく「間を取る」DARK Buildへ接続する。
+
+### Stage17
+
+- 朝側の半券 — RARE_SUPPORT
+
+ECLIPSED / ERASEDを理解した終盤に、一回性の夜蝕保険として置く。
+
+## Stage18-20
+
+**新しいCombat Itemを追加しない。**
+
+Stage18は最後の初期Reaction `thermal_crack`、Stage19はBuild候補を保留するcomfort、Stage20は総合masteryへ集中させる。
+
+Itemを最後まで小出しし続けて「また新ルールか」と感じさせない。
+
+## 先バレ防止
+
+CIで各Itemのplacement Stageまでに以下が既知かを確認する。
+
+- `attributeBias`
+- `resistsStatuses`
+- `cleansesStatuses`
+- `reactionAssist`
+
+未学習のAttribute / Status / ReactionをItem説明から**先バレ**させない。
+
+例えば:
+
+- `charred_wick` はFREEZE耐性を持つためStage10より前へ置かない
+- `copper_clip` は `metal_overload` を使うためStage14より前へ置かない
+- `old_name_tag` は `lucid_recall` を使うためStage15より前へ置かない
+- `black_fold_cloth` はDARK導入後のStage16
+
+## Cognitive overload
+
+1Stageの新Combat Itemは最大2つ。
+
+禁止:
+
+- 18個一覧をStage1で開く
+- PASSIVE / FIELD_ITEM / RARE_SUPPORTを同じpoolへ混ぜる
+- 未学習Reactionを説明文へ出す
+- Status完全無効を初心者救済にする
+- Item取得をHappy End条件へする
+
+## Counterplay boundary
+
+既存18は、Player操作を壊しやすいStatusに対する複数の回答を持つ。
+
+特に:
 
 - ROOTED
 - CHILL
@@ -115,53 +191,43 @@ ItemだけですべてのStatusを無効化する設計にはしない。
 - SEALED
 - DISORIENTED
 
-回答は resistance % だけではなく、route、予約発動、観察、保留、設置物、relation supportへ分散する。
+はItem側にもresist / cleanse / tempo recoveryのいずれかを残す。
 
-## Anti-autopick rule
+ただし「Itemを持てばStatus無効」にはしない。
 
-Selected10は全てtradeoffを持つ。
+## mobile readability
 
-禁止:
+mobileではItem効果の説明にfull-screen演出を使わない。
 
-- 取るだけで全damageが常時増えるCandidateばかりにする
-- Status完全無効
-- Boss gimmick削除
-- 永久safe zone
-- 自動回避
-- 無限reroll / 無限保留
-- DARKの欠点だけ消す
+- 追い風結び → 足元の短い風線
+- ランタンガラス → 暖色の縁だけ
+- 星留めの針 → 遠距離targetへ一点
+- 継ぎ目テープ → icon一つだけ点滅
+- 石畳の靴底 → 小さな石粉ring
+- 朝露のハンカチ → 一滴
+- 迷子の鈴守り → 音輪一つ
+- ぬるいお茶 → 湯気二本
+- 黒折りの包み布 → 足元へ畳む
+- 朝側の半券 → 半券の端だけ暖色
 
-Item選択で「そのrunをどう遊ぶか」が変わることを優先する。
-
-## Mobile readability
-
-mobileでは効果を説明するために画面を汚さない。
-
-- safe zoneは足元の小円
-- helper targetは細線一本
-- observationは敵一体 + 方向一つ
-- delayed actionは消印一個
-- cleanseは白い粉の短い一往復
-- DARK tradeoffはHUD暗転ではなく足元の折り影
-
-常時full-screen filter、大量arrow、長いfloating textは避ける。
+大量particle、screen tint、常時arrow、長いfloating textを避ける。
 
 ## Runtime boundary
 
-Selected10をruntimeへ接続するには別途:
+このPlacement Masterはlive runtime inventoryではない。
 
-1. PassiveDefinition / Unity ScriptableObject schema決定
+runtime接続には別途:
+
+1. Passive / Field Item / Rare Supportのschema
 2. numerical tuning
 3. save migration
-4. level-up offer rules
-5. duplicate-item handling
+4. level-up offer / field spawn / rare access rules
+5. duplicate handling
 6. Status runtime hook
-7. icon / pickup / inventory art
+7. icon / pickup art
 8. mobile screenshot QA
 9. playtest
 
 が必要。
 
 `runtimeAutoPromotionAllowed = false`。
-
-18 familyというContent Masterは、live runtime inventoryそのものではない。
