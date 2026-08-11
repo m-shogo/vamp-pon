@@ -48,7 +48,7 @@ for (const entry of CHARACTER_LEISURE_PLAY_RESERVOIR) {
   for (const axis of CHARACTER_LEISURE_PLAY_AXES) assert(entry.anchors[axis].trim().length >= 12, `${entry.id}.${axis} too thin`);
 }
 const byId = new Map(CHARACTER_LEISURE_PLAY_RESERVOIR.map((entry)=>[entry.id,entry]));
-assert(byId.get('koyori')?.anchors.ERA_MEDIA_PASTIME.includes('NO AUTOMATIC_PHONE_TABLET'), 'Koyori must not get automatic modern device');
+assert(byId.get('koyori')?.anchors.ERA_MEDIA_PASTIME.includes('NOT AUTOMATIC_PHONE_TABLET'), 'Koyori must not get automatic modern device');
 assert(byId.get('gen')?.anchors.ERA_MEDIA_PASTIME.includes('AGE_DOES_NOT FIX ONE_PASTIME'), 'Gen age may not define leisure');
 assert(byId.get('kage1')?.anchors.ERA_MEDIA_PASTIME.includes('PLUS_SIZE_BODY_DOES_NOT DEFINE'), 'Kaname body may not define leisure');
 assert(byId.get('hiyori')?.anchors.SOLO_LEISURE.includes('NOT GYARU_CHECKLIST'), 'Hiyori leisure may not become gyaru checklist');
