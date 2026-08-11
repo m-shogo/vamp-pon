@@ -1,0 +1,37 @@
+name: All-pair Directed Speech Presentation
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/allPairDirectedSpeechPresentationSource.ts'
+      - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/relationshipSpeechProgressionSource.ts'
+      - 'src/game/data/relationshipBondSpeechPrototypeSource.ts'
+      - 'docs/allpair-directed-speech-presentation-v1.md'
+      - 'scripts/quality/check-allpair-directed-speech-presentation.ts'
+      - '.github/workflows/allpair-directed-speech-presentation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/allPairDirectedSpeechPresentationSource.ts'
+      - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/relationshipSpeechProgressionSource.ts'
+      - 'src/game/data/relationshipBondSpeechPrototypeSource.ts'
+      - 'docs/allpair-directed-speech-presentation-v1.md'
+      - 'scripts/quality/check-allpair-directed-speech-presentation.ts'
+      - '.github/workflows/allpair-directed-speech-presentation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Current21 all 420 directed speech lanes
+        run: node --experimental-strip-types scripts/quality/check-allpair-directed-speech-presentation.ts
