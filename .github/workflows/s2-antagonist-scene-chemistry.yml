@@ -1,0 +1,53 @@
+name: S2 Antagonist Scene Chemistry
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/s2-antagonist-team-candidate-v1.md'
+      - 'docs/s2-antagonist-ensemble-depth-candidate-v1.md'
+      - 'docs/s2-antagonist-scene-chemistry-candidate-v1.md'
+      - 'docs/s2-antagonist-micro-scene-reservoir-v1.md'
+      - 'docs/season-antagonist-return-policy-v1.md'
+      - 'docs/season-2-3-overseas-culture-constellation-memory.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/s2AntagonistTeamCandidate.ts'
+      - 'src/game/data/s2AntagonistEnsembleDepthCandidate.ts'
+      - 'src/game/data/s2AntagonistSceneChemistryCandidate.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/seasonAntagonistReturnPolicy.ts'
+      - 'scripts/quality/check-s2-antagonist-scene-chemistry.ts'
+      - '.github/workflows/s2-antagonist-scene-chemistry.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/s2-antagonist-team-candidate-v1.md'
+      - 'docs/s2-antagonist-ensemble-depth-candidate-v1.md'
+      - 'docs/s2-antagonist-scene-chemistry-candidate-v1.md'
+      - 'docs/s2-antagonist-micro-scene-reservoir-v1.md'
+      - 'docs/season-antagonist-return-policy-v1.md'
+      - 'docs/season-2-3-overseas-culture-constellation-memory.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/s2AntagonistTeamCandidate.ts'
+      - 'src/game/data/s2AntagonistEnsembleDepthCandidate.ts'
+      - 'src/game/data/s2AntagonistSceneChemistryCandidate.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/seasonAntagonistReturnPolicy.ts'
+      - 'scripts/quality/check-s2-antagonist-scene-chemistry.ts'
+      - '.github/workflows/s2-antagonist-scene-chemistry.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate S2 scene chemistry, reservoirs, and open Canon boundaries
+        run: node --experimental-strip-types scripts/quality/check-s2-antagonist-scene-chemistry.ts
