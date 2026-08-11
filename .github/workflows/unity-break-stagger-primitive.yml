@@ -12,6 +12,7 @@ on:
       - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
       - 'scripts/quality/unity-break-stagger/**'
       - 'docs/unity-break-stagger-primitive-v1.md'
+      - 'docs/unity-slam-wave-query-primitive-v1.md'
       - 'docs/title1-base-weapon-runtime-admission-v1.md'
       - '.github/workflows/unity-break-stagger-primitive.yml'
   push:
@@ -26,6 +27,7 @@ on:
       - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
       - 'scripts/quality/unity-break-stagger/**'
       - 'docs/unity-break-stagger-primitive-v1.md'
+      - 'docs/unity-slam-wave-query-primitive-v1.md'
       - 'docs/title1-base-weapon-runtime-admission-v1.md'
       - '.github/workflows/unity-break-stagger-primitive.yml'
 
