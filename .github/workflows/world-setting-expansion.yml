@@ -1,0 +1,51 @@
+name: World Setting Expansion
+
+on:
+  pull_request:
+    paths:
+      - 'docs/WORLD.md'
+      - 'docs/world-*.md'
+      - 'docs/stage-world-lore-integration-v1.md'
+      - 'docs/character-family-household-atlas-v1.md'
+      - 'docs/character-height-age-era-lineup-v1.md'
+      - 'docs/character-interior-social-dynamics-bible-v1.md'
+      - 'docs/story-episode-emotional-engine-v1.md'
+      - 'docs/sakumei-*.md'
+      - 'src/game/data/worldSettingExpansionIndex.ts'
+      - 'src/game/data/worldSettingConflictRegister.ts'
+      - 'src/game/data/stageWorldLoreIntegration.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'scripts/quality/check-world-setting-expansion.ts'
+      - '.github/workflows/world-setting-expansion.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/WORLD.md'
+      - 'docs/world-*.md'
+      - 'docs/stage-world-lore-integration-v1.md'
+      - 'docs/character-family-household-atlas-v1.md'
+      - 'docs/character-height-age-era-lineup-v1.md'
+      - 'docs/character-interior-social-dynamics-bible-v1.md'
+      - 'docs/story-episode-emotional-engine-v1.md'
+      - 'docs/sakumei-*.md'
+      - 'src/game/data/worldSettingExpansionIndex.ts'
+      - 'src/game/data/worldSettingConflictRegister.ts'
+      - 'src/game/data/stageWorldLoreIntegration.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'scripts/quality/check-world-setting-expansion.ts'
+      - '.github/workflows/world-setting-expansion.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate P0-P2 world setting coverage and authority boundaries
+        run: node --experimental-strip-types scripts/quality/check-world-setting-expansion.ts
