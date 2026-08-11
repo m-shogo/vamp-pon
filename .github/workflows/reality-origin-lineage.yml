@@ -5,7 +5,7 @@ on:
     paths:
       - 'docs/character-reality-origin-dialect-culture-bible-v1.md'
       - 'docs/character-reality-origin-mobility-atlas-v1.md'
-      - 'docs/cross-era-lineage-memory-relationship-bible-v1.md'
+      - 'docs/cross-era-lineage-memory-bible-v1.md'
       - 'docs/global-cultural-satire-localization-bible-v1.md'
       - 'src/game/data/realityOriginLineageSource.ts'
       - 'scripts/quality/check-reality-origin-lineage.ts'
@@ -15,7 +15,7 @@ on:
     paths:
       - 'docs/character-reality-origin-dialect-culture-bible-v1.md'
       - 'docs/character-reality-origin-mobility-atlas-v1.md'
-      - 'docs/cross-era-lineage-memory-relationship-bible-v1.md'
+      - 'docs/cross-era-lineage-memory-bible-v1.md'
       - 'docs/global-cultural-satire-localization-bible-v1.md'
       - 'src/game/data/realityOriginLineageSource.ts'
       - 'scripts/quality/check-reality-origin-lineage.ts'
