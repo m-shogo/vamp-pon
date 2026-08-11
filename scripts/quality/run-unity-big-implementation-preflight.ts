@@ -24,6 +24,7 @@ const directChecks = [
   'scripts/quality/check-unity-pavement-hammer-prototype.ts',
   'scripts/quality/check-unity-pavement-hammer-runtime-evidence.ts',
   'scripts/quality/check-unity-homing-priority-selection-primitive.ts',
+  'scripts/quality/check-unity-two-target-tether-primitive.ts',
 ] as const;
 
 for (const check of directChecks) {
@@ -64,4 +65,4 @@ for (const script of requiredFullPreflightChecks) {
   }
 }
 
-console.log('\nUnity big implementation full preflight passed. U48 provenance/approval/promotion/connection/verification, U49 static/evidence, reusable gameplay primitives including priority selection, Selected16 prototype callers, and honest Unity runtime-evidence boundaries are covered; actual-device, performance, RC and production readiness are not promoted by this command.');
+console.log('\nUnity big implementation full preflight passed. U48 provenance/approval/promotion/connection/verification, U49 static/evidence, reusable gameplay primitives including priority selection and two-target tether selection, Selected16 prototype callers, and honest Unity runtime-evidence boundaries are covered; actual-device, performance, RC and production readiness are not promoted by this command.');
