@@ -4,13 +4,23 @@
 
 Content Masterで選定した **Selected16** を、既存runtimeへ形だけ押し込まないためのAdmission Gate。
 
-Content側では16本ともTitle1採用のまま。Runtime側では、必要なshared primitiveに加えて **Selected16固有callerの実経路** が証明されるまでfail closedする。
+Content選定とRuntime実装を分離する。
+
+- Content側のSelected16は固定
+- Web live catalogは別Authority
+- Unity shared primitiveは再利用可能な実装証拠
+- Selected16固有caller proofは別gate
+- live registry / LevelUp / balance / VFX承認はさらに別gate
+
+不足を隠すための `fake projectile` fallbackは禁止。
+
+`contentSelectionMayBeDowngradedToFitRuntime = false`
 
 ## Cross-runtime reality
 
 ### Web runtime = 5 effect types
 
-既存Authorityは `src/game/domain/weaponRuntimeCapabilities.ts`。
+既存Web Authority:
 
 1. `projectile`
 2. `radial_random_projectile`
@@ -18,17 +28,17 @@ Content側では16本ともTitle1採用のまま。Runtime側では、必要なs
 4. `ground_area`
 5. `orbit`
 
-Webの5typeをUnity production-readyの証拠には使わない。
+Web supportをUnity implementation evidenceとして扱わない。
 
-`webRuntimeSupportEqualsUnityRuntimeSupport = false`
+### Unity runtime = 2 live executor types
 
-### Unity runtime = 2 executor types
+U47 live importer/executorは引き続き **Projectile / GroundArea** の2系統。
 
-U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2系統。
+shared primitiveが増えても、live `WeaponEffectType` を名前だけ増やさない。
 
-一方、再利用可能primitiveは先に増やしている。
+## Shared Unity primitive state
 
-現在Admission SourceがIMPLEMENTEDと認めるprimitive:
+IMPLEMENTED:
 
 1. `NEAREST_TARGET_PROJECTILE`
 2. `MULTI_PROJECTILE_LOOP`
@@ -39,406 +49,282 @@ U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2
 7. `CONE_QUERY`
 8. `SLAM_WAVE_QUERY`
 
-`MULTI_TARGET_PROJECTILE_SELECTION` は reusable scratch / targetable-only / deterministic nearest prefix / caller target cap / canonical target spawnまで実コードとCIで確認済み。
+現在 **8 implemented**。
 
-`STATUS_APPLICATION` はgeneric plumbingだけでなく、Selected16固有callerがtyped Status requestを実際にshared enemy Status stateへ接続している。
+MISSINGには、各未実装archetype primitiveに加えて:
 
-`KNOCKBACK_VECTOR` は `U2EnemyKnockbackRuntime` がtargetable enemyへcaller supplied方向・距離の2D displacementを適用するshared primitive。velocity / stun / duration / default distance / weapon identityは持たず、次のenemy Tickから通常追跡へ戻る。
+- `BREAK_STAGGER_APPLICATION`
 
-`CONE_QUERY` は `U2EnemyConeQueryRuntime` がcaller supplied origin / facing / range / half-angle / target capでtargetable enemyを抽出し、nearest-firstかつ入力順tie-breakでcaller-owned scratchへ返す。weapon identity、damage、Status、knockback tuningは持たない。
+を明示する。
 
-`SLAM_WAVE_QUERY` は `U2EnemySlamWaveQueryRuntime` がcaller supplied `innerRadius / outerRadius` と方向sectorで対象を抽出するshared primitive。`innerRadius=0` の一撃slamにも、caller側でbandを前進させるpropagating ground waveにも使えるが、timing / damage / break / stagger / Status / knockbackは持たない。
+現在 **14 missing**。
 
-## Caller-proof gate
+## Admission decisions
 
-shared primitiveが揃っただけでSelected16を自動Admissionしない。
+### `BLOCKED_MISSING_UNITY_PRIMITIVES`
 
-Admissionには次の両方が必要:
+required shared runtime capabilityが1つ以上MISSING。
 
-1. `missingUnityCapabilities.length === 0`
-2. `prototypeCallerImplemented === true`
+### `BLOCKED_MISSING_UNITY_CALLER_PROOF`
 
-primitiveが揃ってもcaller proofが無い場合は:
+shared primitiveはすべて揃っているが、Selected16固有caller proofが無い。
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+このdecisionは将来のanti-auto-promotion gateとして残す。
 
-とする。
+### `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-これにより、将来shared primitiveを追加しただけで別Weaponが勝手にimplementation-reviewへ上がることを防ぐ。
+required primitiveがすべてIMPLEMENTEDで、Selected16固有callerも実コードで証明済み。
 
-現在caller proofを持つID:
+ここでいうadmittedはproduction/liveを意味しない。全entryの `runtimeStatus` はまだ `NOT_IMPLEMENTED`。
 
-- `ember_matchcase`
-- `bellows_fan`
-
-現在、このgateを実際に証明する最初の例が `pavement_hammer`。`SLAM_WAVE_QUERY / KNOCKBACK_VECTOR / STATUS_APPLICATION` はすべて揃ったが、Selected16固有callerが無いため **primitive-completeのまま `BLOCKED_MISSING_UNITY_CALLER_PROOF`** で停止する。
-
-## Current admission result
+## Current result
 
 **admitted=2**
 
 **blocked=14**
 
-現在のadmitted ID:
+implementation-review admitted:
 
 - `ember_matchcase`
 - `bellows_fan`
 
-ここでいうadmittedは **ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW**。
+caller proof registryもこの2本だけ。
 
-意味しないもの:
+## `ember_matchcase`
 
-- live weapon registryへ追加済み
-- Stage1 LevelUp poolへ追加済み
-- production balance確定
-- art/VFX最終承認
-- save migration完了
+Content:
 
-両方とも `runtimeStatus = NOT_IMPLEMENTED` のまま。
+- FIRE
+- BURN
+- `SCATTER_PROJECTILE`
 
-## First vertical slice — ember_matchcase
+required:
 
-Content Authority:
+- `MULTI_TARGET_PROJECTILE_SELECTION`
+- `STATUS_APPLICATION`
 
-- ID: `ember_matchcase`
-- Name: 火種のマッチ箱
-- Archetype: `SCATTER_PROJECTILE`
-- Attribute: FIRE
-- Status: BURN
+`EmberMatchcasePrototypeRuntime` がtyped BURN requestとdeterministic multi-target projectile pathを接続済み。
 
-Unity prototype caller:
+caller-owned telemetryとprojectile-local prototype visual cueも実装済み。
 
-`EmberMatchcasePrototypeRuntime`
-
-役割:
-
-- `EnemyStatusRuntimeKind.Burn` のtyped requestを作る
-- `FireGameplayProjectilesAtNearestTargets(...)` を使う
-- damage / pierce / target数をcallerから受け取る
-- BURN duration / stack / magnitude / internal cooldownを含む `EnemyStatusApplicationPolicy` もcallerから受け取る
-
-固定しない:
-
-- BURN何秒
-- BURN damage値
-- maxTargets
-- cooldown
-- projectile damage
-- pierce
-
-Authority label:
+Boundary:
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
-
-つまり **PROTOTYPE_TUNING_NOT_CANON** を守り、検証用数値がContent Canonへ逆流しない。
-
-## Second vertical slice — bellows_fan
-
-Content Authority:
-
-- ID: `bellows_fan`
-- Name: 送り風の扇
-- Archetype: `CONE_PUSH`
-- Attribute: WIND
-- Status: DISORIENTED
-
-Unity prototype caller:
-
-`BellowsFanPrototypeRuntime`
-
-実経路:
-
-1. caller supplied facing/range/half-angle/maxTargetsを `U2EnemyConeQueryRuntime.SelectTargets(...)` へ渡す
-2. targetableかつcone内の対象をnearest-firstで決定する
-3. typed `EnemyStatusRuntimeKind.Disoriented` requestを対象のshared `Statuses` へ適用する
-4. 同じ対象へ `U2EnemyKnockbackRuntime.TryApply(...)` でoriginから外向きのpushを適用する
-
-固定しない:
-
-- cone range
-- cone angle
-- target cap
-- knockback distance
-- DISORIENTED duration
-- DISORIENTED magnitude / stack / cooldown
-- damage
-- VFX
-
-Authority:
-
-`CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
-
-Runtime boundary:
 
 `PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
 
-つまりcone + knockback + DISORIENTEDの実経路は証明したが、Stage1 live loopにはまだ接続していない。
+## `bellows_fan`
 
-`BellowsFanPrototypeTelemetry` もcaller-ownedで実装済み。invocation / requested capacity / selected target / DISORIENTED apply result / knockback resultを観測し、balance defaultやglobal lifetimeは持たない。
+Content:
 
-## STATUS_APPLICATION boundary
+- WIND
+- DISORIENTED
+- `CONE_PUSH`
 
-Status共通基盤:
+required:
+
+- `CONE_QUERY`
+- `KNOCKBACK_VECTOR`
+- `STATUS_APPLICATION`
+
+`BellowsFanPrototypeRuntime` が:
+
+1. deterministic cone query
+2. typed DISORIENTED
+3. outward knockback
+
+を接続済み。
+
+caller-owned telemetryは invocation / selection / Status outcome / knockback outcomeを記録する。
+
+Boundary:
+
+`CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
+
+`PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
+
+## `pavement_hammer` — audit-corrected blocker
+
+Content Authority:
+
+- Name: 石畳の小槌
+- EARTH
+- EXPOSED
+- `SLAM_WAVE`
+- slow close slam
+- directional short pavement cracks
+- **high break/stagger**
+
+shared runtime evidence:
+
+- `SLAM_WAVE_QUERY`: IMPLEMENTED
+- `KNOCKBACK_VECTOR`: IMPLEMENTED
+- `STATUS_APPLICATION`: IMPLEMENTED
+
+しかしU2 runtimeを再監査したところ:
+
+- HP damage APIはある
+- Status stateはある
+- knockbackはある
+- **break gauge / stagger gauge / poise / break-stagger application APIは存在しない**
+
+ことを確認した。
+
+そのため新しいrequired capability:
+
+`BREAK_STAGGER_APPLICATION = MISSING`
+
+を追加する。
+
+現在のrequired capabilities:
+
+1. `SLAM_WAVE_QUERY`
+2. `KNOCKBACK_VECTOR`
+3. `BREAK_STAGGER_APPLICATION`
+4. `STATUS_APPLICATION`
+
+現在のdecision:
+
+`BLOCKED_MISSING_UNITY_PRIMITIVES`
+
+missing:
+
+- `BREAK_STAGGER_APPLICATION`
+
+caller proofもまだ無い。
+
+### Why this correction matters
+
+#194で `SLAM_WAVE_QUERY` を実装した直後は、当時のAdmissionモデル上 `pavement_hammer` がprimitive-completeに見えた。
+
+しかしmechanical identityの **high break/stagger** をruntimeが表現できないままcallerだけ作ると、見た目だけ似た偽物になる。
+
+したがって「queryは正しいがWeapon要件が1つ不足していた」と修正する。
+
+この種の監査修正を優先し、早すぎるAdmissionをしない。
+
+## Shared primitive boundaries
+
+### `STATUS_APPLICATION`
 
 - Status16 runtime state
-- duration / stack / magnitude / refresh policy
-- independent internal cooldown ledger
-- Boss hard-control disposition
-- `U2EnemyActor` ownership / pool reset / Tick
-- typed `EnemyStatusApplicationRequest`
-- Projectile optional Status transport
-- damage → surviving target Status → projectile consume順序
-- pooled Projectile request reset
-- `ember_matchcase` BURN caller
-- `bellows_fan` DISORIENTED caller
+- duration / stack / magnitude / cooldown policy
+- pooled enemy ownership/reset/Tick
+- typed request transport
 
-まで接続済み。
+をshared foundationとして持つ。
 
-そのため共通primitiveとして `STATUS_APPLICATION = IMPLEMENTED`。
+Weapon固有のStatus tuningはcaller supplied。
 
-Status16すべてのWeapon実装が完了した意味ではない。
-
-## KNOCKBACK_VECTOR boundary
-
-Shared helper:
+### `KNOCKBACK_VECTOR`
 
 `U2EnemyKnockbackRuntime`
 
-役割:
+- targetable-only
+- caller direction normalize
+- caller distance displacement
+- z preserve
+- zero/null/untargetable fail closed
 
-- targetable enemyだけを受け付ける
-- caller方向を2D normalizeする
-- caller距離だけpositionへ瞬間的に加算する
-- zは維持する
-- zero vector / non-positive distance / null / untargetableはfail closed
+velocity / stun / duration / default distanceを持たない。
 
-固定しない:
-
-- knockback distance
-- duration / deceleration
-- stun
-- boss resistance
-- cone angle
-- slam shape
-- weapon identity
-
-`bellows_fan` はSelected16 callerでこのshared primitiveを実際に利用する。
-
-`pavement_hammer` も `KNOCKBACK_VECTOR` を利用可能で、さらに `SLAM_WAVE_QUERY` と `STATUS_APPLICATION` も揃った。ただし固有caller proofが無いため、まだimplementation-review Admissionへは進まない。
-
-## CONE_QUERY boundary
-
-Shared helper:
+### `CONE_QUERY`
 
 `U2EnemyConeQueryRuntime`
 
-役割:
-
-- caller-owned candidate source / result scratch
+- caller candidates/results
+- caller origin/facing/range/angle/cap
 - targetable-only
-- caller supplied origin / forward / range / half-angle / cap
-- 2D query
 - nearest-first
-- equal-distanceはcandidate input orderを維持するstable tie-break
-- invalid range / angle / forward / capはfail closed
+- stable input-order tie
 
-固定しない:
+WIND / DISORIENTED / knockback / damageを持たない。
 
-- Weapon ID
-- WIND属性
-- DISORIENTED
-- damage
-- knockback
-- VFX
-- default range / angle / cap
-
-`black_folding_fan` もshared `CONE_QUERY` を利用できる証拠は得たが、固有primitive `VEIL_TRACKING_FRICTION` がmissingなのでblockedのまま。
-
-shared cone実装だけでは他Weaponを自動Admissionしない。
-
-## SLAM_WAVE_QUERY boundary
-
-Shared helper:
+### `SLAM_WAVE_QUERY`
 
 `U2EnemySlamWaveQueryRuntime`
 
-役割:
-
-- caller-owned candidate source / result scratch
-- targetable-only
-- caller supplied origin / forward
-- caller supplied `innerRadius / outerRadius`
-- caller supplied half-angle / cap
-- directional 2D sector-band query
-- inner/outer boundary inclusive
+- directional 2D sector-band
+- caller `innerRadius / outerRadius`
+- caller angle/cap
 - nearest-first
-- equal-distanceはcandidate input orderを維持するstable tie-break
-- candidate/result aliasはreject
-- invalid radius / angle / forward / capはfail closed
+- stable input-order tie
+- invalid shape fail closed
 
-`innerRadius=0` ならone-shot directional slamとして使える。callerが時間ごとにinner/outerを前進させればpropagating waveのqueryにも使える。
+`innerRadius=0` ならone-shot slam、callerがbandを進めればpropagating waveにも使える。
 
-固定しない:
+EARTH / EXPOSED / damage / break / stagger / knockback / timing / VFXを持たない。
 
-- `pavement_hammer` identity
-- EARTH
-- EXPOSED
-- damage
-- break / stagger
-- knockback distance
-- Status policy
-- cast timing / wave speed / lifetime
-- VFX
+### `BREAK_STAGGER_APPLICATION`
 
-`pavement_hammer` はこのprimitive追加でrequired primitiveがすべてIMPLEMENTEDになったが、caller proofを持たないため:
+**MISSING**。
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+runtime semanticsをまだ決めていないため、名前だけIMPLEMENTEDにしない。
 
-のまま。これがshared primitiveとSelected16固有実装を分離するAdmission gateの実証になる。
+今後最低限検討する:
 
-## Never use fake projectile fallback
+1. HPとは別meterか
+2. threshold結果
+3. accumulation / recovery
+4. boss / elite resistance
+5. hard-control Statusとの境界
+6. damage / Status / knockbackとの適用順序
+7. pool reset
+8. telemetry
+
+Canon balance値はshared primitiveから分離する。
+
+## Live boundary
+
+現在のSelected16 prototype/shared workは、live `Stage1GameplayRuntimeCoordinator` に自動接続しない。
 
 禁止:
 
-- `bellows_fan` をただのProjectileにする
-- `pavement_hammer` を色違いGroundArea/Projectileとして済ませる
-- `rain_thread` を色違い弾にする
-- `pocket_mirror` をdamage弾にする
-- `repair_thread_spool` をWebの`orbit`があるという理由だけでUnity実装済みにする
-- `sleep_ribbon` を円形GroundAreaとして実装済み扱いする
+- Web `weapons.ts` への自動追加
+- LevelUp poolへの自動追加
+- U47 executor enumの名前だけ追加
+- save migrationの先行作成
+- unsupported weaponをProjectile/GroundAreaへ偽装
+- primitive実装だけでruntime auto-promotion
 
-`fake projectile` fallbackは許可しない。
-
-`contentSelectionMayBeDowngradedToFitRuntime = false`
-
-## Implementation waves
-
-Waveは優先順であり時間見積もりではない。
-
-### Wave A — shared combat primitives
-
-現在:
-
-- enemy Status container + expiry: **implemented**
-- typed Projectile Status transport: **implemented**
-- `STATUS_APPLICATION`: **implemented**
-- multi-target query: **implemented**
-- `KNOCKBACK_VECTOR`: **implemented**
-- `CONE_QUERY`: **implemented**
-- `SLAM_WAVE_QUERY`: **implemented**
-- Selected16 caller `ember_matchcase`: **prototype caller implemented**
-- Selected16 caller `bellows_fan`: **prototype caller implemented**
-- `pavement_hammer`: **primitive complete / caller proof missing**
-- Ember invocation/BURN telemetry: **implemented**
-- Bellows invocation/selection/DISORIENTED/knockback telemetry: **implemented**
-- Ember mobile-safe projectile visual cue: **implemented, prototype visual only**
-- delayed trigger/timer primitive: missing
-- persistent placement primitive: missing
-
-### Wave B — target selection / path executors
-
-- `TARGET_CHAIN_SELECTION`: missing
-- `HOMING_PRIORITY_SELECTION`: missing
-- `LINE_PIERCE_RESIDUE`: missing
-- `RETURNING_PROJECTILE`: missing
-- `CONE_QUERY`: **implemented**
-- `SLAM_WAVE_QUERY`: **implemented**
-
-`bellows_fan` はtelemetryまで実装済み。次はcone edge / maxTargets / dense-waveのruntime captureと、mobileで「扇状に押す」と読めるairflow / push visual cueを追加する。
-
-`pavement_hammer` はshared primitiveが揃ったため、次は `PavementHammerPrototypeRuntime` の固有caller proof。EXPOSED / knockback / damage / break-stagger / wave timingをcaller-ownedに分離したまま実経路を証明する。
-
-### Wave C — advanced interaction executors
-
-- `TWO_TARGET_TETHER`
-- `REFLECT_WINDOW`
-- `VEIL_TRACKING_FRICTION`
-- `ORBIT_LINK`
-- `SPIRAL_FIELD`
-- `LANE_BOUNDARY_TRIGGER`
-- `SWEEP_QUERY`
-
-## Why WeaponEffectType remains two
-
-`WeaponEffectType` enumへ名前だけ増やしてもexecutorが動かなければ意味がない。
-
-今回のSelected16 prototype/shared primitiveはlive U47 importerへ追加せず、shared primitive + selected-specific callerとして実証する。
-
-Admissionは:
-
-- Content Authorityがある
-- required primitiveが実装済み
-- Selected16固有caller proofがある
-- checker / executable contractでchainを証明する
-
-までをimplementation review admissionとする。
-
-Live registryは別gate。
-
-## Existing code evidence
-
-Current source evidence:
-
-- Web Authority = 5 current effect types
-- Unity `WeaponEffectType { Projectile, GroundArea }`
-- U47 importer accepts only `projectile` / `ground_area`
-- Stage1 live coordinatorは既存Projectile / GroundAreaのみ
-- Unity deterministic multi-target target-selection primitive
-- Unity typed optional Projectile Status request transport
-- Unity Enemy Status16 state / lifecycle ownership
-- Unity caller-supplied `KNOCKBACK_VECTOR`
-- Unity caller-supplied deterministic `CONE_QUERY`
-- Unity caller-supplied deterministic sector-band `SLAM_WAVE_QUERY`
-- `EmberMatchcasePrototypeRuntime` selected-specific caller
-- `BellowsFanPrototypeRuntime` selected-specific caller
-- `pavement_hammer` caller proof = 0
-- BURN / DISORIENTED policyはcaller supplied
-- Ember caller-owned telemetry + projectile-local prototype visual cue
-- Bellows caller-owned invocation/selection/Status/knockback telemetry
-- `ember_matchcase` live registry entry = 0
-- `bellows_fan` live registry entry = 0
-- `pavement_hammer` live registry entry = 0
-
-これらが変わったらAdmission checkerを更新しない限りCIを落とす。
+`runtimeAutoPromotionAllowed = false`
 
 ## CONTENT_MASTER boundary
 
-Selected16のRuntime進捗が違ってもContent Masterを勝手に変えない。
+Runtime進捗を理由にSelected16を勝手に変更しない。
 
-- Hold4へ降格しない
-- 名前を消さない
+- Holdへ降格しない
+- Weapon nameを変えない
+- Attribute / Statusを落とさない
 - Character affinityを変えない
-- Stage用途を消さない
-- Transformation graphを勝手に変えない
+- Transformation graphを変えない
 
-Runtime不足をContent不足として処理しない。
+Runtime不足はRuntime不足として記録する。
 
-## Next implementation gate
+## Next gates
 
-`ember_matchcase`:
+### Ember
 
-1. runtime capture / simulator evidenceでtelemetry + visual cue + rendered evidenceを同一runへ束ねる
-2. target数・spread feelをprototype tuningとして調整する
-3. mobile readabilityとpool resetを目視確認する
-4. live registry / LevelUp poolへ入れるか人間承認する
+- telemetry + visual + rendered runtime evidenceを同一runへ束ねる
+- mobile readability / pool reset確認
+- human live-admission review
 
-`bellows_fan`:
+### Bellows
 
-1. caller-owned invocation / selected-target / DISORIENTED / knockback telemetry: **implemented**
-2. cone edge / maxTargets / dense-wave runtime capture
-3. mobile-safe airflow / push visual cue
-4. telemetry + rendered evidenceを同一runへ束ねる
-5. live registry / LevelUp poolへ入れるか人間承認する
+- cone edge / dense-wave runtime capture
+- mobile-safe airflow / push visual cue
+- telemetry + rendered evidence同一run
+- human live-admission review
 
-`pavement_hammer`:
+### Pavement Hammer
 
-1. `SLAM_WAVE_QUERY`: **implemented**
-2. `KNOCKBACK_VECTOR`: **implemented**
-3. `STATUS_APPLICATION`: **implemented**
-4. Selected16固有 `PavementHammerPrototypeRuntime` caller proof
-5. EXPOSED / knockback / damage / break-stagger / wave timingのauthority分離
-6. executable contract + telemetry
-7. runtime capture / mobile crack-wave visual
+1. `BREAK_STAGGER_APPLICATION` semantics設計
+2. shared runtime + executable contract
+3. `PavementHammerPrototypeRuntime` caller proof
+4. EXPOSED / knockback / damage / break-stagger / wave timing authority分離
+5. caller-owned telemetry
+6. runtime capture
+7. mobile pavement-crack visual
 8. implementation-review Admission再判定
 
-数値balanceは最後までprototype tuningとして分離する。
+数値balanceは最後まで **PROTOTYPE_TUNING_NOT_CANON** として分離する。
