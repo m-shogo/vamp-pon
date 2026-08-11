@@ -1,0 +1,38 @@
+name: weapon-transformation-selection-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/weaponTransformationSelectionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'docs/weapon-transformation-selection-source-v1.md'
+      - 'scripts/quality/check-weapon-transformation-selection-master.ts'
+      - '.github/workflows/weapon-transformation-selection-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/weaponTransformationSelectionSource.ts'
+      - 'src/game/data/weaponTransformationSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/currentCharacterCombatKitSource.ts'
+      - 'docs/weapon-transformation-selection-source-v1.md'
+      - 'scripts/quality/check-weapon-transformation-selection-master.ts'
+      - '.github/workflows/weapon-transformation-selection-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Title1 Transformation38 selection
+        run: node --experimental-strip-types scripts/quality/check-weapon-transformation-selection-master.ts
