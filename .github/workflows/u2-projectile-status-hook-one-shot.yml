@@ -1,23 +1,21 @@
-name: U2 Projectile Runtime Recovery Launcher
+name: PR169 Runtime Projectile Recovery Launcher
 
 on:
   pull_request:
-    paths:
-      - '.github/workflows/u2-projectile-status-hook-one-shot.yml'
-      - '.github/workflows/runtime-projectile-recovery-one-shot.yml'
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
 
 jobs:
   recover:
-    if: github.event.pull_request.head.ref == 'fix/unity-multitarget-admission-drift'
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'fix/unity-multitarget-admission-drift'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: fix/unity-multitarget-admission-drift
-      - name: Execute current-architecture recovery payload
+      - name: Execute guarded recovery payload
         shell: bash
         run: |
           python - <<'PY'
@@ -28,8 +26,7 @@ jobs:
           marker = "          python - <<'PY'\n"
           start = payload.index(marker) + len(marker)
           end = payload.index("\n          PY\n", start)
-          script = textwrap.dedent(payload[start:end])
-          Path('/tmp/runtime-projectile-recovery.py').write_text(script)
+          Path('/tmp/runtime-projectile-recovery.py').write_text(textwrap.dedent(payload[start:end]))
           PY
           python /tmp/runtime-projectile-recovery.py
           git config user.name 'github-actions[bot]'
