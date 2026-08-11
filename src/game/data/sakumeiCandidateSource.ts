@@ -1,8 +1,15 @@
 export const SAKUYAZA_CURRENT_IDENTITY = {
   formalName: '朔夜座',
   reading: 'さくやざ',
-  status: 'CURRENT_FORMAL_NAME_USER_DECIDED',
+  status: 'SEASON1_FORMAL_ANTAGONIST_TEAM_USER_DECIDED',
+  seasonScope: 'S1',
   currentMemberCount: 8,
+  seriesWidePrimaryTeam: false,
+  laterSeasonPrimaryTeam: false,
+  laterSeasonIndividualsMayReturn: true,
+  laterSeasonFullTeamPrimaryReturnAllowed: false,
+  season2TeamNameFrozen: false,
+  season2RosterFrozen: false,
   earlyObserverLabel: '夜綴りの八影',
   earlyObserverShortLabel: '八影',
   supersededCandidateName: '朔盟',
@@ -16,7 +23,7 @@ export const SAKUYAZA_CURRENT_IDENTITY = {
 /**
  * Legacy candidate identity retained only because member philosophy, pair,
  * relation, visual and stable-id assets were authored under this name.
- * Do not use this object as the Current player-facing formal name.
+ * Do not use this object as the Season 1 player-facing formal name.
  */
 export const SAKUMEI_CANDIDATE_IDENTITY = {
   formalName: '朔盟',
@@ -169,6 +176,7 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
 
 export const sakuyazaCurrentSummary = {
   formalName: SAKUYAZA_CURRENT_IDENTITY.formalName,
+  seasonScope: SAKUYAZA_CURRENT_IDENTITY.seasonScope,
   memberCount: sakumeiCandidateMembers.length,
   uniqueEnemyIdCount: new Set(sakumeiCandidateMembers.map((entry) => entry.enemyId)).size,
   uniqueCallNameCount: new Set(sakumeiCandidateMembers.map((entry) => entry.callName)).size,
@@ -177,6 +185,8 @@ export const sakuyazaCurrentSummary = {
   preservesYatsukageAsEarlyObserverLabel: true,
   preservesSakumeiAsLegacyAssetNamespace: true,
   fixedHierarchyWithGunjoZankyoroKu: false,
+  seriesWidePrimaryTeam: false,
+  laterSeasonFullTeamPrimaryReturnAllowed: false,
   allFinalMastersUnapproved: sakumeiCandidateMembers.every((entry) => !entry.finalMasterApproved),
   runtimeAutoPromotionAllowed: false,
 } as const;

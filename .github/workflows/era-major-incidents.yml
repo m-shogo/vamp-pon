@@ -12,6 +12,8 @@ on:
       - 'docs/character-reality-root-registry-v1.md'
       - 'docs/cross-era-lineage-reveal-map-v1.md'
       - 'docs/world-historical-incident-ledger-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/sakuyaza-era-incident-stance-matrix-v1.md'
       - 'src/game/data/eraMajorIncidentFamilyLens.ts'
       - 'src/game/data/eraIncidentEvidenceSupportingCast.ts'
       - 'src/game/data/core5EraCanon.ts'
@@ -19,8 +21,11 @@ on:
       - 'src/game/data/crossEraLineageMemory.ts'
       - 'src/game/data/currentRelationshipInventory.ts'
       - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/sakuyazaEraIncidentStance.ts'
       - 'scripts/quality/check-era-major-incidents.ts'
       - 'scripts/quality/check-era-incident-evidence-supporting-cast.ts'
+      - 'scripts/quality/check-sakuyaza-era-incident-stance.ts'
       - '.github/workflows/era-major-incidents.yml'
   push:
     branches: [main]
@@ -34,6 +39,8 @@ on:
       - 'docs/character-reality-root-registry-v1.md'
       - 'docs/cross-era-lineage-reveal-map-v1.md'
       - 'docs/world-historical-incident-ledger-v1.md'
+      - 'docs/sakuyaza-current-identity-v1.md'
+      - 'docs/sakuyaza-era-incident-stance-matrix-v1.md'
       - 'src/game/data/eraMajorIncidentFamilyLens.ts'
       - 'src/game/data/eraIncidentEvidenceSupportingCast.ts'
       - 'src/game/data/core5EraCanon.ts'
@@ -41,8 +48,11 @@ on:
       - 'src/game/data/crossEraLineageMemory.ts'
       - 'src/game/data/currentRelationshipInventory.ts'
       - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/sakumeiCandidateSource.ts'
+      - 'src/game/data/sakuyazaEraIncidentStance.ts'
       - 'scripts/quality/check-era-major-incidents.ts'
       - 'scripts/quality/check-era-incident-evidence-supporting-cast.ts'
+      - 'scripts/quality/check-sakuyaza-era-incident-stance.ts'
       - '.github/workflows/era-major-incidents.yml'
 
 permissions:
@@ -61,3 +71,5 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-era-major-incidents.ts
       - name: Validate Era incident evidence layers and supporting cast coverage
         run: node --experimental-strip-types scripts/quality/check-era-incident-evidence-supporting-cast.ts
+      - name: Validate Sakuyaza member stances and incident pair boundaries
+        run: node --experimental-strip-types scripts/quality/check-sakuyaza-era-incident-stance.ts

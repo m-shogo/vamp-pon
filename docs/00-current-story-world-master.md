@@ -23,6 +23,9 @@ Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED + RESEARCH-REFI
 - 朝まで生き残ればRealityへ帰れる
 - Dawn / 夜明けをReality帰還条件にする
 - 主要敵8人の正式Current名を朔盟へ戻す
+- **朔夜座8人をシリーズ全Season共通のprimary antagonist teamへする**
+- **朔夜座8人をS1/S2で4人ずつ重点配置する**
+- **Seasonが変わってもteam名だけ変えて同じprimary enemy castを使う**
 - 各時代に固定の「世代ラスボス」が1人いる設計
 - 群青残響録を固定人数の敵軍団へする
 - Core5を同じReality era / 同じ現代の5人組へ戻す
@@ -580,11 +583,17 @@ Moon phase = Reality clockではなく**incident depth**。
 
 ---
 
-# 15. 朔夜座
+# 15. Season敵Team / 朔夜座
 
-Status: `DECIDED FORMAL NAME`
+Status: `DECIDED SEASON ROTATION / S1 FORMAL NAME`
 
-Current 8member:
+## Season1
+
+Primary antagonist team:
+
+# **朔夜座**
+
+S1 fixed 8member:
 
 - ナシロ
 - アサトジ
@@ -599,12 +608,36 @@ Rules:
 
 - 八影 = early observer label。
 - 朔盟 = `SUPERSEDED CANDIDATE / legacy authored asset namespace`。
-- existing思想 /pair /relation /stable ID /visual assetは維持。
-- Current正式名は朔夜座。
-- 「座」は朔夜座brand。群青残響録へ乱用しない。
+- existing思想 / pair / relation / stable ID / visual assetは維持。
+- S1正式名は朔夜座。
+- 「座」は朔夜座brand。群青残響録やS2 teamへ自動流用しない。
 - absolute leader / founder / exact originはOpen。
 
-朔夜座はEraごとに協力 /利用 /対立 /妨害 /止めようとする等、立場を変えられる。
+## Season2 / optional Season3
+
+**primary antagonist teamはSeasonごとに変更する。**
+
+- S2 team name = Open。
+- S2 primary roster = 別Character群 / Open。
+- optional S3 team name / rosterもOpen。
+- Season changeを**team名だけの変更**にしない。
+- S1朔夜座8人をS2 main teamへそのまま続投させない。
+- S1朔夜座8人をS1/S2の4人ずつへ固定分割しない。
+
+Allowed:
+
+- former Sakuyaza memberのcameo
+- recurring rival
+- temporary ally
+- unresolved individual return
+- S1 evidence / relationship consequenceの継続
+
+Main Spine / Core5 / Main Mystery / Reality historyはSeasonを跨いで継続する。
+
+Detail:
+
+- `docs/season-architecture-cast-matrix-v1.md`
+- `docs/sakuyaza-current-identity-v1.md`
 
 ---
 
@@ -706,6 +739,8 @@ AI単独でCanon化しない:
 - exact city / school / work / household
 - each Era fictional incident final detail / casualty / exact place
 - major family death / orphan / abuse / crime victimhood
+- **Season2 enemy team name / roster / count / visual identity**
+- **optional Season3 enemy team name / roster / count / visual identity**
 - 群青残響録formal members / full names / final endings
 - Android final name / acronym / complete version order
 - Future Asa exact year / political side / incident role
@@ -725,6 +760,8 @@ Core5の**5つの社会Era bandはCurrent**だが、exact decade / yearはOpen�
 00-current-story-world-master.md
 ↓
 core5-era-character-master-v1.md
+↓
+season-architecture-cast-matrix-v1.md
 ↓
 research/era-society-food-future-sourcebook-v1.md
 ↓
