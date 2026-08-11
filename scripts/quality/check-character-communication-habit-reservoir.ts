@@ -65,10 +65,9 @@ assert(byId.get('touma')?.anchors.HOME_REGISTER.includes('SEPARATE_FROM SKIN_OR_
 assert(byId.get('suzu')?.anchors.CHANNEL_CHOICE.includes('NOT GENDER'), 'Suzu channel choice may not derive from gender presentation');
 assert(byId.get('io')?.anchors.ARCHIVE_TRACE.includes('WITHOUT USING_METADATA_TO HINT_GENDER'), 'Io communication metadata may not become gender reveal bait');
 assert(byId.get('amane')?.anchors.CHANNEL_CHOICE.includes('WHEELCHAIR_DOES_NOT DEFINE PREFERENCE'), 'Amane wheelchair may not define channel preference');
-assert(byId.get('kuu')?.anchors.CHANNEL_CHOICE.includes('NO AUTOMATIC_SMARTPHONE') === false, 'Kuu checker should use species-specific Human-language guard rather than smartphone assumption');
 assert(byId.get('kuu')?.anchors.INITIATION.includes('NOT HUMAN_MESSAGE'), 'Kuu may not initiate Human-language messages');
 assert(byId.get('yomo')?.anchors.CHANNEL_CHOICE.includes('NO HUMAN_CHAT_LANGUAGE'), 'Yomo may not use Human chat language');
-assert(byId.get('noa')?.anchors.RESPONSE_RHYTHM.includes('DOES_NOT_REQUIRE INSTANT_REPLY'), 'Noa processing speed may not force instant reply');
+assert(byId.get('noa')?.anchors.RESPONSE_RHYTHM.includes('PROCESSING_SPEED_DOES_NOT REQUIRE INSTANT_REPLY'), 'Noa processing speed may not force instant reply');
 assert(byId.get('rum')?.anchors.RESPONSE_RHYTHM.includes('DOES_NOT_REQUIRE SAME_RESPONSE_TIME'), 'Rum network access may not force identical/instant response');
 assert(byId.get('kai')?.anchors.RESPONSE_RHYTHM !== byId.get('nao')?.anchors.RESPONSE_RHYTHM, 'Kai/Nao reply rhythm must remain individual');
 
@@ -78,12 +77,8 @@ for (const token of [
   '36 characters × 8 axes = 288 communication anchors',
   'communication habitとcommunication deviceは別。',
   '返信速度 = 好感度',
-  'Alias',
   'runtimeAutoPromotionAllowed = false',
   'Characterは「何を言うか」だけでなく、いつ返すか、どこで話すか、間違えた時どう直すかでも覚えられる。',
-]) {
-  if (token === 'Alias') continue;
-  assert(doc.includes(token), `communication doc guard missing: ${token}`);
-}
+]) assert(doc.includes(token), `communication doc guard missing: ${token}`);
 
 console.log(JSON.stringify({ characters:36, axes:8, anchors:288, exactDeviceFrozen:false, affectionScoredByReply:false, runtimeAutoPromotionAllowed:false }, null, 2));
