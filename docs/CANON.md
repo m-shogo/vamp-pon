@@ -1,17 +1,18 @@
 # ヨルノシルベ Canon Hub
 
-Date: 2026-07-29  
-Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT**
+Date: 2026-08-11  
+Status: **CURRENT HUMAN / AI DESIGN ENTRYPOINT / STORY-WORLD MASTER ROUTED**
 
-> ヨルノシルベを考える時は最初にここを見る。repo全体から過去資料を毎回掘り直さない。
->
-> **Design Current、Definition Foundation、Runtime Implemented、Device Verified、Release Readyを混同しない。**
+> **物語・年代・Dream・星空・月相・朔夜座・群青残響録は `00-current-story-world-master.md` が最上位Authority。**
+> Design Current、Definition Foundation、Runtime Implemented、Device Verified、Release Readyを混同しない。
 
 ---
 
 # 1. Top-level read order
 
 ```txt
+00-current-story-world-master.md
+↓
 CANON.md
 ↓
 game-core-book-v1.md
@@ -19,6 +20,7 @@ game-core-book-v1.md
 GAME-DESIGN.md
 ↓
 必要なHub
+├ WORLD.md
 ├ PLAY-EXPERIENCE.md
 ├ CHARACTER-STORY-INTEGRATION.md
 ├ NAMED-OBJECT-CONNECTIONS.md
@@ -30,35 +32,87 @@ GAME-DESIGN.md
 
 ---
 
-# 2. Game identity
+# 2. Story / World highest invariants
+
+- 現世は現実の日本。
+- Characterは現実では同時代とは限らない。
+- ヨルノシルベは**朝の来ない夢世界**。
+- 帰還は朝を待つのではなく**Waking / 目覚め**。
+- Dream内では西暦等の時間タグが弱い。
+- 食事 / 飲料 / 日用品 / 休息はDreamらしく補完可能。
+- 心 / 同意 / 記憶真実 / 黒耀化 / Reality大事件は願うだけで変えられない。
+- 星は見える。
+- 星座は年代で同一とは限らない。
+- 月相は日数ではなく事件深度。
+- 朔では月がなくなるが星は残る。
+- 主要敵8人のCurrent formal name = **朔夜座**。
+- 八影 = early observer label。
+- 朔盟 = Superseded Candidate / legacy authored asset namespace。
+- **群青残響録 = 各時代大事件の中心人物 / 人物群を後から括る記録名。**
+- 群青残響録は1時代1人 / 固定人数 / 必須戦闘Boss / 固定敵組織ではない。
+- Androidは人間になることを成長goalにしない。
+- Reality動物と星獣は別category。
+- 正史はHappy End。
+
+---
+
+# 3. Game identity
 
 `game-core-book-v1.md`
 
 ヨルノシルベは:
 
-> 夜の中で大量の影をほどき、記憶片を拾い、そのrunだけの強いbuildを作り、Character / Support / 黒耀化 / Stage条件を変えて何度も朝を目指すヴァンサバ系周回アクション。
+> 朝の来ない夢の夜で大量の影をほどき、記憶片を拾い、そのrunだけの強いbuildを作り、Character / Support / 黒耀化 / Stage条件を変えながら何度も夢の深部へ挑み、Result / Wakingへ到達するヴァンサバ系周回アクション。
 
 Core:
 
 - 1run中に強くなる
 - buildを試す
-- Clear Getter / 夜明け星図
+- Clear Getter
 - Support / BondがGameplayへ返る
 - 黒耀化は危険だが強い選択
 - fail-forward
 - Story informationはplayの副作用
-- 正史はHappy End
+- 正史Happy End
+
+### Dawn / 朝 wording compatibility
+
+既存の:
+
+- `夜明け星図`
+- `全灯の朝`
+- `akatsuki_biraki`
+- `Dawn`を含むinternal field / asset / flag
+
+はstable ID / 既存商品名 / legacy wordingとして残る場合がある。
+
+**それらは「ヨルノシルベ内に太陽が昇る」というStory ruleを意味しない。**
+
+最終player-facing namingは必要に応じ別Human Reviewで扱う。IDをStory都合で破壊しない。
 
 ---
 
-# 3. Three cross-domain hubs
+# 4. Cross-domain hubs
+
+## World
+
+`WORLD.md`
+
+- Dream rules
+- Reality / Dream separation
+- era
+- constellation
+- moon phase
+- 朔夜座
+- 群青残響録
+- conflict / human decision routing
 
 ## Play Experience
 
 `PLAY-EXPERIENCE.md`
 
 - Combat / Run pacing
-- Stage Encounter 1〜20
+- Stage Encounter 1–20
 - First Run
 - Mobile Control
 - Difficulty
@@ -72,13 +126,13 @@ Core:
 
 `CHARACTER-STORY-INTEGRATION.md`
 
-- Current21 / Future15 separation
+- Current21 / Future15
 - voice / relation
 - 黒耀化 / rescue
 - Enemy pressure
 - Stage placement
-- Dawn payoff
-- Story/Game return
+- **Waking payoff**
+- Story / Game return
 
 ## Named Objects / Clear Getter
 
@@ -87,10 +141,10 @@ Core:
 - item names
 - luminous possessions
 - owner / keeper
-- Stage / Enemy / Gameplay connection
+- Stage / Enemy / Gameplay
 - 記憶のしるし
-- item lineage
-- Dawn state
+- lineage
+- **Waking / post-dream state**
 - 100% reward
 
 Runtime-safe foundation:
@@ -100,14 +154,16 @@ Runtime-safe foundation:
 
 ---
 
-# 4. Current domain entrypoints
+# 5. Current domain entrypoints
 
 | Domain | First read |
 | --- | --- |
+| Story / World highest authority | `00-current-story-world-master.md` |
+| World | `WORLD.md` |
 | Game identity | `game-core-book-v1.md` |
 | Design coverage | `GAME-DESIGN.md` |
 | Play experience | `PLAY-EXPERIENCE.md` |
-| Character/Story integration | `CHARACTER-STORY-INTEGRATION.md` |
+| Character / Story integration | `CHARACTER-STORY-INTEGRATION.md` |
 | Named object / item lineage | `NAMED-OBJECT-CONNECTIONS.md` |
 | Named-object runtime foundation | `named-object-runtime-foundation-2026-07-29.md` |
 | Clear Getter / 100% | `CLEAR-GETTER-AND-100-PERCENT-REWARD.md` |
@@ -140,7 +196,7 @@ Runtime-safe foundation:
 
 ---
 
-# 5. Character state
+# 6. Character state
 
 ## Current21
 
@@ -165,13 +221,15 @@ Rules:
 - ユイ×アサ = protagonist-grade buddy / non-romance
 - リツ×コヨリ = siblings / non-romance
 - 現実では同時代とは限らない
-- 物 / 記録 / 言葉は時代を渡れる
-- 夜で初めて生まれる友情を残す
+- Dreamで初めて生まれる友情を残す
+- 通常Wakingでは明示記憶を失い得る
+- 技能 / 感情 / 行動変化は残り得る
+- 大事件解決パートではDream記憶を取り戻して目覚める方向
 - 黒耀化 = 外部悪人格ではない
-- rescue = 仲間が治すのでなく本人の選択肢を増やす
+- rescue = 仲間が治すのではなく本人の選択肢を増やす
 - relation coverage >=2 = 21/21
 - black-youka rescue = 21/21
-- Dawn proof = 21/21
+- legacy Dawn-proof assetsはWaking payoffへ読み替える
 - luminous possession direction = 21/21
 
 Stable Shadow IDs:
@@ -183,8 +241,7 @@ kage3 = トキ
 kage4 = ツムギ
 ```
 
-IDは維持する。
-Current visible nameを旧カゲール名へ戻さない。
+Stable IDは維持する。
 
 ## Future15
 
@@ -200,29 +257,22 @@ Rules:
 
 ---
 
-# 6. Named-object invariant
-
-最重要Current rule:
+# 7. Named-object invariant
 
 > **名前のある物はdisplay nameだけで漂わせず、stable IDを持ち、最低でもCharacter・Stage・Gameplay・Archiveへ接続する。**
 
-lineageではさらに:
+lineage:
 
 - Relationship
 - Enemy motif
 - 記憶のしるし
 - 黒耀化 distortion
-- Dawn state
+- Waking / post-dream state
 - evolution phase
 
-へつなぐ。
-
-全部をPlayerへ同時表示する必要はない。
-制作memoryでは失わない。
+へ繋げる。
 
 ## Definition foundation
-
-Source:
 
 - `src/game/data/namedObjectRegistry.ts`
 
@@ -245,16 +295,9 @@ named-object:{characterId}:lamp_tsugi
 named-object:{characterId}:akatsuki_biraki
 ```
 
-同名phaseは`sameObjectPhase`で同一objectの成長を明示する。
-偶然の重複を後から同一物に捏造しない。
+`akatsuki_biraki`はstable ID。物理的なDream dawnを意味するよう再解釈しない。
 
-## Non-destructive migration
-
-Source:
-
-- `src/game/data/namedObjectMigrationLedger.ts`
-
-Rules:
+Non-destructive migration:
 
 - old propを削除しない
 - old nameを削除しない
@@ -265,10 +308,9 @@ Rules:
 
 ---
 
-# 7. Item / luminous possession state
+# 8. Item / luminous possession state
 
 Existing planning source:
-
 - `src/game/data/characterProductionPlans.ts`
 
 Coverage:
@@ -283,25 +325,21 @@ Reserve Ren            = Working
 ```
 
 Current21 luminous possessions:
-
 - `character-luminous-personal-item-book-v1.md`
 
 Generated compatibility source:
-
 - `src/game/data/namedObjectReadModels.ts`
-
-Current:
 
 ```txt
 Character object read models = 21
 runtimeConnectionState = NOT_CONNECTED
 ```
 
-既存Keeper UIが21人対応済みという意味ではない。
-
 ---
 
-# 8. Clear Getter / 100%
+# 9. Clear Getter / 100%
+
+Existing stable names:
 
 ```txt
 灯録
@@ -310,12 +348,9 @@ runtimeConnectionState = NOT_CONNECTED
       └ 記憶のしるし
 ```
 
-夜明け星図はachievement checklistではなく、人物・物・敵・Stage・関係の線を可視化するClear Getter。
+`夜明け星図`はexisting product / collection name。**Dreamに朝が来るcosmologyの証明ではない。**
 
-## Global constellation foundation
-
-Source:
-
+Global constellation foundation:
 - `src/game/data/globalConstellationDefinition.ts`
 
 ```txt
@@ -329,89 +364,46 @@ runtimeConnected         = false
 runtimeDenominatorFrozen = false
 ```
 
-これはUI完成ではない。
+### New Story / World constraint
 
-## Collection save v2 draft
+Collection側の「星座群」は、年代差のあるDream constellation rulesと衝突しないよう今後再審査する。
 
-Source:
+- 全年代で同じ星座が固定表示される、と自動解釈しない
+- Reality constellation / Dream constellation / collection diagramを分離可能にする
+- 昔あった / 後世で増えた星座のMysteryを潰さない
 
-- `src/game/data/collectionProgressSaveV2.ts`
+## 100% legacy direction
 
-Rules:
+既存名 `全灯の朝` と以下のreward案は、Story / World Master更新後は**名称・演出再審査対象**。
 
-- old IDsを保持
-- unknown cell/groupを保持
-- v1から100%を自動解放しない
-- v1からreward claimedを生成しない
-- current state = `DRAFT_NOT_CONNECTED`
+既存stable IDs / evaluatorは削除しない。
 
-Production save serviceはまだ使用していない。
+重要:
 
-## 100% exact direction
+> Dream Layerに物理的な朝を発生させるcompletion rewardにはしない。
 
-# **全灯の朝**
+現世で目覚めた後のcelebration、記録上の象徴名、UI legacy title等へ意味を移す余地を残す。
 
-Reward pack:
-
-1. playable Dawn Square celebration
-2. Current21 / 星獣 / 21 luminous possessions
-3. full ensemble animated page `全灯大絵図《朝を選んだ人たち》`
-4. completion medley `全灯の朝 — Twenty-One Lights Medley`
-5. all-character cosmetic `星図継ぎの灯`
-6. remix play mode `星図継ぎの夜`
-7. title `全灯を見届けた人`
-8. seal `全灯印`
-9. archive frame `朝綴り`
-10. one small future anomaly
-
-True Endingではない。
-Main Happy Endを最大級に祝う追加の朝。
-
-100%へ要求しない:
-
-- 全文章既読
-- arbitrary 9999 kills
-- 全Pair最大Bond
-- daily / weekly
-- 期間限定
-
-## Fail-closed evaluator
-
-Source:
-
+Fail-closed evaluator:
 - `src/game/data/allLightsCompletion.ts`
-
-Current:
 
 ```txt
 version = design-v1
 runtimeFrozen = false
 ```
 
-したがってunlockはLOCKED。
-
-`runtimeFrozen=true`でも空required IDs・重複group・空versionなら:
-
-```txt
-INVALID_FROZEN_SPECIFICATION
-```
-
-で拒否する。
-
-Reward claimはeligible時のみ、immutable、idempotent。
+Production unlockはまだLOCKED。
 
 ---
 
-# 9. 黒耀化
+# 10. 黒耀化
 
-Common name:
-
-# **黒耀化**
+Common name: **黒耀化**
 
 `黒曜化`は新規canonで使わない。
 
 ```txt
-本人の長所
+本人の長所 / 願い
 + 恐怖 / 焦り
 → 一方向へ極端化
 → wrong arrival
@@ -419,45 +411,92 @@ Common name:
 → 視野狭窄
 ```
 
-成長後は同じ力を捨てず、Timingと他者の選択を残せる。
-光る持ち物も別物へ交換せず、同じ長所が歪む。
+社会の大事件も同型:
+
+```txt
+理想 / 保護 / 発展
++ 恐れ / 利害 / 制度
+→ 一つの解決策へ固執
+→ 大事件
+```
+
+作品は「悪を倒す」だけでなく、二択へ第三の選択肢を作る。
 
 ---
 
-# 10. Story / Mystery
+# 11. Story / Mystery
 
 Main Story:
 
 - gameplay-first
 - Happy End
-- permanent deathを主な泣き装置にしない
-- Game Over = 死亡ではない
+- permanent deathを主な泣かせ装置にしない
+- Game Over = Reality deathではない
+- Dreamには朝が来ない
+- WakingでRealityへ戻る
 - 日常蓄積から感動
+- 異なる年代の知識 / 技能 / 関係がRealityの選択を変える
 
 Mystery:
 
 ```txt
-C-grade = 1で払う
-B-grade = 1で意味が分かり後作で再読可能
+C-grade = Title1で払う
+B-grade = Title1で意味が分かり後作で再読可能
 A-grade = series OPEN
 ```
 
-A-gradeを残すためC-gradeまで曖昧にしない。
-Main Mystery final answerはHuman decision前にLOCKしない。
+Open:
+
+- Dream最終mechanism
+- 星座増減の最終原因
+- 星獣との最終関係
+- 黒インク最終起源
+
+Dreamであること自体はOpenへ戻さない。
 
 ---
 
-# 11. Stage / Enemy
+# 12. 朔夜座 / 群青残響録
+
+## 朔夜座
+
+Current formal name: **朔夜座（さくやざ）**
+
+8member:
+ナシロ / アサトジ / ミチグレ / オリネ / ハクマ / ツグリ / ユラネ / ペタ。
+
+- 八影 = early observer label
+- 朔盟 = Superseded Candidate / legacy authored assets
+- stable IDs / pair / relation / deep profileは保持
+
+## 群青残響録
+
+> 各時代の大事件で中心となった人物 / 人物群を、後から一つの記録名で括ったもの。
+
+Not fixed:
+
+- 人数
+- 1時代1人
+- 敵組織
+- 戦闘Boss
+- 善悪
+- 朔夜座との上下
+
+正式member / 名前 / exact incidentはHuman decision前にLOCKしない。
+
+---
+
+# 13. Stage / Enemy
 
 Stage authority:
-
 - `src/game/data/stageProductionDatabase.ts`
 
 Current:
 
 - gameplay identity 20/20
-- exact wave / final Boss / difficulty / launch count OPEN
-- Stage16〜19のproduction seedとCurrent Shadowを推測で直接LOCKしない
+- exact wave / combat Boss / difficulty / launch count OPEN
+- **大事件中心人物が必ずStage combat Bossになるとは限らない**
+- Stage16–19 production seedとCurrent Shadowを推測で直接LOCKしない
 
 Enemy authority:
 
@@ -472,13 +511,11 @@ Current48。
 Defeat = **ほどく**。
 旧name / old character bindingをCurrentへ戻さない。
 
-Stage1の旧Enemy達成6札はCurrent48 mappingを推測せずreviewへ隔離する。
-
 ---
 
-# 12. Play experience
+# 14. Play experience
 
-Run:
+Run conceptual flow:
 
 ```txt
 weak
@@ -488,42 +525,35 @@ weak
 → alternate answer
 → Evolution / 黒耀化
 → completed build
-→ Dawn
+→ Result / Waking
 ```
 
-First Run:
+既存runtimeが`Dawn` tokenを持つ場合はmigration対象であり、Story physical dawnを意味しない。
 
+First Run:
 - first 10 secondsで移動
 - auto attackを体験で理解
 - tutorial modalを増やさない
 - Resultからsecond run hook
 
-Mobile:
-
-- floating-anchor drag direction
-- physical comfort未証明
-
 Difficulty:
-
 - HP sponge first禁止
 - Main StoryをHard gateしない
 
 Meta:
-
 - core currency原則1family
 - raw powerよりplay variety
 - Bondをcurrencyで買わない
-- daily/FOMO/staminaなし
+- daily / FOMO / staminaなし
 
 Postgame:
-
 - Main Endingは本編で完結
 - mastery / challenge / alternate build
-- 100%は`全灯の朝`で大きく祝う
+- 100% celebrationはDream物理朝を発生させない
 
 ---
 
-# 13. Runtime foundation status and remaining gaps
+# 15. Runtime foundation status
 
 Implemented foundation:
 
@@ -533,7 +563,7 @@ Implemented foundation:
 - 2 lost-item compatibility rows
 - Stage1 25-cell compatibility layer
 - Collection save v2 draft
-- 全灯fail-closed evaluator
+- all-lights fail-closed evaluator
 - global constellation graph
 - tests / checker
 
@@ -546,18 +576,23 @@ Still not connected:
 - production save service does not use v2
 - global constellation UI does not exist
 - launch-v1 required IDs are not frozen
-- `全灯の朝` Scene / art / music / cosmetic / remix mode are not implemented
+- completion Scene / art / music / cosmetic / remix mode are not final
 
-Design / Definitionだけで修正済み・READYとは扱わない。
-
-Audit:
-
-- `named-object-clear-getter-audit-2026-07-29.md`
-- `named-object-runtime-foundation-2026-07-29.md`
+DefinitionだけでREADY扱いしない。
 
 ---
 
-# 14. Mandatory routing
+# 16. Mandatory routing
+
+## Story / World
+
+```txt
+00-current-story-world-master
+→ CANON / WORLD
+→ World Foundation
+→ Conflict Register / Human Decision Queue
+→ Story / Character / Stage / Enemy lower docs
+```
 
 ## Gameplay
 
@@ -566,7 +601,6 @@ CANON
 → Game Core
 → GAME-DESIGN
 → PLAY-EXPERIENCE
-→ required master
 ```
 
 ## Character
@@ -576,26 +610,16 @@ CANON
 → CHARACTERS
 → character-book-v4
 → deep / voice / relation
-→ cross-domainなら CHARACTER-STORY-INTEGRATION
+→ CHARACTER-STORY-INTEGRATION
 ```
 
-## Named Object / Clear Getter design
+## Named Object
 
 ```txt
 CANON
 → NAMED-OBJECT-CONNECTIONS
-→ luminous item book / Clear Getter master
-```
-
-## Named Object implementation
-
-```txt
-CANON
-→ named-object-runtime-foundation-2026-07-29
-→ namedObjectRegistry / migration ledger
-→ compatibility / save v2 / constellation Definition
-→ runtime ownership / production save / UI
-→ tests / evidence
+→ luminous item / Clear Getter
+→ runtime foundation
 ```
 
 ## Runtime
@@ -603,78 +627,70 @@ CANON
 ```txt
 CANON
 → 181-current-production-canon
-→ runtime ownership
 → source / Unity
 → evidence / checker
 ```
 
-Legacyはmigration/history監査以外で最初に読まない。
+---
+
+# 17. Status labels
+
+- `DECIDED` — User決定 / highest authority
+- `CORE / CURRENT` — game identity
+- `CANON / CURRENT` — design前提
+- `CURRENT-DIRECTION` — exact detail Open
+- `DEFINITION FOUNDATION` — data/type foundation、runtime未接続可
+- `USER IDEA` — 保存し育てる
+- `CANDIDATE` — 強いが未LOCK
+- `OPEN` — 答えを急がない
+- `SUPERSEDED` — 過去案。Currentへ戻さない
+- `LEGACY` — compatibility / history
 
 ---
 
-# 15. Status labels
+# 18. Runtime readiness boundary
 
-- **CORE / CURRENT** — game identity
-- **CANON / CURRENT** — design前提
-- **CURRENT-DIRECTION** — direction Current / exact tuning OPEN
-- **CURRENT-BASELINE** — release最低契約 / evidence別
-- **DEFINITION FOUNDATION** — type/data/compatibility foundation、runtime未接続可
-- **USER DIRECTION** — user明示
-- **USER IDEA** —保存し育てる
-- **HIGH-VALUE CANDIDATE** —強いが未LOCK
-- **OPEN QUESTION** —答えを急がない
-- **LEGACY** —履歴
-
----
-
-# 16. Runtime readiness boundary
-
-Design docs / Definition foundationだけで以下をtrueにしない:
+Design docsだけで以下をtrueにしない:
 
 - physicalDeviceReady
 - devicePlayableReady
 - audioReady
-- audioLatencyMeasured
 - hapticReady
-- hapticMeasured
 - mobileMetricsReady
 - rcReady
 - productionApproved
-
-Named-object workだけで以下もtrueにしない:
-
 - collectionSaveV2Connected
 - globalConstellationReady
 - allLightsMorningReady
 
-U49/U50/U51 authorityはproduction/runtime docsとevidenceを使う。
+`allLightsMorningReady`等に旧Morning語が残っていてもstable runtime flagとして扱い、Story ruleを逆流させない。
 
 ---
 
-# 17. Current state in one sentence
+# 19. Current state
 
-> **Character・Story・Enemy・20Stage・Play Experienceに加え、Current21の126個の名前ある物、非破壊migration、save v2 draft、Clear Getter graph、全灯の朝fail-closed判定まで土台を一本化した。次は新設定追加ではなく、tests/CIを通し、既存UI・production saveへ一段ずつ安全に接続する。**
+> **Character / Story / Enemy / Stage / Object / World Bibleの土台に、朝の来ないDream、Waking、年代差星座、月相depth、朔夜座、非固定Boss型の群青残響録、Android / 動物ruleを最上位Authorityとして重ねた。今後は旧Dawn / 朔盟 / 同一星座前提をstable資産を壊さず下流から順次migrationする。**
 
 ---
 
-# 18. Update rule
+# 20. Update rule
 
 ```txt
-new idea / new named object
+new idea
 ↓
-matching Hubへ保存
+00-current-story-world-master照合
 ↓
-Game Coreとの衝突確認
+DECIDED / CANDIDATE / OPEN
 ↓
-connection card / stable ID
+matching Hub
 ↓
-CandidateならCandidateのまま
+conflict check
 ↓
-Human decision / implementation need
+stable ID preservation
 ↓
-Current master / Definitionへ昇格
+Human decision when required
 ↓
-CANON / index / machine-readable source同期
+machine-readable source同期
 ```
 
-Game Core変更は明示的Human decisionとして扱う。
+Master変更は明示的User decisionのみ。
