@@ -43,6 +43,9 @@ assert(snapshot.enemies.current21BaselineRelationCount === 136, `八影 baseline
 assert(snapshot.enemies.encounterMemoryPhaseCount === 4, '八影 encounter memory must expose four presentation phases');
 assert(snapshot.enemies.encounterMemoryCombatClearProgressValue === 0, 'combat clear may not deepen 八影 encounter memory');
 assert(!snapshot.enemies.encounterMemoryRuntimeImplemented, '八影 encounter memory content contract may not claim runtime implementation');
+assert(snapshot.enemies.yatsukagePairCount === 28, `all 八影 pairs must be authored, got ${snapshot.enemies.yatsukagePairCount}`);
+assert(snapshot.enemies.yatsukageFeaturedPairCount === 8, `featured 八影 pair count must be 8, got ${snapshot.enemies.yatsukageFeaturedPairCount}`);
+assert(snapshot.enemies.yatsukagePairCollisionKindCount >= 6, '八影 pair dynamics need broad collision grammar');
 
 assert(snapshot.combatVocabulary.attributeCountIncludingNeutral === 15, `Combat Attribute vocabulary should be 14 + NEUTRAL, got ${snapshot.combatVocabulary.attributeCountIncludingNeutral}`);
 assert(snapshot.combatVocabulary.baseAttributeCount === 14, `base Attribute count must remain 14, got ${snapshot.combatVocabulary.baseAttributeCount}`);
@@ -115,14 +118,15 @@ assert(!snapshot.promotionBoundary.yatsukageIdentityRuntimeAutoPromotionAllowed,
 assert(!snapshot.promotionBoundary.yatsukageCollectionRuntimeAutoPromotionAllowed, 'Yatsukage collection presentation must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.yatsukageCurrent21RelationRuntimeAutoPromotionAllowed, 'Yatsukage Current21 relation matrix must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.yatsukageEncounterMemoryRuntimeAutoPromotionAllowed, 'Yatsukage encounter memory must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.yatsukagePairDynamicsRuntimeAutoPromotionAllowed, 'Yatsukage pair dynamics must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 23, `Title1 Content Master should expose 23 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 24, `Title1 Content Master should expose 24 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
-assert(title1ContentMasterOpenImplementationGates.length === 14, `expected fourteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
+assert(title1ContentMasterOpenImplementationGates.length === 15, `expected fifteen explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
 for (const gate of title1ContentMasterOpenImplementationGates) {
   assert(gate.length >= 25, `open implementation gate needs explicit wording: ${gate}`);
 }
