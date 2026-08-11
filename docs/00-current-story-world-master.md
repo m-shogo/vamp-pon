@@ -22,6 +22,7 @@ Status: **CURRENT HIGHEST STORY / WORLD AUTHORITY / USER-DECIDED + RESEARCH-REFI
 - ヨルノシルベに物理的な朝が来る
 - 朝まで生き残ればRealityへ帰れる
 - Dawn / 夜明けをReality帰還条件にする
+- **終盤に空が明るくなる現象を「太陽が昇った普通の朝」と説明する**
 - 主要敵8人の正式Current名を朔盟へ戻す
 - **朔夜座8人をシリーズ全Season共通のprimary antagonist teamへする**
 - **朔夜座8人をS1/S2で4人ずつ重点配置する**
@@ -408,22 +409,49 @@ Detail:
 
 ---
 
-# 8. ヨルノシルベ — 朝のないDream
+# 8. ヨルノシルベ — 朝のないDream / 終わりへ向かう空の明るさ
 
-Status: `DECIDED CORE / FINAL MECHANISM OPEN`
+Status: `DECIDED CORE / USER-DECIDED VISUAL RULE / FINAL MECHANISM OPEN`
 
 ヨルノシルベは**夢世界**。
 
 - shared dream-likeだが最終mechanism / originはOpen。
-- **物理的な朝は来ない。**
-- 太陽が昇って夜が明けることはない。
-- 月 /星 /雲 /光量は変化してよい。
-- 人は朝になって帰るのではなく、**Dreamから目覚め自分のReality Eraへ戻る**。
+- **Realityと同じ意味での物理的な朝は来ない。**
+- 太陽の円盤が地平線からはっきり昇る通常の日の出は見せない。
+- ただし、**戦い・事件・その夜の役目が本当に終わりへ向かう時、空そのものは徐々に明るくなってよい。**
+- 明るさは夜の黒 /濃紺が薄れ、空・雲・地平線・水面・建物の輪郭が見えやすくなる方向。朝焼けのような温度を感じてもよいが、原因となる太陽を明瞭に見せる必要はない。
+- この現象に**固有名は付けない**。Characterは普通に「明るくなってきた」「……終わりだ」「もう終わるんだ」等と感じればよい。
+- Playerにも説明UIではなく、**画面が明るくなること自体で「この戦い / 夜は終わりへ向かっている」と伝える。**
+- 逆に、**Boss戦・未解決の最深部では明るくしない。** 朔夜 / Boss confrontationは暗さを保ち、星・ランタン・焚き火・Character light・星獣等の局所光を強く見せる。
+- Boss撃破や真の解決が成立した後、初めて空が明るくなり始める演出は高価値。
+- 「Bossを倒した = 必ず同じ秒数・同じ色で明るくなる」という固定Game formulaにはしない。偽の解決 /未解決 /途中撤退なら暗いままでもよい。
+- 月 /星 /雲 /光量は変化してよい。空が明るくなっても星が即座に全部消える必要はない。
+- 人は朝になったから帰るのではなく、**Dreamから目覚め自分のReality Eraへ戻る**。
 - Game Over ≠ Reality death。
 - Retry ≠ resurrection。
 - 正史はHappy End。
 
-旧`Dawn / 夜明け`がstable ID / UI名へ残っていてもphysical morningを意味しない。
+Visual grammar:
+
+```txt
+事件が深くなる
+↓
+月が欠ける / 夜が深くなる
+↓
+朔夜・Boss / 最深部 = 月がなく暗い
+↓
+解決
+↓
+空が少しずつ明るくなる
+↓
+Character / Playerが「終わりだ」と感覚で理解する
+↓
+Waking / 帰還
+```
+
+> **朝そのものを待つ物語ではない。けれど、夜が終わる時には世界が明るくなる。**
+
+旧`Dawn / 夜明け`がstable ID / UI名へ残っていても、Realityと同じ日の出を意味しない。
 
 ---
 
