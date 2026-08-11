@@ -7,16 +7,20 @@ import { CHARACTER_LIVED_ARTIFACT_RESERVOIR } from './characterLivedArtifactRese
 import { CHARACTER_THEME_COLOR_CANDIDATES } from './characterThemeColorReservoir.ts';
 import { REALITY_ROOT_LIVING_PLACE_RESERVOIR } from './realityRootLivingPlaceReservoir.ts';
 import { CHARACTER_ENVIRONMENT_SENSORY_RESERVOIR } from './characterEnvironmentSensoryReservoir.ts';
+import { CHARACTER_COMPETENCE_LEARNING_RESERVOIR } from './characterCompetenceLearningReservoir.ts';
+import { CHARACTER_COMMUNICATION_HABIT_RESERVOIR } from './characterCommunicationHabitReservoir.ts';
+import { CHARACTER_EVERYDAY_ECONOMY_RESERVOIR } from './characterEverydayEconomyReservoir.ts';
 import { CURRENT21_SEASON_ASSIGNMENTS, FUTURE15_SEASON_ASSIGNMENTS } from './seasonArchitecture.ts';
 
 export const CHARACTER_AUTHOR_DB_RULES = {
   authority: 'docs/character-author-db-schema-and-coverage-v1.md',
   coverageExtensionAuthority: 'docs/character-author-db-environment-coverage-extension-v1.md',
+  lifeCoverageExtensionAuthority: 'docs/character-author-db-life-coverage-extension-v1.md',
   status: 'AUTHOR_DB_INDEX_CURRENT_STRUCTURE_RESERVOIR_CONTENT',
   characterCountRequired: 36,
   current21Required: 21,
   future15Required: 15,
-  coverageDimensionCountRequired: 10,
+  coverageDimensionCountRequired: 13,
   sourceStatusMustRemainVisible: true,
   currentAndCandidateMayNotBeFlattened: true,
   aliasMapMayNotRenameStableIds: true,
@@ -26,6 +30,9 @@ export const CHARACTER_AUTHOR_DB_RULES = {
   missingOptionalFieldMayBeUnknown: true,
   missingOptionalFieldMeansFalse: false,
   environmentPreferenceMayInferDiagnosis: false,
+  competenceMayInferIntelligenceOrRuntimeStat: false,
+  communicationReplyTimingMayInferAffection: false,
+  economyHabitMayInferIncomeClassOrMorality: false,
   runtimeGameReadsAuthorDbAutomatically: false,
   runtimeAutoPromotionAllowed: false,
 } as const;
@@ -88,6 +95,9 @@ const artifactByStableId = byId(CHARACTER_LIVED_ARTIFACT_RESERVOIR);
 const themeByStableId = byId(CHARACTER_THEME_COLOR_CANDIDATES);
 const livingPlaceByAuthorId = byId(REALITY_ROOT_LIVING_PLACE_RESERVOIR);
 const environmentByStableId = byId(CHARACTER_ENVIRONMENT_SENSORY_RESERVOIR);
+const competenceByStableId = byId(CHARACTER_COMPETENCE_LEARNING_RESERVOIR);
+const communicationByStableId = byId(CHARACTER_COMMUNICATION_HABIT_RESERVOIR);
+const economyByStableId = byId(CHARACTER_EVERYDAY_ECONOMY_RESERVOIR);
 const currentSeasonByAuthorId = byId(CURRENT21_SEASON_ASSIGNMENTS);
 const futureSeasonByAuthorId = byId(FUTURE15_SEASON_ASSIGNMENTS);
 
@@ -111,6 +121,9 @@ export const CHARACTER_AUTHOR_DB_COVERAGE = CHARACTER_AUTHOR_DB_IDENTITIES.map((
       themeColor: Boolean(themeByStableId.get(identity.stableProfileId)),
       livingPlace: Boolean(livingPlaceByAuthorId.get(identity.authorId)),
       environmentSensory: Boolean(environmentByStableId.get(identity.stableProfileId)),
+      competenceLearning: Boolean(competenceByStableId.get(identity.stableProfileId)),
+      communicationHabit: Boolean(communicationByStableId.get(identity.stableProfileId)),
+      everydayEconomy: Boolean(economyByStableId.get(identity.stableProfileId)),
       physicalIdentityAuthority: true,
     },
     sourceStatus: {
@@ -123,6 +136,9 @@ export const CHARACTER_AUTHOR_DB_COVERAGE = CHARACTER_AUTHOR_DB_IDENTITIES.map((
       themeColor: 'AUTHOR_RESERVOIR_NON_CANON',
       livingPlace: 'AUTHOR_RESERVOIR_NON_CANON_ROOT_STATUS_INHERITED',
       environmentSensory: 'AUTHOR_RESERVOIR_NON_CANON_NO_DIAGNOSIS_INFERENCE',
+      competenceLearning: 'AUTHOR_RESERVOIR_NON_CANON_NO_INTELLIGENCE_RANKING',
+      communicationHabit: 'AUTHOR_RESERVOIR_NON_CANON_ERA_TECH_AWARE_NO_AFFECTION_SCORING',
+      everydayEconomy: 'AUTHOR_RESERVOIR_NON_CANON_NO_INCOME_CLASS_FREEZE',
       physicalIdentityAuthority: 'CURRENT_WORLD_MASTER_SUBDOMAIN',
     },
   } as const;
@@ -146,6 +162,9 @@ export const characterAuthorDbCoverageSummary = {
   themeColorCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.themeColor).length,
   livingPlaceCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.livingPlace).length,
   environmentSensoryCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.environmentSensory).length,
+  competenceLearningCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.competenceLearning).length,
+  communicationHabitCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.communicationHabit).length,
+  everydayEconomyCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.everydayEconomy).length,
   physicalIdentityAuthorityCoverage: CHARACTER_AUTHOR_DB_COVERAGE.filter((entry) => entry.coverage.physicalIdentityAuthority).length,
   future15PromotedByManifest: false,
   candidatePromotedByManifest: false,
