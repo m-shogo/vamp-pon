@@ -1,0 +1,41 @@
+name: unity-enemy-status-runtime-foundation
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
+      - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
+      - 'docs/unity-enemy-status-runtime-foundation-v1.md'
+      - '.github/workflows/unity-enemy-status-runtime-foundation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/combatAffinitySource.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
+      - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
+      - 'docs/unity-enemy-status-runtime-foundation-v1.md'
+      - '.github/workflows/unity-enemy-status-runtime-foundation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check Status16 content/runtime binding
+        run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-runtime-foundation.ts
+      - name: Compile EnemyStatusRuntimeState as pure C#
+        run: dotnet build scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --nologo
+      - name: Execute EnemyStatusRuntimeState lifecycle contract
+        run: dotnet run --project scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --no-build
