@@ -1,11 +1,12 @@
-# ヨルノシルベ — Height / Age / Era Lineup v2
+# ヨルノシルベ — Height / Age / Era Lineup v3
 
 Date: 2026-08-11  
-Status: **P0 VISUAL PRODUCTION LINEUP / CORE5 DISTINCT-ERA HARD RULE / RELATIVE PROPORTIONS CANDIDATE**
+Status: **P0 VISUAL PRODUCTION LINEUP / CORE5 ERA ASSIGNMENT CURRENT / RELATIVE PROPORTIONS CANDIDATE**
 
 > 目的: Character master / TOP / event art / sprite / merchandiseで、毎回身長・年齢感・体格・年代が変わる事故を防ぐ。
 > 最上位Authority: `docs/00-current-story-world-master.md`。
-> **Core5の5人はRealityでは全員が別Era / generation。exact person-to-era mappingだけがOpen。**
+> Core5年代詳細: `docs/core5-era-character-master-v1.md`。
+> **Core5はRealityで全員別Eraであり、person-to-era laneもCurrent assignment。exact year / exact chronological ageだけOpen。**
 
 ---
 
@@ -24,31 +25,25 @@ Dreamで同じテーブルを囲む
 Realityで同じ年代に生きている
 ```
 
-Examples:
-
 - ゲンが高齢 = OLD eraの証明ではない。
 - クロエが若い外見 = 最近生まれた証明ではない。
 - ユイとアサが外見同年代 = Reality同世代の証明ではない。
 
 ---
 
-# 2. Core5 distinct-era invariant
+# 2. Core5 era invariant and assignment
 
-Status: `USER-DECIDED HARD RULE`
-
-Core5:
-
-- ユイ
-- アサ
-- ナギ
-- ミチル
-- トモリ
-
-は**5人とも別Reality era / generation**。
+Status: `CURRENT HARD RULE`
 
 ```txt
-Core5 distinct era count = 5 / 5
+Tomori  = 1940年代系 日本
+Michiru = 1980年代系 日本
+Nagi    = 2000年代系 日本
+Yui     = 現代日本
+Asa     = 未来 Android / Robot共存社会の人間
 ```
+
+**5 / 5 distinct Reality eras**。
 
 禁止:
 
@@ -56,35 +51,29 @@ Core5 distinct era count = 5 / 5
 - 同じ学校 / 同級生化
 - 外見年齢から同年代と推測
 - TOP / event artで全員を同一modern fashionへ均す
+- アサを年代都合でAndroidへ変更する
 
-### Open
+Open:
 
-- 誰が1940年代系か
-- 誰が1980年代系か
-- 誰が2000年代系か
-- 誰が現代か
-- 5つ目を未来Android / Robot laneへ置くか別Eraへ置くか
-- exact year / exact chronological age
-
-つまり:
-
-> **5人が全部違うことは決定。誰がどこかはOpen。**
+- exact year
+- exact chronological age
+- exact Reality location / school / occupation
 
 ---
 
 # 3. Era ≠ Narrative role
 
-5 EraはNarrative roleの均等化ではない。
+- ユイ = overall viewpoint / present era lead。
+- アサ = protagonist-grade buddy / future era lead。ユイ×アサ恋愛なし。
+- ナギ / ミチル / トモリ = main cast。各Reality解決partではera leadになれる。
 
 ```txt
 5 different Reality eras
 ≠
-5人全員を同じ主役比重にする
+5人全員を毎chapter同じ尺にする
 ```
 
-ユイ / アサ / ナギ / ミチル / トモリの主役比重・Story機能はCharacter / Story Authorityで管理する。
-
-Era設定をscreen-time quotaに変換しない。
+Era設定をscreen-time quotaへ変換しない。
 
 ---
 
@@ -112,13 +101,13 @@ Enemy / nonhuman:
 
 # 5. Core5 visual anchors
 
-| Character | Band | Candidate cm range | Age impression | Body / pose anchor | Era |
+| Character | Band | Candidate cm range | Age impression | Body / pose anchor | Current Era |
 |---|---:|---:|---|---|---|
-| ユイ | M | 158–163 | 若者寄り / exact age OPEN | 柔らかい中心、前傾しすぎない | DISTINCT / exact OPEN |
-| アサ | S–M | 153–159 | 若者寄り / exact age OPEN | compact / quick / sharp | DISTINCT / exact OPEN |
-| ナギ | M–L | 165–172 | 若者寄り / exact age OPEN | 縦長 / 閉じた姿勢 | DISTINCT / exact OPEN |
-| ミチル | M | 160–167 | 若者寄り / exact age OPEN | active / 横幅ある動き | DISTINCT / exact OPEN |
-| トモリ | M–L | 165–172 | 若者〜成人 impression / exact age OPEN | 工具を使う安定した重心 | DISTINCT / earlier evidence Candidate |
+| ユイ | M | 158–163 | 若者寄り / exact age OPEN | 柔らかい中心、前傾しすぎない | **現代日本** |
+| アサ | S–M | 153–159 | 若者寄り / exact age OPEN | compact / quick / sharp | **未来Android / Robot共存社会・Human** |
+| ナギ | M–L | 165–172 | 若者寄り / exact age OPEN | 縦長 / 閉じた姿勢 | **2000年代系日本** |
+| ミチル | M | 160–167 | 若者寄り / exact age OPEN | active / 横幅ある動き | **1980年代系日本** |
+| トモリ | M–L | 165–172 | 若者〜成人 impression / exact age OPEN | 工具を使う安定した重心 | **1940年代系日本** |
 
 Core5 silhouette target:
 
@@ -132,22 +121,59 @@ Core5 silhouette target:
 
 さらにEra差を最低2軸以上で出す:
 
-- stitching
+- stitching / textile
 - fastener
 - shoe construction
 - bag hardware
-- watch / clock habit
-- textile
+- timekeeping habit
 - repair method
 - paper / ticket handling
 - bottle / can familiarity
 - match / lighter familiarity
+- Reality prop knowledge
 
-「主人公だから一番小さい」等のgeneric化をしない。
+顔のhard landmarkを年代表現のために消さない。
 
 ---
 
-# 6. Circle / Reserve lineup
+# 6. Core5 era visual guard
+
+## ユイ — Present
+
+- 現代のlayer / bag / fastener / casual travel practicalityを使える。
+- **左右のエクボ**はhard landmark。
+- smartphoneを常時持たせることをEra記号にしない。
+
+## アサ — Future Human
+
+- future fabric / closure / compact identification detailは使える。
+- 横長吊り目 / fast silhouetteを維持。
+- future = neon cyber suitへ固定しない。
+- Android body seam等を足さない。
+
+## ナギ — 2000s
+
+- closed collar / compact bag / lock / early-digital personal-item vocabularyと相性が良い。
+- 細い水平眼を維持。
+- 2000s = 特定brand / fashion stereotypeへ固定しない。
+
+## ミチル — 1980s
+
+- paper map / analog route / practical outdoor itemと相性が良い。
+- ゲジ眉 / そばかす / outdoors skinを維持。
+- 1980s = 派手なバブル衣装、にはしない。
+
+## トモリ — 1940s
+
+- repair seam / metal tool / natural-material workwear / reusable constructionと相性が良い。
+- hooded half-lidded eye / repair marksを維持。
+- 1940s = 軍服 / 戦災記号、にはしない。
+
+Dream costumeは完全historical costume reproductionでなくてよいが、5人を同一modern fantasy衣装へ均さない。
+
+---
+
+# 7. Circle / Reserve lineup
 
 | Character | Band | Candidate cm range | Existing age direction | Silhouette anchor | Era handling |
 |---|---:|---:|---|---|---|
@@ -165,7 +191,7 @@ Core5 silhouette target:
 
 ---
 
-# 7. Shadow5 lineup
+# 8. Shadow5 lineup
 
 Shadow5はCore5の「黒服版」にしない。
 
@@ -181,7 +207,7 @@ Shadow5はCore5の「黒服版」にしない。
 
 ---
 
-# 8. Future15 lineup
+# 9. Future15 lineup
 
 FutureはCurrent21へ自動昇格しない。数値はCandidate。
 
@@ -211,7 +237,7 @@ Guard:
 
 ---
 
-# 9. 朔夜座 lineup
+# 10. 朔夜座 lineup
 
 Current formal name: **朔夜座**。
 Legacy `Sakumei` namespaceはmigration資産としてのみ保持。
@@ -236,7 +262,7 @@ Recognition target:
 
 ---
 
-# 10. Age diversity
+# 11. Age diversity
 
 - コヨリを縮小成人顔にしない。
 - ゲン / ハナの年齢線をbeautifyで消さない。
@@ -247,7 +273,7 @@ Recognition target:
 
 ---
 
-# 11. Era visual markers
+# 12. Era visual markers
 
 Eraはコスプレ記号だけで出さない。
 
@@ -276,7 +302,7 @@ Eraはコスプレ記号だけで出さない。
 
 ---
 
-# 12. Dream social-life visual implication
+# 13. Dream social-life visual implication
 
 Core5が別Eraなので、同じParty tableにいるだけで差が出る。
 
@@ -291,14 +317,15 @@ Core5が別Eraなので、同じParty tableにいるだけで差が出る。
 
 などをEra伏線に使える。
 
+1個のevidenceだけでexact eraをRevealしない。
+
 Source:
 - `docs/dream-feast-party-social-bible-v1.md`
-
-1個のevidenceだけでexact eraをRevealしない。
+- `docs/core5-era-character-master-v1.md`
 
 ---
 
-# 13. Master board measurement fields
+# 14. Master board measurement fields
 
 Character master完成時に必須:
 
@@ -320,20 +347,11 @@ namedObjectScale
 starBeastScale
 ```
 
-さらに:
-
-- front
-- 3/4
-- profile
-- back
-- neutral stance
-- signature stance
-
-を揃える。
+さらに front / 3/4 / profile / back / neutral stance / signature stanceを揃える。
 
 ---
 
-# 14. Pair height composition
+# 15. Pair height composition
 
 Relation artで毎回身長差を変えない。
 
@@ -347,7 +365,7 @@ Examples Candidate:
 
 ---
 
-# 15. Adult social-content gate
+# 16. Adult social-content gate
 
 飲酒 / 喫煙をFinal visual / eventへ入れる場合:
 
@@ -375,21 +393,23 @@ Final person assignmentはage / era review後。
 
 ---
 
-# 16. Human approval gates
+# 17. Human approval gates
 
 最終固定が必要:
 
 1. exact cm
 2. exact chronological age
-3. **Core5 5人それぞれのexact person-to-era mapping**
-4. exact year / Reality location
+3. Core5各人の**exact year / sub-era placement**
+4. exact Reality location
 5. animal breed / body size
 6. wheelchair model dimensions
 7. 朔夜座 final form scale
 8. 飲酒 / 喫煙CharacterのFinal adult / era legality
 
+Core5の**person-to-era lane assignmentは承認待ちではなくCurrent**。
+
 それまでは:
 
-> **relative lineup + Core5 distinct-era invariant**
+> **relative lineup + Current Core5 era lanes + exact-year Open**
 
 をCharacter master生成の上流として使う。
