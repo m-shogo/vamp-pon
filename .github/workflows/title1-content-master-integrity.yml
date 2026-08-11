@@ -5,14 +5,18 @@ on:
     paths:
       - 'src/game/data/**'
       - 'docs/title1-content-master-integrity-v1.md'
+      - 'docs/title1-achievement-reward-collection-source-v1.md'
       - 'scripts/quality/check-title1-content-master-integrity.ts'
+      - 'scripts/quality/check-title1-achievement-reward-collection-master.ts'
       - '.github/workflows/title1-content-master-integrity.yml'
   push:
     branches: [main]
     paths:
       - 'src/game/data/**'
       - 'docs/title1-content-master-integrity-v1.md'
+      - 'docs/title1-achievement-reward-collection-source-v1.md'
       - 'scripts/quality/check-title1-content-master-integrity.ts'
+      - 'scripts/quality/check-title1-achievement-reward-collection-master.ts'
       - '.github/workflows/title1-content-master-integrity.yml'
 
 permissions:
@@ -44,6 +48,8 @@ jobs:
         run: node --experimental-strip-types scripts/quality/check-combat-item-selection-master.ts
       - name: Check Transformation Selection
         run: node --experimental-strip-types scripts/quality/check-weapon-transformation-selection-master.ts
+      - name: Check Reward Collection Master
+        run: node --experimental-strip-types scripts/quality/check-title1-achievement-reward-collection-master.ts
       - name: Check Ending Completion Boundary
         run: node --experimental-strip-types scripts/quality/check-title1-ending-completion-boundary.ts
       - name: Check Final Title1 Cross-master Integrity
