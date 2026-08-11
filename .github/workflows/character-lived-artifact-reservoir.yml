@@ -1,0 +1,39 @@
+name: Character Lived Artifact Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/character-behavior-identity-reservoir-v1.md'
+      - 'docs/character-lived-artifact-reservoir-v1.md'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'scripts/quality/check-character-lived-artifact-reservoir.ts'
+      - '.github/workflows/character-lived-artifact-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/character-behavior-identity-reservoir-v1.md'
+      - 'docs/character-lived-artifact-reservoir-v1.md'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'scripts/quality/check-character-lived-artifact-reservoir.ts'
+      - '.github/workflows/character-lived-artifact-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character lived artifact reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-lived-artifact-reservoir.ts
