@@ -407,7 +407,9 @@ namespace VampPon.UnitySpike.Editor
                 shaderResolved = result == "PASSED" && shaderResolved,
                 buildHookResolved = result == "PASSED" && buildHookResolved,
                 buildImportPolicyPassed = result == "PASSED" && buildImportPolicyPassed,
-                generatedAtUtc = DateTime.UtcNow.ToString("O"),
+                generatedAtUtc = DateTime.UtcNow.ToString(
+                    "yyyy-MM-dd'T'HH:mm:ss.fff'Z'",
+                    System.Globalization.CultureInfo.InvariantCulture),
                 error = error ?? string.Empty,
             };
 
