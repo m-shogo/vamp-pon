@@ -99,7 +99,7 @@ export const SAKUYAZA_ERA_INCIDENT_STANCES = [
   },
 ] as const;
 
-export const SAKUYAZA_INCIDENT_PAIR_CANDIDATES = SAKUYAZA_ERA_INCIDENT_STANCES.map((entry) => entry.primaryPairCandidate) as const;
+export const SAKUYAZA_INCIDENT_PAIR_CANDIDATES = SAKUYAZA_ERA_INCIDENT_STANCES.map((entry) => entry.primaryPairCandidate);
 
 const stanceMembers = SAKUYAZA_ERA_INCIDENT_STANCES.flatMap((entry) => entry.memberStances.map((stance) => stance.member));
 
