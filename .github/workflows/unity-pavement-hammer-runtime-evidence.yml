@@ -1,0 +1,56 @@
+name: unity-pavement-hammer-runtime-evidence
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/PavementHammerPrototypeRuntimeEvidence.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/PavementHammerPrototypeRuntimeEvidence.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PavementHammerPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemySlamWaveQueryRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'scripts/unity/run-pavement-hammer-runtime-evidence.sh'
+      - 'scripts/quality/check-unity-pavement-hammer-runtime-evidence.ts'
+      - 'docs/design-targets/generated/unity-selected-base-weapons/pavement-hammer/runtime-evidence.json'
+      - 'docs/unity-pavement-hammer-runtime-evidence-v1.md'
+      - '.github/workflows/unity-pavement-hammer-runtime-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/PavementHammerPrototypeRuntimeEvidence.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/PavementHammerPrototypeRuntimeEvidence.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PavementHammerPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemySlamWaveQueryRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'scripts/unity/run-pavement-hammer-runtime-evidence.sh'
+      - 'scripts/quality/check-unity-pavement-hammer-runtime-evidence.ts'
+      - 'docs/design-targets/generated/unity-selected-base-weapons/pavement-hammer/runtime-evidence.json'
+      - 'docs/unity-pavement-hammer-runtime-evidence-v1.md'
+      - '.github/workflows/unity-pavement-hammer-runtime-evidence.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify honest runtime evidence boundary and runner contract
+        run: node --experimental-strip-types scripts/quality/check-unity-pavement-hammer-runtime-evidence.ts
+      - name: Re-check Pavement Hammer prototype caller
+        run: node --experimental-strip-types scripts/quality/check-unity-pavement-hammer-prototype.ts
+      - name: Re-check reusable break stagger primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-break-stagger-primitive.ts
+      - name: Re-check Title1 Base Weapon runtime admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
