@@ -52,13 +52,14 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveC
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 12, `expected 12 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must not remain a blocker');
 
+const expectedCallerIds = ['ember_matchcase', 'bellows_fan', 'pavement_hammer', 'star_map_pin'] as const;
 assert(new Set<string>(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must be unique');
-assert(unityPrototypeCallerImplementedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', 'caller-proof registry drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 3, 'caller-proof summary drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 3, `expected 3 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 13, `expected 13 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', 'implementation-review admitted IDs drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Star Map Pin should be the one primitive-complete caller-proof blocker');
+assert(unityPrototypeCallerImplementedWeaponIds.join(',') === expectedCallerIds.join(','), 'caller-proof registry drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 4, 'caller-proof summary drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 4, `expected 4 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 12, `expected 12 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === expectedCallerIds.join(','), 'implementation-review admitted IDs drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete caller-proof blocker should remain after Star Map Pin caller proof');
 
 const upstreamById = new Map(selectedBaseWeaponRuntimeAdmissionEntries.map((entry) => [entry.weaponId, entry]));
 const selectedIds = new Set(selectedTitle1BaseWeaponCandidates.map((entry) => entry.weaponId));
@@ -101,18 +102,19 @@ assert(starPin.archetype === 'HOMING_SNIPE', 'Star Map Pin archetype drift');
 assert(starPin.requiredUnityCapabilities.join(',') === 'HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', `unexpected Star Map Pin requirements: ${starPin.requiredUnityCapabilities.join(',')}`);
 assert(starPin.implementedUnityCapabilities.join(',') === 'HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', 'Star Map Pin should inherit complete shared primitive evidence');
 assert(starPin.missingUnityCapabilities.length === 0, `Star Map Pin primitive blockers should be clear: ${starPin.missingUnityCapabilities.join(',')}`);
-assert(!starPin.prototypeCallerImplemented, 'shared selector must not fabricate Star Map Pin caller proof');
-assert(starPin.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Star Map Pin must stop at caller-proof gate');
-assert(!starPin.mayEnterUnityRuntimeRegistry, 'Star Map Pin must remain outside implementation review until caller proof');
+assert(starPin.prototypeCallerImplemented, 'Star Map Pin caller proof must be explicit');
+assert(starPin.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Star Map Pin should be implementation-review admitted');
+assert(starPin.mayEnterUnityRuntimeRegistry, 'Star Map Pin should pass implementation-review gate only');
+assert(starPin.runtimeStatus === 'NOT_IMPLEMENTED', 'Star Map Pin implementation-review admission must not claim live runtime');
 
 const returnNeedle = byId('return_compass_needle');
 assert(returnNeedle.archetype === 'RETURN_HOMING', 'Return Compass Needle archetype drift');
 assert(returnNeedle.implementedUnityCapabilities.includes('HOMING_PRIORITY_SELECTION'), 'Return Compass Needle must inherit homing-priority evidence');
-assert(returnNeedle.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'Return Compass Needle must remain blocked by returning projectile');
+assert(returnNeedle.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'Return Compass Needle must remain blocked until returning capability is separately admitted');
 assert(returnNeedle.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES' && !returnNeedle.mayEnterUnityRuntimeRegistry, 'Return Compass Needle must remain primitive-blocked');
 
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
-  if (['ember_matchcase', 'bellows_fan', 'pavement_hammer', 'star_map_pin', 'return_compass_needle'].includes(entry.weaponId)) continue;
+  if ([...expectedCallerIds, 'return_compass_needle'].includes(entry.weaponId as typeof expectedCallerIds[number] | 'return_compass_needle')) continue;
   assert(entry.missingUnityCapabilities.length >= 1, `${entry.weaponId} must retain a primitive blocker`);
   assert(!entry.prototypeCallerImplemented, `${entry.weaponId} must not claim caller proof`);
   assert(entry.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', `${entry.weaponId} should remain primitive-blocked`);
@@ -126,15 +128,28 @@ const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Proj
 const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
 const bellowsSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/BellowsFanPrototypeRuntime.cs', import.meta.url), 'utf8');
 const hammerSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PavementHammerPrototypeRuntime.cs', import.meta.url), 'utf8');
+const starPinSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/StarMapPinPrototypeRuntime.cs', import.meta.url), 'utf8');
 const homingSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyHomingPrioritySelectionRuntime.cs', import.meta.url), 'utf8');
 
 assert(definitionSource.includes('public enum WeaponEffectType { Projectile, GroundArea }'), 'Unity live executor enum drift');
 assert(importerSource.includes('is not ("projectile" or "ground_area")'), 'U47 importer must fail closed on unsupported effect types');
 assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'multi-target primitive missing');
+assert(battleSource.includes('public bool FireGameplayProjectileAtTarget('), 'explicit-target projectile primitive missing');
 assert(battleSource.includes('public bool TakeDamage(float damage, float damageFlashSeconds)'), 'enemy HP damage API missing');
 assert(emberSource.includes('EnemyStatusRuntimeKind.Burn') && emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller evidence missing');
 assert(bellowsSource.includes('EnemyStatusRuntimeKind.Disoriented') && bellowsSource.includes('U2EnemyConeQueryRuntime.SelectTargets('), 'Bellows caller evidence missing');
 assert(hammerSource.includes('EnemyStatusRuntimeKind.Exposed') && hammerSource.includes('U2EnemyBreakStaggerRuntime.TryApply('), 'Pavement Hammer caller evidence missing');
+for (const token of [
+  'public static class StarMapPinPrototypeRuntime',
+  'public const string WeaponId = "star_map_pin";',
+  'EnemyStatusRuntimeKind.Marked',
+  'U2EnemyHomingPrioritySelectionRuntime.TrySelect(',
+  'battle.FireGameplayProjectileAtTarget(',
+  'PRIORITY_SELECT_TARGETED_PROJECTILE_MARKED_ON_HIT',
+  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
+]) {
+  assert(starPinSource.includes(token), `Star Map Pin caller evidence missing token: ${token}`);
+}
 for (const token of [
   'public static class U2EnemyHomingPrioritySelectionRuntime',
   'IReadOnlyList<float> priorityScores',
@@ -151,6 +166,7 @@ for (const forbiddenLiveToken of [
   'EmberMatchcasePrototypeRuntime',
   'BellowsFanPrototypeRuntime',
   'PavementHammerPrototypeRuntime',
+  'StarMapPinPrototypeRuntime',
   'U2EnemyHomingPrioritySelectionRuntime',
   'star_map_pin',
   'pavement_hammer',
@@ -165,11 +181,12 @@ for (const token of [
   'Unity runtime = 2',
   '10 implemented',
   '12 missing',
-  'admitted=3',
-  'blocked=13',
+  'admitted=4',
+  'blocked=12',
   'star_map_pin',
+  'StarMapPinPrototypeRuntime',
   'HOMING_PRIORITY_SELECTION',
-  'BLOCKED_MISSING_UNITY_CALLER_PROOF',
+  'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW',
   'return_compass_needle',
   'RETURNING_PROJECTILE',
   'fake projectile',
