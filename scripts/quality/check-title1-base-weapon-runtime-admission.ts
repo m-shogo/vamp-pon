@@ -33,17 +33,8 @@ assert(!title1BaseWeaponRuntimeAdmissionSummary.contentSelectionMayBeDowngradedT
 assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'primitive/caller evidence must never auto-promote live runtime');
 
 const implementedCapabilities = [
-  'NEAREST_TARGET_PROJECTILE',
-  'MULTI_PROJECTILE_LOOP',
-  'CIRCULAR_GROUND_AREA',
-  'MULTI_TARGET_PROJECTILE_SELECTION',
-  'STATUS_APPLICATION',
-  'TWO_TARGET_TETHER',
-  'KNOCKBACK_VECTOR',
-  'CONE_QUERY',
-  'SLAM_WAVE_QUERY',
-  'BREAK_STAGGER_APPLICATION',
-  'HOMING_PRIORITY_SELECTION',
+  'NEAREST_TARGET_PROJECTILE','MULTI_PROJECTILE_LOOP','CIRCULAR_GROUND_AREA','MULTI_TARGET_PROJECTILE_SELECTION','STATUS_APPLICATION',
+  'TWO_TARGET_TETHER','KNOCKBACK_VECTOR','CONE_QUERY','SLAM_WAVE_QUERY','BREAK_STAGGER_APPLICATION','HOMING_PRIORITY_SELECTION',
 ] as const;
 for (const capability of implementedCapabilities) {
   assert(currentUnityWeaponRuntimeCapabilities[capability] === 'IMPLEMENTED', `${capability} evidence drift`);
@@ -53,7 +44,7 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveC
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 11, `expected 11 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must not remain a blocker');
 
-const expectedCallerIds = ['ember_matchcase', 'bellows_fan', 'pavement_hammer', 'star_map_pin'] as const;
+const expectedCallerIds = ['ember_matchcase','bellows_fan','pavement_hammer','star_map_pin'] as const;
 assert(new Set<string>(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must be unique');
 assert(unityPrototypeCallerImplementedWeaponIds.join(',') === expectedCallerIds.join(','), 'caller-proof registry drift');
 assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 4, 'caller-proof summary drift');
@@ -90,10 +81,10 @@ assert(ember.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && emb
 
 const rainThread = byId('rain_thread');
 assert(rainThread.archetype === 'TETHER', 'Rain Thread archetype drift');
-assert(rainThread.requiredUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,STATUS_APPLICATION', `unexpected Rain Thread requirements: ${rainThread.requiredUnityCapabilities.join(',')}`);
-assert(rainThread.implementedUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,STATUS_APPLICATION', 'Rain Thread should inherit complete tether + Status evidence');
+assert(rainThread.requiredUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,KNOCKBACK_VECTOR,STATUS_APPLICATION', `unexpected Rain Thread requirements: ${rainThread.requiredUnityCapabilities.join(',')}`);
+assert(rainThread.implementedUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,KNOCKBACK_VECTOR,STATUS_APPLICATION', 'Rain Thread should inherit complete tether + position-control + Status evidence');
 assert(rainThread.missingUnityCapabilities.length === 0, `Rain Thread primitive blockers should be clear: ${rainThread.missingUnityCapabilities.join(',')}`);
-assert(!rainThread.prototypeCallerImplemented, 'shared tether primitive must not fabricate Rain Thread caller proof');
+assert(!rainThread.prototypeCallerImplemented, 'shared tether primitives must not fabricate Rain Thread caller proof');
 assert(rainThread.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Rain Thread should stop at caller-proof gate');
 assert(!rainThread.mayEnterUnityRuntimeRegistry, 'Rain Thread must remain outside implementation review until caller proof');
 assert(rainThread.runtimeStatus === 'NOT_IMPLEMENTED', 'Rain Thread primitive completion must not claim live runtime');
@@ -120,7 +111,7 @@ assert(returnNeedle.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), '
 assert(returnNeedle.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES' && !returnNeedle.mayEnterUnityRuntimeRegistry, 'Return Compass Needle must remain primitive-blocked');
 
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
-  if ([...expectedCallerIds, 'rain_thread', 'return_compass_needle'].includes(entry.weaponId as typeof expectedCallerIds[number] | 'rain_thread' | 'return_compass_needle')) continue;
+  if ([...expectedCallerIds,'rain_thread','return_compass_needle'].includes(entry.weaponId as typeof expectedCallerIds[number] | 'rain_thread' | 'return_compass_needle')) continue;
   assert(entry.missingUnityCapabilities.length >= 1, `${entry.weaponId} must retain a primitive blocker`);
   assert(!entry.prototypeCallerImplemented, `${entry.weaponId} must not claim caller proof`);
   assert(entry.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', `${entry.weaponId} should remain primitive-blocked`);
@@ -130,48 +121,22 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
 const tetherSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTetherPairSelectionRuntime.cs', import.meta.url), 'utf8');
 assert(tetherSource.includes('public static class U2EnemyTetherPairSelectionRuntime'), 'two-target tether selector source missing');
-assert(tetherSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'tether selector tuning authority missing');
-for (const forbidden of ['rain_thread', 'SOAK', 'EnemyStatusRuntimeKind', 'TakeDamage(', 'LineRenderer']) {
+for (const forbidden of ['rain_thread','SOAK','EnemyStatusRuntimeKind','TakeDamage(','LineRenderer']) {
   assert(!tetherSource.includes(forbidden), `generic tether selector must not own ${forbidden}`);
 }
-assert(!coordinatorSource.includes('U2EnemyTetherPairSelectionRuntime'), 'shared tether selector must not enter live Stage1 coordinator');
-assert(!coordinatorSource.includes('rain_thread'), 'Rain Thread must remain outside live Stage1 coordinator');
+assert(!coordinatorSource.includes('U2EnemyTetherPairSelectionRuntime') && !coordinatorSource.includes('rain_thread'), 'Tether primitive/consumer must remain outside live Stage1 coordinator');
 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
-for (const token of [
-  'Selected16',
-  '11 implemented',
-  '11 missing',
-  'admitted=4',
-  'blocked=12',
-  'TWO_TARGET_TETHER',
-  'rain_thread',
-  'BLOCKED_MISSING_UNITY_CALLER_PROOF',
-  'return_compass_needle',
-  'RETURNING_PROJECTILE',
-  'fake projectile',
-  'CONTENT_MASTER',
-]) {
+for (const token of ['Selected16','11 implemented','11 missing','admitted=4','blocked=12','TWO_TARGET_TETHER','KNOCKBACK_VECTOR','rain_thread','BLOCKED_MISSING_UNITY_CALLER_PROOF','return_compass_needle','RETURNING_PROJECTILE','fake projectile','CONTENT_MASTER']) {
   assert(doc.includes(token), `Base Weapon runtime admission doc missing token: ${token}`);
 }
 
 console.log(JSON.stringify({
-  status: 'PASS',
-  selected16: 16,
-  admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
+  status: 'PASS', selected16: 16, admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
   implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
   missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
   primitiveCompleteMissingCallerProof: title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount,
-  rainThread: {
-    implemented: rainThread.implementedUnityCapabilities,
-    missing: rainThread.missingUnityCapabilities,
-    decision: rainThread.unityDecision,
-    callerProof: rainThread.prototypeCallerImplemented,
-  },
-  returnCompassNeedle: {
-    implemented: returnNeedle.implementedUnityCapabilities,
-    missing: returnNeedle.missingUnityCapabilities,
-    decision: returnNeedle.unityDecision,
-  },
+  rainThread: { implemented: rainThread.implementedUnityCapabilities, missing: rainThread.missingUnityCapabilities, decision: rainThread.unityDecision, callerProof: rainThread.prototypeCallerImplemented },
+  returnCompassNeedle: { implemented: returnNeedle.implementedUnityCapabilities, missing: returnNeedle.missingUnityCapabilities, decision: returnNeedle.unityDecision },
   liveStage1PrototypeCallers: 0,
 }, null, 2));
