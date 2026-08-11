@@ -76,8 +76,8 @@ for (const token of [
 
 assert(currentUnityWeaponRuntimeCapabilities.SLAM_WAVE_QUERY === 'IMPLEMENTED', 'SLAM_WAVE_QUERY must remain backed by reusable sector-band source');
 assert(currentUnityWeaponRuntimeCapabilities.BREAK_STAGGER_APPLICATION === 'IMPLEMENTED', 'break/stagger runtime must remain backed by reusable implementation');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 9, `expected 9 implemented primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 13, `expected 13 missing primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 10, `expected 10 implemented primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 12, `expected 12 missing primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 for (const implemented of ['SLAM_WAVE_QUERY', 'BREAK_STAGGER_APPLICATION'] as const) {
   assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === implemented), `${implemented} must disappear from missing frequency`);
 }
@@ -93,11 +93,11 @@ for (const capability of ['SLAM_WAVE_QUERY', 'KNOCKBACK_VECTOR', 'BREAK_STAGGER_
   assert(hammer.implementedUnityCapabilities.includes(capability), `pavement_hammer should inherit ${capability} evidence`);
 }
 assert(hammer.missingUnityCapabilities.length === 0, `pavement_hammer shared primitives should be complete, got ${hammer.missingUnityCapabilities.join(',')}`);
-assert(hammer.prototypeCallerImplemented, 'pavement_hammer caller proof must be registered after executable caller implementation');
-assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'pavement_hammer should enter implementation review after caller proof');
-assert(hammer.mayEnterUnityRuntimeRegistry, 'pavement_hammer should now be implementation-review eligible');
+assert(hammer.prototypeCallerImplemented, 'pavement_hammer caller proof must remain registered after executable caller implementation');
+assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'pavement_hammer should remain implementation-review admitted');
+assert(hammer.mayEnterUnityRuntimeRegistry, 'pavement_hammer should remain implementation-review eligible');
 assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'implementation-review evidence must not claim pavement_hammer live implementation');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete caller-proof blocker should remain');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Star Map Pin should be the one primitive-complete caller-proof blocker');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', 'implementation-review admission IDs drift');
 assert(!weapons.some((weapon) => weapon.id === 'pavement_hammer'), 'prototype caller work must not add pavement_hammer to Web live catalog');
 assert(!coordinatorSource.includes('U2EnemySlamWaveQueryRuntime'), 'shared slam-wave query must not silently enter live Stage1 coordinator');

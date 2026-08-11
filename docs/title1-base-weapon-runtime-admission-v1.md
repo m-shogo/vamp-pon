@@ -49,10 +49,11 @@ IMPLEMENTED:
 7. `CONE_QUERY`
 8. `SLAM_WAVE_QUERY`
 9. `BREAK_STAGGER_APPLICATION`
+10. `HOMING_PRIORITY_SELECTION`
 
-現在 **9 implemented**。
+現在 **10 implemented**。
 
-現在 **13 missing**。
+現在 **12 missing**。
 
 ## Admission decisions
 
@@ -88,7 +89,7 @@ caller proof registryもこの3本。
 
 primitive-complete but caller-proof missing:
 
-- none
+- `star_map_pin`
 
 ## `ember_matchcase`
 
@@ -152,23 +153,6 @@ Callerが明示的に接続する順序:
 5. break accumulation / threshold / stagger
 6. caller-owned telemetry
 
-倒れたtargetにはdamage後のStatus / knockback / break-staggerを適用しない。
-
-EXPOSEDのinternal cooldownでStatusがblockされても、独立mechanicであるdamage / knockback / break-staggerは継続できる。
-
-全数値はcaller supplied:
-
-- inner / outer radius
-- half-angle
-- max target count
-- damage
-- damage flash duration
-- knockback distance
-- break amount
-- break threshold
-- stagger duration
-- EXPOSED application policy
-
 Boundary:
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
@@ -179,15 +163,46 @@ Boundary:
 
 `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-ただし:
+ただし `runtimeStatus = NOT_IMPLEMENTED` で、Web / LevelUp / live Stage1 / U47 executorへは未接続。
 
-- `runtimeStatus = NOT_IMPLEMENTED`
-- Web live catalog未接続
-- LevelUp未接続
-- Stage1GameplayRuntimeCoordinator未接続
-- U47 live executor未拡張
+## `star_map_pin` — shared primitives complete / caller pending
 
-なのでproduction/liveを意味しない。
+既存Content Authorityはこのruntime作業では変更しない。
+
+required:
+
+1. `HOMING_PRIORITY_SELECTION`
+2. `STATUS_APPLICATION`
+
+shared runtime evidence:
+
+- `HOMING_PRIORITY_SELECTION`: IMPLEMENTED
+- `STATUS_APPLICATION`: IMPLEMENTED
+
+caller proof:
+
+- `StarMapPinPrototypeRuntime`: MISSING
+
+現在のdecision:
+
+`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+
+つまりfar/high-priority targetをgenericに選ぶ基盤は揃ったが、星図のピン固有のscore構築・targeted projectile・MARKED transport・telemetryはまだ実装していない。
+
+shared primitive完成だけでimplementation-reviewへ上げない。
+
+## `return_compass_needle` — homing side only advanced
+
+`RETURN_HOMING` が必要とするうち:
+
+- `HOMING_PRIORITY_SELECTION`: IMPLEMENTED
+- `RETURNING_PROJECTILE`: MISSING
+
+なので引き続き:
+
+`BLOCKED_MISSING_UNITY_PRIMITIVES`
+
+priority selector完成だけでreturn projectileを偽装しない。
 
 ## Shared primitive boundaries
 
@@ -238,37 +253,43 @@ Weapon identity / Status / knockback / damageを持たない。
 
 `innerRadius=0` ならone-shot slam、callerがbandを進めればpropagating waveにも使える。
 
-Weapon identity / Status / damage / break / stagger / knockback / timing / VFXを持たない。
-
 ### `BREAK_STAGGER_APPLICATION`
 
 `U2EnemyBreakStaggerRuntime` + `U2EnemyBreakStaggerState` + pooled `U2EnemyBreakStaggerDriver`。
 
-Semantics:
+- HPとは独立したbreak accumulation
+- caller supplied amount / threshold / stagger duration
+- residual gauge
+- normal pursuit suppression
+- knockback displacement preservation
+- death/pool reset
 
-1. HPとは独立したbreak accumulation
-2. caller supplied `breakAmount`
-3. caller supplied `breakThreshold`
-4. threshold到達時だけstagger trigger
-5. threshold超過分はresidual gaugeとして保持
-6. caller supplied `staggerDurationSeconds`
-7. active staggerは通常追跡移動を抑止
-8. `KNOCKBACK_VECTOR` の外力移動はstagger中も保持
-9. dying / pooled disableでstate clear
-10. invalid / null / untargetable inputはfail closed
+### `HOMING_PRIORITY_SELECTION`
 
-Shared primitiveが持たないもの:
+`U2EnemyHomingPrioritySelectionRuntime`
 
-- Weapon固有Content identity
-- damage
-- Canon break amount / threshold / duration
-- passive recovery / decay
-- boss / elite resistance
-- VFX / SFX / camera shake
-- caller telemetry policy
-- live registry admission
+- caller-owned candidate list
+- caller-owned parallel priority scores
+- caller min/max range
+- highest finite priority wins
+- equal priority時は `StableInputOrder / PreferNearer / PreferFarther`
+- XY distance only
+- inclusive range boundaries
+- targetable-only
+- O(n), internal list/sortなし
 
-Boss/elite resistanceや自然回復が必要になった場合は、武器値をここへ埋めず別policy layerとして追加する。
+Generic selectorが持たないもの:
+
+- `star_map_pin` / `return_compass_needle`
+- MARKED
+- boss / elite定義
+- HP priority
+- damage / crit
+- projectile spawn
+- homing curve
+- Canon priority score / range
+
+priorityの意味はcaller/別runtime authorityがscoreへ変換する。
 
 ## Pavement Hammer executable proof
 
@@ -276,23 +297,17 @@ Boss/elite resistanceや自然回復が必要になった場合は、武器値�
 - `scripts/quality/unity-pavement-hammer/UnityPavementHammer.Contract.csproj`
 - `scripts/quality/unity-pavement-hammer/Program.cs`
 
-Executable contractはTEST_ONLY値で:
+TEST_ONLY contractでdamage-death short circuit / EXPOSED / knockback / break threshold / residual / stagger / telemetryを検証する。
 
-- sector-band selection
-- nearest-first order
-- damage-death short circuit
-- surviving EXPOSED application
-- independent Status internal cooldown
-- outward knockback
-- two-hit break threshold crossing
-- residual break gauge
-- stagger duration
-- caller telemetry
-- invalid tuning fail closed
+## Homing priority executable proof
 
-を検証する。
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyHomingPrioritySelectionRuntime.cs`
+- `scripts/quality/unity-homing-priority-selection/UnityHomingPrioritySelection.Contract.csproj`
+- `scripts/quality/unity-homing-priority-selection/Program.cs`
 
-TEST_ONLY数値は **NOT_CANON**。
+TEST_ONLY contractでpriority / range / targetability / 2D distance / far-near-stable tie / invalid inputを検証する。
+
+数値は **NOT_CANON**。
 
 ## Live boundary
 
@@ -305,7 +320,7 @@ TEST_ONLY数値は **NOT_CANON**。
 - U47 executor enumの名前だけ追加
 - save migrationの先行作成
 - unsupported weaponをProjectile/GroundAreaへ偽装
-- prototype caller実装だけでruntime auto-promotion
+- prototype/shared primitiveだけでruntime auto-promotion
 
 `runtimeAutoPromotionAllowed = false`
 
@@ -338,10 +353,19 @@ Runtime進捗を理由にSelected16を勝手に変更しない。
 
 ### Pavement Hammer
 
-1. runtime evidence capture
-2. caller telemetryとrendered evidenceを同一runへ束ねる
-3. mobile pavement-crack visual cue
-4. break/stagger readability
-5. human live-admission review
+- local Unity runtime evidence実行
+- rendered pavement impact / stagger readability
+- telemetry + rendered evidence同一run
+- human live-admission review
+
+### Star Map Pin
+
+1. `StarMapPinPrototypeRuntime` caller proof
+2. caller-owned priority score scratch
+3. far/high-priority tie policy
+4. existing targeted projectile primitive
+5. typed MARKED request
+6. telemetry
+7. runtime evidence
 
 数値balanceは最後まで **PROTOTYPE_TUNING_NOT_CANON** として原本/Canonから分離する。
