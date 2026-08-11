@@ -41,6 +41,7 @@ const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Proje
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
 const statusSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs', import.meta.url), 'utf8');
+const requestSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs', import.meta.url), 'utf8');
 
 for (const token of [
   'public const string WeaponId = "ember_matchcase";',
@@ -50,16 +51,25 @@ for (const token of [
   'EnemyStatusRuntimeKind.Burn',
   'EnemyStatusApplicationPolicy burnPolicy',
   'battle.FireGameplayProjectilesAtNearestTargets(',
-  'CreateBurnRequest(burnPolicy)',
+  'EmberMatchcasePrototypeTelemetry',
+  'Action<EnemyStatusApplyResult> resultObserver = null;',
+  'resultObserver = telemetry.RecordStatusResult;',
+  'telemetry?.RecordInvocation(maxTargets, fired)',
 ]) {
   assert(emberSource.includes(token), `Ember prototype source missing token: ${token}`);
 }
+
+assert(emberSource.includes('=> CreateBurnRequest(burnPolicy, null);'), 'observer-free CreateBurnRequest overload must remain source-compatible');
+assert(emberSource.includes('=> Fire(battle, damage, pierce, maxTargets, burnPolicy, null);'), 'observer-free Fire overload must remain source-compatible');
+assert(requestSource.includes(': this(kind, policy, null)'), 'typed request two-argument constructor must remain observer-free');
+assert(requestSource.includes('resultObserver?.Invoke(result);'), 'typed request must support optional result telemetry');
 
 assert(!emberSource.includes('new EnemyStatusApplicationPolicy('), 'Ember prototype must not hide numerical Status defaults');
 assert(!emberSource.includes('durationSeconds:'), 'Ember prototype must not hard-code BURN duration');
 assert(!emberSource.includes('internalCooldownSeconds:'), 'Ember prototype must not hard-code BURN internal cooldown');
 assert(!emberSource.includes('maxTargets ='), 'Ember prototype must not hard-code scatter target count');
 assert(!emberSource.includes('damage ='), 'Ember prototype must not hard-code projectile damage');
+assert(!emberSource.includes('static EmberMatchcasePrototypeTelemetry'), 'telemetry lifetime must stay caller-owned, not static/global');
 
 assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'real multi-target executor missing');
 assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest = null'), 'real typed Status transport missing');
@@ -87,6 +97,7 @@ console.log(JSON.stringify({
     blocked: title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount,
     admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
   },
+  telemetry: { callerOwned: true, optionalResultObserver: true },
   tuningAuthority: 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
   webLiveCatalog: false,
   liveStage1Loop: false,

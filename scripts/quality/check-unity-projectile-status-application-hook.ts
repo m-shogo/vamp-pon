@@ -15,7 +15,15 @@ const evidenceSource = readFileSync(new URL('../unity/u47-simulator-evidence-sou
 assert(requestSource.includes('public readonly struct EnemyStatusApplicationRequest'), 'typed Status request missing');
 assert(requestSource.includes('EnemyStatusRuntimeKind kind'), 'request must carry typed Status kind');
 assert(requestSource.includes('EnemyStatusApplicationPolicy policy'), 'request must carry exact caller policy');
-assert(requestSource.includes('return state.Apply(Kind, Policy);'), 'request must delegate to shared Status state');
+assert(requestSource.includes(': this(kind, policy, null)'), 'two-argument Status request constructor must remain source-compatible and observer-free');
+assert(requestSource.includes('Action<EnemyStatusApplyResult> resultObserver'), 'optional Status result observer contract missing');
+assert(requestSource.includes('public bool HasResultObserver => resultObserver != null;'), 'observer presence must remain explicitly inspectable');
+assert(requestSource.includes('var result = state.Apply(Kind, Policy);'), 'request must delegate Status semantics to shared state exactly once');
+assert(requestSource.includes('resultObserver?.Invoke(result);'), 'optional observer must receive exact shared-state Apply result');
+assert(requestSource.includes('return result;'), 'ApplyTo must return the same result delivered to telemetry');
+assert(!requestSource.includes('durationSeconds:'), 'request transport must not own hidden Status duration defaults');
+assert(!requestSource.includes('internalCooldownSeconds:'), 'request transport must not own hidden cooldown defaults');
+
 assert(battleSource.includes('public bool FireGameplayProjectile(float damage, int pierce)\n            => FireGameplayProjectile(damage, pierce, null);'), 'legacy projectile API must remain source-compatible');
 assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest'), 'projectile API must accept optional typed Status request');
 assert(battleSource.includes('private EnemyStatusApplicationRequest? statusApplicationRequest;'), 'pooled projectile must own optional Status request state');
@@ -31,6 +39,8 @@ assert(damage >= 0 && apply > damage && consume > apply, 'same-hit order must be
 assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'first Selected16 Status caller must be ember_matchcase');
 assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'Ember caller must build typed BURN request');
 assert(emberSource.includes('EnemyStatusApplicationPolicy burnPolicy'), 'Ember caller must receive explicit caller policy');
+assert(emberSource.includes('Action<EnemyStatusApplyResult> resultObserver = null;'), 'Ember prototype must materialize optional telemetry observer explicitly');
+assert(emberSource.includes('resultObserver = telemetry.RecordStatusResult;'), 'Ember prototype must attach caller-owned telemetry observer');
 assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller must route request through real multi-target projectile path');
 assert(emberSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'prototype Status caller must not freeze balance values');
 
@@ -45,6 +55,7 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCou
 console.log(JSON.stringify({
   status: 'PASS',
   typedRequest: true,
+  optionalResultObserver: true,
   pooledRequestReset: true,
   selected16PrototypeStatusCallers: ['ember_matchcase'],
   liveStage1StatusCallers: 0,
