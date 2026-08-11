@@ -1,37 +1,45 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "updatedAt": "2026-08-11",
   "authority": "docs/core5-era-character-master-v1.md",
+  "researchAuthority": "docs/research/era-society-food-future-sourcebook-v1.md",
   "exactYearsFrozen": false,
+  "exactDecadesAreExamplesNotAuthority": true,
   "assignments": [
     {
       "id": "tomori",
       "name": "トモリ",
-      "era": "1940S_JAPAN",
-      "eraLabel": "1940年代系 日本",
+      "era": "POSTWAR_RECOVERY_SCARCITY_JAPAN",
+      "eraLabel": "戦後復興・物資不足期",
+      "roughHistoricalBand": "1945後〜1950年代前半相当",
       "species": "HUMAN",
       "narrativeRole": "ERA_LEAD",
+      "primaryPressure": "scarcity / distribution / reconstruction / repair",
       "coreBridge": "repair / reuse / inherited light",
       "exactYear": null
     },
     {
       "id": "michiru",
       "name": "ミチル",
-      "era": "1980S_JAPAN",
-      "eraLabel": "1980年代系 日本",
+      "era": "LATE_HIGH_GROWTH_POLLUTION_ENERGY_TRANSITION_JAPAN",
+      "eraLabel": "高度成長末期〜公害・石油危機の転換期",
+      "roughHistoricalBand": "1960年代後半〜1970年代相当",
       "species": "HUMAN",
       "narrativeRole": "ERA_LEAD",
-      "coreBridge": "paper map / changing city / route plurality",
+      "primaryPressure": "development / pollution / urban planning / energy",
+      "coreBridge": "route plurality / development choice",
       "exactYear": null
     },
     {
       "id": "nagi",
       "name": "ナギ",
-      "era": "2000S_JAPAN",
-      "eraLabel": "2000年代系 日本",
+      "era": "POST_BUBBLE_EARLY_MOBILE_INTERNET_JAPAN",
+      "eraLabel": "バブル崩壊後〜携帯Internet初期",
+      "roughHistoricalBand": "1990年代後半〜2000年代前半相当",
       "species": "HUMAN",
       "narrativeRole": "ERA_LEAD",
-      "coreBridge": "early network / privacy / access boundary",
+      "primaryPressure": "early network / privacy / identity exposure / employment insecurity",
+      "coreBridge": "access / privacy / correction / consent",
       "exactYear": null
     },
     {
@@ -39,25 +47,29 @@
       "name": "ユイ",
       "era": "PRESENT_DAY_JAPAN",
       "eraLabel": "現代日本",
+      "roughHistoricalBand": "2020年代〜Current",
       "species": "HUMAN",
       "narrativeRole": "OVERALL_VIEWPOINT_AND_PRESENT_ERA_LEAD",
+      "primaryPressure": "information excess / misinformation / algorithm / loneliness",
       "coreBridge": "over-documentation / memory / choice",
       "exactYear": null
     },
     {
       "id": "asa",
       "name": "アサ",
-      "era": "FUTURE_ANDROID_ROBOT_SOCIETY",
-      "eraLabel": "未来 Android / Robot共存社会",
+      "era": "FAR_FUTURE_HUMAN_ANDROID_ROBOT_AVATAR_SOCIETY",
+      "eraLabel": "遠未来 Human / Android / Robot / Avatar共存社会",
+      "roughHistoricalBand": "exact year Open",
       "species": "HUMAN",
       "narrativeRole": "PROTAGONIST_GRADE_BUDDY_AND_FUTURE_ERA_LEAD",
+      "primaryPressure": "personhood / body / copy / digital identity / ownership",
       "coreBridge": "name / designation / personhood",
       "exactYear": null
     }
   ],
   "profileOverrides": {
     "core5AgeImpressionMeaning": "Dream上で近い若者age-impression。Reality同世代という意味ではない。",
-    "asaNameRationale": "『アサ』は短く呼びやすい人名として扱う。Realityの朝という普通の語感は持つが、Yoru-no-Shirubeに物理的な夜明けが来ることを示さない。未来社会のhuman name / chosen name / model designationとの対比を担う。"
+    "asaNameRationale": "『アサ』は短く呼びやすい人名として扱う。Realityの朝という普通の語感は持つが、Yoru-no-Shirubeに物理的な夜明けが来ることを示さない。遠未来社会のhuman name / chosen name / model designationとの対比を担う。"
   },
   "runtimeAutoPromotionAllowed": false
 }
