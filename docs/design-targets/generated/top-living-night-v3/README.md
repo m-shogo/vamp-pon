@@ -141,8 +141,8 @@ If the same candidate SHA is already registered, the helper is a no-op and does 
 seasonalBinariesCommitted=true
 loadingUnityImportEvidence=PASSED_154_assertions_4_textures
 v2LayerKitUnityEvidence=PASSED_270_assertions_17_textures
-v3UnityExecuted=false
-v3UnityResult=NOT_RUN
+v3UnityExecuted=true
+v3UnityResult=PASSED
 currentCaptureExecuted=false
 currentCaptureResult=NOT_RUN
 runtimeCaptureComplete=false

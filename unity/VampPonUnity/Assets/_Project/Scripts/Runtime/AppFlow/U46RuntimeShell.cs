@@ -199,6 +199,7 @@ namespace VampPon.UnitySpike.Runtime.AppFlow
         private static void ApplyPreferences(AppPreferenceSnapshot value)
         {
             U43RuntimeFeedbackBridge.Instance?.ApplySettings(value);
+        }
 
         private void ApplyState(AppFlowState state)
         {
