@@ -1,0 +1,37 @@
+name: Character Behavior Identity Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/character-behavior-identity-reservoir-v1.md'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'scripts/quality/check-character-behavior-identity-reservoir.ts'
+      - '.github/workflows/character-behavior-identity-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/character-behavior-identity-reservoir-v1.md'
+      - 'src/game/data/characterOrdinaryLifeReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'scripts/quality/check-character-behavior-identity-reservoir.ts'
+      - '.github/workflows/character-behavior-identity-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character behavior identity reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-behavior-identity-reservoir.ts
