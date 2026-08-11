@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import { worldSettingExpansionEntries, worldSettingExpansionSummary } from '../../src/game/data/worldSettingExpansionIndex.ts';
 import { worldSettingConflictEntries, worldSettingConflictSummary } from '../../src/game/data/worldSettingConflictRegister.ts';
 import { SAKUMEI_CANDIDATE_IDENTITY, sakumeiCandidateMembers, sakumeiCandidateSummary } from '../../src/game/data/sakumeiCandidateSource.ts';
+import { stageWorldLoreEntries, stageWorldLoreSummary } from '../../src/game/data/stageWorldLoreIntegration.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -49,6 +50,20 @@ for (const member of sakumeiCandidateMembers) {
   assert(!member.runtimeAutoPromotionAllowed, `Sakumei member may not auto-promote runtime: ${member.callName}`);
 }
 
+assert(stageWorldLoreSummary.productionStageCount === 20, `expected Stage Production 20, got ${stageWorldLoreSummary.productionStageCount}`);
+assert(stageWorldLoreSummary.integrationStageCount === 20, `world lore must cover all 20 stages, got ${stageWorldLoreSummary.integrationStageCount}`);
+assert(stageWorldLoreSummary.uniqueIntegrationStageCount === 20, 'Stage world lore stage IDs must be unique');
+assert(stageWorldLoreSummary.missingProductionStageIds.length === 0, `missing Stage world lore coverage: ${stageWorldLoreSummary.missingProductionStageIds.join(', ')}`);
+assert(stageWorldLoreSummary.orphanIntegrationStageIds.length === 0, `orphan Stage world lore entries: ${stageWorldLoreSummary.orphanIntegrationStageIds.join(', ')}`);
+assert(stageWorldLoreSummary.sakumeiClueOrRevealStageCount === 3, `expected three explicit Sakumei clue/reveal stages, got ${stageWorldLoreSummary.sakumeiClueOrRevealStageCount}`);
+assert(!stageWorldLoreSummary.runtimeAutoPromotionAllowed, 'Stage world lore integration may not auto-promote runtime');
+for (const entry of stageWorldLoreEntries) {
+  assert(entry.knowledgeBeat.length >= 20, `Stage knowledge beat too thin: ${entry.stageId}`);
+  assert(entry.ordinaryDetail.length >= 15, `Stage ordinary detail too thin: ${entry.stageId}`);
+  assert(entry.forbiddenImplication.length >= 20, `Stage forbidden implication too thin: ${entry.stageId}`);
+  assert(!entry.runtimeAutoPromotionAllowed, `Stage world lore may not auto-promote runtime: ${entry.stageId}`);
+}
+
 const worldHub = fs.readFileSync('docs/WORLD.md', 'utf8');
 const foundation = fs.readFileSync('docs/world-foundation-authority-v1.md', 'utf8');
 const lifeDeath = fs.readFileSync('docs/world-life-death-injury-rulebook-v1.md', 'utf8');
@@ -58,6 +73,7 @@ const lineup = fs.readFileSync('docs/character-height-age-era-lineup-v1.md', 'ut
 const sakumei = fs.readFileSync('docs/sakumei-antagonist-organization-candidate-v1.md', 'utf8');
 const sakumeiDeep = fs.readFileSync('docs/sakumei-member-deep-profile-candidate-v1.md', 'utf8');
 const conflicts = fs.readFileSync('docs/world-setting-conflict-register-v1.md', 'utf8');
+const stageLore = fs.readFileSync('docs/stage-world-lore-integration-v1.md', 'utf8');
 
 for (const required of [
   '現実では人物が同時代とは限らない',
@@ -79,5 +95,6 @@ assert(sakumeiDeep.includes('ナシロ') && sakumeiDeep.includes('アサトジ')
 assert(conflicts.includes('UNRESOLVED_BLOCKER   = 0'), 'conflict register doc must report zero unresolved blockers');
 assert(conflicts.includes('GUARDED              = 12'), 'conflict register doc guarded count must match machine source');
 assert(conflicts.includes('OPEN_HUMAN           = 5'), 'conflict register doc human-open count must match machine source');
+assert(stageLore.includes('Stage20 World / Lore Integration'), 'Stage world lore integration document must remain routed');
 
-console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingExpansionSummary.uniqueSourceCount} primary sources / ${worldSettingConflictSummary.total} conflict lanes / 8 Sakumei attachment lanes / 0 blockers`);
+console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingExpansionSummary.uniqueSourceCount} primary sources / ${worldSettingConflictSummary.total} conflict lanes / 8 Sakumei attachment lanes / 20 Stage lore entries / 0 blockers`);
