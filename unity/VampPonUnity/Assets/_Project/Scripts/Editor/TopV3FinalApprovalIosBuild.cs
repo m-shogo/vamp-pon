@@ -50,8 +50,12 @@ namespace VampPon.UnitySpike.Editor
 
             try
             {
-                if (!File.Exists(BootScenePath) || !File.Exists(Stage1ScenePath))
-                    throw new InvalidOperationException("TOP final iOS export requires Boot and Stage1 scenes.");
+                if (AssetDatabase.LoadAssetAtPath<SceneAsset>(BootScenePath) == null ||
+                    AssetDatabase.LoadAssetAtPath<SceneAsset>(Stage1ScenePath) == null)
+                {
+                    throw new InvalidOperationException(
+                        "TOP final iOS export requires Boot and Stage1 scenes in the Unity project.");
+                }
 
                 if (Directory.Exists(output) && Directory.EnumerateFileSystemEntries(output).Any())
                     throw new InvalidOperationException(
