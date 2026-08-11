@@ -1,41 +1,44 @@
-# ヨルノシルベ — World Human Decision Queue v1
+# ヨルノシルベ — World Human Decision Queue v2
 
 Date: 2026-08-11  
-Status: **HUMAN CONSULTATION ROUTER / OPEN DOES NOT MEAN BLOCKED**
+Status: **HUMAN CONSULTATION ROUTER / MASTER-ALIGNED**
 
-> 目的: 「相談が必要なら聞く」を担当AIの気分にしない。
-> 高影響設定は、**いつまではOPENでよいか / 何を始める直前にUserへ相談するか**を明示する。
+> 「相談が必要なら聞く」を担当AIの感覚にしない。
+> 最上位: `00-current-story-world-master.md`。
 
 ---
 
 # 1. Decision states
 
-- `OPEN_NOT_BLOCKING` — 今は決めない方がよい。現在作業は進めてよい。
-- `CONSULT_BEFORE_NEXT_GATE` — 指定作業へ進む前に必ずUserへ相談。
-- `USER_DIRECTION_SET_DETAILS_OPEN` — 大方向はUser決定済み、細部だけOPEN。
-- `DECIDED` — Human decision済み。
-
-AIが`OPEN_NOT_BLOCKING`を「穴だから埋める」と解釈しない。
+- `OPEN_NOT_BLOCKING` — 今は決めない方がよい。作業は進められる。
+- `CONSULT_BEFORE_NEXT_GATE` — 指定gate前にUserへ相談。
+- `USER_DIRECTION_SET_DETAILS_OPEN` — 大方向は決定、細部だけOpen。
+- `DECIDED` — 再び旧Candidateへ戻さない。
 
 ---
 
-# 2. HD-001 — 夜の最終正体
+# 2. HD-001 — ヨルノシルベの最終mechanism / 起源
 
 State: `OPEN_NOT_BLOCKING`
 
-Current allowed:
-- Reality / Threshold / Night / Record / Unknown MechanismのLayer設計
-- Nightで観測される現象
-- 人物が持つ仮説 / 噂
+### DECIDED
 
-Do not decide:
-- dreamそのもの
-- virtual worldそのもの
-- afterlifeそのもの
-- collective unconsciousそのもの
+- ヨルノシルベは**夢世界**。
+- 共有夢に近い。
+- 朝は来ない。
+- 帰還はWaking。
+
+### OPEN
+
+- 誰が / 何が共有させているか
+- Realityとどう接続しているか
+- 黒インク / 星獣 / 星座増減との最終因果
+- collective dream / memory network等の最終説明
+
+**「夢かどうか」を再び候補へ戻さない。**
 
 Consult trigger:
-> **Series全体の最終Mystery構造をLOCKする時、またはTitle2/3の主軸がNight Originへ直接依存する時。**
+> Series全体の最終MysteryをLOCKする時、または作品内でOriginを直接説明する時。
 
 ---
 
@@ -43,41 +46,41 @@ Consult trigger:
 
 State: `OPEN_NOT_BLOCKING`
 
-Current high-value Candidate:
-> 悲しい出来事についた「間違った意味」を固定する方向。
+Current high-value direction:
+> 悲しい出来事についた「間違った意味」を固定する圧力と相性が良い。
 
 Open:
-- 誰が作ったか
+- Creator
 - 自然現象か
 - 意志があるか
-- Nightそのものと同一か
+- Dream Layerそのものと同一か
 
 Consult trigger:
-> **黒インクのCreator / Originを画面に直接出す時、Title1 final boss identityへ結び付ける時。**
+> 黒インクOriginを画面で断定する直前。
 
 ---
 
-# 4. HD-003 — 星獣の完全Mechanism
+# 4. HD-003 — 星獣 / 星座の完全Mechanism
 
 State: `OPEN_NOT_BLOCKING`
 
-Current allowed:
-- 人物とのresonance
-- Theme color / constellation
-- Gameplay mechanic
-- 人物より先にObject / counterpartへ反応するMystery
+### DECIDED
 
-Do not decide:
-- 死者の魂
-- 守護神
-- AI
-- Night生物
-- 記憶の具現
+- 星はDreamで見える。
+- 星座は年代によって同一とは限らない。
+- 昔あった / 後世で生まれた星座を使える。
+- 星座増減はMain Mystery。
+- Reality動物と星獣は別category。
+- 星獣をAndroidの魂証明装置にしない。
 
-のいずれかへ単独確定。
+### OPEN
+
+- 星座が増減する最終原因
+- 星獣の出生 / 死 / reproduction / creator
+- 星獣と星座の最終関係
 
 Consult trigger:
-> **星獣の出生 / 死 / reproduction / creator / cosmologyをCanon storyへ出す前。**
+> 星獣cosmologyまたは星座増減原因をCanon回答として出す前。
 
 ---
 
@@ -86,149 +89,137 @@ Consult trigger:
 State: `OPEN_NOT_BLOCKING`
 
 Current allowed:
-- Relative Era: OLD / TRANSIT / RECENT / UNKNOWN
-- culture zone
-- technology / language / material evidence
+- 1940年代系 / 1980年代系 / 2000年代系 / 現代 / 未来等のera lane
+- 実在日本のtechnology / language / product / institution evidence
+- 東京 / 新宿 / 渋谷等の実在地名を必要に応じて使用
 
-Do not invent:
-- exact西暦
-- 実在市町村
-- 全Current21が同じ県 / 都市
+Do not invent without need:
+- exact year
+- exact birthday-year combination
+- final hometown
 
 Consult trigger:
-> **Character final profileへ西暦・出身地を載せる時、現実地図をfinal artとして作る時。**
+> Official Character profile / final Reality mapでexact値を固定する時。
 
 ---
 
-# 6. HD-005 — Current主要人物の重大Family facts
+# 6. HD-005 — Major family facts
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
 Current allowed:
 - homeAnchor
 - household habit
-- known relation（リツ×コヨリ等）
-- family未確定の明示
+- existing known family relation
 
 Consult before adding:
 - 実親 / 養親の重要identity
 - sibling追加
-- spouse / ex-spouse
-- child
+- spouse / child
 - family death / disappearance
-- abuse / domestic violence
-- Main Mystery関係者の血縁
-
-Trigger:
-> **Family-centered episode / character master lore card / final profile bookでその事実が必要になった時。**
+- abuse
+- Main Mystery関係者との血縁
 
 ---
 
-# 7. HD-006 — Current主要人物のPermanent death
+# 7. HD-006 — Major Character permanent death
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
 Default:
 - Game Over非死亡
-- permanent deathを主要な泣かせ装置にしない
-- Happy Endを守る
+- Happy End
+- Permanent deathを主要な泣かせ装置にしない
 
 Consult trigger:
-> **Current21 / Future主要人物を現実で死亡させる案をStory beatへ入れる前。**
-
-AIは「感動するから」で提案を既定路線にしない。
+> Current / Future主要CharacterのReality deathをStoryへ入れる前。
 
 ---
 
-# 8. HD-007 — 死者がNightへ本人として現れるか
+# 8. HD-007 — 死者がDreamへ本人として現れるか
 
 State: `OPEN_NOT_BLOCKING`
 
 Options retained:
 - 生者のみ
-- 過去時点の本人が時代を越えて現れる
-- 本人ではなくRecord / echo
+- 過去時点の本人
+- Record / echo
 
-Safe default until decision:
-> **死亡確定人物を、明示的に「本人が死後も来た」とは描かない。Record / witness / echoで表現する。**
+Safe default:
+> 死亡確定人物を「死後も本人が夢へ来ている」と断定しない。
 
 Consult trigger:
-> 死亡確定人物とCurrent CharacterをNightで直接会話させたい時。
+> Realityで死亡確定した人物と主要CharacterをDreamで直接会話させる時。
 
 ---
 
-# 9. HD-008 — 朔盟Founder / absolute leader
+# 9. HD-008 — 朔夜座Founder / absolute leader
 
 State: `OPEN_NOT_BLOCKING`
 
-Current solution:
-- Pair Mission Ruleでleaderなしでも運営可能
-- Founder不明でも組織として成立
+### DECIDED
+
+- Current formal name = **朔夜座**。
+- 旧八影 = early observer label。
+- 旧朔盟 = Superseded Candidate / asset namespace。
 
 Do not default:
-- 8人を作った黒幕
-- 数字rank leader
+- 8人を一人の黒幕が作った
 - 最強member=leader
+- 数字rank hierarchy
 
 Consult trigger:
-> **朔盟の最初の盟約 / Founder / 最終指揮者をStory payoffにする時。**
+> 朔夜座のFounder / 最初の結成 / 絶対指揮者をCanon payoffにする時。
 
 ---
 
-# 10. HD-009 — 朔盟8人の真名 / 人間時代identity
+# 10. HD-009 — 朔夜座8人の真名 / Reality identity
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
-Current:
-- ナシロ等は作中call name
-- true nameではない
-- 同じ種族 / human originも必須ではない
+Current call names:
+ナシロ / アサトジ / ミチグレ / オリネ / ハクマ / ツグリ / ユラネ / ペタ。
 
 Consult trigger:
-> **個別master profileへtrue name / human face / past-life faceを載せる前。**
+> 個別master profileでtrue name / human identity / exact Reality eraを固定する前。
 
-Final character masterは、true name未決でも現在姿のmasterとして作ってよい。
+Final visual masterはtrue name未決でも制作可能。
 
 ---
 
-# 11. HD-010 — Title1 final boss identity
+# 11. HD-010 — 各時代大事件の中心人物 / 戦闘Boss構造
 
 State: `OPEN_NOT_BLOCKING`
 
-Current rule:
-- Stage20 gameplay / Main Story Happy Endを成立させる
-- Main Mystery最終答えとは分離可能
+### DECIDED
 
-Do not infer:
-- Sakumei Founder = final boss
-- 黒インクCreator = final boss
-- Night Creator = final boss
+- **1時代1人の固定「世代ラスボス」slotは作らない。**
+- 群青残響録 = 各時代の大事件中心人物 / 人物群を後から括る記録名。
+- 固定人数ではない。
+- 必ず敵 / 必ず戦闘Bossではない。
+
+### OPEN
+
+- 各事件で中心人物が一人か複数か
+- 戦闘Bossが必要か
+- 制度 / 組織 / 群衆心理が主な対立になるか
+- final combatを誰 / 何が担うか
 
 Consult trigger:
-> **Stage20 final Bossの人物identity / motiveをFinal CanonへLOCKする前。**
+> 各時代大事件のfinal structureをCanon LOCKする直前。
 
 ---
 
-# 12. HD-011 — 大規模Historical IncidentのCurrent人物への直接被害
+# 12. HD-011 — 大規模Historical Incidentの直接被害
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
-Current allowed:
-- 無番線案内
-- 未配達保管
-- 地図改訂
-- 白紙台帳
-- 継火修理
-等のIncident candidate
-
 Consult before:
-- Current Characterの家族を死亡させる
+- Character家族を死亡させる
 - 家を失わせる
-- 人生の職業 / identityを事故だけで決める
-- 全員を同一事件へ接続
-
-Trigger:
-> IncidentをCharacter backstoryの主要原因へ昇格する時。
+- 人生identityを事故だけで決める
+- 全Characterを一事件へ接続する
+- exact被害者数を固定する
 
 ---
 
@@ -240,12 +231,7 @@ Hard current:
 - ユイ×アサ = protagonist-grade buddy / non-romance
 - リツ×コヨリ = siblings / non-romance
 
-Other attraction / orientation / relationship candidatesはCharacter Coreを尊重する。
-
-AIはAffinityが高いから自動恋愛化しない。
-
-Consult trigger:
-> **特定pairを明確なCanon romantic relationshipへ昇格する前。**
+Affinityが高いだけで自動恋愛化しない。
 
 ---
 
@@ -254,55 +240,127 @@ Consult trigger:
 State: `CONSULT_BEFORE_NEXT_GATE`
 
 Current allowed:
-- relative height bands
-- candidate ranges
+- relative height
+- candidate range
 - age impression
-- Era evidence
+- era evidence
 
 Consult trigger:
-> **Character final master board / official profile / merchandise specでexact数値を印刷・固定する前。**
-
-画像生成candidateはrelative lineupで進められる。
+> Official profile / Character final master board / merch specでexact値を固定する前。
 
 ---
 
-# 15. Consultation priority
+# 15. HD-014 — 群青残響録 member / formal names
 
-現在の世界設定P0-P2作業を止める相談事項:
+State: `CONSULT_BEFORE_NEXT_GATE`
+
+### DECIDED
+
+- 総称 = **群青残響録**。
+- 「座」は付けない。
+- 固定人数ではない。
+- 固定敵組織ではない。
+
+### OPEN
+
+- 正式member構成
+- 各人物の漢字名 / 姓 / full name
+- exact era
+- 最終救済 / 結末
+
+トウイチ / レイジ / マコト / チカゲ / 過去full-name案はCandidate。
+
+Consult trigger:
+> 新聞 / 名簿 / 企業資料等で正式名をPlayerへ確定Revealする前。
+
+---
+
+# 16. HD-015 — Android final identity
+
+State: `CONSULT_BEFORE_NEXT_GATE`
+
+### DECIDED
+
+- 人間になることがgoalではない。
+- 好感度は上がりにくい方向。
+- 人間側 / Android側双方にDream参加者がいる。
+- シオン不採用。
+- イヴ・ノイン不採用。
+- Lambda等は個人名ではなく旧version / design generation方向。
+
+### OPEN
+
+- 最終カタカナ名
+- acronym / alphabet designation
+- 完全version順序
+
+Consult trigger:
+> Official Character nameplate / final master / story Revealで正式名を固定する前。
+
+---
+
+# 17. HD-016 — Dream materializationの限界
+
+State: `USER_DIRECTION_SET_DETAILS_OPEN`
+
+### DECIDED
+
+生成 / 補完しやすい:
+- 食事
+- 飲み物
+- 日用品
+- 休息
+- 基本生活物
+
+願いだけで変えられない:
+- 心
+- 同意
+- 記憶真実
+- トラウマ
+- 人間関係
+- 黒耀化
+- 生死
+- Reality大事件
+
+### Open detail
+
+- 生成演出
+- 誰でも同程度に生成できるか
+- 一度にどこまで出せるか
+- Character固有の癖
+
+このdetailはGameplay / visualへ必要になった時に相談する。
+
+---
+
+# 18. Current consultation priority
+
+現在のMaster追従作業を止める相談事項:
 
 ```txt
 NONE
 ```
 
-つまり、今は安全に:
-- 世界資料を深くする
-- Stage / Relation / Objectへ繋ぐ
-- Candidate master仕様を作る
+今は安全に:
+- 下位資料migration
+- era evidence整理
+- 朔夜座既存8資産の再利用
+- 群青残響録Candidate構造の整理
+- Character final master前段
 
-ところまで進めてよい。
-
-次に最も早く相談が発火しそうなのは:
-
-1. Character final masterでexact height / true-name past identityが必要になった時
-2. Stage20 final bossをCanon LOCKする時
-3. Family-centered major backstoryを作る時
+まで進められる。
 
 ---
 
-# 16. Rule for future agents
+# 19. Future-agent consultation format
 
-Userへ相談する時は:
+相談時は:
 
-Bad:
-> 設定どうしますか？
+1. なぜ今決める必要があるか
+2. Masterへの影響
+3. 2〜3案
+4. 推奨
 
-Good:
-> 「Nightで死者本人を出すか」が必要になりました。既存Happy End / 時代構造を守るならA=生者のみ、B=過去時点の本人、C=Record echoの3案があり、現状はCが最も安全です。どれを正本にしますか？
+を短く出す。
 
-のように、
-- なぜ今決定が必要か
-- 既存設定への影響
-- 2〜3案
-- 推奨
-
-を短く提示する。
+既に`DECIDED`のものを「どれにしますか？」と聞き直さない。
