@@ -165,7 +165,7 @@ const seeds: readonly ArcSeed[] = [
   {
     relationId: 'ritsu-koyori',
     friction: { from: 'koyori', to: 'ritsu', direction: 'DOWN', reasonKey: 'koyori_rejects_brother_overprotection', storyMeaning: 'コヨリは兄の先回りが「自分には無理」と言われたように感じ、初めて明確に拒む。', gameplayEcho: 'リツが自動で庇うほどコヨリの行動機会を奪う局面を置く。' },
-    recognition: { from: 'ritsu', to: 'koyori', direction: 'UP', reasonKey: 'ritsu_sees_koyori_rescue_others', storyMeaning: 'コヨリが自分以外を救った姿を見て、リツ側が「守る妹」だけの見方を更新する。', gameplayEcho: 'コヨリ発の救援がリツへ届く。' },
+    recognition: { from: 'ritsu', to: 'koyori', direction: 'UP', reasonKey: 'ritsu_sees_koyori_rescue_others', storyMeaning: 'コヨリが自分以外を救った姿を見て、リツ側が「守る妹」だけの見方を更新する。', gameplayEcho: 'コヨリ発の救援を受けて、リツが庇う前に任せる判断を取れる。' },
     chosenTrust: { aToB: 'UNCHANGED', bToA: 'UP', aReasonKey: 'ritsu_love_stays_family_not_more', bReasonKey: 'koyori_trusts_brother_to_wait', storyMeaning: '兄妹の愛情を数値上の「さらに好き」にせず、リツは変わらぬ家族愛、コヨリは待ってくれる兄への信頼を上げる。', gameplayEcho: '「お兄ちゃん」の呼称は変えず、庇う/任せる条件だけが変わる。' },
   },
   {
@@ -183,7 +183,7 @@ const seeds: readonly ArcSeed[] = [
   {
     relationId: 'madoka-ren',
     friction: { from: 'ren', to: 'madoka', direction: 'DOWN', reasonKey: 'ren_rejects_unspoken_observation', storyMeaning: 'マドカが気づいていたのに言わなかった差分を知り、レンは観測だけでは遅いと感じる。', gameplayEcho: '異変noticeのtimingが一度遅れる。' },
-    recognition: { from: 'madoka', to: 'ren', direction: 'UP', reasonKey: 'madoka_sees_ren_report_without_judgment', storyMeaning: 'レンが差分を結論にせず本人へ返す姿を見て、マドカが自分の観測を共有しやすくなる。', gameplayEcho: '差分cueを二人で確認する。' },
+    recognition: { from: 'madoka', to: 'ren', direction: 'UP', reasonKey: 'madoka_sees_ren_report_without_judgment', storyMeaning: 'レンが差分を結論にせず本人へ返す姿を見て、マドカが自分の観測を共有しやすくなる。', gameplayEcho: '差分cueを二人で照合し、結論を急がず共有できる。' },
     chosenTrust: { aToB: 'UP', bToA: 'UP', aReasonKey: 'madoka_trusts_ren_receiver', bReasonKey: 'ren_trusts_madoka_to_speak', storyMeaning: '見る人と伝える人を固定せず、気づいた側が声を出し、受けた側が決めつけない関係を選ぶ。', gameplayEcho: 'Reserveを含む関係なのでruntime昇格は別gateのまま。' },
   },
   {
