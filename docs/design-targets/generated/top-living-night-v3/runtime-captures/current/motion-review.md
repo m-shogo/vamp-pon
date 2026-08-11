@@ -4,13 +4,13 @@ Runtime look/motion captures from the real Unity `TopLivingNightView` (final-cor
 
 ## Runtime evidence summary
 
-- source commit: `ac3701c5ada3c08c9cd80050f4cfdab5e0b76348`
+- source commit: `c5eca594d5028cd7ab83cfe126b53c69e9d733a9`
 - Unity: `6000.5.1f1`
 - candidate SHA256: `f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e`
 - semantic layer pack SHA256: `3b8b92d531e8d83f7a38f79afbff028d82e592f8ef50f64c6984590cdf0eaa12`
-- effect companion pack SHA256: `a6ff212e3c22910460c7b2d052e4266621d4c636e20d1936e108f97cf0077f46`
+- effect companion pack SHA256: `b95fccc24dbbd38891b486e34d7ca58993eed125cbfa5c3e2bee63ff6631a301`
 - captures: 39/39 — result PASSED
-- generated: `2026-08-11T05:44:46.848Z`
+- generated: `2026-08-11T06:50:59.694Z`
 
 ## Automated visual diagnostics
 
@@ -35,6 +35,21 @@ Runtime look/motion captures from the real Unity `TopLivingNightView` (final-cor
 - `review/timeseries-430x932-reduced.png`
 - `review/timeseries-430x932-transition.png`
 - `review/contact-sheet.png`
+
+## Fire-effect before / after review aids
+
+- `review/before-after-430x932-normal.png`
+- `review/before-after-390x844-normal.png`
+- `review/before-after-360x800-normal.png`
+- `review/before-after-430x932-reduced.png`
+- `review/before-after-390x844-reduced.png`
+- `review/before-after-360x800-reduced.png`
+- `review/before-after-fire-closeup.png`
+- `review/before-after-smoke.png`
+- `review/before-after-embers.png`
+- `review/before-after-glow.png` (alpha x3 visualization; runtime asset is unchanged)
+
+These comparisons use the pre-change `origin/main` runtime capture and the refreshed runtime capture at the same nominal frame. They are review aids only and do not promote human or runtime approval.
 
 ## Core5 human review checklist (PENDING human)
 
