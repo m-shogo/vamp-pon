@@ -7,16 +7,20 @@ on:
       - 'docs/core5-era-character-master-v1.md'
       - 'docs/research/era-major-incident-social-sourcebook-v1.md'
       - 'docs/era-major-incident-family-lens-atlas-v1.md'
+      - 'docs/era-incident-evidence-supporting-cast-matrix-v1.md'
       - 'docs/era-family-generation-lens-v1.md'
       - 'docs/character-reality-root-registry-v1.md'
       - 'docs/cross-era-lineage-reveal-map-v1.md'
       - 'docs/world-historical-incident-ledger-v1.md'
       - 'src/game/data/eraMajorIncidentFamilyLens.ts'
+      - 'src/game/data/eraIncidentEvidenceSupportingCast.ts'
       - 'src/game/data/core5EraCanon.ts'
       - 'src/game/data/characterRealityRootRegistry.ts'
       - 'src/game/data/crossEraLineageMemory.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
       - 'src/game/data/seasonArchitecture.ts'
       - 'scripts/quality/check-era-major-incidents.ts'
+      - 'scripts/quality/check-era-incident-evidence-supporting-cast.ts'
       - '.github/workflows/era-major-incidents.yml'
   push:
     branches: [main]
@@ -25,16 +29,20 @@ on:
       - 'docs/core5-era-character-master-v1.md'
       - 'docs/research/era-major-incident-social-sourcebook-v1.md'
       - 'docs/era-major-incident-family-lens-atlas-v1.md'
+      - 'docs/era-incident-evidence-supporting-cast-matrix-v1.md'
       - 'docs/era-family-generation-lens-v1.md'
       - 'docs/character-reality-root-registry-v1.md'
       - 'docs/cross-era-lineage-reveal-map-v1.md'
       - 'docs/world-historical-incident-ledger-v1.md'
       - 'src/game/data/eraMajorIncidentFamilyLens.ts'
+      - 'src/game/data/eraIncidentEvidenceSupportingCast.ts'
       - 'src/game/data/core5EraCanon.ts'
       - 'src/game/data/characterRealityRootRegistry.ts'
       - 'src/game/data/crossEraLineageMemory.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
       - 'src/game/data/seasonArchitecture.ts'
       - 'scripts/quality/check-era-major-incidents.ts'
+      - 'scripts/quality/check-era-incident-evidence-supporting-cast.ts'
       - '.github/workflows/era-major-incidents.yml'
 
 permissions:
@@ -51,3 +59,5 @@ jobs:
           node-version: '22'
       - name: Validate five Era major incidents and family/generation lenses
         run: node --experimental-strip-types scripts/quality/check-era-major-incidents.ts
+      - name: Validate Era incident evidence layers and supporting cast coverage
+        run: node --experimental-strip-types scripts/quality/check-era-incident-evidence-supporting-cast.ts
