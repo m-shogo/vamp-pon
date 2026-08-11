@@ -37,8 +37,8 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypeCount 
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypes === CURRENT_RUNTIME_WEAPON_EFFECT_TYPES, 'Unity overlay must reuse, not copy, the Web runtime capability authority');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypeCount === 2, 'Unity U47 importer/executor surface should remain Projectile/GroundArea only');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypes.join(',') === 'Projectile,GroundArea', 'unexpected Unity executor surface');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 3, 'Unity baseline should expose exactly three primitive capabilities in this evidence model');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount >= 15, 'advanced Title1 weapon runtime still needs multiple Unity primitive executors');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 4, 'Unity evidence should expose four implemented primitives after deterministic multi-target selection landed');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount >= 14, 'advanced Title1 weapon runtime still needs multiple Unity primitive executors');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.selected16WebAdmissionAuthorityDuplicated, 'Unity overlay must not become a second Selected16 Web admission authority');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.webRuntimeSupportEqualsUnityRuntimeSupport, 'Web effect support must never be treated as Unity implementation evidence');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.fakeProjectileFallbackAllowed, 'unsupported archetypes must never be faked as generic projectile');
@@ -69,6 +69,7 @@ for (const [capability, expected] of Object.entries({
   NEAREST_TARGET_PROJECTILE: 'IMPLEMENTED',
   MULTI_PROJECTILE_LOOP: 'IMPLEMENTED',
   CIRCULAR_GROUND_AREA: 'IMPLEMENTED',
+  MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',
   STATUS_APPLICATION: 'MISSING',
   CONE_QUERY: 'MISSING',
   KNOCKBACK_VECTOR: 'MISSING',
@@ -91,6 +92,10 @@ assert(coordinatorSource.includes('definition.EffectType == WeaponEffectType.Pro
 assert(coordinatorSource.includes('CountAreas(owned.Id)'), 'U47 coordinator circular GroundArea executor evidence missing');
 assert(battleSource.includes('public bool FireGameplayProjectile(float damage, int pierce)'), 'nearest-target projectile API evidence missing');
 assert(battleSource.includes('var target = FindNearestEnemy();'), 'current Unity projectile executor must still use nearest-target selection');
+assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'deterministic multi-target projectile primitive evidence missing');
+assert(battleSource.includes('private readonly List<U2EnemyActor> nearestEnemyTargetScratch = new(8);'), 'multi-target primitive must keep reusable scratch storage');
+assert(battleSource.includes('SortNearestEnemyScratchPrefix(targetCount);'), 'multi-target primitive must keep deterministic nearest-prefix selection');
+assert(!coordinatorSource.includes('FireGameplayProjectilesAtNearestTargets'), 'real Selected16 multi-target caller is still intentionally absent');
 assert(!coordinatorSource.includes('WeaponEffectType.Cone'), 'Cone executor unexpectedly exists; Unity admission model needs update');
 assert(!coordinatorSource.includes('WeaponEffectType.Tether'), 'Tether executor unexpectedly exists; Unity admission model needs update');
 
@@ -109,6 +114,7 @@ for (const token of [
   'admitted=0',
   'blocked=16',
   'STATUS_APPLICATION',
+  'MULTI_TARGET_PROJECTILE_SELECTION',
   'fake projectile',
   'Wave A',
   'Wave B',
