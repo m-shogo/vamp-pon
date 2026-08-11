@@ -30,7 +30,7 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypes.j
 assert(!title1BaseWeaponRuntimeAdmissionSummary.webRuntimeSupportEqualsUnityRuntimeSupport, 'Web capability must never imply Unity implementation');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.fakeProjectileFallbackAllowed, 'fake projectile fallback must remain forbidden');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.contentSelectionMayBeDowngradedToFitRuntime, 'runtime gaps must not downgrade Content selection');
-assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'shared primitive work must never auto-promote live runtime');
+assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'prototype caller work must never auto-promote live runtime');
 
 for (const capability of [
   'NEAREST_TARGET_PROJECTILE',
@@ -53,17 +53,17 @@ for (const implementedCapability of ['STATUS_APPLICATION', 'KNOCKBACK_VECTOR', '
 }
 
 assert(new Set<string>(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must be unique');
-assert(unityPrototypeCallerImplementedWeaponIds.length === 2, 'exactly Ember + Bellows caller proofs should exist');
+assert(unityPrototypeCallerImplementedWeaponIds.length === 3, 'exactly Ember + Bellows + Pavement Hammer caller proofs should exist');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('ember_matchcase'), 'Ember caller proof missing');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('bellows_fan'), 'Bellows caller proof missing');
-assert(!new Set<string>(unityPrototypeCallerImplementedWeaponIds).has('pavement_hammer'), 'Pavement Hammer caller proof must remain absent');
-assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 2, 'caller-proof summary drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Pavement Hammer should be the only primitive-complete caller-proof blocker');
+assert(unityPrototypeCallerImplementedWeaponIds.includes('pavement_hammer'), 'Pavement Hammer caller proof missing');
+assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 3, 'caller-proof summary drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no Selected16 weapon should remain primitive-complete without caller proof after Pavement Hammer caller lands');
 
 assert(title1BaseWeaponRuntimeAdmissionEntries.length === 16, 'Unity overlay must cover Selected16 exactly');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 2, `expected 2 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 14, `expected 14 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan', `unexpected admitted IDs: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 3, `expected 3 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 13, `expected 13 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', `unexpected admitted IDs: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
 
 const upstreamById = new Map(selectedBaseWeaponRuntimeAdmissionEntries.map((entry) => [entry.weaponId, entry]));
 const selectedIds = new Set(selectedTitle1BaseWeaponCandidates.map((entry) => entry.weaponId));
@@ -103,9 +103,10 @@ assert(
 );
 assert(hammer.implementedUnityCapabilities.join(',') === 'SLAM_WAVE_QUERY,KNOCKBACK_VECTOR,BREAK_STAGGER_APPLICATION,STATUS_APPLICATION', `unexpected Pavement Hammer implemented capabilities: ${hammer.implementedUnityCapabilities.join(',')}`);
 assert(hammer.missingUnityCapabilities.length === 0, `Pavement Hammer shared primitives should be complete, got ${hammer.missingUnityCapabilities.join(',')}`);
-assert(!hammer.prototypeCallerImplemented, 'Pavement Hammer caller proof must remain absent');
-assert(hammer.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Pavement Hammer blocker must move to caller proof after real break/stagger foundation');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer must stay outside implementation review until caller proof exists');
+assert(hammer.prototypeCallerImplemented, 'Pavement Hammer caller proof must be registered after executable caller implementation');
+assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Pavement Hammer should enter implementation review after primitive + caller proof');
+assert(hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer should become implementation-review eligible');
+assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'implementation-review admission must not claim Pavement Hammer live runtime');
 
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   if (entry.weaponId === 'ember_matchcase' || entry.weaponId === 'bellows_fan' || entry.weaponId === 'pavement_hammer') continue;
@@ -121,6 +122,7 @@ const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
 const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
 const bellowsSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/BellowsFanPrototypeRuntime.cs', import.meta.url), 'utf8');
+const hammerSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PavementHammerPrototypeRuntime.cs', import.meta.url), 'utf8');
 const knockbackSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs', import.meta.url), 'utf8');
 const coneSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyConeQueryRuntime.cs', import.meta.url), 'utf8');
 const slamSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemySlamWaveQueryRuntime.cs', import.meta.url), 'utf8');
@@ -133,6 +135,18 @@ assert(battleSource.includes('public bool TakeDamage(float damage, float damageF
 assert(!battleSource.includes('breakGauge') && !battleSource.includes('staggerGauge') && !battleSource.includes('poiseGauge'), 'break/stagger must remain isolated from hidden U2 tuning fields');
 assert(emberSource.includes('EnemyStatusRuntimeKind.Burn') && emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller evidence missing');
 assert(bellowsSource.includes('EnemyStatusRuntimeKind.Disoriented') && bellowsSource.includes('U2EnemyConeQueryRuntime.SelectTargets(') && bellowsSource.includes('U2EnemyKnockbackRuntime.TryApply('), 'Bellows caller evidence missing');
+for (const token of [
+  'public static class PavementHammerPrototypeRuntime',
+  'EnemyStatusRuntimeKind.Exposed',
+  'U2EnemySlamWaveQueryRuntime.SelectTargets(',
+  'target.TakeDamage(damage, damageFlashSeconds)',
+  'U2EnemyKnockbackRuntime.TryApplyFromPoint(',
+  'U2EnemyBreakStaggerRuntime.TryApply(',
+  'QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER',
+  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
+]) {
+  assert(hammerSource.includes(token), `Pavement Hammer caller evidence missing token: ${token}`);
+}
 assert(knockbackSource.includes('public static class U2EnemyKnockbackRuntime'), 'knockback helper missing');
 assert(knockbackSource.includes('public static event Action<U2EnemyActor> EnemyDisplaced;'), 'knockback must expose generic displacement integration signal');
 assert(coneSource.includes('public static class U2EnemyConeQueryRuntime'), 'cone helper missing');
@@ -147,6 +161,7 @@ assert(!breakSource.includes('pavement_hammer') && !breakSource.includes('EXPOSE
 for (const forbiddenLiveToken of [
   'EmberMatchcasePrototypeRuntime',
   'BellowsFanPrototypeRuntime',
+  'PavementHammerPrototypeRuntime',
   'U2EnemyKnockbackRuntime',
   'U2EnemyConeQueryRuntime',
   'U2EnemySlamWaveQueryRuntime',
@@ -163,16 +178,17 @@ for (const token of [
   'Unity runtime = 2',
   '9 implemented',
   '13 missing',
-  'admitted=2',
-  'blocked=14',
+  'admitted=3',
+  'blocked=13',
   'ember_matchcase',
   'bellows_fan',
   'pavement_hammer',
+  'PavementHammerPrototypeRuntime',
+  'QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER',
   'SLAM_WAVE_QUERY',
   'BREAK_STAGGER_APPLICATION',
   'BLOCKED_MISSING_UNITY_PRIMITIVES',
   'BLOCKED_MISSING_UNITY_CALLER_PROOF',
-  'primitive-complete but caller-proof missing',
   'fake projectile',
   'CONTENT_MASTER',
 ]) {
@@ -191,6 +207,7 @@ console.log(JSON.stringify({
     missing: hammer.missingUnityCapabilities,
     decision: hammer.unityDecision,
     callerProof: hammer.prototypeCallerImplemented,
+    runtimeStatus: hammer.runtimeStatus,
   },
   liveStage1PrototypeCallers: 0,
 }, null, 2));
