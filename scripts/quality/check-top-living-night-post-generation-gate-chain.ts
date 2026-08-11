@@ -88,6 +88,7 @@ invariant(
       'unity-v3',
       'runtime-observation',
       'capture-human-review',
+      'ios-final-evidence-export',
       'device-performance',
       'final-promotion',
     ]),
@@ -106,6 +107,20 @@ invariant(
     unityPhase.requires.includes('effect-companion-pack-registration') &&
     unityPhase.parallel.includes('unity-v3-verification'),
   'Unity V3 verification must depend on registered semantic and effect final packs',
+);
+const iosExportPhase = bundle.postGenerationExecutionPlan[4];
+invariant(
+  iosExportPhase.requires.includes('unity-v3-verification') &&
+    iosExportPhase.requires.includes('15-frame-capture') &&
+    iosExportPhase.parallel.includes('ios-final-evidence-export'),
+  'final iOS evidence export must bind the exact Unity V3 + 15-frame capture source before device measurement',
+);
+const devicePhase = bundle.postGenerationExecutionPlan[5];
+invariant(
+  devicePhase.requires.includes('ios-final-evidence-export') &&
+    devicePhase.parallel.includes('simulator-performance') &&
+    devicePhase.parallel.includes('physical-iphone-performance'),
+  'device performance must run only after exact-source final iOS evidence export',
 );
 const finalPhase = bundle.postGenerationExecutionPlan[bundle.postGenerationExecutionPlan.length - 1];
 invariant(
@@ -155,7 +170,7 @@ for (const [name, target] of [
 }
 
 console.log('TOP Living Night post-generation gate chain: PASS');
-console.log('parallel plan: candidate -> [Core5, crops, semantic pack, effect pack] -> Unity -> [motion, capture] -> human/device -> promotion');
+console.log('parallel plan: candidate -> [Core5, crops, semantic pack, effect pack] -> Unity -> [motion, capture] -> human -> exact-source iOS export -> device -> promotion');
 console.log('final Unity cannot pass through flattened-only or stale-V2-effect paths; semantic and effect pack registration are explicit prerequisites');
-console.log('motion is bound after Unity; human is bound after capture; device evidence is bound after Unity + capture');
+console.log('motion is bound after Unity; human is bound after capture; device evidence is bound after exact-source iOS export + Unity/capture provenance');
 console.log('generation remains non-final; runtime/review execution may still be NOT_RUN');
