@@ -1,0 +1,55 @@
+name: unity-repair-spanner-prototype
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RepairSpannerPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RepairSpannerPrototypeRuntime.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2ReturningProjectileMotionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-repair-spanner-prototype.ts'
+      - 'scripts/quality/unity-repair-spanner/**'
+      - 'docs/unity-repair-spanner-prototype-v1.md'
+      - '.github/workflows/unity-repair-spanner-prototype.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RepairSpannerPrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/RepairSpannerPrototypeRuntime.cs.meta'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2ReturningProjectileMotionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-repair-spanner-prototype.ts'
+      - 'scripts/quality/unity-repair-spanner/**'
+      - 'docs/unity-repair-spanner-prototype-v1.md'
+      - '.github/workflows/unity-repair-spanner-prototype.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check Repair Spanner prototype caller
+        run: node --experimental-strip-types scripts/quality/check-unity-repair-spanner-prototype.ts
+      - name: Compile and execute Repair Spanner contract
+        run: |
+          dotnet build scripts/quality/unity-repair-spanner/UnityRepairSpanner.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-repair-spanner/UnityRepairSpanner.Contract.csproj --configuration Release --no-build
+      - name: Re-check returning motion foundation
+        run: node --experimental-strip-types scripts/quality/check-unity-returning-projectile-primitive.ts
+      - name: Re-check Title1 Base Weapon admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
