@@ -9,12 +9,21 @@ function assert(condition: unknown, message: string): asserts condition {
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
 const requestSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs', import.meta.url), 'utf8');
+const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
 const evidenceSource = readFileSync(new URL('../unity/u47-simulator-evidence-sources.ts', import.meta.url), 'utf8');
 
 assert(requestSource.includes('public readonly struct EnemyStatusApplicationRequest'), 'typed Status request missing');
 assert(requestSource.includes('EnemyStatusRuntimeKind kind'), 'request must carry typed Status kind');
 assert(requestSource.includes('EnemyStatusApplicationPolicy policy'), 'request must carry exact caller policy');
-assert(requestSource.includes('return state.Apply(Kind, Policy);'), 'request must delegate to shared Status state');
+assert(requestSource.includes(': this(kind, policy, null)'), 'two-argument Status request constructor must remain source-compatible and observer-free');
+assert(requestSource.includes('Action<EnemyStatusApplyResult> resultObserver'), 'optional Status result observer contract missing');
+assert(requestSource.includes('public bool HasResultObserver => resultObserver != null;'), 'observer presence must remain explicitly inspectable');
+assert(requestSource.includes('var result = state.Apply(Kind, Policy);'), 'request must delegate Status semantics to shared state exactly once');
+assert(requestSource.includes('resultObserver?.Invoke(result);'), 'optional observer must receive exact shared-state Apply result');
+assert(requestSource.includes('return result;'), 'ApplyTo must return the same result delivered to telemetry');
+assert(!requestSource.includes('durationSeconds:'), 'request transport must not own hidden Status duration defaults');
+assert(!requestSource.includes('internalCooldownSeconds:'), 'request transport must not own hidden cooldown defaults');
+
 assert(battleSource.includes('public bool FireGameplayProjectile(float damage, int pierce)\n            => FireGameplayProjectile(damage, pierce, null);'), 'legacy projectile API must remain source-compatible');
 assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest'), 'projectile API must accept optional typed Status request');
 assert(battleSource.includes('private EnemyStatusApplicationRequest? statusApplicationRequest;'), 'pooled projectile must own optional Status request state');
@@ -26,10 +35,29 @@ const damage = battleSource.indexOf('var defeated = hitTarget.TakeDamage(');
 const apply = battleSource.indexOf('if (!defeated) projectile.ApplyStatusOnHit(hitTarget);');
 const consume = battleSource.indexOf('projectile.ConsumeHit();', damage);
 assert(damage >= 0 && apply > damage && consume > apply, 'same-hit order must be damage -> surviving Status -> consume');
+
+assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'first Selected16 Status caller must be ember_matchcase');
+assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'Ember caller must build typed BURN request');
+assert(emberSource.includes('EnemyStatusApplicationPolicy burnPolicy'), 'Ember caller must receive explicit caller policy');
+assert(emberSource.includes('Action<EnemyStatusApplyResult> resultObserver = null;'), 'Ember prototype must materialize optional telemetry observer explicitly');
+assert(emberSource.includes('resultObserver = telemetry.RecordStatusResult;'), 'Ember prototype must attach caller-owned telemetry observer');
+assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller must route request through real multi-target projectile path');
+assert(emberSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'prototype Status caller must not freeze balance values');
+
 assert(coordinatorSource.includes('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'), 'live coordinator must remain legacy no-request caller');
-assert(!coordinatorSource.includes('EnemyStatusApplicationRequest'), 'generic recovery must not invent a live Selected16 caller');
-assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'historical U47 normalizer must explicitly strip only reusable primitives');
+assert(!coordinatorSource.includes('EmberMatchcasePrototypeRuntime'), 'prototype admission must not silently enter live Stage1 loop');
+assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'historical U47 normalizer must explicitly strip reusable primitives');
 assert(!evidenceSource.includes(".replace('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'"), 'historical normalizer must never hide live coordinator call-sites');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 0, 'generic hook alone must not admit Selected16');
-assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 16, 'STATUS_APPLICATION remains blocked until a real Selected16 caller');
-console.log(JSON.stringify({ status: 'PASS', typedRequest: true, pooledRequestReset: true, liveStatusRequestCallers: 0 }, null, 2));
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'real Ember caller should admit exactly one Selected16 weapon for implementation review');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'only ember_matchcase may be admitted');
+assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION shared primitive must no longer remain missing');
+
+console.log(JSON.stringify({
+  status: 'PASS',
+  typedRequest: true,
+  optionalResultObserver: true,
+  pooledRequestReset: true,
+  selected16PrototypeStatusCallers: ['ember_matchcase'],
+  liveStage1StatusCallers: 0,
+  admittedForImplementationReview: ['ember_matchcase'],
+}, null, 2));

@@ -20,6 +20,10 @@ assert(snapshot.stages.finalStageId === 'dawn_return_square', `unexpected final 
 assert(snapshot.characters.currentCount === 21, `Current Character count must remain 21, got ${snapshot.characters.currentCount}`);
 assert(snapshot.characters.relationshipArcCount === 24, `Current relationship arc count must remain 24, got ${snapshot.characters.relationshipArcCount}`);
 assert(snapshot.characters.relationshipSpeechDirectedTrackCount === 48, 'Current24 relationship speech must remain authored in both directions');
+assert(snapshot.characters.allPairDirectedSpeechLaneCount === 420, 'all Current21 directed relationship lanes must have speech presentation');
+assert(snapshot.characters.allPairFeaturedSpeechLaneCount === 48, 'Featured24 must retain 48 authored directed speech overrides');
+assert(snapshot.characters.allPairBaselineSpeechLaneCount === 372, 'remaining 186 pair must expose 372 safe fallback directions');
+assert(snapshot.characters.allPairBaselineAddressPrototypeCount === 372, 'baseline default addresses must remain prototype/non-Canon');
 assert(snapshot.characters.groupInteractionSceneCount === 12, 'Current21 group interaction lane count must remain 12');
 assert(snapshot.characters.groupIntermissionPlacementCount === 24, 'group scenes must have first + repeat placement');
 assert(snapshot.characters.allPairBondLaneCount === 210, `Current21 all pair Bond lanes must be 210, got ${snapshot.characters.allPairBondLaneCount}`);
@@ -27,6 +31,10 @@ assert(snapshot.characters.directedAffinityLaneCount === 420, `directed Affinity
 assert(snapshot.characters.possibleTrioCombinationCount === 1330, `Current21 trio combinations must be 1330, got ${snapshot.characters.possibleTrioCombinationCount}`);
 assert(!snapshot.characters.storedTrioBondExists, 'trio/group Bond must not be persisted');
 assert(snapshot.characters.trioPresentationShapeCount >= 5, 'trio presentation needs multiple derived shapes');
+assert(snapshot.characters.relationshipEventKindCount === 12, `pairwise relationship event kinds must be 12, got ${snapshot.characters.relationshipEventKindCount}`);
+assert(!snapshot.characters.genericCombatAffinityGrowthAllowed, 'generic combat may not manufacture directed Affinity');
+assert(snapshot.characters.authoredAffinityMayDecrease, 'authored relationship events must support directional Affinity decreases');
+assert(snapshot.characters.trioRelationshipEventsDecomposeToPairs, 'trio relationship events must decompose into actual AB/AC/BC pairs');
 
 assert(snapshot.enemies.currentCount === 48, `Current Enemy count must remain 48, got ${snapshot.enemies.currentCount}`);
 assert(snapshot.enemies.spotlightCount === 8, 'Spotlight Enemy count must remain 8');
@@ -109,8 +117,10 @@ assert(!snapshot.promotionBoundary.combatItemRuntimeAutoPromotionAllowed, 'Comba
 assert(!snapshot.promotionBoundary.transformationRuntimeAutoPromotionAllowed, 'Transformation Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.rewardCollectionRuntimeAutoPromotionAllowed, 'Reward/Collection Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.relationshipSpeechRuntimeAutoPromotionAllowed, 'Relationship Speech Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.allPairDirectedSpeechRuntimeAutoPromotionAllowed, 'All-pair directed speech prototype must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.groupIntermissionRuntimeAutoPromotionAllowed, 'Group intermission Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.pairwiseBondRuntimeAutoPromotionAllowed, 'Pairwise Bond Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.pairwiseRelationshipEventLedgerRuntimeAutoPromotionAllowed, 'Pairwise relationship event ledger must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.trioInteractionRuntimeAutoPromotionAllowed, 'Trio interaction Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.spotlightEnemyRuntimeAutoPromotionAllowed, 'Spotlight Enemy Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.spotlightStoryRuntimeAutoPromotionAllowed, 'Spotlight story fragments must not auto-promote runtime');
@@ -122,7 +132,7 @@ assert(!snapshot.promotionBoundary.yatsukagePairDynamicsRuntimeAutoPromotionAllo
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 24, `Title1 Content Master should expose 24 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 26, `Title1 Content Master should expose 26 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 

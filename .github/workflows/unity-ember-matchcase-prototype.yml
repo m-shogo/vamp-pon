@@ -1,0 +1,85 @@
+name: unity-ember-matchcase-prototype
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/**'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'scripts/quality/check-unity-ember-matchcase-prototype.ts'
+      - 'scripts/quality/check-unity-ember-matchcase-telemetry.ts'
+      - 'scripts/quality/unity-ember-matchcase-telemetry/**'
+      - 'scripts/quality/check-unity-enemy-status-owner.ts'
+      - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
+      - 'scripts/quality/check-unity-targeted-projectile-primitive.ts'
+      - 'scripts/quality/check-unity-multitarget-projectile-primitive.ts'
+      - 'scripts/quality/check-unity-multitarget-admission-proof.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - 'docs/unity-ember-matchcase-telemetry-v1.md'
+      - '.github/workflows/unity-ember-matchcase-prototype.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/**'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'scripts/quality/check-unity-ember-matchcase-prototype.ts'
+      - 'scripts/quality/check-unity-ember-matchcase-telemetry.ts'
+      - 'scripts/quality/unity-ember-matchcase-telemetry/**'
+      - 'scripts/quality/check-unity-enemy-status-owner.ts'
+      - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
+      - 'scripts/quality/check-unity-targeted-projectile-primitive.ts'
+      - 'scripts/quality/check-unity-multitarget-projectile-primitive.ts'
+      - 'scripts/quality/check-unity-multitarget-admission-proof.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - 'docs/unity-ember-matchcase-telemetry-v1.md'
+      - '.github/workflows/unity-ember-matchcase-prototype.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check Ember Matchcase Selected16 prototype
+        run: node --experimental-strip-types scripts/quality/check-unity-ember-matchcase-prototype.ts
+      - name: Check Ember prototype telemetry surface
+        run: node --experimental-strip-types scripts/quality/check-unity-ember-matchcase-telemetry.ts
+      - name: Compile and execute Ember telemetry contract
+        run: |
+          dotnet build scripts/quality/unity-ember-matchcase-telemetry/EmberMatchcaseTelemetry.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-ember-matchcase-telemetry/EmberMatchcaseTelemetry.Contract.csproj --configuration Release --no-build
+      - name: Re-check enemy Status ownership
+        run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-owner.ts
+      - name: Re-check typed Projectile Status application
+        run: node --experimental-strip-types scripts/quality/check-unity-projectile-status-application-hook.ts
+      - name: Re-check targeted Projectile primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-targeted-projectile-primitive.ts
+      - name: Re-check multi-target Projectile primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-multitarget-projectile-primitive.ts
+      - name: Check multi-target Admission proof
+        run: node --experimental-strip-types scripts/quality/check-unity-multitarget-admission-proof.ts
+      - name: Check Title1 Base Weapon runtime admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts

@@ -45,7 +45,7 @@ export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponR
   NEAREST_TARGET_PROJECTILE: 'IMPLEMENTED',
   MULTI_PROJECTILE_LOOP: 'IMPLEMENTED',
   CIRCULAR_GROUND_AREA: 'IMPLEMENTED',
-  STATUS_APPLICATION: 'MISSING',
+  STATUS_APPLICATION: 'IMPLEMENTED',
   MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',
   TWO_TARGET_TETHER: 'MISSING',
   CONE_QUERY: 'MISSING',
@@ -143,12 +143,17 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   }
 }
 
+const unityAdmittedWeaponIds = title1BaseWeaponRuntimeAdmissionEntries
+  .filter((entry) => entry.mayEnterUnityRuntimeRegistry)
+  .map((entry) => entry.weaponId);
+
 export const title1BaseWeaponRuntimeAdmissionSummary = {
   selectedContentWeaponCount: selectedBaseWeaponRuntimeAdmissionSummary.candidateCount,
   webLiveCatalogCount: selectedBaseWeaponRuntimeAdmissionSummary.liveCatalogCount,
   webRuntimeHookImplementedCount: selectedBaseWeaponRuntimeAdmissionSummary.runtimeHookImplementedCount,
   webReadyForAdmissionReviewCount: selectedBaseWeaponRuntimeAdmissionSummary.readyForAdmissionReviewCount,
-  unityAdmittedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.mayEnterUnityRuntimeRegistry).length,
+  unityAdmittedRuntimeCount: unityAdmittedWeaponIds.length,
+  unityAdmittedWeaponIds,
   unityBlockedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => !entry.mayEnterUnityRuntimeRegistry).length,
   currentWebRuntimeEffectTypes: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES,
   currentWebRuntimeEffectTypeCount: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length,

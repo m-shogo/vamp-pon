@@ -1,0 +1,35 @@
+name: Pairwise Relationship Event Ledger
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/pairwiseRelationshipEventLedgerSource.ts'
+      - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/relationshipBondSpeechPrototypeSource.ts'
+      - 'docs/pairwise-relationship-event-ledger-v1.md'
+      - 'scripts/quality/check-pairwise-relationship-event-ledger.ts'
+      - '.github/workflows/pairwise-relationship-event-ledger.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/pairwiseRelationshipEventLedgerSource.ts'
+      - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/relationshipBondSpeechPrototypeSource.ts'
+      - 'docs/pairwise-relationship-event-ledger-v1.md'
+      - 'scripts/quality/check-pairwise-relationship-event-ledger.ts'
+      - '.github/workflows/pairwise-relationship-event-ledger.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check pairwise Bond / directed Affinity event ledger
+        run: node --experimental-strip-types scripts/quality/check-pairwise-relationship-event-ledger.ts

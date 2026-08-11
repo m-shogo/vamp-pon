@@ -10,42 +10,48 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(currentUnityWeaponRuntimeCapabilities.MULTI_TARGET_PROJECTILE_SELECTION === 'IMPLEMENTED', 'verified multi-target selection primitive must be promoted in Unity admission evidence');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 4, `expected four implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 0, 'primitive promotion alone must not admit a Selected16 weapon');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 16, 'Selected16 must remain blocked until each full archetype/status path is live');
+assert(currentUnityWeaponRuntimeCapabilities.MULTI_TARGET_PROJECTILE_SELECTION === 'IMPLEMENTED', 'verified multi-target primitive must remain implemented');
+assert(currentUnityWeaponRuntimeCapabilities.STATUS_APPLICATION === 'IMPLEMENTED', 'Selected16-specific Status caller must promote shared STATUS_APPLICATION primitive');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 5, `expected five implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'exactly first Selected16 weapon should pass primitive admission');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'remaining Selected15 must stay blocked');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', `unexpected admitted IDs: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
 
 const ember = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'ember_matchcase');
 assert(ember, 'ember_matchcase must remain in Selected16 Unity admission matrix');
 assert(ember.archetype === 'SCATTER_PROJECTILE', `ember_matchcase archetype drift: ${ember.archetype}`);
-assert(ember.requiredUnityCapabilities.includes('MULTI_TARGET_PROJECTILE_SELECTION'), 'ember_matchcase must require multi-target selection');
-assert(ember.implementedUnityCapabilities.includes('MULTI_TARGET_PROJECTILE_SELECTION'), 'ember_matchcase must now recognize implemented multi-target primitive');
-assert(!ember.missingUnityCapabilities.includes('MULTI_TARGET_PROJECTILE_SELECTION'), 'ember_matchcase must no longer be blocked on multi-target selection');
-assert(ember.missingUnityCapabilities.length === 1, `ember_matchcase should now have exactly one Unity blocker, got ${ember.missingUnityCapabilities.join(',')}`);
-assert(ember.missingUnityCapabilities[0] === 'STATUS_APPLICATION', `ember_matchcase remaining blocker should be STATUS_APPLICATION, got ${ember.missingUnityCapabilities.join(',')}`);
-assert(!ember.mayEnterUnityRuntimeRegistry, 'ember_matchcase must remain blocked until real live Status application evidence exists');
+assert(ember.requiredUnityCapabilities.join(',') === 'MULTI_TARGET_PROJECTILE_SELECTION,STATUS_APPLICATION', `unexpected Ember requirements: ${ember.requiredUnityCapabilities.join(',')}`);
+assert(ember.implementedUnityCapabilities.includes('MULTI_TARGET_PROJECTILE_SELECTION'), 'Ember must recognize multi-target primitive');
+assert(ember.implementedUnityCapabilities.includes('STATUS_APPLICATION'), 'Ember must recognize Status application primitive');
+assert(ember.missingUnityCapabilities.length === 0, `Ember should have no remaining primitive blocker: ${ember.missingUnityCapabilities.join(',')}`);
+assert(ember.mayEnterUnityRuntimeRegistry, 'Ember should be admitted for implementation review');
+assert(ember.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Ember decision drift');
+assert(ember.runtimeStatus === 'NOT_IMPLEMENTED', 'primitive admission must not claim live runtime implementation');
 
-const multiTargetFrequency = title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.find((entry) => entry.capability === 'MULTI_TARGET_PROJECTILE_SELECTION');
-assert(!multiTargetFrequency, 'implemented multi-target primitive must disappear from missing capability frequency');
-const statusFrequency = title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.find((entry) => entry.capability === 'STATUS_APPLICATION');
-assert(statusFrequency?.blockedWeaponCount === 16, `high-level STATUS_APPLICATION must remain shared blocker16, got ${statusFrequency?.blockedWeaponCount ?? 0}`);
+assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'MULTI_TARGET_PROJECTILE_SELECTION'), 'implemented multi-target primitive must not remain missing');
+assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'STATUS_APPLICATION'), 'implemented Status primitive must not remain missing');
 
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
-assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'admission proof requires live source primitive, not documentation only');
-assert(battleSource.includes('private readonly List<U2EnemyActor> nearestEnemyTargetScratch = new(8);'), 'admission proof requires reusable target scratch implementation');
-assert(battleSource.includes('SortNearestEnemyScratchPrefix(targetCount);'), 'admission proof requires deterministic nearest-prefix selection');
-assert(battleSource.includes('FireGameplayProjectileAtTarget('), 'multi-target selection must feed canonical target-spawn primitive');
-assert(!coordinatorSource.includes('FireGameplayProjectilesAtNearestTargets'), 'real Selected16 multi-target caller is still intentionally absent');
+const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
+assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'admission proof requires real multi-target primitive');
+assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest'), 'admission proof requires typed Status transport');
+assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'admission proof must bind exact Selected16 ID');
+assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'admission proof must bind exact BURN status');
+assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'admission proof requires Selected16-specific real caller');
+assert(emberSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'admission proof must preserve prototype tuning boundary');
+assert(!coordinatorSource.includes('EmberMatchcasePrototypeRuntime'), 'implementation-review admission must not silently enable live Stage1 loop');
 
 console.log(JSON.stringify({
   status: 'PASS',
   implementedUnityPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
   selected16Admitted: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount,
+  admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
   emberMatchcase: {
     archetype: ember.archetype,
     implementedCapabilities: ember.implementedUnityCapabilities,
     remainingBlockers: ember.missingUnityCapabilities,
+    liveRuntimeStatus: ember.runtimeStatus,
   },
-  liveMultiTargetCallers: 0,
+  liveStage1Callers: 0,
 }, null, 2));
