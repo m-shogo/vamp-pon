@@ -237,13 +237,14 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Status
             for (var i = 0; i < scratchKinds.Count; i++) activeStatuses.Remove(scratchKinds[i]);
 
             scratchKinds.Clear();
-            foreach (var pair in reapplyCooldowns)
+            foreach (var kind in reapplyCooldowns.Keys) scratchKinds.Add(kind);
+            for (var i = 0; i < scratchKinds.Count; i++)
             {
-                var remaining = Math.Max(0f, pair.Value - deltaSeconds);
-                reapplyCooldowns[pair.Key] = remaining;
-                if (remaining <= 0f) scratchKinds.Add(pair.Key);
+                var kind = scratchKinds[i];
+                var remaining = Math.Max(0f, reapplyCooldowns[kind] - deltaSeconds);
+                if (remaining <= 0f) reapplyCooldowns.Remove(kind);
+                else reapplyCooldowns[kind] = remaining;
             }
-            for (var i = 0; i < scratchKinds.Count; i++) reapplyCooldowns.Remove(scratchKinds[i]);
         }
 
         public EnemyStatusRuntimeSnapshot[] Snapshot()
