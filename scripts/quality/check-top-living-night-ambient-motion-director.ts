@@ -55,10 +55,21 @@ for (const token of [
   'string.Equals(image.name, "RobotEye", StringComparison.Ordinal)',
   'image.name.StartsWith("Smoke_", StringComparison.Ordinal)',
   'image.name.StartsWith("Ember_", StringComparison.Ordinal)',
+  'image.name.StartsWith("StarTwinkleRegion_", StringComparison.Ordinal)',
   'smoke.Sort(CompareByName)',
   'embers.Sort(CompareByName)',
-  '.58f + baseGlow * .075f + shimmer * .045f + sparkle * .028f',
+  'starTwinkleRegions.Sort(CompareByName)',
+  'EnsureStarTwinkleRegions();',
+  'SyncStarTwinkleTextures();',
+  'new Rect(0f, .55f, .25f, .45f)',
+  'new Rect(.75f, .55f, .25f, .45f)',
+  'regionImage.uvRect = region',
+  'regionImage.raycastTarget = false',
+  'region.texture = stars.texture',
+  '.60f + baseGlow * .018f + shimmer * .010f',
+  'Mathf.Clamp(alpha, 0f, .09f)',
   'stars.color = WithAlpha(stars.color, .62f)',
+  'region.color = WithAlpha(region.color, 0f)',
   '.61f + (districtA - .5f) * .05f + (districtB - .5f) * .03f + window',
   'distantLights.color = WithAlpha(distantLights.color, .63f)',
   '.56f + ((first * .62f + second * .38f) - .5f) * .10f',
@@ -90,7 +101,6 @@ for (const forbidden of [
   'Resources.UnloadAsset',
   'UnityWebRequest',
   'Texture2D',
-  '.texture =',
   'Destroy(image',
   'Destroy(stars',
   'Destroy(fireGlow',
@@ -141,4 +151,4 @@ invariant(
 );
 
 console.log('TOP Living Night ambient motion director: PASS');
-console.log('post-view long-period Perlin breathing/depth + layered sky/light/lantern/rare-eye alpha + smoke/ember density/airflow; Reduced Motion restores pose and suppresses sparse particles without texture/readiness/approval ownership');
+console.log('post-view long-period Perlin breathing/depth + four-zone local star twinkle + layered light/lantern/rare-eye alpha + smoke/ember density/airflow; Reduced Motion restores pose and suppresses sparse motion without texture/readiness/approval ownership');
