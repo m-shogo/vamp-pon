@@ -1,3 +1,4 @@
+import { allPairDirectedSpeechPresentationSummary } from './allPairDirectedSpeechPresentationSource.ts';
 import {
   COMBAT_ATTRIBUTES,
   attributeReactions,
@@ -41,6 +42,7 @@ export const title1ContentMasterAuthorities = {
   enemyEncounter: 'src/game/data/enemyEncounterSynergySource.ts',
   relationship: 'src/game/data/currentRelationshipInventory.ts',
   relationshipSpeech: 'src/game/data/relationshipSpeechProgressionSource.ts',
+  allPairDirectedSpeech: 'src/game/data/allPairDirectedSpeechPresentationSource.ts',
   groupInteraction: 'src/game/data/currentGroupInteractionSource.ts',
   relationshipIntermission: 'src/game/data/relationshipStageIntermissionSource.ts',
   pairwiseBondTrioBattle: 'src/game/data/pairwiseBondTrioBattleSource.ts',
@@ -72,6 +74,10 @@ export const title1ContentMasterIntegritySnapshot = {
     currentCount: currentCharacterCombatKitEntries.length,
     relationshipArcCount: currentRelationshipInventory.length,
     relationshipSpeechDirectedTrackCount: currentRelationshipSpeechProgressionSummary.directedTrackCount,
+    allPairDirectedSpeechLaneCount: allPairDirectedSpeechPresentationSummary.directedLaneCount,
+    allPairFeaturedSpeechLaneCount: allPairDirectedSpeechPresentationSummary.featuredDirectedLaneCount,
+    allPairBaselineSpeechLaneCount: allPairDirectedSpeechPresentationSummary.baselineDirectedLaneCount,
+    allPairBaselineAddressPrototypeCount: allPairDirectedSpeechPresentationSummary.addressPrototypeNotCanonCount,
     groupInteractionSceneCount: currentGroupInteractionSummary.sceneCount,
     groupIntermissionPlacementCount: relationshipStageIntermissionSummary.placementCount,
     allPairBondLaneCount: pairwiseBondTrioBattleSummary.allPairCount,
@@ -171,6 +177,7 @@ export const title1ContentMasterIntegritySnapshot = {
     transformationRuntimeAutoPromotionAllowed: weaponTransformationSelectionSummary.runtimeAutoPromotionAllowed,
     rewardCollectionRuntimeAutoPromotionAllowed: title1AchievementRewardCollectionSummary.runtimeAutoPromotionAllowed,
     relationshipSpeechRuntimeAutoPromotionAllowed: currentRelationshipSpeechProgressionSummary.runtimeAutoPromotionAllowed,
+    allPairDirectedSpeechRuntimeAutoPromotionAllowed: allPairDirectedSpeechPresentationSummary.runtimeAutoPromotionAllowed,
     groupIntermissionRuntimeAutoPromotionAllowed: relationshipStageIntermissionSummary.runtimeAutoPromotionAllowed,
     pairwiseBondRuntimeAutoPromotionAllowed: pairwiseBondTrioBattleSummary.runtimeAutoPromotionAllowed,
     trioInteractionRuntimeAutoPromotionAllowed: trioBattleInteractionPolicySummary.runtimeAutoPromotionAllowed,
