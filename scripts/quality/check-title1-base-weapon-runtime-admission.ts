@@ -27,16 +27,17 @@ assert(selectedBaseWeaponRuntimeAdmissionSummary.readyForAdmissionReviewCount ==
 assert(title1BaseWeaponRuntimeAdmissionEntries.length === 16, `Unity evidence overlay must cover Selected16, got ${title1BaseWeaponRuntimeAdmissionEntries.length}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.selectedContentWeaponCount === 16, 'Unity admission summary must bind upstream Selected16');
 assert(title1BaseWeaponRuntimeAdmissionSummary.webLiveCatalogCount === 0, 'Unity overlay must preserve Web live-catalog state');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 2, `Ember Matchcase and Bellows Fan should be admitted for Unity implementation review, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 2, `only Ember Matchcase and Bellows Fan should be implementation-review admitted, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 14, 'remaining Selected14 must stay Unity-blocked');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'Ember Matchcase admission missing');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('bellows_fan'), 'Bellows Fan admission missing');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.length === 2, `unexpected Unity admitted IDs: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 2, 'exactly two Selected16 prototype callers should be proven');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'primitive-complete weapons must not be silently auto-admitted without caller proof');
-assert(new Set(unityPrototypeCallerImplementedWeaponIds).size === 2, 'prototype caller proof IDs must remain unique');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'pavement_hammer should be the one primitive-complete caller-proof-blocked weapon');
+assert(new Set(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must remain unique');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('ember_matchcase'), 'Ember caller proof registry missing');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('bellows_fan'), 'Bellows caller proof registry missing');
+assert(!unityPrototypeCallerImplementedWeaponIds.includes('pavement_hammer' as never), 'pavement_hammer must not gain caller proof from shared primitive work');
 
 assert(CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length === 5, `Web runtime effect authority must remain explicit; got ${CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length}`);
 assert(CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.join(',') === 'projectile,radial_random_projectile,bouncing_projectile,ground_area,orbit', `unexpected Web runtime effect surface: ${CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.join(',')}`);
@@ -44,9 +45,9 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypeCount 
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypes === CURRENT_RUNTIME_WEAPON_EFFECT_TYPES, 'Unity overlay must reuse Web runtime capability authority');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypeCount === 2, 'Unity U47 importer/executor surface remains Projectile/GroundArea');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypes.join(',') === 'Projectile,GroundArea', 'unexpected Unity executor surface');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 7, 'Unity evidence should expose seven implemented primitives after reusable cone query proof');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 14, `expected 14 missing advanced Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION is now a proven shared primitive and must not remain a blocker');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 8, `expected eight implemented Unity primitives after slam-wave query proof, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 13, `expected 13 missing advanced Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION is a proven shared primitive and must not remain a blocker');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.selected16WebAdmissionAuthorityDuplicated, 'Unity overlay must not become a second Web admission authority');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.webRuntimeSupportEqualsUnityRuntimeSupport, 'Web support must never be treated as Unity implementation evidence');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.fakeProjectileFallbackAllowed, 'unsupported archetypes must never be faked as generic projectile');
@@ -60,30 +61,38 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   assert(selectedIds.has(entry.weaponId), `Unity admission references non-Selected16 weapon: ${entry.weaponId}`);
   assert(!seenIds.has(entry.weaponId), `duplicate Unity admission entry: ${entry.weaponId}`);
   seenIds.add(entry.weaponId);
+
   const upstream = upstreamById.get(entry.weaponId);
   assert(upstream, `${entry.weaponId} missing upstream Selected16 admission row`);
   assert(entry.webAdmissionState === upstream.admissionState, `${entry.weaponId} Web admission state must be inherited`);
   assert(entry.webBlockers.length === upstream.blockers.length && entry.webBlockers.every((blocker) => upstream.blockers.includes(blocker as never)), `${entry.weaponId} Web blockers must be inherited`);
   assert(entry.requiredUnityCapabilities.length >= 1, `${entry.weaponId} needs explicit Unity capability requirements`);
   assert(entry.contentSelectionPreserved, `${entry.weaponId} Content Master selection must remain preserved`);
-  assert(entry.runtimeStatus === 'NOT_IMPLEMENTED', `${entry.weaponId} admission review is not a live runtime registry claim`);
+  assert(entry.runtimeStatus === 'NOT_IMPLEMENTED', `${entry.weaponId} implementation review is not a live runtime claim`);
 
   if (entry.weaponId === 'ember_matchcase') {
     assert(entry.archetype === 'SCATTER_PROJECTILE', 'Ember Matchcase archetype drift');
     assert(entry.requiredUnityCapabilities.join(',') === 'MULTI_TARGET_PROJECTILE_SELECTION,STATUS_APPLICATION', `unexpected Ember requirements: ${entry.requiredUnityCapabilities.join(',')}`);
     assert(entry.missingUnityCapabilities.length === 0, `Ember Matchcase should have no primitive blocker, got ${entry.missingUnityCapabilities.join(',')}`);
-    assert(entry.prototypeCallerImplemented, 'Ember Matchcase caller proof must remain explicit');
-    assert(entry.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Ember Matchcase should be admitted for Unity implementation review');
-    assert(entry.mayEnterUnityRuntimeRegistry, 'Ember Matchcase should pass implementation-review admission only');
+    assert(entry.prototypeCallerImplemented, 'Ember caller proof must remain explicit');
+    assert(entry.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Ember should remain implementation-review admitted');
+    assert(entry.mayEnterUnityRuntimeRegistry, 'Ember should pass implementation-review admission only');
   } else if (entry.weaponId === 'bellows_fan') {
     assert(entry.archetype === 'CONE_PUSH', 'Bellows Fan archetype drift');
     assert(entry.requiredUnityCapabilities.join(',') === 'CONE_QUERY,KNOCKBACK_VECTOR,STATUS_APPLICATION', `unexpected Bellows requirements: ${entry.requiredUnityCapabilities.join(',')}`);
     assert(entry.missingUnityCapabilities.length === 0, `Bellows Fan should have no primitive blocker, got ${entry.missingUnityCapabilities.join(',')}`);
-    assert(entry.prototypeCallerImplemented, 'Bellows Fan caller proof must be explicit');
-    assert(entry.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Bellows Fan should be admitted for Unity implementation review');
-    assert(entry.mayEnterUnityRuntimeRegistry, 'Bellows Fan should pass implementation-review admission only');
+    assert(entry.prototypeCallerImplemented, 'Bellows caller proof must remain explicit');
+    assert(entry.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Bellows should remain implementation-review admitted');
+    assert(entry.mayEnterUnityRuntimeRegistry, 'Bellows should pass implementation-review admission only');
+  } else if (entry.weaponId === 'pavement_hammer') {
+    assert(entry.archetype === 'SLAM_WAVE', 'Pavement Hammer archetype drift');
+    assert(entry.requiredUnityCapabilities.join(',') === 'SLAM_WAVE_QUERY,KNOCKBACK_VECTOR,STATUS_APPLICATION', `unexpected Pavement Hammer requirements: ${entry.requiredUnityCapabilities.join(',')}`);
+    assert(entry.missingUnityCapabilities.length === 0, `Pavement Hammer should now be primitive-complete, got ${entry.missingUnityCapabilities.join(',')}`);
+    assert(!entry.prototypeCallerImplemented, 'Pavement Hammer must not claim caller proof yet');
+    assert(entry.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Pavement Hammer must stop at caller-proof gate');
+    assert(!entry.mayEnterUnityRuntimeRegistry, 'shared slam-wave proof must not auto-admit Pavement Hammer');
   } else {
-    assert(entry.missingUnityCapabilities.length >= 1, `${entry.weaponId} must retain at least one archetype-specific blocker`);
+    assert(entry.missingUnityCapabilities.length >= 1, `${entry.weaponId} must retain at least one archetype-specific primitive blocker`);
     assert(!entry.prototypeCallerImplemented, `${entry.weaponId} must not claim a Selected16 caller proof yet`);
     assert(entry.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', `${entry.weaponId} must remain primitive-blocked`);
     assert(!entry.mayEnterUnityRuntimeRegistry, `${entry.weaponId} must not pass Unity implementation-review admission yet`);
@@ -99,6 +108,7 @@ for (const [capability, expected] of Object.entries({
   STATUS_APPLICATION: 'IMPLEMENTED',
   CONE_QUERY: 'IMPLEMENTED',
   KNOCKBACK_VECTOR: 'IMPLEMENTED',
+  SLAM_WAVE_QUERY: 'IMPLEMENTED',
   RETURNING_PROJECTILE: 'MISSING',
   REFLECT_WINDOW: 'MISSING',
   ORBIT_LINK: 'MISSING',
@@ -114,6 +124,7 @@ const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Proje
 const bellowsSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/BellowsFanPrototypeRuntime.cs', import.meta.url), 'utf8');
 const knockbackSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs', import.meta.url), 'utf8');
 const coneSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyConeQueryRuntime.cs', import.meta.url), 'utf8');
+const slamWaveSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemySlamWaveQueryRuntime.cs', import.meta.url), 'utf8');
 
 assert(definitionSource.includes('public enum WeaponEffectType { Projectile, GroundArea }'), 'live Unity importer executor enum remains Projectile/GroundArea only');
 assert(importerSource.includes('source.levels[0].effect.type == "projectile" ? WeaponEffectType.Projectile : WeaponEffectType.GroundArea'), 'U47 importer mapping changed; update evidence');
@@ -121,10 +132,16 @@ assert(importerSource.includes('is not ("projectile" or "ground_area")'), 'U47 i
 assert(coordinatorSource.includes('definition.EffectType == WeaponEffectType.Projectile'), 'U47 live coordinator projectile executor missing');
 assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'multi-target primitive missing');
 assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest'), 'typed Status transport missing');
-assert(!coordinatorSource.includes('EmberMatchcasePrototypeRuntime'), 'Ember prototype admission must not silently enter the live Stage1 loop');
-assert(!coordinatorSource.includes('BellowsFanPrototypeRuntime'), 'Bellows prototype admission must not silently enter the live Stage1 loop');
-assert(!coordinatorSource.includes('U2EnemyKnockbackRuntime'), 'shared knockback primitive must not silently enter the live Stage1 loop');
-assert(!coordinatorSource.includes('U2EnemyConeQueryRuntime'), 'shared cone primitive must not silently enter the live Stage1 loop');
+for (const forbiddenLiveToken of [
+  'EmberMatchcasePrototypeRuntime',
+  'BellowsFanPrototypeRuntime',
+  'U2EnemyKnockbackRuntime',
+  'U2EnemyConeQueryRuntime',
+  'U2EnemySlamWaveQueryRuntime',
+  'pavement_hammer',
+]) {
+  assert(!coordinatorSource.includes(forbiddenLiveToken), `prototype/shared primitive must not silently enter live Stage1 coordinator: ${forbiddenLiveToken}`);
+}
 
 assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'Ember prototype must bind exact Selected16 ID');
 assert(emberSource.includes('public const string ContentStatusId = "BURN";'), 'Ember prototype must bind exact content Status');
@@ -134,13 +151,6 @@ assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'Ember caller must c
 assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller must use deterministic multi-target primitive');
 assert(!/durationSeconds\s*:\s*[0-9]/.test(emberSource), 'Ember prototype must not hard-code BURN duration');
 assert(!/maxTargets\s*=\s*[0-9]/.test(emberSource), 'Ember prototype must not hard-code target count');
-
-assert(knockbackSource.includes('public static class U2EnemyKnockbackRuntime'), 'shared knockback runtime helper missing');
-assert(knockbackSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'knockback primitive tuning boundary missing');
-assert(knockbackSource.includes('enemy.transform.position += displacement;'), 'knockback primitive must apply caller-sized displacement to the enemy');
-assert(coneSource.includes('public static class U2EnemyConeQueryRuntime'), 'shared cone query runtime helper missing');
-assert(coneSource.includes('IReadOnlyList<U2EnemyActor> candidates'), 'cone query must use caller-provided candidate source');
-assert(coneSource.includes('results.Insert(insertIndex, candidate);'), 'cone query must produce deterministic nearest-first result scratch');
 
 assert(bellowsSource.includes('public const string WeaponId = "bellows_fan";'), 'Bellows prototype must bind exact Selected16 ID');
 assert(bellowsSource.includes('public const string ContentStatusId = "DISORIENTED";'), 'Bellows prototype must bind exact content Status');
@@ -154,22 +164,42 @@ assert(!/durationSeconds\s*:\s*[0-9]/.test(bellowsSource), 'Bellows prototype mu
 assert(!/halfAngleDegrees\s*=\s*[0-9]/.test(bellowsSource), 'Bellows prototype must not hard-code cone angle');
 assert(!/knockbackDistance\s*=\s*[0-9]/.test(bellowsSource), 'Bellows prototype must not hard-code knockback distance');
 
+assert(knockbackSource.includes('public static class U2EnemyKnockbackRuntime'), 'shared knockback runtime helper missing');
+assert(knockbackSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'knockback primitive tuning boundary missing');
+assert(knockbackSource.includes('enemy.transform.position += displacement;'), 'knockback primitive must apply caller-sized displacement to enemy');
+assert(coneSource.includes('public static class U2EnemyConeQueryRuntime'), 'shared cone query runtime helper missing');
+assert(coneSource.includes('IReadOnlyList<U2EnemyActor> candidates'), 'cone query must use caller-provided candidate source');
+assert(coneSource.includes('results.Insert(insertIndex, candidate);'), 'cone query must produce deterministic nearest-first result scratch');
+assert(slamWaveSource.includes('public static class U2EnemySlamWaveQueryRuntime'), 'shared slam-wave query runtime helper missing');
+assert(slamWaveSource.includes('float innerRadius'), 'slam-wave query must expose caller-supplied inner radius');
+assert(slamWaveSource.includes('float outerRadius'), 'slam-wave query must expose caller-supplied outer radius');
+assert(slamWaveSource.includes('results.Insert(insertIndex, candidate);'), 'slam-wave query must produce deterministic nearest-first result scratch');
+assert(!slamWaveSource.includes('pavement_hammer'), 'generic slam-wave query must not own pavement_hammer identity');
+assert(!slamWaveSource.includes('EXPOSED'), 'generic slam-wave query must not own pavement_hammer Status');
+
 const bellows = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'bellows_fan');
 assert(bellows?.implementedUnityCapabilities.includes('CONE_QUERY'), 'bellows_fan should inherit implemented cone primitive');
 assert(bellows?.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'bellows_fan should inherit implemented knockback primitive');
 assert(bellows?.missingUnityCapabilities.length === 0, 'bellows_fan should have no remaining primitive blocker');
+
 const blackFan = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'black_folding_fan');
 assert(blackFan?.implementedUnityCapabilities.includes('CONE_QUERY'), 'black_folding_fan should inherit implemented cone query');
 assert(blackFan?.missingUnityCapabilities.includes('VEIL_TRACKING_FRICTION'), 'black_folding_fan must remain blocked on VEIL_TRACKING_FRICTION');
+
 const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
+assert(hammer?.implementedUnityCapabilities.includes('SLAM_WAVE_QUERY'), 'pavement_hammer should inherit implemented slam-wave query');
 assert(hammer?.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'pavement_hammer should inherit implemented knockback primitive');
-assert(hammer?.missingUnityCapabilities.includes('SLAM_WAVE_QUERY'), 'pavement_hammer must remain blocked on SLAM_WAVE_QUERY');
+assert(hammer?.implementedUnityCapabilities.includes('STATUS_APPLICATION'), 'pavement_hammer should inherit implemented Status primitive');
+assert(hammer?.missingUnityCapabilities.length === 0, 'pavement_hammer should be primitive-complete');
+assert(hammer?.prototypeCallerImplemented === false, 'pavement_hammer caller proof must remain absent');
+assert(hammer?.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'pavement_hammer must demonstrate caller-proof gate');
+assert(hammer?.mayEnterUnityRuntimeRegistry === false, 'pavement_hammer must not auto-admit from shared primitives');
 
 const archetypes = new Set(title1BaseWeaponRuntimeAdmissionEntries.map((entry) => entry.archetype));
 assert(archetypes.size === 16, `Selected16 should remain 16 distinct attack archetypes, got ${archetypes.size}`);
-assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'STATUS_APPLICATION'), 'STATUS_APPLICATION must disappear from missing capability frequency');
-assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'KNOCKBACK_VECTOR'), 'KNOCKBACK_VECTOR must disappear from missing capability frequency');
-assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'CONE_QUERY'), 'CONE_QUERY must disappear from missing capability frequency');
+for (const implementedCapability of ['STATUS_APPLICATION', 'KNOCKBACK_VECTOR', 'CONE_QUERY', 'SLAM_WAVE_QUERY'] as const) {
+  assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === implementedCapability), `${implementedCapability} must disappear from missing capability frequency`);
+}
 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
 for (const token of [
@@ -181,10 +211,11 @@ for (const token of [
   'blocked=14',
   'ember_matchcase',
   'bellows_fan',
+  'pavement_hammer',
   'STATUS_APPLICATION',
-  'MULTI_TARGET_PROJECTILE_SELECTION',
   'KNOCKBACK_VECTOR',
   'CONE_QUERY',
+  'SLAM_WAVE_QUERY',
   'BLOCKED_MISSING_UNITY_CALLER_PROOF',
   'PROTOTYPE_TUNING_NOT_CANON',
   'fake projectile',
@@ -204,20 +235,13 @@ console.log(JSON.stringify({
     implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
     missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
     callerProofs: title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount,
+    primitiveCompleteMissingCallerProof: title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount,
   },
-  emberMatchcase: {
-    status: 'BURN',
-    tuning: 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
+  pavementHammer: {
+    primitiveComplete: hammer?.missingUnityCapabilities.length === 0,
+    callerProof: hammer?.prototypeCallerImplemented,
+    decision: hammer?.unityDecision,
     liveRegistry: false,
   },
-  bellowsFan: {
-    status: 'DISORIENTED',
-    cone: currentUnityWeaponRuntimeCapabilities.CONE_QUERY,
-    knockback: currentUnityWeaponRuntimeCapabilities.KNOCKBACK_VECTOR,
-    tuning: 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-    liveRegistry: false,
-  },
-  blackFoldingFanStillBlockedBy: blackFan?.missingUnityCapabilities,
-  pavementHammerStillBlockedBy: hammer?.missingUnityCapabilities,
   fakeProjectileFallbackAllowed: false,
 }, null, 2));
