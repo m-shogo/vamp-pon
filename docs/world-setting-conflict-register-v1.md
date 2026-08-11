@@ -1,308 +1,100 @@
-# ヨルノシルベ — World Setting Conflict Register v1
+# ヨルノシルベ — World Setting Conflict Register v3
 
 Date: 2026-08-11  
-Status: **CONTRADICTION CONTROL / ZERO UNRESOLVED BLOCKERS / HUMAN DECISIONS EXPLICITLY OPEN**
+Status: **CONTRADICTION CONTROL / MASTER-ALIGNED / ZERO UNRESOLVED BLOCKERS**
 
-> 目的: 設定が増えた結果、「別資料では違うことを言っている」「Candidateがいつの間にかCanonになった」を防ぐ。
-> `OPEN_HUMAN` は欠陥ではない。高影響の答えを意図的に保留している状態。
-
----
-
-# 1. Status vocabulary
-
-- `GUARDED` — 上流ruleで衝突を防止済み。
-- `OPEN_HUMAN` — 複数案が成立し、Human decisionまで確定しない。
-- `CANDIDATE_DEPENDENT` — 別Candidateが確定した時だけ決まる。
-- `UNRESOLVED_BLOCKER` — 現在の資料同士が両立しない。**0件を維持する。**
+> 最上位: `00-current-story-world-master.md`。
+> `OPEN_HUMAN`は欠陥ではなく、意図的にHuman decisionへ残している項目。
 
 ---
 
-# 2. Current conflict register
+# 1. Status
 
-## CF-001 — Current21の時代
-Status: `GUARDED`
-
-Potential conflict:
-全員が同じ夜で会うため、現実でも同時代と誤認しやすい。
-
-Resolution:
-- 現実では同時代とは限らない。
-- Nightでだけ関係が生まれる。
-- age impressionとeraを別dataにする。
-
-Sources:
-- `CANON.md`
-- `world-foundation-authority-v1.md`
-- `character-height-age-era-lineup-v1.md`
+- `GUARDED` — 上流ruleで両立方法を固定済み。
+- `OPEN_HUMAN` — Human decision前に確定しない。
+- `CANDIDATE_DEPENDENT` — 別Candidate / evidence次第。
+- `UNRESOLVED_BLOCKER` — 現在の資料同士が両立しない。0維持。
 
 ---
 
-## CF-002 — 夜の最終正体
-Status: `OPEN_HUMAN`
-
-Potential conflict:
-地理・社会・医療を具体化するとNight=夢 / 記憶世界等を暗黙に確定しやすい。
-
-Guard:
-- L4 Unknown Mechanismを別Layerに隔離。
-- Society / GeographyはNightの現象を記述してもOriginを説明しない。
-
-Human decision candidates:
-- dream
-- virtual
-- memory
-- shared mental layer
-- hybrid original layer
-
----
-
-## CF-003 — Game Over / Death
-Status: `GUARDED`
-
-Potential conflict:
-戦闘不能・retryを死亡 / 蘇生と書く。
-
-Resolution:
-- Game Over ≠ Reality death。
-- Retry ≠ resurrection。
-- `DOWNED` / `LOST_FROM_ROUTE` と `DEAD`を別語彙にする。
-
----
-
-## CF-004 — 死者がNightへ現れるか
-Status: `OPEN_HUMAN`
-
-Potential conflict:
-Historical deathを増やすと死後世界へ自動変換される。
-
-Guard:
-- 生者のみ / 過去時点の本人 / 記録残響の3案を維持。
-- Family / Incident側から決めない。
-
----
-
-## CF-005 — 八影 vs 朔盟
-Status: `GUARDED`
-
-Potential conflict:
-既存八影sourceでは「factionではない」、新案では朔盟が組織。
-
-Resolution:
-```txt
-八影 = EARLY_OBSERVER_LABEL
-朔盟 = REVEALED_ANTAGONIST_PACT_CANDIDATE
-```
-
-八影資料は**Reveal前にCurrent側が正しく観測できた範囲**として生かす。
-既存`yatsukage*` namespace / 28pair / 168relationsを削除しない。
-
----
-
-## CF-006 — Shadow5 vs 朔盟
-Status: `GUARDED`
-
-Potential conflict:
-どちらもCore5へ別解を返すため同じ敵勢力に見える。
-
-Resolution:
-- Shadow5 = Current人物の思想的ライバル。
-- 朔盟 = Wrong Reading側の主要enemy pact Candidate。
-- 自動的な所属 / 上下 / 創造者関係を作らない。
-
----
-
-## CF-007 — 朔盟のFounder / Leader
-Status: `OPEN_HUMAN`
-
-Potential conflict:
-敵組織らしさを出すため絶対首領を後付けし、8人の主体性を失う。
-
-Guard:
-- Pair Mission Ruleでleaderなしでも運営可能。
-- founder / first witnessは未LOCK。
-
-Human consultation前に「実はラスボスが全員を作った」を追加しない。
-
----
-
-## CF-008 — Stage20の地理
-Status: `GUARDED`
-
-Potential conflict:
-Stage orderを現実の隣接順 / 一つの都市地図とみなす。
-
-Resolution:
-- Stage ID / gameplay orderは維持。
-- Reality AtlasとNight Atlasを分離。
-- Night distanceはNEAR / TRAVEL / DISCONTINUOUS。
-
----
-
-## CF-009 — Historical IncidentとCurrent人物
-Status: `GUARDED`
-
-Potential conflict:
-世界史を厚くするため「実は全員同じ大事故に関係していた」になる。
-
-Resolution:
-- direct witness目安0–3。
-- exact Current family casualtiesをHuman Review前にLOCKしない。
-- official record / witness / evidenceを分離。
-
----
-
-## CF-010 — Game economy vs World economy
-Status: `GUARDED`
-
-Potential conflict:
-記憶片 / meta currencyが現実の給料・家賃にも使われる。
-
-Resolution:
-- Gameplay resourceとReality moneyは別。
-- 多時代なので具体価格ではなくrelative bandを先に使う。
-
----
-
-## CF-011 — Religion / Belief vs Main Mystery
-Status: `GUARDED`
-
-Potential conflict:
-地域の星信仰を設定した結果「星獣は死者の魂」がCanon化される。
-
-Resolution:
-- belief / rumorは世界内認識。
-- metaphysical truthではない。
-- 実在宗教と独自cosmologyを無断混成しない。
-
----
-
-## CF-012 — Character family設定
-Status: `OPEN_HUMAN`
-
-Potential conflict:
-深み目的で孤児 / 親死亡 / 虐待 / 血縁Mysteryを乱造する。
-
-Guard:
-- Current21はhomeAnchorまで詰め、重大家族factはOPENを許容。
-- リツ×コヨリ等既存Canonのみhard保持。
-
-Human decision対象:
-- 実親 / 養親
-- sibling追加
-- spouse / child
-- major family death
-
----
-
-## CF-013 — Character exact height / chronological age / exact era
-Status: `OPEN_HUMAN`
-
-Potential conflict:
-画像生成ごとにcmを再発明し、後からCanon扱いする。
-
-Guard:
-- relative band / candidate rangeをproduction inputにする。
-- exact cm / age / yearはHuman visual/story review後。
-
----
-
-## CF-014 — 黒耀化 vs 精神疾患 / 洗脳
-Status: `GUARDED`
-
-Potential conflict:
-黒耀化を別人格・病気・洗脳へ読み替える。
-
-Resolution:
-- 本人の長所 / 願い / 守り方の一方向過剰化。
-- RecoveryはSELF-CHOICE + AFTERCARE。
-- 精神疾患を怪異 / 悪役の原因にしない。
-
----
-
-## CF-015 — Named Object lineage
-Status: `CANDIDATE_DEPENDENT`
-
-Potential conflict:
-似たObject / motifを見つけるたび同一物へretconする。
-
-Resolution:
-- stable named-object IDsを上流にする。
-- ユイのランタン×トモリの修理痕等はevidence依存。
-- 「似ている」だけでsameObjectにしない。
-
----
-
-## CF-016 — Future15 promotion
-Status: `GUARDED`
-
-Potential conflict:
-世界設定でFuture人物を使ったためCurrent21へ昇格した扱いになる。
-
-Resolution:
-- Future15はseries pool。
-- World / production Bibleに登場してもCurrent promotionではない。
-
----
-
-## CF-017 — Visual Candidate vs Character Canon
-Status: `GUARDED`
-
-Potential conflict:
-生成画像に偶然入った髪 / 傷 / tattoo / 身長をCharacter設定へ逆輸入する。
-
-Resolution:
-```txt
-Character life / identity
-→ Appearance Source
-→ Height/Era Lineup
-→ prompt
-→ Candidate art
-→ Human Review
-→ Approved Reference
-```
-
-画像都合から上流Canonへ逆流しない。
-
----
-
-## CF-018 — P2 expression vs gameplay runtime
-Status: `GUARDED`
-
-Potential conflict:
-Environment / Audio / Prop設定を追加しただけでUnity実装済み扱いにする。
-
-Resolution:
-- World Setting sourcesは`runtimeAutoPromotionAllowed=false`。
-- Existing runtime / U49 / TOP approval boundaryは別。
+# 2. Conflict lanes
+
+| ID | Topic | Status | Current guard |
+|---|---|---|---|
+| CF-001 | Current21年代差 / Core5 distinct era | GUARDED | Reality eraとDream共存を分離。**Core5は5/5で別Reality era**。誰がどの年代かはOpen。Dream内では時間タグが弱い。 |
+| CF-002 | 夢世界 vs 最終mechanism | OPEN_HUMAN | **ヨルノシルベ=夢世界は決定**。起源 / 共有mechanism / 最終正体だけOpen。 |
+| CF-003 | Game Over / Death | GUARDED | Game Over≠Reality death、Retry≠蘇生、帰還はWaking。 |
+| CF-004 | 死者がDreamへ現れるか | OPEN_HUMAN | 生者 / 過去時点本人 / Record残響をHuman decisionまで分離。 |
+| CF-005 | 八影 / 朔盟 / 朔夜座 | GUARDED | 八影=early observer label、朔盟=Superseded Candidate、**朔夜座=Current formal name**。 |
+| CF-006 | Shadow5 / 朔夜座 | GUARDED | 自動的に同Faction化しない。 |
+| CF-007 | 朔夜座Founder / 絶対Leader | OPEN_HUMAN | 名前決定だけで絶対首領を追加しない。旧pair資産は保持可能。 |
+| CF-008 | Stage20地理 | GUARDED | Gameplay順≠Reality隣接。Dreamでは異年代場所を折り畳める。 |
+| CF-009 | 全Characterを一事故へ接続 | GUARDED | 全員同じ悲劇 / 一事件 / 一黒幕へ収束させない。 |
+| CF-010 | Gameplay economy / Reality economy | GUARDED | Run資源≠現実通貨。Dreamの基本衣食住に通常経済を必須化しない。 |
+| CF-011 | Belief / metaphysical truth | GUARDED | 星 / 宗教 / 噂は真相証明ではない。 |
+| CF-012 | Major family facts | OPEN_HUMAN | 日常home textureは作れるが重大死別 / 親子等は勝手にLOCKしない。 |
+| CF-013 | exact height / age / era | OPEN_HUMAN | 相対bandで制作し、exact値はHuman review後。Core5もdistinctだけHardで個人割当はここに含めOpen。 |
+| CF-014 | 黒耀化 / 病気・憑依 | GUARDED | 本人の長所 / 願いの過剰化。外部悪人格にしない。 |
+| CF-015 | Named Object lineage | CANDIDATE_DEPENDENT | 似ているだけでsameObjectにしない。stable ID / evidence優先。 |
+| CF-016 | Future15 promotion | GUARDED | World利用だけでCurrentへ昇格しない。 |
+| CF-017 | Generated visual / Character Canon | GUARDED | 生成事故detailをCanonへ逆流させない。 |
+| CF-018 | P2 / runtime | GUARDED | World設定追加≠runtime完成。 |
+| CF-019 | Dream provisioning / 直接生成 / 万能願望 | GUARDED | **食 / 飲 / 日用品は食糧庫・冷蔵庫・棚・厨房等の収納を介し「最初から入っていた」ように見つかる。手元 / 空中への直接food spawnはSuperseded。** 心 / 同意 / 記憶真実 / Unique evidence / 黒耀化 / 現世事件は補完不可。 |
+| CF-020 | 同じ星 / 年代別星座 | GUARDED | 星が同じでも結び方 / 名 / 物語 / 存在が年代で変わり得る。最終原因はMystery。 |
+| CF-021 | 群青残響録 / 固定時代Boss | GUARDED | 群青残響録=大事件中心人物 / 人物群の後世的記録名。1時代1人 / 固定人数 / 必須戦闘Boss / 必須悪役にしない。 |
+| CF-022 | 朔夜座 / 群青残響録 hierarchy | GUARDED | 上司 / 部下 / Creator関係へ固定せず時代ごとに協力・利用・対立等を変えられる。 |
+| CF-023 | Reality動物 / 星獣 | GUARDED | 犬猫は星獣と別category。万能賢者 / 魂証明装置にしない。 |
+| CF-024 | Android成長 / 人間化 | GUARDED | 「人間になる」をgoalにせずAndroidのまま個人・友達になれる。 |
 
 ---
 
 # 3. Current summary
 
+Machine source:
+`src/game/data/worldSettingConflictRegister.ts`
+
 ```txt
-GUARDED              = 12
+TOTAL                = 24
+GUARDED              = 18
 OPEN_HUMAN           = 5
 CANDIDATE_DEPENDENT  = 1
 UNRESOLVED_BLOCKER   = 0
 ```
 
-OPEN_HUMAN:
-- 夜の最終正体
-- 死者がNightへ本人として現れるか
-- 朔盟Founder / Leader
-- Current主要人物の重大Family設定
-- exact height / chronological age / exact era
+---
+
+# 4. Highest-priority Open decisions
+
+現在の作業を止めないが、以下へ踏み込む直前にUser consultationする。
+
+1. ヨルノシルベの最終mechanism / 起源
+2. 死者が本人としてDreamへ現れるか
+3. 朔夜座のFounder / 絶対Leaderを置くか
+4. 主要Characterの重大Family fact
+5. exact age / height / exact era
+6. **Core5 5人それぞれのexact person-to-era mapping**
+
+加えてMasterでOpen指定された:
+
+- 群青残響録正式member / 名
+- 各時代大事件のexact内容
+- Android最終名 / acronym / version体系
+- 星座増減の最終原因
+- 星獣との最終関係
+- 各大事件に戦闘Bossを置くか
+- 飲酒 / 喫煙CharacterのFinal age / era整合とperson assignment
+
+は勝手にCanon化しない。
 
 ---
 
-# 4. Rule for future additions
+# 5. Future rule
 
-新案が既存ruleと衝突した場合:
+新案がMasterと衝突したら:
 
-1. 古い資料を黙って上書きしない。
-2. `UNRESOLVED_BLOCKER`として本Registerへ追加。
-3. 既存Canon / User Direction / Candidateを確認。
-4. 安全に導出できなければHuman consultation。
-5. 解決後に`GUARDED`へ変更。
-
-`UNRESOLVED_BLOCKER > 0`のままfinal Canon / character master productionへ進めない。
+1. Masterを旧案へ戻さない。
+2. 既存stable資産を即削除しない。
+3. 本RegisterへConflict laneを追加または既存laneを強化。
+4. Derivedで安全に解ければ`GUARDED`。
+5. 高影響なら`OPEN_HUMAN`。
+6. `UNRESOLVED_BLOCKER > 0`のままFinal Character Master / Final Canonへ進めない。

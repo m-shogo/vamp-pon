@@ -1,283 +1,327 @@
-# ヨルノシルベ — World Foundation Authority v1
+# ヨルノシルベ — World Foundation Authority v2
 
 Date: 2026-08-11  
-Status: **USER DIRECTION / WORLD-BUILDING UPSTREAM AUTHORITY / CURRENT CANON PRESERVED**
+Status: **CURRENT WORLD-BUILDING UPSTREAM / MASTER-ALIGNED**
 
-> 目的: 世界設定を増やすたびに人物・Story・Stage・Gameplayの前提が食い違うことを防ぐ。
-> この資料は新しい真相を大量に確定する本ではなく、**何を確定してよく、何を保留し、どの資料がどの資料を上書きできないか**を決める上流Authority。
-
----
-
-# 1. 最優先の世界観ルール
-
-以下は既存Currentを維持する。
-
-1. ヨルノシルベは現実世界と「夜」の二層以上を持つ。
-2. Current21は現実では必ずしも同時代ではない。
-3. 物・記録・言葉は時代を渡れる。
-4. 別時代の人物でも夜では出会い、戦い、食べ、喧嘩し、関係を作れる。
-5. 朝へ帰ると各人物は自分の時代 / 人生へ戻る。
-6. Game Overは現実肉体の死亡ではない。
-7. Retryは蘇生ではない。
-8. 黒耀化は外部悪人格ではなく、その人の願い / 長所 / 守り方が行き過ぎた状態。
-9. 正史はHappy End。Permanent deathを主要な泣かせ装置にしない。
-10. Main Mysteryの最終答えを世界資料の都合で先に固定しない。
-11. Character MysteryをすべてMain Mysteryへ接続しない。
-12. Gameplayを止めて世界設定を読ませるのではなく、世界設定はplayの副作用として見えてくる。
+> 最上位は `docs/00-current-story-world-master.md`。
+> この文書はMasterを下位の世界資料へ安全に伝播するためのFoundation。
 
 ---
 
-# 2. 世界を5層に分ける
+# 1. Authority order
+
+```txt
+00-current-story-world-master.md
+  ↓
+CANON.md / WORLD.md
+  ↓
+World Foundation Authority
+  ↓
+P0 world sources
+  ↓
+P1 lived-world / character / story sources
+  ↓
+P2 visual / prop / audio / localization / merch
+  ↓
+runtime migration when explicitly approved
+```
+
+下位資料がMasterと衝突した場合、下位を正としてMasterを戻さない。
+
+---
+
+# 2. Hard world rules
+
+1. 現世は現実の日本。
+2. 現代編は交通 / 決済 / 通信 / SNS / 商品 / 制度 / UI等から現代日本だと分かる。
+3. Characterは現実では必ずしも同時代ではない。
+4. ヨルノシルベは**朝の来ない夢世界**。
+5. ヨルノシルベからは朝を待って帰るのではなく、**目覚めて各自の時代へ戻る**。
+6. 夢世界では衣食住の生存インフラを主問題にしない。
+7. 食事 / 飲み物 / 日用品 / 休息は夢らしく自然に補完・生成され得る。
+8. ただし人の意思 / 記憶 / 心 / 同意 / 黒耀化 / 現世の大事件は願うだけで解決しない。
+9. Game Overは現実死亡ではない。
+10. Retryは蘇生ではない。
+11. 黒耀化は外部悪人格ではない。
+12. 正史はHappy End。Permanent deathを主要な泣かせ装置にしない。
+13. ヨルノシルベでは星が見える。
+14. 星座認識 / 星座体系は年代によって同一とは限らない。
+15. 月相は日数ではなく事件深度。
+16. 朔の局面では月が消えるが星は残る。
+17. 主要敵8人のCurrent formal nameは**朔夜座**。
+18. 旧「八影」はearly observer label、旧「朔盟」はSuperseded Candidateとして資産を保持する。
+19. 群青残響録は各時代の大事件中心人物 / 人物群を後から括る記録名で、固定敵組織ではない。
+20. **1時代1人の固定Boss slotを作らない。** 中心人物が戦闘Bossになるとも限らない。
+21. Main Mysteryの最終mechanism / 星座増減原因 / 星獣との最終関係をAI都合で先にLOCKしない。
+
+---
+
+# 3. 世界を5層に分ける
 
 ```txt
 L0 — Reality Layer
-  各人物が本来生きている現実の時代 / 地域 / 社会
+  各人物が本来生きる現実日本の時代 / 地域 / 社会
 
 L1 — Threshold Layer
-  駅、門、眠り、灯り、忘れ物など「夜へ触れる境目」
+  眠り、駅、門、灯り、忘れ物など現世と夢の境目
 
-L2 — Night Layer
-  別時代の人物・物・意味が重なるプレイ空間
+L2 — Yoru-no-Shirube / Dream Layer
+  別時代の人物・動物・Android / Robot・物・意味が重なる夢世界
+  朝は来ない
+  基本生活物は夢らしく補完可能
 
 L3 — Record Layer
-  夜の観測記録、手紙、名札、地図、頁、星図など
-  人間が夜を理解しようとして残した不完全な記録
+  手紙、名札、新聞、写真、地図、頁、星図、企業資料等
+  現世 / 夢世界を人が理解しようとして残した不完全な記録
 
 L4 — Unknown Mechanism
-  夜 / 黒インク / 星獣 / 朝の最終原理
-  Main MysteryとしてHuman decision前はLOCKしない
+  なぜ共有されるのか
+  誰が / 何が接続しているのか
+  星座増減、星獣、黒インク等の最終原理
+  Human decision前はLOCKしない
 ```
 
-## 禁止
+### Important distinction
 
-- L0の行政や学校を作るためにL4の真相を決める。
-- 夜で見た出来事をそのまま現実史として扱う。
-- 記録に書かれていることを神視点の真実として扱う。
-- 別時代人物が夜で会ったから、現実でも同時代だったことにする。
+`ヨルノシルベ = 夢世界` はCurrent決定。
 
----
+`夢世界の最終mechanism / 起源 = OPEN`。
 
-# 3. Fact status
-
-世界設定の各entryは必ず次のどれかを持つ。
-
-- `CANON` — 既存Currentと矛盾せずHuman決定済み。
-- `USER_DIRECTION` — ユーザーが明示した方向。具体detailは未確定でも強く守る。
-- `CURRENT_DERIVED` — Canonから安全に導出できる制作上の現行解釈。
-- `CANDIDATE` — 高価値だがまだ正史化しない。
-- `OPEN_QUESTION` — 意図的に答えを持たない。
-- `RUMOR` — 世界内人物が信じる情報。真偽未確定。
-- `FALSE_BELIEF` — 後に誤りと判明する世界内認識。
-
-`RUMOR` / `FALSE_BELIEF` は資料上の誤りではなく、**物語の情報差**として価値を持つ。
+「夢かどうか」までOpenへ戻さない。
 
 ---
 
-# 4. Authority dependency graph
+# 4. Fact status
 
-```txt
-CANON.md
-  ↓
-World Foundation Authority  ← this document
-  ↓
-├─ Institution / Faction Map
-├─ Geography / Travel Atlas
-├─ Historical Incident Ledger
-├─ Life / Death / Injury Rulebook
-├─ Knowledge / Secret Matrix
-└─ Mystery / Foreshadow / Payoff Ledger
-  ↓
-Civilian Society Bible
-  ↓
-Character Household / Interior Drama
-  ↓
-Episode / Emotional Engine
-  ↓
-Environment / Prop / Audio / Localization / Merch
-```
-
-Character Appearance Sourceは人物外見の上流Authorityとして別laneを維持する。
-
-世界資料がAppearance Sourceを勝手に上書きしない。
+- `DECIDED` — Master / User決定。
+- `CURRENT_DERIVED` — 決定から安全に導ける現行解釈。
+- `CANDIDATE` — 高価値だが未確定。
+- `OPEN` — 意図的に未決定。
+- `RUMOR` — 世界内人物の認識。
+- `FALSE_BELIEF` — 後に誤りと判明し得る認識。
+- `SUPERSEDED` — 古い案。Currentへ戻さない。
 
 ---
 
-# 5. 世界設定追加時の8問
+# 5. RealityとDreamの生活ルールを混ぜない
 
-新しい設定を追加する前に必ず確認する。
+## Reality
 
-1. 現実側か夜側か。
-2. どの時代に属するか。
-3. 誰が知っているか。
-4. 誰が誤解しているか。
-5. 日常生活へどう影響するか。
-6. Gameplayへ返せるか、返せなくても生活描写へ意味があるか。
-7. 既存Characterの人生を設定の説明役へ縮めないか。
-8. Main Mysteryを早く説明しすぎないか。
+現実日本として成立させる。
+
+年代ごとに:
+
+- 交通
+- 価格感覚
+- 通信
+- 教育
+- 商品
+- UI
+- 服 / 縫製
+- 制度
+- 会社 / 学校
+- メディア
+
+を調査・設計する。
+
+## Dream
+
+現実側の:
+
+- 給料
+- 家賃
+- 食料供給網
+- 洗濯
+- 水道
+- 宿泊料金
+- スマホ回線
+
+を再現しなければ成立しない世界にはしない。
+
+### Easy materialization domain
+
+夢世界で自然に補完してよい:
+
+- 食事
+- 飲み物
+- 日用品
+- 休息場所
+- 生活上の小物
+
+### Non-materializable story domain
+
+思っただけでは変えられない:
+
+- 相手の気持ち
+- 相手の同意
+- 記憶の真実
+- トラウマ
+- 人間関係
+- 黒耀化
+- 現実の事件
+- 死亡fact
+- 本当の選択
+
+この非対称性を夢世界の重要ruleとする。
 
 ---
 
-# 6. World Promise
+# 6. 時代差の扱い
 
-ヨルノシルベの世界は「暗い異世界」ではなく、
+ヨルノシルベでは西暦 / 正確な日付 / 歴史順序という**時間タグが弱い**。
 
-> **誰かが実際に暮らし、働き、食べ、手紙を出し、駅を使い、道具を直し、死者を悼み、名前を呼んでいた複数の現実が、夜という場所で不完全に重なる世界。**
+したがって年代差は説明台詞より:
 
-である。
+- 切符
+- 郵便
+- 地図
+- 時計
+- 本の版
+- 教育用語
+- 食文化
+- 商品
+- 機械 / UI
+- 服 / 縫製
+- 道具
+- 言葉
+- 制度
+- 都市知識
 
-世界設定の厚みは固有名詞の数ではなく、
+から出す。
 
+「知らない物を見た = 即未来人判定」にはしない。夢の自然さが違和感を一度受け止める。
+
+---
+
+# 7. 星空 / 星座 / 月相
+
+## 星空
+
+星は常に重要なvisual identityとして見える方向。
+
+## 星座
+
+現実の星が同じでも、夢世界では年代によって:
+
+- 結び方
+- 名称
+- 物語
+- 星獣との関係認識
+
+が変わり得る。
+
+昔存在したが現代にはない星座、後世で生まれた星座を許可する。
+
+現実IAU体系は現世天文学のreferenceであり、Dream Layerの絶対constraintではない。
+
+## 月相
+
+月相 = 事件深度。
+
+日数経過ではない。
+
+各時代で同じprogressionを強制しない。
+
+朔では月が消え、星 / ランタン / 焚き火 / 街灯 / Character light / 星獣lightを強調する。
+
+---
+
+# 8. 朔夜座 / 群青残響録
+
+## 朔夜座
+
+Current formal name: **朔夜座（さくやざ）**。
+
+8member stable assets:
+
+ナシロ / アサトジ / ミチグレ / オリネ / ハクマ / ツグリ / ユラネ / ペタ。
+
+旧八影 / 朔盟資産の思想、pair、relation、stable ID、deep profileはmigration assetとして保持する。
+
+## 群青残響録
+
+各時代の大事件で中心となった人物 / 人物群を**後から括る記録名**。
+
+禁止:
+
+- 固定5人組
+- 1時代1人
+- 必ず悪役
+- 必ず戦闘Boss
+- 朔夜座の上司 / 部下へ固定
+- 「○○座」命名
+
+時代laneが増えれば対象も増え得る。
+
+---
+
+# 9. 世界設定追加時の10問
+
+1. MasterのDECIDEDと衝突しないか。
+2. RealityかDreamかRecordかUnknown Mechanismか。
+3. どの時代に属するか。
+4. 誰が知っているか。
+5. 誰が誤解しているか。
+6. 日常でどう見えるか。
+7. 年代差を説明台詞でなく物 / 行動へ落とせるか。
+8. Characterを設定説明役へ縮めていないか。
+9. Main Mysteryを早く答えすぎていないか。
+10. 大事件中心人物を「固定Bossだから」という理由だけで作っていないか。
+
+---
+
+# 10. World Promise
+
+ヨルノシルベは:
+
+> **違う時代の人間・動物・機械が、朝の来ない夢の夜で出会い、相手の年代も立場も知らないまま日常を積み、そこで得たものを自分の時代へ持ち帰る物語世界。**
+
+世界設定の厚みは固有名詞数ではなく:
+
+- 日常
+- 年代差
 - 生活の手触り
-- 制度の理由
-- 時代差
 - 誰が何を知るか
-- 同じ物を別人物が違って読むこと
+- 同じ物の読み違い
+- 星座の違和感
+- 相手をcategoryではなく個人として知ること
 
 で作る。
 
 ---
 
-# 7. 同時代ではないことを強みにする
+# 11. Human consultation gates
 
-Current21の時代差は装飾ではない。
+AI単独でCanon化しない:
 
-同じ「学校」「病院」「駅」「新聞」「手紙」でも、時代によって:
-
-- 呼び方
-- 値段感覚
-- 運用
-- 材質
-- 個人情報感覚
-- 家族観
-- 医療観
-- 交通速度
-- 写真 / 記録の残り方
-
-が違う。
-
-夜ではその差が会話になる。
-
-例:
-
-- 古い切符を「使えるもの」と思う人物と「収集品」と思う人物。
-- 家へ電話する感覚の人物と、手紙を数日待つ人物。
-- 名前を紙台帳で管理する人物と、機械表示で見る人物。
-
-ただし現実の具体西暦はevidence不足のまま無理に固定しない。
-
----
-
-# 8. Night Layerの地理原則
-
-夜の地理は普通の大陸地図ではない。
-
-基本候補:
-
-> **現実に存在した場所の「帰り道・記録・忘れ物・未完了」が接続点になり、夜では徒歩可能な距離へ折り畳まれる。**
-
-Status: `HIGH_VALUE_CANDIDATE`
-
-利点:
-
-- 別時代の駅や街が隣接できる。
-- Stage20を一本の世界地図へ無理やり詰め込まなくてよい。
-- 道 / 門 / 地図 / 手紙 / 忘れ物というCurrent motifと繋がる。
-- ミチル、ゲン、トバリ、ユウビ等の役割が世界の仕組みへ自然に触れる。
-
-ただし「誰が折り畳んだか」「なぜ接続するか」はMain Mysteryとして保留する。
-
----
-
-# 9. 世界の怖さの作り方
-
-ホラーを血や死体の量だけで作らない。
-
-ヨルノシルベで怖いもの:
-
-- 昔はあった出口が、地図からだけ消えている。
-- 駅員は覚えているのに駅名標には別の名前がある。
-- 同じ手紙を三人が違う年代で見ている。
-- 誰も死んだと言っていないのに、誰も帰宅を覚えていない。
-- 家族写真の一人だけ名前が後から書き換えられている。
-- 道具は修理されているが、修理者より古い時代に存在する。
-
-「説明できない」だけにせず、後から一部は生活史 / 記録史 / Wrong Readingとして再解釈可能にする。
-
----
-
-# 10. 世界の温かさの作り方
-
-暗い世界だからこそ、制度にも人間味を残す。
-
-- 夜道で迷った人向けの手書き案内。
-- 駅員が勝手に増やした小さなベンチ。
-- 名前が分からない荷物を捨てずに置く保留棚。
-- 閉院した診療所に残る子どもの身長線。
-- 誰かが毎年同じ場所へ置く花。
-- 読めない手紙を焼かずに封じる慣習。
-
-これらはMain Mysteryの鍵でなくてもよい。
-
-**世界を好きになるための情報**を正当な一級資料として扱う。
-
----
-
-# 11. No Retcon Guard
-
-新しい世界設定は以下を勝手に変えない。
-
-- Current21の性格 / relation / age impression
-- Future15のCurrent昇格状態
-- Shadow5のCurrent identity
-- Enemy48 runtime ID
-- Stage20 gameplay role
-- Named Object stable IDs
-- 黒耀化の人格分離禁止
-- Game Over ≠ death
-- 1作目Happy End
-- 夜の最終真相
-- 星獣の最終正体
-
-矛盾が発見された場合:
-
-```txt
-新案をCanonへ押し込む
-ではなく
-CANDIDATE_CONFLICTとして止める
-```
-
----
-
-# 12. Human consultation gates
-
-以下は高影響なのでAI単独でCanon化しない。
-
-1. 夜の最終正体
+1. ヨルノシルベの最終mechanism / 起源
 2. 黒インクの最終起源
 3. 星獣の最終正体
-4. 現実世界の正確な西暦
-5. Current21各人の出生 / 実親 / 養親の重大設定
-6. 宗教の神 / 実在神格との直接同一化
+4. 星座増減の最終原因
+5. 各時代のexact year
+6. Current主要人物の重大Family fact
 7. Permanent death
-8. 朔盟の最終黒幕 / Founder
-9. 朔盟8人の真名 / 人間時代identity
-10. 1作目ラスボス正体
-11. 大規模災害でCurrent人物の人生を決定的に変える設定
+8. 朔夜座8人の真名 / 現世identity
+9. 群青残響録の正式member構成 / 正式名
+10. 各時代大事件のexact内容 / 被害規模 / exact場所
+11. Android最終名 / acronym / 完全version体系
 12. Canon romance確定
+13. 各大事件に戦闘Bossを置くかどうか
 
 ---
 
-# 13. Completion definition
+# 12. No-retcon / migration guard
 
-World Foundationが機能している状態:
+新しい世界設定はstable ID / Current21 / Future15 / Enemy48 / Stage20 / Named Objectを勝手に壊さない。
 
-- 新設定の所属Layerが分かる。
-- statusが分かる。
-- sourceが分かる。
-- 人物の知識差を管理できる。
-- 地理と歴史がStageを壊さない。
-- 現実時代差を魅力として使える。
-- 世界設定を増やしてもMain Mysteryが勝手に確定しない。
-- 画像原本制作時に「この服・建物・小物はどの時代 / 地域か」を説明できる。
+旧資料の:
 
-この状態を作ってから、P0/P1/P2を下流へ広げる。
+- 朝へ帰る
+- 朔盟Current名
+- 全年代同一星座
+- 夢世界で現実生活インフラ必須
+- 1時代1固定Boss
+
+は、Master優先で順次Supersedeする。
+
+矛盾を発見したら旧設定へ戻すのではなく、Conflict Registerへ追加して解決する。

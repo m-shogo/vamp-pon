@@ -1,278 +1,314 @@
-# ヨルノシルベ Story Ending / Sequel Architecture v1
+# ヨルノシルベ Story Ending / Sequel Architecture v2
 
-Date: 2026-07-28  
-Status: **USER DIRECTION / WORKING STORY ARCHITECTURE — exact twist not locked**
+Date: 2026-08-11  
+Status: **USER DIRECTION / MASTER-ALIGNED ENDING ARCHITECTURE / EXACT TWIST OPEN**
 
-## 0. 目的
-
-ヨルノシルベ1本目を「ちゃんと終わって、ちゃんと救われて、ちゃんと泣ける」作品にしつつ、ヨルノシルベ2へ自然に続けられる余白を残す。
-
-ここで固定するのは感情の約束と境界。世界の正体・誰が何をしたか・2の敵や舞台などの細部は、伏線との整合を見ながら後で決める。
+> 1本目をちゃんと終わらせ、Happy Endを壊さずSeries Mysteryを残す。
+> 最上位: `00-current-story-world-master.md`。
 
 ---
 
-# 1. USER DIRECTION — 必ず守る感情の約束
+# 1. 感情の約束
 
-## 1.1 ハッピーエンドのみ
+## 1.1 Happy End
 
-本編の最終到達点は必ずハッピーエンド。
+- Bad Endを正史にしない。
+- 全滅 / permanent death / 救いのない別離で締めない。
+- 犠牲 / 一時的別離 / memory lossは使える。
+- 最後はRealityで**生きる / 選び直す / 関係から得たものを持つ**感覚を渡す。
+- 泣かせるために人気Characterを殺さない。
 
-- バッドエンドを正史にしない
-- 全滅・永久死・救いのない別離で締めない
-- 犠牲や一時的な別れは使ってよい
-- ただし最後には「生きている / 戻れる / また会える / 一緒に朝へ行ける」のどれか以上を確実に渡す
-- 泣かせるためにキャラを殺さない
+## 1.2 Dreamであることは決定済み
 
-## 1.2 夜の世界は「現実そのもの」ではない
+旧:
+> 夢 / 記憶 / virtual / shared mindのどれかOpen。
 
-夜の世界は、夢・記憶・仮想空間・共有精神世界などに近い性質を持つ方向。
+Current:
+> **ヨルノシルベはDream world。**
 
-重要なのは名称より、次の性質。
+Open:
+- なぜsharedされるか
+- final mechanism / origin
+- Black Ink / Star Beast / constellationとの最終関係
 
-- そこで傷つくことは感情的には本物
-- 失敗や別れには本気で怖さがある
-- ただし肉体的な永久死を主軸にしない
-- 誰かが消えたように見えても、現実側 / 朝側 / 別レイヤーに存在を残せる
-- 記憶の欠落・アクセス不能・眠り・隔離・取り残されることを「死の代わりの危機」に使える
+## 1.3 朝は来ない
 
-## 1.3 泣きは悲劇の量ではなく、日常の蓄積から作る
-
-泣きの核は「失ったから泣く」だけにしない。
-
-- 何気ない日常会が後で意味を持つ
-- 呼び方の変化がクライマックスで効く
-- 好物、小物、星獣、直した椅子、名前札、帰りの切符などが伏線になる
-- ずっとできなかったことを最後にできる
-- 一度離れた仲間が、朝側で再会する
-- 思い出せなくても身体や癖が覚えている
-- 最後に「普通の日常へ戻れること」が一番泣ける構造を目指す
-
-参考にしたい感情構造は、悲劇で終わらず、日常・友情・家族・再会・成長の積み重ねで泣かせる作品群の強さ。固有の展開や設定はコピーしない。
+- Dream内にphysical sunriseはない。
+- Endingは「夜が終わって朝になる」ではない。
+- Characterは**Wakingで自分のEraのRealityへ戻る**。
+- Moonが消える朔でもstars remain。
 
 ---
 
-# 2. 成長群像劇
+# 2. Ending emotional order
 
-全員が同じ性格になる必要はない。
+Target:
 
-- 明るい人は明るいまま成長する
-- ネガティブな人はネガティブなまま人を頼れるようになる
-- 無口な人は無口なまま必要な時に名前を呼べるようになる
-- 強い人は人へ任せられるようになる
-- 優しい人は自分も助けてもらえるようになる
-- Shadow側は思想を捨てるのではなく「相手の守り方も存在できる」と学ぶ
+1. 大事件のlocal crisisを越える。
+2. Character各自の成長が第三の選択を可能にする。
+3. Dreamの最深部でも空はNightのまま。
+4. 明示記憶を失うかもしれない怖さを一度通る。
+5. Waking。
+6. 各自が**それぞれのEra**へ戻る。
+7. normal wakingなら、名前 / 顔等を忘れても技能 / 感情 / 行動変化が残る。
+8. major resolutionではDream memoryを取り戻す方向。
+9. Reality大事件へ以前とは違うchoiceをする。
+10. ordinary lifeへ戻る。
+11. 好きだった癖 / Object / actionがRealityで返る。
+12. Title1として幸福感と完結感を渡す。
 
-終盤は「主人公だけ成長して皆が見送る」構造にしない。
-それぞれの成長が最終局面を成立させる。
-
----
-
-# 3. 犠牲の使い方
-
-犠牲は使用可能。ただし永久死を安易に使わない。
-
-## 使える犠牲
-
-- 一人だけ夜側へ残り出口を維持する
-- 自分の記憶の一部を手放して皆を返す
-- 星獣との接続を一時的に失う
-- 好感度 / 共鳴 / 能力を使い切り、朝側では普通の人へ戻る
-- 誰かの名前を一時的に忘れる
-- 長い眠りへ入る
-- 夜のレイヤーから強制ログアウト / 切断される
-- 別レイヤーへ取り残され、仲間には「消えた」ように見える
-
-## 必ず残す救い
-
-犠牲を描いた場合、後で最低1つは示す。
-
-- 生存の証拠
-- 再会の可能性
-- 目覚め
-- 名前への反応
-- 星獣が相手の存在を感じる
-- 現実側に残った小物
-- 2へ繋がる救出可能性
-
-「死んだと思わせて実は生きていた」を何度も使わない。驚きより感情の必然を優先する。
+全員が同じ現代の朝食卓へ帰る、にはしない。
 
 ---
 
-# 4. ヨルノシルベ1の終わり方
+# 3. 泣きは日常から作る
 
-## 本編エンディング
+先に積む:
 
-プレイヤーが感じる順番は以下を目標にする。
+- 一緒に食べる
+- 知らないEraの食べ物を面白がる
+- 呼び方
+- seat position
+- repair
+- dog / cat behavior
+- Star Beast routine
+- joke
+- fight / reconciliation
+- rain
+- unknown UI
+- same stars / different constellation name
 
-1. 大きな危機を越える
-2. 誰かが残る / 消える / 忘れられるように見える
-3. 仲間それぞれが自分の成長を使って道を作る
-4. 夜が終わる
-5. 朝 / 現実側へ戻る
-6. 一見失ったものも、完全には失われていなかったと分かる
-7. 日常へ戻る
-8. 好きだった日常会の小物・癖・呼び方が再登場する
-9. 再会または再会できる確信を与える
-10. 本編として幸福感と完結感を渡す
+後で返す。
 
-ここまででヨルノシルベ1は一度きちんと完結する。
-
----
-
-# 5. ヨルノシルベ2へ続く「ソフト・クリフハンガー」
-
-本編のハッピーエンドを壊してはいけない。
-
-そのため、続編フックは本編終了後の短いstinger / after-creditで置く。
-
-## 原則
-
-- 「全部無駄だった」は禁止
-- 「ラスボスはまだ生きていた」だけの安い引きは禁止
-- 1で救った人物を即座にまた絶望へ落とさない
-- 1の謎を全部未解決にして投げない
-- 1のテーマは1で答える
-- 2では、1で答えたことで初めて見える「一段上の問い」を出す
-
-## 有力な続編フック候補
-
-### Candidate A — 朝に存在しないはずの紙片
-
-朝。ユイの鞄から、夜にしか存在しないはずの黒い紙片が一枚出てくる。
-
-そこには文字はない。
-ただ、ユイの獅子の星獣だけがそれを見て唸る。
-
-意味:
-- 夜は単なる夢ではなかった
-- 現実と夜の境界に穴がある
-- 2で「夜がどこから来たか」を追える
-
-### Candidate B — 誰も知らない星獣
-
-皆が再会した後、集合写真の端に見覚えのない星獣が一匹写る。
-
-誰の星獣でもない。
-
-意味:
-- まだ会っていない人物
-- 忘れられた人物
-- 別レイヤーから見ている存在
-- 2の新主人公 / 新たな仲間へ繋げられる
-
-### Candidate C — 記憶にない呼び声
-
-最後の朝、ユイだけが遠くから自分の名前を呼ぶ声を聞く。
-
-聞き覚えがある。
-しかし誰の声か思い出せない。
-
-ユイは怖がらず、少し笑って振り返る。
-
-暗転。
-
-意味:
-- 失われた関係がまだある
-- ユイの記憶分割の真相を2へ残せる
-
-### Candidate D — 夜は一つではなかった
-
-1で歩いた夜は一つの層だった。
-朝側の天体図 / 古い端末 / ランタン内部に、別の夜の座標が一瞬だけ表示される。
-
-意味:
-- 2で別地域・別文化・別キャストへ拡張可能
-- 1の舞台を否定せず世界だけ広げられる
-
-現時点ではA〜DをCANDIDATEとし、どれも正史へ固定しない。
+Dreamの食事 / 日用品は不足resourceではないため、日常sceneへ十分な尺を使える。
 
 ---
 
-# 6. 泣きポイントの作り方
+# 4. Memory lossを危機として使う
 
-## 6.1 先に笑わせる / 好きにさせる
+Permanent deathの代わりに使える高価値stakes:
 
-泣く場面より前に、普通の日常回を十分作る。
+- 相手の名前を忘れるかもしれない
+- 顔を思い出せない
+- 約束の文面が抜ける
+- 誰に教わったか分からない
 
-例:
-- 朝食の取り合い
-- 誰かの料理が微妙
-- 星獣が勝手に食べる
-- 寝坊
-- 傘が足りない
-- 修理中に怒られる
-- 名前の呼び方を間違える
-- 皆で写真を撮る
-- 戦闘後にどうでもいい会話をする
+しかし:
 
-この「どうでもよかった時間」が、後で一番大切だったと分かる構造にする。
+- 手が覚えている
+- action choiceが変わる
+- animalが反応する
+- Object handlingが残る
 
-## 6.2 呼び方を感情装置にする
+ことで「関係が無かったことにはならない」を描ける。
 
-Bondで変わった呼び方を本編終盤でも使う。
-
-例:
-- ずっと「ユイさん」だった人が初めて「ユイ」と呼ぶ
-- いつも呼び捨ての人が最後だけフルネーム / 丁寧に呼ぶ
-- 無口な人が初めて自分から名前を呼ぶ
-- Shadow側が初めて仲間側の呼び方を使う
-
-呼び方の変化は単なる好感度報酬ではなく、物語の感情表現にする。
-
-## 6.3 戦闘で育った関係を最終局面へ返す
-
-Support / Bondで一緒に戦ってきた組み合わせが、終盤の台詞・Assist・灯合わせへ繋がる。
-
-プレイヤーが選んだ仲間との思い出も、感動へ参加できる構造を目指す。
+Major resolutionでは最終的にDream memoryを取り戻す方向がCurrent。
 
 ---
 
-# 7. リトルバスターズ的な「夢の世界」から参考にする構造上の強み
+# 5. Realityへ戻った後が本当のPayoff
 
-コピーしない。
-参考にするのは以下。
+Dreamで良いことを言って終了しない。
 
-- 不思議な世界の意味が後から感情へ反転する
-- 世界そのものが誰かを救うために存在していた可能性
-- 楽しかった日常に後から別の意味が生まれる
-- 別れを描くが、最終的には救いへ向かう
-- 現実へ戻ることが「日常を失う」ではなく「日常を生き直す」ことになる
+Realityで:
 
-ヨルノシルベでは、これを記憶・夜・ランタン・星獣・黒インクへ置き換えて独自化する。
+- 命令へ違う返答をする
+- 会社 / institutionで黙らない
+- SNS pile-onへ加わらない
+- Androidをcategoryで扱わない
+- Humanをcategoryで扱わない
+- routeを一つへ固定しない
+- 本人へ名前を確認する
 
----
+など、Era incidentに第三のchoiceを実行する。
 
-# 8. CLANNAD的な涙から参考にする構造上の強み
-
-コピーしない。
-参考にするのは以下。
-
-- 大事件だけでなく日常の積み重ねが後で効く
-- 家族、友人、世代、帰る場所の感情を強くする
-- 苦しさの後に救いを渡す
-- 「普通に一緒にいられること」をご褒美にする
-- 一度目では気づかない小物や会話を、後で意味のあるものへ変える
-
-ヨルノシルベでは恋愛だけに寄せず、友情・兄妹・師弟・親族・仲間・星獣との関係でも同等の涙を作る。
+Happy End = tragedy eraseではなく**worst outcomeを変える**。
 
 ---
 
-# 9. 今は固定しないこと
+# 6. 群青残響録Ending rule
 
-以下はまだCANDIDATE。
+群青残響録memberはfixed final bossesではない。
 
-- 夜の世界が夢なのか仮想空間なのか共有記憶なのか
-- 誰が夜を作ったのか
-- ユイが中心人物なのか、それとも中心だと思わされているのか
-- ユイとトモリの獅子座共有の正体
-- 1のラストで一時的に残る人物
-- 2の主人公がユイ続投か、新主人公か、ダブル主人公か
-- 2の舞台が同じ夜か、別の夜か、現実側との往復か
+各Incident中心人物は:
 
-今後の伏線・キャラ関係・ゲーム規模を見ながら決める。
+- fightして止める
+- 説得する
+- 証拠を出す
+-制度を変える
+- 自分から撤回する
+- 最後まで反対するが被害を止める
+- 責任を負う
+
+など別Endingを持てる。
+
+全員同じ「倒して改心」formatにしない。
+
+Final salvation / endingsはOpen。
 
 ---
 
-# 10. 一文でのシリーズ方針
+# 7. 朔夜座Ending rule
 
-> **夜では泣いても、最後は朝へ帰れる。けれど朝の向こうにも、まだ知らない夜がある。**
+8人全員を:
+
+- 죽す
+- 善落ち
+- playable加入
+
+へ統一しない。
+
+Memberごとに:
+
+- withdraw
+- lose locally
+- change one rule
+- remain opposed
+- protect someone unexpectedly
+- leave an unresolved clue
+
+等を使える。
+
+朔夜座が群青残響録のboss layerではない。
+
+---
+
+# 8. Sequel hook principle
+
+本編Happy Endを壊さない。
+
+禁止:
+
+- 「全部夢だったから無意味」
+- 「Happy Endは偽物」
+- 「倒したBossは生きていた」だけ
+- 「本当のEndingは2」
+- Title1の中心感情未解決
+
+良いhook:
+
+> Title1で答えたからこそ見える、一段上の違和感。
+
+---
+
+# 9. Sequel hook candidates
+
+## A — Realityに残るDream由来らしい紙片
+
+Waking後、Realityのbag / pocketに見覚えのある紙片。
+
+Meaning candidates:
+- Dream / Reality boundary
+- Object traversal
+- Record mismatch
+
+Guard:
+> 「Dreamではなかった」の証拠にはしない。
+
+Dream worldであることはCurrent fact。
+
+---
+
+## B — 誰も知らないStar Beast
+
+Reality photo / Dream recordの端にunknown Star Beast。
+
+Could mean:
+- new Character
+- forgotten Era
+- observation from another layer
+
+Star Beast truthはOpen。
+
+---
+
+## C — 記憶にない呼び声
+
+Waking後、名前を呼ばれた感覚だけ残る。
+
+怖がるより:
+> 「……誰だっけ。でも、嫌な感じじゃない。」
+
+くらいのwarm ambiguity。
+
+---
+
+## D — 存在しない星座名
+
+RealityでCharacterが無意識にDream側のold / future constellation nameを書く。
+
+別Character:
+> 「そんな星座、ないよ。」
+
+Series Mysteryへ直結。
+
+---
+
+## E — Android version mark
+
+古いEraにはあり得ないsystem markをRecordで発見。
+
+Future laneへ繋げられる。
+
+---
+
+# 10. Reference guard
+
+感情構造として参考可能:
+
+- 日常の蓄積
+- 不思議な世界の意味が後から反転
+- Realityへ戻ることで日常を生き直す
+- family / friendship / mentor / sibling / animal関係でも泣かせる
+
+Copy forbidden:
+
+- one accident explains everyone
+- all are same-accident victims
+- world created just to train protagonist
+- afterlife answer
+- everyone already dead
+- world collapse → waking as sole twist
+
+ヨルノシルベ独自:
+
+- different eras
+- Human / animal / machine
+- endless-night Dream
+- era-varying constellations
+- moon = incident depth
+- Sakuyaza
+- Gunjo Zankyoroku
+- memory-loss / implicit learning / later recovery
+
+---
+
+# 11. Ending checklist
+
+Before finalizing a Title ending:
+
+1. local emotional question is answered。
+2. physical sunrise is not required。
+3. Waking sends each person to own Era。
+4. Reality choice demonstrates growth。
+5. no fixed-era-boss assumption。
+6. Gunjo centrality and combat Boss are separated。
+7. Sakuyaza relation is not forced into hierarchy。
+8. A-grade Mystery remains without holding Happy End hostage。
+9. sequel hook adds a new question rather than invalidating resolution。
+10. ordinary-life callback exists。
+
+---
+
+# 12. Open
+
+- exact Title1 Reality incident
+- exact final combat encounter
+- 群青残響録formal members / endings
+- which Sakuyaza members appear in final stretch
+- exact Waking choreography
+- sequel protagonist / Era
+- final Dream mechanism
+- final constellation cause
+
+Happy End / Dream / no morning / Waking / non-fixed-boss Gunjo definitionはOpenへ戻さない。

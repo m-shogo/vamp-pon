@@ -3,14 +3,22 @@ name: World Setting Expansion
 on:
   pull_request:
     paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/CANON.md'
       - 'docs/WORLD.md'
+      - 'docs/STORY.md'
       - 'docs/world-*.md'
+      - 'docs/story-*.md'
+      - 'docs/dream-feast-party-social-bible-v1.md'
       - 'docs/stage-world-lore-integration-v1.md'
       - 'docs/character-family-household-atlas-v1.md'
       - 'docs/character-height-age-era-lineup-v1.md'
       - 'docs/character-interior-social-dynamics-bible-v1.md'
-      - 'docs/story-episode-emotional-engine-v1.md'
       - 'docs/sakumei-*.md'
+      - 'docs/sakuyaza-*.md'
+      - 'docs/gunjo-*.md'
+      - 'src/game/data/storyWorldMasterSource.ts'
+      - 'src/game/data/dreamSocialWorldSource.ts'
       - 'src/game/data/worldSettingExpansionIndex.ts'
       - 'src/game/data/worldSettingConflictRegister.ts'
       - 'src/game/data/stageWorldLoreIntegration.ts'
@@ -20,14 +28,22 @@ on:
   push:
     branches: [main]
     paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/CANON.md'
       - 'docs/WORLD.md'
+      - 'docs/STORY.md'
       - 'docs/world-*.md'
+      - 'docs/story-*.md'
+      - 'docs/dream-feast-party-social-bible-v1.md'
       - 'docs/stage-world-lore-integration-v1.md'
       - 'docs/character-family-household-atlas-v1.md'
       - 'docs/character-height-age-era-lineup-v1.md'
       - 'docs/character-interior-social-dynamics-bible-v1.md'
-      - 'docs/story-episode-emotional-engine-v1.md'
       - 'docs/sakumei-*.md'
+      - 'docs/sakuyaza-*.md'
+      - 'docs/gunjo-*.md'
+      - 'src/game/data/storyWorldMasterSource.ts'
+      - 'src/game/data/dreamSocialWorldSource.ts'
       - 'src/game/data/worldSettingExpansionIndex.ts'
       - 'src/game/data/worldSettingConflictRegister.ts'
       - 'src/game/data/stageWorldLoreIntegration.ts'
@@ -47,5 +63,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate P0-P2 world setting coverage and authority boundaries
+      - name: Validate Story / World master, P0-P2 coverage and authority boundaries
         run: node --experimental-strip-types scripts/quality/check-world-setting-expansion.ts

@@ -1,52 +1,89 @@
-# ヨルノシルベ — Civilian Society Bible v1
+# ヨルノシルベ — Civilian Society / Dream Daily Life Bible v2
 
 Date: 2026-08-11  
-Status: **P1 WORLD LIFE BIBLE / MULTI-ERA SAFE / METAPHYSICS NOT AUTO-CANON**
+Status: **P1 WORLD LIFE BIBLE / REALITY-DREAM SEPARATED / MASTER-ALIGNED**
 
-> 目的: 一般人が「背景モブ」ではなく、学校へ行き、働き、買い物し、病院へ行き、噂をし、祭りをし、死者を悼む世界を作る。
-
----
-
-# 1. 大原則 — 一つの現代社会に統一しない
-
-Current21は同時代とは限らない。
-
-そのため:
-- 共通通貨を全時代へ置かない
-- 全員smartphone前提にしない
-- 全員同じ学校制度 / 医療制度にしない
-- 全員同じ家族観 / 宗教観にしない
-
-Society Bibleは**制度family + era variants**で管理する。
+> 現世は現実の日本として細かく作る。  
+> ヨルノシルベはDreamなので、その生活インフラをコピーしない。
 
 ---
 
-# 2. Civilian Life — 普通の一日
+# 1. 二つの生活レイヤーを混ぜない
 
-世界が生きているか確認するため、各Reality culture zoneに最低以下を持つ。
+## Reality
+
+各Characterが本来生きる現実日本。
+
+必要:
+
+- school / work
+- transport
+- payments
+- housing
+- food supply
+- medicine
+- media
+- communication
+- laws / institutions
+- products / UI
+
+年代差を正確に出す。
+
+## Dream
+
+ヨルノシルベ。
+
+必要ない:
+
+- 家賃を払わないと追い出される
+- 食料を買えないと餓死
+- 水道 / 電気契約
+- 洗濯設備不足
+- 通貨がなく宿泊不可
+
+Dreamは**生存サバイバル物ではない**。
+
+---
+
+# 2. Realityの普通の一日
+
+各Era / Characterに最低:
 
 ```txt
 wake-up
 breakfast
-school/work
+school / work
 commute
 lunch
+communication
 shopping
 medical access
 leisure
-news source
-night safety
+news / media
 bath / hygiene
 sleep
 ```
 
-Nightへ関わらない一般人の生活も成立させる。
+を考えられる状態にする。
+
+現代Characterなら:
+
+- smartphone
+- IC / QR / card / cashの現実的混在
+- SNS / messaging
+- modern convenience store / chain / delivery
+- 現代school / workplace UI
+
+など複数証拠から現代日本と分かるようにする。
+
+古いEraへ現代習慣を誤植しない。
 
 ---
 
-# 3. School / learning life
+# 3. Reality School / Learning
 
 使える日常:
+
 - 名札
 - 出席
 - 図書室
@@ -57,102 +94,160 @@ Nightへ関わらない一般人の生活も成立させる。
 - 連絡帳
 - 卒業
 
-時代差:
+Era evidence:
+
 - 紙台帳
 - 校内放送
 - printed notice
-- digital notice Candidate
+- flip phone era contact
+- digital portal
+- smartphone app
 
-夜の真相を学校教材にしない。
+どれを使うかはCharacter Eraに合わせる。
 
 ---
 
-# 4. Work life
+# 4. Reality Work
 
 Heroic professionだけにしない。
 
-世界に必要な仕事:
+世界へ普通に存在する仕事:
+
 - 駅務
 - 郵便 / 配達
 - 教育
 - 医療
-- 図書 / 記録
-- 修理
-- 食堂
-- 小売
-- 清掃
-- 印刷
-- 写真
-- 道路 / 標識maintenance
-- 花 / 保存
+- 図書 / archive
+- repair
+- food service
+- retail
+- cleaning
+- print
+- photography
+- road / sign maintenance
+- flower / preservation
+- office / corporate work
+- software / platform work in recent eras
+- Android maintenance / rights / industry in future era
 
-「仕事をしていた人の手」がObjectへ残る世界にする。
+Objectへ「仕事をしていた人の手」を残す。
 
 ---
 
-# 5. World Economy — Reality economy
+# 5. Reality Economy
 
-## Rule 1
-Gameplay resourceとReality moneyを分ける。
+Gameplay resourceとReality moneyは別。
 
-記憶片 / run currencyを日常の家賃支払いへ使わない。
+記憶片 / run currencyを家賃やReality mealへ使わない。
 
-## Rule 2
-異なるEra間で金額比較をしない。
+Eraごとにcurrency / price sense / payment methodが違うため、制作初期はrelative bandを使える。
 
-Production上は:
 - `CHEAP_DAILY`
 - `NORMAL_MEAL`
 - `NOTICEABLE_PURCHASE`
 - `MAJOR_HOUSEHOLD_COST`
 
-のrelative price bandを使える。
-
-## Daily spending categories
-- food
-- rent / housing
-- commute
-- postage
-- medicine
-- school supplies
-- repair
-- leisure
-
-## Repair culture
-トモリ / トウマ等のテーマに合わせ、
-
-> 新品を買う方が常に正解
-
-の社会だけにしない。
-
-修理屋 / 部品 / 繕い / reuseが生活として存在しうる。
+Final Reality sceneではexact era調査後に具体化する。
 
 ---
 
-# 6. Night-side exchange
+# 6. Dream Living — 基本生活物は自然に満たされる
 
-Status: `OPEN_QUESTION`
+Status: `DECIDED`
 
-Nightに通常通貨経済があるかは未LOCK。
+ヨルノシルベでCharacterが:
 
-Safe default:
-- Nightで店に行って普通に円を払う、をCanon化しない。
-- Gameplay shopが存在してもReality economyの証明にしない。
+> 「ラーメン食べたい」
 
-Candidate exchange:
-- 物々交換
-- 情報交換
-- 「次に返す」貸し借り
+と思えばラーメンが現れてよい。
 
-ただし闇市場をTitle1必須設定にしない。
+> 「タピオカミルクティー飲みたい」
+
+なら出てよい。
+
+同様に:
+
+- 飲み物
+- blanket
+- basic clothes補完
+- daily goods
+- rest place
+- simple furniture
+
+などはDreamらしく自然に成立できる。
+
+### Why
+
+- food-supply simulationへStory尺を使わない
+- 異年代Characterの食文化交流を増やせる
+- 日常回を作りやすい
+- 生存危機ではなく人間関係 / 選択へstakesを置ける
 
 ---
 
-# 7. Local Food / Culture
+# 7. Dream materializationは万能魔法ではない
 
-Current profilesの好物を大切にし、世界全体を高級Fantasy料理へしない。
+Status: `DECIDED`
 
-Existing everyday food tone:
+出せてもStoryが解決しないもの:
+
+- 人の心
+- 相手の同意
+- 記憶の真実
+- trauma
+- Relationship
+- Black Youka
+- Reality incident
+- Life / death
+- 本人の本当の選択
+
+### Rule
+
+> **物は作れても、他人の意思は作れない。**
+
+例えば:
+
+- 仲直りしたい → 「仲直り済み」にはできない
+- 名前を知りたい → 正しい本名を生成できない
+- 傷ついた友達を元気にしたい → 心まで自動回復しない
+- Realityの会社事故を無かったことにしたい → できない
+
+---
+
+# 8. Dream Food / Era Gap Scenes
+
+食事は年代差の最高のsoft clue。
+
+Example:
+
+現代Character:
+> 「タピオカ飲む？」
+
+古いCharacter:
+> 「たぴ……何？」
+
+現代Character:
+> 「甘いやつ。」
+
+古いCharacter:
+> 「じゃあ飲む。」
+
+ここで:
+
+> 「お前は昔の時代から来たのか！」
+
+へ飛ばない。
+
+Dreamの不思議さが「知らない食文化なんだな」を自然に許す。
+
+---
+
+# 9. Existing everyday food tone
+
+高級Fantasy cuisineで統一しない。
+
+Character profileで馴染む温度:
+
 - 焼きおにぎり
 - だし巻き卵
 - 白玉ぜんざい
@@ -168,328 +263,420 @@ Existing everyday food tone:
 - butter cookie
 - soba
 
-この**普通に食べたことがありそうな温度**を強みとする。
+さらにEra差:
 
-## Culture layers
+- package
+- container
+- serving style
+- vocabulary
+- availability
 
-### Station food
-- 片手で食べられる
-- 冷めても食べられる
-- 旅の途中
-
-### Preservation food
-- 乾燥
-- 包む
-- 甘味
-- 季節保存
-
-### Shared food
-- 半分にする
-- 名前を書く
-- 人数分に分ける
-
-### Rain / cold food
-- 温かい汁
-- 焼き物
-
-地域固有名物はGeography確定後に追加する。
+へ広げる。
 
 ---
 
-# 8. Food scene rules
+# 10. Food scene character writing
 
-食事sceneはCharacter informationを自然に出す。
+全員が「おいしい！」で終わらない。
 
-例:
-- リツは先に人数を数える。
-- コヨリは名前を書きたがる。
-- アサは紙コップへ名前を書く。
-- ハナは残りを包む。
-- トモリは話しながら椅子を直す。
+- リツは人数を数える
+- コヨリは名前を書きたがる
+- アサはcupへ名前を書く
+- ハナは残りを包もうとする
+- トモリは食べながら椅子を直す
+- Androidは食事をnutrient / social exchangeとして理解しようとする可能性
+- 犬は匂いで興味を示す
+- 猫は気分で無視する
 
-全員が「おいしい！」と同じ反応をしない。
+Dream foodはCharacterを好きになるsceneへ使う。
 
 ---
 
-# 9. Calendar / Festival / Ritual
+# 11. Dream Clothes
 
-誕生日だけで世界の暦を終わらせない。
+服が破れたため生活不能、にはしない。
 
-## Candidate seasonal customs
+Dreamとして基本状態は補完される。
+
+ただし以下は物語上残る:
+
+- signature clothing
+- family item
+- repair seam
+- intentional damage
+- era construction
+- insignia
+- 朔夜座visual motif
+
+「補完される」= Character identityが毎回resetされる、ではない。
+
+---
+
+# 12. Dream Rest / Place
+
+Dreamには自然に:
+
+- station waiting room
+- bench
+- room
+- small inn-like space
+- fire
+- rooftop shelter
+- archive corner
+- workshop
+
+など休息場所が存在してよい。
+
+料金 / booking / owner business modelを毎回説明しなくてよい。
+
+重要なのは:
+
+- 誰がどこへ座るか
+- 誰が火を守るか
+- 誰が眠れないか
+- 誰が他人へblanketを掛けるか
+
+というRelation。
+
+---
+
+# 13. Reality Food / Local Culture
+
+Realityでは地方 / Eraごとの食文化をちゃんと作る。
+
+- station food
+- school meal
+- local sweets
+- preservation food
+- family food
+- company / work lunch
+- convenience food
+- delivery culture
+
+ただしexact hometownがOpenのCharacterへ勝手に名物を固定しない。
+
+---
+
+# 14. Calendar / Festival / Ritual
+
+誕生日だけにしない。
+
+Candidate:
 
 ### 帰り灯
-Status: `CANDIDATE`
-夕方、帰宅が遅い人のため小さな灯りを玄関 / 店先へ残す生活習慣。
 
-重要:
-- 宗教儀式とは限らない。
-- NightのMechanismが起源と自動確定しない。
+Reality地域文化としての小さな灯り習慣Candidate。
+
+Dream mechanismの証明にはしない。
 
 ### 保留市
-Status: `CANDIDATE`
-持ち主不明 / 修理待ち / 余った物をすぐ捨てず、地域で持ち主や使い道を探す小規模催し。
+
+持ち主不明 / repair待ち物をすぐ捨てないlocal event Candidate。
 
 ### 星見
-Status: `CANDIDATE`
-季節の星を見て名前を教え合う普通の行事。
-星獣召喚祭にはしない。
+
+Reality側の普通のsky-watching custom。
+
+Important:
+
+Realityの星座文化とDreamの年代変動星座を同一視しない。
 
 ### 手紙の日
-Status: `CANDIDATE`
-家族 / 友人へ短い便りを書く地域 / 学校行事Candidate。
+
+学校 / 地域行事Candidate。
 
 ---
 
-# 10. Ritual design rule
+# 15. Belief / Funeral
 
-良いRitualは:
-- 朝や夜のMain Mysteryを説明しなくても成立
-- 一般人が意味を知らず続けても自然
-- Characterの日常sceneで使える
-- 後から別の歴史的意味を読める
-
-「古代から伝わる予言祭」ばかりにしない。
-
----
-
-# 11. Religion / Belief / Funeral
-
-## Metaphysical guard
-信仰 = 世界の真相ではない。
+信仰 = cosmology truthではない。
 
 誰かが:
-> 星は死者を見ている
 
-と信じても、Star Beast cosmologyのCanonにはならない。
+> 「星は死者を見ている」
 
-## Belief categories
-- 家庭の習慣
-- 地域の言い伝え
-- 宗教的信仰
-- 職業上の験担ぎ
-- 子どもの迷信
+と信じてもStar Beast truthにはならない。
 
-混ぜない。
+Mourning grammar:
 
-## Funeral / mourning candidate grammar
-
-ヨルノシルベに合う方向:
 - 名前を呼ぶ
-- 遺品を捨てず整理する
-- 花 / 紙 / 手紙を残す
-- 「全部知る」ことを遺族へ強制しない
+- 遺品を整理
+- 花
+- 紙
+- 手紙
+- 分からないことを分からないまま残す
 
-特定実在宗教の儀式を無断混成しない。
-
-## Strong Candidate custom — 余白を残す
-遺品 / 記録の一部を「分からないまま」残す家庭・地域慣習Candidate。
-
-意味:
-> 分からないことまで他人が決めない。
-
-これはハクマ的な「全部消す」とは違う。
+実在宗教を雑に混成しない。
 
 ---
 
-# 12. Rumor / Media / Reputation
+# 16. Rumor / Media
 
-Era variants:
-- 口伝
-- 回覧
-- 掲示板
-- 新聞
+Reality Era variants:
+
+- oral rumor
+- notice board
+- newspaper
 - radio
 - school rumor
 - local newsletter
-- internet / social media Candidate for recent Era only
+- internet forum
+- SNS
+- video platform
 
-## Night rumor names Candidate
-- 「帰れない道」
-- 「名前が増える路地」
-- 「終電の後のホーム」
-- 「眠ると同じ駅を見る」
+現代EraでSNSがない不自然さを避ける。
 
-正式用語を民間人が最初から使わない。
-
-## Sakumei reputation
-Early civilians:
-- 朔盟という名前を知らない
-- 八影も一部の観測者用語
-
-噂は:
-> 黒い札を貼る何か
-> 道を消すもの
-
-のように個体現象単位になりやすい。
+古いEraへSNS vocabularyを誤植しない。
 
 ---
 
-# 13. Media truth rule
+# 17. Dream rumor language
 
-新聞記事 / SNS / 噂は作者の説明書ではない。
+Dream participantが最初から作者用語を全て知っている状態にしない。
 
-各記事:
-- source
-- editor knowledge
+早期:
+
+- 「道を消すやつ」
+- 「札を貼るやつ」
+- 「眠らせるやつ」
+
+のような個体phenomenon理解。
+
+`八影`はearly observer labelとして一部が使える。
+
+`朔夜座`のformal identity reveal timingはStoryで設計する。
+
+`朔盟`をCurrent rumor nameとして復活させない。
+
+---
+
+# 18. Media truth rule
+
+Reality newspaper / SNS / company statement / official announcementは作者の神視点ではない。
+
+各sourceへ:
+
+- writer knowledge
 - deadline
-- institution pressure
 - witness count
+- institution pressure
+- legal / corporate concern
 
-で偏る。
+を持たせる。
 
-「政府が全部隠している」をdefaultにしない。
+群青残響録full-name Revealも、資料一枚で「真相全部説明」にはしない。
 
 ---
 
-# 14. Language / Slang
+# 19. Language / Slang
 
-## Layer 1 — Individual voice
-既存Character dialogue bookがAuthority。
+### Individual voice
 
-## Layer 2 — Era language
-- 古い言い回し
-- 現代語
-- technical terms
+Character dialogue authorityを上流にする。
 
-ただし方言を年寄り記号にしない。
+### Era language
 
-## Layer 3 — Profession language
+古い / 新しい言葉をresearchして自然に使う。
+
+### Profession language
+
 駅務:
-- 通過 / 保留 / 返却 / 改札
+- 通過
+- 保留
+- 返却
+- 改札
 
 郵便:
-- 宛先 / 返送 / 保管 / 未配達
+- 宛先
+- 返送
+- 保管
+- 未配達
 
-記録:
-- 未分類 / 異版 / 注記
+record:
+- 未分類
+- 異版
+- 注記
 
-修理:
-- 継ぐ / 交換 / 仮留め
+repair:
+- 継ぐ
+- 交換
+- 仮留め
 
-これらがCharacter metaphorへ自然に流れる。
+### Deprecated candidate slang
 
-## Layer 4 — Night slang Candidate
+旧`朝残り`のように物理的な朝を前提にする新規slangは採用しない。
 
-- `ほどく` — enemy defeat vocabulary。Current identityと整合。
-- `朝残り` — 朝まで残ったものを指す俗語Candidate。
-- `道落ち` — routeから外れた状態Candidate。
-- `仮名` — observerが便宜上付けた敵呼称。
-
-正式採用前にdialogue naturalness review。
+新しいDream slangは必要になった時にDialogue Reviewする。
 
 ---
 
-# 15. Sakumei language
+# 20. 朔夜座 language
 
-朔盟memberが全員同じ厨二口調にならない。
+旧朔盟資料の全員同じjargonへ固定しない。
 
-共有できる概念語:
-- 署名
+共有し得るconcept:
+
 - 固定
 - 保留
 - 未定
 - 読み違い
+- 署名 / witness（legacy Operational Candidate）
 
-ただし個人ごとに言い換える。
+個人ごとに言い方を変える。
 
-ペタは特にformal jargonを雑に扱ってもよいCandidate。
+ペタはformal termを雑に扱える。
 
 ---
 
-# 16. Medicine / Care / Recovery
+# 21. Reality Medicine / Dream Care
 
-Life/Death Rulebookを上流とする。
+## Reality
 
-## Reality medicine
-- 普通の診察
-- 薬
-- rest
-- rehabilitation
+そのEraの普通の:
+
+- diagnosis
+- medicine
 - emergency care
+- rehabilitation
+- mental health support
 
-## Night aftercare Candidate
-- sleep
-- hydration / food
+へ戻る。
+
+## Dream
+
+生活物は補完できても:
+
+- Reality injury
+- chronic illness
+- disability
+- trauma
+
+が願いで消えるわけではない。
+
+Dream aftercare:
+
+- food / drink
+- rest
 - quiet time
 - debrief
-- object check
+- Object check
 - memory note
 
-## Black-Youka aftercare
-戻った直後に笑って完全回復しない。
-
-- 恥
-- 疲労
-- 自分が言ったことへの戸惑い
-- 仲間がどう接するか
-
-をCharacterごとに変える。
-
-## Star Beast care
-Status: `CANDIDATE`
-
-星獣が疲れる / 傷つくMechanismは未確定。
-ただし日常care:
-- brush
-- sleeping spot
-- food-like behavior
-
-などはcosmology確定前に要Review。
+をRelationship sceneに使える。
 
 ---
 
-# 17. Disability / accessibility in-world
-
-アマネ等Future人物を含め:
+# 22. Disability / Accessibility
 
 - 「治る」がHappy Endではない。
-- 建築accessibilityは背景設定にも反映できる。
-- 古いEraではbarrierがある可能性を描いても、本人の価値を悲劇へ縮めない。
-- Nightだけ魔法でwheelchair不要、をdefaultにしない。
+- Dreamで補助具が不要になることをdefaultにしない。
+- 本人が使いやすい環境 / supportを自然に補完できる。
+- Reality側のEra barrierは描けるが、Character valueを悲劇へ縮めない。
 
 ---
 
-# 18. Civilian response to Night-like incidents
+# 23. Android Daily Life
 
-一般人は:
-- 怖がる
-- 信じない
-- 面白がる
-- 仕事として処理する
-- 家族を心配する
+未来RealityではAndroidが社会に存在するため:
 
-などバラつく。
+- work
+- maintenance
+- ownership law
+- identity registration
+- housing / charging / energy
+- rights / contract
+- copy / backup
 
-全市民が同じ都市伝説fanにならない。
+などが日常制度へ入るCandidate。
+
+ただしexact制度はFuture incident design前にLOCKしない。
+
+DreamではAndroidを「機械なので食卓に不要」と排除しない。
+
+本人が食べない / 飲まないとしても:
+
+- 同席
+- preparation
+- social ritual
+- curiosity
+
+へ参加できる。
 
 ---
 
-# 19. Quiet world details reservoir
+# 24. Reality Animals / Dream Daily Life
 
-- 駅前の傘立て
-- 読み終えた新聞を置く棚
+Reality犬猫もDreamへ来られる。
+
+星獣とは別。
+
+犬:
+- 匂い
+- 声
+- gait
+- touch
+
+猫:
+- multiple names
+- multiple homes
+- self-identity
+
+普通の動物性を残す。
+
+---
+
+# 25. Quiet world detail reservoir
+
+Reality / Dream双方で使えるが意味を分ける。
+
+- 駅前傘立て
+- 新聞棚
 - 「持ち主を探しています」札
-- 修理済み日付
-- 写真館の番号札
+- repair date
+- 写真館番号札
 - 学校の身長線
-- 郵便受けの名前跡
-- 古い店の営業時間
-- 祭り後に残る紐
-- 閉店した店の椅子
+- 郵便受けname trace
+- old shop hours
+- festival string
+- closed-shop chair
+- smartphone screen crack
+- obsolete charger
+- Android serial cover
 
-これらは伏線でなくてもよい。
+全てを伏線にする必要はない。
 
-**ただ世界が存在した証拠として価値がある。**
+**世界が生きている証拠**として価値がある。
 
 ---
 
-# 20. Completion definition
+# 26. Quality checklist
 
-- 一般人の一日を説明できる。
-- Economyとgame currencyを混ぜない。
-- 食文化がCharacter日常へ繋がる。
-- FestivalがMain Mystery説明会にならない。
-- Beliefと世界真相を分離できる。
-- 噂 / 記事 / 証言をtruthと混同しない。
-- 時代差の言葉 / 制度を使える。
-- 戦闘後のCareが存在する。
+## Reality scene
+
+- Eraに合う通信か
+- paymentか
+- transportか
+- product / UIか
+- institutionか
+- city landscapeか
+
+## Dream scene
+
+- survival logisticsに寄りすぎていないか
+- materializationでStory問題まで消していないか
+- Era gapが自然に出ているか
+- Character interactionが主役か
+- 朝を待つStoryへ戻っていないか
+
+---
+
+# 27. Completion definition
+
+- Realityの普通の一日をEra別に説明できる。
+- Dreamで衣食住不足がmain conflictにならない。
+- Dream food / daily lifeでCharacterとEra差を描ける。
+- EconomyとGameplay currencyを混ぜない。
+- Beliefと世界真相を分離する。
+- Media sourceごとの偏りを描ける。
+- Android / animalsを日常へ自然に置ける。
+- 朔夜座 / 群青残響録を作者用語説明だけで登場させない。

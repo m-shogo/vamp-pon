@@ -1,187 +1,211 @@
-# ヨルノシルベ — World Setting Expansion Index v1
+# ヨルノシルベ — World Setting Expansion Index v2
 
 Date: 2026-08-11  
-Status: **CURRENT EXPANSION ROUTER / P0-P2 COVERAGE INDEX / RUNTIME NOT AUTO-PROMOTED**
+Status: **CURRENT EXPANSION ROUTER / MASTER-ALIGNED / 32-AREA COVERAGE**
 
-> ユーザー指定の不足32項目を、孤立したメモではなく相互参照できる正本候補群へ接続する。
+> 32項目を維持しつつ、最上位Story / World Masterへ追従する。
 
 ---
 
 # 1. Read order
 
 ```txt
-docs/CANON.md
+00-current-story-world-master.md
 ↓
-docs/world-foundation-authority-v1.md
+WORLD.md / CANON.md
 ↓
-P0 world structure
+world-foundation-authority-v1.md
 ↓
-P1 lived world / character interior / story delivery
+world-setting-conflict-register-v1.md
 ↓
-P2 visual / prop / audio / localization / merch
+P0
+↓
+P1
+↓
+P2
 ```
 
 ---
 
-# 2. P0 coverage
+# 2. P0 coverage — 9
 
-| Requested area | Current expansion source | State |
+| Requested area | Current source | State |
 |---|---|---|
-| Institution Map | `world-institution-faction-map-v1.md` | COVERED v1 |
-| Faction Map | `world-institution-faction-map-v1.md` | COVERED v1 |
-| Geography / Travel Atlas | `world-geography-travel-atlas-v1.md` | COVERED v1 |
-| Knowledge / Secret Matrix | `world-knowledge-secret-matrix-v1.md` | COVERED v1 |
-| Historical Incident Ledger | `world-historical-incident-ledger-v1.md` | COVERED v1 / incidents Candidate |
-| Life / Death / Injury | `world-life-death-injury-rulebook-v1.md` | COVERED v1 |
-| Sakumei Operational Bible | `sakumei-operational-bible-candidate-v1.md` | COVERED Candidate |
-| Mystery / Foreshadow / Payoff | `world-mystery-foreshadow-payoff-ledger-v1.md` | COVERED v1 |
+| Institution Map | `world-institution-faction-map-v1.md` | COVERED / Reality-Dream separation required |
+| Faction Map | `world-institution-faction-map-v1.md` | COVERED / 朔夜座・群青残響録migration underway |
+| Geography / Travel Atlas | `world-geography-travel-atlas-v1.md` | COVERED / Dream geography≠Reality geography |
+| Knowledge / Secret Matrix | `world-knowledge-secret-matrix-v1.md` | COVERED / era time-tags weak |
+| Historical Incident Ledger | `world-historical-incident-ledger-v1.md` | COVERED Candidate / no one-incident-for-all |
+| Life / Death / Injury | `world-life-death-injury-rulebook-v1.md` | COVERED v2 / Waking replaces dawn-return |
+| 朔夜座 Operational assets | legacy `sakumei-*` docs + `sakumeiCandidateSource.ts` | COVERED assets / formal name=朔夜座 |
+| Mystery / Foreshadow / Payoff | `world-mystery-foreshadow-payoff-ledger-v1.md` | COVERED / constellation cause remains Mystery |
 | Height / Age / Era Lineup | `character-height-age-era-lineup-v1.md` | COVERED relative / exact pending |
 
 ---
 
-# 3. P1 coverage
+# 3. P1 coverage — 18
 
-| Requested area | Current expansion source | State |
+| Requested area | Current source | State |
 |---|---|---|
-| Family / Household Atlas | `character-family-household-atlas-v1.md` | COVERED v1 / major family facts open |
-| Civilian Life Bible | `world-civilian-society-bible-v1.md` | COVERED v1 |
-| World Economy | `world-civilian-society-bible-v1.md` | COVERED v1 / multi-era relative economy |
-| Local Food / Culture | `world-civilian-society-bible-v1.md` | COVERED v1 |
-| Calendar / Festival / Ritual | `world-civilian-society-bible-v1.md` | COVERED v1 / rituals Candidate |
-| Religion / Belief / Funeral | `world-civilian-society-bible-v1.md` | COVERED v1 / metaphysics guarded |
-| Rumor / Media / Reputation | `world-civilian-society-bible-v1.md` | COVERED v1 |
-| Language / Slang | `world-civilian-society-bible-v1.md` | COVERED v1 / slang Candidate |
-| Medicine / Care / Recovery | `world-civilian-society-bible-v1.md` + `world-life-death-injury-rulebook-v1.md` | COVERED v1 |
+| Family / Household Atlas | `character-family-household-atlas-v1.md` | COVERED / major family facts Open |
+| Civilian Life Bible | `world-civilian-society-bible-v1.md` | COVERED Reality life; Dream living uses Master rules |
+| World Economy | `world-civilian-society-bible-v1.md` | Reality economy only; Dream does not require normal economy |
+| Local Food / Culture | `world-civilian-society-bible-v1.md` | Reality culture + Dream cross-era food scenes |
+| Calendar / Festival / Ritual | `world-civilian-society-bible-v1.md` | COVERED Candidate |
+| Religion / Belief / Funeral | `world-civilian-society-bible-v1.md` | Belief≠metaphysical proof |
+| Rumor / Media / Reputation | `world-civilian-society-bible-v1.md` | COVERED multi-era |
+| Language / Slang | `world-civilian-society-bible-v1.md` | COVERED / time-tag clues |
+| Medicine / Care / Recovery | `world-civilian-society-bible-v1.md` + `world-life-death-injury-rulebook-v1.md` | Reality care + Dream aftereffect separation |
 | Desire / Need / Lie / Shame | `character-interior-social-dynamics-bible-v1.md` | Current21 21/21 |
-| Character Secret Inventory | `character-interior-social-dynamics-bible-v1.md` + `world-knowledge-secret-matrix-v1.md` | pressure 21/21 / major secrets open |
-| Recurring Gag Bible | `character-interior-social-dynamics-bible-v1.md` | COVERED v1 |
-| Iconic Quote / Callback Bank | `character-interior-social-dynamics-bible-v1.md` | function bank v1 / exact voice pending |
-| Mentor / Rival / Successor | `character-interior-social-dynamics-bible-v1.md` | COVERED v1 |
-| Episode / Chapter Engine | `story-episode-emotional-engine-v1.md` | COVERED v1 |
-| Cliffhanger Library | `story-episode-emotional-engine-v1.md` | COVERED v1 |
-| Quiet / Breather Episode Plan | `story-episode-emotional-engine-v1.md` | 8 seeds + rules |
-| Emotional Temperature Map | `story-episode-emotional-engine-v1.md` | COVERED v1 |
+| Character Secret Inventory | `character-interior-social-dynamics-bible-v1.md` + Knowledge Matrix | pressure 21/21 / major secrets Open |
+| Recurring Gag Bible | `character-interior-social-dynamics-bible-v1.md` | COVERED |
+| Iconic Quote / Callback Bank | `character-interior-social-dynamics-bible-v1.md` | function bank / exact voice pending |
+| Mentor / Rival / Successor | `character-interior-social-dynamics-bible-v1.md` | COVERED |
+| Episode / Chapter Engine | `story-episode-emotional-engine-v1.md` | COVERED |
+| Cliffhanger Library | `story-episode-emotional-engine-v1.md` | COVERED |
+| Quiet / Breather Episode Plan | `story-episode-emotional-engine-v1.md` | COVERED / Dream daily-life priority |
+| Emotional Temperature Map | `story-episode-emotional-engine-v1.md` | COVERED |
 
 ---
 
-# 4. P2 coverage
+# 4. P2 coverage — 5
 
-| Requested area | Current expansion source | State |
+| Requested area | Current source | State |
 |---|---|---|
-| Environment Visual Bible | `world-production-expression-bible-v1.md` | COVERED v1 |
-| Prop Master Book | `world-production-expression-bible-v1.md` | COVERED framework / individual masters next |
-| Audio / Leitmotif Bible | `world-production-expression-bible-v1.md` | COVERED direction / composer detail pending |
-| Localization Guide | `world-production-expression-bible-v1.md` | COVERED v1 |
-| Merch Scene Matrix | `world-production-expression-bible-v1.md` | COVERED v1 |
+| Environment Visual Bible | `world-production-expression-bible-v1.md` | COVERED / star & moon rules must follow Master |
+| Prop Master Book | `world-production-expression-bible-v1.md` | framework / individual masters next |
+| Audio / Leitmotif Bible | `world-production-expression-bible-v1.md` | direction / detailed scoring pending |
+| Localization Guide | `world-production-expression-bible-v1.md` | COVERED |
+| Merch Scene Matrix | `world-production-expression-bible-v1.md` | COVERED |
 
 ---
 
-# 5. Cross-cutting source
+# 5. Current formal faction / incident-center routing
 
-`franchise-content-gap-audit-v1.md`
-
-役割:
-- popular long-running IPで厚い資料カテゴリとの差分監査
-- 何を作るべきかのWhy
-
-上記各Bibleはその監査を**実際のヨルノシルベ設定へ落としたもの**。
-
----
-
-# 6. Sakumei routing
+## 朔夜座
 
 ```txt
-Early observer identity
-  yatsukageIdentitySource.ts (Current)
+Current formal name
+  00-current-story-world-master.md
       ↓
-User-approved redesign Candidate
+八影 early observer assets
+  yatsukageIdentitySource.ts
+      ↓
+legacy 朔盟 authored assets
   sakumei-antagonist-organization-candidate-v1.md
-      ↓
-Operational detail
   sakumei-operational-bible-candidate-v1.md
+  sakumei-member-deep-profile-candidate-v1.md
+  sakumeiCandidateSource.ts
       ↓
-Machine-readable candidate
-  src/game/data/sakumeiCandidateSource.ts
+Current player-facing / final visual migration
+  朔夜座
 ```
 
-Human review前に既存Yatsukage runtime namespaceを削除しない。
+Legacy file名を理由に朔盟をCurrentへ戻さない。
+
+## 群青残響録
+
+Definition authority:
+`00-current-story-world-master.md`
+
+> 各時代の大事件中心人物 / 人物群を後から括る記録名。
+
+Not:
+
+- 固定5人
+- 1時代1人
+- 固定敵組織
+- 必須戦闘Boss
+
+formal member / full-name / exact incidentはOpen。
+
+---
+
+# 6. Dream living rule — P1 interpretation
+
+Reality Civilian BibleをDreamへそのまま移植しない。
+
+Dreamで容易に補完できる:
+
+- 食事
+- 飲料
+- 日用品
+- 休息
+- 基本生活物
+
+Wishで解決できない:
+
+- 心
+- 同意
+- 記憶真実
+- トラウマ
+- 人間関係
+- 黒耀化
+- Reality大事件
+- 生死
+
+これにより日常sceneは豊かにしつつ、生存サバイバル / 万能願望世界の両方を避ける。
 
 ---
 
 # 7. Character master routing
 
-画像原本制作前に読む:
+画像原本制作前:
 
 ```txt
+00-current-story-world-master.md
+↓
 Character Canon / Deep Core
 ↓
-character-appearance-source-book-v1.md
+Appearance Source
 ↓
-character-height-age-era-lineup-v1.md
+Height / Era Lineup
 ↓
-character-interior-social-dynamics-bible-v1.md
+Interior / Relation / Household
 ↓
-character-family-household-atlas-v1.md
+Reality era evidence
 ↓
-world geography / institution / civilian society
+Dream visual rules: stars / constellation / moon / materialization
 ↓
-Candidate master art
+Candidate master
 ↓
 Human Review
 ```
 
-画像都合から設定へ逆流しない。
+画像から偶然生まれた傷 / tattoo / height / eraを上流Canonへ逆輸入しない。
 
 ---
 
-# 8. What is intentionally still open
+# 8. Intentionally Open
 
-「全部埋める」ことと「全部Canon化する」ことを分ける。
-
-Human decisionを残すもの:
-
-- 夜の最終正体
-- 黒インク最終起源
-- 星獣完全Mechanism
-- 死者がNightへ本人として現れるか
-- exact Reality years / locations
-- Core5等の実親 / sibling / spouse / children
-- Current主要人物のPermanent death
-- exact character heights
-- Sakumei founder / mastermind / true names
-- Canon romance
-- exact festival / religion adoption
-
-これらがOPENなのは欠陥ではなく、上流矛盾を防ぐための意図的な保留。
+- exact years
+- 群青残響録member / formal names
+- 各時代大事件exact内容 / 被害 /場所
+- Android final name / acronym / full version order
+- 星座増減の最終原因
+- 星獣との最終関係
+- Dream最終mechanism
+- 死者のDream参加rule
+- exact character height / age / era
+- 主要Family重大fact
+- 各大事件に戦闘Bossが必要か
 
 ---
 
 # 9. Next depth pass
 
-v1で32項目の構造と主要detailを揃えた。
+新カテゴリを増やすより:
 
-次は新しいカテゴリを増やさず、以下を**一人 / 一地域 / 一事件ずつ深くする**。
+1. Masterとの旧資料contradiction migration
+2. 朔夜座8人のCurrent identity / visual master準備
+3. 各時代laneのReality evidence
+4. 群青残響録を固定Bossにしないincident structure
+5. Dream food / daily-life / era-gap scenes
+6. 年代別constellation candidate atlas
+7. 月相depth progression candidate
+8. Android / animal relation integration
+9. Core5 final character master production
 
-1. Current21 household evidence
-2. Current21 exact era evidence
-3. Historical incidentsをStage20へ配置
-4. Knowledge Matrixを420 Affinity / 168 enemy relationsへ接続
-5. Sakumei8 interior fields / visual master contract
-6. Tier S/A propsのindividual master
-7. Environment culture zoneのvisual source sheets
-8. Core5 character image master final production
-
----
-
-# 10. Quality rule
-
-今後、新設定を足すだけで本Indexのカテゴリを増やさない。
-
-まず:
-- 既存sourceに入るか
-- 既存Characterを深くできるか
-- existing Stage / Object / relationへ繋がるか
-
-を確認する。
+へ進む。
 
 **広げるより、繋いで深くする。**
