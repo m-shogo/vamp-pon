@@ -4,7 +4,7 @@
 
 Content Masterで選定した **Selected16** を、既存runtimeへ形だけ押し込まないためのAdmission Gate。
 
-Content側では16本ともTitle1採用のまま。Runtime側では必要primitiveが実装され、Selected16固有callerで実経路が証明されるまでfail closedする。
+Content側では16本ともTitle1採用のまま。Runtime側では、必要なshared primitiveに加えて **Selected16固有callerの実経路** が証明されるまでfail closedする。
 
 ## Cross-runtime reality
 
@@ -36,22 +36,48 @@ U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2
 4. `MULTI_TARGET_PROJECTILE_SELECTION`
 5. `STATUS_APPLICATION`
 6. `KNOCKBACK_VECTOR`
+7. `CONE_QUERY`
 
 `MULTI_TARGET_PROJECTILE_SELECTION` は reusable scratch / targetable-only / deterministic nearest prefix / caller target cap / canonical target spawnまで実コードとCIで確認済み。
 
-`STATUS_APPLICATION` はgeneric plumbingだけでなく、最初のSelected16固有caller `ember_matchcase` がtyped BURN requestを生成してmulti-target Projectileへ渡す経路まで実装したためIMPLEMENTEDへ昇格する。
+`STATUS_APPLICATION` はgeneric plumbingだけでなく、Selected16固有callerがtyped Status requestを実際にshared enemy Status stateへ接続している。
 
 `KNOCKBACK_VECTOR` は `U2EnemyKnockbackRuntime` がtargetable enemyへcaller supplied方向・距離の2D displacementを適用するshared primitive。velocity / stun / duration / default distance / weapon identityは持たず、次のenemy Tickから通常追跡へ戻る。
 
+`CONE_QUERY` は `U2EnemyConeQueryRuntime` がcaller supplied origin / facing / range / half-angle / target capでtargetable enemyを抽出し、nearest-firstかつ入力順tie-breakでcaller-owned scratchへ返す。weapon identity、damage、Status、knockback tuningは持たない。
+
+## Caller-proof gate
+
+shared primitiveが揃っただけでSelected16を自動Admissionしない。
+
+Admissionには次の両方が必要:
+
+1. `missingUnityCapabilities.length === 0`
+2. `prototypeCallerImplemented === true`
+
+primitiveが揃ってもcaller proofが無い場合は:
+
+`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+
+とする。
+
+これにより、将来shared primitiveを追加しただけで別Weaponが勝手にimplementation-reviewへ上がることを防ぐ。
+
+現在caller proofを持つID:
+
+- `ember_matchcase`
+- `bellows_fan`
+
 ## Current admission result
 
-**admitted=1**
+**admitted=2**
 
-**blocked=15**
+**blocked=14**
 
 現在のadmitted ID:
 
 - `ember_matchcase`
+- `bellows_fan`
 
 ここでいうadmittedは **ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW**。
 
@@ -63,7 +89,7 @@ U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2
 - art/VFX最終承認
 - save migration完了
 
-`runtimeStatus = NOT_IMPLEMENTED` のままなので、primitive admissionとproduction implementationを混同しない。
+両方とも `runtimeStatus = NOT_IMPLEMENTED` のまま。
 
 ## First vertical slice — ember_matchcase
 
@@ -101,6 +127,48 @@ Authority label:
 
 つまり **PROTOTYPE_TUNING_NOT_CANON** を守り、検証用数値がContent Canonへ逆流しない。
 
+## Second vertical slice — bellows_fan
+
+Content Authority:
+
+- ID: `bellows_fan`
+- Name: 送り風の扇
+- Archetype: `CONE_PUSH`
+- Attribute: WIND
+- Status: DISORIENTED
+
+Unity prototype caller:
+
+`BellowsFanPrototypeRuntime`
+
+実経路:
+
+1. caller supplied facing/range/half-angle/maxTargetsを `U2EnemyConeQueryRuntime.SelectTargets(...)` へ渡す
+2. targetableかつcone内の対象をnearest-firstで決定する
+3. typed `EnemyStatusRuntimeKind.Disoriented` requestを対象のshared `Statuses` へ適用する
+4. 同じ対象へ `U2EnemyKnockbackRuntime.TryApply(...)` でoriginから外向きのpushを適用する
+
+固定しない:
+
+- cone range
+- cone angle
+- target cap
+- knockback distance
+- DISORIENTED duration
+- DISORIENTED magnitude / stack / cooldown
+- damage
+- VFX
+
+Authority:
+
+`CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
+
+Runtime boundary:
+
+`PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
+
+つまりcone + knockback + DISORIENTEDの実経路は証明したが、Stage1 live loopにはまだ接続していない。
+
 ## STATUS_APPLICATION boundary
 
 Status共通基盤:
@@ -114,13 +182,14 @@ Status共通基盤:
 - Projectile optional Status transport
 - damage → surviving target Status → projectile consume順序
 - pooled Projectile request reset
-- Selected16固有BURN caller
+- `ember_matchcase` BURN caller
+- `bellows_fan` DISORIENTED caller
 
 まで接続済み。
 
 そのため共通primitiveとして `STATUS_APPLICATION = IMPLEMENTED`。
 
-ただしStatus16すべてのWeapon実装が完了した意味ではない。残り15本は各archetype固有primitiveが不足しているためblockedのまま。
+Status16すべてのWeapon実装が完了した意味ではない。
 
 ## KNOCKBACK_VECTOR boundary
 
@@ -146,11 +215,39 @@ Shared helper:
 - slam shape
 - weapon identity
 
-`bellows_fan` は `KNOCKBACK_VECTOR` が揃っても `CONE_QUERY` がmissing。
+`bellows_fan` はSelected16 callerでこのshared primitiveを実際に利用する。
 
-`pavement_hammer` は `KNOCKBACK_VECTOR` が揃っても `SLAM_WAVE_QUERY` がmissing。
+`pavement_hammer` は `KNOCKBACK_VECTOR` が揃っているが `SLAM_WAVE_QUERY` がmissingなので引き続きblocked。
 
-したがってshared primitive追加だけでUnity Admissionは増えない。
+## CONE_QUERY boundary
+
+Shared helper:
+
+`U2EnemyConeQueryRuntime`
+
+役割:
+
+- caller-owned candidate source / result scratch
+- targetable-only
+- caller supplied origin / forward / range / half-angle / cap
+- 2D query
+- nearest-first
+- equal-distanceはcandidate input orderを維持するstable tie-break
+- invalid range / angle / forward / capはfail closed
+
+固定しない:
+
+- Weapon ID
+- WIND属性
+- DISORIENTED
+- damage
+- knockback
+- VFX
+- default range / angle / cap
+
+`black_folding_fan` もshared `CONE_QUERY` を利用できる証拠は得たが、固有primitive `VEIL_TRACKING_FRICTION` がmissingなのでblockedのまま。
+
+shared cone実装だけでは他Weaponを自動Admissionしない。
 
 ## Never use fake projectile fallback
 
@@ -178,14 +275,14 @@ Waveは優先順であり時間見積もりではない。
 - typed Projectile Status transport: **implemented**
 - `STATUS_APPLICATION`: **implemented**
 - multi-target query: **implemented**
+- `KNOCKBACK_VECTOR`: **implemented**
+- `CONE_QUERY`: **implemented**
 - Selected16 caller `ember_matchcase`: **prototype caller implemented**
+- Selected16 caller `bellows_fan`: **prototype caller implemented**
 - Ember invocation/BURN telemetry: **implemented**
 - Ember mobile-safe projectile visual cue: **implemented, prototype visual only**
-- `KNOCKBACK_VECTOR`: **implemented**
 - delayed trigger/timer primitive: missing
 - persistent placement primitive: missing
-
-`ember_matchcase` は次にruntime captureで telemetry + visual cue + rendered evidenceを同一runへ束ね、実機相当mobile readabilityを確認する。
 
 ### Wave B — target selection / path executors
 
@@ -193,17 +290,12 @@ Waveは優先順であり時間見積もりではない。
 - `HOMING_PRIORITY_SELECTION`: missing
 - `LINE_PIERCE_RESIDUE`: missing
 - `RETURNING_PROJECTILE`: missing
-- `CONE_QUERY`: missing
+- `CONE_QUERY`: **implemented**
+- `SLAM_WAVE_QUERY`: missing
 
-対象例:
+`bellows_fan` の次はruntime telemetry / visual cue / rendered evidenceを追加して、mobileで「扇状に押す」読みやすさを確認する。
 
-- 銅の音叉
-- 星図のピン
-- 灯芯針
-- 帰針
-- 送り風の扇
-
-`KNOCKBACK_VECTOR` が共有化されたため、次の小さなruntime primitive候補は `CONE_QUERY`。ただしquery実装だけで `bellows_fan` をlive化せず、Selected16固有callerで実経路を証明する。
+shared primitive laneでは、既にKnockbackを共有できる `SLAM_WAVE_QUERY` が次の小さな候補。これを実装しても `pavement_hammer` 固有caller proofが無ければAdmissionしない。
 
 ### Wave C — advanced interaction executors
 
@@ -215,29 +307,18 @@ Waveは優先順であり時間見積もりではない。
 - `LANE_BOUNDARY_TRIGGER`
 - `SWEEP_QUERY`
 
-対象例:
-
-- 雨縫い糸
-- ひび鏡
-- 黒折り扇
-- 修理糸車
-- 眠り紐
-- 境界チョーク
-- 白い消しゴム
-
 ## Why WeaponEffectType remains two
 
 `WeaponEffectType` enumへ名前だけ増やしてもexecutorが動かなければ意味がない。
 
-今回 `ember_matchcase` はlive U47 importerへ追加せず、Selected16 prototype callerとして再利用primitiveを実証する。
+今回のSelected16 prototypeはlive U47 importerへ追加せず、shared primitive + selected-specific callerとして実証する。
 
 Admissionは:
 
 - Content Authorityがある
 - required primitiveが実装済み
-- typed Status pathがある
-- Selected16固有callerがある
-- checkerでchainを証明する
+- Selected16固有caller proofがある
+- checker / executable contractでchainを証明する
 
 までをimplementation review admissionとする。
 
@@ -254,11 +335,14 @@ Current source evidence:
 - Unity deterministic multi-target target-selection primitive
 - Unity typed optional Projectile Status request transport
 - Unity Enemy Status16 state / lifecycle ownership
-- Unity caller-supplied `KNOCKBACK_VECTOR` displacement primitive
+- Unity caller-supplied `KNOCKBACK_VECTOR`
+- Unity caller-supplied deterministic `CONE_QUERY`
 - `EmberMatchcasePrototypeRuntime` selected-specific caller
-- BURN request uses caller-supplied policy
+- `BellowsFanPrototypeRuntime` selected-specific caller
+- BURN / DISORIENTED policyはcaller supplied
 - Ember telemetry + projectile-local prototype visual cue
 - `ember_matchcase` live registry entry = 0
+- `bellows_fan` live registry entry = 0
 
 これらが変わったらAdmission checkerを更新しない限りCIを落とす。
 
@@ -283,10 +367,18 @@ Runtime不足をContent不足として処理しない。
 3. mobile readabilityとpool resetを目視確認する
 4. live registry / LevelUp poolへ入れるか人間承認する
 
+`bellows_fan`:
+
+1. invocation / selected-target / DISORIENTED / knockback telemetry
+2. cone edge / maxTargets / dense-wave runtime capture
+3. mobile-safe airflow / push visual cue
+4. live registry / LevelUp poolへ入れるか人間承認する
+
 shared primitive lane:
 
-1. `CONE_QUERY` をgeneric queryとして実装
-2. `bellows_fan` 固有callerでcone + knockback + DISORIENTEDを接続
-3. runtime capture / telemetry後にimplementation-review Admissionを判断
+1. `SLAM_WAVE_QUERY`
+2. `pavement_hammer` 固有caller proof
+3. telemetry / runtime capture
+4. implementation-review Admission判定
 
 数値balanceは最後までprototype tuningとして分離する。
