@@ -3,7 +3,7 @@ import { forgottenStreetNightBoard } from './collectionProgress.ts';
 import { collectionSections, type CollectionSectionId } from './collectionSections.ts';
 import { series1StageCampaignContentEntries } from './series1StageCampaignContentSource.ts';
 import { selectedTitle1WeaponTransformations } from './weaponTransformationSelectionSource.ts';
-import { combatItemSelectionEntries } from './combatItemSelectionSource.ts';
+import { title1CombatItemPlacements } from './combatItemSelectionSource.ts';
 
 export type Title1MilestoneKind = 'NATURAL' | 'TARGETED' | 'MASTERY' | 'SECRET';
 export type Title1RewardLane = 'RECORD_ONLY' | 'LIGHT_COIN' | 'TRAVEL_PREP' | 'MEMORY_TEXT' | 'COSMETIC' | 'SOUND';
@@ -72,7 +72,7 @@ export const title1AchievementRewardCollectionSummary = {
   legacyForgottenStreetBoardCellCount: forgottenStreetNightBoard.cells.length,
   collectionSectionCount: collectionSections.length,
   selectedTransformationCount: selectedTitle1WeaponTransformations.length,
-  placedCombatItemCount: combatItemSelectionEntries.length,
+  placedCombatItemCount: title1CombatItemPlacements.length,
   rewardLaneCounts: Object.fromEntries(
     ['RECORD_ONLY', 'LIGHT_COIN', 'TRAVEL_PREP', 'MEMORY_TEXT', 'COSMETIC', 'SOUND'].map((lane) => [
       lane,
