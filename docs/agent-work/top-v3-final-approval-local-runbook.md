@@ -94,25 +94,55 @@ The runner fails closed on source/composite drift, stale app identity, build-pro
 
 ## Gate 4 — Physical iPhone final evidence
 
-First export the exact-source device Xcode project:
+The physical path is also orchestrated, but signing authority is intentionally caller-owned. The script refuses to guess an Apple Team ID or device identifier and does not alter repository signing/bundle settings.
 
-```bash
-bash scripts/unity/run-top-v3-final-approval-ios-export.sh device
-```
+Required:
 
-Then build/sign/install that generated Xcode project using the currently valid local Apple Development team/profile. Do not silently change repository bundle/signing authority just to make signing pass.
+- the physical iPhone is paired, unlocked, awake, and in Developer Mode;
+- the developer profile used by the generated app is trusted on the device;
+- `VAMPPON_PHYSICAL_IPHONE_DEVICE` is the actual CoreDevice identifier;
+- `VAMPPON_APPLE_DEVELOPMENT_TEAM` is the explicit 10-character Apple Team ID available in local Xcode signing.
 
-Historical evidence shows that an older device run required a temporary generated-Xcode bundle-id adjustment because the local provisioning profile scope differed from the repository bundle identifier. Treat signing/profile selection as local device authority, not as a repository visual change.
-
-After the exact-source signed app is installed and the iPhone is unlocked/awake, run the canonical measurement wrapper with the actual device identifier (and bundle id if signing required a generated-project override):
+Run:
 
 ```bash
 VAMPPON_PHYSICAL_IPHONE_DEVICE='<device identifier>' \
-VAMPPON_IOS_BUNDLE_ID='<installed bundle identifier>' \
-bash scripts/unity/run-top-v3-physical-iphone-performance-evidence.sh
+VAMPPON_APPLE_DEVELOPMENT_TEAM='<10-char team id>' \
+bash scripts/unity/run-top-v3-final-approval-physical-iphone-evidence.sh
 ```
 
-The canonical wrapper does not use a separate provenance launch. The same measured iPhone process writes its embedded build SHA, which must match the exact V3/capture source commit before its 300-second FPS/memory/thermal/recovery evidence is accepted.
+If the local provisioning profile covers a different explicit app identifier than the repository default, pass the installed identifier explicitly:
+
+```bash
+VAMPPON_PHYSICAL_IPHONE_DEVICE='<device identifier>' \
+VAMPPON_APPLE_DEVELOPMENT_TEAM='<10-char team id>' \
+VAMPPON_IOS_BUNDLE_ID='<profile-compatible installed bundle identifier>' \
+bash scripts/unity/run-top-v3-final-approval-physical-iphone-evidence.sh
+```
+
+That bundle override is applied only to the freshly generated Xcode app-target setting. Repository `ProjectSettings.asset` is not mutated. The runner fails if the exact expected generated bundle setting is absent instead of applying a broad replacement.
+
+Optional signing inputs:
+
+- `VAMPPON_PROVISIONING_PROFILE_SPECIFIER='<profile specifier>'` — only when a specific installed profile must be selected;
+- `VAMPPON_ALLOW_PROVISIONING_UPDATES=1` — opt-in only; default is `0` so Xcode is not silently allowed to update provisioning.
+
+The one-command physical flow:
+
+1. resolve the exact source commit from PASSED V3 + formal 15-frame capture evidence;
+2. recreate the device Xcode export from an isolated worktree at that exact commit;
+3. embed build provenance into the Unity player;
+4. optionally apply a generated-Xcode-only bundle override;
+5. build/sign `Unity-iPhone` Release using the caller-supplied Apple Team/profile policy;
+6. require exactly one built app with the expected bundle identifier;
+7. require an embedded provisioning profile and pass strict local `codesign` verification;
+8. install that exact signed app with `devicectl`;
+9. launch the measured physical-iPhone process once;
+10. verify the embedded clean Git SHA written by that same measured process;
+11. complete the existing 300-second FPS/memory/thermal/background-foreground evidence run;
+12. register/check physical evidence without promoting final approval.
+
+Historical evidence showed a local provisioning mismatch that required a generated-Xcode-only bundle-ID adjustment. This path preserves that escape hatch without changing repository authority.
 
 Physical evidence must still satisfy the existing thermal/performance policy; this runbook does not weaken those thresholds.
 
