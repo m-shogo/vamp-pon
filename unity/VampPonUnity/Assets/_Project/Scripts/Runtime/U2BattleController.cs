@@ -8,6 +8,7 @@ using VampPon.UnitySpike.U4;
 using VampPon.UnitySpike.U5;
 using VampPon.UnitySpike.Runtime.Visuals;
 using VampPon.UnitySpike.Runtime.Gameplay;
+using VampPon.UnitySpike.Runtime.Gameplay.Status;
 
 namespace VampPon.UnitySpike.Runtime
 {
@@ -616,11 +617,14 @@ namespace VampPon.UnitySpike.Runtime
         private float flashSeconds;
         private Vector3 baseScale;
         private bool dying;
+        private readonly EnemyStatusRuntimeState statusState = new();
 
         public bool IsTargetable => IsActive && !dying;
         public bool IsDying => dying;
         public RuntimeEnemyAnimationState AnimationState => spriteAnimator != null ? spriteAnimator.State : RuntimeEnemyAnimationState.Idle;
         public int AnimationFrameIndex => spriteAnimator != null ? spriteAnimator.FrameIndex : 0;
+        public EnemyStatusRuntimeState Statuses => statusState;
+        public int ActiveStatusCount => statusState.ActiveCount;
 
         public static U2EnemyActor Create(string objectName, Transform parent, Sprite sprite, RuntimeEnemyAnimationSet animationSet, float visualScale)
         {
@@ -639,6 +643,7 @@ namespace VampPon.UnitySpike.Runtime
 
         public void Activate(Vector3 position, float maxHp)
         {
+            statusState.Clear();
             hp = maxHp;
             flashSeconds = 0f;
             dying = false;
@@ -652,6 +657,7 @@ namespace VampPon.UnitySpike.Runtime
 
         public void Tick(Vector3 playerPosition, float speed, float deltaTime)
         {
+            statusState.Tick(deltaTime);
             if (dying)
             {
                 spriteAnimator.Tick(deltaTime);
@@ -675,6 +681,12 @@ namespace VampPon.UnitySpike.Runtime
                 flashSeconds -= deltaTime;
                 spriteRenderer.color = flashSeconds > 0f ? new Color(1f, 0.74f, 0.42f) : Color.white;
             }
+        }
+
+        public override void Deactivate()
+        {
+            statusState.Clear();
+            base.Deactivate();
         }
 
         public bool TakeDamage(float damage, float damageFlashSeconds)
