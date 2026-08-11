@@ -1,11 +1,32 @@
+export const SAKUYAZA_CURRENT_IDENTITY = {
+  formalName: '朔夜座',
+  reading: 'さくやざ',
+  status: 'CURRENT_FORMAL_NAME_USER_DECIDED',
+  currentMemberCount: 8,
+  earlyObserverLabel: '夜綴りの八影',
+  earlyObserverShortLabel: '八影',
+  supersededCandidateName: '朔盟',
+  sharedBrandWord: '座',
+  reserveZaForOtherMajorFactionNames: true,
+  fixedAbsoluteLeaderRequired: false,
+  fixedHierarchyWithGunjoZankyoroKu: false,
+  runtimeAutoPromotionAllowed: false,
+} as const;
+
+/**
+ * Legacy candidate identity retained only because member philosophy, pair,
+ * relation, visual and stable-id assets were authored under this name.
+ * Do not use this object as the Current player-facing formal name.
+ */
 export const SAKUMEI_CANDIDATE_IDENTITY = {
   formalName: '朔盟',
   reading: 'さくめい',
   englishWorkingLabel: 'Sakumei / Pact of the New Moon',
-  status: 'USER_APPROVED_DIRECTION_CONTENT_CANDIDATE',
+  status: 'SUPERSEDED_CONTENT_CANDIDATE_ASSET_NAMESPACE',
+  supersededBy: '朔夜座',
   earlyObserverLabel: '夜綴りの八影',
   earlyObserverShortLabel: '八影',
-  taxonomy: 'REVEALED_ANTAGONIST_PACT_CANDIDATE',
+  taxonomy: 'LEGACY_REVEALED_ANTAGONIST_PACT_CANDIDATE',
   creed: '迷いが人を傷つける。なら、世界から迷いをなくせばいい。',
   protagonistCounterThesis: '傷つく可能性があっても、本人が選び直せる余白を残す。',
   sharedSymbol: '欠円',
@@ -146,15 +167,23 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
   },
 ] as const;
 
-export const sakumeiCandidateSummary = {
+export const sakuyazaCurrentSummary = {
+  formalName: SAKUYAZA_CURRENT_IDENTITY.formalName,
   memberCount: sakumeiCandidateMembers.length,
   uniqueEnemyIdCount: new Set(sakumeiCandidateMembers.map((entry) => entry.enemyId)).size,
   uniqueCallNameCount: new Set(sakumeiCandidateMembers.map((entry) => entry.callName)).size,
   uniqueAttachmentLaneCount: new Set(sakumeiCandidateMembers.map((entry) => entry.attachmentLane)).size,
   preservesExistingEnemyIds: true,
   preservesYatsukageAsEarlyObserverLabel: true,
-  pairMissionUsesExistingTwentyEightPairAsset: true,
-  revealedIdentityHumanReviewRequired: true,
+  preservesSakumeiAsLegacyAssetNamespace: true,
+  fixedHierarchyWithGunjoZankyoroKu: false,
   allFinalMastersUnapproved: sakumeiCandidateMembers.every((entry) => !entry.finalMasterApproved),
   runtimeAutoPromotionAllowed: false,
+} as const;
+
+/** Backward-compatible legacy export for existing checks/imports. */
+export const sakumeiCandidateSummary = {
+  ...sakuyazaCurrentSummary,
+  pairMissionUsesExistingTwentyEightPairAsset: true,
+  revealedIdentityHumanReviewRequired: false,
 } as const;
