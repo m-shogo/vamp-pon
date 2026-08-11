@@ -15,7 +15,7 @@ const expected = {
   semanticLayerRegistrar: 'scripts/unity/register-top-living-night-semantic-layer-pack.ts',
   effectCompanionRegistrar: 'scripts/unity/register-top-living-night-effect-companion-pack.ts',
   unityV3Verification: 'scripts/unity/run-top-living-night-v3-unity-verification.sh',
-  capturePack: 'scripts/unity/run-loading-top-capture-pack.sh',
+  capturePack: 'scripts/unity/run-top-v3-final-approval-capture.sh',
   simulatorPerformance: 'scripts/unity/run-top-living-night-simulator-performance-evidence.sh',
   physicalIphonePerformance: 'scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh',
   staticReviewRegistrar: 'scripts/unity/register-top-living-night-static-review.ts',
@@ -51,4 +51,4 @@ invariant(promotion.includes('finalArt.approvedAsFinal = true'), 'canonical fina
 invariant(promotion.includes('finalArt.runtimeApproved = true'), 'canonical final promoter lost runtime approval write');
 
 console.log('TOP Living Night automation entrypoints: PASS');
-console.log('review prep / semantic + effect registration / V3 Unity / capture / Simulator / physical iPhone / review registrars / final promoter are bundle-bound');
+console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / Simulator / physical iPhone / review registrars / final promoter are bundle-bound');
