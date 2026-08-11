@@ -30,7 +30,7 @@ namespace VampPon.UnitySpike.UI.Screens
         private Vector2 collectionPageBasePosition;
         private Vector3 collectionPageBaseScale = Vector3.one;
         private readonly List<Image> collectionNewIndicators = new();
-        private readonly Dictionary<int, Color> collectionNewIndicatorBaseColors = new();
+        private readonly Dictionary<Image, Color> collectionNewIndicatorBaseColors = new();
         private float nextSearchAt;
         private float nextPreferencePollAt;
         private float nextDecorationRefreshAt;
@@ -203,8 +203,7 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (indicator == null || !indicator.isActiveAndEnabled)
                     continue;
 
-                var id = indicator.GetInstanceID();
-                if (!collectionNewIndicatorBaseColors.TryGetValue(id, out var baseColor))
+                if (!collectionNewIndicatorBaseColors.TryGetValue(indicator, out var baseColor))
                     baseColor = indicator.color;
                 var gate = LivingSceneMotion.SparseGate(
                     time,
@@ -229,9 +228,8 @@ namespace VampPon.UnitySpike.UI.Screens
                     continue;
                 if (!collectionNewIndicators.Contains(image))
                     collectionNewIndicators.Add(image);
-                var id = image.GetInstanceID();
-                if (!collectionNewIndicatorBaseColors.ContainsKey(id))
-                    collectionNewIndicatorBaseColors[id] = image.color;
+                if (!collectionNewIndicatorBaseColors.ContainsKey(image))
+                    collectionNewIndicatorBaseColors[image] = image.color;
             }
         }
 
@@ -276,7 +274,7 @@ namespace VampPon.UnitySpike.UI.Screens
             {
                 if (image == null)
                     continue;
-                if (collectionNewIndicatorBaseColors.TryGetValue(image.GetInstanceID(), out var baseColor))
+                if (collectionNewIndicatorBaseColors.TryGetValue(image, out var baseColor))
                     image.color = baseColor;
             }
         }
