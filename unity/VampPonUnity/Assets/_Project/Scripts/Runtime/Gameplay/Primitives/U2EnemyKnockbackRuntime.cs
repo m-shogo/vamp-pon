@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using VampPon.UnitySpike.Runtime;
 
 namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
 {
