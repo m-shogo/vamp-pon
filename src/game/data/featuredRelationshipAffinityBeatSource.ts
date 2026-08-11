@@ -220,7 +220,7 @@ const seeds: readonly ArcSeed[] = [
     relationId: 'hana-tsumugi',
     friction: { from: 'kage4', to: 'hana', direction: 'DOWN', reasonKey: 'tsumugi_rejects_preservation_overwrite', storyMeaning: 'ハナが大切に保存するため傷んだ部分を整え、ツムギは経年の痕まで消えたと感じる。', gameplayEcho: '保存buffが一度継ぎ目情報を薄くする。' },
     recognition: { from: 'hana', to: 'kage4', direction: 'UP', reasonKey: 'hana_sees_seam_as_record', storyMeaning: 'ツムギが傷を隠さず残すことで、ハナが保存対象を「綺麗なもの」から「変化したもの」へ広げる。', gameplayEcho: 'damaged stateにもcollection価値が付く。' },
-    chosenTrust: { aToB: 'UP', bToA: 'UP', aReasonKey: 'hana_trusts_visible_age', bReasonKey: 'tsumugi_trusts_hana_to_keep', storyMeaning: '残す人と継ぐ人が、変化を消さない保存を選ぶ。', gameplayEcho: 'archiveとrepairの両方で同じ傷跡IDを保持する。' },
+    chosenTrust: { aToB: 'UP', bToA: 'UP', aReasonKey: 'hana_trusts_visible_age', bReasonKey: 'tsumugi_trusts_hana_to_keep', storyMeaning: '残す人と継ぐ人が、変化や傷跡を消さず、それでも手入れを続ける保存を選ぶ。', gameplayEcho: 'archiveとrepairの両方で同じ傷跡IDを保持する。' },
   },
   {
     relationId: 'sen-shiro',
