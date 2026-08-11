@@ -272,6 +272,7 @@ namespace VampPon.UnitySpike.Editor
                     $"TOP effect companion texture importer unavailable: {assetPath}");
 
             importer.textureType = TextureImporterType.Default;
+            importer.npotScale = TextureImporterNPOTScale.None;
             importer.sRGBTexture = true;
             importer.alphaSource = TextureImporterAlphaSource.FromInput;
             importer.alphaIsTransparency = true;
