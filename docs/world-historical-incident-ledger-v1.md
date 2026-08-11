@@ -1,9 +1,9 @@
-# ヨルノシルベ — Historical Incident Ledger v1
+# ヨルノシルベ — Historical Incident Ledger v2
 
 Date: 2026-08-11  
-Status: **P0 HISTORY FRAME / CANDIDATE INCIDENTS / EXACT DATES UNLOCKED**
+Status: **P0 HISTORY FRAME / ERA INCIDENT CANDIDATES / EXACT DATES OPEN / MASTER-ALIGNED**
 
-> 目的: 世界の歴史を「昔こういう雰囲気だった」で済ませず、制度・場所・物・人物がなぜ今の形になったのかを事件単位で追えるようにする。
+> Reality大事件を「固定Bossの過去」ではなく、人物・制度・社会・朔夜座が複雑に関わる事件として管理する。
 
 ---
 
@@ -12,309 +12,439 @@ Status: **P0 HISTORY FRAME / CANDIDATE INCIDENTS / EXACT DATES UNLOCKED**
 各事件は最低:
 
 - incidentId
-- publicName
+- workingPublicName
+- eraLane
 - eraConfidence
-- realityLayer / nightLayer
-- affectedPlace
-- affectedInstitution
-- knownFacts
+- Reality place evidence
+- affected institutions
+- ordinary life before incident
+- stated ideal / protective purpose
+- fear / interest / pressure
+- centralPersonOrPeople
+- centralityReason
+- SakuyazaRelation
 - officialExplanation
 - witnessVersions
 - rumorVersions
 - physicalEvidence
-- objectLineage
-- characterLinks
+- Object lineage
+- Character links
 - whatChangedAfter
+- localThirdOption
+- combatBoss: NONE / CANDIDATE / SEPARATE_GAMEPLAY_ROLE
+- GunjoAdmission: OPEN / CANDIDATE / ADMITTED_BY_HUMAN_REVIEW
 - unresolvedGap
-- payoffClass: C / B / A
+- payoffClass
 - status
 
-を持つ。
+### Critical separation
 
-「真相」を最初から一列に書かない。
+```txt
+incident central person / people
+≠
+combat Boss
+```
 
----
-
-# 2. Era principle
-
-既存History AtlasのRelative Eraを維持する。
-
-- OLD
-- TRANSIT
-- RECENT
-- UNKNOWN
-
-Exact yearはHuman decision前に不要。
-
-人物が高齢だからOLD、若いからRECENTとは判断しない。
+をdefaultにする。
 
 ---
 
-# 3. Candidate Incident 01 — 無番線案内
+# 2. Era lanes
 
-`incidentId: INC-ROUTE-001`
+Current seeds:
+
+- `1940S_LIKE`
+- `1980S_LIKE`
+- `2000S_LIKE`
+- `PRESENT`
+- `FUTURE_ANDROID_ROBOT`
+- `MULTI_ERA`
+- `UNKNOWN`
+
+lane数は固定しない。
+
+Exact yearはHuman decision前にLOCKしない。
+
+Characterの見た目年齢からEraを推定しない。
+
+---
+
+# 3. 群青残響録 admission rule
+
+群青残響録は事件の中心人物 / 人物群を後から括るrecord taxonomy。
+
+各Incidentで:
+
+- 一人
+- 複数人
+- institution中心
+- social pressure中心
+
+のどれも成立する。
+
+Formal admission前に最低:
+
+1. 何を望んだか
+2. 何を恐れたか
+3. どの選択が事件へ影響したか
+4. 何を止められた / 止められなかったか
+5. 「一番悪い人」だけへ縮めていないか
+6. combat Boss roleと分離されているか
+
+を確認する。
+
+---
+
+# 4. 朔夜座 relation field
+
+`SakuyazaRelation` Candidate values:
+
+- `NO_DIRECT_CONTACT`
+- `UNKNOWN`
+- `COOPERATED`
+- `USED_BY_CENTRAL_SIDE`
+- `USED_CENTRAL_SIDE`
+- `OPPOSED`
+- `TRIED_TO_STOP`
+- `WAS_STOPPED_BY`
+- `TEMPORARY_ALIGNMENT`
+- `MULTIPLE_MEMBERS_DIFFER`
+
+8人全員を同じ立場へ置かない。
+
+---
+
+# 5. Candidate Incident 01 — 無番線案内
+
+`INC-ROUTE-001`
 
 Status: `HIGH_VALUE_CANDIDATE`
 Payoff: `C/B`
-Era: `TRANSIT or UNKNOWN`
+Era: `UNKNOWN / possible older-transit lane`
 
-## Public name
-**無番線案内**（むばんせんあんない）
+Known:
+- station営業終了後、通常numberでない方向案内が出たRecord。
+- witnessごとにstairs / platform widthが一致しない。
+- Reality設備上は該当platformがない。
 
-## Known facts
-- 駅の営業終了後、一時的に通常番号ではない方向案内が出た記録がある。
-- それを見て移動した複数人の証言で「階段の数」「ホームの幅」が一致しない。
-- 翌日、設備上はその番線が存在しない。
+Official explanation Candidate:
+- signage / temporary guidance malfunction。
 
-## Official explanation Candidate
-- 表示機器 / 臨時案内の誤作動。
+Witness:
+- 旧platformへ出た
+- stairsを下りたのに外へ出た
+- 誰かがrouteを教えた
 
-## Witness versions
-- 「使われなくなった旧ホームへ出た」
-- 「階段を下りたのに外へ出た」
-- 「誰かが帰り道を教えてくれた」
+Objects:
+- old ticket
+- ticket punch
+- station compass
 
-## Objects
-- 古い切符
-- 改札ばさみ
-- 駅前コンパス
+Character hooks:
+- トバリ
+- ゲン
+- ミチル
 
-## Character hooks
-- トバリ / ゲン / ミチルへ接続可能。
-- 三人を同時代にしない。
-
-## Guard
-朔盟が起こした事件と自動確定しない。
+SakuyazaRelation: `UNKNOWN`
+GunjoAdmission: `OPEN`
+combatBoss: `NONE BY DEFAULT`
 
 ---
 
-# 4. Candidate Incident 02 — 未配達保管延長
+# 6. Candidate Incident 02 — 未配達保管延長
 
-`incidentId: INC-POST-001`
+`INC-POST-001`
 
 Status: `HIGH_VALUE_CANDIDATE`
 Payoff: `C/B`
-Era: `TRANSIT`
+Era: `UNKNOWN`
 
-## Known facts
-ある郵便取扱所 / 郵便局で、本来返送 / 処分されるはずの持ち主不明封筒を、職員判断で長期間保管していた時期がある。
+Known:
+本来return / disposal対象になり得るowner-unknown mailを、誰かが長期間holdしたRecord。
 
-## Why it matters
-悪い秘密組織ではなく、
+Ordinary motive:
+> 「捨てるのが忍びなかった。」
 
-> 「捨てるのが忍びなかった」
+Evidence:
+- handwritten hold tag
+- multiple postmark formats
+- address damage
 
-という普通の人の判断が後の物語へ残る。
-
-## Evidence
-- 手書きの保留札
-- 複数様式の消印
-- 宛名が剥がれた封筒
-
-## Character hooks
+Character hooks:
 - ユウビ
 - アサ
 - カスミ
 
-## Reinterpretation
-初見: 届かなかった郵便。
-後: 誰かが「まだ捨てない」を選び続けた記録。
+Theme:
+`届かなかった` と `まだ捨てなかった` は別。
+
+centralPersonOrPeople: `OPEN`
+combatBoss: `NONE`
 
 ---
 
-# 5. Candidate Incident 03 — 地図改訂連鎖
+# 7. Candidate Incident 03 — 地図改訂連鎖
 
-`incidentId: INC-ROUTE-002`
+`INC-ROUTE-002`
 
 Status: `HIGH_VALUE_CANDIDATE`
 Payoff: `B/A`
 Era: `MULTI_ERA`
 
-## Known facts
-同じ一帯の地図が何度も改訂され、
-- 道の廃止
-- 呼称変更
-- 迂回路
-- 一時的な通行止め
+Known:
+同一 / 近似areaでroute廃止・名称変更・detour等が重なる。
 
-が重なった。
+Later mapだけ見るとOld mapがwrongに見えるが、当時はcorrectだったversionがある。
 
-後世の版だけ見ると「昔の地図が間違い」に見えるが、当時は正しかった版もある。
-
-## Theme
+Theme:
 > 正解は時点によって変わる。
 
-## Character hooks
-- ゲン: 古い道が当時は正しかった
-- ミチル: 今歩ける道を選ぶ
-- トキ: 測定と記録
-- ミチグレ: 間違う可能性を消すため道を減らす
+Hooks:
+- ゲン
+- ミチル
+- トキ
+- ミチグレ
 
-## Strong payoff
-朔盟思想の反証を説明台詞でなく地図そのもので見せられる。
+朔夜座ミチグレの「間違う道なら消す」思想への反証をObject evidenceで作れる。
+
+GunjoAdmissionは`OPEN / likely NONE`。
 
 ---
 
-# 6. Candidate Incident 04 — 白紙台帳保存
+# 8. Candidate Incident 04 — 白紙台帳保存
 
-`incidentId: INC-ARCHIVE-001`
+`INC-ARCHIVE-001`
 
 Status: `CANDIDATE`
 Payoff: `C/B`
 Era: `UNKNOWN`
 
-## Known facts
-記録所で、内容不明 / 読めない資料を捨てずに「未分類」として別棚へ残した運用記録がある。
+Known:
+内容不明 / unreadable materialを「未分類」として残したoperation record。
 
-## Conflict
-後任者は:
+Conflict:
 - 整理不足
 - 不要資料
-
-と評価。
-
-別の人物は:
 - 分からないから残した
 
-と評価。
-
-## Character hooks
+Hooks:
 - シロ
 - ハナ
 - セン
 - ハクマ
 
-## Theme
+Theme:
 空白 = 無価値ではない。
 
+combatBoss: `NONE`
+
 ---
 
-# 7. Candidate Incident 05 — 継火修理記録
+# 9. Candidate Incident 05 — 継火修理記録
 
-`incidentId: INC-LAMP-001`
+`INC-LAMP-001`
 
-Status: `HIGH_VALUE_CANDIDATE / OBJECT LINEAGE DEPENDENT`
+Status: `HIGH_VALUE_CANDIDATE / OBJECT_LINEAGE_DEPENDENT`
 Payoff: `B/A`
-Era: `OLD → later unknown`
+Era: `MULTI_ERA`
 
-## Known facts
-- あるランタン / 同系統灯具に、異なる年代の修理痕が複数ある。
-- 少なくとも一箇所はトモリの修理languageと整合する候補。
-- 後にユイの中心vesselとなるランタンとの同一性は要evidence。
+Known:
+- lamp / related fixtureに複数Eraのrepair trace。
+- 一部はTomori repair languageと整合Candidate。
+- Yui lanternとのsameObjectはevidence必要。
 
-## Guard
-「トモリがユイへ直接渡した」をまだCanon化しない。
+Guard:
+`Tomori → Yuiへ直接hand-off`をCanon化しない。
 
-## Emotional payoff
-> 会ったことのない時代の誰かの手仕事を、主人公が毎晩握っている。
-
-血縁に頼らない継承。
+Emotional:
+> 会ったことのないEraの誰かの手仕事が、後世の人の日常を支える。
 
 ---
 
-# 8. Candidate Incident 06 — 押花避難帳
+# 10. Candidate Incident 06 — 押花避難帳
 
-`incidentId: INC-CIVIC-001`
+`INC-CIVIC-001`
 
 Status: `CANDIDATE`
 Payoff: `C`
-Era: `UNKNOWN`
+Era: `OPEN`
 
-## Known facts
-災害 / 避難時の名簿Candidateに、名前だけでなく小さな押花が挟まれていた記録。
+Candidate:
+evacuation / civic listに小さなpressed flowerが挟まれている。
 
-## Important
-大災害を作ること自体が目的ではない。
+Evidence use:
+- who was present
+- season hint
+- someone treated official list as a lived object
 
-押花は:
-- 誰が無事だったか
-- 何月頃だったか
-- 誰かが名簿を生活物として扱った
-
-というevidenceになる。
-
-## Character hooks
+Hooks:
 - ハナ
 - コヨリ
 - アサ
 
-## Human gate
-災害種別 / 犠牲者数 / Current人物への直接被害は未LOCK。
+Human gate:
+- disaster type
+- victim count
+- Character family loss
+- exact date
+
+大事件を作るために大量犠牲を追加しない。
 
 ---
 
-# 9. Candidate Incident 07 — 名前訂正騒動
+# 11. Candidate Incident 07 — 名前訂正騒動
 
-`incidentId: INC-NAME-001`
+`INC-NAME-001`
 
 Status: `CANDIDATE`
 Payoff: `C/B`
-Era: `RECENT or TRANSIT`
+Era: `OPEN`
 
-## Known facts
-掲示 / 名簿 / 荷札などで、誤った名前が訂正された。
+Known Candidate:
+- board / roster / luggage label上のwrong name corrections
+- 本人confirm前に別の「correct」へreplaceされたcase
+- old typoが長く残ったcase
 
-問題は訂正そのものではなく:
-- 本人確認前に別の「正しい名前」へ置換された例
-- 古い誤記が長く残った例
-
-が混在すること。
-
-## Character hooks
+Hooks:
 - アサ
 - カスミ
 - ナシロ
 - ペタ
 
-## Theme
-名前を正すことと、本人より先に決めることは違う。
+Theme:
+名前を正すこと ≠ 本人より先に決めること。
 
 ---
 
-# 10. Candidate Incident 08 — 夜明け前の閉鎖区画
+# 12. Candidate Incident 08 — 解除条件を失った閉鎖区画
 
-`incidentId: INC-GATE-001`
+`INC-GATE-001`
+
+旧working name `夜明け前の閉鎖区画` は、physical morningを連想させるため**working rename required**。
 
 Status: `CANDIDATE`
 Payoff: `B`
 Era: `UNKNOWN`
 
-## Known facts
-安全確保のため閉鎖された区画が、解除条件 / 解除期限だけ失われた記録Candidate。
+Known Candidate:
+安全確保のためclosureしたareaで、解除条件 / deadlineだけlostしたRecord。
 
-## Institutional reading
-当初は合理的な保護措置。
+Initial:
+合理的protection。
 
-## Later problem
-「今は入れない」が「永遠に開けない」へ変わる。
+Later:
+`今は入れない` → `永遠に開けない`。
 
-## Character hooks
+Hooks:
 - ナギ
 - トバリ
 - アサトジ
 - カナメ
 
-## Theme
+Theme:
 守ることの期限。
+
+Formal public nameはHuman naming review前にLOCKしない。
 
 ---
 
-# 11. Incident cross-link rules
+# 13. Future Era incident architecture
 
-一つの事件へ全キャラを接続しない。
+`FUTURE_ANDROID_ROBOT`のexact incidentはOpen。
+
+Required ingredients方向:
+
+Human-side pressures:
+- labor / ownership
+- disposal
+- command
+- economic incentive
+
+Android-side pressures:
+- category-based hostility
+- self-defense radicalization
+- copy / identity fear
+- autonomy
+
+Both sidesにDream participantsを置ける。
+
+Guard:
+- Human = all evil 禁止
+- Android = all victim / all good 禁止
+- Star Beast = soul proof禁止
+- central person = fixed final Boss禁止
+
+群青残響録対象がHuman側 / Android側双方に複数存在する可能性もOpen。
+
+---
+
+# 14. Modern Era incident architecture
+
+Exact incidentはOpen。
+
+Theme reservoir:
+
+- SNS
+- information overload
+- viral correctness
+- pile-on
+- algorithm
+- isolation
+- diversity / simplification tension
+
+一人のinfluencer / CEOだけを倒して解決しない。
+
+institution / user behavior / platform incentive / fearを分ける。
+
+---
+
+# 15. 2000s / 1980s / 1940s architecture
+
+## 2000s
+- internet adoption
+- mobile
+- privacy
+- connection / loneliness
+
+## 1980s
+- corporate growth
+- prosperity
+- success pressure
+- looking away
+
+## 1940s-like
+- group / individual
+- information scarcity / control
+- command
+- survival
+- sacrifice
+- protection
+
+Historical sensitivity:
+exact real historical eventへ接続する場合は、その時点で一次 / authoritative historical researchを行う。
+
+Era themeだけで実在悲劇を軽く借用しない。
+
+---
+
+# 16. Cross-link guard
+
+一Incidentへ全Characterを接続しない。
 
 目安:
 - direct witness: 0–3
 - indirect evidence: 1–5
-- later reader: 制限なし
+- later reader: unlimited
 
-「実は全員あの日あの場所にいた」を禁止。
+「実は全員あの日同じ場所にいた」を禁止。
+
+single-accident convergenceをコピーしない。
 
 ---
 
-# 12. Official record ≠ truth
+# 17. Official record ≠ truth
 
-各Incidentは少なくとも:
+最低分離:
 
 ```txt
 official record
@@ -323,55 +453,71 @@ physical evidence
 later interpretation
 ```
 
-を分離可能にする。
+plus when useful:
 
-どれか一つを作者の神視点としない。
+```txt
+company position
+media report
+social rumor
+Sakuyaza interpretation
+Dream reconstruction
+```
 
----
-
-# 13. Happy-End compatibility
-
-Historical tragedyは存在してよい。
-
-ただし:
-- 今作の救いを「過去改変で全部なかったこと」にしない。
-- 犠牲者の存在を伏線の鍵だけにしない。
-- 過去に起きたことの意味を一つへ固定しない。
-
-ヨルノシルベの救いは:
-
-> 過去を消すことではなく、現在の人がその過去に対して新しい行動を選べること。
+一つを神視点にしない。
 
 ---
 
-# 14. Incident escalation plan
+# 18. Waking / Reality resolution
 
-Title1で最初から8件全部をMain Storyへ出さない。
+大事件の解決はDream内で「事件を消す」だけにしない。
 
-### Main-facing
-- 2〜3件
+```txt
+Dream relation / learning
+↓
+Waking with recovered memory direction
+↓
+Reality
+↓
+以前は選べなかった第三のchoice
+↓
+worst outcome changes
+```
 
-### Optional report
-- 3〜4件
-
-### Series seed
-- 1〜2件
-
-程度を目安にする。
-
-具体配分はMystery Payoff Ledgerで管理。
+過去の悲劇を雑にeraseしない。
 
 ---
 
-# 15. Next evidence work
+# 19. Happy End compatibility
 
-今後:
-- Stage20とのexact placement
-- Named Object lineageとのID接続
-- Current21 Knowledge Matrixとの接続
+- Permanent deathをmain tear deviceにしない。
+- 被害者をMystery keyだけにしない。
+- central personを全部許す必要はない。
+- understanding != absolution。
+- local resolutionはReality actionへ返す。
+
+---
+
+# 20. Incident distribution
+
+一Titleで全Era incidentを同じ密度で扱わない。
+
+- main-facing: 必要数
+- optional report: supporting incidents
+- series seed: later era / later title
+
+固定件数自体もStory structureに合わせる。
+
+---
+
+# 21. Next evidence work
+
+- Era laneごとのReality evidence pack
+- Stage placement
+- Object lineage IDs
+- Knowledge Matrix
 - Institution official records
-- Reality/Night visual evidence
+- 朔夜座relationship matrix
+- 群青残響録admission candidates
+- combat Boss fields kept separate
 
-を追加する。
-
-Exact西暦・死者数・Current人物の家族被害はHuman decisionまで保留する。
+Exact year / victim count / major family damage / formal Gunjo membersはHuman decisionまでOpen。
