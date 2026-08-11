@@ -1,6 +1,6 @@
 # ヨルノシルベ — Current Story / World Master: Constellation Amendment
 
-Date: 2026-08-11  
+Date: 2026-08-12  
 Status: **CURRENT HIGHEST CONSTELLATION SUBDOMAIN AUTHORITY / USER-DIRECTED + RESEARCH-VERIFIED**
 
 > このファイルは `docs/00-current-story-world-master.md` の **Stars / Constellations節だけを上書きする最上位subdomain amendment**。
@@ -200,7 +200,22 @@ Dream-specific supernatural constellation phenomenonを将来追加する場合�
 
 ---
 
-# 9. Research source
+# 9. Working sources
 
-詳細:
-`docs/research/constellation-history-story-integration-v1.md`
+制作時にまず読む:
+- `docs/constellation-usable-knowledge-book-v1.md` — **使える星座情報を用途別に整理した制作入口**
+
+史実根拠・詳細Research:
+- `docs/research/constellation-history-story-integration-v1.md`
+
+運用:
+
+```txt
+史実確認
+↓
+Researchへ根拠保存
+↓
+Usable Knowledge Bookへ用途付きで追加
+↓
+Character / Stage / Star Beast / Merchへ接続
+```
