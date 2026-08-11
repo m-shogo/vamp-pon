@@ -1,0 +1,33 @@
+name: Yatsukage Encounter Memory
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/yatsukageEncounterMemorySource.ts'
+      - 'src/game/data/current21YatsukageRelationshipSource.ts'
+      - 'docs/yatsukage-encounter-memory-v1.md'
+      - 'scripts/quality/check-yatsukage-encounter-memory.ts'
+      - '.github/workflows/yatsukage-encounter-memory.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/yatsukageEncounterMemorySource.ts'
+      - 'src/game/data/current21YatsukageRelationshipSource.ts'
+      - 'docs/yatsukage-encounter-memory-v1.md'
+      - 'scripts/quality/check-yatsukage-encounter-memory.ts'
+      - '.github/workflows/yatsukage-encounter-memory.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check 八影 encounter memory contract
+        run: node --experimental-strip-types scripts/quality/check-yatsukage-encounter-memory.ts
