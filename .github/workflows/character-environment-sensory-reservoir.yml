@@ -1,0 +1,39 @@
+name: Character Environment Sensory Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-environment-sensory-reservoir-v1.md'
+      - 'src/game/data/characterEnvironmentSensoryReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'scripts/quality/check-character-environment-sensory-reservoir.ts'
+      - '.github/workflows/character-environment-sensory-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-environment-sensory-reservoir-v1.md'
+      - 'src/game/data/characterEnvironmentSensoryReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'scripts/quality/check-character-environment-sensory-reservoir.ts'
+      - '.github/workflows/character-environment-sensory-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character environment sensory reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-environment-sensory-reservoir.ts
