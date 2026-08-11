@@ -5,6 +5,7 @@ on:
     paths:
       - 'docs/00-current-story-world-master.md'
       - 'docs/character-author-db-schema-and-coverage-v1.md'
+      - 'docs/character-author-db-environment-coverage-extension-v1.md'
       - 'src/game/data/characterAuthorDbCoverageManifest.ts'
       - 'src/game/data/characterRealityRootRegistry.ts'
       - 'src/game/data/characterOrdinaryLifeReservoir.ts'
@@ -14,6 +15,7 @@ on:
       - 'src/game/data/characterLivedArtifactReservoir.ts'
       - 'src/game/data/characterThemeColorReservoir.ts'
       - 'src/game/data/realityRootLivingPlaceReservoir.ts'
+      - 'src/game/data/characterEnvironmentSensoryReservoir.ts'
       - 'src/game/data/seasonArchitecture.ts'
       - 'scripts/quality/check-character-author-db-coverage.ts'
       - '.github/workflows/character-author-db-coverage.yml'
@@ -22,6 +24,7 @@ on:
     paths:
       - 'docs/00-current-story-world-master.md'
       - 'docs/character-author-db-schema-and-coverage-v1.md'
+      - 'docs/character-author-db-environment-coverage-extension-v1.md'
       - 'src/game/data/characterAuthorDbCoverageManifest.ts'
       - 'src/game/data/characterRealityRootRegistry.ts'
       - 'src/game/data/characterOrdinaryLifeReservoir.ts'
@@ -31,6 +34,7 @@ on:
       - 'src/game/data/characterLivedArtifactReservoir.ts'
       - 'src/game/data/characterThemeColorReservoir.ts'
       - 'src/game/data/realityRootLivingPlaceReservoir.ts'
+      - 'src/game/data/characterEnvironmentSensoryReservoir.ts'
       - 'src/game/data/seasonArchitecture.ts'
       - 'scripts/quality/check-character-author-db-coverage.ts'
       - '.github/workflows/character-author-db-coverage.yml'
