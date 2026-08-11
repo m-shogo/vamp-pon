@@ -12,10 +12,18 @@ Status: **CURRENT WORLD-SETTING ENTRYPOINT / CANON-CANDIDATE BOUNDARIES PRESERVE
 
 1. `docs/CANON.md`
 2. `docs/world-foundation-authority-v1.md`
-3. 必要なdomainだけ下記へ
+3. `docs/world-setting-conflict-register-v1.md`
+4. 必要なdomainだけ下記へ
 
 全32項目のcoverage:
 - `docs/world-setting-expansion-index-v1.md`
+
+世界設定の矛盾監査:
+- `docs/world-setting-conflict-register-v1.md`
+- `src/game/data/worldSettingConflictRegister.ts`
+
+原則:
+> `UNRESOLVED_BLOCKER > 0`の状態でFinal Canon / character master productionへ進めない。
 
 人気長期IPとの資料gap監査:
 - `docs/franchise-content-gap-audit-v1.md`
@@ -127,11 +135,13 @@ WORLD.md
 ↓
 World FoundationのLayer / status確認
 ↓
+Conflict Register確認
+↓
 既存P0/P1/P2 sourceへ追加
 ↓
 Character / Stage / Object / Relationとの接続確認
 ↓
-必要ならCANDIDATE
+必要ならCANDIDATE / OPEN_HUMAN
 ↓
 Human Review
 ↓
