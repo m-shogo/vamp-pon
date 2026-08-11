@@ -1,64 +1,36 @@
-name: U2 Projectile Status Hook One Shot
+name: PR169 Runtime Projectile Recovery Launcher
 
 on:
-  push:
-    branches: [agent/unity-projectile-status-apply-hook-v1]
-    paths:
-      - '.github/workflows/u2-projectile-status-hook-one-shot.yml'
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
 
 jobs:
-  patch:
+  recover:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'fix/unity-multitarget-admission-drift'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: agent/unity-projectile-status-apply-hook-v1
-      - name: Add optional projectile Status application hook
+          ref: fix/unity-multitarget-admission-drift
+      - name: Execute guarded recovery payload
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
+          import textwrap
 
-          path = Path('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs')
-          text = path.read_text()
-
-          replacements = [
-              (
-                  '''        public bool FireGameplayProjectile(float damage, int pierce)\n        {\n            var target = FindNearestEnemy();\n            if (target == null) return false;\n\n            var projectile = GetPooled(projectiles);\n            projectile.Activate(\n                playerRoot.position,\n                target.transform.position - playerRoot.position,\n                config.projectileSpeed,\n                damage,\n                pierce,\n                config.projectileLifetime);\n            return true;\n        }''',
-                  '''        public bool FireGameplayProjectile(float damage, int pierce)\n            => FireGameplayProjectile(damage, pierce, null);\n\n        public bool FireGameplayProjectile(\n            float damage,\n            int pierce,\n            EnemyStatusApplicationRequest? statusApplicationRequest)\n        {\n            var target = FindNearestEnemy();\n            if (target == null) return false;\n\n            var projectile = GetPooled(projectiles);\n            projectile.Activate(\n                playerRoot.position,\n                target.transform.position - playerRoot.position,\n                config.projectileSpeed,\n                damage,\n                pierce,\n                config.projectileLifetime,\n                statusApplicationRequest);\n            return true;\n        }''',
-              ),
-              (
-                  '''                hitTarget.TakeDamage(projectile.Damage, config.damageFlashSeconds);\n                projectile.ConsumeHit();''',
-                  '''                var defeated = hitTarget.TakeDamage(projectile.Damage, config.damageFlashSeconds);\n                if (!defeated) projectile.ApplyStatusOnHit(hitTarget);\n                projectile.ConsumeHit();''',
-              ),
-              (
-                  '''        private float lifetime;\n        private int remainingHits;\n\n        public float Damage { get; private set; }''',
-                  '''        private float lifetime;\n        private int remainingHits;\n        private EnemyStatusApplicationRequest? statusApplicationRequest;\n\n        public float Damage { get; private set; }\n        public bool HasStatusApplication => statusApplicationRequest.HasValue;''',
-              ),
-              (
-                  '''        public void Activate(Vector3 position, Vector3 direction, float speed, float damage, int pierce, float lifetimeSeconds)\n        {\n            base.Activate(position);\n            transform.localScale = Vector3.one * 0.2f;\n            this.direction = direction.normalized;\n            this.speed = speed;\n            Damage = damage;\n            remainingHits = Math.Max(1, pierce);\n            lifetime = lifetimeSeconds;\n        }''',
-                  '''        public void Activate(Vector3 position, Vector3 direction, float speed, float damage, int pierce, float lifetimeSeconds)\n            => Activate(position, direction, speed, damage, pierce, lifetimeSeconds, null);\n\n        public void Activate(\n            Vector3 position,\n            Vector3 direction,\n            float speed,\n            float damage,\n            int pierce,\n            float lifetimeSeconds,\n            EnemyStatusApplicationRequest? statusApplicationRequest)\n        {\n            base.Activate(position);\n            transform.localScale = Vector3.one * 0.2f;\n            this.direction = direction.normalized;\n            this.speed = speed;\n            Damage = damage;\n            remainingHits = Math.Max(1, pierce);\n            lifetime = lifetimeSeconds;\n            this.statusApplicationRequest = statusApplicationRequest;\n        }''',
-              ),
-              (
-                  '''        public void ConsumeHit()\n        {''',
-                  '''        public EnemyStatusApplyResult? ApplyStatusOnHit(U2EnemyActor target)\n        {\n            if (target == null || !statusApplicationRequest.HasValue) return null;\n            return statusApplicationRequest.Value.ApplyTo(target.Statuses);\n        }\n\n        public override void Deactivate()\n        {\n            statusApplicationRequest = null;\n            base.Deactivate();\n        }\n\n        public void ConsumeHit()\n        {''',
-              ),
-          ]
-
-          for old, new in replacements:
-              count = text.count(old)
-              if count != 1:
-                  raise SystemExit(f'expected exactly one patch anchor, got {count}: {old[:100]!r}')
-              text = text.replace(old, new)
-
-          path.write_text(text)
+          payload = Path('.github/workflows/runtime-projectile-recovery-one-shot.yml').read_text()
+          marker = "          python - <<'PY'\n"
+          start = payload.index(marker) + len(marker)
+          end = payload.index("\n          PY\n", start)
+          Path('/tmp/runtime-projectile-recovery.py').write_text(textwrap.dedent(payload[start:end]))
           PY
-          rm .github/workflows/u2-projectile-status-hook-one-shot.yml
+          python /tmp/runtime-projectile-recovery.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs .github/workflows/u2-projectile-status-hook-one-shot.yml
-          git commit -m 'feat: wire optional projectile Status application hook'
-          git push origin HEAD:agent/unity-projectile-status-apply-hook-v1
+          git add -A
+          git commit -m 'fix: restore actual Unity projectile runtime primitives'
+          git push origin HEAD:fix/unity-multitarget-admission-drift
