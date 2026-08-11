@@ -1,11 +1,9 @@
 import { readFileSync } from 'node:fs';
 
-import { passives } from '../../src/game/data/passives.ts';
-import { characterProductionPlans } from '../../src/game/data/characterProductionPlans.ts';
+import { combatItemEffectCandidates, combatItemEffectSummary } from '../../src/game/data/combatItemEffectSource.ts';
+import { title1UnlockLearningProgressionEntries } from '../../src/game/data/title1UnlockLearningProgressionSource.ts';
 import {
-  currentCombatItemFamilies,
-  selectedCandidateCombatItemFamilies,
-  title1CombatItemFamilies,
+  title1CombatItemPlacements,
   title1CombatItemSelectionSummary,
 } from '../../src/game/data/combatItemSelectionSource.ts';
 
@@ -13,83 +11,108 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-assert(passives.length === 8, `Current runtime passive authority changed; expected 8, got ${passives.length}`);
-assert(currentCombatItemFamilies.length === passives.length, 'Combat Item master must preserve all current runtime passives');
-assert(selectedCandidateCombatItemFamilies.length === 10, `Title1 should select exactly 10 content-only candidates, got ${selectedCandidateCombatItemFamilies.length}`);
-assert(title1CombatItemFamilies.length === 18, `Title1 Combat Item family target must remain 18, got ${title1CombatItemFamilies.length}`);
-assert(title1CombatItemSelectionSummary.title1TargetCount === 18, 'summary target must remain 18');
-assert(title1CombatItemSelectionSummary.currentRuntimeCount === 8, 'summary Current runtime count must remain 8');
-assert(title1CombatItemSelectionSummary.selectedCandidateCount === 10, 'summary selected Candidate count must remain 10');
-assert(title1CombatItemSelectionSummary.totalFamilyCount === 18, 'summary total family count must remain 18');
+assert(combatItemEffectCandidates.length === 18, `Combat Item candidate authority must remain 18, got ${combatItemEffectCandidates.length}`);
+assert(combatItemEffectSummary.passiveCount === 14, `expected 14 PASSIVE candidates, got ${combatItemEffectSummary.passiveCount}`);
+assert(combatItemEffectSummary.fieldItemCount === 2, `expected 2 FIELD_ITEM candidates, got ${combatItemEffectSummary.fieldItemCount}`);
+assert(combatItemEffectSummary.rareSupportCount === 2, `expected 2 RARE_SUPPORT candidates, got ${combatItemEffectSummary.rareSupportCount}`);
+assert(!combatItemEffectSummary.autoPromoteToRuntime, 'Combat Item candidate authority must remain content-only');
 
-const runtimeIds = passives.map((entry) => entry.id);
-const selectedCurrentIds = currentCombatItemFamilies.map((entry) => entry.itemId);
-assert(runtimeIds.every((id) => selectedCurrentIds.includes(id)), 'every runtime passive must remain in Current8');
-assert(new Set(selectedCurrentIds).size === selectedCurrentIds.length, 'Current8 item IDs must be unique');
+assert(title1CombatItemPlacements.length === 18, `Title1 placement must cover all existing 18 candidates, got ${title1CombatItemPlacements.length}`);
+assert(title1CombatItemSelectionSummary.candidateAuthorityCount === 18, 'selection summary must bind to the existing 18-candidate authority');
+assert(title1CombatItemSelectionSummary.selectedCount === 18, 'all 18 curated candidates should receive a Title1 placement');
+assert(title1CombatItemSelectionSummary.passiveCount === 14, 'placement must preserve 14 PASSIVE entries');
+assert(title1CombatItemSelectionSummary.fieldDropCount === 2, 'placement must preserve 2 FIELD_ITEM entries');
+assert(title1CombatItemSelectionSummary.rareSupportCount === 2, 'placement must preserve 2 RARE_SUPPORT entries');
+assert(title1CombatItemSelectionSummary.unplacedCandidateIds.length === 0, `all candidates must be placed, missing: ${title1CombatItemSelectionSummary.unplacedCandidateIds.join(',')}`);
+assert(title1CombatItemSelectionSummary.maxPlacementsOnSingleStage <= 2, `no stage should introduce more than two Combat Items, got ${title1CombatItemSelectionSummary.maxPlacementsOnSingleStage}`);
+assert(title1CombatItemSelectionSummary.latestPlacementStage <= 17, 'Stage18-20 should remain Combat Item mastery, not new-item tutorial');
+assert(!title1CombatItemSelectionSummary.runtimeAutoPromotionAllowed, 'placement master must never auto-promote Combat Items');
+assert(!title1CombatItemSelectionSummary.title1PlacementIsRuntimeInventory, 'content placement is not the live runtime inventory');
 
-const planByCharacterId = new Map(characterProductionPlans.map((plan) => [plan.characterId, plan]));
-const currentNames = new Set(passives.map((entry) => entry.name));
-const candidateIds = new Set<string>();
-const candidateCharacters = new Set<string>();
-for (const entry of selectedCandidateCombatItemFamilies) {
-  const plan = planByCharacterId.get(entry.characterId);
-  assert(plan, `candidate must reference an existing Current character production plan: ${entry.characterId}`);
-  assert(entry.displayName === plan.passiveItem, `${entry.itemId} must use the character passive-item lineage name`);
-  assert(!currentNames.has(entry.displayName), `${entry.itemId} duplicates a Current runtime passive display name: ${entry.displayName}`);
-  assert(!candidateIds.has(entry.itemId), `duplicate Candidate Combat Item ID: ${entry.itemId}`);
-  candidateIds.add(entry.itemId);
-  assert(!candidateCharacters.has(entry.characterId), `Candidate selection should not consume two slots for one character: ${entry.characterId}`);
-  candidateCharacters.add(entry.characterId);
-  assert(entry.statusInteractions.length >= 1, `${entry.itemId} needs at least one explicit Status interaction`);
-  assert(entry.buildRoles.length >= 2, `${entry.itemId} needs at least two build roles`);
-  assert(entry.effectConcept.length >= 35, `${entry.itemId} needs a concrete effect concept`);
-  assert(entry.whySelected.length >= 35, `${entry.itemId} needs a concrete selection rationale`);
-  assert(entry.tradeoff.length >= 25, `${entry.itemId} needs an anti-autopick tradeoff`);
-  assert(entry.mobileReadabilityHook.length >= 25, `${entry.itemId} needs a mobile readability hook`);
-  assert(entry.runtimeStatus === 'CONTENT_SOURCE_ONLY', `${entry.itemId} must remain content-only`);
-  assert(!entry.runtimeAutoPromotionAllowed, `${entry.itemId} must not auto-promote into runtime inventory`);
+const authorityIds = new Set(combatItemEffectCandidates.map((entry) => entry.id));
+const placementIds = new Set<string>();
+const laneByKind = {
+  PASSIVE: 'LEVEL_UP_POOL',
+  FIELD_ITEM: 'FIELD_DROP',
+  RARE_SUPPORT: 'RARE_SUPPORT',
+} as const;
+
+for (const placement of title1CombatItemPlacements) {
+  assert(authorityIds.has(placement.itemId), `placement references non-authority Combat Item: ${placement.itemId}`);
+  assert(!placementIds.has(placement.itemId), `Combat Item placed twice: ${placement.itemId}`);
+  placementIds.add(placement.itemId);
+  assert(placement.itemName === placement.candidate.name, `${placement.itemId} placement name must derive from candidate authority`);
+  assert(placement.itemKind === placement.candidate.kind, `${placement.itemId} placement kind must derive from candidate authority`);
+  assert(placement.accessLane === laneByKind[placement.itemKind], `${placement.itemId} uses wrong access lane for ${placement.itemKind}`);
+  assert(placement.stageNo >= 1 && placement.stageNo <= 20, `${placement.itemId} has invalid Stage number`);
+  assert(placement.learningPurpose.length >= 35, `${placement.itemId} needs concrete learning purpose`);
+  assert(placement.antiOverloadRule.length >= 25, `${placement.itemId} needs anti-overload rule`);
+  assert(placement.mobileReadabilityHook.length >= 25, `${placement.itemId} needs mobile readability hook`);
+  assert(placement.candidate.rule.length >= 20, `${placement.itemId} candidate rule regressed`);
+  assert(placement.candidate.tradeoff.length >= 15, `${placement.itemId} candidate tradeoff regressed`);
+  assert(placement.candidate.storySeed.length >= 15, `${placement.itemId} candidate story seed regressed`);
+  assert(placement.candidate.runtimeStatus === 'CONTENT_SOURCE_ONLY', `${placement.itemId} authority candidate must remain content-only`);
+  assert(placement.runtimeStatus === 'CONTENT_SOURCE_ONLY', `${placement.itemId} placement must remain content-only`);
+  assert(!placement.runtimeAutoPromotionAllowed, `${placement.itemId} placement must not auto-promote runtime`);
 }
-assert(candidateCharacters.size === 10, 'Selected10 should come from ten distinct character lineages');
+assert(placementIds.size === authorityIds.size, 'Title1 placement IDs must exactly match Combat Item authority IDs');
 
-const requiredRescueStatuses = ['ROOTED', 'CHILL', 'FREEZE', 'DROWSY', 'SLEEP', 'ECLIPSED', 'ERASED', 'SEALED', 'DISORIENTED'] as const;
-const coveredStatuses = new Set(selectedCandidateCombatItemFamilies.flatMap((entry) => entry.statusInteractions));
-for (const status of requiredRescueStatuses) {
-  assert(coveredStatuses.has(status), `Title1 Combat Item selection lacks fail-forward answer for ${status}`);
-}
-assert(title1CombatItemSelectionSummary.statusInteractionCoverageCount >= 12, `status interaction coverage should remain broad, got ${title1CombatItemSelectionSummary.statusInteractionCoverageCount}`);
-assert(title1CombatItemSelectionSummary.effectAxisCoverageCount >= 9, `Combat Item 18 should cover at least 9 effect axes, got ${title1CombatItemSelectionSummary.effectAxisCoverageCount}`);
-
-const candidateAxes = new Set(selectedCandidateCombatItemFamilies.map((entry) => entry.effectAxis));
-for (const axis of ['STATUS_GUARD', 'ROUTE', 'SUPPORT', 'BUILD_COMFORT', 'OBSERVATION', 'DREAM_CONTROL', 'DARK_RISK'] as const) {
-  assert(candidateAxes.has(axis), `Selected10 must preserve non-stat gameplay axis: ${axis}`);
+const disruptiveStatuses = ['ROOTED', 'CHILL', 'FREEZE', 'DROWSY', 'SLEEP', 'ECLIPSED', 'ERASED', 'SEALED', 'DISORIENTED'] as const;
+const counteredStatuses = new Set(combatItemEffectCandidates.flatMap((item) => [...item.resistsStatuses, ...item.cleansesStatuses]));
+for (const status of disruptiveStatuses) {
+  assert(counteredStatuses.has(status), `Combat Item 18 lacks fail-forward counterplay for ${status}`);
 }
 
-assert(!title1CombatItemSelectionSummary.runtimeAutoPromotionAllowed, 'selection master must never auto-promote Candidate items');
-assert(!title1CombatItemSelectionSummary.title1SelectionIsRuntimeInventory, 'Title1 Combat Item 18 selection is not the live runtime inventory');
+for (const placement of title1CombatItemPlacements) {
+  const knownAttributes = new Set<string>(['NEUTRAL']);
+  const knownStatuses = new Set<string>();
+  const knownReactions = new Set<string>();
+  for (const learning of title1UnlockLearningProgressionEntries) {
+    if (learning.stageNo > placement.stageNo) break;
+    learning.introducedAttributes.forEach((id) => knownAttributes.add(id));
+    learning.introducedStatuses.forEach((id) => knownStatuses.add(id));
+    learning.introducedReactionIds.forEach((id) => knownReactions.add(id));
+  }
+
+  for (const attribute of placement.candidate.attributeBias) {
+    assert(knownAttributes.has(attribute), `${placement.itemId} appears on Stage${placement.stageNo} before Attribute ${attribute} is taught`);
+  }
+  for (const status of [...placement.candidate.resistsStatuses, ...placement.candidate.cleansesStatuses]) {
+    assert(knownStatuses.has(status), `${placement.itemId} appears on Stage${placement.stageNo} before Status ${status} is taught`);
+  }
+  if (placement.candidate.reactionAssist) {
+    assert(knownReactions.has(placement.candidate.reactionAssist), `${placement.itemId} appears on Stage${placement.stageNo} before Reaction ${placement.candidate.reactionAssist} is taught`);
+  }
+}
+
+const stage18to20Placements = title1CombatItemPlacements.filter((entry) => entry.stageNo >= 18);
+assert(stage18to20Placements.length === 0, 'Stage18-20 should not introduce new Combat Items');
 
 const doc = readFileSync(new URL('../../docs/combat-item-selection-source-v1.md', import.meta.url), 'utf8');
 for (const token of [
-  'Current8',
-  'Selected10',
-  '18 family',
+  '既存18',
+  'PASSIVE 14',
+  'FIELD_ITEM 2',
+  'RARE_SUPPORT 2',
+  'Stage17',
+  'Stage18-20',
   'CONTENT_SOURCE_ONLY',
-  'ROOTED',
-  'ECLIPSED',
-  'ERASED',
-  'Build Comfort',
+  '先バレ',
   'mobile',
   'runtime',
 ]) {
-  assert(doc.includes(token), `Combat Item selection doc missing token: ${token}`);
+  assert(doc.includes(token), `Combat Item placement doc missing token: ${token}`);
 }
 
 console.log(JSON.stringify({
   status: 'PASS',
-  currentRuntime: title1CombatItemSelectionSummary.currentRuntimeCount,
-  selectedCandidates: title1CombatItemSelectionSummary.selectedCandidateCount,
-  totalFamilies: title1CombatItemSelectionSummary.totalFamilyCount,
-  candidateCharacters: title1CombatItemSelectionSummary.selectedCandidateCharacterCount,
-  effectAxes: title1CombatItemSelectionSummary.effectAxisCoverageCount,
-  statusInteractions: title1CombatItemSelectionSummary.statusInteractionCoverageCount,
+  authorityCandidates: combatItemEffectCandidates.length,
+  placedCandidates: title1CombatItemPlacements.length,
+  passives: title1CombatItemSelectionSummary.passiveCount,
+  fieldItems: title1CombatItemSelectionSummary.fieldDropCount,
+  rareSupport: title1CombatItemSelectionSummary.rareSupportCount,
+  stagesWithPlacements: title1CombatItemSelectionSummary.stageCountWithPlacements,
+  maxPerStage: title1CombatItemSelectionSummary.maxPlacementsOnSingleStage,
+  latestPlacementStage: title1CombatItemSelectionSummary.latestPlacementStage,
   runtimeAutoPromotionAllowed: false,
 }, null, 2));
