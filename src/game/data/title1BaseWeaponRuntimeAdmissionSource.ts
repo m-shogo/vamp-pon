@@ -46,7 +46,7 @@ export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponR
   MULTI_PROJECTILE_LOOP: 'IMPLEMENTED',
   CIRCULAR_GROUND_AREA: 'IMPLEMENTED',
   STATUS_APPLICATION: 'MISSING',
-  MULTI_TARGET_PROJECTILE_SELECTION: 'MISSING',
+  MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',
   TWO_TARGET_TETHER: 'MISSING',
   CONE_QUERY: 'MISSING',
   KNOCKBACK_VECTOR: 'MISSING',
@@ -157,7 +157,7 @@ export const title1BaseWeaponRuntimeAdmissionSummary = {
   currentImplementedUnityPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'IMPLEMENTED').length,
   currentMissingUnityPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'MISSING').length,
   missingCapabilityFrequency: [...missingCapabilityFrequency.entries()]
-    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
+    .sort((left, right) => right[1] - left[0].localeCompare(right[0]))
     .map(([capability, blockedWeaponCount]) => ({ capability, blockedWeaponCount })),
   statusApplicationBlockedWeaponCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.missingUnityCapabilities.includes('STATUS_APPLICATION')).length,
   selected16WebAdmissionAuthorityDuplicated: false,
