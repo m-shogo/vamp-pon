@@ -205,17 +205,20 @@ export const SEASON_ANTAGONIST_TEAM_ARCHITECTURE = {
 
 /**
  * Backward-compatible export for older imports.
- * 朔夜座 is now explicitly the Season 1 antagonist team, not a series-wide recurring primary faction.
+ * `recurringAllSeasons` now means individual Sakuyaza members may recur later;
+ * it does NOT mean the full Sakuyaza team remains the primary antagonist team.
  */
 export const SAKUYAZA_SEASON_FOCUS = {
   seasonScope: 'S1',
-  recurringAllSeasons: false,
+  recurringAllSeasons: true,
+  recurringMeaning: 'INDIVIDUAL_RETURN_ALLOWED_NOT_FULL_TEAM_PRIMARY_RETURN',
   s1Roster: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season1.memberNames,
   s1Heavier: SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season1.memberNames,
   s2Heavier: [] as const,
   seriesWidePrimaryTeam: false,
   previousSeasonIndividualReturnAllowed: true,
-  permanentSeasonTeams: true,
+  permanentSeasonTeams: false,
+  pairMissionRemainsDynamic: true,
   pairMissionRemainsDynamicInsideS1: true,
   supersededInterpretation: 'SAKUYAZA_8_SPLIT_ACROSS_S1_AND_S2',
 } as const;
