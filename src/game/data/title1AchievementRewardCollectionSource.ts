@@ -1,9 +1,18 @@
 import { ACHIEVEMENT_DEFS } from './achievements.ts';
 import { forgottenStreetNightBoard } from './collectionProgress.ts';
-import { collectionSections, type CollectionSectionId } from './collectionSections.ts';
 import { series1StageCampaignContentEntries } from './series1StageCampaignContentSource.ts';
 import { selectedTitle1WeaponTransformations } from './weaponTransformationSelectionSource.ts';
 import { title1CombatItemPlacements } from './combatItemSelectionSource.ts';
+
+export const TITLE1_COLLECTION_SECTION_IDS = [
+  'dawn_atlas',
+  'bestiary',
+  'lost_item_cards',
+  'keeper_records',
+  'word_records',
+  'achievements',
+] as const;
+export type CollectionSectionId = (typeof TITLE1_COLLECTION_SECTION_IDS)[number];
 
 export type Title1MilestoneKind = 'NATURAL' | 'TARGETED' | 'MASTERY' | 'SECRET';
 export type Title1RewardLane = 'RECORD_ONLY' | 'LIGHT_COIN' | 'TRAVEL_PREP' | 'MEMORY_TEXT' | 'COSMETIC' | 'SOUND';
@@ -46,7 +55,7 @@ const seeds: readonly Title1AchievementRewardCollectionSeed[] = [
 const stageById = new Map<string, (typeof series1StageCampaignContentEntries)[number]>(
   series1StageCampaignContentEntries.map((stage) => [stage.stageId, stage]),
 );
-const sectionIds = new Set<string>(collectionSections.map((section) => section.id));
+const sectionIds = new Set<string>(TITLE1_COLLECTION_SECTION_IDS);
 
 export const title1AchievementRewardCollectionEntries = seeds.map((seed, index) => {
   const stage = stageById.get(seed.stageId);
@@ -70,7 +79,7 @@ export const title1AchievementRewardCollectionSummary = {
   stageCount: title1AchievementRewardCollectionEntries.length,
   legacyRuntimeAchievementCount: ACHIEVEMENT_DEFS.length,
   legacyForgottenStreetBoardCellCount: forgottenStreetNightBoard.cells.length,
-  collectionSectionCount: collectionSections.length,
+  collectionSectionCount: TITLE1_COLLECTION_SECTION_IDS.length,
   selectedTransformationCount: selectedTitle1WeaponTransformations.length,
   placedCombatItemCount: title1CombatItemPlacements.length,
   rewardLaneCounts: Object.fromEntries(
