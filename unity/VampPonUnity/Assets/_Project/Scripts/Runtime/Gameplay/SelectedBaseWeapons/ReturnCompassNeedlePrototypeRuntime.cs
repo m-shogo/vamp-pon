@@ -141,7 +141,11 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.SelectedBaseWeapons
                 baseReturnPriorityScores == null ||
                 returnCandidates.Count != baseReturnPriorityScores.Count ||
                 !IsFinite(spawnPosition) ||
-                !IsFiniteNonNegative(markedPriorityBonus))
+                !IsFiniteNonNegative(minReturnRange) ||
+                !IsFinitePositive(maxReturnRange) ||
+                minReturnRange > maxReturnRange ||
+                !IsFiniteNonNegative(markedPriorityBonus) ||
+                !Enum.IsDefined(typeof(U2EnemyPriorityDistanceTieBreak), tieBreak))
             {
                 return false;
             }
