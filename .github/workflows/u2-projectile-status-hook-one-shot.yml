@@ -1,16 +1,17 @@
 name: U2 Projectile Runtime Recovery Launcher
 
 on:
-  push:
-    branches: [fix/unity-multitarget-admission-drift]
+  pull_request:
     paths:
       - '.github/workflows/u2-projectile-status-hook-one-shot.yml'
+      - '.github/workflows/runtime-projectile-recovery-one-shot.yml'
 
 permissions:
   contents: write
 
 jobs:
   recover:
+    if: github.event.pull_request.head.ref == 'fix/unity-multitarget-admission-drift'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
