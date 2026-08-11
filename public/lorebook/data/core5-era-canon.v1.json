@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-11",
+  "authority": "docs/core5-era-character-master-v1.md",
+  "exactYearsFrozen": false,
+  "assignments": [
+    {
+      "id": "tomori",
+      "name": "トモリ",
+      "era": "1940S_JAPAN",
+      "eraLabel": "1940年代系 日本",
+      "species": "HUMAN",
+      "narrativeRole": "ERA_LEAD",
+      "coreBridge": "repair / reuse / inherited light",
+      "exactYear": null
+    },
+    {
+      "id": "michiru",
+      "name": "ミチル",
+      "era": "1980S_JAPAN",
+      "eraLabel": "1980年代系 日本",
+      "species": "HUMAN",
+      "narrativeRole": "ERA_LEAD",
+      "coreBridge": "paper map / changing city / route plurality",
+      "exactYear": null
+    },
+    {
+      "id": "nagi",
+      "name": "ナギ",
+      "era": "2000S_JAPAN",
+      "eraLabel": "2000年代系 日本",
+      "species": "HUMAN",
+      "narrativeRole": "ERA_LEAD",
+      "coreBridge": "early network / privacy / access boundary",
+      "exactYear": null
+    },
+    {
+      "id": "yui",
+      "name": "ユイ",
+      "era": "PRESENT_DAY_JAPAN",
+      "eraLabel": "現代日本",
+      "species": "HUMAN",
+      "narrativeRole": "OVERALL_VIEWPOINT_AND_PRESENT_ERA_LEAD",
+      "coreBridge": "over-documentation / memory / choice",
+      "exactYear": null
+    },
+    {
+      "id": "asa",
+      "name": "アサ",
+      "era": "FUTURE_ANDROID_ROBOT_SOCIETY",
+      "eraLabel": "未来 Android / Robot共存社会",
+      "species": "HUMAN",
+      "narrativeRole": "PROTAGONIST_GRADE_BUDDY_AND_FUTURE_ERA_LEAD",
+      "coreBridge": "name / designation / personhood",
+      "exactYear": null
+    }
+  ],
+  "profileOverrides": {
+    "core5AgeImpressionMeaning": "Dream上で近い若者age-impression。Reality同世代という意味ではない。",
+    "asaNameRationale": "『アサ』は短く呼びやすい人名として扱う。Realityの朝という普通の語感は持つが、Yoru-no-Shirubeに物理的な夜明けが来ることを示さない。未来社会のhuman name / chosen name / model designationとの対比を担う。"
+  },
+  "runtimeAutoPromotionAllowed": false
+}
