@@ -1,0 +1,36 @@
+name: selected16-runtime-admission-matrix
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/selectedBaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/domain/weaponRuntimeCapabilities.ts'
+      - 'scripts/quality/check-selected16-runtime-admission-matrix.ts'
+      - '.github/workflows/selected16-runtime-admission-matrix.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/selectedBaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/domain/weaponRuntimeCapabilities.ts'
+      - 'scripts/quality/check-selected16-runtime-admission-matrix.ts'
+      - '.github/workflows/selected16-runtime-admission-matrix.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Selected16 runtime admission matrix
+        run: node --experimental-strip-types scripts/quality/check-selected16-runtime-admission-matrix.ts
