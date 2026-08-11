@@ -4,8 +4,11 @@ on:
   pull_request:
     paths:
       - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/selectedBaseWeaponRuntimeAdmissionSource.ts'
       - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
       - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weapons.ts'
       - 'src/game/domain/weaponRuntimeCapabilities.ts'
       - 'src/game/domain/__tests__/weaponRuntimeCapabilities.test.ts'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/U47GameplayDefinitions.cs'
@@ -19,8 +22,11 @@ on:
     branches: [main]
     paths:
       - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/selectedBaseWeaponRuntimeAdmissionSource.ts'
       - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
       - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weapons.ts'
       - 'src/game/domain/weaponRuntimeCapabilities.ts'
       - 'src/game/domain/__tests__/weaponRuntimeCapabilities.test.ts'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/U47GameplayDefinitions.cs'
@@ -42,5 +48,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check Title1 Base Weapon runtime admission
+      - name: Check upstream Selected16 Web admission
+        run: node --experimental-strip-types scripts/quality/check-selected16-runtime-admission-matrix.ts
+      - name: Check Unity runtime admission evidence overlay
         run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
