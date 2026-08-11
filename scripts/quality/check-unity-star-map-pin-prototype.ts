@@ -76,9 +76,10 @@ for (const forbidden of [
 
 assert(selector.includes('public static class U2EnemyHomingPrioritySelectionRuntime'), 'Star Map Pin caller requires real priority selector');
 assert(!selector.includes('star_map_pin') && !selector.includes('MARKED'), 'generic priority selector must remain content-neutral');
-assert(statusRequest.includes('Action<EnemyStatusApplyResult> observer = null'), 'typed Status request observer path missing');
+assert(statusRequest.includes('private readonly Action<EnemyStatusApplyResult> resultObserver;'), 'typed Status request observer field missing');
+assert(statusRequest.includes('resultObserver?.Invoke(result);'), 'typed Status request observer invocation missing');
 assert(battle.includes('public bool FireGameplayProjectileAtTarget('), 'explicit-target projectile path missing');
-assert(battle.includes('EnemyStatusApplicationRequest statusRequest'), 'explicit-target projectile must transport typed Status request');
+assert(battle.includes('EnemyStatusApplicationRequest? statusApplicationRequest = null'), 'explicit-target projectile must transport typed Status request');
 
 const starPin = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'star_map_pin');
 assert(starPin, 'Star Map Pin admission row missing');

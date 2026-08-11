@@ -55,6 +55,8 @@ IMPLEMENTED:
 
 現在 **12 missing**。
 
+`U2ReturningProjectileMotionRuntime` はshared motion foundationとして実装済みだが、hit/pool/caller統合まで終わる前に `RETURNING_PROJECTILE` capabilityを自動昇格しない。
+
 ## Admission decisions
 
 ### `BLOCKED_MISSING_UNITY_PRIMITIVES`
@@ -75,21 +77,22 @@ required primitiveがすべてIMPLEMENTEDで、Selected16固有callerも実コ�
 
 ## Current result
 
-**admitted=3**
+**admitted=4**
 
-**blocked=13**
+**blocked=12**
 
 implementation-review admitted:
 
 - `ember_matchcase`
 - `bellows_fan`
 - `pavement_hammer`
+- `star_map_pin`
 
-caller proof registryもこの3本。
+caller proof registryもこの4本。
 
 primitive-complete but caller-proof missing:
 
-- `star_map_pin`
+- none
 
 ## `ember_matchcase`
 
@@ -165,31 +168,50 @@ Boundary:
 
 ただし `runtimeStatus = NOT_IMPLEMENTED` で、Web / LevelUp / live Stage1 / U47 executorへは未接続。
 
-## `star_map_pin` — shared primitives complete / caller pending
-
-既存Content Authorityはこのruntime作業では変更しない。
+## `star_map_pin` — caller implemented / not live
 
 required:
 
 1. `HOMING_PRIORITY_SELECTION`
 2. `STATUS_APPLICATION`
 
-shared runtime evidence:
+shared runtime evidenceは両方IMPLEMENTED。
 
-- `HOMING_PRIORITY_SELECTION`: IMPLEMENTED
-- `STATUS_APPLICATION`: IMPLEMENTED
+Selected16 caller proof:
 
-caller proof:
+`StarMapPinPrototypeRuntime`
 
-- `StarMapPinPrototypeRuntime`: MISSING
+Application order:
+
+`PRIORITY_SELECT_TARGETED_PROJECTILE_MARKED_ON_HIT`
+
+1. caller-owned candidate list / priority scoreからshared selectorでtarget決定
+2. caller supplied range / tie-breakを使用
+3. 既存 `FireGameplayProjectileAtTarget(...)` へ選択targetを渡す
+4. typed `MARKED` requestをprojectileへtransport
+5. MARKEDはprojectile hit時に適用
+6. selection / projectile fire / Status resultをcaller-owned telemetryへ記録
+
+Priority score、range、tie-break、damage、pierce、MARKED policyはすべてcaller supplied。
+
+Boundary:
+
+`CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
+
+`PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
 
 現在のdecision:
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-つまりfar/high-priority targetをgenericに選ぶ基盤は揃ったが、星図のピン固有のscore構築・targeted projectile・MARKED transport・telemetryはまだ実装していない。
+ただし:
 
-shared primitive完成だけでimplementation-reviewへ上げない。
+- `runtimeStatus = NOT_IMPLEMENTED`
+- Web live catalog未接続
+- LevelUp未接続
+- `Stage1GameplayRuntimeCoordinator`未接続
+- U47 live executor未拡張
+- final VFX / readability未承認
 
 ## `return_compass_needle` — homing side only advanced
 
@@ -198,11 +220,13 @@ shared primitive完成だけでimplementation-reviewへ上げない。
 - `HOMING_PRIORITY_SELECTION`: IMPLEMENTED
 - `RETURNING_PROJECTILE`: MISSING
 
-なので引き続き:
+返投用の純粋motion foundation `U2ReturningProjectileMotionRuntime` は存在するが、hit / pool / Selected16 caller統合前なのでcapabilityはまだMISSINGのまま維持する。
+
+したがって引き続き:
 
 `BLOCKED_MISSING_UNITY_PRIMITIVES`
 
-priority selector完成だけでreturn projectileを偽装しない。
+priority selectorやmotion foundationだけでreturn projectileを偽装しない。
 
 ## Shared primitive boundaries
 
@@ -307,6 +331,14 @@ TEST_ONLY contractでdamage-death short circuit / EXPOSED / knockback / break th
 
 TEST_ONLY contractでpriority / range / targetability / 2D distance / far-near-stable tie / invalid inputを検証する。
 
+## Star Map Pin executable proof
+
+- `unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/StarMapPinPrototypeRuntime.cs`
+- `scripts/quality/unity-star-map-pin/UnityStarMapPin.Contract.csproj`
+- `scripts/quality/unity-star-map-pin/Program.cs`
+
+TEST_ONLY contractでpriority target selection / explicit target projectile / MARKED transport / hit result observer / cooldown独立 / projectile rejection / telemetryを検証する。
+
 数値は **NOT_CANON**。
 
 ## Live boundary
@@ -360,12 +392,16 @@ Runtime進捗を理由にSelected16を勝手に変更しない。
 
 ### Star Map Pin
 
-1. `StarMapPinPrototypeRuntime` caller proof
-2. caller-owned priority score scratch
-3. far/high-priority tie policy
-4. existing targeted projectile primitive
-5. typed MARKED request
-6. telemetry
-7. runtime evidence
+- Unity runtime evidence harness
+- priority selection / targeted projectile / MARKED telemetryを同一runへ束ねる
+- mobile-safe pin / target-point visual cue
+- human live-admission review
+
+### Returning projectile
+
+- `U2ReturningProjectileMotionRuntime` foundationをpooled hit semanticsへ接続
+- outbound / return hit tableをcaller-ownedに維持
+- `repair_spanner` を最初のSelected16 caller候補として実装
+- その後に `RETURNING_PROJECTILE` capability昇格を検討
 
 数値balanceは最後まで **PROTOTYPE_TUNING_NOT_CANON** として原本/Canonから分離する。

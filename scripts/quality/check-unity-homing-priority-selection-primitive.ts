@@ -76,22 +76,22 @@ assert(starPin, 'star_map_pin admission row missing');
 assert(starPin.archetype === 'HOMING_SNIPE', 'star_map_pin archetype drift');
 assert(starPin.requiredUnityCapabilities.join(',') === 'HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', `unexpected star_map_pin requirements: ${starPin.requiredUnityCapabilities.join(',')}`);
 assert(starPin.missingUnityCapabilities.length === 0, `star_map_pin shared primitive blockers should be complete: ${starPin.missingUnityCapabilities.join(',')}`);
-assert(!starPin.prototypeCallerImplemented, 'shared priority primitive must not fabricate Star Map Pin caller proof');
-assert(starPin.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'star_map_pin should now stop at caller-proof gate');
-assert(!starPin.mayEnterUnityRuntimeRegistry, 'Star Map Pin must remain outside implementation review before caller proof');
-assert(starPin.runtimeStatus === 'NOT_IMPLEMENTED', 'shared priority selector must not claim live Star Map Pin runtime');
+assert(starPin.prototypeCallerImplemented, 'Star Map Pin caller proof must remain registered independently of the generic priority selector');
+assert(starPin.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Star Map Pin should remain implementation-review admitted');
+assert(starPin.mayEnterUnityRuntimeRegistry, 'Star Map Pin should remain implementation-review eligible');
+assert(starPin.runtimeStatus === 'NOT_IMPLEMENTED', 'shared priority selector and caller proof must not claim live Star Map Pin runtime');
 
 const returnNeedle = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'return_compass_needle');
 assert(returnNeedle, 'return_compass_needle admission row missing');
 assert(returnNeedle.implementedUnityCapabilities.includes('HOMING_PRIORITY_SELECTION'), 'return compass needle must inherit priority-selector evidence');
-assert(returnNeedle.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'return compass needle must remain blocked by returning projectile');
+assert(returnNeedle.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'return compass needle must remain blocked until returning projectile capability is separately admitted');
 assert(returnNeedle.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', 'return compass needle should remain primitive-blocked');
 assert(!returnNeedle.mayEnterUnityRuntimeRegistry, 'return compass needle must remain outside implementation review');
 
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 3, 'priority primitive must not change admitted caller count');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 13, 'priority primitive must keep 13 blocked Selected16 entries');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Star Map Pin should be the only primitive-complete caller-proof blocker');
-assert(!weapons.some((weapon) => weapon.id === 'star_map_pin'), 'shared selector must not add Star Map Pin to Web live catalog');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 4, 'Star Map Pin caller should bring implementation-review admission count to four');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 12, 'Star Map Pin caller should leave twelve blocked Selected16 entries');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete caller-proof blocker should remain after Star Map Pin caller lands');
+assert(!weapons.some((weapon) => weapon.id === 'star_map_pin'), 'shared selector/caller proof must not add Star Map Pin to Web live catalog');
 assert(!coordinator.includes('U2EnemyHomingPrioritySelectionRuntime'), 'shared selector must not enter live Stage1 coordinator');
 assert(!coordinator.includes('star_map_pin'), 'Star Map Pin must remain outside live Stage1 coordinator');
 
