@@ -1,0 +1,39 @@
+name: Future15 Social Chemistry Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/future-cast-relationship-story-reservoir-v1.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/future15-social-chemistry-reservoir-v1.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/future15SocialChemistryReservoir.ts'
+      - 'scripts/quality/check-future15-social-chemistry-reservoir.ts'
+      - '.github/workflows/future15-social-chemistry-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/future-cast-relationship-story-reservoir-v1.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/future15-social-chemistry-reservoir-v1.md'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'src/game/data/future15SocialChemistryReservoir.ts'
+      - 'scripts/quality/check-future15-social-chemistry-reservoir.ts'
+      - '.github/workflows/future15-social-chemistry-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Future15 social chemistry without roster promotion
+        run: node --experimental-strip-types scripts/quality/check-future15-social-chemistry-reservoir.ts
