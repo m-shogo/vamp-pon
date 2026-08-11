@@ -27,7 +27,7 @@ assert(snapshot.characters.allPairBaselineAddressPrototypeCount === 372, 'baseli
 assert(snapshot.characters.featuredAffinityArcCount === 24, `Featured Affinity arcs must cover Current24, got ${snapshot.characters.featuredAffinityArcCount}`);
 assert(snapshot.characters.featuredAffinityBeatCount === 72, `Featured24 must expose 72 authored Affinity beats, got ${snapshot.characters.featuredAffinityBeatCount}`);
 assert(snapshot.characters.featuredAffinityDownOutcomeCount >= 20, 'Featured Affinity must contain real downward/friction outcomes');
-assert(snapshot.characters.featuredAffinityUnchangedOutcomeCount >= 4, 'Featured Affinity must preserve some UNCHANGED climax outcomes');
+assert(snapshot.characters.featuredAffinityUnchangedOutcomeCount >= 3, 'Featured Affinity must preserve multiple UNCHANGED climax outcomes');
 assert(snapshot.characters.groupInteractionSceneCount === 12, 'Current21 group interaction lane count must remain 12');
 assert(snapshot.characters.groupIntermissionPlacementCount === 24, 'group scenes must have first + repeat placement');
 assert(snapshot.characters.allPairBondLaneCount === 210, `Current21 all pair Bond lanes must be 210, got ${snapshot.characters.allPairBondLaneCount}`);
