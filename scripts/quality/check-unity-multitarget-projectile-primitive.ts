@@ -3,6 +3,7 @@ import { title1BaseWeaponRuntimeAdmissionSummary } from '../../src/game/data/tit
 function assert(condition: unknown, message: string): asserts condition { if (!condition) throw new Error(message); }
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
+const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
 const evidenceSource = readFileSync(new URL('../unity/u47-simulator-evidence-sources.ts', import.meta.url), 'utf8');
 assert(battleSource.includes('private readonly List<U2EnemyActor> nearestEnemyTargetScratch = new(8);'), 'multi-target scratch missing');
 assert(battleSource.includes('for (var enemyIndex = 0; enemyIndex < enemies.Count; enemyIndex++)'), 'multi-target query must enumerate existing pool');
@@ -15,15 +16,18 @@ assert(battleSource.includes('FireGameplayProjectileAtTarget('), 'multi-target m
 assert(battleSource.includes('Math.Abs(candidateDistance - nearestDistance) <= 0.0001f && candidatePoolOrder < nearestPoolOrder'), 'equal-distance tie must use deterministic pool order');
 assert(battleSource.includes('private int PoolOrderOf(U2EnemyActor enemy) => enemies.IndexOf(enemy);'), 'pool-order tie break missing');
 assert(!battleSource.includes('GetInstanceID()'), 'runtime target ordering must not depend on GetInstanceID');
-assert(battleSource.includes('(enemy.transform.position - player.position).sqrMagnitude'), 'distance must use squared distance from current player transform');
+assert(battleSource.includes('(enemy.transform.position - player.position).sqrMagnitude'), 'distance must use squared distance from player');
 const start = battleSource.indexOf('public int FireGameplayProjectilesAtNearestTargets(');
 const end = battleSource.indexOf('public bool TryGetNearestEnemyPosition', start);
 assert(start >= 0 && end > start, 'cannot isolate multi-target block');
 const block = battleSource.slice(start, end);
 for (const forbidden of ['Enumerable.', '.OrderBy(', '.ThenBy(', '.ToList(', 'new List<', '.Sort(']) assert(!block.includes(forbidden), `multi-target hot path must avoid ${forbidden}`);
 assert(coordinatorSource.includes('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'), 'live coordinator must remain nearest-target');
-assert(!coordinatorSource.includes('FireGameplayProjectilesAtNearestTargets'), 'multi-target live caller must remain zero before first Selected16 vertical slice');
+assert(!coordinatorSource.includes('FireGameplayProjectilesAtNearestTargets'), 'live Stage1 loop must not silently enable Selected16 prototype');
+assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember Matchcase must be first Selected16-specific multi-target caller');
+assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'Ember multi-target caller must carry BURN request');
 assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'U47 normalizer recovery marker missing');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 0, 'unused multi-target primitive must not admit Selected16');
-assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 16, 'STATUS_APPLICATION remains shared blocker');
-console.log(JSON.stringify({ status: 'PASS', deterministicNearestPrefix: true, equalDistanceTieBreak: 'pool-order', getInstanceIdDependency: false, liveCallers: 0 }, null, 2));
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'Ember caller should admit exactly one Selected16 weapon');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'multi-target admission must stay Ember-only');
+assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must be proven by selected-specific caller');
+console.log(JSON.stringify({ status: 'PASS', deterministicNearestPrefix: true, equalDistanceTieBreak: 'pool-order', getInstanceIdDependency: false, selected16PrototypeCallers: ['ember_matchcase'], liveStage1Callers: 0 }, null, 2));
