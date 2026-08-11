@@ -52,6 +52,10 @@ for (const token of [
   'target.TakeDamage(damage, damageFlashSeconds)',
   'if (!defeated) markedRequest.ApplyTo(target.Statuses);',
   'DistanceSquaredPointToSegment2D',
+  '!IsFiniteNonNegative(minReturnRange)',
+  '!IsFinitePositive(maxReturnRange)',
+  'minReturnRange > maxReturnRange',
+  '!Enum.IsDefined(typeof(U2EnemyPriorityDistanceTieBreak), tieBreak)',
 ]) {
   assert(caller.includes(token), `Return Compass Needle caller missing contract: ${token}`);
 }
@@ -80,7 +84,7 @@ assert(!selector.includes('return_compass_needle') && !selector.includes('MARKED
 const selectedNeedle = selectedTitle1BaseWeaponCandidates.find((entry) => entry.weaponId === 'return_compass_needle');
 assert(selectedNeedle, 'return_compass_needle must remain Selected16');
 const selectionRow = baseWeaponSelectionEntries.find((entry) => entry.weaponId === 'return_compass_needle');
-assert(selectionRow?.decision === 'SELECTED_RETURN_FAMILY_SPECIALIST' && selectionRow.selectedForTitle1, 'Return Compass Needle selection authority drift');
+assert(selectionRow?.decision === 'TITLE1_SELECTED' && selectionRow.selectedForTitle1, 'Return Compass Needle selection authority drift');
 const repairSpanner = baseWeaponSelectionEntries.find((entry) => entry.weaponId === 'repair_spanner');
 assert(repairSpanner?.decision === 'HOLD_RETURN_FAMILY_OVERLAP' && !repairSpanner.selectedForTitle1, 'Return Compass caller work must preserve Repair Spanner Hold decision');
 
@@ -104,6 +108,8 @@ for (const token of [
   'return MARKED cooldown may block Status but must not block second-leg damage',
   'no eligible alternate target must produce direct return rather than fabricated waypoint',
   'untargetable return waypoint should be skipped exactly once',
+  'invalid return range must fail closed rather than silently falling back to direct return',
+  'invalid tie-break must fail closed rather than silently falling back to direct return',
   'reset must clear return waypoint and both hit ledgers',
 ]) {
   assert(contract.includes(token), `Return Compass executable contract missing scenario: ${token}`);
@@ -119,7 +125,7 @@ for (const linkedSource of [
 }
 
 for (const token of [
-  'SELECTED_RETURN_FAMILY_SPECIALIST',
+  'TITLE1_SELECTED',
   'HOLD_RETURN_FAMILY_OVERLAP',
   'RETURNING_CAPABILITY_NOT_YET_PROMOTED',
   'OUTBOUND_LINE_THEN_MARKED_PRIORITY_RETURN_WAYPOINT_THEN_OWNER',
