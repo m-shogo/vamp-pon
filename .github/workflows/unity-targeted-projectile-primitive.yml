@@ -1,0 +1,46 @@
+name: unity-targeted-projectile-primitive
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'scripts/unity/u47-simulator-evidence-sources.ts'
+      - 'scripts/quality/check-unity-targeted-projectile-primitive.ts'
+      - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
+      - 'scripts/quality/check-unity-enemy-status-owner.ts'
+      - 'docs/unity-targeted-projectile-primitive-v1.md'
+      - '.github/workflows/unity-targeted-projectile-primitive.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'scripts/unity/u47-simulator-evidence-sources.ts'
+      - 'scripts/quality/check-unity-targeted-projectile-primitive.ts'
+      - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
+      - 'scripts/quality/check-unity-enemy-status-owner.ts'
+      - 'docs/unity-targeted-projectile-primitive-v1.md'
+      - '.github/workflows/unity-targeted-projectile-primitive.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Re-check generic projectile Status hook
+        run: node --experimental-strip-types scripts/quality/check-unity-projectile-status-application-hook.ts
+      - name: Re-check enemy Status ownership
+        run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-owner.ts
+      - name: Check explicit target projectile primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-targeted-projectile-primitive.ts
+      - name: Verify historical U47 manifest remains behavior-equivalent
+        run: node --experimental-strip-types scripts/quality/check-unity-u47-simulator-manifest.ts
+      - name: Confirm Selected16 admission remains fail-closed
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
