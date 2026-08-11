@@ -38,6 +38,7 @@ export type UnityBaseWeaponAdmissionDecision =
 
 export const unityPrototypeCallerImplementedWeaponIds = [
   'ember_matchcase',
+  'rain_thread',
   'bellows_fan',
   'pavement_hammer',
   'star_map_pin',
