@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import { worldSettingExpansionEntries, worldSettingExpansionSummary } from '../../src/game/data/worldSettingExpansionIndex.ts';
+import { worldSettingConflictEntries, worldSettingConflictSummary } from '../../src/game/data/worldSettingConflictRegister.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -21,6 +22,14 @@ for (const entry of worldSettingExpansionEntries) {
   assert(fs.existsSync(entry.primarySource), `missing primary source ${entry.primarySource} for ${entry.id}`);
 }
 
+assert(worldSettingConflictSummary.total === 18, `expected 18 registered conflict lanes, got ${worldSettingConflictSummary.total}`);
+assert(worldSettingConflictSummary.guarded === 12, `expected 12 guarded conflict lanes, got ${worldSettingConflictSummary.guarded}`);
+assert(worldSettingConflictSummary.openHuman === 5, `expected 5 human-open conflict lanes, got ${worldSettingConflictSummary.openHuman}`);
+assert(worldSettingConflictSummary.candidateDependent === 1, `expected 1 candidate-dependent conflict lane, got ${worldSettingConflictSummary.candidateDependent}`);
+assert(worldSettingConflictSummary.unresolvedBlocker === 0, `world setting has unresolved blockers: ${worldSettingConflictSummary.unresolvedBlocker}`);
+assert(new Set(worldSettingConflictEntries.map((entry) => entry.id)).size === worldSettingConflictEntries.length, 'world setting conflict IDs must be unique');
+assert(worldSettingConflictEntries.filter((entry) => entry.status === 'OPEN_HUMAN').every((entry) => entry.humanDecisionRequired), 'every OPEN_HUMAN conflict must require human decision');
+
 const worldHub = fs.readFileSync('docs/WORLD.md', 'utf8');
 const foundation = fs.readFileSync('docs/world-foundation-authority-v1.md', 'utf8');
 const lifeDeath = fs.readFileSync('docs/world-life-death-injury-rulebook-v1.md', 'utf8');
@@ -28,6 +37,8 @@ const knowledge = fs.readFileSync('docs/world-knowledge-secret-matrix-v1.md', 'u
 const mystery = fs.readFileSync('docs/world-mystery-foreshadow-payoff-ledger-v1.md', 'utf8');
 const lineup = fs.readFileSync('docs/character-height-age-era-lineup-v1.md', 'utf8');
 const sakumei = fs.readFileSync('docs/sakumei-antagonist-organization-candidate-v1.md', 'utf8');
+const sakumeiDeep = fs.readFileSync('docs/sakumei-member-deep-profile-candidate-v1.md', 'utf8');
+const conflicts = fs.readFileSync('docs/world-setting-conflict-register-v1.md', 'utf8');
 
 for (const required of [
   '現実では人物が同時代とは限らない',
@@ -45,5 +56,9 @@ assert(knowledge.includes('CONFIRMED_SYSTEMIC'), 'knowledge matrix must distingu
 assert(mystery.includes('Aを残すためにCを投げない'), 'mystery ledger must preserve Title1 payoff debt rule');
 assert(lineup.includes('exact cmはHuman visual review前にCanon化しない'), 'lineup must keep exact heights unfrozen');
 assert(sakumei.includes('CANDIDATE') || sakumei.includes('Candidate'), 'Sakumei redesign must remain a candidate before final migration');
+assert(sakumeiDeep.includes('ナシロ') && sakumeiDeep.includes('アサトジ') && sakumeiDeep.includes('ミチグレ') && sakumeiDeep.includes('オリネ') && sakumeiDeep.includes('ハクマ') && sakumeiDeep.includes('ツグリ') && sakumeiDeep.includes('ユラネ') && sakumeiDeep.includes('ペタ'), 'Sakumei deep profile must cover all eight members');
+assert(conflicts.includes('UNRESOLVED_BLOCKER   = 0'), 'conflict register doc must report zero unresolved blockers');
+assert(conflicts.includes('GUARDED              = 12'), 'conflict register doc guarded count must match machine source');
+assert(conflicts.includes('OPEN_HUMAN           = 5'), 'conflict register doc human-open count must match machine source');
 
-console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingExpansionSummary.uniqueSourceCount} primary sources`);
+console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingExpansionSummary.uniqueSourceCount} primary sources / ${worldSettingConflictSummary.total} conflict lanes / 0 blockers`);
