@@ -14,19 +14,9 @@ Content Masterで選定した **Selected16** を既存runtimeへ形だけ押し�
 
 ## Cross-runtime reality
 
-### Web runtime = 5
+Web runtimeは5 effect types。Unity live executorはU47の `Projectile / GroundArea` 2系統のまま。
 
-- `projectile`
-- `radial_random_projectile`
-- `bouncing_projectile`
-- `ground_area`
-- `orbit`
-
-### Unity live executor = 2
-
-U47 live importer/executorは引き続き `Projectile / GroundArea` の2系統。
-
-shared primitiveやprototype callerが増えても、live `WeaponEffectType` を名前だけ増やさない。
+shared primitiveやprototype callerが増えてもlive `WeaponEffectType` を名前だけ増やさない。
 
 ## Shared Unity primitive state
 
@@ -50,42 +40,35 @@ IMPLEMENTED:
 
 ## Admission decisions
 
-### `BLOCKED_MISSING_UNITY_PRIMITIVES`
+- `BLOCKED_MISSING_UNITY_PRIMITIVES`: required primitive不足
+- `BLOCKED_MISSING_UNITY_CALLER_PROOF`: primitive完成、Selected16固有caller不足
+- `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`: primitive + executable caller proof完成
 
-required shared runtime capabilityが1つ以上MISSING。
-
-### `BLOCKED_MISSING_UNITY_CALLER_PROOF`
-
-shared primitiveはすべて揃ったが、Selected16固有caller proofが無い。
-
-### `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
-
-required primitiveがすべてIMPLEMENTEDで、Selected16固有callerも実コード + executable contractで証明済み。
-
-これはlive/productionを意味しない。全entryの `runtimeStatus` は `NOT_IMPLEMENTED`。
+implementation-reviewはlive/productionを意味しない。全entryの `runtimeStatus` は `NOT_IMPLEMENTED`。
 
 ## Current result
 
-**admitted=4**
+**admitted=5**
 
-**blocked=12**
+**blocked=11**
 
 implementation-review admitted:
 
 - `ember_matchcase`
+- `rain_thread`
 - `bellows_fan`
 - `pavement_hammer`
 - `star_map_pin`
 
 primitive-complete but caller-proof missing:
 
-- `rain_thread`
+- none
 
-## `rain_thread` — primitives complete / caller missing
+## `rain_thread` — caller implemented / not live
 
 Selected16 TETHER consumer。
 
-required:
+Required:
 
 1. `TWO_TARGET_TETHER`
 2. `KNOCKBACK_VECTOR`
@@ -93,75 +76,79 @@ required:
 
 3つともIMPLEMENTED。
 
-`KNOCKBACK_VECTOR` はRain Threadのmechanical identityにあるposition-controlを、generic selectorへ押し込まずcaller側で2体を互いに引き寄せるためのshared displacement primitiveとして要求する。
+Selected16 caller:
 
-ただしSelected16固有callerはまだ無いので:
+`RainThreadPrototypeState`
 
-`BLOCKED_MISSING_UNITY_CALLER_PROOF`
+Application order:
 
-を維持する。
+`SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS`
 
-- `prototypeCallerImplemented = false`
-- `mayEnterUnityRuntimeRegistry = false`
+Caller proof:
+
+1. deterministic pair selection
+2. typed SOAKを両endpointへ適用
+3. caller-owned link duration
+4. tension thresholdを超えた時だけposition control
+5. `KNOCKBACK_VECTOR` を互いへ向けて対称pull
+6. max-link-distance超過でbreak
+7. endpoint untargetableでbreak
+8. duration expiry
+9. SOAK cooldownとlink activationを独立維持
+10. caller-owned telemetry
+
+現在:
+
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+
+ただし:
+
 - `runtimeStatus = NOT_IMPLEMENTED`
+- Web live catalog未接続
+- LevelUp未接続
+- `Stage1GameplayRuntimeCoordinator`未接続
+- U47 live executor未拡張
+- final tether line / VFX / readability未承認
 
-SOAK共有、tether lifetime、pull threshold / distance、break-distance、line renderingはgeneric selectorへ埋め込まずcaller側の次gateで実装する。
-
-## Hold boundary: `name_reel`
-
-`name_reel` はAuthoring Authorityで:
-
-`HOLD_TARGET_LINK_READABILITY`
-
-Selected16ではない。
-
-`TWO_TARGET_TETHER` 実装を理由にTitle1 Admission rowを作らない。Content selectionをruntime進捗から変更しない。
+すべてのrange / duration / pull / SOAK値は `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`。
 
 ## Existing admitted callers
 
 ### `ember_matchcase`
 
-`EmberMatchcasePrototypeRuntime`
-
-- multi-target projectile
-- typed BURN
-- caller telemetry
-- `PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
+`EmberMatchcasePrototypeRuntime`: multi-target projectile + typed BURN + telemetry。
 
 ### `bellows_fan`
 
-`BellowsFanPrototypeRuntime`
-
-- cone query
-- DISORIENTED
-- knockback
-- caller telemetry
+`BellowsFanPrototypeRuntime`: cone query + DISORIENTED + knockback + telemetry。
 
 ### `pavement_hammer`
 
-`PavementHammerPrototypeRuntime`
-
-`QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER`
-
-- directional slam
-- damage-death short circuit
-- EXPOSED
-- knockback
-- break/stagger
-- caller telemetry
+`PavementHammerPrototypeRuntime`: `QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER`。
 
 ### `star_map_pin`
 
-`StarMapPinPrototypeRuntime`
-
-`PRIORITY_SELECT_TARGETED_PROJECTILE_MARKED_ON_HIT`
-
-- priority selector
-- explicit-target projectile
-- typed MARKED on hit
-- caller telemetry
+`StarMapPinPrototypeRuntime`: `PRIORITY_SELECT_TARGETED_PROJECTILE_MARKED_ON_HIT`。
 
 全callerの数値は `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`。
+
+## Hold boundaries
+
+### `name_reel`
+
+Authoring Authority:
+
+`HOLD_TARGET_LINK_READABILITY`
+
+Selected16ではない。Tether実装を理由にAdmission rowを作らない。
+
+### `repair_spanner`
+
+Authoring Authority:
+
+`HOLD_RETURN_FAMILY_OVERLAP`
+
+non-selected return-family proofはhit semantics検証に使うがSelected16 caller proofとして数えない。
 
 ## `return_compass_needle`
 
@@ -172,83 +159,44 @@ Selected16 `RETURN_HOMING`。
 - `HOMING_PRIORITY_SELECTION`: IMPLEMENTED
 - `RETURNING_PROJECTILE`: MISSING
 
-したがって:
-
-`BLOCKED_MISSING_UNITY_PRIMITIVES`
-
-を維持する。
+したがって `BLOCKED_MISSING_UNITY_PRIMITIVES` を維持する。
 
 返投motion foundationだけでreturn capabilityを偽装しない。
-
-## Hold boundary: `repair_spanner`
-
-`repair_spanner` はSelected16ではなく:
-
-`HOLD_RETURN_FAMILY_OVERLAP`
-
-現在のreturn-family prototype proofはhit semantics検証に再利用できるが、Selected16 caller proofとして数えない。Selected return familyは `return_compass_needle` を優先するAuthoring Authorityを維持する。
 
 ## `TWO_TARGET_TETHER` implementation evidence
 
 `U2EnemyTetherPairSelectionRuntime`
 
-- caller-owned candidate list
-- caller-owned parallel priority scores
-- caller origin range band
-- caller pair-distance band
-- highest combined finite priority wins
+- caller-owned candidates / priority scores
+- origin range / pair-distance band
+- highest combined finite priority
 - equal score -> shorter pair
 - exact tie -> stable input order
-- targetable only
-- XY distance only
+- targetable only / XY only
 - O(n^2), no LINQ/sort/internal List allocation
 
-Generic primitiveが持たないもの:
-
-- `rain_thread`
-- SOAK
-- damage
-- link duration
-- position-control policy
-- LineRenderer / VFX
-- Canon priority/range values
-
-Rain Threadのposition-controlは既存 `KNOCKBACK_VECTOR` をcaller側で再利用する。
+Generic primitiveはRain Thread / SOAK / damage / lifetime / position-control / LineRenderer / Canon値を持たない。
 
 Executable proof:
 
 - `scripts/quality/unity-two-target-tether/UnityTwoTargetTether.Contract.csproj`
 - `scripts/quality/unity-two-target-tether/Program.cs`
 
-## Other shared primitive boundaries
+Rain Thread caller proof:
 
-### `STATUS_APPLICATION`
+- `scripts/quality/unity-rain-thread/UnityRainThread.Contract.csproj`
+- `scripts/quality/unity-rain-thread/Program.cs`
 
-Status16 state / duration / stack / magnitude / cooldown / typed request transport。Weapon固有tuningはcaller supplied。
+## Shared primitive boundaries
 
-### `KNOCKBACK_VECTOR`
-
-caller direction/distance、targetable-only、Z preserve。Weapon identityやstun defaultなし。
-
-### `CONE_QUERY`
-
-caller range/angle/cap、nearest-first、stable tie。Weapon/Status/damageなし。
-
-### `SLAM_WAVE_QUERY`
-
-directional sector-band、caller radius/angle/cap。Weapon/damage/break/Statusなし。
-
-### `BREAK_STAGGER_APPLICATION`
-
-HPと独立したbreak accumulation / residual / stagger / knockback displacement preservation / reset。Canon threshold/durationなし。
-
-### `HOMING_PRIORITY_SELECTION`
-
-caller score/range、stable/near/far tie-break、XY target selection。Weapon/MARKED/boss semanticsなし。
+- `STATUS_APPLICATION`: Status state / stack / magnitude / cooldown / typed transport。Weapon tuningなし。
+- `KNOCKBACK_VECTOR`: caller direction/distance、targetable-only、Z preserve。Weapon identityなし。
+- `CONE_QUERY`: caller range/angle/cap。Weapon/Status/damageなし。
+- `SLAM_WAVE_QUERY`: directional sector-band。Weapon/damage/break/Statusなし。
+- `BREAK_STAGGER_APPLICATION`: HP独立break / residual / stagger / reset。Canon thresholdなし。
+- `HOMING_PRIORITY_SELECTION`: caller score/range/tie-break。Weapon/MARKED/boss semanticsなし。
 
 ## Live boundary
-
-Selected16 prototype/shared workはlive `Stage1GameplayRuntimeCoordinator` に自動接続しない。
 
 禁止:
 
@@ -274,11 +222,10 @@ Runtime進捗を理由にSelected16/Holdを変更しない。
 
 ## Next gates
 
-1. `rain_thread` Selected16 caller proof
-2. two-target SOAK + caller-owned `KNOCKBACK_VECTOR` position-control semantics
-3. tether lifetime / break-distance proof
-4. `return_compass_needle` Selected16 returning caller proof
-5. `RETURNING_PROJECTILE` capability admission
-6. runtime evidence / mobile readability / human live-admission review
+1. Rain Thread Unity runtime evidence harness
+2. rendered tether line / mobile readability
+3. `return_compass_needle` Selected16 returning caller proof
+4. `RETURNING_PROJECTILE` capability admission
+5. runtime evidence / human live-admission review
 
 数値balanceは最後まで `PROTOTYPE_TUNING_NOT_CANON` として原本/Canonから分離する。
