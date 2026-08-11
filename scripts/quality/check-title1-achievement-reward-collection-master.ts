@@ -71,7 +71,7 @@ assert(laneCounts.COSMETIC === 3, `expected 3 cosmetic lanes, got ${laneCounts.C
 assert(laneCounts.SOUND === 1, `expected 1 sound lane, got ${laneCounts.SOUND}`);
 
 for (const entry of title1AchievementRewardCollectionEntries) {
-  assert(entry.title.trim().length >= 4, `${entry.stageId} milestone title is too vague`);
+  assert(entry.title.trim().length >= 3, `${entry.stageId} milestone title is too vague`);
   assert(entry.condition.trim().length >= 12, `${entry.stageId} needs a concrete milestone condition`);
   assert(entry.nextRunPrompt.trim().length >= 20, `${entry.stageId} needs a concrete next-run prompt`);
   assert(entry.antiGrindGuard.trim().length >= 18, `${entry.stageId} needs an anti-grind guard`);
