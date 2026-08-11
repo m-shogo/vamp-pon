@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { statusDefinitions, type StatusKind } from '../../data/combatAffinitySource';
 import {
   applyRuntimeStatus,
   clearRuntimeStatus,
@@ -28,6 +29,17 @@ describe('status runtime kernel', () => {
     expect(result.applied).toBe(true);
     expect(result.instance).toEqual({ kind: 'BURN', remainingSec: 2, stacks: 1, magnitude: 0.25 });
     expect(initial.active.BURN).toBeUndefined();
+  });
+
+  it('accepts all 16 current content Status kinds without adding per-status balance defaults', () => {
+    const kinds = Object.keys(statusDefinitions) as StatusKind[];
+    expect(kinds).toHaveLength(16);
+
+    let state = createRuntimeStatusState();
+    for (const kind of kinds) {
+      state = applyRuntimeStatus(state, kind, basePolicy).state;
+    }
+    expect(Object.keys(state.active).sort()).toEqual([...kinds].sort());
   });
 
   it('supports refresh without adding stacks', () => {
