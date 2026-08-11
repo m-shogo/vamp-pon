@@ -26,7 +26,10 @@ for (const token of [
   'Assets/Resources/VampPonBuildProvenance',
   'source-commit.txt',
   'VAMPPON_BUILD_SOURCE_COMMIT',
-  'Arguments = "rev-parse HEAD"',
+  'RunGit(repositoryRoot, "rev-parse HEAD")',
+  'status --porcelain --untracked-files=no',
+  'require a clean tracked working tree',
+  'does not match clean Git HEAD',
   'IsLowerHexCommit',
   'CleanupGeneratedProvenance',
 ]) {
@@ -86,4 +89,4 @@ for (const shell of [paths.verifier, paths.simulatorWrapper, paths.physicalWrapp
 }
 
 console.log('TOP V3 installed-build provenance: PASS');
-console.log('Unity player embeds exact Git SHA; Simulator/iPhone evidence is gated by a probe of the installed build before measurement.');
+console.log('Unity player embeds exact clean Git HEAD; Simulator/iPhone evidence probes the installed build and rejects source-commit drift before measurement.');
