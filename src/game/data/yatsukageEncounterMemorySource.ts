@@ -262,5 +262,6 @@ export const yatsukageEncounterMemorySummary = {
   readingGrantsPower: false,
   friendshipOrRecruitmentProgressCreated: false,
   runtimeImplemented: false,
+  runtimeAutoPromotionAllowed: false,
   status: YATSUKAGE_ENCOUNTER_MEMORY_STATUS,
 } as const;
