@@ -1,0 +1,83 @@
+name: Unity Multi Target Admission Proof One Shot
+
+on:
+  push:
+    branches: [agent/unity-multitarget-admission-proof-v1]
+    paths:
+      - '.github/workflows/unity-multitarget-admission-proof-one-shot.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/unity-multitarget-admission-proof-v1
+      - name: Promote verified multi-target primitive in Unity admission evidence
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts')
+          text = source.read_text()
+          old = "  MULTI_TARGET_PROJECTILE_SELECTION: 'MISSING',"
+          new = "  MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',"
+          if text.count(old) != 1:
+              raise SystemExit(f'admission source expected one multi-target MISSING row, got {text.count(old)}')
+          source.write_text(text.replace(old, new))
+
+          checker = Path('scripts/quality/check-title1-base-weapon-runtime-admission.ts')
+          text = checker.read_text()
+          replacements = [
+              (
+                  "assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 3, 'Unity baseline should expose exactly three primitive capabilities in this evidence model');",
+                  "assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 4, 'Unity evidence should expose four implemented primitives after deterministic multi-target selection landed');",
+              ),
+              (
+                  "assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount >= 15, 'advanced Title1 weapon runtime still needs multiple Unity primitive executors');",
+                  "assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount >= 14, 'advanced Title1 weapon runtime still needs multiple Unity primitive executors');",
+              ),
+              (
+                  "  CIRCULAR_GROUND_AREA: 'IMPLEMENTED',\n  STATUS_APPLICATION: 'MISSING',",
+                  "  CIRCULAR_GROUND_AREA: 'IMPLEMENTED',\n  MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',\n  STATUS_APPLICATION: 'MISSING',",
+              ),
+          ]
+          for old, new in replacements:
+              if text.count(old) != 1:
+                  raise SystemExit(f'admission checker patch anchor mismatch: {old[:100]!r} count={text.count(old)}')
+              text = text.replace(old, new)
+          checker.write_text(text)
+
+          doc = Path('docs/title1-base-weapon-runtime-admission-v1.md')
+          text = doc.read_text()
+          old = '''Unityで実装済みprimitiveとしてAdmission Sourceが認めるのは:
+
+1. `NEAREST_TARGET_PROJECTILE`
+2. `MULTI_PROJECTILE_LOOP`
+3. `CIRCULAR_GROUND_AREA`
+
+のみ。'''
+          new = '''Unityで実装済みprimitiveとしてAdmission Sourceが認めるのは:
+
+1. `NEAREST_TARGET_PROJECTILE`
+2. `MULTI_PROJECTILE_LOOP`
+3. `CIRCULAR_GROUND_AREA`
+4. `MULTI_TARGET_PROJECTILE_SELECTION`
+
+multi-targetはreusable scratch / targetable-only / deterministic nearest prefix / target cap / canonical target spawnまでCIで証明済み。'''
+          if text.count(old) != 1:
+              raise SystemExit(f'admission doc implemented-list anchor mismatch: {text.count(old)}')
+          text = text.replace(old, new)
+          text = text.replace('- multi-target scatter\n', '', 1)
+          doc.write_text(text)
+          PY
+          rm .github/workflows/unity-multitarget-admission-proof-one-shot.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts scripts/quality/check-title1-base-weapon-runtime-admission.ts docs/title1-base-weapon-runtime-admission-v1.md .github/workflows/unity-multitarget-admission-proof-one-shot.yml
+          git commit -m 'feat: promote verified Unity multi-target primitive'
+          git push origin HEAD:agent/unity-multitarget-admission-proof-v1
