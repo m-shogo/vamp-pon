@@ -1,0 +1,33 @@
+name: Character Profile Book Read Model
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-profile-book-read-model-v1.md'
+      - 'src/game/data/characterProfileBookReadModel.ts'
+      - 'scripts/quality/check-character-profile-book-read-model.ts'
+      - '.github/workflows/character-profile-book-read-model.yml'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-profile-book-read-model-v1.md'
+      - 'src/game/data/characterProfileBookReadModel.ts'
+      - 'scripts/quality/check-character-profile-book-read-model.ts'
+      - '.github/workflows/character-profile-book-read-model.yml'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate author-facing Profile Book read model
+        run: node --experimental-strip-types scripts/quality/check-character-profile-book-read-model.ts
