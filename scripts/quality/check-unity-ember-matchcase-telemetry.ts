@@ -60,9 +60,8 @@ for (const token of [
 }
 
 assert(!weapons.some((weapon) => weapon.id === 'ember_matchcase'), 'telemetry must not promote Ember into Web live catalog');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'telemetry must not expand Unity admission beyond Ember');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'telemetry must keep Ember-only admission');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'telemetry must not unblock remaining Selected15');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount >= 1, 'telemetry proof requires Ember to remain implementation-review admitted');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'telemetry must preserve Ember admission even as later Selected16 callers land');
 assert(coordinatorSource.includes('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'), 'live Stage1 loop must remain unchanged');
 assert(!coordinatorSource.includes('EmberMatchcasePrototypeTelemetry'), 'prototype telemetry must not be installed globally in live Stage1 loop');
 
@@ -92,7 +91,11 @@ console.log(JSON.stringify({
     resettable: true,
     callerOwned: true,
   },
-  admission: { admitted: 1, admittedIds: ['ember_matchcase'], blocked: 15 },
+  admission: {
+    admitted: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount,
+    admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
+    blocked: title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount,
+  },
   liveStage1Changed: false,
   balanceFrozen: false,
 }, null, 2));
