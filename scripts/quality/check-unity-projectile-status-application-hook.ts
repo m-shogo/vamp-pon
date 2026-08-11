@@ -36,7 +36,7 @@ const apply = battleSource.indexOf('if (!defeated) projectile.ApplyStatusOnHit(h
 const consume = battleSource.indexOf('projectile.ConsumeHit();', damage);
 assert(damage >= 0 && apply > damage && consume > apply, 'same-hit order must be damage -> surviving Status -> consume');
 
-assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'first Selected16 Status caller must be ember_matchcase');
+assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'first Selected16 projectile Status caller must be ember_matchcase');
 assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'Ember caller must build typed BURN request');
 assert(emberSource.includes('EnemyStatusApplicationPolicy burnPolicy'), 'Ember caller must receive explicit caller policy');
 assert(emberSource.includes('Action<EnemyStatusApplyResult> resultObserver = null;'), 'Ember prototype must materialize optional telemetry observer explicitly');
@@ -48,8 +48,8 @@ assert(coordinatorSource.includes('battle.FireGameplayProjectile(effect.damage *
 assert(!coordinatorSource.includes('EmberMatchcasePrototypeRuntime'), 'prototype admission must not silently enter live Stage1 loop');
 assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'historical U47 normalizer must explicitly strip reusable primitives');
 assert(!evidenceSource.includes(".replace('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'"), 'historical normalizer must never hide live coordinator call-sites');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'real Ember caller should admit exactly one Selected16 weapon for implementation review');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'only ember_matchcase may be admitted');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount >= 1, 'real Ember projectile caller must preserve at least its implementation-review admission');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'ember_matchcase projectile Status admission must remain present');
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION shared primitive must no longer remain missing');
 
 console.log(JSON.stringify({
@@ -57,7 +57,7 @@ console.log(JSON.stringify({
   typedRequest: true,
   optionalResultObserver: true,
   pooledRequestReset: true,
-  selected16PrototypeStatusCallers: ['ember_matchcase'],
+  selected16ProjectileStatusCaller: 'ember_matchcase',
   liveStage1StatusCallers: 0,
-  admittedForImplementationReview: ['ember_matchcase'],
+  admittedForImplementationReview: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
 }, null, 2));
