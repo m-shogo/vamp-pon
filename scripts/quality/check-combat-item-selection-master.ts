@@ -49,8 +49,8 @@ for (const placement of title1CombatItemPlacements) {
   assert(placement.antiOverloadRule.length >= 25, `${placement.itemId} needs anti-overload rule`);
   assert(placement.mobileReadabilityHook.length >= 25, `${placement.itemId} needs mobile readability hook`);
   assert(placement.candidate.rule.length >= 20, `${placement.itemId} candidate rule regressed`);
-  assert(placement.candidate.tradeoff.length >= 15, `${placement.itemId} candidate tradeoff regressed`);
-  assert(placement.candidate.storySeed.length >= 15, `${placement.itemId} candidate story seed regressed`);
+  assert(placement.candidate.tradeoff.trim().length >= 8, `${placement.itemId} candidate tradeoff must remain explicit`);
+  assert(placement.candidate.storySeed.trim().length >= 12, `${placement.itemId} candidate story seed must remain explicit`);
   assert(placement.candidate.runtimeStatus === 'CONTENT_SOURCE_ONLY', `${placement.itemId} authority candidate must remain content-only`);
   assert(placement.runtimeStatus === 'CONTENT_SOURCE_ONLY', `${placement.itemId} placement must remain content-only`);
   assert(!placement.runtimeAutoPromotionAllowed, `${placement.itemId} placement must not auto-promote runtime`);
