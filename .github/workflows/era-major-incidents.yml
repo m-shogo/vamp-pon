@@ -1,0 +1,53 @@
+name: Era Major Incidents
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/core5-era-character-master-v1.md'
+      - 'docs/research/era-major-incident-social-sourcebook-v1.md'
+      - 'docs/era-major-incident-family-lens-atlas-v1.md'
+      - 'docs/era-family-generation-lens-v1.md'
+      - 'docs/character-reality-root-registry-v1.md'
+      - 'docs/cross-era-lineage-reveal-map-v1.md'
+      - 'docs/world-historical-incident-ledger-v1.md'
+      - 'src/game/data/eraMajorIncidentFamilyLens.ts'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/crossEraLineageMemory.ts'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'scripts/quality/check-era-major-incidents.ts'
+      - '.github/workflows/era-major-incidents.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/core5-era-character-master-v1.md'
+      - 'docs/research/era-major-incident-social-sourcebook-v1.md'
+      - 'docs/era-major-incident-family-lens-atlas-v1.md'
+      - 'docs/era-family-generation-lens-v1.md'
+      - 'docs/character-reality-root-registry-v1.md'
+      - 'docs/cross-era-lineage-reveal-map-v1.md'
+      - 'docs/world-historical-incident-ledger-v1.md'
+      - 'src/game/data/eraMajorIncidentFamilyLens.ts'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/crossEraLineageMemory.ts'
+      - 'src/game/data/seasonArchitecture.ts'
+      - 'scripts/quality/check-era-major-incidents.ts'
+      - '.github/workflows/era-major-incidents.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate five Era major incidents and family/generation lenses
+        run: node --experimental-strip-types scripts/quality/check-era-major-incidents.ts
