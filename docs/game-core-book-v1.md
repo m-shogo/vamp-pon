@@ -1,12 +1,11 @@
-# ヨルノシルベ Game Core Book v1
+# ヨルノシルベ Game Core Book v2
 
-Date: 2026-07-28  
-Status: **CURRENT GAME IDENTITY / CORE UNDERSTANDING MASTER**  
+Date: 2026-08-11  
+Status: **CURRENT GAME IDENTITY / STORY-WORLD MASTER ALIGNED**  
 Scope: design understanding only. This document does not automatically change Unity/runtime/U49/U50 readiness.
 
-> この本は「ヨルノシルベは結局どんなゲームなのか」を、人間とAIが毎回同じ場所から思い出すための最上位ゲーム設計書。
->
-> Character Bookが人物、Story Bookが物語、Idea Bookが未確定の大事な案を覚えるなら、Game Core Bookは**ゲームとして絶対に見失いたくない中心**を覚える。
+> Story / World前提は `00-current-story-world-master.md` が上位。
+> Game Coreは「何を遊ぶゲームか」を守り、旧Dawn runtime tokenから世界観を逆流させない。
 
 ---
 
@@ -14,516 +13,466 @@ Scope: design understanding only. This document does not automatically change Un
 
 ## CURRENT / USER DIRECTION
 
-**ヨルノシルベは、夜の中で大量の影をほどき、記憶片を拾い、その1ランだけの強いビルドを作り、仲間との組み合わせや危険な力を試しながら朝を目指す、ヴァンサバ系の周回アクション。**
+**ヨルノシルベは、朝の来ない夢の夜で大量の影をほどき、記憶片を拾い、その1runだけの強いbuildを作り、仲間との組み合わせや危険な力を試しながら夢の深部を越えてResult / Wakingへ到達する、ヴァンサバ系の周回アクション。**
 
-遊び続けると、
+遊び続けると:
 
-- 新しい武器・進化・キャラ・Support・組み合わせが増える
+- 新しい武器 / 進化 / Character / Support / 組み合わせが増える
 - 小さな永続成長が積み上がる
 - Clear Getter型の達成盤が自然に埋まる
 - 仲間との連携が強くなる
-- 人物や世界の情報が副作用として蓄積する
+- Character / Era / World informationが副作用として蓄積する
 
-という二重の成長が起きる。
+最初に面白いのは**戦闘とbuild**。
 
-最初に面白いのは**戦闘とビルド**。
-
-長く好きになる理由として、**人物・関係・世界・伏線**が後ろから効いてくる。
+長く好きになる理由として**Character / relation / era / world / mystery**が後ろから効く。
 
 ---
 
 # 2. Core Experience Promise
 
-プレイヤーに約束したい感覚は次の5つ。
+## 2.1 1runの途中でどんどん強くなる
 
-## 2.1 1ランの途中でどんどん強くなる
+序盤は小さなattack。
 
-序盤は小さな攻撃。
+数分後には:
 
-数分後には、
+- attack range
+- synergy
+- evolution
+- Support
+- 黒耀化decision
+- screen control
 
-- 攻撃範囲が広がる
-- 攻撃同士が噛み合う
-- 進化が成立する
-- Supportが働く
-- 黒耀化を切る判断が生まれる
-- 画面を制圧できる
+が積み上がる。
 
-という**ラン内成長の爽快感**がある。
-
-ここは物語より先に成立していなければならない。
+Storyより先に成立させる。
 
 ## 2.2 毎回違う組み合わせを試したくなる
 
-「強い最適解を1回作ったら終わり」にしない。
+違いを作る:
 
-違いを作る候補:
-
-- 主人公 / playable character
-- 初期灯具
-- 灯具の引き
-- 持ち物
-- 進化
+- playable Character
+- starter gear
+- weapon / passive draw
+- evolution
 - Support
 - Pair Trait / 灯合わせ
-- 黒耀化を使うか使わないか
+- 黒耀化 use / no-use
 - Stage / enemy composition
-- Clear Getter条件
+- Clear Getter condition
 
-プレイヤーが、
+Playerに:
 
-> 次はこのキャラでやってみよう
-> 
-> このSupportと組ませたらどうなる？
-> 
-> 黒耀化なしでも行ける？
+> 次はこのCharacterで
+> このSupportなら？
+> 黒耀化なしでも？
 
-と自然に次のrunを始めたくなることが重要。
+と思わせる。
 
 ## 2.3 失敗しても完全な無駄ではない
 
-Game Overは必要な敗北。
+Game Over ≠ Reality death。
 
-しかし、1runが丸ごと無意味にはならない。
+残せるCandidate:
 
-残せるものの候補:
+- small meta resource
+- Enemy / Item / Stage discovery
+- achievement partial progress
+- hint
+- Bond partial progress
+- collection fragment
 
-- 小さな永続資源
-- 敵 / Item / Stageの発見進捗
-- 達成条件の途中進捗
-- 次回のヒント
-- Relation / Bondの一部進捗
-- Collectionの断片
+Clearは明確に嬉しくする。
 
-ただし、**失敗した方が得になる設計にはしない**。
+失敗した方が得、にはしない。
 
-Clearは明確に嬉しい。
-
-失敗は「次なら行けそう」を残す。
-
-## 2.4 キャラを使うこと自体が関係性になる
-
-キャラ情報を読むために好感度作業をするのではない。
+## 2.4 Characterを使うこと自体がRelationになる
 
 ```txt
-好きな仲間をSupportで呼ぶ
+Supportで呼ぶ
 ↓
 一緒に戦う
 ↓
-助けてもらう / 助ける
+助ける / 助けられる
 ↓
-Bondが育つ
+Bond
 ↓
-Gameplay上の連携が強くなる
+Gameplay連携が変わる
 ↓
-呼び方・敬語・掛け声・日常も自然に変わる
+呼び方 / 敬語 / joke / ordinary behaviorも変わる
 ```
 
-一次報酬はGameplay。
-
-- Assistが賢くなる
-- Pair Traitが増える
-- 灯合わせへ近づく
-- 救援 / 防御 / 連携が変わる
-
-二次報酬として、
-
-- 名前の呼び方
-- 敬語
-- 冗談
-- 弱音
-- 日常会
-- 人物情報
-
-がついてくる。
+一次報酬 = Gameplay。
+二次報酬 = Character attachment。
 
 ## 2.5 遊んだ後で「あれ全部意味があったのか」と思える
 
-物語説明を前面に出さない。
+最初は:
 
-最初は単純に、
-
-- 敵を倒す
+- 敵をほどく
 - 記憶片を拾う
-- レベルアップする
-- 朝を目指す
+- Level Up
+- deep phaseへ進む
 
 だけでも遊べる。
 
-好きになったプレイヤーだけが後から、
+後から:
 
-- 敵がなぜその小物を壊さなかったか
-- なぜそのキャラだけ呼び方が違ったか
-- なぜ星獣同士が先に反応したか
-- なぜGame Overしてもやり直せるか
-- 黒耀化がなぜその形に歪むか
+- 敵が小物を壊さなかった理由
+- 呼び方の差
+- Star Beastの先回り反応
+- Eraの違うObject
+- same stars / different constellation
+- Game Overしても再挑戦できる意味
+- Black Youka distortion
 
-を読む。
+へ気づく。
 
-**Gameplayそのものが後から伏線に見える**のが理想。
+Gameplayそのものが後でForeshadowになる。
 
 ---
 
-# 3. 3つのループ
+# 3. Three Loops
 
-ヨルノシルベは、この3つが噛み合って初めて完成する。
-
-## A. Run Loop — その夜の気持ちよさ
+## A. Run Loop
 
 ```txt
-Stage開始
+Stage start
 ↓
-自動攻撃 / 移動 / 回避
+auto attack / movement / dodge
 ↓
-敵をほどく
+enemyをほどく
 ↓
-記憶片を拾う
+記憶片
 ↓
 Level Up
 ↓
-灯具 / 持ち物を選ぶ
+weapon / passive choice
 ↓
-組み合わせを育てる
+synergy
 ↓
-進化 / 高火力化
+evolution
 ↓
-Support / 黒耀化など判断
+Support / 黒耀化decision
 ↓
-Boss / 終盤圧力
+Boss / late pressure / moonless depth candidate
 ↓
-夜明け or Game Over
+Result / Waking or Game Over
 ```
 
-最重要評価:
+最重要:
 
-> **この1runだけ切り出してもまた遊びたいか。**
+> この1runだけでもまた遊びたいか。
 
-## B. Meta Loop — 次の夜を遊びたくする
+### Important Story guard
+
+- `Result / Waking` = physical sunriseではない。
+- Boss encounter = 群青残響録memberとは限らない。
+- moonless 朔 = fixed era boss roomではない。
+
+## B. Meta Loop
 
 ```txt
 Result
 ↓
-小さな永続成長
+small permanent growth
 ↓
-新しい灯具 / 進化 / Character / Support / Stage
+new gear / evolution / Character / Support / Stage
 ↓
-夜明け星図が灯る
+Clear Getter update
 ↓
-次に狙えそうな条件が見える
+next visible condition
 ↓
-別のbuildを試す
+new build experiment
 ↓
-次のrun
+next run
 ```
 
-重要:
+既存`夜明け星図`等の名称 / IDはcompatibility assetとして残り得るが、Dream cosmologyの物理朝を意味しない。
 
-- 数字成長だけにしない
-- 遊び方が増える報酬を多くする
-- 巨大な作業ツリーにしない
-- daily obligation化しない
-
-## C. Attachment Loop — 気づけば好きになる
+## C. Attachment Loop
 
 ```txt
-一緒に戦う
+play together
 ↓
-戦闘中の小さなやりとり
+small battle interaction
 ↓
-Bond / Relationが育つ
+Bond / Relation
 ↓
-呼び方や行動が変わる
+behavior / address changes
 ↓
-日常の一面を知る
+ordinary life scene
 ↓
-そのキャラをまた使いたくなる
+want to use Character again
 ↓
-Gameplayの組み合わせも深くなる
+new gameplay relation
 ```
 
-物語を読む人だけの別ゲームにしない。
-
-**好きになった理由が、実際に一緒に遊んだ時間と一致する**ことが重要。
+好きになった理由が、一緒に遊んだ時間と一致する。
 
 ---
 
-# 4. Clear Getter / 夜明け星図はCore寄り
+# 4. Clear Getter
 
-## USER DIRECTION
-
-Clear Getter型の達成盤は単なるCollectionではない。
-
-**次の遊び方を教えるMeta Gameplay**。
+Clear Getter型achievement boardはCollectionだけでなく**次の遊び方を教えるMeta Gameplay**。
 
 役割:
 
-1. 普通に遊ぶだけでも序盤は自然に灯る
-2. Resultで複数マスが気持ちよく更新される
-3. 隣の条件を見ると次のrunの目的が生まれる
-4. 条件がプレイヤーへ別build / 別Character / 別Supportを試させる
-5. 達成にはGameplay上のメリットが返る
+1. natural early unlock
+2. Resultで複数node更新
+3. nearby conditionがnext run goalになる
+4. alternate Character / build / Supportへ誘導
+5. gameplay rewardが返る
 
-報酬候補:
+Reward Candidate:
 
-- 小さい永続強化
-- 新灯具
-- 新進化
-- 新Character
-- 新Support
+- small permanent growth
+- new gear
+- evolution
+- Character
+- Support
 - Pair Trait
-- reroll / comfort拡張
+- reroll / comfort
 - Stage / special rule
 - cosmetic / sound
 
-そして副作用として、
+副作用:
 
 - Character record
 - Enemy record
-- World report
+- World / Era report
 - Lost-item meaning
 - Mystery hint
 
-が追加される。
+### Constellation guard
 
-読む人は読む。
+Collection graphをDreamで全Era共通の唯一星座体系と同一視しない。
 
-読まない人は、
-
-> 「何か強くなった。ラッキー」
-
-で次へ進める。
+`夜明け星図`等existing namingはproduct / legacy namingとして再審査可能。
 
 ---
 
-# 5. Bond / SupportはCore Gameplayの一部
+# 5. Bond / Support is Core Gameplay
 
-BondをNovel / Dating side modeに置かない。
+Dating side modeに隔離しない。
 
-**編成と戦闘の拡張軸**として扱う。
+### Low relation
+- basic Assist
+-まだ噛み合わない
+- distance in voice
 
-### 低い関係
-
-- 基本Assist
-- まだ噛み合わない
-- 呼び方や台詞にも距離
-
-### 育った関係
-
-- 固有Assist
-- 連携精度上昇
+### Grown relation
+- signature Assist
+- coordination
 - Pair Trait
-- 救援や共有効果
+- rescue / shared effects
 
-### 高い関係 + Story条件
-
+### High relation + Story condition
 - 灯合わせ
-- Character-specificな完成形連携
-- 呼び方 / 敬語 / Actionも変化
+- Character-specific complete coordination
+- voice / action change
 
-### 対立関係
+### Conflict relation
 
-仲が悪い = 弱い、にはしない。
+仲が悪い = weakにしない。
 
-思想が衝突する組み合わせは、
+- high power
+- high risk
+- unstable
+- unusual build
 
-- 高火力
-- 高リスク
-- 不安定
-- 特殊build
+を作れる。
 
-として使える余地がある。
-
-これはCurrent directionだが、具体的な確率・倍率・slot数はまだLOCKしない。
+Android Characterは親密度上昇が遅い方向を、Gameplay feelにも後で落とせる。
 
 ---
 
-# 6. 黒耀化はCoreの「危険な選択」
+# 6. 黒耀化 = dangerous choice
 
-黒耀化はStory演出だけではない。
+Run中に:
 
-Run中に、
+> 今ここでriskを取って強くなるか？
 
-> **今ここで危険を取って大きく強くなるか？**
+を作る。
 
-を作るGameplay装置。
+- Character-specific direction
+- power beyond normal build
+- short-term cost / soot-back
+- timing decision
+- no-use route viable
+- Bond interaction possible
 
-欲しい性質:
+Avoid:
 
-- Characterごとに強化方向が違う
-- 通常buildではできない強さ
-- 短期的な反動 / 煤返り
-- 使い所を考える
-- 使わない攻略にも意味がある
-- Bond / Supportとの相互作用余地
+- Attack +50%だけ
+- all Characters same
+- always optimal
+- use = evil
+- permanent death
 
-やらない:
+Story pattern:
 
-- ただAttack +50%
-- 全Character同じ挙動
-- 常に使った方が得
-- 使用 = 悪人化
-- Permanent deathの原因
+```txt
+strength / wish
++ fear / urgency
+→ one-answer fixation
+→ Black Youka
+```
 
-Character-specificな黒耀化名はCharacter identityとして育てるが、具体名を早く全LOCKしない。
+社会大事件にもmirrorする。
 
 ---
 
-# 7. Collection / LoreはCoreを補強するSide Effect
-
-情報量は多くてよい。
-
-ただしGameplayの前に出さない。
+# 7. Collection / Lore = Core Side Effect
 
 ```txt
 Gameplay
 ↓
 Result / Achievement / Bond / Discovery
 ↓
-情報が増える
+information increases
 ↓
-気になる人だけ読む
+curious Player reads
 ```
 
-読み物候補:
+Reading Candidate:
 
-- 灯し手の記録
-- カゲモノ図鑑
-- 忘れ物絵札
-- 言葉の記録
-- 夜の観測記録
-- Character profile
-- Star Beast
-- 黒耀化の記録
-- Person-specific mystery
+- Character record
+- Enemy archive
+- Lost-item cards
+- words / call-name records
+- Dream observation reports
+- Era evidence
+- constellations
+- Black Youka
+- person-specific mystery
+- Reality incident records
 
-### 読まないプレイヤー
+読まないPlayer:
+- Main Game clear可能
+- Main Story理解可能
+- Gameplay rewards available
 
-- Main Gameを最後まで遊べる
-- Main Storyを理解できる
-- Gameplay報酬を受け取れる
+読むPlayer:
+- Character attachment
+- Era deduction
+- series Mystery speculation
 
-### 読むプレイヤー
-
-- Characterをさらに好きになる
-- World Mysteryを考察できる
-- Sequelで意味が変わるSeedへ気づける
-
-**「全文を読む」「未読を消す」をPower unlock条件にはしない。**
+全文既読をPower gateにしない。
 
 ---
 
-# 8. Storyの役割
+# 8. Story role in Game Core
 
-StoryはCore Gameplayを止めるものではなく、**遊んだ時間へ後から意味を与えるもの**。
+Storyはplayを止めるものではなく、**遊んだ時間へ後から意味を与える**。
 
-重要な方向:
+Current world constraints:
 
-- 世界は暗い
-- 人間の性格は一色ではない
-- 日常でCharacterを好きになる
-- Main MysteryとCharacter Mysteryは別レーン
-- 正史EndingはHappy End
-- Permanent deathを主要な泣き装置にしない
-- 別れ / 記憶 / 誤解 / 再会 / 成長で泣かせる
-- 1作目の感情は1で救う
-- Series Mysteryは残せる
+- endless-night Dream
+- Waking, not sunrise-return
+- cross-era Characters
+- weak explicit time tags
+- era-dependent constellations
+- moon = incident depth
+- Sakuyaza current enemy identity
+- Gunjo Zankyoroku non-fixed incident-central label
+- Humans / animals / Androids can relate as individuals
+- Happy End
 
-Story Engineの具体的な大真相は、現在High-Value Candidateを含む。
-
-**ゲームの核を守るために、Main Mysteryの答えを早くLOCKしない。**
+Main Mystery answerを早くLOCKしない。
 
 ---
 
 # 9. Emotional Core
 
-Game Coreは戦闘だけではない。
+旧:
+> 暗い夜を何度も一緒に越えたから、その人たちと迎える朝が嬉しい。
 
-ヨルノシルベで最後に残したいのは、
+Story Master更新後のCurrent:
 
-> **暗い夜を何度も一緒に越えたから、その人たちと迎える朝が嬉しい。**
+> **朝の来ない夜を何度も一緒に越えたから、目覚めた後も理由を説明できない変化が残り、最後に記憶を取り戻した時、その時間が本当に自分のものだったと分かる。**
 
-という感覚。
+戦闘中growthとCharacter growthを分けない。
 
-戦闘中の成長と、人物の成長を別々にしない。
+- one-person burden
+- distrust
+- rushing ahead
+- closing to protect
+- repairing everything
 
-例えばCharacterが、
-
-- 一人で全部背負う
-- 人を信用しない
-- 先へ走る
-- 閉じて守る
-- 何でも直そうとする
-
-という性格なら、Gameplay上のAssist / Pair Trait / Support behaviorにもその特徴が表れ、成長後に少し変化する余地を持つ。
-
-数値の上昇だけでなく、**戦い方自体がCharacter growthになる**のが理想。
+等をAssist / Pair Trait / Support behaviorへ出し、成長後に戦い方も変える。
 
 ---
 
-# 10. Game Coreではないもの
+# 10. Game Coreではない可変仕様
 
-大切だが、Coreと混同しない。
-
-- exact Main Mystery answer
-- exact 21人全員の最終プロフィール
-- exact Bond point数
-- Support slot数
-- 黒耀化の全固有呼称の最終読み
-- Clear Getter盤面サイズ
-- Permanent upgrade倍率
-- Report総数
-- Stage総数
-- UIの最終見た目
+- exact final Dream mechanism
+- exact Character profiles
+- exact Bond points
+- Support slots
+- all Black Youka names
+- Clear Getter dimensions
+- permanent upgrade multipliers
+- report count
+- Stage count
+- UI final visual
+- exact combat Boss per incident
+- 群青残響録formal members
 - sequel title / protagonist
 
-これらはCoreを実現するための**可変設計**。
-
-Coreを守るなら後から変えてよい。
+Coreを守るなら変更可能。
 
 ---
 
-# 11. Feature判断の質問
+# 11. Feature decision questions
 
-新機能を追加するときは、最低でも次のどれを良くするかを見る。
+新featureが何を良くするか:
 
-1. 1runの爽快感が上がるか
-2. buildの選択肢が増えるか
-3. 次のrunを遊ぶ理由が増えるか
-4. Character / Supportを使い分ける理由が増えるか
-5. Player skill / knowledgeが報われるか
-6. Achievementが別の遊び方へ誘導するか
-7. Characterを遊んだ結果として好きになれるか
-8. 後からGameplayの意味を再解釈できるか
+1. run爽快感
+2. build choices
+3. next-run motivation
+4. Character / Support differentiation
+5. Player skill / knowledge reward
+6. Achievement experimentation
+7. Character attachment through play
+8. later reinterpretation
+9. Era / Dream identityを自然に体験できるか
 
-どれにも寄与せず、説明量・画面・通貨・作業だけ増える機能はCoreから遠い可能性が高い。
-
----
-
-# 12. Anti-Core — ヨルノシルベを別ゲームにしてしまうもの
-
-避けたい方向:
-
-- Storyを読むことが主目的になる
-- 長い会話を見ないとPowerが受け取れない
-- 好感度Item連打が最適
-- Daily login / obligation
-- 巨大なPermanent stat treeでSkill / buildが死ぬ
-- 1つの最適buildだけが正解
-- Character差が見た目だけ
-- BondがAttack +%だけ
-- 黒耀化が全員同じ
-- Collectionを埋める作業がMain Gameになる
-- Happy Endを見るために100% lore読破必須
-- Sequelのために1作目を未完で終える
-- 設定を増やしすぎてCombat tempoが落ちる
+どれにも寄与せず説明量だけ増えるfeatureはCoreから遠い。
 
 ---
 
-# 13. Current Booksとの関係
+# 12. Anti-Core
+
+避ける:
+
+- Story readingが主目的
+- long dialogue mandatory for power
+- affection item spam optimal
+- daily login obligation
+- giant stat tree kills build choice
+- one optimal build
+- Character difference = visual only
+- Bond = attack % only
+- Black Youka same for all
+- Collection grind becomes Main Game
+- Happy End requires 100% lore
+- sequel makes Title1 incomplete
+- setting bloat hurts combat tempo
+- run goalをphysical sunriseへ戻す
+- every Era forced to one final boss
+
+---
+
+# 13. Books relationship
 
 ```txt
+STORY / WORLD MASTER
+= 世界と物語の不変前提
+
 GAME CORE BOOK
-= 何を遊ぶゲームか / 何を絶対見失わないか
+= 何を遊ぶゲームか
 
 Character Book
 = 誰と遊ぶか
@@ -532,66 +481,52 @@ Story Book
 = 遊んだ時間にどんな意味が残るか
 
 Idea Book
-= まだ決めていないが忘れたくない可能性
+= Open / Candidate possibilities
 ```
 
-優先順位として、Game Core BookはIdea Bookより上。
+Story / World MasterとGame Coreが衝突した場合、旧Game wordingをMasterへ追従させる。
 
-IdeaがGame Coreとぶつかる場合:
-
-```txt
-Ideaを捨てる
-or
-Coreを変えるほど価値があるかHuman decisionする
-```
-
-勝手にCoreを曲げない。
+Gameplay stable IDは必要ならmigrationで守る。
 
 ---
 
-# 14. 詳細設計への入口
+# 14. Detail entrypoints
 
-Game Coreの詳細を詰める時だけ読む。
-
-- `docs/GAMEPLAY-META-PROGRESSION.md` — Run外成長 / achievement / fail-forward
-- `docs/BOND.md` — Support / Bond / pair gameplay
-- `docs/BLACK-YOUKA.md` — 黒耀化
-- `docs/PROGRESSION-ARCHIVE.md` — 夜明け星図 / Collection / optional lore
-- `docs/STORY-ENGINE.md` — GameplayとLoreの二重意味候補
-- `docs/story-book-v1.md` — Emotional / Story direction
-- `docs/181-current-production-canon.md` — Current runtime / production state
+- `docs/00-current-story-world-master.md`
+- `docs/WORLD.md`
+- `docs/GAMEPLAY-META-PROGRESSION.md`
+- `docs/BOND.md`
+- `docs/BLACK-YOUKA.md`
+- `docs/PROGRESSION-ARCHIVE.md`
+- `docs/STORY-ENGINE.md`
+- `docs/story-book-v1.md`
+- `docs/181-current-production-canon.md`
 
 ---
 
-# 15. まだ決めない
+# 15. Still tune by playtest
 
-この本はCoreを固定するが、仕様値を固定する本ではない。
-
-今後playtestで決める:
-
-- 1runの最終時間
-- enemy density curve
+- run length
+- enemy density
 - Level Up frequency
-- weapon/passive slot count
-- Support slot count
-- Bond growth speed
-- Permanent growth budget
-- 黒耀化のcost / duration
-- Achievement density
+- weapon / passive slots
+- Support slots
+- Bond speed
+- permanent growth budget
+- Black Youka cost / duration
+- achievement density
 - Story beat frequency
 
-これらは**Core Experience Promiseが一番気持ちよくなる値**へ調整する。
+World Masterから固定しない。
 
 ---
 
 # 16. 最重要
 
-ヨルノシルベの中心は、
-
-> **戦って、拾って、組み合わせて、その夜だけ圧倒的に強くなる。**
+> **戦って、拾って、組み合わせて、そのrunだけ圧倒的に強くなる。**
 >
 > **遊ぶほど次の遊び方が増え、仲間との戦い方も変わる。**
 >
-> **そして気づけば、この暗い夜と、この人たちのことをもっと知りたくなっている。**
+> **そして気づけば、朝の来ないこの夢の夜と、この人たちと、彼らが本当は違う時代を生きていたことをもっと知りたくなっている。**
 
 この順番を逆にしない。
