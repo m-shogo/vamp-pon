@@ -157,7 +157,7 @@ export const title1BaseWeaponRuntimeAdmissionSummary = {
   currentImplementedUnityPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'IMPLEMENTED').length,
   currentMissingUnityPrimitiveCount: Object.values(currentUnityWeaponRuntimeCapabilities).filter((state) => state === 'MISSING').length,
   missingCapabilityFrequency: [...missingCapabilityFrequency.entries()]
-    .sort((left, right) => right[1] - left[0].localeCompare(right[0]))
+    .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .map(([capability, blockedWeaponCount]) => ({ capability, blockedWeaponCount })),
   statusApplicationBlockedWeaponCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.missingUnityCapabilities.includes('STATUS_APPLICATION')).length,
   selected16WebAdmissionAuthorityDuplicated: false,
