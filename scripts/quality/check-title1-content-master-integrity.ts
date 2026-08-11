@@ -22,10 +22,21 @@ assert(snapshot.characters.relationshipArcCount === 24, `Current relationship ar
 assert(snapshot.characters.relationshipSpeechDirectedTrackCount === 48, 'Current24 relationship speech must remain authored in both directions');
 assert(snapshot.characters.groupInteractionSceneCount === 12, 'Current21 group interaction lane count must remain 12');
 assert(snapshot.characters.groupIntermissionPlacementCount === 24, 'group scenes must have first + repeat placement');
+assert(snapshot.characters.allPairBondLaneCount === 210, `Current21 all pair Bond lanes must be 210, got ${snapshot.characters.allPairBondLaneCount}`);
+assert(snapshot.characters.directedAffinityLaneCount === 420, `directed Affinity lanes must be 420, got ${snapshot.characters.directedAffinityLaneCount}`);
+assert(snapshot.characters.possibleTrioCombinationCount === 1330, `Current21 trio combinations must be 1330, got ${snapshot.characters.possibleTrioCombinationCount}`);
+assert(!snapshot.characters.storedTrioBondExists, 'trio/group Bond must not be persisted');
+assert(snapshot.characters.trioPresentationShapeCount >= 5, 'trio presentation needs multiple derived shapes');
+
 assert(snapshot.enemies.currentCount === 48, `Current Enemy count must remain 48, got ${snapshot.enemies.currentCount}`);
 assert(snapshot.enemies.spotlightCount === 8, 'Spotlight Enemy count must remain 8');
 assert(snapshot.enemies.spotlightStoryFragmentCount === 24, 'Spotlight8 must have three story fragments each');
 assert(snapshot.enemies.spotlightFragmentsOptional, 'Spotlight enemy story fragments must remain optional reading');
+assert(snapshot.enemies.yatsukageFormalName === '夜綴りの八影', 'Yatsukage formal name drift');
+assert(snapshot.enemies.yatsukageShortName === '八影', 'Yatsukage short name drift');
+assert(snapshot.enemies.yatsukageCallNameCount === 8, 'Yatsukage must expose eight unique call names');
+assert(snapshot.enemies.yatsukagePresentationPhaseCount === 4, 'Yatsukage collection presentation should have four reveal phases');
+assert(snapshot.enemies.yatsukageTrueNameClaimedCount === 0, 'Yatsukage call names may not claim true names');
 
 assert(snapshot.combatVocabulary.attributeCountIncludingNeutral === 15, `Combat Attribute vocabulary should be 14 + NEUTRAL, got ${snapshot.combatVocabulary.attributeCountIncludingNeutral}`);
 assert(snapshot.combatVocabulary.baseAttributeCount === 14, `base Attribute count must remain 14, got ${snapshot.combatVocabulary.baseAttributeCount}`);
@@ -90,40 +101,29 @@ assert(!snapshot.promotionBoundary.transformationRuntimeAutoPromotionAllowed, 'T
 assert(!snapshot.promotionBoundary.rewardCollectionRuntimeAutoPromotionAllowed, 'Reward/Collection Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.relationshipSpeechRuntimeAutoPromotionAllowed, 'Relationship Speech Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.groupIntermissionRuntimeAutoPromotionAllowed, 'Group intermission Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.pairwiseBondRuntimeAutoPromotionAllowed, 'Pairwise Bond Content Master must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.trioInteractionRuntimeAutoPromotionAllowed, 'Trio interaction Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.spotlightEnemyRuntimeAutoPromotionAllowed, 'Spotlight Enemy Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.spotlightStoryRuntimeAutoPromotionAllowed, 'Spotlight story fragments must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.yatsukageIdentityRuntimeAutoPromotionAllowed, 'Yatsukage identity must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.yatsukageCollectionRuntimeAutoPromotionAllowed, 'Yatsukage collection presentation must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 17, `Title1 Content Master should expose 17 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 21, `Title1 Content Master should expose 21 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
-assert(title1ContentMasterOpenImplementationGates.length === 10, `expected ten explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
+assert(title1ContentMasterOpenImplementationGates.length === 12, `expected twelve explicit runtime/open gates, got ${title1ContentMasterOpenImplementationGates.length}`);
 for (const gate of title1ContentMasterOpenImplementationGates) {
   assert(gate.length >= 25, `open implementation gate needs explicit wording: ${gate}`);
 }
 
 const doc = readFileSync(new URL('../../docs/title1-content-master-integrity-v1.md', import.meta.url), 'utf8');
 for (const token of [
-  'Stage20',
-  'Current21',
-  'Enemy48',
-  'Spotlight8',
-  '48 directional',
-  '24 fragment',
-  'Base24',
-  'Combat Item18',
-  'Transformation38',
-  'Selected29 / Hold9',
-  '14属性',
-  '16Status',
-  '12Reaction',
-  'Achievement14',
-  'All Lights 132',
-  'CONTENT_SOURCE_ONLY',
-  'Runtime',
-  'Open implementation gates',
+  'Stage20', 'Current21', 'Enemy48', 'Spotlight8', '48 directional', '24 fragment',
+  'Base24', 'Combat Item18', 'Transformation38', 'Selected29 / Hold9', '14属性', '16Status', '12Reaction',
+  'Achievement14', 'All Lights 132', 'CONTENT_SOURCE_ONLY', 'Runtime', 'Open implementation gates',
 ]) {
   assert(doc.includes(token), `Title1 Content Master integrity doc missing token: ${token}`);
 }
@@ -141,5 +141,6 @@ console.log(JSON.stringify({
   learning: snapshot.learning,
   rewardCollection: snapshot.rewardCollection,
   completion: snapshot.completion,
+  authorityLaneCount: authorityPaths.length,
   openImplementationGates: title1ContentMasterOpenImplementationGates.length,
 }, null, 2));
