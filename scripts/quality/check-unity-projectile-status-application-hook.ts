@@ -39,7 +39,8 @@ assert(damage >= 0 && apply > damage && consume > apply, 'same-hit order must be
 assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'first Selected16 Status caller must be ember_matchcase');
 assert(emberSource.includes('EnemyStatusRuntimeKind.Burn'), 'Ember caller must build typed BURN request');
 assert(emberSource.includes('EnemyStatusApplicationPolicy burnPolicy'), 'Ember caller must receive explicit caller policy');
-assert(emberSource.includes('telemetry?.RecordStatusResult'), 'Ember prototype must attach caller-owned telemetry observer');
+assert(emberSource.includes('Action<EnemyStatusApplyResult> resultObserver = null;'), 'Ember prototype must materialize optional telemetry observer explicitly');
+assert(emberSource.includes('resultObserver = telemetry.RecordStatusResult;'), 'Ember prototype must attach caller-owned telemetry observer');
 assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller must route request through real multi-target projectile path');
 assert(emberSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'prototype Status caller must not freeze balance values');
 
