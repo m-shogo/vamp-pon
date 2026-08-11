@@ -96,7 +96,7 @@ export const CROSS_ERA_BLOODLINE_CANDIDATES = [
     earlierCharacterId: 'tomori',
     laterCharacterId: 'touma',
     status: 'HIGH_VALUE_CANDIDATE_NOT_CANON',
-    chronology: 'TOMORI_POSTWAR_RECOVERY_TO_LATER_TOURMA_CRAFT_LIFE',
+    chronology: 'TOMORI_POSTWAR_RECOVERY_TO_LATER_TOUMA_CRAFT_LIFE',
     locationCoherence: 'TOMORI_NAGANO_ROOT_AND_TOKYO_REPAIR_MIGRATION_CAN_BRANCH_TO_LATER_KAWAGUCHI_LINE',
     exactGenerationDistanceFrozen: false,
     exactBranchFrozen: false,
