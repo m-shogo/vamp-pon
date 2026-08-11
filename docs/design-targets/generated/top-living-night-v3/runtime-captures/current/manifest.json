@@ -2,15 +2,15 @@
     "schemaVersion": 1,
     "executed": true,
     "result": "PASSED",
-    "sourceCommit": "ac3701c5ada3c08c9cd80050f4cfdab5e0b76348",
+    "sourceCommit": "c5eca594d5028cd7ab83cfe126b53c69e9d733a9",
     "unityVersion": "6000.5.1f1",
     "candidateSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
     "finalCompositeSha256": "f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e",
     "semanticLayerPackSha256": "3b8b92d531e8d83f7a38f79afbff028d82e592f8ef50f64c6984590cdf0eaa12",
-    "effectCompanionPackSha256": "a6ff212e3c22910460c7b2d052e4266621d4c636e20d1936e108f97cf0077f46",
+    "effectCompanionPackSha256": "b95fccc24dbbd38891b486e34d7ca58993eed125cbfa5c3e2bee63ff6631a301",
     "expectedCaptureCount": 39,
     "captureCount": 39,
-    "generatedAtUtc": "2026-08-11T05:44:46.848Z",
+    "generatedAtUtc": "2026-08-11T06:50:59.694Z",
     "error": "",
     "captures": [
         {
@@ -22,10 +22,10 @@
             "passMode": "normal",
             "frameLabel": "t0",
             "targetElapsedMs": 300,
-            "actualElapsedSeconds": "1.726",
+            "actualElapsedSeconds": "1.781",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/normal/frame-t0-300ms.png",
-            "sha256": "0316c3f11fd71091059367d328eba7beab8ce8ec9eb0b8dbe49056494732bf32",
-            "capturedAtUtc": "2026-08-11T05:42:20.272Z"
+            "sha256": "96ac4fa86d3e208782ea91485e0c1e336d162ee46240a0866c63eec01432d063",
+            "capturedAtUtc": "2026-08-11T06:48:34.466Z"
         },
         {
             "id": "360x800-normal-t1",
@@ -36,10 +36,10 @@
             "passMode": "normal",
             "frameLabel": "t1",
             "targetElapsedMs": 2000,
-            "actualElapsedSeconds": "2.21",
+            "actualElapsedSeconds": "2.264",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/normal/frame-t1-2000ms.png",
-            "sha256": "fadb49d3554b84338e25c92081131883a0cd97b1cae935cd533f241783dd4930",
-            "capturedAtUtc": "2026-08-11T05:42:20.751Z"
+            "sha256": "b1c6e8ec79f5a9a259347215961fa03bb5a13e07127033b0e851706e60f3817c",
+            "capturedAtUtc": "2026-08-11T06:48:34.946Z"
         },
         {
             "id": "360x800-normal-t2",
@@ -50,10 +50,10 @@
             "passMode": "normal",
             "frameLabel": "t2",
             "targetElapsedMs": 5000,
-            "actualElapsedSeconds": "5.003",
+            "actualElapsedSeconds": "5.009",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/normal/frame-t2-5000ms.png",
-            "sha256": "10bca31123069d02e0ec33d3950812922e9def3bad1bc4cc89f8bebaacd6d50a",
-            "capturedAtUtc": "2026-08-11T05:42:23.549Z"
+            "sha256": "e899efc416d6eb25cd0bd1f0bbc03b41a7996608dfeaee02ad25917a5800e8b0",
+            "capturedAtUtc": "2026-08-11T06:48:37.682Z"
         },
         {
             "id": "360x800-normal-t3",
@@ -64,10 +64,10 @@
             "passMode": "normal",
             "frameLabel": "t3",
             "targetElapsedMs": 10000,
-            "actualElapsedSeconds": "10.002",
+            "actualElapsedSeconds": "10",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/normal/frame-t3-10000ms.png",
-            "sha256": "c11076b7a06264450877df1901b1d9940fde0a09040bda677f5738a19e755159",
-            "capturedAtUtc": "2026-08-11T05:42:28.535Z"
+            "sha256": "2489f3b847dc27695d0039289cbf30bc9957db94be461450288e90d9a19bcd32",
+            "capturedAtUtc": "2026-08-11T06:48:42.679Z"
         },
         {
             "id": "360x800-reduced-t0",
@@ -78,10 +78,10 @@
             "passMode": "reduced",
             "frameLabel": "t0",
             "targetElapsedMs": 300,
-            "actualElapsedSeconds": "1.092",
+            "actualElapsedSeconds": "1.097",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/reduced/frame-t0-300ms.png",
-            "sha256": "40670b789e70e7de7e4ec6cf1675df6214082d61fd1a5a9884a32220905e6b81",
-            "capturedAtUtc": "2026-08-11T05:42:33.000Z"
+            "sha256": "cf9f29b8f351753e3f9a52e51deb144deaa345c0ada01ab50e0b863fb07b3628",
+            "capturedAtUtc": "2026-08-11T06:48:47.812Z"
         },
         {
             "id": "360x800-reduced-t1",
@@ -92,10 +92,10 @@
             "passMode": "reduced",
             "frameLabel": "t1",
             "targetElapsedMs": 2000,
-            "actualElapsedSeconds": "2.006",
+            "actualElapsedSeconds": "2.007",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/reduced/frame-t1-2000ms.png",
-            "sha256": "f26c578ffff88adefc6fbc3d62d86d259b92c8f19412d6ad4622bbc8f7eb53bf",
-            "capturedAtUtc": "2026-08-11T05:42:33.902Z"
+            "sha256": "5d1c456e1eb31368d770d2523c598396e550c0e4003a2c568e983f93374693af",
+            "capturedAtUtc": "2026-08-11T06:48:48.718Z"
         },
         {
             "id": "360x800-reduced-t2",
@@ -106,10 +106,10 @@
             "passMode": "reduced",
             "frameLabel": "t2",
             "targetElapsedMs": 5000,
-            "actualElapsedSeconds": "5.008",
+            "actualElapsedSeconds": "5.006",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/reduced/frame-t2-5000ms.png",
-            "sha256": "c32c8478651cad29eab162a78d4892de86da168885bdab35b2042417c7024eb6",
-            "capturedAtUtc": "2026-08-11T05:42:36.915Z"
+            "sha256": "3f8bbcaaeac29740bbce42739cd2927fbf11e4f2e55643deb6b35aef10845d03",
+            "capturedAtUtc": "2026-08-11T06:48:51.729Z"
         },
         {
             "id": "360x800-reduced-t3",
@@ -120,10 +120,10 @@
             "passMode": "reduced",
             "frameLabel": "t3",
             "targetElapsedMs": 10000,
-            "actualElapsedSeconds": "10.006",
+            "actualElapsedSeconds": "10.008",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/reduced/frame-t3-10000ms.png",
-            "sha256": "851806a94544fde074b9fbf0255851ac7f8012a976c829287ce159235b31a20c",
-            "capturedAtUtc": "2026-08-11T05:42:41.902Z"
+            "sha256": "13bd32014778e535a65697c428570d42665d944a293ef818eb475bdd85da83d5",
+            "capturedAtUtc": "2026-08-11T06:48:56.730Z"
         },
         {
             "id": "360x800-transition-normal-a",
@@ -134,10 +134,10 @@
             "passMode": "transition",
             "frameLabel": "normal-a",
             "targetElapsedMs": 400,
-            "actualElapsedSeconds": "1.11",
+            "actualElapsedSeconds": "1.133",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/transition/frame-normal-a-400ms.png",
-            "sha256": "84118a0909572ac30a6d6b4cf0c925f8bc1206083a91553c9450f22288d60143",
-            "capturedAtUtc": "2026-08-11T05:42:46.352Z"
+            "sha256": "f7f8922f33b2915d38318af62b62ecf1ffb730e8a872cc2d69541e0ece63af9d",
+            "capturedAtUtc": "2026-08-11T06:49:01.264Z"
         },
         {
             "id": "360x800-transition-normal-b",
@@ -148,10 +148,10 @@
             "passMode": "transition",
             "frameLabel": "normal-b",
             "targetElapsedMs": 2500,
-            "actualElapsedSeconds": "2.503",
+            "actualElapsedSeconds": "2.501",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/transition/frame-normal-b-2500ms.png",
-            "sha256": "0ef48cf89bc6b1474c539cb04dc9162bbeea015499c5c0443e44160de74bd8f0",
-            "capturedAtUtc": "2026-08-11T05:42:47.751Z"
+            "sha256": "266526ea604c1be558acc524f852383b39cd62a93fe1dbea36087fe0bc7347a6",
+            "capturedAtUtc": "2026-08-11T06:49:02.645Z"
         },
         {
             "id": "360x800-transition-reduced-a",
@@ -162,10 +162,10 @@
             "passMode": "transition",
             "frameLabel": "reduced-a",
             "targetElapsedMs": 5200,
-            "actualElapsedSeconds": "5.213",
+            "actualElapsedSeconds": "5.217",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/transition/frame-reduced-a-5200ms.png",
-            "sha256": "c32c8478651cad29eab162a78d4892de86da168885bdab35b2042417c7024eb6",
-            "capturedAtUtc": "2026-08-11T05:42:50.453Z"
+            "sha256": "3f8bbcaaeac29740bbce42739cd2927fbf11e4f2e55643deb6b35aef10845d03",
+            "capturedAtUtc": "2026-08-11T06:49:05.347Z"
         },
         {
             "id": "360x800-transition-reduced-b",
@@ -176,10 +176,10 @@
             "passMode": "transition",
             "frameLabel": "reduced-b",
             "targetElapsedMs": 8000,
-            "actualElapsedSeconds": "8.002",
+            "actualElapsedSeconds": "8.001",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/transition/frame-reduced-b-8000ms.png",
-            "sha256": "eb877efc65af00d3432d8e8e2051da5a32482ec07e68cd18d41de3fca6f103aa",
-            "capturedAtUtc": "2026-08-11T05:42:53.251Z"
+            "sha256": "74d4dd20c99df906b1cc1d87b61307eb1eb9376f58727c369df242490620cf6d",
+            "capturedAtUtc": "2026-08-11T06:49:08.133Z"
         },
         {
             "id": "360x800-transition-normal-c",
@@ -190,10 +190,10 @@
             "passMode": "transition",
             "frameLabel": "normal-c",
             "targetElapsedMs": 10800,
-            "actualElapsedSeconds": "10.813",
+            "actualElapsedSeconds": "10.801",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/360x800/transition/frame-normal-c-10800ms.png",
-            "sha256": "f7948169bee5b574c661883142fa11837494f8e155ab0bcc66d34efbb463abce",
-            "capturedAtUtc": "2026-08-11T05:42:56.051Z"
+            "sha256": "bac26cdba6c27a7d45cccd991d873c711e71396412e2bdd7d5c9510e98e6cb17",
+            "capturedAtUtc": "2026-08-11T06:49:10.935Z"
         },
         {
             "id": "390x844-normal-t0",
@@ -204,10 +204,10 @@
             "passMode": "normal",
             "frameLabel": "t0",
             "targetElapsedMs": 300,
-            "actualElapsedSeconds": "1.294",
+            "actualElapsedSeconds": "1.307",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/normal/frame-t0-300ms.png",
-            "sha256": "36158675ae161c53b1cb7e6e02173d37e8804d837ac680ccd04f9a5863538b60",
-            "capturedAtUtc": "2026-08-11T05:43:16.769Z"
+            "sha256": "d1568cfb2f60287a6913646ec873e1b0df0cc4235cc5d4459811f83aa5692071",
+            "capturedAtUtc": "2026-08-11T06:49:27.502Z"
         },
         {
             "id": "390x844-normal-t1",
@@ -218,10 +218,10 @@
             "passMode": "normal",
             "frameLabel": "t1",
             "targetElapsedMs": 2000,
-            "actualElapsedSeconds": "2.002",
+            "actualElapsedSeconds": "2.006",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/normal/frame-t1-2000ms.png",
-            "sha256": "1594dcf3bc38e82edff93530c6655a6c90c85e73b286c4b34864d13d01cd2969",
-            "capturedAtUtc": "2026-08-11T05:43:17.485Z"
+            "sha256": "2edc67cd18cb71f1cad616723e1063402d9bc1e3755a5cf8c5274768d7da4cb4",
+            "capturedAtUtc": "2026-08-11T06:49:28.202Z"
         },
         {
             "id": "390x844-normal-t2",
@@ -232,10 +232,10 @@
             "passMode": "normal",
             "frameLabel": "t2",
             "targetElapsedMs": 5000,
-            "actualElapsedSeconds": "5.012",
+            "actualElapsedSeconds": "5.008",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/normal/frame-t2-5000ms.png",
-            "sha256": "92b86dc20b68c8bf85a2b5983b0d08673a0ba0cb4ce729998be118568a2601bc",
-            "capturedAtUtc": "2026-08-11T05:43:20.500Z"
+            "sha256": "0106f8244935896d4bf602c2c127387f7733ebd5f63154af73a875d341b493e4",
+            "capturedAtUtc": "2026-08-11T06:49:31.213Z"
         },
         {
             "id": "390x844-normal-t3",
@@ -246,10 +246,10 @@
             "passMode": "normal",
             "frameLabel": "t3",
             "targetElapsedMs": 10000,
-            "actualElapsedSeconds": "10",
+            "actualElapsedSeconds": "10.001",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/normal/frame-t3-10000ms.png",
-            "sha256": "bdc37834cc3c461637a82d7087fa281f20bb4f83f887b6ee4096d534c937867e",
-            "capturedAtUtc": "2026-08-11T05:43:25.483Z"
+            "sha256": "1730832d270d1c15bfcf165edf6ee319f43d7ba47a91718fc5fe545c9f5f3b61",
+            "capturedAtUtc": "2026-08-11T06:49:36.197Z"
         },
         {
             "id": "390x844-reduced-t0",
@@ -260,10 +260,10 @@
             "passMode": "reduced",
             "frameLabel": "t0",
             "targetElapsedMs": 300,
-            "actualElapsedSeconds": "1.02",
+            "actualElapsedSeconds": "1.162",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/reduced/frame-t0-300ms.png",
-            "sha256": "3a11697d7ee4dd8fe6a3ccf60b6dbfd3e4c1f88ec101cdd157c16323ae81b343",
-            "capturedAtUtc": "2026-08-11T05:43:29.952Z"
+            "sha256": "a2e3c8f9497a13a87091f1e465c71b22d67b34b0235d221a7ea365e2dbedc6b3",
+            "capturedAtUtc": "2026-08-11T06:49:40.769Z"
         },
         {
             "id": "390x844-reduced-t1",
@@ -274,10 +274,10 @@
             "passMode": "reduced",
             "frameLabel": "t1",
             "targetElapsedMs": 2000,
-            "actualElapsedSeconds": "2.009",
+            "actualElapsedSeconds": "2.001",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/reduced/frame-t1-2000ms.png",
-            "sha256": "62d727ad6151107ca9e9d9f8149b46448c4577ca1b853f181104aa2dbc1f93b9",
-            "capturedAtUtc": "2026-08-11T05:43:30.937Z"
+            "sha256": "f356009c931651ac29929031acc073c03c35ef14b78615d3c79015020640e52b",
+            "capturedAtUtc": "2026-08-11T06:49:41.613Z"
         },
         {
             "id": "390x844-reduced-t2",
@@ -288,10 +288,10 @@
             "passMode": "reduced",
             "frameLabel": "t2",
             "targetElapsedMs": 5000,
-            "actualElapsedSeconds": "5.012",
+            "actualElapsedSeconds": "5",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/reduced/frame-t2-5000ms.png",
-            "sha256": "8142b8f5dd9734aef81df8d27f724fe386b48cff40537ae5e4256e14e00a44b2",
-            "capturedAtUtc": "2026-08-11T05:43:33.950Z"
+            "sha256": "314f8b347f05b754df7dcd38d57e702a3420280d3dab71262e40a9209cdfe1ca",
+            "capturedAtUtc": "2026-08-11T06:49:44.613Z"
         },
         {
             "id": "390x844-reduced-t3",
@@ -302,10 +302,10 @@
             "passMode": "reduced",
             "frameLabel": "t3",
             "targetElapsedMs": 10000,
-            "actualElapsedSeconds": "10.009",
+            "actualElapsedSeconds": "10.006",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/reduced/frame-t3-10000ms.png",
-            "sha256": "807c19fc8cb86bff3770830928c2dc53e399ec77f929d96279514e1b22661dcd",
-            "capturedAtUtc": "2026-08-11T05:43:38.935Z"
+            "sha256": "baf0634583a6f81c8b28e427669e1be49f7e7e836c8cadbb57e6ed07532da41c",
+            "capturedAtUtc": "2026-08-11T06:49:49.615Z"
         },
         {
             "id": "390x844-transition-normal-a",
@@ -316,10 +316,10 @@
             "passMode": "transition",
             "frameLabel": "normal-a",
             "targetElapsedMs": 400,
-            "actualElapsedSeconds": "1.069",
+            "actualElapsedSeconds": "1.382",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/transition/frame-normal-a-400ms.png",
-            "sha256": "7af7ae05599507b32ac01e190214633dbde8058d84b0f0af2a6c5e93f9342e94",
-            "capturedAtUtc": "2026-08-11T05:43:43.102Z"
+            "sha256": "fa8b6d06d41dee90c7ec3af2fa7503f68a064dc6ab3a9fa70e19af3481cd4838",
+            "capturedAtUtc": "2026-08-11T06:49:55.682Z"
         },
         {
             "id": "390x844-transition-normal-b",
@@ -330,10 +330,10 @@
             "passMode": "transition",
             "frameLabel": "normal-b",
             "targetElapsedMs": 2500,
-            "actualElapsedSeconds": "2.501",
+            "actualElapsedSeconds": "2.502",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/transition/frame-normal-b-2500ms.png",
-            "sha256": "76055a678433b4fdb20b33490731f3f7925b8d4af88fd364193cc38441879367",
-            "capturedAtUtc": "2026-08-11T05:43:44.533Z"
+            "sha256": "f3d9fdf509d8af7436f4aaf143f3a4ad0e30bbce598482f173596548354fe485",
+            "capturedAtUtc": "2026-08-11T06:49:56.803Z"
         },
         {
             "id": "390x844-transition-reduced-a",
@@ -344,10 +344,10 @@
             "passMode": "transition",
             "frameLabel": "reduced-a",
             "targetElapsedMs": 5200,
-            "actualElapsedSeconds": "5.202",
+            "actualElapsedSeconds": "5.205",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/transition/frame-reduced-a-5200ms.png",
-            "sha256": "8142b8f5dd9734aef81df8d27f724fe386b48cff40537ae5e4256e14e00a44b2",
-            "capturedAtUtc": "2026-08-11T05:43:47.233Z"
+            "sha256": "e86a6b3fefadd3b8c795a363e503187f2f66dbb3cc7b31c548c890ab4552604e",
+            "capturedAtUtc": "2026-08-11T06:49:59.514Z"
         },
         {
             "id": "390x844-transition-reduced-b",
@@ -358,10 +358,10 @@
             "passMode": "transition",
             "frameLabel": "reduced-b",
             "targetElapsedMs": 8000,
-            "actualElapsedSeconds": "8.01",
+            "actualElapsedSeconds": "8.005",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/transition/frame-reduced-b-8000ms.png",
-            "sha256": "20ed6565c50d58eae13bcb2316ae4525785d319dfd84a38ea461e368f6a81ae3",
-            "capturedAtUtc": "2026-08-11T05:43:50.037Z"
+            "sha256": "4107c0ce209df60e5420a01149b42469bb136baddb970be22d9ff7d36309dae0",
+            "capturedAtUtc": "2026-08-11T06:50:02.312Z"
         },
         {
             "id": "390x844-transition-normal-c",
@@ -374,8 +374,8 @@
             "targetElapsedMs": 10800,
             "actualElapsedSeconds": "10.801",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/390x844/transition/frame-normal-c-10800ms.png",
-            "sha256": "597725495554cce26cfb3e687b1a9b1d603af5a3a6c6f7dcb7bd9f8f969b9983",
-            "capturedAtUtc": "2026-08-11T05:43:52.832Z"
+            "sha256": "b4406becab9b0c8b46ab63884ac80296a9d8d38cac43e5a109869bfd2ab64bb5",
+            "capturedAtUtc": "2026-08-11T06:50:05.101Z"
         },
         {
             "id": "430x932-normal-t0",
@@ -386,10 +386,10 @@
             "passMode": "normal",
             "frameLabel": "t0",
             "targetElapsedMs": 300,
-            "actualElapsedSeconds": "1.221",
+            "actualElapsedSeconds": "1.282",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/normal/frame-t0-300ms.png",
-            "sha256": "150fc7b59ac14f81fc8c98e9fdf886c2ed05eccbd0e212d0f564471dec246fe0",
-            "capturedAtUtc": "2026-08-11T05:44:10.523Z"
+            "sha256": "819e93d804a4d6002bb0711ee226e148ad455afe3399f59c7dae525167364dca",
+            "capturedAtUtc": "2026-08-11T06:50:23.216Z"
         },
         {
             "id": "430x932-normal-t1",
@@ -400,10 +400,10 @@
             "passMode": "normal",
             "frameLabel": "t1",
             "targetElapsedMs": 2000,
-            "actualElapsedSeconds": "2.002",
+            "actualElapsedSeconds": "2.008",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/normal/frame-t1-2000ms.png",
-            "sha256": "b3409aeac0119e180b8c264f31368dbdfbd41957267bfe3128f7e0c1300ed421",
-            "capturedAtUtc": "2026-08-11T05:44:11.319Z"
+            "sha256": "52e5ebcb97571e05efab505318c1776f612d6c430bc979dd567c114f15cb548e",
+            "capturedAtUtc": "2026-08-11T06:50:23.938Z"
         },
         {
             "id": "430x932-normal-t2",
@@ -414,10 +414,10 @@
             "passMode": "normal",
             "frameLabel": "t2",
             "targetElapsedMs": 5000,
-            "actualElapsedSeconds": "5.004",
+            "actualElapsedSeconds": "5.008",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/normal/frame-t2-5000ms.png",
-            "sha256": "4e48d1c275c1c6054e97c616e3ee9b9461d41e37aa3fb03e42af926fbc8521eb",
-            "capturedAtUtc": "2026-08-11T05:44:14.321Z"
+            "sha256": "4f58c0e79f25c6e663fa3b5a16d58a5b16782e7a151febd36edd0e3b420c342f",
+            "capturedAtUtc": "2026-08-11T06:50:26.934Z"
         },
         {
             "id": "430x932-normal-t3",
@@ -428,10 +428,10 @@
             "passMode": "normal",
             "frameLabel": "t3",
             "targetElapsedMs": 10000,
-            "actualElapsedSeconds": "10.002",
+            "actualElapsedSeconds": "10.009",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/normal/frame-t3-10000ms.png",
-            "sha256": "b48a2f7c2a607cd53d232f302f41ee95d445682002803d763483659b5ad14188",
-            "capturedAtUtc": "2026-08-11T05:44:19.307Z"
+            "sha256": "46f5bdd33d3151d3a3a01aea253b50805dd621de3109266ed867fd923d14d2fa",
+            "capturedAtUtc": "2026-08-11T06:50:31.938Z"
         },
         {
             "id": "430x932-reduced-t0",
@@ -442,10 +442,10 @@
             "passMode": "reduced",
             "frameLabel": "t0",
             "targetElapsedMs": 300,
-            "actualElapsedSeconds": "1.084",
+            "actualElapsedSeconds": "1.087",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/reduced/frame-t0-300ms.png",
-            "sha256": "d5509083b6627f03554c31803a4bf6678d0ce462d345a032d3f61ea7d7e9b4fa",
-            "capturedAtUtc": "2026-08-11T05:44:23.651Z"
+            "sha256": "c51a8b6b420a6f18daf0f78e677d48abba9818a56b734b243f355294f27e628c",
+            "capturedAtUtc": "2026-08-11T06:50:36.364Z"
         },
         {
             "id": "430x932-reduced-t1",
@@ -456,10 +456,10 @@
             "passMode": "reduced",
             "frameLabel": "t1",
             "targetElapsedMs": 2000,
-            "actualElapsedSeconds": "2.011",
+            "actualElapsedSeconds": "2.008",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/reduced/frame-t1-2000ms.png",
-            "sha256": "1544cc2615751f3016d2177f2a254ccde77929c686a6c71002375bff4e5e7ddd",
-            "capturedAtUtc": "2026-08-11T05:44:24.574Z"
+            "sha256": "1dd8e12b8f93d45125e7ff68f6df87560c66f55732043a17279e5e58a8636459",
+            "capturedAtUtc": "2026-08-11T06:50:37.283Z"
         },
         {
             "id": "430x932-reduced-t2",
@@ -470,10 +470,10 @@
             "passMode": "reduced",
             "frameLabel": "t2",
             "targetElapsedMs": 5000,
-            "actualElapsedSeconds": "5.012",
+            "actualElapsedSeconds": "5.009",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/reduced/frame-t2-5000ms.png",
-            "sha256": "1efbd77a965ec7bf655b8eb7308c7123231923bfd3a42982d08bba334f9e086d",
-            "capturedAtUtc": "2026-08-11T05:44:27.586Z"
+            "sha256": "3af299d0ab912d683eff2a1ce7f665d04208908f0d50603566410842e75f54f7",
+            "capturedAtUtc": "2026-08-11T06:50:40.284Z"
         },
         {
             "id": "430x932-reduced-t3",
@@ -484,10 +484,10 @@
             "passMode": "reduced",
             "frameLabel": "t3",
             "targetElapsedMs": 10000,
-            "actualElapsedSeconds": "10.013",
+            "actualElapsedSeconds": "10.001",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/reduced/frame-t3-10000ms.png",
-            "sha256": "f847421a2bbb0e40519d85ef1a190af636fced41a268f92780fb8acca9bee286",
-            "capturedAtUtc": "2026-08-11T05:44:32.584Z"
+            "sha256": "781862d0a60844302864b88b3de7709d7f8ca86ca67f8e0ba80ebf721b8f1481",
+            "capturedAtUtc": "2026-08-11T06:50:45.282Z"
         },
         {
             "id": "430x932-transition-normal-a",
@@ -498,10 +498,10 @@
             "passMode": "transition",
             "frameLabel": "normal-a",
             "targetElapsedMs": 400,
-            "actualElapsedSeconds": "1.05",
+            "actualElapsedSeconds": "1.094",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/transition/frame-normal-a-400ms.png",
-            "sha256": "a57f1327181291e67b62fda2a9132b3b67457e7c9c8e3f5a15843d8449a70cd2",
-            "capturedAtUtc": "2026-08-11T05:44:36.853Z"
+            "sha256": "96c94c142a277d0d69fd962c2fbefa1a724e1b6f7b8f12e6036d73dc1ec51498",
+            "capturedAtUtc": "2026-08-11T06:50:49.668Z"
         },
         {
             "id": "430x932-transition-normal-b",
@@ -512,10 +512,10 @@
             "passMode": "transition",
             "frameLabel": "normal-b",
             "targetElapsedMs": 2500,
-            "actualElapsedSeconds": "2.505",
+            "actualElapsedSeconds": "2.504",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/transition/frame-normal-b-2500ms.png",
-            "sha256": "741e2df78ac1a5a1f090457852a19267ce527e9244da1186576c691c671a9518",
-            "capturedAtUtc": "2026-08-11T05:44:38.307Z"
+            "sha256": "3c851025c48599c8f2006d284da1744bef6924e43314efe56a21be3718e4a6bb",
+            "capturedAtUtc": "2026-08-11T06:50:51.083Z"
         },
         {
             "id": "430x932-transition-reduced-a",
@@ -526,10 +526,10 @@
             "passMode": "transition",
             "frameLabel": "reduced-a",
             "targetElapsedMs": 5200,
-            "actualElapsedSeconds": "5.205",
+            "actualElapsedSeconds": "5.202",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/transition/frame-reduced-a-5200ms.png",
-            "sha256": "1efbd77a965ec7bf655b8eb7308c7123231923bfd3a42982d08bba334f9e086d",
-            "capturedAtUtc": "2026-08-11T05:44:41.006Z"
+            "sha256": "6353e513fbdfecd259186557729cca3ce18679744036541bfad31ee583317055",
+            "capturedAtUtc": "2026-08-11T06:50:53.784Z"
         },
         {
             "id": "430x932-transition-reduced-b",
@@ -540,10 +540,10 @@
             "passMode": "transition",
             "frameLabel": "reduced-b",
             "targetElapsedMs": 8000,
-            "actualElapsedSeconds": "8.005",
+            "actualElapsedSeconds": "8.011",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/transition/frame-reduced-b-8000ms.png",
-            "sha256": "31f83514fa7a856c8c25b12d251d56e0778b5f7b6e990e56c48104be2b113f7a",
-            "capturedAtUtc": "2026-08-11T05:44:43.817Z"
+            "sha256": "b251dd8bfcb877fa85644575cc2573ee57ee8ac50263506750e703ce38b28d16",
+            "capturedAtUtc": "2026-08-11T06:50:56.598Z"
         },
         {
             "id": "430x932-transition-normal-c",
@@ -554,10 +554,10 @@
             "passMode": "transition",
             "frameLabel": "normal-c",
             "targetElapsedMs": 10800,
-            "actualElapsedSeconds": "10.805",
+            "actualElapsedSeconds": "10.801",
             "file": "docs/design-targets/generated/top-living-night-v3/runtime-captures/current/430x932/transition/frame-normal-c-10800ms.png",
-            "sha256": "12fe96e5d13a10772c1014a6e96b27e8f4c5e0ba3e3c6e6cc80df44707673b53",
-            "capturedAtUtc": "2026-08-11T05:44:46.606Z"
+            "sha256": "ccf459c395928bc66b67abaf005e8d50b3c2e67527b73149e58fe58442880e8c",
+            "capturedAtUtc": "2026-08-11T06:50:59.380Z"
         }
     ]
 }
