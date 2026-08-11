@@ -1,0 +1,43 @@
+name: Era Household Ordinary Life Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/core5-era-character-master-v1.md'
+      - 'docs/era-family-generation-lens-v1.md'
+      - 'docs/era-major-incident-family-lens-atlas-v1.md'
+      - 'docs/era-satire-cross-generation-dialogue-bible-v1.md'
+      - 'docs/era-household-ordinary-life-reservoir-v1.md'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/eraHouseholdOrdinaryLifeReservoir.ts'
+      - 'scripts/quality/check-era-household-ordinary-life-reservoir.ts'
+      - '.github/workflows/era-household-ordinary-life-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/core5-era-character-master-v1.md'
+      - 'docs/era-family-generation-lens-v1.md'
+      - 'docs/era-major-incident-family-lens-atlas-v1.md'
+      - 'docs/era-satire-cross-generation-dialogue-bible-v1.md'
+      - 'docs/era-household-ordinary-life-reservoir-v1.md'
+      - 'src/game/data/core5EraCanon.ts'
+      - 'src/game/data/eraHouseholdOrdinaryLifeReservoir.ts'
+      - 'scripts/quality/check-era-household-ordinary-life-reservoir.ts'
+      - '.github/workflows/era-household-ordinary-life-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Era household ordinary-life reservoir
+        run: node --experimental-strip-types scripts/quality/check-era-household-ordinary-life-reservoir.ts
