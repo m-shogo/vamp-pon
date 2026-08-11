@@ -1,4 +1,4 @@
-# ヨルノシルベ — World Setting Conflict Register v2
+# ヨルノシルベ — World Setting Conflict Register v3
 
 Date: 2026-08-11  
 Status: **CONTRADICTION CONTROL / MASTER-ALIGNED / ZERO UNRESOLVED BLOCKERS**
@@ -21,7 +21,7 @@ Status: **CONTRADICTION CONTROL / MASTER-ALIGNED / ZERO UNRESOLVED BLOCKERS**
 
 | ID | Topic | Status | Current guard |
 |---|---|---|---|
-| CF-001 | Current21の年代差 | GUARDED | Reality eraとDream共存を分離。Dream内では時間タグが弱い。 |
+| CF-001 | Current21年代差 / Core5 distinct era | GUARDED | Reality eraとDream共存を分離。**Core5は5/5で別Reality era**。誰がどの年代かはOpen。Dream内では時間タグが弱い。 |
 | CF-002 | 夢世界 vs 最終mechanism | OPEN_HUMAN | **ヨルノシルベ=夢世界は決定**。起源 / 共有mechanism / 最終正体だけOpen。 |
 | CF-003 | Game Over / Death | GUARDED | Game Over≠Reality death、Retry≠蘇生、帰還はWaking。 |
 | CF-004 | 死者がDreamへ現れるか | OPEN_HUMAN | 生者 / 過去時点本人 / Record残響をHuman decisionまで分離。 |
@@ -33,13 +33,13 @@ Status: **CONTRADICTION CONTROL / MASTER-ALIGNED / ZERO UNRESOLVED BLOCKERS**
 | CF-010 | Gameplay economy / Reality economy | GUARDED | Run資源≠現実通貨。Dreamの基本衣食住に通常経済を必須化しない。 |
 | CF-011 | Belief / metaphysical truth | GUARDED | 星 / 宗教 / 噂は真相証明ではない。 |
 | CF-012 | Major family facts | OPEN_HUMAN | 日常home textureは作れるが重大死別 / 親子等は勝手にLOCKしない。 |
-| CF-013 | exact height / age / era | OPEN_HUMAN | 相対bandで制作し、exact値はHuman review後。 |
+| CF-013 | exact height / age / era | OPEN_HUMAN | 相対bandで制作し、exact値はHuman review後。Core5もdistinctだけHardで個人割当はここに含めOpen。 |
 | CF-014 | 黒耀化 / 病気・憑依 | GUARDED | 本人の長所 / 願いの過剰化。外部悪人格にしない。 |
 | CF-015 | Named Object lineage | CANDIDATE_DEPENDENT | 似ているだけでsameObjectにしない。stable ID / evidence優先。 |
 | CF-016 | Future15 promotion | GUARDED | World利用だけでCurrentへ昇格しない。 |
 | CF-017 | Generated visual / Character Canon | GUARDED | 生成事故detailをCanonへ逆流させない。 |
 | CF-018 | P2 / runtime | GUARDED | World設定追加≠runtime完成。 |
-| CF-019 | Dream materialization / 万能願望 | GUARDED | 食 / 飲 / 日用品 / 休息は補完可。心 / 同意 / 記憶真実 / 黒耀化 / 現世事件は願いで解決不可。 |
+| CF-019 | Dream provisioning / 直接生成 / 万能願望 | GUARDED | **食 / 飲 / 日用品は食糧庫・冷蔵庫・棚・厨房等の収納を介し「最初から入っていた」ように見つかる。手元 / 空中への直接food spawnはSuperseded。** 心 / 同意 / 記憶真実 / Unique evidence / 黒耀化 / 現世事件は補完不可。 |
 | CF-020 | 同じ星 / 年代別星座 | GUARDED | 星が同じでも結び方 / 名 / 物語 / 存在が年代で変わり得る。最終原因はMystery。 |
 | CF-021 | 群青残響録 / 固定時代Boss | GUARDED | 群青残響録=大事件中心人物 / 人物群の後世的記録名。1時代1人 / 固定人数 / 必須戦闘Boss / 必須悪役にしない。 |
 | CF-022 | 朔夜座 / 群青残響録 hierarchy | GUARDED | 上司 / 部下 / Creator関係へ固定せず時代ごとに協力・利用・対立等を変えられる。 |
@@ -72,6 +72,7 @@ UNRESOLVED_BLOCKER   = 0
 3. 朔夜座のFounder / 絶対Leaderを置くか
 4. 主要Characterの重大Family fact
 5. exact age / height / exact era
+6. **Core5 5人それぞれのexact person-to-era mapping**
 
 加えてMasterでOpen指定された:
 
@@ -81,6 +82,7 @@ UNRESOLVED_BLOCKER   = 0
 - 星座増減の最終原因
 - 星獣との最終関係
 - 各大事件に戦闘Bossを置くか
+- 飲酒 / 喫煙CharacterのFinal age / era整合とperson assignment
 
 は勝手にCanon化しない。
 
@@ -92,7 +94,7 @@ UNRESOLVED_BLOCKER   = 0
 
 1. Masterを旧案へ戻さない。
 2. 既存stable資産を即削除しない。
-3. 本RegisterへConflict laneを追加。
+3. 本RegisterへConflict laneを追加または既存laneを強化。
 4. Derivedで安全に解ければ`GUARDED`。
 5. 高影響なら`OPEN_HUMAN`。
 6. `UNRESOLVED_BLOCKER > 0`のままFinal Character Master / Final Canonへ進めない。
