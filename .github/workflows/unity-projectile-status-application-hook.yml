@@ -1,0 +1,69 @@
+name: unity-projectile-status-application-hook
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/unity/u47-simulator-evidence-sources.ts'
+      - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
+      - 'scripts/quality/check-unity-enemy-status-owner.ts'
+      - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
+      - 'scripts/quality/unity-projectile-status-application-hook/**'
+      - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
+      - 'docs/unity-projectile-status-application-hook-v1.md'
+      - 'docs/unity-enemy-status-owner-v1.md'
+      - '.github/workflows/unity-projectile-status-application-hook.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusApplicationRequest.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/unity/u47-simulator-evidence-sources.ts'
+      - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
+      - 'scripts/quality/check-unity-enemy-status-owner.ts'
+      - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
+      - 'scripts/quality/unity-projectile-status-application-hook/**'
+      - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
+      - 'docs/unity-projectile-status-application-hook-v1.md'
+      - 'docs/unity-enemy-status-owner-v1.md'
+      - '.github/workflows/unity-projectile-status-application-hook.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Re-check cross-runtime Status policy foundation
+        run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-runtime-foundation.ts
+      - name: Compile and execute Status foundation
+        run: |
+          dotnet build scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --no-build
+      - name: Compile and execute typed Status application request
+        run: |
+          dotnet build scripts/quality/unity-projectile-status-application-hook/EnemyStatusApplicationRequest.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-projectile-status-application-hook/EnemyStatusApplicationRequest.Contract.csproj --configuration Release --no-build
+      - name: Re-check enemy Status ownership boundary
+        run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-owner.ts
+      - name: Check optional projectile Status hook
+        run: node --experimental-strip-types scripts/quality/check-unity-projectile-status-application-hook.ts
+      - name: Verify historical U47 manifest stays behavior-equivalent while live callers remain zero
+        run: node --experimental-strip-types scripts/quality/check-unity-u47-simulator-manifest.ts
+      - name: Confirm Selected16 admission remains fail-closed
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
