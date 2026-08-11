@@ -266,6 +266,35 @@ internal static class Program
             "non-finite final anchor must fail closed");
         Require(lossState.Phase == stablePhase, "invalid completed-state call must not fabricate new motion state");
 
+        // Invalid selection input is different from a valid selection with no eligible waypoint.
+        var invalidBeginState = new ReturnCompassNeedlePrototypeState();
+        Require(!invalidBeginState.TryBegin(
+                spawn,
+                directOutbound,
+                new[] { directOutbound, noWaypointCandidate },
+                new[] { 100f, 1f },
+                5f,
+                1f,
+                10f,
+                U2EnemyPriorityDistanceTieBreak.StableInputOrder,
+                out _),
+            "invalid return range must fail closed rather than silently falling back to direct return");
+        Require(!invalidBeginState.IsActive && invalidBeginState.ReturnWaypointTarget == null,
+            "invalid return range must not start motion");
+        Require(!invalidBeginState.TryBegin(
+                spawn,
+                directOutbound,
+                new[] { directOutbound, noWaypointCandidate },
+                new[] { 100f, 1f },
+                0f,
+                5f,
+                10f,
+                (U2EnemyPriorityDistanceTieBreak)999,
+                out _),
+            "invalid tie-break must fail closed rather than silently falling back to direct return");
+        Require(!invalidBeginState.IsActive && invalidBeginState.ReturnWaypointTarget == null,
+            "invalid tie-break must not start motion");
+
         state.Reset();
         Require(!state.IsActive && !state.IsComplete && state.ReturnWaypointTarget == null &&
                 state.OutboundUniqueHitCount == 0 && state.ReturnUniqueHitCount == 0,
