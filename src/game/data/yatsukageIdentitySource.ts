@@ -85,7 +85,7 @@ const seeds: readonly YatsukageCallNameEntry[] = [
     runtimeAutoPromotionAllowed: false,
   },
   {
-    enemyId: 'omburo_seam',
+    enemyId: 'omburo_repair_seam',
     currentEnemyName: 'オンブロ 継ぎ目',
     callName: 'ツグリ',
     callNameReading: 'つぐり',
@@ -107,7 +107,7 @@ const seeds: readonly YatsukageCallNameEntry[] = [
     runtimeAutoPromotionAllowed: false,
   },
   {
-    enemyId: 'omburo_name_tag',
+    enemyId: 'omburo_nameplate',
     currentEnemyName: 'オンブロ 名札',
     callName: 'ペタ',
     callNameReading: 'ぺた',
