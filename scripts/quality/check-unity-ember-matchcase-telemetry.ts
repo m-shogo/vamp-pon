@@ -20,7 +20,8 @@ for (const token of [
   'public int StatusApplyAttemptCount { get; private set; }',
   'public int StatusAppliedCount { get; private set; }',
   'public int StatusBlockedByInternalCooldownCount { get; private set; }',
-  'telemetry?.RecordStatusResult',
+  'Action<EnemyStatusApplyResult> resultObserver = null;',
+  'resultObserver = telemetry.RecordStatusResult;',
   'telemetry?.RecordInvocation(maxTargets, fired)',
   'public void Reset()',
 ]) {
