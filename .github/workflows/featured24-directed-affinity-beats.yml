@@ -1,0 +1,35 @@
+name: Featured24 Directed Affinity Beats
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/featuredRelationshipAffinityBeatSource.ts'
+      - 'src/game/data/pairwiseRelationshipEventLedgerSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'docs/featured24-directed-affinity-beats-v1.md'
+      - 'scripts/quality/check-featured-relationship-affinity-beats.ts'
+      - '.github/workflows/featured24-directed-affinity-beats.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/featuredRelationshipAffinityBeatSource.ts'
+      - 'src/game/data/pairwiseRelationshipEventLedgerSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'docs/featured24-directed-affinity-beats-v1.md'
+      - 'scripts/quality/check-featured-relationship-affinity-beats.ts'
+      - '.github/workflows/featured24-directed-affinity-beats.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Featured24 directed Affinity beats
+        run: node --experimental-strip-types scripts/quality/check-featured-relationship-affinity-beats.ts
