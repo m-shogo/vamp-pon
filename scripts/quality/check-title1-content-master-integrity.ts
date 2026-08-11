@@ -24,6 +24,10 @@ assert(snapshot.characters.allPairDirectedSpeechLaneCount === 420, 'all Current2
 assert(snapshot.characters.allPairFeaturedSpeechLaneCount === 48, 'Featured24 must retain 48 authored directed speech overrides');
 assert(snapshot.characters.allPairBaselineSpeechLaneCount === 372, 'remaining 186 pair must expose 372 safe fallback directions');
 assert(snapshot.characters.allPairBaselineAddressPrototypeCount === 372, 'baseline default addresses must remain prototype/non-Canon');
+assert(snapshot.characters.featuredAffinityArcCount === 24, `Featured Affinity arcs must cover Current24, got ${snapshot.characters.featuredAffinityArcCount}`);
+assert(snapshot.characters.featuredAffinityBeatCount === 72, `Featured24 must expose 72 authored Affinity beats, got ${snapshot.characters.featuredAffinityBeatCount}`);
+assert(snapshot.characters.featuredAffinityDownOutcomeCount >= 20, 'Featured Affinity must contain real downward/friction outcomes');
+assert(snapshot.characters.featuredAffinityUnchangedOutcomeCount >= 4, 'Featured Affinity must preserve some UNCHANGED climax outcomes');
 assert(snapshot.characters.groupInteractionSceneCount === 12, 'Current21 group interaction lane count must remain 12');
 assert(snapshot.characters.groupIntermissionPlacementCount === 24, 'group scenes must have first + repeat placement');
 assert(snapshot.characters.allPairBondLaneCount === 210, `Current21 all pair Bond lanes must be 210, got ${snapshot.characters.allPairBondLaneCount}`);
@@ -118,6 +122,7 @@ assert(!snapshot.promotionBoundary.transformationRuntimeAutoPromotionAllowed, 'T
 assert(!snapshot.promotionBoundary.rewardCollectionRuntimeAutoPromotionAllowed, 'Reward/Collection Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.relationshipSpeechRuntimeAutoPromotionAllowed, 'Relationship Speech Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.allPairDirectedSpeechRuntimeAutoPromotionAllowed, 'All-pair directed speech prototype must not auto-promote runtime');
+assert(!snapshot.promotionBoundary.featuredRelationshipAffinityRuntimeAutoPromotionAllowed, 'Featured24 Affinity beat Content must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.groupIntermissionRuntimeAutoPromotionAllowed, 'Group intermission Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.pairwiseBondRuntimeAutoPromotionAllowed, 'Pairwise Bond Content Master must not auto-promote runtime');
 assert(!snapshot.promotionBoundary.pairwiseRelationshipEventLedgerRuntimeAutoPromotionAllowed, 'Pairwise relationship event ledger must not auto-promote runtime');
@@ -132,7 +137,7 @@ assert(!snapshot.promotionBoundary.yatsukagePairDynamicsRuntimeAutoPromotionAllo
 assert(!snapshot.promotionBoundary.contentMasterMayFreezeRuntimeCompletionByItself, 'Content Master must not freeze runtime completion automatically');
 
 const authorityPaths = Object.values(title1ContentMasterAuthorities);
-assert(authorityPaths.length === 26, `Title1 Content Master should expose 26 authority lanes, got ${authorityPaths.length}`);
+assert(authorityPaths.length === 27, `Title1 Content Master should expose 27 authority lanes, got ${authorityPaths.length}`);
 assert(new Set(authorityPaths).size === authorityPaths.length, 'Title1 Content Master authority paths must be unique');
 assert(authorityPaths.every((path) => path.startsWith('src/game/data/')), 'machine authority paths must remain in src/game/data');
 
