@@ -48,16 +48,11 @@ IMPLEMENTED:
 6. `KNOCKBACK_VECTOR`
 7. `CONE_QUERY`
 8. `SLAM_WAVE_QUERY`
+9. `BREAK_STAGGER_APPLICATION`
 
-現在 **8 implemented**。
+現在 **9 implemented**。
 
-MISSINGには、各未実装archetype primitiveに加えて:
-
-- `BREAK_STAGGER_APPLICATION`
-
-を明示する。
-
-現在 **14 missing**。
+現在 **13 missing**。
 
 ## Admission decisions
 
@@ -69,7 +64,7 @@ required shared runtime capabilityが1つ以上MISSING。
 
 shared primitiveはすべて揃っているが、Selected16固有caller proofが無い。
 
-このdecisionは将来のanti-auto-promotion gateとして残す。
+primitive完成だけで武器を自動昇格させないanti-auto-promotion gate。
 
 ### `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
@@ -89,6 +84,10 @@ implementation-review admitted:
 - `bellows_fan`
 
 caller proof registryもこの2本だけ。
+
+primitive-complete but caller-proof missing:
+
+- `pavement_hammer`
 
 ## `ember_matchcase`
 
@@ -143,7 +142,7 @@ Boundary:
 
 `PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE`
 
-## `pavement_hammer` — audit-corrected blocker
+## `pavement_hammer` — primitive complete / caller pending
 
 Content Authority:
 
@@ -155,53 +154,41 @@ Content Authority:
 - directional short pavement cracks
 - **high break/stagger**
 
-shared runtime evidence:
-
-- `SLAM_WAVE_QUERY`: IMPLEMENTED
-- `KNOCKBACK_VECTOR`: IMPLEMENTED
-- `STATUS_APPLICATION`: IMPLEMENTED
-
-しかしU2 runtimeを再監査したところ:
-
-- HP damage APIはある
-- Status stateはある
-- knockbackはある
-- **break gauge / stagger gauge / poise / break-stagger application APIは存在しない**
-
-ことを確認した。
-
-そのため新しいrequired capability:
-
-`BREAK_STAGGER_APPLICATION = MISSING`
-
-を追加する。
-
-現在のrequired capabilities:
+required capabilities:
 
 1. `SLAM_WAVE_QUERY`
 2. `KNOCKBACK_VECTOR`
 3. `BREAK_STAGGER_APPLICATION`
 4. `STATUS_APPLICATION`
 
+shared runtime evidence:
+
+- `SLAM_WAVE_QUERY`: IMPLEMENTED
+- `KNOCKBACK_VECTOR`: IMPLEMENTED
+- `BREAK_STAGGER_APPLICATION`: IMPLEMENTED
+- `STATUS_APPLICATION`: IMPLEMENTED
+
 現在のdecision:
 
-`BLOCKED_MISSING_UNITY_PRIMITIVES`
+`BLOCKED_MISSING_UNITY_CALLER_PROOF`
 
-missing:
+missing shared primitive:
 
-- `BREAK_STAGGER_APPLICATION`
+- none
 
-caller proofもまだ無い。
+caller proof:
 
-### Why this correction matters
+- **MISSING**
 
-#194で `SLAM_WAVE_QUERY` を実装した直後は、当時のAdmissionモデル上 `pavement_hammer` がprimitive-completeに見えた。
+つまりshared mechanicsは揃ったが、まだ `PavementHammerPrototypeRuntime` は存在せず、implementation-review Admissionへは上げない。
 
-しかしmechanical identityの **high break/stagger** をruntimeが表現できないままcallerだけ作ると、見た目だけ似た偽物になる。
+### Why this boundary matters
 
-したがって「queryは正しいがWeapon要件が1つ不足していた」と修正する。
+#194で `SLAM_WAVE_QUERY` を実装した時点ではbreak/staggerが実体化しておらず、mechanical identityの **high break/stagger** をruntimeが表現できなかった。
 
-この種の監査修正を優先し、早すぎるAdmissionをしない。
+今回 `BREAK_STAGGER_APPLICATION` を本物の共有mechanicとして追加したことでprimitive blockerは解消した。ただしquery + knockback + break/stagger + Statusが揃っただけでは武器固有の適用順序・caller tuning・telemetryを証明できない。
+
+そのため次のblockerをcaller proofへ正しく移す。
 
 ## Shared primitive boundaries
 
@@ -225,6 +212,7 @@ Weapon固有のStatus tuningはcaller supplied。
 - caller distance displacement
 - z preserve
 - zero/null/untargetable fail closed
+- generic post-displacement signal
 
 velocity / stun / duration / default distanceを持たない。
 
@@ -257,22 +245,33 @@ EARTH / EXPOSED / damage / break / stagger / knockback / timing / VFXを持た�
 
 ### `BREAK_STAGGER_APPLICATION`
 
-**MISSING**。
+`U2EnemyBreakStaggerRuntime` + `U2EnemyBreakStaggerState` + pooled `U2EnemyBreakStaggerDriver`。
 
-runtime semanticsをまだ決めていないため、名前だけIMPLEMENTEDにしない。
+Semantics:
 
-今後最低限検討する:
+1. HPとは独立したbreak accumulation
+2. caller supplied `breakAmount`
+3. caller supplied `breakThreshold`
+4. threshold到達時だけstagger trigger
+5. threshold超過分はresidual gaugeとして保持
+6. caller supplied `staggerDurationSeconds`
+7. active staggerは通常追跡移動を抑止
+8. `KNOCKBACK_VECTOR` の外力移動はstagger中も保持
+9. dying / pooled disableでstate clear
+10. invalid / null / untargetable inputはfail closed
 
-1. HPとは別meterか
-2. threshold結果
-3. accumulation / recovery
-4. boss / elite resistance
-5. hard-control Statusとの境界
-6. damage / Status / knockbackとの適用順序
-7. pool reset
-8. telemetry
+Shared primitiveが持たないもの:
 
-Canon balance値はshared primitiveから分離する。
+- Pavement Hammer名 / EARTH / EXPOSED
+- damage
+- Canon break amount / threshold / duration
+- passive recovery / decay
+- boss / elite resistance
+- VFX / SFX / camera shake
+- telemetry policy
+- live registry admission
+
+Boss/elite resistanceや自然回復が必要になった場合は、武器値をここへ埋めず別policy layerとして追加する。
 
 ## Live boundary
 
@@ -318,13 +317,11 @@ Runtime不足はRuntime不足として記録する。
 
 ### Pavement Hammer
 
-1. `BREAK_STAGGER_APPLICATION` semantics設計
-2. shared runtime + executable contract
-3. `PavementHammerPrototypeRuntime` caller proof
-4. EXPOSED / knockback / damage / break-stagger / wave timing authority分離
-5. caller-owned telemetry
-6. runtime capture
-7. mobile pavement-crack visual
-8. implementation-review Admission再判定
+1. `PavementHammerPrototypeRuntime` caller proof
+2. EXPOSED / knockback / damage / break-stagger / wave timing authority分離
+3. caller-owned telemetry
+4. runtime capture
+5. mobile pavement-crack visual
+6. implementation-review Admission再判定
 
 数値balanceは最後まで **PROTOTYPE_TUNING_NOT_CANON** として分離する。
