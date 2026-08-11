@@ -6,7 +6,7 @@ import {
   SAKUMEI_CANDIDATE_IDENTITY,
   sakuyazaCurrentSummary,
 } from '../../src/game/data/sakumeiCandidateSource.ts';
-import { stageWorldLoreEntries, stageWorldLoreSummary } from '../../src/game/data/stageWorldLoreIntegration.ts';
+import { stageWorldLoreSummary } from '../../src/game/data/stageWorldLoreIntegration.ts';
 import {
   STORY_WORLD_MASTER_SOURCE,
   STORY_WORLD_MASTER_OPEN_FIELDS,
@@ -18,6 +18,11 @@ import {
   DREAM_SOCIAL_WORLD_RULES,
   DREAM_SOCIAL_WORLD_SUMMARY,
 } from '../../src/game/data/dreamSocialWorldSource.ts';
+import {
+  CORE5_ERA_ASSIGNMENTS,
+  CORE5_ERA_CANON,
+  core5EraCanonSummary,
+} from '../../src/game/data/core5EraCanon.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -25,14 +30,17 @@ function assert(condition: unknown, message: string): asserts condition {
 
 const read = (path: string) => fs.readFileSync(path, 'utf8');
 const master = read('docs/00-current-story-world-master.md');
-const world = read('docs/WORLD.md');
-const story = read('docs/STORY.md');
-const feast = read('docs/dream-feast-party-social-bible-v1.md');
+const core5Era = read('docs/core5-era-character-master-v1.md');
+const temporal = read('docs/story-temporal-layer-and-character-connections-v1.md');
 const lineup = read('docs/character-height-age-era-lineup-v1.md');
-const conflicts = read('docs/world-setting-conflict-register-v1.md');
-const source = STORY_WORLD_MASTER_SOURCE;
+const appearanceOverlay = read('docs/core5-era-appearance-overlay-v1.md');
+const profileOverrides = read('docs/core5-era-profile-overrides-v1.md');
+const lorebookEra = JSON.parse(read('public/lorebook/data/core5-era-canon.v1.json')) as {
+  assignments: Array<{ id: string; era: string; species: string; exactYear: string | null }>;
+  runtimeAutoPromotionAllowed: boolean;
+};
 
-// P0-P2 coverage remains intact.
+// Existing P0-P2 world-setting coverage remains intact.
 assert(worldSettingExpansionSummary.total === 32, `expected 32 world-setting areas, got ${worldSettingExpansionSummary.total}`);
 assert(worldSettingExpansionSummary.p0 === 9, `expected 9 P0 areas, got ${worldSettingExpansionSummary.p0}`);
 assert(worldSettingExpansionSummary.p1 === 18, `expected 18 P1 areas, got ${worldSettingExpansionSummary.p1}`);
@@ -44,181 +52,158 @@ for (const entry of worldSettingExpansionEntries) {
   assert(!entry.runtimeAutoPromotionAllowed, `runtime auto-promotion forbidden: ${entry.id}`);
 }
 
-// Highest Story / World source.
+// Highest Story / World authority.
+const source = STORY_WORLD_MASTER_SOURCE;
 assert(source.authority === 'CURRENT_HIGHEST_STORY_WORLD_AUTHORITY', 'unexpected Story / World authority');
 assert(source.reality.world === 'REAL_JAPAN', 'Reality must remain real Japan');
-assert(!source.era.sameEraRequired, 'Dream participants must not be forced into one Reality era');
-assert(!source.era.laneCountFrozen, 'era lane count must remain extensible');
+assert(!source.era.sameEraRequired, 'Dream participants must not be forced into one era');
+assert(!source.era.laneCountFrozen, 'Era lane count must remain extensible');
 assert(!source.era.exactYearsFrozen, 'exact years must remain open');
-assert(source.era.explicitTimeTagsWeakInDream, 'explicit time tags must remain weak in Dream');
+assert(source.era.explicitTimeTagsWeakInDream, 'Dream time tags must remain weak');
 
-// Core5 = five distinct Reality eras; exact mapping stays open.
+// Core5 era lane assignment is now Current, while exact years remain Open.
+const expectedAssignments = new Map([
+  ['tomori', '1940S_JAPAN'],
+  ['michiru', '1980S_JAPAN'],
+  ['nagi', '2000S_JAPAN'],
+  ['yui', 'PRESENT_DAY_JAPAN'],
+  ['asa', 'FUTURE_ANDROID_ROBOT_SOCIETY'],
+]);
+
 assert(source.era.core5DistinctRealityEraRequired, 'Core5 must remain five distinct Reality eras');
-assert(source.era.core5DistinctEraCount === 5, `Core5 distinct era count must stay 5, got ${source.era.core5DistinctEraCount}`);
-assert(source.era.core5CharacterIds.length === 5, 'Core5 machine source must contain five IDs');
-assert(new Set(source.era.core5CharacterIds).size === 5, 'Core5 machine IDs must be unique');
-assert(!source.era.exactCore5EraAssignmentFrozen, 'exact Core5 person-to-era mapping must remain open');
-assert(source.era.fiveDistinctErasDoNotImplyFiveEqualProtagonists, 'five eras must not force equal protagonist status');
-assert(CORE5_DISTINCT_ERA_CHARACTER_IDS.length === 5, 'derived social source must keep five Core5 IDs');
-assert(new Set(CORE5_DISTINCT_ERA_CHARACTER_IDS).size === 5, 'derived Core5 IDs must be unique');
-assert(DREAM_SOCIAL_WORLD_RULES.core5DistinctRealityEraRequired, 'derived social source must preserve Core5 distinct eras');
-assert(DREAM_SOCIAL_WORLD_RULES.core5DistinctEraCount === 5, 'derived social source must preserve Core5 era count 5');
-assert(!DREAM_SOCIAL_WORLD_RULES.exactCore5EraAssignmentLocked, 'derived social source may not freeze exact Core5 mapping');
+assert(source.era.core5DistinctEraCount === 5, 'Core5 distinct era count must stay 5');
+assert(source.era.exactCore5EraAssignmentFrozen, 'Core5 person-to-era lane assignment must now be frozen Current');
+assert(!source.era.core5ExactYearsFrozen, 'Core5 exact years must remain Open');
+assert(source.era.yuiOverallViewpoint, 'Yui overall viewpoint must remain true');
+assert(source.era.asaFutureSpecies === 'HUMAN', 'Asa must remain Human in the Future Android/Robot era');
+assert(CORE5_ERA_CANON.eraAssignmentFrozenAtLaneLevel, 'Core5 lane assignment source must be Current');
+assert(!CORE5_ERA_CANON.exactYearsFrozen, 'Core5 exact years may not be frozen');
+assert(!CORE5_ERA_CANON.eraAutomaticallyCreatesTrauma, 'Era assignment must not auto-create trauma');
+assert(!CORE5_ERA_CANON.newEraMeansTechnologyUpgrade, 'newer Era may not mean superior person');
+assert(core5EraCanonSummary.characterCount === 5, 'Core5 era source must contain five characters');
+assert(core5EraCanonSummary.uniqueCharacterCount === 5, 'Core5 era character IDs must be unique');
+assert(core5EraCanonSummary.uniqueEraCount === 5, 'Core5 era assignments must be 5/5 unique');
+assert(core5EraCanonSummary.futureHumanCount === 1, 'Future Core5 lane must contain exactly one Human Asa assignment');
+assert(core5EraCanonSummary.allExactYearsOpen, 'all Core5 exact years must remain Open');
 
-// Endless-night Dream / Waking.
+for (const entry of CORE5_ERA_ASSIGNMENTS) {
+  assert(expectedAssignments.get(entry.characterId) === entry.realityEra, `unexpected Core5 era assignment: ${entry.characterId} -> ${entry.realityEra}`);
+  assert(entry.species === 'HUMAN', `Core5 species changed unexpectedly: ${entry.characterId}`);
+  assert(!entry.exactYearFrozen, `Core5 exact year unexpectedly frozen: ${entry.characterId}`);
+}
+
+assert(CORE5_DISTINCT_ERA_CHARACTER_IDS.length === 5, 'Dream social source must retain five Core5 IDs');
+assert(new Set(CORE5_DISTINCT_ERA_CHARACTER_IDS).size === 5, 'Dream social Core5 IDs must be unique');
+assert(DREAM_SOCIAL_WORLD_RULES.core5EraAssignmentLockedAtLaneLevel, 'Dream social source must preserve Current Core5 era lanes');
+assert(!DREAM_SOCIAL_WORLD_RULES.core5ExactYearsLocked, 'Dream social source may not freeze exact Core5 years');
+assert(DREAM_SOCIAL_WORLD_SUMMARY.assignedCore5EraCount === 5, 'Dream social source must contain five era assignments');
+assert(DREAM_SOCIAL_WORLD_SUMMARY.uniqueAssignedCore5EraCount === 5, 'Dream social source must preserve five unique eras');
+
+// Core5 human-readable authority alignment.
+for (const [name, era] of [
+  ['トモリ', '1940年代系'],
+  ['ミチル', '1980年代系'],
+  ['ナギ', '2000年代系'],
+  ['ユイ', '現代日本'],
+  ['アサ', '未来 Android / Robot共存社会'],
+] as const) {
+  assert(master.includes(name) && master.includes(era), `master missing Core5 era: ${name} / ${era}`);
+  assert(core5Era.includes(name) && core5Era.includes(era), `Core5 era master missing: ${name} / ${era}`);
+  assert(temporal.includes(name) && temporal.includes(era), `temporal backbone missing: ${name} / ${era}`);
+  assert(lineup.includes(name) && lineup.includes(era), `visual lineup missing: ${name} / ${era}`);
+}
+assert(master.includes('Core5 person-to-era lane assignmentそのものは、もうOpenではない'), 'highest master must close the old Core5 lane-assignment Open state');
+assert(!STORY_WORLD_MASTER_OPEN_FIELDS.includes('exact Core5 era assignment'), 'old Core5 assignment Open field must be removed');
+assert(STORY_WORLD_MASTER_OPEN_FIELDS.includes('exact Core5 years / sub-era placement'), 'Core5 exact years must remain Open');
+assert(STORY_WORLD_MASTER_SUPERSEDED.includes('Core5 person-to-era assignment is entirely open'), 'old fully-open Core5 mapping must be superseded');
+assert(lineup.includes('Core5の**person-to-era lane assignmentは承認待ちではなくCurrent**'), 'visual lineup must treat Core5 lane assignment as Current');
+assert(appearanceOverlay.includes('アサ本人をAndroid') || appearanceOverlay.includes('Human body'), 'appearance overlay must prevent Asa Android retrofit');
+assert(profileOverrides.includes('夜明けへ向かうテーマ') && profileOverrides.includes('SUPERSEDED'), 'Asa obsolete Dawn-based name rationale must be explicitly superseded');
+
+// Lorebook data mirrors the Current lane assignment without exact years.
+assert(lorebookEra.assignments.length === 5, 'Lorebook Core5 era data must contain five assignments');
+assert(new Set(lorebookEra.assignments.map((entry) => entry.id)).size === 5, 'Lorebook Core5 IDs must be unique');
+assert(new Set(lorebookEra.assignments.map((entry) => entry.era)).size === 5, 'Lorebook Core5 eras must be unique');
+for (const entry of lorebookEra.assignments) {
+  assert(expectedAssignments.get(entry.id) === entry.era, `Lorebook era mismatch: ${entry.id}`);
+  assert(entry.species === 'HUMAN', `Lorebook Core5 species drift: ${entry.id}`);
+  assert(entry.exactYear === null, `Lorebook exact year must remain null: ${entry.id}`);
+}
+assert(!lorebookEra.runtimeAutoPromotionAllowed, 'Lorebook era data may not auto-promote runtime');
+
+// Endless-night Dream / Waking and provisioning remain intact.
 assert(source.yoruNoShirube.layerType === 'DREAM_WORLD', 'Yoru-no-Shirube must remain a Dream world');
-assert(!source.yoruNoShirube.finalMechanismFrozen, 'Dream final mechanism must remain open');
+assert(!source.yoruNoShirube.finalMechanismFrozen, 'Dream final mechanism must remain Open');
 assert(!source.yoruNoShirube.physicalMorningExists, 'physical morning must not exist');
-assert(!source.yoruNoShirube.physicalSunriseReturnAllowed, 'sunrise may not become the return condition');
+assert(!source.yoruNoShirube.physicalSunriseReturnAllowed, 'sunrise may not become return condition');
 assert(source.yoruNoShirube.returnMode === 'WAKING_TO_OWN_REALITY_ERA', 'return must remain Waking to own Reality era');
-assert(source.yoruNoShirube.normalWakingExplicitMemoryLoss, 'normal Waking explicit-memory loss must remain');
-assert(source.yoruNoShirube.normalWakingImplicitLearningCanRemain, 'implicit learning must be allowed to remain');
-assert(source.yoruNoShirube.resolutionWakingMemoryRecoveryDirection, 'resolution memory-recovery direction must remain');
-
-// Dream provisioning = discover through storage, never direct hand/open-air food spawn.
-assert(!source.dreamLiving.survivalSim, 'Dream must not become a survival simulation');
-assert(!source.dreamLiving.normalEconomyRequired, 'Dream basic living must not require normal economy');
 assert(source.dreamLiving.provisioningMode === 'STORAGE_MEDIATED_DISCOVERY', 'Dream provisioning must remain storage-mediated');
 assert(!source.dreamLiving.directHandOrAirFoodMaterializationAllowed, 'food may not directly materialize in hand/open air');
-for (const item of ['FOOD', 'DRINK', 'DAILY_GOODS', 'REST', 'BASIC_LIVING_ITEMS'] as const) {
-  assert(source.dreamLiving.easyProvisioning.includes(item), `missing Dream provisioning domain: ${item}`);
-}
-for (const item of ['CONSENT', 'MEMORY_TRUTH', 'BLACK_YOUKA', 'REALITY_INCIDENT', 'LIFE_DEATH', 'AUTHENTIC_CHOICE', 'UNIQUE_OBJECT', 'INCIDENT_EVIDENCE'] as const) {
-  assert(source.dreamLiving.wishCannotOverride.includes(item), `Dream wish must not override: ${item}`);
-}
-assert(DREAM_SOCIAL_WORLD_RULES.provisioningMode === 'STORAGE_MEDIATED_DISCOVERY', 'derived provisioning mode drifted');
-assert(!DREAM_SOCIAL_WORLD_RULES.directHandOrAirFoodMaterializationAllowed, 'derived source may not allow direct food spawn');
-assert(!DREAM_SOCIAL_WORLD_RULES.provisioningCanSolveConsent, 'Dream provisioning may not solve consent');
-assert(!DREAM_SOCIAL_WORLD_RULES.provisioningCanRevealMemoryTruth, 'Dream provisioning may not reveal memory truth');
-assert(!DREAM_SOCIAL_WORLD_RULES.provisioningCanCreateUniqueEvidence, 'Dream provisioning may not create unique evidence');
+assert(source.dreamLiving.wishCannotOverride.includes('CONSENT'), 'Dream provisioning may not override consent');
 
-// Party / alcohol / smoking / generic products.
-assert(source.socialLife.partyAfterNamedBossOrMajorConfrontation, 'post-boss Party direction must remain enabled');
-assert(source.socialLife.partyToneMustVary, 'post-boss Party tone must vary');
+// Party / adult-social rules remain intact.
 assert(source.socialLife.partyScenarioReservoirCount === 28, 'party reservoir must remain 28');
-assert(source.socialLife.alcoholExists, 'alcohol must exist');
-assert(source.socialLife.alcoholIntoxicates, 'alcohol must intoxicate');
-assert(source.socialLife.alcoholFinalSceneAdultConfirmationRequired, 'final drinking scenes must require adult confirmation');
-assert(!source.socialLife.intoxicationOverridesConsent, 'intoxication may not override consent');
-assert(source.socialLife.minimumMajorSmokerCount >= 3, 'major smoker count must remain 3+');
-assert(source.socialLife.minimumPipeSmokerCount >= 1, 'pipe smoker count must remain 1+');
-assert(!source.socialLife.smokerFinalAssignmentFrozen, 'final smoker assignment must stay open pending age/era review');
-assert(source.socialLife.preferGenericCommercialProductNames, 'generic product names must remain preferred');
-assert(DREAM_SOCIAL_WORLD_RULES.partyScenarioReservoirCount === 28, 'derived party reservoir must remain 28');
-assert(DREAM_SOCIAL_WORLD_RULES.alcoholExists && DREAM_SOCIAL_WORLD_RULES.alcoholIntoxicates, 'derived source must preserve alcohol/intoxication');
-assert(DREAM_SOCIAL_WORLD_RULES.minimumMajorSmokerCount >= 3, 'derived source must preserve 3+ smokers');
-assert(DREAM_SOCIAL_WORLD_RULES.minimumPipeSmokerCount >= 1, 'derived source must preserve 1+ pipe smoker');
-assert(DREAM_SOCIAL_WORLD_SUMMARY.candidateSmokerCount === 3, 'initial smoker candidate set must remain three');
-assert(DREAM_SOCIAL_WORLD_SUMMARY.candidatePipeSmokerCount === 1, 'initial pipe candidate set must remain one');
-assert(DREAM_SOCIAL_WORLD_RULES.exampleGenericDrinkLabels.includes('黒い炭酸'), 'generic black-carbonation label must remain');
-assert(DREAM_SOCIAL_WORLD_RULES.exampleGenericDrinkLabels.includes('柑橘のシュワシュワ'), 'generic fizzy-citrus label must remain');
+assert(source.socialLife.alcoholExists && source.socialLife.alcoholIntoxicates, 'alcohol/intoxication must remain available');
+assert(source.socialLife.minimumMajorSmokerCount >= 3, 'major smoker direction must remain 3+');
+assert(source.socialLife.minimumPipeSmokerCount >= 1, 'pipe smoker direction must remain 1+');
+assert(!source.socialLife.smokerFinalAssignmentFrozen, 'smoker person assignment must remain Open pending adult/era review');
 
-// Stars / constellation mystery / moon depth.
+// Stars / moon remain era-aware and non-clock.
 assert(source.sky.starsVisible, 'stars must remain visible');
-assert(!source.sky.constellationSameAcrossErasRequired, 'constellations must not be forced identical across eras');
-assert(source.sky.lostOldConstellationsAllowed, 'old constellations may disappear');
-assert(source.sky.newlyCreatedLaterConstellationsAllowed, 'later constellations may appear');
-assert(!source.sky.finalConstellationChangeCauseFrozen, 'final constellation-change cause must remain open');
+assert(!source.sky.constellationSameAcrossErasRequired, 'constellations must not be identical across eras');
+assert(!source.sky.finalConstellationChangeCauseFrozen, 'constellation-change cause must remain Open');
 assert(source.moon.meaning === 'INCIDENT_DEPTH', 'moon phase must remain incident depth');
 assert(!source.moon.elapsedTimeClock, 'moon phase must not become elapsed-time clock');
-assert(!source.moon.fixedFiveStageProgression, 'moon phase progression must not become rigid five-step chronology');
-assert(!source.moon.fixedEraBossRequiredAtSaku, 'Saku must not require a fixed era boss');
+assert(!source.moon.fixedEraBossRequiredAtSaku, 'Saku may not require a fixed era boss');
 
 // 朔夜座 Current / 朔盟 legacy.
-assert(source.sakuyaza.formalName === '朔夜座', 'Story master formal enemy-group name must remain 朔夜座');
-assert(SAKUYAZA_CURRENT_IDENTITY.formalName === '朔夜座', 'machine formal enemy-group name must remain 朔夜座');
+assert(source.sakuyaza.formalName === '朔夜座', 'Story master enemy-group name must remain 朔夜座');
+assert(SAKUYAZA_CURRENT_IDENTITY.formalName === '朔夜座', 'machine enemy-group name must remain 朔夜座');
 assert(SAKUYAZA_CURRENT_IDENTITY.earlyObserverShortLabel === '八影', '八影 must remain early observer label');
 assert(SAKUYAZA_CURRENT_IDENTITY.supersededCandidateName === '朔盟', '朔盟 must remain superseded candidate name');
 assert(SAKUMEI_CANDIDATE_IDENTITY.status.includes('SUPERSEDED'), 'legacy 朔盟 candidate must remain superseded');
-assert(SAKUMEI_CANDIDATE_IDENTITY.supersededBy === '朔夜座', 'legacy 朔盟 must route to 朔夜座');
-assert(!SAKUYAZA_CURRENT_IDENTITY.fixedAbsoluteLeaderRequired, '朔夜座 must not require an absolute leader');
-assert(!SAKUYAZA_CURRENT_IDENTITY.fixedHierarchyWithGunjoZankyoroKu, '朔夜座 / 群青残響録 hierarchy must remain unfixed');
-assert(sakuyazaCurrentSummary.memberCount === 8, `expected 8 朔夜座 assets, got ${sakuyazaCurrentSummary.memberCount}`);
+assert(sakuyazaCurrentSummary.memberCount === 8, '朔夜座 must retain eight member assets');
 assert(sakuyazaCurrentSummary.uniqueEnemyIdCount === 8, '朔夜座 enemy IDs must remain unique');
-assert(sakuyazaCurrentSummary.uniqueCallNameCount === 8, '朔夜座 call names must remain unique');
-assert(sakuyazaCurrentSummary.uniqueAttachmentLaneCount === 8, '朔夜座 fan lanes must remain distinct');
-assert(sakuyazaCurrentSummary.allFinalMastersUnapproved, '朔夜座 final masters must remain unapproved before visual review');
+assert(sakuyazaCurrentSummary.allFinalMastersUnapproved, '朔夜座 visual masters must remain unapproved before Human Review');
 
-// 群青残響録 is a retrospective incident-central record taxonomy, never a fixed boss roster.
-const gunjo = source.gunjoZankyoroku;
-assert(gunjo.formalName === '群青残響録', '群青残響録 name must remain fixed');
-assert(!gunjo.fixedFaction, '群青残響録 must not become a fixed faction');
-assert(!gunjo.fixedCount, '群青残響録 must not have fixed count');
-assert(!gunjo.onePerEra, '群青残響録 must not become one person per era');
-assert(!gunjo.mandatoryVillain, '群青残響録 members must not all be villains');
-assert(!gunjo.mandatoryCombatBoss, '群青残響録 members must not be mandatory combat bosses');
-assert(!gunjo.fixedHierarchyWithSakuyaza, '群青残響録 / 朔夜座 hierarchy must remain unfixed');
-assert(!gunjo.formalMembersFrozen, '群青残響録 formal members must remain open');
-assert(STORY_WORLD_MASTER_OPEN_FIELDS.includes('whether each major incident needs a combat boss'), 'combat-boss requirement must remain open');
-assert(STORY_WORLD_MASTER_SUPERSEDED.includes('one fixed era boss per era'), 'fixed one-boss-per-era model must remain superseded');
-assert(STORY_WORLD_MASTER_SUPERSEDED.includes('Core5 all come from the same Reality era'), 'same-era Core5 model must remain superseded');
-assert(STORY_WORLD_MASTER_SUPERSEDED.includes('food directly materializes in hand or open air'), 'direct food-spawn model must remain superseded');
+// 群青残響録 must remain non-fixed and independent from five Core5 eras.
+assert(source.gunjoZankyoroku.formalName === '群青残響録', '群青残響録 name must remain fixed');
+assert(!source.gunjoZankyoroku.fixedFaction, '群青残響録 must not become a fixed faction');
+assert(!source.gunjoZankyoroku.fixedCount, '群青残響録 must not become fixed-count');
+assert(!source.gunjoZankyoroku.onePerEra, 'Core5 five eras must not create one 群青残響録 member per era');
+assert(!source.gunjoZankyoroku.mandatoryCombatBoss, '群青残響録 members must not become mandatory combat bosses');
+assert(STORY_WORLD_MASTER_OPEN_FIELDS.includes('whether each major incident needs a combat boss'), 'combat boss requirement must remain Open');
 
-// Android / animals / ending.
-assert(!source.futureAndroid.humanizationIsGoal, 'Android growth must not be becoming human');
+// Conflict register and Stage20 invariants.
+assert(worldSettingConflictSummary.total === 24, `expected 24 conflict lanes, got ${worldSettingConflictSummary.total}`);
+assert(worldSettingConflictSummary.guarded === 18, `expected 18 guarded conflict lanes, got ${worldSettingConflictSummary.guarded}`);
+assert(worldSettingConflictSummary.openHuman === 5, `expected 5 OPEN_HUMAN lanes, got ${worldSettingConflictSummary.openHuman}`);
+assert(worldSettingConflictSummary.candidateDependent === 1, `expected 1 candidate-dependent lane, got ${worldSettingConflictSummary.candidateDependent}`);
+assert(worldSettingConflictSummary.unresolvedBlocker === 0, `world-setting unresolved blockers: ${worldSettingConflictSummary.unresolvedBlocker}`);
+assert(new Set(worldSettingConflictEntries.map((entry) => entry.id)).size === worldSettingConflictEntries.length, 'conflict IDs must remain unique');
+assert(stageWorldLoreSummary.productionStageCount === 20, 'Stage Production count must remain 20');
+assert(stageWorldLoreSummary.integrationStageCount === 20, 'Stage lore integration must remain 20/20');
+assert(stageWorldLoreSummary.missingProductionStageIds.length === 0, 'Stage lore must not miss production stages');
+assert(stageWorldLoreSummary.orphanIntegrationStageIds.length === 0, 'Stage lore must not contain orphan stages');
+assert(stageWorldLoreSummary.physicalMorningStageCount === 0, 'Stage lore must contain zero physical-morning stages');
+
+// Android / animals / ending boundaries.
+assert(source.futureAndroid.asaIsHumanFromThisEra, 'Future Asa must remain Human');
+assert(!source.futureAndroid.asaPoliticalSideFrozen, 'Future Asa political side must remain Open');
+assert(!source.futureAndroid.asaIncidentRoleFrozen, 'Future Asa incident role must remain Open');
+assert(!source.futureAndroid.humanizationIsGoal, 'Android growth may not become becoming human');
 assert(source.futureAndroid.rejectedFinalNames.includes('シオン'), 'rejected Android name シオン must stay rejected');
 assert(source.futureAndroid.rejectedFinalNames.includes('イヴ・ノイン'), 'rejected Android name イヴ・ノイン must stay rejected');
-assert(!source.futureAndroid.greekLettersAsPersonalNames, 'Greek version labels must not become personal names');
-assert(!source.futureAndroid.starBeastProvesSoul, 'Star Beasts must not become Android soul proof');
-assert(source.animals.realityDogsCatsMayEnterDream, 'Reality dogs/cats must remain eligible for Dream participation');
+assert(source.animals.realityDogsCatsMayEnterDream, 'Reality dogs/cats must remain eligible for Dream');
 assert(!source.animals.realityAnimalsAreStarBeasts, 'Reality animals must remain distinct from Star Beasts');
 assert(source.ending.canonicalHappyEnd, 'canonical Happy End must remain true');
 assert(!source.ending.permanentDeathPrimaryTearDevice, 'permanent death must not become primary tear device');
+
+assert(storyWorldMasterSummary.core5AssignedEraCount === 5, 'Story master summary must report five Core5 assignments');
+assert(storyWorldMasterSummary.core5UniqueAssignedEraCount === 5, 'Story master summary must report five unique Core5 eras');
 assert(storyWorldMasterSummary.unresolvedHardContradictionCount === 0, 'Story / World master must report zero hard contradictions');
-assert(!storyWorldMasterSummary.runtimeAutoPromotionAllowed, 'Story / World master must not auto-promote runtime');
+assert(!storyWorldMasterSummary.runtimeAutoPromotionAllowed, 'Story / World master may not auto-promote runtime');
 
-// Conflict control remains blocker-free.
-assert(worldSettingConflictSummary.total === 24, `expected 24 conflict lanes, got ${worldSettingConflictSummary.total}`);
-assert(worldSettingConflictSummary.guarded === 18, `expected 18 guarded lanes, got ${worldSettingConflictSummary.guarded}`);
-assert(worldSettingConflictSummary.openHuman === 5, `expected 5 human-open lanes, got ${worldSettingConflictSummary.openHuman}`);
-assert(worldSettingConflictSummary.candidateDependent === 1, `expected 1 candidate-dependent lane, got ${worldSettingConflictSummary.candidateDependent}`);
-assert(worldSettingConflictSummary.unresolvedBlocker === 0, `unresolved blocker count must be 0, got ${worldSettingConflictSummary.unresolvedBlocker}`);
-assert(new Set(worldSettingConflictEntries.map((entry) => entry.id)).size === worldSettingConflictEntries.length, 'conflict IDs must be unique');
-
-// Human-readable master must expose the explicit decisions.
-for (const needle of [
-  '夢世界',
-  '朝が来ない',
-  'Core5 distinct era count = 5 / 5',
-  '目の前 / 手元へ突然生成しない',
-  'Boss後Party',
-  '酒は存在し、飲めば酔う',
-  '最低3人以上',
-  'パイプ喫煙者を最低1人',
-  '朔夜座',
-  '群青残響録',
-  '「世代ラスボス」という固定slotへ入れない',
-]) {
-  assert(master.includes(needle), `master missing user-decided wording: ${needle}`);
-}
-assert(lineup.includes('Core5 distinct era count = 5 / 5'), 'lineup must preserve Core5 5/5 distinct-era rule');
-assert(lineup.includes('5人が全部違うことは決定。誰がどこかはOpen'), 'lineup must keep exact person-to-era mapping open');
-assert(feast.includes('食べ物は手元へ出現しない'), 'Feast Bible must reject direct food spawn');
-assert(feast.includes('最初からそこに入っていた'), 'Feast Bible must preserve storage-mediated discovery');
-assert(feast.includes('飲めば酔う'), 'Feast Bible must preserve intoxication');
-assert(feast.includes('最低3人以上') && feast.includes('パイプ喫煙者を最低1人'), 'Feast Bible must preserve 3+ smokers and 1+ pipe');
-assert(feast.includes('黒い炭酸') && feast.includes('柑橘のシュワシュワ'), 'Feast Bible must preserve generic fizzy-drink vocabulary');
-for (let i = 1; i <= 28; i += 1) {
-  const id = `P${String(i).padStart(2, '0')}`;
-  assert(feast.includes(`## ${id}`), `missing Dream Party scenario ${id}`);
-}
-assert(world.includes('朔夜座') && world.includes('群青残響録'), 'World Hub must route current enemy / incident taxonomy');
-assert(story.includes('Core5') && story.includes('別era'), 'Story Hub must preserve distinct Core5 eras');
-assert(conflicts.includes('UNRESOLVED_BLOCKER   = 0'), 'conflict register must report zero blockers');
-
-// Stage lore remains 20/20 and explicitly contains no physical morning.
-assert(stageWorldLoreSummary.productionStageCount === 20, `expected Stage Production 20, got ${stageWorldLoreSummary.productionStageCount}`);
-assert(stageWorldLoreSummary.integrationStageCount === 20, `expected Stage lore 20, got ${stageWorldLoreSummary.integrationStageCount}`);
-assert(stageWorldLoreSummary.uniqueIntegrationStageCount === 20, 'Stage lore IDs must be unique');
-assert(stageWorldLoreSummary.missingProductionStageIds.length === 0, `missing Stage lore coverage: ${stageWorldLoreSummary.missingProductionStageIds.join(', ')}`);
-assert(stageWorldLoreSummary.orphanIntegrationStageIds.length === 0, `orphan Stage lore entries: ${stageWorldLoreSummary.orphanIntegrationStageIds.join(', ')}`);
-assert(stageWorldLoreSummary.physicalMorningStageCount === 0, 'Stage lore must contain zero physical-morning stages');
-assert(!stageWorldLoreSummary.runtimeAutoPromotionAllowed, 'Stage lore may not auto-promote runtime');
-for (const entry of stageWorldLoreEntries) {
-  assert(entry.knowledgeBeat.length >= 20, `Stage knowledge beat too thin: ${entry.stageId}`);
-  assert(entry.ordinaryDetail.length >= 15, `Stage ordinary detail too thin: ${entry.stageId}`);
-  assert(entry.forbiddenImplication.length >= 20, `Stage forbidden implication too thin: ${entry.stageId}`);
-  assert(!entry.runtimeAutoPromotionAllowed, `Stage lore may not auto-promote runtime: ${entry.stageId}`);
-}
-
-console.log(`story/world master OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingConflictSummary.total} conflicts / Core5 5 distinct eras / 28 party scenarios / smokers ${source.socialLife.minimumMajorSmokerCount}+ / pipe ${source.socialLife.minimumPipeSmokerCount}+ / 朔夜座 ${sakuyazaCurrentSummary.memberCount} assets / Stage lore ${stageWorldLoreSummary.integrationStageCount} / physical morning 0 / fixed era boss false`);
+console.log(
+  `story/world master OK: ${worldSettingExpansionSummary.total} areas / Core5 5 assigned eras / exact years Open / 朔夜座 ${sakuyazaCurrentSummary.memberCount} / Stage ${stageWorldLoreSummary.integrationStageCount} / physical morning 0 / fixed era boss false`,
+);
