@@ -1,0 +1,33 @@
+name: Pairwise Bond Trio Battle
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'docs/pairwise-bond-trio-battle-v1.md'
+      - 'scripts/quality/check-pairwise-bond-trio-battle.ts'
+      - '.github/workflows/pairwise-bond-trio-battle.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/pairwiseBondTrioBattleSource.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'docs/pairwise-bond-trio-battle-v1.md'
+      - 'scripts/quality/check-pairwise-bond-trio-battle.ts'
+      - '.github/workflows/pairwise-bond-trio-battle.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Current21 all-pair Bond / 3-person battle relationship architecture
+        run: node --experimental-strip-types scripts/quality/check-pairwise-bond-trio-battle.ts
