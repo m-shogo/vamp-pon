@@ -175,8 +175,8 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
             }
 
             // U2BattleController performs ordinary pursuit in Update. Restoring the captured
-            // position in LateUpdate suppresses that voluntary movement while staggered.
-            // Shared knockback calls NotifyExternalDisplacement so external pushes survive.
+            // position in LateUpdate suppresses voluntary pursuit while staggered. Knockback's
+            // generic displacement signal refreshes this anchor so external pushes survive.
             transform.position = frozenPosition;
             state.Tick(Time.deltaTime);
         }
@@ -194,6 +194,11 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
     public static class U2EnemyBreakStaggerRuntime
     {
         public const string TuningAuthority = "CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON";
+
+        static U2EnemyBreakStaggerRuntime()
+        {
+            U2EnemyKnockbackRuntime.EnemyDisplaced += NotifyExternalDisplacement;
+        }
 
         public static bool TryApply(
             U2EnemyActor enemy,
@@ -242,7 +247,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.Primitives
             return true;
         }
 
-        public static void NotifyExternalDisplacement(U2EnemyActor enemy)
+        private static void NotifyExternalDisplacement(U2EnemyActor enemy)
         {
             if (enemy == null)
             {
