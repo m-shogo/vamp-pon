@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "executed": false,
+  "result": "NOT_RUN",
+  "sourceCommit": "",
+  "generatedAtUtc": "",
+  "weaponId": "pavement_hammer",
+  "runtimeBoundary": "PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE",
+  "tuningAuthority": "TEST_ONLY_PROTOTYPE_TUNING_NOT_CANON",
+  "applicationOrder": "QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER",
+  "firstInvocationSelected": 0,
+  "secondInvocationSelected": 0,
+  "defeatedTargetPostDamageEffectsSkipped": false,
+  "survivorsExposedAfterFirstInvocation": false,
+  "statusCooldownIndependentOnSecondInvocation": false,
+  "firstInvocationBreakAccumulated": 0,
+  "secondInvocationResidualBreak": 0,
+  "secondInvocationStaggerSeconds": 0,
+  "knockbackBeforeStaggerAnchor": false,
+  "telemetry": {
+    "invocationCount": 0,
+    "selectedTargetCount": 0,
+    "damageAttemptCount": 0,
+    "defeatedTargetCount": 0,
+    "statusApplyAttemptCount": 0,
+    "statusAppliedCount": 0,
+    "statusBlockedByInternalCooldownCount": 0,
+    "knockbackAttemptCount": 0,
+    "knockbackAppliedCount": 0,
+    "breakStaggerAttemptCount": 0,
+    "breakStaggerAppliedCount": 0,
+    "staggerTriggeredCount": 0
+  },
+  "sourceSha256": {
+    "caller": "",
+    "slamWave": "",
+    "knockback": "",
+    "breakStagger": "",
+    "statusState": "",
+    "statusRequest": ""
+  },
+  "error": ""
+}
