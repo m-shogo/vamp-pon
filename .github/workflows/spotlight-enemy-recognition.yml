@@ -1,0 +1,35 @@
+name: Spotlight Enemy Recognition
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/spotlightEnemyRecognitionSource.ts'
+      - 'src/game/data/spotlightEnemyCharacterSource.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'docs/spotlight-enemy-recognition-production-v1.md'
+      - 'scripts/quality/check-spotlight-enemy-recognition.ts'
+      - '.github/workflows/spotlight-enemy-recognition.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/spotlightEnemyRecognitionSource.ts'
+      - 'src/game/data/spotlightEnemyCharacterSource.ts'
+      - 'src/game/data/enemyProductionDatabase.ts'
+      - 'docs/spotlight-enemy-recognition-production-v1.md'
+      - 'scripts/quality/check-spotlight-enemy-recognition.ts'
+      - '.github/workflows/spotlight-enemy-recognition.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Spotlight8 recognition production guide
+        run: node --experimental-strip-types scripts/quality/check-spotlight-enemy-recognition.ts
