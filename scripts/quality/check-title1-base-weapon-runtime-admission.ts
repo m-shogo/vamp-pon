@@ -6,6 +6,7 @@ import {
   title1BaseWeaponRuntimeAdmissionEntries,
   title1BaseWeaponRuntimeAdmissionSummary,
 } from '../../src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts';
+import { CURRENT_RUNTIME_WEAPON_EFFECT_TYPES } from '../../src/game/domain/weaponRuntimeCapabilities.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -14,10 +15,18 @@ function assert(condition: unknown, message: string): asserts condition {
 assert(baseWeaponSelectionSummary.selectedCandidateCount === 16, `Title1 selected Base candidates must remain 16, got ${baseWeaponSelectionSummary.selectedCandidateCount}`);
 assert(title1BaseWeaponRuntimeAdmissionEntries.length === 16, `runtime admission must cover Selected16, got ${title1BaseWeaponRuntimeAdmissionEntries.length}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.selectedContentWeaponCount === 16, 'runtime admission summary must bind to Selected16');
-assert(title1BaseWeaponRuntimeAdmissionSummary.admittedRuntimeCount === 0, `no Selected16 weapon may enter U47 runtime yet, got admitted=${title1BaseWeaponRuntimeAdmissionSummary.admittedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.blockedRuntimeCount === 16, 'all Selected16 must remain blocked until their required primitives exist');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedPrimitiveCount === 3, 'U47 baseline should expose exactly three primitive capabilities in this admission model');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingPrimitiveCount >= 15, 'advanced Title1 weapon runtime still needs multiple primitive executors');
+assert(title1BaseWeaponRuntimeAdmissionSummary.admittedRuntimeCount === 0, `no Selected16 weapon may enter Unity runtime yet, got admitted=${title1BaseWeaponRuntimeAdmissionSummary.admittedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.blockedRuntimeCount === 16, 'all Selected16 must remain blocked until their required Unity primitives exist');
+
+assert(CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length === 5, `Web runtime effect authority must remain explicit; got ${CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length}`);
+assert(CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.join(',') === 'projectile,radial_random_projectile,bouncing_projectile,ground_area,orbit', `unexpected Web runtime effect surface: ${CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.join(',')}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypeCount === 5, 'admission summary must derive Web effect count from existing authority');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypes === CURRENT_RUNTIME_WEAPON_EFFECT_TYPES, 'admission must reuse, not copy, the Web runtime capability authority');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypeCount === 2, 'Unity U47 importer/executor surface should remain Projectile/GroundArea only');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypes.join(',') === 'Projectile,GroundArea', 'unexpected Unity executor surface');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 3, 'Unity baseline should expose exactly three primitive capabilities in this admission model');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount >= 15, 'advanced Title1 weapon runtime still needs multiple Unity primitive executors');
+assert(!title1BaseWeaponRuntimeAdmissionSummary.webRuntimeSupportEqualsUnityRuntimeSupport, 'Web effect support must never be treated as Unity implementation evidence');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.fakeProjectileFallbackAllowed, 'unsupported archetypes must never be faked as generic projectile');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.contentSelectionMayBeDowngradedToFitRuntime, 'Content selection may not be weakened just to fit old runtime');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'admission source must never auto-promote runtime');
@@ -29,9 +38,9 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   assert(!seenIds.has(entry.weaponId), `duplicate runtime admission entry: ${entry.weaponId}`);
   seenIds.add(entry.weaponId);
   assert(entry.requiredCapabilities.length >= 1, `${entry.weaponId} needs explicit runtime capability requirements`);
-  assert(entry.missingCapabilities.length >= 1, `${entry.weaponId} should remain blocked while U47 supports only Projectile/GroundArea`);
+  assert(entry.missingCapabilities.length >= 1, `${entry.weaponId} should remain blocked while Unity U47 supports only Projectile/GroundArea executors`);
   assert(entry.decision === 'BLOCKED_MISSING_RUNTIME_PRIMITIVES', `${entry.weaponId} must fail closed before implementation`);
-  assert(!entry.mayEnterRuntimeRegistry, `${entry.weaponId} must not enter live registry before required primitives exist`);
+  assert(!entry.mayEnterRuntimeRegistry, `${entry.weaponId} must not enter live Unity registry before required primitives exist`);
   assert(entry.contentSelectionPreserved, `${entry.weaponId} Content Master selection must remain preserved`);
   assert(entry.runtimeStatus === 'NOT_IMPLEMENTED', `${entry.weaponId} must not claim runtime implementation`);
 }
@@ -58,11 +67,11 @@ const importerSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Pr
 
 assert(definitionSource.includes('public enum WeaponEffectType { Projectile, GroundArea }'), 'admission model must be revisited when Unity WeaponEffectType expands beyond Projectile/GroundArea');
 assert(importerSource.includes('source.levels[0].effect.type == "projectile" ? WeaponEffectType.Projectile : WeaponEffectType.GroundArea'), 'U47 importer executor mapping changed; update runtime capability evidence');
-assert(importerSource.includes('is not ("projectile" or "ground_area")'), 'U47 importer should still fail closed on unsupported effect types');
+assert(importerSource.includes('is not ("projectile" or "ground_area")'), 'U47 importer should still fail closed on unsupported Unity effect types');
 assert(coordinatorSource.includes('definition.EffectType == WeaponEffectType.Projectile'), 'U47 coordinator projectile executor evidence missing');
 assert(coordinatorSource.includes('CountAreas(owned.Id)'), 'U47 coordinator circular GroundArea executor evidence missing');
 assert(battleSource.includes('public bool FireGameplayProjectile(float damage, int pierce)'), 'nearest-target projectile API evidence missing');
-assert(battleSource.includes('var target = FindNearestEnemy();'), 'current projectile executor must still use nearest-target selection');
+assert(battleSource.includes('var target = FindNearestEnemy();'), 'current Unity projectile executor must still use nearest-target selection');
 assert(!coordinatorSource.includes('WeaponEffectType.Cone'), 'Cone executor unexpectedly exists; admission capability model needs update');
 assert(!coordinatorSource.includes('WeaponEffectType.Tether'), 'Tether executor unexpectedly exists; admission capability model needs update');
 
@@ -75,6 +84,8 @@ assert(statusBlock && statusBlock.blockedWeaponCount >= 12, `STATUS_APPLICATION 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
 for (const token of [
   'Selected16',
+  'Web runtime = 5',
+  'Unity runtime = 2',
   'Projectile / GroundArea',
   'admitted=0',
   'blocked=16',
@@ -94,8 +105,10 @@ console.log(JSON.stringify({
   selected16: title1BaseWeaponRuntimeAdmissionSummary.selectedContentWeaponCount,
   admitted: title1BaseWeaponRuntimeAdmissionSummary.admittedRuntimeCount,
   blocked: title1BaseWeaponRuntimeAdmissionSummary.blockedRuntimeCount,
-  implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedPrimitiveCount,
-  missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingPrimitiveCount,
+  webRuntimeEffectTypes: title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypes,
+  unityExecutorTypes: title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypes,
+  implementedUnityPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
+  missingUnityPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
   highestLeverageMissing: title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.slice(0, 6),
   fakeProjectileFallbackAllowed: false,
 }, null, 2));
