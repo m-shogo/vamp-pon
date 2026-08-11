@@ -18,13 +18,14 @@ Codex側で実行してください。モデルはAuto任せにせず、その�
 
 | ファイル | 寸法(px) | グリッド | セル | 用途 |
 |---|---|---|---|---|
-| `10-fire-flipbook-atlas.png` | **1448 x 1086** | **4列 x 3行 = 12コマ** (各 362 x 362) | flipbook | 焚き火本体。runtime: `AtlasCell(frame, 4, 3)`、frame 0→11 の ping-pong。左上=frame0、右下=frame11。 |
+| `10-fire-flipbook-atlas.png` | **1448 x 1086** | **4列 x 3行 = 12コマ** (各 362 x 362) | flipbook | 焚き火本体。runtime: `AtlasCell(frame, 4, 3)`。左上=frame0、右下=frame11。visible cadenceは `TopLivingNightFireCadenceDirector` が**隣接セルだけ**を前後に辿り、hold / rare interior reversalを混ぜるため、全隣接ペアが双方向に自然につながること。 |
 | `11-fire-glow-mask.png` | **430 x 932** | 全画面mask | luminance-additive | 焚き火まわりの暖色glow。**輝度マスク**（明るい所が光る）。画面全体を照らしすぎない。 |
 | `12-smoke-atlas.png` | **1536 x 1024** | **3列 x 2行 = 6セル** (各 512 x 512) | 粒種 | 煙。runtime: `AtlasCell(index % 6, 3, 2)`、4粒がcycle。透過必須。 |
 | `13-embers-atlas.png` | **256 x 128** | **4列 x 2行 = 8セル** (各 64 x 64) | 粒種 | 火の粉。runtime: `AtlasCell(index % 8, 4, 2)`、10粒がcycle。透過必須、粒径/密度にばらつき。 |
 
 - alpha必須（greenback不可）。checkerboardは透過の証明にならない。
-- fire flipbookの12コマは滑らかに繋がり、ping-pong（0→11→0）で不自然な段差が出ないこと。
+- fire flipbookの12コマは**固定の0→11一本道ループ前提で作らない**。runtimeは隣接frameを正逆どちらにも遷移できるため、`0↔1↔...↔11` の各隣接ペアで輪郭・火床・炎根元が自然につながること。
+- 連続時間をアセット内に焼き込みすぎない。各セルは単体でも成立しつつ、前後どちらの隣接セルにも遷移できる「同じ焚き火の状態差」にする。
 - 火床（coal/ember bed）を各コマの下部に一貫配置。立ち上がりに自然な差を出す。
 - glow maskは焚き火位置（下記anchor）に中心を持つ暖色。過剰に全画面を照らさない。
 
@@ -32,7 +33,8 @@ Codex側で実行してください。モデルはAuto任せにせず、その�
 
 - 焚き火の配置anchorは `FinalV3FireAnchor = (0.5, 0.3675)`、box `150 x 126`（`TopLivingNightView`）。**変更しない**。
 - 各コマの「炎の根元」がセル内で一定の位置に来るようにする（コマ間で根元が跳ねると位置ズレに見える）。
-- smoke/embersはруntimeで焚き火位置に追従（`TopLivingNightAmbientMotionDirector`）。atlasの粒は透明背景の中央付近に、周囲へ余白を残す。
+- smoke/embersはruntimeで焚き火位置に追従（`TopLivingNightAmbientMotionDirector`）。atlasの粒は透明背景の中央付近に、周囲へ余白を残す。
+- visible fire cadenceは `TopLivingNightFireCadenceDirector` が所有し、隣接frameだけを進退させる。**画像側で「右へ進むほど時間が進む」ことを前提にしすぎない**。
 - motion（コマ送り速度・粒の寿命・ゆらぎ）は**コード所有**（View/Director）。アセット側で新規モーションを作り込まない。
 
 ## Reduced Motion契約（壊さない）
@@ -66,15 +68,16 @@ SHA256を `docs/design-targets/generated/top-living-night-v3/final/effect-compan
 ## 望ましい見た目
 
 - 炎: 外炎・中炎・芯の温度差、painterly/paper/inkの世界観を保つ（genericな三角炎を避ける）
-- 炭: 根元にわずかな赤熱
-- 煙: 均一輪郭でなく少し崩れた自然な流れ
-- 火の粉: 密度・粒径・速度にばらつき
+- 炭: 根元にわずかな赤熱。全frameで火床位置と質量感を揃え、炎だけが呼吸するように変化させる
+- 煙: 均一輪郭でなく少し崩れた自然な流れ。6セルそれぞれで塊の幅・薄さ・崩れ方を変える
+- 火の粉: 密度・粒径・群れ方にばらつき。均一な丸点セットにしない
 - glow: campfire周辺に効き、画面全体を照らしすぎない暖色
 
 ## 完了時に報告してほしい項目
 
 - updated fire assets / smoke assets / embers assets / glow
 - 寸法・グリッド維持: yes/no（各ファイル）
+- adjacent-frame bidirectional continuity: yes/no
 - runtime alignment preserved: yes/no
 - reduced motion preserved: yes/no
 - effect-companion-pack 再登録済み: yes/no（新packSha256）
