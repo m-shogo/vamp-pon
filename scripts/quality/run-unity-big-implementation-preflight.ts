@@ -21,6 +21,7 @@ const directChecks = [
   'scripts/quality/check-top-v3-final-simulator-evidence-runner.ts',
   'scripts/quality/check-top-v3-final-physical-iphone-evidence-runner.ts',
   'scripts/quality/check-unity-break-stagger-primitive.ts',
+  'scripts/quality/check-unity-pavement-hammer-prototype.ts',
 ] as const;
 
 for (const check of directChecks) {
@@ -61,4 +62,4 @@ for (const script of requiredFullPreflightChecks) {
   }
 }
 
-console.log('\nUnity big implementation full preflight passed. U48 provenance/approval/promotion/connection/verification, U49 static/evidence, and reusable gameplay primitive guards are covered; actual-device, performance, RC and production readiness are not promoted by this command.');
+console.log('\nUnity big implementation full preflight passed. U48 provenance/approval/promotion/connection/verification, U49 static/evidence, reusable gameplay primitives, and Selected16 prototype-caller guards are covered; actual-device, performance, RC and production readiness are not promoted by this command.');
