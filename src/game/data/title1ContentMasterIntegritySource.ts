@@ -9,11 +9,13 @@ import { currentCharacterCombatKitEntries } from './currentCharacterCombatKitSou
 import { currentGroupInteractionSummary } from './currentGroupInteractionSource.ts';
 import { currentRelationshipInventory } from './currentRelationshipInventory.ts';
 import { enemyAttributeIdentities } from './enemyAttributeIdentitySource.ts';
+import { pairwiseBondTrioBattleSummary } from './pairwiseBondTrioBattleSource.ts';
 import { relationshipStageIntermissionSummary } from './relationshipStageIntermissionSource.ts';
 import { currentRelationshipSpeechProgressionSummary } from './relationshipSpeechProgressionSource.ts';
 import { series1StageCampaignContentEntries } from './series1StageCampaignContentSource.ts';
 import { spotlightEnemyCharacterSummary } from './spotlightEnemyCharacterSource.ts';
 import { spotlightEnemyStoryFragmentSummary } from './spotlightEnemyStoryFragmentSource.ts';
+import { trioBattleInteractionPolicySummary } from './trioBattleInteractionPolicySource.ts';
 import {
   title1AchievementBoundary,
   title1AllLightsBoundary,
@@ -25,6 +27,8 @@ import {
 } from './title1AchievementRewardCollectionSource.ts';
 import { title1UnlockLearningProgressionSummary } from './title1UnlockLearningProgressionSource.ts';
 import { weaponTransformationSelectionSummary } from './weaponTransformationSelectionSource.ts';
+import { yatsukageCollectionPresentationSummary } from './yatsukageCollectionPresentationSource.ts';
+import { yatsukageIdentitySummary } from './yatsukageIdentitySource.ts';
 
 export const title1ContentMasterAuthorities = {
   combatAffinity: 'src/game/data/combatAffinitySource.ts',
@@ -36,8 +40,12 @@ export const title1ContentMasterAuthorities = {
   relationshipSpeech: 'src/game/data/relationshipSpeechProgressionSource.ts',
   groupInteraction: 'src/game/data/currentGroupInteractionSource.ts',
   relationshipIntermission: 'src/game/data/relationshipStageIntermissionSource.ts',
+  pairwiseBondTrioBattle: 'src/game/data/pairwiseBondTrioBattleSource.ts',
+  trioBattleInteraction: 'src/game/data/trioBattleInteractionPolicySource.ts',
   spotlightEnemyCharacter: 'src/game/data/spotlightEnemyCharacterSource.ts',
   spotlightEnemyStoryFragment: 'src/game/data/spotlightEnemyStoryFragmentSource.ts',
+  yatsukageIdentity: 'src/game/data/yatsukageIdentitySource.ts',
+  yatsukageCollectionPresentation: 'src/game/data/yatsukageCollectionPresentationSource.ts',
   baseWeapon: 'src/game/data/baseWeaponSelectionSource.ts',
   combatItem: 'src/game/data/combatItemSelectionSource.ts',
   transformation: 'src/game/data/weaponTransformationSelectionSource.ts',
@@ -60,12 +68,22 @@ export const title1ContentMasterIntegritySnapshot = {
     relationshipSpeechDirectedTrackCount: currentRelationshipSpeechProgressionSummary.directedTrackCount,
     groupInteractionSceneCount: currentGroupInteractionSummary.sceneCount,
     groupIntermissionPlacementCount: relationshipStageIntermissionSummary.placementCount,
+    allPairBondLaneCount: pairwiseBondTrioBattleSummary.allPairCount,
+    directedAffinityLaneCount: pairwiseBondTrioBattleSummary.directedAffinityLaneCount,
+    possibleTrioCombinationCount: pairwiseBondTrioBattleSummary.possibleTrioCombinationCount,
+    storedTrioBondExists: pairwiseBondTrioBattleSummary.storedTrioBondExists,
+    trioPresentationShapeCount: trioBattleInteractionPolicySummary.derivedPresentationShapeCount,
   },
   enemies: {
     currentCount: enemyAttributeIdentities.length,
     spotlightCount: spotlightEnemyCharacterSummary.spotlightCount,
     spotlightStoryFragmentCount: spotlightEnemyStoryFragmentSummary.fragmentCount,
     spotlightFragmentsOptional: spotlightEnemyStoryFragmentSummary.optionalReading,
+    yatsukageFormalName: yatsukageIdentitySummary.formalName,
+    yatsukageShortName: yatsukageIdentitySummary.shortName,
+    yatsukageCallNameCount: yatsukageIdentitySummary.uniqueCallNameCount,
+    yatsukagePresentationPhaseCount: yatsukageCollectionPresentationSummary.presentationPhaseCount,
+    yatsukageTrueNameClaimedCount: yatsukageCollectionPresentationSummary.trueNameClaimedCount,
   },
   combatVocabulary: {
     attributeCountIncludingNeutral: COMBAT_ATTRIBUTES.length,
@@ -139,8 +157,12 @@ export const title1ContentMasterIntegritySnapshot = {
     rewardCollectionRuntimeAutoPromotionAllowed: title1AchievementRewardCollectionSummary.runtimeAutoPromotionAllowed,
     relationshipSpeechRuntimeAutoPromotionAllowed: currentRelationshipSpeechProgressionSummary.runtimeAutoPromotionAllowed,
     groupIntermissionRuntimeAutoPromotionAllowed: relationshipStageIntermissionSummary.runtimeAutoPromotionAllowed,
+    pairwiseBondRuntimeAutoPromotionAllowed: pairwiseBondTrioBattleSummary.runtimeAutoPromotionAllowed,
+    trioInteractionRuntimeAutoPromotionAllowed: trioBattleInteractionPolicySummary.runtimeAutoPromotionAllowed,
     spotlightEnemyRuntimeAutoPromotionAllowed: spotlightEnemyCharacterSummary.runtimeAutoPromotionAllowed,
     spotlightStoryRuntimeAutoPromotionAllowed: spotlightEnemyStoryFragmentSummary.runtimeAutoPromotionAllowed,
+    yatsukageIdentityRuntimeAutoPromotionAllowed: yatsukageIdentitySummary.runtimeAutoPromotionAllowed,
+    yatsukageCollectionRuntimeAutoPromotionAllowed: yatsukageCollectionPresentationSummary.runtimeAutoPromotionAllowed,
     contentMasterMayFreezeRuntimeCompletionByItself: false,
   },
 } as const;
@@ -154,6 +176,8 @@ export const title1ContentMasterOpenImplementationGates = [
   'finite All Lights runtime denominator + save migration',
   'Stage20-scale Achievement editorial expansion/migration',
   'relationship speech semantic-to-runtime Bond gates + support/result voice selection',
+  'Current21 all210 pair Bond + 420 directed Affinity save schema/event ledger/migration',
+  'three-Character selection UI + pair Assist arbitration + trio banter spotlight runtime',
   'spotlight enemy bestiary fragment unlock/presentation + visual recognition validation',
   'mobile visual QA / performance / playtest',
 ] as const;
