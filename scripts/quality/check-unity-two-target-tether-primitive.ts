@@ -49,18 +49,18 @@ const rainThread = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry
 assert(rainThread, 'rain_thread Selected16 admission row missing');
 assert(rainThread.requiredUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,KNOCKBACK_VECTOR,STATUS_APPLICATION', `Rain Thread requirements drift: ${rainThread.requiredUnityCapabilities.join(',')}`);
 assert(rainThread.missingUnityCapabilities.length === 0, `Rain Thread should have complete shared primitives: ${rainThread.missingUnityCapabilities.join(',')}`);
-assert(!rainThread.prototypeCallerImplemented, 'shared tether capability must not fabricate Rain Thread caller proof');
-assert(rainThread.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Rain Thread must stop at caller-proof gate');
-assert(!rainThread.mayEnterUnityRuntimeRegistry && rainThread.runtimeStatus === 'NOT_IMPLEMENTED', 'Rain Thread must remain outside live/implementation review');
+assert(rainThread.prototypeCallerImplemented, 'Rain Thread caller proof must be registered after executable caller implementation');
+assert(rainThread.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Rain Thread should enter implementation review after caller proof');
+assert(rainThread.mayEnterUnityRuntimeRegistry && rainThread.runtimeStatus === 'NOT_IMPLEMENTED', 'Rain Thread implementation-review gate must remain distinct from live runtime');
 
 const nameReel = baseWeaponSelectionEntries.find((entry) => entry.weaponId === 'name_reel');
 assert(nameReel, 'name_reel candidate row missing');
 assert(nameReel.decision === 'HOLD_TARGET_LINK_READABILITY' && !nameReel.selectedForTitle1, 'Tether runtime work must preserve Name Reel Hold selection');
 assert(!title1BaseWeaponRuntimeAdmissionEntries.some((entry) => entry.weaponId === 'name_reel'), 'held Name Reel must not be fabricated into Selected16 admission');
 
-for (const token of ['IMPLEMENTED_SHARED_SELECTION_PRIMITIVE','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','combined priority score','短いpair','O(n^2)','TWO_TARGET_TETHER','KNOCKBACK_VECTOR','NOT_CANON','runtimeAutoPromotionAllowed = false']) {
+for (const token of ['IMPLEMENTED_SHARED_SELECTION_PRIMITIVE','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','combined priority score','短いpair','O(n^2)','TWO_TARGET_TETHER','KNOCKBACK_VECTOR','RainThreadPrototypeState','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','NOT_CANON','runtimeAutoPromotionAllowed = false']) {
   assert(doc.includes(token), `two-target tether doc missing token: ${token}`);
 }
-assert(!coordinator.includes('U2EnemyTetherPairSelectionRuntime') && !coordinator.includes('rain_thread'), 'tether primitive/consumer must remain outside live Stage1 coordinator');
+assert(!coordinator.includes('U2EnemyTetherPairSelectionRuntime') && !coordinator.includes('RainThreadPrototypeState') && !coordinator.includes('rain_thread'), 'tether primitive/consumer must remain outside live Stage1 coordinator');
 
 console.log(JSON.stringify({ status: 'PASS', primitive: 'TWO_TARGET_TETHER', rainThreadDecision: rainThread.unityDecision, nameReelSelection: nameReel.decision, liveStage1Changed: false, canonTuningChanged: false }, null, 2));
