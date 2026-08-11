@@ -41,7 +41,6 @@ for (const path of [
 const s2Doc = fs.readFileSync('docs/s2-antagonist-team-candidate-v1.md', 'utf8');
 const returnDoc = fs.readFileSync('docs/season-antagonist-return-policy-v1.md', 'utf8');
 
-// Current seasonal rotation.
 assert(SERIES_SEASON_RULES.seasonAntagonistTeamChangesEachSeason, 'antagonist team must rotate each Season');
 assert(SERIES_SEASON_RULES.seasonAntagonistPrimaryRosterChangesEachSeason, 'primary antagonist roster must rotate');
 assert(SERIES_SEASON_RULES.seasonalTeamNameCosmeticRenameOnlyForbidden, 'rotation may not be rename-only');
@@ -59,7 +58,6 @@ assert(SEASON_ANTAGONIST_TEAM_ARCHITECTURE.season2.rosterMustDifferFromPreviousS
 assert(!SAKUYAZA_SEASON_FOCUS.seriesWidePrimaryTeam, 'Sakuyaza cannot become series-wide primary team');
 assert(SAKUYAZA_SEASON_FOCUS.s2Heavier.length === 0, 'Sakuyaza may not be split into an S2-heavy half');
 
-// S2 working candidate remains candidate only.
 assert(S2_ANTAGONIST_TEAM_CANDIDATE.status === 'HIGH_VALUE_CANDIDATE_NOT_CANON', 'S2 team must remain Candidate');
 assert(S2_ANTAGONIST_TEAM_CANDIDATE.seasonId === 'S2', 'S2 candidate season drift');
 assert(!S2_ANTAGONIST_TEAM_CANDIDATE.finalTeamNameFrozen, 'S2 final name unexpectedly frozen');
@@ -89,7 +87,6 @@ for (const entry of S2_ANTAGONIST_WORKING_MEMBERS) {
 }
 assert(S2_ANTAGONIST_TEAM_NAME_CANDIDATES.every((entry) => !entry.name.endsWith('座')), 'S2 candidate names should not reuse 座 brand');
 
-// Return policy: enemy and ally both possible.
 assert(SEASON_ANTAGONIST_RETURN_RULES.previousSeasonIndividualsMayReturn, 'previous antagonist return must be allowed');
 assert(SEASON_ANTAGONIST_RETURN_RULES.enemySideReturnAllowed, 'enemy-side return must be allowed');
 assert(SEASON_ANTAGONIST_RETURN_RULES.allySideReturnAllowed, 'ally-side return must be allowed');
@@ -128,13 +125,12 @@ for (const reunion of S1_S2_REUNION_CANDIDATES) {
   assert(reunion.contrast.length > 10, `reunion contrast too thin: ${reunion.s1Member}/${reunion.s2Candidate}`);
 }
 
-// Human-readable boundary checks.
 assert(s2Doc.includes('HIGH-VALUE CANDIDATE') && s2Doc.includes('TEAM NAME + ROSTER NOT CANON'), 'S2 doc must clearly remain Candidate');
 assert(s2Doc.includes('S1 / Sakuyaza') && s2Doc.includes('S2 / new team'), 'S2 doc must distinguish S1/S2 philosophies');
-assert(s2Doc.includes('working roster — 8 NEW enemy characters'), 'S2 doc must contain a new working roster');
+assert(s2Doc.includes('8 NEW enemy characters') && s2Doc.includes('All eight are **new S2 antagonist candidates**'), 'S2 doc must contain a new working roster');
 assert(s2Doc.includes('no Sakuyaza member automatically joins the S2 team'), 'S2 doc must block automatic Sakuyaza transfer');
 assert(returnDoc.includes('ENEMY_RETURN') && returnDoc.includes('ALLY_RETURN') && returnDoc.includes('TEMPORARY_ALLY'), 'return doc must support enemy/ally/temp ally roles');
-assert(returnDoc.includes('敵だったから次も敵') && returnDoc.includes('一度allyになったら永久ally'), 'return doc must reject permanent binary alignment');
+assert(returnDoc.includes('S1 enemyだからS2もenemy') && returnDoc.includes('一度allyになったら永久ally'), 'return doc must reject permanent binary alignment');
 assert(returnDoc.includes('Party参加 = forgivenessではない'), 'return doc must separate Party from forgiveness');
 assert(returnDoc.includes('S1 primary team = 朔夜座') && returnDoc.includes('S2 primary team = new team / new primary cast'), 'return doc must preserve team rotation');
 
