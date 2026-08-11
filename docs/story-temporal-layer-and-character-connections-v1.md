@@ -1,56 +1,52 @@
-# ヨルノシルベ — Time Layer & Character Connection Backbone v3
+# ヨルノシルベ — Time Layer & Character Connection Backbone v4
 
 Date: 2026-08-11  
-Status: **CURRENT ERA / CONNECTION BACKBONE / CORE5 ERA ASSIGNMENT ALIGNED**
+Status: **CURRENT ERA / CONNECTION BACKBONE / RESEARCHED CORE5 ERA BANDS**
 
-> 最上位: `docs/00-current-story-world-master.md`。
-> Core5年代正本: `docs/core5-era-character-master-v1.md`。
-> Core5のperson-to-era laneはCurrent。**exact year / exact age / exact大事件 / major family factだけOpen。**
+Upstream:
+
+1. `docs/00-current-story-world-master.md`
+2. `docs/core5-era-character-master-v1.md`
+3. `docs/research/era-society-food-future-sourcebook-v1.md`
+
+> Core5はRealityで5人とも別Era。現在は**社会の転換期をEra bandとしてCurrent**にし、exact year / exact ageはOpen。
 
 ---
 
-# 1. 異なる時代の人物が同じDreamで会う
-
-Status: `DECIDED`
+# 1. Dreamで異なるEraが同席する
 
 ```txt
-Reality 1940s ─ Tomori ┐
-Reality 1980s ─ Michiru│
-Reality 2000s ─ Nagi   ├→ Yoru-no-Shirube Dream
-Reality Present ─ Yui  │
-Reality Future ─ Asa   ┘
+Postwar recovery Tomori ┐
+Growth-transition Michiru│
+Early-network Nagi       ├→ Yoru-no-Shirube Dream
+Present Yui              │
+Far-future Human Asa     ┘
 ```
 
 Dreamでは直接会える。
-帰還は**朝ではなくWaking**。
-目覚めると、それぞれ自分のReality era / 自分の人生へ戻る。
+帰還は朝ではなくWaking。
+各自、自分のReality era / 人生へ戻る。
 
-したがって:
-
-- Dreamで見た目年齢が近くてもReality同世代ではない。
-- 見た目年齢と時代を同一視しない。
-- siblings / parent-child等、明示された関係だけ必要な同時代性を持つ。
-- 時代の新しさを人物能力の上下関係へ変換しない。
+見た目年齢が近いことはReality同世代の証拠ではない。
 
 ---
 
-# 2. Core5 Current Era Assignment
+# 2. Core5 Current Era bands
 
-Status: `DECIDED CURRENT ASSIGNMENT`
-
-| Core5 | Reality era | Time-layer use |
+| Core5 | Reality Era band | Temporal identity |
 |---|---|---|
-| **トモリ** | **1940年代系日本** | old repair / inherited light / handwork |
-| **ミチル** | **1980年代系日本** | paper map / changing city / route revision |
-| **ナギ** | **2000年代系日本** | early network / privacy / access boundary |
-| **ユイ** | **現代日本** | present-day player anchor / over-documentation |
-| **アサ** | **未来Android / Robot共存社会のHuman** | name / designation / personhood |
+| **トモリ** | **戦後復興・物資不足期** | scarcity / repair / distribution |
+| **ミチル** | **高度成長末期〜公害・石油危機の転換期** | development / pollution / changing routes |
+| **ナギ** | **バブル崩壊後〜携帯Internet初期** | early network / privacy / employment insecurity |
+| **ユイ** | **現代日本** | information excess / misinformation / record abundance |
+| **アサ** | **遠未来 Human / Android / Robot / Avatar共存社会** | name / body / copy / digital identity |
 
 Hard:
 
-- 5/5 unique Reality eras。
+- 5/5 unique Reality Era bands。
 - アサはHuman。
-- ユイはoverall viewpoint、アサは主人公級buddy。恋愛なし。
+- ユイoverall viewpoint。
+- アサprotagonist-grade buddy / non-romance。
 - 他3人も各Reality解決partでera leadになれる。
 
 Open:
@@ -58,395 +54,314 @@ Open:
 - exact year
 - exact chronological age
 - exact Reality location
-- exact historical incident involvement
-- 未来アサのpolitical side / Android incident role
+- exact incident involvement
 
 ---
 
-# 3. Dreamで時間タグが弱い
+# 3. Exact decadeを先に固定しない
 
-Status: `DECIDED`
+初期の1940 / 1980 / 2000等は探索用例。
+
+現在は:
+
+> **年代数字より、その時代の社会pressure / ordinary life / technology / food / institutionがCharacter Coreへどう噛み合うかを優先する。**
+
+したがって:
+
+- Tomoriは「1940sだから」ではなくpostwar scarcity / repair societyだから置く。
+- Michiruは「1980sだから」ではなくgrowth / pollution / energy / route conflictが強いtransitionへ置く。
+- Nagiは「2000sだから」ではなくordinary peopleの情報が初めてsearchable / copyableになるearly-network transitionへ置く。
+
+---
+
+# 4. Dreamでtime tagが弱い
 
 Dreamでは:
 
 - 西暦
 - exact date
-- calendar chronology
-- 「今が何年か」
+- chronology
 
 が曖昧になりやすい。
 
-一方:
+残りやすい:
 
-- 言葉
-- 身体技能
-- 好き嫌い
-- 道具の使い方
-- 商品知識
-- UI慣れ
-- 制度感覚
+- language
+- body skill
+- food knowledge
+- tool literacy
+- UI habit
+- institution sense
+- etiquette
 
-は残る。
-
-だからCore5自身も、出会ってすぐ:
-
-> 「トモリは1940年代、アサは未来」
-
-とは分からない。
+だからCore5自身も、出会ってすぐ互いのEraを特定しない。
 
 ---
 
-# 4. 年代差を見せるEvidence
+# 5. Era Evidence
 
-使う:
+使える:
 
-- 古い駅名 / 改札 / 切符規格
-- 郵便書式
-- 紙地図 / route map
-- 時計 / timekeeping habit
-- 本のedition
-- 教育用語
-- 食文化
-- package / 容器
-- 機械 / UI
+- ticket / postal form
+- map / route guidance
+- phone / communication etiquette
+- package / drink container
+- food / cooking appliance
+- school / work vocabulary
 - clothing construction
 - repair method
-- slang
-- law / institution
-- city knowledge
+- privacy assumption
+- recommendation / ranking behavior
 - match / lighter
-- cigarette / pipeへの反応
 - constellation line / name
+- joke / satire style
 
-## Core5-specific examples
-
-### トモリ
-
-modern sealed applianceを見ると、新しさより「どこから開ける？」を見る。
-
-### ミチル
-
-digital route suggestionを便利と思うが、「推奨=正解」に一番早く疑問を持てる。
-
-### ナギ
-
-情報を見られることと、見る権利があることを分ける。
-
-### ユイ
-
-paper ticket / handwritten contact /古いrepair seamを珍しがるPresent anchor。
-
-### アサ
-
-Robotを見ても驚きが薄く、model designationを名前として扱ってよいかを先に気にする。
-
-一つのEvidenceだけでexact eraを断定しない。
+一つのEvidenceだけでEra Revealしない。
 
 ---
 
-# 5. 新しい時代 = 上位互換ではない
+# 6. 新しいEra = 上位互換ではない
 
-Status: `DECIDED GUARD`
+- Tomori: digital UIに弱くてもmechanical repair / material literacyに強い。
+- Michiru: route appに慣れなくてもphysical observation / paper map / detour judgementに強い。
+- Nagi: modern algorithmに詳しくなくてもprivacy / access boundaryに敏感。
+- Yui: current communication / verification / social conventionに強い。
+- Asa: future identity systemに慣れていてもold analog object's repair traceには弱い。
 
-- トモリはfuture UIに弱くてもmechanical repairで最も強い場面がある。
-- ミチルはdigital mapに弱くてもroute memory / physical observationに強い。
-- ナギはaccess / privacy境界に強い。
-- ユイはpresent-day communication / social conventionに強い。
-- アサはfuture interfaceに慣れていてもanalog objectの個体差 / repair traceには弱い。
-
-年代差を「古い人がずっと無知で笑われる」構図にしない。
+「昔の人=無知」「未来人=先生」にしない。
 
 ---
 
-# 6. 物はReality時間を順番に渡れる
+# 7. 物はReality時間を順番に渡れる
 
-Status: `DECIDED DIRECTION`
-
-人は別Eraでも、Realityの物 / 記録 / 言葉は年代順に受け継がれ得る。
+人はDreamで時代を越えて会えるが、Realityの物 / 記録はReality時間を順に受け継がれ得る。
 
 ```txt
-過去の人
+older Reality person
 ↓
-物 / 記録 / repair traceを残す
+object / note / repair trace
 ↓
-Reality時間が進む
+time passes
 ↓
-後世の人が受け取る
+later Reality person inherits it
 
-しかしDreamでは両者が直接会う
+Dreamでは二人が直接会う
 ```
 
 ## Tomori → Yui lantern
 
-Current facts:
+Current:
 
-- トモリ = 1940年代系
-- ユイ = Present
-- トモリはrepair担当
-- ユイは古いランタンを持つ
+- Tomori = postwar recovery Era band
+- Yui = Present
+- Tomori = repair
+- Yui = old lantern holder
 
-HIGH-VALUE CANDIDATE:
+High-value Candidate:
 
-> **1940年代のトモリが、後にユイへ受け継がれるランタンを修理した。**
+> **若い頃のTomoriが、後世にYuiへ渡るlanternを修理している。**
 
-これは非常に強いが、ランタンの所有系譜 / 血縁 / repair exact yearはまだCandidate。
+Exact repair year / ownership lineage / blood relationはOpen。
 
-「人物より先に物が知り合っている」を狙う。
+「人より先に物が知り合っている」を狙う。
 
 ---
 
-# 7. Core5 Cross-era relationship
+# 8. Cross-Era satire is Time Evidence
+
+年代差はhistory lectureだけでなく、**別Eraの普通を別Eraの人が見る風刺**へ使う。
+
+Examples:
+
+- Tomori → Present: `repairできない製品 / read receipt / disposable habit`
+- Michiru → Present: `fastest-route / recommendation worship`
+- Nagi → Present: `friend-onlyが百人 / sync permission`
+- Yui → older eras: `待ち合わせ連絡不能 / old inconvenience`
+- Asa → Present: `identity verification / username history`
+- Yui → Future: `branch identityをfamily-plan感覚で茶化す`
+
+Detail:
+`docs/era-satire-cross-generation-dialogue-bible-v1.md`
+
+Rule:
+
+> personを笑うよりsystem / custom / contradictionを笑う。
+
+---
+
+# 9. Cross-Era relationship engines
 
 ## Yui × Asa
 
-主人公級buddy / non-romance。
+Present:
 
-- Yui / Present = 記録が残りすぎる社会。
-- Asa / Future = identityがsystemへ登録されすぎる可能性のある社会。
+> records remain too much.
 
-共通の危険:
+Far Future:
 
-> 記録 / 登録されていれば、その人を大切にしたことになる。
+> identity may be registered / copied / branched too much.
 
-最終的には:
+共通Theme:
 
-> **記録・登録より先に本人の選択がある。**
+> **記録 / 登録より先に本人の選択がある。**
 
-へ進める。
+## Tomori × Yui
 
-## Michiru × Tomori
+- repair vs replace
+- inherited object vs cloud record
 
-新しい道 / 古い物。
-ミチルは「更新」、トモリは「継承」を互いに学べる。
+## Michiru × Yui
+
+- shortest route vs meaningful detour
+- recommendation vs self-chosen path
+
+## Nagi × Yui
+
+- early privacy anxiety vs mass sharing / algorithmic visibility
 
 ## Nagi × Asa
 
-2000s privacyとFuture personhood。
+- who may see information
+- who may define a name / identity
 
-- Nagi: 公開範囲を本人が決める。
-- Asa: 名前 / designationを本人が決める。
-
-似ているが同じ問いにはしない。
+似ていても同一Themeに潰さない。
 
 ---
 
-# 8. 星空は年代差の重要Evidence
+# 10. Stars / Constellation as Era Evidence
 
-Status: `DECIDED CORE / CAUSE OPEN`
+同じ星を見てもEraにより:
 
-同じ星を見ていてもEraにより:
-
-- constellation line
-- constellation name
+- line
+- name
 - story
 - Star Beast relation recognition
 
-が違う。
+が違い得る。
 
-Core5だけでも:
+Core5だけで:
 
 > **同じ星を5人が違う形に結ぶ。**
 
-が成立する。
+sceneを作れる。
 
-「誰が正しい？」ではなくTimeline / Dream Mysteryへ繋げる。
-
-最終原因はOpen。
+誰が正しいかではなくTimeline / Dream Mysteryへ繋げる。
 
 ---
 
-# 9. 月相は時計ではない
+# 11. Moon is not a clock
 
-Status: `DECIDED`
+Moon phase = Reality elapsed timeではなく**incident depth**。
 
-月相はReality経過日数ではなく**大事件の核心へのdepth**。
+Reality Era間の数十年 / 数百年差とDream月相は別。
 
-- Characterが何日いたか
-- Realityで何年隔たっているか
-
-とは独立。
-
-異常な戻り / 停止 / 未来だけ違う挙動もMysteryに使える。
 朔では月が消えるが星は残る。
 
 ---
 
-# 10. Core5 × Shadow5
-
-既存問いを維持する。
-
-| Core | Shadow | 問い |
-|---|---|---|
-| ユイ — 戻す | クロオリ — 閉じる | 記憶は開くべきか |
-| アサ — 名前を返す | カスミ — ぼかす | 名前は明かすべきか |
-| ナギ — 箱にしまう | カナメ — 盾になる | 守るとは何か |
-| ミチル — routeを探す | トキ — 測る | 道は選ぶものか、特定するものか |
-| トモリ — 直して継ぐ | ツムギ — 余白を残す | 完成させるべきか、未完成を残してよいか |
-
-年代を決めてもShadow側を同年代へ自動配置しない。
-
----
-
-# 11. 黒耀化 / 社会の大事件
-
-Status: `DECIDED`
+# 12. 社会の大事件はEra固有であること
 
 Individual:
 
-```txt
-長所 / 願い
-+
-恐怖 / 焦り
-↓
-一つの答えへ固執
-↓
-黒耀化
-```
+`strength / wish + fear → one-answer fixation → Black Youka`
 
 Society:
 
-```txt
-理想 / 保護 / 発展
-+
-恐れ / 利害 / 制度
-↓
-一つの解決策へ固執
-↓
-大事件
-```
+`ideal / protection / progress + Era pressure → one-solution fixation → fictional major incident`
 
-一人の悪意へ全部集約しない。
-1 Era 1 fixed Bossを作らない。
+Era incident QA:
 
-別Eraの知識 / 価値観が、Realityへ戻った時の第三の選択肢になり得る。
+- 他Eraへそのまま移植できないか
+- 実在事件のrename copyではないか
+- ordinary life / food / school / work / transportが見えるか
+- Character Coreが事件へ自然に接続するか
 
 ---
 
-# 12. 群青残響録
+# 13. Current fictional incident lanes
 
-Status: `DECIDED NAME / MEMBERS OPEN`
+These are `CANDIDATE`, not final event Canon.
 
-各Eraの大事件で中心となったperson / peopleを後から括るrecord taxonomy。
+## Tomori
 
-- 1 Era 1人ではない。
-- fixed countではない。
-- fixed factionではない。
-- mandatory villainではない。
-- mandatory combat Bossではない。
-- 同じ事件に複数対象可。
-- 明瞭な個人がいない事件も検討可。
+Official distribution ledger excludes unregistered residents.
 
-Core5 5 Eraを決めても**群青残響録5人固定**にはしない。
+## Michiru
+
+Single fastest development route erases health risk / old local paths.
+
+## Nagi
+
+Shared identity-warning network quietly excludes misregistered people.
+
+## Yui
+
+Verified-only emergency information system hides genuine but unverified SOS.
+
+## Asa
+
+Single continuity authentication denies personhood / rights to branched copies or body-transferred persons.
+
+These must be fictionalized further before final Story lock.
 
 ---
 
-# 13. 朔夜座とEra
+# 14. 群青残響録
 
-Current formal name: **朔夜座**。
+群青残響録 = each Era's major incident central person / peopleを後から括るrecord taxonomy。
 
-ナシロ / アサトジ / ミチグレ / オリネ / ハクマ / ツグリ / ユラネ / ペタ。
+Core5 5 Eraを決めても:
 
-複数Eraへ異なる立場で関われる:
+- 5人固定ではない
+- 1 Era 1人ではない
+- mandatory combat Bossではない
+
+---
+
+# 15. 朔夜座 × Era
+
+朔夜座は複数Eraへ異なる立場で関われる。
 
 - cooperate
-- use
+- exploit
 - oppose
 - interfere
 - attempt to stop
-- temporary interest alignment
 
-群青残響録とのfixed hierarchyは作らない。
-
----
-
-# 14. Dream Partyは年代差の生活scene
-
-食糧庫 / 酒席 / 炭酸 / 後片付けはTime Layerの重要なEvidence placement。
-
-例:
-
-- トモリは容器より栓 /構造を見る。
-- ミチルは飲み物を取りに行って寄り道する。
-- ナギは誰の棚か確認する。
-- ユイはみんなの写真を残したがる方向を持てる。
-- アサは知らない古い飲食物へ素直に興味を示す。
-
-知らない食べ物を見てもすぐ未来 / 過去を断定しない。
+fixed hierarchy with Gunjo Zankyorokuを作らない。
 
 ---
 
-# 15. Future Human Asa / Android boundary
+# 16. Future Human Asa boundary
 
-アサはFuture Android / Robot Era出身だが**Human**。
+Asa = Far Future **Human**。
 
-これにより:
+Future study includes:
 
-- Androidへ驚かないHuman perspective
-- model number / chosen name /本人の名乗りへのSensitivity
-- Human categoryとAndroid categoryの間を個人として見る視点
+- digital identity
+- body / avatar
+- Robot / Android coexistence
+- copy / memory / continuity
 
-を作れる。
+but AsaをAndroid化しない。
 
-まだOpen:
+Open:
 
 - exact future year
-- legal personhood system
-- Android rights status
-- Asaのpolitical camp
-- Android incidentのvictim / perpetrator / mediator role
-
-未来設定をアサ一人へ説明させる百科事典にはしない。
-
----
-
-# 16. Future Character / long-lived Character guard
-
-不老の魔女等、複数EraをRealityで直接またぐCharacter CandidateはCore5のDream-cross-era構造とは別。
-
-- Core5 = Realityでは各自一つの時代を生き、DreamでEraを越えて会う。
-- long-lived Candidate = Reality自体で複数年代を生きる可能性。
-
-混同しない。
+- legal framework
+- political side
+- incident role
 
 ---
 
 # 17. Open list
 
-Core5についてOpen:
-
-- exact year
-- exact age
-- exact city / household / occupation
-- exact major incident
-- Tomori 1940s war/postwar placement
-- Asa future political / incident role
-- lantern exact lineage
-
-World-level Open:
-
+- exact years / ages
+- exact Reality locations
+- final incident names / detail / casualties
+- exact object lineage
 - Dream final mechanism
 - constellation-change cause
-- Star Beast final nature
-- 群青残響録formal members
-- exact major incident histories
+- Gunjo Zankyoroku formal members
 
----
-
-# 18. Production rule
-
-Character / visual / Story制作でEraが必要な場合:
-
-```txt
-00-current-story-world-master.md
-↓
-core5-era-character-master-v1.md
-↓
-story-temporal-layer-and-character-connections-v1.md
-↓
-character-appearance-source-book-v1.md
-↓
-Generation Contract / Candidate Art
-```
-
-Core5のEra欄を`UNKNOWN`へ戻さない。
-Exact yearが必要になるまでdecade / era laneで制作を進める。
+Current Era bands themselves are no longer `UNKNOWN`, but remain broader than exact decades.
