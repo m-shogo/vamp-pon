@@ -16,6 +16,8 @@ import { CHARACTER_DECISION_COMMITMENT_RESERVOIR } from './characterDecisionComm
 import { CHARACTER_SHARED_SPACE_ETIQUETTE_RESERVOIR } from './characterSharedSpaceEtiquetteReservoir.ts';
 import { CHARACTER_REST_DAILY_RHYTHM_RESERVOIR } from './characterRestDailyRhythmReservoir.ts';
 import { CHARACTER_MEMORY_REMEMBERING_RESERVOIR } from './characterMemoryRememberingReservoir.ts';
+import { CHARACTER_ADDRESS_NAMING_REGISTER_RESERVOIR } from './characterAddressNamingRegisterReservoir.ts';
+import { CHARACTER_VOICE_PROSODY_RESERVOIR } from './characterVoiceProsodyReservoir.ts';
 import { CURRENT21_SEASON_ASSIGNMENTS, FUTURE15_SEASON_ASSIGNMENTS } from './seasonArchitecture.ts';
 
 export const CHARACTER_AUTHOR_DB_RULES = {
@@ -25,11 +27,12 @@ export const CHARACTER_AUTHOR_DB_RULES = {
   experienceCoverageExtensionAuthority: 'docs/character-author-db-experience-coverage-extension-v1.md',
   boundaryRhythmCoverageExtensionAuthority: 'docs/character-author-db-boundary-rhythm-coverage-extension-v1.md',
   memoryCoverageExtensionAuthority: 'docs/character-author-db-memory-coverage-extension-v1.md',
+  languageVoiceCoverageExtensionAuthority: 'docs/character-author-db-language-voice-coverage-extension-v1.md',
   status: 'AUTHOR_DB_INDEX_CURRENT_STRUCTURE_RESERVOIR_CONTENT',
   characterCountRequired: 36,
   current21Required: 21,
   future15Required: 15,
-  coverageDimensionCountRequired: 19,
+  coverageDimensionCountRequired: 21,
   sourceStatusMustRemainVisible: true,
   currentAndCandidateMayNotBeFlattened: true,
   aliasMapMayNotRenameStableIds: true,
@@ -48,6 +51,8 @@ export const CHARACTER_AUTHOR_DB_RULES = {
   sharedSpaceMayInferGenderClassMoralityOrAccessSideSeat: false,
   restDailyRhythmMayInferDiagnosisOrProductivityWorth: false,
   memoryRememberingMayInferMoralityIntelligenceDiagnosisOrObjectiveTruth: false,
+  addressNamingMayInferAffectionGenderOriginOrStableAlias: false,
+  voiceProsodyMayInferGenderBodyAgeOriginDisabilityOrCasting: false,
   runtimeGameReadsAuthorDbAutomatically: false,
   runtimeAutoPromotionAllowed: false,
 } as const;
@@ -113,6 +118,8 @@ const decisionByStableId=byId(CHARACTER_DECISION_COMMITMENT_RESERVOIR);
 const sharedSpaceByStableId=byId(CHARACTER_SHARED_SPACE_ETIQUETTE_RESERVOIR);
 const restRhythmByStableId=byId(CHARACTER_REST_DAILY_RHYTHM_RESERVOIR);
 const memoryByStableId=byId(CHARACTER_MEMORY_REMEMBERING_RESERVOIR);
+const addressByStableId=byId(CHARACTER_ADDRESS_NAMING_REGISTER_RESERVOIR);
+const voiceByStableId=byId(CHARACTER_VOICE_PROSODY_RESERVOIR);
 const currentSeasonByAuthorId=byId(CURRENT21_SEASON_ASSIGNMENTS);
 const futureSeasonByAuthorId=byId(FUTURE15_SEASON_ASSIGNMENTS);
 
@@ -140,6 +147,8 @@ export const CHARACTER_AUTHOR_DB_COVERAGE=CHARACTER_AUTHOR_DB_IDENTITIES.map((id
       sharedSpaceEtiquette:Boolean(sharedSpaceByStableId.get(identity.stableProfileId)),
       restDailyRhythm:Boolean(restRhythmByStableId.get(identity.stableProfileId)),
       memoryRemembering:Boolean(memoryByStableId.get(identity.stableProfileId)),
+      addressNamingRegister:Boolean(addressByStableId.get(identity.stableProfileId)),
+      voiceProsody:Boolean(voiceByStableId.get(identity.stableProfileId)),
       physicalIdentityAuthority:true,
     },
     sourceStatus:{
@@ -161,6 +170,8 @@ export const CHARACTER_AUTHOR_DB_COVERAGE=CHARACTER_AUTHOR_DB_IDENTITIES.map((id
       sharedSpaceEtiquette:'AUTHOR_RESERVOIR_NON_CANON_NO_DOMESTIC_GENDER_ROLE_NO_ACCESS_SIDE_SEAT',
       restDailyRhythm:'AUTHOR_RESERVOIR_NON_CANON_NO_DIAGNOSIS_NO_PRODUCTIVITY_WORTH_SCORE',
       memoryRemembering:'AUTHOR_RESERVOIR_NON_CANON_NO_MEMORY_ACCURACY_MORALITY_NO_DIAGNOSIS_INFERENCE',
+      addressNamingRegister:'AUTHOR_RESERVOIR_NON_CANON_EXACT_WORDING_OPEN_NO_NAME_FORM_AFFECTION_SCORE',
+      voiceProsody:'AUTHOR_RESERVOIR_NON_CANON_NO_CASTING_FREEZE_NO_BODY_GENDER_VOICE_STEREOTYPE',
       physicalIdentityAuthority:'CURRENT_WORLD_MASTER_SUBDOMAIN',
     },
   } as const;
@@ -193,6 +204,8 @@ export const characterAuthorDbCoverageSummary={
   sharedSpaceEtiquetteCoverage:CHARACTER_AUTHOR_DB_COVERAGE.filter((entry)=>entry.coverage.sharedSpaceEtiquette).length,
   restDailyRhythmCoverage:CHARACTER_AUTHOR_DB_COVERAGE.filter((entry)=>entry.coverage.restDailyRhythm).length,
   memoryRememberingCoverage:CHARACTER_AUTHOR_DB_COVERAGE.filter((entry)=>entry.coverage.memoryRemembering).length,
+  addressNamingRegisterCoverage:CHARACTER_AUTHOR_DB_COVERAGE.filter((entry)=>entry.coverage.addressNamingRegister).length,
+  voiceProsodyCoverage:CHARACTER_AUTHOR_DB_COVERAGE.filter((entry)=>entry.coverage.voiceProsody).length,
   physicalIdentityAuthorityCoverage:CHARACTER_AUTHOR_DB_COVERAGE.filter((entry)=>entry.coverage.physicalIdentityAuthority).length,
   future15PromotedByManifest:false,
   candidatePromotedByManifest:false,
