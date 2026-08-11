@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/domain/statusRuntime.ts'
+      - 'src/game/domain/__tests__/statusRuntime.test.ts'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
       - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
       - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
@@ -13,6 +15,8 @@ on:
     branches: [main]
     paths:
       - 'src/game/data/combatAffinitySource.ts'
+      - 'src/game/domain/statusRuntime.ts'
+      - 'src/game/domain/__tests__/statusRuntime.test.ts'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
       - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
       - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
@@ -33,9 +37,9 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: Check Status16 content/runtime binding
+      - name: Check Status16 + cross-runtime application policy parity
         run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-runtime-foundation.ts
       - name: Compile EnemyStatusRuntimeState as pure C#
         run: dotnet build scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --nologo
-      - name: Execute EnemyStatusRuntimeState lifecycle contract
+      - name: Execute EnemyStatusRuntimeState lifecycle/application contract
         run: dotnet run --project scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --no-build

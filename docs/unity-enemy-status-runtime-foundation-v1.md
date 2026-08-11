@@ -2,9 +2,16 @@
 
 ## Purpose
 
-Selected16 runtime admissionで最大の共通blockerになっている `STATUS_APPLICATION` を実装する前段として、Unity側に**Status16の共通lifecycle state**を追加する。
+Selected16 runtime admissionで最大の共通blockerになっている `STATUS_APPLICATION` を実装するための、Unity側 **Status16共通lifecycle / application state**。
 
 これは武器ごとのhackではなく、今後すべてのWeapon / Reaction / Enemy counterplayから再利用するWave A foundation。
+
+現在は:
+
+- pure C# Status state実装済み
+- `U2EnemyActor` ownership / Activate / Tick / Deactivate接続済み
+- Web/domainの`RuntimeStatusApplicationPolicy`とUnity policy shapeを整合
+- Weapon hit → Applyはまだ未接続
 
 ## Status16 authority
 
@@ -31,44 +38,110 @@ Unity runtimeは以下16 IDをexact/case-sensitiveでround-tripする:
 
 未知ID、lowercase typo、追加済みだが未同期のIDはfail closedする。
 
-## Runtime state responsibilities
+## cross-runtime semantic authority
 
-`EnemyStatusRuntimeState` が持つのはgeneric lifecycleだけ。
+Application policyの意味の正本は:
 
-- exact Status kind
-- remaining duration
-- bounded stack
-- duration refresh
-- explicit reapply cooldown
-- deterministic expiry
-- deterministic snapshot
-- clear/reset
+`src/game/domain/statusRuntime.ts`
 
-### bounded stack
+`RuntimeStatusApplicationPolicy`。
 
-callerが`maxStacks`を渡し、stateは必ず上限を守る。
+Unityは独自の暗黙defaultを作らず、同じ意味を明示的に受け取る。
 
-BURNやMARKEDの具体的なmax stack数はこのfoundationで固定しない。
+### Stack mode
+
+**REPLACE / REFRESH / ADD_CAPPED**
+
+Unity mapping:
+
+- `EnemyStatusStackMode.Replace`
+- `EnemyStatusStackMode.Refresh`
+- `EnemyStatusStackMode.AddCapped`
+
+意味:
+
+- REPLACE: `stacksPerApplication`へ置換
+- REFRESH: 現stackを維持
+- ADD_CAPPED: `maxStacks`まで加算
+
+BURNやMARKEDの実際のstack数はfoundationで固定しない。
+
+### magnitude mode
+
+Web/domain:
+
+- REPLACE
+- MAX
+- ADD_CAPPED
+
+Unity:
+
+- `EnemyStatusMagnitudeMode.Replace`
+- `EnemyStatusMagnitudeMode.Max`
+- `EnemyStatusMagnitudeMode.AddCapped`
+
+magnitudeは:
+
+- CHILL slow ratio
+- EXPOSED damage modifier
+- effect strength
+
+などを後のeffect layerへ渡すためのgeneric value。
+
+具体的な値はこのfoundationで持たない。
 
 ### duration refresh
 
-再付与で残り時間を短くしない。
+成功したStatus applicationは両runtimeとも:
 
-`max(currentRemaining, newDuration)`。
+`remaining = caller policy duration`
 
-具体秒数はWeapon / Reaction / balance layerが後から与える。
+へ再設定する。
 
-### reapply cooldown
+古いUnity foundationの `max(currentRemaining, newDuration)` は廃止する。
 
-FREEZEなどの無限拘束を避けるため、Statusごとに明示的な再付与CDを持てる。
+これによりWebとUnityで「短いpolicyを再付与した時の残時間」が分岐しない。
 
-foundation自体は「FREEZEは必ず何秒CD」と数値を固定しない。
+### internal cooldown
+
+active Statusとは独立したledger。
+
+policy:
+
+- `internalCooldownSec`
+- `respectInternalCooldown`
+
+をcallerが必須指定する。
+
+Status本体がexpireしてもcooldownは残れる。
+
+`ClearStatus(kind)` はactiveだけを消し、cooldownを保持する。
+
+一方 `U2EnemyActor` のpool lifecycle用 `Clear()` は**別用途**で、active + cooldown両方を消す。前spawnの状態を次spawnへ漏らさないため。
+
+## No balance defaults
+
+Unity `EnemyStatusApplicationPolicy` は以下をcallerから受ける:
+
+1. durationSeconds
+2. stacksPerApplication
+3. stackMode
+4. maxStacks
+5. magnitude
+6. magnitudeMode
+7. maxMagnitude
+8. internalCooldownSeconds
+9. respectInternalCooldown
+
+BURN 3秒、CHILL 20%、FREEZE CD 4秒などの**数値**は一切ここへ固定しない。
+
+invalid policyはfallbackを捏造せずfail closedする。
 
 ## Boss boundary
 
 Content authorityではBossにhard Status完全無効を基本採用しない。
 
-foundationはBoss用の**disposition種類だけ**を持つ:
+foundationはBoss用のqualitative dispositionだけを持つ:
 
 - FREEZE → slowへ変換
 - ROOTED → slowへ変換
@@ -77,7 +150,7 @@ foundationはBoss用の**disposition種類だけ**を持つ:
 - DROWSY → magnitude低下
 - その他 → Preserve
 
-ここでも**数値**は固定しない。
+ここでも数値は固定しない。
 
 - slow率
 - action delay秒
@@ -88,41 +161,45 @@ foundationはBoss用の**disposition種類だけ**を持つ:
 
 `Immune`というBoss dispositionは作らない。
 
-## Pure C# contract
+## Pure C# executable contract
 
 `EnemyStatusRuntimeState.cs` は `UnityEngine` に依存しない。
 
-理由:
+GitHub Actionsでexact Unity sourceを.NET 8 compileし、Console contractを実行する。
 
-1. lifecycle logicをUnity sceneから切り離す
-2. GitHub Actionsで実際にcompileできる
-3. Console contractで挙動まで実行検証できる
-4. 将来のdomain testを高速に回せる
-
-Executable contractで確認する:
+確認:
 
 - Status16 round-trip
-- unknown ID reject
-- lowercase reject
-- first apply
-- duration refresh
-- bounded stack
-- max-stack refresh
-- Tick expiry
-- remove
-- reapply cooldown
-- invalid arguments reject
+- unknown/lowercase reject
+- REPLACE / REFRESH / ADD_CAPPED stacks
+- REPLACE / MAX / ADD_CAPPED magnitude
+- exact caller duration refresh
+- independent internal cooldown
+- active expire後もcooldown維持
+- ClearStatus後もcooldown維持
+- invalid policy throw
+- negative Tick reject
 - Boss hard-control conversion
-- deterministic snapshot order
-- Clear
+- deterministic snapshot + magnitude
+- entity Clear
+
+TypeScript checkerは同時に`RuntimeStatusApplicationPolicy`とのcross-runtime token/semanticsを照合する。
+
+## Wave A current state
+
+実装済み:
+
+1. Status16 pure C# state
+2. bounded/application policy
+3. U2EnemyActor ownership
+4. pool Activate/Deactivate reset
+5. battle Tick lifecycle
+6. Web/Unity application policy parity
 
 ## Important: not wired yet
 
-このPRだけではまだ `STATUS_APPLICATION` をAdmissionでIMPLEMENTEDへ上げない。
+まだ **not wired**:
 
-**not wired**:
-
-- `U2EnemyActor`へのstate保持
 - Weapon hit → Apply
 - GroundArea hit → Apply
 - movement speedへのCHILL/ROOTED反映
@@ -130,29 +207,24 @@ Executable contractで確認する:
 - SHOCK chain
 - EXPOSED damage calculation
 - SEALED special-action cadence
-- visual cue
+- Status visual cue
 - telemetry
 
-したがってSelected16はまだruntime admitted=0のままが正しい。
+したがって`STATUS_APPLICATION`をSelected16 AdmissionでIMPLEMENTEDへ上げない。
+
+Selected16はまだUnity admitted=0のままが正しい。
 
 ## Next Wave A integration
 
-次の小PRで:
+次はtyped **hit → Apply request**。
 
-1. `U2EnemyActor`が`EnemyStatusRuntimeState`を一つ持つ
-2. spawn/reset/despawnでClear
-3. battle tickからStatus Tick
-4. read-only inspection API
-5. 既存damage behaviorを変えないregression
+1. Status kind
+2. `EnemyStatusApplicationPolicy`
+3. optional request / none
+4. projectile actorへ運ぶ
+5. projectile collisionから`U2EnemyActor.Statuses.Apply(...)`
+6. existing projectile callersはNoneで完全互換
 
-まで接続する。
+を小PRで接続する。
 
-その後:
-
-6. generic hit → Status application request
-7. 最初の実WeaponでStatus付与
-8. visual cue + simulator capture
-
-へ進む。
-
-`STATUS_APPLICATION`をIMPLEMENTEDへ上げるのは、hit接続 + runtime verificationまで揃った後。
+その後最初のSelected16 vertical sliceで実policy数値を限定的に与え、visual cue / simulator evidenceまで通してからAdmissionを更新する。
