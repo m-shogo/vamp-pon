@@ -1,0 +1,54 @@
+name: title1-base-weapon-runtime-admission
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/selectedBaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/domain/weaponRuntimeCapabilities.ts'
+      - 'src/game/domain/__tests__/weaponRuntimeCapabilities.test.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/U47GameplayDefinitions.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/U47Stage1GameplayDataImporter.cs'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - '.github/workflows/title1-base-weapon-runtime-admission.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/selectedBaseWeaponRuntimeAdmissionSource.ts'
+      - 'src/game/data/baseWeaponSelectionSource.ts'
+      - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
+      - 'src/game/data/weaponExpansionSource.ts'
+      - 'src/game/data/weapons.ts'
+      - 'src/game/domain/weaponRuntimeCapabilities.ts'
+      - 'src/game/domain/__tests__/weaponRuntimeCapabilities.test.ts'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/U47GameplayDefinitions.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Editor/U47Stage1GameplayDataImporter.cs'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - '.github/workflows/title1-base-weapon-runtime-admission.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check upstream Selected16 Web admission
+        run: node --experimental-strip-types scripts/quality/check-selected16-runtime-admission-matrix.ts
+      - name: Check Unity runtime admission evidence overlay
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
