@@ -44,9 +44,10 @@ for (const token of ['highest eligible combined-priority pair should win','equal
 assert(project.includes('U2EnemyTetherPairSelectionRuntime.cs'), 'contract project must compile real tether selector source');
 
 assert(currentUnityWeaponRuntimeCapabilities.TWO_TARGET_TETHER === 'IMPLEMENTED', 'verified tether selector must back TWO_TARGET_TETHER capability');
+assert(currentUnityWeaponRuntimeCapabilities.KNOCKBACK_VECTOR === 'IMPLEMENTED', 'Rain Thread position-control dependency must remain implemented');
 const rainThread = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'rain_thread');
 assert(rainThread, 'rain_thread Selected16 admission row missing');
-assert(rainThread.requiredUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,STATUS_APPLICATION', `Rain Thread requirements drift: ${rainThread.requiredUnityCapabilities.join(',')}`);
+assert(rainThread.requiredUnityCapabilities.join(',') === 'TWO_TARGET_TETHER,KNOCKBACK_VECTOR,STATUS_APPLICATION', `Rain Thread requirements drift: ${rainThread.requiredUnityCapabilities.join(',')}`);
 assert(rainThread.missingUnityCapabilities.length === 0, `Rain Thread should have complete shared primitives: ${rainThread.missingUnityCapabilities.join(',')}`);
 assert(!rainThread.prototypeCallerImplemented, 'shared tether capability must not fabricate Rain Thread caller proof');
 assert(rainThread.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Rain Thread must stop at caller-proof gate');
@@ -57,7 +58,7 @@ assert(nameReel, 'name_reel candidate row missing');
 assert(nameReel.decision === 'HOLD_TARGET_LINK_READABILITY' && !nameReel.selectedForTitle1, 'Tether runtime work must preserve Name Reel Hold selection');
 assert(!title1BaseWeaponRuntimeAdmissionEntries.some((entry) => entry.weaponId === 'name_reel'), 'held Name Reel must not be fabricated into Selected16 admission');
 
-for (const token of ['IMPLEMENTED_SHARED_SELECTION_PRIMITIVE','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','combined priority score','短いpair','O(n^2)','TWO_TARGET_TETHER','NOT_CANON','runtimeAutoPromotionAllowed = false']) {
+for (const token of ['IMPLEMENTED_SHARED_SELECTION_PRIMITIVE','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','combined priority score','短いpair','O(n^2)','TWO_TARGET_TETHER','KNOCKBACK_VECTOR','NOT_CANON','runtimeAutoPromotionAllowed = false']) {
   assert(doc.includes(token), `two-target tether doc missing token: ${token}`);
 }
 assert(!coordinator.includes('U2EnemyTetherPairSelectionRuntime') && !coordinator.includes('rain_thread'), 'tether primitive/consumer must remain outside live Stage1 coordinator');
