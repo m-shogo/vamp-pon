@@ -1,29 +1,31 @@
-# ヨルノシルベ Main Story Beat Sheet v1
+# ヨルノシルベ Main Story Beat Sheet v2
 
-Date: 2026-07-29  
-Status: **HIGH-VALUE MAIN STORY PRODUCTION CANDIDATE / C-GRADE PAYOFFS REQUIRED, A-GRADE ANSWERS OPEN**
+Date: 2026-08-11  
+Status: **HIGH-VALUE MAIN STORY PRODUCTION CANDIDATE / MASTER-ALIGNED**
 
-> 目的: Stage1〜5をプレイヤーが普通に遊んだ時にも「何の話だったか」が分かり、深く遊んだ時には人物・敵・小物の意味が後から反転するMain Story骨格へする。
->
-> Exact dialogue / scene count / boss assignmentはHuman review前にLOCKしない。
+> Stage1–5のCore5 local arc候補。
+> 最上位は `00-current-story-world-master.md`。
+> Exact dialogue / scene count / combat Boss assignmentはHuman review前にLOCKしない。
 
 ---
 
-# Prologue — 夜へ入る
+# Prologue — 夢の夜へ
 
-## Playerがまず知ること
+## Playerがまず知る
 
-- ユイは小さなランタンを持っている
-- 敵は倒すと血肉で死ぬのでなく、紙片 / インク / 小物へほどける
-- 記憶片を拾うと強くなる
-- 朝まで残ることがrun目的
+- ユイは小さなランタンを持つ
+- Enemyは血肉で死ぬのでなく紙片 / ink / Objectへほどける
+- 記憶片でrun中に強くなる
+- ヨルノシルベはずっと夜
+- runは「朝まで耐える」Storyではなく、**その局面を越えてResult / Wakingへ進む**
 
-## 説明しないこと
+## 最初は説明しない
 
-- 夜の完全な正体
-- 星獣の原理
-- 黒インクの最終起源
-- 誰がこの仕組みを作ったか
+- Dream最終mechanism / 起源
+- 星獣完全原理
+- 黒インク最終起源
+- なぜ年代の違う人が同じDreamへ来るか
+- 星座が年代で違う理由
 
 ## 最初の日常
 
@@ -33,9 +35,9 @@ Status: **HIGH-VALUE MAIN STORY PRODUCTION CANDIDATE / C-GRADE PAYOFFS REQUIRED,
 
 誰も答えない。
 
-ユイは自分の鞄へ入れる。
+自分の鞄へ入れる。
 
-この小さい行動をEndingまで使う。
+Endingまで返す小さい行動。
 
 ---
 
@@ -43,50 +45,42 @@ Status: **HIGH-VALUE MAIN STORY PRODUCTION CANDIDATE / C-GRADE PAYOFFS REQUIRED,
 
 ## Beat 1: Gameplay first
 
-普通に敵を倒し、pickupを集め、強くなる。
-
-アサが加入 / 同行する場合は先行Assistが分かりやすく強い。
+Enemyをほどき、pickupを集め、強くなる。
 
 ## Beat 2: Useful difference
 
-アサは名前を見つけると先へ進む。
-ユイは落ちたものを回収する。
+- アサ: 名前を見つけると先へ進む
+- ユイ: 落ちたものを回収する
 
-二人で戦うと気持ちいい。
+二人の違いがGameplayで強みになる。
 
 ## Beat 3: First oddity
 
-クロオリが「大事そうな紙」を折って持ち去る。
+クロオリが大事そうな紙を折って持ち去る。
 
 Playerには敵対に見える。
 
-説明しない。
-
 ## Beat 4: First failure
 
-ユイが危険な位置のpickupを全部回収しようとしてrunを崩す / event pressureに入る。
-
-ここで:
+ユイが危険なpickupまで全部回収しようとしてrunを崩す。
 
 > 大切 = 全部取る
 
-が初めて揺らぐ。
+が揺らぐ。
 
 ## Beat 5: Small recovery
 
-アサとユイが互いの速度を少し合わせる。
+ユイとアサが互いの速度を少し合わせる。
 
 ## Stage end
 
-朝へ近づく。
+「先へ進んだ」ことは分かるが、**空は夜のまま**。
 
-でもクロオリが持つ折り紙だけは戻らない。
+月相 / 空の状態だけが少し変わるCandidate。
 
-C級の疑問:
+C-grade question:
 
-> クロオリは何者で、なぜ隠す？
-
-を残す。
+> クロオリはなぜ隠す？
 
 ---
 
@@ -94,409 +88,406 @@ C級の疑問:
 
 事件を進めない。
 
-- 誰がどこへ座るか
-- アサが名前を書く
+Dreamでは食事が自然に用意される。
+
+- 誰がどこへ座る
+- アサが紙cupへ名前を書く
 - ユイが忘れ物を中央へ置く
-- ネムが途中で寝る
+- ネムが寝る
 - トモリが椅子を直す
+- 誰かが知らない時代の食べ物に首を傾げる
 
-を見せる。
+食料調達 / 金銭不足は問題にしない。
 
-後半で同じ構図へ戻るための貯金。
+年代差は小さな会話で出す。
 
 ---
 
 # Stage2 — 名前
 
-## Beat 1: Name is useful
+## Beat 1
 
-名札 / markで敵処理が速くなる。
+名札 / markがGameplay上便利。
 
-アサの長所を気持ちよく体験。
-
-## Beat 2: カスミ
+## Beat 2 — カスミ
 
 カスミは一部の名前を霞ませる。
 
 アサ:
-
 > 「名前を消すな。」
 
 カスミ:
-
 > 「消してない。」
 
-## Beat 3: Gameplay contradiction
+## Beat 3 — Contradiction
 
-名前を表示すると敵から狙われる対象。
-隠すとAlly Supportも届きにくい。
+名前を表示するとEnemyに狙われる。
+隠すとSupportも届きにくい。
 
 どちらも絶対正解ではない。
 
-## Beat 4: Wrong arrival
+## Beat 4 — 黒耀化pressure
 
-アサ黒銘化pressure。
+全部へlabelを付けるほど戦闘は強い。
 
-すべてへlabelを付ければ戦闘は強い。
 しかしlabelと本人の選択がズレる。
 
-## Beat 5: Chosen trust
+## Beat 5 — Chosen trust
 
 本人confirm / concealを使って戻る。
 
 ## Stage end
 
-アサは誰かへ:
+アサ:
 
 > 「名前は？」
 
-と聞きかけて:
+と言いかけ:
 
 > 「……なんて呼べばいい？」
 
-へ言い直すSample。
+へ変える。
 
 ---
 
 # Interlude B — 名前のない物
 
-机に名前のない小物がある。
+机に名前のない小物。
 
-アサは書きたがる。
-シロは未分類箱へ入れたい。
-ユイは持ち主を探す。
-カスミは誰の物か知っているようにも見えるが言わない。
+- アサ: 書きたい
+- シロ: 未分類へ
+- ユイ: 持ち主を探す
+- カスミ: 知っていそうだが言わない
 
-答えを出さない日常scene。
+答えを出さない日常。
 
 ---
 
 # Stage3 — 守る
 
-## Beat 1: Protection feels good
+## Beat 1
 
-ナギseal / カナメinterceptで危険を大きく減らせる。
+ナギseal / カナメinterceptで危険が減る。
 
-## Beat 2: 二つの守り
+## Beat 2 — 二つの守り
 
 ナギ:
-
 > 危険を閉じる。
 
 カナメ:
-
 > 自分が間へ立つ。
 
-互いに相手を極端だと思う。
+## Beat 3 — リツ / コヨリ
 
-## Beat 3: リツ / コヨリ
+一方だけが守る兄妹にしない。
 
-リツが守る兄だけではないことを、コヨリの救援成功で見せる。
+## Beat 4 — Failure
 
-## Beat 4: Failure
+- カナメが受けすぎる
+- ナギが閉じすぎる
 
-カナメが受けすぎる。
-ナギが閉じすぎる。
+partyの選択肢が減る。
 
-結果:
-
-- 一人は倒れかける
-- partyの出口が減る
-
-## Beat 5: Alternate protection
-
-守る役割を交代する。
+## Beat 5 — Alternate protection
 
 ```txt
 カナメが時間を稼ぐ
 → ナギがhazardを閉じる
-→ トバリが帰路を残す
+→ トバリがrouteを残す
 → リツ / コヨリが別laneを支える
 ```
 
 ## Stage end
 
-安全になった場所から出る必要がある。
-
-誰かが門を開く。
-
-「安全な場所に永遠にいる」ことをHappy Endにしない伏線。
+安全な場所へ永久に閉じこもることをHappy Endにしない。
 
 ---
 
-# Interlude C — 雨
+# Interlude C — 雨 / 知らない日常
 
-雨の日。
+雨。
 
-マドカが:
-
+マドカ:
 > 「五分くらいで来るかも。」
 
-誰かが半信半疑。
+本当に降る。
 
-本当に雨。
+全員で紙 / 道具を避難させる。
 
-全員で洗濯物 / 紙を取り込む。
+Dreamなので洗濯物流をリアルに再現する必要はない。
 
-事件ではない。
+大事なのは:
 
-後の「確実でなくても伝える」Payoffのために置く。
+> 確実でなくても伝える
+
+という後のPayoff。
+
+ここへ年代差の小物を一つ混ぜてもよい。
 
 ---
 
-# Stage4 — 道 / 時間
+# Stage4 — 道 / 時代
 
-## Beat 1: Route play
+## Beat 1 — Route play
 
-ミチルのroute、トキの測定が非常に役立つ。
+ミチル / トキの能力が役立つ。
 
-## Beat 2: Map contradiction
+## Beat 2 — Map contradiction
 
 ゲン:
-
 > 「ここを真っ直ぐだ。」
 
 ミチル:
-
 > 「道、ないよ。」
 
-後で古い地図には本当にある。
+古い地図には本当にある。
 
-## Beat 3: Investigation ensemble
+## Beat 3 — Investigation ensemble
 
-- マドカが遠景を見つける
-- レンが規格差を見つける
-- トキが時刻 / 星 / 影を測る
-- ネムが若いゲンらしき夢を見る
+- マドカ: 遠景
+- レン: 規格差
+- トキ: 時計 / 星 / 影
+- ネム: 断片Dream
+- 別Character: 商品 / UI / 言葉の違和感
 
-一人も「真相解説役」にはしない。
+一人の真相説明役を作らない。
 
-## Beat 4: C-grade reveal
+## Beat 4 — C-grade reveal
 
-Playerが本編だけでも理解できる程度に:
+> **Dreamでは現実で同時代ではない人物 / 物 / 景色が繋がっている。**
 
-> **夜には現実で同時代でない人物 / 物 / 景色がつながっている。**
+を本編だけでも理解できる程度に示す。
 
-ことを示す。
+### 時間タグrule
 
-夜が何なのかはまだ答えない。
+誰かが「私は19XX年から来た」と正確に自己紹介するのではない。
 
-## Beat 5: Route failure
+Playerが物証から先に疑う。
 
-perfect routeがphase changeで使えなくなる。
+## Beat 5 — 星座違和感 seed
 
-Player自身が線を捨ててrerouteする。
+同じ星を見た二人が違う星座名を言う。
 
-## Beat 6: Character growth
+ここで最終説明しない。
 
-ミチル / トキ / ゲンが一つの正解を競うのでなく:
+## Beat 6 — Route failure
 
-- 今の道
-- 昔の道
-- 測った危険
+perfect routeがphase変化で使えなくなる。
 
-を重ねて進む。
+Player自身が線を捨てrerouteする。
 
 ## Stage end
 
-地図に複数の細い線。
+地図には複数の細線。
 
-ここで初めて「人だけでなく物も時代を渡る」が強く見えてくる。
+月はさらに欠けるCandidate。
 
 ---
 
 # Interlude D — ランタン
 
-トモリがユイのランタンを見る。
-
-裏側の継ぎ目へ指を置く。
+トモリがユイのランタン裏の継ぎ目へ触れる。
 
 > 「これ……。」
 
 まで。
 
-ここで真相を全部言わない。
-
-Playerが以前からランタンを見ていれば違和感が増す。
+真相を全部言わない。
 
 ---
 
-# Stage5 — 直す / 朝へ行く
+# Stage5 — 直す / 最深部
 
-## Beat 1: Repair
+## Beat 1 — Repair
 
-トモリが壊れたobject / equipmentを直す。
+トモリがObject / equipmentを直す。
 
-Gameplayとしてありがたい。
-
-## Beat 2: ツムギ
+## Beat 2 — ツムギ
 
 ツムギは一部を完全には直さない。
 
 トモリ:
-
 > 「そこ残すの？」
 
 ツムギ:
-
 > 「残ってても使えるから。」
 
-## Beat 3: Lantern payoff
+## Beat 3 — Lantern payoff Candidate
 
-HIGH-VALUE CANDIDATEを採用する場合:
+トモリが別時代でユイのランタンを修理した可能性を採用する場合:
 
-トモリは現実の別時代でユイのランタンを修理していた。
+- 当時互いを知らない
+- 人間関係の過去因縁ではなくObjectが時代を渡った
 
-重要:
-
-- トモリは当時ユイを知らない
-- ユイもトモリを知らない
-- 人間関係の過去因縁ではなく、物が時間を渡った
-
-この説明でStage4のtime-layer ruleを人物Payoffへ返す。
+へする。
 
 まだLOCKしない:
 
 - 血縁
-- 星獣の完全原理
-- ランタンが夜を作った等の大真相
+- 星獣最終原理
+- ランタンがDreamを作った等
 
-## Beat 4: トモリ wrong arrival
+## Beat 4 — トモリ wrong arrival
 
-全部元通りへすれば失わない、と修復しすぎる。
+全部元通りにすれば失わない、と修復しすぎる。
 
-傷 / repair trace / 現在の変化まで消え始める。
+repair scar / 現在の変化まで消え始める。
 
-## Beat 5: Rescue
+## Beat 5 — Rescue
 
-ツムギが「壊れたままにしろ」と言うのではない。
+> 壊れたまま放置
 
-**直す場所と残す場所を選ぶ。**
+でも:
 
-Playerがrepair / scarのどちらかを選ぶGameplayへ。
+> 全部新品同様へ戻す
 
-## Beat 6: ユイ / クロオリ convergence
+でもなく:
 
-序盤からクロオリが折っていたものの一部について:
+> **直す場所と残す場所を選ぶ。**
 
-> 開ける / 閉じる
+## Beat 6 — ユイ / クロオリ convergence
 
-の二択から:
+`開ける / 閉じる`の二択から:
 
 > **本人が開ける時を選ぶ**
 
-へ進む。
+へ。
 
-「昔のユイ自身が預けた」Twistを採用する場合も、ここで:
-
-- クロオリが約束を守っていた
-- しかし守り続けすぎた
-- ユイも全部開こうとしすぎた
-
-という双方のwrong answerへする。
-
-## Beat 7: Core5 convergence
+## Beat 7 — Core5 convergence
 
 行動で示す。
 
 - ユイ: 一つを拾わない
 - アサ: 呼び方を本人へ聞く
-- ナギ: 開く条件を残す
+- ナギ: reopen条件を残す
 - ミチル: routeを二本残す
 - トモリ: repair scarを残す
 
-台詞で5教訓を列挙しない。
+5教訓を台詞で列挙しない。
 
-## Beat 8: Morning
+## Beat 8 — 朔 / Moonless depth Candidate
 
-帰れる。
-生きている。
-再会できる。
+月が完全に消える。
 
-「夜に残れば失わない」誘惑より、変わる現実へ帰ることを選ぶ。
+**朝にはならない。**
+
+星 / ランタン / Characterの灯りだけが残る。
+
+> 月が照らしてくれないなら、自分たちの灯りで進む。
+
+ここに必ず「時代の固定ラスボス」を置く必要はない。
+
+Core5 local arcでは:
+
+- 黒耀化pressure
+- Object fixation
+- 朔夜座member encounter
+- Dream phenomenon
+
+の組合せで最深部を作れる。
+
+Exact combat BossはOpen。
 
 ---
 
-# Ending — 同じ日常
+# Ending — Waking
 
-最初の食卓 / 作業場に近い構図。
+## Dream側
 
-大きく違わせない。
+最後まで夜。
 
-Playerが気づける変更:
+誰かが太陽を昇らせて終わらない。
 
-- ユイが忘れ物を中央へ置く
-- アサが本人へ呼び方を聞く
-- ナギの箱にreopen条件
-- ミチルの地図に複数route
+人物がDreamから目覚める。
+
+### 通常記憶ruleとの関係
+
+Title local resolutionとして、どこまで明示記憶を持ち帰るかはMain Masterの「大事件解決パートでは記憶回復方向」へ合わせる。
+
+## Reality側
+
+同じCharacterが自分の時代へ戻る。
+
+そこで:
+
+- ユイが以前と違う拾い方をする
+- アサが呼び方を本人へ聞く
+- ナギが閉じた物へ開く条件を残す
+- ミチルが複数routeを許す
 - トモリが修理跡を残す
-- クロオリが一つの紙を本人へ返す
 
-その他Characterはoptional Dawn Proofへ。
+など、Dreamで得たものをReality行動へ返す。
 
-## Emotional answer
+異年代Character全員が同じ現実の食卓へ帰る、とはしない。
 
-Theme Candidate:
+---
+
+# Emotional answer
 
 > **忘れてしまっても、大切だったことまで無かったことにはならない。**
 
-さらに広い答え:
+さらに:
 
-> **残すこと、閉じること、名前を付けること、道を決めること、元通りにすることだけが、大切にする方法ではない。**
+> **残す / 閉じる / 名前を付ける / 道を決める / 元通りにする、だけが大切にする方法ではない。**
 
 ---
 
 # Epilogue / Soft cliffhanger
 
-Happy Endを一度成立させる。
+Happy Endを成立させた後だけ小さい違和感。
 
-その後だけ小さい違和感。
+候補:
 
-High-value candidate:
+- 現代には存在しない星座名を誰かが無意識に書く
+- Reality側にあるはずのない黒い折り紙
+- 見覚えのないversion mark
+- 子獅子が誰もいない方向へ反応
 
-```txt
-ユイの鞄
-↓
-現実にあるはずのない黒い折り紙
-↓
-「……これ、誰が折ったんだっけ？」
-↓
-子獅子が反応
-↓
-暗転
-```
-
-これは1の救いを無効化しない。
-
-最終採用はHuman decision前にLOCKしない。
+「Happy Endは偽物だった」にはしない。
 
 ---
 
 # Main Mystery debt ledger
 
-## 必ず1で払う
+## 必ずlocal arcで払う
 
 - Core5の感情arc
 - クロオリが単純敵ではない
 - 黒耀化は本人の一部
-- 朝へ帰る選択
-- 同時代でない人物が夜で会えること
+- DreamからRealityへ目覚めるlocal resolution
+- 現実で同時代でない人物がDreamで会えること
 
-## 1で相当見せる
+## 相当見せる
 
-- ランタンが現実時間を渡った可能性
-- クロオリの約束 / 預かりの一部
-- 星獣が人物の言葉より先に反応すること
+- ObjectがReality時間を渡る可能性
+- 星座認識の年代差
+- 星獣が言葉より先に反応すること
+- 月相が日数ではなく事件depthで変化すること
 
-## 残してよい
+## Seriesへ残せる
 
-- 夜の完全な正体
-- 星獣の完全な原理
-- 誰が夜を作ったか
-- sequel layer
+- Dream最終mechanism / Origin
+- 星座増減の最終原因
+- 星獣完全原理
+- 黒インク最終起源
+- 群青残響録formal members
+- 各時代大事件の全貌
+
+---
+
+# Fixed-boss guard
+
+このBeat Sheetから導出してはいけない:
+
+- Stage5 = その時代の固定ラスボス
+- 各時代必ず1Boss
+- 群青残響録member = combat Boss
+- 朔夜座 = 群青残響録の部下
+
+combat encounterはGameplayとして設計し、大事件の中心構造はStoryとして別に決める。
 
 ---
 
 # 一文
 
-> **本編の謎解きは「最後に世界設定を説明する」ことではなく、Stage1で普通にやっていた“拾う・名前を付ける・閉じる・道を決める・直す”の意味がStage5で全部少し変わり、それでも同じ人たちが同じ日常へ帰ってくることで完成させる。**
+> **Stage1で普通にやっていた「拾う・名前を付ける・閉じる・道を決める・直す」の意味が、朝の来ないDreamの深部で少しずつ変わり、最後は太陽ではなくWakingによって各自のRealityへ戻り、以前は選べなかった第三の行動を選ぶことでlocal storyを完成させる。**
