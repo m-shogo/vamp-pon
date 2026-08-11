@@ -1,0 +1,33 @@
+name: Character Relationship Graph Read Model
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-relationship-graph-read-model-v1.md'
+      - 'src/game/data/characterRelationshipGraphReadModel.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'scripts/quality/check-character-relationship-graph-read-model.ts'
+      - '.github/workflows/character-relationship-graph-read-model.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-relationship-graph-read-model-v1.md'
+      - 'src/game/data/characterRelationshipGraphReadModel.ts'
+      - 'src/game/data/currentRelationshipInventory.ts'
+      - 'scripts/quality/check-character-relationship-graph-read-model.ts'
+      - '.github/workflows/character-relationship-graph-read-model.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source-aware Current21 relationship graph read model
+        run: node --experimental-strip-types scripts/quality/check-character-relationship-graph-read-model.ts
