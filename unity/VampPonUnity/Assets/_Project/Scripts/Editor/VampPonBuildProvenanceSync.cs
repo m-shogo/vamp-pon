@@ -1,6 +1,7 @@
 using System;
-using System.Diagnostics;
 using System.IO;
+using Process = System.Diagnostics.Process;
+using ProcessStartInfo = System.Diagnostics.ProcessStartInfo;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
