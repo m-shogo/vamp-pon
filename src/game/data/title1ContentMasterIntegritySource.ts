@@ -14,6 +14,10 @@ import {
   title1AllLightsBoundary,
   title1StoryCompletePolicy,
 } from './title1EndingCompletionBoundarySource.ts';
+import {
+  TITLE1_COLLECTION_SECTION_IDS,
+  title1AchievementRewardCollectionSummary,
+} from './title1AchievementRewardCollectionSource.ts';
 import { title1UnlockLearningProgressionSummary } from './title1UnlockLearningProgressionSource.ts';
 import { weaponTransformationSelectionSummary } from './weaponTransformationSelectionSource.ts';
 
@@ -29,6 +33,7 @@ export const title1ContentMasterAuthorities = {
   transformation: 'src/game/data/weaponTransformationSelectionSource.ts',
   unlockLearning: 'src/game/data/title1UnlockLearningProgressionSource.ts',
   endingCompletion: 'src/game/data/title1EndingCompletionBoundarySource.ts',
+  achievementRewardCollection: 'src/game/data/title1AchievementRewardCollectionSource.ts',
 } as const;
 
 export const title1ContentMasterIntegritySnapshot = {
@@ -82,6 +87,18 @@ export const title1ContentMasterIntegritySnapshot = {
     allBaseAttributesByStage: title1UnlockLearningProgressionSummary.allBaseAttributesIntroducedByStage,
     allInitialReactionsByStage: title1UnlockLearningProgressionSummary.allInitialReactionsIntroducedByStage,
   },
+  rewardCollection: {
+    stageMilestoneCount: title1AchievementRewardCollectionSummary.stageCount,
+    legacyRuntimeAchievementCount: title1AchievementRewardCollectionSummary.legacyRuntimeAchievementCount,
+    legacyStage1BoardCellCount: title1AchievementRewardCollectionSummary.legacyForgottenStreetBoardCellCount,
+    collectionSectionCount: TITLE1_COLLECTION_SECTION_IDS.length,
+    placedCombatItemCount: title1AchievementRewardCollectionSummary.placedCombatItemCount,
+    selectedTransformationCount: title1AchievementRewardCollectionSummary.selectedTransformationCount,
+    repeatableCurrencyRewards: title1AchievementRewardCollectionSummary.repeatableCurrencyRewards,
+    clearRequiresFullCollection: title1AchievementRewardCollectionSummary.clearRequiresFullCollection,
+    readingRequiredForPower: title1AchievementRewardCollectionSummary.readingRequiredForPower,
+    runtimeAutoPromotionAllowed: title1AchievementRewardCollectionSummary.runtimeAutoPromotionAllowed,
+  },
   ending: {
     contentEndAnchorStageId: title1StoryCompletePolicy.contentEndAnchorStageId,
     runtimeGateFrozen: title1StoryCompletePolicy.runtimeGateFrozen,
@@ -103,6 +120,7 @@ export const title1ContentMasterIntegritySnapshot = {
     baseWeaponRuntimeAutoPromotionAllowed: baseWeaponSelectionSummary.runtimeAutoPromotionAllowed,
     combatItemRuntimeAutoPromotionAllowed: title1CombatItemSelectionSummary.runtimeAutoPromotionAllowed,
     transformationRuntimeAutoPromotionAllowed: weaponTransformationSelectionSummary.runtimeAutoPromotionAllowed,
+    rewardCollectionRuntimeAutoPromotionAllowed: title1AchievementRewardCollectionSummary.runtimeAutoPromotionAllowed,
     contentMasterMayFreezeRuntimeCompletionByItself: false,
   },
 } as const;
@@ -111,6 +129,7 @@ export const title1ContentMasterOpenImplementationGates = [
   'selected Base Weapon runtime hooks + numerical tuning',
   'Combat Item PASSIVE/FIELD_ITEM/RARE_SUPPORT runtime schemas and spawn/offer rules',
   'Fusion/Synthesis/Awakening runtime triggers and inventory mutation',
+  'achievement/reward one-shot claim ledger + duplicate reward migration',
   'exact Story Complete runtime trigger',
   'finite All Lights runtime denominator + save migration',
   'Stage20-scale Achievement editorial expansion/migration',
