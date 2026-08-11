@@ -1,0 +1,31 @@
+name: Character Voice Prosody Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-voice-prosody-reservoir-v1.md'
+      - 'src/game/data/characterVoiceProsodyReservoir.ts'
+      - 'scripts/quality/check-character-voice-prosody-reservoir.ts'
+      - '.github/workflows/character-voice-prosody-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-voice-prosody-reservoir-v1.md'
+      - 'src/game/data/characterVoiceProsodyReservoir.ts'
+      - 'scripts/quality/check-character-voice-prosody-reservoir.ts'
+      - '.github/workflows/character-voice-prosody-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character voice/prosody reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-voice-prosody-reservoir.ts
