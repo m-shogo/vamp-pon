@@ -280,8 +280,8 @@ Resolution:
 # 3. Current summary
 
 ```txt
-GUARDED              = 13
-OPEN_HUMAN           = 4
+GUARDED              = 12
+OPEN_HUMAN           = 5
 CANDIDATE_DEPENDENT  = 1
 UNRESOLVED_BLOCKER   = 0
 ```
@@ -290,9 +290,8 @@ OPEN_HUMAN:
 - 夜の最終正体
 - 死者がNightへ本人として現れるか
 - 朔盟Founder / Leader
-- Current主要人物の重大Family / exact physical-era decisions
-
-※ exact height/age/eraはCF-013としてOPENだが、制作上はrelative candidateでblockしない。集計上はvisual-production pendingとしてOPEN_HUMANに含める場合、familyと分けて5件として扱ってよい。machine sourceを正とする。
+- Current主要人物の重大Family設定
+- exact height / chronological age / exact era
 
 ---
 
