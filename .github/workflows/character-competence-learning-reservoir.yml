@@ -1,0 +1,35 @@
+name: Character Competence Learning Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-competence-learning-reservoir-v1.md'
+      - 'src/game/data/characterCompetenceLearningReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'scripts/quality/check-character-competence-learning-reservoir.ts'
+      - '.github/workflows/character-competence-learning-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-competence-learning-reservoir-v1.md'
+      - 'src/game/data/characterCompetenceLearningReservoir.ts'
+      - 'src/game/data/characterBehaviorIdentityReservoir.ts'
+      - 'src/game/data/characterLivedArtifactReservoir.ts'
+      - 'scripts/quality/check-character-competence-learning-reservoir.ts'
+      - '.github/workflows/character-competence-learning-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character competence learning reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-competence-learning-reservoir.ts
