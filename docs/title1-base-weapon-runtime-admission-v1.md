@@ -2,23 +2,47 @@
 
 ## Purpose
 
-Content Masterで選定した**Selected16**を、今のUnity runtimeへ形だけ押し込まないためのAdmission Gate。
+Content Masterで選定した**Selected16**を、既存runtimeへ形だけ押し込まないためのAdmission Gate。
 
 Content側では16本ともTitle1採用のまま。
 Runtime側では必要primitiveが実装されるまでfail closedする。
 
-## Current Unity reality
+## Cross-runtime reality
 
-U47 gameplay runtimeのWeapon executorは現在:
+WebとUnityは同じ「runtime」という言葉でも現在の実装面が異なる。
+
+### Web runtime = 5 effect types
+
+既存Authority:
+
+`src/game/domain/weaponRuntimeCapabilities.ts`
+
+現在のlive effect surface:
+
+1. `projectile`
+2. `radial_random_projectile`
+3. `bouncing_projectile`
+4. `ground_area`
+5. `orbit`
+
+この5件は既存Web runtimeの正本をそのまま参照する。Admission側で別リストを二重管理しない。
+
+### Unity runtime = 2 executor types
+
+U47 gameplay runtimeのimport/executorは現在:
 
 - nearest-target **Projectile**
 - circular **GroundArea**
 
-の2系統。
+つまりUnity側の実装面は実質 **Projectile / GroundArea** の2系統。
 
-つまり実質 **Projectile / GroundArea** の土台しかない。
+Webに`orbit`や`bouncing_projectile`があることを、Unityでも同じ挙動がproduction-readyだという証拠には使わない。
 
-実装済みprimitiveとしてAdmission Sourceが認めるのは:
+`webRuntimeSupportEqualsUnityRuntimeSupport = false`
+
+を固定する。
+
+Unityで実装済みprimitiveとしてAdmission Sourceが認めるのは:
 
 1. `NEAREST_TARGET_PROJECTILE`
 2. `MULTI_PROJECTILE_LOOP`
@@ -47,7 +71,7 @@ Selected16が必要とする:
 - spiral control
 - lane trigger
 
-はまだ実装済み扱いにしない。
+はまだUnity実装済み扱いにしない。
 
 ## Current admission result
 
@@ -84,7 +108,7 @@ Selected16の多くがAttribute/Status gameplayを前提にする。
 - `bellows_fan` をただのProjectileにする
 - `rain_thread` を色違い弾にする
 - `pocket_mirror` をdamage弾にする
-- `repair_thread_spool` をorbit風の見た目だけにする
+- `repair_thread_spool` をWebの`orbit`があるという理由だけでUnity実装済みにする
 - `sleep_ribbon` を円形GroundAreaとして実装済み扱いする
 
 `fake projectile` fallbackは許可しない。
@@ -170,17 +194,20 @@ Admissionは:
 
 まで揃って初めて`IMPLEMENTED`へ上げる。
 
+Web側も同様に、既存5 effect typeのどれかへCandidateを無理に割り当てて「対応済み」としない。
+
 ## Existing code evidence
 
 Current source evidence:
 
-- `WeaponEffectType { Projectile, GroundArea }`
+- Web Authority = 5 current effect types
+- Unity `WeaponEffectType { Projectile, GroundArea }`
 - U47 importer accepts only `projectile` / `ground_area`
 - `Stage1GameplayRuntimeCoordinator` branches only Projectile vs GroundArea
-- projectile API targets nearest enemy
-- GroundArea uses radius + pooled actor
+- Unity projectile API targets nearest enemy
+- Unity GroundArea uses radius + pooled actor
 
-このコードが変わったらAdmission checkerを更新しない限りCIを落とす。
+これらのコードが変わったらAdmission checkerを更新しない限りCIを落とす。
 
 ## CONTENT_MASTER boundary
 
