@@ -127,7 +127,7 @@
     "semanticLayerRegistrar":"scripts/unity/register-top-living-night-semantic-layer-pack.ts",
     "effectCompanionRegistrar":"scripts/unity/register-top-living-night-effect-companion-pack.ts",
     "unityV3Verification":"scripts/unity/run-top-living-night-v3-unity-verification.sh",
-    "capturePack":"scripts/unity/run-loading-top-capture-pack.sh",
+    "capturePack":"scripts/unity/run-top-v3-final-approval-capture.sh",
     "simulatorPerformance":"scripts/unity/run-top-living-night-simulator-performance-evidence.sh",
     "physicalIphonePerformance":"scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh",
     "staticReviewRegistrar":"scripts/unity/register-top-living-night-static-review.ts",
