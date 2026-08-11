@@ -1,4 +1,4 @@
-# ヨルノシルベ — World Human Decision Queue v2
+# ヨルノシルベ — World Human Decision Queue v3
 
 Date: 2026-08-11  
 Status: **HUMAN CONSULTATION ROUTER / MASTER-ALIGNED**
@@ -103,7 +103,44 @@ Consult trigger:
 
 ---
 
-# 6. HD-005 — Major family facts
+# 6. HD-005 — Core5 5 distinct erasの個人割当
+
+State: `CONSULT_BEFORE_NEXT_GATE`
+
+### DECIDED
+
+Core5:
+- ユイ
+- アサ
+- ナギ
+- ミチル
+- トモリ
+
+は**5人とも別Reality era / generation**。
+
+```txt
+Core5 distinct era count = 5 / 5
+```
+
+5 different eras = 5 equal protagonists、ではない。
+
+### OPEN
+
+- 誰が1940年代系か
+- 誰が1980年代系か
+- 誰が2000年代系か
+- 誰が現代か
+- 5つ目を未来Android laneへ置くか別eraへするか
+- exact year / exact age
+
+Consult trigger:
+> Core5 final character master / official profile / Reality flashbackで個人eraを明示する直前。
+
+それまではAppearance / tool / language evidenceを候補として積み、**同じeraへ戻さない**。
+
+---
+
+# 7. HD-006 — Major family facts
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -122,7 +159,7 @@ Consult before adding:
 
 ---
 
-# 7. HD-006 — Major Character permanent death
+# 8. HD-007 — Major Character permanent death
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -136,7 +173,7 @@ Consult trigger:
 
 ---
 
-# 8. HD-007 — 死者がDreamへ本人として現れるか
+# 9. HD-008 — 死者がDreamへ本人として現れるか
 
 State: `OPEN_NOT_BLOCKING`
 
@@ -153,7 +190,7 @@ Consult trigger:
 
 ---
 
-# 9. HD-008 — 朔夜座Founder / absolute leader
+# 10. HD-009 — 朔夜座Founder / absolute leader
 
 State: `OPEN_NOT_BLOCKING`
 
@@ -173,7 +210,7 @@ Consult trigger:
 
 ---
 
-# 10. HD-009 — 朔夜座8人の真名 / Reality identity
+# 11. HD-010 — 朔夜座8人の真名 / Reality identity
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -187,7 +224,7 @@ Final visual masterはtrue name未決でも制作可能。
 
 ---
 
-# 11. HD-010 — 各時代大事件の中心人物 / 戦闘Boss構造
+# 12. HD-011 — 各時代大事件の中心人物 / 戦闘Boss構造
 
 State: `OPEN_NOT_BLOCKING`
 
@@ -210,7 +247,7 @@ Consult trigger:
 
 ---
 
-# 12. HD-011 — 大規模Historical Incidentの直接被害
+# 13. HD-012 — 大規模Historical Incidentの直接被害
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -223,7 +260,7 @@ Consult before:
 
 ---
 
-# 13. HD-012 — Canon romance
+# 14. HD-013 — Canon romance
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -235,7 +272,7 @@ Affinityが高いだけで自動恋愛化しない。
 
 ---
 
-# 14. HD-013 — Exact height / chronological age / final era
+# 15. HD-014 — Exact height / chronological age / final era
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -250,7 +287,7 @@ Consult trigger:
 
 ---
 
-# 15. HD-014 — 群青残響録 member / formal names
+# 16. HD-015 — 群青残響録 member / formal names
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -275,7 +312,7 @@ Consult trigger:
 
 ---
 
-# 16. HD-015 — Android final identity
+# 17. HD-016 — Android final identity
 
 State: `CONSULT_BEFORE_NEXT_GATE`
 
@@ -299,13 +336,25 @@ Consult trigger:
 
 ---
 
-# 17. HD-016 — Dream materializationの限界
+# 18. HD-017 — Dream provisioningの限界 / 演出
 
 State: `USER_DIRECTION_SET_DETAILS_OPEN`
 
 ### DECIDED
 
-生成 / 補完しやすい:
+Basic living needs are Dream-completed, but **not by direct hand/air spawning**。
+
+Current grammar:
+
+```txt
+欲しい / 食べたいと考える
+↓
+食糧庫 / 冷蔵庫 / 棚 / 箱 / 厨房等を開ける
+↓
+最初から入っていたように見つかる
+```
+
+補完しやすい:
 - 食事
 - 飲み物
 - 日用品
@@ -321,19 +370,56 @@ State: `USER_DIRECTION_SET_DETAILS_OPEN`
 - 黒耀化
 - 生死
 - Reality大事件
+- 本物の事件証拠
+- Unique Object
 
-### Open detail
+### OPEN detail
 
-- 生成演出
-- 誰でも同程度に生成できるか
-- 一度にどこまで出せるか
-- Character固有の癖
+- 収納の中身が補完されるtiming
+- 複数人が違う物を同時に欲しがった時の見え方
+- 一度に出せる量のvisual grammar
+- Characterごとの「どの棚を見るか」の癖
 
-このdetailはGameplay / visualへ必要になった時に相談する。
+これらはStory contradictionを作らない範囲でCandidateを増やしてよい。
 
 ---
 
-# 18. Current consultation priority
+# 19. HD-018 — Boss後Party / alcohol / tobacco final assignment
+
+State: `USER_DIRECTION_SET_DETAILS_OPEN`
+
+### DECIDED
+
+- Named Boss / major confrontation後は原則Party / decompression scene。
+- 焼肉 / 鍋 / 夜食 / 炭酸 / 酒等を使える。
+- **酒は存在し、成人Characterは酔う。**
+- **喫煙する主要Characterを最低3人以上。**
+- **pipe smokerを最低1人。**
+- generic商品名を優先し、実在ブランドをCharacter identityへ依存させない。
+
+Initial smoker Candidate:
+- ゲン = pipe
+- トバリ = cigarette
+- セン = cigarette
+
+### OPEN
+
+- Final smoker person assignment
+- 4人目以降
+- exact drinking capacity
+- exact tobacco form / prop
+- Character固有の禁酒 / 禁煙arc
+
+Consult trigger:
+> exact age / eraを伴うOfficial Character profile、Final Character Master、公開event sceneで飲酒 / 喫煙を確定する直前。
+
+Guard:
+- 未成年へ飲酒 / 喫煙を割り当てない。
+- 酔いで同意を無効化しない。
+
+---
+
+# 20. Current consultation priority
 
 現在のMaster追従作業を止める相談事項:
 
@@ -343,7 +429,8 @@ NONE
 
 今は安全に:
 - 下位資料migration
-- era evidence整理
+- Core5 era evidence候補の整理
+- Dream Party / food scenario追加
 - 朔夜座既存8資産の再利用
 - 群青残響録Candidate構造の整理
 - Character final master前段
@@ -352,7 +439,7 @@ NONE
 
 ---
 
-# 19. Future-agent consultation format
+# 21. Future-agent consultation format
 
 相談時は:
 
