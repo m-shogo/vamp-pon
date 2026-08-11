@@ -13,6 +13,7 @@ assertFullPreflightManifest(packageJson.scripts ?? {});
 const directChecks = [
   'scripts/quality/check-top-living-night-layer-kit.ts',
   'scripts/quality/check-top-living-night-runtime.ts',
+  'scripts/quality/check-top-living-night-finish-polish.ts',
   'scripts/quality/check-top-living-night-unity-evidence.ts',
   'scripts/quality/check-loading-top-runtime.ts',
 ] as const;
