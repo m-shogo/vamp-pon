@@ -36,13 +36,6 @@ export type UnityBaseWeaponAdmissionDecision =
   | 'BLOCKED_MISSING_UNITY_CALLER_PROOF'
   | 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW';
 
-/**
- * Selected16-specific prototype callers that have executable/runtime-source evidence.
- *
- * Shared primitive implementation alone must never auto-promote a weapon. A Selected16 weapon
- * can enter implementation review only when all required primitives AND its explicit caller proof
- * exist. Live registry admission remains a separate human/runtime gate.
- */
 export const unityPrototypeCallerImplementedWeaponIds = [
   'ember_matchcase',
   'bellows_fan',
@@ -52,20 +45,13 @@ export const unityPrototypeCallerImplementedWeaponIds = [
 
 const prototypeCallerImplementedWeaponIdSet = new Set<string>(unityPrototypeCallerImplementedWeaponIds);
 
-/**
- * Unity U47 evidence overlay.
- *
- * `selectedBaseWeaponRuntimeAdmissionSource.ts` remains the Selected16 live/Web admission authority.
- * This source adds only Unity executor evidence so Web runtime support can never be mistaken for
- * Unity implementation readiness.
- */
 export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponRuntimeCapability, RuntimeCapabilityState>> = {
   NEAREST_TARGET_PROJECTILE: 'IMPLEMENTED',
   MULTI_PROJECTILE_LOOP: 'IMPLEMENTED',
   CIRCULAR_GROUND_AREA: 'IMPLEMENTED',
   STATUS_APPLICATION: 'IMPLEMENTED',
   MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',
-  TWO_TARGET_TETHER: 'MISSING',
+  TWO_TARGET_TETHER: 'IMPLEMENTED',
   CONE_QUERY: 'IMPLEMENTED',
   KNOCKBACK_VECTOR: 'IMPLEMENTED',
   TARGET_CHAIN_SELECTION: 'MISSING',
