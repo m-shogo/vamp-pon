@@ -4,13 +4,13 @@ Runtime look/motion captures from the real Unity `TopLivingNightView` (final-cor
 
 ## Runtime evidence summary
 
-- source commit: `8a863dfe3208518ce3d86716d58ed41324532094`
+- source commit: `ac3701c5ada3c08c9cd80050f4cfdab5e0b76348`
 - Unity: `6000.5.1f1`
 - candidate SHA256: `f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e`
 - semantic layer pack SHA256: `3b8b92d531e8d83f7a38f79afbff028d82e592f8ef50f64c6984590cdf0eaa12`
 - effect companion pack SHA256: `a6ff212e3c22910460c7b2d052e4266621d4c636e20d1936e108f97cf0077f46`
 - captures: 39/39 — result PASSED
-- generated: `2026-08-11T04:51:04.531Z`
+- generated: `2026-08-11T05:44:46.848Z`
 
 ## Automated visual diagnostics
 
