@@ -94,13 +94,6 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.SelectedBaseWeapons
         }
     }
 
-    /// <summary>
-    /// Selected16 prototype caller for rain_thread / 雨縫い糸.
-    ///
-    /// The caller composes reusable pair selection, typed SOAK and shared displacement. It owns
-    /// link lifetime and position-control policy, while every numeric tuning value remains caller
-    /// supplied so prototype values cannot silently become Canon.
-    /// </summary>
     public sealed class RainThreadPrototypeState
     {
         public const string WeaponId = "rain_thread";
@@ -133,7 +126,7 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.SelectedBaseWeapons
         {
             selection = default;
             telemetry?.RecordBeginAttempt();
-            if (!IsFinitePositive(linkDurationSeconds)) return false;
+            if (IsActive || !IsFinitePositive(linkDurationSeconds)) return false;
 
             if (!U2EnemyTetherPairSelectionRuntime.TrySelectPair(
                 candidates,
