@@ -69,10 +69,16 @@ namespace VampPon.UnitySpike.Runtime.Gameplay.SelectedBaseWeapons
             EnemyStatusApplicationPolicy burnPolicy,
             EmberMatchcasePrototypeTelemetry telemetry)
         {
+            Action<EnemyStatusApplyResult> resultObserver = null;
+            if (telemetry != null)
+            {
+                resultObserver = telemetry.RecordStatusResult;
+            }
+
             return new EnemyStatusApplicationRequest(
                 EnemyStatusRuntimeKind.Burn,
                 burnPolicy,
-                telemetry?.RecordStatusResult);
+                resultObserver);
         }
 
         public static int Fire(
