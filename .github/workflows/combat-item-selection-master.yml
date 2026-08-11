@@ -1,0 +1,34 @@
+name: combat-item-selection-master
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/combatItemSelectionSource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
+      - 'docs/combat-item-selection-source-v1.md'
+      - 'scripts/quality/check-combat-item-selection-master.ts'
+      - '.github/workflows/combat-item-selection-master.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/combatItemSelectionSource.ts'
+      - 'src/game/data/combatItemEffectSource.ts'
+      - 'src/game/data/title1UnlockLearningProgressionSource.ts'
+      - 'docs/combat-item-selection-source-v1.md'
+      - 'scripts/quality/check-combat-item-selection-master.ts'
+      - '.github/workflows/combat-item-selection-master.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check Title1 Combat Item placement
+        run: node --experimental-strip-types scripts/quality/check-combat-item-selection-master.ts
