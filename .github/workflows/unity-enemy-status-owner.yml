@@ -6,6 +6,8 @@ on:
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
       - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/unity/u47-simulator-evidence-sources.ts'
+      - 'scripts/quality/check-unity-u47-simulator-manifest.ts'
       - 'scripts/quality/check-unity-enemy-status-owner.ts'
       - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
       - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
@@ -17,6 +19,8 @@ on:
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs'
       - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Status/EnemyStatusRuntimeState.cs'
       - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/unity/u47-simulator-evidence-sources.ts'
+      - 'scripts/quality/check-unity-u47-simulator-manifest.ts'
       - 'scripts/quality/check-unity-enemy-status-owner.ts'
       - 'scripts/quality/check-unity-enemy-status-runtime-foundation.ts'
       - 'scripts/quality/unity-enemy-status-runtime-foundation/**'
@@ -45,3 +49,5 @@ jobs:
           dotnet run --project scripts/quality/unity-enemy-status-runtime-foundation/EnemyStatusRuntimeFoundation.Contract.csproj --configuration Release --no-build
       - name: Check U2EnemyActor Status ownership lifecycle
         run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-owner.ts
+      - name: Verify historical U47 simulator manifest remains behavior-equivalent
+        run: node --experimental-strip-types scripts/quality/check-unity-u47-simulator-manifest.ts
