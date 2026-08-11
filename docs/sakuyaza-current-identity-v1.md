@@ -1,22 +1,25 @@
-# ヨルノシルベ — 朔夜座 Current Identity v1
+# ヨルノシルベ — 朔夜座 Season 1 Identity v2
 
 Date: 2026-08-11  
-Status: **CURRENT FORMAL IDENTITY / USER-DECIDED / LEGACY ASSETS PRESERVED**
+Status: **SEASON 1 FORMAL ANTAGONIST TEAM / USER-DECIDED / LEGACY ASSETS PRESERVED**
 
 > 最上位: `00-current-story-world-master.md`。
-> 旧八影 / 旧朔盟資料を捨てず、Current player-facing identityを朔夜座へ一本化するためのmigration authority。
+> 旧八影 / 旧朔盟資料を捨てず、**Season1の主要敵チーム**として朔夜座を一本化するためのmigration authority。
+>
+> **重要:** 朔夜座はシリーズ全Season共通の主要敵チームではない。
+> Season2は別team名 + 別primary antagonist cast。Season3がある場合も別team名 + 別castを基本とする。
 
 ---
 
-# 1. Current formal name
+# 1. Season 1 formal name
 
 # **朔夜座**
 
 読み: **さくやざ**
 
-Status: `DECIDED`
+Status: `DECIDED / S1 ONLY`
 
-Current 8member assets:
+Season1 8member assets:
 
 1. ナシロ
 2. アサトジ
@@ -26,6 +29,17 @@ Current 8member assets:
 6. ツグリ
 7. ユラネ
 8. ペタ
+
+Hard:
+
+- S1 team name = 朔夜座。
+- S1 primary antagonist roster = 上記8人。
+- S2 primary antagonist team name = **OPEN**。
+- S2 primary antagonist roster = **別Character群 / OPEN**。
+- optional S3 team name / roster = **OPEN**。
+- Season changeを「朔夜座の名前だけ変更」にしない。
+- previous Season memberのcameo / rival / ally / individual returnは可能。
+- previous Season full teamを次Seasonのprimary teamとして続投させない。
 
 ---
 
@@ -39,29 +53,62 @@ Current 8member assets:
 = superseded redesign candidate / authored asset namespace
 
 朔夜座
-= Current formal identity
+= Season1 Current formal antagonist team
 ```
 
 Rules:
 
 - 八影のexisting IDs / relationsを削除しない。
 - 朔盟資料の思想 / pair / operational detail / fan attachment / visual candidateを捨てない。
-- 旧doc filenameを理由に「朔盟」をCurrent formal nameへ戻さない。
+- 旧doc filenameを理由に「朔盟」をS1 formal nameへ戻さない。
 - runtime ID renameは別migrationで必要性を判断する。
+- **朔夜座をS2/S3のteam名として自動継承しない。**
 
 ---
 
-# 3. 「座」のbrand
+# 3. Season antagonist rotation rule
 
-`座`は朔夜座側の固有brandとして扱う。
+Series hard rule:
 
-群青残響録 / 大事件中心人物群へ:
+```txt
+Core5 / Main Mystery / Dream rules / Reality history
+= Seasonを跨いで継続
+
+Primary antagonist team name + primary enemy cast
+= Seasonごとに変更
+```
+
+目的:
+
+- Seasonごとの社会問題を敵Character設計にも反映する。
+- 同じ8人を問題に合わせて着せ替えるだけにしない。
+- 新Season開始時に新しい「推せる敵Character群」を作れる。
+- 前Seasonの敵との再会をspecialにできる。
+
+Bad:
+
+> S2 = 朔夜座改 / 新朔夜座 / 名前だけ別で中身は同じ8人
+
+Good:
+
+> S2 = S2 macro problemから生まれた別team / 別cast。
+> 朔夜座memberが一人だけ再登場することはあっても、S2のmain teamではない。
+
+---
+
+# 4. 「座」のbrand
+
+`座`は**Season1の朔夜座**の固有brandとして扱う。
+
+群青残響録 / S2 team / 大事件中心人物群へ:
 
 - ○○座
 - 五○座
 - 時代○座
 
-のように流用しない。
+のように自動流用しない。
+
+S2/S3 team名は各Season themeから新しく作る。
 
 朔夜座という名前と、Dream最深部で月が消える**朔夜**のvisual connectionを育てる。
 
@@ -69,11 +116,11 @@ Rules:
 
 > 朔夜座がDreamの月を作った / 消している
 
-とは現時点でCanon化しない。
+とはCanon化しない。
 
 ---
 
-# 4. 8人の既存強みを維持
+# 5. S1 8人の既存強みを維持
 
 旧朔盟deep-profile資産から保持する:
 
@@ -90,19 +137,25 @@ Rules:
 
 全員を同じ黒服 / 仮面 / 厨二口調へ均さない。
 
+S1内でも:
+
+- 8人全員が同じ事件へ出る必要はない。
+- 8人全員が同じ思想結論になる必要はない。
+- pair / solo /一時共闘 /個人行動を変えられる。
+
 ---
 
-# 5. 思想資産の扱い
+# 6. 思想資産の扱い
 
 旧朔盟で作った:
 
 > 本人のために「正解」を先に固定してしまう
 
-という思想群は高価値資産として残す。
+という思想群はS1高価値資産として残す。
 
-ただし「朔夜座全員が完全に同じ一文へ署名した組織」という旧Operational detailまで自動Canon化しない。
+ただし「朔夜座全員が完全に同じ一文へ署名した組織」というOperational detailまで自動Canon化しない。
 
-Currentで強く残す:
+Current S1で強く残す:
 
 - 各memberは別理由 / 別fearを持つ
 - 善意 / 保護 / 訂正が他者の選択権を奪う
@@ -110,11 +163,13 @@ Currentで強く残す:
 - pair登場で能力だけでなく思想が衝突する
 - 一人でも主要敵Characterとして成立する
 
+S2以降は、この思想を別teamへそのままコピーしない。
+
 ---
 
-# 6. Organization structure — exact form remains open
+# 7. Organization structure — S1 exact form remains open
 
-Current formal identityは8人を一つの主要敵laneとして扱うが、以下はまだHuman decision前にLOCKしない。
+Season1 formal identityは8人を一つの主要敵teamとして扱うが、以下はHuman decision前にLOCKしない。
 
 - Founder
 - absolute leader
@@ -124,15 +179,15 @@ Current formal identityは8人を一つの主要敵laneとして扱うが、以�
 - 一人のCreator
 - permanent headquarters
 
-Legacy Pair Mission Ruleは**高価値Operational Candidate**として保持するが、名前変更だけでfinal Canonへ自動昇格しない。
+Legacy Pair Mission Ruleは**S1高価値Operational Candidate**として保持するが、名前決定だけでfinal Canonへ自動昇格しない。
 
 ---
 
-# 7. 群青残響録との関係
+# 8. 群青残響録との関係
 
 固定上下関係はない。
 
-Era / Incidentごとに:
+Incidentごとに:
 
 - 協力
 - 利用
@@ -151,11 +206,13 @@ Era / Incidentごとに:
 - 朔夜座 = 群青残響録の部下
 - 同じCreatorの二階級組織
 
+S2新teamと群青残響録の関係も別途設計する。
+
 ---
 
-# 8. Moonless / 朔夜 connection
+# 9. Moonless / 朔夜 connection
 
-事件深度が最深部へ達した時、月が完全に消える局面を**朔夜**としてvisual identityに使える。
+事件深度が最深部へ達した時、月が完全に消える局面を**朔夜**としてS1 visual identityに使える。
 
 そこでは:
 
@@ -170,11 +227,14 @@ Era / Incidentごとに:
 
 朔夜座memberの重要encounterを朔夜へ置くことはできるが、**毎回必ず8人の誰かがBossになるruleではない**。
 
+Moonless visual自体は世界側の仕組みなので、S2以降も使える。
+S2 team名を朔夜由来にする必要はない。
+
 ---
 
-# 9. Character master migration
+# 10. Character master migration
 
-最終画像原本前に8人それぞれ:
+S1 final画像原本前に8人それぞれ:
 
 - face
 - eye architecture
@@ -197,13 +257,16 @@ Era / Incidentごとに:
 
 朔夜座正式化によって自動採用とはしない。Visual Reviewで最終判断する。
 
+S2新teamはS1欠円 / silhouette / color systemを単純流用しない。
+
 ---
 
-# 10. Machine source
+# 11. Machine source
 
-Current identity:
+S1 identity:
 - `src/game/data/storyWorldMasterSource.ts`
 - `src/game/data/sakumeiCandidateSource.ts` → `SAKUYAZA_CURRENT_IDENTITY`
+- `src/game/data/seasonArchitecture.ts` → `SEASON_ANTAGONIST_TEAM_ARCHITECTURE`
 
 Legacy authored member data:
 - `sakumeiCandidateMembers`
@@ -212,9 +275,9 @@ runtimeAutoPromotionAllowed = false。
 
 ---
 
-# 11. Completion boundary
+# 12. Completion boundary
 
-朔夜座Current identityは決定済み。
+朔夜座の**Season1 team名 + S1 8人roster**は決定済み。
 
 未完了:
 
@@ -225,5 +288,8 @@ runtimeAutoPromotionAllowed = false。
 - final common symbol
 - runtime/UI wording migration
 - Human visual approval
+- S2 team name
+- S2 primary antagonist roster
+- optional S3 team name / roster
 
 名称決定とFinal Visual完成を混同しない。
