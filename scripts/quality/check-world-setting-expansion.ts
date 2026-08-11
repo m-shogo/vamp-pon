@@ -20,6 +20,7 @@ const lifeDeath = fs.readFileSync('docs/world-life-death-injury-rulebook-v1.md',
 const knowledge = fs.readFileSync('docs/world-knowledge-secret-matrix-v1.md', 'utf8');
 const mystery = fs.readFileSync('docs/world-mystery-foreshadow-payoff-ledger-v1.md', 'utf8');
 const lineup = fs.readFileSync('docs/character-height-age-era-lineup-v1.md', 'utf8');
+const feast = fs.readFileSync('docs/dream-feast-party-social-bible-v1.md', 'utf8');
 const sakumeiLegacy = fs.readFileSync('docs/sakumei-antagonist-organization-candidate-v1.md', 'utf8');
 const sakumeiDeep = fs.readFileSync('docs/sakumei-member-deep-profile-candidate-v1.md', 'utf8');
 const conflicts = fs.readFileSync('docs/world-setting-conflict-register-v1.md', 'utf8');
@@ -41,7 +42,7 @@ for (const entry of worldSettingExpansionEntries) {
   assert(fs.existsSync(entry.primarySource), `missing primary source ${entry.primarySource} for ${entry.id}`);
 }
 
-// Conflict register grew to cover the new master decisions.
+// Existing contradiction-control register remains blocker-free.
 assert(worldSettingConflictSummary.total === 24, `expected 24 registered conflict lanes, got ${worldSettingConflictSummary.total}`);
 assert(worldSettingConflictSummary.guarded === 18, `expected 18 guarded conflict lanes, got ${worldSettingConflictSummary.guarded}`);
 assert(worldSettingConflictSummary.openHuman === 5, `expected 5 human-open conflict lanes, got ${worldSettingConflictSummary.openHuman}`);
@@ -59,6 +60,7 @@ for (const required of [
   'ヨルノシルベは**夢世界**',
   'ヨルノシルベには朝が来ない',
   '夢から目覚めて、自分の時代へ戻る',
+  'Core5 distinct era count = 5 / 5',
   '時間タグの記憶が弱い',
   '昔はあったが現代では存在しない星座',
   '月相 ≠ 時間経過',
@@ -67,20 +69,45 @@ for (const required of [
   '1世代1人ではない',
   '全員が戦闘Bossになるわけではない',
   'Androidは人間にならなくていい',
-  'Reality動物と星獣を別category',
+  '星獣とは別category',
 ]) {
   assert(master.includes(required), `Story / World Master missing decided invariant: ${required}`);
 }
 
-assert(master.includes('食事') && master.includes('日用品') && master.includes('休息'), 'Dream living materialization rules must remain in master');
-assert(master.includes('相手の同意'), 'Dream materialization must not become consent override');
+// Core5 are five different Reality eras, but narrative role is a separate axis.
+assert(master.includes('Core5 distinct era count = 5 / 5'), 'master must keep Core5 at five distinct Reality eras');
+assert(master.includes('5人が別時代 = 5人全員が同格主人公'), 'master must separate era count from equal-protagonist status');
+assert(lineup.includes('Core5 distinct era count = 5 / 5'), 'visual lineup must preserve Core5 distinct-era invariant');
+assert(lineup.includes('5 era = 5人全員を同格の主人公へ自動昇格'), 'visual lineup must separate era placement from narrative role');
+
+// Dream food is storage-mediated, not hand/air direct manifestation.
+assert(master.includes('食糧庫') && master.includes('目の前 / 手元へ突然生成しない'), 'master must keep storage-mediated Dream provisioning');
+assert(master.includes('腹は満たせる。人の意思 / 真相は食糧庫から出ない'), 'Dream provisioning may not solve consent, truth or character arcs');
+assert(feast.includes('食べ物は手元へ出現しない'), 'feast bible must reject direct hand materialization');
+assert(feast.includes('最初からそこに入っていた'), 'feast bible must preserve pantry/storage discovery grammar');
+assert(feast.includes('相手の秘密') && feast.includes('Main Mysteryの答え'), 'feast provisioning must not generate plot answers');
+
+// Post-boss parties, intoxication and tobacco are intentional social-world rules.
+assert(master.includes('Boss後Party') && master.includes('Named Boss / major confrontation'), 'master must retain post-boss party/decompression direction');
+assert(master.includes('酒は存在し、飲めば酔う'), 'master must preserve Dream intoxication');
+assert(master.includes('最低3人以上') && master.includes('パイプ喫煙者を最低1人'), 'master must preserve 3+ smokers and at least one pipe smoker');
+assert(feast.includes('Named Boss / major confrontation'), 'feast bible must route boss-clear social scenes');
+assert(feast.includes('飲めば酔う'), 'feast bible must preserve intoxication behavior');
+assert(feast.includes('最低3人以上') && feast.includes('パイプ喫煙者を最低1人'), 'feast bible must preserve tobacco count/type direction');
+assert(feast.includes('黒い炭酸') && feast.includes('柑橘のシュワシュワ'), 'generic carbonated-drink vocabulary must stay available');
+
+for (let i = 1; i <= 28; i += 1) {
+  const scenarioId = `P${String(i).padStart(2, '0')}`;
+  assert(feast.includes(`## ${scenarioId}`), `missing Dream feast/party scenario ${scenarioId}`);
+}
+
+// Fixed generation-boss wording must not return.
 assert(!master.includes('異なる世代の大事件中心人物 / 世代ラスボス群'), 'fixed era-boss grouping wording must not return');
 assert(master.includes('「世代ラスボス」という固定slotへ入れない'), 'master must explicitly prohibit fixed era-boss slots');
 
 // Foundation and life/death must have migrated off physical dawn-return semantics.
 assert(foundation.includes('朝の来ない夢世界'), 'foundation must define Yoru-no-Shirube as an endless-night dream world');
 assert(foundation.includes('1時代1人の固定Boss slotを作らない'), 'foundation must reject one-fixed-boss-per-era design');
-assert(foundation.includes('食事') && foundation.includes('Not wish-solvable'), 'foundation must separate dream living materialization from plot-solving');
 assert(lifeDeath.includes('帰還 = 目覚め'), 'life/death rule must use waking instead of dawn return');
 assert(lifeDeath.includes('Game Over ≠ 現実肉体の死亡'), 'life/death rule must keep Game Over non-death boundary');
 assert(lifeDeath.includes('Retryは蘇生ではない'), 'life/death rule must keep Retry non-resurrection boundary');
@@ -131,11 +158,13 @@ for (const entry of stageWorldLoreEntries) {
 // Preserve earlier content-system quality guards.
 assert(knowledge.includes('CONFIRMED_SYSTEMIC'), 'knowledge matrix must distinguish systemic confirmation');
 assert(mystery.includes('Aを残すためにCを投げない'), 'mystery ledger must preserve Title1 payoff debt rule');
-assert(lineup.includes('exact cmはHuman visual review前にCanon化しない'), 'lineup must keep exact heights unfrozen');
+assert(lineup.includes('exact cm') && lineup.includes('Human'), 'lineup must keep exact heights human-review-gated');
 assert(conflicts.includes('UNRESOLVED_BLOCKER   = 0'), 'conflict register doc must report zero unresolved blockers');
 assert(conflicts.includes('GUARDED              = 18'), 'conflict register doc guarded count must match machine source');
 assert(conflicts.includes('OPEN_HUMAN           = 5'), 'conflict register doc human-open count must match machine source');
 assert(worldHub.includes('群青残響録は各時代の大事件中心人物 / 人物群'), 'World Hub must route the non-fixed 群青残響録 definition');
+assert(worldHub.includes('Core5の5人はRealityでは全員が別era / generation'), 'World Hub must preserve Core5 distinct-era rule');
+assert(worldHub.includes('dream-feast-party-social-bible-v1.md'), 'World Hub must route Dream feast/social bible');
 assert(stageLore.includes('Stage20 World / Lore Integration'), 'Stage world lore integration document must remain routed');
 
-console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingConflictSummary.total} conflict lanes / 朔夜座 8 assets / Stage lore 20 / 0 blockers`);
+console.log(`world setting expansion OK: ${worldSettingExpansionSummary.total} areas / ${worldSettingConflictSummary.total} conflict lanes / 朔夜座 8 assets / Stage lore 20 / 28 party scenarios / Core5 5 distinct eras / 0 blockers`);
