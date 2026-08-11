@@ -4,13 +4,13 @@ Runtime look/motion captures from the real Unity `TopLivingNightView` (final-cor
 
 ## Runtime evidence summary
 
-- source commit: `c5eca594d5028cd7ab83cfe126b53c69e9d733a9`
+- source commit: `63c0b9ce9a1e525ea24058067f4ef1098b267119`
 - Unity: `6000.5.1f1`
 - candidate SHA256: `f551047e635ff3860c6488a5be6a949252911fa8791d9ab241e2fca90ab8a71e`
 - semantic layer pack SHA256: `3b8b92d531e8d83f7a38f79afbff028d82e592f8ef50f64c6984590cdf0eaa12`
 - effect companion pack SHA256: `b95fccc24dbbd38891b486e34d7ca58993eed125cbfa5c3e2bee63ff6631a301`
 - captures: 39/39 — result PASSED
-- generated: `2026-08-11T06:50:59.694Z`
+- generated: `2026-08-11T07:47:47.705Z`
 
 ## Automated visual diagnostics
 
@@ -36,7 +36,7 @@ Runtime look/motion captures from the real Unity `TopLivingNightView` (final-cor
 - `review/timeseries-430x932-transition.png`
 - `review/contact-sheet.png`
 
-## Fire-effect before / after review aids
+## Night-sky final-polish review aids
 
 - `review/before-after-430x932-normal.png`
 - `review/before-after-390x844-normal.png`
@@ -44,12 +44,21 @@ Runtime look/motion captures from the real Unity `TopLivingNightView` (final-cor
 - `review/before-after-430x932-reduced.png`
 - `review/before-after-390x844-reduced.png`
 - `review/before-after-360x800-reduced.png`
-- `review/before-after-fire-closeup.png`
-- `review/before-after-smoke.png`
-- `review/before-after-embers.png`
-- `review/before-after-glow.png` (alpha x3 visualization; runtime asset is unchanged)
+- `review/before-after-sky-timeseries.png`
 
-These comparisons use the pre-change `origin/main` runtime capture and the refreshed runtime capture at the same nominal frame. They are review aids only and do not promote human or runtime approval.
+The existing Stars mask now stays near a steady base while four non-overlapping
+TOP-only crop overlays add restrained, independently seeded local twinkle. The
+overlays reuse the registered texture and are fully suppressed in Reduced Motion.
+CloudsFar, CloudsNear, DistantLights, LanternGlow, fire, layout, and navigation
+were intentionally left unchanged after visual review found no scoped regression
+that justified more movement.
+
+AI visual QA: PASS as a review candidate. Across the 10-second Normal series,
+the stars do not brighten as one field, the local lift remains subtle, cloud drift
+does not read as a camera pan, warm lights do not compete with the fire, and title/
+button readability is preserved. Reduced and live Normal → Reduced → Normal
+series remain calm and restore correctly at all three capture sizes. This is not
+human approval.
 
 ## Core5 human review checklist (PENDING human)
 

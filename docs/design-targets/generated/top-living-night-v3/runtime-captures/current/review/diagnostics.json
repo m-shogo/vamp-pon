@@ -7,7 +7,7 @@
     {
       "check": "360x800-normal-t0 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.30"
+      "detail": "mean_luma=37.20"
     },
     {
       "check": "360x800-normal-t0 dimensions",
@@ -17,7 +17,7 @@
     {
       "check": "360x800-normal-t1 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.27"
+      "detail": "mean_luma=37.28"
     },
     {
       "check": "360x800-normal-t1 dimensions",
@@ -27,7 +27,7 @@
     {
       "check": "360x800-normal-t2 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.21"
+      "detail": "mean_luma=37.27"
     },
     {
       "check": "360x800-normal-t2 dimensions",
@@ -37,7 +37,7 @@
     {
       "check": "360x800-normal-t3 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.27"
+      "detail": "mean_luma=37.26"
     },
     {
       "check": "360x800-normal-t3 dimensions",
@@ -67,7 +67,7 @@
     {
       "check": "360x800-reduced-t2 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.18"
+      "detail": "mean_luma=37.15"
     },
     {
       "check": "360x800-reduced-t2 dimensions",
@@ -77,7 +77,7 @@
     {
       "check": "360x800-reduced-t3 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.10"
+      "detail": "mean_luma=37.09"
     },
     {
       "check": "360x800-reduced-t3 dimensions",
@@ -97,7 +97,7 @@
     {
       "check": "360x800-transition-normal-b not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.25"
+      "detail": "mean_luma=37.28"
     },
     {
       "check": "360x800-transition-normal-b dimensions",
@@ -107,7 +107,7 @@
     {
       "check": "360x800-transition-reduced-a not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.18"
+      "detail": "mean_luma=37.15"
     },
     {
       "check": "360x800-transition-reduced-a dimensions",
@@ -117,7 +117,7 @@
     {
       "check": "360x800-transition-reduced-b not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.15"
+      "detail": "mean_luma=37.18"
     },
     {
       "check": "360x800-transition-reduced-b dimensions",
@@ -127,7 +127,7 @@
     {
       "check": "360x800-transition-normal-c not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.29"
+      "detail": "mean_luma=37.25"
     },
     {
       "check": "360x800-transition-normal-c dimensions",
@@ -137,7 +137,7 @@
     {
       "check": "390x844-normal-t0 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.20"
+      "detail": "mean_luma=37.13"
     },
     {
       "check": "390x844-normal-t0 dimensions",
@@ -147,7 +147,7 @@
     {
       "check": "390x844-normal-t1 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.19"
+      "detail": "mean_luma=37.20"
     },
     {
       "check": "390x844-normal-t1 dimensions",
@@ -157,7 +157,7 @@
     {
       "check": "390x844-normal-t2 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.16"
+      "detail": "mean_luma=37.20"
     },
     {
       "check": "390x844-normal-t2 dimensions",
@@ -167,7 +167,7 @@
     {
       "check": "390x844-normal-t3 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.20"
+      "detail": "mean_luma=37.17"
     },
     {
       "check": "390x844-normal-t3 dimensions",
@@ -197,7 +197,7 @@
     {
       "check": "390x844-reduced-t2 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.11"
+      "detail": "mean_luma=37.08"
     },
     {
       "check": "390x844-reduced-t2 dimensions",
@@ -217,7 +217,7 @@
     {
       "check": "390x844-transition-normal-a not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.23"
+      "detail": "mean_luma=37.19"
     },
     {
       "check": "390x844-transition-normal-a dimensions",
@@ -227,7 +227,7 @@
     {
       "check": "390x844-transition-normal-b not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.20"
+      "detail": "mean_luma=37.18"
     },
     {
       "check": "390x844-transition-normal-b dimensions",
@@ -237,7 +237,7 @@
     {
       "check": "390x844-transition-reduced-a not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.12"
+      "detail": "mean_luma=37.14"
     },
     {
       "check": "390x844-transition-reduced-a dimensions",
@@ -247,7 +247,7 @@
     {
       "check": "390x844-transition-reduced-b not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.08"
+      "detail": "mean_luma=37.10"
     },
     {
       "check": "390x844-transition-reduced-b dimensions",
@@ -257,7 +257,7 @@
     {
       "check": "390x844-transition-normal-c not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.24"
+      "detail": "mean_luma=37.19"
     },
     {
       "check": "390x844-transition-normal-c dimensions",
@@ -267,7 +267,7 @@
     {
       "check": "430x932-normal-t0 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.41"
+      "detail": "mean_luma=37.35"
     },
     {
       "check": "430x932-normal-t0 dimensions",
@@ -277,7 +277,7 @@
     {
       "check": "430x932-normal-t1 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.39"
+      "detail": "mean_luma=37.37"
     },
     {
       "check": "430x932-normal-t1 dimensions",
@@ -287,7 +287,7 @@
     {
       "check": "430x932-normal-t2 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.39"
+      "detail": "mean_luma=37.41"
     },
     {
       "check": "430x932-normal-t2 dimensions",
@@ -297,7 +297,7 @@
     {
       "check": "430x932-normal-t3 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.43"
+      "detail": "mean_luma=37.40"
     },
     {
       "check": "430x932-normal-t3 dimensions",
@@ -317,7 +317,7 @@
     {
       "check": "430x932-reduced-t1 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.33"
+      "detail": "mean_luma=37.32"
     },
     {
       "check": "430x932-reduced-t1 dimensions",
@@ -327,7 +327,7 @@
     {
       "check": "430x932-reduced-t2 not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.32"
+      "detail": "mean_luma=37.29"
     },
     {
       "check": "430x932-reduced-t2 dimensions",
@@ -347,7 +347,7 @@
     {
       "check": "430x932-transition-normal-a not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.37"
+      "detail": "mean_luma=37.38"
     },
     {
       "check": "430x932-transition-normal-a dimensions",
@@ -357,7 +357,7 @@
     {
       "check": "430x932-transition-normal-b not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.40"
+      "detail": "mean_luma=37.43"
     },
     {
       "check": "430x932-transition-normal-b dimensions",
@@ -367,7 +367,7 @@
     {
       "check": "430x932-transition-reduced-a not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.30"
+      "detail": "mean_luma=37.34"
     },
     {
       "check": "430x932-transition-reduced-a dimensions",
@@ -377,7 +377,7 @@
     {
       "check": "430x932-transition-reduced-b not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.32"
+      "detail": "mean_luma=37.26"
     },
     {
       "check": "430x932-transition-reduced-b dimensions",
@@ -387,7 +387,7 @@
     {
       "check": "430x932-transition-normal-c not-full-black",
       "pass": true,
-      "detail": "mean_luma=37.43"
+      "detail": "mean_luma=37.38"
     },
     {
       "check": "430x932-transition-normal-c dimensions",
@@ -397,47 +397,47 @@
     {
       "check": "360x800 normal has inter-frame motion",
       "pass": true,
-      "detail": "max_consecutive_diff=0.7480"
+      "detail": "max_consecutive_diff=0.7382"
     },
     {
       "check": "360x800 reduced <= normal motion",
       "pass": true,
-      "detail": "reduced=0.2515 normal=0.7480"
+      "detail": "reduced=0.2514 normal=0.7382"
     },
     {
       "check": "360x800 normal frames not all identical",
       "pass": true,
-      "detail": "max_consecutive_diff=0.7480"
+      "detail": "max_consecutive_diff=0.7382"
     },
     {
       "check": "390x844 normal has inter-frame motion",
       "pass": true,
-      "detail": "max_consecutive_diff=0.7215"
+      "detail": "max_consecutive_diff=0.6585"
     },
     {
       "check": "390x844 reduced <= normal motion",
       "pass": true,
-      "detail": "reduced=0.2241 normal=0.7215"
+      "detail": "reduced=0.2240 normal=0.6585"
     },
     {
       "check": "390x844 normal frames not all identical",
       "pass": true,
-      "detail": "max_consecutive_diff=0.7215"
+      "detail": "max_consecutive_diff=0.6585"
     },
     {
       "check": "430x932 normal has inter-frame motion",
       "pass": true,
-      "detail": "max_consecutive_diff=0.6573"
+      "detail": "max_consecutive_diff=0.6096"
     },
     {
       "check": "430x932 reduced <= normal motion",
       "pass": true,
-      "detail": "reduced=0.1882 normal=0.6573"
+      "detail": "reduced=0.1881 normal=0.6096"
     },
     {
       "check": "430x932 normal frames not all identical",
       "pass": true,
-      "detail": "max_consecutive_diff=0.6573"
+      "detail": "max_consecutive_diff=0.6096"
     }
   ]
 }

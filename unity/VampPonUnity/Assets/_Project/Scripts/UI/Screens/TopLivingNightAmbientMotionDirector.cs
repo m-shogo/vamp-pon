@@ -17,10 +17,23 @@ namespace VampPon.UnitySpike.UI.Screens
         private const float BoundSearchInterval = 1f;
         private const float PreferencePollInterval = .5f;
 
+        // Four non-overlapping sky regions reuse the registered Stars texture.
+        // Keeping them as crops of the existing mask preserves exact registration
+        // while allowing a handful of stars to brighten independently without a
+        // bespoke material, shader, or additional production asset.
+        private static readonly Rect[] StarTwinkleRects =
+        {
+            new Rect(0f, .55f, .25f, .45f),
+            new Rect(.25f, .55f, .25f, .45f),
+            new Rect(.5f, .55f, .25f, .45f),
+            new Rect(.75f, .55f, .25f, .45f),
+        };
+
         private static TopLivingNightAmbientMotionDirector instance;
 
         private readonly List<RawImage> smoke = new();
         private readonly List<RawImage> embers = new();
+        private readonly List<RawImage> starTwinkleRegions = new();
         private TopLivingNightView top;
         private RectTransform artRoot;
         private RectTransform titleRoot;
@@ -136,6 +149,7 @@ namespace VampPon.UnitySpike.UI.Screens
             robotEye = null;
             smoke.Clear();
             embers.Clear();
+            starTwinkleRegions.Clear();
             poseCaptured = false;
 
             if (top == null)
@@ -175,6 +189,7 @@ namespace VampPon.UnitySpike.UI.Screens
             robotEye = null;
             smoke.Clear();
             embers.Clear();
+            starTwinkleRegions.Clear();
             if (top == null)
                 return;
 
@@ -186,6 +201,12 @@ namespace VampPon.UnitySpike.UI.Screens
                 if (string.Equals(image.name, "Stars", StringComparison.Ordinal))
                 {
                     stars = image;
+                    continue;
+                }
+
+                if (image.name.StartsWith("StarTwinkleRegion_", StringComparison.Ordinal))
+                {
+                    starTwinkleRegions.Add(image);
                     continue;
                 }
 
@@ -225,6 +246,48 @@ namespace VampPon.UnitySpike.UI.Screens
 
             smoke.Sort(CompareByName);
             embers.Sort(CompareByName);
+            starTwinkleRegions.Sort(CompareByName);
+            EnsureStarTwinkleRegions();
+            SyncStarTwinkleTextures();
+        }
+
+        private void EnsureStarTwinkleRegions()
+        {
+            if (stars == null || stars.transform.parent == null)
+                return;
+
+            for (var index = starTwinkleRegions.Count; index < StarTwinkleRects.Length; index++)
+            {
+                var region = StarTwinkleRects[index];
+                var regionObject = new GameObject(
+                    $"StarTwinkleRegion_{index + 1:00}",
+                    typeof(RectTransform),
+                    typeof(CanvasRenderer),
+                    typeof(RawImage));
+                var regionRect = regionObject.GetComponent<RectTransform>();
+                regionRect.SetParent(stars.transform.parent, false);
+                regionRect.anchorMin = new Vector2(region.xMin, region.yMin);
+                regionRect.anchorMax = new Vector2(region.xMax, region.yMax);
+                regionRect.offsetMin = Vector2.zero;
+                regionRect.offsetMax = Vector2.zero;
+                regionRect.SetSiblingIndex(stars.transform.GetSiblingIndex() + index + 1);
+
+                var regionImage = regionObject.GetComponent<RawImage>();
+                regionImage.raycastTarget = false;
+                regionImage.uvRect = region;
+                regionImage.color = new Color(1f, 1f, 1f, 0f);
+                starTwinkleRegions.Add(regionImage);
+            }
+        }
+
+        private void SyncStarTwinkleTextures()
+        {
+            if (stars == null)
+                return;
+
+            foreach (var region in starTwinkleRegions)
+                if (region != null && region.texture != stars.texture)
+                    region.texture = stars.texture;
         }
 
         private void ApplyBreathingNight(float time)
@@ -293,15 +356,36 @@ namespace VampPon.UnitySpike.UI.Screens
             // while Reduced Motion was ON can return to full ambience without rebuild.
             if (stars != null)
             {
-                // A single star mask cannot twinkle per-star without a shader, so
-                // avoid one uniform pulse: sum three low-amplitude rates so the
-                // field shimmers around a steady base instead of breathing as one.
+                // Keep the complete field almost steady. Local crop overlays below
+                // own the visible twinkle so the sky no longer brightens as one.
                 var baseGlow = Mathf.PerlinNoise(.17f, time * .043f) - .5f;
                 var shimmer = Mathf.PerlinNoise(2.77f, time * .19f) - .5f;
-                var sparkle = Mathf.PerlinNoise(3.91f, time * .41f) - .5f;
                 stars.color = WithAlpha(
                     stars.color,
-                    .58f + baseGlow * .075f + shimmer * .045f + sparkle * .028f);
+                    .60f + baseGlow * .018f + shimmer * .010f);
+            }
+
+            for (var index = 0; index < starTwinkleRegions.Count; index++)
+            {
+                var region = starTwinkleRegions[index];
+                if (region == null)
+                    continue;
+
+                // Each sparse sky district uses unrelated low-frequency noise and
+                // a restrained rare lift. The overlay only brightens existing star
+                // pixels; empty sky, title readability, and the source art stay put.
+                var slow = Mathf.PerlinNoise(
+                    101.7f + index * 17.3f,
+                    time * (.071f + index * .019f));
+                var focus = Mathf.PerlinNoise(
+                    137.9f + index * 11.7f,
+                    time * (.17f + index * .037f));
+                var rare = Mathf.SmoothStep(
+                    0f,
+                    1f,
+                    Mathf.InverseLerp(.70f, .95f, focus));
+                var alpha = .012f + (slow - .5f) * .025f + (focus - .5f) * .018f + rare * .070f;
+                region.color = WithAlpha(region.color, Mathf.Clamp(alpha, 0f, .09f));
             }
 
             if (distantLights != null)
@@ -425,6 +509,9 @@ namespace VampPon.UnitySpike.UI.Screens
             // only the same tiny readability variation as the base reduced path.
             if (stars != null)
                 stars.color = WithAlpha(stars.color, .62f);
+            foreach (var region in starTwinkleRegions)
+                if (region != null)
+                    region.color = WithAlpha(region.color, 0f);
             if (distantLights != null)
                 distantLights.color = WithAlpha(distantLights.color, .63f);
             if (fireGlow != null)
@@ -517,6 +604,7 @@ namespace VampPon.UnitySpike.UI.Screens
             RestorePose();
             smoke.Clear();
             embers.Clear();
+            starTwinkleRegions.Clear();
             if (instance == this)
                 instance = null;
         }
