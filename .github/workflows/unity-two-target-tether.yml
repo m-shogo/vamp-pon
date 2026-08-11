@@ -1,0 +1,43 @@
+name: unity-two-target-tether
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTetherPairSelectionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTetherPairSelectionRuntime.cs.meta'
+      - 'scripts/quality/check-unity-two-target-tether-primitive.ts'
+      - 'scripts/quality/unity-two-target-tether/**'
+      - 'docs/unity-two-target-tether-primitive-v1.md'
+      - '.github/workflows/unity-two-target-tether.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTetherPairSelectionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyTetherPairSelectionRuntime.cs.meta'
+      - 'scripts/quality/check-unity-two-target-tether-primitive.ts'
+      - 'scripts/quality/unity-two-target-tether/**'
+      - 'docs/unity-two-target-tether-primitive-v1.md'
+      - '.github/workflows/unity-two-target-tether.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check two-target tether selector
+        run: node --experimental-strip-types scripts/quality/check-unity-two-target-tether-primitive.ts
+      - name: Compile and execute two-target tether contract
+        run: |
+          dotnet build scripts/quality/unity-two-target-tether/UnityTwoTargetTether.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-two-target-tether/UnityTwoTargetTether.Contract.csproj --configuration Release --no-build
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
