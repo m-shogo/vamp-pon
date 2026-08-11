@@ -43,10 +43,12 @@ const sharedAnchors = [
   ['.027f', '0.027'],
   ['.019f', '0.019'],
   ['.047f', '0.047'],
-  ['.023f', '0.023'],
-  ['.017f', '0.017'],
-  ['.037f', '0.037'],
-  ['.029f', '0.029'],
+  ['.0125f', '0.0125'],
+  ['.0047f', '0.0047'],
+  ['.0091f', '0.0091'],
+  ['.0215f', '0.0215'],
+  ['.0083f', '0.0083'],
+  ['.0163f', '0.0163'],
 ] as const;
 for (const [sourceToken, planToken] of sharedAnchors) {
   invariant(ambient.includes(sourceToken), `TOP ambient director lost documented frequency: ${sourceToken}`);
