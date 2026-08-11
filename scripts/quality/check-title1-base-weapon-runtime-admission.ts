@@ -36,8 +36,8 @@ assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypeCount 
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentWebRuntimeEffectTypes === CURRENT_RUNTIME_WEAPON_EFFECT_TYPES, 'Unity overlay must reuse Web runtime capability authority');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypeCount === 2, 'Unity U47 importer/executor surface remains Projectile/GroundArea');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentUnityWeaponExecutorTypes.join(',') === 'Projectile,GroundArea', 'unexpected Unity executor surface');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 5, 'Unity evidence should expose five implemented primitives after real Status caller proof');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 16, `expected 16 missing advanced Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 6, 'Unity evidence should expose six implemented primitives after reusable knockback proof');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 15, `expected 15 missing advanced Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION is now a proven shared primitive and must not remain a blocker');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.selected16WebAdmissionAuthorityDuplicated, 'Unity overlay must not become a second Web admission authority');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.webRuntimeSupportEqualsUnityRuntimeSupport, 'Web support must never be treated as Unity implementation evidence');
@@ -81,7 +81,7 @@ for (const [capability, expected] of Object.entries({
   MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',
   STATUS_APPLICATION: 'IMPLEMENTED',
   CONE_QUERY: 'MISSING',
-  KNOCKBACK_VECTOR: 'MISSING',
+  KNOCKBACK_VECTOR: 'IMPLEMENTED',
   RETURNING_PROJECTILE: 'MISSING',
   REFLECT_WINDOW: 'MISSING',
   ORBIT_LINK: 'MISSING',
@@ -94,6 +94,7 @@ const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/
 const battleSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs', import.meta.url), 'utf8');
 const importerSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Editor/U47Stage1GameplayDataImporter.cs', import.meta.url), 'utf8');
 const emberSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/EmberMatchcasePrototypeRuntime.cs', import.meta.url), 'utf8');
+const knockbackSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs', import.meta.url), 'utf8');
 
 assert(definitionSource.includes('public enum WeaponEffectType { Projectile, GroundArea }'), 'live Unity importer executor enum remains Projectile/GroundArea only');
 assert(importerSource.includes('source.levels[0].effect.type == "projectile" ? WeaponEffectType.Projectile : WeaponEffectType.GroundArea'), 'U47 importer mapping changed; update evidence');
@@ -102,6 +103,7 @@ assert(coordinatorSource.includes('definition.EffectType == WeaponEffectType.Pro
 assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'multi-target primitive missing');
 assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest'), 'typed Status transport missing');
 assert(!coordinatorSource.includes('EmberMatchcasePrototypeRuntime'), 'prototype admission must not silently enter the live Stage1 loop');
+assert(!coordinatorSource.includes('U2EnemyKnockbackRuntime'), 'shared knockback primitive must not silently enter the live Stage1 loop');
 
 assert(emberSource.includes('public const string WeaponId = "ember_matchcase";'), 'Ember prototype must bind exact Selected16 ID');
 assert(emberSource.includes('public const string ContentStatusId = "BURN";'), 'Ember prototype must bind exact content Status');
@@ -112,9 +114,21 @@ assert(emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 
 assert(!/durationSeconds\s*:\s*[0-9]/.test(emberSource), 'Ember prototype must not hard-code BURN duration');
 assert(!/maxTargets\s*=\s*[0-9]/.test(emberSource), 'Ember prototype must not hard-code target count');
 
+assert(knockbackSource.includes('public static class U2EnemyKnockbackRuntime'), 'shared knockback runtime helper missing');
+assert(knockbackSource.includes('CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON'), 'knockback primitive tuning boundary missing');
+assert(knockbackSource.includes('enemy.transform.position += displacement;'), 'knockback primitive must apply caller-sized displacement to the enemy');
+
+const bellows = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'bellows_fan');
+assert(bellows?.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'bellows_fan should inherit implemented knockback primitive');
+assert(bellows?.missingUnityCapabilities.includes('CONE_QUERY'), 'bellows_fan must remain blocked on CONE_QUERY');
+const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
+assert(hammer?.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'pavement_hammer should inherit implemented knockback primitive');
+assert(hammer?.missingUnityCapabilities.includes('SLAM_WAVE_QUERY'), 'pavement_hammer must remain blocked on SLAM_WAVE_QUERY');
+
 const archetypes = new Set(title1BaseWeaponRuntimeAdmissionEntries.map((entry) => entry.archetype));
 assert(archetypes.size === 16, `Selected16 should remain 16 distinct attack archetypes, got ${archetypes.size}`);
 assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'STATUS_APPLICATION'), 'STATUS_APPLICATION must disappear from missing capability frequency');
+assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'KNOCKBACK_VECTOR'), 'KNOCKBACK_VECTOR must disappear from missing capability frequency');
 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
 for (const token of [
@@ -127,6 +141,7 @@ for (const token of [
   'ember_matchcase',
   'STATUS_APPLICATION',
   'MULTI_TARGET_PROJECTILE_SELECTION',
+  'KNOCKBACK_VECTOR',
   'PROTOTYPE_TUNING_NOT_CANON',
   'fake projectile',
   'CONTENT_MASTER',
@@ -144,6 +159,12 @@ console.log(JSON.stringify({
     blocked: title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount,
     implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
     missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
+  },
+  sharedKnockback: {
+    implemented: currentUnityWeaponRuntimeCapabilities.KNOCKBACK_VECTOR === 'IMPLEMENTED',
+    bellowsFanStillBlockedBy: bellows?.missingUnityCapabilities,
+    pavementHammerStillBlockedBy: hammer?.missingUnityCapabilities,
+    liveCoordinator: false,
   },
   emberMatchcase: {
     status: 'BURN',
