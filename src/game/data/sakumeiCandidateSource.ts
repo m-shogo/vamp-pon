@@ -23,6 +23,11 @@ export type SakumeiCandidateMember = {
   fear: string;
   violation: string;
   symbolPlacementCandidate: string;
+  attachmentLane: string;
+  ordinaryHabit: string;
+  frighteningPromise: string;
+  silhouettePromise: string;
+  finalMasterApproved: false;
   runtimeAutoPromotionAllowed: false;
 };
 
@@ -34,6 +39,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '誤った名前が本人より長く残ること',
     violation: '本人より先に正しい名前を固定する',
     symbolPlacementCandidate: '名札の縁 / 空欄を囲む欠円',
+    attachmentLane: '倫理の揺らぎ / identity mystery',
+    ordinaryHabit: '落ちた札を踏まず、並べた札の向きを揃える',
+    frighteningPromise: '本人が否定しても周囲の記録と呼び声を一つの名前へ揃える',
+    silhouettePromise: '空白名札 / 顔周りのnegative space / vertical tag rhythm',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -43,6 +53,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '一度開けたことで大切なものを失うこと',
     violation: '保護を永久拘束へ変える',
     symbolPlacementCandidate: '箱の留め具 / 鍵穴周辺の欠円',
+    attachmentLane: '優しい動作が暴力になる悲哀',
+    ordinaryHabit: '半開きの蓋や蝶番を見つけると直す',
+    frighteningPromise: '今だけの保護を解除期限のない永久保管へ変える',
+    silhouettePromise: 'large enclosure / clasp / hinge / one-beat anticipation',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -52,6 +67,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '自分の示した道で誰かが迷うこと',
     violation: '選択肢を消し最後には帰路まで奪う',
     symbolPlacementCandidate: '地図線 / 背面route markの欠円',
+    attachmentLane: '静かな圧倒的存在感',
+    ordinaryHabit: '新道より先に、以前誰かが迷った道の痕跡を見る',
+    frighteningPromise: '戦闘に勝っても来た道そのものが消えている',
+    silhouettePromise: '最大級mass / map-line back / slow landmark',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -61,6 +81,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '開示した意味が誰かを傷つけること',
     violation: '本人が開く権利まで折り畳む',
     symbolPlacementCandidate: '折り紙の折り目が作る欠円',
+    attachmentLane: 'recurring rival / visual transformation',
+    ordinaryHabit: '紙端やmessageへ無意識に同じ位置の折り目を付ける',
+    frighteningPromise: '本人の意思や理由まで折り畳み、外から問題がないように見せる',
+    silhouettePromise: 'transformable origami / invariant crease / sharp negative triangle',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -70,6 +95,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '間違った説明が記憶を上書きすること',
     violation: '説明と一緒に本人の言葉まで消す',
     symbolPlacementCandidate: '空白カード枠の欠円',
+    attachmentLane: 'uncanny minimalism / silence',
+    ordinaryHabit: '書かれかけた線を見ると止まり、空白へ置かれた物を静かにどかす',
+    frighteningPromise: '誤解の可能性を消すため本人の証言や反論まで空白へ戻す',
+    silhouettePromise: 'broad blank plane / frontal posture / central negative space',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -79,6 +109,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '壊れた状態を放置すること',
     violation: '本人が望む前に傷や失敗まで修理する',
     symbolPlacementCandidate: '継ぎ目 / 縫合金具の欠円',
+    attachmentLane: '善意100%の職人気質が行き過ぎる怖さ',
+    ordinaryHabit: '戦闘中でも外れた部品を拾い、壊れた物へ近づく',
+    frighteningPromise: '失敗や傷を本人の歴史ごと不具合とみなし綺麗に消す',
+    silhouettePromise: 'asymmetric patched mass / tool-like hands / visible seams',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -88,6 +123,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '苦痛を見続けさせること',
     violation: '安らぎを与え戻る理由まで弱くする',
     symbolPlacementCandidate: '夢 / 水面の波紋に現れる欠円',
+    attachmentLane: '理解できる誘惑 / quiet comfort',
+    ordinaryHabit: '眠っている存在を起こさず、騒音から少し距離を取る',
+    frighteningPromise: 'もう少しだけの休息を重ねて、起きる理由や帰る約束まで薄くする',
+    silhouettePromise: 'horizontal fluid mass / low center / ripple broken-circle',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
   {
@@ -97,6 +137,11 @@ export const sakumeiCandidateMembers: readonly SakumeiCandidateMember[] = [
     fear: '間違いを認めて剥がすこと',
     violation: '反省せず新しい正解で上書きする',
     symbolPlacementCandidate: '重ね札の隙間に見える欠円',
+    attachmentLane: 'petty affection → sudden horror',
+    ordinaryHabit: '他memberの道具へ勝手にlabelし、古い札を剥がさず積層する',
+    frighteningPromise: '本人が否定しても「安全」「治った」「もう大丈夫」の札で周囲の扱いを固定する',
+    silhouettePromise: 'compact / stacked labels / sticky protrusions / quick slap motion',
+    finalMasterApproved: false,
     runtimeAutoPromotionAllowed: false,
   },
 ] as const;
@@ -105,9 +150,11 @@ export const sakumeiCandidateSummary = {
   memberCount: sakumeiCandidateMembers.length,
   uniqueEnemyIdCount: new Set(sakumeiCandidateMembers.map((entry) => entry.enemyId)).size,
   uniqueCallNameCount: new Set(sakumeiCandidateMembers.map((entry) => entry.callName)).size,
+  uniqueAttachmentLaneCount: new Set(sakumeiCandidateMembers.map((entry) => entry.attachmentLane)).size,
   preservesExistingEnemyIds: true,
   preservesYatsukageAsEarlyObserverLabel: true,
   pairMissionUsesExistingTwentyEightPairAsset: true,
   revealedIdentityHumanReviewRequired: true,
+  allFinalMastersUnapproved: sakumeiCandidateMembers.every((entry) => !entry.finalMasterApproved),
   runtimeAutoPromotionAllowed: false,
 } as const;
