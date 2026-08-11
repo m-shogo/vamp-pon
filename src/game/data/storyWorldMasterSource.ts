@@ -1,3 +1,5 @@
+import { CORE5_ERA_ASSIGNMENTS } from './core5EraCanon.ts';
+
 export const STORY_WORLD_MASTER_SOURCE = {
   authority: 'CURRENT_HIGHEST_STORY_WORLD_AUTHORITY',
   status: 'USER_DECIDED_WITH_EXPLICIT_OPEN_FIELDS',
@@ -16,8 +18,12 @@ export const STORY_WORLD_MASTER_SOURCE = {
     core5DistinctRealityEraRequired: true,
     core5DistinctEraCount: 5,
     core5CharacterIds: ['yui', 'asa', 'nagi', 'michiru', 'tomori'] as const,
-    exactCore5EraAssignmentFrozen: false,
+    core5EraAssignments: CORE5_ERA_ASSIGNMENTS,
+    exactCore5EraAssignmentFrozen: true,
+    core5ExactYearsFrozen: false,
     fiveDistinctErasDoNotImplyFiveEqualProtagonists: true,
+    yuiOverallViewpoint: true,
+    asaFutureSpecies: 'HUMAN',
   },
   yoruNoShirube: {
     layerType: 'DREAM_WORLD',
@@ -134,6 +140,9 @@ export const STORY_WORLD_MASTER_SOURCE = {
     greekLettersMayRepresentVersionGeneration: true,
     completeVersionOrderFrozen: false,
     starBeastProvesSoul: false,
+    asaIsHumanFromThisEra: true,
+    asaPoliticalSideFrozen: false,
+    asaIncidentRoleFrozen: false,
   },
   animals: {
     realityDogsCatsMayEnterDream: true,
@@ -149,8 +158,8 @@ export const STORY_WORLD_MASTER_SOURCE = {
 } as const;
 
 export const STORY_WORLD_MASTER_OPEN_FIELDS = [
-  'exact Core5 era assignment',
-  'exact era years',
+  'exact Core5 years / sub-era placement',
+  'future Asa exact year / political side / Android-incident role',
   '群青残響録 formal members',
   '群青残響録 formal names',
   'future Android final name',
@@ -175,6 +184,7 @@ export const STORY_WORLD_MASTER_SUPERSEDED = [
   'one fixed era boss per era',
   '群青残響録 is a fixed-count boss organization',
   'Core5 all come from the same Reality era',
+  'Core5 person-to-era assignment is entirely open',
   'food directly materializes in hand or open air',
   'all eras share identical Dream constellations',
   'Dream requires normal Reality survival infrastructure',
@@ -185,6 +195,8 @@ export const STORY_WORLD_MASTER_SUPERSEDED = [
 export const storyWorldMasterSummary = {
   eraLaneSeedCount: STORY_WORLD_MASTER_SOURCE.era.currentLaneSeeds.length,
   core5DistinctEraCharacterCount: STORY_WORLD_MASTER_SOURCE.era.core5CharacterIds.length,
+  core5AssignedEraCount: STORY_WORLD_MASTER_SOURCE.era.core5EraAssignments.length,
+  core5UniqueAssignedEraCount: new Set(STORY_WORLD_MASTER_SOURCE.era.core5EraAssignments.map((entry) => entry.realityEra)).size,
   sakuyazaCurrentMemberCount: STORY_WORLD_MASTER_SOURCE.sakuyaza.memberCallNames.length,
   dreamPartyScenarioReservoirCount: STORY_WORLD_MASTER_SOURCE.socialLife.partyScenarioReservoirCount,
   minimumMajorSmokerCount: STORY_WORLD_MASTER_SOURCE.socialLife.minimumMajorSmokerCount,
