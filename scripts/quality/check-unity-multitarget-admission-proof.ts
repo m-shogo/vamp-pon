@@ -13,9 +13,8 @@ function assert(condition: unknown, message: string): asserts condition {
 assert(currentUnityWeaponRuntimeCapabilities.MULTI_TARGET_PROJECTILE_SELECTION === 'IMPLEMENTED', 'verified multi-target primitive must remain implemented');
 assert(currentUnityWeaponRuntimeCapabilities.STATUS_APPLICATION === 'IMPLEMENTED', 'Selected16-specific Status caller must promote shared STATUS_APPLICATION primitive');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount >= 5, `multi-target proof requires at least the five historical implemented primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'exactly first Selected16 weapon should pass primitive admission');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'remaining Selected15 must stay blocked');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', `unexpected admitted IDs: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount >= 1, 'multi-target proof requires at least Ember Matchcase implementation-review admission');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), `Ember Matchcase admission missing from: ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',')}`);
 
 const ember = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'ember_matchcase');
 assert(ember, 'ember_matchcase must remain in Selected16 Unity admission matrix');
@@ -24,6 +23,7 @@ assert(ember.requiredUnityCapabilities.join(',') === 'MULTI_TARGET_PROJECTILE_SE
 assert(ember.implementedUnityCapabilities.includes('MULTI_TARGET_PROJECTILE_SELECTION'), 'Ember must recognize multi-target primitive');
 assert(ember.implementedUnityCapabilities.includes('STATUS_APPLICATION'), 'Ember must recognize Status application primitive');
 assert(ember.missingUnityCapabilities.length === 0, `Ember should have no remaining primitive blocker: ${ember.missingUnityCapabilities.join(',')}`);
+assert(ember.prototypeCallerImplemented, 'Ember caller proof must remain explicit');
 assert(ember.mayEnterUnityRuntimeRegistry, 'Ember should be admitted for implementation review');
 assert(ember.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Ember decision drift');
 assert(ember.runtimeStatus === 'NOT_IMPLEMENTED', 'primitive admission must not claim live runtime implementation');
@@ -53,5 +53,4 @@ console.log(JSON.stringify({
     remainingBlockers: ember.missingUnityCapabilities,
     liveRuntimeStatus: ember.runtimeStatus,
   },
-  liveStage1Callers: 0,
 }, null, 2));

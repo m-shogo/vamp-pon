@@ -32,7 +32,22 @@ export type RuntimeCapabilityState = 'IMPLEMENTED' | 'MISSING';
 
 export type UnityBaseWeaponAdmissionDecision =
   | 'BLOCKED_MISSING_UNITY_PRIMITIVES'
+  | 'BLOCKED_MISSING_UNITY_CALLER_PROOF'
   | 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW';
+
+/**
+ * Selected16-specific prototype callers that have executable/runtime-source evidence.
+ *
+ * Shared primitive implementation alone must never auto-promote a weapon. A Selected16 weapon
+ * can enter implementation review only when all required primitives AND its explicit caller proof
+ * exist. Live registry admission remains a separate human/runtime gate.
+ */
+export const unityPrototypeCallerImplementedWeaponIds = [
+  'ember_matchcase',
+  'bellows_fan',
+] as const;
+
+const prototypeCallerImplementedWeaponIdSet = new Set<string>(unityPrototypeCallerImplementedWeaponIds);
 
 /**
  * Unity U47 evidence overlay.
@@ -48,7 +63,7 @@ export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponR
   STATUS_APPLICATION: 'IMPLEMENTED',
   MULTI_TARGET_PROJECTILE_SELECTION: 'IMPLEMENTED',
   TWO_TARGET_TETHER: 'MISSING',
-  CONE_QUERY: 'MISSING',
+  CONE_QUERY: 'IMPLEMENTED',
   KNOCKBACK_VECTOR: 'IMPLEMENTED',
   TARGET_CHAIN_SELECTION: 'MISSING',
   SLAM_WAVE_QUERY: 'MISSING',
@@ -97,6 +112,7 @@ export type UnityBaseWeaponRuntimeAdmissionEntry = {
   requiredUnityCapabilities: readonly UnityWeaponRuntimeCapability[];
   implementedUnityCapabilities: readonly UnityWeaponRuntimeCapability[];
   missingUnityCapabilities: readonly UnityWeaponRuntimeCapability[];
+  prototypeCallerImplemented: boolean;
   unityDecision: UnityBaseWeaponAdmissionDecision;
   mayEnterUnityRuntimeRegistry: boolean;
   contentSelectionPreserved: true;
@@ -116,7 +132,13 @@ export const title1BaseWeaponRuntimeAdmissionEntries: readonly UnityBaseWeaponRu
     const missingUnityCapabilities = requiredUnityCapabilities.filter(
       (capability) => currentUnityWeaponRuntimeCapabilities[capability] === 'MISSING',
     );
-    const mayEnterUnityRuntimeRegistry = missingUnityCapabilities.length === 0;
+    const prototypeCallerImplemented = prototypeCallerImplementedWeaponIdSet.has(entry.weaponId);
+    const mayEnterUnityRuntimeRegistry = missingUnityCapabilities.length === 0 && prototypeCallerImplemented;
+    const unityDecision: UnityBaseWeaponAdmissionDecision = missingUnityCapabilities.length > 0
+      ? 'BLOCKED_MISSING_UNITY_PRIMITIVES'
+      : prototypeCallerImplemented
+        ? 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW'
+        : 'BLOCKED_MISSING_UNITY_CALLER_PROOF';
 
     return {
       weaponId: entry.weaponId,
@@ -127,9 +149,8 @@ export const title1BaseWeaponRuntimeAdmissionEntries: readonly UnityBaseWeaponRu
       requiredUnityCapabilities,
       implementedUnityCapabilities,
       missingUnityCapabilities,
-      unityDecision: mayEnterUnityRuntimeRegistry
-        ? 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW'
-        : 'BLOCKED_MISSING_UNITY_PRIMITIVES',
+      prototypeCallerImplemented,
+      unityDecision,
       mayEnterUnityRuntimeRegistry,
       contentSelectionPreserved: true,
       runtimeStatus: 'NOT_IMPLEMENTED',
@@ -155,6 +176,10 @@ export const title1BaseWeaponRuntimeAdmissionSummary = {
   unityAdmittedRuntimeCount: unityAdmittedWeaponIds.length,
   unityAdmittedWeaponIds,
   unityBlockedRuntimeCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => !entry.mayEnterUnityRuntimeRegistry).length,
+  prototypeCallerImplementedCount: title1BaseWeaponRuntimeAdmissionEntries.filter((entry) => entry.prototypeCallerImplemented).length,
+  primitiveCompleteButMissingCallerProofCount: title1BaseWeaponRuntimeAdmissionEntries.filter(
+    (entry) => entry.missingUnityCapabilities.length === 0 && !entry.prototypeCallerImplemented,
+  ).length,
   currentWebRuntimeEffectTypes: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES,
   currentWebRuntimeEffectTypeCount: CURRENT_RUNTIME_WEAPON_EFFECT_TYPES.length,
   currentUnityWeaponExecutorTypes: ['Projectile', 'GroundArea'] as const,

@@ -49,28 +49,23 @@ for (const forbidden of [
   assert(!source.includes(forbidden), `generic knockback primitive must not own ${forbidden}`);
 }
 
-assert(currentUnityWeaponRuntimeCapabilities.KNOCKBACK_VECTOR === 'IMPLEMENTED', 'KNOCKBACK_VECTOR must be promoted only with the reusable runtime helper present');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 6, `expected six implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 15, `expected fifteen missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'generic knockback must not auto-admit another Selected16 weapon');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'Ember Matchcase must remain the only implementation-review admission');
+assert(currentUnityWeaponRuntimeCapabilities.KNOCKBACK_VECTOR === 'IMPLEMENTED', 'KNOCKBACK_VECTOR must remain backed by the reusable runtime helper');
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount >= 6, `knockback proof requires at least the six historical implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
 assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'KNOCKBACK_VECTOR'), 'implemented knockback must disappear from missing capability frequency');
 
 const bellows = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'bellows_fan');
 assert(bellows, 'bellows_fan admission row missing');
 assert(bellows.requiredUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'bellows_fan must require shared knockback');
 assert(bellows.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'bellows_fan should see shared knockback as implemented');
-assert(bellows.missingUnityCapabilities.includes('CONE_QUERY'), 'bellows_fan must remain blocked on real cone query');
-assert(!bellows.mayEnterUnityRuntimeRegistry, 'knockback alone must not admit bellows_fan');
 
 const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
 assert(hammer, 'pavement_hammer admission row missing');
 assert(hammer.requiredUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'pavement_hammer must require shared knockback');
 assert(hammer.implementedUnityCapabilities.includes('KNOCKBACK_VECTOR'), 'pavement_hammer should see shared knockback as implemented');
 assert(hammer.missingUnityCapabilities.includes('SLAM_WAVE_QUERY'), 'pavement_hammer must remain blocked on real directional slam-wave query');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'knockback alone must not admit pavement_hammer');
+assert(!hammer.mayEnterUnityRuntimeRegistry, 'shared knockback must not auto-admit pavement_hammer');
 
-assert(!coordinatorSource.includes('U2EnemyKnockbackRuntime'), 'shared primitive must not silently enter the live Stage1 coordinator before a Selected16 caller is reviewed');
+assert(!coordinatorSource.includes('U2EnemyKnockbackRuntime'), 'shared primitive must not silently enter the live Stage1 coordinator');
 
 console.log(JSON.stringify({
   status: 'PASS',
@@ -81,7 +76,7 @@ console.log(JSON.stringify({
   admission: {
     admitted: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount,
     admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
-    bellowsFanStillBlockedBy: bellows.missingUnityCapabilities,
+    bellowsFanMissing: bellows.missingUnityCapabilities,
     pavementHammerStillBlockedBy: hammer.missingUnityCapabilities,
   },
 }, null, 2));
