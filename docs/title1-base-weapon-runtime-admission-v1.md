@@ -35,10 +35,13 @@ U47 live importer/executor分類は引き続き **Projectile / GroundArea** の2
 3. `CIRCULAR_GROUND_AREA`
 4. `MULTI_TARGET_PROJECTILE_SELECTION`
 5. `STATUS_APPLICATION`
+6. `KNOCKBACK_VECTOR`
 
 `MULTI_TARGET_PROJECTILE_SELECTION` は reusable scratch / targetable-only / deterministic nearest prefix / caller target cap / canonical target spawnまで実コードとCIで確認済み。
 
 `STATUS_APPLICATION` はgeneric plumbingだけでなく、最初のSelected16固有caller `ember_matchcase` がtyped BURN requestを生成してmulti-target Projectileへ渡す経路まで実装したためIMPLEMENTEDへ昇格する。
+
+`KNOCKBACK_VECTOR` は `U2EnemyKnockbackRuntime` がtargetable enemyへcaller supplied方向・距離の2D displacementを適用するshared primitive。velocity / stun / duration / default distance / weapon identityは持たず、次のenemy Tickから通常追跡へ戻る。
 
 ## Current admission result
 
@@ -119,6 +122,36 @@ Status共通基盤:
 
 ただしStatus16すべてのWeapon実装が完了した意味ではない。残り15本は各archetype固有primitiveが不足しているためblockedのまま。
 
+## KNOCKBACK_VECTOR boundary
+
+Shared helper:
+
+`U2EnemyKnockbackRuntime`
+
+役割:
+
+- targetable enemyだけを受け付ける
+- caller方向を2D normalizeする
+- caller距離だけpositionへ瞬間的に加算する
+- zは維持する
+- zero vector / non-positive distance / null / untargetableはfail closed
+
+固定しない:
+
+- knockback distance
+- duration / deceleration
+- stun
+- boss resistance
+- cone angle
+- slam shape
+- weapon identity
+
+`bellows_fan` は `KNOCKBACK_VECTOR` が揃っても `CONE_QUERY` がmissing。
+
+`pavement_hammer` は `KNOCKBACK_VECTOR` が揃っても `SLAM_WAVE_QUERY` がmissing。
+
+したがってshared primitive追加だけでUnity Admissionは増えない。
+
 ## Never use fake projectile fallback
 
 禁止:
@@ -146,11 +179,13 @@ Waveは優先順であり時間見積もりではない。
 - `STATUS_APPLICATION`: **implemented**
 - multi-target query: **implemented**
 - Selected16 caller `ember_matchcase`: **prototype caller implemented**
-- `KNOCKBACK_VECTOR`: missing
+- Ember invocation/BURN telemetry: **implemented**
+- Ember mobile-safe projectile visual cue: **implemented, prototype visual only**
+- `KNOCKBACK_VECTOR`: **implemented**
 - delayed trigger/timer primitive: missing
 - persistent placement primitive: missing
 
-次は `ember_matchcase` のproduction readinessを上げるより先に、prototype実行telemetry / mobile visual cue / runtime captureを追加し、実機で「数本だけ散らす」読みやすさを確認する。
+`ember_matchcase` は次にruntime captureで telemetry + visual cue + rendered evidenceを同一runへ束ね、実機相当mobile readabilityを確認する。
 
 ### Wave B — target selection / path executors
 
@@ -167,6 +202,8 @@ Waveは優先順であり時間見積もりではない。
 - 灯芯針
 - 帰針
 - 送り風の扇
+
+`KNOCKBACK_VECTOR` が共有化されたため、次の小さなruntime primitive候補は `CONE_QUERY`。ただしquery実装だけで `bellows_fan` をlive化せず、Selected16固有callerで実経路を証明する。
 
 ### Wave C — advanced interaction executors
 
@@ -217,8 +254,10 @@ Current source evidence:
 - Unity deterministic multi-target target-selection primitive
 - Unity typed optional Projectile Status request transport
 - Unity Enemy Status16 state / lifecycle ownership
+- Unity caller-supplied `KNOCKBACK_VECTOR` displacement primitive
 - `EmberMatchcasePrototypeRuntime` selected-specific caller
 - BURN request uses caller-supplied policy
+- Ember telemetry + projectile-local prototype visual cue
 - `ember_matchcase` live registry entry = 0
 
 これらが変わったらAdmission checkerを更新しない限りCIを落とす。
@@ -237,13 +276,17 @@ Runtime不足をContent不足として処理しない。
 
 ## Next implementation gate
 
-`ember_matchcase` の次工程:
+`ember_matchcase`:
 
-1. prototype invocation telemetry
-2. BURN apply telemetry
-3. mobile-safe small ember visual cue
-4. runtime capture / simulator evidence
-5. target数・spread feelのprototype tuning
-6. live registry / LevelUp poolへ入れるか人間承認
+1. runtime capture / simulator evidenceでtelemetry + visual cue + rendered evidenceを同一runへ束ねる
+2. target数・spread feelをprototype tuningとして調整する
+3. mobile readabilityとpool resetを目視確認する
+4. live registry / LevelUp poolへ入れるか人間承認する
 
-この順序で進め、数値balanceは最後までprototype tuningとして分離する。
+shared primitive lane:
+
+1. `CONE_QUERY` をgeneric queryとして実装
+2. `bellows_fan` 固有callerでcone + knockback + DISORIENTEDを接続
+3. runtime capture / telemetry後にimplementation-review Admissionを判断
+
+数値balanceは最後までprototype tuningとして分離する。
