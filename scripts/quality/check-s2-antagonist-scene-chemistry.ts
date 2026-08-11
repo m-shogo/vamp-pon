@@ -16,16 +16,22 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const requiredFiles = [
+  'docs/00-current-story-world-master.md',
   'docs/s2-antagonist-team-candidate-v1.md',
   'docs/s2-antagonist-ensemble-depth-candidate-v1.md',
   'docs/s2-antagonist-scene-chemistry-candidate-v1.md',
   'docs/s2-antagonist-micro-scene-reservoir-v1.md',
   'docs/season-antagonist-return-policy-v1.md',
   'docs/season-2-3-overseas-culture-constellation-memory.md',
-  'docs/00-current-story-world-master-yui-profile-amendment.md',
   'src/game/data/s2AntagonistSceneChemistryCandidate.ts',
 ];
 for (const path of requiredFiles) assert(fs.existsSync(path), `missing S2 chemistry source: ${path}`);
+
+const master = fs.readFileSync('docs/00-current-story-world-master.md', 'utf8');
+assert(master.includes('CURRENT HIGHEST STORY / WORLD AUTHORITY'), 'world master must remain highest Story/World authority');
+assert(master.includes('ユイのReality rootを荒川区以外へ勝手に移す'), 'world master must retain Yui Arakawa boundary');
+assert(master.includes('S1キャストを「事件が日本だから全員日本生まれ / 日本国籍」に限定する'), 'world master must retain foreign-origin cast boundary');
+assert(master.includes('外見（髪色 / 目色 / 肌色）から国籍・民族・出生地を自動決定する'), 'world master must forbid appearance-to-origin shortcut');
 
 assert(S2_ANTAGONIST_SCENE_CHEMISTRY_RULES.status === 'CANDIDATE_NOT_CANON', 'scene chemistry must remain Candidate');
 assert(!S2_ANTAGONIST_SCENE_CHEMISTRY_RULES.finalFirstAppearanceOrderFrozen, 'first appearance order must remain Open');
@@ -108,6 +114,7 @@ console.log(JSON.stringify({
   uniquePartyBeats: s2AntagonistSceneChemistrySummary.uniquePartyCount,
   internalRelationshipArcs: S2_ANTAGONIST_INTERNAL_RELATIONSHIP_ARCS.length,
   formerS1Echoes: s2AntagonistSceneChemistrySummary.uniqueFormerS1Count,
+  worldMasterAuthority: true,
   candidateNotCanon: true,
   runtimeAutoPromotionAllowed: false,
 }, null, 2));
