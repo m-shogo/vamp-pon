@@ -1,0 +1,68 @@
+name: U2 Enemy Status Owner One Shot
+
+on:
+  push:
+    branches: [agent/unity-enemy-status-owner-v1]
+    paths:
+      - '.github/workflows/u2-enemy-status-owner-one-shot.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/unity-enemy-status-owner-v1
+      - name: Attach EnemyStatusRuntimeState to U2EnemyActor
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs')
+          text = path.read_text()
+
+          replacements = [
+              (
+                  'using VampPon.UnitySpike.Runtime.Gameplay;\n',
+                  'using VampPon.UnitySpike.Runtime.Gameplay;\nusing VampPon.UnitySpike.Runtime.Gameplay.Status;\n',
+              ),
+              (
+                  '        private bool dying;\n\n        public bool IsTargetable',
+                  '        private bool dying;\n        private readonly EnemyStatusRuntimeState statusState = new();\n\n        public bool IsTargetable',
+              ),
+              (
+                  '        public int AnimationFrameIndex => spriteAnimator != null ? spriteAnimator.FrameIndex : 0;\n\n        public static U2EnemyActor Create',
+                  '        public int AnimationFrameIndex => spriteAnimator != null ? spriteAnimator.FrameIndex : 0;\n        public EnemyStatusRuntimeState Statuses => statusState;\n        public int ActiveStatusCount => statusState.ActiveCount;\n\n        public static U2EnemyActor Create',
+              ),
+              (
+                  '        public void Activate(Vector3 position, float maxHp)\n        {\n            hp = maxHp;',
+                  '        public void Activate(Vector3 position, float maxHp)\n        {\n            statusState.Clear();\n            hp = maxHp;',
+              ),
+              (
+                  '        public void Tick(Vector3 playerPosition, float speed, float deltaTime)\n        {\n            if (dying)',
+                  '        public void Tick(Vector3 playerPosition, float speed, float deltaTime)\n        {\n            statusState.Tick(deltaTime);\n            if (dying)',
+              ),
+              (
+                  '        public bool TakeDamage(float damage, float damageFlashSeconds)\n        {',
+                  '        public override void Deactivate()\n        {\n            statusState.Clear();\n            base.Deactivate();\n        }\n\n        public bool TakeDamage(float damage, float damageFlashSeconds)\n        {',
+              ),
+          ]
+
+          for old, new in replacements:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'expected exactly one patch anchor, got {count}: {old[:80]!r}')
+              text = text.replace(old, new)
+
+          path.write_text(text)
+          PY
+          rm .github/workflows/u2-enemy-status-owner-one-shot.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add unity/VampPonUnity/Assets/_Project/Scripts/Runtime/U2BattleController.cs .github/workflows/u2-enemy-status-owner-one-shot.yml
+          git commit -m 'feat: attach Status runtime state to U2EnemyActor'
+          git push origin HEAD:agent/unity-enemy-status-owner-v1
