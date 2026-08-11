@@ -15,6 +15,10 @@ const source = readFileSync(
   new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemySlamWaveQueryRuntime.cs', import.meta.url),
   'utf8',
 );
+const callerSource = readFileSync(
+  new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PavementHammerPrototypeRuntime.cs', import.meta.url),
+  'utf8',
+);
 const coordinatorSource = readFileSync(
   new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url),
   'utf8',
@@ -57,6 +61,19 @@ for (const forbidden of [
   assert(!source.includes(forbidden), `generic slam-wave query must not own ${forbidden}`);
 }
 
+for (const token of [
+  'public static class PavementHammerPrototypeRuntime',
+  'U2EnemySlamWaveQueryRuntime.SelectTargets(',
+  'target.TakeDamage(damage, damageFlashSeconds)',
+  'EnemyStatusRuntimeKind.Exposed',
+  'U2EnemyKnockbackRuntime.TryApplyFromPoint(',
+  'U2EnemyBreakStaggerRuntime.TryApply(',
+  'QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER',
+  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
+]) {
+  assert(callerSource.includes(token), `Pavement Hammer caller must compose slam-wave primitive without mutating it: ${token}`);
+}
+
 assert(currentUnityWeaponRuntimeCapabilities.SLAM_WAVE_QUERY === 'IMPLEMENTED', 'SLAM_WAVE_QUERY must remain backed by reusable sector-band source');
 assert(currentUnityWeaponRuntimeCapabilities.BREAK_STAGGER_APPLICATION === 'IMPLEMENTED', 'break/stagger runtime must remain backed by reusable implementation');
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 9, `expected 9 implemented primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
@@ -76,17 +93,16 @@ for (const capability of ['SLAM_WAVE_QUERY', 'KNOCKBACK_VECTOR', 'BREAK_STAGGER_
   assert(hammer.implementedUnityCapabilities.includes(capability), `pavement_hammer should inherit ${capability} evidence`);
 }
 assert(hammer.missingUnityCapabilities.length === 0, `pavement_hammer shared primitives should be complete, got ${hammer.missingUnityCapabilities.join(',')}`);
-assert(!hammer.prototypeCallerImplemented, 'pavement_hammer must not claim a Selected16 caller proof yet');
-assert(hammer.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'pavement_hammer must now be blocked by caller proof, not primitives');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'primitive completeness must not auto-admit an incomplete hammer caller');
-assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'shared primitives must not claim pavement_hammer live implementation');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Pavement Hammer should be the one primitive-complete caller-proof blocker');
-assert(!title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('pavement_hammer'), 'pavement_hammer must remain outside implementation-review admissions');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'Ember admission must remain');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('bellows_fan'), 'Bellows admission must remain');
-assert(!weapons.some((weapon) => weapon.id === 'pavement_hammer'), 'shared primitive work must not add pavement_hammer to Web live catalog');
+assert(hammer.prototypeCallerImplemented, 'pavement_hammer caller proof must be registered after executable caller implementation');
+assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'pavement_hammer should enter implementation review after caller proof');
+assert(hammer.mayEnterUnityRuntimeRegistry, 'pavement_hammer should now be implementation-review eligible');
+assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'implementation-review evidence must not claim pavement_hammer live implementation');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete caller-proof blocker should remain');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', 'implementation-review admission IDs drift');
+assert(!weapons.some((weapon) => weapon.id === 'pavement_hammer'), 'prototype caller work must not add pavement_hammer to Web live catalog');
 assert(!coordinatorSource.includes('U2EnemySlamWaveQueryRuntime'), 'shared slam-wave query must not silently enter live Stage1 coordinator');
 assert(!coordinatorSource.includes('U2EnemyBreakStaggerRuntime'), 'shared break/stagger must not silently enter live Stage1 coordinator');
+assert(!coordinatorSource.includes('PavementHammerPrototypeRuntime'), 'Pavement Hammer caller must remain outside live Stage1 coordinator');
 assert(!coordinatorSource.includes('pavement_hammer'), 'pavement_hammer must remain outside live Stage1 coordinator');
 
 const doc = readFileSync(new URL('../../docs/unity-slam-wave-query-primitive-v1.md', import.meta.url), 'utf8');
@@ -98,6 +114,8 @@ for (const token of [
   'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
   'pavement_hammer',
   'BREAK_STAGGER_APPLICATION',
+  'PavementHammerPrototypeRuntime',
+  'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW',
   'EXPOSED',
   'TEST_ONLY',
   'NOT_CANON',
