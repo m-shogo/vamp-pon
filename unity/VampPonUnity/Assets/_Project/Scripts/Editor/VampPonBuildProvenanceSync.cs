@@ -46,7 +46,7 @@ namespace VampPon.UnitySpike.Editor
             }
 
             Debug.Log(
-                $"VampPonBuildProvenanceSync: embedded source commit {sourceCommit} for {report.summary.platform}.");
+                $"VampPonBuildProvenanceSync: embedded clean source commit {sourceCommit} for {report.summary.platform}.");
         }
 
         public void OnPostprocessBuild(BuildReport report)
@@ -56,6 +56,22 @@ namespace VampPon.UnitySpike.Editor
 
         private static string ResolveSourceCommit()
         {
+            var repositoryRoot = ResolveRepositoryRoot();
+            var actualHead = RunGit(repositoryRoot, "rev-parse HEAD");
+            if (!IsLowerHexCommit(actualHead))
+                throw new BuildFailedException(
+                    "Git HEAD is not a lowercase 40-character commit SHA; refusing ambiguous build provenance.");
+
+            var trackedStatus = RunGit(
+                repositoryRoot,
+                "status --porcelain --untracked-files=no");
+            if (!string.IsNullOrWhiteSpace(trackedStatus))
+            {
+                throw new BuildFailedException(
+                    "Unity final-evidence builds require a clean tracked working tree. " +
+                    $"Commit/stash tracked changes before building. git status: {trackedStatus}");
+            }
+
             var fromEnvironment = Environment.GetEnvironmentVariable(
                 SourceCommitEnvironmentVariable)?.Trim();
             if (!string.IsNullOrEmpty(fromEnvironment))
@@ -63,14 +79,20 @@ namespace VampPon.UnitySpike.Editor
                 if (!IsLowerHexCommit(fromEnvironment))
                     throw new BuildFailedException(
                         $"{SourceCommitEnvironmentVariable} must be a lowercase 40-character Git commit SHA.");
-                return fromEnvironment;
+                if (!string.Equals(fromEnvironment, actualHead, StringComparison.Ordinal))
+                    throw new BuildFailedException(
+                        $"{SourceCommitEnvironmentVariable} does not match clean Git HEAD; refusing mismatched build provenance.");
             }
 
-            var repositoryRoot = ResolveRepositoryRoot();
+            return actualHead;
+        }
+
+        private static string RunGit(string repositoryRoot, string arguments)
+        {
             var startInfo = new ProcessStartInfo
             {
                 FileName = "git",
-                Arguments = "rev-parse HEAD",
+                Arguments = arguments,
                 WorkingDirectory = repositoryRoot,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -81,16 +103,16 @@ namespace VampPon.UnitySpike.Editor
             using var process = Process.Start(startInfo);
             if (process == null)
                 throw new BuildFailedException(
-                    "Could not start git to resolve Unity build source provenance.");
+                    $"Could not start git for Unity build provenance: git {arguments}");
 
             var output = process.StandardOutput.ReadToEnd().Trim();
             var error = process.StandardError.ReadToEnd().Trim();
             process.WaitForExit();
 
-            if (process.ExitCode != 0 || !IsLowerHexCommit(output))
+            if (process.ExitCode != 0)
             {
                 throw new BuildFailedException(
-                    "Could not resolve exact Git source commit for Unity build provenance. " +
+                    $"Git command failed during Unity build provenance: git {arguments}; " +
                     $"exit={process.ExitCode} stderr={error}");
             }
 
