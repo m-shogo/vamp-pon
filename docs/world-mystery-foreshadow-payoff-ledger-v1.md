@@ -1,426 +1,586 @@
-# ヨルノシルベ — Mystery / Foreshadow / Payoff Ledger v1
+# ヨルノシルベ — Mystery / Foreshadow / Payoff Ledger v2
 
 Date: 2026-08-11  
-Status: **P0 STORY INFORMATION LEDGER / CURRENT HAPPY-END GUARDED**
+Status: **P0 STORY INFORMATION LEDGER / MASTER-ALIGNED / HAPPY-END GUARDED**
 
-> 目的: 伏線を「大量に置く」から「どの時点で何に見え、いつ反転し、何を回収するか」へ進化させる。
+> 伏線は「大量に置く」ではなく、初見の自然な意味 → local answer → later reinterpretationを管理する。
 
 ---
 
 # 1. Mystery class
 
-既存構造を維持する。
+- `C` — そのTitleの感情決着に必要。Title内で必ず払う。
+- `B` — Title内でも意味が成立し、後作で再解釈できる。
+- `A` — Series Mystery。Happy Endを成立させるのに最終回答不要。
 
-- `C` — Title1で必ず回収。感情決着に必要。
-- `B` — Title1でも意味は成立し、後作で再解釈できる。
-- `A` — Series Mystery。Title1 Happy Endを成立させるために答え不要。
-
-Aを残すためにCを投げない。
+**Aを残すためにCを投げない。**
 
 ---
 
-# 2. Foreshadow entry contract
+# 2. Authority split
 
-各伏線:
+Already decided, Mysteryへ戻さない:
+
+- ヨルノシルベはDream world
+- Dreamにphysical morningは来ない
+- return = Waking
+- Characterは同時代とは限らない
+- stars visible
+- constellation systems can differ by era
+- moon phase = incident depth
+- Current formal enemy-group name = 朔夜座
+- 群青残響録 = non-fixed retrospective incident-central label
+
+Still Mystery:
+
+- Dream final mechanism / origin
+- why it is shared
+- constellation increase/decrease cause
+- final Star Beast relation
+- Black Ink origin
+- exact incident structures
+
+---
+
+# 3. Foreshadow entry contract
 
 - clueId
 - mysteryClass
 - firstSurfaceMeaning
-- actualLocalMeaning
+- localMeaning
 - laterReinterpretation
 - firstPlacement
 - repeatPlacement
 - contradictionPlacement
 - payoffPlacement
 - knowledgeOwner
-- playerRequiredToNotice
+- requiredForMainStory
 - gameplayDependency
-- optionalOrMain
 - emotionalPurpose
+- payoffDebt
 - status
 
 ---
 
-# 3. Main Ledger
+# 4. Main C Ledger
 
-## M-C01 — 「八影」は何者か
+## M-C01 — 「八影」と呼ばれた8人は何者か
+
 Class: `C`
-Status: `USER_APPROVED_DIRECTION + CANDIDATE CHOREOGRAPHY`
+Status: `CURRENT FORMAL IDENTITY DECIDED / REVEAL CHOREOGRAPHY CANDIDATE`
 
-### First meaning
-八つの危険なRecurring enemyをCurrent側がまとめた呼称。
+### First
 
-### Early clues
-- 各体は自分から「八影」と名乗らない。
-- 同時出現しても上下関係が見えない。
-- 共通命令を受けている描写がない。
+Current側が8つのRecurring threatを便宜上「八影」と呼ぶ。
 
-### Contradiction
-- pair時だけ欠円symbolが意味を持つ。
-- 単独時にはしない「署名された行動」がある。
+### Clues
 
-### Title1 payoff
-「八影」は観測名で、本当に存在するのは**朔盟という盟約Candidate**だと判明。
+- 自分から八影と名乗らない
+- same uniformなし
+- memberごとにbehavior / ideologyが違う
+- pair relationに固有性
 
-### Remaining B/A gap
-誰が最初に盟約形式を作ったか / 全員の起源が同じかは確定しない。
+### Local payoff
+
+8人には**朔夜座**というCurrent formal identityがあると判明する。
+
+### What remains open
+
+- Founder
+- exact organization origin
+- absolute leader
+- common species / creator
+- true names
+
+旧`朔盟`はReveal answerとして使わない。Superseded authored Candidate。
 
 ---
 
-## M-C02 — 朔盟はなぜ二人で動くのか
-Class: `C`
-Status: `CANDIDATE`
+## M-C02 — 黒耀化は別人なのか
 
-First:
-> 強敵が二人組で出るGameplay gimmick。
-
-Repeat:
-> 同じpairでも一方が先に戦闘不能になると行動が崩れる。
-
-Payoff:
-> 「一人の正解では朔盟の任務にできない。別のmemberが署名して初めて“固定する正解”になる。」
-
-Theme:
-朔盟ですら、一人の絶対正解を怖れているという矛盾。
-
----
-
-## M-C03 — 黒耀化は「別人」なのか
 Class: `C`
 Status: `CURRENT`
 
 First:
-見た目 / 行動が変わり、別人格化に見える。
+別人格 / possessionに見える。
 
 Clues:
-- 黒耀化中も普段の癖が過剰な形で残る。
-- 嫌いだったことを突然好むのではなく、元々大切なことだけへ狭まる。
+- ordinary habitが過剰形で残る
+- 元々大切なものへ狭まる
+- desireそのものは連続
 
 Payoff:
-> 外部の悪人格ではなく、その人の願いが一つの答えへ固定された状態。
+> 外部悪人格ではなく、本人の長所 / 願いが一つの答えへ極端化した状態。
 
-Emotional payoff:
-本人へ「元に戻れ」ではなく「それ以外を選んでもあなたの良さは消えない」と返す。
+Emotional:
+> その長所を捨てなくても、別の選択を増やせる。
 
 ---
 
-## M-C04 — 朝へ帰るとは何か
+## M-C03 — Realityへどう戻るのか
+
 Class: `C`
-Status: `CURRENT LOCAL ANSWER / SYSTEMIC OPEN`
+Status: `CURRENT LOCAL RULE`
 
-Title1で必要:
-- 朝へ帰れる。
-- その夜の選択 / 関係の一部が残る。
-- Game Overは死ではない。
+Early wrong expectation:
+> 朝が来れば帰れるのでは？
 
-Title1で不要:
-- 朝を成立させる宇宙論的Mechanism。
+Contradiction:
+- 空は夜のまま
+- moon phaseは戻る / 異常変化する
+- Result後に目覚める
 
-C payoffとA mysteryを分離する。
+Local payoff:
+> **DreamからWakingし、自分のEraへ戻る。**
+
+Normal wakingでは明示記憶が失われやすい。
+
+Major resolutionではDream memoryを取り戻して目覚める方向。
+
+Aへ残す:
+- なぜWakingで接続が切れるか
+- 誰 / 何が共有Dreamを成立させるか
 
 ---
 
-## M-B01 — ユイのランタンの修理痕
-Class: `B`
-Status: `HIGH_VALUE_CANDIDATE`
+## M-C04 — 同じ夜にいる全員は同時代か
+
+Class: `C`
+Status: `DECIDED FACT / REVEAL TIMING CANDIDATE`
 
 First:
-古い修理跡のある愛用品。
+Character flavorの違い。
+
+Evidence:
+- ticket
+- mail
+- map
+- product
+- UI
+- clothing
+- repair method
+- education word
+
+Payoff:
+> Realityでは同時代とは限らない。
+
+Exact yearsは不要。
+
+---
+
+# 5. B Ledger — Era / Object / Relation
+
+## M-B01 — ユイのランタン修理痕
+
+Class: `B`
+Status: `HIGH_VALUE CANDIDATE`
+
+First:
+古いrepair trace。
 
 Second:
-トモリの修理languageと似る。
+トモリのhand / repair languageと似る。
 
-Title1 local payoff:
-誰かの手仕事が時代を越えて別人の生活を支えた可能性。
-
-Series reinterpretation:
-同一Object lineage / 星獣 / Night mechanismへ接続する余地。
+Local:
+誰かの手仕事がEraを越えて別人を支えた可能性。
 
 Guard:
-血縁 / 直接譲渡をTitle1で自動確定しない。
+血縁 / direct transfer / Dream creatorを自動確定しない。
 
 ---
 
 ## M-B02 — 同じ道なのに地図が違う
+
 Class: `B`
-Status: `HIGH_VALUE_CANDIDATE`
+Status: `HIGH_VALUE`
 
 First:
-古地図が間違っている。
+old map is wrong。
 
 Contradiction:
-当時の記録では正しい。
+当時資料ではcorrect。
 
-Local payoff:
-正解は時点によって変わる。
+Local:
+Reality eraが違う。
 
 Later:
-Night geographyが複数Eraを重ねている可能性。
+Dream geographyがmulti-era overlayである可能性。
 
 ---
 
 ## M-B03 — 未配達の封筒
+
 Class: `B`
-Status: `CURRENT MOTIF + CANDIDATE INCIDENT`
 
 First:
-届かなかった手紙。
+届かなかった。
 
 Second:
-保管期限を越えて誰かが残した。
+捨てずに保管された。
 
-Local payoff:
-「届かない」と「捨てない」は別。
+Local:
+「届かない」と「残す」は別。
 
-Later reinterpretation Candidate:
-届けなかったことで守った可能性。
+Later:
+届けなかったことがprotective choiceだった可能性。
 
 ---
 
 ## M-B04 — 白い未分類資料
+
 Class: `B`
-Status: `CANDIDATE`
 
 First:
-空白 / 不完全 / useless。
+blank / useless。
 
-Second:
-分からないから捨てなかった保留資料。
+Local:
+分からないため捨てなかったRecord。
 
 Later:
-ハクマの「誤解されるなら意味を消す」とシロの「分からないまま残す」の差。
+ハクマのeraseとシロのhold-openとの差。
 
 ---
 
-## M-B05 — 星獣同士が先に知っている
+## M-B05 — 星獣がPersonより先に反応する
+
 Class: `B/A boundary`
-Status: `CURRENT MYSTERY`
 
 First:
-かわいいinteraction。
+cute behavior。
 
 Repeat:
-人物同士より先に特定Object / counterpartへ反応。
+specific object / person / constellationへ先に反応。
 
-Title1 local payoff:
-星獣は単なるペット演出ではなく、人物の知らないconnectionへ反応することがある。
+Local:
+Star Beastは単なるpet演出ではない。
 
 A gap:
-なぜ知るか / 何者か。
+なぜ知る / 何者か。
 
 ---
 
-## M-A01 — 夜の最終正体
-Class: `A`
-Status: `OPEN_QUESTION`
+## M-B06 — 同じ星なのに星座が違う
 
-候補を混ぜたまま保持:
-- dream
-- virtual
-- memory
-- shared mental layer
--独自混成
+Class: `B/A boundary`
+Status: `NEW MASTER CORE`
 
-Title1で答えないこと自体がfailではない。
+First:
+Characterによる言い間違いに見える。
+
+Repeat:
+- old book supports one constellation
+- modern Character denies it
+- later-era Record shows another linking
+
+Local payoff:
+> EraによってDream constellationの結び方 / name / existenceが違う。
+
+A gap:
+> なぜ増減 / 変更されるのか。
 
 ---
 
-## M-A02 — 黒インクの最終起源
+## M-B07 — Moon phase behaves incorrectly
+
+Class: `B`
+
+First:
+時間が経ったので欠けたと思う。
+
+Contradiction:
+- short intervalで大きく変化
+- reverse
+- same time different depth
+
+Local:
+> Moon = incident depth indicator。
+
+Later:
+何がMoonへ反映しているかはOpen。
+
+---
+
+## M-B08 — 群青残響録という名前
+
+Class: `B`
+Status: `NAME DECIDED / MEMBERS OPEN`
+
+First:
+敵組織名のように見える可能性。
+
+Contradiction:
+- people are from different eras
+- not all are enemies
+- multiple people may belong to one incident
+- some records disagree on centrality
+
+Local:
+> 大事件中心人物 / 人物群を後から括ったrecord label。
+
+Guard:
+fixed boss rosterへしない。
+
+---
+
+# 6. A Ledger
+
+## M-A01 — Dream final mechanism / origin
+
 Class: `A`
-Status: `OPEN_QUESTION`
+Status: `OPEN`
+
+Important:
+
+**「Dreamなのか」はもうOpenではない。**
+
+Open:
+- why shared
+- what connects eras
+- who / what sustains it
+- relationship to Record / Black Ink / Star Beasts
+
+---
+
+## M-A02 — Black Ink final origin
+
+Class: `A`
+Status: `OPEN`
 
 High-value Candidate:
-> 悲しい出来事についた「間違った意味」を固定する。
+> wrong meaning fixation pressure。
 
-ただしOrigin / creator / purposeは別問題。
+Origin / creator / intentionalityは別Open。
 
 ---
 
-## M-A03 — 星獣の完全Mechanism
+## M-A03 — Star Beast complete mechanism
+
 Class: `A`
-Status: `OPEN_QUESTION`
+Status: `OPEN`
 
-Title1ではCharacter resonanceとして機能してよい。
-完全な生物学 / cosmologyは後回し。
-
----
-
-# 4. Clue density rule
-
-重要Mysteryは一回の台詞だけで回収しない。
-
-最低:
-- visual clue
-- behavior clue
-- object / record clue
-
-のうち2系統を持つ。
-
-Main C mysteryは3系統推奨。
+Do not use as:
+- dead-soul proof
+- Android-soul proof
+- omniscient narrator
 
 ---
 
-# 5. Fair-play mystery rule
+## M-A04 — Why constellations increase / disappear
 
-後から答えを追加しただけに見せない。
+Class: `A`
+Status: `OPEN / INTENTIONAL SERIES MYSTERY`
 
-Payoff前に:
-- 最低1つは答えと一致する証拠
-- 最低1つは別解釈も可能な証拠
+Known:
+- same stars can be linked differently
+- old constellation can vanish
+- later constellation can appear
+
+Unknown:
+- cause
+- relationship to memory / era / Star Beast / people
+
+この不一致を制作ミス扱いして統一しない。
+
+---
+
+# 7. 群青残響録 / Incident Mystery rule
+
+各Era大事件へ:
+
+- central person or people
+- institution / social cause
+- Sakuyaza relation
+- official explanation
+- witness explanation
+- local resolution
+- combat boss if any
+
+を別fieldで持つ。
+
+### Prohibition
+
+```txt
+central person = combat boss
+```
+
+をdefault equalにしない。
+
+群青残響録member Revealとcombat Boss Revealは別Mystery lane。
+
+---
+
+# 8. Sakuyaza Reveal choreography Candidate
+
+1. 8 threatsを個別に見る。
+2. Current側が八影と仮称。
+3. behavior / pair / repeated motifに共通性。
+4. 同じgroupでもideology差を見る。
+5. `朔夜座`というformal identityへ到達。
+6. 名前が分かってもFounder / origin / true nameは分からない。
+
+旧朔盟Candidateの:
+- Pair Mission Rule
+- 欠円
+- witness / countersign
+
+はreuse可能だが、formal name決定だけで全てCanon化しない。
+
+---
+
+# 9. Dream daily-life clues
+
+Era Mysteryを怪しい資料だけで作らない。
+
+- unknown food
+- package opening method
+- cup / bottle
+- device charging
+- camera use
+- payment instinct
+- school word
+- phone etiquette
+- sewing
+- medicine packaging
+
+を普通の会話へ置く。
+
+Dreamではbasic food / daily goodsを自然に出せるため、年代差の日常sceneを豊富に作れる。
+
+---
+
+# 10. Android future Mystery seeds
+
+B/A candidates:
+
+- same model / different experience
+- same initial memory / divergent choices
+- name that later reveals alphabet designation
+- Lambda as older generation mark
+- human friend later revealed to opposing Reality side
+
+Do not reveal:
+> Android had a soul because Star Beast chose it。
+
+という単純proof。
+
+---
+
+# 11. Fair-play rule
+
+重要payoff前に:
+
+- answer-consistent evidence >= 1
+- alternate-reading evidence >= 1
 
 を置く。
 
-「実は見えない所で全部起きていた」は避ける。
+「画面外で全部決まっていた」へしない。
 
 ---
 
-# 6. Reinterpretation > surprise
+# 12. Clue density
 
-優先順位:
+C Mystery:
+- visual
+- behavior
+- Object / Record
 
-1. 初見で意味がある
-2. 回収後に意味が深くなる
-3. 続編後にさらに意味が変わる
+の3系統推奨。
 
-初見で無意味な謎オブジェクトを大量に置かない。
+B/A:
+最低2系統。
 
 ---
 
-# 7. Spoiler placement bands
+# 13. Reinterpretation > shock
 
-## EARLY — Stage1–5
-- ordinary life
-- character hook
+優先:
+
+1. 初見でも自然
+2. local payoff後に意味が深くなる
+3. sequel後にさらに意味が変わる
+
+無意味な謎symbolを増やさない。
+
+---
+
+# 14. Spoiler bands
+
+## EARLY
+- daily life
 - 八影observer label
-- small inconsistencies
+- small era friction
+- stable night sky
 
-## MID — Stage6–14
-- Era mismatch
-- Incident evidence
-- recurring pair behavior
-- Shadow / Sakumei thought contrast
+## MID
+- era mismatch evidence
+- moon phase contradiction
+- repeated Sakuyaza relation
+- constellation naming disagreement
 
-## LATE — Stage15–20
-- C mystery local answers
-- 朔盟revealed identity Candidate
-- black-youka reinterpretation
-- Title1 central incident closure
+## LATE
+- local Waking rules
+- 朔夜座formal identity
+- Black Youka reinterpretation
+- local incident answer
 
 ## POSTGAME
-- B reinterpretation
-- optional reports
-- A mystery evidence
+- 群青残響録cross-era records
+- B reinterpretations
+- A evidence
 
 ---
 
-# 8. Optional report rule
+# 15. Optional report rule
 
-夜の観測記録で追加できるのは:
-- depth
-- conflicting witness
+夜の観測記録等で追加できる:
+
 - history
+- conflicting witness
+- deeper era evidence
 - alternate reading
 
-Main Story理解に必須なC payoffをreport限定にしない。
+Main Story必須C payoffをreport限定にしない。
 
 ---
 
-# 9. Wrong-answer protection
+# 16. Emotional payoff
 
-Mysteryのfalse leadは:
-- Characterが合理的に信じる理由
-- evidence
+Mysteryにはfactだけでなく:
 
-を持つ。
+- factual payoff
+- emotional payoff
+- gameplay payoff
 
-作者がPlayerを騙すためだけの嘘台詞を置かない。
+を持たせる。
 
----
+Example Black Youka:
 
-# 10. Emotional payoff field
-
-各C mysteryは「答え」だけでなく感情を持つ。
-
-例:
-
-`M-C03 黒耀化`
-- factual payoff: 外部人格ではない
-- emotional payoff: 過剰になった願いを捨てなくていい
-- gameplay payoff: rescue / assist behaviorが変わる
-
-設定回収がWikipedia説明で終わらない。
+- fact: external personalityではない
+- emotion: 過剰になったwishを捨てなくていい
+- play: Support / rescue behavior changes
 
 ---
 
-# 11. Mystery × Gameplay rule
+# 17. Payoff debt
 
-可能なら:
-- Stage mechanic
-- Enemy cue
-- Support behavior
-- Named Object
-- Clear Getter
-
-のどれかでPlayerが先に体験する。
-
-後から文書で「実はこうでした」と説明するだけにしない。
-
----
-
-# 12. Sakumei reveal choreography Candidate
-
-1. Enemy8を別々に恐れる。
-2. Current側が便宜上「八影」と呼ぶ。
-3. 八影同士が仲間に見えない場面も出す。
-4. Pair encounterで欠円が補完される。
-5. 二人が互いの行為へ干渉する。
-6. 一方だけでは任務を完遂しない異常に気づく。
-7. 記録 / markから「盟」の概念だけ先に出る。
-8. `朔盟`という名前へ到達。
-9. しかしFounder / common originまでは分からない。
-
-「敵幹部が全員並んで自己紹介」は避ける。
-
----
-
-# 13. Callback bank link
-
-P1 Iconic Quote / Callbackでは、各Mysteryへ:
-- early ordinary line
-- late echoed line
-
-を接続する。
-
-例Candidate:
-
-序盤:
-> 「分からないなら、まだ書かなくていいよ。」
-
-後半:
-同じ言葉がハクマ / ナシロとの対立で別の重みを持つ。
-
-誰の台詞にするかはCharacter voice review後に決定。
-
----
-
-# 14. Payoff debt rule
-
-Mysteryを追加したら`payoffDebt`を持つ。
-
-- `PAID_TITLE1`
+- `PAID_TITLE`
 - `PAID_LOCAL_SERIES_OPEN`
 - `INTENTIONAL_SERIES_DEBT`
-- `UNPLANNED_DEBT` ← 禁止状態
+- `UNPLANNED_DEBT` — forbidden
 
 A以外の`UNPLANNED_DEBT`を増やさない。
 
 ---
 
-# 15. Completion definition
+# 18. Completion
 
-- Title1 C mysteryにはlocal answerがある。
-- B mysteryはTitle1だけでも意味がある。
-- A mysteryがHappy Endを人質にしない。
-- 朔盟Revealが既存八影データを伏線へ変える。
-- Playerが先に「見る / 遊ぶ」、後で意味が付く。
-- 回収後に序盤をもう一度見たくなる。
+- Cにはlocal answerがある。
+- BはTitle単体でも意味がある。
+- AはHappy Endを人質にしない。
+- Dreamが決定済みなのに再び「夢かvirtualか」で引っ張らない。
+- Wakingとphysical morningを混ぜない。
+- 朔夜座Revealが八影 / 旧朔盟資産を活かす。
+- constellation differencesをintentional Mysteryとして守る。
+- 群青残響録をfixed boss roster化しない。
+- Playerが先に見る / 遊ぶ。後から意味が付く。
