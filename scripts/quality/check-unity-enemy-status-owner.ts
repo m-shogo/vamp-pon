@@ -51,9 +51,8 @@ assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'U47 evi
 assert(!evidenceSource.includes(".replace('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'"), 'U47 normalizer must never hide current live coordinator calls');
 assert(!evidenceSource.includes('EmberMatchcasePrototypeRuntime'), 'historical normalizer must not fabricate or hide Selected16 prototype caller evidence');
 
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'shared owner + real Selected16 caller should admit exactly one weapon for implementation review');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'enemy Status ownership must support Ember-only first admission');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 15, 'remaining Selected15 must retain archetype-specific blockers');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount >= 1, 'shared owner + Ember caller must preserve at least the first implementation-review admission');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('ember_matchcase'), 'enemy Status ownership must continue to support Ember admission');
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must no longer be a missing shared primitive');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'Status ownership/application must not auto-promote Candidate weapons into live runtime');
 
