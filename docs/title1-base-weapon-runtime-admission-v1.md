@@ -34,8 +34,9 @@ U47 gameplay runtimeのimport/executorは現在:
 - nearest-target **Projectile**
 - circular **GroundArea**
 
-つまりUnity側の実装面は実質 **Projectile / GroundArea** の2系統。
+つまりUnity側のexecutor分類は **Projectile / GroundArea** の2系統のまま。
 
+ただし内部primitiveはexecutor enumより先に拡張している。
 Webに`orbit`や`bouncing_projectile`があることを、Unityでも同じ挙動がproduction-readyだという証拠には使わない。
 
 `webRuntimeSupportEqualsUnityRuntimeSupport = false`
@@ -47,13 +48,13 @@ Unityで実装済みprimitiveとしてAdmission Sourceが認めるのは:
 1. `NEAREST_TARGET_PROJECTILE`
 2. `MULTI_PROJECTILE_LOOP`
 3. `CIRCULAR_GROUND_AREA`
+4. `MULTI_TARGET_PROJECTILE_SELECTION`
 
-のみ。
+`MULTI_TARGET_PROJECTILE_SELECTION` は reusable scratch / targetable-only / deterministic nearest prefix / caller target cap / canonical target spawnまで実コードとCIで確認済み。
 
-Selected16が必要とする:
+Selected16がまだ必要とする主なprimitive:
 
-- Status付与
-- multi-target scatter
+- real Selected16 callerからのStatus付与
 - tether
 - cone query
 - knockback vector
@@ -71,7 +72,7 @@ Selected16が必要とする:
 - spiral control
 - lane trigger
 
-はまだUnity実装済み扱いにしない。
+はまだUnity admission上の実装済み扱いにしない。
 
 ## Current admission result
 
@@ -86,20 +87,33 @@ Contentの設計を古いruntimeに合わせて弱めないための状態。
 
 `STATUS_APPLICATION`
 
-Selected16の多くがAttribute/Status gameplayを前提にする。
+Selected16の16/16がAttribute/Status gameplayを前提にする。
 
-今のUnity Stage1 runtimeはdamage / projectile / circle areaを動かせるが、Content Masterの16StatusをWeapon hitへ接続するgeneric status layerを持っていない。
+現在は共通基盤そのものは存在する:
 
-したがって最優先は、武器16本を個別hackすることではなく:
+- Status16 runtime state
+- duration / stack / magnitude / refresh policy
+- independent internal cooldown ledger
+- Boss hard-control disposition
+- `U2EnemyActor` ownership / pool reset / Tick
+- typed `EnemyStatusApplicationRequest`
+- Projectile hitからStatusを適用できるoptional transport
 
-- enemy Status state
-- duration / stack / refresh policy
-- Boss conversion policy
-- hit → Status apply hook
-- Status visual cue
+しかし **real Selected16 live callerがまだ0**。
+
+Generic hookが存在するだけで`STATUS_APPLICATION=IMPLEMENTED`へ上げると、武器が実際には一度もStatus requestを作っていないのにadmittedできてしまう。
+そのためAdmission上は、少なくとも1本のSelected16が実際にtyped requestを生成し、hit→enemy Statusへ到達する証拠ができるまで`MISSING`を維持する。
+
+次の最優先は武器16本を個別hackすることではなく、最小vertical sliceで:
+
+- Candidate runtime definition/policy
+- real Selected16 caller
+- typed Status request
+- multi-target/target primitive
+- runtime visual cue
 - telemetry / verification
 
-の共通層。
+を一続きにすること。
 
 ## Never use fake projectile fallback
 
@@ -123,33 +137,28 @@ Waveは優先順であり、時間見積もりではない。
 
 ### Wave A — shared combat primitives
 
-最初に複数武器から再利用できる土台を作る。
+共通土台の現状:
 
-1. `STATUS_APPLICATION`
-2. enemy status container + expiry
-3. `KNOCKBACK_VECTOR`
-4. multi-target query
-5. delayed trigger/timer primitive
-6. persistent placement primitive
+- enemy Status container + expiry: **implemented**
+- typed Projectile Status transport: **implemented**
+- multi-target query: **implemented**
+- `KNOCKBACK_VECTOR`: missing
+- delayed trigger/timer primitive: missing
+- persistent placement primitive: missing
 
-これで:
+`STATUS_APPLICATION`自体はgeneric plumbing完成ではなく、**real Selected16 caller evidence**までをAdmission条件とするためMISSINGを維持。
 
-- `ember_matchcase`
-- `bellows_fan`
-- `pavement_hammer`
-- `pressed_flower_cards`
-- `dream_alarm`
-
-などの実装へ進みやすくなる。
+これで最初に進めやすいのは `ember_matchcase`。
+Multi-target側はすでに揃っており、残る高位blockerはreal Status application pathだけ。
 
 ### Wave B — target selection / path executors
 
-- `MULTI_TARGET_PROJECTILE_SELECTION`
-- `TARGET_CHAIN_SELECTION`
-- `HOMING_PRIORITY_SELECTION`
-- `LINE_PIERCE_RESIDUE`
-- `RETURNING_PROJECTILE`
-- `CONE_QUERY`
+- `MULTI_TARGET_PROJECTILE_SELECTION`: **implemented**
+- `TARGET_CHAIN_SELECTION`: missing
+- `HOMING_PRIORITY_SELECTION`: missing
+- `LINE_PIERCE_RESIDUE`: missing
+- `RETURNING_PROJECTILE`: missing
+- `CONE_QUERY`: missing
 
 対象例:
 
@@ -188,8 +197,9 @@ Admissionは:
 
 - Definitionがある
 - importerが通る
-- executorが存在する
-- Status hookが存在する
+- executor / reusable primitiveが存在する
+- required Status pathが存在する
+- real caller evidenceがある
 - verificationがある
 
 まで揃って初めて`IMPLEMENTED`へ上げる。
@@ -204,8 +214,13 @@ Current source evidence:
 - Unity `WeaponEffectType { Projectile, GroundArea }`
 - U47 importer accepts only `projectile` / `ground_area`
 - `Stage1GameplayRuntimeCoordinator` branches only Projectile vs GroundArea
-- Unity projectile API targets nearest enemy
+- Unity nearest-target Projectile API
+- Unity deterministic multi-target target-selection primitive
+- Unity typed optional Projectile Status request transport
+- Unity Enemy Status16 state / lifecycle ownership
 - Unity GroundArea uses radius + pooled actor
+- Selected16 live multi-target caller = 0
+- Selected16 live Status request caller = 0
 
 これらのコードが変わったらAdmission checkerを更新しない限りCIを落とす。
 
@@ -225,14 +240,17 @@ Runtime不足をContent不足として処理しない。
 
 ## Next implementation gate
 
-Admission Gateの次はWave A。
+Admission Gateの次は、`ember_matchcase`を最初のvertical sliceとして:
 
-特に`STATUS_APPLICATION`とenemy status containerを共通primitiveとして実装し、少なくとも1本を:
-
-- definition
-- runtime executor
+- Candidate runtime definition / prototype policy
+- deterministic multi-target caller
+- typed `BURN` Status request
+- actual enemy Status application
 - mobile visual cue
-- simulator verification
+- runtime capture / telemetry
 - regression CI
 
-まで通して初めて`admitted`を0→1以上へ上げる。
+まで一続きにする。
+
+ここまで実証して初めて、`STATUS_APPLICATION`と`ember_matchcase`のAdmission昇格を検討する。
+数値balanceはprototype tuningとして分離し、Content Canonへ固定しない。

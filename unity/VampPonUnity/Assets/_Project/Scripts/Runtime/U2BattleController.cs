@@ -21,6 +21,7 @@ namespace VampPon.UnitySpike.Runtime
         private readonly List<U2ExpFragmentActor> expFragments = new(64);
         private readonly List<U2VfxActor> vfxActors = new(48);
         private readonly List<U2EnemyActor> activeEnemies = new(64);
+        private readonly List<U2EnemyActor> nearestEnemyTargetScratch = new(8);
 
         private GameFeelConfig config;
         private Transform player;
@@ -141,13 +142,93 @@ namespace VampPon.UnitySpike.Runtime
         public void SetGameplayRuntimeConnected(bool connected) => gameplayRuntimeConnected = connected;
 
         public bool FireGameplayProjectile(float damage, int pierce)
+            => FireGameplayProjectile(damage, pierce, null);
+
+        public bool FireGameplayProjectile(
+            float damage,
+            int pierce,
+            EnemyStatusApplicationRequest? statusApplicationRequest)
         {
             var target = FindNearestEnemy();
-            var projectile = FirstInactive(projectiles);
-            if (target == null || projectile == null) return false;
-            projectile.Activate(player.position, target, config.projectileSpeed, damage, pierce);
-            feedbackBridge?.PlayWeaponFire(); FiredProjectileCount++; PlayerAttackFired?.Invoke(); return true;
+            return FireGameplayProjectileAtTarget(target, damage, pierce, statusApplicationRequest);
         }
+
+        public bool FireGameplayProjectileAtTarget(
+            U2EnemyActor target,
+            float damage,
+            int pierce,
+            EnemyStatusApplicationRequest? statusApplicationRequest = null)
+        {
+            if (target == null || !target.IsTargetable) return false;
+            var projectile = FirstInactive(projectiles);
+            if (projectile == null) return false;
+            projectile.Activate(player.position, target, config.projectileSpeed, damage, pierce, statusApplicationRequest);
+            feedbackBridge?.PlayWeaponFire();
+            FiredProjectileCount++;
+            PlayerAttackFired?.Invoke();
+            return true;
+        }
+
+        public int FireGameplayProjectilesAtNearestTargets(
+            float damage,
+            int pierce,
+            int maxTargets,
+            EnemyStatusApplicationRequest? statusApplicationRequest = null)
+        {
+            if (maxTargets <= 0) return 0;
+            nearestEnemyTargetScratch.Clear();
+            for (var enemyIndex = 0; enemyIndex < enemies.Count; enemyIndex++)
+            {
+                var enemy = enemies[enemyIndex];
+                if (enemy != null && enemy.IsTargetable) nearestEnemyTargetScratch.Add(enemy);
+            }
+            if (nearestEnemyTargetScratch.Count == 0) return 0;
+
+            var targetCount = Math.Min(maxTargets, nearestEnemyTargetScratch.Count);
+            SortNearestEnemyScratchPrefix(targetCount);
+            var fired = 0;
+            for (var i = 0; i < targetCount; i++)
+            {
+                if (FireGameplayProjectileAtTarget(
+                    nearestEnemyTargetScratch[i],
+                    damage,
+                    pierce,
+                    statusApplicationRequest)) fired++;
+            }
+            return fired;
+        }
+
+        private void SortNearestEnemyScratchPrefix(int targetCount)
+        {
+            for (var i = 0; i < targetCount; i++)
+            {
+                var nearestIndex = i;
+                var nearestDistance = DistanceSquaredFromPlayer(nearestEnemyTargetScratch[i]);
+                var nearestPoolOrder = PoolOrderOf(nearestEnemyTargetScratch[i]);
+                for (var candidateIndex = i + 1; candidateIndex < nearestEnemyTargetScratch.Count; candidateIndex++)
+                {
+                    var candidate = nearestEnemyTargetScratch[candidateIndex];
+                    var candidateDistance = DistanceSquaredFromPlayer(candidate);
+                    var candidatePoolOrder = PoolOrderOf(candidate);
+                    if (candidateDistance < nearestDistance ||
+                        (Math.Abs(candidateDistance - nearestDistance) <= 0.0001f && candidatePoolOrder < nearestPoolOrder))
+                    {
+                        nearestIndex = candidateIndex;
+                        nearestDistance = candidateDistance;
+                        nearestPoolOrder = candidatePoolOrder;
+                    }
+                }
+                if (nearestIndex == i) continue;
+                var swap = nearestEnemyTargetScratch[i];
+                nearestEnemyTargetScratch[i] = nearestEnemyTargetScratch[nearestIndex];
+                nearestEnemyTargetScratch[nearestIndex] = swap;
+            }
+        }
+
+        private float DistanceSquaredFromPlayer(U2EnemyActor enemy)
+            => (enemy.transform.position - player.position).sqrMagnitude;
+
+        private int PoolOrderOf(U2EnemyActor enemy) => enemies.IndexOf(enemy);
 
         public bool TryGetNearestEnemyPosition(out Vector3 position)
         {
@@ -333,8 +414,9 @@ namespace VampPon.UnitySpike.Runtime
                 {
                     var hitPosition = projectile.transform.position;
                     var hitTarget = projectile.Target;
-                    projectile.ConsumeHit();
                     var defeated = hitTarget.TakeDamage(projectile.Damage > 0f ? projectile.Damage : config.projectileDamage, config.damageFlashSeconds);
+                    if (!defeated) projectile.ApplyStatusOnHit(hitTarget);
+                    projectile.ConsumeHit();
                     feedbackBridge?.PlayEnemyHit();
                     hitStop?.Request();
                     PlayVfx(hitPosition, hitSprite, 0.34f, 0.11f, Color.white, Vector2.zero, U2VfxShape.Radial);
@@ -716,10 +798,12 @@ namespace VampPon.UnitySpike.Runtime
         private Vector3 direction;
         private float speed;
         private float lifeSeconds;
+        private EnemyStatusApplicationRequest? statusApplicationRequest;
 
         public U2EnemyActor Target { get; private set; }
         public float Damage { get; private set; }
         public int PierceRemaining { get; private set; }
+        public bool HasStatusApplication => statusApplicationRequest.HasValue;
 
         public static U2ProjectileActor Create(string objectName, Transform parent, Sprite sprite)
         {
@@ -739,17 +823,40 @@ namespace VampPon.UnitySpike.Runtime
         }
 
         public void Activate(Vector3 origin, U2EnemyActor target, float projectileSpeed, float damage, int pierce)
+            => Activate(origin, target, projectileSpeed, damage, pierce, null);
+
+        public void Activate(
+            Vector3 origin,
+            U2EnemyActor target,
+            float projectileSpeed,
+            float damage,
+            int pierce,
+            EnemyStatusApplicationRequest? statusApplicationRequest)
         {
             Target = target;
             Damage = damage;
             PierceRemaining = Mathf.Max(0, pierce);
             speed = projectileSpeed;
             lifeSeconds = 1.8f;
+            this.statusApplicationRequest = statusApplicationRequest;
             transform.position = origin;
             var targetPosition = target != null ? target.transform.position : origin + Vector3.up;
             direction = (targetPosition - origin).sqrMagnitude > 0.0001f ? (targetPosition - origin).normalized : Vector3.up;
             IsActive = true;
             gameObject.SetActive(true);
+        }
+
+        public EnemyStatusApplyResult? ApplyStatusOnHit(U2EnemyActor target)
+        {
+            if (target == null || !statusApplicationRequest.HasValue) return null;
+            return statusApplicationRequest.Value.ApplyTo(target.Statuses);
+        }
+
+        public override void Deactivate()
+        {
+            statusApplicationRequest = null;
+            Target = null;
+            base.Deactivate();
         }
 
         public void ConsumeHit()
