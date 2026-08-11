@@ -38,7 +38,7 @@ for (const forbidden of [
 }
 
 const exportIndex = runner.indexOf('run-top-v3-final-approval-ios-export.sh simulator');
-const xcodeIndex = runner.indexOf('xcodebuild \\\n  -project');
+const xcodeIndex = runner.indexOf('xcodebuild \\');
 const installIndex = runner.indexOf('xcrun simctl install');
 const performanceIndex = runner.indexOf('run-top-v3-simulator-performance-evidence.sh');
 invariant(
