@@ -45,7 +45,19 @@ Current early observer identity:
 User-approved redesign Candidate:
 - `docs/sakumei-antagonist-organization-candidate-v1.md`
 - `docs/sakumei-operational-bible-candidate-v1.md`
+- `docs/sakumei-member-deep-profile-candidate-v1.md`
 - `src/game/data/sakumeiCandidateSource.ts`
+
+Deep profileでは8memberそれぞれに:
+- ordinary habit
+- small softness
+- genuinely frightening scene
+- taboo
+- failure response
+- internal friction / respect
+- fan attachment lane
+
+まで持たせる。悲しい過去や美形だけで人気を作らず、**行動・思想・関係の違いから敵側にも推しが生まれる構造**を優先する。
 
 Rule:
 > 八影をその場で削除せず、序盤の観測名として既存資産を生かす。朔盟はHuman Review後に正式migrationする。
