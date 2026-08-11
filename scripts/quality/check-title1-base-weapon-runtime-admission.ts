@@ -17,7 +17,6 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-// Upstream Content/Web authority stays exact and fail-closed.
 assert(selectedTitle1BaseWeaponCandidates.length === 16, 'Title1 selected Base candidates must remain 16');
 assert(selectedBaseWeaponRuntimeAdmissionEntries.length === 16, 'Selected16 Web admission matrix must remain exact');
 assert(selectedBaseWeaponRuntimeAdmissionSummary.candidateCount === 16, 'Selected16 Web summary must remain exact');
@@ -33,7 +32,6 @@ assert(!title1BaseWeaponRuntimeAdmissionSummary.fakeProjectileFallbackAllowed, '
 assert(!title1BaseWeaponRuntimeAdmissionSummary.contentSelectionMayBeDowngradedToFitRuntime, 'runtime gaps must not downgrade Content selection');
 assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'shared primitive work must never auto-promote live runtime');
 
-// Shared primitive evidence after SLAM_WAVE_QUERY plus explicit missing break/stagger capability.
 for (const capability of [
   'NEAREST_TARGET_PROJECTILE',
   'MULTI_PROJECTILE_LOOP',
@@ -43,28 +41,25 @@ for (const capability of [
   'KNOCKBACK_VECTOR',
   'CONE_QUERY',
   'SLAM_WAVE_QUERY',
+  'BREAK_STAGGER_APPLICATION',
 ] as const) {
   assert(currentUnityWeaponRuntimeCapabilities[capability] === 'IMPLEMENTED', `${capability} evidence drift`);
 }
-assert(currentUnityWeaponRuntimeCapabilities.BREAK_STAGGER_APPLICATION === 'MISSING', 'break/stagger runtime must remain explicitly missing until implemented');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 8, `expected 8 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 14, `expected 14 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 9, `expected 9 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 13, `expected 13 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must not remain a blocker');
-assert(title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'BREAK_STAGGER_APPLICATION'), 'break/stagger gap must remain visible in missing capability frequency');
-for (const implementedCapability of ['STATUS_APPLICATION', 'KNOCKBACK_VECTOR', 'CONE_QUERY', 'SLAM_WAVE_QUERY'] as const) {
+for (const implementedCapability of ['STATUS_APPLICATION', 'KNOCKBACK_VECTOR', 'CONE_QUERY', 'SLAM_WAVE_QUERY', 'BREAK_STAGGER_APPLICATION'] as const) {
   assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === implementedCapability), `${implementedCapability} must not remain in missing capability frequency`);
 }
 
-// Caller-proof registry remains explicit. Primitive completeness alone is insufficient by design.
 assert(new Set<string>(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must be unique');
 assert(unityPrototypeCallerImplementedWeaponIds.length === 2, 'exactly Ember + Bellows caller proofs should exist');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('ember_matchcase'), 'Ember caller proof missing');
 assert(unityPrototypeCallerImplementedWeaponIds.includes('bellows_fan'), 'Bellows caller proof missing');
 assert(!new Set<string>(unityPrototypeCallerImplementedWeaponIds).has('pavement_hammer'), 'Pavement Hammer caller proof must remain absent');
 assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 2, 'caller-proof summary drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no weapon should currently be primitive-complete without caller proof after break/stagger audit');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Pavement Hammer should be the only primitive-complete caller-proof blocker');
 
-// Unity implementation-review Admission remains only the two actually proven Selected16 callers.
 assert(title1BaseWeaponRuntimeAdmissionEntries.length === 16, 'Unity overlay must cover Selected16 exactly');
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 2, `expected 2 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 14, `expected 14 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
@@ -106,13 +101,12 @@ assert(
   hammer.requiredUnityCapabilities.join(',') === 'SLAM_WAVE_QUERY,KNOCKBACK_VECTOR,BREAK_STAGGER_APPLICATION,STATUS_APPLICATION',
   `unexpected Pavement Hammer requirements: ${hammer.requiredUnityCapabilities.join(',')}`,
 );
-assert(hammer.implementedUnityCapabilities.join(',') === 'SLAM_WAVE_QUERY,KNOCKBACK_VECTOR,STATUS_APPLICATION', `unexpected Pavement Hammer implemented capabilities: ${hammer.implementedUnityCapabilities.join(',')}`);
-assert(hammer.missingUnityCapabilities.join(',') === 'BREAK_STAGGER_APPLICATION', `Pavement Hammer must be blocked by break/stagger runtime only, got ${hammer.missingUnityCapabilities.join(',')}`);
+assert(hammer.implementedUnityCapabilities.join(',') === 'SLAM_WAVE_QUERY,KNOCKBACK_VECTOR,BREAK_STAGGER_APPLICATION,STATUS_APPLICATION', `unexpected Pavement Hammer implemented capabilities: ${hammer.implementedUnityCapabilities.join(',')}`);
+assert(hammer.missingUnityCapabilities.length === 0, `Pavement Hammer shared primitives should be complete, got ${hammer.missingUnityCapabilities.join(',')}`);
 assert(!hammer.prototypeCallerImplemented, 'Pavement Hammer caller proof must remain absent');
-assert(hammer.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', 'Pavement Hammer must remain primitive-blocked until break/stagger exists');
-assert(!hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer must not enter implementation-review Admission yet');
+assert(hammer.unityDecision === 'BLOCKED_MISSING_UNITY_CALLER_PROOF', 'Pavement Hammer blocker must move to caller proof after real break/stagger foundation');
+assert(!hammer.mayEnterUnityRuntimeRegistry, 'Pavement Hammer must stay outside implementation review until caller proof exists');
 
-// Every other Selected16 entry still has a real primitive blocker and no caller proof.
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   if (entry.weaponId === 'ember_matchcase' || entry.weaponId === 'bellows_fan' || entry.weaponId === 'pavement_hammer') continue;
   assert(entry.missingUnityCapabilities.length >= 1, `${entry.weaponId} must retain a primitive blocker`);
@@ -121,7 +115,6 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   assert(!entry.mayEnterUnityRuntimeRegistry, `${entry.weaponId} must remain outside implementation review`);
 }
 
-// Real source evidence and live boundary.
 const definitionSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Definitions/U47GameplayDefinitions.cs', import.meta.url), 'utf8');
 const importerSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Editor/U47Stage1GameplayDataImporter.cs', import.meta.url), 'utf8');
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
@@ -131,18 +124,25 @@ const bellowsSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Pro
 const knockbackSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyKnockbackRuntime.cs', import.meta.url), 'utf8');
 const coneSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyConeQueryRuntime.cs', import.meta.url), 'utf8');
 const slamSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemySlamWaveQueryRuntime.cs', import.meta.url), 'utf8');
+const breakSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyBreakStaggerRuntime.cs', import.meta.url), 'utf8');
 
 assert(definitionSource.includes('public enum WeaponEffectType { Projectile, GroundArea }'), 'Unity live executor enum drift');
 assert(importerSource.includes('is not ("projectile" or "ground_area")'), 'U47 importer must fail closed on unsupported effect types');
 assert(battleSource.includes('public int FireGameplayProjectilesAtNearestTargets('), 'multi-target primitive missing');
 assert(battleSource.includes('public bool TakeDamage(float damage, float damageFlashSeconds)'), 'enemy HP damage API missing');
-assert(!battleSource.includes('breakGauge') && !battleSource.includes('staggerGauge') && !battleSource.includes('poiseGauge'), 'break/stagger must not be claimed implemented through hidden U2 fields');
+assert(!battleSource.includes('breakGauge') && !battleSource.includes('staggerGauge') && !battleSource.includes('poiseGauge'), 'break/stagger must remain isolated from hidden U2 tuning fields');
 assert(emberSource.includes('EnemyStatusRuntimeKind.Burn') && emberSource.includes('battle.FireGameplayProjectilesAtNearestTargets('), 'Ember caller evidence missing');
 assert(bellowsSource.includes('EnemyStatusRuntimeKind.Disoriented') && bellowsSource.includes('U2EnemyConeQueryRuntime.SelectTargets(') && bellowsSource.includes('U2EnemyKnockbackRuntime.TryApply('), 'Bellows caller evidence missing');
 assert(knockbackSource.includes('public static class U2EnemyKnockbackRuntime'), 'knockback helper missing');
+assert(knockbackSource.includes('public static event Action<U2EnemyActor> EnemyDisplaced;'), 'knockback must expose generic displacement integration signal');
 assert(coneSource.includes('public static class U2EnemyConeQueryRuntime'), 'cone helper missing');
 assert(slamSource.includes('public static class U2EnemySlamWaveQueryRuntime'), 'slam-wave helper missing');
+assert(breakSource.includes('public static class U2EnemyBreakStaggerRuntime'), 'break/stagger helper missing');
+assert(breakSource.includes('public sealed class U2EnemyBreakStaggerState'), 'break/stagger state missing');
+assert(breakSource.includes('internal sealed class U2EnemyBreakStaggerDriver'), 'enemy-owned stagger driver missing');
+assert(breakSource.includes('U2EnemyKnockbackRuntime.EnemyDisplaced += NotifyExternalDisplacement;'), 'stagger must preserve shared knockback displacement');
 assert(!slamSource.includes('pavement_hammer') && !slamSource.includes('EXPOSED'), 'generic slam-wave query must not own Pavement Hammer identity');
+assert(!breakSource.includes('pavement_hammer') && !breakSource.includes('EXPOSED') && !breakSource.includes('EARTH'), 'generic break/stagger must not own Pavement Hammer content identity');
 
 for (const forbiddenLiveToken of [
   'EmberMatchcasePrototypeRuntime',
@@ -150,6 +150,7 @@ for (const forbiddenLiveToken of [
   'U2EnemyKnockbackRuntime',
   'U2EnemyConeQueryRuntime',
   'U2EnemySlamWaveQueryRuntime',
+  'U2EnemyBreakStaggerRuntime',
   'pavement_hammer',
 ]) {
   assert(!coordinatorSource.includes(forbiddenLiveToken), `prototype/shared primitive leaked into live Stage1 coordinator: ${forbiddenLiveToken}`);
@@ -160,6 +161,8 @@ for (const token of [
   'Selected16',
   'Web runtime = 5',
   'Unity runtime = 2',
+  '9 implemented',
+  '13 missing',
   'admitted=2',
   'blocked=14',
   'ember_matchcase',
@@ -169,6 +172,7 @@ for (const token of [
   'BREAK_STAGGER_APPLICATION',
   'BLOCKED_MISSING_UNITY_PRIMITIVES',
   'BLOCKED_MISSING_UNITY_CALLER_PROOF',
+  'primitive-complete but caller-proof missing',
   'fake projectile',
   'CONTENT_MASTER',
 ]) {
@@ -181,6 +185,7 @@ console.log(JSON.stringify({
   admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
   implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount,
   missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount,
+  primitiveCompleteMissingCallerProof: title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount,
   pavementHammer: {
     implemented: hammer.implementedUnityCapabilities,
     missing: hammer.missingUnityCapabilities,
