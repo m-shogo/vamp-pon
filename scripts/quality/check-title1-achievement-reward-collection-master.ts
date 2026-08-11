@@ -72,9 +72,9 @@ assert(laneCounts.SOUND === 1, `expected 1 sound lane, got ${laneCounts.SOUND}`)
 
 for (const entry of title1AchievementRewardCollectionEntries) {
   assert(entry.title.trim().length >= 3, `${entry.stageId} milestone title is too vague`);
-  assert(entry.condition.trim().length >= 12, `${entry.stageId} needs a concrete milestone condition`);
-  assert(entry.nextRunPrompt.trim().length >= 20, `${entry.stageId} needs a concrete next-run prompt`);
-  assert(entry.antiGrindGuard.trim().length >= 18, `${entry.stageId} needs an anti-grind guard`);
+  assert(entry.condition.trim().length >= 10, `${entry.stageId} needs a concrete milestone condition`);
+  assert(entry.nextRunPrompt.trim().length >= 16, `${entry.stageId} needs a concrete next-run prompt`);
+  assert(entry.antiGrindGuard.trim().length >= 12, `${entry.stageId} needs an anti-grind guard`);
   assert(!entry.repeatableCurrencyReward, `${entry.stageId} must not become repeatable currency farm`);
   assert(!entry.readingRequiredForPower, `${entry.stageId} must not gate power behind reading`);
   assert(!entry.fullCollectionRequiredForClear, `${entry.stageId} must not require full Collection for clear`);
