@@ -84,7 +84,7 @@ assert(currentUnityWeaponRuntimeCapabilities.BREAK_STAGGER_APPLICATION === 'IMPL
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 10, `expected 10 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 12, `expected 12 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === 'BREAK_STAGGER_APPLICATION'), 'implemented break/stagger must disappear from missing frequency');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Star Map Pin should be the one primitive-complete caller blocker after homing priority lands');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'all primitive-complete Selected16 callers should have explicit caller proof after Star Map Pin lands');
 
 const hammer = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'pavement_hammer');
 assert(hammer, 'pavement_hammer admission row missing');
