@@ -1,0 +1,443 @@
+{
+  "generatedFrom": "unity-runtime-captures",
+  "note": "Pillow diagnostics are a review aid derived from real Unity captures; not runtime/human approval.",
+  "totalChecks": 87,
+  "failed": [],
+  "checks": [
+    {
+      "check": "360x800-normal-t0 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.85"
+    },
+    {
+      "check": "360x800-normal-t0 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-normal-t1 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.72"
+    },
+    {
+      "check": "360x800-normal-t1 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-normal-t2 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.87"
+    },
+    {
+      "check": "360x800-normal-t2 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-normal-t3 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.76"
+    },
+    {
+      "check": "360x800-normal-t3 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-reduced-t0 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.77"
+    },
+    {
+      "check": "360x800-reduced-t0 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-reduced-t1 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.77"
+    },
+    {
+      "check": "360x800-reduced-t1 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-reduced-t2 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.81"
+    },
+    {
+      "check": "360x800-reduced-t2 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-reduced-t3 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.75"
+    },
+    {
+      "check": "360x800-reduced-t3 dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-transition-normal-a not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.84"
+    },
+    {
+      "check": "360x800-transition-normal-a dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-transition-normal-b not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.86"
+    },
+    {
+      "check": "360x800-transition-normal-b dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-transition-reduced-a not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.75"
+    },
+    {
+      "check": "360x800-transition-reduced-a dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-transition-reduced-b not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.77"
+    },
+    {
+      "check": "360x800-transition-reduced-b dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "360x800-transition-normal-c not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.80"
+    },
+    {
+      "check": "360x800-transition-normal-c dimensions",
+      "pass": true,
+      "detail": "360x800 vs 360x800"
+    },
+    {
+      "check": "390x844-normal-t0 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.75"
+    },
+    {
+      "check": "390x844-normal-t0 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-normal-t1 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.72"
+    },
+    {
+      "check": "390x844-normal-t1 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-normal-t2 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.79"
+    },
+    {
+      "check": "390x844-normal-t2 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-normal-t3 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.71"
+    },
+    {
+      "check": "390x844-normal-t3 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-reduced-t0 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.73"
+    },
+    {
+      "check": "390x844-reduced-t0 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-reduced-t1 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.72"
+    },
+    {
+      "check": "390x844-reduced-t1 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-reduced-t2 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.77"
+    },
+    {
+      "check": "390x844-reduced-t2 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-reduced-t3 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.71"
+    },
+    {
+      "check": "390x844-reduced-t3 dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-transition-normal-a not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.74"
+    },
+    {
+      "check": "390x844-transition-normal-a dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-transition-normal-b not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.79"
+    },
+    {
+      "check": "390x844-transition-normal-b dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-transition-reduced-a not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.78"
+    },
+    {
+      "check": "390x844-transition-reduced-a dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-transition-reduced-b not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.72"
+    },
+    {
+      "check": "390x844-transition-reduced-b dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "390x844-transition-normal-c not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.81"
+    },
+    {
+      "check": "390x844-transition-normal-c dimensions",
+      "pass": true,
+      "detail": "390x844 vs 390x844"
+    },
+    {
+      "check": "430x932-normal-t0 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.06"
+    },
+    {
+      "check": "430x932-normal-t0 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-normal-t1 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.98"
+    },
+    {
+      "check": "430x932-normal-t1 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-normal-t2 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.07"
+    },
+    {
+      "check": "430x932-normal-t2 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-normal-t3 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.00"
+    },
+    {
+      "check": "430x932-normal-t3 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-reduced-t0 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.01"
+    },
+    {
+      "check": "430x932-reduced-t0 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-reduced-t1 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.00"
+    },
+    {
+      "check": "430x932-reduced-t1 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-reduced-t2 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.03"
+    },
+    {
+      "check": "430x932-reduced-t2 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-reduced-t3 not-full-black",
+      "pass": true,
+      "detail": "mean_luma=39.99"
+    },
+    {
+      "check": "430x932-reduced-t3 dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-transition-normal-a not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.05"
+    },
+    {
+      "check": "430x932-transition-normal-a dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-transition-normal-b not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.08"
+    },
+    {
+      "check": "430x932-transition-normal-b dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-transition-reduced-a not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.05"
+    },
+    {
+      "check": "430x932-transition-reduced-a dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-transition-reduced-b not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.03"
+    },
+    {
+      "check": "430x932-transition-reduced-b dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "430x932-transition-normal-c not-full-black",
+      "pass": true,
+      "detail": "mean_luma=40.07"
+    },
+    {
+      "check": "430x932-transition-normal-c dimensions",
+      "pass": true,
+      "detail": "430x932 vs 430x932"
+    },
+    {
+      "check": "360x800 normal has inter-frame motion",
+      "pass": true,
+      "detail": "max_consecutive_diff=0.7063"
+    },
+    {
+      "check": "360x800 reduced <= normal motion",
+      "pass": true,
+      "detail": "reduced=0.1407 normal=0.7063"
+    },
+    {
+      "check": "360x800 normal frames not all identical",
+      "pass": true,
+      "detail": "max_consecutive_diff=0.7063"
+    },
+    {
+      "check": "390x844 normal has inter-frame motion",
+      "pass": true,
+      "detail": "max_consecutive_diff=0.6391"
+    },
+    {
+      "check": "390x844 reduced <= normal motion",
+      "pass": true,
+      "detail": "reduced=0.1230 normal=0.6391"
+    },
+    {
+      "check": "390x844 normal frames not all identical",
+      "pass": true,
+      "detail": "max_consecutive_diff=0.6391"
+    },
+    {
+      "check": "430x932 normal has inter-frame motion",
+      "pass": true,
+      "detail": "max_consecutive_diff=0.5721"
+    },
+    {
+      "check": "430x932 reduced <= normal motion",
+      "pass": true,
+      "detail": "reduced=0.1010 normal=0.5721"
+    },
+    {
+      "check": "430x932 normal frames not all identical",
+      "pass": true,
+      "detail": "max_consecutive_diff=0.5721"
+    }
+  ]
+}
