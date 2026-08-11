@@ -12,6 +12,8 @@ on:
       - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
       - 'src/game/data/weapons.ts'
       - 'scripts/quality/check-unity-ember-matchcase-prototype.ts'
+      - 'scripts/quality/check-unity-ember-matchcase-telemetry.ts'
+      - 'scripts/quality/unity-ember-matchcase-telemetry/**'
       - 'scripts/quality/check-unity-enemy-status-owner.ts'
       - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
       - 'scripts/quality/check-unity-targeted-projectile-primitive.ts'
@@ -19,6 +21,7 @@ on:
       - 'scripts/quality/check-unity-multitarget-admission-proof.ts'
       - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
       - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - 'docs/unity-ember-matchcase-telemetry-v1.md'
       - '.github/workflows/unity-ember-matchcase-prototype.yml'
   push:
     branches: [main]
@@ -32,6 +35,8 @@ on:
       - 'src/game/data/baseWeaponSelectionGameplaySource.ts'
       - 'src/game/data/weapons.ts'
       - 'scripts/quality/check-unity-ember-matchcase-prototype.ts'
+      - 'scripts/quality/check-unity-ember-matchcase-telemetry.ts'
+      - 'scripts/quality/unity-ember-matchcase-telemetry/**'
       - 'scripts/quality/check-unity-enemy-status-owner.ts'
       - 'scripts/quality/check-unity-projectile-status-application-hook.ts'
       - 'scripts/quality/check-unity-targeted-projectile-primitive.ts'
@@ -39,6 +44,7 @@ on:
       - 'scripts/quality/check-unity-multitarget-admission-proof.ts'
       - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
       - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - 'docs/unity-ember-matchcase-telemetry-v1.md'
       - '.github/workflows/unity-ember-matchcase-prototype.yml'
 
 permissions:
@@ -52,8 +58,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
       - name: Check Ember Matchcase Selected16 prototype
         run: node --experimental-strip-types scripts/quality/check-unity-ember-matchcase-prototype.ts
+      - name: Check Ember prototype telemetry surface
+        run: node --experimental-strip-types scripts/quality/check-unity-ember-matchcase-telemetry.ts
+      - name: Compile and execute Ember telemetry contract
+        run: |
+          dotnet build scripts/quality/unity-ember-matchcase-telemetry/EmberMatchcaseTelemetry.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-ember-matchcase-telemetry/EmberMatchcaseTelemetry.Contract.csproj --configuration Release --no-build
       - name: Re-check enemy Status ownership
         run: node --experimental-strip-types scripts/quality/check-unity-enemy-status-owner.ts
       - name: Re-check typed Projectile Status application
