@@ -97,8 +97,8 @@ assert(hammer.prototypeCallerImplemented, 'pavement_hammer caller proof must rem
 assert(hammer.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'pavement_hammer should remain implementation-review admitted');
 assert(hammer.mayEnterUnityRuntimeRegistry, 'pavement_hammer should remain implementation-review eligible');
 assert(hammer.runtimeStatus === 'NOT_IMPLEMENTED', 'implementation-review evidence must not claim pavement_hammer live implementation');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 1, 'Star Map Pin should be the one primitive-complete caller-proof blocker');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer', 'implementation-review admission IDs drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'all primitive-complete Selected16 callers should have caller proof after Star Map Pin lands');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase,bellows_fan,pavement_hammer,star_map_pin', 'implementation-review admission IDs drift');
 assert(!weapons.some((weapon) => weapon.id === 'pavement_hammer'), 'prototype caller work must not add pavement_hammer to Web live catalog');
 assert(!coordinatorSource.includes('U2EnemySlamWaveQueryRuntime'), 'shared slam-wave query must not silently enter live Stage1 coordinator');
 assert(!coordinatorSource.includes('U2EnemyBreakStaggerRuntime'), 'shared break/stagger must not silently enter live Stage1 coordinator');
