@@ -9,12 +9,13 @@ assert(battleSource.includes('U2EnemyActor target,'), 'targeted primitive must t
 assert(battleSource.includes('EnemyStatusApplicationRequest? statusApplicationRequest = null'), 'targeted primitive must preserve Status transport');
 assert(battleSource.includes('if (target == null || !target.IsTargetable) return false;'), 'targeted primitive must fail closed');
 assert(battleSource.includes('var projectile = FirstInactive(projectiles);'), 'targeted primitive must reuse current pool');
-assert(battleSource.includes('projectile.Activate(player.position, target, config.projectileSpeed, damage, pierce, statusApplicationRequest);'), 'targeted primitive must preserve current target-based architecture');
+assert(battleSource.includes('projectile.Activate(player.position, target, config.projectileSpeed, damage, pierce, statusApplicationRequest);'), 'targeted primitive must preserve target-based architecture');
 assert(battleSource.includes('return FireGameplayProjectileAtTarget(target, damage, pierce, statusApplicationRequest);'), 'nearest API must delegate to canonical target spawn');
 assert(battleSource.match(/public bool FireGameplayProjectileAtTarget\(/g)?.length === 1, 'targeted spawn must have one implementation');
 assert(battleSource.includes('FireGameplayProjectilesAtNearestTargets'), 'multi-target primitive must compose targeted spawn');
 assert(coordinatorSource.includes('battle.FireGameplayProjectile(effect.damage * damageMultiplier, effect.pierce)'), 'live coordinator must remain nearest-target');
 assert(!coordinatorSource.includes('FireGameplayProjectileAtTarget'), 'live coordinator must not choose explicit targets yet');
 assert(evidenceSource.includes('PR169_PROJECTILE_RECOVERY_NORMALIZER'), 'U47 normalizer recovery marker missing');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 0, 'targeted primitive alone must not admit Selected16');
-console.log(JSON.stringify({ status: 'PASS', canonicalProjectileSpawnPrimitive: 'FireGameplayProjectileAtTarget', liveTargetSelection: 'nearest-target' }, null, 2));
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 1, 'first Selected16 admission must not disturb canonical targeted primitive');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === 'ember_matchcase', 'only Ember Matchcase may use current primitive set for admission review');
+console.log(JSON.stringify({ status: 'PASS', canonicalProjectileSpawnPrimitive: 'FireGameplayProjectileAtTarget', liveTargetSelection: 'nearest-target', admittedPrototype: 'ember_matchcase' }, null, 2));
