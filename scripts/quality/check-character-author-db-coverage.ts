@@ -1,16 +1,10 @@
 import fs from 'node:fs';
-import {
-  CHARACTER_AUTHOR_DB_RULES,
-  CHARACTER_AUTHOR_DB_IDENTITIES,
-  CHARACTER_AUTHOR_DB_COVERAGE,
-  characterAuthorDbCoverageSummary,
-} from '../../src/game/data/characterAuthorDbCoverageManifest.ts';
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-for (const path of [
+const requiredSourcePaths = [
   'docs/00-current-story-world-master.md',
   'docs/character-author-db-schema-and-coverage-v1.md',
   'src/game/data/characterAuthorDbCoverageManifest.ts',
@@ -23,7 +17,21 @@ for (const path of [
   'src/game/data/characterThemeColorReservoir.ts',
   'src/game/data/realityRootLivingPlaceReservoir.ts',
   'src/game/data/seasonArchitecture.ts',
-]) assert(fs.existsSync(path), `missing Character Author DB source: ${path}`);
+] as const;
+
+for (const path of requiredSourcePaths) {
+  assert(fs.existsSync(path), `missing Character Author DB prerequisite source: ${path}`);
+}
+
+// Import only after prerequisite existence has been checked. This keeps failures
+// actionable when upstream Reservoir PRs land out of order instead of surfacing
+// an opaque ERR_MODULE_NOT_FOUND from the manifest's transitive imports.
+const {
+  CHARACTER_AUTHOR_DB_RULES,
+  CHARACTER_AUTHOR_DB_IDENTITIES,
+  CHARACTER_AUTHOR_DB_COVERAGE,
+  characterAuthorDbCoverageSummary,
+} = await import('../../src/game/data/characterAuthorDbCoverageManifest.ts');
 
 assert(CHARACTER_AUTHOR_DB_RULES.status === 'AUTHOR_DB_INDEX_CURRENT_STRUCTURE_RESERVOIR_CONTENT', 'Author DB index status drift');
 assert(CHARACTER_AUTHOR_DB_RULES.characterCountRequired === 36, 'Author DB character target drift');
