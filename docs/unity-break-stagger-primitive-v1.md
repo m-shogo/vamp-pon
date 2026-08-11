@@ -105,7 +105,7 @@ Knockback primitiveはBreak/Stagger実装へ直接依存しない。
 
 必要になったboss/elite resistanceや自然回復は別policy layerとして追加し、Weapon値を共有primitiveへ埋め込まない。
 
-## Pavement Hammer boundary
+## Pavement Hammer consumer boundary
 
 `pavement_hammer` が必要とするshared capabilities:
 
@@ -114,17 +114,29 @@ Knockback primitiveはBreak/Stagger実装へ直接依存しない。
 - `BREAK_STAGGER_APPLICATION`
 - `STATUS_APPLICATION`
 
-はすべてIMPLEMENTEDになった。
+はすべてIMPLEMENTED。
 
-ただしWeapon固有 `PavementHammerPrototypeRuntime` caller proofはまだ無い。
-
-したがって現在のAdmissionは:
+break/stagger foundationだけが完成した時点では:
 
 `BLOCKED_MISSING_UNITY_CALLER_PROOF`
 
-であり、implementation-review / live registryへは自動昇格しない。
+だった。
+
+現在はWeapon固有 `PavementHammerPrototypeRuntime` も別source + executable contractとして存在し、generic primitiveを変更せずconsumer側で:
+
+`QUERY_DAMAGE_SURVIVING_STATUS_KNOCKBACK_BREAK_STAGGER`
+
+を接続する。
+
+そのため現在のAdmissionは:
+
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+
+ただし `runtimeStatus=NOT_IMPLEMENTED` であり、Live Stage1 / Web / LevelUpへは未接続。
 
 ## Executable contract
+
+Shared primitive:
 
 - `scripts/quality/check-unity-break-stagger-primitive.ts`
 - `scripts/quality/unity-break-stagger/UnityBreakStagger.Contract.csproj`
@@ -147,36 +159,38 @@ Knockback primitiveはBreak/Stagger実装へ直接依存しない。
 13. z preservation
 14. untargetable/death clear
 
+Pavement consumer integration:
+
+- `scripts/quality/unity-pavement-hammer/UnityPavementHammer.Contract.csproj`
+
+ここではdamage / EXPOSED / knockback / break-staggerの組み合わせ順とtelemetryを別途検証する。
+
+TEST_ONLY値は **NOT_CANON**。
+
 ## Live Stage1 boundary
 
-この共有primitiveは **Live Stage1へ自動接続しない**。
+この共有primitive / prototype callerは **Live Stage1へ自動接続しない**。
 
 `Stage1GameplayRuntimeCoordinator` に:
 
 - `U2EnemyBreakStaggerRuntime`
+- `PavementHammerPrototypeRuntime`
 - `pavement_hammer`
 
 を追加しない。
 
-shared primitive完成だけで `WeaponEffectType`、Web catalog、LevelUp、save、balance、production runtimeを昇格させない。
+shared primitive/caller完成だけで `WeaponEffectType`、Web catalog、LevelUp、save、balance、production runtimeを昇格させない。
 
 `runtimeAutoPromotionAllowed = false`
 
 ## Next
 
-次のgameplay gateは `PavementHammerPrototypeRuntime`。
+次のPavement gameplay gateはcaller existenceではなく **runtime evidence**。
 
-そこで初めてWeapon固有callerとして:
+- rendered slam-wave capture
+- EXPOSED / knockback / break-stagger outcome telemetry
+- break/stagger readability
+- pavement-crack visual cue
+- human live-admission review
 
-- slam-wave target selection
-- damage
-- EXPOSED application
-- knockback
-- break/stagger
-- explicit application order
-- caller-owned prototype tuning
-- telemetry
-
-を接続する。
-
-その値は最後まで `PROTOTYPE_TUNING_NOT_CANON` として原本/Canonとは分離する。
+値は最後まで `PROTOTYPE_TUNING_NOT_CANON` として原本/Canonとは分離する。
