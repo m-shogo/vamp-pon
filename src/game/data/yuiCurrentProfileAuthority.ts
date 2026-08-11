@@ -1,0 +1,51 @@
+export const YUI_CURRENT_PROFILE_AUTHORITY = {
+  authority: 'docs/00-current-story-world-master-yui-profile-amendment.md',
+  status: 'USER_DECIDED_CURRENT_HIGHEST',
+  runtimeId: 'yui',
+  name: 'ユイ',
+  reality: {
+    country: '日本',
+    prefecture: '東京都',
+    ward: '荒川区',
+    placeIdentity: '下町育ち',
+    exactNeighborhood: null,
+    exactBirthYear: null,
+    birthGeneration: '1990年代生まれ',
+    realityEra: '現代日本',
+  },
+  birthday: '11/07',
+  favoriteFoods: [
+    {
+      name: 'もんじゃ焼き',
+      role: 'PRIMARY_SHARED_FOOD',
+      storyUse: ['下町の日常', '鉄板を囲むParty', 'cross-era food conversation'],
+    },
+    {
+      name: 'たい焼き',
+      role: 'PRIMARY_SWEET',
+      storyUse: ['寄り道', '食べ方の小会話', '日常小物'],
+    },
+    {
+      name: '大判焼き',
+      role: 'PRIMARY_SWEET',
+      storyUse: ['地域別名称の会話', 'same-object-different-name motif'],
+    },
+  ],
+  supersededRepresentativeFoods: ['焼きおにぎり'],
+  generationTexture: [
+    '1990s-childhood',
+    'paper-and-landline-residue',
+    'feature-phone-and-mobile-mail-transition',
+    'smartphone-and-SNS-normalization',
+    'cloud-and-algorithm-era',
+    'generative-AI-and-deepfake-era',
+  ],
+  guards: {
+    notRetroMascot: true,
+    notTourismGuide: true,
+    notGenericYoungDigitalNative: true,
+    exactAddressPublic: false,
+    foodNameDifferenceIsNotWrongness: true,
+    runtimeAutoPromotionAllowed: false,
+  },
+} as const;
