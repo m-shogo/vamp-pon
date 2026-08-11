@@ -1,0 +1,31 @@
+name: Character Shared Space Etiquette Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-shared-space-etiquette-reservoir-v1.md'
+      - 'src/game/data/characterSharedSpaceEtiquetteReservoir.ts'
+      - 'scripts/quality/check-character-shared-space-etiquette-reservoir.ts'
+      - '.github/workflows/character-shared-space-etiquette-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-shared-space-etiquette-reservoir-v1.md'
+      - 'src/game/data/characterSharedSpaceEtiquetteReservoir.ts'
+      - 'scripts/quality/check-character-shared-space-etiquette-reservoir.ts'
+      - '.github/workflows/character-shared-space-etiquette-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character shared-space etiquette reservoir
+        run: node --experimental-strip-types scripts/quality/check-character-shared-space-etiquette-reservoir.ts
