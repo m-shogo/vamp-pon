@@ -1,0 +1,39 @@
+name: Reality Root Living Place Reservoir
+
+on:
+  pull_request:
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-reality-root-registry-v1.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/reality-root-living-place-reservoir-v1.md'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/realityRootLivingPlaceReservoir.ts'
+      - 'scripts/quality/check-reality-root-living-place-reservoir.ts'
+      - '.github/workflows/reality-root-living-place-reservoir.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/00-current-story-world-master.md'
+      - 'docs/character-reality-root-registry-v1.md'
+      - 'docs/character-ordinary-life-reservoir-v1.md'
+      - 'docs/reality-root-living-place-reservoir-v1.md'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'src/game/data/realityRootLivingPlaceReservoir.ts'
+      - 'scripts/quality/check-reality-root-living-place-reservoir.ts'
+      - '.github/workflows/reality-root-living-place-reservoir.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate Reality Root living-place reservoir and pilgrimage boundaries
+        run: node --experimental-strip-types scripts/quality/check-reality-root-living-place-reservoir.ts
