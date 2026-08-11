@@ -1,0 +1,55 @@
+name: unity-homing-priority-selection
+
+on:
+  pull_request:
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyHomingPrioritySelectionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyHomingPrioritySelectionRuntime.cs.meta'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-homing-priority-selection-primitive.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/unity-homing-priority-selection/**'
+      - 'docs/unity-homing-priority-selection-primitive-v1.md'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-homing-priority-selection.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyHomingPrioritySelectionRuntime.cs'
+      - 'unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Primitives/U2EnemyHomingPrioritySelectionRuntime.cs.meta'
+      - 'src/game/data/title1BaseWeaponRuntimeAdmissionSource.ts'
+      - 'scripts/quality/check-unity-homing-priority-selection-primitive.ts'
+      - 'scripts/quality/check-title1-base-weapon-runtime-admission.ts'
+      - 'scripts/quality/unity-homing-priority-selection/**'
+      - 'docs/unity-homing-priority-selection-primitive-v1.md'
+      - 'docs/title1-base-weapon-runtime-admission-v1.md'
+      - '.github/workflows/unity-homing-priority-selection.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check reusable homing priority selection primitive
+        run: node --experimental-strip-types scripts/quality/check-unity-homing-priority-selection-primitive.ts
+      - name: Compile and execute homing priority selector contract
+        run: |
+          dotnet build scripts/quality/unity-homing-priority-selection/UnityHomingPrioritySelection.Contract.csproj --configuration Release --nologo
+          dotnet run --project scripts/quality/unity-homing-priority-selection/UnityHomingPrioritySelection.Contract.csproj --configuration Release --no-build
+      - name: Re-check Title1 Base Weapon runtime admission
+        run: node --experimental-strip-types scripts/quality/check-title1-base-weapon-runtime-admission.ts
+      - name: Re-check Pavement Hammer caller boundary
+        run: node --experimental-strip-types scripts/quality/check-unity-pavement-hammer-prototype.ts
+      - name: Re-check break stagger boundary
+        run: node --experimental-strip-types scripts/quality/check-unity-break-stagger-primitive.ts
+      - name: Re-check Title1 Content Master integrity
+        run: node --experimental-strip-types scripts/quality/check-title1-content-master-integrity.ts
