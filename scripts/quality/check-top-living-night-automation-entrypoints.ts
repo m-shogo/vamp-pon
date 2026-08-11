@@ -16,8 +16,8 @@ const expected = {
   effectCompanionRegistrar: 'scripts/unity/register-top-living-night-effect-companion-pack.ts',
   unityV3Verification: 'scripts/unity/run-top-living-night-v3-unity-verification.sh',
   capturePack: 'scripts/unity/run-top-v3-final-approval-capture.sh',
-  simulatorPerformance: 'scripts/unity/run-top-living-night-simulator-performance-evidence.sh',
-  physicalIphonePerformance: 'scripts/unity/run-top-living-night-physical-iphone-performance-evidence.sh',
+  simulatorPerformance: 'scripts/unity/run-top-v3-simulator-performance-evidence.sh',
+  physicalIphonePerformance: 'scripts/unity/run-top-v3-physical-iphone-performance-evidence.sh',
   staticReviewRegistrar: 'scripts/unity/register-top-living-night-static-review.ts',
   motionReviewRegistrar: 'scripts/unity/register-top-living-night-motion-review.ts',
   humanReviewRegistrar: 'scripts/unity/register-top-living-night-human-review.ts',
@@ -35,6 +35,17 @@ for (const [name, path] of Object.entries(expected)) {
   invariant(existsSync(join(root, path)), `TOP automation entrypoint is missing: ${name} -> ${path}`);
 }
 
+const simulatorWrapper = readFileSync(join(root, expected.simulatorPerformance), 'utf8');
+const physicalWrapper = readFileSync(join(root, expected.physicalIphonePerformance), 'utf8');
+invariant(
+  simulatorWrapper.includes('verify-top-living-night-installed-build-provenance.sh simulator'),
+  'canonical Simulator evidence must verify installed-build provenance before sampling',
+);
+invariant(
+  physicalWrapper.includes('verify-top-living-night-installed-build-provenance.sh physical-iphone'),
+  'canonical physical-iPhone evidence must verify installed-build provenance before sampling',
+);
+
 const promotion = readFileSync(join(root, expected.finalPromotion), 'utf8');
 for (const registrarPath of [
   expected.semanticLayerRegistrar,
@@ -51,4 +62,4 @@ invariant(promotion.includes('finalArt.approvedAsFinal = true'), 'canonical fina
 invariant(promotion.includes('finalArt.runtimeApproved = true'), 'canonical final promoter lost runtime approval write');
 
 console.log('TOP Living Night automation entrypoints: PASS');
-console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / Simulator / physical iPhone / review registrars / final promoter are bundle-bound');
+console.log('review prep / semantic + effect registration / V3 Unity / main-safe capture / build-provenance-gated Simulator + physical iPhone / review registrars / final promoter are bundle-bound');

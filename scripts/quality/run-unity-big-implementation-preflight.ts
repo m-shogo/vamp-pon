@@ -16,6 +16,7 @@ const directChecks = [
   'scripts/quality/check-top-living-night-unity-evidence.ts',
   'scripts/quality/check-loading-top-runtime.ts',
   'scripts/quality/check-top-v3-final-approval-capture-runner.ts',
+  'scripts/quality/check-top-v3-device-build-provenance.ts',
 ] as const;
 
 for (const check of directChecks) {
