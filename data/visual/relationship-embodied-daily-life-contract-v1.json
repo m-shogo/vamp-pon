@@ -1,0 +1,122 @@
+{
+  "id": "yoru-no-shirube-relationship-embodied-daily-life-contract-v1",
+  "date": "2026-08-12",
+  "status": "CURRENT_AUTHORING_CONTRACT_EXTENDS_EXISTING_RELATIONSHIP_AUTHORITIES",
+  "authorityDocument": "docs/visual/relationship-embodied-daily-life-contract-v1.md",
+  "doesNotCreateNewRelationshipEdges": true,
+  "authorityOrder": [
+    "docs/00-current-story-world-master.md",
+    "docs/RELATIONSHIPS.md",
+    "src/game/data/currentRelationshipInventory.ts",
+    "detailed_relationship_arc_sources",
+    "docs/relationship-bond-speech-prototype-v1.md",
+    "per_character_living_visual_profile",
+    "docs/visual/core5-era-life-design-master-v1.md_if_core5",
+    "docs/visual/world-character-scenario-design-council-master-v1.md",
+    "docs/visual/relationship-embodied-daily-life-contract-v1.md",
+    "scene_or_asset_candidate"
+  ],
+  "relationshipAxes": [
+    "speechDistance",
+    "physicalDistance",
+    "touchPermission",
+    "objectTrust",
+    "carePermission",
+    "requestStyle",
+    "refusalSafety",
+    "silenceComfort",
+    "jokeRange",
+    "angerShape",
+    "repairBehavior",
+    "appearanceIntervention"
+  ],
+  "antiShortcut": [
+    "high_bond_equals_first_name_or_no_honorific",
+    "high_bond_equals_casual_speech",
+    "high_bond_equals_constant_close_distance",
+    "high_bond_equals_more_touch",
+    "high_bond_equals_matching_accessories",
+    "high_bond_equals_sweeter_dialogue",
+    "romance_or_friendship_allows_living_visual_override",
+    "relationship_growth_allows_more_skin_exposure",
+    "gift_automatically_becomes_permanent_signature_accessory"
+  ],
+  "appearanceInterventionNeverAutomatic": [
+    "piercing",
+    "tattoo",
+    "skin_exposure_increase",
+    "body_shape_change",
+    "violate_clothing_taste_for_pair_outfit",
+    "permanent_signature_accessory_from_unconfirmed_gift"
+  ],
+  "allowedRelationshipTraceExamples": [
+    "repaired_seam",
+    "temporarily_borrowed_object",
+    "cloth_folded_to_return",
+    "known_pocket_location",
+    "tool_maintained_by_other_person",
+    "shared_object_returned_to_same_place",
+    "weather_specific_borrowed_outerwear",
+    "gift_color_used_only_in_specific_context"
+  ],
+  "bodyActingFields": [
+    "torsoOrientation",
+    "eyeContactDuration",
+    "shoulderTension",
+    "handOccupation",
+    "standingOrSittingDistance",
+    "walkPosition",
+    "whoStopsFirst",
+    "whoWaits",
+    "backExposureTrust",
+    "objectBetweenBodies"
+  ],
+  "ordinaryRelationshipReservoir": [
+    "same_meal_different_order",
+    "different_arrival_time",
+    "lend_weather_or_tool_or_charge_or_paper",
+    "ask_or_refuse_directions",
+    "repair_vs_replace_disagreement",
+    "carry_or_refuse_baggage_help",
+    "remember_food_dislike",
+    "silent_repair_cleaning_preparation",
+    "failed_call_or_mishearing",
+    "failed_joke",
+    "overexplaining_stopped_by_other",
+    "notice_fatigue_first",
+    "seat_yield_behavior",
+    "object_not_touched_without_permission",
+    "walking_pace_alignment"
+  ],
+  "conflictRepairFields": [
+    "irritationTrigger",
+    "refusedWords",
+    "leaveTrigger",
+    "stayTrigger",
+    "whoResumesOrdinaryActivityFirst",
+    "apologyStyle",
+    "nonVerbalRepair",
+    "remainingUnresolvedIssue"
+  ],
+  "relationshipVisualQA": [
+    "identity_survives_name_hidden",
+    "distance_has_relationship_reason",
+    "hands_have_specific_action",
+    "objects_between_pair_have_reason",
+    "eye_contact_not_generic_mutual_gaze",
+    "intimacy_not_only_touch_exposure_accessory",
+    "living_visual_profile_not_overridden",
+    "era_difference_visible_when_relevant",
+    "ordinary_conflict_crisis_dawn_body_acting_differs",
+    "growth_proved_in_small_ordinary_behavior"
+  ],
+  "unknownPairPolicy": {
+    "inventRelationshipValues": false,
+    "inventRomance": false,
+    "inventBloodRelation": false,
+    "inventBestFriendStatus": false,
+    "inventTouchPermission": false,
+    "inventAppearanceInterventionPermission": false
+  },
+  "positiveTarget": "The same character should reveal different believable facets with different people through distance, waiting, non-touch, lending, food, pace, silence, appearance boundaries, and repair after conflict—not through one universal intimacy meter."
+}
