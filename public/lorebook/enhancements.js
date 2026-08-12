@@ -4,6 +4,7 @@ const modules = [
   './combat-enhancement.js',
   './history-enhancement.js',
   './geography-enhancement.js',
+  './cross-era-echo-enhancement.js',
   './decision-lab.js',
   './theme-enhancement.js',
   './franchise-enhancement.js',

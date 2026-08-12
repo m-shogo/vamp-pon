@@ -1,0 +1,41 @@
+name: Lorebook Cross Era Echo Desk
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/characterCrossEraEchoReservoir.ts'
+      - 'public/lorebook/data/cross-era-echo-chains.v1.json'
+      - 'public/lorebook/cross-era-echo-enhancement.js'
+      - 'public/lorebook/cross-era-echo.css'
+      - 'public/lorebook/enhancements.js'
+      - 'scripts/quality/check-lorebook-cross-era-echo-desk.ts'
+      - 'docs/lorebook-cross-era-echo-desk-v1.md'
+      - '.github/workflows/lorebook-cross-era-echo-desk.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/characterCrossEraEchoReservoir.ts'
+      - 'public/lorebook/data/cross-era-echo-chains.v1.json'
+      - 'public/lorebook/cross-era-echo-enhancement.js'
+      - 'public/lorebook/cross-era-echo.css'
+      - 'public/lorebook/enhancements.js'
+      - 'scripts/quality/check-lorebook-cross-era-echo-desk.ts'
+      - 'docs/lorebook-cross-era-echo-desk-v1.md'
+      - '.github/workflows/lorebook-cross-era-echo-desk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate echo desk JS syntax
+        run: node --check public/lorebook/cross-era-echo-enhancement.js
+      - name: Validate checked echo projection and author boundaries
+        run: node --experimental-strip-types scripts/quality/check-lorebook-cross-era-echo-desk.ts
