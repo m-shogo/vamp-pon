@@ -1,0 +1,30 @@
+name: All Character Living Visual Profiles
+
+on:
+  pull_request:
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'scripts/quality/check-all-character-living-visual-profiles.ts'
+      - '.github/workflows/all-character-living-visual.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/visual/core5-living-visual-profiles-v1.json'
+      - 'data/visual/current21-extended-living-visual-profiles-v1.json'
+      - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'scripts/quality/check-all-character-living-visual-profiles.ts'
+      - '.github/workflows/all-character-living-visual.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate 36 detailed living visual profiles
+        run: node --experimental-strip-types scripts/quality/check-all-character-living-visual-profiles.ts
