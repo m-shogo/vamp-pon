@@ -12,6 +12,8 @@ const CURRENT21_EXTENDED_IDS = new Set([
 ]);
 const PROFESSIONAL_MASTER_DOC = 'docs/visual/master-authoring-professional-standard-v1.md';
 const PROFESSIONAL_MASTER_DATA = 'data/visual/master-authoring-professional-standard-v1.json';
+const VISUAL_DESIGN_MASTER_DOC = 'docs/visual/visual-design-production-master-v1.md';
+const VISUAL_DESIGN_MASTER_DATA = 'data/visual/visual-design-production-master-v1.json';
 const CORE5_ERA_LIFE_MASTER_PATH = 'data/visual/core5-era-life-design-master-v1.json';
 const RELATIONSHIP_EMBODIMENT_DOC = 'docs/visual/relationship-embodied-daily-life-contract-v1.md';
 const RELATIONSHIP_EMBODIMENT_DATA = 'data/visual/relationship-embodied-daily-life-contract-v1.json';
@@ -43,6 +45,7 @@ export type CharacterReferenceGenerationHandoffItem = {
   eraLifeMasterPath: string | null;
   eraLifeMasterRequired: boolean;
   professionalMasterRequired: true;
+  visualDesignProductionMasterRequired: true;
   designerPhilosophyRequired: true;
   designerCraftRequired: true;
   designerPrecedentRequired: true;
@@ -83,6 +86,8 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     visualAuthorityPaths: [
       PROFESSIONAL_MASTER_DOC,
       PROFESSIONAL_MASTER_DATA,
+      VISUAL_DESIGN_MASTER_DOC,
+      VISUAL_DESIGN_MASTER_DATA,
       'docs/00-current-story-world-master.md',
       ...eraAuthorityPaths,
       'docs/visual/character-living-visual-master-v1.md',
@@ -106,6 +111,7 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     eraLifeMasterPath,
     eraLifeMasterRequired: eraLifeMasterPath !== null,
     professionalMasterRequired: true,
+    visualDesignProductionMasterRequired: true,
     designerPhilosophyRequired: true,
     designerCraftRequired: true,
     designerPrecedentRequired: true,
@@ -114,34 +120,29 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
       ? [
-          'Professional Master Standardを最初に読み、USER_DECIDED / EXISTING_CANON / RESEARCH_BACKED_CURRENT / AUTHOR_CANDIDATE / OPENを混同しない',
-          'OPENをimage-model freedomとして扱わず、必要項目が未解決ならauthoringへ戻す',
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterを読む',
-          ...(eraLifeMasterPath ? ['Core5 Era差を服だけで表現せず、communication / transport / repair / food / privacy / carried object / conversational assumptionsを確認する'] : []),
+          'Visual Design Production Masterを画像生成の中心Authorityとして読み、identity→body→posture→face→hair→silhouette→clothing→material→color→prop→era→rendering→detailの順序を崩さない',
+          'Professional Master Standardを読み、USER_DECIDED / EXISTING_CANON / RESEARCH_BACKED_CURRENT / AUTHOR_CANDIDATE / OPENを混同しない',
+          'OPENをimage-model freedomとして扱わず、重要visual項目が未解決ならproduction Character Master生成を止める',
           'Living Visual Profileの露出 / piercing / tattoo / clothing / absoluteNever / positivePreferenceを確認する',
-          'Designer Philosophy MasterのDecision Ladderに従い、設定忠実度と本人の選択理由を美観より先に評価する',
-          'Craft Masterに従い、face / body / posture / silhouette / clothing construction / material / color / actingを別々に点検する',
-          '迷いがある場合はPrecedent Masterで同型の衝突を探し、その裁定順序を使う',
-          'Relationship Embodiment Masterに従い、関係の深さをmatching accessory / more touch / more exposureへ短絡しない',
-          '既存関係Authorityにないpair history / gift / touch permission / appearance interventionを発明しない',
-          'Council rule: world / character / relationship / scenarioの最低2層から必要性を説明できないdetailは削除またはCandidate化する',
-          'そのEra / 場所 / 日常動作で服・小物が実際に使えるか確認する',
-          '未設定項目をgeneric fantasy / gacha conventionで補完しない',
+          'face / body / posture / silhouette / clothing construction / material hierarchy / color hierarchy / prop relationを装飾より先に点検する',
+          'Core5はEra差をcostume filterだけで表現せず、素材・留め具・収納・靴・修繕・持ち物・groomingへ反映する',
+          'World motifを星形アクセ・紙片・墨柄として貼らず、seam / fold / fastening / panel / material agingへ翻訳する',
+          'generic gacha filler（金縁・宝石・ベルト・floating cloth・cutout・発光飾り等）で弱いidentityを補わない',
+          'Rendering変更でface anatomy / body ratio / exposure / clothing construction / body modificationを変えない',
+          'chibi / pixelへ圧縮してもhair mass / body proportion / posture / strongest clothing mass / prop locationが残る設計にする',
           '生成画像に偶然出たdetailをCanonへ逆輸入しない',
           ...(referencePrompt?.reviewChecklist ?? []),
         ]
       : [
-          'Professional Master Standardに従い、既存master内の各detailのcertaintyとsourceを確認する',
-          '既存masterをCurrent21 silhouette matrixと比較する',
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterと照合する',
-          ...(eraLifeMasterPath ? ['Core5の年代差が衣装記号だけになっていないか、生活物・収納・修繕・所作まで再評価する'] : []),
-          '本人が選ばない装飾・露出・body modificationが混入していないか確認する',
-          '関係由来に見えるアクセ・修繕・借り物・服装変化は既存Relationship Authorityで根拠を確認する',
+          'Visual Design Production MasterのFinal Design QAで既存masterを再評価する',
+          'face close-up / neutral posture / black-fill silhouetteの3段階で本人性を確認する',
+          'bodyが服の下に存在し、衣装が着脱・着座・移動できる構造か確認する',
+          '露出 / piercing / tattoo / body modificationがLiving Visual Profileに忠実か確認する',
+          '素材・色・小物・Era視覚差がgeneric genre shorthandではなく本人の生活に接続しているか確認する',
+          'high-res detailがidentityを埋めていないか確認する',
+          'third-party resemblanceがface / silhouette / costume / accessory / renderingの複数主要層へ集中していないか確認する',
           'generated image由来のdetailをsource-backed Canonと誤認しない',
-          'world / character / relationship / scenarioの二層以上から理由を説明できないdetailをauthority扱いしない',
-          'body / age / posture / clothing mass / Named Object placementを確認する',
           '問題がなければ再生成せずreference registration候補へ進める',
-          'reference approvalをruntime/final approvalと混同しない',
         ],
     downstreamRule: entry.downstreamRule,
     approvalStateAfterGeneration: 'CANDIDATE_REVIEW_REQUIRED',
@@ -158,6 +159,7 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   expectedP0Ids: ['hana', 'kage1'],
   referenceFirst: true,
   professionalMasterRequired: true,
+  visualDesignProductionMasterRequired: true,
   livingVisualMasterRequired: true,
   core5EraLifeMasterRequired: true,
   designerPhilosophyRequired: true,
@@ -172,5 +174,5 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Load the Professional Master Authoring Standard first, then Current World/Character/Relationship authorities, Era Life when applicable, Living Visual, Appearance, Designer Philosophy/Craft/Precedent, Design Council, and Relationship Embodiment Master. OPEN is never model freedom and generated images never create canon without human promotion.',
+  rule: 'For character image work, load Professional Governance then Visual Design Production Master as the primary production lens; resolve Living Visual, Appearance, Era and world visual grammar before rendering. Missing visual decisions are never filled by generic genre defaults or by the image model.',
 } as const;
