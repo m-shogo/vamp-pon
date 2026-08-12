@@ -15,6 +15,10 @@ dist/
 data/asset-factory/generation-contracts.json
 docs/design-targets/generated/unity-u48/batch-c/quarantine/*/
 
+# Lorebook build/dev generated read-model projections.
+# Source of truth remains the TypeScript authoring registries.
+public/lorebook/data/era-dialogue-atlas.v1.json
+
 # TOP Living Night review/preproduction artifacts are derived from locked inputs.
 # They are convenience artifacts, not approval authority. Generate/upload them as review artifacts only.
 docs/design-targets/generated/top-living-night-v3/review-inputs/*.json
