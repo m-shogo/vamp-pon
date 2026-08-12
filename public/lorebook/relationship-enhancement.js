@@ -41,13 +41,29 @@ function relationMatchesFilter(relation) {
   return true;
 }
 
+function ensureSourceGuide() {
+  const chapter = document.querySelector('#relationships');
+  const layout = chapter?.querySelector('.relation-layout');
+  if (!chapter || !layout || chapter.querySelector('.relation-source-guide')) return;
+  layout.insertAdjacentHTML('beforebegin', `
+    <section class="relation-source-guide" aria-label="人間関係図の読み方">
+      <div class="relation-source-guide-title"><span>SOURCE-AWARE GRAPH</span><strong>線は「仲良し度」ではなく、深掘りできる関係レーン。</strong></div>
+      <div class="relation-source-guide-rules">
+        <article><b>EDGE</b><p>線がある = Source-backedな関係レーンがある。恋愛・血縁・高好感度を自動では意味しない。</p></article>
+        <article><b>MISSING EDGE</b><p>線がない = 関係なし、ではない。Currentの優先レーンとして未定義なだけ。</p></article>
+        <article><b>VISUAL</b><p>太さ・距離・色を感情スコアとして読まない。Status / type / sourceを先に見る。</p></article>
+      </div>
+    </section>
+  `);
+}
+
 function ensureFilterBar() {
   const chapter = document.querySelector('#relationships');
   const layout = chapter?.querySelector('.relation-layout');
   if (!chapter || !layout || chapter.querySelector('.relation-filter-row')) return;
   layout.insertAdjacentHTML('beforebegin', `
     <div class="relation-filter-row" aria-label="人間関係フィルター">
-      <span>関係の読み方</span>
+      <span>Source / 関係の読み方</span>
       <div>${typeBuckets.map((bucket) => `<button type="button" data-relation-filter="${bucket.id}" class="${bucket.id === activeFilter ? 'is-active' : ''}">${bucket.label}</button>`).join('')}</div>
     </div>
   `);
@@ -60,6 +76,35 @@ function ensureFilterBar() {
   });
 }
 
+function relationSourceMarkup(relation, arc) {
+  const arcState = arc ? 'DETAILED ARC AVAILABLE' : 'RESERVOIR / COVERAGE LANE';
+  return `
+    <section class="relation-source-panel" data-source-panel-for="${relation.id}">
+      <div class="relation-source-panel-head"><span>PROVENANCE</span><b>${relation.status}</b></div>
+      <dl>
+        <div><dt>TYPE</dt><dd>${relation.type}</dd></div>
+        <div><dt>ARC</dt><dd>${arcState}</dd></div>
+        <div><dt>PRIMARY SOURCE</dt><dd>docs/RELATIONSHIPS.md</dd></div>
+      </dl>
+      <p>この線だけから恋愛・血縁・好感度・信頼度・Main Mystery関与を追加推論しない。</p>
+    </section>
+  `;
+}
+
+function enhanceRelationListProvenance() {
+  document.querySelectorAll('.relationship-item[data-relation-id]').forEach((item) => {
+    if (item.querySelector('.relation-source-chip')) return;
+    const relation = relationById(item.dataset.relationId);
+    if (!relation) return;
+    const arc = arcById(relation.id);
+    item.insertAdjacentHTML('beforeend', `
+      <div class="relation-source-chip" title="Source-backed relationship lane; not an affection score">
+        <span>${relation.status}</span><b>${arc ? 'ARC' : 'LANE'}</b>
+      </div>
+    `);
+  });
+}
+
 function applyRelationFilter() {
   document.querySelectorAll('.relationship-item[data-relation-id]').forEach((item) => {
     const relation = relationById(item.dataset.relationId);
@@ -68,7 +113,12 @@ function applyRelationFilter() {
   document.querySelectorAll('[data-line-relation-id]').forEach((line) => {
     const relation = relationById(line.dataset.lineRelationId);
     line.classList.toggle('filter-hidden', !relationMatchesFilter(relation));
+    if (relation) {
+      line.dataset.sourceStatus = relation.status;
+      line.dataset.sourceType = relation.type;
+    }
   });
+  enhanceRelationListProvenance();
 }
 
 function arcMarkup(arc) {
@@ -95,12 +145,21 @@ function enhanceRelationDetail() {
   if (!title || title === '関係を選んでください') return;
   const relation = relationshipData.find((item) => item.label === title);
   if (!relation) return;
-  const existing = detail.querySelector('.relation-arc');
-  if (existing?.dataset.enhancedRelation === relation.id) return;
-  existing?.remove();
+
   const arc = arcById(relation.id);
-  if (arc) detail.insertAdjacentHTML('beforeend', arcMarkup(arc));
-  else detail.insertAdjacentHTML('beforeend', `<div class="relation-arc-empty"><span>ARC STATUS</span><p>この関係は現在relation reservoir段階。5段階arcはまだ未確定です。</p></div>`);
+  const existing = detail.querySelector('.relation-arc');
+  if (existing?.dataset.enhancedRelation !== relation.id) {
+    existing?.remove();
+    detail.querySelector('.relation-arc-empty')?.remove();
+    if (arc) detail.insertAdjacentHTML('beforeend', arcMarkup(arc));
+    else detail.insertAdjacentHTML('beforeend', `<div class="relation-arc-empty"><span>ARC STATUS</span><p>この関係は現在relation reservoir段階。5段階arcはまだ未確定です。</p></div>`);
+  }
+
+  const sourcePanel = detail.querySelector('.relation-source-panel');
+  if (sourcePanel?.dataset.sourcePanelFor !== relation.id) sourcePanel?.remove();
+  if (!detail.querySelector(`.relation-source-panel[data-source-panel-for="${relation.id}"]`)) {
+    detail.insertAdjacentHTML('beforeend', relationSourceMarkup(relation, arc));
+  }
 }
 
 function renderEnsembles() {
@@ -133,6 +192,7 @@ async function bootRelationshipEnhancement() {
     arcData = arcBook.arcs ?? [];
     window.__yorunoRelationshipArcData = arcBook;
 
+    ensureSourceGuide();
     ensureFilterBar();
     applyRelationFilter();
     enhanceRelationDetail();

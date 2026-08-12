@@ -1,13 +1,12 @@
-.relation-filter-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin: -8px 0 16px;
-  padding: 12px 0;
-  border-top: 1px solid rgba(233,224,200,.12);
-  border-bottom: 1px solid rgba(233,224,200,.12);
-}
+.relation-source-guide { margin:-6px 0 14px; padding:16px 0; border-top:1px solid rgba(233,224,200,.12); border-bottom:1px solid rgba(233,224,200,.12); }
+.relation-source-guide-title { display:flex; align-items:baseline; justify-content:space-between; gap:18px; }
+.relation-source-guide-title span { color:#d6b56f; font-size:8px; letter-spacing:.13em; }
+.relation-source-guide-title strong { color:#c8bda9; font:500 13px/1.5 "Yu Mincho", "Hiragino Mincho ProN", serif; text-align:right; }
+.relation-source-guide-rules { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-top:12px; }
+.relation-source-guide-rules article { padding:11px 12px; border:1px solid rgba(233,224,200,.09); background:rgba(255,255,255,.012); }
+.relation-source-guide-rules b { color:#8e819a; font-size:7px; letter-spacing:.1em; }
+.relation-source-guide-rules p { margin:5px 0 0; color:#8f887d; font-size:8px; line-height:1.65; }
+.relation-filter-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 0 16px; padding: 12px 0; border-bottom: 1px solid rgba(233,224,200,.12); }
 .relation-filter-row > span { color:#8d8578; font-size:9px; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; }
 .relation-filter-row > div { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:6px; }
 .relation-filter-row button { border:1px solid rgba(233,224,200,.16); border-radius:999px; background:transparent; color:#a79f91; padding:6px 9px; font-size:9px; cursor:pointer; }
@@ -15,6 +14,9 @@
 .relation-filter-row button.is-active { background:#e9e0c8; border-color:#e9e0c8; color:#18171e; }
 .relation-line.filter-hidden { opacity:0 !important; pointer-events:none; }
 .relationship-item[hidden] { display:none !important; }
+.relation-source-chip { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; padding-top:7px; border-top:1px dashed rgba(233,224,200,.09); color:#716a62; font-size:6px; letter-spacing:.08em; }
+.relation-source-chip span { color:#9b8b70; }
+.relation-source-chip b { color:#8e819a; font-weight:500; }
 .relation-detail:has(.relation-arc) { overflow:auto; max-height:610px; }
 .relation-arc { margin-top:22px; padding-top:18px; border-top:1px solid rgba(233,224,200,.14); }
 .relation-arc-heading { display:grid; gap:4px; }
@@ -28,6 +30,15 @@
 .relation-arc-empty { margin-top:20px; padding:14px; border:1px dashed rgba(145,128,170,.28); }
 .relation-arc-empty span { color:#a999bc; font-size:8px; letter-spacing:.12em; }
 .relation-arc-empty p { margin:6px 0 0; font-size:10px; }
+.relation-source-panel { margin-top:14px; padding:13px; border:1px solid rgba(103,135,162,.18); background:rgba(103,135,162,.025); }
+.relation-source-panel-head { display:flex; justify-content:space-between; gap:10px; align-items:center; }
+.relation-source-panel-head span { color:#8ca6ba; font-size:7px; letter-spacing:.12em; }
+.relation-source-panel-head b { color:#b9aa8c; font-size:7px; font-weight:500; }
+.relation-source-panel dl { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin:11px 0 0; }
+.relation-source-panel dl div { min-width:0; padding:8px; border-top:1px dashed rgba(233,224,200,.08); }
+.relation-source-panel dt { color:#6e6872; font-size:6px; letter-spacing:.08em; }
+.relation-source-panel dd { margin:4px 0 0; color:#948d83; font-size:7px; line-height:1.45; overflow-wrap:anywhere; }
+.relation-source-panel > p { margin:10px 0 0; color:#7c756d; font-size:7px; line-height:1.65; }
 .ensemble-section { margin-top:58px; padding-top:28px; border-top:1px solid rgba(233,224,200,.18); }
 .ensemble-section header { max-width:760px; }
 .ensemble-section header > span { color:#d6b56f; font-size:9px; letter-spacing:.14em; }
@@ -39,8 +50,12 @@
 .ensemble-grid h4 { margin:18px 0 10px; font:500 18px "Yu Mincho", "Hiragino Mincho ProN", serif; }
 .ensemble-grid p { margin:0; color:#9f978a; font-size:10px; line-height:1.8; }
 @media (max-width:760px) {
+  .relation-source-guide-title { display:grid; }
+  .relation-source-guide-title strong { text-align:left; }
+  .relation-source-guide-rules { grid-template-columns:1fr; }
   .relation-filter-row { display:grid; }
   .relation-filter-row > div { justify-content:flex-start; }
+  .relation-source-panel dl { grid-template-columns:1fr; }
   .ensemble-grid { grid-template-columns:1fr; }
   .relation-detail:has(.relation-arc) { max-height:none; }
 }
