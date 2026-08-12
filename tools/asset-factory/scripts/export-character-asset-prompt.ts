@@ -1,0 +1,179 @@
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import {
+  CHARACTER_ASSET_PROMPT_KINDS,
+  getCharacterAssetPrompt,
+  type CharacterAssetPromptKind,
+} from '../../../src/game/data/assetFactoryCharacterPrompts.ts';
+
+const CORE5_IDS = new Set(['yui', 'asa', 'nagi', 'michiru', 'tomori']);
+const CURRENT21_EXTENDED_IDS = new Set([
+  'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
+]);
+
+type CliOptions = {
+  characterId: string;
+  kind: CharacterAssetPromptKind;
+  output: string | null;
+  format: 'markdown' | 'json';
+};
+
+type LivingVisualProfile = Record<string, unknown> & { id: string; name?: string };
+
+function parseArgs(args: string[]): CliOptions {
+  let characterId = '';
+  let kind: CharacterAssetPromptKind = 'character_reference';
+  let output: string | null = null;
+  let format: 'markdown' | 'json' = 'markdown';
+
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === '--') continue;
+    if (arg === '--character') {
+      characterId = args[++index] ?? '';
+      continue;
+    }
+    if (arg === '--kind') {
+      const value = args[++index] as CharacterAssetPromptKind | undefined;
+      if (!value || !CHARACTER_ASSET_PROMPT_KINDS.includes(value)) throw new Error(`Invalid --kind: ${value ?? '(missing)'}`);
+      kind = value;
+      continue;
+    }
+    if (arg === '--output') {
+      output = args[++index] ?? null;
+      if (!output) throw new Error('--output requires a path');
+      continue;
+    }
+    if (arg === '--format') {
+      const value = args[++index];
+      if (value !== 'markdown' && value !== 'json') throw new Error('--format requires markdown or json');
+      format = value;
+      continue;
+    }
+    throw new Error(`Unknown argument: ${arg}`);
+  }
+
+  if (!characterId) throw new Error('--character is required');
+  return { characterId, kind, output, format };
+}
+
+function livingVisualProfilePath(characterId: string): string {
+  if (CORE5_IDS.has(characterId)) return 'data/visual/core5-living-visual-profiles-v1.json';
+  if (CURRENT21_EXTENDED_IDS.has(characterId)) return 'data/visual/current21-extended-living-visual-profiles-v1.json';
+  return 'data/visual/future15-living-visual-profiles-v1.json';
+}
+
+function loadProfile(characterId: string): { path: string; status: string | null; profile: LivingVisualProfile } {
+  const path = livingVisualProfilePath(characterId);
+  const document = JSON.parse(readFileSync(resolve(process.cwd(), path), 'utf8'));
+  const profile = (document.characters ?? []).find((entry: LivingVisualProfile) => entry.id === characterId);
+  if (!profile) throw new Error(`Living Visual Profile missing for ${characterId} in ${path}; export blocked.`);
+  return { path, status: typeof document.status === 'string' ? document.status : null, profile };
+}
+
+function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile): string {
+  return [
+    'LIVING VISUAL PROFILE — REQUIRED CHARACTER AUTHORITY.',
+    `Source: ${profilePath}.`,
+    'The person is already designed. Do not redesign them from genre defaults.',
+    'Preserve body, age, posture, clothing construction, exposure boundaries, body-modification policy, grooming, wear habits, absoluteNever, and positivePreference.',
+    'Do not add unspecified piercing, tattoo, scar, mole, freckles, jewelry, gemstone, gold trim, belts, harness, makeup, nail art, skin exposure, or decorative asymmetry.',
+    'Do not increase ornament merely because this is a premium/high-resolution/dynamic asset.',
+    'Do not replace established clothing construction with generic fantasy or generic gacha clothing.',
+    'AUTHOR_CANDIDATE is not USER_CONFIRMED, but it remains an active constraint for this candidate until human review changes it.',
+    'If an unresolved required field exists, stop and return to authoring; do not invent a model default.',
+    JSON.stringify(profile, null, 2),
+  ].join('\n');
+}
+
+function renderMarkdown(options: CliOptions) {
+  const prompt = getCharacterAssetPrompt(options.characterId, options.kind);
+  if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
+  const living = loadProfile(options.characterId);
+  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile)].join('\n');
+  return [
+    '# Yoru no Shirube — Resolved Character Asset Prompt',
+    '',
+    `Character: ${prompt.characterName} / ${prompt.characterId}`,
+    `Kind: ${prompt.kind}`,
+    `Output: ${prompt.outputPathHint}`,
+    `Size: ${prompt.sizeSpec}`,
+    `Living Visual Profile: ${living.path}`,
+    `Living Visual Source Status: ${living.status ?? 'unknown'}`,
+    '',
+    '## Mandatory authority order',
+    '',
+    '1. docs/visual/character-living-visual-master-v1.md',
+    `2. ${living.path}`,
+    '3. docs/character-appearance-source-book-v1.md',
+    '4. docs/character-appearance-distinction-generation-contract-v1.md',
+    '5. docs/visual/character-designer-philosophy-master-v1.md',
+    '6. data/visual/character-designer-ai-brain.json',
+    '',
+    '## Resolved Prompt',
+    '',
+    '```text',
+    resolvedPrompt,
+    '```',
+    '',
+    '## Negative Prompt',
+    '',
+    '```text',
+    prompt.negativePrompt,
+    '```',
+    '',
+    '## Review Checklist',
+    '',
+    '- Living Visual ProfileのabsoluteNever違反がない',
+    '- positivePreferenceが少なくとも複数、自然な形で見た目に反映されている',
+    '- dynamic / premium assetでもbody・age・exposure・body modificationが勝手に変わっていない',
+    '- generic fantasy/gachaの装飾で設定の空白を埋めていない',
+    ...prompt.reviewChecklist.map((item) => `- ${item}`),
+    '',
+  ].join('\n');
+}
+
+function renderJson(options: CliOptions) {
+  const prompt = getCharacterAssetPrompt(options.characterId, options.kind);
+  if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
+  const living = loadProfile(options.characterId);
+  return `${JSON.stringify({
+    schemaVersion: 1,
+    generatedBy: 'tools/asset-factory/scripts/export-character-asset-prompt.ts',
+    characterId: options.characterId,
+    kind: options.kind,
+    livingVisualProfilePath: living.path,
+    livingVisualProfileSourceStatus: living.status,
+    livingVisualProfile: living.profile,
+    unknownLifePreferenceMayBeInventedByImageModel: false,
+    authorityOrder: [
+      'docs/visual/character-living-visual-master-v1.md',
+      living.path,
+      'docs/character-appearance-source-book-v1.md',
+      'docs/character-appearance-distinction-generation-contract-v1.md',
+      'docs/visual/character-designer-philosophy-master-v1.md',
+      'data/visual/character-designer-ai-brain.json',
+    ],
+    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile)}`,
+    negativePrompt: prompt.negativePrompt,
+    reviewChecklist: [
+      'Living Visual ProfileのabsoluteNever違反がない',
+      'positivePreferenceが自然に反映されている',
+      'dynamic/premium assetでもbody・age・exposure・body modificationが変わっていない',
+      'generic fantasy/gacha装飾で空白を補っていない',
+      ...prompt.reviewChecklist,
+    ],
+    outputPathHint: prompt.outputPathHint,
+    sizeSpec: prompt.sizeSpec,
+  }, null, 2)}\n`;
+}
+
+const options = parseArgs(process.argv.slice(2));
+const output = options.format === 'json' ? renderJson(options) : renderMarkdown(options);
+if (options.output) {
+  mkdirSync(dirname(options.output), { recursive: true });
+  writeFileSync(options.output, output);
+  console.log(`resolved character asset prompt exported: ${options.output}`);
+} else {
+  process.stdout.write(output);
+}
