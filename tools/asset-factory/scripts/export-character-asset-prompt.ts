@@ -11,6 +11,10 @@ const CURRENT21_EXTENDED_IDS = new Set([
   'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
 ]);
 
+const COUNCIL_DOC = 'docs/visual/world-character-scenario-design-council-master-v1.md';
+const COUNCIL_JSON = 'data/visual/world-character-scenario-design-council-master-v1.json';
+const WORLD_MASTER = 'docs/00-current-story-world-master.md';
+
 type CliOptions = {
   characterId: string;
   kind: CharacterAssetPromptKind;
@@ -71,8 +75,26 @@ function loadProfile(characterId: string): { path: string; status: string | null
   return { path, status: typeof document.status === 'string' ? document.status : null, profile };
 }
 
-function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile): string {
+function loadCouncil() {
+  const council = JSON.parse(readFileSync(resolve(process.cwd(), COUNCIL_JSON), 'utf8'));
+  if (council.status !== 'CURRENT_CROSS_DISCIPLINE_AUTHORITY') {
+    throw new Error(`Design Council is not current authority: ${COUNCIL_JSON}`);
+  }
+  if (!Array.isArray(council.productionGates?.characterAsset)) {
+    throw new Error(`Design Council character asset gate missing: ${COUNCIL_JSON}`);
+  }
+  return council;
+}
+
+function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile, council: any): string {
   return [
+    'WORLD / CHARACTER / SCENARIO DESIGN COUNCIL — REQUIRED CROSS-DISCIPLINE AUTHORITY.',
+    `World authority: ${WORLD_MASTER}.`,
+    `Council authority: ${COUNCIL_DOC}.`,
+    `Council machine rules: ${COUNCIL_JSON}.`,
+    `Council final question: ${council.finalQuestion}`,
+    'Before decoration, ask what world/era/life function requires the element and what this person would choose or tolerate.',
+    'For character assets, world context, ordinary physical use, and scenario role must not be overridden by beauty/coolness/premium rendering.',
     'LIVING VISUAL PROFILE — REQUIRED CHARACTER AUTHORITY.',
     `Source: ${profilePath}.`,
     'The person is already designed. Do not redesign them from genre defaults.',
@@ -86,11 +108,26 @@ function resolvedPromptBlock(profilePath: string, profile: LivingVisualProfile):
   ].join('\n');
 }
 
+function authorityOrder(profilePath: string): string[] {
+  return [
+    WORLD_MASTER,
+    'docs/visual/character-living-visual-master-v1.md',
+    profilePath,
+    'docs/character-appearance-source-book-v1.md',
+    'docs/character-appearance-distinction-generation-contract-v1.md',
+    'docs/visual/character-designer-philosophy-master-v1.md',
+    COUNCIL_DOC,
+    COUNCIL_JSON,
+    'data/visual/character-designer-ai-brain.json',
+  ];
+}
+
 function renderMarkdown(options: CliOptions) {
   const prompt = getCharacterAssetPrompt(options.characterId, options.kind);
   if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
   const living = loadProfile(options.characterId);
-  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile)].join('\n');
+  const council = loadCouncil();
+  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, council)].join('\n');
   return [
     '# Yoru no Shirube — Resolved Character Asset Prompt',
     '',
@@ -100,15 +137,11 @@ function renderMarkdown(options: CliOptions) {
     `Size: ${prompt.sizeSpec}`,
     `Living Visual Profile: ${living.path}`,
     `Living Visual Source Status: ${living.status ?? 'unknown'}`,
+    `Design Council: ${COUNCIL_DOC}`,
     '',
     '## Mandatory authority order',
     '',
-    '1. docs/visual/character-living-visual-master-v1.md',
-    `2. ${living.path}`,
-    '3. docs/character-appearance-source-book-v1.md',
-    '4. docs/character-appearance-distinction-generation-contract-v1.md',
-    '5. docs/visual/character-designer-philosophy-master-v1.md',
-    '6. data/visual/character-designer-ai-brain.json',
+    ...authorityOrder(living.path).map((entry, index) => `${index + 1}. ${entry}`),
     '',
     '## Resolved Prompt',
     '',
@@ -124,8 +157,10 @@ function renderMarkdown(options: CliOptions) {
     '',
     '## Review Checklist',
     '',
+    '- World / Character / Scenario Councilの二層必要性テストに通る',
     '- Living Visual ProfileのabsoluteNever違反がない',
     '- positivePreferenceが少なくとも複数、自然な形で見た目に反映されている',
+    '- Era / location / ordinary actionで衣装と小物が実際に使える',
     '- dynamic / premium assetでもbody・age・exposure・body modificationが勝手に変わっていない',
     '- generic fantasy/gachaの装飾で設定の空白を埋めていない',
     ...prompt.reviewChecklist.map((item) => `- ${item}`),
@@ -137,28 +172,29 @@ function renderJson(options: CliOptions) {
   const prompt = getCharacterAssetPrompt(options.characterId, options.kind);
   if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
   const living = loadProfile(options.characterId);
+  const council = loadCouncil();
   return `${JSON.stringify({
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedBy: 'tools/asset-factory/scripts/export-character-asset-prompt.ts',
     characterId: options.characterId,
     kind: options.kind,
+    worldMasterPath: WORLD_MASTER,
+    designCouncilPath: COUNCIL_DOC,
+    designCouncilDataPath: COUNCIL_JSON,
+    designCouncilFinalQuestion: council.finalQuestion,
+    designCouncilCharacterAssetGates: council.productionGates.characterAsset,
     livingVisualProfilePath: living.path,
     livingVisualProfileSourceStatus: living.status,
     livingVisualProfile: living.profile,
     unknownLifePreferenceMayBeInventedByImageModel: false,
-    authorityOrder: [
-      'docs/visual/character-living-visual-master-v1.md',
-      living.path,
-      'docs/character-appearance-source-book-v1.md',
-      'docs/character-appearance-distinction-generation-contract-v1.md',
-      'docs/visual/character-designer-philosophy-master-v1.md',
-      'data/visual/character-designer-ai-brain.json',
-    ],
-    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile)}`,
+    authorityOrder: authorityOrder(living.path),
+    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, council)}`,
     negativePrompt: prompt.negativePrompt,
     reviewChecklist: [
+      'World / Character / Scenario Councilの二層必要性テストに通る',
       'Living Visual ProfileのabsoluteNever違反がない',
       'positivePreferenceが自然に反映されている',
+      'Era / location / ordinary actionで衣装と小物が実際に使える',
       'dynamic/premium assetでもbody・age・exposure・body modificationが変わっていない',
       'generic fantasy/gacha装飾で空白を補っていない',
       ...prompt.reviewChecklist,
