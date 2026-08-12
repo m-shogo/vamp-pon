@@ -42,6 +42,7 @@ export const unityPrototypeCallerImplementedWeaponIds = [
   'bellows_fan',
   'pavement_hammer',
   'star_map_pin',
+  'return_compass_needle',
 ] as const;
 
 const prototypeCallerImplementedWeaponIdSet = new Set<string>(unityPrototypeCallerImplementedWeaponIds);
@@ -58,7 +59,7 @@ export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponR
   TARGET_CHAIN_SELECTION: 'MISSING',
   SLAM_WAVE_QUERY: 'IMPLEMENTED',
   BREAK_STAGGER_APPLICATION: 'IMPLEMENTED',
-  RETURNING_PROJECTILE: 'MISSING',
+  RETURNING_PROJECTILE: 'IMPLEMENTED',
   TRAP_PERSISTENCE: 'MISSING',
   DELAYED_TRIGGER: 'MISSING',
   HOMING_PRIORITY_SELECTION: 'IMPLEMENTED',

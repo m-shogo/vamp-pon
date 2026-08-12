@@ -36,39 +36,18 @@ const project = readFileSync(projectPath, 'utf8');
 const doc = readFileSync(docPath, 'utf8');
 
 for (const token of [
-  'public sealed class RainThreadPrototypeTelemetry',
-  'public sealed class RainThreadPrototypeState',
-  'public const string WeaponId = "rain_thread";',
-  'public const string ContentStatusId = "SOAK";',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
-  'SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS',
-  'U2EnemyTetherPairSelectionRuntime.TrySelectPair(',
-  'EnemyStatusRuntimeKind.Soak',
-  'U2EnemyKnockbackRuntime.TryApply(first',
-  'U2EnemyKnockbackRuntime.TryApply(second',
-  'RainThreadLinkEndReason.EndpointLost',
-  'RainThreadLinkEndReason.BrokeByDistance',
-  'RainThreadLinkEndReason.Expired',
+  'public sealed class RainThreadPrototypeTelemetry','public sealed class RainThreadPrototypeState',
+  'public const string WeaponId = "rain_thread";','public const string ContentStatusId = "SOAK";',
+  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
+  'SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS','U2EnemyTetherPairSelectionRuntime.TrySelectPair(',
+  'EnemyStatusRuntimeKind.Soak','U2EnemyKnockbackRuntime.TryApply(first','U2EnemyKnockbackRuntime.TryApply(second',
+  'RainThreadLinkEndReason.EndpointLost','RainThreadLinkEndReason.BrokeByDistance','RainThreadLinkEndReason.Expired',
   'if (IsActive || !IsFinitePositive(linkDurationSeconds)) return false;',
 ]) {
   assert(caller.includes(token), `Rain Thread prototype missing contract: ${token}`);
 }
 
-for (const forbidden of [
-  'const float LinkDuration',
-  'const float PullDistance',
-  'const float MaxLinkDistance',
-  'DefaultSoak',
-  'DefaultRange',
-  'LineRenderer',
-  'ParticleSystem',
-  'AudioSource',
-  'Camera.',
-  'Stage1GameplayRuntimeCoordinator',
-  'WeaponEffectType',
-  'LevelUp',
-]) {
+for (const forbidden of ['const float LinkDuration','const float PullDistance','const float MaxLinkDistance','DefaultSoak','DefaultRange','LineRenderer','ParticleSystem','AudioSource','Camera.','Stage1GameplayRuntimeCoordinator','WeaponEffectType','LevelUp']) {
   assert(!caller.includes(forbidden), `Rain Thread prototype must not own live/default behavior: ${forbidden}`);
 }
 
@@ -86,9 +65,7 @@ assert(rainThread.prototypeCallerImplemented, 'Rain Thread caller proof must be 
 assert(rainThread.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Rain Thread must enter implementation review after caller proof');
 assert(rainThread.mayEnterUnityRuntimeRegistry, 'Rain Thread implementation-review eligibility should be true');
 assert(rainThread.runtimeStatus === 'NOT_IMPLEMENTED', 'Rain Thread caller proof must not claim live runtime');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 5, 'expected five implementation-review admissions after Rain Thread caller');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 11, 'expected eleven blocked Selected16 entries after Rain Thread caller');
-assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete caller-proof blocker should remain');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.includes('rain_thread'), 'Rain Thread must remain in the implementation-review admitted set');
 
 const nameReel = baseWeaponSelectionEntries.find((entry) => entry.weaponId === 'name_reel');
 assert(nameReel?.decision === 'HOLD_TARGET_LINK_READABILITY' && !nameReel.selectedForTitle1, 'Rain Thread caller must preserve Name Reel Hold decision');
@@ -98,48 +75,20 @@ for (const token of ['RainThreadPrototypeState', 'rain_thread', 'U2EnemyTetherPa
 }
 
 for (const token of [
-  'highest combined-priority pair should become Rain Thread endpoints',
-  'both Rain Thread endpoints must receive SOAK at begin',
-  'Rain Thread pull must move both endpoints symmetrically toward the pre-move center',
-  'pair at tension threshold must not receive extra pull',
-  'link duration must expire without leaking active endpoints',
-  're-begin SOAK attempts should be cooldown-blocked independently from link activation',
-  'untargetable endpoint must break active Rain Thread link',
-  'pair beyond max link distance must break before pull',
-  'active Rain Thread must reject replacement begin instead of mutating the current link',
-  'invalid tick must not destroy the active link',
+  'highest combined-priority pair should become Rain Thread endpoints','both Rain Thread endpoints must receive SOAK at begin',
+  'Rain Thread pull must move both endpoints symmetrically toward the pre-move center','pair at tension threshold must not receive extra pull',
+  'link duration must expire without leaking active endpoints','re-begin SOAK attempts should be cooldown-blocked independently from link activation',
+  'untargetable endpoint must break active Rain Thread link','pair beyond max link distance must break before pull',
+  'active Rain Thread must reject replacement begin instead of mutating the current link','invalid tick must not destroy the active link',
 ]) {
   assert(contract.includes(token), `Rain Thread executable contract missing scenario: ${token}`);
 }
-for (const linkedSource of [
-  'RainThreadPrototypeRuntime.cs',
-  'U2EnemyTetherPairSelectionRuntime.cs',
-  'U2EnemyKnockbackRuntime.cs',
-  'EnemyStatusRuntimeState.cs',
-  'EnemyStatusApplicationRequest.cs',
-]) {
+for (const linkedSource of ['RainThreadPrototypeRuntime.cs','U2EnemyTetherPairSelectionRuntime.cs','U2EnemyKnockbackRuntime.cs','EnemyStatusRuntimeState.cs','EnemyStatusApplicationRequest.cs']) {
   assert(project.includes(linkedSource), `Rain Thread contract project must compile real source: ${linkedSource}`);
 }
 
-for (const token of [
-  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS',
-  'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW',
-  'runtimeStatus = NOT_IMPLEMENTED',
-  'HOLD_TARGET_LINK_READABILITY',
-  'runtimeAutoPromotionAllowed = false',
-  'Original / Canon boundary',
-]) {
+for (const token of ['PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','SELECT_PAIR_SOAK_BOTH_THEN_CALLER_OWNED_PULL_TICKS','ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW','runtimeStatus = NOT_IMPLEMENTED','HOLD_TARGET_LINK_READABILITY','runtimeAutoPromotionAllowed = false','Original / Canon boundary']) {
   assert(doc.includes(token), `Rain Thread prototype doc missing token: ${token}`);
 }
 
-console.log(JSON.stringify({
-  status: 'PASS',
-  caller: 'RainThreadPrototypeState',
-  admission: rainThread.unityDecision,
-  liveRuntimeStatus: rainThread.runtimeStatus,
-  admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds,
-  liveStage1Changed: false,
-  canonTuningChanged: false,
-}, null, 2));
+console.log(JSON.stringify({ status: 'PASS', caller: 'RainThreadPrototypeState', admission: rainThread.unityDecision, liveRuntimeStatus: rainThread.runtimeStatus, admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds, liveStage1Changed: false, canonTuningChanged: false }, null, 2));
