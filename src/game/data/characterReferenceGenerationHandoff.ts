@@ -11,6 +11,8 @@ const CURRENT21_EXTENDED_IDS = new Set([
   'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
 ]);
 const CORE5_ERA_LIFE_MASTER_PATH = 'data/visual/core5-era-life-design-master-v1.json';
+const RELATIONSHIP_EMBODIMENT_DOC = 'docs/visual/relationship-embodied-daily-life-contract-v1.md';
+const RELATIONSHIP_EMBODIMENT_DATA = 'data/visual/relationship-embodied-daily-life-contract-v1.json';
 
 function resolveLivingVisualProfilePath(characterId: string): string {
   if (CORE5_IDS.has(characterId)) return 'data/visual/core5-living-visual-profiles-v1.json';
@@ -42,6 +44,7 @@ export type CharacterReferenceGenerationHandoffItem = {
   designerCraftRequired: true;
   designerPrecedentRequired: true;
   designCouncilRequired: true;
+  relationshipEmbodimentRequired: true;
   unknownLifePreferenceMayBeInventedByImageModel: false;
   reviewChecklist: string[];
   downstreamRule: string;
@@ -94,6 +97,8 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       'data/visual/character-designer-precedent-master-v1.json',
       'docs/visual/world-character-scenario-design-council-master-v1.md',
       'data/visual/world-character-scenario-design-council-master-v1.json',
+      RELATIONSHIP_EMBODIMENT_DOC,
+      RELATIONSHIP_EMBODIMENT_DATA,
       'data/visual/character-designer-ai-brain.json',
     ],
     livingVisualProfilePath,
@@ -104,10 +109,11 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
     designerCraftRequired: true,
     designerPrecedentRequired: true,
     designCouncilRequired: true,
+    relationshipEmbodimentRequired: true,
     unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
       ? [
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Councilを先に読む',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterを先に読む',
           ...(eraLifeMasterPath
             ? ['Core5 Era差を服だけで表現せず、communication / transport / repair / food / privacy / carried object / conversational assumptionsを確認する']
             : []),
@@ -115,7 +121,9 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
           'Designer Philosophy MasterのDecision Ladderに従い、設定忠実度と本人の選択理由を美観より先に評価する',
           'Craft Masterに従い、face / body / posture / silhouette / clothing construction / material / color / actingを別々に点検する',
           '迷いがある場合はPrecedent Masterで同型の衝突を探し、その裁定順序を使う',
-          'Council rule: world / character / scenarioの最低2層から必要性を説明できないdetailは削除またはCandidate化する',
+          'Relationship Embodiment Masterに従い、関係の深さをmatching accessory / more touch / more exposureへ短絡しない',
+          '既存関係Authorityにないpair history / gift / touch permission / appearance interventionを発明しない',
+          'Council rule: world / character / relationship / scenarioの最低2層から必要性を説明できないdetailは削除またはCandidate化する',
           'そのEra / 場所 / 日常動作で服・小物が実際に使えるか確認する',
           '未設定項目をgeneric fantasy / gacha conventionで補完しない',
           'detailを足す前にidentity reason / body-posture / silhouette / clothing construction / color hierarchy / material logicを診断する',
@@ -123,15 +131,16 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
         ]
       : [
           '既存masterをCurrent21 silhouette matrixと比較する',
-          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Councilと照合する',
+          'World Master / Era Life Master（該当時）/ Living Visual Profile / Designer Philosophy / Craft Master / Precedent Master / Design Council / Relationship Embodiment Masterと照合する',
           ...(eraLifeMasterPath
             ? ['Core5の年代差が衣装記号だけになっていないか、生活物・収納・修繕・所作まで再評価する']
             : []),
           '本人が選ばない装飾・露出・body modificationが混入していないか確認する',
+          '関係由来に見えるアクセ・修繕・借り物・服装変化は既存Relationship Authorityで根拠を確認する',
           'Designer Philosophy Masterの「似合う」と「本人が選ぶ」の分離で既存masterを再評価する',
           'Craft Masterのblack-fill silhouette / neutral posture / clothing feasibility / material logicを確認する',
           'Precedent MasterのP05/P13/P14等を使い、綺麗さや既視感だけで過剰修正していないか確認する',
-          'world / character / scenarioの二層以上から理由を説明できないdetailをauthority扱いしない',
+          'world / character / relationship / scenarioの二層以上から理由を説明できないdetailをauthority扱いしない',
           'body / age / posture / clothing mass / Named Object placementを確認する',
           '問題がなければ再生成せずreference registration候補へ進める',
           'reference approvalをruntime/final approvalと混同しない',
@@ -166,10 +175,11 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   designerCraftRequired: true,
   designerPrecedentRequired: true,
   designCouncilRequired: true,
+  relationshipEmbodimentRequired: true,
   worldMasterRequired: true,
   unknownLifePreferenceMayBeInventedByImageModel: false,
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Export prompts from Current production data immediately before generation; load World Master, Core5 Era Life Master when applicable, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, Character Designer Craft Master, Character Designer Precedent Master, and World/Character/Scenario Design Council before the prompt is used; do not hand-copy stale prompts into an external image session.',
+  rule: 'Export prompts from Current production data immediately before generation; load World Master, Core5 Era Life Master when applicable, Living Visual Master, per-character Living Visual Profile, Character Designer Philosophy Master, Character Designer Craft Master, Character Designer Precedent Master, World/Character/Scenario Design Council, and Relationship Embodied Daily-Life Master before the prompt is used; do not hand-copy stale prompts into an external image session.',
 } as const;
