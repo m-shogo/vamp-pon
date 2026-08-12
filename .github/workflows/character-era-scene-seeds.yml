@@ -1,0 +1,33 @@
+name: Character Era Scene Seeds
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-era-scene-seeds-v1.md'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'scripts/quality/check-character-era-scene-seeds.ts'
+      - '.github/workflows/character-era-scene-seeds.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-era-scene-seeds-v1.md'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'scripts/quality/check-character-era-scene-seeds.ts'
+      - '.github/workflows/character-era-scene-seeds.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character era scene seeds
+        run: node --experimental-strip-types scripts/quality/check-character-era-scene-seeds.ts
