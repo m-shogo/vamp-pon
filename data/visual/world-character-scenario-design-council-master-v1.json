@@ -3,18 +3,19 @@
   "date": "2026-08-12",
   "status": "CURRENT_CROSS_DISCIPLINE_AUTHORITY",
   "authorityDocument": "docs/visual/world-character-scenario-design-council-master-v1.md",
-  "purpose": "Keep world design, character design, and scenario design causally connected so generation and authoring do not fall back to generic fantasy, generic gacha, generic historical shorthand, or generic anime drama.",
+  "purpose": "Keep world design, character design, relationship acting, and scenario design causally connected so generation and authoring do not fall back to generic fantasy, generic gacha, generic historical shorthand, generic relationship shorthand, or generic anime drama.",
   "causalLoop": [
     "world_rules",
     "era_place_ordinary_life",
     "character_values_habits_relationships",
     "body_clothing_objects_posture",
+    "relationship_distance_touch_object_trust",
     "ordinary_dialogue_and_action",
     "incident_choice_combat_kokuyou",
     "growth",
     "changed_ordinary_life"
   ],
-  "finalQuestion": "Is this element required by at least two of world, character, and scenario? If not, consider removing, simplifying, or keeping it candidate-only.",
+  "finalQuestion": "Is this element required by at least two of world, character, relationship, and scenario? If not, consider removing, simplifying, or keeping it candidate-only.",
   "authorityOrder": [
     "docs/00-current-story-world-master.md",
     "character_relation_era_current_authorities",
@@ -25,6 +26,8 @@
     "docs/character-appearance-distinction-generation-contract-v1.md",
     "docs/visual/character-designer-philosophy-master-v1.md",
     "docs/visual/world-character-scenario-design-council-master-v1.md",
+    "docs/visual/relationship-embodied-daily-life-contract-v1.md_when_relationship_context",
+    "data/visual/relationship-embodied-daily-life-contract-v1.json_when_relationship_context",
     "production_contract_for_task",
     "generation_or_scene_brief",
     "candidate_output",
@@ -43,6 +46,11 @@
     "scenarioScene": {
       "document": "docs/visual/scenario-scene-design-contract-v1.md",
       "useWhen": "writing or reviewing ordinary, serious, relationship, incident, kokuyou, or growth-proof scenes"
+    },
+    "relationshipEmbodiment": {
+      "document": "docs/visual/relationship-embodied-daily-life-contract-v1.md",
+      "data": "data/visual/relationship-embodied-daily-life-contract-v1.json",
+      "useWhen": "a character image, pair image, conversation image, chibi panel, event CG, cutin, or scene includes interaction, proximity, touch, shared objects, care, conflict, repair, or relationship growth"
     }
   },
   "roles": {
@@ -72,6 +80,8 @@
     "body_is_not_a_problem_growth_has_to_fix",
     "clothes_must_survive_ordinary_actions",
     "relationships_should_leave_lived_history_not_only_matching_accessories",
+    "relationship_depth_is_multiaxial_not_one_intimacy_meter",
+    "relationship_growth_must_not_override_personal_body_or_clothing_boundaries",
     "black_youka_is_extreme_logic_not_evil_costume_change",
     "era_difference_must_survive_beyond_costume",
     "places_are_used_and_maintained_not_only_seen",
@@ -160,12 +170,13 @@
     "villain_equals_black_red_eye_spikes",
     "growth_equals_conventional_attractiveness",
     "place_equals_pretty_background_without_ordinary_use",
-    "era_equals_costume_filter"
+    "era_equals_costume_filter",
+    "high_bond_equals_more_touch_or_matching_accessories_or_skin_exposure"
   ],
   "productionGates": {
-    "characterAsset": ["world_master_resolved","era_life_resolved_when_core5","living_visual_profile_resolved","appearance_authority_resolved","designer_philosophy_resolved","council_master_loaded","asset_or_scene_context_defined"],
-    "importantScene": ["scenario_scene_contract_loaded","world_location_or_era_reason","ordinary_task","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","after_state","no_lore_dump_dependency"],
+    "characterAsset": ["world_master_resolved","era_life_resolved_when_core5","living_visual_profile_resolved","appearance_authority_resolved","designer_philosophy_resolved","council_master_loaded","relationship_contract_loaded_when_interaction_context","asset_or_scene_context_defined"],
+    "importantScene": ["scenario_scene_contract_loaded","relationship_contract_loaded_when_relationship_scene","world_location_or_era_reason","ordinary_task","immediate_want","hidden_pressure","era_assumption","body_acting","relationship_movement","after_state","no_lore_dump_dependency"],
     "worldLocation": ["world_place_contract_loaded","function","users","entry_exit","movement_routes","waiting_rest","storage_waste","materials","maintenance","aging_or_failure","era_or_dream_logic","ordinary_life_scene_hook"]
   },
-  "positiveTarget": "People with different bodies, values, eras, names, loves, and ways of living meet in a strange night of memory, records and routes home; they can have trivial conversations and jokes, and each faces an era-born answer that was reasonable before it became absolute."
+  "positiveTarget": "People with different bodies, values, eras, names, loves, and ways of living meet in a strange night of memory, records and routes home; their relationships become visible through distance, waiting, non-touch, lending, food, pace, silence, repair, and changed ordinary behavior—not through generic intimacy shorthand."
 }
