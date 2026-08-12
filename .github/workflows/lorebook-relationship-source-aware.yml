@@ -49,7 +49,7 @@ jobs:
             '線がない = 関係なし、ではない。',
             'docs/RELATIONSHIPS.md',
             'この線だけから恋愛・血縁・好感度・信頼度・Main Mystery関与を追加推論しない。',
-            'data-source-status',
+            'dataset.sourceStatus',
           ]) if (!js.includes(token)) fail(`relationship source-aware UI guard missing: ${token}`);
           for (const token of ['.relation-source-guide', '.relation-source-chip', '.relation-source-panel']) {
             if (!css.includes(token)) fail(`relationship source-aware CSS missing: ${token}`);
