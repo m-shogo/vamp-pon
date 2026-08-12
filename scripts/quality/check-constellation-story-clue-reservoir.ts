@@ -33,7 +33,8 @@ for (const id of [
 
 assert(byId.get('quadrantid-name-fossil')?.strength === 'S', 'Quadrantid clue priority drift');
 assert(byId.get('tomori-inherited-old-atlas')?.strength === 'S', 'Tomori old-atlas clue priority drift');
-assert(byId.get('tomori-inherited-old-atlas')?.forbiddenShortcut.includes('different official postwar constellation list'), 'Tomori postwar false-list guard missing');
+assert(byId.get('quadrantid-name-fossil')?.forbiddenShortcut.includes('different official postwar constellation list'), 'Tomori postwar false-list guard missing');
+assert(byId.get('tomori-inherited-old-atlas')?.forbiddenShortcut.includes('exact antique edition or provenance'), 'Tomori atlas provenance guard missing');
 assert(byId.get('argo-one-to-many')?.forbiddenShortcut.includes('Robot/twin identity'), 'Argo personhood shortcut guard missing');
 assert(byId.get('machina-electrica-era-mirror')?.forbiddenShortcut.includes('artificial characters'), 'Machina artificial-body shortcut guard missing');
 assert(byId.get('felis-secret-archive')?.forbiddenShortcut.includes('obsolete != evil'), 'Felis obsolete/evil guard missing');
