@@ -76,8 +76,12 @@ const current21 = actual.filter((entry: any) => entry.roster === 'CURRENT21').le
 const future15 = actual.filter((entry: any) => entry.roster === 'FUTURE15').length;
 if (current21 !== 21 || future15 !== 15) fail(`coverage mismatch: Current21=${current21}, Future15=${future15}`);
 
-if (policy.generationBlock?.onUnknown !== true) fail('policy must block generation on unresolved unknowns');
-if (policy.generationBlock?.allowModelToInventUnknown !== false) fail('policy must forbid model invention of unknowns');
+if (policy.unknownPolicy?.highResolutionGenerationBlockedByUnknown !== true) {
+  fail('policy must block generation on unresolved unknowns');
+}
+if (policy.unknownPolicy?.aiMayFillUnknownDuringGeneration !== false) {
+  fail('policy must forbid model invention of unknowns');
+}
 
 const readOrder: string[] = brain.authorityReadOrder ?? [];
 const masterIndex = readOrder.indexOf('docs/visual/character-living-visual-master-v1.md');
