@@ -5,7 +5,7 @@
   "packVersion": 1,
   "sheetId": "char-yui-design-sheet-01-identity-turnaround-v1",
   "sheetRole": "identity-turnaround",
-  "status": "AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED",
+  "status": "FOUR_CANDIDATES_GENERATED_REJECTED_NOT_APPROVED",
   "purpose": "ゲーム、アニメ、Lorebook、portrait、icon、sprite派生が同じ人物構造へ戻れる長期Character Design正本のIdentity / Turnaround visual evidenceを作る。完成ポスター、Story Canon、runtime assetを作る作業ではない。",
   "authoritySnapshot": {
     "authorityBaseCommit": "69476d3bd2f67fa32e821610446b0f624b45dbe9",
@@ -82,13 +82,19 @@
     ]
   },
   "lineage": {
-    "generator": null,
-    "generatorVersion": null,
+    "generator": "codex-imagegen-built-in",
+    "generatorVersion": "gpt-image-2",
     "seed": null,
-    "outputHashes": [],
-    "automaticQa": "PENDING_GENERATION",
+    "outputHashes": [
+      "d8d338b838d16f3479b889a96ad0089f67f7fda2e88798437cac0aef93e3a1e1",
+      "f46cd0851ba7dbd37fefa2c481ac50a988c7743c394fdbd4c9a11744f748dc23",
+      "24807f36b6e9f2662cf108874003b892c1e07352201511c2a8726c819eaf7ade",
+      "f130e5f56e1630aa7882ba07b16d043432cd75ff3c628bc7e4d9af33f198036f"
+    ],
+    "automaticQa": "PASS_FILE_HASH_DIMENSIONS_STRUCTURAL_HARD_VETO_FAIL",
     "humanDecisionScope": "SHEET_01_IDENTITY_AND_CONSTRUCTION_ONLY",
-    "rejectLedgerPath": "data/character-assets/reviews/yui-character-design-master-pack-v1.rejects.json"
+    "qaRecordPath": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json",
+    "rejectLedgerPath": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
   },
   "dependencyGate": {
     "turnaroundHumanApproval": "PENDING",

@@ -769,7 +769,9 @@
     "yui-full-body-master-v2-prompt": "data/character-assets/reviews/yui-full-body-master-v2.prompt.json",
     "yui-full-body-master-v2-qa": "data/character-assets/reviews/yui-full-body-master-v2.qa.json",
     "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json",
-    "yui-character-design-master-pack-v1": "data/character-assets/reviews/yui-character-design-master-pack-v1.json"
+    "yui-character-design-master-pack-v1": "data/character-assets/reviews/yui-character-design-master-pack-v1.json",
+    "yui-character-design-sheet-01-v1-qa": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json",
+    "yui-character-design-sheet-01-v1-rejects": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
   },
   "subjectAliases": {
     "F01": "hiyori",
@@ -4612,6 +4614,302 @@
         "supersededBy": null
       },
       "notes": "初回4候補の却下学習記録。採用、親、Canon、final、runtime、Golden Referenceへの利用を禁止する。"
+    },
+    {
+      "id": "char-yui-design-sheet-01-identity-turnaround-candidate-a-v1",
+      "subjectId": "yui",
+      "subjectType": "character",
+      "title": "Yui Sheet 01 rejected candidate char-yui-design-sheet-01-identity-turnaround-candidate-a-v1",
+      "layer": "master",
+      "kind": "character-design-source-sheet-rejected-candidate",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "archived",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-handedness-equipment",
+        "yui-character-design-master-pack-v1",
+        "yui-character-design-sheet-01-v1-qa",
+        "yui-character-design-sheet-01-v1-rejects"
+      ],
+      "usageTargets": [
+        "prompt-learning-only"
+      ],
+      "tags": [
+        "yui",
+        "identity-turnaround",
+        "rejected",
+        "archived",
+        "learning-only",
+        "not-parent",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-a-v1.png",
+          "sha256": "d8d338b838d16f3479b889a96ad0089f67f7fda2e88798437cac0aef93e3a1e1"
+        },
+        {
+          "role": "qa-record",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json"
+        },
+        {
+          "role": "reject-ledger",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
+        }
+      ],
+      "rejection": {
+        "attemptId": "yui-character-design-sheet-01-v1-attempt-01",
+        "decision": "REJECT_ALL",
+        "reasonCodes": [
+          "BODY_RELATIVE_BAG_CONFLICT_FRONT",
+          "STRAP_ANCHOR_CONTINUITY_CONFLICT",
+          "BILATERAL_SMILE_DIMPLES_NOT_READABLE",
+          "LEFT_RIGHT_SIDE_CONSTRUCTION_INSUFFICIENT",
+          "CROSS_VIEW_EQUIPMENT_CONSISTENCY_FAIL"
+        ],
+        "selectedCandidateId": null,
+        "mayBeParent": false,
+        "mayBeGoldenReference": false
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "storyAuthorityPromoted": false
+      },
+      "replacementPolicy": {
+        "canReplace": false,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "notes": "Sheet 01 attempt 01 hard-veto reject。Human selection対象、Pack evidence、parent、Golden、Story、final、runtimeに使わない。"
+    },
+    {
+      "id": "char-yui-design-sheet-01-identity-turnaround-candidate-b-v1",
+      "subjectId": "yui",
+      "subjectType": "character",
+      "title": "Yui Sheet 01 rejected candidate char-yui-design-sheet-01-identity-turnaround-candidate-b-v1",
+      "layer": "master",
+      "kind": "character-design-source-sheet-rejected-candidate",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "archived",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-handedness-equipment",
+        "yui-character-design-master-pack-v1",
+        "yui-character-design-sheet-01-v1-qa",
+        "yui-character-design-sheet-01-v1-rejects"
+      ],
+      "usageTargets": [
+        "prompt-learning-only"
+      ],
+      "tags": [
+        "yui",
+        "identity-turnaround",
+        "rejected",
+        "archived",
+        "learning-only",
+        "not-parent",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-b-v1.png",
+          "sha256": "f46cd0851ba7dbd37fefa2c481ac50a988c7743c394fdbd4c9a11744f748dc23"
+        },
+        {
+          "role": "qa-record",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json"
+        },
+        {
+          "role": "reject-ledger",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
+        }
+      ],
+      "rejection": {
+        "attemptId": "yui-character-design-sheet-01-v1-attempt-01",
+        "decision": "REJECT_ALL",
+        "reasonCodes": [
+          "BODY_RELATIVE_BAG_CONFLICT_FRONT",
+          "STRAP_ANCHOR_CONTINUITY_CONFLICT",
+          "BILATERAL_SMILE_DIMPLES_NOT_READABLE",
+          "LEFT_RIGHT_SIDE_CONSTRUCTION_INSUFFICIENT",
+          "CROSS_VIEW_EQUIPMENT_CONSISTENCY_FAIL"
+        ],
+        "selectedCandidateId": null,
+        "mayBeParent": false,
+        "mayBeGoldenReference": false
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "storyAuthorityPromoted": false
+      },
+      "replacementPolicy": {
+        "canReplace": false,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "notes": "Sheet 01 attempt 01 hard-veto reject。Human selection対象、Pack evidence、parent、Golden、Story、final、runtimeに使わない。"
+    },
+    {
+      "id": "char-yui-design-sheet-01-identity-turnaround-candidate-c-v1",
+      "subjectId": "yui",
+      "subjectType": "character",
+      "title": "Yui Sheet 01 rejected candidate char-yui-design-sheet-01-identity-turnaround-candidate-c-v1",
+      "layer": "master",
+      "kind": "character-design-source-sheet-rejected-candidate",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "archived",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-handedness-equipment",
+        "yui-character-design-master-pack-v1",
+        "yui-character-design-sheet-01-v1-qa",
+        "yui-character-design-sheet-01-v1-rejects"
+      ],
+      "usageTargets": [
+        "prompt-learning-only"
+      ],
+      "tags": [
+        "yui",
+        "identity-turnaround",
+        "rejected",
+        "archived",
+        "learning-only",
+        "not-parent",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-c-v1.png",
+          "sha256": "24807f36b6e9f2662cf108874003b892c1e07352201511c2a8726c819eaf7ade"
+        },
+        {
+          "role": "qa-record",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json"
+        },
+        {
+          "role": "reject-ledger",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
+        }
+      ],
+      "rejection": {
+        "attemptId": "yui-character-design-sheet-01-v1-attempt-01",
+        "decision": "REJECT_ALL",
+        "reasonCodes": [
+          "BODY_RELATIVE_BAG_CONFLICT_FRONT",
+          "STRAP_ANCHOR_CONTINUITY_CONFLICT",
+          "BILATERAL_SMILE_DIMPLES_NOT_READABLE",
+          "LEFT_RIGHT_SIDE_CONSTRUCTION_INSUFFICIENT",
+          "CROSS_VIEW_EQUIPMENT_CONSISTENCY_FAIL"
+        ],
+        "selectedCandidateId": null,
+        "mayBeParent": false,
+        "mayBeGoldenReference": false
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "storyAuthorityPromoted": false
+      },
+      "replacementPolicy": {
+        "canReplace": false,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "notes": "Sheet 01 attempt 01 hard-veto reject。Human selection対象、Pack evidence、parent、Golden、Story、final、runtimeに使わない。"
+    },
+    {
+      "id": "char-yui-design-sheet-01-identity-turnaround-candidate-d-v1",
+      "subjectId": "yui",
+      "subjectType": "character",
+      "title": "Yui Sheet 01 rejected candidate char-yui-design-sheet-01-identity-turnaround-candidate-d-v1",
+      "layer": "master",
+      "kind": "character-design-source-sheet-rejected-candidate",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "archived",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-handedness-equipment",
+        "yui-character-design-master-pack-v1",
+        "yui-character-design-sheet-01-v1-qa",
+        "yui-character-design-sheet-01-v1-rejects"
+      ],
+      "usageTargets": [
+        "prompt-learning-only"
+      ],
+      "tags": [
+        "yui",
+        "identity-turnaround",
+        "rejected",
+        "archived",
+        "learning-only",
+        "not-parent",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-d-v1.png",
+          "sha256": "f130e5f56e1630aa7882ba07b16d043432cd75ff3c628bc7e4d9af33f198036f"
+        },
+        {
+          "role": "qa-record",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json"
+        },
+        {
+          "role": "reject-ledger",
+          "path": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
+        }
+      ],
+      "rejection": {
+        "attemptId": "yui-character-design-sheet-01-v1-attempt-01",
+        "decision": "REJECT_ALL",
+        "reasonCodes": [
+          "BODY_RELATIVE_BAG_CONFLICT_FRONT",
+          "STRAP_ANCHOR_CONTINUITY_CONFLICT",
+          "BILATERAL_SMILE_DIMPLES_NOT_READABLE",
+          "LEFT_RIGHT_SIDE_CONSTRUCTION_INSUFFICIENT",
+          "CROSS_VIEW_EQUIPMENT_CONSISTENCY_FAIL"
+        ],
+        "selectedCandidateId": null,
+        "mayBeParent": false,
+        "mayBeGoldenReference": false
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "storyAuthorityPromoted": false
+      },
+      "replacementPolicy": {
+        "canReplace": false,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "notes": "Sheet 01 attempt 01 hard-veto reject。Human selection対象、Pack evidence、parent、Golden、Story、final、runtimeに使わない。"
     }
   ]
 }

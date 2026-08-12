@@ -65,7 +65,9 @@
     "yui-full-body-master-v2-prompt": "data/character-assets/reviews/yui-full-body-master-v2.prompt.json",
     "yui-full-body-master-v2-qa": "data/character-assets/reviews/yui-full-body-master-v2.qa.json",
     "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json",
-    "yui-character-design-master-pack-v1": "data/character-assets/reviews/yui-character-design-master-pack-v1.json"
+    "yui-character-design-master-pack-v1": "data/character-assets/reviews/yui-character-design-master-pack-v1.json",
+    "yui-character-design-sheet-01-v1-qa": "data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json",
+    "yui-character-design-sheet-01-v1-rejects": "data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json"
   },
   "counts": {
     "totalItems": 480,
@@ -13903,7 +13905,7 @@
       "sheetOrder": 1,
       "parentPackId": "char-yui-design-master-pack-v1",
       "authorityStatus": "UPSTREAM_CURRENT",
-      "productionStatus": "ready-for-prompt-review",
+      "productionStatus": "blocked-authoring-required",
       "reviewStatus": "needs-generation",
       "sourceOfTruth": [
         "character-author-db",
@@ -13979,7 +13981,7 @@
         {
           "sourceId": "yui-character-design-master-pack-v1",
           "path": "data/character-assets/reviews/yui-character-design-master-pack-v1.json",
-          "contentHash": "31d29a814ecde3a60b3a9744d92ef0c82c616890709a517355518011b120143e",
+          "contentHash": "9f8d9b8dba7e46ef8146aee7b881ce4ed039e10168e028823444ce085e690c43",
           "authorityClass": "STRUCTURAL_SOURCE",
           "consumedFields": [
             "record-boundary"
@@ -14009,7 +14011,7 @@
         "cross-sheet-consistency-review",
         "story-final-runtime-no-auto-promotion"
       ],
-      "blocker": "同一contractの4候補を比較し、Identity/Construction Human approvalを得るまでSheet 02–04を生成しない。",
+      "blocker": "attempt 01の4候補はhard vetoで全件reject。学習を反映したversioned prompt revisionが必要。Human approvalを得るまでSheet 02–04を生成しない。",
       "notes": "4 source sheetは独立したCharacter Masterではなく、1つの論理Packを裏付けるversioned visual evidence。承認済みsheetの差替えはversionを上げる。"
     },
     {

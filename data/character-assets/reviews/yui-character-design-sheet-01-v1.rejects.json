@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "attemptId": "yui-character-design-sheet-01-v1-attempt-01",
+  "decision": "REJECT_ALL",
+  "decisionScope": "AI_AGENT_STRUCTURAL_HARD_VETO_SCREEN",
+  "selectedCandidateId": null,
+  "humanDecisionProvided": false,
+  "reasonCodes": [
+    "BODY_RELATIVE_BAG_CONFLICT_FRONT",
+    "STRAP_ANCHOR_CONTINUITY_CONFLICT",
+    "BILATERAL_SMILE_DIMPLES_NOT_READABLE",
+    "LEFT_RIGHT_SIDE_CONSTRUCTION_INSUFFICIENT",
+    "CROSS_VIEW_EQUIPMENT_CONSISTENCY_FAIL"
+  ],
+  "files": [
+    "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-a-v1.png",
+    "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-b-v1.png",
+    "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-c-v1.png",
+    "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-d-v1.png"
+  ],
+  "mayBeParent": false,
+  "mayBeGoldenReference": false,
+  "storyAuthorityPromoted": false,
+  "approvedAsFinal": false,
+  "runtimeApproved": false,
+  "dependentSheetsRemainBlocked": true
+}

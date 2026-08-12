@@ -22,6 +22,8 @@ import { yatsukageCallNames } from './yatsukageIdentitySource.ts';
 import core5ReferenceManifest from '../../../data/character-assets/core5-character-master-assets.json' with { type: 'json' };
 import yuiFullBodyMasterV2Qa from '../../../data/character-assets/reviews/yui-full-body-master-v2.qa.json' with { type: 'json' };
 import yuiFullBodyMasterV2Rejects from '../../../data/character-assets/reviews/yui-full-body-master-v2.rejects.json' with { type: 'json' };
+import yuiSheet01Qa from '../../../data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json' with { type: 'json' };
+import yuiSheet01Rejects from '../../../data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json' with { type: 'json' };
 // This inventory projection is imported only by Node-based export/check scripts.
 // @ts-expect-error The runtime Web tsconfig intentionally excludes Node ambient types.
 import { createHash } from 'node:crypto';
@@ -82,6 +84,8 @@ export const VISUAL_SOURCE_CATALOG = {
   'yui-full-body-master-v2-qa': 'data/character-assets/reviews/yui-full-body-master-v2.qa.json',
   'yui-full-body-master-v2-rejects': 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json',
   'yui-character-design-master-pack-v1': 'data/character-assets/reviews/yui-character-design-master-pack-v1.json',
+  'yui-character-design-sheet-01-v1-qa': 'data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json',
+  'yui-character-design-sheet-01-v1-rejects': 'data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json',
 } as const;
 
 export const CHARACTER_AUTHOR_DB_VISUAL_DIMENSION_SOURCES = {
@@ -431,6 +435,24 @@ function yuiRejectedFullBodyAssets() {
   });
 }
 
+function yuiRejectedSheet01Assets() {
+  const rejectedFiles = new Set(yuiSheet01Rejects.files);
+  return yuiSheet01Qa.candidates.map((candidate) => {
+    if (!rejectedFiles.has(candidate.file)) throw new Error(`Yui Sheet 01 rejected candidate missing from ledger: ${candidate.id}`);
+    return {
+      id: candidate.id, subjectId: 'yui', subjectType: 'character', title: `Yui Sheet 01 rejected candidate ${candidate.id}`,
+      layer: 'master', kind: 'character-design-source-sheet-rejected-candidate', authorityStatus: 'CANDIDATE', reviewStatus: 'archived', current: false, derivedFrom: [],
+      sourceOfTruth: ['character-author-db', 'character-appearance-contracts', 'character-handedness-equipment', 'yui-character-design-master-pack-v1', 'yui-character-design-sheet-01-v1-qa', 'yui-character-design-sheet-01-v1-rejects'],
+      usageTargets: ['prompt-learning-only'], tags: ['yui', 'identity-turnaround', 'rejected', 'archived', 'learning-only', 'not-parent', 'not-final', 'not-runtime'],
+      files: [{ role: 'primary', path: candidate.file, sha256: candidate.sha256 }, { role: 'qa-record', path: VISUAL_SOURCE_CATALOG['yui-character-design-sheet-01-v1-qa'] }, { role: 'reject-ledger', path: VISUAL_SOURCE_CATALOG['yui-character-design-sheet-01-v1-rejects'] }],
+      rejection: { attemptId: yuiSheet01Rejects.attemptId, decision: 'REJECT_ALL', reasonCodes: yuiSheet01Rejects.reasonCodes, selectedCandidateId: null, mayBeParent: false, mayBeGoldenReference: false },
+      approvalBoundary: { approvedForReference: false, approvedAsFinal: false, approvedForRuntime: false, storyAuthorityPromoted: false },
+      replacementPolicy: { canReplace: false, replaces: null, supersededBy: null },
+      notes: 'Sheet 01 attempt 01 hard-veto reject。Human selection対象、Pack evidence、parent、Golden、Story、final、runtimeに使わない。',
+    };
+  });
+}
+
 export function buildVisualAssetRegistry() {
   return {
     schemaVersion: 1,
@@ -460,7 +482,7 @@ export function buildVisualAssetRegistry() {
       authorityStatuses: ['CANON', 'CURRENT', 'USER_DIRECTION', 'CANDIDATE', 'AUTHOR_RESERVOIR', 'RESEARCH', 'OPEN', 'Future15'],
       reviewStatuses: ['needs-authoring', 'needs-generation', 'generated-unreviewed', 'needs-author-review', 'needs-boundary-review', 'approved-candidate', 'approved-current', 'superseded', 'archived'],
     },
-    assets: [...core5Assets(), ...reservedCharacterMasterAssets(), ...yuiRejectedFullBodyAssets()],
+    assets: [...core5Assets(), ...reservedCharacterMasterAssets(), ...yuiRejectedFullBodyAssets(), ...yuiRejectedSheet01Assets()],
   };
 }
 
@@ -810,7 +832,7 @@ function characterDesignSourceSheetProductionItems(): ProductionListItem[] {
         sheetOrder: index + 1,
         parentPackId: `char-${identity.authorId}-design-master-pack-v1`,
         authorityStatus,
-        productionStatus: isYuiTurnaround ? 'ready-for-prompt-review' : isDependentSheet ? 'blocked-turnaround-human-approval' : 'blocked-authoring-required',
+        productionStatus: isYuiTurnaround ? 'blocked-authoring-required' : isDependentSheet ? 'blocked-turnaround-human-approval' : 'blocked-authoring-required',
         reviewStatus: 'needs-generation',
         sourceOfTruth,
         authoritySnapshots: authoritySnapshots(sourceOfTruth),
@@ -820,7 +842,7 @@ function characterDesignSourceSheetProductionItems(): ProductionListItem[] {
         candidateIds: candidatesFor(assetId),
         qaChecklist: [...sheet.qaChecklist, 'human-sheet-review', 'cross-sheet-consistency-review', 'story-final-runtime-no-auto-promotion'],
         blocker: isYuiTurnaround
-          ? '同一contractの4候補を比較し、Identity/Construction Human approvalを得るまでSheet 02–04を生成しない。'
+          ? 'attempt 01の4候補はhard vetoで全件reject。学習を反映したversioned prompt revisionが必要。Human approvalを得るまでSheet 02–04を生成しない。'
           : isDependentSheet
             ? 'Sheet 01 Identity / TurnaroundのHuman identity/construction approval待ち。'
             : 'Sheet固有prompt packetとHuman authority reviewが未完了。',

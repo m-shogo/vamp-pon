@@ -39,7 +39,7 @@ Status: CURRENT REVIEW CHECKPOINT / PR #304 DRAFT / NO STORY, GAMEPLAY OR RUNTIM
 - frontのbody-rightはviewer left、backのanatomical rightはviewer right。
 - `YOUNG_ADULT`、soft oval、rounded cheeks、non-pointed chin、small almost-level almond-round brown eyes、tapered double eyelids、soft straight brows、warm-dark asymmetric bob、one ear tuck、bilateral smile dimplesを固定。
 
-Sheet 01は同一contractの4候補生成準備ができているが、Human identity/construction approvalは未実施。Sheet 02–04、Pack approval、Lorebook/Gameplay派生、Story/final/runtime昇格はすべてblocked。
+Sheet 01 attempt 01は同一contractで4候補生成済みだが、全候補がbody-relative bag/strap、bilateral dimples、左右side constructionのhard vetoでreject。Human selection対象へ上げていない。Sheet 02–04、Pack approval、Lorebook/Gameplay派生、Story/final/runtime昇格はすべてblocked。
 
 以前のYui Full Body v2 4候補と会話内試作は全件reject/learning-only。正本やparentにしない。
 
@@ -47,8 +47,8 @@ Sheet 01は同一contractの4候補生成準備ができているが、Human ide
 
 1. export、objective checker、tests、build、implementation preflight、diff review。
 2. scoped commit/push、PR #304本文更新、CI確認。draft維持。
-3. Humanが生成開始を指示した場合だけ、Yui Sheet 01を同じcontractで4候補生成する。
-4. Automatic QAと比較を提示し、HumanがIdentity/Constructionを承認するまでSheet 02–04へ進まない。
+3. attempt 01 reject learningを反映したSheet 01 prompt v2を別versionでauthoringする。
+4. 次回4候補のAutomatic QAと比較を提示し、HumanがIdentity/Constructionを承認するまでSheet 02–04へ進まない。
 5. Yui identity anchor承認後は別characterのSheet 01を並列化できる。同じcharacterの依存sheetは先走らない。
 
 ## 不変境界

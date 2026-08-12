@@ -27,6 +27,8 @@ const YUI_PACK_PROMPT_PATH = 'data/character-assets/reviews/yui-character-design
 const ASSET_TEMPLATE_PATH = 'data/character-assets/templates/visual-asset-record.template.json';
 const PROMPT_TEMPLATE_PATH = 'data/character-assets/templates/visual-prompt-packet.template.json';
 const QA_TEMPLATE_PATH = 'data/character-assets/templates/visual-qa-record.template.json';
+const YUI_SHEET01_QA_PATH = 'data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json';
+const YUI_SHEET01_REJECTS_PATH = 'data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json';
 
 type JsonObject = Record<string, unknown>;
 
@@ -85,6 +87,8 @@ const yuiPackPrompt = readJson(YUI_PACK_PROMPT_PATH);
 const assetTemplate = readJson(ASSET_TEMPLATE_PATH);
 const promptTemplate = readJson(PROMPT_TEMPLATE_PATH);
 const qaTemplate = readJson(QA_TEMPLATE_PATH);
+const yuiSheet01Qa = readJson(YUI_SHEET01_QA_PATH);
+const yuiSheet01Rejects = readJson(YUI_SHEET01_REJECTS_PATH);
 
 function requireGeneratedSnapshot(actual: JsonObject, expected: unknown, path: string): void {
   if (JSON.stringify(actual) !== JSON.stringify(expected)) {
@@ -355,7 +359,7 @@ for (const candidate of yuiQaCandidates) {
 
 if (yuiPackPrompt.packetId !== 'visual-prompt:yui:identity-turnaround:v1' || yuiPackPrompt.packId !== 'char-yui-design-master-pack-v1') fail('Yui Pack/Sheet 01 prompt identity drifted');
 if (yuiPackPrompt.sheetId !== 'char-yui-design-sheet-01-identity-turnaround-v1' || yuiPackPrompt.sheetRole !== 'identity-turnaround') fail('Yui prompt must target Sheet 01 Identity / Turnaround only');
-if (yuiPackPrompt.status !== 'AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED') fail('Yui Sheet 01 prompt must remain generation-authorized but unapproved');
+if (yuiPackPrompt.status !== 'FOUR_CANDIDATES_GENERATED_REJECTED_NOT_APPROVED') fail('Yui Sheet 01 attempt must remain generated/rejected/unapproved');
 const yuiAuthority = isObject(yuiPackPrompt.authoritySnapshot) ? yuiPackPrompt.authoritySnapshot : {};
 const yuiDominantHand = isObject(yuiAuthority.dominantHand) ? yuiAuthority.dominantHand : {};
 if (yuiDominantHand.value !== null || yuiDominantHand.status !== 'OPEN_NO_SOURCE') fail('Yui dominant hand must remain OPEN_NO_SOURCE');
@@ -397,6 +401,22 @@ for (const reference of yuiReferences) {
   const expectedHash = requireNonEmptyString(reference, 'sha256', `yuiPackPrompt.reference:${path}`);
   if (!isSafeRepoPath(path) || !existsSync(path)) fail(`Yui prompt reference missing: ${path}`);
   else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== expectedHash) fail(`Yui prompt reference hash drifted: ${path}`);
+}
+const yuiSheetCandidates = Array.isArray(yuiSheet01Qa.candidates) ? yuiSheet01Qa.candidates.filter(isObject) : [];
+const yuiSheetRejectedFiles = new Set(strings(yuiSheet01Rejects.files));
+if (yuiSheet01Rejects.decision !== 'REJECT_ALL' || yuiSheet01Rejects.selectedCandidateId !== null || yuiSheet01Rejects.humanDecisionProvided !== false) fail('Yui Sheet 01 reject ledger must remain REJECT_ALL without Human selection');
+if (yuiSheet01Rejects.mayBeParent !== false || yuiSheet01Rejects.mayBeGoldenReference !== false || yuiSheet01Rejects.storyAuthorityPromoted !== false || yuiSheet01Rejects.approvedAsFinal !== false || yuiSheet01Rejects.runtimeApproved !== false || yuiSheet01Rejects.dependentSheetsRemainBlocked !== true) fail('Yui Sheet 01 rejects lost fail-closed boundaries');
+const yuiPackLineage = isObject(yuiPackPrompt.lineage) ? yuiPackPrompt.lineage : {};
+if (yuiPackLineage.generator !== yuiSheet01Qa.generator || yuiPackLineage.generatorVersion !== yuiSheet01Qa.generatorVersion || yuiPackLineage.seed !== yuiSheet01Qa.seed) fail('Yui Sheet 01 generator lineage drifted from QA record');
+if (yuiSheetCandidates.length !== 4 || yuiSheetRejectedFiles.size !== 4) fail('Yui Sheet 01 attempt must preserve four rejected candidates');
+for (const candidate of yuiSheetCandidates) {
+  const candidateId = requireNonEmptyString(candidate, 'id', 'yuiSheet01Qa.candidate');
+  const path = requireNonEmptyString(candidate, 'file', candidateId);
+  const expectedHash = requireNonEmptyString(candidate, 'sha256', candidateId);
+  const asset = assetsById.get(candidateId);
+  if (!asset || asset.reviewStatus !== 'archived' || asset.kind !== 'character-design-source-sheet-rejected-candidate') fail(`${candidateId}: rejected Sheet 01 asset registration invalid`);
+  if (!yuiSheetRejectedFiles.has(path) || !existsSync(path)) fail(`${candidateId}: rejected Sheet 01 file missing`);
+  else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== expectedHash) fail(`${candidateId}: rejected Sheet 01 hash mismatch`);
 }
 
 function checkCycles(label: string, edges: (asset: JsonObject) => string[]): void {
@@ -655,7 +675,7 @@ for (const [assetId, item] of productionById) {
   }
   if (item.recordType === 'overview-read-model' && (item.layer === 'master' || item.kind !== 'character-design-master-overview-read-model')) fail(`${assetId}: Overview is a read model only, never a Master`);
   if (item.recordType === 'source-sheet' && item.subjectId === 'yui') {
-    if (item.sheetRole === 'identity-turnaround' && item.productionStatus !== 'ready-for-prompt-review') fail('Yui Sheet 01 must remain the only authorable/generation-ready sheet');
+    if (item.sheetRole === 'identity-turnaround' && item.productionStatus !== 'blocked-authoring-required') fail('Yui Sheet 01 attempt 01 is rejected and requires versioned re-authoring');
     if (item.sheetRole !== 'identity-turnaround' && item.productionStatus !== 'blocked-turnaround-human-approval') fail(`${assetId}: Yui Sheet 02–04 must wait for Turnaround Human approval`);
   }
   if (item.recordType === 'overview-read-model' || item.layer === 'lorebook' || item.layer === 'gameplay') {

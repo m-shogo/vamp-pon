@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "attemptId": "yui-character-design-sheet-01-v1-attempt-01",
+  "packId": "char-yui-design-master-pack-v1",
+  "sheetId": "char-yui-design-sheet-01-identity-turnaround-v1",
+  "sheetRole": "identity-turnaround",
+  "generatedAt": "2026-08-12T16:17:09Z",
+  "promptHash": "9fc7bb3f0e9afa177b3ca6a9be6322e2f94ee6e55b2287a7f60901eaef6c946e",
+  "generator": "codex-imagegen-built-in",
+  "generatorVersion": "gpt-image-2",
+  "seed": null,
+  "sameContractAndPrompt": true,
+  "humanReview": {"required": true, "provided": false, "result": "NOT_PROVIDED"},
+  "candidates": [
+    {"id": "char-yui-design-sheet-01-identity-turnaround-candidate-a-v1", "file": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-a-v1.png", "sha256": "d8d338b838d16f3479b889a96ad0089f67f7fda2e88798437cac0aef93e3a1e1", "width": 1537, "height": 1023, "automaticQa": "PASS_FILE_HASH_DIMENSIONS", "structuralScreen": "FAIL_HARD_VETO"},
+    {"id": "char-yui-design-sheet-01-identity-turnaround-candidate-b-v1", "file": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-b-v1.png", "sha256": "f46cd0851ba7dbd37fefa2c481ac50a988c7743c394fdbd4c9a11744f748dc23", "width": 1536, "height": 1024, "automaticQa": "PASS_FILE_HASH_DIMENSIONS", "structuralScreen": "FAIL_HARD_VETO"},
+    {"id": "char-yui-design-sheet-01-identity-turnaround-candidate-c-v1", "file": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-c-v1.png", "sha256": "24807f36b6e9f2662cf108874003b892c1e07352201511c2a8726c819eaf7ade", "width": 1672, "height": 941, "automaticQa": "PASS_FILE_HASH_DIMENSIONS", "structuralScreen": "FAIL_HARD_VETO"},
+    {"id": "char-yui-design-sheet-01-identity-turnaround-candidate-d-v1", "file": "assets/import-staging/batch-character-master/yui/rejected-sheet-01-v1/char-yui-design-sheet-01-identity-turnaround-candidate-d-v1.png", "sha256": "f130e5f56e1630aa7882ba07b16d043432cd75ff3c628bc7e4d9af33f198036f", "width": 1536, "height": 1024, "automaticQa": "PASS_FILE_HASH_DIMENSIONS", "structuralScreen": "FAIL_HARD_VETO"}
+  ]
+}

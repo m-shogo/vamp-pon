@@ -1,6 +1,6 @@
 # ヨルノシルベ Visual Asset Generation Foundation v1
 
-Status: **CHARACTER DESIGN MASTER PACK FOUNDATION CONNECTED / YUI SHEET 01 PREPARED / NO STORY OR RUNTIME PROMOTION**
+Status: **CHARACTER DESIGN MASTER PACK FOUNDATION CONNECTED / YUI SHEET 01 ATTEMPT 01 REJECTED / NO STORY OR RUNTIME PROMOTION**
 
 ## 目的
 
@@ -40,7 +40,9 @@ Sheet 01はHuman identity/construction approvalを得るまでSheet 02–04を�
 - `data/character-assets/manifests/visual-character-prompt-packets.v1.json`: 36 Pack planとstructured authority snapshot。
 - `data/character-assets/manifests/visual-image-production-list.v1.json`: 36 logical Pack、144 source sheet evidence、36 Overview、その他Visual派生のproduction plan。
 - `data/character-assets/manifests/visual-generation-batches.v1.json`: 14 batch予約。全batchは停止中。
-- `data/character-assets/reviews/yui-character-design-master-pack-v1.json`: Yui Sheet 01 Turnaround prompt packet。
+- `data/character-assets/reviews/yui-character-design-master-pack-v1.json`: Yui Sheet 01 Turnaround prompt/lineage packet。
+- `data/character-assets/reviews/yui-character-design-sheet-01-v1.qa.json`: attempt 01 file/hash/structural QA。
+- `data/character-assets/reviews/yui-character-design-sheet-01-v1.rejects.json`: attempt 01 reject ledger。
 
 5 manifestは手編集しない。再生成・検査:
 
@@ -64,7 +66,8 @@ pnpm visual-assets:check
 - 年齢印象は`YOUNG_ADULT`。
 - soft oval、rounded cheeks、non-pointed chin、smaller almost-level almond-round brown eyes、tapered double eyelids、soft straight brows、warm-dark asymmetric bob、one ear tuck、bilateral smile dimplesをidentity anchorとする。
 - generic V jaw、giant eyes、missing dimples、side duplication/mirror、装備左右矛盾はhard veto。
-- Sheet 01だけがauthoring/generation準備可能。Sheet 02–04と全derivativeはTurnaround Human approval待ち。
+- Sheet 01 attempt 01は同一contractで4候補生成したが、bag/strap左右連続性、dimples、side constructionのhard vetoで全件reject。versioned prompt revision前は再生成しない。
+- Sheet 02–04と全derivativeはTurnaround Human approval待ち。
 
 過去のYui Full Body v2 4候補は全件rejectのlearning-only記録であり、Master、parent、Golden、Story、final、runtimeに使わない。
 
