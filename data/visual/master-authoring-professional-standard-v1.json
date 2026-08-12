@@ -1,0 +1,121 @@
+{
+  "id": "yoru-no-shirube-master-authoring-professional-standard-v1",
+  "date": "2026-08-12",
+  "status": "TOP_LEVEL_AUTHORING_GOVERNANCE",
+  "authorityDocument": "docs/visual/master-authoring-professional-standard-v1.md",
+  "appliesTo": [
+    "character_master",
+    "world_master",
+    "scenario_master",
+    "relationship_master",
+    "visual_master",
+    "generation_master"
+  ],
+  "authorityClasses": [
+    "USER_DECIDED",
+    "EXISTING_CANON",
+    "RESEARCH_BACKED_CURRENT",
+    "AUTHOR_CANDIDATE",
+    "OPEN"
+  ],
+  "masterRuleRequiredFields": [
+    "statement",
+    "authority",
+    "scope",
+    "rationale",
+    "positiveTarget",
+    "forbiddenShortcut",
+    "exceptionRule",
+    "conflictRule",
+    "reviewEvidence",
+    "downstreamEffect"
+  ],
+  "certaintyPolicy": {
+    "USER_DECIDED": "user explicitly decided; AI may not silently weaken or reopen",
+    "EXISTING_CANON": "directly sourceable from current authority and must retain source path",
+    "RESEARCH_BACKED_CURRENT": "current design translated from cited research; research facts and fictional translation remain separate",
+    "AUTHOR_CANDIDATE": "author/designer proposal needed for production but not user-confirmed canon",
+    "OPEN": "intentionally unresolved; never means image-model freedom"
+  },
+  "characterQualityBar": [
+    "choice",
+    "behavioral_consequence",
+    "visual_consequence",
+    "exception_condition_when_relevant"
+  ],
+  "worldQualityBar": [
+    "users",
+    "ordinary_use",
+    "carried_objects",
+    "friction",
+    "repair",
+    "aging",
+    "movement",
+    "waiting",
+    "communication",
+    "ordinary_assumption"
+  ],
+  "scenarioQualityBar": [
+    "ordinary_task",
+    "immediate_want",
+    "hidden_pressure",
+    "relationship_movement",
+    "world_or_era_evidence",
+    "physical_acting",
+    "choice",
+    "consequence",
+    "after_state"
+  ],
+  "relationshipQualityBar": [
+    "speech_distance",
+    "physical_distance",
+    "touch_permission",
+    "object_trust",
+    "silence_comfort",
+    "request_and_refusal",
+    "joke_and_anger_shape",
+    "repair_behavior",
+    "appearance_intervention"
+  ],
+  "imageGenerationReadinessGate": [
+    "identity_authority_resolved",
+    "body_age_posture_resolved",
+    "living_visual_profile_loaded",
+    "exposure_policy_resolved",
+    "body_modification_policy_resolved",
+    "clothing_preference_and_refusal_resolved",
+    "material_and_maintenance_logic_resolved",
+    "era_life_loaded_when_applicable",
+    "relationship_visual_history_source_backed_or_explicitly_absent",
+    "world_council_designer_authorities_loaded",
+    "required_open_fields_zero_or_exploratory_only"
+  ],
+  "generationPolicy": {
+    "imageModelIsDesignDecisionMakerOfLastResort": false,
+    "openMeansModelFreedom": false,
+    "generatedImageCreatesCanon": false,
+    "humanReviewRequiredForPromotion": true
+  },
+  "conflictPriority": [
+    "USER_DECIDED",
+    "CURRENT_WORLD_CHARACTER_RELATION_CANON",
+    "SOURCE_BACKED_LIVING_APPEARANCE_ERA_MASTERS",
+    "CROSS_DISCIPLINE_DESIGN_MASTERS",
+    "AUTHOR_CANDIDATE",
+    "GENERATION_PROMPT",
+    "GENERATED_IMAGE"
+  ],
+  "professionalReviewQuestions": [
+    "fact_hypothesis_or_candidate",
+    "whose_point_of_view",
+    "ordinary_life_manifestation",
+    "distortion_under_pressure",
+    "why_this_visual_form",
+    "generic_if_swapped_to_another_character",
+    "connected_to_at_least_two_design_layers",
+    "likely_ai_shortcut",
+    "exception_condition",
+    "post_generation_review_evidence"
+  ],
+  "positiveTarget": "Different sessions, models, and production contributors should make the same design judgments from the same authorities without pretending uncertainty is canon or using generated images to backfill missing character/world decisions."
+}
