@@ -1,0 +1,33 @@
+{
+  "id": "yoru-no-shirube-character-design-influence-memory-v1",
+  "status": "active-design-memory",
+  "tasteReferences": [
+    {"name":"エナミカツミ","type":"artist-preference","useAsPromptStyleTarget":false},
+    {"name":"ペルソナ","type":"commercial-ip-preference","useAsPromptStyleTarget":false},
+    {"name":"グランブルーファンタジー","type":"commercial-ip-preference","useAsPromptStyleTarget":false},
+    {"name":"テイルズ オブ シリーズ","type":"commercial-ip-preference","useAsPromptStyleTarget":false},
+    {"name":"キングダム ハーツ","type":"commercial-ip-preference","useAsPromptStyleTarget":false},
+    {"name":"四コマ漫画","type":"format-reference","useAsPromptStyleTarget":false,"scope":"default-conversation-art"}
+  ],
+  "commercialPolicy": {
+    "namedArtistStyleTargetAllowed": false,
+    "commercialIpStyleTargetAllowed": false,
+    "accidentalStrongResemblancePromotable": false,
+    "requiresPostGenerationAssociationAudit": true,
+    "requiresHumanCommercialCandidateReview": true
+  },
+  "translationPrinciples": {
+    "characterFirst": ["physique-from-role-and-personality","age-and-body-type-differences","posture-as-identity","wearable-costume-construction"],
+    "ensemble": ["clear-party-silhouettes","age-role-personality-difference","shared-world-cohesion-without-uniformity"],
+    "iconicity": ["few-strong-shapes","recognizable-at-distance","stable-identity-across-contexts"],
+    "worldIntegration": ["night","dream","memory","names","way-home","paper","black-ink","lantern-light","historical-star-maps","changing-constellations-by-era","star-beasts","travel-records"],
+    "conversationDefault": ["four-panel-manga-readability","2-to-3-head-proportion-candidate","few-lines","large-body-reactions","small-screen-expression-readability","preserve-identity-anchors"]
+  },
+  "assetRiskLevels": {
+    "strict": ["character-master","high-resolution-standing-art","top-key-art","loading-key-art","lorebook-hero-art","store-art","trailer-art","merchandise-master"],
+    "medium": ["conversation-default","expression-variants","small-standing-art","relationship-portrait"],
+    "basic": ["gameplay-pixel-sprite","tiny-battle-icon","mini-marker"]
+  },
+  "identityAnchorsForDefaultArt": ["hairstyle","physique","posture","primary-colors","signature-prop","physical-traits"],
+  "notes": "Taste references are analysis inputs only. Production prompts should use extracted Yoru no Shirube principles, not named artists or IP style labels."
+}
