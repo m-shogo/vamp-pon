@@ -31,6 +31,7 @@ export type CharacterReferenceGenerationHandoffItem = {
   visualAuthorityPaths: string[];
   livingVisualProfilePath: string;
   livingVisualProfileRequired: true;
+  designerPhilosophyRequired: true;
   unknownLifePreferenceMayBeInventedByImageModel: false;
   reviewChecklist: string[];
   downstreamRule: string;
@@ -69,20 +70,26 @@ function buildHandoffItem(entry: CharacterReferenceQueueEntry): CharacterReferen
       livingVisualProfilePath,
       'docs/character-appearance-source-book-v1.md',
       'docs/character-appearance-distinction-generation-contract-v1.md',
+      'docs/visual/character-designer-philosophy-master-v1.md',
+      'data/visual/character-designer-philosophy-master-v1.json',
       'data/visual/character-designer-ai-brain.json',
     ],
     livingVisualProfilePath,
     livingVisualProfileRequired: true,
+    designerPhilosophyRequired: true,
     unknownLifePreferenceMayBeInventedByImageModel: false,
     reviewChecklist: mode === 'generate'
       ? [
           'Living Visual Profileの露出 / piercing / tattoo / clothing / absoluteNever / positivePreferenceを先に確認する',
+          'Designer Philosophy MasterのDecision Ladderに従い、設定忠実度と本人の選択理由を美観より先に評価する',
           '未設定項目をgeneric fantasy / gacha conventionで補完しない',
+          'detailを足す前にsilhouette / body-posture / clothing construction / signature object / color hierarchyを確認する',
           ...(referencePrompt?.reviewChecklist ?? []),
         ]
       : [
           '既存masterをCurrent21 silhouette matrixと比較する',
           'Living Visual Profileと照合し、本人が選ばない装飾・露出・body modificationが混入していないか確認する',
+          'Designer Philosophy Masterの「似合う」と「本人が選ぶ」の分離で既存masterを再評価する',
           'body / age / posture / clothing mass / Named Object placementを確認する',
           '問題がなければ再生成せずreference registration候補へ進める',
           'reference approvalをruntime/final approvalと混同しない',
@@ -112,9 +119,10 @@ export const CHARACTER_REFERENCE_HANDOFF_POLICY = {
   expectedP0Ids: ['hana', 'kage1'],
   referenceFirst: true,
   livingVisualMasterRequired: true,
+  designerPhilosophyRequired: true,
   unknownLifePreferenceMayBeInventedByImageModel: false,
   generatedArtStartsAs: 'candidate review required',
   noAutomaticRuntimePromotion: true,
   noAutomaticFinalApproval: true,
-  rule: 'Export prompts from Current production data immediately before generation; load the Living Visual Master and per-character Living Visual Profile before the prompt is used; do not hand-copy stale prompts into an external image session.',
+  rule: 'Export prompts from Current production data immediately before generation; load the Living Visual Master, per-character Living Visual Profile, and Character Designer Philosophy Master before the prompt is used; do not hand-copy stale prompts into an external image session.',
 } as const;
