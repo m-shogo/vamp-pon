@@ -33,23 +33,22 @@ assert(!title1BaseWeaponRuntimeAdmissionSummary.runtimeAutoPromotionAllowed, 'pr
 const implementedCapabilities = [
   'NEAREST_TARGET_PROJECTILE','MULTI_PROJECTILE_LOOP','CIRCULAR_GROUND_AREA','MULTI_TARGET_PROJECTILE_SELECTION','STATUS_APPLICATION',
   'TWO_TARGET_TETHER','KNOCKBACK_VECTOR','CONE_QUERY','TARGET_CHAIN_SELECTION','SLAM_WAVE_QUERY','BREAK_STAGGER_APPLICATION',
-  'HOMING_PRIORITY_SELECTION','RETURNING_PROJECTILE','TRAP_PERSISTENCE',
+  'HOMING_PRIORITY_SELECTION','RETURNING_PROJECTILE','TRAP_PERSISTENCE','DELAYED_TRIGGER',
 ] as const;
 for (const capability of implementedCapabilities) {
   assert(currentUnityWeaponRuntimeCapabilities[capability] === 'IMPLEMENTED', `${capability} evidence drift`);
   assert(!title1BaseWeaponRuntimeAdmissionSummary.missingCapabilityFrequency.some((entry) => entry.capability === capability), `${capability} must not remain in missing frequency`);
 }
-assert(currentUnityWeaponRuntimeCapabilities.DELAYED_TRIGGER === 'MISSING', 'DELAYED_TRIGGER foundation must remain unpromoted until Dream Alarm admission');
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 14, `expected 14 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 8, `expected 8 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount === 15, `expected 15 implemented Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount === 7, `expected 7 missing Unity primitives, got ${title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.statusApplicationBlockedWeaponCount === 0, 'STATUS_APPLICATION must not remain a blocker');
 
-const expectedCallerIds = ['ember_matchcase','rain_thread','bellows_fan','copper_tuning_fork','pavement_hammer','pressed_flower_cards','star_map_pin','return_compass_needle'] as const;
+const expectedCallerIds = ['ember_matchcase','rain_thread','bellows_fan','copper_tuning_fork','pavement_hammer','pressed_flower_cards','dream_alarm','star_map_pin','return_compass_needle'] as const;
 assert(new Set<string>(unityPrototypeCallerImplementedWeaponIds).size === unityPrototypeCallerImplementedWeaponIds.length, 'prototype caller proof IDs must be unique');
 assert(unityPrototypeCallerImplementedWeaponIds.join(',') === expectedCallerIds.join(','), 'caller-proof registry drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 8, 'caller-proof summary drift');
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 8, `expected 8 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
-assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 8, `expected 8 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.prototypeCallerImplementedCount === 9, 'caller-proof summary drift');
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount === 9, `expected 9 implementation-review admissions, got ${title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedRuntimeCount}`);
+assert(title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount === 7, `expected 7 blocked Selected16 entries, got ${title1BaseWeaponRuntimeAdmissionSummary.unityBlockedRuntimeCount}`);
 assert(title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds.join(',') === expectedCallerIds.join(','), 'implementation-review admitted IDs drift');
 assert(title1BaseWeaponRuntimeAdmissionSummary.primitiveCompleteButMissingCallerProofCount === 0, 'no primitive-complete Selected16 entry should remain without caller proof');
 
@@ -70,23 +69,19 @@ const byId = (weaponId: string) => {
   return entry;
 };
 
-for (const weaponId of ['ember_matchcase','rain_thread','bellows_fan','copper_tuning_fork','pavement_hammer','star_map_pin','return_compass_needle'] as const) {
+for (const weaponId of ['ember_matchcase','rain_thread','bellows_fan','copper_tuning_fork','pavement_hammer','pressed_flower_cards','star_map_pin','return_compass_needle'] as const) {
   const entry = byId(weaponId);
   assert(entry.missingUnityCapabilities.length === 0 && entry.prototypeCallerImplemented, `${weaponId} primitive/caller proof incomplete`);
   assert(entry.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && entry.mayEnterUnityRuntimeRegistry, `${weaponId} implementation-review admission drift`);
 }
 
-const pressed = byId('pressed_flower_cards');
-assert(pressed.archetype === 'TRAP_FIELD', 'Pressed Flower Cards archetype drift');
-assert(pressed.requiredUnityCapabilities.join(',') === 'TRAP_PERSISTENCE,STATUS_APPLICATION', `Pressed Flower requirements drift: ${pressed.requiredUnityCapabilities.join(',')}`);
-assert(pressed.implementedUnityCapabilities.join(',') === 'TRAP_PERSISTENCE,STATUS_APPLICATION', 'Pressed Flower should inherit verified trap + Status primitives');
-assert(pressed.missingUnityCapabilities.length === 0 && pressed.prototypeCallerImplemented, 'Pressed Flower primitive/caller proof incomplete');
-assert(pressed.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && pressed.mayEnterUnityRuntimeRegistry, 'Pressed Flower implementation-review admission drift');
-assert(pressed.runtimeStatus === 'NOT_IMPLEMENTED', 'Pressed Flower implementation review must not claim live runtime');
-
 const dream = byId('dream_alarm');
-assert(dream.missingUnityCapabilities.includes('DELAYED_TRIGGER'), 'Dream Alarm must remain delayed-trigger blocked until its separate Admission overlay');
-assert(!dream.prototypeCallerImplemented, 'Trap Admission must not pre-register Dream Alarm');
+assert(dream.archetype === 'DELAYED_PULSE', 'Dream Alarm archetype drift');
+assert(dream.requiredUnityCapabilities.join(',') === 'DELAYED_TRIGGER,STATUS_APPLICATION', `Dream Alarm requirements drift: ${dream.requiredUnityCapabilities.join(',')}`);
+assert(dream.implementedUnityCapabilities.join(',') === 'DELAYED_TRIGGER,STATUS_APPLICATION', 'Dream Alarm should inherit verified delay + Status primitives');
+assert(dream.missingUnityCapabilities.length === 0 && dream.prototypeCallerImplemented, 'Dream Alarm primitive/caller proof incomplete');
+assert(dream.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW' && dream.mayEnterUnityRuntimeRegistry, 'Dream Alarm implementation-review admission drift');
+assert(dream.runtimeStatus === 'NOT_IMPLEMENTED', 'Dream Alarm implementation review must not claim live runtime');
 
 for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
   if (expectedCallerIds.includes(entry.weaponId as typeof expectedCallerIds[number])) continue;
@@ -97,15 +92,15 @@ for (const entry of title1BaseWeaponRuntimeAdmissionEntries) {
 }
 
 const coordinatorSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/Stage1GameplayRuntimeCoordinator.cs', import.meta.url), 'utf8');
-const pressedSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/PressedFlowerCardsPrototypeRuntime.cs', import.meta.url), 'utf8');
-for (const token of ['public sealed class PressedFlowerCardsPrototypeState','public const string WeaponId = "pressed_flower_cards";','PLACE_ARM_WAIT_TARGET_ENTER_CONSUME_TRIGGER_THEN_TYPED_ROOTED','U2PersistentTrapState','EnemyStatusRuntimeKind.Rooted','trap.TryConsumeTrigger(out var remainingBudget)']) {
-  assert(pressedSource.includes(token), `Pressed Flower caller evidence missing token: ${token}`);
+const dreamSource = readFileSync(new URL('../../unity/VampPonUnity/Assets/_Project/Scripts/Runtime/Gameplay/SelectedBaseWeapons/DreamAlarmPrototypeRuntime.cs', import.meta.url), 'utf8');
+for (const token of ['public sealed class DreamAlarmPrototypeState','public const string WeaponId = "dream_alarm";','PLACE_WAIT_READY_EXPLICIT_CONSUME_AREA_DROWSY','U2DelayedTriggerState','EnemyStatusRuntimeKind.Drowsy','trigger.TryConsume()']) {
+  assert(dreamSource.includes(token), `Dream Alarm caller evidence missing token: ${token}`);
 }
-assert(!coordinatorSource.includes('PressedFlowerCardsPrototypeState') && !coordinatorSource.includes('pressed_flower_cards') && !coordinatorSource.includes('U2PersistentTrapState'), 'Pressed Flower prototype must remain outside live Stage1 coordinator');
+assert(!coordinatorSource.includes('DreamAlarmPrototypeState') && !coordinatorSource.includes('dream_alarm') && !coordinatorSource.includes('U2DelayedTriggerState'), 'Dream Alarm prototype must remain outside live Stage1 coordinator');
 
 const doc = readFileSync(new URL('../../docs/title1-base-weapon-runtime-admission-v1.md', import.meta.url), 'utf8');
-for (const token of ['Selected16','14 implemented','8 missing','admitted=8','blocked=8','TRAP_PERSISTENCE','pressed_flower_cards','PressedFlowerCardsPrototypeState','Boss conversion','DELAYED_TRIGGER','TARGET_CHAIN_SELECTION','RETURNING_PROJECTILE','fake projectile','CONTENT_MASTER']) {
+for (const token of ['Selected16','15 implemented','7 missing','admitted=9','blocked=7','DELAYED_TRIGGER','dream_alarm','DreamAlarmPrototypeState','TRAP_PERSISTENCE','TARGET_CHAIN_SELECTION','RETURNING_PROJECTILE','Boss conversion','fake projectile','CONTENT_MASTER']) {
   assert(doc.includes(token), `Base Weapon runtime admission doc missing token: ${token}`);
 }
 
-console.log(JSON.stringify({ status: 'PASS', selected16: 16, admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds, implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount, missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount, pressedFlowerCards: { implemented: pressed.implementedUnityCapabilities, missing: pressed.missingUnityCapabilities, decision: pressed.unityDecision, callerProof: pressed.prototypeCallerImplemented, runtimeStatus: pressed.runtimeStatus, bossConversionImplemented: false }, liveStage1PrototypeCallers: 0 }, null, 2));
+console.log(JSON.stringify({ status: 'PASS', selected16: 16, admittedIds: title1BaseWeaponRuntimeAdmissionSummary.unityAdmittedWeaponIds, implementedPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentImplementedUnityPrimitiveCount, missingPrimitives: title1BaseWeaponRuntimeAdmissionSummary.currentMissingUnityPrimitiveCount, dreamAlarm: { implemented: dream.implementedUnityCapabilities, missing: dream.missingUnityCapabilities, decision: dream.unityDecision, callerProof: dream.prototypeCallerImplemented, runtimeStatus: dream.runtimeStatus }, liveStage1PrototypeCallers: 0 }, null, 2));
