@@ -1,0 +1,39 @@
+name: Character Era Continuity
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/characterRealityRootMapReadModel.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'scripts/quality/check-character-era-continuity.ts'
+      - 'docs/character-era-continuity-audit-v1.md'
+      - '.github/workflows/character-era-continuity.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/characterRealityRootMapReadModel.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'scripts/quality/check-character-era-continuity.ts'
+      - 'docs/character-era-continuity-audit-v1.md'
+      - '.github/workflows/character-era-continuity.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character era continuity
+        run: node --experimental-strip-types scripts/quality/check-character-era-continuity.ts
