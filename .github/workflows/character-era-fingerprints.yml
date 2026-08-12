@@ -1,0 +1,33 @@
+name: Character Era Fingerprints
+
+on:
+  pull_request:
+    paths:
+      - 'docs/character-era-fingerprints-v1.md'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'scripts/quality/check-character-era-fingerprints.ts'
+      - '.github/workflows/character-era-fingerprints.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/character-era-fingerprints-v1.md'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'scripts/quality/check-character-era-fingerprints.ts'
+      - '.github/workflows/character-era-fingerprints.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character era fingerprints
+        run: node --experimental-strip-types scripts/quality/check-character-era-fingerprints.ts
