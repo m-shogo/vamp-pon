@@ -58,17 +58,24 @@
 .history-payoff { padding-left:12px; border-left:2px solid rgba(135,151,127,.32); }
 .history-thread > footer { padding:10px 20px; border-top:1px solid rgba(233,224,200,.09); display:flex; justify-content:space-between; gap:12px; color:#706a61; font-size:7px; letter-spacing:.07em; }
 .era-method { margin-top:32px; padding:28px; border:1px solid rgba(145,128,170,.26); background:radial-gradient(circle at 10% 0%,rgba(145,128,170,.08),transparent 28rem),rgba(25,24,33,.7); }
-.era-layer-row { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-top:20px; }
-.era-layer-row article { min-height:125px; padding:14px; border:1px solid rgba(233,224,200,.10); }
-.era-layer-row b { color:#d3c5df; font:500 11px serif; }
+.era-method header small { display:block; margin-top:9px; color:#756e7c; font-size:7px; letter-spacing:.05em; }
+.era-layer-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-top:20px; }
+.era-layer-row article { min-height:148px; padding:14px; border:1px solid rgba(233,224,200,.10); }
+.era-layer-row article[data-era-kind="MYSTERY_SPECIAL_NOT_SIXTH_REALITY_ERA"] { border-style:dashed; border-color:rgba(145,128,170,.35); background:linear-gradient(145deg,rgba(145,128,170,.08),transparent 65%); }
+.era-layer-row b { display:block; color:#d3c5df; font:500 11px/1.45 serif; }
+.era-layer-row small { display:block; margin-top:5px; color:#746a82; font-size:6px; letter-spacing:.08em; }
 .era-layer-row p { color:#8e8695; font-size:8px; line-height:1.7; }
 .era-evidence { margin-top:14px; padding:14px 0; border-top:1px dashed rgba(233,224,200,.12); border-bottom:1px dashed rgba(233,224,200,.12); }
 .era-evidence b { color:#aaa0b4; font-size:9px; }
 .era-evidence p { margin:5px 0 0; color:#817a88; font-size:8px; }
 .era-anchors { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:14px; }
 .era-anchors article { padding:14px; background:rgba(255,255,255,.018); }
-.era-anchors span { color:#d6b56f; font:500 11px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.era-anchors span { color:#d6b56f; font:500 10px "Yu Mincho", "Hiragino Mincho ProN", serif; }
+.era-anchors b { display:block; margin-top:5px; color:#a99cb4; font-size:7px; overflow-wrap:anywhere; }
 .era-anchors p { margin:5px 0 0; color:#928a97; font-size:8px; line-height:1.7; }
+.era-method-rules { margin-top:14px; padding:13px 14px; border-left:2px solid rgba(145,128,170,.35); background:rgba(145,128,170,.025); }
+.era-method-rules > b { color:#aa9bb7; font-size:7px; letter-spacing:.09em; }
+.era-method-rules ul { margin:7px 0 0; padding-left:16px; color:#827987; font-size:7px; line-height:1.75; }
 @media (max-width:980px) { .temporal-map-heading { grid-template-columns:1fr; gap:10px; } .temporal-map-heading small { text-align:left; } .temporal-lane-track { grid-template-columns:repeat(5,minmax(185px,1fr)); } }
 @media (max-width:850px) { .history-thread-grid { grid-template-columns:1fr; } .era-layer-row { grid-template-columns:repeat(2,1fr); } .temporal-cross-overlays { grid-template-columns:1fr; } }
 @media (max-width:600px) { .time-layer-strip { grid-template-columns:1fr; } .time-layer-strip article { border-right:0; border-bottom:1px solid rgba(233,224,200,.12); min-height:150px; } .time-layer-strip article:last-child { border-bottom:0; } .era-layer-row, .era-anchors { grid-template-columns:1fr; } .era-method { padding:20px; } .temporal-map-heading h3 { font-size:25px; } .temporal-lane-track { margin-left:-2px; margin-right:-2px; } }
