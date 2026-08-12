@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "authority": "src/game/data/characterProfileBookReadModel.ts",
+  "status": "AUTHORING_READ_MODEL_NAVIGATION_ONLY",
+  "characterCount": 36,
+  "current21Count": 21,
+  "future15Count": 15,
+  "dimensionCount": 21,
+  "sectionCount": 6,
+  "fullyCoveredCharacterCount": 36,
+  "routePolicy": {
+    "routeSlug": "authorId",
+    "stableProfileIdVisible": true,
+    "stableProfileAliasIsPrimaryRoute": false
+  },
+  "publicSpoilerProjectionDefined": false,
+  "runtimeAutoPromotionAllowed": false,
+  "sections": [
+    {"id":"identity-authority","label":"Identity & Authority","shortLabel":"Identity","purpose":"誰で、どの時代・Authorityに属し、どこまで見た目が確定しているか。","dimensions":["realityRoot","seasonArchitecture","themeColor","physicalIdentityAuthority"]},
+    {"id":"ordinary-life","label":"Ordinary Life","shortLabel":"Life","purpose":"事件がない時間に、どこでどう暮らし、休み、遊び、物やお金と付き合うか。","dimensions":["ordinaryLife","livingPlace","environmentSensory","everydayEconomy","leisurePlay","restDailyRhythm"]},
+    {"id":"social-boundaries","label":"Social & Boundaries","shortLabel":"Social","purpose":"人との距離、約束、共同空間を好感度や善悪スコアにせず読む。","dimensions":["socialChemistry","decisionCommitment","sharedSpaceEtiquette"]},
+    {"id":"expression-voice","label":"Expression & Voice","shortLabel":"Voice","purpose":"行動・連絡・冗談・呼び方・間・沈黙・声のリズムから、台詞を固定せず人物を読む。","dimensions":["behaviorIdentity","communicationHabit","humorTeasing","addressNamingRegister","voiceProsody"]},
+    {"id":"learning-memory","label":"Learning & Memory","shortLabel":"Mind","purpose":"どう学び、失敗し、頼り、覚え、忘れ、食い違う記憶を扱うか。","dimensions":["competenceLearning","memoryRemembering"]},
+    {"id":"material-trace","label":"Material Trace","shortLabel":"Trace","purpose":"持ち物や痕跡を、人物の経歴そのものにせずSceneの手触りとして読む。","dimensions":["livedArtifact"]}
+  ],
+  "sourceLegend": [
+    {"id":"current","label":"CURRENT / CANON","meaning":"現在のAuthorityとして扱える情報。"},
+    {"id":"candidate","label":"CANDIDATE","meaning":"有力候補。採用前なので上書き可能。"},
+    {"id":"reservoir","label":"AUTHOR RESERVOIR","meaning":"作者用素材箱。人物を動かすための候補で、正史ではない。"},
+    {"id":"open","label":"OPEN","meaning":"未確定。falseや欠落として扱わない。"},
+    {"id":"future15","label":"FUTURE15","meaning":"拡張候補Roster。情報が厚くてもCurrent21へ自動昇格しない。"},
+    {"id":"authority","label":"AUTHORITY","meaning":"見た目・物理属性などCurrent master側の正本subdomain。"}
+  ]
+}
