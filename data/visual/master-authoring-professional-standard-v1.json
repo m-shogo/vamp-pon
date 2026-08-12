@@ -94,7 +94,11 @@
     "imageModelIsDesignDecisionMakerOfLastResort": false,
     "openMeansModelFreedom": false,
     "generatedImageCreatesCanon": false,
-    "humanReviewRequiredForPromotion": true
+    "humanReviewRequiredForPromotion": true,
+    "unknownBodyModificationMayBeInvented": false,
+    "unknownExposureMayBeInvented": false,
+    "unknownRelationshipHistoryMayBeInvented": false,
+    "genericGenreDefaultMayFillMissingCharacterDesign": false
   },
   "conflictPriority": [
     "USER_DECIDED",
@@ -117,5 +121,5 @@
     "exception_condition",
     "post_generation_review_evidence"
   ],
-  "positiveTarget": "Different sessions, models, and production contributors should make the same design judgments from the same authorities without pretending uncertainty is canon or using generated images to backfill missing character/world decisions."
+  "positiveTarget": "Different sessions, models, and production contributors should make the same design judgments from the same authorities without pretending uncertainty is canon, using genre defaults to fill missing character decisions, or using generated images to backfill missing character/world decisions."
 }
