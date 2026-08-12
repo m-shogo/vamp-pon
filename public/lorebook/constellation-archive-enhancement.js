@@ -4,6 +4,24 @@ function archiveStatusBadge(status) {
   return `<span class="status-badge ${status === 'CANON_CURRENT' ? 'CANON' : status === 'CANDIDATE' ? 'CANDIDATE' : 'OPEN_QUESTION'}">${status.replaceAll('_', ' ')}</span>`;
 }
 
+function clueResearchEvidenceMarkup(clue) {
+  const evidence = clue.researchEvidence;
+  if (!evidence) return '';
+  return `
+    <div class="clue-evidence-state">
+      <span>RESEARCH EVIDENCE / NOT CONFIDENCE SCORE</span>
+      <dl>
+        <div><dt>EVIDENCE</dt><dd>${evidence.evidenceCount}</dd></div>
+        <div><dt>VERIFIED</dt><dd>${evidence.verifiedResearchCount}</dd></div>
+        <div><dt>CONTENT OPEN</dt><dd>${evidence.bibliographicContentOpenCount}</dd></div>
+      </dl>
+      <p><b>Exact artifact:</b> ${evidence.tomoriSpecificArtifactConfirmed ? 'CONFIRMED' : 'OPEN'} · <b>Quadrans in Japanese candidate:</b> ${evidence.quadransInJapaneseCandidateConfirmed ? 'CONFIRMED' : 'OPEN'}</p>
+      <small>${evidence.recommendedStoryState}</small>
+      ${clue.researchSource ? `<code>${clue.researchSource}</code>` : ''}
+    </div>
+  `;
+}
+
 function renderConstellationArchive(data) {
   const root = document.querySelector('#constellationArchive');
   if (!root) return;
@@ -39,6 +57,7 @@ function renderConstellationArchive(data) {
       <article class="question-card">
         <span class="question-area">${clue.tier} · ${clue.status}</span>
         <h3>${clue.label}</h3>
+        ${clueResearchEvidenceMarkup(clue)}
         <p><b>次に見るSource:</b> ${clue.nextSource}</p>
       </article>
     `).join('');
