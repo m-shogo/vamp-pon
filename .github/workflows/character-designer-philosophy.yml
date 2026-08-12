@@ -1,0 +1,30 @@
+name: Character Designer Philosophy
+
+on:
+  pull_request:
+    paths:
+      - 'docs/visual/character-designer-philosophy-master-v1.md'
+      - 'data/visual/character-designer-philosophy-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'scripts/quality/check-character-designer-philosophy-master.ts'
+      - '.github/workflows/character-designer-philosophy.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/visual/character-designer-philosophy-master-v1.md'
+      - 'data/visual/character-designer-philosophy-master-v1.json'
+      - 'src/game/data/characterReferenceGenerationHandoff.ts'
+      - 'scripts/quality/check-character-designer-philosophy-master.ts'
+      - '.github/workflows/character-designer-philosophy.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate persistent designer philosophy
+        run: node --experimental-strip-types scripts/quality/check-character-designer-philosophy-master.ts

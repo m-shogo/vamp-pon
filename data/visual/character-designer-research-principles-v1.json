@@ -1,0 +1,114 @@
+{
+  "id": "yoru-no-shirube-character-designer-research-principles-v1",
+  "date": "2026-08-12",
+  "status": "RESEARCHED_PRINCIPLE_LIBRARY_NON_CANON",
+  "rule": "Sources are evidence for generalized craft principles only. Never use source names, artists, studios, titles, exact faces, exact costumes, exact palettes, signature rendering, or named-style phrases as production prompt targets.",
+  "sources": [
+    {
+      "id": "buddy-enami-character-origin",
+      "sourceType": "official-interview",
+      "source": "Buddy Daddies official interview with Katsumi Enami",
+      "url": "https://buddy-animeproject.com/special/interview/04.html",
+      "observedProblem": "Initial visual assumptions can be wrong before personality is understood.",
+      "generalizedPrinciples": [
+        "understand personality before locking body type, face, hair and clothing",
+        "a character concept may require structural redesign when deeper personality information contradicts the first visual stereotype",
+        "body build is part of character interpretation, not a neutral mannequin"
+      ],
+      "yoruTranslation": [
+        "Living Visual and story facts precede costume polish",
+        "do not preserve a visually attractive body or face choice if it contradicts established personhood",
+        "when a design feels generic, first check whether the body/face was chosen before the person was understood"
+      ],
+      "prohibitedDirectCopy": ["source-specific-face","source-specific-hair","source-specific-costume","Enami-style prompt"]
+    },
+    {
+      "id": "buddy-animation-acting-design",
+      "sourceType": "official-interview",
+      "source": "Buddy Daddies official interview with animation character designer Soichiro Sako",
+      "url": "https://buddy-animeproject.com/special/interview/09.html",
+      "observedProblem": "A stylish source design can become rigid if it cannot deform for comedy or move for action.",
+      "generalizedPrinciples": [
+        "character design should preserve appeal while supporting comedic deformation",
+        "facial design should allow a broad acting range rather than staying beautiful and rigid",
+        "action scenes should be anticipated in the clothing and body design",
+        "ensemble contrast can be built from physique and posture, not only color or costume"
+      ],
+      "yoruTranslation": [
+        "Character Masters must support serious scenes, trivial conversation, comedy and action",
+        "evaluate pair/group contrast through body and posture",
+        "do not make high-resolution beauty incompatible with four-panel acting"
+      ],
+      "prohibitedDirectCopy": ["Buddy-Daddies-style prompt","source-character-proportions","source-expression-sheet"]
+    },
+    {
+      "id": "tales-fujishima-practical-individuality",
+      "sourceType": "publisher-interview",
+      "source": "Bandai Namco Tales 30th Anniversary interview with Kosuke Fujishima",
+      "url": "https://en.bandainamcoent.eu/tales-of/news/tales-of-30th-anniversary-interview-kosuke-fujishima",
+      "observedProblem": "World cohesion, historical plausibility and travel practicality can conflict with individual character uniqueness.",
+      "generalizedPrinciples": [
+        "clothing should avoid obvious practical inconvenience for the character's journey and daily activity",
+        "technology and garment details should make sense for the imagined period/world",
+        "overly strict unified aesthetics can erase party-member individuality",
+        "regional and cultural differences can emerge from imagining how characters actually live",
+        "silhouette can be deliberately used to create a new role within an ensemble"
+      ],
+      "yoruTranslation": [
+        "era and location affect fasteners, materials, storage and wear habits",
+        "world grammar is a shared toolkit, not a uniform",
+        "every party member must keep an individual silhouette and life-specific clothing logic"
+      ],
+      "prohibitedDirectCopy": ["Tales-style prompt","Yuri-like silhouette","source-costume","source-cultural motif"]
+    },
+    {
+      "id": "tales-arise-world-material-rendering",
+      "sourceType": "studio-development-interview",
+      "source": "Bandai Namco Studios Making of Tales of Arise Part 1",
+      "url": "https://www.bandainamcostudios.com/en/behind-the-game/673",
+      "observedProblem": "Character design, material depiction and rendering can become disconnected if visual style is treated as a post-process.",
+      "generalizedPrinciples": [
+        "character design can incorporate material and world-visual decisions developed by the art-direction team",
+        "metal, cloth and other material treatments should participate in worldbuilding",
+        "rendering style should be researched as part of the title's visual identity rather than copied from an external reference",
+        "technical rendering and character design should reinforce each other"
+      ],
+      "yoruTranslation": [
+        "paper, ink, lantern light and old-star-chart qualities must affect construction/material/light behavior, not only motifs",
+        "rendering authority remains separate from character identity authority",
+        "Yoru rendering should be derived from its own world material system"
+      ],
+      "prohibitedDirectCopy": ["Atmospheric-Shader imitation","Tales-of-Arise-style prompt","source-material-rendering recipe"]
+    },
+    {
+      "id": "cygames-umamusume-believability-art-direction",
+      "sourceType": "official-art-director-interview",
+      "source": "Cygames Magazine interview with Umamusume art director",
+      "url": "https://magazine.cygames.co.jp/en/archives/700658920",
+      "observedProblem": "Large casts and multiple visual formats can become generic when production efficiency reuses the same poses, expressions and presentation.",
+      "generalizedPrinciples": [
+        "believability grows from careful depiction of friendship, effort and everyday life, not only spectacle",
+        "individual poses, expressions and acting choices help make large casts feel like distinct people",
+        "2D, 3D and chibi each have different strengths and should not be forced into identical presentation logic",
+        "art direction supervises overall balance across specialized teams and formats",
+        "small scene-specific details accumulate into character familiarity"
+      ],
+      "yoruTranslation": [
+        "ordinary conversation is a design-validation environment",
+        "Character Master, chibi and pixel are different reductions of one identity rather than separate character designs",
+        "do not reuse one acting template across the whole cast",
+        "review the whole game's visual balance, not only isolated hero art"
+      ],
+      "prohibitedDirectCopy": ["Umamusume-style prompt","source-character-pose","source-UI-treatment","source-chibi-style"]
+    }
+  ],
+  "crossSourceConsensus": [
+    "personality and life should influence body, face, clothing and posture",
+    "practical movement and daily use matter",
+    "ensemble identity must survive shared world aesthetics",
+    "acting range is part of character design quality",
+    "material/rendering decisions should arise from the project's own world",
+    "art direction is an iterative supervision process rather than a one-shot generation prompt"
+  ],
+  "promotionRule": "A researched principle may enter the Philosophy or Craft Master only after it is generalized, translated to Yoru no Shirube, stripped of source-specific expression, and checked against current canon and user-confirmed preferences."
+}

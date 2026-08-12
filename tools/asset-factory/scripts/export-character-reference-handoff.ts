@@ -1,5 +1,5 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import {
   CHARACTER_REFERENCE_HANDOFF_POLICY,
   characterReferenceGenerationHandoff,
@@ -13,6 +13,17 @@ type CliOptions = {
   priority: PriorityArg;
   format: FormatArg;
   output: string | null;
+};
+
+type LivingVisualProfile = Record<string, unknown> & {
+  id: string;
+  name?: string;
+};
+
+type ResolvedCharacterReferenceGenerationHandoffItem = CharacterReferenceGenerationHandoffItem & {
+  livingVisualProfile: LivingVisualProfile;
+  livingVisualProfileSourceStatus: string | null;
+  prompt: string | null;
 };
 
 function parseArgs(args: string[]): CliOptions {
@@ -62,7 +73,60 @@ function selectEntries(priority: PriorityArg): CharacterReferenceGenerationHando
     : characterReferenceGenerationHandoff.filter((entry) => entry.priority === priority);
 }
 
-function markdownForEntry(entry: CharacterReferenceGenerationHandoffItem): string {
+const profileDocumentCache = new Map<string, any>();
+
+function loadLivingVisualProfile(entry: CharacterReferenceGenerationHandoffItem): {
+  profile: LivingVisualProfile;
+  sourceStatus: string | null;
+} {
+  const filePath = resolve(process.cwd(), entry.livingVisualProfilePath);
+  let document = profileDocumentCache.get(filePath);
+  if (!document) {
+    document = JSON.parse(readFileSync(filePath, 'utf8'));
+    profileDocumentCache.set(filePath, document);
+  }
+
+  const profile = (document.characters ?? []).find((candidate: LivingVisualProfile) => candidate.id === entry.characterId);
+  if (!profile) {
+    throw new Error(
+      `Living Visual Profile missing for ${entry.characterId} in ${entry.livingVisualProfilePath}; export blocked.`,
+    );
+  }
+
+  return {
+    profile,
+    sourceStatus: typeof document.status === 'string' ? document.status : null,
+  };
+}
+
+function livingVisualPromptBlock(entry: CharacterReferenceGenerationHandoffItem, profile: LivingVisualProfile): string {
+  return [
+    'LIVING VISUAL PROFILE — REQUIRED CHARACTER AUTHORITY.',
+    `Source: ${entry.livingVisualProfilePath}.`,
+    'Treat USER_CONFIRMED / CURRENT_CANON / APPEARANCE_SOURCE / HUMAN_APPROVED_VISUAL as stronger than AUTHOR_CANDIDATE.',
+    'AUTHOR_CANDIDATE values are active production constraints for this candidate, but are not silently promoted to user-confirmed canon.',
+    'Do not invent any missing piercing, tattoo, scar, mole, freckles, jewelry, gem, gold trim, belt, harness, makeup, nail art, skin exposure, or body modification.',
+    'Do not replace established clothing construction with generic fantasy/gacha clothing.',
+    'If a required life-preference field is genuinely unresolved, stop rather than filling it with a model default.',
+    JSON.stringify(profile, null, 2),
+  ].join('\n');
+}
+
+function resolveEntry(entry: CharacterReferenceGenerationHandoffItem): ResolvedCharacterReferenceGenerationHandoffItem {
+  const { profile, sourceStatus } = loadLivingVisualProfile(entry);
+  const prompt = entry.mode === 'generate' && entry.prompt
+    ? [entry.prompt, '', livingVisualPromptBlock(entry, profile)].join('\n')
+    : entry.prompt;
+
+  return {
+    ...entry,
+    prompt,
+    livingVisualProfile: profile,
+    livingVisualProfileSourceStatus: sourceStatus,
+  };
+}
+
+function markdownForEntry(entry: ResolvedCharacterReferenceGenerationHandoffItem): string {
   const lines = [
     `## ${entry.priority} — ${entry.displayName} (${entry.characterId})`,
     '',
@@ -71,6 +135,9 @@ function markdownForEntry(entry: CharacterReferenceGenerationHandoffItem): strin
     `- Approval after generation: \`${entry.approvalStateAfterGeneration}\``,
     `- Reason: ${entry.reason}`,
     `- Downstream: ${entry.downstreamRule}`,
+    `- Living Visual Profile: \`${entry.livingVisualProfilePath}\``,
+    `- Living Visual Profile required: \`${entry.livingVisualProfileRequired}\``,
+    `- Image model may invent unknown life preferences: \`${entry.unknownLifePreferenceMayBeInventedByImageModel}\``,
   ];
 
   if (entry.existingMasterPath) {
@@ -79,6 +146,20 @@ function markdownForEntry(entry: CharacterReferenceGenerationHandoffItem): strin
   if (entry.sizeSpec) {
     lines.push(`- Size: ${entry.sizeSpec}`);
   }
+
+  lines.push('', '### Visual authority read order', '');
+  for (const authorityPath of entry.visualAuthorityPaths) lines.push(`1. \`${authorityPath}\``);
+
+  lines.push(
+    '',
+    '### Resolved Living Visual Profile',
+    '',
+    '> このprofileはexport時に対象character IDで解決済み。外部画像生成セッションでファイル参照だけにせず、この内容そのものを読む。',
+    '',
+    '```json',
+    JSON.stringify(entry.livingVisualProfile, null, 2),
+    '```',
+  );
 
   if (entry.mode === 'generate') {
     lines.push(
@@ -103,14 +184,16 @@ function markdownForEntry(entry: CharacterReferenceGenerationHandoffItem): strin
   return lines.join('\n');
 }
 
-function renderMarkdown(entries: CharacterReferenceGenerationHandoffItem[], priority: PriorityArg): string {
+function renderMarkdown(entries: ResolvedCharacterReferenceGenerationHandoffItem[], priority: PriorityArg): string {
   return [
     '# ヨルノシルベ Character Reference Generation Handoff',
     '',
     `Priority: **${priority}**`,
     '',
-    '> このhandoffはCurrent production dataから都度生成する。画像生成後はcandidate review requiredであり、runtime/final approvalではない。',
+    '> このhandoffはCurrent production data + 対象人物のLiving Visual Profileから都度生成する。',
+    '> 画像生成後はcandidate review requiredであり、runtime/final approvalではない。',
     '>',
+    '> 未設定のpiercing / tattoo / exposure / ornament / clothing vocabularyをAIの「それっぽさ」で補完しない。',
     '> 特にハナ / カナメはplus-size hard lockを維持し、細身化・若返り・bodybuilder化・体型ギャグを禁止する。',
     '',
     `Items: ${entries.length}`,
@@ -119,21 +202,23 @@ function renderMarkdown(entries: CharacterReferenceGenerationHandoffItem[], prio
   ].join('\n').trimEnd() + '\n';
 }
 
-function renderJson(entries: CharacterReferenceGenerationHandoffItem[], priority: PriorityArg): string {
+function renderJson(entries: ResolvedCharacterReferenceGenerationHandoffItem[], priority: PriorityArg): string {
   return `${JSON.stringify({
-    schemaVersion: 1,
+    schemaVersion: 2,
     generatedBy: 'tools/asset-factory/scripts/export-character-reference-handoff.ts',
     priority,
     policy: CHARACTER_REFERENCE_HANDOFF_POLICY,
+    livingVisualProfilesResolvedAtExport: true,
     itemCount: entries.length,
     items: entries,
   }, null, 2)}\n`;
 }
 
 const options = parseArgs(process.argv.slice(2));
-const entries = selectEntries(options.priority);
-if (entries.length === 0) throw new Error(`No character reference handoff entries for ${options.priority}`);
+const selectedEntries = selectEntries(options.priority);
+if (selectedEntries.length === 0) throw new Error(`No character reference handoff entries for ${options.priority}`);
 
+const entries = selectedEntries.map(resolveEntry);
 const output = options.format === 'json'
   ? renderJson(entries, options.priority)
   : renderMarkdown(entries, options.priority);

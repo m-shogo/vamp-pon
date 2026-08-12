@@ -68,6 +68,9 @@ function checklistMarkdown(items: string[]): string {
 
 function assetFactoryNotes(kind: CharacterAssetPromptKind): string {
   const common = [
+    'PREVIEW ONLY: this UI prompt is not generation-ready by itself.',
+    'Before image generation, export the resolved prompt with tools/asset-factory/scripts/export-character-asset-prompt.ts so the per-character Living Visual Profile is embedded.',
+    'Do not copy this preview directly into an image model; doing so can bypass exposure / piercing / tattoo / clothing / absoluteNever / positivePreference constraints.',
     'Generated image must pass Asset Factory QA before candidate/approved.',
     'Do not move prototype image into runtime assets until approved.',
     'Character Database is production canon, not runtime playable list.',
@@ -86,18 +89,21 @@ function assetFactoryNotes(kind: CharacterAssetPromptKind): string {
 
 export function buildCharacterPromptMarkdownFromPrompt(prompt: CharacterAssetPrompt): string {
   return [
-    '# Character Asset Prompt',
+    '# Character Asset Prompt — PREVIEW ONLY',
+    '',
+    '> NOT GENERATION-READY. Export a Living-Visual-resolved prompt before generation.',
+    '> Required exporter: `tools/asset-factory/scripts/export-character-asset-prompt.ts`.',
     '',
     `Character: ${prompt.characterName} / ${prompt.characterId}`,
     `Kind: ${prompt.kind}`,
     `Output: ${prompt.outputPathHint}`,
     `Size: ${prompt.sizeSpec}`,
     '',
-    '## Prompt',
+    '## Prompt Preview',
     '',
     prompt.prompt,
     '',
-    '## Negative Prompt',
+    '## Negative Prompt Preview',
     '',
     prompt.negativePrompt,
     '',
