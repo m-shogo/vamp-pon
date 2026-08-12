@@ -6,6 +6,9 @@ on:
       - 'data/visual/core5-living-visual-profiles-v1.json'
       - 'data/visual/current21-extended-living-visual-profiles-v1.json'
       - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - 'tools/asset-factory/src/characterPrompts.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
       - 'scripts/quality/check-all-character-living-visual-profiles.ts'
       - '.github/workflows/all-character-living-visual.yml'
   push:
@@ -14,6 +17,9 @@ on:
       - 'data/visual/core5-living-visual-profiles-v1.json'
       - 'data/visual/current21-extended-living-visual-profiles-v1.json'
       - 'data/visual/future15-living-visual-profiles-v1.json'
+      - 'src/game/data/assetFactoryCharacterPrompts.ts'
+      - 'tools/asset-factory/src/characterPrompts.ts'
+      - 'tools/asset-factory/scripts/export-character-asset-prompt.ts'
       - 'scripts/quality/check-all-character-living-visual-profiles.ts'
       - '.github/workflows/all-character-living-visual.yml'
 
@@ -28,3 +34,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate 36 detailed living visual profiles
         run: node --experimental-strip-types scripts/quality/check-all-character-living-visual-profiles.ts
+      - name: Smoke-test resolved character asset prompts
+        run: |
+          for kind in character_reference sprite_sheet_180 normal_cutin kokuyou_cutin; do
+            node --experimental-strip-types tools/asset-factory/scripts/export-character-asset-prompt.ts \
+              --character yui --kind "$kind" --format json --output "/tmp/yui-$kind.json"
+            node -e "const x=require('/tmp/yui-$kind.json'); if(x.characterId!=='yui') process.exit(1); if(x.unknownLifePreferenceMayBeInventedByImageModel!==false) process.exit(1); if(!x.prompt.includes('LIVING VISUAL PROFILE')) process.exit(1); if(!x.prompt.includes('absoluteNever')) process.exit(1);"
+          done
