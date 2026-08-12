@@ -23,7 +23,11 @@ Each character is read in this order:
 
 The browser projection is **generated**, not hand-maintained.
 
-Generator:
+Pure projection builder:
+
+- `src/game/data/eraDialogueAtlasProjection.ts`
+
+CI/debug file writer:
 
 - `scripts/lorebook/generate-era-dialogue-atlas.ts`
 
@@ -33,11 +37,18 @@ Sources:
 - `characterEraFingerprintRegistry.ts`
 - `characterEraSceneSeedRegistry.ts`
 
-Generated output:
+Browser/build path:
 
-- `public/lorebook/data/era-dialogue-atlas.v1.json`
+- `/lorebook/data/era-dialogue-atlas.v1.json`
 
-The output file is intentionally gitignored. `vite.config.ts` generates it before Vite dev/build starts, so production `dist/lorebook/` receives a current projection without creating a second Story authority in Git.
+`vite.config.ts` imports only the pure TypeScript projection builder. The Vite plugin:
+
+- serves the generated JSON endpoint directly during `vite dev`
+- emits `dist/lorebook/data/era-dialogue-atlas.v1.json` during `vite build`
+
+The Node `fs/path/url` writer remains under `scripts/` and is used by dedicated validation only. It is deliberately **not imported by `vite.config.ts`**, so the normal app `tsc` graph does not gain Node-type dependencies.
+
+The temporary `public/lorebook/data/era-dialogue-atlas.v1.json` produced by checker/debug generation is gitignored and disposable.
 
 ## Coverage
 
@@ -109,4 +120,4 @@ Later, another conversation or physical trace can make the earlier line gain a s
 
 **TypeScript Author DB is authority. Generated JSON is disposable.**
 
-If the source changes, regenerate. Do not patch the generated JSON by hand.
+If the source changes, regenerate. Do not patch a generated JSON projection by hand.
