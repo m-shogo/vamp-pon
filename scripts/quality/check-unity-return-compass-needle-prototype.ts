@@ -22,7 +22,7 @@ const contractPath = 'scripts/quality/unity-return-compass-needle/Program.cs';
 const projectPath = 'scripts/quality/unity-return-compass-needle/UnityReturnCompassNeedle.Contract.csproj';
 const docPath = 'docs/unity-return-compass-needle-prototype-v1.md';
 for (const path of [callerPath,metaPath,waypointPath,selectorPath,statusPath,requestPath,coordinatorPath,contractPath,projectPath,docPath]) {
-  assert(existsSync(path), `Return Compass Needle staged caller file missing: ${path}`);
+  assert(existsSync(path), `Return Compass Needle caller file missing: ${path}`);
 }
 
 const caller = readFileSync(callerPath, 'utf8');
@@ -61,17 +61,8 @@ for (const token of [
 }
 
 for (const forbidden of [
-  'const float MarkedPriorityBonus',
-  'const float Damage',
-  'DefaultPriority',
-  'DefaultMarked',
-  'DefaultRange',
-  'ParticleSystem',
-  'AudioSource',
-  'Camera.',
-  'Stage1GameplayRuntimeCoordinator',
-  'WeaponEffectType',
-  'LevelUp',
+  'const float MarkedPriorityBonus', 'const float Damage', 'DefaultPriority', 'DefaultMarked', 'DefaultRange',
+  'ParticleSystem', 'AudioSource', 'Camera.', 'Stage1GameplayRuntimeCoordinator', 'WeaponEffectType', 'LevelUp',
 ]) {
   assert(!caller.includes(forbidden), `Return Compass Needle caller must not own live/default behavior: ${forbidden}`);
 }
@@ -90,13 +81,14 @@ assert(repairSpanner?.decision === 'HOLD_RETURN_FAMILY_OVERLAP' && !repairSpanne
 
 const admission = title1BaseWeaponRuntimeAdmissionEntries.find((entry) => entry.weaponId === 'return_compass_needle');
 assert(admission, 'Return Compass Needle admission row missing');
-assert(currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE === 'MISSING', 'staged caller PR must not pre-promote RETURNING_PROJECTILE');
-assert(admission.implementedUnityCapabilities.includes('HOMING_PRIORITY_SELECTION'), 'Return Compass must inherit homing-priority evidence');
-assert(admission.missingUnityCapabilities.includes('RETURNING_PROJECTILE'), 'Return Compass must remain blocked until atomic admission promotion');
-assert(!unityPrototypeCallerImplementedWeaponIds.includes('return_compass_needle'), 'staged caller proof must not be registered before admission promotion');
-assert(!admission.prototypeCallerImplemented, 'staged caller must remain outside caller registry before promotion');
-assert(admission.unityDecision === 'BLOCKED_MISSING_UNITY_PRIMITIVES', 'Return Compass must remain primitive-blocked in staged caller PR');
-assert(!admission.mayEnterUnityRuntimeRegistry && admission.runtimeStatus === 'NOT_IMPLEMENTED', 'staged caller must not claim implementation-review/live admission');
+assert(currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE === 'IMPLEMENTED', 'verified Return Compass caller must back RETURNING_PROJECTILE capability');
+assert(admission.implementedUnityCapabilities.join(',') === 'RETURNING_PROJECTILE,HOMING_PRIORITY_SELECTION,STATUS_APPLICATION', `Return Compass implemented capabilities drift: ${admission.implementedUnityCapabilities.join(',')}`);
+assert(admission.missingUnityCapabilities.length === 0, `Return Compass must have no primitive blockers after admission: ${admission.missingUnityCapabilities.join(',')}`);
+assert(unityPrototypeCallerImplementedWeaponIds.includes('return_compass_needle'), 'verified Return Compass caller must be registered');
+assert(admission.prototypeCallerImplemented, 'Return Compass caller proof must be explicit');
+assert(admission.unityDecision === 'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'Return Compass must enter implementation-review admission');
+assert(admission.mayEnterUnityRuntimeRegistry, 'Return Compass must pass implementation-review gate');
+assert(admission.runtimeStatus === 'NOT_IMPLEMENTED', 'implementation-review admission must not claim live runtime');
 
 for (const token of [
   'caller-supplied MARKED bonus should prefer marked return waypoint over higher unmarked base score',
@@ -115,25 +107,17 @@ for (const token of [
   assert(contract.includes(token), `Return Compass executable contract missing scenario: ${token}`);
 }
 for (const linkedSource of [
-  'ReturnCompassNeedlePrototypeRuntime.cs',
-  'U2ReturningWaypointMotionRuntime.cs',
-  'U2EnemyHomingPrioritySelectionRuntime.cs',
-  'EnemyStatusRuntimeState.cs',
-  'EnemyStatusApplicationRequest.cs',
+  'ReturnCompassNeedlePrototypeRuntime.cs', 'U2ReturningWaypointMotionRuntime.cs',
+  'U2EnemyHomingPrioritySelectionRuntime.cs', 'EnemyStatusRuntimeState.cs', 'EnemyStatusApplicationRequest.cs',
 ]) {
   assert(project.includes(linkedSource), `Return Compass contract project must compile real source: ${linkedSource}`);
 }
 
 for (const token of [
-  'TITLE1_SELECTED',
-  'HOLD_RETURN_FAMILY_OVERLAP',
-  'RETURNING_CAPABILITY_NOT_YET_PROMOTED',
-  'OUTBOUND_LINE_THEN_MARKED_PRIORITY_RETURN_WAYPOINT_THEN_OWNER',
-  'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'BLOCKED_MISSING_UNITY_PRIMITIVES',
-  'runtimeStatus = NOT_IMPLEMENTED',
-  'runtimeAutoPromotionAllowed = false',
+  'TITLE1_SELECTED', 'HOLD_RETURN_FAMILY_OVERLAP', 'RETURNING_PROJECTILE = IMPLEMENTED',
+  'ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW', 'OUTBOUND_LINE_THEN_MARKED_PRIORITY_RETURN_WAYPOINT_THEN_OWNER',
+  'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE', 'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
+  'runtimeStatus = NOT_IMPLEMENTED', 'runtimeAutoPromotionAllowed = false',
 ]) {
   assert(doc.includes(token), `Return Compass doc missing token: ${token}`);
 }
