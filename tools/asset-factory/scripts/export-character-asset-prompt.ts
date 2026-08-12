@@ -11,6 +11,8 @@ const CURRENT21_EXTENDED_IDS = new Set([
   'sen','ritsu','koyori','gen','hana','yubi','madoka','shiro','tobari','nemu','kuroori','kage1','kage2','kage3','kage4','ren',
 ]);
 
+const PROFESSIONAL_DOC = 'docs/visual/master-authoring-professional-standard-v1.md';
+const PROFESSIONAL_JSON = 'data/visual/master-authoring-professional-standard-v1.json';
 const COUNCIL_DOC = 'docs/visual/world-character-scenario-design-council-master-v1.md';
 const COUNCIL_JSON = 'data/visual/world-character-scenario-design-council-master-v1.json';
 const WORLD_MASTER = 'docs/00-current-story-world-master.md';
@@ -88,10 +90,27 @@ function loadEraLifeProfile(characterId: string): EraLifeProfile | null {
   return profile;
 }
 
+function loadProfessionalStandard() {
+  const standard = JSON.parse(readFileSync(resolve(process.cwd(), PROFESSIONAL_JSON), 'utf8'));
+  if (standard.status !== 'TOP_LEVEL_AUTHORING_GOVERNANCE') {
+    throw new Error(`Professional Master Standard is not top-level governance: ${PROFESSIONAL_JSON}`);
+  }
+  if (!Array.isArray(standard.imageGenerationReadinessGate) || standard.imageGenerationReadinessGate.length < 10) {
+    throw new Error(`Professional image-generation readiness gate incomplete: ${PROFESSIONAL_JSON}`);
+  }
+  if (standard.generationPolicy?.openMeansModelFreedom !== false || standard.generationPolicy?.generatedImageCreatesCanon !== false) {
+    throw new Error(`Professional generation policy weakened: ${PROFESSIONAL_JSON}`);
+  }
+  return standard;
+}
+
 function loadCouncil() {
   const council = JSON.parse(readFileSync(resolve(process.cwd(), COUNCIL_JSON), 'utf8'));
   if (council.status !== 'CURRENT_CROSS_DISCIPLINE_AUTHORITY') {
     throw new Error(`Design Council is not current authority: ${COUNCIL_JSON}`);
+  }
+  if (council.professionalGovernance?.required !== true) {
+    throw new Error(`Design Council must require Professional Master Standard: ${COUNCIL_JSON}`);
   }
   if (!Array.isArray(council.productionGates?.characterAsset)) {
     throw new Error(`Design Council character asset gate missing: ${COUNCIL_JSON}`);
@@ -99,26 +118,36 @@ function loadCouncil() {
   return council;
 }
 
-function loadRelationshipContract() {
-  const contract = JSON.parse(readFileSync(resolve(process.cwd(), RELATIONSHIP_JSON), 'utf8'));
-  if (contract.status !== 'CURRENT_AUTHORING_CONTRACT_EXTENDS_EXISTING_RELATIONSHIP_AUTHORITIES') {
-    throw new Error(`Relationship embodiment contract is not current: ${RELATIONSHIP_JSON}`);
+function loadRelationshipMaster() {
+  const master = JSON.parse(readFileSync(resolve(process.cwd(), RELATIONSHIP_JSON), 'utf8'));
+  if (master.status !== 'CURRENT_MASTER_AUTHORITY_EXTENDS_EXISTING_RELATIONSHIP_CANON') {
+    throw new Error(`Relationship embodiment master is not current Master Authority: ${RELATIONSHIP_JSON}`);
   }
-  if (contract.doesNotCreateNewRelationshipEdges !== true) {
-    throw new Error(`Relationship embodiment contract must not create new edges: ${RELATIONSHIP_JSON}`);
+  if (master.requiredBeforeRelationshipAffectedImageGeneration !== true) {
+    throw new Error(`Relationship embodiment master must gate relationship-affected generation: ${RELATIONSHIP_JSON}`);
   }
-  return contract;
+  if (master.doesNotCreateNewRelationshipEdges !== true) {
+    throw new Error(`Relationship embodiment master must not create new edges: ${RELATIONSHIP_JSON}`);
+  }
+  return master;
 }
 
 function resolvedPromptBlock(
   profilePath: string,
   profile: LivingVisualProfile,
+  professional: any,
   council: any,
   eraLife: EraLifeProfile | null,
   relationship: any,
 ): string {
   return [
-    'WORLD / CHARACTER / SCENARIO DESIGN COUNCIL — REQUIRED CROSS-DISCIPLINE AUTHORITY.',
+    'PROFESSIONAL MASTER AUTHORING STANDARD — TOP-LEVEL GOVERNANCE.',
+    `Professional authority: ${PROFESSIONAL_DOC}.`,
+    `Professional machine rules: ${PROFESSIONAL_JSON}.`,
+    'Treat USER_DECIDED, EXISTING_CANON, RESEARCH_BACKED_CURRENT, AUTHOR_CANDIDATE, and OPEN as different certainty classes. Never silently promote AI inference, generated details, or OPEN fields into canon.',
+    'OPEN is not image-model freedom. If a required field is unresolved, stop authoring or mark the output exploratory-only; do not make the image model the design decision maker of last resort.',
+    `Generation readiness gate: ${JSON.stringify(professional.imageGenerationReadinessGate)}.`,
+    'WORLD / CHARACTER / RELATIONSHIP / SCENARIO DESIGN COUNCIL — REQUIRED CROSS-DISCIPLINE AUTHORITY.',
     `World authority: ${WORLD_MASTER}.`,
     `Council authority: ${COUNCIL_DOC}.`,
     `Council machine rules: ${COUNCIL_JSON}.`,
@@ -135,7 +164,7 @@ function resolvedPromptBlock(
           JSON.stringify(eraLife, null, 2),
         ]
       : []),
-    'RELATIONSHIP EMBODIMENT MASTER — REQUIRED BOUNDARY AUTHORITY.',
+    'RELATIONSHIP EMBODIED DAILY-LIFE MASTER — REQUIRED BOUNDARY AUTHORITY.',
     `Relationship authority: ${RELATIONSHIP_DOC}.`,
     `Relationship machine rules: ${RELATIONSHIP_JSON}.`,
     'Do not invent relationship history, romance, gifts, matching accessories, touch permission, borrowed objects, or appearance intervention that are not backed by existing relationship authorities.',
@@ -145,6 +174,7 @@ function resolvedPromptBlock(
       antiShortcut: relationship.antiShortcut,
       appearanceInterventionNeverAutomatic: relationship.appearanceInterventionNeverAutomatic,
       bodyActingFields: relationship.bodyActingFields,
+      imageGenerationGate: relationship.imageGenerationGate,
       unknownPairPolicy: relationship.unknownPairPolicy,
       positiveTarget: relationship.positiveTarget,
     }, null, 2),
@@ -155,7 +185,7 @@ function resolvedPromptBlock(
     'Do not add unspecified piercing, tattoo, scar, mole, freckles, jewelry, gemstone, gold trim, belts, harness, makeup, nail art, skin exposure, or decorative asymmetry.',
     'Do not increase ornament merely because this is a premium/high-resolution/dynamic asset.',
     'Do not replace established clothing construction with generic fantasy or generic gacha clothing.',
-    'AUTHOR_CANDIDATE is not USER_CONFIRMED, but it remains an active constraint for this candidate until human review changes it.',
+    'AUTHOR_CANDIDATE is not USER_DECIDED, but it remains an active production constraint until human review changes it.',
     'If an unresolved required field exists, stop and return to authoring; do not invent a model default.',
     JSON.stringify(profile, null, 2),
   ].join('\n');
@@ -163,6 +193,8 @@ function resolvedPromptBlock(
 
 function authorityOrder(characterId: string, profilePath: string): string[] {
   return [
+    PROFESSIONAL_DOC,
+    PROFESSIONAL_JSON,
     WORLD_MASTER,
     ...(CORE5_IDS.has(characterId) ? [ERA_LIFE_DOC, ERA_LIFE_JSON] : []),
     'docs/visual/character-living-visual-master-v1.md',
@@ -188,9 +220,10 @@ function renderMarkdown(options: CliOptions) {
   if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
   const living = loadProfile(options.characterId);
   const eraLife = loadEraLifeProfile(options.characterId);
+  const professional = loadProfessionalStandard();
   const council = loadCouncil();
-  const relationship = loadRelationshipContract();
-  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, council, eraLife, relationship)].join('\n');
+  const relationship = loadRelationshipMaster();
+  const resolvedPrompt = [prompt.prompt, '', resolvedPromptBlock(living.path, living.profile, professional, council, eraLife, relationship)].join('\n');
   return [
     '# Yoru no Shirube — Resolved Character Asset Prompt',
     '',
@@ -198,6 +231,7 @@ function renderMarkdown(options: CliOptions) {
     `Kind: ${prompt.kind}`,
     `Output: ${prompt.outputPathHint}`,
     `Size: ${prompt.sizeSpec}`,
+    `Professional Master Standard: ${PROFESSIONAL_DOC}`,
     `Living Visual Profile: ${living.path}`,
     `Living Visual Source Status: ${living.status ?? 'unknown'}`,
     `Design Council: ${COUNCIL_DOC}`,
@@ -222,6 +256,7 @@ function renderMarkdown(options: CliOptions) {
     '',
     '## Review Checklist',
     '',
+    '- Professional Master Standardのcertainty / OPEN / generation readiness gateを満たす',
     '- World / Character / Relationship / Scenario Councilの必要性テストに通る',
     '- Relationship Authorityにないgift / matching accessory / touch / exposure changeを発明していない',
     ...(eraLife
@@ -245,13 +280,17 @@ function renderJson(options: CliOptions) {
   if (!prompt) throw new Error(`Character asset prompt not found: ${options.characterId} / ${options.kind}`);
   const living = loadProfile(options.characterId);
   const eraLife = loadEraLifeProfile(options.characterId);
+  const professional = loadProfessionalStandard();
   const council = loadCouncil();
-  const relationship = loadRelationshipContract();
+  const relationship = loadRelationshipMaster();
   return `${JSON.stringify({
-    schemaVersion: 4,
+    schemaVersion: 5,
     generatedBy: 'tools/asset-factory/scripts/export-character-asset-prompt.ts',
     characterId: options.characterId,
     kind: options.kind,
+    professionalMasterPath: PROFESSIONAL_DOC,
+    professionalMasterDataPath: PROFESSIONAL_JSON,
+    professionalGenerationReadinessGate: professional.imageGenerationReadinessGate,
     worldMasterPath: WORLD_MASTER,
     designCouncilPath: COUNCIL_DOC,
     designCouncilDataPath: COUNCIL_JSON,
@@ -265,12 +304,15 @@ function renderJson(options: CliOptions) {
     livingVisualProfilePath: living.path,
     livingVisualProfileSourceStatus: living.status,
     livingVisualProfile: living.profile,
+    openMeansImageModelFreedom: false,
+    generatedImageCreatesCanon: false,
     unknownLifePreferenceMayBeInventedByImageModel: false,
     unknownRelationshipPreferenceMayBeInventedByImageModel: false,
     authorityOrder: authorityOrder(options.characterId, living.path),
-    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, council, eraLife, relationship)}`,
+    prompt: `${prompt.prompt}\n\n${resolvedPromptBlock(living.path, living.profile, professional, council, eraLife, relationship)}`,
     negativePrompt: prompt.negativePrompt,
     reviewChecklist: [
+      'Professional Master Standardのcertainty / OPEN / generation readiness gateを満たす',
       'World / Character / Relationship / Scenario Councilの必要性テストに通る',
       'Relationship Authorityにないgift / matching accessory / touch / exposure changeを発明していない',
       ...(eraLife
