@@ -1,0 +1,89 @@
+name: Lorebook Profile Book Navigation
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/profile-enhancement.js'
+      - 'public/lorebook/profile.css'
+      - 'public/lorebook/data/profile-book-navigation.v1.json'
+      - 'public/lorebook/data/personal-profiles.v1.json'
+      - 'src/game/data/characterProfileBookReadModel.ts'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'docs/lorebook-profile-book-navigation-v1.md'
+      - '.github/workflows/lorebook-profile-book-navigation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/profile-enhancement.js'
+      - 'public/lorebook/profile.css'
+      - 'public/lorebook/data/profile-book-navigation.v1.json'
+      - 'public/lorebook/data/personal-profiles.v1.json'
+      - 'src/game/data/characterProfileBookReadModel.ts'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'docs/lorebook-profile-book-navigation-v1.md'
+      - '.github/workflows/lorebook-profile-book-navigation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate profile enhancement syntax
+        run: node --check public/lorebook/profile-enhancement.js
+      - name: Validate Profile Book navigation against TypeScript read model
+        run: node --experimental-strip-types --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import {
+            CHARACTER_PROFILE_BOOK_SECTIONS,
+            characterProfileBookReadModelSummary,
+          } from './src/game/data/characterProfileBookReadModel.ts';
+          const nav = JSON.parse(fs.readFileSync('public/lorebook/data/profile-book-navigation.v1.json', 'utf8'));
+          const profiles = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
+          const js = fs.readFileSync('public/lorebook/profile-enhancement.js', 'utf8');
+          const css = fs.readFileSync('public/lorebook/profile.css', 'utf8');
+          const doc = fs.readFileSync('docs/lorebook-profile-book-navigation-v1.md', 'utf8');
+          const fail = (message) => { console.error(message); process.exitCode = 1; };
+
+          if (nav.schemaVersion !== 1) fail(`Profile Book navigation schemaVersion drift: ${nav.schemaVersion}`);
+          if (nav.characterCount !== characterProfileBookReadModelSummary.characterCount) fail('Profile Book character count drift');
+          if (nav.current21Count !== characterProfileBookReadModelSummary.current21Count) fail('Profile Book Current21 count drift');
+          if (nav.future15Count !== characterProfileBookReadModelSummary.future15Count) fail('Profile Book Future15 count drift');
+          if (nav.dimensionCount !== characterProfileBookReadModelSummary.assignedDimensionCount) fail('Profile Book dimension count drift');
+          if (nav.sectionCount !== characterProfileBookReadModelSummary.sectionCount) fail('Profile Book section count drift');
+          if (nav.fullyCoveredCharacterCount !== characterProfileBookReadModelSummary.fullyCoveredCharacterCount) fail('Profile Book fully-covered count drift');
+          if (nav.runtimeAutoPromotionAllowed !== false) fail('Profile Book navigation may not auto-promote runtime');
+          if (nav.publicSpoilerProjectionDefined !== false) fail('Profile Book public/spoiler-safe projection must remain undefined');
+          if (nav.routePolicy?.routeSlug !== 'authorId' || nav.routePolicy?.stableProfileAliasIsPrimaryRoute !== false) fail('Profile Book route policy drift');
+
+          const sourceSections = CHARACTER_PROFILE_BOOK_SECTIONS.map((section) => ({ id: section.id, dimensions: [...section.dimensions] }));
+          const navSections = nav.sections.map((section) => ({ id: section.id, dimensions: section.dimensions }));
+          if (JSON.stringify(navSections) !== JSON.stringify(sourceSections)) fail('Profile Book navigation sections/dimensions drift from TS read model');
+          const assigned = nav.sections.flatMap((section) => section.dimensions);
+          if (assigned.length !== 21 || new Set(assigned).size !== 21) fail('Profile Book navigation must assign 21 unique dimensions exactly once');
+          if (!Array.isArray(nav.sourceLegend) || nav.sourceLegend.length < 6) fail('Profile Book Source legend incomplete');
+          if (!Array.isArray(profiles.profiles) || profiles.profiles.length !== 36) fail(`personal profile coverage should be 36, got ${profiles.profiles?.length}`);
+
+          for (const token of [
+            'PROFILE BOOK / SOURCE MAP',
+            '36人を、21項目の羅列ではなく6章で読む。',
+            'Profile Bookは新しい正本ではなく、正本とReservoirへ迷わず辿るための地図。',
+            'READ MODEL',
+            '21 source dimensionsの正本をここへコピーせず',
+          ]) if (!js.includes(token)) fail(`Profile Book UI guard missing: ${token}`);
+          for (const token of ['.profile-book-guide', '.profile-book-nav-grid', '.profile-source-legend', '.profile-book-read-strip']) {
+            if (!css.includes(token)) fail(`Profile Book CSS contract missing: ${token}`);
+          }
+          for (const token of [
+            '36 CHARACTERS / 21 DIMENSIONS / 6 READING SECTIONS / NAVIGATION ONLY',
+            'Profile Book is not a new Story master.',
+            'A public/spoiler-safe projection is still **not defined**.',
+            '人物図鑑の最初の役目は情報量を見せつけることではなく、「今知りたいことはどの章にあるか」を3秒で分からせること。',
+          ]) if (!doc.includes(token)) fail(`Profile Book integration doc guard missing: ${token}`);
+          NODE
