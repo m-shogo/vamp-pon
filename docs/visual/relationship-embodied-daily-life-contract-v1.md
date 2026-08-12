@@ -1,11 +1,11 @@
-# ヨルノシルベ — Relationship Embodied Daily-Life Contract v1
+# ヨルノシルベ — Relationship Embodied Daily-Life Master v1
 
 Date: 2026-08-12  
-Status: **CURRENT AUTHORING CONTRACT / EXTENDS EXISTING RELATIONSHIP AUTHORITIES / DOES NOT CREATE NEW RELATION EDGES**
+Status: **CURRENT MASTER AUTHORITY / EXTENDS EXISTING RELATIONSHIP CANON / REQUIRED BEFORE RELATIONSHIP-AFFECTED IMAGE GENERATION**
 
 ## 0. Purpose
 
-既存の `docs/RELATIONSHIPS.md`、Current Relationship Inventory、Relationship Arc、Bond Speech Prototypeを置き換えず、**関係が身体・距離・生活動作・持ち物・服への介入としてどう見えるか**を定義する。
+既存の `docs/RELATIONSHIPS.md`、Current Relationship Inventory、Relationship Arc、Bond Speech Prototypeを置き換えず、**関係が身体・距離・生活動作・持ち物・服への介入としてどう見えるか**を定義するMaster。
 
 目的は、関係が深くなった時に全組が:
 
@@ -18,7 +18,7 @@ Status: **CURRENT AUTHORING CONTRACT / EXTENDS EXISTING RELATIONSHIP AUTHORITIES
 
 というgeneric anime shorthandへ収束するのを防ぐこと。
 
-Relationship edgeの有無・種類・Canon度は既存Authorityに従う。このContractは**既に存在する関係laneの演技解像度だけを上げる**。
+Relationship edgeの有無・種類・Canon度は既存Authorityに従う。本Masterは**既に存在する関係laneの演技解像度を上げ、画像生成が関係由来の外見要素を勝手に発明するのを禁止する**。
 
 ---
 
@@ -32,10 +32,12 @@ Relationship edgeの有無・種類・Canon度は既存Authorityに従う。こ�
 6. per-character Living Visual Profile
 7. Core5の場合 `docs/visual/core5-era-life-design-master-v1.md`
 8. `docs/visual/world-character-scenario-design-council-master-v1.md`
-9. 本Contract
+9. **本Relationship Embodied Daily-Life Master**
 10. scene / asset candidate
 
-本Contractから新しい恋愛・血縁・親友・敵対関係を推測してはいけない。
+本Masterから新しい恋愛・血縁・親友・敵対関係を推測してはいけない。
+
+画像生成時に関係由来の要素が出る場合、既存Relationship Authorityのsourceを示せない要素は追加しない。
 
 ---
 
@@ -220,7 +222,22 @@ Scenarioは「時代ギャップ解説」を台詞でやるより、**小さな�
 
 ---
 
-# 9. Machine-readable scene fields to add when needed
+# 9. Image-generation hard gate
+
+Character Master / pair art / conversation art / 4-koma / event CG / cutinを生成する前に:
+
+1. 対象人物のLiving Visual Profileを読む
+2. Core5ならEra Life Profileを読む
+3. Relationship contextがある場合は既存Relationship Authorityを特定する
+4. 本Masterの12 relationship axesのうち、必要な軸だけをsource-backedで解決する
+5. 未解決値をAIが埋めない
+6. pair contextが無い単体Character Masterでは、関係由来のgift / matching accessory / borrowed item / touch-history visual traceを勝手に追加しない
+
+**sourceのない関係演出は画像生成より先にauthoringへ戻す。**
+
+---
+
+# 10. Machine-readable scene fields to add when needed
 
 Relationship-driven scene briefは必要に応じて次を持つ。
 
@@ -248,7 +265,7 @@ Relationship-driven scene briefは必要に応じて次を持つ。
 
 ---
 
-# 10. Positive target
+# 11. Positive target
 
 目標は「全員仲良し」ではない。
 
