@@ -1,0 +1,34 @@
+name: Lorebook Constellation Archive
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/data/constellation-archive.v1.json'
+      - 'public/lorebook/constellation-archive-enhancement.js'
+      - 'public/lorebook/constellation-archive.css'
+      - 'public/lorebook/index.html'
+      - 'scripts/quality/check-lorebook-constellation-archive.ts'
+      - '.github/workflows/lorebook-constellation-archive.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/data/constellation-archive.v1.json'
+      - 'public/lorebook/constellation-archive-enhancement.js'
+      - 'public/lorebook/constellation-archive.css'
+      - 'public/lorebook/index.html'
+      - 'scripts/quality/check-lorebook-constellation-archive.ts'
+      - '.github/workflows/lorebook-constellation-archive.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Lorebook constellation archive boundaries
+        run: node --experimental-strip-types scripts/quality/check-lorebook-constellation-archive.ts
