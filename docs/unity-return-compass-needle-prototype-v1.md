@@ -1,6 +1,6 @@
 # Unity Return Compass Needle Prototype v1
 
-Status: `SELECTED16 / STAGED_CALLER_PROOF / RETURNING_CAPABILITY_NOT_YET_PROMOTED / NOT_LIVE`
+Status: `SELECTED16 / CALLER_PROOF_VERIFIED / CAPABILITY_IMPLEMENTED / IMPLEMENTATION_REVIEW_ADMITTED / NOT_LIVE`
 
 ## Purpose
 
@@ -54,71 +54,56 @@ Rules:
 - generic homing selector receives only candidates + effective scores
 - selector does not learn what MARKED means
 - if no alternate eligible target exists, return route goes directly to owner
-- invalid min/max return range or invalid tie-break fails closed before selection; invalid input is never reinterpreted as "no eligible waypoint"
+- invalid min/max return range or invalid tie-break fails closed before selection; invalid input is never reinterpreted as no eligible waypoint
 
-Thus the mechanical identity **帰路はMARKED対象を優先** is implemented without hard-coding a Canon score。
+Thus **帰路はMARKED対象を優先** をCanon score固定なしで実装する。
 
 ## Dynamic return homing
 
-The selected waypoint is stored as an enemy reference, but its **current position** is supplied to shared waypoint motion each tick.
+Selected waypointのcurrent positionをshared waypoint motionへ毎tick渡す。
 
-If the waypoint becomes untargetable before arrival:
+Waypointが到達前にuntargetableになった場合:
 
 - caller calls `SkipReturnWaypoint()`
-- waypoint is cleared
-- return continues to the dynamic final owner anchor
+- waypointをclear
+- dynamic final owner anchorへreturn継続
 - telemetry records waypoint loss
 
 ## Bent-path hit semantics
 
-Outbound and return have independent HashSet hit ledgers.
+Outbound / returnは独立HashSet hit ledger。
 
-A target may be hit:
+同じtargetは:
 
-- once outbound
-- once return
+- outboundで1回
+- returnで1回
 
-but not repeatedly within one leg.
+までhit可能。同一leg内の多重hitは禁止。
 
-Hit detection uses XY point-to-segment distance to reduce tunneling.
-
-When one motion step crosses multiple phases, caller splits hit segments at actual route corners:
-
-- previous -> outbound target
-- outbound target -> return waypoint
-- return waypoint -> final step position
-
-All return subsegments share the same return ledger.
-
-This avoids treating a bent return route as one incorrect straight line.
+XY point-to-segment distanceでtunnelingを抑え、同一stepでphaseを跨ぐ場合もactual route cornerでsegmentを分割する。
 
 ## Damage / MARKED order
 
-For each hit:
+各hit:
 
 1. per-leg duplicate check
 2. damage
 3. telemetry
 4. surviving target only -> typed MARKED request
 
-Defeated target never receives MARKED after death.
-
-MARKED internal cooldown may block the Status application on the return leg while return damage still succeeds.
+Defeated targetへdeath後MARKEDを付けない。MARKED internal cooldownがreturn Statusをblockしてもreturn damageは独立して通る。
 
 ## Caller-supplied tuning
 
-No defaults are frozen for:
+固定しない:
 
 - base return priority score
 - MARKED bonus
 - min/max return range
 - tie-break policy
-- speed
-- delta
-- arrival distance
+- speed / delta / arrival distance
 - hit radius
-- damage
-- damage flash duration
+- damage / damage flash
 - MARKED duration/stacks/magnitude/cooldown
 - final owner anchor
 
@@ -129,7 +114,7 @@ No defaults are frozen for:
 - `scripts/quality/unity-return-compass-needle/UnityReturnCompassNeedle.Contract.csproj`
 - `scripts/quality/unity-return-compass-needle/Program.cs`
 
-TEST_ONLY contract covers:
+Verified scenarios:
 
 - MARKED bonus beats higher unmarked base score
 - outbound target excluded from return waypoint
@@ -137,32 +122,32 @@ TEST_ONLY contract covers:
 - bent-path outbound/return hit detection
 - defeated target short-circuits MARKED
 - direct return when no alternate waypoint exists
-- same target can receive one outbound + one return hit
+- same target receives max one outbound + one return hit
 - return MARKED cooldown independent from damage
 - lost waypoint falls back to owner anchor
 - dynamic final owner anchor
-- invalid return range / tie-break fail closed rather than becoming direct-return fallback
+- invalid return range / tie-break fail closed
 - reset / telemetry reset
 
 All fixture values are NOT_CANON.
 
-## Staged admission boundary
+## Admission state
 
-Before this caller proof is green:
+Shared motion foundation + Selected16 executable caller proof are both green, therefore the Title1 Admission overlay now atomically records:
 
-- `RETURNING_PROJECTILE = MISSING`
-- Return Compass stays `BLOCKED_MISSING_UNITY_PRIMITIVES`
-- caller registry does not include `return_compass_needle`
+`RETURNING_PROJECTILE = IMPLEMENTED`
 
-After shared waypoint foundation + caller executable proof are both green, a separate admission gate may atomically:
+and registers `return_compass_needle` caller proof.
 
-- promote `RETURNING_PROJECTILE = IMPLEMENTED`
-- register `return_compass_needle` caller proof
-- move it to `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+Current decision:
 
-Even then:
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+
+Still:
 
 `runtimeStatus = NOT_IMPLEMENTED`
+
+This is **not live runtime admission**.
 
 ## Live boundary
 
@@ -170,7 +155,7 @@ No automatic connection to:
 
 - Web live catalog
 - LevelUp
-- Stage1GameplayRuntimeCoordinator
+- `Stage1GameplayRuntimeCoordinator`
 - U47 executor
 - save migration
 - final VFX/SFX
@@ -184,6 +169,6 @@ No automatic connection to:
 No Story / Character / Original / Content selection is modified.
 
 - `return_compass_needle` stays Selected via `TITLE1_SELECTED`
-- `repair_spanner` stays Hold
+- `repair_spanner` stays Hold via `HOLD_RETURN_FAMILY_OVERLAP`
 - MARKED identity stays authored
 - numeric tuning remains prototype-only

@@ -31,41 +31,18 @@ const project = readFileSync(projectPath, 'utf8');
 const doc = readFileSync(docPath, 'utf8');
 
 for (const token of [
-  'public sealed class RepairSpannerPrototypeTelemetry',
-  'public sealed class RepairSpannerPrototypeState',
-  'public const string WeaponId = "repair_spanner";',
-  'public const string ContentStatusId = "EXPOSED";',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
-  'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE',
-  'private readonly U2ReturningProjectileMotionState motion = new();',
-  'private readonly HashSet<U2EnemyActor> outboundHits = new();',
-  'private readonly HashSet<U2EnemyActor> returnHits = new();',
-  'motion.TryBegin(targetPosition)',
-  'motion.TryStep(',
-  'ProcessSegment(',
-  'target.TakeDamage(damage, damageFlashSeconds)',
-  'if (!defeated) statusRequest.ApplyTo(target.Statuses);',
-  'EnemyStatusRuntimeKind.Exposed',
-  'DistanceSquaredPointToSegment2D',
+  'public sealed class RepairSpannerPrototypeTelemetry','public sealed class RepairSpannerPrototypeState',
+  'public const string WeaponId = "repair_spanner";','public const string ContentStatusId = "EXPOSED";',
+  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
+  'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE','private readonly U2ReturningProjectileMotionState motion = new();',
+  'private readonly HashSet<U2EnemyActor> outboundHits = new();','private readonly HashSet<U2EnemyActor> returnHits = new();',
+  'motion.TryBegin(targetPosition)','motion.TryStep(','ProcessSegment(','target.TakeDamage(damage, damageFlashSeconds)',
+  'if (!defeated) statusRequest.ApplyTo(target.Statuses);','EnemyStatusRuntimeKind.Exposed','DistanceSquaredPointToSegment2D',
 ]) {
   assert(caller.includes(token), `Repair Spanner prototype missing contract: ${token}`);
 }
 
-for (const forbidden of [
-  'const float Damage',
-  'const float Speed',
-  'const float HitRadius',
-  'DefaultDamage',
-  'DefaultSpeed',
-  'DefaultRange',
-  'ParticleSystem',
-  'AudioSource',
-  'Camera.',
-  'Stage1GameplayRuntimeCoordinator',
-  'WeaponEffectType',
-  'LevelUp',
-]) {
+for (const forbidden of ['const float Damage','const float Speed','const float HitRadius','DefaultDamage','DefaultSpeed','DefaultRange','ParticleSystem','AudioSource','Camera.','Stage1GameplayRuntimeCoordinator','WeaponEffectType','LevelUp']) {
   assert(!caller.includes(forbidden), `Repair Spanner prototype must not own live/default behavior: ${forbidden}`);
 }
 
@@ -80,7 +57,7 @@ assert(repairSpanner.decision === 'HOLD_RETURN_FAMILY_OVERLAP', `Repair Spanner 
 assert(!repairSpanner.selectedForTitle1, 'Repair Spanner prototype work must not mutate the authored Hold decision');
 assert(repairSpanner.runtimeAutoPromotionAllowed === false, 'Repair Spanner candidate must remain non-auto-promotable');
 assert(!selectedTitle1BaseWeaponCandidates.some((entry) => entry.weaponId === 'repair_spanner'), 'Repair Spanner must remain outside Selected16');
-assert(currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE === 'MISSING', 'non-selected prototype proof must not pre-promote RETURNING_PROJECTILE capability');
+assert(currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE === 'IMPLEMENTED', 'selected Return Compass proof should now back the shared returning capability');
 
 assert(!weapons.some((weapon) => weapon.id === 'repair_spanner'), 'prototype caller must not add Repair Spanner to Web live catalog');
 for (const token of ['RepairSpannerPrototypeState', 'repair_spanner', 'U2ReturningProjectileMotionState']) {
@@ -88,47 +65,19 @@ for (const token of ['RepairSpannerPrototypeState', 'repair_spanner', 'U2Returni
 }
 
 for (const token of [
-  'first outbound target should be hit once',
-  'low-HP target should be defeated on outbound leg',
-  'defeated target must not receive EXPOSED after damage',
-  'same target must not hit twice on outbound leg',
-  'outbound/return ledgers must allow exactly one hit per target per leg',
-  'return EXPOSED attempts should be cooldown-blocked independently of damage',
-  'off-path target must not be hit',
-  'return motion must preserve projectile z',
-  'reset must clear motion phase and both hit ledgers',
-  'zero speed must fail closed without hits',
+  'first outbound target should be hit once','low-HP target should be defeated on outbound leg',
+  'defeated target must not receive EXPOSED after damage','same target must not hit twice on outbound leg',
+  'outbound/return ledgers must allow exactly one hit per target per leg','return EXPOSED attempts should be cooldown-blocked independently of damage',
+  'off-path target must not be hit','return motion must preserve projectile z','reset must clear motion phase and both hit ledgers','zero speed must fail closed without hits',
 ]) {
   assert(contract.includes(token), `Repair Spanner executable contract missing scenario: ${token}`);
 }
-for (const linkedSource of [
-  'RepairSpannerPrototypeRuntime.cs',
-  'U2ReturningProjectileMotionRuntime.cs',
-  'EnemyStatusRuntimeState.cs',
-  'EnemyStatusApplicationRequest.cs',
-]) {
+for (const linkedSource of ['RepairSpannerPrototypeRuntime.cs','U2ReturningProjectileMotionRuntime.cs','EnemyStatusRuntimeState.cs','EnemyStatusApplicationRequest.cs']) {
   assert(project.includes(linkedSource), `Repair Spanner contract project must compile real source: ${linkedSource}`);
 }
 
-for (const token of [
-  'PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE',
-  'HOLD_RETURN_FAMILY_OVERLAP',
-  'NON_SELECTED_RETURN_FAMILY_PROOF',
-  'CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON',
-  'ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE',
-  'runtimeAutoPromotionAllowed = false',
-  'Original / Canon boundary',
-]) {
+for (const token of ['PROTOTYPE_CALLER_IMPLEMENTED_NOT_LIVE','HOLD_RETURN_FAMILY_OVERLAP','NON_SELECTED_RETURN_FAMILY_PROOF','CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON','ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE','runtimeAutoPromotionAllowed = false','Original / Canon boundary']) {
   assert(doc.includes(token), `Repair Spanner prototype doc missing token: ${token}`);
 }
 
-console.log(JSON.stringify({
-  status: 'PASS',
-  caller: 'RepairSpannerPrototypeState',
-  weaponId: 'repair_spanner',
-  selectionDecision: repairSpanner.decision,
-  selectedForTitle1: repairSpanner.selectedForTitle1,
-  returningCapability: currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE,
-  liveStage1Changed: false,
-  canonTuningChanged: false,
-}, null, 2));
+console.log(JSON.stringify({ status: 'PASS', caller: 'RepairSpannerPrototypeState', weaponId: 'repair_spanner', selectionDecision: repairSpanner.decision, selectedForTitle1: repairSpanner.selectedForTitle1, returningCapability: currentUnityWeaponRuntimeCapabilities.RETURNING_PROJECTILE, liveStage1Changed: false, canonTuningChanged: false }, null, 2));

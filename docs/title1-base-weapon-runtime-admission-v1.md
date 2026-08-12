@@ -33,10 +33,19 @@ IMPLEMENTED:
 9. `SLAM_WAVE_QUERY`
 10. `BREAK_STAGGER_APPLICATION`
 11. `HOMING_PRIORITY_SELECTION`
+12. `RETURNING_PROJECTILE`
 
-現在 **11 implemented** / **11 missing**。
+現在 **12 implemented** / **10 missing**。
 
-`U2ReturningProjectileMotionRuntime` はshared motion foundationとしてmain済みだが、Selected16 return caller / hit semanticsのAdmissionが未完了なので `RETURNING_PROJECTILE` はまだMISSING。
+### Foundation implemented but capability still MISSING
+
+以下はshared foundationとexecutable contractがmainにあるが、Selected16 consumer proofが未完了なのでAdmission capabilityはまだMISSING:
+
+- `TARGET_CHAIN_SELECTION` — `U2EnemyTargetChainSelectionRuntime`
+- `TRAP_PERSISTENCE` — `U2PersistentTrapState`
+- `DELAYED_TRIGGER` — `U2DelayedTriggerState`
+
+Foundation存在だけでconsumer semanticsを捏造しない。
 
 ## Admission decisions
 
@@ -48,9 +57,9 @@ implementation-reviewはlive/productionを意味しない。全entryの `runtime
 
 ## Current result
 
-**admitted=5**
+**admitted=6**
 
-**blocked=11**
+**blocked=10**
 
 implementation-review admitted:
 
@@ -59,6 +68,7 @@ implementation-review admitted:
 - `bellows_fan`
 - `pavement_hammer`
 - `star_map_pin`
+- `return_compass_needle`
 
 primitive-complete but caller-proof missing:
 
@@ -74,8 +84,6 @@ Required:
 2. `KNOCKBACK_VECTOR`
 3. `STATUS_APPLICATION`
 
-3つともIMPLEMENTED。
-
 Selected16 caller:
 
 `RainThreadPrototypeState`
@@ -86,31 +94,70 @@ Application order:
 
 Caller proof:
 
-1. deterministic pair selection
-2. typed SOAKを両endpointへ適用
-3. caller-owned link duration
-4. tension thresholdを超えた時だけposition control
-5. `KNOCKBACK_VECTOR` を互いへ向けて対称pull
-6. max-link-distance超過でbreak
-7. endpoint untargetableでbreak
-8. duration expiry
-9. SOAK cooldownとlink activationを独立維持
-10. caller-owned telemetry
+- deterministic pair selection
+- typed SOAKを両endpointへ適用
+- caller-owned link duration
+- tension thresholdを超えた時だけposition control
+- `KNOCKBACK_VECTOR` を互いへ向けた対称pull
+- max-link-distance / endpoint-loss / duration expiry
+- SOAK cooldownとlink activationを独立
+- caller-owned telemetry
 
-現在:
+現在 `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`。ただし `runtimeStatus = NOT_IMPLEMENTED`。
 
-`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+## `return_compass_needle` — caller + capability verified / not live
 
-ただし:
+Selected16 `RETURN_HOMING`。
+
+Required:
+
+1. `RETURNING_PROJECTILE`
+2. `HOMING_PRIORITY_SELECTION`
+3. `STATUS_APPLICATION`
+
+3つともIMPLEMENTED。
+
+Selected16 caller:
+
+`ReturnCompassNeedlePrototypeState`
+
+Application order:
+
+`OUTBOUND_LINE_THEN_MARKED_PRIORITY_RETURN_WAYPOINT_THEN_OWNER`
+
+Hit policy:
+
+`ONE_HIT_PER_TARGET_PER_LEG_OUTBOUND_AND_RETURN_SEPARATE`
+
+Verified behavior:
+
+- outbound straight-line phase
+- caller-supplied MARKED bonusでreturn waypoint priorityを作る
+- outbound targetをreturn waypointから除外
+- invalid range / tie-breakはdirect-return fallbackへ変換せずfail closed
+- lost waypointはdynamic final owner anchorへskip
+- outbound / returnのhit ledgerを分離
+- bent routeをactual cornerで分割してsegment hit判定
+- damage first、surviving target only typed MARKED
+- MARKED cooldownはreturn damageをblockしない
+- caller telemetry
+
+Shared waypoint motion / homing selectorはMARKEDやWeapon identityを知らない。
+
+Atomic Admission:
+
+- `RETURNING_PROJECTILE = IMPLEMENTED`
+- `return_compass_needle` caller proof registered
+- `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
+
+Still:
 
 - `runtimeStatus = NOT_IMPLEMENTED`
 - Web live catalog未接続
 - LevelUp未接続
 - `Stage1GameplayRuntimeCoordinator`未接続
-- U47 live executor未拡張
-- final tether line / VFX / readability未承認
-
-すべてのrange / duration / pull / SOAK値は `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`。
+- U47 executor未拡張
+- final VFX / mobile readability未承認
 
 ## Existing admitted callers
 
@@ -136,34 +183,19 @@ Caller proof:
 
 ### `name_reel`
 
-Authoring Authority:
-
-`HOLD_TARGET_LINK_READABILITY`
+Authoring Authority: `HOLD_TARGET_LINK_READABILITY`。
 
 Selected16ではない。Tether実装を理由にAdmission rowを作らない。
 
 ### `repair_spanner`
 
-Authoring Authority:
+Authoring Authority: `HOLD_RETURN_FAMILY_OVERLAP`。
 
-`HOLD_RETURN_FAMILY_OVERLAP`
+non-selected return-family proofはhit semantics検証に使うがSelected16 caller proofとして数えない。`RETURNING_PROJECTILE` 昇格後もHoldを維持する。
 
-non-selected return-family proofはhit semantics検証に使うがSelected16 caller proofとして数えない。
+## Shared primitive evidence
 
-## `return_compass_needle`
-
-Selected16 `RETURN_HOMING`。
-
-現在:
-
-- `HOMING_PRIORITY_SELECTION`: IMPLEMENTED
-- `RETURNING_PROJECTILE`: MISSING
-
-したがって `BLOCKED_MISSING_UNITY_PRIMITIVES` を維持する。
-
-返投motion foundationだけでreturn capabilityを偽装しない。
-
-## `TWO_TARGET_TETHER` implementation evidence
+### `TWO_TARGET_TETHER`
 
 `U2EnemyTetherPairSelectionRuntime`
 
@@ -177,17 +209,18 @@ Selected16 `RETURN_HOMING`。
 
 Generic primitiveはRain Thread / SOAK / damage / lifetime / position-control / LineRenderer / Canon値を持たない。
 
-Executable proof:
+### `RETURNING_PROJECTILE`
 
-- `scripts/quality/unity-two-target-tether/UnityTwoTargetTether.Contract.csproj`
-- `scripts/quality/unity-two-target-tether/Program.cs`
+Evidence is composed from:
 
-Rain Thread caller proof:
+- `U2ReturningProjectileMotionState`
+- `U2ReturningWaypointMotionState`
+- `ReturnCompassNeedlePrototypeState`
+- executable caller contract
 
-- `scripts/quality/unity-rain-thread/UnityRainThread.Contract.csproj`
-- `scripts/quality/unity-rain-thread/Program.cs`
+Shared movement owns phase/travel-budget/dynamic waypoint/anchor only。Weapon/MARKED/hit/damage/Status semanticsはcaller側。
 
-## Shared primitive boundaries
+### Other boundaries
 
 - `STATUS_APPLICATION`: Status state / stack / magnitude / cooldown / typed transport。Weapon tuningなし。
 - `KNOCKBACK_VECTOR`: caller direction/distance、targetable-only、Z preserve。Weapon identityなし。
@@ -222,10 +255,9 @@ Runtime進捗を理由にSelected16/Holdを変更しない。
 
 ## Next gates
 
-1. Rain Thread Unity runtime evidence harness
-2. rendered tether line / mobile readability
-3. `return_compass_needle` Selected16 returning caller proof
-4. `RETURNING_PROJECTILE` capability admission
-5. runtime evidence / human live-admission review
+1. `copper_tuning_fork` Selected16 caller proof -> `TARGET_CHAIN_SELECTION`
+2. `pressed_flower_cards` Selected16 caller proof -> `TRAP_PERSISTENCE`
+3. `dream_alarm` Selected16 caller proof -> `DELAYED_TRIGGER`
+4. runtime evidence / mobile readability / human live-admission review
 
 数値balanceは最後まで `PROTOTYPE_TUNING_NOT_CANON` として原本/Canonから分離する。
