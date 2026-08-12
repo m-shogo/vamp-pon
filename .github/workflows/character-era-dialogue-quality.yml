@@ -1,0 +1,35 @@
+name: Character Era Dialogue Quality
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'scripts/quality/check-character-era-dialogue-quality.ts'
+      - 'docs/character-era-dialogue-quality-v1.md'
+      - '.github/workflows/character-era-dialogue-quality.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'scripts/quality/check-character-era-dialogue-quality.ts'
+      - 'docs/character-era-dialogue-quality-v1.md'
+      - '.github/workflows/character-era-dialogue-quality.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 36-character Era dialogue diversity and safety
+        run: node --experimental-strip-types scripts/quality/check-character-era-dialogue-quality.ts
