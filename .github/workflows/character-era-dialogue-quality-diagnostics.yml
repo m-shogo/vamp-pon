@@ -1,0 +1,63 @@
+name: Character Era Dialogue Quality Diagnostics
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/quality/check-character-era-dialogue-quality.ts'
+      - '.github/workflows/character-era-dialogue-quality-diagnostics.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  duplicates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check duplicate dialogue and scene surfaces
+        env:
+          ERA_DIALOGUE_QUALITY_MODE: duplicates
+        run: node --experimental-strip-types scripts/quality/check-character-era-dialogue-quality.ts
+
+  substance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check scene substance
+        env:
+          ERA_DIALOGUE_QUALITY_MODE: substance
+        run: node --experimental-strip-types scripts/quality/check-character-era-dialogue-quality.ts
+
+  chronology:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check chronology exposition leaks
+        env:
+          ERA_DIALOGUE_QUALITY_MODE: chronology
+        run: node --experimental-strip-types scripts/quality/check-character-era-dialogue-quality.ts
+
+  boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check special Canon boundaries
+        env:
+          ERA_DIALOGUE_QUALITY_MODE: boundaries
+        run: node --experimental-strip-types scripts/quality/check-character-era-dialogue-quality.ts
