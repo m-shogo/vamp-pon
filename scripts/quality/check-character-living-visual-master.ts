@@ -6,6 +6,7 @@ const root = process.cwd();
 const rosterPath = path.join(root, 'data/visual/character-living-visual-roster-v1.json');
 const policyPath = path.join(root, 'data/visual/character-living-visual-master-policy.json');
 const brainPath = path.join(root, 'data/visual/character-designer-ai-brain.json');
+const core5Path = path.join(root, 'data/visual/core5-living-visual-profiles-v1.json');
 
 function readJson(filePath: string) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -18,6 +19,7 @@ function fail(message: string): never {
 const roster = readJson(rosterPath);
 const policy = readJson(policyPath);
 const brain = readJson(brainPath);
+const core5 = readJson(core5Path);
 
 if (roster.globalFallback?.unspecifiedMeansFreeChoice !== false) {
   fail('unspecifiedMeansFreeChoice must remain false');
@@ -85,4 +87,28 @@ if (appearanceIndex < 0 || masterIndex > appearanceIndex) {
   fail('Living Visual Master must be read before Appearance Source Book');
 }
 
-console.log(`[character-living-visual-master] OK: ${actual.length} characters (${current21} Current21 / ${future15} Future15)`);
+const expectedCore5 = ['yui', 'asa', 'nagi', 'michiru', 'tomori'];
+const detailed = core5.characters ?? [];
+if (detailed.length !== expectedCore5.length) fail(`Core5 detailed profile count must be ${expectedCore5.length}`);
+const detailedById = new Map(detailed.map((entry: any) => [entry.id, entry]));
+for (const id of expectedCore5) {
+  const entry: any = detailedById.get(id);
+  if (!entry) fail(`missing detailed Core5 profile: ${id}`);
+  for (const field of [
+    'bodyComfort','exposurePreference','temperatureAndComfort','movementNeeds','piercingPolicy','tattooPolicy',
+    'jewelryPolicy','makeupPolicy','nailPolicy','silhouettePreference','fitPreference','materialPreference',
+    'colorRelationship','patternPreference','footwearPreference','bagPocketBehavior','clothingWearHabits',
+    'acquisitionPreference','maintenanceBehavior','wardrobeBreadth','socialPresentation','privatePublicCeremonial',
+    'hairGroomingBehavior','absoluteNever','positivePreference',
+  ]) {
+    if (entry[field] == null) fail(`${id}: missing detailed field ${field}`);
+  }
+  if (!Array.isArray(entry.absoluteNever) || entry.absoluteNever.length < 5) fail(`${id}: absoluteNever < 5`);
+  if (!Array.isArray(entry.positivePreference) || entry.positivePreference.length < 5) fail(`${id}: positivePreference < 5`);
+  const exposureKeys = ['shoulders','upperArms','chestNeckline','midriff','back','thighs','knees','legs'];
+  for (const key of exposureKeys) {
+    if (!entry.exposurePreference?.[key]) fail(`${id}: exposurePreference.${key} missing`);
+  }
+}
+
+console.log(`[character-living-visual-master] OK: ${actual.length} characters (${current21} Current21 / ${future15} Future15); detailed Core5=${detailed.length}`);
