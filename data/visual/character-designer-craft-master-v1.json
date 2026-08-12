@@ -1,0 +1,109 @@
+{
+  "id": "yoru-no-shirube-character-designer-craft-master-v1",
+  "date": "2026-08-12",
+  "status": "DESIGNER_CRAFT_AUTHORITY_NON_CANON",
+  "authorityDocument": "docs/visual/character-designer-craft-master-v1.md",
+  "purpose": "Persist practical character-design judgment across model sessions without turning named artists or IP into production style targets.",
+  "modules": {
+    "faceDesign": {
+      "principles": [
+        "differentiate face outline, eyes, eyelids, brows, nose, mouth, cheek volume, hairline",
+        "do not use hair color or eye color as the main face distinction",
+        "design resting face, not only smiling key art",
+        "age coding is distributed across structure, volume, eyelids, neck, skin, posture and expression"
+      ],
+      "forbidden": ["generic-v-jaw-normalization","same-eye-template","large-eye-small-nose-beauty-normalization"]
+    },
+    "bodyDesign": {
+      "axes": ["height","shoulder-width","torso-volume","waist-relation","hip-relation","limb-length","hand-foot-impression","neck-length","center-of-gravity","habitual-posture"],
+      "principles": [
+        "body is lived history, not role shorthand",
+        "separate body silhouette from garment silhouette",
+        "growth does not normalize body size, age, disability, presentation or skin tone"
+      ],
+      "forbidden": ["strong-equals-muscular","smart-equals-thin","cute-equals-tiny","plus-size-comedy-coding"]
+    },
+    "postureGesture": {
+      "neutralStandingTest": true,
+      "everydayActions": ["sit","eat-or-drink","carry-mundane-object","wait","trivial-conversation"],
+      "principle": "dramatic poses must remain extensions of the person's neutral physical habits"
+    },
+    "silhouette": {
+      "blackFillTest": true,
+      "signatureShapeTarget": "3-5 strong shapes",
+      "ensembleChecks": ["head-mass","shoulder-torso-ratio","garment-mass","leg-spacing","prop-position"],
+      "forbidden": ["detail-count-as-individuality","whole-cast-same-long-coat","whole-cast-same-asymmetry"]
+    },
+    "clothingConstruction": {
+      "mustExplain": ["how-worn","fastening","layer-count","pockets","prop-interference","sitting-behavior","weather-or-work-adjustment"],
+      "ornamentReasons": ["fastening","carrying","repair","identification","ceremonial","sentimental","cultural"],
+      "worldInputs": ["textile","fastening-technology","repair-culture","climate","occupation","paper-ink-star-chart-material-vocabulary"],
+      "motifTranslation": ["seam-map","fold-logic","binding","layering","material-aging","stitch-line","light-diffusion","repair-trace"]
+    },
+    "materialSurface": {
+      "principles": [
+        "choose a dominant material hierarchy",
+        "wear history is life evidence",
+        "quality is not equivalent to gloss, gems, rim light or embroidery density"
+      ]
+    },
+    "color": {
+      "hierarchy": ["dominant","support","accent","emission"],
+      "principles": [
+        "theme color is not a uniform",
+        "evaluate value mass and saturation pattern across the cast, not hue alone"
+      ]
+    },
+    "hair": {
+      "priority": ["overall-mass","side-width","crown-height","back-length","tied-loose-balance"],
+      "dailyBehavior": ["morning-care","work-tie","rain-reaction","ear-tuck"],
+      "forbidden": ["hair-ornament-as-free-individuality","salon-perfect-every-scene"]
+    },
+    "accessoryBodyModification": {
+      "mustKnow": ["who-chose","when","why","daily-or-not","when-removed","maintenance"],
+      "unknownMeans": "DO_NOT_ADD"
+    },
+    "expressionActing": {
+      "range": ["neutral","genuine-smile","embarrassed","irritated-or-deadpan","tired","concentrated","startled","serious"],
+      "comedyCompressionAnchors": ["hair-mass","body-proportion","posture","main-prop","brow-eye-rhythm"],
+      "principle": "the same identity must support trivial comedy and serious drama"
+    },
+    "propDesign": {
+      "ownershipQuestions": ["storage","dominant-hand","carry-method","repair-behavior"],
+      "principle": "do not create multiple props with equal visual hierarchy when one named object is the character anchor"
+    },
+    "iteration": {
+      "diagnosisOrder": [
+        "identity-reason",
+        "body-posture",
+        "silhouette",
+        "clothing-construction",
+        "value-color-hierarchy",
+        "material-logic",
+        "detail-last"
+      ],
+      "rule": "subtract or fix structure before adding decoration"
+    },
+    "originality": {
+      "diagnosticLayers": ["face-identity","silhouette","costume-construction","accessory-vocabulary","color-hierarchy","rendering","composition"],
+      "repairRule": "fix the smallest affected layer unless multiple layers create a strong third-party association"
+    }
+  },
+  "finalCraftChecks": [
+    "face-identifiable-without-hair-color-reliance",
+    "black-fill-silhouette-distinct",
+    "identity-survives-without-weapon-effects",
+    "clothing-supports-sitting-walking-daily-life",
+    "character-has-personal-reason-to-choose-clothing",
+    "materials-have-world-and-life-reason",
+    "world-motifs-are-structural-not-pasted-symbols",
+    "body-and-posture-remain-distinct-in-ensemble",
+    "supports-ordinary-and-comedy-acting",
+    "compresses-to-chibi-and-pixel",
+    "remains-attractive-after-generic-fantasy-detail-is-removed"
+  ],
+  "researchIntake": {
+    "store": ["source","observed-design-problem","generalized-craft-principle","yoru-translation","prohibited-direct-copy-elements"],
+    "neverStoreAsProductionTarget": ["source-specific-face-recipe","exact-costume","exact-palette","exact-prop","signature-rendering","named-style-prompt-phrase"]
+  }
+}
