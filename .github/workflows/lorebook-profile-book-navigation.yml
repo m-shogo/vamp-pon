@@ -1,0 +1,62 @@
+name: Lorebook Profile Book Navigation
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/profile-enhancement.js'
+      - 'public/lorebook/profile.css'
+      - 'public/lorebook/data/profile-book-navigation.v1.json'
+      - 'public/lorebook/data/personal-profiles.v1.json'
+      - 'src/game/data/characterProfileBookReadModel.ts'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'docs/lorebook-profile-book-navigation-v1.md'
+      - '.github/workflows/lorebook-profile-book-navigation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/profile-enhancement.js'
+      - 'public/lorebook/profile.css'
+      - 'public/lorebook/data/profile-book-navigation.v1.json'
+      - 'public/lorebook/data/personal-profiles.v1.json'
+      - 'src/game/data/characterProfileBookReadModel.ts'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'docs/lorebook-profile-book-navigation-v1.md'
+      - '.github/workflows/lorebook-profile-book-navigation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate profile enhancement syntax
+        run: node --check public/lorebook/profile-enhancement.js
+      - name: Validate Profile Book navigation against read model
+        run: node --experimental-strip-types --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { CHARACTER_PROFILE_BOOK_SECTIONS, characterProfileBookReadModelSummary } from './src/game/data/characterProfileBookReadModel.ts';
+          const nav = JSON.parse(fs.readFileSync('public/lorebook/data/profile-book-navigation.v1.json', 'utf8'));
+          const profiles = JSON.parse(fs.readFileSync('public/lorebook/data/personal-profiles.v1.json', 'utf8'));
+          const js = fs.readFileSync('public/lorebook/profile-enhancement.js', 'utf8');
+          const css = fs.readFileSync('public/lorebook/profile.css', 'utf8');
+          const fail = (m) => { throw new Error(m); };
+          if (nav.characterCount !== characterProfileBookReadModelSummary.characterCount) fail('character count drift');
+          if (nav.current21Count !== characterProfileBookReadModelSummary.current21Count) fail('Current21 drift');
+          if (nav.future15Count !== characterProfileBookReadModelSummary.future15Count) fail('Future15 drift');
+          if (nav.dimensionCount !== characterProfileBookReadModelSummary.assignedDimensionCount) fail('dimension drift');
+          if (nav.sectionCount !== characterProfileBookReadModelSummary.sectionCount) fail('section drift');
+          const sourceSections = CHARACTER_PROFILE_BOOK_SECTIONS.map((s) => ({ id:s.id, dimensions:[...s.dimensions] }));
+          const navSections = nav.sections.map((s) => ({ id:s.id, dimensions:s.dimensions }));
+          if (JSON.stringify(navSections) !== JSON.stringify(sourceSections)) fail('section assignment drift');
+          if (nav.sections.flatMap((s)=>s.dimensions).length !== 21 || new Set(nav.sections.flatMap((s)=>s.dimensions)).size !== 21) fail('21 dimensions must be unique');
+          if (!Array.isArray(profiles.profiles) || profiles.profiles.length !== 36) fail('personal profile coverage drift');
+          if (!js.includes('PROFILE BOOK / SOURCE MAP') || !js.includes('READ MODEL')) fail('Profile Book JS contract missing');
+          for (const token of ['.profile-book-guide','.profile-book-nav-grid','.profile-source-legend','.profile-book-read-strip']) if (!css.includes(token)) fail(`CSS contract missing ${token}`);
+          if (nav.runtimeAutoPromotionAllowed !== false || nav.publicSpoilerProjectionDefined !== false) fail('authority boundary drift');
+          NODE
