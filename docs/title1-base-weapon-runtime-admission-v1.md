@@ -34,14 +34,19 @@ IMPLEMENTED:
 12. `HOMING_PRIORITY_SELECTION`
 13. `RETURNING_PROJECTILE`
 14. `TRAP_PERSISTENCE`
+15. `DELAYED_TRIGGER`
 
-現在 **14 implemented** / **8 missing**。
+現在 **15 implemented** / **7 missing**。
 
-### Foundation implemented but capability still MISSING
+Remaining missing:
 
-- `DELAYED_TRIGGER` — `U2DelayedTriggerState`
-
-Dream Alarm callerは別PRでstaged proof中。Foundation存在だけでAdmissionを先行しない。
+- `SWEEP_QUERY`
+- `REFLECT_WINDOW`
+- `VEIL_TRACKING_FRICTION`
+- `LINE_PIERCE_RESIDUE`
+- `ORBIT_LINK`
+- `SPIRAL_FIELD`
+- `LANE_BOUNDARY_TRIGGER`
 
 ## Admission decisions
 
@@ -53,9 +58,9 @@ implementation-reviewはlive/productionを意味しない。全entryの `runtime
 
 ## Current result
 
-**admitted=8**
+**admitted=9**
 
-**blocked=8**
+**blocked=7**
 
 implementation-review admitted:
 
@@ -65,84 +70,79 @@ implementation-review admitted:
 - `copper_tuning_fork`
 - `pavement_hammer`
 - `pressed_flower_cards`
+- `dream_alarm`
 - `star_map_pin`
 - `return_compass_needle`
 
 primitive-complete but caller-proof missing: none。
 
-## `pressed_flower_cards` — caller + capability verified / not live
+## `dream_alarm` — caller + capability verified / not live
 
-Selected16 `TRAP_FIELD`。
+Selected16 `DELAYED_PULSE`。
 
 Required:
 
-1. `TRAP_PERSISTENCE`
+1. `DELAYED_TRIGGER`
 2. `STATUS_APPLICATION`
 
 Selected16 caller:
 
-`PressedFlowerCardsPrototypeState`
+`DreamAlarmPrototypeState`
 
 Application order:
 
-`PLACE_ARM_WAIT_TARGET_ENTER_CONSUME_TRIGGER_THEN_TYPED_ROOTED`
+`PLACE_WAIT_READY_EXPLICIT_CONSUME_AREA_DROWSY`
 
 Verified:
 
-- one placed card = one shared trap state
-- caller-owned radius
-- pre-arm/out-of-range/untargetable/duplicate reject without budget loss
-- eligible physical trigger consumes budget before typed ROOTED
-- same target max once per placed card
-- ROOTED cooldown may block Status but does not refund trigger
-- arming carryover / exhaustion / expiry
+- physical placement + caller-supplied delay
+- Waiting -> Ready transition
+- Tick does not auto-fire
+- explicit one-shot consume
+- caller-owned XY radius query
+- targetable in-range candidates receive typed DROWSY
+- empty area still consumes the physical pulse
+- DROWSY cooldown blocks only Status and does not refund pulse
+- Waiting / Ready cancellation
+- invalid inputs fail closed without consuming valid Ready
 - telemetry/reset
-- all tuning NOT_CANON
+- no damage/default delay/default radius
 
 Atomic Admission:
 
-- `TRAP_PERSISTENCE = IMPLEMENTED`
-- `pressed_flower_cards` caller proof registered
+- `DELAYED_TRIGGER = IMPLEMENTED`
+- `dream_alarm` caller proof registered
 - `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
 Still `runtimeStatus = NOT_IMPLEMENTED`。
 
-### Boss conversion boundary
+## `pressed_flower_cards`
 
-Content runtime noteのBoss conversionは未実装。
+`TRAP_PERSISTENCE + STATUS_APPLICATION`。Caller `PressedFlowerCardsPrototypeState`。
 
-- normal typed ROOTED + trap lifecycleはimplementation-review proof済み
-- Boss conversionはshared boss-Status policy / runtime evidenceの別gate
-- exact slow/action-delay/immunityはここでCanon化しない
+`PLACE_ARM_WAIT_TARGET_ENTER_CONSUME_TRIGGER_THEN_TYPED_ROOTED`
 
-**Boss conversion** 未完了をlive admission blockerとして正直に保持する。
+Trap lifecycle / unique target / physical trigger budget / typed ROOTEDを実証済み。Boss conversionは未実装のlive gate。
+
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW` / not live。
 
 ## `copper_tuning_fork`
 
 `TARGET_CHAIN_SELECTION + STATUS_APPLICATION`。Caller `CopperTuningForkPrototypeRuntime`。
 
-`PRIORITY_SNAPSHOT_CHAIN_DAMAGE_SURVIVING_SHOCK_THEN_CONDUCTIVE`
-
-CONDUCTIVE snapshot priority、local re-anchor、damage-first SHOCK/CONDUCTIVEを実証済み。`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW` / `runtimeStatus = NOT_IMPLEMENTED`。
+CONDUCTIVE snapshot priority + local chain + damage->SHOCK->CONDUCTIVEを実証済み。not live。
 
 ## `rain_thread`
 
-`TWO_TARGET_TETHER + KNOCKBACK_VECTOR + STATUS_APPLICATION`。Caller `RainThreadPrototypeState`。
-
-Pair selection、両endpoint SOAK、対称pull、distance/endpoint/expiryを実証済み。not live。
+Tether + knockback + Status。Pair SOAK + caller-owned symmetric pull。not live。
 
 ## `return_compass_needle`
 
-`RETURNING_PROJECTILE + HOMING_PRIORITY_SELECTION + STATUS_APPLICATION`。Caller `ReturnCompassNeedlePrototypeState`。
-
-MARKED-priority bent return、separate leg ledgers、damage-first surviving MARKEDを実証済み。not live。
+Returning + homing priority + Status。MARKED-priority bent return + separate leg ledgers。not live。
 
 ## Existing admitted callers
 
-- `EmberMatchcasePrototypeRuntime`
-- `BellowsFanPrototypeRuntime`
-- `PavementHammerPrototypeRuntime`
-- `StarMapPinPrototypeRuntime`
+`EmberMatchcasePrototypeRuntime`, `BellowsFanPrototypeRuntime`, `PavementHammerPrototypeRuntime`, `StarMapPinPrototypeRuntime`。
 
 全caller tuningは `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`。
 
@@ -155,11 +155,15 @@ runtime進捗を理由にSelected16へ昇格しない。
 
 ## Shared primitive evidence
 
+### `DELAYED_TRIGGER`
+
+`U2DelayedTriggerState` + `DreamAlarmPrototypeState` executable proof。
+
+Shared delayはWeapon / DROWSY / radius / target query / effect / VFX / Canon値を持たない。
+
 ### `TRAP_PERSISTENCE`
 
-`U2PersistentTrapState` + `PressedFlowerCardsPrototypeState` executable proof。
-
-Shared stateはWeapon / ROOTED / query / boss conversion / damage / cadence / Canon値を持たない。
+`U2PersistentTrapState` + Pressed Flower executable proof。Shared trapはROOTED / boss conversionを持たない。
 
 ### `TARGET_CHAIN_SELECTION`
 
@@ -167,11 +171,11 @@ Shared stateはWeapon / ROOTED / query / boss conversion / damage / cadence / Ca
 
 ### `RETURNING_PROJECTILE`
 
-Returning motion + waypoint + Return Compass executable proof。Shared movementはMARKED/hit/damageを持たない。
+Returning motion/waypoint + Return Compass proof。Shared movementはMARKED/hit/damageを持たない。
 
-### Other boundaries
+## Boss conversion boundary
 
-`STATUS_APPLICATION`, `KNOCKBACK_VECTOR`, `CONE_QUERY`, `SLAM_WAVE_QUERY`, `BREAK_STAGGER_APPLICATION`, `HOMING_PRIORITY_SELECTION`, `TWO_TARGET_TETHER` はcaller tuning/identityを持たない。
+Pressed Flower Content noteの **Boss conversion** はまだlive/runtime evidence未完了。Exact slow/action-delay/immunity値はCanon化しない。
 
 ## Live boundary
 
@@ -183,7 +187,7 @@ Returning motion + waypoint + Return Compass executable proof。Shared movement�
 - U47 executorの名前だけ追加
 - save migration先行作成
 - unsupported weaponをProjectile/GroundAreaへ偽装
-- primitive proofだけでruntime auto-promotion
+- prototype proofだけでruntime auto-promotion
 
 ## CONTENT_MASTER boundary
 
@@ -193,8 +197,13 @@ Runtime進捗を理由にSelected16/HoldやWeapon name / Attribute / Status / af
 
 ## Next gates
 
-1. `dream_alarm` Selected16 caller proof -> `DELAYED_TRIGGER`
-2. remaining shared primitives: `SWEEP_QUERY`, `REFLECT_WINDOW`, `VEIL_TRACKING_FRICTION`, `LINE_PIERCE_RESIDUE`, `ORBIT_LINK`, `SPIRAL_FIELD`, `LANE_BOUNDARY_TRIGGER`
-3. runtime evidence / Boss conversion / mobile readability / human live-admission review
+1. `SWEEP_QUERY` consumer
+2. `REFLECT_WINDOW` consumer
+3. `VEIL_TRACKING_FRICTION` consumer
+4. `LINE_PIERCE_RESIDUE` consumer
+5. `ORBIT_LINK` consumer
+6. `SPIRAL_FIELD` consumer
+7. `LANE_BOUNDARY_TRIGGER` consumer
+8. runtime evidence / Boss conversion / mobile readability / human live-admission review
 
 数値balanceは最後まで `PROTOTYPE_TUNING_NOT_CANON`。

@@ -1,14 +1,12 @@
 # Unity Dream Alarm Prototype v1
 
-Status: `SELECTED16 / STAGED_CALLER_PROOF / DELAYED_TRIGGER_CAPABILITY_NOT_YET_PROMOTED / NOT_LIVE`
+Status: `SELECTED16 / CALLER_PROOF_VERIFIED / CAPABILITY_IMPLEMENTED / IMPLEMENTATION_REVIEW_ADMITTED / NOT_LIVE`
 
 ## Purpose
 
 Selected16 `dream_alarm` / 夢の目覚ましの `DELAYED_PULSE` を、shared delayed trigger + caller-owned area query + typed DROWSYとして実装する。
 
-Authoring Authority:
-
-`TITLE1_SELECTED`
+Authoring Authority: `TITLE1_SELECTED`。
 
 Mechanical identity:
 
@@ -16,18 +14,11 @@ Mechanical identity:
 - telegraphed delay
 - one explicit delayed pulse
 - surrounding action tempo shifts through DROWSY
-- no shrill loop / repeating automatic alarm
+- no repeating/shrill automatic loop
 
 ## Composition
 
-`DreamAlarmPrototypeState`
-
-uses:
-
-- `U2DelayedTriggerState`
-- typed `EnemyStatusApplicationRequest`
-- `EnemyStatusRuntimeKind.Drowsy`
-- caller-owned XY radius query over supplied candidates
+`DreamAlarmPrototypeState` uses `U2DelayedTriggerState` + typed DROWSY + caller-owned XY radius query。
 
 Application order:
 
@@ -35,41 +26,20 @@ Application order:
 
 ## Ready is not fire
 
-`TryTick()` only advances the shared delay gate.
+`TryTick()` only advances the delay gate。Ready到達時もeffectは自動発火しない。Callerが明示 `TryFire(...)` した時だけReadyを1回consumeし、targetable in-range candidatesへtyped DROWSYを適用する。
 
-When delay reaches zero:
+- empty areaでもphysical pulseは1回consume
+- DROWSY cooldownはStatusだけblockしpulseをrefundしない
+- outside / untargetableは無視
+- radius boundary inclusive
+- Waiting / Cancelled / Firedはfire不可
+- Waiting / Readyはcaller cancel可能
 
-- phase becomes `Ready`
-- telemetry records the transition once
-- no Status/effect is applied automatically
-
-Caller must explicitly invoke `TryFire(...)`.
-
-`TryFire(...)` validates candidates/radius, consumes Ready exactly once, then scans targetable enemies inside the caller-supplied XY radius and applies typed DROWSY.
-
-This preserves effect ordering outside the shared delay primitive.
-
-## One-shot pulse semantics
-
-- Empty area is still a real pulse and consumes the one-shot alarm.
-- DROWSY internal cooldown may block Status on a target, but does not refund the physical pulse.
-- Outside/untargetable candidates are ignored.
-- Radius boundary is inclusive.
-- Waiting/Cancelled/Fired alarm cannot fire.
-- caller may cancel Waiting or Ready before explicit consume.
-
-No damage is invented here because current mechanical identity is tempo-shaping delayed pulse, not damage-first burst.
+Damageは現在のtempo-shaping identityにないため捏造しない。
 
 ## Caller-supplied tuning
 
-固定しない:
-
-- placement position
-- delay
-- pulse radius
-- DROWSY duration/stacks/magnitude/cooldown
-- total simultaneous clocks
-- placement cadence
+固定しない: placement / delay / radius / DROWSY policy / simultaneous clocks / placement cadence。
 
 `CALLER_SUPPLIED_PROTOTYPE_TUNING_NOT_CANON`
 
@@ -78,57 +48,40 @@ No damage is invented here because current mechanical identity is tempo-shaping 
 - `scripts/quality/unity-dream-alarm/UnityDreamAlarm.Contract.csproj`
 - `scripts/quality/unity-dream-alarm/Program.cs`
 
-TEST_ONLY scenarios:
+Verified:
 
 - positive delay -> Waiting
-- early fire rejected without consuming delay
-- delay overshoot -> Ready exactly once
-- Ready tick does not auto-fire
-- explicit fire includes targetable boundary and excludes outside/untargetable targets
-- in-range targets receive typed DROWSY
-- Fired cannot fire twice
-- zero-delay begins Ready but still requires explicit fire
-- empty area still consumes one-shot pulse
-- DROWSY cooldown blocks only Status, not pulse consumption
+- early fire rejection
+- overshoot -> Ready exactly once
+- Ready tick no auto-fire
+- area boundary / targetability
+- typed DROWSY
+- single fire only
+- zero-delay Ready but explicit fire required
+- empty pulse consumes once
+- DROWSY cooldown independence
 - Waiting / Ready cancellation
-- invalid placement / radius / candidate list fail closed
-- invalid fire does not consume a valid Ready state
-- reset / telemetry reset
+- invalid placement/radius/candidates fail closed without consuming valid Ready
+- reset/telemetry reset
 
-All fixture values are NOT_CANON.
+All fixtures NOT_CANON。
 
-## Staged Admission boundary
+## Admission state
 
-This caller-only step keeps:
+Shared delay foundation + executable Selected16 caller proof are green:
 
-`DELAYED_TRIGGER = MISSING`
+`DELAYED_TRIGGER = IMPLEMENTED`
 
-`dream_alarm` remains:
+Caller proof is registered and current decision is:
 
-`BLOCKED_MISSING_UNITY_PRIMITIVES`
+`ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
 
-Caller registry is not updated yet.
-
-After shared delayed-trigger foundation + this executable Selected16 caller proof are green, a separate atomic Admission overlay may:
-
-- `DELAYED_TRIGGER = IMPLEMENTED`
-- register `dream_alarm`
-- move it to `ADMITTED_FOR_UNITY_IMPLEMENTATION_REVIEW`
-
-Even then:
+Still:
 
 `runtimeStatus = NOT_IMPLEMENTED`
 
 ## Live boundary
 
-No automatic connection to:
-
-- Web live catalog
-- LevelUp
-- `Stage1GameplayRuntimeCoordinator`
-- U47 executor
-- save migration
-- final VFX/SFX
-- production balance
+No automatic Web catalog / LevelUp / `Stage1GameplayRuntimeCoordinator` / U47 executor / save migration / final VFX/SFX / production balance。
 
 `runtimeAutoPromotionAllowed = false`
