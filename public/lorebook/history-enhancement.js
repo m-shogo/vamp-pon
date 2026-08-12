@@ -22,28 +22,41 @@ function threadMarkup(thread, index) {
         <small>${memberNames}</small>
       </header>
       <div class="history-thread-body">
-        <div><b>今わかっていること</b><ul>${knownItems}</ul></div>
+        <div><b>Source anchors / Candidate boundary</b><ul>${knownItems}</ul></div>
         <div class="history-gap"><b>まだ空いている時間</b><p>${thread.gap}</p></div>
         <div class="history-payoff"><b>この線が生きると</b><p>${thread.payoff}</p></div>
       </div>
-      <footer><span>${thread.kind}</span><span>${thread.confidence}</span></footer>
+      <footer><span>${thread.kind}</span><span>${thread.evidenceState}</span></footer>
     </article>
   `;
 }
 
 function eraMarkup(eraMethod) {
-  const layerCards = eraMethod.layers.map((layer) => `<article><b>${layer.label}</b><p>${layer.meaning}</p></article>`).join('');
+  const laneCards = eraMethod.lanes.map((lane) => `
+    <article data-era-kind="${lane.kind}">
+      <b>${lane.label}</b>
+      <small>${lane.kind === 'REALITY_LANE' ? 'REALITY LANE' : 'OPEN SPECIAL'}</small>
+      <p>${lane.meaning}</p>
+    </article>
+  `).join('');
   const evidence = eraMethod.requiredEvidence.join(' / ');
-  const anchorCards = eraMethod.firstAnchors.map((anchor) => {
-    const name = historyNames[anchor.characterId] ?? anchor.characterId;
-    return `<article><span>${name}</span><p>${anchor.note}</p></article>`;
+  const lockCards = eraMethod.upstreamLocks.map((lock) => {
+    const name = historyNames[lock.characterId] ?? lock.characterId;
+    return `<article><span>${name} · ${lock.status}</span><b>${lock.lane}</b><p>${lock.note}</p></article>`;
   }).join('');
+  const rules = eraMethod.rules.map((rule) => `<li>${rule}</li>`).join('');
   return `
     <section class="era-method author-only">
-      <header><span>RELATIVE ERA METHOD / CANDIDATE</span><h3>西暦より先に、時代の根拠を持つ。</h3><p>${eraMethod.principle}</p></header>
-      <div class="era-layer-row">${layerCards}</div>
+      <header>
+        <span>36 CHARACTER ERA METHOD / AUTHOR CANDIDATE</span>
+        <h3>OLD / RECENTではなく、生活のEvidenceから5つのReality laneへ置く。</h3>
+        <p>${eraMethod.principle}</p>
+        <small>${eraMethod.characterCount} characters · Current21 ${eraMethod.current21Count} · Future15 ${eraMethod.future15Count} · exact year OPEN</small>
+      </header>
+      <div class="era-layer-row">${laneCards}</div>
       <div class="era-evidence"><b>Eraを置く時に必要なevidence</b><p>${evidence}</p></div>
-      <div class="era-anchors">${anchorCards}</div>
+      <div class="era-anchors">${lockCards}</div>
+      <div class="era-method-rules"><b>HARD BOUNDARIES</b><ul>${rules}</ul></div>
     </section>
   `;
 }
@@ -91,8 +104,8 @@ function renderTemporalMap(eraBook) {
         </article>
         <article class="sky-cross-overlay">
           <span>SKY / CONSTELLATION OVERLAY</span>
-          <strong>星は見える。でも、星座の採用史は同じとは限らない。</strong>
-          <p>昔は採用され、後に外れた星座／後世に加わる星座を、時代差の伏線として重ねられる。最終理由はまだOpen。</p>
+          <strong>同じ星空でも、参照している資料の時代は違いうる。</strong>
+          <p>obsolete constellationは古い星図・Archive・名称化石として重ねる。TomoriとPresent Yuiのofficial IAU 88 set差を年代伏線にはしない。</p>
         </article>
       </div>
       <footer class="temporal-map-rule">
@@ -115,7 +128,7 @@ function renderHistoryAtlas(data) {
       <header class="history-atlas-heading">
         <span>OBJECT LINEAGE / HISTORY ATLAS</span>
         <h3>人が会えなくても、物は時代を渡れる。</h3>
-        <p>Exact yearを埋める代わりに、両端の事実と「まだ分からない受け渡し」を同時に見せる。破線部分を勝手に歴史として埋めない。</p>
+        <p>Exact yearを埋める代わりに、Current anchor、Candidate、まだ分からない受け渡しを同時に見せる。Candidate handoffを「今わかっている事実」へ混ぜない。</p>
       </header>
       <div class="time-layer-strip">${layerCards}</div>
       <div class="history-thread-grid">${threadCards}</div>

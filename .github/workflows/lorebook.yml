@@ -73,9 +73,10 @@ jobs:
             'kuroori', 'kage1', 'kage2', 'kage3', 'kage4', 'ren',
           ]);
 
-          for (const [name, data] of Object.entries({world, personal, arcs, combat, history, lab, themes, franchise})) {
+          for (const [name, data] of Object.entries({world, personal, arcs, combat, lab, themes, franchise})) {
             if (data.schemaVersion !== 1) fail(`${name} schemaVersion must be 1`);
           }
+          if (history.schemaVersion !== 2) fail(`history schemaVersion must be 2, got ${history.schemaVersion}`);
           if (world.characters.length !== 21) fail(`expected Current21, got ${world.characters.length}`);
           if (personal.profiles.length !== 21) fail(`expected 21 personal profiles, got ${personal.profiles.length}`);
           if (combat.entries.length !== 21) fail(`expected 21 combat guide entries, got ${combat.entries.length}`);
@@ -218,16 +219,19 @@ jobs:
             for (const member of thread.members) {
               if (!worldIds.has(member)) fail(`orphan history thread member: ${thread.id}/${member}`);
             }
-            for (const key of ['known','gap','payoff','confidence']) {
+            for (const key of ['known','gap','payoff','evidenceState']) {
               if (!thread[key] || (key === 'known' && thread.known.length === 0)) fail(`incomplete history thread ${thread.id}: ${key}`);
             }
+            if ('confidence' in thread) fail(`legacy history confidence field is forbidden: ${thread.id}`);
           }
-          if (history.eraMethod?.status !== 'CANDIDATE') fail('relative era method must remain CANDIDATE');
-          if (history.eraMethod?.layers?.length !== 4) fail('relative era method must keep 4 explicit layers');
-          for (const anchor of history.eraMethod?.firstAnchors ?? []) {
-            if (!worldIds.has(anchor.characterId)) fail(`orphan era anchor: ${anchor.characterId}`);
-          }
-          if (!history.statusRule?.includes('never inferred as CANON')) fail('history atlas must preserve gap guardrail');
+          if (history.eraMethod?.status !== 'AUTHOR_CANDIDATE_NON_CANON_EXCEPT_UPSTREAM_LOCKS') fail('History era method status drift');
+          if (history.eraMethod?.characterCount !== 36 || history.eraMethod?.current21Count !== 21 || history.eraMethod?.future15Count !== 15) fail('History era method roster counts drift');
+          if (history.eraMethod?.lanes?.filter((lane) => lane.kind === 'REALITY_LANE').length !== 5) fail('History era method must keep five chronological Reality lanes');
+          if (history.eraMethod?.lanes?.filter((lane) => lane.kind === 'MYSTERY_SPECIAL_NOT_SIXTH_REALITY_ERA').length !== 1) fail('History era method must keep one non-chronological Mystery special');
+          if (history.eraMethod?.upstreamLocks?.length !== 5) fail('History era method must keep five upstream-current locks');
+          if (history.eraMethod?.exactYearFrozen !== false) fail('History exact year must remain Open');
+          if (history.eraMethod?.future15MeansFutureEra !== false) fail('Future15 must not become future-era origin');
+          if (!history.statusRule?.includes('remain Open') || !history.statusRule?.includes('never inferred as Canon')) fail('history atlas must preserve Open/Candidate gap guardrail');
 
           for (const decision of lab.decisions) {
             if (!openQuestionIds.has(decision.openQuestionId)) fail(`decision without open question: ${decision.id}/${decision.openQuestionId}`);

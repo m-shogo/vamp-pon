@@ -6,6 +6,7 @@ on:
       - 'public/lorebook/history-enhancement.js'
       - 'public/lorebook/history.css'
       - 'public/lorebook/data/core5-era-canon.v1.json'
+      - 'public/lorebook/data/history-atlas.v1.json'
       - 'docs/lorebook-temporal-map-integration-v1.md'
       - '.github/workflows/lorebook-temporal-map-integration.yml'
   push:
@@ -14,6 +15,7 @@ on:
       - 'public/lorebook/history-enhancement.js'
       - 'public/lorebook/history.css'
       - 'public/lorebook/data/core5-era-canon.v1.json'
+      - 'public/lorebook/data/history-atlas.v1.json'
       - 'docs/lorebook-temporal-map-integration-v1.md'
       - '.github/workflows/lorebook-temporal-map-integration.yml'
 
@@ -33,6 +35,7 @@ jobs:
           node <<'NODE'
           const fs = require('fs');
           const era = JSON.parse(fs.readFileSync('public/lorebook/data/core5-era-canon.v1.json', 'utf8'));
+          const history = JSON.parse(fs.readFileSync('public/lorebook/data/history-atlas.v1.json', 'utf8'));
           const js = fs.readFileSync('public/lorebook/history-enhancement.js', 'utf8');
           const css = fs.readFileSync('public/lorebook/history.css', 'utf8');
           const doc = fs.readFileSync('docs/lorebook-temporal-map-integration-v1.md', 'utf8');
@@ -53,22 +56,27 @@ jobs:
           if (JSON.stringify(era.assignments.map((item) => item.era)) !== JSON.stringify(expectedEras)) fail('Core5 era lane order drift');
           if (era.assignments.some((item) => item.exactYear !== null)) fail('Lorebook temporal map may not receive an exact year yet');
           if (era.assignments.some((item) => !item.roughHistoricalBand || !item.primaryPressure || !item.coreBridge)) fail('Core5 era display fields incomplete');
+          if (history.schemaVersion !== 2) fail(`History Atlas schemaVersion drift: ${history.schemaVersion}`);
+          if (history.eraMethod?.lanes?.filter((lane) => lane.kind === 'REALITY_LANE').length !== 5) fail('History author method must keep five chronological Reality lanes');
+          if (history.eraMethod?.lanes?.filter((lane) => lane.kind === 'MYSTERY_SPECIAL_NOT_SIXTH_REALITY_ERA').length !== 1) fail('History author method must keep one cross-era Mystery special');
           for (const token of [
             'CORE5_ERA_DATA_URL',
             'EXACT YEAR / OPEN',
             'rough band',
             'ヨルノシルベは第6の時代ではない。',
             '起床は一つの現代ではなく、それぞれのRealityへ戻る。',
-            '星座の採用史は同じとは限らない。',
+            '同じ星空でも、参照している資料の時代は違いうる。',
+            'TomoriとPresent Yuiのofficial IAU 88 set差を年代伏線にはしない。',
             'Present ≠ 正解側 / Future ≠ Human upgrade / Dream ≠ 後の時代 / rough band ≠ exact date',
           ]) if (!js.includes(token)) fail(`temporal UI guard missing: ${token}`);
           for (const token of ['.temporal-map', '.temporal-lane-track', '.dream-cross-overlay', '.sky-cross-overlay']) {
             if (!css.includes(token)) fail(`temporal CSS contract missing: ${token}`);
           }
           for (const token of [
-            'EXISTING LOREBOOK DATA REUSED / NO NEW TIME AUTHORITY',
-            'exact year remains Open',
-            'Dream != sixth physical era',
-            '同じ時代に並べるのではなく、違う時代に生きていたこと自体が一目で分かる画面にする。',
+            'CURRENT CORE5 LOCKS + 36-CHARACTER CANDIDATE ERA METHOD / NO NEW TIME AUTHORITY',
+            'exact year remains Open unless separately authoritative',
+            'Dream != sixth Reality era',
+            'Tomori official constellation set != Present Yui official constellation set is forbidden.',
+            'historical/archival chart difference != Tomori/Yui official IAU 88 difference',
           ]) if (!doc.includes(token)) fail(`temporal integration doc guard missing: ${token}`);
           NODE

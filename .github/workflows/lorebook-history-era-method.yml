@@ -1,0 +1,41 @@
+name: Lorebook History Era Method
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/data/history-atlas.v1.json'
+      - 'public/lorebook/history-enhancement.js'
+      - 'public/lorebook/history.css'
+      - 'docs/lorebook-temporal-map-integration-v1.md'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterCrossEraEchoReservoir.ts'
+      - 'scripts/quality/check-lorebook-history-era-method.ts'
+      - '.github/workflows/lorebook-history-era-method.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/data/history-atlas.v1.json'
+      - 'public/lorebook/history-enhancement.js'
+      - 'public/lorebook/history.css'
+      - 'docs/lorebook-temporal-map-integration-v1.md'
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterCrossEraEchoReservoir.ts'
+      - 'scripts/quality/check-lorebook-history-era-method.ts'
+      - '.github/workflows/lorebook-history-era-method.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate History enhancement syntax
+        run: node --check public/lorebook/history-enhancement.js
+      - name: Validate 36-character era model and object-lineage boundaries
+        run: node --experimental-strip-types scripts/quality/check-lorebook-history-era-method.ts
