@@ -16,7 +16,9 @@ No new Story authority is created. The dashboard reads existing Lorebook project
 - `world-bible.v1.json`
 - `relationship-arcs.v1.json`
 - `core5-era-canon.v1.json`
-- `reality-root-candidates.v1.json`
+- `reality-root-map.v1.json`
+
+`reality-root-map.v1.json` is a checked Web mirror of `characterRealityRootMapReadModel.ts`; the dashboard must use its `placementKind` / summary counts instead of guessing Future/Open state from words inside `root` strings.
 
 Upstream authoring authorities/read-models remain separate.
 
@@ -38,7 +40,7 @@ The count is source coverage, not profile quality.
 
 Shows:
 
-- 24 Current relationship lanes
+- Current relationship lanes
 - detailed arc count
 - reservoir/coverage lane count
 
@@ -48,20 +50,24 @@ The count is not affection, trust, romance, or relationship strength.
 
 Shows:
 
-- 5 Reality Era lanes
+- Reality Era assignments
 - exact-year Open count
 
-Rough historical bands do not become fake exact years.
+Rough historical bands do not become fake exact years. Dream remains a cross-era overlay, not a sixth Reality era.
 
 ### Reality Root Atlas
 
 Shows:
 
 - 36 Reality Roots
-- Future abstract count
-- Open root count
+- 32 real-Japan region-level rows
+- 3 Future abstract rows
+- 1 Open/unmapped row
+- 0 exact coordinates
 
 The dashboard does not create coordinates or rank locations.
+
+Important: `Far Future activation site Open` is still `FUTURE_ABSTRACT` when the read-model says so. A substring such as `Open` must not make the Overview double-count it as `OPEN_UNMAPPED`.
 
 ## Open / Do Not Fake gates
 
@@ -69,10 +75,23 @@ The Overview deliberately surfaces unresolved boundaries:
 
 - public/spoiler-safe projection = Open
 - exact Core5 years = Open
-- explicitly Open Reality Root rows remain Open
+- explicitly `OPEN_UNMAPPED` Reality Root rows remain Open
 - Future15 remain candidates
 
 **Open is not an error badge.** It means the current authority intentionally does not know/freeze that value yet.
+
+## Geography boundary
+
+- Reality Root != birthplace/home
+- Reality Root != incident area
+- incident area != birthplace/home
+- region != personality
+- dialect != intelligence/class
+- skin tone != origin
+- Future15 != future-era origin
+- Future/Open are not forced onto fake coordinates
+
+Counts must come from the checked read-model projection, not string heuristics.
 
 ## No score boundary
 
@@ -111,7 +130,7 @@ The dashboard keeps these distinctions conceptually intact:
 
 Cards link to the existing Lorebook chapters:
 
--人物 → `#characters`
+- 人物 → `#characters`
 - relationships → `#relationships`
 - time/history → `#history`
 - geography/world → `#world`
