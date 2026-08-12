@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "authority": "src/game/data/characterCrossEraEchoReservoir.ts",
+  "status": "AUTHOR_CANDIDATE_NON_CANON_WEB_PROJECTION",
+  "chainCount": 10,
+  "coreCount": 5,
+  "strongCount": 4,
+  "supportCount": 1,
+  "runtimeAutoPromotionAllowed": false,
+  "relationshipAutoCanonAllowed": false,
+  "groupMembershipAutoCanonAllowed": false,
+  "entries": [
+    {
+      "id": "repair-trace-tomori-yui",
+      "storyUsefulness": "CORE",
+      "participantIds": ["tomori", "yui"],
+      "setupDialogue": ["トモリ「それ、捨てるのか？」", "ユイ「もう破れてるよ？」", "トモリ「破れたのは端だけだ。役目まで終わったわけじゃない」"],
+      "payoffDialogue": ["ユイ「これ……直した人、同じ癖がある」", "ユイ「残ってたんじゃない。誰かが、残したんだ」"],
+      "storyFunction": "物の修理痕を「時代を越える残響」に変え、Happy Endの「壊れた＝終わりではない」へ接続する。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "補修痕だけでトモリの所有・戦災・家族死・正確な年代を確定しない。"
+    },
+    {
+      "id": "quadrantid-name-fossil-shiro-tomori",
+      "storyUsefulness": "CORE",
+      "participantIds": ["shiro", "tomori", "yui"],
+      "setupDialogue": ["ユイ「しぶんぎ座って、星座ある？」", "シロ「今の星図にはない。だから、分からないまま残す」"],
+      "payoffDialogue": ["シロ「名前が残ってる。形の方が先に消えたんだ」", "トモリ「消えたんじゃない。見なくなっただけかもしれないな」"],
+      "storyFunction": "群青残響録の思想へ繋がる強いCandidate。群青残響録を組織化せず、「後世の記録が残響を束ねる」意味を補強する。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "Tomori official constellation set != Yui official constellation set にしない。古星座をStar Beast・運命・敵性へ自動接続しない。"
+    },
+    {
+      "id": "route-erasure-michiru-tobari-gen",
+      "storyUsefulness": "CORE",
+      "participantIds": ["michiru", "tobari", "gen"],
+      "setupDialogue": ["ミチル「近い道と、帰れる道は同じじゃないよ」", "トバリ「閉まってるだけなら、道が消えたわけじゃない」"],
+      "payoffDialogue": ["ゲン「道は消えても、曲がり方までは消えん」", "ミチル「じゃあ、帰り道って一つじゃなかったんだ」"],
+      "storyFunction": "地理を時代伏線へ変え、Dream overlayで複数Eraを同時表示する理由を感情へ接続する。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "Reality Root・出生地・事件現場を同一地点にせず、地図知識を知性や善悪へ結びつけない。"
+    },
+    {
+      "id": "access-consent-nagi-asa",
+      "storyUsefulness": "CORE",
+      "participantIds": ["nagi", "asa"],
+      "setupDialogue": ["ナギ「これ、見てもいい？」", "アサ「登録名じゃなくて、呼ばれたい方を教えて」"],
+      "payoffDialogue": ["ナギ「開くのと、見せてもらうのは別だから」", "アサ「記録されてるのと、私が選んだのも別だよ」"],
+      "storyFunction": "Dream/Realityを跨いでprivacy・identity・名前を一つのMain Mystery語彙へ束ねる。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "ナギへ未来技術知識を与えず、アサをAndroid化・万能解説役化しない。"
+    },
+    {
+      "id": "copy-personhood-noa-rum",
+      "storyUsefulness": "CORE",
+      "participantIds": ["noa", "rum"],
+      "setupDialogue": ["ノア「同じ記憶なら、同じ人？」", "ルム「知識は同じ。でも、この返事をしたのは私」"],
+      "payoffDialogue": ["ノア「そこまでは同じ。そこから先は、もう二つある」", "ルム「共有してるからこそ、違う返事が見えるんだよ」"],
+      "storyFunction": "Robot/AI Characterの哲学を説明台詞ではなく選択差で見せ、Happy Endの「選び直せる」へ接続する。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "魂の有無を作者が即答せず、コピー＝同一人物／人間性獲得一本道にしない。"
+    },
+    {
+      "id": "household-name-ritsu-koyori",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["ritsu", "koyori"],
+      "setupDialogue": ["コヨリ「でも、みんなそう呼んでたよ？」", "リツ「紙にないなら……いや、家ではそうだったな」"],
+      "payoffDialogue": ["コヨリ「ほら、書いてある」", "リツ「……紙にない名前も、なくなったわけじゃないな」"],
+      "storyFunction": "名前と記憶のテーマを家庭内の小さな残響へ落とし込み、記録にないものを「存在しない」としない。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "親代わり・両親不在・家庭悲劇など未確定の家族史を自動追加しない。"
+    },
+    {
+      "id": "twin-same-choice-kai-nao",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["kai", "nao"],
+      "setupDialogue": ["カイ「同じのが好きな日まで、別人の証明しなくていいだろ」", "ナオ「今日は同じがいい。違う日は、勝手に来るから」"],
+      "payoffDialogue": ["ナオ「同じにしたの、真似じゃないよ」", "カイ「知ってる。俺も同じ理由じゃないし」"],
+      "storyFunction": "Noa/Rumの哲学テーマを人間の双子へ単純対応させず、identityの別角度として響かせる。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "双子をコピー問題だけに還元せず、別Era・別出生・対立運命を自動付与しない。"
+    },
+    {
+      "id": "record-authority-sen-madoka-io",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["sen", "madoka", "io"],
+      "setupDialogue": ["セン「本にはこう書いてあります。ただし、決着したこととは別です」", "マドカ「みんな中心しか見てないから、端を見るの」", "イオ「内容は合ってる。今はね。誰が直せる？」"],
+      "payoffDialogue": ["マドカ「写ってないんじゃない。外にいたんだ」", "セン「資料が嘘だったわけではありません」", "イオ「権限の外だった、ってことか」"],
+      "storyFunction": "Main Mysteryを「隠された真実」一辺倒にせず、正しい部分記録同士のズレから解く構造を作る。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "陰謀・改ざん・悪意を自動原因にせず、観察力やAuthorityを全知化しない。"
+    },
+    {
+      "id": "cross-era-chloe-shiro-toki",
+      "storyUsefulness": "STRONG",
+      "participantIds": ["chloe", "shiro", "toki"],
+      "setupDialogue": ["クロエ「それ、昔もこうしたよ」", "トキ「その『昔』、さっきの話と同じ時代じゃないよね」"],
+      "payoffDialogue": ["シロ「一致してる。でも、同じ人だとはまだ書けない」", "クロエ「それでいいよ。今はね」"],
+      "storyFunction": "クロエのSeries Mysteryを早期解答せず、OPENを欠落ではなく意図的な物語状態として見せる。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "不老不死・出生年・正体・朔夜座所属・群青残響録所属を自動確定しない。"
+    },
+    {
+      "id": "obsolete-motif-yomo-shiro",
+      "storyUsefulness": "SUPPORT",
+      "participantIds": ["yomo", "shiro"],
+      "setupDialogue": ["誰か「猫の星座、ヨモっぽい」", "ヨモ「似合うと、私のになるは別でしょ」"],
+      "payoffDialogue": ["シロ「資料にあるのは星座の履歴。ヨモの履歴じゃない」", "ヨモ「なら、かわいいだけ借りとく」"],
+      "storyFunction": "作者・プレイヤー双方に「モチーフ一致 != Canon assignment」のルールを自然に示す。",
+      "evidenceGateCount": 3,
+      "canonStatus": "AUTHOR_CANDIDATE",
+      "forbiddenShortcut": "Felis・obsolete constellation・Star Beast・朔夜座・敵性を自動接続しない。"
+    }
+  ]
+}
