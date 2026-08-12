@@ -3,9 +3,19 @@ import { isAbsolute, normalize, sep } from 'node:path';
 
 import { CHARACTER_AUTHOR_DB_IDENTITIES } from '../../src/game/data/characterAuthorDbCoverageManifest.ts';
 import { characterAppearanceGenerationContracts } from '../../src/game/data/characterAppearanceGenerationContracts.ts';
+import {
+  buildVisualAssetCoverage,
+  buildVisualAssetRegistry,
+  buildVisualCharacterPromptPackets,
+  buildVisualImageProductionList,
+  buildVisualGenerationBatches,
+} from '../../src/game/data/visualAssetGenerationInventory.ts';
 
 const REGISTRY_PATH = 'data/character-assets/manifests/visual-asset-master-registry.v1.json';
 const COVERAGE_PATH = 'data/character-assets/manifests/visual-asset-coverage.v1.json';
+const BATCHES_PATH = 'data/character-assets/manifests/visual-generation-batches.v1.json';
+const CHARACTER_PROMPT_PACKETS_PATH = 'data/character-assets/manifests/visual-character-prompt-packets.v1.json';
+const IMAGE_PRODUCTION_LIST_PATH = 'data/character-assets/manifests/visual-image-production-list.v1.json';
 
 type JsonObject = Record<string, unknown>;
 
@@ -55,11 +65,32 @@ function isSafeRepoPath(path: string): boolean {
 
 const registry = readJson(REGISTRY_PATH);
 const coverage = readJson(COVERAGE_PATH);
+const batchesManifest = readJson(BATCHES_PATH);
+const promptPacketsManifest = readJson(CHARACTER_PROMPT_PACKETS_PATH);
+const imageProductionList = readJson(IMAGE_PRODUCTION_LIST_PATH);
+
+function requireGeneratedSnapshot(actual: JsonObject, expected: unknown, path: string): void {
+  if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+    fail(`${path} is stale or hand-edited; run pnpm visual-assets:inventory:export`);
+  }
+}
+
+requireGeneratedSnapshot(registry, buildVisualAssetRegistry(), REGISTRY_PATH);
+requireGeneratedSnapshot(coverage, buildVisualAssetCoverage(), COVERAGE_PATH);
+requireGeneratedSnapshot(batchesManifest, buildVisualGenerationBatches(), BATCHES_PATH);
+requireGeneratedSnapshot(promptPacketsManifest, buildVisualCharacterPromptPackets(), CHARACTER_PROMPT_PACKETS_PATH);
+requireGeneratedSnapshot(imageProductionList, buildVisualImageProductionList(), IMAGE_PRODUCTION_LIST_PATH);
 
 if (registry.schemaVersion !== 1) fail('registry.schemaVersion must be 1');
 if (coverage.schemaVersion !== 1) fail('coverage.schemaVersion must be 1');
+if (batchesManifest.schemaVersion !== 1) fail('batches.schemaVersion must be 1');
+if (promptPacketsManifest.schemaVersion !== 1) fail('promptPackets.schemaVersion must be 1');
+if (imageProductionList.schemaVersion !== 1) fail('imageProductionList.schemaVersion must be 1');
 requireNonEmptyString(registry, 'registryId', 'registry');
 requireNonEmptyString(coverage, 'registryId', 'coverage');
+requireNonEmptyString(batchesManifest, 'registryId', 'batches');
+requireNonEmptyString(promptPacketsManifest, 'registryId', 'promptPackets');
+requireNonEmptyString(imageProductionList, 'listId', 'imageProductionList');
 if (!isObject(registry.authorityModel)) fail('registry.authorityModel must be an object');
 
 const canonicalCharacterIds = new Set(CHARACTER_AUTHOR_DB_IDENTITIES.map((entry) => entry.authorId));
@@ -316,6 +347,144 @@ if (coverageRows.length > 0 && coverageSubjects.size !== canonicalCharacterIds.s
   fail(`coverage.characters must resolve to exactly 36 unique Author DB characters; got ${coverageSubjects.size}`);
 }
 
+if (!isObject(batchesManifest.executionPolicy)) fail('batches.executionPolicy must be an object');
+else {
+  if (batchesManifest.executionPolicy.automaticExecutionAllowed !== false) fail('batch generation must remain opt-in');
+  if (batchesManifest.executionPolicy.exactCandidateCount !== 4) fail('batch candidate comparison count must remain exactly 4');
+  if (batchesManifest.executionPolicy.humanReviewRequiredForCurrent !== true) fail('current promotion must require human review');
+}
+
+if (!isObject(batchesManifest.groupBindings)) fail('batches.groupBindings must be an object');
+else {
+  const sakuyaza = isObject(batchesManifest.groupBindings.sakuyaza) ? batchesManifest.groupBindings.sakuyaza : {};
+  const gunjo = isObject(batchesManifest.groupBindings.gunjoZankyoroku) ? batchesManifest.groupBindings.gunjoZankyoroku : {};
+  if (sakuyaza.formalName !== '朔夜座' || sakuyaza.memberCount !== 8) fail('朔夜座 must remain the formal S1 eight-member group');
+  if (sakuyaza.isConstellationArchiveClassification !== false) fail('外典星座/constellation classification may not replace 朔夜座');
+  if (gunjo.formalName !== '群青残響録' || gunjo.fixedFaction !== false) fail('群青残響録 must remain a record taxonomy, not an organization');
+}
+
+const rawBatches = batchesManifest.batches;
+if (!Array.isArray(rawBatches)) fail('batches.batches must be an array');
+const batches = Array.isArray(rawBatches) ? rawBatches.filter(isObject) : [];
+if (batches.length !== 14) fail(`generation plan must contain Batch 01-14 exactly; got ${batches.length}`);
+const batchIds = new Set<string>();
+for (const [index, batch] of batches.entries()) {
+  const label = `batches.batches[${index}]`;
+  const batchId = requireNonEmptyString(batch, 'batchId', label);
+  if (batchIds.has(batchId)) fail(`duplicate batch id: ${batchId}`);
+  batchIds.add(batchId);
+  if (batch.status !== 'planned-not-started') fail(`${batchId}: pre-generation batch must remain planned-not-started`);
+  if (batch.generationAllowed !== false) fail(`${batchId}: image generation must remain stopped`);
+  if (batch.exactCandidateCountPerAsset !== 4) fail(`${batchId}: must reserve exactly four candidates per asset`);
+  const layer = requireNonEmptyString(batch, 'layer', label);
+  if (!allowedLayers.has(layer)) fail(`${batchId}: invalid batch layer: ${layer}`);
+  const sources = requireStringArray(batch, 'subjectSource', label);
+  for (const source of sources) if (!(source in sourceCatalog)) fail(`${batchId}: unknown subject source: ${source}`);
+  for (const pathField of ['outputRoot', 'qaRecordPath', 'rejectLedgerPath']) {
+    const path = requireNonEmptyString(batch, pathField, label);
+    if (!isSafeRepoPath(path)) fail(`${batchId}: ${pathField} must be repository-relative`);
+  }
+}
+for (const batch of batches) {
+  const batchId = String(batch.batchId);
+  for (const dependency of requireStringArray(batch, 'dependsOn', batchId)) {
+    if (!batchIds.has(dependency)) fail(`${batchId}: missing batch dependency: ${dependency}`);
+    if (dependency === batchId) fail(`${batchId}: batch may not depend on itself`);
+  }
+}
+
+if (promptPacketsManifest.executionAllowed !== false) fail('character prompt packets must remain generation-disabled');
+if (promptPacketsManifest.status !== 'DRAFT_NOT_APPROVED_NOT_GENERATED') fail('character prompt packet status may not imply generation or approval');
+const rawPromptPackets = promptPacketsManifest.packets;
+if (!Array.isArray(rawPromptPackets)) fail('promptPackets.packets must be an array');
+const promptPackets = Array.isArray(rawPromptPackets) ? rawPromptPackets.filter(isObject) : [];
+if (promptPackets.length !== canonicalCharacterIds.size) fail(`prompt packets must cover exactly 36 Author DB characters; got ${promptPackets.length}`);
+const packetSubjectIds = new Set<string>();
+for (const [index, packet] of promptPackets.entries()) {
+  const label = `promptPackets.packets[${index}]`;
+  const packetId = requireNonEmptyString(packet, 'packetId', label);
+  const assetId = requireNonEmptyString(packet, 'assetId', label);
+  if (packet.status !== 'draft-not-approved-not-generated') fail(`${packetId}: invalid pre-generation status`);
+  if (!assetsById.has(assetId)) fail(`${packetId}: reserved asset is missing from registry: ${assetId}`);
+  const subject = isObject(packet.subject) ? packet.subject : {};
+  const authorId = requireNonEmptyString(subject, 'authorId', `${packetId}.subject`);
+  if (!canonicalCharacterIds.has(authorId)) fail(`${packetId}: unknown Author DB subject: ${authorId}`);
+  if (packetSubjectIds.has(authorId)) fail(`duplicate prompt packet subject: ${authorId}`);
+  packetSubjectIds.add(authorId);
+  const authority = isObject(packet.authoritySnapshot) ? packet.authoritySnapshot : {};
+  const sources = requireStringArray(authority, 'sourceOfTruth', `${packetId}.authoritySnapshot`);
+  if (sources.length < 7) fail(`${packetId}: incomplete authority source stack`);
+  for (const source of sources) if (!(source in sourceCatalog)) fail(`${packetId}: unknown authority source: ${source}`);
+  const plan = isObject(packet.candidatePlan) ? packet.candidatePlan : {};
+  if (plan.count !== 4 || plan.sameContractAndPrompt !== true) fail(`${packetId}: must reserve four comparable candidates`);
+  const approval = isObject(packet.approval) ? packet.approval : {};
+  if (approval.approvedAsFinal !== false || approval.runtimeApproved !== false || approval.humanVisualReviewRequired !== true) {
+    fail(`${packetId}: approval must remain fail-closed before generation`);
+  }
+}
+if (packetSubjectIds.size !== canonicalCharacterIds.size) fail(`prompt packets must resolve to 36 unique Author DB subjects; got ${packetSubjectIds.size}`);
+
+if (imageProductionList.executionAllowed !== false || imageProductionList.currentMode !== 'PRE_GENERATION_NO_IMAGE_OUTPUT') {
+  fail('image production list must remain pre-generation and execution-disabled');
+}
+const rawProductionItems = imageProductionList.items;
+if (!Array.isArray(rawProductionItems)) fail('imageProductionList.items must be an array');
+const productionItems = Array.isArray(rawProductionItems) ? rawProductionItems.filter(isObject) : [];
+const productionIds = new Set<string>();
+const productionById = new Map<string, JsonObject>();
+for (const [index, item] of productionItems.entries()) {
+  const label = `imageProductionList.items[${index}]`;
+  const assetId = requireNonEmptyString(item, 'assetId', label);
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*$/.test(assetId)) fail(`${assetId}: invalid production asset ID`);
+  if (productionIds.has(assetId)) fail(`duplicate production asset ID: ${assetId}`);
+  productionIds.add(assetId);
+  productionById.set(assetId, item);
+  const batchId = requireNonEmptyString(item, 'batchId', label);
+  if (!batchIds.has(batchId)) fail(`${assetId}: unknown production batch: ${batchId}`);
+  const layer = requireNonEmptyString(item, 'layer', label);
+  if (!allowedLayers.has(layer)) fail(`${assetId}: invalid production layer: ${layer}`);
+  if (item.reviewStatus !== 'needs-generation') fail(`${assetId}: list item must remain needs-generation before output exists`);
+  const status = requireNonEmptyString(item, 'productionStatus', label);
+  if (!['blocked-authoring-required', 'ready-for-prompt-review', 'blocked-parent-master', 'blocked-human-approval'].includes(status)) fail(`${assetId}: invalid production status: ${status}`);
+  const candidates = requireStringArray(item, 'candidateIds', label);
+  if (candidates.length !== 4 || new Set(candidates).size !== 4) fail(`${assetId}: must reserve four unique candidate IDs`);
+  const outputPath = requireNonEmptyString(item, 'outputPath', label);
+  if (!isSafeRepoPath(outputPath)) fail(`${assetId}: outputPath must be repository-relative`);
+  const sources = requireStringArray(item, 'sourceOfTruth', label);
+  if (sources.length === 0) fail(`${assetId}: sourceOfTruth must not be empty`);
+  for (const source of sources) if (!(source in sourceCatalog)) fail(`${assetId}: unknown production source: ${source}`);
+  const checklist = requireStringArray(item, 'qaChecklist', label);
+  if (checklist.length === 0) fail(`${assetId}: QA checklist must not be empty`);
+  requireNonEmptyString(item, 'blocker', label);
+  if (typeof item.notes !== 'string') fail(`${assetId}: notes must be a string`);
+  const parents = requireStringArray(item, 'parentAssetIds', label);
+  if (layer === 'master' && parents.length > 0 && item.kind !== 'character-master') {
+    fail(`${assetId}: only a Character Master composite may have Master component parents`);
+  }
+  if (layer !== 'master' && parents.length === 0) fail(`${assetId}: derivative must reserve direct master parents`);
+}
+for (const [assetId, item] of productionById) {
+  for (const parentId of strings(item.parentAssetIds)) {
+    const parent = productionById.get(parentId);
+    if (!parent) fail(`${assetId}: production parent is missing from image list: ${parentId}`);
+    else if (parent.layer !== 'master') fail(`${assetId}: parent must be a master production item`);
+    if (item.layer === 'master' && item.kind === 'character-master' && !String(parent?.kind).startsWith('character-')) {
+      fail(`${assetId}: Character Master composite may only use Character Master component parents`);
+    }
+    if (item.layer === 'gameplay' && parent?.layer === 'lorebook') fail(`${assetId}: Lorebook may not parent Gameplay`);
+  }
+  if (item.kind === 'character-master' && !assetsById.has(assetId)) fail(`${assetId}: Character Master reservation missing from central registry`);
+  const promptPacketId = typeof item.promptPacketId === 'string' ? item.promptPacketId : null;
+  if (item.productionStatus === 'ready-for-prompt-review' && !promptPacketId && item.kind === 'character-master') fail(`${assetId}: ready Character Master needs a prompt packet`);
+}
+
+const counts = isObject(imageProductionList.counts) ? imageProductionList.counts : {};
+if (counts.totalItems !== productionItems.length) fail('image production list totalItems does not match items length');
+const characterMasterItems = productionItems.filter((item) => item.kind === 'character-master');
+const sakuyazaItems = productionItems.filter((item) => item.kind === 'sakuyaza-character-master');
+if (characterMasterItems.length !== 36) fail(`image production list must contain 36 Character Masters; got ${characterMasterItems.length}`);
+if (sakuyazaItems.length !== 8) fail(`image production list must contain 8 朔夜座 Masters; got ${sakuyazaItems.length}`);
+
 if (errors.length > 0) {
   console.error('Visual Asset Master Registry check failed');
   for (const error of errors) console.error(`- ${error}`);
@@ -323,5 +492,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `Visual Asset Master Registry: PASS (assets=${assetsById.size}, coverageRows=${coverageRows.length}, authorIds=${canonicalCharacterIds.size}, objective structural guards only)`,
+  `Visual Asset Master Registry: PASS (assets=${assetsById.size}, imageList=${productionItems.length}, coverageRows=${coverageRows.length}, promptPackets=${promptPackets.length}, batches=${batches.length}, authorIds=${canonicalCharacterIds.size}, source snapshots synchronized, objective structural guards only)`,
 );

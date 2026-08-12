@@ -116,6 +116,7 @@
     "greenback:alpha": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "greenback:alpha:venv": "sh -c 'if [ \"$1\" = \"--\" ]; then shift; fi; .venv/bin/python scripts/assets/greenback_to_alpha.py \"$@\"' -",
     "character-assets:verify": "node --experimental-strip-types scripts/quality/check-character-assets.ts",
+    "visual-assets:inventory:export": "node --experimental-strip-types scripts/asset-factory/export-visual-asset-generation-inventory.ts",
     "visual-assets:check": "node --experimental-strip-types scripts/quality/check-visual-asset-master-registry.ts",
     "core5:sprites:slice-original": "node --experimental-strip-types scripts/prototypes/slice-core5-original-sheets.ts",
     "enemy48:design:check": "node --experimental-strip-types scripts/quality/check-enemy-48-design.ts",

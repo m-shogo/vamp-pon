@@ -1,24 +1,2182 @@
 {
   "schemaVersion": 1,
   "registryId": "yoruno-shirube-visual-asset-master-registry-v1",
+  "generatedFrom": "src/game/data/visualAssetGenerationInventory.ts",
   "authorityModel": {
     "direction": "SOURCE_OF_TRUTH -> MASTER -> READ_MODEL | GAMEPLAY_DERIVED",
     "storyAuthorityMayNotBePromotedByVisualReview": true,
     "lorebookMayNotParentGameplay": true,
-    "candidateMayNotBecomeCurrentWithoutHumanReview": true
+    "candidateMayNotBecomeCurrentWithoutHumanReview": true,
+    "existingReferenceIsNotFinalOrRuntime": true
   },
   "sourceCatalog": {
     "character-author-db": "src/game/data/characterAuthorDbCoverageManifest.ts",
     "character-appearance-contracts": "src/game/data/characterAppearanceGenerationContracts.ts",
+    "character-handedness-equipment": "src/game/data/characterHandednessEquipmentRegistry.ts",
+    "character-era-registry": "src/game/data/characterEraForeshadowDialogueReservoir.ts",
+    "character-era-fingerprints": "src/game/data/characterEraFingerprintRegistry.ts",
+    "character-era-scene-seeds": "src/game/data/characterEraSceneSeedRegistry.ts",
+    "character-profile-read-model": "src/game/data/characterProfileBookReadModel.ts",
+    "character-relationship-read-model": "src/game/data/characterRelationshipGraphReadModel.ts",
+    "character-ordinary-life": "src/game/data/characterOrdinaryLifeReservoir.ts",
+    "character-behavior-identity": "src/game/data/characterBehaviorIdentityReservoir.ts",
+    "character-lived-artifact": "src/game/data/characterLivedArtifactReservoir.ts",
+    "character-environment-sensory": "src/game/data/characterEnvironmentSensoryReservoir.ts",
+    "character-competence-learning": "src/game/data/characterCompetenceLearningReservoir.ts",
+    "character-communication-habit": "src/game/data/characterCommunicationHabitReservoir.ts",
+    "character-everyday-economy": "src/game/data/characterEverydayEconomyReservoir.ts",
+    "character-leisure-play": "src/game/data/characterLeisurePlayReservoir.ts",
+    "character-humor-teasing": "src/game/data/characterHumorTeasingReservoir.ts",
+    "character-decision-commitment": "src/game/data/characterDecisionCommitmentReservoir.ts",
+    "character-shared-space-etiquette": "src/game/data/characterSharedSpaceEtiquetteReservoir.ts",
+    "character-rest-daily-rhythm": "src/game/data/characterRestDailyRhythmReservoir.ts",
+    "character-memory-remembering": "src/game/data/characterMemoryRememberingReservoir.ts",
+    "character-address-naming-register": "src/game/data/characterAddressNamingRegisterReservoir.ts",
+    "character-voice-prosody": "src/game/data/characterVoiceProsodyReservoir.ts",
+    "character-reality-roots": "src/game/data/characterRealityRootRegistry.ts",
+    "character-theme-color-reservoir": "src/game/data/characterThemeColorReservoir.ts",
+    "character-reference-production-queue": "src/game/data/characterReferenceProductionQueue.ts",
+    "character-silhouette-canon": "src/game/data/characterSilhouetteCanon.ts",
+    "current21-silhouette-matrix": "src/game/data/current21SilhouetteMatrix.ts",
+    "core5-reference-manifest": "data/character-assets/core5-character-master-assets.json",
+    "named-object-visual-source": "src/game/data/namedObjectVisualSharedSource.ts",
+    "star-beast-visual-source": "src/game/data/starBeastVisualSharedSource.ts",
+    "story-world-master": "src/game/data/storyWorldMasterSource.ts",
+    "sakuyaza-member-source": "src/game/data/yatsukageIdentitySource.ts",
     "asset-generation-policy": "src/game/data/assetGenerationPolicy.ts",
     "golden-reference-registry": "src/game/data/goldenReferenceRegistry.ts",
-    "generation-lineage-template": "data/asset-factory/generation-lineage.template.json"
+    "generation-lineage-template": "data/asset-factory/generation-lineage.template.json",
+    "cross-era-echo-chains": "src/game/data/characterCrossEraEchoReservoir.ts",
+    "constellation-story-clues": "src/game/data/constellationStoryClueReservoir.ts",
+    "constellation-history-research": "src/game/data/constellationHistoryResearch.ts"
   },
-  "subjectAliases": {},
+  "subjectAliases": {
+    "F01": "hiyori",
+    "F02": "serika",
+    "F03": "chloe",
+    "F04": "renji",
+    "F05": "touma",
+    "F06": "kuu",
+    "F07": "yomo",
+    "F08": "noa",
+    "F09": "rum",
+    "F10": "maki",
+    "F11": "suzu",
+    "F12": "io",
+    "F13": "kai",
+    "F14": "nao",
+    "F15": "amane",
+    "kage1": "kaname",
+    "kage2": "kasumi",
+    "kage3": "toki",
+    "kage4": "tsumugi",
+    "yubi": "yuubi"
+  },
   "allowedValues": {
-    "layers": ["master", "lorebook", "gameplay"],
-    "authorityStatuses": ["CANON", "CURRENT", "USER_DIRECTION", "CANDIDATE", "AUTHOR_RESERVOIR", "RESEARCH", "OPEN", "Future15"],
-    "reviewStatuses": ["needs-generation", "generated-unreviewed", "needs-author-review", "needs-boundary-review", "approved-candidate", "approved-current", "superseded", "archived"]
+    "layers": [
+      "master",
+      "lorebook",
+      "gameplay"
+    ],
+    "authorityStatuses": [
+      "CANON",
+      "CURRENT",
+      "USER_DIRECTION",
+      "CANDIDATE",
+      "AUTHOR_RESERVOIR",
+      "RESEARCH",
+      "OPEN",
+      "Future15"
+    ],
+    "reviewStatuses": [
+      "needs-generation",
+      "generated-unreviewed",
+      "needs-author-review",
+      "needs-boundary-review",
+      "approved-candidate",
+      "approved-current",
+      "superseded",
+      "archived"
+    ]
   },
-  "assets": []
+  "assets": [
+    {
+      "id": "char-yui-master-board-v1",
+      "subjectId": "yui",
+      "subjectType": "character",
+      "title": "ユイ Character Master Board v1",
+      "layer": "master",
+      "kind": "character-master-board",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "approved-candidate",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest",
+        "golden-reference-registry"
+      ],
+      "usageTargets": [
+        "generation-reference"
+      ],
+      "tags": [
+        "core5",
+        "character",
+        "master-board",
+        "reference-only",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/reference/character-master/core5/yui-character-master-v1.png"
+        }
+      ],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "approvalBoundary": {
+        "approvedForReference": true,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "existingPrototypeSpriteIsSeparateAsset": true
+      },
+      "notes": "Golden identity referenceとして承認済み。final/runtime/currentではなく、最新36人DBとの回帰確認対象。"
+    },
+    {
+      "id": "char-asa-master-board-v1",
+      "subjectId": "asa",
+      "subjectType": "character",
+      "title": "アサ Character Master Board v1",
+      "layer": "master",
+      "kind": "character-master-board",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-boundary-review",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest"
+      ],
+      "usageTargets": [
+        "generation-reference"
+      ],
+      "tags": [
+        "core5",
+        "character",
+        "master-board",
+        "reference-only",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/reference/character-master/core5/asa-character-master-v1.png"
+        }
+      ],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "existingPrototypeSpriteIsSeparateAsset": true
+      },
+      "notes": "既存Master Board。最新Appearance/Era/Reality Root/Theme Colorとの境界審査前で、再生成より先に再利用可否を判定する。"
+    },
+    {
+      "id": "char-nagi-master-board-v1",
+      "subjectId": "nagi",
+      "subjectType": "character",
+      "title": "ナギ Character Master Board v1",
+      "layer": "master",
+      "kind": "character-master-board",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-boundary-review",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest"
+      ],
+      "usageTargets": [
+        "generation-reference"
+      ],
+      "tags": [
+        "core5",
+        "character",
+        "master-board",
+        "reference-only",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/reference/character-master/core5/nagi-character-master-v1.png"
+        }
+      ],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "existingPrototypeSpriteIsSeparateAsset": true
+      },
+      "notes": "既存Master Board。最新Appearance/Era/Reality Root/Theme Colorとの境界審査前で、再生成より先に再利用可否を判定する。"
+    },
+    {
+      "id": "char-michiru-master-board-v1",
+      "subjectId": "michiru",
+      "subjectType": "character",
+      "title": "ミチル Character Master Board v1",
+      "layer": "master",
+      "kind": "character-master-board",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-boundary-review",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest"
+      ],
+      "usageTargets": [
+        "generation-reference"
+      ],
+      "tags": [
+        "core5",
+        "character",
+        "master-board",
+        "reference-only",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/reference/character-master/core5/michiru-character-master-v1.png"
+        }
+      ],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "existingPrototypeSpriteIsSeparateAsset": true
+      },
+      "notes": "既存Master Board。最新Appearance/Era/Reality Root/Theme Colorとの境界審査前で、再生成より先に再利用可否を判定する。"
+    },
+    {
+      "id": "char-tomori-master-board-v1",
+      "subjectId": "tomori",
+      "subjectType": "character",
+      "title": "トモリ Character Master Board v1",
+      "layer": "master",
+      "kind": "character-master-board",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-boundary-review",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "character-reference-production-queue",
+        "core5-reference-manifest"
+      ],
+      "usageTargets": [
+        "generation-reference"
+      ],
+      "tags": [
+        "core5",
+        "character",
+        "master-board",
+        "reference-only",
+        "not-final",
+        "not-runtime"
+      ],
+      "files": [
+        {
+          "role": "primary",
+          "path": "assets/reference/character-master/core5/tomori-character-master-v1.png"
+        }
+      ],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "approvalBoundary": {
+        "approvedForReference": false,
+        "approvedAsFinal": false,
+        "approvedForRuntime": false,
+        "existingPrototypeSpriteIsSeparateAsset": true
+      },
+      "notes": "既存Master Board。最新Appearance/Era/Reality Root/Theme Colorとの境界審査前で、再生成より先に再利用可否を判定する。"
+    },
+    {
+      "id": "char-yui-master-v1",
+      "subjectId": "yui",
+      "subjectType": "character",
+      "title": "ユイ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "yui",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "keep_and_revalidate",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-asa-master-v1",
+      "subjectId": "asa",
+      "subjectType": "character",
+      "title": "アサ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "asa",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-nagi-master-v1",
+      "subjectId": "nagi",
+      "subjectType": "character",
+      "title": "ナギ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "nagi",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-michiru-master-v1",
+      "subjectId": "michiru",
+      "subjectType": "character",
+      "title": "ミチル Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "michiru",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-tomori-master-v1",
+      "subjectId": "tomori",
+      "subjectType": "character",
+      "title": "トモリ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix",
+        "character-silhouette-canon"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "tomori",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "review_existing_master_then_register_or_regenerate",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-sen-master-v1",
+      "subjectId": "sen",
+      "subjectType": "character",
+      "title": "セン Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "sen",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-ritsu-master-v1",
+      "subjectId": "ritsu",
+      "subjectType": "character",
+      "title": "リツ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "ritsu",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-koyori-master-v1",
+      "subjectId": "koyori",
+      "subjectType": "character",
+      "title": "コヨリ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "koyori",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-gen-master-v1",
+      "subjectId": "gen",
+      "subjectType": "character",
+      "title": "ゲン Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix",
+        "character-silhouette-canon"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "gen",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-hana-master-v1",
+      "subjectId": "hana",
+      "subjectType": "character",
+      "title": "ハナ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix",
+        "character-silhouette-canon"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "hana",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-yuubi-master-v1",
+      "subjectId": "yuubi",
+      "subjectType": "character",
+      "title": "ユウビ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "yuubi",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-madoka-master-v1",
+      "subjectId": "madoka",
+      "subjectType": "character",
+      "title": "マドカ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "madoka",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-shiro-master-v1",
+      "subjectId": "shiro",
+      "subjectType": "character",
+      "title": "シロ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix",
+        "character-silhouette-canon"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "shiro",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-tobari-master-v1",
+      "subjectId": "tobari",
+      "subjectType": "character",
+      "title": "トバリ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "tobari",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-nemu-master-v1",
+      "subjectId": "nemu",
+      "subjectType": "character",
+      "title": "ネム Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "nemu",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-kuroori-master-v1",
+      "subjectId": "kuroori",
+      "subjectType": "character",
+      "title": "クロオリ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "kuroori",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-kaname-master-v1",
+      "subjectId": "kaname",
+      "subjectType": "character",
+      "title": "カナメ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix",
+        "character-silhouette-canon"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "kaname",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-kasumi-master-v1",
+      "subjectId": "kasumi",
+      "subjectType": "character",
+      "title": "カスミ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "kasumi",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-toki-master-v1",
+      "subjectId": "toki",
+      "subjectType": "character",
+      "title": "トキ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "toki",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-tsumugi-master-v1",
+      "subjectId": "tsumugi",
+      "subjectType": "character",
+      "title": "ツムギ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "tsumugi",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "generate_reference_then_review",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-ren-master-v1",
+      "subjectId": "ren",
+      "subjectType": "character",
+      "title": "レン Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CANDIDATE",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir",
+        "current21-silhouette-matrix",
+        "character-silhouette-canon"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "ren",
+        "character",
+        "master",
+        "current21",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": true,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。"
+    },
+    {
+      "id": "char-hiyori-master-v1",
+      "subjectId": "hiyori",
+      "subjectType": "character",
+      "title": "ヒヨリ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "hiyori",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-serika-master-v1",
+      "subjectId": "serika",
+      "subjectType": "character",
+      "title": "セリカ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "serika",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-chloe-master-v1",
+      "subjectId": "chloe",
+      "subjectType": "character",
+      "title": "クロエ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "OPEN",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "chloe",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-renji-master-v1",
+      "subjectId": "renji",
+      "subjectType": "character",
+      "title": "レンジ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "renji",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-touma-master-v1",
+      "subjectId": "touma",
+      "subjectType": "character",
+      "title": "トウマ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "touma",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-kuu-master-v1",
+      "subjectId": "kuu",
+      "subjectType": "character",
+      "title": "クウ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "kuu",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-yomo-master-v1",
+      "subjectId": "yomo",
+      "subjectType": "character",
+      "title": "ヨモ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "yomo",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-noa-master-v1",
+      "subjectId": "noa",
+      "subjectType": "character",
+      "title": "ノア Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "noa",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-rum-master-v1",
+      "subjectId": "rum",
+      "subjectType": "character",
+      "title": "ルム Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "CURRENT",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "rum",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-maki-master-v1",
+      "subjectId": "maki",
+      "subjectType": "character",
+      "title": "マキ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "maki",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-suzu-master-v1",
+      "subjectId": "suzu",
+      "subjectType": "character",
+      "title": "スズ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "suzu",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-io-master-v1",
+      "subjectId": "io",
+      "subjectType": "character",
+      "title": "イオ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "io",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-kai-master-v1",
+      "subjectId": "kai",
+      "subjectType": "character",
+      "title": "カイ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "kai",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-nao-master-v1",
+      "subjectId": "nao",
+      "subjectType": "character",
+      "title": "ナオ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "nao",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    },
+    {
+      "id": "char-amane-master-v1",
+      "subjectId": "amane",
+      "subjectType": "character",
+      "title": "アマネ Character Master v1",
+      "layer": "master",
+      "kind": "character-master",
+      "authorityStatus": "Future15",
+      "reviewStatus": "needs-generation",
+      "current": false,
+      "derivedFrom": [],
+      "sourceOfTruth": [
+        "character-author-db",
+        "character-appearance-contracts",
+        "character-era-registry",
+        "character-era-fingerprints",
+        "character-era-scene-seeds",
+        "character-reality-roots",
+        "character-theme-color-reservoir"
+      ],
+      "usageTargets": [
+        "lorebook",
+        "gameplay"
+      ],
+      "tags": [
+        "amane",
+        "character",
+        "master",
+        "future15",
+        "reserved-not-generated"
+      ],
+      "files": [],
+      "replacementPolicy": {
+        "canReplace": true,
+        "replaces": null,
+        "supersededBy": null
+      },
+      "promptPacketId": null,
+      "generationReadiness": {
+        "authoritySourcesConnected": true,
+        "hasAppearanceContract": true,
+        "hasEraBoundary": true,
+        "hasRealityRootBoundary": true,
+        "hasThemeColorCandidate": true,
+        "hasMainSilhouetteSource": false,
+        "existingReferenceAction": "none",
+        "generationBlockedUntilPromptPacket": true
+      },
+      "notes": "Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。"
+    }
+  ]
 }
