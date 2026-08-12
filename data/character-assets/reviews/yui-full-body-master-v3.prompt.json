@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "packetId": "visual-prompt:yui:full-body-master:v3",
+  "assetFamilyId": "char-yui-full-body-master-v3",
+  "subjectId": "yui",
+  "status": "AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED",
+  "authoritySnapshot": {
+    "mainCommit": "d8c948bd9384e2a9fa46dde110349591b06a43ad",
+    "visualInventoryCommit": "9a37b17906c34649e0a9474649f8512bf759bab3",
+    "storyStatus": "CURRENT",
+    "dominantHand": {
+      "value": null,
+      "status": "OPEN_NO_SOURCE"
+    },
+    "heldItemHandMayNotInferDominantHand": true,
+    "storyAuthorityPromotedByImage": false,
+    "approvedAsFinal": false,
+    "runtimeApproved": false
+  },
+  "references": [
+    {
+      "path": "assets/reference/character-master/core5/yui-character-master-v1.png",
+      "sha256": "7e60d964246fc31f91ceb1df5bab8bd6c5fbdd381eadaa9e8a5f218c3338c7fe",
+      "role": "identity-face-hood-clothing-lantern-mood"
+    },
+    {
+      "path": "public/assets/prototypes/sprite-sheets/core5-original/yui-sprite-sheet-v1.png",
+      "sha256": "a165e6cec801f342d6728b53abacedb4491c8cb4ecbe1abc7e25110d709f805e",
+      "role": "gameplay-silhouette-pose-range-small-size-baseline"
+    }
+  ],
+  "prompt": {
+    "useCase": "stylized-concept",
+    "assetType": "character-full-body-master-candidate",
+    "primaryRequest": "Create one full-body v3 candidate of Yui for ヨルノシルベ using both references as identity authority. This is candidate-only concept art, not Story Canon, final art or runtime art.",
+    "subject": "A balanced young-adult human woman with a soft oval face, rounded cheeks, non-pointed chin, smaller almost-level almond-round brown eyes, tapered double eyelids, soft straight brows, gently rounded nose, medium mouth, asymmetric warm-dark brown bob with one ear exposed by a tuck, and a gentle smile with two unmistakable shallow cheek dimples. The dimples are smile indentations, not freckles or blush dots.",
+    "composition": "Front-facing or very shallow three-quarter full body, hood worn up and clearly framing the face, half-step forward. The lantern leads the path while the found paper is carefully checked and offered toward another person. Keep the full silhouette and both hands clearly visible for body-side verification.",
+    "equipmentContinuity": [
+      "Yui's anatomical RIGHT hand holds the lantern.",
+      "In the front-facing view, the lantern and anatomical right arm appear on the VIEWER'S LEFT.",
+      "The strap begins at Yui's anatomical RIGHT shoulder, VIEWER'S LEFT in front view.",
+      "The strap crosses the chest and ends at Yui's anatomical LEFT waist, VIEWER'S RIGHT in front view.",
+      "The small bag rests at Yui's anatomical LEFT waist, VIEWER'S RIGHT.",
+      "Yui's anatomical LEFT hand, VIEWER'S RIGHT, holds or offers the found paper.",
+      "Do not mirror, swap, hand-transfer or hide these placements."
+    ],
+    "costume": "Short practical navy hooded outer layer, curved soft travel layers, old-paper cream inner clothing, worn practical boots, small body-left bag and aged blackened-brass lantern. Reduce bow, ruffle, belt and dangling-charm density. Any gold marks are sparse broken repair stitches only.",
+    "style": "Premium Japanese storybook character concept art; matte gouache, watercolor and pencil/ink texture; restrained detail; quiet night fill and one small local warm lantern light; suitable for later pixel-sprite simplification.",
+    "avoid": [
+      "child, baby, loli or doll proportions",
+      "generic anime heroine face, giant round eyes or pointed V jaw",
+      "missing bilateral dimples",
+      "hood down in the main pose",
+      "wrong body-side lantern, strap or bag",
+      "generic fantasy mage, princess, sword-user or battle pose",
+      "large bow, excessive ruffles, belts, charms or ornament noise",
+      "recognizable star, constellation, zodiac glyph, crest or Star Beast",
+      "excessive glow, particles, neon, rainbow, glossy gacha or plastic 3D",
+      "readable text, logo, watermark or UI",
+      "relationship, Reality Root landmark, 黒耀化 or other Story inference"
+    ]
+  },
+  "candidatePlan": {
+    "count": 4,
+    "samePromptAndReferenceStack": true,
+    "candidateIds": [
+      "char-yui-full-body-master-candidate-a-v3",
+      "char-yui-full-body-master-candidate-b-v3",
+      "char-yui-full-body-master-candidate-c-v3",
+      "char-yui-full-body-master-candidate-d-v3"
+    ]
+  },
+  "output": {
+    "stagingRoot": "assets/import-staging/batch-character-master/yui/candidates-v3/",
+    "overwriteExistingForbidden": true
+  },
+  "approval": {
+    "automaticQaRequired": true,
+    "humanVisualReviewRequired": true,
+    "approvedAsFinal": false,
+    "runtimeApproved": false
+  }
+}

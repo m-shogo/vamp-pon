@@ -76,6 +76,7 @@ export const VISUAL_SOURCE_CATALOG = {
   'yui-full-body-master-v2-prompt': 'data/character-assets/reviews/yui-full-body-master-v2.prompt.json',
   'yui-full-body-master-v2-qa': 'data/character-assets/reviews/yui-full-body-master-v2.qa.json',
   'yui-full-body-master-v2-rejects': 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json',
+  'yui-full-body-master-v3-prompt': 'data/character-assets/reviews/yui-full-body-master-v3.prompt.json',
 } as const;
 
 export const CHARACTER_AUTHOR_DB_VISUAL_DIMENSION_SOURCES = {
@@ -745,7 +746,7 @@ function characterMasterComponentAssetIds(authorId: string) {
 }
 
 function characterMasterComponentVersion(authorId: string, componentKind: string) {
-  return authorId === 'yui' && componentKind === 'character-full-body-master' ? 2 : 1;
+  return authorId === 'yui' && componentKind === 'character-full-body-master' ? 3 : 1;
 }
 
 function characterMasterComponentProductionItems(): ProductionListItem[] {
@@ -761,6 +762,7 @@ function characterMasterComponentProductionItems(): ProductionListItem[] {
         ...(component.kind === 'character-silhouette-master' && hasSilhouette ? ['current21-silhouette-matrix'] : []),
         ...(component.kind === 'character-silhouette-master' && characterSilhouetteAnchorById.has(identity.stableProfileId) ? ['character-silhouette-canon'] : []),
         ...(component.kind === 'character-master-board' && isExistingCore5Board ? ['character-reference-production-queue', 'core5-reference-manifest'] : []),
+        ...(identity.authorId === 'yui' && component.kind === 'character-full-body-master' ? ['yui-full-body-master-v3-prompt'] : []),
       ];
       return {
         assetId,
@@ -781,12 +783,14 @@ function characterMasterComponentProductionItems(): ProductionListItem[] {
           'visual-design-production-master',
         ],
         parentAssetIds: [],
-        promptPacketId: null,
+        promptPacketId: identity.authorId === 'yui' && component.kind === 'character-full-body-master'
+          ? 'visual-prompt:yui:full-body-master:v3'
+          : null,
         outputPath: masterOutput(assetId),
         candidateIds: candidatesFor(assetId),
         qaChecklist: [...component.qaChecklist],
         blocker: identity.authorId === 'yui' && component.kind === 'character-full-body-master'
-          ? '初回4候補は身体相対のランタン/ストラップ連続性と顔Contractを満たさず全件reject。修正promptを事前保存してから再生成する。'
+          ? 'v3同一prompt 4候補を生成・自動QAし、Human visual review前は選定/親/current/final/runtimeへ昇格しない。'
           : isExistingCore5Board
           ? `既存Master Board (${queue?.existingMasterPath}) を最新Authorityと比較し、reuseかversioned replacementかをHuman reviewで決める。`
           : 'Component固有prompt packetとHuman authority reviewが未完了。Character Master共通packetだけで個別componentを生成しない。',

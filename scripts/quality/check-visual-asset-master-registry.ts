@@ -23,6 +23,7 @@ const CHARACTER_PROMPT_PACKETS_PATH = 'data/character-assets/manifests/visual-ch
 const IMAGE_PRODUCTION_LIST_PATH = 'data/character-assets/manifests/visual-image-production-list.v1.json';
 const YUI_REJECT_QA_PATH = 'data/character-assets/reviews/yui-full-body-master-v2.qa.json';
 const YUI_REJECT_LEDGER_PATH = 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json';
+const YUI_V3_PROMPT_PATH = 'data/character-assets/reviews/yui-full-body-master-v3.prompt.json';
 
 type JsonObject = Record<string, unknown>;
 
@@ -77,6 +78,7 @@ const promptPacketsManifest = readJson(CHARACTER_PROMPT_PACKETS_PATH);
 const imageProductionList = readJson(IMAGE_PRODUCTION_LIST_PATH);
 const yuiRejectQa = readJson(YUI_REJECT_QA_PATH);
 const yuiRejectLedger = readJson(YUI_REJECT_LEDGER_PATH);
+const yuiV3Prompt = readJson(YUI_V3_PROMPT_PATH);
 
 function requireGeneratedSnapshot(actual: JsonObject, expected: unknown, path: string): void {
   if (JSON.stringify(actual) !== JSON.stringify(expected)) {
@@ -329,6 +331,42 @@ for (const candidate of yuiQaCandidates) {
   }
 }
 
+if (yuiV3Prompt.packetId !== 'visual-prompt:yui:full-body-master:v3') fail('Yui v3 prompt packet ID drifted');
+if (yuiV3Prompt.assetFamilyId !== 'char-yui-full-body-master-v3' || yuiV3Prompt.subjectId !== 'yui') fail('Yui v3 prompt subject/family drifted');
+if (yuiV3Prompt.status !== 'AUTHORIZED_FOR_FOUR_CANDIDATE_GENERATION_NOT_APPROVED') fail('Yui v3 prompt must remain generation-authorized but unapproved');
+const yuiV3Authority = isObject(yuiV3Prompt.authoritySnapshot) ? yuiV3Prompt.authoritySnapshot : {};
+const yuiV3DominantHand = isObject(yuiV3Authority.dominantHand) ? yuiV3Authority.dominantHand : {};
+if (yuiV3DominantHand.value !== null || yuiV3DominantHand.status !== 'OPEN_NO_SOURCE') fail('Yui v3 prompt may not infer dominant hand');
+if (yuiV3Authority.heldItemHandMayNotInferDominantHand !== true || yuiV3Authority.storyAuthorityPromotedByImage !== false) fail('Yui v3 prompt lost handedness/Story authority boundary');
+if (yuiV3Authority.approvedAsFinal !== false || yuiV3Authority.runtimeApproved !== false) fail('Yui v3 prompt may not pre-approve final/runtime');
+const yuiV3PromptBody = isObject(yuiV3Prompt.prompt) ? yuiV3Prompt.prompt : {};
+const yuiV3Continuity = requireStringArray(yuiV3PromptBody, 'equipmentContinuity', 'yuiV3Prompt.prompt');
+for (const required of [
+  "Yui's anatomical RIGHT hand holds the lantern.",
+  "The strap begins at Yui's anatomical RIGHT shoulder, VIEWER'S LEFT in front view.",
+  "The strap crosses the chest and ends at Yui's anatomical LEFT waist, VIEWER'S RIGHT in front view.",
+  "The small bag rests at Yui's anatomical LEFT waist, VIEWER'S RIGHT.",
+  "Yui's anatomical LEFT hand, VIEWER'S RIGHT, holds or offers the found paper.",
+  'Do not mirror, swap, hand-transfer or hide these placements.',
+]) if (!yuiV3Continuity.includes(required)) fail(`Yui v3 prompt missing equipment continuity: ${required}`);
+const yuiV3Plan = isObject(yuiV3Prompt.candidatePlan) ? yuiV3Prompt.candidatePlan : {};
+const yuiV3CandidateIds = requireStringArray(yuiV3Plan, 'candidateIds', 'yuiV3Prompt.candidatePlan');
+if (yuiV3Plan.count !== 4 || yuiV3Plan.samePromptAndReferenceStack !== true || yuiV3CandidateIds.length !== 4 || new Set(yuiV3CandidateIds).size !== 4) {
+  fail('Yui v3 prompt must reserve exactly four same-prompt candidates');
+}
+const yuiV3Approval = isObject(yuiV3Prompt.approval) ? yuiV3Prompt.approval : {};
+if (yuiV3Approval.automaticQaRequired !== true || yuiV3Approval.humanVisualReviewRequired !== true || yuiV3Approval.approvedAsFinal !== false || yuiV3Approval.runtimeApproved !== false) {
+  fail('Yui v3 prompt approval boundary must remain fail-closed');
+}
+const yuiV3References = Array.isArray(yuiV3Prompt.references) ? yuiV3Prompt.references.filter(isObject) : [];
+if (yuiV3References.length !== 2) fail('Yui v3 prompt must preserve exactly two identity/runtime references');
+for (const reference of yuiV3References) {
+  const path = requireNonEmptyString(reference, 'path', 'yuiV3Prompt.reference');
+  const expectedHash = requireNonEmptyString(reference, 'sha256', `yuiV3Prompt.reference:${path}`);
+  if (!isSafeRepoPath(path) || !existsSync(path)) fail(`Yui v3 prompt reference is missing or outside the repository: ${path}`);
+  else if (createHash('sha256').update(readFileSync(path)).digest('hex') !== expectedHash) fail(`Yui v3 prompt reference hash drifted: ${path}`);
+}
+
 function checkCycles(label: string, edges: (asset: JsonObject) => string[]): void {
   const visiting = new Set<string>();
   const visited = new Set<string>();
@@ -576,6 +614,13 @@ for (const [assetId, item] of productionById) {
   }
   const promptPacketId = typeof item.promptPacketId === 'string' ? item.promptPacketId : null;
   if (item.productionStatus === 'ready-for-prompt-review' && !promptPacketId && item.kind === 'character-master') fail(`${assetId}: ready Character Master needs a prompt packet`);
+}
+const yuiV3Production = productionById.get('char-yui-full-body-master-v3');
+if (!yuiV3Production) fail('Yui v3 full-body production reservation missing');
+else {
+  if (yuiV3Production.promptPacketId !== yuiV3Prompt.packetId) fail('Yui v3 production reservation is not linked to its prompt packet');
+  if (JSON.stringify(yuiV3Production.candidateIds) !== JSON.stringify(yuiV3CandidateIds)) fail('Yui v3 production candidate IDs differ from the prompt packet');
+  if (!strings(yuiV3Production.sourceOfTruth).includes('yui-full-body-master-v3-prompt')) fail('Yui v3 production reservation must bind its versioned prompt');
 }
 
 const counts = isObject(imageProductionList.counts) ? imageProductionList.counts : {};

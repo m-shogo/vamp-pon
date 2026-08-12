@@ -1,6 +1,6 @@
 # Visual Master Production handoff — 2026-08-12
 
-Status: CURRENT WORKING CHECKPOINT / NOT MERGE READY / CONTINUE IN ONE THREAD
+Status: CURRENT REVIEW CHECKPOINT / PR #304 / NO STORY OR RUNTIME PROMOTION
 
 ## Repository and branch
 
@@ -28,8 +28,8 @@ At every meaningful batch boundary, run `git fetch origin main --prune`, compare
   - 142 Lorebook rows
   - 72 Gameplay rows
 - Existing Asset Factory contracts are indexed instead of duplicated.
-- Visual checker/CI extensions are in progress; generated snapshots must be re-exported and validated before PR.
-- Checkpoint時点で`pnpm visual-assets:check`、`pnpm implementation:preflight:check`、`git diff --check`はPASS。PR/CIはまだ未実行。
+- Visual checker/CIは、生成snapshot同期、36人coverage、624 production item、親子DAG、既存Asset Factory contract index、利き腕/装備、Yui reject境界まで接続済み。
+- PR #304はdraftとして作成済み。各更新後にlocal verificationとGitHub CIを再実行し、greenを確認してからreview-ready/mergeへ進める。
 
 ## Handedness and equipment continuity
 
@@ -52,7 +52,7 @@ Current Yui visual continuity from `goldenReferenceRegistry.ts`:
 - bag: body-left hip
 - front view projection: body-right appears screen-left; body-left appears screen-right
 
-The handedness/equipment registry still needs to be imported into the visual registry generator, prompt packets, production rows and checker in the next thread.
+The handedness/equipment registry is connected to the central registry, coverage rows, all 36 prompt packets, Character Master production rows and the objective checker.
 
 ## Yui generation attempt
 
@@ -79,15 +79,12 @@ Do not delete rejected outputs; use them to prevent the same prompt failure. Do 
 
 ## Immediate next work
 
-1. Connect `characterHandednessEquipmentRegistry.ts` to coverage, prompt packets, production list and checker.
-2. Register the rejected Yui attempt as archived learning-only records in the central registry.
-3. Fix Master composite parent rules: component Masters may parent only the Character Master composite; Lorebook or Gameplay may never parent Master/Gameplay.
-4. Ensure candidate IDs end in `-vN` and all registry IDs pass the naming checker.
-5. Re-export all tracked manifests.
-6. Run `pnpm visual-assets:check`, relevant static preflight, `git diff --check`, and CI.
-7. Commit the coherent foundation, push, open a small draft PR, wait for CI, then squash merge only when green and review boundaries are intact.
-8. Fetch latest main again before the next image batch.
-9. Prepare Yui corrected same-prompt four-candidate batch; do not promote without human visual review.
+1. Re-export all tracked manifests and prove that no snapshot is stale or hand-edited.
+2. Run `pnpm visual-assets:check`, current Visual Design Master checkers, implementation preflight, `git diff --check`, build/test and GitHub CI.
+3. Confirm PR #304 is based on latest `origin/main`, has no unrelated Gameplay/U49 changes, and remains mergeable.
+4. Mark PR #304 review-ready and squash merge only when all checks are green and authority boundaries remain fail-closed.
+5. Fetch latest main again after merge.
+6. Use the versioned Yui v3 same-prompt four-candidate packet for the next small intake batch; generated outputs, selection and promotion remain separate gates, and only selection/promotion require Human visual review.
 
 ## Boundaries that remain non-negotiable
 

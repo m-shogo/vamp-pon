@@ -753,7 +753,8 @@
     "constellation-history-research": "src/game/data/constellationHistoryResearch.ts",
     "yui-full-body-master-v2-prompt": "data/character-assets/reviews/yui-full-body-master-v2.prompt.json",
     "yui-full-body-master-v2-qa": "data/character-assets/reviews/yui-full-body-master-v2.qa.json",
-    "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json"
+    "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json",
+    "yui-full-body-master-v3-prompt": "data/character-assets/reviews/yui-full-body-master-v3.prompt.json"
   },
   "subjectAliases": {
     "F01": "hiyori",

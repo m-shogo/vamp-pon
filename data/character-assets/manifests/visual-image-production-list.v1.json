@@ -61,7 +61,8 @@
     "constellation-history-research": "src/game/data/constellationHistoryResearch.ts",
     "yui-full-body-master-v2-prompt": "data/character-assets/reviews/yui-full-body-master-v2.prompt.json",
     "yui-full-body-master-v2-qa": "data/character-assets/reviews/yui-full-body-master-v2.qa.json",
-    "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json"
+    "yui-full-body-master-v2-rejects": "data/character-assets/reviews/yui-full-body-master-v2.rejects.json",
+    "yui-full-body-master-v3-prompt": "data/character-assets/reviews/yui-full-body-master-v3.prompt.json"
   },
   "counts": {
     "totalItems": 624,
@@ -11974,7 +11975,7 @@
       "notes": "Component coverageは存在確認であり、quality/final/runtime承認を意味しない。"
     },
     {
-      "assetId": "char-yui-full-body-master-v2",
+      "assetId": "char-yui-full-body-master-v3",
       "subjectId": "yui",
       "subjectType": "character",
       "title": "ユイ Full Body Master",
@@ -11990,18 +11991,19 @@
         "character-appearance-contracts",
         "character-era-registry",
         "character-reality-roots",
+        "yui-full-body-master-v3-prompt",
         "character-handedness-equipment",
         "character-living-visual-roster",
         "visual-design-production-master"
       ],
       "parentAssetIds": [],
-      "promptPacketId": null,
-      "outputPath": "assets/import-staging/master/char-yui-full-body-master-v2/char-yui-full-body-master-v2.png",
+      "promptPacketId": "visual-prompt:yui:full-body-master:v3",
+      "outputPath": "assets/import-staging/master/char-yui-full-body-master-v3/char-yui-full-body-master-v3.png",
       "candidateIds": [
-        "char-yui-full-body-master-candidate-a-v2",
-        "char-yui-full-body-master-candidate-b-v2",
-        "char-yui-full-body-master-candidate-c-v2",
-        "char-yui-full-body-master-candidate-d-v2"
+        "char-yui-full-body-master-candidate-a-v3",
+        "char-yui-full-body-master-candidate-b-v3",
+        "char-yui-full-body-master-candidate-c-v3",
+        "char-yui-full-body-master-candidate-d-v3"
       ],
       "qaChecklist": [
         "body-shape",
@@ -12013,7 +12015,7 @@
         "era-construction",
         "no-clone-pose"
       ],
-      "blocker": "初回4候補は身体相対のランタン/ストラップ連続性と顔Contractを満たさず全件reject。修正promptを事前保存してから再生成する。",
+      "blocker": "v3同一prompt 4候補を生成・自動QAし、Human visual review前は選定/親/current/final/runtimeへ昇格しない。",
       "notes": "Component coverageは存在確認であり、quality/final/runtime承認を意味しない。"
     },
     {
@@ -24879,7 +24881,7 @@
         "char-yui-master-board-v1",
         "char-yui-face-master-v1",
         "char-yui-bust-master-v1",
-        "char-yui-full-body-master-v2",
+        "char-yui-full-body-master-v3",
         "char-yui-expression-master-v1",
         "char-yui-costume-master-v1",
         "char-yui-props-master-v1",

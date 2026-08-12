@@ -28,7 +28,7 @@ Lorebook画像をGameplay派生の親にしない。画像の出来栄えを理�
 - `data/character-assets/templates/visual-qa-record.template.json`: QA。
 - `data/character-assets/templates/visual-reject-ledger.template.json`: reject理由。
 
-3 manifestは手編集する正本ではない。`src/game/data/visualAssetGenerationInventory.ts`が既存Author DBを束ねる投影定義で、次のコマンドから再生成する。
+5 manifestは手編集する正本ではない。`src/game/data/visualAssetGenerationInventory.ts`が既存Author DBとVisual Design Masterを束ねる投影定義で、次のコマンドから再生成する。
 
 ```sh
 pnpm visual-assets:inventory:export
