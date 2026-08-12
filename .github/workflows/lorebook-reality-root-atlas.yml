@@ -1,0 +1,43 @@
+name: Lorebook Reality Root Atlas
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/data/reality-root-map.v1.json'
+      - 'public/lorebook/geography-enhancement.js'
+      - 'public/lorebook/geography.css'
+      - 'public/lorebook/enhancements.js'
+      - 'src/game/data/characterRealityRootMapReadModel.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'scripts/quality/check-lorebook-reality-root-atlas.ts'
+      - 'docs/lorebook-reality-root-atlas-v1.md'
+      - '.github/workflows/lorebook-reality-root-atlas.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/data/reality-root-map.v1.json'
+      - 'public/lorebook/geography-enhancement.js'
+      - 'public/lorebook/geography.css'
+      - 'public/lorebook/enhancements.js'
+      - 'src/game/data/characterRealityRootMapReadModel.ts'
+      - 'src/game/data/characterRealityRootRegistry.ts'
+      - 'scripts/quality/check-lorebook-reality-root-atlas.ts'
+      - 'docs/lorebook-reality-root-atlas-v1.md'
+      - '.github/workflows/lorebook-reality-root-atlas.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate geography enhancement syntax
+        run: node --check public/lorebook/geography-enhancement.js
+      - name: Validate Reality Root Atlas against read-model
+        run: node --experimental-strip-types scripts/quality/check-lorebook-reality-root-atlas.ts
