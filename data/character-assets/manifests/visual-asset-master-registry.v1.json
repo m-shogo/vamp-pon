@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "registryId": "yoruno-shirube-visual-asset-master-registry-v1",
+  "authorityModel": {
+    "direction": "SOURCE_OF_TRUTH -> MASTER -> READ_MODEL | GAMEPLAY_DERIVED",
+    "storyAuthorityMayNotBePromotedByVisualReview": true,
+    "lorebookMayNotParentGameplay": true,
+    "candidateMayNotBecomeCurrentWithoutHumanReview": true
+  },
+  "sourceCatalog": {
+    "character-author-db": "src/game/data/characterAuthorDbCoverageManifest.ts",
+    "character-appearance-contracts": "src/game/data/characterAppearanceGenerationContracts.ts",
+    "asset-generation-policy": "src/game/data/assetGenerationPolicy.ts",
+    "golden-reference-registry": "src/game/data/goldenReferenceRegistry.ts",
+    "generation-lineage-template": "data/asset-factory/generation-lineage.template.json"
+  },
+  "subjectAliases": {},
+  "allowedValues": {
+    "layers": ["master", "lorebook", "gameplay"],
+    "authorityStatuses": ["CANON", "CURRENT", "USER_DIRECTION", "CANDIDATE", "AUTHOR_RESERVOIR", "RESEARCH", "OPEN", "Future15"],
+    "reviewStatuses": ["needs-generation", "generated-unreviewed", "needs-author-review", "needs-boundary-review", "approved-candidate", "approved-current", "superseded", "archived"]
+  },
+  "assets": []
+}

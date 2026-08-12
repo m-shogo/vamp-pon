@@ -1,0 +1,19 @@
+{
+  "id": "char-subject-master-v1",
+  "subjectId": "subject",
+  "subjectType": "character",
+  "title": "Subject Character Master",
+  "layer": "master",
+  "kind": "character-master",
+  "authorityStatus": "CANDIDATE",
+  "reviewStatus": "needs-generation",
+  "current": false,
+  "derivedFrom": [],
+  "sourceOfTruth": ["character-author-db", "character-appearance-contracts"],
+  "usageTargets": ["lorebook", "gameplay"],
+  "tags": ["subject", "character", "master"],
+  "files": [],
+  "replacementPolicy": {"canReplace": true, "replaces": null, "supersededBy": null},
+  "promptPacketId": null,
+  "notes": ""
+}

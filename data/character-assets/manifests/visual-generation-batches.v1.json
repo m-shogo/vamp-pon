@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "registryId": "yoruno-shirube-visual-generation-batches-v1",
+  "executionPolicy": {
+    "automaticExecutionAllowed": false,
+    "exactCandidateCount": 4,
+    "oneShotFinalForbidden": true,
+    "authorityReviewBeforeGeneration": true,
+    "visualQaBeforeRegistration": true,
+    "humanReviewRequiredForCurrent": true,
+    "runtimeDerivationBeforeMasterApprovalForbidden": true
+  },
+  "batches": []
+}

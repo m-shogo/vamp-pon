@@ -1,0 +1,46 @@
+name: Visual Asset Master Registry
+
+on:
+  pull_request:
+    paths:
+      - 'data/character-assets/manifests/**'
+      - 'data/character-assets/templates/**'
+      - 'docs/visual-asset-generation-foundation-v1.md'
+      - 'assets/reference/character-master/**'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'scripts/quality/check-visual-asset-master-registry.ts'
+      - 'package.json'
+      - '.github/workflows/visual-asset-master-registry.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/character-assets/manifests/**'
+      - 'data/character-assets/templates/**'
+      - 'docs/visual-asset-generation-foundation-v1.md'
+      - 'assets/reference/character-master/**'
+      - 'src/game/data/characterAuthorDbCoverageManifest.ts'
+      - 'src/game/data/characterAppearanceGenerationContracts.ts'
+      - 'scripts/quality/check-visual-asset-master-registry.ts'
+      - 'package.json'
+      - '.github/workflows/visual-asset-master-registry.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Validate Visual Asset Master Registry and coverage inventory
+        run: pnpm visual-assets:check

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "packetId": "visual-prompt:subject:kind:v1",
+  "status": "draft-not-approved-not-generated",
+  "assetId": "char-subject-master-v1",
+  "authoritySnapshot": {
+    "sourceCommit": "REQUIRED_AT_EXECUTION",
+    "sourceOfTruth": [],
+    "storyStatus": "CANDIDATE",
+    "openQuestions": [],
+    "forbiddenInferences": []
+  },
+  "referenceStack": {"characterMaster": [], "currentBestAsset": [], "turnaround": [], "directEditTarget": [], "rolesMustBeDeclared": true},
+  "promptSpec": {
+    "useCase": "stylized-concept",
+    "assetType": "master",
+    "primaryRequest": "TO_BE_AUTHORED_AFTER_AUTHORITY_REVIEW",
+    "sceneBackdrop": "",
+    "subject": "",
+    "styleMedium": "",
+    "compositionFraming": "",
+    "lightingMood": "",
+    "colorPalette": "",
+    "materialsTextures": "",
+    "constraints": [],
+    "avoid": []
+  },
+  "candidatePlan": {"count": 4, "sameContractAndPrompt": true, "ids": ["candidate-a", "candidate-b", "candidate-c", "candidate-d"]},
+  "output": {"stagingRoot": "assets/import-staging/<batch-id>/", "transparentWorkflow": "chroma-key-then-shared-alpha-tool-when-needed", "overwriteExistingForbidden": true},
+  "approval": {"automaticQaRequired": true, "humanVisualReviewRequired": true, "approvedAsFinal": false, "runtimeApproved": false}
+}

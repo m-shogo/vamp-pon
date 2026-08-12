@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "assetId": "char-subject-master-v1",
+  "candidateId": "candidate-a",
+  "status": "not-reviewed",
+  "checks": {
+    "identity": "not-reviewed", "face": "not-reviewed", "hair": "not-reviewed", "eyes": "not-reviewed",
+    "body": "not-reviewed", "ageImpression": "not-reviewed", "silhouette": "not-reviewed",
+    "costume": "not-reviewed", "props": "not-reviewed", "themeColor": "not-reviewed",
+    "eraConsistency": "not-reviewed", "smallSizeReadability": "not-reviewed",
+    "fileAndAlpha": "not-reviewed", "canonBoundary": "not-reviewed"
+  },
+  "issues": [],
+  "decision": "pending",
+  "humanReview": {"required": true, "result": "not-provided"}
+}

@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "batchId": "batch-NN-purpose-v1",
+  "allowedReasons": ["face-drift", "age-drift", "costume-mismatch", "generic-anime-face", "wrong-era", "excessive-glow", "anatomy-or-hands", "prop-mismatch", "canon-boundary-violation", "silhouette-too-similar", "technical-qa-failure"],
+  "rejections": []
+}
