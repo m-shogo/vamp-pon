@@ -43,6 +43,7 @@ export const unityPrototypeCallerImplementedWeaponIds = [
   'copper_tuning_fork',
   'pavement_hammer',
   'pressed_flower_cards',
+  'dream_alarm',
   'star_map_pin',
   'return_compass_needle',
 ] as const;
@@ -63,7 +64,7 @@ export const currentUnityWeaponRuntimeCapabilities: Readonly<Record<UnityWeaponR
   BREAK_STAGGER_APPLICATION: 'IMPLEMENTED',
   RETURNING_PROJECTILE: 'IMPLEMENTED',
   TRAP_PERSISTENCE: 'IMPLEMENTED',
-  DELAYED_TRIGGER: 'MISSING',
+  DELAYED_TRIGGER: 'IMPLEMENTED',
   HOMING_PRIORITY_SELECTION: 'IMPLEMENTED',
   SWEEP_QUERY: 'MISSING',
   REFLECT_WINDOW: 'MISSING',
