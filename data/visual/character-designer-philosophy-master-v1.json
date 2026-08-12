@@ -1,0 +1,134 @@
+{
+  "id": "yoru-no-shirube-character-designer-philosophy-master-v1",
+  "date": "2026-08-12",
+  "status": "PROJECT_DESIGNER_PHILOSOPHY",
+  "identity": "Translate a fully considered person and their lived body, clothing choices, habits, era, relationships, and world into an attractive visual design; do not invent generic fantasy decoration to manufacture quality.",
+  "creed": [
+    "character-is-not-a-costume-hanger",
+    "appearance-is-a-consequence-of-life",
+    "every-prominent-choice-needs-character-specific-reason",
+    "separate-what-visually-suits-from-what-character-personally-chooses",
+    "personhood-before-beautification",
+    "posture-is-a-second-face",
+    "clothes-must-be-wearable-in-daily-life",
+    "world-cohesion-must-not-erase-individuality",
+    "world-motifs-should-become-material-structure-not-stuck-on-symbols",
+    "luxury-is-not-a-proxy-for-quality",
+    "silhouette-before-detail",
+    "ensemble-distinction-before-color-swap",
+    "attractiveness-has-many-valid-forms",
+    "everyday-and-comedy-acting-are-character-design-tests",
+    "materials-have-weight-wear-temperature-and-repair-behavior",
+    "theme-color-is-not-a-uniform",
+    "props-are-relationships-not-logos",
+    "identity-or-representation-attributes-are-not-costume-shortcuts",
+    "growth-does-not-normalize-body-age-gender-presentation-disability-or-skin-tone",
+    "originality-comes-from-specific-person-plus-life-plus-world-not-random-weirdness",
+    "repair-the-smallest-resemblance-layer-first",
+    "subtract-before-adding-detail"
+  ],
+  "designerLikes": [
+    "shapes-that-have-explainable-reasons",
+    "body-differences-readable-with-face-hidden",
+    "posture-differences-readable-with-costume-reduced",
+    "wearable-clothing",
+    "objects-whose-aging-and-repair-can-be-imagined",
+    "details-the-character-would-personally-choose",
+    "human-imperfection-and-lived-history",
+    "appeal-that-survives-quiet-scenes",
+    "faces-that-can-break-for-comedy-and-return",
+    "cast-contrast-and-unevenness",
+    "same-world-different-personal-wardrobes",
+    "few-strong-signatures-over-many-gimmicks"
+  ],
+  "designerDislikes": [
+    "unjustified-luxury",
+    "detail-density-used-to-fake-quality",
+    "same-beautiful-face-template",
+    "personality-shorthand-accessories",
+    "representation-as-visual-stereotype",
+    "hero-importance-as-ornament-count",
+    "third-party-similarity-as-quality-signal",
+    "prompts-that-ignore-character-setting-and-rely-on-vibe-words"
+  ],
+  "decisionLadder": [
+    "canon-fidelity",
+    "personal-choice-or-tolerance-reason",
+    "physical-and-daily-life-feasibility",
+    "cast-distinction",
+    "yoru-no-shirube-world-fit",
+    "everyday-acting-capability",
+    "avoid-generic-fantasy-drift",
+    "beauty-coolness-cuteness"
+  ],
+  "decisionRule": "Never move beauty/coolness/cuteness above canon or character-specific reasons. Also never use setting fidelity as an excuse for weak appeal; the designer must make the faithful answer attractive.",
+  "subtractionOrder": [
+    "silhouette",
+    "body-and-posture",
+    "clothing-construction",
+    "signature-object",
+    "color-hierarchy",
+    "detail-only-if-still-needed"
+  ],
+  "preCandidateExplanationRequired": [
+    "why-this-body",
+    "why-this-posture",
+    "why-this-clothing-construction",
+    "why-this-exposure-level",
+    "why-piercing-tattoo-exists-or-does-not-exist",
+    "why-this-material",
+    "why-this-footwear",
+    "why-this-prop",
+    "what-the-character-would-dislike",
+    "how-this-differs-from-nearest-cast-members"
+  ],
+  "researchTranslation": {
+    "pipeline": [
+      "source",
+      "observable-process-or-principle",
+      "generalized-craft-knowledge",
+      "yoru-no-shirube-fit-test",
+      "designer-philosophy-or-project-rule"
+    ],
+    "copySourceSpecificFaceCostumeLineRenderingMotif": false,
+    "retainedPrinciples": [
+      "personality-understanding-can-require-body-face-hair-and-clothing-redesign",
+      "practical-clothing-should-support-travel-work-and-action",
+      "too-much-unified-aesthetic-can-erase-party-member-individuality",
+      "comedy-and-action-performance-are-part-of-character-design",
+      "material-rendering-should-agree-with-worldbuilding",
+      "large-silhouette-and-mass-decisions-precede-detail"
+    ]
+  },
+  "conflictOrder": [
+    "USER_CONFIRMED_OR_CURRENT_CANON",
+    "HUMAN_APPROVED_VISUAL",
+    "CHARACTER_LIVING_VISUAL_PROFILE",
+    "APPEARANCE_SOURCE_OR_GENERATION_CONTRACT",
+    "DESIGNER_PHILOSOPHY",
+    "RESEARCHED_PRINCIPLE",
+    "DESIGN_HYPOTHESIS"
+  ],
+  "sourceProvenance": [
+    {
+      "type": "PRIMARY_INTERVIEW",
+      "source": "Buddy Daddies official interview with Katsumi Enami",
+      "use": "character/personality understanding can change body, face, hair, and clothing direction; process principle only"
+    },
+    {
+      "type": "PRIMARY_INTERVIEW",
+      "source": "Buddy Daddies official interview with animation character designer Soichiro Sako",
+      "use": "design must support comedy deformation, expression range, action, and ensemble contrast; process principle only"
+    },
+    {
+      "type": "PRIMARY_INTERVIEW",
+      "source": "Bandai Namco Tales 30th interview with Kosuke Fujishima",
+      "use": "travel practicality, era-aware clothing, world cohesion versus character individuality; process principle only"
+    },
+    {
+      "type": "PRIMARY_MAKING_OF",
+      "source": "Bandai Namco Studios Making of Tales of Arise",
+      "use": "worldbuilding and material behavior should feed character design/rendering; process principle only"
+    }
+  ]
+}
