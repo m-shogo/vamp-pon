@@ -1,4 +1,7 @@
 import { defineConfig } from 'vite';
+import { writeEraDialogueAtlasProjection } from './scripts/lorebook/generate-era-dialogue-atlas.ts';
+
+writeEraDialogueAtlasProjection();
 
 export default defineConfig({
   build: {
