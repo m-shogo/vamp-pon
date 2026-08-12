@@ -1,0 +1,63 @@
+name: Lorebook Relationship Source Aware
+
+on:
+  pull_request:
+    paths:
+      - 'public/lorebook/relationship-enhancement.js'
+      - 'public/lorebook/relationship.css'
+      - 'public/lorebook/data/world-bible.v1.json'
+      - 'public/lorebook/data/relationship-arcs.v1.json'
+      - 'docs/lorebook-relationship-source-aware-v1.md'
+      - '.github/workflows/lorebook-relationship-source-aware.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'public/lorebook/relationship-enhancement.js'
+      - 'public/lorebook/relationship.css'
+      - 'public/lorebook/data/world-bible.v1.json'
+      - 'public/lorebook/data/relationship-arcs.v1.json'
+      - 'docs/lorebook-relationship-source-aware-v1.md'
+      - '.github/workflows/lorebook-relationship-source-aware.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate relationship enhancement syntax
+        run: node --check public/lorebook/relationship-enhancement.js
+      - name: Validate source-aware relationship UI boundaries
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const world = JSON.parse(fs.readFileSync('public/lorebook/data/world-bible.v1.json', 'utf8'));
+          const arcs = JSON.parse(fs.readFileSync('public/lorebook/data/relationship-arcs.v1.json', 'utf8'));
+          const js = fs.readFileSync('public/lorebook/relationship-enhancement.js', 'utf8');
+          const css = fs.readFileSync('public/lorebook/relationship.css', 'utf8');
+          const doc = fs.readFileSync('docs/lorebook-relationship-source-aware-v1.md', 'utf8');
+          const fail = (message) => { console.error(message); process.exitCode = 1; };
+          if (!Array.isArray(world.relationships) || world.relationships.length !== 24) fail(`expected 24 Lorebook relationships, got ${world.relationships?.length}`);
+          if (!Array.isArray(arcs.arcs)) fail('relationship arc data missing arcs array');
+          if (!world.relationships.every((item) => item.id && item.label && item.status && item.type)) fail('relationship list missing source-owned id/label/status/type');
+          for (const token of [
+            'SOURCE-AWARE GRAPH',
+            '線は「仲良し度」ではなく、深掘りできる関係レーン。',
+            '線がない = 関係なし、ではない。',
+            'docs/RELATIONSHIPS.md',
+            'この線だけから恋愛・血縁・好感度・信頼度・Main Mystery関与を追加推論しない。',
+            'data-source-status',
+          ]) if (!js.includes(token)) fail(`relationship source-aware UI guard missing: ${token}`);
+          for (const token of ['.relation-source-guide', '.relation-source-chip', '.relation-source-panel']) {
+            if (!css.includes(token)) fail(`relationship source-aware CSS missing: ${token}`);
+          }
+          for (const token of [
+            'EXISTING 24 RELATION LANES REUSED / NO AFFECTION GRAPH',
+            'A missing edge does not mean there is no relationship.',
+            'line thickness as affection',
+            '人間関係図の線は「二人がどれだけ好き合っているか」ではなく、「二人について次にどのSourceを読むか」を示す。',
+          ]) if (!doc.includes(token)) fail(`relationship integration doc guard missing: ${token}`);
+          NODE
