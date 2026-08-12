@@ -1,6 +1,10 @@
 import { CHARACTER_AUTHOR_DB_COVERAGE, CHARACTER_AUTHOR_DB_IDENTITIES } from './characterAuthorDbCoverageManifest.ts';
 import { characterAppearanceGenerationContracts } from './characterAppearanceGenerationContracts.ts';
-import { characterHandednessEquipmentByAuthorId } from './characterHandednessEquipmentRegistry.ts';
+import {
+  CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY,
+  CHARACTER_HANDEDNESS_EQUIPMENT_RULES,
+  characterHandednessEquipmentByAuthorId,
+} from './characterHandednessEquipmentRegistry.ts';
 import { CHARACTER_CROSS_ERA_ECHO_CHAINS } from './characterCrossEraEchoReservoir.ts';
 import { CHARACTER_ERA_FORESHADOW_DIALOGUE } from './characterEraForeshadowDialogueReservoir.ts';
 import { CHARACTER_RELATIONSHIP_GRAPH_EDGES } from './characterRelationshipGraphReadModel.ts';
@@ -16,6 +20,8 @@ import { starBeastVisualSharedSourceEntries } from './starBeastVisualSharedSourc
 import { STORY_WORLD_MASTER_SOURCE } from './storyWorldMasterSource.ts';
 import { yatsukageCallNames } from './yatsukageIdentitySource.ts';
 import core5ReferenceManifest from '../../../data/character-assets/core5-character-master-assets.json' with { type: 'json' };
+import yuiFullBodyMasterV2Qa from '../../../data/character-assets/reviews/yui-full-body-master-v2.qa.json' with { type: 'json' };
+import yuiFullBodyMasterV2Rejects from '../../../data/character-assets/reviews/yui-full-body-master-v2.rejects.json' with { type: 'json' };
 
 export const VISUAL_ASSET_INVENTORY_PATHS = {
   coverage: 'data/character-assets/manifests/visual-asset-coverage.v1.json',
@@ -29,6 +35,8 @@ export const VISUAL_SOURCE_CATALOG = {
   'character-author-db': 'src/game/data/characterAuthorDbCoverageManifest.ts',
   'character-appearance-contracts': 'src/game/data/characterAppearanceGenerationContracts.ts',
   'character-handedness-equipment': 'src/game/data/characterHandednessEquipmentRegistry.ts',
+  'character-living-visual-roster': 'data/visual/character-living-visual-roster-v1.json',
+  'visual-design-production-master': 'data/visual/visual-design-production-master-v1.json',
   'character-era-registry': 'src/game/data/characterEraForeshadowDialogueReservoir.ts',
   'character-era-fingerprints': 'src/game/data/characterEraFingerprintRegistry.ts',
   'character-era-scene-seeds': 'src/game/data/characterEraSceneSeedRegistry.ts',
@@ -65,6 +73,9 @@ export const VISUAL_SOURCE_CATALOG = {
   'cross-era-echo-chains': 'src/game/data/characterCrossEraEchoReservoir.ts',
   'constellation-story-clues': 'src/game/data/constellationStoryClueReservoir.ts',
   'constellation-history-research': 'src/game/data/constellationHistoryResearch.ts',
+  'yui-full-body-master-v2-prompt': 'data/character-assets/reviews/yui-full-body-master-v2.prompt.json',
+  'yui-full-body-master-v2-qa': 'data/character-assets/reviews/yui-full-body-master-v2.qa.json',
+  'yui-full-body-master-v2-rejects': 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json',
 } as const;
 
 export const CHARACTER_AUTHOR_DB_VISUAL_DIMENSION_SOURCES = {
@@ -279,6 +290,9 @@ function reservedCharacterMasterAssets() {
       sourceOfTruth: [
         'character-author-db',
         'character-appearance-contracts',
+        'character-handedness-equipment',
+        'character-living-visual-roster',
+        'visual-design-production-master',
         'character-era-registry',
         'character-era-fingerprints',
         'character-era-scene-seeds',
@@ -298,6 +312,8 @@ function reservedCharacterMasterAssets() {
         hasEraBoundary: true,
         hasRealityRootBoundary: true,
         hasThemeColorCandidate: true,
+        hasHandednessEquipmentBoundary: true,
+        hasLivingVisualAuthorityBoundary: true,
         hasMainSilhouetteSource: current21SilhouetteMatrixById.has(identity.stableProfileId),
         existingReferenceAction: queue?.action ?? 'none',
         generationBlockedUntilPromptPacket: true,
@@ -305,6 +321,61 @@ function reservedCharacterMasterAssets() {
       notes: identity.rosterLayer === 'FUTURE15'
         ? 'Future15は時代authorityではない。Era statusを別Sourceから読む。mainにSilhouette sourceがない場合は未merge候補を推論で補わない。'
         : '生成前予約。候補4枚、QA、Human reviewなしにcurrent/final/runtimeへ昇格しない。',
+    };
+  });
+}
+
+function yuiRejectedFullBodyAssets() {
+  const rejectedFiles = new Set(yuiFullBodyMasterV2Rejects.files);
+  return yuiFullBodyMasterV2Qa.candidates.map((candidate) => {
+    if (!rejectedFiles.has(candidate.file)) throw new Error(`Yui rejected candidate is missing from reject ledger: ${candidate.id}`);
+    return {
+      id: candidate.id,
+      subjectId: 'yui',
+      subjectType: 'character',
+      title: `ユイ Full Body Master rejected candidate ${candidate.id}`,
+      layer: 'master',
+      kind: 'character-full-body-master-rejected-candidate',
+      authorityStatus: 'CANDIDATE',
+      reviewStatus: 'archived',
+      current: false,
+      derivedFrom: [],
+      sourceOfTruth: [
+        'character-author-db',
+        'character-appearance-contracts',
+        'character-handedness-equipment',
+        'character-living-visual-roster',
+        'visual-design-production-master',
+        'yui-full-body-master-v2-prompt',
+        'yui-full-body-master-v2-qa',
+        'yui-full-body-master-v2-rejects',
+      ],
+      usageTargets: ['prompt-learning-only'],
+      tags: ['yui', 'character', 'full-body-master', 'rejected', 'archived', 'learning-only', 'not-parent', 'not-final', 'not-runtime'],
+      files: [
+        { role: 'primary', path: candidate.file, sha256: candidate.sha256 },
+        { role: 'prompt-record', path: VISUAL_SOURCE_CATALOG['yui-full-body-master-v2-prompt'] },
+        { role: 'qa-record', path: VISUAL_SOURCE_CATALOG['yui-full-body-master-v2-qa'] },
+        { role: 'reject-ledger', path: VISUAL_SOURCE_CATALOG['yui-full-body-master-v2-rejects'] },
+      ],
+      rejection: {
+        attemptId: yuiFullBodyMasterV2Rejects.attemptId,
+        decision: yuiFullBodyMasterV2Rejects.decision,
+        score: candidate.score,
+        hardVeto: candidate.hardVeto,
+        reasonCodes: yuiFullBodyMasterV2Rejects.reasonCodes,
+        selectedCandidateId: null,
+        mayBeParent: false,
+        mayBeGoldenReference: false,
+      },
+      approvalBoundary: {
+        approvedForReference: false,
+        approvedAsFinal: false,
+        approvedForRuntime: false,
+        storyAuthorityPromoted: false,
+      },
+      replacementPolicy: { canReplace: false, replaces: null, supersededBy: null },
+      notes: '初回4候補の却下学習記録。採用、親、Canon、final、runtime、Golden Referenceへの利用を禁止する。',
     };
   });
 }
@@ -320,6 +391,12 @@ export function buildVisualAssetRegistry() {
       lorebookMayNotParentGameplay: true,
       candidateMayNotBecomeCurrentWithoutHumanReview: true,
       existingReferenceIsNotFinalOrRuntime: true,
+      rejectedAssetMayNotParentOrBecomeReference: true,
+    },
+    handednessEquipmentRegistry: {
+      source: 'character-handedness-equipment',
+      rules: CHARACTER_HANDEDNESS_EQUIPMENT_RULES,
+      entries: CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY,
     },
     sourceCatalog: VISUAL_SOURCE_CATALOG,
     subjectAliases: builtInAliases(),
@@ -328,7 +405,7 @@ export function buildVisualAssetRegistry() {
       authorityStatuses: ['CANON', 'CURRENT', 'USER_DIRECTION', 'CANDIDATE', 'AUTHOR_RESERVOIR', 'RESEARCH', 'OPEN', 'Future15'],
       reviewStatuses: ['needs-generation', 'generated-unreviewed', 'needs-author-review', 'needs-boundary-review', 'approved-candidate', 'approved-current', 'superseded', 'archived'],
     },
-    assets: [...core5Assets(), ...reservedCharacterMasterAssets()],
+    assets: [...core5Assets(), ...reservedCharacterMasterAssets(), ...yuiRejectedFullBodyAssets()],
   };
 }
 
@@ -443,6 +520,8 @@ export function buildVisualCharacterPromptPackets() {
             'character-author-db',
             'character-appearance-contracts',
             'character-handedness-equipment',
+            'character-living-visual-roster',
+            'visual-design-production-master',
             'character-era-registry',
             'character-era-fingerprints',
             'character-era-scene-seeds',
@@ -695,7 +774,12 @@ function characterMasterComponentProductionItems(): ProductionListItem[] {
         authorityStatus,
         productionStatus: isExistingCore5Board ? 'blocked-human-approval' : 'blocked-authoring-required',
         reviewStatus: 'needs-generation',
-        sourceOfTruth: [...sourceOfTruth, 'character-handedness-equipment'],
+        sourceOfTruth: [
+          ...sourceOfTruth,
+          'character-handedness-equipment',
+          'character-living-visual-roster',
+          'visual-design-production-master',
+        ],
         parentAssetIds: [],
         promptPacketId: null,
         outputPath: masterOutput(assetId),
@@ -732,7 +816,9 @@ function characterMasterProductionItems(): ProductionListItem[] {
       productionStatus: 'blocked-parent-master',
       reviewStatus: 'needs-generation',
       sourceOfTruth: [
-        'character-author-db', 'character-appearance-contracts', 'character-era-registry', 'character-era-fingerprints',
+        'character-author-db', 'character-appearance-contracts', 'character-handedness-equipment',
+        'character-living-visual-roster', 'visual-design-production-master',
+        'character-era-registry', 'character-era-fingerprints',
         'character-era-scene-seeds', 'character-reality-roots', 'character-theme-color-reservoir',
         ...(current21SilhouetteMatrixById.has(identity.stableProfileId) ? ['current21-silhouette-matrix'] : []),
       ],

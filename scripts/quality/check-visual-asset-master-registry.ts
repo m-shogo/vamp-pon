@@ -1,8 +1,13 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { isAbsolute, normalize, sep } from 'node:path';
 
 import { CHARACTER_AUTHOR_DB_IDENTITIES } from '../../src/game/data/characterAuthorDbCoverageManifest.ts';
 import { characterAppearanceGenerationContracts } from '../../src/game/data/characterAppearanceGenerationContracts.ts';
+import {
+  CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY,
+  CHARACTER_HANDEDNESS_EQUIPMENT_RULES,
+} from '../../src/game/data/characterHandednessEquipmentRegistry.ts';
 import {
   buildVisualAssetCoverage,
   buildVisualAssetRegistry,
@@ -16,6 +21,8 @@ const COVERAGE_PATH = 'data/character-assets/manifests/visual-asset-coverage.v1.
 const BATCHES_PATH = 'data/character-assets/manifests/visual-generation-batches.v1.json';
 const CHARACTER_PROMPT_PACKETS_PATH = 'data/character-assets/manifests/visual-character-prompt-packets.v1.json';
 const IMAGE_PRODUCTION_LIST_PATH = 'data/character-assets/manifests/visual-image-production-list.v1.json';
+const YUI_REJECT_QA_PATH = 'data/character-assets/reviews/yui-full-body-master-v2.qa.json';
+const YUI_REJECT_LEDGER_PATH = 'data/character-assets/reviews/yui-full-body-master-v2.rejects.json';
 
 type JsonObject = Record<string, unknown>;
 
@@ -68,6 +75,8 @@ const coverage = readJson(COVERAGE_PATH);
 const batchesManifest = readJson(BATCHES_PATH);
 const promptPacketsManifest = readJson(CHARACTER_PROMPT_PACKETS_PATH);
 const imageProductionList = readJson(IMAGE_PRODUCTION_LIST_PATH);
+const yuiRejectQa = readJson(YUI_REJECT_QA_PATH);
+const yuiRejectLedger = readJson(YUI_REJECT_LEDGER_PATH);
 
 function requireGeneratedSnapshot(actual: JsonObject, expected: unknown, path: string): void {
   if (JSON.stringify(actual) !== JSON.stringify(expected)) {
@@ -95,6 +104,27 @@ if (!isObject(registry.authorityModel)) fail('registry.authorityModel must be an
 
 const canonicalCharacterIds = new Set(CHARACTER_AUTHOR_DB_IDENTITIES.map((entry) => entry.authorId));
 if (canonicalCharacterIds.size !== 36) fail(`Character Author DB must expose 36 unique authorIds; got ${canonicalCharacterIds.size}`);
+
+const handednessEntries = CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY;
+const handednessByAuthorId = new Map(handednessEntries.map((entry) => [entry.authorId, entry]));
+if (handednessEntries.length !== canonicalCharacterIds.size || handednessByAuthorId.size !== canonicalCharacterIds.size) {
+  fail(`handedness/equipment registry must cover exactly 36 unique Author DB characters; got ${handednessEntries.length}/${handednessByAuthorId.size}`);
+}
+for (const authorId of canonicalCharacterIds) if (!handednessByAuthorId.has(authorId)) fail(`handedness/equipment registry missing Author DB character: ${authorId}`);
+if (CHARACTER_HANDEDNESS_EQUIPMENT_RULES.heldItemHandMayNotInferDominantHand !== true) fail('held item hand may never infer dominant hand');
+if (CHARACTER_HANDEDNESS_EQUIPMENT_RULES.asymmetricAssetMayNotBeMirroredWithoutCorrection !== true) fail('asymmetric asset mirror correction guard must remain active');
+for (const entry of handednessEntries) {
+  if (entry.dominantHand.value !== null || entry.dominantHand.status !== 'OPEN_NO_SOURCE') fail(`${entry.authorId}: dominant hand must remain OPEN_NO_SOURCE until sourced`);
+  if (entry.mirrorPolicy !== 'NO_UNCORRECTED_MIRROR_FOR_ASYMMETRIC_ASSETS') fail(`${entry.authorId}: invalid mirror policy`);
+}
+const yuiHandedness = handednessByAuthorId.get('yui');
+if (!yuiHandedness) fail('Yui handedness/equipment entry missing');
+else {
+  const placements = new Map(yuiHandedness.equipmentPlacements.map((entry) => [entry.itemId, entry]));
+  if (placements.get('yui-lantern')?.bodySide !== 'BODY_RIGHT' || placements.get('yui-lantern')?.anchor !== 'HAND') fail('Yui lantern must remain in body-right hand');
+  if (placements.get('yui-bag-strap')?.fromBodySide !== 'BODY_RIGHT' || placements.get('yui-bag-strap')?.toBodySide !== 'BODY_LEFT') fail('Yui bag strap must remain body-right shoulder to body-left hip');
+  if (placements.get('yui-bag')?.bodySide !== 'BODY_LEFT' || placements.get('yui-bag')?.anchor !== 'HIP') fail('Yui bag must remain at body-left hip');
+}
 
 // Stable profile/runtime IDs and the historical F01..F15 appearance IDs are aliases,
 // never replacement authorities for the Author DB IDs.
@@ -159,6 +189,7 @@ const assets = Array.isArray(rawAssets) ? rawAssets.filter(isObject) : [];
 if (Array.isArray(rawAssets) && assets.length !== rawAssets.length) fail('every registry.assets entry must be an object');
 
 const assetsById = new Map<string, JsonObject>();
+const rejectedAssetIds = new Set<string>();
 for (const [index, asset] of assets.entries()) {
   const label = `registry.assets[${index}]`;
   const id = requireNonEmptyString(asset, 'id', label);
@@ -223,6 +254,7 @@ for (const [index, asset] of assets.entries()) {
   if (reviewStatus === 'approved-current' && asset.current !== true) fail(`${id}: approved-current requires current=true`);
   if (asset.current === true && reviewStatus !== 'approved-current') fail(`${id}: current=true requires approved-current reviewStatus`);
   if (reviewStatus === 'superseded' && asset.current === true) fail(`${id}: superseded asset cannot be current`);
+  if (reviewStatus === 'archived' || strings(asset.tags).includes('rejected')) rejectedAssetIds.add(id);
 
   // A missing/template derivative may reserve its parent later. Once generated,
   // every read-model/gameplay asset must point directly to one or more masters.
@@ -236,6 +268,7 @@ for (const [index, asset] of assets.entries()) {
 for (const [id, asset] of assetsById) {
   const layer = String(asset.layer);
   for (const parentId of strings(asset.derivedFrom)) {
+    if (rejectedAssetIds.has(parentId)) fail(`${id}: rejected/archived asset may not be a parent: ${parentId}`);
     const parent = assetsById.get(parentId);
     if (!parent) {
       fail(`${id}: missing parent asset: ${parentId}`);
@@ -261,6 +294,38 @@ for (const [id, asset] of assetsById) {
     const newer = assetsById.get(supersededBy);
     if (!newer) fail(`${id}: supersededBy missing asset: ${supersededBy}`);
     else if (!isObject(newer.replacementPolicy) || newer.replacementPolicy.replaces !== id) fail(`${id}/${supersededBy}: replacement links must be bidirectional`);
+  }
+}
+
+const registryHandedness = isObject(registry.handednessEquipmentRegistry) ? registry.handednessEquipmentRegistry : {};
+if (registryHandedness.source !== 'character-handedness-equipment') fail('central registry must expose the handedness/equipment source');
+if (JSON.stringify(registryHandedness.rules) !== JSON.stringify(CHARACTER_HANDEDNESS_EQUIPMENT_RULES)) fail('central registry handedness/equipment rules are stale');
+if (JSON.stringify(registryHandedness.entries) !== JSON.stringify(CHARACTER_HANDEDNESS_EQUIPMENT_REGISTRY)) fail('central registry handedness/equipment entries are stale');
+
+const yuiQaCandidates = Array.isArray(yuiRejectQa.candidates) ? yuiRejectQa.candidates.filter(isObject) : [];
+const yuiRejectedFiles = new Set(strings(yuiRejectLedger.files));
+if (yuiRejectLedger.decision !== 'REJECT_ALL' || yuiRejectLedger.selectedCandidateId !== null) fail('Yui v2 reject ledger must remain REJECT_ALL with no selected candidate');
+if (yuiRejectLedger.storyAuthorityPromoted !== false || yuiRejectLedger.approvedAsFinal !== false || yuiRejectLedger.runtimeApproved !== false) fail('Yui v2 rejects may not promote Story/final/runtime authority');
+if (yuiQaCandidates.length !== 4 || yuiRejectedFiles.size !== 4) fail('Yui v2 reject attempt must preserve exactly four candidates');
+for (const candidate of yuiQaCandidates) {
+  const candidateId = requireNonEmptyString(candidate, 'id', 'yuiRejectQa.candidate');
+  const path = requireNonEmptyString(candidate, 'file', candidateId);
+  const expectedHash = requireNonEmptyString(candidate, 'sha256', candidateId);
+  const asset = assetsById.get(candidateId);
+  if (!asset) {
+    fail(`${candidateId}: rejected Yui candidate missing from central registry`);
+    continue;
+  }
+  if (!yuiRejectedFiles.has(path)) fail(`${candidateId}: rejected file missing from reject ledger`);
+  if (asset.reviewStatus !== 'archived' || asset.current !== false || asset.kind !== 'character-full-body-master-rejected-candidate') fail(`${candidateId}: rejected candidate must remain archived/non-current`);
+  if (JSON.stringify(asset.usageTargets) !== JSON.stringify(['prompt-learning-only'])) fail(`${candidateId}: rejected candidate is learning-only`);
+  const approval = isObject(asset.approvalBoundary) ? asset.approvalBoundary : {};
+  if (approval.approvedForReference !== false || approval.approvedAsFinal !== false || approval.approvedForRuntime !== false || approval.storyAuthorityPromoted !== false) fail(`${candidateId}: rejected approval boundary must remain all false`);
+  const rejection = isObject(asset.rejection) ? asset.rejection : {};
+  if (rejection.mayBeParent !== false || rejection.mayBeGoldenReference !== false || rejection.selectedCandidateId !== null) fail(`${candidateId}: rejected candidate may not be parent/reference/selected`);
+  if (existsSync(path)) {
+    const actualHash = createHash('sha256').update(readFileSync(path)).digest('hex');
+    if (actualHash !== expectedHash) fail(`${candidateId}: output hash differs from QA record`);
   }
 }
 
@@ -331,6 +396,16 @@ for (const [index, raw] of coverageRows.entries()) {
   requireNonEmptyString(raw, 'priority', label);
   requireNonEmptyString(raw, 'reviewStatus', label);
   if (typeof raw.notes !== 'string') fail(`${label}.notes must be a string`);
+  const sourceBindings = isObject(raw.sourceBindings) ? raw.sourceBindings : {};
+  const handednessBinding = isObject(sourceBindings.handednessEquipment) ? sourceBindings.handednessEquipment : {};
+  const expectedHandedness = canonical ? handednessByAuthorId.get(canonical) : undefined;
+  if (!expectedHandedness || JSON.stringify(handednessBinding) !== JSON.stringify({
+    id: expectedHandedness.id,
+    dominantHand: expectedHandedness.dominantHand,
+    equipmentPlacements: expectedHandedness.equipmentPlacements,
+    mirrorPolicy: expectedHandedness.mirrorPolicy,
+    frontViewProjection: expectedHandedness.frontViewProjection,
+  })) fail(`${label}: handedness/equipment coverage binding is missing or stale`);
   if (!isObject(raw.statusBySlot)) {
     fail(`${label}.statusBySlot must be an object`);
     continue;
@@ -415,6 +490,18 @@ for (const [index, packet] of promptPackets.entries()) {
   const sources = requireStringArray(authority, 'sourceOfTruth', `${packetId}.authoritySnapshot`);
   if (sources.length < 7) fail(`${packetId}: incomplete authority source stack`);
   for (const source of sources) if (!(source in sourceCatalog)) fail(`${packetId}: unknown authority source: ${source}`);
+  for (const requiredSource of ['character-handedness-equipment', 'character-living-visual-roster', 'visual-design-production-master']) {
+    if (!sources.includes(requiredSource)) fail(`${packetId}: missing current Visual authority source: ${requiredSource}`);
+  }
+  const continuity = isObject(packet.handednessEquipmentContinuity) ? packet.handednessEquipmentContinuity : {};
+  const expectedContinuity = handednessByAuthorId.get(authorId);
+  if (!expectedContinuity || JSON.stringify(continuity) !== JSON.stringify({
+    dominantHand: expectedContinuity.dominantHand,
+    heldItemHandMayNotInferDominantHand: true,
+    placements: expectedContinuity.equipmentPlacements,
+    mirrorPolicy: expectedContinuity.mirrorPolicy,
+    frontViewProjection: expectedContinuity.frontViewProjection,
+  })) fail(`${packetId}: handedness/equipment prompt continuity is missing or stale`);
   const plan = isObject(packet.candidatePlan) ? packet.candidatePlan : {};
   if (plan.count !== 4 || plan.sameContractAndPrompt !== true) fail(`${packetId}: must reserve four comparable candidates`);
   const approval = isObject(packet.approval) ? packet.approval : {};
@@ -448,11 +535,13 @@ for (const [index, item] of productionItems.entries()) {
   if (!['blocked-authoring-required', 'ready-for-prompt-review', 'blocked-parent-master', 'blocked-human-approval'].includes(status)) fail(`${assetId}: invalid production status: ${status}`);
   const candidates = requireStringArray(item, 'candidateIds', label);
   if (candidates.length !== 4 || new Set(candidates).size !== 4) fail(`${assetId}: must reserve four unique candidate IDs`);
+  for (const candidateId of candidates) if (!/^[a-z0-9]+(?:-[a-z0-9]+)*-v[1-9][0-9]*$/.test(candidateId)) fail(`${assetId}: invalid candidate ID: ${candidateId}`);
   const outputPath = requireNonEmptyString(item, 'outputPath', label);
   if (!isSafeRepoPath(outputPath)) fail(`${assetId}: outputPath must be repository-relative`);
   const sources = requireStringArray(item, 'sourceOfTruth', label);
   if (sources.length === 0) fail(`${assetId}: sourceOfTruth must not be empty`);
   for (const source of sources) if (!(source in sourceCatalog)) fail(`${assetId}: unknown production source: ${source}`);
+  if ((item.subjectType === 'character' && item.layer === 'master') && !sources.includes('character-handedness-equipment')) fail(`${assetId}: Character Master production item must bind handedness/equipment authority`);
   const checklist = requireStringArray(item, 'qaChecklist', label);
   if (checklist.length === 0) fail(`${assetId}: QA checklist must not be empty`);
   requireNonEmptyString(item, 'blocker', label);
@@ -465,6 +554,7 @@ for (const [index, item] of productionItems.entries()) {
 }
 for (const [assetId, item] of productionById) {
   for (const parentId of strings(item.parentAssetIds)) {
+    if (rejectedAssetIds.has(parentId)) fail(`${assetId}: rejected/archived asset may not be a production parent: ${parentId}`);
     const parent = productionById.get(parentId);
     if (!parent) fail(`${assetId}: production parent is missing from image list: ${parentId}`);
     else if (parent.layer !== 'master') fail(`${assetId}: parent must be a master production item`);
@@ -474,16 +564,33 @@ for (const [assetId, item] of productionById) {
     if (item.layer === 'gameplay' && parent?.layer === 'lorebook') fail(`${assetId}: Lorebook may not parent Gameplay`);
   }
   if (item.kind === 'character-master' && !assetsById.has(assetId)) fail(`${assetId}: Character Master reservation missing from central registry`);
+  if (item.kind === 'character-master') {
+    const parentIds = strings(item.parentAssetIds);
+    if (parentIds.length !== 9 || new Set(parentIds).size !== 9) fail(`${assetId}: Character Master composite must have exactly nine unique component parents`);
+    for (const parentId of parentIds) {
+      const parent = productionById.get(parentId);
+      if (!parent || parent.subjectId !== item.subjectId || parent.kind === 'character-master' || !String(parent.kind).startsWith('character-')) {
+        fail(`${assetId}: invalid Character Master component parent: ${parentId}`);
+      }
+    }
+  }
   const promptPacketId = typeof item.promptPacketId === 'string' ? item.promptPacketId : null;
   if (item.productionStatus === 'ready-for-prompt-review' && !promptPacketId && item.kind === 'character-master') fail(`${assetId}: ready Character Master needs a prompt packet`);
 }
 
 const counts = isObject(imageProductionList.counts) ? imageProductionList.counts : {};
 if (counts.totalItems !== productionItems.length) fail('image production list totalItems does not match items length');
+if (productionItems.length !== 624) fail(`image production list must contain exactly 624 rows; got ${productionItems.length}`);
 const characterMasterItems = productionItems.filter((item) => item.kind === 'character-master');
+const characterMasterComponentItems = productionItems.filter((item) => item.layer === 'master' && item.subjectType === 'character' && item.kind !== 'character-master');
 const sakuyazaItems = productionItems.filter((item) => item.kind === 'sakuyaza-character-master');
 if (characterMasterItems.length !== 36) fail(`image production list must contain 36 Character Masters; got ${characterMasterItems.length}`);
+if (characterMasterComponentItems.length !== 324) fail(`image production list must contain 324 Character Master components; got ${characterMasterComponentItems.length}`);
 if (sakuyazaItems.length !== 8) fail(`image production list must contain 8 朔夜座 Masters; got ${sakuyazaItems.length}`);
+if (productionItems.filter((item) => item.kind === 'star-beast-master').length !== 21) fail('image production list must contain 21 Star Beast Masters');
+if (productionItems.filter((item) => item.kind === 'named-object-master').length !== 21) fail('image production list must contain 21 named-object Masters');
+if (productionItems.filter((item) => item.layer === 'lorebook').length !== 142) fail('image production list must contain 142 Lorebook rows');
+if (productionItems.filter((item) => item.layer === 'gameplay').length !== 72) fail('image production list must contain 72 Gameplay rows');
 
 if (errors.length > 0) {
   console.error('Visual Asset Master Registry check failed');
