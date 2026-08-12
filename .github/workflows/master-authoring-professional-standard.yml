@@ -1,0 +1,18 @@
+name: Master Authoring Professional Standard
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'agent/**'
+
+jobs:
+  professional-master-governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npx tsx scripts/quality/check-master-authoring-professional-standard.ts
