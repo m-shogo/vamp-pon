@@ -1,8 +1,6 @@
 import fs from 'node:fs';
-import {
-  buildEraDialogueAtlasProjection,
-  writeEraDialogueAtlasProjection,
-} from '../lorebook/generate-era-dialogue-atlas.ts';
+import { writeEraDialogueAtlasProjection } from '../lorebook/generate-era-dialogue-atlas.ts';
+import { buildEraDialogueAtlasProjection } from '../../src/game/data/eraDialogueAtlasProjection.ts';
 import {
   CHARACTER_ERA_FORESHADOW_DIALOGUE,
   CHARACTER_ERA_RESERVOIR_RULES,
@@ -28,6 +26,7 @@ const ui = fs.readFileSync('public/lorebook/era-dialogue-atlas-enhancement.js', 
 const css = fs.readFileSync('public/lorebook/era-dialogue-atlas.css', 'utf8');
 const enhancements = fs.readFileSync('public/lorebook/enhancements.js', 'utf8');
 const viteConfig = fs.readFileSync('vite.config.ts', 'utf8');
+const projectionSource = fs.readFileSync('src/game/data/eraDialogueAtlasProjection.ts', 'utf8');
 const gitignore = fs.readFileSync('.gitignore', 'utf8');
 
 if (JSON.stringify(generated) !== JSON.stringify(expected)) fail('generated file drift from projection builder');
@@ -94,8 +93,19 @@ for (const token of ['.era-dialogue-atlas','.era-dialogue-grid','.era-dialogue-c
   if (!css.includes(token)) fail(`Era Dialogue CSS contract missing: ${token}`);
 }
 if (!enhancements.includes("'./era-dialogue-atlas-enhancement.js'")) fail('Era Dialogue Atlas module not registered');
-if (!viteConfig.includes("writeEraDialogueAtlasProjection();")) fail('Vite startup must generate Era Dialogue projection');
-if (!viteConfig.includes("./scripts/lorebook/generate-era-dialogue-atlas.ts")) fail('Vite generator import missing');
-if (!gitignore.includes('public/lorebook/data/era-dialogue-atlas.v1.json')) fail('generated projection must stay out of Git authority');
 
-console.log(`[lorebook-era-dialogue-atlas] OK ${generated.characterCount} characters / ${generated.current21Count} Current21 / ${generated.future15Count} Future15 / generated from TS`);
+for (const token of [
+  "import { buildEraDialogueAtlasProjection } from './src/game/data/eraDialogueAtlasProjection.ts'",
+  "name: 'lorebook-era-dialogue-atlas'",
+  'configureServer(server)',
+  'generateBundle()',
+  "fileName: ERA_DIALOGUE_ASSET_PATH",
+  "lorebook/data/era-dialogue-atlas.v1.json",
+]) if (!viteConfig.includes(token)) fail(`Vite projection plugin contract missing: ${token}`);
+if (viteConfig.includes('scripts/lorebook/generate-era-dialogue-atlas.ts')) fail('Vite config may not import the Node writer into the app tsc graph');
+for (const forbiddenNodeToken of ["'node:fs'", "'node:path'", "'node:url'"]) {
+  if (projectionSource.includes(forbiddenNodeToken)) fail(`pure projection builder must not depend on ${forbiddenNodeToken}`);
+}
+if (!gitignore.includes('public/lorebook/data/era-dialogue-atlas.v1.json')) fail('checker-generated projection must stay out of Git authority');
+
+console.log(`[lorebook-era-dialogue-atlas] OK ${generated.characterCount} characters / ${generated.current21Count} Current21 / ${generated.future15Count} Future15 / Vite dev+build projection from pure TS builder`);
