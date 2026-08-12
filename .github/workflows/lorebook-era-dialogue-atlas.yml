@@ -1,0 +1,56 @@
+name: Lorebook Era Dialogue Atlas
+
+on:
+  pull_request:
+    paths:
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'scripts/lorebook/generate-era-dialogue-atlas.ts'
+      - 'scripts/quality/check-lorebook-era-dialogue-atlas.ts'
+      - 'public/lorebook/era-dialogue-atlas-enhancement.js'
+      - 'public/lorebook/era-dialogue-atlas.css'
+      - 'public/lorebook/enhancements.js'
+      - 'docs/lorebook-era-dialogue-atlas-v1.md'
+      - 'vite.config.ts'
+      - '.gitignore'
+      - '.github/workflows/lorebook-era-dialogue-atlas.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/game/data/characterEraForeshadowDialogueReservoir.ts'
+      - 'src/game/data/characterEraFingerprintRegistry.ts'
+      - 'src/game/data/characterEraSceneSeedRegistry.ts'
+      - 'scripts/lorebook/generate-era-dialogue-atlas.ts'
+      - 'scripts/quality/check-lorebook-era-dialogue-atlas.ts'
+      - 'public/lorebook/era-dialogue-atlas-enhancement.js'
+      - 'public/lorebook/era-dialogue-atlas.css'
+      - 'public/lorebook/enhancements.js'
+      - 'docs/lorebook-era-dialogue-atlas-v1.md'
+      - 'vite.config.ts'
+      - '.gitignore'
+      - '.github/workflows/lorebook-era-dialogue-atlas.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate current Era Dialogue projection
+        run: node --experimental-strip-types scripts/lorebook/generate-era-dialogue-atlas.ts
+      - name: Validate Era Dialogue UI syntax
+        run: node --check public/lorebook/era-dialogue-atlas-enhancement.js
+      - name: Validate generated 36-character projection and boundaries
+        run: node --experimental-strip-types scripts/quality/check-lorebook-era-dialogue-atlas.ts
+      - name: Confirm projection stays generated-only
+        run: |
+          test -f public/lorebook/data/era-dialogue-atlas.v1.json
+          git check-ignore -q public/lorebook/data/era-dialogue-atlas.v1.json
+          test -z "$(git status --short --untracked-files=all -- public/lorebook/data/era-dialogue-atlas.v1.json)"
