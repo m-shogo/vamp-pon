@@ -1,0 +1,18 @@
+name: Visual Design Production Master
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'agent/**'
+
+jobs:
+  visual-design-production-master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npx tsx scripts/quality/check-visual-design-production-master.ts
