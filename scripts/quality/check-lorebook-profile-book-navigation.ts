@@ -21,11 +21,17 @@ if (JSON.stringify(navSections) !== JSON.stringify(sourceSections)) fail('sectio
 const assigned = nav.sections.flatMap((section: { dimensions: string[] }) => section.dimensions);
 if (assigned.length !== 21 || new Set(assigned).size !== 21) fail('21 dimensions must be unique and complete');
 if (!Array.isArray(nav.sourceLegend) || nav.sourceLegend.length < 6) fail('source legend incomplete');
-if (!Array.isArray(profiles.profiles) || profiles.profiles.length !== 36) fail('personal profile coverage drift');
+
+// Personal File is a Current21 projection; the 36-character Profile Book navigation is the broader read-model.
+// Do not fake Future15 Personal Files merely to make a UI count equal 36.
+if (!Array.isArray(profiles.profiles) || profiles.profiles.length !== characterProfileBookReadModelSummary.current21Count) {
+  fail(`Personal File coverage must match Current21 (${characterProfileBookReadModelSummary.current21Count}), got ${profiles.profiles?.length}`);
+}
+
 if (!js.includes('PROFILE BOOK / SOURCE MAP') || !js.includes('READ MODEL')) fail('Profile Book JS contract missing');
 for (const token of ['.profile-book-guide','.profile-book-nav-grid','.profile-source-legend','.profile-book-read-strip']) if (!css.includes(token)) fail(`CSS contract missing ${token}`);
 if (nav.runtimeAutoPromotionAllowed !== false) fail('runtime auto-promotion must remain false');
 if (nav.publicSpoilerProjectionDefined !== false) fail('public spoiler projection must remain undefined');
 if (nav.routePolicy?.routeSlug !== 'authorId' || nav.routePolicy?.stableProfileAliasIsPrimaryRoute !== false) fail('route policy drift');
 
-console.log('[lorebook-profile-book-navigation] OK 36/21/6');
+console.log(`[lorebook-profile-book-navigation] OK nav=${nav.characterCount}/dimensions=${nav.dimensionCount}/sections=${nav.sectionCount}/personalFiles=${profiles.profiles.length}`);
